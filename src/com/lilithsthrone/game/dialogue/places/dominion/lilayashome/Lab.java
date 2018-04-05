@@ -1014,7 +1014,7 @@ public class Lab {
 						if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.essenceBottledDiscovered)
 								&& !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.essenceOrgasmDiscovered)
 								&& !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.essencePostCombatDiscovered)) {
-							Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, 1);
+							Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, 1, false);
 						}
 					}
 				};
@@ -1343,7 +1343,7 @@ public class Lab {
 										+ "<p>"
 											+ "You now have <b>"+count+" "+(count>1?TFEssence.essenceToItem(TFEssence.ARCANE).getNamePlural(true):TFEssence.essenceToItem(TFEssence.ARCANE).getName(true))+"</b> in your inventory."
 										+ "</p>");
-								Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -1);
+								Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -1, false);
 							}
 						};
 						
@@ -1375,7 +1375,7 @@ public class Lab {
 										+ "<p>"
 											+ "You now have <b>"+count+" "+(count>1?TFEssence.essenceToItem(TFEssence.ARCANE).getNamePlural(true):TFEssence.essenceToItem(TFEssence.ARCANE).getName(true))+"</b> in your inventory."
 										+ "</p>");
-								Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -5);
+								Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -5, false);
 							}
 						};
 						
@@ -1406,7 +1406,7 @@ public class Lab {
 										+ "<p>"
 											+ "You now have <b>"+count+" "+(count>1?TFEssence.essenceToItem(TFEssence.ARCANE).getNamePlural(true):TFEssence.essenceToItem(TFEssence.ARCANE).getName(true))+"</b> in your inventory."
 										+ "</p>");
-								Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -25);
+								Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -25, false);
 							}
 						};
 						
@@ -1438,7 +1438,7 @@ public class Lab {
 										+ "<p>"
 											+ "You now have <b>"+count+" "+(count>1?TFEssence.essenceToItem(TFEssence.ARCANE).getNamePlural(true):TFEssence.essenceToItem(TFEssence.ARCANE).getName(true))+"</b> in your inventory."
 										+ "</p>");
-								Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE));
+								Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE), false);
 								
 							}
 						};
@@ -3077,7 +3077,7 @@ public class Lab {
 					case ALLIGATOR_MORPH:
 						litterSB.append(" tough");
 						break;
-					case HARPY:
+					case HARPY: case HARPY_RAVEN:
 						litterSB.append(" feminine");
 						break;
 					case HORSE_MORPH:
@@ -3154,7 +3154,7 @@ public class Lab {
 					case ALLIGATOR_MORPH:
 						litterSB.append(" tough");
 						break;
-					case HARPY:
+					case HARPY: case HARPY_RAVEN:
 						litterSB.append(" feminine");
 						break;
 					case HORSE_MORPH:
@@ -3231,7 +3231,7 @@ public class Lab {
 					case ALLIGATOR_MORPH:
 						litterSB.append(" tough");
 						break;
-					case HARPY:
+					case HARPY: case HARPY_RAVEN:
 						litterSB.append(" feminine");
 						break;
 					case HORSE_MORPH:
@@ -3308,7 +3308,7 @@ public class Lab {
 					case ALLIGATOR_MORPH:
 						litterSB.append(" tough");
 						break;
-					case HARPY:
+					case HARPY: case HARPY_RAVEN:
 						litterSB.append(" feminine");
 						break;
 					case HORSE_MORPH:

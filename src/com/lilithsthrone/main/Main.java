@@ -11,6 +11,7 @@ import java.util.List;
 import com.lilithsthrone.controller.MainController;
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.Properties;
+import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.NameTriplet;
@@ -459,7 +460,7 @@ public class Main extends Application {
 
 		mainScene = new Scene(pane);
 
-		if (properties.lightTheme) {
+		if (properties.hasValue(PropertyValue.lightTheme)) {
 			mainScene.getStylesheets().add("/com/lilithsthrone/res/css/stylesheet_light.css");
 		} else {
 			mainScene.getStylesheets().add("/com/lilithsthrone/res/css/stylesheet.css");
@@ -477,7 +478,7 @@ public class Main extends Application {
 				Main.mainController = loader.getController();
 
 				Main.mainScene = new Scene(pane);
-				if (Main.getProperties().lightTheme)
+				if (Main.getProperties().hasValue(PropertyValue.lightTheme))
 					Main.mainScene.getStylesheets().add("/com/lilithsthrone/res/css/stylesheet_light.css");
 				else
 					Main.mainScene.getStylesheets().add("/com/lilithsthrone/res/css/stylesheet.css");
@@ -504,13 +505,13 @@ public class Main extends Application {
 		dir.mkdir();
 		
 		// Open error log
-		try {
-			@SuppressWarnings("resource")
-			PrintStream stream = new PrintStream("data/error.log");
-			System.setErr(stream);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+//		try {
+//			@SuppressWarnings("resource")
+//			PrintStream stream = new PrintStream("data/error.log");
+//			System.setErr(stream);
+//		} catch (FileNotFoundException e) {
+//			e.printStackTrace();
+//		}
 		
 		// Load properties:
 		if (new File("data/properties.xml").exists()) {
@@ -555,7 +556,7 @@ public class Main extends Application {
 						Main.mainController = loader.getController();
 
 						Main.mainScene = new Scene(pane);
-						if (Main.getProperties().lightTheme)
+						if (Main.getProperties().hasValue(PropertyValue.lightTheme))
 							Main.mainScene.getStylesheets().add("/com/lilithsthrone/res/css/stylesheet_light.css");
 						else
 							Main.mainScene.getStylesheets().add("/com/lilithsthrone/res/css/stylesheet.css");
@@ -840,9 +841,9 @@ public class Main extends Application {
 				Main.game.setRenderAttributesSection(true);
 				Main.game.clearTextStartStringBuilder();
 				Main.game.clearTextEndStringBuilder();
-				Main.getProperties().setNewWeaponDiscovered(false);
-				Main.getProperties().setNewClothingDiscovered(false);
-				Main.getProperties().setNewItemDiscovered(false);
+				Main.getProperties().setValue(PropertyValue.newWeaponDiscovered, false);
+				Main.getProperties().setValue(PropertyValue.newClothingDiscovered, false);
+				Main.getProperties().setValue(PropertyValue.newItemDiscovered, false);
 				Main.game.getPlayer().calculateStatusEffects(0);
 
 				Main.game.initNewGame(CharacterCreation.START_GAME_WITH_IMPORT);

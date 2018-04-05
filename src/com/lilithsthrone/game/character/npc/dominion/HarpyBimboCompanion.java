@@ -3,6 +3,7 @@ package com.lilithsthrone.game.character.npc.dominion;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.NameTriplet;
 import com.lilithsthrone.game.character.SexualOrientation;
@@ -49,7 +50,7 @@ public class HarpyBimboCompanion extends NPC {
 				"Brittany's girlfriend, Lauren, does everything she can to please her matriarch."
 						+ " Just like most of the harpies in Brittany's nest, she's a ditzy bimbo, and does absolutely anything her matriarch orders her to.",
 				5, Gender.F_V_B_FEMALE, RacialBody.HARPY, RaceStage.LESSER,
-				new CharacterInventory(30), WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_HARPY_NEST_YELLOW, true);
+				new CharacterInventory(30), WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_HARPY_NEST_YELLOW, true, null);
 
 		if(!isImported) {
 			this.setSexualOrientation(SexualOrientation.GYNEPHILIC);
@@ -101,7 +102,7 @@ public class HarpyBimboCompanion extends NPC {
 	
 	@Override
 	public String getSpeechColour() {
-		if(Main.getProperties().lightTheme) {
+		if(Main.getProperties().hasValue(PropertyValue.lightTheme)) {
 			return "#BE09A3";
 			
 		} else {

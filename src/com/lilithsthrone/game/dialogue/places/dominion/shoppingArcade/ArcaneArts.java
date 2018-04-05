@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade;
 
+import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
@@ -162,7 +163,7 @@ public class ArcaneArts {
 					}
 				}
 				
-			} else if (index == 3 && Main.getProperties().nonConContent && Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.arthursPackageObtained)) {
+			} else if (index == 3 && Main.getProperties().hasValue(PropertyValue.nonConContent) && Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.arthursPackageObtained)) {
 				if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true) || (Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true) && Main.game.getPlayer().hasVagina())) {
 					
 					return new ResponseSex("Nervously leave", "Vicky is far too intimidating for you... Turn around and try to escape from her gaze. [style.boldBad(You get the feeling that this will result in non-consensual sex...)]",
@@ -308,7 +309,7 @@ public class ArcaneArts {
 					return new Response("Offer body", "Vicky needs to be able to access your anus"+(Main.game.getPlayer().hasVagina()?" or vagina":"")+"!", null);
 				}
 				
-			} else if (index == 3 && Main.getProperties().nonConContent) {
+			} else if (index == 3 && Main.getProperties().hasValue(PropertyValue.nonConContent)) {
 				if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true) || (Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true) && Main.game.getPlayer().hasVagina())) {
 					
 					return new ResponseSex("Weakly refuse", "You can't bring yourself to say no to such an intimidating person... Try to wriggle free and leave... [style.boldBad(You get the feeling that this will result in non-consensual sex...)]",

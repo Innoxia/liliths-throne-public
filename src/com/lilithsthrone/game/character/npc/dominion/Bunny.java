@@ -47,7 +47,7 @@ public class Bunny extends NPC {
 				"Bunny is one of the two prostitutes Angel has working for her."
 						+ " Just like her twin sister, Loppy, Bunny is a rabbit-morph, and seems to genuinely love her line of work.",
 				10, Gender.F_V_B_FEMALE, RacialBody.RABBIT_MORPH, RaceStage.PARTIAL,
-				new CharacterInventory(30), WorldType.ANGELS_KISS_FIRST_FLOOR, PlaceType.ANGELS_KISS_BEDROOM_BUNNY, true);
+				new CharacterInventory(30), WorldType.ANGELS_KISS_FIRST_FLOOR, PlaceType.ANGELS_KISS_BEDROOM_BUNNY, true, null);
 
 		this.setAttribute(Attribute.MAJOR_PHYSIQUE, 15f);
 		this.setAttribute(Attribute.MAJOR_ARCANE, 0f);

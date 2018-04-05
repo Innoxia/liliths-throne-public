@@ -59,7 +59,7 @@ public class SupplierLeader extends NPC {
 				new CharacterInventory(10),
 				WorldType.SUPPLIER_DEN,
 				PlaceType.SUPPLIER_DEPOT_OFFICE,
-				true);
+				true, null);
 		
 		if(!isImported) {
 			this.setBody(Gender.M_P_MALE, Subspecies.DOG_MORPH_DOBERMANN, RaceStage.GREATER);

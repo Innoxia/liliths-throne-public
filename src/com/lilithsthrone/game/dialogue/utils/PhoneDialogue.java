@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.Litter;
 import com.lilithsthrone.game.character.PregnancyPossibility;
@@ -109,17 +110,15 @@ public class PhoneDialogue {
 				if(Main.game.getPlayer().getCharactersEncountered().isEmpty()) {
 					return new Response("Contacts", "You haven't met anyone yet!", null);
 				} else {
-					return new Response("Contacts", "Even though you can't call anyone, on account of there being no phones in this world, you've still kept a record of all the people you've come into contact with.", CONTACTS){
-						@Override
-						public void effects() {
-							resetContentForContacts();
-						}
-					};
+					return new Response("Contacts", "Even though you can't call anyone, on account of there being no phones in this world, you've still kept a record of all the people you've come into contact with.", CONTACTS);
 				}
 				
 			} else if (index == 7) {
 				return new Response(
-						(Main.getProperties().isNewWeaponDiscovered() || Main.getProperties().isNewClothingDiscovered() || Main.getProperties().isNewItemDiscovered() || Main.getProperties().isNewRaceDiscovered())
+						(Main.getProperties().hasValue(PropertyValue.newWeaponDiscovered)
+								|| Main.getProperties().hasValue(PropertyValue.newClothingDiscovered)
+								|| Main.getProperties().hasValue(PropertyValue.newItemDiscovered)
+								|| Main.getProperties().hasValue(PropertyValue.newRaceDiscovered))
 							? "<span style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>Encyclopedia</span>"
 							:"Encyclopedia",
 						"Have a look at all the different items and races you've discovered so far.", ENCYCLOPEDIA){
@@ -1303,20 +1302,6 @@ public class PhoneDialogue {
 				+ "</div>";
 	}
 
-	private static String content, title;
-
-	public static void resetContentForContacts() {
-		CharactersPresentDialogue.characterViewed = Main.game.getNPCById(Main.game.getPlayer().getCharactersEncountered().get(0));
-		title = "Contacts";
-		StringBuilder contentSB = new StringBuilder("<p>You have encountered the following characters in your travels:</p>");
-		for (int i = 0; i < Main.game.getPlayer().getCharactersEncountered().size(); i++) {
-			if(Main.game.getNPCById(Main.game.getPlayer().getCharactersEncountered().get(i))!=null) {
-				contentSB.append("<p>" + Main.game.getNPCById(Main.game.getPlayer().getCharactersEncountered().get(i)).getName() + "</p>");
-			}
-		}
-		content = contentSB.toString();
-	}
-
 	public static final DialogueNodeOld CONTACTS = new DialogueNodeOld("Contacts", "Look at your contacts.", true) {
 		private static final long serialVersionUID = 1L;
 
@@ -1348,10 +1333,7 @@ public class PhoneDialogue {
 							CONTACTS_CHARACTER){
 						@Override
 						public void effects() {
-							CharactersPresentDialogue.characterViewed = npc;
-							
-							title = Util.capitaliseSentence(npc.getName());
-							content = ((NPC) npc).getCharacterInformationScreen();
+							CharactersPresentDialogue.resetContent(npc);
 							
 						}
 					};
@@ -1375,12 +1357,12 @@ public class PhoneDialogue {
 
 		@Override
 		public String getLabel() {
-			return title;
+			return CharactersPresentDialogue.characterViewed.getName();
 		}
 
 		@Override
 		public String getContent() {
-			return content;
+			return CharactersPresentDialogue.menuContent;
 		}
 
 		@Override
@@ -1396,10 +1378,7 @@ public class PhoneDialogue {
 							CONTACTS_CHARACTER){
 						@Override
 						public void effects() {
-							CharactersPresentDialogue.characterViewed = npc;
-							
-							title = Util.capitaliseSentence(npc.getName());
-							content = ((NPC) npc).getCharacterInformationScreen();
+							CharactersPresentDialogue.resetContent(npc);
 							
 						}
 					};
@@ -1432,38 +1411,38 @@ public class PhoneDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response((Main.getProperties().isNewRaceDiscovered())?"<span style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>Races</span>":"Races",
+				return new Response((Main.getProperties().hasValue(PropertyValue.newRaceDiscovered))?"<span style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>Races</span>":"Races",
 						"Have a look at all the different races that you've encountered in your travels.", RACES){
 					@Override
 					public void effects() {
-						Main.getProperties().setNewRaceDiscovered(false);
+						Main.getProperties().setValue(PropertyValue.newRaceDiscovered, false);
 					}
 				};
 			
 			} else if (index == 2) {
-				return new Response((Main.getProperties().isNewWeaponDiscovered())?"<span style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>Weapons</span>":"Weapons",
+				return new Response((Main.getProperties().hasValue(PropertyValue.newWeaponDiscovered))?"<span style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>Weapons</span>":"Weapons",
 						"Have a look at all the different weapons that you've encountered in your travels.", WEAPON_CATALOGUE){
 					@Override
 					public void effects() {
-						Main.getProperties().setNewWeaponDiscovered(false);
+						Main.getProperties().setValue(PropertyValue.newWeaponDiscovered, false);
 					}
 				};
 			
 			} else if (index == 3) {
-				return new Response((Main.getProperties().isNewClothingDiscovered())?"<span style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>Clothing</span>":"Clothing",
+				return new Response((Main.getProperties().hasValue(PropertyValue.newClothingDiscovered))?"<span style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>Clothing</span>":"Clothing",
 						"Have a look at all the different clothing that you've encountered in your travels.", CLOTHING_CATALOGUE){
 					@Override
 					public void effects() {
-						Main.getProperties().setNewClothingDiscovered(false);
+						Main.getProperties().setValue(PropertyValue.newClothingDiscovered, false);
 					}
 				};
 			
 			} else if (index == 4) {
-				return new Response((Main.getProperties().isNewItemDiscovered())?"<span style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>Items</span>":"Items",
+				return new Response((Main.getProperties().hasValue(PropertyValue.newItemDiscovered))?"<span style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>Items</span>":"Items",
 						"Have a look at all the different items that you've encountered in your travels.", ITEM_CATALOGUE){
 					@Override
 					public void effects() {
-						Main.getProperties().setNewItemDiscovered(false);
+						Main.getProperties().setValue(PropertyValue.newItemDiscovered, false);
 					}
 				};
 			
@@ -1658,6 +1637,7 @@ public class PhoneDialogue {
 	};
 	
 	private static List<Race> racesDiscovered = new ArrayList<>();
+	private static String title, content;
 	
 	public static void resetContentForRaces() {
 		title = "Races";
@@ -2018,7 +1998,7 @@ public class PhoneDialogue {
 	
 	private static String getFetishDesireEntry(Fetish fetish, FetishDesire desire) {
 		return "<div class='square-button"+(desire!=FetishDesire.FOUR_LOVE && Main.game.getPlayer().hasFetish(fetish)?" disabled":"")+"' id='"+fetish+"_"+desire+"'"
-					+ " style='"+(Main.game.getPlayer().getBaseFetishDesire(fetish)==desire?"border:2px solid "+Colour.FETISH.getShades()[1]+";":"")+"width:10%; margin:0 5%;'>"
+					+ " style='"+(Main.game.getPlayer().getBaseFetishDesire(fetish)==desire?"border:2px solid "+Colour.FETISH.getShades()[1]+";":"")+"width:10%; margin:0 5%; float:left;'>"
 				+ "<div class='square-button-content'>"+(Main.game.getPlayer().getFetishDesire(fetish)==desire?desire.getSVGImage():desire.getSVGImageDesaturated())+"</div>"
 				+ (Main.game.getPlayer().hasFetish(fetish) && Main.game.getPlayer().getFetishDesire(fetish)!=desire
 					?"<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.8; border-radius:5px;'></div>"

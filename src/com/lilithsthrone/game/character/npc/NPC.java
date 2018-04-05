@@ -1,16 +1,23 @@
 package com.lilithsthrone.game.character.npc;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+
+import javax.imageio.ImageIO;
+
 import java.util.Set;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
@@ -72,6 +79,8 @@ import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.game.slavery.SlaveJob;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.rendering.Artwork;
+import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.ListValue;
@@ -82,7 +91,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.2.1
+ * @version 0.2.2
  * @author Innoxia
  */
 public abstract class NPC extends GameCharacter implements XMLSaving {
@@ -91,16 +100,14 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	public static final int DEFAULT_TIME_START_VALUE = -1;
 	
 	protected long lastTimeEncountered = DEFAULT_TIME_START_VALUE;
-	
 	protected long lastTimeHadSex = DEFAULT_TIME_START_VALUE;
 	protected long lastTimeOrgasmed = DEFAULT_TIME_START_VALUE;
 	
-	protected int romanceProgress = 0;
+	protected float buyModifier;
+	protected float sellModifier;
 	
-	protected float buyModifier, sellModifier;
-
 	protected boolean addedToContacts;
-
+	
 	public Set<NPCFlagValue> NPCFlagValues;
 	
 	protected Set<SexPositionSlot> sexPositionPreferences;
@@ -109,8 +116,11 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	
 	protected Value<String, AbstractItem> heldTransformativePotion = null;
 	
+	private List<Artwork> artworkList;
+	
 	protected NPC(NameTriplet nameTriplet, String description, int level, Gender startingGender, RacialBody startingRace,
-			RaceStage stage, CharacterInventory inventory, WorldType worldLocation, PlaceType startingPlace, boolean addedToContacts) {
+			RaceStage stage, CharacterInventory inventory, WorldType worldLocation, PlaceType startingPlace, boolean addedToContacts,
+			List<Artwork> artworkList) {
 		super(nameTriplet, description, level, startingGender, startingRace, stage, inventory, worldLocation, startingPlace);
 		
 		this.addedToContacts = addedToContacts;
@@ -121,6 +131,12 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		sellModifier=1.5f;
 		
 		NPCFlagValues = new HashSet<>();
+		
+		if(artworkList==null) {
+			this.artworkList = new ArrayList<>();
+		} else {
+			this.artworkList = artworkList;
+		}
 		
 		if(getLocation().equals(Main.game.getPlayer().getLocation()) && getWorldLocation()==Main.game.getPlayer().getWorldLocation()) {
 			for(CoverableArea ca : CoverableArea.values()) {
@@ -141,7 +157,6 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		CharacterUtils.createXMLElementWithValue(doc, npcSpecific, "lastTimeEncountered", String.valueOf(lastTimeEncountered));
 		CharacterUtils.createXMLElementWithValue(doc, npcSpecific, "lastTimeHadSex", String.valueOf(lastTimeHadSex));
 		CharacterUtils.createXMLElementWithValue(doc, npcSpecific, "lastTimeOrgasmed", String.valueOf(lastTimeOrgasmed));
-		CharacterUtils.createXMLElementWithValue(doc, npcSpecific, "romanceProgress", String.valueOf(romanceProgress));
 		CharacterUtils.createXMLElementWithValue(doc, npcSpecific, "buyModifier", String.valueOf(buyModifier));
 		CharacterUtils.createXMLElementWithValue(doc, npcSpecific, "sellModifier", String.valueOf(sellModifier));
 		CharacterUtils.createXMLElementWithValue(doc, npcSpecific, "addedToContacts", String.valueOf(addedToContacts));
@@ -184,7 +199,6 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				npc.setLastTimeOrgasmed(npc.getLastTimeHadSex());
 			}
 			
-			npc.setRomanceProgress(Integer.valueOf(((Element)npcSpecificElement.getElementsByTagName("romanceProgress").item(0)).getAttribute("value")));
 			npc.setBuyModifier(Float.valueOf(((Element)npcSpecificElement.getElementsByTagName("buyModifier").item(0)).getAttribute("value")));
 			npc.setSellModifier(Float.valueOf(((Element)npcSpecificElement.getElementsByTagName("sellModifier").item(0)).getAttribute("value")));
 			npc.addedToContacts = (Boolean.valueOf(((Element)npcSpecificElement.getElementsByTagName("addedToContacts").item(0)).getAttribute("value")));
@@ -688,15 +702,6 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	
 	public void setLastTimeOrgasmed(long lastTimeOrgasmed) {
 		this.lastTimeOrgasmed = lastTimeOrgasmed;
-	}
-
-
-	public int getRomanceProgress() {
-		return romanceProgress;
-	}
-
-	public void setRomanceProgress(int romanceProgress) {
-		this.romanceProgress = romanceProgress;
 	}
 
 	public boolean isAddedToContacts() {
@@ -2638,8 +2643,49 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	public String getCharacterInformationScreen() {
 		infoScreenSB.setLength(0);
 		
-		infoScreenSB.append(
-				"<h4>Background</h4>"
+		
+		if(!this.getArtworkList().isEmpty()) {
+			if(Main.getProperties().hasValue(PropertyValue.artwork)) {
+				Artwork artwork = this.getArtworkList().get(0);
+				int width = 200;
+				int height = 400;
+				try {
+					File f = new File(artwork.getCurrentImage());
+					BufferedImage image = ImageIO.read(f);
+					width = image.getWidth();
+					height = image.getHeight();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				
+				boolean nakedRevealed = false;
+				
+				if(Main.game.getPlayer().getSexPartnerStats(this)!=null) {
+					nakedRevealed = true;
+				}
+				
+				infoScreenSB.append("<div class='full-width-container' style='position:relative; float:right; width:"+(height>width?"33":"66")+"%; max-width:"+width+"; object-fit:scale-down;'>"
+						+ "<div class='full-width-container' style='width:100%; margin:0;'>"
+							+ "<img id='CHARACTER_IMAGE' style='"+(nakedRevealed || artwork.isCurrentImageClothed()?"":"-webkit-filter: brightness(0%);")+" width:100%;' src='file:/"+artwork.getCurrentImage()+"'/>"
+							+ "<div class='overlay no-pointer no-highlight' style='text-align:center;'>" // Add overlay div to stop javaFX's insane image drag+drop
+								+(nakedRevealed || artwork.isCurrentImageClothed()?"":"<p style='margin-top:50%; font-weight:bold; color:"+Colour.BASE_GREY.toWebHexString()+";'>Unlocked through sex!</p>")
+							+"</div>" 
+							+ "<div class='title-button' id='ARTWORK_INFO' style='left:auto;right:4px;'>"+SVGImages.SVG_IMAGE_PROVIDER.getInformationIcon()+"</div>"
+						+ "</div>"
+							+ "<div class='normal-button' id='ARTWORK_PREVIOUS' style='float:left; width:10%; margin:0 15%; padding:0; text-align:center;'>&lt;</div>"
+							+ "<div class='full-width-container' style='float:left; width:20%; margin:0; text-align:center;'>"+(artwork.getIndex()+1)+"/"+artwork.getTotalArtworkCount()+"</div>"
+							+ "<div class='normal-button' id='ARTWORK_NEXT' style='float:left; width:10%; margin:0 15%; padding:0; text-align:center;'>&gt;</div>"
+					+ "</div>");
+				
+			} else {
+//				infoScreenSB.append("<div class='full-width-container' style='position:relative; float:right; width:30%; margin: 5%; text-align:center;'>"
+//						+ "[style.colourDisabled(Enable 'Artwork' in the Content Options screen to see this character's artwork!)]"
+//						+ "</div>");
+				
+			}
+		}
+		
+		infoScreenSB.append("<h4>Background</h4>"
 				+ "<p>"
 					+ this.getDescription()
 				+ "</p>"
@@ -2749,6 +2795,9 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					+ "</td>"
 				+ "</tr>";
 	}
-	
-	
+
+	public List<Artwork> getArtworkList() {
+		return artworkList;
+	}
+
 }

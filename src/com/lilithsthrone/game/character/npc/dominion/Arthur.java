@@ -44,7 +44,7 @@ public class Arthur extends NPC {
 				10,
 				Gender.M_P_MALE,
 				RacialBody.HUMAN, RaceStage.HUMAN, new CharacterInventory(10),
-				WorldType.ZARANIX_HOUSE_FIRST_FLOOR, PlaceType.ZARANIX_FF_OFFICE, true);
+				WorldType.ZARANIX_HOUSE_FIRST_FLOOR, PlaceType.ZARANIX_FF_OFFICE, true, null);
 
 		if(!isImported) {
 			this.setSexualOrientation(SexualOrientation.GYNEPHILIC);

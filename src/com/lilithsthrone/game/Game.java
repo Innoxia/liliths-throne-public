@@ -98,6 +98,7 @@ import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.responses.ResponseTrade;
+import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.CharactersPresentDialogue;
 import com.lilithsthrone.game.dialogue.utils.MiscDialogue;
 import com.lilithsthrone.game.dialogue.utils.PhoneDialogue;
@@ -1289,8 +1290,11 @@ public class Game implements Serializable, XMLSaving {
 				
 				
 				if (node.isContinuesDialogue()) {
-					currentDialogue = "<body onLoad='scrollToElement()'>"
-								+ "<script>function scrollToElement() {document.getElementById('content-block').scrollTop = document.getElementById('position" + (positionAnchor) + "').offsetTop -64;}</script>"
+					currentDialogue = 
+								(isContentScroll(node)
+									?"<body onLoad='scrollToElement()'>"
+										+ "<script>function scrollToElement() {document.getElementById('content-block').scrollTop = document.getElementById('position" + (positionAnchor) + "').offsetTop -64;}</script>"
+									:"<body>")
 								+ "<div id='main-content'>"
 									+ getTitleDiv(dialogueTitle)
 									+ "<div class='div-center' id='content-block'>"
@@ -1302,7 +1306,7 @@ public class Game implements Serializable, XMLSaving {
 													+ "</div>"
 												: "")
 											+ (content != null
-													? "<div "+(Main.getProperties().fadeInText?"id='text-content'":"")+" style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;'>"
+													? "<div "+(Main.getProperties().hasValue(PropertyValue.fadeInText)?"id='text-content'":"")+" style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;'>"
 															+ pastDialogueSB.toString()
 														+ "</div>"
 													: "")
@@ -1328,7 +1332,7 @@ public class Game implements Serializable, XMLSaving {
 												+ "</div>"
 											: "")
 										+ (content != null
-												? "<div "+(Main.getProperties().fadeInText?"id='text-content'":"")+" style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;'>"
+												? "<div "+(Main.getProperties().hasValue(PropertyValue.fadeInText)?"id='text-content'":"")+" style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;'>"
 														+ pastDialogueSB.toString()
 													+ "</div>"
 												: "")
@@ -1366,7 +1370,7 @@ public class Game implements Serializable, XMLSaving {
 		if (node == null){
 			return;
 		}
-		
+
 		int currentPosition = 0;
 		if(getCurrentDialogueNode()!=null) {
 			currentPosition =  (int) Main.mainController.getWebEngine().executeScript("document.getElementById('content-block').scrollTop");
@@ -1418,8 +1422,9 @@ public class Game implements Serializable, XMLSaving {
 				}
 			} else {
 				dialogueTitle = UtilText.parse(node.getLabel());
-				if (currentDialogueNode.getMapDisplay() == MapDisplay.NORMAL)
+				if (currentDialogueNode.getMapDisplay() == MapDisplay.NORMAL) {
 					positionAnchor = 0;
+				}
 				
 				pastDialogueSB.setLength(0);
 				pastDialogueSB.append(
@@ -1455,8 +1460,10 @@ public class Game implements Serializable, XMLSaving {
 
 		if (node.isContinuesDialogue()) {
 			currentDialogue =
-					"<body onLoad='scrollToElement()'>"
-					+ "<script>function scrollToElement() {document.getElementById('content-block').scrollTop = document.getElementById('position" + (positionAnchor) + "').offsetTop -64;}</script>"
+					(isContentScroll(node)
+							?"<body onLoad='scrollToElement()'>"
+								+ "<script>function scrollToElement() {document.getElementById('content-block').scrollTop = document.getElementById('position" + (positionAnchor) + "').offsetTop -64;}</script>"
+							:"<body>")
 					+ "<div id='main-content'>"
 						+ getTitleDiv(dialogueTitle)
 						+ "<div class='div-center' id='content-block'>"
@@ -1468,7 +1475,7 @@ public class Game implements Serializable, XMLSaving {
 										+ "</div>"
 									: "") 
 								+ (content != null
-									? "<div "+(Main.getProperties().fadeInText?"id='text-content'":"")+" style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;'>"
+									? "<div "+(Main.getProperties().hasValue(PropertyValue.fadeInText)?"id='text-content'":"")+" style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;'>"
 									+ pastDialogueSB.toString() + "</div>" : "")
 	//									+ textStartStringBuilder.toString() + pastDialogueSB.toString() + textEndStringBuilder.toString() + "</div>" : "")
 //							+ "</div>"
@@ -1480,8 +1487,10 @@ public class Game implements Serializable, XMLSaving {
 
 		} else {
 			currentDialogue =
-					"<body onLoad='scrollBack()'>"
-					+ "<script>function scrollBack() {document.getElementById('content-block').scrollTop = "+currentPosition+";}</script>"
+					(isContentScroll(node)
+						?"<body onLoad='scrollBack()'>"
+								+ "<script>function scrollBack() {document.getElementById('content-block').scrollTop = "+currentPosition+";}</script>"
+						:"<body>")
 					+ "<div id='main-content'>"
 						+ getTitleDiv(dialogueTitle)
 						+ "<span id='position" + positionAnchor + "'></span>"
@@ -1494,7 +1503,7 @@ public class Game implements Serializable, XMLSaving {
 											+ "</div>"
 										: "")
 									+ (content != null
-										? "<div "+(Main.getProperties().fadeInText?"id='text-content'":"")+" style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;'>"
+										? "<div "+(Main.getProperties().hasValue(PropertyValue.fadeInText)?"id='text-content'":"")+" style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;'>"
 												+ pastDialogueSB.toString()
 											+ "</div>"
 										: "")
@@ -1530,6 +1539,16 @@ public class Game implements Serializable, XMLSaving {
 			
 	}
 	
+	private static boolean isContentScroll(DialogueNodeOld node) {
+		return (node.getMapDisplay()!=MapDisplay.PHONE && node.getMapDisplay()!=MapDisplay.CHARACTERS_PRESENT)
+				|| node.equals(BodyChanging.BODY_CHANGING_ASS)
+				|| node.equals(BodyChanging.BODY_CHANGING_BREASTS)
+				|| node.equals(BodyChanging.BODY_CHANGING_CORE)
+				|| node.equals(BodyChanging.BODY_CHANGING_FACE)
+				|| node.equals(BodyChanging.BODY_CHANGING_PENIS)
+				|| node.equals(BodyChanging.BODY_CHANGING_VAGINA);
+	}
+	
 	private String getTitleDiv(String title) {
 		if(dialogueTitle.isEmpty()) {
 			return "";
@@ -1537,7 +1556,9 @@ public class Game implements Serializable, XMLSaving {
 		
 		return "<div class='content-title'>"
 					+ "<div class='title-button' id='copy-content-button'>"+SVGImages.SVG_IMAGE_PROVIDER.getCopyIcon()+"</div>"
-					+ (Main.game.getCurrentDialogueNode().equals(CharactersPresentDialogue.MENU) || Main.game.getCurrentDialogueNode().equals(PhoneDialogue.CHARACTER_APPEARANCE)
+					+ (Main.game.getCurrentDialogueNode().equals(CharactersPresentDialogue.MENU)
+							|| Main.game.getCurrentDialogueNode().equals(PhoneDialogue.CHARACTER_APPEARANCE)
+							|| Main.game.getCurrentDialogueNode().equals(PhoneDialogue.CONTACTS_CHARACTER)
 							?"<div class='title-button' id='export-character-button' style='left:auto;right:4px;'>"+SVGImages.SVG_IMAGE_PROVIDER.getExportIcon()+"</div>"
 							:"")
 					+ "<h4 style='text-align:center;'>" + dialogueTitle + "</h4>"
@@ -1992,8 +2013,11 @@ public class Game implements Serializable, XMLSaving {
 			String headerContent = currentDialogueNode.getHeaderContent();
 			String content = currentDialogueNode.getContent();
 			
-			currentDialogue = "<body onLoad='scrollToElement()'>"
-					+ "<script>function scrollToElement() {document.getElementById('content-block').scrollTop = document.getElementById('position" + (positionAnchor) + "').offsetTop -64;}</script>"
+			currentDialogue = 
+					(savedDialogueNode.getMapDisplay()!=MapDisplay.PHONE && savedDialogueNode.getMapDisplay()!=MapDisplay.CHARACTERS_PRESENT
+						?"<body onLoad='scrollToElement()'>"
+							+ "<script>function scrollToElement() {document.getElementById('content-block').scrollTop = document.getElementById('position" + (positionAnchor) + "').offsetTop -64;}</script>"
+						:"<body>")
 					+ "<div id='main-content'>"
 						+ getTitleDiv(dialogueTitle)
 						+ "<div class='div-center' id='content-block'>"
@@ -2004,7 +2028,7 @@ public class Game implements Serializable, XMLSaving {
 										+ "</div>"
 									: "")
 								+ (content != null
-										? "<div "+(Main.getProperties().fadeInText?"id='text-content'":"")+" style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;'>"
+										? "<div "+(Main.getProperties().hasValue(PropertyValue.fadeInText)?"id='text-content'":"")+" style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;'>"
 												+ content
 											+ "</div>"
 										: "")
@@ -2731,23 +2755,23 @@ public class Game implements Serializable, XMLSaving {
 	}
 	
 	public boolean isNonConEnabled() {
-		return Main.getProperties().nonConContent;
+		return Main.getProperties().hasValue(PropertyValue.nonConContent);
 	}
 	
 	public boolean isIncestEnabled() {
-		return Main.getProperties().incestContent;
+		return Main.getProperties().hasValue(PropertyValue.incestContent);
 	}
 	
 	public boolean isFacialHairEnabled() {
-		return Main.getProperties().facialHairContent;
+		return Main.getProperties().hasValue(PropertyValue.facialHairContent);
 	}
 	
 	public boolean isPubicHairEnabled() {
-		return Main.getProperties().pubicHairContent;
+		return Main.getProperties().hasValue(PropertyValue.pubicHairContent);
 	}
 	
 	public boolean isBodyHairEnabled() {
-		return Main.getProperties().bodyHairContent;
+		return Main.getProperties().hasValue(PropertyValue.bodyHairContent);
 	}
 	
 	public boolean isRenderMap() {

@@ -6,6 +6,7 @@ import java.util.Map;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.NameTriplet;
@@ -72,6 +73,8 @@ import com.lilithsthrone.game.sex.managers.universal.SMCowgirl;
 import com.lilithsthrone.game.sex.managers.universal.SMDoggy;
 import com.lilithsthrone.game.sex.managers.universal.SMKneeling;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.rendering.Artist;
+import com.lilithsthrone.rendering.Artwork;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.ListValue;
@@ -88,6 +91,10 @@ public class Brax extends NPC {
 
 	private static final long serialVersionUID = 1L;
 
+	private static Artwork braxArtwork = new Artwork("brax", Artist.JAM);
+	private static Artwork breeArtwork = new Artwork("bree", Artist.JAM);
+	private static Artwork brandiArtwork = new Artwork("brandi", Artist.JAM);
+	
 	public Brax() {
 		this(false);
 	}
@@ -95,7 +102,7 @@ public class Brax extends NPC {
 	public Brax(boolean isImported) {
 		super(new NameTriplet("Brax", "Bree", "Brandi"),
 				"The 'Chief of Dominion Operations', Brax is a high-ranking enforcer. Muscular, handsome, and with an incredibly dominant personality, he's the focus of every female enforcer's attention.", 3, Gender.M_P_MALE,
-				RacialBody.WOLF_MORPH, RaceStage.GREATER, new CharacterInventory(10), WorldType.ENFORCER_HQ, PlaceType.ENFORCER_HQ_BRAXS_OFFICE, true);
+				RacialBody.WOLF_MORPH, RaceStage.GREATER, new CharacterInventory(10), WorldType.ENFORCER_HQ, PlaceType.ENFORCER_HQ_BRAXS_OFFICE, true, null);
 		
 		if(!isImported) {
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
@@ -131,6 +138,19 @@ public class Brax extends NPC {
 		this.setPenisVirgin(false);
 	}
 
+	@Override
+	public List<Artwork> getArtworkList() {
+		if(this.getName().equalsIgnoreCase("Brax")) {
+			return Util.newArrayListOfValues(new ListValue<>(braxArtwork));
+			
+		} else if(this.getName().equalsIgnoreCase("Bree")) {
+			return Util.newArrayListOfValues(new ListValue<>(breeArtwork));
+			
+		} else {
+			return Util.newArrayListOfValues(new ListValue<>(brandiArtwork));
+		}
+	}
+	
 	@Override
 	public boolean isUnique() {
 		return true;
@@ -253,7 +273,7 @@ public class Brax extends NPC {
 
 	@Override
 	public String getSpeechColour() {
-		if(Main.getProperties().lightTheme) {
+		if(Main.getProperties().hasValue(PropertyValue.lightTheme)) {
 			if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.bimbofiedBrax)) {
 				return "#FF0AA5";
 			} else if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.feminisedBrax)) {

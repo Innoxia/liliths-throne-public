@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.race.Race;
@@ -214,7 +215,7 @@ public enum TailType implements BodyPartTypeInterface {
 	 * @return
 	 */
 	public boolean isSuitableForPenetration() {
-		return prehensile && (suitableForPenetration || Main.getProperties().furryTailPenetrationContent);
+		return prehensile && (suitableForPenetration || Main.getProperties().hasValue(PropertyValue.furryTailPenetrationContent));
 	}
 	
 	private static Map<Race, List<TailType>> typesMap = new HashMap<>();

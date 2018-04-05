@@ -45,7 +45,7 @@ public class Angel extends NPC {
 				"Angel is the owner of the brothel 'Angel's Kiss', located in Dominion's Red-light district."
 						+ " A beautiful, blonde-haired human, Angel acts in a friendly and professional manner at all times.",
 				10, Gender.F_V_B_FEMALE, RacialBody.HUMAN, RaceStage.HUMAN,
-				new CharacterInventory(30), WorldType.ANGELS_KISS_GROUND_FLOOR, PlaceType.ANGELS_KISS_OFFICE, true);
+				new CharacterInventory(30), WorldType.ANGELS_KISS_GROUND_FLOOR, PlaceType.ANGELS_KISS_OFFICE, true, null);
 
 		this.setAttribute(Attribute.MAJOR_PHYSIQUE, 2f);
 		this.setAttribute(Attribute.MAJOR_ARCANE, 0f);

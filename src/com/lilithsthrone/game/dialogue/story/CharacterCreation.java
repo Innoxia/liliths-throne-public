@@ -2,6 +2,7 @@ package com.lilithsthrone.game.dialogue.story;
 
 import java.io.File;
 
+import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
@@ -123,9 +124,9 @@ public class CharacterCreation {
 					public void effects() {
 						Main.game.clearTextStartStringBuilder();
 						Main.game.clearTextEndStringBuilder();
-						Main.getProperties().setNewWeaponDiscovered(false);
-						Main.getProperties().setNewClothingDiscovered(false);
-						Main.getProperties().setNewItemDiscovered(false);
+						Main.getProperties().setValue(PropertyValue.newWeaponDiscovered, false);
+						Main.getProperties().setValue(PropertyValue.newClothingDiscovered, false);
+						Main.getProperties().setValue(PropertyValue.newItemDiscovered, false);
 						Main.game.getPlayer().calculateStatusEffects(0);
 						getDressed();
 						resetBodyAppearance();

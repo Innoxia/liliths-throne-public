@@ -75,7 +75,7 @@ public class ReindeerOverseer extends NPC {
 	
 	public ReindeerOverseer(Gender gender, boolean isImported) {
 		super(null, "", 10, gender, RacialBody.REINDEER_MORPH, RaceStage.GREATER,
-				new CharacterInventory(10), WorldType.DOMINION, PlaceType.DOMINION_STREET, false);
+				new CharacterInventory(10), WorldType.DOMINION, PlaceType.DOMINION_STREET, false, null);
 
 		if(!isImported) {
 			

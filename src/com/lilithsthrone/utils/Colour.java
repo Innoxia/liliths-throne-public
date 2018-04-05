@@ -2,6 +2,7 @@ package com.lilithsthrone.utils;
 
 import java.util.List;
 
+import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util.ListValue;
 
@@ -1020,7 +1021,7 @@ public enum Colour {
 
 	public Color getColor() {
 		if(Main.getProperties()!=null) {
-			if(Main.getProperties().lightTheme)
+			if(Main.getProperties().hasValue(PropertyValue.lightTheme))
 				return lightColour;
 			else
 				return colour;

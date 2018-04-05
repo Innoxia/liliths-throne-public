@@ -49,7 +49,7 @@ public class GenericSexualPartner extends NPC {
 	
 	public GenericSexualPartner(Gender gender, WorldType worldLocation, Vector2i location, boolean isImported) {
 		super(null, "", 3, gender, RacialBody.DOG_MORPH, RaceStage.GREATER,
-				new CharacterInventory(10), WorldType.DOMINION, PlaceType.DOMINION_BACK_ALLEYS, false);
+				new CharacterInventory(10), WorldType.DOMINION, PlaceType.DOMINION_BACK_ALLEYS, false, null);
 
 		if(!isImported) {
 			this.setWorldLocation(worldLocation);
@@ -81,15 +81,12 @@ public class GenericSexualPartner extends NPC {
 				switch(s) {
 					// No spawn chance:
 					case ANGEL:
-					case BAT_MORPH:
 					case DEMON:
-					case HARPY:
-					case HUMAN:
 					case IMP:
 					case IMP_ALPHA:
 						break;
 						
-					// Canals spawn only:
+					// Low spawn chance:
 					case ALLIGATOR_MORPH:
 						addToSubspeciesMap(5, gender, s, availableRaces);
 						break;
@@ -113,6 +110,19 @@ public class GenericSexualPartner extends NPC {
 						addToSubspeciesMap(1, gender, s, availableRaces);
 						break;
 					case RAT_MORPH:
+						addToSubspeciesMap(5, gender, s, availableRaces);
+						break;
+
+					case BAT_MORPH:
+						addToSubspeciesMap(1, gender, s, availableRaces);
+						break;
+					case HARPY:
+						addToSubspeciesMap(4, gender, s, availableRaces);
+						break;
+					case HARPY_RAVEN:
+						addToSubspeciesMap(1, gender, s, availableRaces);
+						break;
+					case HUMAN:
 						addToSubspeciesMap(5, gender, s, availableRaces);
 						break;
 						

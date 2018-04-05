@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Set;
 
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
@@ -17,7 +16,6 @@ import com.lilithsthrone.game.character.body.valueEnums.PenisModifier;
 import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 
 /**
@@ -299,7 +297,6 @@ public class Penis implements BodyPartInterface, Serializable {
 				}
 				break;
 			case CANINE:
-				owner.setSkinCovering(new Covering(BodyCoveringType.PENIS, Colour.SKIN_RED), false);
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
 							"Letting out an involuntary moan, you feel your penis shifting into a new form, and you're hit by a wave of overwhelming arousal as a thick knot suddenly presses out at the base of your shaft."

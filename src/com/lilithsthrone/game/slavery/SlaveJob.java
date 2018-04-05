@@ -155,6 +155,15 @@ public enum SlaveJob {
 			PlaceType.ANGELS_KISS_BEDROOM) {
 		
 		@Override
+		public float getAffectionGain(GameCharacter slave) {
+			if(slave.hasFetish(Fetish.FETISH_CUM_ADDICT)) {
+				return 1f;
+			} else {
+				return -0.25f;
+			}
+		}
+		
+		@Override
 		public boolean isAvailable(GameCharacter character) {
 			if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.prostitutionLicenseObtained)) {
 				return false;

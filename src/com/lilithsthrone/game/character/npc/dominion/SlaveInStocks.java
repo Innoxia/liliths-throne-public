@@ -62,7 +62,7 @@ public class SlaveInStocks extends NPC {
 	
 	public SlaveInStocks(Gender gender, boolean isImported) {
 		super(null, "", 3, gender, RacialBody.DOG_MORPH, RaceStage.GREATER,
-				new CharacterInventory(10), WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_PUBLIC_STOCKS, false);
+				new CharacterInventory(10), WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_PUBLIC_STOCKS, false, null);
 
 		if(!isImported) {
 			
@@ -95,6 +95,7 @@ public class SlaveInStocks extends NPC {
 					case ANGEL:
 					case DEMON:
 					case HARPY:
+					case HARPY_RAVEN:
 					case HUMAN:
 					case IMP:
 					case IMP_ALPHA:

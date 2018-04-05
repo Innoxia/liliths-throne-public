@@ -3,6 +3,7 @@ package com.lilithsthrone.game.sex.sexActions.baseActionsMisc;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.attributes.ObedienceLevel;
@@ -450,14 +451,25 @@ public class GenericOrgasms {
 							}
 						}
 						break;
-					case URETHRA_PENIS: case URETHRA_VAGINA:
+					case URETHRA_PENIS:
 						if(characterOrgasming.isPlayer()) {
-							genericOrgasmSB.append("You slide your [npc1.cock+] out of [npc2.name]'s [npc2.urethra+]");
+							genericOrgasmSB.append("You slide your [npc1.cock+] out of [npc2.name]'s [npc2.penisUrethra+]");
 						} else {
 							if(characterPenetrated.isPlayer()) {
-								genericOrgasmSB.append("[npc1.Name] slides [npc.her] [npc1.cock+] out of your [npc2.urethra+]");
+								genericOrgasmSB.append("[npc1.Name] slides [npc.her] [npc1.cock+] out of your [npc2.penisUrethra+]");
 							} else {
-								genericOrgasmSB.append("[npc1.Name] slides [npc.her] [npc1.cock+] out of [npc2.name]'s [npc2.urethra+]");
+								genericOrgasmSB.append("[npc1.Name] slides [npc.her] [npc1.cock+] out of [npc2.name]'s [npc2.penisUrethra+]");
+							}
+						}
+						break;
+					case URETHRA_VAGINA:
+						if(characterOrgasming.isPlayer()) {
+							genericOrgasmSB.append("You slide your [npc1.cock+] out of [npc2.name]'s [npc2.vaginaUrethra+]");
+						} else {
+							if(characterPenetrated.isPlayer()) {
+								genericOrgasmSB.append("[npc1.Name] slides [npc.her] [npc1.cock+] out of your [npc2.vaginaUrethra+]");
+							} else {
+								genericOrgasmSB.append("[npc1.Name] slides [npc.her] [npc1.cock+] out of [npc2.name]'s [npc2.vaginaUrethra+]");
 							}
 						}
 						break;
@@ -1207,7 +1219,7 @@ public class GenericOrgasms {
 						default:
 							break;
 					}
-					if(Main.getProperties().inflationContent && !target.isVisiblyPregnant()) {
+					if(Main.getProperties().hasValue(PropertyValue.inflationContent) && !target.isVisiblyPregnant()) {
 						int cumAmount = target.getCummedInAreaMap().get(OrificeType.ANUS) + characterOrgasming.getPenisRawCumProductionValue();
 						cumTargetSB.append(getInflationText(characterOrgasming, target, cumAmount));
 					}
@@ -1303,7 +1315,7 @@ public class GenericOrgasms {
 						default:
 							break;
 					}
-					if(Main.getProperties().inflationContent && !target.isVisiblyPregnant()) {
+					if(Main.getProperties().hasValue(PropertyValue.inflationContent) && !target.isVisiblyPregnant()) {
 						int cumAmount = target.getCummedInAreaMap().get(OrificeType.MOUTH) + characterOrgasming.getPenisRawCumProductionValue();
 						cumTargetSB.append(getInflationText(characterOrgasming, target, cumAmount));
 					}
@@ -1314,7 +1326,7 @@ public class GenericOrgasms {
 					} else {
 						cumTargetSB.append(" deep into [npc2.name]'s [npc2.breasts+].");
 					}
-					if(Main.getProperties().inflationContent) {
+					if(Main.getProperties().hasValue(PropertyValue.inflationContent)) {
 						int cumAmount = target.getCummedInAreaMap().get(OrificeType.NIPPLE) + characterOrgasming.getPenisRawCumProductionValue();
 						cumTargetSB.append(getBreastInflationText(characterOrgasming, target, cumAmount));
 					}
@@ -1342,7 +1354,7 @@ public class GenericOrgasms {
 						default:
 							break;
 					}
-					if(Main.getProperties().inflationContent && !target.isVisiblyPregnant()) {
+					if(Main.getProperties().hasValue(PropertyValue.inflationContent) && !target.isVisiblyPregnant()) {
 						int cumAmount = target.getCummedInAreaMap().get(orificePenetrated) + characterOrgasming.getPenisRawCumProductionValue();
 						cumTargetSB.append(getInflationText(characterOrgasming, target, cumAmount));
 					}
@@ -1376,7 +1388,7 @@ public class GenericOrgasms {
 						default:
 							break;
 					}
-					if(Main.getProperties().inflationContent && !target.isVisiblyPregnant()) {
+					if(Main.getProperties().hasValue(PropertyValue.inflationContent) && !target.isVisiblyPregnant()) {
 						int cumAmount = target.getCummedInAreaMap().get(OrificeType.VAGINA) + characterOrgasming.getPenisRawCumProductionValue();
 						cumTargetSB.append(getInflationText(characterOrgasming, target, cumAmount));
 					}

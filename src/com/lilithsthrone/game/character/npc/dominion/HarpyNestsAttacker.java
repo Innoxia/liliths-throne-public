@@ -53,7 +53,7 @@ public class HarpyNestsAttacker extends NPC {
 	
 	public HarpyNestsAttacker(Gender gender, boolean isImported) {
 		super(null, "", 4, gender, RacialBody.HARPY, RaceStage.LESSER,
-				new CharacterInventory(10), WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_WALKWAYS, false);
+				new CharacterInventory(10), WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_WALKWAYS, false, null);
 
 		if(!isImported) {
 	

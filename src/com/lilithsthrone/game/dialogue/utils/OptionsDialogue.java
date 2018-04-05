@@ -1,16 +1,12 @@
 package com.lilithsthrone.game.dialogue.utils;
 
-import java.awt.Desktop;
 import java.awt.Toolkit;
 import java.io.File;
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Comparator;
 
 import com.lilithsthrone.game.Game;
+import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
@@ -36,6 +32,8 @@ import com.lilithsthrone.game.settings.ForcedFetishTendency;
 import com.lilithsthrone.game.settings.ForcedTFTendency;
 import com.lilithsthrone.game.settings.KeyboardAction;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.rendering.Artist;
+import com.lilithsthrone.rendering.ArtistWebsite;
 import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.CreditsSlot;
@@ -43,7 +41,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.2.1
+ * @version 0.2.2
  * @author Innoxia
  */
 public class OptionsDialogue {
@@ -187,7 +185,7 @@ public class OptionsDialogue {
 				return new ResponseEffectsOnly("Blog", "Opens the page:</br></br><i>https://lilithsthrone.blogspot.co.uk/</i></br></br><b>Externally in your default browser.</b>"){
 					@Override
 					public void effects() {
-						browser("https://lilithsthrone.blogspot.co.uk/");
+						Util.openLinkInDefaultBrowser("https://lilithsthrone.blogspot.co.uk/");
 						confirmNewGame=false;
 					}
 				};
@@ -196,7 +194,7 @@ public class OptionsDialogue {
 				return new ResponseEffectsOnly("Github", "Opens the page:</br></br><i>https://github.com/Innoxia/liliths-throne-public</i></br></br><b>Externally in your default browser.</b>"){
 					@Override
 					public void effects() {
-						browser("https://github.com/Innoxia/liliths-throne-public");
+						Util.openLinkInDefaultBrowser("https://github.com/Innoxia/liliths-throne-public");
 						confirmNewGame=false;
 					}
 				};
@@ -322,7 +320,7 @@ public class OptionsDialogue {
 			
 			for(File f : Main.getSavedGames()){
 				try {
-					saveLoadSB.append(getSaveLoadRow("<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>"+getFileTime(f)+"</span>", f.getName(), i%2==0));
+					saveLoadSB.append(getSaveLoadRow("<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>"+Util.getFileTime(f)+"</span>", f.getName(), i%2==0));
 				} catch (IOException e3) {
 					e3.printStackTrace();
 				}
@@ -344,7 +342,7 @@ public class OptionsDialogue {
 						SAVE_LOAD) {
 					@Override
 					public String getTitle() {
-						return "Confirmations: "+(Main.getProperties().overwriteWarning
+						return "Confirmations: "+(Main.getProperties().hasValue(PropertyValue.overwriteWarning)
 								?"<span style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>ON</span>"
 								:"<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>OFF</span>");
 					}
@@ -354,7 +352,7 @@ public class OptionsDialogue {
 						loadConfirmationName = "";
 						overwriteConfirmationName = "";
 						deleteConfirmationName = "";
-						Main.getProperties().overwriteWarning = !Main.getProperties().overwriteWarning;
+						Main.getProperties().setValue(PropertyValue.overwriteWarning, !Main.getProperties().hasValue(PropertyValue.overwriteWarning));
 						Main.getProperties().savePropertiesAsXML();
 					}
 				};
@@ -375,7 +373,7 @@ public class OptionsDialogue {
 	
 	public static final DialogueNodeOld IMPORT_EXPORT = new DialogueNodeOld("Export character", "", true) {
 		private static final long serialVersionUID = 1L;
-
+	
 		@Override
 		public String getContent() {
 			return "";
@@ -384,7 +382,7 @@ public class OptionsDialogue {
 		@Override
 		public String getHeaderContent(){
 			StringBuilder saveLoadSB = new StringBuilder();
-
+	
 			saveLoadSB.append("<p>"
 						+ "Here you can export your current character, or delete any characters that you've exported in the past."
 						+ " Any NPC can be exported in-game by viewing their information screen (either from the 'characters present' or your phone's 'contacts' screen), and then pressing the small 'export character' button in the top-right."
@@ -408,7 +406,7 @@ public class OptionsDialogue {
 			int i = 0;
 			for(File f : Main.getCharactersForImport()){
 				try {
-					saveLoadSB.append(getImportRow("<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>"+getFileTime(f)+"</span>", f.getName(), i%2==0));
+					saveLoadSB.append(OptionsDialogue.getImportRow("<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>"+Util.getFileTime(f)+"</span>", f.getName(), i%2==0));
 				} catch (IOException e3) {
 					e3.printStackTrace();
 				}
@@ -429,21 +427,21 @@ public class OptionsDialogue {
 							IMPORT_EXPORT) {
 					@Override
 					public String getTitle() {
-						return "Confirmations: "+(Main.getProperties().overwriteWarning
+						return "Confirmations: "+(Main.getProperties().hasValue(PropertyValue.overwriteWarning)
 								?"<span style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>ON</span>"
 								:"<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>OFF</span>");
 					}
 					
 					@Override
 					public void effects() {
-						loadConfirmationName = "";
-						overwriteConfirmationName = "";
-						deleteConfirmationName = "";
-						Main.getProperties().overwriteWarning = !Main.getProperties().overwriteWarning;
+						OptionsDialogue.loadConfirmationName = "";
+						OptionsDialogue.overwriteConfirmationName = "";
+						OptionsDialogue.deleteConfirmationName = "";
+						Main.getProperties().setValue(PropertyValue.overwriteWarning, !Main.getProperties().hasValue(PropertyValue.overwriteWarning));
 						Main.getProperties().savePropertiesAsXML();
 					}
 				};
-
+	
 			} else if (index == 2) {
 				if(Main.game.isStarted()) {
 					return new Response("Export character", "Exports your character file to the 'data/characters/' folder.", IMPORT_EXPORT){
@@ -458,36 +456,18 @@ public class OptionsDialogue {
 				}
 			
 			} else if (index == 0) {
-				return new Response("Back", "Back to the main menu.", MENU);
-
+				return new Response("Back", "Back to the main menu.", OptionsDialogue.MENU);
+	
 			} else {
 				return null;
 			}
 		}
-
+	
 		@Override
 		public MapDisplay getMapDisplay() {
 			return MapDisplay.OPTIONS;
 		}
 	};
-	private static void browser(String url) {
-		Runtime runtime = Runtime.getRuntime();
-		try {
-			runtime.exec("xdg-open " + url);
-		} catch (IOException e0) {
-			Desktop desktop = Desktop.getDesktop();
-			try {
-				desktop.browse(new URI(url));
-			} catch (IOException | URISyntaxException e) {
-				e.printStackTrace();
-				e0.printStackTrace();
-			}
-		}
-	}
-	private static String getFileTime(File file) throws IOException {
-	    DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy - hh:mm");
-	    return dateFormat.format(file.lastModified());
-	}
 	
 	private static String getSaveLoadRow(String date, String name, boolean altColour) {
 		if(name!=null){
@@ -603,7 +583,7 @@ public class OptionsDialogue {
 				
 			} else if (index == 2) {
 
-				if (Main.getProperties().lightTheme) {
+				if (Main.getProperties().hasValue(PropertyValue.lightTheme)) {
 					return new Response("Dark theme", "Switch the theme to the dark variant.", OPTIONS){
 						@Override
 						public void effects() {
@@ -650,10 +630,12 @@ public class OptionsDialogue {
 				};
 			
 			} else if (index == 5) {
-				return new Response("Fade-in: "+(Main.getProperties().fadeInText?"[style.boldGood(ON)]":"[style.boldBad(OFF)]"), "Toggle the fading in of the game's text. If turned on, it may cause some minor lag in inventory screens.", OPTIONS){
+				return new Response("Fade-in: "+(Main.getProperties().hasValue(PropertyValue.fadeInText)
+								?"[style.boldGood(ON)]"
+								:"[style.boldBad(OFF)]"), "Toggle the fading in of the game's text. If turned on, it may cause some minor lag in inventory screens.", OPTIONS){
 					@Override
 					public void effects() {
-						Main.getProperties().fadeInText = !Main.getProperties().fadeInText;
+						Main.getProperties().setValue(PropertyValue.fadeInText, !Main.getProperties().hasValue(PropertyValue.fadeInText));
 
 						Main.saveProperties();
 					}
@@ -1330,6 +1312,7 @@ public class OptionsDialogue {
 					case IMP:
 					case IMP_ALPHA:
 					case HARPY:
+					case HARPY_RAVEN:
 					case HUMAN:
 					case SLIME:
 					case SLIME_ALLIGATOR:
@@ -1394,7 +1377,7 @@ public class OptionsDialogue {
 	};
 	
 	private static String getEntryBackgroundColour(boolean alternative) {
-		if(Main.getProperties().lightTheme) {
+		if(Main.getProperties().hasValue(PropertyValue.lightTheme)) {
 			if(alternative) {
 				return "#d9d9d9";
 			}
@@ -1452,18 +1435,27 @@ public class OptionsDialogue {
 			
 			UtilText.nodeContentSB.append(
 				"<div class='container-full-width' style='background:transparent; padding:0; margin-bottom:0; margin-top:0;'>"
+						+getContentPreferenceDiv(
+								"ARTWORK",
+								Colour.BASE_BLUE_LIGHT,
+								"Artwork",
+								"Enables artwork to be displayed in unique characters' information screens.",
+								Main.getProperties().hasValue(PropertyValue.artwork))
+					+"</div>"
+						
+				+ "<div class='container-full-width' style='background:transparent; padding:0; margin-bottom:0; margin-top:0;'>"
 					+getContentPreferenceDiv(
 							"NON_CON",
 							Colour.BASE_CRIMSON,
 							"Non-consent",
 							"This enables the 'resist' pace in sex scenes, which contains some more extreme non-consensual descriptions.",
-							Main.getProperties().nonConContent)
+							Main.getProperties().hasValue(PropertyValue.nonConContent))
 					+getContentPreferenceDiv(
 							"INCEST",
 							Colour.BASE_ROSE,
 							"Incest",
 							"This will enable sexual actions with all of your blood-relatives.",
-							Main.getProperties().incestContent)
+							Main.getProperties().hasValue(PropertyValue.incestContent))
 				+"</div>"
 				
 				+ "<div class='container-full-width' style='background:transparent; padding:0; margin-bottom:0; margin-top:0;'>"
@@ -1472,13 +1464,13 @@ public class OptionsDialogue {
 							Colour.BASE_YELLOW_LIGHT,
 							"Lactation",
 							"This enables lactation content.",
-							Main.getProperties().lactationContent)
+							Main.getProperties().hasValue(PropertyValue.lactationContent))
 					+getContentPreferenceDiv(
 							"URETHRAL",
 							Colour.BASE_PINK_DEEP,
 							"Urethral",
 							"This enables urethral transformations and penetrations.",
-							Main.getProperties().urethralContent)
+							Main.getProperties().hasValue(PropertyValue.urethralContent))
 				+"</div>"
 				
 				
@@ -1488,13 +1480,13 @@ public class OptionsDialogue {
 							Colour.BASE_LILAC_LIGHT,
 							"Facial hair",
 							"This enables facial hair descriptions and content.",
-							Main.getProperties().facialHairContent)
+							Main.getProperties().hasValue(PropertyValue.facialHairContent))
 					+getContentPreferenceDiv(
 							"HAIR_PUBIC",
 							Colour.BASE_LILAC,
 							"Pubic hair",
 							"This enables pubic hair descriptions and content.",
-							Main.getProperties().pubicHairContent)
+							Main.getProperties().hasValue(PropertyValue.pubicHairContent))
 				+"</div>"
 				
 				+ "<div class='container-full-width' style='background:transparent; padding:0; margin-bottom:0; margin-top:0;'>"
@@ -1503,14 +1495,14 @@ public class OptionsDialogue {
 						Colour.BASE_PURPLE,
 						"Extra body hair",
 						"This enables body hair descriptions and content for armpits and assholes.",
-						Main.getProperties().bodyHairContent)
+						Main.getProperties().hasValue(PropertyValue.bodyHairContent))
 					
 					+getContentPreferenceDiv(
 							"FEMININE_BEARD",
 							Colour.BASE_PURPLE_DARK,
 							"Feminine Beards",
 							"This enables feminine characters to grow beards.",
-							Main.getProperties().feminineBeardsContent)
+							Main.getProperties().hasValue(PropertyValue.feminineBeardsContent))
 				+"</div>"
 				
 				+ "<div class='container-full-width' style='background:transparent; padding:0; margin-bottom:0; margin-top:0;'>"
@@ -1639,14 +1631,14 @@ public class OptionsDialogue {
 						Colour.BASE_MAGENTA,
 						"Furry tail penetrations",
 						"This enables furry tails to engage in penetrative actions in sex.",
-						Main.getProperties().furryTailPenetrationContent)
+						Main.getProperties().hasValue(PropertyValue.furryTailPenetrationContent))
 					
 					+getContentPreferenceDiv(
 							"INFLATION_CONTENT",
 							Colour.CUMMED,
 							"Cum Inflation",
 							"This enables cum inflation mechanics.",
-							Main.getProperties().inflationContent)
+							Main.getProperties().hasValue(PropertyValue.inflationContent))
 				+"</div>"
 				
 
@@ -1816,6 +1808,13 @@ public class OptionsDialogue {
 						+ "Lilith's Throne has been created by:</br>"
 						+ "<b style='color:#9b78fa;'>Innoxia</b>"
 						+ "</br></br>"
+						+ "Artists whose character art can be found in the game:</br>");
+			
+			for(Artist artist : Artist.values()) {
+				UtilText.nodeContentSB.append("<b style='color:"+artist.getColour().toWebHexString()+";'>"+artist.getName()+"</b></br>");
+			}	
+			
+			UtilText.nodeContentSB.append("</br>"
 						+ "Special thanks to:</br>"
 						+ "<b>Sensei</b>,</br>"
 						+ "<b style='color:#fa0063;'>loveless</b>, <b style='color:#c790b2;'>Blue999</b>, and <b style='color:#ec9538;'>DesuDemona</b></br>"
@@ -1909,7 +1908,21 @@ public class OptionsDialogue {
 			if (index == 0) {
 				return new Response("Back", "Go back to the options menu.", MENU);
 				
-			}else {
+			} else {
+				int i=1;
+				for(Artist artist : Artist.values()) {
+					for(ArtistWebsite website : artist.getWebsites()) {
+						if(index==i) {
+							return new ResponseEffectsOnly(website.getName(), "Opens the page:</br></br><i>"+website.getURL()+"</i></br></br><b>Externally in your default browser.</b>"){
+								@Override
+								public void effects() {
+									Util.openLinkInDefaultBrowser(website.getURL());
+								}
+							};
+						}
+						i++;
+					}
+				}
 				return null;
 			}
 		}

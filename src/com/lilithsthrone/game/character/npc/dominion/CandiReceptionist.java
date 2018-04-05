@@ -46,7 +46,7 @@ public class CandiReceptionist extends NPC {
 				"Candi is the receptionist at the Enforcer HQ."
 				+ " A completely brain-dead bimbo, Candi seems to only ever be interested in three things; applying makeup, flirting, and fucking.",
 				1, Gender.F_V_B_FEMALE, RacialBody.CAT_MORPH, RaceStage.LESSER,
-				new CharacterInventory(30), WorldType.ENFORCER_HQ, PlaceType.ENFORCER_HQ_RECEPTION_DESK, true);
+				new CharacterInventory(30), WorldType.ENFORCER_HQ, PlaceType.ENFORCER_HQ_RECEPTION_DESK, true, null);
 
 		if(!isImported) {
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);

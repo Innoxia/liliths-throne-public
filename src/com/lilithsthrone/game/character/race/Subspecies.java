@@ -79,6 +79,7 @@ public enum Subspecies {
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"A typical demon.",
 			Util.newArrayListOfValues(new ListValue<>(WorldType.DOMINION))) {
+		
 		@Override
 		public Subspecies getOffspringSubspecies() {
 			return IMP;
@@ -196,7 +197,7 @@ public enum Subspecies {
 			Util.newArrayListOfValues(new ListValue<>(WorldType.DOMINION))) {
 				@Override
 				public void applySpeciesChanges(Body body) {
-					// TODO Auto-generated method stub
+					body.getCoverings().put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, Colour.SKIN_RED));
 				}
 			},
 	
@@ -214,6 +215,8 @@ public enum Subspecies {
 			Util.newArrayListOfValues(new ListValue<>(WorldType.DOMINION))) {
 		@Override
 		public void applySpeciesChanges(Body body) {
+			body.getCoverings().put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, Colour.SKIN_RED));
+			
 			Colour secondaryColour = Colour.COVERING_BROWN;
 			double rand = Math.random();
 			if(rand<0.3f) {
@@ -248,7 +251,7 @@ public enum Subspecies {
 			Util.newArrayListOfValues(new ListValue<>(WorldType.DOMINION))) {
 		@Override
 		public void applySpeciesChanges(Body body) {
-			// TODO Auto-generated method stub
+			body.getCoverings().put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, Colour.SKIN_RED));
 			
 		}
 	},
@@ -819,7 +822,28 @@ public enum Subspecies {
 			// TODO Auto-generated method stub
 			
 		}
-	};
+	},
+	
+	HARPY_RAVEN("raceHarpy",
+			"raven-harpy",
+			"raven-harpies",
+			"raven-harpy",
+			"raven-harpy",
+			"raven-harpies",
+			"raven-harpies",
+			Race.HARPY,
+			Colour.BASE_BLACK,
+			SubspeciesPreference.ONE_LOW,
+			"A harpy that has dark black feathers, resembling those of a raven.",
+			Util.newArrayListOfValues(new ListValue<>(WorldType.HARPY_NEST))) {
+		@Override
+		public void applySpeciesChanges(Body body) {
+			body.getCoverings().put(BodyCoveringType.FEATHERS, new Covering(BodyCoveringType.FEATHERS, CoveringPattern.NONE, Colour.FEATHERS_BLACK, false, Colour.FEATHERS_BLACK, false));
+			body.getCoverings().put(BodyCoveringType.BODY_HAIR_HARPY, new Covering(BodyCoveringType.BODY_HAIR_HARPY, CoveringPattern.NONE, Colour.FEATHERS_BLACK, false, Colour.FEATHERS_BLACK, false));
+		}
+	},
+	
+	;
 	//TENGU(Race.TENGU.getName(), Race.TENGU, RacialBody.TENGU, SubspeciesPreference.TWO_LOW,
 	//		"A hermetic kind of "+Race.HARPY.getName());
 
@@ -958,6 +982,9 @@ public enum Subspecies {
 					break;
 				case HARPY:
 					subspecies = Subspecies.HARPY;
+					if(body.getCoverings().get(BodyCoveringType.FEATHERS).getPrimaryColour()==Colour.FEATHERS_BLACK) {
+						subspecies = Subspecies.HARPY_RAVEN;
+					}
 					break;
 				case HORSE_MORPH:
 					subspecies = Subspecies.HORSE_MORPH;
@@ -1058,6 +1085,10 @@ public enum Subspecies {
 	
 	public Subspecies getOffspringSubspecies() {
 		return this;
+	}
+	
+	public boolean isOffspringAlwaysMothersRace() {
+		return false;
 	}
 	
 	public boolean isShortStature() {

@@ -3001,6 +3001,23 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
+						new ListValue<>("penisUrethra"),
+						new ListValue<>("cockUrethra"),
+						new ListValue<>("urethraPenis"),
+						new ListValue<>("urethraCock")),
+				true,
+				true,
+				"",
+				"Description of method",
+				BodyPartType.VAGINA){//TODO
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return "urethra";
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
 						new ListValue<>("penisUrethra+"),
 						new ListValue<>("cockUrethra+"),
 						new ListValue<>("urethraPenis+"),
@@ -3324,7 +3341,6 @@ public class UtilText {
 		
 		// Vagina:
 		
-
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
 						new ListValue<>("vaginaUrethra"),

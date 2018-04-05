@@ -31,7 +31,7 @@ public class GenericAndrogynousNPC extends NPC {
 	public GenericAndrogynousNPC(boolean isImported) {
 		super(new NameTriplet("Androgynous"), "Generic androgynous.",
 				1, Gender.N_P_V_HERMAPHRODITE, RacialBody.HUMAN, RaceStage.HUMAN,
-				new CharacterInventory(0), WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
+				new CharacterInventory(0), WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true, null);
 		
 		this.setFemininity(50);
 	}

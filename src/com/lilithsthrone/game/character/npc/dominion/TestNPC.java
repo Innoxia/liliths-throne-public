@@ -63,7 +63,7 @@ public class TestNPC extends NPC {
 		super(new NameTriplet("TestNPC"),
 				"A mysterious [test.race] that you found in the back of one of the Shopping Arcade's many shops.",
 				1, Gender.F_V_B_FEMALE, RacialBody.CAT_MORPH, RaceStage.PARTIAL_FULL,
-				new CharacterInventory(10), WorldType.JUNGLE, PlaceType.JUNGLE_CLUB, true); //TODO need to test moving into a 'null' world
+				new CharacterInventory(10), WorldType.JUNGLE, PlaceType.JUNGLE_CLUB, true, null); //TODO need to test moving into a 'null' world
 		
 		if(!isImported) {
 			String s = "";

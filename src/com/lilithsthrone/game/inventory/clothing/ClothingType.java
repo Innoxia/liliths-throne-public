@@ -1461,7 +1461,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You unbutton your shirt and pull it off.",
-					"[npc.Name] unbuttons [npc.her] shirt and pulls it off.",
+					"You unbutton [npc.name]'s shirt and pull it off.",
 					null,
 					"[npc.Name] unbuttons [npc.her] shirt and pulls it off.",
 					"[npc.Name] unbuttons your shirt and pulls it off.",
@@ -1559,7 +1559,7 @@ public class ClothingType {
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You unbutton your shirt and pull it off.",
-					"[npc.Name] unbuttons [npc.her] shirt and pulls it off.",
+					"You unbuttons [npc.name]'s shirt and pull it off.",
 					null,
 					"[npc.Name] unbuttons [npc.her] shirt and pulls it off.",
 					"[npc.Name] unbuttons your shirt and pulls it off.",
@@ -2911,7 +2911,8 @@ public class ClothingType {
 									Util.newArrayListOfValues(
 											new ListValue<ClothingAccess>(ClothingAccess.GROIN)), null))),
 
-			Util.newArrayListOfValues(new ListValue<InventorySlot>(InventorySlot.LEG)), Colour.allClothingColours, null, null, null, null, null){
+			null,
+			Colour.allClothingColours, null, null, null, null, null){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -2984,6 +2985,80 @@ public class ClothingType {
 				else
 					return UtilText.parse(clothingOwner, "[npc.Name] pulls [npc.her] skater dress's skirt back down.");
 			}
+		}
+	};
+	
+	public static AbstractClothingType TORSO_CORSET_DRESS = new AbstractClothingType(1250,
+			"a",
+			false,
+			"corset dress",
+			"corset dresses",
+			"An overbust corset, which is tied up and tightened by a series of strings running up the front."
+					+ " A long skirt is attached to the bottom rim, turning it into a dress.",
+			1,
+			Femininity.FEMININE,
+			InventorySlot.TORSO_UNDER,
+			Rarity.COMMON,
+			null,
+			"torso_corset_dress",
+			null,
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(
+					new BlockedParts(
+							DisplacementType.REMOVE_OR_EQUIP,
+							Util.newArrayListOfValues(
+									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
+									new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
+							Util.newArrayListOfValues(
+									new ListValue<CoverableArea>(CoverableArea.BREASTS),
+									new ListValue<CoverableArea>(CoverableArea.NIPPLES),
+									new ListValue<CoverableArea>(CoverableArea.STOMACH),
+									new ListValue<CoverableArea>(CoverableArea.BACK)),
+							Util.newArrayListOfValues(
+									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
+									new ListValue<ClothingAccess>(ClothingAccess.WAIST)), null)),
+					new ListValue<BlockedParts>(
+							new BlockedParts(
+									DisplacementType.PULLS_UP,
+									null,
+									Util.newArrayListOfValues(
+											new ListValue<CoverableArea>(CoverableArea.ANUS),
+											new ListValue<CoverableArea>(CoverableArea.PENIS),
+											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
+									Util.newArrayListOfValues(
+											new ListValue<ClothingAccess>(ClothingAccess.GROIN)), null))),
+			Util.newArrayListOfValues(
+					new ListValue<InventorySlot>(InventorySlot.STOMACH),
+					new ListValue<InventorySlot>(InventorySlot.CHEST)),
+			Util.newArrayListOfValues(
+					new ListValue<>(Colour.CLOTHING_BLACK)),
+			Colour.allClothingColours,
+			Util.newArrayListOfValues(
+					new ListValue<>(Colour.CLOTHING_BLACK)),
+			Colour.allClothingColours,
+			Util.newArrayListOfValues(
+					new ListValue<>(Colour.CLOTHING_BLACK)),
+			Colour.allClothingColours){
+		
+		@Override
+		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You slip into the corset dress, before tightening the strings on the front.",
+					"You guide [npc.name] into the corset dress, before tightening the strings on the front.",
+					null,
+					"[npc.Name] slips into the corset dress, before tightening the strings on the front.",
+					"[npc.Name] guides you into the corset dress, before tightening the strings on the front.",
+					null);
+		}
+
+		@Override
+		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You untie the corset dress's strings and take it off.",
+					"You untie the strings on the front of [npc.name]'s corset dress, before taking it off.",
+					null,
+					"[npc.Name] unties [npc.her] corset dress's strings and takes it off.",
+					"[npc.Name] unties the strings on the front of your corset dress, before taking it off.",
+					null);
 		}
 	};
 
@@ -5355,6 +5430,48 @@ public class ClothingType {
 		}
 	};
 	
+	public static AbstractClothingType HIPS_SUSPENDER_BELT = new AbstractClothingType(150,
+			"a",
+			false,
+			"suspender belt",
+			"suspender belts",
+			"A circular band of soft, elastic nylon, to which are attached six straps; each of which is designed to hook onto a pair of stockings in order to keep them up.",
+			1,
+			null,
+			InventorySlot.HIPS,
+			Rarity.COMMON,
+			null,
+			"hips_suspender_belt",
+			null,
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null))),
+			null,
+			Colour.lingerieColours, Colour.allClothingColours,
+			Colour.justSteel, Colour.allMetalColours,
+			null, null){
+
+		@Override
+		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You step into the suspender belt before pulling it up to your waist.",
+					"You get [npc.name] to step into the suspender belt before pulling it up to [npc.her] waist.",
+					null,
+					"[npc.Name] steps into the suspender belt before pulling it up to [npc.her] waist.",
+					"[npc.Name] gets you to step into the suspender belt before pulling it up to your waist.",
+					null);
+		}
+
+		@Override
+		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You pull down your suspender belt and take it off.",
+					"You pull down [npc.name]'s suspender belt and take it off.",
+					null,
+					"[npc.Name] pulls down [npc.her] suspender belt and takes it off.",
+					"[npc.Name] pulls down your suspender belt and takes it off.",
+					null);
+		}
+	};
+	
 	// LEG
 
 	public static AbstractClothingType LEG_SKIRT = new AbstractClothingType(150,
@@ -7419,6 +7536,56 @@ public class ClothingType {
 					null);
 		}
 	};
+
+	public static AbstractClothingType SOCK_STOCKINGS = new AbstractClothingType(80,
+			"a pair of",
+			true,
+			"stocking",
+			"stockings",
+			"A pair of nylon stockings, which reach up to the wearer's upper-thigh.",
+			1,
+			Femininity.FEMININE,
+			InventorySlot.SOCK,
+			Rarity.COMMON,
+			null,
+			"sock_stockings",
+			null,
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(
+					new BlockedParts(
+							DisplacementType.REMOVE_OR_EQUIP,
+							Util.newArrayListOfValues(
+									new ListValue<ClothingAccess>(ClothingAccess.FEET),
+									new ListValue<ClothingAccess>(ClothingAccess.CALVES)),
+							null,
+							null, null))),
+			null,
+			Colour.justBlack, Colour.allClothingColours,
+			null, null,
+			null, null){
+		
+
+		@Override
+		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You put on the stockings and pull them up to your upper-thigh.",
+					"You put the stockings on [npc.name] and pull them up to [npc.her] upper-thigh.",
+					null,
+					"[npc.Name] puts on the stockings and pulls them up to [npc.her] upper-thigh.",
+					"[npc.Name] puts the stockings on your [pc.feet] and pulls them up to your upper-thigh.",
+					null);
+		}
+
+		@Override
+		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You pull off your stockings.",
+					"You pull off [npc.name]'s stockings.",
+					null,
+					"[npc.Name] pulls off [npc.her] stockings.",
+					"[npc.Name] pulls off your stockings.",
+					null);
+		}
+	};
 	
 	public static AbstractClothingType SOCK_THIGHHIGH_SOCKS_STRIPED = new AbstractClothingType(150,
 			"a pair of",
@@ -7513,7 +7680,10 @@ public class ClothingType {
 									Util.newArrayListOfValues(new ListValue<ClothingAccess>(
 											ClothingAccess.GROIN)), null))),
 
-			null, Colour.allClothingColours, null, null, null, null, null){
+			null,
+			Colour.justBlack, Colour.allClothingColours,
+			null, null,
+			null, null){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {

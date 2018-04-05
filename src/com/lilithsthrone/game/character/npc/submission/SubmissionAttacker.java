@@ -59,7 +59,7 @@ public class SubmissionAttacker extends NPC {
 	
 	public SubmissionAttacker(Gender gender, boolean isImported) {
 		super(null, "", 3, gender, RacialBody.ALLIGATOR_MORPH, RaceStage.GREATER,
-				new CharacterInventory(10), WorldType.SUBMISSION, PlaceType.SUBMISSION_TUNNELS, false);
+				new CharacterInventory(10), WorldType.SUBMISSION, PlaceType.SUBMISSION_TUNNELS, false, null);
 
 		if(!isImported) {
 			this.setWorldLocation(Main.game.getPlayer().getWorldLocation());
@@ -98,6 +98,7 @@ public class SubmissionAttacker extends NPC {
 					case DOG_MORPH:
 					case DOG_MORPH_DOBERMANN:
 					case HARPY:
+					case HARPY_RAVEN:
 					case HORSE_MORPH:
 					case HUMAN:
 					case REINDEER_MORPH:

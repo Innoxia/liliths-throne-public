@@ -3,6 +3,7 @@ package com.lilithsthrone.game.character.npc.dominion;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.NameTriplet;
 import com.lilithsthrone.game.character.SexualOrientation;
@@ -53,7 +54,7 @@ public class Pazu extends NPC {
 				 *  (if he opens the shop and is still your lover, his description is the same but with, "He also owns a candy shop in the shopping arcade." at the end)
 				 */
 				1, Gender.M_P_MALE, RacialBody.HARPY, RaceStage.LESSER,
-				new CharacterInventory(1), WorldType.JUNGLE, PlaceType.JUNGLE_CLUB, true); //TODO He's in the jungle for now ^^
+				new CharacterInventory(1), WorldType.JUNGLE, PlaceType.JUNGLE_CLUB, true, null); //TODO He's in the jungle for now ^^
 
 		if(!isImported) {
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
@@ -97,7 +98,7 @@ public class Pazu extends NPC {
 	
 	@Override
 	public String getSpeechColour() {
-		if(Main.getProperties().lightTheme) {
+		if(Main.getProperties().hasValue(PropertyValue.lightTheme)) {
 			return "#7000FA";
 		} else {
 			return "#C18FFF";

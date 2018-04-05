@@ -63,7 +63,7 @@ public class DominionAlleywayAttacker extends NPC {
 	
 	public DominionAlleywayAttacker(Gender gender, boolean isImported) {
 		super(null, "", 3, gender, RacialBody.DOG_MORPH, RaceStage.GREATER,
-				new CharacterInventory(10), WorldType.DOMINION, PlaceType.DOMINION_BACK_ALLEYS, false);
+				new CharacterInventory(10), WorldType.DOMINION, PlaceType.DOMINION_BACK_ALLEYS, false, null);
 
 		if(!isImported) {
 	
@@ -108,6 +108,7 @@ public class DominionAlleywayAttacker extends NPC {
 					case BAT_MORPH:
 					case DEMON:
 					case HARPY:
+					case HARPY_RAVEN:
 					case HUMAN:
 					case IMP:
 					case IMP_ALPHA:

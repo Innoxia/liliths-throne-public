@@ -59,7 +59,7 @@ public class ZaranixMaidKelly extends NPC {
 	public ZaranixMaidKelly(boolean isImported) {
 		super(new NameTriplet("Kelly"),
 				"One of Zaranix's succubi maid twins, Kelly is clearly outraged by the fact that you're wandering around the house unsupervised.",
-				10, Gender.F_P_V_B_FUTANARI, RacialBody.DEMON, RaceStage.GREATER, new CharacterInventory(10), WorldType.ZARANIX_HOUSE_FIRST_FLOOR, PlaceType.ZARANIX_FF_MAID, true);
+				10, Gender.F_P_V_B_FUTANARI, RacialBody.DEMON, RaceStage.GREATER, new CharacterInventory(10), WorldType.ZARANIX_HOUSE_FIRST_FLOOR, PlaceType.ZARANIX_FF_MAID, true, null);
 
 		if(!isImported) {
 			this.setPlayerKnowsName(false);

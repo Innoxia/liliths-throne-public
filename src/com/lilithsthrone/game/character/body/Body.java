@@ -1474,10 +1474,12 @@ public class Body implements Serializable, XMLSaving {
 				if (owner.isPlayer()) {
 					sb.append("<p>"
 								+ "Your entire body, save for a small, glowing sphere in the place where your heart should be, is made out of [pc.skinFullDescription(true)]!"
+								+ " You don't need to have any parts of your body pierced in order to equip jewellery, as you can freely morph your body at will!"
 							+ "</p>");
 				} else {
 					sb.append("<p>"
 								+ "[npc.Name]'s entire body, save for a small, glowing sphere in the place where [npc.her] heart should be, is made out of [npc.skinFullDescription(true)]!"
+								+ " [npc.She] doesn't need to have any parts of [npc.her] body pierced in order to equip jewellery, as [npc.she] can freely morph [npc.her] body at will!"
 							+ "</p>");
 				}
 				break;
@@ -2011,10 +2013,10 @@ public class Body implements Serializable, XMLSaving {
 				break;
 			case HARPY:
 				if (owner.isPlayer())
-					sb.append(" Your ears are an internal part of your head, and are covered by a fan of <span style='color:[pc.earColourHex];'>[pc.earColour] feathers</span>."
+					sb.append(" Your ears are an internal part of your head, and are covered by a fan of [pc.earFullDescription(true)]."
 							+ (ear.isPierced()?" They have been cleverly pierced so as to allow you to wear ear-specific jewellery.":""));
 				else
-					sb.append(" [npc.Her] ears are an internal part of [npc.her] head, and are covered by a fan of <span style='color:[npc.earColourHex];'>[npc.earColour] feathers</span>."
+					sb.append(" [npc.Her] ears are an internal part of [npc.her] head, and are covered by a fan of [npc.earFullDescription(true)]."
 							+ (ear.isPierced()?" They have been cleverly pierced so as to allow [npc.herHim] to wear ear-specific jewellery.":""));
 				break;
 		}

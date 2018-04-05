@@ -3,6 +3,7 @@ package com.lilithsthrone.game.character.npc.dominion;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.NameTriplet;
 import com.lilithsthrone.game.character.SexualOrientation;
@@ -24,7 +25,11 @@ import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.rendering.Artist;
+import com.lilithsthrone.rendering.Artwork;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -46,7 +51,8 @@ public class Scarlett extends NPC {
 				"Scarlett is the owner of the rather unoriginally named establishment 'Scarlett's shop'."
 						+ " Rude, loud, and quick to anger, Scarlett isn't a very pleasant person to have to deal with.",
 				5, Gender.M_P_MALE, RacialBody.HARPY, RaceStage.LESSER,
-				new CharacterInventory(30), WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP, true);
+				new CharacterInventory(30), WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP, true,
+				Util.newArrayListOfValues(new ListValue<>(new Artwork("scarlett", Artist.JAM))));
 
 		if(!isImported) {
 			this.setSexualOrientation(SexualOrientation.GYNEPHILIC);
@@ -125,7 +131,7 @@ public class Scarlett extends NPC {
 	
 	@Override
 	public String getSpeechColour() {
-		if(Main.getProperties().lightTheme) {
+		if(Main.getProperties().hasValue(PropertyValue.lightTheme)) {
 			return "#FA0060";
 		} else {
 			return "#FF94BD";

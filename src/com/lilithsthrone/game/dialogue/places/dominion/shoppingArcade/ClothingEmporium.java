@@ -243,7 +243,7 @@ public class ClothingEmporium {
 							return new Response("Gift", "Give Nyan a gift (opens gift selection screen).", ROMANCE_GIFT) {
 								@Override
 								public DialogueNodeOld getNextDialogue() {
-									return GiftDialogue.getGiftDialogue(Main.game.getNyan(), SHOP_CLOTHING_REPEAT, ROMANCE_GIFT);
+									return GiftDialogue.getGiftDialogue(Main.game.getNyan(), SHOP_CLOTHING_REPEAT, 1, ROMANCE_GIFT, 1);
 								}
 								@Override
 								public void effects() {

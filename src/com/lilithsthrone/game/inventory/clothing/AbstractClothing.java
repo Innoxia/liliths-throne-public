@@ -355,51 +355,31 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 		descriptionSB.append("<p>" + (getClothingType().isPlural() ? "They" : "It") + " provide" + (getClothingType().isPlural() ? "" : "s") + " <b>" + getClothingType().getPhysicalResistance() + "</b> <b style='color: "
 				+ Attribute.RESISTANCE_PHYSICAL.getColour().toWebHexString() + ";'> " + Attribute.RESISTANCE_PHYSICAL.getName() + "</b>.</p>");
 
-//		if (!attributeModifiers.isEmpty()) {
-//			if (enchantmentKnown) {
-//				int i = 0;
-//				for (Entry<Attribute, Integer> e : attributeModifiers.entrySet()) {
-//					if (i + 1 == attributeModifiers.size())
-//						descriptionSB.append(" and ");
-//					else
-//						descriptionSB.append(", ");
-//
-//					descriptionSB.append(" <b>" + e.getValue() + "</b> <b style='color: " + e.getKey().getColour().toWebHexString() + ";'> " + e.getKey().getName() + "</b>");
-//					i++;
-//				}
-//			} else {
-//				descriptionSB.append(" and " + (getClothingType().isPlural() ? "have" : "has") + " an <b style='color: " + Colour.RARITY_UNKNOWN.toWebHexString() + ";'>unknown enchantment</b>");
-//			}
-//		}
-//		descriptionSB.append(".</p>");
-
 		if (enchantmentKnown) {
-			descriptionSB.append("<p>Effects:");
-				if (!this.getEffects().isEmpty()) {
-					for (ItemEffect e : this.getEffects()) {
-						if(e.getPrimaryModifier()!=TFModifier.CLOTHING_ATTRIBUTE) {
-							for(String s : e.getEffectsDescription(Main.game.getPlayer(), Main.game.getPlayer())) {
-								descriptionSB.append("</br>"+ s);
-							}
+			if (!this.getEffects().isEmpty()) {
+				descriptionSB.append("<p>Effects:");
+				for (ItemEffect e : this.getEffects()) {
+					if(e.getPrimaryModifier()!=TFModifier.CLOTHING_ATTRIBUTE) {
+						for(String s : e.getEffectsDescription(Main.game.getPlayer(), Main.game.getPlayer())) {
+							descriptionSB.append("</br>"+ s);
 						}
 					}
-					for(Entry<Attribute, Integer> entry : this.getAttributeModifiers().entrySet()) {
-						descriptionSB.append("</br>"+ 
-								(entry.getValue()<0
-										?"[style.boldBad("+entry.getValue()+")] "
-										:"[style.boldGood(+"+entry.getValue()+")] ")
-								+ "<b style='color:"+entry.getKey().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(entry.getKey().getName())+"</b>");
-					}
-					
-				} else {
-					descriptionSB.append("[style.boldDisabled(None)]");
 				}
-			descriptionSB.append("</p>");
+				for(Entry<Attribute, Integer> entry : this.getAttributeModifiers().entrySet()) {
+					descriptionSB.append("</br>"+ 
+							(entry.getValue()<0
+									?"[style.boldBad("+entry.getValue()+")] "
+									:"[style.boldGood(+"+entry.getValue()+")] ")
+							+ "<b style='color:"+entry.getKey().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(entry.getKey().getName())+"</b>");
+				}
+				descriptionSB.append("</p>");
+			}
 					
 			descriptionSB.append("<p>" + (getClothingType().isPlural() ? "They" : "It") + " " + (getClothingType().isPlural() ? "have" : "has") + " a value of " + UtilText.formatAsMoney(getValue()) + ".");
 		} else {
 			descriptionSB.append("</br>" + (getClothingType().isPlural() ? "They" : "It") + " " + (getClothingType().isPlural() ? "have" : "has") + " an <b>unknown value</b>!");
 		}
+		
 		descriptionSB.append("</p>");
 
 		if (getClothingType().getClothingSet() != null)

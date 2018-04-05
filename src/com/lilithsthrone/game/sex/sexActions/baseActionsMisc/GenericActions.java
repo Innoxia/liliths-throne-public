@@ -386,12 +386,20 @@ public class GenericActions {
 							UtilText.nodeContentSB.append("</br>[pc.A_moan+] drifts out from between your [pc.lips+] as you stop stimulating your [pc.nipple+].");
 						}
 						break;
-					case URETHRA_PENIS: case URETHRA_VAGINA:
+					case URETHRA_PENIS:
 						if (Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(),  ot)!=null && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(),  ot).isPlayer()) {
-							UtilText.nodeContentSB.append("</br>[npc.Name] lets out [npc.a_moan+] as you pull out of [npc.her] [npc.urethra+].");
+							UtilText.nodeContentSB.append("</br>[npc.Name] lets out [npc.a_moan+] as you pull out of [npc.her] [npc.penisUrethra+].");
 						}
 						if (Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(),  ot)!=null && Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(),  ot).isPlayer()) {
-							UtilText.nodeContentSB.append("</br>[pc.A_moan+] drifts out from between your [pc.lips+] as you stop stimulating your [pc.urethra+].");
+							UtilText.nodeContentSB.append("</br>[pc.A_moan+] drifts out from between your [pc.lips+] as you stop stimulating your [pc.penisUrethra+].");
+						}
+						break;
+					case URETHRA_VAGINA:
+						if (Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(),  ot)!=null && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(),  ot).isPlayer()) {
+							UtilText.nodeContentSB.append("</br>[npc.Name] lets out [npc.a_moan+] as you pull out of [npc.her] [npc.vaginaUrethra+].");
+						}
+						if (Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(),  ot)!=null && Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(),  ot).isPlayer()) {
+							UtilText.nodeContentSB.append("</br>[pc.A_moan+] drifts out from between your [pc.lips+] as you stop stimulating your [pc.vaginaUrethra+].");
 						}
 						break;
 					case VAGINA:

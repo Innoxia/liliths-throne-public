@@ -3,6 +3,7 @@ package com.lilithsthrone.game.sex.sexActions;
 import java.util.List;
 import java.util.Set;
 
+import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
@@ -230,6 +231,30 @@ public interface SexActionInterface {
 	public default Response toResponse() {
 		if(isBaseRequirementsMet() && isPhysicallyPossible() && !isBannedFromSexManager()) {
 			
+			if(!this.getParticipantType().isUsingSelfOrificeType()) {
+				if(getAssociatedOrificeType()!=null) {
+					switch(getAssociatedOrificeType()){ //TODO urethral checks:
+						case URETHRA_PENIS:
+							if((!Main.getProperties().hasValue(PropertyValue.urethralContent) && getAssociatedPenetrationType()==PenetrationType.PENIS)) {
+								return null;
+							}
+							break;
+						case URETHRA_VAGINA:
+							if(!Main.getProperties().hasValue(PropertyValue.urethralContent)) {
+								return null;
+							}
+							break;
+						case VAGINA:
+							if(!Sex.getActivePartner().getPlayerKnowsAreas().contains(CoverableArea.VAGINA)) {
+								return null;
+							}
+							break;
+						default:
+							break;
+					}
+				}
+			}
+			
 			// Return null if the player doesn't know about the partners penis/vagina
 			if(this.getActionType().isPlayerAction()) {
 				if(this.getParticipantType()==SexParticipantType.CATCHER && getAssociatedPenetrationType()==PenetrationType.PENIS && !Sex.getActivePartner().getPlayerKnowsAreas().contains(CoverableArea.PENIS)) {
@@ -239,12 +264,12 @@ public interface SexActionInterface {
 					if(getAssociatedOrificeType()!=null) {
 						switch(getAssociatedOrificeType()){ //TODO urethral checks:
 							case URETHRA_PENIS:
-								if((!Main.getProperties().urethralContent && getAssociatedPenetrationType()==PenetrationType.PENIS) || !Sex.getActivePartner().getPlayerKnowsAreas().contains(CoverableArea.PENIS)) {
+								if(!Sex.getActivePartner().getPlayerKnowsAreas().contains(CoverableArea.PENIS)) {
 									return null;
 								}
 								break;
 							case URETHRA_VAGINA:
-								if((!Main.getProperties().urethralContent && getAssociatedPenetrationType()==PenetrationType.PENIS) || !Sex.getActivePartner().getPlayerKnowsAreas().contains(CoverableArea.VAGINA)) {
+								if(!Sex.getActivePartner().getPlayerKnowsAreas().contains(CoverableArea.VAGINA)) {
 									return null;
 								}
 								break;
@@ -712,13 +737,13 @@ public interface SexActionInterface {
 				case BREAST:
 					break;
 				case URETHRA_PENIS:
-					if(!getOrificeCharacter().hasPenis()) {
+					if(!getOrificeCharacter().hasPenis() || !getOrificeCharacter().isUrethraFuckable()) {
 						return false;
 					}
 					break;
 				case VAGINA:
 				case URETHRA_VAGINA:
-					if(!getOrificeCharacter().hasVagina()) {
+					if(!getOrificeCharacter().hasVagina() || !getOrificeCharacter().isVaginaUrethraFuckable()) {
 						return false;
 					}
 					break;

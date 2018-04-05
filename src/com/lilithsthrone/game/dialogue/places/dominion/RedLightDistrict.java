@@ -688,7 +688,7 @@ public class RedLightDistrict {
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getLoppy(), SexPositionSlot.STANDING_SUBMISSIVE))),
-							AFTER_SEX_BUNNY,
+							AFTER_SEX_LOPPY,
 							UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_LOPPY_SEX")) {
 						@Override
 						public void effects() {
@@ -709,7 +709,7 @@ public class RedLightDistrict {
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getLoppy(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-							AFTER_SEX_BUNNY,
+							AFTER_SEX_LOPPY,
 							UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_LOPPY_SEX_SUBMISSIVE")) {
 						@Override
 						public void effects() {

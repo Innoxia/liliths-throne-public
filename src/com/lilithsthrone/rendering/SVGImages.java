@@ -22,7 +22,7 @@ public enum SVGImages {
 
 	displacedIcon, concealedIcon, cummedInIcon, feminineWarningIcon, masculineWarningIcon, jinxedIcon,
 
-			menuIcon, inventoryIcon, inventoryIconDisabled, journalIcon, peopleIcon, zoomInIcon, zoomOutIcon, copyIcon, exportIcon, calendarIcon,
+			menuIcon, inventoryIcon, inventoryIconDisabled, journalIcon, peopleIcon, zoomInIcon, zoomOutIcon, copyIcon, exportIcon, calendarIcon, informationIcon,
 
 			diskSave, diskSaveDisabled, diskSaveConfirm, diskOverwrite, diskLoad, diskLoadConfirm, diskDelete, diskDeleteConfirm,
 			
@@ -133,12 +133,16 @@ public enum SVGImages {
 
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/export.svg");
 			exportIcon = Util.inputStreamToString(is);
+			exportIcon = setColour(exportIcon, Colour.BASE_BLACK);
+
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/information.svg");
+			informationIcon = Util.inputStreamToString(is);
+			informationIcon = setColour(informationIcon, Colour.BASE_BLACK);
 			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/calendar.svg");
 			calendarIcon = Util.inputStreamToString(is);
 			calendarIcon = setColour(calendarIcon, Colour.BASE_CRIMSON);
 			
-
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/diskSave.svg");
 			diskSave = Util.inputStreamToString(is);
 			diskSave = setColour(diskSave, Colour.BASE_BLACK);
@@ -165,7 +169,6 @@ public enum SVGImages {
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/diskDelete.svg");
 			diskDeleteConfirm = Util.inputStreamToString(is);
 			diskDeleteConfirm = setColour(diskDeleteConfirm, Colour.GENERIC_EXCELLENT);
-			
 			
 			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/map/playerIcon.svg");
@@ -642,6 +645,10 @@ public enum SVGImages {
 	
 	public String getExportIcon() {
 		return exportIcon;
+	}
+
+	public String getInformationIcon() {
+		return informationIcon;
 	}
 
 	public String getCalendarIcon() {

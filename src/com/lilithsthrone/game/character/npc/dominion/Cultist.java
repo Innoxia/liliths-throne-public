@@ -75,7 +75,7 @@ public class Cultist extends NPC {
 				new CharacterInventory(10),
 				WorldType.DOMINION,
 				PlaceType.DOMINION_BACK_ALLEYS,
-				false);
+				false, null);
 		
 		if(!isImported) {
 			setAttribute(Attribute.MAJOR_CORRUPTION, 100);
