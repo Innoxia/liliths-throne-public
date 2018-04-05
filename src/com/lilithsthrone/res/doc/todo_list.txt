@@ -50,7 +50,7 @@
 	
 	Bugs:
 		Fixed bug where NPCs could still perform urethral penetration actions, even if it was turned off. (So sorry about this!)
-		Fixed all urethras being penetratable, even if capacity was at 0.
+		Fixed all urethras being penetrable, even if capacity was at 0.
 		Fixed page automatically scrolling down when opening character view screen.
 		Fixed minor bug in harpy ear descriptions in character view screen.
 		Fixed final gift-related bugs in Nyan's tabs.
@@ -135,7 +135,9 @@
 	- Characters can still be stuck with a phantom pregnancy that resets their pregnancy status on reload
 	- In the slave day to day log, slaves are always listed as having sex with themselves (i.e. Ben fucked Ben) and only if you have impregnation opportunities turned on will you actually see who they potentially impregnated
 	
-	harpy offspring to bea dded to nests
+	harpy offspring to be added to nests
+	
+	I'm a wolf-slime girl and apparently that doesn't qualify for seducing Brax
 	
 	The alligator-girl presses herself into your back, letting out a high-pitched squeal as she prepares to reach her climax. The alligator-girl's hard dick twitches, and she feels her huge balls tightening as she starts to cum.
 	The alligator-girl slides her hard dick out of your command_unknown, before reaching down and starting to furiously masturbate; her hand running up the length of her shaft to rub and tease her blunt head. As her huge testicles tense up, the alligator-girl's alligator cum shoots out all over your back. The alligator-girl grins as her alligator cum splatters onto you, and you can't help but let out a moan as you feel it running down over your skin.
