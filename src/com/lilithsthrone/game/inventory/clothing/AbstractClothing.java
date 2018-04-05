@@ -295,7 +295,17 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 			Element displacementElement = (Element)parentElement.getElementsByTagName("displacedList").item(0);
 			for(int i=0; i<displacementElement.getElementsByTagName("displacementType").getLength(); i++){
 				Element e = ((Element)displacementElement.getElementsByTagName("displacementType").item(i));
-				clothing.displacedList.add(DisplacementType.valueOf(e.getAttribute("value")));
+				
+				DisplacementType dt = DisplacementType.valueOf(e.getAttribute("value"));
+				boolean displacementTypeFound = false;
+				for (BlockedParts bp : clothing.getClothingType().getBlockedPartsList()) {
+					if (bp.displacementType == dt)
+						displacementTypeFound = true;
+				}
+				if(displacementTypeFound)
+					clothing.displacedList.add(dt);
+				else
+					System.err.println("Warning: Invalid displacement");
 			}
 		} catch(Exception ex) {
 		}
