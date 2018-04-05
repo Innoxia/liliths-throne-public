@@ -1,7 +1,6 @@
 package com.lilithsthrone.game.dialogue.npcDialogue.submission;
 
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
@@ -24,7 +23,7 @@ import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.2.1
- * @version 0.2.1
+ * @version 0.2.2
  * @author Innoxia
  */
 public class TunnelAttackDialogue {
@@ -44,9 +43,7 @@ public class TunnelAttackDialogue {
 					// Pregnant encounters:
 					if(!Main.game.getActiveNPC().isReactedToPregnancy()) {
 						return "<p>"
-									+ "Assaulted again by the <b style='color:"+Femininity.valueOf(Main.game.getActiveNPC().getFemininityValue()).getColour().toWebHexString()+";'>[npc.femininity]</b>"
-									+ " <b style='color:"+Main.game.getActiveNPC().getRaceStage().getColour().toWebHexString()+";'>[npc.raceStage]</b>"
-									+ " <b style='color:"+Main.game.getActiveNPC().getRace().getColour().toWebHexString()+";'>[npc.race]</b>!"
+									+ "Assaulted again by the [npc.fullRace(true)]!"
 								+ "</p>"
 								+ (Main.game.getActiveNPC().hasFetish(Fetish.FETISH_PREGNANCY)  || Main.game.getActiveNPC().hasFetish(Fetish.FETISH_BROODMOTHER)
 										
@@ -60,9 +57,7 @@ public class TunnelAttackDialogue {
 					
 					} else {
 						return "<p>"
-								+ "Assaulted again by the <b style='color:"+Femininity.valueOf(Main.game.getActiveNPC().getFemininityValue()).getColour().toWebHexString()+";'>[npc.femininity]</b>"
-										+ " <b style='color:"+Main.game.getActiveNPC().getRaceStage().getColour().toWebHexString()+";'>[npc.raceStage]</b>"
-										+ " <b style='color:"+Main.game.getActiveNPC().getRace().getColour().toWebHexString()+";'>[npc.race]</b>!"
+								+ "Assaulted again by the [npc.fullRace(true)]!"
 								+ " [npc.She]'s still pregnant."
 							+ "</p>"
 							+ "<p>"
@@ -77,9 +72,7 @@ public class TunnelAttackDialogue {
 				} else {
 					// Standard repeat encounter:
 					return "<p>"
-								+ "Assaulted again by the <b style='color:"+Femininity.valueOf(Main.game.getActiveNPC().getFemininityValue()).getColour().toWebHexString()+";'>[npc.femininity]</b>"
-										+ " <b style='color:"+Main.game.getActiveNPC().getRaceStage().getColour().toWebHexString()+";'>[npc.raceStage]</b>"
-										+ " <b style='color:"+Main.game.getActiveNPC().getRace().getColour().toWebHexString()+";'>[npc.race]</b>!"
+								+ "Assaulted again by the [npc.fullRace(true)]!"
 							+ "</p>"
 							+ "<p>"
 								+ (Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer())
@@ -92,9 +85,7 @@ public class TunnelAttackDialogue {
 				
 			} else {
 				return "<p>"
-						+ "Assaulted by <b style='color:"+Femininity.valueOf(Main.game.getActiveNPC().getFemininityValue()).getColour().toWebHexString()+";'>[npc.a_femininity]</b>"
-								+ " <b style='color:"+Main.game.getActiveNPC().getRaceStage().getColour().toWebHexString()+";'>[npc.raceStage]</b>"
-								+ " <b style='color:"+Main.game.getActiveNPC().getRace().getColour().toWebHexString()+";'>[npc.race]</b>!"
+						+ "Assaulted by [npc.a_fullRace(true)]!"
 					+ "</p>"
 					+ "<p>"
 					+ (Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer())

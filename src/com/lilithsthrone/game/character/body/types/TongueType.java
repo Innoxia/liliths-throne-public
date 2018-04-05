@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.valueEnums.TongueModifier;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -38,7 +39,13 @@ public enum TongueType implements BodyPartTypeInterface {
 
 	TENGU(BodyCoveringType.TONGUE, Race.HARPY, 1),
 
-	SQUIRREL_MORPH(BodyCoveringType.TONGUE, Race.SQUIRREL_MORPH, 1);
+	SQUIRREL_MORPH(BodyCoveringType.TONGUE, Race.SQUIRREL_MORPH, 1),
+
+	RAT_MORPH(BodyCoveringType.TONGUE, Race.RAT_MORPH, 1),
+	
+	RABBIT_MORPH(BodyCoveringType.TONGUE, Race.RABBIT_MORPH, 1),
+
+	BAT_MORPH(BodyCoveringType.TONGUE, Race.BAT_MORPH, 1);
 	
 	private BodyCoveringType skinType;
 	private Race race;
@@ -82,28 +89,37 @@ public enum TongueType implements BodyPartTypeInterface {
 			case COW_MORPH:
 				return UtilText.returnStringAtRandom("wide", "strong", "cow-like");
 			case DEMON_COMMON:
-				return UtilText.returnStringAtRandom("forked");
+				return UtilText.returnStringAtRandom("");
 			case DOG_MORPH:
 				return UtilText.returnStringAtRandom("wide", "dog-like");
 			case ALLIGATOR_MORPH:
 				return UtilText.returnStringAtRandom("forked");
 			case HORSE_MORPH:
-				return UtilText.returnStringAtRandom("strong", "horse-like", "long");
+				return UtilText.returnStringAtRandom("strong", "horse-like");
 			case REINDEER_MORPH:
-				return UtilText.returnStringAtRandom("strong", "reindeer-like", "long");
+				return UtilText.returnStringAtRandom("strong", "reindeer-like");
 			case HUMAN:
 				return UtilText.returnStringAtRandom("");
 			case SQUIRREL_MORPH:
-				return UtilText.returnStringAtRandom("tiny");
-			case TENGU:
-				return UtilText.returnStringAtRandom("long", "bird-like");
-			default:
 				return UtilText.returnStringAtRandom("");
+			case TENGU:
+				return UtilText.returnStringAtRandom("bird-like");
+			case BAT_MORPH:
+				return UtilText.returnStringAtRandom("");
+			case IMP:
+				return UtilText.returnStringAtRandom("");
+			case RAT_MORPH:
+				return UtilText.returnStringAtRandom("");
+			case RABBIT_MORPH:
+				return UtilText.returnStringAtRandom("");
+			case WOLF_MORPH:
+				return UtilText.returnStringAtRandom("wide", "wolf-like");
 		}
+		return "";
 	}
 
 	@Override
-	public BodyCoveringType getBodyCoveringType() {
+	public BodyCoveringType getBodyCoveringType(Body body) {
 		return skinType;
 	}
 

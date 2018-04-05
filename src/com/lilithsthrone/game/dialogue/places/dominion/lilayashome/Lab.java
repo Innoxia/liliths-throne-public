@@ -8,6 +8,7 @@ import com.lilithsthrone.game.character.PlayerCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
+import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
@@ -1518,7 +1519,7 @@ public class Lab {
 					+ " [lilaya.speech(Anyway! D-Don't worry about anything! Three years into the future is nothing! I-I'll try and investigate a little more, ok?!)]"
 				+ "</p>"
 				+ "<p>"
-					+ "It's quite apparent that Lilaya isn't interesting in discussing the matter any more..."
+					+ "It's quite apparent that Lilaya isn't interested in discussing the matter any more..."
 				+ "</p>";
 		}
 
@@ -2121,8 +2122,6 @@ public class Lab {
 	};
 	
 	public static final DialogueNodeOld LILAYA_SLAVER_RECOMMENDATION_SLAVE_ACCOMMODATION = new DialogueNodeOld("", "", true, true) {
-		/**
-		 */
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -2464,32 +2463,36 @@ public class Lab {
 						+ "</p>");
 			}
 
-			UtilText.nodeContentSB.append(
-					"<p>"
-						+ "[lilaya.speech(Don't worry, I'm here for you,)]"
-						+ " she says, pulling you into a loving hug for a moment before stepping back,"
-						+ " [lilaya.speech(but first, I need to know what sort of race you're going to be giving birth to.)]"
-					+ "</p>"
-						
-					+ "<p>"
-						+ (!Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.VAGINA)
-							? "As she speaks, Lilaya starts stripping off your clothes, and as she gets access to your vagina, she lets out a little humming noise, "
-							: "Your vagina is already exposed, and, after looking down at it for a moment, Lilaya lets out a little humming noise, "));
-			
-			switch(Main.game.getPlayer().getVaginaType()) {
-				case HARPY:
-					UtilText.nodeContentSB.append("[lilaya.speech(Ooh, alright, you're going to be laying some eggs, how exciting!"
-							+ " I'm sure you're already feeling it, but some incredibly strong maternal instincts are going to be kicking in pretty soon, and you're only going to feel comfortable doing this in a very personal area."
-							+ " I think using your room would be the best bet, follow me!)]"
-							+ "</p>");
-					break;
-				default:
-					UtilText.nodeContentSB.append("[lilaya.speech(Alright, so you're going to be giving birth to live young."
-							+ " I've got a room set up for just that purpose, follow me!)]"
-							+ "</p>");
-					break;
+			if(Main.game.getPlayer().getBodyMaterial()==BodyMaterial.SLIME) {
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "DETECT_PREGNANCY_TYPE_SLIME"));
+				
+			} else {
+				UtilText.nodeContentSB.append(
+						"<p>"
+							+ "[lilaya.speech(Don't worry, I'm here for you,)]"
+							+ " she says, pulling you into a loving hug for a moment before stepping back,"
+							+ " [lilaya.speech(but first, I need to know what sort of race you're going to be giving birth to.)]"
+						+ "</p>"
+							
+						+ "<p>"
+							+ (!Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.VAGINA)
+								? "As she speaks, Lilaya starts stripping off your clothes, and as she gets access to your vagina, she lets out a little humming noise, "
+								: "Your vagina is already exposed, and, after looking down at it for a moment, Lilaya lets out a little humming noise, "));
+				
+				switch(Main.game.getPlayer().getVaginaType()) {
+					case HARPY:
+						UtilText.nodeContentSB.append("[lilaya.speech(Ooh, alright, you're going to be laying some eggs, how exciting!"
+								+ " I'm sure you're already feeling it, but some incredibly strong maternal instincts are going to be kicking in pretty soon, and you're only going to feel comfortable doing this in a very personal area."
+								+ " I think using your room would be the best bet, follow me!)]"
+								+ "</p>");
+						break;
+					default:
+						UtilText.nodeContentSB.append("[lilaya.speech(Alright, so you're going to be giving birth to live young."
+								+ " I've got a room set up for just that purpose, follow me!)]"
+								+ "</p>");
+						break;
+				}
 			}
-			
 			
 			return UtilText.nodeContentSB.toString();
 		}
@@ -2539,78 +2542,15 @@ public class Lab {
 
 		@Override
 		public String getContent() {
+			if(Main.game.getPlayer().getBodyMaterial()==BodyMaterial.SLIME) {
+				return UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "ASSIST_BIRTHING_SLIME");
+			}
+			
 			if (!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_FIRST_TIME_PREGNANCY)) {
-				return "<p>"
-							+ "Taking your hands in hers, she leads you out of the lab and down the hallway."
-							+ " You soon find yourself standing outside one of the many doors that line the corridor, and Lilaya steps forwards and holds it open for you."
-							+ " Stepping inside, you find yourself in a specially-purposed birthing room."
-							+ " Instead of being carpeted, like most of the other rooms in this house, clean white tiles have been chosen for this room's flooring."
-							+ " A surprisingly modern-looking birthing bed is sitting against one wall of the room, but apart from that, there isn't much else in the way of medical equipment."
-							+ " A few comfortable chairs have been placed around the edges of the room, but other than those, and a drinks cabinet that's sitting in one corner, the room is devoid of any other furniture."
-						+ "</p>"
-
-						+ "<p>"
-							+ "As Lilaya leads you over to the bed, she explains the situation, "
-							+ UtilText.parseSpeech("Ok, so I know you haven't done anything like this before, so I'll quickly explain what's going to happen."
-									+ " In order for you to give birth, I need to focus a special kind of arcane spell into your nice little bump here."
-									+ " Although you won't feel any pain, a lot of the arcane power I'll be using is going to be drawn directly from your aura, and there's a good chance that you're going to pass out from it.", Main.game.getLilaya())
-						+ "</p>"
-
-						+ "<p>"
-							+ "You glance across worriedly at Lilaya as she says this, but she squeezes your hand in hers and reassures you, "
-							+ UtilText.parseSpeech("Don't worry, you don't need to stay conscious during this."
-									+ " Now, after I've delivered your children, they're going to grow pretty quickly, so don't be alarmed!"
-									+ " They're also going to be pretty hungry, but don't worry if you're not producing any milk, we've got everything they'll need in that cabinet there."
-									+ " Oh, and also, they're probably going to want to leave straight away."
-									+ " All children are born with a strong desire to go out and become independent as soon as possible, so don't take it personally if they've already left by the time you wake up.", Main.game.getLilaya())
-						+ "</p>"
-
-						+ "<p>"
-							+ (!Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.VAGINA)
-									? "As she's speaking, Lilaya starts stripping off your clothes, and as she gets access to your vagina, she gently pushes you down onto the bed."
-									: "Your vagina is already exposed, so Lilaya starts by gently pushing you back onto the bed.")
-							+ " After following a few more of her instructions, you find yourself lying back with your legs held up and spread apart by a pair of sturdy metal supports."
-						+ "</p>"
-
-						+ "<p>"
-							+ UtilText.parseSpeech("Ok, all set?", Main.game.getLilaya())
-						+ "</p>";
+				return UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "ASSIST_BIRTHING_FIRST_TIME");
+				
 			} else {
-				return "<p>"
-							+ "Taking your hands in hers, she leads you out of the lab and down the hallway."
-							+ " You soon find yourself standing outside one of the many doors that line the corridor, and Lilaya steps forwards and holds it open for you."
-							+ " Stepping inside, you once again find yourself standing in the specially-purposed birthing room."
-							+ " Instead of being carpeted, like most of the other rooms in this house, clean white tiles have been chosen for this room's flooring."
-							+ " A surprisingly modern-looking birthing bed is sitting against one wall of the room, but apart from that, there isn't much else in the way of medical equipment."
-							+ " A few comfortable chairs have been placed around the edges of the room, but other than those, and a drinks cabinet that's sitting in one corner, the room is devoid of any other furniture."
-						+ "</p>"
-
-						+ "<p>"
-							+ "As Lilaya leads you over to the bed, she reminds you of what's about to happen, "
-							+ UtilText.parseSpeech("Ok, so I know you've done this before, but I'll quickly go over what's going to happen."
-									+ " In order for you to give birth, I need to focus a special kind of arcane spell into your nice little bump here."
-									+ " Although you won't feel any pain, a lot of the arcane power I'll be using is going to be drawn directly from your aura, and there's a good chance that you're going to pass out from it.", Main.game.getLilaya())
-						+ "</p>"
-
-						+ "<p>"
-							+ "You let out a sigh she says this, but she squeezes your hand in hers and reassures you, "
-							+ UtilText.parseSpeech("Don't worry, remember, you don't need to stay conscious during this."
-									+ " Now, just remember that after I've delivered your children, they're going to grow pretty quickly!"
-									+ " They're also going to be hungry, but don't worry if you're not producing any milk, we've got everything they'll need in that cabinet there."
-									+ " Oh, and also, they're probably going to want to leave straight away."
-									+ " All children are born with a strong desire to go out and become independent as soon as possible, so don't take it personally if they've already left by the time you wake up.", Main.game.getLilaya())
-						+ "</p>"
-
-						+ "<p>"
-							+ (Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.VAGINA)
-									? "As she's speaking, Lilaya starts stripping off your clothes, and as she gets access to your vagina, she gently pushes you down onto the bed."
-									: "Your vagina is already exposed, so Lilaya starts by gently pushing you back onto the bed.")
-							+ " After following a few more of her instructions, you find yourself lying back with your legs held up and spread apart by a pair of sturdy metal supports."
-						+ "</p>"
-
-						+ "<p>"
-							+ UtilText.parseSpeech("Ok, all set?", Main.game.getLilaya())
-						+ "</p>";
+				return UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "ASSIST_BIRTHING");
 			}
 		}
 
@@ -2623,11 +2563,13 @@ public class Lab {
 						Main.game.getDialogueFlags().values.remove(DialogueFlagValue.reactedToPregnancyLilaya);
 						Main.game.getPlayer().endPregnancy(true);
 						Main.game.getPlayer().setMana(0);
-
-						Main.game.getPlayer().incrementVaginaStretchedCapacity(15);
-						Main.game.getPlayer().incrementVaginaCapacity(
-								(Main.game.getPlayer().getVaginaStretchedCapacity()-Main.game.getPlayer().getVaginaRawCapacityValue())*Main.game.getPlayer().getVaginaPlasticity().getCapacityIncreaseModifier(),
-								false);
+						
+						if(Main.game.getPlayer().getBodyMaterial()!=BodyMaterial.SLIME) {
+							Main.game.getPlayer().incrementVaginaStretchedCapacity(15);
+							Main.game.getPlayer().incrementVaginaCapacity(
+									(Main.game.getPlayer().getVaginaStretchedCapacity()-Main.game.getPlayer().getVaginaRawCapacityValue())*Main.game.getPlayer().getVaginaPlasticity().getCapacityIncreaseModifier(),
+									false);
+						}
 					}
 				};
 
@@ -2639,10 +2581,12 @@ public class Lab {
 						Main.game.getPlayer().endPregnancy(true);
 						Main.game.getPlayer().setMana(0);
 
-						Main.game.getPlayer().incrementVaginaStretchedCapacity(15);
-						Main.game.getPlayer().incrementVaginaCapacity(
-								(Main.game.getPlayer().getVaginaStretchedCapacity()-Main.game.getPlayer().getVaginaRawCapacityValue())*Main.game.getPlayer().getVaginaPlasticity().getCapacityIncreaseModifier(),
-								false);
+						if(Main.game.getPlayer().getBodyMaterial()!=BodyMaterial.SLIME) {
+							Main.game.getPlayer().incrementVaginaStretchedCapacity(15);
+							Main.game.getPlayer().incrementVaginaCapacity(
+									(Main.game.getPlayer().getVaginaStretchedCapacity()-Main.game.getPlayer().getVaginaRawCapacityValue())*Main.game.getPlayer().getVaginaPlasticity().getCapacityIncreaseModifier(),
+									false);
+						}
 					}
 				};
 
@@ -2666,19 +2610,29 @@ public class Lab {
 					+ "<p>"
 					+ UtilText.parseSpeech("Right, here we go!", Main.game.getLilaya())
 					+ " she says, and you see sparks of purple energy start to run down her arms."
-					+ "</p>"
+					+ "</p>");
 
-					+ "<p>"
+			if(Main.game.getPlayer().getBodyMaterial()==BodyMaterial.SLIME) {
+				UtilText.nodeContentSB.append("<p>"
 						+ "You strain your neck to look down, and see Lilaya bring her hands up to hover over your pregnant belly."
 						+ " A huge wave of exhaustion crashes over you, and you remember what she said about how she was going to draw out your aura for this."
-						+ " You struggle to keep your eyes open, but as you feel an intense pushing sensation deep within your vagina, you're almost glad that you can't see what's happening."
+						+ " You struggle to keep your eyes open, but as you feel an intense pushing sensation deep with your slimy body, you're almost glad that you can't see what's happening."
 						+ " You start to slip in and out of consciousness, and you find yourself having a strange dream."
-					+ "</p>"
-
-					+ "<p>"
-						+ "<i>"
-						+ "You hear Lilaya speaking from somewhere beneath you, but you can't make out what she's saying..."
-						+ "</br></br>");
+					+ "</p>");
+				
+			} else {
+				UtilText.nodeContentSB.append("<p>"
+							+ "You strain your neck to look down, and see Lilaya bring her hands up to hover over your pregnant belly."
+							+ " A huge wave of exhaustion crashes over you, and you remember what she said about how she was going to draw out your aura for this."
+							+ " You struggle to keep your eyes open, but as you feel an intense pushing sensation deep within your vagina, you're almost glad that you can't see what's happening."
+							+ " You start to slip in and out of consciousness, and you find yourself having a strange dream."
+						+ "</p>");
+			}
+			
+			UtilText.nodeContentSB.append("<p>"
+					+ "<i>"
+					+ "You hear Lilaya speaking from somewhere beneath you, but you can't make out what she's saying..."
+					+ "</br></br>");
 			
 			if(Main.game.getPlayer().getBreastRawMilkStorageValue() > 0) {
 				UtilText.nodeContentSB.append("You feel a desperate suckling at your nipples, and you're vaguely aware of something greedily drinking down mouthfuls of your [pc.milk]...");
@@ -2688,143 +2642,23 @@ public class Lab {
 			
 			
 			if(Main.game.getPlayer().getLastLitterBirthed().getSonsFromFather() > 0) {
-				switch(Main.game.getPlayer().getLastLitterBirthed().getFatherRace()) {
-					case ANGEL:
-						UtilText.nodeContentSB.append("</br></br>Some time later, you imagine seeing an androgynous figure bending down over you, who plants a kiss on your cheek and mutters something in your ear before walking out the door...");
-						break;
-					case CAT_MORPH:
-						UtilText.nodeContentSB.append("</br></br>Some time later, you imagine seeing a strangely familiar cat-boy bending down over you, who plants a kiss on your cheek and mutters something in your ear before walking out the door...");
-						break;
-					case DEMON:
-						UtilText.nodeContentSB.append("</br></br>Some time later, you imagine seeing an excitable imp flutter up to plant a kiss on your cheek."
-								+ " You hear Lilaya shouting somewhere in the background, and the imp lets out a little laugh before darting off out of the room...");
-						break;
-					case DOG_MORPH:
-						UtilText.nodeContentSB.append("</br></br>Some time later, you imagine seeing a strangely familiar dog-boy bending down over you, who plants a kiss on your cheek and mutters something in your ear before walking out the door...");
-						break;
-					case HARPY:
-						UtilText.nodeContentSB.append("</br></br>Some time later, you imagine seeing a very pretty harpy bending down over you, who plants a kiss on your cheek and mutters something in your ear before walking out the door...");
-						break;
-					case HORSE_MORPH:
-						UtilText.nodeContentSB.append("</br></br>Some time later, you imagine seeing a handsome horse-boy bending down over you, who plants a kiss on your cheek and mutters something in your ear before walking out the door...");
-						break;
-					case HUMAN:
-						UtilText.nodeContentSB.append("</br></br>Some time later, you imagine seeing a young man bending down over you, planting a kiss on your cheek and muttering something in your ear before walking out the door...");
-						break;
-					case WOLF_MORPH:
-						UtilText.nodeContentSB.append("</br></br>Some time later, you imagine seeing a very masculine wolf-boy bending down over you, who plants a kiss on your cheek and mutters something in your ear before walking out the door...");
-						break;
-					case SQUIRREL_MORPH:
-						UtilText.nodeContentSB.append("</br></br>Some time later, you imagine seeing a very handsome squirrel-boy bending down over you, who plants a kiss on your cheek and mutters something in your ear before walking out the door...");
-						break;
-					default:
-						UtilText.nodeContentSB.append("</br></br>Some time later, you imagine seeing a strange young man bending down over you, planting a kiss on your cheek and muttering something in your ear before walking out the door...");
-						break;
-				}
+				UtilText.nodeContentSB.append("</br></br>Some time later, you imagine seeing a strangely familiar "
+							+Main.game.getPlayer().getLastLitterBirthed().getFatherRace().getOffspringMaleNameSingular()+" bending down over you, who plants a kiss on your cheek and mutters something in your ear before walking out the door...");
+				
 			} else {
 				if(Main.game.getPlayer().getLastLitterBirthed().getSonsFromMother() > 0) {
-					switch(Main.game.getPlayer().getLastLitterBirthed().getMotherRace()) {
-						case ANGEL:
-							UtilText.nodeContentSB.append("</br></br>Some time later, you imagine seeing an androgynous figure bending down over you, who plants a kiss on your cheek and mutters something in your ear before walking out the door...");
-							break;
-						case CAT_MORPH:
-							UtilText.nodeContentSB.append("</br></br>Some time later, you imagine seeing a strangely familiar cat-boy bending down over you, who plants a kiss on your cheek and mutters something in your ear before walking out the door...");
-							break;
-						case DEMON:
-							UtilText.nodeContentSB.append("</br></br>Some time later, you imagine seeing an excitable imp flutter up to plant a kiss on your cheek."
-									+ " You hear Lilaya shouting somewhere in the background, and the imp lets out a little laugh before darting off out of the room...");
-							break;
-						case DOG_MORPH:
-							UtilText.nodeContentSB.append("</br></br>Some time later, you imagine seeing a strangely familiar dog-boy bending down over you, who plants a kiss on your cheek and mutters something in your ear before walking out the door...");
-							break;
-						case HARPY:
-							UtilText.nodeContentSB.append("</br></br>Some time later, you imagine seeing a very pretty harpy bending down over you, who plants a kiss on your cheek and mutters something in your ear before walking out the door...");
-							break;
-						case HORSE_MORPH:
-							UtilText.nodeContentSB.append("</br></br>Some time later, you imagine seeing a handsome horse-boy bending down over you, who plants a kiss on your cheek and mutters something in your ear before walking out the door...");
-							break;
-						case HUMAN:
-							UtilText.nodeContentSB.append("</br></br>Some time later, you imagine seeing a young man bending down over you, planting a kiss on your cheek and muttering something in your ear before walking out the door...");
-							break;
-						case SQUIRREL_MORPH:
-							UtilText.nodeContentSB.append("</br></br>Some time later, you imagine seeing a very handsome squirrel-boy bending down over you, who plants a kiss on your cheek and mutters something in your ear before walking out the door...");
-							break;
-						case WOLF_MORPH:
-							UtilText.nodeContentSB.append("</br></br>Some time later, you imagine seeing a very masculine wolf-boy bending down over you, who plants a kiss on your cheek and mutters something in your ear before walking out the door...");
-							break;
-						default:
-							UtilText.nodeContentSB.append("</br></br>Some time later, you imagine seeing a strange young man bending down over you, planting a kiss on your cheek and muttering something in your ear before walking out the door...");
-							break;
-					}
+				UtilText.nodeContentSB.append("</br></br>Some time later, you imagine seeing a strangely familiar "
+							+Main.game.getPlayer().getLastLitterBirthed().getMotherRace().getOffspringMaleNameSingular()+" bending down over you, who plants a kiss on your cheek and mutters something in your ear before walking out the door...");
 				}
 			}
 			if(Main.game.getPlayer().getLastLitterBirthed().getDaughtersFromFather() > 0) {
-				switch(Main.game.getPlayer().getLastLitterBirthed().getFatherRace()) {
-					case ANGEL:
-						UtilText.nodeContentSB.append("</br></br>An androgynous figure bends down over you."
-								+ " They sit down next to you on the bed, and lean in to give you a loving hug and a stroke of your head before departing...");
-						break;
-					case CAT_MORPH:
-						UtilText.nodeContentSB.append("</br></br>A pretty cat-girl sits down next to you on the bed, and gives you a loving hug and a stroke of your head before departing...");
-						break;
-					case DEMON:
-						break;
-					case DOG_MORPH:
-						UtilText.nodeContentSB.append("</br></br>A dog-girl sporting a playful smile sits down next to you on the bed, and gives you a loving hug and a stroke of your head before departing...");
-						break;
-					case HARPY:
-						UtilText.nodeContentSB.append("</br></br>A stunningly beautiful harpy sits down next to you on the bed, and gives you a loving hug and a stroke of your head before departing...");
-						break;
-					case HORSE_MORPH:
-						UtilText.nodeContentSB.append("</br></br>A pretty horse-girl sits down next to you on the bed, and gives you a loving hug and a stroke of your head before departing...");
-						break;
-					case HUMAN:
-						UtilText.nodeContentSB.append("</br></br>A young woman, who roughly looks to be about your age, sits down next to you on the bed, and gives you a loving hug and a stroke of your head before departing...");
-						break;
-					case SQUIRREL_MORPH:
-						UtilText.nodeContentSB.append("</br></br>A charming squirrel-girl sits down next to you on the bed, and gives you a loving hug and a stroke of your head before departing...");
-						break;
-					case WOLF_MORPH:
-						UtilText.nodeContentSB.append("</br></br>A grinning wolf-girl sits down next to you on the bed, and gives you a loving hug and a stroke of your head before departing...");
-						break;
-					default:
-						UtilText.nodeContentSB.append("</br></br>A young woman, who roughly looks to be about your age, sits down next to you on the bed, and gives you a loving hug and a stroke of your head before departing...");
-						break;
-				}
+				UtilText.nodeContentSB.append("</br></br>Some time later, you imagine seeing a strangely familiar "
+						+Main.game.getPlayer().getLastLitterBirthed().getFatherRace().getOffspringMaleNameSingular()+" bending down over you, who gives you a loving hug and a stroke of your head before departing...");
+				
 			} else {
 				if(Main.game.getPlayer().getLastLitterBirthed().getDaughtersFromMother() > 0) {
-					switch(Main.game.getPlayer().getLastLitterBirthed().getMotherRace()) {
-						case ANGEL:
-							UtilText.nodeContentSB.append("</br></br>An androgynous figure bends down over you."
-									+ " They sit down next to you on the bed, and lean in to give you a loving hug and a stroke of your head before departing...");
-							break;
-						case CAT_MORPH:
-							UtilText.nodeContentSB.append("</br></br>A pretty cat-girl sits down next to you on the bed, and gives you a loving hug and a stroke of your head before departing...");
-							break;
-						case DEMON:
-							break;
-						case DOG_MORPH:
-							UtilText.nodeContentSB.append("</br></br>A dog-girl sporting a playful smile sits down next to you on the bed, and gives you a loving hug and a stroke of your head before departing...");
-							break;
-						case HARPY:
-							UtilText.nodeContentSB.append("</br></br>A stunningly beautiful harpy sits down next to you on the bed, and gives you a loving hug and a stroke of your head before departing...");
-							break;
-						case HORSE_MORPH:
-							UtilText.nodeContentSB.append("</br></br>A pretty horse-girl sits down next to you on the bed, and gives you a loving hug and a stroke of your head before departing...");
-							break;
-						case HUMAN:
-							UtilText.nodeContentSB.append("</br></br>A young woman, who roughly looks to be about your age, sits down next to you on the bed, and gives you a loving hug and a stroke of your head before departing...");
-							break;
-						case SQUIRREL_MORPH:
-							UtilText.nodeContentSB.append("</br></br>A charming squirrel-girl sits down next to you on the bed, and gives you a loving hug and a stroke of your head before departing...");
-							break;
-						case WOLF_MORPH:
-							UtilText.nodeContentSB.append("</br></br>A grinning wolf-girl sits down next to you on the bed, and gives you a loving hug and a stroke of your head before departing...");
-							break;
-						default:
-							UtilText.nodeContentSB.append("</br></br>A young woman, who roughly looks to be about your age, sits down next to you on the bed, and gives you a loving hug and a stroke of your head before departing...");
-							break;
-					}
+					UtilText.nodeContentSB.append("</br></br>Some time later, you imagine seeing a strangely familiar "
+							+Main.game.getPlayer().getLastLitterBirthed().getMotherRace().getOffspringMaleNameSingular()+" bending down over you, who gives you a loving hug and a stroke of your head before departing...");
 				}
 			}
 			
@@ -2861,27 +2695,36 @@ public class Lab {
 	};
 	
 	public static final DialogueNodeOld LILAYA_ASSISTS_BIRTHING_KNOCK_OUT = new DialogueNodeOld("Your room", "", true, true) {
-		/**
-		 */
 		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getContent() {
-			return "<p>"
-					+ UtilText.parsePlayerSpeech("Have you got anything to drink? You know, so maybe I don't have to be awake for this...")
-					+ " you ask, looking up at Lilaya hopefully."
+			UtilText.nodeContentSB.setLength(0);
+			
+			UtilText.nodeContentSB.append("<p>"
+						+ "[pc.speech(Have you got anything to drink? You know, so maybe I don't have to be awake for this...)]"
+						+ " you ask, looking up at Lilaya hopefully."
 					+ "</p>"
-
 					+ "<p>"
-					+ "She laughs and walks over to the drinks cabinet, "
-					+ UtilText.parseSpeech("You know, I thought you might ask for that! I prepared this for you earlier!", Main.game.getLilaya())
-					+ "</p>"
+						+ "She laughs and walks over to the drinks cabinet, "
+						+ "[Lilaya.speech(You know, I thought you might ask for that! I prepared this for you earlier!)]"
+					+ "</p>");
 
-					+ "<p>"
-					+ " She hands you a glass of what looks like ordinary sparkling water, but as you bring it to your lips and quickly down the liquid, you notice that it has a strong taste of peppermint."
-					+ " Almost instantly, you feel your eyelids grow heavy, and as you lie back on the bed, you vaguely see Lilaya bringing her hands up to hover over your pregnant belly."
-					+ " Sparks of purple energy start to run down her arms, and as you start to feel an intense pushing sensation deep within your vagina, you're glad that you're not going to be awake for this."
-					+ "</p>";
+			if(Main.game.getPlayer().getBodyMaterial()==BodyMaterial.SLIME) {
+				UtilText.nodeContentSB.append("<p>"
+							+ " She hands you a glass of what looks like ordinary sparkling water, but as you bring it to your lips and quickly down the liquid, you notice that it has a strong taste of peppermint."
+							+ " Almost instantly, you feel your eyelids grow heavy, and as you lie back on the bed, you vaguely see Lilaya bringing her hands up to hover over your pregnant belly."
+							+ " Sparks of purple energy start to run down her arms, and as you start to feel an intense pushing sensation deep within your slimy body, you're glad that you're not going to be awake for this."
+						+ "</p>");
+			} else {
+				UtilText.nodeContentSB.append("<p>"
+						+ " She hands you a glass of what looks like ordinary sparkling water, but as you bring it to your lips and quickly down the liquid, you notice that it has a strong taste of peppermint."
+						+ " Almost instantly, you feel your eyelids grow heavy, and as you lie back on the bed, you vaguely see Lilaya bringing her hands up to hover over your pregnant belly."
+						+ " Sparks of purple energy start to run down her arms, and as you start to feel an intense pushing sensation deep within your vagina, you're glad that you're not going to be awake for this."
+					+ "</p>");
+			}
+			
+			return UtilText.nodeContentSB.toString();
 		}
 
 		@Override
@@ -2981,10 +2824,12 @@ public class Lab {
 						Main.game.getPlayer().endPregnancy(true);
 						Main.game.getPlayer().setMana(0);
 
-						Main.game.getPlayer().incrementVaginaStretchedCapacity(15);
-						Main.game.getPlayer().incrementVaginaCapacity(
-								(Main.game.getPlayer().getVaginaStretchedCapacity()-Main.game.getPlayer().getVaginaRawCapacityValue())*Main.game.getPlayer().getVaginaPlasticity().getCapacityIncreaseModifier(),
-								false);
+						if(Main.game.getPlayer().getBodyMaterial()!=BodyMaterial.SLIME) {
+							Main.game.getPlayer().incrementVaginaStretchedCapacity(15);
+							Main.game.getPlayer().incrementVaginaCapacity(
+									(Main.game.getPlayer().getVaginaStretchedCapacity()-Main.game.getPlayer().getVaginaRawCapacityValue())*Main.game.getPlayer().getVaginaPlasticity().getCapacityIncreaseModifier(),
+									false);
+						}
 					}
 				};
 
@@ -3257,14 +3102,27 @@ public class Lab {
 					case SLIME_IMP:
 					case SLIME_REINDEER:
 					case SLIME_SQUIRREL:
+					case SLIME_BAT:
+					case SLIME_RAT:
 					case SLIME_WOLF:
+					case SLIME_RABBIT:
 						litterSB.append(" bubbly");
 						break;
 					case SQUIRREL_MORPH:
 						litterSB.append(" playful");
 						break;
+					case RABBIT_MORPH:
+					case RABBIT_MORPH_LOP:
+						litterSB.append(" playful");
+						break;
 					case WOLF_MORPH:
 						litterSB.append(" powerful");
+						break;
+					case BAT_MORPH:
+						litterSB.append(" smiling");
+						break;
+					case RAT_MORPH:
+						litterSB.append(" grinning");
 						break;
 				}
 				litterSB.append(" <b style='color:"+ Colour.MASCULINE.toWebHexString()+ ";'>"+ (Main.game.getPlayer().getLastLitterBirthed().getSonsFromFather() > 1
@@ -3321,14 +3179,27 @@ public class Lab {
 					case SLIME_IMP:
 					case SLIME_REINDEER:
 					case SLIME_SQUIRREL:
+					case SLIME_BAT:
+					case SLIME_RAT:
 					case SLIME_WOLF:
+					case SLIME_RABBIT:
 						litterSB.append(" bubbly");
 						break;
 					case SQUIRREL_MORPH:
 						litterSB.append(" playful");
 						break;
+					case RABBIT_MORPH:
+					case RABBIT_MORPH_LOP:
+						litterSB.append(" playful");
+						break;
 					case WOLF_MORPH:
 						litterSB.append(" powerful");
+						break;
+					case BAT_MORPH:
+						litterSB.append(" smiling");
+						break;
+					case RAT_MORPH:
+						litterSB.append(" grinning");
 						break;
 				}
 				litterSB.append(" <b style='color:"+ Colour.MASCULINE.toWebHexString()+ ";'>"+ (Main.game.getPlayer().getLastLitterBirthed().getSonsFromMother() > 1
@@ -3385,13 +3256,26 @@ public class Lab {
 					case SLIME_IMP:
 					case SLIME_REINDEER:
 					case SLIME_SQUIRREL:
+					case SLIME_BAT:
+					case SLIME_RAT:
 					case SLIME_WOLF:
+					case SLIME_RABBIT:
 						litterSB.append(" bubbly");
 						break;
 					case SQUIRREL_MORPH:
 						litterSB.append(" wily");
 						break;
+					case RABBIT_MORPH:
+					case RABBIT_MORPH_LOP:
+						litterSB.append(" happy");
+						break;
 					case WOLF_MORPH:
+						litterSB.append(" grinning");
+						break;
+					case BAT_MORPH:
+						litterSB.append(" smiling");
+						break;
+					case RAT_MORPH:
 						litterSB.append(" grinning");
 						break;
 				}
@@ -3449,13 +3333,26 @@ public class Lab {
 					case SLIME_IMP:
 					case SLIME_REINDEER:
 					case SLIME_SQUIRREL:
+					case SLIME_BAT:
+					case SLIME_RAT:
 					case SLIME_WOLF:
+					case SLIME_RABBIT:
 						litterSB.append(" bubbly");
 						break;
 					case SQUIRREL_MORPH:
 						litterSB.append(" wily");
 						break;
+					case RABBIT_MORPH:
+					case RABBIT_MORPH_LOP:
+						litterSB.append(" happy");
+						break;
 					case WOLF_MORPH:
+						litterSB.append(" grinning");
+						break;
+					case BAT_MORPH:
+						litterSB.append(" smiling");
+						break;
+					case RAT_MORPH:
 						litterSB.append(" grinning");
 						break;
 				}

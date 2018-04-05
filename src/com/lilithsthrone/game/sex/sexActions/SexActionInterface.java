@@ -237,9 +237,14 @@ public interface SexActionInterface {
 				}
 				if(!this.getParticipantType().isUsingSelfOrificeType()) {
 					if(getAssociatedOrificeType()!=null) {
-						switch(getAssociatedOrificeType()){
-							case URETHRA:
-								if(!Sex.getActivePartner().getPlayerKnowsAreas().contains(CoverableArea.PENIS)) {
+						switch(getAssociatedOrificeType()){ //TODO urethral checks:
+							case URETHRA_PENIS:
+								if((!Main.getProperties().urethralContent && getAssociatedPenetrationType()==PenetrationType.PENIS) || !Sex.getActivePartner().getPlayerKnowsAreas().contains(CoverableArea.PENIS)) {
+									return null;
+								}
+								break;
+							case URETHRA_VAGINA:
+								if((!Main.getProperties().urethralContent && getAssociatedPenetrationType()==PenetrationType.PENIS) || !Sex.getActivePartner().getPlayerKnowsAreas().contains(CoverableArea.VAGINA)) {
 									return null;
 								}
 								break;
@@ -706,13 +711,16 @@ public interface SexActionInterface {
 					break;
 				case BREAST:
 					break;
-				case URETHRA:
-					if(!getOrificeCharacter().hasPenis())
+				case URETHRA_PENIS:
+					if(!getOrificeCharacter().hasPenis()) {
 						return false;
+					}
 					break;
 				case VAGINA:
-					if(!getOrificeCharacter().hasVagina())
+				case URETHRA_VAGINA:
+					if(!getOrificeCharacter().hasVagina()) {
 						return false;
+					}
 					break;
 				case THIGHS: //TODO mermaid/centaur legs
 					break;

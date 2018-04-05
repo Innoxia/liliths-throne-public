@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
@@ -13,7 +14,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.2.1
+ * @version 0.2.2
  * @author Innoxia
  */
 public enum TailType implements BodyPartTypeInterface {
@@ -34,6 +35,10 @@ public enum TailType implements BodyPartTypeInterface {
 	CAT_MORPH(BodyCoveringType.FELINE_FUR, Race.CAT_MORPH, true, false),
 
 	SQUIRREL_MORPH(BodyCoveringType.SQUIRREL_FUR, Race.SQUIRREL_MORPH, false, false),
+	
+	RAT_MORPH(BodyCoveringType.RAT_SKIN, Race.RAT_MORPH, true, true),
+	
+	RABBIT_MORPH(BodyCoveringType.RABBIT_FUR, Race.RABBIT_MORPH, false, false),
 	
 	ALLIGATOR_MORPH(BodyCoveringType.ALLIGATOR_SCALES, Race.ALLIGATOR_MORPH, false, false),
 	
@@ -115,7 +120,7 @@ public enum TailType implements BodyPartTypeInterface {
 			case DOG_MORPH_STUBBY:
 				return UtilText.returnStringAtRandom("stubby", "dog-like");
 			case ALLIGATOR_MORPH:
-				return UtilText.returnStringAtRandom("gator-like");
+				return UtilText.returnStringAtRandom("alligator-like");
 			case HARPY:
 				return UtilText.returnStringAtRandom("colourful", "bird-like");
 			case HORSE_MORPH:
@@ -128,6 +133,10 @@ public enum TailType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("squirrel-like", "fluffy");
 			case NONE:
 				return UtilText.returnStringAtRandom("");
+			case RAT_MORPH:
+				return UtilText.returnStringAtRandom("rat-like");
+			case RABBIT_MORPH:
+				return UtilText.returnStringAtRandom("rabbit-like", "fluffy");
 		}
 		
 		return "";
@@ -146,7 +155,7 @@ public enum TailType implements BodyPartTypeInterface {
 			case DOG_MORPH:
 				return "canine";
 			case DOG_MORPH_STUBBY:
-				return UtilText.returnStringAtRandom("stubby canine");
+				return "stubby canine";
 			case HARPY:
 				return "plume";
 			case HORSE_MORPH:
@@ -161,6 +170,10 @@ public enum TailType implements BodyPartTypeInterface {
 				return "alligator";
 			case NONE:
 				return "none";
+			case RAT_MORPH:
+				return "rat";
+			case RABBIT_MORPH:
+				return "rabbit";
 		}
 		return "";
 	}
@@ -175,7 +188,6 @@ public enum TailType implements BodyPartTypeInterface {
 	public String getTailTipDescriptor(GameCharacter gc) {
 		switch(this){
 			case DEMON_COMMON:
-				return UtilText.returnStringAtRandom("spaded");
 			case IMP:
 				return UtilText.returnStringAtRandom("spaded");
 			default:
@@ -184,7 +196,7 @@ public enum TailType implements BodyPartTypeInterface {
 	}
 
 	@Override
-	public BodyCoveringType getBodyCoveringType() {
+	public BodyCoveringType getBodyCoveringType(Body body) {
 		return skinType;
 	}
 

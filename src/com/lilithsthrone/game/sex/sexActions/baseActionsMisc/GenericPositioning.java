@@ -31,11 +31,49 @@ import com.lilithsthrone.utils.Util.Value;
  * 
  * 
  * @since 0.1.79
- * @version 0.1.98
+ * @version 0.2.2
  * @author Innoxia
  */
 public class GenericPositioning {
 
+	public static final SexAction PLAYER_POSITION_SWAP = new SexAction(
+			SexActionType.PLAYER_POSITIONING,
+			ArousalIncrease.ONE_MINIMUM,
+			ArousalIncrease.ONE_MINIMUM,
+			CorruptionLevel.ZERO_PURE,
+			null,
+			null,
+			SexParticipantType.MISC) {
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return !SexFlags.positioningBlockedPlayer
+					&& Sex.getSexManager().isPlayerAbleToSwapPositions()
+					&& (Sex.isDom(Main.game.getPlayer()) || Sex.isSubHasEqualControl());
+		}
+		
+		@Override
+		public String getActionTitle() {
+			return "Swap with [npc.name]";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "Swap positions with [npc.name].";
+		}
+
+		@Override
+		public String getDescription() {
+			return "Taking hold of [npc.name], you move [npc.herHim] around and swap positions with [npc.herHim], before [pc.moaning],"
+					+ " [pc.speech(It'll be more fun like this!)]";
+		}
+
+		@Override
+		public void applyEffects() {
+			Sex.swapSexPositionSlots(Main.game.getPlayer(), Sex.getActivePartner());
+		}
+	};
+	
 	public static final SexAction PLAYER_POSITION_MISSIONARY = new SexAction(
 			SexActionType.PLAYER_POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,

@@ -4,7 +4,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 
 /**
  * @since 0.1.0
- * @version 0.1.98
+ * @version 0.2.2
  * @author Innoxia
  */
 public enum PenetrationType {
@@ -17,7 +17,7 @@ public enum PenetrationType {
 
 		@Override
 		public boolean isFree(GameCharacter owner) {
-			return Sex.isOrificeFree(owner, OrificeType.URETHRA) && Sex.isPenetrationTypeFree(owner, this);
+			return Sex.isOrificeFree(owner, OrificeType.URETHRA_PENIS) && Sex.isPenetrationTypeFree(owner, this);
 		}
 	},
 	

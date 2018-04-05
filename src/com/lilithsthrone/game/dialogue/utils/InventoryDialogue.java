@@ -1029,13 +1029,15 @@ public class InventoryDialogue {
 					} else if (index == 10) {
 						return getQuickTradeResponse();
 						
-					} else if(index == 11) {
-						return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (them)", "There's nobody to use your "+item.getName()+" on!", null);
-						
-					} else if(index == 12) {
-						return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" all (them)", "There's nobody to use your "+item.getName()+" on!", null);
-						
-					} else {
+					}
+//					else if(index == 11) {
+//						return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (them)", "There's nobody to use your "+item.getName()+" on!", null);
+//						
+//					} else if(index == 12) {
+//						return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" all (them)", "There's nobody to use your "+item.getName()+" on!", null);
+//						
+//					} 
+					else {
 						return null;
 					}
 					
@@ -1704,13 +1706,15 @@ public class InventoryDialogue {
 					} else if (index == 10) {
 						return getQuickTradeResponse();
 						
-					} else if(index == 11) {
-						return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (them)", "There's nobody to use " + item.getItemType().getDeterminer() + " "+item.getName()+" on!", null);
-						
-					} else if(index == 11) {
-						return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" all (them)", "There's nobody to use " + item.getItemType().getDeterminer() + " "+item.getName()+" on!", null);
-						
-					} else {
+					}
+//					else if(index == 11) {
+//						return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (them)", "There's nobody to use " + item.getItemType().getDeterminer() + " "+item.getName()+" on!", null);
+//						
+//					} else if(index == 11) {
+//						return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" all (them)", "There's nobody to use " + item.getItemType().getDeterminer() + " "+item.getName()+" on!", null);
+//						
+//					}
+					else {
 						return null;
 					}
 					
@@ -2341,10 +2345,12 @@ public class InventoryDialogue {
 					} else if (index == 10) {
 						return getQuickTradeResponse();
 						
-					} else if(index == 11) {
-						return new Response("Equip (Ground)", "You can't make the ground equip your "+weapon.getName()+"!", null);
-						
-					} else {
+					} 
+//					else if(index == 11) {
+//						return new Response("Equip (Ground)", "You can't make the ground equip your "+weapon.getName()+"!", null);
+//						
+//					} 
+					else {
 						return null;
 					}
 					
@@ -2685,10 +2691,12 @@ public class InventoryDialogue {
 					} else if (index == 10) {
 						return getQuickTradeResponse();
 						
-					} else if(index == 11) {
-						return new Response("Equip (Ground)", "There's nobody to use the "+weapon.getName()+" on!", null);
-						
-					} else {
+					}
+//					else if(index == 11) {
+//						return new Response("Equip (Ground)", "There's nobody to use the "+weapon.getName()+" on!", null);
+//						
+//					} 
+					else {
 						return null;
 					}
 					
@@ -3120,10 +3128,12 @@ public class InventoryDialogue {
 					} else if (index == 10) {
 						return getQuickTradeResponse();
 						
-					} else if(index == 11) {
-						return new Response("Equip (Ground)", "You can't make the ground equip your "+clothing.getName()+"!", null);
-						
-					} else {
+					}
+//					else if(index == 11) {
+//						return new Response("Equip (Ground)", "You can't make the ground equip your "+clothing.getName()+"!", null);
+//						
+//					} 
+					else {
 						return null;
 					}
 					
@@ -3275,7 +3285,7 @@ public class InventoryDialogue {
 								return getQuickTradeResponse();
 								
 							} else if(index == 11) {
-								if(clothing.isEnslavementClothing() && inventoryNPC.isAbleToBeEnslaved() && !inventoryNPC.isSlave()) {
+								if(inventoryNPC.isAbleToEquip(clothing, true, Main.game.getPlayer()) && clothing.isEnslavementClothing() && inventoryNPC.isAbleToBeEnslaved() && !inventoryNPC.isSlave()) {
 									return new Response(UtilText.parse(inventoryNPC, "Equip ([npc.Name])"), UtilText.parse(inventoryNPC, "Make [npc.name] equip the "+clothing.getName()+"!"), INVENTORY_MENU){
 										@Override
 										public DialogueNodeOld getNextDialogue() {
@@ -3627,10 +3637,12 @@ public class InventoryDialogue {
 					} else if (index == 10) {
 						return getQuickTradeResponse();
 						
-					} else if(index == 11) {
-						return new Response("Equip (Ground)", "There's nobody to use the "+clothing.getName()+" on!", null);
-						
-					} else {
+					}
+//					else if(index == 11) {
+//						return new Response("Equip (Ground)", "There's nobody to use the "+clothing.getName()+" on!", null);
+//						
+//					} 
+					else {
 						return null;
 					}
 					
@@ -3742,7 +3754,7 @@ public class InventoryDialogue {
 								
 							} else if(index == 11) {
 
-								if(clothing.isEnslavementClothing() && inventoryNPC.isAbleToBeEnslaved() && !inventoryNPC.isSlave()) {
+								if(inventoryNPC.isAbleToEquip(clothing, true, Main.game.getPlayer()) && clothing.isEnslavementClothing() && inventoryNPC.isAbleToBeEnslaved() && !inventoryNPC.isSlave()) {
 									return new Response(UtilText.parse(inventoryNPC, "Equip ([npc.Name])"), UtilText.parse(inventoryNPC, "Make [npc.name] equip the "+clothing.getName()+"!"), INVENTORY_MENU){
 										@Override
 										public DialogueNodeOld getNextDialogue() {

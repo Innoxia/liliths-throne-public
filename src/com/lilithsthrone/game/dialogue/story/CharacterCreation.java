@@ -133,6 +133,7 @@ public class CharacterCreation {
 						Main.game.setRenderAttributesSection(true);
 						Main.game.getPlayer().setName(new NameTriplet("Unknown", "Unknown", "Unknown"));
 						Main.game.getPlayer().setSurname("");
+						BodyChanging.setTarget(Main.game.getPlayer());
 					}
 				};
 				
@@ -697,7 +698,6 @@ public class CharacterCreation {
 							Main.game.getPlayer().setName(new NameTriplet(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent()));
 							Main.game.getPlayer().setSurname(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent());
 							getDressed();
-							BodyChanging.setTarget(Main.game.getPlayer());
 							Main.game.setContent(new Response("" ,"", CHOOSE_ADVANCED_APPEARANCE));
 						}
 					}
@@ -1260,8 +1260,8 @@ public class CharacterCreation {
 	}
 	
 	public static void moveNPCOutOfPlayerTile() {
-		Main.game.getPrologueMale().setLocation(WorldType.JUNGLE, PlaceType.JUNGLE_CLUB, false);
-		Main.game.getPrologueFemale().setLocation(WorldType.JUNGLE, PlaceType.JUNGLE_CLUB, false);
+		Main.game.getPrologueMale().setLocation(WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, false);
+		Main.game.getPrologueFemale().setLocation(WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, false);
 	}
 	
 	public static boolean femalePrologueNPC() {
@@ -1612,6 +1612,29 @@ public class CharacterCreation {
 			}
 		}
 	};
+
+	private static void applyGameStart() {
+		Main.getProperties().addRaceDiscovered(Race.HUMAN);
+		
+		Main.game.getLilaya().setSkinCovering(new Covering(BodyCoveringType.HUMAN, Main.game.getPlayer().getCovering(BodyCoveringType.HUMAN).getPrimaryColour()), true);
+
+		Main.game.clearTextStartStringBuilder();
+		Main.game.clearTextEndStringBuilder();
+
+		Main.game.setWeather(Weather.MAGIC_STORM, 300);
+		
+		Main.game.getPlayerCell().resetInventory();
+	}
+
+	private static void applySkipPrologueStart() {
+		Main.game.getPlayer().addCharacterEncountered(Main.game.getLilaya());
+		Main.game.getPlayer().addCharacterEncountered(Main.game.getRose());
+		
+		Main.getProperties().addRaceDiscovered(Main.game.getLilaya().getRace());
+		Main.getProperties().addRaceDiscovered(Main.game.getRose().getRace());
+
+		moveNPCOutOfPlayerTile();
+	}
 	
 	public static final DialogueNodeOld FINAL_CHECK = new DialogueNodeOld("Start", "", true) {
 		private static final long serialVersionUID = 1L;
@@ -1659,6 +1682,7 @@ public class CharacterCreation {
 						Main.game.getPlayer().equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MELEE_CHAOS_RARE, DamageType.FIRE));
 						
 						applyGameStart();
+						applySkipPrologueStart();
 						Main.game.setActiveWorld(
 								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR),
 								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getPlacesOfInterest().get(new GenericPlace(PlaceType.LILAYA_HOME_ROOM_PLAYER)),
@@ -1681,26 +1705,7 @@ public class CharacterCreation {
 			}
 		}
 	};
-
-	private static void applyGameStart() {
-		Main.getProperties().addRaceDiscovered(Race.HUMAN);
-		
-		Main.game.getLilaya().setSkinCovering(new Covering(BodyCoveringType.HUMAN, Main.game.getPlayer().getCovering(BodyCoveringType.HUMAN).getPrimaryColour()), true);
-
-		Main.game.clearTextStartStringBuilder();
-		Main.game.clearTextEndStringBuilder();
-
-		Main.game.getPlayer().addCharacterEncountered(Main.game.getLilaya());
-		Main.game.getPlayer().addCharacterEncountered(Main.game.getRose());
-		
-		Main.getProperties().addRaceDiscovered(Main.game.getLilaya().getRace());
-		Main.getProperties().addRaceDiscovered(Main.game.getRose().getRace());
-
-		Main.game.setWeather(Weather.MAGIC_STORM, 300);
-		
-		Main.game.getPlayerCell().resetInventory();
-		moveNPCOutOfPlayerTile();
-	}
+	
 	
 	private static StringBuilder importSB;
 	public static final DialogueNodeOld IMPORT_CHOOSE = new DialogueNodeOld("Import", "", true) {
@@ -1829,6 +1834,7 @@ public class CharacterCreation {
 						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, Quest.MAIN_1_A_LILAYAS_TESTS));
 						
 						applyGameStart();
+						applySkipPrologueStart();
 						Main.game.setActiveWorld(
 								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR),
 								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getPlacesOfInterest().get(new GenericPlace(PlaceType.LILAYA_HOME_ROOM_PLAYER)),

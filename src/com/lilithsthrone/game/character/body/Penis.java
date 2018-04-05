@@ -10,6 +10,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
+import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
 import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
 import com.lilithsthrone.game.character.body.valueEnums.PenisModifier;
@@ -21,7 +22,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.2.1
+ * @version 0.2.2
  * @author Innoxia
  */
 public class Penis implements BodyPartInterface, Serializable {
@@ -37,7 +38,7 @@ public class Penis implements BodyPartInterface, Serializable {
 	protected Set<PenisModifier> penisModifiers;
 	
 	protected Testicle testicle;
-	protected OrificeUrethra orificeUrethra;
+	protected OrificePenisUrethra orificeUrethra;
 
 	public Penis(PenisType type, int size, int girth, int testicleSize, int cumProduction, int testicleCount) {
 		this.type = type;
@@ -48,7 +49,7 @@ public class Penis implements BodyPartInterface, Serializable {
 		
 		testicle = new Testicle(type.getTesticleType(), testicleSize, cumProduction, testicleCount);
 		
-		orificeUrethra = new OrificeUrethra(testicle.getCumProduction().getAssociatedWetness().getValue(), 0, OrificeElasticity.ZERO_UNYIELDING.getValue(), OrificePlasticity.THREE_RESILIENT.getValue(), true, new ArrayList<>());
+		orificeUrethra = new OrificePenisUrethra(testicle.getCumProduction().getAssociatedWetness().getValue(), 0, OrificeElasticity.ZERO_UNYIELDING.getValue(), OrificePlasticity.THREE_RESILIENT.getValue(), true, new ArrayList<>());
 		
 		this.penisModifiers = new HashSet<>();
 		this.penisModifiers.addAll(type.getDefaultPenisModifiers());
@@ -63,7 +64,7 @@ public class Penis implements BodyPartInterface, Serializable {
 		return testicle;
 	}
 	
-	public OrificeUrethra getOrificeUrethra() {
+	public OrificePenisUrethra getOrificeUrethra() {
 		return orificeUrethra;
 	}
 	
@@ -103,6 +104,20 @@ public class Penis implements BodyPartInterface, Serializable {
 		}
 		
         return UtilText.returnStringAtRandom(list.toArray(new String[]{}));
+	}
+	
+	public String getUrethraDescriptor(GameCharacter owner) {
+		List<String> descriptorList = new ArrayList<>();
+		
+		for(OrificeModifier om : orificeUrethra.getOrificeModifiers()) {
+			descriptorList.add(om.getName());
+		}
+		
+		descriptorList.add(type.getDescriptor(owner));
+		
+		descriptorList.add(orificeUrethra.getCapacity().getDescriptor());
+		
+		return UtilText.returnStringAtRandom(descriptorList.toArray(new String[]{}));
 	}
 	
 	public String getPenisHeadName(GameCharacter gc) {
@@ -418,6 +433,45 @@ public class Penis implements BodyPartInterface, Serializable {
 							"[npc.She] now has a [style.boldSquirrelMorph(squirrel-morph's penis)], covered in [npc.penisFullDescription(true)].</br>"
 							+ "[npc.She] has [style.boldSquirrelMorph([npc.ballsCount]"+(owner.isInternalTesticles()?" internal,":"")+" squirrel-morph's balls)], covered in [npc.ballsFullDescription(true)],"
 									+ " which produce [npc.cumColour(true)] [style.boldSquirrelMorph(squirrel-morph cum)].");
+				}
+				break;
+			case RAT_MORPH:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+							"You now have a [style.boldRatMorph(rat-morph's penis)], covered in [pc.penisFullDescription(true)].</br>"
+							+ "You have [style.boldRatMorph([pc.ballsCount]"+(owner.isInternalTesticles()?" internal,":"")+" rat-morph's balls)],"
+									+ " covered in [pc.ballsFullDescription(true)], which produce [pc.cumColour(true)] [style.boldRatMorph(rat-morph cum)].");
+				} else {
+					UtilText.transformationContentSB.append(
+							"[npc.She] now has a [style.boldRatMorph(rat-morph's penis)], covered in [npc.penisFullDescription(true)].</br>"
+							+ "[npc.She] has [style.boldRatMorph([npc.ballsCount]"+(owner.isInternalTesticles()?" internal,":"")+" rat-morph's balls)], covered in [npc.ballsFullDescription(true)],"
+									+ " which produce [npc.cumColour(true)] [style.boldRatMorph(rat-morph cum)].");
+				}
+				break;
+			case RABBIT_MORPH:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+							"You now have a [style.boldRabbitMorph(rabbit-morph's penis)], covered in [pc.penisFullDescription(true)].</br>"
+							+ "You have [style.boldRabbitMorph([pc.ballsCount]"+(owner.isInternalTesticles()?" internal,":"")+" rabbit-morph's balls)],"
+									+ " covered in [pc.ballsFullDescription(true)], which produce [pc.cumColour(true)] [style.boldRabbitMorph(rabbit-morph cum)].");
+				} else {
+					UtilText.transformationContentSB.append(
+							"[npc.She] now has a [style.boldRabbitMorph(rabbit-morph's penis)], covered in [npc.penisFullDescription(true)].</br>"
+							+ "[npc.She] has [style.boldRabbitMorph([npc.ballsCount]"+(owner.isInternalTesticles()?" internal,":"")+" rabbit-morph's balls)], covered in [npc.ballsFullDescription(true)],"
+									+ " which produce [npc.cumColour(true)] [style.boldRabbitMorph(rabbit-morph cum)].");
+				}
+				break;
+			case BAT_MORPH:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+							"You now have a [style.boldBatMorph(bat-morph's penis)], covered in [pc.penisFullDescription(true)].</br>"
+							+ "You have [style.boldBatMorph([pc.ballsCount]"+(owner.isInternalTesticles()?" internal,":"")+" bat-morph's balls)],"
+									+ " covered in [pc.ballsFullDescription(true)], which produce [pc.cumColour(true)] [style.boldBatMorph(bat-morph cum)].");
+				} else {
+					UtilText.transformationContentSB.append(
+							"[npc.She] now has a [style.boldBatMorph(bat-morph's penis)], covered in [npc.penisFullDescription(true)].</br>"
+							+ "[npc.She] has [style.boldBatMorph([npc.ballsCount]"+(owner.isInternalTesticles()?" internal,":"")+" bat-morph's balls)], covered in [npc.ballsFullDescription(true)],"
+									+ " which produce [npc.cumColour(true)] [style.boldBatMorph(bat-morph cum)].");
 				}
 				break;
 		}

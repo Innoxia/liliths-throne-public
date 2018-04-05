@@ -310,8 +310,8 @@ public class SlaveryManagementDialogue {
 						+ "<div class='container-full-width' style='text-align:center; margin-bottom:0;'>");
 			
 			int count=0;
-			if(Main.game.getSlaveryUtil().getSlaveryEventLogDay().get(dayNumber)!=null) {
-				for(SlaveryEventLogEntry entry : Main.game.getSlaveryUtil().getSlaveryEventLogDay().get(dayNumber)) {
+			if(Main.game.getSlaveryEventLog().get(dayNumber)!=null) {
+				for(SlaveryEventLogEntry entry : Main.game.getSlaveryEventLog().get(dayNumber)) {
 					if(count%2==0) {
 						UtilText.nodeContentSB.append("<div class='container-full-width inner' style='background:#222222;'>");
 					} else {
@@ -328,26 +328,27 @@ public class SlaveryManagementDialogue {
 								+ "<div style='width:15%; float:left; margin:0; padding:0;'>"
 									+ entry.getName()
 								+ "</div>"
-								+ "<div style='width:40%; float:left;  margin:0; padding:0;'>"
+								+ "<div style='width:60%; float:left;  margin:0; padding:0;'>"
 									+ entry.getDescription()
 								+ "</div>"
-								+ "<div style='width:20%; float:left;  margin:0; padding:0;'>");
-					
-					boolean effectsAdded = false;
-					if(entry.getEffects()!=null) {
-						for(String s : entry.getEffects()) {
-							if(!s.isEmpty()) {
-								UtilText.nodeContentSB.append(s+"</br>");
-								effectsAdded = true;
-							}
-						}
-					}
-					if(!effectsAdded) {
-						UtilText.nodeContentSB.append("[style.colourDisabled(-)]");
-					}
-					
-					UtilText.nodeContentSB.append("</div>"
-							+"</div>");
+								+ "</div>");
+//								+ "<div style='width:20%; float:left;  margin:0; padding:0;'>");
+//					
+//					boolean effectsAdded = false;
+//					if(entry.getEffects()!=null) {
+//						for(String s : entry.getEffects()) {
+//							if(!s.isEmpty()) {
+//								UtilText.nodeContentSB.append(s+"</br>");
+//								effectsAdded = true;
+//							}
+//						}
+//					}
+//					if(!effectsAdded) {
+//						UtilText.nodeContentSB.append("[style.colourDisabled(-)]");
+//					}
+//					
+//					UtilText.nodeContentSB.append("</div>"
+//							+"</div>");
 					count++;
 				}
 			}
@@ -1415,6 +1416,7 @@ public class SlaveryManagementDialogue {
 			}
 			UtilText.nodeContentSB.append("</div>");
 			UtilText.nodeContentSB.append("</div>");
+			UtilText.nodeContentSB.append("</div>");
 			
 			UtilText.nodeContentSB.append("<p id='hiddenFieldName' style='display:none;'></p>");
 			return UtilText.parse(character, UtilText.nodeContentSB.toString());
@@ -1562,8 +1564,8 @@ public class SlaveryManagementDialogue {
 						CoveringsNamesMap.put(BodyCoveringType.SLIME, Util.newArrayListOfValues(new ListValue<>("SLIME")));
 					} else {
 						for(BodyPartInterface bp : BodyChanging.getTarget().getAllBodyParts()){
-							if(bp.getType().getBodyCoveringType()!=null
-									&& bp.getType().getBodyCoveringType().getRace()!=null
+							if(bp.getType().getBodyCoveringType(BodyChanging.getTarget())!=null
+									&& bp.getType().getBodyCoveringType(BodyChanging.getTarget()).getRace()!=null
 									&& !(bp instanceof Hair)
 									&& !(bp instanceof Eye)) {
 								
@@ -1574,10 +1576,10 @@ public class SlaveryManagementDialogue {
 									name = "vagina";
 								}
 								
-								if(CoveringsNamesMap.containsKey(bp.getType().getBodyCoveringType())) {
-									CoveringsNamesMap.get(bp.getType().getBodyCoveringType()).add(name);
+								if(CoveringsNamesMap.containsKey(bp.getType().getBodyCoveringType(BodyChanging.getTarget()))) {
+									CoveringsNamesMap.get(bp.getType().getBodyCoveringType(BodyChanging.getTarget())).add(name);
 								} else {
-									CoveringsNamesMap.put(bp.getType().getBodyCoveringType(), Util.newArrayListOfValues(new ListValue<>(name)));
+									CoveringsNamesMap.put(bp.getType().getBodyCoveringType(BodyChanging.getTarget()), Util.newArrayListOfValues(new ListValue<>(name)));
 								}
 							}
 						}
@@ -1688,7 +1690,7 @@ public class SlaveryManagementDialogue {
 					
 					+(BodyChanging.getTarget().getBodyMaterial()!=BodyMaterial.SLIME
 						?CharacterModificationUtils.getKatesDivCoveringsNew(
-								true, BodyChanging.getTarget().getCovering(BodyChanging.getTarget().getHairType().getBodyCoveringType()).getType(),
+								true, BodyChanging.getTarget().getCovering(BodyChanging.getTarget().getHairType().getBodyCoveringType(BodyChanging.getTarget())).getType(),
 								UtilText.parse(BodyChanging.getTarget(), "[npc.Hair] Colour"),
 								"All hair recolourings are permanent, so if you want to change your colour again at a later time, you'll have to visit Kate again.", true, true)
 						:"")
@@ -1781,7 +1783,7 @@ public class SlaveryManagementDialogue {
 					+ "</h6>"
 
 					+CharacterModificationUtils.getKatesDivCoveringsNew(
-							true, BodyChanging.getTarget().getEyeType().getBodyCoveringType(), "Irises", "The iris is the coloured part of the eye that's responsible for controlling the diameter and size of the pupil.", true, true)
+							true, BodyChanging.getTarget().getEyeType().getBodyCoveringType(BodyChanging.getTarget()), "Irises", "The iris is the coloured part of the eye that's responsible for controlling the diameter and size of the pupil.", true, true)
 
 					+CharacterModificationUtils.getKatesDivCoveringsNew(
 							true, BodyCoveringType.EYE_PUPILS, "Pupils", "The pupil is a hole located in the centre of the iris that allows light to strike the retina.", true, true));

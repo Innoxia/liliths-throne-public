@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -15,7 +16,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.2.1
+ * @version 0.2.2
  * @author Innoxia
  */
 public enum VaginaType implements BodyPartTypeInterface {
@@ -35,6 +36,12 @@ public enum VaginaType implements BodyPartTypeInterface {
 	WOLF_MORPH(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_WOLF_MORPH, Race.WOLF_MORPH),
 
 	SQUIRREL_MORPH(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_SQUIRREL_MORPH, Race.SQUIRREL_MORPH),
+
+	RAT_MORPH(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_RAT_MORPH, Race.RAT_MORPH),
+
+	RABBIT_MORPH(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_RABBIT_MORPH, Race.RABBIT_MORPH),
+
+	BAT_MORPH(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_BAT_MORPH, Race.BAT_MORPH),
 	
 	ALLIGATOR_MORPH(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_ALLIGATOR_MORPH, Race.ALLIGATOR_MORPH),
 	
@@ -154,6 +161,12 @@ public enum VaginaType implements BodyPartTypeInterface {
 						return UtilText.returnStringAtRandom("hot", "bird-like", "avian");
 					case SQUIRREL_MORPH:
 						return UtilText.returnStringAtRandom("hot", "squirrel-like", "rodent");
+					case BAT_MORPH:
+						return UtilText.returnStringAtRandom("hot", "bat-like");
+					case RAT_MORPH:
+						return UtilText.returnStringAtRandom("hot", "rat-like", "rodent");
+					case RABBIT_MORPH:
+						return UtilText.returnStringAtRandom("hot", "rabbit-like", "bunny");
 				}
 				return "";
 			case 1:
@@ -202,12 +215,18 @@ public enum VaginaType implements BodyPartTypeInterface {
 				return "alligator";
 			case WOLF_MORPH:
 				return "lupine";
+			case BAT_MORPH:
+				return "bat";
+			case RAT_MORPH:
+				return "rat";
+			case RABBIT_MORPH:
+				return "rabbit";
 		}
 		return "";
 	}
 	
 	@Override
-	public BodyCoveringType getBodyCoveringType() {
+	public BodyCoveringType getBodyCoveringType(Body body) {
 		return skinType;
 	}
 	

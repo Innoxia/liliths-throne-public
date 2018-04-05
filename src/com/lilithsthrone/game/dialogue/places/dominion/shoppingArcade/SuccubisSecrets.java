@@ -587,8 +587,8 @@ public class SuccubisSecrets {
 						CoveringsNamesMap.put(BodyCoveringType.SLIME, Util.newArrayListOfValues(new ListValue<>("SLIME")));
 					} else {
 						for(BodyPartInterface bp : Main.game.getPlayer().getAllBodyParts()){
-							if(bp.getType().getBodyCoveringType()!=null
-									&& bp.getType().getBodyCoveringType().getRace()!=null
+							if(bp.getType().getBodyCoveringType(Main.game.getPlayer())!=null
+									&& bp.getType().getBodyCoveringType(Main.game.getPlayer()).getRace()!=null
 									&& !(bp instanceof Hair)
 									&& !(bp instanceof Eye)) {
 								
@@ -599,10 +599,10 @@ public class SuccubisSecrets {
 									name = "vagina";
 								}
 								
-								if(CoveringsNamesMap.containsKey(bp.getType().getBodyCoveringType())) {
-									CoveringsNamesMap.get(bp.getType().getBodyCoveringType()).add(name);
+								if(CoveringsNamesMap.containsKey(bp.getType().getBodyCoveringType(Main.game.getPlayer()))) {
+									CoveringsNamesMap.get(bp.getType().getBodyCoveringType(Main.game.getPlayer())).add(name);
 								} else {
-									CoveringsNamesMap.put(bp.getType().getBodyCoveringType(), Util.newArrayListOfValues(new ListValue<>(name)));
+									CoveringsNamesMap.put(bp.getType().getBodyCoveringType(Main.game.getPlayer()), Util.newArrayListOfValues(new ListValue<>(name)));
 								}
 							}
 						}
@@ -702,7 +702,7 @@ public class SuccubisSecrets {
 
 					+CharacterModificationUtils.getKatesDivHairStyles(true, "Hair Style", "Hair style availability is determined by your hair length.")
 					
-					+CharacterModificationUtils.getKatesDivCoveringsNew(true, Main.game.getPlayer().getCovering(Main.game.getPlayer().getHairType().getBodyCoveringType()).getType(),
+					+CharacterModificationUtils.getKatesDivCoveringsNew(true, Main.game.getPlayer().getCovering(Main.game.getPlayer().getHairType().getBodyCoveringType(Main.game.getPlayer())).getType(),
 							"[pc.Hair] Colour", "All hair recolourings are permanent, so if you want to change your colour again at a later time, you'll have to visit Kate again.", true, true)
 					;
 		}
@@ -820,7 +820,7 @@ public class SuccubisSecrets {
 						+ "You currently have "+UtilText.formatAsMoney(Main.game.getPlayer().getMoney(), "span")
 					+ "</h6>"
 					+CharacterModificationUtils.getKatesDivCoveringsNew(
-							true, Main.game.getPlayer().getEyeType().getBodyCoveringType(), "Irises", "The iris is the coloured part of the eye that's responsible for controlling the diameter and size of the pupil.", true, true)
+							true, Main.game.getPlayer().getEyeType().getBodyCoveringType(Main.game.getPlayer()), "Irises", "The iris is the coloured part of the eye that's responsible for controlling the diameter and size of the pupil.", true, true)
 
 					+CharacterModificationUtils.getKatesDivCoveringsNew(
 							true, BodyCoveringType.EYE_PUPILS, "Pupils", "The pupil is a hole located in the centre of the iris that allows light to strike the retina.", true, true);

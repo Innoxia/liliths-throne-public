@@ -85,6 +85,7 @@ import com.lilithsthrone.game.character.body.valueEnums.NippleSize;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
+import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
 import com.lilithsthrone.game.character.body.valueEnums.PenisModifier;
 import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
 import com.lilithsthrone.game.character.body.valueEnums.PiercingType;
@@ -342,6 +343,9 @@ public class MainController implements Initializable {
 		if(!Main.game.isStarted()) {
 			return;
 		}
+
+		RenderingEngine.setPageLeft(0);
+		RenderingEngine.setPageRight(0);
 		
 		InventoryDialogue.setBuyback(false);
 		InventoryDialogue.setInventoryNPC(npc);
@@ -476,6 +480,8 @@ public class MainController implements Initializable {
 //						 }
 						
 						 if(event.getCode()==KeyCode.END){
+							 
+							 Main.game.getPlayer().setMana(1);
 							 
 //							 Cell[][] grid = new Cell[5][5];
 //							 for(int i=0; i<grid.length;i++) {
@@ -1380,6 +1386,11 @@ public class MainController implements Initializable {
 			}
 			
 			// Non-equipped inventory:
+			for(int i=0 ; i<RenderingEngine.INVENTORY_PAGES; i++) {
+				setInventoryPageLeft(i);
+				setInventoryPageRight(i);
+			}
+			
 			
 			// Player:
 			for (Entry<AbstractWeapon, Integer> entry : Main.game.getPlayer().getMapOfDuplicateWeapons().entrySet()) {
@@ -1459,7 +1470,7 @@ public class MainController implements Initializable {
 			} else {
 				// Weapons on floor:
 				for (Entry<AbstractWeapon, Integer> entry : Main.game.getPlayerCell().getInventory().getMapOfDuplicateWeapons().entrySet()) {
-					id = "WEAPON_FLOOR_" + entry.getKey().hashCode();
+					id = "FLOOR_WEAPON_" + entry.getKey().hashCode();
 					if (((EventTarget) document.getElementById(id)) != null) {
 						InventorySelectedItemEventListener el = new InventorySelectedItemEventListener().setWeaponInventory(entry.getKey(), null);
 						addEventListener(document, id, "click", el, false);
@@ -1472,7 +1483,7 @@ public class MainController implements Initializable {
 				
 				// Clothing on floor:
 				for (Entry<AbstractClothing, Integer> entry : Main.game.getPlayerCell().getInventory().getMapOfDuplicateClothing().entrySet()) {
-					id = "CLOTHING_FLOOR_" + entry.getKey().hashCode();
+					id = "FLOOR_CLOTHING_" + entry.getKey().hashCode();
 					if (((EventTarget) document.getElementById(id)) != null) {
 						InventorySelectedItemEventListener el = new InventorySelectedItemEventListener().setClothingInventory(entry.getKey(), null);
 						addEventListener(document, id, "click", el, false);
@@ -1485,7 +1496,7 @@ public class MainController implements Initializable {
 				
 				// Items on floor:
 				for (Entry<AbstractItem, Integer> entry : Main.game.getPlayerCell().getInventory().getMapOfDuplicateItems().entrySet()) {
-					id = "ITEM_FLOOR_" + entry.getKey().hashCode();
+					id = "FLOOR_ITEM_" + entry.getKey().hashCode();
 					if (((EventTarget) document.getElementById(id)) != null) {
 						InventorySelectedItemEventListener el = new InventorySelectedItemEventListener().setItemInventory(entry.getKey(), null);
 						addEventListener(document, id, "click", el, false);
@@ -1699,12 +1710,31 @@ public class MainController implements Initializable {
 				
 				((EventTarget) document.getElementById("INGREDIENT_ENCHANTING")).addEventListener("click", e -> {
 					Main.game.setResponseTab(1);
-					Main.game.setContent(new Response("Back", "Stop enchanting.", InventoryDialogue.ITEM_INVENTORY){
-						@Override
-						public void effects() {
-							EnchantmentDialogue.resetEnchantmentVariables();
-						}
-					});
+					if(EnchantmentDialogue.ingredient instanceof AbstractItem) {
+						Main.game.setContent(new Response("Back", "Stop enchanting.", InventoryDialogue.ITEM_INVENTORY){
+							@Override
+							public void effects() {
+								EnchantmentDialogue.resetEnchantmentVariables();
+							}
+						});
+					} else if(EnchantmentDialogue.ingredient instanceof AbstractClothing) {
+						Main.game.setContent(new Response("Back", "Stop enchanting.", InventoryDialogue.CLOTHING_INVENTORY){
+							@Override
+							public void effects() {
+								EnchantmentDialogue.resetEnchantmentVariables();
+							}
+						});
+						
+					} else {
+						Main.game.setContent(new Response("Back", "Stop enchanting.", InventoryDialogue.WEAPON_INVENTORY){
+							@Override
+							public void effects() {
+								EnchantmentDialogue.resetEnchantmentVariables();
+							}
+						});
+						
+					}
+					
 				}, false);
 				
 				addEventListener(document, "INGREDIENT_ENCHANTING", "mousemove", moveTooltipListener, false);
@@ -2612,7 +2642,7 @@ public class MainController implements Initializable {
 					id = "HANDJOBS_GIVEN_"+i;
 					if (((EventTarget) document.getElementById(id)) != null) {
 						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-							CharacterModificationUtils.setSexExperience(new SexType(SexParticipantType.PITCHER, PenetrationType.FINGER, OrificeType.URETHRA), i);
+							CharacterModificationUtils.setSexExperience(new SexType(SexParticipantType.PITCHER, PenetrationType.FINGER, OrificeType.URETHRA_PENIS), i);
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 						}, false);
 					}
@@ -2662,7 +2692,7 @@ public class MainController implements Initializable {
 					id = "HANDJOBS_TAKEN_"+i;
 					if (((EventTarget) document.getElementById(id)) != null) {
 						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-							CharacterModificationUtils.setSexExperience(new SexType(SexParticipantType.CATCHER, PenetrationType.FINGER, OrificeType.URETHRA), i);
+							CharacterModificationUtils.setSexExperience(new SexType(SexParticipantType.CATCHER, PenetrationType.FINGER, OrificeType.URETHRA_PENIS), i);
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 						}, false);
 					}
@@ -3013,6 +3043,18 @@ public class MainController implements Initializable {
 						}, false);
 					}
 				}
+
+				// Penis girth:
+				for(PenisGirth girth : PenisGirth.values()) {
+					id = "PENIS_GIRTH_"+girth;
+					if (((EventTarget) document.getElementById(id)) != null) {
+						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+							BodyChanging.getTarget().setPenisGirth(girth.getValue());
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+				}
+				
 				
 				// Testicle size:
 				for(TesticleSize ts : CharacterModificationUtils.getTesticleSizesAvailable()) {
@@ -4096,7 +4138,7 @@ public class MainController implements Initializable {
 								addEventListener(document, id, "mouseleave", hideTooltipListener, false);
 								addEventListener(document, id, "mouseenter", new TooltipInformationEventListener().setLevelUpPerk(i, e.getPerk(), Main.game.getPlayer()), false);
 								((EventTarget) document.getElementById(id)).addEventListener("click", event -> {
-									if(e.getPerk().isMajor() && PerkManager.MANAGER.isPerkOwned(e)) {
+									if(e.getPerk().isEquippableTrait() && PerkManager.MANAGER.isPerkOwned(e)) {
 										if(!Main.game.getPlayer().hasTraitActivated(e.getPerk())) {
 											Main.game.getPlayer().addTrait(e.getPerk());
 										} else {
@@ -4107,7 +4149,7 @@ public class MainController implements Initializable {
 									} else if(Main.game.getPlayer().getPerkPoints()>=1 && PerkManager.MANAGER.isPerkAvailable(e)) {
 										if(Main.game.getPlayer().addPerk(e.getRow(), e.getPerk())) {
 											Main.game.getPlayer().incrementPerkPoints(-1);
-											if(e.getPerk().isMajor() && Main.game.getPlayer().getTraits().size()<GameCharacter.MAX_TRAITS) {
+											if(e.getPerk().isEquippableTrait() && Main.game.getPlayer().getTraits().size()<GameCharacter.MAX_TRAITS) {
 												Main.game.getPlayer().addTrait(e.getPerk());
 											}
 											Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
@@ -4560,6 +4602,40 @@ public class MainController implements Initializable {
 				}, false);
 			}
 			
+			id = "LACTATION_ON";
+			if (((EventTarget) document.getElementById(id)) != null) {
+				((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+					Main.getProperties().lactationContent = true;
+					Main.saveProperties();
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+			}
+			id = "LACTATION_OFF";
+			if (((EventTarget) document.getElementById(id)) != null) {
+				((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+					Main.getProperties().lactationContent = false;
+					Main.saveProperties();
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+			}
+			
+			id = "URETHRAL_ON";
+			if (((EventTarget) document.getElementById(id)) != null) {
+				((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+					Main.getProperties().urethralContent = true;
+					Main.saveProperties();
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+			}
+			id = "URETHRAL_OFF";
+			if (((EventTarget) document.getElementById(id)) != null) {
+				((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+					Main.getProperties().urethralContent = false;
+					Main.saveProperties();
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+			}
+			
 			id = "HAIR_FACIAL_ON";
 			if (((EventTarget) document.getElementById(id)) != null) {
 				((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
@@ -4610,6 +4686,24 @@ public class MainController implements Initializable {
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}, false);
 			}
+			
+			id = "FEMININE_BEARD_ON";
+			if (((EventTarget) document.getElementById(id)) != null) {
+				((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+					Main.getProperties().feminineBeardsContent = !Main.getProperties().feminineBeardsContent;
+					Main.saveProperties();
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+			}
+			id = "FEMININE_BEARD_OFF";
+			if (((EventTarget) document.getElementById(id)) != null) {
+				((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+					Main.getProperties().feminineBeardsContent = !Main.getProperties().feminineBeardsContent;
+					Main.saveProperties();
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+			}
+			
 			
 			id = "FURRY_TAIL_PENETRATION_ON";
 			if (((EventTarget) document.getElementById(id)) != null) {
@@ -5150,6 +5244,26 @@ public class MainController implements Initializable {
 			((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
 				Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected().setWorkHour(i, !Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected().getWorkHours()[i]);
 				Main.game.setContent(new Response("", "", SlaveryManagementDialogue.getSlaveryManagementSlaveJobsDialogue(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected())));
+			}, false);
+		}
+	}
+	
+	private void setInventoryPageLeft(int i) {
+		String id = "INV_PAGE_LEFT_"+i;
+		if (((EventTarget) document.getElementById(id)) != null) {
+			((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+				RenderingEngine.setPageLeft(i);
+				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+			}, false);
+		}
+	}
+	
+	private void setInventoryPageRight(int i) {
+		String id = "INV_PAGE_RIGHT_"+i;
+		if (((EventTarget) document.getElementById(id)) != null) {
+			((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+				RenderingEngine.setPageRight(i);
+				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 			}, false);
 		}
 	}

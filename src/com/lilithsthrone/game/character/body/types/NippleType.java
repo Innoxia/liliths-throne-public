@@ -5,13 +5,14 @@ import java.util.Collections;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.83
- * @version 0.1.83
+ * @version 0.2.2
  * @author Innoxia
  */
 public enum NippleType implements BodyPartTypeInterface {
@@ -33,6 +34,12 @@ public enum NippleType implements BodyPartTypeInterface {
 	COW_MORPH(BodyCoveringType.NIPPLES, Race.COW_MORPH),
 	
 	SQUIRREL_MORPH(BodyCoveringType.NIPPLES, Race.SQUIRREL_MORPH),
+	
+	RAT_MORPH(BodyCoveringType.NIPPLES, Race.RAT_MORPH),
+	
+	BAT_MORPH(BodyCoveringType.NIPPLES, Race.BAT_MORPH),
+	
+	RABBIT_MORPH(BodyCoveringType.NIPPLES, Race.RABBIT_MORPH),
 	
 	ALLIGATOR_MORPH(BodyCoveringType.NIPPLES, Race.ALLIGATOR_MORPH),
 	
@@ -115,7 +122,7 @@ public enum NippleType implements BodyPartTypeInterface {
 	}
 	
 	@Override
-	public BodyCoveringType getBodyCoveringType() {
+	public BodyCoveringType getBodyCoveringType(Body body) {
 		return skinType;
 	}
 

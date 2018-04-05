@@ -1,12 +1,13 @@
 package com.lilithsthrone.game.character.body.types;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 
 /**
  * @since 0.1.83
- * @version 0.2.1
+ * @version 0.2.2
  * @author Innoxia
  */
 public enum SkinType implements BodyPartTypeInterface {
@@ -27,6 +28,12 @@ public enum SkinType implements BodyPartTypeInterface {
 	CAT_MORPH(BodyCoveringType.FELINE_FUR, Race.CAT_MORPH),
 
 	SQUIRREL_MORPH(BodyCoveringType.SQUIRREL_FUR, Race.SQUIRREL_MORPH),
+
+	RAT_MORPH(BodyCoveringType.RAT_FUR, Race.RAT_MORPH),
+
+	RABBIT_MORPH(BodyCoveringType.RABBIT_FUR, Race.RABBIT_MORPH),
+
+	BAT_MORPH(BodyCoveringType.BAT_FUR, Race.BAT_MORPH),
 
 	ALLIGATOR_MORPH(BodyCoveringType.ALLIGATOR_SCALES, Race.ALLIGATOR_MORPH),
 
@@ -108,7 +115,7 @@ public enum SkinType implements BodyPartTypeInterface {
 			case SQUIRREL_MORPH:
 				return UtilText.returnStringAtRandom("squirrel-like");
 			case ALLIGATOR_MORPH:
-				return UtilText.returnStringAtRandom("gator-like");
+				return UtilText.returnStringAtRandom("alligator-like");
 			case HARPY:
 				return UtilText.returnStringAtRandom("bird-like");
 			case HORSE_MORPH:
@@ -119,12 +126,18 @@ public enum SkinType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("");
 			case LYCAN:
 				return UtilText.returnStringAtRandom("wolf-like");
+			case BAT_MORPH:
+				return UtilText.returnStringAtRandom("bat-like");
+			case RAT_MORPH:
+				return UtilText.returnStringAtRandom("rat-like");
+			case RABBIT_MORPH:
+				return UtilText.returnStringAtRandom("rabbit-like");
 		}
 		return "";
 	}
 
 	@Override
-	public BodyCoveringType getBodyCoveringType() {
+	public BodyCoveringType getBodyCoveringType(Body body) {
 		return coveringType;
 	}
 

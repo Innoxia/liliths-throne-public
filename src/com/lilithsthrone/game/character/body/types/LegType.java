@@ -1,12 +1,18 @@
 package com.lilithsthrone.game.character.body.types;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 
 /**
  * @since 0.1.0
- * @version 0.2.1
+ * @version 0.2.2
  * @author Innoxia
  */
 public enum LegType implements BodyPartTypeInterface {
@@ -26,6 +32,12 @@ public enum LegType implements BodyPartTypeInterface {
 	LYCAN(BodyCoveringType.LYCAN_FUR, Race.WOLF_MORPH),
 
 	SQUIRREL_MORPH(BodyCoveringType.SQUIRREL_FUR, Race.SQUIRREL_MORPH),
+
+	RAT_MORPH(BodyCoveringType.RAT_FUR, Race.RAT_MORPH),
+	
+	RABBIT_MORPH(BodyCoveringType.RABBIT_FUR, Race.RABBIT_MORPH),
+
+	BAT_MORPH(BodyCoveringType.BAT_FUR, Race.BAT_MORPH),
 	
 	CAT_MORPH(BodyCoveringType.FELINE_FUR, Race.CAT_MORPH),
 
@@ -94,6 +106,12 @@ public enum LegType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("furry", "fur-coated", "anthropomorphic squirrel-like");
 			case LYCAN:
 				return UtilText.returnStringAtRandom("furry", "fur-coated", "anthropomorphic wolf-like");
+			case RAT_MORPH:
+				return UtilText.returnStringAtRandom("furry", "fur-coated", "anthropomorphic rat-like");
+			case RABBIT_MORPH:
+				return UtilText.returnStringAtRandom("furry", "fur-coated", "anthropomorphic rabbit-like");
+			case BAT_MORPH:
+				return UtilText.returnStringAtRandom("furry", "fur-coated", "anthropomorphic bat-like");
 		}
 		return "";
 	}
@@ -126,12 +144,18 @@ public enum LegType implements BodyPartTypeInterface {
 				return "human";
 			case LYCAN:
 				return "lupine";
+			case BAT_MORPH:
+				return "bat";
+			case RAT_MORPH:
+				return "rat";
+			case RABBIT_MORPH:
+				return "rabbit";
 		}
 		return "";
 	}
 
 	@Override
-	public BodyCoveringType getBodyCoveringType() {
+	public BodyCoveringType getBodyCoveringType(Body body) {
 		return skinType;
 	}
 
@@ -187,6 +211,12 @@ public enum LegType implements BodyPartTypeInterface {
 					return UtilText.returnStringAtRandom("soft", "feminine", "wolf-like", "furry", "paw-like");
 				case SQUIRREL_MORPH:
 					return UtilText.returnStringAtRandom("soft", "feminine", "squirrel-like", "paw-like", "furry");
+				case BAT_MORPH:
+					return UtilText.returnStringAtRandom("soft", "feminine", "bat-like", "paw-like", "furry");
+				case RAT_MORPH:
+					return UtilText.returnStringAtRandom("soft", "feminine", "rat-like", "paw-like", "furry");
+				case RABBIT_MORPH:
+					return UtilText.returnStringAtRandom("soft", "feminine", "rabbit-like", "paw-like", "furry");
 			}
 		} else {
 			switch(this){
@@ -216,8 +246,30 @@ public enum LegType implements BodyPartTypeInterface {
 					return UtilText.returnStringAtRandom("wolf-like", "furry", "paw-like");
 				case SQUIRREL_MORPH:
 					return UtilText.returnStringAtRandom("soft", "squirrel-like", "paw-like", "furry");
+				case BAT_MORPH:
+					return UtilText.returnStringAtRandom("bat-like", "paw-like", "furry");
+				case RAT_MORPH:
+					return UtilText.returnStringAtRandom("rat-like", "paw-like", "furry");
+				case RABBIT_MORPH:
+					return UtilText.returnStringAtRandom("rabbit-like", "paw-like", "furry");
 			}
 		}
 		return "";
+	}
+	
+	private static Map<Race, List<LegType>> typesMap = new HashMap<>();
+	public static List<LegType> getLegTypes(Race r) {
+		if(typesMap.containsKey(r)) {
+			return typesMap.get(r);
+		}
+		
+		List<LegType> types = new ArrayList<>();
+		for(LegType type : LegType.values()) {
+			if(type.getRace()==r) {
+				types.add(type);
+			}
+		}
+		typesMap.put(r, types);
+		return types;
 	}
 }

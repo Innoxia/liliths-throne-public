@@ -57,10 +57,17 @@ public enum Colour {
 	BASE_BLUE_STEEL(BaseColour.BLUE_STEEL, "steely blue", Util.newArrayListOfValues(new ListValue<>("steelyBlue"))),
 	
 	BASE_BLACK(BaseColour.BLACK, "black", Util.newArrayListOfValues(new ListValue<>("black"))),
+	BASE_PITCH_BLACK(BaseColour.PITCH_BLACK, "black", Util.newArrayListOfValues(new ListValue<>("black"))),
 	
 	
 	
 	// Game colours:
+	MAP_BACKGROUND_UNEXPLORED(Util.newColour(0x111), Util.newColour(0x111), "black"),
+	MAP_BACKGROUND_PINK(Util.newColour(0xb2a4bb), Util.newColour(0xb2a4bb), "pink"),
+	MAP_BACKGROUND(Util.newColour(0xbbbbbb), Util.newColour(0xbbbbbb), "grey"),
+	MAP_BACKGROUND_DARK(Util.newColour(0x888888), Util.newColour(0x8f8f8f), "dark grey"),
+	MAP_BACKGROUND_BLUE(BaseColour.BLUE_LIGHT, "light blue", Util.newArrayListOfValues(new ListValue<>("lightBlue"))),
+	
 	GENERIC_SEX(BaseColour.PINK_LIGHT, "pink", Util.newArrayListOfValues(new ListValue<>("sex"))),
 	GENERIC_COMBAT(BaseColour.CRIMSON, "crimson"),
 	GENERIC_ARCANE(BaseColour.PINK, "pink", Util.newArrayListOfValues(new ListValue<>("arcane"))),
@@ -98,6 +105,9 @@ public enum Colour {
 	RACE_HARPY(BaseColour.PINK_LIGHT, "light pink", Util.newArrayListOfValues(new ListValue<>("harpy"))),
 	RACE_SLIME(BaseColour.PINK, "pink", Util.newArrayListOfValues(new ListValue<>("slime"))),
 	RACE_SQUIRREL_MORPH(BaseColour.GINGER, "ginger", Util.newArrayListOfValues(new ListValue<>("squirrelMorph"), new ListValue<>("squirrel"))),
+	RACE_RAT_MORPH(BaseColour.BROWN_DARK, "dark brown", Util.newArrayListOfValues(new ListValue<>("ratMorph"), new ListValue<>("rat"))),
+	RACE_RABBIT_MORPH(BaseColour.BROWN_DARK, "dark brown", Util.newArrayListOfValues(new ListValue<>("rabbitMorph"), new ListValue<>("rabbit"))),
+	RACE_BAT_MORPH(BaseColour.BLACK, "black", Util.newArrayListOfValues(new ListValue<>("batMorph"), new ListValue<>("bat"))),
 	RACE_ALLIGATOR_MORPH(BaseColour.GREEN_DARK, "dark green", Util.newArrayListOfValues(new ListValue<>("alligatorMorph"), new ListValue<>("alligator"), new ListValue<>("gatorMorph"), new ListValue<>("gator"))),
 	
 	QUEST_MAIN(BaseColour.PINK, "pink"),
@@ -665,15 +675,23 @@ public enum Colour {
 			new ListValue<Colour>(Colour.SKIN_OLIVE),
 			new ListValue<Colour>(Colour.SKIN_DARK),
 			new ListValue<Colour>(Colour.SKIN_EBONY));
+
+	public static List<Colour> ratSkinColours = Util.newArrayListOfValues(
+			new ListValue<Colour>(Colour.SKIN_PINK_LIGHT));
 	
 	public static List<Colour> demonSkinColours = Util.newArrayListOfValues(
+			new ListValue<Colour>(Colour.SKIN_PALE),
+			new ListValue<Colour>(Colour.SKIN_LIGHT),
+			new ListValue<Colour>(Colour.SKIN_OLIVE),
+			new ListValue<Colour>(Colour.SKIN_DARK),
+			new ListValue<Colour>(Colour.SKIN_EBONY),
+			new ListValue<Colour>(Colour.SKIN_IVORY),
+			new ListValue<Colour>(Colour.SKIN_GREY),
 			new ListValue<Colour>(Colour.SKIN_RED),
 			new ListValue<Colour>(Colour.SKIN_RED_DARK),
 			new ListValue<Colour>(Colour.SKIN_BROWN),
-			new ListValue<Colour>(Colour.SKIN_YELLOW),
 			new ListValue<Colour>(Colour.SKIN_AMBER),
-			new ListValue<Colour>(Colour.SKIN_PINK_LIGHT),
-			new ListValue<Colour>(Colour.SKIN_PINK),
+			new ListValue<Colour>(Colour.SKIN_YELLOW),
 			new ListValue<Colour>(Colour.SKIN_GREEN),
 			new ListValue<Colour>(Colour.SKIN_GREEN_DARK),
 			new ListValue<Colour>(Colour.SKIN_BLUE_LIGHT),
@@ -682,9 +700,8 @@ public enum Colour {
 			new ListValue<Colour>(Colour.SKIN_LILAC),
 			new ListValue<Colour>(Colour.SKIN_PURPLE),
 			new ListValue<Colour>(Colour.SKIN_PURPLE_DARK),
-			new ListValue<Colour>(Colour.SKIN_IVORY),
-			new ListValue<Colour>(Colour.SKIN_GREY),
-			new ListValue<Colour>(Colour.SKIN_EBONY));
+			new ListValue<Colour>(Colour.SKIN_PINK_LIGHT),
+			new ListValue<Colour>(Colour.SKIN_PINK));
 
 	public static List<Colour> allSkinColours = Util.newArrayListOfValues(
 			new ListValue<Colour>(Colour.SKIN_PALE),
@@ -692,14 +709,13 @@ public enum Colour {
 			new ListValue<Colour>(Colour.SKIN_OLIVE),
 			new ListValue<Colour>(Colour.SKIN_DARK),
 			new ListValue<Colour>(Colour.SKIN_EBONY),
+			new ListValue<Colour>(Colour.SKIN_IVORY),
 			new ListValue<Colour>(Colour.SKIN_GREY),
 			new ListValue<Colour>(Colour.SKIN_RED),
 			new ListValue<Colour>(Colour.SKIN_RED_DARK),
 			new ListValue<Colour>(Colour.SKIN_BROWN),
-			new ListValue<Colour>(Colour.SKIN_YELLOW),
 			new ListValue<Colour>(Colour.SKIN_AMBER),
-			new ListValue<Colour>(Colour.SKIN_PINK_LIGHT),
-			new ListValue<Colour>(Colour.SKIN_PINK),
+			new ListValue<Colour>(Colour.SKIN_YELLOW),
 			new ListValue<Colour>(Colour.SKIN_GREEN),
 			new ListValue<Colour>(Colour.SKIN_GREEN_DARK),
 			new ListValue<Colour>(Colour.SKIN_BLUE_LIGHT),
@@ -708,9 +724,13 @@ public enum Colour {
 			new ListValue<Colour>(Colour.SKIN_LILAC),
 			new ListValue<Colour>(Colour.SKIN_PURPLE),
 			new ListValue<Colour>(Colour.SKIN_PURPLE_DARK),
-			new ListValue<Colour>(Colour.SKIN_IVORY));
+			new ListValue<Colour>(Colour.SKIN_PINK_LIGHT),
+			new ListValue<Colour>(Colour.SKIN_PINK));
 
 	public static List<Colour> allSlimeColours = Util.newArrayListOfValues(
+			new ListValue<Colour>(Colour.SLIME_CLEAR),
+			new ListValue<Colour>(Colour.SLIME_GREY),
+			new ListValue<Colour>(Colour.SLIME_BLACK),
 			new ListValue<Colour>(Colour.SLIME_RED),
 			new ListValue<Colour>(Colour.SLIME_RED_DARK),
 			new ListValue<Colour>(Colour.SLIME_BROWN_DARK),
@@ -718,8 +738,6 @@ public enum Colour {
 			new ListValue<Colour>(Colour.SLIME_TAN),
 			new ListValue<Colour>(Colour.SLIME_YELLOW),
 			new ListValue<Colour>(Colour.SLIME_AMBER),
-			new ListValue<Colour>(Colour.SLIME_PINK),
-			new ListValue<Colour>(Colour.SLIME_PINK_LIGHT),
 			new ListValue<Colour>(Colour.SLIME_GREEN),
 			new ListValue<Colour>(Colour.SLIME_GREEN_DARK),
 			new ListValue<Colour>(Colour.SLIME_BLUE_LIGHT),
@@ -728,9 +746,8 @@ public enum Colour {
 			new ListValue<Colour>(Colour.SLIME_LILAC),
 			new ListValue<Colour>(Colour.SLIME_PURPLE),
 			new ListValue<Colour>(Colour.SLIME_PURPLE_DARK),
-			new ListValue<Colour>(Colour.SLIME_CLEAR),
-			new ListValue<Colour>(Colour.SLIME_GREY),
-			new ListValue<Colour>(Colour.SLIME_BLACK)
+			new ListValue<Colour>(Colour.SLIME_PINK),
+			new ListValue<Colour>(Colour.SLIME_PINK_LIGHT)
 			);
 	
 	

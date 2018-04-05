@@ -14,7 +14,7 @@ import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 
-public class OrificeUrethra implements OrificeInterface, Serializable {
+public class OrificePenisUrethra implements OrificeInterface, Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	protected int wetness;
@@ -25,7 +25,7 @@ public class OrificeUrethra implements OrificeInterface, Serializable {
 	protected boolean virgin;
 	protected Set<OrificeModifier> orificeModifiers;
 
-	public OrificeUrethra(int wetness, int capacity, int elasticity, int plasticity, boolean virgin, Collection<OrificeModifier> orificeModifiers) {
+	public OrificePenisUrethra(int wetness, int capacity, int elasticity, int plasticity, boolean virgin, Collection<OrificeModifier> orificeModifiers) {
 		this.wetness = wetness;
 		this.capacity = capacity;
 		stretchedCapacity = capacity;

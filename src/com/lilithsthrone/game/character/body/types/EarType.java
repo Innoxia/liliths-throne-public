@@ -6,12 +6,13 @@ import java.util.List;
 import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 
 /**
  * @since 0.1.0
- * @version 0.2.1
+ * @version 0.2.2
  * @author Innoxia
  */
 public enum EarType implements BodyPartTypeInterface {
@@ -24,7 +25,6 @@ public enum EarType implements BodyPartTypeInterface {
 	IMP(BodyCoveringType.IMP, Race.IMP),
 	
 	DOG_MORPH(BodyCoveringType.CANINE_FUR, Race.DOG_MORPH),
-	
 	DOG_MORPH_POINTED(BodyCoveringType.CANINE_FUR, Race.DOG_MORPH),
 
 	LYCAN(BodyCoveringType.LYCAN_FUR, Race.WOLF_MORPH),
@@ -34,6 +34,13 @@ public enum EarType implements BodyPartTypeInterface {
 	CAT_MORPH(BodyCoveringType.FELINE_FUR, Race.CAT_MORPH),
 
 	SQUIRREL_MORPH(BodyCoveringType.SQUIRREL_FUR, Race.SQUIRREL_MORPH),
+
+	RAT_MORPH(BodyCoveringType.RAT_FUR, Race.RAT_MORPH),
+
+	RABBIT_MORPH(BodyCoveringType.RABBIT_FUR, Race.RABBIT_MORPH),
+	RABBIT_MORPH_FLOPPY(BodyCoveringType.RABBIT_FUR, Race.RABBIT_MORPH),
+	
+	BAT_MORPH(BodyCoveringType.BAT_FUR, Race.BAT_MORPH),
 
 	ALLIGATOR_MORPH(BodyCoveringType.ALLIGATOR_SCALES, Race.ALLIGATOR_MORPH),
 
@@ -102,6 +109,14 @@ public enum EarType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("");
 			case LYCAN:
 				return UtilText.returnStringAtRandom("furry", "fur-coated", "wolf-like");
+			case BAT_MORPH:
+				return UtilText.returnStringAtRandom("large", "bat-like");
+			case RAT_MORPH:
+				return UtilText.returnStringAtRandom("rat-like");
+			case RABBIT_MORPH:
+				return UtilText.returnStringAtRandom("upright", "furry", "fur-coated", "rabbit-like");
+			case RABBIT_MORPH_FLOPPY:
+				return UtilText.returnStringAtRandom("floppy", "furry", "fur-coated", "rabbit-like");
 		}
 		return "";
 	}
@@ -136,12 +151,20 @@ public enum EarType implements BodyPartTypeInterface {
 				return "human";
 			case LYCAN:
 				return "lupine";
+			case BAT_MORPH:
+				return "bat";
+			case RAT_MORPH:
+				return "rat";
+			case RABBIT_MORPH:
+				return "upright rabbit";
+			case RABBIT_MORPH_FLOPPY:
+				return "floppy rabbit";
 		}
 		return "";
 	}
 	
 	@Override
-	public BodyCoveringType getBodyCoveringType() {
+	public BodyCoveringType getBodyCoveringType(Body body) {
 		return skinType;
 	}
 

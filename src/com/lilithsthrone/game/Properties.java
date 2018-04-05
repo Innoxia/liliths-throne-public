@@ -47,7 +47,7 @@ import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.0
- * @version 0.2.1
+ * @version 0.2.2
  * @author Innoxia
  */
 public class Properties implements Serializable {
@@ -91,6 +91,9 @@ public class Properties implements Serializable {
 	public boolean facialHairContent = false;
 	public boolean pubicHairContent = false;
 	public boolean bodyHairContent = false;
+	public boolean feminineBeardsContent = false;
+	public boolean lactationContent = true;
+	public boolean urethralContent = false;
 	
 	public boolean newWeaponDiscovered = false;
 	public boolean newClothingDiscovered = false;
@@ -216,6 +219,12 @@ public class Properties implements Serializable {
 			createXMLElementWithValue(doc, settings, "facialHairContent", String.valueOf(facialHairContent));
 			createXMLElementWithValue(doc, settings, "pubicHairContent", String.valueOf(pubicHairContent));
 			createXMLElementWithValue(doc, settings, "bodyHairContent", String.valueOf(bodyHairContent));
+			createXMLElementWithValue(doc, settings, "feminineBeardsContent", String.valueOf(feminineBeardsContent));
+			createXMLElementWithValue(doc, settings, "lactationContent", String.valueOf(lactationContent));
+			createXMLElementWithValue(doc, settings, "urethralContent", String.valueOf(urethralContent));
+			
+			
+			
 			createXMLElementWithValue(doc, settings, "overwriteWarning", String.valueOf(overwriteWarning));
 			createXMLElementWithValue(doc, settings, "fadeInText", String.valueOf(fadeInText));
 			createXMLElementWithValue(doc, settings, "calendarDisplay", String.valueOf(calendarDisplay));
@@ -500,18 +509,27 @@ public class Properties implements Serializable {
 				nodes = doc.getElementsByTagName("settings");
 				element = (Element) nodes.item(0);
 				fontSize = Integer.valueOf(((Element)element.getElementsByTagName("fontSize").item(0)).getAttribute("value"));
-				lightTheme = ((((Element)element.getElementsByTagName("lightTheme").item(0)).getAttribute("value")).equals("true"));
+				lightTheme = Boolean.valueOf((((Element)element.getElementsByTagName("lightTheme").item(0)).getAttribute("value")));
 				
-				furryTailPenetrationContent = ((((Element)element.getElementsByTagName("furryTailPenetrationContent").item(0)).getAttribute("value")).equals("true"));
-				nonConContent = ((((Element)element.getElementsByTagName("nonConContent").item(0)).getAttribute("value")).equals("true"));
-				incestContent = ((((Element)element.getElementsByTagName("incestContent").item(0)).getAttribute("value")).equals("true"));
+				furryTailPenetrationContent = Boolean.valueOf((((Element)element.getElementsByTagName("furryTailPenetrationContent").item(0)).getAttribute("value")));
+				nonConContent = Boolean.valueOf((((Element)element.getElementsByTagName("nonConContent").item(0)).getAttribute("value")));
+				incestContent = Boolean.valueOf((((Element)element.getElementsByTagName("incestContent").item(0)).getAttribute("value")));
 				if(element.getElementsByTagName("inflationContent").item(0)!=null) {
-					inflationContent = ((((Element)element.getElementsByTagName("inflationContent").item(0)).getAttribute("value")).equals("true"));
+					inflationContent = Boolean.valueOf((((Element)element.getElementsByTagName("inflationContent").item(0)).getAttribute("value")));
 				}
 //				forcedTransformationContent = ((((Element)element.getElementsByTagName("forcedTransformationContent").item(0)).getAttribute("value")).equals("true"));
-				facialHairContent = ((((Element)element.getElementsByTagName("facialHairContent").item(0)).getAttribute("value")).equals("true"));
-				pubicHairContent = ((((Element)element.getElementsByTagName("pubicHairContent").item(0)).getAttribute("value")).equals("true"));
-				bodyHairContent = ((((Element)element.getElementsByTagName("bodyHairContent").item(0)).getAttribute("value")).equals("true"));
+				facialHairContent = Boolean.valueOf((((Element)element.getElementsByTagName("facialHairContent").item(0)).getAttribute("value")));
+				pubicHairContent = Boolean.valueOf((((Element)element.getElementsByTagName("pubicHairContent").item(0)).getAttribute("value")));
+				bodyHairContent = Boolean.valueOf((((Element)element.getElementsByTagName("bodyHairContent").item(0)).getAttribute("value")));
+				if(element.getElementsByTagName("feminineBeardsContent").item(0)!=null) {
+					feminineBeardsContent = Boolean.valueOf((((Element)element.getElementsByTagName("feminineBeardsContent").item(0)).getAttribute("value")));
+				}
+				if(element.getElementsByTagName("lactationContent").item(0)!=null) {
+					lactationContent = Boolean.valueOf((((Element)element.getElementsByTagName("lactationContent").item(0)).getAttribute("value")));
+				}
+				if(element.getElementsByTagName("urethralContent").item(0)!=null) {
+					urethralContent = Boolean.valueOf((((Element)element.getElementsByTagName("urethralContent").item(0)).getAttribute("value")));
+				}
 				
 				newWeaponDiscovered = Boolean.valueOf(((Element)element.getElementsByTagName("newWeaponDiscovered").item(0)).getAttribute("value"));
 				newClothingDiscovered = Boolean.valueOf(((Element)element.getElementsByTagName("newClothingDiscovered").item(0)).getAttribute("value"));

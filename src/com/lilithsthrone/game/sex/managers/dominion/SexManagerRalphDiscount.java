@@ -39,4 +39,9 @@ public class SexManagerRalphDiscount extends SexManagerDefault {
 		return false;
 	}
 	
+	@Override
+	public boolean isPlayerAbleToSwapPositions() {
+		return false;
+	}
+	
 }

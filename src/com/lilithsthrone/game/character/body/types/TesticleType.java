@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.character.body.types;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 
@@ -37,7 +38,13 @@ public enum TesticleType implements BodyPartTypeInterface {
 
 	AVIAN(BodyCoveringType.PENIS, FluidType.CUM_HARPY, Race.HARPY, true),
 	
-	SQUIRREL(BodyCoveringType.SQUIRREL_FUR, FluidType.CUM_SQUIRREL_MORPH, Race.SQUIRREL_MORPH, false);
+	SQUIRREL(BodyCoveringType.SQUIRREL_FUR, FluidType.CUM_SQUIRREL_MORPH, Race.SQUIRREL_MORPH, false),
+
+	RAT_MORPH(BodyCoveringType.PENIS, FluidType.CUM_RAT_MORPH, Race.RAT_MORPH, false),
+	
+	RABBIT_MORPH(BodyCoveringType.PENIS, FluidType.CUM_RABBIT_MORPH, Race.RABBIT_MORPH, false),
+
+	BAT_MORPH(BodyCoveringType.PENIS, FluidType.CUM_BAT_MORPH, Race.BAT_MORPH, false);
 
 	
 	private BodyCoveringType skinType;
@@ -78,7 +85,7 @@ public enum TesticleType implements BodyPartTypeInterface {
 	}
 
 	@Override
-	public BodyCoveringType getBodyCoveringType() {
+	public BodyCoveringType getBodyCoveringType(Body body) {
 		return skinType;
 	}
 	

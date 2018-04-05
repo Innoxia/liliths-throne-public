@@ -70,7 +70,7 @@ public enum Combat {
 	/**
 	 * @param allies A list of allies who are fighting with you. <b>Do not include Main.game.getPlayer() in this!</b>
 	 * @param enemies A list of enemies you're fighting. The first enemy in the list is considered the leader.
-	 * @param escapePercentage THe base chance of escaping in this combat situation. TODO
+	 * @param escapePercentage The base chance of escaping in this combat situation. TODO
 	 * @param openingDescriptions A map of opening descriptions for characters. If a description is not provided, one is generated automatically.
 	 */
 	public void initialiseCombat(
@@ -599,83 +599,7 @@ public enum Combat {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			
-			if(responseTab==1) { // Special attacks:
-				if (Main.game.getPlayer().getSpecialAttacks().size() >= index && index!=0) {
-					int cooldown = Combat.getCooldown(Main.game.getPlayer(), Main.game.getPlayer().getSpecialAttacks().get(index - 1));
-					if(cooldown==0) {
-						return new Response(Util.capitaliseSentence(Main.game.getPlayer().getSpecialAttacks().get(index - 1).getName()),
-								getSpecialAttackDescription(Main.game.getPlayer().getSpecialAttacks().get(index - 1)),
-								ENEMY_ATTACK){
-							@Override
-							public void effects() {
-								attackSpecialAttack(Main.game.getPlayer(), Main.game.getPlayer().getSpecialAttacks().get(index - 1));
-								endCombatTurn();
-								previousAction = Attack.SPECIAL_ATTACK;
-								previouslyUsedSpecialAttack = Main.game.getPlayer().getSpecialAttacks().get(index - 1);
-							}
-						};
-					} else {
-						return new Response(Util.capitaliseSentence(Main.game.getPlayer().getSpecialAttacks().get(index - 1).getName()),
-								"This special move is on cooldown for [style.colourBad("+cooldown+")] more turns!",
-								null);
-					}
-					
-				} else {
-					return null;
-				}
-			}
-			
-			if(responseTab==2) { // Spells
-				if(index == 0) {
-					return null;
-					
-				} else if(index<=5 && Main.game.getPlayer().getOffensiveSpells().size()>=index) {
-					return new Response(Util.capitaliseSentence(Main.game.getPlayer().getOffensiveSpells().get(index - 1).getName()),
-							getSpellDescription(Main.game.getPlayer().getOffensiveSpells().get(index - 1), null),
-							ENEMY_ATTACK){
-						@Override
-						public void effects() {
-							attackSpell(Main.game.getPlayer(), Main.game.getPlayer().getOffensiveSpells().get(index - 1));
-							endCombatTurn();
-							previousAction = Attack.SPELL;
-							previouslyUsedSpell = Main.game.getPlayer().getOffensiveSpells().get(index - 1);
-						}
-					};
-					
-				} else if(index>5 && index<=10 && Main.game.getPlayer().getDefensiveSpells().size()+5>=index) {
-					return new Response(Util.capitaliseSentence(Main.game.getPlayer().getDefensiveSpells().get(index - 6).getName()),
-							getSpellDescription(Main.game.getPlayer().getDefensiveSpells().get(index - 6), null),
-							ENEMY_ATTACK){
-						@Override
-						public void effects() {
-							attackSpell(Main.game.getPlayer(), Main.game.getPlayer().getDefensiveSpells().get(index - 6));
-							endCombatTurn();
-							previousAction = Attack.SPELL;
-							previouslyUsedSpell = Main.game.getPlayer().getDefensiveSpells().get(index - 6);
-						}
-					};
-					
-				} else if(index>10 && index<=14 && Main.game.getPlayer().getExtraSpells().size()+10>=index) {
-					return new Response(Util.capitaliseSentence(Main.game.getPlayer().getExtraSpells().get(index - 11).getName()),
-							getSpellDescription(Main.game.getPlayer().getExtraSpells().get(index - 11),
-							null),
-							ENEMY_ATTACK){
-						@Override
-						public void effects() {
-							attackSpell(Main.game.getPlayer(), Main.game.getPlayer().getExtraSpells().get(index - 11));
-							endCombatTurn();
-							previousAction = Attack.SPELL;
-							previouslyUsedSpell = Main.game.getPlayer().getExtraSpells().get(index - 11);
-						}
-					};
-					
-				} else {
-					return null;
-				}
-			}
-			
-			
-			if(Main.game.getPlayer().hasStatusEffect(StatusEffect.WITCH_SEAL)) { //TODO replace with generic isStunned() method
+			if(Main.game.getPlayer().isStunned()) {
 				if (index == 1) {
 					return new Response("Stunned!", "You are unable to make an action this turn!", ENEMY_ATTACK){
 						@Override
@@ -726,143 +650,255 @@ public enum Combat {
 				} else
 					return null;
 				
-			} else {
-				if (index == 0) {
-					if (escapeChance == 0) {
-						return new Response("Escape", "You can't run from this fight!", null);
-						
-					} else {
-						return new Response("Escape",
-								Main.game.getPlayer().hasTrait(Perk.JOB_ATHLETE, true) && escapeChance==100
-									?"Try to escape.</br></br>Thanks to your <b style='color:"+Perk.JOB_ATHLETE.getColour().toWebHexString()+";'>"+Perk.JOB_ATHLETE.getName(Main.game.getPlayer())+"</b> ability, you have a "+escapeChance+"% chance to get away!"
-									:"Try to escape.</br></br>You have a "+escapeChance+"% chance to get away!",
+			}
+			
+			
+			if(responseTab==1) { // Special attacks:
+				if (Main.game.getPlayer().getSpecialAttacks().size() >= index && index!=0) {
+					int cooldown = Combat.getCooldown(Main.game.getPlayer(), Main.game.getPlayer().getSpecialAttacks().get(index - 1));
+					if(cooldown==0) {
+						return new Response(Util.capitaliseSentence(Main.game.getPlayer().getSpecialAttacks().get(index - 1).getName()),
+								getSpecialAttackDescription(Main.game.getPlayer().getSpecialAttacks().get(index - 1)),
 								ENEMY_ATTACK){
 							@Override
 							public void effects() {
-								escape(Main.game.getPlayer());
+								attackSpecialAttack(Main.game.getPlayer(), Main.game.getPlayer().getSpecialAttacks().get(index - 1));
 								endCombatTurn();
-							}
-						};
-					}
-					
-				} else if (index == 1) {
-					if(Main.game.getPlayer().getMainWeapon() == null || Main.game.getPlayer().getMainWeapon().isAbleToBeUsed(Main.game.getPlayer(), Combat.getTargetedCombatant(Main.game.getPlayer()))) {
-						return new Response((Main.game.getPlayer().getMainWeapon() != null?Main.game.getPlayer().getMainWeapon().getWeaponType().getAttackDescriptor():"Melee Strike"),
-								getMainAttackDescription(),
-								ENEMY_ATTACK){
-							@Override
-							public void effects() {
-								attackMelee(Main.game.getPlayer());
-								endCombatTurn();
+								previousAction = Attack.SPECIAL_ATTACK;
+								previouslyUsedSpecialAttack = Main.game.getPlayer().getSpecialAttacks().get(index - 1);
 							}
 						};
 					} else {
-						return new Response((Main.game.getPlayer().getMainWeapon() != null?Main.game.getPlayer().getMainWeapon().getWeaponType().getAttackDescriptor():"Melee Strike"),
-								Main.game.getPlayer().getMainWeapon().getUnableToBeUsedDescription(), null);
+						return new Response(Util.capitaliseSentence(Main.game.getPlayer().getSpecialAttacks().get(index - 1).getName()),
+								"This special move is on cooldown for [style.colourBad("+cooldown+")] more turns!",
+								null);
 					}
-
-				} else if (index == 2) {
-					if(Main.game.getPlayer().getOffhandWeapon() == null || Main.game.getPlayer().getOffhandWeapon().isAbleToBeUsed(Main.game.getPlayer(), Combat.getTargetedCombatant(Main.game.getPlayer()))) {
-						return new Response((Main.game.getPlayer().getOffhandWeapon() != null?Main.game.getPlayer().getOffhandWeapon().getWeaponType().getAttackDescriptor():"Melee Strike"),
-								getOffhandAttackDescription(), ENEMY_ATTACK){
-							@Override
-							public void effects() {
-								attackOffhand(Main.game.getPlayer());
-								endCombatTurn();
-							}
-						};
-					} else {
-						return new Response((Main.game.getPlayer().getOffhandWeapon() != null?Main.game.getPlayer().getOffhandWeapon().getWeaponType().getAttackDescriptor():"Melee Strike"),
-								Main.game.getPlayer().getOffhandWeapon().getUnableToBeUsedDescription(), null);
-					}
-
-				} else if (index == 3) {
-					if((Main.game.getPlayer().getMainWeapon() == null || Main.game.getPlayer().getMainWeapon().isAbleToBeUsed(Main.game.getPlayer(), Combat.getTargetedCombatant(Main.game.getPlayer())))
-							&& (Main.game.getPlayer().getOffhandWeapon() == null || Main.game.getPlayer().getOffhandWeapon().isAbleToBeUsed(Main.game.getPlayer(), Combat.getTargetedCombatant(Main.game.getPlayer())))) {
-						return new Response("Dual Strike", getDualAttackDescription(), ENEMY_ATTACK){
-							@Override
-							public void effects() {
-								attackDual(Main.game.getPlayer());
-								endCombatTurn();
-							}
-						};
-					} else {
-						if((Main.game.getPlayer().getMainWeapon() != null && !Main.game.getPlayer().getMainWeapon().isAbleToBeUsed(Main.game.getPlayer(), Combat.getTargetedCombatant(Main.game.getPlayer())))) {
-							return new Response("Dual Strike", Main.game.getPlayer().getMainWeapon().getUnableToBeUsedDescription(), null);
-						} else {
-							return new Response("Dual Strike", Main.game.getPlayer().getOffhandWeapon().getUnableToBeUsedDescription(), null);
-						}
-					}
-
-				} else if (index == 4) {
-					return new Response("Seduce", getTeaseDescription(), ENEMY_ATTACK){
-						@Override
-						public void effects() {
-							attackSeduction(Main.game.getPlayer());
-							endCombatTurn();
-						}
-					};
-
-				}  else if (index == 5) {
-					return new Response("Wait", "Don't perform an action.", ENEMY_ATTACK){
-						@Override
-						public void effects() {
-							attackWait(Main.game.getPlayer());
-							endCombatTurn();
-						}
-					};
-
-				}  else if (index == 9) {
-					return new Response("Submit", "Consider submitting to " + enemies.get(0).getName("the") + ".", SUBMIT);
-
-				} else if (index == 10) {
-					switch (previousAction) {
-						case SPELL:
-							return new Response(Util.capitaliseSentence(previouslyUsedSpell.getName()), getSpellDescription(previouslyUsedSpell, null), ENEMY_ATTACK){
-								@Override
-								public void effects() {
-									attackSpell(Main.game.getPlayer(), previouslyUsedSpell);
-									endCombatTurn();
-								}
-							};
-	
-						case SPECIAL_ATTACK:
-							int cooldown = Combat.getCooldown(Main.game.getPlayer(), previouslyUsedSpecialAttack);
-							if(cooldown==0) {
-								return new Response(Util.capitaliseSentence(previouslyUsedSpecialAttack.getName()), getSpecialAttackDescription(previouslyUsedSpecialAttack), ENEMY_ATTACK){
-									@Override
-									public void effects() {
-										attackSpecialAttack(Main.game.getPlayer(), previouslyUsedSpecialAttack);
-										endCombatTurn();
-									}
-								};
-							} else {
-								return new Response(Util.capitaliseSentence(previouslyUsedSpecialAttack.getName()),
-										"This special move is on cooldown for [style.colourBad("+cooldown+")] more turns!",
-										null);
-							}
-	
-						default:
-							return new Response("Repeat", "You have to perform an action first!", null);
-					}
-
-				} else if(index>=11 && index - 10 <= enemies.size()) {
-					
-					return new Response(Util.capitaliseSentence(enemies.get(index-11).getName()), "Switch your target to "+Util.capitaliseSentence(enemies.get(index-11).getName())+".", ENEMY_ATTACK){
-						@Override
-						public void effects() {
-							targetedCombatant = enemies.get(index-11);
-						}
-						@Override
-						public Colour getHighlightColour() {
-							return enemies.get(index-11).getRace().getColour();
-						}
-					};
-					
 					
 				} else {
 					return null;
 				}
+			}
+			
+			if(responseTab==2) { // Spells
+				if(index == 0) {
+					return null;
+					
+				} else if(index<=5 && Main.game.getPlayer().getOffensiveSpells().size()>=index) {
+					if(Main.game.getPlayer().getMana() < Main.game.getPlayer().getOffensiveSpells().get(index - 1).getModifiedCost(Main.game.getPlayer())) {
+						return new Response(Util.capitaliseSentence(Main.game.getPlayer().getOffensiveSpells().get(index - 1).getName()),
+								"You don't have enough aura to cast this spell!",
+								null);
+					}
+					return new Response(Util.capitaliseSentence(Main.game.getPlayer().getOffensiveSpells().get(index - 1).getName()),
+							getSpellDescription(Main.game.getPlayer().getOffensiveSpells().get(index - 1), null),
+							ENEMY_ATTACK){
+						@Override
+						public void effects() {
+							attackSpell(Main.game.getPlayer(), Main.game.getPlayer().getOffensiveSpells().get(index - 1));
+							endCombatTurn();
+							previousAction = Attack.SPELL;
+							previouslyUsedSpell = Main.game.getPlayer().getOffensiveSpells().get(index - 1);
+						}
+					};
+					
+				} else if(index>5 && index<=10 && Main.game.getPlayer().getDefensiveSpells().size()+5>=index) {
+					if(Main.game.getPlayer().getMana() < Main.game.getPlayer().getDefensiveSpells().get(index - 6).getModifiedCost(Main.game.getPlayer())) {
+						return new Response(Util.capitaliseSentence(Main.game.getPlayer().getDefensiveSpells().get(index - 6).getName()),
+								"You don't have enough aura to cast this spell!",
+								null);
+					}
+					return new Response(Util.capitaliseSentence(Main.game.getPlayer().getDefensiveSpells().get(index - 6).getName()),
+							getSpellDescription(Main.game.getPlayer().getDefensiveSpells().get(index - 6), null),
+							ENEMY_ATTACK){
+						@Override
+						public void effects() {
+							attackSpell(Main.game.getPlayer(), Main.game.getPlayer().getDefensiveSpells().get(index - 6));
+							endCombatTurn();
+							previousAction = Attack.SPELL;
+							previouslyUsedSpell = Main.game.getPlayer().getDefensiveSpells().get(index - 6);
+						}
+					};
+					
+				} else if(index>10 && index<=14 && Main.game.getPlayer().getExtraSpells().size()+10>=index) {
+					if(Main.game.getPlayer().getMana() < Main.game.getPlayer().getExtraSpells().get(index - 11).getModifiedCost(Main.game.getPlayer())) {
+						return new Response(Util.capitaliseSentence(Main.game.getPlayer().getExtraSpells().get(index - 11).getName()),
+								"You don't have enough aura to cast this spell!",
+								null);
+					}
+					return new Response(Util.capitaliseSentence(Main.game.getPlayer().getExtraSpells().get(index - 11).getName()),
+							getSpellDescription(Main.game.getPlayer().getExtraSpells().get(index - 11),
+							null),
+							ENEMY_ATTACK){
+						@Override
+						public void effects() {
+							attackSpell(Main.game.getPlayer(), Main.game.getPlayer().getExtraSpells().get(index - 11));
+							endCombatTurn();
+							previousAction = Attack.SPELL;
+							previouslyUsedSpell = Main.game.getPlayer().getExtraSpells().get(index - 11);
+						}
+					};
+					
+				} else {
+					return null;
+				}
+			}
+			
+			
+			if (index == 0) {
+				if (escapeChance == 0) {
+					return new Response("Escape", "You can't run from this fight!", null);
+					
+				} else {
+					return new Response("Escape",
+							Main.game.getPlayer().hasTrait(Perk.JOB_ATHLETE, true) && escapeChance==100
+								?"Try to escape.</br></br>Thanks to your <b style='color:"+Perk.JOB_ATHLETE.getColour().toWebHexString()+";'>"+Perk.JOB_ATHLETE.getName(Main.game.getPlayer())+"</b> ability, you have a "+escapeChance+"% chance to get away!"
+								:"Try to escape.</br></br>You have a "+escapeChance+"% chance to get away!",
+							ENEMY_ATTACK){
+						@Override
+						public void effects() {
+							escape(Main.game.getPlayer());
+							endCombatTurn();
+						}
+					};
+				}
+				
+			} else if (index == 1) {
+				if(Main.game.getPlayer().getMainWeapon() == null || Main.game.getPlayer().getMainWeapon().isAbleToBeUsed(Main.game.getPlayer(), Combat.getTargetedCombatant(Main.game.getPlayer()))) {
+					return new Response((Main.game.getPlayer().getMainWeapon() != null?Main.game.getPlayer().getMainWeapon().getWeaponType().getAttackDescriptor():"Melee Strike"),
+							getMainAttackDescription(),
+							ENEMY_ATTACK){
+						@Override
+						public void effects() {
+							attackMelee(Main.game.getPlayer());
+							endCombatTurn();
+						}
+					};
+				} else {
+					return new Response((Main.game.getPlayer().getMainWeapon() != null?Main.game.getPlayer().getMainWeapon().getWeaponType().getAttackDescriptor():"Melee Strike"),
+							Main.game.getPlayer().getMainWeapon().getUnableToBeUsedDescription(), null);
+				}
+
+			} else if (index == 2) {
+				if(Main.game.getPlayer().getOffhandWeapon() == null || Main.game.getPlayer().getOffhandWeapon().isAbleToBeUsed(Main.game.getPlayer(), Combat.getTargetedCombatant(Main.game.getPlayer()))) {
+					return new Response((Main.game.getPlayer().getOffhandWeapon() != null?Main.game.getPlayer().getOffhandWeapon().getWeaponType().getAttackDescriptor():"Melee Strike"),
+							getOffhandAttackDescription(), ENEMY_ATTACK){
+						@Override
+						public void effects() {
+							attackOffhand(Main.game.getPlayer());
+							endCombatTurn();
+						}
+					};
+				} else {
+					return new Response((Main.game.getPlayer().getOffhandWeapon() != null?Main.game.getPlayer().getOffhandWeapon().getWeaponType().getAttackDescriptor():"Melee Strike"),
+							Main.game.getPlayer().getOffhandWeapon().getUnableToBeUsedDescription(), null);
+				}
+
+			} else if (index == 3) {
+				if((Main.game.getPlayer().getMainWeapon() == null || Main.game.getPlayer().getMainWeapon().isAbleToBeUsed(Main.game.getPlayer(), Combat.getTargetedCombatant(Main.game.getPlayer())))
+						&& (Main.game.getPlayer().getOffhandWeapon() == null || Main.game.getPlayer().getOffhandWeapon().isAbleToBeUsed(Main.game.getPlayer(), Combat.getTargetedCombatant(Main.game.getPlayer())))) {
+					return new Response("Dual Strike", getDualAttackDescription(), ENEMY_ATTACK){
+						@Override
+						public void effects() {
+							attackDual(Main.game.getPlayer());
+							endCombatTurn();
+						}
+					};
+				} else {
+					if((Main.game.getPlayer().getMainWeapon() != null && !Main.game.getPlayer().getMainWeapon().isAbleToBeUsed(Main.game.getPlayer(), Combat.getTargetedCombatant(Main.game.getPlayer())))) {
+						return new Response("Dual Strike", Main.game.getPlayer().getMainWeapon().getUnableToBeUsedDescription(), null);
+					} else {
+						return new Response("Dual Strike", Main.game.getPlayer().getOffhandWeapon().getUnableToBeUsedDescription(), null);
+					}
+				}
+
+			} else if (index == 4) {
+				return new Response("Seduce", getTeaseDescription(), ENEMY_ATTACK){
+					@Override
+					public void effects() {
+						attackSeduction(Main.game.getPlayer());
+						endCombatTurn();
+					}
+				};
+
+			}  else if (index == 5) {
+				return new Response("Wait", "Don't perform an action.", ENEMY_ATTACK){
+					@Override
+					public void effects() {
+						attackWait(Main.game.getPlayer());
+						endCombatTurn();
+					}
+				};
+
+			}  else if (index == 9) {
+				return new Response("Submit", "Consider submitting to " + enemies.get(0).getName("the") + ".", SUBMIT);
+
+			} else if (index == 10) {
+				switch (previousAction) {
+					case SPELL:
+						if(Main.game.getPlayer().getMana() < previouslyUsedSpell.getModifiedCost(Main.game.getPlayer())) {
+							return new Response(Util.capitaliseSentence(previouslyUsedSpell.getName()),
+									"You don't have enough aura to cast this spell!",
+									null);
+						}
+						return new Response(Util.capitaliseSentence(previouslyUsedSpell.getName()), getSpellDescription(previouslyUsedSpell, null), ENEMY_ATTACK){
+							@Override
+							public void effects() {
+								attackSpell(Main.game.getPlayer(), previouslyUsedSpell);
+								endCombatTurn();
+							}
+						};
+
+					case SPECIAL_ATTACK:
+						int cooldown = Combat.getCooldown(Main.game.getPlayer(), previouslyUsedSpecialAttack);
+						if(cooldown==0) {
+							return new Response(Util.capitaliseSentence(previouslyUsedSpecialAttack.getName()), getSpecialAttackDescription(previouslyUsedSpecialAttack), ENEMY_ATTACK){
+								@Override
+								public void effects() {
+									attackSpecialAttack(Main.game.getPlayer(), previouslyUsedSpecialAttack);
+									endCombatTurn();
+								}
+							};
+						} else {
+							return new Response(Util.capitaliseSentence(previouslyUsedSpecialAttack.getName()),
+									"This special move is on cooldown for [style.colourBad("+cooldown+")] more turns!",
+									null);
+						}
+//						case DUAL: TODO
+//							break;
+//						case ESCAPE:
+//							break;
+//						case MAIN:
+//							break;
+//						case NONE:
+//							break;
+//						case OFFHAND:
+//							break;
+//						case SEDUCTION:
+//							break;
+//						case USE_ITEM:
+//							break;
+//						case WAIT:
+//							break;
+					default:
+						return new Response("Repeat", "You have to perform an action first!", null);
+				}
+
+			} else if(index>=11 && index - 10 <= enemies.size()) {
+				
+				return new Response(Util.capitaliseSentence(enemies.get(index-11).getName()), "Switch your target to "+Util.capitaliseSentence(enemies.get(index-11).getName())+".", ENEMY_ATTACK){
+					@Override
+					public void effects() {
+						targetedCombatant = enemies.get(index-11);
+					}
+					@Override
+					public Colour getHighlightColour() {
+						return enemies.get(index-11).getRace().getColour();
+					}
+				};
+				
+				
+			} else {
+				return null;
 			}
 		}
 
@@ -1030,7 +1066,7 @@ public enum Combat {
 		boolean critical = false;//isCriticalHit(attacker);
 	
 		float lustDamage = Attack.calculateDamage(attacker, target, Attack.SEDUCTION, critical);
-
+		
 		if(target.hasStatusEffect(StatusEffect.DESPERATE_FOR_SEX)) {
 			if(attacker.isPlayer()) {
 				attackStringBuilder.append(UtilText.parse(target,
@@ -1115,6 +1151,10 @@ public enum Combat {
 
 	private static void attackSpell(GameCharacter attacker, Spell spell) {
 		GameCharacter target = getTargetedCombatant(attacker);
+		
+		if(spell.isBeneficial() && !attacker.isPlayer()) {
+			target = attacker;
+		}
 
 		boolean critical = isCriticalHit(attacker);
 
@@ -1221,7 +1261,7 @@ public enum Combat {
 			}
 		}
 		
-		if(npc.hasStatusEffect(StatusEffect.WITCH_SEAL)) { //TODO replace with generic isStunned() method
+		if(npc.isStunned()) {
 			combatStringBuilder.append(getCharactersTurnDiv(npc,
 					"Stunned",
 					UtilText.parse(npc,

@@ -247,12 +247,7 @@ public class UtilText {
 		if (stutter)
 			modifiedSentence = Util.addStutter(modifiedSentence, 6);
 
-		if (femininity == Femininity.MASCULINE || femininity == Femininity.MASCULINE_STRONG)
-			return "<span class='speech' style='color:" + Colour.MASCULINE_NPC.toWebHexString() + ";'>" + modifiedSentence + "</span>";
-		else if (femininity == Femininity.ANDROGYNOUS)
-			return "<span class='speech' style='color:" + Colour.ANDROGYNOUS_NPC.toWebHexString() + ";'>" + modifiedSentence + "</span>";
-		else
-			return "<span class='speech' style='color:" + Colour.FEMININE_NPC.toWebHexString() + ";'>" + modifiedSentence + "</span>";
+		return "<span class='speech' style='color:" + femininity.getColour().toWebHexString() + ";'>" + modifiedSentence + "</span>";
 	}
 	
 	public static String getDisabledResponse(String label) {
@@ -622,6 +617,7 @@ public class UtilText {
 						if(conditionalThens==1){
 							if(command==null) {
 								command=sb.toString().substring(1, sb.length()-4); // Cut off the '#THEN' at the start.
+								command = command.replaceAll("\n", "").replaceAll("\t", "");
 							}
 							sb.setLength(0);
 						}
@@ -743,6 +739,20 @@ public class UtilText {
 			}
 		});
 		
+		conditionalCommandsList.add(new ParserConditionalCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("isVaginaExposed"),
+						new ListValue<>("isPussyExposed"),
+						new ListValue<>("isExposedVagina"),
+						new ListValue<>("isExposedPussy")),
+				"",
+				"Returns true if the character's vagina is exposed."){
+			@Override
+			public boolean process(String command, String arguments, String target) {
+				return character.isCoverableAreaExposed(CoverableArea.VAGINA);
+			}
+		});
+		
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(new ListValue<>("name")),
@@ -768,7 +778,7 @@ public class UtilText {
 				Util.newArrayListOfValues(new ListValue<>("surname")),
 				true,
 				false,
-				"(prefix)",
+				"",
 				"Returns the surname of the target."){
 			@Override
 			public String parse(String command, String arguments, String target) {
@@ -1011,6 +1021,32 @@ public class UtilText {
 				} else {
 					return UtilText.returnStringAtRandom("bitch", "bastard", "fuckface", "fucker");
 				}
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("fullRace"),
+						new ListValue<>("femininityRace")),
+				true,
+				true,
+				"(coloured)",//TODO
+				"Returns a full description of this characters race (including femininity)."){
+			@Override
+			public String parse(String command, String arguments, String target) {
+				boolean pronoun = parseAddPronoun;
+				parseAddPronoun = false;
+				if(arguments!=null && Boolean.valueOf(arguments)) {
+					return "<span style='color:"+character.getFemininity().getColour().toWebHexString()+";'>"
+							+ Femininity.getFemininityName(character.getFemininityValue(), pronoun)+"</span>"
+							+ " <span style='color:"+character.getRaceStage().getColour().toWebHexString()+";'>" +character.getRaceStage().getName()+"</span>"
+							+ " <span style='color:"+character.getSubspecies().getColour().toWebHexString()+";'>" +  getSubspeciesName(character.getSubspecies()) + "</span>";
+				}
+				return Femininity.getFemininityName(character.getFemininityValue(), pronoun)+" "+character.getRaceStage().getName()+" "+getSubspeciesName(character.getSubspecies());
+			}
+			@Override
+			protected String applyDeterminer(String descriptor, String input) {
+				return input;
 			}
 		});
 		
@@ -2965,6 +3001,27 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
+						new ListValue<>("penisUrethra+"),
+						new ListValue<>("cockUrethra+"),
+						new ListValue<>("urethraPenis+"),
+						new ListValue<>("urethraCock+"),
+						new ListValue<>("penisUrethraD"),
+						new ListValue<>("cockUrethraD"),
+						new ListValue<>("urethraPenisD"),
+						new ListValue<>("urethraCockD")),
+				true,
+				true,
+				"",
+				"Description of method",
+				BodyPartType.PENIS){//TODO
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return applyDescriptor(character.getPenisUrethraDescriptor(), "urethra");
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
 						new ListValue<>("cumAmount"),
 						new ListValue<>("cumProduction"),
 						new ListValue<>("jizzAmount"),
@@ -3267,6 +3324,45 @@ public class UtilText {
 		
 		// Vagina:
 		
+
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("vaginaUrethra"),
+						new ListValue<>("vaginalUrethra"),
+						new ListValue<>("urethraVagina"),
+						new ListValue<>("urethraVaginal")),
+				true,
+				true,
+				"",
+				"Description of method",
+				BodyPartType.VAGINA){//TODO
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return "urethra";
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("vaginaUrethra+"),
+						new ListValue<>("vaginalUrethra+"),
+						new ListValue<>("urethraVagina+"),
+						new ListValue<>("urethraVaginal+"),
+						new ListValue<>("vaginaUrethraD"),
+						new ListValue<>("vaginalUrethraD"),
+						new ListValue<>("urethraVaginaD"),
+						new ListValue<>("urethraVaginalD")),
+				true,
+				true,
+				"",
+				"Description of method",
+				BodyPartType.VAGINA){//TODO
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return applyDescriptor(character.getVaginaUrethraDescriptor(), "urethra");
+			}
+		});
+		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
 						new ListValue<>("vaginaCapacity"),
@@ -3482,10 +3578,10 @@ public class UtilText {
 			public String parse(String command, String arguments, String target) {
 				if(arguments!=null) {
 					if(arguments.equalsIgnoreCase("true")) {
-						return character.getCovering(character.getEyeType().getBodyCoveringType()).getFullDescription(character, true);
+						return character.getCovering(character.getEyeType().getBodyCoveringType(character)).getFullDescription(character, true);
 					}
 				}
-				return character.getCovering(character.getEyeType().getBodyCoveringType()).getFullDescription(character, false);
+				return character.getCovering(character.getEyeType().getBodyCoveringType(character)).getFullDescription(character, false);
 			}
 		});
 		
@@ -3504,10 +3600,10 @@ public class UtilText {
 			public String parse(String command, String arguments, String target) {
 				if(arguments!=null) {
 					if(arguments.equalsIgnoreCase("true")) {
-						return character.getCovering(character.getEyeType().getBodyCoveringType()).getColourDescriptor(character, true, parseCapitalise);
+						return character.getCovering(character.getEyeType().getBodyCoveringType(character)).getColourDescriptor(character, true, parseCapitalise);
 					}
 				}
-				return character.getCovering(character.getEyeType().getBodyCoveringType()).getColourDescriptor(character, false, parseCapitalise);
+				return character.getCovering(character.getEyeType().getBodyCoveringType(character)).getColourDescriptor(character, false, parseCapitalise);
 			}
 		});
 		
@@ -3530,10 +3626,10 @@ public class UtilText {
 			public String parse(String command, String arguments, String target) {
 				if(arguments!=null) {
 					if(arguments.equalsIgnoreCase("true")) {
-						return character.getCovering(character.getEyeType().getBodyCoveringType()).getPrimaryColourDescriptor(true);
+						return character.getCovering(character.getEyeType().getBodyCoveringType(character)).getPrimaryColourDescriptor(true);
 					}
 				}
-				return character.getCovering(character.getEyeType().getBodyCoveringType()).getPrimaryColourDescriptor(false);
+				return character.getCovering(character.getEyeType().getBodyCoveringType(character)).getPrimaryColourDescriptor(false);
 			}
 		});
 
@@ -3556,10 +3652,10 @@ public class UtilText {
 			public String parse(String command, String arguments, String target) {
 				if(arguments!=null) {
 					if(arguments.equalsIgnoreCase("true")) {
-						return character.getCovering(character.getEyeType().getBodyCoveringType()).getSecondaryColourDescriptor(true);
+						return character.getCovering(character.getEyeType().getBodyCoveringType(character)).getSecondaryColourDescriptor(true);
 					}
 				}
-				return character.getCovering(character.getEyeType().getBodyCoveringType()).getSecondaryColourDescriptor(false);
+				return character.getCovering(character.getEyeType().getBodyCoveringType(character)).getSecondaryColourDescriptor(false);
 			}
 		});
 		
@@ -3898,15 +3994,15 @@ public class UtilText {
 				bodyPart){
 			@Override
 			public String parse(String command, String arguments, String target) {
-				if(character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType())==null) {
+				if(character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType(character))==null) {
 					return "";
 				}
 				if(arguments!=null) {
 					if(arguments.equalsIgnoreCase("true")) {
-						return character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType()).getFullDescription(character, true);
+						return character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType(character)).getFullDescription(character, true);
 					}
 				}
-				return character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType()).getFullDescription(character, false);
+				return character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType(character)).getFullDescription(character, false);
 			}
 		});
 		
@@ -3919,10 +4015,10 @@ public class UtilText {
 				bodyPart){
 			@Override
 			public String parse(String command, String arguments, String target) {
-				if(character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType())==null) {
+				if(character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType(character))==null) {
 					return "";
 				}
-				return character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType()).getFullDescription(character, true);
+				return character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType(character)).getFullDescription(character, true);
 			}
 		});
 		
@@ -3935,15 +4031,15 @@ public class UtilText {
 				bodyPart){
 			@Override
 			public String parse(String command, String arguments, String target) {
-				if(character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType())==null) {
+				if(character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType(character))==null) {
 					return "";
 				}
 				if(arguments!=null) {
 					if(arguments.equalsIgnoreCase("true")) {
-						return character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType()).getColourDescriptor(character, true, parseCapitalise);
+						return character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType(character)).getColourDescriptor(character, true, parseCapitalise);
 					}
 				}
-				return character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType()).getColourDescriptor(character, false, parseCapitalise);
+				return character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType(character)).getColourDescriptor(character, false, parseCapitalise);
 			}
 		});
 		
@@ -3956,15 +4052,15 @@ public class UtilText {
 				bodyPart){
 			@Override
 			public String parse(String command, String arguments, String target) {
-				if(character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType())==null) {
+				if(character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType(character))==null) {
 					return "";
 				}
 				if(arguments!=null) {
 					if(arguments.equalsIgnoreCase("true")) {
-						return character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType()).getPrimaryColourDescriptor(true);
+						return character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType(character)).getPrimaryColourDescriptor(true);
 					}
 				}
-				return character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType()).getPrimaryColourDescriptor(false);
+				return character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType(character)).getPrimaryColourDescriptor(false);
 			}
 		});
 		
@@ -3977,15 +4073,15 @@ public class UtilText {
 				bodyPart){
 			@Override
 			public String parse(String command, String arguments, String target) {
-				if(character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType())==null) {
+				if(character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType(character))==null) {
 					return "";
 				}
 				if(arguments!=null) {
 					if(arguments.equalsIgnoreCase("true")) {
-						return character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType()).getSecondaryColourDescriptor(true);
+						return character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType(character)).getSecondaryColourDescriptor(true);
 					}
 				}
-				return character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType()).getSecondaryColourDescriptor(false);
+				return character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType(character)).getSecondaryColourDescriptor(false);
 			}
 		});
 		
@@ -3998,10 +4094,10 @@ public class UtilText {
 				bodyPart){
 			@Override
 			public String parse(String command, String arguments, String target) {
-				if(character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType())==null) {
+				if(character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType(character))==null) {
 					return "";
 				}
-				return character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType()).getPrimaryColour().toWebHexString();
+				return character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType(character)).getPrimaryColour().toWebHexString();
 			}
 		});
 		
@@ -4190,26 +4286,28 @@ public class UtilText {
 	}
 	
 	private static String getSkinName(BodyPartTypeInterface bodyPart) {
-		if(bodyPart.getBodyCoveringType()==null)
+		if(bodyPart.getBodyCoveringType(character)==null)
 			return "";
 		
 		if(parseAddPronoun) {
 			parseAddPronoun = false;
-			return applyDeterminer(bodyPart.getBodyCoveringType().getDeterminer(character), bodyPart.getBodyCoveringType().getName(character));
+			return applyDeterminer(bodyPart.getBodyCoveringType(character).getDeterminer(character), bodyPart.getBodyCoveringType(character).getName(character));
 		} else {
-			return bodyPart.getBodyCoveringType().getName(character);
+			return bodyPart.getBodyCoveringType(character).getName(character);
 		}
 	}
 	
 	private static String getSkinNameWithDescriptor(BodyPartTypeInterface bodyPart) {
-		if(bodyPart.getBodyCoveringType()==null)
+		if(bodyPart.getBodyCoveringType(character)==null)
 			return "";
 		
 		if(parseAddPronoun) {
 			parseAddPronoun = false;
-			return applyDeterminer(bodyPart.getBodyCoveringType().getDeterminer(character), applyDescriptor(character.getCovering(bodyPart.getBodyCoveringType()).getModifier().getName(), bodyPart.getBodyCoveringType().getName(character)));
+			return applyDeterminer(bodyPart.getBodyCoveringType(character).getDeterminer(character),
+					applyDescriptor(character.getCovering(bodyPart.getBodyCoveringType(character)).getModifier().getName(),
+					bodyPart.getBodyCoveringType(character).getName(character)));
 		} else {
-			return applyDescriptor(character.getCovering(bodyPart.getBodyCoveringType()).getModifier().getName(), bodyPart.getBodyCoveringType().getName(character));
+			return applyDescriptor(character.getCovering(bodyPart.getBodyCoveringType(character)).getModifier().getName(), bodyPart.getBodyCoveringType(character).getName(character));
 		}
 	}
 	

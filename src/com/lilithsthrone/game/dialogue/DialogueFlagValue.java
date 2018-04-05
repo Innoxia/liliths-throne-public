@@ -2,7 +2,7 @@ package com.lilithsthrone.game.dialogue;
 
 /**
  * @since 0.1.89
- * @version 0.1.99
+ * @version 0.2.2
  * @author Innoxia
  */
 public enum DialogueFlagValue {
@@ -24,10 +24,21 @@ public enum DialogueFlagValue {
 	gymHadTour,
 	gymIsMember,
 	
-	// Shopping arcade:
+	// Introductions:
+	angelIntroduced,
+	angelsOfficeIntroduced,
+	bunnyIntroduced,
+	loppyIntroduced,
+	ashleyIntroduced,
 	ralphIntroduced,
-	
 	nyanIntroduced,
+	kateIntroduced,
+	vickyIntroduced,
+	
+	// Red-light district:
+	prostitutionLicenseObtained,
+	
+	// Shopping arcade:
 
 	nyanTalkedTo,
 	nyanComplimented,
@@ -41,13 +52,9 @@ public enum DialogueFlagValue {
 	suppliersEncountered,
 	suppliersTriedConvincing,
 	
-	kateIntroduced,
-	
-	ashleyIntroduced,
 	ashleySexToysDiscovered,
 	ashleyAttitude,
 	
-	vickyIntroduced,
 	reactedToKatePregnancy,
 	
 	// Aunt's Home:
@@ -101,6 +108,8 @@ public enum DialogueFlagValue {
 	zaranixAmberSubdued,
 	zaranixKatherineSubdued,
 	zaranixKellySubdued,
+	
+	
 	
 	;
 }

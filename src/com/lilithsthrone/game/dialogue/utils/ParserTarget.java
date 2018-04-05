@@ -11,7 +11,7 @@ import com.lilithsthrone.utils.Util.ListValue;
 
 /**
  * @since 0.1.69.9
- * @version 0.1.95
+ * @version 0.2.2
  * @author Innoxia
  */
 public enum ParserTarget {
@@ -109,7 +109,9 @@ public enum ParserTarget {
 	
 	NPC_MALE(Util.newArrayListOfValues(
 			new ListValue<>("NPCmale"),
-			new ListValue<>("maleNPC")), ""){
+			new ListValue<>("maleNPC"),
+			new ListValue<>("genericMale"),
+			new ListValue<>("maleGeneric")), ""){
 		public String getDescription() {
 			return Main.game.getGenericMaleNPC().getDescription();
 		}
@@ -122,7 +124,9 @@ public enum ParserTarget {
 	
 	NPC_FEMALE(Util.newArrayListOfValues(
 			new ListValue<>("NPCfemale"),
-			new ListValue<>("femaleNPC")), ""){
+			new ListValue<>("femaleNPC"),
+			new ListValue<>("genericFemale"),
+			new ListValue<>("femaleGeneric")), ""){
 		public String getDescription() {
 			return Main.game.getGenericFemaleNPC().getDescription();
 		}
@@ -497,6 +501,42 @@ public enum ParserTarget {
 		@Override
 		public GameCharacter getCharacter(String tag) {
 			return Main.game.getSupplierPartner();
+		}
+	},
+	
+	ANGEL(Util.newArrayListOfValues(
+			new ListValue<>("angel")), ""){
+		public String getDescription() {
+			return Main.game.getAngel().getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter(String tag) {
+			return Main.game.getAngel();
+		}
+	},
+	
+	BUNNY(Util.newArrayListOfValues(
+			new ListValue<>("bunny")), ""){
+		public String getDescription() {
+			return Main.game.getBunny().getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter(String tag) {
+			return Main.game.getBunny();
+		}
+	},
+	
+	LOPPY(Util.newArrayListOfValues(
+			new ListValue<>("loppy")), ""){
+		public String getDescription() {
+			return Main.game.getLoppy().getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter(String tag) {
+			return Main.game.getLoppy();
 		}
 	},
 	;

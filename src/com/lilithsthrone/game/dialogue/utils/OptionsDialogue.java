@@ -1325,46 +1325,12 @@ public class OptionsDialogue {
 			int i=0;
 			for(Subspecies subspecies : Subspecies.values()) {
 				switch(subspecies) {
-					case ALLIGATOR_MORPH:
-						UtilText.nodeContentSB.append(getSubspeciesPreferencesPanel(subspecies, i%2==0));
-						i++;
-						break;
 					case ANGEL:
-						break;
-					case CAT_MORPH:
-						UtilText.nodeContentSB.append(getSubspeciesPreferencesPanel(subspecies, i%2==0));
-						i++;
-						break;
-					case COW_MORPH:
-						UtilText.nodeContentSB.append(getSubspeciesPreferencesPanel(subspecies, i%2==0));
-						i++;
-						break;
 					case DEMON:
-						break;
 					case IMP:
-						break;
 					case IMP_ALPHA:
-						break;
-					case DOG_MORPH:
-						UtilText.nodeContentSB.append(getSubspeciesPreferencesPanel(subspecies, i%2==0));
-						i++;
-						break;
-					case DOG_MORPH_DOBERMANN:
-						UtilText.nodeContentSB.append(getSubspeciesPreferencesPanel(subspecies, i%2==0));
-						i++;
-						break;
 					case HARPY:
-						break;
-					case HORSE_MORPH:
-						UtilText.nodeContentSB.append(getSubspeciesPreferencesPanel(subspecies, i%2==0));
-						i++;
-						break;
 					case HUMAN:
-						break;
-					case REINDEER_MORPH:
-						UtilText.nodeContentSB.append(getSubspeciesPreferencesPanel(subspecies, i%2==0));
-						i++;
-						break;
 					case SLIME:
 					case SLIME_ALLIGATOR:
 					case SLIME_ANGEL:
@@ -1379,12 +1345,23 @@ public class OptionsDialogue {
 					case SLIME_REINDEER:
 					case SLIME_SQUIRREL:
 					case SLIME_WOLF:
+					case SLIME_BAT:
+					case SLIME_RAT:
+					case SLIME_RABBIT:
 						break;
+					case ALLIGATOR_MORPH:
+					case CAT_MORPH:
+					case COW_MORPH:
+					case HORSE_MORPH:
+					case REINDEER_MORPH:
 					case SQUIRREL_MORPH:
-						UtilText.nodeContentSB.append(getSubspeciesPreferencesPanel(subspecies, i%2==0));
-						i++;
-						break;
 					case WOLF_MORPH:
+					case DOG_MORPH:
+					case DOG_MORPH_DOBERMANN:
+					case BAT_MORPH:
+					case RAT_MORPH:
+					case RABBIT_MORPH:
+					case RABBIT_MORPH_LOP:
 						UtilText.nodeContentSB.append(getSubspeciesPreferencesPanel(subspecies, i%2==0));
 						i++;
 						break;
@@ -1491,6 +1468,22 @@ public class OptionsDialogue {
 				
 				+ "<div class='container-full-width' style='background:transparent; padding:0; margin-bottom:0; margin-top:0;'>"
 					+getContentPreferenceDiv(
+							"LACTATION",
+							Colour.BASE_YELLOW_LIGHT,
+							"Lactation",
+							"This enables lactation content.",
+							Main.getProperties().lactationContent)
+					+getContentPreferenceDiv(
+							"URETHRAL",
+							Colour.BASE_PINK_DEEP,
+							"Urethral",
+							"This enables urethral transformations and penetrations.",
+							Main.getProperties().urethralContent)
+				+"</div>"
+				
+				
+				+ "<div class='container-full-width' style='background:transparent; padding:0; margin-bottom:0; margin-top:0;'>"
+					+getContentPreferenceDiv(
 							"HAIR_FACIAL",
 							Colour.BASE_LILAC_LIGHT,
 							"Facial hair",
@@ -1512,6 +1505,12 @@ public class OptionsDialogue {
 						"This enables body hair descriptions and content for armpits and assholes.",
 						Main.getProperties().bodyHairContent)
 					
+					+getContentPreferenceDiv(
+							"FEMININE_BEARD",
+							Colour.BASE_PURPLE_DARK,
+							"Feminine Beards",
+							"This enables feminine characters to grow beards.",
+							Main.getProperties().feminineBeardsContent)
 				+"</div>"
 				
 				+ "<div class='container-full-width' style='background:transparent; padding:0; margin-bottom:0; margin-top:0;'>"

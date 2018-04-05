@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -15,6 +16,7 @@ import com.lilithsthrone.game.character.History;
 import com.lilithsthrone.game.character.Name;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.gender.Gender;
+import com.lilithsthrone.game.character.npc.GenericSexualPartner;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.RaceStage;
@@ -40,7 +42,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.66
- * @version 0.1.95
+ * @version 0.2.2
  * @author Innoxia
  */
 public class DominionAlleywayAttacker extends NPC {
@@ -68,6 +70,14 @@ public class DominionAlleywayAttacker extends NPC {
 			this.setWorldLocation(Main.game.getPlayer().getWorldLocation());
 			this.setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY()));
 			
+			boolean canalSpecies = false;
+			PlaceType pt = Main.game.getActiveWorld().getCell(location).getPlace().getPlaceType();
+			if(pt == PlaceType.DOMINION_ALLEYS_CANAL_CROSSING
+					|| pt == PlaceType.DOMINION_CANAL
+					|| pt == PlaceType.DOMINION_CANAL_END) {
+				canalSpecies = true;
+			}
+			
 			// Set random level from 1 to 3:
 			setLevel(Util.random.nextInt(3) + 1);
 			
@@ -93,34 +103,19 @@ public class DominionAlleywayAttacker extends NPC {
 			Map<Subspecies, Integer> availableRaces = new HashMap<>();
 			for(Subspecies s : Subspecies.values()) {
 				switch(s) {
-					case ALLIGATOR_MORPH:
-						break;
+					// No spawn chance:
 					case ANGEL:
-						break;
-					case CAT_MORPH:
-						addToSubspeciesMap(20, gender, s, availableRaces);
-						break;
-					case COW_MORPH:
-						addToSubspeciesMap(10, gender, s, availableRaces);
-						break;
+					case BAT_MORPH:
 					case DEMON:
-						break;
+					case HARPY:
+					case HUMAN:
 					case IMP:
-						break;
 					case IMP_ALPHA:
 						break;
-					case DOG_MORPH:
-						addToSubspeciesMap(20, gender, s, availableRaces);
-						break;
-					case DOG_MORPH_DOBERMANN:
-						addToSubspeciesMap(20, gender, s, availableRaces);
-						break;
-					case HARPY:
-						break;
-					case HORSE_MORPH:
-						addToSubspeciesMap(20, gender, s, availableRaces);
-						break;
-					case HUMAN:
+						
+					// Canals spawn only:
+					case ALLIGATOR_MORPH:
+						addToSubspeciesMap(canalSpecies?20:0, gender, s, availableRaces);
 						break;
 					case SLIME:
 					case SLIME_ALLIGATOR:
@@ -135,18 +130,50 @@ public class DominionAlleywayAttacker extends NPC {
 					case SLIME_IMP:
 					case SLIME_REINDEER:
 					case SLIME_SQUIRREL:
+					case SLIME_BAT:
+					case SLIME_RAT:
 					case SLIME_WOLF:
+					case SLIME_RABBIT:
+						addToSubspeciesMap(canalSpecies?2:0, gender, s, availableRaces);
 						break;
+					case RAT_MORPH:
+						addToSubspeciesMap(canalSpecies?10:0, gender, s, availableRaces);
+						break;
+						
+					// Special spawns:
 					case REINDEER_MORPH:
 						if(Main.game.getSeason()==Season.WINTER && Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.hasSnowedThisWinter)) {
-							addToSubspeciesMap(10, gender, s, availableRaces);
+							addToSubspeciesMap(canalSpecies?1:10, gender, s, availableRaces);
 						}
 						break;
+						
+					// Regular spawns:
+					case CAT_MORPH:
+						addToSubspeciesMap(canalSpecies?5:20, gender, s, availableRaces);
+						break;
+					case COW_MORPH:
+						addToSubspeciesMap(canalSpecies?1:10, gender, s, availableRaces);
+						break;
+					case DOG_MORPH:
+						addToSubspeciesMap(canalSpecies?3:15, gender, s, availableRaces);
+						break;
+					case DOG_MORPH_DOBERMANN:
+						addToSubspeciesMap(canalSpecies?2:5, gender, s, availableRaces);
+						break;
+					case HORSE_MORPH:
+						addToSubspeciesMap(canalSpecies?5:20, gender, s, availableRaces);
+						break;
 					case SQUIRREL_MORPH:
-						addToSubspeciesMap(10, gender, s, availableRaces);
+						addToSubspeciesMap(canalSpecies?1:10, gender, s, availableRaces);
 						break;
 					case WOLF_MORPH:
-						addToSubspeciesMap(20, gender, s, availableRaces);
+						addToSubspeciesMap(canalSpecies?5:20, gender, s, availableRaces);
+						break;
+					case RABBIT_MORPH:
+						addToSubspeciesMap(canalSpecies?1:3, gender, s, availableRaces);
+						break;
+					case RABBIT_MORPH_LOP:
+						addToSubspeciesMap(canalSpecies?1:3, gender, s, availableRaces);
 						break;
 				}
 			}
@@ -250,13 +277,15 @@ public class DominionAlleywayAttacker extends NPC {
 	}
 	
 	private void addToSubspeciesMap(int weight, Gender gender, Subspecies subspecies, Map<Subspecies, Integer> map) {
-		if(gender.isFeminine()) {
-			if(Main.getProperties().subspeciesFeminineFurryPreferencesMap!=FurryPreference.HUMAN && Main.getProperties().subspeciesFemininePreferencesMap.get(subspecies).getValue()>0) {
-				map.put(subspecies, weight*Main.getProperties().subspeciesFemininePreferencesMap.get(subspecies).getValue());
-			}
-		} else {
-			if(Main.getProperties().subspeciesMasculineFurryPreferencesMap!=FurryPreference.HUMAN && Main.getProperties().subspeciesMasculinePreferencesMap.get(subspecies).getValue()>0) {
-				map.put(subspecies, weight*Main.getProperties().subspeciesMasculinePreferencesMap.get(subspecies).getValue());
+		if(weight!=0) {
+			if(gender.isFeminine()) {
+				if(Main.getProperties().subspeciesFeminineFurryPreferencesMap!=FurryPreference.HUMAN && Main.getProperties().subspeciesFemininePreferencesMap.get(subspecies).getValue()>0) {
+					map.put(subspecies, weight*Main.getProperties().subspeciesFemininePreferencesMap.get(subspecies).getValue());
+				}
+			} else {
+				if(Main.getProperties().subspeciesMasculineFurryPreferencesMap!=FurryPreference.HUMAN && Main.getProperties().subspeciesMasculinePreferencesMap.get(subspecies).getValue()>0) {
+					map.put(subspecies, weight*Main.getProperties().subspeciesMasculinePreferencesMap.get(subspecies).getValue());
+				}
 			}
 		}
 	}
@@ -284,6 +313,36 @@ public class DominionAlleywayAttacker extends NPC {
 		}
 		
 		setBody(gender, species, raceStage);
+	}
+	
+	@Override
+	public void hourlyUpdate() {
+		if(this.getHistory()==History.PROSTITUTE && this.getLocationPlace().getPlaceType()==PlaceType.ANGELS_KISS_BEDROOM) {
+			// Remove client:
+			List<NPC> charactersPresent = Main.game.getCharactersPresent(this.getWorldLocation(), this.getLocation());
+			if(charactersPresent.size()>1) {
+				for(NPC npc : charactersPresent) {
+					if(npc instanceof GenericSexualPartner) {
+	//					System.out.println("partner removed for "+slave.getName());
+						Main.game.banishNPC(npc);
+					}
+				}
+				
+			} else if(Math.random()<0.33f) { // Add client:
+				GenericSexualPartner partner;
+				
+				if(Math.random()<0.25f) {
+					partner = new GenericSexualPartner(Gender.F_P_V_B_FUTANARI, this.getWorldLocation(), this.getLocation(), false);
+				} else {
+					partner = new GenericSexualPartner(Gender.M_P_MALE, this.getWorldLocation(), this.getLocation(), false);
+				}
+				try {
+					Main.game.addNPC(partner, false);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 	
 	@Override
@@ -333,13 +392,19 @@ public class DominionAlleywayAttacker extends NPC {
 	
 	@Override
 	public DialogueNodeOld getEncounterDialogue() {
-		if(Main.game.getActiveWorld().getCell(location).getPlace().getPlaceType()==PlaceType.DOMINION_BACK_ALLEYS) {
+		PlaceType pt = Main.game.getActiveWorld().getCell(location).getPlace().getPlaceType();
+		
+		if(pt == PlaceType.DOMINION_BACK_ALLEYS
+				|| pt == PlaceType.DOMINION_CANAL
+				|| pt == PlaceType.DOMINION_ALLEYS_CANAL_CROSSING
+				|| pt == PlaceType.DOMINION_CANAL_END) {
 			if(this.getHistory()==History.PROSTITUTE) {
 				this.setPlayerKnowsName(true);
 				return AlleywayProstituteDialogue.ALLEY_PROSTITUTE;
 			} else {
 				return AlleywayAttackerDialogue.ALLEY_ATTACK;
 			}
+			
 		} else {
 			return AlleywayAttackerDialogue.STORM_ATTACK;
 		}
@@ -449,7 +514,7 @@ public class DominionAlleywayAttacker extends NPC {
 							return "<p>"
 										+ "Taking your "+item.getName()+" out from your inventory, you hold it out to [npc.name]."
 										+ " Seeing what you're offering [npc.herHim], [npc.she] shifts about uncomfortably, "
-										+ " [npc.speech(Do you really expect me to drink some rando~Mrph!~)]"
+										+ " [npc.speech(Do you really expect me to drink some rando- ~Mrph!~)]"
 									+ "</p>"
 									+ "<p>"
 										+ "Not liking the start of [npc.her] response, you quickly remove the bottle's stopper, and, rather unceremoniously, shove the neck down [npc.her] throat."
@@ -471,7 +536,7 @@ public class DominionAlleywayAttacker extends NPC {
 							return "<p>"
 										+ "Taking the bottle of "+item.getName()+" out from your inventory, you hold it out to [npc.name]."
 										+ " Seeing what you're offering [npc.herHim], [npc.she] shifts about uncomfortably, "
-										+ " [npc.speech(Do you really expect me to drink tha~Mrph!~)]"
+										+ " [npc.speech(Do you really expect me to drink tha- ~Mrph!~)]"
 									+ "</p>"
 									+ "<p>"
 										+ "Not liking the start of [npc.her] response, you unceremoniously shove the bottle's teat into [npc.her] mouth."
@@ -500,7 +565,7 @@ public class DominionAlleywayAttacker extends NPC {
 							return "<p>"
 										+ "Taking the "+item.getName()+" out from your inventory, you hold it out to [npc.name]."
 										+ " Seeing what you're offering [npc.herHim], [npc.she] shifts about uncomfortably, "
-										+ " [npc.speech(Do you really expect me to eat tha~Mrph!~)]"
+										+ " [npc.speech(Do you really expect me to eat tha- ~Mrph!~)]"
 									+ "</p>"
 									+ "<p>"
 										+ "Not liking the start of [npc.her] response, you unceremoniously shove the "+item.getName()+" into [npc.her] mouth."
@@ -522,7 +587,7 @@ public class DominionAlleywayAttacker extends NPC {
 							return "<p>"
 										+ "Taking the "+item.getName()+" out from your inventory, you hold it out to [npc.name]."
 										+ " Seeing what you're offering [npc.herHim], [npc.she] shifts about uncomfortably, "
-										+ " [npc.speech(Do you really expect me to use tha~Hey!~)]"
+										+ " [npc.speech(Do you really expect me to use tha- ~Hey!~)]"
 									+ "</p>"
 									+ "<p>"
 										+ "Not liking the start of [npc.her] response, you squirt the "+item.getName()+" onto [npc.her] neck."
@@ -552,7 +617,7 @@ public class DominionAlleywayAttacker extends NPC {
 							return "<p>"
 										+ "Taking the bottle of "+item.getName()+" out from your inventory, you hold it out to [npc.name]."
 										+ " Seeing what you're offering [npc.herHim], [npc.she] shifts about uncomfortably, "
-										+ " [npc.speech(Do you really expect me to drink tha~Mrph!~)]"
+										+ " [npc.speech(Do you really expect me to drink tha- ~Mrph!~)]"
 									+ "</p>"
 									+ "<p>"
 										+ "Not liking the start of [npc.her] response, you quickly remove the bottle's cap, and, rather unceremoniously, shove the neck down [npc.her] throat."
@@ -574,7 +639,7 @@ public class DominionAlleywayAttacker extends NPC {
 						return "<p>"
 									+ "Taking the eggplant from your inventory, you hold it out to [npc.name]."
 									+ " Seeing what you're offering [npc.herHim], [npc.she] shifts about uncomfortably, "
-									+ " [npc.speech(W-What are you going to do with th-~Mrph!~)]"
+									+ " [npc.speech(W-What are you going to do with th- -~Mrph!~)]"
 								+ "</p>"
 								+ "<p>"
 									+ "Not liking the start of [npc.her] response, you quickly shove the eggplant into [npc.her] mouth, grinning as you force [npc.herHim] to eat the purple fruit..."

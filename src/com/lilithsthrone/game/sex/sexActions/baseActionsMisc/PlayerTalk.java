@@ -51,24 +51,31 @@ public class PlayerTalk {
 		public String getActionTitle() {
 			switch(Sex.getSexPace(Main.game.getPlayer())) {
 				case DOM_GENTLE:
-					return "Dirty talk";
 				case DOM_NORMAL:
+				case SUB_EAGER:
+				case SUB_NORMAL:
 					return "Dirty talk";
 				case DOM_ROUGH:
 					return "Rough talk";
-				case SUB_EAGER:
-					return "Dirty talk";
-				case SUB_NORMAL:
-					return "Dirty talk";
 				case SUB_RESISTING:
-					return "Beg for [npc.herHim] to stop";
-				default:
-					return "Dirty talk";
+					return "Beg to stop";
 			}
+			return "Dirty talk";
 		}
 
 		@Override
 		public String getActionDescription() {
+			switch(Sex.getSexPace(Main.game.getPlayer())) {
+				case DOM_GENTLE:
+				case DOM_NORMAL:
+				case SUB_EAGER:
+				case SUB_NORMAL:
+					return "Talk dirty to [npc.name].";
+				case DOM_ROUGH:
+					return "Talk rough to [npc.name].";
+				case SUB_RESISTING:
+					return "Beg for [npc.herHim] to stop using you.";
+			}
 			return "Talk dirty to [npc.name].";
 		}
 

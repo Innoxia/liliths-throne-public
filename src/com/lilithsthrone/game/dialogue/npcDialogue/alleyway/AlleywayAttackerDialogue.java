@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
-import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
@@ -25,13 +24,21 @@ import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.?
- * @version 0.1.95
+ * @version 0.2.2
  * @author Innoxia
  */
 public class AlleywayAttackerDialogue {
+
+	private static boolean isCanal() {
+		PlaceType pt = Main.game.getActiveNPC().getLocationPlace().getPlaceType();
+		return (pt == PlaceType.DOMINION_ALLEYS_CANAL_CROSSING
+				|| pt == PlaceType.DOMINION_CANAL
+				|| pt == PlaceType.DOMINION_CANAL_END);
+	}
 	
 	public static final DialogueNodeOld ALLEY_ATTACK = new DialogueNodeOld("Assaulted!", "A figure jumps out from the shadows!", true) {
 		private static final long serialVersionUID = 1L;
@@ -43,21 +50,31 @@ public class AlleywayAttackerDialogue {
 		
 		@Override
 		public String getContent() {
+
+			UtilText.nodeContentSB.setLength(0);
+			
 			if(Main.game.getActiveNPC().getLastTimeEncountered() != -1) {
+				
+				if(isCanal()) {
+					UtilText.nodeContentSB.append(
+							"<p>"
+								+ "Knowing that [npc.name(a)] is prowling around this area, you make sure to stay on high alert as you wander down the track that runs alongside Dominion's canal."
+								+ " Just as you suspected, as you cautiously pass a collection of leafy bushes growing on one side of the path, a shadowy figure leaps out, blocking your path."
+							+ "</p>");
+					
+				} else {
+					UtilText.nodeContentSB.append(
+							"<p>"
+								+ "Knowing that [npc.name(a)] is prowling around this area, you make sure to stay on high alert, carefully checking each and every dark corner and recess as you walk through the twisting passages."
+								+ " Just as you suspected, as you cautiously pass an inset doorway, a shadowy figure leaps out, blocking your path."
+							+ "</p>");
+				}
+				
 				if(Main.game.getActiveNPC().isVisiblyPregnant()){
 					// Pregnant encounters:
 					if(!Main.game.getActiveNPC().isReactedToPregnancy()) {
-						return "<p>"
-									+ "Knowing that [npc.name(a)] is prowling around this area, you make sure to stay on high alert, carefully checking each and every dark corner and recess as you walk through the twisting passages."
-									+ " Just as you suspected, as you cautiously pass an inset doorway, a shadowy figure leaps out, blocking your path."
-								+ "</p>"
-								+ "<p>"
-									+ "You instantly recognise the "
-									+ " <b style='color:"+Femininity.valueOf(Main.game.getActiveNPC().getFemininityValue()).getColour().toWebHexString()+";'>"
-									+ Femininity.getFemininityName(Main.game.getActiveNPC().getFemininityValue(), false)+"</b>"
-									+ " <b style='color:"+Main.game.getActiveNPC().getRaceStage().getColour().toWebHexString()+";'>" +Main.game.getActiveNPC().getRaceStage().getName()+"</b>"
-									+ " <b style='color:"+Main.game.getActiveNPC().getRace().getColour().toWebHexString()+";'>" + Main.game.getActiveNPC().getName() + "</b>"
-									+ ", and you instinctively jump back into a fighting stance as you expect this encounter to be much the same as the last one."
+						UtilText.nodeContentSB.append("<p>"
+									+ "You instantly recognise the [npc.fullRace(true)], and you instinctively jump back into a fighting stance as you expect this encounter to be much the same as the last one."
 									+ " As [npc.she] steps out from the shadows, however, you notice that there's definitely something different about [npc.herHim] this time."
 									+ " The consequence of ejaculating inside of [npc.herHim] is staring you right in the face, and you gulp as you see [npc.herHim] pointing down at her pregnant belly."
 								+ "</p>"
@@ -80,21 +97,12 @@ public class AlleywayAttackerDialogue {
 										+"</p>"
 										+ "<p style='text-align:center;'>" 
 											+ "<b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>You ended up getting [npc.name] pregnant, and now [npc.she] wants revenge!</b>"
-										+ "</p>");
+										+ "</p>"));
 					
 					} else {
-						return "<p>"
-								+ "Knowing that [npc.name(a)] is prowling around this area, you make sure to stay on high alert, carefully checking each and every dark corner and recess as you walk through the twisting passages."
-								+ " Just as you suspected, as you cautiously pass an inset doorway, a shadowy figure leaps out, blocking your path."
-							+ "</p>"
-							+ "<p>"
-								+ "You instantly recognise the "
-								+ " <b style='color:"+Femininity.valueOf(Main.game.getActiveNPC().getFemininityValue()).getColour().toWebHexString()+";'>"
-								+ Femininity.getFemininityName(Main.game.getActiveNPC().getFemininityValue(), false)+"</b>"
-								+ " <b style='color:"+Main.game.getActiveNPC().getRaceStage().getColour().toWebHexString()+";'>" +Main.game.getActiveNPC().getRaceStage().getName()+"</b>"
-								+ " <b style='color:"+Main.game.getActiveNPC().getRace().getColour().toWebHexString()+";'>" + Main.game.getActiveNPC().getName() + "</b>"
-								+ ", and you jump back into a fighting stance as you expect this encounter to be much the same as the last one."
-								+ " [npc.She]'s still sporting a round belly, and [npc.she] absent-mindedly strokes [npc.her] swollen bump as [npc.she] reacts to your sudden appearance in [npc.her] alleyway."
+						UtilText.nodeContentSB.append("<p>"
+								+ "You instantly recognise the [npc.fullRace(true)], and you jump back into a fighting stance as you expect this encounter to be much the same as the last one."
+								+ " [npc.She]'s still sporting a round belly, and [npc.she] absent-mindedly strokes [npc.her] swollen bump as [npc.she] reacts to your sudden appearance in [npc.her] territory."
 							+ "</p>"
 							+ "<p>"
 								+ "[npc.speech(You again?!)] [npc.she] shouts, [npc.speech(This'll be a lot easier if you give up right now!)]" 
@@ -105,22 +113,13 @@ public class AlleywayAttackerDialogue {
 											+ " Knowing that defeat will result in being raped by this horny [npc.race], you ready yourself for a fight."
 									:"Although your powerful arcane aura is turning [npc.herHim] on a little, it doesn't look as though [npc.she]'s really all that interested in your body,"
 											+ " and will most likely only rob you if you were to lose this fight.")
-							+ "</p>";
+							+ "</p>");
 					}
 					
 				} else {
 					// Standard repeat encounter:
-					return "<p>"
-								+ "Knowing that [npc.name(a)] is prowling around this area, you make sure to stay on high alert, carefully checking each and every dark corner and recess as you walk through the twisting passages."
-								+ " Just as you suspected, as you cautiously pass an inset doorway, a shadowy figure leaps out, blocking your path."
-							+ "</p>"
-							+ "<p>"
-								+ "You instantly recognise the "
-								+ " <b style='color:"+Femininity.valueOf(Main.game.getActiveNPC().getFemininityValue()).getColour().toWebHexString()+";'>"
-								+ Femininity.getFemininityName(Main.game.getActiveNPC().getFemininityValue(), false)+"</b>"
-								+ " <b style='color:"+Main.game.getActiveNPC().getRaceStage().getColour().toWebHexString()+";'>" +Main.game.getActiveNPC().getRaceStage().getName()+"</b>"
-								+ " <b style='color:"+Main.game.getActiveNPC().getRace().getColour().toWebHexString()+";'>" + Main.game.getActiveNPC().getName() + "</b>"
-								+ ", and you jump back into a fighting stance as you expect this encounter to be much the same as the last one."
+					UtilText.nodeContentSB.append("<p>"
+								+ "You instantly recognise the [npc.fullRace(true)], and you jump back into a fighting stance as you expect this encounter to be much the same as the last one."
 							+ "</p>"
 							+ "<p>"
 								+ "[npc.speech(You again?!)] [npc.she] shouts, [npc.speech(This'll be a lot easier if you give up right now!)]" 
@@ -131,34 +130,42 @@ public class AlleywayAttackerDialogue {
 											+ " Knowing that defeat will result in being raped by this horny [npc.race], you ready yourself for a fight."
 									:"Although your powerful arcane aura is turning [npc.herHim] on a little, it doesn't look as though [npc.she]'s really all that interested in your body,"
 											+ " and will most likely only rob you if you were to lose this fight.")
-							+ "</p>";
+							+ "</p>");
 				}
 				
 			} else {
-				return "<p>"
-						+ "You find yourself walking down yet another narrow passage, lined by a series of inset doorways."
-						+ " As you're passing one such recess, a figure suddenly jumps out from the shadows, blocking your path."
-					+ "</p>"
-					+ "<p>"
-						+ "You leap back, narrowly avoiding a blow aimed at your stomach, and prepare yourself for a fight."
-						+ " Looking up, you see"
-						+ " <b style='color:"+Femininity.valueOf(Main.game.getActiveNPC().getFemininityValue()).getColour().toWebHexString()+";'>"
-						+ Femininity.getFemininityName(Main.game.getActiveNPC().getFemininityValue(), true)+"</b>"
-						+ " <b style='color:"+Main.game.getActiveNPC().getRaceStage().getColour().toWebHexString()+";'>" +Main.game.getActiveNPC().getRaceStage().getName()+"</b>"
-						+ " <b style='color:"+Main.game.getActiveNPC().getRace().getColour().toWebHexString()+";'>" + Main.game.getActiveNPC().getName() + "</b>"
-						+ " grinning devilishly at you."
-					+ "</p>"
-					+ "<p>"
-						+ "[npc.speech(What do we have here?)] [npc.she] asks, letting out a short laugh as [npc.she] sees that you're ready to fight [npc.herHim], [npc.speech(It'll be a lot easier if you just give up!)]"
-					+ "</p>"
-					+ "<p>"
-					+ (Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer())
-						?"Your powerful arcane aura is clearly turning [npc.herHim] on, and from [npc.her] hungry gaze that lingers on your body, you're able to get a good idea of what [npc.she] wants to do with you."
-								+ " Knowing that defeat will result in being raped by this horny [npc.race], you ready yourself for a fight."
-						:"Although your powerful arcane aura is turning [npc.herHim] on a little, it doesn't look as though [npc.she]'s really all that interested in your body,"
-								+ " and will most likely only rob you if you were to lose this fight.")
-					+ "</p>";
+				if(isCanal()) {
+					UtilText.nodeContentSB.append(
+							"<p>"
+								+ "You find yourself wandering down the track that runs alongside Dominion's canal."
+								+ " As you walk past a collection of leafy bushes growing on one side of the path, a shadowy figure suddenly leaps out, blocking your path."
+							+ "</p>");
+					
+				} else {
+					UtilText.nodeContentSB.append(
+							"<p>"
+								+ "You find yourself walking down yet another narrow passage, lined by a series of inset doorways."
+								+ " As you're passing one such recess, a figure suddenly jumps out from the shadows, blocking your path."
+							+ "</p>");
+				}
+				
+				UtilText.nodeContentSB.append("<p>"
+								+ "You leap back, narrowly avoiding a blow aimed at your stomach, and prepare yourself for a fight."
+								+ " Looking up, you see [npc.a_fullRace(true)] grinning devilishly at you."
+							+ "</p>"
+							+ "<p>"
+								+ "[npc.speech(What do we have here?)] [npc.she] asks, letting out a short laugh as [npc.she] sees that you're ready to fight [npc.herHim], [npc.speech(It'll be a lot easier if you just give up!)]"
+							+ "</p>"
+							+ "<p>"
+							+ (Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer())
+								?"Your powerful arcane aura is clearly turning [npc.herHim] on, and from [npc.her] hungry gaze that lingers on your body, you're able to get a good idea of what [npc.she] wants to do with you."
+										+ " Knowing that defeat will result in being raped by this horny [npc.race], you ready yourself for a fight."
+								:"Although your powerful arcane aura is turning [npc.herHim] on a little, it doesn't look as though [npc.she]'s really all that interested in your body,"
+										+ " and will most likely only rob you if you were to lose this fight.")
+							+ "</p>");
 			}
+			
+			return UtilText.nodeContentSB.toString();
 		}
 
 		@Override
@@ -248,12 +255,7 @@ public class AlleywayAttackerDialogue {
 						+ " Thankfully, as you were taking care to be alert, you quickly step backwards and manage to avoid a punch aimed at your stomach."
 					+ "</p>"
 					+ "<p>"
-						+ "Turning to face the assailant, you see"
-						+ " <b style='color:"+Femininity.valueOf(Main.game.getActiveNPC().getFemininityValue()).getColour().toWebHexString()+";'>"
-						+ Femininity.getFemininityName(Main.game.getActiveNPC().getFemininityValue(), true)+"</b>"
-						+ " <b style='color:"+Main.game.getActiveNPC().getRaceStage().getColour().toWebHexString()+";'>" +Main.game.getActiveNPC().getRaceStage().getName()+"</b>"
-						+ " <b style='color:"+Main.game.getActiveNPC().getRace().getColour().toWebHexString()+";'>" + Main.game.getActiveNPC().getName() + "</b>"
-						+ " grinning devilishly at you."
+						+ "Turning to face the assailant, you see [npc.a_fullRace(true)] grinning devilishly at you."
 						+ " There's no mistaking that hungry look in [npc.her] [npc.eyes], and you know that the arcane thunder has driven [npc.herHim] into a state of uncontrollable lust."
 						+ " [npc.She] looks determined to claim you as [npc.her] prize, and is ready to fight you in order to claim your body."
 					+ "</p>"

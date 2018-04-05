@@ -5,13 +5,14 @@ import java.util.Collections;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 
 /**
  * @since 0.1.83
- * @version 0.2.1
+ * @version 0.2.2
  * @author Innoxia
  */
 public enum AnusType implements BodyPartTypeInterface {
@@ -28,6 +29,12 @@ public enum AnusType implements BodyPartTypeInterface {
 	DOG_MORPH(BodyCoveringType.ANUS, Race.DOG_MORPH),
 	
 	SQUIRREL_MORPH(BodyCoveringType.ANUS, Race.SQUIRREL_MORPH),
+	
+	RAT_MORPH(BodyCoveringType.ANUS, Race.RAT_MORPH),
+	
+	RABBIT_MORPH(BodyCoveringType.ANUS, Race.RABBIT_MORPH),
+	
+	BAT_MORPH(BodyCoveringType.ANUS, Race.BAT_MORPH),
 	
 	WOLF_MORPH(BodyCoveringType.ANUS, Race.WOLF_MORPH),
 	
@@ -100,7 +107,7 @@ public enum AnusType implements BodyPartTypeInterface {
 	}
 
 	@Override
-	public BodyCoveringType getBodyCoveringType() {
+	public BodyCoveringType getBodyCoveringType(Body body) {
 		return skinType;
 	}
 

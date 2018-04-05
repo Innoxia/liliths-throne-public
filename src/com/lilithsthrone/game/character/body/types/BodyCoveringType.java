@@ -13,7 +13,7 @@ import com.lilithsthrone.utils.Util.ListValue;
 
 /**
  * @since 0.1.0
- * @version 0.1.99
+ * @version 0.2.2
  * @author Innoxia
  */
 public enum BodyCoveringType {
@@ -117,6 +117,37 @@ public enum BodyCoveringType {
 			Colour.demonSkinColours,
 			null),
 
+	BAT_SKIN(Race.BAT_MORPH,
+			"a layer of",
+			false,
+			"skin",
+			"skin",
+			Util.newArrayListOfValues(new ListValue<CoveringModifier>(CoveringModifier.SMOOTH)),
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<CoveringPattern>(CoveringPattern.NONE)),
+			CoveringPattern.allStandardCoveringPatterns,
+			Colour.humanSkinColours,
+			Colour.allSkinColours,
+			null,
+			Colour.allSkinColours),
+	
+	BAT_FUR(Race.BAT_MORPH,
+			"a layer of",
+			false,
+			"fur",
+			"fur",
+			Util.newArrayListOfValues(
+					new ListValue<CoveringModifier>(CoveringModifier.SHORT)),
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<CoveringPattern>(CoveringPattern.NONE)),
+			CoveringPattern.allHairCoveringPatterns,
+			Colour.naturalFurColours,
+			Colour.dyeFurColours,
+			Colour.naturalFurColours,
+			Colour.dyeFurColours),
+	
 	CANINE_FUR(Race.DOG_MORPH,
 			"a layer of",
 			false,
@@ -175,6 +206,51 @@ public enum BodyCoveringType {
 			Colour.dyeFurColours),
 
 	SQUIRREL_FUR(Race.SQUIRREL_MORPH,
+			"a layer of",
+			false,
+			"fur",
+			"fur",
+			Util.newArrayListOfValues(
+					new ListValue<CoveringModifier>(CoveringModifier.SMOOTH)),
+			null,
+			null,
+			CoveringPattern.allHairCoveringPatterns,
+			Colour.naturalFurColours,
+			Colour.dyeFurColours,
+			Colour.naturalFurColours,
+			Colour.dyeFurColours),
+
+	RAT_SKIN(Race.RAT_MORPH,
+			"a layer of",
+			false,
+			"skin",
+			"skin",
+			Util.newArrayListOfValues(new ListValue<CoveringModifier>(CoveringModifier.SMOOTH)),
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<CoveringPattern>(CoveringPattern.NONE)),
+			CoveringPattern.allStandardCoveringPatterns,
+			Colour.ratSkinColours,
+			Colour.allSkinColours,
+			null,
+			Colour.allSkinColours),
+	
+	RAT_FUR(Race.RAT_MORPH,
+			"a layer of",
+			false,
+			"fur",
+			"fur",
+			Util.newArrayListOfValues(
+					new ListValue<CoveringModifier>(CoveringModifier.SMOOTH)),
+			null,
+			null,
+			CoveringPattern.allHairCoveringPatterns,
+			Colour.naturalFurColours,
+			Colour.dyeFurColours,
+			Colour.naturalFurColours,
+			Colour.dyeFurColours),
+
+	RABBIT_FUR(Race.RABBIT_MORPH,
 			"a layer of",
 			false,
 			"fur",
@@ -511,23 +587,7 @@ public enum BodyCoveringType {
 			null,
 			Util.newArrayListOfValues(
 					new ListValue<CoveringPattern>(CoveringPattern.NONE)),
-			CoveringPattern.allStandardCoveringPatterns,
-			Colour.naturalScaleColours,
-			Colour.dyeScaleColours,
-			Colour.naturalScaleColours,
-			Colour.dyeScaleColours),
-	
-	HAIR_SCALES_ALLIGATOR(Race.ALLIGATOR_MORPH,
-			"a layer of",
-			true,
-			"scales",
-			"scale",
-			Util.newArrayListOfValues(
-					new ListValue<CoveringModifier>(CoveringModifier.SMOOTH)),
-			null,
-			Util.newArrayListOfValues(
-					new ListValue<CoveringPattern>(CoveringPattern.NONE)),
-			CoveringPattern.allStandardCoveringPatterns,
+			CoveringPattern.allScalesCoveringPatterns,
 			Colour.naturalScaleColours,
 			Colour.dyeScaleColours,
 			Colour.naturalScaleColours,
@@ -758,6 +818,54 @@ public enum BodyCoveringType {
 			Colour.naturalHairColours,
 			Colour.dyeHairColours),
 
+	HAIR_RAT_FUR(Race.RAT_MORPH,
+			"a layer of",
+			false,
+			"hair",
+			"hair",
+			Util.newArrayListOfValues(
+					new ListValue<CoveringModifier>(CoveringModifier.FURRY)),
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<CoveringPattern>(CoveringPattern.NONE)),
+			CoveringPattern.allHairCoveringPatterns,
+			Colour.naturalHairColours,
+			Colour.dyeHairColours,
+			Colour.naturalHairColours,
+			Colour.dyeHairColours),
+
+	HAIR_RABBIT_FUR(Race.RAT_MORPH,
+			"a layer of",
+			false,
+			"hair",
+			"hair",
+			Util.newArrayListOfValues(
+					new ListValue<CoveringModifier>(CoveringModifier.FURRY)),
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<CoveringPattern>(CoveringPattern.NONE)),
+			CoveringPattern.allHairCoveringPatterns,
+			Colour.naturalHairColours,
+			Colour.dyeHairColours,
+			Colour.naturalHairColours,
+			Colour.dyeHairColours),
+	
+	HAIR_BAT_FUR(Race.BAT_MORPH,
+			"a layer of",
+			false,
+			"hair",
+			"hair",
+			Util.newArrayListOfValues(
+					new ListValue<CoveringModifier>(CoveringModifier.FURRY)),
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<CoveringPattern>(CoveringPattern.NONE)),
+			CoveringPattern.allHairCoveringPatterns,
+			Colour.naturalHairColours,
+			Colour.dyeHairColours,
+			Colour.naturalHairColours,
+			Colour.dyeHairColours),
+	
 	HAIR_HARPY(Race.HARPY,
 			"a plume of",
 			true,
@@ -794,6 +902,22 @@ public enum BodyCoveringType {
 					new ListValue<Colour>(Colour.FEATHERS_RED),
 					new ListValue<Colour>(Colour.FEATHERS_BLACK)),
 			null),
+	
+	HAIR_SCALES_ALLIGATOR(Race.ALLIGATOR_MORPH,
+			"a layer of",
+			false,
+			"hair",
+			"hair",
+			Util.newArrayListOfValues(
+					new ListValue<CoveringModifier>(CoveringModifier.COARSE)),
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<CoveringPattern>(CoveringPattern.NONE)),
+			CoveringPattern.allHairCoveringPatterns,
+			Colour.naturalHairColours,
+			Colour.dyeHairColours,
+			Colour.naturalHairColours,
+			Colour.dyeHairColours),
 	
 	
 	// BODY HAIR:
@@ -963,6 +1087,51 @@ public enum BodyCoveringType {
 			Colour.naturalHairColours,
 			Colour.dyeHairColours),
 
+	BODY_HAIR_RAT_FUR(Race.RAT_MORPH,
+			"a layer of",
+			false,
+			"hair",
+			"hair",
+			Util.newArrayListOfValues(
+					new ListValue<CoveringModifier>(CoveringModifier.FURRY)),
+			null,
+			null,
+			CoveringPattern.allHairCoveringPatterns,
+			Colour.naturalHairColours,
+			Colour.dyeHairColours,
+			Colour.naturalHairColours,
+			Colour.dyeHairColours),
+
+	BODY_HAIR_RABBIT_FUR(Race.RABBIT_MORPH,
+			"a layer of",
+			false,
+			"hair",
+			"hair",
+			Util.newArrayListOfValues(
+					new ListValue<CoveringModifier>(CoveringModifier.FURRY)),
+			null,
+			null,
+			CoveringPattern.allHairCoveringPatterns,
+			Colour.naturalHairColours,
+			Colour.dyeHairColours,
+			Colour.naturalHairColours,
+			Colour.dyeHairColours),
+	
+	BODY_HAIR_BAT_FUR(Race.BAT_MORPH,
+			"a layer of",
+			false,
+			"hair",
+			"hair",
+			Util.newArrayListOfValues(
+					new ListValue<CoveringModifier>(CoveringModifier.FURRY)),
+			null,
+			null,
+			CoveringPattern.allHairCoveringPatterns,
+			Colour.naturalHairColours,
+			Colour.dyeHairColours,
+			Colour.naturalHairColours,
+			Colour.dyeHairColours),
+	
 	BODY_HAIR_HARPY(Race.HARPY,
 			"a plume of",
 			true,
@@ -1155,6 +1324,57 @@ public enum BodyCoveringType {
 			Colour.naturalIrisColours,
 			Colour.dyeIrisColours),
 
+	EYE_RAT(Race.RAT_MORPH,
+			"a pair of",
+			true,
+			"eyes",
+			"eye",
+			Util.newArrayListOfValues(
+					new ListValue<CoveringModifier>(CoveringModifier.EYE)),
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<CoveringPattern>(CoveringPattern.EYE_IRISES)),
+			Util.newArrayListOfValues(
+					new ListValue<CoveringPattern>(CoveringPattern.EYE_IRISES_HETEROCHROMATIC)),
+			Colour.naturalIrisColours,
+			Colour.dyeIrisColours,
+			Colour.naturalIrisColours,
+			Colour.dyeIrisColours),
+
+	EYE_RABBIT(Race.RABBIT_MORPH,
+			"a pair of",
+			true,
+			"eyes",
+			"eye",
+			Util.newArrayListOfValues(
+					new ListValue<CoveringModifier>(CoveringModifier.EYE)),
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<CoveringPattern>(CoveringPattern.EYE_IRISES)),
+			Util.newArrayListOfValues(
+					new ListValue<CoveringPattern>(CoveringPattern.EYE_IRISES_HETEROCHROMATIC)),
+			Colour.naturalIrisColours,
+			Colour.dyeIrisColours,
+			Colour.naturalIrisColours,
+			Colour.dyeIrisColours),
+	
+	EYE_BAT(Race.BAT_MORPH,
+			"a pair of",
+			true,
+			"eyes",
+			"eye",
+			Util.newArrayListOfValues(
+					new ListValue<CoveringModifier>(CoveringModifier.EYE)),
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<CoveringPattern>(CoveringPattern.EYE_IRISES)),
+			Util.newArrayListOfValues(
+					new ListValue<CoveringPattern>(CoveringPattern.EYE_IRISES_HETEROCHROMATIC)),
+			Colour.naturalIrisColours,
+			Colour.dyeIrisColours,
+			Colour.naturalIrisColours,
+			Colour.dyeIrisColours),
+	
 	EYE_ALLIGATOR_MORPH(Race.ALLIGATOR_MORPH,
 			"a pair of",
 			true,
