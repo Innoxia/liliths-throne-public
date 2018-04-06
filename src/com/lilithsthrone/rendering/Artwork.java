@@ -71,7 +71,11 @@ public class Artwork {
 	}
 
 	public void setIndex(int index) {
-		this.index = index % getTotalArtworkCount();
+		index = index % getTotalArtworkCount();
+		if(index < 0) {
+			index = getTotalArtworkCount() + index;
+		}
+		this.index = index;
 	}
 
 	public void incrementIndex(int increment) {

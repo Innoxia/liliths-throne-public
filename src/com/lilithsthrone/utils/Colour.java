@@ -364,6 +364,7 @@ public enum Colour {
 	SLIME_CLEAR(BaseColour.WHITE, "clear"),
 	SLIME_GREY(BaseColour.GREY, "translucent grey"),
 	SLIME_BLACK(BaseColour.BLACK, "translucent black"),
+	SLIME_WHITE(BaseColour.WHITE, "translucent white"),
 
 	// Feathers:
 	FEATHERS_BLACK(BaseColour.BLACK, "black"),
@@ -730,6 +731,7 @@ public enum Colour {
 
 	public static List<Colour> allSlimeColours = Util.newArrayListOfValues(
 			new ListValue<Colour>(Colour.SLIME_CLEAR),
+			new ListValue<Colour>(Colour.SLIME_WHITE),
 			new ListValue<Colour>(Colour.SLIME_GREY),
 			new ListValue<Colour>(Colour.SLIME_BLACK),
 			new ListValue<Colour>(Colour.SLIME_RED),

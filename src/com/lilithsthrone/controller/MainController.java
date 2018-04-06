@@ -723,7 +723,8 @@ public class MainController implements Initializable {
 								}
 							}
 						}
-						if(Main.game.getCurrentDialogueNode() == SlaveryManagementDialogue.ROOM_UPGRADES){
+						if(Main.game.getCurrentDialogueNode() == SlaveryManagementDialogue.ROOM_UPGRADES
+								|| Main.game.getCurrentDialogueNode() == SlaveryManagementDialogue.ROOM_UPGRADES_MANAGEMENT){
 							if((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('nameInput') === document.activeElement")) {
 								allowInput = false;
 								if (event.getCode() == KeyCode.ENTER) {
@@ -1162,7 +1163,8 @@ public class MainController implements Initializable {
 		}
 		
 		if(Main.game.getCurrentDialogueNode().equals(CharactersPresentDialogue.MENU)
-				|| Main.game.getCurrentDialogueNode().equals(PhoneDialogue.CONTACTS_CHARACTER)) {
+				|| Main.game.getCurrentDialogueNode().equals(PhoneDialogue.CONTACTS_CHARACTER)
+				|| Main.game.getCurrentDialogueNode().equals(SlaveryManagementDialogue.SLAVE_MANAGEMENT_INSPECT)) {
 			if(CharactersPresentDialogue.characterViewed instanceof NPC && !((NPC)CharactersPresentDialogue.characterViewed).getArtworkList().isEmpty()) {
 				
 				Artwork artwork = ((NPC)CharactersPresentDialogue.characterViewed).getArtworkList().get(0);
@@ -1949,7 +1951,7 @@ public class MainController implements Initializable {
 								}
 								@Override
 								public DialogueNodeOld getNextDialogue() {
-									return SlaveryManagementDialogue.ROOM_UPGRADES;
+									return SlaveryManagementDialogue.ROOM_UPGRADES_MANAGEMENT;
 								}
 							});
 						}, false);
@@ -1979,7 +1981,7 @@ public class MainController implements Initializable {
 								}
 								@Override
 								public DialogueNodeOld getNextDialogue() {
-									return SlaveryManagementDialogue.ROOM_UPGRADES;
+									return SlaveryManagementDialogue.ROOM_UPGRADES_MANAGEMENT;
 								}
 							});
 						}, false);
@@ -2001,8 +2003,20 @@ public class MainController implements Initializable {
 				}
 			}
 
-			if(Main.game.getCurrentDialogueNode() == SlaveryManagementDialogue.ROOM_UPGRADES) {
+			if(Main.game.getCurrentDialogueNode() == SlaveryManagementDialogue.ROOM_UPGRADES
+					|| Main.game.getCurrentDialogueNode() == SlaveryManagementDialogue.ROOM_UPGRADES_MANAGEMENT) {
 				for(PlaceUpgrade placeUpgrade : PlaceUpgrade.values()) {
+					
+					id = "ROOM_MOD_INFO_"+placeUpgrade;
+					if (((EventTarget) document.getElementById(id)) != null) {
+						addEventListener(document, id, "mousemove", moveTooltipListener, false);
+						addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+
+						TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("", (SlaveryManagementDialogue.cellToInspect.getPlace().getPlaceUpgrades().contains(placeUpgrade)
+								?placeUpgrade.getDescriptionAfterPurchase()
+								:placeUpgrade.getDescriptionForPurchase()));
+						addEventListener(document, id, "mouseenter", el, false);
+					}
 					
 					id = placeUpgrade+"_BUY";
 					if (((EventTarget) document.getElementById(id)) != null) {
@@ -2031,7 +2045,7 @@ public class MainController implements Initializable {
 						addEventListener(document, id, "mouseleave", hideTooltipListener, false);
 
 						TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Purchase Modification",
-								"This will cost: "+UtilText.formatAsMoney(placeUpgrade.getInstallCost())+"</br>"+SlaveryManagementDialogue.getPurchaseAvailabilityTooltipText(SlaveryManagementDialogue.cellToInspect.getPlace(), placeUpgrade));
+								"This will cost: "+UtilText.formatAsMoney(placeUpgrade.getInstallCost())+"</br>"+SlaveryManagementDialogue.getPurchaseAvailabilityTooltipText(SlaveryManagementDialogue.cellToInspect, placeUpgrade));
 						addEventListener(document, id, "mouseenter", el, false);
 					}
 					id = placeUpgrade+"_BUY_DISABLED";
@@ -2040,7 +2054,7 @@ public class MainController implements Initializable {
 						addEventListener(document, id, "mouseleave", hideTooltipListener, false);
 
 						TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Purchase Modification",
-								"This will cost: "+UtilText.formatAsMoney(placeUpgrade.getInstallCost())+"</br>"+SlaveryManagementDialogue.getPurchaseAvailabilityTooltipText(SlaveryManagementDialogue.cellToInspect.getPlace(), placeUpgrade));
+								"This will cost: "+UtilText.formatAsMoney(placeUpgrade.getInstallCost())+"</br>"+SlaveryManagementDialogue.getPurchaseAvailabilityTooltipText(SlaveryManagementDialogue.cellToInspect, placeUpgrade));
 						addEventListener(document, id, "mouseenter", el, false);
 					}
 					
@@ -2059,7 +2073,7 @@ public class MainController implements Initializable {
 						addEventListener(document, id, "mouseleave", hideTooltipListener, false);
 
 						TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Remove Modification",
-								"This will cost: "+UtilText.formatAsMoney(placeUpgrade.getRemovalCost())+"</br>"+SlaveryManagementDialogue.getPurchaseAvailabilityTooltipText(SlaveryManagementDialogue.cellToInspect.getPlace(), placeUpgrade));
+								"This will cost: "+UtilText.formatAsMoney(placeUpgrade.getRemovalCost())+"</br>"+SlaveryManagementDialogue.getPurchaseAvailabilityTooltipText(SlaveryManagementDialogue.cellToInspect, placeUpgrade));
 						addEventListener(document, id, "mouseenter", el, false);
 					}
 					id = placeUpgrade+"_SELL_DISABLED";
@@ -2070,7 +2084,7 @@ public class MainController implements Initializable {
 						TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Remove Modification",
 								(placeUpgrade.isCoreRoomUpgrade()
 										?"You cannot directly remove core upgrades. Instead, you'll have to purchase a different core modification in order to remove the current one."
-										:"This will cost: "+UtilText.formatAsMoney(placeUpgrade.getRemovalCost())+"</br>"+SlaveryManagementDialogue.getPurchaseAvailabilityTooltipText(SlaveryManagementDialogue.cellToInspect.getPlace(), placeUpgrade)));
+										:"This will cost: "+UtilText.formatAsMoney(placeUpgrade.getRemovalCost())+"</br>"+SlaveryManagementDialogue.getPurchaseAvailabilityTooltipText(SlaveryManagementDialogue.cellToInspect, placeUpgrade)));
 						addEventListener(document, id, "mouseenter", el, false);
 					}
 				}
@@ -2253,6 +2267,16 @@ public class MainController implements Initializable {
 				
 				// Jobs:
 				for(SlaveJob job : SlaveJob.values()) {
+					id = "SLAVE_JOB_INFO_" + job;
+					if (((EventTarget) document.getElementById(id)) != null) {
+						addEventListener(document, id, "mousemove", moveTooltipListener, false);
+						addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+						TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation(
+								Util.capitaliseSentence(job.getName(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected())),
+								UtilText.parse(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected(), job.getDescription()));
+						addEventListener(document, id, "mouseenter", el, false);
+					}
+					
 					id = job+"_ASSIGN";
 					if (((EventTarget) document.getElementById(id)) != null) {
 						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
@@ -5836,7 +5860,10 @@ public class MainController implements Initializable {
 	
 	public void setMainContent(String content) {
 		if(useJavascriptToSetContent
-				&& !Main.game.getCurrentDialogueNode().equals(CharactersPresentDialogue.MENU) && !Main.game.getCurrentDialogueNode().equals(PhoneDialogue.CONTACTS_CHARACTER)) { // For rendering images from file
+				 // For rendering images from file:
+				&& !Main.game.getCurrentDialogueNode().equals(CharactersPresentDialogue.MENU)
+				&& !Main.game.getCurrentDialogueNode().equals(PhoneDialogue.CONTACTS_CHARACTER)
+				&& !Main.game.getCurrentDialogueNode().equals(SlaveryManagementDialogue.SLAVE_MANAGEMENT_INSPECT)) {
 			unbindListeners(document);
 			setWebEngineContent(webEngine, content);
 			manageMainListeners();

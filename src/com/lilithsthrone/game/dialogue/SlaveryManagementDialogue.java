@@ -26,6 +26,7 @@ import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.CharacterModificationUtils;
+import com.lilithsthrone.game.dialogue.utils.CharactersPresentDialogue;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.slavery.SlaveJob;
@@ -45,7 +46,7 @@ import com.lilithsthrone.world.places.PlaceUpgrade;
 
 /**
  * @since 0.1.8?
- * @version 0.1.89
+ * @version 0.2.3
  * @author Innoxia
  */
 public class SlaveryManagementDialogue {
@@ -64,22 +65,25 @@ public class SlaveryManagementDialogue {
 	
 	public static DialogueNodeOld getSlaveryManagementInspectSlaveDialogue(NPC slave) {
 		Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(slave);
+		CharactersPresentDialogue.resetContent(slave);
 		return SLAVE_MANAGEMENT_INSPECT;
 	}
 	
 	public static DialogueNodeOld getSlaveryManagementSlaveJobsDialogue(NPC slave) {
 		Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(slave);
+		CharactersPresentDialogue.resetContent(slave);
 		return SLAVE_MANAGEMENT_JOBS;
 	}
 	
 	public static DialogueNodeOld getSlaveryManagementSlavePermissionsDialogue(NPC slave) {
 		Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(slave);
+		CharactersPresentDialogue.resetContent(slave);
 		return SLAVE_MANAGEMENT_PERMISSIONS;
 	}
 	
 	public static DialogueNodeOld getSlaveryManagementDialogue(NPC slaveTrader) {
 		Main.game.getDialogueFlags().setSlaveTrader(slaveTrader);
-		return SLAVE_MANAGEMENT;
+		return SLAVE_LIST_MANAGEMENT;
 	}
 	
 	public static int getDayNumber() {
@@ -102,7 +106,7 @@ public class SlaveryManagementDialogue {
 			};
 			
 		} else if (index == 2) {
-			return new Response("Slave List", "Enter the slave management screen.", SLAVE_MANAGEMENT) {
+			return new Response("Slave List", "Enter the slave management screen.", SLAVE_LIST_MANAGEMENT) {
 				@Override
 				public DialogueNodeOld getNextDialogue() {
 					return SlaveryManagementDialogue.getSlaveryManagementDialogue(Main.game.getDialogueFlags().getSlaveTrader());
@@ -155,51 +159,7 @@ public class SlaveryManagementDialogue {
 				};
 			}
 			
-		} else if (index == 6) {
-			if(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected() == null) {
-				return new Response("Inspect", "No slave has been selected", null);
-				
-			}
-			return new Response("Inspect", "Enter the slave management screen.", SLAVE_MANAGEMENT_INSPECT);
-			
-		} else if (index == 7) {
-			if(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected() == null) {
-				return new Response("Job", "No slave has been selected.", null);
-				
-			} else if(!Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected().getOwner().isPlayer()) {
-				return new Response("Job", "You cannot manage the job of a slave you do not own!", null);
-			}
-			return new Response("Job", "Set this slave's job and work hours.", SLAVE_MANAGEMENT_JOBS);
-			
-		} else if (index == 8) {
-			if(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected() == null) {
-				return new Response("Permissions", "No slave has been selected", null);
-				
-			} else if(!Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected().getOwner().isPlayer()) {
-				return new Response("Permissions", "You cannot manage the permissions of a slave you do not own!", null);
-			}
-			return new Response("Permissions", "Set this slave's permissions.", SLAVE_MANAGEMENT_PERMISSIONS);
-			
-		} else if (index == 9) {
-			if(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected() == null) {
-				return new Response("Inventory", "No slave has been selected", null);
-				
-			} else if(!Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected().getOwner().isPlayer()) {
-				return new Response("Job", "You cannot manage the inventory of a slave you do not own!", null);
-			}
-			
-			if(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected().getOwner().isPlayer()) {
-				return new ResponseEffectsOnly("Inventory", UtilText.parse(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected(), "Manage [npc.name]'s inventory.")){
-					@Override
-					public void effects() {
-						Main.mainController.openInventory(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected(), InventoryInteraction.FULL_MANAGEMENT);
-					}
-				};
-			} else {
-				return new Response("Inventory", UtilText.parse(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected(), "You can't manage [npc.name]'s inventory, as you don't own [npc.herHim]!"), null);
-			}
-			
-		}else if (index == 0) {
+		}  else if (index == 0) {
 			return new Response("Back", "Exit the room upgrades screen.", SLAVERY_OVERVIEW) {
 				@Override
 				public DialogueNodeOld getNextDialogue() {
@@ -548,6 +508,7 @@ public class SlaveryManagementDialogue {
 	
 	
 	public static Cell cellToInspect;
+	
 	public static final DialogueNodeOld ROOM_UPGRADES = new DialogueNodeOld("Room Management", ".", true) {
 		private static final long serialVersionUID = 1L;
 		
@@ -565,7 +526,7 @@ public class SlaveryManagementDialogue {
 							+ "<h6 style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+"; text-align:center;'>Overview (Total Values for this Room)</h6>"
 							+"<div class='container-full-width' style='margin-bottom:0;'>"
 								+ "<div style='width:20%; float:left; font-weight:bold; margin:0; padding:0;'>"
-									+ "(Re)Name"
+									+ "Name"
 								+ "</div>"
 								+ "<div style='width:20%; float:left; font-weight:bold; margin:0; padding:0;'>"
 									+ "Occupants"
@@ -657,6 +618,7 @@ public class SlaveryManagementDialogue {
 			// Core upgrades:
 			UtilText.nodeContentSB.append("<div class='container-full-width' style='text-align:center;'>"
 					+ "<h6 style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+"; text-align:center;'>Core Modifications</h6>"
+					+"<p><i>Purchasing a [style.boldArcane(core modification)] will remove [style.boldBad(all)] other modifications in this room!</i></p>"
 					+ getRoomUpgradeHeader());
 
 			
@@ -681,6 +643,41 @@ public class SlaveryManagementDialogue {
 			return UtilText.nodeContentSB.toString();
 		}
 
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==0) {
+				return new Response("Back", "Return to the previous screen.", ROOM_UPGRADES) {
+					@Override
+					public DialogueNodeOld getNextDialogue() {
+						return DebugDialogue.getDefaultDialogueNoEncounter();
+					}
+				};
+			} else {
+				return null;
+			}
+		}
+		
+		@Override
+		public boolean isMapDisabled() {
+			return true;
+		}
+	};
+	
+
+
+	public static final DialogueNodeOld ROOM_UPGRADES_MANAGEMENT = new DialogueNodeOld("Room Management", ".", true) {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public String getLabel() {
+			return cellToInspect.getPlace().getName()+" Management";
+		}
+
+		@Override
+		public String getContent() {
+			return ROOM_UPGRADES.getContent();
+		}
+		
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			return getSlaveryResponse(index);
@@ -730,12 +727,17 @@ public class SlaveryManagementDialogue {
 		
 		miscDialogueSB.append(
 				"<div class='container-full-width inner' style='margin-bottom:4px; margin-top:4px;"+(owned?"background:#292929;'":"'")+"'>"
-						+ "<div style='width:30%; float:left; margin:0; padding:0;'>"
+						+ "<div style='width:5%; float:left; margin:0; padding:0;'>"
+							+ "<div class='title-button' id='ROOM_MOD_INFO_"+upgrade+"' style='position:relative; top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getInformationIcon()+"</div>"
+						+ "</div>"
+						+ "<div style='width:25%; float:left; margin:0; padding:0;'>"
 							+ (owned
 									?"<b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>"+Util.capitaliseSentence(upgrade.getName())+"</b>"
 									:(!availableForPurchase
 											?"<b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>"+Util.capitaliseSentence(upgrade.getName())+"</b>"
 											:"<b>"+Util.capitaliseSentence(upgrade.getName())+"</b>"))
+//							+ "<div class='item-inline' id='ROOM_MOD_INFO_"+upgrade+"' style='float:right;'>"+SVGImages.SVG_IMAGE_PROVIDER.getInformationIcon()+"</div>"
+//							+"<div class='overlay' id=''></div>"
 						+ "</div>"
 						+ "<div style='width:10%; float:left; margin:0; padding:0;'>"
 							+ (upgrade.getCapacity()>0
@@ -809,21 +811,22 @@ public class SlaveryManagementDialogue {
 		
 		miscDialogueSB.append(
 				"</div>"
-					+ "<p>"
-						+ "<i>"
-							+(!owned
-								?"[style.colourDisabled("+upgrade.getDescriptionForPurchase()+")]"
-								:upgrade.getDescriptionAfterPurchase())
-						+"</i>"
-					+ "</p>"
-					+ (upgrade.isCoreRoomUpgrade() && !owned
-							?"<p>This is a [style.boldArcane(core modification)], and will [style.boldBad(remove all other modifications in this room when purchased)].</p>"
-							:""));
+//					+ "<p>"
+//						+ "<i>"
+//							+(!owned
+//								?"[style.colourDisabled("+upgrade.getDescriptionForPurchase()+")]"
+//								:upgrade.getDescriptionAfterPurchase())
+//						+"</i>"
+//					+ "</p>"
+//					+  (upgrade.isCoreRoomUpgrade() && !owned
+//							?"<p>This is a [style.boldArcane(core modification)], and will [style.boldBad(remove all other modifications in this room when purchased)].</p>"
+//							:"")
+					);
 		
 		if(!canBuy) {
 			miscDialogueSB.append("<p>"
 				+ "<i>"
-				+ "[style.colourBad("+ getPurchaseAvailabilityTooltipText(SlaveryManagementDialogue.cellToInspect.getPlace(), upgrade)+")]"
+				+ "[style.colourBad("+ getPurchaseAvailabilityTooltipText(SlaveryManagementDialogue.cellToInspect, upgrade)+")]"
 				+"</i>"
 			+ "</p>");
 		}
@@ -834,7 +837,8 @@ public class SlaveryManagementDialogue {
 	}
 	
 	private static StringBuilder purchaseAvailability = new StringBuilder();
-	public static String getPurchaseAvailabilityTooltipText(GenericPlace place, PlaceUpgrade upgrade) {
+	public static String getPurchaseAvailabilityTooltipText(Cell cell, PlaceUpgrade upgrade) {
+		GenericPlace place = cell.getPlace();
 		boolean owned = place.getPlaceUpgrades().contains(upgrade);
 		
 		purchaseAvailability.setLength(0);
@@ -845,7 +849,6 @@ public class SlaveryManagementDialogue {
 			}
 			
 		} else {
-			
 			if(Main.game.getSlaveryUtil().getGeneratedBalance()<0) {
 				purchaseAvailability.append("<b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>You cannot purchase any modifications while your slavery balance is negative.</b>");
 			}
@@ -866,7 +869,7 @@ public class SlaveryManagementDialogue {
 			}
 		}
 		
-		String availabilityDescription = upgrade.getAvailabilityDescription(Main.game.getPlayerCell());
+		String availabilityDescription = upgrade.getAvailabilityDescription(SlaveryManagementDialogue.cellToInspect);
 		if(availabilityDescription!=null && availabilityDescription.length()>0) {
 			purchaseAvailability.append("</br><span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>"+availabilityDescription+"</span>");
 		}
@@ -875,7 +878,7 @@ public class SlaveryManagementDialogue {
 	}
 	
 	
-	private static final DialogueNodeOld SLAVE_MANAGEMENT = new DialogueNodeOld("Slave Management", ".", true) {
+	private static final DialogueNodeOld SLAVE_LIST = new DialogueNodeOld("Slave Management", ".", true) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -944,12 +947,95 @@ public class SlaveryManagementDialogue {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if (index == 2) {
-				return new Response("Slave List", "You are already viewing the slave management screen.", null);
+			if (index == 1) {
+				if(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected() == null) {
+					return new Response("Inspect", "No slave has been selected", null);
+					
+				}
+				return new Response("Inspect", "Enter the slave management screen.", SLAVE_MANAGEMENT_INSPECT);
 				
+			} else if (index == 2) {
+				if(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected() == null) {
+					return new Response("Job", "No slave has been selected.", null);
+					
+				} else if(!Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected().getOwner().isPlayer()) {
+					return new Response("Job", "You cannot manage the job of a slave you do not own!", null);
+				}
+				return new Response("Job", "Set this slave's job and work hours.", SLAVE_MANAGEMENT_JOBS);
+				
+			} else if (index == 3) {
+				if(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected() == null) {
+					return new Response("Permissions", "No slave has been selected", null);
+					
+				} else if(!Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected().getOwner().isPlayer()) {
+					return new Response("Permissions", "You cannot manage the permissions of a slave you do not own!", null);
+				}
+				return new Response("Permissions", "Set this slave's permissions.", SLAVE_MANAGEMENT_PERMISSIONS);
+				
+			} else if (index == 4) {
+				if(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected() == null) {
+					return new Response("Inventory", "No slave has been selected", null);
+					
+				} else if(!Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected().getOwner().isPlayer()) {
+					return new Response("Job", "You cannot manage the inventory of a slave you do not own!", null);
+				}
+				
+				if(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected().getOwner().isPlayer()) {
+					return new ResponseEffectsOnly("Inventory", UtilText.parse(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected(), "Manage [npc.name]'s inventory.")){
+						@Override
+						public void effects() {
+							Main.mainController.openInventory(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected(), InventoryInteraction.FULL_MANAGEMENT);
+						}
+					};
+				} else {
+					return new Response("Inventory", UtilText.parse(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected(), "You can't manage [npc.name]'s inventory, as you don't own [npc.herHim]!"), null);
+				}
+				
+			} else if(index == 0) {
+				return new Response("Back", "Exit the slave management screen.", SLAVE_MANAGEMENT_INSPECT) {
+					@Override
+					public void effects() {
+						Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(null);
+					}
+					@Override
+					public DialogueNodeOld getNextDialogue() {
+						return DebugDialogue.getDefaultDialogueNoEncounter();
+					}
+				};
+				
+			} else {
+				return null;
 			}
-			
-			return getSlaveryResponse(index);
+		}
+		
+		@Override
+		public boolean isMapDisabled() {
+			return true;
+		}
+	};
+	
+
+	public static final DialogueNodeOld SLAVE_LIST_MANAGEMENT = new DialogueNodeOld("Slave Management", ".", true) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getContent() {
+			return SLAVE_LIST.getContent();
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index == 0) {
+				return new Response("Back", "Exit the slave management screen.", SLAVERY_OVERVIEW) {
+					@Override
+					public DialogueNodeOld getNextDialogue() {
+						return DebugDialogue.getDefaultDialogueNoEncounter();
+					}
+				};
+				
+			} else {
+				return SLAVE_LIST.getResponse(responseTab, index);
+			}
 		}
 		
 		@Override
@@ -1112,17 +1198,14 @@ public class SlaveryManagementDialogue {
 						
 					// Extra core information:
 					+"<div class='container-full-width' style='margin-bottom:0;'>"
-						+ "<div style='width:25%; float:left; font-weight:bold; margin:0; padding:0;'>"
+						+ "<div style='width:30%; float:left; font-weight:bold; margin:0; padding:0;'>"
 							+ "Location"
 						+ "</div>"
-						+ "<div style='float:left; width:15%; font-weight:bold; margin:0; padding:0;'>"
+						+ "<div style='float:left; width:20%; font-weight:bold; margin:0; padding:0;'>"
 							+ "<b style='color:"+Colour.AFFECTION.toWebHexString()+";'>Affection</b>"
 						+"</div>"
-						+ "<div style='float:left; width:15%; font-weight:bold; margin:0; padding:0;'>"
+						+ "<div style='float:left; width:20%; font-weight:bold; margin:0; padding:0;'>"
 							+ "<b style='color:"+Colour.OBEDIENCE.toWebHexString()+";'>Obedience</b>"
-						+"</div>"
-						+ "<div style='float:left; width:15%; font-weight:bold; margin:0; padding:0;'>"
-							+ "<b>Job</b>"
 						+"</div>"
 						+ "<div style='float:left; width:15%; font-weight:bold; margin:0; padding:0;'>"
 							+ "<b style='color:"+Colour.CURRENCY_GOLD.toWebHexString()+";'>Income</b>"
@@ -1132,19 +1215,19 @@ public class SlaveryManagementDialogue {
 						+ "</div>"
 					+ "</div>"
 					+"<div class='container-full-width inner'>"
-						+"<div style='width:25%; float:left; margin:0; padding:0;'>"
+						+"<div style='width:30%; float:left; margin:0; padding:0;'>"
 							+ "<b style='color:"+character.getLocationPlace().getColour().toWebHexString()+";'>"+character.getLocationPlace().getName()+"</b>"
 							+",</br>"
 							+ "<span style='color:"+character.getWorldLocation().getColour().toWebHexString()+";'>"+character.getWorldLocation().getName()+"</span>"
 						+ "</div>"
-						+ "<div style='float:left; width:15%; margin:0; padding:0;'>"
+						+ "<div style='float:left; width:20%; margin:0; padding:0;'>"
 							+ "<b style='color:"+affection.getColour().toWebHexString()+";'>"+character.getAffection(Main.game.getPlayer())+ "</b>" //TODO
 							+ "</br><span style='color:"+(affectionChange==0?Colour.BASE_GREY:(affectionChange>0?Colour.GENERIC_GOOD:Colour.GENERIC_BAD)).toWebHexString()+";'>"+(affectionChange>0?"+":"")
 								+decimalFormat.format(affectionChange)+"</span>/day"
 							+ "</br>"
 							+ "<span style='color:"+affection.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(affection.getName())+"</span>"
 						+"</div>"
-						+ "<div style='float:left; width:15%; margin:0; padding:0;'>"
+						+ "<div style='float:left; width:20%; margin:0; padding:0;'>"
 							+ "<b style='color:"+obedience.getColour().toWebHexString()+";'>"+character.getObedienceValue()+ "</b>"
 							+ "</br><span style='color:"+(obedienceChange==0?Colour.BASE_GREY:(obedienceChange>0?Colour.GENERIC_GOOD:Colour.GENERIC_BAD)).toWebHexString()+";'>"+(obedienceChange>0?"+":"")
 								+decimalFormat.format(obedienceChange)+"</span>/day"
@@ -1152,24 +1235,28 @@ public class SlaveryManagementDialogue {
 							+ "<span style='color:"+obedience.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(obedience.getName())+"</span>"
 						+"</div>"
 						+ "<div style='float:left; width:15%; margin:0; padding:0;'>"
-							+ Util.capitaliseSentence(character.getSlaveJob().getName(character)));
-						
-		for(SlaveJobSetting setting : character.getSlaveJobSettings()) {
-			headerSB.append("</br><span style='color:"+setting.getColour().toWebHexString()+";'>"+setting.getTag()+"</span>");
-		}
-		
-		headerSB.append("</div>"
-						+ "<div style='float:left; width:15%; margin:0; padding:0;'>"
 							+ UtilText.formatAsMoney(character.getSlaveJob().getFinalDailyIncomeAfterModifiers(character))+"/day"
 						+"</div>"
 						+ "<div style='float:left; width:15%; margin:0; padding:0;'>"
 							+ UtilText.formatAsMoney(character.getValueAsSlave())
 						+"</div>"
-					+ "</div>"
+					+ "</div>");
 
-					+"<div class='container-full-width inner'>"
-						+ "<b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Permissions:</b></br>");
 		
+		// Job:
+		headerSB.append("<div class='container-full-width inner'>"
+				+ "<b>Job:</b> <b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>"+Util.capitaliseSentence(character.getSlaveJob().getName(character))+"</b></br>");
+		int count=0;
+		for(SlaveJobSetting setting : character.getSlaveJobSettings()) {
+			headerSB.append((count==0?"":", ")+"<span style='color:"+setting.getColour().toWebHexString()+";'>"+setting.getName()+"</span>");
+			count++;
+		}
+		headerSB.append(".</div>");
+		
+		
+		// Permissions:
+		headerSB.append("<div class='container-full-width inner'>"
+				+ "<b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Permissions:</b></br>");
 		int permissionCount=0;
 		for(SlavePermission permission : SlavePermission.values()) {
 			for(SlavePermissionSetting setting : permission.getSettings()) {
@@ -1179,9 +1266,10 @@ public class SlaveryManagementDialogue {
 				}
 			}
 		}
+		headerSB.append(".</div>");
 		
-		headerSB.append(".</div>"
-				+ "</div>"
+		
+		headerSB.append("</div>"
 				+ "</div>");
 		
 		return headerSB.toString();
@@ -1223,12 +1311,12 @@ public class SlaveryManagementDialogue {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if (index == 6) {
+			if (index == 1) {
 				return new Response("Inspect", "You are already inspecting this slave.", null);
 				
 			}
 			
-			return getSlaveryResponse(index);
+			return SLAVE_LIST.getResponse(responseTab, index);
 		}
 		
 		@Override
@@ -1247,7 +1335,7 @@ public class SlaveryManagementDialogue {
 		
 		@Override
 		public String getLabel() {
-			return UtilText.parse(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected(), "[npc.Name] - Jobs");
+			return UtilText.parse(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected(), "[npc.Name]'s Job");
 		}
 		
 		@Override
@@ -1262,22 +1350,23 @@ public class SlaveryManagementDialogue {
 			UtilText.nodeContentSB.append(getSlaveInformationHeader(character));
 			
 			// Job hours
-			UtilText.nodeContentSB.append("<div class='container-full-width' style='text-align:center;'>"
-					+ "<h6 style='text-align:center;'><span style='color:"+Colour.BASE_YELLOW.toWebHexString()+";'>Work Hours</span></h6>"
-					+ "<div class='container-full-width inner'>");
-			for(int i=0 ; i< 24; i++) {
-				UtilText.nodeContentSB.append("<div class='normal-button hour "
-						+(character.getWorkHours()[i]?" selected":"")
-									+"' id='"+i+"_WORK'>"+String.format("%02d", i)+":00</div>");
-			}
+			UtilText.nodeContentSB.append(
+					"<div class='container-full-width' style='text-align:center;'>"
+						+ "<h6 style='text-align:center;'><span style='color:"+Colour.BASE_YELLOW.toWebHexString()+";'>Work Hours</span></h6>"
+						+ "<div class='container-full-width inner'>");
+							for(int i=0 ; i< 24; i++) {
+								UtilText.nodeContentSB.append("<div class='normal-button hour "+(character.getWorkHours()[i]?" selected":"")+"' id='"+i+"_WORK'>"+String.format("%02d", i)+":00</div>");
+							}
 			
-			UtilText.nodeContentSB.append("<div style='width:100%;margin-top:8px;'><b>Presets</b></div>"
-					+ "<div class='container-full-width inner' style='text-align:center;'>");
-			for(SlaveJobHours preset : SlaveJobHours.values()) {
-				UtilText.nodeContentSB.append("<div class='normal-button' id='"+preset+"_TIME' style='width:16%; margin:2px;'>"+preset.getName()+"</div>");
-			}
-			UtilText.nodeContentSB.append("</div>"
-					+ "</div>"
+			UtilText.nodeContentSB.append(
+							"<div style='width:100%;margin-top:8px;'><b>Presets</b></div>"
+							+ "<div class='container-full-width inner' style='text-align:center;'>");
+								for(SlaveJobHours preset : SlaveJobHours.values()) {
+									UtilText.nodeContentSB.append("<div class='normal-button' id='"+preset+"_TIME' style='width:16%; margin:2px;'>"+preset.getName()+"</div>");
+								}
+			UtilText.nodeContentSB.append(
+							"</div>"
+						+ "</div>"
 					+ "</div>");
 			
 			
@@ -1286,27 +1375,27 @@ public class SlaveryManagementDialogue {
 			UtilText.nodeContentSB.append(
 					"<div class='container-full-width' style='text-align:center;'>"
 						+ "<h6 style='color:"+Colour.GENERIC_EXPERIENCE.toWebHexString()+"; text-align:center;'>Jobs</h6>"
-							+"<div class='container-full-width' style='margin-bottom:0;'>"
-								+ "<div style='width:15%; float:left; font-weight:bold; margin:0; padding:0;'>"
-									+ "Job"
-								+ "</div>"
-								+ "<div style='float:left; width:10%; font-weight:bold; margin:0; padding:0;'>"
-									+ "<b>Workers</b>"
-								+"</div>"
-								+ "<div style='float:left; width:15%; font-weight:bold; margin:0; padding:0;'>"
-									+ "<b style='color:"+Colour.AFFECTION.toWebHexString()+";'>Affection</b>"
-								+"</div>"
-								+ "<div style='float:left; width:15%; font-weight:bold; margin:0; padding:0;'>"
-									+ "<b style='color:"+Colour.OBEDIENCE.toWebHexString()+";'>Obedience</b>"
-								+"</div>"
-								+ "<div style='float:left; width:35%; font-weight:bold; margin:0; padding:0;'>"
-									+ "<b style='color:"+Colour.CURRENCY_GOLD.toWebHexString()+";'>Income</b>"
-											+ " (+<b style='color:"+Colour.OBEDIENCE.toWebHexString()+";'>Obedience Bonus</b>)"
-								+"</div>"
-								+ "<div style='float:left; width:10%; font-weight:bold; margin:0; padding:0;'>"
-									+ "Actions"
-								+"</div>"
-							+ "</div>");
+						+"<div class='container-full-width' style='margin-bottom:0;'>"
+							+ "<div style='width:20%; float:left; font-weight:bold; margin:0; padding:0;'>"
+								+ "Job"
+							+ "</div>"
+							+ "<div style='float:left; width:10%; font-weight:bold; margin:0; padding:0;'>"
+								+ "<b>Workers</b>"
+							+"</div>"
+							+ "<div style='float:left; width:15%; font-weight:bold; margin:0; padding:0;'>"
+								+ "<b style='color:"+Colour.AFFECTION.toWebHexString()+";'>Affection</b>"
+							+"</div>"
+							+ "<div style='float:left; width:15%; font-weight:bold; margin:0; padding:0;'>"
+								+ "<b style='color:"+Colour.OBEDIENCE.toWebHexString()+";'>Obedience</b>"
+							+"</div>"
+							+ "<div style='float:left; width:30%; font-weight:bold; margin:0; padding:0;'>"
+								+ "<b style='color:"+Colour.CURRENCY_GOLD.toWebHexString()+";'>Income</b>"
+										+ " (+<b style='color:"+Colour.OBEDIENCE.toWebHexString()+";'>Obedience Bonus</b>)"
+							+"</div>"
+							+ "<div style='float:left; width:10%; font-weight:bold; margin:0; padding:0;'>"
+								+ "Actions"
+							+"</div>"
+						+ "</div>");
 			
 			for(SlaveJob job : SlaveJob.values()) {
 				affectionChange = job.getAffectionGain(character);
@@ -1316,6 +1405,9 @@ public class SlaveryManagementDialogue {
 				
 				UtilText.nodeContentSB.append(
 						"<div class='container-full-width inner' "+(isCurrentJob?"style='background:#292929;'":"")+">"
+							+ "<div style='width:5%; float:left; margin:0; padding:0;'>"
+								+ "<div class='title-button' id='SLAVE_JOB_INFO_"+job+"' style='position:relative; top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getInformationIcon()+"</div>"
+							+ "</div>"
 							+"<div style='width:15%; float:left; margin:0; padding:0;'>"
 								+ (isCurrentJob
 									? "[style.boldGood("+Util.capitaliseSentence(job.getName(character))+")]"
@@ -1340,7 +1432,7 @@ public class SlaveryManagementDialogue {
 												?"<b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>"+decimalFormat.format(obedienceChange)+ "</b>"
 												:"[style.colourDisabled(0)]"))+"/hour"
 							+"</div>"
-							+ "<div style='float:left; width:35%; margin:0; padding:0;'>"
+							+ "<div style='float:left; width:30%; margin:0; padding:0;'>"
 								+ UtilText.formatAsMoney(job.getIncome())
 								+ " + ("
 								+ (job.getObedienceIncomeModifier()>0
@@ -1355,46 +1447,21 @@ public class SlaveryManagementDialogue {
 											+(isCurrentJob?SVGImages.SVG_IMAGE_PROVIDER.getResponseOption():SVGImages.SVG_IMAGE_PROVIDER.getResponseOptionDisabled())+"</div></div>"
 										:"<div id='"+job+"_ASSIGN' class='square-button solo'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getResponseOptionDisabled()+"</div></div>")
 							+"</div>"
-							+ "<div class='container-full-width' style='background:transparent; margin:0;'>"
-								+ "<i>"
-									+(isCurrentJob?job.getDescription():"[style.colourDisabled("+job.getDescription()+")]")
-									+ "</br>"
-									+ (!isCurrentJob && !job.isAvailable(character)?"[style.colourBad("+job.getAvailabilityText(character)+")]":"")
-								+"</i>"
-							+ "</div>");
+							+ (!isCurrentJob && !job.isAvailable(character)
+								?"<div class='container-full-width' style='background:transparent; margin:0;'>"
+										+ "<i>"
+											+ "[style.colourBad("+job.getAvailabilityText(character)+")]"
+										+"</i>"
+									+ "</div>"
+								:""));
 				
 				// Job Settings:
-				for(SlaveJobSetting setting : job.getMutualSettings()) {
-					boolean settingActive = character.getSlaveJobSettings().contains(setting);
-					
-					UtilText.nodeContentSB.append("<div class='container-full-width inner' style='"+(!isCurrentJob?"background:#1B1B1B;":"")+"'>"
-													+"<div style='width:20%; float:left; margin:0; padding:0;"+(!isCurrentJob?"color:#777;":(settingActive?"color:"+Colour.GENERIC_GOOD.toWebHexString()+";":""))+"'>"
-														+ setting.getName()
-													+ "</div>"
-													+"<div style='width:70%; float:left; margin:0; padding:0;"+(!settingActive?"color:#777;":"")+"'>"
-														+ "<i>"+setting.getDescription()+"</i>"
-													+ "</div>"
-													+ "<div style='float:left; width:10%; margin:0; padding:0;'>"
-														+ (!isCurrentJob
-																?"<div id='"+setting+"_DISABLED' class='square-button solo disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getResponseUnlockedDisabled()+"</div></div>"
-																: (settingActive
-																		?"<div id='"+setting+"_REMOVE' class='square-button solo'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getResponseUnlocked()+"</div></div>"
-																		:"<div id='"+setting+"_ADD' class='square-button solo'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getResponseUnlockedDisabled()+"</div></div>"))
-													+"</div>"
-												+ "</div>");
-				}
-				
-				for(Entry<String, List<SlaveJobSetting>> entry : job.getMutuallyExclusiveSettings().entrySet()) {
-					
-					UtilText.nodeContentSB.append("<div class='container-full-width inner' style='"+(!isCurrentJob?"background:#1B1B1B;":"")+"'>"
-													+ "<div style='width:100%; float:left; margin:0; padding:0;"+(isCurrentJob?"":"color:#777;")+"'><b>"
-														+ Util.capitaliseSentence(entry.getKey())
-													+"</b></div>");
-					
-					for(SlaveJobSetting setting : entry.getValue()) {
+				if(isCurrentJob) {
+					for(SlaveJobSetting setting : job.getMutualSettings()) {
 						boolean settingActive = character.getSlaveJobSettings().contains(setting);
 						
-						UtilText.nodeContentSB.append("<div style='width:20%; float:left; margin:0; padding:0;"+(!isCurrentJob?"color:#777;":(settingActive?"color:"+Colour.GENERIC_GOOD.toWebHexString()+";":""))+"'>"
+						UtilText.nodeContentSB.append("<div class='container-full-width inner' style='"+(!isCurrentJob?"background:#1B1B1B;":"")+"'>"
+														+"<div style='width:20%; float:left; margin:0; padding:0;"+(!isCurrentJob?"color:#777;":(settingActive?"color:"+Colour.GENERIC_GOOD.toWebHexString()+";":""))+"'>"
 															+ setting.getName()
 														+ "</div>"
 														+"<div style='width:70%; float:left; margin:0; padding:0;"+(!settingActive?"color:#777;":"")+"'>"
@@ -1402,20 +1469,43 @@ public class SlaveryManagementDialogue {
 														+ "</div>"
 														+ "<div style='float:left; width:10%; margin:0; padding:0;'>"
 															+ (!isCurrentJob
-																	?"<div id='"+setting+"_DISABLED' class='square-button solo disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getResponseOptionDisabled()+"</div></div>"
+																	?"<div id='"+setting+"_DISABLED' class='square-button solo disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getResponseUnlockedDisabled()+"</div></div>"
 																	: (settingActive
-																			?"<div class='square-button solo'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getResponseOption()+"</div></div>"
-																			:"<div id='"+setting+"_TOGGLE_ADD' class='square-button solo'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getResponseOptionDisabled()+"</div></div>"))
-														+"</div>");
+																			?"<div id='"+setting+"_REMOVE' class='square-button solo'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getResponseUnlocked()+"</div></div>"
+																			:"<div id='"+setting+"_ADD' class='square-button solo'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getResponseUnlockedDisabled()+"</div></div>"))
+														+"</div>"
+													+ "</div>");
+					}
+					
+					for(Entry<String, List<SlaveJobSetting>> entry : job.getMutuallyExclusiveSettings().entrySet()) {
+						UtilText.nodeContentSB.append("<div class='container-full-width inner' style='"+(!isCurrentJob?"background:#1B1B1B;":"")+"'>"
+														+ "<div style='width:100%; float:left; margin:0; padding:0;"+(isCurrentJob?"":"color:#777;")+"'><b>"
+															+ Util.capitaliseSentence(entry.getKey())
+														+"</b></div>");
+						
+						for(SlaveJobSetting setting : entry.getValue()) {
+							boolean settingActive = character.getSlaveJobSettings().contains(setting);
+							
+							UtilText.nodeContentSB.append("<div style='width:20%; float:left; margin:0; padding:0;"+(!isCurrentJob?"color:#777;":(settingActive?"color:"+Colour.GENERIC_GOOD.toWebHexString()+";":""))+"'>"
+																+ setting.getName()
+															+ "</div>"
+															+"<div style='width:70%; float:left; margin:0; padding:0;"+(!settingActive?"color:#777;":"")+"'>"
+																+ "<i>"+setting.getDescription()+"</i>"
+															+ "</div>"
+															+ "<div style='float:left; width:10%; margin:0; padding:0;'>"
+																+ (!isCurrentJob
+																		?"<div id='"+setting+"_DISABLED' class='square-button solo disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getResponseOptionDisabled()+"</div></div>"
+																		: (settingActive
+																				?"<div class='square-button solo'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getResponseOption()+"</div></div>"
+																				:"<div id='"+setting+"_TOGGLE_ADD' class='square-button solo'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getResponseOptionDisabled()+"</div></div>"))
+															+"</div>");
+						}
+						UtilText.nodeContentSB.append("</div>");
 					}
 				}
 				
-				//TODO mutEx settings:
-				
 				UtilText.nodeContentSB.append("</div>");
 			}
-			UtilText.nodeContentSB.append("</div>");
-			UtilText.nodeContentSB.append("</div>");
 			UtilText.nodeContentSB.append("</div>");
 			
 			UtilText.nodeContentSB.append("<p id='hiddenFieldName' style='display:none;'></p>");
@@ -1424,12 +1514,12 @@ public class SlaveryManagementDialogue {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if (index == 7) {
-				return new Response("Jobs", "You are already viewing the jobs screen.", null);
+			if (index == 2) {
+				return new Response("Job", "You are already viewing the jobs screen.", null);
 				
 			}
-			
-			return getSlaveryResponse(index);
+
+			return SLAVE_LIST.getResponse(responseTab, index);
 		}
 		
 		@Override
@@ -1502,12 +1592,12 @@ public class SlaveryManagementDialogue {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if (index == 8) {
+			if (index == 3) {
 				return new Response("Permissions", "You are already viewing the permissions screen.", null);
 				
 			}
-			
-			return getSlaveryResponse(index);
+
+			return SLAVE_LIST.getResponse(responseTab, index);
 		}
 		
 		@Override
@@ -1600,7 +1690,7 @@ public class SlaveryManagementDialogue {
 					+ "<b>Will be done as soon as possible!</b>", null);
 
 		} else if (index == 0) {
-			return new Response("Back", "Return to the slave management screen.",  SLAVE_MANAGEMENT) {
+			return new Response("Back", "Return to the slave management screen.",  SLAVE_LIST) {
 				@Override
 				public DialogueNodeOld getNextDialogue() {
 					return SlaveryManagementDialogue.getSlaveryManagementDialogue(Main.game.getDialogueFlags().getSlaveTrader());

@@ -98,7 +98,9 @@ public class GenericSexualPartner extends NPC {
 					case SLIME_DEMON:
 					case SLIME_DOG:
 					case SLIME_DOG_DOBERMANN:
+					case SLIME_DOG_BORDER_COLLIE:
 					case SLIME_HARPY:
+					case SLIME_HARPY_RAVEN:
 					case SLIME_HORSE:
 					case SLIME_IMP:
 					case SLIME_REINDEER:
@@ -144,7 +146,10 @@ public class GenericSexualPartner extends NPC {
 						addToSubspeciesMap(15, gender, s, availableRaces);
 						break;
 					case DOG_MORPH_DOBERMANN:
-						addToSubspeciesMap(15, gender, s, availableRaces);
+						addToSubspeciesMap(5, gender, s, availableRaces);
+						break;
+					case DOG_MORPH_BORDER_COLLIE:
+						addToSubspeciesMap(5, gender, s, availableRaces);
 						break;
 					case HORSE_MORPH:
 						addToSubspeciesMap(25, gender, s, availableRaces);

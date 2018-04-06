@@ -126,7 +126,9 @@ public class DominionAlleywayAttacker extends NPC {
 					case SLIME_DEMON:
 					case SLIME_DOG:
 					case SLIME_DOG_DOBERMANN:
+					case SLIME_DOG_BORDER_COLLIE:
 					case SLIME_HARPY:
+					case SLIME_HARPY_RAVEN:
 					case SLIME_HORSE:
 					case SLIME_IMP:
 					case SLIME_REINDEER:
@@ -156,10 +158,13 @@ public class DominionAlleywayAttacker extends NPC {
 						addToSubspeciesMap(canalSpecies?1:10, gender, s, availableRaces);
 						break;
 					case DOG_MORPH:
-						addToSubspeciesMap(canalSpecies?3:15, gender, s, availableRaces);
+						addToSubspeciesMap(canalSpecies?3:12, gender, s, availableRaces);
 						break;
 					case DOG_MORPH_DOBERMANN:
-						addToSubspeciesMap(canalSpecies?2:5, gender, s, availableRaces);
+						addToSubspeciesMap(canalSpecies?1:4, gender, s, availableRaces);
+						break;
+					case DOG_MORPH_BORDER_COLLIE:
+						addToSubspeciesMap(canalSpecies?1:4, gender, s, availableRaces);
 						break;
 					case HORSE_MORPH:
 						addToSubspeciesMap(canalSpecies?5:20, gender, s, availableRaces);

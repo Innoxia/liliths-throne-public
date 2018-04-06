@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.dialogue.places.dominion.lilayashome;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
@@ -178,24 +179,30 @@ public class LilayaHomeGeneric {
 	
 	private static Response getRoomResponse(int index) {
 		List<NPC> charactersPresent = Main.game.getCharactersPresent();
+		List<NPC> slavesAssignedToRoom = new ArrayList<>();
+		for(String slave : Main.game.getPlayer().getSlavesOwned()) {
+			NPC slaveNPC = (NPC)Main.game.getNPCById(slave);
+			if(slaveNPC != null && (slaveNPC.getHomeWorldLocation()==Main.game.getPlayer().getWorldLocation() && slaveNPC.getHomeLocation().equals(Main.game.getPlayer().getLocation()))) {
+				slavesAssignedToRoom.add(slaveNPC);
+			}
+		}
 		
 		if(index==0) {
 			return null;
 			
-		} if (index == 1) {
+		} else if (index == 1) {
 			if(Main.game.getPlayer().isHasSlaverLicense()) {
-				return new Response("Slavery Overview", "Open the slave management screen.",  CORRIDOR) {
+				return new Response("Manage Room", "Enter the management screen for this particular room.", SlaveryManagementDialogue.ROOM_UPGRADES) {
 					@Override
-					public DialogueNodeOld getNextDialogue() {
-						return SlaveryManagementDialogue.getSlaveryOverviewDialogue();
+					public void effects() {
+						SlaveryManagementDialogue.cellToInspect = Main.game.getPlayerCell();
 					}
 				};
 			} else {
-				return new Response("Slavery Overview", "You'll need a slaver license before you can access this menu!",  null);
+				return new Response("Manage Room", "You'll need a slaver license before you can access this menu!",  null);
 			}
 			
-		} 
-		else if (index == 2) {
+		}  else if (index == 2) {
 			if(Main.game.getPlayer().isHasSlaverLicense()) {
 				return new Response("Slave List", "Enter the slave management screen.", CORRIDOR) {
 					@Override
@@ -207,20 +214,27 @@ public class LilayaHomeGeneric {
 				return new Response("Slave List", "You'll need a slaver license before you can access this menu!",  null);
 			}
 			
-		} else if (index == 3) {
-			if(Main.game.getPlayer().isHasSlaverLicense()) {
-				return new Response("Room List", "Enter the room upgrades options screen.", SlaveryManagementDialogue.ROOM_MANAGEMENT);
+		}
+//		else if (index == 3) {
+//			if(Main.game.getPlayer().isHasSlaverLicense()) {
+//				return new Response("Room List", "Enter the room upgrades options screen.", SlaveryManagementDialogue.ROOM_MANAGEMENT);
+//			} else {
+//				return new Response("Room List", "You'll need a slaver license before you can access this menu!",  null);
+//			}
+//			
+//		}
+		else if(index-3<slavesAssignedToRoom.size()) {
+			if(charactersPresent.contains(slavesAssignedToRoom.get(index-3))) {
+				return new Response(UtilText.parse(slavesAssignedToRoom.get(index-3), "[npc.Name]"), UtilText.parse(slavesAssignedToRoom.get(index-3), "Interact with [npc.name]."), SlaveDialogue.SLAVE_START) {
+					@Override
+					public void effects() {
+						Main.game.setActiveNPC(slavesAssignedToRoom.get(index-3));
+					}
+				};
+				
 			} else {
-				return new Response("Room List", "You'll need a slaver license before you can access this menu!",  null);
+				return new Response(UtilText.parse(slavesAssignedToRoom.get(index-3), "[npc.Name]"), UtilText.parse(slavesAssignedToRoom.get(index-3), "Although this is [npc.name]'s room, [npc.she]'s not here at the moment."), null);
 			}
-			
-		} else if(index-4<charactersPresent.size()) {
-			return new Response(UtilText.parse(charactersPresent.get(index-4), "[npc.Name]"), UtilText.parse(charactersPresent.get(index-4), "Interact with [npc.name]."), SlaveDialogue.SLAVE_START) {
-				@Override
-				public void effects() {
-					Main.game.setActiveNPC(charactersPresent.get(index-4));
-				}
-			};
 			
 		} else {
 			return null;

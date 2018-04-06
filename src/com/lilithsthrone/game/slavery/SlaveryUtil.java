@@ -913,6 +913,14 @@ public class SlaveryUtil implements Serializable {
 		return generatedIncome;
 	}
 	
+	public void setGeneratedIncome(int generatedIncome) {
+		this.generatedIncome = generatedIncome;
+	}
+
+	public void setGeneratedUpkeep(int generatedUpkeep) {
+		this.generatedUpkeep = generatedUpkeep;
+	}
+
 	public int getGeneratedUpkeep() {
 		return generatedUpkeep;
 	}

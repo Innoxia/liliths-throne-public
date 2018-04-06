@@ -728,6 +728,51 @@ public class ClothingType {
 					null);
 		}
 	};
+	
+	public static AbstractClothingType HEAD_SWEATBAND = new AbstractClothingType(50,
+			"a",
+			false,
+			"headband",
+			"headbands",
+			"A plain sweatband, designed to be worn around the forehead both to keep the wearer's hair back as well as to absorb any sweat before it drips down into their eyes.",
+			1,
+			null,
+			InventorySlot.HEAD,
+			Rarity.COMMON,
+			null,
+			"head_sweatband",
+			null,
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.HEAD)), null, null, null))),
+			null,
+			Colour.allClothingColours,
+			null,
+			null,
+			null,
+			null,
+			null){
+
+		@Override
+		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You pull on the sweatband.",
+					"You push the sweatband onto [npc.name]'s head.",
+					null,
+					"[npc.Name] pulls the sweatband onto [npc.her] head.",
+					"[npc.Name] pushes the sweatband onto your head.",
+					null);
+		}
+
+		@Override
+		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You take off your sweatband.",
+					"You take off [npc.name]'s sweatband.",
+					null,
+					"[npc.Name] takes [npc.her] sweatband off.",
+					"[npc.Name] takes your sweatband off.",
+					null);
+		}
+	};
 
 	public static AbstractClothingType HEAD_CAP = new AbstractClothingType(60,
 			"a",
@@ -5328,6 +5373,56 @@ public class ClothingType {
 					null);
 		}
 	};
+	
+	public static AbstractClothingType WRIST_WRISTBANDS = new AbstractClothingType(100,
+			"a pair of",
+			true,
+			"wristband",
+			"wristbands",
+			"A pair of wristbands, designed to worn around the wrists in order to absorb the wearer's sweat.",
+			1,
+			null,
+			InventorySlot.WRIST,
+			Rarity.COMMON,
+			null,
+			"wrist_sweatbands",
+			null,
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(
+					new BlockedParts(
+							DisplacementType.REMOVE_OR_EQUIP,
+							Util.newArrayListOfValues(
+									new ListValue<ClothingAccess>(ClothingAccess.WRISTS)),
+							null,
+							Util.newArrayListOfValues(
+									new ListValue<ClothingAccess>(ClothingAccess.WRISTS)),
+							null))),
+			null,
+			Colour.allClothingColours, null,
+			null, null,
+			null, null){
+		
+		@Override
+		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You fasten the wristband around your wrists.",
+					"You fasten the wristband around [npc.name]'s wrists.",
+					null,
+					"[npc.Name] fastens the wristband around [npc.her] wrists.",
+					"[npc.Name] fastens the wristband around your wrists.",
+					null);
+		}
+
+		@Override
+		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You unfasten your wristband and take them off.",
+					"You unfasten [npc.name]'s wristband and take them off.",
+					null,
+					"[npc.Name] unfastens [npc.her] wristband and takes them off.",
+					"[npc.Name] unfastens your wristband and takes them off.",
+					null);
+		}
+	};
 
 	// FINGER
 
@@ -5899,6 +5994,65 @@ public class ClothingType {
 					null,
 					"[npc.Name] pulls down [npc.her] bike shorts, before kicking them off [npc.her] feet.",
 					"[npc.Name] pulls your bike shorts down, before sliding them off your feet.",
+					null);
+		}
+	};
+	
+	public static AbstractClothingType LEG_SPORT_SHORTS = new AbstractClothingType(150,
+			"a pair of",
+			true,
+			"sport shorts",
+			"sport shorts",
+			"A pair of sporty unisex shorts, of the sort typically worn by people going to the gym or out exercising.",
+			1,
+			null,
+			InventorySlot.LEG,
+			Rarity.COMMON,
+			null,
+			"leg_sport_shorts",
+			null,
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(
+					new BlockedParts(
+							DisplacementType.REMOVE_OR_EQUIP,
+							Util.newArrayListOfValues(
+									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)),
+							null,
+							Util.newArrayListOfValues(
+									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)), null)),
+					new ListValue<BlockedParts>(
+							new BlockedParts(
+									DisplacementType.PULLS_DOWN,
+									null,
+									Util.newArrayListOfValues(
+											new ListValue<CoverableArea>(CoverableArea.ANUS),
+											new ListValue<CoverableArea>(CoverableArea.PENIS),
+											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
+									Util.newArrayListOfValues(
+											new ListValue<ClothingAccess>(ClothingAccess.GROIN)), null))),
+			null,
+			Colour.allClothingColours, null,
+			null, null,
+			null, null){
+			
+		@Override
+		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You step into the shorts before pulling them up to your waist.",
+					"You pull the shorts up [npc.name]'s [npc.legs] and button them up around [npc.her] waist.",
+					null,
+					"[npc.Name] steps into the shorts before pulling them up to [npc.her] waist.",
+					"[npc.Name] pulls the shorts up your [pc.legs] and buttons them up around your waist.",
+					null);
+		}
+
+		@Override
+		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You pull down your shorts and kick them off your feet.",
+					"You pull [npc.name]'s shorts down and slide them off [npc.her] feet.",
+					null,
+					"[npc.Name] pulls down [npc.her] shorts, before kicking them off [npc.her] feet.",
+					"[npc.Name] pulls your shorts down, before sliding them off your feet.",
 					null);
 		}
 	};

@@ -25,13 +25,20 @@
 	Patch notes:
 	
 	Gameplay:
-		Added raven-harpy subspecies.
+		Added raven-harpy and border-collie subspecies (for Scarlett and Pix, respectively).
 		Essence gains from combat and sex are now doubled during arcane storms.
 	
 	Clothing:
 		<b>Added:</b> Corset dress (feminine, torso slot).
 		<b>Added:</b> Suspender belt  (feminine, hips slot).
 		<b>Added:</b> Stockings (feminine, calves slot).
+		<b>Added:</b> Sport shorts (unisex, leg slot).
+		<b>Added:</b> Sweatband (unisex, head slot).
+		<b>Added:</b> Wristbands (unisex, wrist slot).
+	
+	Slavery:
+		Moved 'Slavery Overview' from an option in every room to just being available from your room, and made the options available in rooms specific to that room.
+		Tidied up the appearance and buttons for slavery and room management.
 	
 	Other:
 		<b>Added:</b> Optional in-game artwork viewer (enabled by default, can be disabled in the content options screen). Major NPCs which have had artwork drawn of them will now have that artwork displayed in their character screen.
@@ -47,6 +54,10 @@
 		You can now change body hair colours at Kate's shop and through the demon transformation screen.
 		Slimes no longer need to have their body parts pierced in order to equip piercings (you still need to grow a vagina or penis to equip those piercings, however).
 		NPCs with the Submissive fetish will now prefer to stick with the gentle pace while being the dom in sex (unless they are a switch or sadist, in which case they'll use normal/rough paces as normal).
+		Added white slime colour.
+	
+	Contributors:
+		Fixed cause of bad displacement imports leading to a crash after sex. (Master of Puppets)
 	
 	Bugs:
 		Fixed bug where NPCs could still perform urethral penetration actions, even if it was turned off. (So sorry about this!)
@@ -65,10 +76,27 @@
 		Imp offsprings no longer have their height determined by genetics (which was resulting in very tall imps).
 		Fixed Loppy's post-sex scene returning Bunny's dialogue.
 		Swapping positions in sex now correctly resets all ongoing sex actions.
+		Fixed bug where mutually exclusive slave job settings would not be set correctly when you loaded a game.
+		Slavery income should now correctly be saved/loaded.
 	
 	
 	
 	
+	- Improve the slavery UI, and add more jobs & interactions (winner of Patreon content poll).
+		- Final check of management UI.
+		- Adding content for all of the current settings (such as forbidding them to talk, and letting them leave the house).
+		- Adding content for interacting with them in their place of work.
+		- Add a milking machine room upgrade.
+		- I'll try and add in a setting for their behaviour this version (set them to act friendly or cold)
+		- Add job: bedroom slave to act as alarm clock with blowjobs and sexual intercourse.  
+	
+	Stop those god damn safety goggles!
+	
+	Pix intro as border collie
+	
+	subspecies slime raven morphs
+	
+	Duner's stuff
 	
 	- Make Zaranix & maids repeatable.
 		Amber
@@ -77,8 +105,10 @@
 				- lick shoes
 					- enter
 			in house
+				- can insult her
+					- she demands you submit for punishment
 				- takes you for a walk
-				- get fucked in street
+					- get fucked in street
 		In house
 			- Maids wander around
 			- Can fuck them
@@ -91,18 +121,37 @@
 				- can convince to stay as futa succubus Zoelix
 			- Sex
 			
+	Prostitution:
+	add a way to set submissive/dominant clients
+		I want to dominate you!
+		I want you to dominate me...
+			
+	
+	Not sure if it's a bug but NPCs you find in the Dominion's canals don't stick around after encountering them.
+		Also slimes have a very high spawn rate in Submission, only encountered 2 imps so far and I believe gators are on the verge of extinction because I have yet to find any down there
+	
+			
+	: hi, did anyone notice "Forced TF Gender Tendency" not working at all?
+	I've only been getting tfed to female about 30 times, despite it being set on "masculine".
+	I'm playing on 0.2.2		
+	
+	Harpy punishments
+			
 	Pussy control descriptions
 	
 	Stop NPCs presenting butt all the time
 	it is possible to tease somebody's cock while penetrating their pussy
 	
-	Arthur slave
+	sex action swap AI keeps swapping back
 	
-	[MIDNIGHT]
+	wing size self-TF
+	
+	Arthur slave
 	
 	PRs
 	
-	Slavery
+	
+	-----
 	
 	
 	? There seems to be a bug in the new character creation system where you don't have your virginities when you say you have no sexual experience and vice versa.
@@ -129,6 +178,12 @@
 	Leg-lock option for missionary position, which would force the one penetrating to cum inside (if done on the same turn/close to them cumming) 
 	
 	it might be nice to perhaps add a side quest that directs players to the shopping arcade earlier in the game. IE maybe something like Rose asking you to pick up a new feather duster for her. Currently a character RPing following the main quest /storyline doesn't have much excuse to detour over to the mall until after Arthur is already rescued/ asks you to pick up up the hypno watch from the mall.
+	
+	Final sex stuff:
+		Clit used like cock
+		Tentacles
+		Second cock
+		Taur pussy
 	
 	you can still initiate blowjob while giving cunnilingus
 	
@@ -160,14 +215,6 @@
 		Add urethral-related dirty talk
 		Fix penis urethra being used for handjobs
 		
-	
-	- Improve the slavery UI, and add more jobs & interactions (winner of Patreon content poll).
-		- Improving the management UI.
-		- Adding content for all of the current settings (such as forbidding them to talk, and letting them leave the house).
-		- Adding content for interacting with them in their place of work.
-		- Adding prostitute job, and a milking machine room upgrade.
-		- I'll try and add in a setting for their behaviour this version (set them to act friendly or cold)
-		You could put it under girls’ job tabs to assign them to your bedroom and act as alarm clock with blowjobs and sexual intercourse.  
 	
 	- Finish the spell system and add a few more weapons.
 		Companions
@@ -218,9 +265,6 @@
 	Prostitutes are unaffected by arcane storms
 	
 	Could we get ability to spend an arcane essense to trigger clothing transformations on demand
-	
-	Not sure if it's a bug but NPCs you find in the Dominion's canals don't stick around after encountering them.
-		Also slimes have a very high spawn rate in Submission, only encountered 2 imps so far and I believe gators are on the verge of extinction because I have yet to find any down there
 	
 	Slime lges: A leg type to merge their legs together into one slimy mass. It should block off the foot slot like harpy feet do.
 	

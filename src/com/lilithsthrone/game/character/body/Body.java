@@ -1939,6 +1939,12 @@ public class Body implements Serializable, XMLSaving {
 				else
 					sb.append(" [npc.She] has a pair of pointed, "+(ear.isPierced() ? "pierced, " : "")+"dog-like ears, which are positioned high up on [npc.her] head and are "+getCoveredInDescriptor(owner)+" [npc.earFullDescription(true)].");
 				break;
+			case DOG_MORPH_FOLDED:
+				if (owner.isPlayer())
+					sb.append(" You have a pair of folded, "+(ear.isPierced() ? "pierced, " : "")+"dog-like ears, which are positioned high up on your head and are are "+getCoveredInDescriptor(owner)+" [pc.earFullDescription(true)].");
+				else
+					sb.append(" [npc.She] has a pair of folded, "+(ear.isPierced() ? "pierced, " : "")+"dog-like ears, which are positioned high up on [npc.her] head and are "+getCoveredInDescriptor(owner)+" [npc.earFullDescription(true)].");
+				break;
 			case LYCAN:
 				if (owner.isPlayer())
 					sb.append(" You have a pair of "+(ear.isPierced() ? "pierced, " : "")+"upright, wolf-like ears, which are positioned high up on your head and are are "+getCoveredInDescriptor(owner)+" [pc.earFullDescription(true)].");

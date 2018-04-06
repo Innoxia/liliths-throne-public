@@ -742,6 +742,10 @@ public interface SexActionInterface {
 					}
 					break;
 				case VAGINA:
+					if(!getOrificeCharacter().hasVagina()) {
+						return false;
+					}
+					break;
 				case URETHRA_VAGINA:
 					if(!getOrificeCharacter().hasVagina() || !getOrificeCharacter().isVaginaUrethraFuckable()) {
 						return false;

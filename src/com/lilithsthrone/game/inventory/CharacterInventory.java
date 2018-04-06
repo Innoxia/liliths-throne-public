@@ -1307,7 +1307,7 @@ public class CharacterInventory implements Serializable, XMLSaving {
 		return true;
 	}
 
-	private StringBuilder unableToDisplaceText;
+	private StringBuilder unableToDisplaceText = new StringBuilder();
 
 	public String getDisplaceDescription() {
 		return unableToDisplaceText.toString();
@@ -1432,7 +1432,7 @@ public class CharacterInventory implements Serializable, XMLSaving {
 		return true;
 	}
 
-	private StringBuilder unableToReplaceText;
+	private StringBuilder unableToReplaceText = new StringBuilder();
 
 	
 	public String getReplaceDescription() {

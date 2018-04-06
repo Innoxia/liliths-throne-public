@@ -130,20 +130,20 @@ public class Ear implements BodyPartInterface, Serializable {
 							+ "</p>");
 				}
 				break;
-			case DOG_MORPH: case DOG_MORPH_POINTED:
+			case DOG_MORPH: case DOG_MORPH_POINTED: case DOG_MORPH_FOLDED:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
 								" They quickly grow into upright points, and shift to sit higher up on your head than a normal pair of human ears would."
 								+ " A layer of [pc.earFullDescriptionColour] grows to cover them, and as the transformation finishes, you discover that you can easily twitch your new dog-like ears back and forth."
 								+ "</br>"
-								+ "You now have [style.boldDogMorph(anthropomorphic, "+(type==EarType.DOG_MORPH_POINTED?"pointed, ":"floppy, ")+"dog-like ears)]."
+								+ "You now have [style.boldDogMorph(anthropomorphic, "+(type==EarType.DOG_MORPH_POINTED?"pointed, ":(type==EarType.DOG_MORPH_FOLDED?"folded, ":"floppy, "))+"dog-like ears)]."
 							+ "</p>");
 				} else {
 					UtilText.transformationContentSB.append(
 								" They quickly grow into upright points, and shift to sit higher up on [npc.her] head than a normal pair of human ears would."
 								+ " A layer of [npc.earFullDescriptionColour] grows to cover them, and as the transformation finishes, [npc.she] experimentally twitches [npc.her] new dog-like ears back and forth."
 								+ "</br>"
-								+ "[npc.Name] now has [style.boldDogMorph(anthropomorphic, "+(type==EarType.DOG_MORPH_POINTED?"pointed, ":"floppy, ")+"dog-like ears)]."
+								+ "[npc.Name] now has [style.boldDogMorph(anthropomorphic, "+(type==EarType.DOG_MORPH_POINTED?"pointed, ":(type==EarType.DOG_MORPH_FOLDED?"folded, ":"floppy, "))+"dog-like ears)]."
 							+ "</p>");
 				}
 				break;

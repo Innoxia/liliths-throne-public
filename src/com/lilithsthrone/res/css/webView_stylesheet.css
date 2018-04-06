@@ -1779,12 +1779,7 @@ border-radius:5px;
 	width:20px;
 	height:20px;
 	border-radius:5px;
-	background: -webkit-gradient(
-		linear, left top, left bottom,
-		from(#2a2a2a),
-		color-stop(0.50, #272727),
-		color-stop(0.92, #232323),
-		to(#222));
+	background:#292929;
 	cursor:pointer;
 }
 .title-button:hover{

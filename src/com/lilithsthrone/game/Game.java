@@ -358,6 +358,11 @@ public class Game implements Serializable, XMLSaving {
 			CharacterUtils.addAttribute(doc, informationNode, "weather", Main.game.currentWeather.toString());
 			CharacterUtils.addAttribute(doc, informationNode, "nextStormTime", String.valueOf(Main.game.nextStormTime));
 			CharacterUtils.addAttribute(doc, informationNode, "weatherTimeRemaining", String.valueOf(Main.game.weatherTimeRemaining));
+
+			Element slaveryNode = doc.createElement("slavery");
+			game.appendChild(slaveryNode);
+			CharacterUtils.addAttribute(doc, slaveryNode, "generatedIncome", String.valueOf(Main.game.getSlaveryUtil().getGeneratedIncome()));
+			CharacterUtils.addAttribute(doc, slaveryNode, "generatedUpkeep", String.valueOf(Main.game.getSlaveryUtil().getGeneratedUpkeep()));
 			
 			Element dateNode = doc.createElement("date");
 			informationNode.appendChild(dateNode);
@@ -480,6 +485,15 @@ public class Game implements Serializable, XMLSaving {
 				Main.game.nextStormTime = Long.valueOf(informationNode.getAttribute("nextStormTime"));
 				Main.game.weatherTimeRemaining = Integer.valueOf(informationNode.getAttribute("weatherTimeRemaining"));
 
+
+				try {
+					Element slaveryNode = (Element) gameElement.getElementsByTagName("slavery").item(0);
+					Main.game.getSlaveryUtil().setGeneratedIncome(Integer.valueOf(slaveryNode.getAttribute("generatedIncome")));
+					Main.game.getSlaveryUtil().setGeneratedUpkeep(Integer.valueOf(slaveryNode.getAttribute("generatedUpkeep")));
+				} catch(Exception ex) {
+				}
+				
+				
 				Element dateNode = (Element) gameElement.getElementsByTagName("date").item(0);
 				Main.game.startingDate = LocalDateTime.of(
 						Integer.valueOf(dateNode.getAttribute("year")),
@@ -1540,7 +1554,8 @@ public class Game implements Serializable, XMLSaving {
 	}
 	
 	private static boolean isContentScroll(DialogueNodeOld node) {
-		return (node.getMapDisplay()!=MapDisplay.PHONE && node.getMapDisplay()!=MapDisplay.CHARACTERS_PRESENT)
+		return (node.getMapDisplay()!=MapDisplay.PHONE
+				&& node.getMapDisplay()!=MapDisplay.CHARACTERS_PRESENT)
 				|| node.equals(BodyChanging.BODY_CHANGING_ASS)
 				|| node.equals(BodyChanging.BODY_CHANGING_BREASTS)
 				|| node.equals(BodyChanging.BODY_CHANGING_CORE)

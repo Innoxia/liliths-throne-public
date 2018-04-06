@@ -201,6 +201,34 @@ public enum Subspecies {
 				}
 			},
 	
+	DOG_MORPH_BORDER_COLLIE("raceDogMorph",
+			"border-collie-morph",
+			"border-collie-morphs",
+			"border-collie-boy",
+			"border-collie-girl",
+			"border-collie-boys",
+			"border-collie-girls",
+			Race.DOG_MORPH,
+			Colour.RACE_DOG_MORPH,
+			SubspeciesPreference.FOUR_ABUNDANT,
+			"A particularly energetic and intelligent dog-morph which resembles an anthropomorphised border collie."
+					+ " To be identified as a border-collie-morph, a character must be a dog-morph that has either upright or folder ears, and fluffy, black fur with white markings.",
+			Util.newArrayListOfValues(new ListValue<>(WorldType.DOMINION))) {
+				@Override
+				public void applySpeciesChanges(Body body) {
+					body.getCoverings().put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, Colour.SKIN_RED));
+					
+					body.getCoverings().put(BodyCoveringType.CANINE_FUR, new Covering(BodyCoveringType.CANINE_FUR, CoveringPattern.MARKED, CoveringModifier.FLUFFY, Colour.COVERING_BLACK, false, Colour.BASE_WHITE, false));
+					if(body.getEar().getType()==EarType.DOG_MORPH) {
+						if(Math.random()<0.5f) {
+							body.getEar().setType(null, EarType.DOG_MORPH_POINTED);
+						} else {
+							body.getEar().setType(null, EarType.DOG_MORPH_FOLDED);
+						}
+					}
+				}
+			},
+	
 	DOG_MORPH_DOBERMANN("raceDogMorphDobermann",
 			"dobermann-morph",
 			"dobermann-morphs",
@@ -211,7 +239,7 @@ public enum Subspecies {
 			Race.DOG_MORPH,
 			Colour.RACE_DOG_MORPH,
 			SubspeciesPreference.TWO_AVERAGE,
-			"A dog-morph which resembles an anthropomorphised dobermann. To be identified as a Dobermann, a character must be a dog-morph that has short, black fur, with either brown, dark-brown, or tan markings.",
+			"A dog-morph which resembles an anthropomorphised dobermann. To be identified as a dobermann-morph, a character must be a dog-morph that has short, black fur, with either brown, dark-brown, or tan markings.",
 			Util.newArrayListOfValues(new ListValue<>(WorldType.DOMINION))) {
 		@Override
 		public void applySpeciesChanges(Body body) {
@@ -511,6 +539,24 @@ public enum Subspecies {
 			body.setBodyMaterial(BodyMaterial.SLIME);
 		}
 	},
+	SLIME_DOG_BORDER_COLLIE("raceSlime",
+			"border-collie-slime",
+			"border-collie-slimes",
+			"border-collie-slime-boy",
+			"border-collie-slime-girl",
+			"border-collie-slime-boys",
+			"border-collie-slime-girls",
+			Race.SLIME,
+			Colour.RACE_SLIME,
+			SubspeciesPreference.FOUR_ABUNDANT,
+			"A slime that's taken on the form of a border-collie-morph.",
+			Util.newArrayListOfValues(new ListValue<>(WorldType.SUBMISSION))) {
+		@Override
+		public void applySpeciesChanges(Body body) {
+//			body = CharacterUtils.generateBody(body.getGender(), Subspecies.DOG_MORPH, RaceStage.PARTIAL);
+			body.setBodyMaterial(BodyMaterial.SLIME);
+		}
+	},
 	SLIME_WOLF("raceSlime",
 			"wolf-slime",
 			"wolf-slimes",
@@ -684,6 +730,24 @@ public enum Subspecies {
 			Colour.RACE_SLIME,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"A slime that's taken on the form of a harpy-morph.",
+			Util.newArrayListOfValues(new ListValue<>(WorldType.SUBMISSION))) {
+		@Override
+		public void applySpeciesChanges(Body body) {
+//			body = CharacterUtils.generateBody(body.getGender(), Subspecies.HARPY, RaceStage.LESSER);
+			body.setBodyMaterial(BodyMaterial.SLIME);
+		}
+	},
+	SLIME_HARPY_RAVEN("raceSlime",
+			"harpy-raven-slime",
+			"harpy-raven-slimes",
+			"harpy-raven-slime-boy",
+			"harpy-raven-slime-girl",
+			"harpy-raven-slime-boys",
+			"harpy-raven-slime-girls",
+			Race.SLIME,
+			Colour.RACE_SLIME,
+			SubspeciesPreference.FOUR_ABUNDANT,
+			"A slime that's taken on the form of a raven-harpy-morph.",
 			Util.newArrayListOfValues(new ListValue<>(WorldType.SUBMISSION))) {
 		@Override
 		public void applySpeciesChanges(Body body) {
@@ -968,16 +1032,24 @@ public enum Subspecies {
 					break;
 				case DOG_MORPH:
 					subspecies = Subspecies.DOG_MORPH;
+					
 					if(body.getCoverings().get(BodyCoveringType.CANINE_FUR).getPrimaryColour()==Colour.COVERING_BLACK
 						&& (body.getCoverings().get(BodyCoveringType.CANINE_FUR).getSecondaryColour()==Colour.COVERING_BROWN
 								|| body.getCoverings().get(BodyCoveringType.CANINE_FUR).getSecondaryColour()==Colour.COVERING_BROWN_DARK
 								|| body.getCoverings().get(BodyCoveringType.CANINE_FUR).getSecondaryColour()==Colour.COVERING_TAN)
 						&& body.getCoverings().get(BodyCoveringType.CANINE_FUR).getPattern() == CoveringPattern.MARKED
 						&& body.getCoverings().get(BodyCoveringType.CANINE_FUR).getModifier() == CoveringModifier.SHORT
-//						&& body.getEar().getType()==EarType.DOG_MORPH_POINTED
-//						&& body.getTail().getType()==TailType.DOG_MORPH_STUBBY
 						) {
 						subspecies = Subspecies.DOG_MORPH_DOBERMANN;
+					}
+					
+					if(body.getCoverings().get(BodyCoveringType.CANINE_FUR).getPrimaryColour()==Colour.COVERING_BLACK
+							&& (body.getCoverings().get(BodyCoveringType.CANINE_FUR).getSecondaryColour()==Colour.COVERING_WHITE)
+							&& body.getCoverings().get(BodyCoveringType.CANINE_FUR).getPattern() == CoveringPattern.MARKED
+							&& body.getCoverings().get(BodyCoveringType.CANINE_FUR).getModifier() == CoveringModifier.FLUFFY
+							&& (body.getEar().getType()==EarType.DOG_MORPH_FOLDED || body.getEar().getType()==EarType.DOG_MORPH_POINTED)
+							) {
+							subspecies = Subspecies.DOG_MORPH_BORDER_COLLIE;
 					}
 					break;
 				case HARPY:
@@ -1032,12 +1104,23 @@ public enum Subspecies {
 											|| body.getCoverings().get(BodyCoveringType.SLIME).getSecondaryColour()==Colour.SLIME_TAN)
 									&& body.getCoverings().get(BodyCoveringType.SLIME).getPattern() == CoveringPattern.MARKED) {
 								subspecies = Subspecies.SLIME_DOG_DOBERMANN;
+								
+							} else if(body.getCoverings().get(BodyCoveringType.CANINE_FUR).getPrimaryColour()==Colour.SLIME_BLACK
+									&& (body.getCoverings().get(BodyCoveringType.CANINE_FUR).getSecondaryColour()==Colour.SLIME_WHITE)
+									&& body.getCoverings().get(BodyCoveringType.CANINE_FUR).getPattern() == CoveringPattern.MARKED
+									&& (body.getEar().getType()==EarType.DOG_MORPH_FOLDED || body.getEar().getType()==EarType.DOG_MORPH_POINTED)
+									) {
+									subspecies = Subspecies.SLIME_DOG_BORDER_COLLIE;
+									
 							} else {
 								subspecies = Subspecies.SLIME_DOG;
 							}
 							break;
 						case HARPY:
 							subspecies = Subspecies.SLIME_HARPY;
+							if(body.getCoverings().get(BodyCoveringType.SLIME).getPrimaryColour()==Colour.SLIME_BLACK) {
+								subspecies = Subspecies.SLIME_HARPY_RAVEN;
+							}
 							break;
 						case HORSE_MORPH:
 							subspecies = Subspecies.SLIME_HORSE;

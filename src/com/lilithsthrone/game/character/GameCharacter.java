@@ -2102,6 +2102,13 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		if(slaveJobSettings.contains(setting)) {
 			return false;
 		}
+		for(List<SlaveJobSetting> exSettingList : getSlaveJob().getMutuallyExclusiveSettings().values()) {
+			if(exSettingList.contains(setting)) {
+				for(SlaveJobSetting exSetting : exSettingList) {
+					removeSlaveJobSettings(exSetting);
+				}
+			}
+		}
 		
 		return slaveJobSettings.add(setting);
 	}

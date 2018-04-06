@@ -130,6 +130,7 @@ public enum SVGImages {
 			zoomOutIcon = Util.inputStreamToString(is);
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/copy.svg");
 			copyIcon = Util.inputStreamToString(is);
+			copyIcon = setColour(copyIcon, Colour.BASE_BLACK);
 
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/export.svg");
 			exportIcon = Util.inputStreamToString(is);
