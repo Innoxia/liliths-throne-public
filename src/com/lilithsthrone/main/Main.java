@@ -110,6 +110,7 @@ public class Main extends Application {
 
 			+"<li>Other:</li>"
 			+"<ul><b>Added:</b> Optional in-game artwork viewer (enabled by default, can be disabled in the content options screen). Major NPCs which have had artwork drawn of them will now have that artwork displayed in their character screen. You can also add in custom images (info is in the res/images/characters/modding.txt folder).</ul>"
+			+"<ul>Added: Demon tail TF variation. (Hair-tipped instead of spaded.)</ul>"
 			+"<ul>Slightly improved Nyan's clothes.</ul>"
 			+"<ul>You can now export characters from your phone's contacts screen (using the same export button in the top-right).</ul>"
 			+"<ul>Updated Vicky's outfit.</ul>"
@@ -124,6 +125,8 @@ public class Main extends Application {
 			+"<ul>NPCs with the Submissive fetish will now prefer to stick with the gentle pace while being the dom in sex (unless they are a switch or sadist, in which case they'll use normal/rough paces as normal).</ul>"
 			+"<ul>Added white slime colour.</ul>"
 			+"<ul>Added a lot more colours for feathers.</ul>"
+			+"<ul>NPCs who hate sadism will now always be gentle while domming, and NPCs that dislike sadism will prefer the normal pace.</ul>"
+			+"<ul>Added option to be the dom in prostitute's 'Sell body' action.</ul>"
 
 			+"<li>Contributors:</li>"
 			+"<ul>Fixed cause of bad displacement imports leading to a crash after sex. (Master of Puppets)</ul>"
@@ -150,6 +153,12 @@ public class Main extends Application {
 			+"<ul>Slavery income should now correctly be saved/loaded.</ul>"
 			+"<ul>Lilaya has been told to stop replacing the spare pair of goggles that are found in her lab.</ul>"
 			+"<ul>Slave obedience gains from the teacher perk 'In control' now correctly only affects positive obedience increments.</ul>"
+			+"<ul>Fixed bug where blocked slot icons would show incorrect race icon.</ul>"
+			+"<ul>Fixed bug where you could have sex with prostitutes in Angel's Kiss while they were entertaining a client.</ul>"
+			+"<ul>Fixed bug where first floor of Angel's Kiss would end up getting flooded with random characters.</ul>"
+			+"<ul>Fixed Lexi's creampie status effect showing 0ml.</ul>"
+			+"<ul>Fixed major bug where the slavery upkeep calculation was not working.</ul>"
+			+"<ul>Fixed bug where NPCs in Dominion's canal tiles would disappear.</ul>"
 		+ "</list>"
 		;
 	

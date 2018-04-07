@@ -24,6 +24,7 @@ import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.combat.SpecialAttack;
 import com.lilithsthrone.game.combat.Spell;
@@ -123,6 +124,7 @@ public enum RenderingEngine {
 				equippedPanelSB.append("<div class='inventory-item-slot concealed' id='" + invSlot.toString() + "Slot'>"
 						+ "<div class='concealedIcon'>"+SVGImages.SVG_IMAGE_PROVIDER.getConcealedIcon()+"</div>"
 					+ "</div>");
+				
 			} else {
 				AbstractClothing clothing = charactersInventoryToRender.getClothingInSlot(invSlot);
 				
@@ -145,7 +147,9 @@ public enum RenderingEngine {
 								// If clothing is too feminine:
 								+ (clothing.getClothingType().getFemininityMinimum() > charactersInventoryToRender.getFemininityValue() ? "<div class='femininityIcon'>" + SVGImages.SVG_IMAGE_PROVIDER.getFeminineWarningIcon() + "</div>" : "")
 	
-								+ "<div class='overlay-inventory' id='" + invSlot.toString() + "Slot'>" + "</div>" + "</div>");
+								+ "<div class='overlay-inventory' id='" + invSlot.toString() + "Slot'>" + "</div>"
+							+ "</div>");
+					
 				} else {
 					// add to content:
 					if (blockedSlots.contains(invSlot)) {
@@ -159,7 +163,7 @@ public enum RenderingEngine {
 								"<div class='inventory-item-slot disabled'>"
 									+ (charactersInventoryToRender.isDirtySlot(invSlot) ? "<div class='cummedIcon'>" + SVGImages.SVG_IMAGE_PROVIDER.getCummedInIcon() + "</div>" : "")
 									+ "<div class='overlay' id='" + invSlot.toString() + "Slot'></div>"
-									+ "<div class='raceBlockIcon'>" + invSlot.slotBlockedByRace(charactersInventoryToRender).getStatusEffect().getSVGString(charactersInventoryToRender) + "</div>"
+									+ "<div class='raceBlockIcon'>" + Subspecies.getMainSubspeciesOfRace(invSlot.slotBlockedByRace(charactersInventoryToRender)).getSVGString(charactersInventoryToRender) + "</div>"
 								+ "</div>");
 						
 					} else {

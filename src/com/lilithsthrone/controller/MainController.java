@@ -1974,7 +1974,7 @@ public class MainController implements Initializable {
 			// -------------------- Room upgrades -------------------- //
 			
 			if(Main.game.getCurrentDialogueNode() == SlaveryManagementDialogue.ROOM_MANAGEMENT) {
-				for(Cell c : SlaveryManagementDialogue.importantCells) {
+				for(Cell c : SlaveryManagementDialogue.getImportantCells()) {
 					id = c.getId();
 					if (((EventTarget) document.getElementById(id)) != null) {
 						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {

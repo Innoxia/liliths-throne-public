@@ -2313,7 +2313,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	
 	public int getSlaveryTotalDailyUpkeep() {
 		int i=0;
-		for(Cell c : SlaveryManagementDialogue.importantCells) {
+		for(Cell c : SlaveryManagementDialogue.getImportantCells()) {
 			i += c.getPlace().getUpkeep();
 		}
 		return i;

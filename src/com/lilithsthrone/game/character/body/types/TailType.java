@@ -22,6 +22,8 @@ public enum TailType implements BodyPartTypeInterface {
 	NONE(null, null, false, false),
 
 	DEMON_COMMON(BodyCoveringType.DEMON_COMMON, Race.DEMON, true, true),
+	
+	DEMON_HAIR_TIP(BodyCoveringType.DEMON_COMMON, Race.DEMON, true, false),
 
 	IMP(BodyCoveringType.IMP, Race.IMP, true, true),
 
@@ -114,6 +116,8 @@ public enum TailType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("cow-like", "tufted");
 			case DEMON_COMMON:
 				return UtilText.returnStringAtRandom("spaded", "demonic");
+			case DEMON_HAIR_TIP:
+				return UtilText.returnStringAtRandom("hair-tipped", "demonic");
 			case IMP:
 				return UtilText.returnStringAtRandom("spaded", "impish");
 			case DOG_MORPH:
@@ -151,6 +155,8 @@ public enum TailType implements BodyPartTypeInterface {
 				return "bovine";
 			case DEMON_COMMON:
 				return "spaded";
+			case DEMON_HAIR_TIP:
+				return "hair-tipped";
 			case IMP:
 				return "spaded";
 			case DOG_MORPH:

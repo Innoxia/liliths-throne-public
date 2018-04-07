@@ -3054,6 +3054,15 @@ public class Body implements Serializable, XMLSaving {
 							sb.append("a spaded, [npc.tailColour(true)] demonic tail, over which [npc.she] has complete control, and [npc.she] can easily use it to grip and hold objects.");
 						}
 						break;
+					case DEMON_HAIR_TIP:
+						if (owner.isPlayer()) {
+							sb.append("a [pc.tailColour(true)] demonic tail, tipped with "+Main.game.getPlayer().getCovering(BodyCoveringType.HAIR_DEMON).getFullDescription(Main.game.getPlayer(), true)
+									+", over which you have complete control, and you can easily use it to grip and hold objects.");
+						} else {
+							sb.append("a [npc.tailColour(true)] demonic tail, tipped with "+owner.getCovering(BodyCoveringType.HAIR_DEMON).getFullDescription(owner, true)
+									+", over which [npc.she] has complete control, and [npc.she] can easily use it to grip and hold objects.");
+						}
+						break;
 					case IMP:
 						if (owner.isPlayer()) {
 							sb.append("a spaded, [pc.tailColour(true)] impish tail, over which you have complete control, and you can easily use it to grip and hold objects.");
@@ -3156,6 +3165,15 @@ public class Body implements Serializable, XMLSaving {
 							sb.append("spaded, [pc.tailColour(true)] demonic tails, over which you have complete control, and you can easily use them to grip and hold objects.");
 						} else {
 							sb.append("spaded, [npc.tailColour(true)] demonic tails, over which [npc.she] has complete control, and [npc.she] can easily use them to grip and hold objects.");
+						}
+						break;
+					case DEMON_HAIR_TIP:
+						if (owner.isPlayer()) {
+							sb.append("[pc.tailColour(true)] demonic tails, tipped with "+Main.game.getPlayer().getCovering(BodyCoveringType.HAIR_DEMON).getFullDescription(Main.game.getPlayer(), true)
+									+", over which you have complete control, and you can easily use them to grip and hold objects.");
+						} else {
+							sb.append("[npc.tailColour(true)] demonic tails, tipped with "+owner.getCovering(BodyCoveringType.HAIR_DEMON).getFullDescription(owner, true)
+									+", over which [npc.she] has complete control, and [npc.she] can easily use them to grip and hold objects.");
 						}
 						break;
 					case IMP:

@@ -945,6 +945,8 @@ public class Game implements Serializable, XMLSaving {
 		for(NPC npc : NPCMap.values()) {
 			// Remove Dominion attackers if they aren't in alleyways: TODO this is because storm attackers need to be removed after a storm
 			if(npc.getLocationPlace().getPlaceType() != PlaceType.DOMINION_BACK_ALLEYS
+					&& npc.getLocationPlace().getPlaceType() != PlaceType.DOMINION_CANAL
+					&& npc.getLocationPlace().getPlaceType() != PlaceType.DOMINION_CANAL_END
 					&& npc.getWorldLocation() == WorldType.DOMINION
 					&& npc instanceof DominionAlleywayAttacker
 					&& !Main.game.getPlayer().getLocation().equals(npc.getLocation())) {

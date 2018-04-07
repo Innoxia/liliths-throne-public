@@ -75,7 +75,17 @@ public class SlaveryUtil implements Serializable {
 			if(slave.getWorkHours()[hour]) {
 				slave.getSlaveJob().sendToWorkLocation(slave);
 				slavesAtJob.get(slave.getSlaveJob()).add(slave);
+				
 			} else {
+				if(slave.getSlaveJob()==SlaveJob.PROSTITUTE) {
+					// Remove client before leaving:
+					List<NPC> charactersPresent = Main.game.getCharactersPresent(slave.getWorldLocation(), slave.getLocation());
+					for(NPC npc : charactersPresent) {
+						if(npc instanceof GenericSexualPartner) {
+							Main.game.banishNPC(npc);
+						}
+					}
+				}
 				slave.setLocation(slave.getHomeWorldLocation(), slave.getHomeLocation(), false);
 				slavesResting.add(slave);
 			}
@@ -228,7 +238,7 @@ public class SlaveryUtil implements Serializable {
 		if(hour%24==0) { // Reset daily income tracking:
 			slaveDailyIncome.clear();
 			// Rooms:
-			for(Cell c : SlaveryManagementDialogue.importantCells) {
+			for(Cell c : SlaveryManagementDialogue.getImportantCells()) {
 				generatedUpkeep += c.getPlace().getUpkeep();
 			}
 		}

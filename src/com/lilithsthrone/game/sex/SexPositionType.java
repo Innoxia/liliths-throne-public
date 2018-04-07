@@ -432,6 +432,62 @@ public enum SexPositionType {
 		}
 	},
 	
+	MILKING_STALL("Milking Stall",
+			Util.newHashMapOfValues(
+					new Value<>(
+							SexPositionSlot.MILKING_STALL_LOCKED_IN_MILKING_STALL,
+							Util.newHashMapOfValues(
+							new Value<>(
+									SexPositionSlot.MILKING_STALL_RECEIVING_ORAL,
+									new SexActionPresetPair(
+											SexActionPresets.playerMilkingStallLockedInMilkingStall,
+											SexActionPresets.partnerMilkingStallLockedInMilkingStall)),
+							new Value<>(
+									SexPositionSlot.MILKING_STALL_PERFORMING_ORAL,
+									new SexActionPresetPair(
+											SexActionPresets.playerMilkingStallLockedInMilkingStall,
+											SexActionPresets.partnerMilkingStallLockedInMilkingStall)),
+							new Value<>(
+									SexPositionSlot.MILKING_STALL_FUCKING,
+									new SexActionPresetPair(
+											SexActionPresets.playerMilkingStallLockedInMilkingStall,
+											SexActionPresets.partnerMilkingStallLockedInMilkingStall)))),
+					new Value<>(
+							SexPositionSlot.MILKING_STALL_RECEIVING_ORAL,
+							Util.newHashMapOfValues(
+							new Value<>(
+									SexPositionSlot.MILKING_STALL_LOCKED_IN_MILKING_STALL,
+									new SexActionPresetPair(
+											SexActionPresets.playerMilkingStallReceivingOral,
+											SexActionPresets.partnerMilkingStallReceivingOral)))),
+					new Value<>(
+							SexPositionSlot.MILKING_STALL_PERFORMING_ORAL,
+							Util.newHashMapOfValues(
+							new Value<>(
+									SexPositionSlot.MILKING_STALL_LOCKED_IN_MILKING_STALL,
+									new SexActionPresetPair(
+											SexActionPresets.playerMilkingStallPerformingOral,
+											SexActionPresets.partnerMilkingStallPerformingOral)))),
+					new Value<>(
+							SexPositionSlot.MILKING_STALL_FUCKING,
+							Util.newHashMapOfValues(
+							new Value<>(
+									SexPositionSlot.MILKING_STALL_LOCKED_IN_MILKING_STALL,
+									new SexActionPresetPair(
+											SexActionPresets.playerMilkingStallStandingBehind,
+											SexActionPresets.partnerMilkingStallStandingBehind)))))) {
+		@Override
+		public String getDescription() {
+			if(Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.MILKING_STALL_RECEIVING_ORAL) {
+				return "[npc.Name] is locked into the milking stall, ready to be fucked. You're standing in front of [npc.her] [npc.face], ready to put [npc.her] mouth to good use.";
+			} else if(Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.MILKING_STALL_PERFORMING_ORAL) {
+				return "[npc.Name] is locked into the milking stall, ready to be fucked. You're kneeling behind [npc.herHim], ready to perform oral on [npc.herHim].";
+			} else {
+				return "[npc.Name] is locked into the milking stall, ready to be fucked. You're standing behind [npc.herHim], ready to take advantage of [npc.her] compromising position.";
+			}
+		}
+	},
+	
 	/* UNIQUE */
 	
 	CHAIR_SEX_LILAYA("Chair sex",

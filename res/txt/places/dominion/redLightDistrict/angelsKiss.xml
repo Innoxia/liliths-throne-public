@@ -127,7 +127,7 @@
 	<htmlContent tag="SELL_SELF_SUB"><![CDATA[
 	<p>
 		Deciding that you'll sell your body to a client to make some quick cash, you head down to Angel's office to let her know that you're available.
-		 Angel promises to send any new clients your way, and, returning to your room, you sit down on the bed and wait...
+		 After specifying that you'd like to be the submissive partner, you accept Angel's offer of having a new client sent your way, and, returning to your room, you sit down on the bed and wait...
 	</p>
 	<p>
 		Around twenty-five minutes later, you hear a knock at the door, and you turn to see [npc.a_fullRace] stepping into the room,
@@ -154,6 +154,63 @@
 	]]>
 	</htmlContent>
 	
+	<htmlContent tag="SELL_SELF_SUB_AFTER_SEX"><![CDATA[
+	<p>
+		You collapse down onto the bed, breathing heavily as [npc.name] disentangles [npc.herself] from your clutches.
+		 Looking down at you, [npc.she] smirks,
+		 [npc.speech(That was amazing! You're a great fuck, [pc.name]. Maybe I'll have you again some time.)]
+	</p>
+	<p>
+		As [npc.she] gathers [npc.her] things and heads towards the exit, you call out,
+		 [pc.speech(Come again soon!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SELL_SELF_DOM"><![CDATA[
+	<p>
+		Deciding that you'll sell your body to a client to make some quick cash, you head down to Angel's office to let her know that you're available.
+		 After specifying that you'd like to be the dominant partner, you accept Angel's offer of having a new client sent your way, and, returning to your room, you sit down on the bed and wait...
+	</p>
+	<p>
+		Around twenty-five minutes later, you hear a knock at the door, and you turn to see [npc.a_fullRace] stepping into the room,
+		 [npc.speech(Are you [pc.name]? Angel said you'd dominate me for two-thousand flames...)]
+	</p>
+	<p>
+		[pc.speech(Yeah, that's me!)]
+		 You reply, standing up from the bed and striding towards the client.
+		 You only have a moment to decide whether you're going to let this [npc.race] pay to be dominated by you or not...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SELL_SELF_DOM_START"><![CDATA[
+	<p>
+		Deciding that you'll take this client, you step forwards and press yourself against [npc.herHim], reaching around to take a firm grip of [npc.her] [npc.ass+] as you [pc.moan],
+		 [pc.speech(If you've got the money, I'll show you how a real dom treats [pc.her] sub...)]
+	</p>
+	<p>
+		[npc.Name] eagerly hands over the two-thousand flames, and, after taking the money and putting it to one side, you focus your attention on your new client.
+		 Leaning in to growl in [npc.her] ear, you [pc.moan],
+		 [pc.speech(It's time to show you how I fuck submissive little [npc.race]'s like you...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SELL_SELF_DOM_AFTER_SEX"><![CDATA[
+	<p>
+		[npc.Name] collapses down onto the bed, breathing heavily as you disentangle yourself from [npc.her] clutches.
+		 Looking down at [npc.herHim], you smirk,
+		 [pc.speech(Good bitch, you were a half-decent fuck after all! Maybe I'll let you be my toy again some time.)]
+	</p>
+	<p>
+		After waiting a moment for [npc.name] to catch [npc.her] breath, you help [npc.herHim] gather [npc.her] things and show [npc.herHim] to the exit.
+		 Smiling after [npc.herHim], you call out,
+		 [pc.speech(Come again soon!)]
+	</p>
+	]]>
+	</htmlContent>
+	
 	<htmlContent tag="SELL_SELF_DECLINE"><![CDATA[
 	<p>
 		Deciding that you don't want to take this client, you step forwards and apologise,
@@ -165,19 +222,6 @@
 	</p>
 	<p>
 		With that, [npc.she] makes [npc.her] exit, leaving you alone in the bedroom once again.
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="SELL_SELF_AFTER_SEX"><![CDATA[
-	<p>
-		You collapse down onto the bed, breathing heavily as [npc.name] disentangles [npc.herself] from your clutches.
-		 Looking down at you, [npc.she] smirks,
-		 [npc.speech(That was amazing! You're a great fuck, [pc.name]. Maybe I'll have you again some time.)]
-	</p>
-	<p>
-		As [npc.she] gathers [npc.her] things and heads towards the exit, you call out,
-		 [pc.speech(Come again soon!)]
 	</p>
 	]]>
 	</htmlContent>

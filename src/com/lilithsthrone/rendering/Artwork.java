@@ -126,6 +126,7 @@ public class Artwork {
 		}
 		while(f.exists()) {
 			nakedImages.add(f.toURI().getPath().toString());
+			
 			i++;
 			f = new File("res/images/characters/"+name+"/"+artist.getFolderName()+"/naked"+i+".png");
 			if(!f.exists()) {

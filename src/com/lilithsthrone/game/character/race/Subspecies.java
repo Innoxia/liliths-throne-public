@@ -991,6 +991,46 @@ public enum Subspecies {
 
 	public abstract void applySpeciesChanges(Body body);
 
+	public static Subspecies getMainSubspeciesOfRace(Race race) {
+		switch(race) {
+			case ALLIGATOR_MORPH:
+				return Subspecies.ALLIGATOR_MORPH;
+			case ANGEL:
+				return Subspecies.ANGEL;
+			case BAT_MORPH:
+				return Subspecies.BAT_MORPH;
+			case CAT_MORPH:
+				return Subspecies.CAT_MORPH;
+			case COW_MORPH:
+				return Subspecies.COW_MORPH;
+			case DEMON:
+				return Subspecies.DEMON;
+			case DOG_MORPH:
+				return Subspecies.DOG_MORPH;
+			case HARPY:
+				return Subspecies.HARPY;
+			case HORSE_MORPH:
+				return Subspecies.HORSE_MORPH;
+			case HUMAN:
+				return Subspecies.HUMAN;
+			case IMP:
+				return Subspecies.IMP;
+			case RABBIT_MORPH:
+				return Subspecies.RABBIT_MORPH;
+			case RAT_MORPH:
+				return Subspecies.RAT_MORPH;
+			case REINDEER_MORPH:
+				return Subspecies.REINDEER_MORPH;
+			case SLIME:
+				return Subspecies.SLIME;
+			case SQUIRREL_MORPH:
+				return Subspecies.SQUIRREL_MORPH;
+			case WOLF_MORPH:
+				return Subspecies.WOLF_MORPH;
+		}
+		return Subspecies.HUMAN;
+	}
+	
 	public static Subspecies getSubspeciesFromBody(Body body, Race race) {
 		Subspecies subspecies = null;
 		

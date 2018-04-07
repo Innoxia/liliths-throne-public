@@ -42,6 +42,7 @@ import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.GenericPlace;
+import com.lilithsthrone.world.places.PlaceType;
 import com.lilithsthrone.world.places.PlaceUpgrade;
 
 /**
@@ -355,7 +356,6 @@ public class SlaveryManagementDialogue {
 						+ getRoomEntry(!place.isAbleToBeUpgraded(), true, cell, charactersPresent, affectionChange, obedienceChange)
 					+"</div>");
 
-			importantCells.clear();
 			// Lilaya's home:
 			UtilText.nodeContentSB.append(getWorldRooms(WorldType.LILAYAS_HOUSE_GROUND_FLOOR));
 			UtilText.nodeContentSB.append(getWorldRooms(WorldType.LILAYAS_HOUSE_FIRST_FLOOR));
@@ -462,15 +462,28 @@ public class SlaveryManagementDialogue {
 		return miscDialogueSB.toString();
 	}
 	
-	public static List<Cell> importantCells = new ArrayList<>();
+	private static List<Cell> importantCells = new ArrayList<>();
 	
-	static {
-		if(Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR) != null) { 
-			getWorldRooms(WorldType.LILAYAS_HOUSE_GROUND_FLOOR);
-			getWorldRooms(WorldType.LILAYAS_HOUSE_FIRST_FLOOR);
-			getWorldRooms(WorldType.SLAVER_ALLEY);
+	public static List<Cell> getImportantCells() {
+		if(importantCells.isEmpty()) {
+			WorldType[] importantWorlds = new WorldType[] {WorldType.LILAYAS_HOUSE_GROUND_FLOOR, WorldType.LILAYAS_HOUSE_FIRST_FLOOR};
+			for(WorldType wt : importantWorlds) {
+				Cell[][] cellGrid = Main.game.getWorlds().get(wt).getCellGrid();
+				for(int i = 0; i< cellGrid.length; i++) {
+					for(int j = 0; j < cellGrid[0].length; j++) {
+						if(cellGrid[i][j].getPlace().getPlaceType()!=PlaceType.LILAYA_HOME_CORRIDOR
+								&& cellGrid[i][j].getPlace().getPlaceType()!=PlaceType.GENERIC_IMPASSABLE) {
+							importantCells.add(cellGrid[i][j]);
+						}
+					}
+				}
+			}
 		}
+		
+		return importantCells;
 	}
+	
+	
 	
 	private static String getWorldRooms(WorldType worldType) {
 		StringBuilder worldRoomSB = new StringBuilder();
@@ -485,7 +498,7 @@ public class SlaveryManagementDialogue {
 		for(int i = 0; i< cellGrid.length; i++) {
 			for(int j = 0; j < cellGrid[0].length; j++) {
 				if(!cellGrid[i][j].getPlace().getPlaceUpgrades().isEmpty()) {
-					importantCells.add(cellGrid[i][j]);
+//					importantCells.add(cellGrid[i][j]);
 					sortingCells.add(cellGrid[i][j]);
 				}
 			}

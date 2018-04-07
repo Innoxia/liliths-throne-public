@@ -304,6 +304,34 @@ public class GenericOrgasms {
 					orgasmText = "[npc.Name] reaches down and places a [npc.hand] on your head, letting out [npc.a_moan+] as [npc.she] prepares to reach [npc.her] climax.";
 				}
 				break;
+			case MILKING_STALL_FUCKING:
+				if(characterOrgasming.isPlayer()) {
+					orgasmText = "You reach down and grab [npc.name]'s waist, pulling [npc.herHim] back into you and letting out [pc.a_moan+] as you prepare to reach your climax.";
+				} else {
+					orgasmText = "[npc.Name] reaches down and grabs your waist, pulling you back into [npc.herHim] and letting out [npc.a_moan+] as [npc.she] prepares to reach [npc.her] climax.";
+				}
+				break;
+			case MILKING_STALL_LOCKED_IN_MILKING_STALL:
+				if(characterOrgasming.isPlayer()) {
+					orgasmText = "Unable to move, you wriggle around in the stocks and let out [pc.a_moan+] as you prepare to reach your climax.";
+				} else {
+					orgasmText = "Unable to move, [npc.name] wriggles around in the stocks and lets out [npc.a_moan+] as [npc.she] prepares to reach [npc.her] climax.";
+				}
+				break;
+			case MILKING_STALL_PERFORMING_ORAL:
+				if(characterOrgasming.isPlayer()) {
+					orgasmText = "You reach up and place a [pc.hand] on one of [npc.name]'s [npc.legs], letting out [pc.a_moan+] as you prepare to reach your climax.";
+				} else {
+					orgasmText = "[npc.Name] reaches up and places a [npc.hand] on one of your [npc.legs], letting out [npc.a_moan+] as [npc.she] prepares to reach [npc.her] climax.";
+				}
+				break;
+			case MILKING_STALL_RECEIVING_ORAL:
+				if(characterOrgasming.isPlayer()) {
+					orgasmText = "You reach down and place a [pc.hand] on [npc.name]'s head, letting out [pc.a_moan+] as you prepare to reach your climax.";
+				} else {
+					orgasmText = "[npc.Name] reaches down and places a [npc.hand] on your head, letting out [npc.a_moan+] as [npc.she] prepares to reach [npc.her] climax.";
+				}
+				break;
 		}
 		
 		return UtilText.parse(characterOrgasming.isPlayer()?Sex.getTargetedPartner(characterOrgasming):characterOrgasming, orgasmText);

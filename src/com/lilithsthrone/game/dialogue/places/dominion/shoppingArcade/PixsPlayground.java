@@ -152,44 +152,45 @@ public class PixsPlayground {
 		public String getContent() {
 			if (!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.gymIntroduced))
 				return "<p>"
-						+ " Pushing open the door, you step into the gym's lobby, where you're immediately greeted by an extremely energetic greater dog-girl."
+							+ "Pushing open the door, you step into the gym's lobby, where you're immediately greeted by an extremely energetic dog-girl."
+							+ " Her fur is black with white markings, which, in combination with her folded ears, makes her look very much like an anthropomorphised border-collie."
 						+ "</p>"
 						+ "<p>"
-						+ UtilText.parseSpeech("Heya! Hi! How're ya doin'!", Main.game.getPix())
-						+ " she exclaims, reaching forwards to give your hand an enthusiastic shake with both of her paw-like hands."
+							+ "[pix.speech(Heya! Hi! How're ya doin'!)]"
+							+ " she exclaims, reaching forwards to give your hand an enthusiastic shake with both of her paw-like hands."
 						+ "</p>"
 						+ "<p>"
-						+ UtilText.parsePlayerSpeech("Hello-")
-						+ " you start to say, but the dog-girl quickly starts to speak over you."
+							+ "[pc.speech(Hello-)]"
+							+ " you start to say, but the dog-girl quickly starts to speak over you."
 						+ "</p>"
 						+ "<p>"
-						+ UtilText.parseSpeech("Wohoo! So, you've decided to come get fit, huh, huh, huh?", Main.game.getPix())
-						+ " she asks, but before you can reply, she continues speaking, "
-						+ UtilText.parseSpeech("So don't just stand there! Oh, I'm Pix by the way! Come on, I'll give you a tour!", Main.game.getPix())
+							+ "[pix.speech(Wohoo! So, you've decided to come get fit, huh, huh, huh?)]"
+							+ " she asks, but before you can reply, she continues speaking, "
+							+ "[pix.speech(So don't just stand there! Oh, I'm Pix by the way! Come on, I'll give you a tour!)]"
 						+ "</p>"
 						+ "<p>"
-						+ "Pix releases your hand, which she's been enthusiastically shaking this entire time, before starting to bound away into the gym, motioning for you to follow her."
-						+ " You notice that this entire time, her tail hasn't stopped wagging, and she's quite possibly the most energetic person you've ever met."
+							+ "Pix releases your hand, which she's been enthusiastically shaking this entire time, before starting to bound away into the gym, motioning for you to follow her."
+							+ " You notice that this entire time, her tail hasn't stopped wagging, and she's quite possibly the most energetic person you've ever met."
 						+ "</p>";
 			else
 				return "<p>"
-						+ " Pushing open the door, you step into the gym's lobby, where you're immediately greeted by Pix, who's looking as energetic as ever."
+							+ " Pushing open the door, you step into the gym's lobby, where you're immediately greeted by Pix, who's looking as energetic as ever."
 						+ "</p>"
 						+ "<p>"
-						+ UtilText.parseSpeech("Heya, great to see you again! How're ya doin'!", Main.game.getPix())
-						+ " she exclaims, bounding over to you with a huge grin on her face."
+							+ "[pix.speech(Heya, great to see you again! How're ya doin'!)]"
+							+ " she exclaims, bounding over to you with a huge grin on her face."
 						+ "</p>"
 						+ "<p>"
-						+ UtilText.parsePlayerSpeech("Hello aga-")
-						+ " you start to say, but the hyperactive dog-girl quickly starts to speak over you."
+							+ "[pc.speech(Hello aga-)]"
+							+ " you start to say, but the hyperactive dog-girl quickly starts to speak over you."
 						+ "</p>"
 						+ "<p>"
-						+ UtilText.parseSpeech("Wohoo! So, you've decided to come have that tour, huh, huh, huh?", Main.game.getPix())
-						+ " she asks, but before you can reply, she continues speaking, "
-						+ UtilText.parseSpeech("So don't just stand there! Come on, follow me!", Main.game.getPix())
+							+ "[pix.speech(Wohoo! So, you've decided to come have that tour, huh, huh, huh?)]"
+							+ " she asks, but before you can reply, she continues speaking,"
+							+ " [pix.speech(So don't just stand there! Come on, follow me!)]"
 						+ "</p>"
 						+ "<p>"
-						+ "Pix happily laughs and turns away before starting to bound into the gym, motioning for you to follow her."
+							+ "Pix happily laughs and turns away before starting to bound into the gym, motioning for you to follow her."
 						+ "</p>";
 		}
 
@@ -329,21 +330,18 @@ public class PixsPlayground {
 		@Override
 		public String getContent() {
 			return "<p>"
-					+ "You make your way over to where the city gym is located."
-					+ " Pushing open the door, you step into the lobby, where you're immediately greeted by the familiar bouncing figure of Pix."
+						+ "You make your way over to where the city gym is located."
+						+ " Pushing open the door, you step into the lobby, where you're immediately greeted by the familiar bouncing figure of Pix."
 					+ "</p>"
 					+ "<p>"
-					+ UtilText.parseSpeech("Heya "
-							+ Main.game.getPlayer().getName()
-							+ "! How're ya doin'?!", Main.game.getPix())
-					+ " she asks, beaming at you."
+						+ "[pix.speech(Heya [pc.name]! How're ya doin'?!)]"
+						+ " she asks, beaming at you."
 					+ "</p>"
 					+ "<p>"
-					+ "You start to greet the energetic dog-girl, but, once again, she immediately cuts you off, "
-					+ (Main.game.getDialogueFlags().values.contains(DialogueFlagValue.gymIsMember)
-							? UtilText.parseSpeech("You gonna want some personal training today?! I'm ready for it whenever you are! You go ahead and get changed, I'll see you in there!", Main.game.getPix())
-							: UtilText.parseSpeech("The eight-thousand flames deal is still on y'know! Only for you!"
-									+ " So, you ready to sign up?!", Main.game.getPix()))
+						+ "You start to greet the energetic dog-girl, but, once again, she immediately cuts you off, "
+						+ (Main.game.getDialogueFlags().values.contains(DialogueFlagValue.gymIsMember)
+								? "[pix.speech(You gonna want some personal training today?! I'm ready for it whenever you are! You go ahead and get changed, I'll see you in there!)]"
+								: "[pix.speech(The eight-thousand flames deal is still on y'know! Only for you! So, you ready to sign up?!)]")
 					+ "</p>";
 		}
 		
@@ -362,9 +360,17 @@ public class PixsPlayground {
 
 		@Override
 		public String getContent() {
-			return "<p>" + "You tell Pix that you just want to pay for a single entry today, and, handing over one-hundred flames, she smiles at you and lets you enter." + "</p>" + "<p>"
-					+ UtilText.parseSpeech("Remember, if you get a life-time membership, I can help you train!", Main.game.getPix()) + " she shouts after you while bouncing up and down on the spot." + "</p>" + "<p>"
-					+ "You head over to the changing rooms, where you discover that the gym provides clean exercise clothes for people who haven't brought any." + " Quickly getting changed, you head out into the gym and decide what to do." + "</p>";
+			return "<p>"
+						+ "You tell Pix that you just want to pay for a single entry today, and, handing over one-hundred flames, she smiles at you and lets you enter."
+					+ "</p>"
+					+ "<p>"
+						+ "[pix.speech(Remember, if you get a life-time membership, I can help you train!)]"
+						+ " she shouts after you while bouncing up and down on the spot."
+					+ "</p>"
+					+ "<p>"
+						+ "You head over to the changing rooms, where you discover that the gym provides clean exercise clothes for people who haven't brought any."
+						+ " Quickly getting changed, you head out into the gym and decide what to do."
+					+ "</p>";
 		}
 		
 		@Override
@@ -382,16 +388,30 @@ public class PixsPlayground {
 
 		@Override
 		public String getContent() {
-			return "<p>" + "You tell Pix that you want to sign up for a lifetime membership." + " A huge smile spreads over her face, and she leaps up, punching the air and letting out a triumphant shout." + "</p>" + "<p>"
-					+ UtilText.parseSpeech("Wohoo! That's, like, so amazing! Now I can help you train and stuff, and you can, like, come and go anytime without paying anything extra!", Main.game.getPix())
-					+ " she explains, and without warning, she leaps forwards and gives you a hug." + "</p>" + "<p>"
-					+ "You're somewhat taken aback by her sudden move, but before you can react, she releases you and runs off to fetch a contract from behind the front desk."
-					+ " After grabbing the piece of paper and a pen, she practically sprints back over to you and thrusts them into your hands." + "</p>" + "<p>"
-					+ UtilText.parseSpeech("Ok! So, like, sign here, here, and here!", Main.game.getPix())
-					+ " she points to different places on the page, and you do as she says before handing over eight-thousand flames, completing the contract." + "</p>" + "<p>"
-					+ UtilText.parseSpeech("Awesome! So, that's all done! Congratulations! You can go ahead and get changed and stuff, just call me over whenever you're ready for some personal training!", Main.game.getPix())
-					+ " she exclaims, before running off to fill in her side of the paperwork." + "</p>" + "<p>" + "You head over to the changing rooms, where you see that the gym provides clean exercise clothes for people who haven't brought any."
-					+ " Quickly getting changed, you head out into the gym and decide what to do." + "</p>";
+			return "<p>"
+						+ "You tell Pix that you want to sign up for a lifetime membership."
+						+ " A huge smile spreads over her face, and she leaps up, punching the air and letting out a triumphant shout."
+					+ "</p>"
+					+ "<p>"
+						+ "[pix.speech(Wohoo! That's, like, so amazing! Now I can help you train and stuff, and you can, like, come and go anytime without paying anything extra!)]"
+						+ " she explains, and without warning, she leaps forwards and gives you a hug."
+					+ "</p>"
+					+ "<p>"
+						+ "You're somewhat taken aback by her sudden move, but before you can react, she releases you and runs off to fetch a contract from behind the front desk."
+						+ " After grabbing the piece of paper and a pen, she practically sprints back over to you and thrusts them into your hands."
+					+ "</p>"
+					+ "<p>"
+						+ "[pix.speech(Ok! So, like, sign here, here, and here!)]"
+						+ " she points to different places on the page, and you do as she says before handing over eight-thousand flames, completing the contract."
+					+ "</p>"
+					+ "<p>"
+						+ "[pix.speech(Awesome! So, that's all done! Congratulations! You can go ahead and get changed and stuff, just call me over whenever you're ready for some personal training!)]"
+						+ " she exclaims, before running off to fill in her side of the paperwork."
+					+ "</p>"
+					+ "<p>"
+						+ "You head over to the changing rooms, where you see that the gym provides clean exercise clothes for people who haven't brought any."
+						+ " Quickly getting changed, you head out into the gym and decide what to do."
+					+ "</p>";
 		}
 
 		@Override
@@ -409,11 +429,22 @@ public class PixsPlayground {
 
 		@Override
 		public String getContent() {
-			return "<p>" + "You make your way over to where the city gym is located." + " Pushing open the door, you step into the lobby, where you're immediately greeted by the familiar bouncing figure of Pix." + "</p>" + "<p>"
-					+ UtilText.parseSpeech("Heya " + Main.game.getPlayer().getName() + "! How're ya doin'?! Gonna have a personal session today?!", Main.game.getPix()) + " she asks, beaming at you." + "</p>" + "<p>"
-					+ "You start to reply to the energetic dog-girl, but, once again, she immediately cuts you off, "
-					+ UtilText.parseSpeech("Y'know, just any time you want it, call me over and we can get started! You go ahead and get changed, I'll see you in there!", Main.game.getPix()) + "</p>" + "<p>"
-					+ "You do as Pix says and head over to the changing rooms, where you quickly get changed." + " Heading out into the gym, you decide what to do." + "</p>";
+			return "<p>"
+						+ "You make your way over to where the city gym is located."
+						+ " Pushing open the door, you step into the lobby, where you're immediately greeted by the familiar bouncing figure of Pix."
+					+ "</p>"
+					+ "<p>"
+						+ "[pix.speech(Heya [pc.name]! How're ya doin'?! Gonna have a personal session today?!)]"
+						+ " she asks, beaming at you."
+					+ "</p>"
+					+ "<p>"
+						+ "You start to reply to the energetic dog-girl, but, once again, she immediately cuts you off, "
+						+ "[pix.speech(Y'know, just any time you want it, call me over and we can get started! You go ahead and get changed, I'll see you in there!)]"
+					+ "</p>"
+					+ "<p>"
+						+ "You do as Pix says and head over to the changing rooms, where you quickly get changed."
+						+ " Heading out into the gym, you decide what to do."
+					+ "</p>";
 		}
 
 		@Override
@@ -436,12 +467,17 @@ public class PixsPlayground {
 
 		@Override
 		public String getContent() {
-			return "<p>" + "You head over to the cardio section of the gym and spend some time warming up before using the running and cycling machines." + " After an hour of intense workout, you're left panting and covered in sweat."
-					+ " You feel like you've definitely improved your level of fitness, even if only by a tiny amount." + "</p>" + "<p>"
-					+ (Main.game.getPlayer().getHealthPercentage() < 0.4f ? "You feel completely exhausted, and are far too tired to do any more exercise."
-							: (Main.game.getDialogueFlags().values.contains(DialogueFlagValue.gymIsMember)
-									? "You feel as though you have enough energy left to do another workout if you wanted to, but you're too tired to do Pix's intense routine."
-									: "You feel as though you have enough energy left to do another workout if you wanted to."))
+			return "<p>"
+						+ "You head over to the cardio section of the gym and spend some time warming up before using the running and cycling machines."
+						+ " After an hour of intense workout, you're left panting and covered in sweat."
+						+ " You feel like you've definitely improved your level of fitness, even if only by a tiny amount."
+					+ "</p>"
+					+ "<p>"
+						+ (Main.game.getPlayer().getHealthPercentage() < 0.4f
+								? "You feel completely exhausted, and are far too tired to do any more exercise."
+								: (Main.game.getDialogueFlags().values.contains(DialogueFlagValue.gymIsMember)
+										? "You feel as though you have enough energy left to do another workout if you wanted to, but you're too tired to do Pix's intense routine."
+										: "You feel as though you have enough energy left to do another workout if you wanted to."))
 					+ "</p>";
 		}
 
@@ -465,12 +501,17 @@ public class PixsPlayground {
 
 		@Override
 		public String getContent() {
-			return "<p>" + "You head over to the free weights section of the gym and spend some time warming up before using the equipment." + " After an hour of intense workout, you're left feeling very pleased with yourself."
-					+ " You feel like you've definitely improved your strength, even if only by a tiny amount." + "</p>" + "<p>"
-					+ (Main.game.getPlayer().getHealthPercentage() < 0.4f ? "You feel completely exhausted, and are far too tired to do any more exercise."
-							: (Main.game.getDialogueFlags().values.contains(DialogueFlagValue.gymIsMember)
-									? "You feel as though you have enough energy left to do another workout if you wanted to, but you're too tired to do Pix's intense workout routine."
-									: "You feel as though you have enough energy left to do another workout if you wanted to."))
+			return "<p>"
+						+ "You head over to the free weights section of the gym and spend some time warming up before using the equipment."
+						+ " After an hour of intense workout, you're left feeling very pleased with yourself."
+						+ " You feel like you've definitely improved your strength, even if only by a tiny amount."
+					+ "</p>"
+					+ "<p>"
+						+ (Main.game.getPlayer().getHealthPercentage() < 0.4f
+								? "You feel completely exhausted, and are far too tired to do any more exercise."
+								: (Main.game.getDialogueFlags().values.contains(DialogueFlagValue.gymIsMember)
+										? "You feel as though you have enough energy left to do another workout if you wanted to, but you're too tired to do Pix's intense workout routine."
+										: "You feel as though you have enough energy left to do another workout if you wanted to."))
 					+ "</p>";
 		}
 
@@ -499,12 +540,12 @@ public class PixsPlayground {
 						+ " Beckoning her over, she immediately breaks her composure, smiling happily as she bounces her way over to you."
 					+ "</p>"
 					+ "<p>"
-						+ UtilText.parseSpeech("Heya! How're ya doin'?!", Main.game.getPix())
+						+ "[pix.speech(Heya! How're ya doin'?!)]"
 						+ " she squeals, obviously extremely pleased that you've asked her to come over."
 					+ "</p>"
 					+ "<p>"
 						+ "You start to say that you'd like her to show you a good routine to follow, but before you're even halfway through your first sentence, she hastily interrupts you in her eagerness to respond, "
-						+ UtilText.parseSpeech("Wohoo! So, like, you want to have a good workout, huh?! Let's start over here!", Main.game.getPix())
+						+ "[pix.speech(Wohoo! So, like, you want to have a good workout, huh?! Let's start over here!)]"
 					+ "</p>"
 					+ "<p>"
 						+ "You follow Pix over to the free weights section, where she begins to show you her special routine."
@@ -588,7 +629,7 @@ public class PixsPlayground {
 		@Override
 		public String getContent() {
 			return "<p>"
-						+ UtilText.parseSpeech("Come on now! No slacking!", Main.game.getPix())
+						+ "[pix.speech(Come on now! No slacking!)]"
 						+ " she exclaims as she leads you over towards the running machines."
 					+ "</p>"
 					+ "<p>"
@@ -596,7 +637,7 @@ public class PixsPlayground {
 						+ " The dog-girl's tail, which up until now hasn't stopped wagging, flicks upright for a second, before continuing its seemingly uncontrollable motion."
 					+ "</p>"
 					+ "<p>"
-						+ UtilText.parseSpeech("Hey! I heard that! Come on now, if you give me thirty more minutes, I'll make it worth your while!", Main.game.getPix())
+						+ "[pix.speech(Hey! I heard that! Come on now, if you give me thirty more minutes, I'll make it worth your while!)]"
 						+ " she winks, pushing you onto one of the machines and turning it on."
 					+ "</p>"
 					+ "<p>"
@@ -605,7 +646,7 @@ public class PixsPlayground {
 						+ " Pix moves around behind you as you run, and you can almost feel her lustful gaze resting on your rear end."
 					+ "</p>"
 					+ "<p>"
-						+ UtilText.parseSpeech("Mmm! Y'know, you've got one hot ass!", Main.game.getPix())
+						+ "[pix.speech(Mmm! Y'know, you've got one hot ass!)]"
 						+ " she giggles,"
 						+ "[pix.speech(Now show me what you're made of!)]"
 					+ "</p>"
@@ -681,8 +722,8 @@ public class PixsPlayground {
 						+ "After what feels like an eternity, the dog-girl trainer finally leans over and dials the difficulty back, instructing you to take a few minutes to do a cooldown walk."
 						+ " As you heavily pant, Pix leans over and uses a towel to wipe the sweat from your forehead."
 						+ " She brushes her hand over your body as she retracts, and reminds you of what she promised earlier,"
-						+ UtilText.parseSpeech("You're like, my star pupil, y'know! I said I'd make it worth your while, remember?!"
-								+ " So come meet me in the showers if you want a little one-to-one cooldown exercise...", Main.game.getPix())
+						+ "[pix.speech(You're like, my star pupil, y'know! I said I'd make it worth your while, remember?!"
+								+ " So come meet me in the showers if you want a little one-to-one cooldown exercise...)]"
 					+"</p>"
 					+ "<p>"
 						+ "Enticingly sliding her paw-like hands over her breasts, Pix lets out one final giggle before bouncing away towards the showers..."
@@ -735,10 +776,10 @@ public class PixsPlayground {
 					
 				+ "<p>"
 					+ "You start to let out a yell in surprise, but the dog-girl quickly clasps a paw-like hand over your mouth as she leans in, pressing her naked body against yours as she growls in your ear, "
-					+ UtilText.parseSpeech("Haha! So, like, were you trying to avoid me or something?!"
+					+ "[pix.speech(Haha! So, like, were you trying to avoid me or something?!"
 							+ " 'Cause that kinda makes me sad!"
 							+ " And y'know, it also kinda makes me think that you need a little punishment!"
-							+ " So, whattya got to say for yourself, huh, huh, huh?!", Main.game.getPix())
+							+ " So, whattya got to say for yourself, huh, huh, huh?!)]"
 					+ " As she lifts her hand from over your mouth, you're given a chance to respond."
 				+ "</p>"
 				+ "<p>"
@@ -762,23 +803,23 @@ public class PixsPlayground {
 						PIX_POST_SEX,
 						"<p>"
 							+ "You're far too tired to do any more physical exercise right now, and tell Pix as such, "
-							+UtilText.parsePlayerSpeech("I wasn't avoiding you, I'm just too tired for this right now. Maybe we can carry on in about half an hour or something?")
+							+"[pc.speech(I wasn't avoiding you, I'm just too tired for this right now. Maybe we can carry on in about half an hour or something?)]"
 						+ "</p>"
 						+ "<p>"
 						+ "Although you can't see her reaction, you feel her grip on your wrists tighten as you try to make an excuse."
 						+ " As Pix leans into your back, she growls into your ear once more, sending a shiver down your spine as you hear the icy tone in her voice."
 						+ "</p>"
 						+ "<p>"
-						+ UtilText.parseSpeech("Y'know, that's not what I wanted to hear. Not what I wanted to hear at all.", Main.game.getPix())
+						+ "[pix.speech(Y'know, that's not what I wanted to hear. Not what I wanted to hear at all.)]"
 						+ "</p>"
 						+ "<p>"
 						+ "As she speaks, she releases the grip on one of your wrists, and as she crushes you up against the wall of the shower, you feel her hand slip around and down between your legs."
 						+ " You let out a gasp as she starts stroking your crotch, and as her three pairs of naked breasts squish into your back, her growls start to soften down a little."
 						+ "</p>"
 						+ "<p>"
-						+ UtilText.parseSpeech("Didya notice how empty the gym was?"
+						+ "[pix.speech(Didya notice how empty the gym was?"
 								+ " Y'know, most of them stop coming after I have a little fun with them in here."
-								+ " I can see that you're made of tougher stuff though, so I'm sure you won't mind helping me have a little fun!", Main.game.getPix())
+								+ " I can see that you're made of tougher stuff though, so I'm sure you won't mind helping me have a little fun!)]"
 						+ "</p>");
 				
 			} else if(index==2) {
@@ -791,23 +832,23 @@ public class PixsPlayground {
 						PIX_POST_SEX,
 						"<p>"
 							+ "As tired as you are, Pix turns you on far too much to refuse her advances, and you turn your head to one side as you eagerly respond, "
-							+UtilText.parsePlayerSpeech("Perhaps you'll let me make it up to you?")
+							+"[pc.speech(Perhaps you'll let me make it up to you?)]"
 						+ "</p>"
 						+ "<p>"
 							+ "Although you can't see her reaction, you feel her grip on your wrists tighten as you try to turn to face her."
 							+ " Leaning into your back, Pix growls into your ear once more, sending a shiver down your spine as you hear the icy tone in her voice."
 						+ "</p>"
 						+ "<p>"
-						+ UtilText.parseSpeech("Y'know, I don't think you're in any position to take charge here.", Main.game.getPix())
+						+ "[pix.speech(Y'know, I don't think you're in any position to take charge here.)]"
 						+ "</p>"
 						+ "<p>"
 						+ "As she speaks, she releases the grip on one of your wrists, and as she crushes you up against the wall of the shower, you feel her hand slip around and down between your legs."
 						+ " You let out a gasp as she starts stroking your crotch, and as her three pairs of naked breasts squish into your back, her growls start to soften down a little."
 						+ "</p>"
 						+ "<p>"
-						+ UtilText.parseSpeech("Didya notice how empty the gym was?"
+						+ "[pix.speech(Didya notice how empty the gym was?"
 								+ " Y'know, most of them stop coming after I have a little fun with them in here."
-								+ " I can see that you're made of tougher stuff though, so I'm sure you won't mind helping me have a little fun!", Main.game.getPix())
+								+ " I can see that you're made of tougher stuff though, so I'm sure you won't mind helping me have a little fun!)]"
 						+ "</p>");
 				
 			} else if(index==3) {
@@ -820,23 +861,23 @@ public class PixsPlayground {
 						PIX_POST_SEX,
 						"<p>"
 							+ "You don't want Pix to think that you've been avoiding her, and you turn your head to one side as you apologise, "
-							+UtilText.parsePlayerSpeech("Sorry Pix, I wasn't trying to avoid you, I just didn't see you anywhere nearby!")
+							+"[pc.speech(Sorry Pix, I wasn't trying to avoid you, I just didn't see you anywhere nearby!)]"
 						+ "</p>"
 						+ "<p>"
 							+ "Although you can't see her reaction, you feel her grip on your wrists tighten as you say you're sorry."
 							+ " Leaning into your back, Pix growls into your ear once more, sending a shiver down your spine as you hear the icy tone in her voice."
 						+ "</p>"
 						+ "<p>"
-						+ UtilText.parseSpeech("Y'know, that ain't gonna cut it! No, I think you still need a little punishment.", Main.game.getPix())
+						+ "[pix.speech(Y'know, that ain't gonna cut it! No, I think you still need a little punishment.)]"
 						+ "</p>"
 						+ "<p>"
 						+ "As she speaks, she releases the grip on one of your wrists, and as she crushes you up against the wall of the shower, you feel her hand slip around and down between your legs."
 						+ " You let out a gasp as she starts stroking your crotch, and as her three pairs of naked breasts squish into your back, her growls start to soften down a little."
 						+ "</p>"
 						+ "<p>"
-						+ UtilText.parseSpeech("Didya notice how empty the gym was?"
+						+ "[pix.speech(Didya notice how empty the gym was?"
 								+ " Y'know, most of them stop coming after I have a little fun with them in here."
-								+ " I can see that you're made of tougher stuff though, so I'm sure you won't mind helping me have a little fun!", Main.game.getPix())
+								+ " I can see that you're made of tougher stuff though, so I'm sure you won't mind helping me have a little fun!)]"
 						+ "</p>");
 				
 			} else if(index==4) {
@@ -984,7 +1025,7 @@ public class PixsPlayground {
 					+ " You worry for a moment that she's going to continue with her 'fun', but instead, she quickly darts of to fetch a towel, before starting to gently dry your body off."
 					+ "</p>"
 					+ "<p>"
-					+ UtilText.parseSpeech("You're, like, the best, y'know! Thanks for letting me have some fun, I hope you enjoyed it too!", Main.game.getPix())
+					+ "[pix.speech(You're, like, the best, y'know! Thanks for letting me have some fun, I hope you enjoyed it too!)]"
 					+ "</p>"
 					+ "<p>"
 					+ "You're far too tired to respond, and instead simply let out a satisfied groan as the dog-girl quickly dresses you."

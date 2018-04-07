@@ -128,7 +128,7 @@ public class SubmissionAttacker extends NPC {
 						addToSubspeciesMap(40, gender, s, availableRaces);
 						break;
 					case SLIME:
-						addToSubspeciesMap(20, gender, s, availableRaces);
+						addToSubspeciesMap(15, gender, s, availableRaces);
 						break;
 					case SLIME_ALLIGATOR:
 					case SLIME_ANGEL:

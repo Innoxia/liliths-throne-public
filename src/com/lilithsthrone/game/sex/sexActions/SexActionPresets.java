@@ -72,6 +72,9 @@ import com.lilithsthrone.game.sex.sexActions.dominion.SARoseHands;
 import com.lilithsthrone.game.sex.sexActions.dominion.cultist.SASpecialCultist;
 import com.lilithsthrone.game.sex.sexActions.dominion.lilaya.ConChairPositionsLilaya;
 import com.lilithsthrone.game.sex.sexActions.dominion.lilaya.SALilayaSpecials;
+import com.lilithsthrone.game.sex.sexActions.dominion.milkingStall.SADomMilkingStallBehind;
+import com.lilithsthrone.game.sex.sexActions.dominion.milkingStall.SADomMilkingStallOral;
+import com.lilithsthrone.game.sex.sexActions.dominion.milkingStall.SADomMilkingStallPerformingOral;
 import com.lilithsthrone.game.sex.sexActions.dominion.pix.PixOrgasms;
 import com.lilithsthrone.game.sex.sexActions.dominion.pix.PixShowerTime;
 import com.lilithsthrone.game.sex.sexActions.dominion.ralph.SARalphOrgasms;
@@ -207,6 +210,21 @@ public class SexActionPresets {
 	public static List<Class<?>> playerStocksStandingBehind = new ArrayList<>();
 	public static List<Class<?>> partnerStocksStandingBehind = new ArrayList<>();
 
+
+	/* Milking Stall */
+
+	public static List<Class<?>> playerMilkingStallLockedInMilkingStall = new ArrayList<>();
+	public static List<Class<?>> partnerMilkingStallLockedInMilkingStall = new ArrayList<>();
+
+	public static List<Class<?>> playerMilkingStallReceivingOral = new ArrayList<>();
+	public static List<Class<?>> partnerMilkingStallReceivingOral = new ArrayList<>();
+
+	public static List<Class<?>> playerMilkingStallPerformingOral = new ArrayList<>();
+	public static List<Class<?>> partnerMilkingStallPerformingOral = new ArrayList<>();
+
+	public static List<Class<?>> playerMilkingStallStandingBehind = new ArrayList<>();
+	public static List<Class<?>> partnerMilkingStallStandingBehind = new ArrayList<>();
+	
 	/* Missionary */
 
 	public static List<Class<?>> playerMissionaryOnBack = new ArrayList<>();
@@ -890,6 +908,8 @@ public class SexActionPresets {
 		partnerChairBottom.add(GenericOrgasms.class);
 		
 		
+		
+		
 		// Stocks player locked into them:
 		
 		playerStocksLockedInStocks.add(GenericOrgasms.class);
@@ -1007,6 +1027,125 @@ public class SexActionPresets {
 		partnerStocksStandingBehind.add(GenericActions.class);
 		partnerStocksStandingBehind.add(GenericOrgasms.class);
 		
+		
+		/* MILKING STALL */
+		
+		// MilkingStall player locked into them:
+		
+		playerMilkingStallLockedInMilkingStall.add(GenericOrgasms.class);
+		playerMilkingStallLockedInMilkingStall.add(PlayerTalk.class);
+
+		// MilkingStall partner locked into them:
+		
+		partnerMilkingStallLockedInMilkingStall.add(GenericOrgasms.class);
+		partnerMilkingStallLockedInMilkingStall.add(PartnerTalk.class);
+
+		// MilkingStall player receiving oral:
+		
+		playerMilkingStallReceivingOral.addAll(playerDefaultSelf);
+		playerMilkingStallReceivingOral.add(PartnerSelfTailAnus.class);
+		playerMilkingStallReceivingOral.add(PartnerSelfTailVagina.class);
+		playerMilkingStallReceivingOral.add(PlayerPenisMouth.class);
+		playerMilkingStallReceivingOral.add(PartnerTongueVagina.class);
+		playerMilkingStallReceivingOral.add(SADomMilkingStallOral.class);
+		playerMilkingStallReceivingOral.add(PlayerTalk.class);
+		playerMilkingStallReceivingOral.add(GenericActions.class);
+		playerMilkingStallReceivingOral.add(GenericOrgasms.class);
+
+		// MilkingStall partner receiving oral:
+		
+		partnerMilkingStallReceivingOral.addAll(partnerDefaultSelf);
+		partnerMilkingStallReceivingOral.add(PlayerSelfTailAnus.class);
+		partnerMilkingStallReceivingOral.add(PlayerSelfTailVagina.class);
+		partnerMilkingStallReceivingOral.add(PartnerPenisMouth.class);
+		partnerMilkingStallReceivingOral.add(PlayerTongueVagina.class);
+//		partnerMilkingStallReceivingOral.add(SASubMilkingStallOral.class); TODO
+		partnerMilkingStallReceivingOral.add(PartnerTalk.class);
+		partnerMilkingStallReceivingOral.add(GenericActions.class);
+		partnerMilkingStallReceivingOral.add(GenericOrgasms.class);
+		
+		// MilkingStall player performing oral on target in stocks:
+		
+		playerMilkingStallPerformingOral.addAll(playerDefaultSelf);
+		playerMilkingStallPerformingOral.add(PartnerSelfTailAnus.class);
+		playerMilkingStallPerformingOral.add(PartnerSelfTailVagina.class);
+		playerMilkingStallPerformingOral.add(PlayerFingerUrethra.class);
+		playerMilkingStallPerformingOral.add(PlayerFingerVagina.class);
+		playerMilkingStallPerformingOral.add(PlayerFingerAnus.class);
+		playerMilkingStallPerformingOral.add(PlayerTongueVagina.class);
+		playerMilkingStallPerformingOral.add(PlayerTongueAnus.class);
+		playerMilkingStallPerformingOral.add(PartnerPenisMouth.class);
+		playerMilkingStallPerformingOral.add(PartnerTailMouth.class);
+		playerMilkingStallPerformingOral.add(SADomMilkingStallPerformingOral.class);
+		playerMilkingStallPerformingOral.add(PlayerTalk.class);
+		playerMilkingStallPerformingOral.add(GenericActions.class);
+		playerMilkingStallPerformingOral.add(GenericOrgasms.class);
+		
+		// MilkingStall partner performing oral on target in stocks:
+
+		partnerMilkingStallPerformingOral.addAll(partnerDefaultSelf);
+		partnerMilkingStallPerformingOral.add(PlayerSelfTailAnus.class);
+		partnerMilkingStallPerformingOral.add(PlayerSelfTailVagina.class);
+		partnerMilkingStallPerformingOral.add(PartnerFingerUrethra.class);
+		partnerMilkingStallPerformingOral.add(PartnerFingerVagina.class);
+		partnerMilkingStallPerformingOral.add(PartnerFingerAnus.class);
+		partnerMilkingStallPerformingOral.add(PartnerTongueVagina.class);
+		partnerMilkingStallPerformingOral.add(PartnerTongueAnus.class);
+		partnerMilkingStallPerformingOral.add(PlayerPenisMouth.class);
+		partnerMilkingStallPerformingOral.add(PlayerTailMouth.class);
+//		partnerMilkingStallPerformingOral.add(SASubMilkingStallPerformingOral.class); TODO
+		partnerMilkingStallPerformingOral.add(PartnerTalk.class);
+		partnerMilkingStallPerformingOral.add(GenericActions.class);
+		partnerMilkingStallPerformingOral.add(GenericOrgasms.class);
+
+		// MilkingStall player using target in stocks:
+		
+		playerMilkingStallStandingBehind.addAll(playerDefaultSelf);
+		playerMilkingStallStandingBehind.add(PartnerSelfTailAnus.class);
+		playerMilkingStallStandingBehind.add(PartnerSelfTailVagina.class);
+		playerMilkingStallStandingBehind.add(PlayerFingerNipple.class);
+		playerMilkingStallStandingBehind.add(PlayerFingerUrethra.class);
+		playerMilkingStallStandingBehind.add(PlayerFingerVagina.class);
+		playerMilkingStallStandingBehind.add(PlayerFingerAnus.class);
+		playerMilkingStallStandingBehind.add(PlayerPenisVagina.class);
+		playerMilkingStallStandingBehind.add(PlayerPenisUrethraVagina.class);
+		playerMilkingStallStandingBehind.add(PlayerPenisUrethraPenis.class);
+		playerMilkingStallStandingBehind.add(PlayerPenisThighs.class);
+		playerMilkingStallStandingBehind.add(PlayerPenisAnus.class);
+		playerMilkingStallStandingBehind.add(PlayerPenisAss.class);
+		playerMilkingStallStandingBehind.add(PlayerTailVagina.class);
+		playerMilkingStallStandingBehind.add(PlayerTailAnus.class);
+		playerMilkingStallStandingBehind.add(PartnerTailVagina.class);
+		playerMilkingStallStandingBehind.add(PartnerTailAnus.class);
+		playerMilkingStallStandingBehind.add(SADomMilkingStallBehind.class);
+		playerMilkingStallStandingBehind.add(PlayerTalk.class);
+		playerMilkingStallStandingBehind.add(GenericActions.class);
+		playerMilkingStallStandingBehind.add(GenericOrgasms.class);
+		
+		
+		// MilkingStall partner using target in stocks:
+
+		partnerMilkingStallStandingBehind.addAll(partnerDefaultSelf);
+		partnerMilkingStallStandingBehind.add(PlayerSelfTailAnus.class);
+		partnerMilkingStallStandingBehind.add(PlayerSelfTailVagina.class);
+		partnerMilkingStallStandingBehind.add(PartnerFingerNipple.class);
+		partnerMilkingStallStandingBehind.add(PartnerFingerUrethra.class);
+		partnerMilkingStallStandingBehind.add(PartnerFingerVagina.class);
+		partnerMilkingStallStandingBehind.add(PartnerFingerAnus.class);
+		partnerMilkingStallStandingBehind.add(PartnerPenisVagina.class);
+		partnerMilkingStallStandingBehind.add(PartnerPenisUrethraVagina.class);
+		partnerMilkingStallStandingBehind.add(PartnerPenisUrethraPenis.class);
+		partnerMilkingStallStandingBehind.add(PartnerPenisThighs.class);
+		partnerMilkingStallStandingBehind.add(PartnerPenisAnus.class);
+		partnerMilkingStallStandingBehind.add(PartnerPenisAss.class);
+		partnerMilkingStallStandingBehind.add(PartnerTailVagina.class);
+		partnerMilkingStallStandingBehind.add(PartnerTailAnus.class);
+		partnerMilkingStallStandingBehind.add(PlayerTailVagina.class);
+		partnerMilkingStallStandingBehind.add(PlayerTailAnus.class);
+//		partnerMilkingStallStandingBehind.add(SASubMilkingStallBehind.class); TODO
+		partnerMilkingStallStandingBehind.add(PartnerTalk.class);
+		partnerMilkingStallStandingBehind.add(GenericActions.class);
+		partnerMilkingStallStandingBehind.add(GenericOrgasms.class);
 		
 
 		/* MISSIONARY */

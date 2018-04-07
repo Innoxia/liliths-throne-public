@@ -1,9 +1,11 @@
 package com.lilithsthrone.game.character.npc;
 
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -2685,12 +2687,31 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					nakedRevealed = true;
 				}
 				
+				BufferedImage bi = null;
+				String src = "";
+				
+				try {
+					bi = ImageIO.read(new File(artwork.getCurrentImage()));
+
+					ByteArrayOutputStream out = new ByteArrayOutputStream();
+					ImageIO.write(bi, "PNG", out);
+					byte[] bytes = out.toByteArray();
+
+					String base64bytes = Base64.getEncoder().encodeToString(bytes);
+					src = "data:image/png;base64," + base64bytes;
+					
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				
+//				System.out.println(src);
+				
 				int percentageWidth = (height>=width?33:66);
 				
 				infoScreenSB.append(
 						"<div class='full-width-container' style='position:relative; float:right; width:"+percentageWidth+"%; max-width:"+width+"; object-fit:scale-down;'>"
 							+ "<div class='full-width-container' style='width:100%; margin:0;'>"
-								+ "<img id='CHARACTER_IMAGE' style='"+(nakedRevealed || artwork.isCurrentImageClothed()?"":"-webkit-filter: brightness(0%);")+" width:100%; image-rendering: -webkit-optimize-contrast;' src='file:/"+artwork.getCurrentImage()+"'/>"
+								+ "<img id='CHARACTER_IMAGE' style='"+(nakedRevealed || artwork.isCurrentImageClothed()?"":"-webkit-filter: brightness(0%);")+" width:100%;' src='"+src+"'/>"//file:/
 								+ "<div class='overlay no-pointer no-highlight' style='text-align:center;'>" // Add overlay div to stop javaFX's insane image drag+drop
 									+(nakedRevealed || artwork.isCurrentImageClothed()?"":"<p style='margin-top:50%; font-weight:bold; color:"+Colour.BASE_GREY.toWebHexString()+";'>Unlocked through sex!</p>")
 								+"</div>" 

@@ -128,8 +128,13 @@ public enum LustLevel {
 	public SexPace getSexPace(boolean consensual, GameCharacter character) {
 		SexPace pace;
 		if(Sex.isDom(character)) {
-			if(character.hasFetish(Fetish.FETISH_SUBMISSIVE)) {
+			if(character.hasFetish(Fetish.FETISH_SUBMISSIVE)
+					|| character.getFetishDesire(Fetish.FETISH_SADIST) == FetishDesire.ZERO_HATE) {
 				pace = SexPace.DOM_GENTLE;
+				
+			} else if(character.getFetishDesire(Fetish.FETISH_SADIST) == FetishDesire.ONE_DISLIKE) {
+				pace = SexPace.DOM_NORMAL;
+				
 			} else {
 				pace = getSexPaceDominant();
 			}
