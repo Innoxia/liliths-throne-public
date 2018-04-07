@@ -46,7 +46,7 @@ public class HarpyDominantCompanion extends NPC {
 				"Diana's favourite pet, Harley, does everything she can to please her matriarch."
 						+ " Just like most of the harpies in her mistress's nest, she does absolutely anything Diana orders her to do, which often involves administering humiliating punishments...",
 				5, Gender.M_P_MALE, RacialBody.HARPY, RaceStage.LESSER,
-				new CharacterInventory(30), WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_HARPY_NEST_RED, true, null);
+				new CharacterInventory(30), WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_HARPY_NEST_RED, true);
 
 		if(!isImported) {
 			this.setSexualOrientation(SexualOrientation.GYNEPHILIC);

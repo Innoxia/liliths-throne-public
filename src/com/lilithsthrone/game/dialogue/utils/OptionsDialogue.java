@@ -34,6 +34,7 @@ import com.lilithsthrone.game.settings.KeyboardAction;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.Artist;
 import com.lilithsthrone.rendering.ArtistWebsite;
+import com.lilithsthrone.rendering.Artwork;
 import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.CreditsSlot;
@@ -1444,6 +1445,28 @@ public class OptionsDialogue {
 								"Artwork",
 								"Enables artwork to be displayed in unique characters' information screens.",
 								Main.getProperties().hasValue(PropertyValue.artwork))
+						
+						+"<div class='cosmetics-inner-container'>"
+							+ "<h5 style='text-align:center; color:"+Colour.BASE_AQUA.toWebHexString()+";'>"
+								+ "Preferred Artist"
+							+"</h5>"
+							+ "<p style='text-align:center;'>"
+								+ "Which artist's work is used by default."
+							+ "</p>");
+			
+			for(Artist artist : Artwork.allArtists) {
+				UtilText.nodeContentSB.append(
+						(Main.getProperties().preferredArtist.equals(artist.getFolderName())
+								?"<div id='ARTIST_"+artist.getFolderName()+"' class='cosmetics-button active'>"
+											+ "<b style='color:"+artist.getColour().toWebHexString()+";'>"+artist.getName()+"</b>"
+									+ "</div>"
+								:"<div id='ARTIST_"+artist.getFolderName()+"' class='cosmetics-button'>"
+										+ "[style.boldDisabled("+artist.getName()+")]"
+								+ "</div>"));
+			}
+							
+			UtilText.nodeContentSB.append("</div>" 
+						
 					+"</div>"
 						
 				+ "<div class='container-full-width' style='background:transparent; padding:0; margin-bottom:0; margin-top:0;'>"
@@ -1813,7 +1836,7 @@ public class OptionsDialogue {
 						+ "</br></br>"
 						+ "Artists whose character art can be found in the game:</br>");
 			
-			for(Artist artist : Artist.values()) {
+			for(Artist artist : Artwork.allArtists) {
 				UtilText.nodeContentSB.append("<b style='color:"+artist.getColour().toWebHexString()+";'>"+artist.getName()+"</b></br>");
 			}	
 			
@@ -1913,7 +1936,7 @@ public class OptionsDialogue {
 				
 			} else {
 				int i=1;
-				for(Artist artist : Artist.values()) {
+				for(Artist artist : Artwork.allArtists) {
 					for(ArtistWebsite website : artist.getWebsites()) {
 						if(index==i) {
 							return new ResponseEffectsOnly(website.getName(), "Opens the page:</br></br><i>"+website.getURL()+"</i></br></br><b>Externally in your default browser.</b>"){

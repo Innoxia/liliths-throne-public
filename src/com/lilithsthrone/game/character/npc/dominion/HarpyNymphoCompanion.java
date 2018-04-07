@@ -48,7 +48,7 @@ public class HarpyNymphoCompanion extends NPC {
 				"Lexi's favourite partner, Max, does everything she can to please her matriarch."
 						+ " Just like most of the harpies in her nest, she does absolutely anything Lexi orders her to do, which usually involves trying to sate her matriarch's never-ending lust.",
 				5, Gender.M_P_MALE, RacialBody.HARPY, RaceStage.LESSER,
-				new CharacterInventory(30), WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_HARPY_NEST_PINK, true, null);
+				new CharacterInventory(30), WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_HARPY_NEST_PINK, true);
 
 		if(!isImported) {
 			this.setSexualOrientation(SexualOrientation.GYNEPHILIC);

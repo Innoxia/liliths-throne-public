@@ -24,6 +24,7 @@
 	
 	Patch notes:
 	
+	
 	Gameplay:
 		Added raven-harpy and border-collie subspecies (for Scarlett and Pix, respectively).
 		Essence gains from combat and sex are now doubled during arcane storms.
@@ -39,9 +40,11 @@
 	Slavery:
 		Moved 'Slavery Overview' from an option in every room to just being available from your room, and made the options available in rooms specific to that room.
 		Tidied up the appearance and buttons for slavery and room management.
+		Added some dialogue variation for if you've set your slave to be crawling.
+		Added Milking Room upgrade, along with 'Milking Cow'/'Milking Bull' job for slaves. (Still needs finishing off.)
 	
 	Other:
-		<b>Added:</b> Optional in-game artwork viewer (enabled by default, can be disabled in the content options screen). Major NPCs which have had artwork drawn of them will now have that artwork displayed in their character screen.
+		<b>Added:</b> Optional in-game artwork viewer (enabled by default, can be disabled in the content options screen). Major NPCs which have had artwork drawn of them will now have that artwork displayed in their character screen. You can also add in custom images (info is in the res/images/characters/modding.txt folder).
 		Slightly improved Nyan's clothes.
 		You can now export characters from your phone's contacts screen (using the same export button in the top-right).
 		Updated Vicky's outfit.
@@ -55,9 +58,11 @@
 		Slimes no longer need to have their body parts pierced in order to equip piercings (you still need to grow a vagina or penis to equip those piercings, however).
 		NPCs with the Submissive fetish will now prefer to stick with the gentle pace while being the dom in sex (unless they are a switch or sadist, in which case they'll use normal/rough paces as normal).
 		Added white slime colour.
+		Added a lot more colours for feathers.
 	
 	Contributors:
 		Fixed cause of bad displacement imports leading to a crash after sex. (Master of Puppets)
+		Adjusted the display of subspecies lists in the Encyclopedia. (tukaima)
 	
 	Bugs:
 		Fixed bug where NPCs could still perform urethral penetration actions, even if it was turned off. (So sorry about this!)
@@ -78,25 +83,30 @@
 		Swapping positions in sex now correctly resets all ongoing sex actions.
 		Fixed bug where mutually exclusive slave job settings would not be set correctly when you loaded a game.
 		Slavery income should now correctly be saved/loaded.
+		Lilaya has been told to stop replacing the spare pair of goggles that are found in her lab.
+		Slave obedience gains from the teacher perk 'In control' now correctly only affects positive obedience increments.
 	
 	
 	
+	
+	Arthur slave?
+	When added as slave room upgrade?
+	
+	slavery upkeep and profits are messed up
 	
 	- Improve the slavery UI, and add more jobs & interactions (winner of Patreon content poll).
-		- Final check of management UI.
-		- Adding content for all of the current settings (such as forbidding them to talk, and letting them leave the house).
 		- Adding content for interacting with them in their place of work.
-		- Add a milking machine room upgrade.
+		- Adding content for all of the current settings (such as forbidding them to talk, and letting them leave the house).
 		- I'll try and add in a setting for their behaviour this version (set them to act friendly or cold)
 		- Add job: bedroom slave to act as alarm clock with blowjobs and sexual intercourse.  
-	
-	Stop those god damn safety goggles!
 	
 	Pix intro as border collie
 	
 	subspecies slime raven morphs
 	
 	Duner's stuff
+	
+	Lexi starting creampie is 0ml
 	
 	- Make Zaranix & maids repeatable.
 		Amber
@@ -146,7 +156,6 @@
 	
 	wing size self-TF
 	
-	Arthur slave
 	
 	PRs
 	

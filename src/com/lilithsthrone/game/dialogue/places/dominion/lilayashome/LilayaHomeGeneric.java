@@ -22,6 +22,8 @@ import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.dominion.SMRoseHands;
+import com.lilithsthrone.game.slavery.SlaveJob;
+import com.lilithsthrone.game.slavery.SlavePermissionSetting;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.BaseColour;
 import com.lilithsthrone.utils.Util;
@@ -120,37 +122,44 @@ public class LilayaHomeGeneric {
 						+ "</p>");
 			} else {
 				for(NPC slave : charactersPresent) {
+					UtilText.nodeContentSB.append(UtilText.parse(slave,
+							"<p>"
+								+ "Having been assigned to work as a "+(SlaveJob.CLEANING.getName(slave))+", <b style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>[npc.name]</b> is present in this area."));
+					
+					if(slave.hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_CRAWLING)) {
+						UtilText.nodeContentSB.append(UtilText.parse(slave,
+								" As you've instructed [npc.herHim] to crawl, [npc.she]'s down on all fours, "));
+					} else {
+						UtilText.nodeContentSB.append(UtilText.parse(slave,
+								" [npc.She]'s currently "));
+					}
+					
 					switch(slave.getObedience()) {
-					case NEGATIVE_FIVE_REBELLIOUS: case NEGATIVE_FOUR_DEFIANT: case NEGATIVE_THREE_STRONG_INSUBORDINATE:
-						UtilText.nodeContentSB.append(UtilText.parse(slave,
-								"<p>"
-									+ "Although <b style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>[npc.name]</b> is here, [npc.she]'s not even bothering to pretend that [npc.she]'s cleaning."
-								+ "</p>"));
-						break;
-					case NEGATIVE_ONE_DISOBEDIENT:  case NEGATIVE_TWO_UNRULY:
-						UtilText.nodeContentSB.append(UtilText.parse(slave,
-								"<p>"
-									+ "<b style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>[npc.Name]</b> appears to be half-heartedly dusting some of picture frames that line the corridor."
-								+ "</p>"));
-						break;
-					case ZERO_FREE_WILLED:
-						UtilText.nodeContentSB.append(UtilText.parse(slave,
-								"<p>"
-									+ "<b style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>[npc.Name]</b> is down on all fours dusting the skirting boards."
-								+ "</p>"));
-						break;
-					case POSITIVE_ONE_AGREEABLE: case POSITIVE_TWO_OBEDIENT:
-						UtilText.nodeContentSB.append(UtilText.parse(slave,
-								"<p>"
-									+ "<b style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>[npc.Name]</b> is busily polishing the floorboards."
-								+ "</p>"));
-						break;
-					case POSITIVE_THREE_DISCIPLINED: case POSITIVE_FOUR_DUTIFUL: case POSITIVE_FIVE_SUBSERVIENT:
-						UtilText.nodeContentSB.append(UtilText.parse(slave,
-								"<p>"
-									+ "<b style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>[npc.Name]</b> is dutifully dusting, polishing, and cleaning everything in this area."
-								+ "</p>"));
-						break;
+						case NEGATIVE_FIVE_REBELLIOUS: case NEGATIVE_FOUR_DEFIANT: case NEGATIVE_THREE_STRONG_INSUBORDINATE:
+							UtilText.nodeContentSB.append(UtilText.parse(slave,
+										"not even bothering to pretend that [npc.she]'s cleaning."
+									+ "</p>"));
+							break;
+						case NEGATIVE_ONE_DISOBEDIENT:  case NEGATIVE_TWO_UNRULY:
+							UtilText.nodeContentSB.append(UtilText.parse(slave,
+										"half-heartedly cleaning the carpet."
+									+ "</p>"));
+							break;
+						case ZERO_FREE_WILLED:
+							UtilText.nodeContentSB.append(UtilText.parse(slave,
+										"dusting the skirting boards."
+									+ "</p>"));
+							break;
+						case POSITIVE_ONE_AGREEABLE: case POSITIVE_TWO_OBEDIENT:
+							UtilText.nodeContentSB.append(UtilText.parse(slave,
+										"busily polishing the floorboards."
+									+ "</p>"));
+							break;
+						case POSITIVE_THREE_DISCIPLINED: case POSITIVE_FOUR_DUTIFUL: case POSITIVE_FIVE_SUBSERVIENT:
+							UtilText.nodeContentSB.append(UtilText.parse(slave,
+										"dutifully dusting, polishing, and cleaning everything in this area."
+									+ "</p>"));
+							break;
 					}
 				}
 			}
@@ -177,13 +186,17 @@ public class LilayaHomeGeneric {
 		}
 	};
 	
-	private static Response getRoomResponse(int index) {
+	private static Response getRoomResponse(int index, boolean milkingRoom) {
 		List<NPC> charactersPresent = Main.game.getCharactersPresent();
 		List<NPC> slavesAssignedToRoom = new ArrayList<>();
-		for(String slave : Main.game.getPlayer().getSlavesOwned()) {
-			NPC slaveNPC = (NPC)Main.game.getNPCById(slave);
-			if(slaveNPC != null && (slaveNPC.getHomeWorldLocation()==Main.game.getPlayer().getWorldLocation() && slaveNPC.getHomeLocation().equals(Main.game.getPlayer().getLocation()))) {
-				slavesAssignedToRoom.add(slaveNPC);
+		if(milkingRoom) {
+			slavesAssignedToRoom.addAll(charactersPresent);
+		} else {
+			for(String slave : Main.game.getPlayer().getSlavesOwned()) {
+				NPC slaveNPC = (NPC)Main.game.getNPCById(slave);
+				if(slaveNPC != null && (slaveNPC.getHomeWorldLocation()==Main.game.getPlayer().getWorldLocation() && slaveNPC.getHomeLocation().equals(Main.game.getPlayer().getLocation()))) {
+					slavesAssignedToRoom.add(slaveNPC);
+				}
 			}
 		}
 		
@@ -207,23 +220,14 @@ public class LilayaHomeGeneric {
 				return new Response("Slave List", "Enter the slave management screen.", CORRIDOR) {
 					@Override
 					public DialogueNodeOld getNextDialogue() {
-						return SlaveryManagementDialogue.getSlaveryManagementDialogue(null);
+						return SlaveryManagementDialogue.getSlaveryRoomListDialogue(null);
 					}
 				};
 			} else {
 				return new Response("Slave List", "You'll need a slaver license before you can access this menu!",  null);
 			}
 			
-		}
-//		else if (index == 3) {
-//			if(Main.game.getPlayer().isHasSlaverLicense()) {
-//				return new Response("Room List", "Enter the room upgrades options screen.", SlaveryManagementDialogue.ROOM_MANAGEMENT);
-//			} else {
-//				return new Response("Room List", "You'll need a slaver license before you can access this menu!",  null);
-//			}
-//			
-//		}
-		else if(index-3<slavesAssignedToRoom.size()) {
+		} else if(index-3<slavesAssignedToRoom.size()) {
 			if(charactersPresent.contains(slavesAssignedToRoom.get(index-3))) {
 				return new Response(UtilText.parse(slavesAssignedToRoom.get(index-3), "[npc.Name]"), UtilText.parse(slavesAssignedToRoom.get(index-3), "Interact with [npc.name]."), SlaveDialogue.SLAVE_START) {
 					@Override
@@ -287,7 +291,7 @@ public class LilayaHomeGeneric {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			return getRoomResponse(index);
+			return getRoomResponse(index, false);
 		}
 	};
 	
@@ -314,7 +318,7 @@ public class LilayaHomeGeneric {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			return getRoomResponse(index);
+			return getRoomResponse(index, false);
 		}
 	};
 	
@@ -342,7 +346,7 @@ public class LilayaHomeGeneric {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			return getRoomResponse(index);
+			return getRoomResponse(index, false);
 		}
 	};
 	
@@ -370,7 +374,7 @@ public class LilayaHomeGeneric {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			return getRoomResponse(index);
+			return getRoomResponse(index, false);
 		}
 	};
 	
@@ -397,7 +401,7 @@ public class LilayaHomeGeneric {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			return getRoomResponse(index);
+			return getRoomResponse(index, false);
 		}
 	};
 	
@@ -425,7 +429,90 @@ public class LilayaHomeGeneric {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			return getRoomResponse(index);
+			return getRoomResponse(index, false);
+		}
+	};
+	
+	public static final DialogueNodeOld ROOM_WINDOW_MILKING = new DialogueNodeOld("Milking Room", ".", false) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public int getMinutesPassed() {
+			return 1;
+		}
+		
+		@Override
+		public String getLabel() {
+			return Main.game.getPlayer().getLocationPlace().getName();
+		}
+
+		@Override
+		public String getContent() {
+			return "<p>"
+						+ "This room has a series of large windows set into one wall, which allow a generous amount of natural daylight to flood out into the corridor when the door is left open."
+						+ " What with this room being situated on the outside of the house, the view from the windows is of the hustle and bustle of Dominion's busy streets."
+					+ "</p>"
+					+getRoomModificationsDescription();
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return getRoomResponse(index, true);
+		}
+	};
+	
+	public static final DialogueNodeOld ROOM_GARDEN_GROUND_FLOOR_MILKING = new DialogueNodeOld("Garden-view Milking Room", ".", false) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public int getMinutesPassed() {
+			return 1;
+		}
+		
+		@Override
+		public String getLabel() {
+			return Main.game.getPlayer().getLocationPlace().getName();
+		}
+
+		@Override
+		public String getContent() {
+			return "<p>"
+						+ "This room has a series of wide, ceiling-height windows set into one wall, which swing open to allow access to and from the adjoining garden courtyard."
+					+ "</p>"
+					+getRoomModificationsDescription();
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return getRoomResponse(index, true);
+		}
+	};
+	
+	public static final DialogueNodeOld ROOM_GARDEN_MILKING = new DialogueNodeOld("Garden-view Milking Room", ".", false) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public int getMinutesPassed() {
+			return 1;
+		}
+		
+		@Override
+		public String getLabel() {
+			return Main.game.getPlayer().getLocationPlace().getName();
+		}
+
+		@Override
+		public String getContent() {
+			return "<p>"
+						+ "This room has a series of wide, ceiling-height windows set into one wall, which allow a generous amount of natural daylight to flood out into the corridor when the door is left open."
+						+ " What with this room being situated in the interior of the house, the view from the windows is of the house's garden courtyard."
+					+ "</p>"
+					+getRoomModificationsDescription();
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return getRoomResponse(index, true);
 		}
 	};
 	
@@ -1219,36 +1306,45 @@ public class LilayaHomeGeneric {
 						+ "</p>");
 			} else {
 				for(NPC slave : charactersPresent) {
+					UtilText.nodeContentSB.append(UtilText.parse(slave,
+							"<p>"
+								+ "Having been assigned to work as a "+(SlaveJob.KITCHEN.getName(slave))+", <b style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>[npc.name]</b> is present in this area."));
+					
+					if(slave.hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_CRAWLING)) {
+						UtilText.nodeContentSB.append(UtilText.parse(slave,
+								" As you've instructed [npc.herHim] to crawl, [npc.she]'s down on all fours, and "));
+					} else {
+						UtilText.nodeContentSB.append(UtilText.parse(slave,
+								" [npc.She] "));
+					}
+					
 					switch(slave.getObedience()) {
 					case NEGATIVE_FIVE_REBELLIOUS: case NEGATIVE_FOUR_DEFIANT: case NEGATIVE_THREE_STRONG_INSUBORDINATE:
 						UtilText.nodeContentSB.append(UtilText.parse(slave,
-								"<p>"
-									+ "Although <b style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>[npc.name]</b> is here, [npc.she]'s quite clearly not doing any cooking."
+									"is quite clearly not doing any cooking."
 									+ " To make matters worse, [npc.she] doesn't seem to care that you're watching [npc.herHim], and turns [npc.her] back on you."
 								+ "</p>"));
 						break;
 					case NEGATIVE_ONE_DISOBEDIENT:  case NEGATIVE_TWO_UNRULY:
 						UtilText.nodeContentSB.append(UtilText.parse(slave,
-								"<p>"
-									+ "<b style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>[npc.Name]</b> appears to be half-heartedly preparing some food on the other side of the kitchen."
+									"is currently half-heartedly preparing some food on the other side of the kitchen."
 								+ "</p>"));
 						break;
 					case ZERO_FREE_WILLED:
 						UtilText.nodeContentSB.append(UtilText.parse(slave,
-								"<p>"
-									+ "<b style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>[npc.Name]</b> is busy cooking something in one of the kitchen's ovens."
+									" is busy cooking something in one of the kitchen's ovens."
 								+ "</p>"));
 						break;
 					case POSITIVE_ONE_AGREEABLE: case POSITIVE_TWO_OBEDIENT:
 						UtilText.nodeContentSB.append(UtilText.parse(slave,
-								"<p>"
-									+ "<b style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>[npc.Name]</b> is preparing some food, and you can see that [npc.she]'s putting a lot of effort into doing a good job."
+									"is currently preparing some food."
+									+ " You can see that [npc.she]'s putting a lot of effort into making sure that [npc.she]'s doing a good job."
 								+ "</p>"));
 						break;
 					case POSITIVE_THREE_DISCIPLINED: case POSITIVE_FOUR_DUTIFUL: case POSITIVE_FIVE_SUBSERVIENT:
 						UtilText.nodeContentSB.append(UtilText.parse(slave,
-								"<p>"
-									+ "<b style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>[npc.Name]</b> is dutifully making Lilaya a meal, and you notice that [npc.she]'s taking care to prepare it just the way your demonic aunt likes."
+									" is dutifully making Lilaya a meal."
+									+ " You notice that [npc.she]'s taking care to prepare it just the way your demonic aunt likes."
 								+ "</p>"));
 						break;
 					}

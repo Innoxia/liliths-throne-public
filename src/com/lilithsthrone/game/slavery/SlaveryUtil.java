@@ -27,6 +27,7 @@ import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.WorldType;
+import com.lilithsthrone.world.places.PlaceUpgrade;
 
 /**
  * @since 0.1.87
@@ -166,7 +167,7 @@ public class SlaveryUtil implements Serializable {
 					}
 				}
 				
-				if(Math.random()<0.05f || (Math.random()<0.5f && (slave.getSlaveJob()==SlaveJob.PUBLIC_STOCKS || slave.getSlaveJob()==SlaveJob.PROSTITUTE))) {
+				if(Math.random()<0.05f || slave.getSlaveJob()==SlaveJob.MILKING || (Math.random()<0.5f && (slave.getSlaveJob()==SlaveJob.PUBLIC_STOCKS || slave.getSlaveJob()==SlaveJob.PROSTITUTE))) {
 					entry = generateEvent(hour, slave);
 					if(entry!=null) {
 						Main.game.addSlaveryEvent(day, slave, entry);
@@ -256,6 +257,47 @@ public class SlaveryUtil implements Serializable {
 					return new SlaveryEventLogEntry(hour, slave, SlaveEvent.JOB_LAB_ASSISTANT, true);
 				case LIBRARY:
 					return new SlaveryEventLogEntry(hour, slave, SlaveEvent.JOB_LIBRARIAN, true);
+				case MILKING:
+					int cumMilked = 25;
+					int milkMilked = 500;
+					int income = 0;
+					if(slave.getLocationPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_ARTISAN_MILKERS)) {
+						cumMilked = 15;
+						milkMilked = 250;
+					} else if(slave.getLocationPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_INDUSTRIAL_MILKERS)) {
+						cumMilked = 150;
+						milkMilked = 1000;
+					}
+					
+					if(slave.getBreastRawStoredMilkValue()>0) {
+						int milked = Math.min(slave.getBreastRawStoredMilkValue(), milkMilked);
+						slave.incrementBreastStoredMilk(-milkMilked);
+						income = milked * (1 + slave.getMilk().getFluidModifiers().size());
+						generatedIncome += income;
+						
+						return new SlaveryEventLogEntry(hour, slave,
+								SlaveEvent.JOB_MILK_MILKED,
+								Util.newArrayListOfValues(
+										new ListValue<>(SlaveEventTag.JOB_LILAYA_MILK_SOLD)),
+								Util.newArrayListOfValues(
+										new ListValue<>("[style.boldGood("+milked+"ml)] milked: +"+UtilText.formatAsMoney(income, "bold"))),
+								true);
+						
+					} else if(slave.hasPenis() && slave.getPenisRawCumProductionValue()>0) {
+						int milked = Math.min(slave.getPenisRawCumProductionValue(), cumMilked);
+						slave.incrementBreastStoredMilk(-cumMilked);
+						income = milked * (1 + slave.getCum().getFluidModifiers().size());
+						generatedIncome += income;
+						
+						return new SlaveryEventLogEntry(hour, slave,
+								SlaveEvent.JOB_CUM_MILKED,
+								Util.newArrayListOfValues(
+										new ListValue<>(SlaveEventTag.JOB_LILAYA_CUM_SOLD)),
+								Util.newArrayListOfValues(
+										new ListValue<>("[style.boldGood("+milked+"ml)] milked: +"+UtilText.formatAsMoney(income, "bold"))),
+								true);
+					}
+					break;
 				case TEST_SUBJECT:
 					if(slave.getSlaveJobSettings().isEmpty()) {
 						if(slave.hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING)) {
@@ -882,7 +924,11 @@ public class SlaveryUtil implements Serializable {
 												+ (gettingPregnantAttempt?"</br>[style.colourSex("+slave.getName()+" might have gotten pregnant!)]":""))),
 												true);
 							case PUBLIC_STOCKS:
+								//TODO 
+							case MILKING:
+								//TODO 
 							case PROSTITUTE:
+								//TODO 
 								break;
 						}
 					}

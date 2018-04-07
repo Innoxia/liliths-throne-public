@@ -29,7 +29,7 @@
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="OUTSIDE_HOSTILE_MAIDS"><![CDATA[
+	<htmlContent tag="OUTSIDE_REPEAT_HOSTILE_MAIDS"><![CDATA[
 	<p>
 		As Zaranix's demonic maids are sure to recognise you on sight, you decide that knocking on the door would be an extremely bad idea.
 		 You'll have to either sneak in through the garden, or try to kick in the door and storm the place before the maids can call for help.
@@ -37,7 +37,7 @@
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="OUTSIDE_NON_HOSTILE_MAIDS"><![CDATA[
+	<htmlContent tag="OUTSIDE_REPEAT_NON_HOSTILE_MAIDS"><![CDATA[
 	<p>
 		Then again, you could always just knock on the door like a regular visitor.
 		 Perhaps you could convince whoever answers to let you see Arthur?

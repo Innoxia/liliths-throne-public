@@ -58,7 +58,7 @@ public class PrologueFemale extends NPC {
 				new CharacterInventory(10),
 				WorldType.EMPTY,
 				PlaceType.GENERIC_EMPTY_TILE,
-				false, null);
+				false);
 		
 		if(!isImported) {
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);

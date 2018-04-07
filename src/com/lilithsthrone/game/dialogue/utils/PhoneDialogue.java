@@ -54,8 +54,8 @@ import com.lilithsthrone.utils.WeaponRarityComparator;
 
 /**
  * @since 0.1.0
- * @version 0.2.2
- * @author Innoxia
+ * @version 0.2.3
+ * @author Innoxia, tukaima
  */
 public class PhoneDialogue {
 
@@ -1687,7 +1687,7 @@ public class PhoneDialogue {
 						
 						title = Util.capitaliseSentence(race.getName());
 						raceSB.setLength(0);
-						raceSB.append("<div class='encyclopedia-container'>"
+						raceSB.append("<div class='container-full-width' style='width:calc(40% - 16px); float:right;'>"
 								+ "<p style='width:100%; text-align:center;'><b style='color:"+race.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(race.getName())+"</b></br>"
 										+ "Average stats</p>"
 								+ "<table align='center'>"
@@ -1721,19 +1721,11 @@ public class PhoneDialogue {
 										+ "<td>-</td>"
 									+ "</tr>");
 						
-						for(Subspecies sub : Subspecies.values()) {
-							if(sub.getRace()==race) {
-								raceSB.append(
-										"<tr>"
-											+"<th>Subspecies:</th>"
-											+ "<th><b style='color:"+Femininity.valueOf(racialBody.getFemaleFemininity()).getColour().toWebHexString()+";'>"+Util.capitaliseSentence(sub.getSingularFemaleName())+"</b></th>"
-											+ "<th><b style='color:"+Femininity.valueOf(racialBody.getMaleFemininity()).getColour().toWebHexString()+";'>"+Util.capitaliseSentence(sub.getSingularMaleName())+"</b></th>"
-										+ "</tr>");
-							}
-						}
 						
 						raceSB.append("</table>"
-								+ "</div>");
+								+ "</div>"
+								+ "<details style='width:calc(60% - 16px); float:left;'>"
+								+ "<summary>Subspecies</summary>");
 						
 						for(Subspecies sub : Subspecies.values()) {
 							if(sub.getRace()==race) {
@@ -1751,7 +1743,8 @@ public class PhoneDialogue {
 						
 						
 						raceSB.append(
-								"<h6>"+Util.capitaliseSentence(race.getName())+" Lore</h6>"
+								"</details>"
+								+ "<h6>"+Util.capitaliseSentence(race.getName())+" Lore</h6>"
 									+race.getBasicDescription()
 									+ (Main.getProperties().isAdvancedRaceKnowledgeDiscovered(race)
 										?race.getAdvancedDescription()

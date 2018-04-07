@@ -24,6 +24,7 @@ import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.universal.SMDoggy;
 import com.lilithsthrone.game.sex.managers.universal.SMStanding;
 import com.lilithsthrone.game.slavery.SlaveJob;
+import com.lilithsthrone.game.slavery.SlavePermissionSetting;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.ListValue;
@@ -565,65 +566,137 @@ public class SlaveDialogue {
 				
 				if (index == 1) { //TODO improve descriptions and affection hit from rape
 					if(Main.game.isNonConEnabled() && !Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer())) {
-						return new ResponseSex("Rape", "[npc.Name] is definitely not interested in having sex with you, but it's not like [npc.she] has a choice in the matter...", 
-								false, false,
-								new SMStanding(
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_SUBMISSIVE))),
-								AFTER_SEX,
-								"<p>"
-									+ "Grinning, you step forwards and pull [npc.name] into a passionate kiss."
-									+ " [npc.She] desperately tries to push you away, [npc.moaning],"
-									+ " [npc.speech(No! Stop!)]"
-								+ "</p>") {
-							@Override
-							public void effects() {
-								if(Main.game.getActiveNPC().hasFetish(Fetish.FETISH_NON_CON_SUB)) {
-									Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), 10));
-								} else {
-									Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), -50));
+						if(Main.game.getActiveNPC().hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_CRAWLING)) {
+							return new ResponseSex("Rape", "[npc.Name] is definitely not interested in having sex with you, but it's not like [npc.she] has a choice in the matter...", 
+									true, false,
+									new SMDoggy(
+											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_BEHIND)),
+											Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
+									AFTER_SEX,
+									"<p>"
+										+ "As you've instructed [npc.name] to crawl everywhere [npc.she] goes, there's nothing stopping you from simply stepping around behind [npc.herHim] and dropping to your knees,"
+											+ " ready to fuck [npc.herHim] in the doggy-style position."
+										+ " Reaching down to grab [npc.her] [npc.ass+], you [npc.moanVerb],"
+										+ " [pc.speech(~Mmm!~ This is going to be good!)]"
+									+ "</p>"
+									+ "<p>"
+										+ "[npc.Name] tries to crawl away, but you keep a firm grip on [npc.her] [npc.hips+], preventing [npc.herHim] from escaping."
+										+ " Turning back to try and push you away, [npc.she] [npc.sobs+],"
+										+ " [npc.speech(No! Stop! Leave me alone!)]"
+									+ "</p>") {
+								@Override
+								public void effects() {
+									Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), 5));
 								}
-							}
-						};
+							};
+							
+						} else {
+							return new ResponseSex("Rape", "[npc.Name] is definitely not interested in having sex with you, but it's not like [npc.she] has a choice in the matter...", 
+									false, false,
+									new SMStanding(
+											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
+											Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_SUBMISSIVE))),
+									AFTER_SEX,
+									"<p>"
+										+ "Grinning, you step forwards and pull [npc.name] into a passionate kiss."
+										+ " [npc.She] desperately tries to push you away, [npc.moaning],"
+										+ " [npc.speech(No! Stop!)]"
+									+ "</p>") {
+								@Override
+								public void effects() {
+									if(Main.game.getActiveNPC().hasFetish(Fetish.FETISH_NON_CON_SUB)) {
+										Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), 10));
+									} else {
+										Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), -50));
+									}
+								}
+							};
+						}
 						
 					} else {
-						return new ResponseSex("Sex", "Have sex with [npc.name].", 
-								true, false,
-								new SMStanding(
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_SUBMISSIVE))),
-								AFTER_SEX,
-								"<p>"
-									+ "Grinning, you step forwards and pull [npc.name] into a passionate kiss."
-									+ " [npc.She] desperately leans into you, [npc.moaning],"
-									+ " [npc.speech(~Mmm!~ Yes!)]"
-								+ "</p>") {
-							@Override
-							public void effects() {
-								Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), 5));
-							}
-						};
+						if(Main.game.getActiveNPC().hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_CRAWLING)) {
+							return new ResponseSex("Sex", "Have sex with [npc.name].", 
+									true, false,
+									new SMDoggy(
+											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_BEHIND)),
+											Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
+									AFTER_SEX,
+									"<p>"
+										+ "As you've instructed [npc.name] to crawl everywhere [npc.she] goes, there's nothing stopping you from simply stepping around behind [npc.herHim] and dropping to your knees,"
+											+ " ready to fuck [npc.herHim] in the doggy-style position."
+										+ " Reaching down to grab [npc.her] [npc.ass+], you [npc.moanVerb],"
+										+ " [pc.speech(~Mmm!~ This is going to be good!)]"
+									+ "</p>") {
+								@Override
+								public void effects() {
+									Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), 5));
+								}
+							};
+							
+						} else {
+							return new ResponseSex("Sex", "Have sex with [npc.name].", 
+									true, false,
+									new SMStanding(
+											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
+											Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_SUBMISSIVE))),
+									AFTER_SEX,
+									"<p>"
+										+ "Grinning, you step forwards and pull [npc.name] into a passionate kiss."
+										+ " [npc.She] desperately leans into you, [npc.moaning],"
+										+ " [npc.speech(~Mmm!~ Yes!)]"
+									+ "</p>") {
+								@Override
+								public void effects() {
+									Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), 5));
+								}
+							};
+						}
 					}
 					
 				} else if (index == 2) {
 					if(Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer())) {
-						return new ResponseSex("Submissive sex", "Have submissive sex with [npc.name].", 
-								Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)), null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(), null, null, null,
-								true, true,
-								new SMStanding(
-										Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-								AFTER_SEX,
-								"<p>"
-									+ "Taking hold of [npc.name]'s [npc.arms], you take a step forwards, guiding [npc.her] [npc.hands] around your body as you press forwards into a passionate kiss."
-									+ " [npc.She] eagerly pulls you into [npc.herHim], [npc.moaning],"
-									+ " [npc.speech(Looking for some fun, hmm?)]"
+
+						if(Main.game.getActiveNPC().hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_CRAWLING)) {
+							return new ResponseSex("Submissive sex", "Have submissive sex with [npc.name].", 
+									true, false,
+									new SMDoggy(
+											Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.DOGGY_BEHIND)),
+											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
+									AFTER_SEX,
+									"<p>"
+										+ "As you've instructed [npc.name] to crawl everywhere [npc.she] goes, there's nothing stopping you from simply dropping down onto all fours in front of [npc.herHim], presenting your [pc.ass+] as you [pc.moanVerb],"
+										+ " [pc.speech(~Mmm!~ Take me!)]"
+									+ "</p>"
+									+"<p>"
+										+ "Pushing [npc.herself] up onto [npc.her] knees, [npc.name] reaches forwards and grabs your [pc.hips+]."
+										+ " [npc.speech(Looking for some fun, hmm?)]"
 								+ "</p>") {
-							@Override
-							public void effects() {
-								Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), 5));
-							}
-						};
+								@Override
+								public void effects() {
+									Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), 5));
+								}
+							};
+							
+						} else {
+							return new ResponseSex("Submissive sex", "Have submissive sex with [npc.name].", 
+									Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)), null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(), null, null, null,
+									true, true,
+									new SMStanding(
+											Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
+											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+									AFTER_SEX,
+									"<p>"
+										+ "Taking hold of [npc.name]'s [npc.arms], you take a step forwards, guiding [npc.her] [npc.hands] around your body as you press forwards into a passionate kiss."
+										+ " [npc.She] eagerly pulls you into [npc.herHim], [npc.moaning],"
+										+ " [npc.speech(Looking for some fun, hmm?)]"
+									+ "</p>") {
+								@Override
+								public void effects() {
+									Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), 5));
+								}
+							};
+						}
+						
 					} else {
 						return new Response("Submissive sex", "[npc.Name] is not too keen on having sex with you, so you'd need to be the dom...", null);
 					}
@@ -687,7 +760,7 @@ public class SlaveDialogue {
 	private static String getFooterText() {
 		return "<p><i>"
 				+ (Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer())
-						?"From the way [npc.she] keeps on glancing hungrily down at your body, you can tell that [npc.she]'s attracted to you..."
+						?"From the way [npc.she] keeps on glancing hungrily at your body, you can tell that [npc.she]'s attracted to you..."
 						:"[npc.She] doesn't show any interest in being attracted to you...")
 					+ "</i></p>";
 	}
@@ -962,6 +1035,9 @@ public class SlaveDialogue {
 					break;
 				case PROSTITUTE:
 					UtilText.nodeContentSB.append("Wanting to encourage [npc.name] to do [npc.her] best while working as a prostitute in Angel's Kiss, you ask [npc.her] how [npc.she]'s finding it.");
+					break;
+				case MILKING:
+					UtilText.nodeContentSB.append("Wanting to encourage [npc.name] to do [npc.her] best while working in the milking stalls, you ask [npc.her] how [npc.she]'s finding it.");
 					break;
 			}
 			

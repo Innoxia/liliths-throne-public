@@ -1,0 +1,32 @@
+----- CUSTOM ARTOWORK GUIDE -----
+
+All images must be .png or .jpg!
+
+In order for them to display properly in-game, you need to call the NPC's folder the same name as the NPC's class name.
+NPC class names can be seen here: https://github.com/Innoxia/liliths-throne-public/tree/master/src/com/lilithsthrone/game/character/npc
+
+Within these NPC folders, you'll need to add a new artist folder.
+The artist folder name **MUST BE SPECIFIED** in an artist's .xml file. (Use the 'artistJam.xml' as a template.)
+
+Within the new artist-name folder, you need to name the images as 'clothedX', 'partialX', or 'nakedX', where X is a number starting at 1.
+These names determine which images are always visible (those named 'clothedX'), and which images are only shown after having sex with the character (those named 'partialX' and 'nakedX').
+
+Example:
+To add custom images for Rose, you'd need to:
+1) Create an 'artistX.xml' file (where X is whatever name you'd like), in the exact same format and location as the attached artistJam.xml file. For this example, we'll use the artist name 'mod'.
+2) Within Rose's folder, create a new folder called 'mod' (or 'Mod' - the case doesn't matter).
+3) Within this folder, place your images of Rose. In this example, let's say you're adding two images of her with clothing on, and one with her being naked.
+4) Rename the images accordingly. In this example, the images would be called 'clothed1', 'clothed2', and 'naked1'.
+5) Start (or restart) the game, and the images should display.
+
+Example 2:
+To add custom images for Candi, you'd need to:
+1) Create a new folder alongside all the other character folders, called 'brandi'.
+2) FOllow the steps as outlined in Rose's example above.
+
+
+SPECIAL EXCEPTIONS:
+
+Brax has the folders 'brax', 'bree', and 'brandi' for his TFs.
+
+Lilaya has the folders 'lilayaPale', 'lilayaLight', 'lilayaOlive', 'lilayaDark', 'lilayaEbony' for the variations of her skin tone. (Based on your character's starting skin tone.)

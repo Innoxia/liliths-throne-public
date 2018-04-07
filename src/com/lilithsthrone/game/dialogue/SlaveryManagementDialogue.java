@@ -54,6 +54,8 @@ public class SlaveryManagementDialogue {
 	private static StringBuilder miscDialogueSB = new StringBuilder();
 	private static int dayNumber = 1;
 	private static DecimalFormat decimalFormat = new DecimalFormat("#0.00");
+	private static boolean slaveListManagementOverview = false;
+	
 	static {
 		decimalFormat.setRoundingMode(RoundingMode.HALF_EVEN);
 	}
@@ -83,7 +85,14 @@ public class SlaveryManagementDialogue {
 	
 	public static DialogueNodeOld getSlaveryManagementDialogue(NPC slaveTrader) {
 		Main.game.getDialogueFlags().setSlaveTrader(slaveTrader);
+		slaveListManagementOverview = true;
 		return SLAVE_LIST_MANAGEMENT;
+	}
+	
+	public static DialogueNodeOld getSlaveryRoomListDialogue(NPC slaveTrader) {
+		Main.game.getDialogueFlags().setSlaveTrader(slaveTrader);
+		slaveListManagementOverview = false;
+		return SLAVE_LIST;
 	}
 	
 	public static int getDayNumber() {
@@ -98,7 +107,7 @@ public class SlaveryManagementDialogue {
 	
 	private static Response getSlaveryResponse(int index) {
 		if (index == 1) {
-			return new Response("Slavery Overview", "View the slavery overview screen.",  SLAVERY_OVERVIEW) {
+			return new Response("Room List", "View the room management screen.", ROOM_MANAGEMENT) {
 				@Override
 				public void effects() {
 					Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(null);
@@ -111,14 +120,6 @@ public class SlaveryManagementDialogue {
 				public DialogueNodeOld getNextDialogue() {
 					return SlaveryManagementDialogue.getSlaveryManagementDialogue(Main.game.getDialogueFlags().getSlaveTrader());
 				}
-				@Override
-				public void effects() {
-					Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(null);
-				}
-			};
-			
-		} else if (index == 3) {
-			return new Response("Room List", "View the room management screen.", ROOM_MANAGEMENT) {
 				@Override
 				public void effects() {
 					Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(null);
@@ -324,10 +325,6 @@ public class SlaveryManagementDialogue {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(index==1) {
-				return new Response("Slavery Overview", "You are already viewing the slavery overview screen.",  null);
-			}
-			
 			return getSlaveryResponse(index);
 		}
 		
@@ -371,12 +368,12 @@ public class SlaveryManagementDialogue {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if (index == 3) {
-				return new Response("Room List", "You are already viewing the room management screen.", null);
+			if(index==0) {
+				return new Response("Back", "Return to the previous screen.", SLAVERY_OVERVIEW);
 				
+			} else {
+				return null;
 			}
-			
-			return getSlaveryResponse(index);
 		}
 		
 		@Override
@@ -680,7 +677,11 @@ public class SlaveryManagementDialogue {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			return getSlaveryResponse(index);
+			if(index==0) {
+				return new Response("Back", "Return to the previous screen.", ROOM_MANAGEMENT);
+			} else {
+				return null;
+			}
 		}
 		
 		@Override
@@ -992,14 +993,18 @@ public class SlaveryManagementDialogue {
 				}
 				
 			} else if(index == 0) {
-				return new Response("Back", "Exit the slave management screen.", SLAVE_MANAGEMENT_INSPECT) {
+				return new Response("Back", "Exit the slave management screen.", SLAVE_LIST) {
 					@Override
 					public void effects() {
 						Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(null);
 					}
 					@Override
 					public DialogueNodeOld getNextDialogue() {
-						return DebugDialogue.getDefaultDialogueNoEncounter();
+						if(slaveListManagementOverview) {
+							return SLAVE_LIST_MANAGEMENT;
+						} else {
+							return DebugDialogue.getDefaultDialogueNoEncounter();
+						}
 					}
 				};
 				
@@ -1026,12 +1031,7 @@ public class SlaveryManagementDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index == 0) {
-				return new Response("Back", "Exit the slave management screen.", SLAVERY_OVERVIEW) {
-					@Override
-					public DialogueNodeOld getNextDialogue() {
-						return DebugDialogue.getDefaultDialogueNoEncounter();
-					}
-				};
+				return new Response("Back", "Exit the slave management screen.", SLAVERY_OVERVIEW);
 				
 			} else {
 				return SLAVE_LIST.getResponse(responseTab, index);
@@ -1693,7 +1693,11 @@ public class SlaveryManagementDialogue {
 			return new Response("Back", "Return to the slave management screen.",  SLAVE_LIST) {
 				@Override
 				public DialogueNodeOld getNextDialogue() {
-					return SlaveryManagementDialogue.getSlaveryManagementDialogue(Main.game.getDialogueFlags().getSlaveTrader());
+					if(slaveListManagementOverview) {
+						return SLAVE_LIST_MANAGEMENT;
+					} else {
+						return SLAVE_LIST;
+					}
 				}
 				@Override
 				public void effects() {

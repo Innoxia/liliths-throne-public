@@ -1969,8 +1969,10 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 	
 	public String incrementObedience(float increment, boolean applyJobPerkGains) {
-		if(applyJobPerkGains && this.isSlave() && this.getOwner().hasTrait(Perk.JOB_TEACHER, true)) {
+		boolean teacherPerkGain = false;
+		if(applyJobPerkGains && increment>0 && this.isSlave() && this.getOwner().hasTrait(Perk.JOB_TEACHER, true)) {
 			increment *= 3;
+			teacherPerkGain = true;
 		}
 		
 		this.obedience = Math.max(-100, Math.min(100, obedience+increment));
@@ -1981,7 +1983,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						+ "[npc.She] now has <b>"+(obedience>0?"+":"")+obedience+"</b> [style.boldObedience(obedience)].</br>"
 						+ ObedienceLevel.getDescription(this, ObedienceLevel.getObedienceLevelFromValue(obedience), true, false)
 					+ "</p>"
-					+ (this.isSlave() && this.getOwner().hasTrait(Perk.JOB_TEACHER, true)
+					+ (teacherPerkGain
 						?"<p style='text-align:center'>"
 							+ "<i>Obedience gain was [style.colourExcellent(tripled)], as "+(this.getOwner().isPlayer()?"you have":this.getOwner().getName()+" has ")+" the '"+Perk.JOB_TEACHER.getName(this.getOwner())+"' trait.</i>"
 						+ "</p>"

@@ -939,18 +939,18 @@ public enum RenderingEngine {
 			}
 			uiAttributeSB.append(
 							// Name box:
-							"<div class='attribute-container'>"
-								+ "<div class='full-width-container'>"
-									+ "<p class='character-name' style='color:"+ Main.game.getPlayer().getWorldLocation().getColour().toWebHexString() + ";'>"
-										+ Main.game.getPlayer().getWorldLocation().getName()
-									+ "</p>"
-								+ "</div>"
-								+ "<div class='full-width-container' style='margin:0;padding:0;'>"
-									+ "<p style='text-align:center;"+ (place.getColour()==null?"":" color:"+place.getColour().toWebHexString()) + ";'>"
-										+ place.getName()
-									+"</p>"
-								+ "</div>"
-							+ "</div>");
+					"<div class='full-width-container' style='background-color:#19191a; border-radius:5px; margin-bottom:8px;'>"
+					+ "<div class='full-width-container'>"
+						+ "<p class='character-name' style='color:"+ Main.game.getPlayer().getWorldLocation().getColour().toWebHexString() + ";'>"
+							+ Main.game.getPlayer().getWorldLocation().getName()
+						+ "</p>"
+					+ "</div>"
+					+ "<div class='full-width-container' style='margin:0;padding:0;'>"
+						+ "<p style='text-align:center;"+ (place.getColour()==null?"":" color:"+place.getColour().toWebHexString()) + ";'>"
+							+ place.getName()
+						+"</p>"
+					+ "</div>"
+				+ "</div>");
 			
 			// Characters Present:
 			uiAttributeSB.append("<div class='attribute-container effects'>"

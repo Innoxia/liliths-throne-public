@@ -10,6 +10,7 @@ import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.places.dominion.zaranixHome.ZaranixHomeGroundFloor;
+import com.lilithsthrone.game.dialogue.places.dominion.zaranixHome.ZaranixHomeGroundFloorRepeat;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
@@ -171,7 +172,7 @@ public class DemonHome {
 					return new Response("Zaranix's Home", "A little way down the road from Arthur's apartment building stands the home of Zaranix; the demon that Scarlett told you about.", ZaranixHomeGroundFloor.OUTSIDE);
 					
 				} else if (Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_H_THE_GREAT_ESCAPE)) {
-					return new Response("Zaranix's Home", "Pay Zaranix another visit. (Not yet implemented!)", null);//ZaranixHomeRepeat.OUTSIDE);
+					return new Response("Zaranix's Home", "Pay Zaranix another visit.", ZaranixHomeGroundFloorRepeat.OUTSIDE);
 				}
 				return null;
 
@@ -233,7 +234,7 @@ public class DemonHome {
 				}
 				
 			} else if (index == 0) {
-				return new Response("Leave", "Leave the building and head back out into Demon Home.", DEMON_HOME_STREET);
+				return new Response("Leave", "Leave the building and head back out into Demon Home.", DEMON_HOME_STREET_ARTHUR);
 				
 			} else {
 				return null;
@@ -315,7 +316,7 @@ public class DemonHome {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
-				return new Response("Leave", "You've done all you can here. Head back outside to Demon Home.", DEMON_HOME_STREET);
+				return new Response("Leave", "You've done all you can here. Head back outside to Demon Home.", DEMON_HOME_STREET_ARTHUR);
 				
 			} else {
 				return null;
@@ -342,7 +343,7 @@ public class DemonHome {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
-				return new Response("Leave", "You've done all you can here. Head back outside to Demon Home.</br>" + "<b>There is no further content for Felicity in this version.</b>", DEMON_HOME_STREET);
+				return new Response("Leave", "You've done all you can here. Head back outside to Demon Home.</br>" + "<b>There is no further content for Felicity in this version.</b>", DEMON_HOME_STREET_ARTHUR);
 				
 			} else {
 				return null;

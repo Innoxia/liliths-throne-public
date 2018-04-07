@@ -66,7 +66,7 @@ public class Ashley extends NPC {
 				new CharacterInventory(10),
 				WorldType.SHOPPING_ARCADE,
 				PlaceType.SHOPPING_ARCADE_ASHLEYS_SHOP,
-				true, null);
+				true);
 
 		if(!isImported) {
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);

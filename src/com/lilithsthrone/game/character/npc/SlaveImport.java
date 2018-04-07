@@ -36,7 +36,7 @@ public class SlaveImport extends NPC {
 	public SlaveImport(boolean isImported) {
 		super(new NameTriplet("Slave"), "Generic slave.",
 				1, Gender.F_V_B_FEMALE, RacialBody.HUMAN, RaceStage.HUMAN,
-				new CharacterInventory(0), WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, false, null);
+				new CharacterInventory(0), WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, false);
 	}
 	
 	@Override

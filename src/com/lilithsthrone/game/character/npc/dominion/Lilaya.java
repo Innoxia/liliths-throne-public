@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,6 +56,69 @@ public class Lilaya extends NPC {
 
 	private static final long serialVersionUID = 1L;
 
+	private static List<Artwork> lilayaPaleArtwork = new ArrayList<>();
+	private static List<Artwork> lilayaLightArtwork = new ArrayList<>();
+	private static List<Artwork> lilayaOliveArtwork = new ArrayList<>();
+	private static List<Artwork> lilayaDarkArtwork = new ArrayList<>();
+	private static List<Artwork> lilayaEbonyArtwork = new ArrayList<>();
+	
+	static {
+		String artworkFolderName = "lilayaPale";
+				
+		if(artworkFolderName!=null && !artworkFolderName.isEmpty()) {
+			for(Artist artist : Artwork.allArtists) {
+				File f = new File("res/images/characters/"+artworkFolderName+"/"+artist.getFolderName());
+				if(f.exists()) {
+					lilayaPaleArtwork.add(new Artwork(artworkFolderName, artist));
+				}
+			}
+		}
+		
+		artworkFolderName = "lilayaLight";
+		
+		if(artworkFolderName!=null && !artworkFolderName.isEmpty()) {
+			for(Artist artist : Artwork.allArtists) {
+				File f = new File("res/images/characters/"+artworkFolderName+"/"+artist.getFolderName());
+				if(f.exists()) {
+					lilayaLightArtwork.add(new Artwork(artworkFolderName, artist));
+				}
+			}
+		}
+		
+		artworkFolderName = "lilayaOlive";
+		
+		if(artworkFolderName!=null && !artworkFolderName.isEmpty()) {
+			for(Artist artist : Artwork.allArtists) {
+				File f = new File("res/images/characters/"+artworkFolderName+"/"+artist.getFolderName());
+				if(f.exists()) {
+					lilayaOliveArtwork.add(new Artwork(artworkFolderName, artist));
+				}
+			}
+		}
+		
+		artworkFolderName = "lilayaDark";
+		
+		if(artworkFolderName!=null && !artworkFolderName.isEmpty()) {
+			for(Artist artist : Artwork.allArtists) {
+				File f = new File("res/images/characters/"+artworkFolderName+"/"+artist.getFolderName());
+				if(f.exists()) {
+					lilayaDarkArtwork.add(new Artwork(artworkFolderName, artist));
+				}
+			}
+		}
+		
+		artworkFolderName = "lilayaEbony";
+		
+		if(artworkFolderName!=null && !artworkFolderName.isEmpty()) {
+			for(Artist artist : Artwork.allArtists) {
+				File f = new File("res/images/characters/"+artworkFolderName+"/"+artist.getFolderName());
+				if(f.exists()) {
+					lilayaEbonyArtwork.add(new Artwork(artworkFolderName, artist));
+				}
+			}
+		}
+	}
+	
 	// Mother's name is Lyssieth
 
 	public Lilaya() {
@@ -66,8 +130,7 @@ public class Lilaya extends NPC {
 				"Along with your twin cousins, your aunt Lily was the only family you'd ever known." + " Although she still exists in this world, she isn't your aunt any more, and in this reality, she's a half-demon called 'Lilaya'."
 						+ " Whereas your old aunt was a researcher at the city museum, Lilaya is a privately-funded researcher of the arcane."
 						+ " Due to her demonic appearance and the fact that she's the daughter of the Lilin Lyssieth, people usually regard Lilaya with a mixture of fear and respect.",
-				10, Gender.F_V_B_FEMALE, RacialBody.DEMON, RaceStage.PARTIAL_FULL, new CharacterInventory(10), WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, true,
-				Util.newArrayListOfValues(new ListValue<>(new Artwork("lilaya", Artist.JAM))));
+				10, Gender.F_V_B_FEMALE, RacialBody.DEMON, RaceStage.PARTIAL_FULL, new CharacterInventory(10), WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, true);
 
 		if(!isImported) {
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
@@ -119,6 +182,27 @@ public class Lilaya extends NPC {
 	@Override
 	public boolean isUnique() {
 		return true;
+	}
+
+	@Override
+	public List<Artwork> getArtworkList() {
+		if(this.getCovering(BodyCoveringType.HUMAN).getPrimaryColour()==Colour.SKIN_PALE) {
+			return lilayaPaleArtwork;
+			
+		} else if(this.getCovering(BodyCoveringType.HUMAN).getPrimaryColour()==Colour.SKIN_LIGHT) {
+			return lilayaLightArtwork;
+			
+		} else if(this.getCovering(BodyCoveringType.HUMAN).getPrimaryColour()==Colour.SKIN_OLIVE) {
+			return lilayaOliveArtwork;
+			
+		} else if(this.getCovering(BodyCoveringType.HUMAN).getPrimaryColour()==Colour.SKIN_DARK) {
+			return lilayaDarkArtwork;
+			
+		} else if(this.getCovering(BodyCoveringType.HUMAN).getPrimaryColour()==Colour.SKIN_EBONY) {
+			return lilayaEbonyArtwork;
+		}
+		
+		return lilayaLightArtwork;
 	}
 	
 	@Override

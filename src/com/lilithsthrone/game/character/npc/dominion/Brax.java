@@ -1,5 +1,7 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -91,9 +93,44 @@ public class Brax extends NPC {
 
 	private static final long serialVersionUID = 1L;
 
-	private static Artwork braxArtwork = new Artwork("brax", Artist.JAM);
-	private static Artwork breeArtwork = new Artwork("bree", Artist.JAM);
-	private static Artwork brandiArtwork = new Artwork("brandi", Artist.JAM);
+	private static List<Artwork> braxArtwork = new ArrayList<>();
+	private static List<Artwork> breeArtwork = new ArrayList<>();
+	private static List<Artwork> brandiArtwork = new ArrayList<>();
+	
+	static {
+		String artworkFolderName = "brax";
+				
+		if(artworkFolderName!=null && !artworkFolderName.isEmpty()) {
+			for(Artist artist : Artwork.allArtists) {
+				File f = new File("res/images/characters/"+artworkFolderName+"/"+artist.getFolderName());
+				if(f.exists()) {
+					braxArtwork.add(new Artwork(artworkFolderName, artist));
+				}
+			}
+		}
+		
+		artworkFolderName = "bree";
+		
+		if(artworkFolderName!=null && !artworkFolderName.isEmpty()) {
+			for(Artist artist : Artwork.allArtists) {
+				File f = new File("res/images/characters/"+artworkFolderName+"/"+artist.getFolderName());
+				if(f.exists()) {
+					breeArtwork.add(new Artwork(artworkFolderName, artist));
+				}
+			}
+		}
+		
+		artworkFolderName = "brandi";
+		
+		if(artworkFolderName!=null && !artworkFolderName.isEmpty()) {
+			for(Artist artist : Artwork.allArtists) {
+				File f = new File("res/images/characters/"+artworkFolderName+"/"+artist.getFolderName());
+				if(f.exists()) {
+					brandiArtwork.add(new Artwork(artworkFolderName, artist));
+				}
+			}
+		}
+	}
 	
 	public Brax() {
 		this(false);
@@ -102,7 +139,7 @@ public class Brax extends NPC {
 	public Brax(boolean isImported) {
 		super(new NameTriplet("Brax", "Bree", "Brandi"),
 				"The 'Chief of Dominion Operations', Brax is a high-ranking enforcer. Muscular, handsome, and with an incredibly dominant personality, he's the focus of every female enforcer's attention.", 3, Gender.M_P_MALE,
-				RacialBody.WOLF_MORPH, RaceStage.GREATER, new CharacterInventory(10), WorldType.ENFORCER_HQ, PlaceType.ENFORCER_HQ_BRAXS_OFFICE, true, null);
+				RacialBody.WOLF_MORPH, RaceStage.GREATER, new CharacterInventory(10), WorldType.ENFORCER_HQ, PlaceType.ENFORCER_HQ_BRAXS_OFFICE, true);
 		
 		if(!isImported) {
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
@@ -141,13 +178,13 @@ public class Brax extends NPC {
 	@Override
 	public List<Artwork> getArtworkList() {
 		if(this.getName().equalsIgnoreCase("Brax")) {
-			return Util.newArrayListOfValues(new ListValue<>(braxArtwork));
+			return braxArtwork;
 			
 		} else if(this.getName().equalsIgnoreCase("Bree")) {
-			return Util.newArrayListOfValues(new ListValue<>(breeArtwork));
+			return breeArtwork;
 			
 		} else {
-			return Util.newArrayListOfValues(new ListValue<>(brandiArtwork));
+			return brandiArtwork;
 		}
 	}
 	

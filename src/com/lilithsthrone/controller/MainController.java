@@ -165,6 +165,7 @@ import com.lilithsthrone.game.slavery.SlaveJobSetting;
 import com.lilithsthrone.game.slavery.SlavePermission;
 import com.lilithsthrone.game.slavery.SlavePermissionSetting;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.rendering.Artist;
 import com.lilithsthrone.rendering.Artwork;
 import com.lilithsthrone.rendering.RenderingEngine;
 import com.lilithsthrone.utils.Colour;
@@ -1167,39 +1168,72 @@ public class MainController implements Initializable {
 				|| Main.game.getCurrentDialogueNode().equals(SlaveryManagementDialogue.SLAVE_MANAGEMENT_INSPECT)) {
 			if(CharactersPresentDialogue.characterViewed instanceof NPC && !((NPC)CharactersPresentDialogue.characterViewed).getArtworkList().isEmpty()) {
 				
-				Artwork artwork = ((NPC)CharactersPresentDialogue.characterViewed).getArtworkList().get(0);
+				Artwork artwork = ((NPC)CharactersPresentDialogue.characterViewed).getArtworkList().get(((NPC)CharactersPresentDialogue.characterViewed).getArtworkIndex());
 				
 				id = "ARTWORK_INFO";
 				if (((EventTarget) document.getElementById(id)) != null) {
 					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-						Util.openLinkInDefaultBrowser(artwork.getArtist().getWebsites().get(0).getURL());
+						if(!artwork.getArtist().getWebsites().isEmpty()) {
+							Util.openLinkInDefaultBrowser(artwork.getArtist().getWebsites().get(0).getURL());
+						}
 					}, false);
 					
 					addEventListener(document, id, "mousemove", moveTooltipListener, false);
 					addEventListener(document, id, "mouseleave", hideTooltipListener, false);
 					addEventListener(document, id, "mouseenter", new TooltipInformationEventListener().setInformation(
 							"Artwork by <b style='color:"+artwork.getArtist().getColour().toWebHexString()+";'>"+artwork.getArtist().getName()+"</b>",
-							"Click this button to open <b style='color:"+artwork.getArtist().getColour().toWebHexString()+";'>"+artwork.getArtist().getWebsites().get(0).getName()+"</b>"
-									+ " ("+artwork.getArtist().getWebsites().get(0).getURL()+") <b>externally</b> in your default browser!"), false);
+							(artwork.getArtist().getWebsites().isEmpty()
+									?"This artist has no associated websites!"
+									:"Click this button to open <b style='color:"+artwork.getArtist().getColour().toWebHexString()+";'>"+artwork.getArtist().getWebsites().get(0).getName()+"</b>"
+										+ " ("+artwork.getArtist().getWebsites().get(0).getURL()+") <b>externally</b> in your default browser!")),
+							false);
 				}
 				
 				id = "ARTWORK_PREVIOUS";
 				if (((EventTarget) document.getElementById(id)) != null) {
 					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-						artwork.incrementIndex(-1);
-						CharactersPresentDialogue.resetContent(CharactersPresentDialogue.characterViewed);
-						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						if(artwork.getTotalArtworkCount()>1) {
+							artwork.incrementIndex(-1);
+							CharactersPresentDialogue.resetContent(CharactersPresentDialogue.characterViewed);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}
 					}, false);
 				}
 				
 				id = "ARTWORK_NEXT";
 				if (((EventTarget) document.getElementById(id)) != null) {
 					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-						artwork.incrementIndex(1);
-						CharactersPresentDialogue.resetContent(CharactersPresentDialogue.characterViewed);
-						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						if(artwork.getTotalArtworkCount()>1) {
+							artwork.incrementIndex(1);
+							CharactersPresentDialogue.resetContent(CharactersPresentDialogue.characterViewed);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}
 					}, false);
 				}
+				
+				id = "ARTWORK_ARTIST_PREVIOUS";
+				if (((EventTarget) document.getElementById(id)) != null) {
+					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+						if(((NPC)CharactersPresentDialogue.characterViewed).getArtworkList().size()>1) {
+							((NPC)CharactersPresentDialogue.characterViewed).incrementArtworkIndex(-1);
+							CharactersPresentDialogue.resetContent(CharactersPresentDialogue.characterViewed);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}
+					}, false);
+				}
+				
+				id = "ARTWORK_ARTIST_NEXT";
+				if (((EventTarget) document.getElementById(id)) != null) {
+					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+						if(((NPC)CharactersPresentDialogue.characterViewed).getArtworkList().size()>1) {
+							((NPC)CharactersPresentDialogue.characterViewed).incrementArtworkIndex(1);
+							CharactersPresentDialogue.resetContent(CharactersPresentDialogue.characterViewed);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}
+					}, false);
+				}
+				
+				
 			}
 		}
 		
@@ -4657,6 +4691,17 @@ public class MainController implements Initializable {
 					Main.saveProperties();
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}, false);
+			}
+
+			for(Artist artist : Artwork.allArtists) {
+				id = "ARTIST_"+artist.getFolderName();
+				if (((EventTarget) document.getElementById(id)) != null) {
+					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+						Main.getProperties().preferredArtist = artist.getFolderName();
+						Main.saveProperties();
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+					}, false);
+				}
 			}
 			
 			id = "NON_CON_ON";

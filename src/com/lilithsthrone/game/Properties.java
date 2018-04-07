@@ -61,6 +61,7 @@ public class Properties implements Serializable {
 	public String race = "";
 	public String quest = "";
 	public String versionNumber = "";
+	public String preferredArtist = "jam";
 
 	public int fontSize = 18;
 	public int level = 1;
@@ -217,6 +218,7 @@ public class Properties implements Serializable {
 			createXMLElementWithValue(doc, previousSave, "versionNumber", Main.VERSION_NUMBER);
 			createXMLElementWithValue(doc, previousSave, "lastQuickSaveName", lastQuickSaveName);
 			
+			
 
 			Element valuesElement = doc.createElement("propertyValues");
 			properties.appendChild(valuesElement);
@@ -228,22 +230,9 @@ public class Properties implements Serializable {
 			Element settings = doc.createElement("settings");
 			properties.appendChild(settings);
 			createXMLElementWithValue(doc, settings, "fontSize", String.valueOf(fontSize));
-//			createXMLElementWithValue(doc, settings, "lightTheme", String.valueOf(lightTheme));
-//			createXMLElementWithValue(doc, settings, "furryTailPenetrationContent", String.valueOf(furryTailPenetrationContent));
-//			createXMLElementWithValue(doc, settings, "nonConContent", String.valueOf(nonConContent));
-//			createXMLElementWithValue(doc, settings, "incestContent", String.valueOf(incestContent));
-//			createXMLElementWithValue(doc, settings, "inflationContent", String.valueOf(inflationContent));
-//			createXMLElementWithValue(doc, settings, "facialHairContent", String.valueOf(facialHairContent));
-//			createXMLElementWithValue(doc, settings, "pubicHairContent", String.valueOf(pubicHairContent));
-//			createXMLElementWithValue(doc, settings, "bodyHairContent", String.valueOf(bodyHairContent));
-//			createXMLElementWithValue(doc, settings, "feminineBeardsContent", String.valueOf(feminineBeardsContent));
-//			createXMLElementWithValue(doc, settings, "lactationContent", String.valueOf(lactationContent));
-//			createXMLElementWithValue(doc, settings, "urethralContent", String.valueOf(urethralContent));
 			
-//			createXMLElementWithValue(doc, settings, "overwriteWarning", String.valueOf(overwriteWarning));
-//			createXMLElementWithValue(doc, settings, "fadeInText", String.valueOf(fadeInText));
-//			createXMLElementWithValue(doc, settings, "calendarDisplay", String.valueOf(calendarDisplay));
-//			createXMLElementWithValue(doc, settings, "twentyFourHourTime", String.valueOf(twentyFourHourTime));
+			createXMLElementWithValue(doc, settings, "preferredArtist", preferredArtist);
+			
 			createXMLElementWithValue(doc, settings, "androgynousIdentification", String.valueOf(androgynousIdentification));
 			createXMLElementWithValue(doc, settings, "humanEncountersLevel", String.valueOf(humanEncountersLevel));
 			createXMLElementWithValue(doc, settings, "multiBreasts", String.valueOf(multiBreasts));
@@ -257,11 +246,6 @@ public class Properties implements Serializable {
 			createXMLElementWithValue(doc, settings, "pregnancyLactationLimit", String.valueOf(pregnancyLactationLimit));
 			
 			createXMLElementWithValue(doc, settings, "forcedFetishPercentage", String.valueOf(forcedFetishPercentage));
-
-//			createXMLElementWithValue(doc, settings, "newWeaponDiscovered", String.valueOf(newWeaponDiscovered));
-//			createXMLElementWithValue(doc, settings, "newClothingDiscovered", String.valueOf(newClothingDiscovered));
-//			createXMLElementWithValue(doc, settings, "newItemDiscovered", String.valueOf(newItemDiscovered));
-//			createXMLElementWithValue(doc, settings, "newRaceDiscovered", String.valueOf(newRaceDiscovered));
 
 			createXMLElementWithValue(doc, settings, "difficultyLevel", difficultyLevel.toString());
 			
@@ -524,6 +508,7 @@ public class Properties implements Serializable {
 				nodes = doc.getElementsByTagName("propertyValues");
 				element = (Element) nodes.item(0);
 				if(element!=null) {
+					values.clear();
 					for(int i=0; i < element.getElementsByTagName("propertyValue").getLength(); i++){
 						Element e = (Element) element.getElementsByTagName("propertyValue").item(i);
 						
@@ -579,6 +564,10 @@ public class Properties implements Serializable {
 				nodes = doc.getElementsByTagName("settings");
 				element = (Element) nodes.item(0);
 				fontSize = Integer.valueOf(((Element)element.getElementsByTagName("fontSize").item(0)).getAttribute("value"));
+				
+				if(element.getElementsByTagName("preferredArtist").item(0)!=null) {
+					preferredArtist =((Element)element.getElementsByTagName("preferredArtist").item(0)).getAttribute("value");
+				}
 				
 				if(element.getElementsByTagName("difficultyLevel").item(0)!=null) {
 					difficultyLevel = DifficultyLevel.valueOf(((Element)element.getElementsByTagName("difficultyLevel").item(0)).getAttribute("value"));

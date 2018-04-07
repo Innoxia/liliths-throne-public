@@ -56,7 +56,7 @@ public class DominionSuccubusAttacker extends NPC {
 	
 	public DominionSuccubusAttacker(boolean isImported) {
 		super(null, "", 5, Gender.F_V_B_FEMALE, RacialBody.DEMON, RaceStage.GREATER,
-				new CharacterInventory(10), WorldType.DOMINION, PlaceType.DOMINION_BACK_ALLEYS, false, null);
+				new CharacterInventory(10), WorldType.DOMINION, PlaceType.DOMINION_BACK_ALLEYS, false);
 
 		if(!isImported) {
 			

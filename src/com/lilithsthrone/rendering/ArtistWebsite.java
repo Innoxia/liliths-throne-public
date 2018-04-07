@@ -9,12 +9,10 @@ public class ArtistWebsite {
 
 	private String name;
 	private String URL;
-	private String buttonId;
 	
-	public ArtistWebsite(String name, String URL, String buttonId) {
+	public ArtistWebsite(String name, String URL) {
 		this.name = name;
 		this.URL = URL;
-		this.buttonId = buttonId;
 	}
 	
 	public String getName() {
@@ -24,9 +22,4 @@ public class ArtistWebsite {
 	public String getURL() {
 		return URL;
 	}
-	
-	public String getButtonId() {
-		return buttonId;
-	}
-	
 }

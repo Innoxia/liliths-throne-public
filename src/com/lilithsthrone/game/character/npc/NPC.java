@@ -79,6 +79,7 @@ import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.game.slavery.SlaveJob;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.rendering.Artist;
 import com.lilithsthrone.rendering.Artwork;
 import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.Colour;
@@ -117,10 +118,10 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	protected Value<String, AbstractItem> heldTransformativePotion = null;
 	
 	private List<Artwork> artworkList;
+	private int artworkIndex = -1;
 	
 	protected NPC(NameTriplet nameTriplet, String description, int level, Gender startingGender, RacialBody startingRace,
-			RaceStage stage, CharacterInventory inventory, WorldType worldLocation, PlaceType startingPlace, boolean addedToContacts,
-			List<Artwork> artworkList) {
+			RaceStage stage, CharacterInventory inventory, WorldType worldLocation, PlaceType startingPlace, boolean addedToContacts) {
 		super(nameTriplet, description, level, startingGender, startingRace, stage, inventory, worldLocation, startingPlace);
 		
 		this.addedToContacts = addedToContacts;
@@ -132,10 +133,17 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		
 		NPCFlagValues = new HashSet<>();
 		
-		if(artworkList==null) {
-			this.artworkList = new ArrayList<>();
-		} else {
-			this.artworkList = artworkList;
+		artworkList = new ArrayList<>();
+		
+		String artworkFolderName = this.getClass().getSimpleName();
+		
+		if(artworkFolderName!=null && !artworkFolderName.isEmpty()) {
+			for(Artist artist : Artwork.allArtists) {
+				File f = new File("res/images/characters/"+artworkFolderName+"/"+artist.getFolderName());
+				if(f.exists()) {
+					artworkList.add(new Artwork(artworkFolderName, artist));
+				}
+			}
 		}
 		
 		if(getLocation().equals(Main.game.getPlayer().getLocation()) && getWorldLocation()==Main.game.getPlayer().getWorldLocation()) {
@@ -2643,10 +2651,23 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	public String getCharacterInformationScreen() {
 		infoScreenSB.setLength(0);
 		
-		
 		if(!this.getArtworkList().isEmpty()) {
 			if(Main.getProperties().hasValue(PropertyValue.artwork)) {
-				Artwork artwork = this.getArtworkList().get(0);
+				if(artworkIndex == -1) {
+					int i=0;
+					for(Artwork artworkIteration : this.getArtworkList()) {
+						if(artworkIteration.getArtist().getFolderName().equals(Main.getProperties().preferredArtist)) {
+							artworkIndex = i;
+							break;
+						}
+						i++;
+					}
+					if(artworkIndex == -1) {
+						artworkIndex = 0;
+					}
+				}
+				Artwork artwork = this.getArtworkList().get(artworkIndex);
+				
 				int width = 200;
 				int height = 400;
 				try {
@@ -2664,18 +2685,25 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					nakedRevealed = true;
 				}
 				
-				infoScreenSB.append("<div class='full-width-container' style='position:relative; float:right; width:"+(height>width?"33":"66")+"%; max-width:"+width+"; object-fit:scale-down;'>"
-						+ "<div class='full-width-container' style='width:100%; margin:0;'>"
-							+ "<img id='CHARACTER_IMAGE' style='"+(nakedRevealed || artwork.isCurrentImageClothed()?"":"-webkit-filter: brightness(0%);")+" width:100%;' src='file:/"+artwork.getCurrentImage()+"'/>"
-							+ "<div class='overlay no-pointer no-highlight' style='text-align:center;'>" // Add overlay div to stop javaFX's insane image drag+drop
-								+(nakedRevealed || artwork.isCurrentImageClothed()?"":"<p style='margin-top:50%; font-weight:bold; color:"+Colour.BASE_GREY.toWebHexString()+";'>Unlocked through sex!</p>")
-							+"</div>" 
-							+ "<div class='title-button' id='ARTWORK_INFO' style='left:auto;right:4px;'>"+SVGImages.SVG_IMAGE_PROVIDER.getInformationIcon()+"</div>"
-						+ "</div>"
-							+ "<div class='normal-button' id='ARTWORK_PREVIOUS' style='float:left; width:10%; margin:0 15%; padding:0; text-align:center;'>&lt;</div>"
-							+ "<div class='full-width-container' style='float:left; width:20%; margin:0; text-align:center;'>"+(artwork.getIndex()+1)+"/"+artwork.getTotalArtworkCount()+"</div>"
-							+ "<div class='normal-button' id='ARTWORK_NEXT' style='float:left; width:10%; margin:0 15%; padding:0; text-align:center;'>&gt;</div>"
-					+ "</div>");
+				int percentageWidth = (height>=width?33:66);
+				
+				infoScreenSB.append(
+						"<div class='full-width-container' style='position:relative; float:right; width:"+percentageWidth+"%; max-width:"+width+"; object-fit:scale-down;'>"
+							+ "<div class='full-width-container' style='width:100%; margin:0;'>"
+								+ "<img id='CHARACTER_IMAGE' style='"+(nakedRevealed || artwork.isCurrentImageClothed()?"":"-webkit-filter: brightness(0%);")+" width:100%; image-rendering: -webkit-optimize-contrast;' src='file:/"+artwork.getCurrentImage()+"'/>"
+								+ "<div class='overlay no-pointer no-highlight' style='text-align:center;'>" // Add overlay div to stop javaFX's insane image drag+drop
+									+(nakedRevealed || artwork.isCurrentImageClothed()?"":"<p style='margin-top:50%; font-weight:bold; color:"+Colour.BASE_GREY.toWebHexString()+";'>Unlocked through sex!</p>")
+								+"</div>" 
+								+ "<div class='title-button' id='ARTWORK_INFO' style='background:transparent; left:auto; right:4px;'>"+SVGImages.SVG_IMAGE_PROVIDER.getInformationIcon()+"</div>"
+							+ "</div>"
+								+ "<div class='normal-button"+(artwork.getTotalArtworkCount()==1?" disabled":"")+"' id='ARTWORK_PREVIOUS' style='float:left; width:10%; margin:0 10%; padding:0; text-align:center;'>&lt;</div>"
+								+ "<div class='full-width-container' style='float:left; width:40%; margin:0; text-align:center;'>"+(artwork.getIndex()+1)+"/"+artwork.getTotalArtworkCount()+"</div>"
+								+ "<div class='normal-button"+(artwork.getTotalArtworkCount()==1?" disabled":"")+"' id='ARTWORK_NEXT' style='float:left; width:10%; margin:0 10%; padding:0; text-align:center;'>&gt;</div>"
+								
+								+ "<div class='normal-button"+(this.getArtworkList().size()==1?" disabled":"")+"' id='ARTWORK_ARTIST_PREVIOUS' style='float:left; width:10%; margin:0 10%; padding:0; text-align:center;'>&lt;</div>"
+								+ "<div class='full-width-container' style='float:left; width:40%; margin:0; text-align:center;'>"+this.getArtworkList().get(artworkIndex).getArtist().getName()+"</div>"
+								+ "<div class='normal-button"+(this.getArtworkList().size()==1?" disabled":"")+"' id='ARTWORK_ARTIST_NEXT' style='float:left; width:10%; margin:0 10%; padding:0; text-align:center;'>&gt;</div>"
+							+ "</div>");
 				
 			} else {
 //				infoScreenSB.append("<div class='full-width-container' style='position:relative; float:right; width:30%; margin: 5%; text-align:center;'>"
@@ -2798,6 +2826,22 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 
 	public List<Artwork> getArtworkList() {
 		return artworkList;
+	}
+	
+	public int getArtworkIndex() {
+		return artworkIndex;
+	}
+
+	public void setArtworkIndex(int artworkIndex) {
+		artworkIndex = artworkIndex % getArtworkList().size();
+		if(artworkIndex < 0) {
+			artworkIndex = getArtworkList().size() + artworkIndex;
+		}
+		this.artworkIndex = artworkIndex;
+	}
+
+	public void incrementArtworkIndex(int increment) {
+		setArtworkIndex(this.artworkIndex + increment);
 	}
 
 }
