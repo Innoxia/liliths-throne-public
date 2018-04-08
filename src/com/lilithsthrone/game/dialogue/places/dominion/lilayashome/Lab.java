@@ -1014,7 +1014,7 @@ public class Lab {
 						if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.essenceBottledDiscovered)
 								&& !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.essenceOrgasmDiscovered)
 								&& !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.essencePostCombatDiscovered)) {
-							Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, 1);
+							Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, 1, false);
 						}
 					}
 				};
@@ -1343,7 +1343,7 @@ public class Lab {
 										+ "<p>"
 											+ "You now have <b>"+count+" "+(count>1?TFEssence.essenceToItem(TFEssence.ARCANE).getNamePlural(true):TFEssence.essenceToItem(TFEssence.ARCANE).getName(true))+"</b> in your inventory."
 										+ "</p>");
-								Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -1);
+								Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -1, false);
 							}
 						};
 						
@@ -1375,7 +1375,7 @@ public class Lab {
 										+ "<p>"
 											+ "You now have <b>"+count+" "+(count>1?TFEssence.essenceToItem(TFEssence.ARCANE).getNamePlural(true):TFEssence.essenceToItem(TFEssence.ARCANE).getName(true))+"</b> in your inventory."
 										+ "</p>");
-								Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -5);
+								Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -5, false);
 							}
 						};
 						
@@ -1406,7 +1406,7 @@ public class Lab {
 										+ "<p>"
 											+ "You now have <b>"+count+" "+(count>1?TFEssence.essenceToItem(TFEssence.ARCANE).getNamePlural(true):TFEssence.essenceToItem(TFEssence.ARCANE).getName(true))+"</b> in your inventory."
 										+ "</p>");
-								Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -25);
+								Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -25, false);
 							}
 						};
 						
@@ -1438,7 +1438,7 @@ public class Lab {
 										+ "<p>"
 											+ "You now have <b>"+count+" "+(count>1?TFEssence.essenceToItem(TFEssence.ARCANE).getNamePlural(true):TFEssence.essenceToItem(TFEssence.ARCANE).getName(true))+"</b> in your inventory."
 										+ "</p>");
-								Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE));
+								Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE), false);
 								
 							}
 						};
@@ -1519,7 +1519,7 @@ public class Lab {
 					+ " [lilaya.speech(Anyway! D-Don't worry about anything! Three years into the future is nothing! I-I'll try and investigate a little more, ok?!)]"
 				+ "</p>"
 				+ "<p>"
-					+ "It's quite apparent that Lilaya isn't interesting in discussing the matter any more..."
+					+ "It's quite apparent that Lilaya isn't interested in discussing the matter any more..."
 				+ "</p>";
 		}
 
@@ -2563,11 +2563,13 @@ public class Lab {
 						Main.game.getDialogueFlags().values.remove(DialogueFlagValue.reactedToPregnancyLilaya);
 						Main.game.getPlayer().endPregnancy(true);
 						Main.game.getPlayer().setMana(0);
-
-						Main.game.getPlayer().incrementVaginaStretchedCapacity(15);
-						Main.game.getPlayer().incrementVaginaCapacity(
-								(Main.game.getPlayer().getVaginaStretchedCapacity()-Main.game.getPlayer().getVaginaRawCapacityValue())*Main.game.getPlayer().getVaginaPlasticity().getCapacityIncreaseModifier(),
-								false);
+						
+						if(Main.game.getPlayer().getBodyMaterial()!=BodyMaterial.SLIME) {
+							Main.game.getPlayer().incrementVaginaStretchedCapacity(15);
+							Main.game.getPlayer().incrementVaginaCapacity(
+									(Main.game.getPlayer().getVaginaStretchedCapacity()-Main.game.getPlayer().getVaginaRawCapacityValue())*Main.game.getPlayer().getVaginaPlasticity().getCapacityIncreaseModifier(),
+									false);
+						}
 					}
 				};
 
@@ -2579,10 +2581,12 @@ public class Lab {
 						Main.game.getPlayer().endPregnancy(true);
 						Main.game.getPlayer().setMana(0);
 
-						Main.game.getPlayer().incrementVaginaStretchedCapacity(15);
-						Main.game.getPlayer().incrementVaginaCapacity(
-								(Main.game.getPlayer().getVaginaStretchedCapacity()-Main.game.getPlayer().getVaginaRawCapacityValue())*Main.game.getPlayer().getVaginaPlasticity().getCapacityIncreaseModifier(),
-								false);
+						if(Main.game.getPlayer().getBodyMaterial()!=BodyMaterial.SLIME) {
+							Main.game.getPlayer().incrementVaginaStretchedCapacity(15);
+							Main.game.getPlayer().incrementVaginaCapacity(
+									(Main.game.getPlayer().getVaginaStretchedCapacity()-Main.game.getPlayer().getVaginaRawCapacityValue())*Main.game.getPlayer().getVaginaPlasticity().getCapacityIncreaseModifier(),
+									false);
+						}
 					}
 				};
 
@@ -2820,10 +2824,12 @@ public class Lab {
 						Main.game.getPlayer().endPregnancy(true);
 						Main.game.getPlayer().setMana(0);
 
-						Main.game.getPlayer().incrementVaginaStretchedCapacity(15);
-						Main.game.getPlayer().incrementVaginaCapacity(
-								(Main.game.getPlayer().getVaginaStretchedCapacity()-Main.game.getPlayer().getVaginaRawCapacityValue())*Main.game.getPlayer().getVaginaPlasticity().getCapacityIncreaseModifier(),
-								false);
+						if(Main.game.getPlayer().getBodyMaterial()!=BodyMaterial.SLIME) {
+							Main.game.getPlayer().incrementVaginaStretchedCapacity(15);
+							Main.game.getPlayer().incrementVaginaCapacity(
+									(Main.game.getPlayer().getVaginaStretchedCapacity()-Main.game.getPlayer().getVaginaRawCapacityValue())*Main.game.getPlayer().getVaginaPlasticity().getCapacityIncreaseModifier(),
+									false);
+						}
 					}
 				};
 
@@ -3065,13 +3071,13 @@ public class Lab {
 					case DEMON: case IMP: case IMP_ALPHA:
 						litterSB.append(" mischievous");
 						break;
-					case DOG_MORPH: case DOG_MORPH_DOBERMANN:
+					case DOG_MORPH: case DOG_MORPH_DOBERMANN: case DOG_MORPH_BORDER_COLLIE:
 						litterSB.append(" smiling");
 						break;
 					case ALLIGATOR_MORPH:
 						litterSB.append(" tough");
 						break;
-					case HARPY:
+					case HARPY: case HARPY_RAVEN:
 						litterSB.append(" feminine");
 						break;
 					case HORSE_MORPH:
@@ -3091,7 +3097,9 @@ public class Lab {
 					case SLIME_DEMON:
 					case SLIME_DOG:
 					case SLIME_DOG_DOBERMANN:
+					case SLIME_DOG_BORDER_COLLIE:
 					case SLIME_HARPY:
+					case SLIME_HARPY_RAVEN:
 					case SLIME_HORSE:
 					case SLIME_IMP:
 					case SLIME_REINDEER:
@@ -3142,13 +3150,13 @@ public class Lab {
 					case DEMON: case IMP: case IMP_ALPHA:
 						litterSB.append(" mischievous");
 						break;
-					case DOG_MORPH: case DOG_MORPH_DOBERMANN:
+					case DOG_MORPH: case DOG_MORPH_DOBERMANN: case DOG_MORPH_BORDER_COLLIE:
 						litterSB.append(" smiling");
 						break;
 					case ALLIGATOR_MORPH:
 						litterSB.append(" tough");
 						break;
-					case HARPY:
+					case HARPY: case HARPY_RAVEN:
 						litterSB.append(" feminine");
 						break;
 					case HORSE_MORPH:
@@ -3168,7 +3176,9 @@ public class Lab {
 					case SLIME_DEMON:
 					case SLIME_DOG:
 					case SLIME_DOG_DOBERMANN:
+					case SLIME_DOG_BORDER_COLLIE:
 					case SLIME_HARPY:
+					case SLIME_HARPY_RAVEN:
 					case SLIME_HORSE:
 					case SLIME_IMP:
 					case SLIME_REINDEER:
@@ -3219,13 +3229,13 @@ public class Lab {
 					case DEMON: case IMP: case IMP_ALPHA:
 						litterSB.append(" cheeky");
 						break;
-					case DOG_MORPH: case DOG_MORPH_DOBERMANN:
+					case DOG_MORPH: case DOG_MORPH_DOBERMANN: case DOG_MORPH_BORDER_COLLIE:
 						litterSB.append(" playful");
 						break;
 					case ALLIGATOR_MORPH:
 						litterSB.append(" tough");
 						break;
-					case HARPY:
+					case HARPY: case HARPY_RAVEN:
 						litterSB.append(" feminine");
 						break;
 					case HORSE_MORPH:
@@ -3245,7 +3255,9 @@ public class Lab {
 					case SLIME_DEMON:
 					case SLIME_DOG:
 					case SLIME_DOG_DOBERMANN:
+					case SLIME_DOG_BORDER_COLLIE:
 					case SLIME_HARPY:
+					case SLIME_HARPY_RAVEN:
 					case SLIME_HORSE:
 					case SLIME_IMP:
 					case SLIME_REINDEER:
@@ -3296,13 +3308,13 @@ public class Lab {
 					case DEMON: case IMP: case IMP_ALPHA:
 						litterSB.append(" cheeky");
 						break;
-					case DOG_MORPH: case DOG_MORPH_DOBERMANN:
+					case DOG_MORPH: case DOG_MORPH_DOBERMANN: case DOG_MORPH_BORDER_COLLIE:
 						litterSB.append(" playful");
 						break;
 					case ALLIGATOR_MORPH:
 						litterSB.append(" tough");
 						break;
-					case HARPY:
+					case HARPY: case HARPY_RAVEN:
 						litterSB.append(" feminine");
 						break;
 					case HORSE_MORPH:
@@ -3322,7 +3334,9 @@ public class Lab {
 					case SLIME_DEMON:
 					case SLIME_DOG:
 					case SLIME_DOG_DOBERMANN:
+					case SLIME_DOG_BORDER_COLLIE:
 					case SLIME_HARPY:
+					case SLIME_HARPY_RAVEN:
 					case SLIME_HORSE:
 					case SLIME_IMP:
 					case SLIME_REINDEER:

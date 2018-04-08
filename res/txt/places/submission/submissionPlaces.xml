@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<htmlContent tag="WALKWAYS"><![CDATA[
+	<p>
+		The main tunnels of Submission are surprisingly spacious, clean and full of life.
+		 A deep channel of opaque, greenish water flows at a steady pace down the centre of each passage, and to either side, well-maintained wooden walkways have been built up against the grey stone walls.
+		 Numerous bridges cross the watery divide at regular intervals, and every hundred metres or so, a series of stone steps trails down into the murky river to provide easy access for Submission's aquatic inhabitants.
+	</p>
+	<p>
+		The damp atmosphere holds just enough chill to gently caress any exposed skin, but, thanks to the wide iron grates built into the ceiling, the air doesn't feel stagnant down here.
+		 Looking up trough the iron bars, you're granted an unobstructed view of the sky, and, every now and then, up the occasional skirt.
+		 The dizzying network of pipes and valves that run along the upper-half of the walls makes you feel sorry for whoever has to map and maintain them.
+	</p>
+	<p>
+		Houses and shops of all kinds have been tunnelled out and built into the walls, and, while not as busy as Dominion, there are enough people ambling by to fill the tunnels with a continuous background drone of chatter and laughter.
+		 There seems to be a heavy presence of Enforcers down here, and you can't go more than five minutes without seeing a patrol marching by.
+	</p>
+	<p>
+		Despite Submission being their home, you only see the occasional imp in this area;
+		 evidence that they're so much of a nuisance that the vast majority of them are banished to the dark tunnels that branch off on either side of this main passage.
+		 The vast majority of people that you pass are slimes, alligator-morphs, and rat-morphs, but there are also plenty of regular morphs eking out a living down here.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WALKWAYS_EXTRA"><![CDATA[
+	<p><i>
+		Did that wave just wink at you? No, it must have been your imagination...
+	</i></p>
+	]]>
+	</htmlContent>
+	<htmlContent tag="WALKWAYS_EXTRA"><![CDATA[
+	<p><i>
+		Looking over the edge of the walkway, you see an alligator-girl slowly lowering herself down into the water beneath you. Catching your eye, she winks and disappears beneath the surface...
+	</i></p>
+	]]>
+	</htmlContent>
+	<htmlContent tag="WALKWAYS_EXTRA"><![CDATA[
+	<p><i>
+		Looking over the edge of the walkway, you see an alligator-boy slowly lowering himself down into the water beneath you. Catching your eye, he winks and disappears beneath the surface...
+	</i></p>
+	]]>
+	</htmlContent>
+	<htmlContent tag="WALKWAYS_EXTRA"><![CDATA[
+	<p><i>
+		In his haste, a passing rat-boy almost bumps into you. He scowls and lets out a muffled curse before quickly scurrying away...
+	</i></p>
+	]]>
+	</htmlContent>
+	<htmlContent tag="WALKWAYS_EXTRA"><![CDATA[
+	<p><i>
+		In her haste, a passing rat-girl almost bumps into you. She scowls and lets out a muffled curse before quickly scurrying away...
+	</i></p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TUNNEL"><![CDATA[
+	<p>
+		Unlike the main passages of Submission, the shaded alcoves and wide pipe openings make these dark, claustrophobic tunnels the perfect place for an ambush.
+		 Filmy perspiration drips from the walls, and you flinch every time a drop touches you.
+	</p>
+	<p>
+		Kicking up rubbish and random debris as you quickly move through the dilapidated area, each of your steps sounds as loud as a thunder-clap to your ears.
+		 You can't help but shake the feeling that someone's lying in wait around each corner, waiting for their chance to lunge out of the shadows and attack...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAT_CAVERNS"><![CDATA[
+	<p>
+		The tunnel before you comes to an abrupt halt, but instead of a brick wall or iron grate to block your way, the passageway instead opens out into a pitch-black void.
+		 Cautiously stepping forwards, you see that a sign has been placed just before the end of the walkway, and you read:
+	</p>
+	<p style='text-align:center;'><i>
+		<b>Bat Caverns</b></br>
+		Travellers are advised to keep any light sources as dim as possible. The resident bat-morphs can get irritable if exposed to bright lights.
+	</i></p>
+	<p>
+		Moving forwards past the sign, you peer down into the darkness.
+		 The light from the passage behind you manages to illuminate the first dozen steep stone steps that are carved into the rock below,
+			 letting you know that there's a way down into these caverns even for morphs who are incapable of flight.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RAT_WARREN"><![CDATA[
+	<p>
+		This side tunnel looks just like all of the others that you've travelled through so far, but with one exception.
+		 Built into the wall nearest to where you're standing, a large stone archway has been constructed.
+		 A pair of heavy oaken doors, firmly shut tight, fill the opening, leaving you to wonder what could possibly be on the other side.
+	</p>
+	<p>
+		Stepping forwards to take a closer look, you see that the name 'Rengar' has been crudely carved into the wood.
+		 Pressing your [pc.ear] against the surface, you can hear the distinct sounds of life within, and you wonder if you should give the doors a knock, or simply carry on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GAMBLING_DEN"><![CDATA[
+	<p>
+		Over the past several minutes, you've noticed that the walkways that you're travelling down have steadily been getting busier and busier.
+		 Up in the wide streets of Dominion, this volume of traffic wouldn't be a problem, but down here, there's not much room on the narrow pathways in which to manoeuvre, and you soon find yourself having to physically push your way through the bustling crowds.
+	</p>
+	<p>
+		Just as you're thinking about turning back in order to find another way past this area, the tunnel that you're travelling through starts to widen out, and, mercifully, so do the walkways.
+		 Afforded a little space at last, you're able to quickly weave through the crowds, and soon find yourself in a particularly large and spacious area of Submission, being at least double the height and four-times the width of all the other tunnels you've travelled through.
+	</p>
+	<p>
+		As you step forwards onto the wide, well-maintained walkways, you quickly discover the reason behind the abnormal amount of people that are in this area.
+		 All around you, brightly-coloured canvas stalls have been erected, and as you pass, you see that they're selling all sorts of different goods.
+		 This area is obviously Submission's main marketplace, and although the wares for sale aren't of any interest to you, they're enough to attract crowds of shoppers from all over Submission.
+	</p>
+	<p>
+		A huge, two-story building, reaching up to the tunnel's ceiling, has been built into the wall on one side of this area.
+		 A sign above one of its many entrances declares it to be the 'Gambling Den'.
+		 While the market stalls aren't worth your time, this building looks as though it contains something of interest.
+		 Walking up to the doorway, you see a little sign bearing the words 'Open 24/7', and you wonder if you should go inside and take a look...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LILIN_PALACE_CAVERN"><![CDATA[
+	<p>
+		You find yourself walking down a stone pathway, which has been cut out of the rock floor of a colossal underground cavern.
+		 The waterway that runs through Submission's tunnels continues on to one side of the path, flowing down the gently-sloping floor to eventually fall away into a wide chasm that cuts across the far side of the cavern.
+	</p>
+	<p>
+		This chasm serves as a protective moat for a massive, Gothic-styled palace that has been half-built, half-carved into the far stone wall.
+		 A huge wooden drawbridge links the stone path that you're walking on to the palace's front gate.
+	</p>
+	<p>
+		While you appear to be the only person making use of the path, you're not alone in this area.
+		 Up ahead, standing guard beside the drawbridge, are the figures of at least twenty demons.
+		 Each one appears to be wearing a bright red uniform and holding some sort of weapon, but from this distance, it's hard to see them clearly.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LILIN_PALACE_GATE"><![CDATA[
+	<p>
+		Having crossed the huge cavern, you find yourself approaching the massive Gothic palace that has been built into the dark stone wall.
+		 In front of you, separating the palace's front gates from the path that you're on, is a wide, seemingly-bottomless ravine.
+		 A heavy wooden drawbridge crosses the pitch-black depths of the chasm, and is the only sign of entry to the palace.
+	</p>
+	<p>
+		Preventing you, or anyone else who may happen to travel down here, from proceeding across the drawbridge, is a group of twenty-or-so demons.
+		 The majority of them appear to be half-demons, and, much like Lilaya, they have human faces and bodies, with demonic wings, horns, tails, and ears.
+		 Apart from this, the most remarkable feature about them is their current state of dress.
+		 They're all wearing bright red uniforms, white pith helmets, and black trousers or skirts.
+		 Each one of them is brandishing what appears to be an arcane-powered musket, which, in combination with their uniforms, makes them look like Victorian-era soldiers.
+	</p>
+	<p>
+		As you approach, the leader of the group, a light-skinned half-demon succubus, with crimson-skinned demonic parts, steps forwards to bar your passage,
+		 [genericFemale.speech(State your business, [pc.race].)]
+	</p>
+	<p>
+		[pc.speech(Well, I was hoping to speak with Lyssieth. She does live here, right?)]
+		 You ask.
+	</p>
+	<p>
+		[genericFemale.speech(Her Highness isn't receiving visitors at the moment. You'd better turn around and leave. Now.)]
+	</p>
+	<p>
+		You see the demons around you gripping their muskets, and you realise that you stand no chance at gaining entry through force.
+		 You'd better turn around and leave...
+	</p>
+	<p>
+		<i>(This is still a work in progress. There will be a way to earn an audience with Lyssieth, starting from here, soon!)</i>
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LILIN_PALACE_GATE_UNIFORMS"><![CDATA[
+	<p>
+		Curious about these demons' uniforms and weapons, you ask the succubus,
+		 [pc.speech(Why are you all wearing these uniforms? And where did you get those muskets from? I haven't seen anyone else with such firearms...)]
+	</p>
+	<p>
+		The succubus flinches a little as you ask your question, but manages to keep her cool as she answers,
+		 [genericFemale.speech(These are the uniforms and weapons that her Highness personally gave to each one of us.
+		 It is not for us, or <i>you</i> for that matter, to question her wishes.
+		 We obey her orders, and her current command is to let nobody pass this point.
+		 Don't make me tell you again.
+		 Leave. Now.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LILIN_PALACE"><![CDATA[
+	<p>
+		TODO How did you get here? :3
+	</p>
+	]]>
+	</htmlContent>
+	
+</dialogue>

@@ -307,82 +307,86 @@ public class RedLightDistrict {
 				int cost = 300;
 				NPC npc = charactersPresent.get(0);
 
-				if(charactersPresent.get(0).isSlave() && charactersPresent.get(0).getOwner().isPlayer()) {
-					if (index == 1) {
-							return new ResponseSex("Sex",
-									UtilText.parse(npc, "Have sex with [npc.name], with you as the dominant partner."),
-									true, false,
-									new SMStanding(
-											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-											Util.newHashMapOfValues(new Value<>(npc, SexPositionSlot.STANDING_SUBMISSIVE))),
-									AFTER_SEX_PROSTITUTE,
-									UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_PROSTITUTE_SLAVE_SEX"));
-						
-					} else if (index == 2) {
-							return new ResponseSex("Submissive Sex",
-									UtilText.parse(npc, "Let [npc.name] take charge, allowing you to have submissive sex with [npc.herHim]."),
-									true, false,
-									new SMStanding(
-											Util.newHashMapOfValues(new Value<>(npc, SexPositionSlot.STANDING_DOMINANT)),
-											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-									AFTER_SEX_PROSTITUTE,
-									UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_PROSTITUTE_SLAVE_SEX_SUB"));
-						
-					}
-					
-				} else {
-					if (index == 1) {
-						if(Main.game.getPlayer().getMoney()<cost) {
-							return new Response("Sex ("+UtilText.formatAsMoney(cost, "span")+")",
-									UtilText.parse(npc, "You don't have "+cost+" flames, so you can't afford to have sex with [npc.name]."), null);
+				if(charactersPresent.size()<=1){
+					if(charactersPresent.get(0).isSlave() && charactersPresent.get(0).getOwner().isPlayer()) {
+						if (index == 1) {
+								return new ResponseSex("Sex",
+										UtilText.parse(npc, "Have sex with [npc.name], with you as the dominant partner."),
+										true, false,
+										new SMStanding(
+												Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
+												Util.newHashMapOfValues(new Value<>(npc, SexPositionSlot.STANDING_SUBMISSIVE))),
+										AFTER_SEX_PROSTITUTE,
+										UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_PROSTITUTE_SLAVE_SEX"));
 							
-						} else {
-							return new ResponseSex("Sex ("+UtilText.formatAsMoney(cost, "span")+")",
-									UtilText.parse(npc, "Pay "+cost+" flames to have sex with [npc.name], with you as the dominant partner."),
-									true, false,
-									new SMStanding(
-											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-											Util.newHashMapOfValues(new Value<>(npc, SexPositionSlot.STANDING_SUBMISSIVE))),
-									AFTER_SEX_PROSTITUTE,
-									UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_PROSTITUTE_SEX")) {
-								@Override
-								public void effects() {
-									Main.game.getPlayer().incrementMoney(-cost);
-								}
-							};
+						} else if (index == 2) {
+								return new ResponseSex("Submissive Sex",
+										UtilText.parse(npc, "Let [npc.name] take charge, allowing you to have submissive sex with [npc.herHim]."),
+										true, false,
+										new SMStanding(
+												Util.newHashMapOfValues(new Value<>(npc, SexPositionSlot.STANDING_DOMINANT)),
+												Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+										AFTER_SEX_PROSTITUTE,
+										UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_PROSTITUTE_SLAVE_SEX_SUB"));
+							
 						}
 						
-					} else if (index == 2) {
-						if(Main.game.getPlayer().getMoney()<cost) {
-							return new Response("Submissive Sex ("+UtilText.formatAsMoney(cost, "span")+")",
-									UtilText.parse(npc, "You don't have "+cost+" flames, so you can't afford to have submissive sex with [npc.name]."), null);
-							
-						} else {
-							return new ResponseSex("Submissive Sex ("+UtilText.formatAsMoney(cost, "span")+")",
-									UtilText.parse(npc, "Pay "+cost+" flames to let [npc.name] take charge, allowing you to have submissive sex with [npc.herHim]."),
-									true, false,
-									new SMStanding(
-											Util.newHashMapOfValues(new Value<>(npc, SexPositionSlot.STANDING_DOMINANT)),
-											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-									AFTER_SEX_PROSTITUTE,
-									UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_PROSTITUTE_SEX_SUB")) {
-								@Override
-								public void effects() {
-									Main.game.getPlayer().incrementMoney(-cost);
-								}
-							};
-						}
 						
+					} else {
+						if (index == 1) {
+							if(Main.game.getPlayer().getMoney()<cost) {
+								return new Response("Sex ("+UtilText.formatAsMoney(cost, "span")+")",
+										UtilText.parse(npc, "You don't have "+cost+" flames, so you can't afford to have sex with [npc.name]."), null);
+								
+							} else {
+								return new ResponseSex("Sex ("+UtilText.formatAsMoney(cost, "span")+")",
+										UtilText.parse(npc, "Pay "+cost+" flames to have sex with [npc.name], with you as the dominant partner."),
+										true, false,
+										new SMStanding(
+												Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
+												Util.newHashMapOfValues(new Value<>(npc, SexPositionSlot.STANDING_SUBMISSIVE))),
+										AFTER_SEX_PROSTITUTE,
+										UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_PROSTITUTE_SEX")) {
+									@Override
+									public void effects() {
+										Main.game.getPlayer().incrementMoney(-cost);
+									}
+								};
+							}
+							
+						} else if (index == 2) {
+							if(Main.game.getPlayer().getMoney()<cost) {
+								return new Response("Submissive Sex ("+UtilText.formatAsMoney(cost, "span")+")",
+										UtilText.parse(npc, "You don't have "+cost+" flames, so you can't afford to have submissive sex with [npc.name]."), null);
+								
+							} else {
+								return new ResponseSex("Submissive Sex ("+UtilText.formatAsMoney(cost, "span")+")",
+										UtilText.parse(npc, "Pay "+cost+" flames to let [npc.name] take charge, allowing you to have submissive sex with [npc.herHim]."),
+										true, false,
+										new SMStanding(
+												Util.newHashMapOfValues(new Value<>(npc, SexPositionSlot.STANDING_DOMINANT)),
+												Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+										AFTER_SEX_PROSTITUTE,
+										UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_PROSTITUTE_SEX_SUB")) {
+									@Override
+									public void effects() {
+										Main.game.getPlayer().incrementMoney(-cost);
+									}
+								};
+							}
+							
+						}
 					}
 				}
 				
 			} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.prostitutionLicenseObtained) && Main.game.getPlayer().getWorldLocation()==WorldType.ANGELS_KISS_FIRST_FLOOR) {
 				if(index==1) {
-					return new Response("Sell body", "Wait around for a client to show up...", ANGELS_KISS_SELL_SELF_SUB){
+					return new Response("Sell body (Sub)", "Wait around for a client to show up...", ANGELS_KISS_SELL_SELF_SUB){
 						@Override
 						public void effects() {
 							NPC npc = new GenericSexualPartner(GenderPreference.getGenderFromUserPreferences(), Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
-							npc.setFetishDesire(Fetish.FETISH_DOMINANT, FetishDesire.TWO_NEUTRAL);
+							npc.removeFetish(Fetish.FETISH_SUBMISSIVE);
+							npc.setFetishDesire(Fetish.FETISH_DOMINANT, FetishDesire.THREE_LIKE);
 							try {
 								Main.game.addNPC(npc, false);
 								Main.game.setActiveNPC(npc);
@@ -392,6 +396,21 @@ public class RedLightDistrict {
 						}
 					};
 					
+				} else if(index==2) {
+					return new Response("Sell body (Dom)", "Wait around for a client to show up...", ANGELS_KISS_SELL_SELF_DOM){
+						@Override
+						public void effects() {
+							NPC npc = new GenericSexualPartner(GenderPreference.getGenderFromUserPreferences(), Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
+							npc.removeFetish(Fetish.FETISH_DOMINANT);
+							npc.setFetishDesire(Fetish.FETISH_SUBMISSIVE, FetishDesire.THREE_LIKE);
+							try {
+								Main.game.addNPC(npc, false);
+								Main.game.setActiveNPC(npc);
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
+						}
+					};
 				}
 			}
 			return null;
@@ -445,8 +464,55 @@ public class RedLightDistrict {
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-						AFTER_SEX_SELL_SELF,
+						AFTER_SEX_SELL_SELF_SUB,
 						UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "SELL_SELF_SUB_START")) {
+					@Override
+					public void effects() {
+						Main.game.getPlayer().incrementMoney(payment);
+					}
+				};
+				
+			} else if(index == 2) {
+				return new Response("Decline", "Tell [npc.name] that you're not interested in what [npc.she] has in mind...", ANGELS_KISS_SELL_SELF_DECLINE){
+					@Override
+					public void effects() {
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "SELL_SELF_DECLINE"));
+						Main.game.banishNPC(Main.game.getActiveNPC());
+					}
+				};
+				
+			} else {
+				return null;
+			}
+		}
+	};
+	
+	public static final DialogueNodeOld ANGELS_KISS_SELL_SELF_DOM = new DialogueNodeOld("Bedroom", ".", true) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public int getMinutesPassed() {
+			return 25;
+		}
+
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "SELL_SELF_DOM");
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			int payment = 2000;
+			
+			if (index == 1) {
+				return new ResponseSex("Sex ("+UtilText.formatAsMoney(2000, "span")+")",
+						"Accept the price of "+2000+" flames to have sex with [npc.name].",
+						true, false,
+						new SMStanding(
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_SUBMISSIVE))),
+						AFTER_SEX_SELL_SELF_DOM,
+						UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "SELL_SELF_DOM_START")) {
 					@Override
 					public void effects() {
 						Main.game.getPlayer().incrementMoney(payment);
@@ -487,7 +553,7 @@ public class RedLightDistrict {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_SEX_SELL_SELF = new DialogueNodeOld("Bedroom", "Disentangle yourself from [npc.name]'s clutches.", true) {
+	public static final DialogueNodeOld AFTER_SEX_SELL_SELF_DOM = new DialogueNodeOld("Bedroom", "Disentangle yourself from [npc.name]'s clutches.", true) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -497,7 +563,36 @@ public class RedLightDistrict {
 
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "SELL_SELF_AFTER_SEX");
+			return UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "SELL_SELF_DOM_AFTER_SEX");
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 1) {
+				return new Response("Recover", "Recover from the exhausting sex you've just had.", ANGELS_KISS_BEDROOM){
+					@Override
+					public void effects() {
+						Main.game.banishNPC(Main.game.getActiveNPC());
+					}
+				};
+
+			} else {
+				return null;
+			}
+		}
+	};
+	
+	public static final DialogueNodeOld AFTER_SEX_SELL_SELF_SUB = new DialogueNodeOld("Bedroom", "Disentangle yourself from [npc.name]'s clutches.", true) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public int getMinutesPassed() {
+			return 25;
+		}
+
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "SELL_SELF_SUB_AFTER_SEX");
 		}
 
 		@Override
@@ -688,7 +783,7 @@ public class RedLightDistrict {
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getLoppy(), SexPositionSlot.STANDING_SUBMISSIVE))),
-							AFTER_SEX_BUNNY,
+							AFTER_SEX_LOPPY,
 							UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_LOPPY_SEX")) {
 						@Override
 						public void effects() {
@@ -709,7 +804,7 @@ public class RedLightDistrict {
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getLoppy(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-							AFTER_SEX_BUNNY,
+							AFTER_SEX_LOPPY,
 							UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_LOPPY_SEX_SUBMISSIVE")) {
 						@Override
 						public void effects() {

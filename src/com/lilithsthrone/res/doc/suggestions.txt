@@ -1174,6 +1174,8 @@ If she likes you enough she will hand you a pass that allows you to get into a d
 	    There can even be a system where NPCs that the player has a history with will hunt the player down, occasionally showing up as random encounters away from their normal tile.
 	      Maybe they're trying to enslave the PC or continue transforming them, maybe they've become a rival of sorts and want to rematch, there are lots of possibilities.
 	
+	Save template of slime/demon TFs
+	
 	detailed list of encounters
 	
 	"Aspirant Wizard" as the male counterpart to "Pure Virgin" the "Broken Virgin" equivalent being "Fuck boy"

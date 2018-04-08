@@ -13,6 +13,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.BodyPartInterface;
@@ -598,11 +599,13 @@ public class UtilText {
 				} else if(processingConditional) {
 					if(c=='.' && target==null) {
 						target=sb.toString().substring(1); // Cut off the '#IF' at the start.
+						target = target.trim();
 						sb.setLength(0);
 					
 					} else if(c=='(') {
 						if(command==null) {
 							command=sb.toString().substring(1); // Cut off the '.' at the start.
+							command = command.trim();
 							sb.setLength(0);
 						}
 						
@@ -626,6 +629,7 @@ public class UtilText {
 							if(command==null) {
 								command=sb.toString().substring(1, sb.length()-4); // Cut off the '#THEN' at the start.
 								command = command.replaceAll("\n", "").replaceAll("\t", "");
+								command = command.trim();
 							}
 							sb.setLength(0);
 						}
@@ -761,6 +765,17 @@ public class UtilText {
 			}
 		});
 		
+		conditionalCommandsList.add(new ParserConditionalCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("isArcaneStorm"),
+						new ListValue<>("isStorm")),
+				"",
+				"Returns true if the weather is currently an arcane storm."){
+			@Override
+			public boolean process(String command, String arguments, String target) {
+				return Main.game.getCurrentWeather()==Weather.MAGIC_STORM;
+			}
+		});
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(new ListValue<>("name")),
@@ -791,6 +806,26 @@ public class UtilText {
 			@Override
 			public String parse(String command, String arguments, String target) {
 				return character.getSurname();
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(new ListValue<>("fullName")),
+				true,
+				false,
+				"(prefix)",
+				"Returns the name of the target, <b>automatically appending</b> 'the' to names that don't start with a capital letter. If you want the basic form of the name, pass in a space as an argument."
+				+ " If a prefix is provided, the prefix will be appended (with an automatic addition of a space) to non-capitalised names."){
+			@Override
+			public String parse(String command, String arguments, String target) {
+				if(arguments!=null) {
+					return character.getName(arguments)+(character.getSurname().isEmpty()?"":" "+character.getSurname());
+				} else {
+					if(character.isPlayerKnowsName() || character.isPlayer()) {
+						return character.getName()+(character.getSurname().isEmpty()?"":" "+character.getSurname());
+					}
+					return character.getName("the")+(character.getSurname().isEmpty()?"":" "+character.getSurname());
+				}
 			}
 		});
 		
@@ -989,9 +1024,9 @@ public class UtilText {
 			@Override
 			public String parse(String command, String arguments, String target) {
 				if(character.isFeminine()) {
-					return "miss";
+					return "Miss";
 				} else {
-					return "mister";
+					return "Mr.";
 				}
 			}
 		});
@@ -3009,6 +3044,44 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
+						new ListValue<>("penisUrethra"),
+						new ListValue<>("cockUrethra"),
+						new ListValue<>("urethraPenis"),
+						new ListValue<>("urethraCock")),
+				true,
+				true,
+				"",
+				"Description of method",
+				BodyPartType.VAGINA){//TODO
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return "urethra";
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("penisUrethra+"),
+						new ListValue<>("cockUrethra+"),
+						new ListValue<>("urethraPenis+"),
+						new ListValue<>("urethraCock+"),
+						new ListValue<>("penisUrethraD"),
+						new ListValue<>("cockUrethraD"),
+						new ListValue<>("urethraPenisD"),
+						new ListValue<>("urethraCockD")),
+				true,
+				true,
+				"",
+				"Description of method",
+				BodyPartType.PENIS){//TODO
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return applyDescriptor(character.getPenisUrethraDescriptor(), "urethra");
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
 						new ListValue<>("cumAmount"),
 						new ListValue<>("cumProduction"),
 						new ListValue<>("jizzAmount"),
@@ -3310,6 +3383,44 @@ public class UtilText {
 		});
 		
 		// Vagina:
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("vaginaUrethra"),
+						new ListValue<>("vaginalUrethra"),
+						new ListValue<>("urethraVagina"),
+						new ListValue<>("urethraVaginal")),
+				true,
+				true,
+				"",
+				"Description of method",
+				BodyPartType.VAGINA){//TODO
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return "urethra";
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("vaginaUrethra+"),
+						new ListValue<>("vaginalUrethra+"),
+						new ListValue<>("urethraVagina+"),
+						new ListValue<>("urethraVaginal+"),
+						new ListValue<>("vaginaUrethraD"),
+						new ListValue<>("vaginalUrethraD"),
+						new ListValue<>("urethraVaginaD"),
+						new ListValue<>("urethraVaginalD")),
+				true,
+				true,
+				"",
+				"Description of method",
+				BodyPartType.VAGINA){//TODO
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return applyDescriptor(character.getVaginaUrethraDescriptor(), "urethra");
+			}
+		});
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(

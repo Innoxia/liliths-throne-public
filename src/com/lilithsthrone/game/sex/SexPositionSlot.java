@@ -188,6 +188,30 @@ public enum SexPositionSlot {
 					new ListValue<>(OrgasmCumTarget.LEGS),
 					new ListValue<>(OrgasmCumTarget.FLOOR))),
 
+	/* Milking Stall */
+	
+	MILKING_STALL_LOCKED_IN_MILKING_STALL("Locked in milking stall",
+			Util.newArrayListOfValues(
+					new ListValue<>(OrgasmCumTarget.FLOOR))),
+	
+	MILKING_STALL_RECEIVING_ORAL("Receiving oral",
+			Util.newArrayListOfValues(
+					new ListValue<>(OrgasmCumTarget.FACE),
+					new ListValue<>(OrgasmCumTarget.HAIR),
+					new ListValue<>(OrgasmCumTarget.FLOOR))),
+	
+	MILKING_STALL_PERFORMING_ORAL("Performing oral",
+			Util.newArrayListOfValues(
+					new ListValue<>(OrgasmCumTarget.FLOOR))),
+	
+	MILKING_STALL_FUCKING("Standing behind",
+			Util.newArrayListOfValues(
+					new ListValue<>(OrgasmCumTarget.ASS),
+					new ListValue<>(OrgasmCumTarget.BACK),
+					new ListValue<>(OrgasmCumTarget.GROIN),
+					new ListValue<>(OrgasmCumTarget.LEGS),
+					new ListValue<>(OrgasmCumTarget.FLOOR))),
+	
 	/* Missionary */
 	
 	MISSIONARY_ON_BACK("Lying on back",

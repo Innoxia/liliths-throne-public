@@ -97,7 +97,9 @@ public class SubmissionAttacker extends NPC {
 					case DEMON:
 					case DOG_MORPH:
 					case DOG_MORPH_DOBERMANN:
+					case DOG_MORPH_BORDER_COLLIE:
 					case HARPY:
+					case HARPY_RAVEN:
 					case HORSE_MORPH:
 					case HUMAN:
 					case REINDEER_MORPH:
@@ -126,7 +128,7 @@ public class SubmissionAttacker extends NPC {
 						addToSubspeciesMap(40, gender, s, availableRaces);
 						break;
 					case SLIME:
-						addToSubspeciesMap(20, gender, s, availableRaces);
+						addToSubspeciesMap(15, gender, s, availableRaces);
 						break;
 					case SLIME_ALLIGATOR:
 					case SLIME_ANGEL:
@@ -135,7 +137,9 @@ public class SubmissionAttacker extends NPC {
 					case SLIME_DEMON:
 					case SLIME_DOG:
 					case SLIME_DOG_DOBERMANN:
+					case SLIME_DOG_BORDER_COLLIE:
 					case SLIME_HARPY:
+					case SLIME_HARPY_RAVEN:
 					case SLIME_HORSE:
 					case SLIME_IMP:
 					case SLIME_REINDEER:

@@ -48,16 +48,20 @@ public enum PlaceUpgrade {
 			null) {
 		@Override
 		public void applyInstallationEffects(GenericPlace place) {
-			if(place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR_SLAVE) {
+			if(place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR_SLAVE
+					|| place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR_MILKING) {
 				place.setPlaceType(PlaceType.LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR);
 				
-			} else if(place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR_SLAVE) {
+			} else if(place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR_SLAVE
+					|| place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR_MILKING) {
 				place.setPlaceType(PlaceType.LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR);
 				
-			} else if(place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_GARDEN_FIRST_FLOOR_SLAVE) {
+			} else if(place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_GARDEN_FIRST_FLOOR_SLAVE
+					|| place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_GARDEN_FIRST_FLOOR_MILKING) {
 				place.setPlaceType(PlaceType.LILAYA_HOME_ROOM_GARDEN_FIRST_FLOOR);
 				
-			} else if(place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_WINDOW_FIRST_FLOOR_SLAVE) {
+			} else if(place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_WINDOW_FIRST_FLOOR_SLAVE
+					|| place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_WINDOW_FIRST_FLOOR_MILKING) {
 				place.setPlaceType(PlaceType.LILAYA_HOME_ROOM_WINDOW_FIRST_FLOOR);
 			}
 			
@@ -169,21 +173,72 @@ public enum PlaceUpgrade {
 		
 		@Override
 		public void applyInstallationEffects(GenericPlace place) {
-			if(place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR) {
+			if(place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR
+					|| place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR_MILKING) {
 				place.setPlaceType(PlaceType.LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR_SLAVE);
 				
-			} else if(place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR) {
+			} else if(place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR
+					|| place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR_MILKING) {
 				place.setPlaceType(PlaceType.LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR_SLAVE);
 				
-			} else if(place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_GARDEN_FIRST_FLOOR) {
+			} else if(place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_GARDEN_FIRST_FLOOR
+					|| place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_GARDEN_FIRST_FLOOR_MILKING) {
 				place.setPlaceType(PlaceType.LILAYA_HOME_ROOM_GARDEN_FIRST_FLOOR_SLAVE);
 				
-			} else if(place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_WINDOW_FIRST_FLOOR) {
+			} else if(place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_WINDOW_FIRST_FLOOR
+					|| place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_WINDOW_FIRST_FLOOR_MILKING) {
 				place.setPlaceType(PlaceType.LILAYA_HOME_ROOM_WINDOW_FIRST_FLOOR_SLAVE);
 			}
 			
 			for(PlaceUpgrade upgrade : PlaceUpgrade.values()) {
 				if(upgrade != LILAYA_SLAVE_ROOM) {
+					place.removePlaceUpgrade(upgrade);
+				}
+			}
+		}
+	},
+	
+	LILAYA_MILKING_ROOM(true,
+			Colour.BASE_ORANGE,
+			"Milking Room",
+			"Install milking machines in this room, allowing eight slaves to be assigned to work in here, each of which will be milked of their milk and cum.",
+			"This room has been converted into a suitable place for milking eight of your slaves' milk and cum.",
+			"This room has been converted into a special milking room, in which eight of your slaves can be milked of their various fluids."
+					+ " Four machines are set along the left-hand side of the wall, with the other four being placed on the opposite side of the room.",
+			10000,
+			0,
+			500,
+			0,
+			0,
+			0,
+			null) {
+		
+		@Override
+		public boolean isAvailable(Cell cell) {
+			return Main.game.getCharactersPresent(cell).isEmpty() && !cell.getPlace().getPlaceUpgrades().contains(LILAYA_ARTHUR_ROOM);
+		}
+		
+		@Override
+		public void applyInstallationEffects(GenericPlace place) {
+			if(place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR
+					|| place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR_SLAVE) {
+				place.setPlaceType(PlaceType.LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR_MILKING);
+				
+			} else if(place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR
+					|| place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR_SLAVE) {
+				place.setPlaceType(PlaceType.LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR_MILKING);
+				
+			} else if(place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_GARDEN_FIRST_FLOOR
+					|| place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_GARDEN_FIRST_FLOOR_SLAVE) {
+				place.setPlaceType(PlaceType.LILAYA_HOME_ROOM_GARDEN_FIRST_FLOOR_MILKING);
+				
+			} else if(place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_WINDOW_FIRST_FLOOR
+					|| place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_WINDOW_FIRST_FLOOR_SLAVE) {
+				place.setPlaceType(PlaceType.LILAYA_HOME_ROOM_WINDOW_FIRST_FLOOR_MILKING);
+			}
+			
+			for(PlaceUpgrade upgrade : PlaceUpgrade.values()) {
+				if(upgrade != LILAYA_MILKING_ROOM) {
 					place.removePlaceUpgrade(upgrade);
 				}
 			}
@@ -356,7 +411,7 @@ public enum PlaceUpgrade {
 					+ " This isn't exactly how most owners treat their slaves, and while it's sure to make the occupant like you more, it's also going to cost quite a bit in upkeep, as well as have some negative effects on their obedience...",
 			"You've offered unlimited room service to the occupant of this room."
 					+ " It's definitely making them like you more, but it's also costing a fair amount in upkeep, and is having a negative effect on your slave's obedience...",
-			"An little push-trolley with a few empty silver plates and glasses stacked on top of it is evidence that the slave who lives here is taking full advantage of the unlimited room service you've offered to them."
+			"A little push-trolley with a few empty silver plates and glasses stacked on top of it is evidence that the slave who lives here is taking full advantage of the unlimited room service you've offered to them."
 					+ " It's definitely making them like you more, but having such a luxury available to them is also having a negative impact on their obedience, not to mention the damage it's doing to your bank account...",
 			100,
 			0,
@@ -381,10 +436,75 @@ public enum PlaceUpgrade {
 			0,
 			-0.1f,
 			0f,
-			null);
+			null),
+	
+	LILAYA_MILKING_ROOM_ARTISAN_MILKERS(false,
+			Colour.GENERIC_ARCANE,
+			"Artisan Milkers",
+			"You could replace the standard milking machines in this room with very expensive artisan ones."
+					+ " While being far more comfortable for the slaves that use them, these milking machines seem to be designed more for show than practicality, and deliver a slightly lower milk output than the regular machines.",
+			"You've installed artisan milking machines in this room."
+					+ " The slaves that have the good fortune to be locked into these machines are sure to appreciate you for it...",
+			"The artisan, arcane-powered milking machines that have been placed in this room fill the air with a very soft, almost melodic, humming noise."
+					+ " Although they're far more comfortable than regular milking machines, they appear to be designed more for show than practicality, and while your slaves will happy with them, milk output is sure to suffer...",
+			2500,
+			500,
+			250,
+			0,
+			1f,
+			0.5f,
+			null) {
+		
+		@Override
+		public boolean isAvailable(Cell cell) {
+			return !cell.getPlace().getPlaceUpgrades().contains(LILAYA_MILKING_ROOM_INDUSTRIAL_MILKERS);
+		}
+
+		@Override
+		public String getAvailabilityDescription(Cell cell) {
+			if(cell.getPlace().getPlaceUpgrades().contains(LILAYA_MILKING_ROOM_INDUSTRIAL_MILKERS)) {
+				return "You'll need to remove the Industrial Milkers before installing this.";
+			}
+			return "";
+		}
+	},
+	
+	LILAYA_MILKING_ROOM_INDUSTRIAL_MILKERS(false,
+			Colour.GENERIC_ARCANE,
+			"Industrial Milkers",
+			"You could replace the standard milking machines in this room with industrial-grade ones."
+					+ " While being far less comfortable for the slaves that use them, these milking machines maximise both milk output and profit.",
+			"You've installed industrial milking machines in this room."
+					+ " The slaves that have the misfortune to be locked into these machines are sure to hate you for it...",
+			"The industrial, arcane-powered milking machines that have been placed in this room fill the air with a steady background humming noise."
+					+ " Although they're sure to maximise milk output, and profits, these machines aren't exactly the most comfortable of devices to be strapped in to, and any slaves assigned to me milked in here are sure to hate you for it...",
+			1500,
+			500,
+			100,
+			0,
+			-1f,
+			0.5f,
+			null) {
+		
+		@Override
+		public boolean isAvailable(Cell cell) {
+			return !cell.getPlace().getPlaceUpgrades().contains(LILAYA_MILKING_ROOM_ARTISAN_MILKERS);
+		}
+
+		@Override
+		public String getAvailabilityDescription(Cell cell) {
+			if(cell.getPlace().getPlaceUpgrades().contains(LILAYA_MILKING_ROOM_ARTISAN_MILKERS)) {
+				return "You'll need to remove the Artisan Milkers before installing this.";
+			}
+			return "";
+		}
+	},
 	
 	
-	private static ArrayList<PlaceUpgrade> coreRoomUpgrades, slaveQuartersUpgrades;
+	;
+	
+	
+	private static ArrayList<PlaceUpgrade> coreRoomUpgrades, slaveQuartersUpgrades, getMilkingUpgrades;
 	
 	public static ArrayList<PlaceUpgrade> getCoreRoomUpgrades() {
 		if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.arthursRoomInstalled) || Main.game.getPlayer().isQuestProgressLessThan(QuestLine.MAIN, Quest.MAIN_1_J_ARTHURS_ROOM)) {
@@ -403,11 +523,17 @@ public enum PlaceUpgrade {
 		}
 		return slaveQuartersUpgrades;
 	}
+	
+	public static ArrayList<PlaceUpgrade> getMilkingUpgrades() {
+		return getMilkingUpgrades;
+	}
 
 	static {
 		coreRoomUpgrades = Util.newArrayListOfValues(
 				new ListValue<>(PlaceUpgrade.LILAYA_SLAVE_ROOM),
 				new ListValue<>(PlaceUpgrade.LILAYA_SLAVE_ROOM_DOUBLE),
+				
+				new ListValue<>(PlaceUpgrade.LILAYA_MILKING_ROOM),
 				
 				new ListValue<>(PlaceUpgrade.LILAYA_ARTHUR_ROOM));
 		
@@ -422,6 +548,12 @@ public enum PlaceUpgrade {
 				
 				new ListValue<>(PlaceUpgrade.LILAYA_EMPTY_ROOM),
 				new ListValue<>(PlaceUpgrade.LILAYA_ARTHUR_ROOM));
+		
+		getMilkingUpgrades = Util.newArrayListOfValues(
+				new ListValue<>(PlaceUpgrade.LILAYA_MILKING_ROOM_ARTISAN_MILKERS),
+				new ListValue<>(PlaceUpgrade.LILAYA_MILKING_ROOM_INDUSTRIAL_MILKERS),
+				
+				new ListValue<>(PlaceUpgrade.LILAYA_EMPTY_ROOM));
 	}
 	
 	private boolean isCoreRoomUpgrade;

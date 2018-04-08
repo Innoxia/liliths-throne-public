@@ -17,8 +17,9 @@ import com.lilithsthrone.utils.Util.ListValue;
 public enum ParserTarget {
 	
 	STYLE(Util.newArrayListOfValues(
-			new ListValue<>("style")),
-			"Returns the same as 'pc', but should be used for style methods such as 'bold' or 'italics'.") {
+			new ListValue<>("style"),
+			new ListValue<>("game")),
+			"Returns the same as 'pc', but should be used for style methods such as style.bold or style.italics or conditional methods such as game.isArcaneStorm.") {
 				@Override
 				public GameCharacter getCharacter(String tag) {
 					return Main.game.getPlayer();
@@ -109,7 +110,9 @@ public enum ParserTarget {
 	
 	NPC_MALE(Util.newArrayListOfValues(
 			new ListValue<>("NPCmale"),
-			new ListValue<>("maleNPC")), ""){
+			new ListValue<>("maleNPC"),
+			new ListValue<>("genericMale"),
+			new ListValue<>("maleGeneric")), ""){
 		public String getDescription() {
 			return Main.game.getGenericMaleNPC().getDescription();
 		}
@@ -122,7 +125,9 @@ public enum ParserTarget {
 	
 	NPC_FEMALE(Util.newArrayListOfValues(
 			new ListValue<>("NPCfemale"),
-			new ListValue<>("femaleNPC")), ""){
+			new ListValue<>("femaleNPC"),
+			new ListValue<>("genericFemale"),
+			new ListValue<>("femaleGeneric")), ""){
 		public String getDescription() {
 			return Main.game.getGenericFemaleNPC().getDescription();
 		}

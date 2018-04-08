@@ -4547,7 +4547,7 @@ public class InventoryDialogue {
 										return new Response("Unjinx (<b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>5 Essences</b>)", "Spend 5 arcane essences on removing the jinx from this piece of clothing.", INVENTORY_MENU) {
 											@Override
 											public void effects() {
-												Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -5);
+												Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -5, false);
 												clothing.setSealed(false);
 												Main.game.getTextEndStringBuilder().append(
 														"<p>"
@@ -4706,7 +4706,7 @@ public class InventoryDialogue {
 												Sex.SEX_DIALOGUE) {
 											@Override
 											public void effects() {
-												Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -5);
+												Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -5, false);
 												clothing.setSealed(false);
 												Sex.setUnequipClothingText(
 														"<p>"
@@ -4846,7 +4846,7 @@ public class InventoryDialogue {
 								} else {
 									return new Response((clothing.getClothingType().isDiscardedOnUnequip()?"Discard":"Drop"),
 											(clothing.getClothingType().isDiscardedOnUnequip()
-													?UtilText.parse(inventoryNPC, "Take off [npc.name]'s " + clothing.getName() + " and throw it away..")
+													?UtilText.parse(inventoryNPC, "Take off [npc.name]'s " + clothing.getName() + " and throw it away.")
 													:UtilText.parse(inventoryNPC, "Drop [npc.name]'s " + clothing.getName() + ".")),
 											INVENTORY_MENU){
 										@Override
@@ -4862,7 +4862,7 @@ public class InventoryDialogue {
 								} else {
 									return new Response((clothing.getClothingType().isDiscardedOnUnequip()?"Discard":"Store"),
 											(clothing.getClothingType().isDiscardedOnUnequip()
-													?UtilText.parse(inventoryNPC, "Take off [npc.name]'s " + clothing.getName() + " and throw it away..")
+													?UtilText.parse(inventoryNPC, "Take off [npc.name]'s " + clothing.getName() + " and throw it away.")
 													:UtilText.parse(inventoryNPC, "Store [npc.name]'s " + clothing.getName() + " in this area.")),
 											INVENTORY_MENU){
 										@Override
@@ -4871,6 +4871,27 @@ public class InventoryDialogue {
 										}
 									};
 								}
+							}
+							
+						} else if(index==2) {
+							if(Main.game.getPlayer().isInventoryFull()) {
+								return new Response("Take", "Your inventory is full, so you can't take this!", null);
+								
+							} else if(clothing.getClothingType().isDiscardedOnUnequip()) {
+								return new Response("Take", "This piece of clothing is automatically discarded when unequipped, so you can't take it!", null);
+								
+							} else {
+								return new Response("Take",
+										UtilText.parse(inventoryNPC, "Take [npc.name]'s " + clothing.getName() + " and add it to your inventory."),
+										INVENTORY_MENU){
+									@Override
+									public void effects(){
+										Main.game.getTextEndStringBuilder().append(
+												"<p style='text-align:center;'>"
+													+ unequipClothingToUnequippersInventory(Main.game.getPlayer(), clothing)
+												+ "</p>");
+									}
+								};
 							}
 							
 						} else if (index==4) {
@@ -4893,7 +4914,7 @@ public class InventoryDialogue {
 										return new Response("Unjinx (<b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>5 Essences</b>)", "Spend 5 arcane essences on removing the jinx from this piece of clothing.", INVENTORY_MENU) {
 											@Override
 											public void effects() {
-												Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -5);
+												Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -5, false);
 												clothing.setSealed(false);
 												Main.game.getTextEndStringBuilder().append(UtilText.parse(inventoryNPC,
 														"<p>"
@@ -4947,6 +4968,7 @@ public class InventoryDialogue {
 									@Override
 									public void effects(){
 										owner.isAbleToBeDisplaced(clothing, clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index - 11), true, true, Main.game.getPlayer());
+										Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + owner.getDisplaceDescription() + "</p>");
 									}
 								};
 							}
@@ -5024,7 +5046,7 @@ public class InventoryDialogue {
 										return new Response("Unjinx (<b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>5 Essences</b>)", "Spend 5 arcane essences on removing the jinx from this piece of clothing.", Sex.SEX_DIALOGUE) {
 											@Override
 											public void effects() {
-												Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -5);
+												Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -5, false);
 												clothing.setSealed(false);
 												Sex.setUnequipClothingText(UtilText.parse(inventoryNPC,
 														"<p>"
@@ -5895,6 +5917,18 @@ public class InventoryDialogue {
 			unequipDescription = owner.unequipClothingOntoFloor(clothing, true, unequipper);
 		}
 		owner = null;
+		resetPostAction();
+		
+		return unequipDescription;
+	}
+	
+	private static String unequipClothingToUnequippersInventory(GameCharacter unequipper, AbstractClothing clothing) {
+		String unequipDescription = "";
+		if(clothing.getClothingType().isDiscardedOnUnequip()) {
+			unequipDescription = owner.unequipClothingIntoVoid(clothing, true, unequipper);
+		} else {
+			unequipDescription = owner.unequipClothingIntoUnequippersInventory(clothing, true, unequipper);
+		}
 		resetPostAction();
 		
 		return unequipDescription;

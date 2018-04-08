@@ -3,6 +3,7 @@ package com.lilithsthrone.game.character.attributes;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
@@ -127,7 +128,17 @@ public enum LustLevel {
 	public SexPace getSexPace(boolean consensual, GameCharacter character) {
 		SexPace pace;
 		if(Sex.isDom(character)) {
-			pace = getSexPaceDominant();
+			if(character.hasFetish(Fetish.FETISH_SUBMISSIVE)
+					|| character.getFetishDesire(Fetish.FETISH_SADIST) == FetishDesire.ZERO_HATE) {
+				pace = SexPace.DOM_GENTLE;
+				
+			} else if(character.getFetishDesire(Fetish.FETISH_SADIST) == FetishDesire.ONE_DISLIKE) {
+				pace = SexPace.DOM_NORMAL;
+				
+			} else {
+				pace = getSexPaceDominant();
+			}
+			
 		} else {
 			pace = getSexPaceSubmissive();
 			if(character.hasFetish(Fetish.FETISH_NON_CON_SUB)) {
@@ -135,7 +146,7 @@ public enum LustLevel {
 			}
 		}
 		
-		if(pace==SexPace.SUB_RESISTING && !Main.getProperties().nonConContent) {
+		if(pace==SexPace.SUB_RESISTING && !Main.getProperties().hasValue(PropertyValue.nonConContent)) {
 			pace = SexPace.SUB_NORMAL;
 		}
 		

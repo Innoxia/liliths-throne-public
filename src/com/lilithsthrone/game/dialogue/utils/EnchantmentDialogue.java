@@ -374,9 +374,7 @@ public class EnchantmentDialogue {
 			Main.game.getPlayer().removeWeapon((AbstractWeapon) ingredient);
 		}
 		
-		Main.game.getPlayer().incrementEssenceCount(ingredient.getRelatedEssence(), -EnchantingUtils.getCost(ingredient, effects));
-		
-		
+		Main.game.getPlayer().incrementEssenceCount(ingredient.getRelatedEssence(), -EnchantingUtils.getCost(ingredient, effects), false);
 		
 		previousIngredient = ingredient;
 		previousPrimaryMod = primaryMod;

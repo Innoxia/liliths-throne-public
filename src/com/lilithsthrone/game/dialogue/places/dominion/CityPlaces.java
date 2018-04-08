@@ -7,7 +7,6 @@ import java.util.List;
 import com.lilithsthrone.game.Season;
 import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.Cultist;
 import com.lilithsthrone.game.character.npc.dominion.ReindeerOverseer;
@@ -324,84 +323,7 @@ public class CityPlaces {
 					+ "</p>");
 			
 			for(GameCharacter npc : Main.game.getCharactersPresent()) {
-					UtilText.nodeContentSB.append(
-							UtilText.parse(npc,
-									"<p style='text-align:center;'>"
-									+ "<b style='color:"+Femininity.valueOf(npc.getFemininityValue()).getColour().toWebHexString()+";'>[npc.A_femininity]</b>"
-									+ " <b style='color:"+npc.getRaceStage().getColour().toWebHexString()+";'>[npc.raceStage]</b>"
-									+ " <b style='color:"+npc.getRace().getColour().toWebHexString()+";'>[npc.race]</b> <b>is prowling this area!</b></p>"
-									
-									+ "<p style='text-align:center;'>"));
-							
-					// Combat:
-					if(npc.getFoughtPlayerCount()>0) {
-						UtilText.nodeContentSB.append(
-								UtilText.parse(npc,"You have <b style='color:"+Colour.GENERIC_COMBAT.toWebHexString()+";'>fought</b> [npc.herHim] <b>"));
-								
-								if(npc.getFoughtPlayerCount()==1) {
-									UtilText.nodeContentSB.append("once.");
-								} else if(npc.getFoughtPlayerCount()==2) {
-									UtilText.nodeContentSB.append("twice.");
-								} else {
-									UtilText.nodeContentSB.append(Util.intToString(npc.getFoughtPlayerCount())+" times.");
-								}
-								
-						UtilText.nodeContentSB.append("</b>"
-										+ "</br>"
-										+ "You have <b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>won</b> <b>");
-								
-								if(npc.getLostCombatCount()==1) {
-									UtilText.nodeContentSB.append("once.");
-								} else if(npc.getLostCombatCount()==2) {
-									UtilText.nodeContentSB.append("twice.");
-								} else {
-									UtilText.nodeContentSB.append(Util.intToString(npc.getLostCombatCount())+" times.");
-								}
-										
-						UtilText.nodeContentSB.append("</b>"
-								+ "</br>"
-								+ "You have <b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>lost</b> <b>");
-								if(npc.getWonCombatCount()==1) {
-									UtilText.nodeContentSB.append("once.");
-								} else if(npc.getWonCombatCount()==2) {
-									UtilText.nodeContentSB.append("twice.");
-								} else {
-									UtilText.nodeContentSB.append(Util.intToString(npc.getWonCombatCount())+" times.");
-								}
-								UtilText.nodeContentSB.append("</b></p>");
-					}
-					
-					// Sex:
-					if(npc.getSexPartners().containsKey(Main.game.getPlayer().getId())) {
-						UtilText.nodeContentSB.append("<p style='text-align:center;'>");
-								
-						UtilText.nodeContentSB.append(
-								UtilText.parse(npc,
-										"You have had <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>submissive sex</b> with [npc.herHim]<b> "));
-						
-								if(npc.getSexAsDomCount()==1) {
-									UtilText.nodeContentSB.append("once.");
-								} else if(npc.getSexAsDomCount()==2) {
-									UtilText.nodeContentSB.append("twice.");
-								} else {
-									UtilText.nodeContentSB.append(Util.intToString(npc.getSexAsDomCount())+" times.");
-								}
-								
-						UtilText.nodeContentSB.append(
-								UtilText.parse(npc,
-										"</b>"
-										+ "</br>"
-										+ "You have had <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>dominant sex</b> with  [npc.herHim]<b> "));
-						
-								if(npc.getSexAsSubCount()==1) {
-									UtilText.nodeContentSB.append("once.");
-								} else if(npc.getSexAsSubCount()==2) {
-									UtilText.nodeContentSB.append("twice.");
-								} else {
-									UtilText.nodeContentSB.append(Util.intToString(npc.getSexAsSubCount())+" times.");
-								}
-								UtilText.nodeContentSB.append("</b></p>");
-					}
+				UtilText.nodeContentSB.append(((NPC) npc).getPresentInTileDescription());
 			}
 			
 			return UtilText.nodeContentSB.toString();
@@ -443,84 +365,7 @@ public class CityPlaces {
 					+ "</p>");
 
 			for(GameCharacter npc : Main.game.getCharactersPresent()) {
-					UtilText.nodeContentSB.append(
-							UtilText.parse(npc,
-									"<p style='text-align:center;'>"
-									+ "<b style='color:"+Femininity.valueOf(npc.getFemininityValue()).getColour().toWebHexString()+";'>[npc.A_femininity]</b>"
-									+ " <b style='color:"+npc.getRaceStage().getColour().toWebHexString()+";'>[npc.raceStage]</b>"
-									+ " <b style='color:"+npc.getRace().getColour().toWebHexString()+";'>[npc.race]</b> <b>is prowling this area!</b></p>"
-									
-									+ "<p style='text-align:center;'>"));
-							
-					// Combat:
-					if(npc.getFoughtPlayerCount()>0) {
-						UtilText.nodeContentSB.append(
-								UtilText.parse(npc,"You have <b style='color:"+Colour.GENERIC_COMBAT.toWebHexString()+";'>fought</b> [npc.herHim] <b>"));
-								
-								if(npc.getFoughtPlayerCount()==1) {
-									UtilText.nodeContentSB.append("once.");
-								} else if(npc.getFoughtPlayerCount()==2) {
-									UtilText.nodeContentSB.append("twice.");
-								} else {
-									UtilText.nodeContentSB.append(Util.intToString(npc.getLostCombatCount())+" times.");
-								}
-								
-						UtilText.nodeContentSB.append("</b>"
-										+ "</br>"
-										+ "You have <b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>won</b> <b>");
-								
-								if(npc.getLostCombatCount()==1) {
-									UtilText.nodeContentSB.append("once.");
-								} else if(npc.getLostCombatCount()==2) {
-									UtilText.nodeContentSB.append("twice.");
-								} else {
-									UtilText.nodeContentSB.append(Util.intToString(npc.getLostCombatCount())+" times.");
-								}
-										
-						UtilText.nodeContentSB.append("</b>"
-								+ "</br>"
-								+ "You have <b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>lost</b> <b>");
-								if(npc.getWonCombatCount()==1) {
-									UtilText.nodeContentSB.append("once.");
-								} else if(npc.getWonCombatCount()==2) {
-									UtilText.nodeContentSB.append("twice.");
-								} else {
-									UtilText.nodeContentSB.append(Util.intToString(npc.getWonCombatCount())+" times.");
-								}
-								UtilText.nodeContentSB.append("</b></p>");
-					}
-					
-					// Sex:
-					if(npc.getSexPartners().containsKey(Main.game.getPlayer().getId())) {
-						UtilText.nodeContentSB.append("<p style='text-align:center;'>");
-								
-						UtilText.nodeContentSB.append(
-								UtilText.parse(npc,
-										"You have had <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>submissive sex</b> with [npc.herHim] <b>"));
-						
-								if(npc.getSexAsDomCount()==1) {
-									UtilText.nodeContentSB.append("once.");
-								} else if(npc.getSexAsDomCount()==2) {
-									UtilText.nodeContentSB.append("twice.");
-								} else {
-									UtilText.nodeContentSB.append(Util.intToString(npc.getSexAsDomCount())+" times.");
-								}
-								
-						UtilText.nodeContentSB.append(
-								UtilText.parse(npc,
-										"</b>"
-										+ "</br>"
-										+ "You have had <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>dominant sex</b> with [npc.herHim] <b>"));
-						
-								if(npc.getSexAsSubCount()==1) {
-									UtilText.nodeContentSB.append("once.");
-								} else if(npc.getSexAsSubCount()==2) {
-									UtilText.nodeContentSB.append("twice.");
-								} else {
-									UtilText.nodeContentSB.append(Util.intToString(npc.getSexAsSubCount())+" times.");
-								}
-								UtilText.nodeContentSB.append("</b></p>");
-					}
+				UtilText.nodeContentSB.append(((NPC) npc).getPresentInTileDescription());
 			}
 			
 			return UtilText.nodeContentSB.toString();

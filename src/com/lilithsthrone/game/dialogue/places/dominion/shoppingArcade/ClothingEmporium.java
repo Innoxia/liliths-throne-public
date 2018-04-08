@@ -127,9 +127,9 @@ public class ClothingEmporium {
 		@Override
 		public String getResponseTabTitle(int index) {
 			if(index==0) {
-				return "Talk";
-			} else if(index==1) {
 				return "Trade";
+			} else if(index==1) {
+				return "Talk";
 			} else {
 				return null;
 			}
@@ -137,7 +137,7 @@ public class ClothingEmporium {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(responseTab==0) {
+			if(responseTab==1) {
 				if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_NYAN_HELP)) {
 					if(index==1) {
 						if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.nyanTalkedTo)) {
@@ -243,7 +243,7 @@ public class ClothingEmporium {
 							return new Response("Gift", "Give Nyan a gift (opens gift selection screen).", ROMANCE_GIFT) {
 								@Override
 								public DialogueNodeOld getNextDialogue() {
-									return GiftDialogue.getGiftDialogue(Main.game.getNyan(), SHOP_CLOTHING_REPEAT, ROMANCE_GIFT);
+									return GiftDialogue.getGiftDialogue(Main.game.getNyan(), SHOP_CLOTHING_REPEAT, 1, ROMANCE_GIFT, 1);
 								}
 								@Override
 								public void effects() {
@@ -338,7 +338,7 @@ public class ClothingEmporium {
 				}
 				
 				
-			} else if(responseTab==1) {
+			} else if(responseTab==0) {
 				if (index == 1) {
 					return new ResponseTrade("Female Clothing", "Ask her what female clothing is available.", Main.game.getNyan()){
 						@Override

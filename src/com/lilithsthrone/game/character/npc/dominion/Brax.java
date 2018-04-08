@@ -1,11 +1,14 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.NameTriplet;
@@ -72,6 +75,8 @@ import com.lilithsthrone.game.sex.managers.universal.SMCowgirl;
 import com.lilithsthrone.game.sex.managers.universal.SMDoggy;
 import com.lilithsthrone.game.sex.managers.universal.SMKneeling;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.rendering.Artist;
+import com.lilithsthrone.rendering.Artwork;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.ListValue;
@@ -88,6 +93,45 @@ public class Brax extends NPC {
 
 	private static final long serialVersionUID = 1L;
 
+	private static List<Artwork> braxArtwork = new ArrayList<>();
+	private static List<Artwork> breeArtwork = new ArrayList<>();
+	private static List<Artwork> brandiArtwork = new ArrayList<>();
+	
+	static {
+		String artworkFolderName = "brax";
+				
+		if(artworkFolderName!=null && !artworkFolderName.isEmpty()) {
+			for(Artist artist : Artwork.allArtists) {
+				File f = new File("res/images/characters/"+artworkFolderName+"/"+artist.getFolderName());
+				if(f.exists()) {
+					braxArtwork.add(new Artwork(artworkFolderName, artist));
+				}
+			}
+		}
+		
+		artworkFolderName = "bree";
+		
+		if(artworkFolderName!=null && !artworkFolderName.isEmpty()) {
+			for(Artist artist : Artwork.allArtists) {
+				File f = new File("res/images/characters/"+artworkFolderName+"/"+artist.getFolderName());
+				if(f.exists()) {
+					breeArtwork.add(new Artwork(artworkFolderName, artist));
+				}
+			}
+		}
+		
+		artworkFolderName = "brandi";
+		
+		if(artworkFolderName!=null && !artworkFolderName.isEmpty()) {
+			for(Artist artist : Artwork.allArtists) {
+				File f = new File("res/images/characters/"+artworkFolderName+"/"+artist.getFolderName());
+				if(f.exists()) {
+					brandiArtwork.add(new Artwork(artworkFolderName, artist));
+				}
+			}
+		}
+	}
+	
 	public Brax() {
 		this(false);
 	}
@@ -135,6 +179,19 @@ public class Brax extends NPC {
 		this.setPenisVirgin(false);
 	}
 
+	@Override
+	public List<Artwork> getArtworkList() {
+		if(this.getName().equalsIgnoreCase("Brax")) {
+			return braxArtwork;
+			
+		} else if(this.getName().equalsIgnoreCase("Bree")) {
+			return breeArtwork;
+			
+		} else {
+			return brandiArtwork;
+		}
+	}
+	
 	@Override
 	public boolean isUnique() {
 		return true;
@@ -257,7 +314,7 @@ public class Brax extends NPC {
 
 	@Override
 	public String getSpeechColour() {
-		if(Main.getProperties().lightTheme) {
+		if(Main.getProperties().hasValue(PropertyValue.lightTheme)) {
 			if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.bimbofiedBrax)) {
 				return "#FF0AA5";
 			} else if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.feminisedBrax)) {

@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.SexualOrientation;
@@ -1598,10 +1599,10 @@ public enum StatusEffect {
 			"weatherDayStorm",
 			Colour.CLOTHING_WHITE,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -15f)),
-			Util.newArrayListOfValues(new ListValue<String>("<b style='color: "
-					+ Colour.GENERIC_ARCANE.toWebHexString()
-					+ ";'>Enhanced libido</b>"))) {
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -5f)),
+			Util.newArrayListOfValues(
+					new ListValue<String>("<b style='color: "+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>Enhanced libido</b>"),
+					new ListValue<String>("[style.boldExcellent(Double)] all <b style='color: "+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>Essence gains</b> from sex & combat"))) {
 
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
@@ -1656,12 +1657,10 @@ public enum StatusEffect {
 			Colour.CLOTHING_WHITE,
 			false,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -75f)),
-			Util.newArrayListOfValues(new ListValue<String>("<b style='color: "
-					+ Colour.GENERIC_ARCANE.toWebHexString()
-					+ ";'>Enhanced libido</b>"),
-					new ListValue<String>("<b style='color: "
-							+ Colour.GENERIC_ARCANE.toWebHexString()
-							+ ";'>Overwhelming Lust</b>"))) {
+			Util.newArrayListOfValues(
+					new ListValue<String>("<b style='color: "+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>Enhanced libido</b>"),
+					new ListValue<String>("<b style='color: "+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>Overwhelming Lust</b>"),
+					new ListValue<String>("[style.boldExcellent(Double)] <b style='color: "+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>Essence gains</b> from sex & combat"))) {
 
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
@@ -5190,7 +5189,7 @@ public enum StatusEffect {
 			int cumAmount = target.getCummedInAreaMap().get(OrificeType.ANUS) + target.getCummedInAreaMap().get(OrificeType.MOUTH) + target.getCummedInAreaMap().get(OrificeType.VAGINA);
 			return cumAmount >= CumProduction.SEVEN_MONSTROUS.getMinimumValue()
 					&& cumAmount < CumProduction.SEVEN_MONSTROUS.getMedianValue()
-					&& Main.getProperties().inflationContent;
+					&& Main.getProperties().hasValue(PropertyValue.inflationContent);
 		}
 		
 		@Override
@@ -5235,7 +5234,7 @@ public enum StatusEffect {
 			int cumAmount = target.getCummedInAreaMap().get(OrificeType.ANUS) + target.getCummedInAreaMap().get(OrificeType.MOUTH) + target.getCummedInAreaMap().get(OrificeType.VAGINA);
 			return cumAmount >= CumProduction.SEVEN_MONSTROUS.getMedianValue()
 					&& cumAmount < CumProduction.SEVEN_MONSTROUS.getMaximumValue()
-					&& Main.getProperties().inflationContent;
+					&& Main.getProperties().hasValue(PropertyValue.inflationContent);
 		}
 		
 		@Override
@@ -5279,7 +5278,7 @@ public enum StatusEffect {
 		public boolean isConditionsMet(GameCharacter target) {
 			int cumAmount = target.getCummedInAreaMap().get(OrificeType.ANUS) + target.getCummedInAreaMap().get(OrificeType.MOUTH) + target.getCummedInAreaMap().get(OrificeType.VAGINA);
 			return cumAmount >= CumProduction.SEVEN_MONSTROUS.getMaximumValue()
-					&& Main.getProperties().inflationContent;
+					&& Main.getProperties().hasValue(PropertyValue.inflationContent);
 		}
 		
 		@Override
@@ -5324,7 +5323,7 @@ public enum StatusEffect {
 			int cumAmount = target.getCummedInAreaMap().get(OrificeType.NIPPLE);
 			return cumAmount >= CumProduction.SEVEN_MONSTROUS.getMinimumValue()
 					&& cumAmount < CumProduction.SEVEN_MONSTROUS.getMedianValue()
-					&& Main.getProperties().inflationContent;
+					&& Main.getProperties().hasValue(PropertyValue.inflationContent);
 		}
 		
 		@Override
@@ -5369,7 +5368,7 @@ public enum StatusEffect {
 			int cumAmount = target.getCummedInAreaMap().get(OrificeType.NIPPLE);
 			return cumAmount >= CumProduction.SEVEN_MONSTROUS.getMedianValue()
 					&& cumAmount < CumProduction.SEVEN_MONSTROUS.getMaximumValue()
-					&& Main.getProperties().inflationContent;
+					&& Main.getProperties().hasValue(PropertyValue.inflationContent);
 		}
 		
 		@Override
@@ -5413,7 +5412,7 @@ public enum StatusEffect {
 		public boolean isConditionsMet(GameCharacter target) {
 			int cumAmount = target.getCummedInAreaMap().get(OrificeType.NIPPLE);
 			return cumAmount >= CumProduction.SEVEN_MONSTROUS.getMaximumValue()
-					&& Main.getProperties().inflationContent;
+					&& Main.getProperties().hasValue(PropertyValue.inflationContent);
 		}
 		
 		@Override
@@ -5492,7 +5491,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return !target.isPlayer() && target.isSlave() && target.getOwner().isPlayer() && ((NPC)target).getLastTimeOrgasmed()+60*24<Main.game.getMinutesPassed();
+			return !target.isPlayer() && target.isSlave() && (target.getOwner()!=null && target.getOwner().isPlayer()) && ((NPC)target).getLastTimeOrgasmed()+60*24<Main.game.getMinutesPassed();
 		}
 	},
 	
@@ -8447,7 +8446,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return Main.game.isInSex() && target.isUrethraFuckable() && Main.getProperties().urethralContent;
+			return Main.game.isInSex() && target.isUrethraFuckable() && Main.getProperties().hasValue(PropertyValue.urethralContent);
 		}
 		
 		@Override
@@ -8582,7 +8581,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return Main.game.isInSex() && target.isVaginaUrethraFuckable() && Main.getProperties().urethralContent;
+			return Main.game.isInSex() && target.isVaginaUrethraFuckable() && Main.getProperties().hasValue(PropertyValue.urethralContent);
 		}
 		
 		@Override

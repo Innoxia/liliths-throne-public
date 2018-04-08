@@ -43,6 +43,9 @@ import com.lilithsthrone.game.dialogue.places.dominion.slaverAlley.SlaverAlleyDi
 import com.lilithsthrone.game.dialogue.places.dominion.zaranixHome.ZaranixHomeFirstFloor;
 import com.lilithsthrone.game.dialogue.places.dominion.zaranixHome.ZaranixHomeGroundFloor;
 import com.lilithsthrone.game.dialogue.places.submission.SubmissionGenericPlaces;
+import com.lilithsthrone.game.inventory.CharacterInventory;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
+import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.BaseColour;
 import com.lilithsthrone.utils.Bearing;
@@ -511,6 +514,50 @@ public enum PlaceType {
 		}
 	},
 	
+	LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR_MILKING("Slave's Room", "dominion/lilayasHome/roomMilking", BaseColour.ORANGE, Colour.MAP_BACKGROUND, LilayaHomeGeneric.ROOM_WINDOW_MILKING, null, true, false, true, false, "in Lilaya's Home") {
+		@Override
+		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades() {
+			return PlaceUpgrade.getMilkingUpgrades();
+		}
+		@Override
+		public boolean isAbleToBeUpgraded() {
+			return true;
+		}
+	},
+	
+	LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR_MILKING("Slave's Garden Room", "dominion/lilayasHome/roomMilking", BaseColour.ORANGE, Colour.MAP_BACKGROUND, LilayaHomeGeneric.ROOM_GARDEN_GROUND_FLOOR_MILKING, null, true, false, true, false, "in Lilaya's Home") {
+		@Override
+		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades() {
+			return PlaceUpgrade.getMilkingUpgrades();
+		}
+		@Override
+		public boolean isAbleToBeUpgraded() {
+			return true;
+		}
+	},
+	
+	LILAYA_HOME_ROOM_WINDOW_FIRST_FLOOR_MILKING("Slave's Room", "dominion/lilayasHome/roomMilking", BaseColour.ORANGE, Colour.MAP_BACKGROUND, LilayaHomeGeneric.ROOM_WINDOW_MILKING, null, true, false, true, false, "in Lilaya's Home") {
+		@Override
+		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades() {
+			return PlaceUpgrade.getMilkingUpgrades();
+		}
+		@Override
+		public boolean isAbleToBeUpgraded() {
+			return true;
+		}
+	},
+	
+	LILAYA_HOME_ROOM_GARDEN_FIRST_FLOOR_MILKING("Slave's Garden Room", "dominion/lilayasHome/roomMilking", BaseColour.ORANGE, Colour.MAP_BACKGROUND, LilayaHomeGeneric.ROOM_GARDEN_MILKING, null, true, false, true, false, "in Lilaya's Home") {
+		@Override
+		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades() {
+			return PlaceUpgrade.getMilkingUpgrades();
+		}
+		@Override
+		public boolean isAbleToBeUpgraded() {
+			return true;
+		}
+	},
+	
 	LILAYA_HOME_ARTHUR_ROOM("Arthur's Room", "dominion/lilayasHome/roomArthur", BaseColour.BLUE_STEEL, Colour.MAP_BACKGROUND, LilayaHomeGeneric.ROOM_ARTHUR, null, true, false, true, false, "in Arthur's Room"),
 	
 	LILAYA_HOME_BIRTHING_ROOM("Room", "dominion/lilayasHome/roomBirthing", BaseColour.PINK, Colour.MAP_BACKGROUND, LilayaHomeGeneric.BIRTHING_ROOM, null, true, false, true, false, "in Lilaya's Home"),
@@ -523,7 +570,12 @@ public enum PlaceType {
 	
 	LILAYA_HOME_ENTRANCE_HALL("Entrance Hall", "dominion/lilayasHome/entranceHall", BaseColour.RED, Colour.MAP_BACKGROUND, LilayaHomeGeneric.ENTRANCE_HALL, null, true, false, true, false, "in Lilaya's Home"),
 	
-	LILAYA_HOME_LAB("Lilaya's Lab", "dominion/lilayasHome/lab", BaseColour.ORANGE, Colour.MAP_BACKGROUND, Lab.LAB, null, true, false, true, false, "in Lilaya's lab"),
+	LILAYA_HOME_LAB("Lilaya's Lab", "dominion/lilayasHome/lab", BaseColour.ORANGE, Colour.MAP_BACKGROUND, Lab.LAB, null, true, false, true, false, "in Lilaya's lab") {
+		@Override
+		public void applyInventoryInit(CharacterInventory inventory) {
+			inventory.addClothing(AbstractClothingType.generateClothing(ClothingType.SCIENTIST_EYES_SAFETY_GOGGLES, Colour.CLOTHING_BLACK, false));
+		}
+	},
 	
 	LILAYA_HOME_GARDEN("Garden", "dominion/lilayasHome/garden", BaseColour.GREEN, Colour.MAP_BACKGROUND, LilayaHomeGeneric.GARDEN, null, true, false, false, false, "in Lilaya's garden"),
 	
@@ -543,7 +595,7 @@ public enum PlaceType {
 	
 
 	// Zaranix:
-
+	
 	ZARANIX_GF_CORRIDOR("Corridor", null, BaseColour.GREY, Colour.MAP_BACKGROUND, ZaranixHomeGroundFloor.CORRIDOR, null, false, false, true, false, "in Zaranix's home"),
 	ZARANIX_GF_STAIRS("Staircase", "dominion/zaranixHome/stairsDown", BaseColour.GREEN_LIGHT, Colour.MAP_BACKGROUND, ZaranixHomeGroundFloor.STAIRS, null, false, false, true, false, "in Zaranix's home"),
 	ZARANIX_GF_ENTRANCE("Entrance", "dominion/zaranixHome/entranceHall", BaseColour.RED, Colour.MAP_BACKGROUND, ZaranixHomeGroundFloor.ENTRANCE, null, false, false, true, false, "in Zaranix's home"),
@@ -600,7 +652,7 @@ public enum PlaceType {
 		}
 	},
 	
-	SHOPPING_ARCADE_PIXS_GYM("City Gym", "dominion/shoppingArcade/gym", BaseColour.GOLD, Colour.MAP_BACKGROUND, PixsPlayground.GYM_EXTERIOR, null, true, false, true, true, "in her gym"),
+	SHOPPING_ARCADE_PIXS_GYM("Pix's Playground", "dominion/shoppingArcade/gym", BaseColour.GOLD, Colour.MAP_BACKGROUND, PixsPlayground.GYM_EXTERIOR, null, true, false, true, true, "in her gym"),
 
 	// Exits & entrances:
 	SHOPPING_ARCADE_ENTRANCE("Exit", "dominion/shoppingArcade/exit", BaseColour.RED, Colour.MAP_BACKGROUND, ShoppingArcadeDialogue.ENTRY, null, true, false, true, true, "in the Shopping Arcade"),
@@ -735,7 +787,6 @@ public enum PlaceType {
 		this.itemsDisappear = itemsDisappear;
 		this.virgintyLossDescription = virgintyLossDescription;
 		
-		
 		if(SVGPath!=null) {
 			try {
 				InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/map/" + SVGPath + ".svg");
@@ -829,6 +880,9 @@ public enum PlaceType {
 		return SVGString;
 	}
 	
+	public void applyInventoryInit(CharacterInventory inventory) {
+		
+	}
 	
 	// For determining where this place should be placed:
 	

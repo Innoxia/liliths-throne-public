@@ -81,15 +81,12 @@ public class GenericSexualPartner extends NPC {
 				switch(s) {
 					// No spawn chance:
 					case ANGEL:
-					case BAT_MORPH:
 					case DEMON:
-					case HARPY:
-					case HUMAN:
 					case IMP:
 					case IMP_ALPHA:
 						break;
 						
-					// Canals spawn only:
+					// Low spawn chance:
 					case ALLIGATOR_MORPH:
 						addToSubspeciesMap(5, gender, s, availableRaces);
 						break;
@@ -101,7 +98,9 @@ public class GenericSexualPartner extends NPC {
 					case SLIME_DEMON:
 					case SLIME_DOG:
 					case SLIME_DOG_DOBERMANN:
+					case SLIME_DOG_BORDER_COLLIE:
 					case SLIME_HARPY:
+					case SLIME_HARPY_RAVEN:
 					case SLIME_HORSE:
 					case SLIME_IMP:
 					case SLIME_REINDEER:
@@ -113,6 +112,19 @@ public class GenericSexualPartner extends NPC {
 						addToSubspeciesMap(1, gender, s, availableRaces);
 						break;
 					case RAT_MORPH:
+						addToSubspeciesMap(5, gender, s, availableRaces);
+						break;
+
+					case BAT_MORPH:
+						addToSubspeciesMap(1, gender, s, availableRaces);
+						break;
+					case HARPY:
+						addToSubspeciesMap(4, gender, s, availableRaces);
+						break;
+					case HARPY_RAVEN:
+						addToSubspeciesMap(1, gender, s, availableRaces);
+						break;
+					case HUMAN:
 						addToSubspeciesMap(5, gender, s, availableRaces);
 						break;
 						
@@ -134,7 +146,10 @@ public class GenericSexualPartner extends NPC {
 						addToSubspeciesMap(15, gender, s, availableRaces);
 						break;
 					case DOG_MORPH_DOBERMANN:
-						addToSubspeciesMap(15, gender, s, availableRaces);
+						addToSubspeciesMap(5, gender, s, availableRaces);
+						break;
+					case DOG_MORPH_BORDER_COLLIE:
+						addToSubspeciesMap(5, gender, s, availableRaces);
 						break;
 					case HORSE_MORPH:
 						addToSubspeciesMap(25, gender, s, availableRaces);

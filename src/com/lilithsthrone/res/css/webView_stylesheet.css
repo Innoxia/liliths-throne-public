@@ -1762,6 +1762,10 @@ border-radius:5px;
 .overlay.no-pointer{
 	cursor:default;
 }
+.overlay.no-highlight:hover{
+	background:transparent;
+	opacity:1;
+}
 .overlay:hover{
 	background-color:#fff;
 	opacity:0.20;
@@ -1775,12 +1779,7 @@ border-radius:5px;
 	width:20px;
 	height:20px;
 	border-radius:5px;
-	background: -webkit-gradient(
-		linear, left top, left bottom,
-		from(#2a2a2a),
-		color-stop(0.50, #272727),
-		color-stop(0.92, #232323),
-		to(#222));
+	background:#292929;
 	cursor:pointer;
 }
 .title-button:hover{
@@ -2305,4 +2304,18 @@ border-radius:5px;
 		  #444 5px,
 		  #444 10px
 		);
+}
+.overlay.map-player {
+	border-radius:5px;
+    opacity: 0;
+    background-color:yellow;
+    -webkit-animation-name: flashYellow;
+    -webkit-animation-duration: 3s;
+    -webkit-animation-iteration-count: infinite;
+}
+
+@-webkit-keyframes flashYellow {
+    0%   {opacity:0;}
+    50%  {opacity:0.9;}
+    100% {opacity:0;}
 }
