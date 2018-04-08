@@ -1310,13 +1310,6 @@ public class CharacterUtils {
 	}
 	
 	public static void equipClothing(GameCharacter character, boolean replaceUnsuitableClothing, boolean onlyAddCoreClothing) {
-		Colour primaryColour = character.primaryColour,
-				secondaryColour = character.secondaryColour,
-				lingerieColour = character.underwearColour,
-				leatherColour = character.leatherColour,
-				denimColour = character.denimColour,
-				metalColour = character.metalColour;
-		
 		List<InventorySlot> inventorySlotsInPriorityOrder = new ArrayList<>();
 		inventorySlotsInPriorityOrder.add(InventorySlot.TORSO_UNDER); // Torso needs to be randomly decided first, to give girls a chance to wear a dress.
 		for(InventorySlot slot : InventorySlot.values()) {
@@ -1351,17 +1344,11 @@ public class CharacterUtils {
 							clothingToUse.remove(ClothingType.PENIS_CONDOM);
 							
 							if(ct!=null) {
-								character.equipClothingFromNowhere(AbstractClothingType.generateClothing(
+								AbstractClothing clothing = AbstractClothingType.generateClothing(
 										ct,
-										(slot == InventorySlot.GROIN || slot==InventorySlot.CHEST || slot==InventorySlot.SOCK
-												? ct.getAvailablePrimaryColours().contains(lingerieColour)?lingerieColour:ct.getAvailablePrimaryColours().get(Util.random.nextInt(ct.getAvailablePrimaryColours().size()))
-												: (slot.isCoreClothing()
-														?ct.getAvailablePrimaryColours().contains(primaryColour)?primaryColour:ct.getAvailablePrimaryColours().get(Util.random.nextInt(ct.getAvailablePrimaryColours().size()))
-														:ct.getAvailablePrimaryColours().contains(secondaryColour)?secondaryColour:ct.getAvailablePrimaryColours().get(Util.random.nextInt(ct.getAvailablePrimaryColours().size())))),
-										false), true, character);
+										Colour.CLOTHING_BLACK,
+										false);
 								Colour colour;
-								AbstractClothing clothing = character.getClothingInSlot(slot);
-								AbstractClothingType clothingType = clothing.getClothingType();
 								switch(slot)
 								{
 									case TORSO_OVER:
@@ -1377,13 +1364,14 @@ public class CharacterUtils {
 									default:
 										colour = character.secondaryColour;
 								}
-								if(clothingType.getAvailablePrimaryColours().equals(Colour.leatherColours))
-									colour = leatherColour;
-								if(clothingType.getAvailablePrimaryColours().equals(Colour.denimColours))
-									colour = denimColour;
-								if(clothingType.getAvailablePrimaryColours().equals(Colour.allMetalColours))
-									colour = metalColour;
+								if(ct.getAvailablePrimaryColours().equals(Colour.leatherColours))
+									colour = character.leatherColour;
+								if(ct.getAvailablePrimaryColours().equals(Colour.denimColours))
+									colour = character.denimColour;
+								if(ct.getAvailablePrimaryColours().equals(Colour.allMetalColours))
+									colour = character.metalColour;
 								clothing.setColour(colour);
+								character.equipClothingFromNowhere(clothing, true, character);
 							}
 						}
 					}
@@ -1412,14 +1400,34 @@ public class CharacterUtils {
 							AbstractClothingType ct = getClothingTypeForSlot(character, slot, clothingToUse);
 							
 							if(ct!=null) {
-							character.equipClothingFromNowhere(AbstractClothingType.generateClothing(
-									ct,
-									(slot == InventorySlot.GROIN || slot==InventorySlot.CHEST || slot==InventorySlot.SOCK
-											?  ct.getAvailablePrimaryColours().contains(lingerieColour)?lingerieColour:ct.getAvailablePrimaryColours().get(Util.random.nextInt(ct.getAvailablePrimaryColours().size()))
-													: (slot.isCoreClothing()
-															?ct.getAvailablePrimaryColours().contains(primaryColour)?primaryColour:ct.getAvailablePrimaryColours().get(Util.random.nextInt(ct.getAvailablePrimaryColours().size()))
-															:ct.getAvailablePrimaryColours().contains(secondaryColour)?secondaryColour:ct.getAvailablePrimaryColours().get(Util.random.nextInt(ct.getAvailablePrimaryColours().size())))),
-									false), true, character);
+								AbstractClothing clothing = AbstractClothingType.generateClothing(
+										ct,
+										Colour.CLOTHING_BLACK,
+										false);
+								Colour colour;
+								switch(slot)
+								{
+									case TORSO_OVER:
+									case LEG:
+									case FOOT:
+										colour = character.primaryColour;
+										break;
+									case GROIN:
+									case CHEST:
+									case SOCK:
+										colour = character.underwearColour;
+										break;
+									default:
+										colour = character.secondaryColour;
+								}
+								if(ct.getAvailablePrimaryColours().equals(Colour.leatherColours))
+									colour = character.leatherColour;
+								if(ct.getAvailablePrimaryColours().equals(Colour.denimColours))
+									colour = character.denimColour;
+								if(ct.getAvailablePrimaryColours().equals(Colour.allMetalColours))
+									colour = character.metalColour;
+								clothing.setColour(colour);
+								character.equipClothingFromNowhere(clothing, true, character);
 							}
 								
 						}
