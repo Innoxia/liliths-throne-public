@@ -1,4 +1,4 @@
------ CUSTOM ARTOWORK GUIDE -----
+----- CUSTOM ARTWORK GUIDE -----
 
 All images must be .png or .jpg!
 
@@ -21,8 +21,8 @@ To add custom images for Rose, you'd need to:
 
 Example 2:
 To add custom images for Candi, you'd need to:
-1) Create a new folder alongside all the other character folders, called 'brandi'.
-2) FOllow the steps as outlined in Rose's example above.
+1) Create a new folder alongside all the other character folders, called 'candi'.
+2) Follow the steps as outlined in Rose's example above.
 
 
 SPECIAL EXCEPTIONS:

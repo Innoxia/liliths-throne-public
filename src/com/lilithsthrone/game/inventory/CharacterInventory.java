@@ -1159,6 +1159,15 @@ public class CharacterInventory implements Serializable, XMLSaving {
 
 	private boolean isAbleToUnequip(AbstractClothing clothing, boolean unequipIfAble, boolean automaticClothingManagement, GameCharacter characterClothingOwner, GameCharacter characterRemovingClothing, boolean continuingIsAbleToEquip) {
 
+		if(!unequipIfAble) {
+			if(characterClothingOwner==null) {
+				characterClothingOwner = Main.game.getPlayer();
+			}
+			if(characterRemovingClothing==null) {
+				characterRemovingClothing = Main.game.getPlayer();
+			}
+		}
+		
 		if (!continuingIsAbleToEquip) {
 			clothingToRemove.clear();
 			equipTextSB.setLength(0);
@@ -1326,6 +1335,15 @@ public class CharacterInventory implements Serializable, XMLSaving {
 	 */
 	public boolean isAbleToBeDisplaced(AbstractClothing clothing, DisplacementType dt, boolean displaceIfAble, boolean automaticClothingManagement,
 			GameCharacter characterClothingOwner, GameCharacter characterRemovingClothing, boolean continuingIsAbleToEquip) {
+		
+		if(!displaceIfAble) {
+			if(characterClothingOwner==null) {
+				characterClothingOwner = Main.game.getPlayer();
+			}
+			if(characterRemovingClothing==null) {
+				characterRemovingClothing = Main.game.getPlayer();
+			}
+		}
 		
 		if (dt == DisplacementType.REMOVE_OR_EQUIP) {
 			return isAbleToUnequip(clothing, displaceIfAble, automaticClothingManagement, characterClothingOwner, characterRemovingClothing, continuingIsAbleToEquip);

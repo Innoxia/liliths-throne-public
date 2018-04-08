@@ -24,77 +24,34 @@
 	
 	Patch notes:
 	
-	
-	Gameplay:
-		Added raven-harpy and border-collie subspecies (for Scarlett and Pix, respectively).
-		Essence gains from combat and sex are now doubled during arcane storms.
-	
-	Clothing:
-		<b>Added:</b> Corset dress (feminine, torso slot).
-		<b>Added:</b> Suspender belt  (feminine, hips slot).
-		<b>Added:</b> Stockings (feminine, calves slot).
-		<b>Added:</b> Sport shorts (unisex, leg slot).
-		<b>Added:</b> Sweatband (unisex, head slot).
-		<b>Added:</b> Wristbands (unisex, wrist slot).
-	
-	Slavery:
-		Moved 'Slavery Overview' from an option in every room to just being available from your room, and made the options available in rooms specific to that room.
-		Tidied up the appearance and buttons for slavery and room management.
-		Added some dialogue variation for if you've set your slave to be crawling.
-		Added Milking Room upgrade, along with 'Milking Cow'/'Milking Bull' job for slaves. (Still needs finishing off.)
-	
-	Other:
-		<b>Added:</b> Optional in-game artwork viewer (enabled by default, can be disabled in the content options screen). Major NPCs which have had artwork drawn of them will now have that artwork displayed in their character screen. You can also add in custom images (info is in the res/images/characters/modding.txt folder).
-		Added: Demon tail TF variation. (Hair-tipped instead of spaded.)
-		Slightly improved Nyan's clothes.
-		You can now export characters from your phone's contacts screen (using the same export button in the top-right).
-		Updated Vicky's outfit.
-		Phone's map now flashes to show which tile you're currently on.
-		Phone's map now scales better for smaller maps.
-		Books no longer give +0.5 arcane, and instead, give +5 damage and +5 resistance vs the book's associated race.
-		Unequipping or displacing an NPC's clothing while outside of sex will now display the same reveal text for ass/breasts/vagina/penis as when in sex.
-		Slaves with the 'cum addict' fetish now gain affection towards you instead of losing it when being tasked to work as a prostitute.
-		Added a 'Take' action for when you're interacting with an NPC's equipped clothing, allowing you to unequip their clothing and add it to your inventory in one click.
-		You can now change body hair colours at Kate's shop and through the demon transformation screen.
-		Slimes no longer need to have their body parts pierced in order to equip piercings (you still need to grow a vagina or penis to equip those piercings, however).
-		NPCs with the Submissive fetish will now prefer to stick with the gentle pace while being the dom in sex (unless they are a switch or sadist, in which case they'll use normal/rough paces as normal).
-		Added white slime colour.
-		Added a lot more colours for feathers.
-		NPCs who hate sadism will now always be gentle while domming, and NPCs that dislike sadism will prefer the normal pace.
-		Added option to be the dom in prostitute's 'Sell body' action.
-	
-	Contributors:
-		Fixed cause of bad displacement imports leading to a crash after sex. (Master of Puppets)
-		Adjusted the display of subspecies lists in the Encyclopedia. (tukaima)
-	
 	Bugs:
-		Fixed bug where NPCs could still perform urethral penetration actions, even if it was turned off. (So sorry about this!)
-		Fixed all urethras being penetrable, even if capacity was at 0.
-		Fixed page automatically scrolling down when opening character view screen.
-		Fixed minor bug in harpy ear descriptions in character view screen.
-		Fixed final gift-related bugs in Nyan's tabs.
-		Dog and wolf-morphs should now correctly have scarlet-coloured penises by default.
-		Fixed fetish screen's desire buttons being incorrectly aligned.
-		Fixed 'Arcane Weaver' perk not apply its essence reduction effect.
-		Fixed NPCs spawning with the pussy slut fetish, even if they didn't have a vagina. Also, NPCs should no longer spawn in with fetishes if you have their related content settings turned off.
-		Typo, formatting, and parsing fixes.
-		Fixed a lot of incorrect clothing equip/unequip/displace descriptions.
-		You can no longer equip penis and vagina piercings, even if you had no penis or vagina.
-		Drinking a biojuice canister while already being a slime will no longer display the slime transformation description.
-		Imp offsprings no longer have their height determined by genetics (which was resulting in very tall imps).
-		Fixed Loppy's post-sex scene returning Bunny's dialogue.
-		Swapping positions in sex now correctly resets all ongoing sex actions.
-		Fixed bug where mutually exclusive slave job settings would not be set correctly when you loaded a game.
-		Slavery income should now correctly be saved/loaded.
-		Lilaya has been told to stop replacing the spare pair of goggles that are found in her lab.
-		Slave obedience gains from the teacher perk 'In control' now correctly only affects positive obedience increments.
-		Fixed bug where blocked slot icons would show incorrect race icon.
-		Fixed bug where you could have sex with prostitutes in Angel's Kiss while they were entertaining a client.
-		Fixed bug where first floor of Angel's Kiss would end up getting flooded with random characters.
-		Fixed Lexi's creampie status effect showing 0ml.
-		Fixed major bug where the slavery upkeep calculation was not working.
-		Fixed bug where NPCs in Dominion's canal tiles would disappear.
+		Fixed cause of sex scenes sometimes not starting (due to a bug related to wearing jinxed clothing).
+
 	
+	
+	
+	
+	
+	Urethra:
+		When the one penetrating cums, if they cum a lot, the other character gets an inflated stomach, it would make more sense for their balls to inflate. And if the one receiving cums, there's just the regular cum outside dialogue.
+		Add orgasm content.
+	
+	add inventory button when interacting directly with slaves for the full release
+	
+	jinxed shorts causing sell self to bug?
+	
+	Pix & loss to attackers non-con even if off
+	Pix pregnancy reaction
+	
+	*Need* to remove the spit option for NPCs and Brax if have the TF fetish
+	
+	Just say one flame per ml instead
+	
+	Every time you set your fetish preferences, the page resets back to the top (aka it scrolls on it's own).
+	
+	While creating your character, if you choose a certain piercing but then change your mind, they will show up in your inventory when selecting your clothes
+	
+	change horn colour (succubus) at some 
 	
 	
 	- Improve the slavery UI, and add more jobs & interactions (winner of Patreon content poll).

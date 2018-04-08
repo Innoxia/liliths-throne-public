@@ -36,44 +36,46 @@ public class Artwork {
 		
 		File dir = new File("res/images/characters");
 		
-		FilenameFilter textFilter = new FilenameFilter() {
-			public boolean accept(File dir, String name) {
-				String lowercaseName = name.toLowerCase();
-				if (lowercaseName.endsWith(".xml")) {
-					return true;
-				} else {
-					return false;
-				}
-			}
-		};
-		
-		for(File subFile : dir.listFiles(textFilter)) {
-			if (subFile.exists()) {
-				try {
-					DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-					DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-					Document doc = dBuilder.parse(subFile);
-					
-					// Cast magic:
-					doc.getDocumentElement().normalize();
-					
-					Element artistElement = (Element) doc.getElementsByTagName("artist").item(0);
-					
-					String artistName = artistElement.getAttribute("name");
-					Colour colour = Colour.valueOf(artistElement.getAttribute("colour"));
-					String folderName = artistElement.getAttribute("folderName");
-							
-					List<ArtistWebsite> websites = new ArrayList<>();
-					
-					NodeList nodes = artistElement.getElementsByTagName("website");
-					for(int i=0; i < nodes.getLength(); i++){
-						Element websiteNode = (Element) nodes.item(i);
-						websites.add(new ArtistWebsite(websiteNode.getAttribute("title"), websiteNode.getAttribute("url")));
+		if(dir.exists()) {
+			FilenameFilter textFilter = new FilenameFilter() {
+				public boolean accept(File dir, String name) {
+					String lowercaseName = name.toLowerCase();
+					if (lowercaseName.endsWith(".xml")) {
+						return true;
+					} else {
+						return false;
 					}
-					
-					allArtists.add(new Artist(artistName, colour, folderName, websites));
-					
-				} catch(Exception ex) {
+				}
+			};
+			
+			for(File subFile : dir.listFiles(textFilter)) {
+				if (subFile.exists()) {
+					try {
+						DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+						DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+						Document doc = dBuilder.parse(subFile);
+						
+						// Cast magic:
+						doc.getDocumentElement().normalize();
+						
+						Element artistElement = (Element) doc.getElementsByTagName("artist").item(0);
+						
+						String artistName = artistElement.getAttribute("name");
+						Colour colour = Colour.valueOf(artistElement.getAttribute("colour"));
+						String folderName = artistElement.getAttribute("folderName");
+								
+						List<ArtistWebsite> websites = new ArrayList<>();
+						
+						NodeList nodes = artistElement.getElementsByTagName("website");
+						for(int i=0; i < nodes.getLength(); i++){
+							Element websiteNode = (Element) nodes.item(i);
+							websites.add(new ArtistWebsite(websiteNode.getAttribute("title"), websiteNode.getAttribute("url")));
+						}
+						
+						allArtists.add(new Artist(artistName, colour, folderName, websites));
+						
+					} catch(Exception ex) {
+					}
 				}
 			}
 		}
