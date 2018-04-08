@@ -33,10 +33,12 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.world.WorldType;
@@ -680,35 +682,36 @@ public class DominionAlleywayAttacker extends NPC {
 		for(AbstractClothing item : this.getClothingCurrentlyEquipped())
 		{
 			InventorySlot slot = item.getClothingType().getSlot();
+			Colour colour;
+			AbstractClothingType itemType = item.getClothingType();
 			if(Math.random() < 0.1f)
 			{
 				switch(slot)
 				{
-					case GROIN:
-					case CHEST:
-					case SOCK:
-						if(item.getColour() != this.tertiaryColour
-								&& item.getClothingType().getAvailablePrimaryColours().contains(this.tertiaryColour))
-						{
-							item.setColour(this.tertiaryColour);
-						}
-						break;
 					case TORSO_OVER:
 					case LEG:
 					case FOOT:
-						if(item.getColour() != this.primaryColour
-								&& item.getClothingType().getAvailablePrimaryColours().contains(this.primaryColour))
-						{
-							item.setColour(this.primaryColour);
-						}
+						colour = this.primaryColour;
+						break;
+					case GROIN:
+					case CHEST:
+					case SOCK:
+						colour = this.underwearColour;
 						break;
 					default:
-						if(item.getColour() != this.secondaryColour
-								&& item.getClothingType().getAvailablePrimaryColours().contains(this.secondaryColour))
-						{
-							item.setColour(this.secondaryColour);
-						}
+						colour = this.secondaryColour;
 						break;
+				}
+				if(itemType.getAvailablePrimaryColours().equals(Colour.leatherColours))
+					colour = leatherColour;
+				if(itemType.getAvailablePrimaryColours().equals(Colour.denimColours))
+					colour = denimColour;
+				if(itemType.getAvailablePrimaryColours().equals(Colour.allMetalColours))
+					colour = metalColour;
+				if(item.getColour() != colour
+						&& item.getClothingType().getAvailablePrimaryColours().contains(colour))
+				{
+					item.setColour(colour);
 				}
 			}
 		}

@@ -84,6 +84,7 @@ import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.inventory.InventorySlot;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.BlockedParts;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
@@ -1311,7 +1312,10 @@ public class CharacterUtils {
 	public static void equipClothing(GameCharacter character, boolean replaceUnsuitableClothing, boolean onlyAddCoreClothing) {
 		Colour primaryColour = character.primaryColour,
 				secondaryColour = character.secondaryColour,
-				lingerieColour = character.tertiaryColour;
+				lingerieColour = character.underwearColour,
+				leatherColour = character.leatherColour,
+				denimColour = character.denimColour,
+				metalColour = character.metalColour;
 		
 		List<InventorySlot> inventorySlotsInPriorityOrder = new ArrayList<>();
 		inventorySlotsInPriorityOrder.add(InventorySlot.TORSO_UNDER); // Torso needs to be randomly decided first, to give girls a chance to wear a dress.
@@ -1355,6 +1359,31 @@ public class CharacterUtils {
 														?ct.getAvailablePrimaryColours().contains(primaryColour)?primaryColour:ct.getAvailablePrimaryColours().get(Util.random.nextInt(ct.getAvailablePrimaryColours().size()))
 														:ct.getAvailablePrimaryColours().contains(secondaryColour)?secondaryColour:ct.getAvailablePrimaryColours().get(Util.random.nextInt(ct.getAvailablePrimaryColours().size())))),
 										false), true, character);
+								Colour colour;
+								AbstractClothing clothing = character.getClothingInSlot(slot);
+								AbstractClothingType clothingType = clothing.getClothingType();
+								switch(slot)
+								{
+									case TORSO_OVER:
+									case LEG:
+									case FOOT:
+										colour = character.primaryColour;
+										break;
+									case GROIN:
+									case CHEST:
+									case SOCK:
+										colour = character.underwearColour;
+										break;
+									default:
+										colour = character.secondaryColour;
+								}
+								if(clothingType.getAvailablePrimaryColours().equals(Colour.leatherColours))
+									colour = leatherColour;
+								if(clothingType.getAvailablePrimaryColours().equals(Colour.denimColours))
+									colour = denimColour;
+								if(clothingType.getAvailablePrimaryColours().equals(Colour.allMetalColours))
+									colour = metalColour;
+								clothing.setColour(colour);
 							}
 						}
 					}

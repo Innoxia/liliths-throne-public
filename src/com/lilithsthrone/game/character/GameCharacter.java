@@ -205,7 +205,10 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	protected int level;
 	public Colour primaryColour;
 	public Colour secondaryColour;
-	public Colour tertiaryColour;
+	public Colour underwearColour;
+	public Colour leatherColour;
+	public Colour denimColour;
+	public Colour metalColour;
 	
 	protected History history;
 	protected Personality personality;
@@ -329,7 +332,10 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		// Pick random colours
 		this.primaryColour = Colour.notBlack.get(Util.random.nextInt(Colour.notBlack.size()));
 		this.secondaryColour = Colour.allClothingColours.get(Util.random.nextInt(Colour.allClothingColours.size()));
-		this.tertiaryColour = Colour.allClothingColours.get(Util.random.nextInt(Colour.allClothingColours.size()));
+		this.underwearColour = Colour.allClothingColours.get(Util.random.nextInt(Colour.allClothingColours.size()));
+		this.leatherColour = Colour.leatherColours.get(Util.random.nextInt(Colour.leatherColours.size()));
+		this.denimColour = Colour.denimColours.get(Util.random.nextInt(Colour.denimColours.size()));
+		this.metalColour = Colour.allMetalColours.get(Util.random.nextInt(Colour.allMetalColours.size()));
 		
 		this.worldLocation = worldLocation;
 		this.homeWorldLocation = worldLocation;
@@ -479,8 +485,14 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			CharacterUtils.addAttribute(doc, colours, "primaryColour", this.primaryColour.toString());
 		if(this.secondaryColour != null)
 			CharacterUtils.addAttribute(doc, colours, "secondaryColour", this.secondaryColour.toString());
-		if(this.tertiaryColour != null)
-			CharacterUtils.addAttribute(doc, colours, "tertiaryColour", this.tertiaryColour.toString());
+		if(this.underwearColour != null)
+			CharacterUtils.addAttribute(doc, colours, "underwearColour", this.underwearColour.toString());
+		if(this.leatherColour != null)
+			CharacterUtils.addAttribute(doc, colours, "leatherColour", this.leatherColour.toString());
+		if(this.denimColour != null)
+			CharacterUtils.addAttribute(doc, colours, "denimColour", this.denimColour.toString());
+		if(this.metalColour != null)
+			CharacterUtils.addAttribute(doc, colours, "metalColour", this.metalColour.toString());
 		
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "surname", this.getSurname());
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "description", this.getDescription());
@@ -909,12 +921,50 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			try
 			{
 				character.primaryColour = Colour.valueOf(colourElement.getAttribute("primaryColour"));
-				character.secondaryColour = Colour.valueOf(colourElement.getAttribute("secondaryColour"));
-				character.tertiaryColour = Colour.valueOf(colourElement.getAttribute("tertiaryColour"));
 			}
 			catch(IllegalArgumentException e)
 			{
-				System.err.println("Warning: Importing character with invalid colours");
+				System.err.println("Warning: Invalid primary colour");
+			}
+			try
+			{
+				character.secondaryColour = Colour.valueOf(colourElement.getAttribute("secondaryColour"));
+			}
+			catch(IllegalArgumentException e)
+			{
+				System.err.println("Warning: Invalid secondary colour");
+			}
+			try
+			{
+				character.underwearColour = Colour.valueOf(colourElement.getAttribute("underwearColour"));
+			}
+			catch(IllegalArgumentException e)
+			{
+				System.err.println("Warning: Invalid underwear colour");
+			}
+			try
+			{
+				character.leatherColour = Colour.valueOf(colourElement.getAttribute("leatherColour"));
+			}
+			catch(IllegalArgumentException e)
+			{
+				System.err.println("Warning: Invalid leather colour");
+			}
+			try
+			{
+				character.denimColour = Colour.valueOf(colourElement.getAttribute("denimColour"));
+			}
+			catch(IllegalArgumentException e)
+			{
+				System.err.println("Warning: Invalid denim colour");
+			}
+			try
+			{
+				character.metalColour = Colour.valueOf(colourElement.getAttribute("metalColour"));
+			}
+			catch(IllegalArgumentException e)
+			{
+				System.err.println("Warning: Invalid metal colour");
 			}
 		}
 		
