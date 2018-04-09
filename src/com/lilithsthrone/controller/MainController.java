@@ -4327,8 +4327,6 @@ public class MainController implements Initializable {
 							continue;
 						}
 						id = "MAP_NODE_" + i + "_" + j;
-						System.err.println(id);
-						System.err.println(c.getPlaceName());
 						
 						addEventListener(document, id, "mousemove", moveTooltipListener, false);
 						addEventListener(document, id, "mouseleave", hideTooltipListener, false);
