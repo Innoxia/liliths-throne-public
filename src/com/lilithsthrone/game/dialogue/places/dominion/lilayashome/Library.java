@@ -553,7 +553,7 @@ public class Library {
 			} else if (field == 3) {
 				return bookResponse(ItemType.BOOK_RABBIT_MORPH, Race.RABBIT_MORPH);
 
-			} else if (field == 3) {
+			} else if (field == 4) {
 				return bookResponse(ItemType.BOOK_REINDEER_MORPH, Race.REINDEER_MORPH);
 
 			} else if (field == 0) {
