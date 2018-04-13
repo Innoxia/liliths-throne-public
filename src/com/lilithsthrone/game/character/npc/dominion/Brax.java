@@ -98,7 +98,7 @@ public class Brax extends NPC {
 	private static List<Artwork> brandiArtwork = new ArrayList<>();
 	
 	static {
-		String artworkFolderName = "brax";
+		String artworkFolderName = "Brax";
 				
 		if(artworkFolderName!=null && !artworkFolderName.isEmpty()) {
 			for(Artist artist : Artwork.allArtists) {
@@ -109,7 +109,7 @@ public class Brax extends NPC {
 			}
 		}
 		
-		artworkFolderName = "bree";
+		artworkFolderName = "Bree";
 		
 		if(artworkFolderName!=null && !artworkFolderName.isEmpty()) {
 			for(Artist artist : Artwork.allArtists) {
@@ -120,7 +120,7 @@ public class Brax extends NPC {
 			}
 		}
 		
-		artworkFolderName = "brandi";
+		artworkFolderName = "Brandi";
 		
 		if(artworkFolderName!=null && !artworkFolderName.isEmpty()) {
 			for(Artist artist : Artwork.allArtists) {

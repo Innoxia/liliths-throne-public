@@ -63,7 +63,7 @@ public class Lilaya extends NPC {
 	private static List<Artwork> lilayaEbonyArtwork = new ArrayList<>();
 	
 	static {
-		String artworkFolderName = "lilayaPale";
+		String artworkFolderName = "LilayaPale";
 				
 		if(artworkFolderName!=null && !artworkFolderName.isEmpty()) {
 			for(Artist artist : Artwork.allArtists) {
@@ -74,7 +74,7 @@ public class Lilaya extends NPC {
 			}
 		}
 		
-		artworkFolderName = "lilayaLight";
+		artworkFolderName = "LilayaLight";
 		
 		if(artworkFolderName!=null && !artworkFolderName.isEmpty()) {
 			for(Artist artist : Artwork.allArtists) {
@@ -85,7 +85,7 @@ public class Lilaya extends NPC {
 			}
 		}
 		
-		artworkFolderName = "lilayaOlive";
+		artworkFolderName = "LilayaOlive";
 		
 		if(artworkFolderName!=null && !artworkFolderName.isEmpty()) {
 			for(Artist artist : Artwork.allArtists) {
@@ -96,7 +96,7 @@ public class Lilaya extends NPC {
 			}
 		}
 		
-		artworkFolderName = "lilayaDark";
+		artworkFolderName = "LilayaDark";
 		
 		if(artworkFolderName!=null && !artworkFolderName.isEmpty()) {
 			for(Artist artist : Artwork.allArtists) {
@@ -107,7 +107,7 @@ public class Lilaya extends NPC {
 			}
 		}
 		
-		artworkFolderName = "lilayaEbony";
+		artworkFolderName = "LilayaEbony";
 		
 		if(artworkFolderName!=null && !artworkFolderName.isEmpty()) {
 			for(Artist artist : Artwork.allArtists) {
