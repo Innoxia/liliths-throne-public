@@ -693,16 +693,21 @@ public class EnchantmentDialogue {
 						if(itemEffect == null)
 						{
 							System.err.println("Warning: Failed to import ItemEffect");
+							continue;
 						}
-						else if(ingredient.getEnchantmentEffect() != itemEffect.getItemEffectType())
+						if(!ingredient.getEnchantmentEffect().getPrimaryModifiers().contains(itemEffect.getPrimaryModifier()))
 						{
 							Main.game.flashMessage(Colour.GENERIC_BAD, "Enchantment is not valid for ingredient");
 							return;
 						}
-						else
+						TFModifier primaryMod = itemEffect.getPrimaryModifier();
+						if(!ingredient.getEnchantmentEffect().getSecondaryModifiers(primaryMod).contains(itemEffect.getSecondaryModifier()))
 						{
-							effectsToBeAdded.add(itemEffect);
+							Main.game.flashMessage(Colour.GENERIC_BAD, "Enchantment is not valid for ingredient");
+							return;
 						}
+						itemEffect.setItemEffectType(ingredient.getEnchantmentEffect());
+						effectsToBeAdded.add(itemEffect);
 					}
 					effects = effectsToBeAdded;
 					Main.game.setContent(new Response("Save", "", EnchantmentDialogue.ENCHANTMENT_MENU));
