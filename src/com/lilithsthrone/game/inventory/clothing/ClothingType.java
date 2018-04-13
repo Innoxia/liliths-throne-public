@@ -3047,8 +3047,8 @@ public class ClothingType {
 			null,
 			"torso_corset_dress",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(
-					new BlockedParts(
+			Util.newArrayListOfValues(
+					new ListValue<BlockedParts>(new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
@@ -3060,28 +3060,27 @@ public class ClothingType {
 									new ListValue<CoverableArea>(CoverableArea.BACK)),
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
-									new ListValue<ClothingAccess>(ClothingAccess.WAIST)), null)),
-					new ListValue<BlockedParts>(
-							new BlockedParts(
-									DisplacementType.PULLS_UP,
-									null,
-									Util.newArrayListOfValues(
-											new ListValue<CoverableArea>(CoverableArea.ANUS),
-											new ListValue<CoverableArea>(CoverableArea.PENIS),
-											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.GROIN)), null))),
+									new ListValue<ClothingAccess>(ClothingAccess.WAIST)),
+							null)),
+					new ListValue<BlockedParts>(new BlockedParts(
+							DisplacementType.PULLS_UP,
+							null,
+							Util.newArrayListOfValues(
+									new ListValue<CoverableArea>(CoverableArea.ANUS),
+									new ListValue<CoverableArea>(CoverableArea.PENIS),
+									new ListValue<CoverableArea>(CoverableArea.VAGINA)),
+							Util.newArrayListOfValues(
+									new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
+							null))),
 			Util.newArrayListOfValues(
 					new ListValue<InventorySlot>(InventorySlot.STOMACH),
-					new ListValue<InventorySlot>(InventorySlot.CHEST)),
-			Util.newArrayListOfValues(
-					new ListValue<>(Colour.CLOTHING_BLACK)),
+					new ListValue<InventorySlot>(InventorySlot.CHEST),
+					new ListValue<InventorySlot>(InventorySlot.LEG)),
+			Colour.justBlack,
 			Colour.allClothingColours,
-			Util.newArrayListOfValues(
-					new ListValue<>(Colour.CLOTHING_BLACK)),
+			Colour.justBlack,
 			Colour.allClothingColours,
-			Util.newArrayListOfValues(
-					new ListValue<>(Colour.CLOTHING_BLACK)),
+			Colour.justBlack,
 			Colour.allClothingColours){
 		
 		@Override
