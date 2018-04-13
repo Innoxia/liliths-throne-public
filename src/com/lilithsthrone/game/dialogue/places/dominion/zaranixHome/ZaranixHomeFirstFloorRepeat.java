@@ -63,77 +63,90 @@ public class ZaranixHomeFirstFloorRepeat {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if (index == 1) {
-				if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.kellyRepeatEncountered)) {
-					return new Response("Downstairs", "You need to respond to Kelly first!", null);
-					
+			if(Main.game.getCharactersPresent().contains(Main.game.getKelly())) {
+				if (index == 1) {
+					if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.kellyRepeatEncountered)) {
+						return new Response("Downstairs", "You need to respond to Kelly first!", null);
+						
+					} else {
+						return new Response("Downstairs", "Head downstairs to the ground floor of Zaranix's house.", PlaceType.ZARANIX_GF_STAIRS.getDialogue(false)) {
+							@Override
+							public void effects() {
+								Main.game.getPlayer().setLocation(WorldType.ZARANIX_HOUSE_GROUND_FLOOR, PlaceType.ZARANIX_GF_STAIRS, false);
+							}
+						};
+					}
+	
+				} else if(Main.game.getCharactersPresent().contains(Main.game.getKelly())) {
+					if(index==2) {
+						return new ResponseSex("Sex", "Have some fun with Kelly.",
+								true, false,
+								new SMStanding(
+										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
+										Util.newHashMapOfValues(new Value<>(Main.game.getKelly(), SexPositionSlot.STANDING_SUBMISSIVE))),
+								AFTER_KELLY_SEX,
+								UtilText.parseFromXMLFile("places/dominion/zaranixHome/firstFloorRepeat", "KELLY_SEX")) {
+							@Override
+							public void effects() {
+								Main.game.getDialogueFlags().setFlag(DialogueFlagValue.kellyRepeatEncountered, true);
+							}
+						};
+						
+					} else if(index==3) {
+						return new ResponseSex("Submit",
+								"You can't bring yourself to take the dominant role, but you <i>do</i> want to have sex with Kelly. Perhaps if you submitted, [kelly.she]'d be willing to fuck you?",
+								Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)), null, CorruptionLevel.THREE_DIRTY, null, null, null,
+								true, true,
+								new SMStanding(
+										Util.newHashMapOfValues(new Value<>(Main.game.getKelly(), SexPositionSlot.STANDING_DOMINANT)),
+										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+								AFTER_KELLY_SEX,
+								UtilText.parseFromXMLFile("places/dominion/zaranixHome/firstFloorRepeat", "KELLY_SEX_SUB")) {
+							@Override
+							public void effects() {
+								Main.game.getDialogueFlags().setFlag(DialogueFlagValue.kellyRepeatEncountered, true);
+							}
+						};
+						
+					} else if (index == 4) {
+						return new Response("Transformations",
+								"Get Kelly to use [kelly.her] demonic powers to transform [kelly.herself]...",
+								BodyChanging.BODY_CHANGING_CORE){
+							@Override
+							public void effects() {
+								Main.game.saveDialogueNode();
+								BodyChanging.setTarget(Main.game.getKelly());
+							}
+						};
+						
+					} else if(index == 5 && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.kellyRepeatEncountered)) {
+						return new Response("Decline",
+								"Say no to the horny demon and continue on your way.",
+								STAIRS){
+							@Override
+							public void effects() {
+								Main.game.getDialogueFlags().setFlag(DialogueFlagValue.kellyRepeatEncountered, true);
+								Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/zaranixHome/firstFloorRepeat", "KELLY_SEX_DECLINED"));
+							}
+						};
+						
+					} else {
+						return null;
+					}
 				} else {
+					return null;
+				}
+			} else {
+				if(index == 1) {
 					return new Response("Downstairs", "Head downstairs to the ground floor of Zaranix's house.", PlaceType.ZARANIX_GF_STAIRS.getDialogue(false)) {
 						@Override
 						public void effects() {
 							Main.game.getPlayer().setLocation(WorldType.ZARANIX_HOUSE_GROUND_FLOOR, PlaceType.ZARANIX_GF_STAIRS, false);
 						}
 					};
-				}
-
-			} else if(Main.game.getCharactersPresent().contains(Main.game.getKelly())) {
-				if(index==2) {
-					return new ResponseSex("Sex", "Have some fun with Kelly.",
-							true, false,
-							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getKelly(), SexPositionSlot.STANDING_SUBMISSIVE))),
-							AFTER_KELLY_SEX,
-							UtilText.parseFromXMLFile("places/dominion/zaranixHome/firstFloorRepeat", "KELLY_SEX")) {
-						@Override
-						public void effects() {
-							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.kellyRepeatEncountered, true);
-						}
-					};
-					
-				} else if(index==3) {
-					return new ResponseSex("Submit",
-							"You can't bring yourself to take the dominant role, but you <i>do</i> want to have sex with Kelly. Perhaps if you submitted, [kelly.she]'d be willing to fuck you?",
-							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)), null, CorruptionLevel.THREE_DIRTY, null, null, null,
-							true, true,
-							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(Main.game.getKelly(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-							AFTER_KELLY_SEX,
-							UtilText.parseFromXMLFile("places/dominion/zaranixHome/firstFloorRepeat", "KELLY_SEX_SUB")) {
-						@Override
-						public void effects() {
-							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.kellyRepeatEncountered, true);
-						}
-					};
-					
-				} else if (index == 4) {
-					return new Response("Transformations",
-							"Get Kelly to use [kelly.her] demonic powers to transform [kelly.herself]...",
-							BodyChanging.BODY_CHANGING_CORE){
-						@Override
-						public void effects() {
-							Main.game.saveDialogueNode();
-							BodyChanging.setTarget(Main.game.getKelly());
-						}
-					};
-					
-				} else if(index == 5 && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.kellyRepeatEncountered)) {
-					return new Response("Decline",
-							"Say no to the horny demon and continue on your way.",
-							STAIRS){
-						@Override
-						public void effects() {
-							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.kellyRepeatEncountered, true);
-							Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/zaranixHome/firstFloorRepeat", "KELLY_SEX_DECLINED"));
-						}
-					};
-					
 				} else {
 					return null;
 				}
-			} else {
-				return null;
 			}
 		}
 	};

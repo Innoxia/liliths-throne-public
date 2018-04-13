@@ -35,6 +35,16 @@
 		Added: 'Full' variation of the chastity belt, which blocks off access to anus as well as vagina. (No femininity requirements, Groin slot.)
 		Added: 'Amber's Bitch' collar. (No femininity requirements, Neck slot.)
 	
+	Contributors:
+		Fixed issue with images not working on non-windows systems. (Master of Puppets)
+		Added more options for books in Lilaya's library. (rfpnj)
+		Prevented clothing management from taking place in Ralph's sex scene. (Clothing is automatically displaced in this scene.) (Master of Puppets)
+		Upgraded the chair sex scenes to allow for fingering and tail actions. (Master of Puppets)
+		Added 'Management' tab to slave dialogue. (Master of Puppets)
+		Added a 'Lubricate tail' action, similar to the 'Lubricate fingers' one. (Master of Puppets)
+		Changed descriptive text to reflect the fact that cum addicts enjoy swallowing cum. (Master of Puppets)
+		Large amount of punctuation fixes. (WoefulWombat)
+	
 	Other:
 		The 'Explore' action in Dominion alleyways, Harpy nest walkways, and Submission tunnels now instantly returns an event. (With the event type being the same probability as before, but now you don't need to mash your hotkey until it triggers.)
 		Added ChattyNeko's artwork for the skin tone variations for Lilaya.
@@ -99,8 +109,6 @@
 	Fix the god damn BodyCoveringType mess
 	
 	condom breaking
-	
-	Slavery: Add 'Slavery' tab to interactions	
 
 	In Succubi's Secrets, there's an extra line of the basic skin colors. Only the top row can be used.
 	

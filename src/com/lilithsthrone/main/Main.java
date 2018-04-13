@@ -59,7 +59,7 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
 
-	public static final String VERSION_NUMBER = "0.2.2.5",
+	public static final String VERSION_NUMBER = "0.2.3",
 			VERSION_DESCRIPTION = "Alpha";
 
 	public static final Image WINDOW_IMAGE = new Image("/com/lilithsthrone/res/images/windowIcon32.png");
@@ -73,12 +73,17 @@ public class Main extends Application {
 //		+ "<h6 style='text-align:center;'><b style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Early Alpha!</b></h6>"
 		
 		"<p>"
-			+ "Hello everyone! ^^"
+			+ "Hello again! ^^"
 		+ "</p>"
 			
 		+ "<p>"
-			+ "I've managed to get a lot of bugs and other issues sorted out for this preview, as well as adding in an optional artwork viewer on unique characters' information pages."
-			+ " I've got a lot of writing for Amber's and Zaranix's repeatable content done in draft format, so I'll get that added to the game for the next full release, along with Submission content (of which I've also got some drafts done). ^^"
+			+ "I've finished all of Amber's and Zaranix's repeatable content, as well as getting a lot of bugs and other issues sorted out."
+			+ " All of Submission's placeholder dialogue should now also be filled in, ready for me to expand upon and add quests to in version 0.2.4."
+		+ "</p>"
+			
+		+ "<p>"
+			+ "The main things that didn't make it into this release are the new spells, item/clothing/weapon mod support, and Lyssieth's quest."
+			+ " I'll be working on all of those, as well as general Submission content, for the next release! ^^"
 		+ "</p>"
 			
 		+ "<p>"
@@ -159,6 +164,65 @@ public class Main extends Application {
 			+"<ul>Fixed Lexi's creampie status effect showing 0ml.</ul>"
 			+"<ul>Fixed major bug where the slavery upkeep calculation was not working.</ul>"
 			+"<ul>Fixed bug where NPCs in Dominion's canal tiles would disappear.</ul>"
+		+ "</list>"
+		
+	+ "</br>"
+
+	+ "<list>"
+		+ "<h6>v0.2.3</h6>"
+			+"<li>Gameplay:</li>"
+			+"<ul><b>Added:</b> Zaranix's house is now repeatable, and contains a lot of new content for Amber, a little content for Katherine and Kelly, and a moderate amount of content for Zaranix.</ul>"
+			+"<ul>Finished placeholder text in Submission.</ul>"
+			
+			+"<li>Artwork:</li>"
+			+"<ul>Added ChattyNeko's artwork for each of Lilaya's skin tone variations. (As Lilaya's skin tone is determined by your character's starting skin tone.)</ul>"
+			
+			+"<li>Clothing:</li>"
+			+"<ul>Added: 'Full' variation of the chastity belt, which blocks off access to anus as well as vagina. (No femininity requirements, Groin slot.)</ul>"
+			+"<ul>Added: 'Amber's Bitch' collar. (No femininity requirements, Neck slot.)</ul>"
+			
+			+"<li>Contributors:</li>"
+			+"<ul>Fixed issue with images not working on non-windows systems. (Master of Puppets)</ul>"
+			+"<ul>Added more options for books in Lilaya's library. (rfpnj)</ul>"
+			+"<ul>Prevented clothing management from taking place in Ralph's sex scene. (Clothing is automatically displaced in this scene.) (Master of Puppets)</ul>"
+			+"<ul>Upgraded the chair sex scenes to allow for fingering and tail actions. (Master of Puppets)</ul>"
+			+"<ul>Added 'Management' tab to slave dialogue. (Master of Puppets)</ul>"
+			+"<ul>Added a 'Lubricate tail' action, similar to the 'Lubricate fingers' one. (Master of Puppets)</ul>"
+			+"<ul>Changed descriptive text to reflect the fact that cum addicts enjoy swallowing cum. (Master of Puppets)</ul>"
+			+"<ul>Large amount of punctuation fixes. (WoefulWombat)</ul>"
+			
+			+"<li>Other:</li>"
+			+"<ul>The 'Explore' action in Dominion alleyways, Harpy nest walkways, and Submission tunnels now instantly returns an event. (With the event type being the same probability as before, but now you don't need to mash your hotkey until it triggers.)</ul>"
+			+"<ul>Added ChattyNeko's artwork for the skin tone variations for Lilaya.</ul>"
+			+"<ul>If you have the 'Test subject' fetish, you can no longer spit out transformative potions.</ul>"
+			+"<ul>Thigh sex, hotdogging, and paizuri/naizuri no longer take penis virginity.</ul>"
+			+"<ul>Added small event in the park, where you can obtain a rose.</ul>"
+			+"<ul>Added 'Nipple penetration' content toggle. (On by default.)</ul>"
+			+"<ul>Improved content options UI.</ul>"
+			+"<ul>Added formatting to large money amounts (i.e. 120000 is now displayed as 120,000, or 120.000 depending on locale).</ul>"
+			+"<ul>Changed the 'Perks' menu button to only be highlighted until you first click it after levelling up.</ul>"
+			+"<ul>Increased lactation increment from clothing effects from 1ml to 50ml.</ul>"
+			+"<ul>Added support for public sex, which now levels up the exhibitionist fetish. (The only public sex actions are through Amber's scenes at the moment - more will be added soon!)</ul>"
+			
+			+"<li>Bugs:</li>"
+			+"<ul>Fixed cause of sex scenes sometimes not starting (due to a bug related to wearing jinxed clothing).</ul>"
+			+"<ul>Fixed some inconsistencies in Dominion's boulevard tile descriptions during an arcane storm, and made their tiles correctly show as safe.</ul>"
+			+"<ul>Typo fixes.</ul>"
+			+"<ul>Character images in .jpg format are now properly supported.</ul>"
+			+"<ul>Fixed a couple of Brax's sex scenes starting in the standing position instead of doggy as the dialogue implied.</ul>"
+			+"<ul>Fixed canine and lupine cock transformations not turning the cock red.</ul>"
+			+"<ul>Fixed bug where you could craft potions with no effects.</ul>"
+			+"<ul>Brax's transformative potion now gives you the submissive fetish.</ul>"
+			+"<ul>Fixed bug where screen would scroll to top whenever you selected a perk or fetish/desire.</ul>"
+			+"<ul>Fixed bug where NPCs wouldn't remember you after loading a saved game.</ul>"
+			+"<ul>Fixed a case where both your and your partner's virginity loss wouldn't show up in the character viewer.</ul>"
+			+"<ul>NPCs can no longer spawn in disliking/hating both being both dominant and submissive.</ul>"
+			+"<ul>Fixed slave event bug where it would describe the slave having sex with themselves.</ul>"
+			+"<ul>Fixed bug where pubic hair would be the incorrect type for the character.</ul>"
+			+"<ul>Fixed submissive/dominant prostitute dialogue being reversed in Angel's Kiss.</ul>"
+			+"<ul>Fixed bug where subspecies wouldn't spawn correctly (I think it was only affecting border-collie-morphs).</ul>"
+			+"<ul>Autosaves between areas should now work properly.</ul>"
+			+"<ul>Fixed anilingus sometimes not being available in 69 position.</ul>"
 		+ "</list>"
 		;
 	
@@ -410,13 +474,13 @@ public class Main extends Application {
 		dir.mkdir();
 		
 		// Open error log
-//		try {
-//			@SuppressWarnings("resource")
-//			PrintStream stream = new PrintStream("data/error.log");
-//			System.setErr(stream);
-//		} catch (FileNotFoundException e) {
-//			e.printStackTrace();
-//		}
+		try {
+			@SuppressWarnings("resource")
+			PrintStream stream = new PrintStream("data/error.log");
+			System.setErr(stream);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 		
 		// Load properties:
 		if (new File("data/properties.xml").exists()) {

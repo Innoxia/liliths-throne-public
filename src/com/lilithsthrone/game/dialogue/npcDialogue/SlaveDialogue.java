@@ -806,11 +806,9 @@ public class SlaveDialogue {
 						return null;
 					}
 				}
-			}
-			else if(responseTab == 2)
-			{
-				switch(index)
-				{
+				
+			} else if(responseTab == 2) {
+				switch(index) {
 					case 1:
 						return new Response("Inspect",
 								"Inspect [npc.name].",
@@ -845,9 +843,18 @@ public class SlaveDialogue {
 										BodyChanging.setTarget(Main.game.getActiveNPC());
 									}
 								};
+					case 0:
+						return new Response("Leave", "Tell [npc.name] that you'll catch up with [npc.herHim] some other time.", SLAVE_START) {
+							@Override
+							public DialogueNodeOld getNextDialogue() {
+								return DebugDialogue.getDefaultDialogueNoEncounter();
+							}
+						};
+								
 					default:
 						return null;
 				}
+				
 			} else {
 				return null;
 			}

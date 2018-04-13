@@ -461,12 +461,17 @@ public class Library {
 		@Override
 		public String getContent() {
 			return "<p>"
-
 						+ "Walking down one of the aisles, you find yourself surrounded by heavy wooden shelves, fastened together by prominent beams of iron and steel."
 						+ " A lot of the books here seem to be about local history of Dominion's many districts, and, while fascinating for a historian, they don't offer much use to you."
-						+ " A couple of the shelves look a bit diiferent then the others. The top shelf looks almost crafted from twigs, it looks almost like a bird was crafting a nest."
-						+ " The bottom most shelf has a very smooth surface almost like the wood as been transmuted into stone. It looks like it would be moist to the touch."
-						+ " Despite most of the books not being worth your time, there are a few here and there that detail the many races found within the city, and you wonder if you should give them a read..."
+					+ "</p>"
+					+ "<p>"
+						+ "You notice that a couple of the shelves look a little different from the others."
+						+ " The top-most shelf seems to be decorated to make it look as though it's crafted from twigs, just like a bird's nest."
+						+ " The shelf nearest to the floor has a very smooth surface, almost like the wood as been transmuted into stone."
+						+ " It looks like it would be moist to the touch."
+					+ "</p>"
+					+ "<p>"
+						+ "Despite most of these books not being worth your time, there are a few here and there that detail the many races found within the city, and you wonder if you should give them a read..."
 					+ "</p>";
 							
 		}
