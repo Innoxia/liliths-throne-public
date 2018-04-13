@@ -510,6 +510,10 @@ public class Breast implements BodyPartInterface, Serializable {
 		int oldSize = this.size;
 		this.size = Math.max(0, Math.min(size, CupSize.getMaximumCupSize().getMeasurement()));
 		int sizeChange = this.size - oldSize;
+		if(owner==null) {
+			this.size = size;
+			return "";
+		}
 		
 		if (sizeChange == 0) {
 			if(owner.isPlayer()) {
