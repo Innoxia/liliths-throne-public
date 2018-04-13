@@ -11,9 +11,12 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.NPCFlagValue;
 import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.SlaveryManagementDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
+import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
+import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
@@ -331,6 +334,8 @@ public class SlaveDialogue {
 				return "Dialogue";
 			} else if(index == 1) {
 				return "Sex";
+			} else if(index == 2) {
+				return "Management";
 			}
 			
 			return null;
@@ -801,7 +806,48 @@ public class SlaveDialogue {
 						return null;
 					}
 				}
-				
+			}
+			else if(responseTab == 2)
+			{
+				switch(index)
+				{
+					case 1:
+						return new Response("Inspect",
+								"Inspect [npc.name].",
+								SlaveryManagementDialogue.getSlaveryManagementInspectSlaveDialogue(Main.game.getActiveNPC()));
+					case 2:
+						return new Response("Job",
+								"Set [npc.name]'s job and work hours.",
+								SlaveryManagementDialogue.getSlaveryManagementSlaveJobsDialogue(Main.game.getActiveNPC()));
+					case 3:
+						return new Response("Permissions",
+								"Manage [npc.name]'s permissions.",
+								SlaveryManagementDialogue.getSlaveryManagementSlavePermissionsDialogue(Main.game.getActiveNPC()));
+					case 4:
+						return new ResponseEffectsOnly("Inventory",
+								"Manage [npc.name]'s inventory.")
+								{
+									@Override
+									public void effects()
+									{
+										Main.mainController.openInventory(Main.game.getActiveNPC(),
+												InventoryInteraction.FULL_MANAGEMENT);
+									}
+								};
+					case 5:
+						return new Response("Send to Kate",
+								"Send [npc.name] to Kate's beauty salon, 'Succubi's secrets', to get [npc.her] appearance changed.",
+								SlaveryManagementDialogue.SLAVE_MANAGEMENT_COSMETICS_HAIR)
+								{
+									@Override
+									public void effects() {
+										Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(Main.game.getActiveNPC());
+										BodyChanging.setTarget(Main.game.getActiveNPC());
+									}
+								};
+					default:
+						return null;
+				}
 			} else {
 				return null;
 			}
