@@ -317,8 +317,7 @@ public class EnchantmentDialogue {
 				
 			// Ingredients:
 			} else if (index == 1) {
-				
-				if(effects.equals(ingredient.getEffects())) {
+				if(effects.equals(ingredient.getEffects()) || (effects.isEmpty() && ingredient instanceof AbstractItem)) {
 					return new Response("Craft", "You need to add at least one effect before you can craft something!", null);
 					
 				} else if(canAffordCost(ingredient, effects)) {

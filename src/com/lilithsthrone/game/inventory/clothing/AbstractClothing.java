@@ -48,7 +48,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 	private Colour secondaryColour, tertiaryColour;
 	private boolean cummedIn, enchantmentKnown;
 	private List<DisplacementType> displacedList;
-
+	
 	public AbstractClothing(AbstractClothingType clothingType, Colour colour, Colour secondaryColour, Colour tertiaryColour, boolean allowRandomEnchantment) {
 		super(clothingType.getName(),
 				clothingType.getNamePlural(),
@@ -342,13 +342,12 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 
 	private static StringBuilder descriptionSB = new StringBuilder();
 
-
 	public String getTypeDescription() {
 		if(this.getClothingType().equals(ClothingType.NECK_BREEDER_COLLAR)) {
 			return"A <span style='color:"+this.getColour().toWebHexString()+"; text-shadow: 0px 0px 4px "+this.getColour().getShades()[4]+";'>glowing "+this.getColour().getName()+"</span> leather collar,"
 						+ " with bold metal lettering attached to the front spelling out the word 'BREEDER'.";
 		} else {
-			return getClothingType().getDescription();
+			return this.getClothingType().getDescription();
 		}
 	}
 	
@@ -408,12 +407,12 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 		if(rarity==Rarity.LEGENDARY) {
 			return rarity;
 		}
+		if(this.getClothingType().getClothingSet()!=null || rarity==Rarity.RARE) {
+			return Rarity.EPIC;
+		}
 		
 		if(this.isSealed()) {
 			return Rarity.JINXED;
-		}
-		if(this.getClothingType().getClothingSet()!=null) {
-			return Rarity.EPIC;
 		}
 		if(this.getEffects().size()>1) {
 			return Rarity.RARE;
@@ -510,7 +509,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 				+ (withRarityColour
 					? (" <span style='color: " + (!this.isEnchantmentKnown()?Colour.RARITY_UNKNOWN:this.getRarity().getColour()).toWebHexString() + ";'>" + name + "</span>")
 					: name)
-				+(!this.getEffects().isEmpty() && this.isEnchantmentKnown()
+				+(!this.getEffects().isEmpty() && this.isEnchantmentKnown() && this.getRarity()!=Rarity.LEGENDARY && this.getRarity()!=Rarity.EPIC
 						? " "+getEnchantmentPostfix(withRarityColour, "b")
 						: "");
 	}

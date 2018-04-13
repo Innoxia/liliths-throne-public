@@ -2219,12 +2219,13 @@ public class SlaveDialogue {
 				UtilText.nodeContentSB.append(
 							" "+secondReaction+" as you grope, stroke, and fondle [npc.her] [npc.penis+], and you can't help but [pc.moan] into your slave's [npc.ear] as"+thirdReaction+" you feel [npc.her] [npc.cock+] growing hard under your touch."
 							+ " Dropping your [pc.hand] down yet further, you shift your attention to [npc.her] [npc.pussy+],"
-								+ " grinning once again as you feel that your stimulation of [npc.her] [npc.clit+] and [npc.labia+] are already getting [npc.her] wet."
+								+ " grinning once again as you feel that your stimulation of [npc.her] [npc.clit+] and [npc.labia+] have already gotten [npc.her] wet."
 						+ "</p>");
 				
 			} else if(slave().hasVagina()) {
 				UtilText.nodeContentSB.append(
-						" "+secondReaction+" as you grope, stroke, and probe at [npc.her] [npc.clit+] and [npc.labia+], and you can't help but [pc.moan] into your slave's [npc.ear] as"+thirdReaction+" you feel [npc.her] [npc.pussy+] getting wet under your touch."
+						" "+secondReaction+" as you grope, stroke, and probe at [npc.her] [npc.clit+] and [npc.labia+], and you can't help but [pc.moan] into your slave's [npc.ear] as"+thirdReaction+" you feel [npc.her] [npc.pussy+]"
+								+ " is already wet from your touch."
 					+ "</p>");
 				
 			} else if(slave().hasPenis()) {

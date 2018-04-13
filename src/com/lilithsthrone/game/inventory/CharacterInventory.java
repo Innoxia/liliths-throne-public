@@ -1684,7 +1684,8 @@ public class CharacterInventory implements Serializable, XMLSaving {
 		}
 
 		if (clothingToRemove == null) {
-			throw new IllegalArgumentException("There is no clothing covering this part!");
+//			System.err.print("There is no clothing covering this part!");
+			return null;
 		}
 		
 		boolean finished = false;

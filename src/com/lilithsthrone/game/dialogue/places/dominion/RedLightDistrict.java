@@ -256,6 +256,7 @@ public class RedLightDistrict {
 						client = npc;
 					} else {
 						prostitute = npc;
+						Main.game.setActiveNPC(npc);
 					}
 				}
 				
@@ -289,6 +290,7 @@ public class RedLightDistrict {
 				}
 				
 			} else {
+				Main.game.setActiveNPC(charactersPresent.get(0));
 				if(charactersPresent.get(0).isSlave() && charactersPresent.get(0).getOwner().isPlayer()) {
 					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_OCCUPIED_SLAVE", Util.newArrayListOfValues(new ListValue<>(charactersPresent.get(0))))); //TODO need obedience/affection variations
 				} else {

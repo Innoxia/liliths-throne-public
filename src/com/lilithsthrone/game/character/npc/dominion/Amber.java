@@ -22,6 +22,8 @@ import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.quests.Quest;
+import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.combat.Attack;
@@ -29,6 +31,7 @@ import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.places.dominion.zaranixHome.ZaranixHomeGroundFloorRepeat;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
@@ -136,6 +139,9 @@ public class Amber extends NPC {
 		this.setHairStyle(HairStyle.WAVY);
 		this.setSkinCovering(new Covering(BodyCoveringType.DEMON_COMMON, Colour.SKIN_EBONY), true);
 		
+		this.setFootNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, Colour.COVERING_AMBER));
+		this.setHandNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, Colour.COVERING_AMBER));
+		
 		this.setBreastSize(CupSize.G.getMeasurement());
 		
 		this.setHornType(HornType.SWEPT_BACK);
@@ -216,15 +222,25 @@ public class Amber extends NPC {
 	
 	@Override
 	public Response endCombat(boolean applyEffects, boolean victory) {
-		if (victory) {
-			return new Response("", "", AFTER_COMBAT_VICTORY) {
-				@Override
-				public void effects() {
-					Main.game.getDialogueFlags().setFlag(DialogueFlagValue.zaranixAmberSubdued, true);
-				}
-			};
+		if (Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_H_THE_GREAT_ESCAPE)) {
+			if (victory) {
+				return new Response("", "", ZaranixHomeGroundFloorRepeat.COMBAT_VICTORY);
+			} else {
+				return new Response("", "", ZaranixHomeGroundFloorRepeat.COMBAT_LOSS);
+			}
+			
 		} else {
-			return new Response("", "", AFTER_COMBAT_DEFEAT);
+			if (victory) {
+				return new Response("", "", AFTER_COMBAT_VICTORY) {
+					@Override
+					public void effects() {
+						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.zaranixAmberSubdued, true);
+					}
+				};
+			} else {
+				return new Response("", "", AFTER_COMBAT_DEFEAT);
+			}
+			
 		}
 	}
 	

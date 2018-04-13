@@ -1442,7 +1442,7 @@ public enum RenderingEngine {
 							|| Main.getProperties().hasValue(PropertyValue.newClothingDiscovered)
 							|| Main.getProperties().hasValue(PropertyValue.newItemDiscovered)
 							|| Main.getProperties().hasValue(PropertyValue.newRaceDiscovered)
-							|| Main.game.getPlayer().getPerkPoints()>0
+							|| Main.getProperties().hasValue(PropertyValue.levelUpHightlight)
 								?" highlight"
 								:"")
 						+ (!Main.game.getCurrentDialogueNode().isOptionsDisabled() && Main.game.isInNewWorld() ? "" : " disabled") + "' id='journal'>" + SVGImages.SVG_IMAGE_PROVIDER.getJournalIcon()

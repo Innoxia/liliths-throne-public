@@ -1076,6 +1076,9 @@ public class CharacterUtils {
 		character.setFaceStretchedCapacity(character.getFaceRawCapacityValue());
 		character.setPenisStretchedCapacity(character.getPenisRawCapacityValue());
 		character.setVaginaStretchedCapacity(character.getVaginaRawCapacityValue());
+		
+		character.getSubspecies().applySpeciesChanges(character.getBody());
+		character.getBody().calculateRace();
 	}
 	
 	/**
@@ -1298,10 +1301,15 @@ public class CharacterUtils {
 		
 		availableFetishes.remove(Fetish.FETISH_CUM_STUD); // Who doesn't like cumming? :3
 		
-		
 		while(desiresAssigned < numberOfNegativeDesires && !availableFetishes.isEmpty()) {
 			Fetish f = availableFetishes.get(Util.random.nextInt(availableFetishes.size()));
 			character.setFetishDesire(f, Math.random()>0.5?FetishDesire.ONE_DISLIKE:FetishDesire.ZERO_HATE);
+			if(f == Fetish.FETISH_DOMINANT) {
+				availableFetishes.remove(Fetish.FETISH_SUBMISSIVE);
+			}
+			if(f == Fetish.FETISH_SUBMISSIVE) {
+				availableFetishes.remove(Fetish.FETISH_DOMINANT);
+			}
 			availableFetishes.remove(f);
 			desiresAssigned++;
 		}

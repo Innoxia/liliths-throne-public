@@ -9341,6 +9341,68 @@ public class ClothingType {
 		}
 	};
 	
+	public static AbstractClothingType BDSM_CHASTITY_BELT_FULL = new AbstractClothingType(750,
+			"a",
+			false,
+			"full chastity belt",
+			"full chastity belts",
+			"A chastity belt, designed to deny access to both the wearer's vagina and anus. [style.colourArcane(You can sense a powerful enchantment in this item!)]",
+			0,
+			null,
+			InventorySlot.GROIN,
+			Rarity.EPIC,
+			ClothingSet.BDSM,
+			"bdsm_groin_chastity_belt_full",
+			Util.newArrayListOfValues(
+					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.MAJOR_DRAIN, 0))),
+			Util.newArrayListOfValues(
+					new ListValue<BlockedParts>(new BlockedParts(
+							DisplacementType.REMOVE_OR_EQUIP,
+							Util.newArrayListOfValues(
+									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL),
+									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN),
+									new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
+							Util.newArrayListOfValues(
+									new ListValue<CoverableArea>(CoverableArea.PENIS),
+									new ListValue<CoverableArea>(CoverableArea.VAGINA),
+									new ListValue<CoverableArea>(CoverableArea.ANUS)),
+							null, null))),
+			null,
+			Colour.allClothingColours,
+			null,
+			Colour.justSteel,
+			Colour.allMetalColours,
+			Colour.justGold,
+			Colour.allMetalColours){
+		
+		@Override
+		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			
+			if(applyEffects) {
+				clothing.setSealed(true);
+			}
+			
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You pull on the chastity belt and clip the locks into place.",
+					"You pull the chastity belt up around [npc.name]'s groin, before clipping the locks into place.",
+					null,
+					"[npc.Name] pulls on the chastity belt and clips the locks into place.",
+					"[npc.Name] pulls the chastity belt up around your groin, before clipping the locks into place.",
+					null);
+		}
+
+		@Override
+		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You unfasten the chastity belt's locks and take it off.",
+					"You unfasten the chastity belt's locks and take it off of [npc.Name]'s groin.",
+					null,
+					"[npc.Name] unfastens the chastity belt's locks and takes it off.",
+					"[npc.Name] unfastens the chastity belt's locks and takes it off of your groin.",
+					null);
+		}
+	};
+	
 	public static AbstractClothingType BDSM_CHASTITY_CAGE = new AbstractClothingType(250,
 			"a",
 			false,
@@ -11212,6 +11274,64 @@ public class ClothingType {
 				else
 					return UtilText.parse(clothingOwner, "You pull [npc.name]'s safety goggles down over [npc.her] eyes.");
 			}
+		}
+	};
+	
+	public static AbstractClothingType AMBERS_BITCH_CHOKER = new AbstractClothingType(1250,
+			"an",
+			false,
+			"'Amber's Bitch' collar",
+			"'Amber's Bitch' collars",
+			"A special collar that Mistress Amber clasped around your neck. The metal tag reads 'Amber's Bitch', and you feel a lot more submissive while wearing it...",
+			0,
+			null,
+			InventorySlot.NECK,
+			Rarity.LEGENDARY,
+			null,
+			"ambers_bitch_choker",
+			Util.newArrayListOfValues(
+					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.TF_MOD_FETISH_BEHAVIOUR, TFModifier.TF_MOD_FETISH_SUBMISSIVE, TFPotency.MAJOR_BOOST, 0)),
+					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SEALING, TFModifier.ARCANE_BOOST, TFPotency.MINOR_BOOST, 0)),
+					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.MAJOR_DRAIN, 0)),
+					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_LUST, TFPotency.MAJOR_DRAIN, 0)),
+					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_LUST, TFPotency.MAJOR_DRAIN, 0)),
+					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_LUST, TFPotency.MAJOR_DRAIN, 0)),
+					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_LUST, TFPotency.MAJOR_DRAIN, 0)),
+					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_LUST, TFPotency.MAJOR_DRAIN, 0))),
+			Util.newArrayListOfValues(
+					new ListValue<BlockedParts>(new BlockedParts(
+							DisplacementType.REMOVE_OR_EQUIP,
+							null,
+							null,
+							null, null))),
+			null,
+			Util.newArrayListOfValues(new ListValue<>(Colour.CLOTHING_PINK_LIGHT)),
+			Colour.allClothingColours,
+			Colour.justSteel,
+			Colour.allMetalColours,
+			null,
+			null){
+		
+		@Override
+		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You wrap the choker around your neck and fasten the buckle.",
+					"You wrap the choker around [npc.name]'s neck and fasten the buckle.",
+					null,
+					"[npc.Name] wraps the choker around [npc.her] neck and fastens the buckle.",
+					"[npc.Name] wraps the choker around your neck and fastens the buckle.",
+					null);
+		}
+
+		@Override
+		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You unfasten the choker's buckle and remove it from around your neck.",
+					"You unfasten the choker's buckle and remove it from around [npc.name]'s neck.",
+					null,
+					"[npc.Name] unfastens the choker's buckle and removes it from around [npc.her] neck.",
+					"[npc.Name] unfastens the choker's buckle and removes it from around your neck.",
+					null);
 		}
 	};
 	

@@ -542,6 +542,54 @@ public enum SexPositionType {
 		}
 	},
 	
+	PET_MOUNTING("Mounted",
+			Util.newHashMapOfValues(
+					new Value<>(
+							SexPositionSlot.PET_MOUNTING_ON_ALL_FOURS,
+							Util.newHashMapOfValues(
+							new Value<>(
+									SexPositionSlot.PET_MOUNTING_HUMPING,
+									new SexActionPresetPair(
+											SexActionPresets.playerPetMountingOnAllFours,
+											SexActionPresets.empty)))),
+					new Value<>(
+							SexPositionSlot.PET_MOUNTING_HUMPING,
+							Util.newHashMapOfValues(
+							new Value<>(
+									SexPositionSlot.PET_MOUNTING_ON_ALL_FOURS,
+									new SexActionPresetPair(
+											SexActionPresets.empty,
+											SexActionPresets.partnerPetMountingHumping)))))) {
+		@Override
+		public String getDescription() {
+			return "You're down on all fours, and have been mounted by [npc.name], who's desperate to penetrate and start humping you.";
+		}
+	},
+	
+	PET_ORAL("Pet Oral",
+			Util.newHashMapOfValues(
+					new Value<>(
+							SexPositionSlot.PET_ORAL_ON_ALL_FOURS,
+							Util.newHashMapOfValues(
+							new Value<>(
+									SexPositionSlot.PET_ORAL_COCKED_LEG,
+									new SexActionPresetPair(
+											SexActionPresets.playerPetOralOnAllFours,
+											SexActionPresets.empty)))),
+					new Value<>(
+							SexPositionSlot.PET_ORAL_COCKED_LEG,
+							Util.newHashMapOfValues(
+							new Value<>(
+									SexPositionSlot.PET_ORAL_ON_ALL_FOURS,
+									new SexActionPresetPair(
+											SexActionPresets.empty,
+											SexActionPresets.partnerPetOralCockedLeg)))))) {
+		@Override
+		public String getDescription() {
+			return "You're down on all fours, with [npc.name]'s [npc.leg] hooked over your neck, leaving your face just inches away from [npc.her] [npc.cock+].";
+		}
+	},
+	
 	KNEELING_ORAL_ZARANIX("Kneeling",
 			Util.newHashMapOfValues(
 					new Value<>(

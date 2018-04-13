@@ -958,7 +958,7 @@ public enum Sex {
 
 		@Override
 		public String getLabel() {
-			return (Sex.isConsensual()?"Sex":"Non-consensual sex")+": "+getPosition().getName();
+			return (!Sex.isConsensual() && Main.getProperties().hasValue(PropertyValue.nonConContent)?"Non-consensual ":"")+(Sex.getSexManager().isPublicSex()?"Public ":"")+"Sex: "+getPosition().getName();
 		}
 
 		@Override
@@ -1250,6 +1250,10 @@ public enum Sex {
 			}
 			Sex.setActivePartner((NPC) active);
 			
+			if(Sex.getSexManager().isPublicSex()) {
+				sexSB.append(Sex.getSexManager().getRandomPublicSexDescription());
+				sexDescription = sexSB.toString();
+			}
 			
 			// Re-populate lists for the player's next action choice.
 			populatePlayerSexLists();
@@ -2375,7 +2379,8 @@ public enum Sex {
 		String penileVirginityLoss = "";
 		
 		if (penetrationType == PenetrationType.PENIS) {
-			if(characterPenetrating.isPenisVirgin()) {
+			if(characterPenetrating.isPenisVirgin()
+					&& orifice.isTakesPenisVirginity()) {
 				penileVirginityLoss = characterPenetrating.getVirginityLossPenetrationDescription(characterPenetrating, PenetrationType.PENIS, characterPenetrated, orifice);
 				if(characterPenetrated.hasFetish(Fetish.FETISH_DEFLOWERING)) {
 					characterPenetrated.incrementExperience(Fetish.getExperienceGainFromTakingOtherVirginity(characterPenetrated), true);
@@ -2710,7 +2715,7 @@ public enum Sex {
 	}
 
 	public static boolean isInForeplay() {
-		return Sex.getActivePartner().getArousal()<ArousalLevel.ONE_TURNED_ON.getMaximumValue() && Sex.getNumberOfOrgasms(Sex.getActivePartner())==0;
+		return Sex.getActivePartner().getArousal()<ArousalLevel.ONE_TURNED_ON.getMaximumValue() && Sex.getNumberOfOrgasms(Sex.getActivePartner())==0 && Sex.getSexManager().isPartnerUsingForeplayActions();
 	}
 	
 	// Getters & Setters:
@@ -3438,7 +3443,11 @@ public enum Sex {
 	
 	private static List<Fetish> getFetishesFromPenetrationAndOrificeTypes(GameCharacter character, GameCharacter characterPenetrating, PenetrationType penetrationType, GameCharacter characterOrifice, OrificeType orificeBeingUsed) {
 		List<Fetish> associatedFetishes = new ArrayList<>();
-			
+		
+		if(Sex.getSexManager().isPublicSex()) {
+			associatedFetishes.add(Fetish.FETISH_EXHIBITIONIST);
+		}
+		
 		switch(penetrationType) {
 			case FINGER:
 				if(character.equals(characterOrifice)) {

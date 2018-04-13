@@ -109,6 +109,10 @@ public enum DialogueFlagValue {
 	zaranixKatherineSubdued,
 	zaranixKellySubdued,
 	
+	amberRepeatEncountered,
+	katherineRepeatEncountered,
+	kellyRepeatEncountered,
+	zaranixRepeatEncountered
 	
 	
 	;

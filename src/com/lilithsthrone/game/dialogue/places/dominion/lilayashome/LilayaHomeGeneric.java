@@ -1373,7 +1373,7 @@ public class LilayaHomeGeneric {
 		}
 	};
 	
-	public static final DialogueNodeOld ROOM_ROSE = new DialogueNodeOld("Rose's room", ".", false) {
+	public static final DialogueNodeOld ROOM_ROSE = new DialogueNodeOld("Rose's Room", ".", false) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -1427,7 +1427,7 @@ public class LilayaHomeGeneric {
 		}
 	};
 	
-	public static final DialogueNodeOld ROOM_LILAYA = new DialogueNodeOld("Lilaya's room", ".", false) {
+	public static final DialogueNodeOld ROOM_LILAYA = new DialogueNodeOld("Lilaya's Room", ".", false) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -1449,7 +1449,7 @@ public class LilayaHomeGeneric {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Lilaya's room", "Have a look around Lilaya's room.", ROOM_LILAYA_INSIDE);
+				return new Response("Lilaya's Room", "Have a look around Lilaya's room.", ROOM_LILAYA_INSIDE);
 
 			}  else {
 				return null;
@@ -1457,7 +1457,7 @@ public class LilayaHomeGeneric {
 		}
 	};
 	
-	public static final DialogueNodeOld ROOM_LILAYA_INSIDE = new DialogueNodeOld("Lilaya's room", ".", false) {
+	public static final DialogueNodeOld ROOM_LILAYA_INSIDE = new DialogueNodeOld("Lilaya's Room", ".", false) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -1516,7 +1516,7 @@ public class LilayaHomeGeneric {
 		}
 	};
 	
-	public static final DialogueNodeOld CLEAN_PANTIES = new DialogueNodeOld("Lilaya's room", ".", true) {
+	public static final DialogueNodeOld CLEAN_PANTIES = new DialogueNodeOld("Lilaya's Room", ".", true) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -1545,7 +1545,7 @@ public class LilayaHomeGeneric {
 		}
 	};
 	
-	public static final DialogueNodeOld DIRTY_PANTIES = new DialogueNodeOld("Lilaya's room", ".", true) {
+	public static final DialogueNodeOld DIRTY_PANTIES = new DialogueNodeOld("Lilaya's Room", ".", true) {
 		private static final long serialVersionUID = 1L;
 
 		@Override

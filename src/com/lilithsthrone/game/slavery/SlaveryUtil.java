@@ -847,7 +847,7 @@ public class SlaveryUtil implements Serializable {
 			if(!npc.equals(slave)) {
 				if(slave.getLastTimeHadSex()+24*60<Main.game.getMinutesPassed()) { // They only want sex once a day, to stop the logs from being flooded
 					if(slave.isAttractedTo(npc) && npc.hasSlavePermissionSetting(SlavePermissionSetting.SEX_RECEIVE_SLAVES) && slave.hasSlavePermissionSetting(SlavePermissionSetting.SEX_INITIATE_SLAVES)) {
-						System.out.println("x");
+//						System.out.println("x");
 						boolean canImpregnate = slave.hasSlavePermissionSetting(SlavePermissionSetting.SEX_IMPREGNATE) && npc.hasSlavePermissionSetting(SlavePermissionSetting.SEX_IMPREGNATED)
 								&& slave.hasPenis() && slave.isAbleToAccessCoverableArea(CoverableArea.PENIS, true)
 								&& npc.hasVagina() && npc.isAbleToAccessCoverableArea(CoverableArea.VAGINA, true);
@@ -883,56 +883,56 @@ public class SlaveryUtil implements Serializable {
 										slave,
 										SlaveEvent.SLAVE_SEX,
 										null,
-										Util.newArrayListOfValues(new ListValue<>(
-												"While dusting one of the first-floor corridors, "+slave.getName()+" caught sight of [npc.name],"
-												+ " and couldn't resist pulling [npc.herHim] into an empty room and giving [npc.herHim] a "+slave.getSexPaceDomPreference().getName()+" fucking."
-												+ (impregnationAttempt?UtilText.parse(npc,"</br>[style.colourSex([npc.Name] might have gotten pregnant!)]"):"")
-												+ (gettingPregnantAttempt?"</br>[style.colourSex("+slave.getName()+" might have gotten pregnant!)]":""))),
-												true);
+										Util.newArrayListOfValues(new ListValue<>(UtilText.parse(slave, npc,
+												"While dusting one of the first-floor corridors, [npc1.name] caught sight of [npc2.name],"
+												+ " and couldn't resist pulling [npc2.herHim] into an empty room and giving [npc2.herHim] a "+slave.getSexPaceDomPreference().getName()+" fucking."
+												+ (impregnationAttempt?"</br>[style.colourSex([npc2.Name] might have gotten pregnant!)]":"")
+												+ (gettingPregnantAttempt?"</br>[style.colourSex([npc1.Name] might have gotten pregnant!)]":"")))),
+										true);
 								
 							case IDLE: //TODO
 								return new SlaveryEventLogEntry(hour,
 										slave,
 										SlaveEvent.SLAVE_SEX,
 										null,
-										Util.newArrayListOfValues(new ListValue<>(
-												slave.getName()+" gave [npc.name] a "+slave.getSexPaceDomPreference().getName()+" fucking."
-												+ (impregnationAttempt?UtilText.parse(npc,"</br>[style.colourSex([npc.Name] might have gotten pregnant!)]"):"")
-												+ (gettingPregnantAttempt?"</br>[style.colourSex("+slave.getName()+" might have gotten pregnant!)]":""))),
-												true);
+										Util.newArrayListOfValues(new ListValue<>(UtilText.parse(slave, npc,
+												"[npc1.name] gave [npc2.name] a "+slave.getSexPaceDomPreference().getName()+" fucking."
+												+ (impregnationAttempt?"</br>[style.colourSex([npc2.Name] might have gotten pregnant!)]":"")
+												+ (gettingPregnantAttempt?"</br>[style.colourSex([npc1.Name] might have gotten pregnant!)]":"")))),
+										true);
 							case KITCHEN:
 								return new SlaveryEventLogEntry(hour,
 										slave,
 										SlaveEvent.SLAVE_SEX,
 										null,
-										Util.newArrayListOfValues(new ListValue<>(
-												"While working in the kitchen, "+slave.getName()+" saw [npc.name] enter the pantry alone,"
-														+ " and couldn't resist following [npc.herHim] inside, before locking the door and giving [npc.herHim] a "+slave.getSexPaceDomPreference().getName()+" fucking."
-												+ (impregnationAttempt?UtilText.parse(npc,"</br>[style.colourSex([npc.Name] might have gotten pregnant!)]"):"")
-												+ (gettingPregnantAttempt?"</br>[style.colourSex("+slave.getName()+" might have gotten pregnant!)]":""))),
-												true);
+										Util.newArrayListOfValues(new ListValue<>(UtilText.parse(slave, npc,
+												"While working in the kitchen, [npc1.name] saw [npc2.name] enter the pantry alone,"
+														+ " and couldn't resist following [npc2.herHim] inside, before locking the door and giving [npc2.herHim] a "+slave.getSexPaceDomPreference().getName()+" fucking."
+												+ (impregnationAttempt?"</br>[style.colourSex([npc2.Name] might have gotten pregnant!)]":"")
+												+ (gettingPregnantAttempt?"</br>[style.colourSex([npc1.Name] might have gotten pregnant!)]":"")))),
+										true);
 								
 							case LAB_ASSISTANT: case TEST_SUBJECT:
 								return new SlaveryEventLogEntry(hour,
 										slave,
 										SlaveEvent.SLAVE_SEX,
 										null,
-										Util.newArrayListOfValues(new ListValue<>(
-												"When Lilaya left the lab to take a break, "+slave.getName()+" used the opportunity to give [npc.name] a "+slave.getSexPaceDomPreference().getName()+" fucking on one of the lab's tables."
-												+ (impregnationAttempt?UtilText.parse(npc,"</br>[style.colourSex([npc.Name] might have gotten pregnant!)]"):"")
-												+ (gettingPregnantAttempt?"</br>[style.colourSex("+slave.getName()+" might have gotten pregnant!)]":""))),
-												true);
+										Util.newArrayListOfValues(new ListValue<>(UtilText.parse(slave, npc,
+												"When Lilaya left the lab to take a break, [npc1.name] used the opportunity to give [npc2.name] a "+slave.getSexPaceDomPreference().getName()+" fucking on one of the lab's tables."
+												+ (impregnationAttempt?"</br>[style.colourSex([npc2.Name] might have gotten pregnant!)]":"")
+												+ (gettingPregnantAttempt?"</br>[style.colourSex([npc1.Name] might have gotten pregnant!)]":"")))),
+										true);
 								
 							case LIBRARY:
 								return new SlaveryEventLogEntry(hour,
 										slave,
 										SlaveEvent.SLAVE_SEX,
 										null,
-										Util.newArrayListOfValues(new ListValue<>(
-												slave.getName()+" pulled [npc.name] behind one of the shelves in the Library, before giving [npc.herHim] a "+slave.getSexPaceDomPreference().getName()+" fucking."
-												+ (impregnationAttempt?UtilText.parse(npc,"</br>[style.colourSex([npc.Name] might have gotten pregnant!)]"):"")
-												+ (gettingPregnantAttempt?"</br>[style.colourSex("+slave.getName()+" might have gotten pregnant!)]":""))),
-												true);
+										Util.newArrayListOfValues(new ListValue<>(UtilText.parse(slave, npc,
+												"[npc1.Name] pulled [npc2.name] behind one of the shelves in the Library, before giving [npc2.herHim] a "+slave.getSexPaceDomPreference().getName()+" fucking."
+												+ (impregnationAttempt?"</br>[style.colourSex([npc2.Name] might have gotten pregnant!)]":"")
+												+ (gettingPregnantAttempt?"</br>[style.colourSex([npc1.Name] might have gotten pregnant!)]":"")))),
+										true);
 							case PUBLIC_STOCKS:
 								//TODO 
 							case MILKING:

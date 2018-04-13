@@ -1548,8 +1548,9 @@ public class Game implements Serializable, XMLSaving {
 	}
 	
 	private static boolean isContentScroll(DialogueNodeOld node) {
-		return (node.getMapDisplay()!=MapDisplay.PHONE
-				&& node.getMapDisplay()!=MapDisplay.CHARACTERS_PRESENT)
+		return (node.getMapDisplay()!=MapDisplay.CHARACTERS_PRESENT
+				&& !node.equals(PhoneDialogue.CHARACTER_APPEARANCE)
+				&& !node.equals(PhoneDialogue.CONTACTS_CHARACTER))
 				|| node.equals(BodyChanging.BODY_CHANGING_ASS)
 				|| node.equals(BodyChanging.BODY_CHANGING_BREASTS)
 				|| node.equals(BodyChanging.BODY_CHANGING_CORE)

@@ -1,6 +1,8 @@
 package com.lilithsthrone.game.dialogue.utils;
 
 import java.io.File;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.EnumMap;
@@ -24,6 +26,7 @@ import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
+import com.lilithsthrone.game.character.body.valueEnums.HairLength;
 import com.lilithsthrone.game.character.body.valueEnums.HornLength;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.effects.Perk;
@@ -343,19 +346,20 @@ public class UtilText {
 		return formatAsMoney(money, tag, null);
 	}
 	
+	/**
+	 * Just used for values like "?". <b>Do not</b> use for numerical values.
+	 */
 	public static String formatAsMoney(String money, String tag) {
 		return "<" + tag + " style='color:" + Colour.CURRENCY_GOLD.toWebHexString() + "; padding-right:2px;'>" + getCurrencySymbol() + "</" + tag + ">"
 				+ "<" + tag + " style='color:" + Colour.TEXT.getShades(8)[3] + ";'>" + money + "</" + tag + ">";
 	}
 	
-	//private static NumberFormat formatter = new DecimalFormat("#0.00");   formatter.format(money/100d)
+	private static NumberFormat formatter = new DecimalFormat("#,###");
 	
 	public static String formatAsMoney(int money, String tag, Colour amountColour) {
-//		int moneyGold = money/10000;
-//		int moneySilver = (money%10000)/100;
-//		int moneyCopper = (money%10000)%100;
-		
 		String tagColour;
+		String moneyString = formatter.format(money);
+		
 		if(amountColour==null ) {
 			tagColour = Colour.TEXT.getShades(8)[3];
 		} else {
@@ -363,19 +367,7 @@ public class UtilText {
 		}
 		
 		return "<" + tag + " style='color:" + Colour.CURRENCY_GOLD.toWebHexString() + "; padding-right:2px;'>" + getCurrencySymbol() + "</" + tag + ">"
-					+ "<" + tag + " style='color:" + tagColour + ";'>" + money + "</" + tag + ">";
-		
-//		return "<" + tag + " style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + "; padding-right:2px;'>" + getCurrencySymbol() + "</" + tag + ">"
-//				+ "<" + tag + " style='color:" + tagColour + ";'>" + money/100 + "</" + tag + "> "
-//				+"<" + tag + " style='color:" + Colour.GENERIC_SEX.toWebHexString() + "; padding-right:2px;'>" + getCurrencySymbol() + "</" + tag + ">"
-//				+ "<" + tag + " style='color:" + tagColour + ";'>" + money%100 + "</" + tag + "> ";
-		
-//		return (moneyGold>=1 ?"<" + tag + " style='color:" + Colour.CURRENCY_GOLD.toWebHexString() + "; padding-right:2px;'>" + getCurrencySymbol() + "</" + tag + ">"
-//					+ "<" + tag + " style='color:" + tagColour + ";'>" + moneyGold + "</" + tag + "> ":"")
-//				+(moneyGold+moneySilver>=1 ?"<" + tag + " style='color:" + Colour.CURRENCY_SILVER.toWebHexString() + "; padding-right:2px;'>" + getCurrencySymbol() + "</" + tag + ">"
-//						+ "<" + tag + " style='color:" + tagColour + ";'>" + moneySilver + "</" + tag + "> ":"")
-//				+(money>=1 ?"<" + tag + " style='color:" + Colour.CURRENCY_COPPER.toWebHexString() + "; padding-right:2px;'>" + getCurrencySymbol() + "</" + tag + ">"
-//						+ "<" + tag + " style='color:" + tagColour + ";'>" + moneyCopper + "</" + tag + ">":"");
+					+ "<" + tag + " style='color:" + tagColour + ";'>" + moneyString + "</" + tag + ">";
 	}
 	
 	public static String formatAsMoneyUncoloured(int money, String tag) {
@@ -769,6 +761,52 @@ public class UtilText {
 			}
 		});
 		
+		conditionalCommandsList.add(new ParserConditionalCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("hairLengthMinimum"),
+						new ListValue<>("minimumHairLength")),
+				"(HairLength Enum)",
+				"Returns true if the character's hair is at least as long as the supplied hair length's minimum value."){
+			@Override
+			public boolean process(String command, String arguments, String target) {
+				if(arguments == null || arguments.isEmpty()) {
+					System.err.println("No arguments passed for HairLength in the conditional statement 'hairLengthMinimum'!");
+					return false;
+				} else {
+					try {
+						return character.getHairRawLengthValue()>HairLength.valueOf(arguments).getMinimumValue();
+					} catch(Exception ex) {
+						System.err.println("Could not parse HairLength in the conditional statement 'hairLengthMinimum'!");
+						return false;
+					}
+				}
+			}
+		});
+		
+		conditionalCommandsList.add(new ParserConditionalCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("hairLengthMaximum"),
+						new ListValue<>("maximumHairLength")),
+				"(HairLength Enum)",
+				"Returns true if the character's hair is no longer than the supplied hair length's maximum value."){
+			@Override
+			public boolean process(String command, String arguments, String target) {
+				if(arguments == null || arguments.isEmpty()) {
+					System.err.println("No arguments passed for HairLength in the conditional statement 'hairLengthMinimum'!");
+					return false;
+				} else {
+					try {
+						return character.getHairRawLengthValue()<=HairLength.valueOf(arguments).getMinimumValue();
+					} catch(Exception ex) {
+						System.err.println("Could not parse HairLength in the conditional statement 'hairLengthMinimum'!");
+						return false;
+					}
+				}
+			}
+		});
+		
+		
+		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(new ListValue<>("name")),
 				true,
@@ -984,6 +1022,24 @@ public class UtilText {
 				}
 			}
 		});
+
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("niece"),
+						new ListValue<>("nephew")),
+				true,
+				true,
+				"",//TODO
+				"Description of method"){//TODO
+			@Override
+			public String parse(String command, String arguments, String target) {
+				if(character.isFeminine()) {
+					return "niece";
+				} else {
+					return "nephew";
+				}
+			}
+		});
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
@@ -1073,11 +1129,15 @@ public class UtilText {
 				parseAddPronoun = false;
 				if(arguments!=null && Boolean.valueOf(arguments)) {
 					return "<span style='color:"+character.getFemininity().getColour().toWebHexString()+";'>"
-							+ Femininity.getFemininityName(character.getFemininityValue(), pronoun)+"</span>"
+							+ (parseCapitalise
+									?Util.capitaliseSentence(Femininity.getFemininityName(character.getFemininityValue(), pronoun))
+									:Femininity.getFemininityName(character.getFemininityValue(), pronoun))+"</span>"
 							+ " <span style='color:"+character.getRaceStage().getColour().toWebHexString()+";'>" +character.getRaceStage().getName()+"</span>"
 							+ " <span style='color:"+character.getSubspecies().getColour().toWebHexString()+";'>" +  getSubspeciesName(character.getSubspecies()) + "</span>";
 				}
-				return Femininity.getFemininityName(character.getFemininityValue(), pronoun)+" "+character.getRaceStage().getName()+" "+getSubspeciesName(character.getSubspecies());
+				return (parseCapitalise
+						?Util.capitaliseSentence(Femininity.getFemininityName(character.getFemininityValue(), pronoun))
+						:Femininity.getFemininityName(character.getFemininityValue(), pronoun))+" "+character.getRaceStage().getName()+" "+getSubspeciesName(character.getSubspecies());
 			}
 			@Override
 			protected String applyDeterminer(String descriptor, String input) {

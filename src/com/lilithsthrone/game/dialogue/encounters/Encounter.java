@@ -16,6 +16,7 @@ import com.lilithsthrone.game.character.npc.dominion.Cultist;
 import com.lilithsthrone.game.character.npc.dominion.DominionAlleywayAttacker;
 import com.lilithsthrone.game.character.npc.dominion.DominionSuccubusAttacker;
 import com.lilithsthrone.game.character.npc.dominion.HarpyNestsAttacker;
+import com.lilithsthrone.game.character.npc.submission.BatMorphCavernAttacker;
 import com.lilithsthrone.game.character.npc.submission.SubmissionAttacker;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
@@ -489,6 +490,66 @@ public enum Encounter {
 				return null;
 			}
 		}
+	},
+	
+	BAT_CAVERN(Util.newHashMapOfValues(
+			new Value<EncounterType, Float>(EncounterType.BAT_CAVERN_BAT_ATTACK, 8f),
+			new Value<EncounterType, Float>(EncounterType.BAT_CAVERN_SLIME_ATTACK, 8f),
+			new Value<EncounterType, Float>(EncounterType.BAT_CAVERN_FIND_ITEM, 4f))) {
+
+		@Override
+		protected DialogueNodeOld initialiseEncounter(EncounterType node) {
+			if (node == EncounterType.BAT_CAVERN_BAT_ATTACK) {
+				
+				// Prioritise re-encountering the NPC on this tile:
+				for(NPC npc : Main.game.getCharactersPresent()) {
+					Main.game.setActiveNPC(npc);
+					return Main.game.getActiveNPC().getEncounterDialogue();
+				}
+				
+//				TODO Add offspring encounters
+				
+				Main.game.setActiveNPC(new BatMorphCavernAttacker(GenderPreference.getGenderFromUserPreferences()));
+				try {
+					Main.game.addNPC(Main.game.getActiveNPC(), false);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				return Main.game.getActiveNPC().getEncounterDialogue();
+				
+			} else if (node == EncounterType.BAT_CAVERN_SLIME_ATTACK) {
+				
+				// Prioritise re-encountering the NPC on this tile:
+				for(NPC npc : Main.game.getCharactersPresent()) {
+					Main.game.setActiveNPC(npc);
+					return Main.game.getActiveNPC().getEncounterDialogue();
+				}
+				
+//				TODO Add offspring encounters
+				
+				Main.game.setActiveNPC(new BatMorphCavernAttacker(GenderPreference.getGenderFromUserPreferences()));
+				try {
+					Main.game.addNPC(Main.game.getActiveNPC(), false);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				return Main.game.getActiveNPC().getEncounterDialogue();
+				
+			} else if (node == EncounterType.SUBMISSION_FIND_ITEM) {
+				
+				if(Math.random()<0.8f) {
+					randomItem = AbstractItemType.generateItem(ItemType.submissionTunnelItems.get(Util.random.nextInt(ItemType.submissionTunnelItems.size())));
+				} else {
+					randomItem = AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_SLIME);
+				}
+				
+				Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addItem(randomItem);
+				return SubmissionEncounterDialogue.ALLEY_FIND_ITEM;
+				
+			} else {
+				return null;
+			}
+		}
 	};
 
 	private static AbstractItem randomItem;
@@ -504,22 +565,30 @@ public enum Encounter {
 	protected abstract DialogueNodeOld initialiseEncounter(EncounterType node);
 
 	/**
-	 * Returns a random encounter from the list, or null if no encounter was
-	 * selected.
+	 * Returns a random encounter from the list, or null if no encounter was selected.
 	 * 
-	 * @param encounters
+	 * @param forceEncounter Forces an encounter to be selected. (Will still return null if the encounter list is empty.)
 	 * @return null if no encounter.
 	 */
-	public DialogueNodeOld getRandomEncounter() {
-		return getBaseRandomEncounter();
+	public DialogueNodeOld getRandomEncounter(boolean forceEncounter) {
+		return getBaseRandomEncounter(forceEncounter);
 	}
 	
 	public Map<EncounterType, Float> getDialogues() {
 		return dialogues;
 	}
 
-	protected DialogueNodeOld getBaseRandomEncounter() {
-		float r = (float) (Math.random() * 100), total = 0;
+	protected DialogueNodeOld getBaseRandomEncounter(boolean forceEncounter) {
+		float r = (float) (Math.random() * 100);
+		float total = 0;
+		
+		if(forceEncounter) {
+			r = 0;
+			for (Entry<EncounterType, Float> e : getDialogues().entrySet()) {
+				r += e.getValue();
+			}
+			r *= Math.random();
+		}
 		
 		for (Entry<EncounterType, Float> e : getDialogues().entrySet()) {
 			total += e.getValue();

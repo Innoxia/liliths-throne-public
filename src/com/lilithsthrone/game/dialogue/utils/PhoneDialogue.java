@@ -92,10 +92,15 @@ public class PhoneDialogue {
 				
 			} else if (index == 2) {
 				return new Response(
-						Main.game.getPlayer().getPerkPoints() > 0
+						Main.getProperties().hasValue(PropertyValue.levelUpHightlight)
 							? "<span style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>Perks</span>"
 							:"Perks",
-						"View your character page.", CHARACTER_LEVEL_UP);
+						"View your character page.", CHARACTER_LEVEL_UP) {
+					@Override
+					public void effects() {
+						Main.getProperties().setValue(PropertyValue.levelUpHightlight, false);
+					}
+				};
 				
 			} else if (index == 3) {
 				return new Response("Fetishes", "View your fetishes page.", CHARACTER_FETISHES);
@@ -1832,7 +1837,12 @@ public class PhoneDialogue {
 				
 				
 			} else if (index == 0) {
-				return new Response("Back", "Return to your phone's main menu.", MENU);
+				return new Response("Back", "Return to your phone's main menu.", MENU) {
+					@Override
+					public void effects() {
+						Main.getProperties().setValue(PropertyValue.levelUpHightlight, false);
+					}
+				};
 			
 			} else {
 				return null;

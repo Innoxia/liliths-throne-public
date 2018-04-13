@@ -218,7 +218,7 @@ public enum Subspecies {
 				public void applySpeciesChanges(Body body) {
 					body.getCoverings().put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, Colour.SKIN_RED));
 					
-					body.getCoverings().put(BodyCoveringType.CANINE_FUR, new Covering(BodyCoveringType.CANINE_FUR, CoveringPattern.MARKED, CoveringModifier.FLUFFY, Colour.COVERING_BLACK, false, Colour.BASE_WHITE, false));
+					body.getCoverings().put(BodyCoveringType.CANINE_FUR, new Covering(BodyCoveringType.CANINE_FUR, CoveringPattern.MARKED, CoveringModifier.FLUFFY, Colour.COVERING_BLACK, false, Colour.COVERING_WHITE, false));
 					if(body.getEar().getType()==EarType.DOG_MORPH) {
 						if(Math.random()<0.5f) {
 							body.getEar().setType(null, EarType.DOG_MORPH_POINTED);
@@ -421,7 +421,9 @@ public enum Subspecies {
 			Colour.RACE_SLIME,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"A typical slime.",
-			Util.newArrayListOfValues(new ListValue<>(WorldType.SUBMISSION))) {
+			Util.newArrayListOfValues(
+					new ListValue<>(WorldType.SUBMISSION),
+					new ListValue<>(WorldType.BAT_CAVERNS))) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			body.setBodyMaterial(BodyMaterial.SLIME);
@@ -438,7 +440,9 @@ public enum Subspecies {
 			Colour.RACE_SLIME,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"A slime that's taken on the form of an angel.",
-			Util.newArrayListOfValues(new ListValue<>(WorldType.SUBMISSION))) {
+			Util.newArrayListOfValues(
+					new ListValue<>(WorldType.SUBMISSION),
+					new ListValue<>(WorldType.BAT_CAVERNS))) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 //			body = CharacterUtils.generateBody(body.getGender(), Subspecies.ANGEL, RaceStage.PARTIAL);
@@ -456,7 +460,9 @@ public enum Subspecies {
 			Colour.RACE_SLIME,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"A slime that's taken on the form of a demon.",
-			Util.newArrayListOfValues(new ListValue<>(WorldType.SUBMISSION))) {
+			Util.newArrayListOfValues(
+					new ListValue<>(WorldType.SUBMISSION),
+					new ListValue<>(WorldType.BAT_CAVERNS))) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 //			body = CharacterUtils.generateBody(body.getGender(), Subspecies.DEMON, RaceStage.PARTIAL);
@@ -474,7 +480,9 @@ public enum Subspecies {
 			Colour.RACE_SLIME,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"A slime that's taken on the form of an imp.",
-			Util.newArrayListOfValues(new ListValue<>(WorldType.SUBMISSION))) {
+			Util.newArrayListOfValues(
+					new ListValue<>(WorldType.SUBMISSION),
+					new ListValue<>(WorldType.BAT_CAVERNS))) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 //			body = CharacterUtils.generateBody(body.getGender(), Subspecies.IMP, RaceStage.PARTIAL);
@@ -496,7 +504,9 @@ public enum Subspecies {
 			Colour.RACE_SLIME,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"A slime that's taken on the form of a cow-morph.",
-			Util.newArrayListOfValues(new ListValue<>(WorldType.SUBMISSION))) {
+			Util.newArrayListOfValues(
+					new ListValue<>(WorldType.SUBMISSION),
+					new ListValue<>(WorldType.BAT_CAVERNS))) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 //			body = CharacterUtils.generateBody(body.getGender(), Subspecies.COW_MORPH, RaceStage.PARTIAL);
@@ -514,7 +524,9 @@ public enum Subspecies {
 			Colour.RACE_SLIME,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"A slime that's taken on the form of a dog-morph.",
-			Util.newArrayListOfValues(new ListValue<>(WorldType.SUBMISSION))) {
+			Util.newArrayListOfValues(
+					new ListValue<>(WorldType.SUBMISSION),
+					new ListValue<>(WorldType.BAT_CAVERNS))) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 //			body = CharacterUtils.generateBody(body.getGender(), Subspecies.DOG_MORPH, RaceStage.PARTIAL);
@@ -532,7 +544,9 @@ public enum Subspecies {
 			Colour.RACE_SLIME,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"A slime that's taken on the form of a dobermann-morph.",
-			Util.newArrayListOfValues(new ListValue<>(WorldType.SUBMISSION))) {
+			Util.newArrayListOfValues(
+					new ListValue<>(WorldType.SUBMISSION),
+					new ListValue<>(WorldType.BAT_CAVERNS))) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 //			body = CharacterUtils.generateBody(body.getGender(), Subspecies.DOG_MORPH, RaceStage.PARTIAL);
@@ -550,7 +564,9 @@ public enum Subspecies {
 			Colour.RACE_SLIME,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"A slime that's taken on the form of a border-collie-morph.",
-			Util.newArrayListOfValues(new ListValue<>(WorldType.SUBMISSION))) {
+			Util.newArrayListOfValues(
+					new ListValue<>(WorldType.SUBMISSION),
+					new ListValue<>(WorldType.BAT_CAVERNS))) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 //			body = CharacterUtils.generateBody(body.getGender(), Subspecies.DOG_MORPH, RaceStage.PARTIAL);
@@ -568,7 +584,9 @@ public enum Subspecies {
 			Colour.RACE_SLIME,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"A slime that's taken on the form of a wolf-morph.",
-			Util.newArrayListOfValues(new ListValue<>(WorldType.SUBMISSION))) {
+			Util.newArrayListOfValues(
+					new ListValue<>(WorldType.SUBMISSION),
+					new ListValue<>(WorldType.BAT_CAVERNS))) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 //			body = CharacterUtils.generateBody(body.getGender(), Subspecies.WOLF_MORPH, RaceStage.PARTIAL);
@@ -586,7 +604,9 @@ public enum Subspecies {
 			Colour.RACE_SLIME,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"A slime that's taken on the form of a cat-morph.",
-			Util.newArrayListOfValues(new ListValue<>(WorldType.SUBMISSION))) {
+			Util.newArrayListOfValues(
+					new ListValue<>(WorldType.SUBMISSION),
+					new ListValue<>(WorldType.BAT_CAVERNS))) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 //			body = CharacterUtils.generateBody(body.getGender(), Subspecies.CAT_MORPH, RaceStage.PARTIAL);
@@ -604,7 +624,9 @@ public enum Subspecies {
 			Colour.RACE_SLIME,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"A slime that's taken on the form of a horse-morph.",
-			Util.newArrayListOfValues(new ListValue<>(WorldType.SUBMISSION))) {
+			Util.newArrayListOfValues(
+					new ListValue<>(WorldType.SUBMISSION),
+					new ListValue<>(WorldType.BAT_CAVERNS))) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 //			body = CharacterUtils.generateBody(body.getGender(), Subspecies.HORSE_MORPH, RaceStage.PARTIAL);
@@ -622,7 +644,9 @@ public enum Subspecies {
 			Colour.RACE_SLIME,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"A slime that's taken on the form of a reindeer-morph.",
-			Util.newArrayListOfValues(new ListValue<>(WorldType.SUBMISSION))) {
+			Util.newArrayListOfValues(
+					new ListValue<>(WorldType.SUBMISSION),
+					new ListValue<>(WorldType.BAT_CAVERNS))) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 //			body = CharacterUtils.generateBody(body.getGender(), Subspecies.REINDEER_MORPH, RaceStage.PARTIAL);
@@ -640,7 +664,9 @@ public enum Subspecies {
 			Colour.RACE_SLIME,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"A slime that's taken on the form of an alligator-morph.",
-			Util.newArrayListOfValues(new ListValue<>(WorldType.SUBMISSION))) {
+			Util.newArrayListOfValues(
+					new ListValue<>(WorldType.SUBMISSION),
+					new ListValue<>(WorldType.BAT_CAVERNS))) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 //			body = CharacterUtils.generateBody(body.getGender(), Subspecies.ALLIGATOR_MORPH, RaceStage.PARTIAL);
@@ -658,7 +684,9 @@ public enum Subspecies {
 			Colour.RACE_SLIME,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"A slime that's taken on the form of a squirrel-morph.",
-			Util.newArrayListOfValues(new ListValue<>(WorldType.SUBMISSION))) {
+			Util.newArrayListOfValues(
+					new ListValue<>(WorldType.SUBMISSION),
+					new ListValue<>(WorldType.BAT_CAVERNS))) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 //			body = CharacterUtils.generateBody(body.getGender(), Subspecies.SQUIRREL_MORPH, RaceStage.PARTIAL);
@@ -676,7 +704,9 @@ public enum Subspecies {
 			Colour.RACE_SLIME,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"A slime that's taken on the form of a rat-morph.",
-			Util.newArrayListOfValues(new ListValue<>(WorldType.SUBMISSION))) {
+			Util.newArrayListOfValues(
+					new ListValue<>(WorldType.SUBMISSION),
+					new ListValue<>(WorldType.BAT_CAVERNS))) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 //			body = CharacterUtils.generateBody(body.getGender(), Subspecies.RAT_MORPH, RaceStage.PARTIAL);
@@ -694,7 +724,9 @@ public enum Subspecies {
 			Colour.RACE_SLIME,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"A slime that's taken on the form of a rabbit-morph.",
-			Util.newArrayListOfValues(new ListValue<>(WorldType.SUBMISSION))) {
+			Util.newArrayListOfValues(
+					new ListValue<>(WorldType.SUBMISSION),
+					new ListValue<>(WorldType.BAT_CAVERNS))) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 //			body = CharacterUtils.generateBody(body.getGender(), Subspecies.RAT_MORPH, RaceStage.PARTIAL);
@@ -712,7 +744,9 @@ public enum Subspecies {
 			Colour.RACE_SLIME,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"A slime that's taken on the form of a bat-morph.",
-			Util.newArrayListOfValues(new ListValue<>(WorldType.SUBMISSION))) {
+			Util.newArrayListOfValues(
+					new ListValue<>(WorldType.SUBMISSION),
+					new ListValue<>(WorldType.BAT_CAVERNS))) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 //			body = CharacterUtils.generateBody(body.getGender(), Subspecies.RAT_MORPH, RaceStage.PARTIAL);
@@ -730,7 +764,9 @@ public enum Subspecies {
 			Colour.RACE_SLIME,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"A slime that's taken on the form of a harpy-morph.",
-			Util.newArrayListOfValues(new ListValue<>(WorldType.SUBMISSION))) {
+			Util.newArrayListOfValues(
+					new ListValue<>(WorldType.SUBMISSION),
+					new ListValue<>(WorldType.BAT_CAVERNS))) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 //			body = CharacterUtils.generateBody(body.getGender(), Subspecies.HARPY, RaceStage.LESSER);
@@ -748,7 +784,9 @@ public enum Subspecies {
 			Colour.RACE_SLIME,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"A slime that's taken on the form of a raven-harpy-morph.",
-			Util.newArrayListOfValues(new ListValue<>(WorldType.SUBMISSION))) {
+			Util.newArrayListOfValues(
+					new ListValue<>(WorldType.SUBMISSION),
+					new ListValue<>(WorldType.BAT_CAVERNS))) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 //			body = CharacterUtils.generateBody(body.getGender(), Subspecies.HARPY, RaceStage.LESSER);
@@ -861,7 +899,9 @@ public enum Subspecies {
 			Colour.RACE_BAT_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"A typical bipedal bat-morph.",
-			Util.newArrayListOfValues(new ListValue<>(WorldType.SUBMISSION))) {
+			Util.newArrayListOfValues(
+					new ListValue<>(WorldType.SUBMISSION),
+					new ListValue<>(WorldType.BAT_CAVERNS))) {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			// TODO Auto-generated method stub
@@ -1084,7 +1124,7 @@ public enum Subspecies {
 					}
 					
 					if(body.getCoverings().get(BodyCoveringType.CANINE_FUR).getPrimaryColour()==Colour.COVERING_BLACK
-							&& (body.getCoverings().get(BodyCoveringType.CANINE_FUR).getSecondaryColour()==Colour.COVERING_WHITE)
+							&& body.getCoverings().get(BodyCoveringType.CANINE_FUR).getSecondaryColour()==Colour.COVERING_WHITE
 							&& body.getCoverings().get(BodyCoveringType.CANINE_FUR).getPattern() == CoveringPattern.MARKED
 							&& body.getCoverings().get(BodyCoveringType.CANINE_FUR).getModifier() == CoveringModifier.FLUFFY
 							&& (body.getEar().getType()==EarType.DOG_MORPH_FOLDED || body.getEar().getType()==EarType.DOG_MORPH_POINTED)

@@ -122,7 +122,7 @@ public class GenericOrgasms {
 					orgasmText = "[npc.Name] looks down at you and lets out [npc.a_moan+] as [npc.she] prepares to climax.";
 				}
 				break;
-			case DOGGY_BEHIND: case DOGGY_BEHIND_AMBER:
+			case DOGGY_BEHIND: case DOGGY_BEHIND_AMBER: case PET_MOUNTING_HUMPING:
 				if(characterOrgasming.isPlayer()) {
 					orgasmText = "You take hold of [npc.name]'s waist, pulling [npc.herHim] back into your groin and letting out [pc.a_moan+] as you reach your climax.";
 				} else {
@@ -136,7 +136,7 @@ public class GenericOrgasms {
 					orgasmText = "[npc.Name] lets out [npc.a_moan+] as [npc.she] prepares to reach [npc.her] climax.";
 				}
 				break;
-			case DOGGY_INFRONT:
+			case DOGGY_INFRONT: case PET_ORAL_COCKED_LEG:
 				if(characterOrgasming.isPlayer()) {
 					orgasmText = "You shuffle forwards, pressing your groin up against [npc.name]'s [npc.face+] and letting out [pc.a_moan+] as you prepare to reach your climax.";
 				} else {
@@ -150,7 +150,7 @@ public class GenericOrgasms {
 					orgasmText = "[npc.Name] shuffles backwards, pressing [npc.her] [npc.ass+] up against your [pc.face+] and letting out [npc.a_moan+] as [npc.she] prepares to reach [npc.her] climax.";
 				}
 				break;
-			case DOGGY_ON_ALL_FOURS: case DOGGY_ON_ALL_FOURS_SECOND: case DOGGY_ON_ALL_FOURS_AMBER:
+			case DOGGY_ON_ALL_FOURS: case DOGGY_ON_ALL_FOURS_SECOND: case DOGGY_ON_ALL_FOURS_AMBER: case PET_MOUNTING_ON_ALL_FOURS: case PET_ORAL_ON_ALL_FOURS:
 				if(characterOrgasming.isPlayer()) {
 					orgasmText = "You brace yourself on all fours, letting out [pc.a_moan+] as you prepare to reach your climax.";
 				} else {

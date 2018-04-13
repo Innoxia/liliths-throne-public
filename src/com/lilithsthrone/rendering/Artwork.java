@@ -81,9 +81,8 @@ public class Artwork {
 		}
 	}
 	
-	public Artwork(String name, Artist artist) {
-		super();
-		this.name = name.toLowerCase();
+	public Artwork(String nameInput, Artist artist) {
+		this.name = nameInput;
 		this.artist = artist;
 		
 		index = 0;

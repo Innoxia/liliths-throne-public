@@ -320,6 +320,23 @@
 	]]>
 	</htmlContent>
 	
+	<htmlContent tag="NYAN_GIFT_SINGLE_ROSE"><![CDATA[
+	<p>
+		From behind your back, you produce the red rose that you obtained from one of Dominion's parks.
+		 Holding it towards the blushing cat-girl, you smile and explain,
+		 [pc.speech(When I saw how beautiful this rose was, I couldn't help but be reminded of you.)]
+	</p>
+	<p>
+		[nyan.speech(O-Oh! Oh!)]
+		 Nyan squeals, overcome with joy at your gift and accompanying words,
+		 [nyan.speech(I-I don't know what to say! T-Thank you s-so much!)]
+	</p>
+	<p>
+		She takes the rose from you, shuffling her feet and looking longingly into your eyes as she smiles lovingly at you.
+	</p>
+	]]>
+	</htmlContent>
+	
 	<htmlContent tag="NYAN_GIFT_ROSES"><![CDATA[
 	<p>
 		From behind your back, you produce the bouquet of roses.

@@ -4128,6 +4128,52 @@ public class ItemType {
 		}
 	};
 	
+	public static AbstractItemType GIFT_ROSE = new AbstractItemType(
+			100,
+			null,
+			false,
+			"Rose",
+			"Roses",
+			"A bouquet filled with roses of many colours, it smells pleasant even from a distance."
+				+ " [Ashley.speech(Just in case you're clueless to the point that you don't even know the favourite colour of your intended recipient, every natural colour is included here.)]",
+			//				+ " If their favourite happens to be blue, tough luck; maybe you should try getting acquainted with another species of flower instead of going with what's safe.)] ",
+			"giftRose",
+			Colour.BASE_CRIMSON,
+			Colour.BASE_GREEN_DARK,
+			null,
+			Rarity.UNCOMMON,
+			null,
+			null,
+			Util.newArrayListOfValues(new ListValue<>(ItemTag.GIFT))) {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getDescription() {
+			return "A single, red rose."
+					+ " You imagine that if it were any other colour, it would smell just as sweet.";
+		}
+		
+		@Override
+		public String getUseName() {
+			return "smell";
+		}
+		
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return getGenericUseDescription(user, target,
+					"You take a smell of the delicate perfume given off by the red Rose.",
+					"You take a smell of the delicate perfume given off by the red Rose.",
+					"You take a smell of the delicate perfume given off by the red Rose.",
+					"You take a smell of the delicate perfume given off by the red Rose.");
+		}
+		
+		@Override
+		public boolean isConsumedOnUse() {
+			return false;
+		}
+	};
+	
 	public static AbstractItemType GIFT_ROSE_BOUQUET = new AbstractItemType(
 			500,
 			null,

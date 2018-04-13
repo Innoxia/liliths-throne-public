@@ -2415,7 +2415,7 @@ public class CharacterModificationUtils {
 	
 	public static CupSize[] getBreastSizesAvailable() {
 		if(BodyChanging.getTarget().hasPenis()) {
-			return new CupSize[] {CupSize.FLAT, CupSize.TRAINING_AA, CupSize.TRAINING_A, CupSize.TRAINING_B};
+			return new CupSize[] {CupSize.FLAT, CupSize.TRAINING_AAA, CupSize.TRAINING_AA, CupSize.TRAINING_A};
 		} else {
 			return new CupSize[] {CupSize.AA, CupSize.A, CupSize.B, CupSize.C, CupSize.D, CupSize.DD, CupSize.E};
 		}

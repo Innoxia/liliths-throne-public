@@ -2694,7 +2694,11 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					bi = ImageIO.read(new File(artwork.getCurrentImage()));
 
 					ByteArrayOutputStream out = new ByteArrayOutputStream();
-					ImageIO.write(bi, "PNG", out);
+					if(artwork.getCurrentImage().endsWith("jpg")) {
+						ImageIO.write(bi, "JPG", out);
+					} else {
+						ImageIO.write(bi, "PNG", out);
+					}
 					byte[] bytes = out.toByteArray();
 
 					String base64bytes = Base64.getEncoder().encodeToString(bytes);

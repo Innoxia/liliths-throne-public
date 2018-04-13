@@ -13,19 +13,19 @@ public enum CupSize {
 
 	// Training bra sizes:
 	
-	TRAINING_AA("almost unnoticeable", "training-AA", 1) {
+	TRAINING_AAA("almost unnoticeable", "training-AAA", 1) {
 		@Override
 		public boolean isTrainingBraSize() {
 			return true;
 		}
 	},
-	TRAINING_A("almost unnoticeable", "training-A", 2) {
+	TRAINING_AA("almost unnoticeable", "training-AA", 2) {
 		@Override
 		public boolean isTrainingBraSize() {
 			return true;
 		}
 	},
-	TRAINING_B("almost unnoticeable", "training-B", 3) {
+	TRAINING_A("almost unnoticeable", "training-A", 3) {
 		@Override
 		public boolean isTrainingBraSize() {
 			return true;

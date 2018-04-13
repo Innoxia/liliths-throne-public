@@ -410,13 +410,13 @@ public class Main extends Application {
 		dir.mkdir();
 		
 		// Open error log
-		try {
-			@SuppressWarnings("resource")
-			PrintStream stream = new PrintStream("data/error.log");
-			System.setErr(stream);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+//		try {
+//			@SuppressWarnings("resource")
+//			PrintStream stream = new PrintStream("data/error.log");
+//			System.setErr(stream);
+//		} catch (FileNotFoundException e) {
+//			e.printStackTrace();
+//		}
 		
 		// Load properties:
 		if (new File("data/properties.xml").exists()) {

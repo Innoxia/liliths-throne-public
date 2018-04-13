@@ -233,7 +233,12 @@ public interface SexActionInterface {
 			
 			if(!this.getParticipantType().isUsingSelfOrificeType()) {
 				if(getAssociatedOrificeType()!=null) {
-					switch(getAssociatedOrificeType()){ //TODO urethral checks:
+					switch(getAssociatedOrificeType()){
+						case NIPPLE:
+							if((!Main.getProperties().hasValue(PropertyValue.nipplePenContent) && (this.getActionType()==SexActionType.PARTNER_PENETRATION || this.getActionType()==SexActionType.PLAYER_PENETRATION))) {
+								return null;
+							}
+							break;
 						case URETHRA_PENIS:
 							if((!Main.getProperties().hasValue(PropertyValue.urethralContent) && getAssociatedPenetrationType()==PenetrationType.PENIS)) {
 								return null;
@@ -262,7 +267,12 @@ public interface SexActionInterface {
 				}
 				if(!this.getParticipantType().isUsingSelfOrificeType()) {
 					if(getAssociatedOrificeType()!=null) {
-						switch(getAssociatedOrificeType()){ //TODO urethral checks:
+						switch(getAssociatedOrificeType()){
+							case NIPPLE:
+								if(!Sex.getActivePartner().getPlayerKnowsAreas().contains(CoverableArea.NIPPLES)) {
+									return null;
+								}
+								break;
 							case URETHRA_PENIS:
 								if(!Sex.getActivePartner().getPlayerKnowsAreas().contains(CoverableArea.PENIS)) {
 									return null;

@@ -81,30 +81,6 @@ public class Properties implements Serializable {
 	
 	public Set<PropertyValue> values;
 	
-//	public boolean lightTheme = false;
-//	public boolean overwriteWarning = true;
-//	public boolean fadeInText = false;
-//	public boolean calendarDisplay = true;
-//	public boolean twentyFourHourTime = true;
-//
-//	public boolean furryTailPenetrationContent = false;
-//	public boolean nonConContent = false;
-//	public boolean incestContent = false;
-//	public boolean forcedTransformationContent = false;
-//	public boolean inflationContent = true;
-//	public boolean facialHairContent = false;
-//	public boolean pubicHairContent = false;
-//	public boolean bodyHairContent = false;
-//	public boolean feminineBeardsContent = false;
-//	public boolean lactationContent = true;
-//	public boolean urethralContent = false;
-//	
-//	public boolean newWeaponDiscovered = false;
-//	public boolean newClothingDiscovered = false;
-//	public boolean newItemDiscovered = false;
-//	public boolean newRaceDiscovered = false;
-	
-	
 	public DifficultyLevel difficultyLevel = DifficultyLevel.NORMAL;
 	
 	public AndrogynousIdentification androgynousIdentification = AndrogynousIdentification.CLOTHING_FEMININE;

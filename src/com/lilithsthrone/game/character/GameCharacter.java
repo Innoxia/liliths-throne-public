@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.EnumMap;
 import java.util.EnumSet;
@@ -128,6 +129,7 @@ import com.lilithsthrone.game.combat.SpecialAttack;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.combat.SpellSchool;
 import com.lilithsthrone.game.combat.SpellType;
+import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.SlaveryManagementDialogue;
 import com.lilithsthrone.game.dialogue.eventLog.EventLogEntry;
@@ -476,6 +478,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "sexualOrientation", this.getSexualOrientation().toString());
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "obedience", String.valueOf(this.getObedienceValue()));
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "genderIdentity", String.valueOf(this.getGenderIdentity()));
+		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "foughtPlayerCount", String.valueOf(this.getFoughtPlayerCount()));
 		
 
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "experience", String.valueOf(this.getExperience()));
@@ -951,6 +954,11 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				}
 			} catch (Exception ex) {
 			}
+		}
+		
+		if(element.getElementsByTagName("foughtPlayerCount").getLength()!=0) {
+			character.setFoughtPlayerCount(Integer.valueOf(((Element)element.getElementsByTagName("foughtPlayerCount").item(0)).getAttribute("value")));
+			CharacterUtils.appendToImportLog(log, "</br>Set foughtPlayerCount: "+character.getFoughtPlayerCount());
 		}
 		
 		
@@ -2509,9 +2517,10 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM) * healthPercentage);
 		setMana(getAttributeValue(Attribute.MANA_MAXIMUM) * manaPercentage);
 		
-		//TODO NPC level up
-		if(!isPlayer()) {
-			//Perks
+		if(isPlayer()) {
+			Main.getProperties().setValue(PropertyValue.levelUpHightlight, true);
+		} else {
+			//TODO NPC level up
 		}
 	}
 	
@@ -3081,6 +3090,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			}
 		}
 		
+		// Clothing effects:
 		for(AbstractClothing c : this.getClothingCurrentlyEquipped()) {
 			for(ItemEffect ie : c.getEffects()) {
 				if(this.isPlayer()) {
@@ -9030,6 +9040,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		if(setAsHomeLocation) {
 			setHomeLocation(worldType, location);
 		}
+		if(this.isPlayer() && Main.game.isStarted() && Main.game.getCurrentDialogueNode().equals(DebugDialogue.getDefaultDialogueNoEncounter())) {
+			Main.saveGame("AutoSave_"+Main.game.getPlayer().getName(), true);
+		}
 	}
 
 	public void setRandomUnoccupiedLocation(WorldType worldType, PlaceType placeType, boolean setAsHomeLocation) {
@@ -9046,23 +9059,27 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	
 	/**
 	 * Moves this character to an adjoining Cell which shares the PlaceType of the Cell that the character is already in.
+	 * @param additionalPlaceTypes Any additional PlaceTypes that should be allowed for movement.
 	 * @return True if the character was moved.
 	 */
-	public boolean moveToAdjacentMatchingCellType() {
+	public boolean moveToAdjacentMatchingCellType(PlaceType... additionalPlaceTypes) {
 		World world = Main.game.getWorlds().get(this.getWorldLocation());
 		List<Vector2i> availableLocations = new ArrayList<>();
-		PlaceType currentlyOccupiedCellPlaceType = getLocationPlace().getPlaceType();
 		
-		if(world.getCell(this.getLocation().getX()+1, this.getLocation().getY())!=null && world.getCell(this.getLocation().getX()+1, this.getLocation().getY()).getPlace().getPlaceType()==currentlyOccupiedCellPlaceType) {
+		List<PlaceType> acceptablePlaceTypes = new ArrayList<>();
+		Collections.addAll(acceptablePlaceTypes, additionalPlaceTypes);
+		acceptablePlaceTypes.add(getLocationPlace().getPlaceType());
+		
+		if(world.getCell(this.getLocation().getX()+1, this.getLocation().getY())!=null && acceptablePlaceTypes.contains(world.getCell(this.getLocation().getX()+1, this.getLocation().getY()).getPlace().getPlaceType())) {
 			availableLocations.add(new Vector2i(this.getLocation().getX()+1, this.getLocation().getY()));
 		}
-		if(world.getCell(this.getLocation().getX()-1, this.getLocation().getY())!=null && world.getCell(this.getLocation().getX()-1, this.getLocation().getY()).getPlace().getPlaceType()==currentlyOccupiedCellPlaceType) {
+		if(world.getCell(this.getLocation().getX()-1, this.getLocation().getY())!=null && acceptablePlaceTypes.contains(world.getCell(this.getLocation().getX()-1, this.getLocation().getY()).getPlace().getPlaceType())) {
 			availableLocations.add(new Vector2i(this.getLocation().getX()-1, this.getLocation().getY()));
 		}
-		if(world.getCell(this.getLocation().getX(), this.getLocation().getY()+1)!=null && world.getCell(this.getLocation().getX(), this.getLocation().getY()+1).getPlace().getPlaceType()==currentlyOccupiedCellPlaceType) {
+		if(world.getCell(this.getLocation().getX(), this.getLocation().getY()+1)!=null && acceptablePlaceTypes.contains(world.getCell(this.getLocation().getX(), this.getLocation().getY()+1).getPlace().getPlaceType())) {
 			availableLocations.add(new Vector2i(this.getLocation().getX(), this.getLocation().getY()+1));
 		}
-		if(world.getCell(this.getLocation().getX(), this.getLocation().getY()-1)!=null && world.getCell(this.getLocation().getX(), this.getLocation().getY()-1).getPlace().getPlaceType()==currentlyOccupiedCellPlaceType) {
+		if(world.getCell(this.getLocation().getX(), this.getLocation().getY()-1)!=null && acceptablePlaceTypes.contains(world.getCell(this.getLocation().getX(), this.getLocation().getY()-1).getPlace().getPlaceType())) {
 			availableLocations.add(new Vector2i(this.getLocation().getX(), this.getLocation().getY()-1));
 		}
 		
@@ -10310,6 +10327,16 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	public SimpleEntry<AbstractClothing, DisplacementType> getNextClothingToRemoveForCoverableAreaAccess(CoverableArea coverableArea) {
 		return inventory.getNextClothingToRemoveForCoverableAreaAccess(coverableArea);
 	}
+	
+	public void displaceClothingForAccess(CoverableArea coverableArea) {
+		if(isAbleToAccessCoverableArea(coverableArea, true)) {
+			SimpleEntry<AbstractClothing, DisplacementType> entry = getNextClothingToRemoveForCoverableAreaAccess(coverableArea);
+			while(entry != null) {
+				this.isAbleToBeDisplaced(entry.getKey(), entry.getValue(), true, true, this);
+				entry = getNextClothingToRemoveForCoverableAreaAccess(coverableArea);
+			}
+		}
+	}
 
 	public boolean isAbleToAccessCoverableArea(CoverableArea area, boolean byRemovingClothing) {
 		return inventory.isAbleToAccessCoverableArea(area, byRemovingClothing);
@@ -10775,7 +10802,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 								?"The [pc.cockSize] bulge between your legs, combined with your androgynous appearance and [pc.breastSize] breasts, leads everyone to believe that you're "
 										+UtilText.generateSingularDeterminer(Gender.N_P_B_SHEMALE.getName())+" "+Gender.N_P_B_SHEMALE.getName()+"."
 								:UtilText.parse(this,
-										"Due to the [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] androgynous appearance and [npc.breastSize] breasts, leads everyone to believe that [npc.she]'s "
+										"The [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] androgynous appearance and [npc.breastSize] breasts, leads everyone to believe that [npc.she]'s "
 											+UtilText.generateSingularDeterminer(Gender.N_P_B_SHEMALE.getName())+" "+Gender.N_P_B_SHEMALE.getName()+"."),
 								Gender.N_P_B_SHEMALE);
 						
@@ -10785,7 +10812,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 								?"The [pc.ballSize] bulge of your [pc.balls] between your legs, combined with your androgynous appearance and [pc.breastSize] breasts, leads everyone to believe that you're "
 										+UtilText.generateSingularDeterminer(Gender.N_P_B_SHEMALE.getName())+" "+Gender.N_P_B_SHEMALE.getName()+"."
 								:UtilText.parse(this,
-										"Due to the [npc.ballSize] bulge between [npc.her] legs, combined with [npc.her] androgynous appearance and [npc.breastSize] breasts, leads everyone to believe that [npc.she]'s "
+										"The [npc.ballSize] bulge between [npc.her] legs, combined with [npc.her] androgynous appearance and [npc.breastSize] breasts, leads everyone to believe that [npc.she]'s "
 											+UtilText.generateSingularDeterminer(Gender.N_P_B_SHEMALE.getName())+" "+Gender.N_P_B_SHEMALE.getName()+"."),
 								Gender.N_P_B_SHEMALE);
 					}
@@ -10908,7 +10935,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 								?"The [pc.cockSize] bulge between your legs, combined with your androgynous appearance, leads everyone to believe that you're "
 										+UtilText.generateSingularDeterminer(Gender.N_P_TRAP.getName())+" "+Gender.N_P_TRAP.getName()+"."
 								:UtilText.parse(this,
-										"Due to the [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] androgynous appearance, leads everyone to believe that [npc.she]'s "
+										"The [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] androgynous appearance, leads everyone to believe that [npc.she]'s "
 											+UtilText.generateSingularDeterminer(Gender.N_P_TRAP.getName())+" "+Gender.N_P_TRAP.getName()+"."),
 								Gender.N_P_TRAP);
 						
@@ -10918,7 +10945,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 								?"The [pc.ballSize] bulge of your [pc.balls] between your legs, combined with your androgynous appearance, leads everyone to believe that you're "
 										+UtilText.generateSingularDeterminer(Gender.N_P_TRAP.getName())+" "+Gender.N_P_TRAP.getName()+"."
 								:UtilText.parse(this,
-										"Due to the [npc.ballSize] bulge between [npc.her] legs, combined with [npc.her] androgynous appearance, leads everyone to believe that [npc.she]'s "
+										"The [npc.ballSize] bulge between [npc.her] legs, combined with [npc.her] androgynous appearance, leads everyone to believe that [npc.she]'s "
 											+UtilText.generateSingularDeterminer(Gender.N_P_TRAP.getName())+" "+Gender.N_P_TRAP.getName()+"."),
 								Gender.N_P_TRAP);
 					}
@@ -11752,6 +11779,12 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		return body.getPubicHair();
 	}
 	public Covering getPubicHairType() {
+		if(this.hasPenis()) {
+			return getCovering(getBodyHairCoveringType(getPenisType().getRace()));
+		} else if(this.hasVagina()) {
+			return getCovering(getBodyHairCoveringType(getVaginaType().getRace()));
+		}
+		
 		return getCovering(getBodyHairCoveringType(getSkinType().getRace()));
 	}
 	public String setPubicHair(BodyHair pubicHair) {
