@@ -3239,7 +3239,6 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		sp.put(sexType, sp.get(sexType) + 1);
 	}
 
-
 	public int getFoughtPlayerCount() {
 		return foughtPlayerCount;
 	}
@@ -9962,7 +9961,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						? droppedItemText(clothing)
 						: addedItemToInventoryText(clothing))
 				+ "</p>"
-				+(this.isPlayer()
+				+(this.isPlayer() || Main.game.isInSex()
 						?""
 						:((unknownBreasts && this.isCoverableAreaExposed(CoverableArea.BREASTS)
 									?"<p>"
@@ -10042,7 +10041,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						? droppedItemText(clothing)
 						: addedItemToInventoryText(clothing))
 				+ "</p>"
-				+(this.isPlayer()
+				+(this.isPlayer() || Main.game.isInSex()
 						?""
 						:((unknownBreasts && this.isCoverableAreaExposed(CoverableArea.BREASTS)
 									?"<p>"
@@ -10120,36 +10119,38 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 					+ inventory.getEquipDescription()
 				+"</p>"
 				+ droppedItemText(clothing)
-				+ (unknownBreasts && this.isCoverableAreaExposed(CoverableArea.BREASTS)
-						?"<p>"
-							+ UtilText.parse(this, this.getBreastDescription())
-						+ "</p>"
-						+ this.getBreastsRevealDescription(this)
-						:"")
-				+ (unknownAss && this.isCoverableAreaExposed(CoverableArea.ANUS)
-						?"<p>"
-							+ UtilText.parse(this, this.getAssDescription())
-						+ "</p>"
-						+ this.getAssRevealDescription(this)
-						:"")
-				+ (unknownPenis && this.isCoverableAreaExposed(CoverableArea.PENIS) && this.hasPenis()
-						?"<p>"
-							+ UtilText.parse(this, this.getPenisDescription())
-						+ "</p>"
-						+ this.getPenisRevealDescription(this)
-						:"")
-				+ (unknownVagina && this.isCoverableAreaExposed(CoverableArea.VAGINA) && this.hasVagina()
-						?"<p>"
-							+ UtilText.parse(this, this.getVaginaDescription())
-						+ "</p>"
-						+ this.getVaginaRevealDescription(this)
-						:"")
-				+ ((unknownPenis || unknownVagina) && this.isCoverableAreaExposed(CoverableArea.VAGINA) && this.isCoverableAreaExposed(CoverableArea.PENIS) && !this.hasVagina()&& !this.hasPenis()
-						?"<p>"
-						+ UtilText.parse(this, this.getMoundDescription())
-					+ "</p>"
-					+ this.getMoundRevealDescription(this)
-					:"");
+				+(this.isPlayer() || Main.game.isInSex()
+						?""
+						:(unknownBreasts && this.isCoverableAreaExposed(CoverableArea.BREASTS)
+									?"<p>"
+										+ UtilText.parse(this, this.getBreastDescription())
+									+ "</p>"
+									+ this.getBreastsRevealDescription(this)
+									:"")
+							+ (unknownAss && this.isCoverableAreaExposed(CoverableArea.ANUS)
+									?"<p>"
+										+ UtilText.parse(this, this.getAssDescription())
+									+ "</p>"
+									+ this.getAssRevealDescription(this)
+									:"")
+							+ (unknownPenis && this.isCoverableAreaExposed(CoverableArea.PENIS) && this.hasPenis()
+									?"<p>"
+										+ UtilText.parse(this, this.getPenisDescription())
+									+ "</p>"
+									+ this.getPenisRevealDescription(this)
+									:"")
+							+ (unknownVagina && this.isCoverableAreaExposed(CoverableArea.VAGINA) && this.hasVagina()
+									?"<p>"
+										+ UtilText.parse(this, this.getVaginaDescription())
+									+ "</p>"
+									+ this.getVaginaRevealDescription(this)
+									:"")
+							+ ((unknownPenis || unknownVagina) && this.isCoverableAreaExposed(CoverableArea.VAGINA) && this.isCoverableAreaExposed(CoverableArea.PENIS) && !this.hasVagina()&& !this.hasPenis()
+									?"<p>"
+									+ UtilText.parse(this, this.getMoundDescription())
+								+ "</p>"
+								+ this.getMoundRevealDescription(this)
+								:""));
 	}
 	
 	public String unequipClothingIntoVoid(AbstractClothing clothing, boolean automaticClothingManagement, GameCharacter characterClothingUnequipper) { // TODO it's saying "added to inventory"
@@ -10183,36 +10184,38 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		return "<p style='text-align:center;'>"
 					+ inventory.getEquipDescription()
 				+"</p>"
-				+ (unknownBreasts && this.isCoverableAreaExposed(CoverableArea.BREASTS)
-						?"<p>"
-							+ UtilText.parse(this, this.getBreastDescription())
-						+ "</p>"
-						+ this.getBreastsRevealDescription(this)
-						:"")
-				+ (unknownAss && this.isCoverableAreaExposed(CoverableArea.ANUS)
-						?"<p>"
-							+ UtilText.parse(this, this.getAssDescription())
-						+ "</p>"
-						+ this.getAssRevealDescription(this)
-						:"")
-				+ (unknownPenis && this.isCoverableAreaExposed(CoverableArea.PENIS) && this.hasPenis()
-						?"<p>"
-							+ UtilText.parse(this, this.getPenisDescription())
-						+ "</p>"
-						+ this.getPenisRevealDescription(this)
-						:"")
-				+ (unknownVagina && this.isCoverableAreaExposed(CoverableArea.VAGINA) && this.hasVagina()
-						?"<p>"
-							+ UtilText.parse(this, this.getVaginaDescription())
-						+ "</p>"
-						+ this.getVaginaRevealDescription(this)
-						:"")
-				+ ((unknownPenis || unknownVagina) && this.isCoverableAreaExposed(CoverableArea.VAGINA) && this.isCoverableAreaExposed(CoverableArea.PENIS) && !this.hasVagina()&& !this.hasPenis()
-						?"<p>"
-						+ UtilText.parse(this, this.getMoundDescription())
-					+ "</p>"
-					+ this.getMoundRevealDescription(this)
-					:"");
+				+ (this.isPlayer() || Main.game.isInSex()
+						?""
+						:(unknownBreasts && this.isCoverableAreaExposed(CoverableArea.BREASTS)
+									?"<p>"
+										+ UtilText.parse(this, this.getBreastDescription())
+									+ "</p>"
+									+ this.getBreastsRevealDescription(this)
+									:"")
+							+ (unknownAss && this.isCoverableAreaExposed(CoverableArea.ANUS)
+									?"<p>"
+										+ UtilText.parse(this, this.getAssDescription())
+									+ "</p>"
+									+ this.getAssRevealDescription(this)
+									:"")
+							+ (unknownPenis && this.isCoverableAreaExposed(CoverableArea.PENIS) && this.hasPenis()
+									?"<p>"
+										+ UtilText.parse(this, this.getPenisDescription())
+									+ "</p>"
+									+ this.getPenisRevealDescription(this)
+									:"")
+							+ (unknownVagina && this.isCoverableAreaExposed(CoverableArea.VAGINA) && this.hasVagina()
+									?"<p>"
+										+ UtilText.parse(this, this.getVaginaDescription())
+									+ "</p>"
+									+ this.getVaginaRevealDescription(this)
+									:"")
+							+ ((unknownPenis || unknownVagina) && this.isCoverableAreaExposed(CoverableArea.VAGINA) && this.isCoverableAreaExposed(CoverableArea.PENIS) && !this.hasVagina()&& !this.hasPenis()
+									?"<p>"
+									+ UtilText.parse(this, this.getMoundDescription())
+								+ "</p>"
+								+ this.getMoundRevealDescription(this)
+								:""));
 	}
 
 
@@ -10257,37 +10260,39 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				}
 			}
 			
-			inventory.appendToDisplaceDescription(
-				(unknownBreasts && this.isCoverableAreaExposed(CoverableArea.BREASTS)
-						?"<p>"
-							+ UtilText.parse(this, this.getBreastDescription())
+			if(!Main.game.isInSex()) {
+				inventory.appendToDisplaceDescription(
+					(unknownBreasts && this.isCoverableAreaExposed(CoverableArea.BREASTS)
+							?"<p>"
+								+ UtilText.parse(this, this.getBreastDescription())
+							+ "</p>"
+							+ this.getBreastsRevealDescription(this)
+							:"")
+					+ (unknownAss && this.isCoverableAreaExposed(CoverableArea.ANUS)
+							?"<p>"
+								+ UtilText.parse(this, this.getAssDescription())
+							+ "</p>"
+							+ this.getAssRevealDescription(this)
+							:"")
+					+ (unknownPenis && this.isCoverableAreaExposed(CoverableArea.PENIS) && this.hasPenis()
+							?"<p>"
+								+ UtilText.parse(this, this.getPenisDescription())
+							+ "</p>"
+							+ this.getPenisRevealDescription(this)
+							:"")
+					+ (unknownVagina && this.isCoverableAreaExposed(CoverableArea.VAGINA) && this.hasVagina()
+							?"<p>"
+								+ UtilText.parse(this, this.getVaginaDescription())
+							+ "</p>"
+							+ this.getVaginaRevealDescription(this)
+							:"")
+					+ ((unknownPenis || unknownVagina) && this.isCoverableAreaExposed(CoverableArea.VAGINA) && this.isCoverableAreaExposed(CoverableArea.PENIS) && !this.hasVagina()&& !this.hasPenis()
+							?"<p>"
+							+ UtilText.parse(this, this.getMoundDescription())
 						+ "</p>"
-						+ this.getBreastsRevealDescription(this)
-						:"")
-				+ (unknownAss && this.isCoverableAreaExposed(CoverableArea.ANUS)
-						?"<p>"
-							+ UtilText.parse(this, this.getAssDescription())
-						+ "</p>"
-						+ this.getAssRevealDescription(this)
-						:"")
-				+ (unknownPenis && this.isCoverableAreaExposed(CoverableArea.PENIS) && this.hasPenis()
-						?"<p>"
-							+ UtilText.parse(this, this.getPenisDescription())
-						+ "</p>"
-						+ this.getPenisRevealDescription(this)
-						:"")
-				+ (unknownVagina && this.isCoverableAreaExposed(CoverableArea.VAGINA) && this.hasVagina()
-						?"<p>"
-							+ UtilText.parse(this, this.getVaginaDescription())
-						+ "</p>"
-						+ this.getVaginaRevealDescription(this)
-						:"")
-				+ ((unknownPenis || unknownVagina) && this.isCoverableAreaExposed(CoverableArea.VAGINA) && this.isCoverableAreaExposed(CoverableArea.PENIS) && !this.hasVagina()&& !this.hasPenis()
-						?"<p>"
-						+ UtilText.parse(this, this.getMoundDescription())
-					+ "</p>"
-					+ this.getMoundRevealDescription(this)
-					:""));
+						+ this.getMoundRevealDescription(this)
+						:""));
+			}
 		}
 		
 		return wasAbleToDisplace;

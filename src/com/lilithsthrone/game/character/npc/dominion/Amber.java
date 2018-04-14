@@ -87,12 +87,6 @@ public class Amber extends NPC {
 			this.addFetish(Fetish.FETISH_DOMINANT);
 			this.addFetish(Fetish.FETISH_SADIST);
 			this.addFetish(Fetish.FETISH_DEFLOWERING);
-
-			this.setVaginaVirgin(false);
-			this.setAssVirgin(false);
-			this.setFaceVirgin(false);
-			this.setNippleVirgin(false);
-			this.setPenisVirgin(false);
 			
 			this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MELEE_CHAOS_EPIC, DamageType.FIRE));
 			
@@ -148,6 +142,12 @@ public class Amber extends NPC {
 		
 		this.setMuscle(Muscle.THREE_MUSCULAR.getMedianValue());
 		this.setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
+
+		this.setVaginaVirgin(false);
+		this.setAssVirgin(false);
+		this.setFaceVirgin(false);
+		this.setNippleVirgin(false);
+		this.setPenisVirgin(false);
 	}
 
 	@Override

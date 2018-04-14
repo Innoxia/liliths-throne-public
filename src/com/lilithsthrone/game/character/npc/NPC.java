@@ -35,6 +35,7 @@ import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.valueEnums.AssSize;
+import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
@@ -2135,6 +2136,92 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	
 	
 	// Sex:
+	
+	
+	public void calculateGenericSexEffects(boolean isDom, NPC partner, SexType sexType, boolean allowPregnancy) {
+		this.setLastTimeHadSex(Main.game.getMinutesPassed(), true);
+		partner.setLastTimeHadSex(Main.game.getMinutesPassed(), true);
+		
+		if(isDom) {
+			this.setSexAsDomCount(this.getSexAsSubCount()+1);
+			partner.setSexAsSubCount(partner.getSexAsSubCount()+1);
+			
+		} else {
+			partner.setSexAsDomCount(partner.getSexAsSubCount()+1);
+			this.setSexAsSubCount(this.getSexAsSubCount()+1);
+		}
+		
+		SexParticipantType type = sexType.getAsParticipant();
+		SexType partnerSexType = sexType;
+		PenetrationType penetration = sexType.getPenetrationType();
+		OrificeType orifice = sexType.getOrificeType();
+		
+		this.addSexPartner(partner, sexType);
+		if(type == SexParticipantType.PITCHER) {
+			partnerSexType = new SexType(SexParticipantType.CATCHER, sexType.getPenetrationType(), sexType.getOrificeType());
+			partner.addSexPartner(this, partnerSexType);
+			
+		} else if(type == SexParticipantType.CATCHER) {
+			partnerSexType = new SexType(SexParticipantType.PITCHER, sexType.getPenetrationType(), sexType.getOrificeType());
+			partner.addSexPartner(this, partnerSexType);
+		} 
+		
+		if(type.isUsingSelfOrificeType()) {
+			if(penetration.isTakesVirginity()) {
+				this.setVirginityLoss(sexType, partner.getName("a") + " " + partner.getLostVirginityDescriptor());
+				switch(orifice) {
+					case ANUS:
+						this.setAssVirgin(false);
+						break;
+					case ASS:
+						break;
+					case BREAST:
+						break;
+					case MOUTH:
+						this.setFaceVirgin(false);
+						break;
+					case NIPPLE:
+						this.setNippleVirgin(false);
+						break;
+					case THIGHS:
+						break;
+					case URETHRA_PENIS:
+						this.setUrethraVirgin(false);
+						break;
+					case URETHRA_VAGINA:
+						this.setVaginaUrethraVirgin(false);
+						break;
+					case VAGINA:
+						this.setVaginaVirgin(false);
+						break;
+				}
+			}
+			switch(sexType.getPenetrationType()) {
+				case FINGER:
+					break;
+				case PENIS:
+					this.setVirginityLoss(partnerSexType, this.getName("a") + " " + this.getLostVirginityDescriptor());
+					partner.setPenisVirgin(false);
+					if(partner.getPenisRawCumProductionValue()>0) {
+						this.ingestFluid(partner, partner.getCumType(), orifice, partner.getPenisRawCumProductionValue(), partner.getCumModifiers());
+						this.incrementCummedInArea(orifice, partner.getPenisRawCumProductionValue());
+						if(allowPregnancy) {
+							if(this.getBodyMaterial()==BodyMaterial.SLIME || orifice == OrificeType.VAGINA) {
+								this.rollForPregnancy(partner);
+							}
+						}
+					}
+					break;
+				case TAIL:
+					break;
+				case TENTACLE:
+					break;
+				case TONGUE:
+					break;
+			}
+		}
+		
+	}
 	
 	public void endSex(boolean applyEffects) {
 	}

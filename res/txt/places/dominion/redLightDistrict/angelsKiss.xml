@@ -216,9 +216,24 @@
 		Deciding that you don't want to take this client, you step forwards and apologise,
 		 [pc.speech(I'm so sorry, there must have been a mistake. I'm actually coming to the end of my shift now... I'm sure one of the girls down the corridor will love to have some fun with you though!)]
 	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SELL_SELF_DECLINE_SUB"><![CDATA[
 	<p>
 		[npc.Name] lets out an annoyed huff, but doesn't press the issue,
 		 [npc.speech(Fine... Maybe I'll get to ride you another time...)]
+	</p>
+	<p>
+		With that, [npc.she] makes [npc.her] exit, leaving you alone in the bedroom once again.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SELL_SELF_DECLINE_DOM"><![CDATA[
+	<p>
+		[npc.Name] lets out a disappointed whine, but doesn't press the issue,
+		 [npc.speech(Fine... Maybe you'll want to ride me another time...)]
 	</p>
 	<p>
 		With that, [npc.she] makes [npc.her] exit, leaving you alone in the bedroom once again.

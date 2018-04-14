@@ -113,7 +113,9 @@ public class SlaveDialogue {
 								+ "As you approach [npc.name], it's impossible not to notice the fact that [npc.she]'s sporting a round belly."
 								+ " [npc.She] absent-mindedly strokes [npc.her] swollen bump as [npc.she] looks up at you,");
 					
-					if(Main.game.getActiveNPC().getPregnantLitter().getFather().isPlayer()) {
+					GameCharacter father = Main.game.getActiveNPC().getPregnantLitter().getFather();
+					
+					if(father!=null && father.isPlayer()) {
 						switch(AffectionLevelBasic.getAffectionLevelFromValue(Main.game.getActiveNPC().getAffection(Main.game.getPlayer()))) {
 							case DISLIKE:
 								switch(ObedienceLevelBasic.getObedienceLevelFromValue(Main.game.getActiveNPC().getObedienceValue())) {
@@ -177,15 +179,15 @@ public class SlaveDialogue {
 						switch(ObedienceLevelBasic.getObedienceLevelFromValue(Main.game.getActiveNPC().getObedienceValue())) {
 							case DISOBEDIENT:
 								UtilText.nodeContentSB.append(" sighing,"
-										+ " [npc.speech(Hi [npc.pcName]. "+Main.game.getActiveNPC().getPregnantLitter().getFather().getName("The")+"'s got me pregnant, so I'm going to take it easy for a while. Get one of the other slaves to cover for me, ok?)]");
+										+ " [npc.speech(Hi [npc.pcName]. "+(father==null?"I ended up getting pregnant":father.getName("A")+" got me pregnant")+", so I'm going to take it easy for a while. Get one of the other slaves to cover for me, ok?)]");
 								break;
 							case NEUTRAL:
 								UtilText.nodeContentSB.append(" sighing,"
-										+ " [npc.speech(Hi [npc.pcName]. "+Main.game.getActiveNPC().getPregnantLitter().getFather().getName("The")+"'s got me pregnant, so I'm going to need to take it easy for a while, ok?)]");
+										+ " [npc.speech(Hi [npc.pcName]. "+(father==null?"I ended up getting pregnant":father.getName("A")+" got me pregnant")+", so I'm going to need to take it easy for a while, ok?)]");
 								break;
 							case OBEDIENT:
 								UtilText.nodeContentSB.append(" obediently informing you of what happened,"
-										+ " [npc.speech(Hello [npc.pcName]. "+Main.game.getActiveNPC().getPregnantLitter().getFather().getName("The")+"'s got me pregnant, but I won't let it get in the way of my duties!)]");
+										+ " [npc.speech(Hello [npc.pcName]. "+(father==null?"I ended up getting pregnant":father.getName("A")+" got me pregnant")+", but I won't let it get in the way of my duties!)]");
 								break;
 						}
 						UtilText.nodeContentSB.append("</p>"
@@ -562,6 +564,10 @@ public class SlaveDialogue {
 						public DialogueNodeOld getNextDialogue() {
 							return DebugDialogue.getDefaultDialogueNoEncounter();
 						}
+						@Override
+						public void effects() {
+							Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(null);
+						}
 					};
 					
 				} else {
@@ -800,6 +806,10 @@ public class SlaveDialogue {
 							public DialogueNodeOld getNextDialogue() {
 								return DebugDialogue.getDefaultDialogueNoEncounter();
 							}
+							@Override
+							public void effects() {
+								Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(null);
+							}
 						};
 						
 					} else  {
@@ -835,8 +845,7 @@ public class SlaveDialogue {
 					case 5:
 						return new Response("Send to Kate",
 								"Send [npc.name] to Kate's beauty salon, 'Succubi's secrets', to get [npc.her] appearance changed.",
-								SlaveryManagementDialogue.SLAVE_MANAGEMENT_COSMETICS_HAIR)
-								{
+								SlaveryManagementDialogue.SLAVE_MANAGEMENT_COSMETICS_HAIR) {
 									@Override
 									public void effects() {
 										Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(Main.game.getActiveNPC());
@@ -848,6 +857,10 @@ public class SlaveDialogue {
 							@Override
 							public DialogueNodeOld getNextDialogue() {
 								return DebugDialogue.getDefaultDialogueNoEncounter();
+							}
+							@Override
+							public void effects() {
+								Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(null);
 							}
 						};
 								

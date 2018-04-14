@@ -956,6 +956,84 @@
 	]]>
 	</htmlContent>
 	
+	<htmlContent tag="LOUNGE_AMBER_BEG_FOR_SEX"><![CDATA[
+	<p>
+		[pc.speech(Mistress Amber, um, I was thinking of something else...)]
+		 You say, casting your eyes to the floor as you shuffle your feet on the spot.
+	</p>
+	<p>
+		[amber.speech(Oh, were you now?!)]
+		 Amber snarls, stepping forwards and grabbing your [pc.arm].
+		 [amber.speech(And what would that be? This had better be worth my time, bitch!)]
+	</p>
+	<p>
+		[pc.speech(Mistress Amber, I was thinking that perhaps... Well, seeing as I've been a good bitch recently, perhaps you could... Umm...)]
+		 You say, trying to work up the courage to ask your Mistress the question that's on your mind.
+		 Taking a deep breath, you look up at the fiery-haired succubus and blurt out,
+		 [pc.speech(Mistress Amber! Please, can you fuck me?)]
+	</p>
+	<p>
+		A huge, sadistic grin breaks out across your Mistress's face, and, tightening her grip on your [pc.arm], she violently pulls you forwards into her chest.
+		 Before you can react, Mistress Amber reaches up to grab the back of your head with her free hand, before dominantly pressing lips against yours.
+		 Instantly, she forces her tongue into your mouth, thrusting it down your throat as she starts roughly making out with you.
+	</p>
+	<p>
+		Almost as quickly as she began, Mistress Amber suddenly pulls back, before gazing into your eyes.
+		 [amber.speech(You have been a good bitch recently, I'll admit.
+		 Perhaps you do deserve a good rough fucking as a reward.
+		 I'll need to hear you beg for it first, though.
+		 On your knees, bitch!)]
+	</p>
+	<p>
+		You instantly do as you're told, and, dropping down onto your knees before your Mistress, you gaze up at her.
+		 [pc.speech(Please, Mistress Amber! I'm your good bitch, please fuck me!)]
+	</p>
+	<p>
+		Letting out a sadistic laugh, Mistress Amber raises her right foot, before placing it on your shoulder and roughly pressing down.
+		 Your face is quickly forced down against the floor, and you let out a little whine as your Mistress growls down at you.
+		 [amber.speech(That's right bitch; face down, ass up!
+		 You're lucky to have a Mistress as kind as I am, aren't you bitch?
+		 Not every owner would give their bitch a reward like this.)]
+	</p>
+	<p>
+		[pc.speech(Yes, Mistress Amber!)]
+		 You cry out, lifting your ass up into the air as your Mistress moves around to your rear end.
+		 As she drops down onto her knees behind you, she roughly grabs hold of your [pc.hips+], before violently pulling you back into her groin.
+		 You feel the [amber.cockSize] bulge of her thick cock pressing against your [pc.ass+], and you can't help but let out a desperate, pleading moan.
+	</p>
+	<p>
+		[amber.speech(Good bitch.
+		 I'll get you <i>really</i> moaning soon enough!)]
+		 Mistress Amber snarls, delivering a sharp, stinging slap to your [pc.ass+] as she prepares to fuck you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AMBER_LOUNGE_POST_CONSENSUAL_SEX"><![CDATA[
+	<p>
+		Mistress Amber roughly pushes you to the floor, laughing down at you as she stands up.
+		 [amber.speech(Good bitch. You enjoyed your reward, didn't you?)]
+	</p>
+	<p>
+		You look up at the fiery maid to see a sadistic smirk on her face.
+		 Smiling up at your Mistress, you push yourself up onto your knees as you quickly respond.
+		 [pc.speech(Yes, Mistress Amber! Thank you, Mistress Amber!)]
+	</p>
+	<p>
+		[amber.speech(Good bitch.)]
+		 Mistress Amber says, before getting her things in order and stepping over to the other side of the room.
+		 [amber.speech(Come back when the weather's nice, and I'll take you for a little walk outside.
+		 For now, however, get out of my sight.)]
+	</p>
+	<p>
+		[pc.speech(Yes, Mistress Amber! Thank you so much, Mistress Amber!)]
+		 You say, quickly standing up, grabbing your things, and moving towards the door.
+		 Glancing back at the fiery-haired succubus, you see her picking up her feather duster as she resumes her cleaning.
+		 Having been given your Mistress's reward, you wonder what you should do next.
+	</p>
+	]]>
+	</htmlContent>
+	
 	<htmlContent tag="LOUNGE_AMBER_FURIOUS"><![CDATA[
 	<p>
 		[pc.speech(Oh, fuck off already Amber.)]
@@ -1776,7 +1854,7 @@
 	</p>
 	<p>
 		Sharply yanking your leash, Mistress Amber then turns to her friend.
-		 [npc1.speech(I'm so sorry, [npc1.name]. Bitch here is still being trained.)]
+		 [amber.speech(I'm so sorry, [npc1.name]. Bitch here is still being trained.)]
 	</p>
 	<p>
 		[npc1.speech(No worries Amber!)]

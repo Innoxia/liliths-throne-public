@@ -478,7 +478,9 @@ public class RedLightDistrict {
 				return new Response("Decline", "Tell [npc.name] that you're not interested in what [npc.she] has in mind...", ANGELS_KISS_SELL_SELF_DECLINE){
 					@Override
 					public void effects() {
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "SELL_SELF_DECLINE"));
+						Main.game.getTextStartStringBuilder().append(
+								UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "SELL_SELF_DECLINE")
+								+UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "SELL_SELF_DECLINE_SUB"));
 						Main.game.banishNPC(Main.game.getActiveNPC());
 					}
 				};
@@ -525,7 +527,9 @@ public class RedLightDistrict {
 				return new Response("Decline", "Tell [npc.name] that you're not interested in what [npc.she] has in mind...", ANGELS_KISS_SELL_SELF_DECLINE){
 					@Override
 					public void effects() {
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "SELL_SELF_DECLINE"));
+						Main.game.getTextStartStringBuilder().append(
+								UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "SELL_SELF_DECLINE")
+								+UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "SELL_SELF_DECLINE_DOM"));
 						Main.game.banishNPC(Main.game.getActiveNPC());
 					}
 				};

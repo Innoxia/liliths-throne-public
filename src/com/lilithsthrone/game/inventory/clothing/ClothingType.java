@@ -5531,7 +5531,7 @@ public class ClothingType {
 			"suspender belts",
 			"A circular band of soft, elastic nylon, to which are attached six straps; each of which is designed to hook onto a pair of stockings in order to keep them up.",
 			1,
-			null,
+			Femininity.FEMININE,
 			InventorySlot.HIPS,
 			Rarity.COMMON,
 			null,

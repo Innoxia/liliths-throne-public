@@ -3652,7 +3652,11 @@ public class Body implements Serializable, XMLSaving {
 				}
 			}
 		} else {
-			descriptionSB.append(" <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>[npc.She] has lost [npc.her] anal virginity.</span>");
+			if (ass.getAnus().getOrificeAnus().isVirgin()){
+				descriptionSB.append(" <span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>[npc.She] has retained [npc.her] anal virginity.</span>");
+			} else {
+				descriptionSB.append(" <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>[npc.She] has lost [npc.her] anal virginity.</span>");
+			}
 		}
 		
 		// Ass wetness:
@@ -5484,16 +5488,18 @@ public class Body implements Serializable, XMLSaving {
 	public String getPregnancyDetails(GameCharacter owner) {
 		descriptionSB = new StringBuilder();
 		
-		
 		// NPC is mother:
 		
 		if(owner.isVisiblyPregnant()) {
 			GameCharacter father = owner.getPregnantLitter().getFather();
-			if(father.isPlayer()) {
+			if(father == null) {
+				descriptionSB.append("<p><span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>From one of [npc.her] sexual encounters, [npc.name] has ended up getting impregnated.</span>");
+			} else if(father.isPlayer()) {
 				descriptionSB.append("<p><span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>From one of your sexual encounters, you've ended up impregnating [npc.name].</span>");
 			} else {
 				descriptionSB.append("<p><span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>From one of [npc.her] sexual encounters, [npc.name] has ended up getting impregnated by "+father.getName()+".</span>");
 			}
+			
 			if(owner.hasStatusEffect(StatusEffect.PREGNANT_1)) {
 				descriptionSB.append(" [npc.Her] belly is only a little swollen, as [npc.she]'s only in the first stage of pregnancy.");
 			} else if(owner.hasStatusEffect(StatusEffect.PREGNANT_2)) {
@@ -5511,7 +5517,9 @@ public class Body implements Serializable, XMLSaving {
 			
 			for(Litter litter : owner.getLittersBirthed()) {
 				int daysSpentPregnant = litter.getDayOfBirth()-litter.getDayOfConception();
-				if(litter.getFather().isPlayer()) {
+				if(litter.getFather() == null) {
+					descriptionSB.append("</br>On day "+litter.getDayOfConception()+", [npc.she] was impregnated, and "+Util.intToString(daysSpentPregnant)+" day"+(daysSpentPregnant!=1?"s":"")+" later, [npc.she] gave birth to ");
+				} else if(litter.getFather().isPlayer()) {
 					descriptionSB.append("</br>On day "+litter.getDayOfConception()+", you impregnated [npc.herHim], and "+Util.intToString(daysSpentPregnant)+" day"+(daysSpentPregnant!=1?"s":"")+" later, [npc.she] gave birth to ");
 				} else {
 					descriptionSB.append("</br>On day "+litter.getDayOfConception()
@@ -5530,7 +5538,7 @@ public class Body implements Serializable, XMLSaving {
 		
 		if(Main.game.getPlayer().isVisiblyPregnant()) {
 			for(PregnancyPossibility pp : Main.game.getPlayer().getPotentialPartnersAsMother()) {
-				if(pp.getFather()==owner) {
+				if(pp.getFather()!=null && pp.getFather().equals(owner)) {
 					descriptionSB.append("<p>"
 								+ "<span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>From one of your sexual encounters, you've been impregnated, and it's possible that [npc.name] is the father.</span>"
 							+ "</p>");
@@ -5543,7 +5551,7 @@ public class Body implements Serializable, XMLSaving {
 			int fatheredLitters = 0;
 			
 			for(Litter litter : Main.game.getPlayer().getLittersBirthed()) {
-				if(litter.getFather()==owner){
+				if(litter.getFather()!=null && litter.getFather().equals(owner)){
 					fatheredLitters++;
 				}
 			}
@@ -5556,7 +5564,7 @@ public class Body implements Serializable, XMLSaving {
 				for(Litter litter : Main.game.getPlayer().getLittersBirthed()) {
 					int daysSpentPregnant = litter.getDayOfBirth()-litter.getDayOfConception();
 					
-					if(litter.getFather()==owner){
+					if(litter.getFather()!=null && litter.getFather().equals(owner)){
 						descriptionSB.append("</br>On day "+litter.getDayOfConception()+", [npc.she] impregnated you, and "+Util.intToString(daysSpentPregnant)+" day"+(daysSpentPregnant>1?"s":"")
 									+" later, you gave birth to "+litter.getBirthedDescriptionList()+".");
 					}
@@ -6102,7 +6110,7 @@ public class Body implements Serializable, XMLSaving {
 						case DEMON:
 							coverings.put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, CoveringPattern.NONE, coverings.get(BodyCoveringType.DEMON_COMMON).getPrimaryColour(), false, Colour.ORIFICE_INTERIOR, false));
 							break;
-						case DOG_MORPH:
+						case DOG_MORPH: case WOLF_MORPH:
 							coverings.put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, CoveringPattern.NONE, Colour.SKIN_RED, false, Colour.ORIFICE_INTERIOR, false));
 							break;
 						default:
@@ -6117,7 +6125,7 @@ public class Body implements Serializable, XMLSaving {
 						case DEMON:
 							coverings.put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, CoveringPattern.NONE, coverings.get(BodyCoveringType.DEMON_COMMON).getPrimaryColour(), false, Colour.ORIFICE_INTERIOR, false));
 							break;
-						case DOG_MORPH:
+						case DOG_MORPH: case WOLF_MORPH:
 							coverings.put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, CoveringPattern.NONE, Colour.SKIN_RED, false, Colour.ORIFICE_INTERIOR, false));
 							break;
 						default:

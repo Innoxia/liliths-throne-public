@@ -9,6 +9,7 @@ import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.EarType;
+import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.TailType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringModifier;
@@ -197,7 +198,9 @@ public enum Subspecies {
 			Util.newArrayListOfValues(new ListValue<>(WorldType.DOMINION))) {
 				@Override
 				public void applySpeciesChanges(Body body) {
-					body.getCoverings().put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, Colour.SKIN_RED));
+					if(body.getPenis().getType()==PenisType.CANINE) {
+						body.getCoverings().put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, Colour.SKIN_RED));
+					}
 				}
 			},
 	
@@ -216,8 +219,9 @@ public enum Subspecies {
 			Util.newArrayListOfValues(new ListValue<>(WorldType.DOMINION))) {
 				@Override
 				public void applySpeciesChanges(Body body) {
-					body.getCoverings().put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, Colour.SKIN_RED));
-					
+					if(body.getPenis().getType()==PenisType.CANINE) {
+						body.getCoverings().put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, Colour.SKIN_RED));
+					}
 					body.getCoverings().put(BodyCoveringType.CANINE_FUR, new Covering(BodyCoveringType.CANINE_FUR, CoveringPattern.MARKED, CoveringModifier.FLUFFY, Colour.COVERING_BLACK, false, Colour.COVERING_WHITE, false));
 					if(body.getEar().getType()==EarType.DOG_MORPH) {
 						if(Math.random()<0.5f) {
@@ -243,8 +247,9 @@ public enum Subspecies {
 			Util.newArrayListOfValues(new ListValue<>(WorldType.DOMINION))) {
 		@Override
 		public void applySpeciesChanges(Body body) {
-			body.getCoverings().put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, Colour.SKIN_RED));
-			
+			if(body.getPenis().getType()==PenisType.CANINE) {
+				body.getCoverings().put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, Colour.SKIN_RED));
+			}
 			Colour secondaryColour = Colour.COVERING_BROWN;
 			double rand = Math.random();
 			if(rand<0.3f) {
@@ -279,7 +284,9 @@ public enum Subspecies {
 			Util.newArrayListOfValues(new ListValue<>(WorldType.DOMINION))) {
 		@Override
 		public void applySpeciesChanges(Body body) {
-			body.getCoverings().put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, Colour.SKIN_RED));
+			if(body.getPenis().getType()==PenisType.LUPINE) {
+				body.getCoverings().put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, Colour.SKIN_RED));
+			}
 			
 		}
 	},

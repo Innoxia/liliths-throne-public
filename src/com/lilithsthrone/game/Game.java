@@ -2607,7 +2607,11 @@ public class Game implements Serializable, XMLSaving {
 	 * @param npc
 	 */
 	public void banishNPC(NPC npc) {
-		if(npc.getTotalTimesHadSex()!=0 || npc.getPregnantLitter()!=null || npc.getLastLitterBirthed()!=null || npc.getMother()!=null || npc.getFather()!=null) {
+		if(npc.getTotalTimesHadSex()!=0
+				|| npc.getPregnantLitter()!=null
+				|| npc.getLastLitterBirthed()!=null
+				|| npc.getMother()!=null
+				|| npc.getFather()!=null) {
 			npc.setLocation(WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
 		} else {
 			removeNPC(npc);

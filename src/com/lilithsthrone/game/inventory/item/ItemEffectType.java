@@ -3313,7 +3313,7 @@ public enum ItemEffectType {
 
 		int penisSizeIncrement = (potency.isNegative()?-1:1);
 		int testicleSizeIncrement = (potency.isNegative()?-1:1);
-		int cumProductionIncrement = (potency.isNegative()?-1:1);
+		int cumProductionIncrement = (potency.isNegative()?-5:5);
 
 		int clitorisSizeIncrement = (potency.isNegative()?-1:1);
 		int labiaSizeIncrement = (potency.isNegative()?-1:1);

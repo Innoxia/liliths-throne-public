@@ -442,7 +442,7 @@ public class ZaranixHomeFirstFloorRepeat {
 				};
 				
 			} else if(index == 3) {
-				return new Response("Incubus form", "Ask Zaranix about his incubus form. After all, most demons that you've seen choose to stay as females.", ZARANIX_ROOM_EXIT) {
+				return new Response("Incubus form", "Ask Zaranix about his incubus form. After all, most demons that you've seen choose to stay as females.", ZARANIX_ROOM_INCUBUS_FORM) {
 					@Override
 					public void effects() {
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.zaranixRepeatEncountered, true);
