@@ -78,7 +78,7 @@ public class AlleywayProstituteDialogue {
 						if(!Main.game.getActiveNPC().isReactedToPregnancy()) {
 							UtilText.nodeContentSB.append(
 									"<p>"
-										+ "Instantly, your eyes are drawn down to the clearly-visible bump in [npc.her] stomach, and as [npc.name] looks across at you, [npc.she] lets out a shocked gasp,"
+										+ "Instantly, your eyes are drawn down to the clearly-visible bump in [npc.her] stomach, and as [npc.name] looks across at you, [npc.she] lets out a shocked gasp."
 										+ UtilText.returnStringAtRandom(
 												"[npc.speech(Oh, it's you again... There's no need for violence this time, ok? Look! You knocked me up!)]",
 												"[npc.speech(Oh, hi again... There's no need for violence, ok? Look what you did! I'm carrying your kids!)]",
@@ -94,13 +94,13 @@ public class AlleywayProstituteDialogue {
 									+ "</p>"
 									+ "<p>"
 										+ "You step up to [npc.name], allowing [npc.her] to take hold of your [pc.hands] and hesitantly guide them down to stroke [npc.her] swollen bump."
-										+ " [npc.She] lets out a nervous little laugh, clearly worried that you're going to attack [npc.herHim] again, before biting [npc.her] [npc.lip] and batting [npc.her] eyelids at you,"
+										+ " [npc.She] lets out a nervous little laugh, clearly worried that you're going to attack [npc.herHim] again, before biting [npc.her] [npc.lip] and batting [npc.her] eyelids at you."
 										+ " [npc.speech(So, you wanna fuck a pregnant "+(Main.game.getActiveNPC().isFeminine()?"chick":"dude")+"? I'll even give you a discount; twenty percent off for the father of our kids!)]"
 									+ "</p>");
 						} else {
 							UtilText.nodeContentSB.append(
 									"<p>"
-										+ "Instantly, your eyes are drawn down to the still-visible bump in [npc.her] stomach, and as [npc.name] looks across at you, [npc.she] lets out a shocked gasp,"
+										+ "Instantly, your eyes are drawn down to the still-visible bump in [npc.her] stomach, and as [npc.name] looks across at you, [npc.she] lets out a shocked gasp."
 										+ UtilText.returnStringAtRandom(
 												"[npc.speech(Oh, it's you again... There's no need for violence this time, ok? I'm still waiting for our kids to pop out!)]",
 												"[npc.speech(Oh, hi again... There's no need for violence, ok? Take a look, I'm still carrying your kids!)]",
@@ -108,7 +108,7 @@ public class AlleywayProstituteDialogue {
 									+ "</p>"
 									+ "<p>"
 										+ "You walk up to [npc.name], once again allowing [npc.her] to take hold of your [pc.hands] and gingerly guide them down to stroke [npc.her] swollen bump."
-										+ " [npc.She] lets out hesitant laugh, before biting [npc.her] [npc.lip] and batting [npc.her] eyelids at you,"
+										+ " [npc.She] lets out hesitant laugh, before biting [npc.her] [npc.lip] and batting [npc.her] eyelids at you."
 										+ " [npc.speech(So, you wanna fuck a pregnant "+(Main.game.getActiveNPC().isFeminine()?"chick":"dude")+"? I'll even give you a discount; twenty percent off for the father of our kids!)]"
 									+ "</p>");
 						}
@@ -136,11 +136,11 @@ public class AlleywayProstituteDialogue {
 						if(!Main.game.getActiveNPC().isReactedToPregnancy()) {
 							UtilText.nodeContentSB.append(
 									"<p>"
-										+ "Instantly, your eyes are drawn down to the clearly-visible bump in [npc.her] stomach, and as [npc.name] looks across at you, [npc.she] lets out a little laugh,"
+										+ "Instantly, your eyes are drawn down to the clearly-visible bump in [npc.her] stomach, and as [npc.name] looks across at you, [npc.she] lets out a little laugh."
 										+ UtilText.returnStringAtRandom(
-												"[npc.speech(Yeah, that's right hot stuff! You knocked me up!)]",
-												"[npc.speech(Hey again babe! Look what you did! I'm carrying your kids!)]",
-												"[npc.speech(Hey again good lookin'! Check it out! You managed to knock me up!)]")
+												"[npc.speech(Yeah, that's right, hot stuff! You knocked me up!)]",
+												"[npc.speech(Hey again, babe! Look what you did! I'm carrying your kids!)]",
+												"[npc.speech(Hey again, good lookin'! Check it out! You managed to knock me up!)]")
 									+ "</p>"
 									+ "<p>"
 										+ "[pc.speech(How can you be sure that it's mine?)]"
@@ -152,17 +152,17 @@ public class AlleywayProstituteDialogue {
 									+ "</p>"
 									+ "<p>"
 										+ "You step up to [npc.name], allowing [npc.her] to take hold of your [pc.hands] and guide them down to stroke [npc.her] swollen bump."
-										+ " [npc.She] lets out another little laugh, before biting [npc.her] [npc.lip] and batting [npc.her] eyelids at you,"
+										+ " [npc.She] lets out another little laugh, before biting [npc.her] [npc.lip] and batting [npc.her] eyelids at you."
 										+ " [npc.speech(So, you wanna fuck a pregnant "+(Main.game.getActiveNPC().isFeminine()?"chick":"dude")+"? I'll even give you a discount; twenty percent off for the father of our kids!)]"
 									+ "</p>");
 						} else {
 							UtilText.nodeContentSB.append(
 									"<p>"
-										+ "Instantly, your eyes are drawn down to the still-visible bump in [npc.her] stomach, and as [npc.name] looks across at you, [npc.she] lets out a little laugh,"
+										+ "Instantly, your eyes are drawn down to the still-visible bump in [npc.her] stomach, and as [npc.name] looks across at you, [npc.she] lets out a little laugh."
 										+ UtilText.returnStringAtRandom(
-												"[npc.speech(Yeah, that's right hot stuff! I'm still waiting for them to pop out!)]",
-												"[npc.speech(Hey again babe! Yeah, that's right, I'm still carrying your kids!)]",
-												"[npc.speech(Hey again good lookin'! These kids of ours sure do take a while to grow!)]")
+												"[npc.speech(Yeah, that's right, hot stuff! I'm still waiting for them to pop out!)]",
+												"[npc.speech(Hey again, babe! Yeah, that's right, I'm still carrying your kids!)]",
+												"[npc.speech(Hey again, good lookin'! These kids of ours sure do take a while to grow!)]")
 									+ "</p>"
 									+ "<p>"
 										+ "You walk up to [npc.name], once again allowing [npc.her] to take hold of your [pc.hands] and guide them down to stroke [npc.her] swollen bump."
@@ -173,11 +173,11 @@ public class AlleywayProstituteDialogue {
 						
 					} else {
 						UtilText.nodeContentSB.append("<p>"
-									+ "Looking over at you, [npc.she] smiles and steps forwards, blocking your way, "
+									+ "Looking over at you, [npc.she] smiles and steps forwards, blocking your way. "
 									+ UtilText.returnStringAtRandom(
-											"[npc.speech(Hey again hot stuff! You lookin' for a good time?)]",
-											"[npc.speech(Hey again babe! You want a good time?)]",
-											"[npc.speech(Hey again good lookin'! I can show you a real good time!)]")
+											"[npc.speech(Hey again, hot stuff! You lookin' for a good time?)]",
+											"[npc.speech(Hey again, babe! You want a good time?)]",
+											"[npc.speech(Hey again, good lookin'! I can show you a real good time!)]")
 								+"</p>"
 								+ "<p>"
 									+ "From [npc.her] slutty clothing, the heavy amount of makeup on [npc.her] face, and, of course, [npc.her] reaction upon seeing you, it's quite obvious that [npc.she]'s still working as a prostitute."
@@ -209,11 +209,11 @@ public class AlleywayProstituteDialogue {
 				}
 				
 				UtilText.nodeContentSB.append("<p>"
-						+ "Looking over at you, [npc.she] smiles and steps forwards, blocking your way, "
+						+ "Looking over at you, [npc.she] smiles and steps forwards, blocking your way. "
 						+ UtilText.returnStringAtRandom(
-								"[npc.speech(Hey hot stuff! You lookin' for a good time?)]",
-								"[npc.speech(Hey babe! You want a good time?)]",
-								"[npc.speech(Hey good lookin'! I can show you a real good time!)]")
+								"[npc.speech(Hey, hot stuff! You lookin' for a good time?)]",
+								"[npc.speech(Hey, babe! You want a good time?)]",
+								"[npc.speech(Hey, good lookin'! I can show you a real good time!)]")
 					+"</p>"
 					+ "<p>"
 						+ "From [npc.her] slutty clothing, the heavy amount of makeup on [npc.her] face, and, of course, [npc.her] reaction upon seeing you, it's quite obvious that [npc.she]'s a prostitute."
@@ -266,8 +266,8 @@ public class AlleywayProstituteDialogue {
 								+ "</p>"
 								+ "<p>"
 									+ "[npc.speech(~Mmm~ You've got me for an hour,)]"
-									+ " [npc.name] [npc.moans],"
-									+ " [npc.speech(follow me!)]"
+									+ " [npc.name] [npc.moans]."
+									+ " [npc.speech(Follow me!)]"
 								+ "</p>"
 								+ (isCanal()
 										?"<p>"
@@ -282,7 +282,7 @@ public class AlleywayProstituteDialogue {
 											+ " Trailing in [npc.her] footsteps, you enter the [npc.race]'s apartment, and find yourself pleasantly surprised by the clean, well-lit interior."
 										+ "</p>")
 								+ "<p>"
-									+ "Closing the door behind you, [npc.name] then leads you into [npc.her] bedroom, where [npc.she] turns around and grins at you,"
+									+ "Closing the door behind you, [npc.name] then leads you into [npc.her] bedroom, where [npc.she] turns around and grins at you."
 									+ " [npc.speech(Let's get this party started!)]"
 								+ "</p>") {
 						@Override
@@ -313,8 +313,8 @@ public class AlleywayProstituteDialogue {
 							+ "</p>"
 							+ "<p>"
 								+ "[npc.speech(~Mmm~ Don't you worry, sweet thing, I can take charge,)]"
-								+ " [npc.name] [npc.moans], stepping up to you and taking the "+cost+" flames from your [pc.hand],"
-								+ " [npc.speech(follow me!)]"
+								+ " [npc.name] [npc.moans], stepping up to you and taking the "+cost+" flames from your [pc.hand]."
+								+ " [npc.speech(Follow me!)]"
 							+ "</p>"
 							+ "<p>"
 							+ (isCanal()
@@ -331,7 +331,7 @@ public class AlleywayProstituteDialogue {
 									+ "</p>")
 							+ "</p>"
 							+ "<p>"
-								+ "Closing the door behind you, [npc.name] then leads you into [npc.her] bedroom, where [npc.she] turns around and grins at you,"
+								+ "Closing the door behind you, [npc.name] then leads you into [npc.her] bedroom, where [npc.she] turns around and grins at you."
 								+ " [npc.speech(Let's get this party started!)]"
 							+ "</p>") {
 						@Override
@@ -403,7 +403,7 @@ public class AlleywayProstituteDialogue {
 						+ " [pc.speech(so if you're interested, just make your way over there and ask for 'Angel'. Tell her that [pc.name] sent you to come and work for her.)]"
 					+ "</p>"
 					+ "<p>"
-						+ "With tears in [npc.her] eyes, [npc.name] accepts your offer,"
+						+ "With tears in [npc.her] eyes, [npc.name] accepts your offer."
 						+ " [npc.speech(Thank you, thank you so much! I can't really... That is, I'm so grateful... I-I don't know what to say...)]"
 					+ "</p>"
 					+ "<p>"
@@ -436,15 +436,15 @@ public class AlleywayProstituteDialogue {
 							+ " [pc.speech(So, why don't you work out in the streets like all the other prostitutes?)]"
 						+ "</p>"
 						+ "<p>"
-							+ "A look of worry flashes across [npc.name]'s face, and [npc.she] takes a step back, clearly afraid of your intentions,"
+							+ "A look of worry flashes across [npc.name]'s face, and [npc.she] takes a step back, clearly afraid of your intentions."
 							+ " [npc.speech(I-I just prefer it back here! There's no other reason!)]"
 						+ "</p>"
 						+ "<p>"
-							+ "You laugh at the obvious lie,"
+							+ "You laugh at the obvious lie."
 							+ " [pc.speech(I don't think so! You're wanted by the enforcers, aren't you? I wonder what punishment they've got in store for you?)]"
 						+ "</p>"
 						+ "<p>"
-							+ "Realising that [npc.she]'s been caught, [npc.name]'s expression quickly turns into one of anger, and [npc.she] launches [npc.herself] at you in a blind fury,"
+							+ "Realising that [npc.she]'s been caught, [npc.name]'s expression quickly turns into one of anger, and [npc.she] launches [npc.herself] at you in a blind fury."
 							+ " [npc.speech(I'll never be a slave! Fuck you!)]"
 						+ "</p>";
 		}
@@ -561,7 +561,7 @@ public class AlleywayProstituteDialogue {
 							+ " [npc.speech(How about you start by apologising properly?!)]"
 						+ "</p>"
 						+ "<p>"
-							+ "[npc.Name]'s strong, dominant grip on your [pc.arm] causes you to let out a lewd little moan, and your submissive nature takes over as you do as [npc.she] asks,"
+							+ "[npc.Name]'s strong, dominant grip on your [pc.arm] causes you to let out a lewd little moan, and your submissive nature takes over as you do as [npc.she] asks."
 							+ " [pc.speech(I'm really sorry! Please forgive me! I'll do anything! Anything you ask! Just please, don't be mad!)]"
 						+ "</p>"
 						+ "<p>"
@@ -792,19 +792,19 @@ public class AlleywayProstituteDialogue {
 		@Override
 		public String getContent() {
 				return "<p>"
-							+ "Grinning down at the panting [npc.race], you take a step forwards,"
+							+ "Grinning down at the panting [npc.race], you take a step forwards."
 							+ " [pc.speech(So, why don't you work out in the streets like all the other prostitutes?)]"
 						+ "</p>"
 						+ "<p>"
-							+ "A look of worry flashes across [npc.name]'s face, and [npc.she] shuffles back on the bed, clearly afraid of your intentions,"
+							+ "A look of worry flashes across [npc.name]'s face, and [npc.she] shuffles back on the bed, clearly afraid of your intentions."
 							+ " [npc.speech(I-I just prefer it back here! There's no other reason!)]"
 						+ "</p>"
 						+ "<p>"
-							+ "You laugh at the obvious lie,"
+							+ "You laugh at the obvious lie."
 							+ " [pc.speech(I don't think so! You're wanted by the enforcers, aren't you? I wonder what punishment they've got in store for you?)]"
 						+ "</p>"
 						+ "<p>"
-							+ "Realising that [npc.she]'s been caught, [npc.name]'s expression quickly turns into one of anger, and [npc.she] launches [npc.herself] at you in a blind fury,"
+							+ "Realising that [npc.she]'s been caught, [npc.name]'s expression quickly turns into one of anger, and [npc.she] launches [npc.herself] at you in a blind fury."
 							+ " [npc.speech(I'll never be a slave! Fuck you!)]"
 						+ "</p>";
 		}
@@ -830,11 +830,11 @@ public class AlleywayProstituteDialogue {
 							+ " [pc.speech(So, why don't you work out in the streets like all the other prostitutes?)]"
 						+ "</p>"
 						+ "<p>"
-							+ "A look of worry flashes across [npc.name]'s face, and [npc.she] shuffles back on the bed, clearly afraid of your intentions,"
+							+ "A look of worry flashes across [npc.name]'s face, and [npc.she] shuffles back on the bed, clearly afraid of your intentions."
 							+ " [npc.speech(I-I just prefer it back here! There's no other reason!)]"
 						+ "</p>"
 						+ "<p>"
-							+ "You let out a sigh at the obvious lie,"
+							+ "You let out a sigh at the obvious lie."
 							+ " [pc.speech(You're wanted by the enforcers, aren't you?)]"
 						+ "</p>"
 						+ "<p>"
@@ -848,7 +848,7 @@ public class AlleywayProstituteDialogue {
 							+ " [npc.speech(I owe someone very powerful almost five-hundred flames, and they've got the enforcers to brand me as a criminal until I can pay up...)]"
 						+ "</p>"
 						+ "<p>"
-							+ "Not wanting to leave [npc.herHim] trapped in such a horrible situation, you step forwards and hand the [npc.race] a bag of money,"
+							+ "Not wanting to leave [npc.herHim] trapped in such a horrible situation, you step forwards and hand the [npc.race] a bag of money."
 							+ " [pc.speech(There's five-hundred flames in there. Try not to let this happen again; I doubt I'll be around to help out if there's a next time.)]"
 						+ "</p>"
 						+ "<p>"

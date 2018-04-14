@@ -72,11 +72,11 @@ public class CultistDialogue {
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(UtilText.parse(Main.game.getActiveNPC(),
 								"<p>"
-									+ "You pull your [pc.arm] away from [npc.name] and take a step back,"
+									+ "You pull your [pc.arm] away from [npc.name] and take a step back."
 									+ " [pc.speech(I don't have time right now.)]"
 								+ "</p>"
 								+ "<p>"
-									+ "You see a brief flash of anger in [npc.name]'s [npc.eyes+], but it only lasts for a moment before the smile returns to her face,"
+									+ "You see a brief flash of anger in [npc.name]'s [npc.eyes+], but it only lasts for a moment before the smile returns to her face."
 									+ " [npc.speech(Just remember to praise Lilith, or else we'll find out!)]"
 								+ "</p>"
 								+ "<p>"
@@ -133,13 +133,13 @@ public class CultistDialogue {
 						+ " As [npc.name] leads you towards this altar, you see that the walls are covered in detailed murals, each one portraying a demon engaged in a different sex position."
 					+ "</p>"
 					+ "<p>"
-						+ "[npc.speech(We're here!)] [npc.name] exclaims, stopping before the altar and turning to face you,"
+						+ "[npc.speech(We're here!)] [npc.name] exclaims, stopping before the altar and turning to face you."
 						+ " [npc.speech(You've been such a good [pc.girl]! I usually like to show people around a little first, but I just can't wait any longer! It's time for your gift!)]"
 					+ "</p>"
 					+ "<p>"
 						+ "[npc.Name] lets out a mischievous giggle, before reaching down and pulling up the skirt of her witch's dress."
 						+ " Following the movement of her hands, you look down to see that her now-exposed underwear are completely crotchless, allowing her huge demonic cock to flop free between her legs."
-						+ " Her right hand reaches down beneath her monstrous shaft to stroke her dripping-wet pussy, and her giggle turns into a sensual moan as she bites her lip and looks up at you,"
+						+ " Her right hand reaches down beneath her monstrous shaft to stroke her dripping-wet pussy, and her giggle turns into a sensual moan as she bites her lip and looks up at you."
 						+ " [npc.speech(Be a good [pc.girl] now and get down on your knees! You can start with my pussy, and then finish with my cock! You'll be getting your gift straight down your throat soon enough!"
 							+ " Oh! And don't even <i>think</i> of trying to back out now!)]"
 					+ "</p>"
@@ -171,7 +171,7 @@ public class CultistDialogue {
 						+ (!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)
 								?"<p>"
 									+ "You look up to see her happy smile turn into a puzzled frown as she realises that you're not able to get access to your mouth."
-									+ " Reaching down to your jinxed clothing, she focuses her arcane energy into removing the jinx,"
+									+ " Reaching down to your jinxed clothing, she focuses her arcane energy into removing the jinx."
 									+ " [npc.speech(There you go! Now you can suck cock to your heart's content!)]"
 								+ "</p>"
 								:"")
@@ -209,13 +209,13 @@ public class CultistDialogue {
 							+ "</p>"
 							+ "<p>"
 								+ "You slowly trace your fingers over your pussy, drawing [npc.name]'s eyes down between your [pc.legs+]."
-								+ " She smiles as she realises what you're suggesting, and eagerly grabs your [pc.arm] once again, before pushing you down onto your back on top of the chapel's altar,"
+								+ " She smiles as she realises what you're suggesting, and eagerly grabs your [pc.arm] once again, before pushing you down onto your back on top of the chapel's altar."
 								+ " [npc.speech(What better way to praise Lilith than by filling an eager slut's womb with my seed?! Your belly's going to be nice and swollen with imps soon enough!)]"
 							+ "</p>"
 							+ (!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)
 									?"<p>"
 										+ "You look up to see her happy smile turn into a puzzled frown as she realises that she's not able to get access to your pussy."
-										+ " Reaching down to your jinxed clothing, she focuses her arcane energy into removing the jinx,"
+										+ " Reaching down to your jinxed clothing, she focuses her arcane energy into removing the jinx."
 										+ " [npc.speech(There we go! Now it's time for your special gift!)]"
 									+ "</p>"
 									:"")) {
@@ -254,13 +254,13 @@ public class CultistDialogue {
 						+ "</p>"
 						+ "<p>"
 							+ "You slowly turn to one side, tracing your fingers over your ass in order to draw [npc.name]'s eyes down to your rear end."
-							+ " She smiles as she realises what you're suggesting, and eagerly grabs your [pc.arm] once again, before pushing you down onto your back on top of the chapel's altar,"
+							+ " She smiles as she realises what you're suggesting, and eagerly grabs your [pc.arm] once again, before pushing you down onto your back on top of the chapel's altar."
 							+ " [npc.speech(What better way to praise Lilith than by filling some slut's ass with my seed?!)]"
 						+ "</p>"
 						+ (!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true)
 								?"<p>"
 									+ "You look up to see her happy smile turn into a puzzled frown as she realises that she's not able to get access to your asshole."
-									+ " Reaching down to your jinxed clothing, she focuses her arcane energy into removing the jinx,"
+									+ " Reaching down to your jinxed clothing, she focuses her arcane energy into removing the jinx."
 									+ " [npc.speech(There we go! Now it's time for your special gift!)]"
 								+ "</p>"
 								:"")) {
@@ -301,13 +301,13 @@ public class CultistDialogue {
 						+ " The familiar figure of [npc.name] is standing beside the stone block, and as the door swings shut behind you, she turns to see who's entered her sanctum."
 					+ "</p>"
 					+ "<p>"
-						+ "[npc.speech(You're back!)] [npc.name] exclaims, smiling in delight,"
+						+ "[npc.speech(You're back!)] [npc.name] exclaims, smiling in delight."
 						+ " [npc.speech(What a good [pc.girl]! You've come back for another gift!)]"
 					+ "</p>"
 					+ "<p>"
 						+ "[npc.Name] lets out a mischievous giggle, before reaching down and pulling up the skirt of her witch's dress."
 						+ " Following the movement of her hands, you look down to see that her now-exposed underwear are completely crotchless, allowing her huge demonic cock to flop free between her legs."
-						+ " Her right hand reaches down beneath her monstrous shaft to stroke her dripping-wet pussy, and her giggle turns into a sensual moan as she bites her lip and looks up at you,"
+						+ " Her right hand reaches down beneath her monstrous shaft to stroke her dripping-wet pussy, and her giggle turns into a sensual moan as she bites her lip and looks up at you."
 						+ " [npc.speech(Now show me what a good [pc.girl] you are and get down on your knees!"
 							+ " You can start with my pussy, and then finish with my cock! You'll be getting your gift straight down your throat soon enough!"
 							+ " Oh! And don't even <i>think</i> of trying to back out now!)]"
@@ -381,7 +381,7 @@ public class CultistDialogue {
 		@Override
 		public String getContent() {
 			return "<p>"
-						+ "[npc.Name] staggers back, gripping the edge of the altar with one hand as she pants from exertion,"
+						+ "[npc.Name] staggers back, gripping the edge of the altar with one hand as she pants from exertion."
 						+ " [npc.speech(I-Impossible! How could I be defeated?!)]"
 					+ "</p>"
 					+ "<p>"
@@ -425,7 +425,7 @@ public class CultistDialogue {
 						ENCOUNTER_CHAPEL_POST_DOM_SEX,
 						"<p>"
 							+ "You decide against using her broomstick, and step forwards so that you're standing between [npc.name]'s legs."
-							+ " She lets out an excited moan as you run your [pc.hands] up the length of her soft thighs, and props herself up on her elbows as she bites her lip at you,"
+							+ " She lets out an excited moan as you run your [pc.hands] up the length of her soft thighs, and props herself up on her elbows as she bites her lip at you."
 							+ " [npc.speech(~Mmm!~ Yes! Use me however you want!)]"
 						+ "</p>") {
 					@Override
@@ -492,7 +492,7 @@ public class CultistDialogue {
 					+ "</p>"
 					+ "<p>"
 						+ "[npc.speech(Hahaha! Silly little [pc.race]!)]"
-						+ " she sneers, stepping forwards and roughly grabbing your chin in one hand,"
+						+ " she sneers, stepping forwards and roughly grabbing your chin in one hand."
 						+ " [npc.speech(I think I'll have some fun with you!)]"
 					+ "</p>"
 					+ "<p>"
@@ -503,11 +503,11 @@ public class CultistDialogue {
 					+ "</p>"
 					+ "<p>"
 						+ "[npc.speech(How pathetic!)]"
-						+ " [npc.name] mocks, reaching down to pull you up, before pushing you down onto the stone altar,"
+						+ " [npc.name] mocks, reaching down to pull you up, before pushing you down onto the stone altar."
 						+ " [npc.speech(I wonder if you'll keep on mewling like that as I fuck you senseless! Try and struggle all you want, it's no use; this Witch's Seal I've cast upon you has turned you into my very own fuck-doll!)]"
 					+ "</p>"
 					+ "<p>"
-						+ "As she talks, the witch moves you around into position, and you find that you're totally powerless as she spreads your legs and steps forwards,"
+						+ "As she talks, the witch moves you around into position, and you find that you're totally powerless as she spreads your legs and steps forwards."
 						+ " [npc.speech(Now, let's have some fun!)]"
 					+ "</p>";
 		}
@@ -524,7 +524,7 @@ public class CultistDialogue {
 						(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true) || !Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true)
 							?"<p>"
 								+ "You look up to see [npc.name]'s grin turn into a puzzled frown as she realises that she's not able to get access to your groin."
-								+ " Reaching down to your jinxed clothing, she focuses her arcane energy into removing the jinx,"
+								+ " Reaching down to your jinxed clothing, she focuses her arcane energy into removing the jinx."
 								+ " [npc.speech(There we go! Now let's both find out how much you love being my fuck-toy!)]"
 							+ "</p>"
 							:"")) {
@@ -566,12 +566,12 @@ public class CultistDialogue {
 		@Override
 		public String getContent() {
 			return "<p>"
-						+ "[npc.Name] steps back, grinning down at you as she sorts her clothing out,"
+						+ "[npc.Name] steps back, grinning down at you as she sorts her clothing out."
 						+ " [npc.speech(I hope you enjoyed your gift just as much as I did in giving it to you! Now, I have some cult business to attend to, so run along!)]"
 					+ "</p>"
 					+ "<p>"
 						+ "You move to do as [npc.name] says, and as soon as you've finished getting your things together, she grabs you by the arm and starts marching towards the door."
-						+ " You're a little taken aback at how quickly she wants to get rid of you, but before you can object, you're being pushed out of the door,"
+						+ " You're a little taken aback at how quickly she wants to get rid of you, but before you can object, you're being pushed out of the door."
 						+ " [npc.speech(Come back some other time if you want another gift!)]"
 					+ "</p>"
 					+ "<p>"
@@ -601,12 +601,12 @@ public class CultistDialogue {
 		@Override
 		public String getContent() {
 			return "<p>"
-						+ "[npc.Name] steps back, grinning down at you as she sorts her clothing out,"
+						+ "[npc.Name] steps back, grinning down at you as she sorts her clothing out."
 						+ " [npc.speech(I hope you enjoyed your gift just as much as I did in giving it to you! Now, I have some cult business to attend to, so run along!)]"
 					+ "</p>"
 					+ "<p>"
 						+ "You move to do as [npc.name] says, and as soon as you've finished getting your things together, she grabs you by the arm and starts marching towards the door."
-						+ " You're a little taken aback at how quickly she wants to get rid of you, but before you can object, you're being pushed out of the door,"
+						+ " You're a little taken aback at how quickly she wants to get rid of you, but before you can object, you're being pushed out of the door."
 						+ " [npc.speech(Come back some other time if you want another gift!)]"
 					+ "</p>"
 					+ "<p>"
@@ -636,12 +636,12 @@ public class CultistDialogue {
 		@Override
 		public String getContent() {
 			return "<p>"
-						+ "[npc.Name] steps back, grinning down at you as she sorts her clothing out,"
+						+ "[npc.Name] steps back, grinning down at you as she sorts her clothing out."
 						+ " [npc.speech(I hope you enjoyed your gift just as much as I did in giving it to you! Now, I have some cult business to attend to, so run along!)]"
 					+ "</p>"
 					+ "<p>"
 						+ "You move to do as [npc.name] says, and as soon as you've finished getting your things together, she grabs you by the arm and starts marching towards the door."
-						+ " You're a little taken aback at how quickly she wants to get rid of you, but before you can object, you're being pushed out of the door,"
+						+ " You're a little taken aback at how quickly she wants to get rid of you, but before you can object, you're being pushed out of the door."
 						+ " [npc.speech(Come back some other time if you want another gift!)]"
 					+ "</p>"
 					+ "<p>"
@@ -671,7 +671,7 @@ public class CultistDialogue {
 		@Override
 		public String getContent() {
 			return "<p>"
-						+ "[npc.Name] steps back, grinning down at you as she sorts her clothing out,"
+						+ "[npc.Name] steps back, grinning down at you as she sorts her clothing out."
 						+ " [npc.speech(I hope you enjoyed your gift just as much as I did in giving it to you! Now, it may take a few more minutes for that spell to wear off. If only my assistant were here...)]"
 					+ "</p>"
 					+ "<p>"
@@ -680,12 +680,12 @@ public class CultistDialogue {
 					+ "</p>"
 					+ "<p>"
 						+ "[npc.speech(What took you so long?! You were meant to be back here half an hour ago!)]"
-						+ " [npc.name] responds,"
+						+ " [npc.name] responds."
 						+ " [npc.speech(Well, nevermind! Just drag this [pc.race] out to a bench somewhere, I've finished with [pc.herHim].)]"
 					+ "</p>"
 					+ "<p>"
-						+ "[femaleNPC.speech(Yes Mistress!)]"
-						+ " the stranger calls out, and after just a few seconds, the black-furred face of a greater cat-girl hovers into view,"
+						+ "[femaleNPC.speech(Yes, Mistress!)]"
+						+ " the stranger calls out, and after just a few seconds, the black-furred face of a greater cat-girl hovers into view."
 						+ " [femaleNPC.speech(Aww! I missed out on all the fun!)]"
 					+ "</p>"
 					+ "<p>"

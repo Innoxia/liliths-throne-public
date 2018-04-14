@@ -67,7 +67,7 @@ public class DominionSuccubusDialogue {
 							+ "<p>"
 								+ UtilText.parse(Main.game.getActiveNPC(),
 										UtilText.parseSpeech("It's <i>you</i> again?!", Main.game.getActiveNPC())
-										+ " [npc.she] growls, failing to conceal the angry look in [npc.her] eyes, "
+										+ " [npc.she] growls, failing to conceal the angry look in [npc.her] eyes. "
 										+ UtilText.parseSpeech("Look what you fucking did!", Main.game.getActiveNPC()))
 							+ "</p>"
 							+ "<p>"
@@ -76,7 +76,7 @@ public class DominionSuccubusDialogue {
 							+ "<p>"
 							+ UtilText.parse(Main.game.getActiveNPC(),
 									UtilText.parseThought("Do you have any idea how hard it is to ambush people when I've got to carry your little brood of imps around?", Main.game.getActiveNPC())
-									+ " [npc.she] shouts, but this time, [npc.she] doesn't speak out loud, and you realise that you're hearing [npc.her] angry voice in your head, "
+									+ " [npc.she] shouts, but this time, [npc.she] doesn't speak out loud, and you realise that you're hearing [npc.her] angry voice in your head. "
 									+ UtilText.parseThought("So get down on your knees, <b>right now</b>, and beg to let me fuck you! Maybe then I won't be quite so mad at you!", Main.game.getActiveNPC()))
 							+ "</p>"
 							+ "<p>"
@@ -105,7 +105,7 @@ public class DominionSuccubusDialogue {
 							+ "<p>"
 								+ UtilText.parse(Main.game.getActiveNPC(),
 										UtilText.parseSpeech("It's <i>you</i> again?!", Main.game.getActiveNPC())
-										+ " [npc.she] growls, failing to conceal the angry look in [npc.her] eyes, "
+										+ " [npc.she] growls, failing to conceal the angry look in [npc.her] eyes. "
 										+ UtilText.parseSpeech("I'm still carrying around your children, you fucking asshole!", Main.game.getActiveNPC()))
 							+ "</p>"
 							+ "<p>"
@@ -114,7 +114,7 @@ public class DominionSuccubusDialogue {
 							+ "<p>"
 							+ UtilText.parse(Main.game.getActiveNPC(),
 									UtilText.parseThought("Do you have any idea how hard it is to ambush people when I've got to carry your little brood of imps around?", Main.game.getActiveNPC())
-									+ " [npc.she] shouts, but this time, [npc.she] doesn't speak out loud, and you realise that you're hearing [npc.her] angry voice in your head, "
+									+ " [npc.she] shouts, but this time, [npc.she] doesn't speak out loud, and you realise that you're hearing [npc.her] angry voice in your head. "
 									+ UtilText.parseThought("So get down on your knees, <b>right now</b>, and beg to let me fuck you! Maybe then I won't be quite so mad at you!", Main.game.getActiveNPC()))
 							+ "</p>"
 							+ "<p>"
@@ -146,7 +146,7 @@ public class DominionSuccubusDialogue {
 						+ "<p>"
 							+ UtilText.parse(Main.game.getActiveNPC(),
 									UtilText.parseSpeech("It's you again?!", Main.game.getActiveNPC())
-									+ " [npc.she] laughs, and you see the same hungry look in [npc.her] eyes that [npc.she] had the last time you saw [npc.herHim], "
+									+ " [npc.she] laughs, and you see the same hungry look in [npc.her] eyes that [npc.she] had the last time you saw [npc.herHim]. "
 									+ UtilText.parseSpeech("You're just asking to get fucked!", Main.game.getActiveNPC()))
 						+ "</p>"
 						+ "<p>"
@@ -178,7 +178,7 @@ public class DominionSuccubusDialogue {
 							+ "<p>"
 								+ UtilText.parse(Main.game.getActiveNPC(),
 										UtilText.parseSpeech("Aww, how did you see my little surprise?", Main.game.getActiveNPC())
-										+ " [npc.she] asks, failing to conceal the desperate look in [npc.her] eyes, "
+										+ " [npc.she] asks, failing to conceal the desperate look in [npc.her] eyes. "
 										+ UtilText.parseSpeech("You must know how to use the arcane!"
 												+ " Y'know, I'm not angry, but that little trick takes me quite a while to set up, so when someone comes along and ruins it..."
 												+ " Actually, no, I <i>am</i> pretty angry!"
@@ -191,7 +191,7 @@ public class DominionSuccubusDialogue {
 							+ "<p>"
 							+ UtilText.parse(Main.game.getActiveNPC(),
 									UtilText.parseThought("So you're going to make it up to me for ruining my trap, understand?", Main.game.getActiveNPC())
-									+ " [npc.she] demands, but this time, [npc.she] doesn't speak out loud, and you realise that you're hearing [npc.her] voice in your head, "
+									+ " [npc.she] demands, but this time, [npc.she] doesn't speak out loud, and you realise that you're hearing [npc.her] voice in your head. "
 									+ UtilText.parseThought("So get down on your knees, <b>right now</b>, and beg for me to fuck you!", Main.game.getActiveNPC()))
 							+ "</p>"
 							+ "<p>"
@@ -246,7 +246,7 @@ public class DominionSuccubusDialogue {
 						+ "</p>"
 						+ "<p>"
 							+ UtilText.parseSpeech("Please! Let's just fuck already! I'll let you use my pussy! Or my mouth! Or even my ass! I just need to get off so badly!", Main.game.getActiveNPC())
-							+" [npc.she] whines, letting out a little cry as [npc.she] hungrily looks up and down your body, "
+							+" [npc.she] whines, letting out a little cry as [npc.she] hungrily looks up and down your body. "
 							+ UtilText.parseSpeech("You know how demons can transform themselves, right? You want me to grow a cock? I can do that too! Anything! Please!", Main.game.getActiveNPC())
 						+ "</p>"
 						+ "<p>"
@@ -325,7 +325,7 @@ public class DominionSuccubusDialogue {
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
 						AFTER_SEX_DEFEAT, "<p>"
 							+ "As "+Main.game.getActiveNPC().getName("the")+" carries on whining and desperately touching [npc.herself], you start to feel incredibly sorry for [npc.herHim]."
-							+ " Stepping forwards, you lean down and look up into [npc.her] "+Main.game.getActiveNPC().getEyeName()+", "
+							+ " Stepping forwards, you lean down and look up into [npc.her] "+Main.game.getActiveNPC().getEyeName()+". "
 							+UtilText.parsePlayerSpeech("I'm sorry! I didn't mean to upset you!")
 						+ "</p>"
 						+ "<p>"
@@ -336,7 +336,7 @@ public class DominionSuccubusDialogue {
 						+UtilText.parsePlayerSpeech("So, you need me to help you get some release?")
 						+ "</p>"
 						+ "<p>"
-						+ Main.game.getActiveNPC().getName("The")+"'s eyes flick up as [npc.she] stops whining for a moment, "
+						+ Main.game.getActiveNPC().getName("The")+"'s eyes flick up as [npc.she] stops whining for a moment. "
 						+ UtilText.parseSpeech("Yes... But I can't get off unless I'm the one in charge...", Main.game.getActiveNPC())
 						+ "</p>"
 						+ "<p>"
@@ -352,7 +352,7 @@ public class DominionSuccubusDialogue {
 							+ " You gulp as you remember what [npc.she] said just moments ago, and you realise that [npc.she]'s growing [npc.herself] a cock to fuck you with."
 						+ "</p>"
 						+ "<p>"
-							+ "Seeing what you're looking at, the [npc.race] lets out a playful giggle, "
+							+ "Seeing what you're looking at, the [npc.race] lets out a playful giggle. "
 							+ UtilText.parseSpeech("What? You didn't seriously think I'd let you use my pussy, did you?"
 									+ " You're the one who's offering to help here, remember?! If you didn't want to be my little fuck-toy, perhaps you should have just walked away!", Main.game.getActiveNPC())
 						+ "</p>"
@@ -647,7 +647,7 @@ public class DominionSuccubusDialogue {
 		public String getContent() {
 			if(Main.game.getActiveNPC().isFeminine()) {
 				return "<p>"
-							+ "Letting out a pitiful whine, the [npc.race] stares up into your eyes, "
+							+ "Letting out a pitiful whine, the [npc.race] stares up into your eyes. "
 							+ UtilText.parseSpeech("You can't drag this out any more! Come on already!", Main.game.getActiveNPC())
 						+ "</p>"
 						+ "<p>"
@@ -656,7 +656,7 @@ public class DominionSuccubusDialogue {
 						+ "</p>";
 			} else {
 				return "<p>"
-						+ "Letting out a pitiful whine, the [npc.race] stares up into your eyes, "
+						+ "Letting out a pitiful whine, the [npc.race] stares up into your eyes. "
 						+ UtilText.parseSpeech("You can't drag this out any more! Come on already!", Main.game.getActiveNPC())
 					+ "</p>"
 					+ "<p>"
@@ -682,7 +682,7 @@ public class DominionSuccubusDialogue {
 								+	UtilText.parsePlayerSpeech("These massive tits of yours are far too big! You're going to shrink them right down, understand? If they're anything bigger than little double-A's, I'm walking away!")
 							+ "</p>"
 							+ "<p>"
-								+ "With a desperate sob, the [npc.race] does as you command, "
+								+ "With a desperate sob, the [npc.race] does as you command. "
 								+ UtilText.parseSpeech("Really?! Aah... I just need to get fucked so bad... Fine!", Main.game.getActiveNPC())
 							+"</p>"
 							+ "<p>"
@@ -709,7 +709,7 @@ public class DominionSuccubusDialogue {
 								+	UtilText.parsePlayerSpeech("These massive tits of yours are far too big! Make them a more reasonable size! C-cups should do just fine.")
 							+ "</p>"
 							+ "<p>"
-								+ "With a desperate moan, the [npc.race] does as you command, "
+								+ "With a desperate moan, the [npc.race] does as you command. "
 								+ UtilText.parseSpeech("Aww... Fine!", Main.game.getActiveNPC())
 							+"</p>"
 							+ "<p>"
@@ -756,7 +756,7 @@ public class DominionSuccubusDialogue {
 										+ " Make them at least an H-cup, and we can finally get started.")
 							+ "</p>"
 							+ "<p>"
-								+ "You see the [npc.race]'s cheeks flash red, and you realise that you've obviously touched a nerve, "
+								+ "You see the [npc.race]'s cheeks flash red, and you realise that you've obviously touched a nerve. "
 								+ UtilText.parseSpeech("W-What?! But everyone always says that these are big enough! F-Fine... I can make them bigger for you...", Main.game.getActiveNPC())
 							+"</p>"
 							+ "<p>"
@@ -784,7 +784,7 @@ public class DominionSuccubusDialogue {
 										+ " I want to see just how big you can make them!")
 							+ "</p>"
 							+ "<p>"
-								+ "You see the [npc.race]'s cheeks flash red, and you realise that you've obviously touched a nerve, "
+								+ "You see the [npc.race]'s cheeks flash red, and you realise that you've obviously touched a nerve. "
 								+ UtilText.parseSpeech("W-What?! But everyone always says that these are big enough! F-Fine... I can make them bigger...", Main.game.getActiveNPC())
 							+"</p>"
 							+ "<p>"
@@ -829,7 +829,7 @@ public class DominionSuccubusDialogue {
 								+	UtilText.parsePlayerSpeech("I think you'd look far better as a succubus! Transform yourself into one right now, and if your tits are anything bigger than little double-A's, I'm walking away!")
 							+ "</p>"
 							+ "<p>"
-								+ "With a desperate sob, he does as you command, "
+								+ "With a desperate sob, he does as you command. "
 								+ UtilText.parseSpeech("Really?! Aah... I just need to get fucked so bad... Fine!", Main.game.getActiveNPC())
 							+"</p>"
 							+ "<p>"
@@ -858,7 +858,7 @@ public class DominionSuccubusDialogue {
 								+	UtilText.parsePlayerSpeech("I think you'd look far better as a succubus! Transform yourself into one right now, and make sure your tits are a more reasonable size! C-cups should do just fine.")
 							+ "</p>"
 							+ "<p>"
-								+ "With a desperate moan, the [npc.race] does as you command, "
+								+ "With a desperate moan, the [npc.race] does as you command. "
 								+ UtilText.parseSpeech("Aww... Fine!", Main.game.getActiveNPC())
 							+"</p>"
 							+ "<p>"
@@ -887,7 +887,7 @@ public class DominionSuccubusDialogue {
 								+	UtilText.parsePlayerSpeech("I think you'd look far better as a succubus! Transform yourself into one right now, and make sure your tits are nice and big! E-cups should do just fine.")
 							+ "</p>"
 							+ "<p>"
-								+ "With a desperate moan, the [npc.race] does as you command, "
+								+ "With a desperate moan, the [npc.race] does as you command. "
 								+ UtilText.parseSpeech("Aww... Fine!", Main.game.getActiveNPC())
 							+"</p>"
 							+ "<p>"
@@ -916,7 +916,7 @@ public class DominionSuccubusDialogue {
 								+	UtilText.parsePlayerSpeech("I think you'd look far better as a succubus! Transform yourself into one right now, and make sure your tits are huge! H-cups at least!")
 							+ "</p>"
 							+ "<p>"
-								+ "With a desperate moan, the [npc.race] does as you command, "
+								+ "With a desperate moan, the [npc.race] does as you command. "
 								+ UtilText.parseSpeech("Aww... Fine!", Main.game.getActiveNPC())
 							+"</p>"
 							+ "<p>"
@@ -945,7 +945,7 @@ public class DominionSuccubusDialogue {
 									+	UtilText.parsePlayerSpeech("I think you'd look far better as a succubus! Transform yourself into one right now, and make sure your tits are as large as possible!")
 								+ "</p>"
 								+ "<p>"
-									+ "With a desperate moan, the [npc.race] does as you command, "
+									+ "With a desperate moan, the [npc.race] does as you command. "
 									+ UtilText.parseSpeech("Aww... Fine!", Main.game.getActiveNPC())
 								+"</p>"
 								+ "<p>"
@@ -1044,7 +1044,7 @@ public class DominionSuccubusDialogue {
 					+ UtilText.parsePlayerSpeech("Please! Can you fuck me?")
 				+ "</p>"
 				+ "<p>"
-					+ "Looking a little surprised for a moment, the [npc.race] quickly regains [npc.her] composure and strides towards you, "
+					+ "Looking a little surprised for a moment, the [npc.race] quickly regains [npc.her] composure and strides towards you. "
 					+ UtilText.parseSpeech("Hah! Well, that was easy! What a good little submissive thing you are!", Main.game.getActiveNPC())
 				+ "</p>"
 				+ "<p>"
