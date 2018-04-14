@@ -8315,7 +8315,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						+ "</p>"));
 			}
 			
-		} else {
+		} else if(this.getAddiction(fluid)!=null) {
 			boolean curedWithdrawal = Main.game.getMinutesPassed()-this.getAddiction(fluid).getLastTimeSatisfied()>=24*60;
 			setLastTimeSatisfiedAddiction(fluid, Main.game.getMinutesPassed());
 			if(isPlayer()) {
