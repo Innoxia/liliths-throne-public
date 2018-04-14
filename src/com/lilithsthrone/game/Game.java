@@ -902,6 +902,7 @@ public class Game implements Serializable, XMLSaving {
 		
 		if(newDay) {
 			pendingSlaveInStocksReset = true;
+			Main.game.getPlayer().resetDaysOrgasmCount();
 			
 			// Reindeer:
 			for(NPC npc : Main.game.getReindeerOverseers()) {
@@ -954,7 +955,7 @@ public class Game implements Serializable, XMLSaving {
 					}
 			
 			// Non-slave NPCs clean clothes:
-			if(!npc.isSlave() && !Main.game.getPlayer().getLocation().equals(npc.getLocation())) {
+			if((!npc.isSlave() || (npc.isSlave() && !npc.getOwner().isPlayer())) && !Main.game.getPlayer().getLocation().equals(npc.getLocation())) {
 				npc.cleanAllClothing();
 				npc.cleanAllDirtySlots();
 			}
@@ -1027,6 +1028,7 @@ public class Game implements Serializable, XMLSaving {
 			}
 			
 			if(newDay) {
+				npc.resetDaysOrgasmCount();
 				npc.dailyReset();
 			}
 		}
@@ -2786,6 +2788,10 @@ public class Game implements Serializable, XMLSaving {
 	
 	public boolean isBodyHairEnabled() {
 		return Main.getProperties().hasValue(PropertyValue.bodyHairContent);
+	}
+	
+	public boolean isAssHairEnabled() {
+		return Main.getProperties().hasValue(PropertyValue.assHairContent);
 	}
 	
 	public boolean isRenderMap() {

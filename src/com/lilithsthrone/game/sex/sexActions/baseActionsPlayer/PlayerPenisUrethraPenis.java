@@ -30,7 +30,7 @@ public class PlayerPenisUrethraPenis {
 		
 		@Override
 		public String getActionTitle() {
-			return "Fuck urethra";
+			return "Fuck cock's urethra";
 		}
 
 		@Override
@@ -500,7 +500,7 @@ public class PlayerPenisUrethraPenis {
 		
 		@Override
 		public String getActionTitle() {
-			return "Stop urethral fuck";
+			return "Stop cock urethral fuck";
 		}
 
 		@Override

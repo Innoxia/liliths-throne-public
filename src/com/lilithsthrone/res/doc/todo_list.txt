@@ -24,47 +24,62 @@
 	
 	Patch notes:
 	
-	Gameplay:
-		Added action to have sex with Amber once her affection towards you is maximum.
+Gameplay:
+	Added action to have sex with Amber once her affection towards you is maximum.
+	Added a gentle version of Pix's shower scene (only fires if you have nonCon off in the options).
+
+Contributors:
+	Fixed an issue where setting breast size could sometimes throw an exception. (Master of Puppets)
+	Fixed corset dress not blocking leg slots, like all the other dresses. (Master of Puppets)
+
+Other:
+	Increased cum production increase from clothing from 1ml to 5ml per tick.
+	Amber now gains affection towards you if you obey her in the pet encounter.
+	Improved your phone's sex stats screen, and added daily and total orgasm tracking.
+	Renamed some urethral penetration actions to distinguish between penile and vaginal urethras.
+	Separated body hair content setting into separate underarm and ass hair settings.
+	There is now a small chance for random NPCs to spawn in with penile virginity.
+
+Bugs:
+	Fixed some typos.
+	Fixed issue where Amber's name would not be marked as revealed, causing some dialogue to refer to her as 'Fiery Maid'.
+	Fixed bug where asking Zaranix about his incubus form wouldn't work.
+	Amber and the pet encounter sex scenes now end after they orgasm, instead of waiting for you to orgasm as well.
+	Fixed bug where after talking with a slave, their character details would get stuck on the right-had side of the screen.
+	Fixed issue where Amber's 'submit' action (when she offers to take you for a walk) wouldn't work if you weren't wearing anything in the neck slot.
+	Fixed Amber always being a virgin every time you had sex with her.
+	Fixed several cases of incorrect lubrication transfers.
+	Fixed bug where all npcs would be shown to have lost their anal virginity, even if they hadn't.
+	Fixed cause of a game-breaking bug where if one of your slave prostitutes got impregnated, their character screen would stop working. (Also should have fixed any cases you your game breaking if this has already happened to you.)
+	Fixed body part reveal descriptions displaying twice in sex.
+	Fixed suspender belt not being tagged as feminine clothing.
+	Fixed availability requirements of 'pussy tease' sex action.
+	Fixed punctuation in Pix's gym scenes.
+	Dog and wolf-morphs will now only have scarlet penises if their penis type is canine or lupine, respectively.
+	Fixed 'Stroke cock' and 'Fondle balls' actions being disabled if urethral content was off.
+	Fixed a case where urethral penetration actions would be available even if it was turned off in content settings. (So sorry again!)
+	Fixed NPC's clothing displacement tooltips incorrectly referring to you.
+	Fixed bug where Rose wouldn't clean her underwear after orgasming in them.
+	Expanded harpy feather colours should now be available.
+	Fixed mouth/tongue sex availability bug, where you would still be able to initiate blowjobs while giving cunnilingus.
 	
-	Contributors:
-		Fixed an issue where setting breast size could sometimes throw an exception. (Master of Puppets)
-		Fixed corset dress not blocking leg slots, like all the other dresses. (Master of Puppets)
 	
-	Other:
-		Increased cum production increase from clothing from 1ml to 5ml per tick.
-		Amber now gains affection towards you if you obey her in the pet encounter.
 	
-	Bugs:
-		Fixed some typos.
-		Fixed issue where Amber's name would not be marked as revealed, causing some dialogue to refer to her as 'Fiery Maid'.
-		Fixed bug where asking Zaranix about his incubus form wouldn't work.
-		Amber and the pet encounter sex scenes now end after they orgasm, instead of waiting for you to orgasm as well.
-		Fixed bug where after talking with a slave, their character details would get stuck on the right-had side of the screen.
-		Fixed issue where Amber's 'submit' action (whe she offers to take you for a walk) wouldn't work if you weren't wearing anything in the neck slot.
-		Fixed Amber always being a virgin every time you had sex with her.
-		Fixed several cases of incorrect lubrication transfers.
-		Fixed bug where all npcs would be shown to have lost their anal virginity, even if they hadn't.
-		Fixed cause of a game-breaking bug where if one of your slave prostitutes got impregnated, their character screen would stop working. (Also should have fixed any cases you your game breaking if this has already happened to you.)
-		Fixed body part reveal descriptions displaying twice in sex.
-		Fixed suspender belt not being tagged as feminine clothing.
-		Fixed availability requirements of 'pussy tease' sex action.
-		Fixed punctuation in Pix's gym scenes.
-		Dog and wolf-morphs will now only have scarlet penises if their penis type is canine or lupine, respectively.
 	
+	
+	Fix the BodyCoveringType mess
 	
 	
 	Duner's stuff
 	
 	
-	- Make Zaranix & maids repeatable.
-		Zaranix
-			- Ask about incubus form
-				- if affection > 50, then can convince to stay as futa succubus Zoelix
-				- scene where you show her how good it feels to stay as a female - Zaranix gains pussy slut and self-breast fetishes
-			- Sex
-				- If incubus, he only accepts blowjobs
-				- If succubus, get full sex
+	Zaranix
+		- Ask about incubus form
+			- if affection > 50, then can convince to stay as futa succubus Zoelix
+			- scene where you show her how good it feels to stay as a female - Zaranix gains pussy slut and self-breast fetishes
+		- Sex
+			- If incubus, he only accepts blowjobs
+			- If succubus, get full sex
 				
 	Preg reactions (including first time seeing them) for:
 		Pix
@@ -79,11 +94,6 @@
 	a scene that one of your slaves can rape you if you gave permission to use you and permited outside Freedom
 	
 	slime tails
-	
-	
-	FIX RAPE SCENES WHEN NON-CON OFF
-	
-	Fix the god damn BodyCoveringType mess
 	
 	condom breaking
 
@@ -164,26 +174,13 @@
 	Most NPC's have a chance or small chance of impregnating my futa and I only have a high chance of impregnating others, including demons.
 	It almost as if the % chance is passing 100, then resetting the chance and the game is only seeing the 20%.
 	
-	Can't read the Bat, Imp and Rat books, since there's no "Submission Races" category on the library.  No Bunny either.
-	
-	The changelog says harpies were given additional colors but after checking Kate's Shop, Feathers (under Coverings) have the exact same amount as before (which is to say limited).
-	
 	If you walk to the same square as a slave that's working and press the slave's name in the upper right corner to get to the info screen, the "Back" option does nothing
-	
-	I might have fucked up something during compiling, but it seems the game bugs out if you try to rape a slave wearing a jinxed chastity cage (error log points towards to game.inventory.CharacterInventory.isAbleToUnequip and unjinxing fixed the issue).
 	
 	Urethra:
 		When the one penetrating cums, if they cum a lot, the other character gets an inflated stomach, it would make more sense for their balls to inflate. And if the one receiving cums, there's just the regular cum outside dialogue.
 		Add orgasm content.
 	
-	add inventory button when interacting directly with slaves for the full release
-	
 	jinxed shorts causing sell self to bug?
-	
-	Pix & loss to attackers non-con even if off
-	Pix pregnancy reaction
-	
-	*Need* to remove the spit option for NPCs and Brax if have the TF fetish
 	
 	Just say one flame per ml instead
 	
@@ -253,8 +250,6 @@
 		Second cock
 		Taur pussy
 	
-	you can still initiate blowjob while giving cunnilingus
-	
 	- Characters can still be stuck with a phantom pregnancy that resets their pregnancy status on reload
 	- In the slave day to day log, slaves are always listed as having sex with themselves (i.e. Ben fucked Ben) and only if you have impregnation opportunities turned on will you actually see who they potentially impregnated
 	
@@ -267,8 +262,6 @@
 	The alligator-girl slides her throbbing dick out of your urethra.
 	
 	slime children not having correct races in stats screen
-	
-	This isnt really a bug but. If your partner is Futa both urethras are able ot be fucked, but they have the same button name but differing tooltips. Might be better to have the buttons named differently.
 	
 	Clothing removal - Before your Maid's dress is able to be removed, Hooded cloak and Maid's dress need to be removed.
 	
@@ -326,8 +319,6 @@
 	
 	my children are born slimes like they are supposed to be, but they are labeled as man/woman in the birth scene. and also i can seem to encounter them myself in any of the waterways or in submission.
 	
-	Will there be a day where "Extra body hair" is split up so ass hair is it's own thing that I don't have to read about
-	
 	Tooltips: his message isn't correct i've already taken off mah pants, also i can still unzip my pants and the description is "This will expose your cock" when i've already had it exposed
 	
 	Prostitutes are unaffected by arcane storms
@@ -339,8 +330,6 @@
 	able to just beat the storeroom quest thing without doing it
 	
 	When you're getting Kink TFed it still does the regular TF text. Saying they'll make you into the perfect "whatever" morph, instead of perfect "kink"
-	
-	While dusting: "Diana caught sight of Diana, and... Jennifer might have gotten pregnant!"
 	
 	text for changing aprts in phone menu
 	

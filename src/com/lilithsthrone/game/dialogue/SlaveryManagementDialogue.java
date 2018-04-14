@@ -2024,14 +2024,15 @@ public class SlaveryManagementDialogue {
 							?CharacterModificationUtils.getKatesDivUnderarmHair("Underarm hair", "The body hair found in [npc.name]'s armpits.")
 							:"")
 					
-					+(Main.game.isBodyHairEnabled()
+					+(Main.game.isAssHairEnabled()
 							?CharacterModificationUtils.getKatesDivAssHair("Ass hair", "The body hair found around [npc.name]'s asshole.")
 							:"")
 					);
 			
 			for(BodyCoveringType bct : BodyCoveringType.values()) {
 				if((Main.game.isFacialHairEnabled() && BodyChanging.getTarget().getFacialHairType().getType()==bct)
-						|| (Main.game.isBodyHairEnabled() && (BodyChanging.getTarget().getUnderarmHairType().getType()==bct || BodyChanging.getTarget().getAssHairType().getType()==bct))
+						|| (Main.game.isBodyHairEnabled() && BodyChanging.getTarget().getUnderarmHairType().getType()==bct)
+						|| (Main.game.isAssHairEnabled() && BodyChanging.getTarget().getAssHairType().getType()==bct)
 						|| (Main.game.isPubicHairEnabled() && BodyChanging.getTarget().getPubicHairType().getType()==bct)) {
 					UtilText.nodeContentSB.append(CharacterModificationUtils.getKatesDivCoveringsNew(
 							true, bct, "Body hair", "This is your body hair ("+bct.getRace().getName()+").", true, true));

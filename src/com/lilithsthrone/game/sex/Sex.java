@@ -3365,6 +3365,8 @@ public enum Sex {
 	}
 	
 	public static void incrementNumberOfOrgasms(GameCharacter character, int increment) {
+		character.incrementDaysOrgasmCount(increment);
+		character.incrementTotalOrgasmCount(increment);
 		orgasmCountMap.putIfAbsent(character, 0);
 		orgasmCountMap.put(character, orgasmCountMap.get(character)+increment);
 	}

@@ -281,6 +281,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 
 	
 	// Sex:
+	private int totalOrgasmCount;
+	private int daysOrgasmCount;
+	private int daysOrgasmCountRecord;
 	protected Set<CoverableArea> playerKnowsAreas;
 	protected Map<OrificeType, Integer> cummedInAreaMap;
 	
@@ -389,6 +392,10 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 
 		specialAttacks = EnumSet.noneOf(SpecialAttack.class);
 
+		totalOrgasmCount = 0;
+		daysOrgasmCount = 0;
+		daysOrgasmCountRecord = 0;
+		
 		// Player knowledge:
 		playerKnowsAreas = new HashSet<>();
 		
@@ -751,7 +758,11 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			CharacterUtils.addAttribute(doc, element, "orifice", orifice.toString());
 			CharacterUtils.addAttribute(doc, element, "cumQuantity", String.valueOf(this.getCummedInAreaMap().get(orifice)));
 		}
+
 		
+		CharacterUtils.createXMLElementWithValue(doc, characterSexStats, "daysOrgasmCount", String.valueOf(this.getDaysOrgasmCount()));
+		CharacterUtils.createXMLElementWithValue(doc, characterSexStats, "daysOrgasmCountRecord", String.valueOf(this.getDaysOrgasmCountRecord()));
+		CharacterUtils.createXMLElementWithValue(doc, characterSexStats, "totalOrgasmCount", String.valueOf(this.getTotalOrgasmCount()));
 		CharacterUtils.createXMLElementWithValue(doc, characterSexStats, "sexConsensualCount", String.valueOf(this.getSexConsensualCount()));
 		CharacterUtils.createXMLElementWithValue(doc, characterSexStats, "sexAsSubCount", String.valueOf(this.getSexAsSubCount()));
 		CharacterUtils.createXMLElementWithValue(doc, characterSexStats, "sexAsDomCount", String.valueOf(this.getSexAsDomCount()));
@@ -1503,7 +1514,24 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		
 		nodes = parentElement.getElementsByTagName("sexStats");
 		Element sexStatsElement = (Element) nodes.item(0);
-
+		
+		
+		
+		if(sexStatsElement.getElementsByTagName("daysOrgasmCountRecord").getLength()!=0) {
+			character.setDaysOrgasmCountRecord(Integer.valueOf(((Element)sexStatsElement.getElementsByTagName("daysOrgasmCountRecord").item(0)).getAttribute("value")));
+			CharacterUtils.appendToImportLog(log, "</br>Set daysOrgasmCountRecord: "+character.getDaysOrgasmCountRecord());
+		}
+		
+		if(sexStatsElement.getElementsByTagName("daysOrgasmCount").getLength()!=0) {
+			character.setDaysOrgasmCount(Integer.valueOf(((Element)sexStatsElement.getElementsByTagName("daysOrgasmCount").item(0)).getAttribute("value")));
+			CharacterUtils.appendToImportLog(log, "</br>Set daysOrgasmCount: "+character.getDaysOrgasmCount());
+		}
+		
+		if(sexStatsElement.getElementsByTagName("totalOrgasmCount").getLength()!=0) {
+			character.setTotalOrgasmCount(Integer.valueOf(((Element)sexStatsElement.getElementsByTagName("totalOrgasmCount").item(0)).getAttribute("value")));
+			CharacterUtils.appendToImportLog(log, "</br>Set totalOrgasmCount: "+character.getTotalOrgasmCount());
+		}
+		
 		if(sexStatsElement.getElementsByTagName("sexConsensualCount").getLength()!=0) {
 			character.setSexConsensualCount(Integer.valueOf(((Element)sexStatsElement.getElementsByTagName("sexConsensualCount").item(0)).getAttribute("value")));
 			CharacterUtils.appendToImportLog(log, "</br>Set consensual sex count: "+character.getSexConsensualCount());
@@ -3389,6 +3417,49 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	public int getSexCount(SexType sexType) {
 		sexCountMap.putIfAbsent(sexType, 0);
 		return sexCountMap.get(sexType);
+	}
+	
+	
+	public int getDaysOrgasmCountRecord() {
+		if(daysOrgasmCountRecord == 0) {
+			return getDaysOrgasmCount();
+		}
+		return daysOrgasmCountRecord;
+	}
+	
+	public void setDaysOrgasmCountRecord(int daysOrgasmCountRecord) {
+		this.daysOrgasmCountRecord = daysOrgasmCountRecord;
+	}
+	
+	public int getDaysOrgasmCount() {
+		return daysOrgasmCount;
+	}
+	
+	public void setDaysOrgasmCount(int daysOrgasmCount) {
+		this.daysOrgasmCount = daysOrgasmCount;
+	}
+	
+	public void incrementDaysOrgasmCount(int increment) {
+		daysOrgasmCount += increment;
+	}
+	
+	public void resetDaysOrgasmCount() {
+		if(getDaysOrgasmCount() > daysOrgasmCountRecord) {
+			setDaysOrgasmCountRecord(getDaysOrgasmCount());
+		}
+		daysOrgasmCount = 0;
+	}
+	
+	public void incrementTotalOrgasmCount(int increment) {
+		totalOrgasmCount += increment;
+	}
+	
+	public int getTotalOrgasmCount() {
+		return totalOrgasmCount;
+	}
+
+	public void setTotalOrgasmCount(int totalOrgasmCount) {
+		this.totalOrgasmCount = totalOrgasmCount;
 	}
 
 	// Cum:

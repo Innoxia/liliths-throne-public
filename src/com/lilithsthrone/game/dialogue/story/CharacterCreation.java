@@ -1205,12 +1205,19 @@ public class CharacterCreation {
 			
 			if(Main.game.isBodyHairEnabled()) {
 				UtilText.nodeContentSB.append(
-						CharacterModificationUtils.getKatesDivUnderarmHair("Underarm hair", "The body hair found in your armpits.")
-						+ CharacterModificationUtils.getKatesDivAssHair("Ass hair", "The body hair found around your asshole."));
+						CharacterModificationUtils.getKatesDivUnderarmHair("Underarm hair", "The body hair found in your armpits."));
 				
 			} else {
 				UtilText.nodeContentSB.append(CharacterModificationUtils.getKatesDivGenericBodyHairDisabled(
-						"Body hair", "The body hair found in your armpits and around your asshole.", "Body hair is currently disabled in the options. You will not see any underarm or ass hair content while it is disabled."));
+						"Underarm hair", "The hair found in your armpits.", "Underarm hair is currently disabled in the options. You will not see any underarm hair content while it is disabled."));
+			}
+			
+			if(Main.game.isAssHairEnabled()) {
+				UtilText.nodeContentSB.append(CharacterModificationUtils.getKatesDivAssHair("Ass hair", "The body hair found around your asshole."));
+				
+			} else {
+				UtilText.nodeContentSB.append(CharacterModificationUtils.getKatesDivGenericBodyHairDisabled(
+						"Ass hair", "The body hair found around your asshole.", "Ass hair is currently disabled in the options. You will not see any ass hair content while it is disabled."));
 			}
 			
 			return UtilText.nodeContentSB.toString();

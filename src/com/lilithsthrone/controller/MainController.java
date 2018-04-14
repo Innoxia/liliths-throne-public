@@ -4840,6 +4840,23 @@ public class MainController implements Initializable {
 				}, false);
 			}
 			
+			id = "HAIR_ASS_ON";
+			if (((EventTarget) document.getElementById(id)) != null) {
+				((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+					Main.getProperties().setValue(PropertyValue.assHairContent, true);
+					Main.saveProperties();
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+			}
+			id = "HAIR_ASS_OFF";
+			if (((EventTarget) document.getElementById(id)) != null) {
+				((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+					Main.getProperties().setValue(PropertyValue.assHairContent, false);
+					Main.saveProperties();
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+			}
+			
 			id = "FEMININE_BEARD_ON";
 			if (((EventTarget) document.getElementById(id)) != null) {
 				((EventTarget) document.getElementById(id)).addEventListener("click", e -> {

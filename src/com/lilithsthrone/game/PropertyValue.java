@@ -23,6 +23,7 @@ public enum PropertyValue {
 	facialHairContent(false),
 	pubicHairContent(false),
 	bodyHairContent(false),
+	assHairContent(false),
 	feminineBeardsContent(false),
 	lactationContent(true),
 	urethralContent(false),

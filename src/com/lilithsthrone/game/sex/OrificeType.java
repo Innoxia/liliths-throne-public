@@ -20,7 +20,7 @@ public enum OrificeType {
 		}
 		@Override
 		public boolean isFree(GameCharacter owner) {
-			return Sex.isOrificeFree(owner, this);
+			return Sex.isOrificeFree(owner, this) && Sex.isPenetrationTypeFree(owner, PenetrationType.TONGUE);
 		}
 	},
 	
@@ -152,7 +152,7 @@ public enum OrificeType {
 		}
 		@Override
 		public boolean isFree(GameCharacter owner) {
-			return Sex.isPenetrationTypeFree(owner, PenetrationType.PENIS);
+			return Sex.isOrificeFree(owner, this) && Sex.isPenetrationTypeFree(owner, PenetrationType.PENIS);
 		}
 	};
 

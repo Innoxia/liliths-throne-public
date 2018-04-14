@@ -4367,10 +4367,12 @@ public class InventoryDialogue {
 							boolean areaFull = Main.game.isPlayerTileFull() && !Main.game.getPlayerCell().getInventory().hasClothing(clothing);
 							if(Main.game.getPlayer().getLocationPlace().isItemsDisappear()) {
 								if(areaFull && !clothing.getClothingType().isDiscardedOnUnequip()) {
-									return new Response("Drop", "This area is full, so you can't drop your " + clothing.getName() + " here!", null);
+									return new Response("Drop", "This area is full, so you can't drop "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" " + clothing.getName() + " here!", null);
 								} else {
 									return new Response((clothing.getClothingType().isDiscardedOnUnequip()?"Discard":"Drop"),
-											(clothing.getClothingType().isDiscardedOnUnequip()?"Take off your " + clothing.getName() + " and throw it away.":"Drop your " + clothing.getName() + "."),
+											(clothing.getClothingType().isDiscardedOnUnequip()
+													?"Take off "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" " + clothing.getName() + " and throw it away."
+													:"Drop "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" " + clothing.getName() + "."),
 											Combat.ENEMY_ATTACK){
 										@Override
 										public void effects(){
@@ -4386,10 +4388,12 @@ public class InventoryDialogue {
 								
 							} else {
 								if(areaFull && !clothing.getClothingType().isDiscardedOnUnequip()) {
-									return new Response("Store", "This area is full, so you can't store your " + clothing.getName() + " here!", null);
+									return new Response("Store", "This area is full, so you can't store "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" " + clothing.getName() + " here!", null);
 								} else {
 									return new Response((clothing.getClothingType().isDiscardedOnUnequip()?"Discard":"Store"),
-											(clothing.getClothingType().isDiscardedOnUnequip()?"Take off your " + clothing.getName() + " and throw it away.":"Store your " + clothing.getName() + " in this area."),
+											(clothing.getClothingType().isDiscardedOnUnequip()
+													?"Take off "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" " + clothing.getName() + " and throw it away."
+													:"Store "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" " + clothing.getName() + " in this area."),
 											Combat.ENEMY_ATTACK){
 										@Override
 										public void effects(){
@@ -4405,7 +4409,7 @@ public class InventoryDialogue {
 							}
 							
 						} else if (index==4) {
-							return new Response("Dye", "You can't dye your clothes in combat!", null);
+							return new Response("Dye", "You can't dye "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" clothes in combat!", null);
 							
 						} else if(index == 5) {
 							if(clothing.isSealed()) {
@@ -4447,7 +4451,7 @@ public class InventoryDialogue {
 									return new Response(Util.capitaliseSentence(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index - 11).getOppositeDescription()),
 											Util.capitaliseSentence(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index - 11).getOppositeDescription()) + " the " + clothing.getName() + ". "
 													+ clothing.getClothingBlockingDescription(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index - 11), Main.game.getPlayer(),
-															" <span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>This will cover your ", ".</span>"),
+															" <span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>This will cover "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" ", ".</span>"),
 													Combat.ENEMY_ATTACK){
 										@Override
 										public void effects(){
@@ -4472,7 +4476,7 @@ public class InventoryDialogue {
 									return new Response(Util.capitaliseSentence(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index - 11).getDescription()),
 											Util.capitaliseSentence(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index - 11).getDescription()) + " the " + clothing.getName() + ". "
 													+ clothing.getClothingBlockingDescription(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index - 11), Main.game.getPlayer(),
-															" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>This will expose your ", ".</span>"),
+															" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>This will expose "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" ", ".</span>"),
 													Combat.ENEMY_ATTACK){
 										@Override
 										public void effects(){
@@ -4501,10 +4505,12 @@ public class InventoryDialogue {
 							boolean areaFull = Main.game.isPlayerTileFull() && !Main.game.getPlayerCell().getInventory().hasClothing(clothing);
 							if(Main.game.getPlayer().getLocationPlace().isItemsDisappear()) {
 								if(areaFull && !clothing.getClothingType().isDiscardedOnUnequip()) {
-									return new Response("Drop", "This area is full, so you can't drop your " + clothing.getName() + " here!", null);
+									return new Response("Drop", "This area is full, so you can't drop "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" " + clothing.getName() + " here!", null);
 								} else {
 									return new Response((clothing.getClothingType().isDiscardedOnUnequip()?"Discard":"Drop"),
-											(clothing.getClothingType().isDiscardedOnUnequip()?"Take off your " + clothing.getName() + " and throw it away.":"Drop your " + clothing.getName() + "."),
+											(clothing.getClothingType().isDiscardedOnUnequip()
+													?"Take off "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" " + clothing.getName() + " and throw it away."
+													:"Drop "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" " + clothing.getName() + "."),
 											INVENTORY_MENU){
 										@Override
 										public void effects(){
@@ -4515,10 +4521,12 @@ public class InventoryDialogue {
 								
 							} else {
 								if(areaFull && !clothing.getClothingType().isDiscardedOnUnequip()) {
-									return new Response("Store", "This area is full, so you can't store your " + clothing.getName() + " here!", null);
+									return new Response("Store", "This area is full, so you can't store "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" " + clothing.getName() + " here!", null);
 								} else {
 									return new Response((clothing.getClothingType().isDiscardedOnUnequip()?"Discard":"Store"),
-											(clothing.getClothingType().isDiscardedOnUnequip()?"Take off your " + clothing.getName() + " and throw it away.":"Store your " + clothing.getName() + " in this area."),
+											(clothing.getClothingType().isDiscardedOnUnequip()
+													?"Take off "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" " + clothing.getName() + " and throw it away."
+													:"Store "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" " + clothing.getName() + " in this area."),
 											INVENTORY_MENU){
 										@Override
 										public void effects(){
@@ -4585,7 +4593,7 @@ public class InventoryDialogue {
 								return new Response(Util.capitaliseSentence(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index - 11).getOppositeDescription()),
 										Util.capitaliseSentence(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index - 11).getOppositeDescription()) + " the " + clothing.getName() + ". "
 												+ clothing.getClothingBlockingDescription(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index - 11), Main.game.getPlayer(),
-														" <span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>This will cover your ", ".</span>"),
+														" <span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>This will cover "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" ", ".</span>"),
 												CLOTHING_EQUIPPED){
 									@Override
 									public void effects(){
@@ -4596,7 +4604,7 @@ public class InventoryDialogue {
 								return new Response(Util.capitaliseSentence(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index - 11).getDescription()),
 										Util.capitaliseSentence(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index - 11).getDescription()) + " the " + clothing.getName() + ". "
 												+ clothing.getClothingBlockingDescription(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index - 11), Main.game.getPlayer(),
-														" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>This will expose your ", ".</span>"),
+														" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>This will expose "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" ", ".</span>"),
 												CLOTHING_EQUIPPED){
 									@Override
 									public void effects(){
@@ -4651,11 +4659,13 @@ public class InventoryDialogue {
 							boolean areaFull = Main.game.isPlayerTileFull() && !Main.game.getPlayerCell().getInventory().hasClothing(clothing);
 							if(Main.game.getPlayer().getLocationPlace().isItemsDisappear()) {
 								if(areaFull && !clothing.getClothingType().isDiscardedOnUnequip()) {
-									return new Response("Drop", "This area is full, so you can't drop your " + clothing.getName() + " here!", null);
+									return new Response("Drop", "This area is full, so you can't drop "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" " + clothing.getName() + " here!", null);
 								} else {
 									if (owner.isAbleToUnequip(clothing, false, Main.game.getPlayer())) {
 										return new Response((clothing.getClothingType().isDiscardedOnUnequip()?"Discard":"Drop"),
-												(clothing.getClothingType().isDiscardedOnUnequip()?"Take off your " + clothing.getName() + " and throw it away.":"Drop your " + clothing.getName() + "."),
+												(clothing.getClothingType().isDiscardedOnUnequip()
+														?"Take off "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" " + clothing.getName() + " and throw it away."
+														:"Drop "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" " + clothing.getName() + "."),
 												Sex.SEX_DIALOGUE){
 											@Override
 											public void effects(){
@@ -4673,11 +4683,13 @@ public class InventoryDialogue {
 								
 							} else {
 								if(areaFull && !clothing.getClothingType().isDiscardedOnUnequip()) {
-									return new Response("Store", "This area is full, so you can't store your " + clothing.getName() + " here!", null);
+									return new Response("Store", "This area is full, so you can't store "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" " + clothing.getName() + " here!", null);
 								} else {
 									if (owner.isAbleToUnequip(clothing, false, Main.game.getPlayer())) {
 										return new Response((clothing.getClothingType().isDiscardedOnUnequip()?"Discard":"Store"),
-												(clothing.getClothingType().isDiscardedOnUnequip()?"Take off your " + clothing.getName() + " and throw it away.":"Drop your " + clothing.getName() + "."),
+												(clothing.getClothingType().isDiscardedOnUnequip()
+														?"Take off "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" " + clothing.getName() + " and throw it away."
+														:"Drop "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" " + clothing.getName() + "."),
 												Sex.SEX_DIALOGUE){
 											@Override
 											public void effects(){
@@ -4695,7 +4707,7 @@ public class InventoryDialogue {
 							}
 							
 						} else if (index==4) {
-							return new Response("Dye", "You can't dye your clothes in sex!", null);
+							return new Response("Dye", "You can't dye "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" clothes in sex!", null);
 							
 						} else if(index == 5) {
 							if(clothing.isSealed()) {
@@ -4757,13 +4769,15 @@ public class InventoryDialogue {
 							
 							if (clothing.getDisplacedList().contains(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index - 11))) {
 								return new Response(Util.capitaliseSentence(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index -11).getDescription()),
-										"You can't "+clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index -11).getDescription() + " your " + clothing.getName() + " during sex!", null);
+										"You can't "+clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index -11).getDescription()
+										+ " "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" " + clothing.getName() + " during sex!", null);
 								
 							} else {
 								
 								if(!Sex.getSexManager().isAbleToRemoveSelfClothing(Main.game.getPlayer())) {
 									return new Response(Util.capitaliseSentence(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index - 11).getDescription()),
-											"You can't can't "+clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index -11).getDescription() + " your " + clothing.getName() + " in this sex scene!", null);
+											"You can't can't "+clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index -11).getDescription()
+											+ " "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" " + clothing.getName() + " in this sex scene!", null);
 								}
 								
 								if(owner.isAbleToBeDisplaced(clothing, clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index -11), false, false, Main.game.getPlayer())){
@@ -4771,7 +4785,7 @@ public class InventoryDialogue {
 									return new Response(Util.capitaliseSentence(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index - 11).getDescription()),
 											Util.capitaliseSentence(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index - 11).getDescription()) + " the " + clothing.getName() + ". "
 													+ clothing.getClothingBlockingDescription(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index - 11), Main.game.getPlayer(),
-															" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>This will expose your ", ".</span>"),
+															" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>This will expose "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" ", ".</span>"),
 													Sex.SEX_DIALOGUE){
 										@Override
 										public void effects(){
@@ -4952,7 +4966,7 @@ public class InventoryDialogue {
 								return new Response(Util.capitaliseSentence(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index - 11).getOppositeDescription()),
 										Util.capitaliseSentence(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index - 11).getOppositeDescription()) + " the " + clothing.getName() + ". "
 												+ clothing.getClothingBlockingDescription(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index - 11), owner,
-														" <span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>This will cover your ", ".</span>"),
+														" <span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>This will cover "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" ", ".</span>"),
 												CLOTHING_EQUIPPED){
 									@Override
 									public void effects(){
@@ -4963,7 +4977,7 @@ public class InventoryDialogue {
 								return new Response(Util.capitaliseSentence(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index - 11).getDescription()),
 										Util.capitaliseSentence(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index - 11).getDescription()) + " the " + clothing.getName() + ". "
 												+ clothing.getClothingBlockingDescription(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index - 11), owner,
-														" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>This will expose your ", ".</span>"),
+														" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>This will expose "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" ", ".</span>"),
 												CLOTHING_EQUIPPED){
 									@Override
 									public void effects(){
@@ -5112,7 +5126,7 @@ public class InventoryDialogue {
 									return new Response(Util.capitaliseSentence(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index - 11).getDescription()),
 											Util.capitaliseSentence(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index - 11).getDescription()) + " the " + clothing.getName() + ". "
 													+ clothing.getClothingBlockingDescription(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index - 11), owner,
-															" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>This will expose your ", ".</span>"),
+															" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>This will expose "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" ", ".</span>"),
 													Sex.SEX_DIALOGUE){
 										@Override
 										public void effects(){

@@ -59,7 +59,7 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
 
-	public static final String VERSION_NUMBER = "0.2.3",
+	public static final String VERSION_NUMBER = "0.2.3.1",
 			VERSION_DESCRIPTION = "Alpha";
 
 	public static final Image WINDOW_IMAGE = new Image("/com/lilithsthrone/res/images/windowIcon32.png");
@@ -223,6 +223,50 @@ public class Main extends Application {
 			+"<ul>Fixed bug where subspecies wouldn't spawn correctly (I think it was only affecting border-collie-morphs).</ul>"
 			+"<ul>Autosaves between areas should now work properly.</ul>"
 			+"<ul>Fixed anilingus sometimes not being available in 69 position.</ul>"
+		+ "</list>"
+
+	+ "</br>"
+
+	+ "<list>"
+		+ "<h6>v0.2.3.1</h6>"
+			+"<li>Gameplay:</li>"
+			+"<ul>Added action to have sex with Amber once her affection towards you is maximum.</ul>"
+			+"<ul>Added a gentle version of Pix's shower scene (only fires if you have nonCon off in the options).</ul>"
+			
+			+"<li>Contributors:</li>"
+			+"<ul>Fixed an issue where setting breast size could sometimes throw an exception. (Master of Puppets)</ul>"
+			+"<ul>Fixed corset dress not blocking leg slots, like all the other dresses. (Master of Puppets)</ul>"
+			
+			+"<li>Other:</li>"
+			+"<ul>Increased cum production increase from clothing from 1ml to 5ml per tick.</ul>"
+			+"<ul>Amber now gains affection towards you if you obey her in the pet encounter.</ul>"
+			+"<ul>Improved your phone's sex stats screen, and added daily and total orgasm tracking.</ul>"
+			+"<ul>Renamed some urethral penetration actions to distinguish between penile and vaginal urethras.</ul>"
+			+"<ul>Separated body hair content setting into separate underarm and ass hair settings.</ul>"
+			+"<ul>There is now a small chance for random NPCs to spawn in with penile virginity.</ul>"
+			
+			+"<li>Bugs:</li>"
+			+"<ul>Fixed some typos.</ul>"
+			+"<ul>Fixed issue where Amber's name would not be marked as revealed, causing some dialogue to refer to her as 'Fiery Maid'.</ul>"
+			+"<ul>Fixed bug where asking Zaranix about his incubus form wouldn't work.</ul>"
+			+"<ul>Amber and the pet encounter sex scenes now end after they orgasm, instead of waiting for you to orgasm as well.</ul>"
+			+"<ul>Fixed bug where after talking with a slave, their character details would get stuck on the right-had side of the screen.</ul>"
+			+"<ul>Fixed issue where Amber's 'submit' action (when she offers to take you for a walk) wouldn't work if you weren't wearing anything in the neck slot.</ul>"
+			+"<ul>Fixed Amber always being a virgin every time you had sex with her.</ul>"
+			+"<ul>Fixed several cases of incorrect lubrication transfers.</ul>"
+			+"<ul>Fixed bug where all npcs would be shown to have lost their anal virginity, even if they hadn't.</ul>"
+			+"<ul>Fixed cause of a game-breaking bug where if one of your slave prostitutes got impregnated, their character screen would stop working. (Also should have fixed any cases you your game breaking if this has already happened to you.)</ul>"
+			+"<ul>Fixed body part reveal descriptions displaying twice in sex.</ul>"
+			+"<ul>Fixed suspender belt not being tagged as feminine clothing.</ul>"
+			+"<ul>Fixed availability requirements of 'pussy tease' sex action.</ul>"
+			+"<ul>Fixed punctuation in Pix's gym scenes.</ul>"
+			+"<ul>Dog and wolf-morphs will now only have scarlet penises if their penis type is canine or lupine, respectively.</ul>"
+			+"<ul>Fixed 'Stroke cock' and 'Fondle balls' actions being disabled if urethral content was off.</ul>"
+			+"<ul>Fixed a case where urethral penetration actions would be available even if it was turned off in content settings. (So sorry again!)</ul>"
+			+"<ul>Fixed NPC's clothing displacement tooltips incorrectly referring to you.</ul>"
+			+"<ul>Fixed bug where Rose wouldn't clean her underwear after orgasming in them.</ul>"
+			+"<ul>Expanded harpy feather colours should now be available.</ul>"
+			+"<ul>Fixed mouth/tongue sex availability bug, where you would still be able to initiate blowjobs while giving cunnilingus.</ul>"
 		+ "</list>"
 		;
 	
@@ -474,13 +518,13 @@ public class Main extends Application {
 		dir.mkdir();
 		
 		// Open error log
-//		try {
-//			@SuppressWarnings("resource")
-//			PrintStream stream = new PrintStream("data/error.log");
-//			System.setErr(stream);
-//		} catch (FileNotFoundException e) {
-//			e.printStackTrace();
-//		}
+		try {
+			@SuppressWarnings("resource")
+			PrintStream stream = new PrintStream("data/error.log");
+			System.setErr(stream);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 		
 		// Load properties:
 		if (new File("data/properties.xml").exists()) {

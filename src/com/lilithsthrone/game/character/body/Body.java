@@ -3740,7 +3740,7 @@ public class Body implements Serializable, XMLSaving {
 				break;
 		}
 		
-		if(Main.game.isBodyHairEnabled()) {
+		if(Main.game.isAssHairEnabled()) {
 			if(owner.isPlayer()) {
 				switch(ass.getAnus().getAssHair()) {
 					case ZERO_NONE:

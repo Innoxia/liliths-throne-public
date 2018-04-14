@@ -473,7 +473,7 @@ public class PhoneDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld CHARACTER_STATS = new DialogueNodeOld("Stats", "", true) {
+	public static final DialogueNodeOld CHARACTER_STATS = new DialogueNodeOld("Character Stats", "", true) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -637,7 +637,7 @@ public class PhoneDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld CHARACTER_STATS_BODY = new DialogueNodeOld("Body stats", "", true) {
+	public static final DialogueNodeOld CHARACTER_STATS_BODY = new DialogueNodeOld("Body Stats", "", true) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -830,15 +830,19 @@ public class PhoneDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld CHARACTER_STATS_SEX = new DialogueNodeOld("", "", true) {
+	public static final DialogueNodeOld CHARACTER_STATS_SEX = new DialogueNodeOld("Sex Stats", "", true) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getContent() {
-			return
-			"<div class='subTitle'>" + "Sex Stats" + "</div>" + "<div class='extraAttribute-third'>" + "Type" + "</div>" + "<div class='extraAttribute-sixth'>" + "Given" + "</div>" + "<div class='extraAttribute-sixth'>" + "Cum Given" + "</div>"
-					+ "<div class='extraAttribute-sixth'>" + "Taken" + "</div>" + "<div class='extraAttribute-sixth'>" + "Cum Taken" + "</div>"
-
+			return "<div class='container-full-width' style='text-align:center;'>"
+						+ "You have orgasmed [style.boldSex("+Main.game.getPlayer().getDaysOrgasmCount()+")] time"+(Main.game.getPlayer().getDaysOrgasmCount()==1?"":"s")
+							+" today, bringing your total orgasm count to [style.boldSex("+Main.game.getPlayer().getTotalOrgasmCount()+")].</br>"
+						+ "Your record for most orgasms in one day is currently [style.boldArcane("+Main.game.getPlayer().getDaysOrgasmCountRecord()+")]."
+					+ "</div>"
+					
+					+ sexStatHeader()
+					
 					+ sexStatRow(Colour.AROUSAL_STAGE_TWO, "Fingering",
 							Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.PITCHER, PenetrationType.FINGER, OrificeType.VAGINA)),
 							-1,
@@ -928,7 +932,7 @@ public class PhoneDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld CHARACTER_STATS_PREGNANCY = new DialogueNodeOld("Pregnancy stats", "", true) {
+	public static final DialogueNodeOld CHARACTER_STATS_PREGNANCY = new DialogueNodeOld("Pregnancy Stats", "", true) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -1043,11 +1047,44 @@ public class PhoneDialogue {
 		}
 	};
 	
-
+	private static String sexStatHeader() {
+		return "<div class='container-full-width' style='width:100%; padding:0; margin:4px 0; font-weight:bold; text-align:center;'>"
+					+ "<div class='container-full-width' style='width:calc(33.3% - 16px); padding:0;'>"
+						+ "Type"
+					+ "</div>"
+					+ "<div class='container-full-width' style='width:calc(16.66% - 16px); padding:0;'>"
+						+ "Given"
+					+ "</div>"
+					+ "<div class='container-full-width' style='width:calc(16.66% - 16px); padding:0;'>"
+						+ "Cum Given"
+					+ "</div>"
+					+ "<div class='container-full-width' style='width:calc(16.66% - 16px); padding:0;'>"
+						+ "Taken"
+					+ "</div>"
+					+ "<div class='container-full-width' style='width:calc(16.66% - 16px); padding:0;'>"
+						+ "Cum Taken"
+					+ "</div>"
+				+ "</div>";
+	}
+	
 	private static String sexStatRow(Colour colour, String name, int given, int loadsGiven, int received, int loadsReceived) {
-		return "<div class='extraAttribute-third'>" + "<span style='color:" + colour.toWebHexString() + ";'>" + name + "</span>" + "</div>" + "<div class='extraAttribute-sixth'>" + given + "</div>" + "<div class='extraAttribute-sixth'>"
-				+ (loadsGiven < 0 ? "<span class='option-disabled'>-</span>" : loadsGiven) + "</div>" + "<div class='extraAttribute-sixth'>" + received + "</div>" + "<div class='extraAttribute-sixth'>"
-				+ (loadsReceived < 0 ? "<span class='option-disabled'>-</span>" : loadsReceived) + "</div>";
+		return "<div class='container-full-width' style='width:100%; padding:0; margin:4px 0; text-align:center;'>"
+					+ "<div class='container-full-width' style='width:calc(33.3% - 16px); padding:0;'>"
+						+ "<span style='color:" + colour.toWebHexString() + ";'>" + name + "</span>"
+					+ "</div>"
+					+ "<div class='container-full-width' style='width:calc(16.66% - 16px); padding:0;'>"
+						+ given
+					+ "</div>"
+					+ "<div class='container-full-width' style='width:calc(16.66% - 16px); padding:0;'>"
+						+ (loadsGiven < 0 ? "<span class='option-disabled'>-</span>" : loadsGiven)
+					+ "</div>"
+					+ "<div class='container-full-width' style='width:calc(16.66% - 16px); padding:0;'>"
+						+ received
+					+ "</div>"
+					+ "<div class='container-full-width' style='width:calc(16.66% - 16px); padding:0;'>"
+						+ (loadsReceived < 0 ? "<span class='option-disabled'>-</span>" : loadsReceived) 
+					+ "</div>"
+				+ "</div>";
 	}
 
 	private static String pregnancyDetails() {

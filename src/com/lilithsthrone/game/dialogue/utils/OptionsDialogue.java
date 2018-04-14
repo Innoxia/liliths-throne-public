@@ -1510,13 +1510,20 @@ public class OptionsDialogue {
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(
 						"HAIR_BODY",
 						Colour.BASE_PURPLE,
-						"Extra body hair",
-						"This enables body hair descriptions and content for armpits and assholes.",
+						"Underarm hair",
+						"This enables underarm hair descriptions and content.",
 						Main.getProperties().hasValue(PropertyValue.bodyHairContent)));
-					
+
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+						"HAIR_ASS",
+						Colour.BASE_PURPLE_DARK,
+						"Ass hair",
+						"This enables ass hair descriptions and content.",
+						Main.getProperties().hasValue(PropertyValue.assHairContent)));
+			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(
 							"FEMININE_BEARD",
-							Colour.BASE_PURPLE_DARK,
+							Colour.BASE_BLUE_STEEL,
 							"Feminine Beards",
 							"This enables feminine characters to grow beards.",
 							Main.getProperties().hasValue(PropertyValue.feminineBeardsContent)));

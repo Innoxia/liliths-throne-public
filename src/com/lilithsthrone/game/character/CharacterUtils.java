@@ -1030,7 +1030,15 @@ public class CharacterUtils {
 		
 		// Penis:
 		if(character.hasPenis()) {
-			character.setPenisVirgin(false);
+			if(Math.random()<0.15f
+					&& character.getHistory()!=History.PROSTITUTE
+					&& !character.hasFetish(Fetish.FETISH_CUM_STUD)
+					&& !character.hasFetish(Fetish.FETISH_VAGINAL_GIVING)
+					&& !character.hasFetish(Fetish.FETISH_ANAL_GIVING)) {
+				character.setPenisVirgin(false);
+			} else {
+				character.setPenisVirgin(true);
+			}
 			if((character.getGender()==Gender.F_P_TRAP || character.getGender()==Gender.N_P_TRAP) && Math.random()>=0.1f) { // Most traps have a small cock:
 				character.setPenisSize(PenisSize.ONE_TINY.getMinimumValue() + Util.random.nextInt(character.getPenisSize().getMaximumValue() - character.getPenisSize().getMinimumValue()) +1);
 				character.setTesticleSize(TesticleSize.ONE_TINY.getValue());
@@ -1125,6 +1133,8 @@ public class CharacterUtils {
 		 		character.setVaginaCapacity(character.getVaginaRawCapacityValue()*1.2f, true);
 		 		character.setVaginaStretchedCapacity(character.getVaginaRawCapacityValue());
 		 	}
+		 	
+		 	character.setPenisVirgin(false);
 		 	
 		 	character.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 		 	character.setName(Name.getRandomProstituteTriplet());

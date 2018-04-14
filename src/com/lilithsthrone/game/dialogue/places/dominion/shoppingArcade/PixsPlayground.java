@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade;
 
+import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
@@ -534,9 +535,15 @@ public class PixsPlayground {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Pix's reward",
-						"You have a good idea of what Pix means when she says she wants to give you a 'one-to-one cooldown exercise'...", // OR DO YOU?! :D
-						GYM_PIX_ASSAULT);
+				if(Main.getProperties().hasValue(PropertyValue.nonConContent)) {
+					return new Response("Pix's reward",
+							"You have a good idea of what Pix means when she says she wants to give you a 'one-to-one cooldown exercise'...", // OR DO YOU?! :D
+							GYM_PIX_ASSAULT);
+				} else {
+					return new Response("Pix's reward",
+							"You have a good idea of what Pix means when she says she wants to give you a 'one-to-one cooldown exercise'...",
+							GYM_PIX_ASSAULT_CONSENSUAL);
+				}
 				
 			} else 
 				if (index == 2) {
@@ -710,6 +717,82 @@ public class PixsPlayground {
 		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/dominion/shoppingArcade/pixsPlayground", "PIX_POST_SEX");
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 1) {
+				return new Response("Exit gym", "Leave the gym and carry on your way.", GYM_EXTERIOR);
+			} else {
+				return null;
+			}
+		}
+	};
+	
+	public static final DialogueNodeOld GYM_PIX_ASSAULT_CONSENSUAL = new DialogueNodeOld("Pix's Playground", "-", true) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getContent() {
+			UtilText.nodeContentSB.setLength(0);
+			
+			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/shoppingArcade/pixsPlayground", "GYM_PIX_ASSAULT_CONSENSUAL"));
+			
+			return UtilText.nodeContentSB.toString();
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new ResponseSex("Accept",
+						"Let Pix have her fun with you.",
+						true, false,
+						new SMPixShowerTime(
+								Util.newHashMapOfValues(new Value<>(Main.game.getPix(), SexPositionSlot.FACE_TO_WALL_AGAINST_WALL_SHOWER_PIX)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.FACE_TO_WALL_FACING_TARGET_SHOWER_PIX))),
+						PIX_POST_SEX_CONSENSUAL,
+						UtilText.parseFromXMLFile("places/dominion/shoppingArcade/pixsPlayground", "GYM_PIX_ASSAULT_CONSENSUAL_START"));
+				
+			} else if(index==2) {
+				return new Response("Decline",
+						"Tell Pix that you're too tired for this right now.",
+						GYM_PIX_ASSAULT_CONSENSUAL_DECLINED);
+				
+			} else {
+				return null;
+			}
+		}
+	};
+	
+	public static final DialogueNodeOld GYM_PIX_ASSAULT_CONSENSUAL_DECLINED = new DialogueNodeOld("", "", true) {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/shoppingArcade/pixsPlayground", "GYM_PIX_ASSAULT_CONSENSUAL_DECLINED");
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 1) {
+				return new Response("Exit gym", "Leave the gym and carry on your way.", GYM_EXTERIOR);
+			} else {
+				return null;
+			}
+		}
+	};
+	
+	public static final DialogueNodeOld PIX_POST_SEX_CONSENSUAL = new DialogueNodeOld("Pix dresses you", "Pix helps you to get dressed.", true) {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public int getMinutesPassed(){
+			return 60;
+		}
+
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/shoppingArcade/pixsPlayground", "PIX_POST_SEX_CONSENSUAL");
 		}
 		
 		@Override
