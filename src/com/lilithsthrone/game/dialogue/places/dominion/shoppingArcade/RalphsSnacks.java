@@ -310,7 +310,7 @@ public class RalphsSnacks {
 							+ "[pc.speech(No thanks,)] you say, stepping to one side and moving away from the horny shopkeeper."
 						+ "</p>"
 						+ "<p>"
-							+ "[ralph.speech(Well, no harm in either of us asking!)] he laughs, turning around and heading back to his counter, "
+							+ "[ralph.speech(Well, no harm in either of us asking!)] he laughs, turning around and heading back to his counter. "
 							+ "[ralph.speech(If you need anything else, just let me know.)]" 
 						+ "</p>"
 						+ "<p>"
