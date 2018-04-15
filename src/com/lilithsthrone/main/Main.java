@@ -592,16 +592,15 @@ public class Main extends Application {
 		new Thread(gen).start();
 	}
 	
-	// Yes, this is probably a stupid way to do it... x_x
 	public static boolean isVersionOlderThan(String versionToCheck, String versionToCheckAgainst) {
 		String[] v1 = versionToCheck.split("\\.");
 		String[] v2 = versionToCheckAgainst.split("\\.");
 		
 		try {
-			Integer maxlength = (v1.length > v2.length) ? v1.length : v2.length;
+			int maxlength = (v1.length > v2.length) ? v1.length : v2.length;
 			for (int i = 0; i < maxlength; i++) {
-				Integer v1i = (i < v1.length) ? Integer.valueOf((v1[i]+"00").substring(0, 3)) : 0;
-				Integer v2i = (i < v2.length) ? Integer.valueOf((v2[i]+"00").substring(0, 3)) : 0;
+				int v1i = (i < v1.length) ? Integer.valueOf((v1[i]+"00").substring(0, 3)) : 0;
+				int v2i = (i < v2.length) ? Integer.valueOf((v2[i]+"00").substring(0, 3)) : 0;
 			
 				if (v1i < v2i) {
 					return true;
