@@ -2,6 +2,7 @@ package com.lilithsthrone.game.inventory;
 
 import java.io.Serializable;
 import java.util.AbstractMap.SimpleEntry;
+import java.util.Collection;
 import java.util.Map.Entry;
 
 import org.w3c.dom.Document;
@@ -1798,6 +1799,39 @@ public class CharacterInventory implements Serializable, XMLSaving {
 			}
 		}
 		
+		return c;
+	}
+
+	/**
+	 * A list of all clothing that is blocking this slot.</br>
+	 * A custom clothing map may be provided, which will be used instead. If null, the current clothing state will be used.
+	 * <b>Note:</b> This takes into account displacement, so, for example, if your panties are displaced, and are the only piece of clothing otherwise blocking your vagina,
+	 *  this method will return an empty list for getAllLayersCoverableArea(CoverableArea.VAGINA)!
+	 */
+	public List<AbstractClothing> getAllLayersCoverableArea(CoverableArea area, Map<AbstractClothing, List<DisplacementType>> customClothingMap) {
+		List<AbstractClothing> c = new ArrayList<>();
+
+		// Iterate through currently worn clothing:
+		Collection<AbstractClothing> allClothing = customClothingMap == null ? clothingCurrentlyEquipped : customClothingMap.keySet();
+		for (AbstractClothing clothing : allClothing) {
+			// If this clothing is blocking the slot you are trying to access:
+			boolean blocked = false;
+			for (BlockedParts bp : clothing.getClothingType().getBlockedPartsList()) {
+				List<DisplacementType> displacements = customClothingMap == null ? clothing.getDisplacedList() : customClothingMap.get(clothing);
+				if (bp.blockedBodyParts.contains(area)) {
+					if (displacements.contains(bp.displacementType)) {
+						blocked = false;
+						break;
+					} else {
+						blocked = true;
+					}
+				}
+			}
+			if(blocked) {
+				c.add(clothing);
+			}
+		}
+
 		return c;
 	}
 

@@ -982,4 +982,12 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	public AbstractClothingType getEnchantmentItemType(List<ItemEffect> effects) {
 		return this;
 	}
+
+	public int getBreastSizeAdjustment() {
+		return 0;
+	}
+
+	public int getPenisSizeAdjustment() {
+		return 0;
+	}
 }

@@ -5875,7 +5875,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 							} else {
 								return "<p>"
 										+ "[npc.Name]'s jaw drops as your [pc.breastSize] breasts are revealed, "
-										+ "[npc.speech(How did you your tits to be that huge?!)]"
+										+ "[npc.speech(How did you get your tits to be that huge?!)]"
 										+ "</p>";
 							}
 							
@@ -5906,7 +5906,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 							} else {
 								return "<p>"
 										+ "[npc.Name]'s jaw drops as your [pc.breastSize] breasts are revealed, "
-										+ "[npc.speech(How did you your tits to be that huge?!)]"
+										+ "[npc.speech(How did you get your tits to be that huge?!)]"
 										+ "</p>";
 							}
 							
@@ -5936,7 +5936,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 							} else {
 								return UtilText.parse(this,
 											"[npc.Name]'s jaw drops as your [pc.breastSize] breasts are revealed, "
-											+ "[npc.speech(How did you your tits to be that huge?!)]")
+											+ "[npc.speech(How did you get your tits to be that huge?!)]")
 										+ "</p>";
 							}
 							
@@ -5965,7 +5965,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 							} else {
 								return "<p>"
 											+ "[npc.Name]'s jaw drops as your [pc.breastSize] breasts are revealed, "
-											+ "[npc.speech(How did you your tits to be that huge?!)]"
+											+ "[npc.speech(How did you get your tits to be that huge?!)]"
 										+ "</p>";
 							}
 							
@@ -5999,7 +5999,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 							} else {
 								return "<p>"
 										+ "[npc.Name]'s jaw drops as your [pc.breastSize] breasts are revealed, "
-										+ "[npc.speech(How did you your tits to be that huge?!)]"
+										+ "[npc.speech(How did you get your tits to be that huge?!)]"
 										+ "</p>";
 							}
 			
@@ -6030,7 +6030,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 							} else {
 								return "<p>"
 										+ "[npc.Name]'s jaw drops as your [pc.breastSize] breasts are revealed, "
-										+ "[npc.speech(How did you your tits to be that huge?!)]"
+										+ "[npc.speech(How did you get your tits to be that huge?!)]"
 										+ "</p>";
 							}
 							
@@ -6066,7 +6066,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 							} else {
 								return "<p>"
 											+ "[npc.Name]'s jaw drops as your [pc.breastSize] breasts are revealed, "
-											+ "[npc.speech(How did you your tits to be that huge?! What a fucking tit-cow!)]"
+											+ "[npc.speech(How did you get your tits to be that huge?! What a fucking tit-cow!)]"
 										+ "</p>";
 							}
 							
@@ -6095,7 +6095,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 							} else {
 								return "<p>"
 											+ "[npc.Name]'s jaw drops as your [pc.breastSize] breasts are revealed, "
-											+ "[npc.speech(How did you your tits to be that huge?!)]"
+											+ "[npc.speech(How did you get your tits to be that huge?!)]"
 										+ "</p>";
 							}
 						}
@@ -6168,13 +6168,19 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 							} else if (characterBeingRevealed.getPenisRawSizeValue() <= PenisSize.FOUR_HUGE.getMaximumValue()) {
 								return "<p>"+
 											"[npc.Name] grins as your [pc.cockSize] [pc.cock] is revealed, "
-											+ "[npc.speech(Y'know, what with the bulge and everything, it was pretty obvious you're [pc.a_gender]!)]"
+											+ (characterBeingRevealed.getPenisAdjustedRawSizeValue() <= PenisSize.TWO_AVERAGE.getMaximumValue()
+												? "[npc.speech(What? You're [pc.a_gender]? How did you hide that bulge!?)]"
+												: "[npc.speech(Y'know, what with the bulge and everything, it was pretty obvious you're [pc.a_gender]!)]")
 										+ "</p>";
 					
 							} else if (characterBeingRevealed.getPenisRawSizeValue() <= PenisSize.SIX_GIGANTIC.getMaximumValue()) {
 								return "<p>"+
 											"Her eyes open wide as your [pc.cockSize] [pc.cock] is revealed, "
-											+ "[npc.speech(I mean, I could see it was big from your bulge, but damn! I've never seen [pc.a_gender] with such a huge cock!)]"
+											+ (characterBeingRevealed.getPenisAdjustedRawSizeValue() <= PenisSize.TWO_AVERAGE.getMaximumValue()
+												? "[npc.speech(Where were you hiding that!? I had no idea you were [pc.a_gender], and your cock is gigantic!)]"
+												: (characterBeingRevealed.getPenisAdjustedRawSizeValue() <= PenisSize.FOUR_HUGE.getMaximumValue()
+													? "[npc.speech(I could see you were [pc.a_gender] from your bulge, but damn! It's even larger than I expected!)]"
+													: "[npc.speech(I mean, I could see it was big from your bulge, but damn! I've never seen [pc.a_gender] with such a huge cock!)]"))
 										+ "</p>";
 								
 							} else {
@@ -6234,13 +6240,19 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 							} else if (characterBeingRevealed.getPenisRawSizeValue() <= PenisSize.FOUR_HUGE.getMaximumValue()) {
 								return "<p>"
 										+ "[npc.She] grins as your [pc.cockSize] [pc.cock] is revealed, "
-										+ "[npc.speech(Y'know, what with the bulge and everything, it was pretty obvious you're [pc.a_gender]!)]"
+										+ (characterBeingRevealed.getPenisAdjustedRawSizeValue() <= PenisSize.TWO_AVERAGE.getMaximumValue()
+											? "[npc.speech(What? You're [pc.a_gender]? How did you hide that bulge!?)]"
+											: "[npc.speech(Y'know, what with the bulge and everything, it was pretty obvious you're [pc.a_gender]!)]")
 										+ "</p>";
 			
 							} else if (characterBeingRevealed.getPenisRawSizeValue() <= PenisSize.SIX_GIGANTIC.getMaximumValue()) {
 								return "<p>"
 										+ "[npc.Her] eyes open wide as your [pc.cockSize] [pc.cock] is revealed, "
-										+ "[npc.speech(I mean, I could see it was big from your bulge, but damn! I've never seen [pc.a_gender] with such a huge cock!)]"
+										+ (characterBeingRevealed.getPenisAdjustedRawSizeValue() <= PenisSize.TWO_AVERAGE.getMaximumValue()
+											? "[npc.speech(Where were you hiding that!? I had no idea you were [pc.a_gender], and your cock is gigantic!)]"
+											: (characterBeingRevealed.getPenisAdjustedRawSizeValue() <= PenisSize.FOUR_HUGE.getMaximumValue()
+												? "[npc.speech(I could see you were [pc.a_gender] from your bulge, but damn! It's even larger than I expected!)]"
+												: "[npc.speech(I mean, I could see it was big from your bulge, but damn! I've never seen [pc.a_gender] with such a huge cock!)]"))
 										+ "</p>";
 			
 							} else {
@@ -6303,15 +6315,21 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 							} else if (characterBeingRevealed.getPenisRawSizeValue() <= PenisSize.FOUR_HUGE.getMaximumValue()) {
 								return "<p>"
 											+ "[npc.Name] lets out a surprised grunt as your [pc.cockSize] [pc.cock] is revealed, "
-											+ "[npc.speech(I should have guessed from that bulge...)]"
+											+ (characterBeingRevealed.getPenisAdjustedRawSizeValue() <= PenisSize.TWO_AVERAGE.getMaximumValue()
+												? "[npc.speech(Wait, what? You're [pc.a_gender]? How did you hide that bulge!?)]"
+												: "[npc.speech(I should have guessed from that bulge...)]")
 										+ "</p>";
 					
 							} else if (characterBeingRevealed.getPenisRawSizeValue() <= PenisSize.SIX_GIGANTIC.getMaximumValue()) {
 								return "<p>"
 											+ "[npc.Name] lets out a surprised grunt as your [pc.cockSize] [pc.cock] is revealed, "
-											+ (this.hasPenis()&&this.getPenisRawSizeValue()<characterBeingRevealed.getPenisRawSizeValue()
-													?"[npc.speech(I saw you had a bulge, but what the hell?! How does [pc.a_gender] have a bigger cock than <i>me</i>?!)]"
-													:"[npc.speech(I saw you had a bulge, but damn! That's one massive cock !)]")
+										    + (characterBeingRevealed.getPenisAdjustedRawSizeValue() <= PenisSize.TWO_AVERAGE.getMaximumValue()
+												? (this.hasPenis()&&this.getPenisRawSizeValue()<characterBeingRevealed.getPenisRawSizeValue()
+														?"[npc.speech(What the hell?! How does [pc.a_gender] have a bigger cock than <i>me</i>?! And how did I not notice a bulge!?)]"
+														:"[npc.speech(Damn! That's one massive cock! How did I not notice a bulge!?)]")
+												: (this.hasPenis()&&this.getPenisRawSizeValue()<characterBeingRevealed.getPenisRawSizeValue()
+														?"[npc.speech(I saw you had a bulge, but what the hell?! How does [pc.a_gender] have a bigger cock than <i>me</i>?!)]"
+														:"[npc.speech(I saw you had a bulge, but damn! That's one massive cock!)]"))
 										+ "</p>";
 								
 							} else {
@@ -6375,15 +6393,21 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 							} else if (characterBeingRevealed.getPenisRawSizeValue() <= PenisSize.FOUR_HUGE.getMaximumValue()) {
 								return "<p>"
 											+ "[npc.Name] lets out a surprised grunt as your [pc.cockSize] [pc.cock] is revealed, "
-											+ "[npc.speech(I should have guessed from that bulge...)]"
+											+ (characterBeingRevealed.getPenisAdjustedRawSizeValue() <= PenisSize.TWO_AVERAGE.getMaximumValue()
+												? "[npc.speech(Wait, what? You're [pc.a_gender]? How did you hide that bulge!?)]"
+												: "[npc.speech(I should have guessed from that bulge...)]")
 										+ "</p>";
 					
 							} else if (characterBeingRevealed.getPenisRawSizeValue() <= PenisSize.SIX_GIGANTIC.getMaximumValue()) {
 								return "<p>"
 											+ "[npc.Name] lets out a surprised grunt as your [pc.cockSize] [pc.cock] is revealed, "
-											+ (this.hasPenis()&&this.getPenisRawSizeValue()<characterBeingRevealed.getPenisRawSizeValue()
-													? "[npc.speech(I saw you had a bulge, but what the hell?! How does [pc.a_gender] have a bigger cock than <i>me</i>?!)]"
-													: "[npc.speech(Now that's one huge cock!)]")
+											+ (characterBeingRevealed.getPenisAdjustedRawSizeValue() <= PenisSize.TWO_AVERAGE.getMaximumValue()
+												? (this.hasPenis()&&this.getPenisRawSizeValue()<characterBeingRevealed.getPenisRawSizeValue()
+														?"[npc.speech(What the hell?! How does [pc.a_gender] have a bigger cock than <i>me</i>?! And how did I not notice a bulge!?)]"
+														:"[npc.speech(Now that's one huge cock! How did I not notice a bulge!?)]")
+												: (this.hasPenis()&&this.getPenisRawSizeValue()<characterBeingRevealed.getPenisRawSizeValue()
+														?"[npc.speech(I saw you had a bulge, but what the hell?! How does [pc.a_gender] have a bigger cock than <i>me</i>?!)]"
+														:"[npc.speech(Now that's one huge cock!)]"))
 										+ "</p>";
 								
 							} else {
@@ -10479,6 +10503,11 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	public AbstractClothing getHighestZLayerCoverableArea(CoverableArea area) {
 		return inventory.getHighestZLayerCoverableArea(area);
 	}
+
+	/** If preSex, attempt to get the relevant clothing as it was outside of sex. */
+	public List<AbstractClothing> getAllLayersCoverableArea(CoverableArea area, boolean preSex) {
+		return inventory.getAllLayersCoverableArea(area, preSex && Main.game.isInSex() ? Sex.getClothingPreSexMap(this) : null);
+	}
 	
 	public Set<InventorySlot> getDirtySlots() {
 		return inventory.getDirtySlots();
@@ -10532,14 +10561,14 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		boolean visibleVagina = isCoverableAreaExposed(CoverableArea.VAGINA) && hasVagina();
 		boolean visiblePenis = isCoverableAreaExposed(CoverableArea.PENIS) && hasPenis();
 		boolean bulgeFromCock = hasPenis() && getGenitalArrangement() != GenitalArrangement.CLOACA && (hasPenisModifier(PenisModifier.SHEATHED)
-									? getPenisRawSizeValue()>=PenisSize.FOUR_HUGE.getMaximumValue()
-									: getPenisRawSizeValue()>=PenisSize.THREE_LARGE.getMaximumValue());
+									? getPenisAdjustedRawSizeValue()>=PenisSize.FOUR_HUGE.getMaximumValue()
+									: getPenisAdjustedRawSizeValue()>=PenisSize.THREE_LARGE.getMaximumValue());
 		boolean bulgeFromBalls = hasPenis() && getGenitalArrangement() != GenitalArrangement.CLOACA && (isInternalTesticles()
 									? false
 									: getTesticleSize().getValue()>=TesticleSize.FOUR_HUGE.getValue());
 		
 		if(this.getFemininityValue()>=Femininity.FEMININE.getMinimumFemininity()) {
-			if(hasBreasts()) {
+			if(hasApparentBreasts()) {
 				if(visibleVagina && visiblePenis) {
 					// Exposed penis and vagina:
 					return new GenderAppearance(
@@ -10807,7 +10836,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			
 		// Androgynous:
 		} else if(this.getFemininityValue()>=Femininity.ANDROGYNOUS.getMinimumFemininity()) {
-			if(hasBreasts()) {
+			if(hasApparentBreasts()) {
 				if(visibleVagina && visiblePenis) {
 					// Exposed penis and vagina:
 					return new GenderAppearance(
@@ -11075,7 +11104,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			
 		// Masculine:
 		} else {
-			if(hasBreasts()) {
+			if(hasApparentBreasts()) {
 				if(visibleVagina && visiblePenis) {
 					// Exposed penis and vagina:
 					return new GenderAppearance(
@@ -12446,6 +12475,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	public boolean hasBreasts() {
 		return body.getBreast().hasBreasts();
 	}
+	public boolean hasApparentBreasts() {
+		return getBreastAdjustedRawSizeValue()>=CupSize.AA.getMeasurement();
+	}
 	public boolean isBreastFuckableNipplePenetration() {
 		return body.getBreast().isFuckable();
 	}
@@ -12559,7 +12591,16 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	public String incrementBreastSize(int increment) {
 		return setBreastSize(getBreastRawSizeValue() + increment);
 	}
-	
+	public int getBreastAdjustedRawSizeValue() {
+		int size = getBreastRawSizeValue();
+		for(AbstractClothing clothing : getAllLayersCoverableArea(CoverableArea.BREASTS, true)) {
+			size += clothing.getBreastSizeAdjustment();
+		}
+		size = Math.max(size, CupSize.FLAT.getMeasurement());
+		size = Math.min(size, CupSize.getMaximumCupSize().getMeasurement());
+		return size;
+	}
+
 	// Nipples:
 	
 	// Type:
@@ -13448,6 +13489,15 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 	public int getPenisRawSizeValue() {
 		return body.getPenis().getRawSizeValue();
+	}
+	public int getPenisAdjustedRawSizeValue() {
+		int size = body.getPenis().getRawSizeValue();
+		for(AbstractClothing clothing : getAllLayersCoverableArea(CoverableArea.PENIS, true)) {
+			size += clothing.getPenisSizeAdjustment();
+		}
+		size = Math.max(size, PenisSize.ZERO_MICROSCOPIC.getMinimumValue());
+		size = Math.min(size, PenisSize.SEVEN_STALLION.getMaximumValue());
+		return size;
 	}
 	public String setPenisSize(int size) {
 		return body.getPenis().setPenisSize(this, size);

@@ -1754,6 +1754,11 @@ public class ClothingType {
 				}
 			}
 		}
+
+		@Override
+		public int getBreastSizeAdjustment() {
+			return -2;
+		}
 	};
 
 	public static AbstractClothingType TORSO_OVER_OPEN_CARDIGAN = new AbstractClothingType(350,
@@ -2187,6 +2192,16 @@ public class ClothingType {
 					"[npc.Name] takes [npc.her] cloak off.",
 					"[npc.Name] pulls your cloak off.",
 					null);
+		}
+
+		@Override
+		public int getBreastSizeAdjustment() {
+			return -2;
+		}
+
+		@Override
+		public int getPenisSizeAdjustment() {
+			return -4;
 		}
 	};
 	
@@ -4660,6 +4675,11 @@ public class ClothingType {
 		public boolean isBlocksFromSight() {
 			return false;
 		}
+
+		@Override
+		public int getBreastSizeAdjustment() {
+			return -3;
+		}
 	};
 
 	// STOMACH
@@ -6397,6 +6417,11 @@ public class ClothingType {
 					"[npc.Name] pulls down [npc.her] cargo trousers, before kicking them off [npc.her] feet.",
 					"[npc.Name] pulls your cargo trousers down, before sliding them off your feet.",
 					null);
+		}
+
+		@Override
+		public int getPenisSizeAdjustment() {
+			return -2;
 		}
 	};
 
