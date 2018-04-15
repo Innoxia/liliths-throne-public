@@ -275,7 +275,7 @@ public class RalphsSnacks {
 						Main.game.getRalph().getPlayerKnowsAreas().add(CoverableArea.PENIS);
 						if(Main.game.getRalph().getHighestZLayerCoverableArea(CoverableArea.PENIS)!=null) {
 							Main.game.getRalph().isAbleToBeDisplaced(Main.game.getRalph().getHighestZLayerCoverableArea(CoverableArea.PENIS), DisplacementType.PULLS_DOWN, true, true, Main.game.getRalph());
-							Main.game.getRalph().isAbleToBeDisplaced(Main.game.getRalph().getHighestZLayerCoverableArea(CoverableArea.PENIS), DisplacementType.SHIFTS_ASIDE, true, true, Main.game.getRalph());
+							Main.game.getRalph().isAbleToBeDisplaced(Main.game.getRalph().getHighestZLayerCoverableArea(CoverableArea.PENIS), DisplacementType.PULLS_DOWN, true, true, Main.game.getRalph());
 						}
 					}
 				};

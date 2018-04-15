@@ -7356,20 +7356,28 @@ public class ClothingType {
 			null,
 
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
+					new ListValue<BlockedParts>(new BlockedParts(
+							DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL),
 									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN),
-									new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
-							null, null, null)),
-					new ListValue<BlockedParts>(
-							new BlockedParts(
-									DisplacementType.SHIFTS_ASIDE,
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
-									Util.newArrayListOfValues(
-											new ListValue<CoverableArea>(CoverableArea.ANUS)),
-									null, null))),
+									new ListValue<ClothingAccess>(ClothingAccess.GROIN)
+									),
+							null,
+							null,
+							null)),
+					new ListValue<BlockedParts>(new BlockedParts(
+							DisplacementType.PULLS_DOWN,
+							Util.newArrayListOfValues(
+									new ListValue<ClothingAccess>(ClothingAccess.GROIN)
+									),
+							Util.newArrayListOfValues(
+									new ListValue<CoverableArea>(CoverableArea.ANUS)
+									),
+							null,
+							Util.newArrayListOfValues(
+									new ListValue<InventorySlot>(InventorySlot.ANUS)
+									)))),
 
 			null,
 			Colour.allClothingColours,
@@ -7403,30 +7411,6 @@ public class ClothingType {
 				}
 			}
 		}
-
-		@Override
-		public String displaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer()) {
-				return "You shift your briefs to one side.";
-			} else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer()) {
-				return UtilText.parse(clothingOwner, "[npc.Name] shifts [npc.her] briefs to one side.");
-			} else {
-				if (clothingOwner.isPlayer()) {
-					return UtilText.parse(clothingRemover, "[npc.Name] shifts your briefs to one side.");
-				} else {
-					return UtilText.parse(clothingOwner, "You shift [npc.name]'s briefs to one side.");
-				}
-			}
-		}
-
-		@Override
-		public String replaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer()) {
-				return "You move your briefs back into their proper place.";
-			} else {
-				return UtilText.parse(clothingOwner, "[npc.Name] moves [npc.her] briefs back into their proper place.");
-			}
-		}
 	};
 	public static AbstractClothingType GROIN_BOXERS = new AbstractClothingType(100,
 			"a pair of",
@@ -7444,14 +7428,47 @@ public class ClothingType {
 			null,
 
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
+					new ListValue<BlockedParts>(new BlockedParts(
+							DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL),
 									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN),
-									new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
-							null, null, null)),
-					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.SHIFTS_ASIDE, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
-							Util.newArrayListOfValues(new ListValue<CoverableArea>(CoverableArea.ANUS), new ListValue<CoverableArea>(CoverableArea.PENIS), new ListValue<CoverableArea>(CoverableArea.VAGINA)), null, null))),
+									new ListValue<ClothingAccess>(ClothingAccess.GROIN)
+									),
+							null,
+							null,
+							null)),
+					new ListValue<BlockedParts>(new BlockedParts(
+							DisplacementType.UNBUTTONS,
+							Util.newArrayListOfValues(
+									new ListValue<ClothingAccess>(ClothingAccess.GROIN)
+									),
+							Util.newArrayListOfValues(
+									new ListValue<CoverableArea>(CoverableArea.PENIS)
+									),
+							null,
+							Util.newArrayListOfValues(
+									new ListValue<InventorySlot>(InventorySlot.PENIS),
+									new ListValue<InventorySlot>(InventorySlot.PIERCING_PENIS)
+									))),
+					new ListValue<BlockedParts>(new BlockedParts(
+							DisplacementType.PULLS_DOWN,
+							Util.newArrayListOfValues(
+									new ListValue<ClothingAccess>(ClothingAccess.GROIN)
+									),
+							Util.newArrayListOfValues(
+									new ListValue<CoverableArea>(CoverableArea.ANUS),
+									new ListValue<CoverableArea>(CoverableArea.PENIS),
+									new ListValue<CoverableArea>(CoverableArea.VAGINA)
+									),
+							null,
+							Util.newArrayListOfValues(
+									new ListValue<InventorySlot>(InventorySlot.PENIS),
+									new ListValue<InventorySlot>(InventorySlot.VAGINA),
+									new ListValue<InventorySlot>(InventorySlot.ANUS),
+									new ListValue<InventorySlot>(InventorySlot.PIERCING_VAGINA),
+									new ListValue<InventorySlot>(InventorySlot.PIERCING_PENIS)
+									)))),
 
 			null,
 			Colour.allClothingColours,
@@ -7483,28 +7500,6 @@ public class ClothingType {
 				else
 					return UtilText.parse(clothingOwner, "You pull [npc.name]'s boxers down and slide them off [npc.her] feet.");
 			}
-		}
-
-		@Override
-		public String displaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You shift your boxers to one side.";
-			else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer())
-				return UtilText.parse(clothingOwner, "[npc.Name] shifts [npc.her] boxers to one side.");
-			else {
-				if (clothingOwner.isPlayer())
-					return "[npc.Name] shifts your boxers to one side.";
-				else
-					return UtilText.parse(clothingOwner, "You shift [npc.name]'s boxers to one side.");
-			}
-		}
-
-		@Override
-		public String replaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You move your boxers back into their proper place.";
-			else
-				return UtilText.parse(clothingOwner, "[npc.Name] moves [npc.her] boxers back into their proper place.");
 		}
 	};
 
