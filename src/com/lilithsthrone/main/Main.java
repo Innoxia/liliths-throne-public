@@ -42,6 +42,9 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 
 /**
  * @since 0.1.0
@@ -297,6 +300,9 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 
+		CheckForDataDirectory();
+		CheckForResFolder();
+		
 		credits.add(new CreditsSlot("Anonymous", "", 0, 6, 111+61, 37+18));
 		
 		
@@ -505,6 +511,35 @@ public class Main extends Application {
 		
 		Main.game.setContent(new Response("", "", OptionsDialogue.MENU));
 		
+	}
+	
+	protected static void CheckForDataDirectory()
+	{
+		File dir = new File("data/");
+		if(!dir.exists())
+		{
+			Alert a = new Alert(AlertType.ERROR, "Unable to find the data directory, saving and error logging is disabled. \nContinue?", ButtonType.YES, ButtonType.NO);
+			a.showAndWait().ifPresent(response -> {
+			     if (response == ButtonType.NO) {
+			         System.exit(1);
+			     }
+			 });
+		}
+	}
+	
+	protected static void CheckForResFolder()
+	{
+		File dir = new File("res/");
+		if(!dir.exists())
+		{
+			Alert a = new Alert(AlertType.WARNING, "Could not find the res folder this might cause unintended errors. \nContinue?", ButtonType.YES, ButtonType.NO);
+			a.showAndWait().ifPresent(response -> {
+				if(response == ButtonType.NO)
+				{
+					System.exit(1);
+				}
+			});
+		}
 	}
 
 	public static void main(String[] args) {
