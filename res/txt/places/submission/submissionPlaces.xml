@@ -108,7 +108,7 @@
 	</p>
 	<p>
 		As you step forwards onto the wide, well-maintained walkways, you quickly discover the reason behind the abnormal amount of people that are in this area.
-		 All around you, brightly-coloured canvas stalls have been erected, and as you pass, you see that they're selling all sorts of different goods.
+		 All around you, brightly coloured canvas stalls have been erected, and as you pass, you see that they're selling all sorts of different goods.
 		 This area is obviously Submission's main marketplace, and although the wares for sale aren't of any interest to you, they're enough to attract crowds of shoppers from all over Submission.
 	</p>
 	<p>
@@ -123,7 +123,7 @@
 	<htmlContent tag="LILIN_PALACE_CAVERN"><![CDATA[
 	<p>
 		You find yourself walking down a stone pathway, which has been cut out of the rock floor of a colossal underground cavern.
-		 The waterway that runs through Submission's tunnels continues on to one side of the path, flowing down the gently-sloping floor to eventually fall away into a wide chasm that cuts across the far side of the cavern.
+		 The waterway that runs through Submission's tunnels continues on to one side of the path, flowing down the gently sloping floor to eventually fall away into a wide chasm that cuts across the far side of the cavern.
 	</p>
 	<p>
 		This chasm serves as a protective moat for a massive, Gothic-styled palace that has been half-built, half-carved into the far stone wall.
@@ -140,7 +140,7 @@
 	<htmlContent tag="LILIN_PALACE_GATE"><![CDATA[
 	<p>
 		Having crossed the huge cavern, you find yourself approaching the massive Gothic palace that has been built into the dark stone wall.
-		 In front of you, separating the palace's front gates from the path that you're on, is a wide, seemingly-bottomless ravine.
+		 In front of you, separating the palace's front gates from the path that you're on, is a wide, seemingly bottomless ravine.
 		 A heavy wooden drawbridge crosses the pitch-black depths of the chasm, and is the only sign of entry to the palace.
 	</p>
 	<p>
@@ -151,7 +151,7 @@
 		 Each one of them is brandishing what appears to be an arcane-powered musket, which, in combination with their uniforms, makes them look like Victorian-era soldiers.
 	</p>
 	<p>
-		As you approach, the leader of the group, a light-skinned half-demon succubus, with crimson-skinned demonic parts, steps forwards to bar your passage,
+		As you approach, the leader of the group, a light-skinned half-demon succubus, with crimson-skinned demonic parts, steps forwards to bar your passage.
 		 [genericFemale.speech(State your business, [pc.race].)]
 	</p>
 	<p>
