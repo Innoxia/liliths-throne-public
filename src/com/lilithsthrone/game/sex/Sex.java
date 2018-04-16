@@ -52,7 +52,6 @@ import com.lilithsthrone.game.sex.sexActions.SexActionUtility;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.BaseColour;
 import com.lilithsthrone.utils.Colour;
-import com.lilithsthrone.utils.SizedStack;
 import com.lilithsthrone.utils.Util;
 
 /**
@@ -136,7 +135,7 @@ public enum Sex {
 	private static AbstractClothing clothingBeingRemoved;
 	private static StringBuilder sexSB = new StringBuilder();
 	private static List<SexActionInterface> availableSexActionsPlayer, miscActionsPlayer, selfActionsPlayer, sexActionsPlayer, positionActionsPlayer;
-	private static SizedStack<SexActionInterface> repeatActionsPlayer;
+	private static List<SexActionInterface> repeatActionsPlayer;
 	private static List<SexActionInterface> availableSexActionsPartner;
 	
 	private static Map<GameCharacter, SexPace> forceSexPaceMap;
@@ -245,7 +244,7 @@ public enum Sex {
 		selfActionsPlayer = new ArrayList<>();
 		sexActionsPlayer = new ArrayList<>();
 		positionActionsPlayer = new ArrayList<>();
-		repeatActionsPlayer = new SizedStack<>(15);
+		repeatActionsPlayer = new ArrayList<>();
 		availableSexActionsPartner = new ArrayList<>();
 
 		// Populate exposed areas:
@@ -1105,21 +1104,21 @@ public enum Sex {
 					}
 					
 				} else if(responseTab==4) {
-					if(index>=15) {
-						if(index < repeatActionsPlayer.size()) {
-							return repeatActionsPlayer.get(index).toResponse();
-						}
-					} else {
-						if(index <= repeatActionsPlayer.size()) {
-							if(index==0) {
-								if(repeatActionsPlayer.size()>=15) {
-									return repeatActionsPlayer.get(14).toResponse();
-								} else {
-									return null;
-								}
+					List<SexActionInterface> availableRepeatActionsPlayer = new ArrayList<>();
+					availableRepeatActionsPlayer.addAll(repeatActionsPlayer);
+					availableRepeatActionsPlayer.removeIf(sa-> !sa.isAddedToAvailableSexActions());
+					availableRepeatActionsPlayer.removeIf(sa-> !sa.isBaseRequirementsMet());
+					availableRepeatActionsPlayer.removeIf(sa-> !sa.toResponse().isAvailable());
+					Collections.reverse(availableRepeatActionsPlayer);
+					if(index <= availableRepeatActionsPlayer.size()) {
+						if(index==0) {
+							if(availableRepeatActionsPlayer.size()>=15) {
+								return availableRepeatActionsPlayer.get(14).toResponse();
 							} else {
-								return repeatActionsPlayer.get(index-1).toResponse();
+								return null;
 							}
+						} else {
+							return availableRepeatActionsPlayer.get(index-1).toResponse();
 						}
 					}
 					
@@ -1260,15 +1259,13 @@ public enum Sex {
 		}
 
 		lastUsedPlayerAction = sexActionPlayer;
-		if(!repeatActionsPlayer.contains(sexActionPlayer)
-				&& sexActionPlayer.getActionType()!=SexActionType.PLAYER_PREPARE_PARTNER_ORGASM
+		if(sexActionPlayer.getActionType()!=SexActionType.PLAYER_PREPARE_PARTNER_ORGASM
 				&& sexActionPlayer.getActionType()!=SexActionType.PLAYER_ORGASM
 				&& sexActionPlayer.getActionType()!=SexActionType.PLAYER_ORGASM_NO_AROUSAL_RESET) {
+			repeatActionsPlayer.remove(sexActionPlayer);
 			repeatActionsPlayer.add(sexActionPlayer);
 		}
 		
-		repeatActionsPlayer.removeIf(sa-> !sa.isAddedToAvailableSexActions());
-		repeatActionsPlayer.removeIf(sa-> !sa.isBaseRequirementsMet());
 		repeatActionsPlayer.remove(SexActionUtility.CLOTHING_DYE);
 		repeatActionsPlayer.remove(SexActionUtility.CLOTHING_REMOVAL);
 		repeatActionsPlayer.remove(SexActionUtility.PLAYER_USE_ITEM);
@@ -3427,7 +3424,7 @@ public enum Sex {
 		return positionActionsPlayer;
 	}
 
-	public static SizedStack<SexActionInterface> getRepeatActionsPlayer() {
+	public static List<SexActionInterface> getRepeatActionsPlayer() {
 		return repeatActionsPlayer;
 	}
 
