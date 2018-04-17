@@ -9,6 +9,8 @@ Give a brief description of what you changed or added:
 
 
 
-Are any new graphical assets required?
+Are any new graphical assets required?:
+
 Has this change been tested, if so version number test was based on:
+
 @Innoxia
