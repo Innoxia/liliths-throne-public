@@ -3,8 +3,10 @@ package com.lilithsthrone.game.dialogue.places.dominion;
 import java.util.List;
 
 import com.lilithsthrone.game.Weather;
+import com.lilithsthrone.game.character.SexualOrientation;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
+import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.gender.GenderPreference;
 import com.lilithsthrone.game.character.npc.GenericSexualPartner;
 import com.lilithsthrone.game.character.npc.NPC;
@@ -386,9 +388,28 @@ public class RedLightDistrict {
 					return new Response("Sell body (Sub)", "Wait around for a client to show up...", ANGELS_KISS_SELL_SELF_SUB){
 						@Override
 						public void effects() {
-							NPC npc = new GenericSexualPartner(GenderPreference.getGenderFromUserPreferences(), Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
+							Gender gender = GenderPreference.getGenderFromUserPreferences();
+							if(!Main.game.getPlayer().isAttractedTo(gender))
+							{
+								switch(Main.game.getPlayer().getSexualOrientation())
+								{
+									case ANDROPHILIC:
+										gender = gender.toMasculine();
+										break;
+									case GYNEPHILIC:
+										gender = gender.toFeminine();
+										break;
+									default:
+										break;
+								}
+							}
+							NPC npc = new GenericSexualPartner(gender, Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
 							npc.removeFetish(Fetish.FETISH_SUBMISSIVE);
 							npc.setFetishDesire(Fetish.FETISH_DOMINANT, FetishDesire.THREE_LIKE);
+							if(!npc.isAttractedTo(Main.game.getPlayer()))
+							{
+								npc.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+							}
 							try {
 								Main.game.addNPC(npc, false);
 								Main.game.setActiveNPC(npc);
@@ -402,9 +423,28 @@ public class RedLightDistrict {
 					return new Response("Sell body (Dom)", "Wait around for a client to show up...", ANGELS_KISS_SELL_SELF_DOM){
 						@Override
 						public void effects() {
-							NPC npc = new GenericSexualPartner(GenderPreference.getGenderFromUserPreferences(), Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
+							Gender gender = GenderPreference.getGenderFromUserPreferences();
+							if(!Main.game.getPlayer().isAttractedTo(gender))
+							{
+								switch(Main.game.getPlayer().getSexualOrientation())
+								{
+									case ANDROPHILIC:
+										gender = gender.toMasculine();
+										break;
+									case GYNEPHILIC:
+										gender = gender.toFeminine();
+										break;
+									default:
+										break;
+								}
+							}
+							NPC npc = new GenericSexualPartner(gender, Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
 							npc.removeFetish(Fetish.FETISH_DOMINANT);
 							npc.setFetishDesire(Fetish.FETISH_SUBMISSIVE, FetishDesire.THREE_LIKE);
+							if(!npc.isAttractedTo(Main.game.getPlayer()))
+							{
+								npc.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+							}
 							try {
 								Main.game.addNPC(npc, false);
 								Main.game.setActiveNPC(npc);
