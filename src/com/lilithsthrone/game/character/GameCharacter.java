@@ -53,6 +53,7 @@ import com.lilithsthrone.game.character.body.types.TailType;
 import com.lilithsthrone.game.character.body.types.TongueType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.types.WingType;
+import com.lilithsthrone.game.character.npc.morality.MoralityValue;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeShape;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
 import com.lilithsthrone.game.character.body.valueEnums.AssSize;
@@ -274,6 +275,12 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	
 	protected boolean[] workHours;
 	
+	//Companion
+	private List<String> companions;
+	String partyLeader;
+	
+	private int maxCompanions;
+	
 	
 	// Combat:
 	protected Set<SpecialAttack> specialAttacks;
@@ -449,6 +456,10 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		health = getAttributeValue(Attribute.HEALTH_MAXIMUM);
 		mana = getAttributeValue(Attribute.MANA_MAXIMUM);
 		setLust(getRestingLust());
+		
+		//Companion initialization
+		companions = new ArrayList<>();
+		setMaxCompanions(1);
 		
 	}
 	
@@ -741,6 +752,25 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		for(int i=0; i<workHours.length; i++) {
 			CharacterUtils.addAttribute(doc, slaveWorkHours, "hour"+String.valueOf(i), String.valueOf(workHours[i]));
 		}
+		
+		
+		
+		// ************** Companons **************//
+
+		Element companonElement = doc.createElement("companions");
+		properties.appendChild(companonElement);
+		
+		Element companionsFollowing = doc.createElement("companionsFollowing");
+		companonElement.appendChild(companionsFollowing);
+		for(String companion : this.getCompanionsId()) {
+			Element element = doc.createElement("companion");
+			companionsFollowing.appendChild(element);
+			
+			CharacterUtils.addAttribute(doc, element, "id", companion);
+		}
+		
+		CharacterUtils.createXMLElementWithValue(doc, companonElement, "partyLeader", this.getPartyLeader()==null?"":this.getPartyLeader().getId());
+		CharacterUtils.createXMLElementWithValue(doc, companonElement, "maxCompanions", String.valueOf(this.getMaxCompanions()));
 		
 		
 		
@@ -1506,6 +1536,30 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				character.workHours[i] = Boolean.valueOf(workHourElement.getAttribute("hour"+String.valueOf(i)));
 				CharacterUtils.appendToImportLog(log, "</br>Set work hour: "+i+", "+character.workHours[i]);
 			}
+		}
+		
+		
+		
+		// ************** Companions **************//
+		
+		nodes = parentElement.getElementsByTagName("companions");
+		Element companionsElement = (Element) nodes.item(0);
+		if(companionsElement!=null) {
+			
+			for(int i=0; i<((Element) companionsElement.getElementsByTagName("companionsFollowing").item(0)).getElementsByTagName("companion").getLength(); i++){
+				Element e = ((Element)companionsElement.getElementsByTagName("companion").item(i));
+				
+				if(!e.getAttribute("id").equals("NOT_SET")) {
+					character.getCompanionsId().add(e.getAttribute("id"));
+					CharacterUtils.appendToImportLog(log, "</br>Added companion: "+e.getAttribute("id"));
+				}
+			}
+			
+			character.setPartyLeader(((Element)companionsElement.getElementsByTagName("partyLeader").item(0)).getAttribute("value"));
+			CharacterUtils.appendToImportLog(log, "</br>Set party leader: "+((Element)companionsElement.getElementsByTagName("partyLeader").item(0)).getAttribute("value"));
+			
+			character.setMaxCompanions(Integer.valueOf(((Element)companionsElement.getElementsByTagName("maxCompanions").item(0)).getAttribute("value")));
+			CharacterUtils.appendToImportLog(log, "</br>Set max companions: "+String.valueOf(character.getMaxCompanions()));
 		}
 		
 		
@@ -2398,6 +2452,156 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			return null;
 		}
 		return Main.game.getNPCById(owner);
+	}
+	
+	/**
+	 * Adds a companion character, if possible. Removes character from a previous party.
+	 * @param npc
+	 * @return
+	 */
+	public boolean addCompanion(GameCharacter character)
+	{
+		if(this.canHaveMoreCompanions() && character.isPlayer() == false && (partyLeader == null || partyLeader.isEmpty()))
+		{
+			if(character.getPartyLeader() != null)
+			{
+				character.getPartyLeader().removeCompanion(character);
+			}
+			character.setPartyLeader(this.getId());
+			boolean returnable = this.companions.add(character.getId());			
+			return returnable;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+	/**
+	 * Removes a companion NPC 
+	 */
+	public void removeCompanion(GameCharacter character)
+	{
+		character.setPartyLeader("");
+		this.companions.remove(character.getId());
+	}
+	
+	/**
+	 * Returns true if the character is currently the character's companion.
+	 */
+	public boolean hasCompanion(GameCharacter character)
+	{
+		return this.companions.contains(character.getId());
+	}
+	
+	/**
+	 * Returns party leader or null if no party is led.
+	 */
+	public GameCharacter getPartyLeader()
+	{
+		if(this.partyLeader==null || this.partyLeader.isEmpty()) {
+			return null;
+		}
+		return Main.game.getNPCById(partyLeader);
+	}
+	
+	public int getMaxCompanions()
+	{
+		return maxCompanions;
+	}
+
+	public List<String> getCompanionsId()
+	{
+		return this.companions;
+	}
+	
+	/**<b>Do not call this method directly! Use the owner's addCompanion() and removeCompanion() methods!</b>*/
+	protected void setPartyLeader(GameCharacter owner) {
+		this.partyLeader = owner.getId();
+	}
+
+	/**<b>Do not call this method directly! Use the owner's addCompanion() and removeCompanion() methods!</b>*/
+	protected void setPartyLeader(String owner) {
+		this.partyLeader = owner;
+	}
+	
+	/**
+	 * Gets the character's companion NPCs, if any.
+	 */
+	public List<GameCharacter> getCompanions()
+	{
+		List<GameCharacter> listToReturn = new ArrayList<>();
+		for(String companionID : this.companions)
+		{
+			listToReturn.add(Main.game.getNPCById(companionID));
+		}
+		return listToReturn;
+	}
+	
+	/**
+	 * Adjusts maximum companion amount. Set to -1 to avoid checking.
+	 * @param maxCompanions
+	 */
+	public void setMaxCompanions(int maxCompanions)
+	{
+		this.maxCompanions = maxCompanions;
+	}
+
+	/**
+	 * Checks against maxCompanions to make sure the player isn't taking on too many.
+	 * @return
+	 */
+	public boolean canHaveMoreCompanions()
+	{
+		return this.maxCompanions != -1 || companions.size() < maxCompanions;
+	}
+	
+	/**
+	 * Called when the player does something in relation to the value and it's important to the NPC. Override for custom behavior.
+	 * @param source
+	 * @param moral
+	 * @param power
+	 */
+	public void moralityCheck(GameCharacter source, MoralityValue moral, float power)
+	{
+		return;
+	}
+	
+	public void companionshipCheck()
+	{
+		if(this.isCompanionAvailable(Main.game.getNPCById(partyLeader)) == false)
+		{
+			Main.game.getNPCById(partyLeader).removeCompanion(this);
+		}
+	}
+	
+	/**
+	 * Override if needed. Returns true if the companion is available to that charactrer. Is called during turn updates to make sure NPCs keep their companionship state updated. 
+	 */
+	public boolean isCompanionAvailable(GameCharacter character)
+	{
+		return false;
+	}
+	
+	/**
+	 * Added during turn update to the report to make sure player knows why NPCs leave them. By default will just make some generic excuse up.
+	 */
+	public String getCompanionRejectionReason()
+	{
+		return this.getName()+" leaves your party for unknown reasons.";
+	}
+	
+	/**
+	 * Override this to see if companion is willing to have sex with player
+	 */
+	public String getCompanionSexRejectionReason()
+	{
+		return this.getName()+" doesn't want sex right now.";
+	}
+	
+	public final boolean isCompanionAvailableForSex()
+	{
+		return (getCompanionSexRejectionReason() == null || getCompanionSexRejectionReason().length() == 0);
 	}
 
 	/**<b>Do not call this method directly! Use the owner's addSlave() and removeSlave() methods!</b>*/
@@ -9076,7 +9280,14 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 
 	public void setLocation(Vector2i location) {
 		this.location = location;
-
+		if(this.companions != null)
+		{
+			for(String companionID : this.companions)
+			{
+				Main.game.getNPCById(companionID).setLocation(getWorldLocation(), location, false);
+			}
+		}
+		
 		updateLocationListeners();
 	}
 	

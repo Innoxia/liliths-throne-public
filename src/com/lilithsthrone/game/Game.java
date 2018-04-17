@@ -56,6 +56,7 @@ import com.lilithsthrone.game.character.npc.dominion.Ashley;
 import com.lilithsthrone.game.character.npc.dominion.Brax;
 import com.lilithsthrone.game.character.npc.dominion.Bunny;
 import com.lilithsthrone.game.character.npc.dominion.CandiReceptionist;
+import com.lilithsthrone.game.character.npc.dominion.CompanionArkhi;
 import com.lilithsthrone.game.character.npc.dominion.Cultist;
 import com.lilithsthrone.game.character.npc.dominion.DominionAlleywayAttacker;
 import com.lilithsthrone.game.character.npc.dominion.Finch;
@@ -847,6 +848,10 @@ public class Game implements Serializable, XMLSaving {
 			addNPC(new Bunny(), false);
 			addNPC(new Loppy(), false);
 			
+			//Companions
+			// Arkhi - A lynx-morph companion. For now very bare-bones and used mostly to test and/or showcase companions.
+			//addNPC(new CompanionArkhi(), false);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -1035,6 +1040,27 @@ public class Game implements Serializable, XMLSaving {
 				npc.resetDaysOrgasmCount();
 				npc.dailyReset();
 			}
+			
+			List<GameCharacter> companionsToRemove = new ArrayList<>();
+			
+			for(GameCharacter companion : npc.getCompanions())
+			{
+				// Updating companion NPCs
+				/*if(companion.isCompanionAvailable(npc) == true)
+				{
+					companion.setLocation(npc.getWorldLocation(), npc.getLocation(), false);
+				}
+				else
+				{
+					companionsToRemove.add(companion);
+				}*/
+			}
+			for(GameCharacter character : companionsToRemove) {
+				npc.removeCompanion(character);
+			}
+			
+			// Character scheduling check
+			npc.handleSchedule();
 		}
 		isInNPCUpdateLoop = false;
 		for(NPC npc : npcsToRemove) {
@@ -1088,6 +1114,25 @@ public class Game implements Serializable, XMLSaving {
 			});
 			Main.game.getPlayer().getStatusEffectDescriptions().clear();
 		}
+		
+		List<GameCharacter> companionsToRemove = new ArrayList<>();
+		
+		/*for(GameCharacter npc : Main.game.getPlayer().getCompanions())
+		{
+			// Updating companion NPCs
+			if(npc.isCompanionAvailable(Main.game.getPlayer()) == true)
+			{
+				npc.setLocation(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
+			}
+			else
+			{
+				companionsToRemove.add(npc);
+				// TODO : Add NPCs leaving you to the report.
+			}
+		}
+		for(GameCharacter character : companionsToRemove) {
+			Main.game.getPlayer().removeCompanion(character);
+		}*/
 		
 //		System.out.println((System.nanoTime()-tStart)/1000000000d+"s");
 	}
@@ -2838,5 +2883,9 @@ public class Game implements Serializable, XMLSaving {
 
 	public SlaveryUtil getSlaveryUtil() {
 		return slaveryUtil;
+	}
+
+	public NPC GetArkhi() {
+		return (NPC) this.getNPCById(getUniqueNPCId(CompanionArkhi.class));
 	}
 }

@@ -2735,6 +2735,16 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		}
 	}
 	
+	/**
+	 * Handles NPC schedule if they have any.
+	 * 
+	 * Normally NPCs don't have schedules. If they do, update them on that.
+	 */
+	public void handleSchedule()
+	{
+		return;
+	}
+	
 	protected StringBuilder infoScreenSB = new StringBuilder();
 	
 	public String getCharacterInformationScreen() {
