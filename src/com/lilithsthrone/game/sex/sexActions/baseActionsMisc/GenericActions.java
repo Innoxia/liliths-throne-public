@@ -386,12 +386,20 @@ public class GenericActions {
 							UtilText.nodeContentSB.append("</br>[pc.A_moan+] drifts out from between your [pc.lips+] as you stop stimulating your [pc.nipple+].");
 						}
 						break;
-					case URETHRA:
+					case URETHRA_PENIS:
 						if (Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(),  ot)!=null && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(),  ot).isPlayer()) {
-							UtilText.nodeContentSB.append("</br>[npc.Name] lets out [npc.a_moan+] as you pull out of [npc.her] [npc.urethra+].");
+							UtilText.nodeContentSB.append("</br>[npc.Name] lets out [npc.a_moan+] as you pull out of [npc.her] [npc.penisUrethra+].");
 						}
 						if (Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(),  ot)!=null && Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(),  ot).isPlayer()) {
-							UtilText.nodeContentSB.append("</br>[pc.A_moan+] drifts out from between your [pc.lips+] as you stop stimulating your [pc.urethra+].");
+							UtilText.nodeContentSB.append("</br>[pc.A_moan+] drifts out from between your [pc.lips+] as you stop stimulating your [pc.penisUrethra+].");
+						}
+						break;
+					case URETHRA_VAGINA:
+						if (Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(),  ot)!=null && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(),  ot).isPlayer()) {
+							UtilText.nodeContentSB.append("</br>[npc.Name] lets out [npc.a_moan+] as you pull out of [npc.her] [npc.vaginaUrethra+].");
+						}
+						if (Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(),  ot)!=null && Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(),  ot).isPlayer()) {
+							UtilText.nodeContentSB.append("</br>[pc.A_moan+] drifts out from between your [pc.lips+] as you stop stimulating your [pc.vaginaUrethra+].");
 						}
 						break;
 					case VAGINA:
@@ -1146,30 +1154,7 @@ public class GenericActions {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			boolean partnersSatisfied = true;
-			if(Sex.isDom(Main.game.getPlayer())) {
-				for(GameCharacter character : Sex.getSubmissiveParticipants().keySet()) {
-					if(Sex.getNumberOfOrgasms(character) == 0) {
-						partnersSatisfied = false;
-					}
-				}
-			} else {
-				for(GameCharacter character : Sex.getDominantParticipants().keySet()) {
-					if(Sex.getNumberOfOrgasms(character) == 0) {
-						partnersSatisfied = false;
-					}
-				}
-			}
-			
-			if(!Sex.isDom(Main.game.getPlayer()) && !Sex.isConsensual()) {
-				return partnersSatisfied;
-				
-			} else if(Sex.isDom(Main.game.getPlayer()) && !Sex.isSubHasEqualControl()) {
-				return false;
-				
-			} else {
-				return partnersSatisfied && Sex.getNumberOfOrgasms(Main.game.getPlayer())>=1;
-			}
+			return Sex.getSexManager().isPartnerWantingToStopSex();
 		}
 		
 		@Override

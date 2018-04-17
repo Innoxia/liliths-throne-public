@@ -10,7 +10,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 
 /**
  * @since 0.1.0
- * @version 0.1.83
+ * @version 0.2.2
  * @author Innoxia
  */
 public class Ass implements BodyPartInterface, Serializable {
@@ -238,6 +238,45 @@ public class Ass implements BodyPartInterface, Serializable {
 					UtilText.transformationContentSB.append(
 							"[npc.She] now has a [style.boldSquirrelMorph(squirrel-morph ass)], covered in [npc.assFullDescription].</br>"
 							+ "[npc.She] has also been left with [style.boldSquirrelMorph(a squirrel-morph)] [npc.assholeFullDescription]."
+							+ "</p>");
+				}
+				break;
+			case RAT_MORPH:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+							"You now have a [style.boldRatMorph(rat-morph ass)], covered in [pc.assFullDescription].</br>"
+							+ "You have also been left with [style.boldRatMorph(a rat-morph)] [pc.assholeFullDescription]."
+							+ "</p>");
+				} else {
+					UtilText.transformationContentSB.append(
+							"[npc.She] now has a [style.boldRatMorph(rat-morph ass)], covered in [npc.assFullDescription].</br>"
+							+ "[npc.She] has also been left with [style.boldRatMorph(a rat-morph)] [npc.assholeFullDescription]."
+							+ "</p>");
+				}
+				break;
+			case RABBIT_MORPH:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+							"You now have a [style.boldRabbitMorph(rabbit-morph ass)], covered in [pc.assFullDescription].</br>"
+							+ "You have also been left with [style.boldRabbitMorph(a rabbit-morph)] [pc.assholeFullDescription]."
+							+ "</p>");
+				} else {
+					UtilText.transformationContentSB.append(
+							"[npc.She] now has a [style.boldRabbitMorph(rabbit-morph ass)], covered in [npc.assFullDescription].</br>"
+							+ "[npc.She] has also been left with [style.boldRabbitMorph(a rabbit-morph)] [npc.assholeFullDescription]."
+							+ "</p>");
+				}
+				break;
+			case BAT_MORPH:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+							"You now have a [style.boldBatMorph(bat-morph ass)], covered in [pc.assFullDescription].</br>"
+							+ "You have also been left with [style.boldBatMorph(a bat-morph)] [pc.assholeFullDescription]."
+							+ "</p>");
+				} else {
+					UtilText.transformationContentSB.append(
+							"[npc.She] now has a [style.boldBatMorph(bat-morph ass)], covered in [npc.assFullDescription].</br>"
+							+ "[npc.She] has also been left with [style.boldBatMorph(a bat-morph)] [npc.assholeFullDescription]."
 							+ "</p>");
 				}
 				break;

@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +39,8 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.sex.sexActions.dominion.lilaya.SALilayaSpecials;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.rendering.Artist;
+import com.lilithsthrone.rendering.Artwork;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.ListValue;
@@ -53,6 +56,69 @@ public class Lilaya extends NPC {
 
 	private static final long serialVersionUID = 1L;
 
+	private static List<Artwork> lilayaPaleArtwork = new ArrayList<>();
+	private static List<Artwork> lilayaLightArtwork = new ArrayList<>();
+	private static List<Artwork> lilayaOliveArtwork = new ArrayList<>();
+	private static List<Artwork> lilayaDarkArtwork = new ArrayList<>();
+	private static List<Artwork> lilayaEbonyArtwork = new ArrayList<>();
+	
+	static {
+		String artworkFolderName = "LilayaPale";
+				
+		if(artworkFolderName!=null && !artworkFolderName.isEmpty()) {
+			for(Artist artist : Artwork.allArtists) {
+				File f = new File("res/images/characters/"+artworkFolderName+"/"+artist.getFolderName());
+				if(f.exists()) {
+					lilayaPaleArtwork.add(new Artwork(artworkFolderName, artist));
+				}
+			}
+		}
+		
+		artworkFolderName = "LilayaLight";
+		
+		if(artworkFolderName!=null && !artworkFolderName.isEmpty()) {
+			for(Artist artist : Artwork.allArtists) {
+				File f = new File("res/images/characters/"+artworkFolderName+"/"+artist.getFolderName());
+				if(f.exists()) {
+					lilayaLightArtwork.add(new Artwork(artworkFolderName, artist));
+				}
+			}
+		}
+		
+		artworkFolderName = "LilayaOlive";
+		
+		if(artworkFolderName!=null && !artworkFolderName.isEmpty()) {
+			for(Artist artist : Artwork.allArtists) {
+				File f = new File("res/images/characters/"+artworkFolderName+"/"+artist.getFolderName());
+				if(f.exists()) {
+					lilayaOliveArtwork.add(new Artwork(artworkFolderName, artist));
+				}
+			}
+		}
+		
+		artworkFolderName = "LilayaDark";
+		
+		if(artworkFolderName!=null && !artworkFolderName.isEmpty()) {
+			for(Artist artist : Artwork.allArtists) {
+				File f = new File("res/images/characters/"+artworkFolderName+"/"+artist.getFolderName());
+				if(f.exists()) {
+					lilayaDarkArtwork.add(new Artwork(artworkFolderName, artist));
+				}
+			}
+		}
+		
+		artworkFolderName = "LilayaEbony";
+		
+		if(artworkFolderName!=null && !artworkFolderName.isEmpty()) {
+			for(Artist artist : Artwork.allArtists) {
+				File f = new File("res/images/characters/"+artworkFolderName+"/"+artist.getFolderName());
+				if(f.exists()) {
+					lilayaEbonyArtwork.add(new Artwork(artworkFolderName, artist));
+				}
+			}
+		}
+	}
+	
 	// Mother's name is Lyssieth
 
 	public Lilaya() {
@@ -116,6 +182,27 @@ public class Lilaya extends NPC {
 	@Override
 	public boolean isUnique() {
 		return true;
+	}
+
+	@Override
+	public List<Artwork> getArtworkList() {
+		if(this.getCovering(BodyCoveringType.HUMAN).getPrimaryColour()==Colour.SKIN_PALE) {
+			return lilayaPaleArtwork;
+			
+		} else if(this.getCovering(BodyCoveringType.HUMAN).getPrimaryColour()==Colour.SKIN_LIGHT) {
+			return lilayaLightArtwork;
+			
+		} else if(this.getCovering(BodyCoveringType.HUMAN).getPrimaryColour()==Colour.SKIN_OLIVE) {
+			return lilayaOliveArtwork;
+			
+		} else if(this.getCovering(BodyCoveringType.HUMAN).getPrimaryColour()==Colour.SKIN_DARK) {
+			return lilayaDarkArtwork;
+			
+		} else if(this.getCovering(BodyCoveringType.HUMAN).getPrimaryColour()==Colour.SKIN_EBONY) {
+			return lilayaEbonyArtwork;
+		}
+		
+		return lilayaLightArtwork;
 	}
 	
 	@Override

@@ -3,13 +3,15 @@ package com.lilithsthrone.game.character.body;
 import java.io.Serializable;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.TailType;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.1.83
+ * @version 0.2.2
  * @author Innoxia
  */
 public class Tail implements BodyPartInterface, Serializable {
@@ -173,6 +175,37 @@ public class Tail implements BodyPartInterface, Serializable {
 									+ " [npc.She] quickly realises that [npc.she] has complete control over where they go, allowing [npc.herHim] to use them like extra limbs."
 									+ "</br>"
 									+ "[npc.Name] now has [npc.tailCount] [style.boldDemon(demonic tails)]")
+							);
+				}
+				break;
+			case DEMON_HAIR_TIP:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+							(owner.getTailCount()==1
+								?" A demonic, spaded tail sprouts from just above your ass, rapidly growing in size until it's slightly longer than one of your legs."
+									+ " You quickly realise that you have complete control over where it goes, allowing you to use it like a third limb."
+									+ "</br>"
+									+ "You now have a [style.boldDemon(demonic tail)], covered in [pc.tailFullDescription(true)] and tipped with "
+										+Main.game.getPlayer().getCovering(BodyCoveringType.HAIR_DEMON).getFullDescription(Main.game.getPlayer(), true)+".</p>"
+								:" [pc.TailCount] demonic, spaded tails sprout from just above your ass, rapidly growing in size until they're each slightly longer than one of your legs."
+									+ " You quickly realise that you have complete control over where they go, allowing you to use them like extra limbs."
+									+ "</br>"
+									+ "You now have [pc.tailCount] [style.boldDemon(demonic tails)], covered in [pc.tailFullDescription(true)] and tipped with "
+										+Main.game.getPlayer().getCovering(BodyCoveringType.HAIR_DEMON).getFullDescription(Main.game.getPlayer(), true)+".</p>")
+							);
+				} else {
+					UtilText.transformationContentSB.append(
+							(owner.getTailCount()==1
+								?" A demonic, spaded tail sprouts from just above [npc.her] ass, rapidly growing in size until it's slightly longer than one of [npc.her] legs."
+									+ " [npc.She] quickly realises that [npc.she] has complete control over where it goes, allowing [npc.herHim] to use it like a third limb."
+									+ "</br>"
+									+ "[npc.Name] now has a [style.boldDemon(demonic tail)], covered in [npc.tailFullDescription(true)] and tipped with "
+										+owner.getCovering(BodyCoveringType.HAIR_DEMON).getFullDescription(owner, true)+".</p>"
+								:" [npc.TailCount] demonic, spaded tails sprout from just above [npc.her] ass, rapidly growing in size until they're slightly longer than one of [npc.her] legs."
+									+ " [npc.She] quickly realises that [npc.she] has complete control over where they go, allowing [npc.herHim] to use them like extra limbs."
+									+ "</br>"
+									+ "[npc.Name] now has [npc.tailCount] [style.boldDemon(demonic tails)], covered in [npc.tailFullDescription(true)] and tipped with "
+										+owner.getCovering(BodyCoveringType.HAIR_DEMON).getFullDescription(owner, true)+".</p>")
 							);
 				}
 				break;
@@ -419,13 +452,67 @@ public class Tail implements BodyPartInterface, Serializable {
 							);
 				}
 				break;
+			case RAT_MORPH:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+							(owner.getTailCount()==1
+								?" A thick, rat-like tail sprouts from just above your ass, rapidly growing in size until it's almost as long as one of your legs."
+									+ " You quickly realise that you have a decent amount of control over it, and you can twist it almost anywhere you please."
+									+ "</br>"
+									+ "You now have a [style.boldRatMorph(rat-like tail)]"
+								:" [pc.TailCount] thick, rat-like tails sprout from just above your ass, rapidly growing in size until they're each almost as long as one of your legs."
+									+ " You quickly realise that you have a decent amount of control over them, and you can twist them almost anywhere you please."
+									+ "</br>"
+									+ "You now have [pc.tailCount] [style.boldRatMorph(rat-like tails)]")
+							);
+				} else {
+					UtilText.transformationContentSB.append(
+							(owner.getTailCount()==1
+								?" A thick, rat-like tail sprouts from just above [npc.her] ass, rapidly growing in size until it's almost as long as one of [npc.her] legs."
+									+ " [npc.She] quickly realises that [npc.she] has a decent amount of control over it, and can twist it almost anywhere [npc.she] pleases."
+									+ "</br>"
+									+ "[npc.Name] now has a [style.boldRatMorph(rat-like tail)]"
+								:" [npc.TailCount] thick, rat-like tails sprout from just above [npc.her] ass, rapidly growing in size until they're each almost as long as one of [npc.her] legs."
+									+ " [npc.She] quickly realises that [npc.she] has a decent amount of control over them, and can twist them almost anywhere [npc.she] pleases."
+									+ "</br>"
+									+ "[npc.Name] now has [npc.tailCount] [style.boldRatMorph(rat-like tails)]")
+							);
+				}
+				break;
+			case RABBIT_MORPH:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+							(owner.getTailCount()==1
+								?" A furry, round, rabbit-like tail sprouts from just above your ass, rapidly growing in size until it's about as large as a bowling ball."
+									+ " You quickly realise that you have no control over it whatsoever, what with it being no more than just a ball of downy fluff."
+									+ "</br>"
+									+ "You now have a [style.boldRabbitMorph(rabbit-like tail)]"
+								:" [pc.TailCount] furry, round, rabbit-like tails sprout from just above your ass, rapidly growing in size until they're each about as large as a bowling ball."
+									+ " You quickly realise that you have no control over them whatsoever, what with them being no more than just balls of downy fluff."
+									+ "</br>"
+									+ "You now have [pc.tailCount] [style.boldRabbitMorph(rabbit-like tails)]")
+							);
+				} else {
+					UtilText.transformationContentSB.append(
+							(owner.getTailCount()==1
+								?" A furry, round, rabbit-like tail sprouts from just above [npc.her] ass, rapidly growing in size until it's about as large as a bowling ball."
+									+ " [npc.She] quickly realises that [npc.she] has no control over it whatsoever, what with it being no more than just a ball of downy fluff."
+									+ "</br>"
+									+ "[npc.Name] now has a [style.boldRabbitMorph(rabbit-like tail)]"
+								:" [npc.TailCount] furry, round, rabbit-like tails sprout from just above [npc.her] ass, rapidly growing in size until they're each about as large as a bowling ball."
+									+ " [npc.She] quickly realises that [npc.she] has no control over them whatsoever, what with them being no more than just balls of downy fluff."
+									+ "</br>"
+									+ "[npc.Name] now has [npc.tailCount] [style.boldRabbitMorph(rabbit-like tails)]")
+							);
+				}
+				break;
 		}
 		
 		this.type = type;
 		
 		if(type == TailType.NONE) {
 			UtilText.transformationContentSB.append(".</p>");
-		} else {
+		} else if(type!= TailType.DEMON_HAIR_TIP){
 			if (owner.isPlayer()) {
 				UtilText.transformationContentSB.append(", covered in [pc.tailFullDescription(true)].</p>");
 			} else {

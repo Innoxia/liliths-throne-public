@@ -2192,7 +2192,7 @@ public class ConChairTop {
 					
 					"[npc.Name] lets out [npc.a_moan+] as [npc.she] starts bucking back against your thrusts, smiling up at you as [npc.she] helps you to fill [npc.her] [npc.pussy+] with your [pc.cock+].",
 
-					"With a little [npc.moan], [npc.name] starts rhythmically bucking [npc.her] [npc.hips] back against you, helping you to fill [npc.her] [pc.pussy+] with your [pc.cock+] as [npc.she] smiles up at you.");
+					"With a little [npc.moan], [npc.name] starts rhythmically bucking [npc.her] [npc.hips] back against you, helping you to fill [npc.her] [npc.pussy+] with your [pc.cock+] as [npc.she] smiles up at you.");
 		}
 
 		@Override

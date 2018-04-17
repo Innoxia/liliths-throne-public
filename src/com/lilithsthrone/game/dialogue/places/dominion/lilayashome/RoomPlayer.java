@@ -14,6 +14,7 @@ import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.SlaveryManagementDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -136,11 +137,18 @@ public class RoomPlayer {
 										Main.game.getTextEndStringBuilder().append(formatWashingArea(true, "You wash all of the cum off of your [pc.thighs]."));
 									}
 									break;
-								case URETHRA:
+								case URETHRA_PENIS:
 									if(Main.game.getPlayer().getCummedInAreaMap().get(orifice)>0) {
-										Main.game.getTextEndStringBuilder().append(formatWashingArea(false, "You wash as much of the cum out of your urethra as you can, but there's so much in there that you're unable to fully clean it all out!"));
+										Main.game.getTextEndStringBuilder().append(formatWashingArea(false, "You wash as much of the cum out of your cock's urethra as you can, but there's so much in there that you're unable to fully clean it all out!"));
 									} else {
-										Main.game.getTextEndStringBuilder().append(formatWashingArea(true, "You wash all of the cum out of your urethra."));
+										Main.game.getTextEndStringBuilder().append(formatWashingArea(true, "You wash all of the cum out of your cock's urethra."));
+									}
+									break;
+								case URETHRA_VAGINA:
+									if(Main.game.getPlayer().getCummedInAreaMap().get(orifice)>0) {
+										Main.game.getTextEndStringBuilder().append(formatWashingArea(false, "You wash as much of the cum out of your vagina's urethra as you can, but there's so much in there that you're unable to fully clean it all out!"));
+									} else {
+										Main.game.getTextEndStringBuilder().append(formatWashingArea(true, "You wash all of the cum out of your vagina's urethra."));
 									}
 									break;
 								case VAGINA:
@@ -165,6 +173,18 @@ public class RoomPlayer {
 				return new Response("Calendar", "Take another look at the enchanted calendar that's pinned up on one wall.", AUNT_HOME_PLAYERS_ROOM_CALENDAR);
 			} else {
 				return new Response("<span style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Calendar</span>", "There's a calendar pinned up on one wall. Take a closer look at it.", AUNT_HOME_PLAYERS_ROOM_CALENDAR);
+			}
+			
+		} else if(index == 5) {
+			if(Main.game.getPlayer().isHasSlaverLicense()) {
+				return new Response("Slavery Overview", "Open the slave management screen.",  ROOM) {
+					@Override
+					public DialogueNodeOld getNextDialogue() {
+						return SlaveryManagementDialogue.getSlaveryOverviewDialogue();
+					}
+				};
+			} else {
+				return new Response("Slavery Overview", "You'll need a slaver license before you can access this menu!",  null);
 			}
 			
 		} else if (index == 6) {

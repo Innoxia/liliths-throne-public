@@ -134,19 +134,19 @@ public class DebugDialogue {
 				};
 				
 			} else if (index == 5) {
-				return new Response("+1000 " + UtilText.getCurrencySymbol(), "Add 1000 flames.", DEBUG_MENU){
+				return new Response("+10000 " + UtilText.getCurrencySymbol(), "Add 10000 flames.", DEBUG_MENU){
 					@Override
 					public void effects() {
-						Main.game.getPlayer().incrementMoney(1000);
+						Main.game.getPlayer().incrementMoney(10000);
 					}
 				};
 				
 			} else if (index == 6) {
-				return new Response("+10 essences", "Add 10 to each essence type.", DEBUG_MENU){
+				return new Response("+50 essences", "Add 10 to each essence type.", DEBUG_MENU){
 					@Override
 					public void effects() {
 						for(TFEssence essence : TFEssence.values()) {
-							Main.game.getPlayer().incrementEssenceCount(essence, 10);
+							Main.game.getPlayer().incrementEssenceCount(essence, 50, false);
 						}
 					}
 				};
@@ -158,9 +158,11 @@ public class DebugDialogue {
 				return new Response("Brax's revenge", "Brax gets you pregnant! (If you have 0 fertility, this will probably crash the game!)", DEBUG_MENU){
 					@Override
 					public void effects() {
-						if(Main.game.getPlayer().getAttributeValue(Attribute.FERTILITY)>1)
-						while (!Main.game.getPlayer().isPregnant())
+						int i=0;
+						while (!Main.game.getPlayer().isPregnant() && i<100) {
 							Main.game.getPlayer().rollForPregnancy(Main.game.getBrax());
+							i++;
+						}
 						
 					}
 				};

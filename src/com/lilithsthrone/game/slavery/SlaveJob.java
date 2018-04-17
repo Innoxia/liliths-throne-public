@@ -9,17 +9,20 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.eventLog.EventLogEntry;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
+import com.lilithsthrone.world.places.PlaceUpgrade;
 
 /**
  * @since 0.1.87
- * @version 0.1.95
+ * @version 0.2.2
  * @author Innoxia
  */
 public enum SlaveJob {
@@ -90,7 +93,7 @@ public enum SlaveJob {
 			null, null, null,
 			WorldType.LILAYAS_HOUSE_GROUND_FLOOR,
 			PlaceType.LILAYA_HOME_LAB),
-	
+
 	TEST_SUBJECT(5, "test subject", "test subject", "Allow Lilaya to use this slave as a test subject for her experiments.",
 			-0.5f, 0.5f,
 			150, 0, 0,
@@ -136,36 +139,181 @@ public enum SlaveJob {
 		}
 	},
 	
+	PROSTITUTE(10, "Prostitute", "Prostitute", "Assign this slave to work as a prostitute at the brothel 'Angel's Kiss'.",
+			-0.25f, 0.5f,
+			200, 0, 0.5f,
+			Util.newArrayListOfValues(
+					new ListValue<>(SlaveJobSetting.SEX_ORAL),
+					new ListValue<>(SlaveJobSetting.SEX_VAGINAL),
+					new ListValue<>(SlaveJobSetting.SEX_ANAL),
+					new ListValue<>(SlaveJobSetting.SEX_NIPPLES)),
+			Util.newHashMapOfValues(new Value<>("Pregnancy", Util.newArrayListOfValues(
+					new ListValue<>(SlaveJobSetting.SEX_PROMISCUITY_PILLS),
+					new ListValue<>(SlaveJobSetting.SEX_NO_PILLS),
+					new ListValue<>(SlaveJobSetting.SEX_VIXENS_VIRILITY)))),
+			Util.newArrayListOfValues(
+					new ListValue<>(SlaveJobSetting.SEX_NO_PILLS)),
+			WorldType.ANGELS_KISS_FIRST_FLOOR,
+			PlaceType.ANGELS_KISS_BEDROOM) {
+		
+		@Override
+		public float getAffectionGain(GameCharacter slave) {
+			if(slave.hasFetish(Fetish.FETISH_CUM_ADDICT)) {
+				return 1f;
+			} else {
+				return -0.25f;
+			}
+		}
+		
+		@Override
+		public boolean isAvailable(GameCharacter character) {
+			if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.prostitutionLicenseObtained)) {
+				return false;
+			}
+			return super.isAvailable(character);
+		}
+
+		@Override
+		public String getAvailabilityText(GameCharacter character) {
+			if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.prostitutionLicenseObtained)) {
+				return "You do not have permission from Angel to send your slaves to work in her brothel!";
+				
+			} else if(character.getOwner().getSlavesWorkingJob(this)>=this.getSlaveLimit()) {
+				return "You have already assigned the maximum number of slaves to this job!";
+				
+			} else if(character.getHomeLocationPlace().getPlaceType() == PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION) {
+				return "Slaves cannot work out of the cells at slavery administration. Move them into a room first!";
+				
+			} else {
+				return "This job is available!";
+			}
+		}
+	},
 	
-//	BROTHEL(5, "Prostitute (Brothel)", "Prostitute (Brothel)", "Assign this slave to work as a prostitute at the brothel 'Angel's Kiss' in slaver ally.",
-//			-0.5f, 0.5f,
-//			25, 0, 0.5f,
-//			Util.newArrayListOfValues(
-//					new ListValue<>(SlaveJobSettings.SEX_ORAL),
-//					new ListValue<>(SlaveJobSettings.SEX_VAGINAL),
-//					new ListValue<>(SlaveJobSettings.SEX_ANAL),
-//					new ListValue<>(SlaveJobSettings.SEX_NIPPLES),
-//					new ListValue<>(SlaveJobSettings.SEX_PROMISCUITY_PILLS),
-//					new ListValue<>(SlaveJobSettings.SEX_VIXENS_VIRILITY)),
-//			null,
-//			WorldType.SLAVER_ALLEY,
-//			SlaverAlley.BROTHEL),
-//	
-	
-	//'Allow to be impregnated (Public use)' and 'Allow to be impregnated (Other slaves)'
-//	MILKING(5, "Cow Stalls", "Cow Stalls", "Assign this slave to the cow stalls, ready for milking or breeding (or perhaps both).",
-//			-5f, 1f,
-//			0, 0, 0,
-//			Util.newArrayListOfValues(
-//					new ListValue<>(SlaveJobSettings.SEX_ORAL),
-//					new ListValue<>(SlaveJobSettings.SEX_VAGINAL),
-//					new ListValue<>(SlaveJobSettings.SEX_ANAL),
-//					new ListValue<>(SlaveJobSettings.SEX_NIPPLES),
-//					new ListValue<>(SlaveJobSettings.SEX_PROMISCUITY_PILLS),
-//					new ListValue<>(SlaveJobSettings.SEX_VIXENS_VIRILITY)),
-//			null,
-//			WorldType.SLAVER_ALLEY,
-//			SlaverAlley.PUBLIC_STOCKS)
+	MILKING(5, "Dairy Cow", "Dairy Bull", "Assign this slave to the cow stalls, ready for milking or breeding (or perhaps both). Income is based off of the assigned slave's milk production.",
+			-0.25f, 1f,
+			0, 0, 0,
+			Util.newArrayListOfValues(
+					new ListValue<>(SlaveJobSetting.SEX_ORAL),
+					new ListValue<>(SlaveJobSetting.SEX_VAGINAL),
+					new ListValue<>(SlaveJobSetting.SEX_ANAL)),
+			Util.newHashMapOfValues(
+					new Value<>("Pregnancy", Util.newArrayListOfValues(
+												new ListValue<>(SlaveJobSetting.SEX_PROMISCUITY_PILLS),
+												new ListValue<>(SlaveJobSetting.SEX_NO_PILLS),
+												new ListValue<>(SlaveJobSetting.SEX_VIXENS_VIRILITY))),
+					new Value<>("Room Preference", Util.newArrayListOfValues(
+							new ListValue<>(SlaveJobSetting.MILKING_INDUSTRIAL),
+							new ListValue<>(SlaveJobSetting.MILKING_REGULAR),
+							new ListValue<>(SlaveJobSetting.MILKING_ARTISAN),
+							new ListValue<>(SlaveJobSetting.MILKING_NO_PREFERENCE)))),
+			Util.newArrayListOfValues(
+					new ListValue<>(SlaveJobSetting.SEX_NO_PILLS),
+					new ListValue<>(SlaveJobSetting.MILKING_NO_PREFERENCE)),
+			WorldType.LILAYAS_HOUSE_GROUND_FLOOR,
+			PlaceType.LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR) {
+
+		@Override
+		public float getAffectionGain(GameCharacter slave) {
+			if(slave.hasFetish(Fetish.FETISH_LACTATION_SELF)) {
+				return 2f;
+			} else {
+				return -0.25f;
+			}
+		}
+		
+		private List<Cell> getMilkingCells() {
+			List<Cell> milkingCells = new ArrayList<>();
+			Cell[][] grid = Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR).getCellGrid();
+			for(int i=0 ; i<grid.length ; i++) {
+				for(int j=0 ; j<grid[0].length ; j++) {
+					if(grid[i][j].getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM)) {
+						milkingCells.add(grid[i][j]);
+					}
+				}
+			}
+			grid = Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getCellGrid();
+			for(int i=0 ; i<grid.length ; i++) {
+				for(int j=0 ; j<grid[0].length ; j++) {
+					if(grid[i][j].getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM)) {
+						milkingCells.add(grid[i][j]);
+					}
+				}
+			}
+			return milkingCells;
+		}
+		
+		private Cell getMilkingCell(GameCharacter character) {
+			List<Cell> milkingCells = getMilkingCells();
+			
+			List<Cell> freeMilkingCells = new ArrayList<>();
+			
+			for(Cell c : milkingCells) {
+				int charactersPresent = Main.game.getCharactersPresent(c).size();
+				
+				if(character.getSlaveJobSettings().contains(SlaveJobSetting.MILKING_INDUSTRIAL) && c.getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_INDUSTRIAL_MILKERS) && charactersPresent<8) {
+					return c;
+				} else if(character.getSlaveJobSettings().contains(SlaveJobSetting.MILKING_ARTISAN) && c.getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_ARTISAN_MILKERS) && charactersPresent<8) {
+					return c;
+				} else if(character.getSlaveJobSettings().contains(SlaveJobSetting.MILKING_REGULAR) && !c.getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_ARTISAN_MILKERS)
+						&& !c.getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_INDUSTRIAL_MILKERS) && charactersPresent<8) {
+					return c;
+				}
+				
+				if(charactersPresent<8) {
+					freeMilkingCells.add(c);
+				}
+			}
+			
+			if(milkingCells.isEmpty()) {
+				return null;
+			}
+			
+			return freeMilkingCells.get(Util.random.nextInt(freeMilkingCells.size()));
+		}
+		
+		@Override
+		public boolean isAvailable(GameCharacter character) {
+			return Main.game.getPlayer().getSlavesWorkingJob(SlaveJob.MILKING) < (getMilkingCells().size() * 8);
+		}
+
+		public String getAvailabilityText(GameCharacter character) {
+			if(!isAvailable(character)) {
+				return "Not enough space in milking rooms!";
+			}
+			
+			return super.getAvailabilityText(character);
+		}
+		
+		@Override
+		public WorldType getWorldLocation(GameCharacter character) {
+			Cell c = getMilkingCell(character);
+			if(c==null) {
+				return null;
+			}
+			return c.getType();
+		}
+
+		@Override
+		public PlaceType getPlaceLocation(GameCharacter character) {
+			Cell c = getMilkingCell(character);
+			if(c==null) {
+				return null;
+			}
+			return c.getPlace().getPlaceType();
+		}
+		
+		@Override
+		public void sendToWorkLocation(GameCharacter slave) {
+			Cell c = getMilkingCell(slave);
+			if(c!=null) {
+				if(slave.getSlaveJob().getWorldLocation(slave)!=slave.getWorldLocation() || slave.getSlaveJob().getPlaceLocation(slave)!=slave.getLocationPlace().getPlaceType()) {
+					slave.setLocation(c.getType(), c.getLocation(), false);
+				}
+			}
+		}
+		
+	}
 	
 	;
 	
@@ -309,17 +457,18 @@ public enum SlaveJob {
 		return defaultMutuallyExclusiveSettings;
 	}
 
-	public WorldType getWorldLocation() {
+	public WorldType getWorldLocation(GameCharacter character) {
 		return worldLocation;
 	}
 
-	public PlaceType getPlaceLocation() {
+	public PlaceType getPlaceLocation(GameCharacter character) {
 		return placeLocation;
 	}
 	
 	public void sendToWorkLocation(GameCharacter slave) {
-		if(slave.getSlaveJob().getWorldLocation()!=null && slave.getSlaveJob().getPlaceLocation()!=null) {
-			slave.setLocation(slave.getSlaveJob().getWorldLocation(), slave.getSlaveJob().getPlaceLocation(), false);
+		if(slave.getSlaveJob().getWorldLocation(slave)!=null && slave.getSlaveJob().getPlaceLocation(slave)!=null
+				&& (slave.getSlaveJob().getWorldLocation(slave)!=slave.getWorldLocation() || slave.getSlaveJob().getPlaceLocation(slave)!=slave.getLocationPlace().getPlaceType())) {
+			slave.setRandomUnoccupiedLocation(slave.getSlaveJob().getWorldLocation(slave), slave.getSlaveJob().getPlaceLocation(slave), false);
 		}
 	}
 	
@@ -335,7 +484,7 @@ public enum SlaveJob {
 			return "Slaves cannot work out of the cells at slavery administration. Move them into a room first!";
 			
 		} else {
-			return "This job is available!";
+			return "This job is unavailable!";
 		}
 	}
 	

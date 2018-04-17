@@ -3,7 +3,6 @@ package com.lilithsthrone.game.dialogue.places.dominion.harpyNests;
 import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.effects.Perk;
-import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
@@ -15,6 +14,7 @@ import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemEffectType;
 import com.lilithsthrone.game.inventory.item.ItemType;
+import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.universal.SMStanding;
@@ -25,7 +25,7 @@ import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.8
- * @version 0.1.87
+ * @version 0.2.3
  * @author Innoxia
  */
 public class HarpyNestNympho {
@@ -124,14 +124,14 @@ public class HarpyNestNympho {
 						return new Response("Approach [harpyNympho.name]", "Walk to the centre of the nest and talk to [harpyNympho.name].", HARPY_NEST_NYMPHO_APPROACH) {
 							@Override
 							public void effects() {
-								Main.game.getHarpyNympho().addStatusEffect(StatusEffect.CREAMPIE_VAGINA, 120);
+								Main.game.getHarpyNympho().getCummedInAreaMap().put(OrificeType.VAGINA, 75);
 							}
 						};
 					} else {
 						return new Response("Approach matriarch", "Walk to the centre of the nest and talk to the matriarch.", HARPY_NEST_NYMPHO_APPROACH) {
 							@Override
 							public void effects() {
-								Main.game.getHarpyNympho().addStatusEffect(StatusEffect.CREAMPIE_VAGINA, 120);
+								Main.game.getHarpyNympho().getCummedInAreaMap().put(OrificeType.VAGINA, 75);
 							}
 						};
 					}

@@ -1,5 +1,10 @@
 package com.lilithsthrone.game.character.body.types;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.race.Race;
@@ -7,7 +12,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 
 /**
  * @since 0.1.0
- * @version 0.2.1
+ * @version 0.2.2
  * @author Innoxia
  */
 public enum ArmType implements BodyPartTypeInterface {
@@ -35,7 +40,18 @@ public enum ArmType implements BodyPartTypeInterface {
 	ALLIGATOR_MORPH(BodyCoveringType.ALLIGATOR_SCALES, Race.ALLIGATOR_MORPH),
 
 	SQUIRREL_MORPH(BodyCoveringType.SQUIRREL_FUR, Race.SQUIRREL_MORPH),
+	
+	RAT_MORPH(BodyCoveringType.RAT_FUR, Race.RAT_MORPH),
 
+	RABBIT_MORPH(BodyCoveringType.RABBIT_FUR, Race.RABBIT_MORPH),
+	
+	BAT_MORPH(BodyCoveringType.BAT_SKIN, Race.BAT_MORPH) {
+		@Override
+		public boolean allowsFlight() {
+			return true;
+		}
+	},
+	
 	HARPY(BodyCoveringType.FEATHERS, Race.HARPY) {
 		@Override
 		public boolean allowsFlight() {
@@ -75,6 +91,7 @@ public enum ArmType implements BodyPartTypeInterface {
 	public String getNameSingular(GameCharacter gc) {
 		switch(this){
 			case HARPY:
+			case BAT_MORPH:
 				return UtilText.returnStringAtRandom("wing");
 			default:
 				return UtilText.returnStringAtRandom("arm");
@@ -85,6 +102,7 @@ public enum ArmType implements BodyPartTypeInterface {
 	public String getNamePlural(GameCharacter gc) {
 		switch(this){
 			case HARPY:
+			case BAT_MORPH:
 				return UtilText.returnStringAtRandom("wings");
 			default:
 				return UtilText.returnStringAtRandom("arms");
@@ -120,6 +138,12 @@ public enum ArmType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("");
 			case LYCAN:
 				return UtilText.returnStringAtRandom("furry", "fur-coated");
+			case BAT_MORPH:
+				return UtilText.returnStringAtRandom("bat-like");
+			case RAT_MORPH:
+				return UtilText.returnStringAtRandom("furry", "fur-coated");
+			case RABBIT_MORPH:
+				return UtilText.returnStringAtRandom("furry", "fur-coated");
 		}
 		return "";
 	}
@@ -152,6 +176,12 @@ public enum ArmType implements BodyPartTypeInterface {
 				return "human";
 			case LYCAN:
 				return "lupine";
+			case BAT_MORPH:
+				return "bat";
+			case RAT_MORPH:
+				return "rat";
+			case RABBIT_MORPH:
+				return "rabbit";
 		}
 		return "";
 	}
@@ -187,7 +217,7 @@ public enum ArmType implements BodyPartTypeInterface {
 					return UtilText.returnStringAtRandom("slender", "delicate", "soft", "feminine");
 				case CAT_MORPH:
 					return UtilText.returnStringAtRandom("soft", "feminine", "cat-like", "paw-like", "furry", "feline");
-				case DEMON_COMMON:
+				case DEMON_COMMON: case IMP:
 					return UtilText.returnStringAtRandom("slender", "delicate", "soft", "feminine");
 				case DOG_MORPH:
 					return UtilText.returnStringAtRandom("soft", "feminine", "dog-like", "paw-like", "furry", "canine");
@@ -207,8 +237,12 @@ public enum ArmType implements BodyPartTypeInterface {
 					return UtilText.returnStringAtRandom("soft", "feminine", "wolf-like", "furry", "paw-like");
 				case SQUIRREL_MORPH:
 					return UtilText.returnStringAtRandom("soft", "feminine", "squirrel-like", "claw-like", "furry", "rodent");
-				default:
-					return UtilText.returnStringAtRandom("");
+				case RAT_MORPH:
+					return UtilText.returnStringAtRandom("soft", "feminine", "rat-like", "claw-like", "furry", "rodent");
+				case RABBIT_MORPH:
+					return UtilText.returnStringAtRandom("soft", "feminine", "rabbit-like", "paw-like", "furry");
+				case BAT_MORPH:
+					return UtilText.returnStringAtRandom("feminine", "bat-like");
 			}
 		} else {
 			switch(this){
@@ -216,7 +250,7 @@ public enum ArmType implements BodyPartTypeInterface {
 					return UtilText.returnStringAtRandom("soft", "delicate");
 				case CAT_MORPH:
 					return UtilText.returnStringAtRandom("soft", "delicate", "cat-like", "paw-like", "furry", "feline");
-				case DEMON_COMMON:
+				case DEMON_COMMON: case IMP:
 					return UtilText.returnStringAtRandom("slender");
 				case DOG_MORPH:
 					return UtilText.returnStringAtRandom("dog-like", "paw-like", "furry", "canine");
@@ -236,10 +270,16 @@ public enum ArmType implements BodyPartTypeInterface {
 					return UtilText.returnStringAtRandom("wolf-like", "furry", "paw-like");
 				case SQUIRREL_MORPH:
 					return UtilText.returnStringAtRandom("soft", "squirrel-like", "claw-like", "furry", "rodent");
-				default:
-					return UtilText.returnStringAtRandom("");
+				case RAT_MORPH:
+					return UtilText.returnStringAtRandom("rat-like", "claw-like", "furry", "rodent");
+				case RABBIT_MORPH:
+					return UtilText.returnStringAtRandom("rabbit-like", "paw-like", "furry");
+				case BAT_MORPH:
+					return UtilText.returnStringAtRandom("bat-like");
 			}
 		}
+		
+		return "";
 	}
 	
 	public String getFingersNameSingular(GameCharacter gc) {
@@ -263,7 +303,7 @@ public enum ArmType implements BodyPartTypeInterface {
 					return UtilText.returnStringAtRandom("slender", "delicate", "soft", "feminine");
 				case CAT_MORPH:
 					return UtilText.returnStringAtRandom("soft", "feminine", "padded", "feline");
-				case DEMON_COMMON:
+				case DEMON_COMMON: case IMP:
 					return UtilText.returnStringAtRandom("slender", "delicate", "soft", "feminine");
 				case DOG_MORPH:
 					return UtilText.returnStringAtRandom("soft", "feminine", "padded", "canine");
@@ -283,8 +323,12 @@ public enum ArmType implements BodyPartTypeInterface {
 					return UtilText.returnStringAtRandom("soft", "feminine", "padded", "wolf-like");
 				case SQUIRREL_MORPH:
 					return UtilText.returnStringAtRandom("soft", "feminine", "clawed", "rodent");
-				default:
-					return UtilText.returnStringAtRandom("");
+				case RAT_MORPH:
+					return UtilText.returnStringAtRandom("soft", "feminine", "rat-like", "claw-like", "furry", "rodent");
+				case RABBIT_MORPH:
+					return UtilText.returnStringAtRandom("soft", "feminine", "rabbit-like", "paw-like", "furry");
+				case BAT_MORPH:
+					return UtilText.returnStringAtRandom("soft", "feminine", "bat-like");
 			}
 		} else {
 			switch(this){
@@ -292,7 +336,7 @@ public enum ArmType implements BodyPartTypeInterface {
 					return UtilText.returnStringAtRandom("soft", "delicate");
 				case CAT_MORPH:
 					return UtilText.returnStringAtRandom("soft", "delicate", "padded", "feline");
-				case DEMON_COMMON:
+				case DEMON_COMMON: case IMP:
 					return UtilText.returnStringAtRandom("slender");
 				case DOG_MORPH:
 					return UtilText.returnStringAtRandom("dog-like", "padded", "canine");
@@ -312,10 +356,31 @@ public enum ArmType implements BodyPartTypeInterface {
 					return UtilText.returnStringAtRandom("wolf-like", "padded");
 				case SQUIRREL_MORPH:
 					return UtilText.returnStringAtRandom("soft", "clawed", "rodent");
-				default:
-					return UtilText.returnStringAtRandom("");
+				case RAT_MORPH:
+					return UtilText.returnStringAtRandom("rat-like", "claw-like", "furry", "rodent");
+				case RABBIT_MORPH:
+					return UtilText.returnStringAtRandom("rabbit-like", "paw-like", "furry");
+				case BAT_MORPH:
+					return UtilText.returnStringAtRandom("bat-like");
 			}
 		}
+		
+		return "";
 	}
 	
+	private static Map<Race, List<ArmType>> typesMap = new HashMap<>();
+	public static List<ArmType> getArmTypes(Race r) {
+		if(typesMap.containsKey(r)) {
+			return typesMap.get(r);
+		}
+		
+		List<ArmType> types = new ArrayList<>();
+		for(ArmType type : ArmType.values()) {
+			if(type.getRace()==r) {
+				types.add(type);
+			}
+		}
+		typesMap.put(r, types);
+		return types;
+	}
 }

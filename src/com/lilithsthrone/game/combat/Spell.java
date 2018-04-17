@@ -21,7 +21,7 @@ import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.0
- * @version 0.2.1
+ * @version 0.2.2
  * @author Innoxia
  */
 public enum Spell {
@@ -794,6 +794,7 @@ public enum Spell {
 
 	private StringBuilder damageCostDescriptionSB;
 
+	
 	protected String getDamageAndCostDescription(GameCharacter caster, GameCharacter target, float cost, float damage, boolean isHit, boolean isCritical) {
 		damageCostDescriptionSB = new StringBuilder();
 

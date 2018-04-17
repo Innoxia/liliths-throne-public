@@ -3,6 +3,7 @@ package com.lilithsthrone.game.sex.sexActions;
 import java.util.List;
 import java.util.Set;
 
+import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
@@ -230,6 +231,30 @@ public interface SexActionInterface {
 	public default Response toResponse() {
 		if(isBaseRequirementsMet() && isPhysicallyPossible() && !isBannedFromSexManager()) {
 			
+//			if(!this.getParticipantType().isUsingSelfOrificeType()) {
+				if(getAssociatedOrificeType()!=null) {
+					switch(getAssociatedOrificeType()){
+						case NIPPLE:
+							if((!Main.getProperties().hasValue(PropertyValue.nipplePenContent) && (this.getActionType()==SexActionType.PARTNER_PENETRATION || this.getActionType()==SexActionType.PLAYER_PENETRATION))) {
+								return null;
+							}
+							break;
+						case URETHRA_PENIS:
+							if((!Main.getProperties().hasValue(PropertyValue.urethralContent) && (this.getActionType()==SexActionType.PARTNER_PENETRATION || this.getActionType()==SexActionType.PLAYER_PENETRATION))) {
+								return null;
+							}
+							break;
+						case URETHRA_VAGINA:
+							if(!Main.getProperties().hasValue(PropertyValue.urethralContent) && (this.getActionType()==SexActionType.PARTNER_PENETRATION || this.getActionType()==SexActionType.PLAYER_PENETRATION)) {
+								return null;
+							}
+							break;
+						default:
+							break;
+					}
+				}
+//			}
+			
 			// Return null if the player doesn't know about the partners penis/vagina
 			if(this.getActionType().isPlayerAction()) {
 				if(this.getParticipantType()==SexParticipantType.CATCHER && getAssociatedPenetrationType()==PenetrationType.PENIS && !Sex.getActivePartner().getPlayerKnowsAreas().contains(CoverableArea.PENIS)) {
@@ -238,8 +263,18 @@ public interface SexActionInterface {
 				if(!this.getParticipantType().isUsingSelfOrificeType()) {
 					if(getAssociatedOrificeType()!=null) {
 						switch(getAssociatedOrificeType()){
-							case URETHRA:
+							case NIPPLE:
+								if(!Sex.getActivePartner().getPlayerKnowsAreas().contains(CoverableArea.NIPPLES)) {
+									return null;
+								}
+								break;
+							case URETHRA_PENIS:
 								if(!Sex.getActivePartner().getPlayerKnowsAreas().contains(CoverableArea.PENIS)) {
+									return null;
+								}
+								break;
+							case URETHRA_VAGINA:
+								if(!Sex.getActivePartner().getPlayerKnowsAreas().contains(CoverableArea.VAGINA)) {
 									return null;
 								}
 								break;
@@ -706,13 +741,20 @@ public interface SexActionInterface {
 					break;
 				case BREAST:
 					break;
-				case URETHRA:
-					if(!getOrificeCharacter().hasPenis())
+				case URETHRA_PENIS:
+					if(!getOrificeCharacter().hasPenis() || (!getOrificeCharacter().isUrethraFuckable() && getAssociatedPenetrationType()==PenetrationType.PENIS)) {
 						return false;
+					}
 					break;
 				case VAGINA:
-					if(!getOrificeCharacter().hasVagina())
+					if(!getOrificeCharacter().hasVagina()) {
 						return false;
+					}
+					break;
+				case URETHRA_VAGINA:
+					if(!getOrificeCharacter().hasVagina() || !getOrificeCharacter().isVaginaUrethraFuckable()) {
+						return false;
+					}
 					break;
 				case THIGHS: //TODO mermaid/centaur legs
 					break;

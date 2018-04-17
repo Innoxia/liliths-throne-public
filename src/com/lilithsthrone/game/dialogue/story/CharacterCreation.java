@@ -2,6 +2,7 @@ package com.lilithsthrone.game.dialogue.story;
 
 import java.io.File;
 
+import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
@@ -123,9 +124,9 @@ public class CharacterCreation {
 					public void effects() {
 						Main.game.clearTextStartStringBuilder();
 						Main.game.clearTextEndStringBuilder();
-						Main.getProperties().setNewWeaponDiscovered(false);
-						Main.getProperties().setNewClothingDiscovered(false);
-						Main.getProperties().setNewItemDiscovered(false);
+						Main.getProperties().setValue(PropertyValue.newWeaponDiscovered, false);
+						Main.getProperties().setValue(PropertyValue.newClothingDiscovered, false);
+						Main.getProperties().setValue(PropertyValue.newItemDiscovered, false);
 						Main.game.getPlayer().calculateStatusEffects(0);
 						getDressed();
 						resetBodyAppearance();
@@ -1204,12 +1205,19 @@ public class CharacterCreation {
 			
 			if(Main.game.isBodyHairEnabled()) {
 				UtilText.nodeContentSB.append(
-						CharacterModificationUtils.getKatesDivUnderarmHair("Underarm hair", "The body hair found in your armpits.")
-						+ CharacterModificationUtils.getKatesDivAssHair("Ass hair", "The body hair found around your asshole."));
+						CharacterModificationUtils.getKatesDivUnderarmHair("Underarm hair", "The body hair found in your armpits."));
 				
 			} else {
 				UtilText.nodeContentSB.append(CharacterModificationUtils.getKatesDivGenericBodyHairDisabled(
-						"Body hair", "The body hair found in your armpits and around your asshole.", "Body hair is currently disabled in the options. You will not see any underarm or ass hair content while it is disabled."));
+						"Underarm hair", "The hair found in your armpits.", "Underarm hair is currently disabled in the options. You will not see any underarm hair content while it is disabled."));
+			}
+			
+			if(Main.game.isAssHairEnabled()) {
+				UtilText.nodeContentSB.append(CharacterModificationUtils.getKatesDivAssHair("Ass hair", "The body hair found around your asshole."));
+				
+			} else {
+				UtilText.nodeContentSB.append(CharacterModificationUtils.getKatesDivGenericBodyHairDisabled(
+						"Ass hair", "The body hair found around your asshole.", "Ass hair is currently disabled in the options. You will not see any ass hair content while it is disabled."));
 			}
 			
 			return UtilText.nodeContentSB.toString();

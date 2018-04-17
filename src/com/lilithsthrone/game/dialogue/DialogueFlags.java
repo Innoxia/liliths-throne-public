@@ -144,7 +144,7 @@ public class DialogueFlags implements Serializable, XMLSaving {
 				}
 			}
 		} catch(Exception ex) {
-			System.err.println("Whoopsie :^)");
+			System.err.println("Whoopsie :^)"); // Prints out "Whoopsie :^) to the error output stream."
 		}
 	}
 

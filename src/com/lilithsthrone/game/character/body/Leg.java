@@ -8,7 +8,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 
 /**
  * @since 0.1.0
- * @version 0.1.83
+ * @version 0.2.2
  * @author Innoxia
  */
 public class Leg implements BodyPartInterface, Serializable {
@@ -263,6 +263,57 @@ public class Leg implements BodyPartInterface, Serializable {
 								+ " As [npc.her] new fur spreads down to the ends of [npc.her] toes, [npc.her] toenails thicken into sharp claws, and little pink pads grow to cover [npc.her] soles, leaving [npc.herHim] with paw-like feet."
 								+ " As the transformation ends, [npc.she] sees that [npc.her] new fur smoothly transitions into the [npc.skin] covering the rest of [npc.her] body at [npc.her] upper-thigh.</br>"
 								+ "[npc.Name] now has anthropomorphic, [style.boldSquirrelMorph(squirrel-like legs and feet)], which are covered in [npc.legFullDescription]."
+							+ "</p>");
+				}
+				break;
+			case RAT_MORPH:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+								" A layer of rat-like fur quickly grows over your legs as they shift into a new form."
+								+ " As your new fur spreads down to the ends of your toes, your toenails thicken into sharp claws, and little pink pads grow to cover your soles, leaving you with paw-like feet."
+								+ " As the transformation ends, you see that your new fur smoothly transitions into the [pc.skin] covering the rest of your body at your upper-thigh.</br>"
+								+ "You're left with anthropomorphic, [style.boldRatMorph(rat-like legs and feet)], which are covered in [pc.legFullDescription]."
+							+ "</p>");
+				} else {
+					UtilText.transformationContentSB.append(
+								" A layer of rat-like fur quickly grows over [npc.her] legs as they shift into a new form."
+								+ " As [npc.her] new fur spreads down to the ends of [npc.her] toes, [npc.her] toenails thicken into sharp claws, and little pink pads grow to cover [npc.her] soles, leaving [npc.herHim] with paw-like feet."
+								+ " As the transformation ends, [npc.she] sees that [npc.her] new fur smoothly transitions into the [npc.skin] covering the rest of [npc.her] body at [npc.her] upper-thigh.</br>"
+								+ "[npc.Name] now has anthropomorphic, [style.boldRatMorph(rat-like legs and feet)], which are covered in [npc.legFullDescription]."
+							+ "</p>");
+				}
+				break;
+			case RABBIT_MORPH:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+								" A layer of rabbit-like fur quickly grows over your legs as they shift into a new form."
+								+ " As your new fur spreads down to the ends of your toes, your toenails thicken into blunt claws, and soft little pads grow to cover your soles, leaving you with long, paw-like feet."
+								+ " As the transformation ends, you see that your new fur smoothly transitions into the [pc.skin] covering the rest of your body at your upper-thigh.</br>"
+								+ "You're left with anthropomorphic, [style.boldRabbitMorph(rabbit-like legs and feet)], which are covered in [pc.legFullDescription]."
+							+ "</p>");
+				} else {
+					UtilText.transformationContentSB.append(
+								" A layer of rat-like fur quickly grows over [npc.her] legs as they shift into a new form."
+								+ " As [npc.her] new fur spreads down to the ends of [npc.her] toes, [npc.her] toenails thicken into blunt claws, and soft little pads grow to cover [npc.her] soles, leaving [npc.herHim] with long, paw-like feet."
+								+ " As the transformation ends, [npc.she] sees that [npc.her] new fur smoothly transitions into the [npc.skin] covering the rest of [npc.her] body at [npc.her] upper-thigh.</br>"
+								+ "[npc.Name] now has anthropomorphic, [style.boldRabbitMorph(rabbit-like legs and feet)], which are covered in [npc.legFullDescription]."
+							+ "</p>");
+				}
+				break;
+			case BAT_MORPH:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+								" A layer of bat-like fur quickly grows over your legs as they shift into a new form."
+								+ " As your new fur spreads down to the ends of your toes, your toenails thicken into sharp claws, and little pink pads grow to cover your soles, leaving you with paw-like feet."
+								+ " As the transformation ends, you see that your new fur smoothly transitions into the [pc.skin] covering the rest of your body at your upper-thigh.</br>"
+								+ "You're left with anthropomorphic, [style.boldBatMorph(bat-like legs and feet)], which are covered in [pc.legFullDescription]."
+							+ "</p>");
+				} else {
+					UtilText.transformationContentSB.append(
+								" A layer of bat-like fur quickly grows over [npc.her] legs as they shift into a new form."
+								+ " As [npc.her] new fur spreads down to the ends of [npc.her] toes, [npc.her] toenails thicken into sharp claws, and little pink pads grow to cover [npc.her] soles, leaving [npc.herHim] with paw-like feet."
+								+ " As the transformation ends, [npc.she] sees that [npc.her] new fur smoothly transitions into the [npc.skin] covering the rest of [npc.her] body at [npc.her] upper-thigh.</br>"
+								+ "[npc.Name] now has anthropomorphic, [style.boldBatMorph(bat-like legs and feet)], which are covered in [npc.legFullDescription]."
 							+ "</p>");
 				}
 				break;

@@ -91,36 +91,14 @@ public class SlaveInStocks extends NPC {
 			Map<Subspecies, Integer> availableRaces = new HashMap<>();
 			for(Subspecies s : Subspecies.values()) {
 				switch(s) {
-					case ALLIGATOR_MORPH:
-						addToSubspeciesMap(5, gender, s, availableRaces);
-						break;
+					// No spawn chance:
 					case ANGEL:
-						break;
-					case CAT_MORPH:
-						addToSubspeciesMap(20, gender, s, availableRaces);
-						break;
-					case COW_MORPH:
-						addToSubspeciesMap(10, gender, s, availableRaces);
-						break;
 					case DEMON:
-						break;
-					case IMP:
-						break;
-					case IMP_ALPHA:
-						break;
-					case DOG_MORPH:
-						addToSubspeciesMap(20, gender, s, availableRaces);
-						break;
-					case DOG_MORPH_DOBERMANN:
-						addToSubspeciesMap(10, gender, s, availableRaces);
-						break;
 					case HARPY:
-						break;
-					case HORSE_MORPH:
-						addToSubspeciesMap(20, gender, s, availableRaces);
-						break;
+					case HARPY_RAVEN:
 					case HUMAN:
-						break;
+					case IMP:
+					case IMP_ALPHA:
 					case SLIME:
 					case SLIME_ALLIGATOR:
 					case SLIME_ANGEL:
@@ -129,17 +107,55 @@ public class SlaveInStocks extends NPC {
 					case SLIME_DEMON:
 					case SLIME_DOG:
 					case SLIME_DOG_DOBERMANN:
+					case SLIME_DOG_BORDER_COLLIE:
 					case SLIME_HARPY:
+					case SLIME_HARPY_RAVEN:
 					case SLIME_HORSE:
 					case SLIME_IMP:
 					case SLIME_REINDEER:
 					case SLIME_SQUIRREL:
 					case SLIME_WOLF:
+					case SLIME_RAT:
+					case SLIME_BAT:
+					case SLIME_RABBIT:
 						break;
+					
+					// Special spawns:
 					case REINDEER_MORPH:
 						if(Main.game.getSeason()==Season.WINTER && Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.hasSnowedThisWinter)) {
 							addToSubspeciesMap(10, gender, s, availableRaces);
 						}
+						break;
+						
+					// Rare spawns:
+					case ALLIGATOR_MORPH:
+						addToSubspeciesMap(5, gender, s, availableRaces);
+						break;
+					case BAT_MORPH:
+						addToSubspeciesMap(5, gender, s, availableRaces);
+						break;
+					case RAT_MORPH:
+						addToSubspeciesMap(5, gender, s, availableRaces);
+						break;
+						
+					// Common spawns:
+					case CAT_MORPH:
+						addToSubspeciesMap(20, gender, s, availableRaces);
+						break;
+					case COW_MORPH:
+						addToSubspeciesMap(10, gender, s, availableRaces);
+						break;
+					case DOG_MORPH:
+						addToSubspeciesMap(20, gender, s, availableRaces);
+						break;
+					case DOG_MORPH_DOBERMANN:
+						addToSubspeciesMap(5, gender, s, availableRaces);
+						break;
+					case DOG_MORPH_BORDER_COLLIE:
+						addToSubspeciesMap(5, gender, s, availableRaces);
+						break;
+					case HORSE_MORPH:
+						addToSubspeciesMap(20, gender, s, availableRaces);
 						break;
 					case SQUIRREL_MORPH:
 						addToSubspeciesMap(10, gender, s, availableRaces);
@@ -147,7 +163,12 @@ public class SlaveInStocks extends NPC {
 					case WOLF_MORPH:
 						addToSubspeciesMap(20, gender, s, availableRaces);
 						break;
-				
+					case RABBIT_MORPH:
+						addToSubspeciesMap(3, gender, s, availableRaces);
+						break;
+					case RABBIT_MORPH_LOP:
+						addToSubspeciesMap(3, gender, s, availableRaces);
+						break;
 				}
 			}
 			

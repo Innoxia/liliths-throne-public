@@ -158,11 +158,16 @@ public class BodyChanging {
 						
 						+"</div>"
 						
-	
 						+ CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyCoveringType.DEMON_COMMON, "Skin Colour",
 								(BodyChanging.getTarget().isPlayer()
 									?"The colour of the demonic skin that's covering your body."
 									:UtilText.parse(BodyChanging.getTarget(), "The colour of the demonic skin that's covering [npc.name]'s body.")),
+								true, true)
+						
+						+ CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyCoveringType.BODY_HAIR_DEMON, "Body Hair Colour",
+								(BodyChanging.getTarget().isPlayer()
+									?"The colour of your demonic body hair."
+									:UtilText.parse(BodyChanging.getTarget(), "The colour of the [npc.name]'s demonic body hair.")),
 								true, true);
 			// Slime:
 			} else {
@@ -208,7 +213,6 @@ public class BodyChanging {
 					
 					+"</div>"
 					
-
 					+ CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyCoveringType.SLIME, "Slime Colour",
 							(BodyChanging.getTarget().isPlayer()
 								?"The colour of the slime that your body is made up of."

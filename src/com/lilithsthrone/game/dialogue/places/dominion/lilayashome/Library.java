@@ -12,11 +12,16 @@ import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
+import com.lilithsthrone.game.slavery.SlaveJob;
+import com.lilithsthrone.game.slavery.SlavePermissionSetting;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.rendering.RenderingEngine;
+import com.lilithsthrone.world.Cell;
+import com.lilithsthrone.world.WorldType;
 
 /**
  * @since 0.1.78
- * @version 0.1.87
+ * @version 0.2.2
  * @author Innoxia, Rfpnj
  */
 public class Library {
@@ -46,37 +51,44 @@ public class Library {
 						+ "</p>");
 			} else {
 				for(NPC slave : charactersPresent) {
+					UtilText.nodeContentSB.append(UtilText.parse(slave,
+							"<p>"
+								+ "Having been assigned to work as a "+(SlaveJob.LIBRARY.getName(slave))+", <b style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>[npc.name]</b> is present in this area."));
+					
+					if(slave.hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_CRAWLING)) {
+						UtilText.nodeContentSB.append(UtilText.parse(slave,
+								" As you've instructed [npc.herHim] to crawl, [npc.she]'s down on all fours, and "));
+					} else {
+						UtilText.nodeContentSB.append(UtilText.parse(slave,
+								" [npc.She] "));
+					}
+					
 					switch(slave.getObedience()) {
-					case NEGATIVE_FIVE_REBELLIOUS: case NEGATIVE_FOUR_DEFIANT: case NEGATIVE_THREE_STRONG_INSUBORDINATE:
-						UtilText.nodeContentSB.append(UtilText.parse(slave,
-								"<p>"
-									+ "Although <b style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>[npc.name]</b> is here, [npc.she]'s not even bothering to pretend that [npc.she]'s working."
-								+ "</p>"));
-						break;
-					case NEGATIVE_ONE_DISOBEDIENT:  case NEGATIVE_TWO_UNRULY:
-						UtilText.nodeContentSB.append(UtilText.parse(slave,
-								"<p>"
-									+ "<b style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>[npc.Name]</b> appears to be half-heartedly ordering some books."
-								+ "</p>"));
-						break;
-					case ZERO_FREE_WILLED:
-						UtilText.nodeContentSB.append(UtilText.parse(slave,
-								"<p>"
-									+ "<b style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>[npc.Name]</b> is dusting the shelves and making sure that everything is in order."
-								+ "</p>"));
-						break;
-					case POSITIVE_ONE_AGREEABLE: case POSITIVE_TWO_OBEDIENT:
-						UtilText.nodeContentSB.append(UtilText.parse(slave,
-								"<p>"
-									+ "<b style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>[npc.Name]</b> is reorganising one of the shelves."
-								+ "</p>"));
-						break;
-					case POSITIVE_THREE_DISCIPLINED: case POSITIVE_FOUR_DUTIFUL: case POSITIVE_FIVE_SUBSERVIENT:
-						UtilText.nodeContentSB.append(UtilText.parse(slave,
-								"<p>"
-									+ "<b style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>[npc.Name]</b> is dutifully making a catalogue of all the books available in the library."
-								+ "</p>"));
-						break;
+						case NEGATIVE_FIVE_REBELLIOUS: case NEGATIVE_FOUR_DEFIANT: case NEGATIVE_THREE_STRONG_INSUBORDINATE:
+							UtilText.nodeContentSB.append(UtilText.parse(slave,
+										" is not even bothering to pretend that [npc.she]'s working."
+									+ "</p>"));
+							break;
+						case NEGATIVE_ONE_DISOBEDIENT:  case NEGATIVE_TWO_UNRULY:
+							UtilText.nodeContentSB.append(UtilText.parse(slave,
+										" appears to be half-heartedly ordering some books."
+									+ "</p>"));
+							break;
+						case ZERO_FREE_WILLED:
+							UtilText.nodeContentSB.append(UtilText.parse(slave,
+										" is currently dusting the shelves and making sure that everything is in order."
+									+ "</p>"));
+							break;
+						case POSITIVE_ONE_AGREEABLE: case POSITIVE_TWO_OBEDIENT:
+							UtilText.nodeContentSB.append(UtilText.parse(slave,
+										" is currently reorganising one of the shelves."
+									+ "</p>"));
+							break;
+						case POSITIVE_THREE_DISCIPLINED: case POSITIVE_FOUR_DUTIFUL: case POSITIVE_FIVE_SUBSERVIENT:
+							UtilText.nodeContentSB.append(UtilText.parse(slave,
+										" is dutifully making a catalogue of all the books available in the library."
+									+ "</p>"));
+							break;
 					}
 				}
 			}
@@ -108,8 +120,6 @@ public class Library {
 	
 
 	public static final DialogueNodeOld BROWSE_BOOKS = new DialogueNodeOld("", "", false) {
-		/**
-		 */
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -133,25 +143,33 @@ public class Library {
 			if (books == 1) {
 				return new Response("General Knowledge", "A section of the library dedicated to books on common subjects.", LORE_BOOKS);
 
-			}  else if (books == 2) {
-				return new Response("Races of Dominion", "A section of the library dedicated to books concerning the predominate races within the city.", DOMINION_RACES) {
+			} else if (books == 2) {
+				return new Response("City Map", "A large, framed map of Dominion hangs on one wall. Take a closer look.", DOMINION_MAP) {
+					@Override
+					public void effects() {
+						Cell[][] grid = Main.game.getWorlds().get(WorldType.DOMINION).getGrid();
+						for(int i=0; i<grid.length; i++) {
+							for(int j=0; j<grid[0].length; j++) {
+								grid[i][j].setDiscovered(true);
+							}
+						}
+					}
 				};
 
-			} else if (books == 3) {
-				return new Response("The Fields", "A section of the library dedicated to books about the area known as the Foloi Fields.", FIELDS_BOOKS) {
-				};
-//
-//			} else if (books == 4) {
-//				return new Response("The Seas", "A section of the library dedicated to books on the area known as the Endless Sea.", SEA_BOOKS) {
-//				};
-//
-//			} else if (books == 5) {
-//				return new Response("The Jungle", "A section of the library dedicated to books on the area known as the Jungle.", JUNGLE_BOOKS) {
-//				};
-//
-//			} else if (books == 6) {
-//				return new Response("The Desert", "A section of the library dedicated to books on the area known as the Desert.", DESERT_BOOKS) {
-//				};
+			}  else if (books == 3) {
+				return new Response("Races of Dominion", "A section of the library dedicated to books concerning the predominate races within the city.", DOMINION_RACES);
+
+			}else if (books == 4) {
+				return new Response("Foloi Fields", "A section of the library dedicated to books about the area known as the Foloi Fields.", FIELDS_BOOKS);
+
+			} else if (books == 5) {
+				return new Response("Endless Sea", "A section of the library dedicated to books on the area known as the Endless Sea. (Not yet implemented.)", null);
+
+			} else if (books == 6) {
+				return new Response("The Jungle", "A section of the library dedicated to books on the area known as the Jungle. (Not yet implemented.)", null);
+
+			} else if (books == 7) {
+				return new Response("The Desert", "A section of the library dedicated to books on the area known as the Desert. (Not yet implemented.)", null);
 
 			} else if (books == 0) {
 				return new Response("Back", "Return to the main library menu.", LIBRARY);
@@ -241,9 +259,9 @@ public class Library {
 		}
 	
 	};
+	
+	
 	public static final DialogueNodeOld ARCANE_AROUSAL = new DialogueNodeOld("", "", false) {
-		/**
-		 */
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -400,6 +418,35 @@ public class Library {
 		}
 	};
 	
+	public static final DialogueNodeOld DOMINION_MAP = new DialogueNodeOld("", "", false) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getLabel() {
+			return "Library";
+		}
+
+		@Override
+		public String getContent() {
+			UtilText.nodeContentSB.setLength(0);
+			UtilText.nodeContentSB.append("<p>"
+						+ "Hanging on one of the walls of the library, a huge map of Dominion is displayed in a wooden frame."
+						+ " Using your phone, you take a picture of it for future reference."
+					+ "</p>"
+					+ "<p style='text-align:center;'>"
+						+ "[style.italicsExcellent(Dominion Map fully revealed!)]"
+					+ "</p>"
+					+ RenderingEngine.ENGINE.getFullMap(WorldType.DOMINION));
+			
+			return UtilText.nodeContentSB.toString();
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return LIBRARY.getResponse(0, index);
+		}
+		
+	};
 	
 	public static final DialogueNodeOld DOMINION_RACES = new DialogueNodeOld("", "", false) {
 		/**
@@ -414,10 +461,17 @@ public class Library {
 		@Override
 		public String getContent() {
 			return "<p>"
-
 						+ "Walking down one of the aisles, you find yourself surrounded by heavy wooden shelves, fastened together by prominent beams of iron and steel."
 						+ " A lot of the books here seem to be about local history of Dominion's many districts, and, while fascinating for a historian, they don't offer much use to you."
-						+ " Despite most of the books not being worth your time, there are a few here and there that detail the many races found within the city, and you wonder if you should give them a read..."
+					+ "</p>"
+					+ "<p>"
+						+ "You notice that a couple of the shelves look a little different from the others."
+						+ " The top-most shelf seems to be decorated to make it look as though it's crafted from twigs, just like a bird's nest."
+						+ " The shelf nearest to the floor has a very smooth surface, almost like the wood as been transmuted into stone."
+						+ " It looks like it would be moist to the touch."
+					+ "</p>"
+					+ "<p>"
+						+ "Despite most of these books not being worth your time, there are a few here and there that detail the many races found within the city, and you wonder if you should give them a read..."
 					+ "</p>";
 							
 		}
@@ -425,7 +479,7 @@ public class Library {
 		@Override
 		public Response getResponse(int responseTab, int city) {
 			if (city == 1) {
-				return bookResponse(ItemType.BOOK_CAT_MORPH, Race.CAT_MORPH);
+				return bookResponse(ItemType.BOOK_HARPY, Race.HARPY);
 
 			} else if (city == 2) {
 				return bookResponse(ItemType.BOOK_DEMON, Race.DEMON);
@@ -434,19 +488,31 @@ public class Library {
 				return bookResponse(ItemType.BOOK_DOG_MORPH, Race.DOG_MORPH);
 
 			} else if (city == 4) {
-				return bookResponse(ItemType.BOOK_HARPY, Race.HARPY);
+				return bookResponse(ItemType.BOOK_CAT_MORPH, Race.CAT_MORPH);
 
 			} else if (city == 5) {
 				return bookResponse(ItemType.BOOK_HORSE_MORPH, Race.HORSE_MORPH);
 
 			} else if (city == 6) {
-				return bookResponse(ItemType.BOOK_HUMAN, Race.HUMAN);
+				return bookResponse(ItemType.BOOK_WOLF_MORPH, Race.WOLF_MORPH);
 
 			} else if (city == 7) {
-				return bookResponse(ItemType.BOOK_WOLF_MORPH, Race.WOLF_MORPH);
+				return bookResponse(ItemType.BOOK_HUMAN, Race.HUMAN);
 
 			} else if (city == 8) {
 				return bookResponse(ItemType.BOOK_ALLIGATOR_MORPH, Race.ALLIGATOR_MORPH);
+
+			} else if (city == 9) {
+				return bookResponse(ItemType.BOOK_BAT_MORPH, Race.BAT_MORPH);
+
+			} else if (city == 10) {
+				return bookResponse(ItemType.BOOK_IMP, Race.IMP);
+
+			} else if (city == 11) {
+				return bookResponse(ItemType.BOOK_SLIME, Race.SLIME);
+
+			} else if (city == 12) {
+				return bookResponse(ItemType.BOOK_RAT_MORPH, Race.RAT_MORPH);
 
 			} else if (city == 0) {
 				return new Response("Back", "Return to browsing the shelves.", BROWSE_BOOKS);
@@ -475,6 +541,7 @@ public class Library {
 					+ "</p>"
 					+ "<p>"
 						+ "At first glance, they look to be crafted from blocks of sod, but upon closer inspection, you see that it's actually masterfully-engraved pieces of wood."
+						+ " One shelf looks like the sod is covered in snow, you can feel the cold wafting off of it"
 						+ " The books that they hold all seem to be related to the Foloi Fields and the many races found there, which would explain the pastoral scent and appearance of this particular section."
 					+ "</p>";
 							
@@ -489,9 +556,12 @@ public class Library {
 				return bookResponse(ItemType.BOOK_COW_MORPH, Race.COW_MORPH);
 
 			} else if (field == 3) {
+				return bookResponse(ItemType.BOOK_RABBIT_MORPH, Race.RABBIT_MORPH);
+
+			} else if (field == 4) {
 				return bookResponse(ItemType.BOOK_REINDEER_MORPH, Race.REINDEER_MORPH);
 
-			}  else if (field == 0) {
+			} else if (field == 0) {
 				return new Response("Back to the shelves", "Return to strolling the shelves.", BROWSE_BOOKS);
 
 

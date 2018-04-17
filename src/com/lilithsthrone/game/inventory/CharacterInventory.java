@@ -12,6 +12,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
+import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
@@ -27,6 +28,7 @@ import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.rendering.RenderingEngine;
 import com.lilithsthrone.utils.AbstractClothingRarityComparator;
 import com.lilithsthrone.utils.ClothingZLayerComparator;
 import com.lilithsthrone.utils.Colour;
@@ -51,7 +53,7 @@ import java.util.Set;
  * Inventory for a Character. Tracks weapons equipped, clothes worn & inventory space.
  * 
  * @since 0.1.0
- * @version 0.1.98
+ * @version 0.2.2
  * @author Innoxia
  */
 public class CharacterInventory implements Serializable, XMLSaving {
@@ -83,6 +85,7 @@ public class CharacterInventory implements Serializable, XMLSaving {
 	// ClothingSets being worn:
 	private Map<ClothingSet, Integer> clothingSetCount = new EnumMap<>(ClothingSet.class);
 
+	@SuppressWarnings("unused")
 	private int maxInventorySpace;
 
 	public CharacterInventory(int money) {
@@ -308,7 +311,8 @@ public class CharacterInventory implements Serializable, XMLSaving {
 	}
 
 	public int getMaximumInventorySpace() {
-		return maxInventorySpace;
+//		return maxInventorySpace;
+		return RenderingEngine.INVENTORY_PAGES * RenderingEngine.ITEMS_PER_PAGE;
 	}
 	
 	public void clearNonEquippedInventory(){
@@ -326,7 +330,7 @@ public class CharacterInventory implements Serializable, XMLSaving {
 	}
 	
 	public boolean isInventoryFull() {
-		return getInventorySlotsTaken() >= maxInventorySpace;
+		return getInventorySlotsTaken() >= getMaximumInventorySpace();
 	}
 	
 	/**
@@ -814,39 +818,87 @@ public class CharacterInventory implements Serializable, XMLSaving {
 		}
 		
 		// Can't equip piercings if that body part isn't pierced:
-		if (!characterClothingOwner.isPiercedEar() && newClothing.getClothingType().getSlot() == InventorySlot.PIERCING_EAR) {
-			equipTextSB.append("Your ears need to be pierced before you can wear this!");
-			return false;
-		}
-		if (!characterClothingOwner.isPiercedNose() && newClothing.getClothingType().getSlot() == InventorySlot.PIERCING_NOSE) {
-			equipTextSB.append("Your nose needs to be pierced before you can wear this!");
-			return false;
-		}
-		if (!characterClothingOwner.isPiercedLip() && newClothing.getClothingType().getSlot() == InventorySlot.PIERCING_LIP) {
-			equipTextSB.append("Your lip needs to be pierced before you can wear this!");
-			return false;
-		}
-		if (!characterClothingOwner.isPiercedTongue() && newClothing.getClothingType().getSlot() == InventorySlot.PIERCING_TONGUE) {
-			equipTextSB.append("Your tongue needs to be pierced before you can wear this!");
-			return false;
-		}
-		if (!characterClothingOwner.isPiercedNavel() && newClothing.getClothingType().getSlot() == InventorySlot.PIERCING_STOMACH) {
-			equipTextSB.append("Your navel needs to be pierced before you can wear this!");
-			return false;
-		}
-		if (!characterClothingOwner.isPiercedNipple() && newClothing.getClothingType().getSlot() == InventorySlot.PIERCING_NIPPLE) {
-			equipTextSB.append("Your nipples need to be pierced before you can wear this!");
-			return false;
+		if(characterClothingOwner.getBody().getBodyMaterial()!=BodyMaterial.SLIME) { // Slimes don't care about non-cock piercings:
+			if (!characterClothingOwner.isPiercedEar() && newClothing.getClothingType().getSlot() == InventorySlot.PIERCING_EAR) {
+				equipTextSB.append(characterClothingOwner.isPlayer()
+						?"Your ears need to be pierced before you can wear the "+newClothing.getName()+"!"
+						:UtilText.parse(characterClothingOwner,"[npc.Name]'s [npc.ears] need to be pierced before [npc.she] can wear the "+newClothing.getName()+"!"));
+				return false;
+			}
+			if (!characterClothingOwner.isPiercedNose() && newClothing.getClothingType().getSlot() == InventorySlot.PIERCING_NOSE) {
+				equipTextSB.append(characterClothingOwner.isPlayer()
+						?"Your nose needs to be pierced before you can wear the "+newClothing.getName()+"!"
+						:UtilText.parse(characterClothingOwner,"[npc.Name]'s nose needs to be pierced before [npc.she] can wear the "+newClothing.getName()+"!"));
+				return false;
+			}
+			if (!characterClothingOwner.isPiercedLip() && newClothing.getClothingType().getSlot() == InventorySlot.PIERCING_LIP) {
+				equipTextSB.append(characterClothingOwner.isPlayer()
+						?"Your [pc.lips] need to be pierced before you can wear the "+newClothing.getName()+"!"
+						:UtilText.parse(characterClothingOwner,"[npc.Name]'s [npc.lips] need to be pierced before [npc.she] can wear the "+newClothing.getName()+"!"));
+				return false;
+			}
+			if (!characterClothingOwner.isPiercedTongue() && newClothing.getClothingType().getSlot() == InventorySlot.PIERCING_TONGUE) {
+				equipTextSB.append(characterClothingOwner.isPlayer()
+						?"Your [pc.tongue] needs to be pierced before you can wear the "+newClothing.getName()+"!"
+						:UtilText.parse(characterClothingOwner,"[npc.Name]'s [npc.tongue] needs to be pierced before [npc.she] can wear the "+newClothing.getName()+"!"));
+				return false;
+			}
+			if (!characterClothingOwner.isPiercedNavel() && newClothing.getClothingType().getSlot() == InventorySlot.PIERCING_STOMACH) {
+				equipTextSB.append(characterClothingOwner.isPlayer()
+						?"Your navel needs to be pierced before you can wear the "+newClothing.getName()+"!"
+						:UtilText.parse(characterClothingOwner,"[npc.Name]'s navel needs to be pierced before [npc.she] can wear the "+newClothing.getName()+"!"));
+				return false;
+			}
+			if (!characterClothingOwner.isPiercedNipple() && newClothing.getClothingType().getSlot() == InventorySlot.PIERCING_NIPPLE) {
+				equipTextSB.append(characterClothingOwner.isPlayer()
+						?"Your [pc.nipples] need to be pierced before you can wear the "+newClothing.getName()+"!"
+						:UtilText.parse(characterClothingOwner,"[npc.Name]'s [npc.nipples] need to be pierced before [npc.she] can wear the "+newClothing.getName()+"!"));
+				return false;
+			}
+			if (!characterClothingOwner.isPiercedVagina() && newClothing.getClothingType().getSlot() == InventorySlot.PIERCING_VAGINA) {
+				if (!characterClothingOwner.hasVagina()) {
+					equipTextSB.append(characterClothingOwner.isPlayer()
+							?"You don't have a vagina, so you can't wear the "+newClothing.getName()+"!"
+							:UtilText.parse(characterClothingOwner,"[npc.Name] doesn't have a vagina, so [npc.she] can't wear the "+newClothing.getName()+"!"));
+					return false;
+				}
+				equipTextSB.append(characterClothingOwner.isPlayer()
+						?"Your [pc.clit] needs to be pierced before you can wear the "+newClothing.getName()+"!"
+						:UtilText.parse(characterClothingOwner,"[npc.Name]'s [npc.clit] needs to be pierced before [npc.she] can wear the "+newClothing.getName()+"!"));
+				return false;
+			}
+			if(newClothing.getClothingType().getSlot() == InventorySlot.PIERCING_PENIS) {
+				if (!characterClothingOwner.hasPenis()) {
+					equipTextSB.append(characterClothingOwner.isPlayer()
+							?"You don't have a penis, so you can't wear the "+newClothing.getName()+"!"
+							:UtilText.parse(characterClothingOwner,"[npc.Name] doesn't have a penis, so [npc.she] can't wear the "+newClothing.getName()+"!"));
+					return false;
+				}
+				if (!characterClothingOwner.isPiercedPenis()) {
+					equipTextSB.append(characterClothingOwner.isPlayer()
+							?"Your [pc.cock] needs to be pierced before you can wear the "+newClothing.getName()+"!"
+							:UtilText.parse(characterClothingOwner,"[npc.Name]'s [npc.cock] needs to be pierced before [npc.she] can wear the "+newClothing.getName()+"!"));
+					return false;
+				}
+			}
 		}
 		if (!characterClothingOwner.isPiercedVagina() && newClothing.getClothingType().getSlot() == InventorySlot.PIERCING_VAGINA) {
-			equipTextSB.append("Your clit needs to be pierced before you can wear this!");
-			return false;
+			if (!characterClothingOwner.hasVagina()) {
+				equipTextSB.append(characterClothingOwner.isPlayer()
+						?"You don't have a vagina, so you can't wear the "+newClothing.getName()+"!"
+						:UtilText.parse(characterClothingOwner,"[npc.Name] doesn't have a vagina, so [npc.she] can't wear the "+newClothing.getName()+"!"));
+				return false;
+			}
 		}
-		if (!characterClothingOwner.isPiercedPenis() && newClothing.getClothingType().getSlot() == InventorySlot.PIERCING_PENIS) {
-			equipTextSB.append("Your cock needs to be pierced before you can wear this!");
-			return false;
+		if(newClothing.getClothingType().getSlot() == InventorySlot.PIERCING_PENIS) {
+			if (!characterClothingOwner.hasPenis()) {
+				equipTextSB.append(characterClothingOwner.isPlayer()
+						?"You don't have a penis, so you can't wear the "+newClothing.getName()+"!"
+						:UtilText.parse(characterClothingOwner,"[npc.Name] doesn't have a penis, so [npc.she] can't wear the "+newClothing.getName()+"!"));
+				return false;
+			}
 		}
-
+		
 		// Check to see if any equipped clothing is incompatible with newClothing:
 		incompatibleUnequippableClothing.clear();
 		incompatibleRemovableClothing.clear();
@@ -876,9 +928,12 @@ public class CharacterInventory implements Serializable, XMLSaving {
 		// There is at least one piece of clothing that is incompatible with newClothing, and that clothing cannot be removed.
 		if (!incompatibleUnequippableClothing.isEmpty()) {
 			for(AbstractClothing c : incompatibleUnequippableClothing) {
-				if(c.isSealed())
-					equipTextSB.append("You can't equip the " + newClothing.getName() + " because your <b style='color:" + Colour.SEALED.toWebHexString() + ";'>sealed</b> "
-							+c.getName()+ " "+(c.getClothingType().isPlural()?"are":"is")+" in the way.");
+				if(c.isSealed()) {
+					equipTextSB.append(characterClothingOwner.isPlayer()
+							?"You can't equip the " + newClothing.getName() + " because your <b style='color:" + Colour.SEALED.toWebHexString() + ";'>sealed</b> "+c.getName()+(c.getClothingType().isPlural()?" are":" is")+" in the way."
+							:UtilText.parse(characterClothingOwner,
+									"[npc.Name] can't equip the " + newClothing.getName() + " because [npc.her] <b style='color:" + Colour.SEALED.toWebHexString() + ";'>sealed</b> "+c.getName()+(c.getClothingType().isPlural()?" are":" is")+" in the way."));
+				}
 			}
 			return false;
 		}
@@ -902,8 +957,12 @@ public class CharacterInventory implements Serializable, XMLSaving {
 										if(automaticClothingManagement && isAbleToBeDisplaced(equippedClothing, bpEquipped.displacementType, false, automaticClothingManagement, characterClothingOwner, characterClothingEquipper, true)) {
 											clothingToRemove.put(equippedClothing, bpEquipped.displacementType);
 										} else {
-											equipTextSB.append("Your <b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>" + equippedClothing.getName() + "</b> "
-													+ (equippedClothing.getClothingType().isPlural() ? "are" : "is") + " preventing you from being able to equip the "+newClothing.getName()+"!");
+											equipTextSB.append(characterClothingOwner.isPlayer()
+													?"Your <b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>" + equippedClothing.getName() + "</b> "
+														+ (equippedClothing.getClothingType().isPlural() ? "are" : "is") + " preventing you from being able to equip the "+newClothing.getName()+"!"
+													:UtilText.parse(characterClothingOwner,
+															"[npc.Name]'s <b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>" + equippedClothing.getName() + "</b> "
+																	+ (equippedClothing.getClothingType().isPlural() ? "are" : "is") + " preventing [npc.herHim] from being able to equip the "+newClothing.getName()+"!"));
 											blockingClothing = equippedClothing;
 											return false;
 										}
@@ -913,11 +972,18 @@ public class CharacterInventory implements Serializable, XMLSaving {
 											clothingToRemove.put(equippedClothing, DisplacementType.REMOVE_OR_EQUIP);
 										} else {
 											if(equippedClothing.isSealed()) {
-												equipTextSB.append("You can't equip the " + newClothing.getName() + " because your <b style='color:" + Colour.SEALED.toWebHexString() + ";'>sealed</b> "
-														+equippedClothing.getName()+ " "+(equippedClothing.getClothingType().isPlural()?"are":"is")+" in the way.");
+												equipTextSB.append(characterClothingOwner.isPlayer()
+														?"You can't equip the " + newClothing.getName() + " because your <b style='color:" + Colour.SEALED.toWebHexString() + ";'>sealed</b> "
+															+equippedClothing.getName()+ " "+(equippedClothing.getClothingType().isPlural()?"are":"is")+" in the way!"
+														:UtilText.parse(characterClothingOwner,
+																"[npc.Name] can't equip the " + newClothing.getName() + " because [npc.her] <b style='color:" + Colour.SEALED.toWebHexString() + ";'>sealed</b> "
+																		+equippedClothing.getName()+ " "+(equippedClothing.getClothingType().isPlural()?"are":"is")+" in the way!"));
+												
 											} else {
-												equipTextSB.append("You can't equip the " + newClothing.getName() + " because your "
-														+equippedClothing.getName()+ " "+(equippedClothing.getClothingType().isPlural()?"are":"is")+" in the way.");
+												equipTextSB.append(characterClothingOwner.isPlayer()
+														?"You can't equip the " + newClothing.getName() + " because your "+equippedClothing.getName()+ " "+(equippedClothing.getClothingType().isPlural()?"are":"is")+" in the way!"
+														:UtilText.parse(characterClothingOwner,
+																"[npc.Name] can't equip the " + newClothing.getName() + " because [npc.her] "+equippedClothing.getName()+ " "+(equippedClothing.getClothingType().isPlural()?"are":"is")+" in the way!"));
 											}
 											blockingClothing = equippedClothing;
 											return false;
@@ -947,11 +1013,18 @@ public class CharacterInventory implements Serializable, XMLSaving {
 						clothingToRemove.put(equippedClothing, DisplacementType.REMOVE_OR_EQUIP);
 					} else {
 						if(equippedClothing.isSealed()) {
-							equipTextSB.append("You can't equip the " + newClothing.getName() + " because your <b style='color:" + Colour.SEALED.toWebHexString() + ";'>sealed</b> "
-									+equippedClothing.getName()+ " "+(equippedClothing.getClothingType().isPlural()?"are":"is")+" in the way.");
+							equipTextSB.append(characterClothingOwner.isPlayer()
+									?"You can't equip the " + newClothing.getName() + " because your <b style='color:" + Colour.SEALED.toWebHexString() + ";'>sealed</b> "
+										+equippedClothing.getName()+ " "+(equippedClothing.getClothingType().isPlural()?"are":"is")+" in the way!"
+									:UtilText.parse(characterClothingOwner,
+											"[npc.Name] can't equip the " + newClothing.getName() + " because [npc.her] <b style='color:" + Colour.SEALED.toWebHexString() + ";'>sealed</b> "
+													+equippedClothing.getName()+ " "+(equippedClothing.getClothingType().isPlural()?"are":"is")+" in the way!"));
+							
 						} else {
-							equipTextSB.append("You can't equip the " + newClothing.getName() + " because your "
-									+equippedClothing.getName()+ " "+(equippedClothing.getClothingType().isPlural()?"are":"is")+" in the way.");
+							equipTextSB.append(characterClothingOwner.isPlayer()
+									?"You can't equip the " + newClothing.getName() + " because your "+equippedClothing.getName()+ " "+(equippedClothing.getClothingType().isPlural()?"are":"is")+" in the way!"
+									:UtilText.parse(characterClothingOwner,
+											"[npc.Name] can't equip the " + newClothing.getName() + " because [npc.her] "+equippedClothing.getName()+ " "+(equippedClothing.getClothingType().isPlural()?"are":"is")+" in the way!"));
 						}
 						blockingClothing = equippedClothing;
 						return false;
@@ -962,13 +1035,16 @@ public class CharacterInventory implements Serializable, XMLSaving {
 				// Sort clothing to remove in zLayer order(so you take off your
 				// shirt before removing bra etc.):
 				List<AbstractClothing> tempClothingList = new ArrayList<>();
-				for (AbstractClothing cl : clothingToRemove.keySet())
-					if (!tempClothingList.contains(cl))
+				for (AbstractClothing cl : clothingToRemove.keySet()) {
+					if (!tempClothingList.contains(cl)) {
 						tempClothingList.add(cl);
-				for (AbstractClothing cl : incompatibleRemovableClothing)
-					if (!tempClothingList.contains(cl))
+					}
+				}
+				for (AbstractClothing cl : incompatibleRemovableClothing) {
+					if (!tempClothingList.contains(cl)) {
 						tempClothingList.add(cl);
-
+					}
+				}
 				// tempClothingList.addAll(clothingToRemove.keySet());
 				// tempClothingList.addAll(incompatibleRemovableClothing);
 //				if (getClothingInSlot(newClothing.getClothingType().getSlot()) != null && !tempClothingList.contains(getClothingInSlot(newClothing.getClothingType().getSlot())))
@@ -986,15 +1062,18 @@ public class CharacterInventory implements Serializable, XMLSaving {
 					equipTextSB.append((equipTextSB.length() == 0 ? "" : "</br>")
 								+ (clothingToRemove.get(c) == DisplacementType.REMOVE_OR_EQUIP
 									? c.onUnequipText(characterClothingOwner, characterClothingEquipper, false)// (Main.game.isInSex()?Sex.isSubResisting():false))
-									: "You " + clothingToRemove.get(c).getDescription() + " your " + c.getName() + "."));
+									: (characterClothingOwner.isPlayer()
+											?"You " + clothingToRemove.get(c).getDescription() + " your " + c.getName() + "."
+											:"[npc.Name] " + clothingToRemove.get(c).getDescriptionThirdPerson() + " [npc.her] " + c.getName() + ".")));
 				}
-
+				
 				// Remove all clothing that is incompatible with newClothing using the owner's accessor method.
 				for (AbstractClothing c : incompatibleRemovableClothing) {
-					if (!characterClothingOwner.isInventoryFull() || characterClothingOwner.hasClothing(c))
+					if (!characterClothingOwner.isInventoryFull() || characterClothingOwner.hasClothing(c)) {
 						equipTextSB.append("</br>" + characterClothingOwner.addedItemToInventoryText(c));
-					else
+					} else {
 						equipTextSB.append("</br>" + characterClothingOwner.droppedItemText(c));
+					}
 					String oldEquipText = equipTextSB.toString();// this is a hack to fix the string builder being overwritten
 					
 					if(Main.game.isInNewWorld()) {
@@ -1042,7 +1121,10 @@ public class CharacterInventory implements Serializable, XMLSaving {
 
 				clothingToBeReplaced.sort(new ReverseClothingZLayerComparator());
 				if (!clothingToBeReplaced.isEmpty()) {// clothingCountToBeReplaced-incompatibleUnequippableClothing.size()>0)
-					equipTextSB.append("</br>You replace "+(characterClothingOwner.isPlayer()?"your":characterClothingOwner.getName("the")+"'s")+" " + Util.clothesToStringList(clothingToBeReplaced) + ".");
+					equipTextSB.append(characterClothingOwner.isPlayer()
+							?"</br>You replace your " + Util.clothesToStringList(clothingToBeReplaced) + "."
+							:UtilText.parse(characterClothingOwner,
+									"</br>[npc.Name] replaces [npc.her] " + Util.clothesToStringList(clothingToBeReplaced) + "."));
 				}
 				
 				// Check for clothing sets:
@@ -1070,20 +1152,33 @@ public class CharacterInventory implements Serializable, XMLSaving {
 
 		return true;
 	}
-
+	
 	public boolean isAbleToUnequip(AbstractClothing clothing, boolean unequipIfAble, boolean automaticClothingManagement, GameCharacter characterClothingOwner, GameCharacter characterRemovingClothing) {
 		return isAbleToUnequip(clothing, unequipIfAble, automaticClothingManagement, characterClothingOwner, characterRemovingClothing, false);
 	}
 
 	private boolean isAbleToUnequip(AbstractClothing clothing, boolean unequipIfAble, boolean automaticClothingManagement, GameCharacter characterClothingOwner, GameCharacter characterRemovingClothing, boolean continuingIsAbleToEquip) {
 
+		if(!unequipIfAble) {
+			if(characterClothingOwner==null) {
+				characterClothingOwner = Main.game.getPlayer();
+			}
+			if(characterRemovingClothing==null) {
+				characterRemovingClothing = Main.game.getPlayer();
+			}
+		}
+		
 		if (!continuingIsAbleToEquip) {
 			clothingToRemove.clear();
 			equipTextSB.setLength(0);
 		}
 
 		if (clothing.isSealed()) {
-			equipTextSB.append("Your " + clothing.getName() + " can't be removed because "+(clothing.getClothingType().isPlural()?"they are":"it is")+" <b style='color:" + Colour.SEALED.toWebHexString() + ";'>sealed</b>!");
+			equipTextSB.append(characterClothingOwner.isPlayer()
+					?"Your " + clothing.getName() + " can't be removed because "+(clothing.getClothingType().isPlural()?"they are":"it is")+" <b style='color:" + Colour.SEALED.toWebHexString() + ";'>sealed</b>!"
+					:UtilText.parse(characterClothingOwner,
+							"[npc.Name]'s " + clothing.getName() + " can't be removed because "+(clothing.getClothingType().isPlural()?"they are":"it is")+" <b style='color:" + Colour.SEALED.toWebHexString() + ";'>sealed</b>!"));
+			
 			blockingClothing = clothing;
 			return false;
 		} else if (!continuingIsAbleToEquip) {
@@ -1109,11 +1204,15 @@ public class CharacterInventory implements Serializable, XMLSaving {
 											// If clothingToRemove already contains this clothing, it's just going to be easier to remove the clothing fully than perform multiple displacements:
 											if (!clothingToRemove.containsKey(equippedClothing))
 												if (!equippedClothing.getDisplacedList().contains(bpEquipped.displacementType)){ // Not already displaced:
-													if(automaticClothingManagement)
+													if(automaticClothingManagement) {
 														clothingToRemove.put(equippedClothing, bpEquipped.displacementType);
-													else{
-														equipTextSB.append("Your <b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>" + equippedClothing.getName() + "</b> "
-																+ (equippedClothing.getClothingType().isPlural() ? "are" : "is") + " preventing you from being able to unequip your "+clothing.getName()+"!");
+													} else {
+														equipTextSB.append(characterClothingOwner.isPlayer()
+																?"Your <b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>" + equippedClothing.getName() + "</b> "
+																+ (equippedClothing.getClothingType().isPlural() ? "are" : "is") + " preventing your "+clothing.getName()+" from being removed!"
+																:UtilText.parse(characterClothingOwner,
+																		"[npc.Name]'s <b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>" + equippedClothing.getName() + "</b> "
+																+ (equippedClothing.getClothingType().isPlural() ? "are" : "is") + " preventing [npc.her] "+clothing.getName()+" from being removed!"));
 														
 														blockingClothing = equippedClothing;
 														return false;
@@ -1125,8 +1224,13 @@ public class CharacterInventory implements Serializable, XMLSaving {
 												clothingToRemove.put(equippedClothing, DisplacementType.REMOVE_OR_EQUIP);
 												
 											} else {
-												equipTextSB.append("</br>Your " + clothing.getName() + " can't be unequipped because your " + equippedClothing.getName() + " "
-														+ (equippedClothing.getClothingType().isPlural() ? "are" : "is") + " in the way.");
+												equipTextSB.append(characterClothingOwner.isPlayer()
+														?"</br>Your " + clothing.getName() + " can't be unequipped because your " + equippedClothing.getName() + " "
+														+ (equippedClothing.getClothingType().isPlural() ? "are" : "is") + " in the way."
+														:UtilText.parse(characterClothingOwner,
+																"</br>[npc.Name]'s " + clothing.getName() + " can't be unequipped because [npc.her] " + equippedClothing.getName() + " "
+														+ (equippedClothing.getClothingType().isPlural() ? "are" : "is") + " in the way."));
+												
 												blockingClothing = equippedClothing;
 												return false;
 											}
@@ -1142,14 +1246,19 @@ public class CharacterInventory implements Serializable, XMLSaving {
 			return true;
 
 		if (!automaticClothingManagement && clothingToRemove.size() != 1) {
-			equipTextSB.append("Before your " + clothing.getName() + " "+(clothing.getClothingType().isPlural()?"are":"is")+" able to be removed, " + Util.clothesToStringList(clothingToRemove.keySet()) + " need"
-					+ (clothingToRemove.size() > 1 ? "" : "s") + " to be removed.");
+			equipTextSB.append(characterClothingOwner.isPlayer()
+					?"Before your " + clothing.getName() + " "+(clothing.getClothingType().isPlural()?"are":"is")+" able to be removed, " + Util.clothesToStringList(clothingToRemove.keySet()) + " need"
+						+ (clothingToRemove.size() > 1 ? "" : "s") + " to be removed."
+					:UtilText.parse(characterClothingOwner,
+							"Before [npc.name]'s " + clothing.getName() + " "+(clothing.getClothingType().isPlural()?"are":"is")+" able to be removed, " + Util.clothesToStringList(clothingToRemove.keySet()) + " need"
+									+ (clothingToRemove.size() > 1 ? "" : "s") + " to be removed."));
 			
-			for(AbstractClothing c : clothingToRemove.keySet())
-				if(c!=clothing){
+			for(AbstractClothing c : clothingToRemove.keySet()) {
+				if(c!=clothing) {
 					blockingClothing=c;
 					break;
 				}
+			}
 			
 			return false;
 		}
@@ -1189,7 +1298,10 @@ public class CharacterInventory implements Serializable, XMLSaving {
 			clothingToBeReplaced.sort(new ReverseClothingZLayerComparator());
 
 			if (!clothingToBeReplaced.isEmpty() && !continuingIsAbleToEquip) {
-				equipTextSB.append("</br>You replace "+(characterClothingOwner.isPlayer()?"your":characterClothingOwner.getName()+"'s")+" " + Util.clothesToStringList(clothingToBeReplaced) + ".");
+				equipTextSB.append(characterClothingOwner.isPlayer()
+						?"</br>You replace your " + Util.clothesToStringList(clothingToBeReplaced) + "."
+						:UtilText.parse(characterClothingOwner,
+								"</br>You replace [npc.name]'s " + Util.clothesToStringList(clothingToBeReplaced) + "."));
 			}
 			
 			// Check for clothing sets:
@@ -1204,10 +1316,14 @@ public class CharacterInventory implements Serializable, XMLSaving {
 		return true;
 	}
 
-	private StringBuilder unableToDisplaceText;
+	private StringBuilder unableToDisplaceText = new StringBuilder();
 
 	public String getDisplaceDescription() {
 		return unableToDisplaceText.toString();
+	}
+	
+	public void appendToDisplaceDescription(String textToAppend) {
+		unableToDisplaceText.append(textToAppend);
 	}
 	
 	public boolean isAbleToBeDisplaced(AbstractClothing clothing, DisplacementType dt, boolean displaceIfAble, boolean automaticClothingManagement, GameCharacter characterClothingOwner, GameCharacter characterRemovingClothing){
@@ -1219,6 +1335,15 @@ public class CharacterInventory implements Serializable, XMLSaving {
 	 */
 	public boolean isAbleToBeDisplaced(AbstractClothing clothing, DisplacementType dt, boolean displaceIfAble, boolean automaticClothingManagement,
 			GameCharacter characterClothingOwner, GameCharacter characterRemovingClothing, boolean continuingIsAbleToEquip) {
+		
+		if(!displaceIfAble) {
+			if(characterClothingOwner==null) {
+				characterClothingOwner = Main.game.getPlayer();
+			}
+			if(characterRemovingClothing==null) {
+				characterRemovingClothing = Main.game.getPlayer();
+			}
+		}
 		
 		if (dt == DisplacementType.REMOVE_OR_EQUIP) {
 			return isAbleToUnequip(clothing, displaceIfAble, automaticClothingManagement, characterClothingOwner, characterRemovingClothing, continuingIsAbleToEquip);
@@ -1325,7 +1450,7 @@ public class CharacterInventory implements Serializable, XMLSaving {
 		return true;
 	}
 
-	private StringBuilder unableToReplaceText;
+	private StringBuilder unableToReplaceText = new StringBuilder();
 
 	
 	public String getReplaceDescription() {
@@ -1559,7 +1684,8 @@ public class CharacterInventory implements Serializable, XMLSaving {
 		}
 
 		if (clothingToRemove == null) {
-			throw new IllegalArgumentException("There is no clothing covering this part!");
+//			System.err.print("There is no clothing covering this part!");
+			return null;
 		}
 		
 		boolean finished = false;

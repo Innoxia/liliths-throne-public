@@ -30,6 +30,9 @@ public enum SlaveEvent {
 	SLAVE_SEX("[style.boldSex(Sex)]", "[npc.Name] had sex with another slave..."),
 	
 	// Jobs:
+
+	JOB_CUM_MILKED("Cum Milked", "[npc.Name]'s [npc.cum+] was milked."),
+	JOB_MILK_MILKED("Milked", "[npc.Name]'s was milked of [npc.her] [npc.milk+]."),
 	
 	JOB_CLEANING("Cleaning Fun", "<i>Placeholder event.</i>"),
 	
@@ -42,6 +45,8 @@ public enum SlaveEvent {
 	JOB_TEST_SUBJECT("Test Subject", "[npc.Name] was subjected to Lilaya's transformative experiments..."),
 	
 	JOB_PUBLIC_STOCKS("Locked in Stocks", "[npc.Name] was locked into the public stocks in Slaver Alley..."),
+	
+	JOB_PROSTITUTE("Prostitute", "[npc.Name] worked as a prostitute in Angel's Kiss."),
 
 	JOB_IDLE("Resting", "<i>Placeholder event.</i>"),
 	;

@@ -7,7 +7,6 @@ import java.util.List;
 import com.lilithsthrone.game.Season;
 import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.Cultist;
 import com.lilithsthrone.game.character.npc.dominion.ReindeerOverseer;
@@ -19,6 +18,7 @@ import com.lilithsthrone.game.dialogue.npcDialogue.ReindeerOverseerDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
@@ -324,84 +324,7 @@ public class CityPlaces {
 					+ "</p>");
 			
 			for(GameCharacter npc : Main.game.getCharactersPresent()) {
-					UtilText.nodeContentSB.append(
-							UtilText.parse(npc,
-									"<p style='text-align:center;'>"
-									+ "<b style='color:"+Femininity.valueOf(npc.getFemininityValue()).getColour().toWebHexString()+";'>[npc.A_femininity]</b>"
-									+ " <b style='color:"+npc.getRaceStage().getColour().toWebHexString()+";'>[npc.raceStage]</b>"
-									+ " <b style='color:"+npc.getRace().getColour().toWebHexString()+";'>[npc.race]</b> <b>is prowling this area!</b></p>"
-									
-									+ "<p style='text-align:center;'>"));
-							
-					// Combat:
-					if(npc.getFoughtPlayerCount()>0) {
-						UtilText.nodeContentSB.append(
-								UtilText.parse(npc,"You have <b style='color:"+Colour.GENERIC_COMBAT.toWebHexString()+";'>fought</b> [npc.herHim] <b>"));
-								
-								if(npc.getFoughtPlayerCount()==1) {
-									UtilText.nodeContentSB.append("once.");
-								} else if(npc.getFoughtPlayerCount()==2) {
-									UtilText.nodeContentSB.append("twice.");
-								} else {
-									UtilText.nodeContentSB.append(Util.intToString(npc.getFoughtPlayerCount())+" times.");
-								}
-								
-						UtilText.nodeContentSB.append("</b>"
-										+ "</br>"
-										+ "You have <b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>won</b> <b>");
-								
-								if(npc.getLostCombatCount()==1) {
-									UtilText.nodeContentSB.append("once.");
-								} else if(npc.getLostCombatCount()==2) {
-									UtilText.nodeContentSB.append("twice.");
-								} else {
-									UtilText.nodeContentSB.append(Util.intToString(npc.getLostCombatCount())+" times.");
-								}
-										
-						UtilText.nodeContentSB.append("</b>"
-								+ "</br>"
-								+ "You have <b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>lost</b> <b>");
-								if(npc.getWonCombatCount()==1) {
-									UtilText.nodeContentSB.append("once.");
-								} else if(npc.getWonCombatCount()==2) {
-									UtilText.nodeContentSB.append("twice.");
-								} else {
-									UtilText.nodeContentSB.append(Util.intToString(npc.getWonCombatCount())+" times.");
-								}
-								UtilText.nodeContentSB.append("</b></p>");
-					}
-					
-					// Sex:
-					if(npc.getSexPartners().containsKey(Main.game.getPlayer().getId())) {
-						UtilText.nodeContentSB.append("<p style='text-align:center;'>");
-								
-						UtilText.nodeContentSB.append(
-								UtilText.parse(npc,
-										"You have had <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>submissive sex</b> with [npc.herHim]<b> "));
-						
-								if(npc.getSexAsDomCount()==1) {
-									UtilText.nodeContentSB.append("once.");
-								} else if(npc.getSexAsDomCount()==2) {
-									UtilText.nodeContentSB.append("twice.");
-								} else {
-									UtilText.nodeContentSB.append(Util.intToString(npc.getSexAsDomCount())+" times.");
-								}
-								
-						UtilText.nodeContentSB.append(
-								UtilText.parse(npc,
-										"</b>"
-										+ "</br>"
-										+ "You have had <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>dominant sex</b> with  [npc.herHim]<b> "));
-						
-								if(npc.getSexAsSubCount()==1) {
-									UtilText.nodeContentSB.append("once.");
-								} else if(npc.getSexAsSubCount()==2) {
-									UtilText.nodeContentSB.append("twice.");
-								} else {
-									UtilText.nodeContentSB.append(Util.intToString(npc.getSexAsSubCount())+" times.");
-								}
-								UtilText.nodeContentSB.append("</b></p>");
-					}
+				UtilText.nodeContentSB.append(((NPC) npc).getPresentInTileDescription());
 			}
 			
 			return UtilText.nodeContentSB.toString();
@@ -415,7 +338,7 @@ public class CityPlaces {
 						"Explore the alleyways. Although you don't think you're any more or less likely to find anything by doing this, at least you won't have to keep travelling back and forth..."){
 							@Override
 							public void effects() {
-								DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true);
+								DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
 								Main.game.setContent(new Response("", "", dn));
 							}
 						};
@@ -443,84 +366,7 @@ public class CityPlaces {
 					+ "</p>");
 
 			for(GameCharacter npc : Main.game.getCharactersPresent()) {
-					UtilText.nodeContentSB.append(
-							UtilText.parse(npc,
-									"<p style='text-align:center;'>"
-									+ "<b style='color:"+Femininity.valueOf(npc.getFemininityValue()).getColour().toWebHexString()+";'>[npc.A_femininity]</b>"
-									+ " <b style='color:"+npc.getRaceStage().getColour().toWebHexString()+";'>[npc.raceStage]</b>"
-									+ " <b style='color:"+npc.getRace().getColour().toWebHexString()+";'>[npc.race]</b> <b>is prowling this area!</b></p>"
-									
-									+ "<p style='text-align:center;'>"));
-							
-					// Combat:
-					if(npc.getFoughtPlayerCount()>0) {
-						UtilText.nodeContentSB.append(
-								UtilText.parse(npc,"You have <b style='color:"+Colour.GENERIC_COMBAT.toWebHexString()+";'>fought</b> [npc.herHim] <b>"));
-								
-								if(npc.getFoughtPlayerCount()==1) {
-									UtilText.nodeContentSB.append("once.");
-								} else if(npc.getFoughtPlayerCount()==2) {
-									UtilText.nodeContentSB.append("twice.");
-								} else {
-									UtilText.nodeContentSB.append(Util.intToString(npc.getLostCombatCount())+" times.");
-								}
-								
-						UtilText.nodeContentSB.append("</b>"
-										+ "</br>"
-										+ "You have <b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>won</b> <b>");
-								
-								if(npc.getLostCombatCount()==1) {
-									UtilText.nodeContentSB.append("once.");
-								} else if(npc.getLostCombatCount()==2) {
-									UtilText.nodeContentSB.append("twice.");
-								} else {
-									UtilText.nodeContentSB.append(Util.intToString(npc.getLostCombatCount())+" times.");
-								}
-										
-						UtilText.nodeContentSB.append("</b>"
-								+ "</br>"
-								+ "You have <b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>lost</b> <b>");
-								if(npc.getWonCombatCount()==1) {
-									UtilText.nodeContentSB.append("once.");
-								} else if(npc.getWonCombatCount()==2) {
-									UtilText.nodeContentSB.append("twice.");
-								} else {
-									UtilText.nodeContentSB.append(Util.intToString(npc.getWonCombatCount())+" times.");
-								}
-								UtilText.nodeContentSB.append("</b></p>");
-					}
-					
-					// Sex:
-					if(npc.getSexPartners().containsKey(Main.game.getPlayer().getId())) {
-						UtilText.nodeContentSB.append("<p style='text-align:center;'>");
-								
-						UtilText.nodeContentSB.append(
-								UtilText.parse(npc,
-										"You have had <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>submissive sex</b> with [npc.herHim] <b>"));
-						
-								if(npc.getSexAsDomCount()==1) {
-									UtilText.nodeContentSB.append("once.");
-								} else if(npc.getSexAsDomCount()==2) {
-									UtilText.nodeContentSB.append("twice.");
-								} else {
-									UtilText.nodeContentSB.append(Util.intToString(npc.getSexAsDomCount())+" times.");
-								}
-								
-						UtilText.nodeContentSB.append(
-								UtilText.parse(npc,
-										"</b>"
-										+ "</br>"
-										+ "You have had <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>dominant sex</b> with [npc.herHim] <b>"));
-						
-								if(npc.getSexAsSubCount()==1) {
-									UtilText.nodeContentSB.append("once.");
-								} else if(npc.getSexAsSubCount()==2) {
-									UtilText.nodeContentSB.append("twice.");
-								} else {
-									UtilText.nodeContentSB.append(Util.intToString(npc.getSexAsSubCount())+" times.");
-								}
-								UtilText.nodeContentSB.append("</b></p>");
-					}
+				UtilText.nodeContentSB.append(((NPC) npc).getPresentInTileDescription());
 			}
 			
 			return UtilText.nodeContentSB.toString();
@@ -534,7 +380,7 @@ public class CityPlaces {
 						"Explore the alleyways. Although you don't think you're any more or less likely to find anything by doing this, at least you won't have to keep travelling back and forth..."){
 							@Override
 							public void effects() {
-								DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true);
+								DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
 								Main.game.setContent(new Response("", "", dn));
 							}
 						};
@@ -605,7 +451,7 @@ public class CityPlaces {
 						"<p>"
 							+ "<b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Arcane Storm:</b></br>"
 							+ "The arcane storm that's raging overhead has brought out a heavy presence of demon Enforcers in this area."
-							+ " Unaffected by the arousing power of the storm's thunder, these elite Enforcers keep a close watch on you as you pass through the all-but-deserted plaza."
+							+ " Unaffected by the arousing power of the storm's thunder, these elite Enforcers keep a close watch on you as you walk down the all-but-deserted boulevard."
 							+ " There's no way anyone would be able to assault you while under their watchful gaze, allowing you continue on your way in peace..."
 						+ "</p>");
 			} else {
@@ -704,42 +550,48 @@ public class CityPlaces {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index == 1) {
-				return new Response(
-						"News",
-						"Decide to stay a while and listen to one of the orators...", DOMINION_PLAZA_NEWS){
-							@Override
-							public void effects() {
-								List<Subspecies> possibleSubspecies = new ArrayList<>();
-								possibleSubspecies.add(Subspecies.CAT_MORPH);
-								possibleSubspecies.add(Subspecies.DOG_MORPH);
-								possibleSubspecies.add(Subspecies.HORSE_MORPH);
-								possibleSubspecies.add(Subspecies.WOLF_MORPH);
-								
-								String randomFemalePerson = possibleSubspecies.get(Util.random.nextInt(possibleSubspecies.size())).getSingularFemaleName();
-								String randomMalePerson = possibleSubspecies.get(Util.random.nextInt(possibleSubspecies.size())).getSingularMaleName();
-								
-								Main.game.getTextEndStringBuilder().append("<p>"
-										+UtilText.returnStringAtRandom(
-												"A rough-looking "+randomMalePerson+" unrolls a large scroll, before clearing his throat and calling out,"
-													+ " [maleNPC.speech(By decree of Lilith, and in the interests of Dominion's security,"
-														+ " any human found walking the streets between the hours of ten at night and five in the morning will be subject to a full body search from any passing Enforcer without warrant.)]",
-												Util.capitaliseSentence(UtilText.generateSingularDeterminer(randomFemalePerson))+" "+randomFemalePerson+" holds up an official-looking piece of paper, complete with a red wax seal, and declares,"
-													+ " [femaleNPC.speech(A reward of two-hundred-thousand flames has been issued for any information leading to the arrest of the person or persons responsible"
-														+ " for distributing illegal newspapers in the districts beneath the Harpy Nests!)]",
-												"A rather wild-looking succubus, dressed in a very Halloween-esque witch's costume, points to different members of the crowd as she screams,"
-													+ " [femaleNPC.speech(I count no less than three demons in the crowd who are without a cultist's uniform!"
-														+ " What would Lilith say if she could see this now?!)]",
-												Util.capitaliseSentence(UtilText.generateSingularDeterminer(randomMalePerson))+" "+randomMalePerson+" relays several boring, mundane pieces of news to the crowd."
-														+ " There's nothing that is of any interest to you, and you eventually turn away, having felt as though you just wasted your time.",
-												Util.capitaliseSentence(UtilText.generateSingularDeterminer(randomFemalePerson))+" "+randomFemalePerson+" relays several boring, mundane pieces of news to the crowd."
-														+ " There's nothing that is of any interest to you, and you eventually turn away, having felt as though you just wasted your time.",
-												Util.capitaliseSentence(UtilText.generateSingularDeterminer(randomMalePerson))+" "+randomMalePerson+" is currently reading out a list of advertisements for shops in the local area."
-														+ " There's really nothing of interest to be heard, and you soon find yourself turning away and moving on.",
-												Util.capitaliseSentence(UtilText.generateSingularDeterminer(randomFemalePerson))+" "+randomFemalePerson+" is currently reading out a list of advertisements for shops in the local area."
-														+ " There's really nothing of interest to be heard, and you soon find yourself turning away and moving on.")
-										+"</p>");
-							}
-						};
+				if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
+					return new Response(
+							"News", "Due to the ongoing arcane storm, there's nobody here at the moment...", null);
+					
+				} else {
+					return new Response(
+							"News",
+							"Decide to stay a while and listen to one of the orators...", DOMINION_PLAZA_NEWS){
+								@Override
+								public void effects() {
+									List<Subspecies> possibleSubspecies = new ArrayList<>();
+									possibleSubspecies.add(Subspecies.CAT_MORPH);
+									possibleSubspecies.add(Subspecies.DOG_MORPH);
+									possibleSubspecies.add(Subspecies.HORSE_MORPH);
+									possibleSubspecies.add(Subspecies.WOLF_MORPH);
+									
+									String randomFemalePerson = possibleSubspecies.get(Util.random.nextInt(possibleSubspecies.size())).getSingularFemaleName();
+									String randomMalePerson = possibleSubspecies.get(Util.random.nextInt(possibleSubspecies.size())).getSingularMaleName();
+									
+									Main.game.getTextEndStringBuilder().append("<p>"
+											+UtilText.returnStringAtRandom(
+													"A rough-looking "+randomMalePerson+" unrolls a large scroll, before clearing his throat and calling out,"
+														+ " [maleNPC.speech(By decree of Lilith, and in the interests of Dominion's security,"
+															+ " any human found walking the streets between the hours of ten at night and five in the morning will be subject to a full body search from any passing Enforcer without warrant.)]",
+													Util.capitaliseSentence(UtilText.generateSingularDeterminer(randomFemalePerson))+" "+randomFemalePerson+" holds up an official-looking piece of paper, complete with a red wax seal, and declares,"
+														+ " [femaleNPC.speech(A reward of two-hundred-thousand flames has been issued for any information leading to the arrest of the person or persons responsible"
+															+ " for distributing illegal newspapers in the districts beneath the Harpy Nests!)]",
+													"A rather wild-looking succubus, dressed in a very Halloween-esque witch's costume, points to different members of the crowd as she screams,"
+														+ " [femaleNPC.speech(I count no less than three demons in the crowd who are without a cultist's uniform!"
+															+ " What would Lilith say if she could see this now?!)]",
+													Util.capitaliseSentence(UtilText.generateSingularDeterminer(randomMalePerson))+" "+randomMalePerson+" relays several boring, mundane pieces of news to the crowd."
+															+ " There's nothing that is of any interest to you, and you eventually turn away, having felt as though you just wasted your time.",
+													Util.capitaliseSentence(UtilText.generateSingularDeterminer(randomFemalePerson))+" "+randomFemalePerson+" relays several boring, mundane pieces of news to the crowd."
+															+ " There's nothing that is of any interest to you, and you eventually turn away, having felt as though you just wasted your time.",
+													Util.capitaliseSentence(UtilText.generateSingularDeterminer(randomMalePerson))+" "+randomMalePerson+" is currently reading out a list of advertisements for shops in the local area."
+															+ " There's really nothing of interest to be heard, and you soon find yourself turning away and moving on.",
+													Util.capitaliseSentence(UtilText.generateSingularDeterminer(randomFemalePerson))+" "+randomFemalePerson+" is currently reading out a list of advertisements for shops in the local area."
+															+ " There's really nothing of interest to be heard, and you soon find yourself turning away and moving on.")
+											+"</p>");
+								}
+							};
+				}
 			} else {
 				return null;
 			}
@@ -794,16 +646,68 @@ public class CityPlaces {
 					+ "</p>"
 					+ "<p>"
 						+ "The most noteworthy feature is at the very centre of the park, and takes the form of a huge statue of Lilith herself."
-						+ " The sultry smile carved into the white marble almost feels at though it's mocking you, and you cna't help but feel as though you don't want to stick around here for long."
-					+ "<p>"
+						+ " The sultry smile carved into the white marble almost feels at though it's mocking you, and you can't help but feel as though you don't want to stick around here for long."
 					+ "</p>"
+					+ "<p>"
 						+ "For now, you don't have much reason to wander through this park, but if you had someone else with you, it would be a nice place to spend an afternoon; if you can ignore the statue, that is..."
 					+ "</p>";
 		}
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			return null;
+			if(index==1) {
+				return new Response("Rose Garden", "There's a beautiful rose garden just off to your right. Walk over to it and take a closer look.", PARK_ROSE_GARDEN) {
+					@Override
+					public void effects() {
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.GIFT_ROSE), false));
+					}
+				};
+			} else {
+				return null;
+			}
+		}
+	};
+	
+	public static final DialogueNodeOld PARK_ROSE_GARDEN = new DialogueNodeOld("Park", ".", false, true) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getAuthor() {
+			return "Innoxia";
+		}
+		
+		@Override
+		public int getMinutesPassed() {
+			return 5;
+		}
+
+		@Override
+		public String getContent() {
+			return "<p>"
+					+ "You find your attention drawn towards a small rose garden that's positioned near the park's entrance."
+					+ " Walking over towards it, you see that someone's placed a little sign just in front of the border, which reads:"
+				+ "</p>"
+				+ "<p style='text-align:center;'>"
+					+ "<i>"
+						+ "<b>William's Rose Garden</b></br>"
+						+ "Please feel free to help yourself to these roses!"
+						+ " I hope you or your partner gets as much happiness out of them as I do from growing them.</br>"
+						+ "- William"
+					+ "</i>"
+				+ "</p>"
+				+ "<p>"
+					+ "You look around, but don't see anyone nearby who could be this 'William' character."
+					+ " Focusing your attention back to his rose garden, you decide to do as William's sign says, and, stepping forwards, you pluck a single red rose from the nearest bush."
+				+ "</p>";
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("Rose Garden", "You've already taken a rose from the garden.", null);
+			} else {
+				return null;
+			}
 		}
 	};
 	
@@ -821,7 +725,7 @@ public class CityPlaces {
 					+ "<p>"
 						+ "<b style='color:"+Colour.RACE_HARPY.toWebHexString()+";'>Harpy Nests:</b></br>"
 						+ "The wooden platforms and bridges of the rooftop Harpy Nests cast a shadow over these streets."
-						+ " Looking up, you see the occasional flash of bright-coloured feathers as harpies swoop this way and that."
+						+ " Looking up, you see the occasional flash of brightly-coloured feathers as harpies swoop this way and that."
 					+ "</p>";
 		}
 
@@ -868,7 +772,7 @@ public class CityPlaces {
 						"Explore this area. Although you don't think you're any more or less likely to find anything by doing this, at least you won't have to keep travelling back and forth..."){
 							@Override
 							public void effects() {
-								DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true);
+								DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
 								Main.game.setContent(new Response("", "", dn));
 							}
 						};

@@ -775,7 +775,8 @@ public enum Fetish {
 			Colour.GENERIC_ARCANE,
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<>("<span style='color:"+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Increases potency</span> <span style='color:"+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>of receiving forced transformations</span>")),
+					new ListValue<>("[style.boldGood(Increases potency)] <span style='color:"+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>of receiving forced transformations</span>"),
+					new ListValue<>("[style.boldBad(Disables)] ability to spit out TF potions")),
 			null) {
 		
 		@Override

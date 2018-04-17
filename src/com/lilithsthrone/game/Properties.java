@@ -22,6 +22,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.gender.AndrogynousIdentification;
 import com.lilithsthrone.game.character.gender.Gender;
@@ -47,7 +48,7 @@ import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.0
- * @version 0.2.1
+ * @version 0.2.2
  * @author Innoxia
  */
 public class Properties implements Serializable {
@@ -60,6 +61,7 @@ public class Properties implements Serializable {
 	public String race = "";
 	public String quest = "";
 	public String versionNumber = "";
+	public String preferredArtist = "jam";
 
 	public int fontSize = 18;
 	public int level = 1;
@@ -77,27 +79,7 @@ public class Properties implements Serializable {
 	public int pregnancyLactationIncrease = 250;
 	public int pregnancyLactationLimit = 1000;
 	
-	public boolean lightTheme = false;
-	public boolean overwriteWarning = true;
-	public boolean fadeInText = false;
-	public boolean calendarDisplay = true;
-	public boolean twentyFourHourTime = true;
-
-	public boolean furryTailPenetrationContent = false;
-	public boolean nonConContent = false;
-	public boolean incestContent = false;
-	public boolean forcedTransformationContent = false;
-	public boolean inflationContent = true;
-	public boolean facialHairContent = false;
-	public boolean pubicHairContent = false;
-	public boolean bodyHairContent = false;
-	public boolean feminineBeardsContent = false;
-	
-	public boolean newWeaponDiscovered = false;
-	public boolean newClothingDiscovered = false;
-	public boolean newItemDiscovered = false;
-	public boolean newRaceDiscovered = false;
-	
+	public Set<PropertyValue> values;
 	
 	public DifficultyLevel difficultyLevel = DifficultyLevel.NORMAL;
 	
@@ -178,6 +160,14 @@ public class Properties implements Serializable {
 		clothingDiscovered = new HashSet<>();
 		racesDiscovered = new HashSet<>();
 		racesAdvancedKnowledge = new HashSet<>();
+		
+		values = new HashSet<>();
+		
+		for(PropertyValue value : PropertyValue.values()) {
+			if(value.getDefaultValue()) {
+				values.add(value);
+			}
+		}
 	}
 	
 	public void savePropertiesAsXML(){
@@ -205,24 +195,20 @@ public class Properties implements Serializable {
 			createXMLElementWithValue(doc, previousSave, "lastQuickSaveName", lastQuickSaveName);
 			
 			
+
+			Element valuesElement = doc.createElement("propertyValues");
+			properties.appendChild(valuesElement);
+			for(PropertyValue value : values) {
+				CharacterUtils.createXMLElementWithValue(doc, valuesElement, "propertyValue", value.toString());
+			}
+			
 			// Game settings:
 			Element settings = doc.createElement("settings");
 			properties.appendChild(settings);
 			createXMLElementWithValue(doc, settings, "fontSize", String.valueOf(fontSize));
-			createXMLElementWithValue(doc, settings, "lightTheme", String.valueOf(lightTheme));
-			createXMLElementWithValue(doc, settings, "furryTailPenetrationContent", String.valueOf(furryTailPenetrationContent));
-			createXMLElementWithValue(doc, settings, "nonConContent", String.valueOf(nonConContent));
-			createXMLElementWithValue(doc, settings, "incestContent", String.valueOf(incestContent));
-			createXMLElementWithValue(doc, settings, "inflationContent", String.valueOf(inflationContent));
-			createXMLElementWithValue(doc, settings, "facialHairContent", String.valueOf(facialHairContent));
-			createXMLElementWithValue(doc, settings, "pubicHairContent", String.valueOf(pubicHairContent));
-			createXMLElementWithValue(doc, settings, "bodyHairContent", String.valueOf(bodyHairContent));
-			createXMLElementWithValue(doc, settings, "feminineBeardsContent", String.valueOf(feminineBeardsContent));
 			
-			createXMLElementWithValue(doc, settings, "overwriteWarning", String.valueOf(overwriteWarning));
-			createXMLElementWithValue(doc, settings, "fadeInText", String.valueOf(fadeInText));
-			createXMLElementWithValue(doc, settings, "calendarDisplay", String.valueOf(calendarDisplay));
-			createXMLElementWithValue(doc, settings, "twentyFourHourTime", String.valueOf(twentyFourHourTime));
+			createXMLElementWithValue(doc, settings, "preferredArtist", preferredArtist);
+			
 			createXMLElementWithValue(doc, settings, "androgynousIdentification", String.valueOf(androgynousIdentification));
 			createXMLElementWithValue(doc, settings, "humanEncountersLevel", String.valueOf(humanEncountersLevel));
 			createXMLElementWithValue(doc, settings, "multiBreasts", String.valueOf(multiBreasts));
@@ -236,11 +222,6 @@ public class Properties implements Serializable {
 			createXMLElementWithValue(doc, settings, "pregnancyLactationLimit", String.valueOf(pregnancyLactationLimit));
 			
 			createXMLElementWithValue(doc, settings, "forcedFetishPercentage", String.valueOf(forcedFetishPercentage));
-
-			createXMLElementWithValue(doc, settings, "newWeaponDiscovered", String.valueOf(newWeaponDiscovered));
-			createXMLElementWithValue(doc, settings, "newClothingDiscovered", String.valueOf(newClothingDiscovered));
-			createXMLElementWithValue(doc, settings, "newItemDiscovered", String.valueOf(newItemDiscovered));
-			createXMLElementWithValue(doc, settings, "newRaceDiscovered", String.valueOf(newRaceDiscovered));
 
 			createXMLElementWithValue(doc, settings, "difficultyLevel", difficultyLevel.toString());
 			
@@ -499,44 +480,73 @@ public class Properties implements Serializable {
 					lastQuickSaveName = ((Element)element.getElementsByTagName("lastQuickSaveName").item(0)).getAttribute("value");
 				}
 				
+
+				nodes = doc.getElementsByTagName("propertyValues");
+				element = (Element) nodes.item(0);
+				if(element!=null) {
+					values.clear();
+					for(int i=0; i < element.getElementsByTagName("propertyValue").getLength(); i++){
+						Element e = (Element) element.getElementsByTagName("propertyValue").item(i);
+						
+						try {
+							values.add(PropertyValue.valueOf(e.getAttribute("value")));
+						} catch(Exception ex) {
+						}
+					}
+				} else {
+					// Old values support:
+					nodes = doc.getElementsByTagName("settings");
+					element = (Element) nodes.item(0);
+					
+					this.setValue(PropertyValue.lightTheme, Boolean.valueOf((((Element)element.getElementsByTagName("lightTheme").item(0)).getAttribute("value"))));
+					this.setValue(PropertyValue.furryTailPenetrationContent, Boolean.valueOf((((Element)element.getElementsByTagName("furryTailPenetrationContent").item(0)).getAttribute("value"))));
+					this.setValue(PropertyValue.nonConContent, Boolean.valueOf((((Element)element.getElementsByTagName("nonConContent").item(0)).getAttribute("value"))));
+					this.setValue(PropertyValue.incestContent, Boolean.valueOf((((Element)element.getElementsByTagName("incestContent").item(0)).getAttribute("value"))));
+					
+					if(element.getElementsByTagName("inflationContent").item(0)!=null) {
+						this.setValue(PropertyValue.inflationContent, Boolean.valueOf((((Element)element.getElementsByTagName("inflationContent").item(0)).getAttribute("value"))));
+					}
+					this.setValue(PropertyValue.facialHairContent, Boolean.valueOf((((Element)element.getElementsByTagName("facialHairContent").item(0)).getAttribute("value"))));
+					this.setValue(PropertyValue.pubicHairContent, Boolean.valueOf((((Element)element.getElementsByTagName("pubicHairContent").item(0)).getAttribute("value"))));
+					this.setValue(PropertyValue.bodyHairContent, Boolean.valueOf((((Element)element.getElementsByTagName("bodyHairContent").item(0)).getAttribute("value"))));
+					if(element.getElementsByTagName("feminineBeardsContent").item(0)!=null) {
+						this.setValue(PropertyValue.feminineBeardsContent, Boolean.valueOf((((Element)element.getElementsByTagName("feminineBeardsContent").item(0)).getAttribute("value"))));
+					}
+					if(element.getElementsByTagName("lactationContent").item(0)!=null) {
+						this.setValue(PropertyValue.lactationContent, Boolean.valueOf((((Element)element.getElementsByTagName("lactationContent").item(0)).getAttribute("value"))));
+					}
+					if(element.getElementsByTagName("urethralContent").item(0)!=null) {
+						this.setValue(PropertyValue.urethralContent, Boolean.valueOf((((Element)element.getElementsByTagName("urethralContent").item(0)).getAttribute("value"))));
+					}
+					
+					this.setValue(PropertyValue.newWeaponDiscovered, Boolean.valueOf(((Element)element.getElementsByTagName("newWeaponDiscovered").item(0)).getAttribute("value")));
+					this.setValue(PropertyValue.newClothingDiscovered, Boolean.valueOf(((Element)element.getElementsByTagName("newClothingDiscovered").item(0)).getAttribute("value")));
+					this.setValue(PropertyValue.newItemDiscovered, Boolean.valueOf(((Element)element.getElementsByTagName("newItemDiscovered").item(0)).getAttribute("value")));
+					this.setValue(PropertyValue.newRaceDiscovered, Boolean.valueOf(((Element)element.getElementsByTagName("newRaceDiscovered").item(0)).getAttribute("value")));
+					
+					this.setValue(PropertyValue.overwriteWarning, Boolean.valueOf(((Element)element.getElementsByTagName("overwriteWarning").item(0)).getAttribute("value")));
+					this.setValue(PropertyValue.fadeInText, Boolean.valueOf(((Element)element.getElementsByTagName("fadeInText").item(0)).getAttribute("value")));
+					
+					if(element.getElementsByTagName("calendarDisplay").item(0)!=null) {
+						this.setValue(PropertyValue.calendarDisplay, Boolean.valueOf(((Element)element.getElementsByTagName("calendarDisplay").item(0)).getAttribute("value")));
+					}
+					
+					if(element.getElementsByTagName("twentyFourHourTime").item(0)!=null) {
+						this.setValue(PropertyValue.twentyFourHourTime, Boolean.valueOf(((Element)element.getElementsByTagName("twentyFourHourTime").item(0)).getAttribute("value")));
+					}
+				}
+				
 				// Settings:
 				nodes = doc.getElementsByTagName("settings");
 				element = (Element) nodes.item(0);
 				fontSize = Integer.valueOf(((Element)element.getElementsByTagName("fontSize").item(0)).getAttribute("value"));
-				lightTheme = Boolean.valueOf((((Element)element.getElementsByTagName("lightTheme").item(0)).getAttribute("value")));
 				
-				furryTailPenetrationContent = Boolean.valueOf((((Element)element.getElementsByTagName("furryTailPenetrationContent").item(0)).getAttribute("value")));
-				nonConContent = Boolean.valueOf((((Element)element.getElementsByTagName("nonConContent").item(0)).getAttribute("value")));
-				incestContent = Boolean.valueOf((((Element)element.getElementsByTagName("incestContent").item(0)).getAttribute("value")));
-				if(element.getElementsByTagName("inflationContent").item(0)!=null) {
-					inflationContent = Boolean.valueOf((((Element)element.getElementsByTagName("inflationContent").item(0)).getAttribute("value")));
-				}
-//				forcedTransformationContent = ((((Element)element.getElementsByTagName("forcedTransformationContent").item(0)).getAttribute("value")).equals("true"));
-				facialHairContent = Boolean.valueOf((((Element)element.getElementsByTagName("facialHairContent").item(0)).getAttribute("value")));
-				pubicHairContent = Boolean.valueOf((((Element)element.getElementsByTagName("pubicHairContent").item(0)).getAttribute("value")));
-				bodyHairContent = Boolean.valueOf((((Element)element.getElementsByTagName("bodyHairContent").item(0)).getAttribute("value")));
-				if(element.getElementsByTagName("feminineBeardsContent").item(0)!=null) {
-					feminineBeardsContent = Boolean.valueOf((((Element)element.getElementsByTagName("feminineBeardsContent").item(0)).getAttribute("value")));
+				if(element.getElementsByTagName("preferredArtist").item(0)!=null) {
+					preferredArtist =((Element)element.getElementsByTagName("preferredArtist").item(0)).getAttribute("value");
 				}
 				
-				newWeaponDiscovered = Boolean.valueOf(((Element)element.getElementsByTagName("newWeaponDiscovered").item(0)).getAttribute("value"));
-				newClothingDiscovered = Boolean.valueOf(((Element)element.getElementsByTagName("newClothingDiscovered").item(0)).getAttribute("value"));
-				newItemDiscovered = Boolean.valueOf(((Element)element.getElementsByTagName("newItemDiscovered").item(0)).getAttribute("value"));
-				newRaceDiscovered = Boolean.valueOf(((Element)element.getElementsByTagName("newRaceDiscovered").item(0)).getAttribute("value"));
-
 				if(element.getElementsByTagName("difficultyLevel").item(0)!=null) {
 					difficultyLevel = DifficultyLevel.valueOf(((Element)element.getElementsByTagName("difficultyLevel").item(0)).getAttribute("value"));
-				}
-				
-				overwriteWarning = Boolean.valueOf(((Element)element.getElementsByTagName("overwriteWarning").item(0)).getAttribute("value"));
-				fadeInText = Boolean.valueOf(((Element)element.getElementsByTagName("fadeInText").item(0)).getAttribute("value"));
-				
-				if(element.getElementsByTagName("calendarDisplay").item(0)!=null) {
-					calendarDisplay = Boolean.valueOf(((Element)element.getElementsByTagName("calendarDisplay").item(0)).getAttribute("value"));
-				}
-				
-				if(element.getElementsByTagName("twentyFourHourTime").item(0)!=null) {
-					twentyFourHourTime = Boolean.valueOf(((Element)element.getElementsByTagName("twentyFourHourTime").item(0)).getAttribute("value"));
 				}
 				
 				if(element.getElementsByTagName("androgynousIdentification").item(0)!=null) {
@@ -769,11 +779,27 @@ public class Properties implements Serializable {
 			}
 	}
 	
+
+	public boolean hasValue(PropertyValue value) {
+		return values.contains(value);
+	}
+	
+	public void setValue(PropertyValue value, boolean flagged) {
+		if(flagged) {
+			values.add(value);
+		} else {
+			values.remove(value);
+		}
+	}
+	
 	// Add discoveries:
 	
 	public boolean addItemDiscovered(AbstractItemType itemType) {
-		newItemDiscovered = itemsDiscovered.add(itemType);
-		return newItemDiscovered;
+		if(itemsDiscovered.add(itemType)) {
+			setValue(PropertyValue.newItemDiscovered, true);
+			return true;
+		}
+		return false;
 	}
 	
 	public boolean isItemDiscovered(AbstractItemType itemType) {
@@ -781,8 +807,11 @@ public class Properties implements Serializable {
 	}
 	
 	public boolean addClothingDiscovered(AbstractClothingType clothingType) {
-		newClothingDiscovered = clothingDiscovered.add(clothingType);
-		return newClothingDiscovered;
+		if(clothingDiscovered.add(clothingType)) {
+			setValue(PropertyValue.newClothingDiscovered, true);
+			return true;
+		}
+		return false;
 	}
 	
 	public boolean isClothingDiscovered(AbstractClothingType clothingType) {
@@ -790,8 +819,11 @@ public class Properties implements Serializable {
 	}
 	
 	public boolean addWeaponDiscovered(AbstractWeaponType weaponType) {
-		newWeaponDiscovered = weaponsDiscovered.add(weaponType);
-		return newWeaponDiscovered;
+		if(weaponsDiscovered.add(weaponType)) {
+			setValue(PropertyValue.newWeaponDiscovered, true);
+			return true;
+		}
+		return false;
 	}
 	
 	public boolean isWeaponDiscovered(AbstractWeaponType weaponType) {
@@ -799,11 +831,12 @@ public class Properties implements Serializable {
 	}
 	
 	public boolean addRaceDiscovered(Race race) {
-		newRaceDiscovered = racesDiscovered.add(race);
-		if(newRaceDiscovered) {
+		if(racesDiscovered.add(race)) {
 			Main.game.addEvent(new EventLogEntryEncyclopediaUnlock(race.getName(), race.getColour()), true);
+			setValue(PropertyValue.newRaceDiscovered, true);
+			return true;
 		}
-		return newRaceDiscovered;
+		return false;
 	}
 	
 	public boolean isRaceDiscovered(Race race) {
@@ -821,39 +854,4 @@ public class Properties implements Serializable {
 	public boolean isAdvancedRaceKnowledgeDiscovered(Race race) {
 		return racesAdvancedKnowledge.contains(race);
 	}
-	
-	// Getters/Setters for discoveries
-	
-	public boolean isNewWeaponDiscovered() {
-		return newWeaponDiscovered;
-	}
-
-	public void setNewWeaponDiscovered(boolean newWeaponDiscovered) {
-		this.newWeaponDiscovered = newWeaponDiscovered;
-	}
-
-	public boolean isNewClothingDiscovered() {
-		return newClothingDiscovered;
-	}
-
-	public void setNewClothingDiscovered(boolean newClothingDiscovered) {
-		this.newClothingDiscovered = newClothingDiscovered;
-	}
-
-	public boolean isNewItemDiscovered() {
-		return newItemDiscovered;
-	}
-
-	public void setNewItemDiscovered(boolean newItemDiscovered) {
-		this.newItemDiscovered = newItemDiscovered;
-	}
-
-	public boolean isNewRaceDiscovered() {
-		return newRaceDiscovered;
-	}
-
-	public void setNewRaceDiscovered(boolean newRaceDiscovered) {
-		this.newRaceDiscovered = newRaceDiscovered;
-	}
-	
 }

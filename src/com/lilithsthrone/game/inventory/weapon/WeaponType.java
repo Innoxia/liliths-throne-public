@@ -459,7 +459,7 @@ public class WeaponType {
 
 		@Override
 		public String applyExtraEfects(GameCharacter user, GameCharacter target) {
-			user.incrementEssenceCount(TFEssence.ARCANE, -1);
+			user.incrementEssenceCount(TFEssence.ARCANE, -1, false);
 			if(user.isPlayer()) {
 				return "<p>"
 							+ "Firing the arcane musket drains [style.boldBad(one)] [style.boldArcane(arcane essence)] from your aura!"

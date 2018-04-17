@@ -196,6 +196,10 @@ public abstract class AbstractCoreItem implements Serializable, XMLSaving {
 		return (int) (getValue() * modifier);
 	}
 
+	public void setRarity(Rarity rarity) {
+		this.rarity = rarity;
+	}
+
 	public Rarity getRarity() {
 		return rarity;
 	}

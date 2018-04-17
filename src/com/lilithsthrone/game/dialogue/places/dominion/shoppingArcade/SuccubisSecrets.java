@@ -1,11 +1,13 @@
 package com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.body.BodyPartInterface;
 import com.lilithsthrone.game.character.body.Eye;
 import com.lilithsthrone.game.character.body.Hair;
@@ -606,6 +608,24 @@ public class SuccubisSecrets {
 								}
 							}
 						}
+
+						if(Main.getProperties().hasValue(PropertyValue.pubicHairContent)) {
+							CoveringsNamesMap.putIfAbsent(Main.game.getPlayer().getPubicHairType().getType(), new ArrayList<>());
+							CoveringsNamesMap.get(Main.game.getPlayer().getPubicHairType().getType()).add("growing around your pubic region");
+						}
+						if(Main.getProperties().hasValue(PropertyValue.facialHairContent)) {
+							CoveringsNamesMap.putIfAbsent(Main.game.getPlayer().getFacialHairType().getType(), new ArrayList<>());
+							CoveringsNamesMap.get(Main.game.getPlayer().getFacialHairType().getType()).add("covering your face");
+						}
+						if(Main.getProperties().hasValue(PropertyValue.bodyHairContent)) {
+							CoveringsNamesMap.putIfAbsent(Main.game.getPlayer().getBodyHairCoveringType(), new ArrayList<>());
+							CoveringsNamesMap.get(Main.game.getPlayer().getBodyHairCoveringType()).add("growing in your underarms");
+						}
+						if(Main.getProperties().hasValue(PropertyValue.assHairContent)) {
+							CoveringsNamesMap.putIfAbsent(Main.game.getPlayer().getAssHairType().getType(), new ArrayList<>());
+							CoveringsNamesMap.get(Main.game.getPlayer().getAssHairType().getType()).add("growing around your anus");
+						}
+						
 						CoveringsNamesMap.put(BodyCoveringType.ANUS, Util.newArrayListOfValues(new ListValue<>("anus")));
 						CoveringsNamesMap.put(BodyCoveringType.MOUTH, Util.newArrayListOfValues(new ListValue<>("mouth")));
 						CoveringsNamesMap.put(BodyCoveringType.NIPPLES, Util.newArrayListOfValues(new ListValue<>("nipples")));
@@ -746,7 +766,7 @@ public class SuccubisSecrets {
 					title = "Slime";
 					description = "Your entire body is made of slime!";
 					
-				} if(bct == BodyCoveringType.ANUS) {
+				} else if(bct == BodyCoveringType.ANUS) {
 					title = "Anus";
 					description = "This is the skin that's currently covering your anal rim. The secondary colour determines what your anus's inner-walls look like.";
 					
@@ -773,7 +793,20 @@ public class SuccubisSecrets {
 				} else if(bct == BodyCoveringType.TONGUE) {
 					title = "Tongue";
 					description = "This is the skin that's currently covering your tongue.";
+				
+				} else if(Main.getProperties().hasValue(PropertyValue.pubicHairContent) && bct == Main.game.getPlayer().getPubicHairType().getType()) {
+					title = "Pubic "+bct.getName(Main.game.getPlayer());
+					description = "This is the "+bct.getName(Main.game.getPlayer())+" that's currently "+Util.stringsToStringList(entry.getValue(), false)+".";
+					
+				} else if(Main.getProperties().hasValue(PropertyValue.facialHairContent) && bct == Main.game.getPlayer().getFacialHairType().getType()) {
+					title = "Facial "+bct.getName(Main.game.getPlayer());
+					description = "This is the "+bct.getName(Main.game.getPlayer())+" that's currently "+Util.stringsToStringList(entry.getValue(), false)+".";
+					
+				} else if(Main.getProperties().hasValue(PropertyValue.bodyHairContent) && bct == Main.game.getPlayer().getBodyHairCoveringType()) {
+					title = "Body "+bct.getName(Main.game.getPlayer());
+					description = "This is the "+bct.getName(Main.game.getPlayer())+" that's currently "+Util.stringsToStringList(entry.getValue(), false)+".";
 				}
+					
 				
 				UtilText.nodeContentSB.append(CharacterModificationUtils.getKatesDivCoveringsNew(
 						true, 
@@ -925,14 +958,15 @@ public class SuccubisSecrets {
 							?CharacterModificationUtils.getKatesDivUnderarmHair("Underarm hair", "The body hair found in your armpits.")
 							:"")
 					
-					+(Main.game.isBodyHairEnabled()
+					+(Main.game.isAssHairEnabled()
 							?CharacterModificationUtils.getKatesDivAssHair("Ass hair", "The body hair found around your asshole.")
 							:"")
 					);
 			
 			for(BodyCoveringType bct : BodyCoveringType.values()) {
 				if((Main.game.isFacialHairEnabled() && Main.game.getPlayer().getFacialHairType().getType()==bct)
-						|| (Main.game.isBodyHairEnabled() && (Main.game.getPlayer().getUnderarmHairType().getType()==bct || Main.game.getPlayer().getAssHairType().getType()==bct))
+						|| (Main.game.isBodyHairEnabled() && Main.game.getPlayer().getUnderarmHairType().getType()==bct)
+						|| (Main.game.isAssHairEnabled() &&  Main.game.getPlayer().getAssHairType().getType()==bct)
 						|| (Main.game.isPubicHairEnabled() && Main.game.getPlayer().getPubicHairType().getType()==bct)) {
 					UtilText.nodeContentSB.append(CharacterModificationUtils.getKatesDivCoveringsNew(
 							true, bct, "Body hair", "This is your body hair ("+bct.getRace().getName()+").", true, true));

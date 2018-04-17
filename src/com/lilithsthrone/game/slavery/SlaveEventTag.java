@@ -79,6 +79,9 @@ public enum SlaveEventTag {
 	},
 	
 	// Jobs:
+
+	JOB_LILAYA_CUM_SOLD("[npc.Name]'s [npc.cum] was sold!"),
+	JOB_LILAYA_MILK_SOLD("[npc.Name]'s [npc.milk] was sold!"),
 	
 	JOB_LILAYA_INTRUSIVE_TESTING("Lilaya ran some rather intrusive tests on [npc.name]."),
 	
@@ -86,7 +89,9 @@ public enum SlaveEventTag {
 	
 	JOB_LILAYA_MASCULINE_TF("Lilaya tested some very intrusive masculine transformations on [npc.name]."),
 
-	JOB_STOCKS_USED("[npc.Name] was used by an unknown member of the public.")
+	JOB_STOCKS_USED("[npc.Name] was used by an unknown member of the public."),
+	
+	JOB_PROSTITUTE_USED("[npc.Name] was used by a client.")
 	;
 	
 	private String description;

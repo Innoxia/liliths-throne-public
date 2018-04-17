@@ -3,6 +3,7 @@ package com.lilithsthrone.game.sex.sexActions.baseActionsMisc;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.attributes.ObedienceLevel;
@@ -121,7 +122,7 @@ public class GenericOrgasms {
 					orgasmText = "[npc.Name] looks down at you and lets out [npc.a_moan+] as [npc.she] prepares to climax.";
 				}
 				break;
-			case DOGGY_BEHIND: case DOGGY_BEHIND_AMBER:
+			case DOGGY_BEHIND: case DOGGY_BEHIND_AMBER: case PET_MOUNTING_HUMPING:
 				if(characterOrgasming.isPlayer()) {
 					orgasmText = "You take hold of [npc.name]'s waist, pulling [npc.herHim] back into your groin and letting out [pc.a_moan+] as you reach your climax.";
 				} else {
@@ -135,7 +136,7 @@ public class GenericOrgasms {
 					orgasmText = "[npc.Name] lets out [npc.a_moan+] as [npc.she] prepares to reach [npc.her] climax.";
 				}
 				break;
-			case DOGGY_INFRONT:
+			case DOGGY_INFRONT: case PET_ORAL_COCKED_LEG:
 				if(characterOrgasming.isPlayer()) {
 					orgasmText = "You shuffle forwards, pressing your groin up against [npc.name]'s [npc.face+] and letting out [pc.a_moan+] as you prepare to reach your climax.";
 				} else {
@@ -149,7 +150,7 @@ public class GenericOrgasms {
 					orgasmText = "[npc.Name] shuffles backwards, pressing [npc.her] [npc.ass+] up against your [pc.face+] and letting out [npc.a_moan+] as [npc.she] prepares to reach [npc.her] climax.";
 				}
 				break;
-			case DOGGY_ON_ALL_FOURS: case DOGGY_ON_ALL_FOURS_SECOND: case DOGGY_ON_ALL_FOURS_AMBER:
+			case DOGGY_ON_ALL_FOURS: case DOGGY_ON_ALL_FOURS_SECOND: case DOGGY_ON_ALL_FOURS_AMBER: case PET_MOUNTING_ON_ALL_FOURS: case PET_ORAL_ON_ALL_FOURS:
 				if(characterOrgasming.isPlayer()) {
 					orgasmText = "You brace yourself on all fours, letting out [pc.a_moan+] as you prepare to reach your climax.";
 				} else {
@@ -303,6 +304,34 @@ public class GenericOrgasms {
 					orgasmText = "[npc.Name] reaches down and places a [npc.hand] on your head, letting out [npc.a_moan+] as [npc.she] prepares to reach [npc.her] climax.";
 				}
 				break;
+			case MILKING_STALL_FUCKING:
+				if(characterOrgasming.isPlayer()) {
+					orgasmText = "You reach down and grab [npc.name]'s waist, pulling [npc.herHim] back into you and letting out [pc.a_moan+] as you prepare to reach your climax.";
+				} else {
+					orgasmText = "[npc.Name] reaches down and grabs your waist, pulling you back into [npc.herHim] and letting out [npc.a_moan+] as [npc.she] prepares to reach [npc.her] climax.";
+				}
+				break;
+			case MILKING_STALL_LOCKED_IN_MILKING_STALL:
+				if(characterOrgasming.isPlayer()) {
+					orgasmText = "Unable to move, you wriggle around in the stocks and let out [pc.a_moan+] as you prepare to reach your climax.";
+				} else {
+					orgasmText = "Unable to move, [npc.name] wriggles around in the stocks and lets out [npc.a_moan+] as [npc.she] prepares to reach [npc.her] climax.";
+				}
+				break;
+			case MILKING_STALL_PERFORMING_ORAL:
+				if(characterOrgasming.isPlayer()) {
+					orgasmText = "You reach up and place a [pc.hand] on one of [npc.name]'s [npc.legs], letting out [pc.a_moan+] as you prepare to reach your climax.";
+				} else {
+					orgasmText = "[npc.Name] reaches up and places a [npc.hand] on one of your [npc.legs], letting out [npc.a_moan+] as [npc.she] prepares to reach [npc.her] climax.";
+				}
+				break;
+			case MILKING_STALL_RECEIVING_ORAL:
+				if(characterOrgasming.isPlayer()) {
+					orgasmText = "You reach down and place a [pc.hand] on [npc.name]'s head, letting out [pc.a_moan+] as you prepare to reach your climax.";
+				} else {
+					orgasmText = "[npc.Name] reaches down and places a [npc.hand] on your head, letting out [npc.a_moan+] as [npc.she] prepares to reach [npc.her] climax.";
+				}
+				break;
 		}
 		
 		return UtilText.parse(characterOrgasming.isPlayer()?Sex.getTargetedPartner(characterOrgasming):characterOrgasming, orgasmText);
@@ -450,14 +479,25 @@ public class GenericOrgasms {
 							}
 						}
 						break;
-					case URETHRA:
+					case URETHRA_PENIS:
 						if(characterOrgasming.isPlayer()) {
-							genericOrgasmSB.append("You slide your [npc1.cock+] out of [npc2.name]'s [npc2.urethra+]");
+							genericOrgasmSB.append("You slide your [npc1.cock+] out of [npc2.name]'s [npc2.penisUrethra+]");
 						} else {
 							if(characterPenetrated.isPlayer()) {
-								genericOrgasmSB.append("[npc1.Name] slides [npc.her] [npc1.cock+] out of your [npc2.urethra+]");
+								genericOrgasmSB.append("[npc1.Name] slides [npc.her] [npc1.cock+] out of your [npc2.penisUrethra+]");
 							} else {
-								genericOrgasmSB.append("[npc1.Name] slides [npc.her] [npc1.cock+] out of [npc2.name]'s [npc2.urethra+]");
+								genericOrgasmSB.append("[npc1.Name] slides [npc.her] [npc1.cock+] out of [npc2.name]'s [npc2.penisUrethra+]");
+							}
+						}
+						break;
+					case URETHRA_VAGINA:
+						if(characterOrgasming.isPlayer()) {
+							genericOrgasmSB.append("You slide your [npc1.cock+] out of [npc2.name]'s [npc2.vaginaUrethra+]");
+						} else {
+							if(characterPenetrated.isPlayer()) {
+								genericOrgasmSB.append("[npc1.Name] slides [npc.her] [npc1.cock+] out of your [npc2.vaginaUrethra+]");
+							} else {
+								genericOrgasmSB.append("[npc1.Name] slides [npc.her] [npc1.cock+] out of [npc2.name]'s [npc2.vaginaUrethra+]");
 							}
 						}
 						break;
@@ -568,17 +608,21 @@ public class GenericOrgasms {
 			List<String> modifiers = new ArrayList<>();
 			
 			switch(orificePenetrated) {
-				case ANUS: case NIPPLE: case VAGINA:
+				case ANUS: case NIPPLE: case VAGINA: case URETHRA_PENIS: case URETHRA_VAGINA:
 					String orificeName = (orificePenetrated == OrificeType.VAGINA
 							?"[npc2.pussy]"
 							:(orificePenetrated == OrificeType.ANUS
 								?"[npc2.asshole]"
-								:"[npc2.nipple]"));
+								:(orificePenetrated == OrificeType.NIPPLE
+										?"[npc2.nipple]"
+										:"urethra")));
 					String orificeNamePlusDescriptor = (orificePenetrated == OrificeType.VAGINA
 							?"[npc2.pussy+]"
 							:(orificePenetrated == OrificeType.ANUS
 								?"[npc2.asshole+]"
-								:"[npc2.nipple+]"));
+								:(orificePenetrated == OrificeType.NIPPLE
+										?"[npc2.nipple+]"
+										:"urethra")));
 					
 					if(characterOrgasming.hasPenisModifier(PenisModifier.KNOTTED)) {
 						if(characterOrgasming.isPlayer()) {
@@ -830,11 +874,6 @@ public class GenericOrgasms {
 					
 				case THIGHS:
 					break;
-				case URETHRA:
-					break;
-				default:
-					break;
-			
 			}
 		}
 
@@ -1208,7 +1247,7 @@ public class GenericOrgasms {
 						default:
 							break;
 					}
-					if(Main.getProperties().inflationContent && !target.isVisiblyPregnant()) {
+					if(Main.getProperties().hasValue(PropertyValue.inflationContent) && !target.isVisiblyPregnant()) {
 						int cumAmount = target.getCummedInAreaMap().get(OrificeType.ANUS) + characterOrgasming.getPenisRawCumProductionValue();
 						cumTargetSB.append(getInflationText(characterOrgasming, target, cumAmount));
 					}
@@ -1222,39 +1261,49 @@ public class GenericOrgasms {
 						cumTargetSB.append(" deep down your throat, and you find yourself making muffled whining noises as you feel the [npc.cum+] sliding down into your stomach.");
 						switch(characterOrgasming.getCumFlavour()) {
 							case BEER:
-								cumTargetSB.append(" The unusual taste of [npc1.name]'s beer-flavoured cum rises up to hit your [npc2.tongue], and you're left with no other option but to gulp down as much of the");
+								cumTargetSB.append(" The unusual taste of [npc1.name]'s beer-flavoured");
 								break;
 							case CHOCOLATE:
-								cumTargetSB.append(" The unusual taste of [npc1.name]'s chocolate-flavoured cum rises up to hit your [npc2.tongue], and you're left with no other option but to gulp down as much of the");
+								cumTargetSB.append(" The unusual taste of [npc1.name]'s chocolate-flavoured");
 								break;
 							case CUM:
-								cumTargetSB.append(" The salty taste of cum rises up to hit your [npc2.tongue], and you're left with no other option but to gulp down as much of the");
+								cumTargetSB.append(" The salty taste of");
 								break;
 							case GIRL_CUM:
-								cumTargetSB.append(" The unusual taste of [npc1.name]'s sweet cum rises up to hit your [npc2.tongue], and you're left with no other option but to gulp down as much of the");
+								cumTargetSB.append(" The unusual taste of [npc1.name]'s sweet");
 								break;
 							case HONEY:
-								cumTargetSB.append(" The unusual taste of [npc1.name]'s honey-flavoured cum rises up to hit your [npc2.tongue], and you're left with no other option but to gulp down as much of the");
+								cumTargetSB.append(" The unusual taste of [npc1.name]'s honey-flavoured");
 								break;
 							case MILK:
-								cumTargetSB.append(" The unusual taste of [npc1.name]'s milk-flavoured cum rises up to hit your [npc2.tongue], and you're left with no other option but to gulp down as much of the");
+								cumTargetSB.append(" The unusual taste of [npc1.name]'s milk-flavoured");
 								break;
 							case MINT:
-								cumTargetSB.append(" The unusual taste of [npc1.name]'s mint-flavoured cum rises up to hit your [npc2.tongue], and you're left with no other option but to gulp down as much of the");
+								cumTargetSB.append(" The unusual taste of [npc1.name]'s mint-flavoured");
 								break;
 							case PINEAPPLE:
-								cumTargetSB.append(" The unusual taste of [npc1.name]'s pineapple-flavoured cum rises up to hit your [npc2.tongue], and you're left with no other option but to gulp down as much of the");
+								cumTargetSB.append(" The unusual taste of [npc1.name]'s pineapple-flavoured");
 								break;
 							case SLIME:
-								cumTargetSB.append(" The unusual taste of [npc1.name]'s sweet cum rises up to hit your [npc2.tongue], and you're left with no other option but to gulp down as much of the");
+								cumTargetSB.append(" The unusual taste of [npc1.name]'s sweet");
 								break;
 							case STRAWBERRY:
-								cumTargetSB.append(" The unusual taste of [npc1.name]'s strawberry-flavoured cum rises up to hit your [npc2.tongue], and you're left with no other option but to gulp down as much of the");
+								cumTargetSB.append(" The unusual taste of [npc1.name]'s strawberry-flavoured");
 								break;
 							case VANILLA:
-								cumTargetSB.append(" The unusual taste of [npc1.name]'s vanilla-flavoured cum rises up to hit your [npc2.tongue], and you're left with no other option but to gulp down as much of the");
+								cumTargetSB.append(" The unusual taste of [npc1.name]'s vanilla-flavoured");
 								break;
 						}
+						cumTargetSB.append(" cum rises up to hit your [npc2.tongue], and you");
+						if(target.hasFetish(Fetish.FETISH_CUM_ADDICT) || SexFlags.playerRequestedCreampie)
+						{
+							cumTargetSB.append(" " + UtilText.returnStringAtRandom("greedily","hungrily"));
+						}
+						else
+						{
+							cumTargetSB.append("'re left with no other option but to");
+						}
+						cumTargetSB.append(" gulp down as much of the");
 						if(!characterOrgasming.getCumModifiers().isEmpty()) {
 							switch(characterOrgasming.getCumModifiers().get(Util.random.nextInt(characterOrgasming.getCumModifiers().size()))) { //TODO specials for ALCOHOLIC & HALLUCINOGENIC
 								case ADDICTIVE:
@@ -1304,7 +1353,7 @@ public class GenericOrgasms {
 						default:
 							break;
 					}
-					if(Main.getProperties().inflationContent && !target.isVisiblyPregnant()) {
+					if(Main.getProperties().hasValue(PropertyValue.inflationContent) && !target.isVisiblyPregnant()) {
 						int cumAmount = target.getCummedInAreaMap().get(OrificeType.MOUTH) + characterOrgasming.getPenisRawCumProductionValue();
 						cumTargetSB.append(getInflationText(characterOrgasming, target, cumAmount));
 					}
@@ -1315,14 +1364,38 @@ public class GenericOrgasms {
 					} else {
 						cumTargetSB.append(" deep into [npc2.name]'s [npc2.breasts+].");
 					}
-					if(Main.getProperties().inflationContent) {
+					if(Main.getProperties().hasValue(PropertyValue.inflationContent)) {
 						int cumAmount = target.getCummedInAreaMap().get(OrificeType.NIPPLE) + characterOrgasming.getPenisRawCumProductionValue();
 						cumTargetSB.append(getBreastInflationText(characterOrgasming, target, cumAmount));
 					}
 					break;
 				case THIGHS:
 					break;
-				case URETHRA:
+				case URETHRA_PENIS: case URETHRA_VAGINA: //TODO
+					if(target.isPlayer()) {
+						cumTargetSB.append(" deep into your urethra.");
+					} else {
+						cumTargetSB.append(" deep into [npc2.name]'s urethra.");
+					}
+					switch (characterOrgasming.getPenisCumProduction()) {
+						case SIX_EXTREME: case SEVEN_MONSTROUS:
+							if(characterOrgasming.isPlayer()) {
+								cumTargetSB.append(" After a few seconds, [npc2.name] realises that you're not even close to stopping, and as your "
+										+"[pc.cum+] backs up and starts drooling out of [npc2.her] urethra, [npc2.she] lets out [npc2.a_moan+]."
+												+ " You keep your [npc1.cock] hilted deep inside of [npc2.herHim], [npc1.moaning+] as you wait for your [npc1.balls] to run dry.");
+							} else {
+								cumTargetSB.append(" After a few seconds, you realise that [npc1.name]'s not even close to stopping, and as you feel [npc1.her] "
+										+"[npc.cum+] backing up and drooling out of your urethra, you let out [pc.a_moan+]."
+										+ " [npc1.Name] keeps [npc1.her] [npc1.cock] hilted deep inside of you, [npc1.moaning+] as [npc.she] waits for [npc1.her] [npc1.balls] to run dry.");
+							}
+							break;
+						default:
+							break;
+					}
+					if(Main.getProperties().hasValue(PropertyValue.inflationContent) && !target.isVisiblyPregnant()) {
+						int cumAmount = target.getCummedInAreaMap().get(orificePenetrated) + characterOrgasming.getPenisRawCumProductionValue();
+						cumTargetSB.append(getInflationText(characterOrgasming, target, cumAmount));
+					}
 					break;
 				case VAGINA:
 					if(target.isPlayer()) {
@@ -1353,7 +1426,7 @@ public class GenericOrgasms {
 						default:
 							break;
 					}
-					if(Main.getProperties().inflationContent && !target.isVisiblyPregnant()) {
+					if(Main.getProperties().hasValue(PropertyValue.inflationContent) && !target.isVisiblyPregnant()) {
 						int cumAmount = target.getCummedInAreaMap().get(OrificeType.VAGINA) + characterOrgasming.getPenisRawCumProductionValue();
 						cumTargetSB.append(getInflationText(characterOrgasming, target, cumAmount));
 					}
@@ -1715,8 +1788,8 @@ public class GenericOrgasms {
 					return "Nipple Creampie";
 				case THIGHS:
 					return "Thigh-sex Climax";
-				case URETHRA:
-					break;
+				case URETHRA_PENIS: case URETHRA_VAGINA:
+					return "Urethra Creampie";
 				case VAGINA:
 					if(Main.game.getPlayer().hasPenisModifier(PenisModifier.KNOTTED)) {
 						return UtilText.parse(characterPenetrated, "Knot [npc.herHim]");
@@ -1753,8 +1826,8 @@ public class GenericOrgasms {
 					return true;
 				case THIGHS:
 					break;
-				case URETHRA:
-					break;
+				case URETHRA_PENIS:
+				case URETHRA_VAGINA:
 				case VAGINA:
 					return true;
 			}
@@ -2886,8 +2959,8 @@ public class GenericOrgasms {
 					return "Nipple Creampie";
 				case THIGHS:
 					return "Thigh-sex Climax";
-				case URETHRA:
-					break;
+				case URETHRA_PENIS: case URETHRA_VAGINA:
+					return "Urethra Creampie";
 				case VAGINA:
 					if(Sex.getActivePartner().hasPenisModifier(PenisModifier.KNOTTED)) {
 						return UtilText.parse(characterPenetrated, "Knot [npc.herHim]");
@@ -2919,11 +2992,12 @@ public class GenericOrgasms {
 				case MOUTH:
 				case NIPPLE:
 				case VAGINA:
+				case URETHRA_PENIS:
+				case URETHRA_VAGINA:
 					isPenetratingSuitableOrifice = true;
 					break;
 				case ASS:
 				case BREAST:
-				case URETHRA:
 				case THIGHS:
 					break;
 			}

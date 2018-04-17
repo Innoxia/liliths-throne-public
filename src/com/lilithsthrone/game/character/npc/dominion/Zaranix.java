@@ -405,8 +405,15 @@ public class Zaranix extends NPC {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Spit", "Spit out the potion.", AFTER_COMBAT_DEFEAT_SPIT);
-			
+				if(Main.game.getPlayer().hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING)) {
+					return new Response("Spit",
+							"Due to your <b style='color:"+Colour.FETISH.toWebHexString()+";'>"+Fetish.FETISH_TRANSFORMATION_RECEIVING.getName(Main.game.getPlayer())
+								+"</b> fetish, you love being transformed so much that you can't bring yourself to spit out the transformative liquid!",
+							null);
+				} else {
+					return new Response("Spit", "Spit out the potion.", AFTER_COMBAT_DEFEAT_SPIT);
+				}
+				
 			} else if(index==2) {
 				return new Response("Swallow", "Swallow the potion.", AFTER_COMBAT_DEFEAT_SWALLOW) {
 					@Override

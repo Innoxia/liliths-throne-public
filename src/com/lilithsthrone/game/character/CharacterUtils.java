@@ -3,7 +3,6 @@ package com.lilithsthrone.game.character;
 import java.io.File;
 import java.io.StringWriter;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +21,7 @@ import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.body.Antenna;
 import com.lilithsthrone.game.character.body.Arm;
 import com.lilithsthrone.game.character.body.Ass;
@@ -98,7 +98,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.67
- * @version 0.1.95
+ * @version 0.2.3
  * @author Innoxia, tukaima
  */
 public class CharacterUtils {
@@ -237,7 +237,7 @@ public class CharacterUtils {
 		GameCharacter parentTakesAfter = mother;
 		
 		// Core body type is random:
-		if(Math.random()<=0.5) {
+		if(Math.random()<=0.5 || mother.getSubspecies().isOffspringAlwaysMothersRace()) {
 			startingBodyType = motherBody;
 			stage = mother.getRaceStage();
 		} else {
@@ -346,10 +346,12 @@ public class CharacterUtils {
 		
 		// Body core:
 		// Height:
-		body.setHeight(getSizeFromGenetics( //TODO
-				body.getHeightValue(),
-				(body.isFeminine()?mother.isFeminine():!mother.isFeminine()), mother.getHeightValue(),
-				(body.isFeminine()?father.isFeminine():!father.isFeminine()), father.getHeightValue()));
+		if(!parentTakesAfter.getSubspecies().getOffspringSubspecies().isShortStature()) {
+			body.setHeight(getSizeFromGenetics( //TODO
+					body.getHeightValue(),
+					(body.isFeminine()?mother.isFeminine():!mother.isFeminine()), mother.getHeightValue(),
+					(body.isFeminine()?father.isFeminine():!father.isFeminine()), father.getHeightValue()));
+		}
 		
 		// Femininity:
 		switch(startingGender.getType()) {
@@ -1028,7 +1030,15 @@ public class CharacterUtils {
 		
 		// Penis:
 		if(character.hasPenis()) {
-			character.setPenisVirgin(false);
+			if(Math.random()<0.15f
+					&& character.getHistory()!=History.PROSTITUTE
+					&& !character.hasFetish(Fetish.FETISH_CUM_STUD)
+					&& !character.hasFetish(Fetish.FETISH_VAGINAL_GIVING)
+					&& !character.hasFetish(Fetish.FETISH_ANAL_GIVING)) {
+				character.setPenisVirgin(false);
+			} else {
+				character.setPenisVirgin(true);
+			}
 			if((character.getGender()==Gender.F_P_TRAP || character.getGender()==Gender.N_P_TRAP) && Math.random()>=0.1f) { // Most traps have a small cock:
 				character.setPenisSize(PenisSize.ONE_TINY.getMinimumValue() + Util.random.nextInt(character.getPenisSize().getMaximumValue() - character.getPenisSize().getMinimumValue()) +1);
 				character.setTesticleSize(TesticleSize.ONE_TINY.getValue());
@@ -1074,6 +1084,9 @@ public class CharacterUtils {
 		character.setFaceStretchedCapacity(character.getFaceRawCapacityValue());
 		character.setPenisStretchedCapacity(character.getPenisRawCapacityValue());
 		character.setVaginaStretchedCapacity(character.getVaginaRawCapacityValue());
+		
+		character.getSubspecies().applySpeciesChanges(character.getBody());
+		character.getBody().calculateRace();
 	}
 	
 	/**
@@ -1121,6 +1134,8 @@ public class CharacterUtils {
 		 		character.setVaginaStretchedCapacity(character.getVaginaRawCapacityValue());
 		 	}
 		 	
+		 	character.setPenisVirgin(false);
+		 	
 		 	character.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 		 	character.setName(Name.getRandomProstituteTriplet());
 		 	character.useItem(AbstractItemType.generateItem(ItemType.PROMISCUITY_PILL), character, false);
@@ -1133,56 +1148,59 @@ public class CharacterUtils {
 			
 	}
 	
-	public static void addFetishes(GameCharacter character) {
+	private static List<Fetish> getAllowedFetishes(GameCharacter character) {
+		List<Fetish> allowedFetishes = new ArrayList<>();
 		
-		List<Fetish> availableFetishes = new ArrayList<>();
 		for(Fetish f : Fetish.values()) {
 			if (f==Fetish.FETISH_PURE_VIRGIN) {
 				if(character.hasVagina() && (character.getHistory()!=History.PROSTITUTE?Math.random()<=0.25f:true)) // 25% chance for prostitutes, as when drawn from amongst all the other fetishes, the actual chance will be much lower.
-					availableFetishes.add(f);
+					allowedFetishes.add(f);
 				
 			} else if (f==Fetish.FETISH_BIMBO) {
 				if(character.isFeminine())
-					availableFetishes.add(f);
+					allowedFetishes.add(f);
 				
-			} else if (f==Fetish.FETISH_PREGNANCY) {
+			} else if (f==Fetish.FETISH_PREGNANCY || f==Fetish.FETISH_BROODMOTHER || f==Fetish.FETISH_VAGINAL_RECEIVING) {
 				if(character.hasVagina())
-					availableFetishes.add(f);
+					allowedFetishes.add(f);
 				
-			} else if (f==Fetish.FETISH_IMPREGNATION) {
+			} else if (f==Fetish.FETISH_IMPREGNATION || f==Fetish.FETISH_SEEDER) {
 				if(character.hasPenis() && character.sexualOrientation!=SexualOrientation.ANDROPHILIC)
-					availableFetishes.add(f);
-				
-			} else if (f==Fetish.FETISH_SEEDER) {
-				if(character.hasPenis() && character.sexualOrientation!=SexualOrientation.ANDROPHILIC)
-					availableFetishes.add(f);
-				
-			} else if (f==Fetish.FETISH_BROODMOTHER) {
-				if(character.hasVagina())
-					availableFetishes.add(f);
+					allowedFetishes.add(f);
 				
 			} else if (f==Fetish.FETISH_CUM_STUD) {
 				if(character.hasPenis())
-					availableFetishes.add(f);
+					allowedFetishes.add(f);
 				
 			} else if (f==Fetish.FETISH_BREASTS_SELF) {
 				if(character.hasBreasts())
-					availableFetishes.add(f);
+					allowedFetishes.add(f);
 				
 			// Fetishes for content locks:
 			} else if (f==Fetish.FETISH_NON_CON_DOM || f==Fetish.FETISH_NON_CON_SUB) {
-				if(Main.getProperties().nonConContent) {
-					availableFetishes.add(f);
+				if(Main.getProperties().hasValue(PropertyValue.nonConContent)) {
+					allowedFetishes.add(f);
 				}
 				
 			} else if (f==Fetish.FETISH_INCEST) {
-				if(Main.getProperties().incestContent)
-					availableFetishes.add(f);
+				if(Main.getProperties().hasValue(PropertyValue.incestContent))
+					allowedFetishes.add(f);
+				
+			} else if (f==Fetish.FETISH_LACTATION_OTHERS || f==Fetish.FETISH_LACTATION_SELF) {
+				if(Main.getProperties().hasValue(PropertyValue.lactationContent))
+					allowedFetishes.add(f);
 				
 			} else if (f.getFetishesForAutomaticUnlock().isEmpty()){
-				availableFetishes.add(f);
+				allowedFetishes.add(f);
 			}
 		}
+		
+		return allowedFetishes;
+	}
+	
+	public static void addFetishes(GameCharacter character) {
+		
+		List<Fetish> availableFetishes = getAllowedFetishes(character);
 		
 		// Remove existing fetishes:
 		availableFetishes.removeAll(character.getFetishes());
@@ -1193,7 +1211,7 @@ public class CharacterUtils {
 		int fetishesAssigned = 0;
 		
 		if(((character.getMother()!=null && character.getMother().isPlayer()) || (character.getFather()!=null && character.getFather().isPlayer()))) {
-			if(Main.getProperties().incestContent && Math.random()>0.5f) {
+			if(Main.getProperties().hasValue(PropertyValue.incestContent) && Math.random()>0.5f) {
 				character.addFetish(Fetish.FETISH_INCEST);
 				availableFetishes.remove(Fetish.FETISH_INCEST);
 				fetishesAssigned++;
@@ -1232,8 +1250,7 @@ public class CharacterUtils {
 	
 	public static void generateDesires(GameCharacter character) {
 		
-		List<Fetish> availableFetishes = new ArrayList<>();
-		Collections.addAll(availableFetishes, Fetish.values());
+		List<Fetish> availableFetishes = getAllowedFetishes(character);
 		availableFetishes.removeAll(character.getFetishes());
 		availableFetishes.removeIf((f) -> !f.getFetishesForAutomaticUnlock().isEmpty()); //Do not allow derived fetishes
 		for(Fetish f : character.getFetishes()) {
@@ -1294,10 +1311,15 @@ public class CharacterUtils {
 		
 		availableFetishes.remove(Fetish.FETISH_CUM_STUD); // Who doesn't like cumming? :3
 		
-		
 		while(desiresAssigned < numberOfNegativeDesires && !availableFetishes.isEmpty()) {
 			Fetish f = availableFetishes.get(Util.random.nextInt(availableFetishes.size()));
 			character.setFetishDesire(f, Math.random()>0.5?FetishDesire.ONE_DISLIKE:FetishDesire.ZERO_HATE);
+			if(f == Fetish.FETISH_DOMINANT) {
+				availableFetishes.remove(Fetish.FETISH_SUBMISSIVE);
+			}
+			if(f == Fetish.FETISH_SUBMISSIVE) {
+				availableFetishes.remove(Fetish.FETISH_DOMINANT);
+			}
 			availableFetishes.remove(f);
 			desiresAssigned++;
 		}
