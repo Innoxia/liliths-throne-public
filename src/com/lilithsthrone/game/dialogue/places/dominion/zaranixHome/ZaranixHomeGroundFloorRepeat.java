@@ -75,6 +75,7 @@ public class ZaranixHomeGroundFloorRepeat {
 						public void effects() {
 							Main.game.getAmber().setLocation(WorldType.DOMINION, PlaceType.DOMINION_DEMON_HOME_ARTHUR, false);
 							Main.game.getAmber().setPlayerKnowsName(true);
+							Main.game.getZaranix().returnToHome();
 						}
 					};
 					
@@ -84,6 +85,7 @@ public class ZaranixHomeGroundFloorRepeat {
 						public void effects() {
 							Main.game.getAmber().setLocation(WorldType.DOMINION, PlaceType.DOMINION_DEMON_HOME_ARTHUR, false);
 							Main.game.getAmber().setPlayerKnowsName(true);
+							Main.game.getZaranix().returnToHome();
 						}
 					};
 				}

@@ -793,6 +793,7 @@ public class ItemType {
 			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.FIT_EGG_NOG))),
 			Util.newArrayListOfValues(
+					new ListValue<>(ItemTag.REINDEER_GIFT),
 					new ListValue<>(ItemTag.ATTRIBUTE_TF_ITEM))) {
 
 		private static final long serialVersionUID = 1L;
@@ -981,6 +982,7 @@ public class ItemType {
 			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.SEX_MINCE_PIE))),
 			Util.newArrayListOfValues(
+					new ListValue<>(ItemTag.REINDEER_GIFT),
 					new ListValue<>(ItemTag.ATTRIBUTE_TF_ITEM))) {
 
 		private static final long serialVersionUID = 1L;
@@ -1749,6 +1751,7 @@ public class ItemType {
 			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_SUGAR_COOKIE))),
 			Util.newArrayListOfValues(
+					new ListValue<>(ItemTag.REINDEER_GIFT),
 					new ListValue<>(ItemTag.RACIAL_TF_ITEM))) {
 
 		private static final long serialVersionUID = 1L;

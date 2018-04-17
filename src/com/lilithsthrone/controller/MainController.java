@@ -44,6 +44,7 @@ import com.lilithsthrone.game.character.Personality;
 import com.lilithsthrone.game.character.SexualOrientation;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Breast;
+import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.Testicle;
 import com.lilithsthrone.game.character.body.types.AntennaType;
@@ -194,7 +195,7 @@ import javafx.scene.web.WebView;
 
 /**
  * @since 0.1.0
- * @version 0.2.0
+ * @version 0.2.4
  * @author Innoxia
  */
 public class MainController implements Initializable {
@@ -354,6 +355,9 @@ public class MainController implements Initializable {
 		InventoryDialogue.setInventoryNPC(npc);
 		InventoryDialogue.setNPCInventoryInteraction(interaction);
 		
+		if(npc!=null) {
+			npc.setPendingClothingDressing(true);
+		}
 		
 		if (Main.game.getCurrentDialogueNode().getMapDisplay() == MapDisplay.INVENTORY) {
 			Main.game.restoreSavedContent();
@@ -486,6 +490,9 @@ public class MainController implements Initializable {
 							 
 //							 Main.game.getPlayer().setMana(1);
 //							 
+							 System.out.println("Vagina: "+Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true));
+							 System.out.println("Nipples: "+Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.NIPPLES, true));
+							 
 //							 File image = new File("res/images/characters/jam/brandiNaked1.png");
 ////								+"file:/"+image.toURI().getPath()
 ////							+"<img src=\"file:/"+image.toURI().getPath()+"\" width='250' height='600'/>"
@@ -5722,7 +5729,7 @@ public class MainController implements Initializable {
 		documentRight = (Document) webEngineRight.executeScript("document");
 		EventListenerDataMap.put(documentRight, new ArrayList<>());
 
-		List<InventorySlot> concealedSlots = new ArrayList<>();
+		Map<InventorySlot, List<AbstractClothing>> concealedSlots = new HashMap<>();
 		
 		if(RenderingEngine.getCharacterToRender()!=null) {
 			concealedSlots = RenderingEngine.getCharacterToRender().getInventorySlotsConcealed();
@@ -5734,10 +5741,10 @@ public class MainController implements Initializable {
 			id = invSlot.toString() + "Slot";
 			if (invSlot != InventorySlot.WEAPON_MAIN && invSlot != InventorySlot.WEAPON_OFFHAND) {
 				if (((EventTarget) documentRight.getElementById(id)) != null) {
-					if(concealedSlots.contains(invSlot)) {
+					if(concealedSlots.keySet().contains(invSlot)) {
 						addEventListener(documentRight, id, "mousemove", moveTooltipListener, false);
 						addEventListener(documentRight, id, "mouseleave", hideTooltipListener, false);
-						TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation(Util.capitaliseSentence(invSlot.getName())+" - [style.boldBad(Concealed!)]", "");
+						TooltipInformationEventListener el2 = new TooltipInformationEventListener().setConcealedSlot(invSlot);
 						addEventListener(documentRight, id, "mouseenter", el2, false);
 						
 					} else {

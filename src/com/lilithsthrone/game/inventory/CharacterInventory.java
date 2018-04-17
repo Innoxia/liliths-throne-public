@@ -50,10 +50,11 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Inventory for a Character. Tracks weapons equipped, clothes worn & inventory space.
+ * Inventory for a Character. Tracks weapons equipped, clothes worn & inventory space.</br>
+ * Only the very bravest dare venture past line 717.
  * 
  * @since 0.1.0
- * @version 0.2.2
+ * @version 0.2.4
  * @author Innoxia
  */
 public class CharacterInventory implements Serializable, XMLSaving {
@@ -661,22 +662,30 @@ public class CharacterInventory implements Serializable, XMLSaving {
 		return clothingCurrentlyEquipped;
 	}
 
-	public List<InventorySlot> getInventorySlotsConcealed() {
-		Set<InventorySlot> concealed = new HashSet<>();
-		Set<InventorySlot> revealed = new HashSet<>();
+	/**
+	 * @return Map of concealed slots as keys, with a list of clothing that's concealing said slot as the value. 
+	 */
+	public Map<InventorySlot, List<AbstractClothing>> getInventorySlotsConcealed() {
+		Map<InventorySlot, List<AbstractClothing>> concealedMap = new HashMap<>();
+		Set<InventorySlot> itemConcealed = new HashSet<>();
+		Set<InventorySlot> itemRevealed = new HashSet<>();
 		for(AbstractClothing c : getClothingCurrentlyEquipped()) {
+			itemConcealed.clear();
+			itemRevealed.clear();
 			for(BlockedParts bp : c.getClothingType().getBlockedPartsList()) {
 				if(!c.getDisplacedList().contains(bp.displacementType)) {
-					concealed.addAll(bp.concealedSlots);
+					itemConcealed.addAll(bp.concealedSlots);
 				} else {
-					revealed.addAll(bp.concealedSlots);
+					itemRevealed.addAll(bp.concealedSlots);
 				}
 			}
+			itemConcealed.removeAll(itemRevealed);
+			for(InventorySlot slot : itemConcealed) {
+				concealedMap.putIfAbsent(slot, new ArrayList<>());
+				concealedMap.get(slot).add(c);
+			}
 		}
-		concealed.removeAll(revealed);
-		List<InventorySlot> concealedFinal = new ArrayList<>();
-		concealedFinal.addAll(concealed);
-		return concealedFinal;
+		return concealedMap;
 	}
 	
 	/**
@@ -1122,9 +1131,9 @@ public class CharacterInventory implements Serializable, XMLSaving {
 				clothingToBeReplaced.sort(new ReverseClothingZLayerComparator());
 				if (!clothingToBeReplaced.isEmpty()) {// clothingCountToBeReplaced-incompatibleUnequippableClothing.size()>0)
 					equipTextSB.append(characterClothingOwner.isPlayer()
-							?"</br>You replace your " + Util.clothesToStringList(clothingToBeReplaced) + "."
+							?"</br>You replace your " + Util.clothesToStringList(clothingToBeReplaced, false) + "."
 							:UtilText.parse(characterClothingOwner,
-									"</br>[npc.Name] replaces [npc.her] " + Util.clothesToStringList(clothingToBeReplaced) + "."));
+									"</br>[npc.Name] replaces [npc.her] " + Util.clothesToStringList(clothingToBeReplaced, false) + "."));
 				}
 				
 				// Check for clothing sets:
@@ -1145,7 +1154,7 @@ public class CharacterInventory implements Serializable, XMLSaving {
 				equipTextSB.append(Util.capitaliseSentence(newClothing.getName(true))+ " "+(newClothing.getClothingType().isPlural()?"are":"is")+" able to be equipped.");
 			} else {
 				equipTextSB.append(Util.capitaliseSentence("Before" + newClothing.getClothingType().getDeterminer()) + " " + newClothing.getName()
-					+ " is able to be equipped, " + Util.clothesToStringList(clothingToRemove.keySet()) + " need"
+					+ " is able to be equipped, " + Util.clothesToStringList(clothingToRemove.keySet(), false) + " need"
 						+ (clothingToRemove.size() > 1 ? "" : "s") + " to be removed.");
 			}
 		}
@@ -1242,15 +1251,16 @@ public class CharacterInventory implements Serializable, XMLSaving {
 				}
 		}
 
-		if (continuingIsAbleToEquip)
+		if (continuingIsAbleToEquip) {
 			return true;
-
-		if (!automaticClothingManagement && clothingToRemove.size() != 1) {
+		}
+		
+		if (!automaticClothingManagement && clothingToRemove.size() > 1) { // Greater than 1, as it will contain the item of clothing that's trying to be removed.
 			equipTextSB.append(characterClothingOwner.isPlayer()
-					?"Before your " + clothing.getName() + " "+(clothing.getClothingType().isPlural()?"are":"is")+" able to be removed, " + Util.clothesToStringList(clothingToRemove.keySet()) + " need"
+					?"Before your " + clothing.getName() + " "+(clothing.getClothingType().isPlural()?"are":"is")+" able to be removed, " + Util.clothesToStringList(clothingToRemove.keySet(), false) + " need"
 						+ (clothingToRemove.size() > 1 ? "" : "s") + " to be removed."
 					:UtilText.parse(characterClothingOwner,
-							"Before [npc.name]'s " + clothing.getName() + " "+(clothing.getClothingType().isPlural()?"are":"is")+" able to be removed, " + Util.clothesToStringList(clothingToRemove.keySet()) + " need"
+							"Before [npc.name]'s " + clothing.getName() + " "+(clothing.getClothingType().isPlural()?"are":"is")+" able to be removed, " + Util.clothesToStringList(clothingToRemove.keySet(), false) + " need"
 									+ (clothingToRemove.size() > 1 ? "" : "s") + " to be removed."));
 			
 			for(AbstractClothing c : clothingToRemove.keySet()) {
@@ -1299,9 +1309,9 @@ public class CharacterInventory implements Serializable, XMLSaving {
 
 			if (!clothingToBeReplaced.isEmpty() && !continuingIsAbleToEquip) {
 				equipTextSB.append(characterClothingOwner.isPlayer()
-						?"</br>You replace your " + Util.clothesToStringList(clothingToBeReplaced) + "."
+						?"</br>You replace your " + Util.clothesToStringList(clothingToBeReplaced, false) + "."
 						:UtilText.parse(characterClothingOwner,
-								"</br>You replace [npc.name]'s " + Util.clothesToStringList(clothingToBeReplaced) + "."));
+								"</br>You replace [npc.name]'s " + Util.clothesToStringList(clothingToBeReplaced, false) + "."));
 			}
 			
 			// Check for clothing sets:
@@ -1441,7 +1451,7 @@ public class CharacterInventory implements Serializable, XMLSaving {
 			replaceClothingList.remove(clothing);
 			replaceClothingList.sort(new ReverseClothingZLayerComparator());
 			if (!replaceClothingList.isEmpty()) {
-				unableToDisplaceText.append("</br>You replace "+(characterClothingOwner.isPlayer()?"your":characterClothingOwner.getName()+"'s")+" " + Util.clothesToStringList(replaceClothingList) + ".");
+				unableToDisplaceText.append("</br>You replace "+(characterClothingOwner.isPlayer()?"your":characterClothingOwner.getName()+"'s")+" " + Util.clothesToStringList(replaceClothingList, false) + ".");
 			}
 			
 			return true;
@@ -1550,7 +1560,7 @@ public class CharacterInventory implements Serializable, XMLSaving {
 			replaceClothingList.addAll(clothingToRemove.keySet());
 			replaceClothingList.sort(new ReverseClothingZLayerComparator());
 			if (!replaceClothingList.isEmpty()) {
-				unableToReplaceText.append("</br>You replace "+(characterClothingOwner.isPlayer()?"your":characterClothingOwner.getName()+"'s")+" " + Util.clothesToStringList(replaceClothingList) + ".");
+				unableToReplaceText.append("</br>You replace "+(characterClothingOwner.isPlayer()?"your":characterClothingOwner.getName()+"'s")+" " + Util.clothesToStringList(replaceClothingList, false) + ".");
 			}
 			
 			return true;

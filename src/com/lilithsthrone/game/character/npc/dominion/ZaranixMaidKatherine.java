@@ -108,6 +108,7 @@ public class ZaranixMaidKatherine extends NPC {
 			this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MAIN_FEATHER_DUSTER));
 		}
 		this.addFetish(Fetish.FETISH_MASOCHIST);
+		this.setDescription("One of Zaranix's succubi maid twins, Katherine is assigned by her master to keep the ground floor clean.");
 	}
 	
 	public void resetBody() {

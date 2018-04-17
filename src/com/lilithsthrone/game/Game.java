@@ -39,6 +39,7 @@ import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.ObedienceLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.effects.StatusEffect;
+import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.GenderPreference;
 import com.lilithsthrone.game.character.npc.GenericAndrogynousNPC;
 import com.lilithsthrone.game.character.npc.GenericFemaleNPC;
@@ -977,6 +978,9 @@ public class Game implements Serializable, XMLSaving {
 					&& (Main.game.getCurrentDialogueNode().equals(Main.game.getPlayer().getLocationPlace().getDialogue(false))
 						|| !(npc.getWorldLocation()==Main.game.getPlayer().getWorldLocation() && npc.getLocation().equals(Main.game.getPlayer().getLocation())))) {
 				npc.equipClothing(true, true);
+				if(!npc.hasFetish(Fetish.FETISH_EXHIBITIONIST)) {
+					npc.replaceAllClothing();
+				}
 				npc.setPendingClothingDressing(false);
 			}
 			

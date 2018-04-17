@@ -116,11 +116,11 @@ public enum RenderingEngine {
 		// EQUIPPED:
 		equippedPanelSB.append("<div class='inventory-equipped'>");
 		
-		List<InventorySlot> concealedSlots = charactersInventoryToRender.getInventorySlotsConcealed();
+		Map<InventorySlot, List<AbstractClothing>> concealedSlots = charactersInventoryToRender.getInventorySlotsConcealed();
 		
 		for (InventorySlot invSlot : inventorySlots) {
 			
-			if(!charactersInventoryToRender.isPlayer() && concealedSlots.contains(invSlot)) {
+			if(!charactersInventoryToRender.isPlayer() && concealedSlots.keySet().contains(invSlot)) {
 				equippedPanelSB.append("<div class='inventory-item-slot concealed' id='" + invSlot.toString() + "Slot'>"
 						+ "<div class='concealedIcon'>"+SVGImages.SVG_IMAGE_PROVIDER.getConcealedIcon()+"</div>"
 					+ "</div>");
@@ -206,7 +206,7 @@ public enum RenderingEngine {
 			
 			AbstractClothing clothing = charactersInventoryToRender.getClothingInSlot(invSlot);
 			
-			if(!charactersInventoryToRender.isPlayer() && concealedSlots.contains(invSlot)) {
+			if(!charactersInventoryToRender.isPlayer() && concealedSlots.keySet().contains(invSlot)) {
 				equippedPanelSB.append("<div class='inventory-item-slot piercing concealed' id='" + invSlot.toString() + "Slot'>"
 						+ "<div class='concealedIcon'>"+SVGImages.SVG_IMAGE_PROVIDER.getConcealedIcon()+"</div>"
 					+ "</div>");

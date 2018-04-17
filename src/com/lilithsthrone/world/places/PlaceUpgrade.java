@@ -148,7 +148,7 @@ public enum PlaceUpgrade {
 		public String getRoomDescription(GenericPlace place) {
 			if(place.getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_UPGRADE_BED)) {
 				return "You've paid to have this room converted into basic slave's quarters."
-						+ " A comfortable double size bed, covered in a warm fully duvet, sits against one wall."
+						+ " A comfortable double size bed, covered in a warm, fluffy duvet, sits against one wall."
 						+ " Beside it, there's a simple bedside cabinet, complete with arcane-powered lamp."
 						+ " Other than that, the only other pieces of furniture in here are a wooden wardrobe and chest of drawers.";
 				
@@ -267,7 +267,7 @@ public enum PlaceUpgrade {
 		public String getRoomDescription(GenericPlace place) {
 			if(place.getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_UPGRADE_BED)) {
 				return "You've paid to have this room converted so that it's suitable for housing two of your slaves."
-							+ " A single double size bed, covered in a warm fully duvet, sits against one of the room's walls."
+							+ " A single double size bed, covered in a warm, fluffy duvet, sits against one of the room's walls."
 							+ " On either side of it, there's a simple bedside cabinet, each complete with its own arcane-powered lamp."
 							+ " Other than those, the only other pieces of furniture in here are a single wooden wardrobe and a solitary chest of drawers.";
 				

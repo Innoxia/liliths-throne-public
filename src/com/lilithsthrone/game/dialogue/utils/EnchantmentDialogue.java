@@ -182,7 +182,7 @@ public class EnchantmentDialogue {
 					inventorySB.append(
 							"<div class='normal-button disabled' style='width:100%; margin:auto 0;'>"
 							+ "<b>Add</b> | "
-							+ UtilText.formatAsEssencesUncoloured(effect.getCost(), "b", false)
+							+ UtilText.formatAsEssencesUncoloured(EnchantingUtils.getModifierEffectCost(ingredient, effect), "b", false)
 							+ "<div class='overlay no-pointer' id='ENCHANT_ADD_BUTTON_DISABLED'></div>"
 							+ "</div>");
 					
@@ -190,7 +190,7 @@ public class EnchantmentDialogue {
 					inventorySB.append(
 							"<div class='normal-button' style='width:100%; margin:auto 0;'>"
 							+ "<b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Add</b> | "
-							+ UtilText.formatAsEssences(effect.getCost(), "b", false)
+							+ UtilText.formatAsEssences(EnchantingUtils.getModifierEffectCost(ingredient, effect), "b", false)
 							+ "<div class='overlay' id='ENCHANT_ADD_BUTTON'></div>"
 							+ "</div>");
 					
@@ -240,7 +240,7 @@ public class EnchantmentDialogue {
 										+(ingredient.getEffects().size()>i && ingredient.getEffects().get(i).equals(ie)
 												?"<div class='normal-button' style='width:64px; height:22px; line-height:22px; font-size:16px; margin:0; padding:0 0 0 4px; float:right; text-align:left;'>"
 														+ "<b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>X</b> "
-																+ UtilText.formatAsEssences(ie.getCost(), "b", false)
+																+ UtilText.formatAsEssences(EnchantingUtils.getModifierEffectCost(ingredient, effect), "b", false)
 																+ "<div class='overlay' id='DELETE_EFFECT_"+i+"'></div></div>"
 												:"<div class='normal-button' id='DELETE_EFFECT_"+i+"'"
 														+ " style='width:22px; height:22px; line-height:22px; font-size:16px; margin:0; padding:0; float:right; color:"+Colour.GENERIC_BAD.toWebHexString()+";'><b>X</b></div>")

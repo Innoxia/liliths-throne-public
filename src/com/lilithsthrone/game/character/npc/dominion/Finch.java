@@ -20,17 +20,18 @@ import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.CharacterInventory;
+import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
-import com.lilithsthrone.game.inventory.clothing.ClothingSet;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.83
- * @version 0.1.89
+ * @version 0.2.4
  * @author Innoxia
  */
 public class Finch extends NPC {
@@ -95,13 +96,14 @@ public class Finch extends NPC {
 	public void dailyReset() {
 		clearNonEquippedInventory();
 		
-		for(int i = 0; i<6; i++) {
+		// Always at least 4 slave collars:
+		for(int i = 0; i<4; i++) {
 			this.addClothing(AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR), false);
 		}
 		
 		for(AbstractClothingType clothing : ClothingType.getAllClothing()) {
-			if(clothing.getClothingSet() == ClothingSet.BDSM) {
-				for(int i = 0; i<2; i++) {
+			if(clothing.getItemTags().contains(ItemTag.SOLD_BY_FINCH)) {
+				for(int i = 0; i<Util.random.nextInt(3)+1; i++) {
 					this.addClothing(AbstractClothingType.generateClothing(clothing), false);
 				}
 			}

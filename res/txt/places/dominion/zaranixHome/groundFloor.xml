@@ -59,7 +59,7 @@
 	<p>
 		Despite the fact that her maid's dress quite clearly identifies her as a servant in this household, her attitude is not at all one of subservience, and as she crosses her arms and leans against the door frame,
 			 she makes a disapproving clicking noise with her tongue,
-		+ [amber.speech(And who are <i>you</i> supposed to be? We're not expecting any visitors, and you're wasting my valuable time, so this had better be good!)]
+		 [amber.speech(And who are <i>you</i> supposed to be? We're not expecting any visitors, and you're wasting my valuable time, so this had better be good!)]
 	</p>
 	<p>
 		You're pretty sure that servants aren't ordinarily supposed to greet visitors like that, but this particular maid doesn't exactly seem to be ordinary.

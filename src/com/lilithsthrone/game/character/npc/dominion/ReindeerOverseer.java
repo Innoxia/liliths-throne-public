@@ -21,6 +21,7 @@ import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.CharacterInventory;
+import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
@@ -32,34 +33,12 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.95
- * @version 0.1.99
+ * @version 0.2.4
  * @author Innoxia
  */
 public class ReindeerOverseer extends NPC {
 
 	private static final long serialVersionUID = 1L;
-	
-	private AbstractItemType[] itemsForSale = new AbstractItemType[] {
-			ItemType.SEX_INGREDIENT_MINCE_PIE,
-			ItemType.FIT_INGREDIENT_EGG_NOG,
-			ItemType.RACE_INGREDIENT_REINDEER_MORPH};
-	
-	private AbstractClothingType[] clothingForSale = new AbstractClothingType[] {
-			ClothingType.TORSO_OVER_CHRISTMAS_SWEATER,
-			ClothingType.NECK_SNOWFLAKE_NECKLACE,
-			ClothingType.PIERCING_EAR_SNOW_FLAKES,
-			ClothingType.PIERCING_NOSE_SNOWFLAKE_STUD,
-			ClothingType.JOLNIR_BOOTS,
-			ClothingType.JOLNIR_BOOTS_FEMININE,
-			ClothingType.JOLNIR_COAT,
-			ClothingType.JOLNIR_DRESS,
-			ClothingType.JOLNIR_HAT,
-			ClothingType.KIMONO_DRESS,
-			ClothingType.KIMONO_GETA,
-			ClothingType.KIMONO_HAIR_KANZASHI,
-			ClothingType.KIMONO_MENS_KIMONO,
-			ClothingType.KIMONO_MENS_GETA,
-			ClothingType.KIMONO_HAORI};
 	
 	public ReindeerOverseer() {
 		this(Gender.F_V_B_FEMALE, false);
@@ -188,15 +167,19 @@ public class ReindeerOverseer extends NPC {
 			this.addItem(AbstractItemType.generateItem(ItemType.PRESENT), false);
 		}
 		
-		for (AbstractItemType item : itemsForSale) {
-			for (int i = 0; i < 3 + (Util.random.nextInt(6)); i++) {
-				this.addItem(AbstractItemType.generateItem(item), false);
+		for (AbstractItemType item : ItemType.allItems) {
+			if(item.getItemTags().contains(ItemTag.REINDEER_GIFT)) {
+				for (int i = 0; i < 3 + (Util.random.nextInt(6)); i++) {
+					this.addItem(AbstractItemType.generateItem(item), false);
+				}
 			}
 		}
 		
-		for (AbstractClothingType clothing : clothingForSale) {
-			for (int i = 0; i < 1 + (Util.random.nextInt(2)); i++) {
-				this.addClothing(AbstractClothingType.generateClothing(clothing), false);
+		for (AbstractClothingType clothing : ClothingType.getAllClothing()) {
+			if(clothing.getItemTags().contains(ItemTag.REINDEER_GIFT)) {
+				for (int i = 0; i < 1 + (Util.random.nextInt(2)); i++) {
+					this.addClothing(AbstractClothingType.generateClothing(clothing), false);
+				}
 			}
 		}
 		

@@ -458,17 +458,20 @@ public enum ItemEffectType {
 			if(target.isPlayer()) {
 				return "<p>"
 						+ "The little pink pill easily slides down your throat, and within moments, you feel "
-						+ ( Main.game.getPlayer().hasVagina()
+						+ ( target.hasVagina()
 								? "a strange, warm glow spreading from what you guess must be your ovaries."
-									+ " Your mind fogs over with an overwhelming desire to feel potent sperm spurting deep into your "+(Main.game.getPlayer().isVisiblyPregnant()?"pussy":"womb")
+									+ " Your mind fogs over with an overwhelming desire to feel potent sperm spurting deep into your "+(target.isVisiblyPregnant()?"pussy":"womb")
 									+", and before you can stop it, a little whimper escapes from between your [pc.lips]."
-									+ (Main.game.getPlayer().hasPenis()
+									+ (target.hasPenis()
 											?" At the same time, your manhood begins to throb with need, and you feel "
 											:"") 
 							:"")
-						+ (Main.game.getPlayer().hasPenis() 
+						+ (target.hasPenis() 
 								? "an overpowering desire to sink deep into a fertile female's cunt and fill her with your [pc.cum+]."
 								: "")
+						+ (!target.hasPenis() && !target.hasVagina()
+								?"a desperate heat in [npc.her] genderless mound."
+								:"")
 					+ "</p>";
 			
 			} else {
@@ -477,15 +480,18 @@ public enum ItemEffectType {
 							+ "The little pink pill easily slides down [npc.her] throat, and within moments, [npc.she] feels "
 							+ ( target.hasVagina()
 									? "a strange, warm glow spreading from [npc.her] ovaries."
-										+ " [npc.Her] mind fogs over with an overwhelming desire to feel potent sperm spurting deep into [npc.her] "+(Main.game.getPlayer().isVisiblyPregnant()?"pussy":"womb")
+										+ " [npc.Her] mind fogs over with an overwhelming desire to feel potent sperm spurting deep into [npc.her] "+(target.isVisiblyPregnant()?"pussy":"womb")
 										+", and before [npc.she] can stop it, a little whimper escapes from between [npc.her] [npc.lips]."
 										+ (target.hasPenis()
 												?" At the same time, [npc.her] manhood begins to throb with need, and [npc.she] feels "
 												:"") 
-								:"")
-							+ (Main.game.getPlayer().hasPenis() 
+									:"")
+							+ (target.hasPenis() 
 									? "an overpowering desire to sink deep into a fertile female's cunt and fill her with [npc.cum+]."
 									: "")
+							+ (!target.hasPenis() && !target.hasVagina()
+									?"a desperate heat in [npc.her] genderless mound."
+									:"")
 						+ "</p>");
 			}
 			

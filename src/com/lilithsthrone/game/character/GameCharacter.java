@@ -3507,7 +3507,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				"You tear open the packet and forcefully roll the condom down the length [npc.name]'s [npc.penis].",
 				"[npc.Name] tears open the packet and rolls the condom down the length of [npc.her] [npc.penis].",
 				"[npc.Name] tears open the packet and rolls the condom down the length of your [pc.penis].",
-				"[npc.Name] tears open the packet and forcefully rolls the condom down the length of your [pc.penis].");
+				"[npc.Name] tears open the packet and forcefully rolls the condom down the length of your [pc.penis].", null, null);
 	}
 	
 	/**
@@ -9783,7 +9783,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		return inventory.getClothingCurrentlyEquipped();
 	}
 	
-	public List<InventorySlot> getInventorySlotsConcealed() {
+	public Map<InventorySlot, List<AbstractClothing>> getInventorySlotsConcealed() {
 		return inventory.getInventorySlotsConcealed();
 	}
 
@@ -10388,7 +10388,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 
 	public void replaceAllClothing() {
-		
+		for(AbstractClothing c : this.getClothingCurrentlyEquipped()) {
+			c.clearDisplacementList();
+		}
 	}
 	
 
