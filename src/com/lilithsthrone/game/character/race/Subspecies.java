@@ -201,8 +201,8 @@ public enum Subspecies {
 			},
 	
 	DOG_MORPH_DOBERMANN("raceDogMorphDobermann",
-			"dobermorph",
-			"dobermorphs",
+			"dobermann",
+			"dobermanns",
 			"dobermann",
 			"dobermann",
 			"dobermanns",
