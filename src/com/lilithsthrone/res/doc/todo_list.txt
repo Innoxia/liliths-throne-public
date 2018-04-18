@@ -37,6 +37,14 @@
 		<b>Added:</b> Enforcer's miniskirt (Feminine, Leg slot). Candi now wears this instead of shorts.
 		Updated Enforcer clothing to use a third colour for buttons, and the frontal-zip dress to use a customisable colour for the zip.
 	
+	Contributors:
+		<b>Added:</b> Groundwork for the new companion system. (Irbynx)
+		Fixed harpy nest entrance background colour. (Master of Puppets)
+		Typo fix. (Master of Puppets)
+		Fixed strange behaviour when having sex with NPCs in stocks, where if it was banned for them to receive a certain type of sex, you would be banned from performing related sex actions as well. (Master of Puppets)
+		Changed sex actions so the only ones that reduce arousal are now ones related to denial. Resisting pace/actions no longer cause arousal to drop, and instead, arousal increases are zero on non-erogenous zone actions, and low on others. Having the non-con fetish sets these arousal increases to high. (Master of Puppets)
+		Restricted use of 'calm down' action to only be available when you're the dom, or when you have the same amount of control as the dom. (Master of Puppets)
+	
 	Other:
 		Moved the 'Explore' action from button 6 to 1. (I originally put it on 6 so that when you were spamming it to explore, you wouldn't accidentally skip the encounter dialogue. Now that 'Explore' always results in an encounter on the first press, there's no need for it to be so out of place.)
 		Added throat wetness, capacity, elasticity, and plasticity to the 'Body Stats' phone dialogue page, and added more throat descriptions to the selfie/character view page, as well as improving the coloured parts of all body description text.
@@ -60,11 +68,21 @@
 	
 	
 	
+	Personality
+		Show in character viewer
+		
+	Companions
+		Test with slave
+		Outside
+		Lilaya's house
+		Rendering
+		Moving - cancel slave duties when companion
+	
+	
+	Brax affection changes
+	
+	
 	- Finish the spell system and add a few more weapons.
-		Personality
-			Starting selection
-			Show in character viewer
-		Companions
 		Add spell schools like perk window, with offensive and defensive trees for each
 			Spells, with several levels in each one
 			Gain points from books 
@@ -73,7 +91,7 @@
 	
 	
 	
-	 When giving Ralph some head, it seems that the mouth status is displayed backwards. ("Ralph is sucking your dick!" rather than you're sucking his
+	When giving Ralph some head, it seems that the mouth status is displayed backwards. ("Ralph is sucking your dick!" rather than you're sucking his
 	
 	tube top
 	

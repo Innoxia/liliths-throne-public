@@ -48,7 +48,7 @@ import javafx.stage.Stage;
 
 /**
  * @since 0.1.0
- * @version 0.2.3
+ * @version 0.2.4
  * @author Innoxia
  */
 public class Main extends Application {
@@ -62,7 +62,7 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
 
-	public static final String VERSION_NUMBER = "0.2.3.1",
+	public static final String VERSION_NUMBER = "0.2.3.5",
 			VERSION_DESCRIPTION = "Alpha";
 
 	public static final Image WINDOW_IMAGE = new Image("/com/lilithsthrone/res/images/windowIcon32.png");

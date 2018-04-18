@@ -40,7 +40,6 @@ import com.lilithsthrone.game.character.CharacterChangeEventListener;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Breast;
-import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.Testicle;
 import com.lilithsthrone.game.character.body.types.AntennaType;
@@ -491,8 +490,7 @@ public class MainController implements Initializable {
 							 
 //							 Main.game.getPlayer().setMana(1);
 //							 
-							 System.out.println("Vagina: "+Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true));
-							 System.out.println("Nipples: "+Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.NIPPLES, true));
+//							 System.out.println(Main.game.getPlayer().toString());
 							 
 //							 File image = new File("res/images/characters/jam/brandiNaked1.png");
 ////								+"file:/"+image.toURI().getPath()

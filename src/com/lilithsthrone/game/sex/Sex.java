@@ -197,6 +197,8 @@ public enum Sex {
 		actionsAvailable = new HashMap<>();
 		orgasmActionsAvailable = new HashMap<>();
 		
+		forceSexPaceMap = new HashMap<>();
+		
 		setSexManager(sexManager);
 		
 		Sex.postSexDialogue = postSexDialogue;
@@ -278,13 +280,6 @@ public enum Sex {
 		for(GameCharacter character : Sex.getAllParticipants()) {
 			areasTooLoose.put(character, new HashSet<>());
 		}
-		
-//		areasCummedIn = new HashMap<>();
-//		for(GameCharacter character : Sex.getAllParticipants()) {
-//			areasCummedIn.put(character, new HashSet<>());
-//		}
-		
-		forceSexPaceMap = new HashMap<>();
 		
 		for(GameCharacter character : Sex.getAllParticipants()) {
 			if(character instanceof NPC) {

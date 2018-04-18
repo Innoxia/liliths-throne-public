@@ -696,10 +696,20 @@ public interface SexActionInterface {
 	
 	public default boolean isBannedFromSexManager() {
 		if(getAssociatedOrificeType() != null) {
-			for(GameCharacter character : Sex.getAllParticipants()) {
-				if(Sex.getSexManager().getOrificesBannedMap().get(character)!=null && Sex.getSexManager().getOrificesBannedMap().get(character).contains(getAssociatedOrificeType())) {
-					return true;
-				}
+			GameCharacter orificeCharacter = this.getActionType().isPlayerAction()
+												?Main.game.getPlayer()
+												:Sex.getActivePartner();
+			boolean usingSelfOrifice = true;
+			if(!this.getParticipantType().isUsingSelfOrificeType()) {
+				orificeCharacter = Sex.getTargetedPartner(orificeCharacter);
+				usingSelfOrifice = false;
+			}
+			if (Sex.getSexManager().getOrificesBannedMap().get(orificeCharacter) != null
+					&& Sex.getSexManager().getOrificesBannedMap().get(orificeCharacter).contains(getAssociatedOrificeType())
+					&& (usingSelfOrifice
+							? this.getParticipantType().isUsingSelfOrificeType()
+							: !this.getParticipantType().isUsingSelfOrificeType())) {
+				return true;
 			}
 		}
 		
