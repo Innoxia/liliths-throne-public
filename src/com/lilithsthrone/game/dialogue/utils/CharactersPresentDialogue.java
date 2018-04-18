@@ -11,12 +11,12 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.3
- * @version 0.1.99
+ * @version 0.2.2
  * @author Innoxia
  */
 public class CharactersPresentDialogue {
 
-	private static String menuContent, menuTitle;
+	public static String menuContent, menuTitle;
 	public static GameCharacter characterViewed = null;
 
 	public static void resetContent(GameCharacter characterViewed) {

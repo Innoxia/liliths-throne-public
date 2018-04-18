@@ -155,7 +155,11 @@ public class GenericPlace implements Serializable, XMLSaving {
 	}
 
 	public DialogueNodeOld getDialogue(boolean withRandomEncounter) {
-		return placeType.getDialogue(withRandomEncounter);
+		return getDialogue(withRandomEncounter, false);
+	}
+	
+	public DialogueNodeOld getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
+		return placeType.getDialogue(withRandomEncounter, forceEncounter);
 	}
 
 	public boolean isPopulated() {

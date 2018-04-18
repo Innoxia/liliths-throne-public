@@ -2,6 +2,7 @@ package com.lilithsthrone.utils;
 
 import java.util.List;
 
+import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util.ListValue;
 
@@ -9,7 +10,7 @@ import javafx.scene.paint.Color;
 
 /**
  * @since 0.1.0
- * @version 0.2.1
+ * @version 0.2.3
  * @author Innoxia
  */
 public enum Colour {
@@ -49,6 +50,7 @@ public enum Colour {
 	BASE_GREEN_LIME(BaseColour.GREEN_LIME, "lime green", Util.newArrayListOfValues(new ListValue<>("limeGreen"))),
 	BASE_GREEN_LIGHT(BaseColour.GREEN_LIGHT, "light green", Util.newArrayListOfValues(new ListValue<>("lightGreen"))),
 	BASE_GREEN(BaseColour.GREEN, "green", Util.newArrayListOfValues(new ListValue<>("green"))),
+	BASE_GREEN_DARK(BaseColour.GREEN_DARK, "dark green", Util.newArrayListOfValues(new ListValue<>("darkGreen"))),
 	
 	BASE_AQUA(BaseColour.AQUA, "aqua", Util.newArrayListOfValues(new ListValue<>("aqua"))),
 	BASE_TEAL(BaseColour.TEAL, "teal", Util.newArrayListOfValues(new ListValue<>("teal"))),
@@ -347,6 +349,7 @@ public enum Colour {
 	SLIME_RED_DARK(BaseColour.RED_DARK, "translucent dark red"),
 	SLIME_BROWN_DARK(BaseColour.BROWN_DARK, "translucent dark brown"),
 	SLIME_BROWN(BaseColour.BROWN, "translucent brown"),
+	SLIME_ORANGE(BaseColour.ORANGE, "translucent orange"),
 	SLIME_TAN(BaseColour.TAN, "translucent tan"),
 	SLIME_YELLOW(BaseColour.YELLOW, "translucent yellow"),
 	SLIME_AMBER(BaseColour.AMBER, "translucent amber"),
@@ -363,19 +366,32 @@ public enum Colour {
 	SLIME_CLEAR(BaseColour.WHITE, "clear"),
 	SLIME_GREY(BaseColour.GREY, "translucent grey"),
 	SLIME_BLACK(BaseColour.BLACK, "translucent black"),
+	SLIME_WHITE(BaseColour.WHITE, "translucent white"),
 
 	// Feathers:
-	FEATHERS_BLACK(BaseColour.BLACK, "black"),
-	FEATHERS_WHITE(BaseColour.WHITE, "white"),
-	FEATHERS_BLUE(BaseColour.BLUE_LIGHT, "blue"),
-	FEATHERS_LILAC(BaseColour.LILAC, "lilac"),
-	FEATHERS_PINK(BaseColour.PINK_LIGHT, "pink"),
 	FEATHERS_RED(BaseColour.RED, "red"),
-	FEATHERS_GREEN(BaseColour.GREEN, "green"),
-	FEATHERS_YELLOW(BaseColour.YELLOW, "yellow"),
+	FEATHERS_RED_DARK(BaseColour.RED_DARK, "dark red"),
+	FEATHERS_BROWN_DARK(BaseColour.BROWN_DARK, "dark brown"),
+	FEATHERS_BROWN(BaseColour.BROWN, "brown"),
+	FEATHERS_TAN(BaseColour.TAN, "tan"),
 	FEATHERS_ORANGE(BaseColour.ORANGE, "orange"),
 	FEATHERS_GINGER(BaseColour.GINGER, "ginger"),
 	FEATHERS_BLEACH_BLONDE(BaseColour.YELLOW_LIGHT, "bleach-blonde"),
+	FEATHERS_YELLOW(BaseColour.YELLOW, "yellow"),
+	FEATHERS_AMBER(BaseColour.AMBER, "amber"),
+	FEATHERS_PINK(BaseColour.PINK, "pink"),
+	FEATHERS_PINK_LIGHT(BaseColour.PINK_LIGHT, "light pink"),
+	FEATHERS_GREEN(BaseColour.GREEN, "green"),
+	FEATHERS_GREEN_DARK(BaseColour.GREEN_DARK, "dark green"),
+	FEATHERS_BLUE_LIGHT(BaseColour.BLUE_LIGHT, "light blue"),
+	FEATHERS_BLUE(BaseColour.BLUE, "blue"),
+	FEATHERS_BLUE_DARK(BaseColour.BLUE_DARK, "dark blue"),
+	FEATHERS_LILAC(BaseColour.LILAC, "lilac"),
+	FEATHERS_PURPLE(BaseColour.PURPLE, "purple"),
+	FEATHERS_PURPLE_DARK(BaseColour.PURPLE_DARK, "dark purple"),
+	FEATHERS_GREY(BaseColour.GREY, "grey"),
+	FEATHERS_BLACK(BaseColour.BLACK, "black"),
+	FEATHERS_WHITE(BaseColour.WHITE, "white"),
 
 	// Horns:
 	HORN_WHITE(BaseColour.WHITE, "ivory"),
@@ -729,6 +745,7 @@ public enum Colour {
 
 	public static List<Colour> allSlimeColours = Util.newArrayListOfValues(
 			new ListValue<Colour>(Colour.SLIME_CLEAR),
+			new ListValue<Colour>(Colour.SLIME_WHITE),
 			new ListValue<Colour>(Colour.SLIME_GREY),
 			new ListValue<Colour>(Colour.SLIME_BLACK),
 			new ListValue<Colour>(Colour.SLIME_RED),
@@ -750,7 +767,33 @@ public enum Colour {
 			new ListValue<Colour>(Colour.SLIME_PINK_LIGHT)
 			);
 	
-	
+	public static List<Colour> allFeatherColours = Util.newArrayListOfValues(
+			new ListValue<Colour>(Colour.FEATHERS_WHITE),
+			new ListValue<Colour>(Colour.FEATHERS_GREY),
+			new ListValue<Colour>(Colour.FEATHERS_BLACK),
+			new ListValue<Colour>(Colour.FEATHERS_RED),
+			new ListValue<Colour>(Colour.FEATHERS_RED_DARK),
+			new ListValue<Colour>(Colour.FEATHERS_BROWN_DARK),
+			new ListValue<Colour>(Colour.FEATHERS_BROWN),
+			new ListValue<Colour>(Colour.FEATHERS_TAN),
+			new ListValue<Colour>(Colour.FEATHERS_ORANGE),
+			new ListValue<Colour>(Colour.FEATHERS_GINGER),
+			new ListValue<Colour>(Colour.FEATHERS_BLEACH_BLONDE),
+			new ListValue<Colour>(Colour.FEATHERS_YELLOW),
+			new ListValue<Colour>(Colour.FEATHERS_AMBER),
+			new ListValue<Colour>(Colour.FEATHERS_GREEN),
+			new ListValue<Colour>(Colour.FEATHERS_GREEN_DARK),
+			new ListValue<Colour>(Colour.FEATHERS_BLUE_LIGHT),
+			new ListValue<Colour>(Colour.FEATHERS_BLUE),
+			new ListValue<Colour>(Colour.FEATHERS_BLUE_DARK),
+			new ListValue<Colour>(Colour.FEATHERS_LILAC),
+			new ListValue<Colour>(Colour.FEATHERS_PURPLE),
+			new ListValue<Colour>(Colour.FEATHERS_PURPLE_DARK),
+			new ListValue<Colour>(Colour.FEATHERS_PINK),
+			new ListValue<Colour>(Colour.FEATHERS_PINK_LIGHT)
+			);
+			
+			
 	
 	public static List<Colour> naturalFurColours = Util.newArrayListOfValues(
 			new ListValue<Colour>(Colour.COVERING_WHITE),
@@ -1020,7 +1063,7 @@ public enum Colour {
 
 	public Color getColor() {
 		if(Main.getProperties()!=null) {
-			if(Main.getProperties().lightTheme)
+			if(Main.getProperties().hasValue(PropertyValue.lightTheme))
 				return lightColour;
 			else
 				return colour;

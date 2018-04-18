@@ -750,6 +750,12 @@ public class TooltipInformationEventListener implements EventListener {
 				Main.mainController.setTooltipContent(UtilText.parse(
 						"<div class='title'>"+title+"</div>"));
 				
+			} else if(title==null || title.isEmpty()) {
+				Main.mainController.setTooltipSize(360, 200);
+
+				Main.mainController.setTooltipContent(UtilText.parse(
+						"<div class='description' style='height:176px;'>"+description+"</div>"));
+				
 			} else {
 				Main.mainController.setTooltipSize(360, 175);
 

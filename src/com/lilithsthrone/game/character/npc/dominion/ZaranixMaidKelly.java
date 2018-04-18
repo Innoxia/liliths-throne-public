@@ -17,6 +17,8 @@ import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.quests.Quest;
+import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.combat.Attack;
@@ -45,7 +47,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.1.95
+ * @version 0.2.3
  * @author Innoxia
  */
 public class ZaranixMaidKelly extends NPC {
@@ -58,12 +60,10 @@ public class ZaranixMaidKelly extends NPC {
 	
 	public ZaranixMaidKelly(boolean isImported) {
 		super(new NameTriplet("Kelly"),
-				"One of Zaranix's succubi maid twins, Kelly is clearly outraged by the fact that you're wandering around the house unsupervised.",
+				"One of Zaranix's succubi maid twins, Kelly is assigned by her master to keep the first floor clean.",
 				10, Gender.F_P_V_B_FUTANARI, RacialBody.DEMON, RaceStage.GREATER, new CharacterInventory(10), WorldType.ZARANIX_HOUSE_FIRST_FLOOR, PlaceType.ZARANIX_FF_MAID, true);
 
 		if(!isImported) {
-			this.setPlayerKnowsName(false);
-			
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 			
 			this.setEyeCovering(new Covering(BodyCoveringType.EYE_DEMON_COMMON, Colour.EYE_BLUE));
@@ -101,6 +101,8 @@ public class ZaranixMaidKelly extends NPC {
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
+
+		this.setPlayerKnowsName(true);
 		
 		if(this.getMainWeapon()==null) {
 			this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MAIN_FEATHER_DUSTER));
@@ -130,6 +132,13 @@ public class ZaranixMaidKelly extends NPC {
 			
 		} else {
 			return "Kelly";
+		}
+	}
+	
+	@Override
+	public void hourlyUpdate() {
+		if (Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_H_THE_GREAT_ESCAPE)) {
+			this.moveToAdjacentMatchingCellType(PlaceType.ZARANIX_FF_STAIRS, PlaceType.ZARANIX_FF_MAID);
 		}
 	}
 	

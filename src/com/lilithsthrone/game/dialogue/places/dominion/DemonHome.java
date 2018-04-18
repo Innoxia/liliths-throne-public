@@ -10,6 +10,7 @@ import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.places.dominion.zaranixHome.ZaranixHomeGroundFloor;
+import com.lilithsthrone.game.dialogue.places.dominion.zaranixHome.ZaranixHomeGroundFloorRepeat;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
@@ -49,7 +50,7 @@ public class DemonHome {
 						"<p>"
 							+ "<b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Arcane Storm:</b></br>"
 							+ "The arcane storm that's raging overhead has brought out a heavy presence of demon Enforcers in this area."
-							+ " Unaffected by the arousing power of the storm's thunder, these elite Enforcers keep a close watch on you as you pass through the all-but-deserted plaza."
+							+ " Unaffected by the arousing power of the storm's thunder, these elite Enforcers keep a close watch on you as you pass through the all-but-deserted area known as Demon Home."
 							+ " There's no way anyone would be able to assault you while under their watchful gaze, allowing you continue on your way in peace..."
 						+ "</p>");
 			}
@@ -109,7 +110,7 @@ public class DemonHome {
 						"<p>"
 							+ "<b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Arcane Storm:</b></br>"
 							+ "The arcane storm that's raging overhead has brought out a heavy presence of demon Enforcers in this area."
-							+ " Unaffected by the arousing power of the storm's thunder, these elite Enforcers keep a close watch on you as you pass through the all-but-deserted plaza."
+							+ " Unaffected by the arousing power of the storm's thunder, these elite Enforcers keep a close watch on you as you pass through the all-but-deserted area known as Demon Home."
 							+ " There's no way anyone would be able to assault you while under their watchful gaze, allowing you continue on your way in peace..."
 						+ "</p>");
 			}
@@ -171,7 +172,7 @@ public class DemonHome {
 					return new Response("Zaranix's Home", "A little way down the road from Arthur's apartment building stands the home of Zaranix; the demon that Scarlett told you about.", ZaranixHomeGroundFloor.OUTSIDE);
 					
 				} else if (Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_H_THE_GREAT_ESCAPE)) {
-					return new Response("Zaranix's Home", "Pay Zaranix another visit. (Not yet implemented!)", null);//ZaranixHomeRepeat.OUTSIDE);
+					return new Response("Zaranix's Home", "Pay Zaranix another visit.", ZaranixHomeGroundFloorRepeat.OUTSIDE);
 				}
 				return null;
 
@@ -233,7 +234,7 @@ public class DemonHome {
 				}
 				
 			} else if (index == 0) {
-				return new Response("Leave", "Leave the building and head back out into Demon Home.", DEMON_HOME_STREET);
+				return new Response("Leave", "Leave the building and head back out into Demon Home.", DEMON_HOME_STREET_ARTHUR);
 				
 			} else {
 				return null;
@@ -315,7 +316,7 @@ public class DemonHome {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
-				return new Response("Leave", "You've done all you can here. Head back outside to Demon Home.", DEMON_HOME_STREET);
+				return new Response("Leave", "You've done all you can here. Head back outside to Demon Home.", DEMON_HOME_STREET_ARTHUR);
 				
 			} else {
 				return null;
@@ -342,7 +343,7 @@ public class DemonHome {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
-				return new Response("Leave", "You've done all you can here. Head back outside to Demon Home.</br>" + "<b>There is no further content for Felicity in this version.</b>", DEMON_HOME_STREET);
+				return new Response("Leave", "You've done all you can here. Head back outside to Demon Home.</br>" + "<b>There is no further content for Felicity in this version.</b>", DEMON_HOME_STREET_ARTHUR);
 				
 			} else {
 				return null;

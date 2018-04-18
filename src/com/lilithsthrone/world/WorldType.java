@@ -298,6 +298,25 @@ public enum WorldType {
 					new Value<>(new Color(0xc8ff00), PlaceType.SUBMISSION_IMP_FORTRESS_5),
 					new Value<>(new Color(0xfaff00), PlaceType.SUBMISSION_IMP_FORTRESS_6))),
 
+	BAT_CAVERNS("Bat Caverns",
+			Colour.BASE_BLACK,
+			1,
+			"/com/lilithsthrone/res/map/submission/batCaverns.png",
+			Util.newHashMapOfValues(
+					
+					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
+
+					new Value<>(new Color(0x00ff00), PlaceType.BAT_CAVERN_ENTRANCE),
+					
+					new Value<>(new Color(0x008080), PlaceType.BAT_CAVERN_DARK),
+					new Value<>(new Color(0x808080), PlaceType.BAT_CAVERN_LIGHT),
+					
+					new Value<>(new Color(0x0080ff), PlaceType.BAT_CAVERN_RIVER),
+					new Value<>(new Color(0x40b4ff), PlaceType.BAT_CAVERN_RIVER_CROSSING),
+					new Value<>(new Color(0x004080), PlaceType.BAT_CAVERN_RIVER_END),
+					
+					new Value<>(new Color(0xff80ff), PlaceType.BAT_CAVERN_SLIME_QUEEN_LAIR))),
+	
 	JUNGLE(6,
 			"jungle",
 			Colour.BASE_GREEN_LIME,

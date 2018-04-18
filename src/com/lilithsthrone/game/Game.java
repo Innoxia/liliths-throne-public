@@ -98,13 +98,11 @@ import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.responses.ResponseTrade;
+import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.CharactersPresentDialogue;
 import com.lilithsthrone.game.dialogue.utils.MiscDialogue;
 import com.lilithsthrone.game.dialogue.utils.PhoneDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
-import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.settings.KeyCodeWithModifiers;
@@ -357,6 +355,11 @@ public class Game implements Serializable, XMLSaving {
 			CharacterUtils.addAttribute(doc, informationNode, "weather", Main.game.currentWeather.toString());
 			CharacterUtils.addAttribute(doc, informationNode, "nextStormTime", String.valueOf(Main.game.nextStormTime));
 			CharacterUtils.addAttribute(doc, informationNode, "weatherTimeRemaining", String.valueOf(Main.game.weatherTimeRemaining));
+
+			Element slaveryNode = doc.createElement("slavery");
+			game.appendChild(slaveryNode);
+			CharacterUtils.addAttribute(doc, slaveryNode, "generatedIncome", String.valueOf(Main.game.getSlaveryUtil().getGeneratedIncome()));
+			CharacterUtils.addAttribute(doc, slaveryNode, "generatedUpkeep", String.valueOf(Main.game.getSlaveryUtil().getGeneratedUpkeep()));
 			
 			Element dateNode = doc.createElement("date");
 			informationNode.appendChild(dateNode);
@@ -479,6 +482,15 @@ public class Game implements Serializable, XMLSaving {
 				Main.game.nextStormTime = Long.valueOf(informationNode.getAttribute("nextStormTime"));
 				Main.game.weatherTimeRemaining = Integer.valueOf(informationNode.getAttribute("weatherTimeRemaining"));
 
+
+				try {
+					Element slaveryNode = (Element) gameElement.getElementsByTagName("slavery").item(0);
+					Main.game.getSlaveryUtil().setGeneratedIncome(Integer.valueOf(slaveryNode.getAttribute("generatedIncome")));
+					Main.game.getSlaveryUtil().setGeneratedUpkeep(Integer.valueOf(slaveryNode.getAttribute("generatedUpkeep")));
+				} catch(Exception ex) {
+				}
+				
+				
 				Element dateNode = (Element) gameElement.getElementsByTagName("date").item(0);
 				Main.game.startingDate = LocalDateTime.of(
 						Integer.valueOf(dateNode.getAttribute("year")),
@@ -888,13 +900,9 @@ public class Game implements Serializable, XMLSaving {
 		// If the time has passed midnight on this turn:
 		boolean newDay = ((int) (minutesPassed / (60 * 24)) != (int) (((minutesPassed - turnTime) / (60 * 24))));
 		
-		if(newDay) { //TODO replace with methods in each GenericPlace:
-			AbstractClothing goggles = AbstractClothingType.generateClothing(ClothingType.SCIENTIST_EYES_SAFETY_GOGGLES, Colour.CLOTHING_BLACK, false);
-			if(!Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR).getCell(PlaceType.LILAYA_HOME_LAB).getInventory().hasClothing(goggles)) {
-				Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR).getCell(PlaceType.LILAYA_HOME_LAB).getInventory().addClothing(goggles);
-			}
-			
+		if(newDay) {
 			pendingSlaveInStocksReset = true;
+			Main.game.getPlayer().resetDaysOrgasmCount();
 			
 			// Reindeer:
 			for(NPC npc : Main.game.getReindeerOverseers()) {
@@ -938,6 +946,8 @@ public class Game implements Serializable, XMLSaving {
 		for(NPC npc : NPCMap.values()) {
 			// Remove Dominion attackers if they aren't in alleyways: TODO this is because storm attackers need to be removed after a storm
 			if(npc.getLocationPlace().getPlaceType() != PlaceType.DOMINION_BACK_ALLEYS
+					&& npc.getLocationPlace().getPlaceType() != PlaceType.DOMINION_CANAL
+					&& npc.getLocationPlace().getPlaceType() != PlaceType.DOMINION_CANAL_END
 					&& npc.getWorldLocation() == WorldType.DOMINION
 					&& npc instanceof DominionAlleywayAttacker
 					&& !Main.game.getPlayer().getLocation().equals(npc.getLocation())) {
@@ -945,7 +955,7 @@ public class Game implements Serializable, XMLSaving {
 					}
 			
 			// Non-slave NPCs clean clothes:
-			if(!npc.isSlave() && !Main.game.getPlayer().getLocation().equals(npc.getLocation())) {
+			if((!npc.isSlave() || (npc.isSlave() && !npc.getOwner().isPlayer())) && !Main.game.getPlayer().getLocation().equals(npc.getLocation())) {
 				npc.cleanAllClothing();
 				npc.cleanAllDirtySlots();
 			}
@@ -1018,6 +1028,7 @@ public class Game implements Serializable, XMLSaving {
 			}
 			
 			if(newDay) {
+				npc.resetDaysOrgasmCount();
 				npc.dailyReset();
 			}
 		}
@@ -1289,8 +1300,11 @@ public class Game implements Serializable, XMLSaving {
 				
 				
 				if (node.isContinuesDialogue()) {
-					currentDialogue = "<body onLoad='scrollToElement()'>"
-								+ "<script>function scrollToElement() {document.getElementById('content-block').scrollTop = document.getElementById('position" + (positionAnchor) + "').offsetTop -64;}</script>"
+					currentDialogue = 
+								(isContentScroll(node)
+									?"<body onLoad='scrollToElement()'>"
+										+ "<script>function scrollToElement() {document.getElementById('content-block').scrollTop = document.getElementById('position" + (positionAnchor) + "').offsetTop -64;}</script>"
+									:"<body>")
 								+ "<div id='main-content'>"
 									+ getTitleDiv(dialogueTitle)
 									+ "<div class='div-center' id='content-block'>"
@@ -1302,7 +1316,7 @@ public class Game implements Serializable, XMLSaving {
 													+ "</div>"
 												: "")
 											+ (content != null
-													? "<div "+(Main.getProperties().fadeInText?"id='text-content'":"")+" style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;'>"
+													? "<div "+(Main.getProperties().hasValue(PropertyValue.fadeInText)?"id='text-content'":"")+" style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;'>"
 															+ pastDialogueSB.toString()
 														+ "</div>"
 													: "")
@@ -1328,7 +1342,7 @@ public class Game implements Serializable, XMLSaving {
 												+ "</div>"
 											: "")
 										+ (content != null
-												? "<div "+(Main.getProperties().fadeInText?"id='text-content'":"")+" style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;'>"
+												? "<div "+(Main.getProperties().hasValue(PropertyValue.fadeInText)?"id='text-content'":"")+" style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;'>"
 														+ pastDialogueSB.toString()
 													+ "</div>"
 												: "")
@@ -1366,7 +1380,7 @@ public class Game implements Serializable, XMLSaving {
 		if (node == null){
 			return;
 		}
-		
+
 		int currentPosition = 0;
 		if(getCurrentDialogueNode()!=null) {
 			currentPosition =  (int) Main.mainController.getWebEngine().executeScript("document.getElementById('content-block').scrollTop");
@@ -1418,8 +1432,9 @@ public class Game implements Serializable, XMLSaving {
 				}
 			} else {
 				dialogueTitle = UtilText.parse(node.getLabel());
-				if (currentDialogueNode.getMapDisplay() == MapDisplay.NORMAL)
+				if (currentDialogueNode.getMapDisplay() == MapDisplay.NORMAL) {
 					positionAnchor = 0;
+				}
 				
 				pastDialogueSB.setLength(0);
 				pastDialogueSB.append(
@@ -1455,8 +1470,10 @@ public class Game implements Serializable, XMLSaving {
 
 		if (node.isContinuesDialogue()) {
 			currentDialogue =
-					"<body onLoad='scrollToElement()'>"
-					+ "<script>function scrollToElement() {document.getElementById('content-block').scrollTop = document.getElementById('position" + (positionAnchor) + "').offsetTop -64;}</script>"
+					(isContentScroll(node)
+							?"<body onLoad='scrollToElement()'>"
+								+ "<script>function scrollToElement() {document.getElementById('content-block').scrollTop = document.getElementById('position" + (positionAnchor) + "').offsetTop -64;}</script>"
+							:"<body>")
 					+ "<div id='main-content'>"
 						+ getTitleDiv(dialogueTitle)
 						+ "<div class='div-center' id='content-block'>"
@@ -1468,7 +1485,7 @@ public class Game implements Serializable, XMLSaving {
 										+ "</div>"
 									: "") 
 								+ (content != null
-									? "<div "+(Main.getProperties().fadeInText?"id='text-content'":"")+" style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;'>"
+									? "<div "+(Main.getProperties().hasValue(PropertyValue.fadeInText)?"id='text-content'":"")+" style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;'>"
 									+ pastDialogueSB.toString() + "</div>" : "")
 	//									+ textStartStringBuilder.toString() + pastDialogueSB.toString() + textEndStringBuilder.toString() + "</div>" : "")
 //							+ "</div>"
@@ -1480,8 +1497,10 @@ public class Game implements Serializable, XMLSaving {
 
 		} else {
 			currentDialogue =
-					"<body onLoad='scrollBack()'>"
-					+ "<script>function scrollBack() {document.getElementById('content-block').scrollTop = "+currentPosition+";}</script>"
+					(isContentScroll(node)
+						?"<body onLoad='scrollBack()'>"
+								+ "<script>function scrollBack() {document.getElementById('content-block').scrollTop = "+currentPosition+";}</script>"
+						:"<body>")
 					+ "<div id='main-content'>"
 						+ getTitleDiv(dialogueTitle)
 						+ "<span id='position" + positionAnchor + "'></span>"
@@ -1494,7 +1513,7 @@ public class Game implements Serializable, XMLSaving {
 											+ "</div>"
 										: "")
 									+ (content != null
-										? "<div "+(Main.getProperties().fadeInText?"id='text-content'":"")+" style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;'>"
+										? "<div "+(Main.getProperties().hasValue(PropertyValue.fadeInText)?"id='text-content'":"")+" style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;'>"
 												+ pastDialogueSB.toString()
 											+ "</div>"
 										: "")
@@ -1530,6 +1549,18 @@ public class Game implements Serializable, XMLSaving {
 			
 	}
 	
+	private static boolean isContentScroll(DialogueNodeOld node) {
+		return (node.getMapDisplay()!=MapDisplay.CHARACTERS_PRESENT
+				&& !node.equals(PhoneDialogue.CHARACTER_APPEARANCE)
+				&& !node.equals(PhoneDialogue.CONTACTS_CHARACTER))
+				|| node.equals(BodyChanging.BODY_CHANGING_ASS)
+				|| node.equals(BodyChanging.BODY_CHANGING_BREASTS)
+				|| node.equals(BodyChanging.BODY_CHANGING_CORE)
+				|| node.equals(BodyChanging.BODY_CHANGING_FACE)
+				|| node.equals(BodyChanging.BODY_CHANGING_PENIS)
+				|| node.equals(BodyChanging.BODY_CHANGING_VAGINA);
+	}
+	
 	private String getTitleDiv(String title) {
 		if(dialogueTitle.isEmpty()) {
 			return "";
@@ -1537,7 +1568,9 @@ public class Game implements Serializable, XMLSaving {
 		
 		return "<div class='content-title'>"
 					+ "<div class='title-button' id='copy-content-button'>"+SVGImages.SVG_IMAGE_PROVIDER.getCopyIcon()+"</div>"
-					+ (Main.game.getCurrentDialogueNode().equals(CharactersPresentDialogue.MENU) || Main.game.getCurrentDialogueNode().equals(PhoneDialogue.CHARACTER_APPEARANCE)
+					+ (Main.game.getCurrentDialogueNode().equals(CharactersPresentDialogue.MENU)
+							|| Main.game.getCurrentDialogueNode().equals(PhoneDialogue.CHARACTER_APPEARANCE)
+							|| Main.game.getCurrentDialogueNode().equals(PhoneDialogue.CONTACTS_CHARACTER)
 							?"<div class='title-button' id='export-character-button' style='left:auto;right:4px;'>"+SVGImages.SVG_IMAGE_PROVIDER.getExportIcon()+"</div>"
 							:"")
 					+ "<h4 style='text-align:center;'>" + dialogueTitle + "</h4>"
@@ -1992,8 +2025,11 @@ public class Game implements Serializable, XMLSaving {
 			String headerContent = currentDialogueNode.getHeaderContent();
 			String content = currentDialogueNode.getContent();
 			
-			currentDialogue = "<body onLoad='scrollToElement()'>"
-					+ "<script>function scrollToElement() {document.getElementById('content-block').scrollTop = document.getElementById('position" + (positionAnchor) + "').offsetTop -64;}</script>"
+			currentDialogue = 
+					(savedDialogueNode.getMapDisplay()!=MapDisplay.PHONE && savedDialogueNode.getMapDisplay()!=MapDisplay.CHARACTERS_PRESENT
+						?"<body onLoad='scrollToElement()'>"
+							+ "<script>function scrollToElement() {document.getElementById('content-block').scrollTop = document.getElementById('position" + (positionAnchor) + "').offsetTop -64;}</script>"
+						:"<body>")
 					+ "<div id='main-content'>"
 						+ getTitleDiv(dialogueTitle)
 						+ "<div class='div-center' id='content-block'>"
@@ -2004,7 +2040,7 @@ public class Game implements Serializable, XMLSaving {
 										+ "</div>"
 									: "")
 								+ (content != null
-										? "<div "+(Main.getProperties().fadeInText?"id='text-content'":"")+" style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;'>"
+										? "<div "+(Main.getProperties().hasValue(PropertyValue.fadeInText)?"id='text-content'":"")+" style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;'>"
 												+ content
 											+ "</div>"
 										: "")
@@ -2573,7 +2609,11 @@ public class Game implements Serializable, XMLSaving {
 	 * @param npc
 	 */
 	public void banishNPC(NPC npc) {
-		if(npc.getTotalTimesHadSex()!=0 || npc.getPregnantLitter()!=null || npc.getLastLitterBirthed()!=null || npc.getMother()!=null || npc.getFather()!=null) {
+		if(npc.getTotalTimesHadSex()!=0
+				|| npc.getPregnantLitter()!=null
+				|| npc.getLastLitterBirthed()!=null
+				|| npc.getMother()!=null
+				|| npc.getFather()!=null) {
 			npc.setLocation(WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
 		} else {
 			removeNPC(npc);
@@ -2731,23 +2771,27 @@ public class Game implements Serializable, XMLSaving {
 	}
 	
 	public boolean isNonConEnabled() {
-		return Main.getProperties().nonConContent;
+		return Main.getProperties().hasValue(PropertyValue.nonConContent);
 	}
 	
 	public boolean isIncestEnabled() {
-		return Main.getProperties().incestContent;
+		return Main.getProperties().hasValue(PropertyValue.incestContent);
 	}
 	
 	public boolean isFacialHairEnabled() {
-		return Main.getProperties().facialHairContent;
+		return Main.getProperties().hasValue(PropertyValue.facialHairContent);
 	}
 	
 	public boolean isPubicHairEnabled() {
-		return Main.getProperties().pubicHairContent;
+		return Main.getProperties().hasValue(PropertyValue.pubicHairContent);
 	}
 	
 	public boolean isBodyHairEnabled() {
-		return Main.getProperties().bodyHairContent;
+		return Main.getProperties().hasValue(PropertyValue.bodyHairContent);
+	}
+	
+	public boolean isAssHairEnabled() {
+		return Main.getProperties().hasValue(PropertyValue.assHairContent);
 	}
 	
 	public boolean isRenderMap() {

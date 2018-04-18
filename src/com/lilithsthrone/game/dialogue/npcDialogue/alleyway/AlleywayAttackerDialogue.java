@@ -640,7 +640,14 @@ public class AlleywayAttackerDialogue {
 //				System.out.println(potion.getValue()); 
 				
 				if (index == 1) {
-					return new Response("Spit", "Spit out the potion.", AFTER_COMBAT_TRANSFORMATION_REFUSED);
+					if(Main.game.getPlayer().hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING)) {
+						return new Response("Spit",
+								"Due to your <b style='color:"+Colour.FETISH.toWebHexString()+";'>"+Fetish.FETISH_TRANSFORMATION_RECEIVING.getName(Main.game.getPlayer())
+									+"</b> fetish, you love being transformed so much that you can't bring yourself to spit out the transformative liquid!",
+								null);
+					} else {
+						return new Response("Spit", "Spit out the potion.", AFTER_COMBAT_TRANSFORMATION_REFUSED);
+					}
 					
 				} else if (index == 2) {
 					ArrayList<Fetish> applicableFetishes = Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_TRANSFORMATION_RECEIVING));

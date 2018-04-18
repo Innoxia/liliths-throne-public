@@ -1,6 +1,13 @@
 package com.lilithsthrone.utils;
 
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -17,7 +24,6 @@ import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.DisplacementType;
-
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 
@@ -152,6 +158,7 @@ public class Util {
 		return map;
 	}
 
+
 	public String keyCodeToShortString(KeyCode keyCode) {
 		switch (keyCode) {
 		case OPEN_BRACKET:
@@ -170,7 +177,27 @@ public class Util {
 			return keyCode.toString();
 		}
 	}
-
+	
+	public static void openLinkInDefaultBrowser(String url) {
+		Runtime runtime = Runtime.getRuntime();
+		try {
+			runtime.exec("xdg-open " + url);
+		} catch (IOException e0) {
+			Desktop desktop = Desktop.getDesktop();
+			try {
+				desktop.browse(new URI(url));
+			} catch (IOException | URISyntaxException e) {
+				e.printStackTrace();
+				e0.printStackTrace();
+			}
+		}
+	}
+	
+	public static String getFileTime(File file) throws IOException {
+	    DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy - hh:mm");
+	    return dateFormat.format(file.lastModified());
+	}
+	
 	public static class ListValue<U> {
 		private U value;
 

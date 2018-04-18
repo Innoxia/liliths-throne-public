@@ -30,6 +30,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
+import com.lilithsthrone.game.sex.managers.universal.SMDoggy;
 import com.lilithsthrone.game.sex.managers.universal.SMStanding;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
@@ -553,9 +554,9 @@ public class EnforcerHQDialogue {
 						return new ResponseSex("Get punished by [brax.name]", "Get [brax.name] to take out [brax.his] frustration on you.", Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)),
 								null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(), null, null, null,
 								true, false,
-								new SMStanding(
-										Util.newHashMapOfValues(new Value<>(Main.game.getBrax(), SexPositionSlot.STANDING_DOMINANT)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+								new SMDoggy(
+										Util.newHashMapOfValues(new Value<>(Main.game.getBrax(), SexPositionSlot.DOGGY_BEHIND)),
+										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
 								AFTER_SEX,
 								"<p>"
 									+ "[pc.speech(Sure thing Candi, I can punish [brax.name] for you!)] you respond, stepping around to the other side of the desk."
@@ -1760,9 +1761,9 @@ public class EnforcerHQDialogue {
 			} else if (index == 2) {
 				return new ResponseSex("Get fucked", "Let [brax.name] take control and fuck you.",
 						true, false, 
-						new SMStanding(
-								Util.newHashMapOfValues(new Value<>(Main.game.getBrax(), SexPositionSlot.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+						new SMDoggy(
+								Util.newHashMapOfValues(new Value<>(Main.game.getBrax(), SexPositionSlot.DOGGY_BEHIND)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
 						Brax.AFTER_SUBMISSIVE_SEX,
 						"<p>"
 							+ "[brax.name]'s strong, confident grip on your hips quickly moves down and around to your "+Main.game.getPlayer().getAssSize().getDescriptor()+" ass,"
@@ -1777,6 +1778,9 @@ public class EnforcerHQDialogue {
 						+ "<p>"
 							+ "[brax.name] is the first to make the next move, and he suddenly pulls his head back to break off the kiss before leaning down to growl into your ear, "
 							+ UtilText.parseSpeech("Good bitch, now get down on all fours and present yourself!", Main.game.getBrax())
+						+ "</p>"
+						+ "<p>"
+							+ "You obediently do as your told, dropping down onto your hands and knees as you present yourself to Brax..."
 						+ "</p>");
 					
 			} else if (index == 3) {

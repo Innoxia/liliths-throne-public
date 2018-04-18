@@ -17,8 +17,9 @@ import com.lilithsthrone.utils.Util.ListValue;
 public enum ParserTarget {
 	
 	STYLE(Util.newArrayListOfValues(
-			new ListValue<>("style")),
-			"Returns the same as 'pc', but should be used for style methods such as 'bold' or 'italics'.") {
+			new ListValue<>("style"),
+			new ListValue<>("game")),
+			"Returns the same as 'pc', but should be used for style methods such as style.bold or style.italics or conditional methods such as game.isArcaneStorm.") {
 				@Override
 				public GameCharacter getCharacter(String tag) {
 					return Main.game.getPlayer();

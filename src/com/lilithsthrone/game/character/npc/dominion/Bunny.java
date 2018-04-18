@@ -57,6 +57,7 @@ public class Bunny extends NPC {
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 			
 			this.setEyeCovering(new Covering(BodyCoveringType.EYE_HUMAN, Colour.EYE_GREEN));
+			this.setEyeCovering(new Covering(BodyCoveringType.EYE_RABBIT, Colour.EYE_GREEN));
 			this.setHairCovering(new Covering(BodyCoveringType.HAIR_HUMAN, Colour.COVERING_BROWN), true);
 			this.setHairCovering(new Covering(BodyCoveringType.RABBIT_FUR, Colour.COVERING_BROWN), true);
 			this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_LIGHT), true);
@@ -97,6 +98,7 @@ public class Bunny extends NPC {
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
+		this.setEyeCovering(new Covering(BodyCoveringType.EYE_RABBIT, Colour.EYE_GREEN));
 	}
 	
 	@Override

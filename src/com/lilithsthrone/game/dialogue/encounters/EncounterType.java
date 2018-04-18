@@ -2,7 +2,7 @@ package com.lilithsthrone.game.dialogue.encounters;
 
 /**
  * @since 0.1.69.9
- * @version 0.2.1
+ * @version 0.2.3
  * @author Innoxia
  */
 public enum EncounterType {
@@ -25,5 +25,10 @@ public enum EncounterType {
 	HARPY_NEST_FIND_ITEM,
 	
 	SUBMISSION_TUNNEL_ATTACK,
-	SUBMISSION_FIND_ITEM;
+	SUBMISSION_FIND_ITEM,
+
+	BAT_CAVERN_BAT_ATTACK,
+	BAT_CAVERN_SLIME_ATTACK,
+	BAT_CAVERN_FIND_ITEM
+	;
 }

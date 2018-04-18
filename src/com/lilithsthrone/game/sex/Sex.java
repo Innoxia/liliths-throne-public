@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.PlayerCharacter;
 import com.lilithsthrone.game.character.attributes.ArousalLevel;
@@ -37,7 +38,6 @@ import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
-import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.clothing.DisplacementType;
@@ -217,6 +217,7 @@ public enum Sex {
 			ongoingPenetrationMap.put(characterPenetrating, new HashMap<>());
 			for(GameCharacter characterPenetrated : Sex.getAllParticipants()) {
 				ongoingPenetrationMap.get(characterPenetrating).put(characterPenetrated, new HashMap<>());
+				characterPenetrating.addSexPartner(characterPenetrated);
 			}
 		}
 		
@@ -308,7 +309,7 @@ public enum Sex {
 			}
 			
 			
-			if(Main.getProperties().nonConContent) {
+			if(Main.getProperties().hasValue(PropertyValue.nonConContent)) {
 				if(!character.isPlayer()) {
 					if(!((NPC) character).isAttractedTo(Main.game.getPlayer())) {
 						character.setLust(0);
@@ -378,7 +379,7 @@ public enum Sex {
 		// Set starting wetness values:
 		wetPenetrationTypes = new HashMap<>();
 		wetOrificeTypes = new HashMap<>();
-
+		
 		for(GameCharacter character : Sex.getAllParticipants()) {
 			wetPenetrationTypes.put(character, new HashMap<PenetrationType, Set<LubricationType>>());
 			for(PenetrationType pt : PenetrationType.values()) {
@@ -851,35 +852,12 @@ public enum Sex {
 				}
 				
 				sexSB.append("<p style='text-align:center'>You feel your aura pulsating all around you as it draws strength from the sexual energy of your orgasm...</p>"
-						+"<div style='text-align: center; display:block; margin:0 auto; height:48px; padding:8px 0 8px 0;'>"
-						+ "<div class='item-inline"
-							+ (TFEssence.ARCANE.getRarity() == Rarity.COMMON ? " common" : "")
-							+ (TFEssence.ARCANE.getRarity() == Rarity.UNCOMMON ? " uncommon" : "")
-							+ (TFEssence.ARCANE.getRarity() == Rarity.RARE ? " rare" : "")
-							+ (TFEssence.ARCANE.getRarity() == Rarity.EPIC ? " epic" : "")
-							+ (TFEssence.ARCANE.getRarity() == Rarity.LEGENDARY ? " legendary" : "")
-							+ (TFEssence.ARCANE.getRarity() == Rarity.JINXED ? " jinxed" : "") + "'>"
-							+ TFEssence.ARCANE.getSVGString()
-						+ "</div>"
-						+ " <div style='display:inline-block; height:20px; vertical-align: middle;'>"
-							+ "<b>[style.boldArcane(You have earned "+(Main.game.getPlayer().hasTrait(Perk.NYMPHOMANIAC, true)?"four arcane essences":"two arcane essence")+"!)]</b>"
-						+ "</div> "
-						+ "<div class='item-inline"
-							+ (TFEssence.ARCANE.getRarity() == Rarity.COMMON ? " common" : "")
-							+ (TFEssence.ARCANE.getRarity() == Rarity.UNCOMMON ? " uncommon" : "")
-							+ (TFEssence.ARCANE.getRarity() == Rarity.RARE ? " rare" : "")
-							+ (TFEssence.ARCANE.getRarity() == Rarity.EPIC ? " epic" : "")
-							+ (TFEssence.ARCANE.getRarity() == Rarity.LEGENDARY ? " legendary" : "")
-							+ (TFEssence.ARCANE.getRarity() == Rarity.JINXED ? " jinxed" : "") + "'>"
-							+ TFEssence.ARCANE.getSVGString()
-						+ "</div>"
-						+ "</div>");
+								+"<div class='container-full-width' style='text-align:center;'>"
+									+ (Main.game.getPlayer().hasTrait(Perk.NYMPHOMANIAC, true)
+											?Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, 4, true)
+											:Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, 2, true))
+								+ "</div>");
 				
-				if(Main.game.getPlayer().hasTrait(Perk.NYMPHOMANIAC, true)) {
-					Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, 4);
-				} else {
-					Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, 2);
-				}
 			}
 			Main.game.getPlayer().addStatusEffect(StatusEffect.RECOVERING_AURA, 240);	
 		}
@@ -932,33 +910,11 @@ public enum Sex {
 				}
 				
 				sexSB.append("<p style='text-align:center'>You feel your aura drawing strength from the sexual energy of [npc.name]'s orgasm...</p>"
-						+"<div style='text-align: center; display:block; margin:0 auto; height:48px; padding:8px 0 8px 0;'>"
-						+ "<div class='item-inline"
-							+ (TFEssence.ARCANE.getRarity() == Rarity.COMMON ? " common" : "")
-							+ (TFEssence.ARCANE.getRarity() == Rarity.UNCOMMON ? " uncommon" : "")
-							+ (TFEssence.ARCANE.getRarity() == Rarity.RARE ? " rare" : "")
-							+ (TFEssence.ARCANE.getRarity() == Rarity.EPIC ? " epic" : "")
-							+ (TFEssence.ARCANE.getRarity() == Rarity.LEGENDARY ? " legendary" : "")
-							+ (TFEssence.ARCANE.getRarity() == Rarity.JINXED ? " jinxed" : "") + "'>"
-							+ TFEssence.ARCANE.getSVGString()
-						+ "</div>"
-						+ " <div style='display:inline-block; height:20px; vertical-align: middle;'>"
-						+ "<b>[style.boldArcane(You have earned "+(Main.game.getPlayer().hasTrait(Perk.NYMPHOMANIAC, true)?"four arcane essences":"two arcane essence")+"!)]</b>"
-						+ "</div> "
-						+ "<div class='item-inline"
-							+ (TFEssence.ARCANE.getRarity() == Rarity.COMMON ? " common" : "")
-							+ (TFEssence.ARCANE.getRarity() == Rarity.UNCOMMON ? " uncommon" : "")
-							+ (TFEssence.ARCANE.getRarity() == Rarity.RARE ? " rare" : "")
-							+ (TFEssence.ARCANE.getRarity() == Rarity.EPIC ? " epic" : "")
-							+ (TFEssence.ARCANE.getRarity() == Rarity.LEGENDARY ? " legendary" : "")
-							+ (TFEssence.ARCANE.getRarity() == Rarity.JINXED ? " jinxed" : "") + "'>"
-							+ TFEssence.ARCANE.getSVGString()
-						+ "</div>"
+						+"<div class='container-full-width' style='text-align:center;'>"
+							+ (Main.game.getPlayer().hasTrait(Perk.NYMPHOMANIAC, true)
+									?Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, 4, true)
+									:Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, 2, true))
 						+ "</div>");
-				if(Main.game.getPlayer().hasTrait(Perk.NYMPHOMANIAC, true))
-					Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, 4);
-				else
-					Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, 2);
 				
 			}
 			activePartner.addStatusEffect(StatusEffect.RECOVERING_AURA, 240);
@@ -1002,7 +958,7 @@ public enum Sex {
 
 		@Override
 		public String getLabel() {
-			return (Sex.isConsensual()?"Sex":"Non-consensual sex")+": "+getPosition().getName();
+			return (!Sex.isConsensual() && Main.getProperties().hasValue(PropertyValue.nonConContent)?"Non-consensual ":"")+(Sex.getSexManager().isPublicSex()?"Public ":"")+"Sex: "+getPosition().getName();
 		}
 
 		@Override
@@ -1294,6 +1250,10 @@ public enum Sex {
 			}
 			Sex.setActivePartner((NPC) active);
 			
+			if(Sex.getSexManager().isPublicSex()) {
+				sexSB.append(Sex.getSexManager().getRandomPublicSexDescription());
+				sexDescription = sexSB.toString();
+			}
 			
 			// Re-populate lists for the player's next action choice.
 			populatePlayerSexLists();
@@ -2419,7 +2379,8 @@ public enum Sex {
 		String penileVirginityLoss = "";
 		
 		if (penetrationType == PenetrationType.PENIS) {
-			if(characterPenetrating.isPenisVirgin()) {
+			if(characterPenetrating.isPenisVirgin()
+					&& orifice.isTakesPenisVirginity()) {
 				penileVirginityLoss = characterPenetrating.getVirginityLossPenetrationDescription(characterPenetrating, PenetrationType.PENIS, characterPenetrated, orifice);
 				if(characterPenetrated.hasFetish(Fetish.FETISH_DEFLOWERING)) {
 					characterPenetrated.incrementExperience(Fetish.getExperienceGainFromTakingOtherVirginity(characterPenetrated), true);
@@ -2754,7 +2715,7 @@ public enum Sex {
 	}
 
 	public static boolean isInForeplay() {
-		return Sex.getActivePartner().getArousal()<ArousalLevel.ONE_TURNED_ON.getMaximumValue() && Sex.getNumberOfOrgasms(Sex.getActivePartner())==0;
+		return Sex.getActivePartner().getArousal()<ArousalLevel.ONE_TURNED_ON.getMaximumValue() && Sex.getNumberOfOrgasms(Sex.getActivePartner())==0 && Sex.getSexManager().isPartnerUsingForeplayActions();
 	}
 	
 	// Getters & Setters:
@@ -3093,16 +3054,7 @@ public enum Sex {
 	}
 
 	public static void setSexManager(SexManagerInterface sexManager) {
-		// Reset penetration map:
-		if(Sex.ongoingPenetrationMap!=null) {
-			ongoingPenetrationMap.clear();
-			for(GameCharacter characterPenetrating : Sex.getAllParticipants()) {
-				ongoingPenetrationMap.put(characterPenetrating, new HashMap<>());
-				for(GameCharacter characterPenetrated : Sex.getAllParticipants()) {
-					ongoingPenetrationMap.get(characterPenetrating).put(characterPenetrated, new HashMap<>());
-				}
-			}
-		}
+		Sex.resetAllPenetrations();
 		
 		Sex.allParticipants = new ArrayList<>(sexManager.getDominants().keySet());
 		Sex.allParticipants.addAll(sexManager.getSubmissives().keySet());
@@ -3155,6 +3107,18 @@ public enum Sex {
 		sexSB.append(
 				"<p style='text-align:center;'><b>New position:</b> <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>"+Sex.sexManager.getPosition().getName()+"</b></br>"
 				+"<i><b>"+Sex.sexManager.getPosition().getDescription()+"</b></i></p>");
+	}
+	
+	public static void resetAllPenetrations() {
+		if(Sex.ongoingPenetrationMap!=null) {
+			ongoingPenetrationMap.clear();
+			for(GameCharacter characterPenetrating : Sex.getAllParticipants()) {
+				ongoingPenetrationMap.put(characterPenetrating, new HashMap<>());
+				for(GameCharacter characterPenetrated : Sex.getAllParticipants()) {
+					ongoingPenetrationMap.get(characterPenetrating).put(characterPenetrated, new HashMap<>());
+				}
+			}
+		}
 	}
 	
 	private static void updateAvailableActions() {
@@ -3322,6 +3286,8 @@ public enum Sex {
 			Sex.submissives.put(character2, characterSlot1);
 		}
 		
+		Sex.resetAllPenetrations();
+		
 		updateAvailableActions();
 	}
 	
@@ -3399,6 +3365,8 @@ public enum Sex {
 	}
 	
 	public static void incrementNumberOfOrgasms(GameCharacter character, int increment) {
+		character.incrementDaysOrgasmCount(increment);
+		character.incrementTotalOrgasmCount(increment);
 		orgasmCountMap.putIfAbsent(character, 0);
 		orgasmCountMap.put(character, orgasmCountMap.get(character)+increment);
 	}
@@ -3477,7 +3445,11 @@ public enum Sex {
 	
 	private static List<Fetish> getFetishesFromPenetrationAndOrificeTypes(GameCharacter character, GameCharacter characterPenetrating, PenetrationType penetrationType, GameCharacter characterOrifice, OrificeType orificeBeingUsed) {
 		List<Fetish> associatedFetishes = new ArrayList<>();
-			
+		
+		if(Sex.getSexManager().isPublicSex()) {
+			associatedFetishes.add(Fetish.FETISH_EXHIBITIONIST);
+		}
+		
 		switch(penetrationType) {
 			case FINGER:
 				if(character.equals(characterOrifice)) {

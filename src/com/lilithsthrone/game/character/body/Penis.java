@@ -314,6 +314,22 @@ public class Penis implements BodyPartInterface, Serializable {
 							+ "[npc.She] has [style.boldDogMorph([npc.ballsCount]"+(owner.isInternalTesticles()?" internal,":"")+" canine balls)], covered in [npc.ballsFullDescription(true)], which produce [npc.cumColour(true)] [style.boldDogMorph(canine cum)].");
 				}
 				break;
+			case LUPINE:
+				owner.setSkinCovering(new Covering(BodyCoveringType.PENIS, Colour.SKIN_RED), false);
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+							" Letting out an involuntary moan, you feel your penis shifting into a new form, and you're hit by a wave of overwhelming arousal as a thick knot suddenly presses out at the base of your shaft."
+							+ " Panting and gasping for air, you feel the tip of your cock narrowing down as it tapers into its new form.</br>"
+							+ "You now have a [style.boldWolfMorph(lupine penis)], covered in [pc.penisFullDescription(true)].</br>"
+							+ "You have [style.boldWolfMorph([pc.ballsCount]"+(owner.isInternalTesticles()?" internal,":"")+" lupine balls)], covered in [pc.ballsFullDescription(true)], which produce [pc.cumColour(true)] [style.boldWolfMorph(lupine cum)].");
+				} else {
+					UtilText.transformationContentSB.append(
+							" Letting out an involuntary moan, [npc.name] feels [npc.her] penis shifting into a new form, and [npc.she]'s hit by a wave of overwhelming arousal as a thick knot suddenly presses out at the base of [npc.her] shaft."
+							+ " As [npc.she] pants and gasps for air, the tip of [npc.her] cock narrows down as it tapers into its new form.</br>"
+							+ "[npc.She] now has a [style.boldWolfMorph(lupine penis)], covered in [npc.penisFullDescription(true)].</br>"
+							+ "[npc.She] has [style.boldWolfMorph([npc.ballsCount]"+(owner.isInternalTesticles()?" internal,":"")+" lupine balls)], covered in [npc.ballsFullDescription(true)], which produce [npc.cumColour(true)] [style.boldWolfMorph(lupine cum)].");
+				}
+				break;
 			case ANGEL:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
@@ -390,21 +406,6 @@ public class Penis implements BodyPartInterface, Serializable {
 							"Letting out an involuntary moan, [npc.she] feels [npc.her] penis shifting into a new form, and [npc.she]'s hit by a wave of overwhelming arousal as rows of fleshy little backwards-facing barbs press out all along [npc.her] shaft.</br>"
 							+ "[npc.She] now has a [style.boldCatMorph(feline penis)], covered in [npc.penisFullDescription(true)].</br>"
 							+ "[npc.She] has [style.boldCatMorph([npc.ballsCount]"+(owner.isInternalTesticles()?" internal,":"")+" feline balls)], covered in [npc.ballsFullDescription(true)], which produce [npc.cumColour(true)] [style.boldCatMorph(feline cum)].");
-				}
-				break;
-			case LUPINE:
-				if (owner.isPlayer()) {
-					UtilText.transformationContentSB.append(
-							" Letting out an involuntary moan, you feel your penis shifting into a new form, and you're hit by a wave of overwhelming arousal as a thick knot suddenly presses out at the base of your shaft."
-							+ " Panting and gasping for air, you feel the tip of your cock narrowing down as it tapers into its new form.</br>"
-							+ "You now have a [style.boldWolfMorph(lupine penis)], covered in [pc.penisFullDescription(true)].</br>"
-							+ "You have [style.boldWolfMorph([pc.ballsCount]"+(owner.isInternalTesticles()?" internal,":"")+" lupine balls)], covered in [pc.ballsFullDescription(true)], which produce [pc.cumColour(true)] [style.boldWolfMorph(lupine cum)].");
-				} else {
-					UtilText.transformationContentSB.append(
-							" Letting out an involuntary moan, [npc.name] feels [npc.her] penis shifting into a new form, and [npc.she]'s hit by a wave of overwhelming arousal as a thick knot suddenly presses out at the base of [npc.her] shaft."
-							+ " As [npc.she] pants and gasps for air, the tip of [npc.her] cock narrows down as it tapers into its new form.</br>"
-							+ "[npc.She] now has a [style.boldWolfMorph(lupine penis)], covered in [npc.penisFullDescription(true)].</br>"
-							+ "[npc.She] has [style.boldWolfMorph([npc.ballsCount]"+(owner.isInternalTesticles()?" internal,":"")+" lupine balls)], covered in [npc.ballsFullDescription(true)], which produce [npc.cumColour(true)] [style.boldWolfMorph(lupine cum)].");
 				}
 				break;
 			case ALLIGATOR_MORPH:

@@ -206,21 +206,21 @@ public enum Combat {
 			}
 			
 			for(NPC ally : allies) {
-				postCombatStringBuilder.append(ally.incrementExperience(xp, true));
+				postCombatStringBuilder.append("<div class='container-full-width' style='text-align:center;'>"+ally.incrementExperience(xp, true)+"</div>");
 			}
 			
-			postCombatStringBuilder.append(Main.game.getPlayer().incrementExperience(xp, true));
+			postCombatStringBuilder.append("<div class='container-full-width' style='text-align:center;'>"+Main.game.getPlayer().incrementExperience(xp, true)+"</div>");
 			
 			Main.game.getPlayer().incrementMoney(money);
 			if (money > 0) {
-				postCombatStringBuilder.append("<p style='text-align:center'>You gained " + UtilText.formatAsMoney(money) + "!</p>");
+				postCombatStringBuilder.append("<div class='container-full-width' style='text-align:center;'>You gained " + UtilText.formatAsMoney(money) + "!</div>");
 			}
 			
 			// Apply loot drop:
 			for(NPC enemy : enemies) {
 				if(enemy.getLootItems()!=null) {
 					for(AbstractCoreItem item : enemy.getLootItems()) {
-						postCombatStringBuilder.append("<p style='text-align:center;'>You gained <b style='color:"+item.getRarity().getColour().toWebHexString()+";'>"+item.getName()+"</b>!</p>");
+						postCombatStringBuilder.append("<div class='container-full-width' style='text-align:center;'>You gained <b style='color:"+item.getRarity().getColour().toWebHexString()+";'>"+item.getName()+"</b>!</div>");
 						if(item instanceof AbstractItem) {
 							Main.game.getPlayer().addItem((AbstractItem) item, false, true);
 						} else if(item instanceof AbstractWeapon) {
@@ -299,17 +299,7 @@ public enum Combat {
 			
 			if(!essences.isEmpty()) {
 				for(Entry<TFEssence, Integer> entry : essences.entrySet()) {
-					postCombatStringBuilder.append(
-							"<div style='text-align: center; display:block; margin:0 auto; height:48px; padding:8px 0 8px 0;'>"
-									+ "<div class='item-inline "+entry.getKey().getRarity().getName()+"'>"
-										+ entry.getKey().getSVGString()
-										+ "<div class='overlay no-pointer' id='ESSENCE_"+entry.getKey().hashCode()+"'></div>"
-									+ "</div>"
-									+ "<div style='display:inline-block; height:20px; vertical-align: middle; margin-left:4px;'>"
-										+ " You gained <b>"+entry.getValue()+"</b> <b style='color:"+entry.getKey().getColour().toWebHexString()+";'>"+entry.getKey().getName()+"</b> essence"+(entry.getValue()>1?"s":"")+"!"
-									+ "</div>"
-							+ "</div>");
-					Main.game.getPlayer().incrementEssenceCount(entry.getKey(), entry.getValue());
+					postCombatStringBuilder.append("<div class='container-full-width' style='text-align:center;'>"+Main.game.getPlayer().incrementEssenceCount(entry.getKey(), entry.getValue(), true)+"</div>");
 				}
 			}
 			

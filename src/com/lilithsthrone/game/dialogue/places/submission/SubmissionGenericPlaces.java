@@ -78,7 +78,7 @@ public class SubmissionGenericPlaces {
 						"Explore the tunnels. Although you don't think you're any more or less likely to find anything by doing this, at least you won't have to keep travelling back and forth..."){
 							@Override
 							public void effects() {
-								DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true);
+								DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
 								Main.game.setContent(new Response("", "", dn));
 							}
 						};
@@ -259,6 +259,10 @@ public class SubmissionGenericPlaces {
 		}
 	};
 	
+
+//	TODO: A large underground cave, and in the middle, a crude fortress has been built out of old wooden planks and pieces of sheet metal
+//	Each of the three imp fortresses will be a repeatable quest (clearing the fortress), which, once cleared, will pacify the surrounding tunnels for a week or so.
+	
 	public static final DialogueNodeOld IMP_FORTRESS_1 = new DialogueNodeOld("Imp Fortress", "", false) {
 		private static final long serialVersionUID = 1L;
 
@@ -269,19 +273,23 @@ public class SubmissionGenericPlaces {
 		
 		@Override
 		public String getContent() {
-			return "<p>"
-					+ "TODO: A large underground cave, and in the middle, a crude fortress has been built out of old wooden planks and pieces of sheet metal.</br>"
-					+ "Each of the three imp fortresses will be a repeatable quest (clearing the fortress), which, once cleared, will pacify the surrounding tunnels for a week or so."
-				+ "</p>"
-				+ "<p>"
-					+ "This particular fortress will be run by a single, very tough alpha-imp."
-				+ "</p>";
+			UtilText.nodeContentSB.setLength(0);
+			
+			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "IMP_FORTRESS"));
+
+			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "IMP_FORTRESS_ALPHA"));
+			
+			return UtilText.nodeContentSB.toString();
 		}
 
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			return null;
+			if(index==1) {
+				return new Response("Approach", "Approach the fortress. (Not yet implemented!)", null);
+			} else {
+				return null;
+			}
 		}
 	};
 	
@@ -295,19 +303,23 @@ public class SubmissionGenericPlaces {
 		
 		@Override
 		public String getContent() {
-			return "<p>"
-					+ "TODO: A large underground cave, and in the middle, a crude fortress has been built out of old wooden planks and pieces of sheet metal.</br>"
-					+ "Each of the three imp fortresses will be a repeatable quest (clearing the fortress), which, once cleared, will pacify the surrounding tunnels for a week or so."
-				+ "</p>"
-				+ "<p>"
-					+ "This particular fortress will be made up of several groups of imps, who all share the same territory."
-				+ "</p>";
+			UtilText.nodeContentSB.setLength(0);
+			
+			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "IMP_FORTRESS"));
+
+			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "IMP_FORTRESS_GROUP"));
+			
+			return UtilText.nodeContentSB.toString();
 		}
 
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			return null;
+			if(index==1) {
+				return new Response("Approach", "Approach the fortress. (Not yet implemented!)", null);
+			} else {
+				return null;
+			}
 		}
 	};
 	
@@ -321,19 +333,23 @@ public class SubmissionGenericPlaces {
 		
 		@Override
 		public String getContent() {
-			return "<p>"
-					+ "TODO: A large underground cave, and in the middle, a crude fortress has been built out of old wooden planks and pieces of sheet metal.</br>"
-					+ "Each of the three imp fortresses will be a repeatable quest (clearing the fortress), which, once cleared, will pacify the surrounding tunnels for a week or so."
-				+ "</p>"
-				+ "<p>"
-					+ "This particular fortress will be a female-only imp clan, who prefer to use seduction rather than fighting physically."
-				+ "</p>";
+			UtilText.nodeContentSB.setLength(0);
+			
+			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "IMP_FORTRESS"));
+
+			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "IMP_FORTRESS_SEDUCERS"));
+			
+			return UtilText.nodeContentSB.toString();
 		}
 
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			return null;
+			if(index==1) {
+				return new Response("Approach", "Approach the fortress. (Not yet implemented!)", null);
+			} else {
+				return null;
+			}
 		}
 	};
 	
@@ -347,19 +363,23 @@ public class SubmissionGenericPlaces {
 		
 		@Override
 		public String getContent() {
-			return "<p>"
-					+ "TODO: A large underground cave, and in the middle, a crude fortress has been built out of old wooden planks and pieces of sheet metal.</br>"
-					+ "Each of the three imp fortresses will be a repeatable quest (clearing the fortress), which, once cleared, will pacify the surrounding tunnels for a week or so."
-				+ "</p>"
-				+ "<p>"
-					+ "This particular fortress will be a male-only imp clan, who prefer to fight using dominant, physical attacks."
-				+ "</p>";
+			UtilText.nodeContentSB.setLength(0);
+			
+			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "IMP_FORTRESS"));
+
+			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "IMP_FORTRESS_BRAWLERS"));
+			
+			return UtilText.nodeContentSB.toString();
 		}
 
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			return null;
+			if(index==1) {
+				return new Response("Approach", "Approach the fortress. (Not yet implemented!)", null);
+			} else {
+				return null;
+			}
 		}
 	};
 	
@@ -373,19 +393,23 @@ public class SubmissionGenericPlaces {
 		
 		@Override
 		public String getContent() {
-			return "<p>"
-					+ "TODO: A large underground cave, and in the middle, a crude fortress has been built out of old wooden planks and pieces of sheet metal.</br>"
-					+ "Each of the three imp fortresses will be a repeatable quest (clearing the fortress), which, once cleared, will pacify the surrounding tunnels for a week or so."
-				+ "</p>"
-				+ "<p>"
-					+ "This particular fortress will be run by a group of imp-slimes, who like mimicking imps."
-				+ "</p>";
+			UtilText.nodeContentSB.setLength(0);
+			
+			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "IMP_FORTRESS"));
+
+			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "IMP_FORTRESS_SLIMES"));
+			
+			return UtilText.nodeContentSB.toString();
 		}
 
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			return null;
+			if(index==1) {
+				return new Response("Approach", "Approach the fortress. (Not yet implemented!)", null);
+			} else {
+				return null;
+			}
 		}
 	};
 	
@@ -399,19 +423,23 @@ public class SubmissionGenericPlaces {
 		
 		@Override
 		public String getContent() {
-			return "<p>"
-					+ "TODO: A large underground cave, and in the middle, a crude fortress has been built out of old wooden planks and pieces of sheet metal.</br>"
-					+ "Each of the three imp fortresses will be a repeatable quest (clearing the fortress), which, once cleared, will pacify the surrounding tunnels for a week or so."
-				+ "</p>"
-				+ "<p>"
-					+ "This particular fortress will be balanced between alpha-imp and regular imp encounters."
-				+ "</p>";
+			UtilText.nodeContentSB.setLength(0);
+			
+			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "IMP_FORTRESS"));
+
+			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "IMP_FORTRESS_BALANCED"));
+			
+			return UtilText.nodeContentSB.toString();
 		}
 
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			return null;
+			if(index==1) {
+				return new Response("Approach", "Approach the fortress. (Not yet implemented!)", null);
+			} else {
+				return null;
+			}
 		}
 	};
 

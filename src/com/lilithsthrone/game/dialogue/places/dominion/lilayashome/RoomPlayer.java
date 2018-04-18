@@ -14,6 +14,7 @@ import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.SlaveryManagementDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -172,6 +173,18 @@ public class RoomPlayer {
 				return new Response("Calendar", "Take another look at the enchanted calendar that's pinned up on one wall.", AUNT_HOME_PLAYERS_ROOM_CALENDAR);
 			} else {
 				return new Response("<span style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Calendar</span>", "There's a calendar pinned up on one wall. Take a closer look at it.", AUNT_HOME_PLAYERS_ROOM_CALENDAR);
+			}
+			
+		} else if(index == 5) {
+			if(Main.game.getPlayer().isHasSlaverLicense()) {
+				return new Response("Slavery Overview", "Open the slave management screen.",  ROOM) {
+					@Override
+					public DialogueNodeOld getNextDialogue() {
+						return SlaveryManagementDialogue.getSlaveryOverviewDialogue();
+					}
+				};
+			} else {
+				return new Response("Slavery Overview", "You'll need a slaver license before you can access this menu!",  null);
 			}
 			
 		} else if (index == 6) {

@@ -28,7 +28,7 @@
 		[angel.speech(Oh! And we're still operating as a brothel too!
 		 We might not have as wide of a selection as some of our competitors, but my two girls are among the very best in all of Dominion!)]
 		 Angel wrings her hands and glances back the way she came as she continues,
-		 [angel.speech(I'm sorry that I'm not able to provide you with the level of comfort that this establishment was once known for, but ever since the Enforcers designated this as the red-light district's administrative center, I've been buries beneath a pile of paperwork.
+		 [angel.speech(I'm sorry that I'm not able to provide you with the level of comfort that this establishment was once known for, but ever since the Enforcers designated this as the red-light district's administrative centre, I've been buried beneath a pile of paperwork.
 		 I really need to get back to it right away, so if you're here to apply for a prostitution license, please follow me back to my office.
 		 Oh, and if you're here for Bunny or Loppy, you can find them upstairs.)]
 	</p>
@@ -127,7 +127,7 @@
 	<htmlContent tag="SELL_SELF_SUB"><![CDATA[
 	<p>
 		Deciding that you'll sell your body to a client to make some quick cash, you head down to Angel's office to let her know that you're available.
-		 Angel promises to send any new clients your way, and, returning to your room, you sit down on the bed and wait...
+		 After specifying that you'd like to be the submissive partner, you accept Angel's offer of having a new client sent your way, and, returning to your room, you sit down on the bed and wait...
 	</p>
 	<p>
 		Around twenty-five minutes later, you hear a knock at the door, and you turn to see [npc.a_fullRace] stepping into the room,
@@ -154,11 +154,72 @@
 	]]>
 	</htmlContent>
 	
+	<htmlContent tag="SELL_SELF_SUB_AFTER_SEX"><![CDATA[
+	<p>
+		You collapse down onto the bed, breathing heavily as [npc.name] disentangles [npc.herself] from your clutches.
+		 Looking down at you, [npc.she] smirks,
+		 [npc.speech(That was amazing! You're a great fuck, [pc.name]. Maybe I'll have you again some time.)]
+	</p>
+	<p>
+		As [npc.she] gathers [npc.her] things and heads towards the exit, you call out,
+		 [pc.speech(Come again soon!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SELL_SELF_DOM"><![CDATA[
+	<p>
+		Deciding that you'll sell your body to a client to make some quick cash, you head down to Angel's office to let her know that you're available.
+		 After specifying that you'd like to be the dominant partner, you accept Angel's offer of having a new client sent your way, and, returning to your room, you sit down on the bed and wait...
+	</p>
+	<p>
+		Around twenty-five minutes later, you hear a knock at the door, and you turn to see [npc.a_fullRace] stepping into the room,
+		 [npc.speech(Are you [pc.name]? Angel said you'd dominate me for two-thousand flames...)]
+	</p>
+	<p>
+		[pc.speech(Yeah, that's me!)]
+		 You reply, standing up from the bed and striding towards the client.
+		 You only have a moment to decide whether you're going to let this [npc.race] pay to be dominated by you or not...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SELL_SELF_DOM_START"><![CDATA[
+	<p>
+		Deciding that you'll take this client, you step forwards and press yourself against [npc.herHim], reaching around to take a firm grip of [npc.her] [npc.ass+] as you [pc.moan],
+		 [pc.speech(If you've got the money, I'll show you how a real dom treats [pc.her] sub...)]
+	</p>
+	<p>
+		[npc.Name] eagerly hands over the two-thousand flames, and, after taking the money and putting it to one side, you focus your attention on your new client.
+		 Leaning in to growl in [npc.her] ear, you [pc.moan],
+		 [pc.speech(It's time to show you how I fuck submissive little [npc.race]'s like you...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SELL_SELF_DOM_AFTER_SEX"><![CDATA[
+	<p>
+		[npc.Name] collapses down onto the bed, breathing heavily as you disentangle yourself from [npc.her] clutches.
+		 Looking down at [npc.herHim], you smirk,
+		 [pc.speech(Good bitch, you were a half-decent fuck after all! Maybe I'll let you be my toy again some time.)]
+	</p>
+	<p>
+		After waiting a moment for [npc.name] to catch [npc.her] breath, you help [npc.herHim] gather [npc.her] things and show [npc.herHim] to the exit.
+		 Smiling after [npc.herHim], you call out,
+		 [pc.speech(Come again soon!)]
+	</p>
+	]]>
+	</htmlContent>
+	
 	<htmlContent tag="SELL_SELF_DECLINE"><![CDATA[
 	<p>
 		Deciding that you don't want to take this client, you step forwards and apologise,
 		 [pc.speech(I'm so sorry, there must have been a mistake. I'm actually coming to the end of my shift now... I'm sure one of the girls down the corridor will love to have some fun with you though!)]
 	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SELL_SELF_DECLINE_SUB"><![CDATA[
 	<p>
 		[npc.Name] lets out an annoyed huff, but doesn't press the issue,
 		 [npc.speech(Fine... Maybe I'll get to ride you another time...)]
@@ -169,15 +230,13 @@
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="SELL_SELF_AFTER_SEX"><![CDATA[
+	<htmlContent tag="SELL_SELF_DECLINE_DOM"><![CDATA[
 	<p>
-		You collapse down onto the bed, breathing heavily as [npc.name] disentangles [npc.herself] from your clutches.
-		 Looking down at you, [npc.she] smirks,
-		 [npc.speech(That was amazing! You're a great fuck, [pc.name]. Maybe I'll have you again some time.)]
+		[npc.Name] lets out a disappointed whine, but doesn't press the issue,
+		 [npc.speech(Fine... Maybe you'll want to ride me another time...)]
 	</p>
 	<p>
-		As [npc.she] gathers [npc.her] things and heads towards the exit, you call out,
-		 [pc.speech(Come again soon!)]
+		With that, [npc.she] makes [npc.her] exit, leaving you alone in the bedroom once again.
 	</p>
 	]]>
 	</htmlContent>
@@ -200,7 +259,7 @@
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="BEDROOM_PROSTITUTE_SLAVE_SEX_SUB"><![CDATA[
+	<htmlContent tag="BEDROOM_PROSTITUTE_SLAVE_SEX"><![CDATA[
 	<p>
 		Deciding that you'd like to have some fun with [npc.name], you step forwards and pull [npc.herHim] in against your chest.
 		 Leaning in over [npc.her] shoulder, you [pc.moan],
@@ -209,7 +268,7 @@
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="BEDROOM_PROSTITUTE_SLAVE_SEX"><![CDATA[
+	<htmlContent tag="BEDROOM_PROSTITUTE_SLAVE_SEX_SUB"><![CDATA[
 	<p>
 		Deciding that you'd like to have some fun with [npc.name], you step up to [npc.herHim], [pc.moaning],
 		 [pc.speech(Come on, [npc.name]! I want you to dominate me!)]
@@ -240,7 +299,7 @@
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="BEDROOM_PROSTITUTE_SEX_SUB"><![CDATA[
+	<htmlContent tag="BEDROOM_PROSTITUTE_SEX"><![CDATA[
 	<p>
 		Deciding that you'd like to have some fun with [npc.name], you hand over the three-hundred flames, before stepping forwards and pulling [npc.herHim] in against your chest.
 		 Leaning in over [npc.her] shoulder, you [pc.moan],
@@ -249,7 +308,7 @@
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="BEDROOM_PROSTITUTE_SEX"><![CDATA[
+	<htmlContent tag="BEDROOM_PROSTITUTE_SEX_SUB"><![CDATA[
 	<p>
 		Deciding that you'd like to have some fun with [npc.name], you hand over the three-hundred flames, before stepping up to [npc.herHim] and [pc.moaning],
 		 [pc.speech(Come on, [npc.name]! I want you to dominate me!)]
@@ -310,7 +369,7 @@
 	<p>
 		The rabbit-girl grabs your [pc.hand] and gives it an enthusiastic shake as she continues,
 		 [bunny.speech(So I guess Angel told you to come up here?
-		 I'm so sorry that she didn't how you up here in person, she's been super busy with stuff for a while now...
+		 I'm so sorry that she didn't show you up here in person, she's been super busy with stuff for a while now...
 		 But anyway! Enough of that!
 		 You wanna have sex, right?
 		 It's been aaages since my twin sis Loppy and I got any customers here, so I'm sooo horny right now.)]

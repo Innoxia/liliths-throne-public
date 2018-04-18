@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.ArousalLevel;
 import com.lilithsthrone.game.character.attributes.Attribute;
@@ -17,13 +18,13 @@ import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
 import com.lilithsthrone.game.character.attributes.LustLevel;
 import com.lilithsthrone.game.character.attributes.PhysiqueLevel;
-import com.lilithsthrone.game.character.body.types.PenisType;
-import com.lilithsthrone.game.character.body.types.VaginaType;
+import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.combat.SpecialAttack;
 import com.lilithsthrone.game.combat.Spell;
@@ -123,6 +124,7 @@ public enum RenderingEngine {
 				equippedPanelSB.append("<div class='inventory-item-slot concealed' id='" + invSlot.toString() + "Slot'>"
 						+ "<div class='concealedIcon'>"+SVGImages.SVG_IMAGE_PROVIDER.getConcealedIcon()+"</div>"
 					+ "</div>");
+				
 			} else {
 				AbstractClothing clothing = charactersInventoryToRender.getClothingInSlot(invSlot);
 				
@@ -145,7 +147,9 @@ public enum RenderingEngine {
 								// If clothing is too feminine:
 								+ (clothing.getClothingType().getFemininityMinimum() > charactersInventoryToRender.getFemininityValue() ? "<div class='femininityIcon'>" + SVGImages.SVG_IMAGE_PROVIDER.getFeminineWarningIcon() + "</div>" : "")
 	
-								+ "<div class='overlay-inventory' id='" + invSlot.toString() + "Slot'>" + "</div>" + "</div>");
+								+ "<div class='overlay-inventory' id='" + invSlot.toString() + "Slot'>" + "</div>"
+							+ "</div>");
+					
 				} else {
 					// add to content:
 					if (blockedSlots.contains(invSlot)) {
@@ -159,7 +163,7 @@ public enum RenderingEngine {
 								"<div class='inventory-item-slot disabled'>"
 									+ (charactersInventoryToRender.isDirtySlot(invSlot) ? "<div class='cummedIcon'>" + SVGImages.SVG_IMAGE_PROVIDER.getCummedInIcon() + "</div>" : "")
 									+ "<div class='overlay' id='" + invSlot.toString() + "Slot'></div>"
-									+ "<div class='raceBlockIcon'>" + invSlot.slotBlockedByRace(charactersInventoryToRender).getStatusEffect().getSVGString(charactersInventoryToRender) + "</div>"
+									+ "<div class='raceBlockIcon'>" + Subspecies.getMainSubspeciesOfRace(invSlot.slotBlockedByRace(charactersInventoryToRender)).getSVGString(charactersInventoryToRender) + "</div>"
 								+ "</div>");
 						
 					} else {
@@ -235,54 +239,64 @@ public enum RenderingEngine {
 						equippedPanelSB.append("<div class='inventory-item-slot piercing disabled' id='" + invSlot.toString() + "Slot'>" + "</div>");
 						
 					} else {
+						boolean isSlime = charactersInventoryToRender.getBody().getBodyMaterial()==BodyMaterial.SLIME;
+						
 						switch(invSlot){
 							case PIERCING_VAGINA:
-								if(charactersInventoryToRender.getVaginaType()==VaginaType.NONE || !charactersInventoryToRender.isPiercedVagina())
+								if(!charactersInventoryToRender.hasVagina() || (!isSlime && !charactersInventoryToRender.isPiercedVagina())) {
 									equippedPanelSB.append("<div class='inventory-item-slot piercing disabled' id='" + invSlot.toString() + "Slot'>" + "</div>");
-								else
+								} else {
 									equippedPanelSB.append("<div class='inventory-item-slot piercing'  id='" + invSlot.toString() + "Slot'></div>");
+								}
 								break;
 							case PIERCING_EAR:
-								if(!charactersInventoryToRender.isPiercedEar())
+								if(!isSlime && !charactersInventoryToRender.isPiercedEar()) {
 									equippedPanelSB.append("<div class='inventory-item-slot piercing disabled' id='" + invSlot.toString() + "Slot'>" + "</div>");
-								else
+								} else {
 									equippedPanelSB.append("<div class='inventory-item-slot piercing'  id='" + invSlot.toString() + "Slot'></div>");
+								}
 								break;
 							case PIERCING_LIP:
-								if(!charactersInventoryToRender.isPiercedLip())
+								if(!isSlime && !charactersInventoryToRender.isPiercedLip()) {
 									equippedPanelSB.append("<div class='inventory-item-slot piercing disabled' id='" + invSlot.toString() + "Slot'>" + "</div>");
-								else
+								} else {
 									equippedPanelSB.append("<div class='inventory-item-slot piercing'  id='" + invSlot.toString() + "Slot'></div>");
+								}
 								break;
 							case PIERCING_NIPPLE:
-								if(!charactersInventoryToRender.isPiercedNipple())
+								if(!isSlime && !charactersInventoryToRender.isPiercedNipple()) {
 									equippedPanelSB.append("<div class='inventory-item-slot piercing disabled' id='" + invSlot.toString() + "Slot'>" + "</div>");
-								else
+								} else {
 									equippedPanelSB.append("<div class='inventory-item-slot piercing'  id='" + invSlot.toString() + "Slot'></div>");
+								}
 								break;
 							case PIERCING_NOSE:
-								if(!charactersInventoryToRender.isPiercedNose())
+								if(!isSlime && !charactersInventoryToRender.isPiercedNose()) {
 									equippedPanelSB.append("<div class='inventory-item-slot piercing disabled' id='" + invSlot.toString() + "Slot'>" + "</div>");
-								else
+								} else {
 									equippedPanelSB.append("<div class='inventory-item-slot piercing'  id='" + invSlot.toString() + "Slot'></div>");
+								}
 								break;
 							case PIERCING_PENIS:
-								if(charactersInventoryToRender.getPenisType()==PenisType.NONE || !charactersInventoryToRender.isPiercedPenis())
+								if(!charactersInventoryToRender.hasPenis() || (!isSlime && !charactersInventoryToRender.isPiercedPenis())) {
 									equippedPanelSB.append("<div class='inventory-item-slot piercing disabled' id='" + invSlot.toString() + "Slot'>" + "</div>");
-								else
+								} else {
 									equippedPanelSB.append("<div class='inventory-item-slot piercing'  id='" + invSlot.toString() + "Slot'></div>");
+								}
 								break;
 							case PIERCING_STOMACH:
-								if(!charactersInventoryToRender.isPiercedNavel())
+								if(!isSlime && !charactersInventoryToRender.isPiercedNavel()) {
 									equippedPanelSB.append("<div class='inventory-item-slot piercing disabled' id='" + invSlot.toString() + "Slot'>" + "</div>");
-								else
+								} else {
 									equippedPanelSB.append("<div class='inventory-item-slot piercing'  id='" + invSlot.toString() + "Slot'></div>");
+								}
 								break;
 							case PIERCING_TONGUE:
-								if(!charactersInventoryToRender.isPiercedTongue())
+								if(!isSlime && !charactersInventoryToRender.isPiercedTongue()) {
 									equippedPanelSB.append("<div class='inventory-item-slot piercing disabled' id='" + invSlot.toString() + "Slot'>" + "</div>");
-								else
+								} else {
 									equippedPanelSB.append("<div class='inventory-item-slot piercing'  id='" + invSlot.toString() + "Slot'></div>");
+								}
 								break;
 							default:
 								break;
@@ -725,7 +739,7 @@ public enum RenderingEngine {
 					+ "<div class='full-width-container' style='text-align:center; margin-left:4px;'>"
 					+"<div class='item-inline' style='float:left;'><div class='overlay' id='DATE_DISPLAY_TOGGLE'>"+SVGImages.SVG_IMAGE_PROVIDER.getCalendarIcon()+"</div></div>"
 							+ "<p style='color:"+Colour.TEXT.getShades(8)[3]+"; float:left; width:50%;'>"
-								+ (Main.getProperties().calendarDisplay
+								+ (Main.getProperties().hasValue(PropertyValue.calendarDisplay)
 									? Main.game.getDateNow().format(DateTimeFormatter.ofPattern("d", Locale.ENGLISH))
 										+ Util.getDayOfMonthSuffix(Main.game.getDateNow().getDayOfMonth())
 										+ " "
@@ -744,7 +758,7 @@ public enum RenderingEngine {
 			uiAttributeSB.append("<div class='item-inline' style='float:left;'><div class='overlay' id='TWENTY_FOUR_HOUR_TIME_TOGGLE'>"+SVGImages.SVG_IMAGE_PROVIDER.getJournalIcon()+"</div></div>");
 		}
 		
-		uiAttributeSB.append((Main.getProperties().twentyFourHourTime
+		uiAttributeSB.append((Main.getProperties().hasValue(PropertyValue.twentyFourHourTime)
 								?Main.game.getDateNow().format(DateTimeFormatter.ofPattern("HH:mm", Locale.ENGLISH))
 								:Main.game.getDateNow().format(DateTimeFormatter.ofPattern("hh:mma", Locale.ENGLISH)))
 							+"</p>"
@@ -797,7 +811,7 @@ public enum RenderingEngine {
 	}
 	
 	public static String getEntryBackgroundColour(boolean alternative) {
-		if(Main.getProperties().lightTheme) {
+		if(Main.getProperties().hasValue(PropertyValue.lightTheme)) {
 			if(alternative) {
 				return "#d9d9d9";
 			}
@@ -929,18 +943,18 @@ public enum RenderingEngine {
 			}
 			uiAttributeSB.append(
 							// Name box:
-							"<div class='attribute-container'>"
-								+ "<div class='full-width-container'>"
-									+ "<p class='character-name' style='color:"+ Main.game.getPlayer().getWorldLocation().getColour().toWebHexString() + ";'>"
-										+ Main.game.getPlayer().getWorldLocation().getName()
-									+ "</p>"
-								+ "</div>"
-								+ "<div class='full-width-container' style='margin:0;padding:0;'>"
-									+ "<p style='text-align:center;"+ (place.getColour()==null?"":" color:"+place.getColour().toWebHexString()) + ";'>"
-										+ place.getName()
-									+"</p>"
-								+ "</div>"
-							+ "</div>");
+					"<div class='full-width-container' style='background-color:#19191a; border-radius:5px; margin-bottom:8px;'>"
+					+ "<div class='full-width-container'>"
+						+ "<p class='character-name' style='color:"+ Main.game.getPlayer().getWorldLocation().getColour().toWebHexString() + ";'>"
+							+ Main.game.getPlayer().getWorldLocation().getName()
+						+ "</p>"
+					+ "</div>"
+					+ "<div class='full-width-container' style='margin:0;padding:0;'>"
+						+ "<p style='text-align:center;"+ (place.getColour()==null?"":" color:"+place.getColour().toWebHexString()) + ";'>"
+							+ place.getName()
+						+"</p>"
+					+ "</div>"
+				+ "</div>");
 			
 			// Characters Present:
 			uiAttributeSB.append("<div class='attribute-container effects'>"
@@ -953,7 +967,7 @@ public enum RenderingEngine {
 				for(NPC character : charactersPresent) {
 					uiAttributeSB.append(
 							"<div class='event-log-entry' style='background:"+getEntryBackgroundColour(count%2==0)+";'>"
-								+ "<span style='color:"+character.getFemininity().getColour().toWebHexString()+";'>"+character.getName("A")+"</span>"
+								+" <span style='color:"+character.getFemininity().getColour().toWebHexString()+";'>"+(!character.getArtworkList().isEmpty() && Main.getProperties().hasValue(PropertyValue.artwork)?"&#128247; ":"")+character.getName("A")+"</span>"
 								+ " - "
 									+ (character.isRaceConcealed()
 											?"<span style='color:"+Colour.RACE_UNKNOWN.toWebHexString()+";'>Unknown"
@@ -1100,10 +1114,11 @@ public enum RenderingEngine {
 
 	public String getFullMap(WorldType world) {
 		mapSB.setLength(0);
-		
-		mapSB.append("<div class='container-full-width' style='width:80%; margin:2% 10%;'>");
-		
+
 		Cell[][] grid = Main.game.getWorlds().get(world).getGrid();
+		
+		mapSB.append("<div class='container-full-width' style='width:"+(Math.min(80, grid.length*10))+"%; margin:2% 10%;'>");
+		
 		float width = 100f/grid.length;
 		for(int i=grid[0].length-1; i>=0; i--) {
 			for(int j=0; j<grid.length; j++) {
@@ -1141,6 +1156,7 @@ public enum RenderingEngine {
 										+(playerOnTile?" border:2px solid "+getPlayerIconColour(dangerousTile).toWebHexString()+";":"")+"'>"
 											+c.getPlace().getSVGString()+"</div>"
 									: "")
+								+(playerOnTile?"<div class='overlay map-player'></div>":"")
 							+ "</div>");
 				}
 			}
@@ -1422,11 +1438,11 @@ public enum RenderingEngine {
 							Main.game.getPlayer().isMainQuestUpdated()
 							|| Main.game.getPlayer().isSideQuestUpdated()
 							|| Main.game.getPlayer().isRomanceQuestUpdated()
-							|| Main.getProperties().isNewWeaponDiscovered()
-							|| Main.getProperties().isNewClothingDiscovered()
-							|| Main.getProperties().isNewItemDiscovered()
-							|| Main.getProperties().isNewRaceDiscovered()
-							|| Main.game.getPlayer().getPerkPoints()>0
+							|| Main.getProperties().hasValue(PropertyValue.newWeaponDiscovered)
+							|| Main.getProperties().hasValue(PropertyValue.newClothingDiscovered)
+							|| Main.getProperties().hasValue(PropertyValue.newItemDiscovered)
+							|| Main.getProperties().hasValue(PropertyValue.newRaceDiscovered)
+							|| Main.getProperties().hasValue(PropertyValue.levelUpHightlight)
 								?" highlight"
 								:"")
 						+ (!Main.game.getCurrentDialogueNode().isOptionsDisabled() && Main.game.isInNewWorld() ? "" : " disabled") + "' id='journal'>" + SVGImages.SVG_IMAGE_PROVIDER.getJournalIcon()

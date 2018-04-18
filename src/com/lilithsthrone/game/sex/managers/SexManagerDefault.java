@@ -588,28 +588,40 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 			// --- Start penetrating: ---
 			for(SexActionInterface action : availableActions) {
 				if(action.getActionType()==SexActionType.PARTNER_PENETRATION && action.getParticipantType().isUsingSelfPenetrationType()) {
-					if(action.getAssociatedPenetrationType() == PenetrationType.PENIS || action.getAssociatedPenetrationType() == PenetrationType.TAIL || action.getAssociatedPenetrationType() == PenetrationType.TAIL) {
+					if(action.getAssociatedPenetrationType() == PenetrationType.PENIS
+							|| action.getAssociatedPenetrationType() == PenetrationType.TAIL) {
 						// Anal penetrations:
-						if((Sex.getActivePartner().hasFetish(Fetish.FETISH_ANAL_GIVING) || Sex.getPlayerPenetrationRequests().contains(OrificeType.ANUS))
+						if((Sex.getActivePartner().hasFetish(Fetish.FETISH_ANAL_GIVING)
+								|| Sex.getPlayerPenetrationRequests().contains(OrificeType.ANUS))
 								&& action.getAssociatedOrificeType()!=null && action.getAssociatedOrificeType() == OrificeType.ANUS) {
 							penetrativeActionList.add(action);
 						}
 						// Nipple penetrations:
-						if((Sex.getActivePartner().hasFetish(Fetish.FETISH_BREASTS_OTHERS) || Sex.getPlayerPenetrationRequests().contains(OrificeType.NIPPLE))
+						if((Sex.getActivePartner().hasFetish(Fetish.FETISH_BREASTS_OTHERS)
+								|| Sex.getPlayerPenetrationRequests().contains(OrificeType.NIPPLE))
 								&& action.getAssociatedOrificeType()!=null && action.getAssociatedOrificeType() == OrificeType.NIPPLE) {
 							penetrativeActionList.add(action);
 						}
 						// Paizuri:
-						if((Sex.getActivePartner().hasFetish(Fetish.FETISH_BREASTS_OTHERS) || Sex.getPlayerPenetrationRequests().contains(OrificeType.BREAST))
+						if((Sex.getActivePartner().hasFetish(Fetish.FETISH_BREASTS_OTHERS)
+								|| Sex.getPlayerPenetrationRequests().contains(OrificeType.BREAST))
 								&& action.getAssociatedOrificeType()!=null && action.getAssociatedOrificeType() == OrificeType.BREAST) {
 								penetrativeActionList.add(action);
 						}
-						// Vaginal penetration on player:
-						if((Sex.getActivePartner().hasFetish(Fetish.FETISH_IMPREGNATION) || Sex.getActivePartner().hasFetish(Fetish.FETISH_SEEDER) || Sex.getPlayerPenetrationRequests().contains(OrificeType.VAGINA))
+						// Vaginal:
+						if((Sex.getActivePartner().hasFetish(Fetish.FETISH_VAGINAL_GIVING)
+								|| Sex.getPlayerPenetrationRequests().contains(OrificeType.VAGINA))
+								&& action.getAssociatedOrificeType()!=null && action.getAssociatedOrificeType() == OrificeType.VAGINA) {
+								penetrativeActionList.add(action);
+						}
+						// Pregnancy penetration on player:
+						if((Sex.getActivePartner().hasFetish(Fetish.FETISH_IMPREGNATION)
+								|| Sex.getActivePartner().hasFetish(Fetish.FETISH_SEEDER)
+								|| Sex.getPlayerPenetrationRequests().contains(OrificeType.VAGINA))
 								&& action.getAssociatedOrificeType()!=null && action.getAssociatedOrificeType()==OrificeType.VAGINA && action.getAssociatedPenetrationType()!=null && action.getAssociatedPenetrationType() == PenetrationType.PENIS) {
 							penetrativeActionList.add(action);
 						}
-						// Vaginal penetration for self:
+						// Pregnancy penetration for self:
 						if((Sex.getActivePartner().hasFetish(Fetish.FETISH_PREGNANCY) || Sex.getActivePartner().hasFetish(Fetish.FETISH_BROODMOTHER))
 								&& action.getAssociatedOrificeType()!=null && action.getAssociatedOrificeType()==OrificeType.VAGINA && action.getAssociatedPenetrationType()!=null && action.getAssociatedPenetrationType() == PenetrationType.PENIS) {
 							penetrativeActionList.add(action);

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<htmlContent tag="STAIRCASE"><![CDATA[
+	<p>
+		.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CAVERN_DARK"><![CDATA[
+	<p>
+		.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CAVERN_LIGHT"><![CDATA[
+	<p>
+		.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RIVER"><![CDATA[
+	<p>
+		.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RIVER_BRIDGE"><![CDATA[
+	<p>
+		.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RIVER_END"><![CDATA[
+	<p>
+		.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLIME_LAKE"><![CDATA[
+	<p>
+		.
+	</p>
+	]]>
+	</htmlContent>
+	
+</dialogue>

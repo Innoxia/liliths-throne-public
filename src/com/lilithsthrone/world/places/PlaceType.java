@@ -41,8 +41,14 @@ import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.SupplierDe
 import com.lilithsthrone.game.dialogue.places.dominion.slaverAlley.ScarlettsShop;
 import com.lilithsthrone.game.dialogue.places.dominion.slaverAlley.SlaverAlleyDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.zaranixHome.ZaranixHomeFirstFloor;
+import com.lilithsthrone.game.dialogue.places.dominion.zaranixHome.ZaranixHomeFirstFloorRepeat;
 import com.lilithsthrone.game.dialogue.places.dominion.zaranixHome.ZaranixHomeGroundFloor;
+import com.lilithsthrone.game.dialogue.places.dominion.zaranixHome.ZaranixHomeGroundFloorRepeat;
+import com.lilithsthrone.game.dialogue.places.submission.BatCaverns;
 import com.lilithsthrone.game.dialogue.places.submission.SubmissionGenericPlaces;
+import com.lilithsthrone.game.inventory.CharacterInventory;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
+import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.BaseColour;
 import com.lilithsthrone.utils.Bearing;
@@ -66,12 +72,7 @@ public enum PlaceType {
 	
 	GENERIC_MUSEUM("Museum", "dominion/slaverAlleyIcon",  BaseColour.TAN, Colour.MAP_BACKGROUND, null, null, true, false, true, false, "in Lily's Museum"),
 	
-	DOMINION_PLAZA("Lilith's Plaza", "dominion/statue",  BaseColour.PINK_DEEP, Colour.MAP_BACKGROUND_PINK, CityPlaces.DOMINION_PLAZA, null, true, false, false, true, "in Dominion's central plaza") {
-		@Override
-		public boolean isDangerous() {
-			return Main.game.getCurrentWeather() == Weather.MAGIC_STORM;
-		}
-	},
+	DOMINION_PLAZA("Lilith's Plaza", "dominion/statue",  BaseColour.PINK_DEEP, Colour.MAP_BACKGROUND_PINK, CityPlaces.DOMINION_PLAZA, null, true, false, false, true, "in Dominion's central plaza"),
 	
 	DOMINION_STREET("Dominion Streets", null, null, Colour.MAP_BACKGROUND, CityPlaces.STREET, Encounter.DOMINION_STREET, true, false, false, true, "in the streets of Dominion") {
 		@Override
@@ -80,12 +81,7 @@ public enum PlaceType {
 		}
 	},
 	
-	DOMINION_BOULEVARD("Dominion Boulevard", null, null, Colour.MAP_BACKGROUND_PINK, CityPlaces.BOULEVARD, null, true, false, false, true, "in the streets of Dominion") {
-		@Override
-		public boolean isDangerous() {
-			return Main.game.getCurrentWeather() == Weather.MAGIC_STORM;
-		}
-	},
+	DOMINION_BOULEVARD("Dominion Boulevard", null, null, Colour.MAP_BACKGROUND_PINK, CityPlaces.BOULEVARD, null, true, false, false, true, "in the streets of Dominion"),
 	
 	DOMINION_LILITHS_TOWER("Lilith's Tower", "dominion/lilithsTowerIcon", BaseColour.PURPLE, Colour.MAP_BACKGROUND_PINK, LilithsTower.OUTSIDE, null, true, false, false, true, "in the streets of Dominion") {
 		@Override
@@ -101,26 +97,11 @@ public enum PlaceType {
 		}
 	},
 	
-	DOMINION_DEMON_HOME_GATE("Demon Home Gates", "dominion/gate", BaseColour.PINK_LIGHT, Colour.MAP_BACKGROUND_PINK, DemonHome.DEMON_HOME_GATE, null, true, false, false, true, "in the streets of Demon Home") {
-		@Override
-		public boolean isDangerous() {
-			return Main.game.getCurrentWeather() == Weather.MAGIC_STORM;
-		}
-	},
+	DOMINION_DEMON_HOME_GATE("Demon Home Gates", "dominion/gate", BaseColour.PINK_LIGHT, Colour.MAP_BACKGROUND_PINK, DemonHome.DEMON_HOME_GATE, null, true, false, false, true, "in the streets of Demon Home"),
 	
-	DOMINION_DEMON_HOME("Demon Home", null, null, Colour.MAP_BACKGROUND_PINK, DemonHome.DEMON_HOME_STREET, null, true, false, false, true, "in the streets of Demon Home") {
-		@Override
-		public boolean isDangerous() {
-			return Main.game.getCurrentWeather() == Weather.MAGIC_STORM;
-		}
-	},
+	DOMINION_DEMON_HOME("Demon Home", null, null, Colour.MAP_BACKGROUND_PINK, DemonHome.DEMON_HOME_STREET, null, true, false, false, true, "in the streets of Demon Home"),
 	
-	DOMINION_DEMON_HOME_ARTHUR("Demon Home", "dominion/demonHomeIcon", BaseColour.PINK, Colour.MAP_BACKGROUND_PINK, DemonHome.DEMON_HOME_STREET_ARTHUR, null, true, false, false, true, "in the streets of Demon Home") {
-		@Override
-		public boolean isDangerous() {
-			return Main.game.getCurrentWeather() == Weather.MAGIC_STORM;
-		}
-	},
+	DOMINION_DEMON_HOME_ARTHUR("Demon Home", "dominion/demonHomeIcon", BaseColour.PINK, Colour.MAP_BACKGROUND_PINK, DemonHome.DEMON_HOME_STREET_ARTHUR, null, true, false, false, true, "in the streets of Demon Home"),
 	
 	DOMINION_SHOPPING_ARCADE("Shopping Arcade", "dominion/shoppingArcadeIcon", BaseColour.GOLD, Colour.MAP_BACKGROUND, ShoppingArcadeDialogue.OUTSIDE, Encounter.DOMINION_STREET, true, false, false, true, "in the streets of Dominion") {
 		@Override
@@ -217,22 +198,12 @@ public enum PlaceType {
 	DOMINION_EXIT_TO_JUNGLE("Jungle Entrance", "dominion/JungleExit",  BaseColour.GREEN_LIME, Colour.MAP_BACKGROUND_PINK, CityPlaces.CITY_EXIT_JUNGLE, null, true, false, false, true, "in the streets of Dominion") {
 		
 		@Override
-		public boolean isDangerous() {
-			return Main.game.getCurrentWeather() == Weather.MAGIC_STORM;
-		}
-		
-		@Override
 		public Bearing getBearing() {
 			return Bearing.NORTH;
 		}
 	},
 	
 	DOMINION_EXIT_TO_FIELDS("Fields Entrance", "dominion/fieldsExit",  BaseColour.GREEN_LIGHT, Colour.MAP_BACKGROUND_PINK, CityPlaces.CITY_EXIT_FIELDS, null, true, false, false, true, "in the streets of Dominion") {
-		
-		@Override
-		public boolean isDangerous() {
-			return Main.game.getCurrentWeather() == Weather.MAGIC_STORM;
-		}
 		
 		@Override
 		public Bearing getBearing() {
@@ -243,22 +214,12 @@ public enum PlaceType {
 	DOMINION_EXIT_TO_SEA("Endless Sea Entrance", "dominion/endlessSeaExit",  BaseColour.TEAL, Colour.MAP_BACKGROUND_PINK, CityPlaces.CITY_EXIT_SEA, null, true, false, false, true, "in the streets of Dominion") {
 		
 		@Override
-		public boolean isDangerous() {
-			return Main.game.getCurrentWeather() == Weather.MAGIC_STORM;
-		}
-		
-		@Override
 		public Bearing getBearing() {
 			return Bearing.EAST;
 		}
 	},
 	
 	DOMINION_EXIT_TO_DESERT("Desert Entrance", "dominion/desertExit", BaseColour.YELLOW, Colour.MAP_BACKGROUND_PINK, CityPlaces.CITY_EXIT_DESERT, null, true, false, false, true, "in the streets of Dominion") {
-		
-		@Override
-		public boolean isDangerous() {
-			return Main.game.getCurrentWeather() == Weather.MAGIC_STORM;
-		}
 		
 		@Override
 		public Bearing getBearing() {
@@ -279,7 +240,7 @@ public enum PlaceType {
 	
 	ENFORCER_HQ_BRAXS_OFFICE("Brax's Office", "dominion/enforcerHQ/braxsOffice", BaseColour.BLUE_STEEL, Colour.MAP_BACKGROUND, EnforcerHQDialogue.INTERIOR_BRAX, null, true, false, true, true, "in his office") {
 		@Override
-		public DialogueNodeOld getDialogue(boolean withRandomEncounter) {
+		public DialogueNodeOld getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
 			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.braxEncountered)) {
 				return EnforcerHQDialogue.INTERIOR_BRAX_REPEAT;
 				
@@ -511,6 +472,50 @@ public enum PlaceType {
 		}
 	},
 	
+	LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR_MILKING("Slave's Room", "dominion/lilayasHome/roomMilking", BaseColour.ORANGE, Colour.MAP_BACKGROUND, LilayaHomeGeneric.ROOM_WINDOW_MILKING, null, true, false, true, false, "in Lilaya's Home") {
+		@Override
+		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades() {
+			return PlaceUpgrade.getMilkingUpgrades();
+		}
+		@Override
+		public boolean isAbleToBeUpgraded() {
+			return true;
+		}
+	},
+	
+	LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR_MILKING("Slave's Garden Room", "dominion/lilayasHome/roomMilking", BaseColour.ORANGE, Colour.MAP_BACKGROUND, LilayaHomeGeneric.ROOM_GARDEN_GROUND_FLOOR_MILKING, null, true, false, true, false, "in Lilaya's Home") {
+		@Override
+		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades() {
+			return PlaceUpgrade.getMilkingUpgrades();
+		}
+		@Override
+		public boolean isAbleToBeUpgraded() {
+			return true;
+		}
+	},
+	
+	LILAYA_HOME_ROOM_WINDOW_FIRST_FLOOR_MILKING("Slave's Room", "dominion/lilayasHome/roomMilking", BaseColour.ORANGE, Colour.MAP_BACKGROUND, LilayaHomeGeneric.ROOM_WINDOW_MILKING, null, true, false, true, false, "in Lilaya's Home") {
+		@Override
+		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades() {
+			return PlaceUpgrade.getMilkingUpgrades();
+		}
+		@Override
+		public boolean isAbleToBeUpgraded() {
+			return true;
+		}
+	},
+	
+	LILAYA_HOME_ROOM_GARDEN_FIRST_FLOOR_MILKING("Slave's Garden Room", "dominion/lilayasHome/roomMilking", BaseColour.ORANGE, Colour.MAP_BACKGROUND, LilayaHomeGeneric.ROOM_GARDEN_MILKING, null, true, false, true, false, "in Lilaya's Home") {
+		@Override
+		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades() {
+			return PlaceUpgrade.getMilkingUpgrades();
+		}
+		@Override
+		public boolean isAbleToBeUpgraded() {
+			return true;
+		}
+	},
+	
 	LILAYA_HOME_ARTHUR_ROOM("Arthur's Room", "dominion/lilayasHome/roomArthur", BaseColour.BLUE_STEEL, Colour.MAP_BACKGROUND, LilayaHomeGeneric.ROOM_ARTHUR, null, true, false, true, false, "in Arthur's Room"),
 	
 	LILAYA_HOME_BIRTHING_ROOM("Room", "dominion/lilayasHome/roomBirthing", BaseColour.PINK, Colour.MAP_BACKGROUND, LilayaHomeGeneric.BIRTHING_ROOM, null, true, false, true, false, "in Lilaya's Home"),
@@ -523,7 +528,12 @@ public enum PlaceType {
 	
 	LILAYA_HOME_ENTRANCE_HALL("Entrance Hall", "dominion/lilayasHome/entranceHall", BaseColour.RED, Colour.MAP_BACKGROUND, LilayaHomeGeneric.ENTRANCE_HALL, null, true, false, true, false, "in Lilaya's Home"),
 	
-	LILAYA_HOME_LAB("Lilaya's Lab", "dominion/lilayasHome/lab", BaseColour.ORANGE, Colour.MAP_BACKGROUND, Lab.LAB, null, true, false, true, false, "in Lilaya's lab"),
+	LILAYA_HOME_LAB("Lilaya's Lab", "dominion/lilayasHome/lab", BaseColour.ORANGE, Colour.MAP_BACKGROUND, Lab.LAB, null, true, false, true, false, "in Lilaya's lab") {
+		@Override
+		public void applyInventoryInit(CharacterInventory inventory) {
+			inventory.addClothing(AbstractClothingType.generateClothing(ClothingType.SCIENTIST_EYES_SAFETY_GOGGLES, Colour.CLOTHING_BLACK, false));
+		}
+	},
 	
 	LILAYA_HOME_GARDEN("Garden", "dominion/lilayasHome/garden", BaseColour.GREEN, Colour.MAP_BACKGROUND, LilayaHomeGeneric.GARDEN, null, true, false, false, false, "in Lilaya's garden"),
 	
@@ -543,22 +553,189 @@ public enum PlaceType {
 	
 
 	// Zaranix:
-
-	ZARANIX_GF_CORRIDOR("Corridor", null, BaseColour.GREY, Colour.MAP_BACKGROUND, ZaranixHomeGroundFloor.CORRIDOR, null, false, false, true, false, "in Zaranix's home"),
-	ZARANIX_GF_STAIRS("Staircase", "dominion/zaranixHome/stairsDown", BaseColour.GREEN_LIGHT, Colour.MAP_BACKGROUND, ZaranixHomeGroundFloor.STAIRS, null, false, false, true, false, "in Zaranix's home"),
-	ZARANIX_GF_ENTRANCE("Entrance", "dominion/zaranixHome/entranceHall", BaseColour.RED, Colour.MAP_BACKGROUND, ZaranixHomeGroundFloor.ENTRANCE, null, false, false, true, false, "in Zaranix's home"),
-	ZARANIX_GF_LOUNGE("Lounge", "dominion/zaranixHome/lounge", BaseColour.ORANGE, Colour.MAP_BACKGROUND, ZaranixHomeGroundFloor.LOUNGE, null, false, false, true, false, "in Zaranix's home"),
-	ZARANIX_GF_ROOM("Room", "dominion/zaranixHome/room", BaseColour.GREY, Colour.MAP_BACKGROUND, ZaranixHomeGroundFloor.ROOM, null, false, false, true, false, "in a room in Zaranix's home"),
-	ZARANIX_GF_MAID("Corridor", null, BaseColour.GREY, Colour.MAP_BACKGROUND, ZaranixHomeGroundFloor.CORRIDOR_MAID, null, true, true, true, false, "in Zaranix's Home"),
-	ZARANIX_GF_GARDEN_ROOM("Room", "dominion/zaranixHome/room", BaseColour.GREY, Colour.MAP_BACKGROUND, ZaranixHomeGroundFloor.GARDEN_ROOM, null, false, false, true, false, "in a room in Zaranix's home"),
-	ZARANIX_GF_GARDEN("Garden", "dominion/zaranixHome/garden", BaseColour.GREEN, Colour.MAP_BACKGROUND, ZaranixHomeGroundFloor.GARDEN, null, false, false, true, false, "in Zaranix's garden"),
-	ZARANIX_GF_GARDEN_ENTRY("Garden", "dominion/zaranixHome/entranceHall", BaseColour.GREEN, Colour.MAP_BACKGROUND, ZaranixHomeGroundFloor.GARDEN_ENTRY, null, false, false, true, false, "in Zaranix's garden"),
-
-	ZARANIX_FF_CORRIDOR("Corridor", null, BaseColour.GREY, Colour.MAP_BACKGROUND, ZaranixHomeFirstFloor.CORRIDOR, null, false, false, true, false, "in Zaranix's home"),
-	ZARANIX_FF_STAIRS("Staircase", "dominion/zaranixHome/stairsDown", BaseColour.RED, Colour.MAP_BACKGROUND, ZaranixHomeFirstFloor.STAIRS, null, false, false, true, false, "in Zaranix's home"),
-	ZARANIX_FF_OFFICE("Zaranix's Room", "dominion/zaranixHome/roomZaranix", BaseColour.PINK_DEEP, Colour.MAP_BACKGROUND, ZaranixHomeFirstFloor.ZARANIX_ROOM, null, true, true, true, false, "in Zaranix's home"),
-	ZARANIX_FF_ROOM("Room", "dominion/zaranixHome/room", BaseColour.GREY, Colour.MAP_BACKGROUND, ZaranixHomeFirstFloor.ROOM, null, false, false, true, false, "in a room in Zaranix's home"),
-	ZARANIX_FF_MAID("Corridor", null, BaseColour.RED, Colour.MAP_BACKGROUND, ZaranixHomeFirstFloor.CORRIDOR_MAID, null, true, true, true, false, "in Zaranix's Home"),
+	// Ground floor:
+	
+	ZARANIX_GF_CORRIDOR("Corridor", null, BaseColour.GREY, Colour.MAP_BACKGROUND, ZaranixHomeGroundFloor.CORRIDOR, null, false, false, true, false, "in Zaranix's home"){
+		@Override
+		public DialogueNodeOld getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
+			if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_H_THE_GREAT_ESCAPE)) {
+				return ZaranixHomeGroundFloorRepeat.CORRIDOR;
+				
+			} else {
+				return ZaranixHomeGroundFloor.CORRIDOR;
+			}
+		}
+	},
+	
+	ZARANIX_GF_STAIRS("Staircase", "dominion/zaranixHome/stairsDown", BaseColour.GREEN_LIGHT, Colour.MAP_BACKGROUND, ZaranixHomeGroundFloor.STAIRS, null, false, false, true, false, "in Zaranix's home"){
+		@Override
+		public DialogueNodeOld getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
+			if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_H_THE_GREAT_ESCAPE)) {
+				return ZaranixHomeGroundFloorRepeat.STAIRS;
+				
+			} else {
+				return ZaranixHomeGroundFloor.STAIRS;
+			}
+		}
+	},
+	
+	ZARANIX_GF_ENTRANCE("Entrance", "dominion/zaranixHome/entranceHall", BaseColour.RED, Colour.MAP_BACKGROUND, ZaranixHomeGroundFloor.ENTRANCE, null, false, false, true, false, "in Zaranix's home"){
+		@Override
+		public DialogueNodeOld getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
+			if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_H_THE_GREAT_ESCAPE)) {
+				return ZaranixHomeGroundFloorRepeat.ENTRANCE;
+				
+			} else {
+				return ZaranixHomeGroundFloor.ENTRANCE;
+			}
+		}
+	},
+	
+	ZARANIX_GF_LOUNGE("Lounge", "dominion/zaranixHome/lounge", BaseColour.ORANGE, Colour.MAP_BACKGROUND, ZaranixHomeGroundFloor.LOUNGE, null, false, false, true, false, "in Zaranix's home"){
+		@Override
+		public DialogueNodeOld getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
+			if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_H_THE_GREAT_ESCAPE)) {
+				return ZaranixHomeGroundFloorRepeat.LOUNGE;
+				
+			} else {
+				return ZaranixHomeGroundFloor.LOUNGE;
+			}
+		}
+	},
+	
+	ZARANIX_GF_ROOM("Room", "dominion/zaranixHome/room", BaseColour.GREY, Colour.MAP_BACKGROUND, ZaranixHomeGroundFloor.ROOM, null, false, false, true, false, "in a room in Zaranix's home"){
+		@Override
+		public DialogueNodeOld getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
+			if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_H_THE_GREAT_ESCAPE)) {
+				return ZaranixHomeGroundFloorRepeat.ROOM;
+				
+			} else {
+				return ZaranixHomeGroundFloor.ROOM;
+			}
+		}
+	},
+	
+	ZARANIX_GF_MAID("Corridor", null, BaseColour.GREY, Colour.MAP_BACKGROUND, ZaranixHomeGroundFloor.CORRIDOR_MAID, null, true, true, true, false, "in Zaranix's Home"){
+		@Override
+		public DialogueNodeOld getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
+			if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_H_THE_GREAT_ESCAPE)) {
+				return ZaranixHomeGroundFloorRepeat.CORRIDOR;
+				
+			} else {
+				return ZaranixHomeGroundFloor.CORRIDOR_MAID;
+			}
+		}
+		@Override
+		public boolean isDangerous() {
+			return !Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_H_THE_GREAT_ESCAPE);
+		}
+	},
+	
+	ZARANIX_GF_GARDEN_ROOM("Room", "dominion/zaranixHome/room", BaseColour.GREY, Colour.MAP_BACKGROUND, ZaranixHomeGroundFloor.GARDEN_ROOM, null, false, false, true, false, "in a room in Zaranix's home"){
+		@Override
+		public DialogueNodeOld getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
+			if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_H_THE_GREAT_ESCAPE)) {
+				return ZaranixHomeGroundFloorRepeat.GARDEN_ROOM;
+				
+			} else {
+				return ZaranixHomeGroundFloor.GARDEN_ROOM;
+			}
+		}
+	},
+	
+	ZARANIX_GF_GARDEN("Garden", "dominion/zaranixHome/garden", BaseColour.GREEN, Colour.MAP_BACKGROUND, ZaranixHomeGroundFloor.GARDEN, null, false, false, true, false, "in Zaranix's garden"){
+		@Override
+		public DialogueNodeOld getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
+			if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_H_THE_GREAT_ESCAPE)) {
+				return ZaranixHomeGroundFloorRepeat.GARDEN;
+				
+			} else {
+				return ZaranixHomeGroundFloor.GARDEN;
+			}
+		}
+	},
+	
+	ZARANIX_GF_GARDEN_ENTRY("Garden", "dominion/zaranixHome/entranceHall", BaseColour.GREEN, Colour.MAP_BACKGROUND, ZaranixHomeGroundFloor.GARDEN_ENTRY, null, false, false, true, false, "in Zaranix's garden"){
+		@Override
+		public DialogueNodeOld getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
+			if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_H_THE_GREAT_ESCAPE)) {
+				return ZaranixHomeGroundFloorRepeat.GARDEN_ENTRY;
+				
+			} else {
+				return ZaranixHomeGroundFloor.GARDEN_ENTRY;
+			}
+		}
+	},
+	
+	// First floor:
+	
+	ZARANIX_FF_CORRIDOR("Corridor", null, BaseColour.GREY, Colour.MAP_BACKGROUND, ZaranixHomeFirstFloor.CORRIDOR, null, false, false, true, false, "in Zaranix's home"){
+		@Override
+		public DialogueNodeOld getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
+			if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_H_THE_GREAT_ESCAPE)) {
+				return ZaranixHomeFirstFloorRepeat.CORRIDOR;
+				
+			} else {
+				return ZaranixHomeFirstFloor.CORRIDOR;
+			}
+		}
+	},
+	
+	ZARANIX_FF_STAIRS("Staircase", "dominion/zaranixHome/stairsDown", BaseColour.RED, Colour.MAP_BACKGROUND, ZaranixHomeFirstFloor.STAIRS, null, false, false, true, false, "in Zaranix's home"){
+		@Override
+		public DialogueNodeOld getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
+			if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_H_THE_GREAT_ESCAPE)) {
+				return ZaranixHomeFirstFloorRepeat.STAIRS;
+				
+			} else {
+				return ZaranixHomeFirstFloor.STAIRS;
+			}
+		}
+	},
+	
+	ZARANIX_FF_OFFICE("Zaranix's Room", "dominion/zaranixHome/roomZaranix", BaseColour.PINK_DEEP, Colour.MAP_BACKGROUND, ZaranixHomeFirstFloor.ZARANIX_ROOM, null, true, true, true, false, "in Zaranix's home"){
+		@Override
+		public DialogueNodeOld getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
+			if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_H_THE_GREAT_ESCAPE)) {
+				return ZaranixHomeFirstFloorRepeat.ZARANIX_ROOM;
+				
+			} else {
+				return ZaranixHomeFirstFloor.ZARANIX_ROOM;
+			}
+		}
+		@Override
+		public boolean isDangerous() {
+			return !Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_H_THE_GREAT_ESCAPE);
+		}
+	},
+	
+	ZARANIX_FF_ROOM("Room", "dominion/zaranixHome/room", BaseColour.GREY, Colour.MAP_BACKGROUND, ZaranixHomeFirstFloor.ROOM, null, false, false, true, false, "in a room in Zaranix's home"){
+		@Override
+		public DialogueNodeOld getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
+			if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_H_THE_GREAT_ESCAPE)) {
+				return ZaranixHomeFirstFloorRepeat.ROOM;
+				
+			} else {
+				return ZaranixHomeFirstFloor.ROOM;
+			}
+		}
+	},
+	
+	ZARANIX_FF_MAID("Corridor", null, BaseColour.RED, Colour.MAP_BACKGROUND, ZaranixHomeFirstFloor.CORRIDOR_MAID, null, true, true, true, false, "in Zaranix's Home"){
+		@Override
+		public DialogueNodeOld getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
+			if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_H_THE_GREAT_ESCAPE)) {
+				return ZaranixHomeFirstFloorRepeat.CORRIDOR;
+				
+			} else {
+				return ZaranixHomeFirstFloor.CORRIDOR_MAID;
+			}
+		}
+		@Override
+		public boolean isDangerous() {
+			return !Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_H_THE_GREAT_ESCAPE);
+		}
+	},
 	
 	
 	// Angel's Kiss:
@@ -633,7 +810,7 @@ public enum PlaceType {
 			return !Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_NYAN_HELP);
 		}
 		@Override
-		public DialogueNodeOld getDialogue(boolean withRandomEncounter) {
+		public DialogueNodeOld getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
 			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.suppliersEncountered)) {
 				return SupplierDepot.SUPPLIER_DEPOT_OFFICE_REPEAT;
 				
@@ -663,7 +840,7 @@ public enum PlaceType {
 	
 	SLAVER_ALLEY_SCARLETTS_SHOP("Scarlett's Shop", "dominion/slaverAlley/scarlettsStall", BaseColour.CRIMSON, Colour.MAP_BACKGROUND, ScarlettsShop.SCARLETTS_SHOP_EXTERIOR, null, true, false, true, true, "in Slaver's Alley"){
 		@Override
-		public DialogueNodeOld getDialogue(boolean withRandomEncounter) {
+		public DialogueNodeOld getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
 			if(Main.game.getPlayer().isQuestProgressLessThan(QuestLine.MAIN, Quest.MAIN_1_F_SCARLETTS_FATE)) { // Scarlett owns the shop:
 				return ScarlettsShop.SCARLETTS_SHOP_EXTERIOR;
 				
@@ -699,7 +876,17 @@ public enum PlaceType {
 	SUBMISSION_IMP_FORTRESS_5("Imp Fortress", "submission/impFortress5", BaseColour.PURPLE, Colour.MAP_BACKGROUND, SubmissionGenericPlaces.IMP_FORTRESS_5, null, true, false, true, true, "in Submission"),
 	SUBMISSION_IMP_FORTRESS_6("Imp Fortress", "submission/impFortress6", BaseColour.PURPLE_LIGHT, Colour.MAP_BACKGROUND, SubmissionGenericPlaces.IMP_FORTRESS_6, null, true, false, true, true, "in Submission"),
 
-	SUBMISSION_ENTRANCE("Enforcer Checkpoint", "submission/submissionExit", BaseColour.BROWN, Colour.MAP_BACKGROUND, SubmissionGenericPlaces.SEWER_ENTRANCE, null, true, false, true, true, "in Submission");
+	SUBMISSION_ENTRANCE("Enforcer Checkpoint", "submission/submissionExit", BaseColour.BROWN, Colour.MAP_BACKGROUND, SubmissionGenericPlaces.SEWER_ENTRANCE, null, true, false, true, true, "in Submission"),
+	
+	// Bat caverns:
+
+	BAT_CAVERN_ENTRANCE("Winding Staircase", "submission/cavernStaircase", BaseColour.GREEN, Colour.MAP_BACKGROUND, BatCaverns.STAIRCASE, null, false, true, true, true, "in the Bat Caverns"),
+	BAT_CAVERN_DARK("Dark Cavern", null, null, Colour.MAP_BACKGROUND, BatCaverns.CAVERN_DARK, Encounter.BAT_CAVERN, true, false, true, true, "in the Bat Caverns"),
+	BAT_CAVERN_LIGHT("Bioluminescent Cavern", "submission/cavernBioluminescent", BaseColour.AQUA, Colour.MAP_BACKGROUND, BatCaverns.CAVERN_LIGHT, Encounter.BAT_CAVERN, false, true, true, true, "in the Bat Caverns"),
+	BAT_CAVERN_RIVER("Underground River", "submission/cavernRiver", BaseColour.BLUE, Colour.MAP_BACKGROUND, BatCaverns.RIVER, Encounter.BAT_CAVERN, false, true, true, true, "in the Bat Caverns"),
+	BAT_CAVERN_RIVER_CROSSING("Mushroom Bridge", "submission/cavernBridge", BaseColour.TEAL, Colour.MAP_BACKGROUND, BatCaverns.RIVER_BRIDGE, Encounter.BAT_CAVERN, false, true, true, true, "in the Bat Caverns"),
+	BAT_CAVERN_RIVER_END("Underground River End", "submission/cavernRiver", BaseColour.BROWN, Colour.MAP_BACKGROUND, BatCaverns.RIVER_END, Encounter.BAT_CAVERN, false, true, true, true, "in the Bat Caverns"),
+	BAT_CAVERN_SLIME_QUEEN_LAIR("Slime Lake", "submission/cavernLake", BaseColour.PINK_LIGHT, Colour.MAP_BACKGROUND, BatCaverns.SLIME_LAKE, Encounter.BAT_CAVERN, false, true, true, true, "beside Slime Lake");
 
 	
 	private String name;
@@ -722,7 +909,8 @@ public enum PlaceType {
 			boolean populated,
 			boolean dangerous,
 			boolean stormImmune,
-			boolean itemsDisappear, String virgintyLossDescription) {
+			boolean itemsDisappear,
+			String virgintyLossDescription) {
 		
 		this.name = name;
 		this.colour = colour;
@@ -734,7 +922,6 @@ public enum PlaceType {
 		this.stormImmune = stormImmune;
 		this.itemsDisappear = itemsDisappear;
 		this.virgintyLossDescription = virgintyLossDescription;
-		
 		
 		if(SVGPath!=null) {
 			try {
@@ -773,8 +960,12 @@ public enum PlaceType {
 	}
 
 	public DialogueNodeOld getDialogue(boolean withRandomEncounter) {
+		return getDialogue(withRandomEncounter, false);
+	}
+	
+	public DialogueNodeOld getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
 		if (encounterType != null && withRandomEncounter) {
-			DialogueNodeOld dn = encounterType.getRandomEncounter();
+			DialogueNodeOld dn = encounterType.getRandomEncounter(forceEncounter);
 			if (dn != null)
 				return dn;
 		}
@@ -829,6 +1020,9 @@ public enum PlaceType {
 		return SVGString;
 	}
 	
+	public void applyInventoryInit(CharacterInventory inventory) {
+		
+	}
 	
 	// For determining where this place should be placed:
 	

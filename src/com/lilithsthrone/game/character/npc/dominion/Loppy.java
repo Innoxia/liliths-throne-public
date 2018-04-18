@@ -63,6 +63,7 @@ public class Loppy extends NPC {
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 			
 			this.setEyeCovering(new Covering(BodyCoveringType.EYE_HUMAN, Colour.EYE_BROWN));
+			this.setEyeCovering(new Covering(BodyCoveringType.EYE_RABBIT, Colour.EYE_BROWN));
 			this.setHairCovering(new Covering(BodyCoveringType.HAIR_HUMAN, Colour.COVERING_BROWN_DARK), true);
 			this.setHairCovering(new Covering(BodyCoveringType.RABBIT_FUR, Colour.COVERING_BROWN_DARK), true);
 			this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_LIGHT), true);
@@ -108,6 +109,7 @@ public class Loppy extends NPC {
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
+		this.setEyeCovering(new Covering(BodyCoveringType.EYE_RABBIT, Colour.EYE_BROWN));
 	}
 	
 	@Override

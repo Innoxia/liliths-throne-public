@@ -13,6 +13,7 @@ import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
+import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.combat.Spell;
@@ -270,6 +271,7 @@ public class InventoryTooltipEventListener implements EventListener {
 						} else {
 							
 							boolean piercingBlocked=false;
+							boolean isSlime = equippedToCharacter.getBody().getBodyMaterial()==BodyMaterial.SLIME;
 							
 							switch(invSlot){
 								case PIERCING_VAGINA:
@@ -280,7 +282,7 @@ public class InventoryTooltipEventListener implements EventListener {
 														?"[npc.Name] doesn't have a vagina."
 														:"You don't know if [npc.name] has a vagina.")));
 										piercingBlocked=true;
-									} else if(!equippedToCharacter.isPiercedVagina()) {
+									} else if(!isSlime && !equippedToCharacter.isPiercedVagina()) {
 										setBlockedTooltipContent(getTooltipText(equippedToCharacter,
 												"Your vagina has not been pierced.",
 												(equippedToCharacter.getPlayerKnowsAreas().contains(CoverableArea.VAGINA)
@@ -290,37 +292,45 @@ public class InventoryTooltipEventListener implements EventListener {
 									}
 									break;
 								case PIERCING_EAR:
-									if(!equippedToCharacter.isPiercedEar()) {
-										setBlockedTooltipContent(getTooltipText(equippedToCharacter,
-												"Your ears have not been pierced.",
-												"[npc.Name]'s ears have not been pierced."));
-										piercingBlocked=true;
+									if(!isSlime) {
+										if(!equippedToCharacter.isPiercedEar()) {
+											setBlockedTooltipContent(getTooltipText(equippedToCharacter,
+													"Your ears have not been pierced.",
+													"[npc.Name]'s ears have not been pierced."));
+											piercingBlocked=true;
+										}
 									}
 									break;
 								case PIERCING_LIP:
-									if(!equippedToCharacter.isPiercedLip()) {
-										setBlockedTooltipContent(getTooltipText(equippedToCharacter,
-												"Your lips have not been pierced.",
-												"[npc.Name]'s lips have not been pierced."));
-										piercingBlocked=true;
+									if(!isSlime) {
+										if(!equippedToCharacter.isPiercedLip()) {
+											setBlockedTooltipContent(getTooltipText(equippedToCharacter,
+													"Your lips have not been pierced.",
+													"[npc.Name]'s lips have not been pierced."));
+											piercingBlocked=true;
+										}
 									}
 									break;
 								case PIERCING_NIPPLE:
-									if(!equippedToCharacter.isPiercedNipple()) {
-										setBlockedTooltipContent(getTooltipText(equippedToCharacter,
-												"Your nipples have not been pierced.",
-												(equippedToCharacter.getPlayerKnowsAreas().contains(CoverableArea.NIPPLES)
-														?"[npc.Name]'s nipples have not been pierced."
-														:"You don't know if [npc.name]'s nipples have been pierced.")));
-										piercingBlocked=true;
+									if(!isSlime) {
+										if(!equippedToCharacter.isPiercedNipple()) {
+											setBlockedTooltipContent(getTooltipText(equippedToCharacter,
+													"Your nipples have not been pierced.",
+													(equippedToCharacter.getPlayerKnowsAreas().contains(CoverableArea.NIPPLES)
+															?"[npc.Name]'s nipples have not been pierced."
+															:"You don't know if [npc.name]'s nipples have been pierced.")));
+											piercingBlocked=true;
+										}
 									}
 									break;
 								case PIERCING_NOSE:
-									if(!equippedToCharacter.isPiercedNose()) {
-										setBlockedTooltipContent(getTooltipText(equippedToCharacter,
-												"Your nose has not been pierced.",
-												"[npc.Name]'s nose has not been pierced."));
-										piercingBlocked=true;
+									if(!isSlime) {
+										if(!equippedToCharacter.isPiercedNose()) {
+											setBlockedTooltipContent(getTooltipText(equippedToCharacter,
+													"Your nose has not been pierced.",
+													"[npc.Name]'s nose has not been pierced."));
+											piercingBlocked=true;
+										}
 									}
 									break;
 								case PIERCING_PENIS:
@@ -331,7 +341,8 @@ public class InventoryTooltipEventListener implements EventListener {
 														?"[npc.Name] doesn't have a penis."
 														:"You don't know if [npc.name] has a penis.")));
 										piercingBlocked=true;
-									} else if(!equippedToCharacter.isPiercedPenis()) {
+										
+									} else if(!isSlime && !equippedToCharacter.isPiercedPenis()) {
 										setBlockedTooltipContent(getTooltipText(equippedToCharacter,
 												"Your penis has not been pierced.",
 												(equippedToCharacter.getPlayerKnowsAreas().contains(CoverableArea.PENIS)
@@ -341,19 +352,23 @@ public class InventoryTooltipEventListener implements EventListener {
 									}
 									break;
 								case PIERCING_STOMACH:
-									if(!equippedToCharacter.isPiercedNavel()) {
-										setBlockedTooltipContent(getTooltipText(equippedToCharacter,
-												"Your navel has not been pierced.",
-												"[npc.Name]'s navel has not been pierced."));
-										piercingBlocked=true;
+									if(!isSlime) {
+										if(!equippedToCharacter.isPiercedNavel()) {
+											setBlockedTooltipContent(getTooltipText(equippedToCharacter,
+													"Your navel has not been pierced.",
+													"[npc.Name]'s navel has not been pierced."));
+											piercingBlocked=true;
+										}
 									}
 									break;
 								case PIERCING_TONGUE:
-									if(!equippedToCharacter.isPiercedTongue()) {
-										setBlockedTooltipContent(getTooltipText(equippedToCharacter,
-												"Your tongue has not been pierced.",
-												"[npc.Name]'s tongue has not been pierced."));
-										piercingBlocked=true;
+									if(!isSlime) {
+										if(!equippedToCharacter.isPiercedTongue()) {
+											setBlockedTooltipContent(getTooltipText(equippedToCharacter,
+													"Your tongue has not been pierced.",
+													"[npc.Name]'s tongue has not been pierced."));
+											piercingBlocked=true;
+										}
 									}
 									break;
 								default:

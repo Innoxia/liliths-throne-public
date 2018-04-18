@@ -79,6 +79,9 @@ public enum SlaveEventTag {
 	},
 	
 	// Jobs:
+
+	JOB_LILAYA_CUM_SOLD("[npc.Name]'s [npc.cum] was sold!"),
+	JOB_LILAYA_MILK_SOLD("[npc.Name]'s [npc.milk] was sold!"),
 	
 	JOB_LILAYA_INTRUSIVE_TESTING("Lilaya ran some rather intrusive tests on [npc.name]."),
 	

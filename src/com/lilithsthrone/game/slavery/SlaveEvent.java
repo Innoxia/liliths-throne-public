@@ -30,6 +30,9 @@ public enum SlaveEvent {
 	SLAVE_SEX("[style.boldSex(Sex)]", "[npc.Name] had sex with another slave..."),
 	
 	// Jobs:
+
+	JOB_CUM_MILKED("Cum Milked", "[npc.Name]'s [npc.cum+] was milked."),
+	JOB_MILK_MILKED("Milked", "[npc.Name]'s was milked of [npc.her] [npc.milk+]."),
 	
 	JOB_CLEANING("Cleaning Fun", "<i>Placeholder event.</i>"),
 	
