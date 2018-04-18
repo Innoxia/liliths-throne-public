@@ -16,6 +16,10 @@ import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.gender.Gender;
+import com.lilithsthrone.game.character.persona.NameTriplet;
+import com.lilithsthrone.game.character.persona.PersonalityTrait;
+import com.lilithsthrone.game.character.persona.PersonalityWeight;
+import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.quests.QuestType;
@@ -37,7 +41,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.2.1
+ * @version 0.2.4
  * @author Innoxia
  */
 public class PlayerCharacter extends GameCharacter implements XMLSaving {
@@ -71,6 +75,10 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		title = "The Human";
 		
 		karma = 0;
+		
+		for(PersonalityTrait trait : PersonalityTrait.values()) {
+			this.setPersonalityTrait(trait, PersonalityWeight.AVERAGE);
+		}
 		
 		this.setMaxCompanions(1);
 		

@@ -32,7 +32,6 @@ import com.lilithsthrone.controller.TooltipUpdateThread;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.History;
 import com.lilithsthrone.game.character.PlayerCharacter;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.Attribute;
@@ -56,7 +55,6 @@ import com.lilithsthrone.game.character.npc.dominion.Ashley;
 import com.lilithsthrone.game.character.npc.dominion.Brax;
 import com.lilithsthrone.game.character.npc.dominion.Bunny;
 import com.lilithsthrone.game.character.npc.dominion.CandiReceptionist;
-import com.lilithsthrone.game.character.npc.dominion.CompanionArkhi;
 import com.lilithsthrone.game.character.npc.dominion.Cultist;
 import com.lilithsthrone.game.character.npc.dominion.DominionAlleywayAttacker;
 import com.lilithsthrone.game.character.npc.dominion.Finch;
@@ -84,6 +82,7 @@ import com.lilithsthrone.game.character.npc.dominion.Vicky;
 import com.lilithsthrone.game.character.npc.dominion.Zaranix;
 import com.lilithsthrone.game.character.npc.dominion.ZaranixMaidKatherine;
 import com.lilithsthrone.game.character.npc.dominion.ZaranixMaidKelly;
+import com.lilithsthrone.game.character.persona.History;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RacialBody;
@@ -127,7 +126,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.2.2
+ * @version 0.2.4
  * @author Innoxia
  */
 public class Game implements Serializable, XMLSaving {
@@ -848,10 +847,6 @@ public class Game implements Serializable, XMLSaving {
 			addNPC(new Bunny(), false);
 			addNPC(new Loppy(), false);
 			
-			//Companions
-			// Arkhi - A lynx-morph companion. For now very bare-bones and used mostly to test and/or showcase companions.
-			//addNPC(new CompanionArkhi(), false);
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -1041,26 +1036,23 @@ public class Game implements Serializable, XMLSaving {
 				npc.dailyReset();
 			}
 			
-			List<GameCharacter> companionsToRemove = new ArrayList<>();
+			// Companions:
 			
-			for(GameCharacter companion : npc.getCompanions())
-			{
+			List<GameCharacter> companionsToRemove = new ArrayList<>();
+			for(GameCharacter companion : npc.getCompanions()) {
 				// Updating companion NPCs
-				/*if(companion.isCompanionAvailable(npc) == true)
-				{
+				if(companion.isCompanionAvailable(npc)) {
 					companion.setLocation(npc.getWorldLocation(), npc.getLocation(), false);
-				}
-				else
-				{
+				} else {
 					companionsToRemove.add(companion);
-				}*/
+				}
 			}
 			for(GameCharacter character : companionsToRemove) {
 				npc.removeCompanion(character);
+				character.returnToHome();
 			}
 			
-			// Character scheduling check
-			npc.handleSchedule();
+			npc.turnUpdate();
 		}
 		isInNPCUpdateLoop = false;
 		for(NPC npc : npcsToRemove) {
@@ -1116,23 +1108,19 @@ public class Game implements Serializable, XMLSaving {
 		}
 		
 		List<GameCharacter> companionsToRemove = new ArrayList<>();
-		
-		/*for(GameCharacter npc : Main.game.getPlayer().getCompanions())
-		{
+		for(GameCharacter npc : Main.game.getPlayer().getCompanions()) {
 			// Updating companion NPCs
-			if(npc.isCompanionAvailable(Main.game.getPlayer()) == true)
-			{
+			if(npc.isCompanionAvailable(Main.game.getPlayer())) {
 				npc.setLocation(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
-			}
-			else
-			{
+			} else {
 				companionsToRemove.add(npc);
 				// TODO : Add NPCs leaving you to the report.
 			}
 		}
 		for(GameCharacter character : companionsToRemove) {
 			Main.game.getPlayer().removeCompanion(character);
-		}*/
+			character.returnToHome();
+		}
 		
 //		System.out.println((System.nanoTime()-tStart)/1000000000d+"s");
 	}
@@ -2883,9 +2871,5 @@ public class Game implements Serializable, XMLSaving {
 
 	public SlaveryUtil getSlaveryUtil() {
 		return slaveryUtil;
-	}
-
-	public NPC GetArkhi() {
-		return (NPC) this.getNPCById(getUniqueNPCId(CompanionArkhi.class));
 	}
 }

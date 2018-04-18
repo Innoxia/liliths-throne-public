@@ -29,6 +29,8 @@
 	
 	Gameplay:
 		<b>Added:</b> Clothing mod support. (Look in the mod folder for details.)
+		Updated personality types from being a set one-in-four, to having weights on five personality traits (Adventurousness, Agreeableness, Conscientiousness, Extroversion, and Neuroticism).
+		Added personality selection to teh new character screen. (If you want to set it on your current character, just save the game in this new version, then open the save file and search for 'personality' under your character's entry. You can edit the values there.)
 	
 	Clothing:
 		Updated all clothing to have correct concealments, and added appropriate tooltip information to let you know what clothing is responsible. (e.g. Panties being worn beneath a skirt will be hidden to you until you unequip or pull up the skirt.)
@@ -57,24 +59,27 @@
 	
 	
 	
-	the -5 physique buff is actually -10 on the BDSM gear
+	
+	- Finish the spell system and add a few more weapons.
+		Personality
+			Starting selection
+			Show in character viewer
+		Companions
+		Add spell schools like perk window, with offensive and defensive trees for each
+			Spells, with several levels in each one
+			Gain points from books 
+		Weapons boost school's tree spell levels
+		Add arcane sword, spear, baton, riot shield, dagger. Add melee detection. Add hand-held crossbow, throwing spears (physical handle, arcane shaft).
+	
+	
+	
+	 When giving Ralph some head, it seems that the mouth status is displayed backwards. ("Ralph is sucking your dick!" rather than you're sucking his
 	
 	tube top
-	
-	
 	
 	Add prostitution in alleyways (if no license, enforcers can show up)
 	
 	dirty talk action duplicated for Kate
-	
-	[01:00]
-	
-	- Finish the spell system and add a few more weapons.
-		Companions & Personality rework
-		Add spell schools like perk window, with offensive and defensive trees for each
-			Spells, with several levels in each one
-		Weapons boost school's tree spell levels
-		Add arcane sword, spear, baton, riot shield, dagger. Add melee detection. Add hand-held crossbow, throwing spears (physical handle, arcane shaft).
 	
 	
 	- Add Submission content. (Special encounters for Imps and Slimes. Add slime TF quest. Adding content for the Imp fortresses, Gambling Den, and Bat caverns.)

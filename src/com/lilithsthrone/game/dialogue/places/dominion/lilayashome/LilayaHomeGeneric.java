@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.SexualOrientation;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.Rose;
+import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
@@ -35,7 +35,7 @@ import com.lilithsthrone.world.places.PlaceUpgrade;
 
 /**
  * @since 0.1.75
- * @version 0.1.97
+ * @version 0.2.4
  * @author Innoxia
  */
 public class LilayaHomeGeneric {
@@ -1614,27 +1614,6 @@ public class LilayaHomeGeneric {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			// Companion NPC test was here. Since I'm hoping to bring in Arkhi as a fully fledged companion soon, this code can be removed, but it's here in case any tests on companions will be needed :3
-			/*if (index == 1) {
-				if(!Main.game.getPlayer().hasCompanion(Main.game.GetArkhi()))
-				{
-					return new ResponseEffectsOnly("Invite Arkhi", "Invites Arkhi to travel with you."){
-						@Override
-						public void effects() {
-							Main.game.getPlayer().addCompanion(Main.game.GetArkhi());
-						}
-					};
-				}
-				else
-				{
-					return new Response("Invite Arkhi", "Arkhi is already traveling with you!", null){
-					};
-				}
-			}
-			else
-			{
-				return null;
-			}*/
 			return null;
 		}
 	};

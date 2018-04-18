@@ -1782,6 +1782,15 @@ border-radius:5px;
 	background:#292929;
 	cursor:pointer;
 }
+.title-button.no-select{
+	cursor:default;
+}
+.title-button.no-select:hover{
+	background:#292929;
+}
+.title-button.no-select:active {
+	background:#292929;
+}
 .title-button:hover{
 	background:#333;
 }

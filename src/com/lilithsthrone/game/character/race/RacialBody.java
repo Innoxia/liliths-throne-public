@@ -6,8 +6,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.lilithsthrone.game.character.Personality;
-import com.lilithsthrone.game.character.SexualOrientation;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.AttributeRange;
 import com.lilithsthrone.game.character.body.types.AntennaType;
@@ -50,6 +48,9 @@ import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.body.valueEnums.WingSize;
 import com.lilithsthrone.game.character.gender.Gender;
+import com.lilithsthrone.game.character.persona.PersonalityTrait;
+import com.lilithsthrone.game.character.persona.PersonalityWeight;
+import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.ListValue;
@@ -119,8 +120,13 @@ public enum RacialBody {
 			GenitalArrangement.NORMAL) {
 
 		@Override
-		public Personality getPersonality() {
-			return generatePersonality(50, 10, 20, 20);
+		public Map<PersonalityTrait, PersonalityWeight> getPersonality() {
+			return Util.newHashMapOfValues(
+					new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.HIGH),
+					new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.HIGH),
+					new Value<>(PersonalityTrait.EXTROVERSION, PersonalityWeight.AVERAGE),
+					new Value<>(PersonalityTrait.NEUROTICISM, PersonalityWeight.AVERAGE),
+					new Value<>(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.AVERAGE));
 		}
 		
 		@Override
@@ -157,10 +163,15 @@ public enum RacialBody {
 			VaginaType.DEMON_COMMON, Wetness.SEVEN_DROOLING, Capacity.ONE_EXTREMELY_TIGHT, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.SEVEN_ELASTIC, OrificePlasticity.ZERO_RUBBERY,
 			WingType.DEMON_COMMON, WingSize.ONE_SMALL, WingSize.ONE_SMALL,
 			GenitalArrangement.NORMAL) {
-		
+
 		@Override
-		public Personality getPersonality() {
-			return generatePersonality(40, 10, 30, 20);
+		public Map<PersonalityTrait, PersonalityWeight> getPersonality() {
+			return Util.newHashMapOfValues(
+					new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.AVERAGE),
+					new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.AVERAGE),
+					new Value<>(PersonalityTrait.EXTROVERSION, PersonalityWeight.AVERAGE),
+					new Value<>(PersonalityTrait.NEUROTICISM, PersonalityWeight.AVERAGE),
+					new Value<>(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.HIGH));
 		}
 		
 		@Override
@@ -198,8 +209,13 @@ public enum RacialBody {
 			GenitalArrangement.NORMAL) {
 		
 		@Override
-		public Personality getPersonality() {
-			return generatePersonality(40, 10, 30, 20);
+		public Map<PersonalityTrait, PersonalityWeight> getPersonality() {
+			return Util.newHashMapOfValues(
+					new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.LOW),
+					new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.LOW),
+					new Value<>(PersonalityTrait.EXTROVERSION, PersonalityWeight.AVERAGE),
+					new Value<>(PersonalityTrait.NEUROTICISM, PersonalityWeight.AVERAGE),
+					new Value<>(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.AVERAGE));
 		}
 		
 		@Override
@@ -236,11 +252,6 @@ public enum RacialBody {
 			VaginaType.COW_MORPH, Wetness.THREE_WET, Capacity.TWO_TIGHT, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FOUR_LIMBER, OrificePlasticity.THREE_RESILIENT,
 			WingType.NONE, WingSize.ZERO_TINY, WingSize.ZERO_TINY,
 			GenitalArrangement.NORMAL) {
-
-		@Override
-		public Personality getPersonality() {
-			return generatePersonality(30, 50, 10, 10);
-		}
 	},
 	
 	// CANINES:
@@ -273,8 +284,13 @@ public enum RacialBody {
 			GenitalArrangement.NORMAL) {
 
 		@Override
-		public Personality getPersonality() {
-			return generatePersonality(60, 10, 20, 10);
+		public Map<PersonalityTrait, PersonalityWeight> getPersonality() {
+			return Util.newHashMapOfValues(
+					new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.HIGH),
+					new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.AVERAGE),
+					new Value<>(PersonalityTrait.EXTROVERSION, PersonalityWeight.HIGH),
+					new Value<>(PersonalityTrait.NEUROTICISM, PersonalityWeight.AVERAGE),
+					new Value<>(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.AVERAGE));
 		}
 	},
 	
@@ -306,10 +322,6 @@ public enum RacialBody {
 			WingType.NONE, WingSize.ZERO_TINY, WingSize.ZERO_TINY,
 			GenitalArrangement.NORMAL) {
 
-		@Override
-		public Personality getPersonality() {
-			return generatePersonality(20, 10, 60, 10);
-		}
 	},
 
 	// FELINES:
@@ -341,10 +353,6 @@ public enum RacialBody {
 			WingType.NONE, WingSize.ZERO_TINY, WingSize.ZERO_TINY,
 			GenitalArrangement.NORMAL) {
 
-		@Override
-		public Personality getPersonality() {
-			return generatePersonality(30, 20, 10, 40);
-		}
 	},
 
 	// EQUINES:
@@ -376,10 +384,6 @@ public enum RacialBody {
 			WingType.NONE, WingSize.ZERO_TINY, WingSize.ZERO_TINY,
 			GenitalArrangement.NORMAL) {
 
-		@Override
-		public Personality getPersonality() {
-			return generatePersonality(20, 40, 30, 10);
-		}
 	},
 
 	REINDEER_MORPH(Util.newHashMapOfValues(
@@ -409,10 +413,6 @@ public enum RacialBody {
 			WingType.NONE, WingSize.ZERO_TINY, WingSize.ZERO_TINY,
 			GenitalArrangement.NORMAL) {
 	
-		@Override
-		public Personality getPersonality() {
-			return generatePersonality(30, 30, 20, 20);
-		}
 	},
 
 	// REPTILE:
@@ -442,11 +442,6 @@ public enum RacialBody {
 		    VaginaType.ALLIGATOR_MORPH, Wetness.SEVEN_DROOLING, Capacity.ONE_EXTREMELY_TIGHT, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.SEVEN_ELASTIC, OrificePlasticity.ZERO_RUBBERY,
 		    WingType.NONE, WingSize.ZERO_TINY, WingSize.ZERO_TINY,
 		    GenitalArrangement.CLOACA) {
-
-		@Override
-		public Personality getPersonality() {
-			return generatePersonality(10, 40, 40, 10);
-		}
 		
 		@Override
 		public boolean isHairTypeLinkedToFaceType() {
@@ -482,10 +477,6 @@ public enum RacialBody {
 			WingType.NONE, WingSize.ZERO_TINY, WingSize.ZERO_TINY,
 			GenitalArrangement.NORMAL) {
 
-		@Override
-		public Personality getPersonality() {
-			return generatePersonality(40, 10, 10, 40);
-		}
 	},
 
 	RAT_MORPH(Util.newHashMapOfValues(
@@ -516,8 +507,13 @@ public enum RacialBody {
 			GenitalArrangement.NORMAL) {
 
 		@Override
-		public Personality getPersonality() {
-			return generatePersonality(40, 10, 10, 40);
+		public Map<PersonalityTrait, PersonalityWeight> getPersonality() {
+			return Util.newHashMapOfValues(
+					new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.LOW),
+					new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.AVERAGE),
+					new Value<>(PersonalityTrait.EXTROVERSION, PersonalityWeight.AVERAGE),
+					new Value<>(PersonalityTrait.NEUROTICISM, PersonalityWeight.AVERAGE),
+					new Value<>(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.AVERAGE));
 		}
 	},
 
@@ -548,10 +544,6 @@ public enum RacialBody {
 			WingType.NONE, WingSize.ZERO_TINY, WingSize.ZERO_TINY,
 			GenitalArrangement.NORMAL) {
 
-		@Override
-		public Personality getPersonality() {
-			return generatePersonality(40, 10, 10, 40);
-		}
 	},
 
 	BAT_MORPH(Util.newHashMapOfValues(
@@ -582,8 +574,13 @@ public enum RacialBody {
 			GenitalArrangement.NORMAL) {
 
 		@Override
-		public Personality getPersonality() {
-			return generatePersonality(40, 10, 10, 40);
+		public Map<PersonalityTrait, PersonalityWeight> getPersonality() {
+			return Util.newHashMapOfValues(
+					new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.AVERAGE),
+					new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.AVERAGE),
+					new Value<>(PersonalityTrait.EXTROVERSION, PersonalityWeight.HIGH),
+					new Value<>(PersonalityTrait.NEUROTICISM, PersonalityWeight.AVERAGE),
+					new Value<>(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.AVERAGE));
 		}
 	},
 	
@@ -614,10 +611,15 @@ public enum RacialBody {
 			VaginaType.HARPY, Wetness.THREE_WET, Capacity.TWO_TIGHT, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FOUR_LIMBER, OrificePlasticity.THREE_RESILIENT,
 			WingType.NONE, WingSize.ZERO_TINY, WingSize.ZERO_TINY,
 			GenitalArrangement.CLOACA) {
-		
+
 		@Override
-		public Personality getPersonality() {
-			return generatePersonality(70, 10, 10, 10);
+		public Map<PersonalityTrait, PersonalityWeight> getPersonality() {
+			return Util.newHashMapOfValues(
+					new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.LOW),
+					new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.AVERAGE),
+					new Value<>(PersonalityTrait.EXTROVERSION, PersonalityWeight.HIGH),
+					new Value<>(PersonalityTrait.NEUROTICISM, PersonalityWeight.HIGH),
+					new Value<>(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.AVERAGE));
 		}
 		
 		@Override
@@ -867,38 +869,18 @@ public enum RacialBody {
 		return valueOfRace(availableRaces.get(Util.random.nextInt(availableRaces.size())));
 	}
 	
-	public Personality getPersonality() {
-		return generatePersonality(25, 25, 25, 25);
-	}
-	
-	private static Personality generatePersonality(int sociableChance, int calmChance, int commandingChance, int analyticalChance) {
-		Map<Personality, Integer> personalityChance = new HashMap<>();
-		
-		for(Personality p : Personality.values()) {
-			switch(p) {
-				case AIR_SOCIABLE:
-					personalityChance.put(p, sociableChance);
-					break;
-				case EARTH_CALM:
-					personalityChance.put(p, calmChance);
-					break;
-				case FIRE_COMMANDING:
-					personalityChance.put(p, commandingChance);
-					break;
-				case WATER_ANALYTICAL:
-					personalityChance.put(p, analyticalChance);
-					break;
-			}
-		}
-		int roll = Util.random.nextInt(sociableChance + calmChance + commandingChance + analyticalChance)+1;
-		int total = 0;
-		for(Entry<Personality, Integer> e : personalityChance.entrySet()) {
-			total+=e.getValue();
-			if(roll <= total) {
-				return e.getKey();
-			}
-		}
-		return Personality.AIR_SOCIABLE;
+	/**
+	 * @return A map of personality traits and their normal associated values for this race.</br>
+	 *  When generating an individual's personality, there is a 25% chance of the weight of each of these traits being moved up or down by 1 (e.g. from AVERAGE to HIGH), and a 5% chance of them being moved up or down 2 (e.g. from LOW to HIGH).</br>
+	 *  As a result, a race with all weights set to AVERAGE should end up with a mostly-balanced personality, with one or two traits being skewed up or down.
+	 */
+	public Map<PersonalityTrait, PersonalityWeight> getPersonality() {
+		return Util.newHashMapOfValues(
+				new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.AVERAGE),
+				new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.AVERAGE),
+				new Value<>(PersonalityTrait.EXTROVERSION, PersonalityWeight.AVERAGE),
+				new Value<>(PersonalityTrait.NEUROTICISM, PersonalityWeight.AVERAGE),
+				new Value<>(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.AVERAGE));
 	}
 	
 	public SexualOrientation getSexualOrientation(Gender gender) {
