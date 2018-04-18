@@ -117,7 +117,7 @@ public enum PlaceType {
 		}
 	},
 	
-	DOMINION_HARPY_NESTS_ENTRANCE("Harpy Nests", "dominion/harpyNestIcon", BaseColour.MAGENTA, Colour.MAP_BACKGROUND, HarpyNestsDialogue.OUTSIDE, Encounter.DOMINION_STREET, true, false, false, true, "in the streets of Dominion") {
+	DOMINION_HARPY_NESTS_ENTRANCE("Harpy Nests", "dominion/harpyNestIcon", BaseColour.MAGENTA, Colour.MAP_BACKGROUND_DARK, HarpyNestsDialogue.OUTSIDE, Encounter.DOMINION_STREET, true, false, false, true, "in the streets of Dominion") {
 		@Override
 		public boolean isDangerous() {
 			return Main.game.getCurrentWeather() == Weather.MAGIC_STORM;
