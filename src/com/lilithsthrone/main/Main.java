@@ -592,47 +592,21 @@ public class Main extends Application {
 		new Thread(gen).start();
 	}
 	
-	// Yes, this is probably a stupid way to do it... x_x
 	public static boolean isVersionOlderThan(String versionToCheck, String versionToCheckAgainst) {
 		String[] v1 = versionToCheck.split("\\.");
 		String[] v2 = versionToCheckAgainst.split("\\.");
 		
 		try {
-			int v1i1 = Integer.valueOf((v1[0]+"00").substring(0, 3));
-			int v1i2 = Integer.valueOf((v1[1]+"00").substring(0, 3));
-			int v1i3 = 0;
-			int v1i4 = 0;
-			if(v1.length>2) {
-				v1i3 = Integer.valueOf((v1[2]+"00").substring(0, 3));
-			}
-			if(v1.length>3) {
-				v1i4 = Integer.valueOf((v1[3]+"00").substring(0, 3));
-			}
-			int v2i1 = Integer.valueOf((v2[0]+"00").substring(0, 3));
-			int v2i2 = Integer.valueOf((v2[1]+"00").substring(0, 3));
-			int v2i3 = 0;
-			int v2i4 = 0;
-			if(v2.length>2) {
-				v2i3 = Integer.valueOf((v2[2]+"00").substring(0, 3));
-			}
-			if(v2.length>3) {
-				v2i4 = Integer.valueOf((v2[3]+"00").substring(0, 3));
-			}
+			int maxlength = (v1.length > v2.length) ? v1.length : v2.length;
+			for (int i = 0; i < maxlength; i++) {
+				int v1i = (i < v1.length) ? Integer.valueOf((v1[i]+"00").substring(0, 3)) : 0;
+				int v2i = (i < v2.length) ? Integer.valueOf((v2[i]+"00").substring(0, 3)) : 0;
 			
-			if(v1i1 < v2i1) {
-				return true;
-			} else if(v1i1 == v2i1) {
-				if(v1i2 < v2i2) {
+				if (v1i < v2i) {
 					return true;
-				} else if(v1i2 == v2i2) {
-					if(v1i3 < v2i3) {
-						return true;
-					} else if(v1i3 == v2i3) {
-						if(v1i4 < v2i4) {
-							return true;
-						}
-					}
-				}
+				} else if (v1i > v2i) {
+					return false;
+				} 
 			}
 			
 		} catch(Exception ex) {
