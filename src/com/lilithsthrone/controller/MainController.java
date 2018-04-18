@@ -4330,6 +4330,29 @@ public class MainController implements Initializable {
 					}
 				}
 			}
+			if (Main.game.getCurrentDialogueNode() == PhoneDialogue.MENU) {
+				Cell[][] grid = Main.game.getWorlds().get(Main.game.getPlayer().getWorldLocation()).getGrid();
+
+				for(int i=grid[0].length-1; i>=0; i--) {
+					for(int j=0; j<grid.length; j++) {
+						Cell c = grid[j][i];
+						boolean discovered = c.isDiscovered() || Main.game.isDebugMode();
+						if(!discovered) {
+							continue;
+						}
+						if(c.getPlace().getPlaceType() == PlaceType.GENERIC_IMPASSABLE) {
+							continue;
+						}
+						id = "MAP_NODE_" + i + "_" + j;
+						
+						addEventListener(document, id, "mousemove", moveTooltipListener, false);
+						addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+						
+						TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation(Util.capitaliseSentence(c.getPlaceName()), "");
+						addEventListener(document, id, "mouseenter", el2, false);
+					}
+				}
+			}
 		}
 
 		// Hotkey bindings:

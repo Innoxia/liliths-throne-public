@@ -1146,7 +1146,9 @@ public enum RenderingEngine {
 					boolean dangerousTile = c.getPlace().getPlaceType().isDangerous();
 					
 					mapSB.append(
-							"<div class='map-icon"+(dangerousTile?" dangerous":"")+"' style='width:"+(width-0.5)+"%; margin:0.25%; "+border+" "+background+"'>"
+							"<div class='map-icon"+(dangerousTile?" dangerous":"")+"'"
+									+ " style='width:"+(width-0.5)+"%; margin:0.25%; "+border+" "+background+"'" 
+									+ " id='MAP_NODE_" + i + "_" + j + "'>"
 								+(playerOnTile && (c.getPlace() == null || c.getPlace().getSVGString()==null)
 									?getPlayerIcon(dangerousTile)
 									:"")
