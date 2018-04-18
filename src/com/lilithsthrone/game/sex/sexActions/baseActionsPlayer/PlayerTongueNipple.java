@@ -145,6 +145,19 @@ public class PlayerTongueNipple {
 		}
 
 		@Override
+		public ArousalIncrease getArousalGainTarget()
+		{
+			if(Sex.getSexPace(Main.game.getPlayer())==SexPace.SUB_RESISTING)
+			{
+				return ArousalIncrease.ZERO_NONE;
+			}
+			else
+			{
+				return ArousalIncrease.TWO_LOW;
+			}
+		}
+		
+		@Override
 		public String getActionDescription() {
 			return "Pull [pc.name]'s face into your [npc.breasts] and get [pc.herHim] to start drinking your [npc.milk].";
 		}

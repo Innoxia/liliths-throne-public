@@ -45,6 +45,19 @@ public class PartnerFingerNipple {
 		}
 
 		@Override
+		public ArousalIncrease getArousalGainTarget()
+		{
+			if(Sex.getSexPace(Main.game.getPlayer())==SexPace.SUB_RESISTING)
+			{
+				return ArousalIncrease.ZERO_NONE;
+			}
+			else
+			{
+				return ArousalIncrease.THREE_NORMAL;
+			}
+		}
+		
+		@Override
 		public String getDescription() {
 			if(!Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.NIPPLES)){
 
@@ -1050,6 +1063,19 @@ public class PartnerFingerNipple {
 		}
 
 		@Override
+		public ArousalIncrease getArousalGainTarget()
+		{
+			if(Sex.getSexPace(Sex.getActivePartner())==SexPace.SUB_RESISTING)
+			{
+				return ArousalIncrease.ZERO_NONE;
+			}
+			else
+			{
+				return ArousalIncrease.THREE_NORMAL;
+			}
+		}
+		
+		@Override
 		public String getDescription() {
 			if(!Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.NIPPLES)){
 
@@ -1314,6 +1340,19 @@ public class PartnerFingerNipple {
 					&& Sex.getSexPace(Main.game.getPlayer())!=SexPace.SUB_RESISTING;
 		}
 
+		@Override
+		public ArousalIncrease getArousalGainTarget()
+		{
+			if(Sex.getSexPace(Sex.getActivePartner())==SexPace.SUB_RESISTING)
+			{
+				return ArousalIncrease.ZERO_NONE;
+			}
+			else
+			{
+				return ArousalIncrease.THREE_NORMAL;
+			}
+		}
+		
 		@Override
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
