@@ -785,4 +785,8 @@ public class Util {
 		return Util.toStringList(displacedList, DisplacementType::getDescriptionPast, "and");
 	}
 
+	public static <Any> Any randomItemFrom(List<Any> list)
+	{
+		return list.get(Util.random.nextInt(list.size()));
+	}
 }
