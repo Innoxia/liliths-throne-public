@@ -696,10 +696,11 @@ public interface SexActionInterface {
 	
 	public default boolean isBannedFromSexManager() {
 		if(getAssociatedOrificeType() != null) {
-			for(GameCharacter character : Sex.getAllParticipants()) {
-				if(Sex.getSexManager().getOrificesBannedMap().get(character)!=null && Sex.getSexManager().getOrificesBannedMap().get(character).contains(getAssociatedOrificeType())) {
-					return true;
-				}
+			GameCharacter character = Sex.getActivePartner();
+			if(Sex.getSexManager().getOrificesBannedMap().get(character)!=null
+					&& Sex.getSexManager().getOrificesBannedMap().get(character).contains(getAssociatedOrificeType())
+					&& getParticipantType().equals(SexParticipantType.PITCHER)) {
+				return true;
 			}
 		}
 		
