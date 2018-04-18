@@ -789,4 +789,9 @@ public class Util {
 	{
 		return list.get(Util.random.nextInt(list.size()));
 	}
+
+	public static int randomItemFrom(int[] array)
+	{
+		return array[Util.random.nextInt(array.length)];
+	}
 }
