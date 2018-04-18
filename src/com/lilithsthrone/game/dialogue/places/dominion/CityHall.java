@@ -1,7 +1,7 @@
 package com.lilithsthrone.game.dialogue.places.dominion;
 
-import com.lilithsthrone.game.character.NameTriplet;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
+import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;

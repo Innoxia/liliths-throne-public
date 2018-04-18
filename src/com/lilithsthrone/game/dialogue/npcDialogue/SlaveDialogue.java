@@ -398,7 +398,28 @@ public class SlaveDialogue {
 						};
 					}
 					
-				}  else if (index == 6) {
+				} else if (index == 5) {
+					if(!Main.game.getPlayer().hasCompanion(slave())) {
+						return new Response("Add to party",
+								"Command [npc.name] to start following you around.",
+								SLAVE_START){
+							@Override
+							public void effects() {
+								System.out.println(Main.game.getPlayer().addCompanion(slave()));
+							}
+						};
+					} else {
+						return new Response("Remove from party",
+								"Command [npc.name] to leave your party.",
+								SLAVE_START){
+							@Override
+							public void effects() {
+								Main.game.getPlayer().removeCompanion(slave());
+							}
+						};
+					}
+					
+				} else if (index == 6) {
 					if(!slave().NPCFlagValues.contains(NPCFlagValue.flagSlaveEncourage)) {
 						return new Response("Work", "Ask [npc.name] about how [npc.her] work's going.", SLAVE_ENCOURAGE) {
 							@Override

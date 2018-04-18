@@ -120,6 +120,13 @@ import com.lilithsthrone.game.character.npc.dominion.HarpyNymphoCompanion;
 import com.lilithsthrone.game.character.npc.dominion.ReindeerOverseer;
 import com.lilithsthrone.game.character.npc.dominion.Scarlett;
 import com.lilithsthrone.game.character.npc.submission.SubmissionAttacker;
+import com.lilithsthrone.game.character.persona.History;
+import com.lilithsthrone.game.character.persona.MoralityValue;
+import com.lilithsthrone.game.character.persona.NameTriplet;
+import com.lilithsthrone.game.character.persona.PersonalityTrait;
+import com.lilithsthrone.game.character.persona.PersonalityWeight;
+import com.lilithsthrone.game.character.persona.Relationship;
+import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
@@ -207,7 +214,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	protected int level;
 	
 	protected History history;
-	protected Personality personality;
+	protected Map<PersonalityTrait, PersonalityWeight> personality;
 	protected SexualOrientation sexualOrientation;
 	private float obedience;
 
@@ -274,6 +281,12 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	
 	protected boolean[] workHours;
 	
+	//Companion
+	private List<String> companions;
+	String partyLeader;
+	
+	private int maxCompanions;
+	
 	
 	// Combat:
 	protected Set<SpecialAttack> specialAttacks;
@@ -337,7 +350,29 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		homeLocation = location;
 		
 		history = History.UNEMPLOYED;
-		personality = startingRace.getPersonality();
+		
+		// Set up personality:
+		personality = new HashMap<>();
+		for(Entry<PersonalityTrait, PersonalityWeight> entry : startingRace.getPersonality().entrySet()) {
+			double rnd = Math.random();
+			if(rnd<0.7) {
+				personality.put(entry.getKey(), entry.getValue());
+			} else if(rnd<0.95) {
+				if((Math.random()<0.5f && entry.getValue().getValue()>PersonalityWeight.LOW.getValue()) || entry.getValue().getValue()==PersonalityWeight.HIGH.getValue()) {
+					personality.put(entry.getKey(), PersonalityWeight.getPersonalityWeightFromInt(entry.getValue().getValue()-1));
+				} else {
+					personality.put(entry.getKey(), PersonalityWeight.getPersonalityWeightFromInt(entry.getValue().getValue()+1));
+				}
+				
+			} else {
+				if((Math.random()<0.5f && entry.getValue().getValue()>PersonalityWeight.LOW.getValue()) || entry.getValue().getValue()==PersonalityWeight.HIGH.getValue()) {
+					personality.put(entry.getKey(), PersonalityWeight.getPersonalityWeightFromInt(entry.getValue().getValue()-2));
+				} else {
+					personality.put(entry.getKey(), PersonalityWeight.getPersonalityWeightFromInt(entry.getValue().getValue()+2));
+				}
+			}
+		}
+		
 		sexualOrientation = startingRace.getSexualOrientation(startingGender);
 
 		affectionMap = new HashMap<>();
@@ -450,6 +485,10 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		mana = getAttributeValue(Attribute.MANA_MAXIMUM);
 		setLust(getRestingLust());
 		
+		//Companion initialization
+		companions = new ArrayList<>();
+		setMaxCompanions(1);
+		
 	}
 	
 
@@ -481,7 +520,18 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "level", String.valueOf(this.getTrueLevel()));
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "version", Main.VERSION_NUMBER);
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "history", this.getHistory().toString());
+		
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "personality", this.getPersonality().toString());
+		Element personalityElement = doc.createElement("personality");
+		characterCoreInfo.appendChild(personalityElement);
+		for(Entry<PersonalityTrait, PersonalityWeight> entry: getPersonality().entrySet()){
+			Element element = doc.createElement("personalityEntry");
+			personalityElement.appendChild(element);
+			
+			CharacterUtils.addAttribute(doc, personalityElement, "trait", entry.getKey().toString());
+			CharacterUtils.addAttribute(doc, personalityElement, "weight", entry.getValue().toString());
+		}
+		
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "sexualOrientation", this.getSexualOrientation().toString());
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "obedience", String.valueOf(this.getObedienceValue()));
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "genderIdentity", String.valueOf(this.getGenderIdentity()));
@@ -744,6 +794,25 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		
 		
 		
+		// ************** Companons **************//
+
+		Element companonElement = doc.createElement("companions");
+		properties.appendChild(companonElement);
+		
+		Element companionsFollowing = doc.createElement("companionsFollowing");
+		companonElement.appendChild(companionsFollowing);
+		for(String companion : this.getCompanionsId()) {
+			Element element = doc.createElement("companion");
+			companionsFollowing.appendChild(element);
+			
+			CharacterUtils.addAttribute(doc, element, "id", companion);
+		}
+		
+		CharacterUtils.createXMLElementWithValue(doc, companonElement, "partyLeader", this.getPartyLeader()==null?"":this.getPartyLeader().getId());
+		CharacterUtils.createXMLElementWithValue(doc, companonElement, "maxCompanions", String.valueOf(this.getMaxCompanions()));
+		
+		
+		
 		// ************** Sex Stats **************//
 		
 		Element characterSexStats = doc.createElement("sexStats");
@@ -942,14 +1011,23 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				CharacterUtils.appendToImportLog(log, "</br>History import failed. Set history to: "+character.getHistory());
 			}
 		}
-		if(element.getElementsByTagName("personality").getLength()!=0) {
-			String personality = ((Element)element.getElementsByTagName("personality").item(0)).getAttribute("value");
-			if(personality.equals("AIR_SOCIALABLE")) {
-				personality = "AIR_SOCIABLE";
+		
+		if(element.getElementsByTagName("personality").getLength()!=0 && !Main.isVersionOlderThan(Main.VERSION_NUMBER, "0.2.3.5")) {
+			nodes = parentElement.getElementsByTagName("personality");
+			Element personalityElement = (Element) nodes.item(0);
+			if(personalityElement!=null) {
+				for(int i=0; i<personalityElement.getElementsByTagName("personalityEntry").getLength(); i++){
+					Element e = ((Element)personalityElement.getElementsByTagName("personalityEntry").item(i));
+					try {
+						character.setPersonalityTrait(PersonalityTrait.valueOf(e.getAttribute("trait")), PersonalityWeight.valueOf(e.getAttribute("weight")));
+						CharacterUtils.appendToImportLog(log, "</br>Added personality: "+e.getAttribute("trait")+" "+e.getAttribute("weight"));
+					}catch(IllegalArgumentException ex){
+					}
+				}
 			}
-			character.setPersonality(Personality.valueOf(personality));
-			CharacterUtils.appendToImportLog(log, "</br>Set personality: "+character.getPersonality());
+		
 		}
+		
 		if(element.getElementsByTagName("obedience").getLength()!=0) {
 			character.setObedience(Float.valueOf(((Element)element.getElementsByTagName("obedience").item(0)).getAttribute("value")));
 			CharacterUtils.appendToImportLog(log, "</br>Set obedience: "+character.getObedience());
@@ -1510,6 +1588,30 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		
 		
 		
+		// ************** Companions **************//
+		
+		nodes = parentElement.getElementsByTagName("companions");
+		Element companionsElement = (Element) nodes.item(0);
+		if(companionsElement!=null) {
+			
+			for(int i=0; i<((Element) companionsElement.getElementsByTagName("companionsFollowing").item(0)).getElementsByTagName("companion").getLength(); i++){
+				Element e = ((Element)companionsElement.getElementsByTagName("companion").item(i));
+				
+				if(!e.getAttribute("id").equals("NOT_SET")) {
+					character.getCompanionsId().add(e.getAttribute("id"));
+					CharacterUtils.appendToImportLog(log, "</br>Added companion: "+e.getAttribute("id"));
+				}
+			}
+			
+			character.setPartyLeader(((Element)companionsElement.getElementsByTagName("partyLeader").item(0)).getAttribute("value"));
+			CharacterUtils.appendToImportLog(log, "</br>Set party leader: "+((Element)companionsElement.getElementsByTagName("partyLeader").item(0)).getAttribute("value"));
+			
+			character.setMaxCompanions(Integer.valueOf(((Element)companionsElement.getElementsByTagName("maxCompanions").item(0)).getAttribute("value")));
+			CharacterUtils.appendToImportLog(log, "</br>Set max companions: "+String.valueOf(character.getMaxCompanions()));
+		}
+		
+		
+		
 		// ************** Sex Stats **************//
 		
 		nodes = parentElement.getElementsByTagName("sexStats");
@@ -1965,11 +2067,15 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		updateAttributeListeners();
 	}
 	
-	public Personality getPersonality() {
+	public Map<PersonalityTrait, PersonalityWeight> getPersonality() {
 		return personality;
 	}
 
-	public void setPersonality(Personality personality) {
+	public void setPersonalityTrait(PersonalityTrait trait, PersonalityWeight weight) {
+		getPersonality().put(trait, weight);
+	}
+	
+	public void setPersonality(Map<PersonalityTrait, PersonalityWeight> personality) {
 		this.personality = personality;
 	}
 
@@ -2413,6 +2519,135 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	public boolean isSlave() {
 		return !getOwnerId().isEmpty();
 	}
+	
+	// Companions:
+	
+	/**
+	 * Adds a companion character, if possible. Removes character from a previous party.
+	 * @param npc
+	 * @return
+	 */
+	public boolean addCompanion(GameCharacter character) {
+		if(this.canHaveMoreCompanions() && !character.isPlayer() && getPartyLeader() == null) {
+			if(character.getPartyLeader() != null) {
+				character.getPartyLeader().removeCompanion(character);
+			}
+			character.setPartyLeader(this.getId());
+			return this.companions.add(character.getId());
+			
+		} else {
+			return false;
+		}
+	}
+	
+	/**
+	 * Removes a companion NPC 
+	 */
+	public void removeCompanion(GameCharacter character) {
+		character.setPartyLeader("");
+		this.companions.remove(character.getId());
+	}
+	
+	/**
+	 * Returns true if the character is currently the character's companion.
+	 */
+	public boolean hasCompanion(GameCharacter character) {
+		return this.companions.contains(character.getId());
+	}
+	
+	/**
+	 * Returns party leader or null if no party is led.
+	 */
+	public GameCharacter getPartyLeader() {
+		if(this.partyLeader==null || this.partyLeader.isEmpty()) {
+			return null;
+		}
+		return Main.game.getNPCById(partyLeader);
+	}
+	
+	public int getMaxCompanions() {
+		return maxCompanions;
+	}
+	
+	/**
+	 * Adjusts maximum companion amount. Set to -1 to avoid checking.
+	 */
+	public void setMaxCompanions(int maxCompanions) {
+		this.maxCompanions = maxCompanions;
+	}
+
+	public List<String> getCompanionsId() {
+		return this.companions;
+	}
+	
+	/**<b>Do not call this method directly! Use the owner's addCompanion() and removeCompanion() methods!</b>*/
+	protected void setPartyLeader(GameCharacter owner) {
+		this.partyLeader = owner.getId();
+	}
+
+	/**<b>Do not call this method directly! Use the owner's addCompanion() and removeCompanion() methods!</b>*/
+	protected void setPartyLeader(String owner) {
+		this.partyLeader = owner;
+	}
+	
+	/**
+	 * Gets the character's companion NPCs, if any.
+	 */
+	public List<GameCharacter> getCompanions() {
+		List<GameCharacter> listToReturn = new ArrayList<>();
+		for(String companionID : this.companions) {
+			listToReturn.add(Main.game.getNPCById(companionID));
+		}
+		return listToReturn;
+	}
+	
+	public boolean canHaveMoreCompanions() {
+		return this.maxCompanions != -1 && companions.size() < maxCompanions;
+	}
+	
+	/**
+	 * Called when the player does something in relation to the value and it's important to the NPC. Override for custom behavior.
+	 * @param source
+	 * @param moral
+	 * @param power
+	 */
+	public void moralityCheck(GameCharacter source, MoralityValue moral, float power) {
+		return;
+	}
+	
+	public void companionshipCheck() {
+		if(!this.isCompanionAvailable(Main.game.getNPCById(partyLeader))) {
+			Main.game.getNPCById(partyLeader).removeCompanion(this);
+		}
+	}
+	
+	/**
+	 * Override if needed. Returns true if this companion is available to that character. Is called during turn updates to make sure NPCs keep their companionship state updated. 
+	 */
+	public boolean isCompanionAvailable(GameCharacter character) {
+		return this.isSlave() && this.getOwner().equals(character);
+	}
+	
+	/**
+	 * Added during turn update to the report to make sure player knows why NPCs leave them. By default will just make some generic excuse up.
+	 */
+	public String getCompanionRejectionReason() {
+		return this.getName()+" leaves your party for unknown reasons.";
+	}
+	
+	/**
+	 * Override this to see if companion is willing to have sex with player
+	 */
+	public String getCompanionSexRejectionReason() {
+		return this.getName()+" doesn't want sex right now.";
+	}
+	
+	public final boolean isCompanionAvailableForSex() {
+		return getCompanionSexRejectionReason() == null
+				|| getCompanionSexRejectionReason().isEmpty();
+	}
+	
+	// Relationships:
 	
 	public Relationship getRelationship(GameCharacter character) {//TODO grandchildren, cousins, etc.
 		// If this character is the character's parent:
@@ -9076,7 +9311,14 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 
 	public void setLocation(Vector2i location) {
 		this.location = location;
-
+		if(this.companions != null)
+		{
+			for(String companionID : this.companions)
+			{
+				Main.game.getNPCById(companionID).setLocation(getWorldLocation(), location, false);
+			}
+		}
+		
 		updateLocationListeners();
 	}
 	
