@@ -8535,7 +8535,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			}
 		}
 		
-		if(modifiers.contains(FluidModifier.ADDICTIVE)) {
+		if(modifiers.contains(FluidModifier.ADDICTIVE) && (this.getAddiction(fluid)==null)) {
 			addAddiction(new Addiction(fluid, Main.game.getMinutesPassed(), charactersFluid.getId()));
 			if(isPlayer()) {
 				fluidIngestionSB.append("<p>"
