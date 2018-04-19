@@ -56,6 +56,7 @@
 		Fixed Vixen's Virility returning incorrect descriptions. (ltpatch)
 	
 	Other:
+		Added ChattyNeko's artwork for Nyan.
 		Moved the 'Explore' action from button 6 to 1. (I originally put it on 6 so that when you were spamming it to explore, you wouldn't accidentally skip the encounter dialogue. Now that 'Explore' always results in an encounter on the first press, there's no need for it to be so out of place.)
 		Added throat wetness, capacity, elasticity, and plasticity to the 'Body Stats' phone dialogue page, and added more throat descriptions to the selfie/character view page, as well as improving the coloured parts of all body description text.
 		Added formatting to essence counter, and made the formatting specific to locale. (So now it really should use a comma, period, or space depending on your computer's locale.)
