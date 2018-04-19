@@ -2,7 +2,7 @@ package com.lilithsthrone.game.inventory;
 
 /**
  * @since 0.2.1
- * @version 0.2.2
+ * @version 0.2.4
  * @author Innoxia
  */
 public enum ItemTag {
@@ -23,6 +23,7 @@ public enum ItemTag {
 	BOOK, 
 	GIFT,
 	DOMINION_ALLEYWAY_SPAWN,
-	SUBMISSION_TUNNEL_SPAWN;
+	SUBMISSION_TUNNEL_SPAWN,
+	BAT_CAVERNS_SPAWN;
 	
 }

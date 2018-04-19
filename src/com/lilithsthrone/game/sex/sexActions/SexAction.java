@@ -226,6 +226,11 @@ public abstract class SexAction implements SexActionInterface {
 				characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_INCEST);
 			}
 			
+			if(Sex.isPublicSex()) {
+				characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_EXHIBITIONIST);
+				characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_EXHIBITIONIST);
+			}
+			
 			if(this.getSexPace(characterPerformingAction)!=null) {
 				switch(this.getSexPace(characterPerformingAction)) {
 					case DOM_GENTLE:

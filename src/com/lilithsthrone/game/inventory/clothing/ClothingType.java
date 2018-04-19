@@ -8848,7 +8848,7 @@ public class ClothingType {
 								Util.newArrayListOfValues(
 										new ListValue<ClothingAccess>(ClothingAccess.CHEST),
 										new ListValue<ClothingAccess>(ClothingAccess.WAIST)),
-								concealedFullTorso)),
+								concealedPartialTorso)),
 					new ListValue<BlockedParts>(
 							new BlockedParts(
 									DisplacementType.PULLS_UP,
@@ -9735,7 +9735,7 @@ public class ClothingType {
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
 									new ListValue<ClothingAccess>(ClothingAccess.WAIST)),
-							concealedFullTorso))),
+							concealedPartialTorso))),
 			null,
 			Util.newArrayListOfValues(
 					new ListValue<Colour>(Colour.CLOTHING_BLUE),

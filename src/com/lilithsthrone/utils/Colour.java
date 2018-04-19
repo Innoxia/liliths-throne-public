@@ -181,6 +181,9 @@ public enum Colour {
 	DESIRE_STAGE_THREE(Util.newColour(0xFF3377), Util.newColour(0xf824ff), "dark pink"),
 	DESIRE_STAGE_FOUR(Util.newColour(0xffdf80), Util.newColour(0xffdf80), "gold"),
 
+
+	COMPANION(BaseColour.GREEN_LIGHT, "light green",  Util.newArrayListOfValues(new ListValue<>("companion"), new ListValue<>("companions"))),
+	
 	AFFECTION(BaseColour.PINK_LIGHT, "light pink",  Util.newArrayListOfValues(new ListValue<>("affection"))),
 	OBEDIENCE(BaseColour.PURPLE_LIGHT, "light purple",  Util.newArrayListOfValues(new ListValue<>("obedience"))),
 	

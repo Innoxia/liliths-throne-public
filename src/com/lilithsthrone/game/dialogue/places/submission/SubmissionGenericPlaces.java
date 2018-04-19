@@ -63,7 +63,7 @@ public class SubmissionGenericPlaces {
 			UtilText.nodeContentSB.setLength(0);
 			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "TUNNEL"));
 			
-			for(GameCharacter npc : Main.game.getCharactersPresent()) {
+			for(GameCharacter npc : Main.game.getNonCompanionCharactersPresent()) {
 				UtilText.nodeContentSB.append(((NPC) npc).getPresentInTileDescription());
 			}
 			
@@ -104,7 +104,13 @@ public class SubmissionGenericPlaces {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Bat Caverns", "Enter the bat caverns. <b>Not yet added!</b> (This will be a mini-area, which will contain a couple of side-quests.)", null);
+				return new ResponseEffectsOnly("Bat Caverns", "Enter the bat caverns.") {
+					@Override
+					public void effects() {
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "BAT_CAVERNS_ENTRY"));
+						Main.mainController.moveGameWorld(WorldType.BAT_CAVERNS, PlaceType.BAT_CAVERN_ENTRANCE, true);
+					}
+				};
 
 			} else {
 				return null;

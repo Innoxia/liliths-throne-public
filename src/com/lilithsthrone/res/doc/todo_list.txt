@@ -28,9 +28,11 @@
 	Patch notes:
 	
 	Gameplay:
+		<b>Added:</b> Companion system. You can just take one slave around with you for now, and the interaction options are a little limited (post-combat sex options haven't been implemented yet), but this adds functionality for adding unique followers later on. (Contribution from Irbynx.)
 		<b>Added:</b> Clothing mod support. (Look in the mod folder for details.)
 		Updated personality types from being a set one-in-four, to having weights on five personality traits (Adventurousness, Agreeableness, Conscientiousness, Extroversion, and Neuroticism).
-		Added personality selection to teh new character screen. (If you want to set it on your current character, just save the game in this new version, then open the save file and search for 'personality' under your character's entry. You can edit the values there.)
+		Added personality selection to the new character screen. (If you want to set it on your current character, just save the game in this new version, then open the save file and search for 'personality' under your character's entry. You can edit the values there.)
+		Added map of the Bat Caverns, along with bat-morph and slime encounters.
 	
 	Clothing:
 		Updated all clothing to have correct concealments, and added appropriate tooltip information to let you know what clothing is responsible. (e.g. Panties being worn beneath a skirt will be hidden to you until you unequip or pull up the skirt.)
@@ -44,6 +46,11 @@
 		Fixed strange behaviour when having sex with NPCs in stocks, where if it was banned for them to receive a certain type of sex, you would be banned from performing related sex actions as well. (Master of Puppets)
 		Changed sex actions so the only ones that reduce arousal are now ones related to denial. Resisting pace/actions no longer cause arousal to drop, and instead, arousal increases are zero on non-erogenous zone actions, and low on others. Having the non-con fetish sets these arousal increases to high. (Master of Puppets)
 		Restricted use of 'calm down' action to only be available when you're the dom, or when you have the same amount of control as the dom. (Master of Puppets)
+		Added tooltips to the phone's map page. (Master of Puppets)
+		Changed the code so that the 'new addiction' dialog only shows if the ingesting character isn't already addicted to the fluid, and otherwise shows the 'satisfied craving' dialog if the ingesting character is addicted. (AlacoGit)
+		Tidied up the game's version checking method. (lehardo)
+		Fixed some instances of incorrect cum parsing. (ltpatch)
+		Fixed issue with harpies not respecting your gender preferences. (Master of Puppets)
 	
 	Other:
 		Moved the 'Explore' action from button 6 to 1. (I originally put it on 6 so that when you were spamming it to explore, you wouldn't accidentally skip the encounter dialogue. Now that 'Explore' always results in an encounter on the first press, there's no need for it to be so out of place.)
@@ -54,6 +61,8 @@
 		Removed hard-coded sealing effects from all BDSM set gear, and made them have the 'sealing' enchantment by default instead.
 		The 'cattle' clothing set is now sold by Finch, instead of Nyan.
 		Reorganised Nyan's trading menus.
+		Added support in the code for adding custom artwork for the PlayerCharacter (follow the instructions in 'res -> images -> characters -> modding.txt' to add artwork).
+		Changed Dobermann subspecies name from the clunky 'Dobermann-morph' to just 'Dobermann'.
 	
 	Bugs:
 		Fixed (that annoying) bug where the game's tooltips could get stuck on your screen when alt-tabbing/changing window focus.
@@ -64,23 +73,25 @@
 		Fixed enchanting UI not showing correct cost reduction from 'Arcane Weaver' perk.
 		Fixed some bugs in the way clothing concealment was working.
 		Fixed several clothing displacements being erroneously available through other clothing.
+		Fixed bug where looking for trouble in the harpy nests would never return a harpy fight encounter.
+		(Hopefully) fixed that annoying bug where slave's stats would get stuck to the right of your screen.
+		Fixed bug where public sex would stop being counted as public as soon as you switched position.
 	
 	
 	
 	
-	Personality
-		Show in character viewer
-		
-	Companions
-		Test with slave
-		Outside
-		Lilaya's house
-		Rendering
-		Moving - cancel slave duties when companion
+	For this update, I finally finished the companion system, which I'd half-implemented when I added the Karl and Wolfgang encounter (for the fist instance of multiple-NPC combat).
+	I decided to add the companion system before doing the spell work, as I have plans for a few of the spells to summon elemental allies (which requires a companion system).
+	It's lacking proper post-sex options to get your companion involved, as I need to add NPC-on-NPC variants for sex actions. (I'm planning on doing this in 0.2.5.)
+	
+	I also added the framework for modding in clothing, which is my first proper step in adding mod support. Please bear with me as I continue to build up the size and scope of modding support over the versions ahead. ^^
+	
+	As the last major thing, I've added the map and basic content for the bat caverns, although the encounter text hasn't been filled in properly yet. With this now added, all of Submission's basic framework is complete.
+	There will be small internal maps for both the gambling den and the rat warren, but they will be of similar sizes to the Shopping Arcade's Supplier Depot.
 	
 	
-	Brax affection changes
 	
+	- Add Submission content. (Special encounters for Imps and Slimes. Add slime TF quest. Adding content for the Imp fortresses, Gambling Den, and Bat caverns.)
 	
 	- Finish the spell system and add a few more weapons.
 		Add spell schools like perk window, with offensive and defensive trees for each
@@ -90,17 +101,16 @@
 		Add arcane sword, spear, baton, riot shield, dagger. Add melee detection. Add hand-held crossbow, throwing spears (physical handle, arcane shaft).
 	
 	
-	
 	When giving Ralph some head, it seems that the mouth status is displayed backwards. ("Ralph is sucking your dick!" rather than you're sucking his
 	
 	tube top
+	
+	Brax affection changes
 	
 	Add prostitution in alleyways (if no license, enforcers can show up)
 	
 	dirty talk action duplicated for Kate
 	
-	
-	- Add Submission content. (Special encounters for Imps and Slimes. Add slime TF quest. Adding content for the Imp fortresses, Gambling Den, and Bat caverns.)
 	
 	
 	------------------------------
@@ -169,10 +179,6 @@
 	add arcaen/physical to clothing enchants.
 	
 	I've just been messing with the game recently and found some interesting stuff. Nothing like glitches, but just some things I was curious about. For example, I was messing with Brax, Bree, and Brandi interactions. The situation can go by punishing Brax into Bree from the dialogue, then Bree into Brandi. I was messing with the fetish tf potions, and found that you can change Brandi back into to Bree by erasing the bimbo fetish. You can also impregnate her, but she has no reaction to it. You can change her back from Bree into Brax too by taking away femininity. Of course, the only way to tell this has happened is by the clothes being distinct from Brax, Bree, and Brandi. This is because the dialogue prompts do not change. Anyway, it was just something I was messing with and thinking more about as I've been testing the force tf fetish, and just overall using items in sex which I find kind of confusing on when people will or will not accept potions or items.
-	
-	BDSM items to have jinx ItemEffect
-	
-	!!! bug: need to set slave as activeNPC !!!
 	
 	the dominant version of Lilaya's geisha scene is broken. She always starts with 0 arousal in Resisting pace, and ends the scene at the first turn, saying "Eugh... I'm not really feeling this right now, ok?" Nothing I've done has been able to avoid this. The submissive version of the scene works fine.
 	

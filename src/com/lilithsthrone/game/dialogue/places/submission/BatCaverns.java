@@ -64,7 +64,20 @@ public class BatCaverns {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			return null; //TODO explore
+			if(index==1) {
+				return new ResponseEffectsOnly(
+						"Explore",
+						"Explore the cavern's dark depths. Although you don't think you're any more or less likely to find anything by doing this, at least you won't have to keep travelling back and forth..."){
+							@Override
+							public void effects() {
+								DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
+								Main.game.setContent(new Response("", "", dn));
+							}
+						};
+						
+			} else {
+				return null;
+			}
 		}
 	};
 	
@@ -88,7 +101,20 @@ public class BatCaverns {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			return null; //TODO explore
+			if(index==1) {
+				return new ResponseEffectsOnly(
+						"Explore",
+						"Explore the bioluminescent forest. Although you don't think you're any more or less likely to find anything by doing this, at least you won't have to keep travelling back and forth..."){
+							@Override
+							public void effects() {
+								DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
+								Main.game.setContent(new Response("", "", dn));
+							}
+						};
+						
+			} else {
+				return null;
+			}
 		}
 	};
 	
@@ -107,7 +133,20 @@ public class BatCaverns {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			return null; //TODO explore
+			if(index==1) {
+				return new ResponseEffectsOnly(
+						"Explore",
+						"Explore the sides of the river. Although you don't think you're any more or less likely to find anything by doing this, at least you won't have to keep travelling back and forth..."){
+							@Override
+							public void effects() {
+								DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
+								Main.game.setContent(new Response("", "", dn));
+							}
+						};
+						
+			} else {
+				return null;
+			}
 		}
 	};
 	
@@ -126,7 +165,20 @@ public class BatCaverns {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			return null; //TODO explore
+			if(index==1) {
+				return new ResponseEffectsOnly(
+						"Explore",
+						"Explore the bridge's surroundings. Although you don't think you're any more or less likely to find anything by doing this, at least you won't have to keep travelling back and forth..."){
+							@Override
+							public void effects() {
+								DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
+								Main.game.setContent(new Response("", "", dn));
+							}
+						};
+						
+			} else {
+				return null;
+			}
 		}
 	};
 	
@@ -145,7 +197,20 @@ public class BatCaverns {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			return null; //TODO explore
+			if(index==1) {
+				return new ResponseEffectsOnly(
+						"Explore",
+						"Explore the sides of the river. Although you don't think you're any more or less likely to find anything by doing this, at least you won't have to keep travelling back and forth..."){
+							@Override
+							public void effects() {
+								DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
+								Main.game.setContent(new Response("", "", dn));
+							}
+						};
+						
+			} else {
+				return null;
+			}
 		}
 	};
 	
@@ -164,7 +229,22 @@ public class BatCaverns {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			return null; //TODO explore
+			if(index==1) {
+				return new ResponseEffectsOnly(
+						"Explore",
+						"Explore the sides of the lake. Although you don't think you're any more or less likely to find anything by doing this, at least you won't have to keep travelling back and forth..."){
+							@Override
+							public void effects() {
+								DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
+								Main.game.setContent(new Response("", "", dn));
+							}
+						};
+						
+			} else if(index==2) {
+				return new Response("Boat", "You see a small pier jutting out into the water close by, and beside it, a small boat has been moored. <b>Not yet implemented!</b>", null);
+			} else {
+				return null;
+			}
 		}
 	};
 }

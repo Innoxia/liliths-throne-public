@@ -210,11 +210,19 @@ public abstract class AbstractWeaponType extends AbstractCoreType implements Ser
 							"You kick out at [npc.name], smiling to yourself as you feel your [pc.foot] connect with [npc.her] [npc.leg]."));
 				
 			} else {
-				return UtilText.parse(character,
-						UtilText.returnStringAtRandom(
-							"Darting forwards, [npc.name] delivers a solid punch to your [pc.arm].",
-							"[npc.Name] throws a punch at you, grinning as [npc.her] attack connects with your [pc.arm].",
-							"[npc.Name] kicks out at you, smiling to [npc.herself] as [npc.her] [npc.foot] connects with your [pc.leg]."));
+				if(target.isPlayer()) {
+					return UtilText.parse(character,
+							UtilText.returnStringAtRandom(
+								"Darting forwards, [npc.name] delivers a solid punch to your [pc.arm].",
+								"[npc.Name] throws a punch at you, grinning as [npc.her] attack connects with your [pc.arm].",
+								"[npc.Name] kicks out at you, smiling to [npc.herself] as [npc.her] [npc.foot] connects with your [pc.leg]."));
+				} else {
+					return UtilText.parse(character, target,
+							UtilText.returnStringAtRandom(
+								"Darting forwards, [npc1.name] delivers a solid punch to [npc2.name]'s [npc2.arm].",
+								"[npc1.Name] throws a punch at [npc2.name], grinning as [npc1.her] attack connects with [npc2.her] [npc2.arm].",
+								"[npc1.Name] kicks out at [npc2.name], smiling to [npc1.herself] as [npc1.her] [npc1.foot] connects with [npc2.name]'s [npc2.leg]."));
+				}
 			}
 			
 		} else {
@@ -226,11 +234,19 @@ public abstract class AbstractWeaponType extends AbstractCoreType implements Ser
 							"You kick out at [npc.name], but your [pc.foot] sails harmlessly through the air."));
 				
 			} else {
-				return UtilText.parse(character,
-						UtilText.returnStringAtRandom(
-							"Darting forwards, [npc.name] tries to deliver a punch to your [pc.arm], but you manage to step out of he way in time.",
-							"[npc.Name] throws a punch at you, but fails to make contact with any part of your body.",
-							"[npc.Name] kicks out at you, but [npc.her] [npc.foot] sails harmlessly through the air."));
+				if(target.isPlayer()) {
+					return UtilText.parse(character,
+							UtilText.returnStringAtRandom(
+								"Darting forwards, [npc.name] tries to deliver a punch to your [pc.arm], but you manage to step out of the way in time.",
+								"[npc.Name] throws a punch at you, but fails to make contact with any part of your body.",
+								"[npc.Name] kicks out at you, but [npc.her] [npc.foot] sails harmlessly through the air."));
+				} else {
+					return UtilText.parse(character, target,
+							UtilText.returnStringAtRandom(
+								"Darting forwards, [npc1.name] tries to deliver a punch to [npc2.name]'s [npc2.arm], but [npc2.she] manages to step out of the way in time.",
+								"[npc1.Name] throws a punch at [npc2.name], but fails to make contact with any part of [npc2.her] body.",
+								"[npc1.Name] kicks out at [npc2.name], but [npc1.her] [npc1.foot] sails harmlessly through the air."));
+				}
 			}
 		}
 	}
@@ -245,11 +261,19 @@ public abstract class AbstractWeaponType extends AbstractCoreType implements Ser
 							"You kick out at [npc.name], and as you do, a bolt of arcane energy shoots out of your [pc.foot] to connect with [npc.her] [npc.leg]."));
 				
 			} else {
-				return UtilText.parse(character,
-						UtilText.returnStringAtRandom(
-							"Punching [npc.her] fist out towards you, a bolt of arcane energy shoots out to strike your [pc.arm].",
-							"Striking out towards you, a bolt of arcane energy shoots out of [npc.name]'s fist to connect with your [pc.arm].",
-							"[npc.Name] kicks out at you, and as [npc.she] does so, a bolt of arcane energy shoots out of [npc.her] [npc.foot] to connect with your [pc.leg]."));
+				if(target.isPlayer()) {
+					return UtilText.parse(character,
+							UtilText.returnStringAtRandom(
+								"Punching [npc.her] fist out towards you, a bolt of arcane energy shoots out to strike your [pc.arm].",
+								"Striking out towards you, a bolt of arcane energy shoots out of [npc.name]'s fist to connect with your [pc.arm].",
+								"[npc.Name] kicks out at you, and as [npc.she] does so, a bolt of arcane energy shoots out of [npc.her] [npc.foot] to connect with your [pc.leg]."));
+				} else {
+					return UtilText.parse(character, target,
+							UtilText.returnStringAtRandom(
+								"Punching [npc1.her] fist out towards [npc2.name], a bolt of arcane energy shoots out to strike [npc2.her] [npc2.arm].",
+								"Striking out towards [npc2.name], a bolt of arcane energy shoots out of [npc1.name]'s fist to connect with [npc2.her] [npc2.arm].",
+								"[npc1.Name] kicks out at [npc2.name], and as [npc1.she] does so, a bolt of arcane energy shoots out of [npc1.her] [npc1.foot] to connect with [npc2.name]'s [npc2.leg]."));
+				}
 			}
 			
 		} else {
@@ -261,11 +285,19 @@ public abstract class AbstractWeaponType extends AbstractCoreType implements Ser
 							"You kick out at [npc.name], and as you do, a bolt of arcane energy shoots out of your [pc.foot] to sail harmlessly through the air as [npc.she] dodges your attack."));
 				
 			} else {
-				return UtilText.parse(character,
-						UtilText.returnStringAtRandom(
-							"Punching [npc.her] fist out towards you, a bolt of arcane energy shoots out to sail harmlessly through the air as you dodge [npc.her] attack.",
-							"Striking out towards you, a bolt of arcane energy shoots out of [npc.name]'s fist to sail harmlessly through the air as you dodge [npc.her] attack.",
-							"[npc.Name] kicks out at you, and as [npc.she] does so, a bolt of arcane energy shoots out of [npc.her] [npc.foot] to sail harmlessly through the air as you dodge [npc.her] attack."));
+				if(target.isPlayer()) {
+					return UtilText.parse(character,
+							UtilText.returnStringAtRandom(
+								"Punching [npc.her] fist out towards you, a bolt of arcane energy shoots out to sail harmlessly through the air as you dodge [npc.her] attack.",
+								"Striking out towards you, a bolt of arcane energy shoots out of [npc.name]'s fist to sail harmlessly through the air as you dodge [npc.her] attack.",
+								"[npc.Name] kicks out at you, and as [npc.she] does so, a bolt of arcane energy shoots out of [npc.her] [npc.foot] to sail harmlessly through the air as you dodge [npc.her] attack."));
+				} else {
+					return UtilText.parse(character,
+							UtilText.returnStringAtRandom(
+								"Punching [npc1.her] fist out towards [npc2.name], a bolt of arcane energy shoots out to sail harmlessly through the air as [npc2.name] dodges [npc1.her] attack.",
+								"Striking out towards [npc2.name], a bolt of arcane energy shoots out of [npc1.name]'s fist to sail harmlessly through the air as [npc2.name] dodges [npc1.her] attack.",
+								"[npc1.Name] kicks out at [npc2.name], and as [npc1.she] does so, a bolt of arcane energy shoots out of [npc1.her] [npc1.foot] to sail harmlessly through the air as [npc2.name] dodges [npc1.her] attack."));
+				}
 			}
 		}
 	}

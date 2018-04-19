@@ -1,5 +1,7 @@
 package com.lilithsthrone.game.sex.managers;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -7,6 +9,8 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.npc.dominion.DominionAlleywayAttacker;
 import com.lilithsthrone.game.character.npc.dominion.DominionSuccubusAttacker;
+import com.lilithsthrone.game.character.race.Race;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.Sex;
@@ -16,10 +20,11 @@ import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.1.97
+ * @version 0.2.4
  * @author Innoxia
  */
 public interface SexManagerInterface {
@@ -125,8 +130,39 @@ public interface SexManagerInterface {
 	public default boolean isPublicSex() {
 		return false;
 	}
+
+	public default String getPublicSexStartingDescription() {
+		List<Subspecies> speciesPresent = Main.game.getPlayer().getLocationPlace().getPlaceType().getSpeciesPopulatingArea();
+		if(speciesPresent!=null && !speciesPresent.isEmpty()) {
+			
+			List<Race> racesPresent = new ArrayList<>();
+			for(Subspecies species : speciesPresent) {
+				if(!racesPresent.contains(species.getRace())) {
+					racesPresent.add(species.getRace());
+				}
+			}
+			Collections.shuffle(racesPresent);
+			List<String> raceNames = new ArrayList<>();
+			for(int i=0; i<racesPresent.size() && i<3;i++) {
+				raceNames.add(Subspecies.getMainSubspeciesOfRace(racesPresent.get(i)).getNamePlural());
+			}
+			if(raceNames.size() < racesPresent.size()) {
+				raceNames.add("many other races");
+			}
+			
+			return "<p style='color:"+Colour.BASE_ORANGE.toWebHexString()+"; font-style:italic; text-align:center;'>"
+					+ "A crowd of "+Util.stringsToStringList(raceNames, false)+" quickly forms around you and [npc.name], eager to watch your erotic display..."
+					+ "</p>";
+			
+		} else {
+			return "<p style='color:"+Colour.BASE_ORANGE.toWebHexString()+"; font-style:italic; text-align:center;'>"
+						+ "A crowd quickly forms around you and [npc.name], eager to watch your erotic display..."
+					+ "</p>";
+		}
+	}
 	
 	public default String getRandomPublicSexDescription() {
+		
 		return "<p style='color:"+Colour.BASE_ORANGE.toWebHexString()+"; font-style:italic; text-align:center;'>"
 					+UtilText.returnStringAtRandom(
 							"The crowd of onlookers laugh and cheer as they look on.",

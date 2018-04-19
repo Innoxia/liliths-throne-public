@@ -26,9 +26,9 @@ import com.lilithsthrone.utils.Util.Value;
  * @version 0.2.4
  * @author Innoxia
  */
-public class BatCavernAttackerDialogue {
+public class BatCavernSlimeAttackerDialogue {
 	
-	public static final DialogueNodeOld BAT_MORPH_ATTACK = new DialogueNodeOld("Assaulted!", "A bat-morph swoops down from above!", true) {
+	public static final DialogueNodeOld SLIME_ATTACK = new DialogueNodeOld("Assaulted!", "A slime lurches forwards from out of the shadows!", true) {
 		private static final long serialVersionUID = 1L;
 		
 		@Override

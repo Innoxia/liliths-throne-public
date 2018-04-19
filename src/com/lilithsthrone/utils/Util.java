@@ -748,7 +748,7 @@ public class Util {
 				utilitiesStringBuilder.append(", " + stringExtractor.apply(currentItem));
 				currentItem = itemIterator.next();
 			}
-			utilitiesStringBuilder.append(" " + combiningWord + " " + stringExtractor.apply(currentItem));
+			utilitiesStringBuilder.append((items.size()>2?", ":" ") + combiningWord + " " + stringExtractor.apply(currentItem));
 		}
 		return utilitiesStringBuilder.toString();
 	}

@@ -203,7 +203,7 @@ public class CityPlaces {
 					+ "</p>");
 			}
 			
-			for(NPC npc : Main.game.getCharactersPresent()) {
+			for(NPC npc : Main.game.getNonCompanionCharactersPresent()) {
 				if(npc instanceof Cultist) {
 					UtilText.nodeContentSB.append(
 							"<p>"
@@ -234,7 +234,7 @@ public class CityPlaces {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			List<Response> responses = new ArrayList<>();
-			for(NPC npc : Main.game.getCharactersPresent()) {
+			for(NPC npc : Main.game.getNonCompanionCharactersPresent()) {
 				if(npc instanceof Cultist) {
 					responses.add(new Response("Chapel", UtilText.parse(npc, "Visit [npc.name]'s chapel again."), CultistDialogue.ENCOUNTER_CHAPEL_REPEAT) {
 							@Override
@@ -323,7 +323,7 @@ public class CityPlaces {
 					+ " These less-travelled parts of Dominion have a dangerous feel to them, and you can't shake the feeling that you're being followed."
 					+ "</p>");
 			
-			for(GameCharacter npc : Main.game.getCharactersPresent()) {
+			for(GameCharacter npc : Main.game.getNonCompanionCharactersPresent()) {
 				UtilText.nodeContentSB.append(((NPC) npc).getPresentInTileDescription());
 			}
 			
@@ -365,7 +365,7 @@ public class CityPlaces {
 						+ " You're far away from the safety of the main street, and you can't shake the feeling that there's something <b>extremely dangerous</b> lurking around the next corner..."
 					+ "</p>");
 
-			for(GameCharacter npc : Main.game.getCharactersPresent()) {
+			for(GameCharacter npc : Main.game.getNonCompanionCharactersPresent()) {
 				UtilText.nodeContentSB.append(((NPC) npc).getPresentInTileDescription());
 			}
 			

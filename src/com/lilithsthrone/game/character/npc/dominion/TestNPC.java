@@ -16,10 +16,11 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.NameTriplet;
+import com.lilithsthrone.game.character.persona.PersonalityTrait;
+import com.lilithsthrone.game.character.persona.PersonalityWeight;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
-import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.npcDialogue.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -64,6 +65,13 @@ public class TestNPC extends NPC {
 				"A mysterious [test.race] that you found in the back of one of the Shopping Arcade's many shops.",
 				1, Gender.F_V_B_FEMALE, RacialBody.CAT_MORPH, RaceStage.PARTIAL_FULL,
 				new CharacterInventory(10), WorldType.JUNGLE, PlaceType.JUNGLE_CLUB, true); //TODO need to test moving into a 'null' world
+
+		this.setPersonality(Util.newHashMapOfValues(
+				new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.HIGH),
+				new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.HIGH),
+				new Value<>(PersonalityTrait.EXTROVERSION, PersonalityWeight.LOW),
+				new Value<>(PersonalityTrait.NEUROTICISM, PersonalityWeight.HIGH),
+				new Value<>(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.HIGH)));
 		
 		if(!isImported) {
 			String s = "";
@@ -572,19 +580,6 @@ public class TestNPC extends NPC {
 		}
 	};
 
-	// Combat:
-	@Override
-	public String getCombatDescription() {
-		return null;
-	}
-	@Override
-	public Response endCombat(boolean applyEffects, boolean victory) {
-		return null;
-	}
-	@Override
-	public Attack attackType() {
-		return null;
-	}
 	
 	@Override
 	public String getItemUseEffects(AbstractItem item, GameCharacter user, GameCharacter target){

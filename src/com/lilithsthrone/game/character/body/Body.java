@@ -1409,25 +1409,25 @@ public class Body implements Serializable, XMLSaving {
 		// Describe race:
 		if (owner.isPlayer()) {
 			sb.append("<p>"
-						+ "You are [pc.name], <span style='color:"+getGender().getColour().toWebHexString()+";'>[pc.a_gender]</span> [pc.raceStage] [pc.race]. "
-						+ owner.getAppearsAsGenderDescription()
+						+ "You are [pc.name], [pc.a_fullRace(true)] [pc.gender(true)]. "
+						+ owner.getAppearsAsGenderDescription(true)
 						+" Standing at full height, you measure [pc.heightFeetInches] ([pc.heightCm]cm).");
 		} else {
 			if(owner.getPlayerKnowsAreas().contains(CoverableArea.PENIS) && owner.getPlayerKnowsAreas().contains(CoverableArea.VAGINA)) {
 				sb.append("<p>"
-						+ "[npc.Name] is <span style='color:"+getGender().getColour().toWebHexString()+";'>[npc.a_gender]</span> [npc.raceStage] [npc.race]. "
-						+ owner.getAppearsAsGenderDescription()
+						+ "[npc.Name] is [npc.a_fullRace(true)] [npc.gender(true)]. "
+						+ owner.getAppearsAsGenderDescription(true)
 						+ " Standing at full height, [npc.she] measures [npc.heightFeetInches] ([npc.heightCm]cm).");
 			} else {
 				if(Main.game.getPlayer().hasTrait(Perk.OBSERVANT, true)) {
 					sb.append("<p>"
 							+ "Thanks to your observant perk, you can detect that [npc.name] is <span style='color:"+getGender().getColour().toWebHexString()+";'>[npc.a_gender]</span> [npc.raceStage] [npc.race]. "
-							+ owner.getAppearsAsGenderDescription()
+							+ owner.getAppearsAsGenderDescription(true)
 							+ " Standing at full height, [npc.she] measures [npc.heightFeetInches] ([npc.heightCm]cm).");
 				} else {
 					sb.append("<p>"
-								+ "[npc.Name] is a [npc.raceStage] [npc.race]. "
-								+ owner.getAppearsAsGenderDescription()
+								+ "[npc.Name] is a [npc.a_fullRace(true)]. "
+								+ owner.getAppearsAsGenderDescription(true)
 								+ " Standing at full height, [npc.she] measures [npc.heightFeetInches] ([npc.heightCm]cm).");
 				}
 			}

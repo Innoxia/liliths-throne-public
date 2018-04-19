@@ -536,7 +536,6 @@ public class MainController implements Initializable {
 //							 Main.game.getPlayer().addDirtySlot(InventorySlot.MOUTH);
 //							 Main.game.getPlayer().addDirtySlot(InventorySlot.LEG);
 							 
-//							 System.out.println(Main.isVersionOlderThan("0.1.84", Main.VERSION_NUMBER));
 							 
 //							 for(int i=0;i<10;i++) {
 //								 System.out.println(Name.getRandomTriplet(Race.DEMON));
@@ -5629,6 +5628,7 @@ public class MainController implements Initializable {
 		} else {
 			if(Main.game.getPlayer()!=null) {
 				charactersBeingRendered.add(Main.game.getPlayer());
+				charactersBeingRendered.addAll(Main.game.getPlayer().getCompanions());
 			}
 		}
 		
@@ -5696,7 +5696,7 @@ public class MainController implements Initializable {
 						}
 						
 					} else { //TODO display NPC perk tree
-						openCharactersPresent(Main.game.getNPCById(Main.game.getActiveNPC().getId()));
+						openCharactersPresent(character);
 					}
 				}, false);
 				addEventListener(documentAttributes, idModifier+"ATTRIBUTES", "mousemove", moveTooltipListener, false);

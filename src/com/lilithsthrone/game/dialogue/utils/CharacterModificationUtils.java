@@ -256,7 +256,7 @@ public class CharacterModificationUtils {
 					+ "<div class='title-button no-select' id='PERSONALITY_INFO_"+trait+"' style='position:absolute; left:auto; right:5%; top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getInformationIcon()+"</div>"
 					+ "<p style='text-align:center; margin-bottom:0; padding-bottom:0;'>"
 						+ "<b style='color:"+trait.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(trait.getName())+"</b></br>"
-						+ "<i>"+trait.getNameFromWeight(BodyChanging.getTarget().getPersonality().get(trait))+"</i>"
+						+ "<i>"+trait.getNameFromWeight(BodyChanging.getTarget(), BodyChanging.getTarget().getPersonality().get(trait))+"</i>"
 					+ "</p>");
 
 			for(PersonalityWeight weight : PersonalityWeight.values()) {

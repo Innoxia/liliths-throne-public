@@ -745,7 +745,7 @@ public class ItemType {
 			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.INT_FRUIT_BAT_SQUASH))),
 			Util.newArrayListOfValues(
-					new ListValue<>(ItemTag.SUBMISSION_TUNNEL_SPAWN),
+					new ListValue<>(ItemTag.BAT_CAVERNS_SPAWN),
 					new ListValue<>(ItemTag.ATTRIBUTE_TF_ITEM))) {
 
 		private static final long serialVersionUID = 1L;
@@ -888,6 +888,7 @@ public class ItemType {
 			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.SEX_SLIME_DRINK))),
 			Util.newArrayListOfValues(
+					new ListValue<>(ItemTag.BAT_CAVERNS_SPAWN),
 					new ListValue<>(ItemTag.SUBMISSION_TUNNEL_SPAWN),
 					new ListValue<>(ItemTag.ATTRIBUTE_TF_ITEM))) {
 
@@ -1515,7 +1516,7 @@ public class ItemType {
 			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_FRUIT_SALAD))),
 			Util.newArrayListOfValues(
-					new ListValue<>(ItemTag.SUBMISSION_TUNNEL_SPAWN),
+					new ListValue<>(ItemTag.BAT_CAVERNS_SPAWN),
 					new ListValue<>(ItemTag.RACIAL_TF_ITEM))) {
 
 		private static final long serialVersionUID = 1L;
@@ -4711,11 +4712,11 @@ public class ItemType {
 		return 1000;
 	}
 	
-	public static List<AbstractItemType>
-			dominionAlleywayItems = new ArrayList<>(),
-			submissionTunnelItems = new ArrayList<>(),
-			essences = new ArrayList<>(),
-			allItems = new ArrayList<>();
+	public static List<AbstractItemType> dominionAlleywayItems = new ArrayList<>();
+	public static List<AbstractItemType> submissionTunnelItems = new ArrayList<>();
+	public static List<AbstractItemType> batCavernItems = new ArrayList<>();
+	public static List<AbstractItemType> essences = new ArrayList<>();
+	public static List<AbstractItemType> allItems = new ArrayList<>();
 	
 	public static Map<AbstractItemType, String> itemToIdMap = new HashMap<>();
 	public static Map<String, AbstractItemType> idToItemMap = new HashMap<>();
@@ -4744,6 +4745,10 @@ public class ItemType {
 					
 					if(item.getItemTags().contains(ItemTag.SUBMISSION_TUNNEL_SPAWN)) {
 						submissionTunnelItems.add(item);
+					} 
+					
+					if(item.getItemTags().contains(ItemTag.BAT_CAVERNS_SPAWN)) {
+						batCavernItems.add(item);
 					} 
 					
 					if(item.getItemTags().contains(ItemTag.ESSENCE)) {

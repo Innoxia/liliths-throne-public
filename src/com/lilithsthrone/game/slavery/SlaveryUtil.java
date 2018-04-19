@@ -75,6 +75,10 @@ public class SlaveryUtil implements Serializable {
 		// First need to set correct jobs:
 		for(String id : Main.game.getPlayer().getSlavesOwned()) {
 			NPC slave = (NPC) Main.game.getNPCById(id);
+			if(Main.game.getPlayer().hasCompanion(slave)) {
+				continue;
+			}
+			
 			if(slave.getWorkHours()[hour]) {
 				slave.getSlaveJob().sendToWorkLocation(slave);
 				slavesAtJob.get(slave.getSlaveJob()).add(slave);
@@ -97,6 +101,9 @@ public class SlaveryUtil implements Serializable {
 		// Now can apply changes and generate events based on who else is present in the job:
 		for(String id : Main.game.getPlayer().getSlavesOwned()) {
 			NPC slave = (NPC) Main.game.getNPCById(id);
+			if(Main.game.getPlayer().hasCompanion(slave)) {
+				continue;
+			}
 			
 			slave.incrementAffection(slave.getOwner(), slave.getHourlyAffectionChange(hour));
 			slave.incrementObedience(slave.getHourlyObedienceChange(hour), false);

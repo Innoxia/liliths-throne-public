@@ -405,7 +405,7 @@ public class SlaveDialogue {
 								SLAVE_START){
 							@Override
 							public void effects() {
-								System.out.println(Main.game.getPlayer().addCompanion(slave()));
+								Main.game.getPlayer().addCompanion(slave());
 							}
 						};
 					} else {

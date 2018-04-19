@@ -534,7 +534,8 @@ public class Game implements Serializable, XMLSaving {
 							&& (!e.getAttribute("worldType").equals("SUBMISSION") || !Main.isVersionOlderThan(version, "0.2.1.5"))
 							&& (!e.getAttribute("worldType").equals("DOMINION") || !Main.isVersionOlderThan(version, "0.2.2"))
 							&& (!e.getAttribute("worldType").equals("SLAVER_ALLEY") || !Main.isVersionOlderThan(version, "0.2.2"))
-							&& (!e.getAttribute("worldType").equals("HARPY_NEST") || !Main.isVersionOlderThan(version, "0.2.1.5"))) {
+							&& (!e.getAttribute("worldType").equals("HARPY_NEST") || !Main.isVersionOlderThan(version, "0.2.1.5"))
+							&& (!e.getAttribute("worldType").equals("BAT_CAVERNS") || !Main.isVersionOlderThan(version, "0.2.3.6"))) {
 						World world = World.loadFromXML(e, doc);
 						Main.game.worlds.put(world.getWorldType(), world);
 					}
@@ -555,6 +556,9 @@ public class Game implements Serializable, XMLSaving {
 					if(Main.isVersionOlderThan(version, "0.2.2")) {
 						gen.worldGeneration(WorldType.DOMINION);
 						gen.worldGeneration(WorldType.SLAVER_ALLEY);
+					}
+					if(Main.isVersionOlderThan(version, "0.2.3.6")) {
+						gen.worldGeneration(WorldType.BAT_CAVERNS);
 					}
 					if(Main.game.worlds.get(wt)==null) {
 						gen.worldGeneration(wt);
@@ -2157,6 +2161,13 @@ public class Game implements Serializable, XMLSaving {
 		} else {
 			return getCharactersPresent(player.getWorldLocation(), player.getLocation());
 		}
+	}
+	
+	public List<NPC> getNonCompanionCharactersPresent() {
+		List<NPC> nonCompanionCharactersPresent = new ArrayList<>();
+		nonCompanionCharactersPresent.addAll(getCharactersPresent());
+		nonCompanionCharactersPresent.removeIf((npc) -> Main.game.getPlayer().hasCompanion(npc));
+		return nonCompanionCharactersPresent;
 	}
 	
 	public List<NPC> getCharactersTreatingCellAsHome(Cell cell) {

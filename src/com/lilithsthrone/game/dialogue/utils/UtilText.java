@@ -879,28 +879,55 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("genderAppears"),
-						new ListValue<>("appearsAsGender")),
+						new ListValue<>("gender")),
 				true,
 				true,
-				"",//TODO
+				"(coloured)",//TODO
 				"Description of method"){//TODO
 			@Override
 			public String parse(String command, String arguments, String target) {
-				return character.getAppearsAsGender().getName();
+				Gender gender = character.getGender();
+				
+				boolean pronoun = parseAddPronoun;
+				parseAddPronoun = false;
+				if(arguments!=null && Boolean.valueOf(arguments)) {
+					return "<span style='color:"+gender.getColour().toWebHexString()+";'>"
+							+ (parseCapitalise
+									?Util.capitaliseSentence((pronoun?UtilText.generateSingularDeterminer(gender.getName())+" ":"")+gender.getName())
+											:(pronoun?UtilText.generateSingularDeterminer(gender.getName())+" ":"")+gender.getName())
+							+"</span>";
+				}
+				return parseCapitalise
+						?Util.capitaliseSentence((pronoun?UtilText.generateSingularDeterminer(gender.getName())+" ":"")+gender.getName())
+						:(pronoun?UtilText.generateSingularDeterminer(gender.getName())+" ":"")+gender.getName();
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("gender")),
+						new ListValue<>("genderAppears"),
+						new ListValue<>("genderAppearsAs"),
+						new ListValue<>("appearsAsGender")),
 				true,
 				true,
-				"",//TODO
+				"(coloured)",//TODO
 				"Description of method"){//TODO
 			@Override
 			public String parse(String command, String arguments, String target) {
-				return character.getGender().getName();
+				Gender gender = character.getAppearsAsGender();
+				
+				boolean pronoun = parseAddPronoun;
+				parseAddPronoun = false;
+				if(arguments!=null && Boolean.valueOf(arguments)) {
+					return "<span style='color:"+gender.getColour().toWebHexString()+";'>"
+							+ (parseCapitalise
+									?Util.capitaliseSentence((pronoun?UtilText.generateSingularDeterminer(gender.getName())+" ":"")+gender.getName())
+											:(pronoun?UtilText.generateSingularDeterminer(gender.getName())+" ":"")+gender.getName())
+							+"</span>";
+				}
+				return parseCapitalise
+						?Util.capitaliseSentence((pronoun?UtilText.generateSingularDeterminer(gender.getName())+" ":"")+gender.getName())
+						:(pronoun?UtilText.generateSingularDeterminer(gender.getName())+" ":"")+gender.getName();
 			}
 		});
 		
