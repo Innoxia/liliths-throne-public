@@ -65,10 +65,18 @@ public class HarpyNestsAttacker extends NPC {
 			
 			
 			// RACE & NAME:
-			if(gender.isFeminine()) {
-				setBody(Gender.F_V_B_FEMALE, RacialBody.HARPY, RaceStage.LESSER);
+			if(this.hasPenis()) {
+				if(this.hasBreasts()) {
+					setBody(Gender.F_P_B_SHEMALE, RacialBody.HARPY, RaceStage.LESSER);
+				} else {
+					setBody(Gender.F_P_TRAP, RacialBody.HARPY, RaceStage.LESSER);
+				}
 			} else {
-				setBody(Gender.F_P_TRAP, RacialBody.HARPY, RaceStage.LESSER);
+				if(this.hasBreasts()) {
+					setBody(Gender.F_V_B_FEMALE, RacialBody.HARPY, RaceStage.LESSER);
+				} else {
+					setBody(Gender.F_V_FEMALE, RacialBody.HARPY, RaceStage.LESSER);
+				}
 			}
 	
 			setName(Name.getRandomTriplet(Race.HARPY));
