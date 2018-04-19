@@ -51,6 +51,7 @@
 		Tidied up the game's version checking method. (lehardo)
 		Fixed some instances of incorrect cum parsing. (ltpatch)
 		Fixed issue with harpies not respecting your gender preferences. (Master of Puppets)
+		Added folder checking on startup. (Bukkyo256)
 		Fixed Lilaya's Submissive Geisha scene immediately ending. (TadUnlikely)
 		Fixed Vixen's Virility returning incorrect descriptions. (ltpatch)
 	
@@ -82,14 +83,7 @@
 	
 	
 	
-	For this update, I finally finished the companion system, which I'd half-implemented when I added the Karl and Wolfgang encounter (for the fist instance of multiple-NPC combat).
-	I decided to add the companion system before doing the spell work, as I have plans for a few of the spells to summon elemental allies (which requires a companion system).
-	It's lacking proper post-sex options to get your companion involved, as I need to add NPC-on-NPC variants for sex actions. (I'm planning on doing this in 0.2.5.)
 	
-	I also added the framework for modding in clothing, which is my first proper step in adding mod support. Please bear with me as I continue to build up the size and scope of modding support over the versions ahead. ^^
-	
-	As the last major thing, I've added the map and basic content for the bat caverns, although the encounter text hasn't been filled in properly yet. With this now added, all of Submission's basic framework is complete.
-	There will be small internal maps for both the gambling den and the rat warren, but they will be of similar sizes to the Shopping Arcade's Supplier Depot.
 	
 	
 	

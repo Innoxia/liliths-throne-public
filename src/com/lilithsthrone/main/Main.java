@@ -132,6 +132,7 @@ public class Main extends Application {
 			+"<ul>Tidied up the game's version checking method. (lehardo)</ul>"
 			+"<ul>Fixed some instances of incorrect cum parsing. (ltpatch)</ul>"
 			+"<ul>Fixed issue with harpies not respecting your gender preferences. (Master of Puppets)</ul>"
+			+"<ul>Added folder checking on startup. (Bukkyo256)</ul>"
 			+"<ul>Fixed Lilaya's Submissive Geisha scene immediately ending. (TadUnlikely)</ul>"
 			+"<ul>Fixed Vixen's Virility returning incorrect descriptions. (ltpatch)</ul>"
 
