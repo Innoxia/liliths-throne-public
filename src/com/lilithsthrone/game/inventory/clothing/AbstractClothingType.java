@@ -412,8 +412,14 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 				this.clothingSet = !coreAttributes.getElementsByTagName("clothingSet").item(0).hasChildNodes()
 									? null
 									: ClothingSet.valueOf(coreAttributes.getElementsByTagName("clothingSet").item(0).getTextContent());
-				
-				this.pathName = clothingXMLFile.getParentFile().getAbsolutePath() + "\\" + coreAttributes.getElementsByTagName("imageName").item(0).getTextContent();
+				if(System.getProperty("os.name").startsWith("Windows")) // Bugfix for malformed strings that load svgs on an improper path on non-windows OSes.
+				{
+					this.pathName = clothingXMLFile.getParentFile().getAbsolutePath() + "\\" + coreAttributes.getElementsByTagName("imageName").item(0).getTextContent();
+				}
+				else
+				{
+					this.pathName = clothingXMLFile.getParentFile().getAbsolutePath() + "/" + coreAttributes.getElementsByTagName("imageName").item(0).getTextContent();
+				}
 				
 				this.pathNameEquipped = !coreAttributes.getElementsByTagName("imageEquippedName").item(0).hasChildNodes()
 									? null
