@@ -535,7 +535,7 @@ public class Game implements Serializable, XMLSaving {
 							&& (!e.getAttribute("worldType").equals("DOMINION") || !Main.isVersionOlderThan(version, "0.2.2"))
 							&& (!e.getAttribute("worldType").equals("SLAVER_ALLEY") || !Main.isVersionOlderThan(version, "0.2.2"))
 							&& (!e.getAttribute("worldType").equals("HARPY_NEST") || !Main.isVersionOlderThan(version, "0.2.1.5"))
-							&& (!e.getAttribute("worldType").equals("BAT_CAVERNS") || !Main.isVersionOlderThan(version, "0.2.3.6"))) {
+							&& (!e.getAttribute("worldType").equals("BAT_CAVERNS") || !Main.isVersionOlderThan(version, "0.2.3.5"))) {
 						World world = World.loadFromXML(e, doc);
 						Main.game.worlds.put(world.getWorldType(), world);
 					}
@@ -557,7 +557,7 @@ public class Game implements Serializable, XMLSaving {
 						gen.worldGeneration(WorldType.DOMINION);
 						gen.worldGeneration(WorldType.SLAVER_ALLEY);
 					}
-					if(Main.isVersionOlderThan(version, "0.2.3.6")) {
+					if(Main.isVersionOlderThan(version, "0.2.3.5")) {
 						gen.worldGeneration(WorldType.BAT_CAVERNS);
 					}
 					if(Main.game.worlds.get(wt)==null) {

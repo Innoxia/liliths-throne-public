@@ -485,8 +485,13 @@ public enum ItemEffectType {
 										+ (target.hasPenis()
 												?" At the same time, [npc.her] manhood begins to throb with need, and [npc.she] feels "
 												:"") 
+<<<<<<< HEAD
 									:"")
 							+ (target.hasPenis() 
+=======
+								:"")
+							+ (target.hasPenis()
+>>>>>>> cbe98aa98eb8bda29bab33dd04923938b5755447
 									? "an overpowering desire to sink deep into a fertile female's cunt and fill her with [npc.cum+]."
 									: "")
 							+ (!target.hasPenis() && !target.hasVagina()

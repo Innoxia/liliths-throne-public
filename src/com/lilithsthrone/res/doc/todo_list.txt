@@ -51,6 +51,8 @@
 		Tidied up the game's version checking method. (lehardo)
 		Fixed some instances of incorrect cum parsing. (ltpatch)
 		Fixed issue with harpies not respecting your gender preferences. (Master of Puppets)
+		Fixed Lilaya's Submissive Geisha scene immediately ending. (TadUnlikely)
+		Fixed Vixen's Virility returning incorrect descriptions. (ltpatch)
 	
 	Other:
 		Moved the 'Explore' action from button 6 to 1. (I originally put it on 6 so that when you were spamming it to explore, you wouldn't accidentally skip the encounter dialogue. Now that 'Explore' always results in an encounter on the first press, there's no need for it to be so out of place.)
@@ -111,7 +113,7 @@
 	
 	dirty talk action duplicated for Kate
 	
-	
+	Check Lilaya Geisha scene.
 	
 	------------------------------
 	AI:
