@@ -192,6 +192,14 @@ public class Lilaya extends NPC {
 	public boolean isUnique() {
 		return true;
 	}
+	
+	// Prevent issues with Geisha Lilaya immediately
+	// backing out of submissive sex
+	
+	@Override
+	public boolean isAttractedTo(GameCharacter character) {
+		return true;
+	}
 
 	@Override
 	public List<Artwork> getArtworkList() {
