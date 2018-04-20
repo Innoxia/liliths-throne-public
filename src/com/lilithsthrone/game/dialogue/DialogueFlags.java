@@ -192,6 +192,7 @@ public class DialogueFlags implements Serializable, XMLSaving {
 
 	public void setSlaveryManagerSlaveSelected(GameCharacter slaveryManagerSlaveSelected) {
 		if(slaveryManagerSlaveSelected==null) {
+			Main.game.setActiveNPC(null);
 			this.slaveryManagerSlaveSelected = null;
 		} else {
 			this.slaveryManagerSlaveSelected = slaveryManagerSlaveSelected.getId();

@@ -93,6 +93,11 @@ public class SexActionUtility {
 		}
 
 		@Override
+		public boolean isBaseRequirementsMet() {
+			return Sex.isDom(Main.game.getPlayer()) || Sex.isSubHasEqualControl();
+		}
+		
+		@Override
 		public String getDescription() {
 			switch(Sex.getSexPace(Main.game.getPlayer())) {
 				case DOM_GENTLE:

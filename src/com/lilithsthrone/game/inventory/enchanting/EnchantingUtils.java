@@ -166,8 +166,20 @@ public class EnchantingUtils {
 		return Util.capitaliseSentence(finalPotionName);
 	}
 	
-	public static int getCost(AbstractCoreItem ingredient, List<ItemEffect> effects) {
+	public static int getModifierEffectCost(AbstractCoreItem ingredient, ItemEffect effect) {
+		int cost = effect.getCost();
 		
+		if(Main.game.getPlayer().hasFetish(Fetish.FETISH_TRANSFORMATION_GIVING) && ingredient instanceof AbstractItem) {
+			cost/=2;
+		}
+		if(Main.game.getPlayer().hasPerkAnywhereInTree(Perk.CLOTHING_ENCHANTER) && ingredient instanceof AbstractClothing) {
+			cost/=2;
+		}
+		
+		return cost;
+	}
+	
+	public static int getCost(AbstractCoreItem ingredient, List<ItemEffect> effects) {
 		int cost = 0;
 		Map<ItemEffect, Integer> effectCount = new HashMap<>();
 		for(ItemEffect ie : effects) {

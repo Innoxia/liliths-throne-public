@@ -1195,7 +1195,7 @@ public class Lab {
 				+ "</p>"
 				+ "<p>"
 					+ "Lilaya closes her eyes and lets out a deep breath, and you gasp as you suddenly see four little balls of purple energy orbiting her body."
-					+ " As you watch, two of the orbs suddenly shoot down into bottle of Feline's Fancy, and with a bright pink flash and a wisp of odourless smoke, both the bottle and the little green gem disappear."
+					+ " As you watch, two of the orbs suddenly shoot down into the bottle of Feline's Fancy, and with a bright pink flash and a wisp of odourless smoke, both the bottle and the little green gem disappear."
 					+ " In its place, a curious little bottle of red liquid has materialised out of thin-air."
 				+ "</p>"
 				+ "<p>"
@@ -1217,7 +1217,7 @@ public class Lab {
 			} else {
 				UtilText.nodeContentSB.append(
 						"<p>"
-							+ "Just as your about to thank her for explaining about essences, Lilaya suddenly exclaims,"
+							+ "Just as you're about to thank her for explaining about essences, Lilaya suddenly exclaims,"
 							+ " [lilaya.speech(Oh! And this is also how jinxed clothing is removed!"
 								+ " If you ever find yourself putting on some clothing, and then it just won't come off, all you need to do is channel some of your absorbed essences into it."
 								+ " Jinxed clothing is a major problem for people without demonic-strength auras, as they need to pay demons to remove the jinx for them, but for you and I, jinxes are no more than a minor inconvenience.)]"

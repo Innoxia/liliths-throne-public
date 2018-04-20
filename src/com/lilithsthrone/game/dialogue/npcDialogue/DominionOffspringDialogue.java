@@ -1,14 +1,16 @@
 package com.lilithsthrone.game.dialogue.npcDialogue;
 
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.History;
-import com.lilithsthrone.game.character.SexualOrientation;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPCFlagValue;
 import com.lilithsthrone.game.character.npc.NPCOffspring;
+import com.lilithsthrone.game.character.persona.History;
+import com.lilithsthrone.game.character.persona.PersonalityTrait;
+import com.lilithsthrone.game.character.persona.PersonalityWeight;
+import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -79,7 +81,7 @@ public class DominionOffspringDialogue {
 				
 				if(offspring().getHistory()==History.PROSTITUTE) { // Prostitute introduction:
 					
-					if(offspring().getPersonality().isExtroverted()) {
+					if(offspring().getPersonality().get(PersonalityTrait.EXTROVERSION) == PersonalityWeight.HIGH) {
 						UtilText.nodeContentSB.append(
 								"<p>"
 									+ "From [npc.her] slutty attire, the amount of makeup plastered on [npc.her] face, and [npc.her] general posturing, there's almost no doubt in your mind that [npc.she]'s a prostitute."
@@ -101,7 +103,7 @@ public class DominionOffspringDialogue {
 								+ " Looking up to [npc.her] face as you prepare to give [npc.herHim] your answer, your planned response leaves your mouth as a surprised gasp, as you find yourself instantly recognising the person before you."
 							+ "</p>");
 					
-					if(offspring().getPersonality().isExtroverted()) {
+					if(offspring().getPersonality().get(PersonalityTrait.EXTROVERSION) == PersonalityWeight.HIGH) {
 						UtilText.nodeContentSB.append(
 								"<p>"
 									+ "[npc.speech(Yeah, I know, right?! It's such a bargain that you don't know what to say! So, just hand those fifty flames over and we can get right to the fuckin-)]"
@@ -126,7 +128,7 @@ public class DominionOffspringDialogue {
 					
 				} else { // Mugger introduction:
 					
-					if(offspring().getPersonality().isExtroverted()) {
+					if(offspring().getPersonality().get(PersonalityTrait.EXTROVERSION) == PersonalityWeight.HIGH) {
 						UtilText.nodeContentSB.append(
 								"<p>"
 									+ "From the devilish grin on [npc.her] face, combined with the evidence of an empty wallet on the floor beside [npc.herHim], and the handful of coins that you see [npc.herHim] putting away,"
@@ -150,7 +152,7 @@ public class DominionOffspringDialogue {
 								+ " Looking up to [npc.her] face as you prepare to give [npc.herHim] a piece of your mind, your planned response leaves your mouth as a surprised gasp, as you find yourself instantly recognising the person before you."
 							+ "</p>");
 					
-					if(offspring().getPersonality().isExtroverted()) {
+					if(offspring().getPersonality().get(PersonalityTrait.EXTROVERSION) == PersonalityWeight.HIGH) {
 						UtilText.nodeContentSB.append(
 								"<p>"
 									+ "[npc.speech(Yeah, that's the reaction I'm lookin' for! Poor, scared little thing, gasping at the thought of what I'm gonna do to you! Perhaps after I've got your flames, I'll give you a good fuckin-)]"
@@ -197,7 +199,7 @@ public class DominionOffspringDialogue {
 				// Reaction:
 				switch(offspring().getAffectionLevel(Main.game.getPlayer())) {
 					case NEGATIVE_FIVE_LOATHE: case NEGATIVE_FOUR_HATE:
-						if(offspring().getPersonality().isEmotional()) {
+						if(offspring().getPersonality().get(PersonalityTrait.AGREEABLENESS) == PersonalityWeight.LOW) {
 							UtilText.nodeContentSB.append("Hearing your approach, [npc.name] turns towards you, and in a furious tone, [npc.she] shouts at you,"
 															+" [npc.speech(What the fuck do you want?! If you're not here to apologise, then turn around and fuck off!)]");
 						} else {
@@ -206,7 +208,7 @@ public class DominionOffspringDialogue {
 						}
 						break;
 					case NEGATIVE_THREE_STRONG_DISLIKE: case NEGATIVE_TWO_DISLIKE:
-						if(offspring().getPersonality().isEmotional()) {
+						if(offspring().getPersonality().get(PersonalityTrait.EXTROVERSION) == PersonalityWeight.HIGH || offspring().getPersonality().get(PersonalityTrait.NEUROTICISM) == PersonalityWeight.HIGH) {
 							UtilText.nodeContentSB.append("Hearing your approach, [npc.name] turns towards you, and in an angry tone, [npc.she] scowls at you,"
 															+" [npc.speech(I'm not talking to you! If you're not here to apologise, you may as well turn right around and get out of here!)]");
 						} else {
@@ -215,7 +217,7 @@ public class DominionOffspringDialogue {
 						}
 						break;
 					case NEGATIVE_ONE_ANNOYED:
-						if(offspring().getPersonality().isEmotional()) {
+						if(offspring().getPersonality().get(PersonalityTrait.EXTROVERSION) == PersonalityWeight.HIGH || offspring().getPersonality().get(PersonalityTrait.NEUROTICISM) == PersonalityWeight.HIGH) {
 							UtilText.nodeContentSB.append("Hearing your approach, [npc.name] turns towards you, and in a rather cold manner, [npc.she] calls out,"
 															+" [npc.speech(Oh, it's you. Hi, [npc.pcName].)]");
 						} else {
@@ -224,7 +226,7 @@ public class DominionOffspringDialogue {
 						}
 						break;
 					case ZERO_NEUTRAL: case POSITIVE_ONE_FRIENDLY:
-						if(offspring().getPersonality().isEmotional()) {
+						if(offspring().getPersonality().get(PersonalityTrait.EXTROVERSION) == PersonalityWeight.HIGH || offspring().getPersonality().get(PersonalityTrait.NEUROTICISM) == PersonalityWeight.HIGH) {
 							UtilText.nodeContentSB.append("Hearing your approach, [npc.name] turns towards you, and with a big smile on [npc.her] [npc.face], [npc.she] calls out,"
 															+" [npc.speech([npc.PcName]! You're back!)]");
 						} else {
@@ -233,7 +235,7 @@ public class DominionOffspringDialogue {
 						}
 						break;
 					case POSITIVE_TWO_LIKE: case POSITIVE_THREE_CARING:
-						if(offspring().getPersonality().isEmotional()) {
+						if(offspring().getPersonality().get(PersonalityTrait.EXTROVERSION) == PersonalityWeight.HIGH || offspring().getPersonality().get(PersonalityTrait.NEUROTICISM) == PersonalityWeight.HIGH) {
 							UtilText.nodeContentSB.append("Hearing your approach, [npc.name] turns towards you, and you see [npc.her] [npc.face] light up as [npc.she] excitedly calls out,"
 															+" [npc.speech([npc.PcName]! I've missed you so much!)]");
 						} else {
@@ -242,7 +244,7 @@ public class DominionOffspringDialogue {
 						}
 						break;
 					case POSITIVE_FOUR_LOVE: case POSITIVE_FIVE_WORSHIP:
-						if(offspring().getPersonality().isEmotional()) {
+						if(offspring().getPersonality().get(PersonalityTrait.EXTROVERSION) == PersonalityWeight.HIGH || offspring().getPersonality().get(PersonalityTrait.NEUROTICISM) == PersonalityWeight.HIGH) {
 							UtilText.nodeContentSB.append("Hearing your approach, [npc.name] turns towards you, and upon seeing who you are, [npc.she] excitedly jumps up and down on the spot and [npc.she] gleefully calls out,"
 															+" [npc.speech([npc.PcName]! You're back! I've missed you so much! I love you!)]");
 						} else {
@@ -763,7 +765,7 @@ public class DominionOffspringDialogue {
 												+ " [pc.speech([npc.Name]! Please don't tell me that you're working as a... a prostitute!)]"
 											+ "</p>");
 									
-									if(offspring().getPersonality().isEmotional()) {
+									if(offspring().getPersonality().get(PersonalityTrait.EXTROVERSION) == PersonalityWeight.HIGH || offspring().getPersonality().get(PersonalityTrait.NEUROTICISM) == PersonalityWeight.HIGH) {
 										Main.game.getTextStartStringBuilder().append("<p>"
 													+ "[npc.speech(So what if I am?!)]"
 													+ " [npc.name] shouts back, clearly upset by your judgmental remark."
@@ -785,7 +787,7 @@ public class DominionOffspringDialogue {
 												+ " [pc.speech([npc.Name]! Please don't tell me that you're just another low-life mugger!)]"
 											+ "</p>");
 									
-									if(offspring().getPersonality().isEmotional()) {
+									if(offspring().getPersonality().get(PersonalityTrait.EXTROVERSION) == PersonalityWeight.HIGH || offspring().getPersonality().get(PersonalityTrait.NEUROTICISM) == PersonalityWeight.HIGH) {
 										Main.game.getTextStartStringBuilder().append("<p>"
 													+ "[npc.speech(So what if I am?!)]"
 													+ " [npc.name] shouts back, clearly upset by your judgmental remark."
@@ -826,7 +828,7 @@ public class DominionOffspringDialogue {
 												+ " [pc.speech([npc.Name]! Please don't tell me that you're still out here mugging people!)]"
 											+ "</p>");
 									
-									if(offspring().getPersonality().isEmotional()) {
+									if(offspring().getPersonality().get(PersonalityTrait.EXTROVERSION) == PersonalityWeight.HIGH || offspring().getPersonality().get(PersonalityTrait.NEUROTICISM) == PersonalityWeight.HIGH) {
 										Main.game.getTextStartStringBuilder().append("<p>"
 													+ "[npc.speech(So what if I am?!)]"
 													+ " [npc.name] shouts back, clearly upset by your judgmental remark."
@@ -848,7 +850,7 @@ public class DominionOffspringDialogue {
 												+ " [pc.speech([npc.Name]! Please don't tell me that you're still working as a prostitute!)]"
 											+ "</p>");
 									
-									if(offspring().getPersonality().isEmotional()) {
+									if(offspring().getPersonality().get(PersonalityTrait.EXTROVERSION) == PersonalityWeight.HIGH || offspring().getPersonality().get(PersonalityTrait.NEUROTICISM) == PersonalityWeight.HIGH) {
 										Main.game.getTextStartStringBuilder().append("<p>"
 													+ "[npc.speech(So what if I am?!)]"
 													+ " [npc.name] shouts back, clearly upset by your judgmental remark."
@@ -928,7 +930,7 @@ public class DominionOffspringDialogue {
 											Main.game.getTextStartStringBuilder().append(
 												"<p>"
 													+ "Letting out an angry snort, your [npc.daughter] turns [npc.her] back on you and starts to walk away, shouting over [npc.her] shoulder as [npc.she] makes [npc.her] exit,"
-													+ (offspring().getPersonality().isEmotional()
+													+ (offspring().getPersonality().get(PersonalityTrait.EXTROVERSION) == PersonalityWeight.HIGH || offspring().getPersonality().get(PersonalityTrait.NEUROTICISM) == PersonalityWeight.HIGH
 															?" [npc.speech(Fine, fuck off then! See if I care! Don't bother coming back unless you're gonna apologise!)]"
 															:" [npc.speech(Eugh, fine! See if I care! Oh, and don't bother coming back unless you're gonna apologise!)]")
 												+"</p>");
@@ -937,7 +939,7 @@ public class DominionOffspringDialogue {
 											Main.game.getTextStartStringBuilder().append(
 													"<p>"
 														+ "Letting out a dismissive snort, your [npc.daughter] turns [npc.her] back on you and starts to walk away, shouting over [npc.her] shoulder as [npc.she] makes [npc.her] exit,"
-														+ (offspring().getPersonality().isEmotional()
+														+ (offspring().getPersonality().get(PersonalityTrait.EXTROVERSION) == PersonalityWeight.HIGH || offspring().getPersonality().get(PersonalityTrait.NEUROTICISM) == PersonalityWeight.HIGH
 																?" [npc.speech(Fine, see you later! And you'd better be ready to apologise by then!)]"
 																:" [npc.speech(Fine, see you later! I'm expecting an apology when you return!)]")
 													+"</p>");
@@ -946,7 +948,7 @@ public class DominionOffspringDialogue {
 											Main.game.getTextStartStringBuilder().append(
 													"<p>"
 														+ "Letting out a disappointed whine, your [npc.daughter] reluctantly accepts your excuse to leave."
-														+ (offspring().getPersonality().isEmotional()
+														+ (offspring().getPersonality().get(PersonalityTrait.EXTROVERSION) == PersonalityWeight.HIGH || offspring().getPersonality().get(PersonalityTrait.NEUROTICISM) == PersonalityWeight.HIGH
 																?" [npc.speech(Ok then... I'll see you later!)]"
 																:" [npc.speech(Ok then... I'll see you later I guess...)]")
 													+"</p>");
@@ -963,7 +965,7 @@ public class DominionOffspringDialogue {
 											Main.game.getTextStartStringBuilder().append(
 													"<p>"
 														+ "Letting out an angry snort, your [npc.daughter] turns [npc.her] back on you and starts to walk away, shouting over [npc.her] shoulder as [npc.she] makes [npc.her] exit,"
-														+ (offspring().getPersonality().isEmotional()
+														+ (offspring().getPersonality().get(PersonalityTrait.EXTROVERSION) == PersonalityWeight.HIGH || offspring().getPersonality().get(PersonalityTrait.NEUROTICISM) == PersonalityWeight.HIGH
 																?" [npc.speech(Fine, fuck off then! See if I care!)]"
 																:" [npc.speech(Eugh, fine! See if I care!)]")
 													+ "</p>");
@@ -973,7 +975,7 @@ public class DominionOffspringDialogue {
 											Main.game.getTextStartStringBuilder().append(
 													"<p>"
 														+ "Letting out a derisive snort, your [npc.daughter] turns [npc.her] back on you and starts to walk away, shouting over [npc.her] shoulder as [npc.she] makes [npc.her] exit,"
-														+ (offspring().getPersonality().isEmotional()
+														+ (offspring().getPersonality().get(PersonalityTrait.EXTROVERSION) == PersonalityWeight.HIGH || offspring().getPersonality().get(PersonalityTrait.NEUROTICISM) == PersonalityWeight.HIGH
 																?" [npc.speech(Fine! See if I care!)]"
 																:" [npc.speech(Eugh, fine! See if I care!)]")
 													+ "</p>");
@@ -982,7 +984,7 @@ public class DominionOffspringDialogue {
 											Main.game.getTextStartStringBuilder().append(
 													"<p>"
 														+ "Letting out a dismissive snort, your [npc.daughter] turns [npc.her] back on you and starts to walk away, shouting over [npc.her] shoulder as [npc.she] makes [npc.her] exit,"
-														+ (offspring().getPersonality().isEmotional()
+														+ (offspring().getPersonality().get(PersonalityTrait.EXTROVERSION) == PersonalityWeight.HIGH || offspring().getPersonality().get(PersonalityTrait.NEUROTICISM) == PersonalityWeight.HIGH
 																?" [npc.speech(Fine, see you later [npc.pcName]!)]"
 																:" [npc.speech(Fine, see you later I guess!)]")
 													+"</p>");
@@ -991,7 +993,7 @@ public class DominionOffspringDialogue {
 											Main.game.getTextStartStringBuilder().append(
 													"<p>"
 														+ "Letting out a disappointed whine, your [npc.daughter] reluctantly accepts your excuse to leave."
-														+ (offspring().getPersonality().isEmotional()
+														+ (offspring().getPersonality().get(PersonalityTrait.EXTROVERSION) == PersonalityWeight.HIGH || offspring().getPersonality().get(PersonalityTrait.NEUROTICISM) == PersonalityWeight.HIGH
 																?" [npc.speech(Fine, see you later [npc.pcName]...)]"
 																:" [npc.speech(Fine, see you later I guess...)]")
 													+"</p>");
@@ -1000,7 +1002,7 @@ public class DominionOffspringDialogue {
 											Main.game.getTextStartStringBuilder().append(
 													"<p>"
 														+ "Letting out a miserable whine, your [npc.daughter] reluctantly accepts your excuse to leave."
-														+ (offspring().getPersonality().isEmotional()
+														+ (offspring().getPersonality().get(PersonalityTrait.EXTROVERSION) == PersonalityWeight.HIGH || offspring().getPersonality().get(PersonalityTrait.NEUROTICISM) == PersonalityWeight.HIGH
 																?" [npc.speech(Aww... Come back soon, ok?! I miss you!)]"
 																:" [npc.speech(Aww... I hope you come back soon...)]")
 													+"</p>");
@@ -1009,7 +1011,7 @@ public class DominionOffspringDialogue {
 											Main.game.getTextStartStringBuilder().append(
 													"<p>"
 														+ "With a look of despair on [npc.her] face, your [npc.daughter] miserably accepts your excuse to leave."
-														+ (offspring().getPersonality().isEmotional()
+														+ (offspring().getPersonality().get(PersonalityTrait.EXTROVERSION) == PersonalityWeight.HIGH || offspring().getPersonality().get(PersonalityTrait.NEUROTICISM) == PersonalityWeight.HIGH
 																?" [npc.speech(Aww... Please come back soon! I love you [npc.pcName]!)]"
 																:" [npc.speech(Aww... I hope you come back soon... I love you [npc.pcName]!)]")
 													+ "</p>");
@@ -1086,7 +1088,7 @@ public class DominionOffspringDialogue {
 						+ "</p>");
 			}
 			
-			if(offspring().getPersonality().isEmotional()) {
+			if(offspring().getPersonality().get(PersonalityTrait.EXTROVERSION) == PersonalityWeight.HIGH || offspring().getPersonality().get(PersonalityTrait.NEUROTICISM) == PersonalityWeight.HIGH) {
 				UtilText.nodeContentSB.append("<p>"
 							+ "[npc.Name] turns towards you and puts [npc.her] [npc.hands] on [npc.her] [npc.hips]."
 							+ " [npc.speech(You're damn right you're sorry! And you're going to need to say more than that if you want me to forgive you!)]"
@@ -1166,7 +1168,7 @@ public class DominionOffspringDialogue {
 					+ " [pc.speech(No [npc.daughter] of mine is going to live like this and expect not to be punished! I'm going to teach you a lesson!)]"
 				+ "</p>");
 			
-			if(offspring().getPersonality().isExtroverted()) {
+			if(offspring().getPersonality().get(PersonalityTrait.EXTROVERSION) == PersonalityWeight.HIGH) {
 				UtilText.nodeContentSB.append(
 						"<p>"
 							+ "[npc.speech(What the hell?!)]"
@@ -1271,7 +1273,7 @@ public class DominionOffspringDialogue {
 							+ " [pc.speech(and you seem to be keeping the place clean, good [npc.girl]!)]"
 						+ "</p>"
 						+ "<p>"
-							+ (offspring().getPersonality().isExtroverted()?"[npc.speech(Thanks, [npc.pcName]!)]":"[npc.speech([npc.pcName]... You're embarrassing me...)]")
+							+ (offspring().getPersonality().get(PersonalityTrait.EXTROVERSION) == PersonalityWeight.HIGH?"[npc.speech(Thanks, [npc.pcName]!)]":"[npc.speech([npc.pcName]... You're embarrassing me...)]")
 							+ " [npc.name] replies, locking the door after you and motioning for you to take a seat, before heading over to the kitchen to make you a drink."
 							+ " After just a moment [npc.she] returns, and sits down on the sofa next to you."
 							+ " [npc.speech(So, what do you want to talk about? I only have a little while before I need to get back to... erm... 'work', but let's make the most of our time together!)]"
@@ -1297,7 +1299,7 @@ public class DominionOffspringDialogue {
 						+ " you say, turning to smile at [npc.name]."
 					+ "</p>"
 					+ "<p>"
-						+ (offspring().getPersonality().isExtroverted()?"[npc.speech(Thanks, [npc.pcName], I'm doing my best!)]":"[npc.speech([npc.pcName]... You're embarrassing me again...)]")
+						+ (offspring().getPersonality().get(PersonalityTrait.EXTROVERSION) == PersonalityWeight.HIGH?"[npc.speech(Thanks, [npc.pcName], I'm doing my best!)]":"[npc.speech([npc.pcName]... You're embarrassing me again...)]")
 						+ " [npc.name] replies, locking the door after you and motioning for you to take your usual seat, before heading over to the kitchen to fetch some refreshments."
 						+ " After just a moment [npc.she] returns, and sits down on the sofa next to you."
 						+ " [npc.speech(So, what do you want to talk about? I only have a little while before I need to get back to... erm... 'work', but let's make the most of our time together!)]"
@@ -1521,7 +1523,7 @@ public class DominionOffspringDialogue {
 					+ "</p>");
 			
 			if(offspring().getHistory()==History.PROSTITUTE) {
-				if(offspring().getPersonality().isExtroverted()) {
+				if(offspring().getPersonality().get(PersonalityTrait.EXTROVERSION) == PersonalityWeight.HIGH) {
 					UtilText.nodeContentSB.append(
 							"<p>"
 								+ "[npc.She] leans back on the sofa and smiles."
@@ -1577,7 +1579,7 @@ public class DominionOffspringDialogue {
 				}
 				
 			} else {
-				if(offspring().getPersonality().isExtroverted()) {
+				if(offspring().getPersonality().get(PersonalityTrait.EXTROVERSION) == PersonalityWeight.HIGH) {
 					UtilText.nodeContentSB.append(
 							"<p>"
 								+ "[npc.She] leans back on the sofa and smiles."
@@ -1675,7 +1677,7 @@ public class DominionOffspringDialogue {
 					break;
 				// TODO improve the following:
 				case POSITIVE_ONE_FRIENDLY:
-					if(offspring().getPersonality().isExtroverted()) {
+					if(offspring().getPersonality().get(PersonalityTrait.EXTROVERSION) == PersonalityWeight.HIGH) {
 						UtilText.nodeContentSB.append(
 								"<p>"
 									+ "After a short while, [npc.she] offers you another drink, and after happily accepting, your [npc.daughter] hurries off to the kitchen to fetch it for you."
@@ -1692,7 +1694,7 @@ public class DominionOffspringDialogue {
 					}
 					break;
 				case POSITIVE_TWO_LIKE: case POSITIVE_THREE_CARING:
-					if(offspring().getPersonality().isExtroverted()) {
+					if(offspring().getPersonality().get(PersonalityTrait.EXTROVERSION) == PersonalityWeight.HIGH) {
 						UtilText.nodeContentSB.append(
 								"<p>"
 									+ "After a short while, [npc.she] offers you another drink, and after happily accepting, your [npc.daughter] hurries off to the kitchen to fetch it for you."
@@ -1709,7 +1711,7 @@ public class DominionOffspringDialogue {
 					}
 					break;
 				case POSITIVE_FOUR_LOVE: case POSITIVE_FIVE_WORSHIP:
-					if(offspring().getPersonality().isExtroverted()) {
+					if(offspring().getPersonality().get(PersonalityTrait.EXTROVERSION) == PersonalityWeight.HIGH) {
 						UtilText.nodeContentSB.append(
 								"<p>"
 									+ "After a short while, [npc.she] offers you another drink, and after happily accepting, your [npc.daughter] hurries off to the kitchen to fetch it for you."
@@ -1772,7 +1774,7 @@ public class DominionOffspringDialogue {
 						+ "</p>");
 			}
 			
-			if(offspring().getPersonality().isEmotional()) {
+			if(offspring().getPersonality().get(PersonalityTrait.EXTROVERSION) == PersonalityWeight.HIGH || offspring().getPersonality().get(PersonalityTrait.NEUROTICISM) == PersonalityWeight.HIGH) {
 				UtilText.nodeContentSB.append(
 						"<p>"
 							+ "[npc.Name] blushes a little, and casts [npc.her] [npc.eyes] to the floor as [npc.she] replies,"
@@ -1838,7 +1840,7 @@ public class DominionOffspringDialogue {
 						+ "</p>");
 			}
 			
-			if(offspring().getPersonality().isEmotional()) {
+			if(offspring().getPersonality().get(PersonalityTrait.EXTROVERSION) == PersonalityWeight.HIGH || offspring().getPersonality().get(PersonalityTrait.NEUROTICISM) == PersonalityWeight.HIGH) {
 				UtilText.nodeContentSB.append(
 						"<p>"
 							+ "[npc.Name] leans back on the sofa, letting out an annoyed snort as [npc.she] hears your words. Rolling [npc.her] [npc.eyes], [npc.she] replies,"
@@ -2138,7 +2140,7 @@ public class DominionOffspringDialogue {
 					+ " [pc.speech(No [npc.daughter] of mine is going to live like this and expect not to be punished! It's time that I put you in your place!)]"
 				+ "</p>");
 			
-			if(offspring().getPersonality().isExtroverted()) {
+			if(offspring().getPersonality().get(PersonalityTrait.EXTROVERSION) == PersonalityWeight.HIGH || offspring().getPersonality().get(PersonalityTrait.NEUROTICISM) == PersonalityWeight.HIGH) {
 				UtilText.nodeContentSB.append(
 						"<p>"
 							+ "[npc.speech(What the hell?!)]"

@@ -748,13 +748,13 @@ public class Util {
 				utilitiesStringBuilder.append(", " + stringExtractor.apply(currentItem));
 				currentItem = itemIterator.next();
 			}
-			utilitiesStringBuilder.append(" " + combiningWord + " " + stringExtractor.apply(currentItem));
+			utilitiesStringBuilder.append((items.size()>2?", ":" ") + combiningWord + " " + stringExtractor.apply(currentItem));
 		}
 		return utilitiesStringBuilder.toString();
 	}
 
-	public static String clothesToStringList(Collection<AbstractClothing> clothingSet) {
-		return Util.toStringList(clothingSet, (AbstractClothing o) -> Util.capitaliseSentence(o.getClothingType().getName()), "and");
+	public static String clothesToStringList(Collection<AbstractClothing> clothingSet, boolean capitalise) {
+		return Util.toStringList(clothingSet, (AbstractClothing o) -> (capitalise?Util.capitaliseSentence(o.getClothingType().getName()):o.getClothingType().getName()), "and");
 	}
 
 	public static String setToStringListCoverableArea(Set<CoverableArea> coverableAreaSet) {

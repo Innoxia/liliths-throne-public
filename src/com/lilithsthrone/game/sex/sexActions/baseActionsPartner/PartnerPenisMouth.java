@@ -887,7 +887,7 @@ public class PartnerPenisMouth {
 	
 	public static final SexAction PARTNER_BLOWJOB_SUB_RESISTING = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.ONE_MINIMUM,
+			ArousalIncrease.ZERO_NONE,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ONE_VANILLA,
 			PenetrationType.PENIS,
@@ -1446,7 +1446,7 @@ public class PartnerPenisMouth {
 	
 	public static final SexAction PLAYER_BLOWJOB_SUB_RESIST = new SexAction(
 			SexActionType.PLAYER,
-			ArousalIncrease.ONE_MINIMUM,
+			ArousalIncrease.ZERO_NONE,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
 			PenetrationType.PENIS,

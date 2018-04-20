@@ -74,15 +74,33 @@
 	</p>
 	<p style='text-align:center;'><i>
 		<b>Bat Caverns</b></br>
-		Travellers are advised to keep any light sources as dim as possible. The resident bat-morphs can get irritable if exposed to bright lights.
+		In order to avoid exciting the resident bat-morphs, travellers are advised to extinguish all personal light sources.
+		 The luminescent lichen will provide you with enough illumination.
 	</i></p>
 	<p>
 		Moving forwards past the sign, you peer down into the darkness.
-		 The light from the passage behind you manages to illuminate the first dozen steep stone steps that are carved into the rock below,
-			 letting you know that there's a way down into these caverns even for morphs who are incapable of flight.
+		 The light from the passage behind you manages to illuminate the first dozen steep stone steps that are carved into the rock below, letting you know that there's a way down into these caverns even for people who are incapable of flight.
 	</p>
 	]]>
 	</htmlContent>
+	
+	<htmlContent tag="BAT_CAVERNS_ENTRY"><![CDATA[
+	<p>
+		Deciding that you'd like to travel down into the bat caverns, you step towards the edge of the precipice before you.
+		 Looking down at the steep, stone staircase that disappears into the inky blackness of the caverns' depths, you move forwards and take the first step.
+	</p>
+	<p>
+		Instantly, the dark grey hue of the staircase beneath your [pc.feet] is replaced by a soft, turquoise glow.
+		 Looking down, you see that the stone steps are coated in a blanket of bioluminescent lichins and mosses, which, when pressure is applied to them, light up to illuminate their the area around them.
+		 Although bright enough to allow you to see your immediate surroundings, the lichen's light drops off at a distance of about fifteen metres or so, and you can't help but feel like it's painting you as a target to anyone lurking in the darkness beyond.
+	</p>
+	<p>
+		Determined to continue on your downwards journey, you proceed to the bottom of the staircase, and find yourself stepping forwards into pitch-black cavern.
+		 Thankfully, the same bioluminescent carpet that coats the stairs seems to grow all throughout this area as well, and as you begin your exploration, your footsteps illuminate the way ahead.
+	</p>
+	]]>
+	</htmlContent>
+	
 	
 	<htmlContent tag="RAT_WARREN"><![CDATA[
 	<p>

@@ -1,4 +1,4 @@
-package com.lilithsthrone.game.character;
+package com.lilithsthrone.game.character.persona;
 
 /**
  * @since 0.2.0

@@ -448,14 +448,8 @@ public class PhoneDialogue {
 
 		@Override
 		public String getContent() {
-			/*
-			 * sexCountReceivingAnal, sexCountReceivingVaginal,
-			 * sexCountGivingTitjob, sexCountGivingBlowjob,
-			 * sexCountGivingCunnilingus; private String gaveFirstBlowjobTo,
-			 * gaveFirstCunnilingusTo, gaveVaginalVirginityTo,
-			 * gaveAnalVirginityTo;
-			 */
-			return Main.game.getPlayer().getBodyDescription();
+//			return Main.game.getPlayer().getBodyDescription();
+			return Main.game.getPlayer().getCharacterInformationScreen();
 		}
 
 		@Override
@@ -693,7 +687,7 @@ public class PhoneDialogue {
 							true)
 
 					+ "<span style='height:16px;width:100%;float:left;'></span>"
-					+ "<h6 style='color:"+Colour.TRANSFORMATION_GREATER.toWebHexString()+"; text-align:center;'>Head & Face Attributes</h6>"
+					+ "<h6 style='color:"+Colour.TRANSFORMATION_GREATER.toWebHexString()+"; text-align:center;'>Head & Throat Attributes</h6>"
 					+ statHeader()
 					+ statRow(Colour.TRANSFORMATION_GENERIC, "Hair Length (inches)",
 							Colour.TEXT, String.valueOf(Main.game.getPlayer().getHairRawLengthValue()),
@@ -703,6 +697,22 @@ public class PhoneDialogue {
 							Colour.TEXT, String.valueOf(Main.game.getPlayer().getTongueLengthValue()),
 							Colour.TRANSFORMATION_GENERIC, Util.capitaliseSentence(Main.game.getPlayer().getTongueLength().getDescriptor()),
 							false)
+					+ statRow(Colour.TRANSFORMATION_GENERIC, "Throat Wetness",
+							Colour.TEXT, String.valueOf(Main.game.getPlayer().getFaceWetness().getValue()),
+							Colour.GENERIC_SEX, Util.capitaliseSentence(Main.game.getPlayer().getFaceWetness().getDescriptor()),
+							false)
+					+ statRow(Colour.TRANSFORMATION_GENERIC, "Throat Capacity (inches)",
+							Colour.TEXT, String.valueOf(Main.game.getPlayer().getFaceRawCapacityValue()),
+							Colour.GENERIC_SEX, Util.capitaliseSentence(Main.game.getPlayer().getFaceCapacity().getDescriptor()),
+							true)
+					+ statRow(Colour.TRANSFORMATION_GENERIC, "Throat Elasticity",
+							Colour.TEXT, String.valueOf(Main.game.getPlayer().getFaceElasticity().getValue()),
+							Colour.GENERIC_SEX, Util.capitaliseSentence(Main.game.getPlayer().getFaceElasticity().getDescriptor()),
+							false)
+					+ statRow(Colour.TRANSFORMATION_GENERIC, "Throat Plasticity",
+							Colour.TEXT, String.valueOf(Main.game.getPlayer().getFacePlasticity().getValue()),
+							Colour.GENERIC_SEX, Util.capitaliseSentence(Main.game.getPlayer().getFacePlasticity().getDescriptor()),
+							true)
 					
 					+ "<span style='height:16px;width:100%;float:left;'></span>"
 					+ "<h6 style='color:"+Colour.TRANSFORMATION_SEXUAL.toWebHexString()+"; text-align:center;'>Breast Attributes</h6>"

@@ -21,7 +21,7 @@
      id="defs4313">
     <linearGradient
        inkscape:collect="always"
-       id="bridgeGradient">
+       id="cavernBridgeGradient">
       <stop
          style="stop-color:#ff5555;stop-opacity:1"
          offset="0"
@@ -33,7 +33,7 @@
     </linearGradient>
     <linearGradient
        inkscape:collect="always"
-       xlink:href="#bridgeGradient"
+       xlink:href="#cavernBridgeGradient"
        id="linearGradient15"
        x1="29.499998"
        y1="1025.4872"
@@ -50,7 +50,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="2"
-     inkscape:cx="-150.69392"
+     inkscape:cx="-235.94392"
      inkscape:cy="48.817465"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -69,7 +69,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>

@@ -1,4 +1,4 @@
-package com.lilithsthrone.game.character;
+package com.lilithsthrone.game.character.persona;
 
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.utils.Colour;
