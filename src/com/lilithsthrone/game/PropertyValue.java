@@ -23,10 +23,13 @@ public enum PropertyValue {
 	facialHairContent(false),
 	pubicHairContent(false),
 	bodyHairContent(false),
+	assHairContent(false),
 	feminineBeardsContent(false),
 	lactationContent(true),
 	urethralContent(false),
-		
+	nipplePenContent(true),
+
+	levelUpHightlight(false),
 	newWeaponDiscovered(false),
 	newClothingDiscovered(false),
 	newItemDiscovered(false),

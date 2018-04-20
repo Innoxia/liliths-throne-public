@@ -308,7 +308,7 @@ public class CultistDialogue {
 						+ "[npc.Name] lets out a mischievous giggle, before reaching down and pulling up the skirt of her witch's dress."
 						+ " Following the movement of her hands, you look down to see that her now-exposed underwear are completely crotchless, allowing her huge demonic cock to flop free between her legs."
 						+ " Her right hand reaches down beneath her monstrous shaft to stroke her dripping-wet pussy, and her giggle turns into a sensual moan as she bites her lip and looks up at you,"
-						+ " [npc.speech(Now show me what a [pc.girl] you are and get down on your knees!"
+						+ " [npc.speech(Now show me what a good [pc.girl] you are and get down on your knees!"
 							+ " You can start with my pussy, and then finish with my cock! You'll be getting your gift straight down your throat soon enough!"
 							+ " Oh! And don't even <i>think</i> of trying to back out now!)]"
 					+ "</p>"

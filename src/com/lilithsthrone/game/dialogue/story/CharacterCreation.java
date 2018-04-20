@@ -7,11 +7,6 @@ import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.History;
-import com.lilithsthrone.game.character.Name;
-import com.lilithsthrone.game.character.NameTriplet;
-import com.lilithsthrone.game.character.Personality;
-import com.lilithsthrone.game.character.SexualOrientation;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
@@ -20,6 +15,10 @@ import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.body.valueEnums.LabiaSize;
 import com.lilithsthrone.game.character.body.valueEnums.PiercingType;
 import com.lilithsthrone.game.character.gender.Gender;
+import com.lilithsthrone.game.character.persona.History;
+import com.lilithsthrone.game.character.persona.Name;
+import com.lilithsthrone.game.character.persona.NameTriplet;
+import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.quests.QuestType;
@@ -43,6 +42,7 @@ import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.ColourListPresets;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.GenericPlace;
@@ -50,7 +50,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.2.1
+ * @version 0.2.4
  * @author Innoxia
  */
 public class CharacterCreation {
@@ -160,7 +160,6 @@ public class CharacterCreation {
 		Main.game.getPlayer().setHairCovering(new Covering(BodyCoveringType.HAIR_HUMAN, Colour.COVERING_BROWN), true);
 		Main.game.getPlayer().setBreastShape(BreastShape.ROUND);
 		Main.game.getPlayer().setVaginaLabiaSize(LabiaSize.TWO_AVERAGE.getValue());
-		Main.game.getPlayer().setPersonality(Personality.EARTH_CALM);
 
 		Main.game.getPlayer().setFacialHair(BodyHair.ZERO_NONE);
 		switch(Main.game.getPlayer().getFemininity()) {
@@ -588,7 +587,9 @@ public class CharacterCreation {
 						+ "</div>"
 						
 						+ CharacterModificationUtils.getOrientationChoiceDiv()
-					
+						
+						+ CharacterModificationUtils.getPersonalityChoiceDiv()
+						
 					+"</div>";
 		}
 		
@@ -1209,12 +1210,19 @@ public class CharacterCreation {
 			
 			if(Main.game.isBodyHairEnabled()) {
 				UtilText.nodeContentSB.append(
-						CharacterModificationUtils.getKatesDivUnderarmHair("Underarm hair", "The body hair found in your armpits.")
-						+ CharacterModificationUtils.getKatesDivAssHair("Ass hair", "The body hair found around your asshole."));
+						CharacterModificationUtils.getKatesDivUnderarmHair("Underarm hair", "The body hair found in your armpits."));
 				
 			} else {
 				UtilText.nodeContentSB.append(CharacterModificationUtils.getKatesDivGenericBodyHairDisabled(
-						"Body hair", "The body hair found in your armpits and around your asshole.", "Body hair is currently disabled in the options. You will not see any underarm or ass hair content while it is disabled."));
+						"Underarm hair", "The hair found in your armpits.", "Underarm hair is currently disabled in the options. You will not see any underarm hair content while it is disabled."));
+			}
+			
+			if(Main.game.isAssHairEnabled()) {
+				UtilText.nodeContentSB.append(CharacterModificationUtils.getKatesDivAssHair("Ass hair", "The body hair found around your asshole."));
+				
+			} else {
+				UtilText.nodeContentSB.append(CharacterModificationUtils.getKatesDivGenericBodyHairDisabled(
+						"Ass hair", "The body hair found around your asshole.", "Ass hair is currently disabled in the options. You will not see any ass hair content while it is disabled."));
 			}
 			
 			return UtilText.nodeContentSB.toString();
@@ -1256,7 +1264,7 @@ public class CharacterCreation {
 						+ "<div class='container-quarter-width'>"
 						+ "Clothing Colours:</br>");
 
-			for (Colour c : Colour.allClothingColours) {
+			for (Colour c : ColourListPresets.ALL.getPresetColourList()) {
 				UtilText.nodeContentSB.append("<div class='normal-button"+(Main.game.getPlayer().primaryColour==c?" selected":"")+"' id='COLOUR_" + c.toString() + "'"
 										+ " style='width:auto; margin-right:4px;"+(Main.game.getPlayer().primaryColour==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
 									+ "<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";'></div>"

@@ -36,7 +36,7 @@ public class PlayerPenisUrethraVagina {
 		
 		@Override
 		public String getActionTitle() {
-			return "Fuck urethra";
+			return "Fuck pusys's urethra";
 		}
 
 		@Override
@@ -506,12 +506,12 @@ public class PlayerPenisUrethraVagina {
 		
 		@Override
 		public String getActionTitle() {
-			return "Stop urethral fuck";
+			return "Stop pussy urethral fuck";
 		}
 
 		@Override
 		public String getActionDescription() {
-			return "Pull your [pc.cock+] out of [npc.name]'s [npc.vaginaUrethra+] and stop fucking [npc.herHim].";
+			return "Pull your [pc.cock+] out of [npc.name]'s vaginal [npc.vaginaUrethra+] and stop fucking [npc.herHim].";
 		}
 
 		@Override

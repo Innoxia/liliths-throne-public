@@ -1,6 +1,9 @@
 package com.lilithsthrone.controller.eventListeners;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
+import java.util.stream.Collectors;
 
 import org.w3c.dom.events.Event;
 import org.w3c.dom.events.EventListener;
@@ -35,13 +38,16 @@ import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.combat.SpecialAttack;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.InventorySlot;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.rendering.RenderingEngine;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.1.99
+ * @version 0.2.4
  * @author Innoxia
  */
 public class TooltipInformationEventListener implements EventListener {
@@ -58,7 +64,9 @@ public class TooltipInformationEventListener implements EventListener {
 	private Spell spell;
 	private int spellLevel;
 	private Attribute attribute;
+	private InventorySlot concealedSlot;
 	private static StringBuilder tooltipSB  = new StringBuilder();
+	
 	
 	private static final int LINE_HEIGHT= 16;
 
@@ -743,6 +751,20 @@ public class TooltipInformationEventListener implements EventListener {
 
 			Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
 
+		} else if(concealedSlot!=null) {
+
+			Map<InventorySlot, List<AbstractClothing>> concealedSlots = RenderingEngine.getCharacterToRender().getInventorySlotsConcealed();
+			
+			Main.mainController.setTooltipSize(360, 175);
+
+			Main.mainController.setTooltipContent(UtilText.parse(
+					"<div class='title'>"+Util.capitaliseSentence(concealedSlot.getName())+" - [style.boldBad(Concealed!)]</div>"
+					+ "<div class='description'>"
+						+ UtilText.parse(RenderingEngine.getCharacterToRender(), "This slot is currently hidden from view by [npc.name]'s <b>")
+							+Util.clothesToStringList(concealedSlots.get(concealedSlot).stream().filter(clothing -> !concealedSlots.containsKey(clothing.getClothingType().getSlot())).collect(Collectors.toList()), false)
+						+"</b>."
+					+ "</div>"));
+			
 		} else { // Standard information:
 			if(description==null || description.isEmpty()) {
 				Main.mainController.setTooltipSize(360, 64);
@@ -920,8 +942,15 @@ public class TooltipInformationEventListener implements EventListener {
 
 		return this;
 	}
-	
 
+	public TooltipInformationEventListener setConcealedSlot(InventorySlot concealedSlot) {
+		resetFields();
+		this.concealedSlot = concealedSlot;
+
+		return this;
+	}
+
+	
 	private void resetFields() {
 		extraAttributes = false;
 		weather = false;
@@ -940,5 +969,6 @@ public class TooltipInformationEventListener implements EventListener {
 		protection=false;
 		tattoo=false;
 		copyInformation=false;
+		concealedSlot=null;
 	}
 }

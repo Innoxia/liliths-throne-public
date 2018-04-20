@@ -233,7 +233,7 @@ public class GenericActions {
 	
 	public static final SexAction PLAYER_RESIST = new SexAction(
 			SexActionType.PLAYER,
-			ArousalIncrease.NEGATIVE_MINOR,
+			ArousalIncrease.ZERO_NONE,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			null,
@@ -247,7 +247,7 @@ public class GenericActions {
 			if(Main.game.getPlayer().hasFetish(Fetish.FETISH_NON_CON_SUB)) {
 				return ArousalIncrease.THREE_NORMAL;
 			}
-			return ArousalIncrease.NEGATIVE;
+			return ArousalIncrease.ZERO_NONE;
 		}
 		
 		@Override
@@ -877,7 +877,7 @@ public class GenericActions {
 	
 	public static final SexAction PARTNER_RESIST = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.NEGATIVE_MINOR,
+			ArousalIncrease.ZERO_NONE,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			null,
@@ -891,7 +891,7 @@ public class GenericActions {
 			if(Sex.getActivePartner().hasFetish(Fetish.FETISH_NON_CON_SUB)) {
 				return ArousalIncrease.THREE_NORMAL;
 			}
-			return ArousalIncrease.NEGATIVE;
+			return ArousalIncrease.ZERO_NONE;
 		}
 		
 		@Override
@@ -1154,30 +1154,7 @@ public class GenericActions {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			boolean partnersSatisfied = true;
-			if(Sex.isDom(Main.game.getPlayer())) {
-				for(GameCharacter character : Sex.getSubmissiveParticipants().keySet()) {
-					if(Sex.getNumberOfOrgasms(character) == 0) {
-						partnersSatisfied = false;
-					}
-				}
-			} else {
-				for(GameCharacter character : Sex.getDominantParticipants().keySet()) {
-					if(Sex.getNumberOfOrgasms(character) == 0) {
-						partnersSatisfied = false;
-					}
-				}
-			}
-			
-			if(!Sex.isDom(Main.game.getPlayer()) && !Sex.isConsensual()) {
-				return partnersSatisfied;
-				
-			} else if(Sex.isDom(Main.game.getPlayer()) && !Sex.isSubHasEqualControl()) {
-				return false;
-				
-			} else {
-				return partnersSatisfied && Sex.getNumberOfOrgasms(Main.game.getPlayer())>=1;
-			}
+			return Sex.getSexManager().isPartnerWantingToStopSex();
 		}
 		
 		@Override

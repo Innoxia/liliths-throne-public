@@ -619,7 +619,11 @@ public class SuccubisSecrets {
 						}
 						if(Main.getProperties().hasValue(PropertyValue.bodyHairContent)) {
 							CoveringsNamesMap.putIfAbsent(Main.game.getPlayer().getBodyHairCoveringType(), new ArrayList<>());
-							CoveringsNamesMap.get(Main.game.getPlayer().getBodyHairCoveringType()).add("growing in your underarms and around your anus");
+							CoveringsNamesMap.get(Main.game.getPlayer().getBodyHairCoveringType()).add("growing in your underarms");
+						}
+						if(Main.getProperties().hasValue(PropertyValue.assHairContent)) {
+							CoveringsNamesMap.putIfAbsent(Main.game.getPlayer().getAssHairType().getType(), new ArrayList<>());
+							CoveringsNamesMap.get(Main.game.getPlayer().getAssHairType().getType()).add("growing around your anus");
 						}
 						
 						CoveringsNamesMap.put(BodyCoveringType.ANUS, Util.newArrayListOfValues(new ListValue<>("anus")));
@@ -954,14 +958,15 @@ public class SuccubisSecrets {
 							?CharacterModificationUtils.getKatesDivUnderarmHair("Underarm hair", "The body hair found in your armpits.")
 							:"")
 					
-					+(Main.game.isBodyHairEnabled()
+					+(Main.game.isAssHairEnabled()
 							?CharacterModificationUtils.getKatesDivAssHair("Ass hair", "The body hair found around your asshole.")
 							:"")
 					);
 			
 			for(BodyCoveringType bct : BodyCoveringType.values()) {
 				if((Main.game.isFacialHairEnabled() && Main.game.getPlayer().getFacialHairType().getType()==bct)
-						|| (Main.game.isBodyHairEnabled() && (Main.game.getPlayer().getUnderarmHairType().getType()==bct || Main.game.getPlayer().getAssHairType().getType()==bct))
+						|| (Main.game.isBodyHairEnabled() && Main.game.getPlayer().getUnderarmHairType().getType()==bct)
+						|| (Main.game.isAssHairEnabled() &&  Main.game.getPlayer().getAssHairType().getType()==bct)
 						|| (Main.game.isPubicHairEnabled() && Main.game.getPlayer().getPubicHairType().getType()==bct)) {
 					UtilText.nodeContentSB.append(CharacterModificationUtils.getKatesDivCoveringsNew(
 							true, bct, "Body hair", "This is your body hair ("+bct.getRace().getName()+").", true, true));

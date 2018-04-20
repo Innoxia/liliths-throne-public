@@ -126,6 +126,7 @@ public enum Sex {
 	private static boolean sexStarted = false;
 	private static boolean consensual;
 	private static boolean subHasEqualControl;
+	private static boolean publicSex;
 
 	private static Map<GameCharacter, SexPositionSlot> dominants;
 	private static Map<GameCharacter, SexPositionSlot> submissives;
@@ -172,7 +173,8 @@ public enum Sex {
 	
 	private static Set<GameCharacter> charactersAbleToRemoveSelfClothing, charactersAbleToRemoveOthersClothing;
 	
-	private static boolean sexFinished, partnerAllowedToUseSelfActions;
+	private static boolean sexFinished;
+	private static boolean partnerAllowedToUseSelfActions;
 	
 	private static AbstractClothing selectedClothing;
 	
@@ -197,7 +199,11 @@ public enum Sex {
 		actionsAvailable = new HashMap<>();
 		orgasmActionsAvailable = new HashMap<>();
 		
+		forceSexPaceMap = new HashMap<>();
+		
 		setSexManager(sexManager);
+		
+		publicSex = sexManager.isPublicSex();
 		
 		Sex.postSexDialogue = postSexDialogue;
 		
@@ -278,13 +284,6 @@ public enum Sex {
 		for(GameCharacter character : Sex.getAllParticipants()) {
 			areasTooLoose.put(character, new HashSet<>());
 		}
-		
-//		areasCummedIn = new HashMap<>();
-//		for(GameCharacter character : Sex.getAllParticipants()) {
-//			areasCummedIn.put(character, new HashSet<>());
-//		}
-		
-		forceSexPaceMap = new HashMap<>();
 		
 		for(GameCharacter character : Sex.getAllParticipants()) {
 			if(character instanceof NPC) {
@@ -397,6 +396,10 @@ public enum Sex {
 		sexSB = new StringBuilder(sexStartDescription);
 
 		sexSB.append(sexManager.getStartSexDescription());
+		
+		if(Sex.isPublicSex()) {
+			sexSB.append(Sex.getSexManager().getPublicSexStartingDescription());
+		}
 
 		sexSB.append("<p style='text-align:center;'><b>Starting Position:</b> <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>"+sexManager.getPosition().getName()+"</b></br>"
 				+"<i><b>"+sexManager.getPosition().getDescription()+"</b></i></p>");
@@ -958,7 +961,7 @@ public enum Sex {
 
 		@Override
 		public String getLabel() {
-			return (Sex.isConsensual()?"Sex":"Non-consensual sex")+": "+getPosition().getName();
+			return (!Sex.isConsensual() && Main.getProperties().hasValue(PropertyValue.nonConContent)?"Non-consensual ":"")+(Sex.isPublicSex()?"Public ":"")+"Sex: "+getPosition().getName();
 		}
 
 		@Override
@@ -1250,6 +1253,10 @@ public enum Sex {
 			}
 			Sex.setActivePartner((NPC) active);
 			
+			if(Sex.isPublicSex()) {
+				sexSB.append(Sex.getSexManager().getRandomPublicSexDescription());
+				sexDescription = sexSB.toString();
+			}
 			
 			// Re-populate lists for the player's next action choice.
 			populatePlayerSexLists();
@@ -2375,7 +2382,8 @@ public enum Sex {
 		String penileVirginityLoss = "";
 		
 		if (penetrationType == PenetrationType.PENIS) {
-			if(characterPenetrating.isPenisVirgin()) {
+			if(characterPenetrating.isPenisVirgin()
+					&& orifice.isTakesPenisVirginity()) {
 				penileVirginityLoss = characterPenetrating.getVirginityLossPenetrationDescription(characterPenetrating, PenetrationType.PENIS, characterPenetrated, orifice);
 				if(characterPenetrated.hasFetish(Fetish.FETISH_DEFLOWERING)) {
 					characterPenetrated.incrementExperience(Fetish.getExperienceGainFromTakingOtherVirginity(characterPenetrated), true);
@@ -2710,7 +2718,7 @@ public enum Sex {
 	}
 
 	public static boolean isInForeplay() {
-		return Sex.getActivePartner().getArousal()<ArousalLevel.ONE_TURNED_ON.getMaximumValue() && Sex.getNumberOfOrgasms(Sex.getActivePartner())==0;
+		return Sex.getActivePartner().getArousal()<ArousalLevel.ONE_TURNED_ON.getMaximumValue() && Sex.getNumberOfOrgasms(Sex.getActivePartner())==0 && Sex.getSexManager().isPartnerUsingForeplayActions();
 	}
 	
 	// Getters & Setters:
@@ -3326,6 +3334,10 @@ public enum Sex {
 		return Sex.dominants.keySet().contains(character);
 	}
 	
+	public static boolean isPublicSex() {
+		return publicSex;
+	}
+	
 	public static boolean isSexFinished() {
 		return sexFinished;
 	}
@@ -3360,6 +3372,8 @@ public enum Sex {
 	}
 	
 	public static void incrementNumberOfOrgasms(GameCharacter character, int increment) {
+		character.incrementDaysOrgasmCount(increment);
+		character.incrementTotalOrgasmCount(increment);
 		orgasmCountMap.putIfAbsent(character, 0);
 		orgasmCountMap.put(character, orgasmCountMap.get(character)+increment);
 	}
@@ -3438,7 +3452,7 @@ public enum Sex {
 	
 	private static List<Fetish> getFetishesFromPenetrationAndOrificeTypes(GameCharacter character, GameCharacter characterPenetrating, PenetrationType penetrationType, GameCharacter characterOrifice, OrificeType orificeBeingUsed) {
 		List<Fetish> associatedFetishes = new ArrayList<>();
-			
+		
 		switch(penetrationType) {
 			case FINGER:
 				if(character.equals(characterOrifice)) {

@@ -246,6 +246,11 @@ public class SexActionPresets {
 	public static List<Class<?>> playerDoggyOnAllFoursAmber = new ArrayList<>();
 	public static List<Class<?>> partnerDoggyBehindAmber = new ArrayList<>();
 	
+	public static List<Class<?>> playerPetMountingOnAllFours = new ArrayList<>();
+	public static List<Class<?>> partnerPetMountingHumping = new ArrayList<>();
+
+	public static List<Class<?>> playerPetOralOnAllFours = new ArrayList<>();
+	public static List<Class<?>> partnerPetOralCockedLeg = new ArrayList<>();
 	
 	public static List<Class<?>> partnerKneelingReceivingOralZaranix = new ArrayList<>();
 	public static List<Class<?>> playerKneelingPerformingOralZaranix = new ArrayList<>();
@@ -725,6 +730,7 @@ public class SexActionPresets {
 		playerSixtyNineOnTop.add(PlayerFingerVagina.class);
 		playerSixtyNineOnTop.add(PlayerFingerAnus.class);
 		playerSixtyNineOnTop.add(PlayerTongueVagina.class);
+		playerSixtyNineOnTop.add(PlayerTongueAnus.class);
 		playerSixtyNineOnTop.add(PlayerPenisNipple.class);
 		playerSixtyNineOnTop.add(PlayerPenisBreasts.class);
 		
@@ -748,6 +754,7 @@ public class SexActionPresets {
 		partnerSixtyNineOnTop.add(PlayerFingerVagina.class);
 		partnerSixtyNineOnTop.add(PlayerFingerAnus.class);
 		partnerSixtyNineOnTop.add(PlayerTongueVagina.class);
+		partnerSixtyNineOnTop.add(PlayerTongueAnus.class);
 		partnerSixtyNineOnTop.add(PlayerPenisNipple.class);
 		partnerSixtyNineOnTop.add(PlayerPenisBreasts.class);
 		
@@ -885,6 +892,17 @@ public class SexActionPresets {
 		playerChairBottom.add(PlayerTongueNipple.class);
 		playerChairBottom.add(PartnerTongueBreasts.class);
 		playerChairBottom.add(PartnerTongueNipple.class);
+		playerChairBottom.add(PartnerTailVagina.class);
+		playerChairBottom.add(PartnerTailAnus.class);
+
+		playerChairBottom.add(PlayerFingerAnus.class);
+		playerChairBottom.add(PartnerFingerAnus.class);
+
+		playerChairBottom.add(PlayerFingerUrethra.class);
+		playerChairBottom.add(PartnerFingerUrethra.class);
+
+		playerChairBottom.add(PlayerFingerVagina.class);
+		playerChairBottom.add(PartnerFingerVagina.class);
 		
 		playerChairBottom.add(ConChairBottom.class);
 		playerChairBottom.add(ConChairPositions.class);
@@ -900,7 +918,18 @@ public class SexActionPresets {
 		partnerChairBottom.add(PlayerTongueNipple.class);
 		partnerChairBottom.add(PartnerTongueBreasts.class);
 		partnerChairBottom.add(PartnerTongueNipple.class);
+		partnerChairBottom.add(PlayerTailVagina.class);
+		partnerChairBottom.add(PlayerTailAnus.class);
+		
+		partnerChairBottom.add(PlayerFingerAnus.class);
+		partnerChairBottom.add(PartnerFingerAnus.class);
 
+		partnerChairBottom.add(PlayerFingerUrethra.class);
+		partnerChairBottom.add(PartnerFingerUrethra.class);
+
+		partnerChairBottom.add(PlayerFingerVagina.class);
+		partnerChairBottom.add(PartnerFingerVagina.class);
+		
 //		partnerChairBottom.add(ConChairBottom.class);
 		partnerChairBottom.add(ConChairPositions.class);
 		
@@ -1259,6 +1288,51 @@ public class SexActionPresets {
 		partnerDoggyBehindAmber.addAll(partnerDoggyBehind);
 		partnerDoggyBehindAmber.remove(GenericPositioning.class);
 		partnerDoggyBehindAmber.add(SAAmberDoggyFucked.class);
+		
+		// Mounted:
+
+		playerPetMountingOnAllFours.addAll(playerDefaultSelf);
+		playerPetMountingOnAllFours.addAll(playerGenerics);
+		playerPetMountingOnAllFours.remove(GenericPositioning.class);
+		
+		// Mounting NPC doesn't want to touch themselves
+//		partnerMountedHumping.addAll(partnerDefaultSelf);
+		
+		partnerPetMountingHumping.add(PartnerFingerNipple.class);
+//		partnerMountedHumping.add(PartnerFingerUrethra.class);
+//		partnerMountedHumping.add(PartnerFingerVagina.class);
+//		partnerMountedHumping.add(PartnerFingerAnus.class);
+		partnerPetMountingHumping.add(PartnerPenisVagina.class);
+		partnerPetMountingHumping.add(PartnerPenisUrethraVagina.class);
+		partnerPetMountingHumping.add(PartnerPenisUrethraPenis.class);
+//		partnerMountedHumping.add(PartnerPenisThighs.class);
+		partnerPetMountingHumping.add(PartnerPenisAnus.class);
+//		partnerMountedHumping.add(PartnerPenisAss.class);
+		partnerPetMountingHumping.add(PartnerTailVagina.class);
+		partnerPetMountingHumping.add(PartnerTailAnus.class);
+
+		partnerPetMountingHumping.add(PlayerTailVagina.class);
+		partnerPetMountingHumping.add(PlayerTailAnus.class);
+
+		partnerPetMountingHumping.addAll(partnerGenerics);
+		partnerPetMountingHumping.remove(GenericPositioning.class);
+		
+		
+		// Pet Oral:
+
+		playerPetOralOnAllFours.addAll(playerDefaultSelf);
+		playerPetOralOnAllFours.addAll(playerGenerics);
+		
+		playerPetOralOnAllFours.add(PartnerPenisMouth.class);
+//		playerPetOralOnAllFours.add(PlayerTongueVagina.class);
+		
+		playerPetOralOnAllFours.remove(GenericPositioning.class);
+		
+
+		partnerPetOralCockedLeg.addAll(partnerDefaultSelf);
+		partnerPetOralCockedLeg.addAll(partnerGenerics);
+		partnerPetOralCockedLeg.addAll(partnerDefaultSelf);
+		partnerPetOralCockedLeg.remove(GenericPositioning.class);
 		
 		
 		// Zaranix:

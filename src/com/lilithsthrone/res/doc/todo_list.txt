@@ -9,10 +9,6 @@
 	
 	Goals:
 	
-	- Add Submission content. (Special encounters for Imps and Slimes. Add slime TF quest. Adding content for the Imp fortresses, Gambling Den, and Bat caverns.)
-
-	- Finish the spell system and add a few more weapons.
-	
 	- Add in a mod template for items, clothing, weapons, and sex actions.
 	
 	- Improve the slavery UI, and add more jobs & interactions (winner of Patreon content poll).
@@ -21,80 +17,392 @@
 	
 	- Fix bugs and sort out github issues and PRs.
 
+	- Adding the companion system
+	
+	- Start adding in Nightlife stuff
+	
+	- Finish guide for user submitted content
+
+	
 	
 	Patch notes:
 	
-	
 	Gameplay:
-		Added raven-harpy and border-collie subspecies (for Scarlett and Pix, respectively).
-		Essence gains from combat and sex are now doubled during arcane storms.
+		<b>Added:</b> Companion system. You can just take one slave around with you for now, and the interaction options are a little limited (post-combat sex options haven't been implemented yet), but this adds functionality for adding unique followers later on. (Contribution from Irbynx.)
+		<b>Added:</b> Clothing mod support. (Look in the mod folder for details.)
+		Updated personality types from being a set one-in-four, to having weights on five personality traits (Adventurousness, Agreeableness, Conscientiousness, Extroversion, and Neuroticism).
+		Added personality selection to the new character screen. (If you want to set it on your current character, just save the game in this new version, then open the save file and search for 'personality' under your character's entry. You can edit the values there.)
+		Added map of the Bat Caverns, along with bat-morph and slime encounters.
 	
 	Clothing:
-		<b>Added:</b> Corset dress (feminine, torso slot).
-		<b>Added:</b> Suspender belt  (feminine, hips slot).
-		<b>Added:</b> Stockings (feminine, calves slot).
-		<b>Added:</b> Sport shorts (unisex, leg slot).
-		<b>Added:</b> Sweatband (unisex, head slot).
-		<b>Added:</b> Wristbands (unisex, wrist slot).
-	
-	Slavery:
-		Moved 'Slavery Overview' from an option in every room to just being available from your room, and made the options available in rooms specific to that room.
-		Tidied up the appearance and buttons for slavery and room management.
-		Added some dialogue variation for if you've set your slave to be crawling.
-		Added Milking Room upgrade, along with 'Milking Cow'/'Milking Bull' job for slaves. (Still needs finishing off.)
-	
-	Other:
-		<b>Added:</b> Optional in-game artwork viewer (enabled by default, can be disabled in the content options screen). Major NPCs which have had artwork drawn of them will now have that artwork displayed in their character screen. You can also add in custom images (info is in the res/images/characters/modding.txt folder).
-		Added: Demon tail TF variation. (Hair-tipped instead of spaded.)
-		Slightly improved Nyan's clothes.
-		You can now export characters from your phone's contacts screen (using the same export button in the top-right).
-		Updated Vicky's outfit.
-		Phone's map now flashes to show which tile you're currently on.
-		Phone's map now scales better for smaller maps.
-		Books no longer give +0.5 arcane, and instead, give +5 damage and +5 resistance vs the book's associated race.
-		Unequipping or displacing an NPC's clothing while outside of sex will now display the same reveal text for ass/breasts/vagina/penis as when in sex.
-		Slaves with the 'cum addict' fetish now gain affection towards you instead of losing it when being tasked to work as a prostitute.
-		Added a 'Take' action for when you're interacting with an NPC's equipped clothing, allowing you to unequip their clothing and add it to your inventory in one click.
-		You can now change body hair colours at Kate's shop and through the demon transformation screen.
-		Slimes no longer need to have their body parts pierced in order to equip piercings (you still need to grow a vagina or penis to equip those piercings, however).
-		NPCs with the Submissive fetish will now prefer to stick with the gentle pace while being the dom in sex (unless they are a switch or sadist, in which case they'll use normal/rough paces as normal).
-		Added white slime colour.
-		Added a lot more colours for feathers.
-		NPCs who hate sadism will now always be gentle while domming, and NPCs that dislike sadism will prefer the normal pace.
-		Added option to be the dom in prostitute's 'Sell body' action.
+		Updated all clothing to have correct concealments, and added appropriate tooltip information to let you know what clothing is responsible. (e.g. Panties being worn beneath a skirt will be hidden to you until you unequip or pull up the skirt.)
+		<b>Added:</b> Enforcer's miniskirt (Feminine, Leg slot). Candi now wears this instead of shorts.
+		Updated Enforcer clothing to use a third colour for buttons, and the frontal-zip dress to use a customisable colour for the zip.
 	
 	Contributors:
-		Fixed cause of bad displacement imports leading to a crash after sex. (Master of Puppets)
-		Adjusted the display of subspecies lists in the Encyclopedia. (tukaima)
+		<b>Added:</b> Groundwork for the new companion system. (Irbynx)
+		Fixed harpy nest entrance background colour. (Master of Puppets)
+		Typo fix. (Master of Puppets)
+		Fixed strange behaviour when having sex with NPCs in stocks, where if it was banned for them to receive a certain type of sex, you would be banned from performing related sex actions as well. (Master of Puppets)
+		Changed sex actions so the only ones that reduce arousal are now ones related to denial. Resisting pace/actions no longer cause arousal to drop, and instead, arousal increases are zero on non-erogenous zone actions, and low on others. Having the non-con fetish sets these arousal increases to high. (Master of Puppets)
+		Restricted use of 'calm down' action to only be available when you're the dom, or when you have the same amount of control as the dom. (Master of Puppets)
+		Added tooltips to the phone's map page. (Master of Puppets)
+		Changed the code so that the 'new addiction' dialog only shows if the ingesting character isn't already addicted to the fluid, and otherwise shows the 'satisfied craving' dialog if the ingesting character is addicted. (AlacoGit)
+		Tidied up the game's version checking method. (lehardo)
+		Fixed some instances of incorrect cum parsing. (ltpatch)
+		Fixed issue with harpies not respecting your gender preferences. (Master of Puppets)
+		Added folder checking on startup. (Bukkyo256)
+		Fixed Lilaya's Submissive Geisha scene immediately ending. (TadUnlikely)
+		Fixed Vixen's Virility returning incorrect descriptions. (ltpatch)
+	
+	Other:
+		Added ChattyNeko's artwork for Nyan.
+		Moved the 'Explore' action from button 6 to 1. (I originally put it on 6 so that when you were spamming it to explore, you wouldn't accidentally skip the encounter dialogue. Now that 'Explore' always results in an encounter on the first press, there's no need for it to be so out of place.)
+		Added throat wetness, capacity, elasticity, and plasticity to the 'Body Stats' phone dialogue page, and added more throat descriptions to the selfie/character view page, as well as improving the coloured parts of all body description text.
+		Added formatting to essence counter, and made the formatting specific to locale. (So now it really should use a comma, period, or space depending on your computer's locale.)
+		Fixed gloves blocking you from wearing rings.
+		Non-slave NPCs which do not have the exhibitionist fetish should now properly replace their clothing after you leave them alone.
+		Removed hard-coded sealing effects from all BDSM set gear, and made them have the 'sealing' enchantment by default instead.
+		The 'cattle' clothing set is now sold by Finch, instead of Nyan.
+		Reorganised Nyan's trading menus.
+		Added support in the code for adding custom artwork for the PlayerCharacter (follow the instructions in 'res -> images -> characters -> modding.txt' to add artwork).
+		Changed Dobermann subspecies name from the clunky 'Dobermann-morph' to just 'Dobermann'.
 	
 	Bugs:
-		Fixed bug where NPCs could still perform urethral penetration actions, even if it was turned off. (So sorry about this!)
-		Fixed all urethras being penetrable, even if capacity was at 0.
-		Fixed page automatically scrolling down when opening character view screen.
-		Fixed minor bug in harpy ear descriptions in character view screen.
-		Fixed final gift-related bugs in Nyan's tabs.
-		Dog and wolf-morphs should now correctly have scarlet-coloured penises by default.
-		Fixed fetish screen's desire buttons being incorrectly aligned.
-		Fixed 'Arcane Weaver' perk not apply its essence reduction effect.
-		Fixed NPCs spawning with the pussy slut fetish, even if they didn't have a vagina. Also, NPCs should no longer spawn in with fetishes if you have their related content settings turned off.
-		Typo, formatting, and parsing fixes.
-		Fixed a lot of incorrect clothing equip/unequip/displace descriptions.
-		You can no longer equip penis and vagina piercings, even if you had no penis or vagina.
-		Drinking a biojuice canister while already being a slime will no longer display the slime transformation description.
-		Imp offsprings no longer have their height determined by genetics (which was resulting in very tall imps).
-		Fixed Loppy's post-sex scene returning Bunny's dialogue.
-		Swapping positions in sex now correctly resets all ongoing sex actions.
-		Fixed bug where mutually exclusive slave job settings would not be set correctly when you loaded a game.
-		Slavery income should now correctly be saved/loaded.
-		Lilaya has been told to stop replacing the spare pair of goggles that are found in her lab.
-		Slave obedience gains from the teacher perk 'In control' now correctly only affects positive obedience increments.
-		Fixed bug where blocked slot icons would show incorrect race icon.
-		Fixed bug where you could have sex with prostitutes in Angel's Kiss while they were entertaining a client.
-		Fixed bug where first floor of Angel's Kiss would end up getting flooded with random characters.
-		Fixed Lexi's creampie status effect showing 0ml.
-		Fixed major bug where the slavery upkeep calculation was not working.
-		Fixed bug where NPCs in Dominion's canal tiles would disappear.
+		Fixed (that annoying) bug where the game's tooltips could get stuck on your screen when alt-tabbing/changing window focus.
+		Typo fixes.
+		Fixed bug in vixen's virility pill effect description.
+		Fixed incorrect Katherine and Kelly descriptions.
+		Fixed Zaranix getting stuck in his lounge.
+		Fixed enchanting UI not showing correct cost reduction from 'Arcane Weaver' perk.
+		Fixed some bugs in the way clothing concealment was working.
+		Fixed several clothing displacements being erroneously available through other clothing.
+		Fixed bug where looking for trouble in the harpy nests would never return a harpy fight encounter.
+		(Hopefully) fixed that annoying bug where slave's stats would get stuck to the right of your screen.
+		Fixed bug where public sex would stop being counted as public as soon as you switched position.
 	
+	
+	
+	
+	
+	
+	
+	
+	- Add Submission content. (Special encounters for Imps and Slimes. Add slime TF quest. Adding content for the Imp fortresses, Gambling Den, and Bat caverns.)
+	
+	- Finish the spell system and add a few more weapons.
+		Add spell schools like perk window, with offensive and defensive trees for each
+			Spells, with several levels in each one
+			Gain points from books 
+		Weapons boost school's tree spell levels
+		Add arcane sword, spear, baton, riot shield, dagger. Add melee detection. Add hand-held crossbow, throwing spears (physical handle, arcane shaft).
+	
+	
+	When giving Ralph some head, it seems that the mouth status is displayed backwards. ("Ralph is sucking your dick!" rather than you're sucking his
+	
+	tube top
+	
+	Brax affection changes
+	
+	Add prostitution in alleyways (if no license, enforcers can show up)
+	
+	dirty talk action duplicated for Kate
+	
+	Check Lilaya Geisha scene.
+	
+	------------------------------
+	AI:
+	
+	NPCs using themselves before doing any action to PC
+	
+	I had this strange event where a cat-girl rubbed herself to orgasm by repeatedly inserting and removing her tail from her vag
+	I think something is bugged with female NPCs and giving oral to them when they are the dominant ones during sex scenes. If the NPC only has a vagina, and she either forces you to give her oral or the player does it himself, she'll very very rarely allow it for more than one turn before forcibly pulling the player away. Her fetishes don't seem to matter.
+		if i suck their clit they will then remove my tongue only to then put it back in
+	for some reason, as a masculine male, no matter what I do, and no matter the preferences/choices/requests used, masculine males/incubus npcs refuse to f*** the player anally, instead preferring to finger themselves or have the player f*** them.
+	I'll also improve the AI to only go for thigh sex if they have a fetish for it.
+	As with the last few releases, submissive sex still appears completely broken. Each NPC appears to have one set of actions that they default to, no matter what.
+	
+	
+	Unfortunately my favorite scene in the game is still a little broken. Almost there though! Wolfgang is currently kneeling behind me but getting head and karl is kneeling in front and using my ass.
+	
+	Despite feeling Stephanie's hot cum deep in your womb, you feel that you aren't going to get pregnant from this.
+	Despite feeling Reba's hot cum deep in your womb, you feel that you aren't going to get pregnant from this.
+	Found something else; when request cum while when fucking two slaves, one of them is in my char's mouth and the other is their cuny... one of them is not even close to cuming, but it gave both message anyway.
+	
+	------------------------------
+	
+	Foot fetish
+	
+	Small bug, but Moo Milkers don't seem to check for how much milk the target has left. They'll fill up as long as the target is lactating, and if you have a stack of milkers and use "Milk all". they'll all fill up.
+		
+	- If a character has submissive fetish right now, they prefer the 'gentle' pace when dominating.
+	- But the hate of inflicting pain actually blocks this and defaults them back to 'normal'.
+		
+	I have the strutter fetish and can't use the strutter tease
+		
+	a 'BirthType' enum
+		mammalian, egglayer and separation
+		
+	Getting an NPC to smell a rose says you smell it
+	
+	"Sorry that I didn't stick around..." when PC is father
+	
+	after defeating the three Matriarchs Harpys, and "looking for trouble" for a very long time,  i can only find itens
+	
+	when clicking inspect, doens't show right slave
+	
+	i was trying to breed two of my slaves and one of them took off my chest sarashi, afterwards i find the thing lying on the ground in that room and still on my body
+	
+	fetish XP not working! I'll go through and make sure all of the fetishes have correct experience gains for the next release
+	
+	seeder V and breeding fetish enabled but pregnancy only resulted in 1 offspring
+	
+	birth was wolf-slime, but in the offspring list, it's showing as imp-slime
+	
+	 hover over a close quest title it opens but the symbol still says it's closed
+	 
+	  I got more then one slave my first slave is in Room F-08 but when I go in and click my slave my second slave who is in Room F-06 appears there
+	
+	penis patterns/ secondary dick colors are currently disabled
+	
+	Demon names
+	
+	when out during an arcane storm then defeated by some naughty and very lewd people the TF/fetish potions aren't being forced on the player
+	
+	add orange to the covering colors
+	
+	the transform menu for demons doesn't say anything about which tail  is which
+	
+	add arcaen/physical to clothing enchants.
+	
+	I've just been messing with the game recently and found some interesting stuff. Nothing like glitches, but just some things I was curious about. For example, I was messing with Brax, Bree, and Brandi interactions. The situation can go by punishing Brax into Bree from the dialogue, then Bree into Brandi. I was messing with the fetish tf potions, and found that you can change Brandi back into to Bree by erasing the bimbo fetish. You can also impregnate her, but she has no reaction to it. You can change her back from Bree into Brax too by taking away femininity. Of course, the only way to tell this has happened is by the clothes being distinct from Brax, Bree, and Brandi. This is because the dialogue prompts do not change. Anyway, it was just something I was messing with and thinking more about as I've been testing the force tf fetish, and just overall using items in sex which I find kind of confusing on when people will or will not accept potions or items.
+	
+	the dominant version of Lilaya's geisha scene is broken. She always starts with 0 arousal in Resisting pace, and ends the scene at the first turn, saying "Eugh... I'm not really feeling this right now, ok?" Nothing I've done has been able to avoid this. The submissive version of the scene works fine.
+	
+	add a chance for NPCs to orgasm multiple times in sex
+	
+	 get demon horn to become lesser succubus/incubus. go to transform. get rid of horn. and change the possible part to angel
+	
+	Map text wrapping
+		upstaris zaranix
+	
+	Here's something you probably didn't expect: bug report from the Halloween content!
+	
+	Whenever I request one of the crazy witch cultists "give me her gift elsewhere", there's a chance she'll stick it somewhere totally different from where I requested. For example: I ask her to give it to me up my ass, and she excitedly pushes me against the altar. She then exposes me, gives me anallingus, and then sometimes she'll promptly fuck me in my vagina.
+	
+	Afterwards, when she impatiently tosses me out, I still get the message that I have the feeling of cum leaking out of my asshole. I'll get THIS message even if she pulled out, and even if she fucked my pussy.
+	
+	When you tease your own pussy with your partner's tail, you get the message
+	
+	{Partner}'s girlcum quickly lubricates your tail.
+	
+	When you first get pregnant, and turn to Lilaya regarding the issue, she tells you to return when you're ready to give birth. I feel during your first time, she should assure you a little more in order to calm you down, whether you're ready or not.
+	
+	When you get tail-pegged, the buttons that appear are "Tail-pegged" and "Eagerly tail-fucked". Should the second button say "Eagerly tail-pegged"?
+	
+	If I'm a human, and I'm found walking the streets between the hours of ten at night and five in the morning, will I really be subject to a full body search from any passing Enforcer without warrant? Or is that just a thing to show how poorly humans are treated, and not really implemented?
+	
+	I'd love to be able to give a rose to Lilaya for a hug and a sweet little kiss~
+	
+	When I re-visited Zaranix's place, Amber acted as though I broke in, pummeled and raped her and the other maids, and rudely demanded Arthur from Zaranix... even though I knocked on the door and begged her to let me in, calmly explained my ordeal with Zaranix, thanked her for letting me see him, got roughly fucked for not thanking HIM, all the while enduring constantly being degraded by her until she finally walked me out. She even gave me an affectionate spank before closing the door!
+	
+	I'd like to have Kelly and Katherine like me more, as well as Zaranix, if he doesn't already. I haven't been able to get him alone to find out...
+	
+	It seems Zaranix is both in his lounge and his lab at the same time. You may want to look into that...
+	
+	We need collars that are studded with spikes. You know, the kinds you'd expect to find on a vicious bull-dog.
+	
+	Sometimes, when giving birth, my character "dreams of" a morph of one gender interacting with her, when she only gave birth to the other gender. For example, she'll imagine seeing a wolf-boy, but she gave birth to a single wolf-girl.
+	
+	
+	PC and Amber double-team maid
+	
+	
+	strap-ons, dildos, anal beads or other toys
+	
+	Fix the BodyCoveringType mess
+		eye sclera
+		tongue colour
+	
+	inverted nipples
+	
+	milking room for PC
+	
+	for some reason you can not seem to hypnotise some slaves it says you try to give the watch to them and they do not take it.
+	
+	save artwork preference for each NPC
+	
+	chastity belt removal from under underwear
+	
+	add an option to ask alleyway encounter NPCs for their name
+	
+	The promiscuity pill is intentionally not a complete impossibility of pregnancy, but I will increase the infertile/barren traits' reductions to -500 to make them always work. ^^
+	
+	Add angel offspring to dominion for now
+	
+	option to disable nipple penetrations does not work: it still happens even when disabled
+	
+	slimes ever get a "Grow Dick" option during sex like demons
+	
+	I lost all of the race book info and if i try using a book it says it's already used
+		i notice that you can't read the book that you get from previous version. so you can only read the book in the library from the previous version.
+	
+	Amber door scene no corr req.
+	
+	Check stats stuck on screen post-Rose scene
+	
+	I'll add a scene where you can dominate Vicky at some point for sure, and I'll also add in a more detailed virginity-tracking system too!
+	
+	Zebra morphs
+	
+	Revamp forced TF scenes:
+	1) NPCs with the Kink Advocate Fetish speak as though they are going to transform your body. I'm guessing this is just piggybacking off the Transformer Fetish, but different dialogue would make more sense.
+	2) Random Demon encounters in dark alleyways, where they happen to have the Transformer Fetish, they do not try to transform you. They should presumably still do this when they win (and perhaps if you Kneel rather than fight too?).
+	
+	I've noticed that when I have PC transformation set to "Minimum Furry", the PC will never have genitals added. I think better behavior would be to allow genital addition/alteration as normal, but set to Human type.
+	
+	
+	deial - if partner ends with frustrated, quadruple arcane essences. If you end frustrated, same.
+	
+	If I have sex with my slave inside Angel's Kiss, sometimes it says that I am having sex with another person. E.g.: I had sex with XX, my slave, but sometimes it said that I had sex with XY. In my case, it was often the last person I had sex with before having sex in AK.
+	
+	Tattoos
+	
+	When you are the one who initiated you can go forever but them dumping you after 1 orgasm regardless of if they actually got creamed (even with all impreg relevant perks) is just sad.
+	
+	A great QoL change, if you have the time to spare for it, would be some sort system to create a uniform for your slaves, which would let you purchase the clothes in bulk from Nyan & enchant them en masse (assuming you had the essences for it). I like keeping my pets in uniform, but it takes me a while to do each one.
+It'd be even better if this could be extended to potions as well, allowing us to save a potion preset to brew later.
+	
+	Aprons
+	
+	PC and NPC id artwork
+	
+	nyan bad route
+	
+	bat and harpy arms need to block arm, hand, finger, wrist slots
+	
+	add a small blurb for when you return to Amber (as a submissive) after unjinxing and removing your collar
+	
+	the Transform menu let you change the size of your wings
+	
+	How come the tooltip for Energy mentions Stamina in the calculation
+	
+	slime pupil colour not working
+	
+	ot sure if this is a bug but I find it pretty weird that when I'm selling myself at Angel's Kiss I manage to get clients that aren't even attracted to me. (I'm a female and they only like males).
+	
+	If you've read a species book before the recent update you can't get the new boost from said book.
+	
+	Zaranix is a male in the text when you return to his house but the nearby people leaves him in female form
+	
+	Still can´t encounter any harpies in harpies nest whatsoever
+	
+	sort clothing by type first 
+	
+	Minor gripe, but could the store/inventory screens get a placeholder scrollbar? I don't like the tiny shift in size/position that the two inventories get when you move from item with a short description to an item with a sufficiently long one (or vice versa).
+	
+	Sailor uniform
+	
+	
+	
+	
+	Duner's stuff
+	
+	
+	Zaranix
+		- Ask about incubus form
+			- if affection > 50, then can convince to stay as futa succubus Zoelix
+			- scene where you show her how good it feels to stay as a female - Zaranix gains pussy slut and self-breast fetishes
+		- Sex
+			- If incubus, he only accepts blowjobs
+			- If succubus, get full sex
+				
+	Preg reactions (including first time seeing them) for:
+		Pix
+		Amber
+		Katherine
+		Kelly
+		Zaranix
+	
+	
+	Milking job prostitute options
+	
+	a scene that one of your slaves can rape you if you gave permission to use you and permited outside Freedom
+	
+	slime tails
+	
+	condom breaking
+
+	In Succubi's Secrets, there's an extra line of the basic skin colors. Only the top row can be used.
+	
+	after arthur reunite with liliya. you have to get arthur a room to proceed right?
+	here is the bug. enter a room for example gg-03. and select gg-01 to put arthur there
+	voila bug
+	
+	Nobody is giving the player kinks on losing. Ever.
+	I noticed that forced fetishes don't seem to work in submission. Any NPC with the fetish down there simply will not give the player new fetishes
+	
+	When using the demon tf menu to get rid of either of your genitals (penis or vagina), then if you have a piercing in either one it will remain attached until you remove it.
+	
+	chokers
+	
+	Fix urethra actions not showing up (add hand orifice)
+	
+	
+	
+	I think angel offspring should be encounterable in the code... I'll make sure it's working for 0.2.3.! :3
+		Make Harpy offspring in nests
+		
+	
+	bat tails
+	
+	vagina's urethra stuff isn't in the demon/slime transform menu, no real need to rush it though, transformation items still work.
+	after messing around a bit i noticed elasticity and plasticity don't work for the vagina's urethra, even with items. still see no rush, it's not a kink everyone's into and still works, just no super stretchy and instant recovery.
+	
+	 It seems that slime offspring will be listed as slime offspring, with the mother's main attributes (angel, demon, feline, etc), but when meeting them out in the world, they are no longer slimes, but show up as human.
+	Has slime offspring been fixed yet? Sorry to be annoying but in the previous version they only ever showed up if you knocked up another slime and even then thwy end up as humans with slime skin. (Human trait and body but slime skin) 
+	
+	slime need to be naked
+	
+	give the npcs more forced transformation options?
+		Still missing ball size,penis girth, and so on.
+	
+	 I try to change the vaginal/penile urethra plasticity, it always stays the same
+	
+	there's still that bug where having an NPC remove your clothing comes up as [playername] removed your [clothing]
+	
+	essence & flame income balance
+	
+	game crashed requesting creampie in submission
+	
+	Will NPCs one day remember that they've seen my genitals before? It's weird that the same person is always surprised by my trap.
+	
+	so i got a slave preggers (dogboy cuntboi, player species was dog boy) and after pregger period, gave birth to three dog boys off screen.
+		while hunting, however, all three were pure humans. same thing with a dog-slime-boy i made by forcefeeding a random npc (which was FUN). got him knocked up and he gave birth off screen to another dog-slime-boy. the child i encountered in submission was a standard human slime boy. oh, small side note, small typo in dog-slime-boy pregnancy, incorrectly points to "her" pregnant belly when it should be "his".
+	
+	Urethral still seems bugged. Since the person who is penetrating treats it as if nothing is happening. 
+		"Lets get started"
+		"lets fuck already!"
+		etc
+		
+		According to the formula, I should have 120% chance, pregnancy and impregnate chance only shows 75%. Preg chance: ((virility%*cum prod mod)+fertility%)/2 Fertility 100. Virility 100. Cum prod mod 1.4
+	So, ((100*1.4)+100)/2 = 120%
+	Most NPC's have a chance or small chance of impregnating my futa and I only have a high chance of impregnating others, including demons.
+	It almost as if the % chance is passing 100, then resetting the chance and the game is only seeing the 20%.
+	
+	If you walk to the same square as a slave that's working and press the slave's name in the upper right corner to get to the info screen, the "Back" option does nothing
+	
+	Urethra:
+		When the one penetrating cums, if they cum a lot, the other character gets an inflated stomach, it would make more sense for their balls to inflate. And if the one receiving cums, there's just the regular cum outside dialogue.
+		Add orgasm content.
+	
+	jinxed shorts causing sell self to bug?
+	
+	Just say one flame per ml instead
+	
+	While creating your character, if you choose a certain piercing but then change your mind, they will show up in your inventory when selecting your clothes
+	
+	change horn colour (succubus) at some 
 	
 	
 	- Improve the slavery UI, and add more jobs & interactions (winner of Patreon content poll).
@@ -104,31 +412,6 @@
 		- Add job: bedroom slave to act as alarm clock with blowjobs and sexual intercourse. 
 		- Finish milking job.
 	
-	Duner's stuff
-	
-	- Make Zaranix & maids repeatable.
-		Amber
-			door scene
-				- enter (Zaranix has said you are a guest)
-				- lick shoes
-					- enter
-			in house
-				- can insult her
-					- she demands you submit for punishment
-				- takes you for a walk
-					- get fucked in street
-		In house
-			- Maids wander around
-			- Can fuck them
-		Zaranix
-			- Says that you can come and go, as long as you occasionally put in a good word with Lilaya
-			- Ask about maids
-				- Says they are constantly horny
-			- Ask about Arthur's experiments
-			- Ask about incubus form
-				- can convince to stay as futa succubus Zoelix
-			- Sex
-			
 			
 	: hi, did anyone notice "Forced TF Gender Tendency" not working at all?
 	I've only been getting tfed to female about 30 times, despite it being set on "masculine".
@@ -183,8 +466,6 @@
 		Second cock
 		Taur pussy
 	
-	you can still initiate blowjob while giving cunnilingus
-	
 	- Characters can still be stuck with a phantom pregnancy that resets their pregnancy status on reload
 	- In the slave day to day log, slaves are always listed as having sex with themselves (i.e. Ben fucked Ben) and only if you have impregnation opportunities turned on will you actually see who they potentially impregnated
 	
@@ -197,8 +478,6 @@
 	The alligator-girl slides her throbbing dick out of your urethra.
 	
 	slime children not having correct races in stats screen
-	
-	This isnt really a bug but. If your partner is Futa both urethras are able ot be fucked, but they have the same button name but differing tooltips. Might be better to have the buttons named differently.
 	
 	Clothing removal - Before your Maid's dress is able to be removed, Hooded cloak and Maid's dress need to be removed.
 	
@@ -256,8 +535,6 @@
 	
 	my children are born slimes like they are supposed to be, but they are labeled as man/woman in the birth scene. and also i can seem to encounter them myself in any of the waterways or in submission.
 	
-	Will there be a day where "Extra body hair" is split up so ass hair is it's own thing that I don't have to read about
-	
 	Tooltips: his message isn't correct i've already taken off mah pants, also i can still unzip my pants and the description is "This will expose your cock" when i've already had it exposed
 	
 	Prostitutes are unaffected by arcane storms
@@ -269,8 +546,6 @@
 	able to just beat the storeroom quest thing without doing it
 	
 	When you're getting Kink TFed it still does the regular TF text. Saying they'll make you into the perfect "whatever" morph, instead of perfect "kink"
-	
-	While dusting: "Diana caught sight of Diana, and... Jennifer might have gotten pregnant!"
 	
 	text for changing aprts in phone menu
 	
@@ -328,8 +603,6 @@
 	need hyper breasts status effects
 	
 	NPCs !!!STILL!!! making you stop penetration just before climax!!! (Stopped me eating her out)
-	
-	eye sclera
 	
 	As a slime, Unable to eat a used condom to become pregnant... Literally Unplayable
 	Please let us avoid fights with slimes using used condoms
@@ -411,6 +684,7 @@
 		all that sort of stuff ^^
 		also regarding lust system, you could get to know other fetishes lets say if you do some side quests to lilyana or lets say steal some of her device a bit later in game (such as googles)  that allow you to see a few fetishes of other characters
 		making it easier
+		plantigrade/digitigrade
 	 
 	
 	!!! Pix consent version !!!

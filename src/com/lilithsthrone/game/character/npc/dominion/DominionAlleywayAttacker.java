@@ -12,12 +12,12 @@ import com.lilithsthrone.game.Season;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.History;
-import com.lilithsthrone.game.character.Name;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.GenericSexualPartner;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.persona.History;
+import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
@@ -39,6 +39,7 @@ import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.ColourListPresets;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.world.WorldType;
@@ -702,11 +703,11 @@ public class DominionAlleywayAttacker extends NPC {
 						colour = this.secondaryColour;
 						break;
 				}
-				if(itemType.getAvailablePrimaryColours().equals(Colour.leatherColours))
+				if(itemType.getAvailablePrimaryColours().equals(ColourListPresets.LEATHER.getPresetColourList()))
 					colour = leatherColour;
-				if(itemType.getAvailablePrimaryColours().equals(Colour.denimColours))
+				if(itemType.getAvailablePrimaryColours().equals(ColourListPresets.DENIM.getPresetColourList()))
 					colour = denimColour;
-				if(itemType.getAvailablePrimaryColours().equals(Colour.allMetalColours))
+				if(itemType.getAvailablePrimaryColours().equals(ColourListPresets.ALL_METAL.getPresetColourList()))
 					colour = metalColour;
 				if(item.getColour() != colour
 						&& item.getClothingType().getAvailablePrimaryColours().contains(colour))

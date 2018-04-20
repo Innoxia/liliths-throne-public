@@ -256,6 +256,7 @@ public class RedLightDistrict {
 						client = npc;
 					} else {
 						prostitute = npc;
+						Main.game.setActiveNPC(npc);
 					}
 				}
 				
@@ -289,6 +290,7 @@ public class RedLightDistrict {
 				}
 				
 			} else {
+				Main.game.setActiveNPC(charactersPresent.get(0));
 				if(charactersPresent.get(0).isSlave() && charactersPresent.get(0).getOwner().isPlayer()) {
 					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_OCCUPIED_SLAVE", Util.newArrayListOfValues(new ListValue<>(charactersPresent.get(0))))); //TODO need obedience/affection variations
 				} else {
@@ -476,7 +478,9 @@ public class RedLightDistrict {
 				return new Response("Decline", "Tell [npc.name] that you're not interested in what [npc.she] has in mind...", ANGELS_KISS_SELL_SELF_DECLINE){
 					@Override
 					public void effects() {
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "SELL_SELF_DECLINE"));
+						Main.game.getTextStartStringBuilder().append(
+								UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "SELL_SELF_DECLINE")
+								+UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "SELL_SELF_DECLINE_SUB"));
 						Main.game.banishNPC(Main.game.getActiveNPC());
 					}
 				};
@@ -523,7 +527,9 @@ public class RedLightDistrict {
 				return new Response("Decline", "Tell [npc.name] that you're not interested in what [npc.she] has in mind...", ANGELS_KISS_SELL_SELF_DECLINE){
 					@Override
 					public void effects() {
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "SELL_SELF_DECLINE"));
+						Main.game.getTextStartStringBuilder().append(
+								UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "SELL_SELF_DECLINE")
+								+UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "SELL_SELF_DECLINE_DOM"));
 						Main.game.banishNPC(Main.game.getActiveNPC());
 					}
 				};

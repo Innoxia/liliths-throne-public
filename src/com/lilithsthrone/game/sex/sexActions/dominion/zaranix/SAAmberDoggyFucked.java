@@ -45,7 +45,7 @@ public class SAAmberDoggyFucked {
 		@Override
 		public String getDescription() {
 			return "With a satisfied sigh, [npc.name] pulls back, growling,"
-					+ " [amber.speech(Good bitch! I think you've learned your lesson!)]";
+					+ " [npc.speech(Good bitch! I think you've learned your lesson!)]";
 		}
 		
 		@Override

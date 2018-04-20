@@ -47,6 +47,7 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.RenderingEngine;
 import com.lilithsthrone.utils.ClothingRarityComparator;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.ColourListPresets;
 import com.lilithsthrone.utils.ItemRarityComparator;
 import com.lilithsthrone.utils.TreeNode;
 import com.lilithsthrone.utils.Util;
@@ -92,10 +93,15 @@ public class PhoneDialogue {
 				
 			} else if (index == 2) {
 				return new Response(
-						Main.game.getPlayer().getPerkPoints() > 0
+						Main.getProperties().hasValue(PropertyValue.levelUpHightlight)
 							? "<span style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>Perks</span>"
 							:"Perks",
-						"View your character page.", CHARACTER_LEVEL_UP);
+						"View your character page.", CHARACTER_LEVEL_UP) {
+					@Override
+					public void effects() {
+						Main.getProperties().setValue(PropertyValue.levelUpHightlight, false);
+					}
+				};
 				
 			} else if (index == 3) {
 				return new Response("Fetishes", "View your fetishes page.", CHARACTER_FETISHES);
@@ -446,14 +452,8 @@ public class PhoneDialogue {
 
 		@Override
 		public String getContent() {
-			/*
-			 * sexCountReceivingAnal, sexCountReceivingVaginal,
-			 * sexCountGivingTitjob, sexCountGivingBlowjob,
-			 * sexCountGivingCunnilingus; private String gaveFirstBlowjobTo,
-			 * gaveFirstCunnilingusTo, gaveVaginalVirginityTo,
-			 * gaveAnalVirginityTo;
-			 */
-			return Main.game.getPlayer().getBodyDescription();
+//			return Main.game.getPlayer().getBodyDescription();
+			return Main.game.getPlayer().getCharacterInformationScreen();
 		}
 
 		@Override
@@ -471,7 +471,7 @@ public class PhoneDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld CHARACTER_STATS = new DialogueNodeOld("Stats", "", true) {
+	public static final DialogueNodeOld CHARACTER_STATS = new DialogueNodeOld("Character Stats", "", true) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -635,7 +635,7 @@ public class PhoneDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld CHARACTER_STATS_BODY = new DialogueNodeOld("Body stats", "", true) {
+	public static final DialogueNodeOld CHARACTER_STATS_BODY = new DialogueNodeOld("Body Stats", "", true) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -691,7 +691,7 @@ public class PhoneDialogue {
 							true)
 
 					+ "<span style='height:16px;width:100%;float:left;'></span>"
-					+ "<h6 style='color:"+Colour.TRANSFORMATION_GREATER.toWebHexString()+"; text-align:center;'>Head & Face Attributes</h6>"
+					+ "<h6 style='color:"+Colour.TRANSFORMATION_GREATER.toWebHexString()+"; text-align:center;'>Head & Throat Attributes</h6>"
 					+ statHeader()
 					+ statRow(Colour.TRANSFORMATION_GENERIC, "Hair Length (inches)",
 							Colour.TEXT, String.valueOf(Main.game.getPlayer().getHairRawLengthValue()),
@@ -701,6 +701,22 @@ public class PhoneDialogue {
 							Colour.TEXT, String.valueOf(Main.game.getPlayer().getTongueLengthValue()),
 							Colour.TRANSFORMATION_GENERIC, Util.capitaliseSentence(Main.game.getPlayer().getTongueLength().getDescriptor()),
 							false)
+					+ statRow(Colour.TRANSFORMATION_GENERIC, "Throat Wetness",
+							Colour.TEXT, String.valueOf(Main.game.getPlayer().getFaceWetness().getValue()),
+							Colour.GENERIC_SEX, Util.capitaliseSentence(Main.game.getPlayer().getFaceWetness().getDescriptor()),
+							false)
+					+ statRow(Colour.TRANSFORMATION_GENERIC, "Throat Capacity (inches)",
+							Colour.TEXT, String.valueOf(Main.game.getPlayer().getFaceRawCapacityValue()),
+							Colour.GENERIC_SEX, Util.capitaliseSentence(Main.game.getPlayer().getFaceCapacity().getDescriptor()),
+							true)
+					+ statRow(Colour.TRANSFORMATION_GENERIC, "Throat Elasticity",
+							Colour.TEXT, String.valueOf(Main.game.getPlayer().getFaceElasticity().getValue()),
+							Colour.GENERIC_SEX, Util.capitaliseSentence(Main.game.getPlayer().getFaceElasticity().getDescriptor()),
+							false)
+					+ statRow(Colour.TRANSFORMATION_GENERIC, "Throat Plasticity",
+							Colour.TEXT, String.valueOf(Main.game.getPlayer().getFacePlasticity().getValue()),
+							Colour.GENERIC_SEX, Util.capitaliseSentence(Main.game.getPlayer().getFacePlasticity().getDescriptor()),
+							true)
 					
 					+ "<span style='height:16px;width:100%;float:left;'></span>"
 					+ "<h6 style='color:"+Colour.TRANSFORMATION_SEXUAL.toWebHexString()+"; text-align:center;'>Breast Attributes</h6>"
@@ -828,15 +844,19 @@ public class PhoneDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld CHARACTER_STATS_SEX = new DialogueNodeOld("", "", true) {
+	public static final DialogueNodeOld CHARACTER_STATS_SEX = new DialogueNodeOld("Sex Stats", "", true) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getContent() {
-			return
-			"<div class='subTitle'>" + "Sex Stats" + "</div>" + "<div class='extraAttribute-third'>" + "Type" + "</div>" + "<div class='extraAttribute-sixth'>" + "Given" + "</div>" + "<div class='extraAttribute-sixth'>" + "Cum Given" + "</div>"
-					+ "<div class='extraAttribute-sixth'>" + "Taken" + "</div>" + "<div class='extraAttribute-sixth'>" + "Cum Taken" + "</div>"
-
+			return "<div class='container-full-width' style='text-align:center;'>"
+						+ "You have orgasmed [style.boldSex("+Main.game.getPlayer().getDaysOrgasmCount()+")] time"+(Main.game.getPlayer().getDaysOrgasmCount()==1?"":"s")
+							+" today, bringing your total orgasm count to [style.boldSex("+Main.game.getPlayer().getTotalOrgasmCount()+")].</br>"
+						+ "Your record for most orgasms in one day is currently [style.boldArcane("+Main.game.getPlayer().getDaysOrgasmCountRecord()+")]."
+					+ "</div>"
+					
+					+ sexStatHeader()
+					
 					+ sexStatRow(Colour.AROUSAL_STAGE_TWO, "Fingering",
 							Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.PITCHER, PenetrationType.FINGER, OrificeType.VAGINA)),
 							-1,
@@ -926,7 +946,7 @@ public class PhoneDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld CHARACTER_STATS_PREGNANCY = new DialogueNodeOld("Pregnancy stats", "", true) {
+	public static final DialogueNodeOld CHARACTER_STATS_PREGNANCY = new DialogueNodeOld("Pregnancy Stats", "", true) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -1041,11 +1061,44 @@ public class PhoneDialogue {
 		}
 	};
 	
-
+	private static String sexStatHeader() {
+		return "<div class='container-full-width' style='width:100%; padding:0; margin:4px 0; font-weight:bold; text-align:center;'>"
+					+ "<div class='container-full-width' style='width:calc(33.3% - 16px); padding:0;'>"
+						+ "Type"
+					+ "</div>"
+					+ "<div class='container-full-width' style='width:calc(16.66% - 16px); padding:0;'>"
+						+ "Given"
+					+ "</div>"
+					+ "<div class='container-full-width' style='width:calc(16.66% - 16px); padding:0;'>"
+						+ "Cum Given"
+					+ "</div>"
+					+ "<div class='container-full-width' style='width:calc(16.66% - 16px); padding:0;'>"
+						+ "Taken"
+					+ "</div>"
+					+ "<div class='container-full-width' style='width:calc(16.66% - 16px); padding:0;'>"
+						+ "Cum Taken"
+					+ "</div>"
+				+ "</div>";
+	}
+	
 	private static String sexStatRow(Colour colour, String name, int given, int loadsGiven, int received, int loadsReceived) {
-		return "<div class='extraAttribute-third'>" + "<span style='color:" + colour.toWebHexString() + ";'>" + name + "</span>" + "</div>" + "<div class='extraAttribute-sixth'>" + given + "</div>" + "<div class='extraAttribute-sixth'>"
-				+ (loadsGiven < 0 ? "<span class='option-disabled'>-</span>" : loadsGiven) + "</div>" + "<div class='extraAttribute-sixth'>" + received + "</div>" + "<div class='extraAttribute-sixth'>"
-				+ (loadsReceived < 0 ? "<span class='option-disabled'>-</span>" : loadsReceived) + "</div>";
+		return "<div class='container-full-width' style='width:100%; padding:0; margin:4px 0; text-align:center;'>"
+					+ "<div class='container-full-width' style='width:calc(33.3% - 16px); padding:0;'>"
+						+ "<span style='color:" + colour.toWebHexString() + ";'>" + name + "</span>"
+					+ "</div>"
+					+ "<div class='container-full-width' style='width:calc(16.66% - 16px); padding:0;'>"
+						+ given
+					+ "</div>"
+					+ "<div class='container-full-width' style='width:calc(16.66% - 16px); padding:0;'>"
+						+ (loadsGiven < 0 ? "<span class='option-disabled'>-</span>" : loadsGiven)
+					+ "</div>"
+					+ "<div class='container-full-width' style='width:calc(16.66% - 16px); padding:0;'>"
+						+ received
+					+ "</div>"
+					+ "<div class='container-full-width' style='width:calc(16.66% - 16px); padding:0;'>"
+						+ (loadsReceived < 0 ? "<span class='option-disabled'>-</span>" : loadsReceived) 
+					+ "</div>"
+				+ "</div>";
 	}
 
 	private static String pregnancyDetails() {
@@ -1835,7 +1888,12 @@ public class PhoneDialogue {
 				
 				
 			} else if (index == 0) {
-				return new Response("Back", "Return to your phone's main menu.", MENU);
+				return new Response("Back", "Return to your phone's main menu.", MENU) {
+					@Override
+					public void effects() {
+						Main.getProperties().setValue(PropertyValue.levelUpHightlight, false);
+					}
+				};
 			
 			} else {
 				return null;
@@ -2022,7 +2080,7 @@ public class PhoneDialogue {
 						+ "<div class='container-quarter-width'>"
 						+ "Clothing Colours:</br>");
 
-			for (Colour c : Colour.allClothingColours) {
+			for (Colour c : ColourListPresets.ALL.getPresetColourList()) {
 				journalSB.append("<div class='normal-button"+(Main.game.getPlayer().primaryColour==c?" selected":"")+"' id='COLOUR_" + c.toString() + "'"
 										+ " style='width:auto; margin-right:4px;"+(Main.game.getPlayer().primaryColour==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
 									+ "<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";'></div>"

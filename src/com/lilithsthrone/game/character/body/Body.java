@@ -1231,9 +1231,9 @@ public class Body implements Serializable, XMLSaving {
 			importedVagina.orificeUrethra.capacity = (Float.valueOf(vagina.getAttribute("urethraCapacity")));
 			importedVagina.orificeUrethra.stretchedCapacity = (Float.valueOf(vagina.getAttribute("urethraStretchedCapacity")));
 			if(!vagina.getAttribute("urethraVirgin").isEmpty()) {
-				importedPenis.orificeUrethra.virgin = (Boolean.valueOf(vagina.getAttribute("urethraVirgin")));
+				importedVagina.orificeUrethra.virgin = (Boolean.valueOf(vagina.getAttribute("urethraVirgin")));
 			} else {
-				importedPenis.orificeUrethra.virgin = true;
+				importedVagina.orificeUrethra.virgin = true;
 			}
 			
 			urethraModifiers = (Element)vagina.getElementsByTagName("urethraModifiers").item(0);
@@ -1409,25 +1409,25 @@ public class Body implements Serializable, XMLSaving {
 		// Describe race:
 		if (owner.isPlayer()) {
 			sb.append("<p>"
-						+ "You are [pc.name], <span style='color:"+getGender().getColour().toWebHexString()+";'>[pc.a_gender]</span> [pc.raceStage] [pc.race]. "
-						+ owner.getAppearsAsGenderDescription()
+						+ "You are [pc.name], [pc.a_fullRace(true)] [pc.gender(true)]. "
+						+ owner.getAppearsAsGenderDescription(true)
 						+" Standing at full height, you measure [pc.heightFeetInches] ([pc.heightCm]cm).");
 		} else {
 			if(owner.getPlayerKnowsAreas().contains(CoverableArea.PENIS) && owner.getPlayerKnowsAreas().contains(CoverableArea.VAGINA)) {
 				sb.append("<p>"
-						+ "[npc.Name] is <span style='color:"+getGender().getColour().toWebHexString()+";'>[npc.a_gender]</span> [npc.raceStage] [npc.race]. "
-						+ owner.getAppearsAsGenderDescription()
+						+ "[npc.Name] is [npc.a_fullRace(true)] [npc.gender(true)]. "
+						+ owner.getAppearsAsGenderDescription(true)
 						+ " Standing at full height, [npc.she] measures [npc.heightFeetInches] ([npc.heightCm]cm).");
 			} else {
 				if(Main.game.getPlayer().hasTrait(Perk.OBSERVANT, true)) {
 					sb.append("<p>"
 							+ "Thanks to your observant perk, you can detect that [npc.name] is <span style='color:"+getGender().getColour().toWebHexString()+";'>[npc.a_gender]</span> [npc.raceStage] [npc.race]. "
-							+ owner.getAppearsAsGenderDescription()
+							+ owner.getAppearsAsGenderDescription(true)
 							+ " Standing at full height, [npc.she] measures [npc.heightFeetInches] ([npc.heightCm]cm).");
 				} else {
 					sb.append("<p>"
-								+ "[npc.Name] is a [npc.raceStage] [npc.race]. "
-								+ owner.getAppearsAsGenderDescription()
+								+ "[npc.Name] is a [npc.a_fullRace(true)]. "
+								+ owner.getAppearsAsGenderDescription(true)
 								+ " Standing at full height, [npc.she] measures [npc.heightFeetInches] ([npc.heightCm]cm).");
 				}
 			}
@@ -2262,34 +2262,112 @@ public class Body implements Serializable, XMLSaving {
 						break;
 					case ONE_TINY:
 						sb.append(" [style.colourSex(You're really bad at giving head)], and struggle to fit even a tiny cocks into your mouth without gagging.");
-//						sb.append(" You find anything larger than "+face.getRawCapacityValue()+" inches to be uncomfortable.");
 						break;
 					case TWO_AVERAGE:
 						sb.append(" [style.colourSex(You're not great at giving head)], and anything larger than an average-sized human cock will cause you to gag.");
-//						sb.append(" You find anything larger than "+face.getRawCapacityValue()+" inches to be uncomfortable.");
 						break;
 					case THREE_LARGE:
 						sb.append(" [style.colourSex(You're somewhat competent at giving head)], and can suppress your gag reflex enough to comfortably suck large cocks.");
-//						sb.append(" You find anything larger than "+face.getRawCapacityValue()+" inches to be uncomfortable.");
 						break;
 					case FOUR_HUGE:
 						sb.append(" [style.colourSex(You're pretty good at giving head)], and can comfortably suck huge cocks without gagging.");
-//						sb.append(" You find anything larger than "+face.getRawCapacityValue()+" inches to be uncomfortable.");
 						break;
 					case FIVE_ENORMOUS:
 						sb.append(" [style.colourSex(You're somewhat of an expert at giving head)], and can suck enormous cocks without too much difficulty.");
-//						sb.append(" You find anything larger than "+face.getRawCapacityValue()+" inches to be uncomfortable.");
 						break;
 					case SIX_GIGANTIC:
 						sb.append(" [style.colourSex(You're amazing at giving head)], and can comfortably suck all but the most absurdly-sized of cocks with ease.");
-//						sb.append(" You find anything larger than "+face.getRawCapacityValue()+" inches to be uncomfortable.");
 						break;
 					case SEVEN_STALLION:
-						sb.append(" [style.colourSex(You are)]"
-								+ " [style.colourLegendary(legendary)]"
-								+ " [style.colourSex(at giving head)]; it's almost as though your throat was purposefully designed to fit phallic objects of any size or shape.");
+						sb.append(" [style.colourSex(You are)] [style.colourLegendary(legendary)] [style.colourSex(at giving head)]; it's almost as though your throat was purposefully designed to fit phallic objects of any size or shape.");
 						break;
 				}
+				
+
+				// Throat wetness:
+				switch (face.getMouth().getOrificeMouth().getWetness(owner)) {
+					case ZERO_DRY:
+						sb.append(" Your mouth and throat are [style.colourWetness(very dry)], and you struggle to produce any saliva at all.");
+						break;
+					case ONE_SLIGHTLY_MOIST:
+						sb.append(" Your mouth and throat are [style.colourWetness(drier than most)], and you only produce a small amount of saliva.");
+						break;
+					case TWO_MOIST:
+						sb.append(" Your mouth and throat are [style.colourWetness(a little drier than most)], and you produce less saliva than what could be considered average.");
+						break;
+					case THREE_WET:
+						sb.append(" Your mouth and throat are [style.colourWetness(of a typical wetness)], and you produce an average amount of saliva.");
+						break;
+					case FOUR_SLIMY:
+						sb.append(" Your mouth and throat are [style.colourWetness(wetter than most)], and you produce more saliva than an average person.");
+						break;
+					case FIVE_SLOPPY:
+						sb.append(" Your mouth and throat are [style.colourWetness(considerably wetter than most)], and you produce a lot more more saliva than an average person.");
+						break;
+					case SIX_SOPPING_WET:
+						sb.append(" Your mouth and throat are [style.colourWetness(always wet and slimy)], and you produce so much saliva that you find yourself having to swallow every minute or so.");
+						break;
+					case SEVEN_DROOLING:
+						sb.append(" Your mouth and throat are [style.colourWetness(overflowing with saliva)], and despite your continuous efforts to swallow down the slimy mess, a constant stream of drool trickles from the corners of your mouth.");
+						break;
+				}
+				
+				// Elasticity & plasticity:
+				sb.append(" Your throat");
+				switch (face.getMouth().getOrificeMouth().getElasticity()) {
+					case ZERO_UNYIELDING:
+						sb.append(" is [style.colourElasticity(extremely unyielding)],");
+						break;
+					case ONE_RIGID:
+						sb.append(" [style.colourElasticity(takes a huge amount of effort to be stretched out)],");
+						break;
+					case TWO_FIRM:
+						sb.append(" [style.colourElasticity(does not stretch very easily)],");
+						break;
+					case THREE_FLEXIBLE:
+						sb.append(" [style.colourElasticity(reluctantly stretches out)] when used as a sexual orifice,");
+						break;
+					case FOUR_LIMBER:
+						sb.append(" is [style.colourElasticity(somewhat resistant to being stretched out)],");
+						break;
+					case FIVE_STRETCHY:
+						sb.append(" [style.colourElasticity(stretches out fairly easily)],");
+						break;
+					case SIX_SUPPLE:
+						sb.append(" [style.colourElasticity(stretches out very easily)],");
+						break;
+					case SEVEN_ELASTIC:
+						sb.append(" is [style.colourElasticity(extremely elastic)],");
+						break;
+				}
+				sb.append(" and after being used,");
+				switch (face.getMouth().getOrificeMouth().getPlasticity()) {
+					case ZERO_RUBBERY:
+						sb.append(" [style.colourPlasticity(instantly returns to its original size)].");
+						break;
+					case ONE_SPRINGY:
+						sb.append(" [style.colourPlasticity(returns to its original size within a matter of hours)].");
+						break;
+					case TWO_TENSILE:
+						sb.append(" [style.colourPlasticity(returns to its original size within a day or so)].");
+						break;
+					case THREE_RESILIENT:
+						sb.append(" [style.colourPlasticity(returns to its original size after a couple of days)].");
+						break;
+					case FOUR_ACCOMMODATING:
+						sb.append(" it [style.colourPlasticity(takes a while to return to its original size)].");
+						break;
+					case FIVE_YIELDING:
+						sb.append(" it [style.colourPlasticity(struggles to return to its original size)].");
+						break;
+					case SIX_MALLEABLE:
+						sb.append(" it [style.colourPlasticity(permanently loses a good portion of its original tightness)].");
+						break;
+					case SEVEN_MOULDABLE:
+						sb.append(" [style.colourPlasticity(it recovers none of its original tightness)].");
+						break;
+				}
+				
 				for(PenetrationType pt : PenetrationType.values()) {
 					if(Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.CATCHER, pt, OrificeType.MOUTH))!=null
 							&& !Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.CATCHER, pt, OrificeType.MOUTH)).isEmpty()) {
@@ -2299,48 +2377,125 @@ public class Body implements Serializable, XMLSaving {
 					}
 				}
 			}
-		} else {
 			
+		} else {
 			if (owner.getPlayerKnowsAreas().contains(CoverableArea.MOUTH)) {
 				if (face.getMouth().getOrificeMouth().isVirgin()) {
 					sb.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>[npc.She]'s never given head before.</span>");
 				} else {
 					switch(face.getMouth().getOrificeMouth().getCapacity().getMaximumSizeComfortableWithLube()) {
-					case NEGATIVE_UTILITY_VALUE:
-					case ZERO_MICROSCOPIC:
-						sb.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>[npc.She]'s terrible at giving head</span>, and struggles to fit the tip of even the smallest of cocks into [npc.her] mouth without gagging.");
+						case NEGATIVE_UTILITY_VALUE:
+						case ZERO_MICROSCOPIC:
+							sb.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>[npc.She]'s terrible at giving head</span>, and struggles to fit the tip of even the smallest of cocks into [npc.her] mouth without gagging.");
+							break;
+						case ONE_TINY:
+							sb.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>[npc.She]'s really bad at giving head</span>, and struggles to fit even tiny cocks into [npc.her] mouth without gagging.");
+							break;
+						case TWO_AVERAGE:
+							sb.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>[npc.She]'s not great at giving head</span>, and anything larger than an average-sized human cock will cause [npc.her] to gag.");
+							break;
+						case THREE_LARGE:
+							sb.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>[npc.She]'s somewhat competent at giving head</span>, and can suppress [npc.her] gag reflex enough to comfortably suck large cocks.");
+							break;
+						case FOUR_HUGE:
+							sb.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>[npc.She]'s pretty good at giving head</span>, and can comfortably suck huge cocks without gagging.");
+							break;
+						case FIVE_ENORMOUS:
+							sb.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>[npc.She]'s somewhat of an expert at giving head</span>, and can suck enormous cocks without too much difficulty.");
+							break;
+						case SIX_GIGANTIC:
+							sb.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>[npc.She]'s amazing at giving head</span>, and can comfortably suck all but the most absurdly-sized of cocks with ease.");
+							break;
+						case SEVEN_STALLION:
+							sb.append(" [style.colourSex([npc.She] is)] [style.colourLegendary(legendary)] [style.colourSex(at giving head)]; it's almost as though [npc.her] throat was purposefully designed to fit phallic objects of any size or shape.");
+							break;
+					}
+					
+					// Throat wetness:
+					switch (face.getMouth().getOrificeMouth().getWetness(owner)) {
+						case ZERO_DRY:
+							sb.append(" [npc.Her] mouth and throat are [style.colourWetness(very dry)], and [npc.she] struggles to produce any saliva at all.");
+							break;
+						case ONE_SLIGHTLY_MOIST:
+							sb.append(" [npc.Her] mouth and throat are [style.colourWetness(drier than most)], and [npc.she] only produces a small amount of saliva.");
+							break;
+						case TWO_MOIST:
+							sb.append(" [npc.Her] mouth and throat are [style.colourWetness(a little drier than most)], and [npc.she] produces less saliva than what could be considered average.");
+							break;
+						case THREE_WET:
+							sb.append(" [npc.Her] mouth and throat are [style.colourWetness(of a typical wetness)], and [npc.she] produces an average amount of saliva.");
+							break;
+						case FOUR_SLIMY:
+							sb.append(" [npc.Her] mouth and throat are [style.colourWetness(wetter than most)], and [npc.she] produces more saliva than an average person.");
+							break;
+						case FIVE_SLOPPY:
+							sb.append(" [npc.Her] mouth and throat are [style.colourWetness(considerably wetter than most)], and [npc.she] produces a lot more more saliva than an average person.");
+							break;
+						case SIX_SOPPING_WET:
+							sb.append(" [npc.Her] mouth and throat are [style.colourWetness(always wet and slimy)], and [npc.she] produces so much saliva that [npc.she] finds [npc.herself] having to swallow every minute or so.");
+							break;
+						case SEVEN_DROOLING:
+							sb.append(" [npc.Her] mouth and throat are [style.colourWetness(overflowing with saliva)],"
+									+ " and despite [npc.her] continuous efforts to swallow down the slimy mess, a constant stream of drool trickles from the corners of [npc.her] mouth.");
+							break;
+					}
+
+					// Elasticity & plasticity:
+					sb.append(" [npc.Her] throat");
+				switch (face.getMouth().getOrificeMouth().getElasticity()) {
+					case ZERO_UNYIELDING:
+						sb.append(" is [style.colourElasticity(extremely unyielding)],");
 						break;
-					case ONE_TINY:
-						sb.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>[npc.She]'s really bad at giving head</span>, and struggles to fit even tiny cocks into [npc.her] mouth without gagging.");
-//						sb.append(" [npc.She] finds anything larger than "+face.getRawCapacityValue()+" inches to be uncomfortable.");
+					case ONE_RIGID:
+						sb.append(" [style.colourElasticity(takes a huge amount of effort to be stretched out)],");
 						break;
-					case TWO_AVERAGE:
-						sb.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>[npc.She]'s not great at giving head</span>, and anything larger than an average-sized human cock will cause [npc.her] to gag.");
-//						sb.append(" [npc.She] finds anything larger than "+face.getRawCapacityValue()+" inches to be uncomfortable.");
+					case TWO_FIRM:
+						sb.append(" [style.colourElasticity(does not stretch very easily)],");
 						break;
-					case THREE_LARGE:
-						sb.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>[npc.She]'s somewhat competent at giving head</span>, and can suppress [npc.her] gag reflex enough to comfortably suck large cocks.");
-//						sb.append(" [npc.She] finds anything larger than "+face.getRawCapacityValue()+" inches to be uncomfortable.");
+					case THREE_FLEXIBLE:
+						sb.append(" [style.colourElasticity(reluctantly stretches out)] when used as a sexual orifice,");
 						break;
-					case FOUR_HUGE:
-						sb.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>[npc.She]'s pretty good at giving head</span>, and can comfortably suck huge cocks without gagging.");
-//						sb.append(" [npc.She] finds anything larger than "+face.getRawCapacityValue()+" inches to be uncomfortable.");
+					case FOUR_LIMBER:
+						sb.append(" is [style.colourElasticity(somewhat resistant to being stretched out)],");
 						break;
-					case FIVE_ENORMOUS:
-						sb.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>[npc.She]'s somewhat of an expert at giving head</span>, and can suck enormous cocks without too much difficulty.");
-//						sb.append(" [npc.She] finds anything larger than "+face.getRawCapacityValue()+" inches to be uncomfortable.");
+					case FIVE_STRETCHY:
+						sb.append(" [style.colourElasticity(stretches out fairly easily)],");
 						break;
-					case SIX_GIGANTIC:
-						sb.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>[npc.She]'s amazing at giving head</span>, and can comfortably suck all but the most absurdly-sized of cocks with ease.");
-//						sb.append(" [npc.She] finds anything larger than "+face.getRawCapacityValue()+" inches to be uncomfortable.");
+					case SIX_SUPPLE:
+						sb.append(" [style.colourElasticity(stretches out very easily)],");
 						break;
-					case SEVEN_STALLION:
-						sb.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>[npc.She] is</span>"
-								+ " <span style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>legendary</span>"
-								+ " <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>at giving head</span>;"
-										+ " it's almost as though [npc.her] throat was purposefully designed to fit phallic objects of any size or shape.");
+					case SEVEN_ELASTIC:
+						sb.append(" is [style.colourElasticity(extremely elastic)],");
 						break;
 				}
+				sb.append(" and after being used,");
+				switch (face.getMouth().getOrificeMouth().getPlasticity()) {
+					case ZERO_RUBBERY:
+						sb.append(" [style.colourPlasticity(instantly returns to its original size)].");
+						break;
+					case ONE_SPRINGY:
+						sb.append(" [style.colourPlasticity(returns to its original size within a matter of hours)].");
+						break;
+					case TWO_TENSILE:
+						sb.append(" [style.colourPlasticity(returns to its original size within a day or so)].");
+						break;
+					case THREE_RESILIENT:
+						sb.append(" [style.colourPlasticity(returns to its original size after a couple of days)].");
+						break;
+					case FOUR_ACCOMMODATING:
+						sb.append(" it [style.colourPlasticity(takes a while to return to its original size)].");
+						break;
+					case FIVE_YIELDING:
+						sb.append(" it [style.colourPlasticity(struggles to return to its original size)].");
+						break;
+					case SIX_MALLEABLE:
+						sb.append(" it [style.colourPlasticity(permanently loses a good portion of its original tightness)].");
+						break;
+					case SEVEN_MOULDABLE:
+						sb.append(" [style.colourPlasticity(it recovers none of its original tightness)].");
+						break;
+				}
+					
 				}
 			} else {
 				sb.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>You don't know [npc.herHim] well enough to know how competent [npc.she] is at performing oral sex.</span>");
@@ -3635,98 +3790,112 @@ public class Body implements Serializable, XMLSaving {
 			if (ass.getAnus().getOrificeAnus().isVirgin()){
 				descriptionSB.append(" <span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>You have retained your anal virginity.</span>");
 			}else{
+				boolean virginityLossFound = false;
 				for(PenetrationType pt : PenetrationType.values()) {
-					if(Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.CATCHER, pt, OrificeType.ANUS))!=null
-							&& !Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.CATCHER,pt, OrificeType.ANUS)).isEmpty()) {
-						descriptionSB.append(" <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>You lost your anal virginity to "
-							+ Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.CATCHER,pt, OrificeType.ANUS)) + ".</span>");
-						break;
+					if(pt.isTakesVirginity()) {
+						if(Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.CATCHER, pt, OrificeType.ANUS))!=null
+								&& !Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.CATCHER,pt, OrificeType.ANUS)).isEmpty()) {
+							descriptionSB.append(" <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>You lost your anal virginity to "
+								+ Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.CATCHER,pt, OrificeType.ANUS)) + ".</span>");
+							virginityLossFound = true;
+							break;
+						}
 					}
 				}
+				if(!virginityLossFound) {
+					descriptionSB.append(" <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>You have lost your anal virginity.</span>");
+				}
+			}
+		} else {
+			if (ass.getAnus().getOrificeAnus().isVirgin()){
+				descriptionSB.append(" <span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>[npc.She] has retained [npc.her] anal virginity.</span>");
+			} else {
+				descriptionSB.append(" <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>[npc.She] has lost [npc.her] anal virginity.</span>");
 			}
 		}
+		
 		// Ass wetness:
 		switch (ass.getAnus().getOrificeAnus().getWetness(owner)) {
 			case ZERO_DRY:
-				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>It is completely dry, and would need lubricating before sex.</span>");
+				descriptionSB.append(" It is [style.colourWetness(completely dry)], and would need lubricating before sex.");
 				break;
 			case ONE_SLIGHTLY_MOIST:
-				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>It is slightly moist, but would still need lubricating before sex.</span>");
+				descriptionSB.append(" It is [style.colourWetness(slightly moist)], but would still need lubricating before sex.");
 				break;
 			case TWO_MOIST:
-				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>It is moist, but would still need lubricating before sex.</span>");
+				descriptionSB.append(" It is [style.colourWetness(moist)], but would still need lubricating before sex.");
 				break;
 			case THREE_WET:
-				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>Its surface constantly beads with wet droplets, which provides enough natural lubrication for sex.</span>");
+				descriptionSB.append(" Its [style.colourWetness(surface constantly beads with wet droplets)], which provides enough natural lubrication for sex.");
 				break;
 			case FOUR_SLIMY:
-				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>Its surface is always slimy and ready for penetration.</span>");
+				descriptionSB.append(" Its surface is always [style.colourWetness(wet)] and ready for penetration.");
 				break;
 			case FIVE_SLOPPY:
-				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>Its surface is always slimy, and the interior is constantly sloppy and ready for sex.</span>");
+				descriptionSB.append(" Its surface is always [style.colourWetness(wet and slimy)], presenting a well-lubricated orifice for penetration.");
 				break;
 			case SIX_SOPPING_WET:
-				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>It's constantly sopping wet from natural lubrication and ready for penetration.</span>");
+				descriptionSB.append(" Its surface is never less than [style.colourWetness(sopping wet)] from natural lubrication, presenting a well-lubricated orifice for penetration.");
 				break;
 			case SEVEN_DROOLING:
-				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>It constantly drools with natural lubrication, and its sopping wet entrance is always ready for penetration.</span>");
+				descriptionSB.append(" It constantly  [style.colourWetness(drools)] with natural lubrication, and its [style.colourWetness(sopping wet)] entrance is always ready for penetration.");
 				break;
 		}
 		// Ass elasticity & plasticity:
 		switch (ass.getAnus().getOrificeAnus().getElasticity()) {
 			case ZERO_UNYIELDING:
-				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>It is extremely unyielding,");
+				descriptionSB.append(" It is [style.colourElasticity(extremely unyielding)],");
 				break;
 			case ONE_RIGID:
-				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>It takes a huge amount of effort to stretch it out,");
+				descriptionSB.append(" It [style.colourElasticity(takes a huge amount of effort to stretch it out)],");
 				break;
 			case TWO_FIRM:
-				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>It does not stretch very easily,");
+				descriptionSB.append(" It [style.colourElasticity(does not stretch very easily)],");
 				break;
 			case THREE_FLEXIBLE:
-				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>It reluctantly stretches out when used as a sexual orifice,");
+				descriptionSB.append(" It [style.colourElasticity(reluctantly stretches out)] when used as a sexual orifice,");
 				break;
 			case FOUR_LIMBER:
-				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>It is somewhat resistant to being stretched out,");
+				descriptionSB.append(" It is [style.colourElasticity(somewhat resistant to being stretched out)],");
 				break;
 			case FIVE_STRETCHY:
-				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>It stretches out fairly easily,");
+				descriptionSB.append(" It [style.colourElasticity(stretches out fairly easily)],");
 				break;
 			case SIX_SUPPLE:
-				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>It stretches out very easily,");
+				descriptionSB.append(" It [style.colourElasticity(stretches out very easily)],");
 				break;
 			case SEVEN_ELASTIC:
-				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>It is extremely elastic,");
+				descriptionSB.append(" It is [style.colourElasticity(extremely elastic)],");
 				break;
 		}
 		switch (ass.getAnus().getOrificeAnus().getPlasticity()) {
 			case ZERO_RUBBERY:
-				descriptionSB.append(" and will instantly return to its original size.</span>");
+				descriptionSB.append(" and will [style.colourPlasticity(instantly return to its original size)].");
 				break;
 			case ONE_SPRINGY:
-				descriptionSB.append(" and returns to its original size within a matter of hours.</span>");
+				descriptionSB.append(" and [style.colourPlasticity(returns to its original size within a matter of hours)].");
 				break;
 			case TWO_TENSILE:
-				descriptionSB.append(" and returns to its original size within a day or so.</span>");
+				descriptionSB.append(" and [style.colourPlasticity(returns to its original size within a day or so)].");
 				break;
 			case THREE_RESILIENT:
-				descriptionSB.append(" and will return to its original size after a couple of days.</span>");
+				descriptionSB.append(" and will [style.colourPlasticity(return to its original size after a couple of days)].");
 				break;
 			case FOUR_ACCOMMODATING:
-				descriptionSB.append(" and takes a while to return to its original size.</span>");
+				descriptionSB.append(" and [style.colourPlasticity(takes a while to return to its original size)].");
 				break;
 			case FIVE_YIELDING:
-				descriptionSB.append(" and struggles to return to its original size.</span>");
+				descriptionSB.append(" and [style.colourPlasticity(struggles to return to its original size)].");
 				break;
 			case SIX_MALLEABLE:
-				descriptionSB.append(" and loses a good portion of its original tightness.</span>");
+				descriptionSB.append(" and [style.colourPlasticity(permanently loses a good portion of its original tightness)] after being forced open.");
 				break;
 			case SEVEN_MOULDABLE:
-				descriptionSB.append(" and once stretched out, it stays that way.</span>");
+				descriptionSB.append(" and [style.colourPlasticity(once forced open, it stays that way)].");
 				break;
 		}
 		
-		if(Main.game.isBodyHairEnabled()) {
+		if(Main.game.isAssHairEnabled()) {
 			if(owner.isPlayer()) {
 				switch(ass.getAnus().getAssHair()) {
 					case ZERO_NONE:
@@ -3885,54 +4054,54 @@ public class Body implements Serializable, XMLSaving {
 				// Nipple elasticity & plasticity:
 				switch (viewedBreast.getNipples().getOrificeNipples().getElasticity()) {
 					case ZERO_UNYIELDING:
-						descriptionSB.append(" [style.colourSex(They are extremely unyielding,");
+						descriptionSB.append(" They are [style.colourElasticity(extremely unyielding)],");
 						break;
 					case ONE_RIGID:
-						descriptionSB.append(" [style.colourSex(They take a huge amount of effort to stretch out,");
+						descriptionSB.append(" It [style.colourElasticity(takes a huge amount of effort to stretch them out)],");
 						break;
 					case TWO_FIRM:
-						descriptionSB.append(" [style.colourSex(They do not stretch very easily,");
+						descriptionSB.append(" They [style.colourElasticity(does not stretch very easily)],");
 						break;
 					case THREE_FLEXIBLE:
-						descriptionSB.append(" [style.colourSex(They reluctantly stretch out when penetrated,");
+						descriptionSB.append(" They [style.colourElasticity(reluctantly stretch out)] when used as a sexual orifice,");
 						break;
 					case FOUR_LIMBER:
-						descriptionSB.append(" [style.colourSex(They are somewhat resistant to being stretched out,");
+						descriptionSB.append(" They are [style.colourElasticity(somewhat resistant to being stretched out)],");
 						break;
 					case FIVE_STRETCHY:
-						descriptionSB.append(" [style.colourSex(They stretch out fairly easily,");
+						descriptionSB.append(" They [style.colourElasticity(stretch out fairly easily)],");
 						break;
 					case SIX_SUPPLE:
-						descriptionSB.append(" [style.colourSex(They stretch out very easily,");
+						descriptionSB.append(" They [style.colourElasticity(stretch out very easily)],");
 						break;
 					case SEVEN_ELASTIC:
-						descriptionSB.append(" [style.colourSex(They are extremely elastic,");
+						descriptionSB.append(" They are [style.colourElasticity(extremely elastic)],");
 						break;
 				}
 				switch (viewedBreast.getNipples().getOrificeNipples().getPlasticity()) {
 					case ZERO_RUBBERY:
-						descriptionSB.append(" and instantly return to their original size.)]");
+						descriptionSB.append(" and will [style.colourPlasticity(instantly return to their original size)].");
 						break;
 					case ONE_SPRINGY:
-						descriptionSB.append(" and return to their original size within a matter of hours.)]");
+						descriptionSB.append(" and [style.colourPlasticity(return to their original size within a matter of hours)].");
 						break;
 					case TWO_TENSILE:
-						descriptionSB.append(" and return to their original size within a day or so.)]");
+						descriptionSB.append(" and [style.colourPlasticity(return to their original size within a day or so)].");
 						break;
 					case THREE_RESILIENT:
-						descriptionSB.append(" and will return to their original size after a couple of days.)]");
+						descriptionSB.append(" and will [style.colourPlasticity(return to their original size after a couple of days)].");
 						break;
 					case FOUR_ACCOMMODATING:
-						descriptionSB.append(" and take a while to return to their original size.)]");
+						descriptionSB.append(" and [style.colourPlasticity(take a while to return to their original size)].");
 						break;
 					case FIVE_YIELDING:
-						descriptionSB.append(" and struggle to return to their original size.)]");
+						descriptionSB.append(" and [style.colourPlasticity(struggle to return to their original size)].");
 						break;
 					case SIX_MALLEABLE:
-						descriptionSB.append(" and lose a good portion of their original tightness.)]");
+						descriptionSB.append(" and [style.colourPlasticity(permanently lose a good portion of their original tightness)] after being forced open.");
 						break;
 					case SEVEN_MOULDABLE:
-						descriptionSB.append(" and once stretched out, they stay that way.)]");
+						descriptionSB.append(" and [style.colourPlasticity(once forced open, they stay that way)].");
 						break;
 				}
 				
@@ -4090,58 +4259,58 @@ public class Body implements Serializable, XMLSaving {
 				} else {
 					descriptionSB.append("</br>[npc.Her] [npc.breasts] have internal, [npc.nippleSecondaryColour(true)] channels, but [npc.she]'s need at least D-cups before [npc.her] [npc.breastCapacity] [npc.nipples] could be penetrated.");
 				}
-				
+
 				// Nipple elasticity & plasticity:
 				switch (viewedBreast.getNipples().getOrificeNipples().getElasticity()) {
 					case ZERO_UNYIELDING:
-						descriptionSB.append(" [style.colourSex(They are extremely unyielding,");
+						descriptionSB.append(" They are [style.colourElasticity(extremely unyielding)],");
 						break;
 					case ONE_RIGID:
-						descriptionSB.append(" [style.colourSex(They take a huge amount of effort to stretch out,");
+						descriptionSB.append(" It [style.colourElasticity(takes a huge amount of effort to stretch them out)],");
 						break;
 					case TWO_FIRM:
-						descriptionSB.append(" [style.colourSex(They do not stretch very easily,");
+						descriptionSB.append(" They [style.colourElasticity(does not stretch very easily)],");
 						break;
 					case THREE_FLEXIBLE:
-						descriptionSB.append(" [style.colourSex(They reluctantly stretch out when penetrated,");
+						descriptionSB.append(" They [style.colourElasticity(reluctantly stretch out)] when used as a sexual orifice,");
 						break;
 					case FOUR_LIMBER:
-						descriptionSB.append(" [style.colourSex(They are somewhat resistant to being stretched out,");
+						descriptionSB.append(" They are [style.colourElasticity(somewhat resistant to being stretched out)],");
 						break;
 					case FIVE_STRETCHY:
-						descriptionSB.append(" [style.colourSex(They stretch out fairly easily,");
+						descriptionSB.append(" They [style.colourElasticity(stretch out fairly easily)],");
 						break;
 					case SIX_SUPPLE:
-						descriptionSB.append(" [style.colourSex(They stretch out very easily,");
+						descriptionSB.append(" They [style.colourElasticity(stretch out very easily)],");
 						break;
 					case SEVEN_ELASTIC:
-						descriptionSB.append(" [style.colourSex(They are extremely elastic,");
+						descriptionSB.append(" They are [style.colourElasticity(extremely elastic)],");
 						break;
 				}
 				switch (viewedBreast.getNipples().getOrificeNipples().getPlasticity()) {
 					case ZERO_RUBBERY:
-						descriptionSB.append(" and instantly return to their original size.)]");
+						descriptionSB.append(" and will [style.colourPlasticity(instantly return to their original size)].");
 						break;
 					case ONE_SPRINGY:
-						descriptionSB.append(" and return to their original size within a matter of hours.)]");
+						descriptionSB.append(" and [style.colourPlasticity(return to their original size within a matter of hours)].");
 						break;
 					case TWO_TENSILE:
-						descriptionSB.append(" and return to their original size within a day or so.)]");
+						descriptionSB.append(" and [style.colourPlasticity(return to their original size within a day or so)].");
 						break;
 					case THREE_RESILIENT:
-						descriptionSB.append(" and will return to their original size after a couple of days.)]");
+						descriptionSB.append(" and will [style.colourPlasticity(return to their original size after a couple of days)].");
 						break;
 					case FOUR_ACCOMMODATING:
-						descriptionSB.append(" and take a while to return to their original size.)]");
+						descriptionSB.append(" and [style.colourPlasticity(take a while to return to their original size)].");
 						break;
 					case FIVE_YIELDING:
-						descriptionSB.append(" and struggle to return to their original size.)]");
+						descriptionSB.append(" and [style.colourPlasticity(struggle to return to their original size)].");
 						break;
 					case SIX_MALLEABLE:
-						descriptionSB.append(" and lose a good portion of their original tightness.)]");
+						descriptionSB.append(" and [style.colourPlasticity(permanently lose a good portion of their original tightness)] after being forced open.");
 						break;
 					case SEVEN_MOULDABLE:
-						descriptionSB.append(" and once stretched out, they stay that way.)]");
+						descriptionSB.append(" and [style.colourPlasticity(once forced open, they stay that way)].");
 						break;
 				}
 				
@@ -4381,9 +4550,11 @@ public class Body implements Serializable, XMLSaving {
 		if(owner.isPlayer()) {
 			if (!viewedPenis.isVirgin()) {
 					for(OrificeType ot : OrificeType.values()) {
-						if(owner.getVirginityLoss(new SexType(SexParticipantType.PITCHER,PenetrationType.PENIS, ot)) != null && !owner.getVirginityLoss(new SexType(SexParticipantType.PITCHER,PenetrationType.PENIS, ot)).isEmpty()) {
-							descriptionSB.append(" [style.colourArcane(You lost your penile virginity to "+ owner.getVirginityLoss(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, ot)) + ".)]");
-							break;
+						if(ot.isTakesPenisVirginity()) {
+							if(owner.getVirginityLoss(new SexType(SexParticipantType.PITCHER,PenetrationType.PENIS, ot)) != null && !owner.getVirginityLoss(new SexType(SexParticipantType.PITCHER,PenetrationType.PENIS, ot)).isEmpty()) {
+								descriptionSB.append(" [style.colourArcane(You lost your penile virginity to "+ owner.getVirginityLoss(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, ot)) + ".)]");
+								break;
+							}
 						}
 					}
 			} else {
@@ -4393,9 +4564,11 @@ public class Body implements Serializable, XMLSaving {
 		} else {
 			if (!viewedPenis.isVirgin()) {
 				for(OrificeType ot : OrificeType.values()) {
-					if(owner.getVirginityLoss(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, ot))!=null && !owner.getVirginityLoss(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, ot)).isEmpty()) {
-						descriptionSB.append(" [style.colourArcane([npc.Name] has lost [npc.her] penile virginity.)]");
-						break;
+					if(ot.isTakesPenisVirginity()) {
+						if(owner.getVirginityLoss(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, ot))!=null && !owner.getVirginityLoss(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, ot)).isEmpty()) {
+							descriptionSB.append(" [style.colourArcane([npc.Name] has lost [npc.her] penile virginity.)]");
+							break;
+						}
 					}
 				}
 			} else {
@@ -4406,62 +4579,63 @@ public class Body implements Serializable, XMLSaving {
 		// Capacity:
 		if (Capacity.getCapacityFromValue(viewedPenis.getOrificeUrethra().getStretchedCapacity()) != Capacity.ZERO_IMPENETRABLE) {
 			if (isPlayer) {
-				descriptionSB.append(" Your cock's urethra has been loosened enough that it presents a ready orifice for penetration,"
+				descriptionSB.append("</br>Your cock's urethra has been loosened enough that it presents a ready orifice for penetration,"
 						+ " [style.colourSex(and can be comfortably penetrated by "+ Capacity.getCapacityFromValue(viewedPenis.getOrificeUrethra().getStretchedCapacity()).getMaximumSizeComfortableWithLube().getDescriptor() + " cocks with sufficient lubrication.)]");
 			} else {
-				descriptionSB.append(" [npc.Her] cock's urethra has been loosened enough that it presents a ready orifice for penetration,"
+				descriptionSB.append("</br>[npc.Her] cock's urethra has been loosened enough that it presents a ready orifice for penetration,"
 						+ " [style.colourSex(and can be comfortably penetrated by "+ Capacity.getCapacityFromValue(viewedPenis.getOrificeUrethra().getStretchedCapacity()).getMaximumSizeComfortableWithLube().getDescriptor() + " cocks with sufficient lubrication.)]");
 			}
+
 			switch (viewedPenis.getOrificeUrethra().getElasticity()) {
 				case ZERO_UNYIELDING:
-					descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>It is extremely unyielding,");
+					descriptionSB.append(" It is [style.colourElasticity(extremely unyielding)],");
 					break;
 				case ONE_RIGID:
-					descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>It takes a huge amount of effort to stretch it out,");
+					descriptionSB.append(" It [style.colourElasticity(takes a huge amount of effort to stretch it out)],");
 					break;
 				case TWO_FIRM:
-					descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>It does not stretch very easily,");
+					descriptionSB.append(" It [style.colourElasticity(does not stretch very easily)],");
 					break;
 				case THREE_FLEXIBLE:
-					descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>It reluctantly stretches out when used as a sexual orifice,");
+					descriptionSB.append(" It [style.colourElasticity(reluctantly stretches out)] when used as a sexual orifice,");
 					break;
 				case FOUR_LIMBER:
-					descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>It is somewhat resistant to being stretched out,");
+					descriptionSB.append(" It is [style.colourElasticity(somewhat resistant to being stretched out)],");
 					break;
 				case FIVE_STRETCHY:
-					descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>It stretches out fairly easily,");
+					descriptionSB.append(" It [style.colourElasticity(stretches out fairly easily)],");
 					break;
 				case SIX_SUPPLE:
-					descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>It stretches out very easily,");
+					descriptionSB.append(" It [style.colourElasticity(stretches out very easily)],");
 					break;
 				case SEVEN_ELASTIC:
-					descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>It is extremely elastic,");
+					descriptionSB.append(" It is [style.colourElasticity(extremely elastic)],");
 					break;
 			}
 			switch (viewedPenis.getOrificeUrethra().getPlasticity()) {
 				case ZERO_RUBBERY:
-					descriptionSB.append(" and will instantly return to its original size.</span>");
+					descriptionSB.append(" and will [style.colourPlasticity(instantly return to its original size)].");
 					break;
 				case ONE_SPRINGY:
-					descriptionSB.append(" and returns to its original size within a matter of hours.</span>");
+					descriptionSB.append(" and [style.colourPlasticity(returns to its original size within a matter of hours)].");
 					break;
 				case TWO_TENSILE:
-					descriptionSB.append(" and returns to its original size within a day or so.</span>");
+					descriptionSB.append(" and [style.colourPlasticity(returns to its original size within a day or so)].");
 					break;
 				case THREE_RESILIENT:
-					descriptionSB.append(" and will return to its original size after a couple of days.</span>");
+					descriptionSB.append(" and will [style.colourPlasticity(return to its original size after a couple of days)].");
 					break;
 				case FOUR_ACCOMMODATING:
-					descriptionSB.append(" and takes a while to return to its original size.</span>");
+					descriptionSB.append(" and [style.colourPlasticity(takes a while to return to its original size)].");
 					break;
 				case FIVE_YIELDING:
-					descriptionSB.append(" and struggles to return to its original size.</span>");
+					descriptionSB.append(" and [style.colourPlasticity(struggles to return to its original size)].");
 					break;
 				case SIX_MALLEABLE:
-					descriptionSB.append(" and loses a good portion of its original tightness.</span>");
+					descriptionSB.append(" and [style.colourPlasticity(permanently loses a good portion of its original tightness)] after being forced open.");
 					break;
 				case SEVEN_MOULDABLE:
-					descriptionSB.append(" and once stretched out, it stays that way.</span>");
+					descriptionSB.append(" and [style.colourPlasticity(once forced open, it stays that way)].");
 					break;
 			}
 			
@@ -5088,19 +5262,26 @@ public class Body implements Serializable, XMLSaving {
 				descriptionSB.append(" [style.colourSex(Your pussy is " + Capacity.getCapacityFromValue(viewedVagina.getOrificeVagina().getStretchedCapacity()).getDescriptor() + ", and can comfortably take "
 						+ Capacity.getCapacityFromValue(viewedVagina.getOrificeVagina().getStretchedCapacity()).getMaximumSizeComfortableWithLube().getDescriptor() + " cocks with sufficient lubrication.)]");
 				
+				boolean virginityLossFound = false;
 				for(PenetrationType pt : PenetrationType.values()) {
-					if(Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.CATCHER, pt, OrificeType.VAGINA))!=null
-							&& !Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.CATCHER, pt, OrificeType.VAGINA)).isEmpty()
-							&& pt.isTakesVirginity()) {
-						descriptionSB.append(" <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>You lost your virginity to "
-							+ Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.CATCHER, pt, OrificeType.VAGINA)) + ".</span>");
-						break;
+					if(pt.isTakesVirginity()) {
+						if(Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.CATCHER, pt, OrificeType.VAGINA))!=null
+								&& !Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.CATCHER, pt, OrificeType.VAGINA)).isEmpty()) {
+							descriptionSB.append(" <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>You lost your virginity to "
+								+ Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.CATCHER, pt, OrificeType.VAGINA)) + ".</span>");
+							virginityLossFound = true;
+							break;
+						}
 					}
+				}
+				if(!virginityLossFound) {
+					descriptionSB.append(" <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>You have lost your virginity.</span>");
 				}
 				
 			} else{
 				descriptionSB.append(" [style.colourSex([npc.Her] pussy is " + Capacity.getCapacityFromValue(viewedVagina.getOrificeVagina().getStretchedCapacity()).getDescriptor() + ", and can comfortably take "
-						+ Capacity.getCapacityFromValue(viewedVagina.getOrificeVagina().getStretchedCapacity()).getMaximumSizeComfortableWithLube().getDescriptor() + " cocks with sufficient lubrication.)]");
+						+ Capacity.getCapacityFromValue(viewedVagina.getOrificeVagina().getStretchedCapacity()).getMaximumSizeComfortableWithLube().getDescriptor() + " cocks with sufficient lubrication.)]"
+						+ " <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>[npc.She] has lost [npc.her] virginity.</span>");
 			}
 		}
 		
@@ -5108,121 +5289,121 @@ public class Body implements Serializable, XMLSaving {
 		switch (viewedVagina.getOrificeVagina().getWetness(owner)) {
 			case ZERO_DRY:
 				if (isPlayer) {
-					descriptionSB.append(" [style.colourSex(It's completely dry and never gets wet, no matter how aroused you are.)]");
+					descriptionSB.append(" It's [style.colourWetness(completely dry and never gets wet)], no matter how aroused you are.");
 				} else {
-					descriptionSB.append(" [style.colourSex(It's completely dry and never gets wet, no matter how aroused [npc.she] gets.)]");
+					descriptionSB.append(" It's [style.colourWetness(completely dry and never gets wet)], no matter how aroused [npc.she] gets.");
 				}
 				break;
 			case ONE_SLIGHTLY_MOIST:
 				if (isPlayer) {
-					descriptionSB.append(" [style.colourSex(It's slightly moist, and you need a huge amount of stimulation before you get wet.)]");
+					descriptionSB.append(" It's [style.colourWetness(slightly moist)], and you need a huge amount of stimulation before you get wet.");
 				} else {
-					descriptionSB.append(" [style.colourSex(It's slightly moist, and [npc.she] needs a huge amount of stimulation before [npc.she] gets wet.)]");
+					descriptionSB.append(" It's [style.colourWetness(slightly moist)], and [npc.she] needs a huge amount of stimulation before [npc.she] gets wet.");
 				}
 				break;
 			case TWO_MOIST:
 				if (isPlayer) {
-					descriptionSB.append(" [style.colourSex(It's moist, but you still need a lot of stimulation before you get wet.)]");
+					descriptionSB.append(" It's [style.colourWetness(moist)], but you still need a lot of stimulation before you get wet.");
 				} else {
-					descriptionSB.append(" [style.colourSex(It's moist, but [npc.she] still needs a lot of stimulation before [npc.she] gets wet.)]");
+					descriptionSB.append(" It's [style.colourWetness(moist)], but [npc.she] still needs a lot of stimulation before [npc.she] gets wet.");
 				}
 				break;
 			case THREE_WET:
 				if (isPlayer) {
-					descriptionSB.append(" [style.colourSex(You only need a small amount of foreplay before it gets wet enough for penetration.)]");
+					descriptionSB.append(" It's of an [style.colourWetness(average wetness)], and you only need a small amount of foreplay before you're wet enough for a pleasurable penetration.");
 				} else {
-					descriptionSB.append(" [style.colourSex([npc.She] only needs a small amount of foreplay before [npc.she] gets wet enough for penetration.)]");
+					descriptionSB.append(" It's of an [style.colourWetness(average wetness)], and [npc.she] only needs a small amount of foreplay before [npc.she]'s wet enough for a pleasurable penetration.");
 				}
 				break;
 			case FOUR_SLIMY:
 				if (isPlayer) {
-					descriptionSB.append(" [style.colourSex(It's always slimy and wet, and you're ready for penetration at a moment's notice.)]");
+					descriptionSB.append(" It's always [style.colourWetness(slimy and wet)], and you're ready for penetration at a moment's notice.");
 				} else {
-					descriptionSB.append(" [style.colourSex(It's always slimy and wet, and [npc.she]'s ready for penetration at a moment's notice.)]");
+					descriptionSB.append(" It's always [style.colourWetness(slimy and wet)], and [npc.she]'s ready for penetration at a moment's notice.");
 				}
 				break;
 			case FIVE_SLOPPY:
 				if (isPlayer) {
-					descriptionSB.append(" [style.colourSex(Its surface is always coated in slimy moisture, and within, your pussy is sloppy and practically begging to be fucked.)]");
+					descriptionSB.append(" Its surface is always coated in [style.colourWetness(slimy moisture)], and within, your pussy is permanently [style.colourWetness(sloppy)] and practically begging to be fucked.");
 				} else {
-					descriptionSB.append(" [style.colourSex(Its surface is always coated in slimy moisture, and within, [npc.her] pussy is sloppy and practically begging to be fucked.)]");
+					descriptionSB.append(" Its surface is always coated in [style.colourWetness(slimy moisture)], and within, [npc.her] pussy is permanently [style.colourWetness(sloppy)] and practically begging to be fucked.");
 				}
 				break;
 			case SIX_SOPPING_WET:
 				if (isPlayer) {
-					descriptionSB.append(" [style.colourSex(Your pussy is never anything less than sopping wet, and a trickle of your natural lubricant constantly dribbles from your slit.)]");
+					descriptionSB.append(" Your pussy is never anything less than [style.colourWetness(sopping wet)], and a trickle of your natural lubricant constantly dribbles from your slit.");
 				} else {
-					descriptionSB.append(" [style.colourSex([npc.Her] pussy is never anything less than sopping wet, and a trickle of [npc.her] natural lubricant constantly dribbles from [npc.her] slit.)]");
+					descriptionSB.append(" [npc.Her] pussy is never anything less than [style.colourWetness(sopping wet)], and a trickle of [npc.her] natural lubricant constantly dribbles from [npc.her] slit.");
 				}
 				break;
 			case SEVEN_DROOLING:
 				if (isPlayer) {
-					descriptionSB.append(" [style.colourSex(Your pussy is so wet that it audibly squelches with every step you take, and a constant stream of juices flow from your inviting cunt.)]");
+					descriptionSB.append(" Your pussy is [style.colourWetness(so wet that it audibly squelches with every step you take)], and a constant stream of juices flow from your inviting cunt.");
 				} else {
-					descriptionSB.append(" [style.colourSex([npc.Her] pussy is so wet that it audibly squelches with every step [npc.she] takes, and a constant stream of juices flow from [npc.her] inviting cunt.)]");
+					descriptionSB.append(" [npc.Her] pussy is [style.colourWetness(so wet that it audibly squelches with every step [npc.she] takes)], and a constant stream of juices flow from [npc.her] inviting cunt.");
 				}
 				break;
 		}
 		
 		if(viewedVagina.getOrificeVagina().isSquirter()) {
 			if (isPlayer) {
-				descriptionSB.append(" [style.colourSex(You are a squirter, and produce a considerable amount of female ejaculate each time you orgasm.)]");
+				descriptionSB.append(" You are a [style.colourArcane(squirter)], and [style.colourWetness(produce a considerable amount of female ejaculate)] each time you orgasm.");
 			} else {
-				descriptionSB.append(" [style.colourSex([npc.She] is a squirter, and produces a considerable amount of female ejaculate each time [npc.she] orgasms.)]");
+				descriptionSB.append(" [npc.She] is a [style.colourArcane(squirter)], and [style.colourWetness(produces a considerable amount of female ejaculate)] each time [npc.she] orgasms.");
 			}
 		}
 		
 		// Elasticity & plasticity:
 		switch (viewedVagina.getOrificeVagina().getElasticity()) {
 			case ZERO_UNYIELDING:
-				descriptionSB.append(" [style.colourSex(It is extremely unyielding,");
+				descriptionSB.append(" It is [style.colourElasticity(extremely unyielding)],");
 				break;
 			case ONE_RIGID:
-				descriptionSB.append(" [style.colourSex(It takes a huge amount of effort to stretch it out,");
+				descriptionSB.append(" It [style.colourElasticity(takes a huge amount of effort to stretch it out)],");
 				break;
 			case TWO_FIRM:
-				descriptionSB.append(" [style.colourSex(It does not stretch very easily,");
+				descriptionSB.append(" It [style.colourElasticity(does not stretch very easily)],");
 				break;
 			case THREE_FLEXIBLE:
-				descriptionSB.append(" [style.colourSex(It reluctantly stretches out when used as a sexual orifice,");
+				descriptionSB.append(" It [style.colourElasticity(reluctantly stretches out)] when penetrated,");
 				break;
 			case FOUR_LIMBER:
-				descriptionSB.append(" [style.colourSex(It is somewhat resistant to being stretched out,");
+				descriptionSB.append(" It is [style.colourElasticity(somewhat resistant to being stretched out)],");
 				break;
 			case FIVE_STRETCHY:
-				descriptionSB.append(" [style.colourSex(It stretches out fairly easily,");
+				descriptionSB.append(" It [style.colourElasticity(stretches out fairly easily)],");
 				break;
 			case SIX_SUPPLE:
-				descriptionSB.append(" [style.colourSex(It stretches out very easily,");
+				descriptionSB.append(" It [style.colourElasticity(stretches out very easily)],");
 				break;
 			case SEVEN_ELASTIC:
-				descriptionSB.append(" [style.colourSex(It is extremely elastic,");
+				descriptionSB.append(" It is [style.colourElasticity(extremely elastic)],");
 				break;
 		}
 		switch (viewedVagina.getOrificeVagina().getPlasticity()) {
 			case ZERO_RUBBERY:
-				descriptionSB.append(" and will instantly return to its original size.)]");
+				descriptionSB.append(" and will [style.colourPlasticity(instantly return to its original size)].");
 				break;
 			case ONE_SPRINGY:
-				descriptionSB.append(" and returns to its original size within a matter of hours.)]");
+				descriptionSB.append(" and [style.colourPlasticity(returns to its original size within a matter of hours)].");
 				break;
 			case TWO_TENSILE:
-				descriptionSB.append(" and returns to its original size within a day or so.)]");
+				descriptionSB.append(" and [style.colourPlasticity(returns to its original size within a day or so)].");
 				break;
 			case THREE_RESILIENT:
-				descriptionSB.append(" and will return to its original size after a couple of days.)]");
+				descriptionSB.append(" and will [style.colourPlasticity(return to its original size after a couple of days)].");
 				break;
 			case FOUR_ACCOMMODATING:
-				descriptionSB.append(" and takes a while to return to its original size.)]");
+				descriptionSB.append(" and [style.colourPlasticity(takes a while to return to its original size)].");
 				break;
 			case FIVE_YIELDING:
-				descriptionSB.append(" and struggles to return to its original size.)]");
+				descriptionSB.append(" and [style.colourPlasticity(struggles to return to its original size)].");
 				break;
 			case SIX_MALLEABLE:
-				descriptionSB.append(" and loses a good portion of its original tightness.)]");
+				descriptionSB.append(" and [style.colourPlasticity(permanently loses a good portion of its original tightness)] after being forced open.");
 				break;
 			case SEVEN_MOULDABLE:
-				descriptionSB.append(" and once stretched out, it stays that way.)]");
+				descriptionSB.append(" and [style.colourPlasticity(once forced open, it stays that way)].");
 				break;
 		}
 		
@@ -5273,56 +5454,58 @@ public class Body implements Serializable, XMLSaving {
 				descriptionSB.append("[npc.Her] vagina's urethra has been loosened enough that it presents a ready orifice for penetration,"
 						+ " [style.colourSex(and can be comfortably penetrated by "+ Capacity.getCapacityFromValue(viewedVagina.getOrificeUrethra().getStretchedCapacity()).getMaximumSizeComfortableWithLube().getDescriptor() + " cocks with sufficient lubrication.)]");
 			}
+			
+			// Elasticity & plasticity:
 			switch (viewedVagina.getOrificeUrethra().getElasticity()) {
 				case ZERO_UNYIELDING:
-					descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>It is extremely unyielding,");
+					descriptionSB.append(" It is [style.colourElasticity(extremely unyielding)],");
 					break;
 				case ONE_RIGID:
-					descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>It takes a huge amount of effort to stretch it out,");
+					descriptionSB.append(" It [style.colourElasticity(takes a huge amount of effort to stretch it out)],");
 					break;
 				case TWO_FIRM:
-					descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>It does not stretch very easily,");
+					descriptionSB.append(" It [style.colourElasticity(does not stretch very easily)],");
 					break;
 				case THREE_FLEXIBLE:
-					descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>It reluctantly stretches out when used as a sexual orifice,");
+					descriptionSB.append(" It [style.colourElasticity(reluctantly stretches out)] when penetrated,");
 					break;
 				case FOUR_LIMBER:
-					descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>It is somewhat resistant to being stretched out,");
+					descriptionSB.append(" It is [style.colourElasticity(somewhat resistant to being stretched out)],");
 					break;
 				case FIVE_STRETCHY:
-					descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>It stretches out fairly easily,");
+					descriptionSB.append(" It [style.colourElasticity(stretches out fairly easily)],");
 					break;
 				case SIX_SUPPLE:
-					descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>It stretches out very easily,");
+					descriptionSB.append(" It [style.colourElasticity(stretches out very easily)],");
 					break;
 				case SEVEN_ELASTIC:
-					descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>It is extremely elastic,");
+					descriptionSB.append(" It is [style.colourElasticity(extremely elastic)],");
 					break;
 			}
 			switch (viewedVagina.getOrificeUrethra().getPlasticity()) {
 				case ZERO_RUBBERY:
-					descriptionSB.append(" and will instantly return to its original size.</span>");
+					descriptionSB.append(" and will [style.colourPlasticity(instantly return to its original size)].");
 					break;
 				case ONE_SPRINGY:
-					descriptionSB.append(" and returns to its original size within a matter of hours.</span>");
+					descriptionSB.append(" and [style.colourPlasticity(returns to its original size within a matter of hours)].");
 					break;
 				case TWO_TENSILE:
-					descriptionSB.append(" and returns to its original size within a day or so.</span>");
+					descriptionSB.append(" and [style.colourPlasticity(returns to its original size within a day or so)].");
 					break;
 				case THREE_RESILIENT:
-					descriptionSB.append(" and will return to its original size after a couple of days.</span>");
+					descriptionSB.append(" and will [style.colourPlasticity(return to its original size after a couple of days)].");
 					break;
 				case FOUR_ACCOMMODATING:
-					descriptionSB.append(" and takes a while to return to its original size.</span>");
+					descriptionSB.append(" and [style.colourPlasticity(takes a while to return to its original size)].");
 					break;
 				case FIVE_YIELDING:
-					descriptionSB.append(" and struggles to return to its original size.</span>");
+					descriptionSB.append(" and [style.colourPlasticity(struggles to return to its original size)].");
 					break;
 				case SIX_MALLEABLE:
-					descriptionSB.append(" and loses a good portion of its original tightness.</span>");
+					descriptionSB.append(" and [style.colourPlasticity(permanently loses a good portion of its original tightness)] after being forced open.");
 					break;
 				case SEVEN_MOULDABLE:
-					descriptionSB.append(" and once stretched out, it stays that way.</span>");
+					descriptionSB.append(" and [style.colourPlasticity(once forced open, it stays that way)].");
 					break;
 			}
 			
@@ -5463,16 +5646,18 @@ public class Body implements Serializable, XMLSaving {
 	public String getPregnancyDetails(GameCharacter owner) {
 		descriptionSB = new StringBuilder();
 		
-		
 		// NPC is mother:
 		
 		if(owner.isVisiblyPregnant()) {
 			GameCharacter father = owner.getPregnantLitter().getFather();
-			if(father.isPlayer()) {
+			if(father == null) {
+				descriptionSB.append("<p><span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>From one of [npc.her] sexual encounters, [npc.name] has ended up getting impregnated.</span>");
+			} else if(father.isPlayer()) {
 				descriptionSB.append("<p><span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>From one of your sexual encounters, you've ended up impregnating [npc.name].</span>");
 			} else {
 				descriptionSB.append("<p><span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>From one of [npc.her] sexual encounters, [npc.name] has ended up getting impregnated by "+father.getName()+".</span>");
 			}
+			
 			if(owner.hasStatusEffect(StatusEffect.PREGNANT_1)) {
 				descriptionSB.append(" [npc.Her] belly is only a little swollen, as [npc.she]'s only in the first stage of pregnancy.");
 			} else if(owner.hasStatusEffect(StatusEffect.PREGNANT_2)) {
@@ -5490,7 +5675,9 @@ public class Body implements Serializable, XMLSaving {
 			
 			for(Litter litter : owner.getLittersBirthed()) {
 				int daysSpentPregnant = litter.getDayOfBirth()-litter.getDayOfConception();
-				if(litter.getFather().isPlayer()) {
+				if(litter.getFather() == null) {
+					descriptionSB.append("</br>On day "+litter.getDayOfConception()+", [npc.she] was impregnated, and "+Util.intToString(daysSpentPregnant)+" day"+(daysSpentPregnant!=1?"s":"")+" later, [npc.she] gave birth to ");
+				} else if(litter.getFather().isPlayer()) {
 					descriptionSB.append("</br>On day "+litter.getDayOfConception()+", you impregnated [npc.herHim], and "+Util.intToString(daysSpentPregnant)+" day"+(daysSpentPregnant!=1?"s":"")+" later, [npc.she] gave birth to ");
 				} else {
 					descriptionSB.append("</br>On day "+litter.getDayOfConception()
@@ -5509,7 +5696,7 @@ public class Body implements Serializable, XMLSaving {
 		
 		if(Main.game.getPlayer().isVisiblyPregnant()) {
 			for(PregnancyPossibility pp : Main.game.getPlayer().getPotentialPartnersAsMother()) {
-				if(pp.getFather()==owner) {
+				if(pp.getFather()!=null && pp.getFather().equals(owner)) {
 					descriptionSB.append("<p>"
 								+ "<span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>From one of your sexual encounters, you've been impregnated, and it's possible that [npc.name] is the father.</span>"
 							+ "</p>");
@@ -5522,7 +5709,7 @@ public class Body implements Serializable, XMLSaving {
 			int fatheredLitters = 0;
 			
 			for(Litter litter : Main.game.getPlayer().getLittersBirthed()) {
-				if(litter.getFather()==owner){
+				if(litter.getFather()!=null && litter.getFather().equals(owner)){
 					fatheredLitters++;
 				}
 			}
@@ -5535,7 +5722,7 @@ public class Body implements Serializable, XMLSaving {
 				for(Litter litter : Main.game.getPlayer().getLittersBirthed()) {
 					int daysSpentPregnant = litter.getDayOfBirth()-litter.getDayOfConception();
 					
-					if(litter.getFather()==owner){
+					if(litter.getFather()!=null && litter.getFather().equals(owner)){
 						descriptionSB.append("</br>On day "+litter.getDayOfConception()+", [npc.she] impregnated you, and "+Util.intToString(daysSpentPregnant)+" day"+(daysSpentPregnant>1?"s":"")
 									+" later, you gave birth to "+litter.getBirthedDescriptionList()+".");
 					}
@@ -6081,7 +6268,7 @@ public class Body implements Serializable, XMLSaving {
 						case DEMON:
 							coverings.put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, CoveringPattern.NONE, coverings.get(BodyCoveringType.DEMON_COMMON).getPrimaryColour(), false, Colour.ORIFICE_INTERIOR, false));
 							break;
-						case DOG_MORPH:
+						case DOG_MORPH: case WOLF_MORPH:
 							coverings.put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, CoveringPattern.NONE, Colour.SKIN_RED, false, Colour.ORIFICE_INTERIOR, false));
 							break;
 						default:
@@ -6096,7 +6283,7 @@ public class Body implements Serializable, XMLSaving {
 						case DEMON:
 							coverings.put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, CoveringPattern.NONE, coverings.get(BodyCoveringType.DEMON_COMMON).getPrimaryColour(), false, Colour.ORIFICE_INTERIOR, false));
 							break;
-						case DOG_MORPH:
+						case DOG_MORPH: case WOLF_MORPH:
 							coverings.put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, CoveringPattern.NONE, Colour.SKIN_RED, false, Colour.ORIFICE_INTERIOR, false));
 							break;
 						default:

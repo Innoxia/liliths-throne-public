@@ -17,7 +17,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.1.83
+ * @version 0.2.3
  * @author Innoxia
  */
 public class HarpyNestsDialogue {
@@ -573,19 +573,15 @@ public class HarpyNestsDialogue {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(index == 6) {
+			if(index == 1) {
 				if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_HARPY_PACIFICATION)) {
 					return new ResponseEffectsOnly(
 							"Look for trouble",
 							"Although you've pacified the harpy nests, you're sure that you can find a harpy who's looking for a confrontation..."){
 								@Override
 								public void effects() {
-									DialogueNodeOld dn = Encounter.HARPY_NEST_LOOK_FOR_TROUBLE.getRandomEncounter();
-									if (dn == null) {
-										Main.game.setContent(new Response("", "", WALKWAY));
-									} else {
-										Main.game.setContent(new Response("", "", dn));
-									}
+									DialogueNodeOld dn = Encounter.HARPY_NEST_LOOK_FOR_TROUBLE.getRandomEncounter(true);
+									Main.game.setContent(new Response("", "", dn));
 								}
 							};
 							
@@ -595,7 +591,7 @@ public class HarpyNestsDialogue {
 							"Explore the walkways. Although you don't think you're any more or less likely to find anything by doing this, at least you won't have to keep travelling back and forth..."){
 								@Override
 								public void effects() {
-									DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true);
+									DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
 									Main.game.setContent(new Response("", "", dn));
 								}
 							};
@@ -703,19 +699,15 @@ public class HarpyNestsDialogue {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(index == 6) {
+			if(index == 1) {
 				if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_HARPY_PACIFICATION)) {
 					return new ResponseEffectsOnly(
 							"Look for trouble",
 							"Although you've pacified the harpy nests, you're sure that you can find a harpy who's looking for a confrontation..."){
 								@Override
 								public void effects() {
-									DialogueNodeOld dn = Encounter.HARPY_NEST_LOOK_FOR_TROUBLE.getRandomEncounter();
-									if (dn == null) {
-										Main.game.setContent(new Response("", "", WALKWAY));
-									} else {
-										Main.game.setContent(new Response("", "", dn));
-									}
+									DialogueNodeOld dn = Encounter.HARPY_NEST_LOOK_FOR_TROUBLE.getRandomEncounter(true);
+									Main.game.setContent(new Response("", "", dn));
 								}
 							};
 							
@@ -725,7 +717,7 @@ public class HarpyNestsDialogue {
 							"Explore the walkways. Although you don't think you're any more or less likely to find anything by doing this, at least you won't have to keep travelling back and forth..."){
 								@Override
 								public void effects() {
-									DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true);
+									DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
 									Main.game.setContent(new Response("", "", dn));
 								}
 							};

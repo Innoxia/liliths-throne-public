@@ -461,10 +461,17 @@ public class Library {
 		@Override
 		public String getContent() {
 			return "<p>"
-
 						+ "Walking down one of the aisles, you find yourself surrounded by heavy wooden shelves, fastened together by prominent beams of iron and steel."
 						+ " A lot of the books here seem to be about local history of Dominion's many districts, and, while fascinating for a historian, they don't offer much use to you."
-						+ " Despite most of the books not being worth your time, there are a few here and there that detail the many races found within the city, and you wonder if you should give them a read..."
+					+ "</p>"
+					+ "<p>"
+						+ "You notice that a couple of the shelves look a little different from the others."
+						+ " The top-most shelf seems to be decorated to make it look as though it's crafted from twigs, just like a bird's nest."
+						+ " The shelf nearest to the floor has a very smooth surface, almost like the wood as been transmuted into stone."
+						+ " It looks like it would be moist to the touch."
+					+ "</p>"
+					+ "<p>"
+						+ "Despite most of these books not being worth your time, there are a few here and there that detail the many races found within the city, and you wonder if you should give them a read..."
 					+ "</p>";
 							
 		}
@@ -472,7 +479,7 @@ public class Library {
 		@Override
 		public Response getResponse(int responseTab, int city) {
 			if (city == 1) {
-				return bookResponse(ItemType.BOOK_CAT_MORPH, Race.CAT_MORPH);
+				return bookResponse(ItemType.BOOK_HARPY, Race.HARPY);
 
 			} else if (city == 2) {
 				return bookResponse(ItemType.BOOK_DEMON, Race.DEMON);
@@ -481,19 +488,31 @@ public class Library {
 				return bookResponse(ItemType.BOOK_DOG_MORPH, Race.DOG_MORPH);
 
 			} else if (city == 4) {
-				return bookResponse(ItemType.BOOK_HARPY, Race.HARPY);
+				return bookResponse(ItemType.BOOK_CAT_MORPH, Race.CAT_MORPH);
 
 			} else if (city == 5) {
 				return bookResponse(ItemType.BOOK_HORSE_MORPH, Race.HORSE_MORPH);
 
 			} else if (city == 6) {
-				return bookResponse(ItemType.BOOK_HUMAN, Race.HUMAN);
+				return bookResponse(ItemType.BOOK_WOLF_MORPH, Race.WOLF_MORPH);
 
 			} else if (city == 7) {
-				return bookResponse(ItemType.BOOK_WOLF_MORPH, Race.WOLF_MORPH);
+				return bookResponse(ItemType.BOOK_HUMAN, Race.HUMAN);
 
 			} else if (city == 8) {
 				return bookResponse(ItemType.BOOK_ALLIGATOR_MORPH, Race.ALLIGATOR_MORPH);
+
+			} else if (city == 9) {
+				return bookResponse(ItemType.BOOK_BAT_MORPH, Race.BAT_MORPH);
+
+			} else if (city == 10) {
+				return bookResponse(ItemType.BOOK_IMP, Race.IMP);
+
+			} else if (city == 11) {
+				return bookResponse(ItemType.BOOK_SLIME, Race.SLIME);
+
+			} else if (city == 12) {
+				return bookResponse(ItemType.BOOK_RAT_MORPH, Race.RAT_MORPH);
 
 			} else if (city == 0) {
 				return new Response("Back", "Return to browsing the shelves.", BROWSE_BOOKS);
@@ -522,6 +541,7 @@ public class Library {
 					+ "</p>"
 					+ "<p>"
 						+ "At first glance, they look to be crafted from blocks of sod, but upon closer inspection, you see that it's actually masterfully-engraved pieces of wood."
+						+ " One shelf looks like the sod is covered in snow, you can feel the cold wafting off of it"
 						+ " The books that they hold all seem to be related to the Foloi Fields and the many races found there, which would explain the pastoral scent and appearance of this particular section."
 					+ "</p>";
 							
@@ -536,9 +556,12 @@ public class Library {
 				return bookResponse(ItemType.BOOK_COW_MORPH, Race.COW_MORPH);
 
 			} else if (field == 3) {
+				return bookResponse(ItemType.BOOK_RABBIT_MORPH, Race.RABBIT_MORPH);
+
+			} else if (field == 4) {
 				return bookResponse(ItemType.BOOK_REINDEER_MORPH, Race.REINDEER_MORPH);
 
-			}  else if (field == 0) {
+			} else if (field == 0) {
 				return new Response("Back to the shelves", "Return to strolling the shelves.", BROWSE_BOOKS);
 
 

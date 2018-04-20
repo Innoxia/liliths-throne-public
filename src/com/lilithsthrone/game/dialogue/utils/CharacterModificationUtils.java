@@ -7,8 +7,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import com.lilithsthrone.game.character.Personality;
-import com.lilithsthrone.game.character.SexualOrientation;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Breast;
 import com.lilithsthrone.game.character.body.Covering;
@@ -59,6 +57,9 @@ import com.lilithsthrone.game.character.body.valueEnums.PiercingType;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.body.valueEnums.TongueModifier;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
+import com.lilithsthrone.game.character.persona.PersonalityTrait;
+import com.lilithsthrone.game.character.persona.PersonalityWeight;
+import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.SuccubisSecrets;
 import com.lilithsthrone.game.sex.OrificeType;
@@ -66,12 +67,13 @@ import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.7?
- * @version 0.1.95
+ * @version 0.2.4
  * @author Innoxia
  */
 public class CharacterModificationUtils {
@@ -239,28 +241,41 @@ public class CharacterModificationUtils {
 		contentSB.setLength(0);
 		
 		contentSB.append(
-				"<div class='cosmetics-inner-container'>"
+				"<div class='container-full-width'>"
 						+ "<h5 style='text-align:center;'>"
 							+"Personality"
 						+"</h5>"
 						+ "<p style='text-align:center;'>"
-							+ "Your personality will have a minor influence on how your character speaks or reacts."
+							+ "Your personality will have a minor influence in some situations."
 							+ " It will not lock out any options during the game, and is more for roleplaying purposes."
 						+ "</p>");
 		
-		for(Personality personality : Personality.values()) {
-			if(BodyChanging.getTarget().getPersonality() == personality) {
-				contentSB.append(
-						"<div class='cosmetics-button active'>"
-							+ "<b style='color:"+personality.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(personality.getName())+"</b>"
-						+ "</div>");
-				
-			} else {
-				contentSB.append(
-						"<div id='PERSONALITY_"+personality+"' class='cosmetics-button'>"
-							+ "<span style='color:"+personality.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(personality.getName())+"</span>"
-						+ "</div>");
+		int i=0;
+		for(PersonalityTrait trait : PersonalityTrait.values()) {
+			contentSB.append("<div class='container-full-width' style='"+(i==4?"width:50%; margin:0 25%;":"width:calc(50% - 16px);")+" text-align:center; padding:0;'>"
+					+ "<div class='title-button no-select' id='PERSONALITY_INFO_"+trait+"' style='position:absolute; left:auto; right:5%; top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getInformationIcon()+"</div>"
+					+ "<p style='text-align:center; margin-bottom:0; padding-bottom:0;'>"
+						+ "<b style='color:"+trait.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(trait.getName())+"</b></br>"
+						+ "<i>"+trait.getNameFromWeight(BodyChanging.getTarget(), BodyChanging.getTarget().getPersonality().get(trait))+"</i>"
+					+ "</p>");
+
+			for(PersonalityWeight weight : PersonalityWeight.values()) {
+				if(BodyChanging.getTarget().getPersonality().get(trait) == weight) {
+					contentSB.append(
+							"<div class='cosmetics-button active'>"
+								+ "<b style='color:"+trait.getColour().getShades()[2]+";'>"+Util.capitaliseSentence(weight.getName())+"</b>"
+							+ "</div>");
+					
+				} else {
+					contentSB.append(
+							"<div id='PERSONALITY_"+trait+"_"+weight+"' class='cosmetics-button'>"
+									+ "[style.colourDisabled("+Util.capitaliseSentence(weight.getName())+")]"
+							+ "</div>");
+				}
 			}
+			
+			contentSB.append("</div>");
+			i++;
 		}
 		
 		contentSB.append("</div>");
@@ -2415,7 +2430,7 @@ public class CharacterModificationUtils {
 	
 	public static CupSize[] getBreastSizesAvailable() {
 		if(BodyChanging.getTarget().hasPenis()) {
-			return new CupSize[] {CupSize.FLAT, CupSize.TRAINING_AA, CupSize.TRAINING_A, CupSize.TRAINING_B};
+			return new CupSize[] {CupSize.FLAT, CupSize.TRAINING_AAA, CupSize.TRAINING_AA, CupSize.TRAINING_A};
 		} else {
 			return new CupSize[] {CupSize.AA, CupSize.A, CupSize.B, CupSize.C, CupSize.D, CupSize.DD, CupSize.E};
 		}

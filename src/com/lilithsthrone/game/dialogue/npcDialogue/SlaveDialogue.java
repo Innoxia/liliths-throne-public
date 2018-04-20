@@ -11,9 +11,12 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.NPCFlagValue;
 import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.SlaveryManagementDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
+import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
+import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
@@ -110,7 +113,9 @@ public class SlaveDialogue {
 								+ "As you approach [npc.name], it's impossible not to notice the fact that [npc.she]'s sporting a round belly."
 								+ " [npc.She] absent-mindedly strokes [npc.her] swollen bump as [npc.she] looks up at you,");
 					
-					if(Main.game.getActiveNPC().getPregnantLitter().getFather().isPlayer()) {
+					GameCharacter father = Main.game.getActiveNPC().getPregnantLitter().getFather();
+					
+					if(father!=null && father.isPlayer()) {
 						switch(AffectionLevelBasic.getAffectionLevelFromValue(Main.game.getActiveNPC().getAffection(Main.game.getPlayer()))) {
 							case DISLIKE:
 								switch(ObedienceLevelBasic.getObedienceLevelFromValue(Main.game.getActiveNPC().getObedienceValue())) {
@@ -174,15 +179,15 @@ public class SlaveDialogue {
 						switch(ObedienceLevelBasic.getObedienceLevelFromValue(Main.game.getActiveNPC().getObedienceValue())) {
 							case DISOBEDIENT:
 								UtilText.nodeContentSB.append(" sighing,"
-										+ " [npc.speech(Hi [npc.pcName]. "+Main.game.getActiveNPC().getPregnantLitter().getFather().getName("The")+"'s got me pregnant, so I'm going to take it easy for a while. Get one of the other slaves to cover for me, ok?)]");
+										+ " [npc.speech(Hi [npc.pcName]. "+(father==null?"I ended up getting pregnant":father.getName("A")+" got me pregnant")+", so I'm going to take it easy for a while. Get one of the other slaves to cover for me, ok?)]");
 								break;
 							case NEUTRAL:
 								UtilText.nodeContentSB.append(" sighing,"
-										+ " [npc.speech(Hi [npc.pcName]. "+Main.game.getActiveNPC().getPregnantLitter().getFather().getName("The")+"'s got me pregnant, so I'm going to need to take it easy for a while, ok?)]");
+										+ " [npc.speech(Hi [npc.pcName]. "+(father==null?"I ended up getting pregnant":father.getName("A")+" got me pregnant")+", so I'm going to need to take it easy for a while, ok?)]");
 								break;
 							case OBEDIENT:
 								UtilText.nodeContentSB.append(" obediently informing you of what happened,"
-										+ " [npc.speech(Hello [npc.pcName]. "+Main.game.getActiveNPC().getPregnantLitter().getFather().getName("The")+"'s got me pregnant, but I won't let it get in the way of my duties!)]");
+										+ " [npc.speech(Hello [npc.pcName]. "+(father==null?"I ended up getting pregnant":father.getName("A")+" got me pregnant")+", but I won't let it get in the way of my duties!)]");
 								break;
 						}
 						UtilText.nodeContentSB.append("</p>"
@@ -331,6 +336,8 @@ public class SlaveDialogue {
 				return "Dialogue";
 			} else if(index == 1) {
 				return "Sex";
+			} else if(index == 2) {
+				return "Management";
 			}
 			
 			return null;
@@ -391,7 +398,28 @@ public class SlaveDialogue {
 						};
 					}
 					
-				}  else if (index == 6) {
+				} else if (index == 5) {
+					if(!Main.game.getPlayer().hasCompanion(slave())) {
+						return new Response("Add to party",
+								"Command [npc.name] to start following you around.",
+								SLAVE_START){
+							@Override
+							public void effects() {
+								Main.game.getPlayer().addCompanion(slave());
+							}
+						};
+					} else {
+						return new Response("Remove from party",
+								"Command [npc.name] to leave your party.",
+								SLAVE_START){
+							@Override
+							public void effects() {
+								Main.game.getPlayer().removeCompanion(slave());
+							}
+						};
+					}
+					
+				} else if (index == 6) {
 					if(!slave().NPCFlagValues.contains(NPCFlagValue.flagSlaveEncourage)) {
 						return new Response("Work", "Ask [npc.name] about how [npc.her] work's going.", SLAVE_ENCOURAGE) {
 							@Override
@@ -556,6 +584,10 @@ public class SlaveDialogue {
 						@Override
 						public DialogueNodeOld getNextDialogue() {
 							return DebugDialogue.getDefaultDialogueNoEncounter();
+						}
+						@Override
+						public void effects() {
+							Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(null);
 						}
 					};
 					
@@ -795,11 +827,66 @@ public class SlaveDialogue {
 							public DialogueNodeOld getNextDialogue() {
 								return DebugDialogue.getDefaultDialogueNoEncounter();
 							}
+							@Override
+							public void effects() {
+								Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(null);
+							}
 						};
 						
 					} else  {
 						return null;
 					}
+				}
+				
+			} else if(responseTab == 2) {
+				switch(index) {
+					case 1:
+						return new Response("Inspect",
+								"Inspect [npc.name].",
+								SlaveryManagementDialogue.getSlaveryManagementInspectSlaveDialogue(Main.game.getActiveNPC()));
+					case 2:
+						return new Response("Job",
+								"Set [npc.name]'s job and work hours.",
+								SlaveryManagementDialogue.getSlaveryManagementSlaveJobsDialogue(Main.game.getActiveNPC()));
+					case 3:
+						return new Response("Permissions",
+								"Manage [npc.name]'s permissions.",
+								SlaveryManagementDialogue.getSlaveryManagementSlavePermissionsDialogue(Main.game.getActiveNPC()));
+					case 4:
+						return new ResponseEffectsOnly("Inventory",
+								"Manage [npc.name]'s inventory.")
+								{
+									@Override
+									public void effects()
+									{
+										Main.mainController.openInventory(Main.game.getActiveNPC(),
+												InventoryInteraction.FULL_MANAGEMENT);
+									}
+								};
+					case 5:
+						return new Response("Send to Kate",
+								"Send [npc.name] to Kate's beauty salon, 'Succubi's secrets', to get [npc.her] appearance changed.",
+								SlaveryManagementDialogue.SLAVE_MANAGEMENT_COSMETICS_HAIR) {
+									@Override
+									public void effects() {
+										Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(Main.game.getActiveNPC());
+										BodyChanging.setTarget(Main.game.getActiveNPC());
+									}
+								};
+					case 0:
+						return new Response("Leave", "Tell [npc.name] that you'll catch up with [npc.herHim] some other time.", SLAVE_START) {
+							@Override
+							public DialogueNodeOld getNextDialogue() {
+								return DebugDialogue.getDefaultDialogueNoEncounter();
+							}
+							@Override
+							public void effects() {
+								Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(null);
+							}
+						};
+								
+					default:
+						return null;
 				}
 				
 			} else {
@@ -2219,12 +2306,13 @@ public class SlaveDialogue {
 				UtilText.nodeContentSB.append(
 							" "+secondReaction+" as you grope, stroke, and fondle [npc.her] [npc.penis+], and you can't help but [pc.moan] into your slave's [npc.ear] as"+thirdReaction+" you feel [npc.her] [npc.cock+] growing hard under your touch."
 							+ " Dropping your [pc.hand] down yet further, you shift your attention to [npc.her] [npc.pussy+],"
-								+ " grinning once again as you feel that your stimulation of [npc.her] [npc.clit+] and [npc.labia+] are already getting [npc.her] wet."
+								+ " grinning once again as you feel that your stimulation of [npc.her] [npc.clit+] and [npc.labia+] have already gotten [npc.her] wet."
 						+ "</p>");
 				
 			} else if(slave().hasVagina()) {
 				UtilText.nodeContentSB.append(
-						" "+secondReaction+" as you grope, stroke, and probe at [npc.her] [npc.clit+] and [npc.labia+], and you can't help but [pc.moan] into your slave's [npc.ear] as"+thirdReaction+" you feel [npc.her] [npc.pussy+] getting wet under your touch."
+						" "+secondReaction+" as you grope, stroke, and probe at [npc.her] [npc.clit+] and [npc.labia+], and you can't help but [pc.moan] into your slave's [npc.ear] as"+thirdReaction+" you feel [npc.her] [npc.pussy+]"
+								+ " is already wet from your touch."
 					+ "</p>");
 				
 			} else if(slave().hasPenis()) {

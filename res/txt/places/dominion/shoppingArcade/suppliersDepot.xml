@@ -112,7 +112,7 @@
 	
 	<htmlContent tag="RECEPTION_POPULATED_STAFF_DOOR_UNLOCKING"><![CDATA[
 	<p>
-		Wanting to pay [wolfgang.name] another visit, you approach the mouse-girl receptionist,
+		Wanting to pay [wolfgang.name] another visit, you approach the mouse-girl receptionist.
 		 [pc.speech(Hello, I was wondering if it would be possible to see [wolfgang.name].)]
 	</p>
 	<p>
@@ -168,7 +168,7 @@
 		 Numerous empty bottles of the beer 'Canine Crush' are scattered about all over the area, and countless empty pizza-boxes and takeaway cartons are piled up in one corner of the room.
 	</p>
 	<p>
-		The most striking feature in front of you, however, is the pair of black-and-brown-furred greater dobermann-morphs, who both instantly push their chairs back and jump to their feet as you enter.
+		The most striking feature in front of you, however, is the pair of black-and-brown-furred greater dobermann-boys, who both instantly push their chairs back and jump to their feet as you enter.
 		 The one closest to you is a little taller and more muscular than the other, and although they're both wearing black jeans, shirts, and heavy work-boots, this larger dobermann is sporting a pair of gold-framed aviators.
 		 It's this larger of the two who's the first to speak, and he adopts a menacing pose as he growls,
 		 [wolfgang.speech(Who the hell are you?!)]
@@ -202,9 +202,9 @@
 		 [wolfgang.speech(Enter!)]
 	</p>
 	<p>
-		Once again you find yourself standing before the pair of black-and-brown-furred greater dobermann-morphs, who both instantly push their chairs back and jump to their feet as you enter.
-		 [wolfgang.Name] smirks as he sees that it's you,
-		 [wolfgang.speech(Hello again [pc.name], what can we do for you this time?)]
+		Once again you find yourself standing before the pair of black-and-brown-furred greater dobermann-boys, who both instantly push their chairs back and jump to their feet as you enter.
+		 [wolfgang.Name] smirks as he sees that it's you.
+		 [wolfgang.speech(Hello again, [pc.name], what can we do for you this time?)]
 	</p>
 	]]>
 	</htmlContent>
@@ -221,14 +221,14 @@
 		 Numerous empty bottles of the beer 'Canine Crush' are scattered about all over the area, and countless empty pizza-boxes and takeaway cartons are piled up in one corner of the room.
 	</p>
 	<p>
-		The most striking feature in front of you, however, is the pair of black-and-brown-furred greater dobermann-morphs, who both instantly push their chairs back and jump to their feet as you enter.
+		The most striking feature in front of you, however, is the pair of black-and-brown-furred greater dobermann-boys, who both instantly push their chairs back and jump to their feet as you enter.
 		 The one closest to you is a little taller and more muscular than the other, and although they're both wearing black jeans, shirts, and heavy work-boots, this larger dobermann is sporting a pair of gold-framed aviators.
 		 It's this larger of the two who's the first to speak, and he adopts a menacing pose as he growls,
 		 [wolfgang.speech(We both know that you Enforcers have nothing on us! Why don't you turn around and fuck off back to your cozy little desk job at your HQ?)]
 	</p>
 	<p>
 		[pc.speech(That attitude isn't going to get you far with me,)]
-		 you say, matching the dobermann's gaze as you step forwards,
+		 you say, matching the dobermann's gaze as you step forwards.
 		 [pc.speech(I assume you're Wolfgang?)]
 	</p>
 	<p>
@@ -252,7 +252,7 @@
 		 Numerous empty bottles of the beer 'Canine Crush' are scattered about all over the area, and countless empty pizza-boxes and takeaway cartons are piled up in one corner of the room.
 	</p>
 	<p>
-		The pair of black-and-brown-furred greater dobermann-morphs, Wolfgang and Karl, instantly push their chairs back and jump to their feet as you enter.
+		The pair of black-and-brown-furred greater dobermann-boys, Wolfgang and Karl, instantly push their chairs back and jump to their feet as you enter.
 		 Once again you note that Wolfgang is a little taller and more muscular than Karl, and although they're both wearing black jeans, shirts, and heavy work-boots, Wolfgang is sporting a pair of gold-framed aviators.
 		 It's Wolfgang who's the first to speak once again, and he adopts a menacing pose as he growls,
 		 [wolfgang.speech(You again?! What, didn't have enough fun the last time you were here?!)]
@@ -283,7 +283,7 @@
 		 Numerous empty bottles of the beer 'Canine Crush' are scattered about all over the area, and countless empty pizza-boxes and takeaway cartons are piled up in one corner of the room.
 	</p>
 	<p>
-		The pair of black-and-brown-furred greater dobermann-morphs, Wolfgang and Karl, instantly push their chairs back and jump to their feet as you enter.
+		The pair of black-and-brown-furred greater dobermann-boys, Wolfgang and Karl, instantly push their chairs back and jump to their feet as you enter.
 		 Once again you note that Wolfgang is a little taller and more muscular than Karl, and although they're both wearing black jeans, shirts, and heavy work-boots, Wolfgang is sporting a pair of gold-framed aviators.
 		 It's Wolfgang who's the first to speak once again, and he adopts a menacing pose as he growls,
 		 [wolfgang.speech(You again?! What, didn't have enough fun the last time you were here?!)]
@@ -318,17 +318,17 @@
 	</p>
 	<p>
 		[wolfgang.speech(Hah!)]
-		 Wolfgang exclaims,
+		 Wolfgang exclaims.
 		 [wolfgang.speech(And here I was getting worried that you had something on us!)]
 	</p>
 	<p>
 		[karl.speech(This has all been a huge waste of our time,)]
-		 Karl growls from the other side of the room,
+		 Karl growls from the other side of the room.
 		 [karl.speech(I want to know what you're going to offer us as compensation.)]
 	</p>
 	<p>
 		[wolfgang.speech(Good point Karl,)]
-		 Wolfgang snarls,
+		 Wolfgang snarls.
 		 [wolfgang.speech(I think five-hundred flames ought to do the trick. Or maybe you'd like to pay another way...)]
 	</p>
 	<p>
@@ -353,17 +353,17 @@
 	</p>
 	<p>
 		[wolfgang.speech(Hah!)]
-		 Wolfgang exclaims,
+		 Wolfgang exclaims.
 		 [wolfgang.speech(And here I was getting worried that you'd found some dirt on us!)]
 	</p>
 	<p>
 		[karl.speech(Yet again, this has all been a huge waste of our time,)]
-		 Karl growls from the other side of the room,
+		 Karl growls from the other side of the room.
 		 [karl.speech(I want to know what you're going to offer us as compensation.)]
 	</p>
 	<p>
 		[wolfgang.speech(Good point Karl,)]
-		 Wolfgang snarls,
+		 Wolfgang snarls.
 		 [wolfgang.speech(I think five-hundred flames ought to do the trick. Or maybe you'd like to pay another way...)]
 	</p>
 	<p>
@@ -374,7 +374,7 @@
 	
 	<htmlContent tag="OFFICE_PAID_OFF"><![CDATA[
 	<p>
-		Not wanting to get into a fight, and definitely not willing to offer your body to these thugs, you hand over five-hundred flames to Wolfgang,
+		Not wanting to get into a fight, and definitely not willing to offer your body to these thugs, you hand over five-hundred flames to Wolfgang.
 		 [pc.speech(There you go. I'll be leaving now.)]
 	</p>
 	<p>
@@ -388,18 +388,18 @@
 	
 	<htmlContent tag="OFFICE_ENFORCER_BLUFF"><![CDATA[
 	<p>
-		Deciding to make the most of the fact that Wolfgang has mistaken you for an Enforcer, you put on your most serious look as you stare him down,
+		Deciding to make the most of the fact that Wolfgang has mistaken you for an Enforcer, you put on your most serious look as you stare him down.
 		 [pc.speech(Did you really think you'd get away with openly intimidating and threatening the other suppliers?
 		 We couldn't act before due to a lack of witnesses who were willing to testify against you, but that's changed.)]
 	</p>
 	<p>
 		[wolfgang.speech(Bullshit!)]
-		 Wolfgang aggressively snaps, but as he speaks, you detect the faint hint of worry in his voice,
+		 Wolfgang aggressively snaps, but as he speaks, you detect the faint hint of worry in his voice.
 		 [wolfgang.speech(If you had anything on us, there'd be a lot more of you, and we'd be in cuffs already!)]
 	</p>
 	<p>
-		[pc.speech(That's very observant of you, but I'm afraid you've come to the wrong conclusion,)]
-		 you grin, encouraged to continue with your bluff by the slight wavering in Wolfgang's voice,
+		[pc.speech(That's very observant of you, but I'm afraid you've come to the wrong conclusion.)]
+		 You grin, encouraged to continue with your bluff by the slight wavering in Wolfgang's voice.
 		 [pc.speech(I'm alone because we thought it would work out better for everyone if I came to offer you a deal.
 		 In exchange for not arresting you both, you're going to agree to let the other suppliers move back in.
 		 We Enforcers don't have a problem with you two continuing to work out of here, but one more report about intimidation, blackmail, or assault, and you two can live out the rest of your days as slaves.
@@ -407,7 +407,7 @@
 	</p>
 	<p>
 		Despite their best efforts to maintain their composure, there's a noticeable look of worry in both of the dobermanns' eyes.
-		 It's obvious that they're guilty, and the threat of enslavement, combined with the offer of an easy way out, seems to be just enough to convince these thugs to give up,
+		 It's obvious that they're guilty, and the threat of enslavement, combined with the offer of an easy way out, seems to be just enough to convince these thugs to give up.
 		 [wolfgang.speech(So we just need to let the other suppliers back, and all this goes away?)]
 	</p>
 	<p>
@@ -421,8 +421,8 @@
 		 We'll let the other suppliers back, but this isn't an admission of guilt!)]
 	</p>
 	<p>
-		[pc.speech(Of course,)]
-		 you smile, thrilled that your bluff worked so perfectly,
+		[pc.speech(Of course.)]
+		 You smile, thrilled that your bluff worked so perfectly.
 		 [pc.speech(We Enforcers don't have much time on our hands these days, so as part of this deal, you two are going to contact the other suppliers, apologise to them, and tell them they can come back.)]
 	</p>
 	<p>
@@ -440,7 +440,7 @@
 	
 	<htmlContent tag="OFFICE_OFFER_BODY"><![CDATA[
 	<p>
-		Wanting to avoid a fight, and unwilling to hand over any of your money, you bite your [pc.lip] and allow your gaze to roam up and down over Wolfgang's powerful, muscular body,
+		Wanting to avoid a fight, and unwilling to hand over any of your money, you bite your [pc.lip] and allow your gaze to roam up and down over Wolfgang's powerful, muscular body.
 		 [pc.speech(I'm sure we can work something out...)]
 	</p>
 	<p>
@@ -468,7 +468,7 @@
 	
 	<htmlContent tag="OFFICE_ENFORCER_THANKS"><![CDATA[
 	<p>
-		Feeling more than a little turned-on at the thought of being fucked while wearing an Enforcer's uniform, you bite your [pc.lip] and allow your gaze to roam up and down over Wolfgang's powerful, muscular body,
+		Feeling more than a little turned-on at the thought of being fucked while wearing an Enforcer's uniform, you bite your [pc.lip] and allow your gaze to roam up and down over Wolfgang's powerful, muscular body.
 		 [pc.speech(Well, this all went a lot smoother than I was expecting. How about I show you boys how thankful I am for your cooperation...)]
 	</p>
 	<p>
@@ -482,7 +482,7 @@
 	</p>
 	<p>
 		[wolfgang.speech(That's fine with me,)]
-		 Wolfgang replies, stepping back a little and allowing Karl to push you down onto all-fours,
+		 Wolfgang replies, stepping back a little and allowing Karl to push you down onto all-fours.
 		 [wolfgang.speech(I wonder if [pc.she]'s going to be as tight as the last one...)]
 	</p>
 	<p>
@@ -527,7 +527,7 @@
 	<htmlContent tag="OFFICE_VICTORY_FUCK_THEM"><![CDATA[
 	<p>
 		The sight of these two dobermanns collapsed down before you is too much for you to resist.
-		 Deciding to have some fun, you step forwards, grinning,
+		 Deciding to have some fun, you step forwards, grinning.
 		 [pc.speech(Alright boys, unless you want to keep on fighting, you're going to get down on all fours and present yourselves to me!)]
 	</p>
 	<p>
@@ -536,7 +536,7 @@
 		 As they do this, the power of your arcane aura starts to overwhelm their initial reluctance, and by the time they're fully in position, you hear their concerned groans quickly turn into lewd panting.
 	</p>
 	<p>
-		Dropping down onto your knees behind them, you reach forwards and grope their asses, grinning to yourself as they respond by letting out a desperate whine,
+		Dropping down onto your knees behind them, you reach forwards and grope their asses, grinning to yourself as they respond by letting out a desperate whine.
 		 [pc.speech(Good boys! It's time to have some fun!)]
 	</p>
 	]]>
@@ -545,7 +545,7 @@
 	<htmlContent tag="OFFICE_VICTORY_SUB_FUCKED"><![CDATA[
 	<p>
 		The sight of these two dobermanns collapsed down before you is too much for you to resist.
-		 Deciding to have some fun, you step forwards, grinning,
+		 Deciding to have some fun, you step forwards, grinning.
 		 [pc.speech(Alright boys, seeing as you've both been so good and agreed to do as you're told, I think you deserve a little reward!)]
 	</p>
 	<p>
@@ -559,8 +559,8 @@
 	</p>
 	<p>
 		[wolfgang.speech(That's fine with me,)]
-		 Wolfgang replies, following his partner's lead as he shuffles forwards on his knees to position himself behind you,
-		 [wolfgang.speech(this is a pleasant surprise...)]
+		 Wolfgang replies, following his partner's lead as he shuffles forwards on his knees to position himself behind you.
+		 [wolfgang.speech(This is a pleasant surprise...)]
 	</p>
 	<p>
 		You look back and gasp as Wolfgang grabs hold of your [pc.hips+] and roughly pulls you into his groin.
@@ -572,7 +572,7 @@
 	</p>
 	<p>
 		[pc.speech(Good boys!)]
-		 you cry,
+		 you cry.
 		 [pc.speech(Don't hold back from having your fun now!)]
 	</p>
 	]]>
@@ -580,7 +580,7 @@
 	
 	<htmlContent tag="OFFICE_DEFEAT"><![CDATA[
 	<p>
-		Unable to continue fighting, you stagger back and collapse down onto a very shabby sofa,
+		Unable to continue fighting, you stagger back and collapse down onto a very shabby sofa.
 		 [pc.speech(No more! I-I can't go on!)]
 	</p>
 	<p>
@@ -603,7 +603,7 @@
 	
 	<htmlContent tag="OFFICE_PACIFIED_FUCK_THEM"><![CDATA[
 	<p>
-		The sight of the two big, strong dobermanns is too much for you to resist, and you feel your dominant side taking control as you step forwards, grinning,
+		The sight of the two big, strong dobermanns is too much for you to resist, and you feel your dominant side taking control as you step forwards, grinning.
 		 [pc.speech(I'm here to make sure that you boys are behaving. We wouldn't want there to be any trouble kicking off because of you two, now, would we?
 		 I think that , you're going to get down on all fours and present yourselves to me!)]
 	</p>
@@ -621,7 +621,7 @@
 		 As they do this, the power of your arcane aura starts to overwhelm their initial reluctance, and by the time they're fully in position, you hear their concerned groans quickly turn into lewd panting.
 	</p>
 	<p>
-		Dropping down onto your knees behind them, you reach forwards and grope their asses, grinning to yourself as they respond by letting out a desperate whine,
+		Dropping down onto your knees behind them, you reach forwards and grope their asses, grinning to yourself as they respond by letting out a desperate whine.
 		 [pc.speech(Good boys! It's time to have some fun!)]
 	</p>
 	]]>
@@ -629,11 +629,11 @@
 	
 	<htmlContent tag="OFFICE_PACIFIED_SUB_FUCKED"><![CDATA[
 	<p>
-		The sight of the two big, strong dobermanns is too much for you to resist, and you step forwards, grinning,
+		The sight of the two big, strong dobermanns is too much for you to resist, and you step forwards, grinning.
 		 [pc.speech(Alright boys, seeing as you've both been so good recently, I think you deserve a little reward!)]
 	</p>
 	<p>
-		Wolfgang and Karl both let out a hungry growl, grinning as you step forwards and drop down onto all fours before them,
+		Wolfgang and Karl both let out a hungry growl, grinning as you step forwards and drop down onto all fours before them.
 		 [pc.speech(I'll let you both decide which of you gets my mouth, and which of you gets to fuck me.)]
 	</p>
 	<p>
@@ -642,7 +642,7 @@
 	</p>
 	<p>
 		[wolfgang.speech(That's fine with me,)]
-		 Wolfgang replies, dropping to his knees to position himself behind you,
+		 Wolfgang replies, dropping to his knees to position himself behind you.
 		 [wolfgang.speech(this is a pleasant surprise...)]
 	</p>
 	<p>
@@ -655,7 +655,7 @@
 	</p>
 	<p>
 		[pc.speech(Good boys!)]
-		 you cry,
+		 you cry.
 		 [pc.speech(Don't hold back from having your fun now!)]
 	</p>
 	]]>
@@ -669,7 +669,7 @@
 	</p>
 	<p>
 		[wolfgang.speech(No, everything's fine here,)]
-		 Wolfgang responds,
+		 Wolfgang responds.
 		 [wolfgang.speech(We decided to drop the whole clothing supply thing, and just focus on security instead.
 		 It's a lot more fun this way...)]
 	</p><p>
@@ -681,11 +681,11 @@
 	
 	<htmlContent tag="AFTER_SEX_WILLING"><![CDATA[
 	<p>
-		Wolfgang steps back, sinking down onto a nearby sofa as he grins,
+		Wolfgang steps back, sinking down onto a nearby sofa as he grins.
 		 [wolfgang.speech(You're a good fuck, slut!)]
 	</p>
 	<p>
-		Karl likewise moves away from you, grabbing a bottle of Canine Crush and twisting off the cap as he grins,
+		Karl likewise moves away from you, grabbing a bottle of Canine Crush and twisting off the cap as he grins.
 		 [karl.speech(Come back any time you want another taste of my cock!)]
 	</p>
 	<p>
@@ -701,7 +701,7 @@
 	
 	<htmlContent tag="AFTER_SEX_WILLING_DOMMED_THEM"><![CDATA[
 	<p>
-		You step back, allowing Wolfgang and Karl to crawl away and collapse onto to a nearby sofa,
+		You step back, allowing Wolfgang and Karl to crawl away and collapse onto to a nearby sofa.
 		 [pc.speech(You two were pretty good fucks!)]
 	</p>
 	<p>
@@ -717,11 +717,11 @@
 	
 	<htmlContent tag="AFTER_SEX_WILLING_PACIFIED"><![CDATA[
 	<p>
-		Wolfgang steps back, sinking down onto a nearby sofa as he grins,
+		Wolfgang steps back, sinking down onto a nearby sofa as he grins.
 		 [wolfgang.speech(You're a good fuck, slut!)]
 	</p>
 	<p>
-		Karl likewise moves away from you, grabbing a bottle of Canine Crush and twisting off the cap as he grins,
+		Karl likewise moves away from you, grabbing a bottle of Canine Crush and twisting off the cap as he grins.
 		 [karl.speech(Come back any time you want another taste of my cock!)]
 	</p>
 	<p>
@@ -734,7 +734,7 @@
 	
 	<htmlContent tag="AFTER_SEX_WILLING_DOMMED_THEM_PACIFIED"><![CDATA[
 	<p>
-		You step back, allowing Wolfgang and Karl to crawl away and collapse onto to a nearby sofa,
+		You step back, allowing Wolfgang and Karl to crawl away and collapse onto to a nearby sofa.
 		 [pc.speech(Good boys! You two sure are good fucks!)]
 	</p>
 	<p>
@@ -747,11 +747,11 @@
 	
 	<htmlContent tag="AFTER_SEX_FUCKED"><![CDATA[
 	<p>
-		Wolfgang steps back, sinking down onto a nearby sofa as he grins,
+		Wolfgang steps back, sinking down onto a nearby sofa as he grins.
 		 [wolfgang.speech(You're a good fuck, slut!)]
 	</p>
 	<p>
-		Karl likewise moves away from you, grabbing a bottle of Canine Crush and twisting off the cap as he grins,
+		Karl likewise moves away from you, grabbing a bottle of Canine Crush and twisting off the cap as he grins.
 		 [karl.speech(Come back any time you want another taste of my cock!)]
 	</p>
 	<p>

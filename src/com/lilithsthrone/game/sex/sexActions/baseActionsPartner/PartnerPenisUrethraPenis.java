@@ -576,12 +576,12 @@ public class PartnerPenisUrethraPenis {
 		
 		@Override
 		public String getActionTitle() {
-			return "Get Urethra Penetrated";
+			return "Cock Urethra Penetrated";
 		}
 
 		@Override
 		public String getActionDescription() {
-			return "Get [npc.name] to sink [npc.her] [npc.cock+] into your [pc.penisUrethra+].";
+			return "Get [npc.name] to sink [npc.her] [npc.cock+] into your penis's [pc.penisUrethra+].";
 		}
 
 		@Override
@@ -852,7 +852,7 @@ public class PartnerPenisUrethraPenis {
 	
 	public static final SexAction PLAYER_FUCKED_SUB_RESIST = new SexAction(
 			SexActionType.PLAYER,
-			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.ZERO_NONE,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ZERO_PURE,
 			PenetrationType.PENIS,
@@ -930,12 +930,12 @@ public class PartnerPenisUrethraPenis {
 		
 		@Override
 		public String getActionTitle() {
-			return "Stop urethral fuck";
+			return "Stop cock urethral";
 		}
 
 		@Override
 		public String getActionDescription() {
-			return "Get [npc.name] to pull [npc.her] [npc.cock] out of your [pc.penisUrethra+].";
+			return "Get [npc.name] to pull [npc.her] [npc.cock] out of your cock's [pc.penisUrethra+].";
 		}
 
 		@Override

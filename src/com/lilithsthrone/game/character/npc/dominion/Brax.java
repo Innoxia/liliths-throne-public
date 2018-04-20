@@ -11,8 +11,6 @@ import org.w3c.dom.Element;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.NameTriplet;
-import com.lilithsthrone.game.character.SexualOrientation;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.Covering;
@@ -45,6 +43,10 @@ import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.persona.NameTriplet;
+import com.lilithsthrone.game.character.persona.PersonalityTrait;
+import com.lilithsthrone.game.character.persona.PersonalityWeight;
+import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
@@ -98,7 +100,7 @@ public class Brax extends NPC {
 	private static List<Artwork> brandiArtwork = new ArrayList<>();
 	
 	static {
-		String artworkFolderName = "brax";
+		String artworkFolderName = "Brax";
 				
 		if(artworkFolderName!=null && !artworkFolderName.isEmpty()) {
 			for(Artist artist : Artwork.allArtists) {
@@ -109,7 +111,7 @@ public class Brax extends NPC {
 			}
 		}
 		
-		artworkFolderName = "bree";
+		artworkFolderName = "Bree";
 		
 		if(artworkFolderName!=null && !artworkFolderName.isEmpty()) {
 			for(Artist artist : Artwork.allArtists) {
@@ -120,7 +122,7 @@ public class Brax extends NPC {
 			}
 		}
 		
-		artworkFolderName = "brandi";
+		artworkFolderName = "Brandi";
 		
 		if(artworkFolderName!=null && !artworkFolderName.isEmpty()) {
 			for(Artist artist : Artwork.allArtists) {
@@ -142,6 +144,13 @@ public class Brax extends NPC {
 				RacialBody.WOLF_MORPH, RaceStage.GREATER, new CharacterInventory(10), WorldType.ENFORCER_HQ, PlaceType.ENFORCER_HQ_BRAXS_OFFICE, true);
 
 		this.primaryColour = Colour.COVERING_WHITE;
+
+		this.setPersonality(Util.newHashMapOfValues(
+				new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.LOW),
+				new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.AVERAGE),
+				new Value<>(PersonalityTrait.EXTROVERSION, PersonalityWeight.AVERAGE),
+				new Value<>(PersonalityTrait.NEUROTICISM, PersonalityWeight.LOW),
+				new Value<>(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.AVERAGE)));
 		
 		if(!isImported) {
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
@@ -445,6 +454,7 @@ public class Brax extends NPC {
 						Main.game.getDialogueFlags().values.add(DialogueFlagValue.braxBeaten);
 						Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(ClothingType.ENFORCER_SHIRT, Colour.CLOTHING_BLUE, false), false);
 						Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(ClothingType.ENFORCER_SHORTS, Colour.CLOTHING_BLUE, false), false);
+						Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(ClothingType.ENFORCER_MINI_SKIRT, Colour.CLOTHING_BLUE, false), false);
 					}
 				};
 				
@@ -458,6 +468,7 @@ public class Brax extends NPC {
 						Main.game.getDialogueFlags().values.add(DialogueFlagValue.braxBeaten);
 						Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(ClothingType.ENFORCER_SHIRT, Colour.CLOTHING_BLUE, false), false);
 						Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(ClothingType.ENFORCER_SHORTS, Colour.CLOTHING_BLUE, false), false);
+						Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(ClothingType.ENFORCER_MINI_SKIRT, Colour.CLOTHING_BLUE, false), false);
 					}
 				};
 				
@@ -475,6 +486,7 @@ public class Brax extends NPC {
 						Main.game.getDialogueFlags().values.add(DialogueFlagValue.braxBeaten);
 						Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(ClothingType.ENFORCER_SHIRT, Colour.CLOTHING_BLUE, false), false);
 						Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(ClothingType.ENFORCER_SHORTS, Colour.CLOTHING_BLUE, false), false);
+						Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(ClothingType.ENFORCER_MINI_SKIRT, Colour.CLOTHING_BLUE, false), false);
 					}
 				};
 				
@@ -726,7 +738,14 @@ public class Brax extends NPC {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Spit", "Spit out the transformative liquid.", AFTER_DEFEAT_TRANSFORMATION_REFUSED);
+				if(Main.game.getPlayer().hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING)) {
+					return new Response("Spit",
+							"Due to your <b style='color:"+Colour.FETISH.toWebHexString()+";'>"+Fetish.FETISH_TRANSFORMATION_RECEIVING.getName(Main.game.getPlayer())
+								+"</b> fetish, you love being transformed so much that you can't bring yourself to spit out the transformative liquid!",
+							null);
+				} else {
+					return new Response("Spit", "Spit out the transformative liquid.", AFTER_DEFEAT_TRANSFORMATION_REFUSED);
+				}
 				
 			} else if (index == 2) {
 				return new Response("Swallow", "Do as Brax says and swallow the strange liquid.", AFTER_DEFEAT_TRANSFORMATION,
@@ -738,6 +757,10 @@ public class Brax extends NPC {
 					@Override
 					public void effects() {
 						Main.game.getDialogueFlags().values.add(DialogueFlagValue.braxTransformedPlayer);
+						
+						if(Main.getProperties().forcedFetishPercentage != 0) {
+							Main.game.getPlayer().addFetish(Fetish.FETISH_SUBMISSIVE);
+						}
 						
 						switch(Main.getProperties().forcedTFPreference) {
 							case HUMAN:

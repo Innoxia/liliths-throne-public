@@ -231,21 +231,21 @@ public interface SexActionInterface {
 	public default Response toResponse() {
 		if(isBaseRequirementsMet() && isPhysicallyPossible() && !isBannedFromSexManager()) {
 			
-			if(!this.getParticipantType().isUsingSelfOrificeType()) {
+//			if(!this.getParticipantType().isUsingSelfOrificeType()) {
 				if(getAssociatedOrificeType()!=null) {
-					switch(getAssociatedOrificeType()){ //TODO urethral checks:
+					switch(getAssociatedOrificeType()){
+						case NIPPLE:
+							if((!Main.getProperties().hasValue(PropertyValue.nipplePenContent) && (this.getActionType()==SexActionType.PARTNER_PENETRATION || this.getActionType()==SexActionType.PLAYER_PENETRATION))) {
+								return null;
+							}
+							break;
 						case URETHRA_PENIS:
-							if((!Main.getProperties().hasValue(PropertyValue.urethralContent) && getAssociatedPenetrationType()==PenetrationType.PENIS)) {
+							if((!Main.getProperties().hasValue(PropertyValue.urethralContent) && (this.getActionType()==SexActionType.PARTNER_PENETRATION || this.getActionType()==SexActionType.PLAYER_PENETRATION))) {
 								return null;
 							}
 							break;
 						case URETHRA_VAGINA:
-							if(!Main.getProperties().hasValue(PropertyValue.urethralContent)) {
-								return null;
-							}
-							break;
-						case VAGINA:
-							if(!Sex.getActivePartner().getPlayerKnowsAreas().contains(CoverableArea.VAGINA)) {
+							if(!Main.getProperties().hasValue(PropertyValue.urethralContent) && (this.getActionType()==SexActionType.PARTNER_PENETRATION || this.getActionType()==SexActionType.PLAYER_PENETRATION)) {
 								return null;
 							}
 							break;
@@ -253,7 +253,7 @@ public interface SexActionInterface {
 							break;
 					}
 				}
-			}
+//			}
 			
 			// Return null if the player doesn't know about the partners penis/vagina
 			if(this.getActionType().isPlayerAction()) {
@@ -262,7 +262,12 @@ public interface SexActionInterface {
 				}
 				if(!this.getParticipantType().isUsingSelfOrificeType()) {
 					if(getAssociatedOrificeType()!=null) {
-						switch(getAssociatedOrificeType()){ //TODO urethral checks:
+						switch(getAssociatedOrificeType()){
+							case NIPPLE:
+								if(!Sex.getActivePartner().getPlayerKnowsAreas().contains(CoverableArea.NIPPLES)) {
+									return null;
+								}
+								break;
 							case URETHRA_PENIS:
 								if(!Sex.getActivePartner().getPlayerKnowsAreas().contains(CoverableArea.PENIS)) {
 									return null;
@@ -691,10 +696,20 @@ public interface SexActionInterface {
 	
 	public default boolean isBannedFromSexManager() {
 		if(getAssociatedOrificeType() != null) {
-			for(GameCharacter character : Sex.getAllParticipants()) {
-				if(Sex.getSexManager().getOrificesBannedMap().get(character)!=null && Sex.getSexManager().getOrificesBannedMap().get(character).contains(getAssociatedOrificeType())) {
-					return true;
-				}
+			GameCharacter orificeCharacter = this.getActionType().isPlayerAction()
+												?Main.game.getPlayer()
+												:Sex.getActivePartner();
+			boolean usingSelfOrifice = true;
+			if(!this.getParticipantType().isUsingSelfOrificeType()) {
+				orificeCharacter = Sex.getTargetedPartner(orificeCharacter);
+				usingSelfOrifice = false;
+			}
+			if (Sex.getSexManager().getOrificesBannedMap().get(orificeCharacter) != null
+					&& Sex.getSexManager().getOrificesBannedMap().get(orificeCharacter).contains(getAssociatedOrificeType())
+					&& (usingSelfOrifice
+							? this.getParticipantType().isUsingSelfOrificeType()
+							: !this.getParticipantType().isUsingSelfOrificeType())) {
+				return true;
 			}
 		}
 		
@@ -737,7 +752,7 @@ public interface SexActionInterface {
 				case BREAST:
 					break;
 				case URETHRA_PENIS:
-					if(!getOrificeCharacter().hasPenis() || !getOrificeCharacter().isUrethraFuckable()) {
+					if(!getOrificeCharacter().hasPenis() || (!getOrificeCharacter().isUrethraFuckable() && getAssociatedPenetrationType()==PenetrationType.PENIS)) {
 						return false;
 					}
 					break;

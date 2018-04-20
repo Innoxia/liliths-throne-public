@@ -8,7 +8,6 @@ import java.util.Map;
 
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.SexualOrientation;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.AntennaType;
@@ -64,6 +63,7 @@ import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
+import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.dialogue.eventLog.EventLogEntryBookAddedToLibrary;
@@ -458,17 +458,20 @@ public enum ItemEffectType {
 			if(target.isPlayer()) {
 				return "<p>"
 						+ "The little pink pill easily slides down your throat, and within moments, you feel "
-						+ ( Main.game.getPlayer().hasVagina()
+						+ ( target.hasVagina()
 								? "a strange, warm glow spreading from what you guess must be your ovaries."
-									+ " Your mind fogs over with an overwhelming desire to feel potent sperm spurting deep into your "+(Main.game.getPlayer().isVisiblyPregnant()?"pussy":"womb")
+									+ " Your mind fogs over with an overwhelming desire to feel potent sperm spurting deep into your "+(target.isVisiblyPregnant()?"pussy":"womb")
 									+", and before you can stop it, a little whimper escapes from between your [pc.lips]."
-									+ (Main.game.getPlayer().hasPenis()
+									+ (target.hasPenis()
 											?" At the same time, your manhood begins to throb with need, and you feel "
 											:"") 
 							:"")
-						+ (Main.game.getPlayer().hasPenis() 
+						+ (target.hasPenis() 
 								? "an overpowering desire to sink deep into a fertile female's cunt and fill her with your [pc.cum+]."
 								: "")
+						+ (!target.hasPenis() && !target.hasVagina()
+								?"a desperate heat in [npc.her] genderless mound."
+								:"")
 					+ "</p>";
 			
 			} else {
@@ -477,15 +480,18 @@ public enum ItemEffectType {
 							+ "The little pink pill easily slides down [npc.her] throat, and within moments, [npc.she] feels "
 							+ ( target.hasVagina()
 									? "a strange, warm glow spreading from [npc.her] ovaries."
-										+ " [npc.Her] mind fogs over with an overwhelming desire to feel potent sperm spurting deep into [npc.her] "+(Main.game.getPlayer().isVisiblyPregnant()?"pussy":"womb")
+										+ " [npc.Her] mind fogs over with an overwhelming desire to feel potent sperm spurting deep into [npc.her] "+(target.isVisiblyPregnant()?"pussy":"womb")
 										+", and before [npc.she] can stop it, a little whimper escapes from between [npc.her] [npc.lips]."
 										+ (target.hasPenis()
 												?" At the same time, [npc.her] manhood begins to throb with need, and [npc.she] feels "
 												:"") 
-								:"")
-							+ (Main.game.getPlayer().hasPenis() 
+									:"")
+							+ (target.hasPenis()
 									? "an overpowering desire to sink deep into a fertile female's cunt and fill her with [npc.cum+]."
 									: "")
+							+ (!target.hasPenis() && !target.hasVagina()
+									?"a desperate heat in [npc.her] genderless mound."
+									:"")
 						+ "</p>");
 			}
 			
@@ -3300,7 +3306,7 @@ public enum ItemEffectType {
 		int breastSizeIncrement = (potency.isNegative()?-1:1);
 		int nippleSizeIncrement = (potency.isNegative()?-1:1);
 		int areolaeSizeIncrement = (potency.isNegative()?-1:1);
-		int lactationIncrement = (potency.isNegative()?-1:1);
+		int lactationIncrement = (potency.isNegative()?-50:50);
 
 		int heightIncrement = (potency.isNegative()?-1:1);
 		int muscleIncrement = (potency.isNegative()?-1:1);
@@ -3313,7 +3319,7 @@ public enum ItemEffectType {
 
 		int penisSizeIncrement = (potency.isNegative()?-1:1);
 		int testicleSizeIncrement = (potency.isNegative()?-1:1);
-		int cumProductionIncrement = (potency.isNegative()?-1:1);
+		int cumProductionIncrement = (potency.isNegative()?-5:5);
 
 		int clitorisSizeIncrement = (potency.isNegative()?-1:1);
 		int labiaSizeIncrement = (potency.isNegative()?-1:1);
@@ -3917,7 +3923,7 @@ public enum ItemEffectType {
 				
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_SIZE, TFPotency.getAllPotencies());
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.getAllPotencies());
-				if(Main.game.isBodyHairEnabled()) {
+				if(Main.game.isAssHairEnabled()) {
 					secondaryModPotencyMap.put(TFModifier.TF_MOD_BODY_HAIR, TFPotency.getAllPotencies());
 				}
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_CAPACITY, TFPotency.getAllPotencies());
@@ -3957,10 +3963,12 @@ public enum ItemEffectType {
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_AREOLAE_CIRCLE, Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_BOOST)));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_AREOLAE_HEART, Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_BOOST)));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_AREOLAE_STAR, Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_BOOST)));
-				
-				secondaryModPotencyMap.put(TFModifier.TF_MOD_CAPACITY, TFPotency.getAllPotencies());
-				secondaryModPotencyMap.put(TFModifier.TF_MOD_ELASTICITY, TFPotency.getAllPotencies());
-				secondaryModPotencyMap.put(TFModifier.TF_MOD_PLASTICITY, TFPotency.getAllPotencies());
+
+				if(Main.getProperties().hasValue(PropertyValue.nipplePenContent)) {
+					secondaryModPotencyMap.put(TFModifier.TF_MOD_CAPACITY, TFPotency.getAllPotencies());
+					secondaryModPotencyMap.put(TFModifier.TF_MOD_ELASTICITY, TFPotency.getAllPotencies());
+					secondaryModPotencyMap.put(TFModifier.TF_MOD_PLASTICITY, TFPotency.getAllPotencies());
+				}
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_WETNESS, TFPotency.getAllPotencies());
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_REGENERATION, TFPotency.getAllPotencies());
 

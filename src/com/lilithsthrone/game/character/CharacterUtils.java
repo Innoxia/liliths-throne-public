@@ -79,6 +79,10 @@ import com.lilithsthrone.game.character.gender.PronounType;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.Cultist;
 import com.lilithsthrone.game.character.npc.dominion.DominionSuccubusAttacker;
+import com.lilithsthrone.game.character.persona.History;
+import com.lilithsthrone.game.character.persona.Name;
+import com.lilithsthrone.game.character.persona.NameTriplet;
+import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
@@ -92,6 +96,7 @@ import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.ColourListPresets;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.world.WorldType;
@@ -194,7 +199,7 @@ public class CharacterUtils {
 	}
 	
 	public static PlayerCharacter startLoadingCharacterFromXML(){
-		return new PlayerCharacter(new NameTriplet("Player"), "", 1, Gender.M_P_MALE, RacialBody.HUMAN, RaceStage.HUMAN, null, WorldType.DOMINION, PlaceType.DOMINION_AUNTS_HOME);
+		return new PlayerCharacter(new NameTriplet("Player"), 1, Gender.M_P_MALE, RacialBody.HUMAN, RaceStage.HUMAN, null, WorldType.DOMINION, PlaceType.DOMINION_AUNTS_HOME);
 	}
 	
 	public static PlayerCharacter loadCharacterFromXML(File xmlFile, PlayerCharacter importedCharacter, CharacterImportSetting... settings){
@@ -1031,7 +1036,15 @@ public class CharacterUtils {
 		
 		// Penis:
 		if(character.hasPenis()) {
-			character.setPenisVirgin(false);
+			if(Math.random()<0.15f
+					&& character.getHistory()!=History.PROSTITUTE
+					&& !character.hasFetish(Fetish.FETISH_CUM_STUD)
+					&& !character.hasFetish(Fetish.FETISH_VAGINAL_GIVING)
+					&& !character.hasFetish(Fetish.FETISH_ANAL_GIVING)) {
+				character.setPenisVirgin(false);
+			} else {
+				character.setPenisVirgin(true);
+			}
 			if((character.getGender()==Gender.F_P_TRAP || character.getGender()==Gender.N_P_TRAP) && Math.random()>=0.1f) { // Most traps have a small cock:
 				character.setPenisSize(PenisSize.ONE_TINY.getMinimumValue() + Util.random.nextInt(character.getPenisSize().getMaximumValue() - character.getPenisSize().getMinimumValue()) +1);
 				character.setTesticleSize(TesticleSize.ONE_TINY.getValue());
@@ -1077,6 +1090,9 @@ public class CharacterUtils {
 		character.setFaceStretchedCapacity(character.getFaceRawCapacityValue());
 		character.setPenisStretchedCapacity(character.getPenisRawCapacityValue());
 		character.setVaginaStretchedCapacity(character.getVaginaRawCapacityValue());
+		
+		character.getSubspecies().applySpeciesChanges(character.getBody());
+		character.getBody().calculateRace();
 	}
 	
 	/**
@@ -1123,6 +1139,8 @@ public class CharacterUtils {
 		 		character.setVaginaCapacity(character.getVaginaRawCapacityValue()*1.2f, true);
 		 		character.setVaginaStretchedCapacity(character.getVaginaRawCapacityValue());
 		 	}
+		 	
+		 	character.setPenisVirgin(false);
 		 	
 		 	character.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 		 	character.setName(Name.getRandomProstituteTriplet());
@@ -1299,10 +1317,15 @@ public class CharacterUtils {
 		
 		availableFetishes.remove(Fetish.FETISH_CUM_STUD); // Who doesn't like cumming? :3
 		
-		
 		while(desiresAssigned < numberOfNegativeDesires && !availableFetishes.isEmpty()) {
 			Fetish f = availableFetishes.get(Util.random.nextInt(availableFetishes.size()));
 			character.setFetishDesire(f, Math.random()>0.5?FetishDesire.ONE_DISLIKE:FetishDesire.ZERO_HATE);
+			if(f == Fetish.FETISH_DOMINANT) {
+				availableFetishes.remove(Fetish.FETISH_SUBMISSIVE);
+			}
+			if(f == Fetish.FETISH_SUBMISSIVE) {
+				availableFetishes.remove(Fetish.FETISH_DOMINANT);
+			}
 			availableFetishes.remove(f);
 			desiresAssigned++;
 		}
@@ -1364,11 +1387,11 @@ public class CharacterUtils {
 									default:
 										colour = character.secondaryColour;
 								}
-								if(ct.getAvailablePrimaryColours().equals(Colour.leatherColours))
+								if(ct.getAvailablePrimaryColours().equals(ColourListPresets.LEATHER.getPresetColourList()))
 									colour = character.leatherColour;
-								if(ct.getAvailablePrimaryColours().equals(Colour.denimColours))
+								if(ct.getAvailablePrimaryColours().equals(ColourListPresets.DENIM.getPresetColourList()))
 									colour = character.denimColour;
-								if(ct.getAvailablePrimaryColours().equals(Colour.allMetalColours))
+								if(ct.getAvailablePrimaryColours().equals(ColourListPresets.ALL_METAL.getPresetColourList()))
 									colour = character.metalColour;
 								clothing.setColour(colour);
 								character.equipClothingFromNowhere(clothing, true, character);
@@ -1420,11 +1443,11 @@ public class CharacterUtils {
 									default:
 										colour = character.secondaryColour;
 								}
-								if(ct.getAvailablePrimaryColours().equals(Colour.leatherColours))
+								if(ct.getAvailablePrimaryColours().equals(ColourListPresets.LEATHER.getPresetColourList()))
 									colour = character.leatherColour;
-								if(ct.getAvailablePrimaryColours().equals(Colour.denimColours))
+								if(ct.getAvailablePrimaryColours().equals(ColourListPresets.DENIM.getPresetColourList()))
 									colour = character.denimColour;
-								if(ct.getAvailablePrimaryColours().equals(Colour.allMetalColours))
+								if(ct.getAvailablePrimaryColours().equals(ColourListPresets.ALL_METAL.getPresetColourList()))
 									colour = character.metalColour;
 								clothing.setColour(colour);
 								character.equipClothingFromNowhere(clothing, true, character);
