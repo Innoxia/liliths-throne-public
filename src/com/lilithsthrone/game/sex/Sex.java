@@ -3,6 +3,7 @@ package com.lilithsthrone.game.sex;
 import java.util.AbstractMap.SimpleEntry;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -244,7 +245,7 @@ public enum Sex {
 		selfActionsPlayer = new ArrayList<>();
 		sexActionsPlayer = new ArrayList<>();
 		positionActionsPlayer = new ArrayList<>();
-		repeatActionsPlayer = new ArrayList<>();
+		repeatActionsPlayer = new LinkedList<>();
 		availableSexActionsPartner = new ArrayList<>();
 
 		// Populate exposed areas:
@@ -1104,7 +1105,7 @@ public enum Sex {
 					}
 					
 				} else if(responseTab==4) {
-					List<SexActionInterface> availableRepeatActionsPlayer = new ArrayList<>();
+					List<SexActionInterface> availableRepeatActionsPlayer = new LinkedList<>();
 					availableRepeatActionsPlayer.addAll(repeatActionsPlayer);
 					availableRepeatActionsPlayer.removeIf(sa-> !sa.isAddedToAvailableSexActions());
 					availableRepeatActionsPlayer.removeIf(sa-> !sa.isBaseRequirementsMet());
