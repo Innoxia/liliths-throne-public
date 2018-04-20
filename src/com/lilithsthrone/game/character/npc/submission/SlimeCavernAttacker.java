@@ -10,11 +10,11 @@ import org.w3c.dom.Element;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.Name;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
@@ -22,6 +22,7 @@ import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.npcDialogue.SlaveDialogue;
+import com.lilithsthrone.game.dialogue.npcDialogue.submission.BatCavernSlimeAttackerDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.submission.TunnelAttackDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -64,8 +65,8 @@ public class SlimeCavernAttacker extends NPC {
 			this.setWorldLocation(Main.game.getPlayer().getWorldLocation());
 			this.setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY()));
 			
-			// Set random level from 5 to 8:
-			setLevel(5 + Util.random.nextInt(4));
+			// Set random level from 8 to 12:
+			setLevel(8 + Util.random.nextInt(5));
 			
 			// RACE & NAME:
 			
@@ -239,18 +240,7 @@ public class SlimeCavernAttacker extends NPC {
 	
 	@Override
 	public DialogueNodeOld getEncounterDialogue() {
-//		if(Main.game.getActiveWorld().getCell(location).getPlace().getPlaceType()==PlaceType.DOMINION_BACK_ALLEYS) { TODO
-//			if(this.getHistory()==History.PROSTITUTE) {
-//				this.setPlayerKnowsName(true);
-//				return AlleywayProstituteDialogue.ALLEY_PROSTITUTE;
-//			} else {
-//				return AlleywayAttackerDialogue.ALLEY_ATTACK;
-//			}
-//		} else {
-//			return AlleywayAttackerDialogue.STORM_ATTACK;
-//		}
-
-		return TunnelAttackDialogue.TUNNEL_ATTACK;
+		return BatCavernSlimeAttackerDialogue.SLIME_ATTACK;
 	}
 
 	// Combat:

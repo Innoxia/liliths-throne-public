@@ -3,49 +3,87 @@
 
 	<htmlContent tag="STAIRCASE"><![CDATA[
 	<p>
-		.
+		This area of the bat caverns is home to the staircase that leads back up to Submission.
+		 Apart from that notable feature, the rest of this area lacks any significant landmark.
+	</p>
+	<p>
+		Looking up towards the top of the staircase, you see the relatively-bright lighting of Submission's tunnels shining down to illuminate the top dozen or so steps.
+		 Perhaps because of that ever-present source of light, this area seems entirely deserted...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="CAVERN_DARK"><![CDATA[
 	<p>
-		.
+		The thick, inky blackness of the bat caverns is kept at bay by the softly glowing moss beneath your feet. With every step, a new pool of the low light blooms outward as the previous one fades, allowing you to see out to roughly fifteen metres all around you. Above your head, the cavern's roof is so high that all you can see is a blanket of completely-impenetrable darkness. Occasionally you think you hear a sound, a high-pitched keening, from somewhere up there, but you try not to think too hard about it.
+	</p>
+	<p>
+		There's an ever-present dripping sound that echoes from everywhere and nowhere, giving the caverns its own ambient, if unfocused, melody. The air is also surprisingly fresh, clean and cool; not at all what you'd expect from a typical cave. Indeed, the fresh air down here is certainly chilly enough to raise goosebumps on any exposed skin and harden nipples beneath clothing. 
+	</p>
+	<p>
+		You weave through clusters of stalagmites as you proceed forwards through the darkness, reaching out to use the smooth, cool stone for support as you step over little streams and narrow cracks in the floor.
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="CAVERN_LIGHT"><![CDATA[
 	<p>
-		.
+		Compared to the majority of the bat caverns, the area you find yourself standing in is lit up like a beacon. The moss carpet beneath your feet thrives in amongst bioluminescent fungi of all shapes, sizes, and colours, and forms trailing little paths that wind through the area. While some of these mushroom-like plants approach the height of trees, the vast majority are no more than twenty-or-so centimetres tall. Pools of still, shallow water are to be found scattered throughout the floor of this underground forest, and by reflecting the many hues of light from the surrounding flora, they give this place an unearthly, almost ethereal ambiance.
+	</p>
+	<p>
+		The luminescence given off by the fungi is bright enough to reveal just how colossal these caves are. The tips of stalactites, illuminated by the taller of the tree-sized mushrooms, look to be almost a hundred metres above your head, while the base where they connect to the ceiling, still shrouded in darkness, is significantly higher even than that. Some of the largest of these spires have points of light shining out from them, and you realise that you're looking upon the carved-out windows of bat-morphs' roosts.
+	</p>
+	<p>
+		Just like the dark parts of the caverns, there's an ever-present dripping sound that echoes from everywhere and nowhere, producing an ambient, if unfocused, melody. The air is also surprisingly fresh, clean and cool; not at all what you'd expect from a typical cave. Indeed, the fresh air down here is certainly chilly enough to raise goosebumps on any exposed skin and harden nipples beneath clothing. 
+	</p>
+	<p>
+		Despite the fact that this area is well illuminated, there are enough of the tree-sized mushrooms present to provide any would-be attacker with a convenient hiding place...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="RIVER"><![CDATA[
 	<p>
-		.
+		A slow-moving underground river carves its way through the bat caverns, and it's beside this body of water that you find yourself travelling. While the river's surface is illuminated by the bioluminescent lichen, the light is too dim to penetrate the cool, dark depths, and you wonder what sort of creatures, if any, would call such an inhospitable place home.
+	</p>
+	<p>
+		The air in this part of the caverns is particularly fresh and cool, and you feel a slight breeze blowing over the exposed parts of your body. Perhaps due to the immediate proximity of such a large body of water, the dripping sounds that are found all throughout the caverns are particularly loud here, and you often find yourself turning around to check that nobody's using the noise to mask their approach...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="RIVER_BRIDGE"><![CDATA[
 	<p>
-		.
+		A slow-moving underground river carves its way through the bat caverns, and it's beside this body of water that you find yourself travelling. While the river's surface is illuminated by the bioluminescent lichen, the light is too dim to penetrate the cool, dark depths, and you wonder what sort of creatures, if any, would call such an inhospitable place home.
+	</p>
+	<p>
+		Before you, small patches of glowing turquoise fungi grow along both sides of the river's sheer banks. A pair of tree-sized bioluminescent mushrooms grow out from the middle of these patches, and have been shaped into a horizontal, weaving pattern by the residents of these caverns in order to form a living bridge across the water's dark depths.
+	</p>
+	<p>
+		Stepping up to this fascinating structure, you see that planks of wood have been tied to the mushrooms' stalks in order to provide sturdy footing. Rope-netting has also been cunningly erected to either side, making this bridge a very safe way to get to the path on the other side.
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="RIVER_END"><![CDATA[
 	<p>
-		.
+		A slow-moving underground river carves its way through the bat caverns, and it's beside this body of water that you find yourself travelling. While the river's surface is illuminated by the bioluminescent lichen, the light is too dim to penetrate the cool, dark depths, and you wonder what sort of creatures, if any, would call such an inhospitable place home.
+	</p>
+	<p>
+		The cavern's roof slopes down before you, and the path that you were walking on suddenly comes to an abrupt halt as it meets a solid wall of stone. The river to your side drops away into a pitch-black abyss, and by the light of the lichen underfoot, you see that a finely-meshed metal grate has been built to save anyone from being swept down into the bottomless depths below.
+	</p>
+	<p>
+		With no way forwards, you'll have to turn around and double-back on yourself...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="SLIME_LAKE"><![CDATA[
 	<p>
-		.
+		The underground river before you widens out into a huge, still body of water. You can't help but stop in your tracks as you find yourself looking upon a gigantic underground lake, its still, black waters illuminated by the countless mushrooms of the bioluminescent fungi forests that line its banks.  
+	</p>
+	<p>
+		Out in the middle of the lake, you see a small island, covered in glowing lichens, mosses, and mushrooms. On the island's highest point, there's a particularly large, stout mushroom, its wide base looking to be roughly the same circumference as a small house. You see windows carved into the sides, and can't help but wonder who lives there...
 	</p>
 	]]>
 	</htmlContent>

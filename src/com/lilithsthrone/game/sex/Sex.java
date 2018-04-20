@@ -126,6 +126,7 @@ public enum Sex {
 	private static boolean sexStarted = false;
 	private static boolean consensual;
 	private static boolean subHasEqualControl;
+	private static boolean publicSex;
 
 	private static Map<GameCharacter, SexPositionSlot> dominants;
 	private static Map<GameCharacter, SexPositionSlot> submissives;
@@ -172,7 +173,8 @@ public enum Sex {
 	
 	private static Set<GameCharacter> charactersAbleToRemoveSelfClothing, charactersAbleToRemoveOthersClothing;
 	
-	private static boolean sexFinished, partnerAllowedToUseSelfActions;
+	private static boolean sexFinished;
+	private static boolean partnerAllowedToUseSelfActions;
 	
 	private static AbstractClothing selectedClothing;
 	
@@ -197,7 +199,11 @@ public enum Sex {
 		actionsAvailable = new HashMap<>();
 		orgasmActionsAvailable = new HashMap<>();
 		
+		forceSexPaceMap = new HashMap<>();
+		
 		setSexManager(sexManager);
+		
+		publicSex = sexManager.isPublicSex();
 		
 		Sex.postSexDialogue = postSexDialogue;
 		
@@ -278,13 +284,6 @@ public enum Sex {
 		for(GameCharacter character : Sex.getAllParticipants()) {
 			areasTooLoose.put(character, new HashSet<>());
 		}
-		
-//		areasCummedIn = new HashMap<>();
-//		for(GameCharacter character : Sex.getAllParticipants()) {
-//			areasCummedIn.put(character, new HashSet<>());
-//		}
-		
-		forceSexPaceMap = new HashMap<>();
 		
 		for(GameCharacter character : Sex.getAllParticipants()) {
 			if(character instanceof NPC) {
@@ -397,6 +396,10 @@ public enum Sex {
 		sexSB = new StringBuilder(sexStartDescription);
 
 		sexSB.append(sexManager.getStartSexDescription());
+		
+		if(Sex.isPublicSex()) {
+			sexSB.append(Sex.getSexManager().getPublicSexStartingDescription());
+		}
 
 		sexSB.append("<p style='text-align:center;'><b>Starting Position:</b> <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>"+sexManager.getPosition().getName()+"</b></br>"
 				+"<i><b>"+sexManager.getPosition().getDescription()+"</b></i></p>");
@@ -958,7 +961,7 @@ public enum Sex {
 
 		@Override
 		public String getLabel() {
-			return (!Sex.isConsensual() && Main.getProperties().hasValue(PropertyValue.nonConContent)?"Non-consensual ":"")+(Sex.getSexManager().isPublicSex()?"Public ":"")+"Sex: "+getPosition().getName();
+			return (!Sex.isConsensual() && Main.getProperties().hasValue(PropertyValue.nonConContent)?"Non-consensual ":"")+(Sex.isPublicSex()?"Public ":"")+"Sex: "+getPosition().getName();
 		}
 
 		@Override
@@ -1250,7 +1253,7 @@ public enum Sex {
 			}
 			Sex.setActivePartner((NPC) active);
 			
-			if(Sex.getSexManager().isPublicSex()) {
+			if(Sex.isPublicSex()) {
 				sexSB.append(Sex.getSexManager().getRandomPublicSexDescription());
 				sexDescription = sexSB.toString();
 			}
@@ -3331,6 +3334,10 @@ public enum Sex {
 		return Sex.dominants.keySet().contains(character);
 	}
 	
+	public static boolean isPublicSex() {
+		return publicSex;
+	}
+	
 	public static boolean isSexFinished() {
 		return sexFinished;
 	}
@@ -3445,10 +3452,6 @@ public enum Sex {
 	
 	private static List<Fetish> getFetishesFromPenetrationAndOrificeTypes(GameCharacter character, GameCharacter characterPenetrating, PenetrationType penetrationType, GameCharacter characterOrifice, OrificeType orificeBeingUsed) {
 		List<Fetish> associatedFetishes = new ArrayList<>();
-		
-		if(Sex.getSexManager().isPublicSex()) {
-			associatedFetishes.add(Fetish.FETISH_EXHIBITIONIST);
-		}
 		
 		switch(penetrationType) {
 			case FINGER:

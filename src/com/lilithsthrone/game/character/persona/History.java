@@ -1,7 +1,9 @@
-package com.lilithsthrone.game.character;
+package com.lilithsthrone.game.character.persona;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.effects.Perk;
 
 /**

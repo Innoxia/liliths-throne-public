@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.SexualOrientation;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.Rose;
+import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
@@ -35,7 +35,7 @@ import com.lilithsthrone.world.places.PlaceUpgrade;
 
 /**
  * @since 0.1.75
- * @version 0.1.97
+ * @version 0.2.4
  * @author Innoxia
  */
 public class LilayaHomeGeneric {
@@ -105,6 +105,7 @@ public class LilayaHomeGeneric {
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 			List<NPC> charactersPresent = Main.game.getCharactersPresent();
+			charactersPresent.removeIf((characterPresent) -> Main.game.getPlayer().hasCompanion(characterPresent));
 			
 			UtilText.nodeContentSB.append("<p>"
 						+ "The many corridors running through Lilaya's house are, while extremely impressive, all much of the same."
@@ -169,14 +170,18 @@ public class LilayaHomeGeneric {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
+
+			List<NPC> charactersPresent = Main.game.getCharactersPresent();
+			charactersPresent.removeIf((characterPresent) -> Main.game.getPlayer().hasCompanion(characterPresent));
+			
 			if(index==0) {
 				return null;
 				
-			} else if(index-1<Main.game.getCharactersPresent().size()) {
-				return new Response(UtilText.parse(Main.game.getCharactersPresent().get(index-1), "[npc.Name]"), UtilText.parse(Main.game.getCharactersPresent().get(index-1), "Interact with [npc.name]."), SlaveDialogue.SLAVE_START) {
+			} else if(index-1<charactersPresent.size()) {
+				return new Response(UtilText.parse(charactersPresent.get(index-1), "[npc.Name]"), UtilText.parse(charactersPresent.get(index-1), "Interact with [npc.name]."), SlaveDialogue.SLAVE_START) {
 					@Override
 					public void effects() {
-						Main.game.setActiveNPC(Main.game.getCharactersPresent().get(index-1));
+						Main.game.setActiveNPC(charactersPresent.get(index-1));
 					}
 				};
 					
@@ -199,6 +204,7 @@ public class LilayaHomeGeneric {
 				}
 			}
 		}
+		charactersPresent.removeIf((characterPresent) -> Main.game.getPlayer().hasCompanion(characterPresent) && !slavesAssignedToRoom.contains(characterPresent));
 		
 		if(index==0) {
 			return null;
@@ -1289,6 +1295,7 @@ public class LilayaHomeGeneric {
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 			List<NPC> charactersPresent = Main.game.getCharactersPresent();
+			charactersPresent.removeIf((characterPresent) -> Main.game.getPlayer().hasCompanion(characterPresent));
 			
 			UtilText.nodeContentSB.append("<p>"
 						+ "Just like every other room in Lilaya's house, the kitchen is far larger than any you've ever set foot in before."
@@ -1356,14 +1363,18 @@ public class LilayaHomeGeneric {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
+
+			List<NPC> charactersPresent = Main.game.getCharactersPresent();
+			charactersPresent.removeIf((characterPresent) -> Main.game.getPlayer().hasCompanion(characterPresent));
+			
 			if(index==0) {
 				return null;
 				
-			} else if(index-1<Main.game.getCharactersPresent().size()) {
-				return new Response(UtilText.parse(Main.game.getCharactersPresent().get(index-1), "[npc.Name]"), UtilText.parse(Main.game.getCharactersPresent().get(index-1), "Interact with [npc.name]."), SlaveDialogue.SLAVE_START) {
+			} else if(index-1<charactersPresent.size()) {
+				return new Response(UtilText.parse(charactersPresent.get(index-1), "[npc.Name]"), UtilText.parse(charactersPresent.get(index-1), "Interact with [npc.name]."), SlaveDialogue.SLAVE_START) {
 					@Override
 					public void effects() {
-						Main.game.setActiveNPC(Main.game.getCharactersPresent().get(index-1));
+						Main.game.setActiveNPC(charactersPresent.get(index-1));
 					}
 				};
 					

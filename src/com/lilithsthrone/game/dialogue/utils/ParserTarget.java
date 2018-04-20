@@ -65,7 +65,9 @@ public enum ParserTarget {
 						return Sex.getActivePartner();
 						
 					} else if (Main.game.getCurrentDialogueNode()!=null) {
-						if(Main.game.getCurrentDialogueNode()==CharactersPresentDialogue.MENU || Main.game.getCurrentDialogueNode()==PhoneDialogue.CONTACTS) {
+						if(Main.game.getCurrentDialogueNode()==CharactersPresentDialogue.MENU
+								 || Main.game.getCurrentDialogueNode()==PhoneDialogue.CONTACTS
+								 || Main.game.getCurrentDialogueNode()==PhoneDialogue.CONTACTS_CHARACTER) {
 							return CharactersPresentDialogue.characterViewed;
 							
 						} else if(Main.game.getActiveNPC()!=null) {

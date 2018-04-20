@@ -6,11 +6,11 @@ import org.w3c.dom.Element;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.Name;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
@@ -65,10 +65,18 @@ public class HarpyNestsAttacker extends NPC {
 			
 			
 			// RACE & NAME:
-			if(gender.isFeminine()) {
-				setBody(Gender.F_V_B_FEMALE, RacialBody.HARPY, RaceStage.LESSER);
+			if(this.hasPenis()) {
+				if(this.hasBreasts()) {
+					setBody(Gender.F_P_B_SHEMALE, RacialBody.HARPY, RaceStage.LESSER);
+				} else {
+					setBody(Gender.F_P_TRAP, RacialBody.HARPY, RaceStage.LESSER);
+				}
 			} else {
-				setBody(Gender.F_P_TRAP, RacialBody.HARPY, RaceStage.LESSER);
+				if(this.hasBreasts()) {
+					setBody(Gender.F_V_B_FEMALE, RacialBody.HARPY, RaceStage.LESSER);
+				} else {
+					setBody(Gender.F_V_FEMALE, RacialBody.HARPY, RaceStage.LESSER);
+				}
 			}
 	
 			setName(Name.getRandomTriplet(Race.HARPY));

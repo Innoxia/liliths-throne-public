@@ -6,16 +6,17 @@ import org.w3c.dom.Element;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.Name;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.npcDialogue.SlaveDialogue;
+import com.lilithsthrone.game.dialogue.npcDialogue.submission.BatCavernAttackerDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.submission.TunnelAttackDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -31,7 +32,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.2.3
- * @version 0.2.3
+ * @version 0.2.4
  * @author Innoxia
  */
 public class BatMorphCavernAttacker extends NPC {
@@ -57,9 +58,9 @@ public class BatMorphCavernAttacker extends NPC {
 		if(!isImported) {
 			this.setWorldLocation(Main.game.getPlayer().getWorldLocation());
 			this.setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY()));
-			
-			// Set random level from 5 to 8:
-			setLevel(5 + Util.random.nextInt(4));
+
+			// Set random level from 8 to 12:
+			setLevel(8 + Util.random.nextInt(5));
 			
 			// RACE & NAME:
 			
@@ -166,7 +167,7 @@ public class BatMorphCavernAttacker extends NPC {
 	
 	@Override
 	public DialogueNodeOld getEncounterDialogue() {
-		return TunnelAttackDialogue.TUNNEL_ATTACK;
+		return BatCavernAttackerDialogue.BAT_MORPH_ATTACK;
 	}
 
 	// Combat:

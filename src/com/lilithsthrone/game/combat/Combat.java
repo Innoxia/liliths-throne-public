@@ -927,11 +927,13 @@ public enum Combat {
 			}
 		} else {
 			if(attacker.getMainWeapon() == null) {
-				attackStringBuilder.append("<p><b>You were " + (critical ? "<b style='color: " + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>critically</b> hit for " : " hit for ") + damage + " <b style='color: "
+				attackStringBuilder.append("<p><b>"+(target.isPlayer()?"You were ":UtilText.parse(target,"[npc.Name] was "))
+						+ (critical ? "<b style='color: " + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>critically</b> hit for " : " hit for ") + damage + " <b style='color: "
 						+ Attribute.DAMAGE_PHYSICAL.getColour().toWebHexString() + ";'>" + Attribute.DAMAGE_PHYSICAL.getName() + "</b>!</b></p>");
 				
 			} else {
-				attackStringBuilder.append("<p><b>You were " + (critical ? "<b style='color: " + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>critically</b> hit for " : " hit for ") + damage + " <b style='color: "
+				attackStringBuilder.append("<p><b>"+(target.isPlayer()?"You were ":UtilText.parse(target,"[npc.Name] was "))
+						+ (critical ? "<b style='color: " + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>critically</b> hit for " : " hit for ") + damage + " <b style='color: "
 						+ attacker.getMainWeapon().getDamageType().getMultiplierAttribute().getColour().toWebHexString() + ";'>" + attacker.getMainWeapon().getDamageType().getMultiplierAttribute().getName() + "</b>!</b></p>");
 			}
 		}
@@ -973,7 +975,7 @@ public enum Combat {
 					+ damageAttribute.getName() + "</b>!</b></p>");
 		} else {
 			attackStringBuilder.append("<p>"
-					+ "<b>You were " + (critical ? "<b style='color: " + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>critically</b> " : "") +"hit for "+ damage + " <b style='color: "
+					+ "<b>"+(target.isPlayer()?"You were ":UtilText.parse(target,"[npc.Name] was ")) + (critical ? "<b style='color: " + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>critically</b> " : "") +"hit for "+ damage + " <b style='color: "
 					+ damageAttribute.getColour().toWebHexString() + ";'>"
 					+ damageAttribute.getName() + "</b>!</b></p>");
 		}
@@ -1014,12 +1016,13 @@ public enum Combat {
 					damageOffhandAttribute = (attacker.getOffhandWeapon() == null ? Attribute.DAMAGE_PHYSICAL : attacker.getOffhandWeapon().getDamageType().getMultiplierAttribute());
 			
 			attackStringBuilder.append("<p>"
-					+ "<b>You " + (critical ? "<b style='color: " + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>critically</b> " : "") +"hit for "
+					+ "<b>"+(attacker.isPlayer()?"You ":UtilText.parse(attacker,"[npc.Name] ")) + (critical ? "<b style='color: " + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>critically</b> " : "")
+					+(attacker.isPlayer()?"hit":"hits")+" for "
 					+ damageMain + " <b style='color: " + damageMainAttribute.getColour().toWebHexString() + ";'>" + damageMainAttribute.getName() + "</b>, and then again for "
 					+ damageOffhand + " <b style='color: " + damageOffhandAttribute.getColour().toWebHexString() + ";'>" + damageOffhandAttribute.getName() + "</b>!</b></p>");
 		} else {
 			attackStringBuilder.append(getDualDescription(attacker, target, false));
-			attackStringBuilder.append("<p><b>You missed!</b></p>");
+			attackStringBuilder.append("<p><b>"+(target.isPlayer()?"You ":UtilText.parse(target,"[npc.Name] "))+"missed!</b></p>");
 		}
 		
 		attackStringBuilder.append(target.incrementHealth(attacker, -(damageMain+damageOffhand)));
@@ -1040,7 +1043,7 @@ public enum Combat {
 
 		return getPregnancyProtectionText(attacker, target)
 				+"<p>"
-				+ attack
+					+ attack
 				+"</p>";
 	}
 	
@@ -1261,7 +1264,7 @@ public enum Combat {
 		} else {
 			// Calculate what attack to use based on NPC preference:
 			Attack opponentAttack = npc.attackType();
-
+			
 			List<SpecialAttack> availableSAs = new ArrayList<>(npc.getSpecialAttacks());
 			for(SpecialAttack sa : npc.getSpecialAttacks()) {
 				if(Combat.getCooldown(npc, sa)!=0) {
@@ -1269,6 +1272,10 @@ public enum Combat {
 				}
 			}
 			if(availableSAs.isEmpty() && opponentAttack == Attack.SPECIAL_ATTACK) {
+				opponentAttack = Attack.MAIN;
+			}
+			
+			if(opponentAttack==null) {
 				opponentAttack = Attack.MAIN;
 			}
 			
@@ -1590,12 +1597,21 @@ public enum Combat {
 						+ "</p>")
 					:"");
 		} else {
-			return (target.isVisiblyPregnant()
-					?UtilText.parse(target,
-						"<p>"
-							+ "A powerful field of arcane energy is protecting [npc.name]'s pregnant belly, which doesn't even come into play, as you're very careful not to hit anywhere near [npc.her] stomach."
-						+ "</p>")
-					:"");
+			if(attacker.isPlayer()) {
+				return (target.isVisiblyPregnant()
+						?UtilText.parse(target,
+							"<p>"
+								+ "A powerful field of arcane energy is protecting [npc.name]'s pregnant belly, which doesn't even come into play, as you're very careful not to hit anywhere near [npc.her] stomach."
+							+ "</p>")
+						:"");
+			} else {
+				return (target.isVisiblyPregnant()
+						?UtilText.parse(attacker, target,
+							"<p>"
+								+ "A powerful field of arcane energy is protecting [npc2.name]'s pregnant belly, which doesn't even come into play, as [npc1.name] is very careful not to hit anywhere near [npc2.her] stomach."
+							+ "</p>")
+						:"");
+			}
 		}
 	}
 

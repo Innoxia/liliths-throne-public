@@ -32,13 +32,13 @@ import com.lilithsthrone.controller.TooltipUpdateThread;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.History;
 import com.lilithsthrone.game.character.PlayerCharacter;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.ObedienceLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.effects.StatusEffect;
+import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.GenderPreference;
 import com.lilithsthrone.game.character.npc.GenericAndrogynousNPC;
 import com.lilithsthrone.game.character.npc.GenericFemaleNPC;
@@ -82,6 +82,7 @@ import com.lilithsthrone.game.character.npc.dominion.Vicky;
 import com.lilithsthrone.game.character.npc.dominion.Zaranix;
 import com.lilithsthrone.game.character.npc.dominion.ZaranixMaidKatherine;
 import com.lilithsthrone.game.character.npc.dominion.ZaranixMaidKelly;
+import com.lilithsthrone.game.character.persona.History;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RacialBody;
@@ -125,7 +126,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.2.2
+ * @version 0.2.4
  * @author Innoxia
  */
 public class Game implements Serializable, XMLSaving {
@@ -533,7 +534,8 @@ public class Game implements Serializable, XMLSaving {
 							&& (!e.getAttribute("worldType").equals("SUBMISSION") || !Main.isVersionOlderThan(version, "0.2.1.5"))
 							&& (!e.getAttribute("worldType").equals("DOMINION") || !Main.isVersionOlderThan(version, "0.2.2"))
 							&& (!e.getAttribute("worldType").equals("SLAVER_ALLEY") || !Main.isVersionOlderThan(version, "0.2.2"))
-							&& (!e.getAttribute("worldType").equals("HARPY_NEST") || !Main.isVersionOlderThan(version, "0.2.1.5"))) {
+							&& (!e.getAttribute("worldType").equals("HARPY_NEST") || !Main.isVersionOlderThan(version, "0.2.1.5"))
+							&& (!e.getAttribute("worldType").equals("BAT_CAVERNS") || !Main.isVersionOlderThan(version, "0.2.3.5"))) {
 						World world = World.loadFromXML(e, doc);
 						Main.game.worlds.put(world.getWorldType(), world);
 					}
@@ -554,6 +556,9 @@ public class Game implements Serializable, XMLSaving {
 					if(Main.isVersionOlderThan(version, "0.2.2")) {
 						gen.worldGeneration(WorldType.DOMINION);
 						gen.worldGeneration(WorldType.SLAVER_ALLEY);
+					}
+					if(Main.isVersionOlderThan(version, "0.2.3.5")) {
+						gen.worldGeneration(WorldType.BAT_CAVERNS);
 					}
 					if(Main.game.worlds.get(wt)==null) {
 						gen.worldGeneration(wt);
@@ -977,6 +982,9 @@ public class Game implements Serializable, XMLSaving {
 					&& (Main.game.getCurrentDialogueNode().equals(Main.game.getPlayer().getLocationPlace().getDialogue(false))
 						|| !(npc.getWorldLocation()==Main.game.getPlayer().getWorldLocation() && npc.getLocation().equals(Main.game.getPlayer().getLocation())))) {
 				npc.equipClothing(true, true);
+				if(!npc.hasFetish(Fetish.FETISH_EXHIBITIONIST)) {
+					npc.replaceAllClothing();
+				}
 				npc.setPendingClothingDressing(false);
 			}
 			
@@ -1031,6 +1039,24 @@ public class Game implements Serializable, XMLSaving {
 				npc.resetDaysOrgasmCount();
 				npc.dailyReset();
 			}
+			
+			// Companions:
+			
+			List<GameCharacter> companionsToRemove = new ArrayList<>();
+			for(GameCharacter companion : npc.getCompanions()) {
+				// Updating companion NPCs
+				if(companion.isCompanionAvailable(npc)) {
+					companion.setLocation(npc.getWorldLocation(), npc.getLocation(), false);
+				} else {
+					companionsToRemove.add(companion);
+				}
+			}
+			for(GameCharacter character : companionsToRemove) {
+				npc.removeCompanion(character);
+				character.returnToHome();
+			}
+			
+			npc.turnUpdate();
 		}
 		isInNPCUpdateLoop = false;
 		for(NPC npc : npcsToRemove) {
@@ -1083,6 +1109,21 @@ public class Game implements Serializable, XMLSaving {
 				}	
 			});
 			Main.game.getPlayer().getStatusEffectDescriptions().clear();
+		}
+		
+		List<GameCharacter> companionsToRemove = new ArrayList<>();
+		for(GameCharacter npc : Main.game.getPlayer().getCompanions()) {
+			// Updating companion NPCs
+			if(npc.isCompanionAvailable(Main.game.getPlayer())) {
+				npc.setLocation(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
+			} else {
+				companionsToRemove.add(npc);
+				// TODO : Add NPCs leaving you to the report.
+			}
+		}
+		for(GameCharacter character : companionsToRemove) {
+			Main.game.getPlayer().removeCompanion(character);
+			character.returnToHome();
 		}
 		
 //		System.out.println((System.nanoTime()-tStart)/1000000000d+"s");
@@ -2120,6 +2161,13 @@ public class Game implements Serializable, XMLSaving {
 		} else {
 			return getCharactersPresent(player.getWorldLocation(), player.getLocation());
 		}
+	}
+	
+	public List<NPC> getNonCompanionCharactersPresent() {
+		List<NPC> nonCompanionCharactersPresent = new ArrayList<>();
+		nonCompanionCharactersPresent.addAll(getCharactersPresent());
+		nonCompanionCharactersPresent.removeIf((npc) -> Main.game.getPlayer().hasCompanion(npc));
+		return nonCompanionCharactersPresent;
 	}
 	
 	public List<NPC> getCharactersTreatingCellAsHome(Cell cell) {

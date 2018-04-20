@@ -203,7 +203,7 @@ public class CityPlaces {
 					+ "</p>");
 			}
 			
-			for(NPC npc : Main.game.getCharactersPresent()) {
+			for(NPC npc : Main.game.getNonCompanionCharactersPresent()) {
 				if(npc instanceof Cultist) {
 					UtilText.nodeContentSB.append(
 							"<p>"
@@ -234,7 +234,7 @@ public class CityPlaces {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			List<Response> responses = new ArrayList<>();
-			for(NPC npc : Main.game.getCharactersPresent()) {
+			for(NPC npc : Main.game.getNonCompanionCharactersPresent()) {
 				if(npc instanceof Cultist) {
 					responses.add(new Response("Chapel", UtilText.parse(npc, "Visit [npc.name]'s chapel again."), CultistDialogue.ENCOUNTER_CHAPEL_REPEAT) {
 							@Override
@@ -323,7 +323,7 @@ public class CityPlaces {
 					+ " These less-travelled parts of Dominion have a dangerous feel to them, and you can't shake the feeling that you're being followed."
 					+ "</p>");
 			
-			for(GameCharacter npc : Main.game.getCharactersPresent()) {
+			for(GameCharacter npc : Main.game.getNonCompanionCharactersPresent()) {
 				UtilText.nodeContentSB.append(((NPC) npc).getPresentInTileDescription());
 			}
 			
@@ -332,7 +332,7 @@ public class CityPlaces {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(index == 6) {
+			if(index == 1) {
 				return new ResponseEffectsOnly(
 						"Explore",
 						"Explore the alleyways. Although you don't think you're any more or less likely to find anything by doing this, at least you won't have to keep travelling back and forth..."){
@@ -365,7 +365,7 @@ public class CityPlaces {
 						+ " You're far away from the safety of the main street, and you can't shake the feeling that there's something <b>extremely dangerous</b> lurking around the next corner..."
 					+ "</p>");
 
-			for(GameCharacter npc : Main.game.getCharactersPresent()) {
+			for(GameCharacter npc : Main.game.getNonCompanionCharactersPresent()) {
 				UtilText.nodeContentSB.append(((NPC) npc).getPresentInTileDescription());
 			}
 			
@@ -374,7 +374,7 @@ public class CityPlaces {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(index == 6) {
+			if(index == 1) {
 				return new ResponseEffectsOnly(
 						"Explore",
 						"Explore the alleyways. Although you don't think you're any more or less likely to find anything by doing this, at least you won't have to keep travelling back and forth..."){
@@ -412,13 +412,13 @@ public class CityPlaces {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(index == 6) {
+			if(index == 1) {
 				return new ResponseEffectsOnly(
 						"Explore",
 						"Explore this area. Although you don't think you're any more or less likely to find anything by doing this, at least you won't have to keep travelling back and forth..."){
 							@Override
 							public void effects() {
-								DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true);
+								DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
 								Main.game.setContent(new Response("", "", dn));
 							}
 						};
@@ -766,7 +766,7 @@ public class CityPlaces {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(index == 6) {
+			if(index == 1) {
 				return new ResponseEffectsOnly(
 						"Explore",
 						"Explore this area. Although you don't think you're any more or less likely to find anything by doing this, at least you won't have to keep travelling back and forth..."){

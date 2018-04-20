@@ -126,11 +126,63 @@ public abstract class SexAction implements SexActionInterface {
 
 	@Override
 	public ArousalIncrease getArousalGainSelf() {
+		if(!this.getActionType().isPlayerAction() && Sex.getSexPace(Sex.getActivePartner())==SexPace.SUB_RESISTING) {
+			if(Sex.getActivePartner().hasFetish(Fetish.FETISH_NON_CON_SUB)) {
+				return ArousalIncrease.FOUR_HIGH;
+			} else {
+				// If it's an erogenous zone, they gain arousal. If not, arousal gain is 0.
+				if((this.getParticipantType().isUsingSelfOrificeType() && this.getAssociatedOrificeType()!=null && this.getAssociatedOrificeType().getBaseArousalWhenPenetrated()>1)
+						|| (this.getParticipantType().isUsingSelfPenetrationType() && this.getAssociatedPenetrationType() != null && this.getAssociatedPenetrationType().getBaseArousalWhenPenetrating()>1)) {
+					return ArousalIncrease.TWO_LOW;
+				}
+				return ArousalIncrease.ZERO_NONE;
+			}
+		}
+		
+		if(this.getActionType().isPlayerAction() && Sex.getSexPace(Main.game.getPlayer())==SexPace.SUB_RESISTING) {
+			if(Main.game.getPlayer().hasFetish(Fetish.FETISH_NON_CON_SUB)) {
+				return ArousalIncrease.FOUR_HIGH;
+			} else {
+				// If it's an erogenous zone, they gain arousal. If not, arousal gain is 0.
+				if((this.getParticipantType().isUsingSelfOrificeType() && this.getAssociatedOrificeType()!=null && this.getAssociatedOrificeType().getBaseArousalWhenPenetrated()>1)
+						|| (this.getParticipantType().isUsingSelfPenetrationType() && this.getAssociatedPenetrationType() != null && this.getAssociatedPenetrationType().getBaseArousalWhenPenetrating()>1)) {
+					return ArousalIncrease.TWO_LOW;
+				}
+				return ArousalIncrease.ZERO_NONE;
+			}
+		}
+		
 		return selfArousalGain;
 	}
 
 	@Override
 	public ArousalIncrease getArousalGainTarget() {
+		if(!this.getActionType().isPlayerAction() && Sex.getSexPace(Sex.getTargetedPartner(Sex.getActivePartner()))==SexPace.SUB_RESISTING) {
+			if(Sex.getTargetedPartner(Sex.getActivePartner()).hasFetish(Fetish.FETISH_NON_CON_SUB)) {
+				return ArousalIncrease.FOUR_HIGH;
+			} else {
+				// If it's an erogenous zone, they gain arousal. If not, arousal gain is 0.
+				if((!this.getParticipantType().isUsingSelfOrificeType() && this.getAssociatedOrificeType()!=null && this.getAssociatedOrificeType().getBaseArousalWhenPenetrated()>1)
+						|| (!this.getParticipantType().isUsingSelfPenetrationType() && this.getAssociatedPenetrationType() != null && this.getAssociatedPenetrationType().getBaseArousalWhenPenetrating()>1)) {
+					return ArousalIncrease.TWO_LOW;
+				}
+				return ArousalIncrease.ZERO_NONE;
+			}
+		}
+		
+		if(this.getActionType().isPlayerAction() && Sex.getSexPace(Sex.getActivePartner())==SexPace.SUB_RESISTING) {
+			if(Sex.getActivePartner().hasFetish(Fetish.FETISH_NON_CON_SUB)) {
+				return ArousalIncrease.FOUR_HIGH;
+			} else {
+				// If it's an erogenous zone, they gain arousal. If not, arousal gain is 0.
+				if((!this.getParticipantType().isUsingSelfOrificeType() && this.getAssociatedOrificeType()!=null && this.getAssociatedOrificeType().getBaseArousalWhenPenetrated()>1)
+						|| (!this.getParticipantType().isUsingSelfPenetrationType() && this.getAssociatedPenetrationType() != null && this.getAssociatedPenetrationType().getBaseArousalWhenPenetrating()>1)) {
+					return ArousalIncrease.TWO_LOW;
+				}
+				return ArousalIncrease.ZERO_NONE;
+			}
+		}
+		
 		return targetArousalGain;
 	}
 
@@ -172,6 +224,11 @@ public abstract class SexAction implements SexActionInterface {
 			if(this.getParticipantType()!=SexParticipantType.SELF && characterPerformingAction.isRelatedTo(characterTarget)) {
 				characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_INCEST);
 				characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_INCEST);
+			}
+			
+			if(Sex.isPublicSex()) {
+				characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_EXHIBITIONIST);
+				characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_EXHIBITIONIST);
 			}
 			
 			if(this.getSexPace(characterPerformingAction)!=null) {

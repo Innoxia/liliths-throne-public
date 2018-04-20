@@ -301,7 +301,7 @@ public enum WorldType {
 	BAT_CAVERNS("Bat Caverns",
 			Colour.BASE_BLACK,
 			1,
-			"/com/lilithsthrone/res/map/submission/batCaverns.png",
+			"/com/lilithsthrone/res/map/submission/batCaverns/batCaverns.png",
 			Util.newHashMapOfValues(
 					
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),

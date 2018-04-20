@@ -865,6 +865,10 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 	public List<DisplacementType> getDisplacedList() {
 		return displacedList;
 	}
+	
+	public void clearDisplacementList() {
+		displacedList.clear();
+	}
 
 	public boolean isEnchantmentKnown() {
 		return enchantmentKnown;

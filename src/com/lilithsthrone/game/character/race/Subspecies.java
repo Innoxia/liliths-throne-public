@@ -2,7 +2,10 @@ package com.lilithsthrone.game.character.race;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Body;
@@ -234,8 +237,8 @@ public enum Subspecies {
 			},
 	
 	DOG_MORPH_DOBERMANN("raceDogMorphDobermann",
-			"dobermann-morph",
-			"dobermann-morphs",
+			"dobermann",
+			"dobermanns",
 			"dobermann",
 			"dobermann",
 			"dobermanns",
@@ -243,7 +246,7 @@ public enum Subspecies {
 			Race.DOG_MORPH,
 			Colour.RACE_DOG_MORPH,
 			SubspeciesPreference.TWO_AVERAGE,
-			"A dog-morph which resembles an anthropomorphised dobermann. To be identified as a dobermann-morph, a character must be a dog-morph that has short, black fur, with either brown, dark-brown, or tan markings.",
+			"A dog-morph which resembles an anthropomorphised dobermann. To be identified as a dobermann, a character must be a dog-morph that has short, black fur, with either brown, dark-brown, or tan markings.",
 			Util.newArrayListOfValues(new ListValue<>(WorldType.DOMINION))) {
 		@Override
 		public void applySpeciesChanges(Body body) {
@@ -550,7 +553,7 @@ public enum Subspecies {
 			Race.SLIME,
 			Colour.RACE_SLIME,
 			SubspeciesPreference.FOUR_ABUNDANT,
-			"A slime that's taken on the form of a dobermann-morph.",
+			"A slime that's taken on the form of a dobermann.",
 			Util.newArrayListOfValues(
 					new ListValue<>(WorldType.SUBMISSION),
 					new ListValue<>(WorldType.BAT_CAVERNS))) {
@@ -967,6 +970,24 @@ public enum Subspecies {
 	protected String SVGString;
 	private String SVGStringDesaturated;
 	private List<WorldType> worldLocations;
+	
+	private static Map<WorldType, List<Subspecies>> worldSpecies;
+	private static List<Subspecies> dominionStormImmuneSpecies;
+	static {
+		worldSpecies = new HashMap<>();
+		dominionStormImmuneSpecies = new ArrayList<>();
+		
+		for(Subspecies species : Subspecies.values()) {
+			for(WorldType type : species.getWorldLocations()) {
+				worldSpecies.putIfAbsent(type, new ArrayList<>());
+				worldSpecies.get(type).add(species);
+
+				if(type == WorldType.DOMINION && !species.getRace().isVulnerableToLilithsLustStorm()) {
+					dominionStormImmuneSpecies.add(species);
+				}
+			}
+		}
+	}
 
 	private Subspecies(
 			String iconPathName,
@@ -1330,5 +1351,13 @@ public enum Subspecies {
 
 	public List<WorldType> getWorldLocations() {
 		return worldLocations;
+	}
+
+	public static Map<WorldType, List<Subspecies>> getWorldSpecies() {
+		return worldSpecies;
+	}
+
+	public static List<Subspecies> getDominionStormImmuneSpecies() {
+		return dominionStormImmuneSpecies;
 	}
 }
