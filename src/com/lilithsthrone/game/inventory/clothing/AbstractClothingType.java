@@ -413,7 +413,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 									? null
 									: ClothingSet.valueOf(coreAttributes.getElementsByTagName("clothingSet").item(0).getTextContent());
 				
-				this.pathName = clothingXMLFile.getParentFile().getAbsolutePath() + "\\" + coreAttributes.getElementsByTagName("imageName").item(0).getTextContent();
+				this.pathName = clothingXMLFile.getParentFile().getAbsolutePath() + "/" + coreAttributes.getElementsByTagName("imageName").item(0).getTextContent();
 				
 				this.pathNameEquipped = !coreAttributes.getElementsByTagName("imageEquippedName").item(0).hasChildNodes()
 									? null
