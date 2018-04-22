@@ -546,15 +546,16 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "version", Main.VERSION_NUMBER);
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "history", this.getHistory().toString());
 		
-		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "personality", this.getPersonality().toString());
+		// It looks like this was an erroneous line?
+		//CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "personality", this.getPersonality().toString());
 		Element personalityElement = doc.createElement("personality");
 		characterCoreInfo.appendChild(personalityElement);
 		for(Entry<PersonalityTrait, PersonalityWeight> entry: getPersonality().entrySet()){
 			Element element = doc.createElement("personalityEntry");
 			personalityElement.appendChild(element);
 			
-			CharacterUtils.addAttribute(doc, personalityElement, "trait", entry.getKey().toString());
-			CharacterUtils.addAttribute(doc, personalityElement, "weight", entry.getValue().toString());
+			CharacterUtils.addAttribute(doc, element, "trait", entry.getKey().toString());
+			CharacterUtils.addAttribute(doc, element, "weight", entry.getValue().toString());
 		}
 		
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "sexualOrientation", this.getSexualOrientation().toString());
