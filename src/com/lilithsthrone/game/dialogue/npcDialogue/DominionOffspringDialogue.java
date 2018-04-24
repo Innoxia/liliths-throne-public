@@ -6,7 +6,7 @@ import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPCFlagValue;
-import com.lilithsthrone.game.character.npc.NPCOffspring;
+import com.lilithsthrone.game.character.npc.misc.NPCOffspring;
 import com.lilithsthrone.game.character.persona.History;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.PersonalityWeight;

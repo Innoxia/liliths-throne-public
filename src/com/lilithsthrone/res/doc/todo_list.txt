@@ -16,8 +16,6 @@
 	- Adding in the next stage of the main quest (earning an audience with Lyssieth).
 	
 	- Fix bugs and sort out github issues and PRs.
-
-	- Adding the companion system
 	
 	- Start adding in Nightlife stuff
 	
@@ -28,75 +26,251 @@
 	Patch notes:
 	
 	Gameplay:
-		<b>Added:</b> Companion system. You can just take one slave around with you for now, and the interaction options are a little limited (post-combat sex options haven't been implemented yet), but this adds functionality for adding unique followers later on. (Contribution from Irbynx.)
-		<b>Added:</b> Clothing mod support. (Look in the mod folder for details.)
-		Updated personality types from being a set one-in-four, to having weights on five personality traits (Adventurousness, Agreeableness, Conscientiousness, Extroversion, and Neuroticism).
-		Added personality selection to the new character screen. (If you want to set it on your current character, just save the game in this new version, then open the save file and search for 'personality' under your character's entry. You can edit the values there.)
-		Added map of the Bat Caverns, along with bat-morph and slime encounters.
+		<b>Added:</b> Final version of the spell system, along with 24 new & reworked spells. Spells are now learned through spell books, or by being taught to you by someone else. You gain spell upgrade points by reading appropriate scrolls, which can then be spent to upgrade your spells. I might add more spells and upgrades in future, but this is how spells will work from now on.
+		Added dodge chance, miss chance, unarmed damage, melee weapon damage, adn ranged weapon damage as attributes. Removed spell resistance (to fit in with resistances being focused on countering damage types, not attack types).
+		All damage and resistance attributes have had value ranges changed from '0 to 100' to '-100 to 100'.
 	
-	Clothing:
-		Updated all clothing to have correct concealments, and added appropriate tooltip information to let you know what clothing is responsible. (e.g. Panties being worn beneath a skirt will be hidden to you until you unequip or pull up the skirt.)
-		<b>Added:</b> Enforcer's miniskirt (Feminine, Leg slot). Candi now wears this instead of shorts.
-		Updated Enforcer clothing to use a third colour for buttons, and the frontal-zip dress to use a customisable colour for the zip.
-	
-	Contributors:
-		<b>Added:</b> Groundwork for the new companion system. (Irbynx)
-		Fixed harpy nest entrance background colour. (Master of Puppets)
-		Typo fix. (Master of Puppets)
-		Fixed strange behaviour when having sex with NPCs in stocks, where if it was banned for them to receive a certain type of sex, you would be banned from performing related sex actions as well. (Master of Puppets)
-		Changed sex actions so the only ones that reduce arousal are now ones related to denial. Resisting pace/actions no longer cause arousal to drop, and instead, arousal increases are zero on non-erogenous zone actions, and low on others. Having the non-con fetish sets these arousal increases to high. (Master of Puppets)
-		Restricted use of 'calm down' action to only be available when you're the dom, or when you have the same amount of control as the dom. (Master of Puppets)
-		Added tooltips to the phone's map page. (Master of Puppets)
-		Changed the code so that the 'new addiction' dialog only shows if the ingesting character isn't already addicted to the fluid, and otherwise shows the 'satisfied craving' dialog if the ingesting character is addicted. (AlacoGit)
-		Tidied up the game's version checking method. (lehardo)
-		Fixed some instances of incorrect cum parsing. (ltpatch)
-		Fixed issue with harpies not respecting your gender preferences. (Master of Puppets)
-		Added folder checking on startup. (Bukkyo256)
-		Fixed Lilaya's Submissive Geisha scene immediately ending. (TadUnlikely)
-		Fixed Vixen's Virility returning incorrect descriptions. (ltpatch)
+	Artwork:
+		Added Jam's artwork of Zaranix.
+		Added ChattyNeko's artwork of Scarlett.
 	
 	Other:
-		Added ChattyNeko's artwork for Nyan.
-		Moved the 'Explore' action from button 6 to 1. (I originally put it on 6 so that when you were spamming it to explore, you wouldn't accidentally skip the encounter dialogue. Now that 'Explore' always results in an encounter on the first press, there's no need for it to be so out of place.)
-		Added throat wetness, capacity, elasticity, and plasticity to the 'Body Stats' phone dialogue page, and added more throat descriptions to the selfie/character view page, as well as improving the coloured parts of all body description text.
-		Added formatting to essence counter, and made the formatting specific to locale. (So now it really should use a comma, period, or space depending on your computer's locale.)
-		Fixed gloves blocking you from wearing rings.
-		Non-slave NPCs which do not have the exhibitionist fetish should now properly replace their clothing after you leave them alone.
-		Removed hard-coded sealing effects from all BDSM set gear, and made them have the 'sealing' enchantment by default instead.
-		The 'cattle' clothing set is now sold by Finch, instead of Nyan.
-		Reorganised Nyan's trading menus.
-		Added support in the code for adding custom artwork for the PlayerCharacter (follow the instructions in 'res -> images -> characters -> modding.txt' to add artwork).
-		Changed Dobermann subspecies name from the clunky 'Dobermann-morph' to just 'Dobermann'.
+		Lore books are no longer removed from your inventory after use.
+		In combat, if all enemies are stunned, escape chance is now 100%.
+		Added ability to self-target and target allies in combat. (Yes, you can punch yourself or your allies... Please don't do this...)
 	
 	Bugs:
-		Fixed (that annoying) bug where the game's tooltips could get stuck on your screen when alt-tabbing/changing window focus.
-		Typo fixes.
-		Fixed bug in vixen's virility pill effect description.
-		Fixed incorrect Katherine and Kelly descriptions.
-		Fixed Zaranix getting stuck in his lounge.
-		Fixed enchanting UI not showing correct cost reduction from 'Arcane Weaver' perk.
-		Fixed some bugs in the way clothing concealment was working.
-		Fixed several clothing displacements being erroneously available through other clothing.
-		Fixed bug where looking for trouble in the harpy nests would never return a harpy fight encounter.
-		(Hopefully) fixed that annoying bug where slave's stats would get stuck to the right of your screen.
-		Fixed bug where public sex would stop being counted as public as soon as you switched position.
+		Fixed Candi wearing a normal, non-enforcer mini-skirt, and made her uniform pink.
+		Fixed personality attributes not being saved/loaded correctly.
+		Fixed bug where modded clothing icons wouldn't load on linux.
+		Critically casting beneficial spells will no longer apply arcane weakness.
 	
 	
 	
 	
+	check remove companion during combat/special scenes
+	
+	tooltip for weapon type (ranged or not)
+	
+	Rendering:
+		combat effects should show turns as bigger bar
+		remove spells and non-CD teases from SE bar. Add border to negative SEs
+	
+	Add all spell effects and upgrade variations
+		Need to add effects list to all spells and upgrades
+		
+		
+	Weapons unique spells
+	Add arcane sword, spear, baton, riot shield, dagger. Add melee detection. Add hand-held crossbow, throwing spears (physical handle, arcane shaft).
+	
+		eye sclera
+		tongue colour
+	
+	effect soldier's(double start damage) not work
+	
+Fire - Any points invested allow you to summon floating fire at will (removes darkness debuff)
+O Fireball - Deals fire damage
+	- Lingering flames: Upgrade to apply a 2-turn burn
+	- Twin Comets: Shoots two fireballs, which do 60% normal damage, but prioritise different targets.
+	- Burning fury: Twin fireballs now do 80% normal damage.
+O Flash - Blinding flash of flames; stuns for 1 turn
+	- Lingering sparks: Upgrade to 2 turns
+	- Arcing flash: Upgrade to hit a second enemy combatant as well
+	- Efficient burn: Upgrade to halve cost
+D Cloak of flames - +10 fire and + 50 ice resistance for 3 turns
+	- Incendiary: Adds an extra 10% damage as fire damage to all attacks
+	- Inferno: +25 fire damage
+	- Ring of fire: All enemy combatants take 5% damage per turn
+D Elemental fire - summons or switches your elemental spirit to the form of fire
+	- Wildfire: While summoned, your party gets +10 fire damage
+	- Burning desire: All enemy combatants -20 seduction resist
+	- Servant of fire: While in this form, PC suffers -50% maximum energy and -50% maximum arcane. Elemental's power is doubled.
+	- Binding of fire: While in this form, PC gains +25 fire resist, +25 fire damage.
+
+Water - Any points invested allow you to manipulate the temperature and movement of fluids (fluid enchantments are free)
+O Ice shard - Deals ice damage
+	- Freezing fog: Spell efficiency -15 for 2 turns
+	- Cold snap: If affected by freezing fog, ice shard has +25% crit chance
+	- Deep freeze: If this spell crits a target that's under the effect of freezing fog, they are stunned for 1 turn. Removes freezing fog effect.
+O Rain cloud - -20 spell efficiency for 3 turns
+	- Deep Chill: Target suffers -25 ice resistance
+	- Downpour: +10% miss chance.
+	- Cloud burst: Reduces length to 2 turns, but increases effect to -50 spell efficiency.
+D Soothing waters - Heals target for 20% of HP
+	- Arcane springs: Also restores 20% arcane
+	- Rejuvenation: Boosts HP restored to 40%
+	- Bouncing orb: Heals all non-targeted members of party for 20/10
+D Elemental water - summons your elemental spirit with the form of water
+	- Crashing waves: While summoned, your party gets +10 ice damage
+	- Calm waters: All party members get +20 seduction resist.
+	- Servant of water: While in this form, PC suffers -50% maximum energy and -50% maximum arcane. Elemental's power is doubled.
+	- Binding of water: While in this form, PC gains +25 ice resist, +25 ice damage.
+		
+Air - Any points invested allow you to control the temperature and movement of the nearby air (Doubles passive energy regen)
+O Poison vapours - damage/turn for 3 turns. Removes gust of wind
+	- Choking haze: +10% miss chance
+	- Arcane sickness: same level of damage/turn but for arcane
+	- Weakening cloud: -15 physical damage, -25 crit damage
+O Vacuum - +10% miss chance for 3 turns.
+	- Secondary Voids: +20% miss, -15% crit chance
+	- Gale-force: 5% chance each turn that a random outer layer of clothing is blow off the target to the floor
+	- Hurricane: 25% strip chance
+D Protective gusts - +25 poison resist, +10% dodge chance for 3 turns
+	- Guiding wind: +20% dodge chance
+	- Focused blast: +25% critical damage
+	- Lingering presence: 5 turns
+D Elemental air - summons your elemental spirit with the form of air
+	- Whirlwind: While summoned, your party gets +10 critical chance, 5% dodge chance
+	- Vitalising scents: All party members get +25 energy.
+	- Servant of air: While in this form, PC suffers -50% maximum energy and -50% maximum arcane. Elemental's power is doubled.
+	- Binding of air: While in this form, PC gains +25 poison resist, +25 poison damage.
+		
+Earth - Any points invested allow you to transmute clothing colours
+O Slam - physical damage
+	- Ground shake: 10% miss chance for 1 turn
+	- Aftershock: When ground shake ends, take damage
+	- Earthquake: Ground shake affects all enemies
+O Telekenetic shower - damage/turn for 2 turns
+	- Mind over matter: increases to 3 turns
+	- Precision strikes: -10 physical resistance
+	- Unseen force: doubles damage
+D Stone shell - +25 physical resist for 3 turns 
+	- Shifting sands: +10% dodge chance
+	- Hardened carapace: increases to +50 resist
+	- Explosive finish: deals damage to all enemies when ends
+D Elemental stone - summons your elemental spirit with the form of stone
+	- Rolling stone: All party members get +20 critical damage.
+	- Hardening: All party members get +10 physical resist.
+	- Servant of earth: While in this form, PC suffers -50% maximum energy and -50% maximum arcane. Elemental's power is doubled.
+	- Binding of earth: While in this form, PC gains +25 physical resist, +25 physical damage.
+	
+Arcane - Any points invested allows you to sense arcane currents (accurate timer on arcane storms)
+U Steal - steals a random item from the target
+	Stripper: Can now also steal outer layers of equipped clothing
+	Disarm: Can now also steal equipped weapons
+	Deep reach: Can steal any layer of clothing.
+U Cleanse - removes all status effects from target
+	Selective cleansing: Removes only negative status effects
+	Bolstered defence: Immune to negative status effects for 2 turns
+	Impenetrable: Immune for 5 turns
+U Teleport - +90% dodge chance for 1 turn - enables teleporting on map
+	Arcane Arrival: deals a small amount of seduction damage to all enemies
+	Mass teleportation: Applies effects to all part members, and map-wide teleport is no longer blocked by having companions
+	Rebounding teleportation: increases to 2 turns
+S Telepathic communication - tease attacks apply a telepathic effect for 5 turns, doing +10 seduction damage 
+	Echoing moans: +20 damage
+	Power of suggestion: tease attacks apply -10 physical resistance for 1 turn
+	Projected touch: +40 damage
+S Arcane cloud - creates a cloud of arcane energy around target, 5% lust/turn
+	Arcane lightning - deals damage/turn
+	Arcane thunder - +10% miss chance
+	Localised storm: +15% lust/turn
+S Demonic visage - deals lust damage
+	Shifting form: - increases damage
+	Suggestive gestures: - +10% miss chance for 2 turns
+	Lasting impact: Suggestive gestures now applies -10 seduction resist for 2 turns
+S Lilith's Command (costs 100% of remaining arcane power) - 25% chance that the enemy instantly submits. Does not work on demons. Requires all arcane spells to be maxxed out to take this
+	Overpowering presence: Increased to 50% chance.
+	Demonic servants: Increased to 75% and now works on demons.
+	Ultimate power: 100% chance.
+D Elemental arcane - summons your elemental spirit with the form of arcane energy
+	- Lewd encouragements: All party members get +20 seduction damage.
+	- Caressing touch: All enemies suffer -10 seduction resist.
+	- Servant of arcane: While in this form, PC suffers -50% maximum energy and -50% maximum arcane. Elemental's power is doubled.
+	- Binding of arcane: While in this form, PC gains +25 seduction resist, +25 seduction damage.
 	
 	
 	
+	
+	I'm planning on adding a special orgasm denial action, which I'll then allow NPCs with the denial fetish to use (I might split up the fetish into 'being denied' and 'denying others' variants).
+	
+	
+	Thank you for your questions! :3
+- I might add female condoms later on.
+- I am planning on adding fertility cycles. This will be added some time before v0.3.
+- I will be adding a way to assign slaves to sleep with you in your room very soon. :3
+- Contraceptives (Promiscuity Pill) should be able to fail at the moment, if the other person's virility is high enough (I will check this to make sure it's working). I will be adding a chance for condoms to break soon as well. (I'll add a much more expensive, stronger condom type alongside this that is immune to breaking.)
+	
+	NPCs take their own virginity with tails...
+	
+	NPC attackType combat AI to use spells
+	Brax weapon & descriptions
+	Rewrite intro so Lilaya teaches you ice shard and gives you fireball scroll. Demonstone as well
+	
+	bat-morphs cna wear arm clothing
+	
+	update to java 8 171 - inventory rendering is off
+	
+	NPCs finding new clothes should be put on a cool down timer
+	
+	huge slave income?
+	
+	I transformed Eye Color (am a Demon) but in Slefie Overview it still states my original Eye Color.
+	
+	game loads slow - check if setActiveWorld is slow too
+	It's because of the autosave
+	
+	the Milking room says that it can fit up to 8 slaves, while the maximum number of Dairy Cows seems to be static at 5.
+	
+	Another thing related to clothing, the game doesn't remember clothing positions anymore. Unzipped jackets, pulled-down bandanas, etc. are all reset now (I'm talking outside of sex interactions). They used to be persistent once you set them up through someone's inventory, which was nice
+	
+	Lilith's mirror tooltips
+	
+	 did they somehow paste the requirements for nipple pinching onto breast groping and forgot about it?
+	 all groping actions
+	
+	if you have a companion slave with you at the public stocks it acts like they are up for use
+		Also brothel stuff
+		And auction
+	
+	when i press on my slaves it shows the information of the previous inspected slave instead of the one i'm trying to inspect
+	
+	all slaves are regenerating clothes, not just companions
+	
+	upkeep is not reset upon loading a save or starting a new game
+	
+	in the silly rose hand-holding scene, it wont let me remove my bandanna to do mouth things because "You cant remove rose's clothing in this scene"
+	
+	Restricted use of 'calm down' action to only be available when you're the dom
+	
+	Brax weapon - has 0 arcane but can use arcane
+	
+	- If you import a slave met in the Stocks and buy them in an auction, it triggers.
+- Essentially rather than just slaves you've had sex that could lead to impregnation, ALL slaves met at the stocks that the player character had sex with, or maybe all in general, will develop 'phantom pregnancy' when gaining a chance of impregnation.
+- The character's pregnancy status in the stats will be set for 'Read for birthing' upon any load but no actual pregnancy will be in place.
+- All pregnancies will disappear if not solved within a single game load.
+	
+	Perhaps Bree's personality should change when she gets TFed?
+	
+	slaves in companion mode don't reset their talk options when following the player once the day passes, so if you small talked with them a week ago and kept them in the party for that week, the option would still be locked
+	
+	appears tease pussy still has orgasm denier tied to it
+	
+	 If I Inspect one of my slaves, they'll lose affection for me, even if they have a fetish for being humiliated. Is this intended or
+	
+	is the bug where when you look at one npc and their info and inventory comes up until you directly look at a different npcs inventory or info manually (rather than just talking to them and expecting it to come up) known about
+		Both the inventory and the stats/fetishes overview are old until you specifically manage the new character's inventory
+	
+	Perhaps after doing Nyan's quest it might be nice if we could go to the warehouse and make orders of clothing, like if you want 10 black maid outfits you could pay a little extra and get them after a day
+	
+	you can transform Rose during the hand scene
+	
+	Candi seems to only be wearing a blue miniskirt not an enforcer one
+	
+	It would seem like my slave (who is currently following me around as a companion) is generating new clothes when I try to get him naked
+		Oddly enough, my follower didn't get new clothing after I gave her a set of everything
+		Then I made her an exhibitionist
+		And she regenerated the clothes like a normal character
+	
+	When you step into a empty brothel room, your companion acts as if he was working in there and offers you LEWD actions.
+	
+	Maybe you should tweak a bit the affection/obediance gain from putting slaves as milk cows when they have the lactation fetish, they have the obedience device installed, but it still a lot
+	
+	I noticed that Fire Damage and Resist isn't available as an enchant on the drinks anymore - red drinks are all crit/physical, Harpy Perfume is seduction/virility/fertility, Lilith's Gift is corruption/poison/global and purple drinks are all spell/cold - none of them have an option for specifically Fire boosts.
 	
 	- Add Submission content. (Special encounters for Imps and Slimes. Add slime TF quest. Adding content for the Imp fortresses, Gambling Den, and Bat caverns.)
 	
-	- Finish the spell system and add a few more weapons.
-		Add spell schools like perk window, with offensive and defensive trees for each
-			Spells, with several levels in each one
-			Gain points from books 
-		Weapons boost school's tree spell levels
-		Add arcane sword, spear, baton, riot shield, dagger. Add melee detection. Add hand-held crossbow, throwing spears (physical handle, arcane shaft).
-	
+	when having the cum stud fetish if no request always cum inside, if request to pullout and is free willed, ~50% chance of either one, and in incriments of somewhere around ten when the slave becomes more agreeable
 	
 	When giving Ralph some head, it seems that the mouth status is displayed backwards. ("Ralph is sucking your dick!" rather than you're sucking his
 	
@@ -104,11 +278,25 @@
 	
 	Brax affection changes
 	
+	save button under load column
+	
 	Add prostitution in alleyways (if no license, enforcers can show up)
 	
 	dirty talk action duplicated for Kate
 	
 	Check Lilaya Geisha scene.
+	
+	Is breast groping supposed to be blocked until the nipples are exposed? That makes no sense and I think it was different before. Where's my groping over clothing
+	
+	I'm so disappointed that transforming into a wolf-slime-thing doesn't let you access the relevant option with Brax. I mean, alright, it's not the same, but…
+		Also on the note of slimes, how the fuck they manage to fly with goo-wings is beyond me. I didn't expect that transformation to unlock the option.
+	
+	change the "New Game (Import)" to give you the option of starting before or after the prologue.
+	
+Trait Suggestion: Arcane Rider - Double Arcane gains during arcane storm, but lose most of the protection from arcane storm (aka automatically lose combat if lust is at 100 and have high minimum lust while outside during the storm).
+Enchantment Suggestion: Emotion Mask - Enchanted clothing piece changes the personality trait based on the enchantment. Will work best with some sort of mask when worn to 'assume' a different identity, like a neurotic introverted character could put on that enchanted mask to become an extroverted non-neurotic
+	
+	Danger accumulation, I like the normal difficulty because scaling is bethesda-teir trash difficulty for idiots. My idea is that, fighting a lot in one place as well as other actions such as rape, dismissing npcs and taking slaves should slowly ramp up the 'danger' in that area, a hidden variable that would imply the combat strength of the npcs generated there, possibly with new encounter options appearing as you increase / decrease it. The player should also be able to take actions to decrease it, for example helping the enforcers or investing big-time dosh in the community. Thus, one of the unspoken advantages of releasing rehabilitated slaves into the world would be decreasing its danger level
 	
 	------------------------------
 	AI:
@@ -221,8 +409,6 @@
 	strap-ons, dildos, anal beads or other toys
 	
 	Fix the BodyCoveringType mess
-		eye sclera
-		tongue colour
 	
 	inverted nipples
 	
@@ -1181,8 +1367,6 @@ color-able bell-collar bell with the metallic colors.
 	
 	I have it fullly expanded yet it looks like the xp bar is going outside it's boundries when nearly full (29/30) causing a scrollbar to appear at the bottom
 	
-	I noticed that Fire Damage and Resist isn't available as an enchant on the drinks anymore - red drinks are all crit/physical, Harpy Perfume is seduction/virility/fertility, Lilith's Gift is corruption/poison/global and purple drinks are all spell/cold - none of them have an option for specifically Fire boosts.
-
 	The numbers match the effects, it seems: III = +3, X = +10, etc. Confused me at first too.
 
 	you gain 7.8924758932758925782 lust
@@ -2352,9 +2536,6 @@ I'll add an upgrade for stocks in the garden at some point too; good idea
 	
 other bug is that it say that brax and kate are pregnant with my children despite it not showing on there appearance page and they don't have the pregnant effect.
 
-	
-	I'm planning on adding a special orgasm denial action, which I'll then allow NPCs with the denial fetish to use (I might split up the fetish into 'being denied' and 'denying others' variants).
-	
 	i dunno if this is a bug,so here i go:i spawn some item to dress scarlet. 2 of the item are the weapon. i dress scarlet and pick up the weapon last. here is the thing: for some reason the weapon duplicate. when i pick them it was 8 of them stacked .i spawn the item in 1 of the slave room.
 	
 	When I next work on improving the slave UI, I'll see if I can add a "quick view" icon to the slave list, which you'll be able to hover over to see their status effects. :3
@@ -7305,3 +7486,5 @@ I would also suggest the following addition :
 	Jungle: Tiger-morphs, dryads, bee & wasp-morphs, tentacle monsters, spider-morphs, driders.
 	Desert/wasteland: Lizard-morph, lamia, salamanders, dragon-morphs, wyvern-morphs.
 	Endless Sea: Mermaids, shark-morphs, orca-morphs, dolphin-morphs, octopus-morphs, squid-morphs.
+
+	Sleep

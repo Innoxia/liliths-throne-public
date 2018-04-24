@@ -28,6 +28,8 @@ import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.DamageType;
+import com.lilithsthrone.game.combat.Spell;
+import com.lilithsthrone.game.combat.SpellSchool;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.MapDisplay;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -54,7 +56,7 @@ import com.lilithsthrone.utils.WeaponRarityComparator;
 
 /**
  * @since 0.1.0
- * @version 0.2.3
+ * @version 0.2.4
  * @author Innoxia, tukaima
  */
 public class PhoneDialogue {
@@ -103,22 +105,44 @@ public class PhoneDialogue {
 				};
 				
 			} else if (index == 3) {
-				return new Response("Fetishes", "View your fetishes page.", CHARACTER_FETISHES);
+				return new Response("Spells", "View your spells page.", CHARACTER_SPELLS_EARTH);
+//					@Override
+//					public DialogueNodeOld getNextDialogue() {
+//						Map<SpellSchool, Integer> schoolMap = new HashMap<>();
+//						for(Spell s : Main.game.getPlayer().getSpells()) {
+//							schoolMap.putIfAbsent(s.getSpellSchool(), 0);
+//							schoolMap.put(s.getSpellSchool(), schoolMap.get(s.getSpellSchool())+1);
+//						}
+//						for(SpellUpgrade su : Main.game.getPlayer().getSpellUpgrades()) {
+//							schoolMap.putIfAbsent(su.getSpellSchool(), 0);
+//							schoolMap.put(su.getSpellSchool(), schoolMap.get(su.getSpellSchool())+1);
+//						}
+//						
+//						SpellSchool favouredSchool
+//						
+//						schoolMap.entrySet()
+//						
+//						return CHARACTER_SPELLS_ARCANE;
+//					}
+//				};
 				
 			} else if (index == 4) {
-				return new Response("Stats", "Take a detailed look at your stats.", CHARACTER_STATS);
+				return new Response("Fetishes", "View your fetishes page.", CHARACTER_FETISHES);
 				
 			} else if (index == 5) {
-				return new Response("Selfie", "Take a selfie to get a good view of yourself.", CHARACTER_APPEARANCE);
+				return new Response("Stats", "Take a detailed look at your stats.", CHARACTER_STATS);
 				
 			} else if (index == 6) {
+				return new Response("Selfie", "Take a selfie to get a good view of yourself.", CHARACTER_APPEARANCE);
+				
+			} else if (index == 7) {
 				if(Main.game.getPlayer().getCharactersEncountered().isEmpty()) {
 					return new Response("Contacts", "You haven't met anyone yet!", null);
 				} else {
 					return new Response("Contacts", "Even though you can't call anyone, on account of there being no phones in this world, you've still kept a record of all the people you've come into contact with.", CONTACTS);
 				}
 				
-			} else if (index == 7) {
+			} else if (index == 8) {
 				return new Response(
 						(Main.getProperties().hasValue(PropertyValue.newWeaponDiscovered)
 								|| Main.getProperties().hasValue(PropertyValue.newClothingDiscovered)
@@ -133,7 +157,7 @@ public class PhoneDialogue {
 					}
 				};
 				
-			} else if (index == 8) {
+			} else if (index == 9) {
 				if(Main.game.getPlayer().isAbleToSelfTransform()) {
 					return new Response("Transform", "Transform your body.", BodyChanging.BODY_CHANGING_CORE) {
 						@Override
@@ -526,6 +550,35 @@ public class PhoneDialogue {
 							"Critical Hit Damage:</br>"
 							+ "<b>"+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.CRITICAL_DAMAGE), Attribute.CRITICAL_DAMAGE.getUpperLimit())+"%</b>",
 							true)
+					+ getAttributeBox(Main.game.getPlayer(), Attribute.DODGE_CHANCE,
+							"Dodge Chance:</br>"
+							+ "<b>"+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DODGE_CHANCE), Attribute.DODGE_CHANCE.getUpperLimit())+"%</b>",
+							true)
+					+ getAttributeBox(Main.game.getPlayer(), Attribute.MISS_CHANCE,
+							"Miss Chance:</br>"
+							+ "<b>"+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.MISS_CHANCE), Attribute.MISS_CHANCE.getUpperLimit())+"%</b>",
+							true)
+					
+
+
+					+ getAttributeBox(Main.game.getPlayer(), Attribute.DAMAGE_UNARMED,
+							"Unarmed Damage:</br>"
+							+ "<b>"+(100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_UNARMED), Attribute.DAMAGE_UNARMED.getUpperLimit()))+"%</b>",
+							true)
+					+ getAttributeBox(Main.game.getPlayer(), Attribute.DAMAGE_SPELLS,
+							"Spell Damage:</br>"
+							+ "<b>"+(100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_SPELLS), Attribute.DAMAGE_SPELLS.getUpperLimit()))+"%</b>",
+							true)
+
+					+ getAttributeBox(Main.game.getPlayer(), Attribute.DAMAGE_MELEE_WEAPON,
+							"Melee Weapon Damage:</br>"
+							+ "<b>"+(100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_MELEE_WEAPON), Attribute.DAMAGE_MELEE_WEAPON.getUpperLimit()))+"%</b>",
+							true)
+					+ getAttributeBox(Main.game.getPlayer(), Attribute.DAMAGE_RANGED_WEAPON,
+							"Ranged Weapon Damage:</br>"
+							+ "<b>"+(100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_RANGED_WEAPON), Attribute.DAMAGE_RANGED_WEAPON.getUpperLimit()))+"%</b>",
+							true)
+					
 					
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.DAMAGE_PHYSICAL,
 							"Physical Damage:</br>"
@@ -570,15 +623,6 @@ public class PhoneDialogue {
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.RESISTANCE_LUST,
 							"Lust Resistance:</br>"
 							+ "<b>"+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.RESISTANCE_LUST), Attribute.RESISTANCE_LUST.getUpperLimit())+"%</b>",
-							true)
-
-					+ getAttributeBox(Main.game.getPlayer(), Attribute.DAMAGE_SPELLS,
-							"Spell Damage:</br>"
-							+ "<b>"+(100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_SPELLS), Attribute.DAMAGE_SPELLS.getUpperLimit()))+"%</b>",
-							true)
-					+ getAttributeBox(Main.game.getPlayer(), Attribute.RESISTANCE_SPELLS,
-							"Spell Resistance:</br>"
-							+ "<b>"+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.RESISTANCE_SPELLS), Attribute.RESISTANCE_SPELLS.getUpperLimit())+"%</b>",
 							true)
 
 				+"</div>"
@@ -1324,7 +1368,9 @@ public class PhoneDialogue {
 						+ "<b"+(owner.getAttributeValue(att)==att.getUpperLimit()?" style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'":"")+">"+owner.getAttributeValue(att)+"</b>"
 					+ "</div>"
 					+ "<div class='container-full-width' style='height:6px;padding:0;border-radius: 2px;'>"
-						+ "<div class='container-full-width' style='width:" + (owner.getAttributeValue(att)/att.getUpperLimit()) * 100 + "%; padding:0; margin:0;height:100%; background:" + att.getColour().toWebHexString() + "; float:left; border-radius: 2px;'></div>"
+						+ "<div class='container-full-width' style='width:" + (owner.getAttributeValue(att)/att.getUpperLimit()) * (att.getLowerLimit()==0?100:50) + "%; padding:0;"
+								+ " margin:0 0 0 "+(att.getLowerLimit()>=0?0:(owner.getAttributeValue(att)>0?"50%":(Math.abs(att.getLowerLimit())+owner.getAttributeValue(att))+"%"))+";"
+								+ " height:100%; background:" + (owner.getAttributeValue(att)>0?att.getColour().toWebHexString():att.getColour().getShades()[1]) + "; float:left; border-radius: 2px;'></div>"
 					+ "</div>"
 					+ "<div class='container-half-width' style='margin:0;background:#292929; padding:0; text-align:center;'>"
 							+ "Base: "+(owner.getBaseAttributeValue(att) > 0 
@@ -1901,7 +1947,410 @@ public class PhoneDialogue {
 			return MapDisplay.PHONE;
 		}
 	};
+	
+	public static final DialogueNodeOld CHARACTER_SPELLS_ARCANE = new DialogueNodeOld("Arcane Spells", "", true) {
 
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getHeaderContent() {
+			UtilText.nodeContentSB.setLength(0);
+
+			UtilText.nodeContentSB.append(
+					"<div class='container-full-width' style='width:100%; padding:0; margin:0;'>"
+						+"<div class='container-full-width' style='width:50%; padding:0; margin:0;'>"
+							+Spell.getSpellTreesDisplay(SpellSchool.ARCANE, Main.game.getPlayer())
+						+"</div>"
+						+"<div class='container-full-width' style='width:50%; padding:8px; margin:0;'>"
+							+"<p>"
+								+ "Focused on harnessing the most pure form of arcane energy, the spells in the school of Arcane are concerned with either influencing a person's lust, or performing extremely powerful miscellaneous abilities."
+							+ "</p>"
+							+ "<p>"
+								+ "As the only publicly-available spells are the ones associated with influencing lust, the school of Arcane is overlooked by most demons, as their physical charms are more than adequate on this front."
+								+ " The vast majority of the students of the school of Arcane can be found in the ranks of the cult of Lilith, who view this school as the one favoured by Lilith herself."
+							+ "</p>"
+							+ "<p>"
+								+ "Once a prospective student has a basic grasp of Arcane spells, they will find that they're able to feel the ebb and flow of the arcane currents woven throughout the world,"
+									+ " and will be able to accurately predict when the next arcane storm will break."
+							+ "</p>"
+						+"</div>"
+						+ "<div class='container-full-width inner' style='text-align:center;'>"
+							+ "[style.boldArcane(School of Arcane ability:)] "
+								+(!Main.game.getPlayer().hasAnySpellInSchool(SpellSchool.EARTH)
+									?"[style.colourDisabled(Know accurate time until next arcane storm.)]</br>(Requires knowing at least one Arcane school spell to unlock.)"
+									:"[style.colourGood(Know accurate time until next arcane storm.)]")
+						+ "</div>"
+					+"</div>");
+			
+			return UtilText.nodeContentSB.toString();
+		}
+		
+		@Override
+		public String getContent(){
+			return "";
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("Earth", "View your spells and upgrades in the school of Earth.", CHARACTER_SPELLS_EARTH);
+				
+			} else if(index==2) {
+				return new Response("Water", "View your spells and upgrades in the school of Water.", CHARACTER_SPELLS_WATER);
+				
+			} else if(index==3) {
+				return new Response("Air", "View your spells and upgrades in the school of Air.", CHARACTER_SPELLS_AIR);
+				
+			} else if(index==4) {
+				return new Response("Fire", "View your spells and upgrades in the school of Fire.", CHARACTER_SPELLS_FIRE);
+				
+			} else if(index==5) {
+				return new Response("Arcane", "You are already viewing your Arcane spells!", null);
+				
+			} else if(index==6) {
+				return new Response("Reset Arcane", "Reset your Arcane upgrades, refunding all points spent. Your spells will not be reset.", CHARACTER_SPELLS_ARCANE) {
+					@Override
+					public void effects() {
+						Main.game.getPlayer().resetSpellUpgrades(SpellSchool.ARCANE);
+					}
+				};
+				
+			} else if (index == 0) {
+				return new Response("Back", "Return to your phone's main menu.", MENU);
+			
+			} else {
+				return null;
+			}
+		}
+
+		@Override
+		public MapDisplay getMapDisplay() {
+			return MapDisplay.PHONE;
+		}
+	};
+	
+	public static final DialogueNodeOld CHARACTER_SPELLS_EARTH = new DialogueNodeOld("Earth Spells", "", true) {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getHeaderContent() {
+			UtilText.nodeContentSB.setLength(0);
+
+			UtilText.nodeContentSB.append(
+					"<div class='container-full-width' style='width:100%; padding:0; margin:0;'>"
+						+"<div class='container-full-width' style='width:50%; padding:0; margin:0;'>"
+							+Spell.getSpellTreesDisplay(SpellSchool.EARTH, Main.game.getPlayer())
+						+"</div>"
+						+"<div class='container-full-width' style='width:50%; padding:8px; margin:0;'>"
+							+"<p>"
+								+ "Spells in the school of Earth are split between creating and manipulating either pure force, or solid objects."
+							+ "</p>"
+							+ "<p>"
+								+ "As with all schools of the arcane, the vast majority of Earth practitioners are demons, and can earn a considerable salary by using their telekenetic powers to aid with construction and heavy lifting."
+								+ " Perhaps due to these lucrative applications, the school of Earth is the most widely-practised and popular of all the arcane schools."
+							+ "</p>"
+							+ "<p>"
+								+ "A prerequisite to harnessing Earth spells is the ability to freely manipulate solid, non-organic matter."
+								+ " Easily learned by anyone possessing a demon-strength aura, and outlined in the introduction of all Earth spell books, this ability allows the practitioner to change the colour and material of any object."
+							+ "</p>"
+						+"</div>"
+						+ "<div class='container-full-width inner' style='text-align:center;'>"
+							+ "[style.boldEarth(School of Earth ability:)] "
+								+(!Main.game.getPlayer().hasAnySpellInSchool(SpellSchool.EARTH)
+									?"[style.colourDisabled(Dye clothing without a dye-brush.)]</br>(Requires knowing at least one Earth school spell to unlock.)"
+									:"[style.colourGood(Dye clothing without a dye-brush.)]")
+						+ "</div>"
+					+"</div>");
+			
+			return UtilText.nodeContentSB.toString();
+		}
+		
+		@Override
+		public String getContent(){
+			return "";
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("Earth", "You are already viewing your Earth spells.", null);
+				
+			} else if(index==2) {
+				return new Response("Water", "View your spells and upgrades in the school of Water.", CHARACTER_SPELLS_WATER);
+				
+			} else if(index==3) {
+				return new Response("Air", "View your spells and upgrades in the school of Air.", CHARACTER_SPELLS_AIR);
+				
+			} else if(index==4) {
+				return new Response("Fire", "View your spells and upgrades in the school of Fire.", CHARACTER_SPELLS_FIRE);
+				
+			} else if(index==5) {
+				return new Response("Arcane", "View your spells and upgrades in the school of Arcane.", CHARACTER_SPELLS_ARCANE);
+				
+			} else  if(index==6) {
+				return new Response("Reset Earth", "Reset your Earth upgrades, refunding all points spent. Your spells will not be reset.", CHARACTER_SPELLS_EARTH) {
+					@Override
+					public void effects() {
+						Main.game.getPlayer().resetSpellUpgrades(SpellSchool.EARTH);
+					}
+				};
+				
+			} else if (index == 0) {
+				return new Response("Back", "Return to your phone's main menu.", MENU);
+			
+			} else {
+				return null;
+			}
+		}
+
+		@Override
+		public MapDisplay getMapDisplay() {
+			return MapDisplay.PHONE;
+		}
+	};
+	
+	public static final DialogueNodeOld CHARACTER_SPELLS_WATER = new DialogueNodeOld("Water Spells", "", true) {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getHeaderContent() {
+			UtilText.nodeContentSB.setLength(0);
+
+			UtilText.nodeContentSB.append(
+					"<div class='container-full-width' style='width:100%; padding:0; margin:0;'>"
+						+"<div class='container-full-width' style='width:50%; padding:0; margin:0;'>"
+							+Spell.getSpellTreesDisplay(SpellSchool.WATER, Main.game.getPlayer())
+						+"</div>"
+						+"<div class='container-full-width' style='width:50%; padding:8px; margin:0;'>"
+							+"<p>"
+								+ "Spells in the school of Water are focused on infusing liquids with arcane energy in order to manipulate their movement and temperature."
+							+ "</p>"
+							+ "<p>"
+								+ "As with all schools of the arcane, the vast majority of Water practitioners are demons, and mainly use their spells to assist with the maintenance of waterways, and to repair and install plumbing."
+								+ " Despite the lack of glamour, a student of Water can complete these tasks in a fraction of the time that it would take a regular person to do manually, allowing them to earn a considerable amount of money for their work."
+							+ "</p>"
+							+ "<p>"
+								+ "Students of the school of Water are able to effortlessly manipulate all fluids, allowing them to enchant any fluid-related potions without needing to expend arcane essences."
+							+ "</p>"
+						+"</div>"
+						+ "<div class='container-full-width inner' style='text-align:center;'>"
+							+ "[style.boldWater(School of Water ability:)] "
+								+(!Main.game.getPlayer().hasAnySpellInSchool(SpellSchool.WATER)
+									?"[style.colourDisabled(All fluid-related enchantments are free.)]</br>(Requires knowing at least one Water school spell to unlock.)"
+									:"[style.colourGood(All fluid-related enchantments are free.)]")
+						+ "</div>"
+					+"</div>");
+			
+			return UtilText.nodeContentSB.toString();
+		}
+		
+		@Override
+		public String getContent(){
+			return "";
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("Earth", "View your spells and upgrades in the school of Earth.", CHARACTER_SPELLS_EARTH);
+				
+			} else if(index==2) {
+				return new Response("Water", "You are already viewing your Water spells!", null);
+				
+			} else if(index==3) {
+				return new Response("Air", "View your spells and upgrades in the school of Air.", CHARACTER_SPELLS_AIR);
+				
+			} else if(index==4) {
+				return new Response("Fire", "View your spells and upgrades in the school of Fire.", CHARACTER_SPELLS_FIRE);
+				
+			} else if(index==5) {
+				return new Response("Arcane", "View your spells and upgrades in the school of Arcane.", CHARACTER_SPELLS_ARCANE);
+				
+			} else if(index==6) {
+				return new Response("Reset Water", "Reset your Water upgrades, refunding all points spent. Your spells will not be reset.", CHARACTER_SPELLS_WATER) {
+					@Override
+					public void effects() {
+						Main.game.getPlayer().resetSpellUpgrades(SpellSchool.WATER);
+					}
+				};
+				
+			} else if (index == 0) {
+				return new Response("Back", "Return to your phone's main menu.", MENU);
+			
+			} else {
+				return null;
+			}
+		}
+
+		@Override
+		public MapDisplay getMapDisplay() {
+			return MapDisplay.PHONE;
+		}
+	};
+	
+	public static final DialogueNodeOld CHARACTER_SPELLS_AIR = new DialogueNodeOld("Air Spells", "", true) {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getHeaderContent() {
+			UtilText.nodeContentSB.setLength(0);
+
+			UtilText.nodeContentSB.append(
+					"<div class='container-full-width' style='width:100%; padding:0; margin:0;'>"
+						+"<div class='container-full-width' style='width:50%; padding:0; margin:0;'>"
+							+Spell.getSpellTreesDisplay(SpellSchool.AIR, Main.game.getPlayer())
+						+"</div>"
+						+"<div class='container-full-width' style='width:50%; padding:8px; margin:0;'>"
+							+"<p>"
+								+ "The school of air focuses on spells that allow the caster to manipulate the temperature and movement of gases."
+							+ "</p>"
+							+ "<p>"
+								+ "As with all schools of the arcane, the vast majority of Air practitioners are demons, but, with not many opportunities to use their spells in day-to-day business,"
+									+ " their numbers are considerably lower than those of the schools of Earth and Water."
+								+ " The only regular application of Air spells is to increase or decrease the temperature of rooms, allowing the occupants to escape the cold of winter or the heat of summer."
+							+ "</p>"
+							+ "<p>"
+								+ "Students of the school of Air are able to effortlessly control the temperature of air around them, making sure that they're never too hot or too cold."
+							+ "</p>"
+						+"</div>"
+						+ "<div class='container-full-width inner' style='text-align:center;'>"
+							+ "[style.boldAir(School of Air ability:)] "
+								+(!Main.game.getPlayer().hasAnySpellInSchool(SpellSchool.AIR)
+									?"[style.colourDisabled(Passive energy and arcane regeneration is doubled.)]</br>(Requires knowing at least one Air school spell to unlock.)"
+									:"[style.colourGood(Passive energy and arcane regeneration is doubled.)]")
+						+ "</div>"
+					+"</div>");
+			
+			return UtilText.nodeContentSB.toString();
+		}
+		
+		@Override
+		public String getContent(){
+			return "";
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("Earth", "View your spells and upgrades in the school of Earth.", CHARACTER_SPELLS_EARTH);
+				
+			} else if(index==2) {
+				return new Response("Water", "View your spells and upgrades in the school of Water.", CHARACTER_SPELLS_WATER);
+				
+			} else if(index==3) {
+				return new Response("Air", "You are already viewing your Air spells!", null);
+				
+			} else if(index==4) {
+				return new Response("Fire", "View your spells and upgrades in the school of Fire.", CHARACTER_SPELLS_FIRE);
+				
+			} else if(index==5) {
+				return new Response("Arcane", "View your spells and upgrades in the school of Arcane.", CHARACTER_SPELLS_ARCANE);
+				
+			} else if(index==6) {
+				return new Response("Reset Air", "Reset your Air upgrades, refunding all points spent. Your spells will not be reset.", CHARACTER_SPELLS_AIR) {
+					@Override
+					public void effects() {
+						Main.game.getPlayer().resetSpellUpgrades(SpellSchool.AIR);
+					}
+				};
+				
+			} else if (index == 0) {
+				return new Response("Back", "Return to your phone's main menu.", MENU);
+			
+			} else {
+				return null;
+			}
+		}
+
+		@Override
+		public MapDisplay getMapDisplay() {
+			return MapDisplay.PHONE;
+		}
+	};
+	
+	public static final DialogueNodeOld CHARACTER_SPELLS_FIRE = new DialogueNodeOld("Fire Spells", "", true) {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getHeaderContent() {
+			UtilText.nodeContentSB.setLength(0);
+
+			UtilText.nodeContentSB.append(
+					"<div class='container-full-width' style='width:100%; padding:0; margin:0;'>"
+						+"<div class='container-full-width' style='width:50%; padding:0; margin:0;'>"
+							+Spell.getSpellTreesDisplay(SpellSchool.FIRE, Main.game.getPlayer())
+						+"</div>"
+						+"<div class='container-full-width' style='width:50%; padding:8px; margin:0;'>"
+							+"<p>"
+								+ "The school of fire, much as its name would suggest, is purely focused on summoning arcane fire."
+							+ "</p>"
+							+ "<p>"
+								+ "As almost all practical uses of arcane fire are in combat situations, the school of Fire has a rather poor reputation in demon society, which regards it as distasteful and crude."
+								+ " Due to this, the only demons who choose to study the school of Fire are either those interested in arcane research, or those who anticipate spending a lot of their time fighting."
+							+ "</p>"
+							+ "<p>"
+								+ "Students of the school of Fire are able to summon a floating ball of arcane fire at will, which allows them to travel through dark areas without need of a torch."
+							+ "</p>"
+						+"</div>"
+						+ "<div class='container-full-width inner' style='text-align:center;'>"
+							+ "[style.boldFire(School of Fire ability:)] "
+								+(!Main.game.getPlayer().hasAnySpellInSchool(SpellSchool.FIRE)
+									?"[style.colourDisabled(Immune to darkness status effect.)]</br>(Requires knowing at least one Fire school spell to unlock.)"
+									:"[style.colourGood(Immune to darkness status effect.)]")
+						+ "</div>"
+					+"</div>");
+			
+			return UtilText.nodeContentSB.toString();
+		}
+		
+		@Override
+		public String getContent(){
+			return "";
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("Earth", "View your spells and upgrades in the school of Earth.", CHARACTER_SPELLS_EARTH);
+				
+			} else if(index==2) {
+				return new Response("Water", "View your spells and upgrades in the school of Water.", CHARACTER_SPELLS_WATER);
+				
+			} else if(index==3) {
+				return new Response("Air", "View your spells and upgrades in the school of Air.", CHARACTER_SPELLS_AIR);
+				
+			} else if(index==4) {
+				return new Response("Fire", "You are already viewing your Fire spells!", null);
+				
+			} else if(index==5) {
+				return new Response("Arcane", "View your spells and upgrades in the school of Arcane.", CHARACTER_SPELLS_ARCANE);
+				
+			} else if(index==6) {
+				return new Response("Reset Fire", "Reset your Fire upgrades, refunding all points spent. Your spells will not be reset.", CHARACTER_SPELLS_FIRE) {
+					@Override
+					public void effects() {
+						Main.game.getPlayer().resetSpellUpgrades(SpellSchool.FIRE);
+					}
+				};
+				
+			} else if (index == 0) {
+				return new Response("Back", "Return to your phone's main menu.", MENU);
+			
+			} else {
+				return null;
+			}
+		}
+
+		@Override
+		public MapDisplay getMapDisplay() {
+			return MapDisplay.PHONE;
+		}
+	};
+	
 //	private static boolean confirmReset = false;
 	public static final DialogueNodeOld CHARACTER_FETISHES = new DialogueNodeOld("Desires & Fetishes", "", true) {
 		private static final long serialVersionUID = 1L;

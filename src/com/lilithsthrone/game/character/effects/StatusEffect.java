@@ -34,6 +34,8 @@ import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.combat.DamageType;
+import com.lilithsthrone.game.combat.Spell;
+import com.lilithsthrone.game.combat.SpellUpgrade;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
@@ -88,11 +90,6 @@ public enum StatusEffect {
 		}
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return PhysiqueLevel.getPhysiqueLevelFromValue(target.getAttributeValue(Attribute.MAJOR_PHYSIQUE)) == PhysiqueLevel.ZERO_WEAK;
 		}
@@ -123,11 +120,6 @@ public enum StatusEffect {
 				return "You have an average level of physical fitness for your body size.";
 			else
 				return UtilText.parse(target, "[npc.Name] has an average level of physical fitness for [npc.her] body size.");
-		}
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
 		}
 
 		@Override
@@ -165,11 +157,6 @@ public enum StatusEffect {
 		}
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return PhysiqueLevel.getPhysiqueLevelFromValue(target.getAttributeValue(Attribute.MAJOR_PHYSIQUE)) == PhysiqueLevel.TWO_STRONG;
 		}
@@ -204,11 +191,6 @@ public enum StatusEffect {
 		}
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return PhysiqueLevel.getPhysiqueLevelFromValue(target.getAttributeValue(Attribute.MAJOR_PHYSIQUE)) == PhysiqueLevel.THREE_POWERFUL;
 		}
@@ -240,11 +222,6 @@ public enum StatusEffect {
 				return "You have an exceptional level of fitness, and there are few who could ever hope to rival your raw physical power.";
 			else
 				return UtilText.parse(target, "[npc.Name] has an exceptional level of fitness, and there are few who could ever hope to rival [npc.her] raw physical power.");
-		}
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
 		}
 
 		@Override
@@ -283,11 +260,6 @@ public enum StatusEffect {
 		}
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return PhysiqueLevel.getPhysiqueLevelFromValue(target.getAttributeValue(Attribute.MAJOR_PHYSIQUE)) == PhysiqueLevel.FIVE_HERCULEAN;
 		}
@@ -311,11 +283,6 @@ public enum StatusEffect {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Due to the fact that the arcane doesn't exist in this world, your ability to cast spells is non-existent.";
-		}
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
 		}
 
 		@Override
@@ -355,11 +322,6 @@ public enum StatusEffect {
 		}
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return IntelligenceLevel.getIntelligenceLevelFromValue(target.getAttributeValue(Attribute.MAJOR_ARCANE)) == IntelligenceLevel.ZERO_AIRHEAD && Main.game.isInNewWorld();
 		}
@@ -375,8 +337,7 @@ public enum StatusEffect {
 			"attIntelligence1",
 			Colour.INTELLIGENCE_STAGE_ONE,
 			true,
-			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.SPELL_LEVEL, 1f)),
+			null,
 			Util.newArrayListOfValues(
 					new ListValue<String>("<b style='color: " + Colour.GENERIC_TERRIBLE.toWebHexString() + "'>Surrender in combat at maximum lust</b>"))) {
 		
@@ -392,11 +353,6 @@ public enum StatusEffect {
 			} else {
 				return UtilText.parse(target, "[npc.Name] has a small amount of ability with the arcane; equal to that of a common race who's undergone extensive training.");
 			}
-		}
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
 		}
 
 		@Override
@@ -416,7 +372,6 @@ public enum StatusEffect {
 			Colour.INTELLIGENCE_STAGE_TWO,
 			true,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.SPELL_LEVEL, 2f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, 10f),
 					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 10f)),
 			null) {
@@ -436,11 +391,6 @@ public enum StatusEffect {
 		}
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return IntelligenceLevel.getIntelligenceLevelFromValue(target.getAttributeValue(Attribute.MAJOR_ARCANE)) == IntelligenceLevel.TWO_SMART;
 		}
@@ -457,7 +407,6 @@ public enum StatusEffect {
 			Colour.INTELLIGENCE_STAGE_THREE,
 			true,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.SPELL_LEVEL, 3f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, 20f),
 					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 20f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_FIRE, 5f),
@@ -480,11 +429,6 @@ public enum StatusEffect {
 		}
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return IntelligenceLevel.getIntelligenceLevelFromValue(target.getAttributeValue(Attribute.MAJOR_ARCANE)) == IntelligenceLevel.THREE_BRAINY;
 		}
@@ -501,7 +445,6 @@ public enum StatusEffect {
 			Colour.INTELLIGENCE_STAGE_FOUR,
 			true,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.SPELL_LEVEL, 4f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, 30f),
 					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 30f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_FIRE, 15f),
@@ -525,11 +468,6 @@ public enum StatusEffect {
 		}
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return IntelligenceLevel.getIntelligenceLevelFromValue(target.getAttributeValue(Attribute.MAJOR_ARCANE)) == IntelligenceLevel.FOUR_GENIUS;
 		}
@@ -546,7 +484,6 @@ public enum StatusEffect {
 			Colour.INTELLIGENCE_STAGE_FIVE,
 			true,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.SPELL_LEVEL, 5f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, 100f),
 					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 100f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_FIRE, 75f),
@@ -567,11 +504,6 @@ public enum StatusEffect {
 			} else {
 				return "Liltih's arcane ability is uniquely powerful, able to !SPOILERS!";
 			}
-		}
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
 		}
 
 		@Override
@@ -607,11 +539,6 @@ public enum StatusEffect {
 			} else {
 				return UtilText.parse(owner, "[npc.Name] is completely uncorrupted, and aside from performing the most conservative of sexual acts with the person [npc.she] loves, [npc.she]'s not really interested in sex at all.");
 			}
-		}
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
 		}
 
 		@Override
@@ -651,11 +578,6 @@ public enum StatusEffect {
 		}
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return CorruptionLevel.getCorruptionLevelFromValue(target.getAttributeValue(Attribute.MAJOR_CORRUPTION)) == CorruptionLevel.ONE_VANILLA;
 		}
@@ -688,11 +610,6 @@ public enum StatusEffect {
 			} else {
 				return UtilText.parse(owner, "[npc.Name] has a dirty look in [npc.her] eyes, and you often notice [npc.her] gaze lingering hungrily over your body.");
 			}
-		}
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
 		}
 
 		@Override
@@ -748,11 +665,6 @@ public enum StatusEffect {
 							+ " but because [npc.she] doesn't have any sexual organs, there's not much that's happened.");
 				}
 			}
-		}
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
 		}
 
 		@Override
@@ -815,11 +727,6 @@ public enum StatusEffect {
 		}
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return CorruptionLevel.getCorruptionLevelFromValue(target.getAttributeValue(Attribute.MAJOR_CORRUPTION)) == CorruptionLevel.FOUR_LUSTFUL;
 		}
@@ -858,11 +765,6 @@ public enum StatusEffect {
 		}
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return CorruptionLevel.getCorruptionLevelFromValue(target.getAttributeValue(Attribute.MAJOR_CORRUPTION)) == CorruptionLevel.FIVE_CORRUPT;
 		}
@@ -894,11 +796,6 @@ public enum StatusEffect {
 				return "You aren't aroused at all.";
 			else
 				return UtilText.parse(target, "[npc.Name] isn't aroused at all.");
-		}
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
 		}
 
 		@Override
@@ -934,11 +831,6 @@ public enum StatusEffect {
 		}
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return ArousalLevel.getArousalLevelFromValue(target.getAttributeValue(Attribute.AROUSAL)) == ArousalLevel.ONE_TURNED_ON;
 		}
@@ -971,11 +863,6 @@ public enum StatusEffect {
 		}
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return ArousalLevel.getArousalLevelFromValue(target.getAttributeValue(Attribute.AROUSAL)) == ArousalLevel.TWO_EXCITED;
 		}
@@ -1005,11 +892,6 @@ public enum StatusEffect {
 				return "Things are starting to get pretty heated. You can focus on nothing but the thought of sex.";
 			else
 				return UtilText.parse(target, "[npc.Name] can no longer focus on anything but sex.");
-		}
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
 		}
 
 		@Override
@@ -1046,11 +928,6 @@ public enum StatusEffect {
 		}
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return ArousalLevel.getArousalLevelFromValue(target.getAttributeValue(Attribute.AROUSAL)) == ArousalLevel.FOUR_PASSIONATE;
 		}
@@ -1081,11 +958,6 @@ public enum StatusEffect {
 				return "You feel your climax building. You know that it's only going to be a matter of seconds before you orgasm!";
 			else
 				return UtilText.parse(owner, "[npc.Name] is about to reach [npc.her] climax!");
-		}
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
 		}
 
 		@Override
@@ -1128,11 +1000,6 @@ public enum StatusEffect {
 		}
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return LustLevel.getLustLevelFromValue(target.getAttributeValue(Attribute.LUST)) == LustLevel.ZERO_COLD;
 		}
@@ -1167,11 +1034,6 @@ public enum StatusEffect {
 		@Override
 		public String getDescription(GameCharacter target) {
 			return LustLevel.ONE_HORNY.getStatusEffectDescription(Sex.isConsensual(), target);
-		}
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
 		}
 
 		@Override
@@ -1212,11 +1074,6 @@ public enum StatusEffect {
 		}
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return LustLevel.getLustLevelFromValue(target.getAttributeValue(Attribute.LUST)) == LustLevel.TWO_AMOROUS;
 		}
@@ -1251,11 +1108,6 @@ public enum StatusEffect {
 		@Override
 		public String getDescription(GameCharacter target) {
 			return LustLevel.THREE_LUSTFUL.getStatusEffectDescription(Sex.isConsensual(), target);
-		}
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
 		}
 
 		@Override
@@ -1296,11 +1148,6 @@ public enum StatusEffect {
 		}
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return LustLevel.getLustLevelFromValue(target.getAttributeValue(Attribute.LUST)) == LustLevel.FOUR_IMPASSIONED;
 		}
@@ -1338,11 +1185,6 @@ public enum StatusEffect {
 		}
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return LustLevel.getLustLevelFromValue(target.getAttributeValue(Attribute.LUST)) == LustLevel.FIVE_BURNING;
 		}
@@ -1367,11 +1209,6 @@ public enum StatusEffect {
 			Util.newArrayListOfValues(new ListValue<String>("<b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>"))) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			return "There's a strange atmosphere surrounding the museum this evening, and you inexplicably find yourself feeling incredibly aroused...";
 		}
@@ -1389,11 +1226,6 @@ public enum StatusEffect {
 			false,
 			null,
 			Util.newArrayListOfValues(new ListValue<String>("<b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>"))) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -1429,11 +1261,6 @@ public enum StatusEffect {
 			Util.newArrayListOfValues(new ListValue<String>("<b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>"))) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			return "The weather seems to change at a moment's notice, and is currently overcast, with a chance of rain."
 					+ " Although there's no sign of a storm at the moment, you can still feel the effects of the arcane manifesting in the form of an increased libido.";
@@ -1460,11 +1287,6 @@ public enum StatusEffect {
 			false,
 			null,
 			Util.newArrayListOfValues(new ListValue<String>("<b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>"))) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -1570,11 +1392,6 @@ public enum StatusEffect {
 			Util.newArrayListOfValues(new ListValue<String>("<b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>"))) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			return "A roiling mass of thick black storm clouds hang heavy in the skies above you."
 					+ " Flashes of pink and purple energy can be seen just beneath their surface, and you realise that an arcane storm is going to break out at any moment.";
@@ -1661,11 +1478,6 @@ public enum StatusEffect {
 					new ListValue<String>("<b style='color: "+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>Enhanced libido</b>"),
 					new ListValue<String>("<b style='color: "+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>Overwhelming Lust</b>"),
 					new ListValue<String>("[style.boldExcellent(Double)] <b style='color: "+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>Essence gains</b> from sex & combat"))) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -1759,11 +1571,6 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if(target.isPlayer())
 				return "You're a human, just like every other person in this world.";
@@ -1787,11 +1594,6 @@ public enum StatusEffect {
 			true,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 20f)),
 			null) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -1820,11 +1622,6 @@ public enum StatusEffect {
 			true,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 100f)),
 			null) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -1857,11 +1654,6 @@ public enum StatusEffect {
 					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 10f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, 75f)),
 			Util.newArrayListOfValues(new ListValue<String>("<b style='color: "+ Colour.TRANSFORMATION_GENERIC.toWebHexString()+ ";'>Can morph body at will</b>"))) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -1897,11 +1689,6 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if (target.isPlayer()) {
 				return "You find that your impish form has a deep, insatiable craving for sex...";
@@ -1934,11 +1721,6 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if (target.isPlayer())
 				return "You always have lots of energy, and get excited about new things very easily.";
@@ -1967,11 +1749,6 @@ public enum StatusEffect {
 			true,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 10f)),
 			null) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -2005,11 +1782,6 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if (target.isPlayer())
 				return "Your body is incredibly agile, and you possess lightning reflexes.";
@@ -2041,11 +1813,6 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if (target.isPlayer())
 				return "Your body is incredibly agile, and you possess lightning reflexes.";
@@ -2075,11 +1842,6 @@ public enum StatusEffect {
 					new Value<Attribute, Float>(Attribute.DAMAGE_POISON, 15f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_POISON, 15f)),
 			null) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -2114,11 +1876,6 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if (target.isPlayer()) {
 				return "Your body is adapted for producing as many offspring as possible.";
@@ -2150,11 +1907,6 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if (target.isPlayer()) {
 				return "You are a bat-morph! (Placeholder until I add unique 'echolocation' ability.)";
@@ -2184,11 +1936,6 @@ public enum StatusEffect {
 			true,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -5f), new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 15f)),
 			null) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -2223,11 +1970,6 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if (target.isPlayer()) {
 				return "Your reindeer-like body grants you significant resistance to the cold, as well as an increase in strength and fitness.";
@@ -2257,11 +1999,6 @@ public enum StatusEffect {
 			true,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -5f), new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 15f)),
 			null) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -2295,11 +2032,6 @@ public enum StatusEffect {
 			new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 5f),
 			new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 10f)),
 			null) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -2336,11 +2068,6 @@ public enum StatusEffect {
 					new ListValue<String>("<b style='color: "+ Colour.GENERIC_SEX.toWebHexString()+ ";'>Impregnated through any orifice</b>"))) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			return "Due to their soft and morphable bodies, slimes have an extremely high resistance to physical damage, but they can't really do much physical damage either."
 					+ " They can morph their bodies to seem extremely attractive to their opponents.";
@@ -2365,11 +2092,6 @@ public enum StatusEffect {
 			true,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 25f)),
 			null) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -2404,11 +2126,6 @@ public enum StatusEffect {
 							"<b>-50%</b> <b style='color:"+ Colour.DAMAGE_TYPE_MANA.toWebHexString()+ ";'>Aura damage</b> from <b style='color:"+ Colour.FEMININE.toWebHexString()+ ";'>feminine opponents</b>"))) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if(target.isPlayer()) {
 				return "You are sexually attracted to males and masculinity.";
@@ -2439,11 +2156,6 @@ public enum StatusEffect {
 							"<b>-50%</b> <b style='color:"+ Colour.DAMAGE_TYPE_MANA.toWebHexString()+ ";'>Aura damage</b> from <b style='color:"+ Colour.MASCULINE.toWebHexString()+ ";'>masculine opponents</b>"))) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if(target.isPlayer()) {
 				return "You are sexually attracted to females and femininity.";
@@ -2470,11 +2182,6 @@ public enum StatusEffect {
 			true,
 			null,
 			null) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -2509,11 +2216,6 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			return "Some of your clothes are too feminine for your masculine figure."
 					+ " You find yourself incredibly embarrassed by wearing such clothing, causing you to struggle to think clearly.";
@@ -2542,11 +2244,6 @@ public enum StatusEffect {
 			false,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -5f)),
 			null) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -2875,11 +2572,6 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if(target!=null) {
 				if(target.isPlayer()) {
@@ -2892,10 +2584,7 @@ public enum StatusEffect {
 			}
 		}
 
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return false;
-		}
+		
 	},
 	
 	WELL_RESTED_BOOSTED(
@@ -2911,11 +2600,6 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if(target!=null) {
 				if(target.isPlayer()) {
@@ -2928,10 +2612,7 @@ public enum StatusEffect {
 			}
 		}
 
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return false;
-		}
+		
 	},
 	
 	OVERWORKED(
@@ -2944,11 +2625,6 @@ public enum StatusEffect {
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -15f),
 					new Value<Attribute, Float>(Attribute.MANA_MAXIMUM, -50f)),
 			Util.newArrayListOfValues(new ListValue<String>("[style.boldBad(-0.1)] <b style='color: " + Colour.AFFECTION.toWebHexString() + ";'>Affection per hour while at work</b>"))) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -3102,10 +2778,7 @@ public enum StatusEffect {
 			return true;
 		}
 
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return false;
-		}
+		
 	},
 	
 	DRUNK_1(
@@ -3336,11 +3009,6 @@ public enum StatusEffect {
 		}
 		
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if(target!=null) {
 				if(target.isPlayer()) {
@@ -3380,11 +3048,6 @@ public enum StatusEffect {
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -2f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, -2f)),
 			null) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -3443,11 +3106,6 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if(target!=null) {
 				StringBuilder sb = new StringBuilder();
@@ -3502,11 +3160,6 @@ public enum StatusEffect {
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -10f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, -10f)),
 			null) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -3565,11 +3218,6 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if(target!=null) {
 				StringBuilder sb = new StringBuilder();
@@ -3626,11 +3274,6 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if(target!=null) {
 				StringBuilder sb = new StringBuilder();
@@ -3681,11 +3324,6 @@ public enum StatusEffect {
 			true,
 			null,
 			null) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -3864,10 +3502,7 @@ public enum StatusEffect {
 			}
 		}
 
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return false;
-		}
+		
 		
 		@Override
 		public boolean isSexEffect() {
@@ -3882,11 +3517,6 @@ public enum StatusEffect {
 			true,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 5f)),
 			null) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -3969,10 +3599,7 @@ public enum StatusEffect {
 			}
 		}
 
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return false;
-		}
+		
 		
 		@Override
 		public boolean isSexEffect() {
@@ -3987,11 +3614,6 @@ public enum StatusEffect {
 			true,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 10f)),
 			null) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -4083,10 +3705,7 @@ public enum StatusEffect {
 			}
 		}
 
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return false;
-		}
+		
 		
 		@Override
 		public boolean isSexEffect() {
@@ -4101,11 +3720,6 @@ public enum StatusEffect {
 			true,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 15f)),
 			null) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -4166,19 +3780,11 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			return "After consuming a Vixen's Virility pill, your body's fertility and virility have been temporarily boosted.";
 		}
 
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return false;
-		}
+		
 		
 		@Override
 		public boolean isSexEffect() {
@@ -4198,20 +3804,12 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			return "After consuming a Promiscuity Pill, your body's fertility and virility has been temporarily reduced."
 					+ " This is a <b>preventative</b> measure, and will not alter the outcome of any unprotected sex you had before taking the pill!";
 		}
 
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return false;
-		}
+		
 		
 		@Override
 		public boolean isSexEffect() {
@@ -5168,11 +4766,6 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if(target.isPlayer()) {
 				return "After being filled with a considerable amount of cum, your belly is now a little swollen."
@@ -5210,11 +4803,6 @@ public enum StatusEffect {
 			true,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -5f)),
 			null) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -5257,11 +4845,6 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if(target.isPlayer()) {
 				return "After being filled with a colossal amount of cum, your belly is now massively over-inflated."
@@ -5300,11 +4883,6 @@ public enum StatusEffect {
 			true,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -2f)),
 			null) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -5346,11 +4924,6 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if(target.isPlayer()) {
 				return "After being filled with a huge amount of cum, your [pc.breasts] are now noticeably inflated."
@@ -5389,11 +4962,6 @@ public enum StatusEffect {
 			true,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -10f)),
 			null) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -5438,11 +5006,6 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if(target.isPlayer()) {
 				return "You've recently had a sexual encounter in which you didn't manage to orgasm."
@@ -5458,10 +5021,7 @@ public enum StatusEffect {
 			return "";
 		}
 
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return false;
-		}
+		
 		
 		@Override
 		public boolean isSexEffect() {
@@ -5477,11 +5037,6 @@ public enum StatusEffect {
 			false,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -50f)),
 			null) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -5510,11 +5065,6 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if(target.isPlayer()) {
 				return "Due to a recent orgasm, your arcane aura has been temporarily strengthened."
@@ -5530,10 +5080,7 @@ public enum StatusEffect {
 			return "";
 		}
 
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return false;
-		}
+		
 		
 		@Override
 		public boolean isSexEffect() {
@@ -5549,11 +5096,6 @@ public enum StatusEffect {
 			false,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -4f)),
 			null) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -5584,11 +5126,6 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if(target!=null && !target.isPlayer()) {
 				return UtilText.parse(target, "[npc.Name]'s clothing doesn't cover [npc.her] breasts, and [npc.she] feels highly embarrassed to be walking around in such an exposed fashion.");
@@ -5615,11 +5152,6 @@ public enum StatusEffect {
 			false,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -6f)),
 			null) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -5650,11 +5182,6 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if(target!=null && !target.isPlayer()) {
 				return UtilText.parse(target, "[npc.Name]'s clothing doesn't cover [npc.her] private parts, and [npc.she] feels incredibly sexy every time [npc.she] catches someone staring at [npc.her] exposed groin.");
@@ -5680,11 +5207,6 @@ public enum StatusEffect {
 			false,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 4f)),
 			null) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -5714,11 +5236,6 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if(target!=null && !target.isPlayer()) {
 				return UtilText.parse(target, "[npc.Name]'s breasts and private parts are naked for the world to see, and [npc.she] feels incredibly sexy as [npc.she] walks around with all [npc.her] goods on display.");
@@ -5745,11 +5262,6 @@ public enum StatusEffect {
 			true,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 50f), new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 25f), new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 25f)),
 			null) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -5785,11 +5297,6 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if(target.isPlayer()) {
 				return "You're more than willing to use your ass, mouth, breasts, and even the promise of your pussy in order to please your partners, but you'll never let anyone actually penetrate your feminine sex and take your precious virginity!";
@@ -5820,11 +5327,6 @@ public enum StatusEffect {
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -50f),
 					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 50f), new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, -25f)),
 			null) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -5860,11 +5362,6 @@ public enum StatusEffect {
 					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 50f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, -25f)),
 			null) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -5903,11 +5400,6 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if(target!=null) {
 				if(target.isPlayer()) {
@@ -5943,11 +5435,6 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if(target!=null) {
 				if(target.isPlayer()) {
@@ -5979,11 +5466,6 @@ public enum StatusEffect {
 					new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, 10f),
 					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 10f)),
 			null) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -6020,11 +5502,6 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if(target!=null) {
 				if(target.isPlayer()) {
@@ -6055,11 +5532,6 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if(target!=null) {
 				if(target.isPlayer()) {
@@ -6086,11 +5558,6 @@ public enum StatusEffect {
 			Colour.CLOTHING_WHITE,
 			true,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 10f), new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 15f)), null) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -6123,11 +5590,6 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			return "Double rainbow... What does it mean?!";
 		}
@@ -6146,11 +5608,6 @@ public enum StatusEffect {
 			false,
 			Util.newHashMapOfValues( new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -15f)),
 			null) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -6184,11 +5641,6 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if(target!=null) {
 				if(target.isPlayer()) {
@@ -6218,11 +5670,6 @@ public enum StatusEffect {
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 15f)),
 			null) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -6257,11 +5704,6 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if(target!=null) {
 				if(target.isPlayer()) {
@@ -6294,11 +5736,6 @@ public enum StatusEffect {
 					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 25f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 10f)),
 			null) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -6340,10 +5777,7 @@ public enum StatusEffect {
 			return "-";
 		}
 
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return false;
-		}
+		
 		
 		@Override
 		public boolean renderInEffectsPanel() {
@@ -6359,11 +5793,6 @@ public enum StatusEffect {
 			false,
 			null,
 			null) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -6397,10 +5826,7 @@ public enum StatusEffect {
 			return "";
 		}
 
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return false;
-		}
+		
 	},
 	
 	HAPPINESS(
@@ -6414,11 +5840,6 @@ public enum StatusEffect {
 					new Value<Attribute, Float>(Attribute.MANA_MAXIMUM, 5f)),
 			Util.newArrayListOfValues(
 					new ListValue<String>("[style.italicsGood(Happiness!)]"))) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -6444,12 +5865,7 @@ public enum StatusEffect {
 					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 2f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_ANGEL, 25f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_ANGEL, 25f)),
-			null) {
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-		@Override
+			null) {		@Override
 		public String getDescription(GameCharacter target) {
 			if(target == null) {
 				return "";
@@ -6460,10 +5876,7 @@ public enum StatusEffect {
 				return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.name] is able to accurately predict how angels will behave.");
 			}
 		}
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return false;
-		}
+		
 	},
 	
 	COMBAT_BONUS_CAT_MORPH(
@@ -6476,12 +5889,7 @@ public enum StatusEffect {
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_CAT_MORPH, 25f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_CAT_MORPH, 25f)),
-			null) {
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-		@Override
+			null) {		@Override
 		public String getDescription(GameCharacter target) {
 			if(target == null) {
 				return "";
@@ -6492,10 +5900,7 @@ public enum StatusEffect {
 				return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.name] is able to accurately predict how cat-morphs will behave.");
 			}
 		}
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return false;
-		}
+		
 	},
 	
 	COMBAT_BONUS_COW_MORPH(
@@ -6508,12 +5913,7 @@ public enum StatusEffect {
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_COW_MORPH, 25f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_COW_MORPH, 25f)),
-			null) {
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-		@Override
+			null) {		@Override
 		public String getDescription(GameCharacter target) {
 			if(target == null) {
 				return "";
@@ -6524,10 +5924,7 @@ public enum StatusEffect {
 				return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.name] is able to accurately predict how cow-morphs will behave.");
 			}
 		}
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return false;
-		}
+		
 	},
 	
 	COMBAT_BONUS_DEMON(
@@ -6540,12 +5937,7 @@ public enum StatusEffect {
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_DEMON, 25f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_DEMON, 25f)),
-			null) {
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-		@Override
+			null) {		@Override
 		public String getDescription(GameCharacter target) {
 			if(target == null) {
 				return "";
@@ -6556,10 +5948,7 @@ public enum StatusEffect {
 				return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.name] is able to accurately predict how demons will behave.");
 			}
 		}
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return false;
-		}
+		
 	},
 
 	COMBAT_BONUS_IMP(
@@ -6572,12 +5961,7 @@ public enum StatusEffect {
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_IMP, 25f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_IMP, 25f)),
-			null) {
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-		@Override
+			null) {		@Override
 		public String getDescription(GameCharacter target) {
 			if(target == null) {
 				return "";
@@ -6588,10 +5972,7 @@ public enum StatusEffect {
 				return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.name] is able to accurately predict how imps will behave.");
 			}
 		}
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return false;
-		}
+		
 	},
 	
 	COMBAT_BONUS_DOG_MORPH(
@@ -6604,12 +5985,7 @@ public enum StatusEffect {
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_DOG_MORPH, 25f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_DOG_MORPH, 25f)),
-			null) {
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-		@Override
+			null) {		@Override
 		public String getDescription(GameCharacter target) {
 			if(target == null) {
 				return "";
@@ -6620,10 +5996,7 @@ public enum StatusEffect {
 				return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.name] is able to accurately predict how dog-morphs will behave.");
 			}
 		}
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return false;
-		}
+		
 	},
 	
 	COMBAT_BONUS_HARPY(
@@ -6636,12 +6009,7 @@ public enum StatusEffect {
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_HARPY, 25f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_HARPY, 25f)),
-			null) {
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-		@Override
+			null) {		@Override
 		public String getDescription(GameCharacter target) {
 			if(target == null) {
 				return "";
@@ -6652,10 +6020,7 @@ public enum StatusEffect {
 				return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.name] is able to accurately predict how harpies will behave.");
 			}
 		}
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return false;
-		}
+		
 	},
 	
 	COMBAT_BONUS_HORSE_MORPH(
@@ -6668,12 +6033,7 @@ public enum StatusEffect {
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_HORSE_MORPH, 25f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_HORSE_MORPH, 25f)),
-			null) {
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-		@Override
+			null) {		@Override
 		public String getDescription(GameCharacter target) {
 			if(target == null) {
 				return "";
@@ -6684,10 +6044,7 @@ public enum StatusEffect {
 				return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.name] is able to accurately predict how horse-morphs will behave.");
 			}
 		}
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return false;
-		}
+		
 	},
 	
 	COMBAT_BONUS_REINDEER_MORPH(
@@ -6700,12 +6057,7 @@ public enum StatusEffect {
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_REINDEER_MORPH, 25f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_REINDEER_MORPH, 25f)),
-			null) {
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-		@Override
+			null) {		@Override
 		public String getDescription(GameCharacter target) {
 			if(target == null) {
 				return "";
@@ -6716,10 +6068,7 @@ public enum StatusEffect {
 				return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.name] is able to accurately predict how reindeer-morphs will behave.");
 			}
 		}
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return false;
-		}
+		
 	},
 	
 	COMBAT_BONUS_HUMAN(
@@ -6732,12 +6081,7 @@ public enum StatusEffect {
 					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 2f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_HUMAN, 25f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_HUMAN, 25f)),
-			null) {
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-		@Override
+			null) {		@Override
 		public String getDescription(GameCharacter target) {
 			if(target == null) {
 				return "";
@@ -6748,10 +6092,7 @@ public enum StatusEffect {
 				return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.name] is able to accurately predict how humans will behave.");
 			}
 		}
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return false;
-		}
+		
 	},
 	
 	COMBAT_BONUS_SQUIRREL_MORPH(
@@ -6764,12 +6105,7 @@ public enum StatusEffect {
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_SQUIRREL_MORPH, 25f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_SQUIRREL_MORPH, 25f)),
-			null) {
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-		@Override
+			null) {		@Override
 		public String getDescription(GameCharacter target) {
 			if(target == null) {
 				return "";
@@ -6780,10 +6116,7 @@ public enum StatusEffect {
 				return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.name] is able to accurately predict how squirrel-morphs will behave.");
 			}
 		}
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return false;
-		}
+		
 	},
 	
 	COMBAT_BONUS_RAT_MORPH(
@@ -6796,12 +6129,7 @@ public enum StatusEffect {
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_RAT_MORPH, 25f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_RAT_MORPH, 25f)),
-			null) {
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-		@Override
+			null) {		@Override
 		public String getDescription(GameCharacter target) {
 			if(target == null) {
 				return "";
@@ -6812,10 +6140,7 @@ public enum StatusEffect {
 				return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.name] is able to accurately predict how rat-morphs will behave.");
 			}
 		}
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return false;
-		}
+		
 	},
 	
 	COMBAT_BONUS_RABBIT_MORPH(
@@ -6828,12 +6153,7 @@ public enum StatusEffect {
 					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 5f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_RABBIT_MORPH, 25f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_RABBIT_MORPH, 25f)),
-			null) {
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-		@Override
+			null) {		@Override
 		public String getDescription(GameCharacter target) {
 			if(target == null) {
 				return "";
@@ -6844,10 +6164,7 @@ public enum StatusEffect {
 				return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.name] is able to accurately predict how rabbit-morphs will behave.");
 			}
 		}
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return false;
-		}
+		
 	},
 	
 	COMBAT_BONUS_BAT_MORPH(
@@ -6860,12 +6177,7 @@ public enum StatusEffect {
 					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 2f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_BAT_MORPH, 25f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_BAT_MORPH, 25f)),
-			null) {
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-		@Override
+			null) {		@Override
 		public String getDescription(GameCharacter target) {
 			if(target == null) {
 				return "";
@@ -6876,10 +6188,7 @@ public enum StatusEffect {
 				return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.name] is able to accurately predict how bat-morphs will behave.");
 			}
 		}
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return false;
-		}
+		
 	},
 	
 	COMBAT_BONUS_ALLIGATOR_MORPH(
@@ -6892,12 +6201,7 @@ public enum StatusEffect {
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_ALLIGATOR_MORPH, 25f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_ALLIGATOR_MORPH, 25f)),
-			null) {
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-		@Override
+			null) {		@Override
 		public String getDescription(GameCharacter target) {
 			if(target == null) {
 				return "";
@@ -6908,10 +6212,7 @@ public enum StatusEffect {
 				return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.name] is able to accurately predict how alligator-morphs will behave.");
 			}
 		}
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return false;
-		}
+		
 	},
 	
 	COMBAT_BONUS_WOLF_MORPH(
@@ -6924,12 +6225,7 @@ public enum StatusEffect {
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_WOLF_MORPH, 25f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_WOLF_MORPH, 25f)),
-			null) {
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-		@Override
+			null) {		@Override
 		public String getDescription(GameCharacter target) {
 			if(target == null) {
 				return "";
@@ -6940,10 +6236,7 @@ public enum StatusEffect {
 				return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.name] is able to accurately predict how wolf-morphs will behave.");
 			}
 		}
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return false;
-		}
+		
 	},
 	
 	COMBAT_BONUS_SLIME(
@@ -6956,12 +6249,7 @@ public enum StatusEffect {
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_SLIME, 25f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_SLIME, 25f)),
-			null) {
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-		@Override
+			null) {		@Override
 		public String getDescription(GameCharacter target) {
 			if(target == null) {
 				return "";
@@ -6972,10 +6260,7 @@ public enum StatusEffect {
 				return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.name] is able to accurately predict how slimes will behave.");
 			}
 		}
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return false;
-		}
+		
 	},
 	
 	
@@ -6993,19 +6278,11 @@ public enum StatusEffect {
 			null) {
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			return "You don't know what perks, status effects, spells, or special attacks your opponent has available. You require the "+Perk.OBSERVANT.getName(target)+" perk to reveal such information.";
 		}
 
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return false;
-		}
+		
 		
 		@Override
 		public boolean isCombatEffect() {
@@ -7025,11 +6302,6 @@ public enum StatusEffect {
 							+ " <b style='color:"+Colour.ATTRIBUTE_HEALTH.toWebHexString()+";'>2*Energy damage</b>"
 							+ " and <b style='color:"+Colour.ATTRIBUTE_MANA.toWebHexString()+";'>1*Aura damage</b>"),
 					new ListValue<String>("<b style='color: " + Colour.GENERIC_TERRIBLE.toWebHexString() + "'>Incoming damage ignores all resistances</b>"))) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -7064,11 +6336,6 @@ public enum StatusEffect {
 			null) {
 		
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if (target.isPlayer())
 				return "Your head is spinning and you're struggling to stay upright.";
@@ -7077,10 +6344,7 @@ public enum StatusEffect {
 						target.getName("The") + "'s head is spinning and [npc.she]'s struggling to stay upright..");
 		}
 
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return false;
-		}
+		
 		
 		@Override
 		public boolean isCombatEffect() {
@@ -7098,11 +6362,6 @@ public enum StatusEffect {
 			null) {
 		
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if (target.isPlayer())
 				return "Your head is spinning and you're struggling to stay upright. You're finding it incredibly difficult to land a hit on your opponent or dodge one of their attacks.";
@@ -7111,10 +6370,7 @@ public enum StatusEffect {
 						target.getName("The") + "'s head is spinning and [npc.she]'s struggling to stay upright. [npc.She]'s finding it incredibly difficult to land a hit on you or dodge one of your attacks.");
 		}
 
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return false;
-		}
+		
 		
 		@Override
 		public boolean isCombatEffect() {
@@ -7131,11 +6387,6 @@ public enum StatusEffect {
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, -15f)),
 			null) {
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if (target.isPlayer())
 				return "You've been temporarily crippled, and you're struggling to do as much damage with your attacks as you're usually able to.";
@@ -7144,10 +6395,7 @@ public enum StatusEffect {
 						target.getName("The") + "'s been temporarily crippled, and [npc.she]'s struggling to do as much damage with [npc.her] attacks as [npc.she]'s usually able to.");
 		}
 
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return false;
-		}
+		
 		
 		@Override
 		public boolean isCombatEffect() {
@@ -7165,11 +6413,6 @@ public enum StatusEffect {
 			null) {
 		
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if (target.isPlayer())
 				return "You're feeling particularly vulnerable, and aren't able to defend yourself to the best of your ability.";
@@ -7177,10 +6420,7 @@ public enum StatusEffect {
 				return UtilText.parse(target, "[npc.Name] is feeling particularly vulnerable, and [npc.she] isn't able to defend [npc.herself] to the best of [npc.her] ability.");
 		}
 
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return false;
-		}
+		
 		
 		@Override
 		public boolean isCombatEffect() {
@@ -7215,12 +6455,13 @@ public enum StatusEffect {
 				return UtilText.parse(target, "A powerful arcane seal is holding [npc.name] firmly in place, preventing [npc.herHim] from taking any action!");
 			}
 		}
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return false;
-		}
+		
 		@Override
 		public boolean isCombatEffect() {
+			return true;
+		}
+		@Override
+		public boolean isStun() {
 			return true;
 		}
 	},
@@ -7270,27 +6511,28 @@ public enum StatusEffect {
 			}
 		},
 
-	BURN_WEAK(
+	LINGERING_FLAMES(
 			10,
-			"burn",
+			"Lingering Flames",
 			"negativeCombatEffect",
 			Colour.DAMAGE_TYPE_FIRE,
 			false,
 			null,
-			Util.newArrayListOfValues(new ListValue<String>("<b>5</b> <b style='color: " + Colour.DAMAGE_TYPE_FIRE.toWebHexString() + ";'>Fire damage per turn</b>"))) {
+			Util.newArrayListOfValues(new ListValue<String>("<b>5</b> [style.boldFire(Fire Damage)] per turn</b>"))) {
 		
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
-			int damage = (int) (5 * ((100 - (target.getAttributeValue(Attribute.RESISTANCE_FIRE))) / 100f)); 
-			if (damage < 1)
+			int damage = (int) Math.round(5 * (1-(Util.getModifiedDropoffValue(target.getAttributeValue(Attribute.RESISTANCE_FIRE), 100)/100f)));
+			if (damage < 1) {
 				damage = 1;
+			}
 			target.incrementHealth(-damage);
 
 			if (target.isPlayer()) {
-				return "You take <b>" + damage + "</b> <b style='color:" + Attribute.DAMAGE_FIRE.getColour().toWebHexString() + ";'>" + DamageType.FIRE.getName() + "</b> damage!";
+				return "You take <b>" + damage + "</b> [style.boldFire(Fire Damage)]!";
 				
 			} else {
-				return "[npc.Name] takes <b>" + damage + "</b> <b style='color:" + Attribute.DAMAGE_FIRE.getColour().toWebHexString() + ";'>" + DamageType.FIRE.getName() + "</b> damage!";
+				return "[npc.Name] takes <b>" + damage + "</b> [style.boldFire(Fire Damage)]!";
 			}
 		}
 
@@ -7303,10 +6545,89 @@ public enum StatusEffect {
 						"Invisible arcane flames lick at [npc.name]'s feet, and while they don't cause [npc.herHim] any real pain, [npc.she] still ends up hopping around in discomfort.");
 			}
 		}
+		
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.FIREBALL_1.getSVGString();
+		}
+
+		
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+	
+	FLASH(10,
+			"Blinded",
+			"negativeCombatEffect",
+			Colour.DAMAGE_TYPE_FIRE,
+			false,
+			null,
+			Util.newArrayListOfValues(new ListValue<String>("[style.boldTerrible(Stunned!)]"))) {
+		
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			if (target.isPlayer()) {
+				return "You are [style.boldTerrible(stunned)] from the blinding flash!";
+				
+			} else {
+				return "[npc.Name] is [style.boldTerrible(stunned)] from the blinding flash!";
+			}
+		}
 
 		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return false;
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "The blinding flash of light has left you temporarily stunned, and you're unable to make any sort of move as you struggle to regain control of your senses.";
+			} else {
+				return UtilText.parse(target,
+						"The blinding flash of light has left [npc.name] temporarily stunned, and [npc.she]'s unable to make any sort of move as [npc.she] struggles to regain control of [npc.her] senses.");
+			}
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return Spell.FLASH.getSVGString();
+		}
+
+		
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+		
+		@Override
+		public boolean isStun() {
+			return true;
+		}
+	},
+	
+	CLOAK_OF_FLAMES(10,
+			"Cloak of Flames",
+			"negativeCombatEffect",
+			Colour.DAMAGE_TYPE_FIRE,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, 10f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, 50f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "You have been shrouded in a cloak of arcane flames, granting you significant bonuses to your ice and fire resistances.";
+			} else {
+				return UtilText.parse(target,
+						"[npc.Name] has been shrouded in a cloak of arcane flames, granting [npc.herHim] significant bonuses to [npc.her] ice and fire resistances.");
+			}
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return Spell.CLOAK_OF_FLAMES.getSVGString();
 		}
 		
 		@Override
@@ -7315,43 +6636,99 @@ public enum StatusEffect {
 		}
 	},
 	
-	BURN_STRONG(
-			10,
-			"ignited",
+	CLOAK_OF_FLAMES_1(10,
+			"Cloak of Flames (Incendiary)",
 			"negativeCombatEffect",
 			Colour.DAMAGE_TYPE_FIRE,
-			false,
-			null,
-			Util.newArrayListOfValues(new ListValue<String>("<b>10</b> <b style='color: " + Colour.DAMAGE_TYPE_FIRE.toWebHexString() + ";'>Fire damage per turn</b>"))) {
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, 10f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, 50f)),
+			Util.newArrayListOfValues(new ListValue<String>("Attacks deal <b>5</b> [style.boldFire(Fire Damage)]"))) {
 		
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			int damage = (int) (10 * ((100 - (target.getAttributeValue(Attribute.RESISTANCE_FIRE))) / 100f)); 
-			if (damage < 1)
-				damage = 1;
-			target.incrementHealth(-damage);
-
-			if (target.isPlayer()) {
-				return "You take <b>" + damage + "</b> <b style='color:" + Attribute.DAMAGE_FIRE.getColour().toWebHexString() + ";'>" + DamageType.FIRE.getName() + "</b> damage!";
-				
-			} else {
-				return "[npc.Name] takes <b>" + damage + "</b> <b style='color:" + Attribute.DAMAGE_FIRE.getColour().toWebHexString() + ";'>" + DamageType.FIRE.getName() + "</b> damage!";
-			}
-		}
-
 		@Override
 		public String getDescription(GameCharacter target) {
 			if (target.isPlayer()) {
-				return "Invisible arcane flames lick at your feet, and while they don't cause you any real pain, you still end up hopping around in discomfort.";
+				return "You have been shrouded in a cloak of arcane flames, granting you significant bonuses to your ice and fire resistances. You are also dealing extra fire damage each time you attack.";
 			} else {
 				return UtilText.parse(target,
-						"Invisible arcane flames lick at [npc.name]'s feet, and while they don't cause [npc.herHim] any real pain, [npc.she] still ends up hopping around in discomfort.");
+						"[npc.Name] has been shrouded in a cloak of arcane flames, granting [npc.herHim] significant bonuses to [npc.her] ice and fire resistances. [npc.She] is also dealing extra fire damage each time [npc.she] attacks.");
 			}
 		}
-
+		
 		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return false;
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.CLOAK_OF_FLAMES_1.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+	
+	CLOAK_OF_FLAMES_2(10,
+			"Cloak of Flames (Inferno)",
+			"negativeCombatEffect",
+			Colour.DAMAGE_TYPE_FIRE,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.DAMAGE_FIRE, 25f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, 10f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, 50f)),
+			Util.newArrayListOfValues(new ListValue<String>("Attacks deal <b>5</b> [style.boldFire(Fire Damage)]"))) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "You have been shrouded in a cloak of arcane flames, granting you significant bonuses to your ice and fire resistances, as well as to fire damage."
+						+ " You are also dealing extra fire damage each time you attack.";
+			} else {
+				return UtilText.parse(target,
+						"[npc.Name] has been shrouded in a cloak of arcane flames, granting [npc.herHim] significant bonuses to [npc.her] ice and fire resistances, as well as to fire damage."
+						+ " [npc.She] is also dealing extra fire damage each time [npc.she] attacks.");
+			}
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.CLOAK_OF_FLAMES_2.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+	
+	CLOAK_OF_FLAMES_3(10,
+			"Cloak of Flames (Ring of Fire)",
+			"negativeCombatEffect",
+			Colour.DAMAGE_TYPE_FIRE,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.DAMAGE_FIRE, 25f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, 10f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, 50f)),
+			Util.newArrayListOfValues(
+					new ListValue<String>("Attacks deal <b>5</b> [style.boldFire(Fire Damage)]"),
+					new ListValue<String>("Attackers take <b>5</b> [style.colourFire(Fire Damage)]"))) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "You have been shrouded in a cloak of arcane flames, granting you significant bonuses to your ice and fire resistances, as well as to fire damage."
+						+ " You are also dealing extra fire damage each time you attack, as well as to any enemies that strike you in melee!";
+			} else {
+				return UtilText.parse(target,
+						"[npc.Name] has been shrouded in a cloak of arcane flames, granting [npc.herHim] significant bonuses to [npc.her] ice and fire resistances, as well as to fire damage."
+						+ " [npc.She] is also dealing extra fire damage each time [npc.she] attacks, as well as to any enemies that strike [npc.herHim] in melee!");
+			}
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.CLOAK_OF_FLAMES_3.getSVGString();
 		}
 		
 		@Override
@@ -7393,10 +6770,7 @@ public enum StatusEffect {
 			}
 		}
 
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return false;
-		}
+		
 		
 		@Override
 		public boolean isCombatEffect() {
@@ -7443,10 +6817,7 @@ public enum StatusEffect {
 			}
 		}
 
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return false;
-		}
+		
 		
 		@Override
 		public boolean isCombatEffect() {
@@ -7464,11 +6835,6 @@ public enum StatusEffect {
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 50f)),
 			null) {
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if (target.isPlayer())
 				return "A swirling vortex of arcane energy has surrounded you, granting you a considerable boost to your physical resistance." + " The energy is also helping to focus your mind, granting a boost to your hit and dodge chances.";
@@ -7477,10 +6843,7 @@ public enum StatusEffect {
 						+ ", granting [npc.herHim] a considerable boost to [npc.her] physical resistance." + " The energy is also helping to focus [npc.her] mind, granting a boost to [npc.her] hit and dodge chances.");
 		}
 
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return false;
-		}
+		
 		
 		@Override
 		public boolean isCombatEffect() {
@@ -7496,11 +6859,6 @@ public enum StatusEffect {
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, 50f), new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 15f)),
 			null) {
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if (target.isPlayer())
 				return "A swirling vortex of arcane fire has surrounded you, granting you a considerable boost to your fire resistance." + " The arcane flames also help to mitigate any physical attacks directed your way.";
@@ -7509,10 +6867,7 @@ public enum StatusEffect {
 						+ " The arcane flames also help to mitigate any physical attacks directed [npc.her] way.");
 		}
 
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return false;
-		}
+		
 		
 		@Override
 		public boolean isCombatEffect() {
@@ -7528,11 +6883,6 @@ public enum StatusEffect {
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, 50f), new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 15f)),
 			null) {
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if (target.isPlayer())
 				return "A swirling vortex of arcane ice has surrounded you, granting you a considerable boost to your cold resistance."
@@ -7542,10 +6892,7 @@ public enum StatusEffect {
 						+ " The arcane ice shards radiate a soothing energy, helping to mitigate any aura-draining attacks directed [npc.her] way.");
 		}
 
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return false;
-		}
+		
 		
 		@Override
 		public boolean isCombatEffect() {
@@ -7561,22 +6908,12 @@ public enum StatusEffect {
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_POISON, 50f)),
 			null) {
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if (target.isPlayer())
 				return "A swirling vortex of toxic miasma has surrounded you, granting you a considerable boost to your poison resistance." + " The toxic energy helps to mitigate any stamina-draining attacks directed your way.";
 			else
 				return UtilText.parse(target, "A swirling vortex of toxic miasma has surrounded " + target.getName("the")
 						+ ", granting [npc.herHim] a considerable boost to [npc.her] poison resistance." + " The toxic energy helps to mitigate any stamina-draining attacks directed [npc.her] way.");
-		}
-
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return false;
 		}
 		
 		@Override
@@ -7611,11 +6948,6 @@ public enum StatusEffect {
 		}
 
 		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
 		public String getDescription(GameCharacter target) {
 			if(target.isPlayer())
 				return "Because you're wearing a condom, sex doesn't feel quite as good...";
@@ -7647,11 +6979,6 @@ public enum StatusEffect {
 			false,
 			null,
 			null) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -7707,11 +7034,6 @@ public enum StatusEffect {
 			false,
 			null,
 			null) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -7797,12 +7119,7 @@ public enum StatusEffect {
 		public float getArousalPerTurnPartner(GameCharacter self, GameCharacter target) {
 			return getOrificeArousalPerTurnPartner(self, target, OrificeType.ANUS);
 		}
-		
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-		
+				
 		@Override
 		public List<String> getModifiersAsStringList(GameCharacter target) {
 			return getOrificeModifiersAsStringList(target, OrificeType.ANUS);
@@ -7933,12 +7250,7 @@ public enum StatusEffect {
 		public float getArousalPerTurnPartner(GameCharacter self, GameCharacter target) {
 			return getOrificeArousalPerTurnPartner(self, target, OrificeType.MOUTH);
 		}
-		
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-		
+				
 		@Override
 		public List<String> getModifiersAsStringList(GameCharacter target) {
 			return getOrificeModifiersAsStringList(target, OrificeType.MOUTH);
@@ -8077,12 +7389,7 @@ public enum StatusEffect {
 		public float getArousalPerTurnPartner(GameCharacter self, GameCharacter target) {
 			return getOrificeArousalPerTurnPartner(self, target, OrificeType.BREAST);
 		}
-		
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-		
+				
 		@Override
 		public List<String> getModifiersAsStringList(GameCharacter target) {
 			return getOrificeModifiersAsStringList(target, OrificeType.BREAST);
@@ -8212,12 +7519,7 @@ public enum StatusEffect {
 		public float getArousalPerTurnPartner(GameCharacter self, GameCharacter target) {
 			return getOrificeArousalPerTurnPartner(self, target, OrificeType.NIPPLE);
 		}
-		
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-		
+				
 		@Override
 		public List<String> getModifiersAsStringList(GameCharacter target) {
 			return getOrificeModifiersAsStringList(target, OrificeType.NIPPLE);
@@ -8347,12 +7649,7 @@ public enum StatusEffect {
 		public float getArousalPerTurnPartner(GameCharacter self, GameCharacter target) {
 			return getOrificeArousalPerTurnPartner(self, target, OrificeType.URETHRA_PENIS);
 		}
-		
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-		
+				
 		@Override
 		public List<String> getModifiersAsStringList(GameCharacter target) {
 			return getOrificeModifiersAsStringList(target, OrificeType.URETHRA_PENIS);
@@ -8482,12 +7779,7 @@ public enum StatusEffect {
 		public float getArousalPerTurnPartner(GameCharacter self, GameCharacter target) {
 			return getOrificeArousalPerTurnPartner(self, target, OrificeType.URETHRA_VAGINA);
 		}
-		
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-		
+				
 		@Override
 		public List<String> getModifiersAsStringList(GameCharacter target) {
 			return getOrificeModifiersAsStringList(target, OrificeType.URETHRA_VAGINA);
@@ -8617,12 +7909,7 @@ public enum StatusEffect {
 		public float getArousalPerTurnPartner(GameCharacter self, GameCharacter target) {
 			return getOrificeArousalPerTurnPartner(self, target, OrificeType.VAGINA);
 		}
-		
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-		
+				
 		@Override
 		public List<String> getModifiersAsStringList(GameCharacter target) {
 			return getOrificeModifiersAsStringList(target, OrificeType.VAGINA);
@@ -8757,12 +8044,7 @@ public enum StatusEffect {
 		public float getArousalPerTurnPartner(GameCharacter self, GameCharacter target) {
 			return getOrificeArousalPerTurnPartner(self, target, OrificeType.THIGHS);
 		}
-		
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-		
+				
 		@Override
 		public List<String> getModifiersAsStringList(GameCharacter target) {
 			return getOrificeModifiersAsStringList(target, OrificeType.THIGHS);
@@ -8959,16 +8241,18 @@ public enum StatusEffect {
 		return attributeModifiersList;
 	}
 	
-	public abstract String applyEffect(GameCharacter target, int minutesPassed);
+	public String applyEffect(GameCharacter target, int minutesPassed) {
+		return "";
+	}
 
 	/**
 	 * @param target
-	 * @return True if this status effect should be applied to the target. False
-	 *         if conditions are not met <b>or</b> this status effect is only
-	 *         for timed purposes (i.e. the only time it should be applied is
-	 *         with a time condition.).
+	 * @return True if this status effect should be applied to the target.
+	 *  False if conditions are not met <b>or</b> this status effect is only for timed purposes (i.e. the only time it should be applied is with a time condition.).
 	 */
-	public abstract boolean isConditionsMet(GameCharacter target);
+	public boolean isConditionsMet(GameCharacter target) {
+		return false;
+	}
 	
 	public boolean renderInEffectsPanel() {
 		return true;
@@ -9023,6 +8307,10 @@ public enum StatusEffect {
 	
 	public boolean isBeneficial() {
 		return beneficial;
+	}
+	
+	public boolean isStun() {
+		return false;
 	}
 
 	public Map<Attribute, Float> getAttributeModifiers(GameCharacter target) {

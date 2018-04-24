@@ -31,8 +31,8 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.79
- * @version 0.1.89
- * @author Kumiko, Innoxia
+ * @version 0.2.4
+ * @author Kumiko
  */
 public class Pazu extends NPC {
 

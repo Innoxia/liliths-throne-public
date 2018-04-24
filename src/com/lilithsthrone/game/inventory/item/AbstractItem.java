@@ -138,7 +138,7 @@ public abstract class AbstractItem extends AbstractCoreItem implements Serializa
 	}
 	
 	@Override
-	public ItemEffectType getEnchantmentEffect() {
+	public AbstractItemEffectType getEnchantmentEffect() {
 		return itemType.getEnchantmentEffect();
 	}
 	

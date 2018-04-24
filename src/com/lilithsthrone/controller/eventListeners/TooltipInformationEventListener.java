@@ -37,6 +37,7 @@ import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.combat.SpecialAttack;
 import com.lilithsthrone.game.combat.Spell;
+import com.lilithsthrone.game.combat.SpellUpgrade;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
@@ -62,7 +63,7 @@ public class TooltipInformationEventListener implements EventListener {
 	private FetishDesire desire;
 	private SpecialAttack specialAttack;
 	private Spell spell;
-	private int spellLevel;
+	private SpellUpgrade spellUpgrade;
 	private Attribute attribute;
 	private InventorySlot concealedSlot;
 	private static StringBuilder tooltipSB  = new StringBuilder();
@@ -406,7 +407,7 @@ public class TooltipInformationEventListener implements EventListener {
 
 		} else if (spell != null) { // Spells:
 
-			int yIncrease = (spell.getStatusEffects().size() > 2 ? spell.getStatusEffects().size() - 2 : 0);
+			int yIncrease = (spell.getStatusEffects(owner).size() > 2 ? spell.getStatusEffects(owner).size() - 2 : 0);
 
 			Main.mainController.setTooltipSize(360, 324 + (yIncrease * LINE_HEIGHT));
 
@@ -415,31 +416,26 @@ public class TooltipInformationEventListener implements EventListener {
 			tooltipSB.append("<div class='title'>" + Util.capitaliseSentence(spell.getName()) + "</div>");
 
 			// Attribute modifiers:
-			tooltipSB.append("<div class='subTitle-picture'>" + "<b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Spell</b></br>");
+			tooltipSB.append("<div class='subTitle-picture'>");
 
-			if (spell.isBeneficial()) {
-				tooltipSB.append("<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Beneficial</b> <b style='color:" + spell.getDamageType().getMultiplierAttribute().getColour().toWebHexString() + ";'>" + spell.getDamageType().getName()
-						+ "</b> spell");
-			} else {
+			if(spell.getDamage(Main.game.getPlayer())>0) {
 				tooltipSB.append(
-						"<b>"
-							+ Attack.getMinimumSpellDamage(owner, null, spell.getDamageType(), spell.getDamage(), spell.getDamageVariance())
+						"<b>Base "+spell.getDamage(owner)+"</b> <b style='color:"+ spell.getDamageType().getMultiplierAttribute().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(spell.getDamageType().getName()) + " Damage</b></br>"
+						+"<b>"
+							+ Attack.getMinimumSpellDamage(owner, null, spell.getDamageType(), spell.getDamage(owner), spell.getDamageVariance())
 							+ "-"
-							+ Attack.getMaximumSpellDamage(owner, null, spell.getDamageType(), spell.getDamage(), spell.getDamageVariance())
+							+ Attack.getMaximumSpellDamage(owner, null, spell.getDamageType(), spell.getDamage(owner), spell.getDamageVariance())
 						+ "</b>"
-						+ " <b style='color:"
-						+ spell.getDamageType().getMultiplierAttribute().getColour().toWebHexString() + ";'>" + spell.getDamageType().getName() + "</b> damage");
+						+ " <b style='color:"+ spell.getDamageType().getMultiplierAttribute().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(spell.getDamageType().getName()) + " Damage</b></br>");
 			}
 			
-			tooltipSB.append("</br><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Applies</b>");
-			if (!spell.getStatusEffects().isEmpty()) {
-				for (Entry<StatusEffect, Integer> e : spell.getStatusEffects().entrySet()) {
-					tooltipSB.append("</br><b style='color:" + e.getKey().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(e.getKey().getName(owner)) + "</b> for " + e.getValue() + " turn" + (e.getValue() > 1 ? "s" : ""));
+			if(!spell.getModifiersAsStringList().isEmpty()) {
+				for(int i=0; i<spell.getModifiersAsStringList().size(); i++) {
+					tooltipSB.append(spell.getModifiersAsStringList().get(i)+(i<spell.getModifiersAsStringList().size()-1?"</br>":""));
 				}
 			} else {
-				tooltipSB.append("</br><span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>No effects</span>");
+				tooltipSB.append("<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>No effects</span></br>");	
 			}
-			
 			tooltipSB.append("</div>");
 
 			// Picture:
@@ -448,11 +444,45 @@ public class TooltipInformationEventListener implements EventListener {
 			// Description & turns remaining:
 			tooltipSB.append(
 					"<div class='description'>"
-							+ spell.getDescription(owner, spellLevel)
+							+ spell.getDescription()
 					+ "</div>"
 					+ "<div class='subTitle'>"
 						+ "<b style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Costs</b> <b>" + (spell.getModifiedCost(owner)) + "</b>"
 						+ " <b style='color:" + Colour.ATTRIBUTE_MANA.toWebHexString() + ";'>aura</b>"
+					+ "</div>");
+
+			Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
+
+		} else if (spellUpgrade != null) { // Spells:
+
+			int yIncrease = (spellUpgrade.getModifiersAsStringList().size() > 2 ? spellUpgrade.getModifiersAsStringList().size() - 2 : 0);
+
+			Main.mainController.setTooltipSize(360, 300 + (yIncrease * LINE_HEIGHT));
+
+			// Title:
+			tooltipSB.setLength(0);
+			tooltipSB.append("<div class='title'>" + Util.capitaliseSentence(spellUpgrade.getName()) + "</div>");
+
+			// Attribute modifiers:
+			tooltipSB.append("<div class='subTitle-picture'>");
+
+			if(!spellUpgrade.getModifiersAsStringList().isEmpty()) {
+				for(int i=0; i<spellUpgrade.getModifiersAsStringList().size(); i++) {
+					tooltipSB.append(spellUpgrade.getModifiersAsStringList().get(i)+(i<spellUpgrade.getModifiersAsStringList().size()-1?"</br>":""));
+				}
+			} else {
+				tooltipSB.append("<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>No effects</span></br>");
+			}
+			
+			tooltipSB.append("</div>");
+
+			// Picture:
+			tooltipSB.append("<div class='picture'>" + spellUpgrade.getSVGString() + "</div>");
+
+			// Description & turns remaining:
+			tooltipSB.append(
+					"<div class='description'>"
+							+ spellUpgrade.getDescription()
 					+ "</div>");
 
 			Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
@@ -670,7 +700,7 @@ public class TooltipInformationEventListener implements EventListener {
 
 		} else if (extraAttributes) {
 
-			Main.mainController.setTooltipSize(360, 520);
+			Main.mainController.setTooltipSize(400, 600);
 
 			tooltipSB.setLength(0);
 			tooltipSB.append(UtilText.parse(owner,
@@ -682,6 +712,11 @@ public class TooltipInformationEventListener implements EventListener {
 					+ extraAttributeBonus(owner, Attribute.CRITICAL_CHANCE)
 					+ extraAttributeBonus(owner, Attribute.CRITICAL_DAMAGE)
 
+					+ extraAttributeBonus(owner, Attribute.DAMAGE_UNARMED)
+					+ extraAttributeBonus(owner, Attribute.DAMAGE_SPELLS)
+					+ extraAttributeBonus(owner, Attribute.DAMAGE_MELEE_WEAPON)
+					+ extraAttributeBonus(owner, Attribute.DAMAGE_RANGED_WEAPON)
+
 					// Header:
 					+ "<div class='subTitle-third combatValue'>" + "Type" + "</div>" + "<div class='subTitle-third combatValue'>" + "Damage" + "</div>" + "<div class='subTitle-third combatValue'>" + "Resist" + "</div>"
 
@@ -691,7 +726,6 @@ public class TooltipInformationEventListener implements EventListener {
 					+ extraAttributeTableRow(owner, "Cold", Attribute.DAMAGE_ICE, Attribute.RESISTANCE_ICE)
 					+ extraAttributeTableRow(owner, "Poison", Attribute.DAMAGE_POISON, Attribute.RESISTANCE_POISON)
 					+ extraAttributeTableRow(owner, "Seduction", Attribute.DAMAGE_LUST, Attribute.RESISTANCE_LUST)
-					+ extraAttributeTableRow(owner, "Spell", Attribute.DAMAGE_SPELLS, Attribute.RESISTANCE_SPELLS)
 					
 					+ extraAttributeBonus(owner, Attribute.FERTILITY)
 					+ extraAttributeBonus(owner, Attribute.VIRILITY)
@@ -903,10 +937,17 @@ public class TooltipInformationEventListener implements EventListener {
 		return this;
 	}
 
-	public TooltipInformationEventListener setSpell(Spell spell, int spellLevel, GameCharacter owner) {
+	public TooltipInformationEventListener setSpell(Spell spell, GameCharacter owner) {
 		resetFields();
 		this.spell = spell;
-		this.spellLevel = spellLevel;
+		this.owner = owner;
+
+		return this;
+	}
+
+	public TooltipInformationEventListener setSpellUpgrade(SpellUpgrade spellUpgrade, GameCharacter owner) {
+		resetFields();
+		this.spellUpgrade = spellUpgrade;
 		this.owner = owner;
 
 		return this;
@@ -964,7 +1005,7 @@ public class TooltipInformationEventListener implements EventListener {
 		perkRow = 0;
 		specialAttack = null;
 		spell = null;
-		spellLevel = 1;
+		spellUpgrade = null;
 		attribute = null;
 		protection=false;
 		tattoo=false;

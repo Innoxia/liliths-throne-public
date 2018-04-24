@@ -11,7 +11,6 @@ import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.Height;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.body.valueEnums.WingSize;
-import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
@@ -23,9 +22,7 @@ import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
-import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.combat.DamageType;
-import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
@@ -54,7 +51,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.?
- * @version 0.1.99
+ * @version 0.2.4
  * @author Innoxia
  */
 public class Zaranix extends NPC {
@@ -581,27 +578,6 @@ public class Zaranix extends NPC {
 			}
 		}
 	};
-	
-	@Override
-	public Attack attackType() {
-		if (Math.random() < 0.6
-				|| this.getManaPercentage() <= 0.4f
-				|| (Main.game.getPlayer().getStatusEffects().contains(StatusEffect.DAZED)
-						&& this.getStatusEffects().contains(StatusEffect.ARCANE_SHIELD))) {
-			return Attack.MAIN;
-		} else {
-			return Attack.SPELL;
-		}
-	}
-	
-	@Override
-	public Spell getSpell() {
-		if (!Main.game.getPlayer().getStatusEffects().contains(StatusEffect.DAZED)) {
-			return Spell.SLAM_1;
-		} else {
-			return Spell.ARCANE_SHIELD;
-		}
-	}
 	
 	// Sex:
 

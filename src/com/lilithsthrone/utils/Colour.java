@@ -251,15 +251,21 @@ public enum Colour {
 	FEMININE_PLUS_NPC(BaseColour.PINK, "pink"),
 
 	// Combat colours:
-	DAMAGE_TYPE_PHYSICAL(Util.newColour(0xFF428E), Util.newColour(0xFF428E), "red", Util.newArrayListOfValues(new ListValue<>("dmgPhysical"), new ListValue<>("resPhysical"))),
+	DAMAGE_TYPE_PHYSICAL(Util.newColour(0xFF428E), Util.newColour(0xFF428E), "red", Util.newArrayListOfValues(new ListValue<>("dmgPhysical"), new ListValue<>("resPhysical"), new ListValue<>("physical"))),
 	DAMAGE_TYPE_MANA(BaseColour.PURPLE_LIGHT, "purple", Util.newArrayListOfValues(new ListValue<>("dmgMana"), new ListValue<>("resMana"))),
 	DAMAGE_TYPE_LUST(BaseColour.MAGENTA, "magenta", Util.newArrayListOfValues(new ListValue<>("dmgLust"), new ListValue<>("resLust"))),
-	DAMAGE_TYPE_SPELL(Util.newColour(0xFF6BDA), Util.newColour(0xFF6BDA), "pink", Util.newArrayListOfValues(new ListValue<>("dmgSpell"), new ListValue<>("resSpell"))),
-	DAMAGE_TYPE_FIRE(Util.newColour(0xff9955), Util.newColour(0xff9955), "orange", Util.newArrayListOfValues(new ListValue<>("dmgFire"), new ListValue<>("resFire"))),
-	DAMAGE_TYPE_COLD(Util.newColour(0x85C6FF), Util.newColour(0x85C6FF), "blue", Util.newArrayListOfValues(new ListValue<>("dmgCold"), new ListValue<>("resCold"))),
-	DAMAGE_TYPE_POISON(Util.newColour(0x85FF8B), Util.newColour(0x85FF8B), "green", Util.newArrayListOfValues(new ListValue<>("dmgPoison"), new ListValue<>("resPoison"))),
-	DAMAGE_TYPE_PURE(Util.newColour(0xFFCC00), Util.newColour(0xFFCC00), "gold", Util.newArrayListOfValues(new ListValue<>("dmgPure"), new ListValue<>("resPure"))),
+	DAMAGE_TYPE_SPELL(Util.newColour(0xFF6BDA), Util.newColour(0xFF6BDA), "pink", Util.newArrayListOfValues(new ListValue<>("dmgSpell"), new ListValue<>("resSpell"), new ListValue<>("spell"))),
+	DAMAGE_TYPE_FIRE(Util.newColour(0xff9955), Util.newColour(0xff9955), "orange", Util.newArrayListOfValues(new ListValue<>("dmgFire"), new ListValue<>("resFire"), new ListValue<>("fire"))),
+	DAMAGE_TYPE_COLD(Util.newColour(0x85C6FF), Util.newColour(0x85C6FF), "blue", Util.newArrayListOfValues(new ListValue<>("dmgCold"), new ListValue<>("resCold"), new ListValue<>("cold"), new ListValue<>("ice"))),
+	DAMAGE_TYPE_POISON(Util.newColour(0x85FF8B), Util.newColour(0x85FF8B), "green", Util.newArrayListOfValues(new ListValue<>("dmgPoison"), new ListValue<>("resPoison"), new ListValue<>("poison"))),
+	DAMAGE_TYPE_PURE(Util.newColour(0xFFCC00), Util.newColour(0xFFCC00), "gold", Util.newArrayListOfValues(new ListValue<>("dmgPure"), new ListValue<>("resPure"), new ListValue<>("pure"))),
 
+	SPELL_SCHOOL_FIRE(BaseColour.ORANGE, "orange", Util.newArrayListOfValues(new ListValue<>("spellFire"), new ListValue<>("schoolFire"))),
+	SPELL_SCHOOL_WATER(BaseColour.AQUA, "aqua", Util.newArrayListOfValues(new ListValue<>("water"), new ListValue<>("spellWater"), new ListValue<>("schoolWater"))),
+	SPELL_SCHOOL_EARTH(BaseColour.BROWN, "brown", Util.newArrayListOfValues(new ListValue<>("earth"), new ListValue<>("spellEarth"), new ListValue<>("schoolEarth"))),
+	SPELL_SCHOOL_AIR(BaseColour.BLUE_LIGHT, "light blue", Util.newArrayListOfValues(new ListValue<>("air"),new ListValue<>("spellAir"), new ListValue<>("schoolAir"))),
+	SPELL_SCHOOL_ARCANE(BaseColour.PINK, "pink", Util.newArrayListOfValues(new ListValue<>("spellArcane"), new ListValue<>("schoolArcane"))),
+	
 	// Rarity colours:
 	RARITY_UNKNOWN(BaseColour.BLACK, "grey"),
 	RARITY_JINXED(BaseColour.RED, "red", Util.newArrayListOfValues(new ListValue<>("jinxed"))),

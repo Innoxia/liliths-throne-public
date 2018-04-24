@@ -4,47 +4,47 @@ import com.lilithsthrone.utils.Colour;
 
 /**
  * @since 0.2.1
- * @version 0.2.1
+ * @version 0.2.4
  * @author Innoxia
  */
 public enum SpellSchool {
 	
 	// Maximum damage
 	FIRE("fire",
-			"The school of fire is concerned with spells which allow the caster to manipulate the destructive force of fire.",
+			"Enables you to summon a floating ball of fire at will.",
+			"No longer affected by 'darkness' effect.",
 			Colour.BASE_ORANGE),
 
 	// Slightly biased towards attack
 	WATER("water",
-			"The school of water is concerned with both spells which involve the manipulation of water and other liquids.",
+			"Allows you to manipulate the temperature and movement of fluids.",
+			"Fluid enchantments are free.",
 			Colour.BASE_AQUA),
 	
 	// Slightly biased towards defence
 	AIR("air",
-			"The school of air is concerned with spells that summon forth gusts of wind, clouds of poisonous fumes, or flashes of lightning.",
+			"Allow you to control the temperature and movement of the surrounding air.",
+			"Doubles passive energy regeneration.",
 			Colour.BASE_BLUE_LIGHT),
 	
 	// Maximum defence
 	EARTH("earth",
-			"The school of earth is concerned spells that rely on pure force to either defend the caster, or perform overwhelming attacks.",
+			"Allows you to manipulate the properties of physical objects.",
+			"Free transmutation of clothing colours.",
 			Colour.BASE_BROWN),
 	
 	// Lust
 	ARCANE("arcane",
-			"The school of the arcane offers spells which focus purely on increasing a target's arousal and lust.",
-			Colour.GENERIC_ARCANE),
-	
-	// Default
-	DEFAULT("natural",
-			"Spells which have no particular school association are defined as 'natural' spells.",
-			Colour.BASE_GREY);
+			"Allows you to sense the arcane currents that are woven throughout the world.",
+			"Know the exact time until the next arcane storm breaks.",
+			Colour.GENERIC_ARCANE);
 	
 	
 	private String name;
 	private String description;
 	private Colour colour;
 	
-	private SpellSchool(String name, String description, Colour colour) {
+	private SpellSchool(String name, String description, String passiveBuff, Colour colour) {
 		this.name = name;
 		this.description = description;
 		this.colour = colour;

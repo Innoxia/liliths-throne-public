@@ -113,7 +113,6 @@ import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.fetishes.FetishLevel;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
-import com.lilithsthrone.game.character.npc.NPCOffspring;
 import com.lilithsthrone.game.character.npc.dominion.Alexa;
 import com.lilithsthrone.game.character.npc.dominion.Cultist;
 import com.lilithsthrone.game.character.npc.dominion.DominionAlleywayAttacker;
@@ -127,6 +126,7 @@ import com.lilithsthrone.game.character.npc.dominion.HarpyNympho;
 import com.lilithsthrone.game.character.npc.dominion.HarpyNymphoCompanion;
 import com.lilithsthrone.game.character.npc.dominion.ReindeerOverseer;
 import com.lilithsthrone.game.character.npc.dominion.Scarlett;
+import com.lilithsthrone.game.character.npc.misc.NPCOffspring;
 import com.lilithsthrone.game.character.npc.submission.SubmissionAttacker;
 import com.lilithsthrone.game.character.persona.History;
 import com.lilithsthrone.game.character.persona.MoralityValue;
@@ -143,7 +143,7 @@ import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.combat.SpecialAttack;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.combat.SpellSchool;
-import com.lilithsthrone.game.combat.SpellType;
+import com.lilithsthrone.game.combat.SpellUpgrade;
 import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.SlaveryManagementDialogue;
@@ -198,7 +198,7 @@ import com.lilithsthrone.world.places.PlaceType;
  * The class for all the game's characters. I think this is the biggest class in the game.
  * 
  * @since 0.1.0
- * @version 0.2.2
+ * @version 0.2.4
  * @author Innoxia
  */
 public abstract class GameCharacter implements Serializable, XMLSaving {
@@ -230,7 +230,6 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 
 	private int experience, perkPoints;
 
-	
 	private List<Artwork> artworkList;
 	private int artworkIndex = -1;
 	
@@ -303,7 +302,11 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	
 	// Combat:
 	protected Set<SpecialAttack> specialAttacks;
-	protected float health, mana;
+	protected Set<Spell> spells;
+	protected Set<SpellUpgrade> spellUpgrades;
+	protected Map<SpellSchool, Integer> spellUpgradePoints;
+	protected float health;
+	protected float mana;
 
 	
 	// Sex:
@@ -439,6 +442,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		potionAttributes = new EnumMap<>(Attribute.class);
 
 		specialAttacks = EnumSet.noneOf(SpecialAttack.class);
+		spells = EnumSet.noneOf(Spell.class);
+		spellUpgrades = EnumSet.noneOf(SpellUpgrade.class);
+		spellUpgradePoints = new HashMap<>();
 
 		totalOrgasmCount = 0;
 		daysOrgasmCount = 0;
@@ -546,15 +552,15 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "version", Main.VERSION_NUMBER);
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "history", this.getHistory().toString());
 		
-		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "personality", this.getPersonality().toString());
+//		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "personality", this.getPersonality().toString());
 		Element personalityElement = doc.createElement("personality");
 		characterCoreInfo.appendChild(personalityElement);
 		for(Entry<PersonalityTrait, PersonalityWeight> entry: getPersonality().entrySet()){
 			Element element = doc.createElement("personalityEntry");
 			personalityElement.appendChild(element);
 			
-			CharacterUtils.addAttribute(doc, personalityElement, "trait", entry.getKey().toString());
-			CharacterUtils.addAttribute(doc, personalityElement, "weight", entry.getValue().toString());
+			CharacterUtils.addAttribute(doc, element, "trait", entry.getKey().toString());
+			CharacterUtils.addAttribute(doc, element, "weight", entry.getValue().toString());
 		}
 		
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "sexualOrientation", this.getSexualOrientation().toString());
@@ -659,6 +665,32 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				CharacterUtils.addAttribute(doc, element, "row", p.getKey().toString());
 				CharacterUtils.addAttribute(doc, element, "type", perk.toString());
 			}
+		}
+		
+		// Spells:
+		Element characterSpells = doc.createElement("knownSpells");
+		properties.appendChild(characterSpells);
+		for(Spell spell : this.getSpells()) {
+			Element element = doc.createElement("spell");
+			characterSpells.appendChild(element);
+			CharacterUtils.addAttribute(doc, element, "type", spell.toString());
+		}
+		
+		Element characterSpellUpgrades = doc.createElement("spellUpgrades");
+		properties.appendChild(characterSpellUpgrades);
+		for(SpellUpgrade upgrade : this.getSpellUpgrades()) {
+			Element element = doc.createElement("upgrade");
+			characterSpellUpgrades.appendChild(element);
+			CharacterUtils.addAttribute(doc, element, "type", upgrade.toString());
+		}
+
+		Element characterSpellUpgradePoints = doc.createElement("spellUpgradePoints");
+		properties.appendChild(characterSpellUpgradePoints);
+		for(SpellSchool school : SpellSchool.values()) {
+			Element element = doc.createElement("upgradeEntry");
+			characterSpellUpgradePoints.appendChild(element);
+			CharacterUtils.addAttribute(doc, element, "school", school.toString());
+			CharacterUtils.addAttribute(doc, element, "points", String.valueOf(this.getSpellUpgradePoints(school)));
 		}
 		
 		// Fetishes:
@@ -819,7 +851,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		
 		
 		
-		// ************** Companons **************//
+		// ************** Companions **************//
 
 		Element companonElement = doc.createElement("companions");
 		properties.appendChild(companonElement);
@@ -1371,6 +1403,37 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 					}
 				}
 			}
+		}
+		
+		// Spells:
+		nodes = parentElement.getElementsByTagName("knownSpells");
+		element = (Element) nodes.item(0);
+		try {
+			for(int i=0; i<element.getElementsByTagName("spell").getLength(); i++){
+				Element e = ((Element)element.getElementsByTagName("spell").item(i));
+				character.addSpell(Spell.valueOf(e.getAttribute("type")));
+			}
+		} catch(Exception ex) {
+		}
+		
+		nodes = parentElement.getElementsByTagName("spellUpgrades");
+		element = (Element) nodes.item(0);
+		try {
+			for(int i=0; i<element.getElementsByTagName("upgrade").getLength(); i++){
+				Element e = ((Element)element.getElementsByTagName("upgrade").item(i));
+				character.addSpellUpgrade(SpellUpgrade.valueOf(e.getAttribute("type")));
+			}
+		} catch(Exception ex) {
+		}
+		
+		nodes = parentElement.getElementsByTagName("spellUpgradePoints");
+		element = (Element) nodes.item(0);
+		try {
+			for(int i=0; i<element.getElementsByTagName("upgradeEntry").getLength(); i++){
+				Element e = ((Element)element.getElementsByTagName("upgradeEntry").item(i));
+				character.setSpellUpgradePoints(SpellSchool.valueOf(e.getAttribute("school")), Integer.valueOf(e.getAttribute("points")));
+			}
+		} catch(Exception ex) {
 		}
 		
 		// Fetishes:
@@ -2088,6 +2151,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 	
 	public int getArtworkIndex() {
+		if(artworkIndex >= artworkList.size() || artworkIndex < 0) {
+			artworkIndex = 0;
+		}
 		return artworkIndex;
 	}
 
@@ -9023,7 +9089,12 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	// Combat:
 
 	public boolean isStunned() {
-		return this.hasStatusEffect(StatusEffect.WITCH_SEAL);
+		for(StatusEffect se : this.getStatusEffects()) {
+			if(se.isStun()) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	/**
@@ -9039,52 +9110,40 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 
 	public void calculateSpecialAttacks() {
 		specialAttacks.clear();
-
+		
 		for (SpecialAttack sAttack : SpecialAttack.values()) {
 			if (sAttack.isConditionsMet(this)) {
 				specialAttacks.add(sAttack);
 			}
 		}
 	}
+	
+	public Set<Spell> getSpells() {
+		return spells;
+	}
+	
+	public boolean addSpell(Spell spell) {
+		return spells.add(spell);
+	}
+	
+	public boolean hasSpell(Spell spell) {
+		return spells.contains(spell);
+	}
+	
 
-	/** Base spells, modified by primary weapon SpellSchool. */
-	public List<Spell> getOffensiveSpells() {
-		SpellSchool school = SpellSchool.DEFAULT;
-		
-		if(getMainWeapon()!=null) {
-			school = getMainWeapon().getSpellSchool();
-		}
-
-		List<Spell> tempListSpells = new ArrayList<>();
-		
-		for(Spell s : Spell.getSpellsFromSchoolMap().get(school)) {
-			if(s.getType()==SpellType.OFFENSIVE) {
-				tempListSpells.add(s);
+	public boolean hasAnySpellInSchool(SpellSchool school) {
+		for(Spell s : getSpells()) {
+			if(s.getSpellSchool()==school) {
+				return true;
 			}
 		}
-		
-		return tempListSpells;
+		return false;
 	}
-
-	/** Base spells, modified by secondary weapon SpellSchool. */
-	public List<Spell> getDefensiveSpells() {
-		SpellSchool school = SpellSchool.DEFAULT;
-		
-		if(getOffhandWeapon()!=null) {
-			school = getOffhandWeapon().getSpellSchool();
-		}
-
-		List<Spell> tempListSpells = new ArrayList<>();
-		
-		for(Spell s : Spell.getSpellsFromSchoolMap().get(school)) {
-			if(s.getType()==SpellType.DEFENSIVE) {
-				tempListSpells.add(s);
-			}
-		}
-		
-		return tempListSpells;
+	
+	public void resetSpells() {
+		getSpells().clear();
 	}
-
+	
 	/** Spells from weapons. */
 	public List<Spell> getExtraSpells() {
 		List<Spell> tempListSpells = new ArrayList<>();
@@ -9107,14 +9166,46 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	public List<Spell> getAllSpells() {
 		List<Spell> tempListSpells = new ArrayList<>();
 
-		tempListSpells.addAll(getOffensiveSpells());
-		tempListSpells.addAll(getDefensiveSpells());
+		tempListSpells.addAll(getSpells());
 		tempListSpells.addAll(getExtraSpells());
 		
 		return tempListSpells;
 	}
 	
+	public Set<SpellUpgrade> getSpellUpgrades() {
+		return spellUpgrades;
+	}
+	
+	public boolean addSpellUpgrade(SpellUpgrade spellUpgrade) {
+		return spellUpgrades.add(spellUpgrade);
+	}
+	
+	public boolean hasSpellUpgrade(SpellUpgrade spellUpgrade) {
+		return spellUpgrades.contains(spellUpgrade);
+	}
+	
+	public void resetSpellUpgrades(SpellSchool school) {
+		for(SpellUpgrade upgrade : getSpellUpgrades()) {
+			if(upgrade.getSpellSchool()==school) {
+				this.setSpellUpgradePoints(upgrade.getSpellSchool(), getSpellUpgradePoints(upgrade.getSpellSchool())+1);
+			}
+		}
+		getSpellUpgrades().clear();
+	}
+	
+	public int getSpellUpgradePoints(SpellSchool spellSchool) {
+		spellUpgradePoints.putIfAbsent(spellSchool, 0);
+		return spellUpgradePoints.get(spellSchool);
+	}
+	
+	public void setSpellUpgradePoints(SpellSchool spellSchool, int points) {
+		spellUpgradePoints.put(spellSchool, points);
+	}
 
+	public void incrementSpellUpgradePoints(SpellSchool spellSchool, int increment) {
+		setSpellUpgradePoints(spellSchool, getSpellUpgradePoints(spellSchool) + increment);
+	}
+	
 	public float getHealth() {
 		return health;
 	}

@@ -19,12 +19,13 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreType;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.Rarity;
+import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.84
- * @version 0.2.1
+ * @version 0.2.4
  * @author Innoxia
  */
 public abstract class AbstractWeaponType extends AbstractCoreType implements Serializable {
@@ -32,6 +33,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType implements Ser
 	protected static final long serialVersionUID = 1L;
 
 	private int baseValue;
+	private boolean melee;
 	private String determiner;
 	private String pronoun;
 	private String name;
@@ -40,6 +42,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType implements Ser
 	private String description;
 	private String pathName;
 	protected int damage;
+	protected int arcaneCost;
 	protected DamageVariance damageVariance;
 	private InventorySlot slot;
 	private List<DamageType> availableDamageTypes;
@@ -49,6 +52,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType implements Ser
 	private List<Spell> spells;
 
 	public AbstractWeaponType(int baseValue,
+			boolean melee,
 			String determiner,
 			String pronoun,
 			String name,
@@ -60,11 +64,15 @@ public abstract class AbstractWeaponType extends AbstractCoreType implements Ser
 			Rarity rarity,
 			List<DamageType> availableDamageTypes,
 			int damage,
+			int arcaneCost,
 			DamageVariance damageVariance,
 			Map<Attribute, Integer> attributeModifiers,
 			List<Spell> spells) {
 
 		this.baseValue = baseValue;
+		
+		this.melee = melee;
+		
 		this.determiner = determiner;
 		this.pronoun = pronoun;
 		this.name = name;
@@ -79,6 +87,8 @@ public abstract class AbstractWeaponType extends AbstractCoreType implements Ser
 		this.damage = damage;
 		this.damageVariance = damageVariance;
 
+		this.arcaneCost = arcaneCost;
+		
 		this.pathName = pathName;
 		
 		if(attributeModifiers==null) {
@@ -120,6 +130,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType implements Ser
 		if(super.equals(o)){
 			if(o instanceof AbstractWeaponType){
 				if(((AbstractWeaponType)o).getName().equals(getName())
+						&& ((AbstractWeaponType)o).isMelee() == isMelee()
 						&& ((AbstractWeaponType)o).getPathName().equals(getPathName())
 						&& ((AbstractWeaponType)o).getDamage() == getDamage()
 						&& ((AbstractWeaponType)o).getDamageVariance() == getDamageVariance()
@@ -143,6 +154,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType implements Ser
 		result = 31 * result + getPathName().hashCode();
 		result = 31 * result + getDamage();
 		result = 31 * result + getDamageVariance().hashCode();
+		result = 31 * result + (melee ? 1 : 0);
 		result = 31 * result + getSlot().hashCode();
 		result = 31 * result + getRarity().hashCode();
 		result = 31 * result + getAvailableDamageTypes().hashCode();
@@ -302,22 +314,49 @@ public abstract class AbstractWeaponType extends AbstractCoreType implements Ser
 		}
 	}
 
+
+
 	public boolean isAbleToBeUsed(GameCharacter user, GameCharacter target) {
-		return true;
+		if(this.getArcaneCost()>0) {
+			return user.getEssenceCount(TFEssence.ARCANE) > 0;
+		} else {
+			return true;
+		}
 	}
-	
+
 	public String getUnableToBeUsedDescription() {
-		return "";
+		if(this.getArcaneCost()>0) {
+			return "You need at least [style.boldBad(one)] [style.boldArcane(arcane essence)] in order to use this weapon!";
+		} else {
+			return "";
+		}
 	}
 	
-	public String applyExtraEfects(GameCharacter user, GameCharacter target) {
-		return "";
+	public String applyExtraEfects(GameCharacter user, GameCharacter target, boolean isHit) {
+		if(this.getArcaneCost()>0) {
+			user.incrementEssenceCount(TFEssence.ARCANE, -this.getArcaneCost(), false);
+			if(user.isPlayer()) {
+				return "<p>"
+							+ "Firing the "+this.getName()+" drains [style.boldBad("+Util.intToString(this.getArcaneCost())+")] [style.boldArcane(arcane essence)] from your aura!"
+						+ "</p>";
+			} else {
+				return "<p>"
+							+ UtilText.parse(user, "Firing the "+this.getName()+" drains [style.boldBad("+Util.intToString(this.getArcaneCost())+")] [style.boldArcane(arcane essence)] from [npc.name]'s aura!")
+						+ "</p>";
+			}
+		} else {
+			return "";
+		}
 	}
 	
 	public int getBaseValue() {
 		return baseValue;
 	}
 	
+	public boolean isMelee() {
+		return melee;
+	}
+
 	public String getDeterminer() {
 		return determiner;
 	}
@@ -362,6 +401,10 @@ public abstract class AbstractWeaponType extends AbstractCoreType implements Ser
 
 	public DamageVariance getDamageVariance() {
 		return damageVariance;
+	}
+
+	public int getArcaneCost() {
+		return arcaneCost;
 	}
 
 	public Map<Attribute, Integer> getAttributeModifiers() {

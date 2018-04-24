@@ -142,7 +142,7 @@ public class DebugDialogue {
 				};
 				
 			} else if (index == 6) {
-				return new Response("+50 essences", "Add 10 to each essence type.", DEBUG_MENU){
+				return new Response("+50 essences", "Add 50 to each essence type.", DEBUG_MENU){
 					@Override
 					public void effects() {
 						for(TFEssence essence : TFEssence.values()) {

@@ -90,52 +90,7 @@ public class EnchantingUtils {
 		String potionPreSuffix = ""; // it was either PreSuffix or PrefixSuffix...
 		
 		if(ingredient!=null) {
-			switch(ingredient.getEnchantmentEffect()) {
-				case ATTRIBUTE_CORRUPTION:
-					potionDescriptor = "viscous ";
-					break;
-				case ATTRIBUTE_ARCANE:
-					potionDescriptor = "soothing ";
-					break;
-				case ATTRIBUTE_PHYSIQUE:
-					potionDescriptor = "vivid ";
-					break;
-				case ATTRIBUTE_SEXUAL:
-					potionDescriptor = "aphrodisiac ";
-					break;
-				case RACE_CAT_MORPH:
-					potionDescriptor = "feline ";
-					break;
-				case RACE_DOG_MORPH:
-					potionDescriptor = "canine ";
-					break;
-				case RACE_HORSE_MORPH:
-					potionDescriptor = "equine ";
-					break;
-				case RACE_WOLF_MORPH:
-					potionDescriptor = "lupine ";
-					break;
-				case RACE_HARPY:
-					potionDescriptor = "avian ";
-					break;
-				case RACE_HUMAN:
-					potionDescriptor = "human ";
-					break;
-				case RACE_DEMON:
-					potionDescriptor = "demonic ";
-					break;
-				case RACE_COW_MORPH:
-					potionDescriptor = "bovine ";
-					break;
-				case RACE_SQUIRREL_MORPH:
-					potionDescriptor = "squirrel ";
-					break;
-				case RACE_ALLIGATOR_MORPH:
-					potionDescriptor = "alligator ";
-					break;
-				default:
-					break;
-			}
+			potionDescriptor = ingredient.getEnchantmentEffect().getPotionDescriptor();
 		}
 		
 		String finalPotionName = potionDescriptor + potionName;

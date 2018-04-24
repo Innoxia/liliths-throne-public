@@ -14,19 +14,19 @@ import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.8
- * @version 0.2.0
+ * @version 0.2.4
  * @author Innoxia
  */
 public class ItemEffect implements Serializable, XMLSaving {
 	private static final long serialVersionUID = 1L;
 	
-	private ItemEffectType itemEffectType;
+	private AbstractItemEffectType itemEffectType;
 	private TFModifier primaryModifier, secondaryModifier;
 	private TFPotency potency;
 	private int limit;
 	private ItemEffectTimer timer;
 	
-	public ItemEffect(ItemEffectType itemEffectType) {
+	public ItemEffect(AbstractItemEffectType itemEffectType) {
 		this.itemEffectType = itemEffectType;
 		this.primaryModifier = null;
 		this.secondaryModifier = null;
@@ -35,7 +35,7 @@ public class ItemEffect implements Serializable, XMLSaving {
 		this.timer = new ItemEffectTimer();
 	}
 	
-	public ItemEffect(ItemEffectType itemEffectType, TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit) {
+	public ItemEffect(AbstractItemEffectType itemEffectType, TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit) {
 		this.itemEffectType = itemEffectType;
 		this.primaryModifier = primaryModifier;
 		this.secondaryModifier = secondaryModifier;
@@ -47,7 +47,8 @@ public class ItemEffect implements Serializable, XMLSaving {
 	@Override
 	public boolean equals (Object o) {
 		if(o instanceof ItemEffect){
-			if(((ItemEffect)o).getItemEffectType()==itemEffectType
+			if((((ItemEffect)o).getItemEffectType()==null && itemEffectType==null
+					||((ItemEffect)o).getItemEffectType()!=null && ((ItemEffect)o).getItemEffectType().equals(itemEffectType))
 				&& ((ItemEffect)o).getPrimaryModifier() == primaryModifier
 				&& ((ItemEffect)o).getSecondaryModifier() == secondaryModifier
 				&& ((ItemEffect)o).getPotency() == potency
@@ -61,7 +62,9 @@ public class ItemEffect implements Serializable, XMLSaving {
 	@Override
 	public int hashCode() {
 		int result = 17;
-		result = 31 * result + itemEffectType.hashCode();
+		if(itemEffectType!=null) {
+			result = 31 * result + itemEffectType.hashCode();
+		}
 		if(primaryModifier!=null) {
 			result = 31 * result + primaryModifier.hashCode();
 		}
@@ -79,7 +82,7 @@ public class ItemEffect implements Serializable, XMLSaving {
 		Element effect = doc.createElement("effect");
 		parentElement.appendChild(effect);
 
-		CharacterUtils.addAttribute(doc, effect, "itemEffectType", getItemEffectType().toString());
+		CharacterUtils.addAttribute(doc, effect, "itemEffectType", ItemEffectType.getIdFromItemEffectType(getItemEffectType()));
 		CharacterUtils.addAttribute(doc, effect, "primaryModifier", (getPrimaryModifier()==null?"null":getPrimaryModifier().toString()));
 		CharacterUtils.addAttribute(doc, effect, "secondaryModifier", (getSecondaryModifier()==null?"null":getSecondaryModifier().toString()));
 		CharacterUtils.addAttribute(doc, effect, "potency", (getPotency()==null?"null":getPotency().toString()));
@@ -108,7 +111,7 @@ public class ItemEffect implements Serializable, XMLSaving {
 				return null;
 		}
 		ItemEffect ie = new ItemEffect(
-				ItemEffectType.valueOf(itemEffectType),
+				ItemEffectType.getItemEffectTypeFromId(itemEffectType),
 				(parentElement.getAttribute("primaryModifier").equals("null")?null:TFModifier.valueOf(parentElement.getAttribute("primaryModifier"))),
 				(parentElement.getAttribute("secondaryModifier").equals("null")?null:TFModifier.valueOf(parentElement.getAttribute("secondaryModifier"))),
 				(parentElement.getAttribute("potency").equals("null")?null:TFPotency.valueOf(parentElement.getAttribute("potency"))),
@@ -153,11 +156,11 @@ public class ItemEffect implements Serializable, XMLSaving {
 		return cost;
 	}
 	
-	public ItemEffectType getItemEffectType() {
+	public AbstractItemEffectType getItemEffectType() {
 		return itemEffectType;
 	}
 
-	public void setItemEffectType(ItemEffectType itemEffectType) {
+	public void setItemEffectType(AbstractItemEffectType itemEffectType) {
 		this.itemEffectType = itemEffectType;
 	}
 

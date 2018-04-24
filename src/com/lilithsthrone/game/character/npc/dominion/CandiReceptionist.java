@@ -22,7 +22,6 @@ import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.inventory.CharacterInventory;
-import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.utils.Colour;
@@ -33,7 +32,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.78
- * @version 0.1.89
+ * @version 0.2.4
  * @author Innoxia
  */
 public class CandiReceptionist extends NPC {
@@ -90,8 +89,8 @@ public class CandiReceptionist extends NPC {
 			
 	
 			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_THONG, Colour.CLOTHING_PINK_LIGHT, false), true, this);
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.ENFORCER_SHIRT, Colour.CLOTHING_BLUE, false), true, this);
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_MINI_SKIRT, Colour.CLOTHING_BLUE, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.ENFORCER_SHIRT, Colour.CLOTHING_PINK_LIGHT, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.ENFORCER_MINI_SKIRT, Colour.CLOTHING_PINK_LIGHT, false), true, this);
 			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_STILETTO_HEELS, Colour.CLOTHING_BLACK, false), true, this);
 			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_HEART_NECKLACE, Colour.CLOTHING_SILVER, false), true, this);
 	
@@ -110,11 +109,13 @@ public class CandiReceptionist extends NPC {
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
 		
-		if(this.getClothingInSlot(InventorySlot.LEG)!=null) {
-			this.unequipClothingIntoVoid(this.getClothingInSlot(InventorySlot.LEG), true, this);
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_MINI_SKIRT, Colour.CLOTHING_BLUE, false), true, this);
-		}
-		
+		this.unequipAllClothingIntoVoid();
+
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_THONG, Colour.CLOTHING_PINK_LIGHT, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.ENFORCER_SHIRT, Colour.CLOTHING_PINK_LIGHT, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.ENFORCER_MINI_SKIRT, Colour.CLOTHING_PINK_LIGHT, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_STILETTO_HEELS, Colour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_HEART_NECKLACE, Colour.CLOTHING_SILVER, false), true, this);
 	}
 
 	@Override

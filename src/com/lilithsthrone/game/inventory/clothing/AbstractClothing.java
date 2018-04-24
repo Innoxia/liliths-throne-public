@@ -24,6 +24,7 @@ import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.game.inventory.enchanting.TFPotency;
+import com.lilithsthrone.game.inventory.item.AbstractItemEffectType;
 import com.lilithsthrone.game.inventory.item.ItemEffect;
 import com.lilithsthrone.game.inventory.item.ItemEffectType;
 import com.lilithsthrone.main.Main;
@@ -989,7 +990,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 	}
 	
 	@Override
-	public ItemEffectType getEnchantmentEffect() {
+	public AbstractItemEffectType getEnchantmentEffect() {
 		return clothingType.getEnchantmentEffect();
 	}
 	

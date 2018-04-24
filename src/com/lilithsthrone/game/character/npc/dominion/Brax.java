@@ -39,7 +39,6 @@ import com.lilithsthrone.game.character.body.valueEnums.HipSize;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
-import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
@@ -51,9 +50,7 @@ import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
-import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.combat.DamageType;
-import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -88,7 +85,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.5
- * @version 0.1.97
+ * @version 0.2.4
  * @author Innoxia
  */
 public class Brax extends NPC {
@@ -1113,27 +1110,6 @@ public class Brax extends NPC {
 			}
 		}
 	};
-
-	@Override
-	public Attack attackType() {
-		if (this.getAllSpells().isEmpty()
-				|| (Math.random() < 0.7
-						|| this.getManaPercentage() <= 0.6f
-						|| (Main.game.getPlayer().getStatusEffects().contains(StatusEffect.BURN_WEAK)
-								&& this.getStatusEffects().contains(StatusEffect.FIRE_SHIELD)))) {
-			return Attack.MAIN;
-		} else {
-			return Attack.SPELL;
-		}
-	}
-
-	@Override
-	public Spell getSpell() {
-		if (!Main.game.getPlayer().getStatusEffects().contains(StatusEffect.BURN_WEAK))
-			return Spell.FIREBALL_1;
-		else
-			return Spell.FIRE_SHIELD;
-	}
 	
 	@Override
 	public int getEscapeChance() {

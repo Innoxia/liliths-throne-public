@@ -31,6 +31,7 @@ import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.game.inventory.enchanting.TFPotency;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
+import com.lilithsthrone.game.inventory.item.AbstractItemEffectType;
 import com.lilithsthrone.game.inventory.item.ItemEffect;
 import com.lilithsthrone.game.inventory.item.ItemEffectType;
 import com.lilithsthrone.game.inventory.item.ItemType;
@@ -413,7 +414,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 									? null
 									: ClothingSet.valueOf(coreAttributes.getElementsByTagName("clothingSet").item(0).getTextContent());
 				
-				this.pathName = clothingXMLFile.getParentFile().getAbsolutePath() + "\\" + coreAttributes.getElementsByTagName("imageName").item(0).getTextContent();
+				this.pathName = clothingXMLFile.getParentFile().getAbsolutePath() + "/" + coreAttributes.getElementsByTagName("imageName").item(0).getTextContent();
 				
 				this.pathNameEquipped = !coreAttributes.getElementsByTagName("imageEquippedName").item(0).hasChildNodes()
 									? null
@@ -1580,7 +1581,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		}
 	}
 	
-	public ItemEffectType getEnchantmentEffect() {
+	public AbstractItemEffectType getEnchantmentEffect() {
 		return ItemEffectType.CLOTHING;
 	}
 	
