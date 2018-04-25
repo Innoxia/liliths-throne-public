@@ -58,7 +58,6 @@ import com.lilithsthrone.game.character.body.types.TailType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.types.WingType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
-import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
@@ -103,7 +102,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.67
- * @version 0.2.3
+ * @version 0.2.4
  * @author Innoxia, tukaima
  */
 public class CharacterUtils {
@@ -280,9 +279,7 @@ public class CharacterUtils {
 		
 		Body body = generateBody(startingGender, startingBodyType, stage);
 
-		if(mother.getBodyMaterial()==BodyMaterial.SLIME) {
-			body.setBodyMaterial(BodyMaterial.SLIME);
-		}
+		body.setBodyMaterial(mother.getBodyMaterial());
 		
 		// Genetics! (Sort of...)
 		

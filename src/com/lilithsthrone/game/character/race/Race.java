@@ -436,7 +436,131 @@ public enum Race {
 			Attribute.DAMAGE_HARPY,
 			Attribute.RESISTANCE_HARPY,
 			FurryPreference.NORMAL,
-			FurryPreference.NORMAL);
+			FurryPreference.NORMAL),
+	
+
+	// ELEMENTALS:
+	ELEMENTAL_EARTH("earth elemental",
+			"earth elementals",
+			"earth elemental",
+			"earth elemental",
+			"earth elementals",
+			"earth elementals",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "ELEMENTAL_EARTH_BASIC"),
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "ELEMENTAL_EARTH_ADVANCED"),
+
+			Colour.SPELL_SCHOOL_EARTH,
+			Disposition.NEUTRAL,
+			StatusEffect.ELEMENTAL_EARTH,
+			Util.newArrayListOfValues( new ListValue<Attack>(Attack.MAIN), new ListValue<Attack>(Attack.SEDUCTION)),
+			false,
+			0.5f,
+			1,
+			1,
+			Attribute.DAMAGE_ELEMENTAL_EARTH,
+			Attribute.RESISTANCE_ELEMENTAL_EARTH,
+			FurryPreference.MAXIMUM,
+			FurryPreference.MAXIMUM),
+	
+	ELEMENTAL_WATER("water elemental",
+			"water elementals",
+			"water elemental",
+			"water elemental",
+			"water elementals",
+			"water elementals",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "ELEMENTAL_WATER_BASIC"),
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "ELEMENTAL_WATER_ADVANCED"),
+
+			Colour.SPELL_SCHOOL_WATER,
+			Disposition.NEUTRAL,
+			StatusEffect.ELEMENTAL_WATER,
+			Util.newArrayListOfValues( new ListValue<Attack>(Attack.MAIN), new ListValue<Attack>(Attack.SEDUCTION)),
+			false,
+			0.5f,
+			1,
+			1,
+			Attribute.DAMAGE_ELEMENTAL_WATER,
+			Attribute.RESISTANCE_ELEMENTAL_WATER,
+			FurryPreference.MAXIMUM,
+			FurryPreference.MAXIMUM),
+	
+	ELEMENTAL_AIR("air elemental",
+			"air elementals",
+			"air elemental",
+			"air elemental",
+			"air elementals",
+			"air elementals",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "ELEMENTAL_AIR_BASIC"),
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "ELEMENTAL_AIR_ADVANCED"),
+
+			Colour.SPELL_SCHOOL_AIR,
+			Disposition.NEUTRAL,
+			StatusEffect.ELEMENTAL_AIR,
+			Util.newArrayListOfValues( new ListValue<Attack>(Attack.MAIN), new ListValue<Attack>(Attack.SEDUCTION)),
+			false,
+			0.5f,
+			1,
+			1,
+			Attribute.DAMAGE_ELEMENTAL_AIR,
+			Attribute.RESISTANCE_ELEMENTAL_AIR,
+			FurryPreference.MAXIMUM,
+			FurryPreference.MAXIMUM),
+	
+	ELEMENTAL_FIRE("fire elemental",
+			"fire elementals",
+			"fire elemental",
+			"fire elemental",
+			"fire elementals",
+			"fire elementals",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "ELEMENTAL_FIRE_BASIC"),
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "ELEMENTAL_FIRE_ADVANCED"),
+
+			Colour.SPELL_SCHOOL_FIRE,
+			Disposition.NEUTRAL,
+			StatusEffect.ELEMENTAL_FIRE,
+			Util.newArrayListOfValues( new ListValue<Attack>(Attack.MAIN), new ListValue<Attack>(Attack.SEDUCTION)),
+			false,
+			0.5f,
+			1,
+			1,
+			Attribute.DAMAGE_ELEMENTAL_FIRE,
+			Attribute.RESISTANCE_ELEMENTAL_FIRE,
+			FurryPreference.MAXIMUM,
+			FurryPreference.MAXIMUM),
+	
+	ELEMENTAL_ARCANE("arcane elemental",
+			"arcane elementals",
+			"arcane elemental",
+			"arcane elemental",
+			"arcane elementals",
+			"arcane elementals",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "ELEMENTAL_ARCANE_BASIC"),
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "ELEMENTAL_ARCANE_ADVANCED"),
+
+			Colour.SPELL_SCHOOL_ARCANE,
+			Disposition.NEUTRAL,
+			StatusEffect.ELEMENTAL_ARCANE,
+			Util.newArrayListOfValues( new ListValue<Attack>(Attack.MAIN), new ListValue<Attack>(Attack.SEDUCTION)),
+			false,
+			0.5f,
+			1,
+			1,
+			Attribute.DAMAGE_ELEMENTAL_ARCANE,
+			Attribute.RESISTANCE_ELEMENTAL_ARCANE,
+			FurryPreference.MAXIMUM,
+			FurryPreference.MAXIMUM),
+	
+	;
 
 	/*
 	 * // INSECTS: BEE_MORPH("bee-morph",

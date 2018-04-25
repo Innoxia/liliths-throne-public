@@ -18,7 +18,6 @@ import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
 import com.lilithsthrone.game.character.attributes.LustLevel;
 import com.lilithsthrone.game.character.attributes.PhysiqueLevel;
-import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
@@ -239,60 +238,60 @@ public enum RenderingEngine {
 						equippedPanelSB.append("<div class='inventory-item-slot piercing disabled' id='" + invSlot.toString() + "Slot'>" + "</div>");
 						
 					} else {
-						boolean isSlime = charactersInventoryToRender.getBody().getBodyMaterial()==BodyMaterial.SLIME;
+						boolean bypassesPiercing = !charactersInventoryToRender.getBody().getBodyMaterial().isRequiresPiercing();
 						
 						switch(invSlot){
 							case PIERCING_VAGINA:
-								if(!charactersInventoryToRender.hasVagina() || (!isSlime && !charactersInventoryToRender.isPiercedVagina())) {
+								if(!charactersInventoryToRender.hasVagina() || (!bypassesPiercing && !charactersInventoryToRender.isPiercedVagina())) {
 									equippedPanelSB.append("<div class='inventory-item-slot piercing disabled' id='" + invSlot.toString() + "Slot'>" + "</div>");
 								} else {
 									equippedPanelSB.append("<div class='inventory-item-slot piercing'  id='" + invSlot.toString() + "Slot'></div>");
 								}
 								break;
 							case PIERCING_EAR:
-								if(!isSlime && !charactersInventoryToRender.isPiercedEar()) {
+								if(!bypassesPiercing && !charactersInventoryToRender.isPiercedEar()) {
 									equippedPanelSB.append("<div class='inventory-item-slot piercing disabled' id='" + invSlot.toString() + "Slot'>" + "</div>");
 								} else {
 									equippedPanelSB.append("<div class='inventory-item-slot piercing'  id='" + invSlot.toString() + "Slot'></div>");
 								}
 								break;
 							case PIERCING_LIP:
-								if(!isSlime && !charactersInventoryToRender.isPiercedLip()) {
+								if(!bypassesPiercing && !charactersInventoryToRender.isPiercedLip()) {
 									equippedPanelSB.append("<div class='inventory-item-slot piercing disabled' id='" + invSlot.toString() + "Slot'>" + "</div>");
 								} else {
 									equippedPanelSB.append("<div class='inventory-item-slot piercing'  id='" + invSlot.toString() + "Slot'></div>");
 								}
 								break;
 							case PIERCING_NIPPLE:
-								if(!isSlime && !charactersInventoryToRender.isPiercedNipple()) {
+								if(!bypassesPiercing && !charactersInventoryToRender.isPiercedNipple()) {
 									equippedPanelSB.append("<div class='inventory-item-slot piercing disabled' id='" + invSlot.toString() + "Slot'>" + "</div>");
 								} else {
 									equippedPanelSB.append("<div class='inventory-item-slot piercing'  id='" + invSlot.toString() + "Slot'></div>");
 								}
 								break;
 							case PIERCING_NOSE:
-								if(!isSlime && !charactersInventoryToRender.isPiercedNose()) {
+								if(!bypassesPiercing && !charactersInventoryToRender.isPiercedNose()) {
 									equippedPanelSB.append("<div class='inventory-item-slot piercing disabled' id='" + invSlot.toString() + "Slot'>" + "</div>");
 								} else {
 									equippedPanelSB.append("<div class='inventory-item-slot piercing'  id='" + invSlot.toString() + "Slot'></div>");
 								}
 								break;
 							case PIERCING_PENIS:
-								if(!charactersInventoryToRender.hasPenis() || (!isSlime && !charactersInventoryToRender.isPiercedPenis())) {
+								if(!charactersInventoryToRender.hasPenis() || (!bypassesPiercing && !charactersInventoryToRender.isPiercedPenis())) {
 									equippedPanelSB.append("<div class='inventory-item-slot piercing disabled' id='" + invSlot.toString() + "Slot'>" + "</div>");
 								} else {
 									equippedPanelSB.append("<div class='inventory-item-slot piercing'  id='" + invSlot.toString() + "Slot'></div>");
 								}
 								break;
 							case PIERCING_STOMACH:
-								if(!isSlime && !charactersInventoryToRender.isPiercedNavel()) {
+								if(!bypassesPiercing && !charactersInventoryToRender.isPiercedNavel()) {
 									equippedPanelSB.append("<div class='inventory-item-slot piercing disabled' id='" + invSlot.toString() + "Slot'>" + "</div>");
 								} else {
 									equippedPanelSB.append("<div class='inventory-item-slot piercing'  id='" + invSlot.toString() + "Slot'></div>");
 								}
 								break;
 							case PIERCING_TONGUE:
-								if(!isSlime && !charactersInventoryToRender.isPiercedTongue()) {
+								if(!bypassesPiercing && !charactersInventoryToRender.isPiercedTongue()) {
 									equippedPanelSB.append("<div class='inventory-item-slot piercing disabled' id='" + invSlot.toString() + "Slot'>" + "</div>");
 								} else {
 									equippedPanelSB.append("<div class='inventory-item-slot piercing'  id='" + invSlot.toString() + "Slot'></div>");

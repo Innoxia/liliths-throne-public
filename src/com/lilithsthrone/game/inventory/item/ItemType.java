@@ -4805,7 +4805,20 @@ public class ItemType {
 	public static List<AbstractItemType> essences = new ArrayList<>();
 	public static List<AbstractItemType> allItems = new ArrayList<>();
 	
+	/**
+	 * If you're looking for spell books, their id is:</br>
+	 * SPELL_BOOK_"+spell.toString()</br>
+	 * If you're looking for spell scrolls, their id is:</br>
+	 * "SPELL_SCROLL_"+spellSchool.toString()
+	 */
 	public static Map<AbstractItemType, String> itemToIdMap = new HashMap<>();
+
+	/**
+	 * If you're looking for spell books, their id is:</br>
+	 * SPELL_BOOK_"+spell.toString()</br>
+	 * If you're looking for spell scrolls, their id is:</br>
+	 * "SPELL_SCROLL_"+spellSchool.toString()
+	 */
 	public static Map<String, AbstractItemType> idToItemMap = new HashMap<>();
 	
 	static{

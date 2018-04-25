@@ -34,6 +34,9 @@
 		Added Jam's artwork of Zaranix.
 		Added ChattyNeko's artwork of Scarlett.
 	
+	Contributors:
+		Expanded BodyMaterial to add noun and adjective support for all types of body features. Also added relevant parser commands. (tukaima)
+	
 	Other:
 		Lore books are no longer removed from your inventory after use.
 		In combat, if all enemies are stunned, escape chance is now 100%.
@@ -47,6 +50,9 @@
 	
 	
 	
+	elemental books
+	
+	elemental .txt descriptions
 	
 	check remove companion during combat/special scenes
 	

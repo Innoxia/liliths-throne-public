@@ -13,7 +13,6 @@ import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
-import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.combat.Spell;
@@ -42,7 +41,7 @@ import com.lilithsthrone.utils.Util;
  * Shows the tooltip at the given element's position.
  * 
  * @since 0.1.0
- * @version 0.2.0
+ * @version 0.2.4
  * @author Innoxia
  */
 public class InventoryTooltipEventListener implements EventListener {
@@ -271,7 +270,7 @@ public class InventoryTooltipEventListener implements EventListener {
 						} else {
 							
 							boolean piercingBlocked=false;
-							boolean isSlime = equippedToCharacter.getBody().getBodyMaterial()==BodyMaterial.SLIME;
+							boolean bypassesPiercing = !equippedToCharacter.getBody().getBodyMaterial().isRequiresPiercing();
 							
 							switch(invSlot){
 								case PIERCING_VAGINA:
@@ -282,7 +281,8 @@ public class InventoryTooltipEventListener implements EventListener {
 														?"[npc.Name] doesn't have a vagina."
 														:"You don't know if [npc.name] has a vagina.")));
 										piercingBlocked=true;
-									} else if(!isSlime && !equippedToCharacter.isPiercedVagina()) {
+										
+									} else if(!bypassesPiercing && !equippedToCharacter.isPiercedVagina()) {
 										setBlockedTooltipContent(getTooltipText(equippedToCharacter,
 												"Your vagina has not been pierced.",
 												(equippedToCharacter.getPlayerKnowsAreas().contains(CoverableArea.VAGINA)
@@ -291,8 +291,9 @@ public class InventoryTooltipEventListener implements EventListener {
 										piercingBlocked=true;
 									}
 									break;
+									
 								case PIERCING_EAR:
-									if(!isSlime) {
+									if(!bypassesPiercing) {
 										if(!equippedToCharacter.isPiercedEar()) {
 											setBlockedTooltipContent(getTooltipText(equippedToCharacter,
 													"Your ears have not been pierced.",
@@ -301,8 +302,9 @@ public class InventoryTooltipEventListener implements EventListener {
 										}
 									}
 									break;
+									
 								case PIERCING_LIP:
-									if(!isSlime) {
+									if(!bypassesPiercing) {
 										if(!equippedToCharacter.isPiercedLip()) {
 											setBlockedTooltipContent(getTooltipText(equippedToCharacter,
 													"Your lips have not been pierced.",
@@ -311,8 +313,9 @@ public class InventoryTooltipEventListener implements EventListener {
 										}
 									}
 									break;
+									
 								case PIERCING_NIPPLE:
-									if(!isSlime) {
+									if(!bypassesPiercing) {
 										if(!equippedToCharacter.isPiercedNipple()) {
 											setBlockedTooltipContent(getTooltipText(equippedToCharacter,
 													"Your nipples have not been pierced.",
@@ -323,8 +326,9 @@ public class InventoryTooltipEventListener implements EventListener {
 										}
 									}
 									break;
+									
 								case PIERCING_NOSE:
-									if(!isSlime) {
+									if(!bypassesPiercing) {
 										if(!equippedToCharacter.isPiercedNose()) {
 											setBlockedTooltipContent(getTooltipText(equippedToCharacter,
 													"Your nose has not been pierced.",
@@ -333,6 +337,7 @@ public class InventoryTooltipEventListener implements EventListener {
 										}
 									}
 									break;
+									
 								case PIERCING_PENIS:
 									if(equippedToCharacter.getPenisType()==PenisType.NONE) {
 										setBlockedTooltipContent(getTooltipText(equippedToCharacter,
@@ -342,7 +347,7 @@ public class InventoryTooltipEventListener implements EventListener {
 														:"You don't know if [npc.name] has a penis.")));
 										piercingBlocked=true;
 										
-									} else if(!isSlime && !equippedToCharacter.isPiercedPenis()) {
+									} else if(!bypassesPiercing && !equippedToCharacter.isPiercedPenis()) {
 										setBlockedTooltipContent(getTooltipText(equippedToCharacter,
 												"Your penis has not been pierced.",
 												(equippedToCharacter.getPlayerKnowsAreas().contains(CoverableArea.PENIS)
@@ -351,8 +356,9 @@ public class InventoryTooltipEventListener implements EventListener {
 										piercingBlocked=true;
 									}
 									break;
+									
 								case PIERCING_STOMACH:
-									if(!isSlime) {
+									if(!bypassesPiercing) {
 										if(!equippedToCharacter.isPiercedNavel()) {
 											setBlockedTooltipContent(getTooltipText(equippedToCharacter,
 													"Your navel has not been pierced.",
@@ -361,8 +367,9 @@ public class InventoryTooltipEventListener implements EventListener {
 										}
 									}
 									break;
+									
 								case PIERCING_TONGUE:
-									if(!isSlime) {
+									if(!bypassesPiercing) {
 										if(!equippedToCharacter.isPiercedTongue()) {
 											setBlockedTooltipContent(getTooltipText(equippedToCharacter,
 													"Your tongue has not been pierced.",

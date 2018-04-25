@@ -31,7 +31,7 @@ import com.lilithsthrone.world.WorldType;
 public enum Subspecies {
 
 	// HUMAN:
-	HUMAN("raceHuman",
+	HUMAN("statusEffects/raceHuman",
 			"human",
 			"humans",
 			"man",
@@ -51,7 +51,7 @@ public enum Subspecies {
 	},
 
 	// ANGEL:
-	ANGEL("raceAngel",
+	ANGEL("statusEffects/raceAngel",
 			"angel",
 			"angels",
 			"angel",
@@ -71,7 +71,7 @@ public enum Subspecies {
 	},
 
 	// DEMON:
-	DEMON("raceDemon",
+	DEMON("statusEffects/raceDemon",
 			"demon",
 			"demons",
 			"incubus",
@@ -113,7 +113,7 @@ public enum Subspecies {
 		}
 	},
 	
-	IMP("raceImp",
+	IMP("statusEffects/raceImp",
 			"imp",
 			"imps",
 			"imp",
@@ -135,7 +135,7 @@ public enum Subspecies {
 		}
 	},
 	
-	IMP_ALPHA("raceImpAlpha",
+	IMP_ALPHA("statusEffects/raceImpAlpha",
 			"alpha-imp",
 			"alpha-imps",
 			"alpha-imp",
@@ -165,7 +165,7 @@ public enum Subspecies {
 	//		"A typical "+Race.LILIN.getName()),
 
 	// BOVINES:
-	COW_MORPH("raceCowMorph",
+	COW_MORPH("statusEffects/raceCowMorph",
 			"cow-morph",
 			"cow-morphs",
 			"cow-boy",
@@ -187,7 +187,7 @@ public enum Subspecies {
 	//		"An aggressive male-only variety of "+Race.COW_MORPH.getName()),
 	
 	// CANINES:
-	DOG_MORPH("raceDogMorph",
+	DOG_MORPH("statusEffects/raceDogMorph",
 			"dog-morph",
 			"dog-morphs",
 			"dog-boy",
@@ -207,7 +207,7 @@ public enum Subspecies {
 				}
 			},
 	
-	DOG_MORPH_BORDER_COLLIE("raceDogMorph",
+	DOG_MORPH_BORDER_COLLIE("statusEffects/raceDogMorph",
 			"border-collie-morph",
 			"border-collie-morphs",
 			"border-collie-boy",
@@ -236,7 +236,7 @@ public enum Subspecies {
 				}
 			},
 	
-	DOG_MORPH_DOBERMANN("raceDogMorphDobermann",
+	DOG_MORPH_DOBERMANN("statusEffects/raceDogMorphDobermann",
 			"dobermann",
 			"dobermanns",
 			"dobermann",
@@ -273,7 +273,7 @@ public enum Subspecies {
 		}
 	},
 	
-	WOLF_MORPH("raceWolfMorph",
+	WOLF_MORPH("statusEffects/raceWolfMorph",
 			"wolf-morph",
 			"wolf-morphs",
 			"wolf-boy",
@@ -304,7 +304,7 @@ public enum Subspecies {
 	//		"A "+Race.FOX_MORPH.getName()+" with a bestial lower body that walks on four legs"),
 
 	// FELINES:
-	CAT_MORPH("raceCatMorph",
+	CAT_MORPH("statusEffects/raceCatMorph",
 			"cat-morph",
 			"cat-morphs",
 			"cat-boy",
@@ -324,7 +324,7 @@ public enum Subspecies {
 	},
 
 	// EQUINES:
-	HORSE_MORPH("raceHorseMorph",
+	HORSE_MORPH("statusEffects/raceHorseMorph",
 			"horse-morph",
 			"horse-morphs",
 			"horse-boy",
@@ -343,7 +343,7 @@ public enum Subspecies {
 		}
 	},
 
-	REINDEER_MORPH("raceReindeerMorph",
+	REINDEER_MORPH("statusEffects/raceReindeerMorph",
 			"reindeer-morph",
 			"reindeer-morphs",
 			"reindeer-boy",
@@ -366,7 +366,7 @@ public enum Subspecies {
 	//		"A "+Race.HORSE_MORPH.getName()+" with a bestial lower body that walks on four legs"),
 
 	// REPTILE:
-	ALLIGATOR_MORPH("raceGatorMorph",
+	ALLIGATOR_MORPH("statusEffects/raceGatorMorph",
 			"alligator-morph",
 			"alligator-morphs",
 			"alligator-boy",
@@ -420,7 +420,7 @@ public enum Subspecies {
 	//		"A "+Race.DRAGON.getName()+" with a serpentine lower body, devoid of legs"),
 	
 	// SLIMES:
-	SLIME("raceSlime",
+	SLIME("statusEffects/raceSlime",
 			"slime",
 			"slimes",
 			"slime-boy",
@@ -439,7 +439,7 @@ public enum Subspecies {
 			body.setBodyMaterial(BodyMaterial.SLIME);
 		}
 	},
-	SLIME_ANGEL("raceSlime",
+	SLIME_ANGEL("statusEffects/raceSlime",
 			"angel-slime",
 			"angel-slimes",
 			"angel-slime-boy",
@@ -459,7 +459,7 @@ public enum Subspecies {
 			body.setBodyMaterial(BodyMaterial.SLIME);
 		}
 	},
-	SLIME_DEMON("raceSlime",
+	SLIME_DEMON("statusEffects/raceSlime",
 			"demon-slime",
 			"demon-slimes",
 			"demon-slime-boy",
@@ -479,7 +479,7 @@ public enum Subspecies {
 			body.setBodyMaterial(BodyMaterial.SLIME);
 		}
 	},
-	SLIME_IMP("raceSlime",
+	SLIME_IMP("statusEffects/raceSlime",
 			"imp-slime",
 			"imp-slimes",
 			"imp-slime-boy",
@@ -503,7 +503,7 @@ public enum Subspecies {
 			return true;
 		}
 	},
-	SLIME_COW("raceSlime",
+	SLIME_COW("statusEffects/raceSlime",
 			"cow-slime",
 			"cow-slimes",
 			"cow-slime-boy",
@@ -523,7 +523,7 @@ public enum Subspecies {
 			body.setBodyMaterial(BodyMaterial.SLIME);
 		}
 	},
-	SLIME_DOG("raceSlime",
+	SLIME_DOG("statusEffects/raceSlime",
 			"dog-slime",
 			"dog-slimes",
 			"dog-slime-boy",
@@ -543,7 +543,7 @@ public enum Subspecies {
 			body.setBodyMaterial(BodyMaterial.SLIME);
 		}
 	},
-	SLIME_DOG_DOBERMANN("raceSlime",
+	SLIME_DOG_DOBERMANN("statusEffects/raceSlime",
 			"dobermann-slime",
 			"dobermann-slimes",
 			"dobermann-slime-boy",
@@ -563,7 +563,7 @@ public enum Subspecies {
 			body.setBodyMaterial(BodyMaterial.SLIME);
 		}
 	},
-	SLIME_DOG_BORDER_COLLIE("raceSlime",
+	SLIME_DOG_BORDER_COLLIE("statusEffects/raceSlime",
 			"border-collie-slime",
 			"border-collie-slimes",
 			"border-collie-slime-boy",
@@ -583,7 +583,7 @@ public enum Subspecies {
 			body.setBodyMaterial(BodyMaterial.SLIME);
 		}
 	},
-	SLIME_WOLF("raceSlime",
+	SLIME_WOLF("statusEffects/raceSlime",
 			"wolf-slime",
 			"wolf-slimes",
 			"wolf-slime-boy",
@@ -603,7 +603,7 @@ public enum Subspecies {
 			body.setBodyMaterial(BodyMaterial.SLIME);
 		}
 	},
-	SLIME_CAT("raceSlime",
+	SLIME_CAT("statusEffects/raceSlime",
 			"cat-slime",
 			"cat-slimes",
 			"cat-slime-boy",
@@ -623,7 +623,7 @@ public enum Subspecies {
 			body.setBodyMaterial(BodyMaterial.SLIME);
 		}
 	},
-	SLIME_HORSE("raceSlime",
+	SLIME_HORSE("statusEffects/raceSlime",
 			"horse-slime",
 			"horse-slimes",
 			"horse-slime-boy",
@@ -643,7 +643,7 @@ public enum Subspecies {
 			body.setBodyMaterial(BodyMaterial.SLIME);
 		}
 	},
-	SLIME_REINDEER("raceSlime",
+	SLIME_REINDEER("statusEffects/raceSlime",
 			"reindeer-slime",
 			"reindeer-slimes",
 			"reindeer-slime-boy",
@@ -663,7 +663,7 @@ public enum Subspecies {
 			body.setBodyMaterial(BodyMaterial.SLIME);
 		}
 	},
-	SLIME_ALLIGATOR("raceSlime",
+	SLIME_ALLIGATOR("statusEffects/raceSlime",
 			"alligator-slime",
 			"alligator-slimes",
 			"alligator-slime-boy",
@@ -683,7 +683,7 @@ public enum Subspecies {
 			body.setBodyMaterial(BodyMaterial.SLIME);
 		}
 	},
-	SLIME_SQUIRREL("raceSlime",
+	SLIME_SQUIRREL("statusEffects/raceSlime",
 			"squirrel-slime",
 			"squirrel-slimes",
 			"squirrel-slime-boy",
@@ -703,7 +703,7 @@ public enum Subspecies {
 			body.setBodyMaterial(BodyMaterial.SLIME);
 		}
 	},
-	SLIME_RAT("raceSlime",
+	SLIME_RAT("statusEffects/raceSlime",
 			"rat-slime",
 			"rat-slimes",
 			"rat-slime-boy",
@@ -723,7 +723,7 @@ public enum Subspecies {
 			body.setBodyMaterial(BodyMaterial.SLIME);
 		}
 	},
-	SLIME_RABBIT("raceSlime",
+	SLIME_RABBIT("statusEffects/raceSlime",
 			"rabbit-slime",
 			"rabbit-slimes",
 			"rabbit-slime-boy",
@@ -743,7 +743,7 @@ public enum Subspecies {
 			body.setBodyMaterial(BodyMaterial.SLIME);
 		}
 	},
-	SLIME_BAT("raceSlime",
+	SLIME_BAT("statusEffects/raceSlime",
 			"bat-slime",
 			"bat-slimes",
 			"bat-slime-boy",
@@ -763,7 +763,7 @@ public enum Subspecies {
 			body.setBodyMaterial(BodyMaterial.SLIME);
 		}
 	},
-	SLIME_HARPY("raceSlime",
+	SLIME_HARPY("statusEffects/raceSlime",
 			"harpy-slime",
 			"harpy-slimes",
 			"harpy-slime-boy",
@@ -783,7 +783,7 @@ public enum Subspecies {
 			body.setBodyMaterial(BodyMaterial.SLIME);
 		}
 	},
-	SLIME_HARPY_RAVEN("raceSlime",
+	SLIME_HARPY_RAVEN("statusEffects/raceSlime",
 			"harpy-raven-slime",
 			"harpy-raven-slimes",
 			"harpy-raven-slime-boy",
@@ -821,7 +821,7 @@ public enum Subspecies {
 //			"A "+Race.GARGOYLE.getName()+" resembling a typical bipedal "+Race.HORSE_MORPH.getName()),
 
 	// RODENTS:
-	SQUIRREL_MORPH("raceSquirrelMorph",
+	SQUIRREL_MORPH("statusEffects/raceSquirrelMorph",
 			"squirrel-morph",
 			"squirrel-morphs",
 			"squirrel-boy",
@@ -843,7 +843,7 @@ public enum Subspecies {
 	//MOUSE_MORPH(Race.MOUSE_MORPH.getName(), Race.MOUSE_MORPH, RacialBody.MOUSE_MORPH, SubspeciesPreference.FIVE_ABUNDANT,
 	//		"A typical bipedal "+Race.MOUSE_MORPH.getName()),
 	
-	RAT_MORPH("raceRatMorph",
+	RAT_MORPH("statusEffects/raceRatMorph",
 			"rat-morph",
 			"rat-morphs",
 			"rat-boy",
@@ -861,7 +861,7 @@ public enum Subspecies {
 		}
 	},
 
-	RABBIT_MORPH("raceRabbitMorph",
+	RABBIT_MORPH("statusEffects/raceRabbitMorph",
 			"rabbit-morph",
 			"rabbit-morphs",
 			"rabbit-boy",
@@ -878,7 +878,7 @@ public enum Subspecies {
 		}
 	},
 
-	RABBIT_MORPH_LOP("raceRabbitLopMorph",
+	RABBIT_MORPH_LOP("statusEffects/raceRabbitLopMorph",
 			"lop-rabbit-morph",
 			"lop-rabbit-morphs",
 			"lop-rabbit-boy",
@@ -898,7 +898,7 @@ public enum Subspecies {
 		}
 	},
 	
-	BAT_MORPH("raceBatMorph",
+	BAT_MORPH("statusEffects/raceBatMorph",
 			"bat-morph",
 			"bat-morphs",
 			"bat-boy",
@@ -919,7 +919,7 @@ public enum Subspecies {
 	},
 	
 	// AVIAN:
-	HARPY("raceHarpy",
+	HARPY("statusEffects/raceHarpy",
 			"harpy",
 			"harpies",
 			"harpy",
@@ -938,7 +938,7 @@ public enum Subspecies {
 		}
 	},
 	
-	HARPY_RAVEN("raceHarpy",
+	HARPY_RAVEN("statusEffects/raceHarpy",
 			"raven-harpy",
 			"raven-harpies",
 			"raven-harpy",
@@ -954,6 +954,98 @@ public enum Subspecies {
 		public void applySpeciesChanges(Body body) {
 			body.getCoverings().put(BodyCoveringType.FEATHERS, new Covering(BodyCoveringType.FEATHERS, CoveringPattern.NONE, Colour.FEATHERS_BLACK, false, Colour.FEATHERS_BLACK, false));
 			body.getCoverings().put(BodyCoveringType.BODY_HAIR_HARPY, new Covering(BodyCoveringType.BODY_HAIR_HARPY, CoveringPattern.NONE, Colour.FEATHERS_BLACK, false, Colour.FEATHERS_BLACK, false));
+		}
+	},
+	
+	// ELEMENTALS:
+
+	ELEMENTAL_EARTH("combat/spell/elemental_earth",
+			"earth elemental",
+			"earth elementals",
+			"earth elemental",
+			"earth elemental",
+			"earth elementals",
+			"earth elementals",
+			Race.ELEMENTAL_EARTH,
+			Colour.SPELL_SCHOOL_EARTH,
+			SubspeciesPreference.FOUR_ABUNDANT,
+			"A typical harpy.",
+			Util.newArrayListOfValues()) {
+		@Override
+		public void applySpeciesChanges(Body body) {
+			body.setBodyMaterial(BodyMaterial.STONE);
+		}
+	},
+
+	ELEMENTAL_WATER("combat/spell/elemental_water",
+			"water elemental",
+			"water elementals",
+			"water elemental",
+			"water elemental",
+			"water elementals",
+			"water elementals",
+			Race.ELEMENTAL_WATER,
+			Colour.SPELL_SCHOOL_WATER,
+			SubspeciesPreference.FOUR_ABUNDANT,
+			"A typical harpy.",
+			Util.newArrayListOfValues()) {
+		@Override
+		public void applySpeciesChanges(Body body) {
+			body.setBodyMaterial(BodyMaterial.WATER);
+		}
+	},
+
+	ELEMENTAL_AIR("combat/spell/elemental_air",
+			"air elemental",
+			"air elementals",
+			"air elemental",
+			"air elemental",
+			"air elementals",
+			"air elementals",
+			Race.ELEMENTAL_AIR,
+			Colour.SPELL_SCHOOL_AIR,
+			SubspeciesPreference.FOUR_ABUNDANT,
+			"A typical harpy.",
+			Util.newArrayListOfValues()) {
+		@Override
+		public void applySpeciesChanges(Body body) {
+			body.setBodyMaterial(BodyMaterial.AIR);
+		}
+	},
+
+	ELEMENTAL_FIRE("combat/spell/elemental_fire",
+			"fire elemental",
+			"fire elementals",
+			"fire elemental",
+			"fire elemental",
+			"fire elementals",
+			"fire elementals",
+			Race.ELEMENTAL_FIRE,
+			Colour.SPELL_SCHOOL_FIRE,
+			SubspeciesPreference.FOUR_ABUNDANT,
+			"A typical harpy.",
+			Util.newArrayListOfValues()) {
+		@Override
+		public void applySpeciesChanges(Body body) {
+			body.setBodyMaterial(BodyMaterial.FIRE);
+		}
+	},
+
+	ELEMENTAL_ARCANE("combat/spell/elemental_arcane",
+			"arcane elemental",
+			"arcane elementals",
+			"arcane elemental",
+			"arcane elemental",
+			"arcane elementals",
+			"arcane elementals",
+			Race.ELEMENTAL_ARCANE,
+			Colour.SPELL_SCHOOL_ARCANE,
+			SubspeciesPreference.FOUR_ABUNDANT,
+			"A typical harpy.",
+			Util.newArrayListOfValues()) {
+		@Override
+		public void applySpeciesChanges(Body body) {
+			body.setBodyMaterial(BodyMaterial.ARCANE);
 		}
 	},
 	
@@ -1021,7 +1113,7 @@ public enum Subspecies {
 		
 		if(iconPathName!=null) {
 			try {
-				InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/" + iconPathName + ".svg");
+				InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/" + iconPathName + ".svg");
 				SVGString = Util.inputStreamToString(is);
 	
 				SVGString = SVGString.replaceAll("#ff2a2a", colour.getShades()[0]);
@@ -1037,7 +1129,7 @@ public enum Subspecies {
 			}
 			
 			try {
-				InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/" + iconPathName + ".svg");
+				InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/" + iconPathName + ".svg");
 				SVGStringDesaturated = Util.inputStreamToString(is);
 	
 				SVGStringDesaturated = SVGStringDesaturated.replaceAll("#ff2a2a", Colour.BASE_GREY.getShades()[0]);
@@ -1095,6 +1187,16 @@ public enum Subspecies {
 				return Subspecies.SQUIRREL_MORPH;
 			case WOLF_MORPH:
 				return Subspecies.WOLF_MORPH;
+			case ELEMENTAL_AIR:
+				return Subspecies.ELEMENTAL_AIR;
+			case ELEMENTAL_ARCANE:
+				return Subspecies.ELEMENTAL_ARCANE;
+			case ELEMENTAL_EARTH:
+				return Subspecies.ELEMENTAL_EARTH;
+			case ELEMENTAL_FIRE:
+				return Subspecies.ELEMENTAL_FIRE;
+			case ELEMENTAL_WATER:
+				return Subspecies.ELEMENTAL_WATER;
 		}
 		return Subspecies.HUMAN;
 	}
@@ -1102,18 +1204,23 @@ public enum Subspecies {
 	public static Subspecies getSubspeciesFromBody(Body body, Race race) {
 		Subspecies subspecies = null;
 		
-//		switch(body.getBodyMaterial()) {
-//			case FIRE:
-//				break;
-//			case FLESH:
-//				break;
-//			case ICE:
-//				break;
-//			case RUBBER:
-//				break;
-//			case SLIME:
-//				return Subspecies.SLIME;
-//		}
+		switch(body.getBodyMaterial()) {
+			case FIRE:
+				return Subspecies.ELEMENTAL_FIRE;
+			case ICE:
+			case WATER:
+				return Subspecies.ELEMENTAL_WATER;
+			case RUBBER:
+			case STONE:
+				return Subspecies.ELEMENTAL_EARTH;
+			case AIR:
+				return Subspecies.ELEMENTAL_AIR;
+			case ARCANE:
+				return Subspecies.ELEMENTAL_ARCANE;
+			case SLIME:
+			case FLESH:
+				break;
+		}
 		
 		if(subspecies==null) {
 			switch(race) {
@@ -1130,6 +1237,11 @@ public enum Subspecies {
 					subspecies = Subspecies.COW_MORPH;
 					break;
 				case DEMON:
+				case ELEMENTAL_AIR:
+				case ELEMENTAL_ARCANE:
+				case ELEMENTAL_EARTH:
+				case ELEMENTAL_FIRE:
+				case ELEMENTAL_WATER:
 					subspecies = Subspecies.DEMON;
 					break;
 				case IMP:
@@ -1203,6 +1315,11 @@ public enum Subspecies {
 							subspecies = Subspecies.SLIME_COW;
 							break;
 						case DEMON:
+						case ELEMENTAL_AIR:
+						case ELEMENTAL_ARCANE:
+						case ELEMENTAL_EARTH:
+						case ELEMENTAL_FIRE:
+						case ELEMENTAL_WATER:
 							subspecies = Subspecies.SLIME_DEMON;
 							break;
 						case DOG_MORPH:

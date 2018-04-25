@@ -12788,6 +12788,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		
 		String tfDescription = "";
 		
+		//TODO other material types
+		
 		if(type == BodyMaterial.SLIME) {
 			for(BodyCoveringType bct : BodyCoveringType.values()) { // Slimes can't wear makeup:
 				switch(bct) {
@@ -14252,6 +14254,27 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		return body.getSkin().getType().getPronoun();
 	}
 	public Covering getCovering(BodyCoveringType bodyCoveringType) {
+		switch(this.getBodyMaterial()) {
+			case AIR:
+				break;
+			case ARCANE:
+				break;
+			case FIRE:
+				break;
+			case FLESH:
+				break;
+			case ICE:
+				break;
+			case RUBBER:
+				break;
+			case SLIME:
+				break;
+			case STONE:
+				break;
+			case WATER:
+				break;
+		}
+		
 		if(this.getBodyMaterial()==BodyMaterial.SLIME) {
 			if(bodyCoveringType.getNaturalModifiers().contains(CoveringModifier.EYE) || bodyCoveringType == BodyCoveringType.SLIME_EYE) {
 				return body.getCoverings().get(BodyCoveringType.SLIME_EYE);

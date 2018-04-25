@@ -4,12 +4,12 @@ import com.lilithsthrone.utils.Colour;
 
 /**
  * @since 0.1.83
- * @version 0.2.1
+ * @version 0.2.4
  * @author Innoxia, tukaima
  */
 public enum BodyMaterial {
 
-	FLESH(	"flesh",
+	FLESH("flesh",
 			"skin", "fleshy",
 			"skin", "fleshy",
 			"flesh", "fleshy",
@@ -27,15 +27,36 @@ public enum BodyMaterial {
 			"shell", "shelled",
 			"nails", "hard",
 			"keratin", "keratinous",
-			Colour.BASE_PINK_LIGHT),
+			Colour.BASE_PINK_LIGHT,
+			true,
+			false),
 	
-	SLIME("slime", Colour.RACE_SLIME),
+	SLIME("slime", Colour.RACE_SLIME, false, true),
+
+	// Fire elementals:
 	
-	FIRE("fire", "burning", Colour.BASE_ORANGE),
+	FIRE("fire", "burning", Colour.BASE_ORANGE, false, false),
+
+	// Water elementals:
+
+	WATER("water", "cool", Colour.BASE_AQUA, false, true),
 	
-	ICE("ice", "icy", Colour.BASE_BLUE_LIGHT),
+	ICE("ice", "freezing", Colour.BASE_BLUE_LIGHT, true, true),
+
+	// Air elementals:
+
+	AIR("air", "swirling", Colour.BASE_BLUE_STEEL, false, false),
+
+	// Earth elementals:
 	
-	RUBBER("rubber", Colour.BASE_BLACK);
+	STONE("stone", "hard", Colour.BASE_GREY, true, false),
+	
+	RUBBER("rubber", Colour.BASE_BLACK, true, false),
+	
+	// Arcane elementals:
+	
+	ARCANE("energy", Colour.GENERIC_ARCANE, false, false),
+	;
 
 	private String name;
 	private String skinNoun; private String skinAdj;
@@ -56,6 +77,8 @@ public enum BodyMaterial {
 	private	String keratinNoun; private String keratinAdj;
 	private String keratinAltNoun; private String keratinAltAdj;
 	private Colour colour;
+	private boolean requiresPiercing;
+	private boolean orificesAlwaysMaximumWetness;
 
 	private BodyMaterial(String name,
 			String skinNoun, String skinAdj,
@@ -75,7 +98,9 @@ public enum BodyMaterial {
 			String shellAltNoun, String shellAltAdj,
 			String keratinNoun, String keratinAdj,
 			String keratinAltNoun, String keratinAltAdj,
-			Colour colour) {
+			Colour colour,
+			boolean requiresPiercing,
+			boolean orificesAlwaysMaximumWetness) {
 		this.name = name;
 		this.skinNoun = skinNoun;
 		this.skinAdj = skinAdj;
@@ -112,9 +137,11 @@ public enum BodyMaterial {
 		this.keratinAltNoun = keratinAltNoun;
 		this.keratinAltAdj = keratinAltAdj;
 		this.colour = colour;
+		this.requiresPiercing = requiresPiercing;
+		this.orificesAlwaysMaximumWetness = orificesAlwaysMaximumWetness;
 	}
 
-	private BodyMaterial(String noun, String adjective, Colour colour) {
+	private BodyMaterial(String noun, String adjective, Colour colour, boolean requiresPiercing, boolean orificesAlwaysMaximumWetness) {
 		this.name = noun;
 		this.skinNoun = noun;
 		this.skinAdj = adjective;
@@ -151,9 +178,11 @@ public enum BodyMaterial {
 		this.keratinAltNoun = noun;
 		this.keratinAltAdj = adjective;
 		this.colour = colour;
+		this.requiresPiercing = requiresPiercing;
+		this.orificesAlwaysMaximumWetness = orificesAlwaysMaximumWetness;
 	}
 
-	private BodyMaterial(String noun, Colour colour) {
+	private BodyMaterial(String noun, Colour colour, boolean requiresPiercing, boolean orificesAlwaysMaximumWetness) {
 		this.name = noun;
 		this.skinNoun = noun;
 		this.skinAdj = noun;
@@ -190,6 +219,8 @@ public enum BodyMaterial {
 		this.keratinAltNoun = noun;
 		this.keratinAltAdj = noun;
 		this.colour = colour;
+		this.requiresPiercing = requiresPiercing;
+		this.orificesAlwaysMaximumWetness = orificesAlwaysMaximumWetness;
 	}
 
 	public String getName() {
@@ -334,5 +365,13 @@ public enum BodyMaterial {
 
 	public Colour getColour() {
 		return colour;
+	}
+
+	public boolean isRequiresPiercing() {
+		return requiresPiercing;
+	}
+
+	public boolean isOrificesAlwaysMaximumWetness() {
+		return orificesAlwaysMaximumWetness;
 	}
 }

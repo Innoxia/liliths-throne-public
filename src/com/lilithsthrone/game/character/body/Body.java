@@ -1435,40 +1435,7 @@ public class Body implements Serializable, XMLSaving {
 		sb.append("</p>");
 		
 		switch(this.getBodyMaterial()) {
-			case FIRE:
-				if (owner.isPlayer()) {
-					sb.append("<p>"
-								+ "Your entire body, save for a small obsidian sphere in the place where your heart should be, is made out of <b style='color:"+this.getBodyMaterial().getColour().toWebHexString()+";'>fire and smoke</b>!"
-							+ "</p>");
-				} else {
-					sb.append("<p>"
-								+ "[npc.Name]'s entire body, save for a small obsidian sphere in the place where [npc.her] heart should be, is made out of <b style='color:"+this.getBodyMaterial().getColour().toWebHexString()+";'>fire and smoke</b>!"
-							+ "</p>");
-				}
-				break;
 			case FLESH:
-				break;
-			case ICE:
-				if (owner.isPlayer()) {
-					sb.append("<p>"
-								+ "Your entire body, save for a small obsidian sphere in the place where your heart should be, is made out of <b style='color:"+this.getBodyMaterial().getColour().toWebHexString()+";'>ice</b>!"
-							+ "</p>");
-				} else {
-					sb.append("<p>"
-								+ "[npc.Name]'s entire body, save for a small obsidian sphere in the place where [npc.her] heart should be, is made out of <b style='color:"+this.getBodyMaterial().getColour().toWebHexString()+";'>ice</b>!"
-							+ "</p>");
-				}
-				break;
-			case RUBBER:
-				if (owner.isPlayer()) {
-					sb.append("<p>"
-								+ "Your entire body, save for a small obsidian sphere in the place where your heart should be, is made out of <b style='color:"+this.getBodyMaterial().getColour().toWebHexString()+";'>rubber</b>!"
-							+ "</p>");
-				} else {
-					sb.append("<p>"
-								+ "[npc.Name]'s entire body, save for a small obsidian sphere in the place where [npc.her] heart should be, is made out of <b style='color:"+this.getBodyMaterial().getColour().toWebHexString()+";'>rubber</b>!"
-							+ "</p>");
-				}
 				break;
 			case SLIME:
 				if (owner.isPlayer()) {
@@ -1480,6 +1447,25 @@ public class Body implements Serializable, XMLSaving {
 					sb.append("<p>"
 								+ "[npc.Name]'s entire body, save for a small, glowing sphere in the place where [npc.her] heart should be, is made out of [npc.skinFullDescription(true)]!"
 								+ " [npc.She] doesn't need to have any parts of [npc.her] body pierced in order to equip jewellery, as [npc.she] can freely morph [npc.her] body at will!"
+							+ "</p>");
+				}
+				break;
+			case AIR:
+			case ARCANE:
+			case STONE:
+			case RUBBER:
+			case ICE:
+			case WATER:
+			case FIRE:
+				if (owner.isPlayer()) {
+					sb.append("<p>"
+								+ "Your entire body, save for a small obsidian sphere in the place where your heart should be, is made out of"
+									+ " <b style='color:"+this.getBodyMaterial().getColour().toWebHexString()+";'>"+this.getBodyMaterial().getName()+"</b>!"
+							+ "</p>");
+				} else {
+					sb.append("<p>"
+								+ "[npc.Name]'s entire body, save for a small obsidian sphere in the place where [npc.her] heart should be, is made out of"
+									+ " <b style='color:"+this.getBodyMaterial().getColour().toWebHexString()+";'>"+this.getBodyMaterial().getName()+"</b>!"
 							+ "</p>");
 				}
 				break;
@@ -3492,23 +3478,46 @@ public class Body implements Serializable, XMLSaving {
 		raceWeightMap.clear();
 
 		Race race = Race.HUMAN;
-
-		if(this.getBodyMaterial()==BodyMaterial.SLIME) {
-			race = Race.SLIME;
-			this.raceStage = RaceStage.GREATER;
-			
-		} else {
-			race = getRaceFromPartWeighting();
-			
-			if(raceWeightMap.size()==1) {
-				if(raceWeightMap.containsKey(Race.HUMAN)) {
-					this.raceStage = RaceStage.HUMAN;
+		switch(this.getBodyMaterial()) {
+			case AIR:
+				race = Race.ELEMENTAL_AIR;
+				this.raceStage = RaceStage.GREATER;
+				break;
+			case ARCANE:
+				race = Race.ELEMENTAL_ARCANE;
+				this.raceStage = RaceStage.GREATER;
+				break;
+			case FIRE:
+				race = Race.ELEMENTAL_FIRE;
+				this.raceStage = RaceStage.GREATER;
+				break;
+			case FLESH:
+				race = getRaceFromPartWeighting();
+				
+				if(raceWeightMap.size()==1) {
+					if(raceWeightMap.containsKey(Race.HUMAN)) {
+						this.raceStage = RaceStage.HUMAN;
+					} else {
+						this.raceStage = RaceStage.GREATER;
+					}
 				} else {
-					this.raceStage = RaceStage.GREATER;
+					this.raceStage = RaceStage.LESSER;
 				}
-			} else {
-				this.raceStage = RaceStage.LESSER;
-			}
+				break;
+			case ICE:
+			case WATER:
+				race = Race.ELEMENTAL_WATER;
+				this.raceStage = RaceStage.GREATER;
+				break;
+			case RUBBER:
+			case STONE:
+				race = Race.ELEMENTAL_EARTH;
+				this.raceStage = RaceStage.GREATER;
+				break;
+			case SLIME:
+				race = Race.SLIME;
+				this.raceStage = RaceStage.GREATER;
+				break;
 		}
 		
 		subspecies = Subspecies.getSubspeciesFromBody(this, race);

@@ -427,6 +427,36 @@ public enum Attribute {
 			return "Increases damage vs slimes.";
 		}
 	},
+	DAMAGE_ELEMENTAL_EARTH(0, -100, 100, "earth-elemental damage", "Earth-elemental damage", "swordIcon", Colour.SPELL_SCHOOL_EARTH, "earth-elemental-obliteration", "earth-elemental-mercy", null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Increases damage vs earth-elementals.";
+		}
+	},
+	DAMAGE_ELEMENTAL_WATER(0, -100, 100, "water-elemental damage", "Water-elemental damage", "swordIcon", Colour.SPELL_SCHOOL_WATER, "water-elemental-obliteration", "water-elemental-mercy", null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Increases damage vs water-elementals.";
+		}
+	},
+	DAMAGE_ELEMENTAL_AIR(0, -100, 100, "air-elemental damage", "Air-elemental damage", "swordIcon", Colour.SPELL_SCHOOL_AIR, "air-elemental-obliteration", "air-elemental-mercy", null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Increases damage vs air-elementals.";
+		}
+	},
+	DAMAGE_ELEMENTAL_FIRE(0, -100, 100, "fire-elemental damage", "Fire-elemental damage", "swordIcon", Colour.SPELL_SCHOOL_FIRE, "fire-elemental-obliteration", "fire-elemental-mercy", null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Increases damage vs fire-elementals.";
+		}
+	},
+	DAMAGE_ELEMENTAL_ARCANE(0, -100, 100, "arcane-elemental damage", "Arcane-elemental damage", "swordIcon", Colour.SPELL_SCHOOL_ARCANE, "arcane-elemental-obliteration", "arcane-elemental-mercy", null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Increases damage vs arcane-elementals.";
+		}
+	},
 	
 	RESISTANCE_ANGEL(0, -100, 100, "angelic resistance", "Angelic resistance", "shieldIcon", Colour.RACE_ANGEL, "angelic-immunity", "angelic-vulnerability", null) {
 		@Override
@@ -529,7 +559,39 @@ public enum Attribute {
 		public String getDescription(GameCharacter owner) {
 			return "Increases resistance vs damage inflicted by slimes.";
 		}
-	};
+	},
+	RESISTANCE_ELEMENTAL_EARTH(0, -100, 100, "earth-elemental resistance", "Earth-elemental resistance", "swordIcon", Colour.SPELL_SCHOOL_EARTH, "earth-elemental-immunity", "earth-elemental-vulnerability", null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Increases resistance vs earth-elementals.";
+		}
+	},
+	RESISTANCE_ELEMENTAL_WATER(0, -100, 100, "water-elemental resistance", "Water-elemental resistance", "swordIcon", Colour.SPELL_SCHOOL_WATER, "water-elemental-immunity", "water-elemental-vulnerability", null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Increases resistance vs water-elementals.";
+		}
+	},
+	RESISTANCE_ELEMENTAL_AIR(0, -100, 100, "air-elemental resistance", "Air-elemental resistance", "swordIcon", Colour.SPELL_SCHOOL_AIR, "air-elemental-immunity", "air-elemental-vulnerability", null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Increases resistance vs air-elementals.";
+		}
+	},
+	RESISTANCE_ELEMENTAL_FIRE(0, -100, 100, "fire-elemental resistance", "Fire-elemental resistance", "swordIcon", Colour.SPELL_SCHOOL_FIRE, "fire-elemental-immunity", "fire-elemental-vulnerability", null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Increases resistance vs fire-elementals.";
+		}
+	},
+	RESISTANCE_ELEMENTAL_ARCANE(0, -100, 100, "arcane-elemental resistance", "Arcane-elemental resistance", "swordIcon", Colour.SPELL_SCHOOL_ARCANE, "arcane-elemental-immunity", "arcane-elemental-vulnerability", null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Increases resistance vs arcane-elementals.";
+		}
+	},
+	
+	;
 
 	
 	private int baseValue;

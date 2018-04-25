@@ -49,6 +49,7 @@ import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.combat.Spell;
+import com.lilithsthrone.game.combat.SpellSchool;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -466,6 +467,16 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.STR_INGREDIENT_BLACK_RATS_RUM)));
 				case RABBIT_MORPH:
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.SEX_INGREDIENT_BUNNY_JUICE)));
+				case ELEMENTAL_AIR:
+					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.AIR))));
+				case ELEMENTAL_ARCANE:
+					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.ARCANE))));
+				case ELEMENTAL_EARTH:
+					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.EARTH))));
+				case ELEMENTAL_FIRE:
+					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.FIRE))));
+				case ELEMENTAL_WATER:
+					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.WATER))));
 			}
 			
 		} else if(rnd <= 0.8 && !Main.game.getPlayer().getRacesDiscoveredFromBook().contains(getRace())) {
@@ -504,6 +515,16 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.BOOK_RAT_MORPH)));
 				case RABBIT_MORPH:
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.BOOK_RABBIT_MORPH)));
+				case ELEMENTAL_AIR: //TODO books
+					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.AIR))));
+				case ELEMENTAL_ARCANE:
+					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.ARCANE))));
+				case ELEMENTAL_EARTH:
+					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.EARTH))));
+				case ELEMENTAL_FIRE:
+					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.FIRE))));
+				case ELEMENTAL_WATER:
+					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.WATER))));
 			}
 		
 		} else {
@@ -540,6 +561,16 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_RAT_MORPH)));
 				case RABBIT_MORPH:
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_RABBIT_MORPH)));
+				case ELEMENTAL_AIR:
+					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.AIR))));
+				case ELEMENTAL_ARCANE:
+					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.ARCANE))));
+				case ELEMENTAL_EARTH:
+					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.EARTH))));
+				case ELEMENTAL_FIRE:
+					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.FIRE))));
+				case ELEMENTAL_WATER:
+					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.WATER))));
 			}
 		}
 		
@@ -876,6 +907,11 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				case IMP:
 				case HUMAN:
 				case SLIME:
+				case ELEMENTAL_AIR:
+				case ELEMENTAL_ARCANE:
+				case ELEMENTAL_EARTH:
+				case ELEMENTAL_FIRE:
+				case ELEMENTAL_WATER:
 					itemType = ItemType.RACE_INGREDIENT_HUMAN;
 					break;
 			}

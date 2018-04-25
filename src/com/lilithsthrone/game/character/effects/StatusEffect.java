@@ -58,7 +58,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.2.1
+ * @version 0.2.4
  * @author Innoxia
  */
 public enum StatusEffect {
@@ -2108,6 +2108,137 @@ public enum StatusEffect {
 		@Override
 		public String getSVGString(GameCharacter owner) {
 			return owner.getSubspecies().getSVGString(owner);
+		}
+	},
+
+	// Elementals:
+	ELEMENTAL_EARTH(90,
+			"earth elemental",
+			null,
+			Colour.SPELL_SCHOOL_EARTH,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 100f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 50f)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			return UtilText.parse(target, "[npc.Name] is a summoned elemental, currently bound to the school of Earth.");
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getRace() == Race.ELEMENTAL_EARTH;
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return Spell.ELEMENTAL_EARTH.getSVGString();
+		}
+	},
+	
+	ELEMENTAL_WATER(90,
+			"water elemental",
+			null,
+			Colour.SPELL_SCHOOL_WATER,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, 100f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_ICE, 50f)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			return UtilText.parse(target, "[npc.Name] is a summoned elemental, currently bound to the school of Water.");
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getRace() == Race.ELEMENTAL_WATER;
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return Spell.ELEMENTAL_WATER.getSVGString();
+		}
+	},
+	
+	ELEMENTAL_AIR(90,
+			"air elemental",
+			null,
+			Colour.SPELL_SCHOOL_AIR,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.RESISTANCE_POISON, 100f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_POISON, 50f)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			return UtilText.parse(target, "[npc.Name] is a summoned elemental, currently bound to the school of Air.");
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getRace() == Race.ELEMENTAL_AIR;
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return Spell.ELEMENTAL_AIR.getSVGString();
+		}
+	},
+	
+	ELEMENTAL_FIRE(90,
+			"fire elemental",
+			null,
+			Colour.SPELL_SCHOOL_FIRE,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, 100f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_FIRE, 50f)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			return UtilText.parse(target, "[npc.Name] is a summoned elemental, currently bound to the school of Fire.");
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getRace() == Race.ELEMENTAL_FIRE;
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return Spell.ELEMENTAL_FIRE.getSVGString();
+		}
+	},
+	
+	ELEMENTAL_ARCANE(90,
+			"arcane elemental",
+			null,
+			Colour.SPELL_SCHOOL_ARCANE,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 100f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 50f)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			return UtilText.parse(target, "[npc.Name] is a summoned elemental, currently bound to the school of Arcane.");
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getRace() == Race.ELEMENTAL_ARCANE;
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return Spell.ELEMENTAL_ARCANE.getSVGString();
 		}
 	},
 	
