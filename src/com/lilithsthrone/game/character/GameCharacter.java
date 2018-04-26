@@ -2443,7 +2443,32 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	public void setSexualOrientation(SexualOrientation sexualOrientation) {
 		this.sexualOrientation = sexualOrientation;
 	}
+	
+	public boolean isAttractedTo(GameCharacter character)
+	{
+		return isAttractedTo(character.getGender());
+	}
 
+	public boolean isAttractedTo(Gender gender)
+	{
+		switch(getSexualOrientation())
+		{
+			case AMBIPHILIC:
+				return true;
+			case ANDROPHILIC:
+				if(gender.isFeminine())
+					return false;
+				else
+					return true;
+			case GYNEPHILIC:
+				if(gender.isFeminine())
+					return true;
+				else
+					return false;
+			default:
+				return true;
+		}
+	}
 	
 	// Obedience:
 	
