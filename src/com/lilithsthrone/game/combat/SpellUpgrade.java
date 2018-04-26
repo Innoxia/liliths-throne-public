@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.ListValue;
@@ -28,7 +29,6 @@ public enum SpellUpgrade {
 			null,
 			Util.newArrayListOfValues(
 					new ListValue<>("<b>5</b> [style.colourFire(Fire Damage)] per turn for [style.colourGood(2 turns)]"))),
-
 	FIREBALL_2(SpellSchool.FIRE,
 			"fireball_twin_comets",
 			"Twin Comets",
@@ -36,7 +36,6 @@ public enum SpellUpgrade {
 			null,
 			Util.newArrayListOfValues(
 					new ListValue<>("Fires [style.colourExcellent(two)] Fireballs, doing <b>10</b> [style.colourFire(Fire Damage)] each"))),
-
 	FIREBALL_3(SpellSchool.FIRE,
 			"fireball_burning_fury",
 			"Burning Fury",
@@ -54,7 +53,6 @@ public enum SpellUpgrade {
 			null,
 			Util.newArrayListOfValues(
 					new ListValue<>("Flash now [style.colourExcellent(stuns)] for [style.colourGood(2 turns)]"))),
-
 	FLASH_2(SpellSchool.FIRE,
 			"flash_arcing_flash",
 			"Arcing Flash",
@@ -62,14 +60,13 @@ public enum SpellUpgrade {
 			null,
 			Util.newArrayListOfValues(
 					new ListValue<>("Fires [style.colourExcellent(two)] Flashes"))),
-
 	FLASH_3(SpellSchool.FIRE,
 			"flash_efficient_burn",
 			"Efficient Burn",
 			"By focusing its power into a smaller, more concentrated burst, the caster is able to reduce the cost of Flash, while losing none of its effectiveness.",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<>("[style.colourExcellent(Reduces)] base cost to [style.boldMana(20)] aura"))),
+					new ListValue<>("[style.colourExcellent(Reduces)] base cost to [style.boldMana(40)] aura"))),
 	
 	
 	CLOAK_OF_FLAMES_1(true,
@@ -80,7 +77,6 @@ public enum SpellUpgrade {
 			null,
 			Util.newArrayListOfValues(
 					new ListValue<>("Adds <b>5</b> [style.colourFire(Fire Damage)] to all attacks"))),
-
 	CLOAK_OF_FLAMES_2(SpellSchool.FIRE,
 			"cloak_of_flames_inferno",
 			"Inferno",
@@ -88,7 +84,6 @@ public enum SpellUpgrade {
 			null,
 			Util.newArrayListOfValues(
 					new ListValue<>("[style.colourExcellent(Gain)] +25 [style.boldFire(Fire Damage)]"))),
-
 	CLOAK_OF_FLAMES_3(SpellSchool.FIRE,
 			"cloak_of_flames_ring_of_fire",
 			"Ring of Fire",
@@ -102,87 +97,460 @@ public enum SpellUpgrade {
 			SpellSchool.FIRE,
 			"elemental_fire_wildfire",
 			"Wildfire",
-			"While the elemental is summoned, all allied combatants gain +10 fire damage.",
+			"The summoned elemental imbues all allies with the knowledge of how best to harness arcane fire.",
 			null,
-			null),
-	
+			Util.newArrayListOfValues(
+					new ListValue<>("[style.colourExcellent(All allies gain)] +20 [style.boldFire(Fire Damage)]"))),
 	ELEMENTAL_FIRE_2(SpellSchool.FIRE,
 			"elemental_fire_burning_desire",
 			"Burning Desire",
-			"While the elemental is summoned, all enemy combatants suffer -10 seduction resist.",
+			"The Fire elemental is able to harness the lustful properties of the arcane in order to ignite a burning desire for sex in the hearts and minds of their enemies.",
 			null,
-			null),
-
+			Util.newArrayListOfValues(
+					new ListValue<>("[style.colourTerrible(All enemies suffer)] -25 [style.boldLust("+Attribute.RESISTANCE_LUST.getName()+")]"))),
 	ELEMENTAL_FIRE_3A(SpellSchool.FIRE,
 			"elemental_fire_servant_of_fire",
 			"Servant of Fire",
-			"While the elemental is summoned, the caster suffers -40% maximum energy and aura, but the fire elemental's energy, aura, and damage are all doubled.",
+			"The summoner swears to be subservient to the school of Fire, and while their elemental is bound to this form, the elemental is able to draw as much energy from the summoner as they wish.",
 			null,
-			null),
+			Util.newArrayListOfValues(
+					new ListValue<>("While summoned:"),
+					new ListValue<>("[style.colourFire(Elemental)]: +100% [style.colourExcellent(Non-Seduction Damage)]"),
+					new ListValue<>("[style.colourArcane(Caster)]: -50% [style.colourHealth(maximum energy)]"))) {
 
+		public boolean isAvailable(GameCharacter caster) {
+			return !caster.hasSpellUpgrade(ELEMENTAL_FIRE_3B);
+		}
+		
+		public String getUnavailableReason(GameCharacter caster) {
+			if(this.isAvailable(caster) && !caster.hasSpellUpgrade(this)) {
+				return "[style.boldMinorBad(Mutually exclusive with 'Binding of Fire'!)]";
+			} else {
+				return "[style.boldBad(Mutually exclusive with 'Binding of Fire'!)]";
+			}
+		}
+	},
 	ELEMENTAL_FIRE_3B(SpellSchool.FIRE,
 			"elemental_fire_binding_of_fire",
 			"Binding of Fire",
-			"While the elemental is summoned, the caster gains +25 fire damage and +25 fire resist.",
+			"The summoner assumes complete dominance over the school of Fire, and while their elemental is bound to this form, they are forced to share all of their secrets.",
 			null,
-			null),
+			Util.newArrayListOfValues(
+					new ListValue<>("While summoned:"),
+					new ListValue<>("[style.colourArcane(Caster)]: +25 [style.boldFire(Fire Damage)]"),
+					new ListValue<>("[style.colourArcane(Caster)]: +25 [style.boldFire(Fire Resistance)]"))) {
+
+		public boolean isAvailable(GameCharacter caster) {
+			return !caster.hasSpellUpgrade(ELEMENTAL_FIRE_3A);
+		}
+		
+		public String getUnavailableReason(GameCharacter caster) {
+			if(this.isAvailable(caster) && !caster.hasSpellUpgrade(this)) {
+				return "[style.boldMinorBad(Mutually exclusive with 'Servant of Fire'!)]";
+			} else {
+				return "[style.boldBad(Mutually exclusive with 'Servant of Fire'!)]";
+			}
+		}
+	},
 	
 	// Water:
-	
-	ICE_SHARD_1(true, SpellSchool.WATER, "ice_shard_freezing_fog", "Freezing Fog", "Ice Shard now applies a debuff to the target, causing -15 spell efficiency for 2 turns.", null, null),
-	ICE_SHARD_2(SpellSchool.WATER, "ice_shard_cold_snap", "Cold Snap", "If the target is affected by freezing fog, Ice Shard gains +25 critical chance.", null, null),
-	ICE_SHARD_3(SpellSchool.WATER, "ice_shard_deep_freeze", "Deep Freeze", "If Ice Shard critically hits a target under the effect of Freezing Fog, the target is stunned for 1 turn.", null, null),
 
-	RAIN_CLOUD_1(true, SpellSchool.WATER, "rain_cloud_deep_chill", "Deep Chill", "The target of Rain Cloud additionally suffers -25 ice resistance.", null, null),
-	RAIN_CLOUD_2(SpellSchool.WATER, "rain_cloud_downpour", "Downpour", "The target of Rain Cloud additionally suffers +10 miss chance.", null, null),
-	RAIN_CLOUD_3(SpellSchool.WATER, "rain_cloud_cloud_burst", "Cloud Burst", "If the target misses while under the effect of Rain Cloud, they additionally suffer -30 spell efficiency, and the duration is refreshed to 3 turns.", null, null),
+	ICE_SHARD_1(true,
+			SpellSchool.WATER,
+			"ice_shard_freezing_fog",
+			"Freezing Fog",
+			"Ice Shard explodes on impact, saturating the air around the target with arcane crystals. These crystals then quickly condense into a freezing fog, which saps the target's ability to cast spells.",
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<>("<b>-20</b> "+Attribute.SPELL_COST_MODIFIER.getColouredName("b")+" for [style.colourGood(3 turns)]"))),
+	ICE_SHARD_2(SpellSchool.WATER,
+			"ice_shard_cold_snap",
+			"Cold Snap",
+			"As Ice Shard travels through the freezing layer of fog left behind by a previous impact, there's a chance that the crystals in the air will explode, dealing extra damage.",
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<>("Ice Shard has +25 "+Attribute.CRITICAL_CHANCE.getColouredName("b")+" against targets affected by Freezing Fog"))),
+	ICE_SHARD_3(SpellSchool.WATER,
+			"ice_shard_deep_freeze",
+			"Deep Freeze",
+			"When the crystals in freezing fog detonate, they instantly entomb any objects nearby in a case of thin ice, momentarily locking them in place.",
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<>("If Ice Shard [style.boldExcellent(critically hits)] a target affected by Freezing Fog, that target is [style.colourExcellent(stunned)] for [style.colourGood(1 turn)]"))),
 
-	SOOTHING_WATERS_1(true, SpellSchool.WATER, "soothing_waters_arcane_springs", "Arcane Springs", "Soothing Waters now additionally restores 20% of the target's aura.", null, null),
-	SOOTHING_WATERS_2(SpellSchool.WATER, "soothing_waters_rejuvenation", "Rejuvenation", "Restored energy is now 40%.", null, null),
-	SOOTHING_WATERS_3(SpellSchool.WATER, "soothing_waters_bouncing_orb", "Bouncing Orb", "Soothing Waters now heals all non-targeted allied combatants for 10% energy, 10% aura.", null, null),
+	RAIN_CLOUD_1(true,
+			SpellSchool.WATER,
+			"rain_cloud_deep_chill",
+			"Deep Chill",
+			"The arcane rain seeps into the target's bones, chilling them to the core.",
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<>("Adds <b>-25</b> "+Attribute.RESISTANCE_ICE.getColouredName("b")+" to Rain Cloud's effects"))),
+	RAIN_CLOUD_2(SpellSchool.WATER,
+			"rain_cloud_downpour",
+			"Downpour",
+			"Sheets of torrential arcane rain sweep into the target's eyes, causing them to miss the occasional attack.",
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<>("Adds <b>+15</b> "+Attribute.MISS_CHANCE.getColouredName("b")+" to Rain Cloud's effects"))),
+	RAIN_CLOUD_3(SpellSchool.WATER,
+			"rain_cloud_cloud_burst",
+			"Cloud Burst",
+			"The anger and annoyance of the rain cloud's target is harnessed as energy, and each time they miss an attack, the cloud grows in strength and size.",
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<>("If Rain Cloud's target misses, the duration is set to [style.colourGood(6 turns)], and "+Attribute.SPELL_COST_MODIFIER.getColouredName("b")+" debuff is increased to -50"))),
 
-	ELEMENTAL_WATER_1(true, SpellSchool.WATER, "elemental_water_crashing_waves", "Crashing Waves", "While the elemental is summoned, all allied combatants gain +10 ice damage.", null, null),
-	ELEMENTAL_WATER_2(SpellSchool.WATER, "elemental_water_calm_waters", "Calm Waters", "While the elemental is summoned, all allied combatants gain +10 seduction resist.", null, null),
-	ELEMENTAL_WATER_3A(SpellSchool.WATER, "elemental_water_servant_of_water", "Servant of Water", "While the elemental is summoned, the caster suffers -40% maximum energy and aura, but the water elemental's energy, aura, and damage are all doubled.", null, null),
-	ELEMENTAL_WATER_3B(SpellSchool.WATER, "elemental_water_binding_of_water", "Binding of Water", "While the elemental is summoned, the caster gains +25 ice damage and +25 ice resist.", null, null),
+	SOOTHING_WATERS_1(true,
+			SpellSchool.WATER,
+			"soothing_waters_arcane_springs",
+			"Arcane Springs",
+			"The arcane power infused into Soothing Waters is massively increased, allowing the spell to additionally restore a target's aura.",
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<>("Soothing Waters [style.boldExcellent(additionally)] restores <b>20%</b> "+Attribute.MANA_MAXIMUM.getColouredName("b")))),
+	SOOTHING_WATERS_2(SpellSchool.WATER,
+			"soothing_waters_rejuvenation",
+			"Rejuvenation",
+			"The life-giving properties of water are fully harnessed by the arcane, restoring a huge amount of energy to the target of Soothing Water.",
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<>("Soothing Waters' restoration [style.boldExcellent(increased)] to <b>40%</b> "+Attribute.HEALTH_MAXIMUM.getColouredName("b")))),
+	SOOTHING_WATERS_3(SpellSchool.WATER,
+			"soothing_waters_bouncing_orb",
+			"Bouncing Orb",
+			"Once cast, Soothing Waters now splits into several orbs, each one seeking out an ally to heal.",
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<>("Soothing Waters heals [style.boldExcellent(all allies)] for <b>10%</b> "+Attribute.HEALTH_MAXIMUM.getColouredName("b")+" and <b>10%</b> "+Attribute.MANA_MAXIMUM.getColouredName("b")))),
+
+	ELEMENTAL_WATER_1(true,
+			SpellSchool.WATER,
+			"elemental_water_crashing_waves",
+			"Crashing Waves",
+			"The Water elemental continuously sends forth waves of freezing water to crash upon their enemies, making them far more susceptible to ice attacks.",
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<>("[style.colourExcellent(All allies gain)] +20 [style.boldIce(Ice Damage)]"))),
+	ELEMENTAL_WATER_2(SpellSchool.WATER,
+			"elemental_water_calm_waters",
+			"Calm Waters",
+			"The Water elemental projects the image of calm, steady waters into the mind of any ally who starts to get turned on, helping them to control ther lust.",
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<>("[style.colourExcellent(All allies gain)] +20 "+Attribute.RESISTANCE_LUST.getColouredName("b")))),
+	ELEMENTAL_WATER_3A(SpellSchool.WATER,
+			"elemental_water_servant_of_water",
+			"Servant of Water",
+			"The summoner swears to be subservient to the school of Water, and while their elemental is bound to this form, the elemental is able to draw as much energy from the summoner as they wish.",
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<>("While summoned:"),
+					new ListValue<>("[style.colourIce(Elemental)]: +100% [style.colourExcellent(Non-Seduction Damage)]"),
+					new ListValue<>("[style.colourArcane(Caster)]: -50% [style.colourHealth(maximum energy)]"))) {
+
+		public boolean isAvailable(GameCharacter caster) {
+			return !caster.hasSpellUpgrade(ELEMENTAL_WATER_3B);
+		}
+		
+		public String getUnavailableReason(GameCharacter caster) {
+			if(this.isAvailable(caster) && !caster.hasSpellUpgrade(this)) {
+				return "[style.boldMinorBad(Mutually exclusive with 'Binding of Water'!)]";
+			} else {
+				return "[style.boldBad(Mutually exclusive with 'Binding of Water'!)]";
+			}
+		}
+	},
+	ELEMENTAL_WATER_3B(SpellSchool.WATER,
+			"elemental_water_binding_of_water",
+			"Binding of Water",
+			"The summoner assumes complete dominance over the school of Water, and while their elemental is bound to this form, they are forced to share all of their secrets.",
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<>("While summoned:"),
+					new ListValue<>("[style.colourArcane(Caster)]: +25 [style.boldIce(Ice Damage)]"),
+					new ListValue<>("[style.colourArcane(Caster)]: +25 [style.boldIce(Ice Resistance)]"))) {
+
+		public boolean isAvailable(GameCharacter caster) {
+			return !caster.hasSpellUpgrade(ELEMENTAL_WATER_3A);
+		}
+		
+		public String getUnavailableReason(GameCharacter caster) {
+			if(this.isAvailable(caster) && !caster.hasSpellUpgrade(this)) {
+				return "[style.boldMinorBad(Mutually exclusive with 'Servant of Water'!)]";
+			} else {
+				return "[style.boldBad(Mutually exclusive with 'Servant of Water'!)]";
+			}
+		}
+	},
 	
 	// Air:
-	
-	POISON_VAPOURS_1(true, SpellSchool.AIR, "poison_vapours_choking_haze", "Choking Haze", "Poison Vapours now applies a debuff to the target, causing +10 miss chance for 3 turns.", null, null),
-	POISON_VAPOURS_2(SpellSchool.AIR, "poison_vapours_arcane_sickness", "Arcane Sickness", "The target of Poison Vapours now suffers the same amount of energy damage as aura damage per turn.", null, null),
-	POISON_VAPOURS_3(SpellSchool.AIR, "poison_vapours_weakening_cloud", "Weakening Cloud", "The target of Poison Vapours additionally suffers -15 physical damage and -25 critical damage.", null, null),
-	
-	VACUUM_1(true, SpellSchool.AIR, "vacuum_secondary_voids", "Secondary Voids", "The target of Vacuum additionally suffers -15 critical chance, and miss chance is increased to +20.", null, null),
-	VACUUM_2(SpellSchool.AIR, "vacuum_suction", "Suction", "There is now a 10% chance each turn for the target of Vacuum to have a random outer layer of their clothing sucked off to the floor.", null, null),
-	VACUUM_3(SpellSchool.AIR, "vacuum_total_void", "Total Void", "The strip chance from Suction is increased to 25%.", null, null),
 
-	PROTECTIVE_GUSTS_1(true, SpellSchool.AIR, "protective_gusts_guiding_wind", "Guiding Wind", "The target of Buffeting Winds additionally gains +10 critical chance, and dodge chance is increased to +20.", null, null),
-	PROTECTIVE_GUSTS_2(SpellSchool.AIR, "protective_gusts_focused_blast", "Focused Blast", "The additional effect of Guiding Wind is increased to +25 critical chance.", null, null),
-	PROTECTIVE_GUSTS_3(SpellSchool.AIR, "protective_gusts_lingering_presence", "Lingering Presence", "Protective Gusts now lasts for 5 turns.", null, null),
+	POISON_VAPOURS_1(true,
+			SpellSchool.AIR,
+			"poison_vapours_choking_haze",
+			"Choking Haze",
+			"The clouds of Poison Vapours become far thicker, becoming a stifling, choking haze that causes the target to occasisoanlly miss their attacks.",
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<>("Poison Vapours additionally applies <b>+10</b> "+Attribute.MISS_CHANCE.getColouredName("b")))),
+	POISON_VAPOURS_2(SpellSchool.AIR,
+			"poison_vapours_arcane_sickness",
+			"Arcane Sickness",
+			"Poison Vapours become infused with a potent arcane sickness, which steadily drains the target's arcane aura.",
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<>("Poison Vapours additionally drains <b>10</b> "+Attribute.MANA_MAXIMUM.getColouredName("b")+" per turn"))),
+	POISON_VAPOURS_3(SpellSchool.AIR,
+			"poison_vapours_weakening_cloud",
+			"Weakening Cloud",
+			"Poison Vapours starts to seep into the target's body, causing them to suffer a reduction in damage done.",
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<>("Poison Vapours additionally applies <b>-15</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")),
+					new ListValue<>("Poison Vapours additionally applies <b>-25</b> "+Attribute.CRITICAL_DAMAGE.getColouredName("b")))),
 
-	ELEMENTAL_AIR_1(true, SpellSchool.AIR, "elemental_air_whirlwind", "Whirlwind", "While the elemental is summoned, all allied combatants gain +10 critical chance and +5 dodge chance.", null, null),
-	ELEMENTAL_AIR_2(SpellSchool.AIR, "elemental_air_vitalising_scents", "Vitalising Scents", "While the elemental is summoned, all allied combatants gain +25 energy.", null, null),
-	ELEMENTAL_AIR_3A(SpellSchool.AIR, "elemental_air_servant_of_air", "Servant of Air", "While the elemental is summoned, the caster suffers -40% maximum energy and aura, but the air elemental's energy, aura, and damage are all doubled.", null, null),
-	ELEMENTAL_AIR_3B(SpellSchool.AIR, "elemental_air_binding_of_air", "Binding of Air", "While the elemental is summoned, the caster gains +25 poison damage and +25 poison resist.", null, null),
+	VACUUM_1(true,
+			SpellSchool.AIR,
+			"vacuum_secondary_voids",
+			"Secondary Voids",
+			"The target of Vacuum additionally suffers -15 critical chance, and miss chance is increased to +20.",
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<>("Vacuum additionally applies <b>-15</b> "+Attribute.CRITICAL_CHANCE.getColouredName("b")),
+					new ListValue<>("Vacuum debuff increased to <b>+20</b> "+Attribute.MISS_CHANCE.getColouredName("b")))),
+	VACUUM_2(SpellSchool.AIR,
+			"vacuum_suction",
+			"Suction",
+			"There is now a 10% chance each turn for the target of Vacuum to have a random outer layer of their clothing sucked off to the floor.",
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<>("<b>10%</b> chance per turn of [style.boldExcellent(stripping)] clothing"))),
+	VACUUM_3(SpellSchool.AIR,
+			"vacuum_total_void",
+			"Total Void",
+			"The strip chance from Suction is increased to 25%.",
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<>("Suction's strip chance [style.boldExcellent(increased)] to <b>25%</b>"))),
+
+	PROTECTIVE_GUSTS_1(true,
+			SpellSchool.AIR,
+			"protective_gusts_guiding_wind",
+			"Guiding Wind",
+			"Guided by the forces of the arcane, the summoned winds apply pressure to their target at key moments, helping them to avoid incoming attacks, as well as to land powerful strikes of their own.",
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<>("Protective Gusts buff increased to <b>+15</b> "+Attribute.DODGE_CHANCE.getColouredName("b")),
+					new ListValue<>("Protective Gusts additionally applies <b>+10</b> "+Attribute.CRITICAL_CHANCE.getColouredName("b")))),
+	PROTECTIVE_GUSTS_2(SpellSchool.AIR,
+			"protective_gusts_focused_blast",
+			"Focused Blast",
+			"With every strike, the arcane winds push forwards to help their target deal the most amount of damage possible.",
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<>("Protective Gusts buff increased to <b>+20</b> "+Attribute.DODGE_CHANCE.getColouredName("b")),
+					new ListValue<>("Protective Gusts additionally applies <b>+25</b> "+Attribute.CRITICAL_DAMAGE.getColouredName("b")))),
+	PROTECTIVE_GUSTS_3(SpellSchool.AIR,
+			"protective_gusts_lingering_presence",
+			"Lingering Presence",
+			"By conserving their energy for those times when most needed, the Protective Gusts are able to assist their target for a longer period of time.",
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<>("Protective Gusts now lasts for [style.boldGood(5 turns)]"))),
+
+	ELEMENTAL_AIR_1(true,
+			SpellSchool.AIR,
+			"elemental_air_whirlwind",
+			"Whirlwind",
+			"The Air elemental summons forth a swirling whirlwind, which disrupts and staggers all enemies.",
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<>("[style.colourTerrible(All enemies suffer)] +5 "+Attribute.MISS_CHANCE.getColouredName("b")))),
+	ELEMENTAL_AIR_2(SpellSchool.AIR,
+			"elemental_air_vitalising_scents",
+			"Vitalising Scents",
+			"The Air elemental surrounds their allies with vitalising scents, imbuing them with the energy needed to dodge incoming attacks, as well as to land powerful strikes of their own.",
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<>("[style.colourExcellent(All allies gain)] +10 "+Attribute.CRITICAL_CHANCE.getColouredName("b")),
+					new ListValue<>("[style.colourExcellent(All allies gain)] +5 "+Attribute.DODGE_CHANCE.getColouredName("b")))),
+	ELEMENTAL_AIR_3A(SpellSchool.AIR,
+			"elemental_air_servant_of_air",
+			"Servant of Air",
+			"The summoner swears to be subservient to the school of Water, and while their elemental is bound to this form, the elemental is able to draw as much energy from the summoner as they wish.",
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<>("While summoned:"),
+					new ListValue<>("[style.colourAir(Elemental)]: +100% [style.colourExcellent(Non-Seduction Damage)]"),
+					new ListValue<>("[style.colourArcane(Caster)]: -50% [style.colourHealth(maximum energy)]"))) {
+
+		public boolean isAvailable(GameCharacter caster) {
+			return !caster.hasSpellUpgrade(ELEMENTAL_AIR_3B);
+		}
+		
+		public String getUnavailableReason(GameCharacter caster) {
+			if(this.isAvailable(caster) && !caster.hasSpellUpgrade(this)) {
+				return "[style.boldMinorBad(Mutually exclusive with 'Binding of Water'!)]";
+			} else {
+				return "[style.boldBad(Mutually exclusive with 'Binding of Water'!)]";
+			}
+		}
+	},
+	ELEMENTAL_AIR_3B(SpellSchool.AIR,
+			"elemental_air_binding_of_air",
+			"Binding of Air",
+			"The summoner assumes complete dominance over the school of Water, and while their elemental is bound to this form, they are forced to share all of their secrets.",
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<>("While summoned:"),
+					new ListValue<>("[style.colourArcane(Caster)]: +25 "+Attribute.DAMAGE_POISON.getColouredName("b")),
+					new ListValue<>("[style.colourArcane(Caster)]: +25 "+Attribute.RESISTANCE_POISON.getColouredName("b")))) {
+
+		public boolean isAvailable(GameCharacter caster) {
+			return !caster.hasSpellUpgrade(ELEMENTAL_AIR_3A);
+		}
+		
+		public String getUnavailableReason(GameCharacter caster) {
+			if(this.isAvailable(caster) && !caster.hasSpellUpgrade(this)) {
+				return "[style.boldMinorBad(Mutually exclusive with 'Servant of Water'!)]";
+			} else {
+				return "[style.boldBad(Mutually exclusive with 'Servant of Water'!)]";
+			}
+		}
+	},
 
 	// Earth:
-	
-	SLAM_1(true, SpellSchool.EARTH, "slam_ground_shake", "Ground Shake", "Slam now applies a debuff to the target, causing +10 miss chance for 2 turns.", null, null),
-	SLAM_2(SpellSchool.EARTH, "slam_aftershock", "Aftershock", "When Ground Shake ends, the affected target takes 5 physical damage.", null, null),
-	SLAM_3(SpellSchool.EARTH, "slam_earthquake", "Earthquake", "Ground Shake is now applied to all enemy combatants.", null, null),
 
-	TELEKENETIC_SHOWER_1(true, SpellSchool.EARTH, "telekenetic_shower_mind_over_matter", "Mind Over Matter", "Telekenetic Shower's duration is doubled to 4 turns.", null, null),
-	TELEKENETIC_SHOWER_2(SpellSchool.EARTH, "telekenetic_shower_precision_strikes", "Precision Strikes", "The target of Telekenetic Shower additionally suffers -10 physical resistance.", null, null),
-	TELEKENETIC_SHOWER_3(SpellSchool.EARTH, "telekenetic_shower_unseen_force", "Unseen Force", "The damage from Telekenetic Shower is doubled.", null, null),
+	SLAM_1(true,
+			SpellSchool.EARTH,
+			"slam_ground_shake",
+			"Ground Shake",
+			"Slam continues on down into the earth after doing its damage, causing the ground beneath the target's feet to shake.",
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<>("<b>+10</b> "+Attribute.MISS_CHANCE.getColouredName("b")+" for [style.colourGood(2 turns)]"))),
+	SLAM_2(SpellSchool.EARTH,
+			"slam_aftershock",
+			"Aftershock",
+			"Just as the tremors start to die away, a huge surge of force rises up out of the ground to hit the target.",
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<>("Applies <b>5</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+" as Ground Shake ends"))),
+	SLAM_3(SpellSchool.EARTH,
+			"slam_earthquake",
+			"Earthquake",
+			"Slam impacts the ground so hard that all enemies suffer the effects of Ground Shake.",
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<>("[style.colourExcellent(All enemies)] are affected by Ground Shake"))),
 
-	STONE_SHELL_1(true, SpellSchool.EARTH, "stone_shell_shifting_sands", "Shifting Sands", "The target of Stone Shell additionally gains +10 dodge chance.", null, null),
-	STONE_SHELL_2(SpellSchool.EARTH, "stone_shell_hardened_carapace", "Hardened Carapace", "Stone Shell's effect is increased to +50 physical resistance.", null, null),
-	STONE_SHELL_3(SpellSchool.EARTH, "stone_shell_explosive_finish", "Explosive Finish", "When Stone Shell's effect comes to and end, all enemy combatants take 5 physical damage.", null, null),
+	TELEKENETIC_SHOWER_1(true,
+			SpellSchool.EARTH,
+			"telekenetic_shower_mind_over_matter",
+			"Mind Over Matter",
+			"By using their telekenetic force to pick up and recycle already-hurled objects, the caster can keep the Telekenetic Shower going for a considerable amount of time.",
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<>("Telekenetic Shower now lasts for [style.boldGood(6 turns)]"))),
+	TELEKENETIC_SHOWER_2(SpellSchool.EARTH,
+			"telekenetic_shower_precision_strikes",
+			"Precision Strikes",
+			"Each strike from Telekenetic Shower is precisely aimed to bypass and degrade the target's physical defences.",
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<>("Telekenetic Shower additionally applies <b>-20</b> "+Attribute.RESISTANCE_PHYSICAL.getColouredName("b")))),
+	TELEKENETIC_SHOWER_3(SpellSchool.EARTH,
+			"telekenetic_shower_unseen_force",
+			"Unseen Force",
+			"Every time an object from Telekenetic Shower impacts the target, an explosive wave of force is unleashed, dealing considerable damage.",
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<>("Telekenetic Shower damage [style.colourExcellent(doubled)] to <b>20</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+" per turn"))),
 
-	ELEMENTAL_EARTH_1(true, SpellSchool.EARTH, "elemental_earth_rolling_stone", "Rolling Stone", "While the elemental is summoned, all allied combatants gain +25 critical damage.", null, null),
-	ELEMENTAL_EARTH_2(SpellSchool.EARTH, "elemental_earth_hardening", "Hardening", "While the elemental is summoned, all allied combatants gain +10 physical resist.", null, null),
-	ELEMENTAL_EARTH_3A(SpellSchool.EARTH, "elemental_earth_servant_of_earth", "Servant of Earth", "While the elemental is summoned, the caster suffers -40% maximum energy and aura, but the earth elemental's energy, aura, and damage are all doubled.", null, null),
-	ELEMENTAL_EARTH_3B(SpellSchool.EARTH, "elemental_earth_binding_of_earth", "Binding of Earth", "While the elemental is summoned, the caster gains +25 physical damage and +25 physical resist.", null, null),
+	STONE_SHELL_1(true,
+			SpellSchool.EARTH,
+			"stone_shell_shifting_sands",
+			"Shifting Sands",
+			"The Stone Shell now occasionally shifts and disintegrates into flowing sand, before quickly reforming elsewhere in order to confuse any enemies.",
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<>("Stone Shell additionally applies <b>+10</b> "+Attribute.DODGE_CHANCE.getColouredName("b")))),
+	STONE_SHELL_2(SpellSchool.EARTH,
+			"stone_shell_hardened_carapace",
+			"Hardened Carapace",
+			"A second layer of hardened stone is created behind Shone Shell, massively increasing the target's physical resistance.",
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<>("Stone Shell's buff is increased to <b>+50</b> "+Attribute.RESISTANCE_PHYSICAL.getColouredName("b")))),
+	STONE_SHELL_3(SpellSchool.EARTH,
+			"stone_shell_explosive_finish",
+			"Explosive Finish",
+			"A reserve of telekenetic energy is stored within the Stone Shell, and when the effect finally comes to an end, this energy is released in an explosive burst.",
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<>("[style.colourExcellent(All enemies)] take <b>10</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+" when Stone Shell ends"))),
+
+	ELEMENTAL_EARTH_1(true,
+			SpellSchool.EARTH,
+			"elemental_earth_rolling_stone",
+			"Rolling Stone",
+			"The Earth elemental's powers are used to empower all allies attacks.",
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<>("[style.colourExcellent(All allies gain)] +15 "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")),
+					new ListValue<>("[style.colourExcellent(All allies gain)] +25 "+Attribute.CRITICAL_DAMAGE.getColouredName("b")))),
+	ELEMENTAL_EARTH_2(SpellSchool.EARTH,
+			"elemental_earth_hardening",
+			"Hardening",
+			"The Earth elemental's telekenetic powers are used to surround all allies with protective fragments of rock.",
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<>("[style.colourExcellent(All allies gain)] +10 "+Attribute.RESISTANCE_PHYSICAL.getColouredName("b")))),
+	ELEMENTAL_EARTH_3A(SpellSchool.EARTH,
+			"elemental_earth_servant_of_earth",
+			"Servant of Earth",
+			"The summoner swears to be subservient to the school of Earth, and while their elemental is bound to this form, the elemental is able to draw as much energy from the summoner as they wish.",
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<>("While summoned:"),
+					new ListValue<>("[style.colourEarth(Elemental)]: +100% [style.colourExcellent(Non-Seduction Damage)]"),
+					new ListValue<>("[style.colourArcane(Caster)]: -50% [style.colourHealth(maximum energy)]"))) {
+
+		public boolean isAvailable(GameCharacter caster) {
+			return !caster.hasSpellUpgrade(ELEMENTAL_EARTH_3B);
+		}
+		
+		public String getUnavailableReason(GameCharacter caster) {
+			if(this.isAvailable(caster) && !caster.hasSpellUpgrade(this)) {
+				return "[style.boldMinorBad(Mutually exclusive with 'Binding of Earth'!)]";
+			} else {
+				return "[style.boldBad(Mutually exclusive with 'Binding of Earth'!)]";
+			}
+		}
+	},
+	ELEMENTAL_EARTH_3B(SpellSchool.EARTH,
+			"elemental_earth_binding_of_earth",
+			"Binding of Earth",
+			"The summoner assumes complete dominance over the school of Earth, and while their elemental is bound to this form, they are forced to share all of their secrets.",
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<>("While summoned:"),
+					new ListValue<>("[style.colourArcane(Caster)]: +25 "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")),
+					new ListValue<>("[style.colourArcane(Caster)]: +25 "+Attribute.RESISTANCE_PHYSICAL.getColouredName("b")))) {
+
+		public boolean isAvailable(GameCharacter caster) {
+			return !caster.hasSpellUpgrade(ELEMENTAL_EARTH_3A);
+		}
+		
+		public String getUnavailableReason(GameCharacter caster) {
+			if(this.isAvailable(caster) && !caster.hasSpellUpgrade(this)) {
+				return "[style.boldMinorBad(Mutually exclusive with 'Servant of Earth'!)]";
+			} else {
+				return "[style.boldBad(Mutually exclusive with 'Servant of Earth'!)]";
+			}
+		}
+	},
 
 	// Arcane:
 	
@@ -281,6 +649,14 @@ public enum SpellUpgrade {
 	
 	public boolean isAlwaysAvailable() {
 		return isAlwaysAvailable;
+	}
+	
+	public boolean isAvailable(GameCharacter caster) {
+		return true;
+	}
+	
+	public String getUnavailableReason(GameCharacter caster) {
+		return "";
 	}
 	
 	public SpellSchool getSpellSchool() {

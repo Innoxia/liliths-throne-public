@@ -12,7 +12,6 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
-import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
@@ -827,7 +826,7 @@ public class CharacterInventory implements Serializable, XMLSaving {
 		}
 		
 		// Can't equip piercings if that body part isn't pierced:
-		if(characterClothingOwner.getBody().getBodyMaterial()!=BodyMaterial.SLIME) { // Slimes don't care about non-cock piercings:
+		if(characterClothingOwner.getBody().getBodyMaterial().isRequiresPiercing()) { // Slimes and some elementals don't care about non-cock piercings:
 			if (!characterClothingOwner.isPiercedEar() && newClothing.getClothingType().getSlot() == InventorySlot.PIERCING_EAR) {
 				equipTextSB.append(characterClothingOwner.isPlayer()
 						?"Your ears need to be pierced before you can wear the "+newClothing.getName()+"!"

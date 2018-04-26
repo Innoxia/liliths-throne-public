@@ -915,6 +915,7 @@ position:relative;
 /*INVENTORY VIEW*/
 
 .inventory-container {
+float:left;
 	position:relative;
 	display: inline-block;
 	width:49.5%;

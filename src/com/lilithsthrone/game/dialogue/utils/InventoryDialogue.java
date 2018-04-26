@@ -114,7 +114,6 @@ public class InventoryDialogue {
 			} else if(interactionType==InventoryInteraction.CHARACTER_CREATION) {
 				return CharacterCreation.getCheckingClothingDescription();
 			}
-			
 //			if(item!=null) {
 //				return ITEM_INVENTORY.getResponse(responseTab, index);
 //			} else if(clothing!=null) {

@@ -48,11 +48,11 @@ public enum Attribute {
 				@Override
 				public String getDescription(GameCharacter owner) {
 					if(owner.isPlayer())
-						return "A measure of the amount of arcane energy in your aura. You will be defeated in combat if this reaches 0.</br></br>"
+						return "A measure of the amount of arcane energy in your aura.</br></br>"
 								+ "<b>Aura = " + GameCharacter.MANA_CALCULATION + "</b>";
 					else
 						return UtilText.parse(owner,
-								"How much arcane energy [npc.name] has in [npc.her] aura. [npc.She] will be defeated in combat if this reaches 0.");
+								"How much arcane energy [npc.name] has in [npc.her] aura.");
 				}
 			},
 
@@ -107,7 +107,7 @@ public enum Attribute {
 								+ "<b>Resting Lust = " + GameCharacter.RESTING_LUST_CALCULATION + "</b>";
 					} else {
 						return UtilText.parse(owner,
-								"How desperate for sexual contact [npc.name] is. The higher [npc.her] lust, the more aura damage [npc.she] will take from seduction attacks.");
+								"How desperate for sexual contact [npc.name] is.");
 					}
 				}
 			},
@@ -208,13 +208,13 @@ public enum Attribute {
 		}
 	},
 	
-	DODGE_CHANCE(0, 0, 100, "dodge chance", "Dodge chance", "shieldIcon", Colour.ATTRIBUTE_HEALTH, "evasion", "sluggishness", null) {
+	DODGE_CHANCE(0, 0, 100, "dodge chance", "Dodge chance", "shieldIcon", Colour.GENERIC_EXCELLENT, "evasion", "sluggishness", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Increases the chance of dodging attacks and spells.";
 		}
 	},
-	MISS_CHANCE(0, 0, 100, "miss chance", "Miss chance", "shieldIcon", Colour.ATTRIBUTE_HEALTH, "poor aim", "true striking", null) {
+	MISS_CHANCE(0, 0, 100, "miss chance", "Miss chance", "shieldIcon", Colour.GENERIC_TERRIBLE, "poor aim", "true striking", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Increases the chance of missing with attacks and spells in combat.";
@@ -683,6 +683,10 @@ public enum Attribute {
 
 	public String getName() {
 		return name;
+	}
+	
+	public String getColouredName(String tag) {
+		return "<"+tag+" style='color:"+this.getColour().toWebHexString()+";'>"+name+"</"+tag+">";
 	}
 
 	public String getAbbreviatedName() {

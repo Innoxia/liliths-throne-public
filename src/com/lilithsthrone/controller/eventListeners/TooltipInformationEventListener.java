@@ -407,9 +407,9 @@ public class TooltipInformationEventListener implements EventListener {
 
 		} else if (spell != null) { // Spells:
 
-			int yIncrease = (spell.getStatusEffects(owner).size() > 2 ? spell.getStatusEffects(owner).size() - 2 : 0);
+			int yIncrease = (spell.getModifiersAsStringList().size() > 5 ? spell.getModifiersAsStringList().size() - 5 : 0);
 
-			Main.mainController.setTooltipSize(360, 324 + (yIncrease * LINE_HEIGHT));
+			Main.mainController.setTooltipSize(360, 328 + (yIncrease * LINE_HEIGHT));
 
 			// Title:
 			tooltipSB.setLength(0);
@@ -455,9 +455,9 @@ public class TooltipInformationEventListener implements EventListener {
 
 		} else if (spellUpgrade != null) { // Spells:
 
-			int yIncrease = (spellUpgrade.getModifiersAsStringList().size() > 2 ? spellUpgrade.getModifiersAsStringList().size() - 2 : 0);
+			int yIncrease = (spellUpgrade.getModifiersAsStringList().size() > 5 ? spellUpgrade.getModifiersAsStringList().size() - 5 : 0);
 
-			Main.mainController.setTooltipSize(360, 300 + (yIncrease * LINE_HEIGHT));
+			Main.mainController.setTooltipSize(360, 284 + (yIncrease * LINE_HEIGHT));
 
 			// Title:
 			tooltipSB.setLength(0);
@@ -482,7 +482,7 @@ public class TooltipInformationEventListener implements EventListener {
 			// Description & turns remaining:
 			tooltipSB.append(
 					"<div class='description'>"
-							+ spellUpgrade.getDescription()
+							+ spellUpgrade.getDescription()+" "+spellUpgrade.getUnavailableReason(owner)
 					+ "</div>");
 
 			Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));

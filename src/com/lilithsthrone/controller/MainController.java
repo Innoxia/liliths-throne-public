@@ -357,9 +357,10 @@ public class MainController implements Initializable {
 		InventoryDialogue.setInventoryNPC(npc);
 		InventoryDialogue.setNPCInventoryInteraction(interaction);
 		
-		if(npc!=null) {
-			npc.setPendingClothingDressing(true);
-		}
+		// Why did I do this? BlobHyperThink
+//		if(npc!=null) {
+//			npc.setPendingClothingDressing(true);
+//		}
 		
 		if (Main.game.getCurrentDialogueNode().getMapDisplay() == MapDisplay.INVENTORY) {
 			Main.game.restoreSavedContent();
@@ -490,7 +491,7 @@ public class MainController implements Initializable {
 						
 						 if(event.getCode()==KeyCode.END){
 							 
-//							 Main.game.getPlayer().setMana(1);
+//							 Main.game.getPlayer().resetSpells();
 //							 
 //							 System.out.println(Main.game.getPlayer().toString());
 							 
@@ -4277,7 +4278,7 @@ public class MainController implements Initializable {
 								addEventListener(document, id, "mouseenter", new TooltipInformationEventListener().setSpellUpgrade(upgrade.getEntry(), Main.game.getPlayer()), false);
 								
 								((EventTarget) document.getElementById(id)).addEventListener("click", event -> {
-									if(!Main.game.getPlayer().hasSpellUpgrade(upgrade.getEntry()) && Main.game.getPlayer().getSpellUpgradePoints(upgrade.getCategory())>0 && Main.game.getPlayer().hasSpell(s)) {
+									if(Spell.isSpellUpgradeAvailable(Main.game.getPlayer(), s, upgrade)) {
 										Main.game.getPlayer().addSpellUpgrade(upgrade.getEntry());
 										Main.game.getPlayer().incrementSpellUpgradePoints(upgrade.getCategory(), -1);
 										Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
@@ -5700,7 +5701,7 @@ public class MainController implements Initializable {
 								}
 								
 							} else {
-								openCharactersPresent(Main.game.getNPCById(Main.game.getActiveNPC().getId()));
+								openCharactersPresent(character);
 							}
 						}, false);
 					}

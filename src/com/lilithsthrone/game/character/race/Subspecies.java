@@ -969,7 +969,7 @@ public enum Subspecies {
 			Race.ELEMENTAL_EARTH,
 			Colour.SPELL_SCHOOL_EARTH,
 			SubspeciesPreference.FOUR_ABUNDANT,
-			"A typical harpy.",
+			"An arcane elemental bound to the school of Earth.",
 			Util.newArrayListOfValues()) {
 		@Override
 		public void applySpeciesChanges(Body body) {
@@ -987,7 +987,7 @@ public enum Subspecies {
 			Race.ELEMENTAL_WATER,
 			Colour.SPELL_SCHOOL_WATER,
 			SubspeciesPreference.FOUR_ABUNDANT,
-			"A typical harpy.",
+			"An arcane elemental bound to the school of Water.",
 			Util.newArrayListOfValues()) {
 		@Override
 		public void applySpeciesChanges(Body body) {
@@ -1005,7 +1005,7 @@ public enum Subspecies {
 			Race.ELEMENTAL_AIR,
 			Colour.SPELL_SCHOOL_AIR,
 			SubspeciesPreference.FOUR_ABUNDANT,
-			"A typical harpy.",
+			"An arcane elemental bound to the school of Air.",
 			Util.newArrayListOfValues()) {
 		@Override
 		public void applySpeciesChanges(Body body) {
@@ -1023,7 +1023,7 @@ public enum Subspecies {
 			Race.ELEMENTAL_FIRE,
 			Colour.SPELL_SCHOOL_FIRE,
 			SubspeciesPreference.FOUR_ABUNDANT,
-			"A typical harpy.",
+			"An arcane elemental bound to the school of Fire.",
 			Util.newArrayListOfValues()) {
 		@Override
 		public void applySpeciesChanges(Body body) {
@@ -1041,7 +1041,7 @@ public enum Subspecies {
 			Race.ELEMENTAL_ARCANE,
 			Colour.SPELL_SCHOOL_ARCANE,
 			SubspeciesPreference.FOUR_ABUNDANT,
-			"A typical harpy.",
+			"An arcane elemental bound to the school of Arcane.",
 			Util.newArrayListOfValues()) {
 		@Override
 		public void applySpeciesChanges(Body body) {

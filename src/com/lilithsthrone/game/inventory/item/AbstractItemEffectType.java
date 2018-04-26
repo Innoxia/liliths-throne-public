@@ -112,7 +112,7 @@ public abstract class AbstractItemEffectType {
 	
 	protected static String getBookEffect(Race race, AbstractItemType book) {
 		Main.getProperties().addRaceDiscovered(race);
-		if(Main.getProperties().addAdvancedRaceKnowledge(race)) {
+		if(Main.getProperties().addAdvancedRaceKnowledge(race) && book!=null) {
 			Main.game.addEvent(new EventLogEntryBookAddedToLibrary(book), true);
 		}
 		

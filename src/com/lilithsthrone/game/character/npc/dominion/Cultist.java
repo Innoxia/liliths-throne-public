@@ -23,7 +23,6 @@ import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.combat.Attack;
-import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.npcDialogue.CultistDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -247,24 +246,6 @@ public class Cultist extends NPC {
 		}
 		
 		return Attack.SEDUCTION;
-	}
-
-	@Override
-	public Spell getSpell() {
-		List<Spell> spellsAvailable = new ArrayList<>();
-		
-		if(!Main.game.getPlayer().getStatusEffects().contains(StatusEffect.WITCH_SEAL)) {
-			spellsAvailable.add(Spell.WITCH_SEAL);
-		}
-		if(!this.getStatusEffects().contains(StatusEffect.WITCH_CHARM)) {
-			spellsAvailable.add(Spell.WITCH_CHARM);
-		}
-		
-		if(spellsAvailable.isEmpty()) {
-			return null;
-		} else {
-			return spellsAvailable.get(Util.random.nextInt(spellsAvailable.size()));
-		}
 	}
 	
 	@Override

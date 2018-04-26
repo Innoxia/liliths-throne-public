@@ -14,7 +14,6 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
-import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.npcDialogue.DominionOffspringDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -170,26 +169,6 @@ public class NPCOffspring extends NPC {
 	}
 
 	// Combat:
-
-	@Override
-	public Attack attackType() {
-		if(!getSpecialAttacks().isEmpty()) {
-			if (Math.random() < 0.6) {
-				return Attack.MAIN;
-			} else if (Math.random() < 0.8) {
-				return Attack.SEDUCTION;
-			} else {
-				return Attack.SPECIAL_ATTACK;
-			}
-			
-		} else {
-			if (Math.random() < 0.7) {
-				return Attack.MAIN;
-			} else {
-				return Attack.SEDUCTION;
-			}
-		}
-	}
 
 	@Override
 	public String getCombatDescription() {

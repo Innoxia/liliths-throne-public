@@ -11,7 +11,7 @@ import com.lilithsthrone.utils.Util.ListValue;
 
 /**
  * @since 0.1.0
- * @version 0.1.75
+ * @version 0.2.4
  * @author Innoxia
  */
 public enum Name {
@@ -269,6 +269,11 @@ public enum Name {
 			case BAT_MORPH:
 			case RAT_MORPH:
 			case RABBIT_MORPH:
+			case ELEMENTAL_AIR:
+			case ELEMENTAL_ARCANE:
+			case ELEMENTAL_EARTH:
+			case ELEMENTAL_FIRE:
+			case ELEMENTAL_WATER:
 				break;
 				
 			case REINDEER_MORPH:
@@ -313,7 +318,13 @@ public enum Name {
 			case RABBIT_MORPH:
 			break;
 			
-			case DEMON: case IMP:
+			case DEMON:
+			case IMP:
+			case ELEMENTAL_AIR:
+			case ELEMENTAL_ARCANE:
+			case ELEMENTAL_EARTH:
+			case ELEMENTAL_FIRE:
+			case ELEMENTAL_WATER:
 				return getDemonName();
 			case REINDEER_MORPH:
 				name = Name.REINDEER;

@@ -6099,6 +6099,16 @@ public class Body implements Serializable, XMLSaving {
 				case WOLF_MORPH:
 					coverings.put(BodyCoveringType.BODY_HAIR_LYCAN_FUR, new Covering(BodyCoveringType.BODY_HAIR_LYCAN_FUR, coverings.get(BodyCoveringType.HAIR_LYCAN_FUR).getPrimaryColour()));
 					break;
+				case ELEMENTAL_AIR:
+					break;
+				case ELEMENTAL_ARCANE:
+					break;
+				case ELEMENTAL_EARTH:
+					break;
+				case ELEMENTAL_FIRE:
+					break;
+				case ELEMENTAL_WATER:
+					break;
 			}
 		}
 	}
@@ -6185,6 +6195,16 @@ public class Body implements Serializable, XMLSaving {
 						break;
 					case WOLF_MORPH:
 						coverings.put(BodyCoveringType.BODY_HAIR_LYCAN_FUR, new Covering(BodyCoveringType.BODY_HAIR_LYCAN_FUR, coverings.get(BodyCoveringType.HAIR_LYCAN_FUR).getPrimaryColour()));
+						break;
+					case ELEMENTAL_AIR:
+						break;
+					case ELEMENTAL_ARCANE:
+						break;
+					case ELEMENTAL_EARTH:
+						break;
+					case ELEMENTAL_FIRE:
+						break;
+					case ELEMENTAL_WATER:
 						break;
 				}
 			}

@@ -803,6 +803,11 @@ public enum RacialBody {
 			case COW_MORPH:
 				return RacialBody.COW_MORPH;
 			case DEMON:
+			case ELEMENTAL_AIR:
+			case ELEMENTAL_ARCANE:
+			case ELEMENTAL_EARTH:
+			case ELEMENTAL_FIRE:
+			case ELEMENTAL_WATER:
 				return RacialBody.DEMON;
 			case IMP:
 				return RacialBody.IMP;

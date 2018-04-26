@@ -6,22 +6,20 @@ import java.util.List;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringModifier;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
-import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.ListValue;
 
 /**
  * @since 0.1.0
- * @version 0.2.2
+ * @version 0.2.4
  * @author Innoxia
  */
 public enum BodyCoveringType {
 
 	// Skin shades go light->dark
 
-	HUMAN(Race.HUMAN,
-			"a layer of",
+	HUMAN("a layer of",
 			false,
 			"skin",
 			"skin",
@@ -36,8 +34,7 @@ public enum BodyCoveringType {
 			Colour.humanSkinColours,
 			null),
 
-	ANGEL(Race.ANGEL,
-			"a layer of",
+	ANGEL("a layer of",
 			false,
 			"skin",
 			"skin",
@@ -50,8 +47,7 @@ public enum BodyCoveringType {
 			Colour.humanSkinColours,
 			null),
 
-	ANGEL_FEATHER(Race.ANGEL,
-			"a layer of",
+	ANGEL_FEATHER("a layer of",
 			true,
 			"feathers",
 			"feather",
@@ -67,8 +63,7 @@ public enum BodyCoveringType {
 					new ListValue<Colour>(Colour.FEATHERS_WHITE)),
 			Colour.allFeatherColours),
 	
-	DEMON_COMMON(Race.DEMON,
-			"a layer of",
+	DEMON_COMMON("a layer of",
 			false,
 			"skin",
 			"skin",
@@ -82,8 +77,7 @@ public enum BodyCoveringType {
 			Colour.demonSkinColours,
 			null),
 
-	IMP(Race.IMP,
-			"a layer of",
+	IMP("a layer of",
 			false,
 			"skin",
 			"skin",
@@ -97,8 +91,7 @@ public enum BodyCoveringType {
 			Colour.demonSkinColours,
 			null),
 
-	BAT_SKIN(Race.BAT_MORPH,
-			"a layer of",
+	BAT_SKIN("a layer of",
 			false,
 			"skin",
 			"skin",
@@ -112,8 +105,7 @@ public enum BodyCoveringType {
 			null,
 			Colour.allSkinColours),
 	
-	BAT_FUR(Race.BAT_MORPH,
-			"a layer of",
+	BAT_FUR("a layer of",
 			false,
 			"fur",
 			"fur",
@@ -128,8 +120,7 @@ public enum BodyCoveringType {
 			Colour.naturalFurColours,
 			Colour.dyeFurColours),
 	
-	CANINE_FUR(Race.DOG_MORPH,
-			"a layer of",
+	CANINE_FUR("a layer of",
 			false,
 			"fur",
 			"fur",
@@ -148,8 +139,7 @@ public enum BodyCoveringType {
 			Colour.naturalFurColours,
 			Colour.dyeFurColours),
 	
-	LYCAN_FUR(Race.WOLF_MORPH,
-			"a layer of",
+	LYCAN_FUR("a layer of",
 			false,
 			"fur",
 			"fur",
@@ -163,8 +153,7 @@ public enum BodyCoveringType {
 			Colour.naturalFurColours,
 			Colour.dyeFurColours),
 
-	FELINE_FUR(Race.CAT_MORPH,
-			"a layer of",
+	FELINE_FUR("a layer of",
 			false,
 			"fur",
 			"fur",
@@ -185,8 +174,7 @@ public enum BodyCoveringType {
 			Colour.naturalFurColours,
 			Colour.dyeFurColours),
 
-	SQUIRREL_FUR(Race.SQUIRREL_MORPH,
-			"a layer of",
+	SQUIRREL_FUR("a layer of",
 			false,
 			"fur",
 			"fur",
@@ -200,8 +188,7 @@ public enum BodyCoveringType {
 			Colour.naturalFurColours,
 			Colour.dyeFurColours),
 
-	RAT_SKIN(Race.RAT_MORPH,
-			"a layer of",
+	RAT_SKIN("a layer of",
 			false,
 			"skin",
 			"skin",
@@ -215,8 +202,7 @@ public enum BodyCoveringType {
 			null,
 			Colour.allSkinColours),
 	
-	RAT_FUR(Race.RAT_MORPH,
-			"a layer of",
+	RAT_FUR("a layer of",
 			false,
 			"fur",
 			"fur",
@@ -230,8 +216,7 @@ public enum BodyCoveringType {
 			Colour.naturalFurColours,
 			Colour.dyeFurColours),
 
-	RABBIT_FUR(Race.RABBIT_MORPH,
-			"a layer of",
+	RABBIT_FUR("a layer of",
 			false,
 			"fur",
 			"fur",
@@ -245,8 +230,7 @@ public enum BodyCoveringType {
 			Colour.naturalFurColours,
 			Colour.dyeFurColours),
 	
-	HORSE_HAIR(Race.HORSE_MORPH,
-			"a layer of",
+	HORSE_HAIR("a layer of",
 			false,
 			"hair",
 			"hair",
@@ -265,8 +249,7 @@ public enum BodyCoveringType {
 			Colour.naturalFurColours,
 			Colour.dyeFurColours),
 	
-	REINDEER_FUR(Race.REINDEER_MORPH,
-			"a layer of",
+	REINDEER_FUR("a layer of",
 			false,
 			"fur",
 			"fur",
@@ -281,8 +264,7 @@ public enum BodyCoveringType {
 			Colour.naturalFurColours,
 			Colour.dyeFurColours),
 	
-	BOVINE_FUR(Race.COW_MORPH,
-			"a layer of",
+	BOVINE_FUR("a layer of",
 			false,
 			"fur",
 			"fur",
@@ -301,8 +283,7 @@ public enum BodyCoveringType {
 			Colour.naturalFurColours,
 			Colour.dyeFurColours),
 	
-	PENIS(Race.HUMAN,
-			"a layer of",
+	PENIS("a layer of",
 			false,
 			"skin",
 			"skin",
@@ -317,8 +298,7 @@ public enum BodyCoveringType {
 					new ListValue<Colour>(Colour.ORIFICE_INTERIOR)),
 			Colour.allSkinColours),
 
-	ANUS(Race.HUMAN,
-			"a layer of",
+	ANUS("a layer of",
 			false,
 			"skin",
 			"skin",
@@ -334,8 +314,7 @@ public enum BodyCoveringType {
 					new ListValue<Colour>(Colour.ORIFICE_INTERIOR)),
 			Colour.allSkinColours),
 	
-	MOUTH(Race.HUMAN,
-			"a layer of",
+	MOUTH("a layer of",
 			false,
 			"skin",
 			"skin",
@@ -351,8 +330,7 @@ public enum BodyCoveringType {
 					new ListValue<Colour>(Colour.ORIFICE_INTERIOR)),
 			Colour.allSkinColours),
 	
-	NIPPLES(Race.HUMAN,
-			"a layer of",
+	NIPPLES("a layer of",
 			false,
 			"skin",
 			"skin",
@@ -368,8 +346,7 @@ public enum BodyCoveringType {
 					new ListValue<Colour>(Colour.ORIFICE_INTERIOR)),
 			Colour.allSkinColours),
 	
-	VAGINA(Race.HUMAN,
-			"a layer of",
+	VAGINA("a layer of",
 			false,
 			"skin",
 			"skin",
@@ -385,8 +362,230 @@ public enum BodyCoveringType {
 					new ListValue<Colour>(Colour.ORIFICE_INTERIOR)),
 			Colour.allSkinColours),
 	
-	SLIME(Race.SLIME,
-			"a layer of",
+
+	FIRE("",
+			false,
+			"flames",
+			"flames",
+			Util.newArrayListOfValues(
+					new ListValue<CoveringModifier>(CoveringModifier.BLAZING)),
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<CoveringPattern>(CoveringPattern.NONE)),
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<Colour>(Colour.COVERING_ORANGE),
+					new ListValue<Colour>(Colour.COVERING_BLUE_LIGHT)),
+			null,
+			null,
+			null),
+	FIRE_HAIR("",
+			false,
+			"flames",
+			"flames",
+			Util.newArrayListOfValues(
+					new ListValue<CoveringModifier>(CoveringModifier.BLAZING)),
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<CoveringPattern>(CoveringPattern.NONE)),
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<Colour>(Colour.COVERING_ORANGE),
+					new ListValue<Colour>(Colour.COVERING_BLUE_LIGHT)),
+			null,
+			null,
+			null),
+	
+	WATER("",
+			false,
+			"water",
+			"water",
+			Util.newArrayListOfValues(
+					new ListValue<CoveringModifier>(CoveringModifier.SHIMMERING)),
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<CoveringPattern>(CoveringPattern.NONE)),
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<Colour>(Colour.COVERING_BLUE),
+					new ListValue<Colour>(Colour.COVERING_BLUE_LIGHT)),
+			null,
+			null,
+			null),
+	WATER_HAIR("",
+			false,
+			"water",
+			"water",
+			Util.newArrayListOfValues(
+					new ListValue<CoveringModifier>(CoveringModifier.SHIMMERING)),
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<CoveringPattern>(CoveringPattern.NONE)),
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<Colour>(Colour.COVERING_BLUE),
+					new ListValue<Colour>(Colour.COVERING_BLUE_LIGHT)),
+			null,
+			null,
+			null),
+
+	ICE("",
+			false,
+			"ice",
+			"ice",
+			Util.newArrayListOfValues(
+					new ListValue<CoveringModifier>(CoveringModifier.SHIMMERING)),
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<CoveringPattern>(CoveringPattern.NONE)),
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<Colour>(Colour.COVERING_BLUE_LIGHT)),
+			null,
+			null,
+			null),
+	ICE_HAIR("",
+			false,
+			"ice",
+			"ice",
+			Util.newArrayListOfValues(
+					new ListValue<CoveringModifier>(CoveringModifier.SHIMMERING)),
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<CoveringPattern>(CoveringPattern.NONE)),
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<Colour>(Colour.COVERING_BLUE_LIGHT)),
+			null,
+			null,
+			null),
+
+	AIR("",
+			false,
+			"vapours",
+			"vapours",
+			Util.newArrayListOfValues(
+					new ListValue<CoveringModifier>(CoveringModifier.SWIRLING)),
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<CoveringPattern>(CoveringPattern.NONE)),
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<Colour>(Colour.COVERING_BLUE_LIGHT)),
+			null,
+			null,
+			null),
+	AIR_HAIR("",
+			false,
+			"vapours",
+			"vapours",
+			Util.newArrayListOfValues(
+					new ListValue<CoveringModifier>(CoveringModifier.SWIRLING)),
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<CoveringPattern>(CoveringPattern.NONE)),
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<Colour>(Colour.COVERING_BLUE_LIGHT)),
+			null,
+			null,
+			null),
+
+	STONE("",
+			false,
+			"stone",
+			"stone",
+			Util.newArrayListOfValues(
+					new ListValue<CoveringModifier>(CoveringModifier.MATTE)),
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<CoveringPattern>(CoveringPattern.NONE)),
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<Colour>(Colour.COVERING_GREY)),
+			null,
+			null,
+			null),
+	STONE_HAIR("",
+			false,
+			"stone",
+			"stone",
+			Util.newArrayListOfValues(
+					new ListValue<CoveringModifier>(CoveringModifier.MATTE)),
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<CoveringPattern>(CoveringPattern.NONE)),
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<Colour>(Colour.COVERING_GREY)),
+			null,
+			null,
+			null),
+
+	RUBBER("",
+			false,
+			"rubber",
+			"rubber",
+			Util.newArrayListOfValues(
+					new ListValue<CoveringModifier>(CoveringModifier.GLOSSY)),
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<CoveringPattern>(CoveringPattern.NONE)),
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<Colour>(Colour.COVERING_BLACK)),
+			null,
+			null,
+			null),
+	RUBBER_HAIR("",
+			false,
+			"rubber",
+			"rubber",
+			Util.newArrayListOfValues(
+					new ListValue<CoveringModifier>(CoveringModifier.GLOSSY)),
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<CoveringPattern>(CoveringPattern.NONE)),
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<Colour>(Colour.COVERING_BLACK)),
+			null,
+			null,
+			null),
+
+	ARCANE("",
+			false,
+			"energy",
+			"energy",
+			Util.newArrayListOfValues(
+					new ListValue<CoveringModifier>(CoveringModifier.SWIRLING)),
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<CoveringPattern>(CoveringPattern.NONE)),
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<Colour>(Colour.COVERING_PINK)),
+			null,
+			null,
+			null),
+	ARCANE_HAIR("",
+			false,
+			"energy",
+			"energy",
+			Util.newArrayListOfValues(
+					new ListValue<CoveringModifier>(CoveringModifier.SWIRLING)),
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<CoveringPattern>(CoveringPattern.NONE)),
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<Colour>(Colour.COVERING_PINK)),
+			null,
+			null,
+			null),
+	
+	
+	SLIME("a layer of",
 			false,
 			"slime",
 			"slime",
@@ -401,8 +600,7 @@ public enum BodyCoveringType {
 			Colour.allSlimeColours,
 			null),
 
-	SLIME_EYE(Race.SLIME,
-			"a layer of",
+	SLIME_EYE("a layer of",
 			false,
 			"slime",
 			"slime",
@@ -418,8 +616,7 @@ public enum BodyCoveringType {
 			Colour.allSlimeColours,
 			null),
 	
-	SLIME_PUPILS(Race.SLIME,
-			"a layer of",
+	SLIME_PUPILS("a layer of",
 			false,
 			"slime",
 			"slime",
@@ -435,8 +632,7 @@ public enum BodyCoveringType {
 			Colour.allSlimeColours,
 			null),
 	
-	SLIME_HAIR(Race.SLIME,
-			"a layer of",
+	SLIME_HAIR("a layer of",
 			false,
 			"slime",
 			"slime",
@@ -451,8 +647,7 @@ public enum BodyCoveringType {
 			Colour.allSlimeColours,
 			null),
 	
-	SLIME_ANUS(Race.SLIME,
-			"a layer of",
+	SLIME_ANUS("a layer of",
 			false,
 			"slime",
 			"slime",
@@ -467,8 +662,7 @@ public enum BodyCoveringType {
 			Colour.allSlimeColours,
 			null),
 	
-	SLIME_MOUTH(Race.SLIME,
-			"a layer of",
+	SLIME_MOUTH("a layer of",
 			false,
 			"slime",
 			"slime",
@@ -483,8 +677,7 @@ public enum BodyCoveringType {
 			Colour.allSlimeColours,
 			null),
 	
-	SLIME_NIPPLES(Race.SLIME,
-			"a layer of",
+	SLIME_NIPPLES("a layer of",
 			false,
 			"slime",
 			"slime",
@@ -499,8 +692,7 @@ public enum BodyCoveringType {
 			Colour.allSlimeColours,
 			null),
 	
-	SLIME_VAGINA(Race.SLIME,
-			"a layer of",
+	SLIME_VAGINA("a layer of",
 			false,
 			"slime",
 			"slime",
@@ -515,8 +707,7 @@ public enum BodyCoveringType {
 			Colour.allSlimeColours,
 			null),
 
-	FEATHERS(Race.HARPY,
-			"a layer of",
+	FEATHERS("a layer of",
 			true,
 			"feathers",
 			"feather",
@@ -535,8 +726,7 @@ public enum BodyCoveringType {
 			Colour.allFeatherColours,
 			null),
 
-	ALLIGATOR_SCALES(Race.ALLIGATOR_MORPH,
-			"a layer of",
+	ALLIGATOR_SCALES("a layer of",
 			true,
 			"scales",
 			"scale",
@@ -553,8 +743,7 @@ public enum BodyCoveringType {
 
 	// MISC:
 	
-	HORN(Race.HUMAN,
-			"a layer of",
+	HORN("a layer of",
 			false,
 			"keratin",
 			"keratin",
@@ -568,8 +757,7 @@ public enum BodyCoveringType {
 			Colour.dyeHornColours,
 			null),
 
-	ANTLER_REINDEER(Race.REINDEER_MORPH,
-			"a layer of",
+	ANTLER_REINDEER("a layer of",
 			false,
 			"velvet",
 			"velvet",
@@ -583,8 +771,7 @@ public enum BodyCoveringType {
 			Colour.dyeAntlerColours,
 			null),
 
-	TONGUE(Race.HUMAN,
-			"a layer of",
+	TONGUE("a layer of",
 			false,
 			"skin",
 			"skin",
@@ -600,8 +787,7 @@ public enum BodyCoveringType {
 
 	// HAIR:
 
-	HAIR_HUMAN(Race.HUMAN,
-			"a head of",
+	HAIR_HUMAN("a head of",
 			false,
 			"hair",
 			"hair",
@@ -616,8 +802,7 @@ public enum BodyCoveringType {
 			Colour.naturalHairColours,
 			Colour.dyeHairColours),
 
-	HAIR_ANGEL(Race.ANGEL,
-			"a head of",
+	HAIR_ANGEL("a head of",
 			false,
 			"hair",
 			"hair",
@@ -632,8 +817,7 @@ public enum BodyCoveringType {
 			Colour.naturalHairColours,
 			Colour.dyeHairColours),
 
-	HAIR_DEMON(Race.DEMON,
-			"a head of",
+	HAIR_DEMON("a head of",
 			false,
 			"hair",
 			"hair",
@@ -648,8 +832,7 @@ public enum BodyCoveringType {
 			Colour.naturalHairColours,
 			Colour.dyeHairColours),
 
-	HAIR_IMP(Race.IMP,
-			"a head of",
+	HAIR_IMP("a head of",
 			false,
 			"hair",
 			"hair",
@@ -664,8 +847,7 @@ public enum BodyCoveringType {
 			Colour.naturalHairColours,
 			Colour.dyeHairColours),
 	
-	HAIR_CANINE_FUR(Race.DOG_MORPH,
-			"a layer of",
+	HAIR_CANINE_FUR("a layer of",
 			false,
 			"hair",
 			"hair",
@@ -680,8 +862,7 @@ public enum BodyCoveringType {
 			Colour.naturalHairColours,
 			Colour.dyeHairColours),
 
-	HAIR_LYCAN_FUR(Race.WOLF_MORPH,
-			"a layer of",
+	HAIR_LYCAN_FUR("a layer of",
 			false,
 			"hair",
 			"hair",
@@ -696,8 +877,7 @@ public enum BodyCoveringType {
 			Colour.naturalHairColours,
 			Colour.dyeHairColours),
 
-	HAIR_FELINE_FUR(Race.CAT_MORPH,
-			"a layer of",
+	HAIR_FELINE_FUR("a layer of",
 			false,
 			"hair",
 			"hair",
@@ -712,8 +892,7 @@ public enum BodyCoveringType {
 			Colour.naturalHairColours,
 			Colour.dyeHairColours),
 
-	HAIR_HORSE_HAIR(Race.HORSE_MORPH,
-			"a layer of",
+	HAIR_HORSE_HAIR("a layer of",
 			false,
 			"hair",
 			"hair",
@@ -728,8 +907,7 @@ public enum BodyCoveringType {
 			Colour.naturalHairColours,
 			Colour.dyeHairColours),
 
-	HAIR_REINDEER_FUR(Race.REINDEER_MORPH,
-			"a layer of",
+	HAIR_REINDEER_FUR("a layer of",
 			false,
 			"hair",
 			"hair",
@@ -744,8 +922,7 @@ public enum BodyCoveringType {
 			Colour.naturalHairColours,
 			Colour.dyeHairColours),
 
-	HAIR_BOVINE_FUR(Race.COW_MORPH,
-			"a layer of",
+	HAIR_BOVINE_FUR("a layer of",
 			false,
 			"hair",
 			"hair",
@@ -760,8 +937,7 @@ public enum BodyCoveringType {
 			Colour.naturalHairColours,
 			Colour.dyeHairColours),
 
-	HAIR_SQUIRREL_FUR(Race.SQUIRREL_MORPH,
-			"a layer of",
+	HAIR_SQUIRREL_FUR("a layer of",
 			false,
 			"hair",
 			"hair",
@@ -776,8 +952,7 @@ public enum BodyCoveringType {
 			Colour.naturalHairColours,
 			Colour.dyeHairColours),
 
-	HAIR_RAT_FUR(Race.RAT_MORPH,
-			"a layer of",
+	HAIR_RAT_FUR("a layer of",
 			false,
 			"hair",
 			"hair",
@@ -792,8 +967,7 @@ public enum BodyCoveringType {
 			Colour.naturalHairColours,
 			Colour.dyeHairColours),
 
-	HAIR_RABBIT_FUR(Race.RAT_MORPH,
-			"a layer of",
+	HAIR_RABBIT_FUR("a layer of",
 			false,
 			"hair",
 			"hair",
@@ -808,8 +982,7 @@ public enum BodyCoveringType {
 			Colour.naturalHairColours,
 			Colour.dyeHairColours),
 	
-	HAIR_BAT_FUR(Race.BAT_MORPH,
-			"a layer of",
+	HAIR_BAT_FUR("a layer of",
 			false,
 			"hair",
 			"hair",
@@ -824,8 +997,7 @@ public enum BodyCoveringType {
 			Colour.naturalHairColours,
 			Colour.dyeHairColours),
 	
-	HAIR_HARPY(Race.HARPY,
-			"a plume of",
+	HAIR_HARPY("a plume of",
 			true,
 			"feathers",
 			"feather",
@@ -839,8 +1011,7 @@ public enum BodyCoveringType {
 			Colour.allFeatherColours,
 			null),
 	
-	HAIR_SCALES_ALLIGATOR(Race.ALLIGATOR_MORPH,
-			"a layer of",
+	HAIR_SCALES_ALLIGATOR("a layer of",
 			false,
 			"hair",
 			"hair",
@@ -858,8 +1029,7 @@ public enum BodyCoveringType {
 	
 	// BODY HAIR:
 	
-	BODY_HAIR_HUMAN(Race.HUMAN,
-			"a layer of",
+	BODY_HAIR_HUMAN("a layer of",
 			false,
 			"hair",
 			"hair",
@@ -873,8 +1043,7 @@ public enum BodyCoveringType {
 			Colour.naturalHairColours,
 			Colour.dyeHairColours),
 
-	BODY_HAIR_ANGEL(Race.ANGEL,
-			"a layer of",
+	BODY_HAIR_ANGEL("a layer of",
 			false,
 			"hair",
 			"hair",
@@ -888,8 +1057,7 @@ public enum BodyCoveringType {
 			Colour.naturalHairColours,
 			Colour.dyeHairColours),
 
-	BODY_HAIR_DEMON(Race.DEMON,
-			"a layer of",
+	BODY_HAIR_DEMON("a layer of",
 			false,
 			"hair",
 			"hair",
@@ -903,8 +1071,7 @@ public enum BodyCoveringType {
 			Colour.naturalHairColours,
 			Colour.dyeHairColours),
 
-	BODY_HAIR_IMP(Race.IMP,
-			"a layer of",
+	BODY_HAIR_IMP("a layer of",
 			false,
 			"hair",
 			"hair",
@@ -918,8 +1085,7 @@ public enum BodyCoveringType {
 			Colour.naturalHairColours,
 			Colour.dyeHairColours),
 
-	BODY_HAIR_CANINE_FUR(Race.DOG_MORPH,
-			"a layer of",
+	BODY_HAIR_CANINE_FUR("a layer of",
 			false,
 			"hair",
 			"hair",
@@ -933,8 +1099,7 @@ public enum BodyCoveringType {
 			Colour.naturalHairColours,
 			Colour.dyeHairColours),
 
-	BODY_HAIR_LYCAN_FUR(Race.WOLF_MORPH,
-			"a layer of",
+	BODY_HAIR_LYCAN_FUR("a layer of",
 			false,
 			"hair",
 			"hair",
@@ -948,8 +1113,7 @@ public enum BodyCoveringType {
 			Colour.naturalHairColours,
 			Colour.dyeHairColours),
 
-	BODY_HAIR_FELINE_FUR(Race.CAT_MORPH,
-			"a layer of",
+	BODY_HAIR_FELINE_FUR("a layer of",
 			false,
 			"hair",
 			"hair",
@@ -963,8 +1127,7 @@ public enum BodyCoveringType {
 			Colour.naturalHairColours,
 			Colour.dyeHairColours),
 
-	BODY_HAIR_HORSE_HAIR(Race.HORSE_MORPH,
-			"a layer of",
+	BODY_HAIR_HORSE_HAIR("a layer of",
 			false,
 			"hair",
 			"hair",
@@ -978,8 +1141,7 @@ public enum BodyCoveringType {
 			Colour.naturalHairColours,
 			Colour.dyeHairColours),
 
-	BODY_HAIR_REINDEER_HAIR(Race.REINDEER_MORPH,
-			"a layer of",
+	BODY_HAIR_REINDEER_HAIR("a layer of",
 			false,
 			"hair",
 			"hair",
@@ -993,8 +1155,7 @@ public enum BodyCoveringType {
 			Colour.naturalHairColours,
 			Colour.dyeHairColours),
 
-	BODY_HAIR_BOVINE_FUR(Race.COW_MORPH,
-			"a layer of",
+	BODY_HAIR_BOVINE_FUR("a layer of",
 			false,
 			"hair",
 			"hair",
@@ -1008,8 +1169,7 @@ public enum BodyCoveringType {
 			Colour.naturalHairColours,
 			Colour.dyeHairColours),
 
-	BODY_HAIR_SQUIRREL_FUR(Race.SQUIRREL_MORPH,
-			"a layer of",
+	BODY_HAIR_SQUIRREL_FUR("a layer of",
 			false,
 			"hair",
 			"hair",
@@ -1023,8 +1183,7 @@ public enum BodyCoveringType {
 			Colour.naturalHairColours,
 			Colour.dyeHairColours),
 
-	BODY_HAIR_RAT_FUR(Race.RAT_MORPH,
-			"a layer of",
+	BODY_HAIR_RAT_FUR("a layer of",
 			false,
 			"hair",
 			"hair",
@@ -1038,8 +1197,7 @@ public enum BodyCoveringType {
 			Colour.naturalHairColours,
 			Colour.dyeHairColours),
 
-	BODY_HAIR_RABBIT_FUR(Race.RABBIT_MORPH,
-			"a layer of",
+	BODY_HAIR_RABBIT_FUR("a layer of",
 			false,
 			"hair",
 			"hair",
@@ -1053,8 +1211,7 @@ public enum BodyCoveringType {
 			Colour.naturalHairColours,
 			Colour.dyeHairColours),
 	
-	BODY_HAIR_BAT_FUR(Race.BAT_MORPH,
-			"a layer of",
+	BODY_HAIR_BAT_FUR("a layer of",
 			false,
 			"hair",
 			"hair",
@@ -1068,8 +1225,7 @@ public enum BodyCoveringType {
 			Colour.naturalHairColours,
 			Colour.dyeHairColours),
 	
-	BODY_HAIR_HARPY(Race.HARPY,
-			"a plume of",
+	BODY_HAIR_HARPY("a plume of",
 			true,
 			"feathers",
 			"feather",
@@ -1083,8 +1239,7 @@ public enum BodyCoveringType {
 			Colour.allFeatherColours,
 			null),
 
-	BODY_HAIR_SCALES_ALLIGATOR(Race.ALLIGATOR_MORPH,
-			"a plume of",
+	BODY_HAIR_SCALES_ALLIGATOR("a plume of",
 			false,
 			"scales",
 			"scale",
@@ -1102,8 +1257,7 @@ public enum BodyCoveringType {
 	
 	// EYES:
 
-	EYE_HUMAN(Race.HUMAN,
-			"a pair of",
+	EYE_HUMAN("a pair of",
 			true,
 			"eyes",
 			"eye",
@@ -1119,8 +1273,7 @@ public enum BodyCoveringType {
 			Colour.naturalIrisColours,
 			Colour.dyeIrisColours),
 
-	EYE_ANGEL(Race.ANGEL,
-			"a pair of",
+	EYE_ANGEL("a pair of",
 			true,
 			"eyes",
 			"eye",
@@ -1136,8 +1289,7 @@ public enum BodyCoveringType {
 			Colour.naturalIrisColours,
 			Colour.dyeIrisColours),
 
-	EYE_DEMON_COMMON(Race.DEMON,
-			"a pair of",
+	EYE_DEMON_COMMON("a pair of",
 			true,
 			"eyes",
 			"eye",
@@ -1153,8 +1305,7 @@ public enum BodyCoveringType {
 			Colour.naturalDemonIrisColours,
 			Colour.dyeDemonIrisColours),
 
-	EYE_IMP(Race.IMP,
-			"a pair of",
+	EYE_IMP("a pair of",
 			true,
 			"eyes",
 			"eye",
@@ -1170,8 +1321,7 @@ public enum BodyCoveringType {
 			Colour.naturalDemonIrisColours,
 			Colour.dyeDemonIrisColours),
 	
-	EYE_DOG_MORPH(Race.DOG_MORPH,
-			"a pair of",
+	EYE_DOG_MORPH("a pair of",
 			true,
 			"eyes",
 			"eye",
@@ -1187,8 +1337,7 @@ public enum BodyCoveringType {
 			Colour.naturalIrisColours,
 			Colour.dyeIrisColours),
 
-	EYE_LYCAN(Race.WOLF_MORPH,
-			"a pair of",
+	EYE_LYCAN("a pair of",
 			true,
 			"eyes",
 			"eye",
@@ -1204,8 +1353,7 @@ public enum BodyCoveringType {
 			Colour.naturalPredatorIrisColours,
 			Colour.dyePredatorIrisColours),
 
-	EYE_FELINE(Race.CAT_MORPH,
-			"a pair of",
+	EYE_FELINE("a pair of",
 			true,
 			"eyes",
 			"eye",
@@ -1221,8 +1369,7 @@ public enum BodyCoveringType {
 			Colour.naturalPredatorIrisColours,
 			Colour.dyePredatorIrisColours),
 
-	EYE_SQUIRREL(Race.SQUIRREL_MORPH,
-			"a pair of",
+	EYE_SQUIRREL("a pair of",
 			true,
 			"eyes",
 			"eye",
@@ -1238,8 +1385,7 @@ public enum BodyCoveringType {
 			Colour.naturalIrisColours,
 			Colour.dyeIrisColours),
 
-	EYE_RAT(Race.RAT_MORPH,
-			"a pair of",
+	EYE_RAT("a pair of",
 			true,
 			"eyes",
 			"eye",
@@ -1255,8 +1401,7 @@ public enum BodyCoveringType {
 			Colour.naturalIrisColours,
 			Colour.dyeIrisColours),
 
-	EYE_RABBIT(Race.RABBIT_MORPH,
-			"a pair of",
+	EYE_RABBIT("a pair of",
 			true,
 			"eyes",
 			"eye",
@@ -1272,8 +1417,7 @@ public enum BodyCoveringType {
 			Colour.naturalIrisColours,
 			Colour.dyeIrisColours),
 	
-	EYE_BAT(Race.BAT_MORPH,
-			"a pair of",
+	EYE_BAT("a pair of",
 			true,
 			"eyes",
 			"eye",
@@ -1289,8 +1433,7 @@ public enum BodyCoveringType {
 			Colour.naturalIrisColours,
 			Colour.dyeIrisColours),
 	
-	EYE_ALLIGATOR_MORPH(Race.ALLIGATOR_MORPH,
-			"a pair of",
+	EYE_ALLIGATOR_MORPH("a pair of",
 			true,
 			"eyes",
 			"eye",
@@ -1306,8 +1449,7 @@ public enum BodyCoveringType {
 			Colour.naturalIrisColours,
 			Colour.dyeIrisColours),
 
-	EYE_HORSE_MORPH(Race.HORSE_MORPH,
-			"a pair of",
+	EYE_HORSE_MORPH("a pair of",
 			true,
 			"eyes",
 			"eye",
@@ -1323,8 +1465,7 @@ public enum BodyCoveringType {
 			Colour.naturalIrisColours,
 			Colour.dyeIrisColours),
 
-	EYE_REINDEER_MORPH(Race.REINDEER_MORPH,
-			"a pair of",
+	EYE_REINDEER_MORPH("a pair of",
 			true,
 			"eyes",
 			"eye",
@@ -1340,8 +1481,7 @@ public enum BodyCoveringType {
 			Colour.naturalIrisColours,
 			Colour.dyeIrisColours),
 
-	EYE_COW_MORPH(Race.COW_MORPH,
-			"a pair of",
+	EYE_COW_MORPH("a pair of",
 			true,
 			"eyes",
 			"eye",
@@ -1357,8 +1497,7 @@ public enum BodyCoveringType {
 			Colour.naturalIrisColours,
 			Colour.dyeIrisColours),
 
-	EYE_HARPY(Race.HARPY,
-			"a pair of",
+	EYE_HARPY("a pair of",
 			true,
 			"eyes",
 			"eye",
@@ -1374,8 +1513,7 @@ public enum BodyCoveringType {
 			Colour.naturalIrisColours,
 			Colour.dyeIrisColours),
 
-	EYE_PUPILS(Race.HUMAN,
-			"a pair of",
+	EYE_PUPILS("a pair of",
 			true,
 			"pupils",
 			"pupil",
@@ -1393,8 +1531,7 @@ public enum BodyCoveringType {
 	
 	// Fluids:
 	
-	CUM(Race.HUMAN,
-			"",
+	CUM("",
 			false,
 			"cum",
 			"cum",
@@ -1417,8 +1554,7 @@ public enum BodyCoveringType {
 			null,
 			null),
 	
-	GIRL_CUM(Race.HUMAN,
-			"",
+	GIRL_CUM("",
 			false,
 			"girlcum",
 			"girlcum",
@@ -1441,8 +1577,7 @@ public enum BodyCoveringType {
 			null,
 			null),
 	
-	MILK(Race.HUMAN,
-			"",
+	MILK("",
 			false,
 			"milk",
 			"milk",
@@ -1467,8 +1602,7 @@ public enum BodyCoveringType {
 	
 	// Makeup:
 	
-	MAKEUP_BLUSHER(Race.HUMAN,
-			"a layer of",
+	MAKEUP_BLUSHER("a layer of",
 			false,
 			"blusher",
 			"blusher",
@@ -1499,8 +1633,7 @@ public enum BodyCoveringType {
 			null,
 			null),
 	
-	MAKEUP_EYE_LINER(Race.HUMAN,
-			"a layer of",
+	MAKEUP_EYE_LINER("a layer of",
 			false,
 			"eye liner",
 			"eye liner",
@@ -1531,8 +1664,7 @@ public enum BodyCoveringType {
 			null,
 			null),
 	
-	MAKEUP_EYE_SHADOW(Race.HUMAN,
-			"a layer of",
+	MAKEUP_EYE_SHADOW("a layer of",
 			false,
 			"eye shadow",
 			"eye shadow",
@@ -1565,8 +1697,7 @@ public enum BodyCoveringType {
 			null,
 			null),
 
-	MAKEUP_LIPSTICK(Race.HUMAN,
-			"a layer of",
+	MAKEUP_LIPSTICK("a layer of",
 			false,
 			"lipstick",
 			"lipstick",
@@ -1619,8 +1750,7 @@ public enum BodyCoveringType {
 					new ListValue<Colour>(Colour.COVERING_SILVER),
 					new ListValue<Colour>(Colour.COVERING_BLACK))),
 	
-	MAKEUP_NAIL_POLISH_HANDS(Race.HUMAN,
-			"a layer of",
+	MAKEUP_NAIL_POLISH_HANDS("a layer of",
 			false,
 			"nail polish",
 			"nail polish",
@@ -1672,8 +1802,7 @@ public enum BodyCoveringType {
 					new ListValue<Colour>(Colour.COVERING_SILVER),
 					new ListValue<Colour>(Colour.COVERING_BLACK))),
 	
-	MAKEUP_NAIL_POLISH_FEET(Race.HUMAN,
-			"a layer of",
+	MAKEUP_NAIL_POLISH_FEET("a layer of",
 			false,
 			"nail polish",
 			"nail polish",
@@ -1731,11 +1860,9 @@ public enum BodyCoveringType {
 	private List<CoveringModifier> naturalModifiers, extraModifiers;
 	private List<Colour> naturalColoursPrimary, dyeColoursPrimary, naturalColoursSecondary, dyeColoursSecondary, allColours, allPrimaryColours, allSecondaryColours;
 	private List<CoveringPattern> naturalPatterns, dyePatterns, allPatterns;
-	private Race race;
 	private boolean isDefaultPlural;
 
 	private BodyCoveringType(
-			Race race,
 			String determiner,
 			boolean isDefaultPlural,
 			String namePlural,
@@ -1832,8 +1959,6 @@ public enum BodyCoveringType {
 			allColours.add(c);
 			allSecondaryColours.add(c);
 		}
-		
-		this.race = race;
 	}
 
 	public String getDeterminer(GameCharacter gc) {
@@ -1902,10 +2027,6 @@ public enum BodyCoveringType {
 
 	public BodyCoveringType getBodyCoveringType() {
 		return this;
-	}
-
-	public Race getRace() {
-		return race;
 	}
 
 	public List<CoveringModifier> getNaturalModifiers() {

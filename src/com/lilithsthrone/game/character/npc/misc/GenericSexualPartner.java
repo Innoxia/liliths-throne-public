@@ -83,6 +83,11 @@ public class GenericSexualPartner extends NPC {
 					case DEMON:
 					case IMP:
 					case IMP_ALPHA:
+					case ELEMENTAL_AIR:
+					case ELEMENTAL_ARCANE:
+					case ELEMENTAL_EARTH:
+					case ELEMENTAL_FIRE:
+					case ELEMENTAL_WATER:
 						break;
 						
 					// Low spawn chance:

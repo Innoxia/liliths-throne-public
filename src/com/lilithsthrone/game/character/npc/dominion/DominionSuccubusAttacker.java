@@ -20,7 +20,6 @@ import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
-import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.npcDialogue.DominionSuccubusDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -167,19 +166,6 @@ public class DominionSuccubusAttacker extends NPC {
 	public String getCombatDescription() {
 		return UtilText.parse(this,
 				"Although strong enough to easily overpower most solitary travellers, this horny [npc.race] is finding it difficult to focus on harnessing [npc.her] arcane aura, resulting in [npc.herHim] being far weaker than a normal demon.");
-	}
-	
-	@Override
-	public Attack attackType() {
-		double rnd = Math.random();
-		
-		if (rnd < 0.1) {
-			return Attack.MAIN;
-		} else if (rnd < 0.5) {
-			return Attack.SPECIAL_ATTACK;
-		} else {
-			return Attack.SEDUCTION;
-		}
 	}
 
 	public String getItemUseEffects(AbstractItem item, GameCharacter user, GameCharacter target){

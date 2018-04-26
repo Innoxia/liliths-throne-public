@@ -48,6 +48,8 @@ import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Attack;
+import com.lilithsthrone.game.combat.Combat;
+import com.lilithsthrone.game.combat.SpecialAttack;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.combat.SpellSchool;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
@@ -373,23 +375,61 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 
 	// Combat:
 	
-	public Attack attackType() {
-		if(!getSpecialAttacks().isEmpty()) {
-			if (Math.random() < 0.2) {
-				return Attack.SEDUCTION;
-			} else if (Math.random() < 0.8) {
-				return Attack.MAIN;
-			} else {
-				return Attack.SPECIAL_ATTACK;
-			}
-			
-		} else {
-			if (Math.random() < 0.7) {
-				return Attack.MAIN;
-			} else {
-				return Attack.SEDUCTION;
+	public List<Spell> getSpellsAbleToCast() {
+		List<Spell> spellsAbleToCast = new ArrayList<>();
+		
+		for(Spell spell : this.getAllSpells()) {
+			if(this.getMana()>spell.getModifiedCost(this)) {
+				spellsAbleToCast.add(spell);
 			}
 		}
+		
+		return spellsAbleToCast;
+	}
+	
+	public List<SpecialAttack> getSpecialAttacksAbleToUse() {
+		List<SpecialAttack> specialAttacksAbleToUse = new ArrayList<>();
+		
+		for(SpecialAttack sa : this.getSpecialAttacks()) {
+			if(Main.game.isInCombat()) {
+				if(Combat.getCooldown(this, sa)==0) {
+					specialAttacksAbleToUse.add(sa);
+				}
+			} else {
+				specialAttacksAbleToUse.add(sa);
+			}
+		}
+		
+		return specialAttacksAbleToUse;
+	}
+	
+	public Attack attackType() {
+		boolean canCastASpell = !getSpellsAbleToCast().isEmpty();
+		boolean canCastASpecialAttack = !getSpecialAttacksAbleToUse().isEmpty();
+		
+		Map<Attack, Integer> attackWeightingMap = new HashMap<>();
+		
+		attackWeightingMap.put(Attack.MAIN, this.getRace().getPreferredAttacks().contains(Attack.MAIN)?75:50);
+		attackWeightingMap.put(Attack.OFFHAND, this.getOffhandWeapon()==null?0:(this.getRace().getPreferredAttacks().contains(Attack.MAIN)?50:25));
+		attackWeightingMap.put(Attack.SEDUCTION, this.getRace().getPreferredAttacks().contains(Attack.SEDUCTION)?100:(int)this.getAttributeValue(Attribute.MAJOR_CORRUPTION));
+		attackWeightingMap.put(Attack.SPELL, !canCastASpell?0:(this.getRace().getPreferredAttacks().contains(Attack.MAIN)?100:50));
+		attackWeightingMap.put(Attack.SPECIAL_ATTACK, !canCastASpecialAttack?0:(this.getRace().getPreferredAttacks().contains(Attack.MAIN)?100:50));
+		
+		int total = 0;
+		for(Entry<Attack, Integer> entry : attackWeightingMap.entrySet()) {
+			total+=entry.getValue();
+		}
+		
+		int index = Util.random.nextInt(total);
+		total = 0;
+		for(Entry<Attack, Integer> entry : attackWeightingMap.entrySet()) {
+			total+=entry.getValue();
+			if(index<total) {
+				return entry.getKey();
+			}
+		}
+		
+		return Attack.MAIN;
 	}
 
 	public String getCombatDescription() {
@@ -400,10 +440,6 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		return null;
 	};
 
-	public Spell getSpell() {
-		return null;
-	}
-	
 	public int getEscapeChance() {
 		return 30;
 	}
@@ -2750,7 +2786,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				
 			// Player uses item on NPC:
 			} else {
-				if(target.isSlave()) {
+				if(target.isSlave() && target.getOwner()!=null && target.getOwner().isPlayer()) {
 					return Main.game.getPlayer().useItem(item, target, false);
 					
 				} else {

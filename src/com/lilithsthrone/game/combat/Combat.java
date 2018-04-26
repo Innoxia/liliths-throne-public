@@ -28,6 +28,7 @@ import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
 
 /**
  * Singleton enforced by Enum.</br>
@@ -77,33 +78,27 @@ public enum Combat {
 			List<NPC> allies,
 			List<NPC> enemies,
 			Map<GameCharacter, String> openingDescriptions) {
-		
-		if(allies==null) {
-			Combat.allies = new ArrayList<>();
-		} else {
-			Combat.allies = allies;
-		}
-		
-		Combat.enemies = enemies;
-		
-		allCombatants = new ArrayList<>();
-		allCombatants.addAll(Combat.allies);
-		allCombatants.addAll(Combat.enemies);
-		
+
 		cooldowns = new HashMap<>();
 		cooldowns.put(Main.game.getPlayer(), new HashMap<>());
-		for(GameCharacter character : allCombatants) {
-			cooldowns.put(character, new HashMap<>());
+		
+		allCombatants = new ArrayList<>();
+		Combat.allies = new ArrayList<>();
+		Combat.enemies = new ArrayList<>();
+		
+		if(allies!=null){
+			for(NPC ally : allies) {
+				Combat.addAlly(ally);
+			}
+		}
+		for(NPC enemy : enemies) {
+			Combat.addEnemy(enemy);
 		}
 		
 		targetedCombatant = enemies.get(0);
 		activeNPC = enemies.get(0);
 
 		escaped = false;
-		
-		for(NPC enemy : enemies) {
-			enemy.setFoughtPlayerCount(enemy.getFoughtPlayerCount()+1);
-		}
 		
 		combatContent = "";
 		turn = 0;
@@ -171,14 +166,14 @@ public enum Combat {
 		
 		if(enemies.contains(character)) {
 			return UtilText.parse(character,
-				"<div class='container-full-width' style='text-align:center; box-sizing: border-box; border:6px solid #333; border-radius:5px;'>"
+				"<div class='container-full-width' style='text-align:center; box-sizing: border-box; border:6px solid "+Colour.GENERIC_MINOR_BAD.getShades()[0]+"; border-radius:5px;'>"
 					+ "<div class='container-half-width' style='width: calc(80% - 16px);'>"+description+effects+"</div>"
 					+ "<div class='container-quarter-width'style='width: calc(20% - 16px);'><b style='color:"+character.getFemininity().getColour().toWebHexString()+";'>[npc.Name()]</b></br>"+title+"</div>"
 				+ "</div>");
 			
 		} else {
 			return UtilText.parse(character,
-				"<div class='container-full-width' style='text-align:center; box-sizing: border-box; border:6px solid #333; border-radius:5px;'>"
+				"<div class='container-full-width' style='text-align:center; box-sizing: border-box; border:6px solid "+Colour.GENERIC_MINOR_GOOD.getShades()[0]+"; border-radius:5px;'>"
 					+ "<div class='container-quarter-width'style='width: calc(20% - 16px);'><b style='color:"+character.getFemininity().getColour().toWebHexString()+";'>[npc.Name()]</b></br>"+title+"</div>"
 					+ "<div class='container-half-width' style='width: calc(80% - 16px);'>"+description+effects+"</div>"
 				+ "</div>");
@@ -676,7 +671,7 @@ public enum Combat {
 				} else if(Main.game.getPlayer().getAllSpells().size()>=index) {
 					if(Main.game.getPlayer().getMana() < Main.game.getPlayer().getAllSpells().get(index - 1).getModifiedCost(Main.game.getPlayer())) {
 						return new Response(Util.capitaliseSentence(Main.game.getPlayer().getAllSpells().get(index - 1).getName()),
-								"You don't have enough aura to cast this spell!",
+								"You don't have enough aura to cast this spell! (Requires "+Main.game.getPlayer().getAllSpells().get(index - 1).getModifiedCost(Main.game.getPlayer())+" aura.)",
 								null);
 					}
 					return new Response(Util.capitaliseSentence(Main.game.getPlayer().getAllSpells().get(index - 1).getName()),
@@ -689,6 +684,10 @@ public enum Combat {
 							endCombatTurn();
 							previousAction = Attack.SPELL;
 							previouslyUsedSpell = Main.game.getPlayer().getAllSpells().get(index - 1);
+						}
+						@Override
+						public Colour getHighlightColour() {
+							return Main.game.getPlayer().getAllSpells().get(index - 1).getSpellSchool().getColour();
 						}
 					};
 					
@@ -892,29 +891,29 @@ public enum Combat {
 		attackStringBuilder.append(getMainAttackDescription(attacker, target, isHit));
 		
 		if(isHit) {
-			boolean critical = Attack.rollForCritical(attacker);
+			boolean critical = Attack.rollForCritical(attacker, target);
 	
 			damage = Attack.calculateDamage(attacker, target, Attack.MAIN, critical);
 			
 			if(attacker.isPlayer()) {
 				if(attacker.getMainWeapon() == null) {
 					attackStringBuilder.append("<p><b>You " + (critical ? "<b style='color: " + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>critically</b> hit for " : " hit for ") + damage + " <b style='color: "
-							+ Attribute.DAMAGE_PHYSICAL.getColour().toWebHexString() + ";'>" + Attribute.DAMAGE_PHYSICAL.getName() + "</b>!</b></p>");
+							+ attacker.getBodyMaterial().getUnarmedDamageType().getColour().toWebHexString() + ";'>" + attacker.getBodyMaterial().getUnarmedDamageType().getName() + "</b> damage!</b></p>");
 					
 				} else {
 					attackStringBuilder.append("<p><b>You " + (critical ? "<b style='color: " + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>critically</b> hit for " : " hit for ") + damage + " <b style='color: "
-							+ attacker.getMainWeapon().getDamageType().getMultiplierAttribute().getColour().toWebHexString() + ";'>" + attacker.getMainWeapon().getDamageType().getMultiplierAttribute().getName() + "</b>!</b></p>");
+							+ attacker.getMainWeapon().getDamageType().getMultiplierAttribute().getColour().toWebHexString() + ";'>" + attacker.getMainWeapon().getDamageType().getMultiplierAttribute().getName() + "</b> damage!</b></p>");
 				}
 			} else {
 				if(attacker.getMainWeapon() == null) {
 					attackStringBuilder.append("<p><b>"+(target.isPlayer()?"You were ":UtilText.parse(target,"[npc.Name] was "))
 							+ (critical ? "<b style='color: " + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>critically</b> hit for " : " hit for ") + damage + " <b style='color: "
-							+ Attribute.DAMAGE_PHYSICAL.getColour().toWebHexString() + ";'>" + Attribute.DAMAGE_PHYSICAL.getName() + "</b>!</b></p>");
+							+ attacker.getBodyMaterial().getUnarmedDamageType().getColour().toWebHexString() + ";'>" + attacker.getBodyMaterial().getUnarmedDamageType().getName() + "</b> damage!</b></p>");
 					
 				} else {
 					attackStringBuilder.append("<p><b>"+(target.isPlayer()?"You were ":UtilText.parse(target,"[npc.Name] was "))
 							+ (critical ? "<b style='color: " + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>critically</b> hit for " : " hit for ") + damage + " <b style='color: "
-							+ attacker.getMainWeapon().getDamageType().getMultiplierAttribute().getColour().toWebHexString() + ";'>" + attacker.getMainWeapon().getDamageType().getMultiplierAttribute().getName() + "</b>!</b></p>");
+							+ attacker.getMainWeapon().getDamageType().getMultiplierAttribute().getColour().toWebHexString() + ";'>" + attacker.getMainWeapon().getDamageType().getMultiplierAttribute().getName() + "</b> damage!</b></p>");
 				}
 			}
 			attackStringBuilder.append(target.incrementHealth(attacker, -damage));
@@ -925,6 +924,10 @@ public enum Combat {
 		}
 
 		attackStringBuilder.append(applyExtraAttackEffects(attacker, target, Attack.MAIN, isHit));
+
+		if(!isHit) {
+			attackStringBuilder.append(applyExtraMissEffects(attacker, target));
+		}
 		
 		combatStringBuilder.append(getCharactersTurnDiv(attacker, "Main Attack", attackStringBuilder.toString()));
 	}
@@ -946,22 +949,22 @@ public enum Combat {
 		attackStringBuilder.append(getOffhandDescription(attacker, target, isHit));
 		
 		if(isHit) {
-			boolean critical = Attack.rollForCritical(attacker);
+			boolean critical = Attack.rollForCritical(attacker, target);
 	
 			damage = Attack.calculateDamage(attacker, target, Attack.OFFHAND, critical);
 			
-			Attribute damageAttribute = (attacker.getOffhandWeapon() == null ? Attribute.DAMAGE_PHYSICAL : attacker.getOffhandWeapon().getDamageType().getMultiplierAttribute());
+			Attribute damageAttribute = (attacker.getOffhandWeapon() == null ? attacker.getBodyMaterial().getUnarmedDamageType().getMultiplierAttribute() : attacker.getOffhandWeapon().getDamageType().getMultiplierAttribute());
 	
 			if(attacker.isPlayer()) {
 				attackStringBuilder.append("<p>"
 						+ "<b>You " + (critical ? "<b style='color: " + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>critically</b> " : "") +"hit for "+ damage + " <b style='color: "
 						+ damageAttribute.getColour().toWebHexString() + ";'>"
-						+ damageAttribute.getName() + "</b>!</b></p>");
+						+ damageAttribute.getName() + "</b> damage!</b></p>");
 			} else {
 				attackStringBuilder.append("<p>"
 						+ "<b>"+(target.isPlayer()?"You were ":UtilText.parse(target,"[npc.Name] was ")) + (critical ? "<b style='color: " + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>critically</b> " : "") +"hit for "+ damage + " <b style='color: "
 						+ damageAttribute.getColour().toWebHexString() + ";'>"
-						+ damageAttribute.getName() + "</b>!</b></p>");
+						+ damageAttribute.getName() + "</b> damage!</b></p>");
 			}
 	
 			attackStringBuilder.append(target.incrementHealth(attacker, -damage));
@@ -972,6 +975,10 @@ public enum Combat {
 		}
 
 		attackStringBuilder.append(applyExtraAttackEffects(attacker, target, Attack.OFFHAND, isHit));
+
+		if(!isHit) {
+			attackStringBuilder.append(applyExtraMissEffects(attacker, target));
+		}
 		
 		combatStringBuilder.append(getCharactersTurnDiv(attacker, "Offhand Attack", attackStringBuilder.toString()));
 	}
@@ -995,13 +1002,13 @@ public enum Combat {
 		if (isHit && Math.random()<0.5) {
 			attackStringBuilder.append(getDualDescription(attacker, target, true));
 			
-			boolean critical = Attack.rollForCritical(attacker);
+			boolean critical = Attack.rollForCritical(attacker, target);
 
 			damageMain = Attack.calculateDamage(attacker, target, Attack.MAIN, critical);
 			damageOffhand = Attack.calculateDamage(attacker, target, Attack.OFFHAND, critical);
 			
-			Attribute damageMainAttribute = (attacker.getMainWeapon() == null ? Attribute.DAMAGE_PHYSICAL : attacker.getMainWeapon().getDamageType().getMultiplierAttribute()),
-					damageOffhandAttribute = (attacker.getOffhandWeapon() == null ? Attribute.DAMAGE_PHYSICAL : attacker.getOffhandWeapon().getDamageType().getMultiplierAttribute());
+			Attribute damageMainAttribute = (attacker.getMainWeapon() == null ? attacker.getBodyMaterial().getUnarmedDamageType().getMultiplierAttribute() : attacker.getMainWeapon().getDamageType().getMultiplierAttribute()),
+					damageOffhandAttribute = (attacker.getOffhandWeapon() == null ? attacker.getBodyMaterial().getUnarmedDamageType().getMultiplierAttribute() : attacker.getOffhandWeapon().getDamageType().getMultiplierAttribute());
 			
 			attackStringBuilder.append("<p>"
 					+ "<b>"+(attacker.isPlayer()?"You ":UtilText.parse(attacker,"[npc.Name] ")) + (critical ? "<b style='color: " + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>critically</b> " : "")
@@ -1024,6 +1031,10 @@ public enum Combat {
 		}
 		
 		attackStringBuilder.append(applyExtraAttackEffects(attacker, target, Attack.DUAL, isHit));
+		
+		if(!isHit) {
+			attackStringBuilder.append(applyExtraMissEffects(attacker, target));
+		}
 		
 		combatStringBuilder.append(getCharactersTurnDiv(attacker, "Dual Strike", attackStringBuilder.toString()));
 	}
@@ -1191,14 +1202,16 @@ public enum Combat {
 	}
 
 	private static void attackSpell(GameCharacter attacker, Spell spell) {
-		GameCharacter target = getTargetedCombatant(attacker);
-		boolean isHit = Attack.rollForHit(attacker, target);
-		
-		if(spell.isBeneficial() && !attacker.isPlayer()) {
-			target = attacker;
+		GameCharacter target;
+		if(spell.isBeneficial()) {
+			target = getTargetedAlliedCombatant(attacker);
+		} else {
+			target = getTargetedCombatant(attacker);
 		}
 		
-		boolean critical = Attack.rollForCritical(attacker);
+		boolean isHit = Attack.rollForHit(attacker, target);
+		
+		boolean critical = Attack.rollForCritical(attacker, target, spell);
 
 		attackStringBuilder = new StringBuilder();
 
@@ -1208,19 +1221,23 @@ public enum Combat {
 		attackStringBuilder.append(spell.applyEffect(attacker, target, isHit, critical));
 		
 		if(isHit && critical && !spell.isBeneficial() && attacker.hasTraitActivated(Perk.ARCANE_CRITICALS)) {
-				target.addStatusEffect(StatusEffect.ARCANE_WEAKNESS, 2);
-				if(attacker.isPlayer()) {
-					attackStringBuilder.append(
-							"<p>"
-								+ UtilText.parse(target, "Your [style.boldExcellent(critical)] spell applies [style.boldArcane(arcane weakness)] to [npc.name]!")
-							+ "</p>");
-				} else {
-					attackStringBuilder.append(
-							"<p>"
-								+ UtilText.parse(attacker, "[npc.Name]'s [style.boldExcellent(critical)] spell applies [style.boldArcane(arcane weakness)] to "+(target.isPlayer()?"you":UtilText.parse(target, "[npc.name]"))+"!")
-							+ "</p>");
-				}
+			target.addStatusEffect(StatusEffect.ARCANE_WEAKNESS, 2);
+			if(attacker.isPlayer()) {
+				attackStringBuilder.append(
+						"<p>"
+							+ UtilText.parse(target, "Your [style.boldExcellent(critical)] spell applies [style.boldArcane(arcane weakness)] to [npc.name]!")
+						+ "</p>");
+			} else {
+				attackStringBuilder.append(
+						"<p>"
+							+ UtilText.parse(attacker, "[npc.Name]'s [style.boldExcellent(critical)] spell applies [style.boldArcane(arcane weakness)] to "+(target.isPlayer()?"you":UtilText.parse(target, "[npc.name]"))+"!")
+						+ "</p>");
 			}
+		}
+
+		if(!isHit) {
+			attackStringBuilder.append(applyExtraMissEffects(attacker, target));
+		}
 		
 		combatStringBuilder.append(getCharactersTurnDiv(attacker, Util.capitaliseSentence(spell.getName()), attackStringBuilder.toString()));
 	}
@@ -1228,7 +1245,7 @@ public enum Combat {
 	private static void attackSpecialAttack(GameCharacter attacker, SpecialAttack specialAttack) {
 		GameCharacter target = getTargetedCombatant(attacker);
 		boolean isHit = Attack.rollForHit(attacker, target);
-		boolean critical = Attack.rollForCritical(attacker);
+		boolean critical = Attack.rollForCritical(attacker, target);
 
 		attackStringBuilder = new StringBuilder();
 		
@@ -1236,7 +1253,35 @@ public enum Combat {
 		
 		attackStringBuilder.append(specialAttack.applyEffect(attacker, target, isHit, critical));
 
+		if(!isHit) {
+			attackStringBuilder.append(applyExtraMissEffects(attacker, target));
+		}
+		
 		combatStringBuilder.append(getCharactersTurnDiv(attacker, Util.capitaliseSentence(specialAttack.getName()), attackStringBuilder.toString()));
+	}
+	
+	private static String applyExtraMissEffects(GameCharacter attacker, GameCharacter target) {
+		StringBuilder extraAttackEffectsSB = new StringBuilder();
+		
+		if(attacker.hasStatusEffect(StatusEffect.RAIN_CLOUD_DOWNPOUR_FOR_CLOUDBURST)) {
+			attacker.removeStatusEffect(StatusEffect.RAIN_CLOUD);
+			attacker.removeStatusEffect(StatusEffect.RAIN_CLOUD_CLOUDBURST);
+			attacker.removeStatusEffect(StatusEffect.RAIN_CLOUD_DEEP_CHILL);
+			attacker.removeStatusEffect(StatusEffect.RAIN_CLOUD_DOWNPOUR);
+			attacker.removeStatusEffect(StatusEffect.RAIN_CLOUD_DOWNPOUR_FOR_CLOUDBURST);
+			
+			attacker.addStatusEffect(StatusEffect.RAIN_CLOUD_CLOUDBURST, 6);
+			
+			if(attacker.isPlayer()) {
+				extraAttackEffectsSB.append("<p>As you miss, the rain cloud above your head seems to grow in size, and suddenly erupts into a torrential cloudbust!</p>");
+			} else {
+				extraAttackEffectsSB.append(UtilText.parse(attacker, "<p>As [npc.name] misses, the rain cloud above [npc.her] head grows in size, and suddenly erupts into a torrential cloudbust!</p>"));
+			}
+			extraAttackEffectsSB.append(Spell.getBasicStatusEffectApplication(attacker, false, Util.newHashMapOfValues(new Value<>(StatusEffect.RAIN_CLOUD_CLOUDBURST, 6))));
+			
+		}
+		
+		return extraAttackEffectsSB.toString();
 	}
 
 	private static void attackWait(GameCharacter attacker) {
@@ -1344,16 +1389,6 @@ public enum Combat {
 			// Calculate what attack to use based on NPC preference:
 			Attack opponentAttack = npc.attackType();
 			
-			List<SpecialAttack> availableSAs = new ArrayList<>(npc.getSpecialAttacks());
-			for(SpecialAttack sa : npc.getSpecialAttacks()) {
-				if(Combat.getCooldown(npc, sa)!=0) {
-					availableSAs.remove(sa);
-				}
-			}
-			if(availableSAs.isEmpty() && opponentAttack == Attack.SPECIAL_ATTACK) {
-				opponentAttack = Attack.MAIN;
-			}
-			
 			if(opponentAttack==null) {
 				opponentAttack = Attack.MAIN;
 			}
@@ -1382,12 +1417,14 @@ public enum Combat {
 					break;
 					
 				case SPECIAL_ATTACK:
-					SpecialAttack specialAttack = availableSAs.get(Util.random.nextInt(availableSAs.size()));
+					List<SpecialAttack> attacksAvailable = npc.getSpecialAttacksAbleToUse();
+					SpecialAttack specialAttack = attacksAvailable.get(Util.random.nextInt(attacksAvailable.size()));
 					attackSpecialAttack(npc, specialAttack);
 					break;
 					
 				case SPELL:
-					Spell spell = npc.getSpell();
+					List<Spell> spellsAvailable = npc.getSpellsAbleToCast();
+					Spell spell = spellsAvailable.get(Util.random.nextInt(spellsAvailable.size()));
 					attackSpell(npc, spell);
 					break;
 					
@@ -1412,7 +1449,6 @@ public enum Combat {
 //			}
 		}
 		
-		turn++;
 	}
 
 	private static StringBuilder endTurnStatusEffectText = new StringBuilder();
@@ -1424,19 +1460,18 @@ public enum Combat {
 		}
 
 		// Player end turn effects:
-		removeBeneficialEffects(Main.game.getPlayer());
+//		removeBeneficialEffects(Main.game.getPlayer());
 		for(SpecialAttack sa : Combat.getCooldowns(Main.game.getPlayer()).keySet()) {
 			Combat.incrementCooldown(Main.game.getPlayer(), sa, -1);
 		}
 
 		// NPC end turn effects:
 		for(NPC character : allCombatants) {
-			removeBeneficialEffects(character);
+//			removeBeneficialEffects(character);
 			for(SpecialAttack sa : Combat.getCooldowns(character).keySet()) {
 				Combat.incrementCooldown(character, sa, -1);
 			}
 		}
-		
 		
 		combatContent = combatStringBuilder.toString();
 		combatStringBuilder.setLength(0);
@@ -1449,6 +1484,8 @@ public enum Combat {
 				}
 			}
 		}
+		
+		turn++;
 	}
 	
 	private static String applyEffects(GameCharacter character) {
@@ -1460,36 +1497,36 @@ public enum Combat {
 				if(!effectString.isEmpty()) {
 					endTurnStatusEffectText.append("<p><b style='color: " + se.getColour().toWebHexString() + "'>" + Util.capitaliseSentence(se.getName(character)) + ":</b> " + effectString+ "</p>");
 				}
-				if (!se.isBeneficial()) { //TODO check
+//				if (!se.isBeneficial()) {
 					character.setStatusEffectDuration(se, character.getStatusEffectDuration(se) - 1);
-				}
+//				}
 				if (character.getStatusEffectDuration(se) <= 0) {
 					effectsToRemove.add(se);
 				}
 			}
 		}
 		for (StatusEffect se : effectsToRemove) {
-			character.removeStatusEffect(se);
+			endTurnStatusEffectText.append(character.removeStatusEffectCombat(se));
 		}
 		return endTurnStatusEffectText.toString();
 	}
 
-	private static void removeBeneficialEffects(GameCharacter character) {
-		List<StatusEffect> effectsToRemove = new ArrayList<>();
-		for (StatusEffect se : character.getStatusEffects()) {
-			if (se.isCombatEffect()) {
-				if (se.isBeneficial()) {
-					character.setStatusEffectDuration(se, character.getStatusEffectDuration(se) - 1);
-				}
-				if (character.getStatusEffectDuration(se) <= 0) {
-					effectsToRemove.add(se);
-				}
-			}
-		}
-		for (StatusEffect se : effectsToRemove) {
-			character.removeStatusEffect(se);
-		}
-	}
+//	private static void removeBeneficialEffects(GameCharacter character) {
+//		List<StatusEffect> effectsToRemove = new ArrayList<>();
+//		for (StatusEffect se : character.getStatusEffects()) {
+//			if (se.isCombatEffect()) {
+//				if (se.isBeneficial()) {
+//					character.setStatusEffectDuration(se, character.getStatusEffectDuration(se) - 1);
+//				}
+//				if (character.getStatusEffectDuration(se) <= 0) {
+//					effectsToRemove.add(se);
+//				}
+//			}
+//		}
+//		for (StatusEffect se : effectsToRemove) {
+//			character.removeStatusEffect(se);
+//		}
+//	}
 	
 
 	// Utility methods:
@@ -1514,7 +1551,7 @@ public enum Combat {
 		
 		if (Main.game.getPlayer().getMainWeapon() == null) {
 			attackDescriptionSB.append("<b>" + Attack.getMinimumDamage(Main.game.getPlayer(), targetedCombatant, Attack.MAIN) + " - " + Attack.getMaximumDamage(Main.game.getPlayer(), targetedCombatant, Attack.MAIN) + "</b>" + " <b style='color:"
-					+ Colour.DAMAGE_TYPE_PHYSICAL.toWebHexString() + ";'>" + Util.capitaliseSentence(DamageType.PHYSICAL.getName()) + "</b> <b>damage</b></br></br>");
+					+ Main.game.getPlayer().getBodyMaterial().getUnarmedDamageType().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(Main.game.getPlayer().getBodyMaterial().getUnarmedDamageType().getName()) + "</b> <b>damage</b></br></br>");
 		} else {
 			attackDescriptionSB.append("<b>" + Attack.getMinimumDamage(Main.game.getPlayer(), targetedCombatant, Attack.MAIN) + " - " + Attack.getMaximumDamage(Main.game.getPlayer(), targetedCombatant, Attack.MAIN) + "</b>" + " <b style='color:"
 					+ Main.game.getPlayer().getMainWeapon().getDamageType().getMultiplierAttribute().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(Main.game.getPlayer().getMainWeapon().getDamageType().getName())
@@ -1537,7 +1574,7 @@ public enum Combat {
 		
 		if (Main.game.getPlayer().getOffhandWeapon() == null) {
 			attackDescriptionSB.append("<b>" + Attack.getMinimumDamage(Main.game.getPlayer(), targetedCombatant, Attack.OFFHAND) + " - " + Attack.getMaximumDamage(Main.game.getPlayer(), targetedCombatant, Attack.OFFHAND) + "</b>" + " <b style='color:"
-					+ Colour.DAMAGE_TYPE_PHYSICAL.toWebHexString() + ";'>" + Util.capitaliseSentence(DamageType.PHYSICAL.getName()) + "</b> <b>damage</b></br></br>");
+					+ Main.game.getPlayer().getBodyMaterial().getUnarmedDamageType().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(Main.game.getPlayer().getBodyMaterial().getUnarmedDamageType().getName()) + "</b> <b>damage</b></br></br>");
 		} else {
 			attackDescriptionSB.append("<b>" + Attack.getMinimumDamage(Main.game.getPlayer(), targetedCombatant, Attack.OFFHAND) + " - " + Attack.getMaximumDamage(Main.game.getPlayer(), targetedCombatant, Attack.OFFHAND) + "</b>" + " <b style='color:"
 					+ Main.game.getPlayer().getOffhandWeapon().getDamageType().getMultiplierAttribute().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(Main.game.getPlayer().getOffhandWeapon().getDamageType().getName())
@@ -1556,7 +1593,7 @@ public enum Combat {
 		
 		if (Main.game.getPlayer().getMainWeapon() == null) {
 			attackDescriptionSB.append("<b>" + Attack.getMinimumDamage(Main.game.getPlayer(), targetedCombatant, Attack.MAIN) + " - " + Attack.getMaximumDamage(Main.game.getPlayer(), targetedCombatant, Attack.MAIN) + "</b>" + " <b style='color:"
-					+ Colour.DAMAGE_TYPE_PHYSICAL.toWebHexString() + ";'>" + Util.capitaliseSentence(DamageType.PHYSICAL.getName()) + "</b> <b>damage</b></br>");
+					+ Main.game.getPlayer().getBodyMaterial().getUnarmedDamageType().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(Main.game.getPlayer().getBodyMaterial().getUnarmedDamageType().getName()) + "</b> <b>damage</b></br>");
 		} else {
 			attackDescriptionSB.append("<b>" + Attack.getMinimumDamage(Main.game.getPlayer(), targetedCombatant, Attack.MAIN) + " - " + Attack.getMaximumDamage(Main.game.getPlayer(), targetedCombatant, Attack.MAIN) + "</b>" + " <b style='color:"
 					+ Main.game.getPlayer().getMainWeapon().getDamageType().getMultiplierAttribute().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(Main.game.getPlayer().getMainWeapon().getDamageType().getName())
@@ -1565,7 +1602,7 @@ public enum Combat {
 		
 		if (Main.game.getPlayer().getOffhandWeapon() == null) {
 			attackDescriptionSB.append("<b>" + Attack.getMinimumDamage(Main.game.getPlayer(), targetedCombatant, Attack.OFFHAND) + " - " + Attack.getMaximumDamage(Main.game.getPlayer(), targetedCombatant, Attack.OFFHAND) + "</b>" + " <b style='color:"
-					+ Colour.DAMAGE_TYPE_PHYSICAL.toWebHexString() + ";'>" + Util.capitaliseSentence(DamageType.PHYSICAL.getName()) + "</b> <b>damage</b></br>");
+					+ Main.game.getPlayer().getBodyMaterial().getUnarmedDamageType().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(Main.game.getPlayer().getBodyMaterial().getUnarmedDamageType().getName()) + "</b> <b>damage</b></br>");
 		} else {
 			attackDescriptionSB.append("<b>" + Attack.getMinimumDamage(Main.game.getPlayer(), targetedCombatant, Attack.OFFHAND) + " - " + Attack.getMaximumDamage(Main.game.getPlayer(), targetedCombatant, Attack.OFFHAND) + "</b>" + " <b style='color:"
 					+ Main.game.getPlayer().getOffhandWeapon().getDamageType().getMultiplierAttribute().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(Main.game.getPlayer().getOffhandWeapon().getDamageType().getName())
@@ -1641,6 +1678,34 @@ public enum Combat {
 		
 		return Main.game.getPlayer();
 	}
+	
+	public static GameCharacter getTargetedAlliedCombatant(GameCharacter attacker) {
+		if(attacker.isPlayer()) {
+			return targetedCombatant;
+		}
+		
+		if(allies.contains(attacker)) {
+			if(Math.random()>0.5f && !isCombatantDefeated(Main.game.getPlayer())) {
+				return Main.game.getPlayer();
+			}
+			for(NPC ally : allies) {
+				if(!isCombatantDefeated(ally)) {
+					return ally;
+				}
+			}
+			return allies.get(0);
+		}
+		
+		if(enemies.contains(attacker)) {
+			for(NPC enemy : enemies) {
+				if(!isCombatantDefeated(enemy)) {
+					return enemy;
+				}
+			}
+		}
+		
+		return Main.game.getPlayer();
+	}
 
 	public static void setTargetedCombatant(NPC targetedCombatant) {
 		Combat.targetedCombatant = targetedCombatant;
@@ -1697,6 +1762,23 @@ public enum Combat {
 		}
 	}
 
+	public static List<NPC> getAllCombatants() {
+		return allCombatants;
+	}
+	
+	public static void addAlly(NPC ally) {
+		allies.add(ally);
+		allCombatants.add(ally);
+		cooldowns.put(ally, new HashMap<>());
+	}
+	
+	public static void addEnemy(NPC enemy) {
+		enemies.add(enemy);
+		allCombatants.add(enemy);
+		cooldowns.put(enemy, new HashMap<>());
+		enemy.setFoughtPlayerCount(enemy.getFoughtPlayerCount()+1);
+	}
+	
 	public static List<NPC> getAllies() {
 		return allies;
 	}

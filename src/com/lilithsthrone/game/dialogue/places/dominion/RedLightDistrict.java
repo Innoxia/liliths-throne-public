@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.dialogue.places.dominion;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.game.Weather;
@@ -114,11 +115,14 @@ public class RedLightDistrict {
 				UtilText.nodeContentSB.setLength(0);
 				
 				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "ENTRANCE_REPEAT"));
+
+				List<NPC> charactersPresent = new ArrayList<>(Main.game.getCharactersPresent());
+				charactersPresent.removeIf((npc) -> Main.game.getPlayer().getCompanions().contains(npc));
 				
-				if(Main.game.getCharactersPresent().isEmpty()) {
+				if(charactersPresent.isEmpty()) {
 					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "ENTRANCE_REPEAT_EMPTY"));
 				}else {
-					UtilText.nodeContentSB.append(UtilText.parse(Main.game.getCharactersPresent().get(0), UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "ENTRANCE_REPEAT_STAFFED")));
+					UtilText.nodeContentSB.append(UtilText.parse(charactersPresent.get(0), UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "ENTRANCE_REPEAT_STAFFED")));
 				}
 				
 				return UtilText.nodeContentSB.toString();
@@ -247,6 +251,7 @@ public class RedLightDistrict {
 			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM"));
 			
 			List<NPC> charactersPresent = Main.game.getCharactersPresent();
+			charactersPresent.removeIf((npc) -> Main.game.getPlayer().getCompanions().contains(npc));
 			
 			if(charactersPresent.size()>1){
 				NPC prostitute = charactersPresent.get(0);
@@ -305,6 +310,8 @@ public class RedLightDistrict {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			List<NPC> charactersPresent = Main.game.getCharactersPresent();
+			charactersPresent.removeIf((npc) -> Main.game.getPlayer().getCompanions().contains(npc));
+			
 			if(!charactersPresent.isEmpty()) {
 				int cost = 300;
 				NPC npc = charactersPresent.get(0);
@@ -429,7 +436,10 @@ public class RedLightDistrict {
 
 		@Override
 		public String getContent() {
-			if(Sex.getNumberOfOrgasms(Main.game.getCharactersPresent().get(0))==0) {
+			List<NPC> charactersPresent = new ArrayList<>(Main.game.getCharactersPresent());
+			charactersPresent.removeIf((npc) -> Main.game.getPlayer().getCompanions().contains(npc));
+			
+			if(Sex.getNumberOfOrgasms(charactersPresent.get(0))==0) {
 				return UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "PROSTITUTE_AFTER_SEX_NO_ORGASM");
 			} else {
 				return UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "PROSTITUTE_AFTER_SEX");

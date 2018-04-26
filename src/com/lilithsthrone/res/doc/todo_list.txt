@@ -26,8 +26,10 @@
 	Patch notes:
 	
 	Gameplay:
-		<b>Added:</b> Final version of the spell system, along with 24 new & reworked spells. Spells are now learned through spell books, or by being taught to you by someone else. You gain spell upgrade points by reading appropriate scrolls, which can then be spent to upgrade your spells. I might add more spells and upgrades in future, but this is how spells will work from now on.
-		Added dodge chance, miss chance, unarmed damage, melee weapon damage, adn ranged weapon damage as attributes. Removed spell resistance (to fit in with resistances being focused on countering damage types, not attack types).
+		<b>Added:</b> Final version of the spell system, along with 16 new & reworked spells (Arcane school spells aren't finished yet).
+		<b>Changed:</b> Spells are now learned through spell books, or by being taught to you by someone else. You gain spell upgrade points by reading appropriate scrolls, which can then be spent to upgrade your spells.
+		<b>Added:</b> Support for elemental companions. (I still need to add in a lot of unique dialogue for them, including unique sex actions. I also need to finish off their body descriptions, as a lot of it is incorrect at the moment...)
+		Added dodge chance, miss chance, unarmed damage, melee weapon damage, and ranged weapon damage as attributes. Removed spell resistance (to fit in with resistances being focused on countering damage types, not attack types).
 		All damage and resistance attributes have had value ranges changed from '0 to 100' to '-100 to 100'.
 	
 	Artwork:
@@ -41,114 +43,63 @@
 		Lore books are no longer removed from your inventory after use.
 		In combat, if all enemies are stunned, escape chance is now 100%.
 		Added ability to self-target and target allies in combat. (Yes, you can punch yourself or your allies... Please don't do this...)
+		Rebalanced the passive buffs from high level arcane and physique status effects.
+		Condensed the character UI panels a little, by removing traits from the shown status effects, and only showing non-timed or combat-related SEs while in combat.
+		NPCs are now properly able to use spells in combat.
+		Made the 'Calm Down' sex action available in all scenes again.
 	
 	Bugs:
 		Fixed Candi wearing a normal, non-enforcer mini-skirt, and made her uniform pink.
 		Fixed personality attributes not being saved/loaded correctly.
 		Fixed bug where modded clothing icons wouldn't load on linux.
 		Critically casting beneficial spells will no longer apply arcane weakness.
+		Fixed bug where NPCs would continuously spawn clothing to cover themselves.
+		Fixed bug where NPC clothing displacements would not be saved.
+		Fixed demon TF menu options showing incorrect button labels.
+		Fixed being able to remove companion and manage their inventory when not in a neutral dialogue.
+		Fixed status effect rendering order.
+		Fixed bug where DoT effects in combat would tick twice in the turn that they were applied.
+		Fixed bug where Karl & Wolfgang's fight wouldn't remove your companions.
+		Fixed bug where Controlled Aggression perk would sometimes not work.
+		Fixed bugs where your companions would be marked as slaves for sale/use in slaver alley's stocks and auction block. Also fixed similar bugs in Angel's Kiss.
+		Fixed bug where you could transform Rose in her special scene.
+		Fixed minor UI bug where the save button would be under the load column.
 	
 	
 	
-	elemental books
-	
-	elemental .txt descriptions
-	
-	check remove companion during combat/special scenes
-	
-	tooltip for weapon type (ranged or not)
-	
-	Rendering:
-		combat effects should show turns as bigger bar
-		remove spells and non-CD teases from SE bar. Add border to negative SEs
+	eye sclera
+	tongue colour
 	
 	Add all spell effects and upgrade variations
 		Need to add effects list to all spells and upgrades
 		
+	body descriptions for elementals
+	expanded summoning descriptions
+	elemental .txt descriptions
+		elementals are a physical manifestation of a person's aura
+	
+	you can equip items and a penis or vagina slot even if you do not have the anatomy
+	
+	telling an Incubus to get rid of his dick and grow a vagina instead causes the following succubus to actually not have a vagina at all and instead become a shemale
+	
+	tooltip for weapon type (ranged or not)
+	
+	Anyone else having issues with the milking room causing income issues?
+	 I've got Scarlett pumped up to holding over 1000ml and producing 51ml/minute, but over the course of the day she barely seems to get milked at all.
+	  She stands in the Milking Room, but the logfile only shows random small amounts of milk being extracted-- 250ml here and there, and sometimes as little as 10ml.
+	   But even then, none of that seems to go towards the room's income statement; even with the log saying milk is being sold,
+	    the job insists that it's making 0 flames/day and charges the full upkeep of the room from any existing balance or applies it as debt.
+	     I can't help but wonder if it's related to the milking room saying it has a capacity of 0/0 people, despite the description saying it can hold up to 8. 
+	     If the capacity is 0 (even if set that way to keep it from being a place to store slaves), perhaps it thinks that no one can actually work in the room?
 		
 	Weapons unique spells
 	Add arcane sword, spear, baton, riot shield, dagger. Add melee detection. Add hand-held crossbow, throwing spears (physical handle, arcane shaft).
 	
-		eye sclera
-		tongue colour
+	LILAYA PANTIES AAAAAAAAAAA
 	
-	effect soldier's(double start damage) not work
+	NPCs take their own virginity with tails...
 	
-Fire - Any points invested allow you to summon floating fire at will (removes darkness debuff)
-O Fireball - Deals fire damage
-	- Lingering flames: Upgrade to apply a 2-turn burn
-	- Twin Comets: Shoots two fireballs, which do 60% normal damage, but prioritise different targets.
-	- Burning fury: Twin fireballs now do 80% normal damage.
-O Flash - Blinding flash of flames; stuns for 1 turn
-	- Lingering sparks: Upgrade to 2 turns
-	- Arcing flash: Upgrade to hit a second enemy combatant as well
-	- Efficient burn: Upgrade to halve cost
-D Cloak of flames - +10 fire and + 50 ice resistance for 3 turns
-	- Incendiary: Adds an extra 10% damage as fire damage to all attacks
-	- Inferno: +25 fire damage
-	- Ring of fire: All enemy combatants take 5% damage per turn
-D Elemental fire - summons or switches your elemental spirit to the form of fire
-	- Wildfire: While summoned, your party gets +10 fire damage
-	- Burning desire: All enemy combatants -20 seduction resist
-	- Servant of fire: While in this form, PC suffers -50% maximum energy and -50% maximum arcane. Elemental's power is doubled.
-	- Binding of fire: While in this form, PC gains +25 fire resist, +25 fire damage.
-
-Water - Any points invested allow you to manipulate the temperature and movement of fluids (fluid enchantments are free)
-O Ice shard - Deals ice damage
-	- Freezing fog: Spell efficiency -15 for 2 turns
-	- Cold snap: If affected by freezing fog, ice shard has +25% crit chance
-	- Deep freeze: If this spell crits a target that's under the effect of freezing fog, they are stunned for 1 turn. Removes freezing fog effect.
-O Rain cloud - -20 spell efficiency for 3 turns
-	- Deep Chill: Target suffers -25 ice resistance
-	- Downpour: +10% miss chance.
-	- Cloud burst: Reduces length to 2 turns, but increases effect to -50 spell efficiency.
-D Soothing waters - Heals target for 20% of HP
-	- Arcane springs: Also restores 20% arcane
-	- Rejuvenation: Boosts HP restored to 40%
-	- Bouncing orb: Heals all non-targeted members of party for 20/10
-D Elemental water - summons your elemental spirit with the form of water
-	- Crashing waves: While summoned, your party gets +10 ice damage
-	- Calm waters: All party members get +20 seduction resist.
-	- Servant of water: While in this form, PC suffers -50% maximum energy and -50% maximum arcane. Elemental's power is doubled.
-	- Binding of water: While in this form, PC gains +25 ice resist, +25 ice damage.
-		
-Air - Any points invested allow you to control the temperature and movement of the nearby air (Doubles passive energy regen)
-O Poison vapours - damage/turn for 3 turns. Removes gust of wind
-	- Choking haze: +10% miss chance
-	- Arcane sickness: same level of damage/turn but for arcane
-	- Weakening cloud: -15 physical damage, -25 crit damage
-O Vacuum - +10% miss chance for 3 turns.
-	- Secondary Voids: +20% miss, -15% crit chance
-	- Gale-force: 5% chance each turn that a random outer layer of clothing is blow off the target to the floor
-	- Hurricane: 25% strip chance
-D Protective gusts - +25 poison resist, +10% dodge chance for 3 turns
-	- Guiding wind: +20% dodge chance
-	- Focused blast: +25% critical damage
-	- Lingering presence: 5 turns
-D Elemental air - summons your elemental spirit with the form of air
-	- Whirlwind: While summoned, your party gets +10 critical chance, 5% dodge chance
-	- Vitalising scents: All party members get +25 energy.
-	- Servant of air: While in this form, PC suffers -50% maximum energy and -50% maximum arcane. Elemental's power is doubled.
-	- Binding of air: While in this form, PC gains +25 poison resist, +25 poison damage.
-		
-Earth - Any points invested allow you to transmute clothing colours
-O Slam - physical damage
-	- Ground shake: 10% miss chance for 1 turn
-	- Aftershock: When ground shake ends, take damage
-	- Earthquake: Ground shake affects all enemies
-O Telekenetic shower - damage/turn for 2 turns
-	- Mind over matter: increases to 3 turns
-	- Precision strikes: -10 physical resistance
-	- Unseen force: doubles damage
-D Stone shell - +25 physical resist for 3 turns 
-	- Shifting sands: +10% dodge chance
-	- Hardened carapace: increases to +50 resist
-	- Explosive finish: deals damage to all enemies when ends
-D Elemental stone - summons your elemental spirit with the form of stone
-	- Rolling stone: All party members get +20 critical damage.
-	- Hardening: All party members get +10 physical resist.
-	- Servant of earth: While in this form, PC suffers -50% maximum energy and -50% maximum arcane. Elemental's power is doubled.
-	- Binding of earth: While in this form, PC gains +25 physical resist, +25 physical damage.
+	special attacks not NPC-on-NPC
 	
 Arcane - Any points invested allows you to sense arcane currents (accurate timer on arcane storms)
 U Steal - steals a random item from the target
@@ -186,28 +137,20 @@ D Elemental arcane - summons your elemental spirit with the form of arcane energ
 	- Binding of arcane: While in this form, PC gains +25 seduction resist, +25 seduction damage.
 	
 	
-	
-	
 	I'm planning on adding a special orgasm denial action, which I'll then allow NPCs with the denial fetish to use (I might split up the fetish into 'being denied' and 'denying others' variants).
 	
 	
-	Thank you for your questions! :3
-- I might add female condoms later on.
-- I am planning on adding fertility cycles. This will be added some time before v0.3.
 - I will be adding a way to assign slaves to sleep with you in your room very soon. :3
-- Contraceptives (Promiscuity Pill) should be able to fail at the moment, if the other person's virility is high enough (I will check this to make sure it's working). I will be adding a chance for condoms to break soon as well. (I'll add a much more expensive, stronger condom type alongside this that is immune to breaking.)
+- Contraceptives (Promiscuity Pill) should be able to fail at the moment, if the other person's virility is high enough (I will check this to make sure it's working).
+ I will be adding a chance for condoms to break soon as well. (I'll add a much more expensive, stronger condom type alongside this that is immune to breaking.)
 	
-	NPCs take their own virginity with tails...
+	Brax weapon - has 0 arcane but can use arcane
+		Brax weapon & descriptions
+	Rewrite intro so Lilaya teaches you fireball and gives you a scroll. Demonstone as well
 	
-	NPC attackType combat AI to use spells
-	Brax weapon & descriptions
-	Rewrite intro so Lilaya teaches you ice shard and gives you fireball scroll. Demonstone as well
-	
-	bat-morphs cna wear arm clothing
+	bat-morphs can wear arm clothing
 	
 	update to java 8 171 - inventory rendering is off
-	
-	NPCs finding new clothes should be put on a cool down timer
 	
 	huge slave income?
 	
@@ -218,28 +161,14 @@ D Elemental arcane - summons your elemental spirit with the form of arcane energ
 	
 	the Milking room says that it can fit up to 8 slaves, while the maximum number of Dairy Cows seems to be static at 5.
 	
-	Another thing related to clothing, the game doesn't remember clothing positions anymore. Unzipped jackets, pulled-down bandanas, etc. are all reset now (I'm talking outside of sex interactions). They used to be persistent once you set them up through someone's inventory, which was nice
-	
-	Lilith's mirror tooltips
-	
 	 did they somehow paste the requirements for nipple pinching onto breast groping and forgot about it?
 	 all groping actions
 	
-	if you have a companion slave with you at the public stocks it acts like they are up for use
-		Also brothel stuff
-		And auction
-	
 	when i press on my slaves it shows the information of the previous inspected slave instead of the one i'm trying to inspect
-	
-	all slaves are regenerating clothes, not just companions
 	
 	upkeep is not reset upon loading a save or starting a new game
 	
 	in the silly rose hand-holding scene, it wont let me remove my bandanna to do mouth things because "You cant remove rose's clothing in this scene"
-	
-	Restricted use of 'calm down' action to only be available when you're the dom
-	
-	Brax weapon - has 0 arcane but can use arcane
 	
 	- If you import a slave met in the Stocks and buy them in an auction, it triggers.
 - Essentially rather than just slaves you've had sex that could lead to impregnation, ALL slaves met at the stocks that the player character had sex with, or maybe all in general, will develop 'phantom pregnancy' when gaining a chance of impregnation.
@@ -259,20 +188,7 @@ D Elemental arcane - summons your elemental spirit with the form of arcane energ
 	
 	Perhaps after doing Nyan's quest it might be nice if we could go to the warehouse and make orders of clothing, like if you want 10 black maid outfits you could pay a little extra and get them after a day
 	
-	you can transform Rose during the hand scene
-	
-	Candi seems to only be wearing a blue miniskirt not an enforcer one
-	
-	It would seem like my slave (who is currently following me around as a companion) is generating new clothes when I try to get him naked
-		Oddly enough, my follower didn't get new clothing after I gave her a set of everything
-		Then I made her an exhibitionist
-		And she regenerated the clothes like a normal character
-	
-	When you step into a empty brothel room, your companion acts as if he was working in there and offers you LEWD actions.
-	
 	Maybe you should tweak a bit the affection/obediance gain from putting slaves as milk cows when they have the lactation fetish, they have the obedience device installed, but it still a lot
-	
-	I noticed that Fire Damage and Resist isn't available as an enchant on the drinks anymore - red drinks are all crit/physical, Harpy Perfume is seduction/virility/fertility, Lilith's Gift is corruption/poison/global and purple drinks are all spell/cold - none of them have an option for specifically Fire boosts.
 	
 	- Add Submission content. (Special encounters for Imps and Slimes. Add slime TF quest. Adding content for the Imp fortresses, Gambling Den, and Bat caverns.)
 	
@@ -283,8 +199,6 @@ D Elemental arcane - summons your elemental spirit with the form of arcane energ
 	tube top
 	
 	Brax affection changes
-	
-	save button under load column
 	
 	Add prostitution in alleyways (if no license, enforcers can show up)
 	

@@ -2537,7 +2537,7 @@ public class ItemType {
 	};
 	
 	public static AbstractItemType BOTTLED_ESSENCE_HARPY = new AbstractItemType(
-			20,
+			50,
 			null,
 			false,
 			"Bottled Harpy Essence",
@@ -4863,21 +4863,72 @@ public class ItemType {
 		
 		for(Spell s : Spell.values()) {
 			
-			AbstractItemEffectType effectType = new AbstractItemEffectType(Util.newArrayListOfValues(
-					new ListValue<>("[style.boldExcellent(Permanently)] gain the spell '<b style='color:"+s.getSpellSchool().getColour().toWebHexString()+";'>"+s.getName()+"</b>'.")),
-					s.getSpellSchool().getColour()) {
+			List<String> effectsString = Util.newArrayListOfValues(
+					new ListValue<>("[style.boldExcellent(Permanently)] gain the spell '<b style='color:"+s.getSpellSchool().getColour().toWebHexString()+";'>"+s.getName()+"</b>'."));
+
+			if(s == Spell.ELEMENTAL_EARTH) {
+				effectsString.add("Adds "+Race.ELEMENTAL_EARTH.getName()+" encyclopedia entry.");
+				effectsString.add("[style.boldExcellent(+5)] <b style='color:"+s.getSpellSchool().getColour()+";'>"+Race.ELEMENTAL_EARTH.getDamageMultiplier().getName()+"</b>");
+				effectsString.add("[style.boldExcellent(+5)] <b style='color:"+s.getSpellSchool().getColour()+";'>"+Race.ELEMENTAL_EARTH.getResistanceMultiplier().getName()+"</b>");
+				
+			} else if(s == Spell.ELEMENTAL_WATER) {
+				effectsString.add("Adds "+Race.ELEMENTAL_WATER.getName()+" encyclopedia entry.");
+				effectsString.add("[style.boldExcellent(+5)] <b style='color:"+s.getSpellSchool().getColour()+";'>"+Race.ELEMENTAL_WATER.getDamageMultiplier().getName()+"</b>");
+				effectsString.add("[style.boldExcellent(+5)] <b style='color:"+s.getSpellSchool().getColour()+";'>"+Race.ELEMENTAL_WATER.getResistanceMultiplier().getName()+"</b>");
+				
+			} else if(s == Spell.ELEMENTAL_AIR) {
+				effectsString.add("Adds "+Race.ELEMENTAL_AIR.getName()+" encyclopedia entry.");
+				effectsString.add("[style.boldExcellent(+5)] <b style='color:"+s.getSpellSchool().getColour()+";'>"+Race.ELEMENTAL_AIR.getDamageMultiplier().getName()+"</b>");
+				effectsString.add("[style.boldExcellent(+5)] <b style='color:"+s.getSpellSchool().getColour()+";'>"+Race.ELEMENTAL_AIR.getResistanceMultiplier().getName()+"</b>");
+				
+			} else if(s == Spell.ELEMENTAL_FIRE) {
+				effectsString.add("Adds "+Race.ELEMENTAL_FIRE.getName()+" encyclopedia entry.");
+				effectsString.add("[style.boldExcellent(+5)] <b style='color:"+s.getSpellSchool().getColour()+";'>"+Race.ELEMENTAL_FIRE.getDamageMultiplier().getName()+"</b>");
+				effectsString.add("[style.boldExcellent(+5)] <b style='color:"+s.getSpellSchool().getColour()+";'>"+Race.ELEMENTAL_FIRE.getResistanceMultiplier().getName()+"</b>");
+				
+			} else if(s == Spell.ELEMENTAL_ARCANE) {
+				effectsString.add("Adds "+Race.ELEMENTAL_ARCANE.getName()+" encyclopedia entry.");
+				effectsString.add("[style.boldExcellent(+5)] <b style='color:"+s.getSpellSchool().getColour()+";'>"+Race.ELEMENTAL_ARCANE.getDamageMultiplier().getName()+"</b>");
+				effectsString.add("[style.boldExcellent(+5)] <b style='color:"+s.getSpellSchool().getColour()+";'>"+Race.ELEMENTAL_ARCANE.getResistanceMultiplier().getName()+"</b>");
+				
+			}
+			
+			
+			AbstractItemEffectType effectType = new AbstractItemEffectType(effectsString, s.getSpellSchool().getColour()) {
 				
 				@Override
 				public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 					boolean hasSpell = target.hasSpell(s);
 					target.addSpell(s);
+					
+					String raceKnowledgeGained = "";
+					if(target.isPlayer()) {
+						if(s == Spell.ELEMENTAL_EARTH) {
+							raceKnowledgeGained = getBookEffect(Race.ELEMENTAL_EARTH, null);
+							
+						} else if(s == Spell.ELEMENTAL_WATER) {
+							raceKnowledgeGained = getBookEffect(Race.ELEMENTAL_WATER, null);
+							
+						} else if(s == Spell.ELEMENTAL_AIR) {
+							raceKnowledgeGained = getBookEffect(Race.ELEMENTAL_AIR, null);
+							
+						} else if(s == Spell.ELEMENTAL_FIRE) {
+							raceKnowledgeGained = getBookEffect(Race.ELEMENTAL_FIRE, null);
+							
+						} else if(s == Spell.ELEMENTAL_ARCANE) {
+							raceKnowledgeGained = getBookEffect(Race.ELEMENTAL_ARCANE, null);
+							
+						}
+					}
+					
 					return hasSpell
 							?"<p style='text-align:center; color:"+Colour.TEXT_GREY.toWebHexString()+";'>"
 								+ "Nothing further can be gained from re-reading this book..."
 							+ "</p>"
 							:"<p style='text-align:center;'>"
 								+ (target.isPlayer()?"You learn":UtilText.parse(target, "[npc.Name] learns"))+" the spell <b style='color:"+s.getSpellSchool().getColour().toWebHexString()+";'>"+s.getName()+"</b>!"
-							+ "</p>";
+							+ "</p>"
+							+raceKnowledgeGained;
 				}
 			};
 			

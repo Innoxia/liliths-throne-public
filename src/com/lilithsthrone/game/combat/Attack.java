@@ -4,6 +4,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
+import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.main.Main;
@@ -11,7 +12,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.1.69
+ * @version 0.2.4
  * @author Innoxia
  */
 public enum Attack {
@@ -59,9 +60,20 @@ public enum Attack {
 	public static boolean rollForHit(GameCharacter attacker, GameCharacter defender) {
 		return Math.random() < getHitChance(attacker, defender);
 	}
+
+	public static boolean rollForCritical(GameCharacter attacker, GameCharacter defender) {
+		return rollForCritical(attacker, defender, null);
+	}
 	
-	public static boolean rollForCritical(GameCharacter attacker) {
-		return Math.random() < (Util.getModifiedDropoffValue(attacker.getAttributeValue(Attribute.CRITICAL_CHANCE), 100)/100f);
+	
+	public static boolean rollForCritical(GameCharacter attacker, GameCharacter defender, Spell spell) {
+		float criticalChance = attacker.getAttributeValue(Attribute.CRITICAL_CHANCE);
+		
+		if(spell == Spell.ICE_SHARD && attacker.hasSpellUpgrade(SpellUpgrade.ICE_SHARD_2) && defender.hasStatusEffect(StatusEffect.FREEZING_FOG)) {
+			criticalChance += 25;
+		}
+		
+		return Math.random() < (Util.getModifiedDropoffValue(criticalChance, 100)/100f);
 	}
 
 	/**
@@ -216,7 +228,7 @@ public enum Attack {
 					defender,
 					attackType,
 					(weapon == null
-						? DamageType.PHYSICAL
+						? attacker.getBodyMaterial().getUnarmedDamageType()
 						: weapon.getDamageType()),
 					getMeleeDamage(attacker, weapon) * (weapon == null
 																? 1 - DamageVariance.MEDIUM.getPercentage()
@@ -233,7 +245,10 @@ public enum Attack {
 			}
 			
 		} else if (attackType == OFFHAND) {
-			damage = getModifiedDamage(attacker, defender, attackType, (weapon == null ? DamageType.PHYSICAL : weapon.getDamageType()),
+			damage = getModifiedDamage(attacker, defender, attackType,
+						(weapon == null
+							? attacker.getBodyMaterial().getUnarmedDamageType()
+							: weapon.getDamageType()),
 					getMeleeDamage(attacker, weapon) * (weapon == null ? 1 - DamageVariance.MEDIUM.getPercentage() : 1f - weapon.getWeaponType().getDamageVariance().getPercentage()));
 
 			if(weapon==null) {
@@ -277,7 +292,7 @@ public enum Attack {
 		float damage = 0;
 		
 		if (attackType == MAIN) {
-			damage = (getModifiedDamage(attacker, defender, attackType, (weapon == null ? DamageType.PHYSICAL : weapon.getDamageType()),
+			damage = (getModifiedDamage(attacker, defender, attackType, (weapon == null ? attacker.getBodyMaterial().getUnarmedDamageType() : weapon.getDamageType()),
 					getMeleeDamage(attacker, weapon) * (weapon == null ? 1 + DamageVariance.MEDIUM.getPercentage() : 1f + weapon.getWeaponType().getDamageVariance().getPercentage())));
 
 			if(weapon==null) {
@@ -291,7 +306,7 @@ public enum Attack {
 			}
 			
 		}  else if (attackType == OFFHAND) {
-			damage = getModifiedDamage(attacker, defender, attackType, (weapon == null ? DamageType.PHYSICAL : weapon.getDamageType()),
+			damage = getModifiedDamage(attacker, defender, attackType, (weapon == null ? attacker.getBodyMaterial().getUnarmedDamageType() : weapon.getDamageType()),
 					getMeleeDamage(attacker, weapon) * (weapon == null ? 1 + DamageVariance.MEDIUM.getPercentage() : 1f + weapon.getWeaponType().getDamageVariance().getPercentage()));
 	
 			if(weapon==null) {
@@ -366,9 +381,39 @@ public enum Attack {
 	 */
 	private static float getModifiedDamage(GameCharacter attacker, GameCharacter defender, Attack attackType, DamageType damageType, float attackersDamage) {
 		float damage = attackersDamage;
+		boolean damageDoubledFromElemental = false;
+
+		if(attacker instanceof Elemental) {
+			switch(attacker.getBodyMaterial()) {
+				case AIR:
+					damageDoubledFromElemental = ((Elemental)attacker).hasStatusEffect(StatusEffect.ELEMENTAL_AIR_SERVANT_OF_AIR_ELEMENTAL_BUFF);
+					break;
+				case ARCANE:
+					damageDoubledFromElemental = ((Elemental)attacker).getSummoner().hasSpellUpgrade(SpellUpgrade.ELEMENTAL_ARCANE_3A); //TODO
+					break;
+				case FIRE:
+					damageDoubledFromElemental = ((Elemental)attacker).hasStatusEffect(StatusEffect.ELEMENTAL_FIRE_SERVANT_OF_FIRE_ELEMENTAL_BUFF);
+					break;
+				case FLESH:
+				case SLIME:
+					break;
+				case RUBBER:
+				case STONE:
+					damageDoubledFromElemental = ((Elemental)attacker).hasStatusEffect(StatusEffect.ELEMENTAL_EARTH_SERVANT_OF_EARTH_ELEMENTAL_BUFF);
+					break;
+				case ICE:
+				case WATER:
+					damageDoubledFromElemental = ((Elemental)attacker).hasStatusEffect(StatusEffect.ELEMENTAL_WATER_SERVANT_OF_WATER_ELEMENTAL_BUFF);
+					break;
+			}
+		}
 		
 		if (attackType == MAIN || attackType == OFFHAND || attackType == SPECIAL_ATTACK) {
-
+			
+			if(damageDoubledFromElemental) {
+				damage*=2;
+			}
+			
 			if (attacker != null) {
 				// Attacker modifiers:
 				// Damage Type modifier:
@@ -390,6 +435,11 @@ public enum Attack {
 			}
 			
 		} else if(attackType == SPELL) {
+			
+			if(damageDoubledFromElemental) {
+				damage*=2;
+			}
+			
 			if (attacker != null) {
 				// Attacker modifiers:
 				damage *= 1 + Util.getModifiedDropoffValue(attacker.getAttributeValue(Attribute.DAMAGE_SPELLS), 100)/100f;

@@ -30,6 +30,7 @@ import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.combat.SpellSchool;
+import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.MapDisplay;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -1962,23 +1963,13 @@ public class PhoneDialogue {
 							+Spell.getSpellTreesDisplay(SpellSchool.ARCANE, Main.game.getPlayer())
 						+"</div>"
 						+"<div class='container-full-width' style='width:50%; padding:8px; margin:0;'>"
-							+"<p>"
-								+ "Focused on harnessing the most pure form of arcane energy, the spells in the school of Arcane are concerned with either influencing a person's lust, or performing extremely powerful miscellaneous abilities."
-							+ "</p>"
-							+ "<p>"
-								+ "As the only publicly-available spells are the ones associated with influencing lust, the school of Arcane is overlooked by most demons, as their physical charms are more than adequate on this front."
-								+ " The vast majority of the students of the school of Arcane can be found in the ranks of the cult of Lilith, who view this school as the one favoured by Lilith herself."
-							+ "</p>"
-							+ "<p>"
-								+ "Once a prospective student has a basic grasp of Arcane spells, they will find that they're able to feel the ebb and flow of the arcane currents woven throughout the world,"
-									+ " and will be able to accurately predict when the next arcane storm will break."
-							+ "</p>"
+							+SpellSchool.ARCANE.getDescription()
 						+"</div>"
 						+ "<div class='container-full-width inner' style='text-align:center;'>"
 							+ "[style.boldArcane(School of Arcane ability:)] "
-								+(!Main.game.getPlayer().hasAnySpellInSchool(SpellSchool.EARTH)
-									?"[style.colourDisabled(Know accurate time until next arcane storm.)]</br>(Requires knowing at least one Arcane school spell to unlock.)"
-									:"[style.colourGood(Know accurate time until next arcane storm.)]")
+								+(!Main.game.getPlayer().hasAnySpellInSchool(SpellSchool.ARCANE)
+									?"[style.colourDisabled("+SpellSchool.ARCANE.getPassiveBuff()+")]</br>(Requires knowing at least one Arcane school spell to unlock.)"
+									:"[style.colourGood("+SpellSchool.ARCANE.getPassiveBuff()+")]")
 						+ "</div>"
 					+"</div>");
 			
@@ -2008,6 +1999,33 @@ public class PhoneDialogue {
 				return new Response("Arcane", "You are already viewing your Arcane spells!", null);
 				
 			} else if(index==6) {
+				if(Main.game.getPlayer().hasSpell(Spell.ELEMENTAL_ARCANE)) {
+					if(!Main.game.getSavedDialogueNode().equals(Main.game.getPlayer().getLocationPlace().getDialogue(false))) {
+						return new Response("Arcane Elemental", "You can only summon your elemental in combat, or in a neutral scene!", null);
+						
+					} else if(Main.game.getPlayer().getMana()<Spell.ELEMENTAL_ARCANE.getModifiedCost(Main.game.getPlayer())) {
+						return new Response("Arcane Elemental", "You need at least <b>"+Spell.ELEMENTAL_ARCANE.getModifiedCost(Main.game.getPlayer())+"</b> [style.boldMana(aura)] in order to cast this spell!", null);
+						
+					} else {
+						return new Response("Arcane Elemental",
+								"Summon your elemental by binding it to the school of Arcane! This will cost <b>"+Spell.ELEMENTAL_ARCANE.getModifiedCost(Main.game.getPlayer())+"</b> [style.boldMana(aura)]!",
+								CHARACTER_SPELLS_ARCANE) {
+							@Override
+							public DialogueNodeOld getNextDialogue() {
+								return DebugDialogue.getDefaultDialogueNoEncounter();
+							}
+							@Override
+							public void effects() {
+								Main.game.getTextStartStringBuilder().append(Spell.ELEMENTAL_ARCANE.applyEffect(Main.game.getPlayer(), Main.game.getPlayer(), true, false));
+							}
+						};
+					}
+					
+				} else {
+					return new Response("Arcane Elemental", "You don't know how to bind your elemental to the school of Arcane! (Requires spell: '"+Spell.ELEMENTAL_ARCANE.getName()+"')", null);
+				}
+				
+			} else if(index==11) {
 				return new Response("Reset Arcane", "Reset your Arcane upgrades, refunding all points spent. Your spells will not be reset.", CHARACTER_SPELLS_ARCANE) {
 					@Override
 					public void effects() {
@@ -2043,23 +2061,13 @@ public class PhoneDialogue {
 							+Spell.getSpellTreesDisplay(SpellSchool.EARTH, Main.game.getPlayer())
 						+"</div>"
 						+"<div class='container-full-width' style='width:50%; padding:8px; margin:0;'>"
-							+"<p>"
-								+ "Spells in the school of Earth are split between creating and manipulating either pure force, or solid objects."
-							+ "</p>"
-							+ "<p>"
-								+ "As with all schools of the arcane, the vast majority of Earth practitioners are demons, and can earn a considerable salary by using their telekenetic powers to aid with construction and heavy lifting."
-								+ " Perhaps due to these lucrative applications, the school of Earth is the most widely-practised and popular of all the arcane schools."
-							+ "</p>"
-							+ "<p>"
-								+ "A prerequisite to harnessing Earth spells is the ability to freely manipulate solid, non-organic matter."
-								+ " Easily learned by anyone possessing a demon-strength aura, and outlined in the introduction of all Earth spell books, this ability allows the practitioner to change the colour and material of any object."
-							+ "</p>"
+							+SpellSchool.EARTH.getDescription()
 						+"</div>"
 						+ "<div class='container-full-width inner' style='text-align:center;'>"
 							+ "[style.boldEarth(School of Earth ability:)] "
 								+(!Main.game.getPlayer().hasAnySpellInSchool(SpellSchool.EARTH)
-									?"[style.colourDisabled(Dye clothing without a dye-brush.)]</br>(Requires knowing at least one Earth school spell to unlock.)"
-									:"[style.colourGood(Dye clothing without a dye-brush.)]")
+									?"[style.colourDisabled("+SpellSchool.EARTH.getPassiveBuff()+")]</br>(Requires knowing at least one Earth school spell to unlock.)"
+									:"[style.colourGood("+SpellSchool.EARTH.getPassiveBuff()+")]")
 						+ "</div>"
 					+"</div>");
 			
@@ -2088,7 +2096,38 @@ public class PhoneDialogue {
 			} else if(index==5) {
 				return new Response("Arcane", "View your spells and upgrades in the school of Arcane.", CHARACTER_SPELLS_ARCANE);
 				
-			} else  if(index==6) {
+			} else if(index==6) {
+				if(Main.game.getPlayer().hasSpell(Spell.ELEMENTAL_EARTH)) {
+					if(!Main.game.isSavedDialogueNeutral()) {
+						if(Main.game.isInCombat()) {
+							return new Response("Earth Elemental", "While in combat, use the combat spells menu to summon your elemental!", null);
+						} else {
+							return new Response("Earth Elemental", "You can only summon your elemental in a neutral scene!", null);
+						}
+						
+					} else if(Main.game.getPlayer().getMana()<Spell.ELEMENTAL_EARTH.getModifiedCost(Main.game.getPlayer())) {
+						return new Response("Earth Elemental", "You need at least <b>"+Spell.ELEMENTAL_EARTH.getModifiedCost(Main.game.getPlayer())+"</b> [style.boldMana(aura)] in order to cast this spell!", null);
+						
+					} else {
+						return new Response("Earth Elemental",
+								"Summon your elemental by binding it to the school of Earth! This will cost <b>"+Spell.ELEMENTAL_EARTH.getModifiedCost(Main.game.getPlayer())+"</b> [style.boldMana(aura)]!",
+								CHARACTER_SPELLS_EARTH) {
+							@Override
+							public DialogueNodeOld getNextDialogue() {
+								return DebugDialogue.getDefaultDialogueNoEncounter();
+							}
+							@Override
+							public void effects() {
+								Main.game.getTextStartStringBuilder().append(Spell.ELEMENTAL_EARTH.applyEffect(Main.game.getPlayer(), Main.game.getPlayer(), true, false));
+							}
+						};
+					}
+					
+				} else {
+					return new Response("Earth Elemental", "You don't know how to bind your elemental to the school of Earth! (Requires spell: '"+Spell.ELEMENTAL_EARTH.getName()+"')", null);
+				}
+				
+			}  else  if(index==11) {
 				return new Response("Reset Earth", "Reset your Earth upgrades, refunding all points spent. Your spells will not be reset.", CHARACTER_SPELLS_EARTH) {
 					@Override
 					public void effects() {
@@ -2124,22 +2163,13 @@ public class PhoneDialogue {
 							+Spell.getSpellTreesDisplay(SpellSchool.WATER, Main.game.getPlayer())
 						+"</div>"
 						+"<div class='container-full-width' style='width:50%; padding:8px; margin:0;'>"
-							+"<p>"
-								+ "Spells in the school of Water are focused on infusing liquids with arcane energy in order to manipulate their movement and temperature."
-							+ "</p>"
-							+ "<p>"
-								+ "As with all schools of the arcane, the vast majority of Water practitioners are demons, and mainly use their spells to assist with the maintenance of waterways, and to repair and install plumbing."
-								+ " Despite the lack of glamour, a student of Water can complete these tasks in a fraction of the time that it would take a regular person to do manually, allowing them to earn a considerable amount of money for their work."
-							+ "</p>"
-							+ "<p>"
-								+ "Students of the school of Water are able to effortlessly manipulate all fluids, allowing them to enchant any fluid-related potions without needing to expend arcane essences."
-							+ "</p>"
+							+SpellSchool.WATER.getDescription()
 						+"</div>"
 						+ "<div class='container-full-width inner' style='text-align:center;'>"
 							+ "[style.boldWater(School of Water ability:)] "
 								+(!Main.game.getPlayer().hasAnySpellInSchool(SpellSchool.WATER)
-									?"[style.colourDisabled(All fluid-related enchantments are free.)]</br>(Requires knowing at least one Water school spell to unlock.)"
-									:"[style.colourGood(All fluid-related enchantments are free.)]")
+									?"[style.colourDisabled("+SpellSchool.WATER.getPassiveBuff()+")]</br>(Requires knowing at least one Water school spell to unlock.)"
+									:"[style.colourGood("+SpellSchool.WATER.getPassiveBuff()+")]")
 						+ "</div>"
 					+"</div>");
 			
@@ -2169,6 +2199,37 @@ public class PhoneDialogue {
 				return new Response("Arcane", "View your spells and upgrades in the school of Arcane.", CHARACTER_SPELLS_ARCANE);
 				
 			} else if(index==6) {
+				if(Main.game.getPlayer().hasSpell(Spell.ELEMENTAL_WATER)) {
+					if(!Main.game.isSavedDialogueNeutral()) {
+						if(Main.game.isInCombat()) {
+							return new Response("Water Elemental", "While in combat, use the combat spells menu to summon your elemental!", null);
+						} else {
+							return new Response("Water Elemental", "You can only summon your elemental in a neutral scene!", null);
+						}
+						
+					} else if(Main.game.getPlayer().getMana()<Spell.ELEMENTAL_WATER.getModifiedCost(Main.game.getPlayer())) {
+						return new Response("Water Elemental", "You need at least <b>"+Spell.ELEMENTAL_WATER.getModifiedCost(Main.game.getPlayer())+"</b> [style.boldMana(aura)] in order to cast this spell!", null);
+						
+					} else {
+						return new Response("Water Elemental",
+								"Summon your elemental by binding it to the school of Water! This will cost <b>"+Spell.ELEMENTAL_WATER.getModifiedCost(Main.game.getPlayer())+"</b> [style.boldMana(aura)]!",
+								CHARACTER_SPELLS_WATER) {
+							@Override
+							public DialogueNodeOld getNextDialogue() {
+								return DebugDialogue.getDefaultDialogueNoEncounter();
+							}
+							@Override
+							public void effects() {
+								Main.game.getTextStartStringBuilder().append(Spell.ELEMENTAL_WATER.applyEffect(Main.game.getPlayer(), Main.game.getPlayer(), true, false));
+							}
+						};
+					}
+					
+				} else {
+					return new Response("Water Elemental", "You don't know how to bind your elemental to the school of Water! (Requires spell: '"+Spell.ELEMENTAL_WATER.getName()+"')", null);
+				}
+				
+			} else if(index==11) {
 				return new Response("Reset Water", "Reset your Water upgrades, refunding all points spent. Your spells will not be reset.", CHARACTER_SPELLS_WATER) {
 					@Override
 					public void effects() {
@@ -2204,23 +2265,13 @@ public class PhoneDialogue {
 							+Spell.getSpellTreesDisplay(SpellSchool.AIR, Main.game.getPlayer())
 						+"</div>"
 						+"<div class='container-full-width' style='width:50%; padding:8px; margin:0;'>"
-							+"<p>"
-								+ "The school of air focuses on spells that allow the caster to manipulate the temperature and movement of gases."
-							+ "</p>"
-							+ "<p>"
-								+ "As with all schools of the arcane, the vast majority of Air practitioners are demons, but, with not many opportunities to use their spells in day-to-day business,"
-									+ " their numbers are considerably lower than those of the schools of Earth and Water."
-								+ " The only regular application of Air spells is to increase or decrease the temperature of rooms, allowing the occupants to escape the cold of winter or the heat of summer."
-							+ "</p>"
-							+ "<p>"
-								+ "Students of the school of Air are able to effortlessly control the temperature of air around them, making sure that they're never too hot or too cold."
-							+ "</p>"
+							+SpellSchool.AIR.getDescription()
 						+"</div>"
 						+ "<div class='container-full-width inner' style='text-align:center;'>"
 							+ "[style.boldAir(School of Air ability:)] "
 								+(!Main.game.getPlayer().hasAnySpellInSchool(SpellSchool.AIR)
-									?"[style.colourDisabled(Passive energy and arcane regeneration is doubled.)]</br>(Requires knowing at least one Air school spell to unlock.)"
-									:"[style.colourGood(Passive energy and arcane regeneration is doubled.)]")
+									?"[style.colourDisabled("+SpellSchool.AIR.getPassiveBuff()+")]</br>(Requires knowing at least one Air school spell to unlock.)"
+									:"[style.colourGood("+SpellSchool.AIR.getPassiveBuff()+")]")
 						+ "</div>"
 					+"</div>");
 			
@@ -2250,6 +2301,37 @@ public class PhoneDialogue {
 				return new Response("Arcane", "View your spells and upgrades in the school of Arcane.", CHARACTER_SPELLS_ARCANE);
 				
 			} else if(index==6) {
+				if(Main.game.getPlayer().hasSpell(Spell.ELEMENTAL_AIR)) {
+					if(!Main.game.isSavedDialogueNeutral()) {
+						if(Main.game.isInCombat()) {
+							return new Response("Air Elemental", "While in combat, use the combat spells menu to summon your elemental!", null);
+						} else {
+							return new Response("Air Elemental", "You can only summon your elemental in a neutral scene!", null);
+						}
+						
+					} else if(Main.game.getPlayer().getMana()<Spell.ELEMENTAL_AIR.getModifiedCost(Main.game.getPlayer())) {
+						return new Response("Air Elemental", "You need at least <b>"+Spell.ELEMENTAL_AIR.getModifiedCost(Main.game.getPlayer())+"</b> [style.boldMana(aura)] in order to cast this spell!", null);
+						
+					} else {
+						return new Response("Air Elemental",
+								"Summon your elemental by binding it to the school of Air! This will cost <b>"+Spell.ELEMENTAL_AIR.getModifiedCost(Main.game.getPlayer())+"</b> [style.boldMana(aura)]!",
+								CHARACTER_SPELLS_AIR) {
+							@Override
+							public DialogueNodeOld getNextDialogue() {
+								return DebugDialogue.getDefaultDialogueNoEncounter();
+							}
+							@Override
+							public void effects() {
+								Main.game.getTextStartStringBuilder().append(Spell.ELEMENTAL_AIR.applyEffect(Main.game.getPlayer(), Main.game.getPlayer(), true, false));
+							}
+						};
+					}
+					
+				} else {
+					return new Response("Air Elemental", "You don't know how to bind your elemental to the school of Air! (Requires spell: '"+Spell.ELEMENTAL_AIR.getName()+"')", null);
+				}
+				
+			}  else if(index==11) {
 				return new Response("Reset Air", "Reset your Air upgrades, refunding all points spent. Your spells will not be reset.", CHARACTER_SPELLS_AIR) {
 					@Override
 					public void effects() {
@@ -2285,22 +2367,13 @@ public class PhoneDialogue {
 							+Spell.getSpellTreesDisplay(SpellSchool.FIRE, Main.game.getPlayer())
 						+"</div>"
 						+"<div class='container-full-width' style='width:50%; padding:8px; margin:0;'>"
-							+"<p>"
-								+ "The school of fire, much as its name would suggest, is purely focused on summoning arcane fire."
-							+ "</p>"
-							+ "<p>"
-								+ "As almost all practical uses of arcane fire are in combat situations, the school of Fire has a rather poor reputation in demon society, which regards it as distasteful and crude."
-								+ " Due to this, the only demons who choose to study the school of Fire are either those interested in arcane research, or those who anticipate spending a lot of their time fighting."
-							+ "</p>"
-							+ "<p>"
-								+ "Students of the school of Fire are able to summon a floating ball of arcane fire at will, which allows them to travel through dark areas without need of a torch."
-							+ "</p>"
+							+SpellSchool.FIRE.getDescription()
 						+"</div>"
 						+ "<div class='container-full-width inner' style='text-align:center;'>"
 							+ "[style.boldFire(School of Fire ability:)] "
 								+(!Main.game.getPlayer().hasAnySpellInSchool(SpellSchool.FIRE)
-									?"[style.colourDisabled(Immune to darkness status effect.)]</br>(Requires knowing at least one Fire school spell to unlock.)"
-									:"[style.colourGood(Immune to darkness status effect.)]")
+									?"[style.colourDisabled("+SpellSchool.FIRE.getPassiveBuff()+")]</br>(Requires knowing at least one Fire school spell to unlock.)"
+									:"[style.colourGood("+SpellSchool.FIRE.getPassiveBuff()+")]")
 						+ "</div>"
 					+"</div>");
 			
@@ -2330,6 +2403,37 @@ public class PhoneDialogue {
 				return new Response("Arcane", "View your spells and upgrades in the school of Arcane.", CHARACTER_SPELLS_ARCANE);
 				
 			} else if(index==6) {
+				if(Main.game.getPlayer().hasSpell(Spell.ELEMENTAL_FIRE)) {
+					if(!Main.game.isSavedDialogueNeutral()) {
+						if(Main.game.isInCombat()) {
+							return new Response("Fire Elemental", "While in combat, use the combat spells menu to summon your elemental!", null);
+						} else {
+							return new Response("Fire Elemental", "You can only summon your elemental in a neutral scene!", null);
+						}
+						
+					} else if(Main.game.getPlayer().getMana()<Spell.ELEMENTAL_FIRE.getModifiedCost(Main.game.getPlayer())) {
+						return new Response("Fire Elemental", "You need at least <b>"+Spell.ELEMENTAL_FIRE.getModifiedCost(Main.game.getPlayer())+"</b> [style.boldMana(aura)] in order to cast this spell!", null);
+						
+					} else {
+						return new Response("Fire Elemental",
+								"Summon your elemental by binding it to the school of Fire! This will cost <b>"+Spell.ELEMENTAL_FIRE.getModifiedCost(Main.game.getPlayer())+"</b> [style.boldMana(aura)]!",
+								CHARACTER_SPELLS_FIRE) {
+							@Override
+							public DialogueNodeOld getNextDialogue() {
+								return DebugDialogue.getDefaultDialogueNoEncounter();
+							}
+							@Override
+							public void effects() {
+								Main.game.getTextStartStringBuilder().append(Spell.ELEMENTAL_FIRE.applyEffect(Main.game.getPlayer(), Main.game.getPlayer(), true, false));
+							}
+						};
+					}
+					
+				} else {
+					return new Response("Fire Elemental", "You don't know how to bind your elemental to the school of Fire! (Requires spell: '"+Spell.ELEMENTAL_FIRE.getName()+"')", null);
+				}
+				
+			} else if(index==11) {
 				return new Response("Reset Fire", "Reset your Fire upgrades, refunding all points spent. Your spells will not be reset.", CHARACTER_SPELLS_FIRE) {
 					@Override
 					public void effects() {

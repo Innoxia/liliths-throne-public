@@ -1250,6 +1250,7 @@ public class DebugDialogue {
 				boolean first=true;
 				for(String s : character.getTags()) {
 					UtilText.nodeContentSB.append((first?"":" | ") +"<i style='color:"+Colour.CLOTHING_BLUE_LIGHT.toWebHexString()+";'>"+s+"</i>");
+					first = false;
 				}
 				
 				UtilText.nodeContentSB.append("</br>"

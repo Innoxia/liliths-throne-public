@@ -315,7 +315,6 @@ public class SupplierDepot {
 				
 			} else if (index == 3) {
 				return new ResponseCombat("Fight", "Immediately launch into combat!",
-						null,
 						Util.newArrayListOfValues(
 								new ListValue<>(Main.game.getSupplierLeader()),
 								new ListValue<>(Main.game.getSupplierPartner())),
@@ -436,7 +435,6 @@ public class SupplierDepot {
 				
 			} else if (index == 3) {
 				return new ResponseCombat("Fight", "It looks as though you're left with no choice but to fight!",
-						null,
 						Util.newArrayListOfValues(
 								new ListValue<>(Main.game.getSupplierLeader()),
 								new ListValue<>(Main.game.getSupplierPartner())),

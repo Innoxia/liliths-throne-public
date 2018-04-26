@@ -1015,15 +1015,29 @@ public class Game implements Serializable, XMLSaving {
 			
 			npc.calculateStatusEffects(turnTime);
 			
-			if((npc.isPendingClothingDressing()
-					|| (!npc.isSlave() && !npc.isUnique() && (npc.hasStatusEffect(StatusEffect.EXPOSED) || npc.hasStatusEffect(StatusEffect.EXPOSED_BREASTS) || npc.hasStatusEffect(StatusEffect.EXPOSED_PLUS_BREASTS))))
+			// Replace clothing if not in player's tile:
+			if(!Main.game.isInCombat() && !Main.game.isInSex()
 					&& (Main.game.getCurrentDialogueNode().equals(Main.game.getPlayer().getLocationPlace().getDialogue(false))
-						|| !(npc.getWorldLocation()==Main.game.getPlayer().getWorldLocation() && npc.getLocation().equals(Main.game.getPlayer().getLocation())))) {
-				npc.equipClothing(true, true);
-				if(!npc.hasFetish(Fetish.FETISH_EXHIBITIONIST)) {
-					npc.replaceAllClothing();
+							|| !(npc.getWorldLocation()==Main.game.getPlayer().getWorldLocation() && npc.getLocation().equals(Main.game.getPlayer().getLocation())))) {
+				if(npc.isPendingClothingDressing()) {
+					if(!npc.hasFetish(Fetish.FETISH_EXHIBITIONIST)) {
+						npc.replaceAllClothing();
+					}
+					npc.equipClothing(true, true);
+					npc.setPendingClothingDressing(false);
+					
+				} else if((!npc.isSlave() && !npc.isUnique() && (npc.hasStatusEffect(StatusEffect.EXPOSED) || npc.hasStatusEffect(StatusEffect.EXPOSED_BREASTS) || npc.hasStatusEffect(StatusEffect.EXPOSED_PLUS_BREASTS)))){
+					// Try to replace clothing to cover themselves up:
+					if(!npc.hasFetish(Fetish.FETISH_EXHIBITIONIST)) {
+						npc.replaceAllClothing();
+					}
+					npc.calculateStatusEffects(0);
+					// If still exposed after this, get new clothes:
+					if(npc.hasStatusEffect(StatusEffect.EXPOSED) || npc.hasStatusEffect(StatusEffect.EXPOSED_BREASTS) || npc.hasStatusEffect(StatusEffect.EXPOSED_PLUS_BREASTS)) {
+						npc.equipClothing(true, true);
+					}
+					npc.setPendingClothingDressing(false);
 				}
-				npc.setPendingClothingDressing(false);
 			}
 			
 			if(npc.isPendingTransformationToGenderIdentity()) {
@@ -1390,7 +1404,7 @@ public class Game implements Serializable, XMLSaving {
 //										+ "<div class='inner-text-content'>"
 											+ getMapDiv()
 											+ (headerContent != null
-												? "<div id='header-content' style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;-webkit-user-select: none;'>"
+												? "<div id='header-content' style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px; -webkit-user-select: none;'>"
 													+ (currentDialogueNode.disableHeaderParsing() ? headerContent : UtilText.parse(headerContent))
 													+ "</div>"
 												: "")
@@ -2829,6 +2843,13 @@ public class Game implements Serializable, XMLSaving {
 		return savedDialogueNode;
 	}
 
+	/**
+	 * @return true if the currently saved DialogueNode is the tile's default DialogueNode.
+	 */
+	public boolean isSavedDialogueNeutral() {
+		return Main.game.getSavedDialogueNode().equals(Main.game.getPlayer().getLocationPlace().getDialogue(false));
+	}
+	
 	public Cell getPlayerCell() {
 		return Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation());
 	}

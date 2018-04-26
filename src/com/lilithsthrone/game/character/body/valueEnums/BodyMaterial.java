@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.body.valueEnums;
 
+import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.utils.Colour;
 
 /**
@@ -28,34 +29,36 @@ public enum BodyMaterial {
 			"nails", "hard",
 			"keratin", "keratinous",
 			Colour.BASE_PINK_LIGHT,
+			DamageType.PHYSICAL,
 			true,
-			false),
+			false,
+			true),
 	
-	SLIME("slime", Colour.RACE_SLIME, false, true),
+	SLIME("slime", Colour.RACE_SLIME, DamageType.PHYSICAL, false, true, false),
 
 	// Fire elementals:
 	
-	FIRE("fire", "burning", Colour.BASE_ORANGE, false, false),
+	FIRE("fire", "burning", Colour.BASE_ORANGE, DamageType.FIRE, false, false, false),
 
 	// Water elementals:
 
-	WATER("water", "cool", Colour.BASE_AQUA, false, true),
+	WATER("water", "cool", Colour.BASE_AQUA, DamageType.ICE, false, true, false),
 	
-	ICE("ice", "freezing", Colour.BASE_BLUE_LIGHT, true, true),
+	ICE("ice", "freezing", Colour.BASE_BLUE_LIGHT, DamageType.ICE, true, true, true),
 
 	// Air elementals:
 
-	AIR("air", "swirling", Colour.BASE_BLUE_STEEL, false, false),
+	AIR("storm-clouds", "swirling", Colour.BASE_BLUE_STEEL, DamageType.POISON, false, false, false),
 
 	// Earth elementals:
 	
-	STONE("stone", "hard", Colour.BASE_GREY, true, false),
+	STONE("stone", "hard", Colour.BASE_GREY, DamageType.PHYSICAL, true, false, true),
 	
-	RUBBER("rubber", Colour.BASE_BLACK, true, false),
+	RUBBER("rubber", Colour.BASE_BLACK, DamageType.PHYSICAL, true, false, true),
 	
 	// Arcane elementals:
 	
-	ARCANE("energy", Colour.GENERIC_ARCANE, false, false),
+	ARCANE("energy", Colour.GENERIC_ARCANE, DamageType.PHYSICAL, false, false, false),
 	;
 
 	private String name;
@@ -77,8 +80,10 @@ public enum BodyMaterial {
 	private	String keratinNoun; private String keratinAdj;
 	private String keratinAltNoun; private String keratinAltAdj;
 	private Colour colour;
+	private DamageType unarmedDamageType;
 	private boolean requiresPiercing;
 	private boolean orificesAlwaysMaximumWetness;
+	private boolean ableToWearMakeup;
 
 	private BodyMaterial(String name,
 			String skinNoun, String skinAdj,
@@ -99,8 +104,10 @@ public enum BodyMaterial {
 			String keratinNoun, String keratinAdj,
 			String keratinAltNoun, String keratinAltAdj,
 			Colour colour,
+			DamageType unarmedDamageType,
 			boolean requiresPiercing,
-			boolean orificesAlwaysMaximumWetness) {
+			boolean orificesAlwaysMaximumWetness,
+			boolean ableToWearMakeup) {
 		this.name = name;
 		this.skinNoun = skinNoun;
 		this.skinAdj = skinAdj;
@@ -137,11 +144,13 @@ public enum BodyMaterial {
 		this.keratinAltNoun = keratinAltNoun;
 		this.keratinAltAdj = keratinAltAdj;
 		this.colour = colour;
+		this.unarmedDamageType = unarmedDamageType;
 		this.requiresPiercing = requiresPiercing;
 		this.orificesAlwaysMaximumWetness = orificesAlwaysMaximumWetness;
+		this.ableToWearMakeup = ableToWearMakeup;
 	}
 
-	private BodyMaterial(String noun, String adjective, Colour colour, boolean requiresPiercing, boolean orificesAlwaysMaximumWetness) {
+	private BodyMaterial(String noun, String adjective, Colour colour, DamageType unarmedDamageType, boolean requiresPiercing, boolean orificesAlwaysMaximumWetness, boolean ableToWearMakeup) {
 		this.name = noun;
 		this.skinNoun = noun;
 		this.skinAdj = adjective;
@@ -178,11 +187,13 @@ public enum BodyMaterial {
 		this.keratinAltNoun = noun;
 		this.keratinAltAdj = adjective;
 		this.colour = colour;
+		this.unarmedDamageType = unarmedDamageType;
 		this.requiresPiercing = requiresPiercing;
 		this.orificesAlwaysMaximumWetness = orificesAlwaysMaximumWetness;
+		this.ableToWearMakeup = ableToWearMakeup;
 	}
 
-	private BodyMaterial(String noun, Colour colour, boolean requiresPiercing, boolean orificesAlwaysMaximumWetness) {
+	private BodyMaterial(String noun, Colour colour, DamageType unarmedDamageType, boolean requiresPiercing, boolean orificesAlwaysMaximumWetness, boolean ableToWearMakeup) {
 		this.name = noun;
 		this.skinNoun = noun;
 		this.skinAdj = noun;
@@ -219,8 +230,10 @@ public enum BodyMaterial {
 		this.keratinAltNoun = noun;
 		this.keratinAltAdj = noun;
 		this.colour = colour;
+		this.unarmedDamageType = unarmedDamageType;
 		this.requiresPiercing = requiresPiercing;
 		this.orificesAlwaysMaximumWetness = orificesAlwaysMaximumWetness;
+		this.ableToWearMakeup = ableToWearMakeup;
 	}
 
 	public String getName() {
@@ -367,11 +380,19 @@ public enum BodyMaterial {
 		return colour;
 	}
 
+	public DamageType getUnarmedDamageType() {
+		return unarmedDamageType;
+	}
+
 	public boolean isRequiresPiercing() {
 		return requiresPiercing;
 	}
 
 	public boolean isOrificesAlwaysMaximumWetness() {
 		return orificesAlwaysMaximumWetness;
+	}
+
+	public boolean isAbleToWearMakeup() {
+		return ableToWearMakeup;
 	}
 }

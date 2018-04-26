@@ -26,7 +26,6 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.combat.SpecialAttack;
-import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.MapDisplay;
 import com.lilithsthrone.game.dialogue.eventLog.EventLogEntry;
@@ -95,7 +94,9 @@ public enum RenderingEngine {
 	private StringBuilder inventorySB = new StringBuilder(), equippedPanelSB = new StringBuilder();
 	
 	public String getInventoryPanel(GameCharacter charactersInventoryToRender, boolean buyback) {
-		return getInventoryDiv(Main.game.getPlayer(), false) + getInventoryDiv(charactersInventoryToRender, buyback);
+		return "<div class='container-full-width' style=''background:#45aac1>"
+					+getInventoryDiv(Main.game.getPlayer(), false) + getInventoryDiv(charactersInventoryToRender, buyback)
+				+"</div>";
 	}
 	
 	private String getInventoryEquippedPanel(GameCharacter charactersInventoryToRender) {
@@ -316,7 +317,7 @@ public enum RenderingEngine {
 		
 		String idModifier = charactersInventoryToRender==null?"FLOOR_":(charactersInventoryToRender.isPlayer()?"PLAYER_":"NPC_"+charactersInventoryToRender.getId()+"_");
 		
-		inventorySB.append("<div class='inventory-container"+(charactersInventoryToRender==null || !charactersInventoryToRender.isPlayer()?" right":" left")+"'>");
+		inventorySB.append("<div class='inventory-container'>");
 		
 		if(charactersInventoryToRender != null) {
 			inventorySB.append(
@@ -425,7 +426,7 @@ public enum RenderingEngine {
 		
 		inventorySB.append("</div>");
 
-		inventorySB.append("</body>");
+//		inventorySB.append("</body>");
 		
 		return inventorySB.toString();
 	}
@@ -696,10 +697,10 @@ public enum RenderingEngine {
 				+ "</div>"
 				+ "<div class='full-width-container' style='height: calc(100% - 128vw); overflow-y: auto;'>");
 			
-			uiAttributeSB.append(getCharacterPanelCombatDiv(Combat.getAllies().size()>0, "PLAYER_", Main.game.getPlayer()));
+			uiAttributeSB.append(getCharacterPanelDiv(Combat.getAllies().size()>0, "PLAYER_", Main.game.getPlayer()));
 			
 			for(GameCharacter character : Combat.getAllies()) {
-				uiAttributeSB.append(getCharacterPanelCombatDiv(true, "NPC_"+character.getId()+"_", character));
+				uiAttributeSB.append(getCharacterPanelDiv(true, "NPC_"+character.getId()+"_", character));
 			}
 			
 			
@@ -892,7 +893,7 @@ public enum RenderingEngine {
 					+ "<div class='full-width-container' style='height: calc(100% - 128vw); overflow-y: auto;'>");
 				
 				for(GameCharacter character : Combat.getEnemies()) {
-					uiAttributeSB.append(getCharacterPanelCombatDiv(Combat.getEnemies().size()>1, "NPC_"+character.getId()+"_", character));
+					uiAttributeSB.append(getCharacterPanelDiv(Combat.getEnemies().size()>1, "NPC_"+character.getId()+"_", character));
 				}
 				
 				
@@ -1659,70 +1660,140 @@ public enum RenderingEngine {
 							100,
 							idPrefix + Attribute.LUST.getName()));
 		}
-	
-							
+		
+		
 		// Status effects:
 		panelSB.append("<hr style='border:1px solid "+Colour.TEXT_GREY_DARK.toWebHexString()+"; margin: 2px 0;'></hr>"
 				+"<div class='attribute-container' style='padding:0; overflow-y: auto;'>");
 		
-		// Traits:
-		for (Perk trait : character.getTraits()) {
-			panelSB.append(
-					"<div class='icon effect' style='border:1px solid "+Colour.TRAIT.toWebHexString()+"'>"
-							+ "<div class='icon-content'>"
-								+ trait.getSVGString()
-								+ "<div class='overlay' id='TRAIT_" + idPrefix + trait + "'></div>"
-							+ "</div>"
-					+ "</div>");
-		}
+//		// Traits:
+//		for (Perk trait : character.getTraits()) {
+//			panelSB.append(
+//					"<div class='icon effect' style='border:1px solid "+Colour.TRAIT.toWebHexString()+"'>"
+//							+ "<div class='icon-content'>"
+//								+ trait.getSVGString()
+//								+ "<div class='overlay' id='TRAIT_" + idPrefix + trait + "'></div>"
+//							+ "</div>"
+//					+ "</div>");
+//		}
 		
-		// Infinite duration:
-		for (StatusEffect se : character.getStatusEffects()) {
-			if (!se.isCombatEffect() && character.getStatusEffectDuration(se) == -1 && se.renderInEffectsPanel())
-				panelSB.append(
-						"<div class='icon effect'>"
-								+ "<div class='icon-content'>"
-									+ se.getSVGString(character)
-									+ "<div class='overlay' id='SE_" + idPrefix + se + "'></div>"
-								+ "</div>"
-						+ "</div>");
-		}
-		// Timed:
-		for (StatusEffect se : character.getStatusEffects()) {
-			if (!se.isCombatEffect() && character.getStatusEffectDuration(se) != -1 && se.renderInEffectsPanel()) {
-				int timerHeight = (int) ((character.getStatusEffectDuration(se)/(60*6f))*100);
-
-				Colour timerColour = Colour.STATUS_EFFECT_TIME_HIGH;
-				
-				if(timerHeight>100) {
-					timerHeight=100;
-					timerColour = Colour.STATUS_EFFECT_TIME_OVERFLOW;
-				} else if(timerHeight<15) {
-					timerColour = Colour.STATUS_EFFECT_TIME_LOW;
-				} else if (timerHeight<50) {
-					timerColour = Colour.STATUS_EFFECT_TIME_MEDIUM;
-				}
-				
-				panelSB.append(
-						"<div class='icon effect'>"
-								+ "<div class='timer-background' style='width:"+timerHeight+"%; background:"+ timerColour.toWebHexString() + ";'></div>"
-								+ "<div class='icon-content'>"
-									+ se.getSVGString(character)
-									+ "<div class='overlay' id='SE_" + idPrefix + se + "'></div>"
-								+ "</div>"
-						+ "</div>");
+		if(!Main.game.isInCombat()) {
+			// Infinite duration:
+			for (StatusEffect se : character.getStatusEffects()) {
+				if (!se.isCombatEffect() && character.getStatusEffectDuration(se) == -1 && se.renderInEffectsPanel())
+					panelSB.append(
+							"<div class='icon effect'>"
+									+ "<div class='icon-content'>"
+										+ se.getSVGString(character)
+										+ "<div class='overlay' id='SE_" + idPrefix + se + "'></div>"
+									+ "</div>"
+							+ "</div>");
 			}
-		}
+			// Timed:
+			for (StatusEffect se : character.getStatusEffects()) {
+				if (!se.isCombatEffect() && character.getStatusEffectDuration(se) != -1 && se.renderInEffectsPanel()) {
+					int timerHeight = (int) ((character.getStatusEffectDuration(se)/(60*6f))*100);
+	
+					Colour timerColour = Colour.STATUS_EFFECT_TIME_HIGH;
+					
+					if(timerHeight>100) {
+						timerHeight=100;
+						timerColour = Colour.STATUS_EFFECT_TIME_OVERFLOW;
+					} else if(timerHeight<15) {
+						timerColour = Colour.STATUS_EFFECT_TIME_LOW;
+					} else if (timerHeight<50) {
+						timerColour = Colour.STATUS_EFFECT_TIME_MEDIUM;
+					}
+					
+					panelSB.append(
+							"<div class='icon effect'>"
+									+ "<div class='timer-background' style='width:"+timerHeight+"%; background:"+ timerColour.toWebHexString() + ";'></div>"
+									+ "<div class='icon-content'>"
+										+ se.getSVGString(character)
+										+ "<div class='overlay' id='SE_" + idPrefix + se + "'></div>"
+									+ "</div>"
+							+ "</div>");
+				}
+			}
+			
+			if(!character.isPlayer()) {
+				for (Fetish f : character.getFetishes()) {
+					panelSB.append(
+						"<div class='icon effect'>"
+							+ "<div class='icon-content'>"
+									+ f.getSVGString()
+									+ "<div class='overlay' id='FETISH_"+idPrefix + f + "'></div>"
+							+ "</div>"
+						+ "</div>");
+				}
+			}
 		
-		if(!character.isPlayer()) {
-			for (Fetish f : character.getFetishes()) {
-				panelSB.append(
-					"<div class='icon effect'>"
-						+ "<div class='icon-content'>"
-								+ f.getSVGString()
-								+ "<div class='overlay' id='FETISH_"+idPrefix + f + "'></div>"
-						+ "</div>"
-					+ "</div>");
+		} else {
+			// Infinite duration:
+			for (StatusEffect se : character.getStatusEffects()) {
+				if (character.getStatusEffectDuration(se) == -1 && se.renderInEffectsPanel())
+					panelSB.append(
+							"<div class='icon effect' "+(se.isCombatEffect()?"style='border:1px solid "+(se.isBeneficial()?Colour.GENERIC_GOOD:Colour.GENERIC_BAD).toWebHexString()+";":"")+"'>"
+									+ "<div class='icon-content'>"
+										+ se.getSVGString(character)
+										+ "<div class='overlay' id='SE_" + idPrefix + se + "'></div>"
+									+ "</div>"
+							+ "</div>");
+			}
+			// Timed:
+			for (StatusEffect se : character.getStatusEffects()) {
+				if (character.getStatusEffectDuration(se) != -1 && se.renderInEffectsPanel() && se.isCombatEffect()) {
+					int timerHeight = (int) ((character.getStatusEffectDuration(se)/(60*6f))*100);
+
+					Colour timerColour = Colour.STATUS_EFFECT_TIME_HIGH;
+					
+					if(timerHeight>100) {
+						timerHeight=100;
+						timerColour = Colour.STATUS_EFFECT_TIME_OVERFLOW;
+					} else if(timerHeight<15) {
+						timerColour = Colour.STATUS_EFFECT_TIME_LOW;
+					} else if (timerHeight<50) {
+						timerColour = Colour.STATUS_EFFECT_TIME_MEDIUM;
+					}
+					
+					panelSB.append(
+							"<div class='icon effect' style='border:1px solid "+(se.isBeneficial()?Colour.GENERIC_GOOD:Colour.GENERIC_BAD).toWebHexString()+";'>"
+									+ "<div class='timer-background' style='width:"+timerHeight+"%; background:"+ timerColour.toWebHexString() + ";'></div>"
+									+ "<div class='icon-content'>"
+										+ se.getSVGString(character)
+										+ "<div class='overlay' id='SE_" + idPrefix + se + "'></div>"
+									+ "</div>"
+							+ "</div>");
+				}
+			}
+			
+			for (SpecialAttack sa : character.getSpecialAttacks()) {
+				int cooldown = Combat.getCooldown(character, sa);
+				if (cooldown > 0) {
+					int timerHeight = (int) ((Math.min(5, cooldown)/5f)*100);
+
+					Colour timerColour = Colour.STATUS_EFFECT_TIME_MEDIUM;
+					
+					if(timerHeight>=100) {
+						timerHeight=100;
+						timerColour = Colour.STATUS_EFFECT_TIME_LOW;
+					} else if(cooldown<2) {
+						timerColour = Colour.STATUS_EFFECT_TIME_OVERFLOW;
+					} else if (cooldown<4) {
+						timerColour = Colour.STATUS_EFFECT_TIME_HIGH;
+					}
+					
+					panelSB.append(
+							"<div class='icon effect' style='border:1px solid "+Colour.SPECIAL_ATTACK.toWebHexString()+"'>"
+									+ "<div class='timer-background' style='width:"+timerHeight+"%; background:"+ timerColour.toWebHexString() + ";'></div>"
+									+ "<div class='icon-content'>"
+										+ sa.getSVGString()
+									+ "</div>"
+									+ "<div style='width:100%;height:100%;position:absolute;right:0; top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getStopwatch()+"</div>"
+									+ "<div class='overlay' id='SA_" + idPrefix + sa + "'></div>"
+							+ "</div>");
+					
+				}
 			}
 		}
 		
@@ -1854,223 +1925,6 @@ public enum RenderingEngine {
 						+ "</div>"
 					+ "</div>");
 			}
-		}
-		
-		panelSB.append("</div></div>");
-		
-		return panelSB.toString();
-	}
-	
-	private static String getCharacterPanelCombatDiv(boolean compact, String idPrefix, GameCharacter character) {
-		StringBuilder panelSB = new StringBuilder();
-		
-		panelSB.append(
-				"<div class='attribute-container' style='"
-						+ (Main.game.isInCombat()&&Combat.getTargetedCombatant(Main.game.getPlayer()).equals(character)?"border:2px solid "+Colour.GENERIC_COMBAT.toWebHexString()+";":"border:1px solid "+Colour.TEXT_GREY_DARK.toWebHexString()+";")
-							+ "'>"
-					+ "<div class='full-width-container' style='margin-bottom:4px;'>"
-						+ "<div class='icon' style='width:12%'>"
-							+ "<div class='icon-content'>"
-								+ (character.isRaceConcealed()?SVGImages.SVG_IMAGE_PROVIDER.getRaceUnknown():character.getMapIcon())
-							+ "</div>"
-							+"<div class='overlay' id='" + idPrefix + Attribute.EXPERIENCE.getName() + "' style='cursor:pointer;'></div>"
-						+ "</div>"
-						+ "<div class='full-width-container' style='text-align:center;padding:0;margin:0;float:left;width:86%;'>"
-							+ "<div class='full-width-container' style='text-align:center;padding:0;margin:0;'>"
-								+ "<b style='color:"+ Femininity.valueOf(character.getFemininityValue()).getColour().toWebHexString() + ";'>"
-									+ (character.getName().length() == 0
-											? Util.capitaliseSentence(character.isFeminine()?character.getSubspecies().getSingularFemaleName():character.getSubspecies().getSingularMaleName())
-											: Util.capitaliseSentence(character.getName()))
-								+"</b>"
-								+ " - Level "+ character.getLevel()
-							+"</div>"
-							+ "<div class='full-width-container' style='text-align:center;padding:0;margin:0;background:#333; border-radius: 2px;'>"
-								+ (character.getLevel() != GameCharacter.LEVEL_CAP
-									? "<div style='mix-blend-mode: difference; width:" + (character.getExperience() / (character.getLevel() * 10f)) * 100 + "%; height:2vw; background:" + Colour.CLOTHING_BLUE_LIGHT.toWebHexString()
-											+ "; float:left; border-radius: 2px;'></div>"
-									: "<div style=' mix-blend-mode: difference; width:100%; height:2vw; background:" + Colour.GENERIC_EXCELLENT.toWebHexString() + "; float:left; border-radius: 2px;'></div>")
-							+"</div>"
-							+"<div class='overlay' id='"+idPrefix+"ATTRIBUTES' style='cursor:pointer;'></div>"
-						+"</div>"
-						+ (character.isPlayer()
-								?"<div class='full-width-container' style='text-align:center;'>"
-									+ "<div class='half-width-container' style='padding:0 8px;'>"+ UtilText.formatAsMoney(character.getMoney(), "b") +"</div>"
-									+ "<div class='half-width-container' style='padding:0 8px;'>"+ UtilText.formatAsEssences(character.getEssenceCount(TFEssence.ARCANE), "b", true) +"</div>"
-								+"</div>"
-								:"")
-					+"</div>");
-		
-		panelSB.append("<hr style='border:1px solid "+Colour.TEXT_GREY_DARK.toWebHexString()+"; margin: 2px 0;'></hr>");
-		
-		panelSB.append(
-				getAttributeBarThird(PhysiqueLevel.getPhysiqueLevelFromValue(character.getAttributeValue(Attribute.MAJOR_PHYSIQUE)).getRelatedStatusEffect().getSVGString(character),
-						Attribute.MAJOR_PHYSIQUE.getColour(),
-						character.getAttributeValue(Attribute.MAJOR_PHYSIQUE),
-						100,
-						idPrefix + Attribute.MAJOR_PHYSIQUE.getName())
-				
-				+getAttributeBarThird(IntelligenceLevel.getIntelligenceLevelFromValue(character.getAttributeValue(Attribute.MAJOR_ARCANE)).getRelatedStatusEffect().getSVGString(character),
-						Attribute.MAJOR_ARCANE.getColour(),
-						character.getAttributeValue(Attribute.MAJOR_ARCANE),
-						100,
-						idPrefix + Attribute.MAJOR_ARCANE.getName())
-			
-				+getAttributeBarThird(CorruptionLevel.getCorruptionLevelFromValue(character.getAttributeValue(Attribute.MAJOR_CORRUPTION)).getRelatedStatusEffect().getSVGString(character),
-						Attribute.MAJOR_CORRUPTION.getColour(),
-						character.getAttributeValue(Attribute.MAJOR_CORRUPTION),
-						100,
-						idPrefix + Attribute.MAJOR_CORRUPTION.getName())
-				);
-		
-		panelSB.append("<hr style='border:1px solid "+Colour.TEXT_GREY_DARK.toWebHexString()+"; margin: 2px 0;'></hr>");
-		
-		panelSB.append(
-				getAttributeBar(Attribute.HEALTH_MAXIMUM.getSVGString(),
-						Colour.ATTRIBUTE_HEALTH,
-						character.getHealth(),
-						character.getAttributeValue(Attribute.HEALTH_MAXIMUM),
-						idPrefix + Attribute.HEALTH_MAXIMUM.getName())
-
-				+getAttributeBar(Attribute.MANA_MAXIMUM.getSVGString(),
-						Colour.ATTRIBUTE_MANA,
-						character.getMana(),
-						character.getAttributeValue(Attribute.MANA_MAXIMUM),
-						idPrefix + Attribute.MANA_MAXIMUM.getName())
-				
-				+getAttributeBar(LustLevel.getLustLevelFromValue(character.getLust()).getRelatedStatusEffect().getSVGString(character),
-						Colour.ATTRIBUTE_LUST,
-						character.getLust(),
-						100,
-						idPrefix + Attribute.LUST.getName()));
-		
-	
-							
-		// Status effects:
-		panelSB.append("<hr style='border:1px solid "+Colour.TEXT_GREY_DARK.toWebHexString()+"; padding:0; margin: 2px 0;'></hr>"
-				+"<div class='attribute-container' style='padding:0; overflow-y: auto;'>");
-		
-		// Traits:
-		for (Perk trait : character.getTraits()) {
-			panelSB.append(
-					"<div class='icon effect' style='border:1px solid "+Colour.TRAIT.toWebHexString()+"'>"
-							+ "<div class='icon-content'>"
-								+ trait.getSVGString()
-								+ "<div class='overlay' id='TRAIT_" + idPrefix + trait + "'></div>"
-							+ "</div>"
-					+ "</div>");
-		}
-		
-		// Infinite duration:
-		for (StatusEffect se : character.getStatusEffects()) {
-			if (character.getStatusEffectDuration(se) == -1 && se.renderInEffectsPanel())
-				panelSB.append(
-						"<div class='icon effect'>"
-								+ "<div class='icon-content'>"
-									+ se.getSVGString(character)
-									+ "<div class='overlay' id='SE_" + idPrefix + se + "'></div>"
-								+ "</div>"
-						+ "</div>");
-		}
-		// Timed:
-		for (StatusEffect se : character.getStatusEffects()) {
-			if (character.getStatusEffectDuration(se) != -1 && se.renderInEffectsPanel()) {
-				int timerHeight = (int) ((character.getStatusEffectDuration(se)/(60*6f))*100);
-
-				Colour timerColour = Colour.STATUS_EFFECT_TIME_HIGH;
-				
-				if(timerHeight>100) {
-					timerHeight=100;
-					timerColour = Colour.STATUS_EFFECT_TIME_OVERFLOW;
-				} else if(timerHeight<15) {
-					timerColour = Colour.STATUS_EFFECT_TIME_LOW;
-				} else if (timerHeight<50) {
-					timerColour = Colour.STATUS_EFFECT_TIME_MEDIUM;
-				}
-				
-				panelSB.append(
-						"<div class='icon effect'>"
-								+ "<div class='timer-background' style='width:"+timerHeight+"%; background:"+ timerColour.toWebHexString() + ";'></div>"
-								+ "<div class='icon-content'>"
-									+ se.getSVGString(character)
-									+ "<div class='overlay' id='SE_" + idPrefix + se + "'></div>"
-								+ "</div>"
-						+ "</div>");
-			}
-		}
-		
-		for (SpecialAttack sa : character.getSpecialAttacks()) {
-			int cooldown = Combat.getCooldown(character, sa);
-			if (cooldown > 0) {
-				int timerHeight = (int) ((Math.min(5, cooldown)/5f)*100);
-
-				Colour timerColour = Colour.STATUS_EFFECT_TIME_MEDIUM;
-				
-				if(timerHeight>=100) {
-					timerHeight=100;
-					timerColour = Colour.STATUS_EFFECT_TIME_LOW;
-				} else if(cooldown<2) {
-					timerColour = Colour.STATUS_EFFECT_TIME_OVERFLOW;
-				} else if (cooldown<4) {
-					timerColour = Colour.STATUS_EFFECT_TIME_HIGH;
-				}
-				
-//				String counterOverlay = "";
-//				
-//				if(cooldown == 1) {
-//					counterOverlay = ("<div style='width:50%;height:50%;position:absolute;right:0; top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCounterOne()+"</div>");
-//				} else if(cooldown == 2) {
-//					counterOverlay = ("<div style='width:50%;height:50%;position:absolute;right:0; top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCounterTwo()+"</div>");
-//				} else if(cooldown == 3) {
-//					counterOverlay = ("<div style='width:50%;height:50%;position:absolute;right:0; top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCounterThree()+"</div>");
-//				} else if(cooldown == 4) {
-//					counterOverlay = ("<div style='width:50%;height:50%;position:absolute;right:0; top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCounterFour()+"</div>");
-//				} else if(cooldown == 5) {
-//					counterOverlay = ("<div style='width:50%;height:50%;position:absolute;right:0; top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCounterFive()+"</div>");
-//				} else {
-//					counterOverlay = ("<div style='width:50%;height:50%;position:absolute;right:0; top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCounterFivePlus()+"</div>");
-//				}
-				
-				panelSB.append(
-						"<div class='icon effect' style='border:1px solid "+Colour.SPECIAL_ATTACK.toWebHexString()+"'>"
-								+ "<div class='timer-background' style='width:"+timerHeight+"%; background:"+ timerColour.toWebHexString() + ";'></div>"
-								+ "<div class='icon-content'>"
-									+ sa.getSVGString()
-								+ "</div>"
-								+ "<div style='width:100%;height:100%;position:absolute;right:0; top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getStopwatch()+"</div>"
-								+ "<div class='overlay' id='SA_" + idPrefix + sa + "'></div>"
-						+ "</div>");
-				
-			} else {
-				panelSB.append(
-						"<div class='icon effect' style='border:1px solid "+Colour.SPECIAL_ATTACK.toWebHexString()+"'>"
-								+ "<div class='icon-content'>"
-									+ sa.getSVGString()
-									+ "<div class='overlay' id='SA_" + idPrefix + sa + "'></div>"
-								+ "</div>"
-						+ "</div>");
-			}
-		}
-		
-		Set<Spell> uniqueSpells = new HashSet<>(character.getAllSpells());
-		
-		for (Spell s : uniqueSpells) {
-			panelSB.append(
-					"<div class='icon effect' style='border:1px solid "+Colour.DAMAGE_TYPE_SPELL.toWebHexString()+"'>"
-							+ "<div class='icon-content'>"
-								+ s.getSVGString()
-								+ "<div class='overlay' id='SPELL_" + idPrefix + s + "'></div>"
-							+ "</div>"
-					+ "</div>");
-		}
-
-		for (Fetish f : character.getFetishes()) {
-			panelSB.append(
-				"<div class='icon effect'>"
-					+ "<div class='icon-content'>"
-							+ f.getSVGString()
-							+ "<div class='overlay' id='FETISH_"+idPrefix + f + "'></div>"
-					+ "</div>"
-				+ "</div>");
 		}
 		
 		panelSB.append("</div></div>");

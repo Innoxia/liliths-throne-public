@@ -14,7 +14,6 @@ import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
-import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.npcDialogue.HarpyNestsAttackerDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.SlaveDialogue;
@@ -167,17 +166,6 @@ public class HarpyNestsAttacker extends NPC {
 			return new Response("", "", HarpyNestsAttackerDialogue.AFTER_COMBAT_VICTORY);
 		} else {
 			return new Response ("", "", HarpyNestsAttackerDialogue.AFTER_COMBAT_DEFEAT);
-		}
-	}
-
-	
-
-	@Override
-	public Attack attackType() {
-		if (Math.random() < 0.7) {
-			return Attack.SEDUCTION;
-		} else {
-			return Attack.MAIN;
 		}
 	}
 	

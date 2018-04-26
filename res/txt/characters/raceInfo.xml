@@ -490,5 +490,77 @@
 	</p>
 	]]>
 	</htmlContent>
+
+	<!-- ELEMENTALS -->
+	
+	<htmlContent tag="ELEMENTAL_FIRE_BASIC"><![CDATA[
+	<p>
+		.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ELEMENTAL_FIRE_ADVANCED"><![CDATA[
+	<p>
+		.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ELEMENTAL_WATER_BASIC"><![CDATA[
+	<p>
+		.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ELEMENTAL_WATER_ADVANCED"><![CDATA[
+	<p>
+		.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ELEMENTAL_EARTH_BASIC"><![CDATA[
+	<p>
+		.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ELEMENTAL_EARTH_ADVANCED"><![CDATA[
+	<p>
+		.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ELEMENTAL_AIR_BASIC"><![CDATA[
+	<p>
+		.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ELEMENTAL_AIR_ADVANCED"><![CDATA[
+	<p>
+		.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ELEMENTAL_ARCANE_BASIC"><![CDATA[
+	<p>
+		.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ELEMENTAL_ARCANE_ADVANCED"><![CDATA[
+	<p>
+		.
+	</p>
+	]]>
+	</htmlContent>
 	
 </dialogue>

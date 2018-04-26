@@ -21,7 +21,6 @@ import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -118,6 +117,11 @@ public class SlaveInStocks extends NPC {
 					case SLIME_RAT:
 					case SLIME_BAT:
 					case SLIME_RABBIT:
+					case ELEMENTAL_AIR:
+					case ELEMENTAL_ARCANE:
+					case ELEMENTAL_EARTH:
+					case ELEMENTAL_FIRE:
+					case ELEMENTAL_WATER:
 						break;
 					
 					// Special spawns:
@@ -592,10 +596,4 @@ public class SlaveInStocks extends NPC {
 		return null;
 	}
 
-	@Override
-	public Attack attackType() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 }

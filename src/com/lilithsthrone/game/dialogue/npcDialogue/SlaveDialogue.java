@@ -400,14 +400,20 @@ public class SlaveDialogue {
 					
 				} else if (index == 5) {
 					if(!Main.game.getPlayer().hasCompanion(slave())) {
-						return new Response("Add to party",
-								"Command [npc.name] to start following you around.",
-								SLAVE_START){
-							@Override
-							public void effects() {
-								Main.game.getPlayer().addCompanion(slave());
-							}
-						};
+						if(Main.game.getPlayer().canHaveMoreCompanions()) {
+							return new Response("Add to party",
+									UtilText.parse(slave(), "Command [npc.name] to start following you around."),
+									SLAVE_START){
+								@Override
+								public void effects() {
+									Main.game.getPlayer().addCompanion(slave());
+								}
+							};
+						} else {
+							return new Response("Add to party",
+									"You are already at your party limit!",
+									null);
+						}
 					} else {
 						return new Response("Remove from party",
 								"Command [npc.name] to leave your party.",

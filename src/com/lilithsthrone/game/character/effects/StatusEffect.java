@@ -29,10 +29,12 @@ import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.ReindeerOverseer;
+import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
+import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.combat.SpellUpgrade;
@@ -174,7 +176,8 @@ public enum StatusEffect {
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 10f),
-					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 20f)),
+					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 20f),
+					new Value<Attribute, Float>(Attribute.HEALTH_MAXIMUM, 10f)),
 			null) {
 		
 		@Override
@@ -208,7 +211,8 @@ public enum StatusEffect {
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 15f),
-					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 30f)),
+					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 30f),
+					new Value<Attribute, Float>(Attribute.HEALTH_MAXIMUM, 25f)),
 			null) {
 		
 		@Override
@@ -241,7 +245,7 @@ public enum StatusEffect {
 			Colour.PHYSIQUE_STAGE_FIVE,
 			true,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 25f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 20f),
 					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 50f),
 					new Value<Attribute, Float>(Attribute.HEALTH_MAXIMUM, 50f)),
 			null) {
@@ -372,8 +376,8 @@ public enum StatusEffect {
 			Colour.INTELLIGENCE_STAGE_TWO,
 			true,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, 10f),
-					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 10f)),
+					new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, 5f),
+					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 5f)),
 			null) {
 		
 		@Override
@@ -384,9 +388,9 @@ public enum StatusEffect {
 		@Override
 		public String getDescription(GameCharacter target) {
 			if (target.isPlayer()) {
-				return "Your natural arcane ability is little weaker than it was when first entering this world, being equivalent to that of a demon.";
+				return "Your natural arcane ability is little weaker than it was when first entering this world.";
 			} else {
-				return UtilText.parse(target, "[npc.Name] has a level of arcane power that's equivalent to that of a demon, and [npc.her] spells are not only easier to cast, but also do more damage.");
+				return UtilText.parse(target, "[npc.Name] is proficient at harnessing the arcane, and [npc.her] spells are not only easier to cast, but also do more damage.");
 			}
 		}
 
@@ -407,11 +411,12 @@ public enum StatusEffect {
 			Colour.INTELLIGENCE_STAGE_THREE,
 			true,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, 20f),
-					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 20f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, 10f),
+					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 10f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_FIRE, 5f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_ICE, 5f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_POISON, 5f)),
+					new Value<Attribute, Float>(Attribute.DAMAGE_POISON, 5f),
+					new Value<Attribute, Float>(Attribute.MANA_MAXIMUM, 10f)),
 			null) {
 		
 		@Override
@@ -422,9 +427,9 @@ public enum StatusEffect {
 		@Override
 		public String getDescription(GameCharacter target) {
 			if (target.isPlayer()) {
-				return "Your natural arcane ability is equivalent to that of a Lilin's. Your spells are easier to cast and do more damage, and you also have a small amount of elemental damage affinity.";
+				return "You are highly proficient with the arcane. Your spells are easier to cast and do more damage, and you also have a small amount of elemental damage affinity.";
 			} else {
-				return UtilText.parse(target, "[npc.Name] has a level of arcane power that's equivalent to that of a Lilin's. [npc.Her] spells are easier to cast and do more damage, and [npc.she] also has a small amount of elemental damage affinity.");
+				return UtilText.parse(target, "[npc.Name] is highly proficient with the arcane. [npc.Her] spells are easier to cast and do more damage, and [npc.she] also has a small amount of elemental damage affinity.");
 			}
 		}
 
@@ -445,11 +450,12 @@ public enum StatusEffect {
 			Colour.INTELLIGENCE_STAGE_FOUR,
 			true,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, 30f),
-					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 30f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_FIRE, 15f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_ICE, 15f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_POISON, 15f)),
+					new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, 15f),
+					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 15f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_FIRE, 10f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_ICE, 10f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_POISON, 10f),
+					new Value<Attribute, Float>(Attribute.MANA_MAXIMUM, 25f)),
 			null) {
 		
 		@Override
@@ -460,9 +466,9 @@ public enum StatusEffect {
 		@Override
 		public String getDescription(GameCharacter target) {
 			if (target.isPlayer()) {
-				return "Your natural arcane ability is equivalent to that of an elder Lilin. Your spells are easier to cast and do more damage, and you also have a considerable amount of elemental damage affinity.";
+				return "You are extremely proficient with the arcane. Your spells are easier to cast and do more damage, and you also have a considerable amount of elemental damage affinity.";
 			} else {
-				return UtilText.parse(target, "[npc.Name] has a level of arcane power that's equivalent to that of an elder Lilin's."
+				return UtilText.parse(target, "[npc.Name] is extremely proficient with the arcane."
 						+ " [npc.Her] spells are easier to cast and do more damage, and [npc.she] also has a considerable amount of elemental damage affinity.");
 			}
 		}
@@ -484,11 +490,11 @@ public enum StatusEffect {
 			Colour.INTELLIGENCE_STAGE_FIVE,
 			true,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, 100f),
-					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 100f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_FIRE, 75f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_ICE, 75f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_POISON, 75f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, 20f),
+					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 20f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_FIRE, 15f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_ICE, 15f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_POISON, 15f),
 					new Value<Attribute, Float>(Attribute.MANA_MAXIMUM, 50f)),
 			null) {
 		
@@ -500,7 +506,7 @@ public enum StatusEffect {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			if (owner.isPlayer()) {
-				return "Your arcane ability is equal to that of Lilith herself. Casting spells comes as naturally to you as does breathing.";
+				return "Your ability to harness the arcane is rivalled only by Lilith herself. Casting spells comes as naturally to you as does breathing.";
 			} else {
 				return "Liltih's arcane ability is uniquely powerful, able to !SPOILERS!";
 			}
@@ -1562,7 +1568,7 @@ public enum StatusEffect {
 	// RACES:
 	// HUMAN:
 	PURE_HUMAN_PROLOGUE(
-			90,
+			1000,
 			"human",
 			"raceHuman",
 			Colour.CLOTHING_WHITE,
@@ -1587,7 +1593,7 @@ public enum StatusEffect {
 	},
 	
 	PURE_HUMAN(
-			90,
+			1000,
 			"human",
 			null,
 			Colour.CLOTHING_WHITE,
@@ -1615,7 +1621,7 @@ public enum StatusEffect {
 	},
 
 	// ANGEL:
-	ANGEL(90,
+	ANGEL(1000,
 			"angel",
 			null,
 			Colour.CLOTHING_WHITE,
@@ -1642,7 +1648,7 @@ public enum StatusEffect {
 	},
 
 	// DEMON:
-	DEMON(90,
+	DEMON(1000,
 			"demon",
 			null,
 			Colour.GENERIC_ARCANE,
@@ -1678,7 +1684,7 @@ public enum StatusEffect {
 		}
 	},
 	
-	IMP(90,
+	IMP(1000,
 			"imp",
 			null,
 			Colour.GENERIC_ARCANE,
@@ -1712,7 +1718,7 @@ public enum StatusEffect {
 	},
 
 	// CANINE:
-	DOG_MORPH(90,
+	DOG_MORPH(1000,
 			"dog-morph",
 			null,
 			Colour.RACE_DOG_MORPH,
@@ -1742,7 +1748,7 @@ public enum StatusEffect {
 		}
 	},
 	
-	WOLF_MORPH(90,
+	WOLF_MORPH(1000,
 			"wolf-morph",
 			null,
 			Colour.RACE_WOLF_MORPH,
@@ -1773,7 +1779,7 @@ public enum StatusEffect {
 	},
 
 	// FELINE:
-	CAT_MORPH(90,
+	CAT_MORPH(1000,
 			"cat-morph",
 			null,
 			Colour.RACE_CAT_MORPH,
@@ -1804,7 +1810,7 @@ public enum StatusEffect {
 	},
 
 	// RODENT:
-	SQUIRREL_MORPH(90,
+	SQUIRREL_MORPH(1000,
 			"Squirrel-morph",
 			null,
 			Colour.RACE_SQUIRREL_MORPH,
@@ -1833,7 +1839,7 @@ public enum StatusEffect {
 		}
 	},
 	
-	RAT_MORPH(90,
+	RAT_MORPH(1000,
 			"Rat-morph",
 			null,
 			Colour.RACE_RAT_MORPH,
@@ -1865,7 +1871,7 @@ public enum StatusEffect {
 		}
 	},
 	
-	RABBIT_MORPH(90,
+	RABBIT_MORPH(1000,
 			"Rabbit-morph",
 			null,
 			Colour.RACE_RABBIT_MORPH,
@@ -1897,7 +1903,7 @@ public enum StatusEffect {
 		}
 	},
 	
-	BAT_MORPH(90, //TODO
+	BAT_MORPH(1000, //TODO
 			"Bat-morph",
 			null,
 			Colour.RACE_BAT_MORPH,
@@ -1929,7 +1935,7 @@ public enum StatusEffect {
 	},
 
 	// EQUINE:
-	HORSE_MORPH(90,
+	HORSE_MORPH(1000,
 			"horse-morph",
 			null,
 			Colour.RACE_HORSE_MORPH,
@@ -1959,7 +1965,7 @@ public enum StatusEffect {
 		}
 	},
 	
-	REINDEER_MORPH(90,
+	REINDEER_MORPH(1000,
 			"reindeer-morph",
 			null,
 			Colour.RACE_REINDEER_MORPH,
@@ -1992,7 +1998,7 @@ public enum StatusEffect {
 	},
 
 	// BOVINE:
-	COW_MORPH(90,
+	COW_MORPH(1000,
 			"cow-morph",
 			null,
 			Colour.RACE_COW_MORPH,
@@ -2023,7 +2029,7 @@ public enum StatusEffect {
 	},
 
 	// REPTILE:
-	ALLIGATOR_MORPH(90,
+	ALLIGATOR_MORPH(1000,
 			"Alligator-morph",
 			null,
 			Colour.RACE_ALLIGATOR_MORPH,
@@ -2055,7 +2061,7 @@ public enum StatusEffect {
 	},
 
 	// SLIME:
-	SLIME(90,
+	SLIME(1000,
 			"slime",
 			null,
 			Colour.CLOTHING_BLUE_LIGHT,
@@ -2085,7 +2091,7 @@ public enum StatusEffect {
 	},
 
 	// AVIAN:
-	HARPY(90,
+	HARPY(1000,
 			"harpy",
 			null,
 			Colour.CLOTHING_PINK_LIGHT,
@@ -2112,7 +2118,7 @@ public enum StatusEffect {
 	},
 
 	// Elementals:
-	ELEMENTAL_EARTH(90,
+	ELEMENTAL_EARTH(1000,
 			"earth elemental",
 			null,
 			Colour.SPELL_SCHOOL_EARTH,
@@ -2138,7 +2144,7 @@ public enum StatusEffect {
 		}
 	},
 	
-	ELEMENTAL_WATER(90,
+	ELEMENTAL_WATER(1000,
 			"water elemental",
 			null,
 			Colour.SPELL_SCHOOL_WATER,
@@ -2164,7 +2170,7 @@ public enum StatusEffect {
 		}
 	},
 	
-	ELEMENTAL_AIR(90,
+	ELEMENTAL_AIR(1000,
 			"air elemental",
 			null,
 			Colour.SPELL_SCHOOL_AIR,
@@ -2190,7 +2196,7 @@ public enum StatusEffect {
 		}
 	},
 	
-	ELEMENTAL_FIRE(90,
+	ELEMENTAL_FIRE(1000,
 			"fire elemental",
 			null,
 			Colour.SPELL_SCHOOL_FIRE,
@@ -2216,7 +2222,7 @@ public enum StatusEffect {
 		}
 	},
 	
-	ELEMENTAL_ARCANE(90,
+	ELEMENTAL_ARCANE(1000,
 			"arcane elemental",
 			null,
 			Colour.SPELL_SCHOOL_ARCANE,
@@ -5369,9 +5375,9 @@ public enum StatusEffect {
 		@Override
 		public String getDescription(GameCharacter target) {
 			if(target!=null && !target.isPlayer()) {
-				return UtilText.parse(target, "[npc.Name]'s breasts and private parts are naked for the world to see, and [npc.she] feels incredibly sexy as [npc.she] walks around with all [npc.her] goods on display.");
+				return UtilText.parse(target, "[npc.Name]'s breasts and private parts are naked for the world to see, and [npc.she] feels incredibly sexy as [npc.she] walks around with all of [npc.her] goods on display.");
 			}
-			return "Your breasts and private parts are naked for the world to see, and you feel incredibly sexy as you walk around with all your goods on display.";
+			return "Your breasts and private parts are naked for the world to see, and you feel incredibly sexy as you walk around with all of your goods on display.";
 		}
 
 		@Override
@@ -6645,7 +6651,7 @@ public enum StatusEffect {
 	LINGERING_FLAMES(
 			10,
 			"Lingering Flames",
-			"negativeCombatEffect",
+			null,
 			Colour.DAMAGE_TYPE_FIRE,
 			false,
 			null,
@@ -6692,7 +6698,7 @@ public enum StatusEffect {
 	
 	FLASH(10,
 			"Blinded",
-			"negativeCombatEffect",
+			null,
 			Colour.DAMAGE_TYPE_FIRE,
 			false,
 			null,
@@ -6738,7 +6744,7 @@ public enum StatusEffect {
 	
 	CLOAK_OF_FLAMES(10,
 			"Cloak of Flames",
-			"negativeCombatEffect",
+			null,
 			Colour.DAMAGE_TYPE_FIRE,
 			true,
 			Util.newHashMapOfValues(
@@ -6769,7 +6775,7 @@ public enum StatusEffect {
 	
 	CLOAK_OF_FLAMES_1(10,
 			"Cloak of Flames (Incendiary)",
-			"negativeCombatEffect",
+			null,
 			Colour.DAMAGE_TYPE_FIRE,
 			true,
 			Util.newHashMapOfValues(
@@ -6800,7 +6806,7 @@ public enum StatusEffect {
 	
 	CLOAK_OF_FLAMES_2(10,
 			"Cloak of Flames (Inferno)",
-			"negativeCombatEffect",
+			null,
 			Colour.DAMAGE_TYPE_FIRE,
 			true,
 			Util.newHashMapOfValues(
@@ -6834,7 +6840,7 @@ public enum StatusEffect {
 	
 	CLOAK_OF_FLAMES_3(10,
 			"Cloak of Flames (Ring of Fire)",
-			"negativeCombatEffect",
+			null,
 			Colour.DAMAGE_TYPE_FIRE,
 			true,
 			Util.newHashMapOfValues(
@@ -6868,46 +6874,1901 @@ public enum StatusEffect {
 		}
 	},
 	
-	CHILL(
-			10,
-			"chill",
-			"negativeCombatEffect",
-			Colour.DAMAGE_TYPE_COLD,
-			false,
+	ELEMENTAL_FIRE_WILDFIRE(10,
+			"Wildfire",
 			null,
-			Util.newArrayListOfValues(new ListValue<String>("<b>2</b> <b style='color: "
-					+ Colour.DAMAGE_TYPE_MANA.toWebHexString()
-					+ ";'>Aura damage</b>"))) {
+			Colour.DAMAGE_TYPE_FIRE,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.DAMAGE_FIRE, 20f)),
+			null) {
 		
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			target.incrementMana(-2f);
-
-			if (target.isPlayer()) {
-				return "You take <b>2</b> <b style='color:" + Attribute.DAMAGE_LUST.getColour().toWebHexString() + ";'>" + DamageType.LUST.getName() + "</b> damage!";
-				
-			} else {
-				return "[npc.Name] takes <b>2</b> <b style='color:" + Attribute.DAMAGE_LUST.getColour().toWebHexString() + ";'>" + DamageType.LUST.getName() + "</b> damage!";
-			}
-		}
-
 		@Override
 		public String getDescription(GameCharacter target) {
 			if (target.isPlayer()) {
-				return "A fine mist of icy shards is lingering around you. The arcane cold seeps into your body, slowing your movements and dulling your mind.";
+				return "The Fire elemental in your party is imbuing you with the knowledge of how to get the most out of fire attacks!";
 			} else {
 				return UtilText.parse(target,
-						"A fine mist of icy shards is lingering around [npc.name]. The arcane cold is seeping into [npc.her] body, slowing [npc.her] movements and dulling [npc.her] mind.");
+						"The Fire elemental in [npc.name]'s party is imbuing [npc.herHim] with the knowledge of how to get the most out of fire attacks!");
 			}
 		}
-
 		
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.ELEMENTAL_FIRE_1.getSVGString();
+		}
+		
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			
+			GameCharacter partyLeader = null;
+			if(!target.getCompanions().isEmpty()) {
+				partyLeader = target;
+			}
+			if(target.getPartyLeader()!=null) {
+				partyLeader = target.getPartyLeader();
+			}
+			
+			if(partyLeader==null) {
+				return false;
+			}
+			
+			List<GameCharacter> allPartyMembers = new ArrayList<>(partyLeader.getCompanions());
+			allPartyMembers.add(partyLeader);
+			
+			for(GameCharacter companion : allPartyMembers) {
+				if(companion.getElemental()!=null && allPartyMembers.contains(companion.getElemental()) && companion.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_FIRE_1) && !companion.getElemental().equals(target)) {
+					return true;
+				}
+			}
+			
+			return false;
+		}
+	},
+	
+	ELEMENTAL_FIRE_BURNING_DESIRE(10,
+			"Burning Desire",
+			null,
+			Colour.DAMAGE_TYPE_FIRE,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -25f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "The Fire elemental in the enemy party is filling you with a burning desire for sex!";
+			} else {
+				return UtilText.parse(target,
+						"The Fire elemental in the enemy party is filling [npc.name] with a burning desire for sex!");
+			}
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.ELEMENTAL_FIRE_2.getSVGString();
+		}
+		
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			if(Main.game.isInCombat()) {
+				List<GameCharacter> enemies = new ArrayList<>(Combat.getEnemies().contains(target)?Combat.getAllies():Combat.getEnemies());
+				
+				for(GameCharacter combatant : enemies) {
+					if(combatant instanceof Elemental && ((Elemental)combatant).getSummoner().hasSpellUpgrade(SpellUpgrade.ELEMENTAL_FIRE_2)) {
+						return true;
+					}
+				}
+			}
+			return false;
+		}
 		
 		@Override
 		public boolean isCombatEffect() {
 			return true;
 		}
 	},
+	
+	ELEMENTAL_FIRE_SERVANT_OF_FIRE(10,
+			"Servant of Fire",
+			null,
+			Colour.DAMAGE_TYPE_FIRE,
+			false,
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<String>("-50% [style.colourHealth(maximum energy)]"))) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return UtilText.parse(target.getElemental(), "Having sworn your subservience to the school of Fire, your Fire elemental, [npc.name], is siphoning off as much of your energy as [npc.she] wants!");
+			} else {
+				return UtilText.parse(target, target.getElemental(),
+						"Having sworn [npc1.her] subservience to the school of Fire, [npc1.name]'s Fire elemental, [npc2.name], is now siphoning off as much of [npc1.name]'s energy as [npc2.she] wants!");
+			}
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.ELEMENTAL_FIRE_3A.getSVGString();
+		}
+		
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getElemental()!=null && target.hasCompanion(target.getElemental()) && target.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_FIRE_3A);
+		}
+	},
+	
+	ELEMENTAL_FIRE_SERVANT_OF_FIRE_ELEMENTAL_BUFF(10,
+			"Energy Siphon",
+			null,
+			Colour.DAMAGE_TYPE_FIRE,
+			true,
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<String>("+100% [style.colourExcellent(Non-Seduction Damage)]"))) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(((Elemental)target).getSummoner().isPlayer()) {
+				return UtilText.parse(target, "[npc.Name] is siphoning off as much of your energy as [npc.she] wants, enabling [npc.herHim] to deal a huge amount of damage!");
+			} else {
+				return UtilText.parse(target, ((Elemental)target).getSummoner(), "[npc.Name] is siphoning off as much of [npc2.name]'s energy as [npc.she] wants, enabling [npc.herHim] to deal a huge amount of damage!");
+			}
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.ELEMENTAL_FIRE_3A.getSVGString();
+		}
+		
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target instanceof Elemental
+					&& ((Elemental)target).getSummoner()!=null
+					&& ((Elemental)target).getSummoner().hasSpellUpgrade(SpellUpgrade.ELEMENTAL_FIRE_3A)
+					&& (target.getBodyMaterial() == BodyMaterial.FIRE);
+		}
+	},
+	
+	ELEMENTAL_FIRE_BINDING_OF_FIRE(10,
+			"Binding of Fire",
+			null,
+			Colour.DAMAGE_TYPE_FIRE,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.DAMAGE_FIRE, 25f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, 25f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return UtilText.parse(target.getElemental(), "Having bound the school of Fire to your will, your Fire elemental, [npc.name], is forced to reveal all of [npc.her] secrets to you.");
+			} else {
+				return UtilText.parse(target, target.getElemental(),
+						"Having bound the school of Fire to [npc1.her] will, [npc1.name]'s Fire elemental, [npc2.name], is forced to reveal all of [npc2.her] secrets to [npc2.her] [npc1.mistress].");
+			}
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.ELEMENTAL_FIRE_3B.getSVGString();
+		}
+		
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getElemental()!=null && target.hasCompanion(target.getElemental()) && target.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_FIRE_3B);
+		}
+	},
+	
+	FREEZING_FOG(
+			10,
+			"Freezing Fog",
+			null,
+			Colour.DAMAGE_TYPE_COLD,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, -20f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "A freezing fog, left behind by the impact of the spell 'Ice Shard', is lingering around you. The arcane cold seeps into your body, slowing your movements and dulling your mind.";
+			} else {
+				return UtilText.parse(target,
+						"A freezing fog, left behind by the impact of the spell 'Ice Shard', is lingering around [npc.name]. The arcane cold is seeping into [npc.her] body, slowing [npc.her] movements and dulling [npc.her] mind.");
+			}
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.ICE_SHARD_1.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+	
+	FROZEN(10,
+			"Frozen",
+			null,
+			Colour.DAMAGE_TYPE_COLD,
+			false,
+			null,
+			Util.newArrayListOfValues(new ListValue<String>("[style.boldTerrible(Stunned!)]"))) {
+		
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			if (target.isPlayer()) {
+				return "You are [style.boldTerrible(stunned)] from freezing fog's detonation!";
+				
+			} else {
+				return "[npc.Name] is [style.boldTerrible(stunned)] from freezing fog's detonation!";
+			}
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "The freezing fog lingering around you has exploded, covering you in a thin sheet of ice and leaving you temporarily stunned!";
+				
+			} else {
+				return UtilText.parse(target, "The freezing fog lingering around [npc.name] has exploded, covering [npc.herHim] in a thin sheet of ice and leaving [npc.herHim] temporarily stunned!");
+			}
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.ICE_SHARD_3.getSVGString();
+		}
+
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+		
+		@Override
+		public boolean isStun() {
+			return true;
+		}
+	},
+	
+	RAIN_CLOUD(
+			10,
+			"Rain Cloud",
+			null,
+			Colour.DAMAGE_TYPE_COLD,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, -25f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "A small, arcane-infused rain cloud is hovering above your head. The cold rain is sapping your ability to effectively cast spells.";
+			} else {
+				return UtilText.parse(target,
+						"A small, arcane-infused rain cloud is hovering above [npc.name]'s head. The cold rain is sapping [npc.her] ability to effectively cast spells.");
+			}
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return Spell.RAIN_CLOUD.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+
+	RAIN_CLOUD_DEEP_CHILL(
+			10,
+			"Rain Cloud (Deep Chill)",
+			null,
+			Colour.DAMAGE_TYPE_COLD,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, -25f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, -25f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "A small, arcane-infused rain cloud is hovering above your head. The freezing rain is both sapping your ability to effectively cast spells, and reducing your resistance to the cold.";
+			} else {
+				return UtilText.parse(target,
+						"A small, arcane-infused rain cloud is hovering above [npc.name]'s head. The freezing rain is both sapping [npc.her] ability to effectively cast spells, and reducing [npc.her] resistance to the cold.");
+			}
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.RAIN_CLOUD_1.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+
+	RAIN_CLOUD_DOWNPOUR(
+			10,
+			"Rain Cloud (Downpour)",
+			null,
+			Colour.DAMAGE_TYPE_COLD,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, -25f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, -25f),
+					new Value<Attribute, Float>(Attribute.MISS_CHANCE, 15f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "An arcane-infused rain cloud is hovering above your head."
+							+ " The freezing, heavy rain is sapping your ability to effectively cast spells, as well as reducing your resistance to the cold, and increasing your miss chance.";
+			} else {
+				return UtilText.parse(target,
+						"An arcane-infused rain cloud is hovering above [npc.name]'s head."
+								+ " The freezing, heavy rain is sapping [npc.her] ability to effectively cast spells, as well as reducing [npc.her] resistance to the cold, and increasing [npc.her] miss chance.");
+			}
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.RAIN_CLOUD_2.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+
+	RAIN_CLOUD_DOWNPOUR_FOR_CLOUDBURST(
+			10,
+			"Rain Cloud (Downpour)",
+			null,
+			Colour.DAMAGE_TYPE_COLD,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, -25f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, -25f),
+					new Value<Attribute, Float>(Attribute.MISS_CHANCE, 15f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "An arcane-infused rain cloud is hovering above your head."
+							+ " The freezing, heavy rain is sapping your ability to effectively cast spells, as well as reducing your resistance to the cold, and increasing your miss chance.";
+			} else {
+				return UtilText.parse(target,
+						"An arcane-infused rain cloud is hovering above [npc.name]'s head."
+								+ " The freezing, heavy rain is sapping [npc.her] ability to effectively cast spells, as well as reducing [npc.her] resistance to the cold, and increasing [npc.her] miss chance.");
+			}
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.RAIN_CLOUD_2.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+	
+	RAIN_CLOUD_CLOUDBURST(
+			10,
+			"Rain Cloud (Cloudburst)",
+			null,
+			Colour.DAMAGE_TYPE_COLD,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, -50f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, -25f),
+					new Value<Attribute, Float>(Attribute.MISS_CHANCE, 15f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "A huge, arcane-infused rain cloud is hovering above your head."
+							+ " The freezing, torrential rain is draining your ability to effectively cast spells, as well as reducing your resistance to the cold, and increasing your miss chance.";
+			} else {
+				return UtilText.parse(target,
+						"A huge, arcane-infused rain cloud is hovering above [npc.name]'s head."
+								+ " The freezing, torrential rain is draining [npc.her] ability to effectively cast spells, as well as reducing [npc.her] resistance to the cold, and increasing [npc.her] miss chance.");
+			}
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.RAIN_CLOUD_3.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+	
+	ELEMENTAL_WATER_CRASHING_WAVES(10,
+			"Crashing Waves",
+			null,
+			Colour.DAMAGE_TYPE_COLD,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.DAMAGE_ICE, 20f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "The Water elemental in your party is imbuing you with the knowledge of how to get the most out of ice attacks!";
+			} else {
+				return UtilText.parse(target,
+						"The Water elemental in [npc.name]'s party is imbuing [npc.herHim] with the knowledge of how to get the most out of ice attacks!");
+			}
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.ELEMENTAL_WATER_1.getSVGString();
+		}
+		
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			
+			GameCharacter partyLeader = null;
+			if(!target.getCompanions().isEmpty()) {
+				partyLeader = target;
+			}
+			if(target.getPartyLeader()!=null) {
+				partyLeader = target.getPartyLeader();
+			}
+			
+			if(partyLeader==null) {
+				return false;
+			}
+			
+			List<GameCharacter> allPartyMembers = new ArrayList<>(partyLeader.getCompanions());
+			allPartyMembers.add(partyLeader);
+			
+			for(GameCharacter companion : allPartyMembers) {
+				if(companion.getElemental()!=null && allPartyMembers.contains(companion.getElemental()) && companion.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_WATER_1) && !companion.getElemental().equals(target)) {
+					return true;
+				}
+			}
+			
+			return false;
+		}
+	},
+	
+	ELEMENTAL_WATER_CALM_WATERS(10,
+			"Calm Waters",
+			null,
+			Colour.DAMAGE_TYPE_COLD,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 15f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "The Water elemental in your party is helping to calm your desire for sex.";
+			} else {
+				return UtilText.parse(target,
+						"The Water elemental in [npc.name]'s party is helping to calm [npc.her] desire for sex.");
+			}
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.ELEMENTAL_WATER_2.getSVGString();
+		}
+		
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			GameCharacter partyLeader = null;
+			if(!target.getCompanions().isEmpty()) {
+				partyLeader = target;
+			}
+			if(target.getPartyLeader()!=null) {
+				partyLeader = target.getPartyLeader();
+			}
+			
+			if(partyLeader==null) {
+				return false;
+			}
+			
+			List<GameCharacter> allPartyMembers = new ArrayList<>(partyLeader.getCompanions());
+			allPartyMembers.add(partyLeader);
+			
+			for(GameCharacter companion : allPartyMembers) {
+				if(companion.getElemental()!=null && allPartyMembers.contains(companion.getElemental()) && companion.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_WATER_2) && !companion.getElemental().equals(target)) {
+					return true;
+				}
+			}
+			
+			return false;
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+	
+	ELEMENTAL_WATER_SERVANT_OF_WATER(10,
+			"Servant of Water",
+			null,
+			Colour.DAMAGE_TYPE_COLD,
+			false,
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<String>("-50% [style.colourHealth(maximum energy)]"))) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return UtilText.parse(target.getElemental(), "Having sworn your subservience to the school of Water, your Water elemental, [npc.name], is siphoning off as much of your energy as [npc.she] wants!");
+			} else {
+				return UtilText.parse(target, target.getElemental(),
+						"Having sworn [npc1.her] subservience to the school of Water, [npc1.name]'s Water elemental, [npc2.name], is now siphoning off as much of [npc1.name]'s energy as [npc2.she] wants!");
+			}
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.ELEMENTAL_WATER_3A.getSVGString();
+		}
+		
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getElemental()!=null && target.hasCompanion(target.getElemental()) && target.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_WATER_3A);
+		}
+	},
+	
+	ELEMENTAL_WATER_SERVANT_OF_WATER_ELEMENTAL_BUFF(10,
+			"Energy Siphon",
+			null,
+			Colour.DAMAGE_TYPE_COLD,
+			true,
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<String>("+100% [style.colourExcellent(Non-Seduction Damage)]"))) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(((Elemental)target).getSummoner().isPlayer()) {
+				return UtilText.parse(target, "[npc.Name] is siphoning off as much of your energy as [npc.she] wants, enabling [npc.herHim] to deal a huge amount of damage!");
+			} else {
+				return UtilText.parse(target, ((Elemental)target).getSummoner(), "[npc.Name] is siphoning off as much of [npc2.name]'s energy as [npc.she] wants, enabling [npc.herHim] to deal a huge amount of damage!");
+			}
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.ELEMENTAL_WATER_3A.getSVGString();
+		}
+		
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target instanceof Elemental
+					&& ((Elemental)target).getSummoner()!=null
+					&& ((Elemental)target).getSummoner().hasSpellUpgrade(SpellUpgrade.ELEMENTAL_WATER_3A)
+					&& (target.getBodyMaterial() == BodyMaterial.WATER || target.getBodyMaterial() == BodyMaterial.ICE);
+		}
+	},
+	
+	ELEMENTAL_WATER_BINDING_OF_WATER(10,
+			"Binding of Water",
+			null,
+			Colour.DAMAGE_TYPE_COLD,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.DAMAGE_ICE, 25f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, 25f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return UtilText.parse(target.getElemental(), "Having bound the school of Water to your will, your Water elemental, [npc.name], is forced to reveal all of [npc.her] secrets to you.");
+			} else {
+				return UtilText.parse(target, target.getElemental(),
+						"Having bound the school of Water to [npc1.her] will, [npc1.name]'s Water elemental, [npc2.name], is forced to reveal all of [npc2.her] secrets to [npc2.her] [npc1.mistress].");
+			}
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.ELEMENTAL_WATER_3B.getSVGString();
+		}
+		
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getElemental()!=null && target.hasCompanion(target.getElemental()) && target.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_WATER_3B);
+		}
+	},
+	
+	
+
+	POISON_VAPOURS(
+			10,
+			"Poison Vapours",
+			null,
+			Colour.DAMAGE_TYPE_POISON,
+			false,
+			null,
+			Util.newArrayListOfValues(new ListValue<String>("<b>10</b> "+Attribute.DAMAGE_POISON.getColouredName("b")+" per turn</b>"))) {
+		
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			int damage = (int) Math.round(10 * (1-(Util.getModifiedDropoffValue(target.getAttributeValue(Attribute.RESISTANCE_POISON), 100)/100f)));
+			if (damage < 1) {
+				damage = 1;
+			}
+			target.incrementHealth(-damage);
+
+			if (target.isPlayer()) {
+				return "You take <b>" + damage + "</b> "+Attribute.DAMAGE_POISON.getColouredName("b")+"!";
+				
+			} else {
+				return "[npc.Name] takes <b>" + damage + "</b> "+Attribute.DAMAGE_POISON.getColouredName("b")+"!";
+			}
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "The cloud of poison vapours continues to linger around your body, causing you to cough and splutter each time you breathe in.";
+			} else {
+				return UtilText.parse(target,
+						"The cloud of poison vapours continues to linger around [npc.name]'s body, causing [npc.herHim] to cough and splutter each time [npc.she] breathes in.");
+			}
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return Spell.POISON_VAPOURS.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+
+	POISON_VAPOURS_CHOKING_HAZE(
+			10,
+			"Poison Vapours (Choking Haze)",
+			null,
+			Colour.DAMAGE_TYPE_POISON,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MISS_CHANCE, 10f)),
+			Util.newArrayListOfValues(new ListValue<String>("<b>10</b> "+Attribute.DAMAGE_POISON.getColouredName("b")+" per turn</b>"))) {
+				
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			int damage = (int) Math.round(10 * (1-(Util.getModifiedDropoffValue(target.getAttributeValue(Attribute.RESISTANCE_POISON), 100)/100f)));
+			if (damage < 1) {
+				damage = 1;
+			}
+			target.incrementHealth(-damage);
+
+			if (target.isPlayer()) {
+				return "You take <b>" + damage + "</b> "+Attribute.DAMAGE_POISON.getColouredName("b")+"!";
+				
+			} else {
+				return "[npc.Name] takes <b>" + damage + "</b> "+Attribute.DAMAGE_POISON.getColouredName("b")+"!";
+			}
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "The cloud of poison vapours continues to linger around your body, causing you to cough and splutter each time you breathe in.";
+			} else {
+				return UtilText.parse(target,
+						"The cloud of poison vapours continues to linger around [npc.name]'s body, causing [npc.herHim] to cough and splutter each time [npc.she] breathes in.");
+			}
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.POISON_VAPOURS_1.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+
+	POISON_VAPOURS_ARCANE_SICKNESS(
+			10,
+			"Poison Vapours (Arcane Sickness)",
+			null,
+			Colour.DAMAGE_TYPE_POISON,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MISS_CHANCE, 10f)),
+			Util.newArrayListOfValues(
+					new ListValue<String>("<b>10</b> "+Attribute.DAMAGE_POISON.getColouredName("b")+" per turn</b>"),
+					new ListValue<String>("<b>10</b> "+Attribute.MANA_MAXIMUM.getColouredName("b")+" [style.boldTerrible(drained)] per turn</b>"))) {
+				
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			int damage = (int) Math.round(10 * (1-(Util.getModifiedDropoffValue(target.getAttributeValue(Attribute.RESISTANCE_POISON), 100)/100f)));
+			if (damage < 1) {
+				damage = 1;
+			}
+			target.incrementHealth(-damage);
+			
+			int lustDamage = 10;
+			target.incrementMana(-lustDamage);
+
+			if (target.isPlayer()) {
+				return "You take <b>" + damage + "</b> "+Attribute.DAMAGE_POISON.getColouredName("b")+" and lose <b>" + lustDamage + "</b> "+Attribute.MANA_MAXIMUM.getColouredName("b")+"!";
+				
+			} else {
+				return "[npc.Name] takes <b>" + damage + "</b> "+Attribute.DAMAGE_POISON.getColouredName("b")+" and loses <b>" + lustDamage + "</b> "+Attribute.MANA_MAXIMUM.getColouredName("b")+"!";
+			}
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "The cloud of poison vapours continues to linger around your body, causing you to cough and splutter each time you breathe in.";
+			} else {
+				return UtilText.parse(target,
+						"The cloud of poison vapours continues to linger around [npc.name]'s body, causing [npc.herHim] to cough and splutter each time [npc.she] breathes in.");
+			}
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.POISON_VAPOURS_2.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+
+	POISON_VAPOURS_WEAKENING_CLOUD(
+			10,
+			"Poison Vapours (Weakening Cloud)",
+			null,
+			Colour.DAMAGE_TYPE_POISON,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MISS_CHANCE, 10f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, -15f),
+					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, -25f)),
+			Util.newArrayListOfValues(
+					new ListValue<String>("<b>10</b> "+Attribute.DAMAGE_POISON.getColouredName("b")+" per turn</b>"),
+					new ListValue<String>("<b>10</b> "+Attribute.MANA_MAXIMUM.getColouredName("b")+" [style.boldTerrible(drained)] per turn</b>"))) {
+				
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			int damage = (int) Math.round(10 * (1-(Util.getModifiedDropoffValue(target.getAttributeValue(Attribute.RESISTANCE_POISON), 100)/100f)));
+			if (damage < 1) {
+				damage = 1;
+			}
+			target.incrementHealth(-damage);
+			
+			int lustDamage = 10;
+			target.incrementMana(-lustDamage);
+			
+			if (target.isPlayer()) {
+				return "You take <b>" + damage + "</b> "+Attribute.DAMAGE_POISON.getColouredName("b")+" and lose <b>" + lustDamage + "</b> "+Attribute.MANA_MAXIMUM.getColouredName("b")+"!";
+				
+			} else {
+				return "[npc.Name] takes <b>" + damage + "</b> "+Attribute.DAMAGE_POISON.getColouredName("b")+" and loses <b>" + lustDamage + "</b> "+Attribute.MANA_MAXIMUM.getColouredName("b")+"!";
+			}
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "The cloud of poison vapours continues to linger around your body, causing you to cough and splutter each time you breathe in.";
+			} else {
+				return UtilText.parse(target,
+						"The cloud of poison vapours continues to linger around [npc.name]'s body, causing [npc.herHim] to cough and splutter each time [npc.she] breathes in.");
+			}
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.POISON_VAPOURS_3.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+	
+	VACUUM(
+			10,
+			"Vacuum",
+			null,
+			Colour.DAMAGE_TYPE_PHYSICAL,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MISS_CHANCE, 10f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "A sustained void in the air, which shifts to remain close to your body, is causing your balance to be thrown off!";
+			} else {
+				return UtilText.parse(target,
+						"A sustained void in the air, which shifts to remain close to [npc.name]'s body, is causing [npc.her] balance to be thrown off!");
+			}
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return Spell.VACUUM.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+
+	VACUUM_SECONDARY_VOIDS(
+			10,
+			"Vacuum (Secondary Voids)",
+			null,
+			Colour.DAMAGE_TYPE_PHYSICAL,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MISS_CHANCE, 20f),
+					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, -15f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "A sustained void in the air, which shifts to remain close to your body, is causing your balance to be thrown off!"
+						+ " Smaller, secondary voids are also continuously being created and destroyed around you!";
+			} else {
+				return UtilText.parse(target,
+						"A sustained void in the air, which shifts to remain close to [npc.name]'s body, is causing [npc.her] balance to be thrown off!"
+						+ " Smaller, secondary voids are also continuously being created and destroyed around [npc.herHim]!");
+			}
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.VACUUM_1.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+
+	VACUUM_SUCTION(
+			10,
+			"Vacuum (Suction)",
+			null,
+			Colour.DAMAGE_TYPE_PHYSICAL,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MISS_CHANCE, 20f),
+					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, -15f)),
+			Util.newArrayListOfValues(
+					new ListValue<>("<b>10%</b> chance per turn of [style.boldExcellent(stripping)] clothing"))) {
+		
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			if(Math.random()<(target.isPlayer()?0.1f:0.166f)) { // I purposefully boost the chance in secret to make the player feel better about the RNG
+				List<AbstractClothing> suitableClothing = new ArrayList<>();
+				for(AbstractClothing c : target.getClothingCurrentlyEquipped()) {
+					if(target.isAbleToUnequip(c, false, target)) {
+						suitableClothing.add(c);
+					}
+				}
+				if(!suitableClothing.isEmpty()) {
+					AbstractClothing clothingBlownOff = suitableClothing.get(Util.random.nextInt(suitableClothing.size()));
+					target.unequipClothingOntoFloor(clothingBlownOff, true, target);
+					if(target.isPlayer()) {
+						return "Your "+clothingBlownOff.getName()+" "+(clothingBlownOff.getClothingType().isPlural()?"are":"is")+" sucked off and blown to the floor!";
+					} else {
+						return "[npc.Name]'s "+clothingBlownOff.getName()+" "+(clothingBlownOff.getClothingType().isPlural()?"are":"is")+" sucked off and blown to the floor!";
+					}
+				}
+			}
+			return "";
+		}
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "A sustained, powerful void is shifting to remain close to your body, and is causing your balance to be thrown off!"
+						+ " Smaller, secondary voids are also continuously being created and destroyed around you!";
+			} else {
+				return UtilText.parse(target,
+						"A sustained, powerful void is shifting to remain close to [npc.name]'s body, and is causing [npc.her] balance to be thrown off!"
+						+ " Smaller, secondary voids are also continuously being created and destroyed around [npc.herHim]!");
+			}
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.VACUUM_2.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+
+	VACUUM_TOTAL_VOID(
+			10,
+			"Vacuum (Total Void)",
+			null,
+			Colour.DAMAGE_TYPE_PHYSICAL,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MISS_CHANCE, 20f),
+					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, -15f)),
+			Util.newArrayListOfValues(
+					new ListValue<>("<b>25%</b> chance per turn of [style.boldExcellent(stripping)] clothing"))) {
+		
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			if(Math.random()<(target.isPlayer()?0.25f:0.33f)) { // I purposefully boost the chance in secret to make the player feel better about the RNG
+				List<AbstractClothing> suitableClothing = new ArrayList<>();
+				for(AbstractClothing c : target.getClothingCurrentlyEquipped()) {
+					if(target.isAbleToUnequip(c, false, target)) {
+						suitableClothing.add(c);
+					}
+				}
+				if(!suitableClothing.isEmpty()) {
+					AbstractClothing clothingBlownOff = suitableClothing.get(Util.random.nextInt(suitableClothing.size()));
+					target.unequipClothingOntoFloor(clothingBlownOff, true, target);
+					if(target.isPlayer()) {
+						return "Your "+clothingBlownOff.getName()+" "+(clothingBlownOff.getClothingType().isPlural()?"are":"is")+" sucked off and blown to the floor!";
+					} else {
+						return "[npc.Name]'s "+clothingBlownOff.getName()+" "+(clothingBlownOff.getClothingType().isPlural()?"are":"is")+" sucked off and blown to the floor!";
+					}
+				}
+			}
+			return "";
+		}
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "A sustained, incredibly-powerful void is shifting to remain close to your body, and is causing your balance to be thrown off!"
+						+ " Smaller, secondary voids are also continuously being created and destroyed around you!";
+			} else {
+				return UtilText.parse(target,
+						"A sustained, incredibly-powerful void is shifting to remain close to [npc.name]'s body, and is causing [npc.her] balance to be thrown off!"
+						+ " Smaller, secondary voids are also continuously being created and destroyed around [npc.herHim]!");
+			}
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.VACUUM_3.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+	
+	PROTECTIVE_GUSTS(
+			10,
+			"Protective Gusts",
+			null,
+			Colour.DAMAGE_TYPE_PHYSICAL,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.RESISTANCE_POISON, 25f),
+					new Value<Attribute, Float>(Attribute.DODGE_CHANCE, 10f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "A sustained void in the air, which shifts to remain close to your body, is causing your balance to be thrown off!";
+			} else {
+				return UtilText.parse(target,
+						"A sustained void in the air, which shifts to remain close to [npc.name]'s body, is causing [npc.her] balance to be thrown off!");
+			}
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return Spell.PROTECTIVE_GUSTS.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+
+	PROTECTIVE_GUSTS_GUIDING_WIND(
+			10,
+			"Protective Gusts (Guiding Wind)",
+			null,
+			Colour.DAMAGE_TYPE_PHYSICAL,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.RESISTANCE_POISON, 25f),
+					new Value<Attribute, Float>(Attribute.DODGE_CHANCE, 15f),
+					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, 10f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "A sustained void in the air, which shifts to remain close to your body, is causing your balance to be thrown off!"
+						+ " Smaller, secondary voids are also continuously being created and destroyed around you!";
+			} else {
+				return UtilText.parse(target,
+						"A sustained void in the air, which shifts to remain close to [npc.name]'s body, is causing [npc.her] balance to be thrown off!"
+						+ " Smaller, secondary voids are also continuously being created and destroyed around [npc.herHim]!");
+			}
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.PROTECTIVE_GUSTS_1.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+
+	PROTECTIVE_GUSTS_FOCUSED_BLAST(
+			10,
+			"Protective Gusts (Focused Blast)",
+			null,
+			Colour.DAMAGE_TYPE_PHYSICAL,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.RESISTANCE_POISON, 25f),
+					new Value<Attribute, Float>(Attribute.DODGE_CHANCE, 15f),
+					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, 10f),
+					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 25f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "A sustained, powerful void is shifting to remain close to your body, and is causing your balance to be thrown off!"
+						+ " Smaller, secondary voids are also continuously being created and destroyed around you!";
+			} else {
+				return UtilText.parse(target,
+						"A sustained, powerful void is shifting to remain close to [npc.name]'s body, and is causing [npc.her] balance to be thrown off!"
+						+ " Smaller, secondary voids are also continuously being created and destroyed around [npc.herHim]!");
+			}
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.PROTECTIVE_GUSTS_2.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+	
+
+	
+	ELEMENTAL_AIR_WHIRLWIND(10,
+			"Whirlwind",
+			null,
+			Colour.DAMAGE_TYPE_PHYSICAL,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MISS_CHANCE, 5f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "The Air elemental in the enemy party is surrounding you with buffeting winds!";
+			} else {
+				return UtilText.parse(target,
+						"The Air elemental in the enemy party is surrounding [npc.name] with buffeting winds!");
+			}
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.ELEMENTAL_AIR_1.getSVGString();
+		}
+		
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			if(Main.game.isInCombat()) {
+				List<GameCharacter> enemies = new ArrayList<>(Combat.getEnemies().contains(target)?Combat.getAllies():Combat.getEnemies());
+				
+				for(GameCharacter combatant : enemies) {
+					if(combatant instanceof Elemental && ((Elemental)combatant).getSummoner().hasSpellUpgrade(SpellUpgrade.ELEMENTAL_AIR_1)) {
+						return true;
+					}
+				}
+			}
+			return false;
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+	
+	ELEMENTAL_AIR_VITALISING_SCENTS(10,
+			"Vitalising Scents",
+			null,
+			Colour.DAMAGE_TYPE_PHYSICAL,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.DODGE_CHANCE, 5f),
+					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, 10f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "The Air elemental in your party is surrounding you with vitalising scents, giving you the energy to dodge attacks, while landing powerful strikes of your own!";
+			} else {
+				return UtilText.parse(target,
+						"The Air elemental in [npc.name]'s party is surrounding [npc.herHim] with vitalising scents, giving [npc.herHim] the energy to dodge attacks, while landing powerful strikes of [npc.her] own!");
+			}
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.ELEMENTAL_AIR_2.getSVGString();
+		}
+		
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			
+			GameCharacter partyLeader = null;
+			if(!target.getCompanions().isEmpty()) {
+				partyLeader = target;
+			}
+			if(target.getPartyLeader()!=null) {
+				partyLeader = target.getPartyLeader();
+			}
+			
+			if(partyLeader==null) {
+				return false;
+			}
+			
+			List<GameCharacter> allPartyMembers = new ArrayList<>(partyLeader.getCompanions());
+			allPartyMembers.add(partyLeader);
+			
+			for(GameCharacter companion : allPartyMembers) {
+				if(companion.getElemental()!=null && allPartyMembers.contains(companion.getElemental()) && companion.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_AIR_2) && !companion.getElemental().equals(target)) {
+					return true;
+				}
+			}
+			
+			return false;
+		}
+	},
+	
+	ELEMENTAL_AIR_SERVANT_OF_AIR(10,
+			"Servant of Air",
+			null,
+			Colour.DAMAGE_TYPE_PHYSICAL,
+			false,
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<String>("-50% [style.colourHealth(maximum energy)]"))) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return UtilText.parse(target.getElemental(), "Having sworn your subservience to the school of Air, your Air elemental, [npc.name], is siphoning off as much of your energy as [npc.she] wants!");
+			} else {
+				return UtilText.parse(target, target.getElemental(),
+						"Having sworn [npc1.her] subservience to the school of Air, [npc1.name]'s Air elemental, [npc2.name], is now siphoning off as much of [npc1.name]'s energy as [npc2.she] wants!");
+			}
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.ELEMENTAL_AIR_3A.getSVGString();
+		}
+		
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getElemental()!=null && target.hasCompanion(target.getElemental()) && target.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_AIR_3A);
+		}
+	},
+	
+	ELEMENTAL_AIR_SERVANT_OF_AIR_ELEMENTAL_BUFF(10,
+			"Energy Siphon",
+			null,
+			Colour.DAMAGE_TYPE_PHYSICAL,
+			true,
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<String>("+100% [style.colourExcellent(Non-Seduction Damage)]"))) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(((Elemental)target).getSummoner().isPlayer()) {
+				return UtilText.parse(target, "[npc.Name] is siphoning off as much of your energy as [npc.she] wants, enabling [npc.herHim] to deal a huge amount of damage!");
+			} else {
+				return UtilText.parse(target, ((Elemental)target).getSummoner(), "[npc.Name] is siphoning off as much of [npc2.name]'s energy as [npc.she] wants, enabling [npc.herHim] to deal a huge amount of damage!");
+			}
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.ELEMENTAL_AIR_3A.getSVGString();
+		}
+		
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target instanceof Elemental
+					&& ((Elemental)target).getSummoner()!=null
+					&& ((Elemental)target).getSummoner().hasSpellUpgrade(SpellUpgrade.ELEMENTAL_AIR_3A)
+					&& (target.getBodyMaterial() == BodyMaterial.AIR);
+		}
+	},
+	
+	ELEMENTAL_AIR_BINDING_OF_AIR(10,
+			"Binding of Air",
+			null,
+			Colour.DAMAGE_TYPE_PHYSICAL,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.DAMAGE_POISON, 25f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_POISON, 25f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return UtilText.parse(target.getElemental(), "Having bound the school of Air to your will, your Air elemental, [npc.name], is forced to reveal all of [npc.her] secrets to you.");
+			} else {
+				return UtilText.parse(target, target.getElemental(),
+						"Having bound the school of Air to [npc1.her] will, [npc1.name]'s Air elemental, [npc2.name], is forced to reveal all of [npc2.her] secrets to [npc2.her] [npc1.mistress].");
+			}
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.ELEMENTAL_AIR_3B.getSVGString();
+		}
+		
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getElemental()!=null && target.hasCompanion(target.getElemental()) && target.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_AIR_3B);
+		}
+	},
+	
+	SLAM_GROUND_SHAKE(
+			10,
+			"Ground Shake",
+			null,
+			Colour.DAMAGE_TYPE_PHYSICAL,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MISS_CHANCE, 10f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "The ground beneath your [npc.feet] is shaking and swaying, causing you to miss the occasional attack.";
+			} else {
+				return UtilText.parse(target,
+						"The ground beneath [npc.name]'s [npc.feet] is shaking and swaying, causing [npc.herHim] to miss the occasional attack.");
+			}
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.SLAM_1.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+
+	SLAM_AFTER_SHOCK(
+			10,
+			"Ground Shake (After Shock)",
+			null,
+			Colour.DAMAGE_TYPE_PHYSICAL,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MISS_CHANCE, 10f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "The ground beneath your [npc.feet] is shaking and swaying, causing you to miss the occasional attack. You can sense that there's an Aftershock coming, but there's little you can do to avoid it...";
+			} else {
+				return UtilText.parse(target,
+						"The ground beneath [npc.name]'s [npc.feet] is shaking and swaying, causing [npc.herHim] to miss the occasional attack. [npc.She] can sense that there's an Aftershock coming, but there's little [npc.she] can do to avoid it...");
+			}
+		}
+		
+		@Override
+		protected String extraRemovalEffects(GameCharacter target){
+			int damage = (int) Math.round(5 * (1-(Util.getModifiedDropoffValue(target.getAttributeValue(Attribute.RESISTANCE_PHYSICAL), 100)/100f)));
+			if (damage < 1) {
+				damage = 1;
+			}
+			target.incrementHealth(-damage);
+
+			if (target.isPlayer()) {
+				return "You take <b>" + damage + "</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+" as the Aftershock hits!";
+				
+			} else {
+				return "[npc.Name] takes <b>" + damage + "</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+" as the Aftershock hits!";
+			}
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.SLAM_2.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+	
+	TELEKENETIC_SHOWER(
+			10,
+			"Telekenetic Shower",
+			null,
+			Colour.DAMAGE_TYPE_PHYSICAL,
+			false,
+			null,
+			Util.newArrayListOfValues(new ListValue<String>("<b>10</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+" per turn</b>"))) {
+		
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			int damage = (int) Math.round(10 * (1-(Util.getModifiedDropoffValue(target.getAttributeValue(Attribute.RESISTANCE_PHYSICAL), 100)/100f)));
+			if (damage < 1) {
+				damage = 1;
+			}
+			target.incrementHealth(-damage);
+
+			if (target.isPlayer()) {
+				return "You take <b>" + damage + "</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+"!";
+				
+			} else {
+				return "[npc.Name] takes <b>" + damage + "</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+"!";
+			}
+		}
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "You are being continuously pelted by a barrage of rocks and other small objects.";
+			} else {
+				return UtilText.parse(target,
+						"[npc.Name] is being continuously pelted by a barrage of rocks and other small objects.");
+			}
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return Spell.TELEKENETIC_SHOWER.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+	
+	TELEKENETIC_SHOWER_PRECISION_STRIKES(
+			10,
+			"Telekenetic Shower (Precision Strikes)",
+			null,
+			Colour.DAMAGE_TYPE_PHYSICAL,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, -20f)),
+			Util.newArrayListOfValues(new ListValue<String>("<b>10</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+" per turn</b>"))) {
+		
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			int damage = (int) Math.round(10 * (1-(Util.getModifiedDropoffValue(target.getAttributeValue(Attribute.RESISTANCE_PHYSICAL), 100)/100f)));
+			if (damage < 1) {
+				damage = 1;
+			}
+			target.incrementHealth(-damage);
+
+			if (target.isPlayer()) {
+				return "You take <b>" + damage + "</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+"!";
+				
+			} else {
+				return "[npc.Name] takes <b>" + damage + "</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+"!";
+			}
+		}
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "You are being continuously pelted by a highly-accurate barrage of rocks and other small objects.";
+			} else {
+				return UtilText.parse(target,
+						"[npc.Name] is being continuously pelted by a highly-accurate barrage of rocks and other small objects.");
+			}
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.TELEKENETIC_SHOWER_2.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+	
+	TELEKENETIC_SHOWER_UNSEEN_FORCE(
+			10,
+			"Telekenetic Shower (Unseen Force)",
+			null,
+			Colour.DAMAGE_TYPE_PHYSICAL,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, -20f)),
+			Util.newArrayListOfValues(new ListValue<String>("<b>20</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+" per turn</b>"))) {
+		
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			int damage = (int) Math.round(20 * (1-(Util.getModifiedDropoffValue(target.getAttributeValue(Attribute.RESISTANCE_PHYSICAL), 100)/100f)));
+			if (damage < 1) {
+				damage = 1;
+			}
+			target.incrementHealth(-damage);
+			
+			if (target.isPlayer()) {
+				return "You take <b>" + damage + "</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+"!";
+				
+			} else {
+				return "[npc.Name] takes <b>" + damage + "</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+"!";
+			}
+		}
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "You are being continuously pelted by a highly-accurate barrage of rocks and other small objects. Each impact is immediately followed up by an explosive wave of force.";
+			} else {
+				return UtilText.parse(target,
+						"[npc.Name] is being continuously pelted by a highly-accurate barrage of rocks and other small objects. Each impact is immediately followed up by an explosive wave of force.");
+			}
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.TELEKENETIC_SHOWER_3.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+	
+	STONE_SHELL(
+			10,
+			"Stone Shell",
+			null,
+			Colour.DAMAGE_TYPE_PHYSICAL,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 25f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "A solid barrier of stone is being held up between you and your enemy, granting you a significantly improved physical defence.";
+			} else {
+				return UtilText.parse(target,
+						"A solid barrier of stone is being held up between [npc.name] and [npc.her] enemy, granting [npc.herHim] a significantly improved physical defence.");
+			}
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return Spell.STONE_SHELL.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+
+	STONE_SHELL_SHIFTING_SANDS(
+			10,
+			"Stone Shell (Shifting Sands)",
+			null,
+			Colour.DAMAGE_TYPE_PHYSICAL,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 25f),
+					new Value<Attribute, Float>(Attribute.DODGE_CHANCE, 10f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "A solid barrier of stone is being held up between you and your enemy, granting you a significantly improved physical defence."
+							+ " Every now and then, the stone barrier suddenly shifts and melts into sand, before reforming in a different location.";
+			} else {
+				return UtilText.parse(target,
+						"A solid barrier of stone is being held up between [npc.name] and [npc.her] enemy, granting [npc.herHim] a significantly improved physical defence."
+								+ " Every now and then, the stone barrier suddenly shifts and melts into sand, before reforming in a different location.");
+			}
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.STONE_SHELL_1.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+	
+	STONE_SHELL_HARDENED_CARAPACE(
+			10,
+			"Stone Shell (Hardened Carapace)",
+			null,
+			Colour.DAMAGE_TYPE_PHYSICAL,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 50f),
+					new Value<Attribute, Float>(Attribute.DODGE_CHANCE, 10f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "A solid, hardened barrier of stone is being held up between you and your enemy, granting you a significantly improved physical defence."
+							+ " Every now and then, the stone barrier suddenly shifts and melts into sand, before reforming in a different location.";
+			} else {
+				return UtilText.parse(target,
+						"A solid, hardened barrier of stone is being held up between [npc.name] and [npc.her] enemy, granting [npc.herHim] a significantly improved physical defence."
+								+ " Every now and then, the stone barrier suddenly shifts and melts into sand, before reforming in a different location.");
+			}
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.STONE_SHELL_2.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+	
+	STONE_SHELL_EXPLOSIVE_FINISH(
+			10,
+			"Stone Shell (Explosive Finish)",
+			null,
+			Colour.DAMAGE_TYPE_PHYSICAL,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 50f),
+					new Value<Attribute, Float>(Attribute.DODGE_CHANCE, 10f)),
+			Util.newArrayListOfValues(new ListValue<String>("[style.colourExcellent(All enemies)] take <b>10</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+" when Stone Shell ends"))) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "A solid, hardened barrier of stone is being held up between you and your enemy, granting you a significantly improved physical defence."
+							+ " Every now and then, the stone barrier suddenly shifts and melts into sand, before reforming in a different location.";
+			} else {
+				return UtilText.parse(target,
+						"A solid, hardened barrier of stone is being held up between [npc.name] and [npc.her] enemy, granting [npc.herHim] a significantly improved physical defence."
+								+ " Every now and then, the stone barrier suddenly shifts and melts into sand, before reforming in a different location.");
+			}
+		}
+		
+		@Override
+		protected String extraRemovalEffects(GameCharacter target){
+			StringBuilder sb = new StringBuilder();
+			
+			if(Combat.getEnemies().contains(target)) {
+				int damage = (int) Math.round(10 * (1-(Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.RESISTANCE_PHYSICAL), 100)/100f)));
+				if (damage < 1) {
+					damage = 1;
+				}
+				Main.game.getPlayer().incrementHealth(-damage);
+				sb.append("You take <b>" + damage + "</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+" as the Stone Shell explodes!");
+				for(NPC combatant : Combat.getAllies()) {
+					damage = (int) Math.round(10 * (1-(Util.getModifiedDropoffValue(combatant.getAttributeValue(Attribute.RESISTANCE_PHYSICAL), 100)/100f)));
+					if (damage < 1) {
+						damage = 1;
+					}
+					combatant.incrementHealth(-damage);
+					sb.append(UtilText.parse(combatant, "</br>[npc.Name] takes <b>" + damage + "</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+" as the Stone Shell explodes!"));
+				}
+			} else {
+				boolean first=true;
+				for(NPC combatant : Combat.getEnemies()) {
+					int damage = (int) Math.round(10 * (1-(Util.getModifiedDropoffValue(combatant.getAttributeValue(Attribute.RESISTANCE_PHYSICAL), 100)/100f)));
+					if (damage < 1) {
+						damage = 1;
+					}
+					combatant.incrementHealth(-damage);
+					sb.append(UtilText.parse(combatant, (first?"":"</br>")+"[npc.Name] takes <b>" + damage + "</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+" as the Stone Shell explodes!"));
+					first=false;
+				}
+			}
+			
+			return sb.toString();
+			
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.STONE_SHELL_3.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+	
+	ELEMENTAL_EARTH_ROLLING_STONE(10,
+			"Rolling Stone",
+			null,
+			Colour.DAMAGE_TYPE_PHYSICAL,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 15f),
+					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 25f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "The Earth elemental in your party is empowering your attacks with waves of force!";
+			} else {
+				return UtilText.parse(target,
+						"The Earth elemental in [npc.name]'s party is empowering [npc.her] attacks with waves of force!");
+			}
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.ELEMENTAL_EARTH_1.getSVGString();
+		}
+		
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			
+			GameCharacter partyLeader = null;
+			if(!target.getCompanions().isEmpty()) {
+				partyLeader = target;
+			}
+			if(target.getPartyLeader()!=null) {
+				partyLeader = target.getPartyLeader();
+			}
+			
+			if(partyLeader==null) {
+				return false;
+			}
+			
+			List<GameCharacter> allPartyMembers = new ArrayList<>(partyLeader.getCompanions());
+			allPartyMembers.add(partyLeader);
+			
+			for(GameCharacter companion : allPartyMembers) {
+				if(companion.getElemental()!=null && allPartyMembers.contains(companion.getElemental()) && companion.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_EARTH_1) && !companion.getElemental().equals(target)) {
+					return true;
+				}
+			}
+			
+			return false;
+		}
+	},
+	
+	ELEMENTAL_EARTH_HARDENING(10,
+			"Hardening",
+			null,
+			Colour.DAMAGE_TYPE_PHYSICAL,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 10f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "The Earth elemental in your party is using telekenetic powers to surround you with protective fragments of rock!";
+			} else {
+				return UtilText.parse(target,
+						"The Earth elemental in [npc.name]'s party is using telekenetic powers to surround [npc.herHim] with protective fragments of rock!");
+			}
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.ELEMENTAL_EARTH_2.getSVGString();
+		}
+		
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			
+			GameCharacter partyLeader = null;
+			if(!target.getCompanions().isEmpty()) {
+				partyLeader = target;
+			}
+			if(target.getPartyLeader()!=null) {
+				partyLeader = target.getPartyLeader();
+			}
+			
+			if(partyLeader==null) {
+				return false;
+			}
+			
+			List<GameCharacter> allPartyMembers = new ArrayList<>(partyLeader.getCompanions());
+			allPartyMembers.add(partyLeader);
+			
+			for(GameCharacter companion : allPartyMembers) {
+				if(companion.getElemental()!=null && allPartyMembers.contains(companion.getElemental()) && companion.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_EARTH_2) && !companion.getElemental().equals(target)) {
+					return true;
+				}
+			}
+			
+			return false;
+		}
+	},
+	
+	ELEMENTAL_EARTH_SERVANT_OF_EARTH(10,
+			"Servant of Earth",
+			null,
+			Colour.DAMAGE_TYPE_PHYSICAL,
+			false,
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<String>("-50% [style.colourHealth(maximum energy)]"))) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return UtilText.parse(target.getElemental(), "Having sworn your subservience to the school of Earth, your Earth elemental, [npc.name], is siphoning off as much of your energy as [npc.she] wants!");
+			} else {
+				return UtilText.parse(target, target.getElemental(),
+						"Having sworn [npc1.her] subservience to the school of Earth, [npc1.name]'s Earth elemental, [npc2.name], is now siphoning off as much of [npc1.name]'s energy as [npc2.she] wants!");
+			}
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.ELEMENTAL_EARTH_3A.getSVGString();
+		}
+		
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getElemental()!=null && target.hasCompanion(target.getElemental()) && target.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_EARTH_3A);
+		}
+	},
+	
+	ELEMENTAL_EARTH_SERVANT_OF_EARTH_ELEMENTAL_BUFF(10,
+			"Energy Siphon",
+			null,
+			Colour.DAMAGE_TYPE_PHYSICAL,
+			true,
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<String>("+100% [style.colourExcellent(Non-Seduction Damage)]"))) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(((Elemental)target).getSummoner().isPlayer()) {
+				return UtilText.parse(target, "[npc.Name] is siphoning off as much of your energy as [npc.she] wants, enabling [npc.herHim] to deal a huge amount of damage!");
+			} else {
+				return UtilText.parse(target, ((Elemental)target).getSummoner(), "[npc.Name] is siphoning off as much of [npc2.name]'s energy as [npc.she] wants, enabling [npc.herHim] to deal a huge amount of damage!");
+			}
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.ELEMENTAL_EARTH_3A.getSVGString();
+		}
+		
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target instanceof Elemental
+					&& ((Elemental)target).getSummoner()!=null
+					&& ((Elemental)target).getSummoner().hasSpellUpgrade(SpellUpgrade.ELEMENTAL_EARTH_3A)
+					&& (target.getBodyMaterial() == BodyMaterial.STONE || target.getBodyMaterial() == BodyMaterial.RUBBER);
+		}
+	},
+	
+	ELEMENTAL_EARTH_BINDING_OF_EARTH(10,
+			"Binding of Earth",
+			null,
+			Colour.DAMAGE_TYPE_PHYSICAL,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 25f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 25f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return UtilText.parse(target.getElemental(), "Having bound the school of Earth to your will, your Earth elemental, [npc.name], is forced to reveal all of [npc.her] secrets to you.");
+			} else {
+				return UtilText.parse(target, target.getElemental(),
+						"Having bound the school of Earth to [npc1.her] will, [npc1.name]'s Earth elemental, [npc2.name], is forced to reveal all of [npc2.her] secrets to [npc2.her] [npc1.mistress].");
+			}
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.ELEMENTAL_EARTH_3B.getSVGString();
+		}
+		
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getElemental()!=null && target.hasCompanion(target.getElemental()) && target.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_EARTH_3B);
+		}
+	},
+	
+	
+	
 	
 	POISON_WEAK(
 			10,
@@ -6920,9 +8781,6 @@ public enum StatusEffect {
 					+ Colour.DAMAGE_TYPE_POISON.toWebHexString()
 					+ ";'>Poison damage per turn</b>"))) {
 		@Override
-		/**
-		 * 2% health damage per tick. Minimum of 1 damage.
-		 */
 		public String applyEffect(GameCharacter target, int minutesPassed) {
 			float damage = (target.getAttributeValue(Attribute.HEALTH_MAXIMUM) * 0.02f) * ((100 - (target.getAttributeValue(Attribute.RESISTANCE_POISON))) / 100f);
 			if (damage < 1)
@@ -6948,8 +8806,6 @@ public enum StatusEffect {
 			}
 		}
 
-		
-		
 		@Override
 		public boolean isCombatEffect() {
 			return true;
@@ -6974,13 +8830,12 @@ public enum StatusEffect {
 						+ ", granting [npc.herHim] a considerable boost to [npc.her] physical resistance." + " The energy is also helping to focus [npc.her] mind, granting a boost to [npc.her] hit and dodge chances.");
 		}
 
-		
-		
 		@Override
 		public boolean isCombatEffect() {
 			return true;
 		}
 	},
+	
 	FIRE_SHIELD(
 			10,
 			"fire shield",
@@ -6998,8 +8853,6 @@ public enum StatusEffect {
 						+ " The arcane flames also help to mitigate any physical attacks directed [npc.her] way.");
 		}
 
-		
-		
 		@Override
 		public boolean isCombatEffect() {
 			return true;
@@ -8344,7 +10197,7 @@ public enum StatusEffect {
 			this.extraEffects = extraEffects;
 		}
 		
-		if(pathName!=null) {
+		if(pathName!=null && !pathName.isEmpty()) {
 			try {
 				InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/" + pathName + ".svg");
 				SVGString = Util.colourReplacement(this.toString(), colourShade, colourShadeSecondary, colourShadeTertiary, Util.inputStreamToString(is));

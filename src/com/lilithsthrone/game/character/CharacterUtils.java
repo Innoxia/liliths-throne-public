@@ -295,9 +295,7 @@ public class CharacterUtils {
 		// Skin & fur colours:
 		for(BodyPartInterface bp : body.getAllBodyParts()){
 			if(bp.getType().getBodyCoveringType(body)!=null
-					&& bp.getType().getBodyCoveringType(body).getRace()!=null
 					&& !(bp instanceof Eye)) {
-				
 				typesToInfluence.add(bp.getType().getBodyCoveringType(body));
 			}
 		}
@@ -778,9 +776,7 @@ public class CharacterUtils {
 		// Skin & fur colours:
 		for(BodyPartInterface bp : character.getAllBodyParts()){
 			if(bp.getType().getBodyCoveringType(character)!=null
-					&& bp.getType().getBodyCoveringType(character).getRace()!=null
 					&& !(bp instanceof Eye)) {
-				
 				if(tempList.contains(bp.getType().getBodyCoveringType(character))) {
 					Covering covering = character.getCovering(bp.getType().getBodyCoveringType(character));
 					body.getCoverings().put(

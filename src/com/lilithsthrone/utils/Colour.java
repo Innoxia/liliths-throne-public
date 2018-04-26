@@ -464,6 +464,7 @@ public enum Colour {
 	COVERING_AUBURN(BaseColour.AUBURN, "auburn"),
 	COVERING_WHITE(BaseColour.WHITE, "white"),
 	COVERING_SILVER(BaseColour.GREY, "silver"),
+	COVERING_BLUE_LIGHT(BaseColour.BLUE_LIGHT, "light blue"),
 	COVERING_BLUE(BaseColour.BLUE, "blue"),
 	COVERING_BLUE_DARK(BaseColour.BLUE_DARK, "dark blue"),
 	COVERING_PURPLE(BaseColour.PURPLE, "purple"),
@@ -626,6 +627,7 @@ public enum Colour {
 
 	public static List<Colour> dyeFurColours = Util.newArrayListOfValues(
 			new ListValue<Colour>(Colour.COVERING_BLEACH_BLONDE),
+			new ListValue<Colour>(Colour.COVERING_BLUE_LIGHT),
 			new ListValue<Colour>(Colour.COVERING_BLUE),
 			new ListValue<Colour>(Colour.COVERING_BLUE_DARK),
 			new ListValue<Colour>(Colour.COVERING_GREEN),
@@ -647,6 +649,7 @@ public enum Colour {
 	public static List<Colour> dyeScaleColours = Util.newArrayListOfValues(
 			new ListValue<Colour>(Colour.COVERING_BLEACH_BLONDE),
 			new ListValue<Colour>(Colour.COVERING_BLONDE),
+			new ListValue<Colour>(Colour.COVERING_BLUE_LIGHT),
 			new ListValue<Colour>(Colour.COVERING_BLUE),
 			new ListValue<Colour>(Colour.COVERING_BLUE_DARK),
 			new ListValue<Colour>(Colour.COVERING_GINGER),
@@ -734,6 +737,7 @@ public enum Colour {
 	
 	public static List<Colour> dyeHairColours = Util.newArrayListOfValues(
 			new ListValue<Colour>(Colour.COVERING_BLEACH_BLONDE),
+			new ListValue<Colour>(Colour.COVERING_BLUE_LIGHT),
 			new ListValue<Colour>(Colour.COVERING_BLUE),
 			new ListValue<Colour>(Colour.COVERING_BLUE_DARK),
 			new ListValue<Colour>(Colour.COVERING_GREEN),
