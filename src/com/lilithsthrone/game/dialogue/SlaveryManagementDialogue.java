@@ -1892,14 +1892,17 @@ public class SlaveryManagementDialogue {
 							true, BodyChanging.getTarget().getEyeType().getBodyCoveringType(BodyChanging.getTarget()), "Irises", "The iris is the coloured part of the eye that's responsible for controlling the diameter and size of the pupil.", true, true)
 
 					+CharacterModificationUtils.getKatesDivCoveringsNew(
-							true, BodyCoveringType.EYE_PUPILS, "Pupils", "The pupil is a hole located in the centre of the iris that allows light to strike the retina.", true, true));
+							true, BodyCoveringType.EYE_PUPILS, "Pupils", "The pupil is a hole located in the centre of the iris that allows light to strike the retina.", true, true)
+
+					+CharacterModificationUtils.getKatesDivCoveringsNew(
+							true, BodyCoveringType.EYE_SCLERA, "Sclera", "The sclera is the (typically white) part of the eye that surrounds the iris.", true, true));
 		}
 		
 		@Override
 		public String getContent() {
 			return "";
 		}
-
+		
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 4) {

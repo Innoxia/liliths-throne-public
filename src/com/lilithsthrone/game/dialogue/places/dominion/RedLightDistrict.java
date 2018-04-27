@@ -9,6 +9,7 @@ import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.GenderPreference;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.misc.GenericSexualPartner;
+import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -394,6 +395,15 @@ public class RedLightDistrict {
 						@Override
 						public void effects() {
 							NPC npc = new GenericSexualPartner(GenderPreference.getGenderFromUserPreferences(), Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
+							if(Math.random()<0.4f) {
+								npc.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+							} else {
+								if(Main.game.getPlayer().isFeminine()) {
+									npc.setSexualOrientation(SexualOrientation.GYNEPHILIC);
+								} else {
+									npc.setSexualOrientation(SexualOrientation.ANDROPHILIC);
+								}
+							}
 							npc.removeFetish(Fetish.FETISH_SUBMISSIVE);
 							npc.setFetishDesire(Fetish.FETISH_DOMINANT, FetishDesire.THREE_LIKE);
 							try {
@@ -410,6 +420,15 @@ public class RedLightDistrict {
 						@Override
 						public void effects() {
 							NPC npc = new GenericSexualPartner(GenderPreference.getGenderFromUserPreferences(), Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
+							if(Math.random()<0.4f) {
+								npc.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+							} else {
+								if(Main.game.getPlayer().isFeminine()) {
+									npc.setSexualOrientation(SexualOrientation.GYNEPHILIC);
+								} else {
+									npc.setSexualOrientation(SexualOrientation.ANDROPHILIC);
+								}
+							}
 							npc.removeFetish(Fetish.FETISH_DOMINANT);
 							npc.setFetishDesire(Fetish.FETISH_SUBMISSIVE, FetishDesire.THREE_LIKE);
 							try {

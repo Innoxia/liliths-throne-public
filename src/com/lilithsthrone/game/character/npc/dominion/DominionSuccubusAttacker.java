@@ -88,6 +88,7 @@ public class DominionSuccubusAttacker extends NPC {
 			// Set random inventory & weapons:
 			resetInventory();
 			inventory.setMoney(50);
+			CharacterUtils.generateItemsInInventory(this);
 			
 			// CLOTHING:
 			

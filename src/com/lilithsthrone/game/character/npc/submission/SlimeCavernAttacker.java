@@ -170,6 +170,7 @@ public class SlimeCavernAttacker extends NPC {
 			
 			resetInventory();
 			inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
+			CharacterUtils.generateItemsInInventory(this);
 	
 			CharacterUtils.equipClothing(this, true, false);
 			CharacterUtils.applyMakeup(this, true);

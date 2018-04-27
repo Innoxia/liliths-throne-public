@@ -2308,9 +2308,9 @@ public class Game implements Serializable, XMLSaving {
 	}
 
 	/**
-	 * @param world
-	 * @param location Location to set player to
-	 */
+//	 * @param world
+//	 * @param location Location to set player to
+//	 */
 	public void setActiveWorld(World world, Vector2i location, boolean setDefaultDialogue) {
 //		activeWorld = world;
 		player.setWorldLocation(world.getWorldType());

@@ -240,6 +240,52 @@ public class ClothingType {
 		}
 	};
 	
+	public static AbstractClothingType PIERCING_EAR_HOOPS = new AbstractClothingType(100,
+			"a pair of",
+			true,
+			"hoop earring",
+			"hoop earrings",
+			"A pair of basic hoop earrings. Each one is fashioned from a thin band of metal, which has been curled around to form a circle.",
+			0,
+			Femininity.FEMININE,
+			InventorySlot.PIERCING_EAR,
+			Rarity.COMMON,
+			null,
+			"piercing_ear_hoops",
+			null,
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null))),
+			null,
+			ColourListPresets.ALL_METAL.getPresetColourList(),
+			null,
+			ColourListPresets.JUST_STEEL.getPresetColourList(),
+			ColourListPresets.ALL_METAL.getPresetColourList(),
+			null,
+			null,
+			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_KATE))){
+
+		@Override
+		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You clip the hoop earrings into place.",
+					"You clip [npc.name]'s new hoop earrings into place.",
+					null,
+					"[npc.Name] clips [npc.her] hoop earrings into place.",
+					"[npc.Name] clips your new hoop earrings into place.",
+					null, null, null);
+		}
+
+		@Override
+		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You unclip your hoop earrings.",
+					"You unclip [npc.name]'s hoop earrings.",
+					null,
+					"[npc.Name] unclips [npc.her] hoop earrings.",
+					"[npc.Name] unclips your hoop earrings.",
+					null, null, null);
+		}
+	};
+	
 	public static AbstractClothingType PIERCING_EAR_SNOW_FLAKES = new AbstractClothingType(150,
 			"a pair of",
 			true,
@@ -4620,7 +4666,6 @@ public class ClothingType {
 											new ListValue<ClothingAccess>(ClothingAccess.WAIST),
 											new ListValue<ClothingAccess>(ClothingAccess.CHEST)),
 									Util.newArrayListOfValues(
-											new ListValue<InventorySlot>(InventorySlot.STOMACH),
 											new ListValue<InventorySlot>(InventorySlot.NIPPLE),
 											new ListValue<InventorySlot>(InventorySlot.PIERCING_NIPPLE),
 											new ListValue<InventorySlot>(InventorySlot.PIERCING_STOMACH))))),

@@ -37,6 +37,7 @@ import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.combat.Spell;
+import com.lilithsthrone.game.combat.SpellSchool;
 import com.lilithsthrone.game.combat.SpellUpgrade;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -6900,7 +6901,6 @@ public enum StatusEffect {
 		
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			
 			GameCharacter partyLeader = null;
 			if(!target.getCompanions().isEmpty()) {
 				partyLeader = target;
@@ -6917,7 +6917,11 @@ public enum StatusEffect {
 			allPartyMembers.add(partyLeader);
 			
 			for(GameCharacter companion : allPartyMembers) {
-				if(companion.getElemental()!=null && allPartyMembers.contains(companion.getElemental()) && companion.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_FIRE_1) && !companion.getElemental().equals(target)) {
+				if(companion.getElemental()!=null
+						&& allPartyMembers.contains(companion.getElemental())
+						&& companion.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_FIRE_1)
+						&& !companion.getElemental().equals(target)
+						&& companion.getElemental().getCurrentSchool()==SpellSchool.FIRE) {
 					return true;
 				}
 			}
@@ -6956,7 +6960,9 @@ public enum StatusEffect {
 				List<GameCharacter> enemies = new ArrayList<>(Combat.getEnemies().contains(target)?Combat.getAllies():Combat.getEnemies());
 				
 				for(GameCharacter combatant : enemies) {
-					if(combatant instanceof Elemental && ((Elemental)combatant).getSummoner().hasSpellUpgrade(SpellUpgrade.ELEMENTAL_FIRE_2)) {
+					if(combatant instanceof Elemental
+							&& ((Elemental)combatant).getSummoner().hasSpellUpgrade(SpellUpgrade.ELEMENTAL_FIRE_2)
+							&& ((Elemental)combatant).getCurrentSchool()==SpellSchool.FIRE) {
 						return true;
 					}
 				}
@@ -6996,7 +7002,10 @@ public enum StatusEffect {
 		
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return target.getElemental()!=null && target.hasCompanion(target.getElemental()) && target.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_FIRE_3A);
+			return target.getElemental()!=null
+					&& target.hasCompanion(target.getElemental())
+					&& target.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_FIRE_3A)
+					&& target.getElemental().getCurrentSchool()==SpellSchool.FIRE;
 		}
 	},
 	
@@ -7028,7 +7037,7 @@ public enum StatusEffect {
 			return target instanceof Elemental
 					&& ((Elemental)target).getSummoner()!=null
 					&& ((Elemental)target).getSummoner().hasSpellUpgrade(SpellUpgrade.ELEMENTAL_FIRE_3A)
-					&& (target.getBodyMaterial() == BodyMaterial.FIRE);
+					&& ((Elemental)target).getCurrentSchool()==SpellSchool.FIRE;
 		}
 	},
 	
@@ -7059,7 +7068,10 @@ public enum StatusEffect {
 		
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return target.getElemental()!=null && target.hasCompanion(target.getElemental()) && target.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_FIRE_3B);
+			return target.getElemental()!=null
+					&& target.hasCompanion(target.getElemental())
+					&& target.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_FIRE_3B)
+					&& target.getElemental().getCurrentSchool()==SpellSchool.FIRE;
 		}
 	},
 	
@@ -7349,7 +7361,11 @@ public enum StatusEffect {
 			allPartyMembers.add(partyLeader);
 			
 			for(GameCharacter companion : allPartyMembers) {
-				if(companion.getElemental()!=null && allPartyMembers.contains(companion.getElemental()) && companion.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_WATER_1) && !companion.getElemental().equals(target)) {
+				if(companion.getElemental()!=null
+						&& allPartyMembers.contains(companion.getElemental())
+						&& companion.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_WATER_1)
+						&& !companion.getElemental().equals(target)
+						&& companion.getElemental().getCurrentSchool()==SpellSchool.WATER) {
 					return true;
 				}
 			}
@@ -7400,7 +7416,11 @@ public enum StatusEffect {
 			allPartyMembers.add(partyLeader);
 			
 			for(GameCharacter companion : allPartyMembers) {
-				if(companion.getElemental()!=null && allPartyMembers.contains(companion.getElemental()) && companion.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_WATER_2) && !companion.getElemental().equals(target)) {
+				if(companion.getElemental()!=null
+						&& allPartyMembers.contains(companion.getElemental())
+						&& companion.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_WATER_2)
+						&& !companion.getElemental().equals(target)
+						&& companion.getElemental().getCurrentSchool()==SpellSchool.WATER) {
 					return true;
 				}
 			}
@@ -7440,7 +7460,10 @@ public enum StatusEffect {
 		
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return target.getElemental()!=null && target.hasCompanion(target.getElemental()) && target.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_WATER_3A);
+			return target.getElemental()!=null
+					&& target.hasCompanion(target.getElemental())
+					&& target.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_WATER_3A)
+					&& target.getElemental().getCurrentSchool()==SpellSchool.WATER;
 		}
 	},
 	
@@ -7472,7 +7495,7 @@ public enum StatusEffect {
 			return target instanceof Elemental
 					&& ((Elemental)target).getSummoner()!=null
 					&& ((Elemental)target).getSummoner().hasSpellUpgrade(SpellUpgrade.ELEMENTAL_WATER_3A)
-					&& (target.getBodyMaterial() == BodyMaterial.WATER || target.getBodyMaterial() == BodyMaterial.ICE);
+					&& ((Elemental)target).getCurrentSchool()==SpellSchool.WATER;
 		}
 	},
 	
@@ -7503,7 +7526,10 @@ public enum StatusEffect {
 		
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return target.getElemental()!=null && target.hasCompanion(target.getElemental()) && target.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_WATER_3B);
+			return target.getElemental()!=null
+					&& target.hasCompanion(target.getElemental())
+					&& target.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_WATER_3B)
+					&& target.getElemental().getCurrentSchool()==SpellSchool.WATER;
 		}
 	},
 	
@@ -8022,7 +8048,9 @@ public enum StatusEffect {
 				List<GameCharacter> enemies = new ArrayList<>(Combat.getEnemies().contains(target)?Combat.getAllies():Combat.getEnemies());
 				
 				for(GameCharacter combatant : enemies) {
-					if(combatant instanceof Elemental && ((Elemental)combatant).getSummoner().hasSpellUpgrade(SpellUpgrade.ELEMENTAL_AIR_1)) {
+					if(combatant instanceof Elemental
+							&& ((Elemental)combatant).getSummoner().hasSpellUpgrade(SpellUpgrade.ELEMENTAL_AIR_1)
+							&& ((Elemental)combatant).getCurrentSchool()==SpellSchool.AIR) {
 						return true;
 					}
 				}
@@ -8080,7 +8108,11 @@ public enum StatusEffect {
 			allPartyMembers.add(partyLeader);
 			
 			for(GameCharacter companion : allPartyMembers) {
-				if(companion.getElemental()!=null && allPartyMembers.contains(companion.getElemental()) && companion.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_AIR_2) && !companion.getElemental().equals(target)) {
+				if(companion.getElemental()!=null
+						&& allPartyMembers.contains(companion.getElemental())
+						&& companion.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_AIR_2)
+						&& !companion.getElemental().equals(target)
+						&& companion.getElemental().getCurrentSchool()==SpellSchool.AIR) {
 					return true;
 				}
 			}
@@ -8115,7 +8147,10 @@ public enum StatusEffect {
 		
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return target.getElemental()!=null && target.hasCompanion(target.getElemental()) && target.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_AIR_3A);
+			return target.getElemental()!=null
+					&& target.hasCompanion(target.getElemental())
+					&& target.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_AIR_3A)
+					&& target.getElemental().getCurrentSchool()==SpellSchool.AIR;
 		}
 	},
 	
@@ -8147,7 +8182,7 @@ public enum StatusEffect {
 			return target instanceof Elemental
 					&& ((Elemental)target).getSummoner()!=null
 					&& ((Elemental)target).getSummoner().hasSpellUpgrade(SpellUpgrade.ELEMENTAL_AIR_3A)
-					&& (target.getBodyMaterial() == BodyMaterial.AIR);
+					&& ((Elemental)target).getCurrentSchool()==SpellSchool.AIR;
 		}
 	},
 	
@@ -8178,7 +8213,10 @@ public enum StatusEffect {
 		
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return target.getElemental()!=null && target.hasCompanion(target.getElemental()) && target.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_AIR_3B);
+			return target.getElemental()!=null
+					&& target.hasCompanion(target.getElemental())
+					&& target.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_AIR_3B)
+					&& target.getElemental().getCurrentSchool()==SpellSchool.AIR;
 		}
 	},
 	
@@ -8613,7 +8651,11 @@ public enum StatusEffect {
 			allPartyMembers.add(partyLeader);
 			
 			for(GameCharacter companion : allPartyMembers) {
-				if(companion.getElemental()!=null && allPartyMembers.contains(companion.getElemental()) && companion.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_EARTH_1) && !companion.getElemental().equals(target)) {
+				if(companion.getElemental()!=null
+						&& allPartyMembers.contains(companion.getElemental())
+						&& companion.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_EARTH_1)
+						&& !companion.getElemental().equals(target)
+						&& companion.getElemental().getCurrentSchool()==SpellSchool.EARTH) {
 					return true;
 				}
 			}
@@ -8665,7 +8707,11 @@ public enum StatusEffect {
 			allPartyMembers.add(partyLeader);
 			
 			for(GameCharacter companion : allPartyMembers) {
-				if(companion.getElemental()!=null && allPartyMembers.contains(companion.getElemental()) && companion.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_EARTH_2) && !companion.getElemental().equals(target)) {
+				if(companion.getElemental()!=null
+						&& allPartyMembers.contains(companion.getElemental())
+						&& companion.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_EARTH_2)
+						&& !companion.getElemental().equals(target)
+						&& companion.getElemental().getCurrentSchool()==SpellSchool.EARTH) {
 					return true;
 				}
 			}
@@ -8700,7 +8746,10 @@ public enum StatusEffect {
 		
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return target.getElemental()!=null && target.hasCompanion(target.getElemental()) && target.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_EARTH_3A);
+			return target.getElemental()!=null
+					&& target.hasCompanion(target.getElemental())
+					&& target.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_EARTH_3A)
+					&& target.getElemental().getCurrentSchool()==SpellSchool.EARTH;
 		}
 	},
 	
@@ -8732,7 +8781,7 @@ public enum StatusEffect {
 			return target instanceof Elemental
 					&& ((Elemental)target).getSummoner()!=null
 					&& ((Elemental)target).getSummoner().hasSpellUpgrade(SpellUpgrade.ELEMENTAL_EARTH_3A)
-					&& (target.getBodyMaterial() == BodyMaterial.STONE || target.getBodyMaterial() == BodyMaterial.RUBBER);
+					&& ((Elemental)target).getCurrentSchool()==SpellSchool.EARTH;
 		}
 	},
 	
@@ -8763,7 +8812,750 @@ public enum StatusEffect {
 		
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return target.getElemental()!=null && target.hasCompanion(target.getElemental()) && target.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_EARTH_3B);
+			return target.getElemental()!=null
+					&& target.hasCompanion(target.getElemental())
+					&& target.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_EARTH_3B)
+					&& target.getElemental().getCurrentSchool()==SpellSchool.EARTH;
+		}
+	},
+	
+
+	ARCANE_AROUSAL_LUSTFUL_DISTRACTION(
+			10,
+			"Lustful Distraction",
+			null,
+			Colour.DAMAGE_TYPE_LUST,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MISS_CHANCE, 15f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "Arousing images and thoughts keep on pushing their way to the front of your mind, causing you to lose focus on what it is you're trying to hit.";
+			} else {
+				return UtilText.parse(target,
+						"Arousing images and thoughts keep on pushing their way to the front of [npc.name]'s mind, causing [npc.herHim] to lose focus on what it is [npc.she]'s trying to hit.");
+			}
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.ARCANE_AROUSAL_2.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+	
+	ARCANE_AROUSAL_DIRTY_PROMISES(
+			10,
+			"Lustful Distraction (Dirty Promises)",
+			null,
+			Colour.DAMAGE_TYPE_LUST,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MISS_CHANCE, 15f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -25f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "Arousing images keep on pushing their way into your mind, causing you to lose focus on what it is you're trying to hit."
+						+ " You hear the occasional phantasmal whisper in your [pc.ear], promising that you'll have a good time if you simply submit...";
+			} else {
+				return UtilText.parse(target,
+						"Arousing images keep on pushing their way into [npc.name]'s mind, causing [npc.herHim] to lose focus on what it is [npc.she]'s trying to hit."
+								+ " [npc.She] hears the occasional phantasmal whisper in [npc.her] [npc.ear], promising that [npc.she]'ll have a good time if [npc.she] simply submits.");
+			}
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.ARCANE_AROUSAL_3.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+	
+	TELEPATHIC_COMMUNICATION(
+			10,
+			"Telepathic Communication",
+			null,
+			Colour.DAMAGE_TYPE_LUST,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 15f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "You are able to project your seductive taunts and [pc.moans+] directly into a person's mind!";
+			} else {
+				return UtilText.parse(target,
+						"[npc.Name] is able to project [npc.her] seductive taunts and [npc.moans+] directly into a person's mind!");
+			}
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return Spell.TELEPATHIC_COMMUNICATION.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+	
+	TELEPATHIC_COMMUNICATION_PROJECTED_TOUCH(
+			10,
+			"Projected Touch",
+			null,
+			Colour.DAMAGE_TYPE_LUST,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 30f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "You are able to project your seductive taunts and [pc.moans+] directly into a person's mind!"
+						+ " In addition to this, you can deliver phantasmal kisses and gropes to your target.";
+			} else {
+				return UtilText.parse(target,
+						"[npc.Name] is able to project [npc.her] seductive taunts and [npc.moans+] directly into a person's mind!"
+								+ " In addition to this, [npc.she] can deliver phantasmal kisses and gropes to [npc.her] target.");
+			}
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.TELEPATHIC_COMMUNICATION_2.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+	
+	TELEPATHIC_COMMUNICATION_POWER_OF_SUGGESTION(
+			10,
+			"Power of Suggestion",
+			null,
+			Colour.DAMAGE_TYPE_LUST,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 30f)),
+			Util.newArrayListOfValues(
+					new ListValue<>("[style.boldLust(Seduce)] [style.boldExcellent(applies)] -25 "+Attribute.RESISTANCE_PHYSICAL.getColouredName("b")+" to the target for [style.boldGood(2 turns)]"))) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "You are able to project your seductive taunts and suggestive phrases directly into a person's mind!"
+						+ " In addition to this, you can deliver phantasmal kisses and gropes to your target.";
+			} else {
+				return UtilText.parse(target,
+						"[npc.Name] is able to project [npc.her] seductive taunts and suggestive phrases directly into a person's mind!"
+								+ " In addition to this, [npc.she] can deliver phantasmal kisses and gropes to [npc.her] target.");
+			}
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.TELEPATHIC_COMMUNICATION_3.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+	
+	TELEPATHIC_COMMUNICATION_POWER_OF_SUGGESTION_TARGETED(
+			10,
+			"Power of Suggestion",
+			"telepathic_communication_power_of_suggestion_targeted",
+			Colour.DAMAGE_TYPE_LUST,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, -25f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "The telepathic moans and suggestions that have been projected into your mind are causing you to lower your guard!";
+			} else {
+				return UtilText.parse(target,
+						"The telepathic moans and suggestions that have been projected into [npc.name]'s mind are causing [npc.herHim] to lower [npc.her] guard!");
+			}
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+	
+	
+	ARCANE_CLOUD(
+			10,
+			"Arcane Cloud",
+			null,
+			Colour.DAMAGE_TYPE_LUST,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -25f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "A small arcane cloud is hovering above your head. While subjected to its presence, you feel the arousing effects of the arcane seeping into your mind.";
+			} else {
+				return UtilText.parse(target,
+						"A small arcane cloud is hovering above [npc.name]'s head. While subjected to its presence, the arousing effects of the arcane seep into [npc.her] mind.");
+			}
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return Spell.ARCANE_CLOUD.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+
+	ARCANE_CLOUD_ARCANE_LIGHTNING(
+			10,
+			"Arcane Cloud (Arcane Lightning)",
+			null,
+			Colour.DAMAGE_TYPE_LUST,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -25f)),
+			Util.newArrayListOfValues(new ListValue<String>("<b>5</b> "+Attribute.DAMAGE_LUST.getColouredName("b")+" per turn</b>"))) {
+		
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			int damage = (int) Math.round(5 * (1-(Util.getModifiedDropoffValue(target.getAttributeValue(Attribute.RESISTANCE_LUST), 100)/100f)));
+			if (damage < 1) {
+				damage = 1;
+			}
+			target.incrementLust(damage);
+
+			if (target.isPlayer()) {
+				return "You take <b>" + damage + "</b> "+Attribute.DAMAGE_LUST.getColouredName("b")+"!";
+				
+			} else {
+				return "[npc.Name] takes <b>" + damage + "</b> "+Attribute.DAMAGE_LUST.getColouredName("b")+"!";
+			}
+		}
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "A small, lust-inducing arcane cloud is hovering above your head. Every now and then, a bolt of arcane lightning flashes down towards you, filling your mind with arousing thoughts.";
+			} else {
+				return UtilText.parse(target,
+						"A small, lust-inducing arcane cloud is hovering above [npc.name]'s head. Every now and then, a bolt of arcane lightning flashes down towards [npc.herHim], filling [npc.her] mind with arousing thoughts.");
+			}
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.ARCANE_CLOUD_1.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+
+	ARCANE_CLOUD_ARCANE_THUNDER(
+			10,
+			"Arcane Cloud (Arcane Thunder)",
+			null,
+			Colour.DAMAGE_TYPE_LUST,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -25f)),
+			Util.newArrayListOfValues(new ListValue<String>("<b>15</b> "+Attribute.DAMAGE_LUST.getColouredName("b")+" per turn</b>"))) {
+		
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			int damage = (int) Math.round(15 * (1-(Util.getModifiedDropoffValue(target.getAttributeValue(Attribute.RESISTANCE_LUST), 100)/100f)));
+			if (damage < 1) {
+				damage = 1;
+			}
+			target.incrementLust(damage);
+
+			if (target.isPlayer()) {
+				return "You take <b>" + damage + "</b> "+Attribute.DAMAGE_LUST.getColouredName("b")+"!";
+				
+			} else {
+				return "[npc.Name] takes <b>" + damage + "</b> "+Attribute.DAMAGE_LUST.getColouredName("b")+"!";
+			}
+		}
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "A small, lust-inducing arcane cloud is hovering above your head. Every now and then, a bolt of arcane lightning, accompanied by a small clap of arcane thunder, fills your mind with arousing thoughts.";
+			} else {
+				return UtilText.parse(target,
+						"A small, lust-inducing arcane cloud is hovering above [npc.name]'s head. Every now and then, a bolt of arcane lightning, accompanied by a small clap of arcane thunder, fills [npc.her] mind with arousing thoughts.");
+			}
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.ARCANE_CLOUD_2.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+	
+	ARCANE_CLOUD_LOCALISED_STORM(
+			10,
+			"Arcane Cloud (Localised Storm)",
+			null,
+			Colour.DAMAGE_TYPE_LUST,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -25f)),
+			Util.newArrayListOfValues(new ListValue<String>("[style.boldTerrible(All party members)] take <b>15</b> "+Attribute.DAMAGE_LUST.getColouredName("b")+" per turn</b>"))) {
+		
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			StringBuilder sb = new StringBuilder();
+			if(Combat.getEnemies().contains(target)) {
+				for(NPC combatant : Combat.getEnemies()) {
+					int damage = (int) Math.round(15 * (1-(Util.getModifiedDropoffValue(combatant.getAttributeValue(Attribute.RESISTANCE_LUST), 100)/100f)));
+					if (damage < 1) {
+						damage = 1;
+					}
+					combatant.incrementLust(damage);
+					sb.append(UtilText.parse(combatant, (Combat.getEnemies().size()>1?"</br>":"")+"[npc.Name] takes <b>" + damage + "</b> "+Attribute.DAMAGE_LUST.getColouredName("b")+"!"));
+				}
+				
+			} else {
+				int damage = (int) Math.round(15 * (1-(Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.RESISTANCE_LUST), 100)/100f)));
+				if (damage < 1) {
+					damage = 1;
+				}
+				Main.game.getPlayer().incrementLust(damage);
+				sb.append((Combat.getAllies().size()>=1?"</br>":"")+"You take <b>" + damage + "</b> "+Attribute.DAMAGE_LUST.getColouredName("b")+"!");
+				
+				for(NPC combatant : Combat.getAllies()) {
+					damage = (int) Math.round(15 * (1-(Util.getModifiedDropoffValue(combatant.getAttributeValue(Attribute.RESISTANCE_LUST), 100)/100f)));
+					if (damage < 1) {
+						damage = 1;
+					}
+					combatant.incrementLust(damage);
+					sb.append(UtilText.parse(combatant, "</br>[npc.Name] takes <b>" + damage + "</b> "+Attribute.DAMAGE_LUST.getColouredName("b")+"!"));
+				}
+			}
+			
+			return sb.toString();
+		}
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "A localised arcane storm is hovering above your head. Every now and then, a bolt of arcane lightning, accompanied by a small clap of arcane thunder, fills your mind with arousing thoughts.";
+			} else {
+				return UtilText.parse(target,
+						"A localised arcane storm is hovering above [npc.name]'s head. Every now and then, a bolt of arcane lightning, accompanied by a small clap of arcane thunder, fills [npc.her] mind with arousing thoughts.");
+			}
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.ARCANE_CLOUD_3.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+	
+	
+	
+	
+	
+
+
+	ELEMENTAL_ARCANE_LEWD_ENCOURAGEMENTS(10,
+			"Lewd Encouragements",
+			null,
+			Colour.DAMAGE_TYPE_LUST,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 15f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "The Arcane elemental in your party is projecting lewd words of encouragement into your mind!";
+			} else {
+				return UtilText.parse(target,
+						"The Arcane elemental in [npc.name]'s party is projecting lewd words of encouragement into [npc.her] mind!");
+			}
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.ELEMENTAL_ARCANE_1.getSVGString();
+		}
+		
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			
+			GameCharacter partyLeader = null;
+			if(!target.getCompanions().isEmpty()) {
+				partyLeader = target;
+			}
+			if(target.getPartyLeader()!=null) {
+				partyLeader = target.getPartyLeader();
+			}
+			
+			if(partyLeader==null) {
+				return false;
+			}
+			
+			List<GameCharacter> allPartyMembers = new ArrayList<>(partyLeader.getCompanions());
+			allPartyMembers.add(partyLeader);
+			
+			for(GameCharacter companion : allPartyMembers) {
+				if(companion.getElemental()!=null
+						&& allPartyMembers.contains(companion.getElemental())
+						&& companion.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_ARCANE_1)
+						&& !companion.getElemental().equals(target)
+						&& companion.getElemental().getCurrentSchool()==SpellSchool.ARCANE) {
+					return true;
+				}
+			}
+			
+			return false;
+		}
+	},
+
+	ELEMENTAL_ARCANE_CARESSING_TOUCH(10,
+			"Caressing Touch",
+			null,
+			Colour.DAMAGE_TYPE_LUST,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -15f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "The Arcane elemental in the enemy party is projecting phantasmal tentacles to caress and grope your body!";
+			} else {
+				return UtilText.parse(target,
+						"The Arcane elemental in the enemy party is projecting phantasmal tentacles to caress and grope [npc.name]'s body!");
+			}
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.ELEMENTAL_ARCANE_2.getSVGString();
+		}
+		
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			if(Main.game.isInCombat()) {
+				List<GameCharacter> enemies = new ArrayList<>(Combat.getEnemies().contains(target)?Combat.getAllies():Combat.getEnemies());
+				
+				for(GameCharacter combatant : enemies) {
+					if(combatant instanceof Elemental
+							&& ((Elemental)combatant).getSummoner().hasSpellUpgrade(SpellUpgrade.ELEMENTAL_ARCANE_2)
+							&& ((Elemental)combatant).getCurrentSchool()==SpellSchool.ARCANE) {
+						return true;
+					}
+				}
+			}
+			return false;
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+	
+	ELEMENTAL_ARCANE_SERVANT_OF_ARCANE(10,
+			"Servant of Arcane",
+			null,
+			Colour.DAMAGE_TYPE_LUST,
+			false,
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<String>("-50% [style.colourHealth(maximum energy)]"))) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return UtilText.parse(target.getElemental(), "Having sworn your subservience to the school of Arcane, your Arcane elemental, [npc.name], is siphoning off as much of your energy as [npc.she] wants!");
+			} else {
+				return UtilText.parse(target, target.getElemental(),
+						"Having sworn [npc1.her] subservience to the school of Arcane, [npc1.name]'s Arcane elemental, [npc2.name], is now siphoning off as much of [npc1.name]'s energy as [npc2.she] wants!");
+			}
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.ELEMENTAL_ARCANE_3A.getSVGString();
+		}
+		
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getElemental()!=null
+					&& target.hasCompanion(target.getElemental())
+					&& target.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_ARCANE_3A)
+					&& target.getElemental().getCurrentSchool()==SpellSchool.ARCANE;
+		}
+	},
+	
+	ELEMENTAL_ARCANE_SERVANT_OF_ARCANE_ELEMENTAL_BUFF(10,
+			"Energy Siphon",
+			null,
+			Colour.DAMAGE_TYPE_LUST,
+			true,
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<String>("+100% [style.colourExcellent(Non-Seduction Damage)]"))) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(((Elemental)target).getSummoner().isPlayer()) {
+				return UtilText.parse(target, "[npc.Name] is siphoning off as much of your energy as [npc.she] wants, enabling [npc.herHim] to deal a huge amount of damage!");
+			} else {
+				return UtilText.parse(target, ((Elemental)target).getSummoner(), "[npc.Name] is siphoning off as much of [npc2.name]'s energy as [npc.she] wants, enabling [npc.herHim] to deal a huge amount of damage!");
+			}
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.ELEMENTAL_ARCANE_3A.getSVGString();
+		}
+		
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target instanceof Elemental
+					&& ((Elemental)target).getSummoner()!=null
+					&& ((Elemental)target).getSummoner().hasSpellUpgrade(SpellUpgrade.ELEMENTAL_ARCANE_3A)
+					&& ((Elemental)target).getCurrentSchool()==SpellSchool.ARCANE;
+		}
+	},
+	
+	ELEMENTAL_ARCANE_BINDING_OF_ARCANE(10,
+			"Binding of Arcane",
+			null,
+			Colour.DAMAGE_TYPE_LUST,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 25f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 25f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return UtilText.parse(target.getElemental(), "Having bound the school of Arcane to your will, your Arcane elemental, [npc.name], is forced to reveal all of [npc.her] secrets to you.");
+			} else {
+				return UtilText.parse(target, target.getElemental(),
+						"Having bound the school of Arcane to [npc1.her] will, [npc1.name]'s Arcane elemental, [npc2.name], is forced to reveal all of [npc2.her] secrets to [npc2.her] [npc1.mistress].");
+			}
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.ELEMENTAL_ARCANE_3B.getSVGString();
+		}
+		
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getElemental()!=null
+					&& target.hasCompanion(target.getElemental())
+					&& target.hasSpellUpgrade(SpellUpgrade.ELEMENTAL_ARCANE_3B)
+					&& target.getElemental().getCurrentSchool()==SpellSchool.ARCANE;
+		}
+	},
+	
+	
+	
+
+	ARCANE_DUALITY_POSITIVE(
+			10,
+			"Arcane Duality (Defence)",
+			"cleanse_positive",
+			Colour.GENERIC_ARCANE,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 10f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 10f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, 10f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, 10f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_POISON, 10f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "A protective barrier of arcane energy has surrounded you, shielding you from all types of incoming damage.";
+			} else {
+				return UtilText.parse(target,
+						"A protective barrier of arcane energy has surrounded [npc.name], shielding [npc.herHim] from all types of incoming damage.");
+			}
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+	
+	ARCANE_DUALITY_NEGATIVE(
+			10,
+			"Arcane Duality (Weakness)",
+			"cleanse_negative",
+			Colour.GENERIC_ARCANE,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, -10f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -10f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, -10f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, -10f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_POISON, -10f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "A weakening barrier of arcane energy has surrounded you, making you more vulnerable to all types of incoming damage.";
+			} else {
+				return UtilText.parse(target,
+						"A weakening barrier of arcane energy has surrounded [npc.name], making [npc.herHim] more vulnerable to all types of incoming damage.");
+			}
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+	
+	TELEPORT(
+			10,
+			"Teleport",
+			null,
+			Colour.GENERIC_ARCANE,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.DODGE_CHANCE, 100f)),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "You have teleported behind your enemies, making it extremely unlikely that they'll be able to land a hit on you!";
+			} else {
+				return UtilText.parse(target,
+						"[npc.Name] has teleported behind [npc.her] enemies, making it extremely unlikely that they'll be able to land a hit on [npc.herHim]!");
+			}
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return Spell.TELEPORT.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+	
+	TELEPORT_ARCANE_ARRIVAL(
+			10,
+			"Teleport (Arcane Arrival)",
+			null,
+			Colour.GENERIC_ARCANE,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.DODGE_CHANCE, 100f)),
+			Util.newArrayListOfValues(new ListValue<String>("<b>5</b> "+Attribute.DAMAGE_LUST.getColouredName("b")+" per turn to a random enemy"))) {
+		
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			GameCharacter randomEnemy = Main.game.getPlayer();
+			
+			if(Combat.getEnemies().contains(target)) {
+				if(!Combat.getAllies().isEmpty() && Math.random() > (1f/(1+Combat.getAllies().size()))) {
+					randomEnemy = Combat.getAllies().get(Util.random.nextInt(Combat.getAllies().size()));
+				}
+			} else {
+				randomEnemy = Combat.getEnemies().get(Util.random.nextInt(Combat.getEnemies().size()));
+			}
+			
+			
+			int damage = (int) Math.round(5 * (1-(Util.getModifiedDropoffValue(randomEnemy.getAttributeValue(Attribute.RESISTANCE_LUST), 100)/100f)));
+			if (damage < 1) {
+				damage = 1;
+			}
+			randomEnemy.incrementLust(damage);
+
+			if (randomEnemy.isPlayer()) {
+				return "You take <b>" + damage + "</b> "+Attribute.DAMAGE_LUST.getColouredName("b")+"!";
+				
+			} else {
+				return UtilText.parse(randomEnemy, "[npc.Name] takes <b>" + damage + "</b> "+Attribute.DAMAGE_LUST.getColouredName("b")+"!");
+			}
+		}
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "You have teleported behind your enemies, making it extremely unlikely that they'll be able to land a hit on you! A burst of lust-inducing arcane energy accompanies your arrival!";
+			} else {
+				return UtilText.parse(target,
+						"[npc.Name] has teleported behind [npc.her] enemies, making it extremely unlikely that they'll be able to land a hit on [npc.herHim]! A burst of lust-inducing arcane energy accompanies [npc.her] arrival!");
+			}
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.TELEPORT_1.getSVGString();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
 		}
 	},
 	

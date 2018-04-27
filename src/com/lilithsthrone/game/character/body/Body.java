@@ -1409,13 +1409,19 @@ public class Body implements Serializable, XMLSaving {
 		// Describe race:
 		if (owner.isPlayer()) {
 			sb.append("<p>"
-						+ "You are [pc.name], [pc.a_fullRace(true)] [pc.gender(true)]. "
+						+ "You are [pc.name], "
+							+(owner.getRace()==Race.HUMAN
+								?"<span style='color:"+owner.getFemininity().getColour().toWebHexString()+";'>[pc.a_femininity]</span> [pc.gender(true)] [style.colourHuman(human)]."
+								:"[pc.a_fullRace(true)] [pc.gender(true)].")
 						+ owner.getAppearsAsGenderDescription(true)
 						+" Standing at full height, you measure [pc.heightFeetInches] ([pc.heightCm]cm).");
 		} else {
 			if(owner.getPlayerKnowsAreas().contains(CoverableArea.PENIS) && owner.getPlayerKnowsAreas().contains(CoverableArea.VAGINA)) {
 				sb.append("<p>"
-						+ "[npc.Name] is [npc.a_fullRace(true)] [npc.gender(true)]. "
+						+ "[npc.Name] is "
+							+(owner.getRace()==Race.HUMAN
+								?"<span style='color:"+owner.getFemininity().getColour().toWebHexString()+";'>[npc.a_femininity]</span> [npc.gender(true)] [style.colourHuman(human)]."
+								:"[npc.a_fullRace(true)] [npc.gender(true)].")
 						+ owner.getAppearsAsGenderDescription(true)
 						+ " Standing at full height, [npc.she] measures [npc.heightFeetInches] ([npc.heightCm]cm).");
 			} else {
@@ -1853,9 +1859,15 @@ public class Body implements Serializable, XMLSaving {
 			}
 			
 			if(owner.getCovering(BodyCoveringType.EYE_PUPILS).getPattern() == CoveringPattern.EYE_PUPILS_HETEROCHROMATIC) {
-				sb.append("and [pc.pupilShape], heterochromatic [pc.pupilPrimaryColour(true)]-and-[pc.pupilSecondaryColour(true)] pupils.");
+				sb.append(", [pc.pupilShape], heterochromatic [pc.pupilPrimaryColour(true)]-and-[pc.pupilSecondaryColour(true)] pupils");
 			} else {
-				sb.append("and [pc.pupilShape], [pc.pupilPrimaryColour(true)] pupils.");
+				sb.append(", [pc.pupilShape], [pc.pupilPrimaryColour(true)] pupils");
+			}
+			
+			if(owner.getCovering(BodyCoveringType.EYE_SCLERA).getPattern() == CoveringPattern.EYE_SCLERA_HETEROCHROMATIC) {
+				sb.append(", and heterochromatic [pc.scleraPrimaryColour(true)]-and-[pc.scleraSecondaryColour(true)] sclerae.");
+			} else {
+				sb.append(", and [pc.scleraPrimaryColour(true)] sclerae.");
 			}
 		} else {
 			if(owner.getCovering(owner.getEyeType().getBodyCoveringType(owner)).getPattern() == CoveringPattern.EYE_IRISES_HETEROCHROMATIC) {
@@ -1865,9 +1877,15 @@ public class Body implements Serializable, XMLSaving {
 			}
 			
 			if(owner.getCovering(BodyCoveringType.EYE_PUPILS).getPattern() == CoveringPattern.EYE_PUPILS_HETEROCHROMATIC) {
-				sb.append("and [npc.pupilShape], heterochromatic [npc.pupilPrimaryColour(true)]-and-[npc.pupilSecondaryColour(true)] pupils.");
+				sb.append(", [npc.pupilShape], heterochromatic [npc.pupilPrimaryColour(true)]-and-[npc.pupilSecondaryColour(true)] pupils");
 			} else {
-				sb.append("and [npc.pupilShape], [npc.pupilPrimaryColour(true)] pupils.");
+				sb.append(", [npc.pupilShape], [npc.pupilPrimaryColour(true)] pupils");
+			}
+			
+			if(owner.getCovering(BodyCoveringType.EYE_SCLERA).getPattern() == CoveringPattern.EYE_SCLERA_HETEROCHROMATIC) {
+				sb.append(", and heterochromatic [npc.scleraPrimaryColour(true)]-and-[npc.scleraSecondaryColour(true)] sclerae.");
+			} else {
+				sb.append(", and [npc.scleraPrimaryColour(true)] sclerae.");
 			}
 		}
 		

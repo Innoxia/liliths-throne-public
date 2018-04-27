@@ -1563,7 +1563,9 @@ public class PrologueDialogue {
 						tempList.addAll(Main.game.getPlayerCell().getInventory().getAllClothingInInventory());
 
 						for (AbstractClothing c : tempList) {
-							Main.game.getPlayer().equipClothingFromGround(c, true, Main.game.getPlayer());
+							if(!c.getClothingType().equals(ClothingType.SCIENTIST_EYES_SAFETY_GOGGLES)) {
+								Main.game.getPlayer().equipClothingFromGround(c, true, Main.game.getPlayer());
+							}
 						}
 						
 						Main.game.getPlayer().equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MELEE_CHAOS_RARE, DamageType.FIRE));

@@ -281,7 +281,13 @@ public class BodyChanging {
 										?"The colour and pattern of your pupils."
 										:UtilText.parse(BodyChanging.getTarget(), "The colour and pattern of [npc.name]'s pupils.")),
 								true, true)
-	
+
+						+ CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyChanging.getTarget().getCovering(BodyCoveringType.EYE_SCLERA).getType(), "Sclerae colour",
+								(BodyChanging.getTarget().isPlayer()
+										?"The colour and pattern of your sclerae."
+										:UtilText.parse(BodyChanging.getTarget(), "The colour and pattern of [npc.name]'s sclerae.")),
+								true, true)
+						
 						+"<div style='clear:left;'>"
 							+ CharacterModificationUtils.getSelfTransformHornChoiceDiv(demonRace)
 							+ CharacterModificationUtils.getSelfTransformLipSizeDiv()
@@ -296,6 +302,12 @@ public class BodyChanging {
 								(BodyChanging.getTarget().isPlayer()
 										?"The natural colour of your lips (top options) and your throat (bottom options). Lipstick can be used to conceal your natural lip colour."
 										:UtilText.parse(BodyChanging.getTarget(), "The natural colour of [npc.name]'s lips (top options) and [npc.her] throat (bottom options). Lipstick can be used to conceal [npc.her] natural lip colour.")),
+								true, true)
+						
+						+ CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyChanging.getTarget().getCovering(BodyCoveringType.TONGUE).getType(), "Tongue colour",
+								(BodyChanging.getTarget().isPlayer()
+										?"The colour of your tongue."
+										:UtilText.parse(BodyChanging.getTarget(), "The colour of [npc.name]'s tongue.")),
 								true, true)
 	
 						+ CharacterModificationUtils.getKatesDivHairLengths(false, "Hair Length",

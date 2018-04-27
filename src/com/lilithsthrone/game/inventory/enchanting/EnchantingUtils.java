@@ -93,7 +93,7 @@ public class EnchantingUtils {
 			potionDescriptor = ingredient.getEnchantmentEffect().getPotionDescriptor();
 		}
 		
-		String finalPotionName = potionDescriptor + potionName;
+		String finalPotionName = ((potionDescriptor==null || potionDescriptor.isEmpty())?"":Util.capitaliseSentence(potionDescriptor)+" ") + potionName;
 		
 		for(ItemEffect ie : effects) {
 			if(ie.getPrimaryModifier() != null && ie.getPrimaryModifier() != TFModifier.NONE) {

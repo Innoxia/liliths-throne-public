@@ -85,7 +85,7 @@ public abstract class AbstractItemEffectType {
 	}
 	
 	public String getPotionDescriptor() {
-		return "viscous";
+		return "";
 	}
 
 	public List<TFModifier> getPrimaryModifiers() {

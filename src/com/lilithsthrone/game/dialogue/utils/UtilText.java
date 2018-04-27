@@ -1127,7 +1127,7 @@ public class UtilText {
 				if(character.isFeminine()) {
 					return UtilText.returnStringAtRandom("bitch", "slut", "cunt", "whore", "skank");
 				} else {
-					return UtilText.returnStringAtRandom("bitch", "bastard", "fuckface", "fucker");
+					return UtilText.returnStringAtRandom("asshole", "bastard", "fuckface", "fucker");
 				}
 			}
 		});
@@ -1674,7 +1674,7 @@ public class UtilText {
 						new ListValue<>("mas")),
 				true,
 				true,
-				"",//TODO
+				"(coloured)",//TODO
 				"Description of method"){//TODO
 			@Override
 			public String parse(String command, String arguments, String target) {
@@ -4145,21 +4145,6 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("pupilShape"),
-						new ListValue<>("pupilsShape")),
-				true,
-				true,
-				"",
-				"Description of method",
-				BodyPartType.EYE){//TODO
-			@Override
-			public String parse(String command, String arguments, String target) {
-				return character.getPupilShape().getName();
-			}
-		});
-		
-		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
 						new ListValue<>("irisFullDescription"),
 						new ListValue<>("irisesFullDescription")),
 				true,
@@ -4254,6 +4239,21 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
+						new ListValue<>("pupilShape"),
+						new ListValue<>("pupilsShape")),
+				true,
+				true,
+				"",
+				"Description of method",
+				BodyPartType.EYE){//TODO
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return character.getPupilShape().getName();
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
 						new ListValue<>("pupilFullDescription"),
 						new ListValue<>("pupilsFullDescription")),
 				true,
@@ -4343,6 +4343,100 @@ public class UtilText {
 					}
 				}
 				return character.getCovering(BodyCoveringType.EYE_PUPILS).getSecondaryColourDescriptor(false);
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("scleraFullDescription"),
+						new ListValue<>("scleraeFullDescription")),
+				true,
+				true,
+				"true If you want this colour's name to be coloured.",
+				"Description of method",
+				BodyPartType.EYE){//TODO
+			@Override
+			public String parse(String command, String arguments, String target) {
+				if(arguments!=null) {
+					if(arguments.equalsIgnoreCase("true")) {
+						return character.getCovering(BodyCoveringType.EYE_SCLERA).getFullDescription(character, true);
+					}
+				}
+				return character.getCovering(BodyCoveringType.EYE_SCLERA).getFullDescription(character, false);
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("scleraColour"),
+						new ListValue<>("scleraColor"),
+						new ListValue<>("scleraeColour"),
+						new ListValue<>("scleraeColor")),
+				true,
+				true,
+				"true If you want this colour's name to be coloured.",
+				"Description of method",
+				BodyPartType.EYE){//TODO
+			@Override
+			public String parse(String command, String arguments, String target) {
+				if(arguments!=null) {
+					if(arguments.equalsIgnoreCase("true")) {
+						return character.getCovering(BodyCoveringType.EYE_SCLERA).getColourDescriptor(character, true, parseCapitalise);
+					}
+				}
+				return character.getCovering(BodyCoveringType.EYE_SCLERA).getColourDescriptor(character, false, parseCapitalise);
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("scleraColourPrimary"),
+						new ListValue<>("scleraColorPrimary"),
+						new ListValue<>("scleraeColourPrimary"),
+						new ListValue<>("scleraeColorPrimary"),
+						new ListValue<>("scleraPrimaryColour"),
+						new ListValue<>("scleraPrimaryColor"),
+						new ListValue<>("scleraePrimaryColour"),
+						new ListValue<>("scleraePrimaryColor")),
+				true,
+				true,
+				"true If you want this colour's name to be coloured.",
+				"Description of method",
+				BodyPartType.EYE){//TODO
+			@Override
+			public String parse(String command, String arguments, String target) {
+				if(arguments!=null) {
+					if(arguments.equalsIgnoreCase("true")) {
+						return character.getCovering(BodyCoveringType.EYE_SCLERA).getPrimaryColourDescriptor(true);
+					}
+				}
+				return character.getCovering(BodyCoveringType.EYE_SCLERA).getPrimaryColourDescriptor(false);
+			}
+		});
+
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("scleraColourSecondary"),
+						new ListValue<>("scleraColorSecondary"),
+						new ListValue<>("scleraeColourSecondary"),
+						new ListValue<>("scleraeColorSecondary"),
+						new ListValue<>("scleraSecondaryColour"),
+						new ListValue<>("scleraSecondaryColor"),
+						new ListValue<>("scleraeSecondaryColour"),
+						new ListValue<>("scleraeSecondaryColor")),
+				true,
+				true,
+				"true If you want this colour's name to be coloured.",
+				"Description of method",
+				BodyPartType.EYE){//TODO
+			@Override
+			public String parse(String command, String arguments, String target) {
+				if(arguments!=null) {
+					if(arguments.equalsIgnoreCase("true")) {
+						return character.getCovering(BodyCoveringType.EYE_SCLERA).getSecondaryColourDescriptor(true);
+					}
+				}
+				return character.getCovering(BodyCoveringType.EYE_SCLERA).getSecondaryColourDescriptor(false);
 			}
 		});
 		

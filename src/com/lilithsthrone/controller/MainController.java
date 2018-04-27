@@ -4278,7 +4278,7 @@ public class MainController implements Initializable {
 								addEventListener(document, id, "mouseenter", new TooltipInformationEventListener().setSpellUpgrade(upgrade.getEntry(), Main.game.getPlayer()), false);
 								
 								((EventTarget) document.getElementById(id)).addEventListener("click", event -> {
-									if(Spell.isSpellUpgradeAvailable(Main.game.getPlayer(), s, upgrade)) {
+									if(Spell.isSpellUpgradeAvailable(Main.game.getPlayer(), s, upgrade) && Main.game.getPlayer().getSpellUpgradePoints(upgrade.getCategory())>0) {
 										Main.game.getPlayer().addSpellUpgrade(upgrade.getEntry());
 										Main.game.getPlayer().incrementSpellUpgradePoints(upgrade.getCategory(), -1);
 										Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));

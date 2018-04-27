@@ -1161,6 +1161,12 @@ public class CharacterInventory implements Serializable, XMLSaving {
 		return true;
 	}
 	
+	public void forceUnequipClothingIntoVoid(GameCharacter characterClothingOwner, GameCharacter characterRemovingClothing, AbstractClothing clothing) {
+		clothing.onUnequipApplyEffects(characterClothingOwner, characterRemovingClothing, false);
+		clothingCurrentlyEquipped.remove(clothing);
+		clothing.getDisplacedList().clear();
+	}
+	
 	public boolean isAbleToUnequip(AbstractClothing clothing, boolean unequipIfAble, boolean automaticClothingManagement, GameCharacter characterClothingOwner, GameCharacter characterRemovingClothing) {
 		return isAbleToUnequip(clothing, unequipIfAble, automaticClothingManagement, characterClothingOwner, characterRemovingClothing, false);
 	}

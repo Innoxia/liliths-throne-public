@@ -3315,7 +3315,12 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		
 		float value = getBaseAttributeValue(att) + getBonusAttributeValue(att);
 		
-		if(this.hasStatusEffect(StatusEffect.ELEMENTAL_FIRE_SERVANT_OF_FIRE) && att == Attribute.HEALTH_MAXIMUM) {
+		if(att == Attribute.HEALTH_MAXIMUM
+				&& (this.hasStatusEffect(StatusEffect.ELEMENTAL_EARTH_SERVANT_OF_EARTH)
+						|| this.hasStatusEffect(StatusEffect.ELEMENTAL_WATER_SERVANT_OF_WATER)
+						|| this.hasStatusEffect(StatusEffect.ELEMENTAL_AIR_SERVANT_OF_AIR)
+						|| this.hasStatusEffect(StatusEffect.ELEMENTAL_FIRE_SERVANT_OF_FIRE)
+						|| this.hasStatusEffect(StatusEffect.ELEMENTAL_ARCANE_SERVANT_OF_ARCANE))) {
 			value /= 2;
 		}
 		
@@ -9261,11 +9266,17 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 	
 	/**
-	 * Hard reser tof spells and spell upgrades, without refunding any points.
+	 * Hard reset of spells and spell upgrades, without refunding any points.
 	 */
 	public void resetSpells() {
 		getSpells().clear();
 		getSpellUpgrades().clear();
+	}
+	
+	public void clearSpellUpgradePoints() {
+		for(SpellSchool school : SpellSchool.values()) {
+			this.spellUpgradePoints.put(school, 0);
+		}
 	}
 	
 	/** Spells from weapons. */
@@ -9902,6 +9913,10 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	
 	public void setRandomLocation(WorldType worldType, PlaceType placeType, boolean setAsHomeLocation) {
 		setLocation(worldType, Main.game.getWorlds().get(worldType).getRandomCell(placeType).getLocation(), setAsHomeLocation);
+	}
+	
+	public void setLocation(WorldType worldType, PlaceType placeType) {
+		setLocation(worldType, placeType, false);
 	}
 	
 	public void setLocation(WorldType worldType, PlaceType placeType, boolean setAsHomeLocation) {
@@ -11003,6 +11018,10 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 								+ "</p>"
 								+ this.getMoundRevealDescription(this)
 								:""));
+	}
+	
+	public void forceUnequipClothingIntoVoid(GameCharacter characterRemovingClothing, AbstractClothing clothing) {
+		inventory.forceUnequipClothingIntoVoid(this, characterRemovingClothing, clothing);
 	}
 	
 	public String unequipClothingIntoVoid(AbstractClothing clothing, boolean automaticClothingManagement, GameCharacter characterClothingUnequipper) { // TODO it's saying "added to inventory"
@@ -14455,6 +14474,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 					break;
 				case EYE_PUPILS: case SLIME_PUPILS:
 					return body.getCoverings().get(BodyCoveringType.SLIME_PUPILS);
+				case EYE_SCLERA: case SLIME_SCLERA:
+					return body.getCoverings().get(BodyCoveringType.SLIME_SCLERA);
 				case HAIR_ANGEL:
 				case HAIR_BOVINE_FUR:
 				case HAIR_CANINE_FUR:

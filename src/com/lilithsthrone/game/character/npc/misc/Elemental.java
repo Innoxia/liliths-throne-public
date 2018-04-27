@@ -141,6 +141,27 @@ public class Elemental extends NPC {
 				+"<p style='text-align:center;'>[style.italicsMinorBad(Elementals cannot get pregnant!)]</br>[style.italicsDisabled(I will add support for impregnating/being impregnated by elementals soon!)]</p>";
 	}
 
+	public SpellSchool getCurrentSchool() {
+		switch(this.getBodyMaterial()) {
+			case AIR:
+				return SpellSchool.AIR;
+			case ARCANE:
+				return SpellSchool.ARCANE;
+			case FIRE:
+				return SpellSchool.FIRE;
+			case FLESH:
+			case SLIME:
+				break;
+			case RUBBER:
+			case STONE:
+				return SpellSchool.EARTH;
+			case ICE:
+			case WATER:
+				return SpellSchool.WATER;
+		}
+		return SpellSchool.ARCANE;
+	}
+	
 	public void setElementalSchool(SpellSchool school) {
 		setElementalSchool(school, null);
 	}
@@ -148,7 +169,7 @@ public class Elemental extends NPC {
 		this.setAttribute(Attribute.MAJOR_ARCANE, 60);
 		this.resetSpells();
 		
-		switch(school) { //TODO spells
+		switch(school) {
 			case AIR:
 				this.setAttribute(Attribute.MAJOR_PHYSIQUE, 30);
 				this.setAttribute(Attribute.MAJOR_ARCANE, 70);
@@ -167,6 +188,16 @@ public class Elemental extends NPC {
 				this.setAttribute(Attribute.MAJOR_PHYSIQUE, 50);
 				this.setAttribute(Attribute.MAJOR_ARCANE, 90);
 				this.setBodyMaterial(BodyMaterial.ARCANE);
+
+				this.addSpell(Spell.ARCANE_AROUSAL);
+				this.addSpellUpgrade(SpellUpgrade.ARCANE_AROUSAL_1);
+				this.addSpellUpgrade(SpellUpgrade.ARCANE_AROUSAL_2);
+				this.addSpellUpgrade(SpellUpgrade.ARCANE_AROUSAL_3);
+				this.addSpell(Spell.ARCANE_CLOUD);
+				this.addSpellUpgrade(SpellUpgrade.ARCANE_CLOUD_1);
+				this.addSpell(Spell.TELEPATHIC_COMMUNICATION);
+				this.addSpellUpgrade(SpellUpgrade.TELEPATHIC_COMMUNICATION_1);
+				this.addSpellUpgrade(SpellUpgrade.TELEPATHIC_COMMUNICATION_2);
 				break;
 				
 			case EARTH:

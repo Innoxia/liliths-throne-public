@@ -5638,14 +5638,14 @@ public class InventoryDialogue {
 	
 	private static String getItemDisplayPanel(String SVGString, String title, String description) {
 		return "<div class='inventoryImage'>"
-				+ "<div class='inventoryImage-content'>"
-					+ SVGString
+					+ "<div class='inventoryImage-content'>"
+						+ SVGString
+					+ "</div>"
 				+ "</div>"
-			+ "</div>"
-			+ "<h5><b>"+title+"</b></h5>"
-			+ "<p>"
-				+ description
-			+ "</p>";
+				+ "<h5><b>"+title+"</b></h5>"
+				+ "<p>"
+					+ description
+				+ "</p>";
 	}
 	
 	private static String getGeneralResponseTabTitle(int index) {

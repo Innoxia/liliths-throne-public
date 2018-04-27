@@ -366,25 +366,35 @@ public class CharacterModificationUtils {
 		contentSB.append("<div class='container-full-width'>"
 							+ "<div class='container-full-width' style='text-align:center;'><h6>Sex Actions Received</h6></div>");
 			contentSB.append(
-							(Main.game.getPlayer().hasVagina()?"":getSexExperienceEntry("HANDJOBS_TAKEN", "Handjobs Received",
-									new SexType(SexParticipantType.CATCHER, PenetrationType.FINGER, OrificeType.URETHRA_PENIS),
-									normalSexExperienceValues, Main.game.getPlayer().isFeminine()?feminineNames:masculineNames))
+							(Main.game.getPlayer().hasVagina()
+									?""
+									:getSexExperienceEntry("HANDJOBS_TAKEN", "Handjobs Received",
+										new SexType(SexParticipantType.CATCHER, PenetrationType.FINGER, OrificeType.URETHRA_PENIS),
+										normalSexExperienceValues, Main.game.getPlayer().isFeminine()?feminineNames:masculineNames))
 							
-							+ (Main.game.getPlayer().hasVagina()?getSexExperienceEntry("FINGERINGS_TAKEN", "Fingerings Received",
-									new SexType(SexParticipantType.CATCHER, PenetrationType.FINGER, OrificeType.VAGINA),
-									normalSexExperienceValues, Main.game.getPlayer().isFeminine()?feminineNames:masculineNames):"")
+							+ (Main.game.getPlayer().hasVagina()
+									?getSexExperienceEntry("FINGERINGS_TAKEN", "Fingerings Received",
+										new SexType(SexParticipantType.CATCHER, PenetrationType.FINGER, OrificeType.VAGINA),
+										normalSexExperienceValues, Main.game.getPlayer().isFeminine()?feminineNames:masculineNames)
+									:"")
 							
-							+ (Main.game.getPlayer().hasVagina()?"":getSexExperienceEntry("BLOWJOBS_TAKEN", "Blowjobs Received",
-									new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.MOUTH),
-									normalSexExperienceValues, Main.game.getPlayer().isFeminine()?feminineNames:masculineNames))
+							+ (Main.game.getPlayer().hasVagina()
+									?""
+									:getSexExperienceEntry("BLOWJOBS_TAKEN", "Blowjobs Received",
+										new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.MOUTH),
+										normalSexExperienceValues, Main.game.getPlayer().isFeminine()?feminineNames:masculineNames))
 							
-							+ (Main.game.getPlayer().hasVagina()?getSexExperienceEntry("CUNNILINGUS_TAKEN", "Cunnilingus Received",
-									new SexType(SexParticipantType.CATCHER, PenetrationType.TONGUE, OrificeType.VAGINA),
-									normalSexExperienceValues, Main.game.getPlayer().isFeminine()?feminineNames:masculineNames):"")
+							+ (Main.game.getPlayer().hasVagina()
+									?getSexExperienceEntry("CUNNILINGUS_TAKEN", "Cunnilingus Received",
+										new SexType(SexParticipantType.CATCHER, PenetrationType.TONGUE, OrificeType.VAGINA),
+										normalSexExperienceValues, Main.game.getPlayer().isFeminine()?feminineNames:masculineNames)
+									:"")
 							
-							+ (Main.game.getPlayer().hasVagina()?getSexExperienceEntry("VAGINAL_TAKEN", "Vaginal Sex Received",
-									new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.VAGINA),
-									normalSexExperienceValues, Main.game.getPlayer().isFeminine()?feminineNames:masculineNames):"")
+							+ (Main.game.getPlayer().hasVagina()
+									?getSexExperienceEntry("VAGINAL_TAKEN", "Vaginal Sex Received",
+										new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.VAGINA),
+										normalSexExperienceValues, Main.game.getPlayer().isFeminine()?feminineNames:masculineNames)
+									:"")
 							
 							+ getSexExperienceEntry("ANAL_TAKEN", "Anal Sex Received",
 									new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.ANUS),
@@ -3283,204 +3293,6 @@ public class CharacterModificationUtils {
 		return contentSB.toString();
 	}
 	
-//	public static String getKatesDivNaturalCoverings(boolean withCost, BodyCoveringType coveringType, String title, String description, boolean withSecondary, boolean withGlow) {
-//		contentSB.setLength(0);
-//		
-//		boolean noCost = !withCost;
-//		
-//		contentSB.append(
-//				"<div class='container-full-width'>"
-//					+ "<div class='cosmetics-inner-container left'>"
-//						+ "<h5 style='text-align:center;'>"
-//							+title
-//							+(noCost
-//									?""
-//									:" "+(Main.game.getPlayer().getMoney()>=SuccubisSecrets.getBodyCoveringTypeCost(coveringType)
-//										? UtilText.formatAsMoney(SuccubisSecrets.getBodyCoveringTypeCost(coveringType), "b")
-//										: UtilText.formatAsMoney(SuccubisSecrets.getBodyCoveringTypeCost(coveringType), "b", Colour.GENERIC_BAD)))
-//						+"</h5>"
-//						+ "<p style='text-align:center;'>"
-//							+ description
-//						+ "</p>"
-//					+ "</div>"
-//					+ "<div class='cosmetics-inner-container right'>");
-//		
-//		for (Colour cs : coveringType.getNaturalColoursPrimary()) {
-//			if (BodyChanging.getTarget().getCovering(coveringType).getPrimaryColour() == cs) {
-//				if(BodyChanging.getTarget().getCovering(coveringType).isPrimaryGlowing()) {
-//					contentSB.append(
-//							"<div class='cosmetics-button active'>"
-//								+ "<b style='color:"+cs.toWebHexString()+"; text-shadow: 0px 0px 4px "+cs.getShades()[4]+";'>" + Util.capitaliseSentence(cs.getName()) + "</b>"
-//							+ "</div>");
-//				} else {
-//					contentSB.append(
-//							"<div class='cosmetics-button active'>"
-//								+ "<b style='color:" + cs.toWebHexString() + ";'>" + Util.capitaliseSentence(cs.getName()) + "</b>"
-//							+ "</div>");
-//				}
-//			} else {
-//				contentSB.append(
-//						"<div id='"+coveringType+"_PRIMARY_"+cs+"' class='cosmetics-button'>"
-//								+ (Main.game.getPlayer().getMoney()>=SuccubisSecrets.getBodyCoveringTypeCost(coveringType) || noCost
-//									? "<span style='color:"+cs.getShades()[0]+";'>" + Util.capitaliseSentence(cs.getName()) + "</span>"
-//									: "[style.colourDisabled(" + Util.capitaliseSentence(cs.getName()) + ")]")
-//						+ "</div>");
-//			}
-//		}
-//		
-//		if(withGlow) {
-//			contentSB.append(
-//					"</div>"
-//					+ "<div class='cosmetics-inner-container right'>");
-//			
-//			if(BodyChanging.getTarget().getCovering(coveringType).getPrimaryColour() == Colour.COVERING_NONE) { // Disable glow:
-//					contentSB.append(
-//							"<div class='cosmetics-button active'>"
-//								+ "No glow"
-//							+ "</div>"
-//							+ "<div class='cosmetics-button disabled'>"
-//								+ "[style.colourDisabled(Glowing)]"
-//							+ "</div>");
-//				
-//			} else {
-//				if(BodyChanging.getTarget().getCovering(coveringType).isPrimaryGlowing()) {
-//					contentSB.append(
-//							"<div id='"+coveringType+"_PRIMARY_GLOW_OFF' class='cosmetics-button'>"
-//								+ "[style.colourDisabled(No glow)]"
-//							+ "</div>"
-//							+ "<div class='cosmetics-button active'>"
-//								+ "[style.boldArcane(Glowing)]"
-//							+ "</div>");
-//				} else {
-//					contentSB.append(
-//							"<div class='cosmetics-button active'>"
-//								+ "No glow"
-//							+ "</div>"
-//							+ "<div id='"+coveringType+"_PRIMARY_GLOW_ON' class='cosmetics-button'>"
-//								+ (Main.game.getPlayer().getMoney()>=SuccubisSecrets.getBodyCoveringTypeCost(coveringType) || noCost
-//									?"<span style='color:"+Colour.GENERIC_ARCANE.getShades()[0]+";'>Glowing</span>"
-//									:"[style.colourDisabled(Glowing)]")
-//							+ "</div>");
-//				}
-//		
-//			}
-//		}
-//		
-//		if(withSecondary
-//				&& BodyChanging.getTarget().getCovering(coveringType).getPrimaryColour() != Colour.COVERING_NONE
-//				&& !coveringType.getAllPatterns().isEmpty()
-//				&& (coveringType.getAllPatterns().size() != 1 || (!coveringType.getAllPatterns().contains(CoveringPattern.NONE)
-//																&& !coveringType.getAllPatterns().contains(CoveringPattern.EYE_IRISES)
-//																&& !coveringType.getAllPatterns().contains(CoveringPattern.EYE_PUPILS)))
-//				&& !coveringType.getAllSecondaryColours().isEmpty()) {
-//			contentSB.append(
-//					"</div>"
-//					+ "<div class='cosmetics-inner-container right'>");
-//			
-//			for (CoveringPattern pattern : coveringType.getNaturalPatterns()) {
-//				if (BodyChanging.getTarget().getCovering(coveringType).getPattern() == pattern) {
-//					contentSB.append(
-//							"<div class='cosmetics-button active'>"
-//								+ "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>" + Util.capitaliseSentence(pattern.getName()) + "</b>"
-//							+ "</div>");
-//				} else {
-//					contentSB.append(
-//							"<div id='"+coveringType+"_PATTERN_"+pattern+"' class='cosmetics-button'>"
-//									+ (Main.game.getPlayer().getMoney()>=SuccubisSecrets.getBodyCoveringTypeCost(coveringType) || noCost
-//										? "<span style='color:"+Colour.TRANSFORMATION_GENERIC.getShades()[0]+";'>" + Util.capitaliseSentence(pattern.getName()) + "</span>"
-//										: "[style.colourDisabled(" + Util.capitaliseSentence(pattern.getName()) + ")]")
-//							+ "</div>");
-//				}
-//			}
-//			
-//			contentSB.append(
-//					"</div>"
-//					+ "<div class='cosmetics-inner-container right'>");
-//			
-//			for (Colour cs : coveringType.getNaturalColoursSecondary()) {
-//				
-//				if(BodyChanging.getTarget().getCovering(coveringType).getPattern()==CoveringPattern.NONE
-//						|| BodyChanging.getTarget().getCovering(coveringType).getPattern()==CoveringPattern.EYE_IRISES
-//						|| BodyChanging.getTarget().getCovering(coveringType).getPattern()==CoveringPattern.EYE_PUPILS) {
-//					contentSB.append(
-//							"<div class='cosmetics-button disabled'>"
-//								+ "[style.colourDisabled(" + Util.capitaliseSentence(cs.getName()) + ")]"
-//							+ "</div>");
-//					
-//					
-//				} else {
-//					if (BodyChanging.getTarget().getCovering(coveringType).getSecondaryColour() == cs) {
-//						if(BodyChanging.getTarget().getCovering(coveringType).isSecondaryGlowing()) {
-//							contentSB.append(
-//									"<div class='cosmetics-button active'>"
-//										+ "<b style='color:"+cs.toWebHexString()+"; text-shadow: 0px 0px 4px "+cs.getShades()[4]+";'>" + Util.capitaliseSentence(cs.getName()) + "</b>"
-//									+ "</div>");
-//						} else {
-//							contentSB.append(
-//									"<div class='cosmetics-button active'>"
-//										+ "<b style='color:" + cs.toWebHexString() + ";'>" + Util.capitaliseSentence(cs.getName()) + "</b>"
-//									+ "</div>");
-//						}
-//					} else {
-//						contentSB.append(
-//								"<div id='"+coveringType+"_SECONDARY_"+cs+"' class='cosmetics-button'>"
-//										+ (Main.game.getPlayer().getMoney()>=SuccubisSecrets.getBodyCoveringTypeCost(coveringType) || noCost
-//											? "<span style='color:"+cs.getShades()[0]+";'>" + Util.capitaliseSentence(cs.getName()) + "</span>"
-//											: "[style.colourDisabled(" + Util.capitaliseSentence(cs.getName()) + ")]")
-//								+ "</div>");
-//					}
-//				}
-//			}
-//			
-//			if(withGlow) {
-//				contentSB.append(
-//						"</div>"
-//						+ "<div class='cosmetics-inner-container right'>");
-//				
-//				if(BodyChanging.getTarget().getCovering(coveringType).getSecondaryColour() == Colour.COVERING_NONE
-//						|| BodyChanging.getTarget().getCovering(coveringType).getPattern() == CoveringPattern.NONE
-//						|| BodyChanging.getTarget().getCovering(coveringType).getPattern()==CoveringPattern.EYE_IRISES
-//						|| BodyChanging.getTarget().getCovering(coveringType).getPattern()==CoveringPattern.EYE_PUPILS) { // Disable glow:
-//						contentSB.append(
-//								"<div class='cosmetics-button disabled'>"
-//									+ "[style.colourDisabled(No Glow)]"
-//								+ "</div>"
-//								+ "<div class='cosmetics-button disabled'>"
-//									+ "[style.colourDisabled(Glowing)]"
-//								+ "</div>");
-//					
-//				} else {
-//					if(BodyChanging.getTarget().getCovering(coveringType).isSecondaryGlowing()) {
-//						contentSB.append(
-//								"<div id='"+coveringType+"_SECONDARY_GLOW_OFF' class='cosmetics-button'>"
-//									+ "[style.colourDisabled(No glow)]"
-//								+ "</div>"
-//								+ "<div class='cosmetics-button active'>"
-//									+ "[style.boldArcane(Glowing)]"
-//								+ "</div>");
-//					} else {
-//						contentSB.append(
-//								"<div class='cosmetics-button active'>"
-//									+ "No glow"
-//								+ "</div>"
-//								+ "<div id='"+coveringType+"_SECONDARY_GLOW_ON' class='cosmetics-button'>"
-//									+ (Main.game.getPlayer().getMoney()>=SuccubisSecrets.getBodyCoveringTypeCost(coveringType) || noCost
-//										?"<span style='color:"+Colour.GENERIC_ARCANE.getShades()[0]+";'>Glowing</span>"
-//										:"[style.colourDisabled(Glowing)]")
-//								+ "</div>");
-//					}
-//			
-//				}
-//			}
-//		}
-//		
-//		contentSB.append(
-//				"</div>"
-//			+ "</div>");
-//		
-//		return contentSB.toString();
-//	}
-
 	//TODO reset on open
 	private static Map<BodyCoveringType, Covering> coveringsToBeApplied = new HashMap<>();
 	
@@ -3608,6 +3420,7 @@ public class CharacterModificationUtils {
 				if(activeCovering.getPattern()==CoveringPattern.NONE
 						|| activeCovering.getPattern()==CoveringPattern.EYE_IRISES
 						|| activeCovering.getPattern()==CoveringPattern.EYE_PUPILS
+						|| activeCovering.getPattern()==CoveringPattern.EYE_SCLERA
 						|| !withSecondary) {
 					contentSB.append("<div class='normal-button disabled' style='width:auto; margin-right:4px;'>"
 						+ "<div class='phone-item-colour' style='background-color:" + c.getShades()[0] + ";'></div>"
@@ -3645,6 +3458,7 @@ public class CharacterModificationUtils {
 			if(activeCovering.getPattern()==CoveringPattern.NONE
 					|| activeCovering.getPattern()==CoveringPattern.EYE_IRISES
 					|| activeCovering.getPattern()==CoveringPattern.EYE_PUPILS
+					|| activeCovering.getPattern()==CoveringPattern.EYE_SCLERA
 					|| !withSecondary) {
 				contentSB.append("<p>"
 						+ "[style.boldDisabled(Disabled)]"

@@ -117,6 +117,20 @@ public enum Combat {
 			escapeChance = 100;
 		}
 		
+		String startingEffect = "";
+		
+		if(Main.game.getPlayer().hasSpellUpgrade(SpellUpgrade.TELEPATHIC_COMMUNICATION_3)) {
+			Main.game.getPlayer().addStatusEffect(StatusEffect.TELEPATHIC_COMMUNICATION_POWER_OF_SUGGESTION, 11);
+			startingEffect = Spell.getBasicStatusEffectApplication(Main.game.getPlayer(), true, Util.newHashMapOfValues(new Value<>(StatusEffect.TELEPATHIC_COMMUNICATION_POWER_OF_SUGGESTION, 10)));
+			
+		} else if(Main.game.getPlayer().hasSpellUpgrade(SpellUpgrade.TELEPATHIC_COMMUNICATION_2)) {
+			Main.game.getPlayer().addStatusEffect(StatusEffect.TELEPATHIC_COMMUNICATION_PROJECTED_TOUCH, 11);
+			startingEffect = Spell.getBasicStatusEffectApplication(Main.game.getPlayer(), true, Util.newHashMapOfValues(new Value<>(StatusEffect.TELEPATHIC_COMMUNICATION_PROJECTED_TOUCH, 10)));
+			
+		} else if(Main.game.getPlayer().hasSpellUpgrade(SpellUpgrade.TELEPATHIC_COMMUNICATION_1)) {
+			Main.game.getPlayer().addStatusEffect(StatusEffect.TELEPATHIC_COMMUNICATION, 11);
+			startingEffect = Spell.getBasicStatusEffectApplication(Main.game.getPlayer(), true, Util.newHashMapOfValues(new Value<>(StatusEffect.TELEPATHIC_COMMUNICATION, 10)));
+		}
 		
 		if(openingDescriptions!=null && openingDescriptions.containsKey(Main.game.getPlayer())) {
 			combatStringBuilder.append(getCharactersTurnDiv(Main.game.getPlayer(),
@@ -127,7 +141,8 @@ public enum Combat {
 									+ " <b style='color:"+Perk.JOB_SOLDIER.getColour().toWebHexString()+";'>"+Perk.JOB_SOLDIER.getName(Main.game.getPlayer())+"</b> ability."
 								+ "</p>"
 							:"")
-					+openingDescriptions.get(Main.game.getPlayer())));
+					+openingDescriptions.get(Main.game.getPlayer())
+					+startingEffect));
 		} else {
 			combatStringBuilder.append(getCharactersTurnDiv(Main.game.getPlayer(),
 					"Preparation",
@@ -137,14 +152,29 @@ public enum Combat {
 									+ " <b style='color:"+Perk.JOB_SOLDIER.getColour().toWebHexString()+";'>"+Perk.JOB_SOLDIER.getName(Main.game.getPlayer())+"</b> ability."
 								+ "</p>"
 							:"")
-					+"<p>You prepare to make a move...</p>"));
+					+"<p>You prepare to make a move...</p>"
+					+startingEffect));
 		}
 		
 		for(NPC enemy : enemies) {
+			startingEffect="";
+			if(enemy.hasSpellUpgrade(SpellUpgrade.TELEPATHIC_COMMUNICATION_3)) {
+				enemy.addStatusEffect(StatusEffect.TELEPATHIC_COMMUNICATION_POWER_OF_SUGGESTION, 11);
+				startingEffect = Spell.getBasicStatusEffectApplication(enemy, true, Util.newHashMapOfValues(new Value<>(StatusEffect.TELEPATHIC_COMMUNICATION_POWER_OF_SUGGESTION, 10)));
+				
+			} else if(enemy.hasSpellUpgrade(SpellUpgrade.TELEPATHIC_COMMUNICATION_2)) {
+				enemy.addStatusEffect(StatusEffect.TELEPATHIC_COMMUNICATION_PROJECTED_TOUCH, 11);
+				startingEffect = Spell.getBasicStatusEffectApplication(enemy, true, Util.newHashMapOfValues(new Value<>(StatusEffect.TELEPATHIC_COMMUNICATION_PROJECTED_TOUCH, 10)));
+				
+			} else if(enemy.hasSpellUpgrade(SpellUpgrade.TELEPATHIC_COMMUNICATION_1)) {
+				enemy.addStatusEffect(StatusEffect.TELEPATHIC_COMMUNICATION, 11);
+				startingEffect = Spell.getBasicStatusEffectApplication(enemy, true, Util.newHashMapOfValues(new Value<>(StatusEffect.TELEPATHIC_COMMUNICATION, 10)));
+			}
+			
 			if(openingDescriptions!=null && openingDescriptions.containsKey(enemy)) {
-				combatStringBuilder.append(getCharactersTurnDiv(enemy, "", openingDescriptions.get(enemy)));
+				combatStringBuilder.append(getCharactersTurnDiv(enemy, "", openingDescriptions.get(enemy) + startingEffect));
 			} else {
-				combatStringBuilder.append(getCharactersTurnDiv(enemy, "Preparation", UtilText.parse(enemy, "[npc.Name] prepares to make a move...")));
+				combatStringBuilder.append(getCharactersTurnDiv(enemy, "Preparation", UtilText.parse(enemy, "[npc.Name] prepares to make a move..." + startingEffect)));
 			}
 		}
 
@@ -665,29 +695,35 @@ public enum Combat {
 			}
 			
 			if(responseTab==2) { // Spells
-				if(index == 0) {
-					return null;
-					
-				} else if(Main.game.getPlayer().getAllSpells().size()>=index) {
-					if(Main.game.getPlayer().getMana() < Main.game.getPlayer().getAllSpells().get(index - 1).getModifiedCost(Main.game.getPlayer())) {
-						return new Response(Util.capitaliseSentence(Main.game.getPlayer().getAllSpells().get(index - 1).getName()),
-								"You don't have enough aura to cast this spell! (Requires "+Main.game.getPlayer().getAllSpells().get(index - 1).getModifiedCost(Main.game.getPlayer())+" aura.)",
+				int spellIndex = index==0?14:(index<15?index-1:index);
+				
+				if(Main.game.getPlayer().getAllSpells().size()>spellIndex) {
+					if(Main.game.getPlayer().getMana() < Main.game.getPlayer().getAllSpells().get(spellIndex).getModifiedCost(Main.game.getPlayer())) {
+						return new Response(Util.capitaliseSentence(Main.game.getPlayer().getAllSpells().get(spellIndex).getName()),
+								"You don't have enough aura to cast this spell! (Requires "+Main.game.getPlayer().getAllSpells().get(spellIndex).getModifiedCost(Main.game.getPlayer())+" aura.)",
 								null);
 					}
-					return new Response(Util.capitaliseSentence(Main.game.getPlayer().getAllSpells().get(index - 1).getName()),
-							getSpellDescription(Main.game.getPlayer().getAllSpells().get(index - 1),
+					if(Main.game.getPlayer().getAllSpells().get(spellIndex).getType()==SpellType.OFFENSIVE
+							&& (Combat.getAllies().contains(Combat.getTargetedCombatant(Main.game.getPlayer()))
+									|| Combat.getTargetedCombatant(Main.game.getPlayer()).isPlayer())) {
+						return new Response(Util.capitaliseSentence(Main.game.getPlayer().getAllSpells().get(spellIndex).getName()),
+								"You can only cast this spell on an enemy!",
+								null);
+					}
+					return new Response(Util.capitaliseSentence(Main.game.getPlayer().getAllSpells().get(spellIndex).getName()),
+							getSpellDescription(Main.game.getPlayer().getAllSpells().get(spellIndex),
 							null),
 							ENEMY_ATTACK){
 						@Override
 						public void effects() {
-							attackSpell(Main.game.getPlayer(), Main.game.getPlayer().getAllSpells().get(index - 1));
+							attackSpell(Main.game.getPlayer(), Main.game.getPlayer().getAllSpells().get(spellIndex));
 							endCombatTurn();
 							previousAction = Attack.SPELL;
-							previouslyUsedSpell = Main.game.getPlayer().getAllSpells().get(index - 1);
+							previouslyUsedSpell = Main.game.getPlayer().getAllSpells().get(spellIndex);
 						}
 						@Override
 						public Colour getHighlightColour() {
-							return Main.game.getPlayer().getAllSpells().get(index - 1).getSpellSchool().getColour();
+							return Main.game.getPlayer().getAllSpells().get(spellIndex).getSpellSchool().getColour();
 						}
 					};
 					
@@ -1198,18 +1234,25 @@ public enum Combat {
 			target.incrementLust(lustDamage);
 		}
 		
+		if(attacker.hasStatusEffect(StatusEffect.TELEPATHIC_COMMUNICATION_POWER_OF_SUGGESTION)) {
+			target.addStatusEffect(StatusEffect.TELEPATHIC_COMMUNICATION_POWER_OF_SUGGESTION_TARGETED, 3);
+			attackStringBuilder.append(Spell.getBasicStatusEffectApplication(target, false, Util.newHashMapOfValues(new Value<>(StatusEffect.TELEPATHIC_COMMUNICATION_POWER_OF_SUGGESTION_TARGETED, 2))));
+		}
+		
 		combatStringBuilder.append(getCharactersTurnDiv(attacker, "Seduction", attackStringBuilder.toString()));
 	}
 
 	private static void attackSpell(GameCharacter attacker, Spell spell) {
-		GameCharacter target;
-		if(spell.isBeneficial()) {
-			target = getTargetedAlliedCombatant(attacker);
-		} else {
+		GameCharacter target = getTargetedAlliedCombatant(attacker);
+		boolean isHit = true;
+		
+		if(!spell.isBeneficial(attacker, target)) {
 			target = getTargetedCombatant(attacker);
 		}
 		
-		boolean isHit = Attack.rollForHit(attacker, target);
+		if(spell.getType()==SpellType.OFFENSIVE) {
+			isHit = Attack.rollForHit(attacker, target);
+		}
 		
 		boolean critical = Attack.rollForCritical(attacker, target, spell);
 
@@ -1220,7 +1263,7 @@ public enum Combat {
 //		attackStringBuilder.append(attacker.getSpellDescription());
 		attackStringBuilder.append(spell.applyEffect(attacker, target, isHit, critical));
 		
-		if(isHit && critical && !spell.isBeneficial() && attacker.hasTraitActivated(Perk.ARCANE_CRITICALS)) {
+		if(isHit && critical && !spell.isBeneficial(attacker, target) && attacker.hasTraitActivated(Perk.ARCANE_CRITICALS)) {
 			target.addStatusEffect(StatusEffect.ARCANE_WEAKNESS, 2);
 			if(attacker.isPlayer()) {
 				attackStringBuilder.append(

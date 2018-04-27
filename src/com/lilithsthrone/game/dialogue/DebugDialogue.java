@@ -266,6 +266,16 @@ public class DebugDialogue {
 						}
 					};
 					
+			} else if (index == 21) {
+					return new Response("Reset spells", "Resets all of your spells and upgrades, and removes all of your spell upgrade points.", DEBUG_MENU){
+						@Override
+						public void effects() {
+							Main.game.getPlayer().resetSpells();
+							Main.game.getPlayer().clearSpellUpgradePoints();
+							
+						}
+					};
+					
 			}
 			else {
 				return null;

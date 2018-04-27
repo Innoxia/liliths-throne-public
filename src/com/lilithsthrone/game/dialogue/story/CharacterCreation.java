@@ -39,6 +39,10 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
+import com.lilithsthrone.game.sex.OrificeType;
+import com.lilithsthrone.game.sex.PenetrationType;
+import com.lilithsthrone.game.sex.SexParticipantType;
+import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -1534,7 +1538,7 @@ public class CharacterCreation {
 					// "I'm a whore! Want to know my rates? :D"
 					break;
 				case REINDEER_OVERSEER:
-					// "Well, if you hadn't already noticed, I'm actually an anthropormpic reindeer, and I come down from the snowy mountains to shovel snow in the city every winter. :D"
+					// "Well, if you hadn't already noticed, I'm actually an anthropomorphic reindeer, and I come down from the snowy mountains to shovel snow in the city every winter. :D"
 					break;
 				case SOLDIER:
 					UtilText.nodeContentSB.append(
@@ -1610,7 +1614,30 @@ public class CharacterCreation {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Continue", "Once you're happy with your sexual experience, proceed to the next part of the character creation.", FINAL_CHECK);
+				return new Response("Continue", "Once you're happy with your sexual experience, proceed to the next part of the character creation.", FINAL_CHECK) {
+					@Override
+					public void effects() {
+						if(!Main.game.getPlayer().hasPenis()) {
+							for(OrificeType ot : OrificeType.values()) {
+								SexType st = new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, ot);
+								Main.game.getPlayer().setVirginityLoss(st, "");
+								st = new SexType(SexParticipantType.SELF, PenetrationType.PENIS, ot);
+								Main.game.getPlayer().setVirginityLoss(st, "");
+							}
+							Main.game.getPlayer().setPenisVirgin(true);
+							
+						}
+						if(!Main.game.getPlayer().hasVagina()) {
+							for(PenetrationType pt : PenetrationType.values()) {
+								SexType st = new SexType(SexParticipantType.PITCHER, pt, OrificeType.VAGINA);
+								Main.game.getPlayer().setVirginityLoss(st, "");
+								st = new SexType(SexParticipantType.SELF, pt, OrificeType.VAGINA);
+								Main.game.getPlayer().setVirginityLoss(st, "");
+							}
+							Main.game.getPlayer().setVaginaVirgin(true);
+						}
+					}
+				};
 				
 			} else if (index == 0) {
 				return new Response("Back", "Return to background selection.", BACKGROUND_SELECTION_MENU);

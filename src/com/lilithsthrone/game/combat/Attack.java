@@ -389,7 +389,7 @@ public enum Attack {
 					damageDoubledFromElemental = ((Elemental)attacker).hasStatusEffect(StatusEffect.ELEMENTAL_AIR_SERVANT_OF_AIR_ELEMENTAL_BUFF);
 					break;
 				case ARCANE:
-					damageDoubledFromElemental = ((Elemental)attacker).getSummoner().hasSpellUpgrade(SpellUpgrade.ELEMENTAL_ARCANE_3A); //TODO
+					damageDoubledFromElemental = ((Elemental)attacker).hasStatusEffect(StatusEffect.ELEMENTAL_ARCANE_SERVANT_OF_ARCANE_ELEMENTAL_BUFF);
 					break;
 				case FIRE:
 					damageDoubledFromElemental = ((Elemental)attacker).hasStatusEffect(StatusEffect.ELEMENTAL_FIRE_SERVANT_OF_FIRE_ELEMENTAL_BUFF);

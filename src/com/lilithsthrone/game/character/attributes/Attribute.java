@@ -230,10 +230,10 @@ public enum Attribute {
 		}
 	},
 	
-	RESISTANCE_LUST(0, -100, 100, "seduction resistance", "Seduction resist", "shieldIcon", Colour.GENERIC_SEX, "chastity", "temptation", null) {
+	RESISTANCE_LUST(0, -100, 100, "lust resistance", "Lust resist", "shieldIcon", Colour.GENERIC_SEX, "chastity", "temptation", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return "Reduces aura and lust damage taken.";
+			return "Reduces lust damage taken.";
 		}
 	},
 	
@@ -295,10 +295,10 @@ public enum Attribute {
 		}
 	},
 	
-	DAMAGE_LUST(0, -100, 100, "seduction damage", "Seduction damage", "swordIcon", Colour.GENERIC_SEX, "seduction", "repulsion", null) {
+	DAMAGE_LUST(0, -100, 100, "lust damage", "Lust damage", "swordIcon", Colour.GENERIC_SEX, "seduction", "repulsion", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return "Increases aura and lust damage.";
+			return "Increases lust damage.";
 		}
 	},
 	

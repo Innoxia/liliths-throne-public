@@ -495,14 +495,14 @@ public class Main extends Application {
 		dir = new File("data/characters");
 		dir.mkdir();
 		
-		// Open error log
-		try {
-			@SuppressWarnings("resource")
-			PrintStream stream = new PrintStream("data/error.log");
-			System.setErr(stream);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+//		// Open error log
+//		try {
+//			@SuppressWarnings("resource")
+//			PrintStream stream = new PrintStream("data/error.log");
+//			System.setErr(stream);
+//		} catch (FileNotFoundException e) {
+//			e.printStackTrace();
+//		}
 		
 		// Load properties:
 		if (new File("data/properties.xml").exists()) {

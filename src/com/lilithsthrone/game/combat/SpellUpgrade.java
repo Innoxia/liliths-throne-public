@@ -553,39 +553,245 @@ public enum SpellUpgrade {
 	},
 
 	// Arcane:
-	
-	STEAL_1(true, SpellSchool.ARCANE, "steal_stripper", "Stripper", "Steal can now also affect outer layers of the target's clothing.", null, null),
-	STEAL_2(SpellSchool.ARCANE, "steal_disarm", "Disarm", "Steal can now also affect the target's equipped weapons.", null, null),
-	STEAL_3(SpellSchool.ARCANE, "steal_deep_reach", "Deep Reach", "Steal can now also affect any layer of the target's clothing.", null, null),
 
-	CLEANSE_1(true, SpellSchool.ARCANE, "cleanse_selective_cleanse", "Selective Cleansing", "Cleanse no longer removes beneficial status effects from targeted allies, and no longer removes negative status effects from targeted enemies.", null, null),
-	CLEANSE_2(SpellSchool.ARCANE, "cleanse_bolstered_defence", "Bolstered Defence", "Allied targets of Cleanse are immune to negative status effects for 2 turns.", null, null),
-	CLEANSE_3(SpellSchool.ARCANE, "cleanse_impenetrable", "Impenetrable", "Bolstered Defence's duration is doubled to 4 turns.", null, null),
+	ARCANE_AROUSAL_1(true,
+			SpellSchool.ARCANE,
+			"arcane_arousal_overwhelming_lust",
+			"Overwhelming Lust",
+			"The images that are projected into the target's mind become especially lewd and depraved.",
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<>("Arcane Arousal damage [style.colourExcellent(doubled)] to <b>30</b> "+Attribute.DAMAGE_LUST.getColouredName("b")))),
+	ARCANE_AROUSAL_2(SpellSchool.ARCANE,
+			"arcane_arousal_lustful_distraction",
+			"Lustful Distraction",
+			"The lewd images that are sent into the target's mind linger on for some time, causing them to become distracted.",
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<>("Target [style.boldBad(suffers)] +15 "+Attribute.MISS_CHANCE.getColouredName("b")+" for [style.boldGood(2 turns)]"))),
+	ARCANE_AROUSAL_3(SpellSchool.ARCANE,
+			"arcane_arousal_dirty_promises",
+			"Dirty Promises",
+			"Phantasmal whispers are projected alongside the lewd images, promising the target that they'll have a good time if they simply submit...",
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<>("Target [style.boldBad(additionally suffers)] -25 "+Attribute.RESISTANCE_LUST.getColouredName("b")),
+					new ListValue<>("Duration increased to [style.boldGood(3 turns)]"))),
 
-	TELEPORT_1(true, SpellSchool.ARCANE, "teleport_arcane_arrival", "Arcane Arrival", "Teleport additionally deals 5 lust damage to a random enemy combatant.", null, null),
-	TELEPORT_2(SpellSchool.ARCANE, "teleport_mass_teleportation", "Mass Teleportation", "Applies teleport's effect to all allied combatants. Map-wide teleportation is no longer disabled by having companions.", null, null),
-	TELEPORT_3(SpellSchool.ARCANE, "teleport_rebounding_teleportation", "Rebounding Teleportation", "Teleport's effects are increased to 2 turns. Arcane Arrival's effect is applied each turn.", null, null),
+	TELEPATHIC_COMMUNICATION_1(true,
+			SpellSchool.ARCANE,
+			"telepathic_communication_echoing_moans",
+			"Echoing Moans",
+			"The effects of Telepathic Communication can now be sustained for a significant amount of time. In addition, the caster is always ready to start using this at the first sign of trouble.",
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<>("Start combat with Telepathic Communication [style.boldExcellent(already activated)]"),
+					new ListValue<>("Duration increased to [style.boldGood(10 turns)]"))),
+	TELEPATHIC_COMMUNICATION_2(SpellSchool.ARCANE,
+			"telepathic_communication_projected_touch",
+			"Projected Touch",
+			"The target of Telepathic Communication is now able to project phantasmal forces, causing their target to be subjected to ghostly kisses even while their mind is filled with moans.",
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<>("Buff [style.colourExcellent(doubled)] to <b>30</b> "+Attribute.DAMAGE_LUST.getColouredName("b")))),
+	TELEPATHIC_COMMUNICATION_3(SpellSchool.ARCANE,
+			"telepathic_communication_power_of_suggestion",
+			"Power of Suggestion",
+			"The target of Telepathic Communication is able to project powerful words of suggestion into the mind of any person they wish to seduce, causing them to lower their guard.",
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<>("[style.boldLust(Seduce)] [style.boldExcellent(applies)] -25 "+Attribute.RESISTANCE_PHYSICAL.getColouredName("b")+" to the target for [style.boldGood(2 turns)]"))),
 
-	TELEPATHIC_COMMUNICATION_1(true, SpellSchool.ARCANE, "telepathic_communication_echoing_moans", "Echoing Moans", "Telepathic Communication's effect is increased to +25 seduction damage.", null, null),
-	TELEPATHIC_COMMUNICATION_2(SpellSchool.ARCANE, "telepathic_communication_power_of_suggestion", "Power of Suggestion", "Tease attacks against the target of Telepathic Communication now apply a 2-turn debuff, causing -25 physical resistance.", null, null),
-	TELEPATHIC_COMMUNICATION_3(SpellSchool.ARCANE, "telepathic_communication_projected_touch", "Projected Touch", "Telepathic Communication's effect is increased to +50 seduction damage.", null, null),
+	ARCANE_CLOUD_1(true,
+			SpellSchool.ARCANE,
+			"arcane_cloud_lightning",
+			"Arcane Lightning",
+			"Flashes of pink and purple arcane lightning strike out from the arcane cloud, filling the target's mind with lustful thoughts.",
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<>("<b>5</b> "+Attribute.DAMAGE_LUST.getColouredName("b")+" per turn"))),
+	ARCANE_CLOUD_2(SpellSchool.ARCANE,
+			"arcane_cloud_thunder",
+			"Arcane Thunder",
+			"Small claps of arcane thunder sound in the target's ears, massively increasing the amount of lust damage they take.",
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<>(Attribute.DAMAGE_LUST.getColouredName("b")+" [style.boldExcellent(increased)] to <b>15</b> per turn"))),
+	ARCANE_CLOUD_3(SpellSchool.ARCANE,
+			"arcane_cloud_localised_storm",
+			"Localised Storm",
+			"The arcane cloud grows into a localised storm, affecting all enemies with its lust damaging effects.",
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<>("[style.boldExcellent(All enemies)] suffer <b>15</b> "+Attribute.DAMAGE_LUST.getColouredName("b")+" per turn"))),
 
-	ARCANE_CLOUD_1(true, SpellSchool.ARCANE, "arcane_cloud_lightning", "Arcane Lightning", "Arcane Storm now deals 5 lust damage per turn.", null, null),
-	ARCANE_CLOUD_2(SpellSchool.ARCANE, "arcane_cloud_thunder", "Arcane Thunder", "The target of Arcane Storm now suffers +10 miss chance.", null, null),
-	ARCANE_CLOUD_3(SpellSchool.ARCANE, "arcane_cloud_localised_storm", "Localised Storm", "Arcane Cloud is now applied to all enemy combatants, and Arcane Lightning's effect is increased to 10 lust damage per turn.", null, null),
+	CLEANSE_1(true,
+			SpellSchool.ARCANE,
+			"cleanse_selective_cleanse",
+			"Selective Cleansing",
+			"The cleansing energy is now able to detect the nature of ongoing status effects, allowing it to remove only negative effects from allies, and only positive effects from enemies.",
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<>("Only [style.boldTerrible(negative)] effects are removed from [style.boldExcellent(allies)]"),
+					new ListValue<>("Only [style.boldExcellent(positive)] effects are removed from [style.boldTerrible(enemies)]"))),
+	CLEANSE_2(SpellSchool.ARCANE,
+			"cleanse_arcane_duality",
+			"Arcane Duality",
+			"A shimmering shield of arcane energy is summoned forth around the target of Cleanse. This energy is able to detect if the target is friend or foe, and chooses to either shield or weaken them, respectively.",
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<>("+/-10 "+Attribute.RESISTANCE_PHYSICAL.getColouredName("b")),
+					new ListValue<>("+/-10 "+Attribute.RESISTANCE_LUST.getColouredName("b")),
+					new ListValue<>("+/-10 "+Attribute.RESISTANCE_FIRE.getColouredName("b")),
+					new ListValue<>("+/-10 "+Attribute.RESISTANCE_ICE.getColouredName("b")),
+					new ListValue<>("+/-10 "+Attribute.RESISTANCE_POISON.getColouredName("b")),
+					new ListValue<>("Lasts [style.boldGood(3 turns)]"))),
+	CLEANSE_3(SpellSchool.ARCANE,
+			"cleanse_arcane_will",
+			"Arcane Will",
+			"The iron will of the caster is projected into the effect of Arcane Duality, significantly increasing the shield's duration.",
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<>("Arcane Duality's duration increased to [style.boldGood(6 turns)]"))),
 
-	ARCANE_AROUSAL_1(true, SpellSchool.ARCANE, "arcane_arousal_overwhelming_lust", "Overwhelming Lust", "Arcane Arousal's damage is doubled.", null, null),
-	ARCANE_AROUSAL_2(SpellSchool.ARCANE, "arcane_arousal_lustful_distraction", "Lustful Distraction", "Arcane Arousal now applies a debuff to the target, causing them to suffer +10 miss chance for 2 turns.", null, null),
-	ARCANE_AROUSAL_3(SpellSchool.ARCANE, "arcane_arousal_dirty_promises", "Dirty Promises", "Lustful Distraction now additionally applies -15 seduction resistance to the target.", null, null),
+	STEAL_1(true,
+			SpellSchool.ARCANE,
+			"steal_stripper",
+			"Stripper",
+			"Steal's power is increased to the point where it can strip clothing that the target is currently wearing.",
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<>("Steal [style.boldExcellent(additionally)] can target outer layers of clothing"))),
+	STEAL_2(SpellSchool.ARCANE,
+			"steal_disarm",
+			"Disarm",
+			"Steal is now powerful enough to teleport weapons right out of the target's hands.",
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<>("Steal [style.boldExcellent(additionally)] can target equipped weapons"))),
+	STEAL_3A(SpellSchool.ARCANE,
+			"steal_deep_reach",
+			"Deep Reach",
+			"The power of Steal is increased to the point where it can target any layer of clothing, even if it's not visible to the caster.",
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<>("Steal [style.boldExcellent(additionally)] can target any layer of clothing"))),
+	STEAL_3B(SpellSchool.ARCANE,
+			"steal_panty_snatcher",
+			"Panty Snatcher",
+			"The caster has refined and perfected this spell so that it always prioritises stealing the target's underwear before anything else.",
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<>("Steal [style.boldExcellent(prioritises)] target's clothing in groin slot"))),
 
-	LILITHS_COMMAND_1(true, SpellSchool.ARCANE, "liliths_command_overpowering_presence", "Overpowering Presence", "Lilith's Command now has a 50% chance of success.", null, null),
-	LILITHS_COMMAND_2(SpellSchool.ARCANE, "liliths_command_demonic_servants", "Demonic Servants", "Lilith's Command now has a 75% chance of success, and now also affects demons.", null, null),
-	LILITHS_COMMAND_3(SpellSchool.ARCANE, "liliths_command_ultimate_power", "Ultimate Power", "Lilith's Command now has a 100% chance of success.", null, null),
+	TELEPORT_1(true,
+			SpellSchool.ARCANE,
+			"teleport_arcane_arrival",
+			"Arcane Arrival",
+			"Upon arrival, the target of Teleport unleashes a burst of lust-inducing arcane energy.",
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<>("Deals <b>5</b> "+Attribute.DAMAGE_LUST.getColouredName("b")+" to a random enemy"))),
+	TELEPORT_2(SpellSchool.ARCANE,
+			"teleport_mass_teleportation",
+			"Mass Teleportation",
+			"The caster is now able to apply Teleport to as many nearby people as they choose.",
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<>("Teleport applied to [style.colourExcellent(all allies)] of target"),
+					new ListValue<>("Map teleport [style.colourExcellent(no longer blocked)] by companions"))),
+	TELEPORT_3(SpellSchool.ARCANE,
+			"teleport_rebounding_teleportation",
+			"Rebounding Teleportation",
+			"By creating an arcane anchor before casting the spell, the targets of Teleport are able to return to their original position after a few seconds.",
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<>("Teleport duration increased to [style.boldGood(2 turns)]"),
+					new ListValue<>("Arcane Arrival's <b>5</b> "+Attribute.DAMAGE_LUST.getColouredName("b")+" applied each turn"))),
 
-	ELEMENTAL_ARCANE_1(true, SpellSchool.ARCANE, "elemental_arcane_lewd_encouragements", "Lewd Encouragements", "While the elemental is summoned, all allied combatants gain +20 seduction damage.", null, null),
-	ELEMENTAL_ARCANE_2(SpellSchool.ARCANE, "elemental_arcane_caressing_touch", "Caressing Touch", "While the elemental is summoned, all enemy combatants suffer -20 seduction resistance.", null, null),
-	ELEMENTAL_ARCANE_3A(SpellSchool.ARCANE, "elemental_arcane_servant_of_arcane", "Servant of Arcane", "While the elemental is summoned, the caster suffers -40% maximum energy and aura, but the arcane elemental's energy, aura, and damage are all doubled.", null, null),
-	ELEMENTAL_ARCANE_3B(SpellSchool.ARCANE, "elemental_arcane_binding_of_arcane", "Binding of Arcane", "While the elemental is summoned, the caster gains +25 seduction damage and +25 seduction resist.", null, null);
+	LILITHS_COMMAND_1(true,
+			SpellSchool.ARCANE,
+			"liliths_command_overpowering_presence",
+			"Overpowering Presence",
+			"The imposing vision of Lilith herself is cast into the mind of the target, greatly increasing the chance of this spell's effectiveness.",
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<>("Success chance [style.colourExcellent(increased)] to 50%"))),
+	LILITHS_COMMAND_2(SpellSchool.ARCANE,
+			"liliths_command_demonic_servants",
+			"Demonic Servants",
+			"The target is subjected to a vision of Lilith herself commanding them to submit. The vision is so realistic that even demons are now viable to fall prey to this spell's effects.",
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<>("Lilith's Command now [style.colourExcellent(affects demons)]"),
+					new ListValue<>("Success chance [style.colourExcellent(increased)] to 75%"))),
+	LILITHS_COMMAND_3(SpellSchool.ARCANE,
+			"liliths_command_ultimate_power",
+			"Ultimate Power",
+			"The vision of Lilith that is projected into the target's mind is so realistic and so powerful, that they have no hope of resisting its effects.",
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<>("Success chance [style.colourExcellent(increased)] to 100%"))),
+
+	ELEMENTAL_ARCANE_1(true,
+			SpellSchool.ARCANE,
+			"elemental_arcane_lewd_encouragements",
+			"Lewd Encouragements",
+			"The Arcane elemental projects lewd encouragements into the minds of all their allies, inspiring them to perform deviant and seductive actions.",
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<>("[style.colourExcellent(All allies gain)] +15 "+Attribute.DAMAGE_LUST.getColouredName("b")))),
+	ELEMENTAL_ARCANE_2(SpellSchool.ARCANE,
+			"elemental_arcane_caressing_touch",
+			"Caressing Touch",
+			"The Arcane elemental sends out phantasmal tentacles to grope and molest all nearby enemies.",
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<>("[style.boldTerrible(All enemies suffer)] -15 "+Attribute.RESISTANCE_LUST.getColouredName("b")))),
+	ELEMENTAL_ARCANE_3A(SpellSchool.ARCANE,
+			"elemental_arcane_servant_of_arcane",
+			"Servant of Arcane",
+			"The summoner swears to be subservient to the school of Arcane, and while their elemental is bound to this form, the elemental is able to draw as much energy from the summoner as they wish.",
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<>("While summoned:"),
+					new ListValue<>("[style.colourArcane(Elemental)]: +100% [style.colourExcellent(Non-Seduction Damage)]"),
+					new ListValue<>("[style.colourArcane(Caster)]: -50% [style.colourHealth(maximum energy)]"))) {
+
+		public boolean isAvailable(GameCharacter caster) {
+			return !caster.hasSpellUpgrade(ELEMENTAL_ARCANE_3B);
+		}
+		
+		public String getUnavailableReason(GameCharacter caster) {
+			if(this.isAvailable(caster) && !caster.hasSpellUpgrade(this)) {
+				return "[style.boldMinorBad(Mutually exclusive with 'Binding of Arcane'!)]";
+			} else {
+				return "[style.boldBad(Mutually exclusive with 'Binding of Arcane'!)]";
+			}
+		}
+	},
+	ELEMENTAL_ARCANE_3B(SpellSchool.ARCANE,
+			"elemental_arcane_binding_of_arcane",
+			"Binding of Arcane",
+			"The summoner assumes complete dominance over the school of Arcane, and while their elemental is bound to this form, they are forced to share all of their secrets.",
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<>("While summoned:"),
+					new ListValue<>("[style.colourArcane(Caster)]: +25 "+Attribute.DAMAGE_LUST.getColouredName("b")),
+					new ListValue<>("[style.colourArcane(Caster)]: +25 "+Attribute.RESISTANCE_LUST.getColouredName("b")))) {
+
+		public boolean isAvailable(GameCharacter caster) {
+			return !caster.hasSpellUpgrade(ELEMENTAL_ARCANE_3A);
+		}
+		
+		public String getUnavailableReason(GameCharacter caster) {
+			if(this.isAvailable(caster) && !caster.hasSpellUpgrade(this)) {
+				return "[style.boldMinorBad(Mutually exclusive with 'Servant of Arcane'!)]";
+			} else {
+				return "[style.boldBad(Mutually exclusive with 'Servant of Arcane'!)]";
+			}
+		}
+	};
 
 	
 	private boolean isAlwaysAvailable;

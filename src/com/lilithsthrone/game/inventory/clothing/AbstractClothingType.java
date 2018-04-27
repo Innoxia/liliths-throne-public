@@ -61,7 +61,6 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	private Femininity femininityRestriction;
 	private InventorySlot slot;
 
-
 	// Enchantments:
 	private int enchantmentLimit;
 	protected List<ItemEffect> effects;
@@ -207,6 +206,11 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			this.blockedPartsList = blockedPartsList;
 		} else {
 			this.blockedPartsList = new ArrayList<>();
+		}
+		
+		// MAke sure that clothing can't conceal itself (in case I made an error in defining concealed slots):
+		for(BlockedParts bp : this.blockedPartsList) {
+			bp.concealedSlots.removeIf((concealedSlot) -> concealedSlot == this.slot);
 		}
 		
 		// Incompatible slots:
