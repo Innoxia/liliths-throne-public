@@ -251,15 +251,21 @@ public enum Colour {
 	FEMININE_PLUS_NPC(BaseColour.PINK, "pink"),
 
 	// Combat colours:
-	DAMAGE_TYPE_PHYSICAL(Util.newColour(0xFF428E), Util.newColour(0xFF428E), "red", Util.newArrayListOfValues(new ListValue<>("dmgPhysical"), new ListValue<>("resPhysical"))),
+	DAMAGE_TYPE_PHYSICAL(Util.newColour(0xFF428E), Util.newColour(0xFF428E), "red", Util.newArrayListOfValues(new ListValue<>("dmgPhysical"), new ListValue<>("resPhysical"), new ListValue<>("physical"))),
 	DAMAGE_TYPE_MANA(BaseColour.PURPLE_LIGHT, "purple", Util.newArrayListOfValues(new ListValue<>("dmgMana"), new ListValue<>("resMana"))),
 	DAMAGE_TYPE_LUST(BaseColour.MAGENTA, "magenta", Util.newArrayListOfValues(new ListValue<>("dmgLust"), new ListValue<>("resLust"))),
-	DAMAGE_TYPE_SPELL(Util.newColour(0xFF6BDA), Util.newColour(0xFF6BDA), "pink", Util.newArrayListOfValues(new ListValue<>("dmgSpell"), new ListValue<>("resSpell"))),
-	DAMAGE_TYPE_FIRE(Util.newColour(0xff9955), Util.newColour(0xff9955), "orange", Util.newArrayListOfValues(new ListValue<>("dmgFire"), new ListValue<>("resFire"))),
-	DAMAGE_TYPE_COLD(Util.newColour(0x85C6FF), Util.newColour(0x85C6FF), "blue", Util.newArrayListOfValues(new ListValue<>("dmgCold"), new ListValue<>("resCold"))),
-	DAMAGE_TYPE_POISON(Util.newColour(0x85FF8B), Util.newColour(0x85FF8B), "green", Util.newArrayListOfValues(new ListValue<>("dmgPoison"), new ListValue<>("resPoison"))),
-	DAMAGE_TYPE_PURE(Util.newColour(0xFFCC00), Util.newColour(0xFFCC00), "gold", Util.newArrayListOfValues(new ListValue<>("dmgPure"), new ListValue<>("resPure"))),
+	DAMAGE_TYPE_SPELL(Util.newColour(0xFF6BDA), Util.newColour(0xFF6BDA), "pink", Util.newArrayListOfValues(new ListValue<>("dmgSpell"), new ListValue<>("resSpell"), new ListValue<>("spell"))),
+	DAMAGE_TYPE_FIRE(Util.newColour(0xff9955), Util.newColour(0xff9955), "orange", Util.newArrayListOfValues(new ListValue<>("dmgFire"), new ListValue<>("resFire"), new ListValue<>("fire"))),
+	DAMAGE_TYPE_COLD(Util.newColour(0x85C6FF), Util.newColour(0x85C6FF), "blue", Util.newArrayListOfValues(new ListValue<>("dmgCold"), new ListValue<>("resCold"), new ListValue<>("cold"), new ListValue<>("ice"))),
+	DAMAGE_TYPE_POISON(Util.newColour(0x85FF8B), Util.newColour(0x85FF8B), "green", Util.newArrayListOfValues(new ListValue<>("dmgPoison"), new ListValue<>("resPoison"), new ListValue<>("poison"))),
+	DAMAGE_TYPE_PURE(Util.newColour(0xFFCC00), Util.newColour(0xFFCC00), "gold", Util.newArrayListOfValues(new ListValue<>("dmgPure"), new ListValue<>("resPure"), new ListValue<>("pure"))),
 
+	SPELL_SCHOOL_FIRE(BaseColour.ORANGE, "orange", Util.newArrayListOfValues(new ListValue<>("spellFire"), new ListValue<>("schoolFire"))),
+	SPELL_SCHOOL_WATER(BaseColour.AQUA, "aqua", Util.newArrayListOfValues(new ListValue<>("water"), new ListValue<>("spellWater"), new ListValue<>("schoolWater"))),
+	SPELL_SCHOOL_EARTH(BaseColour.BROWN, "brown", Util.newArrayListOfValues(new ListValue<>("earth"), new ListValue<>("spellEarth"), new ListValue<>("schoolEarth"))),
+	SPELL_SCHOOL_AIR(BaseColour.BLUE_LIGHT, "light blue", Util.newArrayListOfValues(new ListValue<>("air"),new ListValue<>("spellAir"), new ListValue<>("schoolAir"))),
+	SPELL_SCHOOL_ARCANE(BaseColour.PINK, "pink", Util.newArrayListOfValues(new ListValue<>("spellArcane"), new ListValue<>("schoolArcane"))),
+	
 	// Rarity colours:
 	RARITY_UNKNOWN(BaseColour.BLACK, "grey"),
 	RARITY_JINXED(BaseColour.RED, "red", Util.newArrayListOfValues(new ListValue<>("jinxed"))),
@@ -458,6 +464,7 @@ public enum Colour {
 	COVERING_AUBURN(BaseColour.AUBURN, "auburn"),
 	COVERING_WHITE(BaseColour.WHITE, "white"),
 	COVERING_SILVER(BaseColour.GREY, "silver"),
+	COVERING_BLUE_LIGHT(BaseColour.BLUE_LIGHT, "light blue"),
 	COVERING_BLUE(BaseColour.BLUE, "blue"),
 	COVERING_BLUE_DARK(BaseColour.BLUE_DARK, "dark blue"),
 	COVERING_PURPLE(BaseColour.PURPLE, "purple"),
@@ -472,6 +479,8 @@ public enum Colour {
 	COVERING_NONE(BaseColour.GREY, "none"),
 
 	// Eye colours:
+	EYE_WHITE(BaseColour.WHITE, "white"),
+	
 	EYE_BROWN(BaseColour.BROWN, "brown"),
 	EYE_BLUE(BaseColour.BLUE_LIGHT, "blue"),
 	EYE_HAZEL(BaseColour.TAN, "hazel"),
@@ -620,6 +629,7 @@ public enum Colour {
 
 	public static List<Colour> dyeFurColours = Util.newArrayListOfValues(
 			new ListValue<Colour>(Colour.COVERING_BLEACH_BLONDE),
+			new ListValue<Colour>(Colour.COVERING_BLUE_LIGHT),
 			new ListValue<Colour>(Colour.COVERING_BLUE),
 			new ListValue<Colour>(Colour.COVERING_BLUE_DARK),
 			new ListValue<Colour>(Colour.COVERING_GREEN),
@@ -641,6 +651,7 @@ public enum Colour {
 	public static List<Colour> dyeScaleColours = Util.newArrayListOfValues(
 			new ListValue<Colour>(Colour.COVERING_BLEACH_BLONDE),
 			new ListValue<Colour>(Colour.COVERING_BLONDE),
+			new ListValue<Colour>(Colour.COVERING_BLUE_LIGHT),
 			new ListValue<Colour>(Colour.COVERING_BLUE),
 			new ListValue<Colour>(Colour.COVERING_BLUE_DARK),
 			new ListValue<Colour>(Colour.COVERING_GINGER),
@@ -693,25 +704,6 @@ public enum Colour {
 			new ListValue<Colour>(Colour.ANTLER_LILAC),
 			new ListValue<Colour>(Colour.ANTLER_PURPLE));
 	
-
-	// Orifices:
-	
-	public static List<Colour> orificeInteriors = Util.newArrayListOfValues(
-			new ListValue<Colour>(Colour.ORIFICE_INTERIOR),
-			new ListValue<Colour>(Colour.SKIN_PALE),
-			new ListValue<Colour>(Colour.SKIN_LIGHT),
-			new ListValue<Colour>(Colour.SKIN_OLIVE),
-			new ListValue<Colour>(Colour.SKIN_DARK),
-			new ListValue<Colour>(Colour.SKIN_EBONY),
-			new ListValue<Colour>(Colour.SKIN_RED),
-			new ListValue<Colour>(Colour.SKIN_BROWN),
-			new ListValue<Colour>(Colour.SKIN_GREEN),
-			new ListValue<Colour>(Colour.SKIN_PINK),
-			new ListValue<Colour>(Colour.SKIN_BLUE),
-			new ListValue<Colour>(Colour.SKIN_LILAC),
-			new ListValue<Colour>(Colour.SKIN_PURPLE),
-			new ListValue<Colour>(Colour.SKIN_IVORY));
-	
 	// Hair:
 	
 	public static List<Colour> naturalHairColours = Util.newArrayListOfValues(
@@ -728,6 +720,7 @@ public enum Colour {
 	
 	public static List<Colour> dyeHairColours = Util.newArrayListOfValues(
 			new ListValue<Colour>(Colour.COVERING_BLEACH_BLONDE),
+			new ListValue<Colour>(Colour.COVERING_BLUE_LIGHT),
 			new ListValue<Colour>(Colour.COVERING_BLUE),
 			new ListValue<Colour>(Colour.COVERING_BLUE_DARK),
 			new ListValue<Colour>(Colour.COVERING_GREEN),
@@ -814,6 +807,29 @@ public enum Colour {
 			new ListValue<Colour>(Colour.EYE_BLACK));
 	
 	public static List<Colour> dyePupilColours = Util.newArrayListOfValues(
+			new ListValue<Colour>(Colour.EYE_WHITE),
+			new ListValue<Colour>(Colour.EYE_SILVER),
+			new ListValue<Colour>(Colour.EYE_BROWN),
+			new ListValue<Colour>(Colour.EYE_BLUE),
+			new ListValue<Colour>(Colour.EYE_AQUA),
+			new ListValue<Colour>(Colour.EYE_GREEN),
+			new ListValue<Colour>(Colour.EYE_GREY),
+			new ListValue<Colour>(Colour.EYE_YELLOW),
+			new ListValue<Colour>(Colour.EYE_GOLD),
+			new ListValue<Colour>(Colour.EYE_RED),
+			new ListValue<Colour>(Colour.EYE_CRIMSON),
+			new ListValue<Colour>(Colour.EYE_ORANGE),
+			new ListValue<Colour>(Colour.EYE_AMBER),
+			new ListValue<Colour>(Colour.EYE_PINK),
+			new ListValue<Colour>(Colour.EYE_VIOLET),
+			new ListValue<Colour>(Colour.EYE_LILAC),
+			new ListValue<Colour>(Colour.EYE_PURPLE));
+	
+	public static List<Colour> naturalScleraColours = Util.newArrayListOfValues(
+			new ListValue<Colour>(Colour.EYE_WHITE));
+	
+	public static List<Colour> dyeScleraColours = Util.newArrayListOfValues(
+			new ListValue<Colour>(Colour.EYE_BLACK),
 			new ListValue<Colour>(Colour.EYE_SILVER),
 			new ListValue<Colour>(Colour.EYE_BROWN),
 			new ListValue<Colour>(Colour.EYE_BLUE),

@@ -1,13 +1,15 @@
 package com.lilithsthrone.game.dialogue.places.dominion;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.GenderPreference;
-import com.lilithsthrone.game.character.npc.GenericSexualPartner;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.npc.misc.GenericSexualPartner;
+import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -114,11 +116,14 @@ public class RedLightDistrict {
 				UtilText.nodeContentSB.setLength(0);
 				
 				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "ENTRANCE_REPEAT"));
+
+				List<NPC> charactersPresent = new ArrayList<>(Main.game.getCharactersPresent());
+				charactersPresent.removeIf((npc) -> Main.game.getPlayer().getCompanions().contains(npc));
 				
-				if(Main.game.getCharactersPresent().isEmpty()) {
+				if(charactersPresent.isEmpty()) {
 					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "ENTRANCE_REPEAT_EMPTY"));
 				}else {
-					UtilText.nodeContentSB.append(UtilText.parse(Main.game.getCharactersPresent().get(0), UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "ENTRANCE_REPEAT_STAFFED")));
+					UtilText.nodeContentSB.append(UtilText.parse(charactersPresent.get(0), UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "ENTRANCE_REPEAT_STAFFED")));
 				}
 				
 				return UtilText.nodeContentSB.toString();
@@ -247,6 +252,7 @@ public class RedLightDistrict {
 			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM"));
 			
 			List<NPC> charactersPresent = Main.game.getCharactersPresent();
+			charactersPresent.removeIf((npc) -> Main.game.getPlayer().getCompanions().contains(npc));
 			
 			if(charactersPresent.size()>1){
 				NPC prostitute = charactersPresent.get(0);
@@ -305,6 +311,8 @@ public class RedLightDistrict {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			List<NPC> charactersPresent = Main.game.getCharactersPresent();
+			charactersPresent.removeIf((npc) -> Main.game.getPlayer().getCompanions().contains(npc));
+			
 			if(!charactersPresent.isEmpty()) {
 				int cost = 300;
 				NPC npc = charactersPresent.get(0);
@@ -387,6 +395,15 @@ public class RedLightDistrict {
 						@Override
 						public void effects() {
 							NPC npc = new GenericSexualPartner(GenderPreference.getGenderFromUserPreferences(), Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
+							if(Math.random()<0.4f) {
+								npc.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+							} else {
+								if(Main.game.getPlayer().isFeminine()) {
+									npc.setSexualOrientation(SexualOrientation.GYNEPHILIC);
+								} else {
+									npc.setSexualOrientation(SexualOrientation.ANDROPHILIC);
+								}
+							}
 							npc.removeFetish(Fetish.FETISH_SUBMISSIVE);
 							npc.setFetishDesire(Fetish.FETISH_DOMINANT, FetishDesire.THREE_LIKE);
 							try {
@@ -403,6 +420,15 @@ public class RedLightDistrict {
 						@Override
 						public void effects() {
 							NPC npc = new GenericSexualPartner(GenderPreference.getGenderFromUserPreferences(), Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
+							if(Math.random()<0.4f) {
+								npc.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+							} else {
+								if(Main.game.getPlayer().isFeminine()) {
+									npc.setSexualOrientation(SexualOrientation.GYNEPHILIC);
+								} else {
+									npc.setSexualOrientation(SexualOrientation.ANDROPHILIC);
+								}
+							}
 							npc.removeFetish(Fetish.FETISH_DOMINANT);
 							npc.setFetishDesire(Fetish.FETISH_SUBMISSIVE, FetishDesire.THREE_LIKE);
 							try {
@@ -429,7 +455,10 @@ public class RedLightDistrict {
 
 		@Override
 		public String getContent() {
-			if(Sex.getNumberOfOrgasms(Main.game.getCharactersPresent().get(0))==0) {
+			List<NPC> charactersPresent = new ArrayList<>(Main.game.getCharactersPresent());
+			charactersPresent.removeIf((npc) -> Main.game.getPlayer().getCompanions().contains(npc));
+			
+			if(Sex.getNumberOfOrgasms(charactersPresent.get(0))==0) {
 				return UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "PROSTITUTE_AFTER_SEX_NO_ORGASM");
 			} else {
 				return UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "PROSTITUTE_AFTER_SEX");

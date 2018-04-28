@@ -11,7 +11,6 @@ import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.HairLength;
 import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
-import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
@@ -23,8 +22,6 @@ import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
-import com.lilithsthrone.game.combat.Attack;
-import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -49,7 +46,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.2.3
+ * @version 0.2.4
  * @author Innoxia
  */
 public class ZaranixMaidKatherine extends NPC {
@@ -432,26 +429,6 @@ public class ZaranixMaidKatherine extends NPC {
 			}
 		}
 	};
-	
-
-	@Override
-	public Attack attackType() {
-		double rand = Math.random();
-		if (rand > 0.8f
-				&& this.getManaPercentage() > 0.4f
-				&& (!this.getStatusEffects().contains(StatusEffect.ARCANE_SHIELD))) {
-			return Attack.SPELL;
-		} else if(rand > 0.2f) {
-			return Attack.SEDUCTION;
-		} else {
-			return Attack.MAIN;
-		}
-	}
-	
-	@Override
-	public Spell getSpell() {
-		return Spell.ARCANE_SHIELD;
-	}
 	
 	@Override
 	public int getEscapeChance() {

@@ -39,7 +39,6 @@ import com.lilithsthrone.game.character.body.valueEnums.HipSize;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
-import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
@@ -51,9 +50,7 @@ import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
-import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.combat.DamageType;
-import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -62,6 +59,7 @@ import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.CharacterInventory;
+import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
@@ -88,7 +86,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.5
- * @version 0.1.97
+ * @version 0.2.4
  * @author Innoxia
  */
 public class Brax extends NPC {
@@ -182,6 +180,14 @@ public class Brax extends NPC {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
 		
 		this.setPenisVirgin(false);
+
+		if(hasFetish(Fetish.FETISH_BIMBO) && Main.isVersionOlderThan(Main.VERSION_NUMBER, "0.2.4")) {
+			this.setPiercedEar(true);
+			if(this.getClothingInSlot(InventorySlot.PIERCING_EAR)!=null) {
+				this.unequipClothingIntoVoid(this.getClothingInSlot(InventorySlot.PIERCING_EAR), true, this);
+				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_EAR_HOOPS, Colour.CLOTHING_GOLD, false), true, this);
+			}
+		}
 	}
 
 	@Override
@@ -254,9 +260,9 @@ public class Brax extends NPC {
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.HAND_FISHNET_GLOVES, Colour.CLOTHING_WHITE, false), true, this);
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FINGER_RING, Colour.CLOTHING_GOLD, false), true, this);
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_BANGLE, Colour.CLOTHING_GOLD, false), true, this);
-				
+
 				this.setPiercedEar(true);
-				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_EAR_BASIC_RING, Colour.CLOTHING_GOLD, false), true, this);
+				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_EAR_HOOPS, Colour.CLOTHING_GOLD, false), true, this);
 				this.setPiercedNose(true);
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_NOSE_BASIC_RING, Colour.CLOTHING_GOLD, false), true, this);
 				this.setPiercedNavel(true);
@@ -513,6 +519,7 @@ public class Brax extends NPC {
 				return new ResponseEffectsOnly("Outside", "You find yourself back outside once more, but this time, with new knowledge of Arthur's location.") {
 					@Override
 					public void effects() {
+//						Main.game.getPlayer().setLocation(WorldType.DOMINION, PlaceType.DOMINION_ENFORCER_HQ);
 						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.DOMINION), PlaceType.DOMINION_ENFORCER_HQ, true);
 						((Brax) Main.game.getBrax()).setBraxsPostQuestStatus();
 					}
@@ -1113,27 +1120,6 @@ public class Brax extends NPC {
 			}
 		}
 	};
-
-	@Override
-	public Attack attackType() {
-		if (this.getAllSpells().isEmpty()
-				|| (Math.random() < 0.7
-						|| this.getManaPercentage() <= 0.6f
-						|| (Main.game.getPlayer().getStatusEffects().contains(StatusEffect.BURN_WEAK)
-								&& this.getStatusEffects().contains(StatusEffect.FIRE_SHIELD)))) {
-			return Attack.MAIN;
-		} else {
-			return Attack.SPELL;
-		}
-	}
-
-	@Override
-	public Spell getSpell() {
-		if (!Main.game.getPlayer().getStatusEffects().contains(StatusEffect.BURN_WEAK))
-			return Spell.FIREBALL_1;
-		else
-			return Spell.FIRE_SHIELD;
-	}
 	
 	@Override
 	public int getEscapeChance() {

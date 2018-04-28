@@ -19,7 +19,6 @@ import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.npcDialogue.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.submission.BatCavernSlimeAttackerDialogue;
@@ -97,6 +96,11 @@ public class SlimeCavernAttacker extends NPC {
 					case ALLIGATOR_MORPH:
 					case IMP:
 					case RAT_MORPH:
+					case ELEMENTAL_AIR:
+					case ELEMENTAL_ARCANE:
+					case ELEMENTAL_EARTH:
+					case ELEMENTAL_FIRE:
+					case ELEMENTAL_WATER:
 						break;
 						
 					case SLIME:
@@ -166,6 +170,7 @@ public class SlimeCavernAttacker extends NPC {
 			
 			resetInventory();
 			inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
+			CharacterUtils.generateItemsInInventory(this);
 	
 			CharacterUtils.equipClothing(this, true, false);
 			CharacterUtils.applyMakeup(this, true);
@@ -244,26 +249,6 @@ public class SlimeCavernAttacker extends NPC {
 	}
 
 	// Combat:
-
-	@Override
-	public Attack attackType() {
-		if(!getSpecialAttacks().isEmpty()) {
-			if (Math.random() < 0.8) {
-				return Attack.SEDUCTION;
-			} else if (Math.random() < 0.85) {
-				return Attack.MAIN;
-			} else {
-				return Attack.SPECIAL_ATTACK;
-			}
-			
-		} else {
-			if (Math.random() < 0.2) {
-				return Attack.MAIN;
-			} else {
-				return Attack.SEDUCTION;
-			}
-		}
-	}
 
 	@Override
 	public String getCombatDescription() {

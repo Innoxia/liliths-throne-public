@@ -28,6 +28,9 @@ import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.DamageType;
+import com.lilithsthrone.game.combat.Spell;
+import com.lilithsthrone.game.combat.SpellSchool;
+import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.MapDisplay;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -54,7 +57,7 @@ import com.lilithsthrone.utils.WeaponRarityComparator;
 
 /**
  * @since 0.1.0
- * @version 0.2.3
+ * @version 0.2.4
  * @author Innoxia, tukaima
  */
 public class PhoneDialogue {
@@ -103,22 +106,44 @@ public class PhoneDialogue {
 				};
 				
 			} else if (index == 3) {
-				return new Response("Fetishes", "View your fetishes page.", CHARACTER_FETISHES);
+				return new Response("Spells", "View your spells page.", CHARACTER_SPELLS_EARTH);
+//					@Override
+//					public DialogueNodeOld getNextDialogue() {
+//						Map<SpellSchool, Integer> schoolMap = new HashMap<>();
+//						for(Spell s : Main.game.getPlayer().getSpells()) {
+//							schoolMap.putIfAbsent(s.getSpellSchool(), 0);
+//							schoolMap.put(s.getSpellSchool(), schoolMap.get(s.getSpellSchool())+1);
+//						}
+//						for(SpellUpgrade su : Main.game.getPlayer().getSpellUpgrades()) {
+//							schoolMap.putIfAbsent(su.getSpellSchool(), 0);
+//							schoolMap.put(su.getSpellSchool(), schoolMap.get(su.getSpellSchool())+1);
+//						}
+//						
+//						SpellSchool favouredSchool
+//						
+//						schoolMap.entrySet()
+//						
+//						return CHARACTER_SPELLS_ARCANE;
+//					}
+//				};
 				
 			} else if (index == 4) {
-				return new Response("Stats", "Take a detailed look at your stats.", CHARACTER_STATS);
+				return new Response("Fetishes", "View your fetishes page.", CHARACTER_FETISHES);
 				
 			} else if (index == 5) {
-				return new Response("Selfie", "Take a selfie to get a good view of yourself.", CHARACTER_APPEARANCE);
+				return new Response("Stats", "Take a detailed look at your stats.", CHARACTER_STATS);
 				
 			} else if (index == 6) {
+				return new Response("Selfie", "Take a selfie to get a good view of yourself.", CHARACTER_APPEARANCE);
+				
+			} else if (index == 7) {
 				if(Main.game.getPlayer().getCharactersEncountered().isEmpty()) {
 					return new Response("Contacts", "You haven't met anyone yet!", null);
 				} else {
 					return new Response("Contacts", "Even though you can't call anyone, on account of there being no phones in this world, you've still kept a record of all the people you've come into contact with.", CONTACTS);
 				}
 				
-			} else if (index == 7) {
+			} else if (index == 8) {
 				return new Response(
 						(Main.getProperties().hasValue(PropertyValue.newWeaponDiscovered)
 								|| Main.getProperties().hasValue(PropertyValue.newClothingDiscovered)
@@ -133,7 +158,7 @@ public class PhoneDialogue {
 					}
 				};
 				
-			} else if (index == 8) {
+			} else if (index == 9) {
 				if(Main.game.getPlayer().isAbleToSelfTransform()) {
 					return new Response("Transform", "Transform your body.", BodyChanging.BODY_CHANGING_CORE) {
 						@Override
@@ -526,6 +551,35 @@ public class PhoneDialogue {
 							"Critical Hit Damage:</br>"
 							+ "<b>"+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.CRITICAL_DAMAGE), Attribute.CRITICAL_DAMAGE.getUpperLimit())+"%</b>",
 							true)
+					+ getAttributeBox(Main.game.getPlayer(), Attribute.DODGE_CHANCE,
+							"Dodge Chance:</br>"
+							+ "<b>"+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DODGE_CHANCE), Attribute.DODGE_CHANCE.getUpperLimit())+"%</b>",
+							true)
+					+ getAttributeBox(Main.game.getPlayer(), Attribute.MISS_CHANCE,
+							"Miss Chance:</br>"
+							+ "<b>"+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.MISS_CHANCE), Attribute.MISS_CHANCE.getUpperLimit())+"%</b>",
+							true)
+					
+
+
+					+ getAttributeBox(Main.game.getPlayer(), Attribute.DAMAGE_UNARMED,
+							"Unarmed Damage:</br>"
+							+ "<b>"+(100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_UNARMED), Attribute.DAMAGE_UNARMED.getUpperLimit()))+"%</b>",
+							true)
+					+ getAttributeBox(Main.game.getPlayer(), Attribute.DAMAGE_SPELLS,
+							"Spell Damage:</br>"
+							+ "<b>"+(100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_SPELLS), Attribute.DAMAGE_SPELLS.getUpperLimit()))+"%</b>",
+							true)
+
+					+ getAttributeBox(Main.game.getPlayer(), Attribute.DAMAGE_MELEE_WEAPON,
+							"Melee Weapon Damage:</br>"
+							+ "<b>"+(100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_MELEE_WEAPON), Attribute.DAMAGE_MELEE_WEAPON.getUpperLimit()))+"%</b>",
+							true)
+					+ getAttributeBox(Main.game.getPlayer(), Attribute.DAMAGE_RANGED_WEAPON,
+							"Ranged Weapon Damage:</br>"
+							+ "<b>"+(100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_RANGED_WEAPON), Attribute.DAMAGE_RANGED_WEAPON.getUpperLimit()))+"%</b>",
+							true)
+					
 					
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.DAMAGE_PHYSICAL,
 							"Physical Damage:</br>"
@@ -570,15 +624,6 @@ public class PhoneDialogue {
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.RESISTANCE_LUST,
 							"Lust Resistance:</br>"
 							+ "<b>"+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.RESISTANCE_LUST), Attribute.RESISTANCE_LUST.getUpperLimit())+"%</b>",
-							true)
-
-					+ getAttributeBox(Main.game.getPlayer(), Attribute.DAMAGE_SPELLS,
-							"Spell Damage:</br>"
-							+ "<b>"+(100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_SPELLS), Attribute.DAMAGE_SPELLS.getUpperLimit()))+"%</b>",
-							true)
-					+ getAttributeBox(Main.game.getPlayer(), Attribute.RESISTANCE_SPELLS,
-							"Spell Resistance:</br>"
-							+ "<b>"+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.RESISTANCE_SPELLS), Attribute.RESISTANCE_SPELLS.getUpperLimit())+"%</b>",
 							true)
 
 				+"</div>"
@@ -1324,7 +1369,9 @@ public class PhoneDialogue {
 						+ "<b"+(owner.getAttributeValue(att)==att.getUpperLimit()?" style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'":"")+">"+owner.getAttributeValue(att)+"</b>"
 					+ "</div>"
 					+ "<div class='container-full-width' style='height:6px;padding:0;border-radius: 2px;'>"
-						+ "<div class='container-full-width' style='width:" + (owner.getAttributeValue(att)/att.getUpperLimit()) * 100 + "%; padding:0; margin:0;height:100%; background:" + att.getColour().toWebHexString() + "; float:left; border-radius: 2px;'></div>"
+						+ "<div class='container-full-width' style='width:" + (owner.getAttributeValue(att)/att.getUpperLimit()) * (att.getLowerLimit()==0?100:50) + "%; padding:0;"
+								+ " margin:0 0 0 "+(att.getLowerLimit()>=0?0:(owner.getAttributeValue(att)>0?"50%":(Math.abs(att.getLowerLimit())+owner.getAttributeValue(att))+"%"))+";"
+								+ " height:100%; background:" + (owner.getAttributeValue(att)>0?att.getColour().toWebHexString():att.getColour().getShades()[1]) + "; float:left; border-radius: 2px;'></div>"
 					+ "</div>"
 					+ "<div class='container-half-width' style='margin:0;background:#292929; padding:0; text-align:center;'>"
 							+ "Base: "+(owner.getBaseAttributeValue(att) > 0 
@@ -1901,7 +1948,513 @@ public class PhoneDialogue {
 			return MapDisplay.PHONE;
 		}
 	};
+	
+	public static final DialogueNodeOld CHARACTER_SPELLS_ARCANE = new DialogueNodeOld("Arcane Spells", "", true) {
 
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getHeaderContent() {
+			UtilText.nodeContentSB.setLength(0);
+
+			UtilText.nodeContentSB.append(
+					"<div class='container-full-width' style='width:100%; padding:0; margin:0;'>"
+						+"<div class='container-full-width' style='width:50%; padding:0; margin:0;'>"
+							+Spell.getSpellTreesDisplay(SpellSchool.ARCANE, Main.game.getPlayer())
+						+"</div>"
+						+"<div class='container-full-width' style='width:50%; padding:8px; margin:0;'>"
+							+SpellSchool.ARCANE.getDescription()
+						+"</div>"
+						+ "<div class='container-full-width inner' style='text-align:center;'>"
+							+ "[style.boldArcane(School of Arcane ability:)] "
+								+(!Main.game.getPlayer().hasAnySpellInSchool(SpellSchool.ARCANE)
+									?"[style.colourDisabled("+SpellSchool.ARCANE.getPassiveBuff()+")]</br>(Requires knowing at least one Arcane school spell to unlock.)"
+									:"[style.colourGood("+SpellSchool.ARCANE.getPassiveBuff()+")]")
+						+ "</div>"
+					+"</div>");
+			
+			return UtilText.nodeContentSB.toString();
+		}
+		
+		@Override
+		public String getContent(){
+			return "";
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("Earth", "View your spells and upgrades in the school of Earth.", CHARACTER_SPELLS_EARTH);
+				
+			} else if(index==2) {
+				return new Response("Water", "View your spells and upgrades in the school of Water.", CHARACTER_SPELLS_WATER);
+				
+			} else if(index==3) {
+				return new Response("Air", "View your spells and upgrades in the school of Air.", CHARACTER_SPELLS_AIR);
+				
+			} else if(index==4) {
+				return new Response("Fire", "View your spells and upgrades in the school of Fire.", CHARACTER_SPELLS_FIRE);
+				
+			} else if(index==5) {
+				return new Response("Arcane", "You are already viewing your Arcane spells!", null);
+				
+			} else if(index==6) {
+				if(Main.game.getPlayer().hasSpell(Spell.ELEMENTAL_ARCANE)) {
+					if(!Main.game.getSavedDialogueNode().equals(Main.game.getPlayer().getLocationPlace().getDialogue(false))) {
+						return new Response("Arcane Elemental", "You can only summon your elemental in combat, or in a neutral scene!", null);
+						
+					} else if(Main.game.getPlayer().getMana()<Spell.ELEMENTAL_ARCANE.getModifiedCost(Main.game.getPlayer())) {
+						return new Response("Arcane Elemental", "You need at least <b>"+Spell.ELEMENTAL_ARCANE.getModifiedCost(Main.game.getPlayer())+"</b> [style.boldMana(aura)] in order to cast this spell!", null);
+						
+					} else {
+						return new Response("Arcane Elemental",
+								"Summon your elemental by binding it to the school of Arcane! This will cost <b>"+Spell.ELEMENTAL_ARCANE.getModifiedCost(Main.game.getPlayer())+"</b> [style.boldMana(aura)]!",
+								CHARACTER_SPELLS_ARCANE) {
+							@Override
+							public DialogueNodeOld getNextDialogue() {
+								return DebugDialogue.getDefaultDialogueNoEncounter();
+							}
+							@Override
+							public void effects() {
+								Main.game.getTextStartStringBuilder().append(Spell.ELEMENTAL_ARCANE.applyEffect(Main.game.getPlayer(), Main.game.getPlayer(), true, false));
+							}
+						};
+					}
+					
+				} else {
+					return new Response("Arcane Elemental", "You don't know how to bind your elemental to the school of Arcane! (Requires spell: '"+Spell.ELEMENTAL_ARCANE.getName()+"')", null);
+				}
+				
+			} else if(index==11) {
+				return new Response("Reset Arcane", "Reset your Arcane upgrades, refunding all points spent. Your spells will not be reset.", CHARACTER_SPELLS_ARCANE) {
+					@Override
+					public void effects() {
+						Main.game.getPlayer().resetSpellUpgrades(SpellSchool.ARCANE);
+					}
+				};
+				
+			} else if (index == 0) {
+				return new Response("Back", "Return to your phone's main menu.", MENU);
+			
+			} else {
+				return null;
+			}
+		}
+
+		@Override
+		public MapDisplay getMapDisplay() {
+			return MapDisplay.PHONE;
+		}
+	};
+	
+	public static final DialogueNodeOld CHARACTER_SPELLS_EARTH = new DialogueNodeOld("Earth Spells", "", true) {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getHeaderContent() {
+			UtilText.nodeContentSB.setLength(0);
+
+			UtilText.nodeContentSB.append(
+					"<div class='container-full-width' style='width:100%; padding:0; margin:0;'>"
+						+"<div class='container-full-width' style='width:50%; padding:0; margin:0;'>"
+							+Spell.getSpellTreesDisplay(SpellSchool.EARTH, Main.game.getPlayer())
+						+"</div>"
+						+"<div class='container-full-width' style='width:50%; padding:8px; margin:0;'>"
+							+SpellSchool.EARTH.getDescription()
+						+"</div>"
+						+ "<div class='container-full-width inner' style='text-align:center;'>"
+							+ "[style.boldEarth(School of Earth ability:)] "
+								+(!Main.game.getPlayer().hasAnySpellInSchool(SpellSchool.EARTH)
+									?"[style.colourDisabled("+SpellSchool.EARTH.getPassiveBuff()+")]</br>(Requires knowing at least one Earth school spell to unlock.)"
+									:"[style.colourGood("+SpellSchool.EARTH.getPassiveBuff()+")]")
+						+ "</div>"
+					+"</div>");
+			
+			return UtilText.nodeContentSB.toString();
+		}
+		
+		@Override
+		public String getContent(){
+			return "";
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("Earth", "You are already viewing your Earth spells.", null);
+				
+			} else if(index==2) {
+				return new Response("Water", "View your spells and upgrades in the school of Water.", CHARACTER_SPELLS_WATER);
+				
+			} else if(index==3) {
+				return new Response("Air", "View your spells and upgrades in the school of Air.", CHARACTER_SPELLS_AIR);
+				
+			} else if(index==4) {
+				return new Response("Fire", "View your spells and upgrades in the school of Fire.", CHARACTER_SPELLS_FIRE);
+				
+			} else if(index==5) {
+				return new Response("Arcane", "View your spells and upgrades in the school of Arcane.", CHARACTER_SPELLS_ARCANE);
+				
+			} else if(index==6) {
+				if(Main.game.getPlayer().hasSpell(Spell.ELEMENTAL_EARTH)) {
+					if(!Main.game.isSavedDialogueNeutral()) {
+						if(Main.game.isInCombat()) {
+							return new Response("Earth Elemental", "While in combat, use the combat spells menu to summon your elemental!", null);
+						} else {
+							return new Response("Earth Elemental", "You can only summon your elemental in a neutral scene!", null);
+						}
+						
+					} else if(Main.game.getPlayer().getMana()<Spell.ELEMENTAL_EARTH.getModifiedCost(Main.game.getPlayer())) {
+						return new Response("Earth Elemental", "You need at least <b>"+Spell.ELEMENTAL_EARTH.getModifiedCost(Main.game.getPlayer())+"</b> [style.boldMana(aura)] in order to cast this spell!", null);
+						
+					} else {
+						return new Response("Earth Elemental",
+								"Summon your elemental by binding it to the school of Earth! This will cost <b>"+Spell.ELEMENTAL_EARTH.getModifiedCost(Main.game.getPlayer())+"</b> [style.boldMana(aura)]!",
+								CHARACTER_SPELLS_EARTH) {
+							@Override
+							public DialogueNodeOld getNextDialogue() {
+								return DebugDialogue.getDefaultDialogueNoEncounter();
+							}
+							@Override
+							public void effects() {
+								Main.game.getTextStartStringBuilder().append(Spell.ELEMENTAL_EARTH.applyEffect(Main.game.getPlayer(), Main.game.getPlayer(), true, false));
+							}
+						};
+					}
+					
+				} else {
+					return new Response("Earth Elemental", "You don't know how to bind your elemental to the school of Earth! (Requires spell: '"+Spell.ELEMENTAL_EARTH.getName()+"')", null);
+				}
+				
+			}  else  if(index==11) {
+				return new Response("Reset Earth", "Reset your Earth upgrades, refunding all points spent. Your spells will not be reset.", CHARACTER_SPELLS_EARTH) {
+					@Override
+					public void effects() {
+						Main.game.getPlayer().resetSpellUpgrades(SpellSchool.EARTH);
+					}
+				};
+				
+			} else if (index == 0) {
+				return new Response("Back", "Return to your phone's main menu.", MENU);
+			
+			} else {
+				return null;
+			}
+		}
+
+		@Override
+		public MapDisplay getMapDisplay() {
+			return MapDisplay.PHONE;
+		}
+	};
+	
+	public static final DialogueNodeOld CHARACTER_SPELLS_WATER = new DialogueNodeOld("Water Spells", "", true) {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getHeaderContent() {
+			UtilText.nodeContentSB.setLength(0);
+
+			UtilText.nodeContentSB.append(
+					"<div class='container-full-width' style='width:100%; padding:0; margin:0;'>"
+						+"<div class='container-full-width' style='width:50%; padding:0; margin:0;'>"
+							+Spell.getSpellTreesDisplay(SpellSchool.WATER, Main.game.getPlayer())
+						+"</div>"
+						+"<div class='container-full-width' style='width:50%; padding:8px; margin:0;'>"
+							+SpellSchool.WATER.getDescription()
+						+"</div>"
+						+ "<div class='container-full-width inner' style='text-align:center;'>"
+							+ "[style.boldWater(School of Water ability:)] "
+								+(!Main.game.getPlayer().hasAnySpellInSchool(SpellSchool.WATER)
+									?"[style.colourDisabled("+SpellSchool.WATER.getPassiveBuff()+")]</br>(Requires knowing at least one Water school spell to unlock.)"
+									:"[style.colourGood("+SpellSchool.WATER.getPassiveBuff()+")]")
+						+ "</div>"
+					+"</div>");
+			
+			return UtilText.nodeContentSB.toString();
+		}
+		
+		@Override
+		public String getContent(){
+			return "";
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("Earth", "View your spells and upgrades in the school of Earth.", CHARACTER_SPELLS_EARTH);
+				
+			} else if(index==2) {
+				return new Response("Water", "You are already viewing your Water spells!", null);
+				
+			} else if(index==3) {
+				return new Response("Air", "View your spells and upgrades in the school of Air.", CHARACTER_SPELLS_AIR);
+				
+			} else if(index==4) {
+				return new Response("Fire", "View your spells and upgrades in the school of Fire.", CHARACTER_SPELLS_FIRE);
+				
+			} else if(index==5) {
+				return new Response("Arcane", "View your spells and upgrades in the school of Arcane.", CHARACTER_SPELLS_ARCANE);
+				
+			} else if(index==6) {
+				if(Main.game.getPlayer().hasSpell(Spell.ELEMENTAL_WATER)) {
+					if(!Main.game.isSavedDialogueNeutral()) {
+						if(Main.game.isInCombat()) {
+							return new Response("Water Elemental", "While in combat, use the combat spells menu to summon your elemental!", null);
+						} else {
+							return new Response("Water Elemental", "You can only summon your elemental in a neutral scene!", null);
+						}
+						
+					} else if(Main.game.getPlayer().getMana()<Spell.ELEMENTAL_WATER.getModifiedCost(Main.game.getPlayer())) {
+						return new Response("Water Elemental", "You need at least <b>"+Spell.ELEMENTAL_WATER.getModifiedCost(Main.game.getPlayer())+"</b> [style.boldMana(aura)] in order to cast this spell!", null);
+						
+					} else {
+						return new Response("Water Elemental",
+								"Summon your elemental by binding it to the school of Water! This will cost <b>"+Spell.ELEMENTAL_WATER.getModifiedCost(Main.game.getPlayer())+"</b> [style.boldMana(aura)]!",
+								CHARACTER_SPELLS_WATER) {
+							@Override
+							public DialogueNodeOld getNextDialogue() {
+								return DebugDialogue.getDefaultDialogueNoEncounter();
+							}
+							@Override
+							public void effects() {
+								Main.game.getTextStartStringBuilder().append(Spell.ELEMENTAL_WATER.applyEffect(Main.game.getPlayer(), Main.game.getPlayer(), true, false));
+							}
+						};
+					}
+					
+				} else {
+					return new Response("Water Elemental", "You don't know how to bind your elemental to the school of Water! (Requires spell: '"+Spell.ELEMENTAL_WATER.getName()+"')", null);
+				}
+				
+			} else if(index==11) {
+				return new Response("Reset Water", "Reset your Water upgrades, refunding all points spent. Your spells will not be reset.", CHARACTER_SPELLS_WATER) {
+					@Override
+					public void effects() {
+						Main.game.getPlayer().resetSpellUpgrades(SpellSchool.WATER);
+					}
+				};
+				
+			} else if (index == 0) {
+				return new Response("Back", "Return to your phone's main menu.", MENU);
+			
+			} else {
+				return null;
+			}
+		}
+
+		@Override
+		public MapDisplay getMapDisplay() {
+			return MapDisplay.PHONE;
+		}
+	};
+	
+	public static final DialogueNodeOld CHARACTER_SPELLS_AIR = new DialogueNodeOld("Air Spells", "", true) {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getHeaderContent() {
+			UtilText.nodeContentSB.setLength(0);
+
+			UtilText.nodeContentSB.append(
+					"<div class='container-full-width' style='width:100%; padding:0; margin:0;'>"
+						+"<div class='container-full-width' style='width:50%; padding:0; margin:0;'>"
+							+Spell.getSpellTreesDisplay(SpellSchool.AIR, Main.game.getPlayer())
+						+"</div>"
+						+"<div class='container-full-width' style='width:50%; padding:8px; margin:0;'>"
+							+SpellSchool.AIR.getDescription()
+						+"</div>"
+						+ "<div class='container-full-width inner' style='text-align:center;'>"
+							+ "[style.boldAir(School of Air ability:)] "
+								+(!Main.game.getPlayer().hasAnySpellInSchool(SpellSchool.AIR)
+									?"[style.colourDisabled("+SpellSchool.AIR.getPassiveBuff()+")]</br>(Requires knowing at least one Air school spell to unlock.)"
+									:"[style.colourGood("+SpellSchool.AIR.getPassiveBuff()+")]")
+						+ "</div>"
+					+"</div>");
+			
+			return UtilText.nodeContentSB.toString();
+		}
+		
+		@Override
+		public String getContent(){
+			return "";
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("Earth", "View your spells and upgrades in the school of Earth.", CHARACTER_SPELLS_EARTH);
+				
+			} else if(index==2) {
+				return new Response("Water", "View your spells and upgrades in the school of Water.", CHARACTER_SPELLS_WATER);
+				
+			} else if(index==3) {
+				return new Response("Air", "You are already viewing your Air spells!", null);
+				
+			} else if(index==4) {
+				return new Response("Fire", "View your spells and upgrades in the school of Fire.", CHARACTER_SPELLS_FIRE);
+				
+			} else if(index==5) {
+				return new Response("Arcane", "View your spells and upgrades in the school of Arcane.", CHARACTER_SPELLS_ARCANE);
+				
+			} else if(index==6) {
+				if(Main.game.getPlayer().hasSpell(Spell.ELEMENTAL_AIR)) {
+					if(!Main.game.isSavedDialogueNeutral()) {
+						if(Main.game.isInCombat()) {
+							return new Response("Air Elemental", "While in combat, use the combat spells menu to summon your elemental!", null);
+						} else {
+							return new Response("Air Elemental", "You can only summon your elemental in a neutral scene!", null);
+						}
+						
+					} else if(Main.game.getPlayer().getMana()<Spell.ELEMENTAL_AIR.getModifiedCost(Main.game.getPlayer())) {
+						return new Response("Air Elemental", "You need at least <b>"+Spell.ELEMENTAL_AIR.getModifiedCost(Main.game.getPlayer())+"</b> [style.boldMana(aura)] in order to cast this spell!", null);
+						
+					} else {
+						return new Response("Air Elemental",
+								"Summon your elemental by binding it to the school of Air! This will cost <b>"+Spell.ELEMENTAL_AIR.getModifiedCost(Main.game.getPlayer())+"</b> [style.boldMana(aura)]!",
+								CHARACTER_SPELLS_AIR) {
+							@Override
+							public DialogueNodeOld getNextDialogue() {
+								return DebugDialogue.getDefaultDialogueNoEncounter();
+							}
+							@Override
+							public void effects() {
+								Main.game.getTextStartStringBuilder().append(Spell.ELEMENTAL_AIR.applyEffect(Main.game.getPlayer(), Main.game.getPlayer(), true, false));
+							}
+						};
+					}
+					
+				} else {
+					return new Response("Air Elemental", "You don't know how to bind your elemental to the school of Air! (Requires spell: '"+Spell.ELEMENTAL_AIR.getName()+"')", null);
+				}
+				
+			}  else if(index==11) {
+				return new Response("Reset Air", "Reset your Air upgrades, refunding all points spent. Your spells will not be reset.", CHARACTER_SPELLS_AIR) {
+					@Override
+					public void effects() {
+						Main.game.getPlayer().resetSpellUpgrades(SpellSchool.AIR);
+					}
+				};
+				
+			} else if (index == 0) {
+				return new Response("Back", "Return to your phone's main menu.", MENU);
+			
+			} else {
+				return null;
+			}
+		}
+
+		@Override
+		public MapDisplay getMapDisplay() {
+			return MapDisplay.PHONE;
+		}
+	};
+	
+	public static final DialogueNodeOld CHARACTER_SPELLS_FIRE = new DialogueNodeOld("Fire Spells", "", true) {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getHeaderContent() {
+			UtilText.nodeContentSB.setLength(0);
+
+			UtilText.nodeContentSB.append(
+					"<div class='container-full-width' style='width:100%; padding:0; margin:0;'>"
+						+"<div class='container-full-width' style='width:50%; padding:0; margin:0;'>"
+							+Spell.getSpellTreesDisplay(SpellSchool.FIRE, Main.game.getPlayer())
+						+"</div>"
+						+"<div class='container-full-width' style='width:50%; padding:8px; margin:0;'>"
+							+SpellSchool.FIRE.getDescription()
+						+"</div>"
+						+ "<div class='container-full-width inner' style='text-align:center;'>"
+							+ "[style.boldFire(School of Fire ability:)] "
+								+(!Main.game.getPlayer().hasAnySpellInSchool(SpellSchool.FIRE)
+									?"[style.colourDisabled("+SpellSchool.FIRE.getPassiveBuff()+")]</br>(Requires knowing at least one Fire school spell to unlock.)"
+									:"[style.colourGood("+SpellSchool.FIRE.getPassiveBuff()+")]")
+						+ "</div>"
+					+"</div>");
+			
+			return UtilText.nodeContentSB.toString();
+		}
+		
+		@Override
+		public String getContent(){
+			return "";
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("Earth", "View your spells and upgrades in the school of Earth.", CHARACTER_SPELLS_EARTH);
+				
+			} else if(index==2) {
+				return new Response("Water", "View your spells and upgrades in the school of Water.", CHARACTER_SPELLS_WATER);
+				
+			} else if(index==3) {
+				return new Response("Air", "View your spells and upgrades in the school of Air.", CHARACTER_SPELLS_AIR);
+				
+			} else if(index==4) {
+				return new Response("Fire", "You are already viewing your Fire spells!", null);
+				
+			} else if(index==5) {
+				return new Response("Arcane", "View your spells and upgrades in the school of Arcane.", CHARACTER_SPELLS_ARCANE);
+				
+			} else if(index==6) {
+				if(Main.game.getPlayer().hasSpell(Spell.ELEMENTAL_FIRE)) {
+					if(!Main.game.isSavedDialogueNeutral()) {
+						if(Main.game.isInCombat()) {
+							return new Response("Fire Elemental", "While in combat, use the combat spells menu to summon your elemental!", null);
+						} else {
+							return new Response("Fire Elemental", "You can only summon your elemental in a neutral scene!", null);
+						}
+						
+					} else if(Main.game.getPlayer().getMana()<Spell.ELEMENTAL_FIRE.getModifiedCost(Main.game.getPlayer())) {
+						return new Response("Fire Elemental", "You need at least <b>"+Spell.ELEMENTAL_FIRE.getModifiedCost(Main.game.getPlayer())+"</b> [style.boldMana(aura)] in order to cast this spell!", null);
+						
+					} else {
+						return new Response("Fire Elemental",
+								"Summon your elemental by binding it to the school of Fire! This will cost <b>"+Spell.ELEMENTAL_FIRE.getModifiedCost(Main.game.getPlayer())+"</b> [style.boldMana(aura)]!",
+								CHARACTER_SPELLS_FIRE) {
+							@Override
+							public DialogueNodeOld getNextDialogue() {
+								return DebugDialogue.getDefaultDialogueNoEncounter();
+							}
+							@Override
+							public void effects() {
+								Main.game.getTextStartStringBuilder().append(Spell.ELEMENTAL_FIRE.applyEffect(Main.game.getPlayer(), Main.game.getPlayer(), true, false));
+							}
+						};
+					}
+					
+				} else {
+					return new Response("Fire Elemental", "You don't know how to bind your elemental to the school of Fire! (Requires spell: '"+Spell.ELEMENTAL_FIRE.getName()+"')", null);
+				}
+				
+			} else if(index==11) {
+				return new Response("Reset Fire", "Reset your Fire upgrades, refunding all points spent. Your spells will not be reset.", CHARACTER_SPELLS_FIRE) {
+					@Override
+					public void effects() {
+						Main.game.getPlayer().resetSpellUpgrades(SpellSchool.FIRE);
+					}
+				};
+				
+			} else if (index == 0) {
+				return new Response("Back", "Return to your phone's main menu.", MENU);
+			
+			} else {
+				return null;
+			}
+		}
+
+		@Override
+		public MapDisplay getMapDisplay() {
+			return MapDisplay.PHONE;
+		}
+	};
+	
 //	private static boolean confirmReset = false;
 	public static final DialogueNodeOld CHARACTER_FETISHES = new DialogueNodeOld("Desires & Fetishes", "", true) {
 		private static final long serialVersionUID = 1L;

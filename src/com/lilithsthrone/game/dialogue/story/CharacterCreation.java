@@ -25,6 +25,7 @@ import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.combat.DamageType;
+import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -37,8 +38,15 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
+import com.lilithsthrone.game.inventory.item.AbstractItem;
+import com.lilithsthrone.game.inventory.item.AbstractItemType;
+import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
+import com.lilithsthrone.game.sex.OrificeType;
+import com.lilithsthrone.game.sex.PenetrationType;
+import com.lilithsthrone.game.sex.SexParticipantType;
+import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -1534,7 +1542,7 @@ public class CharacterCreation {
 					// "I'm a whore! Want to know my rates? :D"
 					break;
 				case REINDEER_OVERSEER:
-					// "Well, if you hadn't already noticed, I'm actually an anthropormpic reindeer, and I come down from the snowy mountains to shovel snow in the city every winter. :D"
+					// "Well, if you hadn't already noticed, I'm actually an anthropomorphic reindeer, and I come down from the snowy mountains to shovel snow in the city every winter. :D"
 					break;
 				case SOLDIER:
 					UtilText.nodeContentSB.append(
@@ -1610,7 +1618,30 @@ public class CharacterCreation {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Continue", "Once you're happy with your sexual experience, proceed to the next part of the character creation.", FINAL_CHECK);
+				return new Response("Continue", "Once you're happy with your sexual experience, proceed to the next part of the character creation.", FINAL_CHECK) {
+					@Override
+					public void effects() {
+						if(!Main.game.getPlayer().hasPenis()) {
+							for(OrificeType ot : OrificeType.values()) {
+								SexType st = new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, ot);
+								Main.game.getPlayer().setVirginityLoss(st, "");
+								st = new SexType(SexParticipantType.SELF, PenetrationType.PENIS, ot);
+								Main.game.getPlayer().setVirginityLoss(st, "");
+							}
+							Main.game.getPlayer().setPenisVirgin(true);
+							
+						}
+						if(!Main.game.getPlayer().hasVagina()) {
+							for(PenetrationType pt : PenetrationType.values()) {
+								SexType st = new SexType(SexParticipantType.PITCHER, pt, OrificeType.VAGINA);
+								Main.game.getPlayer().setVirginityLoss(st, "");
+								st = new SexType(SexParticipantType.SELF, pt, OrificeType.VAGINA);
+								Main.game.getPlayer().setVirginityLoss(st, "");
+							}
+							Main.game.getPlayer().setVaginaVirgin(true);
+						}
+					}
+				};
 				
 			} else if (index == 0) {
 				return new Response("Back", "Return to background selection.", BACKGROUND_SELECTION_MENU);
@@ -1688,6 +1719,9 @@ public class CharacterCreation {
 						
 						Main.game.getPlayer().setMoney(500);
 						Main.game.getPlayer().equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MELEE_CHAOS_RARE, DamageType.FIRE));
+						
+						AbstractItem spellBook = AbstractItemType.generateItem(ItemType.getSpellBookType(Spell.ICE_SHARD));
+						Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getCell(PlaceType.LILAYA_HOME_ROOM_PLAYER).getInventory().addItem(spellBook);
 						
 						applyGameStart();
 						applySkipPrologueStart();
@@ -1801,10 +1835,7 @@ public class CharacterCreation {
 		@Override
 		public String getContent() {
 			return "<p>"
-						+ "<b>Still TODO!</b>"
-					+ "</p>"
-					+ "<p>"
-						+ "Meet Lily, she asks you to go and find Arthur."
+						+ "<b>TODO:</b> I will enable the ability to go through the full character creation with imported characters soon! :3"
 					+ "</p>"
 					+ "</br>"
 					+"<details>"
@@ -1840,6 +1871,12 @@ public class CharacterCreation {
 						Main.game.getPlayer().getCharactersEncountered().clear();
 						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().startQuest(QuestLine.MAIN));
 						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, Quest.MAIN_1_A_LILAYAS_TESTS));
+						
+						Main.game.getPlayer().setMoney(500);
+						Main.game.getPlayer().equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MELEE_CHAOS_RARE, DamageType.FIRE));
+						
+						AbstractItem spellBook = AbstractItemType.generateItem(ItemType.getSpellBookType(Spell.ICE_SHARD));
+						Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getCell(PlaceType.LILAYA_HOME_ROOM_PLAYER).getInventory().addItem(spellBook);
 						
 						applyGameStart();
 						applySkipPrologueStart();

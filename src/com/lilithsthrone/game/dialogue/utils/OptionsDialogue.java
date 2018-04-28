@@ -509,8 +509,8 @@ public class OptionsDialogue {
 						+ "</div>"
 						+ "<div class='container-full-width' style='width:calc(25% - 16px); text-align:center; background:transparent;'>"
 							+ (Main.isSaveGameAvailable()
-								?"<div class='square-button saveIcon' id='new_saved'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskSave()+"</div></div>"
-								:"<div class='square-button saveIcon disabled' id='new_saved_disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskSaveDisabled()+"</div></div>")
+								?"<div class='square-button saveIcon' id='new_saved' style='float:left;'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskSave()+"</div></div>"
+								:"<div class='square-button saveIcon disabled' id='new_saved_disabled' style='float:left;'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskSaveDisabled()+"</div></div>")
 						+ "</div>"
 					+ "</div>";
 				
@@ -1310,6 +1310,11 @@ public class OptionsDialogue {
 				switch(subspecies) {
 					case ANGEL:
 					case DEMON:
+					case ELEMENTAL_AIR:
+					case ELEMENTAL_ARCANE:
+					case ELEMENTAL_EARTH:
+					case ELEMENTAL_FIRE:
+					case ELEMENTAL_WATER:
 					case IMP:
 					case IMP_ALPHA:
 					case HARPY:

@@ -91,7 +91,7 @@ import com.lilithsthrone.game.character.body.valueEnums.TongueModifier;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.PerkCategory;
-import com.lilithsthrone.game.character.effects.PerkEntry;
+import com.lilithsthrone.game.character.effects.TreeEntry;
 import com.lilithsthrone.game.character.effects.PerkManager;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
@@ -113,6 +113,8 @@ import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.combat.SpecialAttack;
 import com.lilithsthrone.game.combat.Spell;
+import com.lilithsthrone.game.combat.SpellSchool;
+import com.lilithsthrone.game.combat.SpellUpgrade;
 import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
@@ -355,9 +357,10 @@ public class MainController implements Initializable {
 		InventoryDialogue.setInventoryNPC(npc);
 		InventoryDialogue.setNPCInventoryInteraction(interaction);
 		
-		if(npc!=null) {
-			npc.setPendingClothingDressing(true);
-		}
+		// Why did I do this? BlobHyperThink
+//		if(npc!=null) {
+//			npc.setPendingClothingDressing(true);
+//		}
 		
 		if (Main.game.getCurrentDialogueNode().getMapDisplay() == MapDisplay.INVENTORY) {
 			Main.game.restoreSavedContent();
@@ -488,7 +491,7 @@ public class MainController implements Initializable {
 						
 						 if(event.getCode()==KeyCode.END){
 							 
-//							 Main.game.getPlayer().setMana(1);
+//							 Main.game.getPlayer().resetSpells();
 //							 
 //							 System.out.println(Main.game.getPlayer().toString());
 							 
@@ -1173,71 +1176,74 @@ public class MainController implements Initializable {
 				|| Main.game.getCurrentDialogueNode().equals(SlaveryManagementDialogue.SLAVE_MANAGEMENT_INSPECT)) {
 			if(CharactersPresentDialogue.characterViewed instanceof NPC && !((NPC)CharactersPresentDialogue.characterViewed).getArtworkList().isEmpty()) {
 				
-				Artwork artwork = ((NPC)CharactersPresentDialogue.characterViewed).getArtworkList().get(((NPC)CharactersPresentDialogue.characterViewed).getArtworkIndex());
-				
-				id = "ARTWORK_INFO";
-				if (((EventTarget) document.getElementById(id)) != null) {
-					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-						if(!artwork.getArtist().getWebsites().isEmpty()) {
-							Util.openLinkInDefaultBrowser(artwork.getArtist().getWebsites().get(0).getURL());
-						}
-					}, false);
+				try {
+					Artwork artwork = ((NPC)CharactersPresentDialogue.characterViewed).getArtworkList().get(((NPC)CharactersPresentDialogue.characterViewed).getArtworkIndex());
 					
-					addEventListener(document, id, "mousemove", moveTooltipListener, false);
-					addEventListener(document, id, "mouseleave", hideTooltipListener, false);
-					addEventListener(document, id, "mouseenter", new TooltipInformationEventListener().setInformation(
-							"Artwork by <b style='color:"+artwork.getArtist().getColour().toWebHexString()+";'>"+artwork.getArtist().getName()+"</b>",
-							(artwork.getArtist().getWebsites().isEmpty()
-									?"This artist has no associated websites!"
-									:"Click this button to open <b style='color:"+artwork.getArtist().getColour().toWebHexString()+";'>"+artwork.getArtist().getWebsites().get(0).getName()+"</b>"
-										+ " ("+artwork.getArtist().getWebsites().get(0).getURL()+") <b>externally</b> in your default browser!")),
-							false);
+					id = "ARTWORK_INFO";
+					if (((EventTarget) document.getElementById(id)) != null) {
+						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+							if(!artwork.getArtist().getWebsites().isEmpty()) {
+								Util.openLinkInDefaultBrowser(artwork.getArtist().getWebsites().get(0).getURL());
+							}
+						}, false);
+						
+						addEventListener(document, id, "mousemove", moveTooltipListener, false);
+						addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+						addEventListener(document, id, "mouseenter", new TooltipInformationEventListener().setInformation(
+								"Artwork by <b style='color:"+artwork.getArtist().getColour().toWebHexString()+";'>"+artwork.getArtist().getName()+"</b>",
+								(artwork.getArtist().getWebsites().isEmpty()
+										?"This artist has no associated websites!"
+										:"Click this button to open <b style='color:"+artwork.getArtist().getColour().toWebHexString()+";'>"+artwork.getArtist().getWebsites().get(0).getName()+"</b>"
+											+ " ("+artwork.getArtist().getWebsites().get(0).getURL()+") <b>externally</b> in your default browser!")),
+								false);
+					}
+					
+					id = "ARTWORK_PREVIOUS";
+					if (((EventTarget) document.getElementById(id)) != null) {
+						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+							if(artwork.getTotalArtworkCount()>1) {
+								artwork.incrementIndex(-1);
+								CharactersPresentDialogue.resetContent(CharactersPresentDialogue.characterViewed);
+								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+							}
+						}, false);
+					}
+					
+					id = "ARTWORK_NEXT";
+					if (((EventTarget) document.getElementById(id)) != null) {
+						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+							if(artwork.getTotalArtworkCount()>1) {
+								artwork.incrementIndex(1);
+								CharactersPresentDialogue.resetContent(CharactersPresentDialogue.characterViewed);
+								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+							}
+						}, false);
+					}
+					
+					id = "ARTWORK_ARTIST_PREVIOUS";
+					if (((EventTarget) document.getElementById(id)) != null) {
+						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+							if(((NPC)CharactersPresentDialogue.characterViewed).getArtworkList().size()>1) {
+								((NPC)CharactersPresentDialogue.characterViewed).incrementArtworkIndex(-1);
+								CharactersPresentDialogue.resetContent(CharactersPresentDialogue.characterViewed);
+								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+							}
+						}, false);
+					}
+					
+					id = "ARTWORK_ARTIST_NEXT";
+					if (((EventTarget) document.getElementById(id)) != null) {
+						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+							if(((NPC)CharactersPresentDialogue.characterViewed).getArtworkList().size()>1) {
+								((NPC)CharactersPresentDialogue.characterViewed).incrementArtworkIndex(1);
+								CharactersPresentDialogue.resetContent(CharactersPresentDialogue.characterViewed);
+								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+							}
+						}, false);
+					}
+				} catch(Exception ex) {
+					System.err.println("MainController Artwork handling error.");
 				}
-				
-				id = "ARTWORK_PREVIOUS";
-				if (((EventTarget) document.getElementById(id)) != null) {
-					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-						if(artwork.getTotalArtworkCount()>1) {
-							artwork.incrementIndex(-1);
-							CharactersPresentDialogue.resetContent(CharactersPresentDialogue.characterViewed);
-							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-						}
-					}, false);
-				}
-				
-				id = "ARTWORK_NEXT";
-				if (((EventTarget) document.getElementById(id)) != null) {
-					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-						if(artwork.getTotalArtworkCount()>1) {
-							artwork.incrementIndex(1);
-							CharactersPresentDialogue.resetContent(CharactersPresentDialogue.characterViewed);
-							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-						}
-					}, false);
-				}
-				
-				id = "ARTWORK_ARTIST_PREVIOUS";
-				if (((EventTarget) document.getElementById(id)) != null) {
-					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-						if(((NPC)CharactersPresentDialogue.characterViewed).getArtworkList().size()>1) {
-							((NPC)CharactersPresentDialogue.characterViewed).incrementArtworkIndex(-1);
-							CharactersPresentDialogue.resetContent(CharactersPresentDialogue.characterViewed);
-							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-						}
-					}, false);
-				}
-				
-				id = "ARTWORK_ARTIST_NEXT";
-				if (((EventTarget) document.getElementById(id)) != null) {
-					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-						if(((NPC)CharactersPresentDialogue.characterViewed).getArtworkList().size()>1) {
-							((NPC)CharactersPresentDialogue.characterViewed).incrementArtworkIndex(1);
-							CharactersPresentDialogue.resetContent(CharactersPresentDialogue.characterViewed);
-							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-						}
-					}, false);
-				}
-				
 				
 			}
 		}
@@ -4250,31 +4256,66 @@ public class MainController implements Initializable {
 				}
 			}
 			
+			if (Main.game.getCurrentDialogueNode() == PhoneDialogue.CHARACTER_SPELLS_ARCANE
+					|| Main.game.getCurrentDialogueNode() == PhoneDialogue.CHARACTER_SPELLS_EARTH
+					|| Main.game.getCurrentDialogueNode() == PhoneDialogue.CHARACTER_SPELLS_WATER
+					|| Main.game.getCurrentDialogueNode() == PhoneDialogue.CHARACTER_SPELLS_AIR
+					|| Main.game.getCurrentDialogueNode() == PhoneDialogue.CHARACTER_SPELLS_FIRE) {
+				for(Spell s : Spell.values()) {
+					id = "SPELL_TREE_" + s;
+					if (((EventTarget) document.getElementById(id)) != null) {
+						addEventListener(document, id, "mousemove", moveTooltipListener, false);
+						addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+						addEventListener(document, id, "mouseenter", new TooltipInformationEventListener().setSpell(s, Main.game.getPlayer()), false);
+						
+					}
+					for(List<TreeEntry<SpellSchool, SpellUpgrade>> upgradeList : s.getSpellUpgradeTree().values()) {
+						for(TreeEntry<SpellSchool, SpellUpgrade> upgrade : upgradeList) {
+							id = "SPELL_UPGRADE_" + upgrade.getEntry();
+							if (((EventTarget) document.getElementById(id)) != null) {
+								addEventListener(document, id, "mousemove", moveTooltipListener, false);
+								addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+								addEventListener(document, id, "mouseenter", new TooltipInformationEventListener().setSpellUpgrade(upgrade.getEntry(), Main.game.getPlayer()), false);
+								
+								((EventTarget) document.getElementById(id)).addEventListener("click", event -> {
+									if(Spell.isSpellUpgradeAvailable(Main.game.getPlayer(), s, upgrade) && Main.game.getPlayer().getSpellUpgradePoints(upgrade.getCategory())>=upgrade.getEntry().getPointCost()) {
+										Main.game.getPlayer().addSpellUpgrade(upgrade.getEntry());
+										Main.game.getPlayer().incrementSpellUpgradePoints(upgrade.getCategory(), -upgrade.getEntry().getPointCost());
+										Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+									}
+								}, false);
+							}
+						}
+					}
+				}
+				
+			}
+			
 			// Level up dialogue:
 			if (Main.game.getCurrentDialogueNode() == PhoneDialogue.CHARACTER_LEVEL_UP) {
 				for(int i = 0; i<PerkManager.ROWS; i++) {
-					for(Entry<PerkCategory, List<PerkEntry>> entry : PerkManager.MANAGER.getPerkTree().get(i).entrySet()) {
-						for(PerkEntry e : entry.getValue()) {
-							id = i+"_"+e.getPerk();
+					for(Entry<PerkCategory, List<TreeEntry<PerkCategory, Perk>>> entry : PerkManager.MANAGER.getPerkTree().get(i).entrySet()) {
+						for(TreeEntry<PerkCategory, Perk> e : entry.getValue()) {
+							id = i+"_"+e.getEntry();
 	
 							if (((EventTarget) document.getElementById(id)) != null) {
 								addEventListener(document, id, "mousemove", moveTooltipListener, false);
 								addEventListener(document, id, "mouseleave", hideTooltipListener, false);
-								addEventListener(document, id, "mouseenter", new TooltipInformationEventListener().setLevelUpPerk(i, e.getPerk(), Main.game.getPlayer()), false);
+								addEventListener(document, id, "mouseenter", new TooltipInformationEventListener().setLevelUpPerk(i, e.getEntry(), Main.game.getPlayer()), false);
 								((EventTarget) document.getElementById(id)).addEventListener("click", event -> {
-									if(e.getPerk().isEquippableTrait() && PerkManager.MANAGER.isPerkOwned(e)) {
-										if(!Main.game.getPlayer().hasTraitActivated(e.getPerk())) {
-											Main.game.getPlayer().addTrait(e.getPerk());
+									if(e.getEntry().isEquippableTrait() && PerkManager.MANAGER.isPerkOwned(e)) {
+										if(!Main.game.getPlayer().hasTraitActivated(e.getEntry())) {
+											Main.game.getPlayer().addTrait(e.getEntry());
 										} else {
-											Main.game.getPlayer().removeTrait(e.getPerk());
+											Main.game.getPlayer().removeTrait(e.getEntry());
 										}
 										Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 										
 									} else if(Main.game.getPlayer().getPerkPoints()>=1 && PerkManager.MANAGER.isPerkAvailable(e)) {
-										if(Main.game.getPlayer().addPerk(e.getRow(), e.getPerk())) {
+										if(Main.game.getPlayer().addPerk(e.getRow(), e.getEntry())) {
 											Main.game.getPlayer().incrementPerkPoints(-1);
-											if(e.getPerk().isEquippableTrait() && Main.game.getPlayer().getTraits().size()<GameCharacter.MAX_TRAITS) {
-												Main.game.getPlayer().addTrait(e.getPerk());
+											if(e.getEntry().isEquippableTrait() && Main.game.getPlayer().getTraits().size()<GameCharacter.MAX_TRAITS) {
+												Main.game.getPlayer().addTrait(e.getEntry());
 											}
 											Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 										}
@@ -4342,13 +4383,7 @@ public class MainController implements Initializable {
 						if(c.getPlace().getPlaceType() == PlaceType.GENERIC_IMPASSABLE) {
 							continue;
 						}
-						id = "MAP_NODE_" + i + "_" + j;
-						
-						addEventListener(document, id, "mousemove", moveTooltipListener, false);
-						addEventListener(document, id, "mouseleave", hideTooltipListener, false);
-						
-						TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation(Util.capitaliseSentence(c.getPlaceName()), "");
-						addEventListener(document, id, "mouseenter", el2, false);
+						setMapLocationListeners(c, i, j);
 					}
 				}
 			}
@@ -5433,6 +5468,30 @@ public class MainController implements Initializable {
 		}
 	}
 	
+	private void setMapLocationListeners(Cell c, int i, int j) { //TODO
+		String id = "MAP_NODE_" + i + "_" + j;
+		
+		addEventListener(document, id, "mousemove", moveTooltipListener, false);
+		addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+		
+		TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation(Util.capitaliseSentence(c.getPlaceName()), "");
+		addEventListener(document, id, "mouseenter", el2, false);
+		
+		((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+			if(Main.game.getPlayer().isAbleToTeleport()
+					&& Main.game.getSavedDialogueNode().equals(Main.game.getPlayer().getLocationPlace().getDialogue(false))
+					&& Main.game.getPlayer().getMana()>=Spell.TELEPORT.getModifiedCost(Main.game.getPlayer())
+					&& c.getPlace().getPlaceType()!=PlaceType.GENERIC_IMPASSABLE) {
+				Main.mainController.openPhone();
+				Main.game.getPlayer().incrementMana(-Spell.TELEPORT.getModifiedCost(Main.game.getPlayer()));
+				Main.game.getPlayer().setLocation(new Vector2i(j, i));
+				DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true);
+				Main.game.getTextStartStringBuilder().append("<p>You teleport! :3</p>");
+				Main.game.setContent(new Response("", "", dn));
+			}
+		}, false);
+	}
+	
 	private void setResponseTabListeners(int responsePageCounter) {
 		String id = "tab_" + responsePageCounter;
 
@@ -5660,7 +5719,7 @@ public class MainController implements Initializable {
 								}
 								
 							} else {
-								openCharactersPresent(Main.game.getNPCById(Main.game.getActiveNPC().getId()));
+								openCharactersPresent(character);
 							}
 						}, false);
 					}
@@ -5750,7 +5809,7 @@ public class MainController implements Initializable {
 					addEventListener(documentAttributes, "SPELL_"+idModifier + s, "mousemove", moveTooltipListener, false);
 					addEventListener(documentAttributes, "SPELL_"+idModifier + s, "mouseleave", hideTooltipListener, false);
 
-					TooltipInformationEventListener el = new TooltipInformationEventListener().setSpell(s, character.getLevel(), character);
+					TooltipInformationEventListener el = new TooltipInformationEventListener().setSpell(s, character);
 					addEventListener(documentAttributes, "SPELL_"+idModifier + s, "mouseenter", el, false);
 				}
 			}
@@ -5955,7 +6014,7 @@ public class MainController implements Initializable {
 						addEventListener(documentAttributes, "SPELL_"+idModifier + s, "mousemove", moveTooltipListener, false);
 						addEventListener(documentAttributes, "SPELL_"+idModifier + s, "mouseleave", hideTooltipListener, false);
 
-						TooltipInformationEventListener el = new TooltipInformationEventListener().setSpell(s, character.getLevel(), character);
+						TooltipInformationEventListener el = new TooltipInformationEventListener().setSpell(s, character);
 						addEventListener(documentAttributes, "SPELL_"+idModifier + s, "mouseenter", el, false);
 					}
 				}

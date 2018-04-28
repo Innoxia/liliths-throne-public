@@ -204,7 +204,7 @@ public class RalphsSnacks {
 						+ "</p>"
 						+ "<p>"
 							+ "Ralph cheerfully leads you back over to the special display, and as he informs you of some of the prices, your suspicions prove to be correct."
-							+ " While some of the items are a reasonable price, the bottles of various transformative liquids are quite expensive."
+							+ " While some of the items are a reasonable price, the more exotic foodstuffs are quite expensive."
 							+ " Looking across at the friendly shopkeeper, you ask him if there's any way he'd drop the prices a little."
 						+ "</p>"
 						+ "<p>"

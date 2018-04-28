@@ -5,6 +5,7 @@ import java.util.List;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.MapDisplay;
@@ -131,39 +132,68 @@ public class CharactersPresentDialogue {
 					};
 					
 				} else if(index==1) {
-					return new ResponseEffectsOnly("Inventory", "Manage [npc.name]'s inventory.") {
+					if(!Main.game.isSavedDialogueNeutral()) {
+						return new Response("Inventory", "You're in the middle of something right now! (Can only be used when in a tile's default dialogue.)", null);
+						
+					} else {
+						return new ResponseEffectsOnly("Inventory", "Manage [npc.name]'s inventory.") {
+									@Override
+									public void effects() {
+										Main.mainController.openInventory((NPC) characterViewed, InventoryInteraction.FULL_MANAGEMENT);
+									}
+								};
+					}
+							
+				} else if (index == 2) {
+					
+					if(!characterViewed.isAbleToSelfTransform()) {
+						return new Response("Transformations", "Only demons and slimes can transform themselves on command...", null);
+						
+					} else if(!Main.game.isSavedDialogueNeutral()) {
+						return new Response("Transformations", "You're in the middle of something right now! (Can only be used when in a tile's default dialogue.)", null);
+						
+					} else {
+						return new Response("Transformations",
+								"Take a very detailed look at what [npc.name] can transform [npc.herself] into...",
+								BodyChanging.BODY_CHANGING_CORE){
+							@Override
+							public void effects() {
+								BodyChanging.setTarget(characterViewed);
+							}
+						};
+					}
+					
+				} else if(index==5) {
+					if(!Main.game.isSavedDialogueNeutral()) {
+						return new Response(characterViewed instanceof Elemental?"Dispell":"Go Home", "You're in the middle of something right now! (Can only be used when in a tile's default dialogue.)", null);
+						
+					} else {
+						if(charactersPresent.size()==1) {
+							return new ResponseEffectsOnly(characterViewed instanceof Elemental?"Dispell":"Go Home",
+									characterViewed instanceof Elemental?"Dispell [npc.name]'s physical form, and return [npc.herHim] to your arcane aura.":"Tell [npc.name] to go home."){
 								@Override
 								public void effects() {
-									Main.mainController.openInventory((NPC) characterViewed, InventoryInteraction.FULL_MANAGEMENT);
+									Main.game.getPlayer().removeCompanion(characterViewed);
+									characterViewed.returnToHome();
+									Main.mainController.openCharactersPresent();
 								}
 							};
-							
-				} else if(index==5) {
-					if(charactersPresent.size()==1) {
-						return new ResponseEffectsOnly("Go Home",
-								"Tell [npc.name] to go home."){
-							@Override
-							public void effects() {
-								Main.game.getPlayer().removeCompanion(characterViewed);
-								characterViewed.returnToHome();
-								Main.mainController.openCharactersPresent();
-							}
-						};
-					} else {
-						return new Response("Go Home",
-								"Tell [npc.name] to go home.",
-								MENU){
-							@Override
-							public void effects() {
-								Main.game.getPlayer().removeCompanion(characterViewed);
-								characterViewed.returnToHome();
-								
-								Main.game.setResponseTab(0);
-								characterViewed = charactersPresent.get(0);
-								menuTitle = "Characters Present ("+Util.capitaliseSentence(charactersPresent.get(0).getName())+")";
-								menuContent = ((NPC) charactersPresent.get(0)).getCharacterInformationScreen();
-							}
-						};
+						} else {
+							return new Response(characterViewed instanceof Elemental?"Dispell":"Go Home",
+									characterViewed instanceof Elemental?"Dispell [npc.name]'s physical form, and return [npc.herHim] to your arcane aura.":"Tell [npc.name] to go home.",
+									MENU){
+								@Override
+								public void effects() {
+									Main.game.getPlayer().removeCompanion(characterViewed);
+									characterViewed.returnToHome();
+									
+									Main.game.setResponseTab(0);
+									characterViewed = charactersPresent.get(0);
+									menuTitle = "Characters Present ("+Util.capitaliseSentence(charactersPresent.get(0).getName())+")";
+									menuContent = ((NPC) charactersPresent.get(0)).getCharacterInformationScreen();
+								}
+							};
+						}
 					}
 				}
 				
@@ -178,8 +208,8 @@ public class CharactersPresentDialogue {
 					
 				} else if (index == 1) { //TODO improve descriptions and affection hit from rape
 					if(Main.game.isNonConEnabled() && !((NPC) characterViewed).isAttractedTo(Main.game.getPlayer())) {
-						if(!characterViewed.isCompanionAvailableForSex()) {
-							return new Response("Rape", characterViewed.getCompanionSexRejectionReason(), null);
+						if(!characterViewed.isCompanionAvailableForSex(true)) { // Takes into account whether in a neutral dialogue or not.
+							return new Response("Rape", characterViewed.getCompanionSexRejectionReason(true), null);
 							
 						} else {
 							return new ResponseSex("Rape", "[npc.Name] is definitely not interested in having sex with you, but it's not like [npc.she] has a choice in the matter...", 
@@ -211,8 +241,8 @@ public class CharactersPresentDialogue {
 						}
 						
 					} else {
-						if(!characterViewed.isCompanionAvailableForSex()) {
-							return new Response("Sex", characterViewed.getCompanionSexRejectionReason(), null);
+						if(!characterViewed.isCompanionAvailableForSex(true)) { // Takes into account whether in a neutral dialogue or not.
+							return new Response("Sex", characterViewed.getCompanionSexRejectionReason(true), null);
 							
 						} else {
 							return new ResponseSex("Sex", "Have sex with [npc.name].", 
@@ -241,8 +271,8 @@ public class CharactersPresentDialogue {
 					}
 					
 				} else if (index == 2) {
-					if(!characterViewed.isCompanionAvailableForSex()) {
-						return new Response("Submissive Sex", characterViewed.getCompanionSexRejectionReason(), null);
+					if(!characterViewed.isCompanionAvailableForSex(false)) {
+						return new Response("Submissive Sex", characterViewed.getCompanionSexRejectionReason(false), null);
 						
 					} else {
 						if(((NPC) characterViewed).isAttractedTo(Main.game.getPlayer())) {

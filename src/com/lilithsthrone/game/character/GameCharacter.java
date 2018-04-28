@@ -113,7 +113,6 @@ import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.fetishes.FetishLevel;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
-import com.lilithsthrone.game.character.npc.NPCOffspring;
 import com.lilithsthrone.game.character.npc.dominion.Alexa;
 import com.lilithsthrone.game.character.npc.dominion.Cultist;
 import com.lilithsthrone.game.character.npc.dominion.DominionAlleywayAttacker;
@@ -127,6 +126,8 @@ import com.lilithsthrone.game.character.npc.dominion.HarpyNympho;
 import com.lilithsthrone.game.character.npc.dominion.HarpyNymphoCompanion;
 import com.lilithsthrone.game.character.npc.dominion.ReindeerOverseer;
 import com.lilithsthrone.game.character.npc.dominion.Scarlett;
+import com.lilithsthrone.game.character.npc.misc.Elemental;
+import com.lilithsthrone.game.character.npc.misc.NPCOffspring;
 import com.lilithsthrone.game.character.npc.submission.SubmissionAttacker;
 import com.lilithsthrone.game.character.persona.History;
 import com.lilithsthrone.game.character.persona.MoralityValue;
@@ -143,7 +144,7 @@ import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.combat.SpecialAttack;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.combat.SpellSchool;
-import com.lilithsthrone.game.combat.SpellType;
+import com.lilithsthrone.game.combat.SpellUpgrade;
 import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.SlaveryManagementDialogue;
@@ -198,7 +199,7 @@ import com.lilithsthrone.world.places.PlaceType;
  * The class for all the game's characters. I think this is the biggest class in the game.
  * 
  * @since 0.1.0
- * @version 0.2.2
+ * @version 0.2.4
  * @author Innoxia
  */
 public abstract class GameCharacter implements Serializable, XMLSaving {
@@ -230,7 +231,6 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 
 	private int experience, perkPoints;
 
-	
 	private List<Artwork> artworkList;
 	private int artworkIndex = -1;
 	
@@ -295,6 +295,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	protected boolean[] workHours;
 	
 	//Companion
+	private String elementalID;
 	private List<String> companions;
 	String partyLeader;
 	
@@ -303,7 +304,11 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	
 	// Combat:
 	protected Set<SpecialAttack> specialAttacks;
-	protected float health, mana;
+	protected Set<Spell> spells;
+	protected Set<SpellUpgrade> spellUpgrades;
+	protected Map<SpellSchool, Integer> spellUpgradePoints;
+	protected float health;
+	protected float mana;
 
 	
 	// Sex:
@@ -439,6 +444,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		potionAttributes = new EnumMap<>(Attribute.class);
 
 		specialAttacks = EnumSet.noneOf(SpecialAttack.class);
+		spells = EnumSet.noneOf(Spell.class);
+		spellUpgrades = EnumSet.noneOf(SpellUpgrade.class);
+		spellUpgradePoints = new HashMap<>();
 
 		totalOrgasmCount = 0;
 		daysOrgasmCount = 0;
@@ -492,15 +500,16 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		setBody(startingGender, startingRace, stage);
 		genderIdentity = startingGender;
 		
-		calculateStatusEffects(0);
-		
 		health = getAttributeValue(Attribute.HEALTH_MAXIMUM);
 		mana = getAttributeValue(Attribute.MANA_MAXIMUM);
 		setLust(getRestingLust());
 		
 		//Companion initialization
+		elementalID = "";
 		companions = new ArrayList<>();
 		setMaxCompanions(1);
+		
+		calculateStatusEffects(0);
 		
 		artworkList = new ArrayList<>();
 		
@@ -545,16 +554,18 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "level", String.valueOf(this.getTrueLevel()));
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "version", Main.VERSION_NUMBER);
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "history", this.getHistory().toString());
+		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "elemental", this.getElementalID());
 		
-		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "personality", this.getPersonality().toString());
+		
+//		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "personality", this.getPersonality().toString());
 		Element personalityElement = doc.createElement("personality");
 		characterCoreInfo.appendChild(personalityElement);
 		for(Entry<PersonalityTrait, PersonalityWeight> entry: getPersonality().entrySet()){
 			Element element = doc.createElement("personalityEntry");
 			personalityElement.appendChild(element);
 			
-			CharacterUtils.addAttribute(doc, personalityElement, "trait", entry.getKey().toString());
-			CharacterUtils.addAttribute(doc, personalityElement, "weight", entry.getValue().toString());
+			CharacterUtils.addAttribute(doc, element, "trait", entry.getKey().toString());
+			CharacterUtils.addAttribute(doc, element, "weight", entry.getValue().toString());
 		}
 		
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "sexualOrientation", this.getSexualOrientation().toString());
@@ -659,6 +670,32 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				CharacterUtils.addAttribute(doc, element, "row", p.getKey().toString());
 				CharacterUtils.addAttribute(doc, element, "type", perk.toString());
 			}
+		}
+		
+		// Spells:
+		Element characterSpells = doc.createElement("knownSpells");
+		properties.appendChild(characterSpells);
+		for(Spell spell : this.getSpells()) {
+			Element element = doc.createElement("spell");
+			characterSpells.appendChild(element);
+			CharacterUtils.addAttribute(doc, element, "type", spell.toString());
+		}
+		
+		Element characterSpellUpgrades = doc.createElement("spellUpgrades");
+		properties.appendChild(characterSpellUpgrades);
+		for(SpellUpgrade upgrade : this.getSpellUpgrades()) {
+			Element element = doc.createElement("upgrade");
+			characterSpellUpgrades.appendChild(element);
+			CharacterUtils.addAttribute(doc, element, "type", upgrade.toString());
+		}
+
+		Element characterSpellUpgradePoints = doc.createElement("spellUpgradePoints");
+		properties.appendChild(characterSpellUpgradePoints);
+		for(SpellSchool school : SpellSchool.values()) {
+			Element element = doc.createElement("upgradeEntry");
+			characterSpellUpgradePoints.appendChild(element);
+			CharacterUtils.addAttribute(doc, element, "school", school.toString());
+			CharacterUtils.addAttribute(doc, element, "points", String.valueOf(this.getSpellUpgradePoints(school)));
 		}
 		
 		// Fetishes:
@@ -819,7 +856,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		
 		
 		
-		// ************** Companons **************//
+		// ************** Companions **************//
 
 		Element companonElement = doc.createElement("companions");
 		properties.appendChild(companonElement);
@@ -1035,6 +1072,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				character.setHistory(History.STUDENT);
 				CharacterUtils.appendToImportLog(log, "</br>History import failed. Set history to: "+character.getHistory());
 			}
+		}
+		if(element.getElementsByTagName("elemental").getLength()!=0) {
+			character.setElementalID(((Element)element.getElementsByTagName("elemental").item(0)).getAttribute("value"));
 		}
 		
 		if(element.getElementsByTagName("personality").getLength()!=0 && !Main.isVersionOlderThan(Main.VERSION_NUMBER, "0.2.3.5")) {
@@ -1371,6 +1411,37 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 					}
 				}
 			}
+		}
+		
+		// Spells:
+		nodes = parentElement.getElementsByTagName("knownSpells");
+		element = (Element) nodes.item(0);
+		try {
+			for(int i=0; i<element.getElementsByTagName("spell").getLength(); i++){
+				Element e = ((Element)element.getElementsByTagName("spell").item(i));
+				character.addSpell(Spell.valueOf(e.getAttribute("type")));
+			}
+		} catch(Exception ex) {
+		}
+		
+		nodes = parentElement.getElementsByTagName("spellUpgrades");
+		element = (Element) nodes.item(0);
+		try {
+			for(int i=0; i<element.getElementsByTagName("upgrade").getLength(); i++){
+				Element e = ((Element)element.getElementsByTagName("upgrade").item(i));
+				character.addSpellUpgrade(SpellUpgrade.valueOf(e.getAttribute("type")));
+			}
+		} catch(Exception ex) {
+		}
+		
+		nodes = parentElement.getElementsByTagName("spellUpgradePoints");
+		element = (Element) nodes.item(0);
+		try {
+			for(int i=0; i<element.getElementsByTagName("upgradeEntry").getLength(); i++){
+				Element e = ((Element)element.getElementsByTagName("upgradeEntry").item(i));
+				character.setSpellUpgradePoints(SpellSchool.valueOf(e.getAttribute("school")), Integer.valueOf(e.getAttribute("points")));
+			}
+		} catch(Exception ex) {
 		}
 		
 		// Fetishes:
@@ -1958,7 +2029,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			infoScreenSB.append("</br>"
 					+ "<h4>Relationships</h4>"
 					+ "<p>"
-						+ (Main.game.getPlayer().hasCompanion(this)?"[style.boldCompanion(Companion:)]</br>[npc.Name] is currently following you around as your companion.</br></br>":"")
+						+ (Main.game.getPlayer().hasCompanion(this)
+								?UtilText.parse(this, "[style.boldCompanion(Companion:)]</br>[npc.Name] is currently following you around as your companion.</br></br>")
+								:"")
 						+ "[style.boldAffection(Affection:)]</br>"
 						+ AffectionLevel.getDescription(this, Main.game.getPlayer(),
 								AffectionLevel.getAffectionLevelFromValue(this.getAffection(Main.game.getPlayer())), true));
@@ -2088,6 +2161,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 	
 	public int getArtworkIndex() {
+		if(artworkIndex >= artworkList.size() || artworkIndex < 0) {
+			artworkIndex = 0;
+		}
 		return artworkIndex;
 	}
 
@@ -2470,6 +2546,11 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				value = 18000;
 				break;
 			case DEMON:
+			case ELEMENTAL_AIR:
+			case ELEMENTAL_ARCANE:
+			case ELEMENTAL_EARTH:
+			case ELEMENTAL_FIRE:
+			case ELEMENTAL_WATER:
 				value = 60000;
 				break;
 			case IMP:
@@ -2803,17 +2884,49 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	
 	// Companions:
 	
+	private void setElementalID(String elementalID) {
+		this.elementalID = elementalID;
+	}
+	
+	private String getElementalID() {
+		return elementalID;
+	}
+	
+	public Elemental createElemental() {
+		if(elementalID==null || elementalID.isEmpty() || Main.game.getNPCById(elementalID)==null) {
+			Elemental elemental = new Elemental(Gender.F_V_B_FEMALE, this, false);
+			try {
+				Main.game.addNPC(elemental, false);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			this.elementalID = elemental.getId();
+		}
+		
+		return (Elemental) Main.game.getNPCById(elementalID);
+	}
+	
+	public Elemental getElemental() {
+		if(elementalID==null || elementalID.isEmpty() || Main.game.getNPCById(elementalID)==null) {
+			return null;
+		}
+		
+		return (Elemental) Main.game.getNPCById(elementalID);
+	}
+	
 	/**
-	 * Adds a companion character, if possible. Removes character from a previous party.
+	 * Adds a companion character, if possible. Removes character from a previous party.</br>
+	 * Should be preceded by a canHaveMoreCompanions() check.
 	 * @param npc
 	 * @return
 	 */
 	public boolean addCompanion(GameCharacter character) {
-		if(this.canHaveMoreCompanions() && !character.isPlayer() && getPartyLeader() == null) {
+		if(!character.isPlayer() && getPartyLeader() == null) {
 			if(character.getPartyLeader() != null) {
 				character.getPartyLeader().removeCompanion(character);
 			}
 			character.setPartyLeader(this.getId());
+			character.setLocation(this.getWorldLocation(), this.getLocation(), false);
 			return this.companions.add(character.getId());
 			
 		} else {
@@ -2825,14 +2938,19 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	 * Removes a companion NPC 
 	 */
 	public void removeCompanion(GameCharacter character) {
-		character.setPartyLeader("");
-		this.companions.remove(character.getId());
+		if(this.companions != null) {
+			character.setPartyLeader("");
+			this.companions.remove(character.getId());
+		}
 	}
 	
 	/**
 	 * Returns true if the character is currently the character's companion.
 	 */
 	public boolean hasCompanion(GameCharacter character) {
+		if(this.companions == null) {
+			return false;
+		}
 		return this.companions.contains(character.getId());
 	}
 	
@@ -2876,14 +2994,27 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	 */
 	public List<GameCharacter> getCompanions() {
 		List<GameCharacter> listToReturn = new ArrayList<>();
-		for(String companionID : this.companions) {
-			listToReturn.add(Main.game.getNPCById(companionID));
+		if(this.companions != null) {
+			for(String companionID : this.companions) {
+				listToReturn.add(Main.game.getNPCById(companionID));
+			}
 		}
 		return listToReturn;
 	}
 	
+	/**
+	 * @return true if there is space for more party members. Elemental companions do not take up a companion slot.
+	 */
 	public boolean canHaveMoreCompanions() {
-		return this.maxCompanions != -1 && companions.size() < maxCompanions;
+		int elementals = 0;
+		for(GameCharacter companion : getCompanions()) {
+			if(companion instanceof Elemental) {
+				elementals++;
+			}
+		}
+		
+		return this.maxCompanions != -1
+				&& (companions.size()-elementals) < maxCompanions;
 	}
 	
 	/**
@@ -2905,8 +3036,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	/**
 	 * Override if needed. Returns true if this companion is available to that character. Is called during turn updates to make sure NPCs keep their companionship state updated. 
 	 */
-	public boolean isCompanionAvailable(GameCharacter character) {
-		return this.isSlave() && this.getOwner().equals(character);
+	public boolean isCompanionAvailable(GameCharacter partyLeader) {
+		return (this.isSlave() && this.getOwner().equals(partyLeader)) || (this instanceof Elemental && ((Elemental)this).getSummoner().equals(partyLeader));
 	}
 	
 	/**
@@ -2916,12 +3047,51 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		return this.getName()+" leaves your party for unknown reasons.";
 	}
 	
+	public final boolean isCompanionAvailableForSex(boolean companionIsSub) {
+		return getCompanionSexRejectionReason(companionIsSub) == null
+				|| getCompanionSexRejectionReason(companionIsSub).isEmpty();
+	}
+	
 	/**
 	 * Override this to see if companion is willing to have sex with player
 	 */
-	public String getCompanionSexRejectionReason() {
+	public String getCompanionSexRejectionReason(boolean companionIsSub) {
 		if(!Main.game.getSavedDialogueNode().equals(Main.game.getPlayer().getLocationPlace().getDialogue(false))) {
 			return "You're in the middle of something right now!";
+		}
+		if(this instanceof Elemental) {
+			switch(this.getBodyMaterial()) {
+				case AIR:
+					if(((Elemental)this).getSummoner().hasSpellUpgrade(SpellUpgrade.ELEMENTAL_AIR_3A) && companionIsSub) {
+						return UtilText.parse(this, "As you have sworn subservience to the school of Air, while [npc.name] is bound in this form, [npc.she] refuses to let you act as the dominant partner in sex!");
+					}
+					break;
+				case ARCANE:
+					if(((Elemental)this).getSummoner().hasSpellUpgrade(SpellUpgrade.ELEMENTAL_ARCANE_3A) && companionIsSub) {
+						return UtilText.parse(this, "As you have sworn subservience to the school of Arcane, while [npc.name] is bound in this form, [npc.she] refuses to let you act as the dominant partner in sex!");
+					}
+					break;
+				case FIRE:
+					if(((Elemental)this).getSummoner().hasSpellUpgrade(SpellUpgrade.ELEMENTAL_FIRE_3A) && companionIsSub) {
+						return UtilText.parse(this, "As you have sworn subservience to the school of Fire, while [npc.name] is bound in this form, [npc.she] refuses to let you act as the dominant partner in sex!");
+					}
+					break;
+				case FLESH:
+				case SLIME:
+					break;
+				case RUBBER:
+				case STONE:
+					if(((Elemental)this).getSummoner().hasSpellUpgrade(SpellUpgrade.ELEMENTAL_EARTH_3A) && companionIsSub) {
+						return UtilText.parse(this, "As you have sworn subservience to the school of Earth, while [npc.name] is bound in this form, [npc.she] refuses to let you act as the dominant partner in sex!");
+					}
+					break;
+				case ICE:
+				case WATER:
+					if(((Elemental)this).getSummoner().hasSpellUpgrade(SpellUpgrade.ELEMENTAL_WATER_3A) && companionIsSub) {
+						return UtilText.parse(this, "As you have sworn subservience to the school of Water, while [npc.name] is bound in this form, [npc.she] refuses to let you act as the dominant partner in sex!");
+					}
+					break;
+			}
 		}
 		switch(this.getWorldLocation()) {
 			case ANGELS_KISS_FIRST_FLOOR:
@@ -2951,16 +3121,11 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				return "You can't have sex with [npc.name] in Zaranix's house!";
 		}
 		for(GameCharacter character : Main.game.getCharactersPresent()) {
-			if(!character.isSlave()) {
+			if(!character.isSlave() && !this.getPartyLeader().getCompanions().contains(character)) {
 				return UtilText.parse(character, "You can't have sex in front of [npc.name]!");
 			}
 		}
 		return "";
-	}
-	
-	public final boolean isCompanionAvailableForSex() {
-		return getCompanionSexRejectionReason() == null
-				|| getCompanionSexRejectionReason().isEmpty();
 	}
 	
 	// Relationships:
@@ -3150,13 +3315,22 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		
 		float value = getBaseAttributeValue(att) + getBonusAttributeValue(att);
 		
+		if(att == Attribute.HEALTH_MAXIMUM
+				&& (this.hasStatusEffect(StatusEffect.ELEMENTAL_EARTH_SERVANT_OF_EARTH)
+						|| this.hasStatusEffect(StatusEffect.ELEMENTAL_WATER_SERVANT_OF_WATER)
+						|| this.hasStatusEffect(StatusEffect.ELEMENTAL_AIR_SERVANT_OF_AIR)
+						|| this.hasStatusEffect(StatusEffect.ELEMENTAL_FIRE_SERVANT_OF_FIRE)
+						|| this.hasStatusEffect(StatusEffect.ELEMENTAL_ARCANE_SERVANT_OF_ARCANE))) {
+			value /= 2;
+		}
+		
 		if(value < att.getLowerLimit()) {
 			return att.getLowerLimit();
 			
 		} else if(value > att.getUpperLimit()) {
 			return att.getUpperLimit();
 		}
-
+		
 		return Math.round(value * 100)/100f;
 	}
 
@@ -3377,7 +3551,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				}
 			}
 		}
-		tempPerkList.sort(Comparator.comparingInt(Perk::getRenderingPriority));
+		tempPerkList.sort(Comparator.comparingInt(Perk::getRenderingPriority).reversed());
 		return tempPerkList;
 	}
 	
@@ -3479,7 +3653,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	/**The returned list is ordered by rendering priority.*/
 	public List<Fetish> getFetishes() {
 		List<Fetish> tempFetishList = new ArrayList<>(fetishes);
-		tempFetishList.sort(Comparator.comparingInt(Fetish::getRenderingPriority));
+		tempFetishList.sort(Comparator.comparingInt(Fetish::getRenderingPriority).reversed());
 		return tempFetishList;
 	}
 	
@@ -3693,7 +3867,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 
 	public List<StatusEffect> getStatusEffects() {
 		List<StatusEffect> tempListStatusEffects = new ArrayList<>(statusEffects.keySet());
-		tempListStatusEffects.sort(Comparator.comparingInt(StatusEffect::getRenderingPriority));
+		tempListStatusEffects.sort(Comparator.comparingInt(StatusEffect::getRenderingPriority).reversed());
 		return tempListStatusEffects;
 	}
 
@@ -3706,22 +3880,25 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	public boolean addStatusEffect(StatusEffect statusEffect, int length) {
 		if (hasStatusEffect(statusEffect)){
 			// refresh the effect
-			statusEffects.put(statusEffect, length);
+			statusEffects.put(statusEffect, length);//(Main.game.isInCombat()&&statusEffect.isCombatEffect()&&statusEffect.isBeneficial())?length+1:length);
 			return false;
 		}
 		
-		statusEffects.put(statusEffect, length);
-
+		statusEffects.put(statusEffect, length);//(Main.game.isInCombat()&&statusEffect.isCombatEffect()&&statusEffect.isBeneficial())?length+1:length);
+		
 		// Increment bonus attributes from this StatusEffect:
-		if (statusEffect.getAttributeModifiers(this) != null)
-			for (Entry<Attribute, Float> e : statusEffect.getAttributeModifiers(this).entrySet())
+		if (statusEffect.getAttributeModifiers(this) != null) {
+			for (Entry<Attribute, Float> e : statusEffect.getAttributeModifiers(this).entrySet()) {
 				incrementBonusAttribute(e.getKey(), e.getValue());
+			}
+		}
 		
 		// Apply effect:
-		String s = statusEffect.applyEffect(this, 0);
 		if (!statusEffect.isCombatEffect()){
-			if(s.length()!=0)
+			String s = statusEffect.applyEffect(this, 0);
+			if(s.length()!=0) {
 				statusEffectDescriptions.put(statusEffect, s);
+			}
 		}
 		
 		updateAttributeListeners();
@@ -3729,6 +3906,19 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		return true;
 	}
 
+	public String removeStatusEffectCombat(StatusEffect se) {
+		if (!statusEffects.containsKey(se)) {
+			return "";
+		}
+		
+		String s = se.applyRemoveStatusEffect(this);
+		
+		statusEffects.remove(se);
+
+		updateAttributeListeners();
+		
+		return s;
+	}
 
 	public boolean removeStatusEffect(StatusEffect se) {
 		if (!statusEffects.containsKey(se)) {
@@ -3737,8 +3927,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		
 		String s = se.applyRemoveStatusEffect(this);
 		if (!se.isCombatEffect()){
-			if(s.length()!=0)
+			if(s.length()!=0) {
 				statusEffectDescriptions.put(se, s);
+			}
 		}
 		
 		statusEffects.remove(se);
@@ -3867,6 +4058,49 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	
 	public String getSeductionDescription() {
 		String description = "";
+		if(this.hasStatusEffect(StatusEffect.TELEPATHIC_COMMUNICATION)
+				|| this.hasStatusEffect(StatusEffect.TELEPATHIC_COMMUNICATION_POWER_OF_SUGGESTION)
+				|| this.hasStatusEffect(StatusEffect.TELEPATHIC_COMMUNICATION_PROJECTED_TOUCH)) {
+			if(this.isFeminine()) {
+				return UtilText.parse(this,
+						UtilText.returnStringAtRandom(
+								"[npc.Name] puts on a smouldering look, and as her eyes meet yours, you hear an extremely lewd moan echoing around in your head, [npc.thought(~Aaah!~ "
+										+(this.hasVagina()
+												?"You're making me so wet!"
+												:this.hasPenis()
+													?"You're getting me so hard!"
+													:"You're turning me on so much!")+")]",
+								"[npc.Name] locks her big, innocent-looking eyes with yours, and as she pouts, you hear an echoing moan deep within your mind, [npc.thought("+
+										(this.hasVagina()
+												?"~Mmm!~ Fuck me! ~Aaa!~ My pussy's wet and ready for you!"
+												:this.hasPenis()
+													?"~Mmm!~ I can't wait to fuck you! ~Aaa!~ You're going to love my cock!"
+													:"~Mmm!~ Fuck me! ~Aaa!~ I need you so badly!")+")]",
+								(this.hasStatusEffect(StatusEffect.TELEPATHIC_COMMUNICATION_POWER_OF_SUGGESTION)
+										|| this.hasStatusEffect(StatusEffect.TELEPATHIC_COMMUNICATION_PROJECTED_TOUCH)
+										?"[npc.Name] pouts innocently at you, before blowing you a wet kiss. As she straightens back up, you feel a ghostly pair of wet lips press against your cheek."
+										:"")));
+			} else {
+				return UtilText.parse(this,
+						UtilText.returnStringAtRandom(
+								"[npc.Name] puts on a confident look, and as his eyes meet yours, you hear an extremely lewd groan echoing around in your head, [npc.thought(~Mmm!~ "
+										+(this.hasVagina()
+												?"You're making me so wet!"
+												:this.hasPenis()
+													?"You're getting me so hard!"
+													:"You're turning me on so much!")+")]",
+								"[npc.Name] locks his eyes with yours, and as he throws you a charming smile, you hear an echoing groan deep within your mind, [npc.thought("+
+										(this.hasVagina()
+												?"~Mmm!~ Fuck me! ~Aaa!~ My pussy's wet and ready for you!"
+												:this.hasPenis()
+													?"~Mmm!~ I can't wait to fuck you! You're going to love my cock!"
+													:"~Mmm!~ I can't wait to have some fun with you!")+")]",
+								(this.hasStatusEffect(StatusEffect.TELEPATHIC_COMMUNICATION_POWER_OF_SUGGESTION)
+										|| this.hasStatusEffect(StatusEffect.TELEPATHIC_COMMUNICATION_PROJECTED_TOUCH)
+										?"[npc.Name] throws you a charming smile, before winking at you and striking a heroic pose. As he straightens back up, you feel a ghostly pair of arms pulling you into a strong, confident embrace."
+										:"")));
+			}
+		}
 		
 		if(this.isFeminine()) {
 			if(Combat.getTargetedCombatant(this).isPlayer()) {
@@ -9023,7 +9257,12 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	// Combat:
 
 	public boolean isStunned() {
-		return this.hasStatusEffect(StatusEffect.WITCH_SEAL);
+		for(StatusEffect se : this.getStatusEffects()) {
+			if(se.isStun()) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	/**
@@ -9032,59 +9271,57 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	public List<SpecialAttack> getSpecialAttacks() {
 		calculateSpecialAttacks();
 		List<SpecialAttack> tempListSpecialAttacks = new ArrayList<>(specialAttacks);
-		tempListSpecialAttacks.sort(Comparator.comparingInt(SpecialAttack::getRenderingPriority));
+		tempListSpecialAttacks.sort(Comparator.comparingInt(SpecialAttack::getRenderingPriority).reversed());
 		return tempListSpecialAttacks;
 	}
 
 
 	public void calculateSpecialAttacks() {
 		specialAttacks.clear();
-
+		
 		for (SpecialAttack sAttack : SpecialAttack.values()) {
 			if (sAttack.isConditionsMet(this)) {
 				specialAttacks.add(sAttack);
 			}
 		}
 	}
+	
+	public Set<Spell> getSpells() {
+		return spells;
+	}
+	
+	public boolean addSpell(Spell spell) {
+		return spells.add(spell);
+	}
+	
+	public boolean hasSpell(Spell spell) {
+		return spells.contains(spell);
+	}
+	
 
-	/** Base spells, modified by primary weapon SpellSchool. */
-	public List<Spell> getOffensiveSpells() {
-		SpellSchool school = SpellSchool.DEFAULT;
-		
-		if(getMainWeapon()!=null) {
-			school = getMainWeapon().getSpellSchool();
-		}
-
-		List<Spell> tempListSpells = new ArrayList<>();
-		
-		for(Spell s : Spell.getSpellsFromSchoolMap().get(school)) {
-			if(s.getType()==SpellType.OFFENSIVE) {
-				tempListSpells.add(s);
+	public boolean hasAnySpellInSchool(SpellSchool school) {
+		for(Spell s : getSpells()) {
+			if(s.getSpellSchool()==school) {
+				return true;
 			}
 		}
-		
-		return tempListSpells;
+		return false;
 	}
-
-	/** Base spells, modified by secondary weapon SpellSchool. */
-	public List<Spell> getDefensiveSpells() {
-		SpellSchool school = SpellSchool.DEFAULT;
-		
-		if(getOffhandWeapon()!=null) {
-			school = getOffhandWeapon().getSpellSchool();
-		}
-
-		List<Spell> tempListSpells = new ArrayList<>();
-		
-		for(Spell s : Spell.getSpellsFromSchoolMap().get(school)) {
-			if(s.getType()==SpellType.DEFENSIVE) {
-				tempListSpells.add(s);
-			}
-		}
-		
-		return tempListSpells;
+	
+	/**
+	 * Hard reset of spells and spell upgrades, without refunding any points.
+	 */
+	public void resetSpells() {
+		getSpells().clear();
+		getSpellUpgrades().clear();
 	}
-
+	
+	public void clearSpellUpgradePoints() {
+		for(SpellSchool school : SpellSchool.values()) {
+			this.spellUpgradePoints.put(school, 0);
+		}
+	}
+	
 	/** Spells from weapons. */
 	public List<Spell> getExtraSpells() {
 		List<Spell> tempListSpells = new ArrayList<>();
@@ -9107,18 +9344,75 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	public List<Spell> getAllSpells() {
 		List<Spell> tempListSpells = new ArrayList<>();
 
-		tempListSpells.addAll(getOffensiveSpells());
-		tempListSpells.addAll(getDefensiveSpells());
+		tempListSpells.addAll(getSpells());
 		tempListSpells.addAll(getExtraSpells());
+		
+		tempListSpells.sort((s1, s2) -> s1.getSpellSchool().compareTo(s2.getSpellSchool()));
 		
 		return tempListSpells;
 	}
 	
-
-	public float getHealth() {
-		return health;
+	public boolean isSpellSchoolSpecialAbilityUnlocked(SpellSchool school) {
+		for(Spell s : this.getSpells()) {
+			if(s.getSpellSchool()==school) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public Set<SpellUpgrade> getSpellUpgrades() {
+		return spellUpgrades;
+	}
+	
+	public boolean addSpellUpgrade(SpellUpgrade spellUpgrade) {
+		return spellUpgrades.add(spellUpgrade);
+	}
+	
+	public boolean hasSpellUpgrade(SpellUpgrade spellUpgrade) {
+		return spellUpgrades.contains(spellUpgrade);
+	}
+	
+	public void resetSpellUpgrades(SpellSchool school) {
+		for(SpellUpgrade upgrade : getSpellUpgrades()) {
+			if(upgrade.getSpellSchool()==school) {
+				this.setSpellUpgradePoints(upgrade.getSpellSchool(), getSpellUpgradePoints(upgrade.getSpellSchool())+1);
+			}
+		}
+		getSpellUpgrades().removeIf((su) -> su.getSpellSchool()==school);
+	}
+	
+	public int getSpellUpgradePoints(SpellSchool spellSchool) {
+		spellUpgradePoints.putIfAbsent(spellSchool, 0);
+		return spellUpgradePoints.get(spellSchool);
+	}
+	
+	public void setSpellUpgradePoints(SpellSchool spellSchool, int points) {
+		spellUpgradePoints.put(spellSchool, points);
 	}
 
+	public void incrementSpellUpgradePoints(SpellSchool spellSchool, int increment) {
+		setSpellUpgradePoints(spellSchool, getSpellUpgradePoints(spellSchool) + increment);
+	}
+	
+	public boolean isAbleToTeleport() {
+		return this.hasSpell(Spell.TELEPORT) && (this.getCompanions().isEmpty() || this.hasSpellUpgrade(SpellUpgrade.TELEPORT_2));
+	}
+	
+	public float getRegenerationRate() {
+		if(this.isSpellSchoolSpecialAbilityUnlocked(SpellSchool.AIR)) {
+			return 0.2f;
+		} else {
+			return 0.1f;
+		}
+	}
+	
+	public float getHealth() {
+		if(health>getAttributeValue(Attribute.HEALTH_MAXIMUM)) {
+			health = getAttributeValue(Attribute.HEALTH_MAXIMUM);
+		}
+		return health;
+	}
 
 	public float getHealthPercentage() {
 		return health / getAttributeValue(Attribute.HEALTH_MAXIMUM);
@@ -9342,6 +9636,11 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	public static final String PREGNANCY_CALCULATION = "((Virility% * Cum Production Modifier) + Fertility%) / 2";
 	
 	public String rollForPregnancy(GameCharacter partner) {
+		
+		if(partner instanceof Elemental) {
+			return PregnancyDescriptor.NO_CHANCE.getDescriptor(this, partner)
+					+"<p style='text-align:center;'>[style.italicsMinorBad(Elementals cannot impregnate anyone!)]</br>[style.italicsDisabled(I will add support for impregnating/being impregnated by elementals soon!)]</p>";
+		}
 		
 		float pregnancyChance = 0;
 		
@@ -9627,10 +9926,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 
 	public void setLocation(Vector2i location) {
 		this.location = location;
-		if(this.companions != null)
-		{
-			for(String companionID : this.companions)
-			{
+		if(this.companions != null) {
+			for(String companionID : this.companions) {
 				Main.game.getNPCById(companionID).setLocation(getWorldLocation(), location, false);
 			}
 		}
@@ -9679,6 +9976,10 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	
 	public void setRandomLocation(WorldType worldType, PlaceType placeType, boolean setAsHomeLocation) {
 		setLocation(worldType, Main.game.getWorlds().get(worldType).getRandomCell(placeType).getLocation(), setAsHomeLocation);
+	}
+	
+	public void setLocation(WorldType worldType, PlaceType placeType) {
+		setLocation(worldType, placeType, false);
 	}
 	
 	public void setLocation(WorldType worldType, PlaceType placeType, boolean setAsHomeLocation) {
@@ -10782,6 +11083,10 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 								:""));
 	}
 	
+	public void forceUnequipClothingIntoVoid(GameCharacter characterRemovingClothing, AbstractClothing clothing) {
+		inventory.forceUnequipClothingIntoVoid(this, characterRemovingClothing, clothing);
+	}
+	
 	public String unequipClothingIntoVoid(AbstractClothing clothing, boolean automaticClothingManagement, GameCharacter characterClothingUnequipper) { // TODO it's saying "added to inventory"
 		boolean unknownPenis = !this.getPlayerKnowsAreas().contains(CoverableArea.PENIS) && !this.isCoverableAreaExposed(CoverableArea.PENIS);
 		boolean unknownBreasts = !this.getPlayerKnowsAreas().contains(CoverableArea.BREASTS) && !this.isCoverableAreaExposed(CoverableArea.BREASTS);
@@ -11156,14 +11461,14 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						return new GenderAppearance(
 								isPlayer()
 								?"The [pc.cockSize] bulge between your legs, combined with your feminine appearance and [pc.breastSize] breasts, leads everyone to believe that you're [pc.a_appearsAsGender("+colouredGender+")]."
-								:"Due to the [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] feminine appearance and [npc.breastSize] breasts, leads everyone to believe that [npc.she]'s [npc.a_appearsAsGender("+colouredGender+")].",
+								:"The [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] feminine appearance and [npc.breastSize] breasts, leads everyone to believe that [npc.she]'s [npc.a_appearsAsGender("+colouredGender+")].",
 								Gender.F_P_B_SHEMALE);
 						
 					} else if (bulgeFromBalls) {
 						return new GenderAppearance(
 								isPlayer()
 								?"The [pc.ballSize] bulge of your [pc.balls] between your legs, combined with your feminine appearance and [pc.breastSize] breasts, leads everyone to believe that you're [pc.a_appearsAsGender("+colouredGender+")]."
-								:"Due to the [npc.ballSize] bulge between [npc.her] legs, combined with [npc.her] feminine appearance and [npc.breastSize] breasts, leads everyone to believe that [npc.she]'s [npc.a_appearsAsGender("+colouredGender+")].",
+								:"The [npc.ballSize] bulge between [npc.her] legs, combined with [npc.her] feminine appearance and [npc.breastSize] breasts, leads everyone to believe that [npc.she]'s [npc.a_appearsAsGender("+colouredGender+")].",
 								Gender.F_P_B_SHEMALE);
 					}
 					
@@ -11259,14 +11564,14 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						return new GenderAppearance(
 								isPlayer()
 								?"The [pc.cockSize] bulge between your legs, combined with your feminine appearance, leads everyone to believe that you're [pc.a_appearsAsGender("+colouredGender+")]."
-								:"Due to the [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] feminine appearance, leads everyone to believe that [npc.she]'s [npc.a_appearsAsGender("+colouredGender+")].",
+								:"The [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] feminine appearance, leads everyone to believe that [npc.she]'s [npc.a_appearsAsGender("+colouredGender+")].",
 								Gender.F_P_TRAP);
 						
 					} else if (bulgeFromBalls) {
 						return new GenderAppearance(
 								isPlayer()
 								?"The [pc.ballSize] bulge of your [pc.balls] between your legs, combined with your feminine appearance, leads everyone to believe that you're [pc.a_appearsAsGender("+colouredGender+")]."
-								:"Due to the [npc.ballSize] bulge between [npc.her] legs, combined with [npc.her] feminine appearance, leads everyone to believe that [npc.she]'s [npc.a_appearsAsGender("+colouredGender+")].",
+								:"The [npc.ballSize] bulge between [npc.her] legs, combined with [npc.her] feminine appearance, leads everyone to believe that [npc.she]'s [npc.a_appearsAsGender("+colouredGender+")].",
 								Gender.F_P_TRAP);
 					}
 					
@@ -11572,14 +11877,14 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						return new GenderAppearance(
 								isPlayer()
 								?"The [pc.cockSize] bulge between your legs, combined with your masculine appearance and [pc.breastSize] breasts, leads everyone to believe that you're [pc.a_appearsAsGender("+colouredGender+")]."
-								:"Due to the [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] masculine appearance and [npc.breastSize] breasts, leads everyone to believe that [npc.she]'s [npc.a_appearsAsGender("+colouredGender+")].",
+								:"The [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] masculine appearance and [npc.breastSize] breasts, leads everyone to believe that [npc.she]'s [npc.a_appearsAsGender("+colouredGender+")].",
 								Gender.M_P_B_BUSTYBOY);
 						
 					} else if (bulgeFromBalls) {
 						return new GenderAppearance(
 								isPlayer()
 								?"The [pc.ballSize] bulge of your [pc.balls] between your legs, combined with your masculine appearance and [pc.breastSize] breasts, leads everyone to believe that you're [pc.a_appearsAsGender("+colouredGender+")]."
-								:"Due to the [npc.ballSize] bulge between [npc.her] legs, combined with [npc.her] masculine appearance and [npc.breastSize] breasts, leads everyone to believe that [npc.she]'s [npc.a_appearsAsGender("+colouredGender+")].",
+								:"The [npc.ballSize] bulge between [npc.her] legs, combined with [npc.her] masculine appearance and [npc.breastSize] breasts, leads everyone to believe that [npc.she]'s [npc.a_appearsAsGender("+colouredGender+")].",
 								Gender.M_P_B_BUSTYBOY);
 					}
 					
@@ -11675,14 +11980,14 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						return new GenderAppearance(
 								isPlayer()
 								?"The [pc.cockSize] bulge between your legs, combined with your masculine appearance, leads everyone to believe that you're [pc.a_appearsAsGender("+colouredGender+")]."
-								:"Due to the [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] masculine appearance, leads everyone to believe that [npc.she]'s [npc.a_appearsAsGender("+colouredGender+")].",
+								:"The [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] masculine appearance, leads everyone to believe that [npc.she]'s [npc.a_appearsAsGender("+colouredGender+")].",
 								Gender.M_P_MALE);
 						
 					} else if (bulgeFromBalls) {
 						return new GenderAppearance(
 								isPlayer()
 								?"The [pc.ballSize] bulge of your [pc.balls] between your legs, combined with your masculine appearance, leads everyone to believe that you're [pc.a_appearsAsGender("+colouredGender+")]."
-								:"Due to the [npc.ballSize] bulge between [npc.her] legs, combined with [npc.her] masculine appearance, leads everyone to believe that [npc.she]'s [npc.a_appearsAsGender("+colouredGender+")].",
+								:"The [npc.ballSize] bulge between [npc.her] legs, combined with [npc.her] masculine appearance, leads everyone to believe that [npc.she]'s [npc.a_appearsAsGender("+colouredGender+")].",
 								Gender.M_P_MALE);
 					}
 					
@@ -11767,7 +12072,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 	
 	public boolean isAbleToSelfTransform() {
-		return this.getRace()==Race.DEMON || this.getRace()==Race.SLIME;
+		return this instanceof Elemental
+				|| this.getRace()==Race.DEMON
+				|| this.getRace()==Race.SLIME;
 	}
 	
 	public Race getAntennaRace() {
@@ -11846,7 +12153,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				if(bct!=null) {
 					body.getBodyCoveringTypesDiscovered().add(bct);
 					
-					String bctName = bct.getRace().getName();
+					String bctName = bct.getName(this);
 					if(bct == BodyCoveringType.HORN) {
 						bctName = "horn";
 					}
@@ -11857,18 +12164,10 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 					if(displayColourDiscovered) {
 						if(isPlayer()) {
 							postTFSB.append(
-									"<b>You have discovered that your natural</b> "
-									+ (bct == BodyCoveringType.HORN
-										? "<b>"+bctName+"'s"
-										: "<b style='color:"+bct.getRace().getColour().toWebHexString()+";'>"+bctName+"'s</b> <b>"+bct.getName(this))
-									+" colour is "+getCovering(bct).getColourDescriptor(this, true, false)+"!</b>");
+									"<b>You have discovered that your natural "+bctName+" colour is "+getCovering(bct).getColourDescriptor(this, true, false)+"!</b>");
 						} else {
 							postTFSB.append(UtilText.parse(this,
-									"<b>[npc.Name] has discovered that [npc.her] natural</b> "
-									+ (bct == BodyCoveringType.HORN
-										? "<b>"+bctName+"'s"
-										: "<b style='color:"+bct.getRace().getColour().toWebHexString()+";'>"+bctName+"'s</b> <b>"+bct.getName(this))
-									+" colour is "+getCovering(bct).getColourDescriptor(this, true, false)+"!</b>"));
+									"<b>[npc.Name] has discovered that [npc.her] natural "+bctName+" colour is "+getCovering(bct).getColourDescriptor(this, true, false)+"!</b>"));
 						}
 					}
 				}
@@ -11926,6 +12225,12 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				return BodyCoveringType.BODY_HAIR_RAT_FUR;
 			case RABBIT_MORPH:
 				return BodyCoveringType.BODY_HAIR_RABBIT_FUR;
+			case ELEMENTAL_AIR:
+			case ELEMENTAL_ARCANE:
+			case ELEMENTAL_EARTH:
+			case ELEMENTAL_FIRE:
+			case ELEMENTAL_WATER:
+				return this.getCovering(BodyCoveringType.AIR).getType(); // Doesn't matter what is passed in here, as getCovering will catch whatever BodyCoveringType the body is made up of.
 		}
 		return BodyCoveringType.BODY_HAIR_HUMAN;
 	}
@@ -12696,6 +13001,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	public String setBodyMaterial(BodyMaterial type) {
 		
 		String tfDescription = "";
+		
+		//TODO other material types
 		
 		if(type == BodyMaterial.SLIME) {
 			for(BodyCoveringType bct : BodyCoveringType.values()) { // Slimes can't wear makeup:
@@ -14161,6 +14468,61 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		return body.getSkin().getType().getPronoun();
 	}
 	public Covering getCovering(BodyCoveringType bodyCoveringType) {
+		
+		switch(bodyCoveringType) {
+			case MAKEUP_BLUSHER:
+			case MAKEUP_EYE_LINER:
+			case MAKEUP_EYE_SHADOW:
+			case MAKEUP_LIPSTICK:
+			case MAKEUP_NAIL_POLISH_FEET:
+			case MAKEUP_NAIL_POLISH_HANDS:
+				return body.getCoverings().get(bodyCoveringType);
+			default:
+				break;
+		}
+		
+		switch(this.getBodyMaterial()) {
+			case AIR:
+				if(bodyCoveringType==BodyCoveringType.HAIR_DEMON) {
+					return body.getCoverings().get(BodyCoveringType.AIR_HAIR);
+				}
+				return body.getCoverings().get(BodyCoveringType.AIR);
+			case ARCANE:
+				if(bodyCoveringType==BodyCoveringType.HAIR_DEMON) {
+					return body.getCoverings().get(BodyCoveringType.ARCANE_HAIR);
+				}
+				return body.getCoverings().get(BodyCoveringType.ARCANE);
+			case FIRE:
+				if(bodyCoveringType==BodyCoveringType.HAIR_DEMON) {
+					return body.getCoverings().get(BodyCoveringType.FIRE_HAIR);
+				}
+				return body.getCoverings().get(BodyCoveringType.FIRE);
+			case FLESH:
+				break;
+			case ICE:
+				if(bodyCoveringType==BodyCoveringType.HAIR_DEMON) {
+					return body.getCoverings().get(BodyCoveringType.ICE_HAIR);
+				}
+				return body.getCoverings().get(BodyCoveringType.ICE);
+			case RUBBER:
+				if(bodyCoveringType==BodyCoveringType.HAIR_DEMON) {
+					return body.getCoverings().get(BodyCoveringType.RUBBER_HAIR);
+				}
+				return body.getCoverings().get(BodyCoveringType.RUBBER);
+			case SLIME:
+				break;
+			case STONE:
+				if(bodyCoveringType==BodyCoveringType.HAIR_DEMON) {
+					return body.getCoverings().get(BodyCoveringType.STONE_HAIR);
+				}
+				return body.getCoverings().get(BodyCoveringType.STONE);
+			case WATER:
+				if(bodyCoveringType==BodyCoveringType.HAIR_DEMON) {
+					return body.getCoverings().get(BodyCoveringType.WATER_HAIR);
+				}
+				return body.getCoverings().get(BodyCoveringType.WATER);
+		}
+		
 		if(this.getBodyMaterial()==BodyMaterial.SLIME) {
 			if(bodyCoveringType.getNaturalModifiers().contains(CoveringModifier.EYE) || bodyCoveringType == BodyCoveringType.SLIME_EYE) {
 				return body.getCoverings().get(BodyCoveringType.SLIME_EYE);
@@ -14175,6 +14537,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 					break;
 				case EYE_PUPILS: case SLIME_PUPILS:
 					return body.getCoverings().get(BodyCoveringType.SLIME_PUPILS);
+				case EYE_SCLERA: case SLIME_SCLERA:
+					return body.getCoverings().get(BodyCoveringType.SLIME_SCLERA);
 				case HAIR_ANGEL:
 				case HAIR_BOVINE_FUR:
 				case HAIR_CANINE_FUR:
@@ -14213,7 +14577,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	 * @return Formatted description of skin colour change.
 	 */
 	public String setSkinCovering(Covering covering, boolean updateAllSkinColours) {
-		if(this.getBodyMaterial()==BodyMaterial.SLIME) {
+		
+		if(!this.getBodyMaterial().isAbleToWearMakeup()) {
 			switch(covering.getType()) {
 				case MAKEUP_BLUSHER:
 				case MAKEUP_EYE_LINER:
@@ -14222,7 +14587,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				case MAKEUP_NAIL_POLISH_FEET:
 				case MAKEUP_NAIL_POLISH_HANDS:
 					return "<p>"
-								+ "[style.colourDisabled(Slimes cannot wear makeup...)]"
+								+ "[style.colourDisabled(Makeup cannot be applied to "+this.getBodyMaterial().getName()+"...)]"
 							+ "</p>";
 				default:
 					break;

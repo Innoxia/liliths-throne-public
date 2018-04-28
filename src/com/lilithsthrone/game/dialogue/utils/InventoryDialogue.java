@@ -14,6 +14,7 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.combat.Combat;
+import com.lilithsthrone.game.combat.SpellSchool;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.MapDisplay;
@@ -114,7 +115,6 @@ public class InventoryDialogue {
 			} else if(interactionType==InventoryInteraction.CHARACTER_CREATION) {
 				return CharacterCreation.getCheckingClothingDescription();
 			}
-			
 //			if(item!=null) {
 //				return ITEM_INVENTORY.getResponse(responseTab, index);
 //			} else if(clothing!=null) {
@@ -3067,12 +3067,16 @@ public class InventoryDialogue {
 						}
 						
 					} else if (index==4) {
-						if (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH)) {
+						if (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH) || Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
 							boolean hasFullInventory = Main.game.getPlayer().isInventoryFull();
 							boolean isDyeingStackItem = Main.game.getPlayer().getMapOfDuplicateClothing().get(clothing) > 1;
 							boolean canDye = !(isDyeingStackItem && hasFullInventory);
 							if (canDye) {
-								return new Response("Dye", "Use a dye-brush to dye this item of clothing.", DYE_CLOTHING) {
+								return new Response("Dye",
+										Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)
+											?"Use your proficiency with [style.colourEarth(Earth spells)] to dye this item."
+											:"Use a dye-brush to dye this item of clothing.",
+										DYE_CLOTHING) {
 									@Override
 									public void effects() {
 										resetDyeColours();
@@ -3223,12 +3227,16 @@ public class InventoryDialogue {
 								};
 								
 							} else if (index==4) {
-								if (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH)) {
+								if (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH) || Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
 									boolean hasFullInventory = Main.game.getPlayer().isInventoryFull();
 									boolean isDyeingStackItem = Main.game.getPlayer().getMapOfDuplicateClothing().get(clothing) > 1;
 									boolean canDye = !(isDyeingStackItem && hasFullInventory);
 									if (canDye) {
-										return new Response("Dye", "Use a dye-brush to dye this item of clothing.", DYE_CLOTHING) {
+										return new Response("Dye",
+												Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)
+													?"Use your proficiency with [style.colourEarth(Earth spells)] to dye this item."
+													:"Use a dye-brush to dye this item of clothing.",
+												DYE_CLOTHING) {
 											@Override
 											public void effects() {
 												resetDyeColours();
@@ -3423,12 +3431,16 @@ public class InventoryDialogue {
 								}
 								
 							} else if (index==4) {
-								if (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH)) {
+								if (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH) || Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
 									boolean hasFullInventory = Main.game.getPlayer().isInventoryFull();
 									boolean isDyeingStackItem = Main.game.getPlayer().getMapOfDuplicateClothing().get(clothing) > 1;
 									boolean canDye = !(isDyeingStackItem && hasFullInventory);
 									if (canDye) {
-										return new Response("Dye", "Use a dye-brush to dye this item of clothing.", DYE_CLOTHING) {
+										return new Response("Dye", 
+												Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)
+													?"Use your proficiency with [style.colourEarth(Earth spells)] to dye this item."
+													:"Use a dye-brush to dye this item of clothing.",
+												DYE_CLOTHING) {
 											@Override
 											public void effects() {
 												resetDyeColours();
@@ -3605,12 +3617,16 @@ public class InventoryDialogue {
 						};
 						
 					} else if (index==4) {
-						if (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH)) {
+						if (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH) || Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
 							boolean hasFullInventory = Main.game.getPlayerCell().getInventory().isInventoryFull();
 							boolean isDyeingStackItem = Main.game.getPlayerCell().getInventory().getMapOfDuplicateClothing().get(clothing) > 1;
 							boolean canDye = !(isDyeingStackItem && hasFullInventory);
 							if (canDye) {
-								return new Response("Dye", "Use a dye-brush to dye this item of clothing.", DYE_CLOTHING) {
+								return new Response("Dye", 
+										Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)
+											?"Use your proficiency with [style.colourEarth(Earth spells)] to dye this item."
+											:"Use a dye-brush to dye this item of clothing.",
+										DYE_CLOTHING) {
 									@Override
 									public void effects() {
 										resetDyeColours();
@@ -3720,12 +3736,16 @@ public class InventoryDialogue {
 								};
 								
 							} else if (index==4) {
-								if (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH)) {
+								if (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH) || Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
 									boolean hasFullInventory = inventoryNPC.isInventoryFull();
 									boolean isDyeingStackItem = inventoryNPC.getMapOfDuplicateClothing().get(clothing) > 1;
 									boolean canDye = !(isDyeingStackItem && hasFullInventory);
 									if (canDye) {
-										return new Response("Dye", "Use a dye-brush to dye this item of clothing.", DYE_CLOTHING) {
+										return new Response("Dye", 
+												Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)
+													?"Use your proficiency with [style.colourEarth(Earth spells)] to dye this item."
+													:"Use a dye-brush to dye this item of clothing.",
+												DYE_CLOTHING) {
 											@Override
 											public void effects() {
 												resetDyeColours();
@@ -4537,8 +4557,12 @@ public class InventoryDialogue {
 							}
 							
 						} else if (index==4) {
-							if (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH)) {
-								return new Response("Dye", "Use a dye-brush to dye this item of clothing.", DYE_EQUIPPED_CLOTHING) {
+							if (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH) || Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
+								return new Response("Dye", 
+										Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)
+											?"Use your proficiency with [style.colourEarth(Earth spells)] to dye this item."
+											:"Use a dye-brush to dye this item of clothing.",
+										DYE_EQUIPPED_CLOTHING) {
 									@Override
 									public void effects() {
 										resetDyeColours();
@@ -4909,8 +4933,12 @@ public class InventoryDialogue {
 							}
 							
 						} else if (index==4) {
-							if (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH)) {
-								return new Response("Dye", "Use a dye-brush to dye this item of clothing.", DYE_EQUIPPED_CLOTHING) {
+							if (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH) || Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
+								return new Response("Dye", 
+										Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)
+											?"Use your proficiency with [style.colourEarth(Earth spells)] to dye this item."
+											:"Use a dye-brush to dye this item of clothing.",
+										DYE_EQUIPPED_CLOTHING) {
 									@Override
 									public void effects() {
 										resetDyeColours();
@@ -5278,25 +5306,36 @@ public class InventoryDialogue {
 				}
 				
 				return new Response("Dye",
-						"Dye the " + clothing.getName() + " in the colours you have chosen. This action is permanent, and you'll need another dye-brush if you want to change its colour again.",
+						"Dye the " + clothing.getName() + " in the colours you have chosen."
+								+ (Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)
+										?" This action is permanent, but thanks to your proficiency with [style.boldEarth(Earth spells)], you can dye it a different colour at any time."
+										:" This action is permanent, and you'll need another dye-brush if you want to change its colour again."),
 						INVENTORY_MENU){
 					@Override
 					public void effects(){
-						Main.game.getPlayer().useItem(AbstractItemType.generateItem(ItemType.DYE_BRUSH), owner, false);
-						Main.game.getTextEndStringBuilder().append(
-								"<p style='text-align:center;'>"
-									+ ItemType.DYE_BRUSH.getDyeBrushEffects(clothing, dyePreviewPrimary)
-								+ "</p>"
-								+ "<p>"
-									+ "<b>The " + clothing.getName() + " " + (clothing.getClothingType().isPlural() ? "have been" : "has been") + " dyed</b>!"
-								+ "</p>"
-								+ "<p>"
-									+ (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH)
-											?"You have <b>" + Main.game.getPlayer().getMapOfDuplicateItems().get(AbstractItemType.generateItem(ItemType.DYE_BRUSH))
-													+ "</b> dye-brush" + (Main.game.getPlayer().getMapOfDuplicateItems().get(AbstractItemType.generateItem(ItemType.DYE_BRUSH)) == 1 ? "" : "es") + " left!"
-											:"You have <b>0</b> dye-brushes left!")
-								+ "</p>");
-						
+						if(!Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
+							Main.game.getPlayer().useItem(AbstractItemType.generateItem(ItemType.DYE_BRUSH), owner, false);
+							Main.game.getTextEndStringBuilder().append(
+									"<p style='text-align:center;'>"
+										+ ItemType.DYE_BRUSH.getDyeBrushEffects(clothing, dyePreviewPrimary)
+									+ "</p>"
+									+ "<p>"
+										+ "<b>The " + clothing.getName() + " " + (clothing.getClothingType().isPlural() ? "have been" : "has been") + " dyed</b>!"
+									+ "</p>"
+									+ "<p>"
+										+ (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH) || Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)
+												?"You have <b>" + Main.game.getPlayer().getMapOfDuplicateItems().get(AbstractItemType.generateItem(ItemType.DYE_BRUSH))
+														+ "</b> dye-brush" + (Main.game.getPlayer().getMapOfDuplicateItems().get(AbstractItemType.generateItem(ItemType.DYE_BRUSH)) == 1 ? "" : "es") + " left!"
+												:"You have <b>0</b> dye-brushes left!")
+									+ "</p>");
+							
+						} else {
+							Main.game.getTextEndStringBuilder().append(
+									"<p>"
+											+ "Thanks to your proficiency with [style.boldEarth(Earth spells)], you are able to dye the " + clothing.getName() + " without needing to use a dye-brush!"
+										+ "</p>");
+						}
+						 
 						if(owner!=null) {
 							owner.removeClothing(clothing);
 							clothing.setColour(dyePreviewPrimary);
@@ -5402,24 +5441,36 @@ public class InventoryDialogue {
 				}
 				
 				return new Response("Dye",
-								"Dye the " + clothing.getName() + " in the colours you have chosen. This action is permanent, and you'll need another dye-brush if you want to change its colour again.",
+								"Dye the " + clothing.getName() + " in the colours you have chosen."
+										+ (Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)
+												?" This action is permanent, but thanks to your proficiency with [style.boldEarth(Earth spells)], you can dye it a different colour at any time."
+												:" This action is permanent, and you'll need another dye-brush if you want to change its colour again."),
 								INVENTORY_MENU){
 					@Override
 					public void effects(){
-						Main.game.getPlayer().useItem(AbstractItemType.generateItem(ItemType.DYE_BRUSH), Main.game.getPlayer(), false);
-						Main.game.getTextEndStringBuilder().append(
-								"<p style='text-align:center;'>"
-									+ ItemType.DYE_BRUSH.getDyeBrushEffects(clothing, dyePreviewPrimary)
-								+ "</p>"
-								+ "<p>"
-									+ "<b>The " + clothing.getName() + " " + (clothing.getClothingType().isPlural() ? "have been" : "has been") + " dyed</b>!"
-								+ "</p>"
-								+ "<p>"
-									+ (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH)
-											?"You have <b>" + Main.game.getPlayer().getMapOfDuplicateItems().get(AbstractItemType.generateItem(ItemType.DYE_BRUSH))
-													+ "</b> dye-brush" + (Main.game.getPlayer().getMapOfDuplicateItems().get(AbstractItemType.generateItem(ItemType.DYE_BRUSH)) == 1 ? "" : "es") + " left!"
-											:"You have <b>0</b> dye-brushes left!")
-								+ "</p>");
+						if(!Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
+							Main.game.getPlayer().useItem(AbstractItemType.generateItem(ItemType.DYE_BRUSH), owner, false);
+							Main.game.getTextEndStringBuilder().append(
+									"<p style='text-align:center;'>"
+										+ ItemType.DYE_BRUSH.getDyeBrushEffects(clothing, dyePreviewPrimary)
+									+ "</p>"
+									+ "<p>"
+										+ "<b>The " + clothing.getName() + " " + (clothing.getClothingType().isPlural() ? "have been" : "has been") + " dyed</b>!"
+									+ "</p>"
+									+ "<p>"
+										+ (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH) || Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)
+												?"You have <b>" + Main.game.getPlayer().getMapOfDuplicateItems().get(AbstractItemType.generateItem(ItemType.DYE_BRUSH))
+														+ "</b> dye-brush" + (Main.game.getPlayer().getMapOfDuplicateItems().get(AbstractItemType.generateItem(ItemType.DYE_BRUSH)) == 1 ? "" : "es") + " left!"
+												:"You have <b>0</b> dye-brushes left!")
+									+ "</p>");
+							
+						} else {
+							Main.game.getTextEndStringBuilder().append(
+									"<p>"
+											+ "Thanks to your proficiency with [style.boldEarth(Earth spells)], you are able to dye the " + clothing.getName() + " without needing to use a dye-brush!"
+										+ "</p>");
+						}
+						
 						clothing.setColour(dyePreviewPrimary);
 						clothing.setSecondaryColour(dyePreviewSecondary);
 						clothing.setTertiaryColour(dyePreviewTertiary);
@@ -5639,14 +5690,14 @@ public class InventoryDialogue {
 	
 	private static String getItemDisplayPanel(String SVGString, String title, String description) {
 		return "<div class='inventoryImage'>"
-				+ "<div class='inventoryImage-content'>"
-					+ SVGString
+					+ "<div class='inventoryImage-content'>"
+						+ SVGString
+					+ "</div>"
 				+ "</div>"
-			+ "</div>"
-			+ "<h5><b>"+title+"</b></h5>"
-			+ "<p>"
-				+ description
-			+ "</p>";
+				+ "<h5><b>"+title+"</b></h5>"
+				+ "<p>"
+					+ description
+				+ "</p>";
 	}
 	
 	private static String getGeneralResponseTabTitle(int index) {

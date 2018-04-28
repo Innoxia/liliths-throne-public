@@ -280,7 +280,8 @@ public class SlaverAlleyDialogue {
 							+ "</div>"
 						+ "</div>");
 			
-			List<NPC> charactersPresent = Main.game.getCharactersPresent();
+			List<NPC> charactersPresent = new ArrayList<>(Main.game.getCharactersPresent());
+			charactersPresent.removeIf((npc) -> Main.game.getPlayer().getCompanions().contains(npc));
 			
 			charactersPresent.sort(Comparator.comparing(NPC::getName));
 			
@@ -570,7 +571,12 @@ public class SlaverAlleyDialogue {
 					+ "</p>");
 
 			List<String> sexAvailability = new ArrayList<>();
-			for(NPC npc : Main.game.getCharactersPresent()) {
+			
+
+			List<NPC> charactersPresent = new ArrayList<>(Main.game.getCharactersPresent());
+			charactersPresent.removeIf((npc) -> Main.game.getPlayer().getCompanions().contains(npc));
+			
+			for(NPC npc : charactersPresent) {
 				UtilText.nodeContentSB.append(UtilText.parse(npc, 
 						"<p>"
 							+ "[npc.Name]," + (npc.getOwner().isPlayer()?" <b style=color:"+Colour.GENERIC_ARCANE.toWebHexString()+";>who is your slave</b>, and is":"")
@@ -603,6 +609,7 @@ public class SlaverAlleyDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			List<NPC> charactersPresent = Main.game.getCharactersPresent();
+			charactersPresent.removeIf((npc) -> Main.game.getPlayer().getCompanions().contains(npc));
 			
 			if(index==0) {
 				return new Response("Complain", "You don't like the idea of slaves being publicly used. There appears to be an enforcer watching over the area, so perhaps you should go and complain to him... (Not yet implemented!)", null);

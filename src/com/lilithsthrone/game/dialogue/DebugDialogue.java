@@ -142,7 +142,7 @@ public class DebugDialogue {
 				};
 				
 			} else if (index == 6) {
-				return new Response("+50 essences", "Add 10 to each essence type.", DEBUG_MENU){
+				return new Response("+50 essences", "Add 50 to each essence type.", DEBUG_MENU){
 					@Override
 					public void effects() {
 						for(TFEssence essence : TFEssence.values()) {
@@ -262,6 +262,16 @@ public class DebugDialogue {
 						@Override
 						public void effects() {
 							Main.game.setStartingDateMonth(Main.game.getStartingDate().getMonth().plus(1));
+							
+						}
+					};
+					
+			} else if (index == 21) {
+					return new Response("Reset spells", "Resets all of your spells and upgrades, and removes all of your spell upgrade points.", DEBUG_MENU){
+						@Override
+						public void effects() {
+							Main.game.getPlayer().resetSpells();
+							Main.game.getPlayer().clearSpellUpgradePoints();
 							
 						}
 					};
@@ -1250,6 +1260,7 @@ public class DebugDialogue {
 				boolean first=true;
 				for(String s : character.getTags()) {
 					UtilText.nodeContentSB.append((first?"":" | ") +"<i style='color:"+Colour.CLOTHING_BLUE_LIGHT.toWebHexString()+";'>"+s+"</i>");
+					first = false;
 				}
 				
 				UtilText.nodeContentSB.append("</br>"

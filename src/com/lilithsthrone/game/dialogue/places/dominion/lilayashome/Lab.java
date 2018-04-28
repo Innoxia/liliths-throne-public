@@ -3068,7 +3068,14 @@ public class Lab {
 					case COW_MORPH:
 						litterSB.append(" strong");
 						break;
-					case DEMON: case IMP: case IMP_ALPHA:
+					case DEMON:
+					case ELEMENTAL_AIR:
+					case ELEMENTAL_ARCANE:
+					case ELEMENTAL_EARTH:
+					case ELEMENTAL_FIRE:
+					case ELEMENTAL_WATER:
+					case IMP:
+					case IMP_ALPHA:
 						litterSB.append(" mischievous");
 						break;
 					case DOG_MORPH: case DOG_MORPH_DOBERMANN: case DOG_MORPH_BORDER_COLLIE:
@@ -3147,7 +3154,14 @@ public class Lab {
 					case COW_MORPH:
 						litterSB.append(" strong");
 						break;
-					case DEMON: case IMP: case IMP_ALPHA:
+					case DEMON:
+					case ELEMENTAL_AIR:
+					case ELEMENTAL_ARCANE:
+					case ELEMENTAL_EARTH:
+					case ELEMENTAL_FIRE:
+					case ELEMENTAL_WATER:
+					case IMP:
+					case IMP_ALPHA:
 						litterSB.append(" mischievous");
 						break;
 					case DOG_MORPH: case DOG_MORPH_DOBERMANN: case DOG_MORPH_BORDER_COLLIE:
@@ -3226,7 +3240,14 @@ public class Lab {
 					case COW_MORPH:
 						litterSB.append(" docile");
 						break;
-					case DEMON: case IMP: case IMP_ALPHA:
+					case DEMON:
+					case ELEMENTAL_AIR:
+					case ELEMENTAL_ARCANE:
+					case ELEMENTAL_EARTH:
+					case ELEMENTAL_FIRE:
+					case ELEMENTAL_WATER:
+					case IMP:
+					case IMP_ALPHA:
 						litterSB.append(" cheeky");
 						break;
 					case DOG_MORPH: case DOG_MORPH_DOBERMANN: case DOG_MORPH_BORDER_COLLIE:
@@ -3305,7 +3326,14 @@ public class Lab {
 					case COW_MORPH:
 						litterSB.append(" docile");
 						break;
-					case DEMON: case IMP: case IMP_ALPHA:
+					case DEMON:
+					case ELEMENTAL_AIR:
+					case ELEMENTAL_ARCANE:
+					case ELEMENTAL_EARTH:
+					case ELEMENTAL_FIRE:
+					case ELEMENTAL_WATER:
+					case IMP:
+					case IMP_ALPHA:
 						litterSB.append(" cheeky");
 						break;
 					case DOG_MORPH: case DOG_MORPH_DOBERMANN: case DOG_MORPH_BORDER_COLLIE:

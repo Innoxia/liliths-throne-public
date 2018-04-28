@@ -15,14 +15,14 @@ import org.w3c.dom.Element;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
+import com.lilithsthrone.game.inventory.item.AbstractItemEffectType;
 import com.lilithsthrone.game.inventory.item.ItemEffect;
-import com.lilithsthrone.game.inventory.item.ItemEffectType;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.0
- * @version 0.2.1
+ * @version 0.2.4
  * @author Innoxia
  */
 public abstract class AbstractCoreItem implements Serializable, XMLSaving {
@@ -104,7 +104,7 @@ public abstract class AbstractCoreItem implements Serializable, XMLSaving {
 		return 100;
 	}
 	
-	public ItemEffectType getEnchantmentEffect() {
+	public AbstractItemEffectType getEnchantmentEffect() {
 		return null;
 	}
 	

@@ -523,8 +523,8 @@ public class SuccubisSecrets {
 			};
 			
 		} else if (index == 2) {
-			if(Main.game.getPlayer().getBodyMaterial()==BodyMaterial.SLIME) {
-				return new Response("Makeup", "Kate is unable to apply any makeup to your slimy body!", null);
+			if(!Main.game.getPlayer().getBodyMaterial().isAbleToWearMakeup()) {
+				return new Response("Makeup", "As your body is made of "+Main.game.getPlayer().getBodyMaterial().getName()+", Kate is unable to apply any makeup!", null);
 				
 			} else {
 				return new Response("Makeup",
@@ -587,10 +587,10 @@ public class SuccubisSecrets {
 					
 					if(Main.game.getPlayer().getBodyMaterial()==BodyMaterial.SLIME) {
 						CoveringsNamesMap.put(BodyCoveringType.SLIME, Util.newArrayListOfValues(new ListValue<>("SLIME")));
+						
 					} else {
 						for(BodyPartInterface bp : Main.game.getPlayer().getAllBodyParts()){
 							if(bp.getType().getBodyCoveringType(Main.game.getPlayer())!=null
-									&& bp.getType().getBodyCoveringType(Main.game.getPlayer()).getRace()!=null
 									&& !(bp instanceof Hair)
 									&& !(bp instanceof Eye)) {
 								
@@ -856,7 +856,10 @@ public class SuccubisSecrets {
 							true, Main.game.getPlayer().getEyeType().getBodyCoveringType(Main.game.getPlayer()), "Irises", "The iris is the coloured part of the eye that's responsible for controlling the diameter and size of the pupil.", true, true)
 
 					+CharacterModificationUtils.getKatesDivCoveringsNew(
-							true, BodyCoveringType.EYE_PUPILS, "Pupils", "The pupil is a hole located in the centre of the iris that allows light to strike the retina.", true, true);
+							true, BodyCoveringType.EYE_PUPILS, "Pupils", "The pupil is a hole located in the centre of the iris that allows light to strike the retina.", true, true)
+
+					+CharacterModificationUtils.getKatesDivCoveringsNew(
+							true, BodyCoveringType.EYE_SCLERA, "Sclerae", "The sclera is the (typically white) part of the eye that surrounds the iris.", true, true);
 		}
 		
 		@Override
@@ -969,7 +972,7 @@ public class SuccubisSecrets {
 						|| (Main.game.isAssHairEnabled() &&  Main.game.getPlayer().getAssHairType().getType()==bct)
 						|| (Main.game.isPubicHairEnabled() && Main.game.getPlayer().getPubicHairType().getType()==bct)) {
 					UtilText.nodeContentSB.append(CharacterModificationUtils.getKatesDivCoveringsNew(
-							true, bct, "Body hair", "This is your body hair ("+bct.getRace().getName()+").", true, true));
+							true, bct, "Body hair", "Your body hair.", true, true));
 					
 				}
 			}

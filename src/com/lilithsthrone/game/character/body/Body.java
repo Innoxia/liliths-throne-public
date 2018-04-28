@@ -1409,13 +1409,19 @@ public class Body implements Serializable, XMLSaving {
 		// Describe race:
 		if (owner.isPlayer()) {
 			sb.append("<p>"
-						+ "You are [pc.name], [pc.a_fullRace(true)] [pc.gender(true)]. "
+						+ "You are [pc.name], "
+							+(owner.getRace()==Race.HUMAN
+								?"<span style='color:"+owner.getFemininity().getColour().toWebHexString()+";'>[pc.a_femininity]</span> [pc.gender(true)] [style.colourHuman(human)]. "
+								:"[pc.a_fullRace(true)] [pc.gender(true)]. ")
 						+ owner.getAppearsAsGenderDescription(true)
 						+" Standing at full height, you measure [pc.heightFeetInches] ([pc.heightCm]cm).");
 		} else {
 			if(owner.getPlayerKnowsAreas().contains(CoverableArea.PENIS) && owner.getPlayerKnowsAreas().contains(CoverableArea.VAGINA)) {
 				sb.append("<p>"
-						+ "[npc.Name] is [npc.a_fullRace(true)] [npc.gender(true)]. "
+						+ "[npc.Name] is "
+							+(owner.getRace()==Race.HUMAN
+								?"<span style='color:"+owner.getFemininity().getColour().toWebHexString()+";'>[npc.a_femininity]</span> [npc.gender(true)] [style.colourHuman(human)]. "
+								:"[npc.a_fullRace(true)] [npc.gender(true)]. ")
 						+ owner.getAppearsAsGenderDescription(true)
 						+ " Standing at full height, [npc.she] measures [npc.heightFeetInches] ([npc.heightCm]cm).");
 			} else {
@@ -1435,40 +1441,7 @@ public class Body implements Serializable, XMLSaving {
 		sb.append("</p>");
 		
 		switch(this.getBodyMaterial()) {
-			case FIRE:
-				if (owner.isPlayer()) {
-					sb.append("<p>"
-								+ "Your entire body, save for a small obsidian sphere in the place where your heart should be, is made out of <b style='color:"+this.getBodyMaterial().getColour().toWebHexString()+";'>fire and smoke</b>!"
-							+ "</p>");
-				} else {
-					sb.append("<p>"
-								+ "[npc.Name]'s entire body, save for a small obsidian sphere in the place where [npc.her] heart should be, is made out of <b style='color:"+this.getBodyMaterial().getColour().toWebHexString()+";'>fire and smoke</b>!"
-							+ "</p>");
-				}
-				break;
 			case FLESH:
-				break;
-			case ICE:
-				if (owner.isPlayer()) {
-					sb.append("<p>"
-								+ "Your entire body, save for a small obsidian sphere in the place where your heart should be, is made out of <b style='color:"+this.getBodyMaterial().getColour().toWebHexString()+";'>ice</b>!"
-							+ "</p>");
-				} else {
-					sb.append("<p>"
-								+ "[npc.Name]'s entire body, save for a small obsidian sphere in the place where [npc.her] heart should be, is made out of <b style='color:"+this.getBodyMaterial().getColour().toWebHexString()+";'>ice</b>!"
-							+ "</p>");
-				}
-				break;
-			case RUBBER:
-				if (owner.isPlayer()) {
-					sb.append("<p>"
-								+ "Your entire body, save for a small obsidian sphere in the place where your heart should be, is made out of <b style='color:"+this.getBodyMaterial().getColour().toWebHexString()+";'>rubber</b>!"
-							+ "</p>");
-				} else {
-					sb.append("<p>"
-								+ "[npc.Name]'s entire body, save for a small obsidian sphere in the place where [npc.her] heart should be, is made out of <b style='color:"+this.getBodyMaterial().getColour().toWebHexString()+";'>rubber</b>!"
-							+ "</p>");
-				}
 				break;
 			case SLIME:
 				if (owner.isPlayer()) {
@@ -1480,6 +1453,25 @@ public class Body implements Serializable, XMLSaving {
 					sb.append("<p>"
 								+ "[npc.Name]'s entire body, save for a small, glowing sphere in the place where [npc.her] heart should be, is made out of [npc.skinFullDescription(true)]!"
 								+ " [npc.She] doesn't need to have any parts of [npc.her] body pierced in order to equip jewellery, as [npc.she] can freely morph [npc.her] body at will!"
+							+ "</p>");
+				}
+				break;
+			case AIR:
+			case ARCANE:
+			case STONE:
+			case RUBBER:
+			case ICE:
+			case WATER:
+			case FIRE:
+				if (owner.isPlayer()) {
+					sb.append("<p>"
+								+ "Your entire body, save for a small obsidian sphere in the place where your heart should be, is made out of"
+									+ " <b style='color:"+this.getBodyMaterial().getColour().toWebHexString()+";'>"+this.getBodyMaterial().getName()+"</b>!"
+							+ "</p>");
+				} else {
+					sb.append("<p>"
+								+ "[npc.Name]'s entire body, save for a small obsidian sphere in the place where [npc.her] heart should be, is made out of"
+									+ " <b style='color:"+this.getBodyMaterial().getColour().toWebHexString()+";'>"+this.getBodyMaterial().getName()+"</b>!"
 							+ "</p>");
 				}
 				break;
@@ -1867,9 +1859,15 @@ public class Body implements Serializable, XMLSaving {
 			}
 			
 			if(owner.getCovering(BodyCoveringType.EYE_PUPILS).getPattern() == CoveringPattern.EYE_PUPILS_HETEROCHROMATIC) {
-				sb.append("and [pc.pupilShape], heterochromatic [pc.pupilPrimaryColour(true)]-and-[pc.pupilSecondaryColour(true)] pupils.");
+				sb.append(", [pc.pupilShape], heterochromatic [pc.pupilPrimaryColour(true)]-and-[pc.pupilSecondaryColour(true)] pupils");
 			} else {
-				sb.append("and [pc.pupilShape], [pc.pupilPrimaryColour(true)] pupils.");
+				sb.append(", [pc.pupilShape], [pc.pupilPrimaryColour(true)] pupils");
+			}
+			
+			if(owner.getCovering(BodyCoveringType.EYE_SCLERA).getPattern() == CoveringPattern.EYE_SCLERA_HETEROCHROMATIC) {
+				sb.append(", and heterochromatic [pc.scleraPrimaryColour(true)]-and-[pc.scleraSecondaryColour(true)] sclerae.");
+			} else {
+				sb.append(", and [pc.scleraPrimaryColour(true)] sclerae.");
 			}
 		} else {
 			if(owner.getCovering(owner.getEyeType().getBodyCoveringType(owner)).getPattern() == CoveringPattern.EYE_IRISES_HETEROCHROMATIC) {
@@ -1879,9 +1877,15 @@ public class Body implements Serializable, XMLSaving {
 			}
 			
 			if(owner.getCovering(BodyCoveringType.EYE_PUPILS).getPattern() == CoveringPattern.EYE_PUPILS_HETEROCHROMATIC) {
-				sb.append("and [npc.pupilShape], heterochromatic [npc.pupilPrimaryColour(true)]-and-[npc.pupilSecondaryColour(true)] pupils.");
+				sb.append(", [npc.pupilShape], heterochromatic [npc.pupilPrimaryColour(true)]-and-[npc.pupilSecondaryColour(true)] pupils");
 			} else {
-				sb.append("and [npc.pupilShape], [npc.pupilPrimaryColour(true)] pupils.");
+				sb.append(", [npc.pupilShape], [npc.pupilPrimaryColour(true)] pupils");
+			}
+			
+			if(owner.getCovering(BodyCoveringType.EYE_SCLERA).getPattern() == CoveringPattern.EYE_SCLERA_HETEROCHROMATIC) {
+				sb.append(", and heterochromatic [npc.scleraPrimaryColour(true)]-and-[npc.scleraSecondaryColour(true)] sclerae.");
+			} else {
+				sb.append(", and [npc.scleraPrimaryColour(true)] sclerae.");
 			}
 		}
 		
@@ -3492,23 +3496,46 @@ public class Body implements Serializable, XMLSaving {
 		raceWeightMap.clear();
 
 		Race race = Race.HUMAN;
-
-		if(this.getBodyMaterial()==BodyMaterial.SLIME) {
-			race = Race.SLIME;
-			this.raceStage = RaceStage.GREATER;
-			
-		} else {
-			race = getRaceFromPartWeighting();
-			
-			if(raceWeightMap.size()==1) {
-				if(raceWeightMap.containsKey(Race.HUMAN)) {
-					this.raceStage = RaceStage.HUMAN;
+		switch(this.getBodyMaterial()) {
+			case AIR:
+				race = Race.ELEMENTAL_AIR;
+				this.raceStage = RaceStage.GREATER;
+				break;
+			case ARCANE:
+				race = Race.ELEMENTAL_ARCANE;
+				this.raceStage = RaceStage.GREATER;
+				break;
+			case FIRE:
+				race = Race.ELEMENTAL_FIRE;
+				this.raceStage = RaceStage.GREATER;
+				break;
+			case FLESH:
+				race = getRaceFromPartWeighting();
+				
+				if(raceWeightMap.size()==1) {
+					if(raceWeightMap.containsKey(Race.HUMAN)) {
+						this.raceStage = RaceStage.HUMAN;
+					} else {
+						this.raceStage = RaceStage.GREATER;
+					}
 				} else {
-					this.raceStage = RaceStage.GREATER;
+					this.raceStage = RaceStage.LESSER;
 				}
-			} else {
-				this.raceStage = RaceStage.LESSER;
-			}
+				break;
+			case ICE:
+			case WATER:
+				race = Race.ELEMENTAL_WATER;
+				this.raceStage = RaceStage.GREATER;
+				break;
+			case RUBBER:
+			case STONE:
+				race = Race.ELEMENTAL_EARTH;
+				this.raceStage = RaceStage.GREATER;
+				break;
+			case SLIME:
+				race = Race.SLIME;
+				this.raceStage = RaceStage.GREATER;
+				break;
 		}
 		
 		subspecies = Subspecies.getSubspeciesFromBody(this, race);
@@ -6090,6 +6117,16 @@ public class Body implements Serializable, XMLSaving {
 				case WOLF_MORPH:
 					coverings.put(BodyCoveringType.BODY_HAIR_LYCAN_FUR, new Covering(BodyCoveringType.BODY_HAIR_LYCAN_FUR, coverings.get(BodyCoveringType.HAIR_LYCAN_FUR).getPrimaryColour()));
 					break;
+				case ELEMENTAL_AIR:
+					break;
+				case ELEMENTAL_ARCANE:
+					break;
+				case ELEMENTAL_EARTH:
+					break;
+				case ELEMENTAL_FIRE:
+					break;
+				case ELEMENTAL_WATER:
+					break;
 			}
 		}
 	}
@@ -6176,6 +6213,16 @@ public class Body implements Serializable, XMLSaving {
 						break;
 					case WOLF_MORPH:
 						coverings.put(BodyCoveringType.BODY_HAIR_LYCAN_FUR, new Covering(BodyCoveringType.BODY_HAIR_LYCAN_FUR, coverings.get(BodyCoveringType.HAIR_LYCAN_FUR).getPrimaryColour()));
+						break;
+					case ELEMENTAL_AIR:
+						break;
+					case ELEMENTAL_ARCANE:
+						break;
+					case ELEMENTAL_EARTH:
+						break;
+					case ELEMENTAL_FIRE:
+						break;
+					case ELEMENTAL_WATER:
 						break;
 				}
 			}

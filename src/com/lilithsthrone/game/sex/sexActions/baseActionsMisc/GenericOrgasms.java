@@ -8,7 +8,6 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.attributes.ObedienceLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
-import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
 import com.lilithsthrone.game.character.body.valueEnums.PenisModifier;
 import com.lilithsthrone.game.character.fetishes.Fetish;
@@ -30,7 +29,7 @@ import com.lilithsthrone.utils.Util.ListValue;
 
 /**
  * @since 0.1.69
- * @version 0.2.1
+ * @version 0.2.4
  * @author Innoxia
  */
 public class GenericOrgasms {
@@ -1437,14 +1436,25 @@ public class GenericOrgasms {
 
 		
 		if(target!=null) {
-			if(target.getBodyMaterial()==BodyMaterial.SLIME) {
-				if(characterOrgasming.isPlayer()) {
-					cumTargetSB.append("</br>"
-							+ "As [npc2.name]'s body is made completely out of translucent slime, you're able to see the cloud of your [npc1.cum+] shooting up and dispersing inside of [npc1.herHim].");
-				} else {
-					cumTargetSB.append("</br>"
-							+ "As your body is made completely out of translucent slime, you're able to see the cloud of [npc1.name]'s [npc1.cum+] shooting up and dispersing inside of you.");
-				}
+			switch(target.getBodyMaterial()) {
+				case AIR:
+				case ARCANE:
+				case WATER:
+				case SLIME:
+					if(characterOrgasming.isPlayer()) {
+						cumTargetSB.append("</br>"
+								+ "As [npc2.name]'s body is made completely out of translucent "+target.getBodyMaterial()+", you're able to see the cloud of your [npc1.cum+] shooting up and dispersing inside of [npc1.herHim].");
+					} else {
+						cumTargetSB.append("</br>"
+								+ "As your body is made completely out of translucent "+target.getBodyMaterial()+", you're able to see the cloud of [npc1.name]'s [npc1.cum+] shooting up and dispersing inside of you.");
+					}
+					break;
+				case FIRE:
+				case FLESH:
+				case ICE:
+				case RUBBER:
+				case STONE:
+					break;
 			}
 			return UtilText.parse(characterOrgasming, target, cumTargetSB.toString());
 			

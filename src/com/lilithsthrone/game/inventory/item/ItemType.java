@@ -7,15 +7,21 @@ import java.util.List;
 import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
+import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Race;
+import com.lilithsthrone.game.combat.Spell;
+import com.lilithsthrone.game.combat.SpellSchool;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
+import com.lilithsthrone.game.inventory.enchanting.TFModifier;
+import com.lilithsthrone.game.inventory.enchanting.TFPotency;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -24,7 +30,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.84
- * @version 0.2.1
+ * @version 0.2.4
  * @author Innoxia
  */
 public class ItemType {
@@ -317,7 +323,7 @@ public class ItemType {
 		private static final long serialVersionUID = 1L;
 
 		@Override
-		public ItemEffectType getEnchantmentEffect() {
+		public AbstractItemEffectType getEnchantmentEffect() {
 			return ItemEffectType.ATTRIBUTE_PHYSIQUE;
 		}
 
@@ -364,7 +370,7 @@ public class ItemType {
 		private static final long serialVersionUID = 1L;
 
 		@Override
-		public ItemEffectType getEnchantmentEffect() {
+		public AbstractItemEffectType getEnchantmentEffect() {
 			return ItemEffectType.ATTRIBUTE_PHYSIQUE;
 		}
 
@@ -411,7 +417,7 @@ public class ItemType {
 		private static final long serialVersionUID = 1L;
 
 		@Override
-		public ItemEffectType getEnchantmentEffect() {
+		public AbstractItemEffectType getEnchantmentEffect() {
 			return ItemEffectType.ATTRIBUTE_PHYSIQUE;
 		}
 
@@ -458,7 +464,7 @@ public class ItemType {
 		private static final long serialVersionUID = 1L;
 
 		@Override
-		public ItemEffectType getEnchantmentEffect() {
+		public AbstractItemEffectType getEnchantmentEffect() {
 			return ItemEffectType.ATTRIBUTE_PHYSIQUE;
 		}
 
@@ -507,7 +513,7 @@ public class ItemType {
 		private static final long serialVersionUID = 1L;
 
 		@Override
-		public ItemEffectType getEnchantmentEffect() {
+		public AbstractItemEffectType getEnchantmentEffect() {
 			return ItemEffectType.ATTRIBUTE_PHYSIQUE;
 		}
 
@@ -556,7 +562,7 @@ public class ItemType {
 		private static final long serialVersionUID = 1L;
 
 		@Override
-		public ItemEffectType getEnchantmentEffect() {
+		public AbstractItemEffectType getEnchantmentEffect() {
 			return ItemEffectType.ATTRIBUTE_ARCANE;
 		}
 
@@ -604,7 +610,7 @@ public class ItemType {
 		private static final long serialVersionUID = 1L;
 
 		@Override
-		public ItemEffectType getEnchantmentEffect() {
+		public AbstractItemEffectType getEnchantmentEffect() {
 			return ItemEffectType.ATTRIBUTE_ARCANE;
 		}
 
@@ -653,7 +659,7 @@ public class ItemType {
 		private static final long serialVersionUID = 1L;
 
 		@Override
-		public ItemEffectType getEnchantmentEffect() {
+		public AbstractItemEffectType getEnchantmentEffect() {
 			return ItemEffectType.ATTRIBUTE_PHYSIQUE;
 		}
 
@@ -702,7 +708,7 @@ public class ItemType {
 		private static final long serialVersionUID = 1L;
 
 		@Override
-		public ItemEffectType getEnchantmentEffect() {
+		public AbstractItemEffectType getEnchantmentEffect() {
 			return ItemEffectType.ATTRIBUTE_PHYSIQUE;
 		}
 
@@ -751,7 +757,7 @@ public class ItemType {
 		private static final long serialVersionUID = 1L;
 
 		@Override
-		public ItemEffectType getEnchantmentEffect() {
+		public AbstractItemEffectType getEnchantmentEffect() {
 			return ItemEffectType.ATTRIBUTE_ARCANE;
 		}
 
@@ -799,7 +805,7 @@ public class ItemType {
 		private static final long serialVersionUID = 1L;
 
 		@Override
-		public ItemEffectType getEnchantmentEffect() {
+		public AbstractItemEffectType getEnchantmentEffect() {
 			return ItemEffectType.ATTRIBUTE_PHYSIQUE;
 		}
 
@@ -847,7 +853,7 @@ public class ItemType {
 		private static final long serialVersionUID = 1L;
 
 		@Override
-		public ItemEffectType getEnchantmentEffect() {
+		public AbstractItemEffectType getEnchantmentEffect() {
 			return ItemEffectType.ATTRIBUTE_SEXUAL;
 		}
 
@@ -895,7 +901,7 @@ public class ItemType {
 		private static final long serialVersionUID = 1L;
 
 		@Override
-		public ItemEffectType getEnchantmentEffect() {
+		public AbstractItemEffectType getEnchantmentEffect() {
 			return ItemEffectType.ATTRIBUTE_SEXUAL;
 		}
 
@@ -942,7 +948,7 @@ public class ItemType {
 		private static final long serialVersionUID = 1L;
 
 		@Override
-		public ItemEffectType getEnchantmentEffect() {
+		public AbstractItemEffectType getEnchantmentEffect() {
 			return ItemEffectType.ATTRIBUTE_SEXUAL;
 		}
 
@@ -989,7 +995,7 @@ public class ItemType {
 		private static final long serialVersionUID = 1L;
 
 		@Override
-		public ItemEffectType getEnchantmentEffect() {
+		public AbstractItemEffectType getEnchantmentEffect() {
 			return ItemEffectType.ATTRIBUTE_SEXUAL;
 		}
 
@@ -1039,7 +1045,7 @@ public class ItemType {
 		private static final long serialVersionUID = 1L;
 
 		@Override
-		public ItemEffectType getEnchantmentEffect() {
+		public AbstractItemEffectType getEnchantmentEffect() {
 			return ItemEffectType.ATTRIBUTE_CORRUPTION;
 		}
 
@@ -1087,7 +1093,7 @@ public class ItemType {
 		private static final long serialVersionUID = 1L;
 
 		@Override
-		public ItemEffectType getEnchantmentEffect() {
+		public AbstractItemEffectType getEnchantmentEffect() {
 			return ItemEffectType.ATTRIBUTE_CORRUPTION;
 		}
 
@@ -1134,7 +1140,7 @@ public class ItemType {
 		private static final long serialVersionUID = 1L;
 
 		@Override
-		public ItemEffectType getEnchantmentEffect() {
+		public AbstractItemEffectType getEnchantmentEffect() {
 			return ItemEffectType.FETISH_ENHANCEMENT;
 		}
 
@@ -1278,7 +1284,7 @@ public class ItemType {
 		private static final long serialVersionUID = 1L;
 
 		@Override
-		public ItemEffectType getEnchantmentEffect() {
+		public AbstractItemEffectType getEnchantmentEffect() {
 			return ItemEffectType.RACE_DEMON;
 		}
 
@@ -1326,7 +1332,7 @@ public class ItemType {
 		private static final long serialVersionUID = 1L;
 
 		@Override
-		public ItemEffectType getEnchantmentEffect() {
+		public AbstractItemEffectType getEnchantmentEffect() {
 			return ItemEffectType.RACE_HUMAN;
 		}
 
@@ -1373,7 +1379,7 @@ public class ItemType {
 		private static final long serialVersionUID = 1L;
 
 		@Override
-		public ItemEffectType getEnchantmentEffect() {
+		public AbstractItemEffectType getEnchantmentEffect() {
 			return ItemEffectType.RACE_CAT_MORPH;
 		}
 
@@ -1422,7 +1428,7 @@ public class ItemType {
 		private static final long serialVersionUID = 1L;
 
 		@Override
-		public ItemEffectType getEnchantmentEffect() {
+		public AbstractItemEffectType getEnchantmentEffect() {
 			return ItemEffectType.RACE_COW_MORPH;
 		}
 
@@ -1473,7 +1479,7 @@ public class ItemType {
 		private static final long serialVersionUID = 1L;
 
 		@Override
-		public ItemEffectType getEnchantmentEffect() {
+		public AbstractItemEffectType getEnchantmentEffect() {
 			return ItemEffectType.RACE_SQUIRREL_MORPH;
 		}
 
@@ -1522,7 +1528,7 @@ public class ItemType {
 		private static final long serialVersionUID = 1L;
 
 		@Override
-		public ItemEffectType getEnchantmentEffect() {
+		public AbstractItemEffectType getEnchantmentEffect() {
 			return ItemEffectType.RACE_BAT_MORPH;
 		}
 
@@ -1569,7 +1575,7 @@ public class ItemType {
 		private static final long serialVersionUID = 1L;
 
 		@Override
-		public ItemEffectType getEnchantmentEffect() {
+		public AbstractItemEffectType getEnchantmentEffect() {
 			return ItemEffectType.RACE_RAT_MORPH;
 		}
 
@@ -1618,7 +1624,7 @@ public class ItemType {
 		private static final long serialVersionUID = 1L;
 
 		@Override
-		public ItemEffectType getEnchantmentEffect() {
+		public AbstractItemEffectType getEnchantmentEffect() {
 			return ItemEffectType.RACE_RABBIT_MORPH;
 		}
 
@@ -1665,7 +1671,7 @@ public class ItemType {
 		private static final long serialVersionUID = 1L;
 
 		@Override
-		public ItemEffectType getEnchantmentEffect() {
+		public AbstractItemEffectType getEnchantmentEffect() {
 			return ItemEffectType.RACE_DOG_MORPH;
 		}
 
@@ -1712,7 +1718,7 @@ public class ItemType {
 		private static final long serialVersionUID = 1L;
 
 		@Override
-		public ItemEffectType getEnchantmentEffect() {
+		public AbstractItemEffectType getEnchantmentEffect() {
 			return ItemEffectType.RACE_HORSE_MORPH;
 		}
 
@@ -1758,7 +1764,7 @@ public class ItemType {
 		private static final long serialVersionUID = 1L;
 
 		@Override
-		public ItemEffectType getEnchantmentEffect() {
+		public AbstractItemEffectType getEnchantmentEffect() {
 			return ItemEffectType.RACE_REINDEER_MORPH;
 		}
 
@@ -1807,7 +1813,7 @@ public class ItemType {
 		private static final long serialVersionUID = 1L;
 
 		@Override
-		public ItemEffectType getEnchantmentEffect() {
+		public AbstractItemEffectType getEnchantmentEffect() {
 			return ItemEffectType.RACE_ALLIGATOR_MORPH;
 		}
 
@@ -1855,7 +1861,7 @@ public class ItemType {
 		private static final long serialVersionUID = 1L;
 
 		@Override
-		public ItemEffectType getEnchantmentEffect() {
+		public AbstractItemEffectType getEnchantmentEffect() {
 			return ItemEffectType.RACE_WOLF_MORPH;
 		}
 
@@ -1903,7 +1909,7 @@ public class ItemType {
 		private static final long serialVersionUID = 1L;
 
 		@Override
-		public ItemEffectType getEnchantmentEffect() {
+		public AbstractItemEffectType getEnchantmentEffect() {
 			return ItemEffectType.RACE_HARPY;
 		}
 
@@ -2531,7 +2537,7 @@ public class ItemType {
 	};
 	
 	public static AbstractItemType BOTTLED_ESSENCE_HARPY = new AbstractItemType(
-			20,
+			50,
 			null,
 			false,
 			"Bottled Harpy Essence",
@@ -3181,7 +3187,7 @@ public class ItemType {
 		}
 		
 		@Override
-		public ItemEffectType getEnchantmentEffect() {
+		public AbstractItemEffectType getEnchantmentEffect() {
 			return ItemEffectType.ORIENTATION_CHANGE;
 		}
 
@@ -3435,6 +3441,11 @@ public class ItemType {
 		private static final long serialVersionUID = 1L;
 
 		@Override
+		public boolean isConsumedOnUse() {
+			return false;
+		}
+		
+		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
 			return !Main.game.getPlayer().getRacesDiscoveredFromBook().contains(Race.CAT_MORPH);
 		}
@@ -3477,6 +3488,11 @@ public class ItemType {
 
 		private static final long serialVersionUID = 1L;
 
+		@Override
+		public boolean isConsumedOnUse() {
+			return false;
+		}
+		
 		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
 			return !Main.game.getPlayer().getRacesDiscoveredFromBook().contains(Race.COW_MORPH);
@@ -3521,6 +3537,11 @@ public class ItemType {
 		private static final long serialVersionUID = 1L;
 
 		@Override
+		public boolean isConsumedOnUse() {
+			return false;
+		}
+		
+		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
 			return !Main.game.getPlayer().getRacesDiscoveredFromBook().contains(Race.DEMON);
 		}
@@ -3562,6 +3583,11 @@ public class ItemType {
 
 		private static final long serialVersionUID = 1L;
 
+		@Override
+		public boolean isConsumedOnUse() {
+			return false;
+		}
+		
 		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
 			return !Main.game.getPlayer().getRacesDiscoveredFromBook().contains(Race.IMP);
@@ -3605,6 +3631,11 @@ public class ItemType {
 		private static final long serialVersionUID = 1L;
 
 		@Override
+		public boolean isConsumedOnUse() {
+			return false;
+		}
+		
+		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
 			return !Main.game.getPlayer().getRacesDiscoveredFromBook().contains(Race.DOG_MORPH);
 		}
@@ -3646,6 +3677,11 @@ public class ItemType {
 		
 		private static final long serialVersionUID = 1L;
 
+		@Override
+		public boolean isConsumedOnUse() {
+			return false;
+		}
+		
 		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
 			return !Main.game.getPlayer().getRacesDiscoveredFromBook().contains(Race.ALLIGATOR_MORPH);
@@ -3689,6 +3725,11 @@ public class ItemType {
 		private static final long serialVersionUID = 1L;
 
 		@Override
+		public boolean isConsumedOnUse() {
+			return false;
+		}
+		
+		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
 			return !Main.game.getPlayer().getRacesDiscoveredFromBook().contains(Race.HARPY);
 		}
@@ -3730,6 +3771,11 @@ public class ItemType {
 		
 		private static final long serialVersionUID = 1L;
 
+		@Override
+		public boolean isConsumedOnUse() {
+			return false;
+		}
+		
 		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
 			return !Main.game.getPlayer().getRacesDiscoveredFromBook().contains(Race.HORSE_MORPH);
@@ -3773,6 +3819,11 @@ public class ItemType {
 		private static final long serialVersionUID = 1L;
 
 		@Override
+		public boolean isConsumedOnUse() {
+			return false;
+		}
+		
+		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
 			return !Main.game.getPlayer().getRacesDiscoveredFromBook().contains(Race.REINDEER_MORPH);
 		}
@@ -3814,6 +3865,11 @@ public class ItemType {
 
 		private static final long serialVersionUID = 1L;
 
+		@Override
+		public boolean isConsumedOnUse() {
+			return false;
+		}
+		
 		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
 			return !Main.game.getPlayer().getRacesDiscoveredFromBook().contains(Race.HUMAN);
@@ -3857,6 +3913,11 @@ public class ItemType {
 		private static final long serialVersionUID = 1L;
 
 		@Override
+		public boolean isConsumedOnUse() {
+			return false;
+		}
+		
+		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
 			return !Main.game.getPlayer().getRacesDiscoveredFromBook().contains(Race.SQUIRREL_MORPH);
 		}
@@ -3898,6 +3959,11 @@ public class ItemType {
 
 		private static final long serialVersionUID = 1L;
 
+		@Override
+		public boolean isConsumedOnUse() {
+			return false;
+		}
+		
 		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
 			return !Main.game.getPlayer().getRacesDiscoveredFromBook().contains(Race.RAT_MORPH);
@@ -3941,6 +4007,11 @@ public class ItemType {
 		private static final long serialVersionUID = 1L;
 
 		@Override
+		public boolean isConsumedOnUse() {
+			return false;
+		}
+		
+		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
 			return !Main.game.getPlayer().getRacesDiscoveredFromBook().contains(Race.RABBIT_MORPH);
 		}
@@ -3982,6 +4053,11 @@ public class ItemType {
 
 		private static final long serialVersionUID = 1L;
 
+		@Override
+		public boolean isConsumedOnUse() {
+			return false;
+		}
+		
 		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
 			return !Main.game.getPlayer().getRacesDiscoveredFromBook().contains(Race.BAT_MORPH);
@@ -4025,6 +4101,11 @@ public class ItemType {
 		private static final long serialVersionUID = 1L;
 
 		@Override
+		public boolean isConsumedOnUse() {
+			return false;
+		}
+		
+		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
 			return !Main.game.getPlayer().getRacesDiscoveredFromBook().contains(Race.WOLF_MORPH);
 		}
@@ -4066,6 +4147,11 @@ public class ItemType {
 
 		private static final long serialVersionUID = 1L;
 
+		@Override
+		public boolean isConsumedOnUse() {
+			return false;
+		}
+		
 		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
 			return !Main.game.getPlayer().getRacesDiscoveredFromBook().contains(Race.SLIME);
@@ -4402,6 +4488,7 @@ public class ItemType {
 	};
 	
 	
+	
 	// Standard non-racial transformatives:
 	
 //	MASOCHISTS_HEAVEN("a bottle of", "it", "Masochist's Heaven",
@@ -4718,8 +4805,28 @@ public class ItemType {
 	public static List<AbstractItemType> essences = new ArrayList<>();
 	public static List<AbstractItemType> allItems = new ArrayList<>();
 	
+	/**
+	 * If you're looking for spell books, their id is:</br>
+	 * SPELL_BOOK_"+spell.toString()</br>
+	 * If you're looking for spell scrolls, their id is:</br>
+	 * "SPELL_SCROLL_"+spellSchool.toString()
+	 */
 	public static Map<AbstractItemType, String> itemToIdMap = new HashMap<>();
+
+	/**
+	 * If you're looking for spell books, their id is:</br>
+	 * SPELL_BOOK_"+spell.toString()</br>
+	 * If you're looking for spell scrolls, their id is:</br>
+	 * "SPELL_SCROLL_"+spellSchool.toString()
+	 */
 	public static Map<String, AbstractItemType> idToItemMap = new HashMap<>();
+	
+	public static AbstractItemType getSpellBookType(Spell s) {
+		return idToItemMap.get("SPELL_BOOK_"+s);
+	}
+	public static AbstractItemType getSpellScrollType(SpellSchool school) {
+		return idToItemMap.get("SPELL_SCROLL_"+school);
+	}
 	
 	static{
 		
@@ -4759,6 +4866,303 @@ public class ItemType {
 					e.printStackTrace();
 				}
 			}
+		}
+		
+		for(Spell s : Spell.values()) {
+			if(s == Spell.WITCH_CHARM
+					|| s == Spell.WITCH_SEAL) {
+				continue;
+			}
+			
+			List<String> effectsString = Util.newArrayListOfValues(
+					new ListValue<>("[style.boldExcellent(Permanently)] gain the spell '<b style='color:"+s.getSpellSchool().getColour().toWebHexString()+";'>"+s.getName()+"</b>'."));
+
+			if(s == Spell.ELEMENTAL_EARTH) {
+				effectsString.add("Adds "+Race.ELEMENTAL_EARTH.getName()+" encyclopedia entry.");
+				effectsString.add("[style.boldExcellent(+5)] <b style='color:"+s.getSpellSchool().getColour()+";'>"+Race.ELEMENTAL_EARTH.getDamageMultiplier().getName()+"</b>");
+				effectsString.add("[style.boldExcellent(+5)] <b style='color:"+s.getSpellSchool().getColour()+";'>"+Race.ELEMENTAL_EARTH.getResistanceMultiplier().getName()+"</b>");
+				
+			} else if(s == Spell.ELEMENTAL_WATER) {
+				effectsString.add("Adds "+Race.ELEMENTAL_WATER.getName()+" encyclopedia entry.");
+				effectsString.add("[style.boldExcellent(+5)] <b style='color:"+s.getSpellSchool().getColour()+";'>"+Race.ELEMENTAL_WATER.getDamageMultiplier().getName()+"</b>");
+				effectsString.add("[style.boldExcellent(+5)] <b style='color:"+s.getSpellSchool().getColour()+";'>"+Race.ELEMENTAL_WATER.getResistanceMultiplier().getName()+"</b>");
+				
+			} else if(s == Spell.ELEMENTAL_AIR) {
+				effectsString.add("Adds "+Race.ELEMENTAL_AIR.getName()+" encyclopedia entry.");
+				effectsString.add("[style.boldExcellent(+5)] <b style='color:"+s.getSpellSchool().getColour()+";'>"+Race.ELEMENTAL_AIR.getDamageMultiplier().getName()+"</b>");
+				effectsString.add("[style.boldExcellent(+5)] <b style='color:"+s.getSpellSchool().getColour()+";'>"+Race.ELEMENTAL_AIR.getResistanceMultiplier().getName()+"</b>");
+				
+			} else if(s == Spell.ELEMENTAL_FIRE) {
+				effectsString.add("Adds "+Race.ELEMENTAL_FIRE.getName()+" encyclopedia entry.");
+				effectsString.add("[style.boldExcellent(+5)] <b style='color:"+s.getSpellSchool().getColour()+";'>"+Race.ELEMENTAL_FIRE.getDamageMultiplier().getName()+"</b>");
+				effectsString.add("[style.boldExcellent(+5)] <b style='color:"+s.getSpellSchool().getColour()+";'>"+Race.ELEMENTAL_FIRE.getResistanceMultiplier().getName()+"</b>");
+				
+			} else if(s == Spell.ELEMENTAL_ARCANE) {
+				effectsString.add("Adds "+Race.ELEMENTAL_ARCANE.getName()+" encyclopedia entry.");
+				effectsString.add("[style.boldExcellent(+5)] <b style='color:"+s.getSpellSchool().getColour()+";'>"+Race.ELEMENTAL_ARCANE.getDamageMultiplier().getName()+"</b>");
+				effectsString.add("[style.boldExcellent(+5)] <b style='color:"+s.getSpellSchool().getColour()+";'>"+Race.ELEMENTAL_ARCANE.getResistanceMultiplier().getName()+"</b>");
+				
+			}
+			
+			
+			AbstractItemEffectType effectType = new AbstractItemEffectType(effectsString, s.getSpellSchool().getColour()) {
+				
+				@Override
+				public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+					boolean hasSpell = target.hasSpell(s);
+					target.addSpell(s);
+					
+					String raceKnowledgeGained = "";
+					if(target.isPlayer()) {
+						if(s == Spell.ELEMENTAL_EARTH) {
+							raceKnowledgeGained = getBookEffect(Race.ELEMENTAL_EARTH, null);
+							
+						} else if(s == Spell.ELEMENTAL_WATER) {
+							raceKnowledgeGained = getBookEffect(Race.ELEMENTAL_WATER, null);
+							
+						} else if(s == Spell.ELEMENTAL_AIR) {
+							raceKnowledgeGained = getBookEffect(Race.ELEMENTAL_AIR, null);
+							
+						} else if(s == Spell.ELEMENTAL_FIRE) {
+							raceKnowledgeGained = getBookEffect(Race.ELEMENTAL_FIRE, null);
+							
+						} else if(s == Spell.ELEMENTAL_ARCANE) {
+							raceKnowledgeGained = getBookEffect(Race.ELEMENTAL_ARCANE, null);
+							
+						}
+					}
+					
+					return "<p style='text-align:center'>"
+								+"<i><b style='color:"+s.getSpellSchool().getColour().toWebHexString()+";'>"+s.getName()+":</b> "+s.getDescription()+"</i>"
+							+"</p>"
+							+ "<p>"
+								+ (target.isPlayer()
+									?"As you read through the spell book, you discover that most of the pages are dedicated to helping the reader build up their arcane aura to the point where they'd be able to learn this spell."
+										+ " Seeing as your aura is already extremely powerful, these passages are of no use to you, and you quickly flick through to the final chapters,"
+											+ " where it's described exactly how to focus your aura into casting the spell '<i>"+s.getName()+"</i>'."
+										+ " It doesn't take you long to get the general idea of what to do, and after completing the book's practice exercises, you feel confident that you'll be able to cast this spell whenever you'd like."
+									:UtilText.parse(target,
+										"As [npc.name] reads through the spell book, [npc.she] discovers that most of the pages are dedicated to helping the reader build up their arcane aura to the point where they'd be able to learn this spell."
+										+ " Seeing as [npc.her] aura is already powerful enough for this, these passages are of no use to [npc.herHim], and [npc.she] quickly flicks through to the final chapters,"
+											+ " where it's described exactly how to focus [npc.her] aura into casting the spell '<i>"+s.getName()+"</i>'."
+										+ " It doesn't take [npc.herHim] long to get the general idea of what to do, and after completing the book's practice exercises,"
+											+ " [npc.she] feels confident that [npc.she]'ll be able to cast this spell whenever [npc.she]'d like."))
+							+ "</p>"
+							+ (hasSpell
+								?"<p style='text-align:center; color:"+Colour.TEXT_GREY.toWebHexString()+";'>"
+									+ (target.isPlayer()
+											?"You already know this spell, so you didn't really learn anything new..."
+											:UtilText.parse(target, "[npc.Name] already knows this spell, so [npc.she] didn't really learn anything new..."))
+								+ "</p>"
+								:"<p style='text-align:center;'>"
+									+ (target.isPlayer()?"You learn":UtilText.parse(target, "[npc.Name] learns"))+" the spell <b style='color:"+s.getSpellSchool().getColour().toWebHexString()+";'>"+s.getName()+"</b>!"
+								+ "</p>")
+							+raceKnowledgeGained;
+				}
+			};
+			
+			ItemEffectType.addAbstractItemEffectToIds("EFFECT_SPELL_"+s, effectType);
+			
+			int value = 2500;
+			switch(s) {
+				// Tier 1:
+				case ARCANE_AROUSAL:
+				case ICE_SHARD:
+				case POISON_VAPOURS:
+				case FIREBALL:
+				case SLAM:
+					break;
+					
+				// Tier 2:
+				case ARCANE_CLOUD:
+				case FLASH:
+				case RAIN_CLOUD:
+				case TELEKENETIC_SHOWER:
+				case TELEPATHIC_COMMUNICATION:
+				case VACUUM:
+					value = 5000;
+					break;
+
+				// Tier 3:
+				case STONE_SHELL:
+				case SOOTHING_WATERS:
+				case PROTECTIVE_GUSTS:
+				case CLOAK_OF_FLAMES:
+				case CLEANSE:
+				case STEAL:
+					value = 10000;
+					break;
+					
+				// Tier 4:
+				case ELEMENTAL_AIR:
+				case ELEMENTAL_ARCANE:
+				case ELEMENTAL_EARTH:
+				case ELEMENTAL_FIRE:
+				case ELEMENTAL_WATER:
+					value = 25000;
+					break;
+					
+				// Tier 5:
+				case LILITHS_COMMAND:
+				case TELEPORT:
+					value = 1000000;
+					break;
+					
+				case WITCH_CHARM:
+				case WITCH_SEAL:
+					break;
+			}
+			
+			AbstractItemType spellBook = new AbstractItemType(value,
+					null,
+					false,
+					"Spellbook: "+s.getName(),
+					"Spellbooks: "+s.getName(),
+					"An arcane tome which contains detailed instructions on how to cast the spell '"+s.getName()+"'."
+							+ " Reading this tome will permanently unlock the ability to cast this spell.",
+					"spell_book",
+					s.getSpellSchool().getColour(),
+					null,
+					null,
+					Rarity.LEGENDARY,
+					null,
+					Util.newArrayListOfValues(new ListValue<>(new ItemEffect(effectType))),
+					Util.newArrayListOfValues(new ListValue<>(ItemTag.SPELL_BOOK))) {
+		
+				private static final long serialVersionUID = 1L;
+				
+				@Override
+				public String getSVGString() {
+					return super.getSVGString()
+							+"<div style='width:60%;height:60%;position:absolute;left:0;top:0;'>"
+								+ s.getSVGString()
+							+ "</div>";
+				}
+				
+				@Override
+				public boolean isConsumedOnUse() {
+					return false;
+				}
+				
+				@Override
+				public boolean isAbleToBeUsed(GameCharacter target) {
+					return (target.isPlayer() || target.getAttributeValue(Attribute.MAJOR_ARCANE)>=IntelligenceLevel.ONE_AVERAGE.getMinimumValue());
+				}
+		
+				@Override
+				public String getUnableToBeUsedDescription(GameCharacter target) {
+					if(target.isPlayer()) {
+						return "You already know how to cast this spell!";
+					} else {
+						return UtilText.parse(target, "[npc.Name] does not have enough arcane skill to know how to learn this spell! (Requires arcane to be 5 or greater.)");
+					}
+				}
+				
+				@Override
+				public String getUseName() {
+					return "read";
+				}
+				
+				@Override
+				public String getUseDescription(GameCharacter user, GameCharacter target) {
+					return getGenericUseDescription(user, target,
+							"Opening the spell book, you read its contents...",
+							"Opening the spell book, you get [npc.name] to read its contents...",
+							"[npc.Name] produces a spell book, which [npc.she] then starts to read...",
+							"[npc.Name] produces a spell book, which [npc.she] then forces you to read...");
+				}
+				
+				@Override
+				public boolean isAbleToBeUsedInSex() {
+					return false;
+				}
+
+				@Override
+				public boolean isAbleToBeUsedInCombat() {
+					return false;
+				}
+			};
+			
+			itemToIdMap.put(spellBook, "SPELL_BOOK_"+s);
+			idToItemMap.put("SPELL_BOOK_"+s, spellBook);
+			
+			allItems.add(spellBook);
+		}
+		
+		for(SpellSchool school : SpellSchool.values()) {
+			
+			AbstractItemEffectType effectType = new AbstractItemEffectType(Util.newArrayListOfValues(
+							new ListValue<>("[style.boldExcellent(+1)] to <span style='color:"+school.getColour().toWebHexString()+";'>"+school.getName()+"</span> upgrade points.")),
+							school.getColour()) {
+						
+						@Override
+						public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+							target.incrementSpellUpgradePoints(school, 1);
+							return "<p style='text-align:center;'>"
+										+ (target.isPlayer()?"You gain":UtilText.parse(target, "[npc.Name] gains"))+" an upgrade point for the spell school <b style='color:"+school.getColour().toWebHexString()+";'>"+school.getName()+"</b>!</br>"
+										+ "<i>Having served its purpose, the scroll disappears in a flash of purple light!</i>"
+									+ "</p>";
+						}
+					};
+
+			ItemEffectType.addAbstractItemEffectToIds("EFFECT_SCROLL_SCHOOL_"+school, effectType);
+			
+			AbstractItemType scroll = new AbstractItemType(1000,
+					null,
+					false,
+					"Scroll of "+Util.capitaliseSentence(school.getName()),
+					"Scrolls of "+Util.capitaliseSentence(school.getName()),
+					"An arcane scroll which, when read, imbues the reader with the power of the school of '"+Util.capitaliseSentence(school.getName())+"'.",
+					"spell_scroll",
+					school.getColour(),
+					null,
+					null,
+					Rarity.EPIC,
+					null,
+					Util.newArrayListOfValues(new ListValue<>(new ItemEffect(effectType))),
+					Util.newArrayListOfValues(new ListValue<>(ItemTag.SPELL_SCROLL))) {
+		
+				private static final long serialVersionUID = 1L;
+				
+				@Override
+				public boolean isAbleToBeUsed(GameCharacter target) {
+					return target.isPlayer() || target.getAttributeValue(Attribute.MAJOR_ARCANE)>=IntelligenceLevel.ONE_AVERAGE.getMinimumValue();
+				}
+		
+				@Override
+				public String getUnableToBeUsedDescription(GameCharacter target) {
+					return UtilText.parse(target, "[npc.Name] does not have enough arcane skill to know how to absorb the power of this scroll! (Requires arcane to be 5 or greater.)");
+				}
+				
+				@Override
+				public String getUseName() {
+					return "read";
+				}
+				
+				@Override
+				public String getUseDescription(GameCharacter user, GameCharacter target) {
+					return getGenericUseDescription(user, target,
+							"Unravelling the scroll, you read its contents...",
+							"Unravelling the scroll, you get [npc.name] to read its contents...",
+							"[npc.Name] produces a scroll, which [npc.she] then starts to read...",
+							"[npc.Name] produces a scroll, which [npc.she] then forces you to read...");
+				}
+				
+				@Override
+				public boolean isAbleToBeUsedInSex() {
+					return false;
+				}
+
+				@Override
+				public boolean isAbleToBeUsedInCombat() {
+					return false;
+				}
+			};
+			
+			itemToIdMap.put(scroll, "SPELL_SCROLL_"+school);
+			idToItemMap.put("SPELL_SCROLL_"+school, scroll);
+			
+			allItems.add(scroll);
 		}
 	}
 

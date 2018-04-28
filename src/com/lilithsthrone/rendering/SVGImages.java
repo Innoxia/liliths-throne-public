@@ -6,6 +6,7 @@ import java.util.EnumMap;
 import java.util.Map;
 
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
+import com.lilithsthrone.game.inventory.item.AbstractItemEffectType;
 import com.lilithsthrone.game.inventory.item.ItemEffectType;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -205,7 +206,7 @@ public enum SVGImages {
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/perkTreeArrow.svg");
 			perkTreeArrow = Util.inputStreamToString(is);
 			
-			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/combat/spell_overlay.svg");
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/combat/spell/spell_overlay.svg");
 			spellOverlay = Util.inputStreamToString(is);
 
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/clothing/wrist_womens_watch_hourhand.svg");
@@ -554,7 +555,7 @@ public enum SVGImages {
 			holeTooBig = Util.inputStreamToString(is);
 			
 			String tempString = "";
-			for(ItemEffectType effect : ItemEffectType.values()) {
+			for(AbstractItemEffectType effect : ItemEffectType.getAllEffectTypes()) {
 				is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/items/refined_background.svg");
 				tempString = Util.inputStreamToString(is);
 				tempString = setColour(tempString, effect.getColour());

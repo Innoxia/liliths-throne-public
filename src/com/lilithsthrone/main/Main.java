@@ -65,7 +65,7 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
 
-	public static final String VERSION_NUMBER = "0.2.3.5",
+	public static final String VERSION_NUMBER = "0.2.4",
 			VERSION_DESCRIPTION = "Alpha";
 
 	public static final Image WINDOW_IMAGE = new Image("/com/lilithsthrone/res/images/windowIcon32.png");
@@ -79,24 +79,17 @@ public class Main extends Application {
 //		+ "<h6 style='text-align:center;'><b style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Early Alpha!</b></h6>"
 		
 		"<p>"
-			+ "Hello once again! :3"
+			+ "Hello again! :3"
 		+ "</p>"
 			
 		+ "<p>"
-			+ "For this update, I finally finished the companion system (with help from Irbynx), which I'd originally indented to add alongside the Karl and Wolfgang encounter."
-			+ " I decided to add this companion system before doing the spell work, as I have plans for a few of the spells to summon elemental allies (which requires a companion system)."
-			+ " It's lacking proper post-sex options to get your companion involved, as I need to add NPC-on-NPC variants for sex actions (I'm planning on doing this in 0.2.5), but all the basic functionality should work."
+			+ "As you've probably seen, I've held off from marking this version as 0.2.4, as I've run out of time towards the end of getting all the new spell work done."
+			+ " It took a huge amount of time to get all of the supporting code done for these new spells, and while I've been working on it non-stop since Saturday, I didn't have enough time to get the last spell school (Arcane) finished for this release."
 		+ "</p>"
-
+			
 		+ "<p>"
-			+ "I also added the framework for modding in clothing, which is my first proper step in adding mod support."
-			+ " Please bear with me as I continue to build up the size and scope of modding support over the versions ahead. ^^"
-		+ "</p>"
-
-		+ "<p>"
-			+ "As the last major thing, I've added the map and basic content for the bat caverns, although the bat-morph and slime encounters haven't been filled in properly yet."
-			+ " With this now added, all of Submission's basic framework is complete."
-			+ " There will be small internal maps for both the gambling den and the rat warren, but they will be of similar sizes to the Shopping Arcade's Supplier Depot."
+			+ "I need another two days to get the spells completely finished, and to add the slavery improvements and the start of Nightlife, as well as more Submission content."
+			+ " Once that's done, I'll call it 0.2.4 and release it, which should be on Friday night/Saturday morning."
 		+ "</p>"
 			
 		+ "<p>"
@@ -161,6 +154,98 @@ public class Main extends Application {
 			+"<ul>Fixed bug where looking for trouble in the harpy nests would never return a harpy fight encounter.</ul>"
 			+"<ul>(Hopefully) fixed that annoying bug where slave's stats would get stuck to the right of your screen.</ul>"
 			+"<ul>Fixed bug where public sex would stop being counted as public as soon as you switched position.</ul>"
+		+ "</list>"
+
+		+ "</br>"
+
+		+ "<list>"
+			+ "<h6>v0.2.3.9</h6>"
+			+"<li>Gameplay:</li>"
+			+"<ul><b>Added:</b> Final version of the spell system, along with 16 new & reworked spells (Arcane school spells aren't finished yet).</ul>"
+			+"<ul><b>Changed:</b> Spells are now learned through spell books, or by being taught to you by someone else. You gain spell upgrade points by reading appropriate scrolls, which can then be spent to upgrade your spells.</ul>"
+			+"<ul><b>Added:</b> Support for elemental companions. (I still need to add in a lot of unique dialogue for them, including unique sex actions. I also need to finish off their body descriptions, as a lot of it is incorrect at the moment...)</ul>"
+			+"<ul>Added dodge chance, miss chance, unarmed damage, melee weapon damage, and ranged weapon damage as attributes. Removed spell resistance (to fit in with resistances being focused on countering damage types, not attack types).</ul>"
+			+"<ul>All damage and resistance attributes have had value ranges changed from '0 to 100' to '-100 to 100'.</ul>"
+			
+			+"<li>Artwork:</li>"
+			+"<ul>Added Jam's artwork of Zaranix.</ul>"
+			+"<ul>Added ChattyNeko's artwork of Scarlett.</ul>"
+			
+			+"<li>Contributors:</li>"
+			+"<ul>Expanded BodyMaterial to add noun and adjective support for all types of body features. Also added relevant parser commands. (tukaima)</ul>"
+			
+			+"<li>Other:</li>"
+			+"<ul>Lore books are no longer removed from your inventory after use.</ul>"
+			+"<ul>In combat, if all enemies are stunned, escape chance is now 100%.</ul>"
+			+"<ul>Added ability to self-target and target allies in combat. (Yes, you can punch yourself or your allies... Please don't do this...)</ul>"
+			+"<ul>Rebalanced the passive buffs from high level arcane and physique status effects.</ul>"
+			+"<ul>Condensed the character UI panels a little, by removing traits from the shown status effects, and only showing non-timed or combat-related SEs while in combat.</ul>"
+			+"<ul>NPCs are now properly able to use spells in combat.</ul>"
+			+"<ul>Made the 'Calm Down' sex action available in all scenes again.</ul>"
+			
+			+"<li>Bugs:</li>"
+			+"<ul>Fixed Candi wearing a normal, non-enforcer mini-skirt, and made her uniform pink.</ul>"
+			+"<ul>Fixed personality attributes not being saved/loaded correctly.</ul>"
+			+"<ul>Fixed bug where modded clothing icons wouldn't load on linux.</ul>"
+			+"<ul>Critically casting beneficial spells will no longer apply arcane weakness.</ul>"
+			+"<ul>Fixed bug where NPCs would continuously spawn clothing to cover themselves.</ul>"
+			+"<ul>Fixed bug where NPC clothing displacements would not be saved.</ul>"
+			+"<ul>Fixed demon TF menu options showing incorrect button labels.</ul>"
+			+"<ul>Fixed being able to remove companion and manage their inventory when not in a neutral dialogue.</ul>"
+			+"<ul>Fixed status effect rendering order.</ul>"
+			+"<ul>Fixed bug where DoT effects in combat would tick twice in the turn that they were applied.</ul>"
+			+"<ul>Fixed bug where Karl & Wolfgang's fight wouldn't remove your companions.</ul>"
+			+"<ul>Fixed bug where Controlled Aggression perk would sometimes not work.</ul>"
+			+"<ul>Fixed bugs where your companions would be marked as slaves for sale/use in slaver alley's stocks and auction block. Also fixed similar bugs in Angel's Kiss.</ul>"
+			+"<ul>Fixed bug where you could transform Rose in her special scene.</ul>"
+			+"<ul>Fixed minor UI bug where the save button would be under the load column.</ul>"
+		+ "</list>"
+
+		+ "</br>"
+
+		+ "<list>"
+			+ "<h6>v0.2.4</h6>"
+			+"<li>Gameplay:</li>"
+			+"<ul>Vicky now sells spell books and scrolls. This is temporary until the spell shop is added. (She deliberately doesn't sell spell books for Cleanse, Steal, Soothing Water, Teleport, and Lilith's Command, as these are all planned to be quest-related. If you want to try them out, use the debug menu.)</ul>"
+			+"<ul>Finished adding effects for all 8 of the Arcane spells.</ul>"
+			+"<ul>Random attackers now spawn with random items in their inventory.</ul>"
+			+"<ul>Added variable point costs for spell upgrades.</ul>"
+			+"<ul>Added mechanics for spell school unique abilities. (Dye without needing dye-brushes for Earth, fluid enchantments free for Water, Energy & aura regeneration doubled for Air, deal 2 extra fire damage in melee for Fire, know time until next storm for Arcane.)</ul>"
+			+"<ul>Added support for clicking on the phone's map to teleport (if you have the 'Teleport' spell).</ul>"
+			+"<ul>Added a little passage in the prologue where Lilaya gives you the spell book for 'Ice Shard'. (You will find this spell book in your room when you load into this version.)</ul>"
+			+"<ul>Added in crystals and feathers granting you spells/attribute boosts again.</ul>"
+			+"<ul>Added elemental encyclopedia lore entries (unlocked when reading the elemental spell book).</ul>"
+			+"<ul>Removed Witch's Seal and Witch's Charm spell books. (These were accidentally added in 0.2.3.9.)</ul>"
+	
+			+"<li>Balancing:</li>"
+			+"<ul>Buffed Witch's Seal to last for 3 turns, and increased costs of Witch's Charm and Witch's Seal to 40 and 80, respectively.</ul>"
+			+"<ul>Random succubi attackers in the dark alley tiles now spawn knowing the spells 'Arcane Arousal' and 'Telepathic Communication'.</ul>"
+			+"<ul>Increased spell book and spell scroll values.</ul>"
+	
+			+"<li>Clothing:</li>"
+			+"<ul><b>Added:</b> Hoop earrings (feminine, ear-piercing slot). Candi and Brandi now wear hoop earrings.</ul>"
+			+"<ul>Dresses no longer block the leg slot.</ul>"
+	
+			+"<li>Other:</li>"
+			+"<ul>Added support for recolouring sclera (the white part of the eye).</ul>"
+			+"<ul>Added lots of tongue colours and patterns.</ul>"
+			+"<ul>Added 'Reset spells' to debug options.</ul>"
+			+"<ul>Renamed 'Seduction' damage/resistance to 'Lust' damage/resistance.</ul>"
+			+"<ul>Offensive spells can now only be cast on enemies.</ul>"
+	
+			+"<li>Bugs:</li>"
+			+"<ul>Fixed inventory scaling bug that was present in Java 10 and more recent versions of Java 8.</ul>"
+			+"<ul>Fixed potion name generation.</ul>"
+			+"<ul>Fixed numerous minor bugs related to elementals (incorrect status effects, summoning costs, descriptions).</ul>"
+			+"<ul>Fixed some items of clothing (such as the overbust corset) concealing their own inventory slot.</ul>"
+			+"<ul>Fixed clients in Angel's Kiss not being attracted to you.</ul>"
+			+"<ul>Fixed bug where safety goggles would get equipped onto you during the prologue.</ul>"
+			+"<ul>Fixed bug where female characters could start the game having already lost their penile virginity.</ul>"
+			+"<ul>Fixed humans being referred to such things as 'a masculine man male', or 'a feminine woman female'.</ul>"
+			+"<ul>Fixed being able to upgrade spells even if upgrade points were 0.</ul>"
+			+"<ul>Fixed incorrect NPC eye colour transformation descriptions.</ul>"
+			+"<ul>Fixed elementals in your party being available at the stocks.</ul>"
+			+"<ul>Fixed companions instantly regeneration 100% of energy and aura after fights.</ul>"
 		+ "</list>"
 		;
 	

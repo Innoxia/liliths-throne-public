@@ -1127,7 +1127,7 @@ public class UtilText {
 				if(character.isFeminine()) {
 					return UtilText.returnStringAtRandom("bitch", "slut", "cunt", "whore", "skank");
 				} else {
-					return UtilText.returnStringAtRandom("bitch", "bastard", "fuckface", "fucker");
+					return UtilText.returnStringAtRandom("asshole", "bastard", "fuckface", "fucker");
 				}
 			}
 		});
@@ -1203,13 +1203,478 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
+						new ListValue<>("materialName")),
+				true,
+				true,
+				"",
+				"Returns the name of the character's BodyMaterial."){
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return character.getBodyMaterial().getName();
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("materialSkin")),
+				true,
+				true,
+				"",
+				"Returns a descriptor of the character's skin."){
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return character.getBodyMaterial().getSkinNoun();
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("materialSkinAdjective")),
+				true,
+				true,
+				"",
+				"Returns an adjectival descriptor of the character's skin."){
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return character.getBodyMaterial().getSkinAdj();
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("materialSkinAlt")),
+				true,
+				true,
+				"",
+				"Returns a descriptor of the character's skin on nonhumanoid body parts."){
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return character.getBodyMaterial().getSkinAltNoun();
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("materialSkinAltAdjective")),
+				true,
+				true,
+				"",
+				"Returns an adjectival descriptor of the character's skin on nonhumanoid body parts."){
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return character.getBodyMaterial().getSkinAltAdj();
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("materialOrifice")),
+				true,
+				true,
+				"",
+				"Returns a descriptor of the material lining the character's orifices."){
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return character.getBodyMaterial().getOrificeNoun();
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("materialOrificeAdjective")),
+				true,
+				true,
+				"",
+				"Returns an adjectival descriptor of the material lining the character's orifices."){
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return character.getBodyMaterial().getOrificeAdj();
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("materialOrificeAlt")),
+				true,
+				true,
+				"",
+				"Returns a descriptor of the material lining the character's orifices on nonhumanoid body parts."){
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return character.getBodyMaterial().getOrificeAltNoun();
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("materialOrificeAltAdjective")),
+				true,
+				true,
+				"",
+				"Returns an adjectival descriptor of the material lining the character's orifices on nonhumanoid body parts."){
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return character.getBodyMaterial().getOrificeAltAdj();
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("materialHair")),
+				true,
+				true,
+				"",
+				"Returns a descriptor of the character's hair."){
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return character.getBodyMaterial().getHairNoun();
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("materialHairAdjective")),
+				true,
+				true,
+				"",
+				"Returns an adjectival descriptor of the character's hair."){
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return character.getBodyMaterial().getHairAdj();
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("materialHairBody"),
+						new ListValue<>("materialBodyHair")),
+				true,
+				true,
+				"",
+				"Returns a descriptor of the character's body hair."){
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return character.getBodyMaterial().getHairBodyNoun();
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("materialHairBodyAdjective"),
+						new ListValue<>("materialBodyHairAdjective")),
+				true,
+				true,
+				"",
+				"Returns an adjectival descriptor of the character's body hair."){
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return character.getBodyMaterial().getHairBodyAdj();
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("materialHairAlt")),
+				true,
+				true,
+				"",
+				"Returns a descriptor of the character's Hair on nonhumanoid body parts."){
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return character.getBodyMaterial().getHairAltNoun();
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("materialHairAltAdjective")),
+				true,
+				true,
+				"",
+				"Returns an adjectival descriptor of the character's hair on nonhumanoid body parts."){
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return character.getBodyMaterial().getHairAltAdj();
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("materialFur")),
+				true,
+				true,
+				"",
+				"Returns a descriptor of the character's fur."){
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return character.getBodyMaterial().getFurNoun();
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("materialFurAdjective")),
+				true,
+				true,
+				"",
+				"Returns an adjectival descriptor of the character's fur."){
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return character.getBodyMaterial().getFurAdj();
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("materialFurAlt")),
+				true,
+				true,
+				"",
+				"Returns a descriptor of the character's fur on nonhumanoid body parts."){
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return character.getBodyMaterial().getFurAltNoun();
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("materialFurAltAdjective")),
+				true,
+				true,
+				"",
+				"Returns an adjectival descriptor of the character's fur on nonhumanoid body parts."){
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return character.getBodyMaterial().getFurAltAdj();
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("materialFeather"),
+						new ListValue<>("materialFeathers")),
+				true,
+				true,
+				"",
+				"Returns a descriptor of the character's feathers."){
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return character.getBodyMaterial().getFeatherNoun();
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("materialFeatherAdjective"),
+						new ListValue<>("materialFeathersAdjective")),
+				true,
+				true,
+				"",
+				"Returns an adjectival descriptor of the character's feathers."){
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return character.getBodyMaterial().getFeatherAdj();
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("materialFeatherAlt"),
+						new ListValue<>("materialFeathersAlt")),
+				true,
+				true,
+				"",
+				"Returns a descriptor of the character's feathers on nonhumanoid body parts."){
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return character.getBodyMaterial().getFeatherAltNoun();
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("materialFeatherAltAdjective"),
+						new ListValue<>("materialFeathersAltAdjective")),
+				true,
+				true,
+				"",
+				"Returns an adjectival descriptor of the character's fur on nonhumanoid body parts."){
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return character.getBodyMaterial().getFeatherAltAdj();
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("materialScale"),
+						new ListValue<>("materialScales")),
+				true,
+				true,
+				"",
+				"Returns a descriptor of the character's scales."){
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return character.getBodyMaterial().getScaleNoun();
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("materialScaleAdjective"),
+						new ListValue<>("materialScalesAdjective")),
+				true,
+				true,
+				"",
+				"Returns an adjectival descriptor of the character's scales."){
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return character.getBodyMaterial().getScaleAdj();
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("materialScaleAlt"),
+						new ListValue<>("materialScalesAlt")),
+				true,
+				true,
+				"",
+				"Returns a descriptor of the character's scales on nonhumanoid body parts."){
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return character.getBodyMaterial().getScaleAltNoun();
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("materialScaleAltAdjective"),
+						new ListValue<>("materialScalesAltAdjective")),
+				true,
+				true,
+				"",
+				"Returns an adjectival descriptor of the character's scales on nonhumanoid body parts."){
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return character.getBodyMaterial().getScaleAltAdj();
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("materialShell")),
+				true,
+				true,
+				"",
+				"Returns a descriptor of the character's shell."){
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return character.getBodyMaterial().getShellNoun();
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("materialShellAdjective")),
+				true,
+				true,
+				"",
+				"Returns an adjectival descriptor of the character's shell."){
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return character.getBodyMaterial().getShellAdj();
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("materialShellAlt")),
+				true,
+				true,
+				"",
+				"Returns a descriptor of the character's shell on nonhumanoid body parts."){
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return character.getBodyMaterial().getShellAltNoun();
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("materialShellAltAdjective")),
+				true,
+				true,
+				"",
+				"Returns an adjectival descriptor of the character's shell on nonhumanoid body parts."){
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return character.getBodyMaterial().getShellAltAdj();
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("materialKeratin")),
+				true,
+				true,
+				"",
+				"Returns a descriptor of the character's keratin."){
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return character.getBodyMaterial().getKeratinNoun();
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("materialKeratinAdjective")),
+				true,
+				true,
+				"",
+				"Returns an adjectival descriptor of the character's keratin."){
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return character.getBodyMaterial().getKeratinAdj();
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("materialKeratinAlt")),
+				true,
+				true,
+				"",
+				"Returns a descriptor of the character's keratin on nonhumanoid body parts."){
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return character.getBodyMaterial().getKeratinAltNoun();
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("materialKeratinAltAdjective")),
+				true,
+				true,
+				"",
+				"Returns an adjectival descriptor of the character's keratin on nonhumanoid body parts."){
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return character.getBodyMaterial().getKeratinAltAdj();
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
 						new ListValue<>("femininity"),
 						new ListValue<>("fem"),
 						new ListValue<>("masculinity"),
 						new ListValue<>("mas")),
 				true,
 				true,
-				"",//TODO
+				"(coloured)",//TODO
 				"Description of method"){//TODO
 			@Override
 			public String parse(String command, String arguments, String target) {
@@ -3680,21 +4145,6 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("pupilShape"),
-						new ListValue<>("pupilsShape")),
-				true,
-				true,
-				"",
-				"Description of method",
-				BodyPartType.EYE){//TODO
-			@Override
-			public String parse(String command, String arguments, String target) {
-				return character.getPupilShape().getName();
-			}
-		});
-		
-		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
 						new ListValue<>("irisFullDescription"),
 						new ListValue<>("irisesFullDescription")),
 				true,
@@ -3789,6 +4239,21 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
+						new ListValue<>("pupilShape"),
+						new ListValue<>("pupilsShape")),
+				true,
+				true,
+				"",
+				"Description of method",
+				BodyPartType.EYE){//TODO
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return character.getPupilShape().getName();
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
 						new ListValue<>("pupilFullDescription"),
 						new ListValue<>("pupilsFullDescription")),
 				true,
@@ -3878,6 +4343,100 @@ public class UtilText {
 					}
 				}
 				return character.getCovering(BodyCoveringType.EYE_PUPILS).getSecondaryColourDescriptor(false);
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("scleraFullDescription"),
+						new ListValue<>("scleraeFullDescription")),
+				true,
+				true,
+				"true If you want this colour's name to be coloured.",
+				"Description of method",
+				BodyPartType.EYE){//TODO
+			@Override
+			public String parse(String command, String arguments, String target) {
+				if(arguments!=null) {
+					if(arguments.equalsIgnoreCase("true")) {
+						return character.getCovering(BodyCoveringType.EYE_SCLERA).getFullDescription(character, true);
+					}
+				}
+				return character.getCovering(BodyCoveringType.EYE_SCLERA).getFullDescription(character, false);
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("scleraColour"),
+						new ListValue<>("scleraColor"),
+						new ListValue<>("scleraeColour"),
+						new ListValue<>("scleraeColor")),
+				true,
+				true,
+				"true If you want this colour's name to be coloured.",
+				"Description of method",
+				BodyPartType.EYE){//TODO
+			@Override
+			public String parse(String command, String arguments, String target) {
+				if(arguments!=null) {
+					if(arguments.equalsIgnoreCase("true")) {
+						return character.getCovering(BodyCoveringType.EYE_SCLERA).getColourDescriptor(character, true, parseCapitalise);
+					}
+				}
+				return character.getCovering(BodyCoveringType.EYE_SCLERA).getColourDescriptor(character, false, parseCapitalise);
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("scleraColourPrimary"),
+						new ListValue<>("scleraColorPrimary"),
+						new ListValue<>("scleraeColourPrimary"),
+						new ListValue<>("scleraeColorPrimary"),
+						new ListValue<>("scleraPrimaryColour"),
+						new ListValue<>("scleraPrimaryColor"),
+						new ListValue<>("scleraePrimaryColour"),
+						new ListValue<>("scleraePrimaryColor")),
+				true,
+				true,
+				"true If you want this colour's name to be coloured.",
+				"Description of method",
+				BodyPartType.EYE){//TODO
+			@Override
+			public String parse(String command, String arguments, String target) {
+				if(arguments!=null) {
+					if(arguments.equalsIgnoreCase("true")) {
+						return character.getCovering(BodyCoveringType.EYE_SCLERA).getPrimaryColourDescriptor(true);
+					}
+				}
+				return character.getCovering(BodyCoveringType.EYE_SCLERA).getPrimaryColourDescriptor(false);
+			}
+		});
+
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("scleraColourSecondary"),
+						new ListValue<>("scleraColorSecondary"),
+						new ListValue<>("scleraeColourSecondary"),
+						new ListValue<>("scleraeColorSecondary"),
+						new ListValue<>("scleraSecondaryColour"),
+						new ListValue<>("scleraSecondaryColor"),
+						new ListValue<>("scleraeSecondaryColour"),
+						new ListValue<>("scleraeSecondaryColor")),
+				true,
+				true,
+				"true If you want this colour's name to be coloured.",
+				"Description of method",
+				BodyPartType.EYE){//TODO
+			@Override
+			public String parse(String command, String arguments, String target) {
+				if(arguments!=null) {
+					if(arguments.equalsIgnoreCase("true")) {
+						return character.getCovering(BodyCoveringType.EYE_SCLERA).getSecondaryColourDescriptor(true);
+					}
+				}
+				return character.getCovering(BodyCoveringType.EYE_SCLERA).getSecondaryColourDescriptor(false);
 			}
 		});
 		

@@ -1629,8 +1629,8 @@ public class SlaveryManagementDialogue {
 	
 	private static Response getCosmeticsResponse(int responseTab, int index) {
 		if (index == 1) {
-			if(BodyChanging.getTarget().getBodyMaterial()==BodyMaterial.SLIME) {
-				return new Response("Makeup", UtilText.parse(BodyChanging.getTarget(), "Kate is unable to apply any makeup to [npc.name]'s slimy body!"), null);
+			if(!BodyChanging.getTarget().getBodyMaterial().isAbleToWearMakeup()) {
+				return new Response("Makeup", UtilText.parse(BodyChanging.getTarget(), "As [npc.name]'s body is made of "+Main.game.getPlayer().getBodyMaterial().getName()+", Kate is unable to apply any makeup!"), null);
 				
 			} else {
 				return new Response("Makeup",
@@ -1668,7 +1668,6 @@ public class SlaveryManagementDialogue {
 					} else {
 						for(BodyPartInterface bp : BodyChanging.getTarget().getAllBodyParts()){
 							if(bp.getType().getBodyCoveringType(BodyChanging.getTarget())!=null
-									&& bp.getType().getBodyCoveringType(BodyChanging.getTarget()).getRace()!=null
 									&& !(bp instanceof Hair)
 									&& !(bp instanceof Eye)) {
 								
@@ -1893,14 +1892,17 @@ public class SlaveryManagementDialogue {
 							true, BodyChanging.getTarget().getEyeType().getBodyCoveringType(BodyChanging.getTarget()), "Irises", "The iris is the coloured part of the eye that's responsible for controlling the diameter and size of the pupil.", true, true)
 
 					+CharacterModificationUtils.getKatesDivCoveringsNew(
-							true, BodyCoveringType.EYE_PUPILS, "Pupils", "The pupil is a hole located in the centre of the iris that allows light to strike the retina.", true, true));
+							true, BodyCoveringType.EYE_PUPILS, "Pupils", "The pupil is a hole located in the centre of the iris that allows light to strike the retina.", true, true)
+
+					+CharacterModificationUtils.getKatesDivCoveringsNew(
+							true, BodyCoveringType.EYE_SCLERA, "Sclera", "The sclera is the (typically white) part of the eye that surrounds the iris.", true, true));
 		}
 		
 		@Override
 		public String getContent() {
 			return "";
 		}
-
+		
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 4) {
@@ -2035,7 +2037,7 @@ public class SlaveryManagementDialogue {
 						|| (Main.game.isAssHairEnabled() && BodyChanging.getTarget().getAssHairType().getType()==bct)
 						|| (Main.game.isPubicHairEnabled() && BodyChanging.getTarget().getPubicHairType().getType()==bct)) {
 					UtilText.nodeContentSB.append(CharacterModificationUtils.getKatesDivCoveringsNew(
-							true, bct, "Body hair", "This is your body hair ("+bct.getRace().getName()+").", true, true));
+							true, bct, "Body hair", "Your body hair.", true, true));
 					
 				}
 			}

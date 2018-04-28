@@ -94,7 +94,7 @@ public class SexActionUtility {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isDom(Main.game.getPlayer()) || Sex.isSubHasEqualControl();
+			return true;//Sex.isDom(Main.game.getPlayer()) || Sex.isSubHasEqualControl();
 		}
 		
 		@Override

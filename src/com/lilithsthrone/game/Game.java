@@ -40,13 +40,7 @@ import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.GenderPreference;
-import com.lilithsthrone.game.character.npc.GenericAndrogynousNPC;
-import com.lilithsthrone.game.character.npc.GenericFemaleNPC;
-import com.lilithsthrone.game.character.npc.GenericMaleNPC;
 import com.lilithsthrone.game.character.npc.NPC;
-import com.lilithsthrone.game.character.npc.PrologueFemale;
-import com.lilithsthrone.game.character.npc.PrologueMale;
-import com.lilithsthrone.game.character.npc.SlaveImport;
 import com.lilithsthrone.game.character.npc.dominion.Alexa;
 import com.lilithsthrone.game.character.npc.dominion.Amber;
 import com.lilithsthrone.game.character.npc.dominion.Angel;
@@ -82,10 +76,17 @@ import com.lilithsthrone.game.character.npc.dominion.Vicky;
 import com.lilithsthrone.game.character.npc.dominion.Zaranix;
 import com.lilithsthrone.game.character.npc.dominion.ZaranixMaidKatherine;
 import com.lilithsthrone.game.character.npc.dominion.ZaranixMaidKelly;
+import com.lilithsthrone.game.character.npc.misc.GenericAndrogynousNPC;
+import com.lilithsthrone.game.character.npc.misc.GenericFemaleNPC;
+import com.lilithsthrone.game.character.npc.misc.GenericMaleNPC;
+import com.lilithsthrone.game.character.npc.misc.PrologueFemale;
+import com.lilithsthrone.game.character.npc.misc.PrologueMale;
+import com.lilithsthrone.game.character.npc.misc.SlaveImport;
 import com.lilithsthrone.game.character.persona.History;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RacialBody;
+import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueFlags;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
@@ -104,6 +105,7 @@ import com.lilithsthrone.game.dialogue.utils.CharactersPresentDialogue;
 import com.lilithsthrone.game.dialogue.utils.MiscDialogue;
 import com.lilithsthrone.game.dialogue.utils.PhoneDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.settings.KeyCodeWithModifiers;
@@ -456,6 +458,7 @@ public class Game implements Serializable, XMLSaving {
 		}
 	}
 	
+	private static boolean debug = false;
 	public static void importGame(String name) {
 		Main.game = new Game();
 
@@ -466,6 +469,11 @@ public class Game implements Serializable, XMLSaving {
 				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 				DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 				Document doc = dBuilder.parse(file);
+
+				long time = System.nanoTime();
+				if(debug) {
+					System.out.println("Load game start");
+				}
 				
 				// Cast magic:
 				doc.getDocumentElement().normalize();
@@ -524,6 +532,9 @@ public class Game implements Serializable, XMLSaving {
 					}
 				}
 				
+				if(debug) {
+					System.out.println("Core info finished");
+				}
 				
 				// Maps:
 				for(int i=0; i<((Element) gameElement.getElementsByTagName("maps").item(0)).getElementsByTagName("world").getLength(); i++){
@@ -564,8 +575,21 @@ public class Game implements Serializable, XMLSaving {
 						gen.worldGeneration(wt);
 					}
 				}
+
+				if(Main.isVersionOlderThan(version, "0.2.4")) {
+					AbstractItem spellBook = AbstractItemType.generateItem(ItemType.getSpellBookType(Spell.ICE_SHARD));
+					Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getCell(PlaceType.LILAYA_HOME_ROOM_PLAYER).getInventory().addItem(spellBook);
+				}
+				
+				if(debug) {
+					System.out.println("Maps finished");
+				}
 				
 				Main.game.player = PlayerCharacter.loadFromXML(null, (Element) ((Element) gameElement.getElementsByTagName("playerCharacter").item(0)), doc);
+
+				if(debug) {
+					System.out.println("Player finished");
+				}
 				
 				List<String> addedIds = new ArrayList<>();
 				List<NPC> slaveImports = new ArrayList<>();
@@ -574,8 +598,16 @@ public class Game implements Serializable, XMLSaving {
 					Element e = (Element) gameElement.getElementsByTagName("NPC").item(i);
 					
 					if(!addedIds.contains(((Element)e.getElementsByTagName("id").item(0)).getAttribute("value"))) {
+						String className = ((Element)e.getElementsByTagName("pathName").item(0)).getAttribute("value");
+						if(Main.isVersionOlderThan(version, "0.2.4")) {
+							int lastIndex = className.lastIndexOf('.');
+							if(className.substring(lastIndex-3, lastIndex).equals("npc")) {
+								className = className.substring(0, lastIndex) + ".misc" + className.substring(lastIndex, className.length());
+//								System.out.println(className);
+							}
+						}
 						@SuppressWarnings("unchecked")
-						Class<? extends NPC> npcClass = (Class<? extends NPC>) Class.forName(((Element)e.getElementsByTagName("pathName").item(0)).getAttribute("value"));
+						Class<? extends NPC> npcClass = (Class<? extends NPC>) Class.forName(className);
 						Method m = npcClass.getMethod("loadFromXML", Element.class, Document.class, CharacterImportSetting[].class);
 						
 						NPC npc = npcClass.getDeclaredConstructor(boolean.class).newInstance(true);
@@ -604,6 +636,13 @@ public class Game implements Serializable, XMLSaving {
 					} else {
 						System.err.println("duplicate character attempted to be imported");
 					}
+					if(debug) {
+						System.out.println("NPC: "+i);
+					}
+				}
+
+				if(debug) {
+					System.out.println("NPCs finished");
 				}
 				
 				// Add in new NPCS:
@@ -685,6 +724,12 @@ public class Game implements Serializable, XMLSaving {
 				}
 				
 				Main.game.pendingSlaveInStocksReset = false;
+				
+				if(debug) {
+					System.out.println("New NPCs finished");
+					System.out.println("All finished");
+					System.out.println((System.nanoTime()-time)/1000000000d);
+				}
 				
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -967,25 +1012,49 @@ public class Game implements Serializable, XMLSaving {
 			
 			// Set NPC resource values:
 			if(!Main.game.isInCombat() && !Main.game.isInSex()) {
-				if(!Main.game.getPlayer().getLocation().equals(npc.getLocation())) {
-					npc.setHealthPercentage(1);
-					npc.setManaPercentage(1);
-//					npc.setLust(npc.getRestingLust());
+				if(!Main.game.getPlayer().getCompanions().contains(npc)) {
+					if(!Main.game.getPlayer().getLocation().equals(npc.getLocation())) {
+						npc.setHealthPercentage(1);
+						npc.setManaPercentage(1);
+					}
+					npc.alignLustToRestingLust(turnTime*10);
+				} else {
+					// Regenerate health and stamina over time:
+					if (npc.getHealthPercentage() < 1) {
+						npc.incrementHealth(turnTime * npc.getRegenerationRate());
+					}
+					if (npc.getManaPercentage() < 1) {
+						npc.incrementMana(turnTime * npc.getRegenerationRate());
+					}
+					npc.alignLustToRestingLust(turnTime);
 				}
-				npc.alignLustToRestingLust(turnTime*10);
 			}
 			
 			npc.calculateStatusEffects(turnTime);
 			
-			if((npc.isPendingClothingDressing()
-					|| (!npc.isSlave() && !npc.isUnique() && (npc.hasStatusEffect(StatusEffect.EXPOSED) || npc.hasStatusEffect(StatusEffect.EXPOSED_BREASTS) || npc.hasStatusEffect(StatusEffect.EXPOSED_PLUS_BREASTS))))
+			// Replace clothing if not in player's tile:
+			if(!Main.game.isInCombat() && !Main.game.isInSex()
 					&& (Main.game.getCurrentDialogueNode().equals(Main.game.getPlayer().getLocationPlace().getDialogue(false))
-						|| !(npc.getWorldLocation()==Main.game.getPlayer().getWorldLocation() && npc.getLocation().equals(Main.game.getPlayer().getLocation())))) {
-				npc.equipClothing(true, true);
-				if(!npc.hasFetish(Fetish.FETISH_EXHIBITIONIST)) {
-					npc.replaceAllClothing();
+							|| !(npc.getWorldLocation()==Main.game.getPlayer().getWorldLocation() && npc.getLocation().equals(Main.game.getPlayer().getLocation())))) {
+				if(npc.isPendingClothingDressing()) {
+					if(!npc.hasFetish(Fetish.FETISH_EXHIBITIONIST)) {
+						npc.replaceAllClothing();
+					}
+					npc.equipClothing(true, true);
+					npc.setPendingClothingDressing(false);
+					
+				} else if((!npc.isSlave() && !npc.isUnique() && (npc.hasStatusEffect(StatusEffect.EXPOSED) || npc.hasStatusEffect(StatusEffect.EXPOSED_BREASTS) || npc.hasStatusEffect(StatusEffect.EXPOSED_PLUS_BREASTS)))){
+					// Try to replace clothing to cover themselves up:
+					if(!npc.hasFetish(Fetish.FETISH_EXHIBITIONIST)) {
+						npc.replaceAllClothing();
+					}
+					npc.calculateStatusEffects(0);
+					// If still exposed after this, get new clothes:
+					if(npc.hasStatusEffect(StatusEffect.EXPOSED) || npc.hasStatusEffect(StatusEffect.EXPOSED_BREASTS) || npc.hasStatusEffect(StatusEffect.EXPOSED_PLUS_BREASTS)) {
+						npc.equipClothing(true, true);
+					}
+					npc.setPendingClothingDressing(false);
 				}
-				npc.setPendingClothingDressing(false);
 			}
 			
 			if(npc.isPendingTransformationToGenderIdentity()) {
@@ -1069,17 +1138,15 @@ public class Game implements Serializable, XMLSaving {
 		npcsToAdd.clear();
 		
 		// If not in combat:
-		if (!isInCombat()) {
+		if (!isInCombat() && !isInSex() && !currentDialogueNode.isRegenerationDisabled()) {
 			// Regenerate health and stamina over time:
-			if (!isInSex() && !currentDialogueNode.isRegenerationDisabled()) {
-				if (Main.game.getPlayer().getHealthPercentage() < 1) {
-					Main.game.getPlayer().incrementHealth(turnTime * 0.1f);
-				}
-				if (Main.game.getPlayer().getManaPercentage() < 1) {
-					Main.game.getPlayer().incrementMana(turnTime * 0.1f);
-				}
-				Main.game.getPlayer().alignLustToRestingLust(turnTime);
+			if (Main.game.getPlayer().getHealthPercentage() < 1) {
+				Main.game.getPlayer().incrementHealth(turnTime * Main.game.getPlayer().getRegenerationRate());
 			}
+			if (Main.game.getPlayer().getManaPercentage() < 1) {
+				Main.game.getPlayer().incrementMana(turnTime * Main.game.getPlayer().getRegenerationRate());
+			}
+			Main.game.getPlayer().alignLustToRestingLust(turnTime);
 		}
 		if(Main.game.getCurrentDialogueNode()!=MiscDialogue.STATUS_EFFECTS) {
 			Main.game.getPlayer().calculateStatusEffects(turnTime);
@@ -1200,6 +1267,15 @@ public class Game implements Serializable, XMLSaving {
 		}
 	}
 
+	public long getNextStormTime() {
+		return nextStormTime;
+	}
+	
+	public String getNextStormTimeAsTimeString() {
+		long hours = (nextStormTime-minutesPassed)/60;
+		return (hours/24)+" days, "+hours%24+" hours, "+(nextStormTime-minutesPassed)%60+" minutes";
+	}
+	
 	public Weather getCurrentWeather() {
 		return currentWeather;
 	}
@@ -1352,7 +1428,7 @@ public class Game implements Serializable, XMLSaving {
 //										+ "<div class='inner-text-content'>"
 											+ getMapDiv()
 											+ (headerContent != null
-												? "<div id='header-content' style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;-webkit-user-select: none;'>"
+												? "<div id='header-content' style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px; -webkit-user-select: none;'>"
 													+ (currentDialogueNode.disableHeaderParsing() ? headerContent : UtilText.parse(headerContent))
 													+ "</div>"
 												: "")
@@ -2256,9 +2332,9 @@ public class Game implements Serializable, XMLSaving {
 	}
 
 	/**
-	 * @param world
-	 * @param location Location to set player to
-	 */
+//	 * @param world
+//	 * @param location Location to set player to
+//	 */
 	public void setActiveWorld(World world, Vector2i location, boolean setDefaultDialogue) {
 //		activeWorld = world;
 		player.setWorldLocation(world.getWorldType());
@@ -2280,13 +2356,6 @@ public class Game implements Serializable, XMLSaving {
 				world.getClosestCell(Main.game.getPlayer().getLocation(), placeType).getLocation(),
 				setDefaultDialogue);
 	}
-	
-//	public void setActiveWorld(boolean setDefaultDialogue) {
-//		setActiveWorld(
-//				getWorlds().get(getPlayerCell().getPlace().getLinkedWorldType()),
-//				getWorlds().get(getPlayerCell().getPlace().getLinkedWorldType()).getPlacesOfInterest().get(new GenericPlace(getPlayerCell().getPlace().getLinkedPlaceType())),
-//				setDefaultDialogue);
-//	}
 
 	public void setPlayer(PlayerCharacter player) {
 		this.player = player;
@@ -2798,6 +2867,13 @@ public class Game implements Serializable, XMLSaving {
 		return savedDialogueNode;
 	}
 
+	/**
+	 * @return true if the currently saved DialogueNode is the tile's default DialogueNode.
+	 */
+	public boolean isSavedDialogueNeutral() {
+		return Main.game.getSavedDialogueNode().equals(Main.game.getPlayer().getLocationPlace().getDialogue(false));
+	}
+	
 	public Cell getPlayerCell() {
 		return Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation());
 	}

@@ -207,7 +207,7 @@ public abstract class AbstractItemType extends AbstractCoreType implements Seria
 		return 100;
 	}
 	
-	public ItemEffectType getEnchantmentEffect() {
+	public AbstractItemEffectType getEnchantmentEffect() {
 		return null;
 	}
 	
