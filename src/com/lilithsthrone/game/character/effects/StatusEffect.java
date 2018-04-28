@@ -35,7 +35,6 @@ import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.combat.Combat;
-import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.combat.SpellSchool;
 import com.lilithsthrone.game.combat.SpellUpgrade;
@@ -1232,7 +1231,7 @@ public enum StatusEffect {
 			Colour.CLOTHING_WHITE,
 			false,
 			null,
-			Util.newArrayListOfValues(new ListValue<String>("<b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>"))) {
+			null) {
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -1256,6 +1255,20 @@ public enum StatusEffect {
 				return SVGImages.SVG_IMAGE_PROVIDER.getWeatherDayClear();
 			else
 				return SVGImages.SVG_IMAGE_PROVIDER.getWeatherNightClear();
+		}
+		
+		@Override
+		public List<String> getExtraEffects(GameCharacter target) {
+			if(Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.ARCANE)) {
+				return Util.newArrayListOfValues(
+						new ListValue<String>("<b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>"),
+						new ListValue<String>("Time until next <b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>arcane storm</b>:"),
+						new ListValue<String>(Main.game.getNextStormTimeAsTimeString()));
+				
+			} else {
+				return Util.newArrayListOfValues(
+						new ListValue<String>("<b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>"));
+			}
 		}
 	},
 	
@@ -1285,6 +1298,20 @@ public enum StatusEffect {
 			else
 				return SVGImages.SVG_IMAGE_PROVIDER.getWeatherNightCloud();
 		}
+		
+		@Override
+		public List<String> getExtraEffects(GameCharacter target) {
+			if(Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.ARCANE)) {
+				return Util.newArrayListOfValues(
+						new ListValue<String>("<b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>"),
+						new ListValue<String>("Time until next <b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>arcane storm</b>:"),
+						new ListValue<String>(Main.game.getNextStormTimeAsTimeString()));
+				
+			} else {
+				return Util.newArrayListOfValues(
+						new ListValue<String>("<b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>"));
+			}
+		}
 	},
 	
 	WEATHER_RAIN(100,
@@ -1312,6 +1339,20 @@ public enum StatusEffect {
 				return SVGImages.SVG_IMAGE_PROVIDER.getWeatherDayRain();
 			else
 				return SVGImages.SVG_IMAGE_PROVIDER.getWeatherNightRain();
+		}
+		
+		@Override
+		public List<String> getExtraEffects(GameCharacter target) {
+			if(Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.ARCANE)) {
+				return Util.newArrayListOfValues(
+						new ListValue<String>("<b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>"),
+						new ListValue<String>("Time until next <b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>arcane storm</b>:"),
+						new ListValue<String>(Main.game.getNextStormTimeAsTimeString()));
+				
+			} else {
+				return Util.newArrayListOfValues(
+						new ListValue<String>("<b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>"));
+			}
 		}
 	},
 	
@@ -1388,6 +1429,20 @@ public enum StatusEffect {
 			else
 				return SVGImages.SVG_IMAGE_PROVIDER.getWeatherNightSnow();
 		}
+		
+		@Override
+		public List<String> getExtraEffects(GameCharacter target) {
+			if(Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.ARCANE)) {
+				return Util.newArrayListOfValues(
+						new ListValue<String>("<b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>"),
+						new ListValue<String>("Time until next <b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>arcane storm</b>:"),
+						new ListValue<String>(Main.game.getNextStormTimeAsTimeString()));
+				
+			} else {
+				return Util.newArrayListOfValues(
+						new ListValue<String>("<b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>"));
+			}
+		}
 	},
 	
 	WEATHER_STORM_GATHERING(100,
@@ -1415,6 +1470,20 @@ public enum StatusEffect {
 				return SVGImages.SVG_IMAGE_PROVIDER.getWeatherDayStormIncoming();
 			else
 				return SVGImages.SVG_IMAGE_PROVIDER.getWeatherNightStormIncoming();
+		}
+		
+		@Override
+		public List<String> getExtraEffects(GameCharacter target) {
+			if(Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.ARCANE)) {
+				return Util.newArrayListOfValues(
+						new ListValue<String>("<b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>"),
+						new ListValue<String>("Time until next <b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>arcane storm</b>:"),
+						new ListValue<String>(Main.game.getNextStormTimeAsTimeString()));
+				
+			} else {
+				return Util.newArrayListOfValues(
+						new ListValue<String>("<b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>"));
+			}
 		}
 	},
 	
@@ -1513,7 +1582,7 @@ public enum StatusEffect {
 			"Arcane storm (protected)",
 			"weatherDayStorm",
 			Colour.GENERIC_GOOD,
-			false,
+			true,
 			null,
 			Util.newArrayListOfValues(new ListValue<String>("<b style='color: "
 					+ Colour.GENERIC_ARCANE.toWebHexString()
@@ -1564,7 +1633,6 @@ public enum StatusEffect {
 				return SVGImages.SVG_IMAGE_PROVIDER.getWeatherNightStormProtected();
 		}
 	},
-	
 	
 	// RACES:
 	// HUMAN:
@@ -6649,6 +6717,35 @@ public enum StatusEffect {
 			}
 		},
 
+	MELEE_FIRE(10,
+			"Fire Strikes",
+			"melee_fire",
+			Colour.DAMAGE_TYPE_FIRE,
+			true,
+			null,
+			Util.newArrayListOfValues(new ListValue<String>("<b>+2</b> [style.boldFire(Fire Damage)] on each melee attack</b>"))) {
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "Thanks to your affinity with the school of Fire, you are able to effortlessly enchant your melee strikes to deal extra fire damage.";
+			} else {
+				return UtilText.parse(target,
+						"Thanks to [npc.her] affinity with the school of Fire, [npc.name] is able to effortlessly enchant [npc.her] melee strikes to deal extra fire damage.");
+			}
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.isSpellSchoolSpecialAbilityUnlocked(SpellSchool.FIRE);
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+	
 	LINGERING_FLAMES(
 			10,
 			"Lingering Flames",
@@ -6689,8 +6786,6 @@ public enum StatusEffect {
 			return SpellUpgrade.FIREBALL_1.getSVGString();
 		}
 
-		
-		
 		@Override
 		public boolean isCombatEffect() {
 			return true;
@@ -6730,8 +6825,6 @@ public enum StatusEffect {
 			return Spell.FLASH.getSVGString();
 		}
 
-		
-		
 		@Override
 		public boolean isCombatEffect() {
 			return true;
@@ -8300,7 +8393,7 @@ public enum StatusEffect {
 	
 	TELEKENETIC_SHOWER(
 			10,
-			"Telekenetic Shower",
+			"Telekinetic Shower",
 			null,
 			Colour.DAMAGE_TYPE_PHYSICAL,
 			false,
@@ -8346,7 +8439,7 @@ public enum StatusEffect {
 	
 	TELEKENETIC_SHOWER_PRECISION_STRIKES(
 			10,
-			"Telekenetic Shower (Precision Strikes)",
+			"Telekinetic Shower (Precision Strikes)",
 			null,
 			Colour.DAMAGE_TYPE_PHYSICAL,
 			false,
@@ -8393,7 +8486,7 @@ public enum StatusEffect {
 	
 	TELEKENETIC_SHOWER_UNSEEN_FORCE(
 			10,
-			"Telekenetic Shower (Unseen Force)",
+			"Telekinetic Shower (Unseen Force)",
 			null,
 			Colour.DAMAGE_TYPE_PHYSICAL,
 			false,
@@ -8676,10 +8769,10 @@ public enum StatusEffect {
 		@Override
 		public String getDescription(GameCharacter target) {
 			if (target.isPlayer()) {
-				return "The Earth elemental in your party is using telekenetic powers to surround you with protective fragments of rock!";
+				return "The Earth elemental in your party is using telekinetic powers to surround you with protective fragments of rock!";
 			} else {
 				return UtilText.parse(target,
-						"The Earth elemental in [npc.name]'s party is using telekenetic powers to surround [npc.herHim] with protective fragments of rock!");
+						"The Earth elemental in [npc.name]'s party is using telekinetic powers to surround [npc.herHim] with protective fragments of rock!");
 			}
 		}
 		
@@ -9551,145 +9644,6 @@ public enum StatusEffect {
 		@Override
 		public String getSVGString(GameCharacter owner) {
 			return SpellUpgrade.TELEPORT_1.getSVGString();
-		}
-		
-		@Override
-		public boolean isCombatEffect() {
-			return true;
-		}
-	},
-	
-	
-	
-	
-	POISON_WEAK(
-			10,
-			"poison",
-			"negativeCombatEffect",
-			Colour.DAMAGE_TYPE_POISON,
-			false,
-			null,
-			Util.newArrayListOfValues(new ListValue<String>("<b>2%</b> <b style='color: "
-					+ Colour.DAMAGE_TYPE_POISON.toWebHexString()
-					+ ";'>Poison damage per turn</b>"))) {
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			float damage = (target.getAttributeValue(Attribute.HEALTH_MAXIMUM) * 0.02f) * ((100 - (target.getAttributeValue(Attribute.RESISTANCE_POISON))) / 100f);
-			if (damage < 1)
-				damage = 1;
-			target.incrementHealth(-(int) damage);
-			
-			if (target.isPlayer()) {
-				return "You take <b>" + (int)damage + "</b> <b style='color:" + Attribute.DAMAGE_POISON.getColour().toWebHexString() + ";'>" + DamageType.POISON.getName() + "</b> damage!";
-				
-			} else {
-				return "[npc.Name] takes <b>" + (int)damage + "</b> <b style='color:" + Attribute.DAMAGE_POISON.getColour().toWebHexString() + ";'>"+ DamageType.POISON.getName() + "</b> damage!";
-			}
-			
-		}
-
-		@Override
-		public String getDescription(GameCharacter target) {
-			if (target.isPlayer()) {
-				return "A choking haze of toxic arcane poison is lingering around you, and every time you breathe in, you can taste the sickly miasma in the back of your throat.";
-			} else {
-				return UtilText.parse(target,
-						"A choking haze of toxic arcane poison is lingering around [npc.name], and every time [npc.she] breathes in, the sickly miasma hits the back of [npc.her] throat, causing [npc.herHim] to cough and splutter.");
-			}
-		}
-
-		@Override
-		public boolean isCombatEffect() {
-			return true;
-		}
-	},
-	
-	// Shields:
-	ARCANE_SHIELD(
-			10,
-			"arcane shield",
-			"positiveCombatEffect",
-			Colour.DAMAGE_TYPE_PHYSICAL,
-			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 50f)),
-			null) {
-		@Override
-		public String getDescription(GameCharacter target) {
-			if (target.isPlayer())
-				return "A swirling vortex of arcane energy has surrounded you, granting you a considerable boost to your physical resistance." + " The energy is also helping to focus your mind, granting a boost to your hit and dodge chances.";
-			else
-				return UtilText.parse(target, "A swirling vortex of arcane energy has surrounded " + target.getName("the")
-						+ ", granting [npc.herHim] a considerable boost to [npc.her] physical resistance." + " The energy is also helping to focus [npc.her] mind, granting a boost to [npc.her] hit and dodge chances.");
-		}
-
-		@Override
-		public boolean isCombatEffect() {
-			return true;
-		}
-	},
-	
-	FIRE_SHIELD(
-			10,
-			"fire shield",
-			"positiveCombatEffect",
-			Colour.DAMAGE_TYPE_FIRE,
-			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, 50f), new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 15f)),
-			null) {
-		@Override
-		public String getDescription(GameCharacter target) {
-			if (target.isPlayer())
-				return "A swirling vortex of arcane fire has surrounded you, granting you a considerable boost to your fire resistance." + " The arcane flames also help to mitigate any physical attacks directed your way.";
-			else
-				return UtilText.parse(target, "A swirling vortex of arcane fire has surrounded " + target.getName("the") + ", granting [npc.herHim] a considerable boost to [npc.her] fire resistance."
-						+ " The arcane flames also help to mitigate any physical attacks directed [npc.her] way.");
-		}
-
-		@Override
-		public boolean isCombatEffect() {
-			return true;
-		}
-	},
-	ICE_SHIELD(
-			10,
-			"ice shield",
-			"positiveCombatEffect",
-			Colour.DAMAGE_TYPE_COLD,
-			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, 50f), new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 15f)),
-			null) {
-		@Override
-		public String getDescription(GameCharacter target) {
-			if (target.isPlayer())
-				return "A swirling vortex of arcane ice has surrounded you, granting you a considerable boost to your cold resistance."
-						+ " The arcane ice shards radiate a soothing energy, helping to mitigate any aura-draining attacks directed your way.";
-			else
-				return UtilText.parse(target, "A swirling vortex of arcane ice has surrounded " + target.getName("the") + ", granting [npc.herHim] a considerable boost to [npc.her] cold resistance."
-						+ " The arcane ice shards radiate a soothing energy, helping to mitigate any aura-draining attacks directed [npc.her] way.");
-		}
-
-		
-		
-		@Override
-		public boolean isCombatEffect() {
-			return true;
-		}
-	},
-	POISON_SHIELD(
-			10,
-			"poison shield",
-			"positiveCombatEffect",
-			Colour.DAMAGE_TYPE_POISON,
-			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_POISON, 50f)),
-			null) {
-		@Override
-		public String getDescription(GameCharacter target) {
-			if (target.isPlayer())
-				return "A swirling vortex of toxic miasma has surrounded you, granting you a considerable boost to your poison resistance." + " The toxic energy helps to mitigate any stamina-draining attacks directed your way.";
-			else
-				return UtilText.parse(target, "A swirling vortex of toxic miasma has surrounded " + target.getName("the")
-						+ ", granting [npc.herHim] a considerable boost to [npc.her] poison resistance." + " The toxic energy helps to mitigate any stamina-draining attacks directed [npc.her] way.");
 		}
 		
 		@Override

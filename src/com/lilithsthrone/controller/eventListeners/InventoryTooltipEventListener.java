@@ -595,17 +595,6 @@ public class InventoryTooltipEventListener implements EventListener {
 							+ " <b style='color:" + absWep.getDamageType().getMultiplierAttribute().getColour().toWebHexString() + ";'>Damage</b>");
 		}
 
-		// Spell school:
-		tooltipSB.append("</br>"
-				+ "<b>"
-					+(absWep.getWeaponType().getSlot() == InventorySlot.WEAPON_MAIN ? "Offensive" : "Defensive")
-				+"</b>"
-				+ " <b style='color:"+absWep.getSpellSchool().getColour().toWebHexString()+";'>"
-					+Util.capitaliseSentence(absWep.getSpellSchool().getName())
-				+"</b>"
-				+ " <b>spells</b>");
-		
-		
 //		if (absWep.getEffects().size() != 0) { TODO enchanting effects
 //			for (ItemEffect e : absWep.getEffects()) {
 //				for(String s : e.getEffectsDescription(owner, owner)) {

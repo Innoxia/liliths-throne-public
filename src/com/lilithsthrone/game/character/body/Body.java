@@ -1411,8 +1411,8 @@ public class Body implements Serializable, XMLSaving {
 			sb.append("<p>"
 						+ "You are [pc.name], "
 							+(owner.getRace()==Race.HUMAN
-								?"<span style='color:"+owner.getFemininity().getColour().toWebHexString()+";'>[pc.a_femininity]</span> [pc.gender(true)] [style.colourHuman(human)]."
-								:"[pc.a_fullRace(true)] [pc.gender(true)].")
+								?"<span style='color:"+owner.getFemininity().getColour().toWebHexString()+";'>[pc.a_femininity]</span> [pc.gender(true)] [style.colourHuman(human)]. "
+								:"[pc.a_fullRace(true)] [pc.gender(true)]. ")
 						+ owner.getAppearsAsGenderDescription(true)
 						+" Standing at full height, you measure [pc.heightFeetInches] ([pc.heightCm]cm).");
 		} else {
@@ -1420,8 +1420,8 @@ public class Body implements Serializable, XMLSaving {
 				sb.append("<p>"
 						+ "[npc.Name] is "
 							+(owner.getRace()==Race.HUMAN
-								?"<span style='color:"+owner.getFemininity().getColour().toWebHexString()+";'>[npc.a_femininity]</span> [npc.gender(true)] [style.colourHuman(human)]."
-								:"[npc.a_fullRace(true)] [npc.gender(true)].")
+								?"<span style='color:"+owner.getFemininity().getColour().toWebHexString()+";'>[npc.a_femininity]</span> [npc.gender(true)] [style.colourHuman(human)]. "
+								:"[npc.a_fullRace(true)] [npc.gender(true)]. ")
 						+ owner.getAppearsAsGenderDescription(true)
 						+ " Standing at full height, [npc.she] measures [npc.heightFeetInches] ([npc.heightCm]cm).");
 			} else {

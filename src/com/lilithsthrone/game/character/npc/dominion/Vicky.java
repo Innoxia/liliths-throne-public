@@ -1,5 +1,7 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import org.w3c.dom.Document;
@@ -24,6 +26,8 @@ import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
+import com.lilithsthrone.game.combat.Spell;
+import com.lilithsthrone.game.combat.SpellSchool;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -58,7 +62,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.2.1
+ * @version 0.2.4
  * @author Innoxia
  */
 public class Vicky extends NPC {
@@ -77,7 +81,63 @@ public class Vicky extends NPC {
 			ItemType.RACE_INGREDIENT_REINDEER_MORPH,
 			ItemType.RACE_INGREDIENT_HUMAN,
 			ItemType.RACE_INGREDIENT_DEMON};
-
+	
+	private static List<AbstractItemType> availableSpellBooks = new ArrayList<>();
+	
+	static {
+		for(Spell s : Spell.values()) {
+			switch(s) {
+				// Tier 1:
+				case ARCANE_AROUSAL:
+				case ICE_SHARD:
+				case POISON_VAPOURS:
+				case FIREBALL:
+				case SLAM:
+					availableSpellBooks.add(ItemType.getSpellBookType(s));
+					break;
+					
+				// Tier 2:
+				case ARCANE_CLOUD:
+				case FLASH:
+				case RAIN_CLOUD:
+				case TELEKENETIC_SHOWER:
+				case TELEPATHIC_COMMUNICATION:
+				case VACUUM:
+					availableSpellBooks.add(ItemType.getSpellBookType(s));
+					break;
+		
+				// Tier 3:
+				case STONE_SHELL:
+				case PROTECTIVE_GUSTS:
+				case CLOAK_OF_FLAMES:
+					availableSpellBooks.add(ItemType.getSpellBookType(s));
+					break;
+				case CLEANSE:
+				case STEAL:
+				case SOOTHING_WATERS: // Special quest spells
+					break;
+					
+				// Tier 4:
+				case ELEMENTAL_AIR:
+				case ELEMENTAL_ARCANE:
+				case ELEMENTAL_EARTH:
+				case ELEMENTAL_FIRE:
+				case ELEMENTAL_WATER:
+					availableSpellBooks.add(ItemType.getSpellBookType(s));
+					break;
+					
+				// Tier 5: // Special quest spells
+				case LILITHS_COMMAND:
+				case TELEPORT:
+					break;
+					
+				case WITCH_CHARM:
+				case WITCH_SEAL:
+					break;
+			}
+		}
+	}
+	
 	public Vicky() {
 		this(false);
 	}
@@ -173,6 +233,16 @@ public class Vicky extends NPC {
 			
 			ingredient = AbstractItemType.generateItem(availableIngredients[Util.random.nextInt(availableIngredients.length)]);
 			primaryMod = TFModifier.getTFRacialBodyPartsList().get(Util.random.nextInt(TFModifier.getTFRacialBodyPartsList().size()));
+		}
+		
+		for(AbstractItemType itemType : availableSpellBooks) {
+			this.addItem(AbstractItemType.generateItem(itemType), false);
+		}
+		
+		for(SpellSchool school : SpellSchool.values()) {
+			for(int i=0; i<10+Util.random.nextInt(20); i++) {
+				this.addItem(AbstractItemType.generateItem(ItemType.getSpellScrollType(school)), false);
+			}
 		}
 		
 		if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {

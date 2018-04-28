@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.combat;
 
+import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.utils.Colour;
 
 /**
@@ -14,7 +15,7 @@ public enum SpellSchool {
 				+ "Spells in the school of Earth are focused on manipulating both solid objects and pure waves of force."
 			+ "</p>"
 			+ "<p>"
-				+ "As with all schools of the arcane, the vast majority of Earth practitioners are demons, and can earn a considerable salary by using their telekenetic powers to aid with construction and heavy lifting."
+				+ "As with all schools of the arcane, the vast majority of Earth practitioners are demons, and can earn a considerable salary by using their telekinetic powers to aid with construction and heavy lifting."
 				+ " Perhaps due to these lucrative applications, the school of Earth is the most widely-practised and popular of all the arcane schools."
 			+ "</p>"
 			+ "<p>"
@@ -62,9 +63,9 @@ public enum SpellSchool {
 				+ " Due to this, the only demons who choose to study the school of Fire are those who are interested in arcane research, those who are directly involved in heat-intensive industries, or those who expect to do a lot of fighting."
 			+ "</p>"
 			+ "<p>"
-				+ "Students of the school of Fire are able to summon a floating ball of arcane fire at will, which allows them to travel through dark areas without need of a torch."
+				+ "Students of the school of Fire are able to temporarily envelop their melee weapons in arcane fire, which grants them additional fire damage on every attack."
 			+ "</p>",
-			"Immune to 'Darkness' status effect.",
+			"All melee attacks deal an additional 2 "+Attribute.DAMAGE_FIRE.getName()+".",
 			Colour.BASE_ORANGE),
 
 	ARCANE("arcane",

@@ -214,7 +214,7 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements Seriali
 						descriptionSB.append(", ");
 				}
 
-				descriptionSB.append("<b style='color:" + s.getDamageType().getMultiplierAttribute().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(s.getName()) + "</b>");
+				descriptionSB.append("<b style='color:" + s.getSpellSchool().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(s.getName()) + "</b>");
 				i++;
 			}
 			descriptionSB.append(".</p>");

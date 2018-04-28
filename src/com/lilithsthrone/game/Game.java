@@ -86,6 +86,7 @@ import com.lilithsthrone.game.character.persona.History;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RacialBody;
+import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueFlags;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
@@ -104,6 +105,7 @@ import com.lilithsthrone.game.dialogue.utils.CharactersPresentDialogue;
 import com.lilithsthrone.game.dialogue.utils.MiscDialogue;
 import com.lilithsthrone.game.dialogue.utils.PhoneDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.settings.KeyCodeWithModifiers;
@@ -574,6 +576,11 @@ public class Game implements Serializable, XMLSaving {
 					}
 				}
 
+				if(Main.isVersionOlderThan(version, "0.2.4")) {
+					AbstractItem spellBook = AbstractItemType.generateItem(ItemType.getSpellBookType(Spell.ICE_SHARD));
+					Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getCell(PlaceType.LILAYA_HOME_ROOM_PLAYER).getInventory().addItem(spellBook);
+				}
+				
 				if(debug) {
 					System.out.println("Maps finished");
 				}
@@ -1005,12 +1012,22 @@ public class Game implements Serializable, XMLSaving {
 			
 			// Set NPC resource values:
 			if(!Main.game.isInCombat() && !Main.game.isInSex()) {
-				if(!Main.game.getPlayer().getLocation().equals(npc.getLocation())) {
-					npc.setHealthPercentage(1);
-					npc.setManaPercentage(1);
-//					npc.setLust(npc.getRestingLust());
+				if(!Main.game.getPlayer().getCompanions().contains(npc)) {
+					if(!Main.game.getPlayer().getLocation().equals(npc.getLocation())) {
+						npc.setHealthPercentage(1);
+						npc.setManaPercentage(1);
+					}
+					npc.alignLustToRestingLust(turnTime*10);
+				} else {
+					// Regenerate health and stamina over time:
+					if (npc.getHealthPercentage() < 1) {
+						npc.incrementHealth(turnTime * npc.getRegenerationRate());
+					}
+					if (npc.getManaPercentage() < 1) {
+						npc.incrementMana(turnTime * npc.getRegenerationRate());
+					}
+					npc.alignLustToRestingLust(turnTime);
 				}
-				npc.alignLustToRestingLust(turnTime*10);
 			}
 			
 			npc.calculateStatusEffects(turnTime);
@@ -1121,17 +1138,15 @@ public class Game implements Serializable, XMLSaving {
 		npcsToAdd.clear();
 		
 		// If not in combat:
-		if (!isInCombat()) {
+		if (!isInCombat() && !isInSex() && !currentDialogueNode.isRegenerationDisabled()) {
 			// Regenerate health and stamina over time:
-			if (!isInSex() && !currentDialogueNode.isRegenerationDisabled()) {
-				if (Main.game.getPlayer().getHealthPercentage() < 1) {
-					Main.game.getPlayer().incrementHealth(turnTime * 0.1f);
-				}
-				if (Main.game.getPlayer().getManaPercentage() < 1) {
-					Main.game.getPlayer().incrementMana(turnTime * 0.1f);
-				}
-				Main.game.getPlayer().alignLustToRestingLust(turnTime);
+			if (Main.game.getPlayer().getHealthPercentage() < 1) {
+				Main.game.getPlayer().incrementHealth(turnTime * Main.game.getPlayer().getRegenerationRate());
 			}
+			if (Main.game.getPlayer().getManaPercentage() < 1) {
+				Main.game.getPlayer().incrementMana(turnTime * Main.game.getPlayer().getRegenerationRate());
+			}
+			Main.game.getPlayer().alignLustToRestingLust(turnTime);
 		}
 		if(Main.game.getCurrentDialogueNode()!=MiscDialogue.STATUS_EFFECTS) {
 			Main.game.getPlayer().calculateStatusEffects(turnTime);
@@ -1252,6 +1267,15 @@ public class Game implements Serializable, XMLSaving {
 		}
 	}
 
+	public long getNextStormTime() {
+		return nextStormTime;
+	}
+	
+	public String getNextStormTimeAsTimeString() {
+		long hours = (nextStormTime-minutesPassed)/60;
+		return (hours/24)+" days, "+hours%24+" hours, "+(nextStormTime-minutesPassed)%60+" minutes";
+	}
+	
 	public Weather getCurrentWeather() {
 		return currentWeather;
 	}

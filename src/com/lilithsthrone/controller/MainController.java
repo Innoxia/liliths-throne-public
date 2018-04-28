@@ -4278,9 +4278,9 @@ public class MainController implements Initializable {
 								addEventListener(document, id, "mouseenter", new TooltipInformationEventListener().setSpellUpgrade(upgrade.getEntry(), Main.game.getPlayer()), false);
 								
 								((EventTarget) document.getElementById(id)).addEventListener("click", event -> {
-									if(Spell.isSpellUpgradeAvailable(Main.game.getPlayer(), s, upgrade) && Main.game.getPlayer().getSpellUpgradePoints(upgrade.getCategory())>0) {
+									if(Spell.isSpellUpgradeAvailable(Main.game.getPlayer(), s, upgrade) && Main.game.getPlayer().getSpellUpgradePoints(upgrade.getCategory())>=upgrade.getEntry().getPointCost()) {
 										Main.game.getPlayer().addSpellUpgrade(upgrade.getEntry());
-										Main.game.getPlayer().incrementSpellUpgradePoints(upgrade.getCategory(), -1);
+										Main.game.getPlayer().incrementSpellUpgradePoints(upgrade.getCategory(), -upgrade.getEntry().getPointCost());
 										Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 									}
 								}, false);
@@ -4383,13 +4383,7 @@ public class MainController implements Initializable {
 						if(c.getPlace().getPlaceType() == PlaceType.GENERIC_IMPASSABLE) {
 							continue;
 						}
-						id = "MAP_NODE_" + i + "_" + j;
-						
-						addEventListener(document, id, "mousemove", moveTooltipListener, false);
-						addEventListener(document, id, "mouseleave", hideTooltipListener, false);
-						
-						TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation(Util.capitaliseSentence(c.getPlaceName()), "");
-						addEventListener(document, id, "mouseenter", el2, false);
+						setMapLocationListeners(c, i, j);
 					}
 				}
 			}
@@ -5472,6 +5466,30 @@ public class MainController implements Initializable {
 		if (((EventTarget) document.getElementById("switch_left")) != null) {
 			addEventListener(document, "switch_left", "click", previousResponsePageListener, false);
 		}
+	}
+	
+	private void setMapLocationListeners(Cell c, int i, int j) { //TODO
+		String id = "MAP_NODE_" + i + "_" + j;
+		
+		addEventListener(document, id, "mousemove", moveTooltipListener, false);
+		addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+		
+		TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation(Util.capitaliseSentence(c.getPlaceName()), "");
+		addEventListener(document, id, "mouseenter", el2, false);
+		
+		((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+			if(Main.game.getPlayer().isAbleToTeleport()
+					&& Main.game.getSavedDialogueNode().equals(Main.game.getPlayer().getLocationPlace().getDialogue(false))
+					&& Main.game.getPlayer().getMana()>=Spell.TELEPORT.getModifiedCost(Main.game.getPlayer())
+					&& c.getPlace().getPlaceType()!=PlaceType.GENERIC_IMPASSABLE) {
+				Main.mainController.openPhone();
+				Main.game.getPlayer().incrementMana(-Spell.TELEPORT.getModifiedCost(Main.game.getPlayer()));
+				Main.game.getPlayer().setLocation(new Vector2i(j, i));
+				DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true);
+				Main.game.getTextStartStringBuilder().append("<p>You teleport! :3</p>");
+				Main.game.setContent(new Response("", "", dn));
+			}
+		}, false);
 	}
 	
 	private void setResponseTabListeners(int responsePageCounter) {

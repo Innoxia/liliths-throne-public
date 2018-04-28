@@ -26,11 +26,25 @@
 	Patch notes:
 	
 	Gameplay:
+		Vicky now sells spell books and scrolls. This is temporary until the spell shop is added. (She deliberately doesn't sell spell books for Cleanse, Steal, Soothing Water, Teleport, and Lilith's Command, as these are all planned to be quest-related. If you want to try them out, use the debug menu.)
 		Finished adding effects for all 8 of the Arcane spells.
 		Random attackers now spawn with random items in their inventory.
+		Added variable point costs for spell upgrades.
+		Added mechanics for spell school unique abilities. (Dye without needing dye-brushes for Earth, fluid enchantments free for Water, Energy & aura regeneration doubled for Air, deal 2 extra fire damage in melee for Fire, know time until next storm for Arcane.)
+		Added support for clicking on the phone's map to teleport (if you have the 'Teleport' spell).
+		Added a little passage in the prologue where Lilaya gives you the spell book for 'Ice Shard'. (You will find this spell book in your room when you load into this version.)
+		Added in crystals and feathers granting you spells/attribute boosts again.
+		Added elemental encyclopedia lore entries (unlocked when reading the elemental spell book).
+		Removed Witch's Seal and Witch's Charm spell books. (These were accidentally added in 0.2.3.9.)
+		
+	Balancing:
+		Buffed Witch's Seal to last for 3 turns, and increased costs of Witch's Charm and Witch's Seal to 40 and 80, respectively.
+		Random succubi attackers in the dark alley tiles now spawn knowing the spells 'Arcane Arousal' and 'Telepathic Communication'.
+		Increased spell book and spell scroll values.
 	
 	Clothing:
 		<b>Added:</b> Hoop earrings (feminine, ear-piercing slot). Candi and Brandi now wear hoop earrings.
+		Dresses no longer block the leg slot.
 	
 	Other:
 		Added support for recolouring sclera (the white part of the eye).
@@ -51,10 +65,13 @@
 		Fixed being able to upgrade spells even if upgrade points were 0.
 		Fixed incorrect NPC eye colour transformation descriptions.
 		Fixed elementals in your party being available at the stocks.
+		Fixed companions instantly regeneration 100% of energy and aura after fights.
+		
+		
+		
 		
 	
-	Get all spell stuff done by 00:00
-	LILAYA PANTIES AAAAAAAAAAA
+	LILAYA PANTIES
 		Masturbation support
 		Add eavesdrop to Lilaya/Rose lab intro
 			- Rose domming Lilaya
@@ -71,46 +88,41 @@
 		- Milking work (change it so milk & cum is stored in vats, which can be sold/drunk)
 	
 	
-	
-	fix pointer on disabled spell icons
-	
-	spell upgrade point costs
-		
-	School bonuses!
-	Teleport map teleport ability
-		
-	lilaya spell intro
-	
-	1 - A library or book shelf to hold all the books.
-	2 - The ability to have the slaves automatically learn spells from the library or book shelf.
-
-	crystals spells
-	
 	spell books descriptions
+	
+	body descriptions for elementals
+	expanded summoning descriptions
+		
+	cannot teach people spells
+	1 - A library or book shelf to hold all the books.
+	2 - assign slaves to learn spells from the library or book shelf - 1 at the end of each day.
+
+	Need to assign slaves jobs for different times of the day
+	click on job button, then click the times to set jobs - colour coded
+
+	lust damage from spells needs to apply correct energy/aura damage
+	DoTs from spells need to use getModifiedDamage()
+		
+		
 		
 	the leg lover and strutter fetishes say that they unlock those corresponding teases but when in battle those teases just arent there
 	
 	-In the furry preferences, if you click on "disable" all furries, it also disables imps and slimes. 
-The workaround for this is to click on "minimum", and then manually disable the furry options you don't want.
-
--Why do slimes wear clothing?
-
--I talked about the player character barely getting an orgasm, even if he has certain fetishes and is a virgin. 
-The update for the unwilling fuck-toy fetish works when trying to resist sex. But for every other combination, you still barely get any arousal at all. Which for me makes the game less fun.
-		
+	The workaround for this is to click on "minimum", and then manually disable the furry options you don't want.
+	
+	-Why do slimes wear clothing?
+	
+	-I talked about the player character barely getting an orgasm, even if he has certain fetishes and is a virgin. 
+	The update for the unwilling fuck-toy fetish works when trying to resist sex. But for every other combination, you still barely get any arousal at all. Which for me makes the game less fun.
+			
 	I believe the random NPCs you strip naked won't find new clothes because of that.
 	
 	Just ran into a rather huge bug during sex. I had two slaves in the room with me, and decided to do "side by side" sex. I was messing with the positioning, and things started to go very wrong
 	
 	if you recolour the jewellery that gets placed on your body and then press back on the inventory screen 
-then press to the inventory screen again
-the jewellery for the pierced slots get their original colour again
+	then press to the inventory screen again
+	the jewellery for the pierced slots get their original colour again
 	
-		
-	body descriptions for elementals
-	expanded summoning descriptions
-	elemental .txt descriptions
-		elementals are a physical manifestation of a person's aura
 	
 	you can equip items and a penis or vagina slot even if you do not have the anatomy
 	
@@ -139,7 +151,7 @@ the jewellery for the pierced slots get their original colour again
 	
 - I will be adding a way to assign slaves to sleep with you in your room very soon. :3
 - Contraceptives (Promiscuity Pill) should be able to fail at the moment, if the other person's virility is high enough (I will check this to make sure it's working).
- I will be adding a chance for condoms to break soon as well. (I'll add a much more expensive, stronger condom type alongside this that is immune to breaking.)
+ I am planning on having two brands of condom. One that will be more expensive, but immune to breaking, and then one that will be cheaper, with a chance to break based on cum production. It will be possible to purposefully sabotage both of these types
 	
 	Brax weapon - has 0 arcane but can use arcane
 		Brax weapon & descriptions

@@ -1383,7 +1383,10 @@ public class CharacterUtils {
 					}
 				}
 				
-				if(!slot.isCoreClothing() && onlyAddCoreClothing) {
+				if((!slot.isCoreClothing() && onlyAddCoreClothing)
+						|| (slot==InventorySlot.LEG
+							&& character.getClothingInSlot(InventorySlot.TORSO_UNDER)!=null
+							&& character.getClothingInSlot(InventorySlot.TORSO_UNDER).getClothingType().toString().contains("DRESS"))) {//TODO please don't do this
 					// Don't add clothing if not core
 				} else {
 					if((slot.isCoreClothing() || Math.random()>0.75f || slot.isJewellery()) && !character.isSlotIncompatible(slot) && character.getClothingInSlot(slot)==null) {
@@ -1423,7 +1426,10 @@ public class CharacterUtils {
 					}
 				}
 				
-				if(!slot.isCoreClothing() && onlyAddCoreClothing) {
+				if((!slot.isCoreClothing() && onlyAddCoreClothing)
+						|| (slot==InventorySlot.LEG
+							&& character.getClothingInSlot(InventorySlot.TORSO_UNDER)!=null
+							&& character.getClothingInSlot(InventorySlot.TORSO_UNDER).getClothingType().toString().contains("DRESS"))) {//TODO please don't do this
 					// Don't add clothing if not core
 				} else {
 					if((slot.isCoreClothing() || Math.random()>0.75f || slot.isJewellery()) && !character.isSlotIncompatible(slot) && character.getClothingInSlot(slot)==null) {

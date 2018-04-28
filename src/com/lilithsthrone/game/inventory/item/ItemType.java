@@ -4821,6 +4821,13 @@ public class ItemType {
 	 */
 	public static Map<String, AbstractItemType> idToItemMap = new HashMap<>();
 	
+	public static AbstractItemType getSpellBookType(Spell s) {
+		return idToItemMap.get("SPELL_BOOK_"+s);
+	}
+	public static AbstractItemType getSpellScrollType(SpellSchool school) {
+		return idToItemMap.get("SPELL_SCROLL_"+school);
+	}
+	
 	static{
 		
 		Field[] fields = ItemType.class.getFields();
@@ -4862,6 +4869,10 @@ public class ItemType {
 		}
 		
 		for(Spell s : Spell.values()) {
+			if(s == Spell.WITCH_CHARM
+					|| s == Spell.WITCH_SEAL) {
+				continue;
+			}
 			
 			List<String> effectsString = Util.newArrayListOfValues(
 					new ListValue<>("[style.boldExcellent(Permanently)] gain the spell '<b style='color:"+s.getSpellSchool().getColour().toWebHexString()+";'>"+s.getName()+"</b>'."));
@@ -4921,20 +4932,88 @@ public class ItemType {
 						}
 					}
 					
-					return hasSpell
-							?"<p style='text-align:center; color:"+Colour.TEXT_GREY.toWebHexString()+";'>"
-								+ "Nothing further can be gained from re-reading this book..."
+					return "<p style='text-align:center'>"
+								+"<i><b style='color:"+s.getSpellSchool().getColour().toWebHexString()+";'>"+s.getName()+":</b> "+s.getDescription()+"</i>"
+							+"</p>"
+							+ "<p>"
+								+ (target.isPlayer()
+									?"As you read through the spell book, you discover that most of the pages are dedicated to helping the reader build up their arcane aura to the point where they'd be able to learn this spell."
+										+ " Seeing as your aura is already extremely powerful, these passages are of no use to you, and you quickly flick through to the final chapters,"
+											+ " where it's described exactly how to focus your aura into casting the spell '<i>"+s.getName()+"</i>'."
+										+ " It doesn't take you long to get the general idea of what to do, and after completing the book's practice exercises, you feel confident that you'll be able to cast this spell whenever you'd like."
+									:UtilText.parse(target,
+										"As [npc.name] reads through the spell book, [npc.she] discovers that most of the pages are dedicated to helping the reader build up their arcane aura to the point where they'd be able to learn this spell."
+										+ " Seeing as [npc.her] aura is already powerful enough for this, these passages are of no use to [npc.herHim], and [npc.she] quickly flicks through to the final chapters,"
+											+ " where it's described exactly how to focus [npc.her] aura into casting the spell '<i>"+s.getName()+"</i>'."
+										+ " It doesn't take [npc.herHim] long to get the general idea of what to do, and after completing the book's practice exercises,"
+											+ " [npc.she] feels confident that [npc.she]'ll be able to cast this spell whenever [npc.she]'d like."))
 							+ "</p>"
-							:"<p style='text-align:center;'>"
-								+ (target.isPlayer()?"You learn":UtilText.parse(target, "[npc.Name] learns"))+" the spell <b style='color:"+s.getSpellSchool().getColour().toWebHexString()+";'>"+s.getName()+"</b>!"
-							+ "</p>"
+							+ (hasSpell
+								?"<p style='text-align:center; color:"+Colour.TEXT_GREY.toWebHexString()+";'>"
+									+ (target.isPlayer()
+											?"You already know this spell, so you didn't really learn anything new..."
+											:UtilText.parse(target, "[npc.Name] already knows this spell, so [npc.she] didn't really learn anything new..."))
+								+ "</p>"
+								:"<p style='text-align:center;'>"
+									+ (target.isPlayer()?"You learn":UtilText.parse(target, "[npc.Name] learns"))+" the spell <b style='color:"+s.getSpellSchool().getColour().toWebHexString()+";'>"+s.getName()+"</b>!"
+								+ "</p>")
 							+raceKnowledgeGained;
 				}
 			};
 			
 			ItemEffectType.addAbstractItemEffectToIds("EFFECT_SPELL_"+s, effectType);
 			
-			AbstractItemType spellBook = new AbstractItemType(5000,
+			int value = 2500;
+			switch(s) {
+				// Tier 1:
+				case ARCANE_AROUSAL:
+				case ICE_SHARD:
+				case POISON_VAPOURS:
+				case FIREBALL:
+				case SLAM:
+					break;
+					
+				// Tier 2:
+				case ARCANE_CLOUD:
+				case FLASH:
+				case RAIN_CLOUD:
+				case TELEKENETIC_SHOWER:
+				case TELEPATHIC_COMMUNICATION:
+				case VACUUM:
+					value = 5000;
+					break;
+
+				// Tier 3:
+				case STONE_SHELL:
+				case SOOTHING_WATERS:
+				case PROTECTIVE_GUSTS:
+				case CLOAK_OF_FLAMES:
+				case CLEANSE:
+				case STEAL:
+					value = 10000;
+					break;
+					
+				// Tier 4:
+				case ELEMENTAL_AIR:
+				case ELEMENTAL_ARCANE:
+				case ELEMENTAL_EARTH:
+				case ELEMENTAL_FIRE:
+				case ELEMENTAL_WATER:
+					value = 25000;
+					break;
+					
+				// Tier 5:
+				case LILITHS_COMMAND:
+				case TELEPORT:
+					value = 1000000;
+					break;
+					
+				case WITCH_CHARM:
+				case WITCH_SEAL:
+					break;
+			}
+			
+			AbstractItemType spellBook = new AbstractItemType(value,
 					null,
 					false,
 					"Spellbook: "+s.getName(),
@@ -4967,7 +5046,7 @@ public class ItemType {
 				
 				@Override
 				public boolean isAbleToBeUsed(GameCharacter target) {
-					return !target.hasSpell(s) && (target.isPlayer() || target.getAttributeValue(Attribute.MAJOR_ARCANE)>=IntelligenceLevel.ONE_AVERAGE.getMinimumValue());
+					return (target.isPlayer() || target.getAttributeValue(Attribute.MAJOR_ARCANE)>=IntelligenceLevel.ONE_AVERAGE.getMinimumValue());
 				}
 		
 				@Override
@@ -4975,11 +5054,7 @@ public class ItemType {
 					if(target.isPlayer()) {
 						return "You already know how to cast this spell!";
 					} else {
-						if(target.hasSpell(s)) {
-							return UtilText.parse(target, "[npc.Name] already knows how to cast this spell!");
-						} else {
-							return UtilText.parse(target, "[npc.Name] does not have enough arcane skill to know how to learn this spell! (Requires arcane to be 5 or greater.)");
-						}
+						return UtilText.parse(target, "[npc.Name] does not have enough arcane skill to know how to learn this spell! (Requires arcane to be 5 or greater.)");
 					}
 				}
 				
@@ -4995,6 +5070,16 @@ public class ItemType {
 							"Opening the spell book, you get [npc.name] to read its contents...",
 							"[npc.Name] produces a spell book, which [npc.she] then starts to read...",
 							"[npc.Name] produces a spell book, which [npc.she] then forces you to read...");
+				}
+				
+				@Override
+				public boolean isAbleToBeUsedInSex() {
+					return false;
+				}
+
+				@Override
+				public boolean isAbleToBeUsedInCombat() {
+					return false;
 				}
 			};
 			
@@ -5025,8 +5110,8 @@ public class ItemType {
 			AbstractItemType scroll = new AbstractItemType(1000,
 					null,
 					false,
-					"Scroll of "+school.getName(),
-					"Scroll of "+school.getName(),
+					"Scroll of "+Util.capitaliseSentence(school.getName()),
+					"Scrolls of "+Util.capitaliseSentence(school.getName()),
 					"An arcane scroll which, when read, imbues the reader with the power of the school of '"+Util.capitaliseSentence(school.getName())+"'.",
 					"spell_scroll",
 					school.getColour(),
@@ -5061,6 +5146,16 @@ public class ItemType {
 							"Unravelling the scroll, you get [npc.name] to read its contents...",
 							"[npc.Name] produces a scroll, which [npc.she] then starts to read...",
 							"[npc.Name] produces a scroll, which [npc.she] then forces you to read...");
+				}
+				
+				@Override
+				public boolean isAbleToBeUsedInSex() {
+					return false;
+				}
+
+				@Override
+				public boolean isAbleToBeUsedInCombat() {
+					return false;
 				}
 			};
 			

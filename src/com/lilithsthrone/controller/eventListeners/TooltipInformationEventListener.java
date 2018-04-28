@@ -409,7 +409,7 @@ public class TooltipInformationEventListener implements EventListener {
 
 			int yIncrease = (spell.getModifiersAsStringList().size() > 5 ? spell.getModifiersAsStringList().size() - 5 : 0);
 
-			Main.mainController.setTooltipSize(360, 328 + (yIncrease * LINE_HEIGHT));
+			Main.mainController.setTooltipSize(360, 332 + (yIncrease * LINE_HEIGHT));
 
 			// Title:
 			tooltipSB.setLength(0);
@@ -447,17 +447,16 @@ public class TooltipInformationEventListener implements EventListener {
 							+ spell.getDescription()
 					+ "</div>"
 					+ "<div class='subTitle'>"
-						+ "<b style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Costs</b> <b>" + (spell.getModifiedCost(owner)) + "</b>"
-						+ " <b style='color:" + Colour.ATTRIBUTE_MANA.toWebHexString() + ";'>aura</b>"
+						+ "<b style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Costs</b> <b>" + (spell.getModifiedCost(owner)) + "</b> <b style='color:" + Colour.ATTRIBUTE_MANA.toWebHexString() + ";'>aura</b>"
 					+ "</div>");
 
 			Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
 
-		} else if (spellUpgrade != null) { // Spells:
+		} else if (spellUpgrade != null) { // Spell upgrades:
 
 			int yIncrease = (spellUpgrade.getModifiersAsStringList().size() > 5 ? spellUpgrade.getModifiersAsStringList().size() - 5 : 0);
 
-			Main.mainController.setTooltipSize(360, 284 + (yIncrease * LINE_HEIGHT));
+			Main.mainController.setTooltipSize(360, 316 + (yIncrease * LINE_HEIGHT));
 
 			// Title:
 			tooltipSB.setLength(0);
@@ -479,10 +478,17 @@ public class TooltipInformationEventListener implements EventListener {
 			// Picture:
 			tooltipSB.append("<div class='picture'>" + spellUpgrade.getSVGString() + "</div>");
 
-			// Description & turns remaining:
+			// Description:
 			tooltipSB.append(
 					"<div class='description'>"
 							+ spellUpgrade.getDescription()+" "+spellUpgrade.getUnavailableReason(owner)
+					+ "</div>"
+					+ "<div class='subTitle'>"
+						+ (owner.hasSpellUpgrade(spellUpgrade)
+								?"[style.boldExcellent(Owned)] (Cost <b style='color:"+spellUpgrade.getSpellSchool().getColour().toWebHexString()+";'>"+spellUpgrade.getPointCost()+"</b> Point"+(spellUpgrade.getPointCost()==1?"":"s")+")"
+								:(owner.getSpellUpgradePoints(spellUpgrade.getSpellSchool()) >= spellUpgrade.getPointCost()
+										?"Costs <b style='color:"+spellUpgrade.getSpellSchool().getColour().toWebHexString()+";'>"+spellUpgrade.getPointCost()+"</b> Point"+(spellUpgrade.getPointCost()==1?"":"s")+" - [style.colourGood(Can afford!)]"
+										:"Costs <b style='color:"+spellUpgrade.getSpellSchool().getColour().toWebHexString()+";'>"+spellUpgrade.getPointCost()+"</b> Point"+(spellUpgrade.getPointCost()==1?"":"s")+" - [style.colourBad(Cannot afford!)]"))
 					+ "</div>");
 
 			Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));

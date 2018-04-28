@@ -65,7 +65,7 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
 
-	public static final String VERSION_NUMBER = "0.2.3.9",
+	public static final String VERSION_NUMBER = "0.2.4",
 			VERSION_DESCRIPTION = "Alpha";
 
 	public static final Image WINDOW_IMAGE = new Image("/com/lilithsthrone/res/images/windowIcon32.png");
@@ -159,7 +159,7 @@ public class Main extends Application {
 		+ "</br>"
 
 		+ "<list>"
-			+ "<h6>v0.2.3.8</h6>"
+			+ "<h6>v0.2.3.9</h6>"
 			+"<li>Gameplay:</li>"
 			+"<ul><b>Added:</b> Final version of the spell system, along with 16 new & reworked spells (Arcane school spells aren't finished yet).</ul>"
 			+"<ul><b>Changed:</b> Spells are now learned through spell books, or by being taught to you by someone else. You gain spell upgrade points by reading appropriate scrolls, which can then be spent to upgrade your spells.</ul>"
@@ -199,6 +199,53 @@ public class Main extends Application {
 			+"<ul>Fixed bugs where your companions would be marked as slaves for sale/use in slaver alley's stocks and auction block. Also fixed similar bugs in Angel's Kiss.</ul>"
 			+"<ul>Fixed bug where you could transform Rose in her special scene.</ul>"
 			+"<ul>Fixed minor UI bug where the save button would be under the load column.</ul>"
+		+ "</list>"
+
+		+ "</br>"
+
+		+ "<list>"
+			+ "<h6>v0.2.4</h6>"
+			+"<li>Gameplay:</li>"
+			+"<ul>Vicky now sells spell books and scrolls. This is temporary until the spell shop is added. (She deliberately doesn't sell spell books for Cleanse, Steal, Soothing Water, Teleport, and Lilith's Command, as these are all planned to be quest-related. If you want to try them out, use the debug menu.)</ul>"
+			+"<ul>Finished adding effects for all 8 of the Arcane spells.</ul>"
+			+"<ul>Random attackers now spawn with random items in their inventory.</ul>"
+			+"<ul>Added variable point costs for spell upgrades.</ul>"
+			+"<ul>Added mechanics for spell school unique abilities. (Dye without needing dye-brushes for Earth, fluid enchantments free for Water, Energy & aura regeneration doubled for Air, deal 2 extra fire damage in melee for Fire, know time until next storm for Arcane.)</ul>"
+			+"<ul>Added support for clicking on the phone's map to teleport (if you have the 'Teleport' spell).</ul>"
+			+"<ul>Added a little passage in the prologue where Lilaya gives you the spell book for 'Ice Shard'. (You will find this spell book in your room when you load into this version.)</ul>"
+			+"<ul>Added in crystals and feathers granting you spells/attribute boosts again.</ul>"
+			+"<ul>Added elemental encyclopedia lore entries (unlocked when reading the elemental spell book).</ul>"
+			+"<ul>Removed Witch's Seal and Witch's Charm spell books. (These were accidentally added in 0.2.3.9.)</ul>"
+	
+			+"<li>Balancing:</li>"
+			+"<ul>Buffed Witch's Seal to last for 3 turns, and increased costs of Witch's Charm and Witch's Seal to 40 and 80, respectively.</ul>"
+			+"<ul>Random succubi attackers in the dark alley tiles now spawn knowing the spells 'Arcane Arousal' and 'Telepathic Communication'.</ul>"
+			+"<ul>Increased spell book and spell scroll values.</ul>"
+	
+			+"<li>Clothing:</li>"
+			+"<ul><b>Added:</b> Hoop earrings (feminine, ear-piercing slot). Candi and Brandi now wear hoop earrings.</ul>"
+			+"<ul>Dresses no longer block the leg slot.</ul>"
+	
+			+"<li>Other:</li>"
+			+"<ul>Added support for recolouring sclera (the white part of the eye).</ul>"
+			+"<ul>Added lots of tongue colours and patterns.</ul>"
+			+"<ul>Added 'Reset spells' to debug options.</ul>"
+			+"<ul>Renamed 'Seduction' damage/resistance to 'Lust' damage/resistance.</ul>"
+			+"<ul>Offensive spells can now only be cast on enemies.</ul>"
+	
+			+"<li>Bugs:</li>"
+			+"<ul>Fixed inventory scaling bug that was present in Java 10 and more recent versions of Java 8.</ul>"
+			+"<ul>Fixed potion name generation.</ul>"
+			+"<ul>Fixed numerous minor bugs related to elementals (incorrect status effects, summoning costs, descriptions).</ul>"
+			+"<ul>Fixed some items of clothing (such as the overbust corset) concealing their own inventory slot.</ul>"
+			+"<ul>Fixed clients in Angel's Kiss not being attracted to you.</ul>"
+			+"<ul>Fixed bug where safety goggles would get equipped onto you during the prologue.</ul>"
+			+"<ul>Fixed bug where female characters could start the game having already lost their penile virginity.</ul>"
+			+"<ul>Fixed humans being referred to such things as 'a masculine man male', or 'a feminine woman female'.</ul>"
+			+"<ul>Fixed being able to upgrade spells even if upgrade points were 0.</ul>"
+			+"<ul>Fixed incorrect NPC eye colour transformation descriptions.</ul>"
+			+"<ul>Fixed elementals in your party being available at the stocks.</ul>"
+			+"<ul>Fixed companions instantly regeneration 100% of energy and aura after fights.</ul>"
 		+ "</list>"
 		;
 	
@@ -495,14 +542,14 @@ public class Main extends Application {
 		dir = new File("data/characters");
 		dir.mkdir();
 		
-//		// Open error log
-//		try {
-//			@SuppressWarnings("resource")
-//			PrintStream stream = new PrintStream("data/error.log");
-//			System.setErr(stream);
-//		} catch (FileNotFoundException e) {
-//			e.printStackTrace();
-//		}
+		// Open error log
+		try {
+			@SuppressWarnings("resource")
+			PrintStream stream = new PrintStream("data/error.log");
+			System.setErr(stream);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 		
 		// Load properties:
 		if (new File("data/properties.xml").exists()) {

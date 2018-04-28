@@ -192,11 +192,12 @@ public enum Spell {
 				descriptionSB.append(" A secondary flash of light arcs away from the first, seeking out another target!");
 			}
 			descriptionSB.append("</p>");
+
+			descriptionSB.append(getDamageDescription(caster, target, 0, isHit, isCritical));
 			
 			// If attack hits, apply damage and effects:
 			if (isHit) {
 
-				descriptionSB.append(getDamageDescription(caster, target, 0, isHit, isCritical));
 				applyStatusEffects(caster, target, isCritical);
 				descriptionSB.append(getStatusEffectApplication(caster, target, isHit, isCritical));
 				
@@ -287,15 +288,17 @@ public enum Spell {
 											"With a swipe of [npc1.her] [npc1.arm], [npc1.name] summons a protective cloak of arcane fire around [npc2.name]!")
 								+"</p>");
 			
-			target.removeStatusEffect(StatusEffect.CLOAK_OF_FLAMES);
-			target.removeStatusEffect(StatusEffect.CLOAK_OF_FLAMES_1);
-			target.removeStatusEffect(StatusEffect.CLOAK_OF_FLAMES_2);
-			target.removeStatusEffect(StatusEffect.CLOAK_OF_FLAMES_3);
-			
-			// If attack hits, apply damage and effects:
 			descriptionSB.append(getDamageDescription(caster, target, 0, isHit, isCritical));
-			applyStatusEffects(caster, target, isCritical);
-			descriptionSB.append(getStatusEffectApplication(caster, target, isHit, isCritical));
+			
+			if(isHit) {
+				target.removeStatusEffect(StatusEffect.CLOAK_OF_FLAMES);
+				target.removeStatusEffect(StatusEffect.CLOAK_OF_FLAMES_1);
+				target.removeStatusEffect(StatusEffect.CLOAK_OF_FLAMES_2);
+				target.removeStatusEffect(StatusEffect.CLOAK_OF_FLAMES_3);
+				
+				applyStatusEffects(caster, target, isCritical);
+				descriptionSB.append(getStatusEffectApplication(caster, target, isHit, isCritical));
+			}
 			
 			descriptionSB.append(getCostDescription(caster, cost));
 			caster.incrementMana(-cost);
@@ -511,6 +514,8 @@ public enum Spell {
 											"With an upwards thrust of [npc.her] [npc.arm], [npc.name] summons forth a cloud of rain above your head!",
 											"With an upwards thrust of [npc1.her] [npc1.arm], [npc1.name] summons forth a cloud of rain above [npc2.name]'s head!")
 								+"</p>");
+
+			descriptionSB.append(getDamageDescription(caster, target, 0, isHit, isCritical));
 			
 			// If attack hits, apply damage and effects:
 			if (isHit) {
@@ -521,7 +526,6 @@ public enum Spell {
 				target.removeStatusEffect(StatusEffect.RAIN_CLOUD_DEEP_CHILL);
 				target.removeStatusEffect(StatusEffect.RAIN_CLOUD);
 				
-				descriptionSB.append(getDamageDescription(caster, target, 0, isHit, isCritical));
 				applyStatusEffects(caster, target, isCritical);
 				descriptionSB.append(getStatusEffectApplication(caster, target, isHit, isCritical));
 			}
@@ -787,6 +791,8 @@ public enum Spell {
 											"With a sweeping motion of [npc.her] [npc.arm], [npc.name] summons forth a cloud of poison vapours around you!",
 											"With a sweeping motion of [npc1.her] [npc1.arm], [npc1.name] summons forth a cloud of poison vapours around [npc2.name]!")
 								+"</p>");
+
+			descriptionSB.append(getDamageDescription(caster, target, 0, isHit, isCritical));
 			
 			// If attack hits, apply damage and effects:
 			if (isHit) {
@@ -796,7 +802,6 @@ public enum Spell {
 				target.removeStatusEffect(StatusEffect.POISON_VAPOURS_CHOKING_HAZE);
 				target.removeStatusEffect(StatusEffect.POISON_VAPOURS);
 				
-				descriptionSB.append(getDamageDescription(caster, target, 0, isHit, isCritical));
 				applyStatusEffects(caster, target, isCritical);
 				descriptionSB.append(getStatusEffectApplication(caster, target, isHit, isCritical));
 			}
@@ -850,6 +855,7 @@ public enum Spell {
 		@Override
 		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
 
+			float damage = Attack.calculateSpellDamage(caster, target, damageType, this.getDamage(caster), damageVariance, isCritical);
 			float cost = getModifiedCost(caster);
 			
 			descriptionSB.setLength(0);
@@ -862,16 +868,18 @@ public enum Spell {
 											"With a clench of [npc.her] fist, [npc.name] summons forth a vacuum right next to you!",
 											"With a clench of [npc.her] fist, [npc.name] summons forth a vacuum right next to [npc2.name]!")
 								+"</p>");
+
+			descriptionSB.append(getDamageDescription(caster, target, damage, isHit, isCritical));
 			
 			// If attack hits, apply damage and effects:
 			if (isHit) {
+				descriptionSB.append(target.incrementHealth(caster, -damage));
 
 				target.removeStatusEffect(StatusEffect.VACUUM_TOTAL_VOID);
 				target.removeStatusEffect(StatusEffect.VACUUM_SUCTION);
 				target.removeStatusEffect(StatusEffect.VACUUM_SECONDARY_VOIDS);
 				target.removeStatusEffect(StatusEffect.VACUUM);
 				
-				descriptionSB.append(getDamageDescription(caster, target, 0, isHit, isCritical));
 				applyStatusEffects(caster, target, isCritical);
 				descriptionSB.append(getStatusEffectApplication(caster, target, isHit, isCritical));
 			}
@@ -937,6 +945,8 @@ public enum Spell {
 											"Swishing both of [npc.her] [npc.arms] up into the air, [npc.name] summons forth a benevolent wind to help protect you!",
 											"Swishing both of [npc.her] [npc.arms] up into the air, [npc.name] summons forth a benevolent wind to help protect [npc2.name]!")
 								+"</p>");
+
+			descriptionSB.append(getDamageDescription(caster, target, 0, isHit, isCritical));
 			
 			// If attack hits, apply damage and effects:
 			if (isHit) {
@@ -945,7 +955,6 @@ public enum Spell {
 				target.removeStatusEffect(StatusEffect.PROTECTIVE_GUSTS_GUIDING_WIND);
 				target.removeStatusEffect(StatusEffect.PROTECTIVE_GUSTS);
 				
-				descriptionSB.append(getDamageDescription(caster, target, 0, isHit, isCritical));
 				applyStatusEffects(caster, target, isCritical);
 				descriptionSB.append(getStatusEffectApplication(caster, target, isHit, isCritical));
 			}
@@ -1126,8 +1135,8 @@ public enum Spell {
 			SpellType.OFFENSIVE,
 			DamageType.PHYSICAL,
 			false,
-			"Telekenetic Shower",
-			"telekenetic_shower",
+			"Telekinetic Shower",
+			"telekinetic_shower",
 			"Lifts any small objects in the surrounding area into the air, before hurling them at the target.",
 			0,
 			DamageVariance.LOW,
@@ -1175,6 +1184,8 @@ public enum Spell {
 											"Raising [npc.her] [npc.arms], [npc.name] lifts all manner of small objects in the immediate vicinity up into the air, before hurling them at you!",
 											"Raising [npc.her] [npc.arms], [npc.name] lifts all manner of small objects in the immediate vicinity up into the air, before hurling them at [npc2.name]!")
 								+"</p>");
+
+			descriptionSB.append(getDamageDescription(caster, target, 0, isHit, isCritical));
 			
 			// If attack hits, apply damage and effects:
 			if (isHit) {
@@ -1183,7 +1194,6 @@ public enum Spell {
 				target.removeStatusEffect(StatusEffect.TELEKENETIC_SHOWER_PRECISION_STRIKES);
 				target.removeStatusEffect(StatusEffect.TELEKENETIC_SHOWER_UNSEEN_FORCE);
 				
-				descriptionSB.append(getDamageDescription(caster, target, 0, isHit, isCritical));
 				applyStatusEffects(caster, target, isCritical);
 				descriptionSB.append(getStatusEffectApplication(caster, target, isHit, isCritical));
 			}
@@ -1249,6 +1259,8 @@ public enum Spell {
 											"Thrusting [npc.her] [npc.hand] forwards, [npc.name] summons forth a levitating stone shell to protect you from incoming attacks!",
 											"Thrusting [npc1.her] [npc1.hand] forwards, [npc1.name] summons forth a levitating stone shell to protect [npc2.name] from incoming attacks!")
 								+"</p>");
+
+			descriptionSB.append(getDamageDescription(caster, target, 0, isHit, isCritical));
 			
 			// If attack hits, apply damage and effects:
 			if (isHit) {
@@ -1257,7 +1269,6 @@ public enum Spell {
 				target.removeStatusEffect(StatusEffect.STONE_SHELL_SHIFTING_SANDS);
 				target.removeStatusEffect(StatusEffect.PROTECTIVE_GUSTS);
 				
-				descriptionSB.append(getDamageDescription(caster, target, 0, isHit, isCritical));
 				applyStatusEffects(caster, target, isCritical);
 				descriptionSB.append(getStatusEffectApplication(caster, target, isHit, isCritical));
 			}
@@ -1473,6 +1484,8 @@ public enum Spell {
 											"[npc.Name] focuses [npc.her] arcane energy on enabling your thoughts to be projected into others' minds!",
 											"[npc1.Name] focuses [npc1.her] arcane energy on enabling [npc2.name]'s thoughts to be projected into others' minds!")
 								+"</p>");
+
+			descriptionSB.append(getDamageDescription(caster, target, 0, isHit, isCritical));
 			
 			// If attack hits, apply damage and effects:
 			if (isHit) {
@@ -1481,7 +1494,6 @@ public enum Spell {
 				target.removeStatusEffect(StatusEffect.TELEPATHIC_COMMUNICATION_POWER_OF_SUGGESTION);
 				target.removeStatusEffect(StatusEffect.TELEPATHIC_COMMUNICATION);
 				
-				descriptionSB.append(getDamageDescription(caster, target, 0, isHit, isCritical));
 				applyStatusEffects(caster, target, isCritical);
 				descriptionSB.append(getStatusEffectApplication(caster, target, isHit, isCritical));
 			}
@@ -1547,6 +1559,8 @@ public enum Spell {
 											"With an upwards thrust of [npc.her] [npc.arm], [npc.name] summons forth an arcane cloud above your head!",
 											"With an upwards thrust of [npc1.her] [npc1.arm], [npc1.name] summons forth an arcane cloud above [npc2.name]'s head!")
 								+"</p>");
+
+			descriptionSB.append(getDamageDescription(caster, target, 0, isHit, isCritical));
 			
 			// If attack hits, apply damage and effects:
 			if (isHit) {
@@ -1555,7 +1569,6 @@ public enum Spell {
 				target.removeStatusEffect(StatusEffect.ARCANE_CLOUD_ARCANE_LIGHTNING);
 				target.removeStatusEffect(StatusEffect.ARCANE_CLOUD);
 				
-				descriptionSB.append(getDamageDescription(caster, target, 0, isHit, isCritical));
 				applyStatusEffects(caster, target, isCritical);
 				descriptionSB.append(getStatusEffectApplication(caster, target, isHit, isCritical));
 			}
@@ -2141,27 +2154,41 @@ public enum Spell {
 			"Places an arcane seal upon the target, preventing them from taking any action for two turns.",
 			0,
 			DamageVariance.NONE,
-			25,
+			80,
 			Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.WITCH_SEAL, 2)),
-			null, null, null) {
+			null,
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<>("[style.boldExcellent(Stuns)] the target"),
+					new ListValue<>("Lasts for [style.colourGood(3 turns)]"))) {
 		
 		@Override
 		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
 
+			descriptionSB.setLength(0);
+			
 			float cost = getModifiedCost(caster);
+			
+			descriptionSB.append("<p>"
+									+getCastDescription(caster, target,
+										"",
+										"Concentrating on the arcane power within your broomstick, you summon forth a powerful seal, which traps [npc.name] in place!",
+										"",
+										"Concentrating on the arcane power within [npc.her] broomstick, [npc.name] summons forth a powerful seal, which traps you in place!",
+										"Concentrating on the arcane power within [npc1.her] broomstick, [npc1.name] summons forth a powerful seal, which traps [npc2.name] in place!")
+								+"</p>");
 
-			applyStatusEffects(caster, target, isCritical);
-
+			descriptionSB.append(getDamageDescription(caster, target, 0, isHit, isCritical));
+			
+			if(isHit) {
+				applyStatusEffects(caster, target, isCritical);
+				descriptionSB.append(getStatusEffectApplication(caster, target, isHit, isCritical));
+			}
+			
+			descriptionSB.append(getCostDescription(caster, cost));
 			caster.incrementMana(-cost);
 			
-			return "<p>"
-					+getCastDescription(caster, target,
-							"",
-							"Concentrating on the arcane power within your broomstick, you summon forth a powerful seal, which traps [npc.name] in place!",
-							"",
-							"Concentrating on the arcane power within [npc.her] broomstick, [npc.name] summons forth a powerful seal, which traps you in place!",
-							"Concentrating on the arcane power within [npc1.her] broomstick, [npc1.name] summons forth a powerful seal, which traps [npc2.name] in place!")
-					+"</p>";
+			return descriptionSB.toString();
 		}
 	},
 	
@@ -2174,29 +2201,41 @@ public enum Spell {
 			"Places an arcane enchantment upon the target, causing them to appear irresistibly beautiful to anyone who looks upon them.",
 			0,
 			DamageVariance.NONE,
-			20,
+			40,
 			Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.WITCH_CHARM, 5)),
 			null,
-			null,
-			null) {
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 25)),
+			Util.newArrayListOfValues(
+					new ListValue<>("Lasts for [style.colourGood(5 turns)]"))) {
 		
 		@Override
 		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
-			applyStatusEffects(caster, caster, isCritical);
 
-			caster.incrementMana(-getModifiedCost(caster));
+			descriptionSB.setLength(0);
 			
-			if (caster.isPlayer()) {
-				return UtilText.parse(target,
-						"<p>"
-							+ "Concentrating on the arcane power within your broomstick, you cast a bewitching charm upon yourself!"
-						+ "</p>");
-			} else {
-				return UtilText.parse(caster,
-						"<p>"
-							+ "Concentrating on the arcane power within [npc.her] broomstick, [npc.name] casts a bewitching charm upon [npc.herself]!"
-						+ "</p>");
+			float cost = getModifiedCost(caster);
+			
+			descriptionSB.append("<p>"
+									+getCastDescription(caster, target,
+										"Concentrating on the arcane power within your broomstick, you cast a bewitching charm upon yourself!",
+										"Concentrating on the arcane power within your broomstick, you cast a bewitching charm upon [npc.name]!",
+										"Concentrating on the arcane power within [npc.her] broomstick, [npc.name] casts a bewitching charm upon [npc.herself]!",
+										"Concentrating on the arcane power within [npc.her] broomstick, [npc.name] casts a bewitching charm upon you!",
+										"Concentrating on the arcane power within [npc1.her] broomstick, [npc.name] casts a bewitching charm upon [npc2.name]!")
+								+"</p>");
+
+			descriptionSB.append(getDamageDescription(caster, target, 0, isHit, isCritical));
+			
+			if(isHit) {
+				applyStatusEffects(caster, target, isCritical);
+				descriptionSB.append(getStatusEffectApplication(caster, target, isHit, isCritical));
 			}
+			
+			descriptionSB.append(getCostDescription(caster, cost));
+			caster.incrementMana(-cost);
+			
+			return descriptionSB.toString();
 		}
 	};
 	
@@ -2708,16 +2747,16 @@ public enum Spell {
 					+ "<svg width='100%' height='100%'><line x1='"+entryX+"%' y1='100%' x2='"+entryX+"%' y2='50%' stroke='"+getPerkLineChildColour(character, spell, perkEntry).toWebHexString()+"' stroke-width='2px'/></svg></div>");
 		}
 		
-		entrySB.append("<div class='square-button round"+(disabled?" disabled":"")+"' style='width:40%; margin:8px "+getMargin(size)+"%; cursor:auto; "+
-										(character.hasSpellUpgrade(perkEntry.getEntry())
-											?"border-color:"+perkEntry.getCategory().getColour().toWebHexString()+";"
-											:(!perkEntry.getEntry().isAvailable(character)
-												?"border-color:"+Colour.GENERIC_BAD.toWebHexString()+";"
+		entrySB.append("<div class='square-button round"+(disabled?" disabled":"")+"' style='width:40%; margin:8px "+getMargin(size)+"%; "
+										+ (character.hasSpellUpgrade(perkEntry.getEntry())
+											?"cursor: default; border-color:"+perkEntry.getCategory().getColour().toWebHexString()+";"
+											:(!perkEntry.getEntry().isAvailable(character) //|| character.getSpellUpgradePoints(perkEntry.getCategory()) < perkEntry.getEntry().getPointCost()
+												?"cursor: default; border-color:"+Colour.GENERIC_BAD.toWebHexString()+";"
 												:""))
 										+"' id='SPELL_UPGRADE_"+perkEntry.getEntry()+"'>"
 							+ "<div class='square-button-content'>"+perkEntry.getEntry().getSVGString()+"</div>"
 							+ (disabled
-								?"<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.8; border-radius:50%; cursor:pointer;'></div>"
+								?"<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.8; border-radius:50%; cursor: default;'></div>"
 								:!character.hasSpellUpgrade(perkEntry.getEntry())
 									?"<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.6; border-radius:50%; cursor:pointer;'></div>"
 									:"")

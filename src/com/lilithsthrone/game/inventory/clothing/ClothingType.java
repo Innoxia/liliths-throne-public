@@ -3057,8 +3057,7 @@ public class ClothingType {
 							concealedGroin))),
 			Util.newArrayListOfValues(
 					new ListValue<InventorySlot>(InventorySlot.STOMACH),
-					new ListValue<InventorySlot>(InventorySlot.CHEST),
-					new ListValue<InventorySlot>(InventorySlot.LEG)),
+					new ListValue<InventorySlot>(InventorySlot.CHEST)),
 			ColourListPresets.JUST_BLACK.getPresetColourList(),
 			ColourListPresets.ALL.getPresetColourList(),
 			ColourListPresets.JUST_BLACK.getPresetColourList(),
@@ -3177,8 +3176,7 @@ public class ClothingType {
 									Util.newArrayListOfValues(
 											new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
 									concealedGroin))),
-			Util.newArrayListOfValues(
-					new ListValue<InventorySlot>(InventorySlot.LEG)),
+			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
 			null,
@@ -3269,8 +3267,7 @@ public class ClothingType {
 									Util.newArrayListOfValues(
 											new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
 									concealedGroin))),
-			Util.newArrayListOfValues(
-					new ListValue<InventorySlot>(InventorySlot.LEG)),
+			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
 			null,
@@ -3363,8 +3360,7 @@ public class ClothingType {
 									Util.newArrayListOfValues(
 											new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
 									concealedGroin))),
-			Util.newArrayListOfValues(
-					new ListValue<InventorySlot>(InventorySlot.LEG)),
+			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
 			null,
@@ -3465,8 +3461,7 @@ public class ClothingType {
 											new ListValue<ClothingAccess>(ClothingAccess.WAIST),
 											new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
 									concealedDressFrontFull))),
-			Util.newArrayListOfValues(
-					new ListValue<InventorySlot>(InventorySlot.LEG)),
+			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
 			ColourListPresets.JUST_STEEL.getPresetColourList(),
