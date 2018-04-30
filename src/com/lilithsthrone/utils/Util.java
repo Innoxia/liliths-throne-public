@@ -538,9 +538,9 @@ public class Util {
 	 * Determine whether a given string contains sentence-ending punctuation
 	 *
 	 * @param text
-	 * 						text to check whether
+	 *            text to check whether
 	 * @return
-	 * 						boolean, whether the text contains a period, exlamation or question mark
+	 *            boolean, whether the text contains a period, exlamation or question mark
 	 */
 	private static boolean isEndOfSentence(String text) {
 		return endOfSentence.matcher(text.substring(text.length()-1)).matches();
@@ -550,16 +550,16 @@ public class Util {
 	 * Inserts words randomly into a sentence.</br>
 	 *
 	 * @param sentence
-	 *						sentence to insert words into
+	 *            sentence to insert words into
 	 * @param frequency
-	 *						how often words are inserted. 1/frequency is the probability of inserting a word
+	 *            how often words are inserted. 1/frequency is the probability of inserting a word
 	 * @param inserts
-	 *						list of strings to insert into. These are appended to the end of words, so ensure
-	 *						any whitespace wanted is put before the insert. A space separates the next word
+	 *            list of strings to insert into. These are appended to the end of words, so ensure
+	 *            any whitespace wanted is put before the insert. A space separates the next word
 	 * @param middle
-	 *						boolean, whether to avoid inserting at the start/end of a sentence
+	 *            boolean, whether to avoid inserting at the start/end of a sentence
 	 * @return
-	 *						modified sentence
+	 *            modified sentence
 	 */
 	private static String insertIntoSentences(String sentence, int frequency, String[] inserts, boolean middle) {
 		splitSentence = sentence.split(" ");
@@ -616,12 +616,12 @@ public class Util {
 	 * Used in conjunction with addStutter(): "L-Like, How far is it t-to the, like, town hall?"
 	 *
 	 * @param sentence
-	 *						sentence to apply bimbo modifications
+	 *            sentence to apply bimbo modifications
 	 * @param frequency
-	 *						of bimbo interjections (i.e. 4 would be 1 in 4 words have a
-	 *						bimbo interjection)
+	 *            of bimbo interjections (i.e. 4 would be 1 in 4 words have a
+	 *            bimbo interjection)
 	 * @return
-	 *						modified sentence
+	 *            modified sentence
 	 */
 	public static String addBimbo(String sentence, int frequency) {
 		sentence = insertIntoSentences(sentence, frequency, bimboWords);
@@ -657,11 +657,11 @@ public class Util {
 	 * "How ~Mrph~ far is it ~Mmm~ to the town ~Mrph~ hall?"</br>
 	 *
 	 * @param sentence
-	 *						sentence to apply muffles
+	 *            sentence to apply muffles
 	 * @param frequency
-	 *						of muffled words (i.e. 4 would be 1 in 4 words are muffled)
+	 *            of muffled words (i.e. 4 would be 1 in 4 words are muffled)
 	 * @return
-	 *						modified sentence
+	 *            modified sentence
 	 */
 	public static String addMuffle(String sentence, int frequency) {
 		return insertIntoSentences(sentence, frequency, muffledSounds);
@@ -675,11 +675,11 @@ public class Util {
 	 * "How ~Aah!~ far is it ~Mmm!~ to the town ~Aah!~ hall?"</br>
 	 *
 	 * @param sentence
-	 *						sentence to apply sexy modifications
+	 *            sentence to apply sexy modifications
 	 * @param frequency
-	 *						of sex sounds (i.e. 4 would be 1 in 4 words are sexy)
+	 *            of sex sounds (i.e. 4 would be 1 in 4 words are sexy)
 	 * @return
-	 *						modified sentence
+	 *            modified sentence
 	 */
 	public static String addSexSounds(String sentence, int frequency) {
 		return insertIntoSentences(sentence, frequency, sexSounds);
@@ -693,11 +693,11 @@ public class Util {
 	 * "How ~Hic!~ far is it ~Hic!~ to the town ~Hic!~ hall?"</br>
 	 *
 	 * @param sentence
-	 *						sentence to apply sexy modifications
+	 *            sentence to apply sexy modifications
 	 * @param frequency
-	 *						of drunk sounds (i.e. 4 would be 1 in 4 words are drunk)
+	 *            of drunk sounds (i.e. 4 would be 1 in 4 words are drunk)
 	 * @return
-	 *						modified sentence
+	 *            modified sentence
 	 */
 	public static String addDrunkSlur(String sentence, int frequency) {
 		return insertIntoSentences(sentence, frequency, drunkSounds, false)
