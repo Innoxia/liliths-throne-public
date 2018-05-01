@@ -118,7 +118,7 @@ public enum Attack {
 			damage *= (attacker.getAttributeValue(Attribute.CRITICAL_DAMAGE) / 100f);
 		}
 		
-		if(attacker.isPlayer()) {
+		if(attacker.isPlayer()||Main.game.getPlayer().hasCompanion(attacker)) {
 			damage *= Main.getProperties().difficultyLevel.getDamageModifierPlayer();
 		} else {
 			damage *= Main.getProperties().difficultyLevel.getDamageModifierNPC();
@@ -152,7 +152,7 @@ public enum Attack {
 			finalDamage *= (attacker.getAttributeValue(Attribute.CRITICAL_DAMAGE) / 100f);
 		}
 		
-		if(attacker.isPlayer()) {
+		if(attacker.isPlayer()||Main.game.getPlayer().hasCompanion(attacker)) {
 			finalDamage *= Main.getProperties().difficultyLevel.getDamageModifierPlayer();
 		} else {
 			finalDamage *= Main.getProperties().difficultyLevel.getDamageModifierNPC();
@@ -186,7 +186,7 @@ public enum Attack {
 			finalDamage *= (attacker.getAttributeValue(Attribute.CRITICAL_DAMAGE) / 100f);
 		}
 		
-		if(attacker.isPlayer()) {
+		if(attacker.isPlayer()||Main.game.getPlayer().hasCompanion(attacker)) {
 			finalDamage *= Main.getProperties().difficultyLevel.getDamageModifierPlayer();
 		} else {
 			finalDamage *= Main.getProperties().difficultyLevel.getDamageModifierNPC();
