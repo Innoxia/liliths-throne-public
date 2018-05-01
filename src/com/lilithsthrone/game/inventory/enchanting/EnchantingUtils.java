@@ -169,6 +169,7 @@ public class EnchantingUtils {
 							|| effect.getPrimaryModifier()==TFModifier.TF_CUM
 							|| effect.getPrimaryModifier()==TFModifier.TF_GIRLCUM)) 
 				cost += effect.getCost() * Math.abs(entry.getValue());
+		}
 		
 		if(Main.game.getPlayer().hasFetish(Fetish.FETISH_TRANSFORMATION_GIVING) && ingredient instanceof AbstractItem) {
 			cost/=2;
