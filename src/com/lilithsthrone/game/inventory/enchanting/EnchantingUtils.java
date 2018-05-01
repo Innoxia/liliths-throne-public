@@ -159,9 +159,16 @@ public class EnchantingUtils {
 				effectCount.put(ie, effectCount.get(ie)+1);
 			}
 		}
+		ItemEffect effect;
 		for(Entry<ItemEffect, Integer> entry : effectCount.entrySet()) {
-			cost += entry.getKey().getCost() * Math.abs(entry.getValue());
-		}
+			effect = entry.getKey();
+			if(!Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.WATER)
+					&& (effect.getPrimaryModifier()==TFModifier.TF_MOD_WETNESS
+							|| effect.getSecondaryModifier()==TFModifier.TF_MOD_WETNESS
+							|| effect.getPrimaryModifier()==TFModifier.TF_MILK
+							|| effect.getPrimaryModifier()==TFModifier.TF_CUM
+							|| effect.getPrimaryModifier()==TFModifier.TF_GIRLCUM)) 
+				cost += effect.getCost() * Math.abs(entry.getValue());
 		
 		if(Main.game.getPlayer().hasFetish(Fetish.FETISH_TRANSFORMATION_GIVING) && ingredient instanceof AbstractItem) {
 			cost/=2;
