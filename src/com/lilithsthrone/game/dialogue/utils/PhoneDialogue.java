@@ -48,6 +48,7 @@ import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.RenderingEngine;
+import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.ClothingRarityComparator;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.ItemRarityComparator;
@@ -1579,30 +1580,33 @@ public class PhoneDialogue {
 
 		@Override
 		public String getContent() {
-
 			journalSB = new StringBuilder();
 
-			// All known weapons:
-
-			journalSB.append("<div class='extraAttribute-third slot'>Slot</div>");
-			journalSB.append("<div class='extraAttribute-third name'>Weapon</div>");
-			journalSB.append("<div class='extraAttribute-third colours'>Damage types <span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>(Hover for image)</span></div>");
-
+			journalSB.append("<div class='container-full-width' style='text-align:center;'>"
+					+ "<i>Hover over the coloured icons to see preview pictures of each weapon.</i>"
+					+ "</div>");
+			
 			for (AbstractWeaponType weapon : weaponsDiscoveredList) {
 				if (Main.getProperties().isWeaponDiscovered(weapon)) {
-					journalSB.append("<div class='extraAttribute-third slot'>" + Util.capitaliseSentence(weapon.getSlot().getName()) + "</div>");
-					journalSB.append("<div class='extraAttribute-third name' style='color:" + weapon.getRarity().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(weapon.getName()) + "</div>");
-
-					journalSB.append("<div class='extraAttribute-third colours'>");
-					for (DamageType dt : weapon.getAvailableDamageTypes())
+					journalSB.append(
+							"<div class='container-full-width' style='margin-bottom:0;'>"
+							+ "<div class='container-full-width' style='width:calc(60% - 16px)'>"
+									+ "<b style='color:" + weapon.getRarity().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(weapon.getName()) + "</b> ("+Util.capitaliseSentence(weapon.getSlot().getName())+")"
+							+ "</div>"
+							+ "<div class='container-full-width' style='width:calc(40% - 16px)'>");
+					
+					for (DamageType dt : weapon.getAvailableDamageTypes()) {
 						journalSB.append("<div class='phone-item-colour' id='" + (weapon.hashCode() + "_" + dt.toString()) + "' style='background-color:" + dt.getMultiplierAttribute().getColour().toWebHexString() + ";'></div>");
-					journalSB.append("</div>");
-
+					}
+					
+					journalSB.append("</div>"
+							+ "</div>");
+					
 				} else {
-					journalSB.append("<div class='extraAttribute-third slot'>" + Util.capitaliseSentence(weapon.getSlot().getName()) + "</div>");
-					journalSB.append("<div class='extraAttribute-third name'>???</div>");
-
-					journalSB.append("<div class='extraAttribute-third colours'>???</div>");
+					journalSB.append(
+						"<div class='container-full-width' style='text-align:center; margin-bottom:0;'>"
+								+ "[style.boldDisabled(Undiscovered)]"
+						+ "</div>");
 				}
 			}
 
@@ -1629,34 +1633,33 @@ public class PhoneDialogue {
 
 		@Override
 		public String getContent() {
-
 			journalSB = new StringBuilder();
 
-			// All known weapons:
-
-			journalSB.append("<div class='extraAttribute-third slot'>Slot</div>");
-			journalSB.append("<div class='extraAttribute-third name'>Clothing</div>");
-			journalSB.append("<div class='extraAttribute-third colours'>Colours <span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>(Hover for image)</span></div>");
-
+			journalSB.append("<div class='container-full-width' style='text-align:center;'>"
+					+ "<i>Hover over the coloured icons to see preview pictures of each item of clothing.</i>"
+					+ "</div>");
+			
 			for (AbstractClothingType clothing : clothingDiscoveredList) {
 				if (Main.getProperties().isClothingDiscovered(clothing)) {
-					String sizeClass = ""; //hack to prevent overflow... works for up to 30 colours
-					if (clothing.getAllAvailablePrimaryColours().size() > 15){
-						sizeClass = "extraAttribute-third-large";
-					}
-					journalSB.append("<div class='extraAttribute-third "+sizeClass+" slot'>" + Util.capitaliseSentence(clothing.getSlot().getName()) + "</div>");
-					journalSB.append("<div class='extraAttribute-third "+sizeClass+" name' style='color:" + clothing.getRarity().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(clothing.getName()) + "</div>");
-
-					journalSB.append("<div class='extraAttribute-third "+sizeClass+" colours'>");
-					for (Colour c : clothing.getAllAvailablePrimaryColours())
+					journalSB.append(
+							"<div class='container-full-width' style='margin-bottom:0;'>"
+							+ "<div class='container-full-width' style='width:calc(40% - 16px)'>"
+									+ "<b style='color:" + clothing.getRarity().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(clothing.getName()) + "</b> ("+Util.capitaliseSentence(clothing.getSlot().getName())+")"
+							+ "</div>"
+							+ "<div class='container-full-width' style='width:calc(60% - 16px)'>");
+					
+					for (Colour c : clothing.getAllAvailablePrimaryColours()) {
 						journalSB.append("<div class='phone-item-colour' id='" + (clothing.hashCode() + "_" + c.toString()) + "' style='background-color:" + c.toWebHexString() + ";'></div>");
-					journalSB.append("</div>");
-
+					}
+					
+					journalSB.append("</div>"
+							+ "</div>");
+					
 				} else {
-					journalSB.append("<div class='extraAttribute-third slot'>" + Util.capitaliseSentence(clothing.getSlot().getName()) + "</div>");
-					journalSB.append("<div class='extraAttribute-third name'>???</div>");
-
-					journalSB.append("<div class='extraAttribute-third colours'>???</div>");
+					journalSB.append(
+						"<div class='container-full-width' style='text-align:center; margin-bottom:0;'>"
+								+ "[style.boldDisabled(Undiscovered ("+Util.capitaliseSentence(clothing.getSlot().getName())+"))]"
+						+ "</div>");
 				}
 			}
 
@@ -1683,17 +1686,22 @@ public class PhoneDialogue {
 
 		@Override
 		public String getContent() {
-
-			// All known items:
 			journalSB = new StringBuilder();
-			journalSB.append("<div class='extraAttribute-third'>Item</div>");
-			journalSB.append("<div class='extraAttribute-two-thirds'>Effects</div>");
-
+			
+			journalSB.append("<div class='container-full-width' style='text-align:center;'>"
+					+ "<i>Hover over the 'i' icons to see preview pictures of each item.</i>"
+					+ "</div>");
+			
 			for (AbstractItemType item : itemsDiscoveredList) {
 				if (Main.getProperties().isItemDiscovered(item)) {
-					journalSB.append("<div class='extraAttribute-third' style='color:" + item.getRarity().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(item.getName(false)) + "</div>");
-
-					journalSB.append("<div class='extraAttribute-two-thirds'>");
+					journalSB.append(
+							"<div class='container-full-width' style='margin-bottom:0;'>"
+							+ "<div class='container-full-width' style='width:calc(40% - 16px)'>"
+									+ "<div class='title-button' id='"+ItemType.itemToIdMap.get(item)+"' style='background:transparent; position:relative; top:0; left:0; float:left; margin:0 8px 0 0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getInformationIcon()+"</div>"
+									+ " <b style='color:" + item.getRarity().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(item.getName(false)) + "</b>"
+							+ "</div>"
+							+ "<div class='container-full-width' style='width:calc(60% - 16px)'>");
+					
 					if (item.getEffects().isEmpty()) {
 						journalSB.append("-");
 					} else {
@@ -1707,15 +1715,18 @@ public class PhoneDialogue {
 							}
 						}
 					}
-					journalSB.append("</div>");
-
+					
+					journalSB.append("</div>"
+							+ "</div>");
+					
 				} else {
-					journalSB.append("<div class='extraAttribute-third'>???</div>");
-
-					journalSB.append("<div class='extraAttribute-two-thirds'>???</div>");
+					journalSB.append(
+						"<div class='container-full-width' style='text-align:center; margin-bottom:0;'>"
+								+ "[style.boldDisabled(Undiscovered)]"
+						+ "</div>");
 				}
 			}
-
+			
 			return journalSB.toString();
 		}
 
@@ -1968,7 +1979,7 @@ public class PhoneDialogue {
 						+ "<div class='container-full-width inner' style='text-align:center;'>"
 							+ "[style.boldArcane(School of Arcane ability:)] "
 								+(!Main.game.getPlayer().hasAnySpellInSchool(SpellSchool.ARCANE)
-									?"[style.colourDisabled("+SpellSchool.ARCANE.getPassiveBuff()+")]</br>(Requires knowing at least one Arcane school spell to unlock.)"
+									?"[style.colourDisabled("+SpellSchool.ARCANE.getPassiveBuff()+")]</br>(Requires knowing at least <b>three</b> Arcane school spells to unlock.)"
 									:"[style.colourGood("+SpellSchool.ARCANE.getPassiveBuff()+")]")
 						+ "</div>"
 					+"</div>");
@@ -2066,7 +2077,7 @@ public class PhoneDialogue {
 						+ "<div class='container-full-width inner' style='text-align:center;'>"
 							+ "[style.boldEarth(School of Earth ability:)] "
 								+(!Main.game.getPlayer().hasAnySpellInSchool(SpellSchool.EARTH)
-									?"[style.colourDisabled("+SpellSchool.EARTH.getPassiveBuff()+")]</br>(Requires knowing at least one Earth school spell to unlock.)"
+									?"[style.colourDisabled("+SpellSchool.EARTH.getPassiveBuff()+")]</br>(Requires knowing at least <b>three</b> Earth school spells to unlock.)"
 									:"[style.colourGood("+SpellSchool.EARTH.getPassiveBuff()+")]")
 						+ "</div>"
 					+"</div>");
@@ -2168,7 +2179,7 @@ public class PhoneDialogue {
 						+ "<div class='container-full-width inner' style='text-align:center;'>"
 							+ "[style.boldWater(School of Water ability:)] "
 								+(!Main.game.getPlayer().hasAnySpellInSchool(SpellSchool.WATER)
-									?"[style.colourDisabled("+SpellSchool.WATER.getPassiveBuff()+")]</br>(Requires knowing at least one Water school spell to unlock.)"
+									?"[style.colourDisabled("+SpellSchool.WATER.getPassiveBuff()+")]</br>(Requires knowing at least <b>three</b> Water school spells to unlock.)"
 									:"[style.colourGood("+SpellSchool.WATER.getPassiveBuff()+")]")
 						+ "</div>"
 					+"</div>");
@@ -2270,7 +2281,7 @@ public class PhoneDialogue {
 						+ "<div class='container-full-width inner' style='text-align:center;'>"
 							+ "[style.boldAir(School of Air ability:)] "
 								+(!Main.game.getPlayer().hasAnySpellInSchool(SpellSchool.AIR)
-									?"[style.colourDisabled("+SpellSchool.AIR.getPassiveBuff()+")]</br>(Requires knowing at least one Air school spell to unlock.)"
+									?"[style.colourDisabled("+SpellSchool.AIR.getPassiveBuff()+")]</br>(Requires knowing at least <b>three</b> Air school spells to unlock.)"
 									:"[style.colourGood("+SpellSchool.AIR.getPassiveBuff()+")]")
 						+ "</div>"
 					+"</div>");
@@ -2372,7 +2383,7 @@ public class PhoneDialogue {
 						+ "<div class='container-full-width inner' style='text-align:center;'>"
 							+ "[style.boldFire(School of Fire ability:)] "
 								+(!Main.game.getPlayer().hasAnySpellInSchool(SpellSchool.FIRE)
-									?"[style.colourDisabled("+SpellSchool.FIRE.getPassiveBuff()+")]</br>(Requires knowing at least one Fire school spell to unlock.)"
+									?"[style.colourDisabled("+SpellSchool.FIRE.getPassiveBuff()+")]</br>(Requires knowing at least <b>three</b> Fire school spells to unlock.)"
 									:"[style.colourGood("+SpellSchool.FIRE.getPassiveBuff()+")]")
 						+ "</div>"
 					+"</div>");

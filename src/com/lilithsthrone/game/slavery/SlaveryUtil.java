@@ -111,9 +111,11 @@ public class SlaveryUtil implements Serializable {
 			// If at work:
 			if(slave.getWorkHours()[hour]) {
 				// Get paid for hour's work:
-				int income = slave.getSlaveJob().getFinalHourlyIncomeAfterModifiers(slave);
-				generatedIncome += income;
-				incrementSlaveDailyIncome(slave, income);
+				if(slave.getSlaveJob()!=SlaveJob.MILKING) {
+					int income = slave.getSlaveJob().getFinalHourlyIncomeAfterModifiers(slave);
+					generatedIncome += income;
+					incrementSlaveDailyIncome(slave, income);
+				}
 				// Overworked effect:
 				if(slave.hasStatusEffect(StatusEffect.OVERWORKED)) {
 					slave.incrementAffection(slave.getOwner(), -0.1f);
@@ -305,7 +307,6 @@ public class SlaveryUtil implements Serializable {
 						
 					} else if(slave.hasPenis() && slave.getPenisRawCumProductionValue()>0) {
 						int milked = Math.min(slave.getPenisRawCumProductionValue(), cumMilked);
-						slave.incrementBreastStoredMilk(-cumMilked);
 						income = milked * (1 + slave.getCum().getFluidModifiers().size());
 						generatedIncome += income;
 						

@@ -2125,7 +2125,7 @@ public class ItemType {
 		
 	}
 	
-	public static AbstractItemType BOTTLED_ESSENCE_ARCANE = new AbstractItemType(50,
+	public static AbstractItemType BOTTLED_ESSENCE_ARCANE = new AbstractItemType(40,
 			null,
 			false,
 			"Bottled Arcane Essence",
@@ -3446,16 +3446,6 @@ public class ItemType {
 		}
 		
 		@Override
-		public boolean isAbleToBeUsed(GameCharacter target) {
-			return !Main.game.getPlayer().getRacesDiscoveredFromBook().contains(Race.CAT_MORPH);
-		}
-
-		@Override
-		public String getUnableToBeUsedDescription(GameCharacter target) {
-			return "You've already added this book to Lilaya's library! It would be best to just sell it...";
-		}
-		
-		@Override
 		public String getUseName() {
 			return "read";
 		}
@@ -3491,16 +3481,6 @@ public class ItemType {
 		@Override
 		public boolean isConsumedOnUse() {
 			return false;
-		}
-		
-		@Override
-		public boolean isAbleToBeUsed(GameCharacter target) {
-			return !Main.game.getPlayer().getRacesDiscoveredFromBook().contains(Race.COW_MORPH);
-		}
-
-		@Override
-		public String getUnableToBeUsedDescription(GameCharacter target) {
-			return "You've already added this book to Lilaya's library! It would be best to just sell it...";
 		}
 		
 		@Override
@@ -3542,16 +3522,6 @@ public class ItemType {
 		}
 		
 		@Override
-		public boolean isAbleToBeUsed(GameCharacter target) {
-			return !Main.game.getPlayer().getRacesDiscoveredFromBook().contains(Race.DEMON);
-		}
-
-		@Override
-		public String getUnableToBeUsedDescription(GameCharacter target) {
-			return "You've already added this book to Lilaya's library! It would be best to just sell it...";
-		}
-		
-		@Override
 		public String getUseName() {
 			return "read";
 		}
@@ -3586,16 +3556,6 @@ public class ItemType {
 		@Override
 		public boolean isConsumedOnUse() {
 			return false;
-		}
-		
-		@Override
-		public boolean isAbleToBeUsed(GameCharacter target) {
-			return !Main.game.getPlayer().getRacesDiscoveredFromBook().contains(Race.IMP);
-		}
-
-		@Override
-		public String getUnableToBeUsedDescription(GameCharacter target) {
-			return "You've already added this book to Lilaya's library! It would be best to just sell it...";
 		}
 		
 		@Override
@@ -3636,16 +3596,6 @@ public class ItemType {
 		}
 		
 		@Override
-		public boolean isAbleToBeUsed(GameCharacter target) {
-			return !Main.game.getPlayer().getRacesDiscoveredFromBook().contains(Race.DOG_MORPH);
-		}
-
-		@Override
-		public String getUnableToBeUsedDescription(GameCharacter target) {
-			return "You've already added this book to Lilaya's library! It would be best to just sell it...";
-		}
-		
-		@Override
 		public String getUseName() {
 			return "read";
 		}
@@ -3680,16 +3630,6 @@ public class ItemType {
 		@Override
 		public boolean isConsumedOnUse() {
 			return false;
-		}
-		
-		@Override
-		public boolean isAbleToBeUsed(GameCharacter target) {
-			return !Main.game.getPlayer().getRacesDiscoveredFromBook().contains(Race.ALLIGATOR_MORPH);
-		}
-
-		@Override
-		public String getUnableToBeUsedDescription(GameCharacter target) {
-			return "You've already added this book to Lilaya's library! It would be best to just sell it...";
 		}
 		
 		@Override
@@ -3730,16 +3670,6 @@ public class ItemType {
 		}
 		
 		@Override
-		public boolean isAbleToBeUsed(GameCharacter target) {
-			return !Main.game.getPlayer().getRacesDiscoveredFromBook().contains(Race.HARPY);
-		}
-
-		@Override
-		public String getUnableToBeUsedDescription(GameCharacter target) {
-			return "You've already added this book to Lilaya's library! It would be best to just sell it...";
-		}
-		
-		@Override
 		public String getUseName() {
 			return "read";
 		}
@@ -3774,16 +3704,6 @@ public class ItemType {
 		@Override
 		public boolean isConsumedOnUse() {
 			return false;
-		}
-		
-		@Override
-		public boolean isAbleToBeUsed(GameCharacter target) {
-			return !Main.game.getPlayer().getRacesDiscoveredFromBook().contains(Race.HORSE_MORPH);
-		}
-
-		@Override
-		public String getUnableToBeUsedDescription(GameCharacter target) {
-			return "You've already added this book to Lilaya's library! It would be best to just sell it...";
 		}
 		
 		@Override
@@ -3824,16 +3744,6 @@ public class ItemType {
 		}
 		
 		@Override
-		public boolean isAbleToBeUsed(GameCharacter target) {
-			return !Main.game.getPlayer().getRacesDiscoveredFromBook().contains(Race.REINDEER_MORPH);
-		}
-
-		@Override
-		public String getUnableToBeUsedDescription(GameCharacter target) {
-			return "You've already added this book to Lilaya's library! It would be best to just sell it...";
-		}
-		
-		@Override
 		public String getUseName() {
 			return "read";
 		}
@@ -3868,16 +3778,6 @@ public class ItemType {
 		@Override
 		public boolean isConsumedOnUse() {
 			return false;
-		}
-		
-		@Override
-		public boolean isAbleToBeUsed(GameCharacter target) {
-			return !Main.game.getPlayer().getRacesDiscoveredFromBook().contains(Race.HUMAN);
-		}
-
-		@Override
-		public String getUnableToBeUsedDescription(GameCharacter target) {
-			return "You've already added this book to Lilaya's library! It would be best to just sell it...";
 		}
 		
 		@Override
@@ -3918,16 +3818,6 @@ public class ItemType {
 		}
 		
 		@Override
-		public boolean isAbleToBeUsed(GameCharacter target) {
-			return !Main.game.getPlayer().getRacesDiscoveredFromBook().contains(Race.SQUIRREL_MORPH);
-		}
-
-		@Override
-		public String getUnableToBeUsedDescription(GameCharacter target) {
-			return "You've already added this book to Lilaya's library! It would be best to just sell it...";
-		}
-		
-		@Override
 		public String getUseName() {
 			return "read";
 		}
@@ -3962,16 +3852,6 @@ public class ItemType {
 		@Override
 		public boolean isConsumedOnUse() {
 			return false;
-		}
-		
-		@Override
-		public boolean isAbleToBeUsed(GameCharacter target) {
-			return !Main.game.getPlayer().getRacesDiscoveredFromBook().contains(Race.RAT_MORPH);
-		}
-		
-		@Override
-		public String getUnableToBeUsedDescription(GameCharacter target) {
-			return "You've already added this book to Lilaya's library! It would be best to just sell it...";
 		}
 		
 		@Override
@@ -4012,16 +3892,6 @@ public class ItemType {
 		}
 		
 		@Override
-		public boolean isAbleToBeUsed(GameCharacter target) {
-			return !Main.game.getPlayer().getRacesDiscoveredFromBook().contains(Race.RABBIT_MORPH);
-		}
-		
-		@Override
-		public String getUnableToBeUsedDescription(GameCharacter target) {
-			return "You've already added this book to Lilaya's library! It would be best to just sell it...";
-		}
-		
-		@Override
 		public String getUseName() {
 			return "read";
 		}
@@ -4056,16 +3926,6 @@ public class ItemType {
 		@Override
 		public boolean isConsumedOnUse() {
 			return false;
-		}
-		
-		@Override
-		public boolean isAbleToBeUsed(GameCharacter target) {
-			return !Main.game.getPlayer().getRacesDiscoveredFromBook().contains(Race.BAT_MORPH);
-		}
-
-		@Override
-		public String getUnableToBeUsedDescription(GameCharacter target) {
-			return "You've already added this book to Lilaya's library! It would be best to just sell it...";
 		}
 		
 		@Override
@@ -4106,16 +3966,6 @@ public class ItemType {
 		}
 		
 		@Override
-		public boolean isAbleToBeUsed(GameCharacter target) {
-			return !Main.game.getPlayer().getRacesDiscoveredFromBook().contains(Race.WOLF_MORPH);
-		}
-
-		@Override
-		public String getUnableToBeUsedDescription(GameCharacter target) {
-			return "You've already added this book to Lilaya's library! It would be best to just sell it...";
-		}
-		
-		@Override
 		public String getUseName() {
 			return "read";
 		}
@@ -4150,16 +4000,6 @@ public class ItemType {
 		@Override
 		public boolean isConsumedOnUse() {
 			return false;
-		}
-		
-		@Override
-		public boolean isAbleToBeUsed(GameCharacter target) {
-			return !Main.game.getPlayer().getRacesDiscoveredFromBook().contains(Race.SLIME);
-		}
-
-		@Override
-		public String getUnableToBeUsedDescription(GameCharacter target) {
-			return "You've already added this book to Lilaya's library! It would be best to just sell it...";
 		}
 		
 		@Override
@@ -4932,32 +4772,65 @@ public class ItemType {
 						}
 					}
 					
-					return "<p style='text-align:center'>"
-								+"<i><b style='color:"+s.getSpellSchool().getColour().toWebHexString()+";'>"+s.getName()+":</b> "+s.getDescription()+"</i>"
-							+"</p>"
-							+ "<p>"
-								+ (target.isPlayer()
-									?"As you read through the spell book, you discover that most of the pages are dedicated to helping the reader build up their arcane aura to the point where they'd be able to learn this spell."
+					if(hasSpell) {
+						if(target.isPlayer()) {
+							return "<p style='text-align:center'>"
+										+"<i><b style='color:"+s.getSpellSchool().getColour().toWebHexString()+";'>"+s.getName()+":</b> "+s.getDescription()+"</i>"
+									+"</p>"
+									+ "<p>"
+										+"Reading through the spell book again, you quickly discover that you've already learned all there is to know about the spell '"+s.getName()+"'."
+										+ " Apart from some well-detailed diagrams of a demon casting this spell, there's nothing within the tome's pages to hold your attention,"
+											+ " and you find yourself closing it after just a couple of minutes, having not learned anything new..."
+									+ "</p>"
+									+raceKnowledgeGained;
+						} else {
+							return "<p style='text-align:center'>"
+										+"<i><b style='color:"+s.getSpellSchool().getColour().toWebHexString()+";'>"+s.getName()+":</b> "+s.getDescription()+"</i>"
+									+"</p>"
+									+ "<p>"
+										+ UtilText.parse(target,
+												"Reading through the spell book again, [npc.name] quickly discovers that [npc.she]'s already learned all there is to know about the spell '"+s.getName()+"'."
+												+ " Apart from some well-detailed diagrams of a demon casting this spell, there's nothing within the tome's pages to hold [npc.her] attention,"
+													+ " and [npc.she] closes it after just a couple of minutes, having not learned anything new...")
+									+ "</p>";
+						}
+						
+					} else {
+						if(target.isPlayer()) {
+							return "<p style='text-align:center'>"
+										+"<i><b style='color:"+s.getSpellSchool().getColour().toWebHexString()+";'>"+s.getName()+":</b> "+s.getDescription()+"</i>"
+									+"</p>"
+									+ "<p>"
+										+ "As you read through the spell book, you discover that most of the pages are dedicated to helping the reader build up their arcane aura to the point where they'd be able to learn this spell."
 										+ " Seeing as your aura is already extremely powerful, these passages are of no use to you, and you quickly flick through to the final chapters,"
 											+ " where it's described exactly how to focus your aura into casting the spell '<i>"+s.getName()+"</i>'."
 										+ " It doesn't take you long to get the general idea of what to do, and after completing the book's practice exercises, you feel confident that you'll be able to cast this spell whenever you'd like."
-									:UtilText.parse(target,
-										"As [npc.name] reads through the spell book, [npc.she] discovers that most of the pages are dedicated to helping the reader build up their arcane aura to the point where they'd be able to learn this spell."
-										+ " Seeing as [npc.her] aura is already powerful enough for this, these passages are of no use to [npc.herHim], and [npc.she] quickly flicks through to the final chapters,"
-											+ " where it's described exactly how to focus [npc.her] aura into casting the spell '<i>"+s.getName()+"</i>'."
-										+ " It doesn't take [npc.herHim] long to get the general idea of what to do, and after completing the book's practice exercises,"
-											+ " [npc.she] feels confident that [npc.she]'ll be able to cast this spell whenever [npc.she]'d like."))
-							+ "</p>"
-							+ (hasSpell
-								?"<p style='text-align:center; color:"+Colour.TEXT_GREY.toWebHexString()+";'>"
-									+ (target.isPlayer()
-											?"You already know this spell, so you didn't really learn anything new..."
-											:UtilText.parse(target, "[npc.Name] already knows this spell, so [npc.she] didn't really learn anything new..."))
+									+ "</p>"
+									+ "<p style='text-align:center;'>"
+										+ "You learn the spell <b style='color:"+s.getSpellSchool().getColour().toWebHexString()+";'>"+s.getName()+"</b>!"
+										+ "</br><i>Having served its purpose, the spell book disappears in a flash of purple light!</i>"
+										+ "</br>[style.italicsExcellent(Spell book added to Lilaya's library!)]"
+									+ "</p>"
+									+raceKnowledgeGained;
+							
+						} else {
+							return "<p style='text-align:center'>"
+									+"<i><b style='color:"+s.getSpellSchool().getColour().toWebHexString()+";'>"+s.getName()+":</b> "+s.getDescription()+"</i>"
+								+"</p>"
+								+ "<p>"
+									+ UtilText.parse(target,
+											"As [npc.name] reads through the spell book, [npc.she] discovers that most of the pages are dedicated to helping the reader build up their arcane aura to the point where they'd be able to learn this spell."
+											+ " Seeing as [npc.her] aura is already powerful enough for this, these passages are of no use to [npc.herHim], and [npc.she] quickly flicks through to the final chapters,"
+												+ " where it's described exactly how to focus [npc.her] aura into casting the spell '<i>"+s.getName()+"</i>'."
+											+ " It doesn't take [npc.herHim] long to get the general idea of what to do, and after completing the book's practice exercises,"
+												+ " [npc.she] feels confident that [npc.she]'ll be able to cast this spell whenever [npc.she]'d like.")
 								+ "</p>"
-								:"<p style='text-align:center;'>"
-									+ (target.isPlayer()?"You learn":UtilText.parse(target, "[npc.Name] learns"))+" the spell <b style='color:"+s.getSpellSchool().getColour().toWebHexString()+";'>"+s.getName()+"</b>!"
-								+ "</p>")
-							+raceKnowledgeGained;
+								+ "<p style='text-align:center;'>"
+									+ UtilText.parse(target, "[npc.Name] learns the spell <b style='color:"+s.getSpellSchool().getColour().toWebHexString()+";'>"+s.getName()+"</b>!")
+									+ "</br><i>Having served its purpose, the spell book disappears in a flash of purple light!</i>"
+								+ "</p>";
+						}
+					}
 				}
 			};
 			
@@ -5039,10 +4912,10 @@ public class ItemType {
 							+ "</div>";
 				}
 				
-				@Override
-				public boolean isConsumedOnUse() {
-					return false;
-				}
+//				@Override
+//				public boolean isConsumedOnUse() {
+//					return false;
+//				}
 				
 				@Override
 				public boolean isAbleToBeUsed(GameCharacter target) {

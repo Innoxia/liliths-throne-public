@@ -597,8 +597,9 @@ public enum Combat {
 		
 		@Override
 		public String getResponseTabTitle(int index) {
-			if(isEnemyPartyDefeated() || isAlliedPartyDefeated()) {
+			if(isEnemyPartyDefeated() || isAlliedPartyDefeated() || Main.game.getPlayer().isStunned() || escaped || isCombatantDefeated(Main.game.getPlayer())) {
 				return null;
+				
 			} else {
 				if(index==0) {
 					return "Attacks";
@@ -664,6 +665,22 @@ public enum Combat {
 					};
 				} else
 					return null;
+				
+			} else if(isCombatantDefeated(Main.game.getPlayer())) {
+				if (index == 1) {
+					return new Response("Watch", "You have been defeated, and can only watch as your allies fight on!", ENEMY_ATTACK){
+						@Override
+						public void effects() {
+							combatStringBuilder.append(getCharactersTurnDiv(Main.game.getPlayer(),
+									"<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Defeated!</span>",
+									"You have been defeated, and can only watch as your allies continue the fight!"));
+							endCombatTurn();
+						}
+					};
+					
+				} else {
+					return null;
+				}
 				
 			}
 			
@@ -934,22 +951,22 @@ public enum Combat {
 			if(attacker.isPlayer()) {
 				if(attacker.getMainWeapon() == null) {
 					attackStringBuilder.append("<p><b>You " + (critical ? "<b style='color: " + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>critically</b> hit for " : " hit for ") + damage + " <b style='color: "
-							+ attacker.getBodyMaterial().getUnarmedDamageType().getColour().toWebHexString() + ";'>" + attacker.getBodyMaterial().getUnarmedDamageType().getName() + "</b> damage!</b></p>");
+							+ attacker.getBodyMaterial().getUnarmedDamageType().getColour().toWebHexString() + ";'>" + attacker.getBodyMaterial().getUnarmedDamageType().getName() + "</b>!</b></p>");
 					
 				} else {
 					attackStringBuilder.append("<p><b>You " + (critical ? "<b style='color: " + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>critically</b> hit for " : " hit for ") + damage + " <b style='color: "
-							+ attacker.getMainWeapon().getDamageType().getMultiplierAttribute().getColour().toWebHexString() + ";'>" + attacker.getMainWeapon().getDamageType().getMultiplierAttribute().getName() + "</b> damage!</b></p>");
+							+ attacker.getMainWeapon().getDamageType().getMultiplierAttribute().getColour().toWebHexString() + ";'>" + attacker.getMainWeapon().getDamageType().getMultiplierAttribute().getName() + "</b>!</b></p>");
 				}
 			} else {
 				if(attacker.getMainWeapon() == null) {
 					attackStringBuilder.append("<p><b>"+(target.isPlayer()?"You were ":UtilText.parse(target,"[npc.Name] was "))
 							+ (critical ? "<b style='color: " + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>critically</b> hit for " : " hit for ") + damage + " <b style='color: "
-							+ attacker.getBodyMaterial().getUnarmedDamageType().getColour().toWebHexString() + ";'>" + attacker.getBodyMaterial().getUnarmedDamageType().getName() + "</b> damage!</b></p>");
+							+ attacker.getBodyMaterial().getUnarmedDamageType().getColour().toWebHexString() + ";'>" + attacker.getBodyMaterial().getUnarmedDamageType().getName() + "</b>!</b></p>");
 					
 				} else {
 					attackStringBuilder.append("<p><b>"+(target.isPlayer()?"You were ":UtilText.parse(target,"[npc.Name] was "))
 							+ (critical ? "<b style='color: " + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>critically</b> hit for " : " hit for ") + damage + " <b style='color: "
-							+ attacker.getMainWeapon().getDamageType().getMultiplierAttribute().getColour().toWebHexString() + ";'>" + attacker.getMainWeapon().getDamageType().getMultiplierAttribute().getName() + "</b> damage!</b></p>");
+							+ attacker.getMainWeapon().getDamageType().getMultiplierAttribute().getColour().toWebHexString() + ";'>" + attacker.getMainWeapon().getDamageType().getMultiplierAttribute().getName() + "</b>!</b></p>");
 				}
 			}
 			attackStringBuilder.append(target.incrementHealth(attacker, -damage));
@@ -995,12 +1012,12 @@ public enum Combat {
 				attackStringBuilder.append("<p>"
 						+ "<b>You " + (critical ? "<b style='color: " + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>critically</b> " : "") +"hit for "+ damage + " <b style='color: "
 						+ damageAttribute.getColour().toWebHexString() + ";'>"
-						+ damageAttribute.getName() + "</b> damage!</b></p>");
+						+ damageAttribute.getName() + "</b>!</b></p>");
 			} else {
 				attackStringBuilder.append("<p>"
 						+ "<b>"+(target.isPlayer()?"You were ":UtilText.parse(target,"[npc.Name] was ")) + (critical ? "<b style='color: " + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>critically</b> " : "") +"hit for "+ damage + " <b style='color: "
 						+ damageAttribute.getColour().toWebHexString() + ";'>"
-						+ damageAttribute.getName() + "</b> damage!</b></p>");
+						+ damageAttribute.getName() + "</b>!</b></p>");
 			}
 	
 			attackStringBuilder.append(target.incrementHealth(attacker, -damage));

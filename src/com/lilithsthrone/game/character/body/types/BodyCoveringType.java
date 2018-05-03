@@ -7,6 +7,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringModifier;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.ColourListPresets;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.ListValue;
 
@@ -282,6 +283,20 @@ public enum BodyCoveringType {
 			Colour.dyeFurColours,
 			Colour.naturalFurColours,
 			Colour.dyeFurColours),
+	
+	DILDO("a layer of", // This colour is set in GameCharacter's getCovering method, based on the colour of the dildo equipped.
+			false,
+			"silicone",
+			"silicone",
+			Util.newArrayListOfValues(
+					new ListValue<CoveringModifier>(CoveringModifier.SMOOTH)),
+			null,
+			null,
+			null,
+			ColourListPresets.ALL.getPresetColourList(),
+			null,
+			ColourListPresets.ALL.getPresetColourList(),
+			null),
 	
 	PENIS("a layer of",
 			false,
@@ -767,11 +782,11 @@ public enum BodyCoveringType {
 					new ListValue<CoveringModifier>(CoveringModifier.SMOOTH)),
 			null,
 			null,
-			null,
+			CoveringPattern.allScalesCoveringPatterns,
 			Colour.hornColours,
-			null,
 			Colour.dyeHornColours,
-			null),
+			Colour.hornColours,
+			Colour.dyeHornColours),
 
 	ANTLER_REINDEER("a layer of",
 			false,
@@ -781,11 +796,11 @@ public enum BodyCoveringType {
 					new ListValue<CoveringModifier>(CoveringModifier.SMOOTH)),
 			null,
 			null,
-			null,
+			CoveringPattern.allScalesCoveringPatterns,
 			Colour.antlerColours,
-			null,
 			Colour.dyeAntlerColours,
-			null),
+			Colour.antlerColours,
+			Colour.dyeAntlerColours),
 
 	TONGUE("a layer of",
 			false,

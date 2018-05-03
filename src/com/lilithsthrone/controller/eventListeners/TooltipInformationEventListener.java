@@ -20,7 +20,6 @@ import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.AntennaType;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.HornType;
-import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.TailType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.types.WingType;
@@ -656,7 +655,7 @@ public class TooltipInformationEventListener implements EventListener {
 					if(!owner.isPlayer() && !owner.getPlayerKnowsAreas().contains(CoverableArea.PENIS)) {
 						tooltipSB.append(getEmptyBodyPartDiv("Penis", "Unknown!"));
 					} else {
-						if (owner.getPenisType() != PenisType.NONE) {
+						if (owner.hasPenis()) {
 							tooltipSB.append(getBodyPartDiv("Penis", owner.getPenisRace(), owner.getPenisType().getBodyCoveringType(owner)));
 						} else {
 							tooltipSB.append(getEmptyBodyPartDiv("Penis", "None"));
@@ -706,7 +705,7 @@ public class TooltipInformationEventListener implements EventListener {
 
 		} else if (extraAttributes) {
 
-			Main.mainController.setTooltipSize(400, 600);
+			Main.mainController.setTooltipSize(400, 608);
 
 			tooltipSB.setLength(0);
 			tooltipSB.append(UtilText.parse(owner,

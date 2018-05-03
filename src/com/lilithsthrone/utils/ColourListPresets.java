@@ -86,6 +86,7 @@ public enum ColourListPresets {
 			new ListValue<Colour>(Colour.CLOTHING_BLACK),
 			new ListValue<Colour>(Colour.CLOTHING_GREY),
 			new ListValue<Colour>(Colour.CLOTHING_BROWN),
+			new ListValue<Colour>(Colour.CLOTHING_BROWN_DARK),
 			new ListValue<Colour>(Colour.CLOTHING_TAN))),
 	
 	LINGERIE(Util.newArrayListOfValues(
@@ -99,6 +100,7 @@ public enum ColourListPresets {
 			new ListValue<Colour>(Colour.CLOTHING_ORANGE_BRIGHT),
 			new ListValue<Colour>(Colour.CLOTHING_ORANGE_DARK),
 			new ListValue<Colour>(Colour.CLOTHING_BROWN),
+			new ListValue<Colour>(Colour.CLOTHING_BROWN_DARK),
 			new ListValue<Colour>(Colour.CLOTHING_TAN),
 			new ListValue<Colour>(Colour.CLOTHING_YELLOW),
 			new ListValue<Colour>(Colour.CLOTHING_GREEN_LIME),
@@ -133,6 +135,7 @@ public enum ColourListPresets {
 			new ListValue<Colour>(Colour.CLOTHING_ORANGE_BRIGHT),
 			new ListValue<Colour>(Colour.CLOTHING_ORANGE_DARK),
 			new ListValue<Colour>(Colour.CLOTHING_BROWN),
+			new ListValue<Colour>(Colour.CLOTHING_BROWN_DARK),
 			new ListValue<Colour>(Colour.CLOTHING_TAN),
 			new ListValue<Colour>(Colour.CLOTHING_YELLOW),
 			new ListValue<Colour>(Colour.CLOTHING_GREEN_LIME),
@@ -159,6 +162,7 @@ public enum ColourListPresets {
 			new ListValue<Colour>(Colour.CLOTHING_ORANGE_BRIGHT),
 			new ListValue<Colour>(Colour.CLOTHING_ORANGE_DARK),
 			new ListValue<Colour>(Colour.CLOTHING_BROWN),
+			new ListValue<Colour>(Colour.CLOTHING_BROWN_DARK),
 			new ListValue<Colour>(Colour.CLOTHING_TAN),
 			new ListValue<Colour>(Colour.CLOTHING_YELLOW),
 			new ListValue<Colour>(Colour.CLOTHING_GREEN_LIME),

@@ -287,6 +287,8 @@ public class Vicky extends NPC {
 		
 		if(item instanceof AbstractItem) {
 			if(((AbstractItem)item).getItemType().getItemTags().contains(ItemTag.ESSENCE)
+					|| ((AbstractItem)item).getItemType().getItemTags().contains(ItemTag.SPELL_BOOK)
+					|| ((AbstractItem)item).getItemType().getItemTags().contains(ItemTag.SPELL_SCROLL)
 					|| ((AbstractItem)item).getItemType()==ItemType.POTION
 					|| ((AbstractItem)item).getItemType()==ItemType.ELIXIR) {
 				return true;

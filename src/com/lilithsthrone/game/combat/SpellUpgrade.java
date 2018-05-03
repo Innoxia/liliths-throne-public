@@ -379,7 +379,7 @@ public enum SpellUpgrade {
 			SpellSchool.AIR,
 			"elemental_air_servant_of_air",
 			"Servant of Air",
-			"The summoner swears to be subservient to the school of Water, and while their elemental is bound to this form, the elemental is able to draw as much energy from the summoner as they wish.",
+			"The summoner swears to be subservient to the school of Air, and while their elemental is bound to this form, the elemental is able to draw as much energy from the summoner as they wish.",
 			null, Util.newArrayListOfValues(
 					new ListValue<>("While summoned:"),
 					new ListValue<>("[style.colourAir(Elemental)]: +100% [style.colourExcellent(Non-Seduction Damage)]"),
@@ -391,9 +391,9 @@ public enum SpellUpgrade {
 		
 		public String getUnavailableReason(GameCharacter caster) {
 			if(this.isAvailable(caster) && !caster.hasSpellUpgrade(this)) {
-				return "[style.boldMinorBad(Mutually exclusive with 'Binding of Water'!)]";
+				return "[style.boldMinorBad(Mutually exclusive with 'Binding of Air'!)]";
 			} else {
-				return "[style.boldBad(Mutually exclusive with 'Binding of Water'!)]";
+				return "[style.boldBad(Mutually exclusive with 'Binding of Air'!)]";
 			}
 		}
 	},
@@ -401,7 +401,7 @@ public enum SpellUpgrade {
 			SpellSchool.AIR,
 			"elemental_air_binding_of_air",
 			"Binding of Air",
-			"The summoner assumes complete dominance over the school of Water, and while their elemental is bound to this form, they are forced to share all of their secrets.",
+			"The summoner assumes complete dominance over the school of Air, and while their elemental is bound to this form, they are forced to share all of their secrets.",
 			null, Util.newArrayListOfValues(
 					new ListValue<>("While summoned:"),
 					new ListValue<>("[style.colourArcane(Caster)]: +25 "+Attribute.DAMAGE_POISON.getColouredName("b")),
@@ -413,9 +413,9 @@ public enum SpellUpgrade {
 		
 		public String getUnavailableReason(GameCharacter caster) {
 			if(this.isAvailable(caster) && !caster.hasSpellUpgrade(this)) {
-				return "[style.boldMinorBad(Mutually exclusive with 'Servant of Water'!)]";
+				return "[style.boldMinorBad(Mutually exclusive with 'Servant of Air'!)]";
 			} else {
-				return "[style.boldBad(Mutually exclusive with 'Servant of Water'!)]";
+				return "[style.boldBad(Mutually exclusive with 'Servant of Air'!)]";
 			}
 		}
 	},

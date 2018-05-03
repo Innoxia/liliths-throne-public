@@ -7,13 +7,15 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 
 /**
  * @since 0.1.83
- * @version 0.2.1
+ * @version 0.2.5
  * @author Innoxia
  */
 public enum TesticleType implements BodyPartTypeInterface {
 	
 	NONE(null, FluidType.CUM_HUMAN, null, false),
 
+	DILDO(BodyCoveringType.RUBBER, FluidType.CUM_HUMAN, Race.HUMAN, false),
+	
 	HUMAN(BodyCoveringType.PENIS, FluidType.CUM_HUMAN, Race.HUMAN, false),
 
 	ANGEL(BodyCoveringType.PENIS, FluidType.CUM_ANGEL, Race.ANGEL, false),

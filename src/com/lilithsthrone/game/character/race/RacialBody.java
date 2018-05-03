@@ -796,6 +796,8 @@ public enum RacialBody {
 
 	public static RacialBody valueOfRace(Race race) {
 		switch (race) {
+			case NONE:
+				break;
 			case ANGEL:
 				return RacialBody.ANGEL;
 			case CAT_MORPH:

@@ -212,7 +212,8 @@ public class DomKneeling {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Main.game.getPlayer().getPenisRawSizeValue() >= PenisSize.TWO_AVERAGE.getMedianValue();
+			return Main.game.getPlayer().getPenisRawSizeValue() >= PenisSize.TWO_AVERAGE.getMedianValue()
+					&& Main.game.getPlayer().hasPenisIgnoreDildo();
 		}
 
 		@Override
@@ -303,7 +304,12 @@ public class DomKneeling {
 		public String getActionDescription() {
 			return "Pull your cock out from [npc.name]'s throat and give [npc.herHim] a facial.";
 		}
-
+		
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return Main.game.getPlayer().hasPenisIgnoreDildo();
+		}
+		
 		@Override
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);

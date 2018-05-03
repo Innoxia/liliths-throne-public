@@ -1191,11 +1191,65 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	}
 	
 	public boolean isCanBeEquipped(GameCharacter clothingOwner) {
+		// This might not be the most efficient way of making this method, but I found it to be easily-readable:
+		if(clothingOwner.hasPenisIgnoreDildo() && this.getItemTags().contains(ItemTag.REQUIRES_NO_PENIS)) {
+			return false;
+		}
+		if(!clothingOwner.hasPenisIgnoreDildo() && this.getItemTags().contains(ItemTag.REQUIRES_PENIS)) {
+			return false;
+		}
+		if(clothingOwner.hasVagina() && this.getItemTags().contains(ItemTag.REQUIRES_NO_VAGINA)) {
+			return false;
+		}
+		if(!clothingOwner.hasVagina() && this.getItemTags().contains(ItemTag.REQUIRES_VAGINA)) {
+			return false;
+		}
 		return true;
 	}	
 
-	public String getCannotBeEquippedText(GameCharacter characterClothingOwner) {
-		return "";
+	public String getCannotBeEquippedText(GameCharacter clothingOwner) {
+		if(clothingOwner.hasPenisIgnoreDildo() && this.getItemTags().contains(ItemTag.REQUIRES_NO_PENIS)) {
+			if(clothingOwner.isPlayer()) {
+				return "You have a penis, which is blocking you from wearing the "+this.getName()+"!";
+			} else {
+				return UtilText.parse(clothingOwner,
+						"[npc.Name] has a penis, which is blocking [npc.herHim] from wearing the "+this.getName()+"!");
+			}
+		}
+		
+		if(!clothingOwner.hasPenisIgnoreDildo() && this.getItemTags().contains(ItemTag.REQUIRES_PENIS)) {
+			if(clothingOwner.isPlayer()) {
+				return "You don't have a penis, so you can't wear the "+this.getName()+"!";
+			} else {
+				return UtilText.parse(clothingOwner,
+						"[npc.Name] doesn't have a penis, so [npc.she] can't wear the "+this.getName()+"!");
+			}
+		}
+		
+		if(clothingOwner.hasVagina() && this.getItemTags().contains(ItemTag.REQUIRES_NO_VAGINA)) {
+			if(clothingOwner.isPlayer()) {
+				return "You have a vagina, which is blocking you from wearing the "+this.getName()+"!";
+			} else {
+				return UtilText.parse(clothingOwner,
+						"[npc.Name] has a vagina, which is blocking [npc.herHim] from wearing the "+this.getName()+"!");
+			}
+		}
+		
+		if(!clothingOwner.hasVagina() && this.getItemTags().contains(ItemTag.REQUIRES_VAGINA)) {
+			if(clothingOwner.isPlayer()) {
+				return "You don't have a vagina, so you can't wear the "+this.getName()+"!";
+			} else {
+				return UtilText.parse(clothingOwner,
+						"[npc.Name] doesn't have a vagina, so [npc.she] can't wear the "+this.getName()+"!");
+			}
+		}
+		
+		if(clothingOwner.isPlayer()) {
+			return "You cannot wear the "+this.getName()+"!";
+		} else {
+			return UtilText.parse(clothingOwner,
+					"[npc.Name] cannot wear the "+this.getName()+"!");
+		}
 	}
 	
 	public boolean isMufflesSpeech() {

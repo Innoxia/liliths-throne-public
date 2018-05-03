@@ -19,7 +19,6 @@ import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
 import com.lilithsthrone.game.character.attributes.LustLevel;
 import com.lilithsthrone.game.character.attributes.PhysiqueLevel;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
-import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
@@ -104,6 +103,28 @@ public enum RenderingEngine {
 	private String getInventoryEquippedPanel(GameCharacter charactersInventoryToRender) {
 		
 		equippedPanelSB.setLength(0);
+		
+		if(charactersInventoryToRender == null) {
+			equippedPanelSB.append("<div class='inventory-equipped'>");
+
+			for (InventorySlot invSlot : inventorySlots) {
+				equippedPanelSB.append("<div class='inventory-item-slot' id='" + invSlot.toString() + "Slot'></div>");
+			}
+			
+			equippedPanelSB.append("</div>"
+					+ "<div class='inventory-equipped accessories'>");
+			
+			equippedPanelSB.append("<div class='inventory-item-slot weapon' id='" + InventorySlot.WEAPON_MAIN.toString() + "Slot'></div>");
+			equippedPanelSB.append("<div class='inventory-item-slot weapon' id='" + InventorySlot.WEAPON_OFFHAND.toString() + "Slot'></div>");
+			
+			for (InventorySlot invSlot : piercingSlots) {
+				equippedPanelSB.append("<div class='inventory-item-slot piercing'  id='" + invSlot.toString() + "Slot'></div>");
+			}
+			equippedPanelSB.append("</div>");
+			
+			return equippedPanelSB.toString();
+		}
+		
 		
 		Set<InventorySlot> blockedSlots = new HashSet<>();
 		
@@ -805,7 +826,7 @@ public enum RenderingEngine {
 			return Sex.getActivePartner();
 		}
 		
-		if(InventoryDialogue.getInventoryNPC()!=null) {
+		if(InventoryDialogue.getInventoryNPC()!=null && Main.game.getCurrentDialogueNode().getMapDisplay() == MapDisplay.INVENTORY) {
 			return InventoryDialogue.getInventoryNPC();
 		}
 		
@@ -849,9 +870,10 @@ public enum RenderingEngine {
 				renderNPC = true;
 			}
 			
-			if(getCharacterToRender()!=null
-					&& (Main.game.isInCombat() || Main.game.isInSex() || renderNPC
-							|| (Main.game.getCurrentDialogueNode().getMapDisplay()==MapDisplay.INVENTORY && InventoryDialogue.getInventoryNPC()!=null))) {
+			if(Main.game.isInSex()
+				|| (getCharacterToRender()!=null
+					&& (Main.game.isInCombat() || renderNPC
+							|| (Main.game.getCurrentDialogueNode().getMapDisplay()==MapDisplay.INVENTORY && InventoryDialogue.getInventoryNPC()!=null)))) {
 			
 				
 			if(Main.game.isInSex()) {
@@ -877,7 +899,6 @@ public enum RenderingEngine {
 						uiAttributeSB.append(getCharacterPanelSexDiv(Sex.getSubmissiveParticipants().size()>1, "NPC_"+character.getId()+"_", character));
 					}
 				}
-				
 				uiAttributeSB.append("</div>");
 				
 			
@@ -932,7 +953,7 @@ public enum RenderingEngine {
 					"<div class='full-width-container' style='background-color:#19191a; border-radius:5px; margin-bottom:1px; padding:4px;'>"
 							+ "<div class='full-width-container' style='text-align:center;'>"
 									+ "<p>"
-										+ UtilText.parse(getCharacterToRender(), "[npc.Name]'s Inventory")
+										+ (getCharacterToRender()==null?"No Character":UtilText.parse(getCharacterToRender(), "[npc.Name]'s Inventory"))
 									+ "</p>"
 							+ "</div>"
 						+ "</div>");
@@ -1834,7 +1855,7 @@ public enum RenderingEngine {
 		StringBuilder panelSB = new StringBuilder();
 		
 		panelSB.append(
-				"<div class='attribute-container' style='"+ (Sex.getActivePartner().equals(character)?"border:2px solid "+Colour.GENERIC_ARCANE.toWebHexString()+";":"border:1px solid "+Colour.TEXT_GREY_DARK.toWebHexString()+";")+ "'>"
+				"<div class='attribute-container' style='"+ (Sex.getActivePartner()!=null && Sex.getActivePartner().equals(character)?"border:2px solid "+Colour.GENERIC_ARCANE.toWebHexString()+";":"border:1px solid "+Colour.TEXT_GREY_DARK.toWebHexString()+";")+ "'>"
 					+ "<div class='full-width-container' style='margin-bottom:4px;'>"
 						+ "<div class='icon' style='width:12%'>"
 							+ "<div class='icon-content'>"
@@ -1890,16 +1911,16 @@ public enum RenderingEngine {
 		panelSB.append("<hr style='border:1px solid "+Colour.TEXT_GREY_DARK.toWebHexString()+"; margin: 2px 0;'></hr>"
 				+"<div class='attribute-container' style='padding:0; overflow-y: auto;'>");
 
-		// Traits:
-		for (Perk trait : character.getTraits()) {
-			panelSB.append(
-					"<div class='icon effect' style='border:1px solid "+Colour.TRAIT.toWebHexString()+"'>"
-							+ "<div class='icon-content'>"
-								+ trait.getSVGString()
-								+ "<div class='overlay' id='TRAIT_" + idPrefix + trait + "'></div>"
-							+ "</div>"
-					+ "</div>");
-		}
+//		// Traits:
+//		for (Perk trait : character.getTraits()) {
+//			panelSB.append(
+//					"<div class='icon effect' style='border:1px solid "+Colour.TRAIT.toWebHexString()+"'>"
+//							+ "<div class='icon-content'>"
+//								+ trait.getSVGString()
+//								+ "<div class='overlay' id='TRAIT_" + idPrefix + trait + "'></div>"
+//							+ "</div>"
+//					+ "</div>");
+//		}
 		
 		// Infinite duration:
 		for (StatusEffect se : character.getStatusEffects()) {

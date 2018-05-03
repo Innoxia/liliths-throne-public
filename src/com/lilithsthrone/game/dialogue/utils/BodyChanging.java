@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.types.HornType;
 import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
@@ -17,7 +18,7 @@ import com.lilithsthrone.utils.Util.ListValue;
 
 /**
  * @since 0.1.90
- * @version 0.1.90
+ * @version 0.2.5
  * @author Innoxia
  */
 public class BodyChanging {
@@ -142,7 +143,11 @@ public class BodyChanging {
 						
 						+"<div style='clear:left;'>"
 							+ CharacterModificationUtils.getSelfTransformTailChoiceDiv(demonRace)
+						+"</div>"
+						
+						+"<div style='clear:left;'>"
 							+ CharacterModificationUtils.getSelfTransformWingChoiceDiv(demonRace)
+							+ CharacterModificationUtils.getSelfTransformWingSizeDiv()
 						+"</div>"
 						
 						+ CharacterModificationUtils.getHeightChoiceDiv()
@@ -199,9 +204,13 @@ public class BodyChanging {
 
 					+"<div style='clear:left;'>"
 						+ CharacterModificationUtils.getSelfTransformTailChoiceDiv(slimeRaces)
-						+ CharacterModificationUtils.getSelfTransformWingChoiceDiv(slimeRaces)
 					+"</div>"
 					
+					+"<div style='clear:left;'>"
+						+ CharacterModificationUtils.getSelfTransformWingChoiceDiv(slimeRaces)
+						+ CharacterModificationUtils.getSelfTransformWingSizeDiv()
+					+"</div>"
+							
 					+ CharacterModificationUtils.getHeightChoiceDiv()
 					
 					
@@ -290,11 +299,24 @@ public class BodyChanging {
 						
 						+"<div style='clear:left;'>"
 							+ CharacterModificationUtils.getSelfTransformHornChoiceDiv(demonRace)
+							+ CharacterModificationUtils.getSelfTransformHornSizeDiv()
+						+"</div>"
+
+						+ (BodyChanging.getTarget().getHornType()!=HornType.NONE
+								?CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyChanging.getTarget().getCovering(BodyChanging.getTarget().getHornType().getBodyCoveringType(BodyChanging.getTarget())).getType(), "Horn Colour",
+									(BodyChanging.getTarget().isPlayer()
+										?"The colour of your horns."
+										:UtilText.parse(BodyChanging.getTarget(), "The colour of [npc.name]'s horns.")),
+									true, true)
+								:"")
+						
+						+"<div style='clear:left;'>"
 							+ CharacterModificationUtils.getSelfTransformLipSizeDiv()
+							+ CharacterModificationUtils.getSelfTransformThroatModifiersDiv()
 						+"</div>"
 						
 						+"<div style='clear:left;'>"
-							+ CharacterModificationUtils.getSelfTransformThroatModifiersDiv()
+							+ CharacterModificationUtils.getSelfTransformTongueSizeDiv()
 							+ CharacterModificationUtils.getSelfTransformTongueModifiersDiv()
 						+"</div>"
 							
@@ -320,10 +342,7 @@ public class BodyChanging {
 										?"You can harness the power of your demonic form to change the colour of your hair."
 										:UtilText.parse(BodyChanging.getTarget(), "[npc.Name] can harness the power of [npc.her] demonic form to change the colour of [npc.her] hair.")), true, true)
 						
-	//					+ CharacterModificationUtils.getSelfTransformTongueLengthChoiceDiv() TODO
-	//					+ CharacterModificationUtils.getSelfTransformTongueModifiersChoiceDiv()
 						
-	//					+ CharacterModificationUtils.getSelfTransformMouthModifiersChoiceDiv()
 						;
 				
 			// Slime:
@@ -350,12 +369,17 @@ public class BodyChanging {
 						+"</div>"
 						
 						+"<div style='clear:left;'>"
-							+ CharacterModificationUtils.getSelfTransformHairChoiceDiv(slimeRaces)
-							+ CharacterModificationUtils.getSelfTransformLipSizeDiv()
+							+ CharacterModificationUtils.getSelfTransformHornChoiceDiv(slimeRaces)
+							+ CharacterModificationUtils.getSelfTransformHornSizeDiv()
 						+"</div>"
 						
 						+"<div style='clear:left;'>"
+							+ CharacterModificationUtils.getSelfTransformLipSizeDiv()
 							+ CharacterModificationUtils.getSelfTransformThroatModifiersDiv()
+						+"</div>"
+						
+						+"<div style='clear:left;'>"
+							+ CharacterModificationUtils.getSelfTransformTongueSizeDiv()
 							+ CharacterModificationUtils.getSelfTransformTongueModifiersDiv()
 						+"</div>"
 							
@@ -738,21 +762,23 @@ public class BodyChanging {
 								:UtilText.parse(BodyChanging.getTarget(), "<i>Get [npc.name] to focus [npc.her] demonic transformative powers on changing aspects of [npc.her] penis.</i>"))
 						+ "</div>"
 	
-						+ CharacterModificationUtils.getSelfTransformPenisChoiceDiv(demonRace, false)
-							
 						+"<div style='clear:left;'>"
-							+ CharacterModificationUtils.getSelfTransformPenisSizeDiv()
+							+ CharacterModificationUtils.getSelfTransformPenisChoiceDiv(demonRace, true)
 							+ CharacterModificationUtils.getSelfTransformPenisGirthDiv()
 						+"</div>"
+
+						+ CharacterModificationUtils.getSelfTransformPenisSizeDiv()
 						
 						+"<div style='clear:left;'>"
 							+ CharacterModificationUtils.getSelfTransformTesticleSizeDiv()
 							+ CharacterModificationUtils.getSelfTransformTesticleCountDiv()
 						+"</div>"
 						
+						+ CharacterModificationUtils.getSelfTransformCumProductionDiv()
+						
 						+"<div style='clear:left;'>"
+							+ CharacterModificationUtils.getInternalTesticleDiv()
 							+ CharacterModificationUtils.getSelfTransformUrethraCapacityDiv()
-							+ CharacterModificationUtils.getSelfTransformCumProductionDiv()
 						+"</div>"
 						
 						+"<div style='clear:left;'>"
@@ -780,21 +806,23 @@ public class BodyChanging {
 								:UtilText.parse(BodyChanging.getTarget(), "<i>Get [npc.name] to focus [npc.her] efforts on changing aspects of [npc.her] penis.</i>"))
 						+ "</div>"
 	
-						+ CharacterModificationUtils.getSelfTransformPenisChoiceDiv(slimeRaces, false)
-							
 						+"<div style='clear:left;'>"
-							+ CharacterModificationUtils.getSelfTransformPenisSizeDiv()
+							+ CharacterModificationUtils.getSelfTransformPenisChoiceDiv(slimeRaces, true)
 							+ CharacterModificationUtils.getSelfTransformPenisGirthDiv()
 						+"</div>"
+						
+						+ CharacterModificationUtils.getSelfTransformPenisSizeDiv()
 						
 						+"<div style='clear:left;'>"
 							+ CharacterModificationUtils.getSelfTransformTesticleSizeDiv()
 							+ CharacterModificationUtils.getSelfTransformTesticleCountDiv()
 						+"</div>"
 						
+						+ CharacterModificationUtils.getSelfTransformCumProductionDiv()
+						
 						+"<div style='clear:left;'>"
+							+ CharacterModificationUtils.getInternalTesticleDiv()
 							+ CharacterModificationUtils.getSelfTransformUrethraCapacityDiv()
-							+ CharacterModificationUtils.getSelfTransformCumProductionDiv()
 						+"</div>"
 						
 						+"<div style='clear:left;'>"

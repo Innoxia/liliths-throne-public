@@ -336,7 +336,6 @@ public class SlaveryManagementDialogue {
 	};
 	
 	
-	
 	public static final DialogueNodeOld ROOM_MANAGEMENT = new DialogueNodeOld("Room Management", ".", true) {
 		private static final long serialVersionUID = 1L;
 		
