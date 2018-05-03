@@ -3,6 +3,7 @@ package com.lilithsthrone.game.dialogue.story;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.lilithsthrone.controller.MainController;
 import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
@@ -744,7 +745,7 @@ public class PrologueDialogue {
 
 						Main.game.setRenderMap(true);
 						
-						Main.mainController.updateUI();
+						MainController.updateUI();
 						
 						Main.game.setActiveWorld(
 								Main.game.getWorlds().get(WorldType.DOMINION),

@@ -1164,6 +1164,9 @@ public enum TFModifier {
 		clothingPrimaryList.add(TF_PENIS);
 		clothingPrimaryList.add(TF_VAGINA);
 		
+
+		clothingAttributeList.add(TFModifier.FERTILITY);
+		clothingAttributeList.add(TFModifier.VIRILITY);
 		clothingAttributeList.add(TFModifier.RESISTANCE_FIRE);
 		clothingAttributeList.add(TFModifier.RESISTANCE_ICE);
 		clothingAttributeList.add(TFModifier.RESISTANCE_LUST);

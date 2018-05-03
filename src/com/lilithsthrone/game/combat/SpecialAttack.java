@@ -2207,10 +2207,10 @@ public enum SpecialAttack {
 		if (caster == Main.game.getPlayer()) {
 			if (isCritical)
 				descriptionSB.append("<p>" + (isHit ? "<b>You <b style='color: " + Colour.CLOTHING_GOLD.toWebHexString() + ";'>critically</b> hit for " + damage + " <b style='color: " + damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>"
-						+ damageType.getName() + "</b>" + " damage!</b>" : "<b>You missed!</b>") + "</p>");
+						+ damageType.getName() + "</b>" + "!</b>" : "<b>You missed!</b>") + "</p>");
 			else
 				descriptionSB.append(
-						"<p>" + (isHit ? "<b>You did " + damage + " <b style='color: " + damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>" + damageType.getName() + "</b>" + " damage!</b>" : "<b>You missed!</b>") + "</p>");
+						"<p>" + (isHit ? "<b>You did " + damage + " <b style='color: " + damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>" + damageType.getName() + "</b>" + "!</b>" : "<b>You missed!</b>") + "</p>");
 
 			if (statusEffects != null && isHit) {
 				descriptionSB.append(UtilText.parse(target, "<p>[npc.She] is now suffering "));

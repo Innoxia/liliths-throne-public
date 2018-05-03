@@ -2083,7 +2083,7 @@ public enum Spell {
 			"Summon forth your elemental in a physical form by binding them to the school of Arcane.",
 			0,
 			DamageVariance.LOW,
-			10,
+			200,
 			null,
 			Util.newArrayListOfValues(
 					new ListValue<>(SpellUpgrade.ELEMENTAL_ARCANE_1),

@@ -113,7 +113,7 @@ public class SARalphOrgasms {
 			
 			// PENIS ORGASM:
 			
-			if(Main.game.getPlayer().getPenisType()!=PenisType.NONE){
+			if(Main.game.getPlayer().hasPenisIgnoreDildo()){
 
 				UtilText.nodeContentSB.append("</br></br>");
 				

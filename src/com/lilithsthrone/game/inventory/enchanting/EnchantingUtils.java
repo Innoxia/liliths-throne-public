@@ -160,7 +160,17 @@ public class EnchantingUtils {
 			}
 		}
 		for(Entry<ItemEffect, Integer> entry : effectCount.entrySet()) {
-			cost += entry.getKey().getCost() * Math.abs(entry.getValue());
+
+			if(Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.WATER)
+					&& (entry.getKey().getPrimaryModifier()==TFModifier.TF_MOD_WETNESS
+							|| entry.getKey().getSecondaryModifier()==TFModifier.TF_MOD_WETNESS
+							|| entry.getKey().getPrimaryModifier()==TFModifier.TF_MILK
+							|| entry.getKey().getPrimaryModifier()==TFModifier.TF_CUM
+							|| entry.getKey().getPrimaryModifier()==TFModifier.TF_GIRLCUM)) {
+				// No cost
+			} else {
+				cost += entry.getKey().getCost() * Math.abs(entry.getValue());
+			}
 		}
 		
 		if(Main.game.getPlayer().hasFetish(Fetish.FETISH_TRANSFORMATION_GIVING) && ingredient instanceof AbstractItem) {
@@ -169,6 +179,7 @@ public class EnchantingUtils {
 		if(Main.game.getPlayer().hasPerkAnywhereInTree(Perk.CLOTHING_ENCHANTER) && ingredient instanceof AbstractClothing) {
 			cost/=2;
 		}
+		
 		
 		return cost;
 	}

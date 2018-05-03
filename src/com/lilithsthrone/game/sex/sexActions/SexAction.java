@@ -157,29 +157,31 @@ public abstract class SexAction implements SexActionInterface {
 
 	@Override
 	public ArousalIncrease getArousalGainTarget() {
-		if(!this.getActionType().isPlayerAction() && Sex.getSexPace(Sex.getTargetedPartner(Sex.getActivePartner()))==SexPace.SUB_RESISTING) {
-			if(Sex.getTargetedPartner(Sex.getActivePartner()).hasFetish(Fetish.FETISH_NON_CON_SUB)) {
-				return ArousalIncrease.FOUR_HIGH;
-			} else {
-				// If it's an erogenous zone, they gain arousal. If not, arousal gain is 0.
-				if((!this.getParticipantType().isUsingSelfOrificeType() && this.getAssociatedOrificeType()!=null && this.getAssociatedOrificeType().getBaseArousalWhenPenetrated()>1)
-						|| (!this.getParticipantType().isUsingSelfPenetrationType() && this.getAssociatedPenetrationType() != null && this.getAssociatedPenetrationType().getBaseArousalWhenPenetrating()>1)) {
-					return ArousalIncrease.TWO_LOW;
+		if(!Sex.isMasturbation()) {
+			if(!this.getActionType().isPlayerAction() && Sex.getSexPace(Sex.getTargetedPartner(Sex.getActivePartner()))==SexPace.SUB_RESISTING) {
+				if(Sex.getTargetedPartner(Sex.getActivePartner()).hasFetish(Fetish.FETISH_NON_CON_SUB)) {
+					return ArousalIncrease.FOUR_HIGH;
+				} else {
+					// If it's an erogenous zone, they gain arousal. If not, arousal gain is 0.
+					if((!this.getParticipantType().isUsingSelfOrificeType() && this.getAssociatedOrificeType()!=null && this.getAssociatedOrificeType().getBaseArousalWhenPenetrated()>1)
+							|| (!this.getParticipantType().isUsingSelfPenetrationType() && this.getAssociatedPenetrationType() != null && this.getAssociatedPenetrationType().getBaseArousalWhenPenetrating()>1)) {
+						return ArousalIncrease.TWO_LOW;
+					}
+					return ArousalIncrease.ZERO_NONE;
 				}
-				return ArousalIncrease.ZERO_NONE;
 			}
-		}
-		
-		if(this.getActionType().isPlayerAction() && Sex.getSexPace(Sex.getActivePartner())==SexPace.SUB_RESISTING) {
-			if(Sex.getActivePartner().hasFetish(Fetish.FETISH_NON_CON_SUB)) {
-				return ArousalIncrease.FOUR_HIGH;
-			} else {
-				// If it's an erogenous zone, they gain arousal. If not, arousal gain is 0.
-				if((!this.getParticipantType().isUsingSelfOrificeType() && this.getAssociatedOrificeType()!=null && this.getAssociatedOrificeType().getBaseArousalWhenPenetrated()>1)
-						|| (!this.getParticipantType().isUsingSelfPenetrationType() && this.getAssociatedPenetrationType() != null && this.getAssociatedPenetrationType().getBaseArousalWhenPenetrating()>1)) {
-					return ArousalIncrease.TWO_LOW;
+			
+			if(this.getActionType().isPlayerAction() && Sex.getSexPace(Sex.getActivePartner())==SexPace.SUB_RESISTING) {
+				if(Sex.getActivePartner().hasFetish(Fetish.FETISH_NON_CON_SUB)) {
+					return ArousalIncrease.FOUR_HIGH;
+				} else {
+					// If it's an erogenous zone, they gain arousal. If not, arousal gain is 0.
+					if((!this.getParticipantType().isUsingSelfOrificeType() && this.getAssociatedOrificeType()!=null && this.getAssociatedOrificeType().getBaseArousalWhenPenetrated()>1)
+							|| (!this.getParticipantType().isUsingSelfPenetrationType() && this.getAssociatedPenetrationType() != null && this.getAssociatedPenetrationType().getBaseArousalWhenPenetrating()>1)) {
+						return ArousalIncrease.TWO_LOW;
+					}
+					return ArousalIncrease.ZERO_NONE;
 				}
-				return ArousalIncrease.ZERO_NONE;
 			}
 		}
 		
@@ -207,6 +209,10 @@ public abstract class SexAction implements SexActionInterface {
 		return getFetishesForEitherPartner(characterPerformingAction, true);
 	}
 	
+	public List<Fetish> getExtraFetishes(GameCharacter characterPerformingAction) {
+		return null;
+	}
+	
 	public List<Fetish> getFetishesForEitherPartner(GameCharacter characterPerformingAction, boolean characterPerformingActionFetishes) {
 //		if(characterFetishes==null || characterFetishes.get(characterPerformingAction)==null) {
 			GameCharacter characterTarget = Sex.getTargetedPartner(characterPerformingAction);
@@ -216,6 +222,12 @@ public abstract class SexAction implements SexActionInterface {
 			
 			characterFetishes.putIfAbsent(characterPerformingAction, new HashSet<>());
 			characterFetishesForPartner.putIfAbsent(characterPerformingAction, new HashSet<>());
+			
+			if(getExtraFetishes(characterPerformingAction)!=null) {
+				for(Fetish f : getExtraFetishes(characterPerformingAction)) {
+					characterFetishes.get(characterPerformingAction).add(f);
+				}
+			}
 			
 			if(this.getParticipantType()==SexParticipantType.SELF && !characterPerformingActionFetishes) { // If this is a self action, do not apply fetishes to other partner.
 				return new ArrayList<>(characterFetishesForPartner.get(characterPerformingAction));

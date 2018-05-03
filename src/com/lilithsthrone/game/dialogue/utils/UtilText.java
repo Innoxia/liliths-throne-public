@@ -537,171 +537,176 @@ public class UtilText {
 		// [target.command(arguments)]
 		
 		// {npc1.isPlayer?Your:[npc1.Name]'s} [npc1.moans] are muffled into {npc2.isPlayer?your:[npc2.name]'s} [npc2.mouth]. {npc1.isPlayer?{npc1.isPlayer?Your:[npc1.Name]'s} feel turned on...}
-		
-		StringBuilder sb = new StringBuilder();
-		
-		int openBrackets = 0;
-		int closeBrackets = 0;
-		int openArg = 0;
-		int closeArg = 0;
-		int conditionalThens = 0;
-		int startIndex = 0;
-		int endIndex = 0;
-		
-		String target=null;
-		String command=null;
-		String arguments=null;
-		String conditionalTrue=null;
-		String conditionalFalse=null;
-		
-		boolean conditionalElseFound=false;
-		boolean processingConditional=false;
-		boolean processingRegular=false;
-		
-		for (int i = 0; i < input.length(); i++) {
-			char c = input.charAt(i);
+		try {
+			StringBuilder sb = new StringBuilder();
 			
-			if(!processingRegular) {
-				if(c=='F' && i-1>1 && input.charAt(i-1)=='I' && i-2>=0 && input.charAt(i-2)=='#') {
-					if(openBrackets==0) {
-						processingConditional=true;
-						startIndex = i-2;
-					}
-					
-					openBrackets++;
-					
-				} else if(processingConditional) {
-					if(c=='.' && target==null) {
-						target=sb.toString().substring(1); // Cut off the '#IF' at the start.
-						target = target.trim();
-						sb.setLength(0);
-					
-					} else if(c=='(') {
-						if(command==null) {
-							command=sb.toString().substring(1); // Cut off the '.' at the start.
-							command = command.trim();
+			int openBrackets = 0;
+			int closeBrackets = 0;
+			int openArg = 0;
+			int closeArg = 0;
+			int conditionalThens = 0;
+			int startIndex = 0;
+			int endIndex = 0;
+			
+			String target=null;
+			String command=null;
+			String arguments=null;
+			String conditionalTrue=null;
+			String conditionalFalse=null;
+			
+			boolean conditionalElseFound=false;
+			boolean processingConditional=false;
+			boolean processingRegular=false;
+			
+			for (int i = 0; i < input.length(); i++) {
+				char c = input.charAt(i);
+				
+				if(!processingRegular) {
+					if(c=='F' && i-1>1 && input.charAt(i-1)=='I' && i-2>=0 && input.charAt(i-2)=='#') {
+						if(openBrackets==0) {
+							processingConditional=true;
+							startIndex = i-2;
+						}
+						
+						openBrackets++;
+						
+					} else if(processingConditional) {
+						if(c=='.' && target==null) {
+							target=sb.toString().substring(1); // Cut off the '#IF' at the start.
+							target = target.trim();
 							sb.setLength(0);
-						}
 						
-						openArg++;
-						
-					} else if(c==')') {
-						closeArg++;
-						
-						if(openArg==closeArg){
-							arguments = sb.toString().substring(1);
-						}
-						
-					} else if((c=='N' &&
-							(i-1>1 && input.charAt(i-1)=='E')
-							&& (i-2>=0 && input.charAt(i-2)=='H')
-							&& (i-3>=0 && input.charAt(i-3)=='T')
-							&& (i-4>=0 && input.charAt(i-4)=='#'))) {
-						conditionalThens++;
-						
-						if(conditionalThens==1){
+						} else if(c=='(') {
 							if(command==null) {
-								command=sb.toString().substring(1, sb.length()-4); // Cut off the '#THEN' at the start.
-								command = command.replaceAll("\n", "").replaceAll("\t", "");
+								command=sb.toString().substring(1); // Cut off the '.' at the start.
 								command = command.trim();
+								sb.setLength(0);
 							}
-							sb.setLength(0);
-						}
-						
-					} else if((c=='E' &&
-							(i-1>1 && input.charAt(i-1)=='S')
-							&& (i-2>=0 && input.charAt(i-2)=='L')
-							&& (i-3>=0 && input.charAt(i-3)=='E')
-							&& (i-4>=0 && input.charAt(i-4)=='#')) && openBrackets-1==closeBrackets) {
-						conditionalElseFound = true;
-						conditionalTrue = sb.toString().substring(1, sb.length()-4); // Cut off the '#ELSE' at the start.
-						sb.setLength(0);
-						
-					} else if(c=='F' &&
-							(i-1>1 && input.charAt(i-1)=='I')
-							&& (i-2>=0 && input.charAt(i-2)=='D')
-							&& (i-3>=0 && input.charAt(i-3)=='N')
-							&& (i-4>=0 && input.charAt(i-4)=='E')
-							&& (i-5>=0 && input.charAt(i-5)=='#')) {
-						closeBrackets++;
-						
-						if(openBrackets==closeBrackets) {
 							
-							if(conditionalElseFound){
-								conditionalFalse = sb.toString().substring(1, sb.length()-5); // Cut off the '#ENDIF' at the start.
-							} else {
-								conditionalTrue = sb.toString().substring(1, sb.length()-5); // Cut off the '#ENDIF' at the start.
-								conditionalFalse = "";
+							openArg++;
+							
+						} else if(c==')') {
+							closeArg++;
+							
+							if(openArg==closeArg){
+								arguments = sb.toString().substring(1);
 							}
-		
-							endIndex = i;
-							break;
+							
+						} else if((c=='N' &&
+								(i-1>1 && input.charAt(i-1)=='E')
+								&& (i-2>=0 && input.charAt(i-2)=='H')
+								&& (i-3>=0 && input.charAt(i-3)=='T')
+								&& (i-4>=0 && input.charAt(i-4)=='#'))) {
+							conditionalThens++;
+							
+							if(conditionalThens==1){
+								if(command==null) {
+									command=sb.toString().substring(1, sb.length()-4); // Cut off the '#THEN' at the start.
+									command = command.replaceAll("\n", "").replaceAll("\t", "");
+									command = command.trim();
+								}
+								sb.setLength(0);
+							}
+							
+						} else if((c=='E' &&
+								(i-1>1 && input.charAt(i-1)=='S')
+								&& (i-2>=0 && input.charAt(i-2)=='L')
+								&& (i-3>=0 && input.charAt(i-3)=='E')
+								&& (i-4>=0 && input.charAt(i-4)=='#')) && openBrackets-1==closeBrackets) {
+							conditionalElseFound = true;
+							conditionalTrue = sb.toString().substring(1, sb.length()-4); // Cut off the '#ELSE' at the start.
+							sb.setLength(0);
+							
+						} else if(c=='F' &&
+								(i-1>1 && input.charAt(i-1)=='I')
+								&& (i-2>=0 && input.charAt(i-2)=='D')
+								&& (i-3>=0 && input.charAt(i-3)=='N')
+								&& (i-4>=0 && input.charAt(i-4)=='E')
+								&& (i-5>=0 && input.charAt(i-5)=='#')) {
+							closeBrackets++;
+							
+							if(openBrackets==closeBrackets) {
+								
+								if(conditionalElseFound){
+									conditionalFalse = sb.toString().substring(1, sb.length()-5); // Cut off the '#ENDIF' at the start.
+								} else {
+									conditionalTrue = sb.toString().substring(1, sb.length()-5); // Cut off the '#ENDIF' at the start.
+									conditionalFalse = "";
+								}
+			
+								endIndex = i;
+								break;
+							}
 						}
 					}
 				}
-			}
-			
-			if(!processingConditional) {
-				if(c=='[') {
-					if(openBrackets==0) {
-						processingRegular=true;
-						startIndex = i;
-					}
-					
-					openBrackets++;
-					
-				} else if(processingRegular) {
-					
-					if(c=='.' && target==null) {
-						target=sb.toString().substring(1); // Cut off the '[' at the start.
-						sb.setLength(0);
-					
-					} else if(c=='(') {
-						if(command==null) {
-							command=sb.toString().substring(1); // Cut off the '.' at the start.
+				
+				if(!processingConditional) {
+					if(c=='[') {
+						if(openBrackets==0) {
+							processingRegular=true;
+							startIndex = i;
+						}
+						
+						openBrackets++;
+						
+					} else if(processingRegular) {
+						
+						if(c=='.' && target==null) {
+							target=sb.toString().substring(1); // Cut off the '[' at the start.
 							sb.setLength(0);
-						}
 						
-						openArg++;
-						
-					} else if(c==')') {
-						closeArg++;
-						
-						if(openArg==closeArg){
-							arguments = sb.toString().substring(1);
-						}
-						
-					} else if(c==']') {
-						closeBrackets++;
-						
-						if(openBrackets==closeBrackets) {
+						} else if(c=='(') {
 							if(command==null) {
 								command=sb.toString().substring(1); // Cut off the '.' at the start.
 								sb.setLength(0);
 							}
-		
-							endIndex = i;
-							break;
+							
+							openArg++;
+							
+						} else if(c==')') {
+							closeArg++;
+							
+							if(openArg==closeArg){
+								arguments = sb.toString().substring(1);
+							}
+							
+						} else if(c==']') {
+							closeBrackets++;
+							
+							if(openBrackets==closeBrackets) {
+								if(command==null) {
+									command=sb.toString().substring(1); // Cut off the '.' at the start.
+									sb.setLength(0);
+								}
+			
+								endIndex = i;
+								break;
+							}
 						}
 					}
+				}
+				
+				
+				if(openBrackets>0 && ((target!=null && command!=null) || String.valueOf(c).matches(".") || c!=' ')) {
+					sb.append(c);
 				}
 			}
 			
 			
-			if(openBrackets>0 && ((target!=null && command!=null) || String.valueOf(c).matches(".") || c!=' ')) {
-				sb.append(c);
+			if(startIndex!=0 || endIndex!=0) {
+				return parse(specialNPC, input.substring(0, startIndex)
+						+ (processingConditional
+								?parseConditionalSyntaxNew(target, command, arguments, conditionalTrue, conditionalFalse)
+								:parseSyntaxNew(target, command, arguments, specialNPC))
+						+ input.substring(endIndex+1, input.length()));
+			} else {
+				return input;//.replaceAll(" a ", " <span style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>a big moo</span> ");
 			}
-		}
-		
-		
-		if(startIndex!=0 || endIndex!=0) {
-			return parse(specialNPC, input.substring(0, startIndex)
-					+ (processingConditional
-							?parseConditionalSyntaxNew(target, command, arguments, conditionalTrue, conditionalFalse)
-							:parseSyntaxNew(target, command, arguments, specialNPC))
-					+ input.substring(endIndex+1, input.length()));
-		} else {
-			return input;//.replaceAll(" a ", " <span style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>a big moo</span> ");
+		} catch(Exception ex) {
+			System.err.println("Failed to parse: "+input);
+			ex.printStackTrace();
+			return "";
 		}
 	}
 	
@@ -4906,13 +4911,13 @@ public class UtilText {
 			case LEG:
 				return character.getBody().getLeg();
 			case PENIS:
-				return character.getBody().getPenis();
+				return character.getCurrentPenis();
 			case SECOND_PENIS:
 				return character.getBody().getSecondPenis();
 			case TESTICLES:
-				return character.getBody().getPenis().getTesticle();
+				return character.getCurrentPenis().getTesticle();
 			case CUM:
-				return character.getBody().getPenis().getTesticle().getCum();
+				return character.getCurrentPenis().getTesticle().getCum();
 			case SKIN:
 				return character.getBody().getSkin();
 			case TAIL:

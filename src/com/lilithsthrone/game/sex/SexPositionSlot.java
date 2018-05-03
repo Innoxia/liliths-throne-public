@@ -127,6 +127,9 @@ public enum SexPositionSlot {
 	
 	KNEELING_PERFORMING_ORAL("Kneeling",
 			Util.newArrayListOfValues(
+					new ListValue<>(OrgasmCumTarget.SELF_STOMACH),
+					new ListValue<>(OrgasmCumTarget.SELF_GROIN),
+					new ListValue<>(OrgasmCumTarget.SELF_LEGS),
 					new ListValue<>(OrgasmCumTarget.FLOOR))),
 	
 	/* Standing */
@@ -143,6 +146,13 @@ public enum SexPositionSlot {
 					new ListValue<>(OrgasmCumTarget.STOMACH),
 					new ListValue<>(OrgasmCumTarget.GROIN),
 					new ListValue<>(OrgasmCumTarget.LEGS),
+					new ListValue<>(OrgasmCumTarget.FLOOR))),
+	
+	MASTURBATING_KNEELING("Kneeling",
+			Util.newArrayListOfValues(
+					new ListValue<>(OrgasmCumTarget.SELF_STOMACH),
+					new ListValue<>(OrgasmCumTarget.SELF_GROIN),
+					new ListValue<>(OrgasmCumTarget.SELF_LEGS),
 					new ListValue<>(OrgasmCumTarget.FLOOR))),
 	
 	/* Chair */

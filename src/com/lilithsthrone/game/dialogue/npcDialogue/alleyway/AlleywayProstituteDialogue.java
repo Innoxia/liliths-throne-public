@@ -407,7 +407,7 @@ public class AlleywayProstituteDialogue {
 						+ " [npc.speech(Thank you, thank you so much! I can't really... That is, I'm so grateful... I-I don't know what to say...)]"
 					+ "</p>"
 					+ "<p>"
-						+ "[pc.speech(Don't worry about saying saying anything, and you're welcome,)]"
+						+ "[pc.speech(Don't worry about saying anything, and you're welcome,)]"
 						+ " you say, smiling at [npc.name]."
 					+ "</p>"
 					+ "<p>"

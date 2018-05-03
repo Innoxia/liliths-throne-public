@@ -20,6 +20,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.AbstractCoreType;
 import com.lilithsthrone.game.inventory.InventorySlot;
+import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
@@ -58,6 +59,8 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 				clothingType.getRarity(),
 				null);
 
+		this.itemTags = new HashSet<>(clothingType.getItemTags());
+		
 		this.clothingType = clothingType;
 		if(clothingType.getEffects()==null) {
 			this.effects = new ArrayList<>();
@@ -403,6 +406,14 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 		return clothingType;
 	}
 
+	public boolean isCanBeEquipped(GameCharacter clothingOwner) {
+		return this.getClothingType().isCanBeEquipped(clothingOwner);
+	}
+
+	public String getCannotBeEquippedText(GameCharacter clothingOwner) {
+		return this.getClothingType().getCannotBeEquippedText(clothingOwner);
+	}
+	
 	@Override
 	public Rarity getRarity() {
 		if(rarity==Rarity.LEGENDARY) {
@@ -718,6 +729,16 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 	public List<String> getExtraDescriptions(GameCharacter equippedToCharacter) {
 		List<String> descriptionsList = new ArrayList<>();
 
+		if(this.getItemTags().contains(ItemTag.PLUGS_ANUS)) {
+			descriptionsList.add("<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + ";'>Plugs Anus</b>");
+		}
+		if(this.getItemTags().contains(ItemTag.PLUGS_VAGINA)) {
+			descriptionsList.add("<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + ";'>Plugs Vagina</b>");
+		}
+		if(this.getItemTags().contains(ItemTag.PLUGS_NIPPLES)) {
+			descriptionsList.add("<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + ";'>Plugs Nipples</b>");
+		}
+		
 		if (equippedToCharacter == null) { // The clothing is not currently
 											// equipped by anyone:
 

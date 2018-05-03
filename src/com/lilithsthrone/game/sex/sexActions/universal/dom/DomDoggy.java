@@ -23,7 +23,7 @@ import com.lilithsthrone.utils.Util.ListValue;
 
 /**
  * @since 0.1.69
- * @version 0.1.96
+ * @version 0.2.5
  * @author Innoxia
  */
 public class DomDoggy {
@@ -214,6 +214,11 @@ public class DomDoggy {
 		}
 
 		@Override
+		public boolean isBaseRequirementsMet() {
+			return Main.game.getPlayer().hasPenisIgnoreDildo();
+		}
+		
+		@Override
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
 			
@@ -355,7 +360,9 @@ public class DomDoggy {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getActivePartner().isCoverableAreaExposed(CoverableArea.MOUTH) && Sex.isDom(Main.game.getPlayer());
+			return Sex.getActivePartner().isCoverableAreaExposed(CoverableArea.MOUTH)
+					&& Sex.isDom(Main.game.getPlayer())
+					&& Main.game.getPlayer().hasPenisIgnoreDildo();
 		}
 		
 		@Override
@@ -463,7 +470,9 @@ public class DomDoggy {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getActivePartner().isCoverableAreaExposed(CoverableArea.MOUTH) && Sex.isDom(Main.game.getPlayer());
+			return Sex.getActivePartner().isCoverableAreaExposed(CoverableArea.MOUTH)
+					&& Sex.isDom(Main.game.getPlayer())
+					&& Main.game.getPlayer().hasPenisIgnoreDildo();
 		}
 		
 		@Override

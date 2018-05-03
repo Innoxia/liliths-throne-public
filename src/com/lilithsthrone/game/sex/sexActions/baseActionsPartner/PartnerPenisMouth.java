@@ -993,7 +993,7 @@ public class PartnerPenisMouth {
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"[npc.Name] thrusts [npc.her] [npc.cock+] past your [pc.lips+],"
-									+ " and you find yourself letting out a threatening growl as you remind [npc.herHim] who's in charge, before roughly bobbing your head up and down into your groin.",
+									+ " and you find yourself letting out a threatening growl as you remind [npc.herHim] who's in charge, before roughly bobbing your head up and down into [npc.her] groin.",
 							"[npc.Name] pushes [npc.her] [npc.hips] into your [pc.face], and, wanting to remind [npc.herHim] who's in charge, you let out a threatening growl before roughly clamping your [pc.lips+] around [npc.her] [npc.cock+].",
 							"As [npc.name] bucks [npc.her] [npc.hips+] into your [pc.face], you let out a threatening growl to remind [npc.herHim] who's in charge,"
 									+ " before sliding your head up and down, continuing to give [npc.herHim] a rough blowjob."));
@@ -1054,7 +1054,7 @@ public class PartnerPenisMouth {
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"[npc.Name] greedily thrusts [npc.her] [npc.cock+] past your [pc.lips+],"
-									+ " and you find yourself letting out a threatening growl as you remind [npc.herHim] who's in charge, before roughly bobbing your head up and down into your groin.",
+									+ " and you find yourself letting out a threatening growl as you remind [npc.herHim] who's in charge, before roughly bobbing your head up and down into [npc.her] groin.",
 							"[npc.Name] desperately pushes [npc.her] [npc.hips] into your [pc.face], and, wanting to remind [npc.herHim] who's in charge,"
 									+ " you let out a threatening growl before roughly clamping your [pc.lips+] around [npc.her] [npc.cock+].",
 							"As [npc.name] frantically bucks [npc.her] [npc.hips+] into your [pc.face], you let out a threatening growl to remind [npc.herHim] who's in charge,"

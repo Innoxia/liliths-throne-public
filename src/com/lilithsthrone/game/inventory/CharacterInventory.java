@@ -721,10 +721,13 @@ public class CharacterInventory implements Serializable, XMLSaving {
 		tempSB = new StringBuilder();
 		List<AbstractClothing> clothingToRemove = new ArrayList<>();
 		for (AbstractClothing c : clothingCurrentlyEquipped){
-			
 			// Race:
 			if (c.getClothingType().getSlot().slotBlockedByRace(character) != null) {
 				transformationIncompatible(character, c, clothingToRemove, c.getClothingType().getSlot().getCannotBeWornDescription(character));
+				
+			// Clothing specials:
+			} else if (!c.isCanBeEquipped(character)) {
+				transformationIncompatible(character, c, clothingToRemove, c.getCannotBeEquippedText(character));
 				
 			// Piercings:
 			} else if(c.getClothingType().getSlot()==InventorySlot.PIERCING_EAR && !character.isPiercedEar()){
