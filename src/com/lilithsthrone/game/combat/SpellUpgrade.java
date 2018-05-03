@@ -591,14 +591,14 @@ public enum SpellUpgrade {
 			SpellSchool.ARCANE,
 			"telepathic_communication_projected_touch",
 			"Projected Touch",
-			"The target of Telepathic Communication is now able to project phantasmal forces, causing their target to be subjected to ghostly kisses even while their mind is filled with moans.",
+			"The caster of Telepathic Communication is now able to project phantasmal forces, causing their target to be subjected to ghostly kisses even while their mind is filled with moans.",
 			null, Util.newArrayListOfValues(
 					new ListValue<>("Buff [style.colourExcellent(doubled)] to <b>30</b> "+Attribute.DAMAGE_LUST.getColouredName("b")))),
 	TELEPATHIC_COMMUNICATION_3(3,
 			SpellSchool.ARCANE,
 			"telepathic_communication_power_of_suggestion",
 			"Power of Suggestion",
-			"The target of Telepathic Communication is able to project powerful words of suggestion into the mind of any person they wish to seduce, causing them to lower their guard.",
+			"The caster of Telepathic Communication is able to project powerful words of suggestion into the mind of any person they wish to seduce, causing them to lower their guard.",
 			null, Util.newArrayListOfValues(
 					new ListValue<>("[style.boldLust(Seduce)] [style.boldExcellent(applies)] -25 "+Attribute.RESISTANCE_PHYSICAL.getColouredName("b")+" to the target for [style.boldGood(2 turns)]"))),
 
