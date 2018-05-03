@@ -2934,6 +2934,9 @@ public class ItemEffectType {
 			} else if(primaryModifier == TFModifier.CLOTHING_ENSLAVEMENT) {
 				effectsList.add("[style.boldCrimson(Enslaves the wearer)]");
 				
+			} else if(primaryModifier == TFModifier.CLOTHING_ENSLAVEMENT_CONTRABAND) {
+				effectsList.add("[style.boldCrimson(Enslaves the wearer illegally)]");
+				
 			} else if(primaryModifier == TFModifier.TF_MOD_FETISH_BEHAVIOUR
 					|| primaryModifier == TFModifier.TF_MOD_FETISH_BODY_PART) {
 				if(potency==TFPotency.MAJOR_BOOST) {
@@ -2974,6 +2977,11 @@ public class ItemEffectType {
 					|| primaryModifier == TFModifier.CLOTHING_SEALING
 					|| primaryModifier == TFModifier.TF_MOD_FETISH_BEHAVIOUR
 					|| primaryModifier == TFModifier.TF_MOD_FETISH_BODY_PART) {
+				return "";
+			}
+			if(primaryModifier == TFModifier.CLOTHING_ENSLAVEMENT_CONTRABAND)
+			{
+				target.addStatusEffect(StatusEffect.ENSLAVED_CONTRABAND, 1);
 				return "";
 			}
 			return applyClothingTF(primaryModifier, secondaryModifier, potency, limit, user, target, timer);

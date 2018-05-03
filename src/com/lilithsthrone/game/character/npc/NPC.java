@@ -57,6 +57,9 @@ import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.CharacterInventory;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
+import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.enchanting.EnchantingUtils;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
@@ -1533,6 +1536,17 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		}
 		
 		return body;
+	}
+	
+	/**
+	 * For now just returns a generic, uncreative slave collar but can be overriden of course to provide eons of fun to the potential player-slave.
+	 * @return
+	 */
+	public AbstractClothing getEnslavementItem()
+	{
+		AbstractClothingType clothingType = ClothingType.NECK_SLAVE_COLLAR_CONTRABAND;
+		
+		return AbstractClothingType.generateClothing(clothingType);
 	}
 	
 	

@@ -151,6 +151,7 @@ import com.lilithsthrone.game.dialogue.SlaveryManagementDialogue;
 import com.lilithsthrone.game.dialogue.eventLog.EventLogEntry;
 import com.lilithsthrone.game.dialogue.eventLog.EventLogEntryAttributeChange;
 import com.lilithsthrone.game.dialogue.eventLog.EventLogEntryEncyclopediaUnlock;
+import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.story.CharacterCreation;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
@@ -181,12 +182,15 @@ import com.lilithsthrone.game.slavery.SlaveJob;
 import com.lilithsthrone.game.slavery.SlaveJobSetting;
 import com.lilithsthrone.game.slavery.SlavePermission;
 import com.lilithsthrone.game.slavery.SlavePermissionSetting;
+import com.lilithsthrone.game.slavery.playerSlavery.PlayerSlaveryEvent;
+import com.lilithsthrone.game.slavery.playerSlavery.PlayerSlaveryRule;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.Artist;
 import com.lilithsthrone.rendering.Artwork;
 import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.utils.XMLSaving;
 import com.lilithsthrone.world.Cell;
@@ -214,6 +218,11 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	public static final int LEVEL_CAP = 50;
 	public static final int MAX_TRAITS = 6;
 	
+	public static final int MAX_MINUTES_TO_NEXT_SLAVERY_EVENT = 90;
+	public static final int MIN_MINUTES_TO_NEXT_SLAVERY_EVENT = 10;
+	
+	public static final float FORCED_PUNISHMENT_TRESHOLD = -75; // Treshold at which only punishment events will generate.
+	public static final float FORCED_PUNISHMENT_DROP_TRIGGER = -50; // Amount of obedience lost at once that will trigger  a punishment.
 	
 	// Core variables:
 	protected String id;
@@ -293,6 +302,13 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	protected Map<SlavePermission, Set<SlavePermissionSetting>> slavePermissionSettings;
 	
 	protected boolean[] workHours;
+	
+	//Player Slavery:
+	protected Set<PlayerSlaveryEvent> slaveOwnerEvents; // Set of events that the owner may do to the player.
+	protected Set<PlayerSlaveryRule> slaveOwnerRules; // Set of rules the player owner imposed onto the player.
+	protected long timeOfNextEventCheck; // Time in minutes for the next slavery event to be allowed to generate.
+	protected long timeOfNextRuleCheck; // Time in minutes for the next  event check. Usually at a 60 minute interval.
+	
 	
 	//Companion
 	private String elementalID;
@@ -414,6 +430,10 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		}
 		
 		workHours = new boolean[24];
+		
+		slaveOwnerEvents = new HashSet<>();
+		slaveOwnerRules = new HashSet<>();
+		populateDefaultEvents();
 		
 		motherId = "";
 		fatherId = "";
@@ -2775,8 +2795,11 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			Main.game.setActiveNPC((NPC) this);
 			this.setPlayerKnowsName(true);
 		}
-		this.setAffection(enslaver, -200);
-		this.setObedience(-100);
+		if(!this.hasFetish(Fetish.FETISH_SLAVE))
+		{
+			this.setAffection(enslaver, -200);
+			this.setObedience(-100);
+		}
 	}
 	
 	public boolean isAbleToBeEnslaved() {
@@ -2837,11 +2860,34 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		return added;
 	}
 	
+	public boolean addPlayerAsSlave()
+	{
+		PlayerCharacter playerToEnslave = Main.game.getPlayer();
+		boolean added = slavesOwned.add(playerToEnslave.getId());
+		
+		this.timeOfNextEventCheck = Main.game.getMinutesPassed() + GameCharacter.MAX_MINUTES_TO_NEXT_SLAVERY_EVENT;
+		this.timeOfNextRuleCheck = Main.game.getMinutesPassed() - Main.game.getMinutesPassed()%60 + 60;
+		
+		if(added) {
+			if(playerToEnslave.isSlave()) {
+				playerToEnslave.getOwner().removeSlave(playerToEnslave);
+			}
+			playerToEnslave.setOwner(this);
+		}
+		
+		return added;
+	}
+	
 	public boolean removeSlave(GameCharacter slave) {
 		boolean removed = slavesOwned.remove(slave.getId());
 		
 		if(removed) {
 			slave.setOwner("");
+		}
+		
+		if(slave.isPlayer())
+		{
+			slave.setObedience(0, false);
 		}
 		
 		return removed;
@@ -2882,7 +2928,189 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		return !getOwnerId().isEmpty();
 	}
 	
+	/**
+	 * Handles player slavery updates
+	 */
+	public void handlePlayerSlavery(long minutesPassed)
+	{
+		//TODO : Make sure this is the player's owner and the player is within the location.
+		
+		boolean forcePunishment = false; // If true, forces the player to take punishment. Use for high obedience drops.
+		
+		// Checking rules compliance here
+		if(this.timeOfNextRuleCheck >= minutesPassed)
+		{
+			int totalRules = 0;
+			float obedienceChange = 0;
+			
+			for(PlayerSlaveryRule slaveryRule : this.slaveOwnerRules) {
+				totalRules++;
+				obedienceChange += slaveryRule.getPerformanceQuality();
+			}
+			
+			if(totalRules > 0)
+			{
+				obedienceChange /= totalRules; // The more rules are set for the player, the less they individually impact the result.
+			}
+			
+			this.incrementObedience(obedienceChange, false);
+			this.timeOfNextRuleCheck += 60;
+			
+			// Checking to see if the player deserves a punishment for being a bad [player.gender] ;3
+			if(this.obedience < GameCharacter.FORCED_PUNISHMENT_TRESHOLD || obedienceChange < GameCharacter.FORCED_PUNISHMENT_DROP_TRIGGER)
+			{
+				forcePunishment = true;
+			}
+		}
+		
+		// Checking for event spawning here
+		if(this.timeOfNextEventCheck >= minutesPassed)
+		{
+			// At 0 weight, an event won't be generated. If all events return 0 weight, then no event happens.
+			int currentCandidateWeight = 0;
+			PlayerSlaveryEvent currentCandidate = null;
+			
+			for(PlayerSlaveryEvent slaveryEvent : this.slaveOwnerEvents) {
+				if(!forcePunishment || (forcePunishment && slaveryEvent.getIsPunishment())) // Making sure to comply with punishment forcing.
+				{
+					int currentEventWeight = slaveryEvent.getWeight();
+					if(currentCandidateWeight > currentEventWeight)
+					{
+						currentCandidateWeight = currentEventWeight;
+						currentCandidate = slaveryEvent;
+					}
+				}
+			}
+			
+			if(currentCandidate != null)
+			{
+				// Warning: We are doing dangerous shit there. Since slavery system is supposed to be an overbearing one, it's safe to do it here, but to other contributors, here's a note - don't do it without a good reason!
+				// To explain - this function below sets the dialogue node.
+				// It can force it in the middle of anything, potentially sequence breaking a quest dialogue.
+				// This has double safeguards in terms of doing it only on minute-changing turn skips *and* only when the player is in a controlled enviroment.
+				// Using it outside of these tight constraints should be avoided.
+				// (Note for Inno: I'm just leaving this as a warning for future contributors :3)
+				Main.game.setContent(new Response("", "", currentCandidate.getTriggerDialogue()));
+			}
+
+			int randomValue = (int )(Math.random() * (GameCharacter.MAX_MINUTES_TO_NEXT_SLAVERY_EVENT - GameCharacter.MIN_MINUTES_TO_NEXT_SLAVERY_EVENT) + 1) + GameCharacter.MIN_MINUTES_TO_NEXT_SLAVERY_EVENT;
+			this.timeOfNextEventCheck += randomValue;
+		}
+	}
+	
+	/**
+	 * Returns punishment dialogue node. Doesn't automatically set it like normal; use it for events where player messes up to give them an immediate punishment.
+	 * @return
+	 */
+	public DialogueNodeOld getPunishmentDialogue()
+	{
+		// At 0 weight, an event won't be generated. If all events return 0 weight, then no event happens.
+		int currentCandidateWeight = 0;
+		PlayerSlaveryEvent currentCandidate = null;
+		
+		for(PlayerSlaveryEvent slaveryEvent : this.slaveOwnerEvents) {
+			if(slaveryEvent.getIsPunishment())
+			{
+				int currentEventWeight = slaveryEvent.getWeight();
+				if(currentCandidateWeight > currentEventWeight)
+				{
+					currentCandidateWeight = currentEventWeight;
+					currentCandidate = slaveryEvent;
+				}
+			}
+		}
+		
+		if(currentCandidate != null)
+		{
+			return currentCandidate.getTriggerDialogue();
+		}
+		
+		return null;
+	}
+	
+	/**
+	 * Checks to see if a slavery rule is enforced by the owner. If it is enforced, returns it; otherwise returns null.
+	 * @param ruleUniqueName
+	 * @return
+	 */
+	public PlayerSlaveryRule hasRule(String ruleUniqueName)
+	{
+		for(PlayerSlaveryRule slaveryRule : this.slaveOwnerRules) {
+			if(slaveryRule.getUniqueName() == ruleUniqueName)
+			{
+				return slaveryRule;
+			}
+		}
+		return null;
+	}
+	
+	/**
+	 * Returns true if the character is within the bounds of their owner's property.
+	 */
+	public boolean isWithinOwnersPropery()
+	{
+		if(this.getOwner() == null)
+		{
+			return true;
+		}
+		for(Value<WorldType, Vector2i> locationValue : this.getOwner().getSlaveAreaLocationPlaces())
+		{
+			if(this.getWorldLocation() == locationValue.getKey() && this.getLocation().getX() == locationValue.getValue().getX() && this.getLocation().getY() == locationValue.getValue().getY())
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * Automatically enters the scene that triggers when player passes out from their collar or gets brought back by enforcers.
+	 * 
+	 * It should handle the movement to a new location as well.
+	 */
+	public void triggerSlaveRetrivalDialogue()
+	{
+		//Main.game.getPlayer().setLocation(this.worldLocation, this.location, false);
+		//DialogueNodeOld dn = null; //todo
+		
+		// Warning: We are doing dangerous shit there. Since slavery system is supposed to be an overbearing one, it's safe to do it here, but to other contributors, here's a note - don't do it without a good reason!
+		// To explain - this function below sets the dialogue node.
+		// It can force it in the middle of anything, potentially sequence breaking a quest dialogue.
+		// Using it outside of these tight constraints should be avoided.
+		// (Note for Inno: I'm just leaving this as a warning for future contributors :3)
+		//Main.game.setContent(new Response("", "", dn));		
+	}
+	
+	/**
+	 * Returns true if character is wearing a clothing piece enchanted with enslaving or contraband enslaving enchantmnet.
+	 * @return
+	 */
+	public boolean isWearingEnslavingClothing()
+	{
+		return this.getClothingCurrentlyEquipped().stream().anyMatch(e -> e.isContrabandEnslavementClothing() || e.isEnslavementClothing());
+	}
+	
+	/**
+	 * Called during initialization. Override to change the events the NPC will do to the player.
+	 */
+	public void populateDefaultEvents()
+	{
+		// todo
+	}
+	
 	// Companions:
+	
+	/**
+	 * Override to give the NPC something interesting to say. Basically will return a bunch of responses like normal.
+	 * 
+	 * Index 0 is reserved for "Back" button. You can try to handle it here, but don't cause game already does it.
+	 * @param index
+	 * @return
+	 */
+	public Response getTalkResponse(int index)
+	{
+		return null;
+	}
 	
 	private void setElementalID(String elementalID) {
 		this.elementalID = elementalID;
@@ -9957,6 +10185,23 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	
 	public GenericPlace getHomeLocationPlace() {
 		return Main.game.getWorlds().get(getHomeWorldLocation()).getCell(getHomeLocation()).getPlace();
+	}
+	
+	/**
+	 * This function returns the location that the slave of this character (AKA basically player once enslaved) can remain in without penalties and can enter.
+	 * 
+	 * For default alleyway attackers that managed to enslave the player, it returns the current tile they own.
+	 * @return
+	 */
+	public Set<Value<WorldType, Vector2i>> getSlaveAreaLocationPlaces()
+	{
+		Set<Value<WorldType, Vector2i>> returnableSet = new HashSet<Value<WorldType, Vector2i>>();
+		
+		//This is where magic should happen in similar overriding functions. Normally the only area a slaver would be assumed to own will be their own home tile but obviously dragons with their lairs or demons with their mansions should have a bigger list; use a foreach loop here to fill it.
+		Value<WorldType, Vector2i> valueToAdd = new Value<>(this.getWorldLocation(), this.getLocation());
+		returnableSet.add(valueToAdd);
+		
+		return returnableSet;
 	}
 	
 	public void setLocation(WorldType worldType, Vector2i location, boolean setAsHomeLocation) {

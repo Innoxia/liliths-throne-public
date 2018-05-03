@@ -151,6 +151,10 @@ public enum Encounter {
 				
 				// Prioritise re-encountering the NPC on this tile:
 				for(NPC npc : Main.game.getNonCompanionCharactersPresent()) {
+					if(Main.game.getPlayer().getOwner() == npc)
+					{
+						return null;
+					}
 					Main.game.setActiveNPC(npc);
 					return Main.game.getActiveNPC().getEncounterDialogue();
 				}
@@ -248,6 +252,10 @@ public enum Encounter {
 		protected DialogueNodeOld initialiseEncounter(EncounterType node) {
 			// Prioritise re-encountering the NPC on this tile:
 			for(NPC npc : Main.game.getNonCompanionCharactersPresent()) {
+				if(Main.game.getPlayer().getOwner() == npc)
+				{
+					return null;
+				}
 				Main.game.setActiveNPC(npc);
 				return Main.game.getActiveNPC().getEncounterDialogue();
 			}

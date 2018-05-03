@@ -949,6 +949,12 @@ public abstract class SexAction implements SexActionInterface {
 					break;
 				case FETISH_KINK_RECEIVING:
 					break;
+				case FETISH_MASTER:
+					associatedFetishesPartner.add(Fetish.FETISH_SLAVE);
+					break;
+				case FETISH_SLAVE:
+					associatedFetishesPartner.add(Fetish.FETISH_MASTER);
+					break;
 			}
 		}
 		

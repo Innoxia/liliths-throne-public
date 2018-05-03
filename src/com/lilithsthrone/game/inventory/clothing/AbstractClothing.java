@@ -956,6 +956,14 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 		return this.getEffects().stream().anyMatch(e -> e.getPrimaryModifier() == TFModifier.CLOTHING_ENSLAVEMENT);
 	}
 	
+	/**
+	 * Same as above, but checks for a special kind of clothing enchantment that can only be used by outlaw NPCs.
+	 * @return
+	 */
+	public boolean isContrabandEnslavementClothing() {
+		return this.getEffects().stream().anyMatch(e -> e.getPrimaryModifier() == TFModifier.CLOTHING_ENSLAVEMENT_CONTRABAND);
+	}
+	
 	@Override
 	public List<ItemEffect> getEffects() {
 		return effects;

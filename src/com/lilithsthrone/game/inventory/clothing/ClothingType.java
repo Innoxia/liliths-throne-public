@@ -9204,6 +9204,63 @@ public class ClothingType {
 //		}
 	};
 	
+		
+	public static AbstractClothingType NECK_SLAVE_COLLAR_CONTRABAND = new AbstractClothingType(2500,
+				"a",
+				false,
+				"contraband metal collar",
+				"contraband metal collars",
+				"A heavy metal collar, of the type typically worn by slaves. This one has odd markings and runes, giving it a tell-tale sign that it was worked on by a black market enchanter.",
+				2,
+				null,
+				InventorySlot.NECK,
+				Rarity.EPIC,
+				ClothingSet.BDSM,
+				"bdsm_neck_metal_collar",
+				Util.newArrayListOfValues(
+						new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ENSLAVEMENT_CONTRABAND, TFModifier.ARCANE_BOOST, TFPotency.BOOST, 0)),
+						new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SEALING, TFModifier.ARCANE_BOOST, TFPotency.BOOST, 0))),
+				Util.newArrayListOfValues(
+						new ListValue<BlockedParts>(new BlockedParts(
+								DisplacementType.REMOVE_OR_EQUIP,
+								null, null, null, null))),
+				null,
+				ColourListPresets.ALL_METAL.getPresetColourList(),
+				null,
+				ColourListPresets.JUST_STEEL.getPresetColourList(),
+				ColourListPresets.ALL_METAL.getPresetColourList(),
+				null,
+				null,
+				Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_FINCH))){
+
+			@Override
+			public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+				return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+						"You clasp the heavy metal collar around your neck.",
+						"You clasp the heavy metal collar around [npc.name]'s neck.",
+						null,
+						"[npc.Name] clasps the heavy metal collar around [npc.her] neck.",
+						"[npc.Name] clasps the heavy metal collar around your neck.",
+						null, null, null);
+			}
+
+			@Override
+			public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+				return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+						"You take off your metal collar.",
+						"You take off [npc.name]'s metal collar.",
+						null,
+						"[npc.Name] takes [npc.her] metal collar off.",
+						"[npc.Name] takes your metal collar off.",
+						null, null, null);
+			}
+		
+//		@Override
+//		public int getEnchantmentLimit() {
+//			return 17;
+//		}
+	};
+	
 	public static AbstractClothingType BDSM_BALLGAG = new AbstractClothingType(150,
 			"a",
 			false,

@@ -4575,6 +4575,10 @@ public class InventoryDialogue {
 						} else if(index == 5) {
 							if(clothing.isSealed()) {
 								if(isAbleToRemoveJinxes()) {
+									if(Main.game.getPlayer().isWearingEnslavingClothing())
+									{
+										return new Response("Unjinx", "You can't unjinx this item as you are enslaved! Seems like you need to have your master or some professional to have a look at it.", null);
+									}
 									if(Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE) >= 5) {
 										return new Response("Unjinx (<b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>5 Essences</b>)", "Spend 5 arcane essences on removing the jinx from this piece of clothing.", INVENTORY_MENU) {
 											@Override

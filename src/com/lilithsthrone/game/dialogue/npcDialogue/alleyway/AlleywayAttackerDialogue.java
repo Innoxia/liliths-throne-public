@@ -13,6 +13,7 @@ import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.Sex;
@@ -540,6 +541,7 @@ public class AlleywayAttackerDialogue {
 		private static final long serialVersionUID = 1L;
 		
 		Value<String, AbstractItem> potion = null;
+		AbstractClothing enslavementItem = null;
 		
 		@Override
 		public String getDescription() {
@@ -548,7 +550,7 @@ public class AlleywayAttackerDialogue {
 
 		@Override
 		public String getContent() {
-			if(Main.game.getActiveNPC().hasTransformationFetish() && Main.game.getActiveNPC().isWillingToRape(Main.game.getPlayer()) ) {
+			if(Main.game.getActiveNPC().hasTransformationFetish() && Main.game.getActiveNPC().isWillingToRape(Main.game.getPlayer()) && !Main.game.getActiveNPC().hasFetish(Fetish.FETISH_MASTER) ) {
 				potion = Main.game.getActiveNPC().getTransfomativePotion(true);
 				
 //				System.out.println("Potion Check 1"); 
@@ -595,6 +597,28 @@ public class AlleywayAttackerDialogue {
 							+ "</p>");
 				}
 			}
+			
+			if(Main.game.getActiveNPC().hasFetish(Fetish.FETISH_MASTER)) {
+					enslavementItem = Main.game.getActiveNPC().getEnslavementItem();
+					return UtilText.parse(Main.game.getActiveNPC(),
+							"<p>"
+								+ "You can't carry on fighting any more, and you feel your [pc.legs] giving out beneath you as you collapse to the ground, defeated."
+								+ " A mocking laugh causes you to look up, and you see [npc.name] grinning down at you."
+							+ "</p>"
+							+ "<p>"
+								+ "[npc.speech(Hah! That was too easy!)] [npc.she] says, before leaning down to grab one of your [pc.arms]."
+							+ "</p>"
+							+ "<p>"
+								+ "Pulling you to your feet, [npc.name] takes out a collar from somewhere out of sight and twirls it around [npc.her] finger."
+							+ "</p>"
+							+ "<p>"
+								+ "[npc.speech(Oh what a coincidence that you've showed up! And I just got this little slave-making toy here...)] [npc.she] mockingly says, starting to fiddle with it, [npc.speech(Don't you <i>dare</i> to run, or I'll make your sorry slave ass regret it.)]"
+							+ "</p>"
+							+ "<p>"
+								+ "While [npc.name] is fiddling with the collar, you see a brief opening to run away..."
+							+ "</p>");
+				
+			}
 				
 			if(Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer()) && Main.game.getActiveNPC().isWillingToRape(Main.game.getPlayer())) {
 					return UtilText.parse(Main.game.getActiveNPC(),
@@ -633,7 +657,7 @@ public class AlleywayAttackerDialogue {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(Main.game.getActiveNPC().hasTransformationFetish() && potion != null && Main.game.getActiveNPC().isWillingToRape(Main.game.getPlayer()) ) {
+			if(Main.game.getActiveNPC().hasTransformationFetish() && potion != null && Main.game.getActiveNPC().isWillingToRape(Main.game.getPlayer()) && !Main.game.getActiveNPC().hasFetish(Fetish.FETISH_MASTER) ) {
 				
 //				System.out.println("Potion Check 2"); 
 //				System.out.println(potion); 
@@ -686,6 +710,47 @@ public class AlleywayAttackerDialogue {
 				} else {
 					return null;
 				}
+			} else if(Main.game.getActiveNPC().hasFetish(Fetish.FETISH_MASTER)) {
+				if (index == 1) {
+					if(Main.game.getPlayer().hasFetish(Fetish.FETISH_SLAVE)) {
+						return new Response("Run Away",
+								"Due to your <b style='color:"+Colour.FETISH.toWebHexString()+";'>"+Fetish.FETISH_SLAVE.getName(Main.game.getPlayer())
+									+"</b> fetish, you love being a slave so much that you can't bring yourself to use this window of opportunity to run away!",
+								null);
+					} else {
+						return new Response("Run Away", "Use the opportunity to run away, avoiding enslavement.", AFTER_COMBAT_ENSLAVEMENT_REFUSED);
+					}
+					
+				} else if (index == 2) {
+					ArrayList<Fetish> applicableFetishes = Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SLAVE));
+					CorruptionLevel applicableCorrutionLevel = Fetish.FETISH_SLAVE.getAssociatedCorruptionLevel();
+					
+					return new Response("Enslaved...", "There is nothing you can do, clearly, to avoid being enslaved. Warning: This will limit your freedom for a while and you will lose all your items and flames!", AFTER_COMBAT_ENSLAVEMENT,
+							applicableFetishes,
+							applicableCorrutionLevel,
+							null,
+							null,
+							null){
+						@Override
+						public void effects(){
+							Main.game.getActiveNPC().addPlayerAsSlave();
+							Main.game.getPlayer().setObedience(-100, false);
+							if(Main.game.getPlayer().hasFetish(Fetish.FETISH_SLAVE)) {
+								Main.game.getPlayer().setObedience(0, false);
+							}
+							Main.game.getTextStartStringBuilder().append(
+									"<p>"
+										+ "[npc.Name] finishes up with the preparation, bringing the item's potent echantment onto you,"
+										+ " [npc.speech(Good [pc.girl]! Now you will do as I tell you, understand?)]"
+									+ "</p>"
+									+ "<p>"
+										+Main.game.getPlayer().equipClothingFromNowhere(enslavementItem, true, Main.game.getActiveNPC())
+									+"</p>");
+							// TODO: Remove inventory items and flames and give them to NPC.
+						}
+					};
+				}
+				return null;
 			} else {
 				if(Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer()) && Main.game.getActiveNPC().isWillingToRape(Main.game.getPlayer())) {
 					if (index == 1) {
@@ -1104,6 +1169,80 @@ public class AlleywayAttackerDialogue {
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Continue", "Carry on your way.", AFTER_SEX_VICTORY){
+					@Override
+					public DialogueNodeOld getNextDialogue(){
+						return DebugDialogue.getDefaultDialogueNoEncounter();
+					}
+				};
+				
+			} else {
+				return null;
+			}
+		}
+	};
+	
+	public static final DialogueNodeOld AFTER_COMBAT_ENSLAVEMENT = new DialogueNodeOld("Enslaved...", "", true) {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public int getMinutesPassed(){
+			return 5;
+		}
+		
+		@Override
+		public String getDescription(){
+			return "You are enslaved by [npc.name]!.";
+		}
+
+		@Override
+		public String getContent() {
+			return UtilText.parse(Main.game.getActiveNPC(),
+					"<p>"
+						+ "Placeholder text." // TODO
+					+ "</p>");
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 1) {
+				return new Response("Continue", "Carry on with your new life.", AFTER_SEX_VICTORY){
+					@Override
+					public DialogueNodeOld getNextDialogue(){
+						return DebugDialogue.getDefaultDialogueNoEncounter();
+					}
+				};
+				
+			} else {
+				return null;
+			}
+		}
+	};
+	
+	public static final DialogueNodeOld AFTER_COMBAT_ENSLAVEMENT_REFUSED = new DialogueNodeOld("Escaped!", "", true) {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public int getMinutesPassed(){
+			return 5;
+		}
+		
+		@Override
+		public String getDescription(){
+			return "You have escaped [npc.name]!.";
+		}
+
+		@Override
+		public String getContent() {
+			return UtilText.parse(Main.game.getActiveNPC(),
+					"<p>"
+						+ "Spotting a perfect opportinity to make your escape, you run away from [npc.name], not letting them put that thing on you!"
+					+ "</p>");
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 1) {
+				return new Response("Continue", "Carry on your way... After catching your breath, that's it.", AFTER_SEX_VICTORY){
 					@Override
 					public DialogueNodeOld getNextDialogue(){
 						return DebugDialogue.getDefaultDialogueNoEncounter();

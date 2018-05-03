@@ -2851,6 +2851,63 @@ public enum StatusEffect {
 		}
 	},
 	
+	ENSLAVED_CONTRABAND(
+			80,
+			"Enslaved (Illegal)",
+			"arcaneDrain",
+			Colour.BASE_RED,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -50f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -50f)),
+			Util.newArrayListOfValues(new ListValue<String>("Enslaved, with a strong enhcantment not allowing the slave to remain outside for too long."))) {
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			if(target.isPlayer() && !target.isWithinOwnersPropery()) {
+				float totalDrain = minutesPassed * 2;
+				target.incrementHealth(-totalDrain);
+				target.incrementMana(-totalDrain);
+				if(target.getHealth() < 5)
+				{
+					target.getOwner().triggerSlaveRetrivalDialogue();
+				}
+				
+			}
+			return "";
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target.isPlayer()) {
+				return "You are wearing a potently enchanted item, binding you to serve " + Main.game.getPlayer().getOwner().getName() + "!";
+			} else {
+				return UtilText.parse(target, "[npc.name] is wearing a potently enchanted item, binding [npc.her] to serve " + target.getOwner().getName() + "!");
+			}
+		}
+		
+		@Override
+		public String extraRemovalEffects(GameCharacter target) {
+			target.getOwner().removeSlave(target);
+			return "";
+		}
+		
+		@Override
+		public boolean isConditionsMet(GameCharacter target)
+		{
+			for(AbstractClothing clothing : target.getClothingCurrentlyEquipped())
+			{
+				if(clothing.isContrabandEnslavementClothing())
+				{
+					return true;
+				}
+			}
+			return false;
+		}
+
+		
+	},
+	
 	PSYCHOACTIVE(
 			80,
 			"Psychoactive Trip",

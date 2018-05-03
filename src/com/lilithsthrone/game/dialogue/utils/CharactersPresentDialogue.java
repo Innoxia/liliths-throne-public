@@ -74,6 +74,10 @@ public class CharactersPresentDialogue {
 					return "Sex";
 				}
 			}
+			
+			if(index == 3) {
+				return "Talk";
+			}
 			return null;
 		}
 		
@@ -307,6 +311,18 @@ public class CharactersPresentDialogue {
 					
 				}
 				
+			} else if (responseTab==3){
+
+				if (index == 0) {
+					return new ResponseEffectsOnly("Back", "Stop viewing the characters present and return to the main game."){
+						@Override
+						public void effects() {
+							Main.mainController.openCharactersPresent();
+						}
+					};
+				}
+				
+				return characterViewed.getTalkResponse(index);
 			}
 			
 			return null;

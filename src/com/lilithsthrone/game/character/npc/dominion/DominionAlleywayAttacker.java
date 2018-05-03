@@ -27,6 +27,7 @@ import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.npcDialogue.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.alleyway.AlleywayAttackerDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.alleyway.AlleywayProstituteDialogue;
+import com.lilithsthrone.game.dialogue.places.dominion.PlayerAlleywaySlavery;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
@@ -655,6 +656,24 @@ public class DominionAlleywayAttacker extends NPC {
 		}else{
 			return Sex.getActivePartner().useItem(item, target, false);
 		}
+	}
+	
+	/**
+	 * Automatically enters the scene that triggers when player passes out from their collar or gets brought back by enforcers.
+	 * 
+	 * It should handle the movement to a new location as well.
+	 */
+	@Override
+	public void triggerSlaveRetrivalDialogue()
+	{
+		Main.game.getPlayer().setLocation(this.worldLocation, this.location, false);
+		
+		// Warning: We are doing dangerous shit there. Since slavery system is supposed to be an overbearing one, it's safe to do it here, but to other contributors, here's a note - don't do it without a good reason!
+		// To explain - this function below sets the dialogue node.
+		// It can force it in the middle of anything, potentially sequence breaking a quest dialogue.
+		// Using it outside of these tight constraints should be avoided.
+		// (Note for Inno: I'm just leaving this as a warning for future contributors :3)
+		Main.game.setContent(new Response("", "", PlayerAlleywaySlavery.ALLEYWAY_SLAVE_RECOVERED));		
 	}
 	
 }

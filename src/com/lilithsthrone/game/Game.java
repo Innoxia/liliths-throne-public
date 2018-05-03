@@ -113,6 +113,7 @@ import com.lilithsthrone.game.settings.KeyboardAction;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.slavery.SlaveJobSetting;
 import com.lilithsthrone.game.slavery.SlaveryUtil;
+import com.lilithsthrone.game.slavery.playerSlavery.PlayerSlaveryRule;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.RenderingEngine;
 import com.lilithsthrone.rendering.SVGImages;
@@ -949,6 +950,36 @@ public class Game implements Serializable, XMLSaving {
 		
 		// If the time has passed midnight on this turn:
 		boolean newDay = ((int) (minutesPassed / (60 * 24)) != (int) (((minutesPassed - turnTime) / (60 * 24))));
+		
+		// Player Slavery
+		if(Main.game.getPlayer().getOwner() != null)
+		{
+			if(Main.game.getPlayer().isWithinOwnersPropery())
+			{
+				Main.game.getPlayer().getOwner().handlePlayerSlavery(minutesPassed);
+			}
+			else
+			{
+				// Updating outside rule timing
+				if(advanceTime)
+				{
+					PlayerSlaveryRule outsideRule = Main.game.getPlayer().getOwner().hasRule("outside-freedom");
+					if(outsideRule != null)
+					{
+						outsideRule.lowerFreeTime(turnTime);
+					}
+				}
+				if(newDay)
+				{
+					PlayerSlaveryRule outsideRule = Main.game.getPlayer().getOwner().hasRule("outside-freedom");
+					if(outsideRule != null)
+					{
+						outsideRule.resetFreeTime();
+					}
+				}
+			}
+			//TODO: Slavery enchantment and status effect checks.
+		}
 		
 		if(newDay) {
 			pendingSlaveInStocksReset = true;

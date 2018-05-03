@@ -218,6 +218,13 @@ public enum TFModifier {
 			"modifier_circle_enslavement",
 			Colour.BASE_PURPLE_DARK,
 			Rarity.LEGENDARY),
+
+	CLOTHING_ENSLAVEMENT_CONTRABAND("enslavement (contraband)",
+			"Makes this piece of clothing enslave the wearer illegally, bypassing normal licensing.",
+			"enslavement",
+			"modifier_circle_enslavement",
+			Colour.BASE_PURPLE_DARK,
+			Rarity.LEGENDARY),
 	
 	CLOTHING_SEALING("sealing",
 			"Makes this piece of clothing seal itself onto the wearer.",
@@ -1018,6 +1025,8 @@ public enum TFModifier {
 	TF_MOD_FETISH_MASTURBATION(Fetish.FETISH_MASTURBATION),
 	TF_MOD_FETISH_NON_CON_DOM(Fetish.FETISH_NON_CON_DOM),
 	TF_MOD_FETISH_NON_CON_SUB(Fetish.FETISH_NON_CON_SUB),
+	TF_MOD_FETISH_MASTER(Fetish.FETISH_MASTER),
+	TF_MOD_FETISH_SLAVE(Fetish.FETISH_SLAVE),
 	TF_MOD_FETISH_PREGNANCY(Fetish.FETISH_PREGNANCY),
 	TF_MOD_FETISH_PURE_VIRGIN(Fetish.FETISH_PURE_VIRGIN),
 	TF_MOD_FETISH_SADIST(Fetish.FETISH_SADIST),
@@ -1129,6 +1138,8 @@ public enum TFModifier {
 		TFBehaviouralFetishList.add(TF_MOD_FETISH_MASOCHIST);
 		TFBehaviouralFetishList.add(TF_MOD_FETISH_NON_CON_DOM);
 		TFBehaviouralFetishList.add(TF_MOD_FETISH_NON_CON_SUB);
+		TFBehaviouralFetishList.add(TF_MOD_FETISH_MASTER);
+		TFBehaviouralFetishList.add(TF_MOD_FETISH_SLAVE);
 		TFBehaviouralFetishList.add(TF_MOD_FETISH_DENIAL);
 		TFBehaviouralFetishList.add(TF_MOD_FETISH_DENIAL_SELF);
 		TFBehaviouralFetishList.add(TF_MOD_FETISH_VOYEURIST);

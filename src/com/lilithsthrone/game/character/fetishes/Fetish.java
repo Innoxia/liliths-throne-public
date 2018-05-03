@@ -1142,6 +1142,70 @@ public enum Fetish {
 			return CorruptionLevel.FOUR_LUSTFUL;
 		}
 	},
+	
+	FETISH_MASTER(60,
+			"slave master",
+			"owning slaves",
+			"fetish_noncon_dom", // todo: different svg
+			Fetish.BASE_EXPERIENCE_GAIN,
+			Colour.GENERIC_ARCANE,
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<>("<span style='color:"+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Increases</span> <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'> arousal gain when partner is a slave</span>")), //todo
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			if (owner.isPlayer()) {
+				return "You love the concept of slavery in a sexual way and enjoy having a complete control over someone else beyond simple BDSM.";
+				
+			} else {
+				return UtilText.parse(owner, "[npc.Name] has a fetish for owning slaves...");
+			}
+		}
+
+		@Override
+		public String getFetishDesireDescription(GameCharacter target, FetishDesire desire) {
+			return getGenericFetishDesireDescription(target, desire, "owning slaves");
+		}
+		
+		@Override
+		public CorruptionLevel getAssociatedCorruptionLevel() {
+			return CorruptionLevel.THREE_DIRTY;
+		}
+	},
+	
+	FETISH_SLAVE(60,
+			"slave",
+			"being a slave",
+			"fetish_noncon_sub", // todo: different svg
+			Fetish.BASE_EXPERIENCE_GAIN,
+			Colour.GENERIC_ARCANE,
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<>("<span style='color:"+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Increases</span> <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>initial affection and obedience towards masters.</span>")),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			if (owner.isPlayer()) {
+				return "You love being a slave to someone else, owned like a property.";
+				
+			} else {
+				return UtilText.parse(owner, "[npc.Name] has a fetish for being a slave, owned like a property...");
+			}
+		}
+
+		@Override
+		public String getFetishDesireDescription(GameCharacter target, FetishDesire desire) {
+			return getGenericFetishDesireDescription(target, desire, "being a slave");
+		}
+		
+		@Override
+		public CorruptionLevel getAssociatedCorruptionLevel() {
+			return CorruptionLevel.FOUR_LUSTFUL;
+		}
+	},
 
 	FETISH_EXHIBITIONIST(60,
 			"exhibitionist",
