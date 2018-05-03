@@ -200,7 +200,7 @@ public class SuccubisSecrets {
 						+ "[pc.speech(Excuse me?)]"
 					+ "</p>"
 					+ "<p>"
-						+ "Her eyes instantly snap open, and as she lets out an annoyed huff, you realise that she was merely pretending to be asleep this whole time,"
+						+ "Her eyes instantly snap open, and as she lets out an annoyed huff, you realise that she was merely pretending to be asleep this whole time."
 						+ " [kate.speech(Am I really that rusty?! You didn't want to fuck me at all, not one little bit?"
 							+ " Y'know, that's one downside of not having any customers. I haven't had sex in, like, three whole days! And then, when someone finally arrives, they don't even want to have any fun!)]"
 					+ "</p>";
@@ -274,7 +274,7 @@ public class SuccubisSecrets {
 					+ "</p>"
 					+ "<p>"
 					+ "You can't take your eyes off of the lewd display before you, and you start to wonder how much longer she's going to keep this up."
-					+ " Just as you're deciding on what to do next, the demon suddenly opens her eyes, letting out an annoyed little huff as she stares right at you, "
+					+ " Just as you're deciding on what to do next, the demon suddenly opens her eyes, letting out an annoyed little huff as she stares right at you. "
 					+ UtilText.parseSpeech("How much longer do I have to do this for before you come over here and fuck me?! Y'know, that's one downside of not having any customers, I haven't had sex in, like, three whole days!",
 							Main.game.getKate())
 					+ "</p>";
@@ -342,7 +342,7 @@ public class SuccubisSecrets {
 						+ " you hear her beg, but you've already made up your mind."
 						+ "</p>"
 						+ "<p>"
-						+ UtilText.parsePlayerSpeech("Can you please cover yourself up?! I though this was a beauty salon, not a brothel...")
+						+ UtilText.parsePlayerSpeech("Can you please cover yourself up?! I thought this was a beauty salon, not a brothel...")
 						+" you say, your words coming out a little stronger than they might normally have done as you struggle to keep your lust under control."
 						+ "</p>"
 						+ "<p>"
@@ -358,7 +358,7 @@ public class SuccubisSecrets {
 						+" breasts, her wide hips and long, perfectly-formed legs finish her look as a top-class super-model."
 						+ "</p>"
 						+ "<p>"
-						+ "She seems to have got her own lust under control by now, and as she looks up, she seems rather ashamed of what she just did, "
+						+ "She seems to have got her own lust under control by now, and as she looks up, she seems rather ashamed of what she just did. "
 						+ UtilText.parseSpeech("Ehhh, sorry about that... You know, it's pretty hard for us demons sometimes... Anyway! What are you even doing in here?"
 								+ " Weren't you deterred by the boarded-up windows and stuff?",
 							Main.game.getKate())
@@ -380,7 +380,7 @@ public class SuccubisSecrets {
 						+ "<p>"
 						+ UtilText.parseSpeech("Well, I suppose I don't mind one customer every now and then. I could use the cash after all,",
 							Main.game.getKate())
-						+" she says, motioning for you to come and sit down, "
+						+" she says, motioning for you to come and sit down. "
 						+ UtilText.parseSpeech("Oh, and I'm Kate by the way. Now come over here and take a seat.",
 							Main.game.getKate())
 						+ "</p>"
@@ -426,16 +426,16 @@ public class SuccubisSecrets {
 						+ " With a yawn, she slowly sits up, still cradling her round tummy as she grins at you."
 						+ "</p>"
 						+ "<p>"
-						+ "[kate.speech(Hehe, look what you did!)] she laughs, [kate.speech(Mmm, it sure is nice being pregnant...)]"
+						+ "[kate.speech(Hehe, look what you did!)] she laughs. [kate.speech(Mmm, it sure is nice being pregnant...)]"
 						+ "</p>"
 						+ "<p>"
 						+ "She hands you a nearby brochure, and as you thank her, you can't help but feel quite taken aback at how casual she's acting about this."
 						+ "</p>"
 						+ "<p>"
-						+ "[pc.speech(Is there anything I can get for you?)] you ask, unsure of quite how to react to Kate's blas&eacute; attitude, [pc.speech(You don't seem very concerned about being pregnant...)]"
+						+ "[pc.speech(Is there anything I can get for you?)] you ask, unsure of quite how to react to Kate's blas&eacute; attitude. [pc.speech(You don't seem very concerned about being pregnant...)]"
 						+ "</p>"
 						+ "<p>"
-						+ "[kate.speech(Aww that's sweet of you, but I'm fine thanks. I love being pregnant!)] she laughs again, [kate.speech(It gives me an excuse to just lie around all day. Anyway, just let me know if you need something.)]"
+						+ "[kate.speech(Aww that's sweet of you, but I'm fine thanks. I love being pregnant!)] she laughs again. [kate.speech(It gives me an excuse to just lie around all day. Anyway, just let me know if you need something.)]"
 						+ "</p>"
 						+ "<p>"
 						+ "With that, she sinks back down into her chair, and before you can respond, her snores start to fill the empty shop once more..."

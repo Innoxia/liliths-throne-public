@@ -112,7 +112,7 @@ public class TunnelAttackDialogue {
 							Main.game.getPlayer().incrementMoney(-250);
 							Main.game.getTextStartStringBuilder().append(
 									"<p>"
-										+ "Wanting to avoid a fight if at all possible, you take a step backwards, fumbling about to grab a handful of flames to offer to the [npc.race],"
+										+ "Wanting to avoid a fight if at all possible, you take a step backwards, fumbling about to grab a handful of flames to offer to the [npc.race]."
 										+ " [pc.speech(I don't want to fight! Please, just take my money and leave me alone!)]"
 									+ "</p>"
 									+ "<p>"
@@ -141,7 +141,7 @@ public class TunnelAttackDialogue {
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
 							AFTER_SEX_DEFEAT,
 							"<p>"
-								+ "Wanting to avoid a fight, and unwilling to hand over any of your money, you decide to do the only other thing you can think of, and step forwards smiling seductively at [npc.name], "
+								+ "Wanting to avoid a fight, and unwilling to hand over any of your money, you decide to do the only other thing you can think of, and step forwards smiling seductively at [npc.name]. "
 								+ " [pc.speech(There's no need to fight. If you're looking for a bit of fun, all you had to do was ask...)]"
 							+ "</p>"
 							+ "<p>"
@@ -286,7 +286,7 @@ public class TunnelAttackDialogue {
 								+ " [npc.speech(How about you start by apologising properly?!)]"
 							+ "</p>"
 							+ "<p>"
-								+ "[npc.Name]'s strong, dominant grip on your [pc.arm] causes you to let out a lewd little moan, and your submissive nature takes over as you do as [npc.she] asks,"
+								+ "[npc.Name]'s strong, dominant grip on your [pc.arm] causes you to let out a lewd little moan, and your submissive nature takes over as you do as [npc.she] asks."
 								+ " [pc.speech(I'm really sorry! Please forgive me! I'll do anything! Anything you ask! Just please, don't be mad!)]"
 							+ "</p>"
 							+ "<p>"
@@ -465,7 +465,7 @@ public class TunnelAttackDialogue {
 								+ "[npc.speech(Hah! That was too easy!)] [npc.she] says, before leaning down and pushing you to the ground."
 							+ "</p>"
 							+ "<p>"
-								+ "As [npc.she] pins you to the floor, [npc.she] produces a curious little bottle from somewhere out of sight, and shakes it from side to side, grinning,"
+								+ "As [npc.she] pins you to the floor, [npc.she] produces a curious little bottle from somewhere out of sight, and shakes it from side to side, grinning."
 								+ " [npc.speech(I think you could do with some <i>improvements</i>! I'm going to turn you into my perfect "+Main.game.getActiveNPC().getPreferredBodyDescription("b")+"!)]"
 							+ "</p>"
 							+ "<p>"
@@ -491,7 +491,7 @@ public class TunnelAttackDialogue {
 								+ "Pulling you to your feet, [npc.name] starts grinding [npc.herself] up against you, [npc.moaning] into your [pc.ear] as [npc.she] starts groping your body."
 							+ "</p>"
 							+ "<p>"
-								+ "[npc.speech(Don't try anything bitch! <i>I'm</i> the one in charge here!)] [npc.she] growls, before pulling you into a forceful kiss."
+								+ "[npc.speech(Don't try anything, bitch! <i>I'm</i> the one in charge here!)] [npc.she] growls, before pulling you into a forceful kiss."
 							+ "</p>");
 				
 			} else {
@@ -538,7 +538,7 @@ public class TunnelAttackDialogue {
 							Util.Value<String, AbstractItem> potion = Main.game.getActiveNPC().generateTransformativePotion();
 							Main.game.getTextStartStringBuilder().append(
 									"<p>"
-										+ "[npc.Name] steps back, grinning down at you as you obediently swallow the strange liquid,"
+										+ "[npc.Name] steps back, grinning down at you as you obediently swallow the strange liquid."
 										+ " [npc.speech(Good [pc.girl]! "+potion.getKey()+")]"
 									+ "</p>"
 									+ "<p>"
@@ -661,7 +661,7 @@ public class TunnelAttackDialogue {
 							+ " Reluctantly, you do as [npc.she] says, and, after giving [npc.herHim] some of your cash, [npc.she] shoves you down to the floor once more."
 						+ "</p>"
 						+ "<p>"
-							+ "[npc.speech(This money of yours is going to pay for your next potion!)] [npc.she] growls down at you, [npc.speech(Come back and pay me another visit, <i>or else</i>! And don't you dare refuse to swallow next time!)]"
+							+ "[npc.speech(This money of yours is going to pay for your next potion!)] [npc.she] growls down at you. [npc.speech(Come back and pay me another visit, <i>or else</i>! And don't you dare refuse to swallow next time!)]"
 						+ "</p>"
 						+ "<p>"
 							+ "With that, [npc.she] turns around and runs off, leaving you to recover from your ordeal and continue on your way..."
@@ -770,7 +770,7 @@ public class TunnelAttackDialogue {
 							+ " Reluctantly, you do as [npc.she] says, and, after giving [npc.herHim] some of your cash, [npc.she] roughly pushes you to the floor once more."
 						+ "</p>"
 						+ "<p>"
-							+ "[npc.speech(You're not good enough for me to be interested in you just yet!)] [npc.she] growls down at you, [npc.speech(Come back and pay me another visit, <i>or else</i>! I'm going to turn you into my perfect little "
+							+ "[npc.speech(You're not good enough for me to be interested in you just yet!)] [npc.she] growls down at you. [npc.speech(Come back and pay me another visit, <i>or else</i>! I'm going to turn you into my perfect little "
 								+Main.game.getActiveNPC().getPreferredBodyDescription("b")+"!)]"
 						+ "</p>"
 						+ "<p>"

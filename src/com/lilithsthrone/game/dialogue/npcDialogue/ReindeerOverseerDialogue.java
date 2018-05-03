@@ -74,7 +74,7 @@ public class ReindeerOverseerDialogue {
 					+ "</p>"
 					+ "<p>"
 						+ "[npc.speech(Ah, fuck! I'm so horny!)]"
-						+ " [npc.name] whines, pulling you a little way down the alley before turning and wrapping [npc.her] arms around you,"
+						+ " [npc.name] whines, pulling you a little way down the alley before turning and wrapping [npc.her] arms around you."
 						+ " [npc.speech(I was told Dominion was the place to go for an easy fuck, but I've been so caught up in work that I haven't met anyone but you! Please, let's just fuck already!)]"
 					+ "</p>"
 					+ "<p>"
@@ -115,11 +115,11 @@ public class ReindeerOverseerDialogue {
 				UtilText.nodeContentSB.append("<p>"
 							+ "Wanting to speak with [npc.name] again, you look around for a little while, before eventually spotting [npc.herHim] issuing orders to some of [npc.her] workers."
 							+ " Walking up to [npc.herHim], you call out a greeting,"
-							+ " [pc.speech(Hi [npc.name]!)]"
+							+ " [pc.speech(Hi, [npc.name]!)]"
 						+ "</p>"
 						+ "<p>"
-							+ "[npc.Name] turns around to see who's calling [npc.herHim], and you see a smile break out across [npc.her] face as [npc.she] sees that it's you,"
-							+ " [npc.speech(Hello again [pc.name]!)]"
+							+ "[npc.Name] turns around to see who's calling [npc.herHim], and you see a smile break out across [npc.her] face as [npc.she] sees that it's you."
+							+ " [npc.speech(Hello again, [pc.name]!)]"
 						+ "</p>"
 						+ "<p>"
 							+ "You spend a little while making small talk and getting to know [npc.name] a little better."
@@ -147,7 +147,7 @@ public class ReindeerOverseerDialogue {
 							+ " [pc.speech(What sort of goods do you have? I've spoken with another overseer already, and they mostly had Yuletide-related clothing, food and drink, as well as some clothing from the Kitsune forest.)]"
 						+ "</p>"
 						+ "<p>"
-							+ "The [npc.race] smiles,"
+							+ "The [npc.race] smiles."
 							+ " [npc.speech(Well, all of us reindeer-morphs travel together, so we've got the same goods as any of the other groups."
 								+ " Still, if you'd like to take a look, just let me know.)]"
 						+ "</p>");
@@ -171,14 +171,14 @@ public class ReindeerOverseerDialogue {
 				if(Main.game.getDialogueFlags().hasFuckedReindeer(reindeer().getId())) {
 					UtilText.nodeContentSB.append(
 							"<p>"
-								+ "[npc.Name] smiles fondly at you as [npc.she] steps closer,"
+								+ "[npc.Name] smiles fondly at you as [npc.she] steps closer."
 								+ " [npc.speech(Thanks for your help today, [pc.name]; I really appreciate it. You know... I could do with letting off some steam... You want to have a little fun again?)]"
 							+ "</p>");
 					
 				} else {
 					UtilText.nodeContentSB.append(
 							"<p>"
-								+ "[npc.Name] smiles fondly at you as [npc.she] steps closer,"
+								+ "[npc.Name] smiles fondly at you as [npc.she] steps closer."
 								+ " [npc.speech(Thanks for your help today, [pc.name]; I really appreciate it."
 									+ " It can get pretty stressful trying to keep all these streets clear, especially when we're so undermanned.)]"
 							+ "</p>");
@@ -188,7 +188,7 @@ public class ReindeerOverseerDialogue {
 			} else {
 				UtilText.nodeContentSB.append(
 					"<p>"
-						+ "[npc.Name] lets out a little sigh,"
+						+ "[npc.Name] lets out a little sigh."
 						+ " [npc.speech(We're a little undermanned this year, so if you're looking for work, I can offer a part-time job."
 							+ " If not, and if you're not interested in trading, then I really need to get back to work; we've got so much to get done today!)]"
 					+ "</p>");
@@ -240,7 +240,7 @@ public class ReindeerOverseerDialogue {
 						Main.game.getTextStartStringBuilder().append(
 								"<p>"
 									+ "Deciding that you'd be best at shovelling snow, you tell [npc.name] that that's what you'd like to do."
-									+ " [npc.She] then leads you over to a cart that's parked on one side of the street, where [npc.she] grabs a shovel and hands it over to you,"
+									+ " [npc.She] then leads you over to a cart that's parked on one side of the street, where [npc.she] grabs a shovel and hands it over to you."
 									+ " [npc.speech(With your help, we should be finished in a few more hours. Thanks for the assistance!)]"
 								+ "</p>"
 								+ "<p>"
@@ -251,7 +251,7 @@ public class ReindeerOverseerDialogue {
 										" Although it didn't seem too hard at first, you're not able to keep up with the stamina or strength of the reindeer-morphs, and before long you find yourself having to take a break."
 										+ "</p>"
 										+ "<p>"
-											+ "[npc.speech(Don't worry [pc.name],)]"
+											+ "[npc.speech(Don't worry, [pc.name],)]"
 											+ " the voice of [npc.name] calls out, and you jump to your feet as you see [npc.herHim] approach,"
 											+ " [npc.speech(everyone else here is used to this sort of work, so don't be discouraged if you can't keep up!"
 												+ " Just make sure to take a rest if you're feeling tired.)]"
@@ -261,8 +261,8 @@ public class ReindeerOverseerDialogue {
 											+ " The next few hours pass quickly enough, and by the time the day's work is done, you find yourself completely exhausted."
 										+ "</p>"
 										+ "<p>"
-											+ "[npc.speech(Hi [pc.name]! Good work today!)]"
-											+ " [npc.name] calls out, mercifully not mentioning your sub-par performance as [npc.she] pays you,"
+											+ "[npc.speech(Hi, [pc.name]! Good work today!)]"
+											+ " [npc.name] calls out, mercifully not mentioning your sub-par performance as [npc.she] pays you."
 											+ " [npc.speech(Here's the "+Util.intToString(money)+" flames you've earned today!)]"
 										+ "</p>");
 								break;
@@ -271,7 +271,7 @@ public class ReindeerOverseerDialogue {
 											" Although it's harder work than you first though it would be, you're able to keep up with the reindeer-morphs, and even manage to shovel a little more snow than a couple of them."
 										+ "</p>"
 										+ "<p>"
-											+ "[npc.speech(Great work [pc.name],)]"
+											+ "[npc.speech(Great work, [pc.name],)]"
 											+ " the voice of [npc.name] calls out, and you turn around to see [npc.herHim] approach,"
 											+ " [npc.speech(everyone else here is used to this sort of work, and you're managing to keep up with them!"
 												+ " Just make sure to take a rest if you're feeling tired.)]"
@@ -281,8 +281,8 @@ public class ReindeerOverseerDialogue {
 											+ " The next few hours pass quickly enough, and by the time the day's work is done, you find yourself satisfied with your performance."
 										+ "</p>"
 										+ "<p>"
-											+ "[npc.speech(Hi [pc.name]! Great work today!)]"
-											+ " [npc.name] calls out, sounding genuinely pleased as [npc.she] pays you,"
+											+ "[npc.speech(Hi, [pc.name]! Great work today!)]"
+											+ " [npc.name] calls out, sounding genuinely pleased as [npc.she] pays you."
 											+ " [npc.speech(Here's the "+Util.intToString(money)+" flames you've earned today!)]"
 										+ "</p>");
 								break;
@@ -291,7 +291,7 @@ public class ReindeerOverseerDialogue {
 										" The work turns out to be far easier than you thought it'd be, and not only are you able to keep up with the reindeer-morphs, the amount of snow that you're able to shovel soon puts them to shame."
 									+ "</p>"
 									+ "<p>"
-										+ "[npc.speech(Wow [pc.name],)]"
+										+ "[npc.speech(Wow, [pc.name],)]"
 										+ " the voice of [npc.name] calls out, and you turn around to see [npc.herHim] approach,"
 										+ " [npc.speech(I've never seen anyone work like that before; you're amazing!"
 											+ " Just make sure to take a rest if you're feeling tired.)]"
@@ -301,8 +301,8 @@ public class ReindeerOverseerDialogue {
 										+ " The next few hours pass quickly enough, and by the time the day's work is done, you've cleared the entire street of snow."
 									+ "</p>"
 									+ "<p>"
-										+ "[npc.speech(Hi [pc.name]! Fantastic work today!)]"
-										+ " [npc.name] calls out, sounding extremely happy as [npc.she] pays you,"
+										+ "[npc.speech(Hi, [pc.name]! Fantastic work today!)]"
+										+ " [npc.name] calls out, sounding extremely happy as [npc.she] pays you."
 										+ " [npc.speech(Here's the "+Util.intToString(money)+" flames you've earned!)]"
 									+ "</p>");
 								break;
@@ -320,7 +320,7 @@ public class ReindeerOverseerDialogue {
 						Main.game.getTextStartStringBuilder().append(
 								"<p>"
 									+ "Deciding that you'd work best by using your arcane power to harness [npc.name]'s 'heat-stave', you tell the [npc.race] that that's what you'd like to do."
-									+ " [npc.She] then leads you over to a cart that's parked on one side of the street, where [npc.she] grabs a tall, wooden staff with a curious orange gemstone fixed into one end, before handing it over to you,"
+									+ " [npc.She] then leads you over to a cart that's parked on one side of the street, where [npc.she] grabs a tall, wooden staff with a curious orange gemstone fixed into one end, before handing it over to you."
 									+ " [npc.speech(Just focus your arcane energy into the stave while pointing the bottom at the ground."
 										+ " With your help, we should be finished in a few more hours."
 										+ " Thanks for the assistance!)]"
@@ -333,8 +333,8 @@ public class ReindeerOverseerDialogue {
 								Main.game.getTextStartStringBuilder().append(
 										" A little jet of hot air shoots out of the staff, and by slowly tracing a path over the snow, you're able to melt it into pre-cut sections, ready for the reindeer-morphs to shovel."
 									+ "<p>"
-										+ "[npc.speech(Looking good [pc.name],)]"
-										+ " the voice of [npc.name] calls out, and you turn around to see [npc.herHim] approach,"
+										+ "[npc.speech(Looking good, [pc.name],)]"
+										+ " the voice of [npc.name] calls out, and you turn around to see [npc.herHim] approach."
 										+ " [npc.speech(With you helping out like this, the rest of the day's work shouldn't take too long.)]"
 									+ "</p>"
 									+ "<p>"
@@ -343,7 +343,7 @@ public class ReindeerOverseerDialogue {
 									+ "</p>"
 									+ "<p>"
 										+ "[npc.speech(Hi [pc.name]! Good work today!)]"
-										+ " [npc.name] says as [npc.she] pays you,"
+										+ " [npc.name] says as [npc.she] pays you."
 										+ " [npc.speech(Here's the "+Util.intToString(money)+" flames you've earned!)]"
 									+ "</p>");
 								break;
@@ -351,8 +351,8 @@ public class ReindeerOverseerDialogue {
 								Main.game.getTextStartStringBuilder().append(
 										" A small jet of flames shoots out of the staff, and by tracing a path over the snow, you're able to quickly melt it into pre-cut sections, ready for the reindeer-morphs to shovel."
 									+ "<p>"
-										+ "[npc.speech(Looking great [pc.name],)]"
-										+ " the voice of [npc.name] calls out, and you turn around to see [npc.herHim] approach,"
+										+ "[npc.speech(Looking great, [pc.name],)]"
+										+ " the voice of [npc.name] calls out, and you turn around to see [npc.herHim] approach."
 										+ " [npc.speech(With you helping out like this, the rest of the day's work shouldn't take too long.)]"
 									+ "</p>"
 									+ "<p>"
@@ -360,8 +360,8 @@ public class ReindeerOverseerDialogue {
 										+ " The next few hours pass quickly enough, and before long the entire street is clear."
 									+ "</p>"
 									+ "<p>"
-										+ "[npc.speech(Hi [pc.name]! Great work today!)]"
-										+ " [npc.name] beams at you as [npc.she] pays you,"
+										+ "[npc.speech(Hi, [pc.name]! Great work today!)]"
+										+ " [npc.name] beams at you as [npc.she] pays you."
 										+ " [npc.speech(Here's the "+Util.intToString(money)+" flames you've earned!)]"
 									+ "</p>");
 								break;
@@ -378,8 +378,8 @@ public class ReindeerOverseerDialogue {
 										+ " The next few hours pass quickly enough, and before long the entire street is clear."
 									+ "</p>"
 									+ "<p>"
-										+ "[npc.speech(Hi [pc.name]! Amazing work today!)]"
-										+ " [npc.name] beams at you as [npc.she] pays you,"
+										+ "[npc.speech(Hi, [pc.name]! Amazing work today!)]"
+										+ " [npc.name] beams at you as [npc.she] pays you."
 										+ " [npc.speech(Here's the "+Util.intToString(money)+" flames you've earned!)]"
 									+ "</p>");
 								break;
@@ -397,7 +397,7 @@ public class ReindeerOverseerDialogue {
 						Main.game.getTextStartStringBuilder().append(
 								"<p>"
 									+ "Deciding that you'd work best by delivering drinks and encouraging the workers, you tell the [npc.race] that that's what you'd like to do."
-									+ " [npc.She] then leads you over to a cart that's parked on one side of the street, where [npc.she] shows you where the drinks are stored,"
+									+ " [npc.She] then leads you over to a cart that's parked on one side of the street, where [npc.she] shows you where the drinks are stored."
 									+ " [npc.speech(Just go around asking the workers if they need a drink, and if they do, fetch them one from here."
 										+ " With your help, we should be finished in a few more hours. Thanks for the assistance!)]"
 								+ "</p>"
@@ -409,8 +409,8 @@ public class ReindeerOverseerDialogue {
 								Main.game.getTextStartStringBuilder().append(
 										" The workers are far more demanding than you'd expected, and before long you find yourself struggling to keep up with their requests."
 									+ "<p>"
-										+ "[npc.speech(Good work [pc.name],)]"
-										+ " the voice of [npc.name] calls out, and you turn around to see [npc.herHim] approach,"
+										+ "[npc.speech(Good work, [pc.name],)]"
+										+ " the voice of [npc.name] calls out, and you turn around to see [npc.herHim] approach."
 										+ " [npc.speech(With you helping out like this, the rest of the day's work shouldn't take too long.)]"
 									+ "</p>"
 									+ "<p>"
@@ -418,8 +418,8 @@ public class ReindeerOverseerDialogue {
 										+ " Nevertheless, the next few hours pass quickly enough, and before long the entire street is clear of snow."
 									+ "</p>"
 									+ "<p>"
-										+ "[npc.speech(Hi [pc.name]! Good work today!)]"
-										+ " [npc.name] says as [npc.she] pays you,"
+										+ "[npc.speech(Hi, [pc.name]! Good work today!)]"
+										+ " [npc.name] says as [npc.she] pays you."
 										+ " [npc.speech(Here's the "+Util.intToString(money)+" flames you've earned!)]"
 									+ "</p>");
 								break;
@@ -427,8 +427,8 @@ public class ReindeerOverseerDialogue {
 								Main.game.getTextStartStringBuilder().append(
 										" The workers are far more demanding than you'd expected, but despite this, you're still able to keep up with their requests."
 									+ "<p>"
-										+ "[npc.speech(Great work [pc.name],)]"
-										+ " the voice of [npc.name] calls out, and you turn around to see [npc.herHim] approach,"
+										+ "[npc.speech(Great work, [pc.name],)]"
+										+ " the voice of [npc.name] calls out, and you turn around to see [npc.herHim] approach."
 										+ " [npc.speech(With you helping out like this, the rest of the day's work shouldn't take too long.)]"
 									+ "</p>"
 									+ "<p>"
@@ -436,8 +436,8 @@ public class ReindeerOverseerDialogue {
 										+ " The next few hours pass quickly enough, and before long the entire street is clear of snow."
 									+ "</p>"
 									+ "<p>"
-										+ "[npc.speech(Hi [pc.name]! Great work today!)]"
-										+ " [npc.name] says as [npc.she] pays you,"
+										+ "[npc.speech(Hi, [pc.name]! Great work today!)]"
+										+ " [npc.name] says as [npc.she] pays you."
 										+ " [npc.speech(Here's the "+Util.intToString(money)+" flames you've earned!)]"
 									+ "</p>");
 								break;
@@ -445,8 +445,8 @@ public class ReindeerOverseerDialogue {
 								Main.game.getTextStartStringBuilder().append(
 										" The workers are far more demanding than you'd expected, but despite this, you're easily able to keep up their requests, and even find time to stop and chat with several of them."
 									+ "<p>"
-										+ "[npc.speech(Fantastic work [pc.name],)]"
-										+ " the voice of [npc.name] calls out, and you turn around to see [npc.herHim] approach,"
+										+ "[npc.speech(Fantastic work, [pc.name],)]"
+										+ " the voice of [npc.name] calls out, and you turn around to see [npc.herHim] approach."
 										+ " [npc.speech(With you helping out like this, the rest of the day's work shouldn't take too long.)]"
 									+ "</p>"
 									+ "<p>"
@@ -454,8 +454,8 @@ public class ReindeerOverseerDialogue {
 										+ " The next few hours pass quickly enough, and before long the entire street is clear of snow."
 									+ "</p>"
 									+ "<p>"
-										+ "[npc.speech(Hi [pc.name]! Brilliant work today!)]"
-										+ " [npc.name] says as [npc.she] pays you,"
+										+ "[npc.speech(Hi, [pc.name]! Brilliant work today!)]"
+										+ " [npc.name] says as [npc.she] pays you."
 										+ " [npc.speech(Here's the "+Util.intToString(money)+" flames you've earned!)]"
 									+ "</p>");
 								break;
@@ -480,13 +480,13 @@ public class ReindeerOverseerDialogue {
 		@Override
 		public String getContent() {
 			return "<p>"
-						+ "[pc.speech(Thanks [npc.name],)]"
+						+ "[pc.speech(Thanks, [npc.name],)]"
 						+ " you respond,"
 						+ " [pc.speech(will there be any more work available?)]"
 					+ "</p>"
 					+ "<p>"
 						+ "[npc.speech(Well, we're all finished for today, but come back tomorrow and there's sure to be more to do!)]"
-						+ " [npc.name] cheerily responds, and as [npc.she] talks, you can't help but notice that [npc.she] keeps on glancing hungrily down at your body,"
+						+ " [npc.name] cheerily responds, and as [npc.she] talks, you can't help but notice that [npc.she] keeps on glancing hungrily down at your body."
 						+ " [npc.speech(All this work is really stressful sometimes. You know, since I arrived here in Dominion, you're the first person outside of my work group who I've really talked to!"
 							+ " I never get the time to meet new people, or to have any fun...)]"
 					+ "</p>"
@@ -510,14 +510,14 @@ public class ReindeerOverseerDialogue {
 			if(Sex.getNumberOfOrgasms(Sex.getActivePartner()) >= 1) {
 				UtilText.nodeContentSB.append(
 						"<p>"
-							+ "With a satisfied sigh, [npc.name] begins to get [npc.her] clothing in order,"
+							+ "With a satisfied sigh, [npc.name] begins to get [npc.her] clothing in order."
 							+ " [npc.speech(Fuck... That was good...)]"
 						+ "</p>");
 				
 			} else {
 				UtilText.nodeContentSB.append(
 						"<p>"
-							+ "With an annoyed huff, [npc.name] begins to get [npc.her] clothing in order,"
+							+ "With an annoyed huff, [npc.name] begins to get [npc.her] clothing in order."
 							+ " [npc.speech(Fuck... I didn't even get to cum! That was pretty disappointing...)]"
 						+ "</p>");
 			}

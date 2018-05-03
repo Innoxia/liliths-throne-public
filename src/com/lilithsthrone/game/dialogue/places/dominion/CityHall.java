@@ -104,7 +104,7 @@ public class CityHall {
 		@Override
 		public String getContent() {
 			return "<p>"
-					+ "As you walk up to the desk, the cat-girl looks up, "
+					+ "As you walk up to the desk, the cat-girl looks up. "
 					+ UtilText.parseNPCSpeech("What can I help you with?", Femininity.FEMININE)
 					+ "</p>"
 					+ "<p>You ask about changing your name, and with a sigh, she leans down and starts rummaging around under her desk."

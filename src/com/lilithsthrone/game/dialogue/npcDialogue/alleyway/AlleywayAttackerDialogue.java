@@ -92,7 +92,7 @@ public class AlleywayAttackerDialogue {
 										+ "</p>"
 											
 										:"<p>"
-											+"[npc.speech(Look what you did, you asshole!)] [npc.she] shouts, confirming that you're the father of [npc.her] children, "
+											+"[npc.speech(Look what you did, you asshole!)] [npc.she] shouts, confirming that you're the father of [npc.her] children. "
 											+ "[npc.speech(Do you know how annoying it is being pregnant?! You're gonna pay for this!)]"
 										+"</p>"
 										+ "<p style='text-align:center;'>" 
@@ -105,7 +105,7 @@ public class AlleywayAttackerDialogue {
 								+ " [npc.She]'s still sporting a round belly, and [npc.she] absent-mindedly strokes [npc.her] swollen bump as [npc.she] reacts to your sudden appearance in [npc.her] territory."
 							+ "</p>"
 							+ "<p>"
-								+ "[npc.speech(You again?!)] [npc.she] shouts, [npc.speech(This'll be a lot easier if you give up right now!)]" 
+								+ "[npc.speech(You again?!)] [npc.she] shouts. [npc.speech(This'll be a lot easier if you give up right now!)]" 
 							+ "</p>"
 							+ "<p>"
 								+ (Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer())
@@ -122,7 +122,7 @@ public class AlleywayAttackerDialogue {
 								+ "You instantly recognise the [npc.fullRace(true)], and you jump back into a fighting stance as you expect this encounter to be much the same as the last one."
 							+ "</p>"
 							+ "<p>"
-								+ "[npc.speech(You again?!)] [npc.she] shouts, [npc.speech(This'll be a lot easier if you give up right now!)]" 
+								+ "[npc.speech(You again?!)] [npc.she] shouts. [npc.speech(This'll be a lot easier if you give up right now!)]" 
 							+ "</p>"
 							+ "<p>"
 								+ (Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer())
@@ -154,7 +154,7 @@ public class AlleywayAttackerDialogue {
 								+ " Looking up, you see [npc.a_fullRace(true)] grinning devilishly at you."
 							+ "</p>"
 							+ "<p>"
-								+ "[npc.speech(What do we have here?)] [npc.she] asks, letting out a short laugh as [npc.she] sees that you're ready to fight [npc.herHim], [npc.speech(It'll be a lot easier if you just give up!)]"
+								+ "[npc.speech(What do we have here?)] [npc.she] asks, letting out a short laugh as [npc.she] sees that you're ready to fight [npc.herHim]. [npc.speech(It'll be a lot easier if you just give up!)]"
 							+ "</p>"
 							+ "<p>"
 							+ (Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer())
@@ -183,7 +183,7 @@ public class AlleywayAttackerDialogue {
 							Main.game.getPlayer().incrementMoney(-250);
 							Main.game.getTextStartStringBuilder().append(
 									"<p>"
-										+ "Wanting to avoid a fight if at all possible, you take a step backwards, fumbling about to grab a handful of flames to offer to the [npc.race],"
+										+ "Wanting to avoid a fight if at all possible, you take a step backwards, fumbling about to grab a handful of flames to offer to the [npc.race]."
 										+ " [pc.speech(I don't want to fight! Please, just take my money and leave me alone!)]"
 									+ "</p>"
 									+ "<p>"
@@ -212,7 +212,7 @@ public class AlleywayAttackerDialogue {
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
 							AFTER_SEX_DEFEAT,
 							"<p>"
-								+ "Wanting to avoid a fight, and unwilling to hand over any of your money, you decide to do the only other thing you can think of, and step forwards smiling seductively at [npc.name], "
+								+ "Wanting to avoid a fight, and unwilling to hand over any of your money, you decide to do the only other thing you can think of, and step forwards smiling seductively at [npc.name]. "
 								+ " [pc.speech(There's no need to fight. If you're looking for a bit of fun, all you had to do was ask...)]"
 							+ "</p>"
 							+ "<p>"
@@ -261,7 +261,7 @@ public class AlleywayAttackerDialogue {
 					+ "</p>"
 					+ "<p>"
 						+ "[npc.speech(Aww, there's no need for that!)]"
-						+ " [npc.she] teases, the desperation clearly audible in [npc.her] voice as [npc.she] sees that you're ready to fight [npc.herHim],"
+						+ " [npc.she] teases, the desperation clearly audible in [npc.her] voice as [npc.she] sees that you're ready to fight [npc.herHim]."
 						+ " [npc.speech(Just give up! Come on! I <i>need</i> a good fuck right now!)]"
 					+ "</p>"
 					+ "<p>"
@@ -299,7 +299,7 @@ public class AlleywayAttackerDialogue {
 							+ " [npc.She] reaches down to [npc.her] crotch and starts stroking [npc.herself], making pitiful little whining noises as [npc.she] squirms on the floor."
 						+ "</p>"
 						+ "<p>"
-							+ "[npc.speech(Aaah! What are you waiting for?! Come fuck me!)], [npc.she] pleads, biting [npc.her] [npc.lip] as [npc.she] continues touching [npc.herself]."
+							+ "[npc.speech(Aaah! What are you waiting for?! Come fuck me!)] [npc.she] pleads, biting [npc.her] [npc.lip] as [npc.she] continues touching [npc.herself]."
 						+ "</p>"
 						+ "<p>"
 							+ "You wonder if you should indulge [npc.her] request."
@@ -315,7 +315,7 @@ public class AlleywayAttackerDialogue {
 							+ " Making pitiful little whining noises, [npc.she] tries to shuffle away from you, clearly worried about what your intentions are."
 						+ "</p>"
 						+ "<p>"
-							+ "[npc.speech(J-Just take my money and leave me alone!)], [npc.she] pleads, throwing [npc.her] "+(Main.game.getActiveNPC().isFeminine()?"purse":"wallet")+" at your feet."
+							+ "[npc.speech(J-Just take my money and leave me alone!)] [npc.she] pleads, throwing [npc.her] "+(Main.game.getActiveNPC().isFeminine()?"purse":"wallet")+" at your feet."
 						+ "</p>"
 						+ "<p>"
 							+ "You wonder if you should do as [npc.she] says, and leave [npc.herHim] alone."
@@ -400,7 +400,7 @@ public class AlleywayAttackerDialogue {
 								+ " [npc.speech(How about you start by apologising properly?!)]"
 							+ "</p>"
 							+ "<p>"
-								+ "[npc.Name]'s strong, dominant grip on your [pc.arm] causes you to let out a lewd little moan, and your submissive nature takes over as you do as [npc.she] asks,"
+								+ "[npc.Name]'s strong, dominant grip on your [pc.arm] causes you to let out a lewd little moan, and your submissive nature takes over as you do as [npc.she] asks."
 								+ " [pc.speech(I'm really sorry! Please forgive me! I'll do anything! Anything you ask! Just please, don't be mad!)]"
 							+ "</p>"
 							+ "<p>"
@@ -583,7 +583,7 @@ public class AlleywayAttackerDialogue {
 								+ "[npc.speech(Hah! That was too easy!)] [npc.she] says, before leaning down and pushing you to the ground."
 							+ "</p>"
 							+ "<p>"
-								+ "As [npc.she] pins you to the floor, [npc.she] produces a curious little bottle from somewhere out of sight, and shakes it from side to side, grinning,"
+								+ "As [npc.she] pins you to the floor, [npc.she] produces a curious little bottle from somewhere out of sight, and shakes it from side to side, grinning."
 								+ " [npc.speech(I think you could do with some <i>improvements</i>! I'm going to turn you into my perfect "+Main.game.getActiveNPC().getPreferredBodyDescription("b")+"!)]"
 							+ "</p>"
 							+ "<p>"
@@ -609,7 +609,7 @@ public class AlleywayAttackerDialogue {
 								+ "Pulling you to your feet, [npc.name] starts grinding [npc.herself] up against you, [npc.moaning] into your [pc.ear] as [npc.she] starts groping your body."
 							+ "</p>"
 							+ "<p>"
-								+ "[npc.speech(Don't try anything bitch! <i>I'm</i> the one in charge here!)] [npc.she] growls, before pulling you into a forceful kiss."
+								+ "[npc.speech(Don't try anything, bitch! <i>I'm</i> the one in charge here!)] [npc.she] growls, before pulling you into a forceful kiss."
 							+ "</p>");
 				
 			} else {
@@ -674,7 +674,7 @@ public class AlleywayAttackerDialogue {
 							
 							Main.game.getTextStartStringBuilder().append(
 									"<p>"
-										+ "[npc.Name] steps back, grinning down at you as you obediently swallow the strange liquid,"
+										+ "[npc.Name] steps back, grinning down at you as you obediently swallow the strange liquid."
 										+ " [npc.speech(Good [pc.girl]! "+potion.getKey()+")]"
 									+ "</p>"
 									+ "<p>"
@@ -797,7 +797,7 @@ public class AlleywayAttackerDialogue {
 							+ " Reluctantly, you do as [npc.she] says, and, after giving [npc.herHim] some of your cash, [npc.she] shoves you down to the floor once more."
 						+ "</p>"
 						+ "<p>"
-							+ "[npc.speech(This money of yours is going to pay for your next potion!)] [npc.she] growls down at you, [npc.speech(Come back and pay me another visit, <i>or else</i>! And don't you dare refuse to swallow next time!)]"
+							+ "[npc.speech(This money of yours is going to pay for your next potion!)] [npc.she] growls down at you. [npc.speech(Come back and pay me another visit, <i>or else</i>! And don't you dare refuse to swallow next time!)]"
 						+ "</p>"
 						+ "<p>"
 							+ "With that, [npc.she] turns around and runs off, leaving you to recover from your ordeal and continue on your way..."
@@ -906,7 +906,7 @@ public class AlleywayAttackerDialogue {
 							+ " Reluctantly, you do as [npc.she] says, and, after giving [npc.herHim] some of your cash, [npc.she] roughly pushes you to the floor once more."
 						+ "</p>"
 						+ "<p>"
-							+ "[npc.speech(You're not good enough for me to be interested in you just yet!)] [npc.she] growls down at you, [npc.speech(Come back and pay me another visit, <i>or else</i>! I'm going to turn you into my perfect little "
+							+ "[npc.speech(You're not good enough for me to be interested in you just yet!)] [npc.she] growls down at you. [npc.speech(Come back and pay me another visit, <i>or else</i>! I'm going to turn you into my perfect little "
 								+Main.game.getActiveNPC().getPreferredBodyDescription("b")+"!)]"
 						+ "</p>"
 						+ "<p>"
@@ -1091,7 +1091,7 @@ public class AlleywayAttackerDialogue {
 					"<p>"
 						+ "As [npc.name] steps back and sorts [npc.her] clothes out, you sink to the floor, totally worn out from [npc.her] dominant treatment of you."
 						+ " [npc.She] looks down at you, and you glance up to see a very satisfied smile cross [npc.her] face."
-						+ " [npc.She] leans down and pats you on the head,"
+						+ " [npc.She] leans down and pats you on the head."
 						+ " [npc.speech(We should do this again some time!)]"
 					+ "</p>"
 					+ "<p>"

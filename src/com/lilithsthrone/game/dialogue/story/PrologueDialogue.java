@@ -177,7 +177,7 @@ public class PrologueDialogue {
 		public String getContent() {
 			if(femalePrologueNPC()) {
 				return "<p>"
-							+ "Grinning at [prologueFemale.name], you reach down and take hold of her hand, before leading her off towards a quiet, shaded doorway nearby,"
+							+ "Grinning at [prologueFemale.name], you reach down and take hold of her hand, before leading her off towards a quiet, shaded doorway nearby."
 							+ " [pc.speech(This looks like it'll be empty...)]"
 						+ "</p>"
 						+ "<p>"
@@ -200,7 +200,7 @@ public class PrologueDialogue {
 				
 			} else {
 				return "<p>"
-							+ "Grinning at [prologueMale.name], you allow him to reach down and take hold of your hand, before being led off towards a quiet, shaded doorway nearby,"
+							+ "Grinning at [prologueMale.name], you allow him to reach down and take hold of your hand, before being led off towards a quiet, shaded doorway nearby."
 							+ " [prologueMale.speech(This looks like it'll be empty...)]"
 						+ "</p>"
 						+ "<p>"
@@ -238,7 +238,7 @@ public class PrologueDialogue {
 							(Main.game.getPlayer().hasPenis()
 								?"<p>"
 									+ "You pull [prologueFemale.name] into your [pc.breasts], desperately [pc.moaning] into her mouth as you dominantly grope and fondle [npc.her] body."
-									+ " Breaking off the kiss for a moment, she pulls something out of her purse, before pushing it into your hands,"
+									+ " Breaking off the kiss for a moment, she pulls something out of her purse, before pushing it into your hands."
 									+ " [prologueFemale.speech(I'd rather you didn't, but if you want to, you can wear this.)]"
 								+ "</p>"
 								+ "<p>"
@@ -273,7 +273,7 @@ public class PrologueDialogue {
 							AFTER_SEX,
 							"<p>"
 								+ "You allow [prologueMale.name] to pull you into his strong, masculine torso, desperately moaning into his mouth as he dominantly gropes and fondles your body."
-								+ " Breaking off the kiss for a moment, he pulls something out of his pocket, before pushing it into your hands,"
+								+ " Breaking off the kiss for a moment, he pulls something out of his pocket, before pushing it into your hands."
 								+ " [prologueMale.speech(I'd rather not, but if you want me to, I can wear this.)]"
 							+ "</p>"
 							+ "<p>"
@@ -369,17 +369,17 @@ public class PrologueDialogue {
 						+ " From the way she's frantically wringing her hands and glancing this way and that, you can tell that she's been flustered by something."
 					+ "</p>"
 					+ "<p>"
-						+ "[pc.speech(Hi Lily!)]"
-						+ " You call out, walking towards her."
+						+ "[pc.speech(Hi, Lily!)]"
+						+ " you call out, walking towards her."
 					+ "</p>"
 					+ "<p>"
 						+ "[lilaya.speech([pc.Name]! There you are! I've been looking everywhere for you,)]"
-						+ " your aunt calls out, bounding over towards you and sighing with relief,"
+						+ " your aunt calls out, bounding over towards you and sighing with relief."
 						+ " [lilaya.speech(I really need your help!)]"
 					+ "</p>"
 					+ "<p>"
 						+ "Giving her a reassuring smile, you reply,"
-						+ " [pc.speech(Don't worry Lily, I can help. Is this about the opening being delayed?)]"
+						+ " [pc.speech(Don't worry, Lily, I can help. Is this about the opening being delayed?)]"
 					+ "</p>"
 					+ "<p>"
 						+ " [lilaya.speech(Yes! This is to do with the delay! Arthur's gone missing, and I can't start without him! Everyone's crowding me asking questions, so I can't go out and look for him myself."
@@ -387,7 +387,7 @@ public class PrologueDialogue {
 					+ "</p>"
 					+ "<p>"
 						+ "Lily's puppy-dog eyes always were too much for you to say no to, and you find yourself agreeing to do as she asks,"
-						+ " [pc.speech(Ok Lily, I'll find him for you, don't worry.)]"
+						+ " [pc.speech(Ok, Lily, I'll find him for you, don't worry.)]"
 					+ "</p>"
 					+ "<p>"
 						+ "As Lily starts thanking you, someone calls out from behind her, asking her to return to the stage."
@@ -423,24 +423,24 @@ public class PrologueDialogue {
 			if(femalePrologueNPC()) {
 				UtilText.nodeContentSB.append(
 						"<p>"
-							+ "In a sudden moment of clarity, you realise that what you're about to do isn't a very good idea, and you step away from [prologueFemale.name],"
+							+ "In a sudden moment of clarity, you realise that what you're about to do isn't a very good idea, and you step away from [prologueFemale.name]."
 							+ " [pc.speech(I'm sorry, but on second thoughts, I don't think this a good idea. Anyway, I'm sure the presentation will be starting soon...)]"
 						+ "</p>"
 						+ "<p>"
 							+ "[prologueFemale.speech(Eugh... Fine...)]"
-							+ " [prologueFemale.name] sighs, before collapsing down onto one of the leather sofas,"
+							+ " [prologueFemale.name] sighs, before collapsing down onto one of the leather sofas."
 							+ " [prologueFemale.speech(You go on ahead then, I need a moment to calm down.)]"
 						+ "</p>");
 				
 			} else {
 				UtilText.nodeContentSB.append(
 						"<p>"
-							+ "In a sudden moment of clarity, you realise that what you're about to do isn't a very good idea, and you step away from [prologueMale.name],"
+							+ "In a sudden moment of clarity, you realise that what you're about to do isn't a very good idea, and you step away from [prologueMale.name]."
 							+ " [pc.speech(I'm sorry, but on second thoughts, I don't think this a good idea. Anyway, I'm sure the presentation will be starting soon...)]"
 						+ "</p>"
 						+ "<p>"
 							+ "[prologueMale.speech(Eugh... Fine...)]"
-							+ " [prologueMale.name] sighs, before collapsing down onto one of the leather sofas,"
+							+ " [prologueMale.name] sighs, before collapsing down onto one of the leather sofas."
 							+ " [prologueMale.speech(You go on ahead then, I need a moment to calm down.)]"
 						+ "</p>");
 			}
@@ -452,17 +452,17 @@ public class PrologueDialogue {
 						+ " From the way she's frantically wringing her hands and glancing this way and that, you can tell that she's been flustered by something."
 					+ "</p>"
 					+ "<p>"
-						+ "[pc.speech(Hi Lily!)]"
+						+ "[pc.speech(Hi, Lily!)]"
 						+ " You call out, walking towards her."
 					+ "</p>"
 					+ "<p>"
 						+ "[lilaya.speech([pc.Name]! There you are! I've been looking everywhere for you,)]"
-						+ " your aunt calls out, bounding over towards you and sighing with relief,"
+						+ " your aunt calls out, bounding over towards you and sighing with relief."
 						+ " [lilaya.speech(I really need your help!)]"
 					+ "</p>"
 					+ "<p>"
 						+ "Giving her a reassuring smile, you reply,"
-						+ " [pc.speech(Don't worry Lily, I can help. Is this about the opening being delayed?)]"
+						+ " [pc.speech(Don't worry, Lily, I can help. Is this about the opening being delayed?)]"
 					+ "</p>"
 					+ "<p>"
 						+ " [lilaya.speech(Yes! This is to do with the delay! Arthur's gone missing, and I can't start without him! Everyone's crowding me asking questions, so I can't go out and look for him myself."
@@ -470,7 +470,7 @@ public class PrologueDialogue {
 					+ "</p>"
 					+ "<p>"
 						+ "Lily's puppy-dog eyes always were too much for you to say no to, and you find yourself agreeing to do as she asks,"
-						+ " [pc.speech(Ok Lily, I'll find him for you, don't worry.)]"
+						+ " [pc.speech(Ok, Lily, I'll find him for you, don't worry.)]"
 					+ "</p>"
 					+ "<p>"
 						+ "As Lily starts thanking you, someone calls out from behind her, asking her to return to the stage."
@@ -505,7 +505,7 @@ public class PrologueDialogue {
 			if(femalePrologueNPC()) {
 				UtilText.nodeContentSB.append(
 						"<p>"
-							+ "Keeping your growing arousal under control, you step away from [prologueFemale.name],"
+							+ "Keeping your growing arousal under control, you step away from [prologueFemale.name]."
 							+ " [pc.speech(I don't think that's a good idea. Anyway, I'm sure the presentation will be starting soo-)]"
 						+ "</p>"
 						+ "<p>"
@@ -514,8 +514,8 @@ public class PrologueDialogue {
 							+ " [lilaya.speech(sorry if I'm interrupting, but I really need your help!)]"
 						+ "</p>"
 						+ "<p>"
-							+ "Turning towards the unmistakable voice of your aunt Lily, you give her a reassuring smile,"
-							+ " [pc.speech(Don't worry Lily, you're not interrupting."
+							+ "Turning towards the unmistakable voice of your aunt Lily, you give her a reassuring smile."
+							+ " [pc.speech(Don't worry, Lily, you're not interrupting."
 								+ " Is this about the opening being delayed?)]"
 						+ "</p>"
 						+ "<p>"
@@ -526,7 +526,7 @@ public class PrologueDialogue {
 			} else {
 				UtilText.nodeContentSB.append(
 						"<p>"
-							+ "Keeping your growing arousal under control, you step away from [prologueMale.name],"
+							+ "Keeping your growing arousal under control, you step away from [prologueMale.name]."
 							+ " [pc.speech(I don't think that's a good idea. Anyway, I'm sure the presentation will be starting soo-)]"
 						+ "</p>"
 						+ "<p>"
@@ -535,8 +535,8 @@ public class PrologueDialogue {
 							+ " [lilaya.speech(sorry if I'm interrupting, but I really need your help!)]"
 						+ "</p>"
 						+ "<p>"
-							+ "Turning towards the unmistakable voice of your aunt Lily, you give her a reassuring smile,"
-							+ " [pc.speech(Don't worry Lily, you're not interrupting."
+							+ "Turning towards the unmistakable voice of your aunt Lily, you give her a reassuring smile."
+							+ " [pc.speech(Don't worry, Lily, you're not interrupting."
 								+ " Is this about the opening being delayed?)]"
 						+ "</p>"
 						+ "<p>"
@@ -547,13 +547,13 @@ public class PrologueDialogue {
 			UtilText.nodeContentSB.append(
 					"<p>"
 						+ "[lilaya.speech(Erm... goodbye!)]"
-						+ " Lily awkwardly calls out, completely oblivious as to what was going on, before turning back to you,"
+						+ " Lily awkwardly calls out, completely oblivious as to what was going on, before turning back to you."
 						+ " [lilaya.speech(Yes! This is to do with the delay! Arthur's gone missing, and I can't start without him! Everyone's crowding me asking questions, so I can't go out and look for him myself."
 							+ " Please, please <i>please</i> can you go and find him for me?)]"
 					+ "</p>"
 					+ "<p>"
 						+ "Lily's puppy-dog eyes always were too much for you to say no to, and you find yourself agreeing to do as she asks,"
-						+ " [pc.speech(Ok Lily, I'll find him for you, don't worry.)]"
+						+ " [pc.speech(Ok, Lily, I'll find him for you, don't worry.)]"
 					+ "</p>"
 					+ "<p>"
 						+ "As Lily starts thanking you, someone calls out from behind her, asking her to return to the stage."
@@ -597,7 +597,7 @@ public class PrologueDialogue {
 
 					+ "<p>"
 					+ UtilText.parseNPCSpeech("Aww, did I scare the poor little thing?", Femininity.FEMININE_STRONG)
-					+ " The woman speaks again, her voice definitely coming from behind the mirror. She seems to be putting on her most sultry tone as she continues, "
+					+ " the woman speaks again, her voice definitely coming from behind the mirror. She seems to be putting on her most sultry tone as she continues, "
 					+ UtilText.parseNPCSpeech("Perhaps you should come back here so I can calm you down...", Femininity.FEMININE_STRONG)
 					+ "</p>";
 		}
@@ -623,7 +623,7 @@ public class PrologueDialogue {
 					+ " You boldly stroll towards the mirror, duly impressed with your confident reflection as you close in on her hiding place.</p>"
 
 					+ "<p>"
-					+ UtilText.parseNPCSpeech("That's right darling, come back here and see what I've got for you.", Femininity.FEMININE_STRONG)
+					+ UtilText.parseNPCSpeech("That's right, darling, come back here and see what I've got for you.", Femininity.FEMININE_STRONG)
 					+ "</p>"
 
 					+ "<p>You vaguely consider the possibility that this could be a prank being played at your expense, but you find yourself too curious to turn back now."
@@ -880,7 +880,7 @@ public class PrologueDialogue {
 					+ "You start to struggle again, kicking and thrashing wildly as you try to free yourself."
 					+ " The cat-girl simply laughs, and in one swift movement she pounces forwards, slamming you to the floor as she straddles your chest.</p>"
 
-					+ "<p>She leans down, her cat-like pupils dilating as she pushes your head to the ground and delivers a long, slow lick up your cheek, "
+					+ "<p>She leans down, her cat-like pupils dilating as she pushes your head to the ground and delivers a long, slow lick up your cheek. "
 					+ (Main.game.getPlayer().getVaginaType() != VaginaType.NONE
 							? UtilText.parseNPCSpeech("Mmmm, you taste good, my little prey. We'll just wait for the thunder to start, and then you'll be begging for my boys here to fuck your tight little pussy.", Femininity.FEMININE_STRONG)
 							: UtilText.parseNPCSpeech("Mmmm, you taste good, my little prey. We'll just wait for the thunder to start, and then you'll be begging for my boys here to fuck your tight little ass.", Femininity.FEMININE_STRONG))
@@ -963,7 +963,7 @@ public class PrologueDialogue {
 					+ "</p>"
 
 					+ "<p>"
-					+ "Seeing that you've surrendered, she grins and leans down, her cat-like pupils dilating as she pushes your head to the ground and delivers a long, slow lick up your cheek, "
+					+ "Seeing that you've surrendered, she grins and leans down, her cat-like pupils dilating as she pushes your head to the ground and delivers a long, slow lick up your cheek. "
 					+ (Main.game.getPlayer().getVaginaType() != VaginaType.NONE
 							? UtilText.parseNPCSpeech("Mmmm, you taste good, my little prey. We'll just wait for the thunder to start, and then you can beg for my boys here to forgive you as they fuck your tight little pussy."
 									+ " Look, not long to wait now!", Femininity.FEMININE_STRONG)
@@ -1034,7 +1034,7 @@ public class PrologueDialogue {
 						+ " The cat-girl simply laughs, and in one swift movement she pounces forwards, slamming you to the floor as she straddles your chest."
 					+ "</p>"
 
-					+ "<p>She leans down, her cat-like pupils dilating as she pushes your head to the ground and delivers a long, slow lick up your cheek, "
+					+ "<p>She leans down, her cat-like pupils dilating as she pushes your head to the ground and delivers a long, slow lick up your cheek. "
 					+ (Main.game.getPlayer().getVaginaType() != VaginaType.NONE
 							? UtilText.parseNPCSpeech("Mmmm, you taste good, my little prey. We'll just wait for the thunder to start, and then you'll be begging for my boys here to fuck your tight little pussy.", Femininity.FEMININE_STRONG)
 							: UtilText.parseNPCSpeech("Mmmm, you taste good, my little prey. We'll just wait for the thunder to start, and then you'll be begging for my boys here to fuck your tight little ass.", Femininity.FEMININE_STRONG))
@@ -1104,7 +1104,7 @@ public class PrologueDialogue {
 
 					+ "<p>"
 					+ UtilText.parseNPCSpeech("Oh shit! Run!", Femininity.MASCULINE)
-					+ " the horse-boys quickly dart off, abandoning their leader."
+					+ " The horse-boys quickly dart off, abandoning their leader."
 					+ "</p>"
 
 					+ "<p>"
@@ -1140,13 +1140,13 @@ public class PrologueDialogue {
 
 					+ "<p>"
 					+ "[pc.speech(Lily! Oh Lily, I'm so glad you're here! Those... <i>people</i> ...were about to... well... I'm just glad you're here now!)]"
-					+ " you run to catch up with your aunt, wrapping your arms around her and pulling her into a loving hug."
+					+ " You run to catch up with your aunt, wrapping your arms around her and pulling her into a loving hug."
 					+ " As you press into her back, you notice what feels to be a lumpy backpack digging into your chest, but due to the dim street-light, you didn't see it."
 					+ "</p>"
 
 					+ "<p>"
 					+ "[lilaya.speech(W-What the hell are you doing?!)]"
-					+ " Lily exclaims, wriggling free as she pushes you away from her, "
+					+ " Lily exclaims, wriggling free as she pushes you away from her. "
 					+ "[lilaya.speech(I-It's not like I was <i>trying</i> to save you! J-Just say thanks and go find some cover before the storm breaks!)]"
 					+ "</p>"
 
@@ -1166,7 +1166,7 @@ public class PrologueDialogue {
 
 					+ "<p>"
 					+ "[lilaya.speech(Stop staring!)]"
-					+ " Lily commands, "
+					+ " Lily commands. "
 					+ "[lilaya.speech(I-I'll banish you to another dimension! Or... um... Freeze you and leave you lying out here! What do you want?!)]"
 					+ "</p>"
 
@@ -1240,14 +1240,14 @@ public class PrologueDialogue {
 
 					+ "<p>"
 					+ "[pc.speech(Uuuum... That's a bit of a weird question, but... no?)]"
-					+ " you answer, before suddenly realising that you might have offended this demonic version of your aunt, "
+					+ " you answer, before suddenly realising that you might have offended this demonic version of your aunt. "
 					+ "[pc.speech(I mean, you're obviously extremely attractive and anyone would be lucky to have you, but you're my aunt! Well, sort of, anyway...)]"
 					+ "</p>"
 
 					+ "<p>"
 					+ "You see Lily blushing at your flattering, and, looking back on it, slightly inappropriate, response. "
 					+ "[lilaya.speech(Y-You're not meant to say that sort of thing! C-Can't you see that I'm a... Eugh!)]"
-					+ " she turns around, stomping her foot on the ground as she starts walking away, "
+					+ " She turns around, stomping her foot on the ground as she starts walking away. "
 					+ "[lilaya.speech(Just come with me, and don't embarrass yourself any more!)]"
 					+ " she says, motioning for you to follow her."
 					+ "</p>"
@@ -1304,20 +1304,20 @@ public class PrologueDialogue {
 
 					+ "<p>"
 					+ "[lilaya.speech(Right, here we are,)]"
-					+ " Lily suddenly says, snapping you out of your trance, "
+					+ " Lily suddenly says, snapping you out of your trance. "
 					+ "[lilaya.speech(You're going to come inside and let me run a few little tests on you, ok? After all, I <i>did</i> save you back there,)]"
 					+ " she finishes, walking up a short external staircase to a rather imposing-looking front door."
 					+ "</p>"
 
 					+ "<p>"
 					+ "You decide not to mention the fact that Lily said earlier that she 'wasn't trying to save you', and instead answer as you always do when your aunt holds you to ransom like this, "
-					+ "[pc.speech(Ok Lily, I guess you're right,)]"
-					+ " you sigh, following her up the steps, "
+					+ "[pc.speech(Ok, Lily, I guess you're right.)]"
+					+ " You sigh, following her up the steps. "
 					+ "[pc.speech(I hope these 'little tests' aren't anything I should worry about...)]"
 					+ "</p>"
 
 					+ "<p>"
-					+ "Lily knocks on the door and turns back to you, sighing, "
+					+ "Lily knocks on the door and turns back to you, sighing. "
 					+ "[lilaya.speech(Of course they're nothing to worry about,)]"
 					+ " she says, before frowning down at you, "
 					+ UtilText.parseSpeech("and stop calling me 'Lily'. Maybe back in <i>your</i> world, I was your aunt and called that, but <i>here</i>, I'm not your aunt, and my name is 'Lilaya'."
@@ -1340,8 +1340,8 @@ public class PrologueDialogue {
 					+ "</p>"
 
 					+ "<p>"
-					+ UtilText.parseSpeech("Welcome home Mistress!", Main.game.getRose())
-					+ " a young woman's voice sounds from behind the door as you enter, "
+					+ UtilText.parseSpeech("Welcome home, Mistress!", Main.game.getRose())
+					+ " a young woman's voice sounds from behind the door as you enter. "
 					+ UtilText.parseSpeech("Did you have a nice evenin- ~eek!~ A stranger! Mistress?!", Main.game.getRose())
 					+ "</p>"
 
@@ -1353,14 +1353,14 @@ public class PrologueDialogue {
 					+ "</p>"
 
 					+ "<p>"
-						+ "Lilaya makes a soothing hushing sound before patting her on the head, "
-						+ "[lilaya.speech(Shh, it's alright Rose, [pc.she]'s a guest of mine, you can calm down,)]"
-						+ " she says, before pulling Rose into a surprisingly intimate hug, "
+						+ "Lilaya makes a soothing hushing sound before patting her on the head. "
+						+ "[lilaya.speech(Shh, it's alright, Rose, [pc.she]'s a guest of mine, you can calm down,)]"
+						+ " she says, before pulling Rose into a surprisingly intimate hug. "
 						+ "[lilaya.speech(Why don't you go make us some tea, you can bring it down to us in the lab.)]"
 					+ "</p>"
 
 					+ "<p>"
-					+ UtilText.parseSpeech("Yes Mistress! Right away Mistress!", Main.game.getRose())
+					+ UtilText.parseSpeech("Yes, Mistress! Right away, Mistress!", Main.game.getRose())
 					+ " Rose replies, and as Lilaya releases her, she quickly closes the door behind you and rushes off to another part of the house."
 					+ "</p>"
 
@@ -1372,7 +1372,7 @@ public class PrologueDialogue {
 
 					+ "<p>"
 					+ "[lilaya.speech(So I take it that your real aunt doesn't live in a place like this?)]"
-					+ " Lilaya asks, smirking at your stunned expression, "
+					+ " Lilaya asks, smirking at your stunned expression. "
 					+ "[lilaya.speech(Anyway, come with me. My lab's this way,)]"
 					+ " she says, walking over to a side-corridor."
 					+ "</p>";
@@ -1416,9 +1416,9 @@ public class PrologueDialogue {
 					+ "<p>"
 					+ "You see her face scrunch up into a thoughtful frown as she answers, "
 					+ "[lilaya.speech(Well, after seeing your immunity to the arcane thunder, I'm convinced that you're telling the truth, but...)]"
-					+ " Lilaya stops and turns to face you, "
+					+ " Lilaya stops and turns to face you. "
 					+ "[lilaya.speech(Inter-dimensional travel is far above and beyond any arcane skill I've ever heard of. Perhaps with some tests, we can discover more...)]"
-					+ " she turns around and opens the door behind her, stepping through into her lab."
+					+ " She turns around and opens the door behind her, stepping through into her lab."
 					+ "</p>"
 
 					+ "<p>"
@@ -1447,7 +1447,7 @@ public class PrologueDialogue {
 					+ "</p>"
 
 					+ "<p>"
-					+ "After a few moments she seems to be satisfied with her adjustments, and steps out of the chalk square, turning to smile at you, "
+					+ "After a few moments she seems to be satisfied with her adjustments, and steps out of the chalk square, turning to smile at you. "
 					+ UtilText.parseSpeech("Right, all set! Don't worry, this doesn't hurt or anything, it's just going to let me know a little bit more about you."
 							+ " Are you ready?", Main.game.getLilaya())
 					+ " she asks, and you quickly answer in the affirmative."
@@ -1524,7 +1524,7 @@ public class PrologueDialogue {
 					+ "</p>"
 
 					+ "<p>"
-						+ "[lilaya.speech(Rose! Quick, d-do something!)] Lilaya shouts, frantically hopping up and down on the spot, [lilaya.speech([pc.Name]'s c-clothes have gone!)]"
+						+ "[lilaya.speech(Rose! Quick, d-do something!)] Lilaya shouts, frantically hopping up and down on the spot. [lilaya.speech([pc.Name]'s c-clothes have gone!)]"
 					+ "</p>"
 						
 					+ "<p>"
@@ -1539,9 +1539,9 @@ public class PrologueDialogue {
 					+ "</p>"
 						
 					+ "<p>"
-						+ "As Rose hurries to fetch a ladder, Lilaya turns her gaze back towards you,"
+						+ "As Rose hurries to fetch a ladder, Lilaya turns her gaze back towards you."
 						+ "[lilaya.speech(This is amazing...)]"
-						+ " she says, looking at the strange pink mist that's hovering all around you, "
+						+ " she says, looking at the strange pink mist that's hovering all around you. "
 						+ " [lilaya.speech(I thought you wouldn't have any arcane aura at all, but... well... yours is easily as powerful as a demon's!)]"
 					+ "</p>"
 
@@ -1551,8 +1551,8 @@ public class PrologueDialogue {
 					+ "</p>"
 
 					+ "<p>"
-						+ "[lilaya.speech(Well, only people with weak auras are affected by the arcane thunder, so having one that you'd normally find on a demon is kind of good in that regard.)]"
-						+ " she explains, "
+						+ "[lilaya.speech(Well, only people with weak auras are affected by the arcane thunder, so having one that you'd normally find on a demon is kind of good in that regard,)]"
+						+ " she explains. "
 						+ "[lilaya.speech(But if you've got an aura like a demon... Then you should be able to harness the arcane like a demon!)]"
 					+ "</p>";
 		}
@@ -1624,9 +1624,9 @@ public class PrologueDialogue {
 								+ " If you start pulling them on, your clothes will fit themselves to you.)]"
 					+ "</p>"
 					+ "<p>"
-						+ "[lilaya.speech(T-Thank you Rose,)]"
-						+ " Lilaya says, clearly flustered by her inability to identify the problem you were having,"
-						+ " [lilaya.speech(if you could just wait by the door for a few moments, I'll need you again in a minute.)]"
+						+ "[lilaya.speech(T-Thank you, Rose,)]"
+						+ " Lilaya says, clearly flustered by her inability to identify the problem you were having."
+						+ " [lilaya.speech(If you could just wait by the door for a few moments, I'll need you again in a minute.)]"
 					+ "</p>"
 					+ "<p>"
 						+ "As the two women turn their backs on you, you start to quickly pull on your clothes again."
@@ -1635,7 +1635,7 @@ public class PrologueDialogue {
 					+ "</p>"
 					+ "<p>"
 						+ "[lilaya.speech(Right, so lets try out this demonstone! Just hold out your hand, yes, like that,)]"
-						+ " Lilaya instructs,"
+						+ " Lilaya instructs."
 						+ " [lilaya.speech(Now, when I place it on your palm, just let the energy flow into you. Don't worry, you can draw it back out at any time, but for now, just let it in...)]"
 					+ "</p>"
 					+ "<p>"
@@ -1681,7 +1681,7 @@ public class PrologueDialogue {
 		public String getContent() {
 			return "<p>"
 						+ "[lilaya.speech(Haha! Yes, I <i>knew</i> it!)]"
-						+ " Lilaya exclaims, "
+						+ " Lilaya exclaims. "
 						+ "[lilaya.speech(If you had contact with Lilith, then your aura... Well... Where's that book gone?!)]"
 					+ "</p>"
 					+ "<p>"
@@ -1719,7 +1719,7 @@ public class PrologueDialogue {
 						+ " Lilaya says, before sitting down to consult the books she's gathered."
 					+ "</p>"
 					+ "<p>"
-						+ "[rose.speech(Yes Mistress. Please come with me.)]"
+						+ "[rose.speech(Yes, Mistress. Please come with me,)]"
 						+ " Rose says, and you hurry to follow her as she leaves the lab."
 					+ "</p>"
 					+ "<p>"
@@ -1803,8 +1803,8 @@ public class PrologueDialogue {
 
 					+ "<p>"
 					+ "[pc.speech(Thanks,)]"
-					+ " you say, not really knowing quite how to react to the fact that you're now living in what looks like a palace, "
-					+ "[pc.speech(so, Lilaya's pretty important then, huh? I mean, this place is huge! Does she share these gardens with those other houses?)]"
+					+ " you say, not really knowing quite how to react to the fact that you're now living in what looks like a palace. "
+					+ "[pc.speech(So, Lilaya's pretty important then, huh? I mean, this place is huge! Does she share these gardens with those other houses?)]"
 					+ "</p>"
 
 					+ "<p>"
