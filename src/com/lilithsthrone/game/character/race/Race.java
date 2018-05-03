@@ -12,11 +12,32 @@ import com.lilithsthrone.utils.Util.ListValue;
 
 /**
  * @since 0.1.0
- * @version 0.1.87
+ * @version 0.2.5
  * @author Innoxia
  */
 public enum Race {
 
+	NONE("none",
+			"none",
+			"none",
+			"none",
+			"none",
+			"none",
+			"",
+			"",
+			Colour.RACE_HUMAN,
+			Disposition.CIVILIZED,
+			StatusEffect.PURE_HUMAN,
+			Util.newArrayListOfValues(new ListValue<Attack>(Attack.MAIN)),
+			true,
+			0.5f,
+			1,
+			1,
+			Attribute.DAMAGE_HUMAN,
+			Attribute.RESISTANCE_HUMAN,
+			FurryPreference.NORMAL,
+			FurryPreference.NORMAL),
+	
 	// HUMAN:
 	HUMAN("human",
 			"humans",

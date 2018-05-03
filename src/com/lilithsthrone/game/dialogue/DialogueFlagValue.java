@@ -65,6 +65,8 @@ public enum DialogueFlagValue {
 	reactedToPregnancyLilaya,
 	waitingOnLilayaPregnancyResults,
 	essenceExtractionKnown,
+	roseToldOnYou,
+	
 	readBook1,
 	readBook2,
 	readBook3,

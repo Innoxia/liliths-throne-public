@@ -81,49 +81,79 @@ public enum VaginaType implements BodyPartTypeInterface {
 	
 	@Override
 	public String getNameSingular(GameCharacter gc) {
+		if(this==NONE) {
+			return "";
+		}
 		if(gc.isVaginaVirgin()) {
-			switch(this){
-				case HORSE_MORPH:
-					return UtilText.returnStringAtRandom("cherry", "cunt", "kitty", "pussy", "sex", "slit", "twat", "horse-pussy");
-				case NONE:
-					return "";
-				default:
-					return UtilText.returnStringAtRandom("cherry", "cunt", "kitty", "pussy", "sex", "slit", "twat");
-			}
+			return UtilText.returnStringAtRandom(
+					"cherry",
+					"cherry",
+					"cunt",
+					"cunt",
+					"kitty",
+					"pussy",
+					"pussy",
+					"pussy",
+					"pussy",
+					"sex",
+					"slit",
+					"twat",
+					"twat",
+					(this==HORSE_MORPH?"horse-pussy":""));
 			
 		} else {
-			switch(this){
-				case HORSE_MORPH:
-					return UtilText.returnStringAtRandom("cunt", "kitty", "pussy", "sex", "slit", "twat", "horse-pussy");
-				case NONE:
-					return "";
-				default:
-					return UtilText.returnStringAtRandom("cunt", "kitty", "pussy", "sex", "slit", "twat");
-			}
+			return UtilText.returnStringAtRandom(
+					"cunt",
+					"cunt",
+					"kitty",
+					"pussy",
+					"pussy",
+					"pussy",
+					"pussy",
+					"sex",
+					"slit",
+					"twat",
+					"twat",
+					(this==HORSE_MORPH?"horse-pussy":""));
 		}
 	}
 	
 	@Override
 	public String getNamePlural(GameCharacter gc) {
+		if(this==NONE) {
+			return "";
+		}
 		if(gc.isVaginaVirgin()) {
-			switch(this){
-				case HORSE_MORPH:
-					return UtilText.returnStringAtRandom("cherries", "cunts", "kitties", "pussies", "sex", "slits", "twats", "horse-pussies");
-				case NONE:
-					return "";
-				default:
-					return UtilText.returnStringAtRandom("cherries", "cunts", "kitties", "pussies", "sex", "slits", "twats");
-			}
+			return UtilText.returnStringAtRandom(
+					"cherries",
+					"cherries",
+					"cunts",
+					"cunts",
+					"kitties",
+					"pussies",
+					"pussies",
+					"pussies",
+					"pussies",
+					"sexes",
+					"slits",
+					"twats",
+					"twats",
+					(this==HORSE_MORPH?"horse-pussies":""));
 			
 		} else {
-			switch(this){
-				case HORSE_MORPH:
-					return UtilText.returnStringAtRandom("cunts", "kitties", "pussies", "sex", "slits", "twats", "horse-pussies");
-				case NONE:
-					return "";
-				default:
-					return UtilText.returnStringAtRandom("cunts", "kitties", "pussies", "sex", "slits", "twats");
-			}
+			return UtilText.returnStringAtRandom(
+					"cunts",
+					"cunts",
+					"kitties",
+					"pussies",
+					"pussies",
+					"pussies",
+					"pussies",
+					"sexes",
+					"slits",
+					"twats",
+					"twats",
+					(this==HORSE_MORPH?"horse-pussies":""));
 		}
 	}
 

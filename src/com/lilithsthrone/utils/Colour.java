@@ -299,6 +299,7 @@ public enum Colour {
 	CLOTHING_RED_BRIGHT(Util.newColour(0xFA2424), Util.newColour(0xFA2424), "bright red"),
 	CLOTHING_RED(Util.newColour(0xD84646), Util.newColour(0xD84646), "red"),
 	CLOTHING_BROWN(Util.newColour(0xC87137), Util.newColour(0xC87137), "brown"),
+	CLOTHING_BROWN_DARK(Util.newColour(0x63391C), Util.newColour(0x63391C), "dark brown"),
 	CLOTHING_ORANGE(Util.newColour(0xE79F6F), Util.newColour(0xE79F6F), "orange"),
 	CLOTHING_ORANGE_BRIGHT(Util.newColour(0xFF7900), Util.newColour(0xFF7900), "bright orange"),
 	CLOTHING_ORANGE_DARK(Util.newColour(0xE56D00), Util.newColour(0xE56D00), "dark orange"),
@@ -614,8 +615,6 @@ public enum Colour {
 			new ListValue<Colour>(Colour.FEATHERS_PINK_LIGHT)
 			);
 			
-			
-	
 	public static List<Colour> naturalFurColours = Util.newArrayListOfValues(
 			new ListValue<Colour>(Colour.COVERING_WHITE),
 			new ListValue<Colour>(Colour.COVERING_SILVER),

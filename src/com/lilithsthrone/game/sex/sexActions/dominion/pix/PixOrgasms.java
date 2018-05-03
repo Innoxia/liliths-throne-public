@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
-import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
 import com.lilithsthrone.game.character.fetishes.Fetish;
@@ -19,7 +18,7 @@ import com.lilithsthrone.utils.Util.ListValue;
 
 /**
  * @since 0.1.69.9
- * @version 0.1.89
+ * @version 0.2.4
  * @author Innoxia
  */
 public class PixOrgasms {
@@ -87,7 +86,7 @@ public class PixOrgasms {
 			UtilText.nodeContentSB.append("</br></br>");
 			// PENIS ORGASM:
 			
-			if(Main.game.getPlayer().getPenisType()!=PenisType.NONE){
+			if(Main.game.getPlayer().hasPenisIgnoreDildo()){
 				
 				UtilText.nodeContentSB.append("You feel one of Pix's [pix.hands+] wrap around your [pc.cock+], and as she starts furiously jerking you off, she carries on telling you what a good [pc.girl] you've been.");
 				
@@ -140,7 +139,7 @@ public class PixOrgasms {
 			}
 			
 			// MOUND ORGASM:
-			if (Main.game.getPlayer().getPenisType()==PenisType.NONE && Main.game.getPlayer().getVaginaType()==VaginaType.NONE) {
+			if (!Main.game.getPlayer().hasPenisIgnoreDildo() && Main.game.getPlayer().getVaginaType()==VaginaType.NONE) {
 				UtilText.nodeContentSB.append("With an ear-splitting scream and trembling legs, a crashing wave of pure ecstasy suddenly washes through you."
 						+ " The muscles within your genderless mound start to spasm and contract, and you let out a desperate scream as Pix reaches down and starts rubbing and flicking at your extremely sensitive crotch."
 						+ " With a final, ear-splitting scream, your climax crashes over you, and you find yourself collapsing back into Pix as you feel your legs giving out from under you.");

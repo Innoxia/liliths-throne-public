@@ -5,6 +5,7 @@ import java.util.List;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.race.Race;
+import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.npcDialogue.SlaveDialogue;
@@ -170,6 +171,9 @@ public class Library {
 
 			} else if (books == 7) {
 				return new Response("The Desert", "A section of the library dedicated to books on the area known as the Desert. (Not yet implemented.)", null);
+
+			} else if (books == 8) {
+				return new Response("Spells", "A section of the library dedicated to spell books.", SPELL_BOOKS);
 
 			} else if (books == 0) {
 				return new Response("Back", "Return to the main library menu.", LIBRARY);
@@ -524,8 +528,6 @@ public class Library {
 	};
 	
 	public static final DialogueNodeOld FIELDS_BOOKS = new DialogueNodeOld("", "", false) {
-		/**
-		 */
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -568,6 +570,44 @@ public class Library {
 			} else {
 				return null;
 			}
+		}
+	
+	};
+	
+	public static final DialogueNodeOld SPELL_BOOKS = new DialogueNodeOld("", "", false) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getLabel() {
+			return "Library";
+		}
+
+		@Override
+		public String getContent() {
+			return "<p>"
+						+ "One of the library's aisles is dedicated to holding copies of the spell books that you've discovered and read in your travels."
+						+ " As you walk down this aisle, you see that the shelves in this section are fashioned out of shimmering purple energy, and seem to shift and move with a life of their own."
+					+ "</p>";
+							
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 0) {
+				return new Response("Back to the shelves", "Return to strolling the shelves.", BROWSE_BOOKS);
+
+			} else if (index-1 < Main.game.getPlayer().getSpells().size()) {
+				Spell s = Main.game.getPlayer().getSpells().get(index-1);
+				return new Response(s.getName(), "Read about the spell '"+s.getName()+"'.", SPELL_BOOKS) {
+					@Override
+					public void effects() {
+						Main.game.getTextEndStringBuilder().append(ItemType.getSpellBookType(s).getEffects().get(0).applyEffect(Main.game.getPlayer(), Main.game.getPlayer(), 0));
+					}
+				};
+				
+			}
+			
+			return null;
 		}
 	
 	};

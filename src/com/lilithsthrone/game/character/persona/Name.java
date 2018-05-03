@@ -254,6 +254,7 @@ public enum Name {
 		Name name = Name.HUMAN;
 		
 		switch(gc.getRace()) {
+			case NONE:
 			case ANGEL:
 			case CAT_MORPH:
 			case COW_MORPH:
@@ -303,6 +304,7 @@ public enum Name {
 		Name name = Name.HUMAN;
 		
 		switch(r) {
+			case NONE:
 			case ANGEL:
 			case CAT_MORPH:
 			case COW_MORPH:

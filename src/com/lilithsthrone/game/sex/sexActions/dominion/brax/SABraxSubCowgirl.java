@@ -1528,7 +1528,7 @@ public class SABraxSubCowgirl {
 			UtilText.nodeContentSB.append("As you feel yourself reaching your climax, you let out a desperate moan, and you brace for your orgasm. ");
 
 			// Penis:
-			if (Main.game.getPlayer().getPenisType() != PenisType.NONE) {
+			if (Main.game.getPlayer().hasPenis()) {
 				
 				if(Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.PENIS)) {
 					UtilText.nodeContentSB.append(" Reaching down, you grab your "+Main.game.getPlayer().getPenisName(true)+", before starting to furiously masturbate as you rock gently back and forth on Brax's furry stomach."
@@ -1650,7 +1650,7 @@ public class SABraxSubCowgirl {
 				UtilText.nodeContentSB.append("As you feel Brax's tongue lapping away at your "+Main.game.getPlayer().getVaginaName(true)+", you realise that you're starting to climax, and with a desperate moan, you brace for your orgasm. ");
 
 			// Penis:
-			if (Main.game.getPlayer().getPenisType() != PenisType.NONE) {
+			if (Main.game.getPlayer().hasPenis()) {
 				
 				if(Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.PENIS)) {
 					UtilText.nodeContentSB.append(" Reaching down, you grab your "+Main.game.getPlayer().getPenisName(true)+", furiously masturbating as you grind down on Brax's wolf-like muzzle."
@@ -1774,7 +1774,7 @@ public class SABraxSubCowgirl {
 						+ " Letting out a desperate moan, your mind is overwhelmed by the feeling in your "+Main.game.getPlayer().getVaginaName(true)+", and you brace for your orgasm. ");
 
 			// Penis:
-			if (Main.game.getPlayer().getPenisType() != PenisType.NONE) {
+			if (Main.game.getPlayer().hasPenis()) {
 				if (Main.game.getPlayer().getPenisType() == PenisType.CANINE)
 					UtilText.nodeContentSB.append("Your red dog-cock suddenly starts violently throbbing, and you know that you're about to cum."
 							+ " Grabbing your hard member in one hand, you point it towards Brax's face, furiously masturbating as your thick knot swells up.");

@@ -150,6 +150,7 @@ public class Game implements Serializable, XMLSaving {
 	
 	private Weather currentWeather;
 	private long nextStormTime;
+	private int gatheringStormDuration;
 	private int weatherTimeRemaining;
 	
 	private Encounter currentEncounter;
@@ -348,104 +349,136 @@ public class Game implements Serializable, XMLSaving {
 			Element game = doc.createElement("game");
 			doc.appendChild(game);
 			
-
-			Element informationNode = doc.createElement("coreInfo");
-			game.appendChild(informationNode);
-			CharacterUtils.addAttribute(doc, informationNode, "version", Main.VERSION_NUMBER);
-			CharacterUtils.addAttribute(doc, informationNode, "minutesPassed", String.valueOf(Main.game.minutesPassed));
-			CharacterUtils.addAttribute(doc, informationNode, "debugMode", String.valueOf(Main.game.debugMode));
-			CharacterUtils.addAttribute(doc, informationNode, "imperialMeasurements", String.valueOf(Main.game.imperialMeasurements));
-			CharacterUtils.addAttribute(doc, informationNode, "weather", Main.game.currentWeather.toString());
-			CharacterUtils.addAttribute(doc, informationNode, "nextStormTime", String.valueOf(Main.game.nextStormTime));
-			CharacterUtils.addAttribute(doc, informationNode, "weatherTimeRemaining", String.valueOf(Main.game.weatherTimeRemaining));
-
-			Element slaveryNode = doc.createElement("slavery");
-			game.appendChild(slaveryNode);
-			CharacterUtils.addAttribute(doc, slaveryNode, "generatedIncome", String.valueOf(Main.game.getSlaveryUtil().getGeneratedIncome()));
-			CharacterUtils.addAttribute(doc, slaveryNode, "generatedUpkeep", String.valueOf(Main.game.getSlaveryUtil().getGeneratedUpkeep()));
-			
-			Element dateNode = doc.createElement("date");
-			informationNode.appendChild(dateNode);
-			CharacterUtils.addAttribute(doc, dateNode, "year", String.valueOf(Main.game.startingDate.getYear()));
-			CharacterUtils.addAttribute(doc, dateNode, "month", String.valueOf(Main.game.startingDate.getMonthValue()));
-			CharacterUtils.addAttribute(doc, dateNode, "dayOfMonth", String.valueOf(Main.game.startingDate.getDayOfMonth()));
-			CharacterUtils.addAttribute(doc, dateNode, "hour", String.valueOf(Main.game.startingDate.getHour()));
-			CharacterUtils.addAttribute(doc, dateNode, "minute", String.valueOf(Main.game.startingDate.getMinute()));
-			
+			try {
+				Element informationNode = doc.createElement("coreInfo");
+				game.appendChild(informationNode);
+				CharacterUtils.addAttribute(doc, informationNode, "version", Main.VERSION_NUMBER);
+				CharacterUtils.addAttribute(doc, informationNode, "minutesPassed", String.valueOf(Main.game.minutesPassed));
+				CharacterUtils.addAttribute(doc, informationNode, "debugMode", String.valueOf(Main.game.debugMode));
+				CharacterUtils.addAttribute(doc, informationNode, "imperialMeasurements", String.valueOf(Main.game.imperialMeasurements));
+				CharacterUtils.addAttribute(doc, informationNode, "weather", Main.game.currentWeather.toString());
+				CharacterUtils.addAttribute(doc, informationNode, "nextStormTime", String.valueOf(Main.game.nextStormTime));
+				CharacterUtils.addAttribute(doc, informationNode, "gatheringStormDuration", String.valueOf(Main.game.gatheringStormDuration));
+				CharacterUtils.addAttribute(doc, informationNode, "weatherTimeRemaining", String.valueOf(Main.game.weatherTimeRemaining));
+	
+				Element slaveryNode = doc.createElement("slavery");
+				game.appendChild(slaveryNode);
+				CharacterUtils.addAttribute(doc, slaveryNode, "generatedIncome", String.valueOf(Main.game.getSlaveryUtil().getGeneratedIncome()));
+				CharacterUtils.addAttribute(doc, slaveryNode, "generatedUpkeep", String.valueOf(Main.game.getSlaveryUtil().getGeneratedUpkeep()));
+				
+				Element dateNode = doc.createElement("date");
+				informationNode.appendChild(dateNode);
+				CharacterUtils.addAttribute(doc, dateNode, "year", String.valueOf(Main.game.startingDate.getYear()));
+				CharacterUtils.addAttribute(doc, dateNode, "month", String.valueOf(Main.game.startingDate.getMonthValue()));
+				CharacterUtils.addAttribute(doc, dateNode, "dayOfMonth", String.valueOf(Main.game.startingDate.getDayOfMonth()));
+				CharacterUtils.addAttribute(doc, dateNode, "hour", String.valueOf(Main.game.startingDate.getHour()));
+				CharacterUtils.addAttribute(doc, dateNode, "minute", String.valueOf(Main.game.startingDate.getMinute()));
+			} catch(Exception ex) {
+				System.err.println("coreInfo saving failed!");
+				Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "<style='color:"+Colour.GENERIC_TERRIBLE.toWebHexString()+";'>Partial Save Fail<b>", "coreInfo failure"), false);
+			}
 			
 			Main.game.dialogueFlags.saveAsXML(game, doc);
 			
-
-			Element eventLogNode = doc.createElement("eventLog");
-			game.appendChild(eventLogNode);
-			for(EventLogEntry event : Main.game.getEventLog().subList(Math.max(0, Main.game.getEventLog().size()-50), Main.game.getEventLog().size())) {
-				event.saveAsXML(eventLogNode, doc);
-			}
-			
-			Element slaveryEventLogNode = doc.createElement("slaveryEventLog");
-			game.appendChild(slaveryEventLogNode);
-			for(int day : Main.game.getSlaveryEventLog().keySet()) {
-				Element element = doc.createElement("day");
-				slaveryEventLogNode.appendChild(element);
-				CharacterUtils.addAttribute(doc, element, "value", String.valueOf(day));
-				for(SlaveryEventLogEntry event : Main.game.getSlaveryEventLog().get(day)) {
-					event.saveAsXML(element, doc);
+			try {
+				Element eventLogNode = doc.createElement("eventLog");
+				game.appendChild(eventLogNode);
+				for(EventLogEntry event : Main.game.getEventLog().subList(Math.max(0, Main.game.getEventLog().size()-50), Main.game.getEventLog().size())) {
+					event.saveAsXML(eventLogNode, doc);
 				}
+			} catch(Exception ex) {
+				System.err.println("eventLog saving failed!");
+				Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "<style='color:"+Colour.GENERIC_TERRIBLE.toWebHexString()+";'>Partial Save Fail<b>", "eventLog failure"), false);
 			}
-			
+		
+			try {
+				Element slaveryEventLogNode = doc.createElement("slaveryEventLog");
+				game.appendChild(slaveryEventLogNode);
+				for(int day = Main.game.getDayNumber() ; day>Main.game.getDayNumber()-28 ; day--) {
+					if(Main.game.getSlaveryEventLog().containsKey(day)) {
+						Element element = doc.createElement("day");
+						slaveryEventLogNode.appendChild(element);
+						CharacterUtils.addAttribute(doc, element, "value", String.valueOf(day));
+						for(SlaveryEventLogEntry event : Main.game.getSlaveryEventLog().get(day)) {
+							event.saveAsXML(element, doc);
+						}
+					}
+				}
+			} catch(Exception ex) {
+				System.err.println("slaveryEventLog saving failed!");
+				Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "<style='color:"+Colour.GENERIC_TERRIBLE.toWebHexString()+";'>Partial Save Fail<b>", "slaveryEventLog failure"), false);
+			}
 			
 			// Add maps:
-			Element mapNode = doc.createElement("maps");
-			game.appendChild(mapNode);
-			for(World world : Main.game.getWorlds().values()) {
-				if(world!=null) {
-					world.saveAsXML(mapNode, doc);
+			try {
+				Element mapNode = doc.createElement("maps");
+				game.appendChild(mapNode);
+				for(World world : Main.game.getWorlds().values()) {
+					if(world!=null) {
+						world.saveAsXML(mapNode, doc);
+					}
 				}
+			} catch(Exception ex) {
+				System.err.println("maps saving failed!");
+				Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "<style='color:"+Colour.GENERIC_TERRIBLE.toWebHexString()+";'>Partial Save Fail<b>", "maps failure"), false);
 			}
 			
 			// Add player:
-			Element characterNode = doc.createElement("playerCharacter");
-			game.appendChild(characterNode);
-			Main.game.getPlayer().saveAsXML(characterNode, doc);
-			
-			// Add all NPCs:
-			for(GameCharacter character : Main.game.getNPCMap().values()) {
-				characterNode = doc.createElement("NPC");
+			try {
+				Element characterNode = doc.createElement("playerCharacter");
 				game.appendChild(characterNode);
-				character.saveAsXML(characterNode, doc);
+				Main.game.getPlayer().saveAsXML(characterNode, doc);
+			} catch(Exception ex) {
+				System.err.println("playerCharacter saving failed!");
+				Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "<style='color:"+Colour.GENERIC_TERRIBLE.toWebHexString()+";'>Partial Save Fail<b>", "playerCharacter failure"), false);
+			}
+		
+			// Add all NPCs:
+			try {
+				for(GameCharacter character : Main.game.getNPCMap().values()) {
+					Element characterNode = doc.createElement("NPC");
+					game.appendChild(characterNode);
+					character.saveAsXML(characterNode, doc);
+				}
+			} catch(Exception ex) {
+				System.err.println("NPC saving failed!");
+				Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "<style='color:"+Colour.GENERIC_TERRIBLE.toWebHexString()+";'>Partial Save Fail<b>", "NPC failure"), false);
 			}
 			
 			
-			
 			// Ending stuff:
-			
-			TransformerFactory tf = TransformerFactory.newInstance();
-			Transformer transformer1 = tf.newTransformer();
-			transformer1.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
-			StringWriter writer = new StringWriter();
-
-			transformer1.transform(new DOMSource(doc), new StreamResult(writer));
-			
-			// Save this xml:
-			TransformerFactory transformerFactory = TransformerFactory.newInstance();
-			Transformer transformer = transformerFactory.newTransformer();
-			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-			transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
-			DOMSource source = new DOMSource(doc);
-			
-			String saveLocation = "data/saves/"+exportFileName+".xml";
-			StreamResult result = new StreamResult(new File(saveLocation));
-			
-			transformer.transform(source, result);
-
-			if(!exportFileName.startsWith("AutoSave")) {
-				if(overwrite) {
-					Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourGood(Game saved)]", saveLocation), false);
-					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()), false, Colour.GENERIC_GOOD, "Save game overwritten!");
-				} else {
-					Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourGood(Game saved)]", saveLocation), false);
-					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()), false, Colour.GENERIC_GOOD, "Game saved!");
+			try {
+				TransformerFactory tf = TransformerFactory.newInstance();
+				Transformer transformer1 = tf.newTransformer();
+				transformer1.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+				StringWriter writer = new StringWriter();
+	
+				transformer1.transform(new DOMSource(doc), new StreamResult(writer));
+				
+				// Save this xml:
+				TransformerFactory transformerFactory = TransformerFactory.newInstance();
+				Transformer transformer = transformerFactory.newTransformer();
+				transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+				transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+				DOMSource source = new DOMSource(doc);
+				
+				String saveLocation = "data/saves/"+exportFileName+".xml";
+				StreamResult result = new StreamResult(new File(saveLocation));
+				
+				transformer.transform(source, result);
+				
+				if(!exportFileName.startsWith("AutoSave")) {
+					if(overwrite) {
+						Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourGood(Game saved)]", saveLocation), false);
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()), false, Colour.GENERIC_GOOD, "Save game overwritten!");
+					} else {
+						Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourGood(Game saved)]", saveLocation), false);
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()), false, Colour.GENERIC_GOOD, "Game saved!");
+					}
 				}
+			} catch(Exception ex) {
+				System.err.println("XML writing failed!");
+				Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "<style='color:"+Colour.GENERIC_TERRIBLE.toWebHexString()+";'>Partial Save Fail<b>", "XML writing failure"), false);
 			}
 			
 			if(timeLog) {
@@ -453,8 +486,6 @@ public class Game implements Serializable, XMLSaving {
 			}
 		} catch (ParserConfigurationException pce) {
 			pce.printStackTrace();
-		} catch (TransformerException tfe) {
-			tfe.printStackTrace();
 		}
 	}
 	
@@ -489,6 +520,10 @@ public class Game implements Serializable, XMLSaving {
 				Main.game.imperialMeasurements = Boolean.valueOf(informationNode.getAttribute("imperialMeasurements"));
 				Main.game.currentWeather = Weather.valueOf(informationNode.getAttribute("weather"));
 				Main.game.nextStormTime = Long.valueOf(informationNode.getAttribute("nextStormTime"));
+				try {
+					Main.game.gatheringStormDuration = Integer.valueOf(informationNode.getAttribute("gatheringStormDuration"));
+				} catch(Exception ex) {
+				}
 				Main.game.weatherTimeRemaining = Integer.valueOf(informationNode.getAttribute("weatherTimeRemaining"));
 
 
@@ -720,6 +755,14 @@ public class Game implements Serializable, XMLSaving {
 				if(Main.isVersionOlderThan(version, "0.1.95")) {
 					if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_H_THE_GREAT_ESCAPE)) {
 						Main.game.getArthur().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, true);
+					}
+				}
+
+				if(Main.isVersionOlderThan(version, "0.2.4.5")) { //Try to remove unused NPCs TODO better mothod to delete all abnished NPCs
+					for(NPC npc : Main.game.getAllNPCs()) {
+						if(!npc.isUnique() && npc.getWorldLocation()==WorldType.EMPTY) {
+							Main.game.banishNPC(npc);
+						}
 					}
 				}
 				
@@ -1033,27 +1076,29 @@ public class Game implements Serializable, XMLSaving {
 			npc.calculateStatusEffects(turnTime);
 			
 			// Replace clothing if not in player's tile:
-			if(!Main.game.isInCombat() && !Main.game.isInSex()
-					&& (Main.game.getCurrentDialogueNode().equals(Main.game.getPlayer().getLocationPlace().getDialogue(false))
-							|| !(npc.getWorldLocation()==Main.game.getPlayer().getWorldLocation() && npc.getLocation().equals(Main.game.getPlayer().getLocation())))) {
-				if(npc.isPendingClothingDressing()) {
-					if(!npc.hasFetish(Fetish.FETISH_EXHIBITIONIST)) {
-						npc.replaceAllClothing();
-					}
-					npc.equipClothing(true, true);
-					npc.setPendingClothingDressing(false);
-					
-				} else if((!npc.isSlave() && !npc.isUnique() && (npc.hasStatusEffect(StatusEffect.EXPOSED) || npc.hasStatusEffect(StatusEffect.EXPOSED_BREASTS) || npc.hasStatusEffect(StatusEffect.EXPOSED_PLUS_BREASTS)))){
-					// Try to replace clothing to cover themselves up:
-					if(!npc.hasFetish(Fetish.FETISH_EXHIBITIONIST)) {
-						npc.replaceAllClothing();
-					}
-					npc.calculateStatusEffects(0);
-					// If still exposed after this, get new clothes:
-					if(npc.hasStatusEffect(StatusEffect.EXPOSED) || npc.hasStatusEffect(StatusEffect.EXPOSED_BREASTS) || npc.hasStatusEffect(StatusEffect.EXPOSED_PLUS_BREASTS)) {
+			if(newDay) {
+				if(!Main.game.isInCombat() && !Main.game.isInSex()
+						&& (Main.game.getCurrentDialogueNode().equals(Main.game.getPlayer().getLocationPlace().getDialogue(false))
+								|| !(npc.getWorldLocation()==Main.game.getPlayer().getWorldLocation() && npc.getLocation().equals(Main.game.getPlayer().getLocation())))) {
+					if(npc.isPendingClothingDressing()) {
+						if(!npc.hasFetish(Fetish.FETISH_EXHIBITIONIST)) {
+							npc.replaceAllClothing();
+						}
 						npc.equipClothing(true, true);
+						npc.setPendingClothingDressing(false);
+						
+					} else if((!npc.isSlave() && !npc.isUnique() && (npc.hasStatusEffect(StatusEffect.EXPOSED) || npc.hasStatusEffect(StatusEffect.EXPOSED_BREASTS) || npc.hasStatusEffect(StatusEffect.EXPOSED_PLUS_BREASTS)))){
+						// Try to replace clothing to cover themselves up:
+						if(!npc.hasFetish(Fetish.FETISH_EXHIBITIONIST)) {
+							npc.replaceAllClothing();
+						}
+						npc.calculateStatusEffects(0);
+						// If still exposed after this, get new clothes:
+						if(npc.hasStatusEffect(StatusEffect.EXPOSED) || npc.hasStatusEffect(StatusEffect.EXPOSED_BREASTS) || npc.hasStatusEffect(StatusEffect.EXPOSED_PLUS_BREASTS)) {
+							npc.equipClothing(true, true);
+						}
+						npc.setPendingClothingDressing(false);
 					}
-					npc.setPendingClothingDressing(false);
 				}
 			}
 			
@@ -1154,7 +1199,7 @@ public class Game implements Serializable, XMLSaving {
 		
 		
 		RenderingEngine.ENGINE.renderButtons();
-		Main.mainController.updateUI();
+		MainController.updateUI();
 		
 		Main.mainController.getTooltip().hide();
 		
@@ -1213,7 +1258,7 @@ public class Game implements Serializable, XMLSaving {
 				case CLEAR:
 					if(minutesPassed >= nextStormTime) {
 						currentWeather = Weather.MAGIC_STORM_GATHERING;
-						weatherTimeRemaining = 4 * 60 + Util.random.nextInt(2 * 60); // Gathering storm lasts for 4-6 hours
+						weatherTimeRemaining = (int) (gatheringStormDuration - (minutesPassed - nextStormTime));
 					} else {
 						currentWeather = Weather.CLOUD;
 						weatherTimeRemaining = 2 * 60 + Util.random.nextInt(2 * 60); // Clouds last for 2-4 hours
@@ -1223,7 +1268,7 @@ public class Game implements Serializable, XMLSaving {
 				case CLOUD:
 					if(minutesPassed >= nextStormTime) {
 						currentWeather = Weather.MAGIC_STORM_GATHERING;
-						weatherTimeRemaining = 4 * 60 + Util.random.nextInt(2 * 60); // Gathering storm lasts for 4-6 hours
+						weatherTimeRemaining = (int) (gatheringStormDuration - (minutesPassed - nextStormTime));
 					} else {
 						if (Math.random() > 0.4) { // 40% chance that will start raining
 							if(getSeason()==Season.WINTER) {
@@ -1241,6 +1286,7 @@ public class Game implements Serializable, XMLSaving {
 					
 				case MAGIC_STORM:
 					nextStormTime = minutesPassed + (60*48) + (60*Util.random.nextInt(24)); // Next storm in 2-3 days
+					gatheringStormDuration = 4 * 60 + Util.random.nextInt(2 * 60);
 					currentWeather = Weather.CLEAR;
 					weatherTimeRemaining = 4 * 60 + Util.random.nextInt(4 * 60);
 					break;
@@ -1254,7 +1300,7 @@ public class Game implements Serializable, XMLSaving {
 				case RAIN: case SNOW:
 					if(minutesPassed >= nextStormTime) {
 						currentWeather = Weather.MAGIC_STORM_GATHERING;
-						weatherTimeRemaining = 4 * 60 + Util.random.nextInt(2 * 60); // Gathering storm lasts for 4-6 hours
+						weatherTimeRemaining = (int) (gatheringStormDuration - (minutesPassed - nextStormTime));
 					} else {
 						currentWeather = Weather.CLOUD;
 						weatherTimeRemaining = 2 * 60 + Util.random.nextInt(2 * 60); // Clouds last for 2-4 hours
@@ -1272,8 +1318,8 @@ public class Game implements Serializable, XMLSaving {
 	}
 	
 	public String getNextStormTimeAsTimeString() {
-		long hours = (nextStormTime-minutesPassed)/60;
-		return (hours/24)+" days, "+hours%24+" hours, "+(nextStormTime-minutesPassed)%60+" minutes";
+		long hours = ((nextStormTime+gatheringStormDuration)-minutesPassed)/60;
+		return (hours/24)+" days, "+hours%24+" hours, "+((nextStormTime+gatheringStormDuration)-minutesPassed)%60+" minutes";
 	}
 	
 	public Weather getCurrentWeather() {
@@ -1786,7 +1832,7 @@ public class Game implements Serializable, XMLSaving {
 		content=content.replaceAll("\n", "");
 		content=content.replaceAll("\"", "'");
 		Main.mainController.getWebEngine().executeScript("document.getElementById('RESPONSE_BOX').innerHTML = \""+content+"\"");
-		Main.mainController.setResponseEventListeners();
+		MainController.setResponseEventListeners();
 	}
 	
 	/**
@@ -2724,22 +2770,29 @@ public class Game implements Serializable, XMLSaving {
 	 * If the NPC has relationship stats with the player, don't delete entirely. Instead, move to PlaceType.GENERIC_EMPTY_TILE.
 	 * If the NPC has no stats related to the player, then remove them from the game.
 	 * @param npc
+	 * @return true if NPC was deleted, false if they were moved to the empty world.
 	 */
-	public void banishNPC(NPC npc) {
-		if(npc.getTotalTimesHadSex()!=0
+	public boolean banishNPC(NPC npc) {
+		if(Main.game.getPlayer().getSexPartners().containsKey(npc.getId())
 				|| npc.getPregnantLitter()!=null
 				|| npc.getLastLitterBirthed()!=null
 				|| npc.getMother()!=null
 				|| npc.getFather()!=null) {
 			npc.setLocation(WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
+			return false;
 		} else {
 			removeNPC(npc);
+			return true;
 		}
 	}
 	
 	public void banishNPC(String id) {
 		NPC npc = (NPC) getNPCById(id);
-		if(npc.getTotalTimesHadSex()!=0 || npc.getPregnantLitter()!=null || npc.getLastLitterBirthed()!=null || npc.getMother()!=null || npc.getFather()!=null) {
+		if(Main.game.getPlayer().getSexPartners().containsKey(id)
+				|| npc.getPregnantLitter()!=null
+				|| npc.getLastLitterBirthed()!=null 
+				|| npc.getMother()!=null
+				|| npc.getFather()!=null) {
 			npc.setLocation(WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
 		} else {
 			removeNPC(npc);

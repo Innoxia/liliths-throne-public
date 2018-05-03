@@ -201,9 +201,10 @@ public class SubKneeling {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getActivePartner().getPenisRawSizeValue() >= PenisSize.TWO_AVERAGE.getMedianValue();
+			return Sex.getActivePartner().getPenisRawSizeValue() >= PenisSize.TWO_AVERAGE.getMedianValue()
+					&& Sex.getActivePartner().hasPenisIgnoreDildo();
 		}
-		
+
 		@Override
 		public String getActionTitle() {
 			return "Deep throat";
@@ -307,7 +308,12 @@ public class SubKneeling {
 		public String getActionDescription() {
 			return "";
 		}
-
+		
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return Sex.getActivePartner().hasPenisIgnoreDildo();
+		}
+		
 		@Override
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);

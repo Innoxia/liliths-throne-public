@@ -469,6 +469,8 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			
 		} else if(rnd <= 0.6) {
 			switch(getRace()) {
+				case NONE:
+					break;
 				case CAT_MORPH:
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.INT_INGREDIENT_FELINE_FANCY)));
 				case COW_MORPH:
@@ -517,6 +519,8 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			
 		} else if(rnd <= 0.8 && !Main.game.getPlayer().getRacesDiscoveredFromBook().contains(getRace())) {
 			switch(getRace()) {
+				case NONE:
+					break;
 				case CAT_MORPH:
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.BOOK_CAT_MORPH)));
 				case COW_MORPH:
@@ -565,6 +569,8 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		
 		} else {
 			switch(getRace()) {
+				case NONE:
+					break;
 				case CAT_MORPH:
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_CAT_MORPH)));
 				case COW_MORPH:
@@ -886,6 +892,8 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			}
 		
 			switch(getPreferredBody().getRace()) {
+				case NONE:
+					break;
 				case CAT_MORPH:
 					itemType = ItemType.RACE_INGREDIENT_CAT_MORPH;
 					reaction = "Time to turn you into a cute little "+raceName+"!";
@@ -966,7 +974,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				vaginaSet = true;
 			}
 			
-			if((Main.game.getPlayer().getPenisType() == getPreferredBody().getPenis().getType()) || (getPreferredBody().getPenis().getType()!=PenisType.NONE && Main.game.getPlayer().hasPenis())) {
+			if((Main.game.getPlayer().getPenisType() == getPreferredBody().getPenis().getType()) || (getPreferredBody().getPenis().getType()!=PenisType.NONE && Main.game.getPlayer().hasPenisIgnoreDildo())) {
 				penisSet = true;
 			}
 			
@@ -2320,7 +2328,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	private boolean isKeenToPerformFetishAction(GameCharacter target, Fetish fetish) {
 		if(fetish == Fetish.FETISH_ORAL_GIVING) {
 			for(Addiction add : this.getAddictions()) {
-				if(target.hasPenis() && add.getFluid() == target.getCumType()) {
+				if(target.hasPenisIgnoreDildo() && add.getFluid() == target.getCumType()) {
 					return true;
 				}
 				if(target.hasVagina() && add.getFluid() == target.getGirlcumType()) {
@@ -2341,7 +2349,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	private boolean isKeenToAvoidFetishAction(GameCharacter target, Fetish fetish) {
 		if(fetish == Fetish.FETISH_ORAL_GIVING) {
 			for(Addiction add : this.getAddictions()) {
-				if(target.hasPenis() && add.getFluid() == target.getCumType()) {
+				if(target.hasPenisIgnoreDildo() && add.getFluid() == target.getCumType()) {
 					return false;
 				}
 				if(target.hasVagina() && add.getFluid() == target.getGirlcumType()) {
@@ -2743,8 +2751,8 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		}
 		
 		if (hasFetish(Fetish.FETISH_SUBMISSIVE) // Subs like being sub I guess ^^
-				|| (hasFetish(Fetish.FETISH_PREGNANCY) && character.hasPenis() && hasVagina()) // Want to get pregnant
-				|| (hasFetish(Fetish.FETISH_IMPREGNATION) && character.hasVagina() && hasPenis()) // Want to impregnate player
+				|| (hasFetish(Fetish.FETISH_PREGNANCY) && character.hasPenisIgnoreDildo() && hasVagina()) // Want to get pregnant
+				|| (hasFetish(Fetish.FETISH_IMPREGNATION) && character.hasVagina() && hasPenisIgnoreDildo()) // Want to impregnate player
 				) {
 			return SexPace.SUB_EAGER;
 		}

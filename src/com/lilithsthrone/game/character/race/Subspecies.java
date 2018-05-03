@@ -1153,6 +1153,8 @@ public enum Subspecies {
 
 	public static Subspecies getMainSubspeciesOfRace(Race race) {
 		switch(race) {
+			case NONE:
+				break;
 			case ALLIGATOR_MORPH:
 				return Subspecies.ALLIGATOR_MORPH;
 			case ANGEL:
@@ -1224,6 +1226,8 @@ public enum Subspecies {
 		
 		if(subspecies==null) {
 			switch(race) {
+				case NONE:
+					break;
 				case ALLIGATOR_MORPH:
 					subspecies = Subspecies.ALLIGATOR_MORPH;
 					break;
@@ -1302,6 +1306,8 @@ public enum Subspecies {
 				case SLIME:
 					subspecies = Subspecies.SLIME;
 					switch(body.getRaceFromPartWeighting()) {
+						case NONE:
+							break;
 						case ALLIGATOR_MORPH:
 							subspecies = Subspecies.SLIME_ALLIGATOR;
 							break;

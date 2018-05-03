@@ -4429,18 +4429,21 @@ public enum StatusEffect {
 		
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
-			// Lose 5ml per minute:
-			int cumLost = (int) (OrificeType.VAGINA.getCumLossPerMinute()
-					* (1 + 5*Util.getModifiedDropoffValue(target.getCummedInAreaMap().get(OrificeType.VAGINA), CumProduction.SEVEN_MONSTROUS.getMaximumValue())/CumProduction.SEVEN_MONSTROUS.getMaximumValue())
-					* minutesPassed);
+			int cumLost = 0;
 			
+			if(!target.isOrificePlugged(OrificeType.VAGINA)) {
+				// Lose 5ml per minute:
+				cumLost = (int) (OrificeType.VAGINA.getCumLossPerMinute()
+						* (1 + 5*Util.getModifiedDropoffValue(target.getCummedInAreaMap().get(OrificeType.VAGINA), CumProduction.SEVEN_MONSTROUS.getMaximumValue())/CumProduction.SEVEN_MONSTROUS.getMaximumValue())
+						* minutesPassed);
+			}
 			StringBuilder sb = new StringBuilder();
 			
 			if(target.getLowestZLayerCoverableArea(CoverableArea.VAGINA)!=null){
 				if(!target.getLowestZLayerCoverableArea(CoverableArea.VAGINA).isDirty()) {
 					target.getLowestZLayerCoverableArea(CoverableArea.VAGINA).setDirty(true);
 					sb.append("<p>"
-								+ "Cum leaks out of your creampied pussy, quickly </b><b style='color:"+Colour.CUMMED.toWebHexString()+";'>dirtying</b> your "+target.getLowestZLayerCoverableArea(CoverableArea.VAGINA).getName()+"!"
+								+ "The cum from your creampied pussy quickly </b><b style='color:"+Colour.CUMMED.toWebHexString()+";'>dirties</b> your "+target.getLowestZLayerCoverableArea(CoverableArea.VAGINA).getName()+"!"
 							+ "</p>");
 				}
 			}
@@ -4459,15 +4462,29 @@ public enum StatusEffect {
 			int cumLost = (int) (OrificeType.VAGINA.getCumLossPerMinute()
 					* (1 + 5*Util.getModifiedDropoffValue(target.getCummedInAreaMap().get(OrificeType.VAGINA), CumProduction.SEVEN_MONSTROUS.getMaximumValue())/CumProduction.SEVEN_MONSTROUS.getMaximumValue()));
 			
-			if(target.isPlayer()) {
-				return "As you walk, you can feel slimy cum drooling out of your recently-used pussy.</br>"
-						+ "Current creampie: [style.colourSex("+target.getCummedInAreaMap().get(OrificeType.VAGINA)+"ml)]</br>"
-						+ "(-"+cumLost+"ml/minute)";
+			if(target.isOrificePlugged(OrificeType.VAGINA)) {
+				if(target.isPlayer()) {
+					return "As you walk, you can feel the cum trapped within your recently-used pussy.</br>"
+							+ "Current creampie: [style.colourSex("+target.getCummedInAreaMap().get(OrificeType.VAGINA)+"ml)]</br>"
+							+ "[style.boldTerrible(Plugged Vagina:)] No cum is leaking out!";
+				} else {
+					return UtilText.parse(target, 
+							"[npc.Name]'s [npc.asshole] has recently been filled with cum, before being plugged.</br>"
+							+ "Current creampie: [style.colourSex("+target.getCummedInAreaMap().get(OrificeType.VAGINA)+"ml)]</br>"
+							+ "[style.boldTerrible(Plugged Vagina:)] No cum is leaking out!");
+				}
+				
 			} else {
-				return UtilText.parse(target, 
-						"[npc.Name]'s [npc.pussy] has recently been filled with cum.</br>"
-						+ "Current creampie: [style.colourSex("+target.getCummedInAreaMap().get(OrificeType.VAGINA)+"ml)]</br>"
-						+ "(-"+cumLost+"ml/minute)");
+				if(target.isPlayer()) {
+					return "As you walk, you can feel slimy cum drooling out of your recently-used pussy.</br>"
+							+ "Current creampie: [style.colourSex("+target.getCummedInAreaMap().get(OrificeType.VAGINA)+"ml)]</br>"
+							+ "(-"+cumLost+"ml/minute)";
+				} else {
+					return UtilText.parse(target, 
+							"[npc.Name]'s [npc.pussy] has recently been filled with cum.</br>"
+							+ "Current creampie: [style.colourSex("+target.getCummedInAreaMap().get(OrificeType.VAGINA)+"ml)]</br>"
+							+ "(-"+cumLost+"ml/minute)");
+				}
 			}
 		}
 		
@@ -4720,18 +4737,21 @@ public enum StatusEffect {
 		
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
-			// Lose 5ml per minute:
-			int cumLost = (int) (OrificeType.ANUS.getCumLossPerMinute()
-					* (1 + 5*Util.getModifiedDropoffValue(target.getCummedInAreaMap().get(OrificeType.ANUS), CumProduction.SEVEN_MONSTROUS.getMaximumValue())/CumProduction.SEVEN_MONSTROUS.getMaximumValue())
-					* minutesPassed);
+			int cumLost = 0;
 			
+			if(!target.isOrificePlugged(OrificeType.ANUS)) {
+				// Lose 5ml per minute:
+				cumLost = (int) (OrificeType.ANUS.getCumLossPerMinute()
+						* (1 + 5*Util.getModifiedDropoffValue(target.getCummedInAreaMap().get(OrificeType.ANUS), CumProduction.SEVEN_MONSTROUS.getMaximumValue())/CumProduction.SEVEN_MONSTROUS.getMaximumValue())
+						* minutesPassed);
+			}
 			StringBuilder sb = new StringBuilder();
 			
 			if(target.getLowestZLayerCoverableArea(CoverableArea.ANUS)!=null){
 				if(!target.getLowestZLayerCoverableArea(CoverableArea.ANUS).isDirty()) {
 					target.getLowestZLayerCoverableArea(CoverableArea.ANUS).setDirty(true);
 					sb.append("<p>"
-								+ "Cum leaks out of your creampied asshole, quickly </b><b style='color:"+Colour.CUMMED.toWebHexString()+";'>dirtying</b> your "+target.getLowestZLayerCoverableArea(CoverableArea.ANUS).getName()+"!"
+								+ "The cum from your creampied asshole quickly </b><b style='color:"+Colour.CUMMED.toWebHexString()+";'>dirties</b> your "+target.getLowestZLayerCoverableArea(CoverableArea.ANUS).getName()+"!"
 							+ "</p>");
 				}
 			}
@@ -4749,15 +4769,30 @@ public enum StatusEffect {
 		public String getDescription(GameCharacter target) {
 			int cumLost = (int) (OrificeType.ANUS.getCumLossPerMinute()
 					* (1 + 5*Util.getModifiedDropoffValue(target.getCummedInAreaMap().get(OrificeType.ANUS), CumProduction.SEVEN_MONSTROUS.getMaximumValue())/CumProduction.SEVEN_MONSTROUS.getMaximumValue()));
-			if(target.isPlayer()) {
-				return "As you walk, you can feel slimy cum drooling out of your recently-used asshole.</br>"
-						+ "Current creampie: [style.colourSex("+target.getCummedInAreaMap().get(OrificeType.ANUS)+"ml)]</br>"
-						+ "(-"+cumLost+"ml/minute)";
+
+			if(target.isOrificePlugged(OrificeType.ANUS)) {
+				if(target.isPlayer()) {
+					return "As you walk, you can feel the cum trapped within your recently-used asshole.</br>"
+							+ "Current creampie: [style.colourSex("+target.getCummedInAreaMap().get(OrificeType.ANUS)+"ml)]</br>"
+							+ "[style.boldTerrible(Plugged Anus:)] No cum is leaking out!";
+				} else {
+					return UtilText.parse(target, 
+							"[npc.Name]'s [npc.asshole] has recently been filled with cum, before being plugged.</br>"
+							+ "Current creampie: [style.colourSex("+target.getCummedInAreaMap().get(OrificeType.ANUS)+"ml)]</br>"
+							+ "[style.boldTerrible(Plugged Anus:)] No cum is leaking out!");
+				}
+				
 			} else {
-				return UtilText.parse(target, 
-						"[npc.Name]'s [npc.asshole] has recently been filled with cum.</br>"
-						+ "Current creampie: [style.colourSex("+target.getCummedInAreaMap().get(OrificeType.ANUS)+"ml)]</br>"
-						+ "(-"+cumLost+"ml/minute)");
+				if(target.isPlayer()) {
+					return "As you walk, you can feel cum drooling out of your recently-used asshole.</br>"
+							+ "Current creampie: [style.colourSex("+target.getCummedInAreaMap().get(OrificeType.ANUS)+"ml)]</br>"
+							+ "(-"+cumLost+"ml/minute)";
+				} else {
+					return UtilText.parse(target, 
+							"[npc.Name]'s [npc.asshole] has recently been filled with cum.</br>"
+							+ "Current creampie: [style.colourSex("+target.getCummedInAreaMap().get(OrificeType.ANUS)+"ml)]</br>"
+							+ "(-"+cumLost+"ml/minute)");
+				}
 			}
 		}
 		
@@ -4816,18 +4851,21 @@ public enum StatusEffect {
 		
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
-			// Lose 5ml per minute:
-			int cumLost = (int) (OrificeType.NIPPLE.getCumLossPerMinute()
-					* (1 + 5*Util.getModifiedDropoffValue(target.getCummedInAreaMap().get(OrificeType.NIPPLE), CumProduction.SEVEN_MONSTROUS.getMaximumValue())/CumProduction.SEVEN_MONSTROUS.getMaximumValue())
-					* minutesPassed);
+			int cumLost = 0;
 			
+			if(!target.isOrificePlugged(OrificeType.NIPPLE)) {
+				// Lose 5ml per minute:
+				cumLost = (int) (OrificeType.NIPPLE.getCumLossPerMinute()
+						* (1 + 5*Util.getModifiedDropoffValue(target.getCummedInAreaMap().get(OrificeType.NIPPLE), CumProduction.SEVEN_MONSTROUS.getMaximumValue())/CumProduction.SEVEN_MONSTROUS.getMaximumValue())
+						* minutesPassed);
+			}
 			StringBuilder sb = new StringBuilder();
 			
 			if(target.getLowestZLayerCoverableArea(CoverableArea.NIPPLES)!=null){
 				if(!target.getLowestZLayerCoverableArea(CoverableArea.NIPPLES).isDirty()) {
 					target.getLowestZLayerCoverableArea(CoverableArea.NIPPLES).setDirty(true);
 					sb.append("<p>"
-								+ "Cum leaks out of your creampied nipples, quickly </b><b style='color:"+Colour.CUMMED.toWebHexString()+";'>dirtying</b> your "+target.getLowestZLayerCoverableArea(CoverableArea.NIPPLES).getName()+"!"
+								+ "The cum from your creampied nipples quickly </b><b style='color:"+Colour.CUMMED.toWebHexString()+";'>dirties</b> your "+target.getLowestZLayerCoverableArea(CoverableArea.NIPPLES).getName()+"!"
 							+ "</p>");
 				}
 			}
@@ -4845,15 +4883,30 @@ public enum StatusEffect {
 		public String getDescription(GameCharacter target) {
 			int cumLost = (int) (OrificeType.NIPPLE.getCumLossPerMinute()
 					* (1 + 5*Util.getModifiedDropoffValue(target.getCummedInAreaMap().get(OrificeType.NIPPLE), CumProduction.SEVEN_MONSTROUS.getMaximumValue())/CumProduction.SEVEN_MONSTROUS.getMaximumValue()));
-			if(target.isPlayer()) {
-				return "As you walk, you can feel slimy cum drooling out of your recently-used nipples.</br>"
-						+ "Current creampie: [style.colourSex("+target.getCummedInAreaMap().get(OrificeType.NIPPLE)+"ml)]</br>"
-						+ "(-"+cumLost+"ml/minute)";
+			
+			if(target.isOrificePlugged(OrificeType.NIPPLE)) {
+				if(target.isPlayer()) {
+					return "As you walk, you can feel the cum trapped within your recently-used nipples.</br>"
+							+ "Current creampie: [style.colourSex("+target.getCummedInAreaMap().get(OrificeType.NIPPLE)+"ml)]</br>"
+							+ "[style.boldTerrible(Plugged Nipples:)] No cum is leaking out!";
+				} else {
+					return UtilText.parse(target, 
+							"[npc.Name]'s [npc.nipples] have recently been filled with cum, before being plugged.</br>"
+							+ "Current creampie: [style.colourSex("+target.getCummedInAreaMap().get(OrificeType.NIPPLE)+"ml)]</br>"
+							+ "[style.boldTerrible(Plugged Nipples:)] No cum is leaking out!");
+				}
+				
 			} else {
-				return UtilText.parse(target, 
-						"[npc.Name]'s [npc.nipples] have recently been filled with cum.</br>"
-						+ "Current creampie: [style.colourSex("+target.getCummedInAreaMap().get(OrificeType.NIPPLE)+"ml)]</br>"
-						+ "(-"+cumLost+"ml/minute)");
+				if(target.isPlayer()) {
+					return "As you walk, you can feel cum drooling out of your recently-used nipples.</br>"
+							+ "Current creampie: [style.colourSex("+target.getCummedInAreaMap().get(OrificeType.NIPPLE)+"ml)]</br>"
+							+ "(-"+cumLost+"ml/minute)";
+				} else {
+					return UtilText.parse(target, 
+							"[npc.Name]'s [npc.nipples] have recently been filled with cum.</br>"
+							+ "Current creampie: [style.colourSex("+target.getCummedInAreaMap().get(OrificeType.NIPPLE)+"ml)]</br>"
+							+ "(-"+cumLost+"ml/minute)");
+				}
 			}
 		}
 		
@@ -4919,7 +4972,6 @@ public enum StatusEffect {
 //			if(!target.getDirtySlots().contains(InventorySlot.MOUTH)) {
 //				target.addDirtySlot(InventorySlot.MOUTH);
 //			}
-			
 			
 			target.incrementCummedInArea(OrificeType.MOUTH, -cumLost);
 			
@@ -7909,7 +7961,8 @@ public enum StatusEffect {
 			if(Math.random()<(target.isPlayer()?0.1f:0.166f)) { // I purposefully boost the chance in secret to make the player feel better about the RNG
 				List<AbstractClothing> suitableClothing = new ArrayList<>();
 				for(AbstractClothing c : target.getClothingCurrentlyEquipped()) {
-					if(target.isAbleToUnequip(c, false, target)) {
+					if(target.isAbleToUnequip(c, false, target)
+							&& !c.getClothingType().getSlot().isJewellery()) {
 						suitableClothing.add(c);
 					}
 				}
@@ -7966,7 +8019,8 @@ public enum StatusEffect {
 			if(Math.random()<(target.isPlayer()?0.25f:0.33f)) { // I purposefully boost the chance in secret to make the player feel better about the RNG
 				List<AbstractClothing> suitableClothing = new ArrayList<>();
 				for(AbstractClothing c : target.getClothingCurrentlyEquipped()) {
-					if(target.isAbleToUnequip(c, false, target)) {
+					if(target.isAbleToUnequip(c, false, target)
+							&& !c.getClothingType().getSlot().isJewellery()) {
 						suitableClothing.add(c);
 					}
 				}

@@ -417,6 +417,20 @@ public enum SlaveJob {
 	
 	public int getFinalHourlyIncomeAfterModifiers(GameCharacter character) {
 		int value = (int)(Math.max(0, (income + ((getAffectionIncomeModifier()*character.getAffection(Main.game.getPlayer()))) + ((getObedienceIncomeModifier()*character.getObedienceValue())))));
+		
+		if(this==SlaveJob.MILKING) {
+			value = 0;
+			if(character.getBreastRawStoredMilkValue()>0) {
+				int milked = (int) Math.min(1, (character.getBreastLactationRegeneration().getPercentageRegen()*60));
+				value += milked * (1 + character.getMilk().getFluidModifiers().size());
+				
+			} 
+			if(character.hasPenis() && character.getPenisRawCumProductionValue()>0) {
+				int milked = character.getPenisRawCumProductionValue();
+				value += milked * (1 + character.getCum().getFluidModifiers().size());
+			}
+		}
+		
 		if(character.getOwner().hasTrait(Perk.JOB_OFFICE_WORKER, true)) {
 			return (int) (1.25f * value);
 		} else if((character.getOwner().hasTrait(Perk.JOB_MAID, true) || character.getOwner().hasTrait(Perk.JOB_BUTLER, true)) && this==SlaveJob.CLEANING) {
@@ -428,6 +442,21 @@ public enum SlaveJob {
 	
 	public int getFinalDailyIncomeAfterModifiers(GameCharacter character) {
 		int value = (int)(Math.max(0, (income + ((getAffectionIncomeModifier()*character.getAffection(Main.game.getPlayer()))) + ((getObedienceIncomeModifier()*character.getObedienceValue()))))*character.getTotalHoursWorked());
+		
+		if(this==SlaveJob.MILKING) {
+			value = 0;
+			if(character.getBreastRawStoredMilkValue()>0) {
+				int milked = (int) Math.min(1, (character.getBreastLactationRegeneration().getPercentageRegen()*60));
+				value += milked * (1 + character.getMilk().getFluidModifiers().size());
+				
+			} 
+			if(character.hasPenis() && character.getPenisRawCumProductionValue()>0) {
+				int milked = character.getPenisRawCumProductionValue();
+				value += milked * (1 + character.getCum().getFluidModifiers().size());
+			}
+			value *= character.getTotalHoursWorked();
+		}
+		
 		if(character.getOwner().hasTrait(Perk.JOB_OFFICE_WORKER, true)) {
 			return (int) (1.25f * value);
 		} else if((character.getOwner().hasTrait(Perk.JOB_MAID, true) || character.getOwner().hasTrait(Perk.JOB_BUTLER, true)) && this==SlaveJob.CLEANING) {

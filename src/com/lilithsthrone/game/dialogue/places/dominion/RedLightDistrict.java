@@ -391,7 +391,7 @@ public class RedLightDistrict {
 				
 			} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.prostitutionLicenseObtained) && Main.game.getPlayer().getWorldLocation()==WorldType.ANGELS_KISS_FIRST_FLOOR) {
 				if(index==1) {
-					return new Response("Sell body (Sub)", "Wait around for a client to show up...", ANGELS_KISS_SELL_SELF_SUB){
+					return new Response("Sell body (Sub)", "Tell Angel that you've like to act as the submissive partner, and then wait around for a client to show up.", ANGELS_KISS_SELL_SELF_SUB){
 						@Override
 						public void effects() {
 							NPC npc = new GenericSexualPartner(GenderPreference.getGenderFromUserPreferences(), Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
@@ -416,7 +416,7 @@ public class RedLightDistrict {
 					};
 					
 				} else if(index==2) {
-					return new Response("Sell body (Dom)", "Wait around for a client to show up...", ANGELS_KISS_SELL_SELF_DOM){
+					return new Response("Sell body (Dom)", "Tell Angel that you've like to act as the dominant partner, and then wait around for a client to show up.", ANGELS_KISS_SELL_SELF_DOM){
 						@Override
 						public void effects() {
 							NPC npc = new GenericSexualPartner(GenderPreference.getGenderFromUserPreferences(), Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);

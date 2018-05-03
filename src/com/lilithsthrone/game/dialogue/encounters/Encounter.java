@@ -297,11 +297,11 @@ public enum Encounter {
 						new Value<EncounterType, Float>(EncounterType.HARPY_NEST_FIND_ITEM, 4f));
 			}
 		}
-
+		
 		@Override
 		protected DialogueNodeOld initialiseEncounter(EncounterType node) {
 			if (node == EncounterType.HARPY_NEST_ATTACK && !Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_HARPY_PACIFICATION)) {
-
+				
 				for (NPC npc : Main.game.getNonCompanionCharactersPresent()) {
 					Main.game.setActiveNPC(npc);
 					return Main.game.getActiveNPC().getEncounterDialogue();
