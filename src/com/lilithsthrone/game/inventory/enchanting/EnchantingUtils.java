@@ -160,7 +160,6 @@ public class EnchantingUtils {
 			}
 		}
 		for(Entry<ItemEffect, Integer> entry : effectCount.entrySet()) {
-
 			if(Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.WATER)
 					&& (entry.getKey().getPrimaryModifier()==TFModifier.TF_MOD_WETNESS
 							|| entry.getKey().getSecondaryModifier()==TFModifier.TF_MOD_WETNESS

@@ -23,60 +23,53 @@
 	
 	
 	Patch notes:
-	
-	Engine:
-		Optimised save files. In the ones I tested, file size was reduced by over 50%, and load times saw a similar decrease.
-		Added support for masturbation sex scenes.
-	
-	Gameplay:
-		Added: Panty masturbation scene in Lilaya's room, with a couple of follow-on sex scenes.
-	
-	Balancing:
-		You now need at least three spells in a spell school to unlock the related special ability.
-		Spell books are now consumed on use, and added to Lilaya's library. (This was to prevent buying a spell book, learning the spell, and then selling it, making it significantly cheaper than intended to buy & learn all spells.)
-		Made default bottled arcane essence slightly cheaper than the racially enchanted ones.
-	
-	Clothing:
-		Added: Strap-on, and support in the engine for correctly treating a strap-on as an artificial penis during sex. (BDSM set, no femininity requirements, penis slot.)
-		Added: Toeless striped stockings. (Feminine, calves slot.)
-		Added: Tube top. (Feminine, chest slot.)
-		Added more tags for clothing, including ones for plug support. Added plug modifier to nipple tape crosses (prevents cum from leaking out).
-		Added fertility and virility to available clothing attribute enchantments.
-		
+
 	Contributors:
-		Fixed typos in air elemental upgrades. (rfpnj)
-		
+		Fixed typos in Telepathic Communication description. (Mach565)
+		Companion's damage scaling (on higher difficulty settings) is now treated the same as the player's. (Darkon47)
+		Added rings for masculine characters in character creation. (rfpnj)
+		Huge amount of punctuation fixes. (WoefulWombat)
+		Even more punctuation fixes. (WoefulWombat)
+	
 	Other:
-		Added '+10 spell points' to debug menu.
-		Improved some of the demon/slime transformation menu options. Added options for internal testicles, horn size, tongue length, wing size, and horn colour.
-		Added more options for horn pattern and colour.
-		Improved item, weapon, and clothing pages in the encyclopedia, and added preview images for items.
-		You can now re-read race books, but you only receive the damage/resistance boost the first time. This should now allow new characters to gain these bonuses, even if races have been unlocked by a different playthrough.
-		The 'vacuum' spell can no longer strip a person's piercings.
-		NPCs will only re-dress themselves once a day.
-		Vicky will now buy spell books and scrolls.
-		Tidied up Lilaya's lab dialogue flow a little.
-		Added a chance to overhear Rose saying some things to Lilaya when you enter the lab.
-		Added indication in slavery overview for approximate hourly income of milking jobs.
+		Ankle spreader bar now blocks escape in combat (if you are unable to fly).
+		Wrist restraints now block flight from arm-wings (such as harpy or bat wings).
 	
 	Bugs:
-		Fixed annoying bug where when inspecting NPCs, it would show a different, incorrect NPC's name/inventory on the right of the screen. (This should definitely be completely fixed this time. x_x)
-		Fixed Arcane elemental spell cost being extremely low.
-		Fixed dresses and kimonos that were parts of sets still blocking the leg slot.
-		Fixed the broken encyclopedia item view. 
-		Throat wetness should now correctly save/load.
-		Typos, parsing, and incorrect clothing displacement fixes.
-		Fixed slime sclera and pupil recolouring not working.
-		Resetting spell schools now refunds the correct amount of upgrade points.
-		Fixed arcane storm timer (from Arcane spell school's unique ability) not working correctly.
-		Fixed Water spell chool's unique ability (liquid TFs are free) not working correctly.
-		Being defeated in combat while your allies are still fighting will now correctly only give you the option to watch.
-		Fixed bug where there would sometimes be gaps in actions during sex.
-		Fixed some incorrect skin colouring on Rose.
-		Improved NPC removal method, which should help to reduce save file size and save/load times. This will be further improved for 0.2.5.
-		(Hopefully) fixed a cause of the bug where the game would stop being able to save.
-		
+		Fixed bug where NPCs would have a random colour for their lips/nipples/anus. This resets NPC colours for those parts only if they're not your slave, so your slave's colours won't be reset by this.
+		Typo and parsing fixes.
 	
+	
+	
+	
+	
+	 the dominant TF item from the harpy doens't add wings?
+	 
+	 So I tried adding a major plasticity drain enchantment and the result was that absolutely none of my enchantments worked anymore, including the one I applied on the new clothing. I've tested this on multiple itmes and it produced the same result
+	 
+	 Why can I add horns with kitty's reward
+	 
+	 there's a wierd bug where you can't buy a room when you have a companion
+	
+	Am I supposed to be able to drag Nyan straight back into her room for more sex
+	
+	personality changes debug menu
+	
+	the game only allows 5 slaves sent to be milked ever, despite saying that one room can hold 8 people
+	
+	still saying "a very feminine female human"
+	
+	Should you be able to fondle balls when the other character has a strap-on
+	A-And you cane take off Rose's strapon
+		W-Which doesn't stop penetrations
+	And some slaves are stuck on the stats sheet as being ready for birthing
+		I think that they were both PCs I imported
+	
+	NPCs using condoms on self/player
+	
+	Add masturbation to most areas
+	
+	broken condom content
 	
 	Slavery stuff
 		- Milking work (change it so milk & cum is stored in vats, which can be sold/drunk)
@@ -90,6 +83,7 @@
 		- Add job: bedroom slave to act as alarm clock with blowjobs and sexual intercourse. 
 		- Finish milking job.
 		
+	adding a hide/show button for status effects
 		
 	new weapons
 		
@@ -107,6 +101,10 @@
 	
 	Elemental TF menu
 	
+	Don’t forget about the bug where lilaya always recognizes you are a futa even when you are 8inchhes or below
+		Also don’t forget about the sheath cock issue
+		Perhaps the solution there would be that if a cock is sheathed it allows you to have a cock up to 16 before you are recognized
+		Where people will recognize you as female but say they always knew you were futa if your cock size is above 8 inches
 				
 	
 	Also, would there be a way to make a piece of clothing that makes you grow a penis when equipped and have the penis disappear when unequipped with the modding system?

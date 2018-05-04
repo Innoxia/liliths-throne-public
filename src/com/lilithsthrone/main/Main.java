@@ -150,7 +150,7 @@ public class Main extends Application {
 			+"<ul>Fixed slime sclera and pupil recolouring not working.</ul>"
 			+"<ul>Resetting spell schools now refunds the correct amount of upgrade points.</ul>"
 			+"<ul>Fixed arcane storm timer (from Arcane spell school's unique ability) not working correctly.</ul>"
-			+"<ul>Fixed Water spell chool's unique ability (liquid TFs are free) not working correctly.</ul>"
+			+"<ul>Fixed Water spell school's unique ability (liquid TFs are free) not working correctly.</ul>"
 			+"<ul>Being defeated in combat while your allies are still fighting will now correctly only give you the option to watch.</ul>"
 			+"<ul>Fixed bug where there would sometimes be gaps in actions during sex.</ul>"
 			+"<ul>Fixed some incorrect skin colouring on Rose.</ul>"
@@ -452,14 +452,14 @@ public class Main extends Application {
 		dir = new File("data/characters");
 		dir.mkdir();
 		
-		// Open error log
-		try {
-			@SuppressWarnings("resource")
-			PrintStream stream = new PrintStream("data/error.log");
-			System.setErr(stream);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+//		// Open error log
+//		try {
+//			@SuppressWarnings("resource")
+//			PrintStream stream = new PrintStream("data/error.log");
+//			System.setErr(stream);
+//		} catch (FileNotFoundException e) {
+//			e.printStackTrace();
+//		}
 		
 		// Load properties:
 		if (new File("data/properties.xml").exists()) {

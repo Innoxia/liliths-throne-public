@@ -268,7 +268,7 @@ public enum Colour {
 	
 	// Rarity colours:
 	RARITY_UNKNOWN(BaseColour.BLACK, "grey"),
-	RARITY_JINXED(BaseColour.RED, "red", Util.newArrayListOfValues(new ListValue<>("jinxed"))),
+	RARITY_JINXED(BaseColour.RED, "red", Util.newArrayListOfValues(new ListValue<>("jinx"), new ListValue<>("jinxed"))),
 	RARITY_COMMON(Util.newColour(0xf2f2f2), Util.newColour(0xf2f2f2), "white", Util.newArrayListOfValues(new ListValue<>("common"))),
 	RARITY_UNCOMMON(Util.newColour(0x1de547), Util.newColour(0x108228), "green", Util.newArrayListOfValues(new ListValue<>("uncommon"))),
 	RARITY_RARE(Util.newColour(0x47C2FF), Util.newColour(0x47C2FF), "blue", Util.newArrayListOfValues(new ListValue<>("rare"))),

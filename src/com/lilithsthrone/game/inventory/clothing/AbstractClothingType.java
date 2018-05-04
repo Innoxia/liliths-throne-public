@@ -1256,6 +1256,14 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		return false;
 	}
 	
+	public boolean isHindersLegMovement() {
+		return false;
+	}
+	
+	public boolean isHindersArmMovement() {
+		return false;
+	}
+	
 	// Getters & setters:
 	
 	public boolean isDiscardedOnUnequip() {

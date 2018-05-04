@@ -37,6 +37,7 @@ import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.ObedienceLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
+import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.GenderPreference;
@@ -758,11 +759,18 @@ public class Game implements Serializable, XMLSaving {
 					}
 				}
 
-				if(Main.isVersionOlderThan(version, "0.2.4.5")) { //Try to remove unused NPCs TODO better mothod to delete all abnished NPCs
+				if(Main.isVersionOlderThan(version, "0.2.4.5")) { //Try to remove unused NPCs TODO better method to delete all banished NPCs
 					for(NPC npc : Main.game.getAllNPCs()) {
 						if(!npc.isUnique() && npc.getWorldLocation()==WorldType.EMPTY) {
 							Main.game.banishNPC(npc);
 						}
+					}
+				}
+				
+				if(Main.isVersionOlderThan(version, "0.2.5")) { //Reset ass/nipple/lip colours
+					for(NPC npc : Main.game.getAllNPCs()) {
+						if(!npc.isSlave() || (npc.getOwner()!=null && !npc.getOwner().isPlayer()))
+						npc.setSkinCovering(new Covering(npc.getSkinType().getBodyCoveringType(npc), npc.getCovering(npc.getSkinType().getBodyCoveringType(npc)).getPrimaryColour()), true);
 					}
 				}
 				

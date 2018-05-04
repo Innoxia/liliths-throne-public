@@ -1935,7 +1935,7 @@ public class ItemEffectType {
 				} else {
 					sb.append(UtilText.parse(target, "</br>"
 							+ "<p>"
-								+ "A deep groan escapes from between [npc.name]'s [npc.lips], and [npc.she] suddenly finds [npc.herslef] thinking of how much [npc.she] wants to dominate the next person [npc.she] meets!"
+								+ "A deep groan escapes from between [npc.name]'s [npc.lips], and [npc.she] suddenly finds [npc.herself] thinking of how much [npc.she] wants to dominate the next person [npc.she] meets!"
 								+ "</br><b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>[npc.Name] has gained the dominant fetish!</b>"
 							+ "</p>"));
 				}

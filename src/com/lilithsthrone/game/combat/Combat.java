@@ -754,6 +754,9 @@ public enum Combat {
 				if (escapeChance == 0) {
 					return new Response("Escape", "You can't run from this fight!", null);
 					
+				} else if(!Main.game.getPlayer().isAbleToEscape()) {
+					return new Response("Escape", Main.game.getPlayer().getUnableToEscapeDescription(), null);
+					
 				} else {
 					return new Response("Escape",
 							Main.game.getPlayer().hasTrait(Perk.JOB_ATHLETE, true) && escapeChance==100

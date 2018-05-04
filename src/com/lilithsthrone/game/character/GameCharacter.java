@@ -9277,6 +9277,19 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		return false;
 	}
 	
+	public boolean isAbleToEscape() {
+		return getUnableToEscapeDescription().isEmpty();
+	}
+	
+	public String getUnableToEscapeDescription() {
+		for(AbstractClothing clothing : this.getClothingCurrentlyEquipped()) {
+			if(clothing.getClothingType().isHindersLegMovement() && !this.isAbleToFly()) {
+				return "Escape is blocked due to your "+clothing.getName()+" hindering your movement!";
+			}
+		}
+		return "";
+	}
+	
 	/**
 	 * The returned list is ordered by rendering priority.
 	 */
@@ -12565,8 +12578,20 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		return body.getCalculatedWeight();
 	}
 	
+	public boolean isAbleToFlyFromArms() {
+		if(body.isAbleToFlyFromArms()) {
+			for(AbstractClothing clothing : this.getClothingCurrentlyEquipped()) {
+				if(clothing.getClothingType().isHindersArmMovement()) {
+					return false;
+				}
+			}
+			return true;
+		}
+		return false;
+	}
+	
 	public boolean isAbleToFly() {
-		return body.isAbleToFly();
+		return isAbleToFlyFromArms() || body.isAbleToFlyFromWings();
 	}
 	
 	// Pubic Hair:

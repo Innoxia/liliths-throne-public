@@ -6390,9 +6390,11 @@ public class Body implements Serializable, XMLSaving {
 		}
 	}
 	
-	public boolean isAbleToFly() {
-		return arm.getType().allowsFlight()
-				|| (wing.getType().allowsFlight() && wing.getSize().isSizeAllowsFlight());
+	public boolean isAbleToFlyFromArms() {
+		return arm.getType().allowsFlight();
+	}
+	public boolean isAbleToFlyFromWings() {
+		return (wing.getType().allowsFlight() && wing.getSize().isSizeAllowsFlight());
 	}
 
 	public static long getSerialversionuid() {
