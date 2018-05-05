@@ -153,7 +153,7 @@ public class PrologueDialogue {
 						+ "</p>"
 						+ "<p>"
 							+ "[prologueMale.Name] is right; everyone who's present for the event seems to be clustered around the stage on the far side of the room."
-							+ " There'd be nothing stopping you and her from sneaking off and having a little fun in one of the empty rooms..."
+							+ " There'd be nothing stopping you and him from sneaking off and having a little fun in one of the empty rooms..."
 						+ "</p>";
 			}
 		}
