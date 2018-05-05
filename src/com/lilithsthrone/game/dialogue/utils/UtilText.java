@@ -57,6 +57,41 @@ public class UtilText {
 	public static StringBuilder nodeContentSB = new StringBuilder(4096);
 	private static StringBuilder descriptionSB = new StringBuilder();
 
+	/**
+	 * Converts the input into a format suitable for html display. i.e. converts things like '<' to "&lt;".
+	 */
+	public static String parseForHTMLDisplay(String input) {
+		StringBuilder builder = new StringBuilder();
+		
+		for (char c : input.toCharArray()) {
+			switch (c) {
+				case ' ':
+					builder.append("&nbsp;");
+					break;
+				case '<':
+					builder.append("&lt;");
+					break;
+				case '>':
+					builder.append("&gt;");
+					break;
+				case '&':
+					builder.append("&amp;");
+					break;
+				case '"':
+					builder.append("&quot;");
+					break;
+				case '\'':
+					builder.append("&#39;");
+					break;
+				default:
+					builder.append(c);
+					break;
+			}
+		}
+		
+		return builder.toString();
+	}
+	
 	public static String parsePlayerThought(String text) {
 		if(Main.game.getPlayer()==null) {
 			return "";

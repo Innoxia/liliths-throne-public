@@ -13,7 +13,7 @@ import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.7
- * @version 0.2.0
+ * @version 0.2.5
  * @author Innoxia
  */
 public class EnchantmentEventListener implements EventListener {
@@ -30,37 +30,37 @@ public class EnchantmentEventListener implements EventListener {
 		if (itemToEnchant != null) {
 			if(itemToEnchant.getEnchantmentEffect()!=null) {
 				EnchantmentDialogue.resetEnchantmentVariables();
-				EnchantmentDialogue.ingredient = itemToEnchant;
+				EnchantmentDialogue.setIngredient(itemToEnchant);
 			}
 			
 		} else if(primaryModifier != null) {
-			EnchantmentDialogue.primaryMod = primaryModifier;
+			EnchantmentDialogue.setPrimaryMod(primaryModifier);
 			
 		} else if(secondaryModifier != null) {
-			EnchantmentDialogue.secondaryMod = secondaryModifier;
+			EnchantmentDialogue.setSecondaryMod(secondaryModifier);
 			
 		} else if(potency != null) {
-			EnchantmentDialogue.potency = potency;
+			EnchantmentDialogue.setPotency(potency);
 			
 		} else if(effect) {
-			ItemEffect e = EnchantmentDialogue.effects.get(effectIndex);
-			EnchantmentDialogue.effects.remove(e);
+			ItemEffect e = EnchantmentDialogue.getEffects().get(effectIndex);
+			EnchantmentDialogue.removeEffect(e);
 			
-		} else if(limit != EnchantmentDialogue.limit) {
-			EnchantmentDialogue.limit = limit;
+		} else if(limit != EnchantmentDialogue.getLimit()) {
+			EnchantmentDialogue.setLimit(limit);
 		}
 		
-		if(!EnchantmentDialogue.ingredient.getEnchantmentEffect().getPrimaryModifiers().contains(EnchantmentDialogue.primaryMod)) {
-			EnchantmentDialogue.primaryMod = EnchantmentDialogue.ingredient.getEnchantmentEffect().getPrimaryModifiers().get(0);
+		if(!EnchantmentDialogue.getIngredient().getEnchantmentEffect().getPrimaryModifiers().contains(EnchantmentDialogue.getPrimaryMod())) {
+			EnchantmentDialogue.setPrimaryMod(EnchantmentDialogue.getIngredient().getEnchantmentEffect().getPrimaryModifiers().get(0));
 		}
-		if(!EnchantmentDialogue.ingredient.getEnchantmentEffect().getSecondaryModifiers(EnchantmentDialogue.primaryMod).contains(EnchantmentDialogue.secondaryMod)) {
-			EnchantmentDialogue.secondaryMod = EnchantmentDialogue.ingredient.getEnchantmentEffect().getSecondaryModifiers(EnchantmentDialogue.primaryMod).get(0);
+		if(!EnchantmentDialogue.getIngredient().getEnchantmentEffect().getSecondaryModifiers(EnchantmentDialogue.getPrimaryMod()).contains(EnchantmentDialogue.getSecondaryMod())) {
+			EnchantmentDialogue.setSecondaryMod(EnchantmentDialogue.getIngredient().getEnchantmentEffect().getSecondaryModifiers(EnchantmentDialogue.getPrimaryMod()).get(0));
 		}
-		if(!EnchantmentDialogue.ingredient.getEnchantmentEffect().getPotencyModifiers(EnchantmentDialogue.primaryMod, EnchantmentDialogue.secondaryMod).contains(EnchantmentDialogue.potency)) {
-			EnchantmentDialogue.potency = TFPotency.MINOR_BOOST;
+		if(!EnchantmentDialogue.getIngredient().getEnchantmentEffect().getPotencyModifiers(EnchantmentDialogue.getPrimaryMod(), EnchantmentDialogue.getSecondaryMod()).contains(EnchantmentDialogue.getPotency())) {
+			EnchantmentDialogue.setPotency(TFPotency.MINOR_BOOST);
 		}
-		if(EnchantmentDialogue.limit > EnchantmentDialogue.ingredient.getEnchantmentEffect().getLimits(EnchantmentDialogue.primaryMod, EnchantmentDialogue.secondaryMod)) {
-			EnchantmentDialogue.limit = EnchantmentDialogue.ingredient.getEnchantmentEffect().getLimits(EnchantmentDialogue.primaryMod, EnchantmentDialogue.secondaryMod);
+		if(EnchantmentDialogue.getLimit() > EnchantmentDialogue.getIngredient().getEnchantmentEffect().getLimits(EnchantmentDialogue.getPrimaryMod(), EnchantmentDialogue.getSecondaryMod())) {
+			EnchantmentDialogue.setLimit(EnchantmentDialogue.getIngredient().getEnchantmentEffect().getLimits(EnchantmentDialogue.getPrimaryMod(), EnchantmentDialogue.getSecondaryMod()));
 		}
 		
 		Main.game.setContent(new Response("Enchanting", "Start enchanting.", EnchantmentDialogue.ENCHANTMENT_MENU));

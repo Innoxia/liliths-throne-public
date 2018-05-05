@@ -24,12 +24,17 @@
 	
 	Patch notes:
 
+	Enchanting:
+		You can now set a custom name for any potions or clothing that you create.
+		<b>Added:</b> Saving and loading of enchantment effects. (Built upon framework created by Master of Puppets.)
+	
 	Contributors:
 		Fixed typos in Telepathic Communication description. (Mach565)
 		Companion's damage scaling (on higher difficulty settings) is now treated the same as the player's. (Darkon47)
 		Added rings for masculine characters in character creation. (rfpnj)
 		Huge amount of punctuation fixes. (WoefulWombat)
 		Even more punctuation fixes. (WoefulWombat)
+		Added framework for saving and loading enchantment effects. (Master of Puppets)
 	
 	Other:
 		Ankle spreader bar now blocks escape in combat (if you are unable to fly).
@@ -38,9 +43,20 @@
 	Bugs:
 		Fixed bug where NPCs would have a random colour for their lips/nipples/anus. This resets NPC colours for those parts only if they're not your slave, so your slave's colours won't be reset by this.
 		Typo and parsing fixes.
+		Fixed issue with parsing some characters in text fields.
 	
 	
 	
+	
+	Pix scene only works first time?
+	
+	
+	Saving:
+		load:
+			check requires core item in inventory
+	
+	
+	jockstrap
 	
 	
 	 the dominant TF item from the harpy doens't add wings?

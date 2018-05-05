@@ -113,7 +113,7 @@ import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
-import com.lilithsthrone.game.inventory.enchanting.EnchantingUtils;
+import com.lilithsthrone.game.inventory.enchanting.LoadedEnchantment;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.game.inventory.enchanting.TFPotency;
@@ -690,7 +690,7 @@ public class MainControllerInitMethod {
 				MainController.addEventListener(MainController.document, "MOD_PRIMARY_ENCHANTING", "mousemove", MainController.moveTooltipListener, false);
 				MainController.addEventListener(MainController.document, "MOD_PRIMARY_ENCHANTING", "mouseleave", MainController.hideTooltipListener, false);
 				
-				InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setTFModifier(EnchantmentDialogue.primaryMod);
+				InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setTFModifier(EnchantmentDialogue.getPrimaryMod());
 				MainController.addEventListener(MainController.document, "MOD_PRIMARY_ENCHANTING", "mouseenter", el2, false);
 			}
 			if (((EventTarget) MainController.document.getElementById("MOD_SECONDARY_ENCHANTING")) != null) {
@@ -701,7 +701,7 @@ public class MainControllerInitMethod {
 				MainController.addEventListener(MainController.document, "MOD_SECONDARY_ENCHANTING", "mousemove", MainController.moveTooltipListener, false);
 				MainController.addEventListener(MainController.document, "MOD_SECONDARY_ENCHANTING", "mouseleave", MainController.hideTooltipListener, false);
 				
-				InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setTFModifier(EnchantmentDialogue.secondaryMod);
+				InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setTFModifier(EnchantmentDialogue.getSecondaryMod());
 				MainController.addEventListener(MainController.document, "MOD_SECONDARY_ENCHANTING", "mouseenter", el2, false);
 			}
 
@@ -719,7 +719,7 @@ public class MainControllerInitMethod {
 					MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
 				}
 			}
-			for(int effectCount=0; effectCount<EnchantmentDialogue.effects.size(); effectCount++) {
+			for(int effectCount=0; effectCount<EnchantmentDialogue.getEffects().size(); effectCount++) {
 				id = "DELETE_EFFECT_"+effectCount;
 				
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
@@ -737,54 +737,55 @@ public class MainControllerInitMethod {
 			
 			id = "LIMIT_MINIMUM";
 			if (((EventTarget) MainController.document.getElementById(id)) != null) {
-				if(EnchantmentDialogue.limit>0) {
+				if(EnchantmentDialogue.getLimit()>0) {
 					EnchantmentEventListener el = new EnchantmentEventListener().setLimit(0);
 					MainController.addEventListener(MainController.document, id, "click", el, false);
 				}
 				MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 				MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
 				
-				TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation((EnchantmentDialogue.limit==0?"Minimum Limit Reached":"Limit Minimum"), "");
+				TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation((EnchantmentDialogue.getLimit()==0?"Minimum Limit Reached":"Limit Minimum"), "");
 				MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
 			}
 			
 			id = "LIMIT_DECREASE_LARGE";
 			if (((EventTarget) MainController.document.getElementById(id)) != null) {
-				if(EnchantmentDialogue.limit>0) {
-					EnchantmentEventListener el = new EnchantmentEventListener().setLimit(Math.max(0, EnchantmentDialogue.limit-(EnchantmentDialogue.ingredient.getEnchantmentEffect().getLimits(EnchantmentDialogue.primaryMod, EnchantmentDialogue.secondaryMod)/10)));
+				if(EnchantmentDialogue.getLimit()>0) {
+					EnchantmentEventListener el = new EnchantmentEventListener().setLimit(
+							Math.max(0, EnchantmentDialogue.getLimit()-(EnchantmentDialogue.getIngredient().getEnchantmentEffect().getLimits(EnchantmentDialogue.getPrimaryMod(), EnchantmentDialogue.getSecondaryMod())/10)));
 					MainController.addEventListener(MainController.document, id, "click", el, false);
 				}
 				MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 				MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
 				
-				TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation((EnchantmentDialogue.limit==0?"Minimum Limit Reached":"Large Limit Decrease"), "");
+				TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation((EnchantmentDialogue.getLimit()==0?"Minimum Limit Reached":"Large Limit Decrease"), "");
 				MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
 			}
 			
 			id = "LIMIT_DECREASE";
 			if (((EventTarget) MainController.document.getElementById(id)) != null) {
-				if(EnchantmentDialogue.limit>0) {
-					EnchantmentEventListener el = new EnchantmentEventListener().setLimit(EnchantmentDialogue.limit-1);
+				if(EnchantmentDialogue.getLimit()>0) {
+					EnchantmentEventListener el = new EnchantmentEventListener().setLimit(EnchantmentDialogue.getLimit()-1);
 					MainController.addEventListener(MainController.document, id, "click", el, false);
 				}
 				MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 				MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
 				
-				TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation((EnchantmentDialogue.limit==0?"Minimum Limit Reached":"Limit Decrease"), "");
+				TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation((EnchantmentDialogue.getLimit()==0?"Minimum Limit Reached":"Limit Decrease"), "");
 				MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
 			}
 			
 			id = "LIMIT_INCREASE";
 			if (((EventTarget) MainController.document.getElementById(id)) != null) {
-				if(EnchantmentDialogue.limit < EnchantmentDialogue.ingredient.getEnchantmentEffect().getLimits(EnchantmentDialogue.primaryMod, EnchantmentDialogue.secondaryMod)) {
-					EnchantmentEventListener el = new EnchantmentEventListener().setLimit(EnchantmentDialogue.limit+1);
+				if(EnchantmentDialogue.getLimit() < EnchantmentDialogue.getIngredient().getEnchantmentEffect().getLimits(EnchantmentDialogue.getPrimaryMod(), EnchantmentDialogue.getSecondaryMod())) {
+					EnchantmentEventListener el = new EnchantmentEventListener().setLimit(EnchantmentDialogue.getLimit()+1);
 					MainController.addEventListener(MainController.document, id, "click", el, false);
 				}
 				MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 				MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
 				
 				TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation(
-						(EnchantmentDialogue.limit < EnchantmentDialogue.ingredient.getEnchantmentEffect().getLimits(EnchantmentDialogue.primaryMod, EnchantmentDialogue.secondaryMod)
+						(EnchantmentDialogue.getLimit() < EnchantmentDialogue.getIngredient().getEnchantmentEffect().getLimits(EnchantmentDialogue.getPrimaryMod(), EnchantmentDialogue.getSecondaryMod())
 								?"Limit Increase"
 								:"Maximum Limit Reached"), "");
 				MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
@@ -792,16 +793,16 @@ public class MainControllerInitMethod {
 			
 			id = "LIMIT_INCREASE_LARGE";
 			if (((EventTarget) MainController.document.getElementById(id)) != null) {
-				int limit = EnchantmentDialogue.ingredient.getEnchantmentEffect().getLimits(EnchantmentDialogue.primaryMod, EnchantmentDialogue.secondaryMod);
-				if(EnchantmentDialogue.limit < limit) {
-					EnchantmentEventListener el = new EnchantmentEventListener().setLimit(Math.min(limit, EnchantmentDialogue.limit+(limit/10)));
+				int currentLimit = EnchantmentDialogue.getIngredient().getEnchantmentEffect().getLimits(EnchantmentDialogue.getPrimaryMod(), EnchantmentDialogue.getSecondaryMod());
+				if(EnchantmentDialogue.getLimit() < currentLimit) {
+					EnchantmentEventListener el = new EnchantmentEventListener().setLimit(Math.min(currentLimit, EnchantmentDialogue.getLimit()+(currentLimit/10)));
 					MainController.addEventListener(MainController.document, id, "click", el, false);
 				}
 				MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 				MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
 				
 				TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation(
-						(EnchantmentDialogue.limit < EnchantmentDialogue.ingredient.getEnchantmentEffect().getLimits(EnchantmentDialogue.primaryMod, EnchantmentDialogue.secondaryMod)
+						(EnchantmentDialogue.getLimit() < EnchantmentDialogue.getIngredient().getEnchantmentEffect().getLimits(EnchantmentDialogue.getPrimaryMod(), EnchantmentDialogue.getSecondaryMod())
 								?"Large Limit Increase"
 								:"Maximum Limit Reached"), "");
 				MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
@@ -809,15 +810,15 @@ public class MainControllerInitMethod {
 
 			id = "LIMIT_MAXIMUM";
 			if (((EventTarget) MainController.document.getElementById(id)) != null) {
-				if(EnchantmentDialogue.limit < EnchantmentDialogue.ingredient.getEnchantmentEffect().getLimits(EnchantmentDialogue.primaryMod, EnchantmentDialogue.secondaryMod)) {
-					EnchantmentEventListener el = new EnchantmentEventListener().setLimit(EnchantmentDialogue.ingredient.getEnchantmentEffect().getLimits(EnchantmentDialogue.primaryMod, EnchantmentDialogue.secondaryMod));
+				if(EnchantmentDialogue.getLimit() < EnchantmentDialogue.getIngredient().getEnchantmentEffect().getLimits(EnchantmentDialogue.getPrimaryMod(), EnchantmentDialogue.getSecondaryMod())) {
+					EnchantmentEventListener el = new EnchantmentEventListener().setLimit(EnchantmentDialogue.getIngredient().getEnchantmentEffect().getLimits(EnchantmentDialogue.getPrimaryMod(), EnchantmentDialogue.getSecondaryMod()));
 					MainController.addEventListener(MainController.document, id, "click", el, false);
 				}
 				MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 				MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
 				
 				TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation(
-						(EnchantmentDialogue.limit < EnchantmentDialogue.ingredient.getEnchantmentEffect().getLimits(EnchantmentDialogue.primaryMod, EnchantmentDialogue.secondaryMod)
+						(EnchantmentDialogue.getLimit() < EnchantmentDialogue.getIngredient().getEnchantmentEffect().getLimits(EnchantmentDialogue.getPrimaryMod(), EnchantmentDialogue.getSecondaryMod())
 								?"Set Limit To Maximum"
 								:"Maximum Limit Reached"), "");
 				MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
@@ -828,14 +829,14 @@ public class MainControllerInitMethod {
 				
 				((EventTarget) MainController.document.getElementById("INGREDIENT_ENCHANTING")).addEventListener("click", e -> {
 					Main.game.setResponseTab(1);
-					if(EnchantmentDialogue.ingredient instanceof AbstractItem) {
+					if(EnchantmentDialogue.getIngredient() instanceof AbstractItem) {
 						Main.game.setContent(new Response("Back", "Stop enchanting.", InventoryDialogue.ITEM_INVENTORY){
 							@Override
 							public void effects() {
 								EnchantmentDialogue.resetEnchantmentVariables();
 							}
 						});
-					} else if(EnchantmentDialogue.ingredient instanceof AbstractClothing) {
+					} else if(EnchantmentDialogue.getIngredient() instanceof AbstractClothing) {
 						Main.game.setContent(new Response("Back", "Stop enchanting.", InventoryDialogue.CLOTHING_INVENTORY){
 							@Override
 							public void effects() {
@@ -859,12 +860,12 @@ public class MainControllerInitMethod {
 				MainController.addEventListener(MainController.document, "INGREDIENT_ENCHANTING", "mouseleave", MainController.hideTooltipListener, false);
 				
 				InventoryTooltipEventListener el2;
-				if(EnchantmentDialogue.ingredient instanceof AbstractItem) {
-					el2 = new InventoryTooltipEventListener().setItem((AbstractItem) EnchantmentDialogue.ingredient, Main.game.getPlayer(), null);
-				} else if(EnchantmentDialogue.ingredient instanceof AbstractClothing) {
-					el2 = new InventoryTooltipEventListener().setClothing((AbstractClothing) EnchantmentDialogue.ingredient, Main.game.getPlayer(), null);
+				if(EnchantmentDialogue.getIngredient() instanceof AbstractItem) {
+					el2 = new InventoryTooltipEventListener().setItem((AbstractItem) EnchantmentDialogue.getIngredient(), Main.game.getPlayer(), null);
+				} else if(EnchantmentDialogue.getIngredient() instanceof AbstractClothing) {
+					el2 = new InventoryTooltipEventListener().setClothing((AbstractClothing) EnchantmentDialogue.getIngredient(), Main.game.getPlayer(), null);
 				} else {
-					el2 = new InventoryTooltipEventListener().setWeapon((AbstractWeapon) EnchantmentDialogue.ingredient, Main.game.getPlayer());
+					el2 = new InventoryTooltipEventListener().setWeapon((AbstractWeapon) EnchantmentDialogue.getIngredient(), Main.game.getPlayer());
 				}
 				MainController.addEventListener(MainController.document, "INGREDIENT_ENCHANTING", "mouseenter", el2, false);
 			}
@@ -873,53 +874,23 @@ public class MainControllerInitMethod {
 			if (((EventTarget) MainController.document.getElementById("OUTPUT_ENCHANTING")) != null) {
 				
 				((EventTarget) MainController.document.getElementById("OUTPUT_ENCHANTING")).addEventListener("click", e -> {
-					 if(EnchantmentDialogue.effects.isEmpty()) {
+					 if(EnchantmentDialogue.getEffects().isEmpty()) {
 							
-						} else if(EnchantmentDialogue.canAffordCost(EnchantmentDialogue.ingredient, EnchantmentDialogue.effects)) {
-							Main.game.setContent(new ResponseEffectsOnly("Craft", "Craft '"+EnchantingUtils.getPotionName(EnchantmentDialogue.ingredient, EnchantmentDialogue.effects)+"'."){
+						} else if(EnchantmentDialogue.canAffordCost(EnchantmentDialogue.getIngredient(), EnchantmentDialogue.getEffects())) {
+							Main.game.setContent(new ResponseEffectsOnly("Craft", "Craft '"+EnchantmentDialogue.getOutputName()+"'."){
 								@Override
 								public void effects() {
 									
-									EnchantmentDialogue.craftItem(EnchantmentDialogue.ingredient, EnchantmentDialogue.effects);
+									EnchantmentDialogue.craftItem(EnchantmentDialogue.getIngredient(), EnchantmentDialogue.getEffects());
 									
-									if((EnchantmentDialogue.previousIngredient instanceof AbstractItem?Main.game.getPlayer().hasItem((AbstractItem) EnchantmentDialogue.previousIngredient):true)
-											&& (EnchantmentDialogue.previousIngredient instanceof AbstractClothing?Main.game.getPlayer().hasClothing((AbstractClothing) EnchantmentDialogue.previousIngredient):true)
-											&& (EnchantmentDialogue.previousIngredient instanceof AbstractWeapon?Main.game.getPlayer().hasWeapon((AbstractWeapon) EnchantmentDialogue.previousIngredient):true)) {
-										EnchantmentDialogue.ingredient = EnchantmentDialogue.previousIngredient;
+									if((EnchantmentDialogue.getPreviousIngredient() instanceof AbstractItem?Main.game.getPlayer().hasItem((AbstractItem) EnchantmentDialogue.getPreviousIngredient()):true)
+											&& (EnchantmentDialogue.getPreviousIngredient() instanceof AbstractClothing?Main.game.getPlayer().hasClothing((AbstractClothing) EnchantmentDialogue.getPreviousIngredient()):true)
+											&& (EnchantmentDialogue.getPreviousIngredient() instanceof AbstractWeapon?Main.game.getPlayer().hasWeapon((AbstractWeapon) EnchantmentDialogue.getPreviousIngredient()):true)) {
+										EnchantmentDialogue.setIngredient(EnchantmentDialogue.getPreviousIngredient());
 										Main.game.setContent(new Response("", "", EnchantmentDialogue.ENCHANTMENT_MENU));
 									} else {
 										Main.game.setContent(new Response("", "", InventoryDialogue.INVENTORY_MENU));
 									}
-									
-//									EnchantmentDialogue.craftItem(EnchantmentDialogue.ingredient, EnchantmentDialogue.effects);
-//									
-//									if(EnchantmentDialogue.ingredient instanceof AbstractItem) {
-//										if(Main.game.getPlayer().hasItem((AbstractItem) EnchantmentDialogue.previousIngredient)) {
-//											EnchantmentDialogue.ingredient = EnchantmentDialogue.previousIngredient;
-//											Main.game.setContent(new Response("", "", EnchantmentDialogue.ENCHANTMENT_MENU));
-//										} else {
-//											Main.game.setContent(new Response("", "", InventoryDialogue.INVENTORY_MENU));
-//										}
-//										
-//									} else if(EnchantmentDialogue.ingredient instanceof AbstractClothing) {
-//										if(Main.game.getPlayer().hasClothing((AbstractClothing) EnchantmentDialogue.previousIngredient)) {
-//											EnchantmentDialogue.ingredient = EnchantmentDialogue.previousIngredient;
-//											Main.game.setContent(new Response("", "", EnchantmentDialogue.ENCHANTMENT_MENU));
-//										} else {
-//											Main.game.setContent(new Response("", "", InventoryDialogue.INVENTORY_MENU));
-//										}
-//										
-//									} else if(EnchantmentDialogue.ingredient instanceof AbstractWeapon) {
-//										if(Main.game.getPlayer().hasWeapon((AbstractWeapon) EnchantmentDialogue.previousIngredient)) {
-//											EnchantmentDialogue.ingredient = EnchantmentDialogue.previousIngredient;
-//											Main.game.setContent(new Response("", "", EnchantmentDialogue.ENCHANTMENT_MENU));
-//										} else {
-//											Main.game.setContent(new Response("", "", InventoryDialogue.INVENTORY_MENU));
-//										}
-//									}
-									
-									
-									
 								}
 							});
 							
@@ -938,15 +909,15 @@ public class MainControllerInitMethod {
 			if (((EventTarget) MainController.document.getElementById(id)) != null) {
 				
 				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-					if(EnchantmentDialogue.ingredient.getEnchantmentEffect().getEffectsDescription(
-							EnchantmentDialogue.primaryMod, EnchantmentDialogue.secondaryMod, EnchantmentDialogue.potency, EnchantmentDialogue.limit, Main.game.getPlayer(), Main.game.getPlayer())==null) {
+					if(EnchantmentDialogue.getIngredient().getEnchantmentEffect().getEffectsDescription(
+							EnchantmentDialogue.getPrimaryMod(), EnchantmentDialogue.getSecondaryMod(), EnchantmentDialogue.getPotency(), EnchantmentDialogue.getLimit(), Main.game.getPlayer(), Main.game.getPlayer())==null) {
 						
 					} else {
 						Main.game.setContent(new Response("Add", "Add the effect.", EnchantmentDialogue.ENCHANTMENT_MENU){
 							@Override
 							public void effects() {
-								EnchantmentDialogue.effects.add(new ItemEffect(
-										EnchantmentDialogue.ingredient.getEnchantmentEffect(), EnchantmentDialogue.primaryMod, EnchantmentDialogue.secondaryMod, EnchantmentDialogue.potency, EnchantmentDialogue.limit));
+								EnchantmentDialogue.addEffect(new ItemEffect(
+										EnchantmentDialogue.getIngredient().getEnchantmentEffect(), EnchantmentDialogue.getPrimaryMod(), EnchantmentDialogue.getSecondaryMod(), EnchantmentDialogue.getPotency(), EnchantmentDialogue.getLimit()));
 							}
 						});
 					}
@@ -965,13 +936,13 @@ public class MainControllerInitMethod {
 				MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
 
 				TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation("Add Effect",
-						EnchantmentDialogue.effects.size() >= EnchantmentDialogue.ingredient.getEnchantmentLimit()?"You have already added the maximum number of effects for this item!":"");
+						EnchantmentDialogue.getEffects().size() >= EnchantmentDialogue.getIngredient().getEnchantmentLimit()?"You have already added the maximum number of effects for this item!":"");
 				MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
 			}
 			
 			// Choosing a primary modifier:
-			if(EnchantmentDialogue.ingredient != null) {
-				for (TFModifier tfMod : EnchantmentDialogue.ingredient.getEnchantmentEffect().getPrimaryModifiers()) {
+			if(EnchantmentDialogue.getIngredient() != null) {
+				for (TFModifier tfMod : EnchantmentDialogue.getIngredient().getEnchantmentEffect().getPrimaryModifiers()) {
 					if (((EventTarget) MainController.document.getElementById("MOD_PRIMARY_" + tfMod.hashCode())) != null) {
 						
 						EnchantmentEventListener el = new EnchantmentEventListener().setPrimaryModifier(tfMod);
@@ -986,8 +957,8 @@ public class MainControllerInitMethod {
 				}
 			}
 			// Choosing a secondary modifier:
-			if(EnchantmentDialogue.ingredient != null) {
-				for (TFModifier tfMod : EnchantmentDialogue.ingredient.getEnchantmentEffect().getSecondaryModifiers(EnchantmentDialogue.primaryMod)) {
+			if(EnchantmentDialogue.getIngredient() != null) {
+				for (TFModifier tfMod : EnchantmentDialogue.getIngredient().getEnchantmentEffect().getSecondaryModifiers(EnchantmentDialogue.getPrimaryMod())) {
 					if (((EventTarget) MainController.document.getElementById("MOD_SECONDARY_" + tfMod.hashCode())) != null) {
 						
 						EnchantmentEventListener el = new EnchantmentEventListener().setSecondaryModifier(tfMod);
@@ -4367,13 +4338,15 @@ public class MainControllerInitMethod {
 		// Save/load:
 		if (Main.game.getCurrentDialogueNode() == OptionsDialogue.SAVE_LOAD) {
 			for (File f : Main.getSavedGames()) {
-				id = "overwrite_saved_" + f.getName().substring(0, f.getName().lastIndexOf('.'));
+				String fileIdentifier = f.getName().substring(0, f.getName().lastIndexOf('.'));
+				
+				id = "overwrite_saved_" + fileIdentifier;
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 						
 						if(!Main.getProperties().hasValue(PropertyValue.overwriteWarning) || OptionsDialogue.overwriteConfirmationName.equals(f.getName())) {
 							OptionsDialogue.overwriteConfirmationName = "";
-							Main.saveGame(f.getName().substring(0, f.getName().lastIndexOf('.')), true);
+							Main.saveGame(fileIdentifier, true);
 						} else {
 							OptionsDialogue.overwriteConfirmationName = f.getName();
 							OptionsDialogue.loadConfirmationName = "";
@@ -4388,13 +4361,13 @@ public class MainControllerInitMethod {
 					TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation("Overwrite", "");
 					MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
 				}
-				id = "load_saved_" + f.getName().substring(0, f.getName().lastIndexOf('.'));
+				id = "load_saved_" + fileIdentifier;
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 						
 						if(!Main.getProperties().hasValue(PropertyValue.overwriteWarning) || OptionsDialogue.loadConfirmationName.equals(f.getName())) {
 							OptionsDialogue.loadConfirmationName = "";
-							Main.loadGame(f.getName().substring(0, f.getName().lastIndexOf('.')));
+							Main.loadGame(fileIdentifier);
 						} else {
 							OptionsDialogue.overwriteConfirmationName = "";
 							OptionsDialogue.loadConfirmationName = f.getName();
@@ -4409,13 +4382,13 @@ public class MainControllerInitMethod {
 					TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation("Load", "");
 					MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
 				}
-				id = "delete_saved_" + f.getName().substring(0, f.getName().lastIndexOf('.'));
+				id = "delete_saved_" + fileIdentifier;
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 						
 						if(!Main.getProperties().hasValue(PropertyValue.overwriteWarning) || OptionsDialogue.deleteConfirmationName.equals(f.getName())) {
 							OptionsDialogue.deleteConfirmationName = "";
-							Main.deleteGame(f.getName().substring(0, f.getName().lastIndexOf('.')));
+							Main.deleteGame(fileIdentifier);
 						} else {
 							OptionsDialogue.overwriteConfirmationName = "";
 							OptionsDialogue.loadConfirmationName = "";
@@ -4459,13 +4432,15 @@ public class MainControllerInitMethod {
 		// Import:
 		if (Main.game.getCurrentDialogueNode() == OptionsDialogue.IMPORT_EXPORT) {
 			for (File f : Main.getCharactersForImport()) {
-				id = "delete_saved_character_" + f.getName().substring(0, f.getName().lastIndexOf('.'));
+				String fileIdentifier = f.getName().substring(0, f.getName().lastIndexOf('.'));
+				
+				id = "delete_saved_character_" + fileIdentifier;
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 						
 						if(!Main.getProperties().hasValue(PropertyValue.overwriteWarning) || OptionsDialogue.deleteConfirmationName.equals(f.getName())) {
 							OptionsDialogue.deleteConfirmationName = "";
-							Main.deleteExportedCharacter(f.getName().substring(0, f.getName().lastIndexOf('.')));
+							Main.deleteExportedCharacter(fileIdentifier);
 						} else {
 							OptionsDialogue.overwriteConfirmationName = "";
 							OptionsDialogue.loadConfirmationName = "";
@@ -4492,8 +4467,10 @@ public class MainControllerInitMethod {
 		
 		if (Main.game.getCurrentDialogueNode() == CharacterCreation.IMPORT_CHOOSE) {
 			for (File f : Main.getCharactersForImport()) {
-				if (((EventTarget) MainController.document.getElementById("character_import_" + f.getName().substring(0, f.getName().lastIndexOf('.')) )) != null) {
-					((EventTarget) MainController.document.getElementById("character_import_" + f.getName().substring(0, f.getName().lastIndexOf('.')) )).addEventListener("click", e -> {
+				String fileIdentifier = f.getName().substring(0, f.getName().lastIndexOf('.'));
+				
+				if (((EventTarget) MainController.document.getElementById("character_import_" + fileIdentifier )) != null) {
+					((EventTarget) MainController.document.getElementById("character_import_" + fileIdentifier )).addEventListener("click", e -> {
 						Main.importCharacter(f);
 						
 					}, false);
@@ -4504,11 +4481,13 @@ public class MainControllerInitMethod {
 		// Slave import:
 		if (Main.game.getCurrentDialogueNode() == SlaverAlleyDialogue.AUCTION_IMPORT) {
 			for (File f : Main.getSlavesForImport()) {
-				if (((EventTarget) MainController.document.getElementById("import_slave_" + f.getName().substring(0, f.getName().lastIndexOf('.')) )) != null) {
-					((EventTarget) MainController.document.getElementById("import_slave_" + f.getName().substring(0, f.getName().lastIndexOf('.')) )).addEventListener("click", e -> {
+				String fileIdentifier = f.getName().substring(0, f.getName().lastIndexOf('.'));
+				
+				if (((EventTarget) MainController.document.getElementById("import_slave_" + fileIdentifier )) != null) {
+					((EventTarget) MainController.document.getElementById("import_slave_" + fileIdentifier )).addEventListener("click", e -> {
 						
 						try {
-							Game.importCharacterAsSlave(f.getName().substring(0, f.getName().lastIndexOf('.')));
+							Game.importCharacterAsSlave(fileIdentifier);
 							MainController.updateUI();
 							Main.game.flashMessage(Colour.GENERIC_GOOD, "Imported Character!");
 						
@@ -4547,6 +4526,110 @@ public class MainControllerInitMethod {
 								UtilText.parse(npc, "You don't have a slaver license, so you're unable to big on any slaves!"));
 						MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 					}
+				}
+			}
+		}
+		
+		// Save/load enchantment:
+		if (Main.game.getCurrentDialogueNode() == EnchantmentDialogue.ENCHANTMENT_SAVE_LOAD) {
+			for (File f : EnchantmentDialogue.getSavedEnchants()) {
+				String fileIdentifier = f.getName().substring(0, f.getName().lastIndexOf('.'));
+				
+				id = "overwrite_saved_" + fileIdentifier;
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+						
+						if(!Main.getProperties().hasValue(PropertyValue.overwriteWarning) || EnchantmentDialogue.overwriteConfirmationName.equals(f.getName())) {
+							EnchantmentDialogue.overwriteConfirmationName = "";
+							EnchantmentDialogue.saveEnchant(fileIdentifier, true);
+						} else {
+							EnchantmentDialogue.overwriteConfirmationName = f.getName();
+							EnchantmentDialogue.loadConfirmationName = "";
+							EnchantmentDialogue.deleteConfirmationName = "";
+							Main.game.setContent(new Response("Save/Load", "Open the save/load game window.", EnchantmentDialogue.ENCHANTMENT_MENU));
+						}
+						
+					}, false);
+
+					MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+					MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+					TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation("Overwrite", "");
+					MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
+				}
+				id = "load_saved_" + fileIdentifier;
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+						
+						if(!Main.getProperties().hasValue(PropertyValue.overwriteWarning) || EnchantmentDialogue.loadConfirmationName.equals(f.getName())) {
+							EnchantmentDialogue.loadConfirmationName = "";
+							LoadedEnchantment lEnch = EnchantmentDialogue.loadEnchant(fileIdentifier);
+							EnchantmentDialogue.resetEnchantmentVariables();
+							EnchantmentDialogue.initModifiers(lEnch.getSuitableItem());
+							EnchantmentDialogue.getEffects().clear();
+							for(ItemEffect ie : lEnch.getEffects()) {
+								EnchantmentDialogue.addEffect(ie);
+							}
+							EnchantmentDialogue.setOutputName(lEnch.getName());
+							Main.game.setContent(new Response("Save/Load", "Open the save/load game window.", EnchantmentDialogue.ENCHANTMENT_MENU));
+							
+						} else {
+							EnchantmentDialogue.overwriteConfirmationName = "";
+							EnchantmentDialogue.loadConfirmationName = f.getName();
+							EnchantmentDialogue.deleteConfirmationName = "";
+							Main.game.setContent(new Response("Save/Load", "Open the save/load game window.", EnchantmentDialogue.ENCHANTMENT_MENU));
+						}
+						
+					}, false);
+
+					MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+					MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+					TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation("Load", "");
+					MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
+				}
+				id = "delete_saved_" + fileIdentifier;
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+						
+						if(!Main.getProperties().hasValue(PropertyValue.overwriteWarning) || EnchantmentDialogue.deleteConfirmationName.equals(f.getName())) {
+							EnchantmentDialogue.deleteConfirmationName = "";
+							EnchantmentDialogue.deleteEnchant(fileIdentifier);
+						} else {
+							EnchantmentDialogue.overwriteConfirmationName = "";
+							EnchantmentDialogue.loadConfirmationName = "";
+							EnchantmentDialogue.deleteConfirmationName = f.getName();
+							Main.game.setContent(new Response("Save/Load", "Open the save/load game window.", EnchantmentDialogue.ENCHANTMENT_MENU));
+						}
+						
+					}, false);
+
+					MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+					MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+					TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation("Delete", "");
+					MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
+				}
+			}
+			
+			id = "new_saved";
+			if (((EventTarget) MainController.document.getElementById(id)) != null) {
+				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+					Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenPField').innerHTML=document.getElementById('new_save_name').value;");
+					EnchantmentDialogue.saveEnchant(Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent(), false);
+					
+				}, false);
+
+				MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+				MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+				TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation("Save", "");
+				MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
+			}
+			
+			for(Entry<String, LoadedEnchantment> entry : EnchantmentDialogue.getLoadedEnchantmentsMap().entrySet()) {
+				id = "LOADED_ENCHANTMENT_"+entry.getKey();
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+					MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+					TooltipInformationEventListener el2 = new TooltipInformationEventListener().setLoadedEnchantment(entry.getValue());
+					MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
 				}
 			}
 		}

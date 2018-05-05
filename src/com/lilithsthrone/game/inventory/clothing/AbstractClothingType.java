@@ -1434,6 +1434,23 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		}
 	}
 
+	public String getSVGImage() {
+		Colour pColour = Colour.CLOTHING_BLACK;
+		if(this.getAllAvailablePrimaryColours()!=null && !this.getAllAvailablePrimaryColours().isEmpty()) {
+			pColour = this.getAllAvailablePrimaryColours().get(0);
+		}
+		Colour sColour = Colour.CLOTHING_BLACK;
+		if(this.getAllAvailableSecondaryColours()!=null && !this.getAllAvailableSecondaryColours().isEmpty()) {
+			sColour = this.getAllAvailableSecondaryColours().get(0);
+		}
+		Colour tColour = Colour.CLOTHING_BLACK;
+		if(this.getAllAvailableTertiaryColours()!=null && !this.getAllAvailableTertiaryColours().isEmpty()) {
+			tColour = this.getAllAvailableTertiaryColours().get(0);
+		}
+		
+		return getSVGImage(null, pColour, sColour, tColour, false);
+	}
+	
 	/**
 	 * @param colour You need to pass a colour in here.
 	 * @param colourSecondary This can be null.
