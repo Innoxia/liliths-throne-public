@@ -37,7 +37,7 @@ import java.util.Set;
 
 /**
  * @since 0.1.0
- * @version 0.2.0
+ * @version 0.2.5
  * @author Innoxia
  */
 public abstract class AbstractClothing extends AbstractCoreItem implements Serializable, XMLSaving {
@@ -517,6 +517,12 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 	 *         "Gold circlet of anti-magic"
 	 */
 	public String getDisplayName(boolean withRarityColour) {
+		if(!this.getName().equalsIgnoreCase(this.getClothingType().getName())) { // If this item has a custom name, just display that:
+			return (withRarityColour
+					? (" <span style='color: " + (!this.isEnchantmentKnown()?Colour.RARITY_UNKNOWN:this.getRarity().getColour()).toWebHexString() + ";'>" + name + "</span>")
+					: name);
+		}
+		
 		return Util.capitaliseSentence(getColour().getName()) + " "
 				+ (withRarityColour
 					? (" <span style='color: " + (!this.isEnchantmentKnown()?Colour.RARITY_UNKNOWN:this.getRarity().getColour()).toWebHexString() + ";'>" + name + "</span>")

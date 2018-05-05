@@ -40,6 +40,8 @@ import com.lilithsthrone.game.combat.SpellUpgrade;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
+import com.lilithsthrone.game.inventory.enchanting.LoadedEnchantment;
+import com.lilithsthrone.game.inventory.item.ItemEffect;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.RenderingEngine;
 import com.lilithsthrone.utils.Colour;
@@ -47,7 +49,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.2.4
+ * @version 0.2.5
  * @author Innoxia
  */
 public class TooltipInformationEventListener implements EventListener {
@@ -65,6 +67,7 @@ public class TooltipInformationEventListener implements EventListener {
 	private SpellUpgrade spellUpgrade;
 	private Attribute attribute;
 	private InventorySlot concealedSlot;
+	private LoadedEnchantment loadedEnchantment;
 	private static StringBuilder tooltipSB  = new StringBuilder();
 	
 	
@@ -804,6 +807,49 @@ public class TooltipInformationEventListener implements EventListener {
 						+"</b>."
 					+ "</div>"));
 			
+		} else if(loadedEnchantment!=null) {
+			//TODO
+			
+			int yIncrease = 0;
+
+			// Title:
+			tooltipSB.setLength(0);
+			tooltipSB.append("<div class='title'>" + Util.capitaliseSentence(loadedEnchantment.getName()) + "</div>");
+
+			if(loadedEnchantment.isSuitableItemAvailable()) {
+				tooltipSB.append("<div class='subTitle' style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Suitable item in inventory</div>");
+			} else {
+				tooltipSB.append("<div class='subTitle' style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>No suitable item in inventory</div>");
+			}
+			
+			// Attribute modifiers:
+			tooltipSB.append("<div class='subTitle-picture'>");
+			int i=0;
+			for (ItemEffect ie : loadedEnchantment.getEffects()) {
+				for(String s : ie.getEffectsDescription(Main.game.getPlayer(), Main.game.getPlayer())) {
+					tooltipSB.append((i!=0?"</br>":"") + s);
+					yIncrease++;
+					if(UtilText.parse(s).replaceAll("<.*?>", "").length()>32) { // Yes, this is terrible...
+						yIncrease++;
+					}
+				}
+				i++;
+			}
+			if(yIncrease>=5) {
+				yIncrease-=5;
+			} else {
+				yIncrease=0;
+			}
+			tooltipSB.append("</div>");
+
+			// Picture:
+			tooltipSB.append("<div class='picture'>" + loadedEnchantment.getSVGString() + "</div>");
+
+			Main.mainController.setTooltipSize(360, 208 + (yIncrease>0?4:0) + (yIncrease * LINE_HEIGHT));
+			
+			Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
+			
+			
 		} else { // Standard information:
 			if(description==null || description.isEmpty()) {
 				Main.mainController.setTooltipSize(360, 64);
@@ -996,6 +1042,12 @@ public class TooltipInformationEventListener implements EventListener {
 		return this;
 	}
 
+	public TooltipInformationEventListener setLoadedEnchantment(LoadedEnchantment loadedEnchantment) {
+		resetFields();
+		this.loadedEnchantment = loadedEnchantment;
+
+		return this;
+	}
 	
 	private void resetFields() {
 		extraAttributes = false;
@@ -1016,5 +1068,6 @@ public class TooltipInformationEventListener implements EventListener {
 		tattoo=false;
 		copyInformation=false;
 		concealedSlot=null;
+		loadedEnchantment=null;
 	}
 }

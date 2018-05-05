@@ -55,6 +55,7 @@ import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.story.CharacterCreation;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.CharactersPresentDialogue;
+import com.lilithsthrone.game.dialogue.utils.EnchantmentDialogue;
 import com.lilithsthrone.game.dialogue.utils.InventoryDialogue;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.OptionsDialogue;
@@ -681,6 +682,25 @@ public class MainController implements Initializable {
 									if(Main.isSaveGameAvailable()) {
 										Main.saveGame(Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent(), false);
 									}
+									Main.game.setContent(new Response("Save", "", Main.game.getCurrentDialogueNode()));
+								}
+							}
+						}
+						if(Main.game.getCurrentDialogueNode() == EnchantmentDialogue.ENCHANTMENT_MENU){
+							if((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('output_name') === document.activeElement")) {
+								allowInput = false;
+								Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenPField').innerHTML=document.getElementById('output_name').value;");
+								EnchantmentDialogue.setOutputName(Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent());
+								
+							}
+						}
+						if(Main.game.getCurrentDialogueNode() == EnchantmentDialogue.ENCHANTMENT_SAVE_LOAD){
+							if((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('new_save_name') === document.activeElement")) {
+								allowInput = false;
+								if (event.getCode() == KeyCode.ENTER) {
+									enterConsumed = true;
+									Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenPField').innerHTML=document.getElementById('new_save_name').value;");
+									EnchantmentDialogue.saveEnchant(Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent(), false);
 									Main.game.setContent(new Response("Save", "", Main.game.getCurrentDialogueNode()));
 								}
 							}

@@ -422,6 +422,10 @@ public abstract class AbstractWeaponType extends AbstractCoreType implements Ser
 	public Map<DamageType, String> getSVGStringMap() {
 		return SVGStringMap;
 	}
+	
+	public String getSVGString() {
+		return SVGStringMap.get(this.getAvailableDamageTypes().get(0));
+	}
 
 	public List<Spell> getSpells() {
 		return spells;

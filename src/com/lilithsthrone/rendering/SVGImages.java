@@ -25,7 +25,7 @@ public enum SVGImages {
 
 			menuIcon, inventoryIcon, inventoryIconDisabled, journalIcon, peopleIcon, zoomInIcon, zoomOutIcon, copyIcon, exportIcon, calendarIcon, informationIcon,
 
-			diskSave, diskSaveDisabled, diskSaveConfirm, diskOverwrite, diskLoad, diskLoadConfirm, diskDelete, diskDeleteConfirm,
+			diskSave, diskSaveDisabled, diskSaveConfirm, diskOverwrite, diskLoad, diskLoadConfirm, diskLoadDisabled, diskDelete, diskDeleteConfirm,
 			
 			itemsOnFloorIcon,
 			
@@ -164,6 +164,9 @@ public enum SVGImages {
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/diskLoad.svg");
 			diskLoadConfirm = Util.inputStreamToString(is);
 			diskLoadConfirm = setColour(diskLoadConfirm, Colour.GENERIC_EXCELLENT);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/diskLoad.svg");
+			diskLoadDisabled = Util.inputStreamToString(is);
+			diskLoadDisabled = setColour(diskLoadDisabled, Colour.BASE_GREY);
 			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/diskDelete.svg");
 			diskDelete = Util.inputStreamToString(is);
@@ -678,6 +681,10 @@ public enum SVGImages {
 	
 	public String getDiskLoadConfirm() {
 		return diskLoadConfirm;
+	}
+
+	public String getDiskLoadDisabled() {
+		return diskLoadDisabled;
 	}
 
 	public String getDiskDelete() {
