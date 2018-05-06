@@ -2869,8 +2869,8 @@ public enum StatusEffect {
 			{
 				return ""; // Returning immediatelly if the target doesn't have an owner.
 			}
-			if(target.isPlayer() && !target.isWithinOwnersPropery()
-					&& (target.getOwner().hasRule(RulesSlaveryDefault.RULE_OUTSIDE_FREEDOM) == null
+			if(target.isPlayer() && !target.isWithinOwnersProperty()
+					&& (target.getOwner().getRule(RulesSlaveryDefault.RULE_OUTSIDE_FREEDOM) == null
 					|| !RulesSlaveryDefault.RULE_OUTSIDE_FREEDOM.canPlayerRoam())) {
 				float totalDrain = minutesPassed * 2;
 				target.incrementHealth(-totalDrain);

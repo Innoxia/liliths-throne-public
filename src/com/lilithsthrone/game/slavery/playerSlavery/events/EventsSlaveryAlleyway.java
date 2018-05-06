@@ -253,7 +253,7 @@ public class EventsSlaveryAlleyway {
 
 		@Override
 		public String getContent() {
-			if(Main.game.getPlayer().getOwner().hasRule(RulesSlaveryDefault.RULE_DAILY_TRIBUTE_MONEY) != null)
+			if(Main.game.getPlayer().getOwner().getRule(RulesSlaveryDefault.RULE_DAILY_TRIBUTE_MONEY) != null)
 			{
 				RulesSlaveryDefault.RULE_DAILY_TRIBUTE_MONEY.modifyCashRequirement(1000);
 			}
@@ -594,7 +594,7 @@ public class EventsSlaveryAlleyway {
 
 		@Override
 		public String getContent() {
-			if(Main.game.getPlayer().getOwner().hasRule(RulesSlaveryDefault.RULE_DAILY_TRIBUTE_MONEY) != null)
+			if(Main.game.getPlayer().getOwner().getRule(RulesSlaveryDefault.RULE_DAILY_TRIBUTE_MONEY) != null)
 			{
 				RulesSlaveryDefault.RULE_DAILY_TRIBUTE_MONEY.modifyCashRequirement(1000);
 			}
@@ -1393,7 +1393,7 @@ public class EventsSlaveryAlleyway {
 
 			
 			// If for some reason the rule isn't added, we need to actually have it added.
-			if(owner.hasRule(RulesSlaveryDefault.RULE_DAILY_TRIBUTE_MONEY) == null)
+			if(owner.getRule(RulesSlaveryDefault.RULE_DAILY_TRIBUTE_MONEY) == null)
 			{
 				owner.addRule(RulesSlaveryDefault.RULE_DAILY_TRIBUTE_MONEY);
 				RulesSlaveryDefault.RULE_DAILY_TRIBUTE_MONEY.setDailyCashRequirement(2000);
@@ -1486,7 +1486,7 @@ public class EventsSlaveryAlleyway {
 			ruleToAdd = null;
 			
 			if((owner.hasFetish(Fetish.FETISH_BREASTS_OTHERS) || player.hasFetish(Fetish.FETISH_EXHIBITIONIST) || owner.hasFetish(Fetish.FETISH_VOYEURIST)) 
-					&& owner.hasRule(RulesSlaveryDefault.RULE_NO_BREAST_BLOCKERS) == null)
+					&& owner.getRule(RulesSlaveryDefault.RULE_NO_BREAST_BLOCKERS) == null)
 			{
 				ruleToAdd = RulesSlaveryDefault.RULE_NO_BREAST_BLOCKERS;
 				rulePrefix = "<p>"
@@ -1496,7 +1496,7 @@ public class EventsSlaveryAlleyway {
 							+ "</p>";
 			}
 			else if((owner.hasFetish(Fetish.FETISH_ANAL_GIVING) || player.hasFetish(Fetish.FETISH_EXHIBITIONIST) || owner.hasFetish(Fetish.FETISH_VOYEURIST)) 
-					&& owner.hasRule(RulesSlaveryDefault.RULE_NO_ASS_BLOCKERS) == null)
+					&& owner.getRule(RulesSlaveryDefault.RULE_NO_ASS_BLOCKERS) == null)
 			{
 				ruleToAdd = RulesSlaveryDefault.RULE_NO_ASS_BLOCKERS;
 				rulePrefix = "<p>"
@@ -1506,7 +1506,7 @@ public class EventsSlaveryAlleyway {
 							+ "</p>";
 			}
 			else if((owner.hasFetish(Fetish.FETISH_VAGINAL_GIVING) || player.hasFetish(Fetish.FETISH_EXHIBITIONIST) || owner.hasFetish(Fetish.FETISH_VOYEURIST)) 
-					&& owner.hasRule(RulesSlaveryDefault.RULE_NO_GROIN_BLOCKERS) == null)
+					&& owner.getRule(RulesSlaveryDefault.RULE_NO_GROIN_BLOCKERS) == null)
 			{
 				ruleToAdd = RulesSlaveryDefault.RULE_NO_GROIN_BLOCKERS;
 				rulePrefix = "<p>"
@@ -1516,7 +1516,7 @@ public class EventsSlaveryAlleyway {
 							+ "</p>";
 			}
 			else if((player.hasFetish(Fetish.FETISH_EXHIBITIONIST) || owner.hasFetish(Fetish.FETISH_VOYEURIST))
-					&& owner.hasRule(RulesSlaveryDefault.RULE_NO_FOOTWEAR) == null)
+					&& owner.getRule(RulesSlaveryDefault.RULE_NO_FOOTWEAR) == null)
 			{
 				ruleToAdd = RulesSlaveryDefault.RULE_NO_FOOTWEAR;
 				rulePrefix = "<p>"
@@ -1589,7 +1589,7 @@ public class EventsSlaveryAlleyway {
 			NPC owner = (NPC) player.getOwner(); // Don't think a non-NPC will be able to own a player. Change in future if necessary.
 
 			
-			if(owner.hasRule(RulesSlaveryDefault.RULE_OUTSIDE_FREEDOM) == null && player.getObedienceValue() > 50f)
+			if(owner.getRule(RulesSlaveryDefault.RULE_OUTSIDE_FREEDOM) == null && player.getObedienceValue() > 50f)
 			{
 				return UtilText.parse(Main.game.getActiveNPC(),
 						"<p>"
@@ -1603,7 +1603,7 @@ public class EventsSlaveryAlleyway {
 						+ "</p>");
 			}
 			
-			if(player.getObedienceValue() < 0 && owner.hasRule(RulesSlaveryDefault.RULE_OUTSIDE_FREEDOM) != null)
+			if(player.getObedienceValue() < 0 && owner.getRule(RulesSlaveryDefault.RULE_OUTSIDE_FREEDOM) != null)
 			{
 				return UtilText.parse(Main.game.getActiveNPC(),
 						"<p>"
@@ -1642,12 +1642,12 @@ public class EventsSlaveryAlleyway {
 						PlayerCharacter player = Main.game.getPlayer();
 						NPC owner = (NPC) player.getOwner(); // Don't think a non-NPC will be able to own a player. Change in future if necessary.
 
-						if(owner.hasRule(RulesSlaveryDefault.RULE_OUTSIDE_FREEDOM) == null && player.getObedienceValue() > 50f)
+						if(owner.getRule(RulesSlaveryDefault.RULE_OUTSIDE_FREEDOM) == null && player.getObedienceValue() > 50f)
 						{
 							owner.addRule(RulesSlaveryDefault.RULE_OUTSIDE_FREEDOM);
 							RulesSlaveryDefault.RULE_OUTSIDE_FREEDOM.setMaxFreeTime(240);
 						}
-						else if(player.getObedienceValue() < 0 && owner.hasRule(RulesSlaveryDefault.RULE_OUTSIDE_FREEDOM) != null)
+						else if(player.getObedienceValue() < 0 && owner.getRule(RulesSlaveryDefault.RULE_OUTSIDE_FREEDOM) != null)
 						{
 							owner.removeRule(RulesSlaveryDefault.RULE_OUTSIDE_FREEDOM);
 							RulesSlaveryDefault.RULE_OUTSIDE_FREEDOM.setMaxFreeTime(0);
@@ -2710,7 +2710,7 @@ public class EventsSlaveryAlleyway {
 		}
 
 		@Override
-		public boolean getIsPunishment() {
+		public boolean isPunishment() {
 			return true;
 		}
 		
@@ -2773,7 +2773,7 @@ public class EventsSlaveryAlleyway {
 		}
 
 		@Override
-		public boolean getIsPunishment() {
+		public boolean isPunishment() {
 			return true;
 		}
 		
@@ -2823,7 +2823,7 @@ public class EventsSlaveryAlleyway {
 		}
 
 		@Override
-		public boolean getIsPunishment() {
+		public boolean isPunishment() {
 			return true;
 		}
 		
@@ -2860,7 +2860,7 @@ public class EventsSlaveryAlleyway {
 		}
 
 		@Override
-		public boolean getIsPunishment() {
+		public boolean isPunishment() {
 			return true;
 		}
 		
@@ -2886,7 +2886,7 @@ public class EventsSlaveryAlleyway {
 			int randomPart = (int)(Math.random()*50f); // Random portion. Will get added if result is non-zero
 			
 			// If for some reason the rule isn't added, we need to actually have it added.
-			if(owner.hasRule(RulesSlaveryDefault.RULE_DAILY_TRIBUTE_MONEY) == null)
+			if(owner.getRule(RulesSlaveryDefault.RULE_DAILY_TRIBUTE_MONEY) == null)
 			{
 				weight += 75;
 			}
@@ -2918,7 +2918,7 @@ public class EventsSlaveryAlleyway {
 		}
 
 		@Override
-		public boolean getIsPunishment() {
+		public boolean isPunishment() {
 			return false;
 		}
 		
@@ -2937,9 +2937,9 @@ public class EventsSlaveryAlleyway {
 			
 			//Checking if the rules are not in place yet.
 			if(owner.hasFetish(Fetish.FETISH_VOYEURIST) 
-					|| (owner.hasFetish(Fetish.FETISH_BREASTS_OTHERS) && owner.hasRule(RulesSlaveryDefault.RULE_NO_BREAST_BLOCKERS) == null)
-					|| (owner.hasFetish(Fetish.FETISH_ANAL_GIVING)  && owner.hasRule(RulesSlaveryDefault.RULE_NO_ASS_BLOCKERS) == null)
-					|| (owner.hasFetish(Fetish.FETISH_VAGINAL_GIVING) && owner.hasRule(RulesSlaveryDefault.RULE_NO_GROIN_BLOCKERS) == null && player.hasVagina())
+					|| (owner.hasFetish(Fetish.FETISH_BREASTS_OTHERS) && owner.getRule(RulesSlaveryDefault.RULE_NO_BREAST_BLOCKERS) == null)
+					|| (owner.hasFetish(Fetish.FETISH_ANAL_GIVING)  && owner.getRule(RulesSlaveryDefault.RULE_NO_ASS_BLOCKERS) == null)
+					|| (owner.hasFetish(Fetish.FETISH_VAGINAL_GIVING) && owner.getRule(RulesSlaveryDefault.RULE_NO_GROIN_BLOCKERS) == null && player.hasVagina())
 					// TODO : Add penis related fetish here.
 					|| player.hasFetish(Fetish.FETISH_EXHIBITIONIST))
 			{
@@ -2953,10 +2953,10 @@ public class EventsSlaveryAlleyway {
 			}
 			
 			// Owner has set all the rules, no need to generate this one.
-			if(owner.hasRule(RulesSlaveryDefault.RULE_NO_ASS_BLOCKERS) != null
-					&& owner.hasRule(RulesSlaveryDefault.RULE_NO_BREAST_BLOCKERS) != null
-					&& owner.hasRule(RulesSlaveryDefault.RULE_NO_GROIN_BLOCKERS) != null
-					&& owner.hasRule(RulesSlaveryDefault.RULE_NO_FOOTWEAR) != null)
+			if(owner.getRule(RulesSlaveryDefault.RULE_NO_ASS_BLOCKERS) != null
+					&& owner.getRule(RulesSlaveryDefault.RULE_NO_BREAST_BLOCKERS) != null
+					&& owner.getRule(RulesSlaveryDefault.RULE_NO_GROIN_BLOCKERS) != null
+					&& owner.getRule(RulesSlaveryDefault.RULE_NO_FOOTWEAR) != null)
 			{
 				weight = -100;
 			}
@@ -2976,7 +2976,7 @@ public class EventsSlaveryAlleyway {
 		}
 
 		@Override
-		public boolean getIsPunishment() {
+		public boolean isPunishment() {
 			return false;
 		}
 		
@@ -2994,13 +2994,13 @@ public class EventsSlaveryAlleyway {
 			int randomPart = (int)(Math.random()*50f); // Random portion. Will get added if result is non-zero
 			
 			// Adds the rule for obedient slaves
-			if(owner.hasRule(RulesSlaveryDefault.RULE_OUTSIDE_FREEDOM) == null && player.getObedienceValue() > 50f)
+			if(owner.getRule(RulesSlaveryDefault.RULE_OUTSIDE_FREEDOM) == null && player.getObedienceValue() > 50f)
 			{
 				weight += 75;
 			}
 			
 			// Disobedient slaves will get stripped of their free hours
-			if(player.getObedienceValue() < 0 && owner.hasRule(RulesSlaveryDefault.RULE_OUTSIDE_FREEDOM) != null)
+			if(player.getObedienceValue() < 0 && owner.getRule(RulesSlaveryDefault.RULE_OUTSIDE_FREEDOM) != null)
 			{
 				weight += 75;
 			}
@@ -3032,7 +3032,7 @@ public class EventsSlaveryAlleyway {
 		}
 
 		@Override
-		public boolean getIsPunishment() {
+		public boolean isPunishment() {
 			return false;
 		}
 		
@@ -3049,7 +3049,7 @@ public class EventsSlaveryAlleyway {
 			int weight = 0; // Normal "base" value.
 			int randomPart = (int)(Math.random()*50f); // Random portion. Will get added if result is non-zero
 			
-			if(player.getObedienceValue() >= 90f && owner.hasRule(RulesSlaveryDefault.RULE_OWNERS_BITCH) == null  && owner.hasRule(RulesSlaveryDefault.RULE_NAME_FREEDOM) == null )
+			if(player.getObedienceValue() >= 90f && owner.getRule(RulesSlaveryDefault.RULE_OWNERS_BITCH) == null  && owner.getRule(RulesSlaveryDefault.RULE_NAME_FREEDOM) == null )
 			{
 				weight += 150;
 			}
@@ -3075,7 +3075,7 @@ public class EventsSlaveryAlleyway {
 		}
 
 		@Override
-		public boolean getIsPunishment() {
+		public boolean isPunishment() {
 			return false;
 		}
 		
@@ -3101,7 +3101,7 @@ public class EventsSlaveryAlleyway {
 			int randomPart = -50 + (int)(Math.random()*100f); // Random portion. Will get added if result is non-zero
 			
 			// Quest is given to players who can actually go outside for errands.
-			if(owner.hasRule(RulesSlaveryDefault.RULE_OUTSIDE_FREEDOM) != null && owner.hasRule(RulesSlaveryAlleyway.RULE_ALLEYWAY_BRIBE_COURIER) == null)
+			if(owner.getRule(RulesSlaveryDefault.RULE_OUTSIDE_FREEDOM) != null && owner.getRule(RulesSlaveryAlleyway.RULE_ALLEYWAY_BRIBE_COURIER) == null)
 			{
 				weight += 25;
 			}
@@ -3121,7 +3121,7 @@ public class EventsSlaveryAlleyway {
 		}
 
 		@Override
-		public boolean getIsPunishment() {
+		public boolean isPunishment() {
 			return false;
 		}
 		
@@ -3139,7 +3139,7 @@ public class EventsSlaveryAlleyway {
 			int randomPart = -50 + (int)(Math.random()*100f); // Random portion. Will get added if result is non-zero
 			
 			// Quest is given to players who can actually go outside for errands.
-			if(owner.hasRule(RulesSlaveryDefault.RULE_OUTSIDE_FREEDOM) != null && owner.hasRule(RulesSlaveryAlleyway.RULE_ALLEYWAY_SUPPLY_RUN) == null)
+			if(owner.getRule(RulesSlaveryDefault.RULE_OUTSIDE_FREEDOM) != null && owner.getRule(RulesSlaveryAlleyway.RULE_ALLEYWAY_SUPPLY_RUN) == null)
 			{
 				weight += 25;
 			}
@@ -3161,7 +3161,7 @@ public class EventsSlaveryAlleyway {
 		}
 
 		@Override
-		public boolean getIsPunishment() {
+		public boolean isPunishment() {
 			return false;
 		}
 		
@@ -3198,7 +3198,7 @@ public class EventsSlaveryAlleyway {
 		}
 
 		@Override
-		public boolean getIsPunishment() {
+		public boolean isPunishment() {
 			return false;
 		}
 		
@@ -3246,7 +3246,7 @@ public class EventsSlaveryAlleyway {
 		}
 
 		@Override
-		public boolean getIsPunishment() {
+		public boolean isPunishment() {
 			return false;
 		}
 		
@@ -3288,7 +3288,7 @@ public class EventsSlaveryAlleyway {
 		}
 
 		@Override
-		public boolean getIsPunishment() {
+		public boolean isPunishment() {
 			return false;
 		}
 		
@@ -3330,7 +3330,7 @@ public class EventsSlaveryAlleyway {
 		}
 
 		@Override
-		public boolean getIsPunishment() {
+		public boolean isPunishment() {
 			return false;
 		}
 		

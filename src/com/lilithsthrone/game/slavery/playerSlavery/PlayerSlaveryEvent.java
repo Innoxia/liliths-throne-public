@@ -34,6 +34,6 @@ public interface PlayerSlaveryEvent {
 	/**
 	 * Returns true if this is a punishment event.
 	 */
-	public abstract boolean getIsPunishment();
+	public abstract boolean isPunishment();
 	
 }

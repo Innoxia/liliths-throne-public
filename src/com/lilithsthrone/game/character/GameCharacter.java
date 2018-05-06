@@ -1727,10 +1727,12 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		if(playerSlaveryElement!=null) {
 			element = (Element) playerSlaveryElement.getElementsByTagName("rules").item(0);
 			
-			if(element.getElementsByTagName("rule").getLength() > 0)
+			NodeList ruleElements = element.getElementsByTagName("rule");
+			
+			if(ruleElements.getLength() > 0)
 			{
-				for(int i=0; i<element.getElementsByTagName("rule").getLength(); i++) {
-					character.addRule(PlayerSlaveryRule.loadFromXML((Element)element.getElementsByTagName("rule").item(i), doc));
+				for(int i=0; i<ruleElements.getLength(); i++) {
+					character.addRule(PlayerSlaveryRule.loadFromXML((Element)ruleElements.item(i), doc));
 				}
 			}
 			character.setNextPlayerSlaveryUpdateTimes(	Integer.valueOf(((Element)playerSlaveryElement.getElementsByTagName("timeOfNextEventCheck").item(0)).getAttribute("value")),
@@ -2144,21 +2146,17 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			
 			for(PlayerSlaveryRule rule : this.getOwner().getRules())
 			{
-				String rulePerformanceValueString;
+				Colour performanceQualityColour = Colour.BASE_GREY;
 				if(rule.getPerformanceQuality() > 0 && playerIsObeyingRules)
 				{
-					rulePerformanceValueString = "<i style='color:" + Colour.GENERIC_GOOD.toWebHexString()+";'> (+"+rule.getPerformanceQuality()+")</i>";
+					performanceQualityColour = Colour.GENERIC_GOOD;
 				}
 				else if(rule.getPerformanceQuality() < 0)
 				{
-					rulePerformanceValueString = "<i style='color:" + Colour.GENERIC_MINOR_BAD.toWebHexString()+";'> ("+rule.getPerformanceQuality()+")</i>";
-				}
-				else
-				{
-					rulePerformanceValueString = "<i style='color:" + Colour.BASE_GREY.toWebHexString()+";'> ("+rule.getPerformanceQuality()+")</i>";
+					performanceQualityColour = Colour.GENERIC_MINOR_BAD;
 				}
 				infoScreenSB.append("<b>" + rule.getName() + "</b>: " + rule.getDescription()
-						+ rulePerformanceValueString
+						+ "<i style='color:" + performanceQualityColour.toWebHexString()+";'> ("+rule.getPerformanceQuality()+")</i>"
 						+ "</br>");
 			}
 			
@@ -2573,17 +2571,34 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		
 		float shownObedience = Math.round(this.obedience);
 		
-		return UtilText.parse(this,
-				"<p style='text-align:center'>"
-						+ (!this.isPlayer()?"[npc.Name] ":"You ")+(increment>0?"[style.boldGrow(gain"+ (!this.isPlayer()?"s":"")+")]":"[style.boldShrink(lose"+ (this.isPlayer()?"s":"")+")]")+" <b>"+Math.abs(increment)+"</b> [style.boldObedience(obedience)]!</br>"
-						+ (!this.isPlayer()?"[npc.She] now has ":"You now have ")+(shownObedience>0?"<b>+":"<b>")+shownObedience+"</b> [style.boldObedience(obedience)].</br>"
-						+ ObedienceLevel.getDescription(this, ObedienceLevel.getObedienceLevelFromValue(obedience), true, false)
-					+ "</p>"
-					+ (teacherPerkGain
-						?"<p style='text-align:center'>"
-							+ "<i>Obedience gain was [style.colourExcellent(tripled)], as "+(this.getOwner().isPlayer()?"you have":this.getOwner().getName()+" has ")+" the '"+Perk.JOB_TEACHER.getName(this.getOwner())+"' trait.</i>"
+		if(this.isPlayer())
+		{
+			return UtilText.parse(this,
+					"<p style='text-align:center'>"
+							+ "You "+(increment>0?"[style.boldGrow(gain)]":"[style.boldShrink(lose)]")+" <b>"+Math.abs(increment)+"</b> [style.boldObedience(obedience)]!</br>"
+							+ "You now have "+(shownObedience>0?"<b>+":"<b>")+shownObedience+"</b> [style.boldObedience(obedience)].</br>"
+							+ ObedienceLevel.getDescription(this, ObedienceLevel.getObedienceLevelFromValue(obedience), true, false)
 						+ "</p>"
-						:""));
+						+ (teacherPerkGain
+							?"<p style='text-align:center'>"
+								+ "<i>Obedience gain was [style.colourExcellent(tripled)], as "+(this.getOwner().isPlayer()?"you have":this.getOwner().getName()+" has ")+" the '"+Perk.JOB_TEACHER.getName(this.getOwner())+"' trait.</i>"
+							+ "</p>"
+							:""));
+		}
+		else
+		{
+			return UtilText.parse(this,
+					"<p style='text-align:center'>"
+							+ "[npc.Name] "+(increment>0?"[style.boldGrow(gain)]":"[style.boldShrink(lose)]")+" <b>"+Math.abs(increment)+"</b> [style.boldObedience(obedience)]!</br>"
+							+ "[npc.She] now has "+(shownObedience>0?"<b>+":"<b>")+shownObedience+"</b> [style.boldObedience(obedience)].</br>"
+							+ ObedienceLevel.getDescription(this, ObedienceLevel.getObedienceLevelFromValue(obedience), true, false)
+						+ "</p>"
+						+ (teacherPerkGain
+							?"<p style='text-align:center'>"
+								+ "<i>Obedience gain was [style.colourExcellent(tripled)], as "+(this.getOwner().isPlayer()?"you have":this.getOwner().getName()+" has ")+" the '"+Perk.JOB_TEACHER.getName(this.getOwner())+"' trait.</i>"
+							+ "</p>"
+							:""));
+		}
 	}
 	
 	public float getHourlyObedienceChange(int hour) {
@@ -3056,13 +3071,11 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		// Checking rules compliance here
 		if(this.timeOfNextRuleCheck <= minutesPassed)
 		{
-			int totalRules = 0;
 			float obedienceChangePositive = 0;
 			float obedienceChangeNegative = 0;
 			float obedienceChangeTotal = 0;
 			
 			for(PlayerSlaveryRule slaveryRule : this.slaveOwnerRules) {
-				totalRules++;
 				float obedienceChange = slaveryRule.getPerformanceQuality();
 				if(obedienceChange > 0)
 				{
@@ -3084,9 +3097,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				obedienceChangeTotal += obedienceChangeNegative;
 			}
 			
-			if(totalRules > 0)
+			if(this.slaveOwnerRules.size() > 0)
 			{
-				obedienceChangeTotal /= totalRules; // The more rules are set for the player, the less they individually impact the result.
+				obedienceChangeTotal /= this.slaveOwnerRules.size(); // The more rules are set for the player, the less they individually impact the result.
 			}
 			
 			Main.game.getPlayer().incrementObedience(obedienceChangeTotal, false);
@@ -3100,7 +3113,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		}
 		
 		// Checking for event spawning here
-		if(this.timeOfNextEventCheck <= minutesPassed && Main.game.getPlayer().isWithinOwnersPropery() && Main.game.getActiveNPC() == null)
+		if(this.timeOfNextEventCheck <= minutesPassed && Main.game.getPlayer().isWithinOwnersProperty() && Main.game.getActiveNPC() == null)
 		{
 			
 			// At 0 weight, an event won't be generated. If all events return 0 weight, then no event happens.
@@ -3111,7 +3124,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			if(this.getSlaveryEvents() != null)
 			{
 				for(PlayerSlaveryEvent slaveryEvent : this.getSlaveryEvents()) {
-					if(!forcePunishment || (forcePunishment && slaveryEvent.getIsPunishment())) // Making sure to comply with punishment forcing.
+					if(!forcePunishment || slaveryEvent.isPunishment()) // Making sure to comply with punishment forcing.
 					{
 						int currentEventWeight = slaveryEvent.getWeight(false);
 						if(currentCandidateWeight < currentEventWeight)
@@ -3153,18 +3166,16 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		Main.game.setActiveNPC((NPC)this);
 		int currentCandidateWeight = 0;
 		PlayerSlaveryEvent currentCandidate = null;
-		
-		if(this.getSlaveryEvents() != null)
-		{
-			for(PlayerSlaveryEvent slaveryEvent : this.getSlaveryEvents()) {
-				if(slaveryEvent.getIsPunishment())
+
+		for(PlayerSlaveryEvent slaveryEvent : this.getSlaveryEvents()) {
+			if(slaveryEvent.isPunishment())
+			{
+				int currentEventWeight = slaveryEvent.getWeight(true);
+				// currendCandidate == null check ensures that at least one punishment will be picked, ignoring the normal "events with weights below 0 are not considered"
+				if(currentCandidateWeight < currentEventWeight || currentCandidate == null)
 				{
-					int currentEventWeight = slaveryEvent.getWeight(true);
-					if(currentCandidateWeight < currentEventWeight || currentCandidate == null)
-					{
-						currentCandidateWeight = currentEventWeight;
-						currentCandidate = slaveryEvent;
-					}
+					currentCandidateWeight = currentEventWeight;
+					currentCandidate = slaveryEvent;
 				}
 			}
 		}
@@ -3251,15 +3262,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	 * Checks to see if a slavery rule is enforced by the owner. If it is enforced, returns it; otherwise returns null.
 	 * @return
 	 */
-	public PlayerSlaveryRule hasRule(PlayerSlaveryRule ruleToFind)
+	public PlayerSlaveryRule getRule(PlayerSlaveryRule ruleToFind)
 	{
-		for(PlayerSlaveryRule slaveryRule : this.slaveOwnerRules) {
-			if(slaveryRule.getUniqueName() == ruleToFind.getUniqueName())
-			{
-				return slaveryRule;
-			}
-		}
-		return null;
+		return this.hasRule(ruleToFind.getUniqueName());
 	}
 	
 	/**
@@ -3272,12 +3277,15 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	
 	/**
 	 * Returns true if the character is within the bounds of their owner's property.
+	 * 
+	 * Additionally returns true if the character is not a slave.
 	 */
-	public boolean isWithinOwnersPropery()
+	public boolean isWithinOwnersProperty()
 	{
 		if(this.getOwner() == null)
 		{
-			return true;
+			return true; // Free-willed people are technically within their own property since they are their own slaves.
+			// Mainly to be used in case someone somehow wears a contraband collar on them.
 		}
 		for(Value<WorldType, Vector2i> locationValue : this.getOwner().getSlaveAreaLocationPlaces())
 		{
@@ -3321,7 +3329,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	 */
 	public Set<PlayerSlaveryEvent> getSlaveryEvents()
 	{
-		return null;
+		return new HashSet<>();
 	}
 	
 	/**
@@ -3364,7 +3372,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				else
 				{
 					willConnectLastWithAnd = true;
-					returnable += ", " + toAdd;
+					returnable += toAdd + ", ";
 				}
 				remainingRemarks--;
 			}
@@ -3374,7 +3382,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		{
 			if(willConnectLastWithAnd)
 			{
-				returnable += " and " + toAdd;
+				returnable = returnable.substring(0, returnable.length() - 2) + " and " + toAdd; // Removing ", ", replacing with and.
 			}
 			else
 			{
@@ -3382,7 +3390,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			}
 		}
 		
-		if(returnable.length() == 0)
+		if(returnable.isEmpty())
 		{
 			return null;
 		}

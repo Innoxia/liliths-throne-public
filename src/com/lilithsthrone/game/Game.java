@@ -1000,7 +1000,7 @@ public class Game implements Serializable, XMLSaving {
 		if(Main.game.getPlayer().getOwner() != null)
 		{
 			Main.game.getPlayer().getOwner().handlePlayerSlavery(minutesPassed);
-			if(!Main.game.getPlayer().isWithinOwnersPropery())
+			if(!Main.game.getPlayer().isWithinOwnersProperty())
 			{
 				// Updating outside rule timing
 				if(advanceTime)
@@ -2842,19 +2842,7 @@ public class Game implements Serializable, XMLSaving {
 	
 	public void banishNPC(String id) {
 		NPC npc = (NPC) getNPCById(id);
-		if(Main.game.getActiveNPC() == npc)
-		{
-			Main.game.setActiveNPC(null);
-		}
-		if(Main.game.getPlayer().getSexPartners().containsKey(id)
-				|| npc.getPregnantLitter()!=null
-				|| npc.getLastLitterBirthed()!=null 
-				|| npc.getMother()!=null
-				|| npc.getFather()!=null) {
-			npc.setLocation(WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
-		} else {
-			removeNPC(npc);
-		}
+		this.banishNPC(npc);
 	}
 
 	public void removeNPC(String id) {

@@ -1551,10 +1551,8 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	 * @return
 	 */
 	public AbstractClothing getEnslavementItem()
-	{
-		AbstractClothingType clothingType = ClothingType.NECK_SLAVE_COLLAR_CONTRABAND;
-		
-		return AbstractClothingType.generateClothing(clothingType);
+	{		
+		return AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR_CONTRABAND);
 	}
 	
 	

@@ -759,7 +759,7 @@ public class AlleywayAttackerDialogue {
 										+Main.game.getPlayer().equipClothingFromNowhere(enslavementItem, true, Main.game.getActiveNPC())
 									+"</p>"
 									+"<p>"
-										+ "[npc.Name] then all of your flames, leaving you without a single one to your name."
+										+ "[npc.Name] then takes all of your flames, leaving you without a single one to your name."
 									+ "</p>");
 						}
 					};
@@ -1211,7 +1211,7 @@ public class AlleywayAttackerDialogue {
 		
 		@Override
 		public String getDescription(){
-			return "You are enslaved by [npc.name]!.";
+			return "You are enslaved by [npc.name]!";
 		}
 
 		@Override
@@ -1219,7 +1219,7 @@ public class AlleywayAttackerDialogue {
 			return UtilText.parse(Main.game.getActiveNPC(),
 					"<p>"
 						+ "You didn't manage to escape in time and thus, [npc.name] managed to get the collar onto your neck."
-						+ " You felt lethargic and weak at first, but the feeling quickly passed as you found yourself on your knees in front of [npc.name]"
+						+ " You felt lethargic and weak at first, but the feeling quickly passed as you found yourself on your knees in front of [npc.name]..."
 					+ "</p>"
 					+ "<p>"
 						+ "Your master."
@@ -1276,14 +1276,14 @@ public class AlleywayAttackerDialogue {
 		
 		@Override
 		public String getDescription(){
-			return "You have escaped [npc.name]!.";
+			return "You have escaped [npc.name]!";
 		}
 
 		@Override
 		public String getContent() {
 			return UtilText.parse(Main.game.getActiveNPC(),
 					"<p>"
-						+ "Spotting a perfect opportinity to make your escape, you run away from [npc.name], not letting them put that thing on you!"
+						+ "Spotting a perfect opportunity to make your escape, you run away from [npc.name], not letting them put that thing on you!"
 					+ "</p>");
 		}
 

@@ -722,38 +722,28 @@ public class DominionAlleywayAttacker extends NPC {
 	public Response getTalkResponse(int index)
 	{
 		PlayerCharacter player = Main.game.getPlayer();
-		if(Main.game.getPlayer().getOwner() == this)
+		if(player.getOwner() == this)
 		{
-			if(index == 1 && this.hasRule(RulesSlaveryDefault.RULE_DAILY_TRIBUTE_MONEY) != null)
+			if(index == 1 && this.getRule(RulesSlaveryDefault.RULE_DAILY_TRIBUTE_MONEY) != null)
 			{
 				if(player.getMoney() <= 0)
 				{
 					return new Response("Pay up", "You don't have any money to pay your master with!", null);
 				}
-				else if(this.hasRule(RulesSlaveryDefault.RULE_DAILY_TRIBUTE_MONEY).getCashRequirement() <= 0)
+				else if(this.getRule(RulesSlaveryDefault.RULE_DAILY_TRIBUTE_MONEY).getCashRequirement() <= 0)
 				{
 					return new Response("Pay up", "You've paid off your tribute for today.", null);
 				}
-				else
-				{
-					int toPay;
-					if(player.getMoney() < this.hasRule(RulesSlaveryDefault.RULE_DAILY_TRIBUTE_MONEY).getCashRequirement())
+				
+				int toPay = Math.min(this.getRule(RulesSlaveryDefault.RULE_DAILY_TRIBUTE_MONEY).getCashRequirement(), player.getMoney());
+				return new Response("Pay up "+UtilText.formatAsMoney(toPay), "Pay "+UtilText.formatAsMoney(toPay)+" to your master to hopefully fullfill the tribute for today", CharactersPresentDialogue.MENU)	{
+					@Override
+					public void effects()
 					{
-						toPay = player.getMoney();
+						player.incrementMoney(-toPay);
+						getRule(RulesSlaveryDefault.RULE_DAILY_TRIBUTE_MONEY).modifyCashRequirement(toPay*-1);
 					}
-					else
-					{
-						toPay = this.hasRule(RulesSlaveryDefault.RULE_DAILY_TRIBUTE_MONEY).getCashRequirement();
-					}
-					return new Response("Pay up "+UtilText.formatAsMoney(toPay), "Pay "+UtilText.formatAsMoney(toPay)+" to your master to hopefully fullfill the tribute for today", CharactersPresentDialogue.MENU)	{
-						@Override
-						public void effects()
-						{
-							player.incrementMoney(toPay*-1);
-							hasRule(RulesSlaveryDefault.RULE_DAILY_TRIBUTE_MONEY).modifyCashRequirement(toPay*-1);
-						}
-					};
-				}
+				};
 			}
 			else if(index == 2)
 			{
@@ -763,11 +753,11 @@ public class DominionAlleywayAttacker extends NPC {
 				}
 				else
 				{
-					return new Response("Buy Freedom "+UtilText.formatAsMoney(50000), "Pay "+UtilText.formatAsMoney(50000)+" to your master to hopefully fullfill the tribute for today", PlayerAlleywaySlavery.BUY_FREEDOM)	{
+					return new Response("Buy Freedom "+UtilText.formatAsMoney(50000), "Pay "+UtilText.formatAsMoney(50000)+" to your master to pay off yourself and buy yourself freedom.", PlayerAlleywaySlavery.BUY_FREEDOM)	{
 						@Override
 						public void effects()
 						{
-							player.incrementMoney(50000*-1);
+							player.incrementMoney(-50000);
 						}
 					};
 				}
@@ -775,7 +765,7 @@ public class DominionAlleywayAttacker extends NPC {
 			else if(index == 3)
 			{
 				ArrayList<Fetish> applicableFetishes = Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE), new ListValue<>(Fetish.FETISH_SLAVE));
-				CorruptionLevel applicableCorrutionLevel = Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel();
+				CorruptionLevel applicableCorruptionLevel = Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel();
 				
 				if(player.getObedienceValue() < 0f &&  !player.hasFetish(Fetish.FETISH_SUBMISSIVE) &&  !player.hasFetish(Fetish.FETISH_MASOCHIST))
 				{
@@ -785,7 +775,7 @@ public class DominionAlleywayAttacker extends NPC {
 				{
 					return new Response("Beg for Punishment", "You do feel that begging for punishment sounds fun...", PlayerAlleywaySlavery.BEGGED_FOR_PUNISHMENT,
 							applicableFetishes,
-							applicableCorrutionLevel,
+							applicableCorruptionLevel,
 							null,
 							null,
 							null){
@@ -800,7 +790,7 @@ public class DominionAlleywayAttacker extends NPC {
 			}
 			else if(index == 4)
 			{
-				if(Main.game.getPlayer().getOwner().hasRule(RulesSlaveryAlleyway.RULE_ALLEYWAY_SUPPLY_RUN) != null)
+				if(Main.game.getPlayer().getOwner().getRule(RulesSlaveryAlleyway.RULE_ALLEYWAY_SUPPLY_RUN) != null)
 				{
 					if(!RulesSlaveryAlleyway.RULE_ALLEYWAY_SUPPLY_RUN.canCompleteRule())
 					{

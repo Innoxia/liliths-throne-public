@@ -7,7 +7,7 @@
     </p>
 
     <p>
-        [npc.She] decides to take the first step and approaches you, [npc.speech(Hey cutie, could you be a prostitute by any chance? I really need a good fuck right now !)]
+        [npc.She] decides to take the first step and approaches you, [npc.speech(Hey cutie, could you be a prostitute by any chance? I really need a good fuck right now!)]
     </p>
 
     <p>
@@ -32,8 +32,8 @@
 	
 	<htmlContent tag="SELL_SELF_SUB_AFTER_SEX"><![CDATA[
     <p>
-        You collapse down onto the floor, breathing heavily as the [npc.race] disentangles [npc.herself] from your clutches.
-         Looking down at you, [npc.she] grins, [npc.speech(That was pretty good ! I hope I’ll find you again in these alleyways so I can see that look on your face again!)]
+        You collapse down onto the floor, breathing heavily as the [npc.race] disentangle [npc.herself] from your clutches.
+         Looking down at you, [npc.she] grins, [npc.speech(That was pretty good! I hope I’ll find you again in these alleyways so I can see that look on your face again!)]
     </p>
     <p>
         As [npc.she] gathers [npc.her] things and heads towards the exit, you stand back up and lean against the wall, waving at [npc.her], [pc.speech(Come again !)]
@@ -72,7 +72,7 @@
 	
 	<htmlContent tag="SELL_SELF_DOM_AFTER_SEX"><![CDATA[
     <p>
-        The [npc.race] collapses onto the floor, breathing heavily as you disentangles yourself from [npc.her] clutches.
+        The [npc.race] collapses onto the floor, breathing heavily as you disentangle yourself from [npc.her] clutches.
          Looking down at [npc.her], you smirk, [pc.speech(Good [npc.slut], you’re not the worst I’ve had, maybe I’ll let you be my bottom bitch again some time.)]
     </p>
     <p>
@@ -84,14 +84,14 @@
 	
 	<htmlContent tag="SELL_SELF_DECLINE"><![CDATA[
     <p>
-        Deciding you don’t want to take this client, you take a look at the time and apologise, [npc.speech(Oh I’m sorry but I’ve absolutely got to go, it’s almost time to get back to my [pc.master]!)]
+        Deciding you don’t want to take this client, you take a look at the time and apologise, [pc.speech(Oh I’m sorry but I’ve absolutely got to go, it’s almost time to get back to my [pc.master]!)]
     </p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="SELL_SELF_DECLINE_SUB"><![CDATA[
     <p>
-        The [npc.race] lets out an annoyed grunt, shrugs and turns away, [npc.speech(Fine, it’s as if  you were the only prostitute in these streets anyway, I’ll find someone else to be my bottom bitch for now.)]
+        The [npc.race] lets out an annoyed grunt, shrugs and turns away, [npc.speech(Fine, it’s not as if you were the only prostitute in these streets anyway, I’ll find someone else to be my bottom bitch for now.)]
     </p>
     <p>
         With that, [npc.she] makes [npc.her] exit, leaving you alone in the alleyway once again.
@@ -102,7 +102,7 @@
 	
 	<htmlContent tag="SELL_SELF_DECLINE_DOM"><![CDATA[
     <p>
-        The [npc.race] lets out an annoyed grunt, shrugs and turns away, [npc.speech(Fine, it’s as if  you were the only prostitute in these streets anyway, maybe you’ll fuck me another time !)]
+        The [npc.race] lets out an annoyed grunt, shrugs and turns away, [npc.speech(Fine, it’s not as if you were the only prostitute in these streets anyway, maybe you’ll fuck me another time !)]
     </p>
     <p>
         With that, [npc.she] makes [npc.her] exit, leaving you alone in the alleyway once again.

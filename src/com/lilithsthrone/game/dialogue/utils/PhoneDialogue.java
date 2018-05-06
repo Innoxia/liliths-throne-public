@@ -173,12 +173,12 @@ public class PhoneDialogue {
 					return new Response("Transform", "Only demons and slimes can transform themselves!", null);
 				}
 				
-			} else if (index == 10 && Main.game.isSavedDialogueNeutral()) {
-				return new Response("Wait", "Spend some time waiting, possibly playing some games on the phone or watching porn. Or reading, we don't assume.", WAIT_MENU);
-				
-			} else if (index == 10 && !Main.game.isSavedDialogueNeutral()) {
-				return new Response("Wait", "You are a little busy right now.", null);
-				
+			} else if (index == 10) { 
+				if(Main.game.isSavedDialogueNeutral()) {
+					return new Response("Wait", "Spend some time waiting, possibly playing some games on the phone or watching porn. Or reading, we don't assume.", WAIT_MENU);
+				} else {
+					return new Response("Wait", "You are a little busy right now.", null);
+				}
 			} else if (index == 0){
 				return new ResponseEffectsOnly("Back", "Put your phone away."){
 					@Override
@@ -2652,7 +2652,7 @@ public class PhoneDialogue {
 			{
 				case WRITER:
 					historyQuip = "You don't really have many games per se, but your favorite text editor is still working"
-							+ " and you still have a few ideas for stories, so you can probably spend a while writing them";
+							+ " and you still have a few ideas for stories, so you can probably spend a while writing them.";
 					break;
 				case ATHLETE:
 				case BUTLER:
@@ -2660,7 +2660,7 @@ public class PhoneDialogue {
 				case MAID:
 				case OFFICE_WORKER:
 				case TEACHER:
-					historyQuip = "You don't really have anything extraordinary on your phone; you were busy at work for the most part to download such things";
+					historyQuip = "You don't really have anything extraordinary on your phone; you were busy at work for the most part to download such things.";
 					break;
 				case SOLDIER:
 					historyQuip = "You don't have any time killers on your phone; your CO was very strict with that sort of thing and most of the time you were dealing with your service, so you didn't really mind that.";

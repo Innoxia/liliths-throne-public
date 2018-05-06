@@ -338,14 +338,8 @@ public class CityPlaces {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			boolean playerOwnerHere = false;
-			
-			for(GameCharacter npc : Main.game.getNonCompanionCharactersPresent()) {
-				if(Main.game.getPlayer().getOwner() != null && Main.game.getPlayer().getOwner() == npc)
-				{
-					playerOwnerHere = true;
-				}
-			}
+			boolean playerOwnerHere = Main.game.getPlayer().getOwner() != null 
+					&& Main.game.getNonCompanionCharactersPresent().contains(Main.game.getPlayer().getOwner());
 			
 			if(playerOwnerHere)
 			{
@@ -434,14 +428,8 @@ public class CityPlaces {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			boolean playerOwnerHere = false;
-			
-			for(GameCharacter npc : Main.game.getNonCompanionCharactersPresent()) {
-				if(Main.game.getPlayer().getOwner() != null && Main.game.getPlayer().getOwner() == npc)
-				{
-					playerOwnerHere = true;
-				}
-			}
+			boolean playerOwnerHere = Main.game.getPlayer().getOwner() != null 
+					&& Main.game.getNonCompanionCharactersPresent().contains(Main.game.getPlayer().getOwner());
 			
 			if(playerOwnerHere)
 			{
@@ -804,14 +792,8 @@ public class CityPlaces {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			boolean playerOwnerHere = false;
-			
-			for(GameCharacter npc : Main.game.getNonCompanionCharactersPresent()) {
-				if(Main.game.getPlayer().getOwner() != null && Main.game.getPlayer().getOwner() == npc)
-				{
-					playerOwnerHere = true;
-				}
-			}
+			boolean playerOwnerHere = Main.game.getPlayer().getOwner() != null 
+					&& Main.game.getNonCompanionCharactersPresent().contains(Main.game.getPlayer().getOwner());
 			
 			if(playerOwnerHere)
 			{

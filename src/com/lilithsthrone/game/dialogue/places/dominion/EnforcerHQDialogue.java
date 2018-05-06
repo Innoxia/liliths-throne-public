@@ -634,7 +634,7 @@ public class EnforcerHQDialogue {
 				} else {
 					return null;
 				}
-			} else if (index == 6 && Main.game.getPlayer().getOwner() != null && Main.game.getPlayer().getOwner().hasRule(RulesSlaveryAlleyway.RULE_ALLEYWAY_BRIBE_COURIER) != null) { // Bribery for master
+			} else if (index == 6 && Main.game.getPlayer().getOwner() != null && Main.game.getPlayer().getOwner().getRule(RulesSlaveryAlleyway.RULE_ALLEYWAY_BRIBE_COURIER) != null) { // Bribery for master
 				if(Main.game.getPlayer().getMoney() < 5000)
 				{
 					return new Response("Bribe "+UtilText.formatAsMoney(5000), "You don't have enough money for a bribe! You need "+UtilText.formatAsMoney(5000)+"!", null);
