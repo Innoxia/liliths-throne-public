@@ -9666,7 +9666,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		} else {
 			pregnancyChance = 0;
 			pregnancyChance += (Util.getModifiedDropoffValue(partner.getAttributeValue(Attribute.VIRILITY), Attribute.VIRILITY.getUpperLimit())/100f) * partner.getPenisCumProduction().getPregnancyModifier();
-			pregnancyChance += (Util.getModifiedDropoffValue(partner.getAttributeValue(Attribute.FERTILITY), Attribute.FERTILITY.getUpperLimit())/100f);
+			pregnancyChance += (Util.getModifiedDropoffValue(getAttributeValue(Attribute.FERTILITY), Attribute.FERTILITY.getUpperLimit())/100f);
 			pregnancyChance /= 2;
 		}
 		
