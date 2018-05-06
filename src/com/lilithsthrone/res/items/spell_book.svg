@@ -46,7 +46,7 @@
            width="42.678944"
            id="rect4160" /></flowRegion><flowPara
          style="font-size:40px;line-height:1.25"
-         id="flowPara4162"> </flowPara></flowRoot>    <flowRoot
+         id="flowPara4162"></flowPara></flowRoot>    <flowRoot
        style="font-style:normal;font-weight:normal;line-height:0.01%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        id="flowRoot4168"
        xml:space="preserve"><flowRegion
@@ -57,7 +57,7 @@
            width="63.765881"
            id="rect4172" /></flowRegion><flowPara
          style="font-size:40px;line-height:1.25"
-         id="flowPara4174"> </flowPara></flowRoot>    <text
+         id="flowPara4174"></flowPara></flowRoot>    <text
        id="text4158"
        y="27.125002"
        x="38.482143"
@@ -66,7 +66,7 @@
          style="font-size:40px;line-height:1.25"
          y="27.125002"
          x="38.482143"
-         id="tspan4160"> </tspan></text>
+         id="tspan4160"></tspan></text>
     <g
        transform="matrix(0.729,0,0,0.729,17.545755,22.47235)"
        id="g4216">
