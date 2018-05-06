@@ -50,92 +50,175 @@ public enum ObedienceLevel {
 	public static String getDescription(GameCharacter character, ObedienceLevel affectionLevel, boolean withColour, boolean longDescription) {
 		sb.setLength(0);
 		if(character.isPlayer()) {
-			if(withColour) {
+			/*if(withColour) {
 				return "You are <b style='color:"+affectionLevel.getColour().toWebHexString()+";'>free-willed</b>"+(longDescription?", and will do whatever you want.":".");
 			} else {
 				return "You are free-willed"+(longDescription?" and will do whatever you want.":".");
+			}*/
+
+			
+			switch(affectionLevel) {
+				case NEGATIVE_FIVE_REBELLIOUS:
+					if(withColour) {
+						sb.append(UtilText.parse(character, "You are <b style='color:"+affectionLevel.getColour().toWebHexString()+";'>rebellious</b>"+(longDescription?", and outright refuse to obey any command.":".")));
+					} else {
+						sb.append(UtilText.parse(character, "You are rebellious"+(longDescription?", and outright refuse to obey any command.":".")));
+					}
+					break;
+				case NEGATIVE_FOUR_DEFIANT:
+					if(withColour) {
+						sb.append(UtilText.parse(character, "You are <b style='color:"+affectionLevel.getColour().toWebHexString()+";'>defiant</b>"+(longDescription?", and only obeys commands when [npc.she]'s physically forced to.":".")));
+					} else {
+						sb.append(UtilText.parse(character, "You are defiant"+(longDescription?", and only obey commands when you are physically forced to.":".")));
+					}
+					break;
+				case NEGATIVE_THREE_STRONG_INSUBORDINATE:
+					if(withColour) {
+						sb.append(UtilText.parse(character, "You are <b style='color:"+affectionLevel.getColour().toWebHexString()+";'>insubordinate</b>"+(longDescription?", and sometimes refuse to obey commands.":".")));
+					} else {
+						sb.append(UtilText.parse(character, "You are insubordinate"+(longDescription?", and sometimes refuse to obey commands.":".")));
+					}
+					break;
+				case NEGATIVE_TWO_UNRULY:
+					if(withColour) {
+						sb.append(UtilText.parse(character, "You are <b style='color:"+affectionLevel.getColour().toWebHexString()+";'>unruly</b>"
+								+(longDescription?", and will refuse to obey commands if you think that you can get away with it.":".")));
+					} else {
+						sb.append(UtilText.parse(character, "You are unruly"+(longDescription?", and will refuse to obey commands if you think that you can get away with it.":".")));
+					}
+					break;
+				case NEGATIVE_ONE_DISOBEDIENT:
+					if(withColour) {
+						sb.append(UtilText.parse(character, "You are <b style='color:"+affectionLevel.getColour().toWebHexString()+";'>disobedient</b>"+(longDescription?", and will often complain about having to follow orders.":".")));
+					} else {
+						sb.append(UtilText.parse(character, "You are disobedient"+(longDescription?", and will often complain about having to follow orders.":".")));
+					}
+					break;
+				case ZERO_FREE_WILLED:
+					if(withColour) {
+						sb.append(UtilText.parse(character, "You are <b style='color:"+affectionLevel.getColour().toWebHexString()+";'>free-willed</b>"+(longDescription?", and will do whatever you want.":".")));
+					} else {
+						sb.append(UtilText.parse(character, "You are free-willed"+(longDescription?" and will do whatever you want.":".")));
+					}
+					break;
+				case POSITIVE_ONE_AGREEABLE:
+					if(withColour) {
+						sb.append(UtilText.parse(character, "You are <b style='color:"+affectionLevel.getColour().toWebHexString()+";'>agreeable</b>"+(longDescription?", and will carry out most orders without complaint.":".")));
+					} else {
+						sb.append(UtilText.parse(character, "You are agreeable"+(longDescription?", and will carry out most orders without complaint.":".")));
+					}
+					break;
+				case POSITIVE_TWO_OBEDIENT:
+					if(withColour) {
+						sb.append(UtilText.parse(character, "You are <b style='color:"+affectionLevel.getColour().toWebHexString()+";'>obedient</b>"+(longDescription?", and will do almost anything that you are told.":".")));
+					} else {
+						sb.append(UtilText.parse(character, "You are obedient"+(longDescription?", and will do almost anything that you are told.":".")));
+					}
+					break;
+				case POSITIVE_THREE_DISCIPLINED:
+					if(withColour) {
+						sb.append(UtilText.parse(character, "You are <b style='color:"+affectionLevel.getColour().toWebHexString()+";'>disciplined</b>"+(longDescription?", and will carry out any order without complaint.":".")));
+					} else {
+						sb.append(UtilText.parse(character, "You are disciplined"+(longDescription?", and will carry out any order without complaint.":".")));
+					}
+					break;
+				case POSITIVE_FOUR_DUTIFUL:
+					if(withColour) {
+						sb.append(UtilText.parse(character, "You are <b style='color:"+affectionLevel.getColour().toWebHexString()+";'>dutiful</b>"+(longDescription?", and will often go above and beyond whatever's asked of you.":".")));
+					} else {
+						sb.append(UtilText.parse(character, "You are dutiful"+(longDescription?", and will often go above and beyond whatever's asked of you.":".")));
+					}
+					break;
+				case POSITIVE_FIVE_SUBSERVIENT:
+					if(withColour) {
+						sb.append(UtilText.parse(character, "You are <b style='color:"+affectionLevel.getColour().toWebHexString()+";'>subservient</b>"+(longDescription?", and will do absolutely anything that you are ordered to do.":".")));
+					} else {
+						sb.append(UtilText.parse(character, "You are subservient"+(longDescription?", and will do absolutely anything that you are ordered to do.":".")));
+					}
+					break;
 			}
-		}
+		} else {
 		
-		switch(affectionLevel) {
-			case NEGATIVE_FIVE_REBELLIOUS:
-				if(withColour) {
-					sb.append(UtilText.parse(character, "[npc.Name] is <b style='color:"+affectionLevel.getColour().toWebHexString()+";'>rebellious</b>"+(longDescription?", and outright refuses to obey any command.":".")));
-				} else {
-					sb.append(UtilText.parse(character, "[npc.Name] is rebellious"+(longDescription?", and outright refuses to obey any command.":".")));
-				}
-				break;
-			case NEGATIVE_FOUR_DEFIANT:
-				if(withColour) {
-					sb.append(UtilText.parse(character, "[npc.Name] is <b style='color:"+affectionLevel.getColour().toWebHexString()+";'>defiant</b>"+(longDescription?", and only obeys commands when [npc.she]'s physically forced to.":".")));
-				} else {
-					sb.append(UtilText.parse(character, "[npc.Name] is defiant"+(longDescription?", and only obeys commands when [npc.she]'s physically forced to.":".")));
-				}
-				break;
-			case NEGATIVE_THREE_STRONG_INSUBORDINATE:
-				if(withColour) {
-					sb.append(UtilText.parse(character, "[npc.Name] is <b style='color:"+affectionLevel.getColour().toWebHexString()+";'>insubordinate</b>"+(longDescription?", and sometimes refuses to obey commands.":".")));
-				} else {
-					sb.append(UtilText.parse(character, "[npc.Name] is insubordinate"+(longDescription?", and sometimes refuses to obey commands.":".")));
-				}
-				break;
-			case NEGATIVE_TWO_UNRULY:
-				if(withColour) {
-					sb.append(UtilText.parse(character, "[npc.Name] is <b style='color:"+affectionLevel.getColour().toWebHexString()+";'>unruly</b>"
-							+(longDescription?", and will refuse to obey commands if [npc.she] thinks that [npc.she] can get away with it.":".")));
-				} else {
-					sb.append(UtilText.parse(character, "[npc.Name] is unruly"+(longDescription?", and will refuse to obey commands if [npc.she] thinks that [npc.she] can get away with it.":".")));
-				}
-				break;
-			case NEGATIVE_ONE_DISOBEDIENT:
-				if(withColour) {
-					sb.append(UtilText.parse(character, "[npc.Name] is <b style='color:"+affectionLevel.getColour().toWebHexString()+";'>disobedient</b>"+(longDescription?", and will often complain about having to follow orders.":".")));
-				} else {
-					sb.append(UtilText.parse(character, "[npc.Name] is disobedient"+(longDescription?", and will often complain about having to follow orders.":".")));
-				}
-				break;
-			case ZERO_FREE_WILLED:
-				if(withColour) {
-					sb.append(UtilText.parse(character, "[npc.Name] is <b style='color:"+affectionLevel.getColour().toWebHexString()+";'>free-willed</b>"+(longDescription?", and will do whatever [npc.she] wants.":".")));
-				} else {
-					sb.append(UtilText.parse(character, "[npc.Name] is free-willed"+(longDescription?" and will do whatever [npc.she] wants.":".")));
-				}
-				break;
-			case POSITIVE_ONE_AGREEABLE:
-				if(withColour) {
-					sb.append(UtilText.parse(character, "[npc.Name] is <b style='color:"+affectionLevel.getColour().toWebHexString()+";'>agreeable</b>"+(longDescription?", and will carry out most orders without complaint.":".")));
-				} else {
-					sb.append(UtilText.parse(character, "[npc.Name] is agreeable"+(longDescription?", and will carry out most orders without complaint.":".")));
-				}
-				break;
-			case POSITIVE_TWO_OBEDIENT:
-				if(withColour) {
-					sb.append(UtilText.parse(character, "[npc.Name] is <b style='color:"+affectionLevel.getColour().toWebHexString()+";'>obedient</b>"+(longDescription?", and will do almost anything that [npc.she]'s told.":".")));
-				} else {
-					sb.append(UtilText.parse(character, "[npc.Name] is obedient"+(longDescription?", and will do almost anything that [npc.she]'s told.":".")));
-				}
-				break;
-			case POSITIVE_THREE_DISCIPLINED:
-				if(withColour) {
-					sb.append(UtilText.parse(character, "[npc.Name] is <b style='color:"+affectionLevel.getColour().toWebHexString()+";'>disciplined</b>"+(longDescription?", and will carry out any order without complaint.":".")));
-				} else {
-					sb.append(UtilText.parse(character, "[npc.Name] is disciplined"+(longDescription?", and will carry out any order without complaint.":".")));
-				}
-				break;
-			case POSITIVE_FOUR_DUTIFUL:
-				if(withColour) {
-					sb.append(UtilText.parse(character, "[npc.Name] is <b style='color:"+affectionLevel.getColour().toWebHexString()+";'>dutiful</b>"+(longDescription?", and will often go above and beyond whatever's asked of [npc.herHim].":".")));
-				} else {
-					sb.append(UtilText.parse(character, "[npc.Name] is dutiful"+(longDescription?", and will often go above and beyond whatever's asked of [npc.herHim].":".")));
-				}
-				break;
-			case POSITIVE_FIVE_SUBSERVIENT:
-				if(withColour) {
-					sb.append(UtilText.parse(character, "[npc.Name] is <b style='color:"+affectionLevel.getColour().toWebHexString()+";'>subservient</b>"+(longDescription?", and will do absolutely anything that [npc.she]'s ordered to do.":".")));
-				} else {
-					sb.append(UtilText.parse(character, "[npc.Name] is subservient"+(longDescription?", and will do absolutely anything that [npc.she]'s ordered to do.":".")));
-				}
-				break;
+			switch(affectionLevel) {
+				case NEGATIVE_FIVE_REBELLIOUS:
+					if(withColour) {
+						sb.append(UtilText.parse(character, "[npc.Name] is <b style='color:"+affectionLevel.getColour().toWebHexString()+";'>rebellious</b>"+(longDescription?", and outright refuses to obey any command.":".")));
+					} else {
+						sb.append(UtilText.parse(character, "[npc.Name] is rebellious"+(longDescription?", and outright refuses to obey any command.":".")));
+					}
+					break;
+				case NEGATIVE_FOUR_DEFIANT:
+					if(withColour) {
+						sb.append(UtilText.parse(character, "[npc.Name] is <b style='color:"+affectionLevel.getColour().toWebHexString()+";'>defiant</b>"+(longDescription?", and only obeys commands when [npc.she]'s physically forced to.":".")));
+					} else {
+						sb.append(UtilText.parse(character, "[npc.Name] is defiant"+(longDescription?", and only obeys commands when [npc.she]'s physically forced to.":".")));
+					}
+					break;
+				case NEGATIVE_THREE_STRONG_INSUBORDINATE:
+					if(withColour) {
+						sb.append(UtilText.parse(character, "[npc.Name] is <b style='color:"+affectionLevel.getColour().toWebHexString()+";'>insubordinate</b>"+(longDescription?", and sometimes refuses to obey commands.":".")));
+					} else {
+						sb.append(UtilText.parse(character, "[npc.Name] is insubordinate"+(longDescription?", and sometimes refuses to obey commands.":".")));
+					}
+					break;
+				case NEGATIVE_TWO_UNRULY:
+					if(withColour) {
+						sb.append(UtilText.parse(character, "[npc.Name] is <b style='color:"+affectionLevel.getColour().toWebHexString()+";'>unruly</b>"
+								+(longDescription?", and will refuse to obey commands if [npc.she] thinks that [npc.she] can get away with it.":".")));
+					} else {
+						sb.append(UtilText.parse(character, "[npc.Name] is unruly"+(longDescription?", and will refuse to obey commands if [npc.she] thinks that [npc.she] can get away with it.":".")));
+					}
+					break;
+				case NEGATIVE_ONE_DISOBEDIENT:
+					if(withColour) {
+						sb.append(UtilText.parse(character, "[npc.Name] is <b style='color:"+affectionLevel.getColour().toWebHexString()+";'>disobedient</b>"+(longDescription?", and will often complain about having to follow orders.":".")));
+					} else {
+						sb.append(UtilText.parse(character, "[npc.Name] is disobedient"+(longDescription?", and will often complain about having to follow orders.":".")));
+					}
+					break;
+				case ZERO_FREE_WILLED:
+					if(withColour) {
+						sb.append(UtilText.parse(character, "[npc.Name] is <b style='color:"+affectionLevel.getColour().toWebHexString()+";'>free-willed</b>"+(longDescription?", and will do whatever [npc.she] wants.":".")));
+					} else {
+						sb.append(UtilText.parse(character, "[npc.Name] is free-willed"+(longDescription?" and will do whatever [npc.she] wants.":".")));
+					}
+					break;
+				case POSITIVE_ONE_AGREEABLE:
+					if(withColour) {
+						sb.append(UtilText.parse(character, "[npc.Name] is <b style='color:"+affectionLevel.getColour().toWebHexString()+";'>agreeable</b>"+(longDescription?", and will carry out most orders without complaint.":".")));
+					} else {
+						sb.append(UtilText.parse(character, "[npc.Name] is agreeable"+(longDescription?", and will carry out most orders without complaint.":".")));
+					}
+					break;
+				case POSITIVE_TWO_OBEDIENT:
+					if(withColour) {
+						sb.append(UtilText.parse(character, "[npc.Name] is <b style='color:"+affectionLevel.getColour().toWebHexString()+";'>obedient</b>"+(longDescription?", and will do almost anything that [npc.she]'s told.":".")));
+					} else {
+						sb.append(UtilText.parse(character, "[npc.Name] is obedient"+(longDescription?", and will do almost anything that [npc.she]'s told.":".")));
+					}
+					break;
+				case POSITIVE_THREE_DISCIPLINED:
+					if(withColour) {
+						sb.append(UtilText.parse(character, "[npc.Name] is <b style='color:"+affectionLevel.getColour().toWebHexString()+";'>disciplined</b>"+(longDescription?", and will carry out any order without complaint.":".")));
+					} else {
+						sb.append(UtilText.parse(character, "[npc.Name] is disciplined"+(longDescription?", and will carry out any order without complaint.":".")));
+					}
+					break;
+				case POSITIVE_FOUR_DUTIFUL:
+					if(withColour) {
+						sb.append(UtilText.parse(character, "[npc.Name] is <b style='color:"+affectionLevel.getColour().toWebHexString()+";'>dutiful</b>"+(longDescription?", and will often go above and beyond whatever's asked of [npc.herHim].":".")));
+					} else {
+						sb.append(UtilText.parse(character, "[npc.Name] is dutiful"+(longDescription?", and will often go above and beyond whatever's asked of [npc.herHim].":".")));
+					}
+					break;
+				case POSITIVE_FIVE_SUBSERVIENT:
+					if(withColour) {
+						sb.append(UtilText.parse(character, "[npc.Name] is <b style='color:"+affectionLevel.getColour().toWebHexString()+";'>subservient</b>"+(longDescription?", and will do absolutely anything that [npc.she]'s ordered to do.":".")));
+					} else {
+						sb.append(UtilText.parse(character, "[npc.Name] is subservient"+(longDescription?", and will do absolutely anything that [npc.she]'s ordered to do.":".")));
+					}
+					break;
+			}
 		}
 		
 		return sb.toString();

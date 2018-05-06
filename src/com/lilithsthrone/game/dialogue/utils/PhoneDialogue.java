@@ -62,6 +62,8 @@ import com.lilithsthrone.utils.WeaponRarityComparator;
  * @author Innoxia, tukaima
  */
 public class PhoneDialogue {
+	
+	private static int waitingTime = 0;
 
 	private static StringBuilder journalSB;
 	public static final DialogueNodeOld MENU = new DialogueNodeOld("Phone home screen", "Phone", true) {
@@ -170,6 +172,12 @@ public class PhoneDialogue {
 				} else {
 					return new Response("Transform", "Only demons and slimes can transform themselves!", null);
 				}
+				
+			} else if (index == 10 && Main.game.isSavedDialogueNeutral()) {
+				return new Response("Wait", "Spend some time waiting, possibly playing some games on the phone or watching porn. Or reading, we don't assume.", WAIT_MENU);
+				
+			} else if (index == 10 && !Main.game.isSavedDialogueNeutral()) {
+				return new Response("Wait", "You are a little busy right now.", null);
 				
 			} else if (index == 0){
 				return new ResponseEffectsOnly("Back", "Put your phone away."){
@@ -2622,4 +2630,167 @@ public class PhoneDialogue {
 						:"")
 			+ "</div>";
 	}
+	
+
+
+	public static final DialogueNodeOld WAIT_MENU = new DialogueNodeOld("Wait", "Wait for a bit.", true) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getAuthor()
+		{
+			return "Irbynx";
+		}
+		
+		@Override
+		public String getContent() {
+			UtilText.nodeContentSB.setLength(0);
+			
+			String historyQuip = "";
+			
+			switch(Main.game.getPlayer().getHistory())
+			{
+				case WRITER:
+					historyQuip = "You don't really have many games per se, but your favorite text editor is still working"
+							+ " and you still have a few ideas for stories, so you can probably spend a while writing them";
+					break;
+				case ATHLETE:
+				case BUTLER:
+				case CHEF:
+				case MAID:
+				case OFFICE_WORKER:
+				case TEACHER:
+					historyQuip = "You don't really have anything extraordinary on your phone; you were busy at work for the most part to download such things";
+					break;
+				case SOLDIER:
+					historyQuip = "You don't have any time killers on your phone; your CO was very strict with that sort of thing and most of the time you were dealing with your service, so you didn't really mind that.";
+				case MUGGER:
+				case REINDEER_OVERSEER:
+				case PROSTITUTE:
+					// Those are NPC histories, so I don't think the phone should really say something special for them.
+					historyQuip = "There are a few apps here and there.";
+					break;
+				case MUSICIAN:
+					historyQuip = "You don't have many games on the phone, but thankfully your massive music collection (some of it of your own performance!) has made it here with you.";
+					break;
+				case STUDENT:
+					historyQuip = "You have a healthy mix of games and reading material; a lot of the textbooks in digital form from your courses have made it in too.";
+					break;
+				case UNEMPLOYED:
+					historyQuip = "The options are plenty; your phone truly is a treasure trove for procrastination."
+							+ " Games aren't the only guests there, but they are by far the most common, most of which you haven't even played before being dragged to a different world."
+							+ " In addition to those, you have a bunch of cached web pages and ebooks that you can read and your ever-full collection of music provides wonderful variety for entertainment."
+							+ " This moment, right here, is what your whole past life was preparing you for.";
+					break;
+					
+			}
+			
+			UtilText.nodeContentSB.append("<p>"
+						+ "You tap on a few apps in your phone, considering the options of time killers you have on hand. "
+						+ historyQuip
+					+ "</p>");
+			
+			
+			return UtilText.nodeContentSB.toString();
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 0) {
+				return new Response("Back", "Return to the phone's main menu.", MENU);
+			
+			} else if (index == 1) {
+				return new Response("Wait (5 min)", "Wait for five minutes", WAIT_RESULT) {
+					@Override
+					public void effects()
+					{
+						waitingTime = 5;
+					}
+				};
+			} else if (index == 2) {
+				return new Response("Wait (15 min)", "Wait for fifteen minutes", WAIT_RESULT) {
+					@Override
+					public void effects()
+					{
+						waitingTime = 15;
+					}
+				};
+			} else if (index == 3) {
+				return new Response("Wait (30 min)", "Wait for half an hour", WAIT_RESULT) {
+					@Override
+					public void effects()
+					{
+						waitingTime = 30;
+					}
+				};
+			} else if (index == 4) {
+				return new Response("Wait (1 hr)", "Wait for an hour", WAIT_RESULT) {
+					@Override
+					public void effects()
+					{
+						waitingTime = 60;
+					}
+				};
+			} else if (index == 5) {
+				return new Response("Wait (4 hr)", "Wait for 4 hours", WAIT_RESULT) {
+					@Override
+					public void effects()
+					{
+						waitingTime = 240;
+					}
+				};
+			} else {
+				return null;
+			}
+		}
+
+		@Override
+		public MapDisplay getMapDisplay() {
+			return MapDisplay.PHONE;
+		}
+	};
+	
+
+
+	public static final DialogueNodeOld WAIT_RESULT = new DialogueNodeOld("Wait", "Waited for a bit.", true) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getAuthor()
+		{
+			return "Irbynx";
+		}
+		
+		@Override
+		public int getMinutesPassed()
+		{
+			return waitingTime;
+		}
+		
+		@Override
+		public String getContent() {
+			UtilText.nodeContentSB.setLength(0);
+			
+			UtilText.nodeContentSB.append("<p>"
+						+ "You settle down for a while, spending some time on your phone, waiting for the time to pass."
+					+ "</p>");
+			
+			
+			return UtilText.nodeContentSB.toString();
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 1) {
+				return new Response("Continue", "Waiting over.", MENU);
+			} else {
+				return null;
+			}
+		}
+
+		@Override
+		public MapDisplay getMapDisplay() {
+			return MapDisplay.PHONE;
+		}
+	};
 }

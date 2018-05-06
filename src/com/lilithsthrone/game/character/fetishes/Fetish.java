@@ -1146,7 +1146,7 @@ public enum Fetish {
 	FETISH_MASTER(60,
 			"slave master",
 			"owning slaves",
-			"fetish_noncon_dom", // todo: different svg
+			"fetish_master",
 			Fetish.BASE_EXPERIENCE_GAIN,
 			Colour.GENERIC_ARCANE,
 			null,
@@ -1178,7 +1178,7 @@ public enum Fetish {
 	FETISH_SLAVE(60,
 			"slave",
 			"being a slave",
-			"fetish_noncon_sub", // todo: different svg
+			"fetish_slave",
 			Fetish.BASE_EXPERIENCE_GAIN,
 			Colour.GENERIC_ARCANE,
 			null,

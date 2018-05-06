@@ -71,6 +71,7 @@ public class Properties implements Serializable {
 	public int multiBreasts = 1;
 	public int forcedTFPercentage = 40;
 	public int forcedFetishPercentage = 0;
+	public int randomMastersPercentage = 0;
 
 	public int pregnancyBreastGrowthVariance = 2;
 	public int pregnancyBreastGrowth = 1;
@@ -223,6 +224,8 @@ public class Properties implements Serializable {
 			
 			createXMLElementWithValue(doc, settings, "forcedFetishPercentage", String.valueOf(forcedFetishPercentage));
 
+			createXMLElementWithValue(doc, settings, "randomMastersPercentage", String.valueOf(randomMastersPercentage));
+			
 			createXMLElementWithValue(doc, settings, "difficultyLevel", difficultyLevel.toString());
 			
 			
@@ -570,6 +573,9 @@ public class Properties implements Serializable {
 				}
 				if(element.getElementsByTagName("forcedFetishPercentage").item(0)!=null) {
 					forcedFetishPercentage = Integer.valueOf(((Element)element.getElementsByTagName("forcedFetishPercentage").item(0)).getAttribute("value"));
+				}
+				if(element.getElementsByTagName("randomMastersPercentage").item(0)!=null) {
+					randomMastersPercentage = Integer.valueOf(((Element)element.getElementsByTagName("randomMastersPercentage").item(0)).getAttribute("value"));
 				}
 
 				// Forced TF preference:

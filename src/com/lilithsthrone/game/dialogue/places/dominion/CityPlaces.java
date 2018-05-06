@@ -434,18 +434,34 @@ public class CityPlaces {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(index == 1) {
-				return new ResponseEffectsOnly(
-						"Explore",
-						"Explore this area. Although you don't think you're any more or less likely to find anything by doing this, at least you won't have to keep travelling back and forth..."){
-							@Override
-							public void effects() {
-								DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
-								Main.game.setContent(new Response("", "", dn));
-							}
-						};
-			} else {
-				return null;
+			boolean playerOwnerHere = false;
+			
+			for(GameCharacter npc : Main.game.getNonCompanionCharactersPresent()) {
+				if(Main.game.getPlayer().getOwner() != null && Main.game.getPlayer().getOwner() == npc)
+				{
+					playerOwnerHere = true;
+				}
+			}
+			
+			if(playerOwnerHere)
+			{
+				return PlayerAlleywaySlavery.getResponseRoom(index);
+			}
+			else
+			{
+				if(index == 1) {
+					return new ResponseEffectsOnly(
+							"Explore",
+							"Explore the alleyways. Although you don't think you're any more or less likely to find anything by doing this, at least you won't have to keep travelling back and forth..."){
+								@Override
+								public void effects() {
+									DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
+									Main.game.setContent(new Response("", "", dn));
+								}
+							};
+				} else {
+					return null;
+				}
 			}
 		}
 	};
@@ -788,18 +804,34 @@ public class CityPlaces {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(index == 1) {
-				return new ResponseEffectsOnly(
-						"Explore",
-						"Explore this area. Although you don't think you're any more or less likely to find anything by doing this, at least you won't have to keep travelling back and forth..."){
-							@Override
-							public void effects() {
-								DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
-								Main.game.setContent(new Response("", "", dn));
-							}
-						};
-			} else {
-				return null;
+			boolean playerOwnerHere = false;
+			
+			for(GameCharacter npc : Main.game.getNonCompanionCharactersPresent()) {
+				if(Main.game.getPlayer().getOwner() != null && Main.game.getPlayer().getOwner() == npc)
+				{
+					playerOwnerHere = true;
+				}
+			}
+			
+			if(playerOwnerHere)
+			{
+				return PlayerAlleywaySlavery.getResponseRoom(index);
+			}
+			else
+			{
+				if(index == 1) {
+					return new ResponseEffectsOnly(
+							"Explore",
+							"Explore the alleyways. Although you don't think you're any more or less likely to find anything by doing this, at least you won't have to keep travelling back and forth..."){
+								@Override
+								public void effects() {
+									DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
+									Main.game.setContent(new Response("", "", dn));
+								}
+							};
+				} else {
+					return null;
+				}
 			}
 		}
 	};

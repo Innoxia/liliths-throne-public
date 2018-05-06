@@ -1250,7 +1250,7 @@ public class CharacterUtils {
 				availableFetishes.remove(Fetish.FETISH_INCEST);
 				fetishesAssigned++;
 			}
-		} else { // If not offspring, give them the chance for TF fetish and the Kink giving fetish:
+		} else { // If not offspring, give them the chance for TF fetish the Kink giving fetish and Slave Master fetish:
 			if(Math.random() < (Main.getProperties().forcedTFPercentage/100f)) {
 				character.addFetish(Fetish.FETISH_TRANSFORMATION_GIVING);
 				availableFetishes.remove(Fetish.FETISH_TRANSFORMATION_GIVING);
@@ -1260,6 +1260,12 @@ public class CharacterUtils {
 			if(Math.random() < (Main.getProperties().forcedFetishPercentage/100f)) {
 				character.addFetish(Fetish.FETISH_KINK_GIVING);
 				availableFetishes.remove(Fetish.FETISH_KINK_GIVING);
+				fetishesAssigned++;
+			}
+			
+			if(Math.random() < (Main.getProperties().randomMastersPercentage/100f)) {
+				character.addFetish(Fetish.FETISH_MASTER);
+				availableFetishes.remove(Fetish.FETISH_MASTER);
 				fetishesAssigned++;
 			}
 		}

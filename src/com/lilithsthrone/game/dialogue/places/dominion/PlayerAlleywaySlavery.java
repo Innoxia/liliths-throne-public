@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.Map.Entry;
 
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
@@ -13,10 +14,12 @@ import com.lilithsthrone.game.character.gender.GenderPreference;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.misc.GenericSexualPartner;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
+import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.universal.SMStanding;
@@ -39,6 +42,7 @@ public class PlayerAlleywaySlavery {
 			return new Response("Sell body (Sub)", "Wait around for a client to show up...", PlayerAlleywaySlavery.PLAYER_SLAVE_SELL_SELF_SUB){
 				@Override
 				public void effects() {
+					Main.game.getPlayer().getOwner().delayEventCheck(25);
 					NPC npc = new GenericSexualPartner(GenderPreference.getGenderFromUserPreferences(), Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
 					if(Math.random()<0.4f) {
 						npc.setSexualOrientation(SexualOrientation.AMBIPHILIC);
@@ -65,6 +69,7 @@ public class PlayerAlleywaySlavery {
 			return new Response("Sell body (Dom)", "Wait around for a client to show up...", PlayerAlleywaySlavery.PLAYER_SLAVE_SELL_SELF_DOM){
 				@Override
 				public void effects() {
+					Main.game.getPlayer().getOwner().delayEventCheck(25);
 					NPC npc = new GenericSexualPartner(GenderPreference.getGenderFromUserPreferences(), Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
 					if(Math.random()<0.4f) {
 						npc.setSexualOrientation(SexualOrientation.AMBIPHILIC);
@@ -89,6 +94,7 @@ public class PlayerAlleywaySlavery {
 			return new Response("Rest", "Rest for four hours. As well as replenishing your energy and aura, you will also get the 'Well Rested' status effect.", ALLEYWAY_SLAVE_SLEEP){
 				@Override
 				public void effects() {
+					Main.game.getPlayer().getOwner().delayEventCheck(240);
 					Main.game.getPlayer().setHealth(Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM));
 					Main.game.getPlayer().setMana(Main.game.getPlayer().getAttributeValue(Attribute.MANA_MAXIMUM));
 					Main.game.getPlayer().setLust(0);
@@ -104,6 +110,7 @@ public class PlayerAlleywaySlavery {
 			return new Response("Wash", "Use your room's en-suite to take a bath or shower. Rose will come and clean your clothes while you wash yourself.", ALLEYWAY_SLAVE_WASH){
 				@Override
 				public void effects() {
+					Main.game.getPlayer().getOwner().delayEventCheck(20);
 					Main.game.getPlayer().setHealth(Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM));
 					Main.game.getPlayer().setMana(Main.game.getPlayer().getAttributeValue(Attribute.MANA_MAXIMUM));
 					
@@ -202,6 +209,11 @@ public class PlayerAlleywaySlavery {
 		private static final long serialVersionUID = 1L;
 
 		@Override
+		public String getAuthor(){
+			return "Nnxx";
+		}
+		
+		@Override
 		public int getMinutesPassed() {
 			return 25;
 		}
@@ -247,9 +259,14 @@ public class PlayerAlleywaySlavery {
 		}
 	};
 	
-	public static final DialogueNodeOld PLAYER_SLAVE_SELL_SELF_DOM = new DialogueNodeOld("Bedroom", ".", true) {
+	public static final DialogueNodeOld PLAYER_SLAVE_SELL_SELF_DOM = new DialogueNodeOld("Back Alleys", ".", true) {
 		private static final long serialVersionUID = 1L;
 
+		@Override
+		public String getAuthor(){
+			return "Nnxx";
+		}
+		
 		@Override
 		public int getMinutesPassed() {
 			return 25;
@@ -296,8 +313,13 @@ public class PlayerAlleywaySlavery {
 		}
 	};
 	
-	public static final DialogueNodeOld PLAYER_SLAVE_SELL_SELF_DECLINE = new DialogueNodeOld("Bedroom", ".", false, true) {
+	public static final DialogueNodeOld PLAYER_SLAVE_SELL_SELF_DECLINE = new DialogueNodeOld("Back Alleys", ".", false, true) {
 		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getAuthor(){
+			return "Nnxx";
+		}
 
 		@Override
 		public int getMinutesPassed() {
@@ -322,8 +344,13 @@ public class PlayerAlleywaySlavery {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_SEX_SELL_SELF_DOM = new DialogueNodeOld("Bedroom", "Disentangle yourself from [npc.name]'s clutches.", true) {
+	public static final DialogueNodeOld AFTER_SEX_SELL_SELF_DOM = new DialogueNodeOld("Back Alleys", "Disentangle yourself from [npc.name]'s clutches.", true) {
 		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getAuthor(){
+			return "Nnxx";
+		}
 
 		@Override
 		public int getMinutesPassed() {
@@ -351,8 +378,13 @@ public class PlayerAlleywaySlavery {
 		}
 	};
 	
-	public static final DialogueNodeOld AFTER_SEX_SELL_SELF_SUB = new DialogueNodeOld("Bedroom", "Disentangle yourself from [npc.name]'s clutches.", true) {
+	public static final DialogueNodeOld AFTER_SEX_SELL_SELF_SUB = new DialogueNodeOld("Back Alleys", "Disentangle yourself from [npc.name]'s clutches.", true) {
 		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getAuthor(){
+			return "Nnxx";
+		}
 
 		@Override
 		public int getMinutesPassed() {
@@ -382,6 +414,16 @@ public class PlayerAlleywaySlavery {
 	
 	public static final DialogueNodeOld ALLEYWAY_SLAVE_SLEEP = new DialogueNodeOld("Shady Apartment", "", false) {
 		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getAuthor(){
+			return "Irbynx";
+		}
+
+		@Override
+		public Colour getAuthorColour(){
+			return Colour.BASE_ORANGE;
+		}
 
 		@Override
 		public int getMinutesPassed() {
@@ -428,6 +470,16 @@ public class PlayerAlleywaySlavery {
 		private static final long serialVersionUID = 1L;
 
 		@Override
+		public String getAuthor(){
+			return "Irbynx";
+		}
+
+		@Override
+		public Colour getAuthorColour(){
+			return Colour.BASE_ORANGE;
+		}
+
+		@Override
 		public int getMinutesPassed() {
 			return 20;
 		}
@@ -465,6 +517,16 @@ public class PlayerAlleywaySlavery {
 		private static final long serialVersionUID = 1L;
 
 		@Override
+		public String getAuthor(){
+			return "Irbynx";
+		}
+
+		@Override
+		public Colour getAuthorColour(){
+			return Colour.BASE_ORANGE;
+		}
+
+		@Override
 		public int getMinutesPassed() {
 			return 60;
 		}
@@ -473,9 +535,14 @@ public class PlayerAlleywaySlavery {
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 			UtilText.nodeContentSB.append("<p>"
-						+ "You wake up in the shady appartment that your master rents out."
-						+ "They are upset and are going to punish you."
-					+ "</p>"); // TODO: Better description
+						+ "The collar's burn and a headache that came with it was too much for you to bear and after a while your head starts spinning."
+						+ " It doesn't take too long for you to pass out, falling over from the exertion caused by your collar."
+					+ "</p>"
+					+ "<p>"
+						+ "You wake up an hour later, in the familiar room of your master, the headache still going strong. And worst of all, your master is standing right here, in front of you."
+					+ "<p>"
+						+ "You are so getting punished."
+					+ "</p>"); 
 			
 			return UtilText.nodeContentSB.toString();
 		}
@@ -484,7 +551,7 @@ public class PlayerAlleywaySlavery {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Punished!", "Brace for punishment (not implemented yet).", Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(false, false)){
+				return new Response("Punished!", "Brace for punishment.", Main.game.getPlayer().getOwner().getPunishmentDialogue("tried to run away from me")){
 
 				};
 
@@ -492,10 +559,102 @@ public class PlayerAlleywaySlavery {
 				return null;
 			}
 		}
+	};
+	
+	public static final DialogueNodeOld BUY_FREEDOM = new DialogueNodeOld("Shady Appartment", "", false) {
+		private static final long serialVersionUID = 1L;
 
 		@Override
-		public boolean isInventoryDisabled() {
-			return false;
+		public String getAuthor(){
+			return "Irbynx";
+		}
+
+		@Override
+		public int getMinutesPassed() {
+			return 10;
+		}
+
+		@Override
+		public String getContent() {
+			UtilText.nodeContentSB.setLength(0);
+			UtilText.nodeContentSB.append(UtilText.parse(Main.game.getPlayer().getOwner(),"<p>"
+						+ "Your master glances at the money you provided and looks up at you."
+						+ " [npc.speech(That's actually enough to buy me a good slut... What a shame, I was actually getting used to you. Whatever."
+						+ " Get lost. Don't show up in my alleyway again or I'll make you my bitch again.)]"
+					+ "</p>"
+					+ "<p>"
+						+ "You nod as [npc.name] removes your collar and turn away, making your exit as soon as you can, enjoying your newfound freedom!"
+					+ "</p>"));
+			
+			return UtilText.nodeContentSB.toString();
+		}
+
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 1) {
+				return new Response("Free!", "You are free again!", DebugDialogue.getDefaultDialogueNoEncounter()){
+					@Override
+					public void effects()
+					{
+						AbstractClothing clothingToRemove = null;
+						for(AbstractClothing potentialClothing : Main.game.getPlayer().getClothingCurrentlyEquipped())
+						{
+							if(potentialClothing.isContrabandEnslavementClothing())
+							{
+								clothingToRemove = potentialClothing;
+								break;
+							}
+						}
+						if(clothingToRemove != null)
+						{
+							clothingToRemove.setSealed(false);
+							clothingToRemove.removeBadEnchantments();
+						}
+						GameCharacter owner = Main.game.getPlayer().getOwner();
+						Main.game.getPlayer().unequipClothingIntoVoid(clothingToRemove, true, owner);
+						owner.removeSlave(Main.game.getPlayer());
+						Main.game.getPlayer().setObedience(0);
+					}
+				};
+
+			} else {
+				return null;
+			}
+		}
+	};
+	
+	public static final DialogueNodeOld BEGGED_FOR_PUNISHMENT = new DialogueNodeOld("Shady Appartment", "", false) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getAuthor(){
+			return "Irbynx";
+		}
+
+		@Override
+		public String getContent() {
+			UtilText.nodeContentSB.setLength(0);
+			UtilText.nodeContentSB.append(UtilText.parse(Main.game.getPlayer().getOwner(),"<p>"
+						+ "[npc.Name] laughs as you beg for punishment."
+						+ " [npc.speech(That's a good [pc.girl]! Eager to please, I like it.)]"
+					+ "</p>"
+					+ "<p>"
+						+ "You nod at [npc.name] lustily looking at [pc.her], getting ready for your punishment"
+					+ "</p>"));
+			
+			return UtilText.nodeContentSB.toString();
+		}
+
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 1) {
+				return new Response("Punished!", "You've <i>asked</i> for this!", Main.game.getPlayer().getOwner().getPunishmentDialogue("asked for this"));
+
+			} else {
+				return null;
+			}
 		}
 	};
 

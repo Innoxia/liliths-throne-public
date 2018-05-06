@@ -1139,6 +1139,28 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
+						new ListValue<>("master"),
+						new ListValue<>("mistress")),
+				true,
+				true,
+				"",//TODO
+				"Returns a word to describe this person's owner (master or mistress, depending on femininity)"){//TODO
+			@Override
+			public String parse(String command, String arguments, String target) {
+				if(character.getOwner() == null)
+				{
+					return "master"; // Warning: Shouldn't happen!
+				}
+				if(character.getOwner().isFeminine()) {
+					return "mistress";
+				} else {
+					return "master";
+				}
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
 						new ListValue<>("fullRace"),
 						new ListValue<>("femininityRace")),
 				true,
@@ -4476,6 +4498,50 @@ public class UtilText {
 			@Override
 			public String parse(String command, String arguments, String target) {
 				return applyDescriptor(character.getTailType().getTailTipDescriptor(character), character.getTailType().getTailTipName(character));
+			}
+		});
+		
+		//Player slavery
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("playerSlaveryPerformanceRemark")),
+				false,
+				false,
+				"negative If you want only negative remarks, positive if you want only positive and both if you want both",
+				"Provides a performance statement about the player."){
+			@Override
+			public String parse(String command, String arguments, String target) {
+				boolean allowNegative = true;
+				boolean allowPositive = false;
+				if(arguments.equalsIgnoreCase("negative"))
+				{
+					allowNegative = true;
+					allowPositive = false;
+				}
+				if(arguments.equalsIgnoreCase("both"))
+				{
+					allowNegative = true;
+					allowPositive = true;
+				}
+				if(arguments.equalsIgnoreCase("positive"))
+				{
+					allowNegative = false;
+					allowPositive = true;
+				}
+				String returnable = Main.game.getPlayer().getOwner().getPerformanceRemark(allowNegative, allowPositive, 10);
+				if(returnable == null)
+				{
+					if(allowNegative)
+					{
+						returnable = "were doing poorly lately";
+					}
+					else
+					{
+						returnable = "had been doing good lately";
+					}
+				}
+				return returnable;
 			}
 		});
 		

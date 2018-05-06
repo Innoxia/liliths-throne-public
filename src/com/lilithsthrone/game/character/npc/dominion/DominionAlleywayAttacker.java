@@ -1,9 +1,12 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -12,7 +15,10 @@ import com.lilithsthrone.game.Season;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.PlayerCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.character.attributes.CorruptionLevel;
+import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.misc.GenericSexualPartner;
@@ -29,14 +35,20 @@ import com.lilithsthrone.game.dialogue.npcDialogue.alleyway.AlleywayAttackerDial
 import com.lilithsthrone.game.dialogue.npcDialogue.alleyway.AlleywayProstituteDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.PlayerAlleywaySlavery;
 import com.lilithsthrone.game.dialogue.responses.Response;
+import com.lilithsthrone.game.dialogue.utils.CharactersPresentDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.slavery.playerSlavery.PlayerSlaveryEvent;
+import com.lilithsthrone.game.slavery.playerSlavery.events.EventsSlaveryAlleyway;
+import com.lilithsthrone.game.slavery.playerSlavery.rules.RulesSlaveryAlleyway;
+import com.lilithsthrone.game.slavery.playerSlavery.rules.RulesSlaveryDefault;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Vector2i;
+import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -674,6 +686,140 @@ public class DominionAlleywayAttacker extends NPC {
 		// Using it outside of these tight constraints should be avoided.
 		// (Note for Inno: I'm just leaving this as a warning for future contributors :3)
 		Main.game.setContent(new Response("", "", PlayerAlleywaySlavery.ALLEYWAY_SLAVE_RECOVERED));		
+	}
+	
+	@Override
+	public Set<PlayerSlaveryEvent> getSlaveryEvents()
+	{
+		Set<PlayerSlaveryEvent> returnable = new HashSet<>();
+		
+		// Punishments
+		returnable.add(EventsSlaveryAlleyway.ALLEYWAY_SLAVE_PUNISHMENT_TF_POTION);
+		returnable.add(EventsSlaveryAlleyway.ALLEYWAY_SLAVE_PUNISHMENT_KINK_POTION);
+		returnable.add(EventsSlaveryAlleyway.ALLEYWAY_SLAVE_PUNISHMENT_BEGGING);
+		returnable.add(EventsSlaveryAlleyway.ALLEYWAY_SLAVE_PUNISHMENT_MUG);
+		
+		// Rule changes
+		returnable.add(EventsSlaveryAlleyway.ALLEYWAY_SLAVE_RULE_DAILY_TRIBUTE);
+		returnable.add(EventsSlaveryAlleyway.ALLEYWAY_SLAVE_RULE_NAKED);
+		returnable.add(EventsSlaveryAlleyway.ALLEYWAY_SLAVE_RULE_OUTSIDE_FREEDOM);
+		returnable.add(EventsSlaveryAlleyway.ALLEYWAY_SLAVE_RULE_DEGRADING_NAME_CHANGE);
+		
+		// "Quests"
+		returnable.add(EventsSlaveryAlleyway.ALLEYWAY_SLAVE_QUEST_BRIBE);
+		returnable.add(EventsSlaveryAlleyway.ALLEYWAY_SLAVE_QUEST_SUPPLY_RUN);
+		
+		// Special events
+		returnable.add(EventsSlaveryAlleyway.ALLEYWAY_SLAVE_EVENT_ARCANE_STORM_SEX);
+		returnable.add(EventsSlaveryAlleyway.ALLEYWAY_SLAVE_EVENT_NORMAL_SEX);
+		returnable.add(EventsSlaveryAlleyway.ALLEYWAY_SLAVE_EVENT_SUBMISSIVE_SEX);
+		returnable.add(EventsSlaveryAlleyway.ALLEYWAY_SLAVE_EVENT_INSPECTION);
+		
+		return returnable;
+	}
+	
+	@Override
+	public Response getTalkResponse(int index)
+	{
+		PlayerCharacter player = Main.game.getPlayer();
+		if(Main.game.getPlayer().getOwner() == this)
+		{
+			if(index == 1 && this.hasRule(RulesSlaveryDefault.RULE_DAILY_TRIBUTE_MONEY) != null)
+			{
+				if(player.getMoney() <= 0)
+				{
+					return new Response("Pay up", "You don't have any money to pay your master with!", null);
+				}
+				else if(this.hasRule(RulesSlaveryDefault.RULE_DAILY_TRIBUTE_MONEY).getCashRequirement() <= 0)
+				{
+					return new Response("Pay up", "You've paid off your tribute for today.", null);
+				}
+				else
+				{
+					int toPay;
+					if(player.getMoney() < this.hasRule(RulesSlaveryDefault.RULE_DAILY_TRIBUTE_MONEY).getCashRequirement())
+					{
+						toPay = player.getMoney();
+					}
+					else
+					{
+						toPay = this.hasRule(RulesSlaveryDefault.RULE_DAILY_TRIBUTE_MONEY).getCashRequirement();
+					}
+					return new Response("Pay up "+UtilText.formatAsMoney(toPay), "Pay "+UtilText.formatAsMoney(toPay)+" to your master to hopefully fullfill the tribute for today", CharactersPresentDialogue.MENU)	{
+						@Override
+						public void effects()
+						{
+							player.incrementMoney(toPay*-1);
+							hasRule(RulesSlaveryDefault.RULE_DAILY_TRIBUTE_MONEY).modifyCashRequirement(toPay*-1);
+						}
+					};
+				}
+			}
+			else if(index == 2)
+			{
+				if(player.getMoney() < 50000)
+				{
+					return new Response("Buy Freedom", "You don't think whatever you have is enough to buy yourself freedom! You need "+UtilText.formatAsMoney(50000), null);
+				}
+				else
+				{
+					return new Response("Buy Freedom "+UtilText.formatAsMoney(50000), "Pay "+UtilText.formatAsMoney(50000)+" to your master to hopefully fullfill the tribute for today", PlayerAlleywaySlavery.BUY_FREEDOM)	{
+						@Override
+						public void effects()
+						{
+							player.incrementMoney(50000*-1);
+						}
+					};
+				}
+			}
+			else if(index == 3)
+			{
+				ArrayList<Fetish> applicableFetishes = Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE), new ListValue<>(Fetish.FETISH_SLAVE));
+				CorruptionLevel applicableCorrutionLevel = Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel();
+				
+				if(player.getObedienceValue() < 0f &&  !player.hasFetish(Fetish.FETISH_SUBMISSIVE) &&  !player.hasFetish(Fetish.FETISH_MASOCHIST))
+				{
+					return new Response("Beg for Punishment", "You can't even <i>begin</i> to think about that! That's too demeaning for you.", null);
+				}
+				else
+				{
+					return new Response("Beg for Punishment", "You do feel that begging for punishment sounds fun...", PlayerAlleywaySlavery.BEGGED_FOR_PUNISHMENT,
+							applicableFetishes,
+							applicableCorrutionLevel,
+							null,
+							null,
+							null){
+						@Override
+						public void effects()
+						{
+							Main.game.getTextEndStringBuilder().append(player.getOwner().incrementAffection(player, 5f));
+							Main.game.getTextEndStringBuilder().append(player.incrementObedience(5f));
+						}
+					};
+				}
+			}
+			else if(index == 4)
+			{
+				if(Main.game.getPlayer().getOwner().hasRule(RulesSlaveryAlleyway.RULE_ALLEYWAY_SUPPLY_RUN) != null)
+				{
+					if(!RulesSlaveryAlleyway.RULE_ALLEYWAY_SUPPLY_RUN.canCompleteRule())
+					{
+						return new Response("Give "+RulesSlaveryAlleyway.RULE_ALLEYWAY_SUPPLY_RUN.getTargetName(), "You can't give the item to your master because you don't have it.", null);
+					}
+					else
+					{
+						return new Response("Give "+RulesSlaveryAlleyway.RULE_ALLEYWAY_SUPPLY_RUN.getTargetName(), "Give the item that your master asked of you to them.", CharactersPresentDialogue.MENU){
+							@Override
+							public void effects()
+							{
+								RulesSlaveryAlleyway.RULE_ALLEYWAY_SUPPLY_RUN.completeRule();
+							}
+						};
+					}
+				}
+			}
+		}
+		return null;
 	}
 	
 }

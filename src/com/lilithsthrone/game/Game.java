@@ -10,8 +10,10 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.EnumMap;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -997,11 +999,8 @@ public class Game implements Serializable, XMLSaving {
 		// Player Slavery
 		if(Main.game.getPlayer().getOwner() != null)
 		{
-			if(Main.game.getPlayer().isWithinOwnersPropery())
-			{
-				Main.game.getPlayer().getOwner().handlePlayerSlavery(minutesPassed);
-			}
-			else
+			Main.game.getPlayer().getOwner().handlePlayerSlavery(minutesPassed);
+			if(!Main.game.getPlayer().isWithinOwnersPropery())
 			{
 				// Updating outside rule timing
 				if(advanceTime)
@@ -1012,14 +1011,24 @@ public class Game implements Serializable, XMLSaving {
 						outsideRule.lowerFreeTime(turnTime);
 					}
 				}
+			}
+			Set<PlayerSlaveryRule> timedOutRules = new HashSet<>();
+			for(PlayerSlaveryRule rule : Main.game.getPlayer().getOwner().getRules())
+			{
 				if(newDay)
 				{
-					PlayerSlaveryRule outsideRule = Main.game.getPlayer().getOwner().hasRule("outside-freedom");
-					if(outsideRule != null)
-					{
-						outsideRule.resetFreeTime();
-					}
+					rule.dailyReset();
 				}
+				rule.timerDecrease(turnTime);
+				if(rule.isTimeUp())
+				{
+					timedOutRules.add(rule);
+				}
+			}
+			for(PlayerSlaveryRule rule : timedOutRules)
+			{
+				Main.game.getPlayer().getOwner().setOutstandingPerformanceRemark(rule.getPerformanceComment(), true);
+				Main.game.getPlayer().getOwner().removeRule(rule);
 			}
 			//TODO: Slavery enchantment and status effect checks.
 		}
@@ -1267,6 +1276,15 @@ public class Game implements Serializable, XMLSaving {
 		for(GameCharacter character : companionsToRemove) {
 			Main.game.getPlayer().removeCompanion(character);
 			character.returnToHome();
+		}
+		
+		
+		// Removing active NPC if they don't share the location with player
+		if(Main.game.getActiveNPC() != null)
+		{
+			if(!Main.game.getActiveNPC().getLocation().equals(Main.game.getPlayer().getLocation()) || Main.game.getActiveNPC().getWorldLocation()!=Main.game.getPlayer().getWorldLocation()) {
+				Main.game.setActiveNPC(null);
+			}
 		}
 		
 //		System.out.println((System.nanoTime()-tStart)/1000000000d+"s");
@@ -2800,10 +2818,15 @@ public class Game implements Serializable, XMLSaving {
 	/**
 	 * If the NPC has relationship stats with the player, don't delete entirely. Instead, move to PlaceType.GENERIC_EMPTY_TILE.
 	 * If the NPC has no stats related to the player, then remove them from the game.
+	 * Will also set active NPC to null if this was the NPC that was active. Should resolve several instances of a hard to reproduce bug where banishing an NPC would still keep them active.
 	 * @param npc
 	 * @return true if NPC was deleted, false if they were moved to the empty world.
 	 */
 	public boolean banishNPC(NPC npc) {
+		if(Main.game.getActiveNPC() == npc)
+		{
+			Main.game.setActiveNPC(null);
+		}
 		if(Main.game.getPlayer().getSexPartners().containsKey(npc.getId())
 				|| npc.getPregnantLitter()!=null
 				|| npc.getLastLitterBirthed()!=null
@@ -2819,6 +2842,10 @@ public class Game implements Serializable, XMLSaving {
 	
 	public void banishNPC(String id) {
 		NPC npc = (NPC) getNPCById(id);
+		if(Main.game.getActiveNPC() == npc)
+		{
+			Main.game.setActiveNPC(null);
+		}
 		if(Main.game.getPlayer().getSexPartners().containsKey(id)
 				|| npc.getPregnantLitter()!=null
 				|| npc.getLastLitterBirthed()!=null 

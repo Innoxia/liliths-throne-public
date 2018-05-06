@@ -48,6 +48,7 @@ import com.lilithsthrone.game.sex.LubricationType;
 import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.slavery.SlaveJob;
+import com.lilithsthrone.game.slavery.playerSlavery.rules.RulesSlaveryDefault;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.RenderingEngine;
 import com.lilithsthrone.rendering.SVGImages;
@@ -2864,7 +2865,13 @@ public enum StatusEffect {
 
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
-			if(target.isPlayer() && !target.isWithinOwnersPropery()) {
+			if(target.getOwner() == null)
+			{
+				return ""; // Returning immediatelly if the target doesn't have an owner.
+			}
+			if(target.isPlayer() && !target.isWithinOwnersPropery()
+					&& (target.getOwner().hasRule(RulesSlaveryDefault.RULE_OUTSIDE_FREEDOM) == null
+					|| !RulesSlaveryDefault.RULE_OUTSIDE_FREEDOM.canPlayerRoam())) {
 				float totalDrain = minutesPassed * 2;
 				target.incrementHealth(-totalDrain);
 				target.incrementMana(-totalDrain);
@@ -2888,7 +2895,10 @@ public enum StatusEffect {
 		
 		@Override
 		public String extraRemovalEffects(GameCharacter target) {
-			target.getOwner().removeSlave(target);
+			if(target.getOwner() != null)
+			{
+				target.getOwner().removeSlave(target);
+			}
 			return "";
 		}
 		

@@ -20,6 +20,7 @@ import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.universal.SMStanding;
+import com.lilithsthrone.game.slavery.playerSlavery.rules.RulesSlaveryDefault;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -550,7 +551,7 @@ public class AlleywayAttackerDialogue {
 
 		@Override
 		public String getContent() {
-			if(Main.game.getActiveNPC().hasTransformationFetish() && Main.game.getActiveNPC().isWillingToRape(Main.game.getPlayer()) && !Main.game.getActiveNPC().hasFetish(Fetish.FETISH_MASTER) ) {
+			if(Main.game.getActiveNPC().hasTransformationFetish() && Main.game.getActiveNPC().isWillingToRape(Main.game.getPlayer()) && (!Main.game.getActiveNPC().hasFetish(Fetish.FETISH_MASTER) || Main.game.getPlayer().isSlave() )) {
 				potion = Main.game.getActiveNPC().getTransfomativePotion(true);
 				
 //				System.out.println("Potion Check 1"); 
@@ -598,7 +599,7 @@ public class AlleywayAttackerDialogue {
 				}
 			}
 			
-			if(Main.game.getActiveNPC().hasFetish(Fetish.FETISH_MASTER)) {
+			if(Main.game.getActiveNPC().hasFetish(Fetish.FETISH_MASTER) && !Main.game.getPlayer().isSlave()) {
 					enslavementItem = Main.game.getActiveNPC().getEnslavementItem();
 					return UtilText.parse(Main.game.getActiveNPC(),
 							"<p>"
@@ -657,7 +658,7 @@ public class AlleywayAttackerDialogue {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(Main.game.getActiveNPC().hasTransformationFetish() && potion != null && Main.game.getActiveNPC().isWillingToRape(Main.game.getPlayer()) && !Main.game.getActiveNPC().hasFetish(Fetish.FETISH_MASTER) ) {
+			if(Main.game.getActiveNPC().hasTransformationFetish() && potion != null && Main.game.getActiveNPC().isWillingToRape(Main.game.getPlayer()) && (!Main.game.getActiveNPC().hasFetish(Fetish.FETISH_MASTER) || Main.game.getPlayer().isSlave()) ) {
 				
 //				System.out.println("Potion Check 2"); 
 //				System.out.println(potion); 
@@ -710,7 +711,7 @@ public class AlleywayAttackerDialogue {
 				} else {
 					return null;
 				}
-			} else if(Main.game.getActiveNPC().hasFetish(Fetish.FETISH_MASTER)) {
+			} else if(Main.game.getActiveNPC().hasFetish(Fetish.FETISH_MASTER) && !Main.game.getPlayer().isSlave()) {
 				if (index == 1) {
 					if(Main.game.getPlayer().hasFetish(Fetish.FETISH_SLAVE)) {
 						return new Response("Run Away",
@@ -734,10 +735,21 @@ public class AlleywayAttackerDialogue {
 						@Override
 						public void effects(){
 							Main.game.getActiveNPC().addPlayerAsSlave();
+							
+							// Obedience changes
 							Main.game.getPlayer().setObedience(-100, false);
 							if(Main.game.getPlayer().hasFetish(Fetish.FETISH_SLAVE)) {
 								Main.game.getPlayer().setObedience(0, false);
 							}
+							
+							// Daily tribute setup
+							Main.game.getActiveNPC().addRule(RulesSlaveryDefault.RULE_DAILY_TRIBUTE_MONEY);
+							RulesSlaveryDefault.RULE_DAILY_TRIBUTE_MONEY.setDailyCashRequirement(2000);
+							
+							// Removing owned money
+							Main.game.getActiveNPC().incrementMoney(Main.game.getPlayer().getMoney());
+							Main.game.getPlayer().setMoney(0);
+							
 							Main.game.getTextStartStringBuilder().append(
 									"<p>"
 										+ "[npc.Name] finishes up with the preparation, bringing the item's potent echantment onto you,"
@@ -745,8 +757,10 @@ public class AlleywayAttackerDialogue {
 									+ "</p>"
 									+ "<p>"
 										+Main.game.getPlayer().equipClothingFromNowhere(enslavementItem, true, Main.game.getActiveNPC())
-									+"</p>");
-							// TODO: Remove inventory items and flames and give them to NPC.
+									+"</p>"
+									+"<p>"
+										+ "[npc.Name] then all of your flames, leaving you without a single one to your name."
+									+ "</p>");
 						}
 					};
 				}
@@ -1185,6 +1199,12 @@ public class AlleywayAttackerDialogue {
 		private static final long serialVersionUID = 1L;
 		
 		@Override
+		public String getAuthor()
+		{
+			return "Irbynx";
+		}
+		
+		@Override
 		public int getMinutesPassed(){
 			return 5;
 		}
@@ -1198,9 +1218,31 @@ public class AlleywayAttackerDialogue {
 		public String getContent() {
 			return UtilText.parse(Main.game.getActiveNPC(),
 					"<p>"
-						+ "Placeholder text." // TODO
+						+ "You didn't manage to escape in time and thus, [npc.name] managed to get the collar onto your neck."
+						+ " You felt lethargic and weak at first, but the feeling quickly passed as you found yourself on your knees in front of [npc.name]"
+					+ "</p>"
+					+ "<p>"
+						+ "Your master."
+					+ "</p>"
+					+ "<p>"
+						+ "[npc.speech(Good, good. I see the collar fits you very well,)] [npc.name] says, walking around you as you are still unable to move, sitting on your knees in a state of vertigo."
+						+ " [npc.speech(Now, here are a few rules. First of all, you are my slave and I am your master, but that is obvious."
+						+ " Second - you are to obey every single command I give to you. The rules that are make will be enforced by the collar and if you are breaking them, even out of my sight, I will know about it."
+						+ " Third - don't worry about muggers trying to rob you. You are <i>my</i> bitch, so they won't dare to touch you. You can whore yourself out here too, since that's a pretty good spot and you can crash at my place if you need it.)]"
+					+ "</p>"
+					+ "<p>"
+						+ "[npc.speech(Finally, you will give me two thousand flames every day. I won't pull them out of your pocket myself, so you'd better make sure you have them every day,)]"
+						+ " [npc.she] says, stopping in front of you, [npc.speech(And now... get to work.)]"
+					+ "</p>"
+					+ "<p>"
+						+ "<b>You are enslaved!</b>"
+					+ "</p>"
+					+ "<p>"
+						+ "If you'll try to get away from your master's home location, your energy and arcane will drain and as soon as it hits zero, you will pass out, waking up to a punishment from your master!"
+						+ " You can see what rules your master imposed on you in the selfie screen and you can talk to them by clicking on their name and using the 'talk' tab."
+						+ " You will need to have a lot of money ready if you want to get away from enslavement normally, unless you can come up with something else."
 					+ "</p>");
-		}
+			}
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
@@ -1220,6 +1262,12 @@ public class AlleywayAttackerDialogue {
 	
 	public static final DialogueNodeOld AFTER_COMBAT_ENSLAVEMENT_REFUSED = new DialogueNodeOld("Escaped!", "", true) {
 		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public String getAuthor()
+		{
+			return "Irbynx";
+		}
 		
 		@Override
 		public int getMinutesPassed(){

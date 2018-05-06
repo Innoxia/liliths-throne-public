@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+	<htmlContent tag="SELL_SELF_SUB"><![CDATA[
+    <p>
+        Deciding to earn some money by selling your body, you settle in your [pc.master]’s territory and wait for a client to come.
+         A few minutes later, a [npc.fullRace] passes by and notices you. 
+    </p>
+
+    <p>
+        [npc.She] decides to take the first step and approaches you, [npc.speech(Hey cutie, could you be a prostitute by any chance? I really need a good fuck right now !)]
+    </p>
+
+    <p>
+        Smirking, you take a quick glance at the [npc.race] who looks willing to pay to have some fun, [pc.speech(Oho~ would you like to use me however you want, hot stuff?)]
+         You reply, getting closer to [npc.him] in your most alluring manner.
+    </p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SELL_SELF_SUB_START"><![CDATA[
+    <p>
+        Deciding that you’ll take this client, you step forward, press yourself against [npc.him] and take [npc.him] in a tight embrace while looking straight at [npc.her] eyes,
+         [pc.speech(If you have the money, I’m all yours...)]
+    </p>
+    <p>
+        Blushing, the [npc.race] eagerly hands over the 1500 flames, and, after cashing in the money and putting it to one side,
+         you look back at your new client with a hungry look and lean in to whisper in [npc.her] ear,
+         [pc.speech(Show me how you’ll take me, how you’ll make me yours for the time we’ll be together...)] 
+    </p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SELL_SELF_SUB_AFTER_SEX"><![CDATA[
+    <p>
+        You collapse down onto the floor, breathing heavily as the [npc.race] disentangles [npc.herself] from your clutches.
+         Looking down at you, [npc.she] grins, [npc.speech(That was pretty good ! I hope I’ll find you again in these alleyways so I can see that look on your face again!)]
+    </p>
+    <p>
+        As [npc.she] gathers [npc.her] things and heads towards the exit, you stand back up and lean against the wall, waving at [npc.her], [pc.speech(Come again !)]
+    </p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SELL_SELF_DOM"><![CDATA[
+    <p>
+        Deciding to earn some money by selling your body, you settle in your [pc.master]’s territory and wait for a client to come.
+         A few minutes later, a [npc.fullRace] passes by and notices you. 
+    </p>
+    <p>
+        [npc.She] decides to take the first step and approaches you, [npc.speech(Hey cutie, could you be a prostitute by any chance? I really need to get some release right now !)]
+    </p>
+    <p>      
+        Smirking, you take a quick glance at the [npc.race] who looks willing to pay to have some fun, [pc.speech(That’s fine by me, but I’m on top and there’s no discussion about it.)]
+         You reply, getting closer to [npc.him] in your most alluring manner.
+    </p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SELL_SELF_DOM_START"><![CDATA[
+    <p>
+        Deciding that you’ll take this client, you step forward, press yourself against [npc.him] and take [npc.him] in a tight embrace while looking straight at [npc.her] eyes, 
+        [pc.speech(If you have the money, I can show you how I treat good little bottom bitches like you...)]
+    </p>
+
+    <p>
+        Blushing, the [npc.race] eagerly hands over the 1500 flames, and, after cashing in the money and putting it to one side,
+         you look back at your new client with a hungry look and lean in to whisper in [npc.her] ear,
+         [pc.speech(I see that someone is quite eager to be a good submissive [npc.slut], I’ll show you how I fuck my bottom bitches...)] 
+    </p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SELL_SELF_DOM_AFTER_SEX"><![CDATA[
+    <p>
+        The [npc.race] collapses onto the floor, breathing heavily as you disentangles yourself from [npc.her] clutches.
+         Looking down at [npc.her], you smirk, [pc.speech(Good [npc.slut], you’re not the worst I’ve had, maybe I’ll let you be my bottom bitch again some time.)]
+    </p>
+    <p>
+        After waiting a moment for the [npc.race] to catch [npc.her] breath, you help [npc.her] get back up and gather [npc.her] things then lean back in your spot,
+         smiling at [npc.her] as [npc.she] leaves the alleyway, [pc.speech(Come again !)]
+    </p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SELL_SELF_DECLINE"><![CDATA[
+    <p>
+        Deciding you don’t want to take this client, you take a look at the time and apologise, [npc.speech(Oh I’m sorry but I’ve absolutely got to go, it’s almost time to get back to my [pc.master]!)]
+    </p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SELL_SELF_DECLINE_SUB"><![CDATA[
+    <p>
+        The [npc.race] lets out an annoyed grunt, shrugs and turns away, [npc.speech(Fine, it’s as if  you were the only prostitute in these streets anyway, I’ll find someone else to be my bottom bitch for now.)]
+    </p>
+    <p>
+        With that, [npc.she] makes [npc.her] exit, leaving you alone in the alleyway once again.
+    </p>
+
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SELL_SELF_DECLINE_DOM"><![CDATA[
+    <p>
+        The [npc.race] lets out an annoyed grunt, shrugs and turns away, [npc.speech(Fine, it’s as if  you were the only prostitute in these streets anyway, maybe you’ll fuck me another time !)]
+    </p>
+    <p>
+        With that, [npc.she] makes [npc.her] exit, leaving you alone in the alleyway once again.
+    </p>
+	]]>
+	</htmlContent>
+</dialogue>

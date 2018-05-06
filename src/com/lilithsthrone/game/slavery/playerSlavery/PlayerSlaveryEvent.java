@@ -23,7 +23,7 @@ public interface PlayerSlaveryEvent {
 	 * When actions are generated, the action with biggest weight is picked. To add randomness, every time the getWeight function is called, it should slightly randomize it's own return value as necessary.
 	 * @return
 	 */
-	public abstract int getWeight();
+	public abstract int getWeight(boolean isForced);
 	
 	/**
 	 * Returns response dialogue. Used once an event is picked.

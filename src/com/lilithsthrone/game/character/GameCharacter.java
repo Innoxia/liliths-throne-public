@@ -221,11 +221,13 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	public static final int LEVEL_CAP = 50;
 	public static final int MAX_TRAITS = 6;
 	
-	public static final int MAX_MINUTES_TO_NEXT_SLAVERY_EVENT = 90;
-	public static final int MIN_MINUTES_TO_NEXT_SLAVERY_EVENT = 10;
+	public static final int MAX_MINUTES_TO_NEXT_SLAVERY_EVENT = 240;
+	public static final int MIN_MINUTES_TO_NEXT_SLAVERY_EVENT = 90; // Used to be 10 but then the slavery events started triggering back to back :blobSweats:
 	
-	public static final float FORCED_PUNISHMENT_TRESHOLD = -75; // Treshold at which only punishment events will generate.
+	public static final float FORCED_PUNISHMENT_THRESHOLD = -75; // Threshold at which only punishment events will generate.
 	public static final float FORCED_PUNISHMENT_DROP_TRIGGER = -50; // Amount of obedience lost at once that will trigger  a punishment.
+	
+	public static final long MINIMUM_POST_DELAY_DURATION = 10; // Amount in minutes that the delay function will have to pad out with.
 	
 	// Core variables:
 	protected String id;
@@ -312,6 +314,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	protected long timeOfNextEventCheck; // Time in minutes for the next slavery event to be allowed to generate.
 	protected long timeOfNextRuleCheck; // Time in minutes for the next  event check. Usually at a 60 minute interval.
 	
+	protected String outstandingPerformanceRemark; // Last outstanding performance. Used mainly for punishments.
+	protected boolean outstandingPerformanceIsNegative;
 	
 	//Companion
 	private String elementalID;
@@ -434,9 +438,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		
 		workHours = new boolean[24];
 		
-		slaveOwnerEvents = new HashSet<>();
 		slaveOwnerRules = new HashSet<>();
-		populateDefaultEvents();
 		
 		motherId = "";
 		fatherId = "";
@@ -876,8 +878,21 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		for(int i=0; i<workHours.length; i++) {
 			CharacterUtils.addAttribute(doc, slaveWorkHours, "hour"+String.valueOf(i), String.valueOf(workHours[i]));
 		}
+		// ************** Player Slavery **************//
+
+		Element playerSlaveryElement = doc.createElement("playerSlavery");
+		properties.appendChild(playerSlaveryElement);
 		
+		Element playerSlaveryRules = doc.createElement("rules");
+		playerSlaveryElement.appendChild(playerSlaveryRules);
+		for(PlayerSlaveryRule rule : this.slaveOwnerRules) {
+			Element ruleElement = doc.createElement("rule");
+			playerSlaveryRules.appendChild(ruleElement);
+			rule.saveAsXML(ruleElement, doc);
+		}
 		
+		CharacterUtils.createXMLElementWithValue(doc, playerSlaveryElement, "timeOfNextEventCheck", String.valueOf(this.timeOfNextEventCheck));
+		CharacterUtils.createXMLElementWithValue(doc, playerSlaveryElement, "timeOfNextRuleCheck", String.valueOf(this.timeOfNextRuleCheck));
 		
 		// ************** Companions **************//
 
@@ -1705,6 +1720,23 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			}
 		}
 		
+		// ************** Player Slavery **************//
+		
+		nodes = parentElement.getElementsByTagName("playerSlavery");
+		Element playerSlaveryElement = (Element) nodes.item(0);
+		if(playerSlaveryElement!=null) {
+			element = (Element) playerSlaveryElement.getElementsByTagName("rules").item(0);
+			
+			if(element.getElementsByTagName("rule").getLength() > 0)
+			{
+				for(int i=0; i<element.getElementsByTagName("rule").getLength(); i++) {
+					character.addRule(PlayerSlaveryRule.loadFromXML((Element)element.getElementsByTagName("rule").item(i), doc));
+				}
+			}
+			character.setNextPlayerSlaveryUpdateTimes(	Integer.valueOf(((Element)playerSlaveryElement.getElementsByTagName("timeOfNextEventCheck").item(0)).getAttribute("value")),
+														Integer.valueOf(((Element)playerSlaveryElement.getElementsByTagName("timeOfNextRuleCheck").item(0)).getAttribute("value")));
+		}
+		
 		
 		
 		// ************** Companions **************//
@@ -2091,6 +2123,46 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 								:"You [style.boldGood(are not a slave)]."))
 					+ "</br>"+ObedienceLevel.getDescription(this, ObedienceLevel.getObedienceLevelFromValue(this.getObedienceValue()), true, true));
 		
+		}
+		
+		if(this.isPlayer() && this.getOwner() != null && this.getOwner().getRules().size() > 0)
+		{
+			infoScreenSB.append("</br>"
+					+ "<h4>Master's Orders</h4>");
+			
+			boolean playerIsObeyingRules = true;
+			if(!this.getOwner().isPlayerObeyingRules())
+			{
+				playerIsObeyingRules = false;
+				infoScreenSB.append("<p>"
+										+ "You are <b style='color:" + Colour.GENERIC_MINOR_BAD.toWebHexString()+";'>disobeying</b> some of the rules"
+										+ " and as a result, your positive obedience gains are halted."
+									+ "</p>");
+			}
+			
+			infoScreenSB.append("<p>");
+			
+			for(PlayerSlaveryRule rule : this.getOwner().getRules())
+			{
+				String rulePerformanceValueString;
+				if(rule.getPerformanceQuality() > 0 && playerIsObeyingRules)
+				{
+					rulePerformanceValueString = "<i style='color:" + Colour.GENERIC_GOOD.toWebHexString()+";'> (+"+rule.getPerformanceQuality()+")</i>";
+				}
+				else if(rule.getPerformanceQuality() < 0)
+				{
+					rulePerformanceValueString = "<i style='color:" + Colour.GENERIC_MINOR_BAD.toWebHexString()+";'> ("+rule.getPerformanceQuality()+")</i>";
+				}
+				else
+				{
+					rulePerformanceValueString = "<i style='color:" + Colour.BASE_GREY.toWebHexString()+";'> ("+rule.getPerformanceQuality()+")</i>";
+				}
+				infoScreenSB.append("<b>" + rule.getName() + "</b>: " + rule.getDescription()
+						+ rulePerformanceValueString
+						+ "</br>");
+			}
+			
+			infoScreenSB.append("</p>");
 		}
 		
 		infoScreenSB.append("</br>"
@@ -2499,10 +2571,12 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		
 		this.obedience = Math.max(-100, Math.min(100, obedience+increment));
 		
+		float shownObedience = Math.round(this.obedience);
+		
 		return UtilText.parse(this,
 				"<p style='text-align:center'>"
-						+ "[npc.Name] "+(increment>0?"[style.boldGrow(gains)]":"[style.boldShrink(loses)]")+" <b>"+Math.abs(increment)+"</b> [style.boldObedience(obedience)]!</br>"
-						+ "[npc.She] now has <b>"+(obedience>0?"+":"")+obedience+"</b> [style.boldObedience(obedience)].</br>"
+						+ (!this.isPlayer()?"[npc.Name] ":"You ")+(increment>0?"[style.boldGrow(gain"+ (!this.isPlayer()?"s":"")+")]":"[style.boldShrink(lose"+ (this.isPlayer()?"s":"")+")]")+" <b>"+Math.abs(increment)+"</b> [style.boldObedience(obedience)]!</br>"
+						+ (!this.isPlayer()?"[npc.She] now has ":"You now have ")+(shownObedience>0?"<b>+":"<b>")+shownObedience+"</b> [style.boldObedience(obedience)].</br>"
 						+ ObedienceLevel.getDescription(this, ObedienceLevel.getObedienceLevelFromValue(obedience), true, false)
 					+ "</p>"
 					+ (teacherPerkGain
@@ -2934,58 +3008,123 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 	
 	/**
+	 * Use for XML loading
+	 */
+	public void setNextPlayerSlaveryUpdateTimes(long eventUpdate, long ruleUpdate)
+	{
+		this.timeOfNextEventCheck = eventUpdate;
+		this.timeOfNextRuleCheck = ruleUpdate;
+	}
+	
+	/**
+	 * Use for exceptionally actions that are likely to cause an event to trigger, like resting. Generally just try to pad out any possible time consuming event with those prior to calling it.
+	 * 
+	 * It will delay the event's trigger for five minutes after this one or not delay it at all if it can fit in.
+	 * @param amount
+	 */
+	public void delayEventCheck(long amount)
+	{
+		long projectedDelayTime = Main.game.getMinutesPassed() + amount + GameCharacter.MINIMUM_POST_DELAY_DURATION;
+		if(projectedDelayTime > this.timeOfNextEventCheck)
+		{
+			this.timeOfNextEventCheck = projectedDelayTime;
+		}
+	}
+	
+	/**
+	 * Returns true if player has all rules at least at 0 obedience gain.
+	 */
+	public boolean isPlayerObeyingRules()
+	{
+		for(PlayerSlaveryRule slaveryRule : this.slaveOwnerRules) {
+			if(slaveryRule.getPerformanceQuality() < 0)
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	/**
 	 * Handles player slavery updates
 	 */
 	public void handlePlayerSlavery(long minutesPassed)
-	{
-		//TODO : Make sure this is the player's owner and the player is within the location.
+	{		
 		
 		boolean forcePunishment = false; // If true, forces the player to take punishment. Use for high obedience drops.
 		
 		// Checking rules compliance here
-		if(this.timeOfNextRuleCheck >= minutesPassed)
+		if(this.timeOfNextRuleCheck <= minutesPassed)
 		{
 			int totalRules = 0;
-			float obedienceChange = 0;
+			float obedienceChangePositive = 0;
+			float obedienceChangeNegative = 0;
+			float obedienceChangeTotal = 0;
 			
 			for(PlayerSlaveryRule slaveryRule : this.slaveOwnerRules) {
 				totalRules++;
-				obedienceChange += slaveryRule.getPerformanceQuality();
+				float obedienceChange = slaveryRule.getPerformanceQuality();
+				if(obedienceChange > 0)
+				{
+					obedienceChangePositive += obedienceChange;
+				}
+				else
+				{
+					obedienceChangeNegative += obedienceChange;
+				}
+			}
+			
+			//If the player is disobeying a rule, they don't get positive gains from obedience.
+			if(obedienceChangeNegative == 0)
+			{
+				obedienceChangeTotal += obedienceChangePositive;
+			}
+			else
+			{
+				obedienceChangeTotal += obedienceChangeNegative;
 			}
 			
 			if(totalRules > 0)
 			{
-				obedienceChange /= totalRules; // The more rules are set for the player, the less they individually impact the result.
+				obedienceChangeTotal /= totalRules; // The more rules are set for the player, the less they individually impact the result.
 			}
 			
-			this.incrementObedience(obedienceChange, false);
+			Main.game.getPlayer().incrementObedience(obedienceChangeTotal, false);
 			this.timeOfNextRuleCheck += 60;
 			
 			// Checking to see if the player deserves a punishment for being a bad [player.gender] ;3
-			if(this.obedience < GameCharacter.FORCED_PUNISHMENT_TRESHOLD || obedienceChange < GameCharacter.FORCED_PUNISHMENT_DROP_TRIGGER)
+			if(this.obedience < GameCharacter.FORCED_PUNISHMENT_THRESHOLD || obedienceChangeTotal < GameCharacter.FORCED_PUNISHMENT_DROP_TRIGGER)
 			{
 				forcePunishment = true;
 			}
 		}
 		
 		// Checking for event spawning here
-		if(this.timeOfNextEventCheck >= minutesPassed)
+		if(this.timeOfNextEventCheck <= minutesPassed && Main.game.getPlayer().isWithinOwnersPropery() && Main.game.getActiveNPC() == null)
 		{
+			
 			// At 0 weight, an event won't be generated. If all events return 0 weight, then no event happens.
+			Main.game.setActiveNPC((NPC)this);
 			int currentCandidateWeight = 0;
 			PlayerSlaveryEvent currentCandidate = null;
 			
-			for(PlayerSlaveryEvent slaveryEvent : this.slaveOwnerEvents) {
-				if(!forcePunishment || (forcePunishment && slaveryEvent.getIsPunishment())) // Making sure to comply with punishment forcing.
-				{
-					int currentEventWeight = slaveryEvent.getWeight();
-					if(currentCandidateWeight > currentEventWeight)
+			if(this.getSlaveryEvents() != null)
+			{
+				for(PlayerSlaveryEvent slaveryEvent : this.getSlaveryEvents()) {
+					if(!forcePunishment || (forcePunishment && slaveryEvent.getIsPunishment())) // Making sure to comply with punishment forcing.
 					{
-						currentCandidateWeight = currentEventWeight;
-						currentCandidate = slaveryEvent;
+						int currentEventWeight = slaveryEvent.getWeight(false);
+						if(currentCandidateWeight < currentEventWeight)
+						{
+							currentCandidateWeight = currentEventWeight;
+							currentCandidate = slaveryEvent;
+						}
 					}
 				}
 			}
+
+			int randomValue = (int )(Math.random() * (GameCharacter.MAX_MINUTES_TO_NEXT_SLAVERY_EVENT - GameCharacter.MIN_MINUTES_TO_NEXT_SLAVERY_EVENT) + 1) + GameCharacter.MIN_MINUTES_TO_NEXT_SLAVERY_EVENT;
+			this.timeOfNextEventCheck = minutesPassed + randomValue;
 			
 			if(currentCandidate != null)
 			{
@@ -2997,9 +3136,10 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				// (Note for Inno: I'm just leaving this as a warning for future contributors :3)
 				Main.game.setContent(new Response("", "", currentCandidate.getTriggerDialogue()));
 			}
-
-			int randomValue = (int )(Math.random() * (GameCharacter.MAX_MINUTES_TO_NEXT_SLAVERY_EVENT - GameCharacter.MIN_MINUTES_TO_NEXT_SLAVERY_EVENT) + 1) + GameCharacter.MIN_MINUTES_TO_NEXT_SLAVERY_EVENT;
-			this.timeOfNextEventCheck += randomValue;
+			else
+			{
+				Main.game.setActiveNPC(null);
+			}
 		}
 	}
 	
@@ -3010,27 +3150,85 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	public DialogueNodeOld getPunishmentDialogue()
 	{
 		// At 0 weight, an event won't be generated. If all events return 0 weight, then no event happens.
+		Main.game.setActiveNPC((NPC)this);
 		int currentCandidateWeight = 0;
 		PlayerSlaveryEvent currentCandidate = null;
 		
-		for(PlayerSlaveryEvent slaveryEvent : this.slaveOwnerEvents) {
-			if(slaveryEvent.getIsPunishment())
-			{
-				int currentEventWeight = slaveryEvent.getWeight();
-				if(currentCandidateWeight > currentEventWeight)
+		if(this.getSlaveryEvents() != null)
+		{
+			for(PlayerSlaveryEvent slaveryEvent : this.getSlaveryEvents()) {
+				if(slaveryEvent.getIsPunishment())
 				{
-					currentCandidateWeight = currentEventWeight;
-					currentCandidate = slaveryEvent;
+					int currentEventWeight = slaveryEvent.getWeight(true);
+					if(currentCandidateWeight < currentEventWeight || currentCandidate == null)
+					{
+						currentCandidateWeight = currentEventWeight;
+						currentCandidate = slaveryEvent;
+					}
 				}
 			}
 		}
 		
 		if(currentCandidate != null)
 		{
+
+			int randomValue = (int )(Math.random() * (GameCharacter.MAX_MINUTES_TO_NEXT_SLAVERY_EVENT - GameCharacter.MIN_MINUTES_TO_NEXT_SLAVERY_EVENT) + 1) + GameCharacter.MIN_MINUTES_TO_NEXT_SLAVERY_EVENT;
+			this.timeOfNextEventCheck = Main.game.getMinutesPassed() + randomValue;
+			
 			return currentCandidate.getTriggerDialogue();
 		}
 		
+		Main.game.setActiveNPC(null);
 		return null;
+	}
+
+	/**
+	 * Returns punishment dialogue node. Doesn't automatically set it like normal; use it for events where player messes up to give them an immediate punishment.
+	 * 
+	 * Supplying reason will allow the punishment events to use it through getPerformanceRemark call.
+	 * @return
+	 */
+	public DialogueNodeOld getPunishmentDialogue(String reason)
+	{
+		this.setOutstandingPerformanceRemark(reason, true);
+		return this.getPunishmentDialogue();
+	}
+	
+	/**
+	 * Adds a rule to the list of rules enforced by this character.
+	 */
+	public void addRule(PlayerSlaveryRule ruleToAdd)
+	{
+		this.slaveOwnerRules.add(ruleToAdd);
+	}
+	
+	/**
+	 * Removes the rule from the list of rules enforced by this character.
+	 */
+	public void removeRule(String ruleUniqueName)
+	{
+		PlayerSlaveryRule ruleToRemove = null;
+		for(PlayerSlaveryRule slaveryRule : this.slaveOwnerRules) {
+			if(slaveryRule.getUniqueName() == ruleUniqueName)
+			{
+				ruleToRemove = slaveryRule;
+			}
+		}
+		if(ruleToRemove != null)
+		{
+			this.slaveOwnerRules.remove(ruleToRemove);
+		}
+	}
+	
+	/**
+	 * Removes the rule from the list of rules enforced by this character.
+	 */
+	public void removeRule(PlayerSlaveryRule ruleToRemove)
+	{
+		if(ruleToRemove != null)
+		{
+			this.slaveOwnerRules.remove(ruleToRemove);
+		}
 	}
 	
 	/**
@@ -3047,6 +3245,29 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			}
 		}
 		return null;
+	}
+	
+	/**
+	 * Checks to see if a slavery rule is enforced by the owner. If it is enforced, returns it; otherwise returns null.
+	 * @return
+	 */
+	public PlayerSlaveryRule hasRule(PlayerSlaveryRule ruleToFind)
+	{
+		for(PlayerSlaveryRule slaveryRule : this.slaveOwnerRules) {
+			if(slaveryRule.getUniqueName() == ruleToFind.getUniqueName())
+			{
+				return slaveryRule;
+			}
+		}
+		return null;
+	}
+	
+	/**
+	 * Returns the full list of rules the owner has.
+	 */
+	public Set<PlayerSlaveryRule> getRules()
+	{
+		return this.slaveOwnerRules;
 	}
 	
 	/**
@@ -3096,13 +3317,97 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 	
 	/**
-	 * Called during initialization. Override to change the events the NPC will do to the player.
+	 * Override to change the events the NPC will do to the player.
 	 */
-	public void populateDefaultEvents()
+	public Set<PlayerSlaveryEvent> getSlaveryEvents()
 	{
-		// todo
+		return null;
 	}
 	
+	/**
+	 * Returns a parser-friendly remark by NPC on player's performance according to their rules.
+	 * 
+	 * Will erase the last outstanding performance remark. 
+	 * 
+	 * Returns null if there's nothing to say.
+	 * @param allowNegative Allows negative performance remarks
+	 * @param allowPositive Allows positive performance remarks
+	 * @param maxRemarks Maximum remarks before stopping the loop and returning the value
+	 * @return
+	 */
+	public String getPerformanceRemark(boolean allowNegative, boolean allowPositive, int maxRemarks)
+	{
+		String returnable = "";
+		String toAdd = null;
+		boolean willConnectLastWithAnd = false;
+		int remainingRemarks = maxRemarks;
+		
+		if(this.outstandingPerformanceRemark != null)
+		{
+			if(this.outstandingPerformanceIsNegative == allowNegative)
+			{
+				returnable = this.outstandingPerformanceRemark;
+				this.outstandingPerformanceRemark = null;
+				return returnable;
+			}
+		}
+		
+		for(PlayerSlaveryRule rule : this.slaveOwnerRules)
+		{
+			float performance = rule.getPerformanceQuality();
+			if(((performance > 0 && allowPositive) || (performance < 0 && allowNegative)) && remainingRemarks > 0)
+			{
+				if(toAdd == null)
+				{
+					toAdd = rule.getPerformanceComment();
+				}
+				else
+				{
+					willConnectLastWithAnd = true;
+					returnable += ", " + toAdd;
+				}
+				remainingRemarks--;
+			}
+		}
+		
+		if(toAdd != null)
+		{
+			if(willConnectLastWithAnd)
+			{
+				returnable += " and " + toAdd;
+			}
+			else
+			{
+				returnable += toAdd;
+			}
+		}
+		
+		if(returnable.length() == 0)
+		{
+			return null;
+		}
+		
+		return returnable;
+	}
+	
+	public void setOutstandingPerformanceRemark(String remark, boolean isNegative)
+	{
+		this.outstandingPerformanceRemark = remark;
+		this.outstandingPerformanceIsNegative = isNegative;
+	}
+	
+	/**
+	 * Returns a remark made by a slave master to player based on their most recent achievement. Usually used for punishment remarks to let player know what are they getting punished for.
+	 * @return
+	 */
+	public String getOutstandingPerformanceRemark(boolean onlyNegative)
+	{
+		if(onlyNegative && !this.outstandingPerformanceIsNegative)
+		{
+			return null;
+		}
+		return this.outstandingPerformanceRemark;
+	}
 	// Companions:
 	
 	/**

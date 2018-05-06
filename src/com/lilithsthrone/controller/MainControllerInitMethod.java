@@ -4207,6 +4207,24 @@ public class MainControllerInitMethod {
 			}
 			
 			
+			id = "RANDOM_SLAVE_MASTERS_ON";
+			if (((EventTarget) MainController.document.getElementById(id)) != null) {
+				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+					Main.getProperties().randomMastersPercentage = Math.min(100, Main.getProperties().randomMastersPercentage+10);
+					Main.saveProperties();
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+			}
+			id = "RANDOM_SLAVE_MASTERS_OFF";
+			if (((EventTarget) MainController.document.getElementById(id)) != null) {
+				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+					Main.getProperties().randomMastersPercentage = Math.max(0, Main.getProperties().randomMastersPercentage-10);
+					Main.saveProperties();
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+			}
+			
+			
 			// Forced TF Tendency setting events
 			id = "FORCED_TF_TENDENCY_"+ForcedTFTendency.NEUTRAL;
 			if (((EventTarget) MainController.document.getElementById(id)) != null) {
