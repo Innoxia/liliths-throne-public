@@ -632,7 +632,56 @@ public enum RacialBody {
 				return SexualOrientation.AMBIPHILIC;
 			}
 		}
-	};
+	},
+	
+	
+	BEE(Util.newHashMapOfValues(
+			new Value<Attribute, AttributeRange>(Attribute.MAJOR_PHYSIQUE, new AttributeRange(0f, 15f)),
+			new Value<Attribute, AttributeRange>(Attribute.MAJOR_ARCANE, new AttributeRange(0f, 0f)),
+			new Value<Attribute, AttributeRange>(Attribute.MAJOR_CORRUPTION, new AttributeRange(20f, 50f))),
+		AntennaType.BEE,
+		ArmType.BEE, 1,
+		AssType.BEE, AssSize.TWO_SMALL, AssSize.THREE_NORMAL, Wetness.TWO_MOIST, Capacity.ONE_EXTREMELY_TIGHT, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT,
+		BreastType.BEE,
+		CupSize.B, 1, Lactation.TWO_SMALL_AMOUNT, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.ZERO_TINY, 1,
+		CupSize.G, 1, Lactation.THREE_DECENT_AMOUNT, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.TWO_BIG, 1,
+		150, 75, BodySize.TWO_AVERAGE.getMedianValue(), Muscle.THREE_MUSCULAR.getMedianValue(),
+		150, 95, BodySize.TWO_AVERAGE.getMedianValue(), Muscle.ONE_LIGHTLY_MUSCLED.getMedianValue(),
+		EarType.BEE,
+		EyeType.BEE,
+		FaceType.BEE, LipSize.ONE_AVERAGE, LipSize.TWO_FULL,
+		HairType.BEE, HairLength.ONE_VERY_SHORT, HairLength.ONE_VERY_SHORT,
+		LegType.BEE,
+		SkinType.EXOSKELLETON, BodyMaterial.FLESH,
+		HornLength.ZERO_TINY, HornLength.ZERO_TINY, Util.newArrayListOfValues(new ListValue<>(HornType.NONE)),
+		PenisType.BEE, PenisSize.ONE_TINY, PenisGirth.ONE_THIN,
+		PenisType.NONE, PenisSize.ONE_TINY, PenisGirth.ONE_THIN,
+		TesticleSize.ZERO_VESTIGIAL, 2, CumProduction.ONE_TRICKLE,
+		TailType.NONE,
+		VaginaType.BEE, Wetness.THREE_WET, Capacity.TWO_TIGHT, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FOUR_LIMBER, OrificePlasticity.THREE_RESILIENT,
+		WingType.BEE, WingSize.TWO_AVERAGE, WingSize.THREE_LARGE,
+		GenitalArrangement.NORMAL) {
+	
+		@Override
+		public Map<PersonalityTrait, PersonalityWeight> getPersonality() {
+			return Util.newHashMapOfValues(
+					new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.LOW),
+					new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.LOW),
+					new Value<>(PersonalityTrait.EXTROVERSION, PersonalityWeight.HIGH),
+					new Value<>(PersonalityTrait.NEUROTICISM, PersonalityWeight.LOW),
+					new Value<>(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.HIGH));
+		}
+	@Override
+	public SexualOrientation getSexualOrientation(Gender gender) {
+		double chance = Math.random();
+		
+		if(chance<0.75f) {
+			return SexualOrientation.GYNEPHILIC;
+		} else {
+			return SexualOrientation.AMBIPHILIC;
+		}
+	}
+};
 
 	// Attributes modified by this Trait:
 	private HashMap<Attribute, AttributeRange> attributeModifiers;
@@ -837,6 +886,8 @@ public enum RacialBody {
 				return RacialBody.RAT_MORPH;
 			case RABBIT_MORPH:
 				return RacialBody.RABBIT_MORPH;
+			case BEE:
+				return RacialBody.BEE;
 		}
 		return RacialBody.HUMAN;
 	}

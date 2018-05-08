@@ -99,6 +99,20 @@ public class Antenna implements BodyPartInterface, Serializable {
 		}
 		
 		switch (type) {
+			case BEE: 
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+							"your forhead burns as a pair of [pc.antennae] grow from the location."
+							+ "</br>"
+							+ "You now have [style.boldTfGeneric(bee antennae)].");
+				} else {
+					UtilText.transformationContentSB.append(
+								"[npc.her] forhead burns as a pair of [npc.antennae] grow from the location."
+								+ "</br>"
+								+ "[npc.Name] now has [style.boldTfGeneric(bee antennae)].");
+				}
+				
+			break;
 			case NONE:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(

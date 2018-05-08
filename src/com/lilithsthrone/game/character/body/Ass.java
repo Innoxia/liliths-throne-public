@@ -98,6 +98,19 @@ public class Ass implements BodyPartInterface, Serializable {
 		
 		// Asshole properties are defined independently from type.
 		switch (type) {
+		case BEE:
+			if (owner.isPlayer()) {
+				UtilText.transformationContentSB.append(
+						"You now have a [style.boldBee(bee ass)], covered in [pc.assFullDescription].</br>"
+						+ "You have also been left with [style.boldBee(a bee)] [pc.assholeFullDescription]."
+						+ "</p>");
+			} else {
+				UtilText.transformationContentSB.append(
+						"[npc.She] now has a [style.boldHuman(bee ass)], covered in [npc.assFullDescription].</br>"
+						+ "[npc.She] has also been left with [style.boldHuman(a bee)] [npc.assholeFullDescription]."
+						+ "</p>");
+			}
+			break;
 			case HUMAN:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(

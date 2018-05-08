@@ -192,7 +192,27 @@ public class Breast implements BodyPartInterface, Serializable {
 		milk.setType(type.getFluidType());
 		
 		switch (type) {
-			case HUMAN:
+		case BEE:
+			if (owner.isPlayer()) {
+				UtilText.transformationContentSB.append(
+							" Your nipples and areolae start tingling, and you find yourself panting and sweating as the intense transformation runs its course."
+							+ " After a few moments, the feeling starts to fade away, leaving you with bee breasts, covered in [pc.breastFullDescriptionColour]."
+							+ " The transformation has also left you with [pc.nipplesFullDescriptionColour]."
+							+ "</br>"
+							+ "You now have [style.boldBee(human breasts and [pc.nipples])], and when lactating, you will produce [style.boldBee(Bee honey)]."
+						+ "</p>");
+			} else {
+				UtilText.transformationContentSB.append(
+							" [npc.Her] nipples and areolae start tingling, causing [npc.herHim] to pant and sweat as the intense transformation runs its course."
+							+ " After a few moments, the feeling starts to fade away, leaving [npc.herHim] with bee breasts, covered in [npc.breastFullDescriptionColour]."
+							+ " The transformation has also left [npc.herHim] with [npc.nipplesFullDescriptionColour]."
+							+ "</br>"
+							+ "[npc.She] now has [style.boldBee(bee breasts and [npc.nipples])], and when lactating, [npc.she] will produce [style.boldBee(bee honey)]."
+							+ "</p>");
+			}
+			break;	
+		
+		case HUMAN:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
 								" Your nipples and areolae start tingling, and you find yourself panting and sweating as the intense transformation runs its course."

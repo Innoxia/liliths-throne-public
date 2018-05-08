@@ -515,6 +515,9 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.FIRE))));
 				case ELEMENTAL_WATER:
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.WATER))));
+				case BEE: //TODO add BEE related item
+					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.SEX_INGREDIENT_BUNNY_JUICE)));
+					
 			}
 			
 		} else if(rnd <= 0.8 && !Main.game.getPlayer().getRacesDiscoveredFromBook().contains(getRace())) {
@@ -565,6 +568,9 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.FIRE))));
 				case ELEMENTAL_WATER:
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.WATER))));
+				case BEE: //TODO add BEE related item
+					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.BOOK_RABBIT_MORPH)));
+					
 			}
 		
 		} else {
@@ -613,6 +619,9 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.FIRE))));
 				case ELEMENTAL_WATER:
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.WATER))));
+				case BEE://add be related item
+					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_RABBIT_MORPH)));
+			
 			}
 		}
 		
@@ -958,6 +967,9 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				case ELEMENTAL_WATER:
 					itemType = ItemType.RACE_INGREDIENT_HUMAN;
 					break;
+				case BEE:
+					reaction = "Time to turn you into a bizzy little bee!";
+					itemType = ItemType.RACE_INGREDIENT_RABBIT_MORPH;
 			}
 		}
 		

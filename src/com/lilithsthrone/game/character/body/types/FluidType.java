@@ -297,6 +297,15 @@ public enum FluidType implements BodyPartTypeInterface {
 			Util.newArrayListOfValues(
 					new ListValue<>(FluidModifier.SLIMY)),
 			Race.HARPY),
+	GIRL_CUM_BEE(FluidTypeBase.SURUP_HONEY,
+			BodyCoveringType.GIRL_CUM,
+			FluidFlavour.HONEY,
+			Util.newArrayListOfValues(new ListValue<>("avian")),
+			Util.newArrayListOfValues(
+					new ListValue<>(FluidModifier.SLIMY)),
+			Race.BEE),
+	
+	
 	
 	// Milks:
 	
@@ -404,6 +413,14 @@ public enum FluidType implements BodyPartTypeInterface {
 			Util.newArrayListOfValues(new ListValue<>("rangiferine")),
 			Util.newArrayListOfValues(),
 			Race.REINDEER_MORPH),
+	
+	MILK_BEE(FluidTypeBase.LIQUID_HONEY,
+			BodyCoveringType.MILK,
+			FluidFlavour.HONEY,
+			Util.newArrayListOfValues(new ListValue<>("Apis")),
+			Util.newArrayListOfValues(new ListValue<FluidModifier>(FluidModifier.SWEET)),
+			Race.BEE),
+	
 	
 	MILK_HARPY(FluidTypeBase.MILK,
 			BodyCoveringType.MILK,

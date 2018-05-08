@@ -110,6 +110,7 @@ public class SubmissionAttacker extends NPC {
 					case ELEMENTAL_EARTH:
 					case ELEMENTAL_FIRE:
 					case ELEMENTAL_WATER:
+					case BEE:
 						break;
 					
 					// Rare spawns:

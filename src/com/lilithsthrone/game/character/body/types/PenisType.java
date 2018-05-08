@@ -54,7 +54,9 @@ public enum PenisType implements BodyPartTypeInterface {
 	
 	RABBIT_MORPH(BodyCoveringType.PENIS, TesticleType.RABBIT_MORPH, Race.RABBIT_MORPH, PenisModifier.SHEATHED),
 	
-	BAT_MORPH(BodyCoveringType.PENIS, TesticleType.BAT_MORPH, Race.BAT_MORPH, PenisModifier.SHEATHED);
+	BAT_MORPH(BodyCoveringType.PENIS, TesticleType.BAT_MORPH, Race.BAT_MORPH, PenisModifier.SHEATHED),
+	
+	BEE(BodyCoveringType.PENIS, TesticleType.HUMAN, Race.BEE, PenisModifier.BLUNT);
 
 	
 	private BodyCoveringType skinType;
@@ -141,6 +143,8 @@ public enum PenisType implements BodyPartTypeInterface {
 						return UtilText.returnStringAtRandom("rabbit-", "rabbit-like");
 					case DILDO:
 						return UtilText.returnStringAtRandom("rubber", "rubbery", "silicone", "artificial");
+					case BEE:
+						return UtilText.returnStringAtRandom("bee", "bee-like");
 				}
 				break;
 			case 1:
@@ -197,6 +201,8 @@ public enum PenisType implements BodyPartTypeInterface {
 				return "rabbit";
 			case DILDO:
 				return "artificial";
+			case BEE:
+				return "apis";
 		}
 		return "";
 	}
@@ -295,6 +301,8 @@ public enum PenisType implements BodyPartTypeInterface {
 			case DILDO:
 				prefix = UtilText.returnStringAtRandom("stored", "preserved");
 				break;
+			case BEE:
+				prefix = UtilText.returnStringAtRandom("bee-", "insect-");
 		}
 		if(Math.random()>0.5f && !prefix.isEmpty()) {
 			return prefix + UtilText.returnStringAtRandom("cum", "cream", "jism", "jizz", "seed", "spooge");

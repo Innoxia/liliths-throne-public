@@ -52,6 +52,8 @@ public enum ArmType implements BodyPartTypeInterface {
 		}
 	},
 	
+	BEE(BodyCoveringType.BEE, Race.BEE),
+	
 	HARPY(BodyCoveringType.FEATHERS, Race.HARPY) {
 		@Override
 		public boolean allowsFlight() {
@@ -112,6 +114,8 @@ public enum ArmType implements BodyPartTypeInterface {
 	@Override
 	public String getDescriptor(GameCharacter gc) {
 		switch(this){
+		case BEE:
+			return "fuzzy";
 			case ANGEL:
 				return UtilText.returnStringAtRandom("slender", "delicate");
 			case CAT_MORPH:
@@ -182,6 +186,8 @@ public enum ArmType implements BodyPartTypeInterface {
 				return "rat";
 			case RABBIT_MORPH:
 				return "rabbit";
+			case BEE:
+				return "beeish";
 		}
 		return "";
 	}
@@ -243,6 +249,8 @@ public enum ArmType implements BodyPartTypeInterface {
 					return UtilText.returnStringAtRandom("soft", "feminine", "rabbit-like", "paw-like", "furry");
 				case BAT_MORPH:
 					return UtilText.returnStringAtRandom("feminine", "bat-like");
+				case BEE:
+					return  UtilText.returnStringAtRandom("fuzzy", "feminine", "insect-like", "shell-like", "fuzzy", "beeish");
 			}
 		} else {
 			switch(this){
@@ -276,6 +284,8 @@ public enum ArmType implements BodyPartTypeInterface {
 					return UtilText.returnStringAtRandom("rabbit-like", "paw-like", "furry");
 				case BAT_MORPH:
 					return UtilText.returnStringAtRandom("bat-like");
+				case BEE:
+					return  UtilText.returnStringAtRandom("fuzzy", "feminine", "insect-like", "shell-like", "fuzzy", "beeish");
 			}
 		}
 		
@@ -329,6 +339,8 @@ public enum ArmType implements BodyPartTypeInterface {
 					return UtilText.returnStringAtRandom("soft", "feminine", "rabbit-like", "paw-like", "furry");
 				case BAT_MORPH:
 					return UtilText.returnStringAtRandom("soft", "feminine", "bat-like");
+				case BEE:
+					return  UtilText.returnStringAtRandom("fuzzy", "feminine", "insect-like", "shell-like", "fuzzy", "beeish");
 			}
 		} else {
 			switch(this){
@@ -362,6 +374,8 @@ public enum ArmType implements BodyPartTypeInterface {
 					return UtilText.returnStringAtRandom("rabbit-like", "paw-like", "furry");
 				case BAT_MORPH:
 					return UtilText.returnStringAtRandom("bat-like");
+				case BEE:
+					return  UtilText.returnStringAtRandom("fuzzy", "feminine", "insect-like", "shell-like", "fuzzy", "beeish");
 			}
 		}
 		

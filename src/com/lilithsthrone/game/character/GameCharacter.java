@@ -2588,6 +2588,10 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			case RABBIT_MORPH:
 				value = 12000;
 				break;
+			case BEE:
+				value = 1000;
+				break;
+				
 		}
 		
 		value += (getFetishes().size()*50);
@@ -12227,6 +12231,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				break;
 			case ANGEL:
 				return BodyCoveringType.BODY_HAIR_ANGEL;
+			case BEE:
+				return BodyCoveringType.BODY_HAIR_BEE_FUZZ;
 			case CAT_MORPH:
 				return BodyCoveringType.BODY_HAIR_FELINE_FUR;
 			case COW_MORPH:

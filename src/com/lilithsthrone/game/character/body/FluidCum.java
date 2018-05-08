@@ -283,6 +283,20 @@ public class FluidCum implements BodyPartInterface, Serializable, XMLSaving {
 								+ "[npc.Name]'s [npc.cum] is now [style.boldGrow(viscous)]!"
 							+ "</p>");
 				}
+				
+			case SWEET:
+				if(owner.isPlayer()) {
+					return "<p>"
+								+ "You feel a rich, pleasant warmth flowing up into your [pc.balls], causing you to let out [pc.a_moan+].</br>"
+								+ "Your [pc.cum] is now [style.boldGrow(sweet)]!"
+							+ "</p>";
+				} else {
+					return UtilText.parse(owner,
+							"<p>"
+								+ "A rich, pleasant warmth flows up into [npc.name]'s [npc.balls], causing [npc.herHim] to let out [npc.a_moan+].</br>"
+								+ "[npc.Name]'s [npc.cum] is now [style.boldGrow(sweet)]!"
+							+ "</p>");
+				}
 		}
 		
 		return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
@@ -403,6 +417,20 @@ public class FluidCum implements BodyPartInterface, Serializable, XMLSaving {
 							"<p>"
 								+ "A soft coolness rises up into [npc.name]'s [npc.balls], causing [npc.herHim] to let out a gentle sigh.</br>"
 								+ "[npc.Name]'s [npc.cum] is [style.boldShrink(no longer viscous)]!"
+							+ "</p>");
+				}
+				
+			case SWEET:
+				if(owner.isPlayer()) {
+					return "<p>"
+								+ "You feel a calming coolness flow up into your [pc.balls], causing you to let out a gentle sigh.</br>"
+								+ "Your [pc.cum] is [style.boldShrink(no longer sweet)]!"
+							+ "</p>";
+				} else {
+					return UtilText.parse(owner,
+							"<p>"
+								+ "A calming coolness flows up into [npc.name]'s [npc.balls], causing [npc.herHim] to let out a gentle sigh.</br>"
+								+ "[npc.Name]'s [npc.cum] is [style.boldShrink(no longer sweet)]!"
 							+ "</p>");
 				}
 		}

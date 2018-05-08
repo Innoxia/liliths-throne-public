@@ -46,6 +46,8 @@ public enum AnusType implements BodyPartTypeInterface {
 	
 	ALLIGATOR_MORPH(BodyCoveringType.ANUS, Race.ALLIGATOR_MORPH),
 	
+	BEE_MORPH(BodyCoveringType.ANUS, Race.BEE),
+	
 	HARPY(BodyCoveringType.ANUS, Race.HARPY);
 
 	private BodyCoveringType skinType;

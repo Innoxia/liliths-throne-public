@@ -87,6 +87,22 @@ public class Arm implements BodyPartInterface, Serializable {
 		this.type = type;
 		
 		switch (type) {
+		case BEE:
+			if (owner.isPlayer()) {
+				UtilText.transformationContentSB.append(
+							" Within a matter of moments, they've changed into slender, human-like arms, complete with human-like hands."
+							+ " Despite their somewhat-normal appearance, they have a subtle, alluring quality to them that reveals their bee nature.</br>"
+							+ "You now have [style.boldBee(bee arms and hands)], which are covered in [pc.armFullDescription]."
+						+ "</p>");
+			} else {
+				UtilText.transformationContentSB.append(
+							" Within a matter of moments, they've changed into slender, human-like arms, complete with human-like hands."
+							+ " Despite their somewhat-normal appearance, they have a subtle, alluring quality to them that reveals their bee nature.</br>"
+							+ "[npc.Name] now has  [style.boldBee(bee arms and hands)], which are covered in [npc.armFullDescription]."
+						+ "</p>");
+			}
+			break;
+		
 			case HUMAN:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(

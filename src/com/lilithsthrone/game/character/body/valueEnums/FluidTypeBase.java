@@ -8,5 +8,7 @@ package com.lilithsthrone.game.character.body.valueEnums;
 public enum FluidTypeBase {
 	CUM,
 	GIRLCUM,
-	MILK;
+	MILK,
+	SURUP_HONEY,
+	LIQUID_HONEY;
 }

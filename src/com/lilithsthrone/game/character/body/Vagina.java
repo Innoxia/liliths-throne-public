@@ -354,7 +354,9 @@ public class Vagina implements BodyPartInterface, Serializable {
 				orificeUrethra.setVirgin(true);
 				owner.setPiercedVagina(false);
 				break;
+			
 			case HUMAN:
+			case BEE:
 				if(owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
 							" You let out a squeal of excitement as a wave of pleasure runs up from your groin, and you feel your slit shifting and contracting with a mind of its own."

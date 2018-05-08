@@ -49,7 +49,8 @@ public enum EarType implements BodyPartTypeInterface {
 
 	REINDEER_MORPH(BodyCoveringType.REINDEER_FUR, Race.REINDEER_MORPH),
 
-	HARPY(BodyCoveringType.FEATHERS, Race.HARPY);
+	HARPY(BodyCoveringType.FEATHERS, Race.HARPY),
+	BEE(BodyCoveringType.BEE, Race.BEE);
 
 	private BodyCoveringType skinType;
 	private Race race;
@@ -120,6 +121,8 @@ public enum EarType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("upright", "furry", "fur-coated", "rabbit-like");
 			case RABBIT_MORPH_FLOPPY:
 				return UtilText.returnStringAtRandom("floppy", "furry", "fur-coated", "rabbit-like");
+			case BEE:
+				return UtilText.returnStringAtRandom("beeish", "delicate");
 		}
 		return "";
 	}
@@ -164,6 +167,8 @@ public enum EarType implements BodyPartTypeInterface {
 				return "upright rabbit";
 			case RABBIT_MORPH_FLOPPY:
 				return "floppy rabbit";
+			case BEE:
+				return "bee-ear";
 		}
 		return "";
 	}

@@ -16,7 +16,9 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
  * @author Innoxia
  */
 public enum AntennaType implements BodyPartTypeInterface {
-	NONE("", null, null);
+	//private AntennaType(String descriptor, BodyCoveringType skinType, Race race) 
+	NONE("", null, null),
+	BEE("",null,Race.BEE);
 	
 	
 	
@@ -76,6 +78,11 @@ public enum AntennaType implements BodyPartTypeInterface {
 	
 	public String getTransformName() {
 		switch(this){
+			case BEE:
+
+
+				return "bee-like";
+
 			case NONE:
 				return "none";
 		}

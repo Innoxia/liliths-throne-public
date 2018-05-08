@@ -47,6 +47,8 @@ public enum NippleType implements BodyPartTypeInterface {
 	
 	REINDEER_MORPH(BodyCoveringType.NIPPLES, Race.REINDEER_MORPH),
 	
+	BEE(BodyCoveringType.NIPPLES, Race.BEE),
+	
 	HARPY(BodyCoveringType.NIPPLES, Race.HARPY);
 
 	

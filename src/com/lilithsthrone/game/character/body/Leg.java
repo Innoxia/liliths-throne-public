@@ -79,6 +79,22 @@ public class Leg implements BodyPartInterface, Serializable {
 		this.type = type;
 		
 		switch (type) {
+		case BEE:
+			if (owner.isPlayer()) {
+				UtilText.transformationContentSB.append(
+							" They rapidly shift into abnormal-looking beeish legs, complete with bee feet.</br>"
+							+ "You now have [style.boldBee(bee legs and feet)], which are covered in [pc.legFullDescription]."
+						+ "</p>");
+			} else {
+				UtilText.transformationContentSB.append(
+							" They rapidly shift into abnormal-looking beeish legs, complete with beeishfeet.</br>"
+							+ "[npc.She] now has [style.boldBee(bee legs and feet)], which are covered in [npc.legFullDescription]."
+						+ "</p>");
+			}
+			break;
+		
+		
+		
 			case HUMAN:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(

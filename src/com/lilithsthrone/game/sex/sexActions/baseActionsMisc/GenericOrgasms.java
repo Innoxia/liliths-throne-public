@@ -1397,6 +1397,9 @@ public class GenericOrgasms {
 								case VISCOUS:
 									cumTargetSB.append(" thick, viscous [npc1.cum] as you possibly can.");
 									break;
+								case SWEET:
+									cumTargetSB.append("Sweet [npc1.cum] as you possibly can.");
+							
 							}
 						} else {
 							cumTargetSB.append(" [npc1.cum] as you possibly can.");

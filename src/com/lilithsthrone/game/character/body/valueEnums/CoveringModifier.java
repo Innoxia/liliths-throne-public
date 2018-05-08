@@ -37,7 +37,9 @@ public enum CoveringModifier {
 	FLUFFY("fluffy"),
 	SHAGGY("shaggy"),
 	FURRY("fur-like"),
-	COARSE("coarse");
+	COARSE("coarse"),
+	FUZZ("fuzz"),
+	EXOSKELLTON("exoskellton");
 	
 	private String descriptor;
 

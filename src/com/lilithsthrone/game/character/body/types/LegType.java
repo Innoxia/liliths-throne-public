@@ -47,7 +47,9 @@ public enum LegType implements BodyPartTypeInterface {
 
 	REINDEER_MORPH(BodyCoveringType.REINDEER_FUR, Race.REINDEER_MORPH),
 
-	HARPY( BodyCoveringType.FEATHERS, Race.HARPY);
+	HARPY( BodyCoveringType.FEATHERS, Race.HARPY),
+	
+	BEE( BodyCoveringType.BEE, Race.BEE);
 
 	private BodyCoveringType skinType;
 	private Race race;
@@ -112,6 +114,10 @@ public enum LegType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("furry", "fur-coated", "anthropomorphic rabbit-like");
 			case BAT_MORPH:
 				return UtilText.returnStringAtRandom("furry", "fur-coated", "anthropomorphic bat-like");
+		case BEE:
+			return UtilText.returnStringAtRandom("fuzzy", "fuzz-coated", "anthropomorphic bee-like");
+			
+		
 		}
 		return "";
 	}
@@ -150,6 +156,8 @@ public enum LegType implements BodyPartTypeInterface {
 				return "rat";
 			case RABBIT_MORPH:
 				return "rabbit";
+			case BEE:
+				return "Apis";
 		}
 		return "";
 	}
@@ -217,6 +225,8 @@ public enum LegType implements BodyPartTypeInterface {
 					return UtilText.returnStringAtRandom("soft", "feminine", "rat-like", "paw-like", "furry");
 				case RABBIT_MORPH:
 					return UtilText.returnStringAtRandom("soft", "feminine", "rabbit-like", "paw-like", "furry");
+				case BEE:
+					return UtilText.returnStringAtRandom("hard", "feminine", "bee-like", "fuzzy");
 			}
 		} else {
 			switch(this){
@@ -252,6 +262,8 @@ public enum LegType implements BodyPartTypeInterface {
 					return UtilText.returnStringAtRandom("rat-like", "paw-like", "furry");
 				case RABBIT_MORPH:
 					return UtilText.returnStringAtRandom("rabbit-like", "paw-like", "furry");
+				case BEE:
+					return UtilText.returnStringAtRandom("hard", "bee-like", "fuzzy");
 			}
 		}
 		return "";

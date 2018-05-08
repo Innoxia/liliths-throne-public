@@ -956,6 +956,25 @@ public enum Subspecies {
 			body.getCoverings().put(BodyCoveringType.BODY_HAIR_HARPY, new Covering(BodyCoveringType.BODY_HAIR_HARPY, CoveringPattern.NONE, Colour.FEATHERS_BLACK, false, Colour.FEATHERS_BLACK, false));
 		}
 	},
+	BEE("raceBEE",
+			"bee",
+			"bees",
+			"drone",
+			"worker",
+			"drones",
+			"workers",
+			Race.BEE,
+			Colour.RACE_RABBIT_MORPH, //TODO Change to the proper color. Not Colour you brit! 
+			SubspeciesPreference.FOUR_ABUNDANT,
+			"A typical bipedal rabbit-morph.",
+			Util.newArrayListOfValues()) {
+
+				@Override
+				public void applySpeciesChanges(Body body) {
+					// TODO Auto-generated method stub
+					
+				}
+			},
 	
 	// ELEMENTALS:
 
@@ -1048,6 +1067,7 @@ public enum Subspecies {
 			body.setBodyMaterial(BodyMaterial.ARCANE);
 		}
 	},
+			
 	
 	;
 	//TENGU(Race.TENGU.getName(), Race.TENGU, RacialBody.TENGU, SubspeciesPreference.TWO_LOW,
@@ -1155,6 +1175,8 @@ public enum Subspecies {
 		switch(race) {
 			case NONE:
 				break;
+			case BEE:
+				return Subspecies.BEE;
 			case ALLIGATOR_MORPH:
 				return Subspecies.ALLIGATOR_MORPH;
 			case ANGEL:
@@ -1383,6 +1405,10 @@ public enum Subspecies {
 						case WOLF_MORPH:
 							subspecies = Subspecies.SLIME_WOLF;
 							break;
+						case BEE:
+							subspecies = Subspecies.SLIME;
+							break;
+							
 					}
 					break;
 				case RABBIT_MORPH:
@@ -1391,6 +1417,8 @@ public enum Subspecies {
 						subspecies = Subspecies.RABBIT_MORPH_LOP;
 					}
 					break;
+				case BEE:
+					subspecies = Subspecies.BEE;
 			}
 		}
 		

@@ -47,8 +47,11 @@ public enum EyeType implements BodyPartTypeInterface {
 
 	REINDEER_MORPH(BodyCoveringType.EYE_REINDEER_MORPH, Race.REINDEER_MORPH, 1, EyeShape.ROUND, EyeShape.HORIZONTAL),
 
+	BEE(BodyCoveringType.EYE_BEE, Race.BEE, 1, EyeShape.CONPOUND, EyeShape.CONPOUND ),
+	
 	HARPY(BodyCoveringType.EYE_HARPY, Race.HARPY, 1, EyeShape.ROUND, EyeShape.ROUND);
-
+	
+	
 	
 	private BodyCoveringType coveringType;
 	private Race race;
@@ -118,6 +121,8 @@ public enum EyeType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("rabbit-like");
 			case BAT_MORPH:
 				return UtilText.returnStringAtRandom("bat-like");
+			case BEE:
+				return UtilText.returnStringAtRandom("bee-like");
 		}
 		return "";
 	}
@@ -156,6 +161,8 @@ public enum EyeType implements BodyPartTypeInterface {
 				return "rabbit";
 			case BAT_MORPH:
 				return "bat";
+			case BEE:
+				return "bee";
 		}
 		return "";
 	}

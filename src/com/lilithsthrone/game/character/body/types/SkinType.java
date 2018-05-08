@@ -41,7 +41,9 @@ public enum SkinType implements BodyPartTypeInterface {
 
 	REINDEER_MORPH(BodyCoveringType.REINDEER_FUR, Race.REINDEER_MORPH),
 
-	HARPY(BodyCoveringType.FEATHERS, Race.HARPY);
+	HARPY(BodyCoveringType.FEATHERS, Race.HARPY),
+	
+	EXOSKELLETON(BodyCoveringType.BEE, Race.BEE);
 
 	
 	private BodyCoveringType coveringType;
@@ -131,6 +133,8 @@ public enum SkinType implements BodyPartTypeInterface {
 				return "bat";
 			case HUMAN:
 				return "human";
+			case EXOSKELLETON:
+				return "apis";
 		}
 		return "";
 	}
@@ -170,6 +174,8 @@ public enum SkinType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("rat-like");
 			case RABBIT_MORPH:
 				return UtilText.returnStringAtRandom("rabbit-like");
+			case EXOSKELLETON:
+				return UtilText.returnStringAtRandom("shell-like");
 		}
 		return "";
 	}

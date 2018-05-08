@@ -620,7 +620,7 @@ public enum Race {
 			FurryPreference.MAXIMUM,
 			FurryPreference.MAXIMUM),
 	
-	;
+	
 
 	/*
 	 * // INSECTS: BEE_MORPH("bee-morph",
@@ -695,7 +695,30 @@ public enum Race {
 	 * ListValue<Attack>(Attack.MELEE), new
 	 * ListValue<Attack>(Attack.SEDUCTION)), false),
 	 */
+	BEE(	"bee",
+			"bees",
+			"drone",
+			"worker",
+			"drones",
+			"workers",
+			
+			UtilText.parseFromXMLFile("characters/raceInfo", "BEE_BASIC"),
 
+			UtilText.parseFromXMLFile("characters/raceInfo", "BEE_ADVANCED"),
+			
+			Colour.BASE_YELLOW,
+			Disposition.NEUTRAL,
+			StatusEffect.HARPY,
+			Util.newArrayListOfValues(new ListValue<Attack>(Attack.SPECIAL_ATTACK), new ListValue<Attack>(Attack.SEDUCTION)),
+			true,
+			0.5f,
+			3,
+			4,
+			Attribute.DAMAGE_HARPY,
+			Attribute.RESISTANCE_HARPY,
+			FurryPreference.NORMAL,
+			FurryPreference.NORMAL
+			);
 	/*
 	 * TIGER_MORPH("tiger-morph",
 	 * 

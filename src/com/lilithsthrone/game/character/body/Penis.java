@@ -242,6 +242,17 @@ public class Penis implements BodyPartInterface, Serializable {
 		switch (type) {
 			case DILDO:
 				return "You have somehow transformed your penis into a dildo... This is a bug... (please let Innoxia know!)";
+			case BEE:
+			if (owner.isPlayer()) {
+				UtilText.transformationContentSB.append(
+						"You now have a [style.boldBee(bee penis)], covered in [pc.penisFullDescription(true)].</br>"
+						+ "You have [style.boldBee([pc.ballsCount]"+(owner.isInternalTesticles()?" internal,":"")+" bee balls)], covered in [pc.ballsFullDescription(true)], which produce [pc.cumColour(true)] [style.boldBee(bee cum)].");
+			} else {
+				UtilText.transformationContentSB.append(
+						"[npc.She] now has a [style.boldBee(bee penis)], covered in [npc.penisFullDescription(true)].</br>"
+						+ "[npc.She] has [style.boldBee([npc.ballsCount]"+(owner.isInternalTesticles()?" internal,":"")+" bee balls)], covered in [npc.ballsFullDescription(true)], which produce [npc.cumColour(true)] [style.boldBee(bee cum)].");
+			}	
+		
 			case NONE:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(

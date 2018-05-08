@@ -141,6 +141,7 @@ public class GenericSexualPartner extends NPC {
 						
 					// Regular spawns:
 					case CAT_MORPH:
+					case BEE:
 						addToSubspeciesMap(25, gender, s, availableRaces);
 						break;
 					case COW_MORPH:

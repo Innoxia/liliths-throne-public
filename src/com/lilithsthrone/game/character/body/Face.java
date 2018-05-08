@@ -131,6 +131,18 @@ public class Face implements BodyPartInterface, Serializable {
 		tongue.setType(type.getTongueType());
 		
 		switch (type) {
+		case BEE:
+			if (owner.isPlayer()) {
+				UtilText.transformationContentSB.append(
+							" Thankfully, the alarming feeling is over within a few moments, and you discover that you've been left with a abnormal bee face, covered in [pc.faceSkin+].</br>"
+							+ "You now have a [style.boldBee(bee face)], covered in [pc.faceFullDescription], and within your mouth, you have a [style.boldBee(bee tongue)]."
+						+ "</p>");
+			} else {
+				UtilText.transformationContentSB.append(UtilText.parse(owner,
+							" Thankfully for [npc.herHim], the transformation only lasts a matter of moments, leaving [npc.herHim] with a abnormal bee face, covered in [npc.faceSkin+].</br>"
+							+ "[npc.Name] now has a [style.boldBee(bee face)], covered in [npc.faceFullDescription], and within [npc.her] mouth, [npc.she] has a [style.boldBee(bee tongue)]."
+						+ "</p>"));
+			}	
 			case HUMAN:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(

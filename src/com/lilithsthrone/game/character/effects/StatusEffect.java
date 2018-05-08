@@ -2956,6 +2956,8 @@ public enum StatusEffect {
 										+ " Blushing, you feel a needy heat spreading throughout your groin..."
 									+ "</p>"
 									+target.incrementLust(25);
+						case LIQUID_HONEY: case SURUP_HONEY:
+							return "WIP bee dream shit! Don't do LSD kids!";
 					}
 				}
 				return "";

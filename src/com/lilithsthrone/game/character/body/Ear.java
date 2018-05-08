@@ -85,6 +85,21 @@ public class Ear implements BodyPartInterface, Serializable {
 		this.type = type;
 		
 		switch (type) {
+		case BEE:
+			if (owner.isPlayer()) {
+				UtilText.transformationContentSB.append(
+							" The hot itching feeling passes after a few moments, leaving you with BEE ears, covered in [pc.earFullDescriptionColour]."
+							+ "</br>"
+							+ "You now have [style.boldBee(bee ears)]."
+						+ "</p>");
+			} else {
+				UtilText.transformationContentSB.append(
+							" The hot itching feeling passes after a few moments, leaving [npc.herHim] with BEE ears, covered in [npc.earFullDescriptionColour]."
+							+ "</br>"
+							+ "[npc.Name] now has [style.boldBee(bee ears)]."
+						+ "</p>");
+			}
+			break;
 			case HUMAN:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(

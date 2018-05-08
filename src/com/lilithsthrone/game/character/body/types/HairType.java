@@ -46,7 +46,9 @@ public enum HairType implements BodyPartTypeInterface {
 
 	REINDEER_MORPH(BodyCoveringType.HAIR_REINDEER_FUR, Race.REINDEER_MORPH),
 
-	HARPY(BodyCoveringType.HAIR_HARPY, Race.HARPY);
+	HARPY(BodyCoveringType.HAIR_HARPY, Race.HARPY),
+	
+	BEE(BodyCoveringType.BEE,Race.BEE);
 
 	
 	private BodyCoveringType coveringType;
@@ -136,6 +138,8 @@ public enum HairType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("rat-like");
 			case RABBIT_MORPH:
 				return UtilText.returnStringAtRandom("rabbit-like");
+			case BEE:
+				  return UtilText.returnStringAtRandom("bee-like");
 		}
 		return "";
 	}
@@ -184,6 +188,8 @@ public enum HairType implements BodyPartTypeInterface {
 				return "rat";
 			case RABBIT_MORPH:
 				return "rabbit";
+			case BEE:
+				return "Anthophila";
 		}
 		return "";
 	}

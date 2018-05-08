@@ -51,6 +51,8 @@ public enum BreastType implements BodyPartTypeInterface {
 	
 	REINDEER_MORPH(NippleType.REINDEER_MORPH, FluidType.MILK_REINDEER_MORPH, BodyCoveringType.REINDEER_FUR, Race.REINDEER_MORPH),
 	
+	BEE(NippleType.BEE, FluidType.MILK_BEE, BodyCoveringType.BEE, Race.BEE),
+	
 	HARPY(NippleType.HARPY, FluidType.MILK_HARPY, BodyCoveringType.FEATHERS, Race.HARPY);
 
 	private NippleType nippleType;
@@ -138,6 +140,8 @@ public enum BreastType implements BodyPartTypeInterface {
 	
 	public String getTransformName() {
 		switch(this){
+		case BEE:
+			return "bee-like";
 			case ANGEL:
 				return "angelic";
 			case CAT_MORPH:

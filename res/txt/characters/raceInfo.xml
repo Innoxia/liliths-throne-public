@@ -490,6 +490,8 @@
 	</p>
 	]]>
 	</htmlContent>
+	</htmlContent><!--BEE--><htmlContent tag="BEE_BASIC"><![CDATA[<p>WIP BEE BASIC</p>]]></htmlContent>
+	<htmlContent tag="BEE_ADVANCED"><![CDATA[<P>WIP BEE ADVANCED</p>]]></htmlContent>
 
 	<!-- ELEMENTALS -->
 	

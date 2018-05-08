@@ -3202,6 +3202,8 @@ public class Lab {
 						+ "</b>");
 
 				switch (Main.game.getPlayer().getLastLitterBirthed().getFatherRace()) {
+					case BEE:
+						litterSB.append("Bizzy");
 					case ANGEL:
 						litterSB.append(" radiant");
 						break;
@@ -3288,7 +3290,9 @@ public class Lab {
 						+ "</b>");
 
 				switch (Main.game.getPlayer().getLastLitterBirthed().getMotherRace()) {
-					case ANGEL:
+				case BEE:
+					litterSB.append("Bizzy");	
+				case ANGEL:
 						litterSB.append(" radiant");
 						break;
 					case CAT_MORPH:
@@ -3374,7 +3378,9 @@ public class Lab {
 						+ "</b>");
 
 				switch (Main.game.getPlayer().getLastLitterBirthed().getFatherRace()) {
-					case ANGEL:
+				case BEE:
+					litterSB.append("Bizzy");	
+				case ANGEL:
 						litterSB.append(" radiant");
 						break;
 					case CAT_MORPH:
@@ -3460,6 +3466,8 @@ public class Lab {
 						+ "</b>");
 
 				switch (Main.game.getPlayer().getLastLitterBirthed().getMotherRace()) {
+				case BEE:
+					litterSB.append("Bizzy");	
 					case ANGEL:
 						litterSB.append(" radiant");
 						break;

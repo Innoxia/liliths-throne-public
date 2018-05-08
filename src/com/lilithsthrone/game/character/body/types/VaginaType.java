@@ -53,7 +53,9 @@ public enum VaginaType implements BodyPartTypeInterface {
 
 	REINDEER_MORPH(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_REINDEER_MORPH, Race.REINDEER_MORPH, OrificeModifier.PUFFY),
 
-	HARPY(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_HARPY, Race.HARPY);
+	HARPY(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_HARPY, Race.HARPY),
+	
+	BEE(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_BEE, Race.BEE);
 
 	private BodyCoveringType skinType;
 	private FluidType fluidType;
@@ -197,6 +199,8 @@ public enum VaginaType implements BodyPartTypeInterface {
 						return UtilText.returnStringAtRandom("hot", "rat-like", "rodent");
 					case RABBIT_MORPH:
 						return UtilText.returnStringAtRandom("hot", "rabbit-like", "bunny");
+					case BEE:
+						return UtilText.returnStringAtRandom("hot", "bee-like", "apis");
 				}
 				return "";
 			case 1:
@@ -251,6 +255,8 @@ public enum VaginaType implements BodyPartTypeInterface {
 				return "rat";
 			case RABBIT_MORPH:
 				return "rabbit";
+			case BEE:
+				return "apis";
 		}
 		return "";
 	}

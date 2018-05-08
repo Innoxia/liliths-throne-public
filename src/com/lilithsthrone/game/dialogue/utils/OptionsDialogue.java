@@ -1340,6 +1340,7 @@ public class OptionsDialogue {
 					case SLIME_RAT:
 					case SLIME_RABBIT:
 						break;
+					case BEE:
 					case ALLIGATOR_MORPH:
 					case CAT_MORPH:
 					case COW_MORPH:

@@ -11,8 +11,8 @@ public enum EyeShape {
 	HORIZONTAL("horizontal"),
 	VERTICAL("vertical"),
 	HEART("heart-shaped"),
-	STAR("star-shaped");
-	
+	STAR("star-shaped"),
+	CONPOUND("Conpound");
 	private String descriptor;
 
 	private EyeShape(String descriptor) {

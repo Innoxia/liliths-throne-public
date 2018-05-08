@@ -161,6 +161,30 @@ public class Wing implements BodyPartInterface, Serializable {
 							+ "</p>");
 				}
 				break;
+			case BEE:
+				if(owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+								" You bite your [pc.lip] to try and suppress an unexpected moan of pleasure as a pair of cute little bee-like wings push out from your shoulder blades."
+								+ (getSize().isSizeAllowsFlight()
+										?" You give them an experimental flutter, and, much to your delight, you discover that they're powerful enough to enable you to fly."
+										:" You give them an experimental flutter, and although they aren't quite big enough just yet, you think that if you were to increase their size, they'd enable you to fly.")
+								+ "</br>"
+								+ "You now have [style.boldBee(bee-like wings)]."
+							+ "</p>");
+				} else {
+					UtilText.transformationContentSB.append(
+								" [npc.She] bites [npc.her] [npc.lip] to try and suppress an unexpected moan of pleasure as a pair of cute little bee-like wings push out from [npc.her] shoulder blades."
+								+ (getSize().isSizeAllowsFlight()
+										?" [npc.She] gives them an experimental flutter, and, much to [npc.her] delight, [npc.she] discovers that they're powerful enough to enable [npc.herHim] to fly."
+										:" [npc.She] gives them an experimental flutter, and although they aren't quite big enough just yet, it looks as though if they were to be a little bigger, they'd enable [npc.herHim] to fly.")
+								+ "</br>"
+								+ "[npc.Name] now has [style.boldBee(insect bee-like wings)]."
+							+ "</p>");
+				}
+				break;
+				
+				
+				
 			case NONE:
 				if(owner.isPlayer()) {
 					UtilText.transformationContentSB.append(

@@ -76,6 +76,7 @@ public class SlimeCavernAttacker extends NPC {
 				switch(s) {
 					// No chance of spawn:
 					case ANGEL:
+					case BEE:
 					case CAT_MORPH:
 					case COW_MORPH:
 					case DEMON:

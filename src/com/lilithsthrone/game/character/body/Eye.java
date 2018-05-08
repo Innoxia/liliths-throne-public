@@ -91,7 +91,20 @@ public class Eye implements BodyPartInterface, Serializable {
 		this.type = type;
 		
 		switch (type) {
-			case HUMAN:
+		case BEE:
+			if (owner.isPlayer()) {
+				UtilText.transformationContentSB.append(
+							" By the time you hesitantly open them again, they've changed into bee eyes, with insect-proportioned irises and pupils."
+							+ "</br>"
+							+ "You now have [style.boldBee(bee eyes)]");
+			} else {
+				UtilText.transformationContentSB.append(
+							" By the time [npc.she] hesitantly opens them again, they've changed into bee eyes, insect-proportioned irises and pupils."
+							+ "</br>"
+							+ "[npc.Name] now has [style.boldBee(bee eyes)]");
+			}	
+		
+		case HUMAN:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
 								" By the time you hesitantly open them again, they've changed into human eyes, with normally-proportioned irises and pupils."

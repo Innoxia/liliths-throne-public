@@ -79,6 +79,22 @@ public class Skin implements BodyPartInterface, Serializable {
 		this.type = type;
 		
 		switch (type) {
+		
+		case EXOSKELLETON:
+			if (owner.isPlayer()) {
+				UtilText.transformationContentSB.append(
+							" After just a few moments, the transformation comes to an end, and you let out a deep sigh as the itching finally stops, leaving your torso covered with exoskelleton shell."
+							+ "</br>"
+							+ "You now have [style.boldBee(bee)], [pc.skinFullDescription]."
+						+ "</p>");
+			} else {
+				UtilText.transformationContentSB.append(
+							" After just a few moments, the transformation comes to an end, and [npc.she] lets out a deep sigh as the itching finally stops, leaving [npc.her] torso covered with exoskelleton shell."
+							+ "</br>"
+							+ "[npc.Name] now has [style.boldBee(bee)], [npc.skinFullDescription]."
+						+ "</p>");
+			}
+			break;
 			case HUMAN:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(

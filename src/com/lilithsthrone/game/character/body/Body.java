@@ -1579,6 +1579,9 @@ public class Body implements Serializable, XMLSaving {
 			case HARPY:
 				sb.append(", anthropomorphic bird-like face, complete with beak.");
 				break;
+			case BEE:
+				sb.append(", anthropomorphic bee-like face, with a insect-like muzzle.");
+				break;
 		}
 
 		if(owner.getBlusher().getPrimaryColour()!=Colour.COVERING_NONE) {
@@ -1653,6 +1656,9 @@ public class Body implements Serializable, XMLSaving {
 					break;
 				case HARPY:
 					sb.append(" feathers in place of hair");
+					break;
+				case BEE:
+					sb.append(", short fuzz-like hair");
 					break;
 			
 			}
@@ -1792,6 +1798,12 @@ public class Body implements Serializable, XMLSaving {
 //					sb.append(" [pc.A_antennae+] protrude from your upper forehead.");
 //				else
 //					sb.append(" [npc.A_antennae+] protrude from [npc.her] upper forehead.");
+			case BEE:
+				if (owner.isPlayer())
+					sb.append(" [pc.A_antennae+] protrude from your upper forehead.");
+				else
+					sb.append(" [npc.A_antennae+] protrude from [npc.her] upper forehead.");
+			break;
 		}
 		
 		// Nose:
@@ -1861,6 +1873,9 @@ public class Body implements Serializable, XMLSaving {
 			case BAT_MORPH:
 				sb.append(" bat-like eyes");
 				break;
+			case BEE:
+				sb.append(" bee-like eyes");
+				break;
 		}
 		
 		if (owner.isPlayer()) {
@@ -1919,7 +1934,15 @@ public class Body implements Serializable, XMLSaving {
 		
 		// Ear:
 		switch (ear.getType()) {
-			case ANGEL:
+			
+		case BEE:
+			if (owner.isPlayer())
+				sb.append(" You have a pair of strait, bee-like ears, which are positioned high up on your head and are are "+getCoveredInDescriptor(owner)+" [pc.earFullDescription(true)].");
+			else
+				sb.append(" [npc.She] has a pair of strait, bee-like ears, which are positioned high up on [npc.her] head and are "+getCoveredInDescriptor(owner)+" [npc.earFullDescription(true)].");
+			break;
+		
+		case ANGEL:
 				if (owner.isPlayer())
 					sb.append(" You have a pair of perfectly-formed angelic ears, which are "+getCoveredInDescriptor(owner)+" [pc.earFullDescription(true)]" + (ear.isPierced() ? ", and which have been pierced" : "") + ".");
 				else
@@ -2704,7 +2727,18 @@ public class Body implements Serializable, XMLSaving {
 			armDeterminer = "two pairs of";
 		}
 		switch (arm.getType()) {
-			case HUMAN:
+			
+		
+		case BEE:
+			if (owner.isPlayer())
+				sb.append("You have "+armDeterminer+" arms, which are "+getCoveredInDescriptor(owner)+" [pc.armFullDescription(true)]."
+							+ " Your hands are formed into anthropomorphic, bee-like hands, complete with little hairs/fuzz.");
+			else
+				sb.append("[npc.She] has "+armDeterminer+" arms, which are "+getCoveredInDescriptor(owner)+" [npc.armFullDescription(true)]."
+							+ " [npc.Her] hands are formed into anthropomorphic, bee-like hands, complete with little hairs/fuzz.");
+			break;
+		
+		case HUMAN:
 				if (owner.isPlayer())
 					sb.append("You have "+armDeterminer+" normal human arms and hands, which are "+getCoveredInDescriptor(owner)+" [pc.armFullDescription(true)].");
 				else
@@ -2969,6 +3003,12 @@ public class Body implements Serializable, XMLSaving {
 		
 		// Legs:
 		switch (leg.getType()) {
+		case BEE:
+			if (owner.isPlayer())
+				sb.append("You have a pair of beeish legs and feet, which are "+getCoveredInDescriptor(owner)+" [pc.legFullDescription(true)].");
+			else
+				sb.append("[npc.Her] legs and feet are beeish, and are "+getCoveredInDescriptor(owner)+" [npc.legFullDescription(true)].");
+			break;
 			case HUMAN:
 				if (owner.isPlayer())
 					sb.append("You have a pair of human legs and feet, which are "+getCoveredInDescriptor(owner)+" [pc.legFullDescription(true)].");
@@ -3176,6 +3216,13 @@ public class Body implements Serializable, XMLSaving {
 						sb.append("Growing from your shoulder-blades, you have a pair of [pc.wingSize] bat-like wings.");
 					} else {
 						sb.append("Growing from [npc.her] shoulder-blades, [npc.she] has a pair of [npc.wingSize] bat-like wings.");
+					}
+					
+				case BEE:
+					if (owner.isPlayer()) {
+						sb.append("Growing from your shoulder-blades, you have a pair of [pc.wingSize] bee-like wings.");
+					} else {
+						sb.append("Growing from [npc.her] shoulder-blades, [npc.she] has a pair of [npc.wingSize] bee-like wings.");
 					}
 					break;
 				case NONE:
@@ -3677,7 +3724,21 @@ public class Body implements Serializable, XMLSaving {
 		boolean isPlayer = owner.isPlayer();
 		
 		switch (ass.getType()) {
+			
+		case BEE:
+			if (isPlayer) {
+				descriptionSB.append("You have a bee, [pc.anusFullDescription(true)]");
+			} else {
+				descriptionSB.append("[npc.She] has a bee, [npc.anusFullDescription(true)]");
+			}
 			case HUMAN:
+				
+				if (isPlayer) {
+					descriptionSB.append("You have a human, [pc.anusFullDescription(true)]");
+				} else {
+					descriptionSB.append("[npc.She] has a human, [npc.anusFullDescription(true)]");
+				}
+				
 				if (isPlayer) {
 					descriptionSB.append("You have a human, [pc.anusFullDescription(true)]");
 				} else {
@@ -4246,6 +4307,10 @@ public class Body implements Serializable, XMLSaving {
 							case ALCOHOLIC:
 								descriptionSB.append(" It has a high alcohol content, and will get those who consume it very drunk.");
 								break;
+						case SWEET:
+							descriptionSB.append(" It has a higher surgar content, and will get those who consume it very hyper.");
+							break;
+						 
 						}
 					}
 				}
@@ -4449,6 +4514,9 @@ public class Body implements Serializable, XMLSaving {
 								case ALCOHOLIC:
 									descriptionSB.append(" It has a high alcohol content, and will get those who consume it very drunk.");
 									break;
+								case SWEET:
+									descriptionSB.append(" It has a higher surgar content, and will get those who consume it very hyper.");
+									break;
 							}
 						}
 					}
@@ -4552,6 +4620,8 @@ public class Body implements Serializable, XMLSaving {
 			case DILDO:
 				descriptionSB.append(" dildo");
 				break;
+			case BEE:
+				descriptionSB.append(" bee-like cock");
 			case NONE:
 				break;
 		}
@@ -5085,6 +5155,11 @@ public class Body implements Serializable, XMLSaving {
 						case ALCOHOLIC:
 							descriptionSB.append(" It has a high alcohol content, and will get those who consume it very drunk.");
 							break;
+						case SWEET:
+							descriptionSB.append(" It has a higher surgar content, and will get those who consume it very hyper.");
+							break;
+						 
+						
 					}
 				}
 			}
@@ -5127,7 +5202,16 @@ public class Body implements Serializable, XMLSaving {
 		}
 		
 		switch (viewedVagina.getType()) {
-			case HUMAN:
+			
+		case BEE:
+			if (isPlayer) {
+				descriptionSB.append((viewedVagina.isPierced()?" a pierced,":" a")+" bee pussy, with [pc.labiaSize], [pc.pussyPrimaryColour(true)] labia and [pc.pussySecondaryColour(true)] inner-walls.");
+			} else {
+				descriptionSB.append((viewedVagina.isPierced()?" a pierced,":" a")+" bee pussy, with [npc.labiaSize], [npc.pussyPrimaryColour(true)] labia and [npc.pussySecondaryColour(true)] inner-walls.");
+			}	
+		
+		
+		case HUMAN:
 				if (isPlayer) {
 					descriptionSB.append((viewedVagina.isPierced()?" a pierced,":" a")+" human pussy, with [pc.labiaSize], [pc.pussyPrimaryColour(true)] labia and [pc.pussySecondaryColour(true)] inner-walls.");
 				} else {
@@ -6113,6 +6197,9 @@ public class Body implements Serializable, XMLSaving {
 			switch(r) {
 				case NONE:
 					break;
+			case BEE:
+				coverings.put(BodyCoveringType.BEE, new Covering(BodyCoveringType.BEE, coverings.get(BodyCoveringType.BEE).getPrimaryColour()));
+				break;
 				case ANGEL:
 					coverings.put(BodyCoveringType.BODY_HAIR_ANGEL, new Covering(BodyCoveringType.BODY_HAIR_ANGEL, coverings.get(BodyCoveringType.HAIR_ANGEL).getPrimaryColour()));
 					break;
@@ -6212,6 +6299,9 @@ public class Body implements Serializable, XMLSaving {
 				switch(r) {
 					case NONE:
 						break;
+				case BEE:
+					coverings.put(BodyCoveringType.BODY_HAIR_ANGEL, new Covering(BodyCoveringType.BODY_HAIR_ANGEL, coverings.get(BodyCoveringType.HAIR_ANGEL).getPrimaryColour()));
+					break;
 					case ANGEL:
 						coverings.put(BodyCoveringType.BODY_HAIR_ANGEL, new Covering(BodyCoveringType.BODY_HAIR_ANGEL, coverings.get(BodyCoveringType.HAIR_ANGEL).getPrimaryColour()));
 						break;

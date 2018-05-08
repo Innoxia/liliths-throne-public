@@ -85,6 +85,19 @@ public class Hair implements BodyPartInterface, Serializable {
 		this.type = type;
 		
 		switch (type) {
+		
+		case BEE:
+			if (owner.isPlayer()) {
+				UtilText.transformationContentSB.append(
+							" The feeling goes away almost as quickly as it came, leaving you with fuzz-like hair.</br>"
+							+ "You now have [pc.hairColour] [style.boldBee(bee hair)]."
+						+ "</p>");
+			} else {
+				UtilText.transformationContentSB.append(
+							" The transformation only lasts a matter of moments, leaving [npc.herHim] with fuzz-like hair.</br>"
+							+ "[npc.Name] now has [npc.hairColour] [style.boldBee(bee hair)]."
+						+ "</p>");
+			}
 			case HUMAN:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(

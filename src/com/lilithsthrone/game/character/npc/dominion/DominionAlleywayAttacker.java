@@ -156,6 +156,7 @@ public class DominionAlleywayAttacker extends NPC {
 						
 					// Regular spawns:
 					case CAT_MORPH:
+					case BEE: 
 						addToSubspeciesMap(canalSpecies?5:20, gender, s, availableRaces);
 						break;
 					case COW_MORPH:

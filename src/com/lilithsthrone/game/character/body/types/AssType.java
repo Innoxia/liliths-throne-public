@@ -47,6 +47,8 @@ public enum AssType implements BodyPartTypeInterface {
 	
 	REINDEER_MORPH(BodyCoveringType.REINDEER_FUR, AnusType.REINDEER_MORPH, Race.REINDEER_MORPH),
 	
+	BEE(BodyCoveringType.BEE, AnusType.BEE_MORPH, Race.BEE),
+	
 	HARPY(BodyCoveringType.FEATHERS, AnusType.HARPY, Race.HARPY);
 
 	private BodyCoveringType skinType;
@@ -158,6 +160,8 @@ public enum AssType implements BodyPartTypeInterface {
 				return "rat";
 			case RABBIT_MORPH:
 				return "rabbit";
+			case BEE:
+				return "beeish";
 		}
 		return "";
 	}
