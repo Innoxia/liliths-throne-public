@@ -1132,7 +1132,6 @@ public enum Subspecies {
 		this.worldLocations = worldLocations;
 		
 		if(iconPathName!=null) {
-			System.out.println(iconPathName);	
 			try {
 				InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/" + iconPathName + ".svg");
 				SVGString = Util.inputStreamToString(is);
