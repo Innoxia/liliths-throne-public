@@ -68,7 +68,11 @@ public class FluidCum implements BodyPartInterface, Serializable, XMLSaving {
 		Element cumModifiers = (Element)cum.getElementsByTagName("cumModifiers").item(0);
 		for(FluidModifier fm : FluidModifier.values()) {
 			if(Boolean.valueOf(cumModifiers.getAttribute(fm.toString()))) {
-				fluidCum.fluidModifiers.add(fm);
+				if (!fluidCum.hasFluidModifier(fm)) {
+					fluidCum.fluidModifiers.add(fm);
+				}
+			} else if (!cumModifiers.getAttribute(fm.toString()).isEmpty()) {
+				fluidCum.fluidModifiers.remove(fm);
 			}
 		}
 		
