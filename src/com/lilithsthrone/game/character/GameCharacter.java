@@ -9248,7 +9248,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						:this.alcoholLevel>=0.15f?"dizzy and light headed as the alcohol quickly enters your system."
 						:"a little dizzy and light headed as the alcohol quickly enters your system.")
 						+"</br>"
-						+ "Your [style.boldAlcohol(intoxication level)] is now at "+((int)(this.alcoholLevel*100))/100f+"%"
+						+ "Your [style.boldAlcohol(intoxication level)] is now at "+((int)getIntoxicationPercentage())+"%"
 					+ "</p>";
 		} else {
 			return "<p style='text-align:center;'>"
@@ -9263,13 +9263,17 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						:this.alcoholLevel>=0.15f?"dizzy and light headed as the alcohol quickly enters [npc.her] system."
 						:"a little dizzy and light headed as the alcohol quickly enters [npc.her] system."))
 					+"</br>"
-					+ "[npc.Name]'s [style.boldAlcohol(intoxication level)] is now at "+((int)(this.alcoholLevel*100))/100f+"%"
+					+ "[npc.Name]'s [style.boldAlcohol(intoxication level)] is now at "+((int)getIntoxicationPercentage())+"%"
 				+ "</p>";
 		}
 	}
 	
 	public String incrementAlcoholLevel(float alcoholLevelIncrement) {
 		return setAlcoholLevel(alcoholLevel + alcoholLevelIncrement);
+	}
+	
+	public float getIntoxicationPercentage() {
+		return getAlcoholLevel()*100;
 	}
 	
 	public Addiction getAddiction(FluidType fluid) {
@@ -9761,7 +9765,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		} else {
 			pregnancyChance = 0;
 			pregnancyChance += (Util.getModifiedDropoffValue(partner.getAttributeValue(Attribute.VIRILITY), Attribute.VIRILITY.getUpperLimit())/100f) * partner.getPenisCumProduction().getPregnancyModifier();
-			pregnancyChance += (Util.getModifiedDropoffValue(partner.getAttributeValue(Attribute.FERTILITY), Attribute.FERTILITY.getUpperLimit())/100f);
+			pregnancyChance += (Util.getModifiedDropoffValue(getAttributeValue(Attribute.FERTILITY), Attribute.FERTILITY.getUpperLimit())/100f);
 			pregnancyChance /= 2;
 		}
 		

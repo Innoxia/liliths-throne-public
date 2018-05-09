@@ -3010,10 +3010,10 @@ public enum StatusEffect {
 		public String getDescription(GameCharacter target) {
 			if(target.isPlayer()) {
 				return ("After recently drinking an alcoholic liquid, you're feeling a little tipsy...</br>"
-						+ "Intoxication: "+(target.getAlcoholLevel()*100)/100f+"%");
+						+ "Intoxication: "+target.getIntoxicationPercentage()+"%");
 			} else {
 				return (UtilText.parse(target, "After recently drinking an alcoholic liquid, [npc.name] is feeling a little tipsy...</br>"
-						+ "Intoxication: "+(target.getAlcoholLevel()*100)/100f+"%"));
+						+ "Intoxication: "+target.getIntoxicationPercentage()+"%"));
 			}
 		}
 		
@@ -3051,10 +3051,10 @@ public enum StatusEffect {
 		public String getDescription(GameCharacter target) {
 			if(target.isPlayer()) {
 				return ("After recently drinking an alcoholic liquid, you're feeling quite merry...</br>"
-						+ "Intoxication: "+(target.getAlcoholLevel()*100)/100f+"%");
+						+ "Intoxication: "+target.getIntoxicationPercentage()+"%");
 			} else {
 				return (UtilText.parse(target, "After recently drinking an alcoholic liquid, [npc.name] is feeling quite merry...</br>"
-						+ "Intoxication: "+(target.getAlcoholLevel()*100)/100f+"%"));
+						+ "Intoxication: "+target.getIntoxicationPercentage()+"%"));
 			}
 		}
 
@@ -3091,10 +3091,10 @@ public enum StatusEffect {
 		public String getDescription(GameCharacter target) {
 			if(target.isPlayer()) {
 				return ("After recently drinking an alcoholic liquid, you're feeling quite drunk...</br>"
-						+ "Intoxication: "+(target.getAlcoholLevel()*100)/100f+"%");
+						+ "Intoxication: "+target.getIntoxicationPercentage()+"%");
 			} else {
 				return (UtilText.parse(target, "After recently drinking an alcoholic liquid, [npc.name] is feeling quite drunk...</br>"
-						+ "Intoxication: "+(target.getAlcoholLevel()*100)/100f+"%"));
+						+ "Intoxication: "+target.getIntoxicationPercentage()+"%"));
 			}
 		}
 
@@ -3132,10 +3132,10 @@ public enum StatusEffect {
 		public String getDescription(GameCharacter target) {
 			if(target.isPlayer()) {
 				return ("After recently drinking an alcoholic liquid, you're feeling pretty hammered...</br>"
-						+ "Intoxication: "+(target.getAlcoholLevel()*100)/100f+"%");
+						+ "Intoxication: "+target.getIntoxicationPercentage()+"%");
 			} else {
 				return (UtilText.parse(target, "After recently drinking an alcoholic liquid, [npc.name] is feeling pretty hammered...</br>"
-						+ "Intoxication: "+(target.getAlcoholLevel()*100)/100f+"%"));
+						+ "Intoxication: "+target.getIntoxicationPercentage()+"%"));
 			}
 		}
 
@@ -3173,10 +3173,10 @@ public enum StatusEffect {
 		public String getDescription(GameCharacter target) {
 			if(target.isPlayer()) {
 				return ("After recently drinking an alcoholic liquid, you're feeling completely wasted...</br>"
-						+ "Intoxication: "+(target.getAlcoholLevel()*100)/100f+"%");
+						+ "Intoxication: "+target.getIntoxicationPercentage()+"%");
 			} else {
 				return (UtilText.parse(target, "After recently drinking an alcoholic liquid, [npc.name] is feeling completely wasted...</br>"
-						+ "Intoxication: "+(target.getAlcoholLevel()*100)/100f+"%"));
+						+ "Intoxication: "+target.getIntoxicationPercentage()+"%"));
 			}
 		}
 
