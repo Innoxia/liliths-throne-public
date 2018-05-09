@@ -956,7 +956,7 @@ public enum Subspecies {
 			body.getCoverings().put(BodyCoveringType.BODY_HAIR_HARPY, new Covering(BodyCoveringType.BODY_HAIR_HARPY, CoveringPattern.NONE, Colour.FEATHERS_BLACK, false, Colour.FEATHERS_BLACK, false));
 		}
 	},
-	BEE("raceBEE",
+	BEE("statusEffects/raceBEE",
 			"bee",
 			"bees",
 			"drone",
@@ -1132,6 +1132,7 @@ public enum Subspecies {
 		this.worldLocations = worldLocations;
 		
 		if(iconPathName!=null) {
+			System.out.println(iconPathName);	
 			try {
 				InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/" + iconPathName + ".svg");
 				SVGString = Util.inputStreamToString(is);
