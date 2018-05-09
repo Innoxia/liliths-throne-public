@@ -189,7 +189,7 @@ public enum HairType implements BodyPartTypeInterface {
 			case RABBIT_MORPH:
 				return "rabbit";
 			case BEE:
-				return "Anthophila";
+				return "apis";
 		}
 		return "";
 	}

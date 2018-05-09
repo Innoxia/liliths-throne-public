@@ -141,7 +141,7 @@ public enum BreastType implements BodyPartTypeInterface {
 	public String getTransformName() {
 		switch(this){
 		case BEE:
-			return "bee-like";
+			return "apis";
 			case ANGEL:
 				return "angelic";
 			case CAT_MORPH:

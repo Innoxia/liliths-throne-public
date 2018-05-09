@@ -162,7 +162,7 @@ public enum EyeType implements BodyPartTypeInterface {
 			case BAT_MORPH:
 				return "bat";
 			case BEE:
-				return "bee";
+				return "apis";
 		}
 		return "";
 	}

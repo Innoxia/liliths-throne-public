@@ -204,7 +204,7 @@ public enum FaceType implements BodyPartTypeInterface {
 			case RABBIT_MORPH:
 				return "rabbit";
 			case BEE:
-				return "bee";
+				return "apis";
 		}
 		return "";
 	}

@@ -187,7 +187,7 @@ public enum ArmType implements BodyPartTypeInterface {
 			case RABBIT_MORPH:
 				return "rabbit";
 			case BEE:
-				return "beeish";
+				return "apis";
 		}
 		return "";
 	}
