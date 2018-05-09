@@ -18,10 +18,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import javax.imageio.ImageIO;
-
-import java.util.Set;
 
 import org.w3c.dom.Comment;
 import org.w3c.dom.Document;
@@ -143,11 +142,11 @@ import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Combat;
+import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.combat.SpecialAttack;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.combat.SpellSchool;
 import com.lilithsthrone.game.combat.SpellUpgrade;
-import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.SlaveryManagementDialogue;
 import com.lilithsthrone.game.dialogue.eventLog.EventLogEntry;
@@ -1546,8 +1545,10 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			for(int i=0; i<element.getElementsByTagName("relationship").getLength(); i++){
 				Element e = ((Element)element.getElementsByTagName("relationship").item(i));
 				
-				character.setAffection(e.getAttribute("character"), Float.valueOf(e.getAttribute("value")));
-				CharacterUtils.appendToImportLog(log, "</br>Set Relationship: "+e.getAttribute("character") +" , "+ Float.valueOf(e.getAttribute("value")));
+				if(!e.getAttribute("character").equals("NOT_SET")) {
+					character.setAffection(e.getAttribute("character"), Float.valueOf(e.getAttribute("value")));
+					CharacterUtils.appendToImportLog(log, "</br>Set Relationship: "+e.getAttribute("character") +" , "+ Float.valueOf(e.getAttribute("value")));
+				}
 			}
 		}
 		
@@ -1645,7 +1646,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				}
 			}
 			
-
+			
 			character.setOwner(((Element)slaveryElement.getElementsByTagName("owner").item(0)).getAttribute("value"));
 			CharacterUtils.appendToImportLog(log, "</br>Set owner: "+character.getOwnerId());
 			
@@ -1655,14 +1656,19 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			for(int i=0; i<((Element) slaveryElement.getElementsByTagName("slaveJobSettings").item(0)).getElementsByTagName("setting").getLength(); i++){
 				Element e = ((Element)slaveryElement.getElementsByTagName("setting").item(i));
 				
-				SlaveJobSetting setting = SlaveJobSetting.valueOf(e.getAttribute("value"));
-				character.addSlaveJobSettings(setting);
-				CharacterUtils.appendToImportLog(log, "</br>Added slave job setting: "+setting);
+				try {
+					SlaveJobSetting setting = SlaveJobSetting.valueOf(e.getAttribute("value"));
+					character.addSlaveJobSettings(setting);
+					CharacterUtils.appendToImportLog(log, "</br>Added slave job setting: "+setting);
+				} catch(Exception ex) {
+				}
 			}
 			
 			// Clear settings first:
 			for(SlavePermission key : character.getSlavePermissionSettings().keySet()) {
-				character.getSlavePermissionSettings().get(key).clear();
+				if(!key.isMutuallyExclusiveSettings()) {
+					character.getSlavePermissionSettings().get(key).clear();
+				}
 			}
 			
 			for(int i=0; i<((Element) slaveryElement.getElementsByTagName("slavePermissionSettings").item(0)).getElementsByTagName("permission").getLength(); i++){
@@ -1808,21 +1814,24 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		if(element!=null) {
 			for(int i=0; i<element.getElementsByTagName("id").getLength(); i++){
 				Element e = ((Element)element.getElementsByTagName("id").item(i));
-				character.sexPartnerMap.put(e.getAttribute("value"), new HashMap<>());
 				
-				for(int j=0; j<element.getElementsByTagName("entry").getLength(); j++){
-					Element e2 = ((Element)element.getElementsByTagName("entry").item(j));
-
-					try {
-						character.sexPartnerMap.get(e.getAttribute("value")).put(
-								new SexType(
-										SexParticipantType.valueOf(e.getAttribute("participantType")),
-										PenetrationType.valueOf(e2.getAttribute("penetrationType")),
-										OrificeType.valueOf(e2.getAttribute("orificeType"))),
-										Integer.valueOf(e2.getAttribute("count")));
-						
-						CharacterUtils.appendToImportLog(log, "</br>Added sex tracking: "+e.getAttribute("value")+" "+e2.getAttribute("penetrationType")+"/"+e2.getAttribute("orificeType")+" "+Integer.valueOf(e2.getAttribute("count")));
-					}catch(Exception ex){
+				if(!e.getAttribute("value").equals("NOT_SET")) { // Don't load in stats from unknown NPCs
+					character.sexPartnerMap.put(e.getAttribute("value"), new HashMap<>());
+					
+					for(int j=0; j<element.getElementsByTagName("entry").getLength(); j++){
+						Element e2 = ((Element)element.getElementsByTagName("entry").item(j));
+	
+						try {
+							character.sexPartnerMap.get(e.getAttribute("value")).put(
+									new SexType(
+											SexParticipantType.valueOf(e.getAttribute("participantType")),
+											PenetrationType.valueOf(e2.getAttribute("penetrationType")),
+											OrificeType.valueOf(e2.getAttribute("orificeType"))),
+											Integer.valueOf(e2.getAttribute("count")));
+							
+							CharacterUtils.appendToImportLog(log, "</br>Added sex tracking: "+e.getAttribute("value")+" "+e2.getAttribute("penetrationType")+"/"+e2.getAttribute("orificeType")+" "+Integer.valueOf(e2.getAttribute("count")));
+						}catch(Exception ex){
+						}
 					}
 				}
 			}
@@ -2041,7 +2050,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			
 			for(Entry<String, Float> entry : this.getAffectionMap().entrySet()) {
 				GameCharacter target = Main.game.getNPCById(entry.getKey());
-				if(!target.isPlayer()) {
+				if(target!=null && !target.isPlayer()) {
 					infoScreenSB.append("</br>" + AffectionLevel.getDescription(this, target, AffectionLevel.getAffectionLevelFromValue(this.getAffection(target)), true));
 				}
 			}
@@ -9152,6 +9161,75 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		return fluidIngestionSB.toString();
 	}
 	
+	public String ingestFluid(FluidType fluid, OrificeType orificeIngestedThrough, int millilitres, List<FluidModifier> modifiers) {
+		StringBuilder fluidIngestionSB = new StringBuilder();
+		if(modifiers.contains(FluidModifier.ALCOHOLIC)) { //TODO factor in body size:
+			this.incrementAlcoholLevel(millilitres * 0.001f);
+		}
+		
+		if(modifiers.contains(FluidModifier.HALLUCINOGENIC)) {
+			this.addPsychoactiveFluidIngested(fluid);
+			this.addStatusEffect(StatusEffect.PSYCHOACTIVE, 6*60);
+			if(isPlayer()) {
+				fluidIngestionSB.append("<p>"
+							+ "Due to the psychoactive properties of the "+fluid.getName(null)
+								+", you start <span style='color:"+Colour.PSYCHOACTIVE.toWebHexString()+";'>tripping out</span>!"
+						+ "</p>");
+			} else {
+				fluidIngestionSB.append(UtilText.parse(this,
+						"<p>"
+						+ "Due to the psychoactive properties of the "+fluid.getName(null)
+							+", [npc.name] starts <span style='color:"+Colour.PSYCHOACTIVE.toWebHexString()+";'>tripping out</span>!"
+					+ "</p>"));
+			}
+		}
+		
+		if(modifiers.contains(FluidModifier.ADDICTIVE) && this.getAddiction(fluid) == null) {
+			addAddiction(new Addiction(fluid, Main.game.getMinutesPassed(), this.getId()));
+			if(isPlayer()) {
+				fluidIngestionSB.append("<p>"
+							+ "Due to the addictive properties of the "+fluid.getName(null)
+								+", you find yourself [style.colourArcane(craving)] <span style='color:"+fluid.getRace().getColour().toWebHexString()+";'>"+fluid.getDescriptor(null)+"</span> "+fluid.getName(null)+"!"
+						+ "</p>");
+			} else {
+				fluidIngestionSB.append(UtilText.parse(this,
+						"<p>"
+							+ "Due to the addictive properties of the "+fluid.getName(null)+", [npc.name] finds [npc.herself] [style.colourArcane(craving)]"
+									+ " <span style='color:"+fluid.getRace().getColour().toWebHexString()+";'>"+fluid.getDescriptor(null)+"</span> "+fluid.getName(null)+"!"
+						+ "</p>"));
+			}
+			
+		} else if(this.getAddiction(fluid) != null) {
+			setLastTimeSatisfiedAddiction(fluid, Main.game.getMinutesPassed());
+			if(isPlayer()) {
+				fluidIngestionSB.append(
+						"<p>"
+							+ "Your [style.colourArcane(craving)] for <span style='color:"+fluid.getRace().getColour().toWebHexString()+";'>"+fluid.getDescriptor(null)+"</span> "+fluid.getName(null)+" has been satisfied!"
+						+ "</p>");
+			} else {
+				fluidIngestionSB.append(UtilText.parse(this,
+						"<p>"
+							+ "[npc.Name]'s [style.colourArcane(craving)] for <span style='color:"+fluid.getRace().getColour().toWebHexString()+";'>"+fluid.getDescriptor(null)+"</span> "+fluid.getName(null)+" has been satisfied!"
+						+ "</p>"));
+			}
+		}
+		
+		if(fluidIngestionSB.length()==0) {
+			if(isPlayer()) {
+				fluidIngestionSB.append("<p style='text-align:center;'>"
+							+ "<i>You drink the "+fluid.getName(null)+"!</i>"
+						+ "</p>");
+			} else {
+				fluidIngestionSB.append(UtilText.parse(this,
+						"<p style='text-align:center;'>"
+							+ "<i>[npc.Name] drinks the "+fluid.getName(null)+"!</i>"
+						+ "</p>"));
+			}
+		}
+		
+		return fluidIngestionSB.toString();
+	}
+	
 	public float getAlcoholLevel() {
 		return alcoholLevel;
 	}
@@ -9268,6 +9346,10 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	
 	// Combat:
 
+	public boolean isImmuneToDamageType(DamageType type) {
+		return false;
+	}
+	
 	public boolean isStunned() {
 		for(StatusEffect se : this.getStatusEffects()) {
 			if(se.isStun()) {
@@ -9994,7 +10076,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		if(setAsHomeLocation) {
 			setHomeLocation(worldType, location);
 		}
-		if(this.isPlayer() && Main.game.isStarted() && Main.game.getCurrentDialogueNode().equals(DebugDialogue.getDefaultDialogueNoEncounter())) {
+		if(this.isPlayer() && Main.game.isStarted() && Main.game.getCurrentDialogueNode().equals(Main.game.getDefaultDialogueNoEncounter())) {
 			Main.saveGame("AutoSave_"+Main.game.getPlayer().getName(), true);
 		}
 	}
@@ -14143,31 +14225,31 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		if(body.getPenis().getType()==PenisType.NONE) {
 			for(AbstractClothing c : this.getClothingCurrentlyEquipped()) {
 				if(c.getItemTags().contains(ItemTag.DILDO_TINY)) {
-					this.setSkinCovering(new Covering(BodyCoveringType.DILDO, CoveringPattern.NONE, c.getColour(), false, c.getColour(), false), false);
+					this.body.getCoverings().put(BodyCoveringType.DILDO, new Covering(BodyCoveringType.DILDO, CoveringPattern.NONE, c.getColour(), false, c.getColour(), false));
 					return Dildo.dildoTiny;
 					
 				} else if(c.getItemTags().contains(ItemTag.DILDO_AVERAGE)) {
-					this.setSkinCovering(new Covering(BodyCoveringType.DILDO, CoveringPattern.NONE, c.getColour(), false, c.getColour(), false), false);
+					this.body.getCoverings().put(BodyCoveringType.DILDO, new Covering(BodyCoveringType.DILDO, CoveringPattern.NONE, c.getColour(), false, c.getColour(), false));
 					return Dildo.dildoAverage;
 					
 				} else if(c.getItemTags().contains(ItemTag.DILDO_LARGE)) {
-					this.setSkinCovering(new Covering(BodyCoveringType.DILDO, CoveringPattern.NONE, c.getColour(), false, c.getColour(), false), false);
+					this.body.getCoverings().put(BodyCoveringType.DILDO, new Covering(BodyCoveringType.DILDO, CoveringPattern.NONE, c.getColour(), false, c.getColour(), false));
 					return Dildo.dildoLarge;
 					
 				} else if(c.getItemTags().contains(ItemTag.DILDO_HUGE)) {
-					this.setSkinCovering(new Covering(BodyCoveringType.DILDO, CoveringPattern.NONE, c.getColour(), false, c.getColour(), false), false);
+					this.body.getCoverings().put(BodyCoveringType.DILDO, new Covering(BodyCoveringType.DILDO, CoveringPattern.NONE, c.getColour(), false, c.getColour(), false));
 					return Dildo.dildoHuge;
 					
 				} else if(c.getItemTags().contains(ItemTag.DILDO_ENORMOUS)) {
-					this.setSkinCovering(new Covering(BodyCoveringType.DILDO, CoveringPattern.NONE, c.getColour(), false, c.getColour(), false), false);
+					this.body.getCoverings().put(BodyCoveringType.DILDO, new Covering(BodyCoveringType.DILDO, CoveringPattern.NONE, c.getColour(), false, c.getColour(), false));
 					return Dildo.dildoEnormous;
 					
 				} else if(c.getItemTags().contains(ItemTag.DILDO_GIGANTIC)) {
-					this.setSkinCovering(new Covering(BodyCoveringType.DILDO, CoveringPattern.NONE, c.getColour(), false, c.getColour(), false), false);
+					this.body.getCoverings().put(BodyCoveringType.DILDO, new Covering(BodyCoveringType.DILDO, CoveringPattern.NONE, c.getColour(), false, c.getColour(), false));
 					return Dildo.dildoGigantic;
 					
 				} else if(c.getItemTags().contains(ItemTag.DILDO_STALLION)) {
-					this.setSkinCovering(new Covering(BodyCoveringType.DILDO, CoveringPattern.NONE, c.getColour(), false, c.getColour(), false), false);
+					this.body.getCoverings().put(BodyCoveringType.DILDO, new Covering(BodyCoveringType.DILDO, CoveringPattern.NONE, c.getColour(), false, c.getColour(), false));
 					return Dildo.dildoStallion;
 					
 				}

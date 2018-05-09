@@ -1114,6 +1114,9 @@ public enum Subspecies {
 		if(iconPathName!=null) {
 			try {
 				InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/" + iconPathName + ".svg");
+				if(is==null) {
+					System.err.println("Error! Subspecies icon file does not exist (Trying to read from '"+iconPathName+"')! (Code 1)");
+				}
 				SVGString = Util.inputStreamToString(is);
 	
 				SVGString = SVGString.replaceAll("#ff2a2a", colour.getShades()[0]);
@@ -1130,6 +1133,9 @@ public enum Subspecies {
 			
 			try {
 				InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/" + iconPathName + ".svg");
+				if(is==null) {
+					System.err.println("Error! Subspecies icon file does not exist (Trying to read from '"+iconPathName+"')! (Code 2)");
+				}
 				SVGStringDesaturated = Util.inputStreamToString(is);
 	
 				SVGStringDesaturated = SVGStringDesaturated.replaceAll("#ff2a2a", Colour.BASE_GREY.getShades()[0]);

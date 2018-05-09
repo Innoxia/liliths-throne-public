@@ -18,6 +18,9 @@ import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Breast;
 import com.lilithsthrone.game.character.body.Covering;
+import com.lilithsthrone.game.character.body.FluidCum;
+import com.lilithsthrone.game.character.body.FluidGirlCum;
+import com.lilithsthrone.game.character.body.FluidMilk;
 import com.lilithsthrone.game.character.body.Testicle;
 import com.lilithsthrone.game.character.body.types.AntennaType;
 import com.lilithsthrone.game.character.body.types.ArmType;
@@ -91,7 +94,7 @@ import com.lilithsthrone.game.combat.SpellUpgrade;
 import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
-import com.lilithsthrone.game.dialogue.MapDisplay;
+import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.SlaveryManagementDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.LilayaHomeGeneric;
 import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.SuccubisSecrets;
@@ -131,6 +134,7 @@ import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexType;
+import com.lilithsthrone.game.slavery.MilkingRoom;
 import com.lilithsthrone.game.slavery.SlaveJob;
 import com.lilithsthrone.game.slavery.SlaveJobHours;
 import com.lilithsthrone.game.slavery.SlaveJobSetting;
@@ -1062,7 +1066,7 @@ public class MainControllerInitMethod {
 								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
 									@Override
 									public void effects() {
-										SlaveryManagementDialogue.cellToInspect.getPlace().addPlaceUpgrade(placeUpgrade);
+										SlaveryManagementDialogue.cellToInspect.addPlaceUpgrade(placeUpgrade);
 										Main.game.getPlayer().incrementMoney(-placeUpgrade.getInstallCost());
 									}
 								});
@@ -1071,7 +1075,7 @@ public class MainControllerInitMethod {
 									@Override
 									public void effects() {
 										Main.game.getArthur().setLocation(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), true);
-										SlaveryManagementDialogue.cellToInspect.getPlace().addPlaceUpgrade(placeUpgrade);
+										SlaveryManagementDialogue.cellToInspect.addPlaceUpgrade(placeUpgrade);
 										Main.game.getDialogueFlags().setFlag(DialogueFlagValue.arthursRoomInstalled, true);
 									}
 								});
@@ -1101,7 +1105,7 @@ public class MainControllerInitMethod {
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
 								@Override
 								public void effects() {
-									SlaveryManagementDialogue.cellToInspect.getPlace().removePlaceUpgrade(placeUpgrade);
+									SlaveryManagementDialogue.cellToInspect.removePlaceUpgrade(placeUpgrade);
 									Main.game.getPlayer().incrementMoney(-placeUpgrade.getRemovalCost());
 								}
 							});
@@ -1157,6 +1161,195 @@ public class MainControllerInitMethod {
 			
 			
 			// -------------------- Slavery -------------------- //
+			
+			// Room specials:
+			if(Main.game.getPlayer().getLocationPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM)) {
+				MilkingRoom room = Main.game.getSlaveryUtil().getMilkingRoom(Main.game.getPlayerCell().getType(), Main.game.getPlayerCell().getLocation());
+
+				for(Entry<FluidMilk, Float> entry : room.getMilkStorage().entrySet()) {
+					id ="MILK_DRINK_SMALL_"+entry.hashCode();
+					if (((EventTarget) MainController.document.getElementById(id)) != null) {
+						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+							if(room.getMilkStorage().get(entry.getKey())>=100) {
+								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().ingestFluid(entry.getKey().getType(), OrificeType.MOUTH, 100, entry.getKey().getFluidModifiers()));
+								room.incrementMilkStorage(entry.getKey(), -100);
+								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+							}
+						}, false);
+						
+						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+						if(room.getMilkStorage().get(entry.getKey())>=100) {
+							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Drink (100ml)", "Drink 100ml of the "+entry.getKey().getName(null)+".");
+							MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
+						} else {
+							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Drink (100ml)", "There needs to be at least 100ml of "+entry.getKey().getName(null)+" stored here before you can drink it!");
+							MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
+						}
+					}
+					
+					id ="MILK_DRINK_"+entry.hashCode();
+					if (((EventTarget) MainController.document.getElementById(id)) != null) {
+						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+							if(room.getMilkStorage().get(entry.getKey())>=500) {
+								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().ingestFluid(entry.getKey().getType(), OrificeType.MOUTH, 500, entry.getKey().getFluidModifiers()));
+								room.incrementMilkStorage(entry.getKey(), -500);
+								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+							}
+						}, false);
+						
+						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+						if(room.getMilkStorage().get(entry.getKey())>=500) {
+							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Drink (500ml)", "Drink 500ml of the "+entry.getKey().getName(null)+".");
+							MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
+						} else {
+							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Drink (500ml)", "There needs to be at least 500ml of "+entry.getKey().getName(null)+" stored here before you can drink it!");
+							MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
+						}
+					}
+					
+					id ="MILK_SELL_"+entry.hashCode();
+					if (((EventTarget) MainController.document.getElementById(id)) != null) {
+						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+							int income = Math.max(1, (int)(entry.getKey().getValuePerMl()*entry.getValue()));
+							Main.game.getPlayer().incrementMoney(income);
+							room.getMilkStorage().remove(entry.getKey());
+							Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>You sold the milk for "+(UtilText.formatAsMoney(income, "span"))+"!</p>");
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+						
+						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+						TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Sell",
+								"Sell all of the "+entry.getKey().getName(null)+" for "+(Math.max(1, (int)(entry.getKey().getValuePerMl()*entry.getValue())))+" flames.");
+						MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
+					}
+				}
+				
+				for(Entry<FluidCum, Float> entry : room.getCumStorage().entrySet()) {
+					id ="CUM_DRINK_SMALL_"+entry.hashCode();
+					if (((EventTarget) MainController.document.getElementById(id)) != null) {
+						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+							if(room.getCumStorage().get(entry.getKey())>=100) {
+								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().ingestFluid(entry.getKey().getType(), OrificeType.MOUTH, 100, entry.getKey().getFluidModifiers()));
+								room.incrementCumStorage(entry.getKey(), -100);
+								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+							}
+						}, false);
+						
+						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+						if(room.getCumStorage().get(entry.getKey())>=100) {
+							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Drink (100ml)", "Drink 100ml of the "+entry.getKey().getName(null)+".");
+							MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
+						} else {
+							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Drink (100ml)", "There needs to be at least 100ml of "+entry.getKey().getName(null)+" stored here before you can drink it!");
+							MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
+						}
+					}
+					
+					id ="CUM_DRINK_"+entry.hashCode();
+					if (((EventTarget) MainController.document.getElementById(id)) != null) {
+						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+							if(room.getCumStorage().get(entry.getKey())>=500) {
+								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().ingestFluid(entry.getKey().getType(), OrificeType.MOUTH, 500, entry.getKey().getFluidModifiers()));
+								room.incrementCumStorage(entry.getKey(), -500);
+								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+							}
+						}, false);
+						
+						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+						if(room.getCumStorage().get(entry.getKey())>=500) {
+							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Drink (500ml)", "Drink 500ml of the "+entry.getKey().getName(null)+".");
+							MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
+						} else {
+							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Drink (500ml)", "There needs to be at least 500ml of "+entry.getKey().getName(null)+" stored here before you can drink it!");
+							MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
+						}
+					}
+					
+					id ="CUM_SELL_"+entry.hashCode();
+					if (((EventTarget) MainController.document.getElementById(id)) != null) {
+						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+							int income = Math.max(1, (int)(entry.getKey().getValuePerMl()*entry.getValue()));
+							Main.game.getPlayer().incrementMoney(income);
+							room.getCumStorage().remove(entry.getKey());
+							Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>You sold the cum for "+(UtilText.formatAsMoney(income, "span"))+"!</p>");
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+						
+						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+						TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Sell",
+								"Sell all of the "+entry.getKey().getName(null)+" for "+(Math.max(1, (int)(entry.getKey().getValuePerMl()*entry.getValue())))+" flames.");
+						MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
+					}
+				}
+				
+				for(Entry<FluidGirlCum, Float> entry : room.getGirlcumStorage().entrySet()) {
+					id ="GIRLCUM_DRINK_SMALL_"+entry.hashCode();
+					if (((EventTarget) MainController.document.getElementById(id)) != null) {
+						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+							if(room.getGirlcumStorage().get(entry.getKey())>=100) {
+								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().ingestFluid(entry.getKey().getType(), OrificeType.MOUTH, 100, entry.getKey().getFluidModifiers()));
+								room.incrementGirlcumStorage(entry.getKey(), -100);
+								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+							}
+						}, false);
+						
+						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+						if(room.getGirlcumStorage().get(entry.getKey())>=100) {
+							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Drink (100ml)", "Drink 100ml of the "+entry.getKey().getName(null)+".");
+							MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
+						} else {
+							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Drink (100ml)", "There needs to be at least 100ml of "+entry.getKey().getName(null)+" stored here before you can drink it!");
+							MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
+						}
+					}
+					
+					id ="GIRLCUM_DRINK_"+entry.hashCode();
+					if (((EventTarget) MainController.document.getElementById(id)) != null) {
+						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+							if(room.getGirlcumStorage().get(entry.getKey())>=500) {
+								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().ingestFluid(entry.getKey().getType(), OrificeType.MOUTH, 500, entry.getKey().getFluidModifiers()));
+								room.incrementGirlcumStorage(entry.getKey(), -500);
+								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+							}
+						}, false);
+						
+						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+						if(room.getGirlcumStorage().get(entry.getKey())>=500) {
+							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Drink (500ml)", "Drink 500ml of the "+entry.getKey().getName(null)+".");
+							MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
+						} else {
+							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Drink (500ml)", "There needs to be at least 500ml of "+entry.getKey().getName(null)+" stored here before you can drink it!");
+							MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
+						}
+					}
+					
+					id ="GIRLCUM_SELL_"+entry.hashCode();
+					if (((EventTarget) MainController.document.getElementById(id)) != null) {
+						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+							int income = Math.max(1, (int)(entry.getKey().getValuePerMl()*entry.getValue()));
+							Main.game.getPlayer().incrementMoney(income);
+							room.getGirlcumStorage().remove(entry.getKey());
+							Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>You sold the girlcum for "+(UtilText.formatAsMoney(income, "span"))+"!</p>");
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+						
+						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+						TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Sell",
+								"Sell all of the "+entry.getKey().getName(null)+" for "+(Math.max(1, (int)(entry.getKey().getValuePerMl()*entry.getValue())))+" flames.");
+						MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
+					}
+				}
+			}
+			
 			
 			if(Main.game.getCurrentDialogueNode() == SlaveryManagementDialogue.SLAVERY_OVERVIEW) {
 				id ="PREVIOUS_DAY";
@@ -2836,7 +3029,7 @@ public class MainControllerInitMethod {
 			// -------------------- Cosmetics -------------------- //
 			
 			
-			boolean noCost = !Main.game.isInNewWorld() || Main.game.getCurrentDialogueNode().getMapDisplay()==MapDisplay.PHONE;
+			boolean noCost = !Main.game.isInNewWorld() || Main.game.getCurrentDialogueNode().getDialgoueNodeType()==DialogueNodeType.PHONE;
 
 			for(BodyCoveringType bct : BodyCoveringType.values()) {
 				

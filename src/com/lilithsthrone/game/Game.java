@@ -62,6 +62,7 @@ import com.lilithsthrone.game.character.npc.dominion.HarpyNymphoCompanion;
 import com.lilithsthrone.game.character.npc.dominion.Kate;
 import com.lilithsthrone.game.character.npc.dominion.Lilaya;
 import com.lilithsthrone.game.character.npc.dominion.Loppy;
+import com.lilithsthrone.game.character.npc.dominion.Lumi;
 import com.lilithsthrone.game.character.npc.dominion.Nyan;
 import com.lilithsthrone.game.character.npc.dominion.Pazu;
 import com.lilithsthrone.game.character.npc.dominion.Pix;
@@ -91,7 +92,7 @@ import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueFlags;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
-import com.lilithsthrone.game.dialogue.MapDisplay;
+import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.encounters.Encounter;
 import com.lilithsthrone.game.dialogue.eventLog.EventLogEntry;
 import com.lilithsthrone.game.dialogue.eventLog.SlaveryEventLogEntry;
@@ -112,7 +113,9 @@ import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.settings.KeyCodeWithModifiers;
 import com.lilithsthrone.game.settings.KeyboardAction;
 import com.lilithsthrone.game.sex.Sex;
-import com.lilithsthrone.game.slavery.SlaveJobSetting;
+import com.lilithsthrone.game.slavery.MilkingRoom;
+import com.lilithsthrone.game.slavery.SlavePermission;
+import com.lilithsthrone.game.slavery.SlavePermissionSetting;
 import com.lilithsthrone.game.slavery.SlaveryUtil;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.RenderingEngine;
@@ -126,10 +129,11 @@ import com.lilithsthrone.world.Generation;
 import com.lilithsthrone.world.World;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
+import com.lilithsthrone.world.places.PlaceUpgrade;
 
 /**
  * @since 0.1.0
- * @version 0.2.4
+ * @version 0.2.5
  * @author Innoxia
  */
 public class Game implements Serializable, XMLSaving {
@@ -362,10 +366,7 @@ public class Game implements Serializable, XMLSaving {
 				CharacterUtils.addAttribute(doc, informationNode, "gatheringStormDuration", String.valueOf(Main.game.gatheringStormDuration));
 				CharacterUtils.addAttribute(doc, informationNode, "weatherTimeRemaining", String.valueOf(Main.game.weatherTimeRemaining));
 	
-				Element slaveryNode = doc.createElement("slavery");
-				game.appendChild(slaveryNode);
-				CharacterUtils.addAttribute(doc, slaveryNode, "generatedIncome", String.valueOf(Main.game.getSlaveryUtil().getGeneratedIncome()));
-				CharacterUtils.addAttribute(doc, slaveryNode, "generatedUpkeep", String.valueOf(Main.game.getSlaveryUtil().getGeneratedUpkeep()));
+				Main.game.getSlaveryUtil().saveAsXML(game, doc);
 				
 				Element dateNode = doc.createElement("date");
 				informationNode.appendChild(dateNode);
@@ -527,14 +528,11 @@ public class Game implements Serializable, XMLSaving {
 				}
 				Main.game.weatherTimeRemaining = Integer.valueOf(informationNode.getAttribute("weatherTimeRemaining"));
 
-
 				try {
 					Element slaveryNode = (Element) gameElement.getElementsByTagName("slavery").item(0);
-					Main.game.getSlaveryUtil().setGeneratedIncome(Integer.valueOf(slaveryNode.getAttribute("generatedIncome")));
-					Main.game.getSlaveryUtil().setGeneratedUpkeep(Integer.valueOf(slaveryNode.getAttribute("generatedUpkeep")));
+					Main.game.setSlaveryUtil(SlaveryUtil.loadFromXML(slaveryNode, doc));
 				} catch(Exception ex) {
 				}
-				
 				
 				Element dateNode = (Element) gameElement.getElementsByTagName("date").item(0);
 				Main.game.startingDate = LocalDateTime.of(
@@ -732,6 +730,9 @@ public class Game implements Serializable, XMLSaving {
 				if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Loppy.class))) {
 					Main.game.addNPC(new Loppy(), false);
 				}
+				if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Lumi.class))) {
+					Main.game.addNPC(new Lumi(), false);
+				}
 				
 				// To prevent errors from previous versions, reset Zaranix progress if prior to 0.1.95:
 				if(Main.isVersionOlderThan(version, "0.1.90.5")) {
@@ -771,6 +772,26 @@ public class Game implements Serializable, XMLSaving {
 					for(NPC npc : Main.game.getAllNPCs()) {
 						if(!npc.isSlave() || (npc.getOwner()!=null && !npc.getOwner().isPlayer()))
 						npc.setSkinCovering(new Covering(npc.getSkinType().getBodyCoveringType(npc), npc.getCovering(npc.getSkinType().getBodyCoveringType(npc)).getPrimaryColour()), true);
+					}
+				}
+				
+				if(Main.isVersionOlderThan(version, "0.2.5")) { //Add milking rooms
+					
+					Cell[][] grid = Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR).getCellGrid();
+					for(int i=0 ; i<grid.length ; i++) {
+						for(int j=0 ; j<grid[0].length ; j++) {
+							if(grid[i][j].getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM)) {
+								Main.game.getSlaveryUtil().addMilkingRoom(new MilkingRoom(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, new Vector2i(i, j)));
+							}
+						}
+					}
+					grid = Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getCellGrid();
+					for(int i=0 ; i<grid.length ; i++) {
+						for(int j=0 ; j<grid[0].length ; j++) {
+							if(grid[i][j].getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM)) {
+								Main.game.getSlaveryUtil().addMilkingRoom(new MilkingRoom(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, new Vector2i(i, j)));
+							}
+						}
 					}
 				}
 				
@@ -947,6 +968,8 @@ public class Game implements Serializable, XMLSaving {
 			addNPC(new Bunny(), false);
 			addNPC(new Loppy(), false);
 			
+			addNPC(new Lumi(), false);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -1122,11 +1145,11 @@ public class Game implements Serializable, XMLSaving {
 					&& npc.getHistory()==History.PROSTITUTE
 					&& !npc.hasStatusEffect(StatusEffect.PROMISCUITY_PILL)
 					&& !npc.getLocation().equals(Main.game.getPlayer().getLocation()))
-					|| (npc.isSlave() && npc.getSlaveJobSettings().contains(SlaveJobSetting.SEX_PROMISCUITY_PILLS))) {
+					|| (npc.isSlave() && npc.getSlavePermissionSettings().get(SlavePermission.PREGNANCY).contains(SlavePermissionSetting.PREGNANCY_PROMISCUITY_PILLS))) {
 				npc.useItem(AbstractItemType.generateItem(ItemType.PROMISCUITY_PILL), npc, false);
 			}
 			
-			if(npc.isSlave() && npc.getSlaveJobSettings().contains(SlaveJobSetting.SEX_VIXENS_VIRILITY)) {
+			if(npc.isSlave() && npc.getSlavePermissionSettings().get(SlavePermission.PREGNANCY).contains(SlavePermissionSetting.PREGNANCY_VIXENS_VIRILITY)) {
 				npc.useItem(AbstractItemType.generateItem(ItemType.VIXENS_VIRILITY), npc, false);
 			}
 			
@@ -1212,7 +1235,7 @@ public class Game implements Serializable, XMLSaving {
 		Main.mainController.getTooltip().hide();
 		
 		if(!Main.game.getPlayer().getStatusEffectDescriptions().isEmpty() && Main.game.getCurrentDialogueNode()!=MiscDialogue.STATUS_EFFECTS){
-			if(Main.game.getCurrentDialogueNode().getMapDisplay()==MapDisplay.NORMAL) {
+			if(Main.game.getCurrentDialogueNode().getDialgoueNodeType()==DialogueNodeType.NORMAL) {
 				Main.game.saveDialogueNode();
 			}
 			
@@ -1245,6 +1268,14 @@ public class Game implements Serializable, XMLSaving {
 			Main.game.getPlayer().removeCompanion(character);
 			character.returnToHome();
 		}
+		
+		// Miscellaneous things:
+		
+		if(Main.game.getCurrentDialogueNode().getDialgoueNodeType()!=DialogueNodeType.SLAVERY_MANAGEMENT) { // Catch slavery management NPC not correctly being assigned to null:
+			Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(null);
+		}
+		
+		
 		
 //		System.out.println((System.nanoTime()-tStart)/1000000000d+"s");
 	}
@@ -1335,11 +1366,9 @@ public class Game implements Serializable, XMLSaving {
 	}
 
 	/**
-	 * Sets the content of the main WebView based on the response of the current
-	 * Dialogue Node's index.
+	 * Sets the content of the main WebView based on the response of the current Dialogue Node's index.
 	 * 
-	 * @param index
-	 *            The dialogue choice index.
+	 * @param index The dialogue choice index.
 	 */
 	private int positionAnchor = 0;
 	private String dialogueTitle = "";
@@ -1415,14 +1444,14 @@ public class Game implements Serializable, XMLSaving {
 							}
 
 							if(node.isDisplaysActionTitleOnContinuesDialogue()) {
-								if (currentDialogueNode.getMapDisplay() == MapDisplay.NORMAL) {
+								if (currentDialogueNode.getDialgoueNodeType() == DialogueNodeType.NORMAL) {
 									positionAnchor++;
 								}
 							
 								pastDialogueSB.append("<hr id='position" + positionAnchor + "'><p class='option-disabled'>&gt " + chosenResponse + "</p>");
 							}
 							
-							if (getMapDisplay() == MapDisplay.NORMAL)
+							if (getMapDisplay() == DialogueNodeType.NORMAL)
 								initialPositionAnchor = positionAnchor;
 
 							pastDialogueSB.append(
@@ -1436,10 +1465,10 @@ public class Game implements Serializable, XMLSaving {
 					} else {
 						dialogueTitle = UtilText.parse(node.getLabel());
 						
-						if (getMapDisplay() == MapDisplay.NORMAL)
+						if (getMapDisplay() == DialogueNodeType.NORMAL)
 							initialPositionAnchor = positionAnchor;
 
-						if (currentDialogueNode.getMapDisplay() == MapDisplay.NORMAL)
+						if (currentDialogueNode.getDialgoueNodeType() == DialogueNodeType.NORMAL)
 							positionAnchor = 0;
 						
 						pastDialogueSB.setLength(0);
@@ -1561,7 +1590,7 @@ public class Game implements Serializable, XMLSaving {
 		String content = node.getContent();
 		boolean resetPointer = false;
 		
-		if (getMapDisplay() == MapDisplay.NORMAL) {
+		if (getMapDisplay() == DialogueNodeType.NORMAL) {
 			initialPositionAnchor = positionAnchor;
 		}
 		
@@ -1592,7 +1621,7 @@ public class Game implements Serializable, XMLSaving {
 					
 
 					if(node.isDisplaysActionTitleOnContinuesDialogue()) {
-						if (currentDialogueNode.getMapDisplay() == MapDisplay.NORMAL) {
+						if (currentDialogueNode.getDialgoueNodeType() == DialogueNodeType.NORMAL) {
 							positionAnchor++;
 						}
 						
@@ -1603,7 +1632,7 @@ public class Game implements Serializable, XMLSaving {
 				}
 			} else {
 				dialogueTitle = UtilText.parse(node.getLabel());
-				if (currentDialogueNode.getMapDisplay() == MapDisplay.NORMAL) {
+				if (currentDialogueNode.getDialgoueNodeType() == DialogueNodeType.NORMAL) {
 					positionAnchor = 0;
 				}
 				
@@ -1721,7 +1750,7 @@ public class Game implements Serializable, XMLSaving {
 	}
 	
 	private static boolean isContentScroll(DialogueNodeOld node) {
-		return (node.getMapDisplay()!=MapDisplay.CHARACTERS_PRESENT
+		return (node.getDialgoueNodeType()!=DialogueNodeType.CHARACTERS_PRESENT
 				&& !node.equals(PhoneDialogue.CHARACTER_APPEARANCE)
 				&& !node.equals(PhoneDialogue.CONTACTS_CHARACTER))
 				|| node.equals(BodyChanging.BODY_CHANGING_ASS)
@@ -2197,7 +2226,7 @@ public class Game implements Serializable, XMLSaving {
 			String content = currentDialogueNode.getContent();
 			
 			currentDialogue = 
-					(savedDialogueNode.getMapDisplay()!=MapDisplay.PHONE && savedDialogueNode.getMapDisplay()!=MapDisplay.CHARACTERS_PRESENT
+					(savedDialogueNode.getDialgoueNodeType()!=DialogueNodeType.PHONE && savedDialogueNode.getDialgoueNodeType()!=DialogueNodeType.CHARACTERS_PRESENT
 						?"<body onLoad='scrollToElement()'>"
 							+ "<script>function scrollToElement() {document.getElementById('content-block').scrollTop = document.getElementById('position" + (positionAnchor) + "').offsetTop -64;}</script>"
 						:"<body>")
@@ -2650,6 +2679,10 @@ public class Game implements Serializable, XMLSaving {
 	public NPC getLoppy() {
 		return (NPC) this.getNPCById(getUniqueNPCId(Loppy.class));
 	}
+	
+	public NPC getLumi() {
+		return (NPC) this.getNPCById(getUniqueNPCId(Lumi.class));
+	}
 
 	public NPC getGenericMaleNPC() {
 		return (NPC) this.getNPCById(getUniqueNPCId(GenericMaleNPC.class));
@@ -2888,9 +2921,9 @@ public class Game implements Serializable, XMLSaving {
 		return currentDialogueNode;
 	}
 
-	public MapDisplay getMapDisplay() {
+	public DialogueNodeType getMapDisplay() {
 		if (currentDialogueNode != null)
-			return currentDialogueNode.getMapDisplay();
+			return currentDialogueNode.getDialgoueNodeType();
 		else
 			return null;
 	}
@@ -3020,4 +3053,17 @@ public class Game implements Serializable, XMLSaving {
 	public SlaveryUtil getSlaveryUtil() {
 		return slaveryUtil;
 	}
+
+	public SlaveryUtil setSlaveryUtil(SlaveryUtil slaveryUtil) {
+		return this.slaveryUtil = slaveryUtil;
+	}
+	
+	public DialogueNodeOld getDefaultDialogue() {
+		return Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true);
+	}
+
+	public DialogueNodeOld getDefaultDialogueNoEncounter() {
+		return Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(false);
+	}
+	
 }

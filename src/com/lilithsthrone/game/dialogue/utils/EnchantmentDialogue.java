@@ -25,7 +25,7 @@ import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
-import com.lilithsthrone.game.dialogue.MapDisplay;
+import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
@@ -407,8 +407,8 @@ public class EnchantmentDialogue {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.INVENTORY;
+		public DialogueNodeType getDialgoueNodeType() {
+			return DialogueNodeType.INVENTORY;
 		}
 	};
 	
@@ -605,7 +605,7 @@ public class EnchantmentDialogue {
 						
 							+ "<div style='width:calc(90% - 8px); padding:0; margin:0 0 0 8px; position:relative; float:left;'>"
 								+ "<h6 style='margin:0; padding:2px;'>"+(!suitableItemAvailable?"[style.boldBad("+loadedEnchantment.getName()+")]":loadedEnchantment.getName())+"</h6>"
-								+ "<p style='margin:0; padding:2px;'>[style.colourDisabled(data/enchantments/)]"+fileName+"</p>"
+								+ "<p style='margin:0; padding:2px;'>[style.colourDisabled(data/enchantments/)]"+baseName+"[style.colourDisabled(.xml)]</p>"
 							+"</div>"
 							
 						+ "</div>"

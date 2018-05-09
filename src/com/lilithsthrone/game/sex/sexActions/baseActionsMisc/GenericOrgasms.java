@@ -1511,10 +1511,10 @@ public class GenericOrgasms {
 				case SLIME:
 					if(characterOrgasming.isPlayer()) {
 						cumTargetSB.append("</br>"
-								+ "As [npc2.name]'s body is made completely out of translucent "+target.getBodyMaterial()+", you're able to see the cloud of your [npc1.cum+] shooting up and dispersing inside of [npc2.herHim].");
+								+ "As [npc2.name]'s body is made completely out of translucent "+target.getBodyMaterial().getName()+", you're able to see the cloud of your [npc1.cum+] shooting up and dispersing inside of [npc2.herHim].");
 					} else {
 						cumTargetSB.append("</br>"
-								+ "As your body is made completely out of translucent "+target.getBodyMaterial()+", you're able to see the cloud of [npc1.name]'s [npc1.cum+] shooting up and dispersing inside of you.");
+								+ "As your body is made completely out of translucent "+target.getBodyMaterial().getName()+", you're able to see the cloud of [npc1.name]'s [npc1.cum+] shooting up and dispersing inside of you.");
 					}
 					break;
 				case FIRE:

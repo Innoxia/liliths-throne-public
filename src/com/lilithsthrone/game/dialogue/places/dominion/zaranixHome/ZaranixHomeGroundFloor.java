@@ -11,7 +11,6 @@ import com.lilithsthrone.game.character.npc.dominion.ZaranixMaidKatherine;
 import com.lilithsthrone.game.character.npc.dominion.ZaranixMaidKelly;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
-import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -149,7 +148,7 @@ public class ZaranixHomeGroundFloor {
 				}
 				
 			} else if (index == 0) {
-				return new Response("Leave", "Turn around and walk away.", DebugDialogue.getDefaultDialogueNoEncounter()) {
+				return new Response("Leave", "Turn around and walk away.", Main.game.getDefaultDialogueNoEncounter()) {
 					@Override
 					public void effects() {
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.zaranixDiscoveredHome, true);
@@ -210,7 +209,7 @@ public class ZaranixHomeGroundFloor {
 					};
 					
 				} else if (index == 0) {
-					return new Response("Leave", "Say that you've got the wrong house and take your leave.", DebugDialogue.getDefaultDialogueNoEncounter()) {
+					return new Response("Leave", "Say that you've got the wrong house and take your leave.", Main.game.getDefaultDialogueNoEncounter()) {
 						@Override
 						public void effects() {
 							Main.game.getAmber().returnToHome();

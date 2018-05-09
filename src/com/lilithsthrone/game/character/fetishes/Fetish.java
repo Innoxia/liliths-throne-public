@@ -1451,9 +1451,10 @@ public enum Fetish {
 		}
 		
 		try {
-			InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/fetishes/"
-					+ pathName
-					+ ".svg");
+			InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/fetishes/" + pathName + ".svg");
+			if(is==null) {
+				System.err.println("Error! Fetish icon file does not exist (Trying to read from '"+pathName+"')!");
+			}
 			SVGString = Util.inputStreamToString(is);
 
 			SVGString = SVGString.replaceAll("#ff2a2a", colourShade.getShades()[0]);

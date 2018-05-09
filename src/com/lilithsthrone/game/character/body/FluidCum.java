@@ -22,7 +22,7 @@ import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.83
- * @version 0.1.89
+ * @version 0.2.5
  * @author Innoxia
  */
 public class FluidCum implements BodyPartInterface, Serializable, XMLSaving {
@@ -61,11 +61,18 @@ public class FluidCum implements BodyPartInterface, Serializable, XMLSaving {
 		
 		Element cum = (Element)parentElement.getElementsByTagName("cum").item(0);
 
-		FluidCum fluidCum = new FluidCum(FluidType.valueOf(cum.getAttribute("type")));
+		FluidType fluidType = FluidType.CUM_HUMAN;
+		try {
+			fluidType = FluidType.valueOf(cum.getAttribute("type"));
+		} catch(Exception ex) {
+		}
+		
+		FluidCum fluidCum = new FluidCum(fluidType);
 		
 		fluidCum.flavour = (FluidFlavour.valueOf(cum.getAttribute("flavour")));
 		
 		Element cumModifiers = (Element)cum.getElementsByTagName("cumModifiers").item(0);
+		fluidCum.fluidModifiers.clear();
 		for(FluidModifier fm : FluidModifier.values()) {
 			if(Boolean.valueOf(cumModifiers.getAttribute(fm.toString()))) {
 				fluidCum.fluidModifiers.add(fm);
@@ -73,6 +80,29 @@ public class FluidCum implements BodyPartInterface, Serializable, XMLSaving {
 		}
 		
 		return fluidCum;
+	}
+	
+	@Override
+	public boolean equals (Object o) {
+		if(o instanceof FluidCum){
+			if(((FluidCum)o).getType().equals(this.getType())
+				&& ((FluidCum)o).getFlavour() == this.getFlavour()
+				&& ((FluidCum)o).getFluidModifiers().equals(this.getFluidModifiers())
+				&& ((FluidCum)o).getTransformativeEffects().equals(this.getTransformativeEffects())){
+					return true;
+			}
+		}
+		return false;
+	}
+	
+	@Override
+	public int hashCode() {
+		int result = 17;
+		result = 31 * result + this.getType().hashCode();
+		result = 31 * result + this.getFlavour().hashCode();
+		result = 31 * result + this.getFluidModifiers().hashCode();
+		result = 31 * result + this.getTransformativeEffects().hashCode();
+		return result;
 	}
 	
 	@Override
@@ -450,5 +480,9 @@ public class FluidCum implements BodyPartInterface, Serializable, XMLSaving {
 	 */
 	public List<FluidModifier> getFluidModifiers() {
 		return fluidModifiers;
+	}
+
+	public float getValuePerMl() {
+		return 0.1f + this.getFluidModifiers().size()*0.2f;
 	}
 }

@@ -29,6 +29,8 @@ public enum SVGImages {
 			
 			itemsOnFloorIcon,
 			
+			drinkSmall, drink,
+			
 			playerMapIconMasculine,
 			playerMapIconAndrogynous,
 			playerMapIconFeminine,
@@ -120,6 +122,14 @@ public enum SVGImages {
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/itemsOnFloor.svg");
 			itemsOnFloorIcon = Util.inputStreamToString(is);
 			itemsOnFloorIcon = setColour(itemsOnFloorIcon, Colour.BASE_BLACK);
+
+			
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/drink_small.svg");
+			drinkSmall = Util.inputStreamToString(is);
+			drinkSmall = setColour(drinkSmall, Colour.BASE_WHITE);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/drink.svg");
+			drink = Util.inputStreamToString(is);
+			drink = setColour(drink, Colour.BASE_WHITE);
 			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/journal.svg");
 			journalIcon = Util.inputStreamToString(is);
@@ -1173,6 +1183,14 @@ public enum SVGImages {
 
 	public String getStopwatch() {
 		return stopwatch;
+	}
+
+	public String getDrinkSmall() {
+		return drinkSmall;
+	}
+	
+	public String getDrink() {
+		return drink;
 	}
 	
 	

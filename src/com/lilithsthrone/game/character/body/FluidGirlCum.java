@@ -4,6 +4,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
+import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
 import com.lilithsthrone.game.character.body.types.FluidType;
@@ -12,13 +16,14 @@ import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.item.ItemEffect;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.83
- * @version 0.1.83
+ * @version 0.2.5
  * @author Innoxia
  */
-public class FluidGirlCum implements BodyPartInterface, Serializable {
+public class FluidGirlCum implements BodyPartInterface, Serializable, XMLSaving {
 	private static final long serialVersionUID = 1L;
 	
 	protected FluidType type;
@@ -35,6 +40,70 @@ public class FluidGirlCum implements BodyPartInterface, Serializable {
 		fluidModifiers.addAll(type.getFluidModifiers());
 	}
 
+	public Element saveAsXML(Element parentElement, Document doc) {
+		Element element = doc.createElement("girlcum");
+		parentElement.appendChild(element);
+
+		CharacterUtils.addAttribute(doc, element, "type", this.type.toString());
+		CharacterUtils.addAttribute(doc, element, "flavour", this.flavour.toString());
+		Element cumModifiers = doc.createElement("girlcumModifiers");
+		element.appendChild(cumModifiers);
+		for(FluidModifier fm : FluidModifier.values()) {
+			CharacterUtils.addAttribute(doc, cumModifiers, fm.toString(), String.valueOf(this.hasFluidModifier(fm)));
+		}
+		
+		return element;
+	}
+	
+	public static FluidGirlCum loadFromXML(Element parentElement, Document doc) {
+		
+		Element cum = (Element)parentElement.getElementsByTagName("girlcum").item(0);
+
+
+		FluidType fluidType = FluidType.GIRL_CUM_HUMAN;
+		try {
+			fluidType = FluidType.valueOf(cum.getAttribute("type"));
+		} catch(Exception ex) {
+		}
+		
+		FluidGirlCum fluidGirlcum = new FluidGirlCum(fluidType);
+		
+		fluidGirlcum.flavour = (FluidFlavour.valueOf(cum.getAttribute("flavour")));
+		
+		Element cumModifiers = (Element)cum.getElementsByTagName("girlcumModifiers").item(0);
+		fluidGirlcum.fluidModifiers.clear();
+		for(FluidModifier fm : FluidModifier.values()) {
+			if(Boolean.valueOf(cumModifiers.getAttribute(fm.toString()))) {
+				fluidGirlcum.fluidModifiers.add(fm);
+			}
+		}
+		
+		return fluidGirlcum;
+	}
+
+	@Override
+	public boolean equals (Object o) {
+		if(o instanceof FluidGirlCum){
+			if(((FluidGirlCum)o).getType().equals(this.getType())
+				&& ((FluidGirlCum)o).getFlavour() == this.getFlavour()
+				&& ((FluidGirlCum)o).getFluidModifiers().equals(this.getFluidModifiers())
+				&& ((FluidGirlCum)o).getTransformativeEffects().equals(this.getTransformativeEffects())){
+					return true;
+			}
+		}
+		return false;
+	}
+	
+	@Override
+	public int hashCode() {
+		int result = 17;
+		result = 31 * result + this.getType().hashCode();
+		result = 31 * result + this.getFlavour().hashCode();
+		result = 31 * result + this.getFluidModifiers().hashCode();
+		result = 31 * result + this.getTransformativeEffects().hashCode();
+		return result;
+	}
+	
 	@Override
 	public String getDeterminer(GameCharacter gc) {
 		return type.getDeterminer(gc);
@@ -380,5 +449,9 @@ public class FluidGirlCum implements BodyPartInterface, Serializable {
 	 */
 	public List<FluidModifier> getFluidModifiers() {
 		return fluidModifiers;
+	}
+
+	public float getValuePerMl() {
+		return 1f + this.getFluidModifiers().size()*1f;
 	}
 }

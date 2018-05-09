@@ -16,6 +16,7 @@ import com.lilithsthrone.game.character.npc.dominion.Cultist;
 import com.lilithsthrone.game.character.npc.dominion.DominionAlleywayAttacker;
 import com.lilithsthrone.game.character.npc.dominion.DominionSuccubusAttacker;
 import com.lilithsthrone.game.character.npc.dominion.HarpyNestsAttacker;
+import com.lilithsthrone.game.character.npc.dominion.Lumi;
 import com.lilithsthrone.game.character.npc.submission.BatMorphCavernAttacker;
 import com.lilithsthrone.game.character.npc.submission.SlimeCavernAttacker;
 import com.lilithsthrone.game.character.npc.submission.SubmissionAttacker;
@@ -151,6 +152,9 @@ public enum Encounter {
 				
 				// Prioritise re-encountering the NPC on this tile:
 				for(NPC npc : Main.game.getNonCompanionCharactersPresent()) {
+					if(npc instanceof Lumi) {
+						return null;
+					}
 					Main.game.setActiveNPC(npc);
 					return Main.game.getActiveNPC().getEncounterDialogue();
 				}

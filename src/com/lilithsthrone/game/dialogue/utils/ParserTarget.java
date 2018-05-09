@@ -542,6 +542,18 @@ public enum ParserTarget {
 			return Main.game.getLoppy();
 		}
 	},
+	
+	LUMI(Util.newArrayListOfValues(
+			new ListValue<>("lumi")), ""){
+		public String getDescription() {
+			return Main.game.getLumi().getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter(String tag) {
+			return Main.game.getLumi();
+		}
+	},
 	;
 	
 	

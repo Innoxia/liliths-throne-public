@@ -1068,9 +1068,10 @@ public enum Perk {
 		this.extraEffects = extraEffects;
 
 		try {
-			InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/"
-					+ pathName
-					+ ".svg");
+			InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/" + pathName + ".svg");
+			if(is==null) {
+				System.err.println("Error! Perk icon file does not exist (Trying to read from '"+pathName+"')!");
+			}
 			SVGString = Util.inputStreamToString(is);
 
 			SVGString = SVGString.replaceAll("#ff2a2a", colour.getShades()[0]);

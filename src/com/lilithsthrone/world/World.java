@@ -105,11 +105,13 @@ public class World implements Serializable, XMLSaving {
 		for(int i=0; i<((Element) parentElement.getElementsByTagName("placesOfInterest").item(0)).getElementsByTagName("entry").getLength(); i++){
 			Element e = (Element) ((Element) parentElement.getElementsByTagName("placesOfInterest").item(0)).getElementsByTagName("entry").item(i);
 			
+			Vector2i location = new Vector2i(
+					Integer.valueOf(((Element)e.getElementsByTagName("locationEntry").item(0)).getAttribute("x")),
+					Integer.valueOf(((Element)e.getElementsByTagName("locationEntry").item(0)).getAttribute("y")));
+			
 			world.addPlaceOfInterest(
-					GenericPlace.loadFromXML((Element) ((Element)e.getElementsByTagName("placeEntry").item(0)).getElementsByTagName("place").item(0), doc),
-					new Vector2i(
-							Integer.valueOf(((Element)e.getElementsByTagName("locationEntry").item(0)).getAttribute("x")),
-							Integer.valueOf(((Element)e.getElementsByTagName("locationEntry").item(0)).getAttribute("y"))));
+					GenericPlace.loadFromXML((Element) ((Element)e.getElementsByTagName("placeEntry").item(0)).getElementsByTagName("place").item(0), doc, world.getCell(location)),
+					location);
 		}
 		
 		return world;

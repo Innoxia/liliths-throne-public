@@ -23,7 +23,7 @@ import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
-import com.lilithsthrone.game.dialogue.MapDisplay;
+import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.story.CharacterCreation;
@@ -232,8 +232,8 @@ public class OptionsDialogue {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.OPTIONS;
+		public DialogueNodeType getDialgoueNodeType() {
+			return DialogueNodeType.OPTIONS;
 		}
 	};
 	
@@ -367,8 +367,8 @@ public class OptionsDialogue {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.OPTIONS;
+		public DialogueNodeType getDialgoueNodeType() {
+			return DialogueNodeType.OPTIONS;
 		}
 	};
 	
@@ -465,8 +465,8 @@ public class OptionsDialogue {
 		}
 	
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.OPTIONS;
+		public DialogueNodeType getDialgoueNodeType() {
+			return DialogueNodeType.OPTIONS;
 		}
 	};
 	
@@ -693,8 +693,8 @@ public class OptionsDialogue {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.OPTIONS;
+		public DialogueNodeType getDialgoueNodeType() {
+			return DialogueNodeType.OPTIONS;
 		}
 	};
 	
@@ -781,8 +781,8 @@ public class OptionsDialogue {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.OPTIONS;
+		public DialogueNodeType getDialgoueNodeType() {
+			return DialogueNodeType.OPTIONS;
 		}
 	};
 
@@ -955,8 +955,8 @@ public class OptionsDialogue {
 		}
 		
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.OPTIONS;
+		public DialogueNodeType getDialgoueNodeType() {
+			return DialogueNodeType.OPTIONS;
 		}
 	};
 	
@@ -1023,8 +1023,8 @@ public class OptionsDialogue {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.OPTIONS;
+		public DialogueNodeType getDialgoueNodeType() {
+			return DialogueNodeType.OPTIONS;
 		}
 	};
 	
@@ -1047,8 +1047,8 @@ public class OptionsDialogue {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.OPTIONS;
+		public DialogueNodeType getDialgoueNodeType() {
+			return DialogueNodeType.OPTIONS;
 		}
 	};
 	
@@ -1136,8 +1136,8 @@ public class OptionsDialogue {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.OPTIONS;
+		public DialogueNodeType getDialgoueNodeType() {
+			return DialogueNodeType.OPTIONS;
 		}
 	};
 	
@@ -1380,8 +1380,8 @@ public class OptionsDialogue {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.OPTIONS;
+		public DialogueNodeType getDialgoueNodeType() {
+			return DialogueNodeType.OPTIONS;
 		}
 	};
 	
@@ -1640,7 +1640,7 @@ public class OptionsDialogue {
 					
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(
 							"INFLATION_CONTENT",
-							Colour.CUMMED,
+							Colour.CUM,
 							"Cum Inflation",
 							"This enables cum inflation mechanics.",
 							Main.getProperties().hasValue(PropertyValue.inflationContent)));
@@ -1709,8 +1709,8 @@ public class OptionsDialogue {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.OPTIONS;
+		public DialogueNodeType getDialgoueNodeType() {
+			return DialogueNodeType.OPTIONS;
 		}
 	};
 	
@@ -1932,8 +1932,8 @@ public class OptionsDialogue {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.OPTIONS;
+		public DialogueNodeType getDialgoueNodeType() {
+			return DialogueNodeType.OPTIONS;
 		}
 	};
 }

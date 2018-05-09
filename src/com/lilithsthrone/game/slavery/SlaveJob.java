@@ -18,11 +18,10 @@ import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
-import com.lilithsthrone.world.places.PlaceUpgrade;
 
 /**
  * @since 0.1.87
- * @version 0.2.2
+ * @version 0.2.5
  * @author Innoxia
  */
 public enum SlaveJob {
@@ -121,12 +120,8 @@ public enum SlaveJob {
 					new ListValue<>(SlaveJobSetting.SEX_VAGINAL),
 					new ListValue<>(SlaveJobSetting.SEX_ANAL),
 					new ListValue<>(SlaveJobSetting.SEX_NIPPLES)),
-			Util.newHashMapOfValues(new Value<>("Pregnancy", Util.newArrayListOfValues(
-					new ListValue<>(SlaveJobSetting.SEX_PROMISCUITY_PILLS),
-					new ListValue<>(SlaveJobSetting.SEX_NO_PILLS),
-					new ListValue<>(SlaveJobSetting.SEX_VIXENS_VIRILITY)))),
-			Util.newArrayListOfValues(
-					new ListValue<>(SlaveJobSetting.SEX_NO_PILLS)),
+			null,
+			null,
 			WorldType.SLAVER_ALLEY,
 			PlaceType.SLAVER_ALLEY_PUBLIC_STOCKS) {
 		@Override
@@ -147,12 +142,8 @@ public enum SlaveJob {
 					new ListValue<>(SlaveJobSetting.SEX_VAGINAL),
 					new ListValue<>(SlaveJobSetting.SEX_ANAL),
 					new ListValue<>(SlaveJobSetting.SEX_NIPPLES)),
-			Util.newHashMapOfValues(new Value<>("Pregnancy", Util.newArrayListOfValues(
-					new ListValue<>(SlaveJobSetting.SEX_PROMISCUITY_PILLS),
-					new ListValue<>(SlaveJobSetting.SEX_NO_PILLS),
-					new ListValue<>(SlaveJobSetting.SEX_VIXENS_VIRILITY)))),
-			Util.newArrayListOfValues(
-					new ListValue<>(SlaveJobSetting.SEX_NO_PILLS)),
+			null,
+			null,
 			WorldType.ANGELS_KISS_FIRST_FLOOR,
 			PlaceType.ANGELS_KISS_BEDROOM) {
 		
@@ -190,29 +181,29 @@ public enum SlaveJob {
 		}
 	},
 	
-	MILKING(5, "Dairy Cow", "Dairy Bull", "Assign this slave to the cow stalls, ready for milking or breeding (or perhaps both). Income is based off of the assigned slave's milk production.",
+	MILKING(-1, "Dairy Cow", "Dairy Bull", "Assign this slave to the cow stalls, ready for milking or breeding (or perhaps both). Income is based off of the assigned slave's milk, cum, and girlcum production.",
 			-0.25f, 1f,
 			0, 0, 0,
 			Util.newArrayListOfValues(
-					new ListValue<>(SlaveJobSetting.SEX_ORAL),
-					new ListValue<>(SlaveJobSetting.SEX_VAGINAL),
-					new ListValue<>(SlaveJobSetting.SEX_ANAL)),
+					new ListValue<>(SlaveJobSetting.MILKING_MILK_DISABLE),
+					new ListValue<>(SlaveJobSetting.MILKING_CUM_DISABLE),
+					new ListValue<>(SlaveJobSetting.MILKING_GIRLCUM_DISABLE)),
 			Util.newHashMapOfValues(
-					new Value<>("Pregnancy", Util.newArrayListOfValues(
-												new ListValue<>(SlaveJobSetting.SEX_PROMISCUITY_PILLS),
-												new ListValue<>(SlaveJobSetting.SEX_NO_PILLS),
-												new ListValue<>(SlaveJobSetting.SEX_VIXENS_VIRILITY))),
 					new Value<>("Room Preference", Util.newArrayListOfValues(
 							new ListValue<>(SlaveJobSetting.MILKING_INDUSTRIAL),
 							new ListValue<>(SlaveJobSetting.MILKING_REGULAR),
 							new ListValue<>(SlaveJobSetting.MILKING_ARTISAN),
 							new ListValue<>(SlaveJobSetting.MILKING_NO_PREFERENCE)))),
 			Util.newArrayListOfValues(
-					new ListValue<>(SlaveJobSetting.SEX_NO_PILLS),
 					new ListValue<>(SlaveJobSetting.MILKING_NO_PREFERENCE)),
 			WorldType.LILAYAS_HOUSE_GROUND_FLOOR,
 			PlaceType.LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR) {
 
+		@Override
+		public int getSlaveLimit() {
+			return Main.game.getSlaveryUtil().getMilkingRooms().size()*8;
+		}
+		
 		@Override
 		public float getAffectionGain(GameCharacter slave) {
 			if(slave.hasFetish(Fetish.FETISH_LACTATION_SELF)) {
@@ -222,59 +213,9 @@ public enum SlaveJob {
 			}
 		}
 		
-		private List<Cell> getMilkingCells() {
-			List<Cell> milkingCells = new ArrayList<>();
-			Cell[][] grid = Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR).getCellGrid();
-			for(int i=0 ; i<grid.length ; i++) {
-				for(int j=0 ; j<grid[0].length ; j++) {
-					if(grid[i][j].getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM)) {
-						milkingCells.add(grid[i][j]);
-					}
-				}
-			}
-			grid = Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getCellGrid();
-			for(int i=0 ; i<grid.length ; i++) {
-				for(int j=0 ; j<grid[0].length ; j++) {
-					if(grid[i][j].getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM)) {
-						milkingCells.add(grid[i][j]);
-					}
-				}
-			}
-			return milkingCells;
-		}
-		
-		private Cell getMilkingCell(GameCharacter character) {
-			List<Cell> milkingCells = getMilkingCells();
-			
-			List<Cell> freeMilkingCells = new ArrayList<>();
-			
-			for(Cell c : milkingCells) {
-				int charactersPresent = Main.game.getCharactersPresent(c).size();
-				
-				if(character.getSlaveJobSettings().contains(SlaveJobSetting.MILKING_INDUSTRIAL) && c.getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_INDUSTRIAL_MILKERS) && charactersPresent<8) {
-					return c;
-				} else if(character.getSlaveJobSettings().contains(SlaveJobSetting.MILKING_ARTISAN) && c.getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_ARTISAN_MILKERS) && charactersPresent<8) {
-					return c;
-				} else if(character.getSlaveJobSettings().contains(SlaveJobSetting.MILKING_REGULAR) && !c.getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_ARTISAN_MILKERS)
-						&& !c.getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_INDUSTRIAL_MILKERS) && charactersPresent<8) {
-					return c;
-				}
-				
-				if(charactersPresent<8) {
-					freeMilkingCells.add(c);
-				}
-			}
-			
-			if(milkingCells.isEmpty()) {
-				return null;
-			}
-			
-			return freeMilkingCells.get(Util.random.nextInt(freeMilkingCells.size()));
-		}
-		
 		@Override
 		public boolean isAvailable(GameCharacter character) {
-			return Main.game.getPlayer().getSlavesWorkingJob(SlaveJob.MILKING) < (getMilkingCells().size() * 8);
+			return Main.game.getPlayer().getSlavesWorkingJob(SlaveJob.MILKING) < getSlaveLimit();
 		}
 
 		public String getAvailabilityText(GameCharacter character) {
@@ -287,16 +228,16 @@ public enum SlaveJob {
 		
 		@Override
 		public WorldType getWorldLocation(GameCharacter character) {
-			Cell c = getMilkingCell(character);
+			Cell c = MilkingRoom.getMilkingCell(character);
 			if(c==null) {
 				return null;
 			}
 			return c.getType();
 		}
-
+		
 		@Override
 		public PlaceType getPlaceLocation(GameCharacter character) {
-			Cell c = getMilkingCell(character);
+			Cell c = MilkingRoom.getMilkingCell(character);
 			if(c==null) {
 				return null;
 			}
@@ -305,9 +246,9 @@ public enum SlaveJob {
 		
 		@Override
 		public void sendToWorkLocation(GameCharacter slave) {
-			Cell c = getMilkingCell(slave);
+			Cell c = MilkingRoom.getMilkingCell(slave);
 			if(c!=null) {
-				if(slave.getSlaveJob().getWorldLocation(slave)!=slave.getWorldLocation() || slave.getSlaveJob().getPlaceLocation(slave)!=slave.getLocationPlace().getPlaceType()) {
+				if(c.getType()!=slave.getWorldLocation() || c.getLocation()!=slave.getLocation()) {
 					slave.setLocation(c.getType(), c.getLocation(), false);
 				}
 			}
@@ -420,14 +361,17 @@ public enum SlaveJob {
 		
 		if(this==SlaveJob.MILKING) {
 			value = 0;
-			if(character.getBreastRawStoredMilkValue()>0) {
-				int milked = (int) Math.min(1, (character.getBreastLactationRegeneration().getPercentageRegen()*60));
-				value += milked * (1 + character.getMilk().getFluidModifiers().size());
-				
-			} 
-			if(character.hasPenis() && character.getPenisRawCumProductionValue()>0) {
-				int milked = character.getPenisRawCumProductionValue();
-				value += milked * (1 + character.getCum().getFluidModifiers().size());
+			if(character.getBreastRawStoredMilkValue()>0  && !character.getSlaveJobSettings().contains(SlaveJobSetting.MILKING_MILK_DISABLE)) {
+				int milked = MilkingRoom.getActualMilkPerHour(character);
+				value += (milked * character.getMilk().getValuePerMl());
+			}
+			if(character.hasPenis() && character.getPenisRawCumProductionValue()>0  && !character.getSlaveJobSettings().contains(SlaveJobSetting.MILKING_CUM_DISABLE)) {
+				int milked = MilkingRoom.getActualCumPerHour(character);
+				value += (milked * character.getCum().getValuePerMl());
+			}
+			if(character.hasVagina() && !character.getSlaveJobSettings().contains(SlaveJobSetting.MILKING_GIRLCUM_DISABLE)) {
+				int milked = MilkingRoom.getActualGirlcumPerHour(character);
+				value += (milked * character.getGirlcum().getValuePerMl());
 			}
 		}
 		
@@ -445,14 +389,17 @@ public enum SlaveJob {
 		
 		if(this==SlaveJob.MILKING) {
 			value = 0;
-			if(character.getBreastRawStoredMilkValue()>0) {
-				int milked = (int) Math.min(1, (character.getBreastLactationRegeneration().getPercentageRegen()*60));
-				value += milked * (1 + character.getMilk().getFluidModifiers().size());
-				
+			if(character.getBreastRawStoredMilkValue()>0 && !character.getSlaveJobSettings().contains(SlaveJobSetting.MILKING_MILK_DISABLE)) {
+				int milked = (int) Math.max(1, (character.getBreastLactationRegeneration().getPercentageRegen()*60));
+				value += (milked * character.getMilk().getValuePerMl());
 			} 
-			if(character.hasPenis() && character.getPenisRawCumProductionValue()>0) {
+			if(character.hasPenis() && character.getPenisRawCumProductionValue()>0 && !character.getSlaveJobSettings().contains(SlaveJobSetting.MILKING_CUM_DISABLE)) {
 				int milked = character.getPenisRawCumProductionValue();
-				value += milked * (1 + character.getCum().getFluidModifiers().size());
+				value += (milked * character.getCum().getValuePerMl());
+			}
+			if(character.hasVagina() && !character.getSlaveJobSettings().contains(SlaveJobSetting.MILKING_GIRLCUM_DISABLE)) {
+				int milked = character.getVaginaWetness().getValue()*(character.isVaginaSquirter()?2:1);
+				value += (milked * character.getGirlcum().getValuePerMl());
 			}
 			value *= character.getTotalHoursWorked();
 		}
@@ -495,7 +442,8 @@ public enum SlaveJob {
 	}
 	
 	public void sendToWorkLocation(GameCharacter slave) {
-		if(slave.getSlaveJob().getWorldLocation(slave)!=null && slave.getSlaveJob().getPlaceLocation(slave)!=null
+		if(slave.getSlaveJob().getWorldLocation(slave)!=null
+				&& slave.getSlaveJob().getPlaceLocation(slave)!=null
 				&& (slave.getSlaveJob().getWorldLocation(slave)!=slave.getWorldLocation() || slave.getSlaveJob().getPlaceLocation(slave)!=slave.getLocationPlace().getPlaceType())) {
 			slave.setRandomUnoccupiedLocation(slave.getSlaveJob().getWorldLocation(slave), slave.getSlaveJob().getPlaceLocation(slave), false);
 		}

@@ -19,7 +19,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.83
- * @version 0.2.1
+ * @version 0.2.5
  * @author Innoxia
  */
 public class FluidMilk implements BodyPartInterface, Serializable {
@@ -57,12 +57,19 @@ public class FluidMilk implements BodyPartInterface, Serializable {
 	public static FluidMilk loadFromXML(Element parentElement, Document doc) {
 		
 		Element milk = (Element)parentElement.getElementsByTagName("milk").item(0);
-
-		FluidMilk fluidMilk = new FluidMilk(FluidType.valueOf(milk.getAttribute("type")));
+		
+		FluidType fluidType = FluidType.MILK_HUMAN;
+		try {
+			fluidType = FluidType.valueOf(milk.getAttribute("type"));
+		} catch(Exception ex) {
+		}
+		
+		FluidMilk fluidMilk = new FluidMilk(fluidType);
 		
 		fluidMilk.flavour = (FluidFlavour.valueOf(milk.getAttribute("flavour")));
 		
 		Element milkModifiers = (Element)milk.getElementsByTagName("milkModifiers").item(0);
+		fluidMilk.fluidModifiers.clear();
 		for(FluidModifier fm : FluidModifier.values()) {
 			if(Boolean.valueOf(milkModifiers.getAttribute(fm.toString()))) {
 				fluidMilk.fluidModifiers.add(fm);
@@ -70,6 +77,29 @@ public class FluidMilk implements BodyPartInterface, Serializable {
 		}
 		
 		return fluidMilk;
+	}
+	
+	@Override
+	public boolean equals (Object o) {
+		if(o instanceof FluidMilk){
+			if(((FluidMilk)o).getType().equals(this.getType())
+				&& ((FluidMilk)o).getFlavour() == this.getFlavour()
+				&& ((FluidMilk)o).getFluidModifiers().equals(this.getFluidModifiers())
+				&& ((FluidMilk)o).getTransformativeEffects().equals(this.getTransformativeEffects())){
+					return true;
+			}
+		}
+		return false;
+	}
+	
+	@Override
+	public int hashCode() {
+		int result = 17;
+		result = 31 * result + this.getType().hashCode();
+		result = 31 * result + this.getFlavour().hashCode();
+		result = 31 * result + this.getFluidModifiers().hashCode();
+		result = 31 * result + this.getTransformativeEffects().hashCode();
+		return result;
 	}
 	
 	@Override
@@ -429,5 +459,9 @@ public class FluidMilk implements BodyPartInterface, Serializable {
 	 */
 	public List<FluidModifier> getFluidModifiers() {
 		return fluidModifiers;
+	}
+	
+	public float getValuePerMl() {
+		return 0.1f + this.getFluidModifiers().size()*0.4f;
 	}
 }

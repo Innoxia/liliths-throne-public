@@ -24,7 +24,7 @@ import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
-import com.lilithsthrone.game.dialogue.MapDisplay;
+import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.story.CharacterCreation;
 import com.lilithsthrone.game.dialogue.utils.OptionsDialogue;
@@ -51,7 +51,7 @@ import javafx.scene.control.ButtonType;
 
 /**
  * @since 0.1.0
- * @version 0.2.4
+ * @version 0.2.5
  * @author Innoxia
  */
 public class Main extends Application {
@@ -65,7 +65,7 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
 
-	public static final String VERSION_NUMBER = "0.2.4.5",
+	public static final String VERSION_NUMBER = "0.2.5",
 			VERSION_DESCRIPTION = "Alpha";
 
 	public static final Image WINDOW_IMAGE = new Image("/com/lilithsthrone/res/images/windowIcon32.png");
@@ -240,6 +240,7 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("Jatch", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("Cynical-Cy", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("FossorTumulus", "", 0, 0, 1, 0));
+		credits.add(new CreditsSlot("Spectacular", "", 0, 0, 1, 0));
 		
 		
 		
@@ -568,10 +569,10 @@ public class Main extends Application {
 		} else if (Main.game.isInSex()) {
 			Main.game.flashMessage(Colour.GENERIC_BAD, "Cannot quicksave while in sex!");
 			
-		} else if (Main.game.getCurrentDialogueNode().getMapDisplay()!=MapDisplay.NORMAL) {
+		} else if (Main.game.getCurrentDialogueNode().getDialgoueNodeType()!=DialogueNodeType.NORMAL) {
 			Main.game.flashMessage(Colour.GENERIC_BAD, "Can only quicksave in a normal scene!");
 			
-		} else if (!Main.game.isStarted() || !Main.game.getCurrentDialogueNode().equals(DebugDialogue.getDefaultDialogueNoEncounter())) {
+		} else if (!Main.game.isStarted() || !Main.game.getCurrentDialogueNode().equals(Main.game.getDefaultDialogueNoEncounter())) {
 			Main.game.flashMessage(Colour.GENERIC_BAD, "Cannot save in this scene!");
 			
 		} else {
@@ -591,7 +592,7 @@ public class Main extends Application {
 	}
 
 	public static boolean isSaveGameAvailable() {
-		return Main.game.isStarted() && Main.game.getSavedDialogueNode() == DebugDialogue.getDefaultDialogueNoEncounter();
+		return Main.game.isStarted() && Main.game.getSavedDialogueNode() == Main.game.getDefaultDialogueNoEncounter();
 	}
 	
 	public static void saveGame(String name, boolean allowOverwrite) {

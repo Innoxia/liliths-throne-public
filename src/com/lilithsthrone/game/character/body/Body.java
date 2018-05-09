@@ -43,7 +43,6 @@ import com.lilithsthrone.game.character.body.valueEnums.CoveringModifier;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
 import com.lilithsthrone.game.character.body.valueEnums.EyeShape;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
-import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
 import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.character.body.valueEnums.FluidTypeBase;
 import com.lilithsthrone.game.character.body.valueEnums.GenitalArrangement;
@@ -79,7 +78,7 @@ import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.0
- * @version 0.2.2
+ * @version 0.2.5
  * @author Innoxia
  */
 public class Body implements Serializable, XMLSaving {
@@ -435,17 +434,8 @@ public class Body implements Serializable, XMLSaving {
 				CharacterUtils.addAttribute(doc, nippleModifiers, om.toString(), String.valueOf(this.breast.nipples.orificeNipples.hasOrificeModifier(om)));
 			}
 			
-		Element bodyMilk = doc.createElement("milk");
-		parentElement.appendChild(bodyMilk);
-			CharacterUtils.addAttribute(doc, bodyMilk, "flavour", this.breast.milk.getFlavour().toString());
-			Element milkModifiers = doc.createElement("milkModifiers");
-			bodyMilk.appendChild(milkModifiers);
-			for(FluidModifier fm : FluidModifier.values()) {
-				CharacterUtils.addAttribute(doc, milkModifiers, fm.toString(), String.valueOf(this.breast.milk.hasFluidModifier(fm)));
-			}
-			//TODO transformativeEffects;
-			
-			
+		this.breast.milk.saveAsXML(parentElement, doc);
+		
 		// Ear:
 		Element bodyEar = doc.createElement("ear");
 		parentElement.appendChild(bodyEar);
@@ -544,15 +534,7 @@ public class Body implements Serializable, XMLSaving {
 			CharacterUtils.addAttribute(doc, bodyTesticle, "numberOfTesticles", String.valueOf(this.penis.testicle.testicleCount));
 			CharacterUtils.addAttribute(doc, bodyTesticle, "internal", String.valueOf(this.penis.testicle.internal));
 		
-		Element bodyCum = doc.createElement("cum");
-		parentElement.appendChild(bodyCum);
-			CharacterUtils.addAttribute(doc, bodyCum, "flavour", this.penis.testicle.cum.flavour.toString());
-			Element cumModifiers = doc.createElement("cumModifiers");
-			bodyCum.appendChild(cumModifiers);
-			for(FluidModifier fm : FluidModifier.values()) {
-				CharacterUtils.addAttribute(doc, cumModifiers, fm.toString(), String.valueOf(this.penis.testicle.cum.hasFluidModifier(fm)));
-			}
-			//TODO transformativeEffects;
+		this.penis.testicle.cum.saveAsXML(parentElement, doc);
 		
 		
 		// Skin:
@@ -598,15 +580,7 @@ public class Body implements Serializable, XMLSaving {
 				CharacterUtils.addAttribute(doc, urethraModifiers, om.toString(), String.valueOf(this.vagina.orificeUrethra.hasOrificeModifier(om)));
 			}
 			
-		Element bodyGirlcum = doc.createElement("girlcum");
-		parentElement.appendChild(bodyGirlcum);
-			CharacterUtils.addAttribute(doc, bodyGirlcum, "flavour", this.vagina.girlcum.flavour.toString());
-			Element girlcumModifiers = doc.createElement("girlcumModifiers");
-			bodyGirlcum.appendChild(girlcumModifiers);
-			for(FluidModifier fm : FluidModifier.values()) {
-				CharacterUtils.addAttribute(doc, girlcumModifiers, fm.toString(), String.valueOf(this.vagina.girlcum.hasFluidModifier(fm)));
-			}
-			//TODO transformativeEffects;
+		this.vagina.girlcum.saveAsXML(parentElement, doc);
 			
 		
 		// Wing:
@@ -818,21 +792,9 @@ public class Body implements Serializable, XMLSaving {
 		
 		CharacterUtils.appendToImportLog(log, "</br></br>Milk:");
 		
-		Element milk = (Element)parentElement.getElementsByTagName("milk").item(0);
-		importedBreast.milk.flavour = (FluidFlavour.valueOf(milk.getAttribute("flavour")));
-		
-		CharacterUtils.appendToImportLog(log, 
-				" flavour: "+importedBreast.milk.getFlavour()
-				+ "</br>Modifiers:");
-		
-		Element milkModifiers = (Element)milk.getElementsByTagName("milkModifiers").item(0);
-		for(FluidModifier fm : FluidModifier.values()) {
-			if(Boolean.valueOf(milkModifiers.getAttribute(fm.toString()))) {
-				importedBreast.milk.fluidModifiers.add(fm);
-				CharacterUtils.appendToImportLog(log, "</br>"+fm.toString()+":true");
-			} else {
-				CharacterUtils.appendToImportLog(log, "</br>"+fm.toString()+":false");
-			}
+		importedBreast.milk = FluidMilk.loadFromXML(parentElement, doc);
+		if(Main.isVersionOlderThan(Main.VERSION_NUMBER, "0.2.5.1")) {
+			importedBreast.milk.type = importedBreast.getType().getFluidType();
 		}
 
 		
@@ -1129,21 +1091,9 @@ public class Body implements Serializable, XMLSaving {
 		
 		CharacterUtils.appendToImportLog(log, "</br></br>Cum:");
 		
-		Element cum = (Element)parentElement.getElementsByTagName("cum").item(0);
-		importedPenis.testicle.cum.flavour = (FluidFlavour.valueOf(cum.getAttribute("flavour")));
-		
-		CharacterUtils.appendToImportLog(log, 
-				" flavour: "+importedPenis.testicle.cum.getFlavour()
-				+ "</br>Modifiers:");
-		
-		Element cumModifiers = (Element)cum.getElementsByTagName("cumModifiers").item(0);
-		for(FluidModifier fm : FluidModifier.values()) {
-			if(Boolean.valueOf(cumModifiers.getAttribute(fm.toString()))) {
-				importedPenis.testicle.cum.fluidModifiers.add(fm);
-				CharacterUtils.appendToImportLog(log, "</br>"+fm.toString()+":true");
-			} else {
-				CharacterUtils.appendToImportLog(log, "</br>"+fm.toString()+":false");
-			}
+		importedPenis.testicle.cum = FluidCum.loadFromXML(parentElement, doc);
+		if(Main.isVersionOlderThan(Main.VERSION_NUMBER, "0.2.5.1")) {
+			importedPenis.testicle.cum.type = importedPenis.getType().getTesticleType().getFluidType();
 		}
 
 		
@@ -1260,21 +1210,9 @@ public class Body implements Serializable, XMLSaving {
 		
 		CharacterUtils.appendToImportLog(log, "</br></br>Girlcum:");
 		
-		Element girlcum = (Element)parentElement.getElementsByTagName("girlcum").item(0);
-		importedVagina.girlcum.flavour = (FluidFlavour.valueOf(girlcum.getAttribute("flavour")));
-		
-		CharacterUtils.appendToImportLog(log, 
-				" flavour: "+importedVagina.girlcum.getFlavour()
-				+ "</br>Modifiers:");
-		
-		Element girlcumModifiers = (Element)girlcum.getElementsByTagName("girlcumModifiers").item(0);
-		for(FluidModifier fm : FluidModifier.values()) {
-			if(Boolean.valueOf(girlcumModifiers.getAttribute(fm.toString()))) {
-				importedVagina.girlcum.fluidModifiers.add(fm);
-				CharacterUtils.appendToImportLog(log, "</br>"+fm.toString()+":true");
-			} else {
-				CharacterUtils.appendToImportLog(log, "</br>"+fm.toString()+":false");
-			}
+		importedVagina.girlcum = FluidGirlCum.loadFromXML(parentElement, doc);
+		if(Main.isVersionOlderThan(Main.VERSION_NUMBER, "0.2.5.1")) {
+			importedVagina.girlcum.type = importedVagina.getType().getFluidType();
 		}
 
 		

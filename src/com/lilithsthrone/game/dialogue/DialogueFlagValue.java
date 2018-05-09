@@ -2,7 +2,7 @@ package com.lilithsthrone.game.dialogue;
 
 /**
  * @since 0.1.89
- * @version 0.2.2
+ * @version 0.2.5
  * @author Innoxia
  */
 public enum DialogueFlagValue {
@@ -114,8 +114,12 @@ public enum DialogueFlagValue {
 	amberRepeatEncountered,
 	katherineRepeatEncountered,
 	kellyRepeatEncountered,
-	zaranixRepeatEncountered
+	zaranixRepeatEncountered,
 	
+	// Lumi:
+	lumiMet,
+	lumiDisabled,
+	lumiPromisedDinner,
 	
 	;
 }

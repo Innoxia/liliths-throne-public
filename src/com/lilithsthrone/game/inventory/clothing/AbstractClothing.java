@@ -649,7 +649,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 			}
 			
 			if(cummedIn) {
-				extraInformationSB.append((getClothingType().isPlural() ? "They have" : "It has") + " been <b style='color: " + Colour.CUMMED.toWebHexString() + ";'>covered in sexual fluids</b>!</br>");
+				extraInformationSB.append((getClothingType().isPlural() ? "They have" : "It has") + " been <b style='color: " + Colour.CUM.toWebHexString() + ";'>covered in sexual fluids</b>!</br>");
 			}
 			
 			if(this.getClothingType().isMufflesSpeech()) {
@@ -697,7 +697,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 			}
 			
 			if(cummedIn) {
-				extraInformationSB.append((getClothingType().isPlural() ? "They have" : "It has") + " been <b style='color: " + Colour.CUMMED.toWebHexString() + ";'>covered in sexual fluids</b>!</br>");
+				extraInformationSB.append((getClothingType().isPlural() ? "They have" : "It has") + " been <b style='color: " + Colour.CUM.toWebHexString() + ";'>covered in sexual fluids</b>!</br>");
 			}
 
 			if(this.getClothingType().isMufflesSpeech()) {
@@ -746,7 +746,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 			}
 
 			if(cummedIn) {
-				extraInformationSB.append((getClothingType().isPlural() ? "They have" : "It has") + " been <b style='color: " + Colour.CUMMED.toWebHexString() + ";'>covered in sexual fluids</b>!</br>");
+				extraInformationSB.append((getClothingType().isPlural() ? "They have" : "It has") + " been <b style='color: " + Colour.CUM.toWebHexString() + ";'>covered in sexual fluids</b>!</br>");
 			}
 
 			if(this.getClothingType().isMufflesSpeech()) {
@@ -848,7 +848,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 			}
 
 			if (cummedIn) {
-				descriptionsList.add("<b style='color: " + Colour.CUMMED.toWebHexString() + ";'>Dirty</b>");
+				descriptionsList.add("<b style='color: " + Colour.CUM.toWebHexString() + ";'>Dirty</b>");
 			}
 
 			if (getClothingType().getFemininityMaximum() < Main.game.getPlayer().getFemininityValue()) {
@@ -878,7 +878,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 			}
 
 			if (cummedIn) {
-				descriptionsList.add("<b style='color: " + Colour.CUMMED.toWebHexString() + ";'>Dirty</b>");
+				descriptionsList.add("<b style='color: " + Colour.CUM.toWebHexString() + ";'>Dirty</b>");
 			}
 
 			if (getClothingType().getFemininityMaximum() < equippedToCharacter.getFemininityValue()) {

@@ -1,4 +1,4 @@
-package com.lilithsthrone.game.dialogue.npcDialogue;
+package com.lilithsthrone.game.dialogue.npcDialogue.dominion;
 
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.PenisType;
@@ -9,7 +9,6 @@ import com.lilithsthrone.game.character.body.valueEnums.HairLength;
 import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.fetishes.Fetish;
-import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -276,7 +275,7 @@ public class DominionSuccubusDialogue {
 				return new Response("Leave [npc.herHim]", "You don't really want to get involved with someone like this. Turn around and carry on your way.", null){
 					@Override
 					public DialogueNodeOld getNextDialogue() {
-						return DebugDialogue.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogueNoEncounter();
 					}
 				};
 				
@@ -385,7 +384,7 @@ public class DominionSuccubusDialogue {
 					
 					@Override
 					public DialogueNodeOld getNextDialogue() {
-						return DebugDialogue.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogueNoEncounter();
 					}
 					@Override
 					public void effects() {
@@ -1148,7 +1147,7 @@ public class DominionSuccubusDialogue {
 						AFTER_COMBAT_VICTORY){
 					@Override
 					public DialogueNodeOld getNextDialogue() {
-						return DebugDialogue.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogueNoEncounter();
 					}
 					@Override
 					public void effects() {
@@ -1240,7 +1239,7 @@ public class DominionSuccubusDialogue {
 					}
 					@Override
 					public DialogueNodeOld getNextDialogue(){
-						return DebugDialogue.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogueNoEncounter();
 					}
 				};
 				

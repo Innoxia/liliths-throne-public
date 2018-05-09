@@ -781,6 +781,30 @@ public class UtilText {
 		
 		conditionalCommandsList.add(new ParserConditionalCommand(
 				Util.newArrayListOfValues(
+						new ListValue<>("isMotheredChildren"),
+						new ListValue<>("hasMotheredChildren")),
+				"",
+				"Returns true if the character has given birth before."){
+			@Override
+			public boolean process(String command, String arguments, String target) {
+				return !character.getLittersBirthed().isEmpty();
+			}
+		});
+		
+		conditionalCommandsList.add(new ParserConditionalCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("isDayTime"),
+						new ListValue<>("isDay")),
+				"",
+				"Returns true if it's currently day time (between 7am and 9pm)."){
+			@Override
+			public boolean process(String command, String arguments, String target) {
+				return Main.game.isDayTime();
+			}
+		});
+		
+		conditionalCommandsList.add(new ParserConditionalCommand(
+				Util.newArrayListOfValues(
 						new ListValue<>("isArcaneStorm"),
 						new ListValue<>("isStorm")),
 				"",

@@ -17,7 +17,7 @@ import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.combat.SpellSchool;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
-import com.lilithsthrone.game.dialogue.MapDisplay;
+import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.story.CharacterCreation;
@@ -814,8 +814,8 @@ public class InventoryDialogue {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.INVENTORY;
+		public DialogueNodeType getDialgoueNodeType() {
+			return DialogueNodeType.INVENTORY;
 		}
 	};
 
@@ -2141,8 +2141,8 @@ public class InventoryDialogue {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.INVENTORY;
+		public DialogueNodeType getDialgoueNodeType() {
+			return DialogueNodeType.INVENTORY;
 		}
 	};
 	
@@ -2891,8 +2891,8 @@ public class InventoryDialogue {
 		}
 		
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.INVENTORY;
+		public DialogueNodeType getDialgoueNodeType() {
+			return DialogueNodeType.INVENTORY;
 		}
 	};
 	
@@ -3960,8 +3960,8 @@ public class InventoryDialogue {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.INVENTORY;
+		public DialogueNodeType getDialgoueNodeType() {
+			return DialogueNodeType.INVENTORY;
 		}
 	};
 	
@@ -4339,8 +4339,8 @@ public class InventoryDialogue {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.INVENTORY;
+		public DialogueNodeType getDialgoueNodeType() {
+			return DialogueNodeType.INVENTORY;
 		}
 	};
 	public static final DialogueNodeOld CLOTHING_EQUIPPED = new DialogueNodeOld("Clothing equipped", "", true) {
@@ -5221,8 +5221,8 @@ public class InventoryDialogue {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.INVENTORY;
+		public DialogueNodeType getDialgoueNodeType() {
+			return DialogueNodeType.INVENTORY;
 		}
 	};
 
@@ -5366,8 +5366,8 @@ public class InventoryDialogue {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.INVENTORY;
+		public DialogueNodeType getDialgoueNodeType() {
+			return DialogueNodeType.INVENTORY;
 		}
 	};
 
@@ -5490,8 +5490,8 @@ public class InventoryDialogue {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.INVENTORY;
+		public DialogueNodeType getDialgoueNodeType() {
+			return DialogueNodeType.INVENTORY;
 		}
 	};
 	
@@ -5591,8 +5591,8 @@ public class InventoryDialogue {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.INVENTORY;
+		public DialogueNodeType getDialgoueNodeType() {
+			return DialogueNodeType.INVENTORY;
 		}
 	};
 
@@ -5689,8 +5689,8 @@ public class InventoryDialogue {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.INVENTORY;
+		public DialogueNodeType getDialgoueNodeType() {
+			return DialogueNodeType.INVENTORY;
 		}
 	};
 

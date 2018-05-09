@@ -98,8 +98,8 @@ public abstract class DialogueNodeOld implements Serializable {
 		return isTravelDisabled();
 	}
 
-	public MapDisplay getMapDisplay() {
-		return MapDisplay.NORMAL;
+	public DialogueNodeType getDialgoueNodeType() {
+		return DialogueNodeType.NORMAL;
 	}
 
 	public boolean isRegenerationDisabled() {

@@ -200,7 +200,6 @@ public class Lab {
 							+ "</p>");
 				}
 				
-				// Core argument:
 				UtilText.nodeContentSB.append(
 						"<p>"
 							+ "Lilaya starts pacing back and forth in front of you as she explains the situation,"
@@ -1654,8 +1653,8 @@ public class Lab {
 					+ " The more you start to delve into it, however, the more surprised you are at the lack of historical knowledge that Lilaya has."
 					+ " [lilaya.speech(Well, the only history that anyone really knows about is stuff concerning Lilith."
 					+ " She's been ruling this world since before any trace of civilisation even existed, so I guess all of our customs come from her direct influence."
-					+ " I don't think anybody other then Lilith herself, or her favourite Lilin, really know."
-					+ " Maybe my mother-)]"
+					+ " I don't think anybody other than Lilith herself really knows much about this world's history."
+					+ " Maybe mommy-)]"
 				+ "</p>"
 				+ "<p>"
 					+ "Lilaya's cheeks suddenly flush red, and she turns away as she brings a close to the conversation,"

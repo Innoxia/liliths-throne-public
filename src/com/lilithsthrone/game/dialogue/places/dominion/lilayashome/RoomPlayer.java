@@ -209,7 +209,7 @@ public class RoomPlayer {
 	}
 	
 	private static String formatWashingArea(boolean isFullyCleaned, String input) {
-		return "<p style='color:"+(isFullyCleaned?Colour.GENERIC_GOOD.toWebHexString():Colour.CUMMED.toWebHexString())+";'><i>"
+		return "<p style='color:"+(isFullyCleaned?Colour.GENERIC_GOOD.toWebHexString():Colour.CUM.toWebHexString())+";'><i>"
 					+ input
 				+ "</i></p>";
 	}

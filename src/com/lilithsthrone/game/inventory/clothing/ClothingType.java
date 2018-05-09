@@ -6613,8 +6613,7 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)), 
 							Util.newArrayListOfValues(
 									new ListValue<InventorySlot>(InventorySlot.ANKLE),
-									new ListValue<InventorySlot>(InventorySlot.SOCK),
-									new ListValue<InventorySlot>(InventorySlot.ANUS))))),
+									new ListValue<InventorySlot>(InventorySlot.SOCK))))),
 			null,
 			ColourListPresets.LEATHER.getPresetColourList(),
 			ColourListPresets.ALL.getPresetColourList(),

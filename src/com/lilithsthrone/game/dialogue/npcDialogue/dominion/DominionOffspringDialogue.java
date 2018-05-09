@@ -1,4 +1,4 @@
-package com.lilithsthrone.game.dialogue.npcDialogue;
+package com.lilithsthrone.game.dialogue.npcDialogue.dominion;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
@@ -11,7 +11,6 @@ import com.lilithsthrone.game.character.persona.History;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.PersonalityWeight;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
-import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
@@ -476,7 +475,7 @@ public class DominionOffspringDialogue {
 							@Override
 							public DialogueNodeOld getNextDialogue() {
 								setOffspringFlags();
-								return DebugDialogue.getDefaultDialogueNoEncounter();
+								return Main.game.getDefaultDialogueNoEncounter();
 							}
 						};
 					
@@ -911,7 +910,7 @@ public class DominionOffspringDialogue {
 					return new Response("Leave", "Tell [npc.name] that you'll catch up with [npc.herHim] some other time.", OFFSPRING_ENCOUNTER) {
 							@Override
 							public DialogueNodeOld getNextDialogue() {
-								return DebugDialogue.getDefaultDialogueNoEncounter();
+								return Main.game.getDefaultDialogueNoEncounter();
 							}
 							@Override
 							public void effects() {
@@ -1140,7 +1139,7 @@ public class DominionOffspringDialogue {
 				return new Response("Continue", "Give [npc.name] some time to think, and continue on your way.", OFFSPRING_ENCOUNTER_APOLOGY) {
 					@Override
 					public DialogueNodeOld getNextDialogue(){
-						return DebugDialogue.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogueNoEncounter();
 					}
 				};
 				
@@ -1336,7 +1335,7 @@ public class DominionOffspringDialogue {
 						}
 						@Override
 						public DialogueNodeOld getNextDialogue() {
-							return DebugDialogue.getDefaultDialogueNoEncounter();
+							return Main.game.getDefaultDialogueNoEncounter();
 						}
 					};
 					
@@ -1491,7 +1490,7 @@ public class DominionOffspringDialogue {
 							}
 							@Override
 							public DialogueNodeOld getNextDialogue() {
-								return DebugDialogue.getDefaultDialogueNoEncounter();
+								return Main.game.getDefaultDialogueNoEncounter();
 							}
 						};
 					
@@ -2220,7 +2219,7 @@ public class DominionOffspringDialogue {
 				return new Response("Apologise", "Maybe you went too far... Perhaps you should apologise?", null){
 					@Override
 					public DialogueNodeOld getNextDialogue() {
-						return DebugDialogue.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogueNoEncounter();
 					}
 					@Override
 					public void effects() {
@@ -2463,7 +2462,7 @@ public class DominionOffspringDialogue {
 						AFTER_COMBAT_VICTORY){
 					@Override
 					public DialogueNodeOld getNextDialogue() {
-						return DebugDialogue.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogueNoEncounter();
 					}
 					@Override
 					public void effects() {
@@ -2508,7 +2507,7 @@ public class DominionOffspringDialogue {
 				return new Response("Leave", "Now that you've taught [npc.name] a lesson, you can be on your way...", AFTER_COMBAT_VICTORY){
 					@Override
 					public DialogueNodeOld getNextDialogue() {
-						return DebugDialogue.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogueNoEncounter();
 					}
 					@Override
 					public void effects() {
@@ -2680,7 +2679,7 @@ public class DominionOffspringDialogue {
 					return new Response("Continue", "You're left to continue on your way...", AFTER_COMBAT_DEFEAT){
 						@Override
 						public DialogueNodeOld getNextDialogue(){
-							return DebugDialogue.getDefaultDialogueNoEncounter();
+							return Main.game.getDefaultDialogueNoEncounter();
 						}
 						@Override
 						public void effects() {
@@ -2741,7 +2740,7 @@ public class DominionOffspringDialogue {
 				return new Response("Continue", "Carry on your way.", AFTER_SEX_CONSENSUAL){
 					@Override
 					public DialogueNodeOld getNextDialogue(){
-						return DebugDialogue.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogueNoEncounter();
 					}
 				};
 				
@@ -2871,7 +2870,7 @@ public class DominionOffspringDialogue {
 					}
 					@Override
 					public DialogueNodeOld getNextDialogue(){
-						return DebugDialogue.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogueNoEncounter();
 					}
 				};
 				
@@ -2890,7 +2889,7 @@ public class DominionOffspringDialogue {
 						AFTER_COMBAT_VICTORY){
 					@Override
 					public DialogueNodeOld getNextDialogue() {
-						return DebugDialogue.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogueNoEncounter();
 					}
 					@Override
 					public void effects() {
@@ -2996,7 +2995,7 @@ public class DominionOffspringDialogue {
 				return new Response("Continue", "Carry on your way.", AFTER_SEX_VICTORY){
 					@Override
 					public DialogueNodeOld getNextDialogue(){
-						return DebugDialogue.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogueNoEncounter();
 					}
 				};
 				
@@ -3067,7 +3066,7 @@ public class DominionOffspringDialogue {
 				return new Response("Continue", "Carry on your way.", ENSLAVEMENT_DIALOGUE){
 					@Override
 					public DialogueNodeOld getNextDialogue(){
-						return DebugDialogue.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogueNoEncounter();
 					}
 					@Override
 					public void effects() {

@@ -94,7 +94,8 @@ public enum Spell {
 			
 			// If attack hits, apply damage and effects:
 			if (isHit) {
-				descriptionSB.append(target.incrementHealth(caster, -damage));
+				
+				descriptionSB.append(applyDamage(caster, target, damage));
 
 				if(caster.hasSpellUpgrade(SpellUpgrade.FIREBALL_1)) {
 					applyStatusEffects(caster, target, isCritical);
@@ -112,7 +113,7 @@ public enum Spell {
 							+"</p>");
 						
 						descriptionSB.append(getDamageDescription(caster, target, damage, isHit, isCritical));
-						descriptionSB.append(target.incrementHealth(caster, -damage));
+						descriptionSB.append(applyDamage(caster, target, damage));
 						
 					} else {
 						descriptionSB.append("<p>"
@@ -120,7 +121,7 @@ public enum Spell {
 							+"</p>");
 						
 						descriptionSB.append(getDamageDescription(caster, secondaryTarget, damage, isHit, isCritical));
-						descriptionSB.append(secondaryTarget.incrementHealth(caster, -damage));
+						descriptionSB.append(applyDamage(caster, secondaryTarget, damage));
 						applyStatusEffects(caster, secondaryTarget, isCritical);
 						descriptionSB.append(getStatusEffectApplication(caster, secondaryTarget, isHit, isCritical));
 					}
@@ -443,7 +444,7 @@ public enum Spell {
 			// If attack hits, apply damage and effects:
 			if (isHit) {
 				if(damage>0) {
-					descriptionSB.append(target.incrementHealth(caster, -damage));
+					descriptionSB.append(applyDamage(caster, target, damage));
 				}
 
 				if(caster.hasSpellUpgrade(SpellUpgrade.ICE_SHARD_1)) {
@@ -590,7 +591,7 @@ public enum Spell {
 																		+(int)target.getAttributeValue(Attribute.MANA_MAXIMUM)*0.3f+" "+Attribute.MANA_MAXIMUM.getColouredName("b")+"!")
 											+ "</p>");
 					
-					descriptionSB.append(target.incrementHealth(caster, target.getAttributeValue(Attribute.HEALTH_MAXIMUM)*0.5f));
+					descriptionSB.append(applyDamage(caster, target, -target.getAttributeValue(Attribute.HEALTH_MAXIMUM)*0.5f));
 					target.incrementMana(target.getAttributeValue(Attribute.MANA_MAXIMUM)*0.3f);
 					
 					if(Main.game.isInCombat()) {
@@ -603,7 +604,7 @@ public enum Spell {
 																		+(int)target.getAttributeValue(Attribute.MANA_MAXIMUM)*0.1f+" "+Attribute.MANA_MAXIMUM.getColouredName("b")+"!")
 											+ "</p>");
 					
-									descriptionSB.append(combatant.incrementHealth(caster, combatant.getAttributeValue(Attribute.HEALTH_MAXIMUM)*0.1f));
+									descriptionSB.append(applyDamage(caster, combatant, -combatant.getAttributeValue(Attribute.HEALTH_MAXIMUM)*0.1f));
 									combatant.incrementMana(combatant.getAttributeValue(Attribute.MANA_MAXIMUM)*0.1f);
 								}
 							}
@@ -614,7 +615,7 @@ public enum Spell {
 											+(int)target.getAttributeValue(Attribute.HEALTH_MAXIMUM)*0.1f+" "+Attribute.HEALTH_MAXIMUM.getColouredName("b")+" and "
 											+(int)target.getAttributeValue(Attribute.MANA_MAXIMUM)*0.1f+" "+Attribute.MANA_MAXIMUM.getColouredName("b")+"!"
 										+ "</p>");
-								descriptionSB.append(Main.game.getPlayer().incrementHealth(caster, Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM)*0.1f));
+								descriptionSB.append(applyDamage(caster, Main.game.getPlayer(), -Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM)*0.1f));
 								Main.game.getPlayer().incrementMana(Main.game.getPlayer().getAttributeValue(Attribute.MANA_MAXIMUM)*0.1f);
 							}
 							for(NPC combatant : Combat.getAllies()) {
@@ -624,7 +625,7 @@ public enum Spell {
 																		+(int)target.getAttributeValue(Attribute.HEALTH_MAXIMUM)*0.1f+" "+Attribute.HEALTH_MAXIMUM.getColouredName("b")+" and "
 																		+(int)target.getAttributeValue(Attribute.MANA_MAXIMUM)*0.1f+" "+Attribute.MANA_MAXIMUM.getColouredName("b")+"!")
 											+ "</p>");
-									descriptionSB.append(combatant.incrementHealth(caster, combatant.getAttributeValue(Attribute.HEALTH_MAXIMUM)*0.1f));
+									descriptionSB.append(applyDamage(caster, combatant, -combatant.getAttributeValue(Attribute.HEALTH_MAXIMUM)*0.1f));
 									combatant.incrementMana(combatant.getAttributeValue(Attribute.MANA_MAXIMUM)*0.1f);
 								}
 							}
@@ -638,7 +639,7 @@ public enum Spell {
 									+(int)target.getAttributeValue(Attribute.HEALTH_MAXIMUM)*0.4f+" "+Attribute.HEALTH_MAXIMUM.getColouredName("b")+" and "
 									+(int)target.getAttributeValue(Attribute.MANA_MAXIMUM)*0.2f+" "+Attribute.MANA_MAXIMUM.getColouredName("b")+"!"
 							+ "</p>");
-					descriptionSB.append(target.incrementHealth(caster, target.getAttributeValue(Attribute.HEALTH_MAXIMUM)*0.4f));
+					descriptionSB.append(applyDamage(caster, target, -target.getAttributeValue(Attribute.HEALTH_MAXIMUM)*0.4f));
 					target.incrementMana(target.getAttributeValue(Attribute.MANA_MAXIMUM)*0.2f);
 					
 				} else if(caster.hasSpellUpgrade(SpellUpgrade.SOOTHING_WATERS_1)) {
@@ -648,7 +649,7 @@ public enum Spell {
 									+(int)target.getAttributeValue(Attribute.HEALTH_MAXIMUM)*0.2f+" "+Attribute.HEALTH_MAXIMUM.getColouredName("b")+" and "
 									+(int)target.getAttributeValue(Attribute.MANA_MAXIMUM)*0.2f+" "+Attribute.MANA_MAXIMUM.getColouredName("b")+"!"
 							+ "</p>");
-					descriptionSB.append(target.incrementHealth(caster, target.getAttributeValue(Attribute.HEALTH_MAXIMUM)*0.2f));
+					descriptionSB.append(applyDamage(caster, target, -target.getAttributeValue(Attribute.HEALTH_MAXIMUM)*0.2f));
 					target.incrementMana(target.getAttributeValue(Attribute.MANA_MAXIMUM)*0.2f);
 					
 				} else {
@@ -657,7 +658,7 @@ public enum Spell {
 								+ "The orb of water heals "+(target.isPlayer()?"you":UtilText.parse(target,"[npc.name]"))+" for a total of "
 									+(int)target.getAttributeValue(Attribute.HEALTH_MAXIMUM)*0.2f+" "+Attribute.HEALTH_MAXIMUM.getColouredName("b")+"!"
 							+ "</p>");
-					descriptionSB.append(target.incrementHealth(caster, target.getAttributeValue(Attribute.HEALTH_MAXIMUM)*0.2f));
+					descriptionSB.append(applyDamage(caster, target, -target.getAttributeValue(Attribute.HEALTH_MAXIMUM)*0.2f));
 				}
 			}
 			
@@ -873,7 +874,7 @@ public enum Spell {
 			
 			// If attack hits, apply damage and effects:
 			if (isHit) {
-				descriptionSB.append(target.incrementHealth(caster, -damage));
+				descriptionSB.append(applyDamage(caster, target, damage));
 
 				target.removeStatusEffect(StatusEffect.VACUUM_TOTAL_VOID);
 				target.removeStatusEffect(StatusEffect.VACUUM_SUCTION);
@@ -1099,7 +1100,7 @@ public enum Spell {
 			// If attack hits, apply damage and effects:
 			if (isHit) {
 				if(damage>0) {
-					descriptionSB.append(target.incrementHealth(caster, -damage));
+					descriptionSB.append(applyDamage(caster, target, damage));
 				}
 
 				if(caster.hasSpellUpgrade(SpellUpgrade.SLAM_3)) {
@@ -2353,6 +2354,9 @@ public enum Spell {
 		// SVG:
 		try {
 			InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/combat/spell/" + pathName + ".svg");
+			if(is==null) {
+				System.err.println("Error! Spell icon file does not exist (Trying to read from '"+pathName+"')!");
+			}
 			SVGString = Util.inputStreamToString(is);
 
 			SVGString = SVGString.replaceAll("#ff2a2a", damageType.getMultiplierAttribute().getColour().getShades()[0]);
@@ -2529,6 +2533,19 @@ public enum Spell {
 		damageCostDescriptionSB.append("</p>");
 		
 		return damageCostDescriptionSB.toString();
+	}
+	
+	protected String applyDamage(GameCharacter caster, GameCharacter target, float damage) {
+		if(damage==0) {
+			if(target.isPlayer()) {
+				return ("<p>You are completely [style.boldExcellent(immune)] to "+DamageType.LUST.getName()+" damage!</p>");
+			} else {
+				return (UtilText.parse(target,"<p>[npc.Name] appears to be completely [style.boldExcellent(immune)] to "+DamageType.LUST.getName()+" damage!</p>"));
+			}
+			
+		} else {
+			return target.incrementHealth(caster, -damage);
+		}
 	}
 	
 	protected String getStatusEffectApplication(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
