@@ -1962,9 +1962,13 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				if(artworkIndex == -1) {
 					int i=0;
 					for(Artwork artworkIteration : this.getArtworkList()) {
-						if(artworkIteration.getArtist().getFolderName().equals(Main.getProperties().preferredArtist)) {
+						// Always override with custom art
+						if (artworkIteration.getArtist().getFolderName().equals("custom")) {
 							artworkIndex = i;
 							break;
+						}
+						if(artworkIteration.getArtist().getFolderName().equals(Main.getProperties().preferredArtist)) {
+							artworkIndex = i;
 						}
 						i++;
 					}
