@@ -515,18 +515,11 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		setMaxCompanions(1);
 		
 		calculateStatusEffects(0);
-		
+
+		// Load artworks for predefined characters
 		artworkList = new ArrayList<>();
-		
-		String artworkFolderName = this.getClass().getSimpleName();
-		
-		if(artworkFolderName!=null && !artworkFolderName.isEmpty()) {
-			for(Artist artist : Artwork.allArtists) {
-				File f = new File("res/images/characters/"+artworkFolderName+"/"+artist.getFolderName());
-				if(f.exists()) {
-					artworkList.add(new Artwork(artworkFolderName, artist));
-				}
-			}
+		if (nameTriplet != null) {
+			loadImages();
 		}
 	}
 	
@@ -1022,7 +1015,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			character.setId(((Element)element.getElementsByTagName("id").item(0)).getAttribute("value"));
 			CharacterUtils.appendToImportLog(log, "</br>Set id: " + character.getId());
 		}
-		
+
+		boolean deferredImageLoading = character.getNameTriplet() == null;
 		// Name:
 		if(!((Element)element.getElementsByTagName("name").item(0)).getAttribute("value").isEmpty()) {
 			character.setName(new NameTriplet(((Element)element.getElementsByTagName("name").item(0)).getAttribute("value")));
@@ -1039,6 +1033,11 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		if(element.getElementsByTagName("surname")!=null && element.getElementsByTagName("surname").getLength()>0) {
 			character.setSurname(((Element)element.getElementsByTagName("surname").item(0)).getAttribute("value"));
 			CharacterUtils.appendToImportLog(log, "</br>Set surname: " + ((Element)element.getElementsByTagName("surname").item(0)).getAttribute("value"));
+		}
+
+		// Initialize artworks after name is available
+		if (deferredImageLoading && character.getArtworkList().isEmpty()) {
+			character.loadImages();
 		}
 		
 		// Level:
@@ -1898,6 +1897,25 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 					try {
 						character.addAddiction(Addiction.loadFromXML(log, ((Element)element.getElementsByTagName("addiction").item(i)), doc));
 					} catch(Exception ex) {	
+					}
+				}
+			}
+		}
+	}
+
+	public void loadImages() {
+		// Get folder by class name if unique, character name otherwise
+		String artworkFolderName = this.isUnique() ? this.getClass().getSimpleName() : "generic/" + this.getNameIgnoresPlayerKnowledge();
+		// System.out.println("Looking for images in " + artworkFolderName); // Debug output
+
+		if(!artworkFolderName.isEmpty()) {
+			for(Artist artist : Artwork.allArtists) {
+				File f = new File("res/images/characters/" + artworkFolderName+"/" + artist.getFolderName());
+				if(f.exists()) {
+					Artwork art = new Artwork(artworkFolderName, artist);
+					// Cull empty artwork lists
+					if (art.getTotalArtworkCount() > 0) {
+						artworkList.add(art);
 					}
 				}
 			}
