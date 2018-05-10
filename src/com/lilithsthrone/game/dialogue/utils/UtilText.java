@@ -781,6 +781,17 @@ public class UtilText {
 		
 		conditionalCommandsList.add(new ParserConditionalCommand(
 				Util.newArrayListOfValues(
+						new ListValue<>("isVisiblyPregnant")),
+				"",
+				"Returns true if the character is visibly pregnant."){
+			@Override
+			public boolean process(String command, String arguments, String target) {
+				return character.isVisiblyPregnant();
+			}
+		});
+		
+		conditionalCommandsList.add(new ParserConditionalCommand(
+				Util.newArrayListOfValues(
 						new ListValue<>("isMotheredChildren"),
 						new ListValue<>("hasMotheredChildren")),
 				"",

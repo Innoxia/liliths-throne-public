@@ -48,6 +48,8 @@ public class FluidCum implements BodyPartInterface, Serializable, XMLSaving {
 
 		CharacterUtils.addAttribute(doc, element, "type", this.type.toString());
 		CharacterUtils.addAttribute(doc, element, "flavour", this.flavour.toString());
+		
+		
 		Element cumModifiers = doc.createElement("cumModifiers");
 		element.appendChild(cumModifiers);
 		for(FluidModifier fm : FluidModifier.values()) {
@@ -71,13 +73,22 @@ public class FluidCum implements BodyPartInterface, Serializable, XMLSaving {
 		
 		fluidCum.flavour = (FluidFlavour.valueOf(cum.getAttribute("flavour")));
 		
+
 		Element cumModifiers = (Element)cum.getElementsByTagName("cumModifiers").item(0);
-		fluidCum.fluidModifiers.clear();
-		for(FluidModifier fm : FluidModifier.values()) {
-			if(Boolean.valueOf(cumModifiers.getAttribute(fm.toString()))) {
-				fluidCum.fluidModifiers.add(fm);
-			}
-		}
+		List<FluidModifier> fluidModifiers = fluidCum.fluidModifiers;
+		Body.handleLoadingOfModifiers(FluidModifier.values(), null, cumModifiers, fluidModifiers);
+		
+//		Element cumModifiers = (Element)cum.getElementsByTagName("cumModifiers").item(0);
+//		fluidCum.fluidModifiers.clear();
+//		for(FluidModifier fm : FluidModifier.values()) {
+//			if(Boolean.valueOf(cumModifiers.getAttribute(fm.toString()))) {
+//				if (!fluidCum.hasFluidModifier(fm)) {
+//					fluidCum.fluidModifiers.add(fm);
+//				}
+//			} else if (!cumModifiers.getAttribute(fm.toString()).isEmpty()) {
+//				fluidCum.fluidModifiers.remove(fm);
+//			}
+//		}
 		
 		return fluidCum;
 	}

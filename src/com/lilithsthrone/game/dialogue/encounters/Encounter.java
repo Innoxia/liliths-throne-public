@@ -489,7 +489,7 @@ public enum Encounter {
 				}
 				
 				Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addItem(randomItem);
-				return SubmissionEncounterDialogue.ALLEY_FIND_ITEM;
+				return SubmissionEncounterDialogue.FIND_ITEM;
 				
 			} else {
 				return null;

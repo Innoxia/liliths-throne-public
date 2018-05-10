@@ -2,6 +2,7 @@ package com.lilithsthrone.game.character.body;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.w3c.dom.Document;
@@ -57,26 +58,30 @@ public class FluidGirlCum implements BodyPartInterface, Serializable, XMLSaving 
 	
 	public static FluidGirlCum loadFromXML(Element parentElement, Document doc) {
 		
-		Element cum = (Element)parentElement.getElementsByTagName("girlcum").item(0);
-
+		Element girlcum = (Element)parentElement.getElementsByTagName("girlcum").item(0);
 
 		FluidType fluidType = FluidType.GIRL_CUM_HUMAN;
 		try {
-			fluidType = FluidType.valueOf(cum.getAttribute("type"));
+			fluidType = FluidType.valueOf(girlcum.getAttribute("type"));
 		} catch(Exception ex) {
 		}
 		
 		FluidGirlCum fluidGirlcum = new FluidGirlCum(fluidType);
 		
-		fluidGirlcum.flavour = (FluidFlavour.valueOf(cum.getAttribute("flavour")));
+		fluidGirlcum.flavour = (FluidFlavour.valueOf(girlcum.getAttribute("flavour")));
 		
-		Element cumModifiers = (Element)cum.getElementsByTagName("girlcumModifiers").item(0);
-		fluidGirlcum.fluidModifiers.clear();
-		for(FluidModifier fm : FluidModifier.values()) {
-			if(Boolean.valueOf(cumModifiers.getAttribute(fm.toString()))) {
-				fluidGirlcum.fluidModifiers.add(fm);
-			}
-		}
+
+		Element girlcumModifiersElement = (Element)girlcum.getElementsByTagName("girlcumModifiers").item(0);
+		Collection<FluidModifier> girlcumFluidModifiers = fluidGirlcum.fluidModifiers;
+		Body.handleLoadingOfModifiers(FluidModifier.values(), null, girlcumModifiersElement, girlcumFluidModifiers);
+		
+//		Element cumModifiers = (Element)cum.getElementsByTagName("girlcumModifiers").item(0);
+//		fluidGirlcum.fluidModifiers.clear();
+//		for(FluidModifier fm : FluidModifier.values()) {
+//			if(Boolean.valueOf(cumModifiers.getAttribute(fm.toString()))) {
+//				fluidGirlcum.fluidModifiers.add(fm);
+//			}
+//		}
 		
 		return fluidGirlcum;
 	}

@@ -84,6 +84,7 @@ import com.lilithsthrone.game.character.npc.misc.GenericMaleNPC;
 import com.lilithsthrone.game.character.npc.misc.PrologueFemale;
 import com.lilithsthrone.game.character.npc.misc.PrologueMale;
 import com.lilithsthrone.game.character.npc.misc.SlaveImport;
+import com.lilithsthrone.game.character.npc.submission.Claire;
 import com.lilithsthrone.game.character.persona.History;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
@@ -733,6 +734,9 @@ public class Game implements Serializable, XMLSaving {
 				if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Lumi.class))) {
 					Main.game.addNPC(new Lumi(), false);
 				}
+				if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Claire.class))) {
+					Main.game.addNPC(new Claire(), false);
+				}
 				
 				// To prevent errors from previous versions, reset Zaranix progress if prior to 0.1.95:
 				if(Main.isVersionOlderThan(version, "0.1.90.5")) {
@@ -969,6 +973,7 @@ public class Game implements Serializable, XMLSaving {
 			addNPC(new Loppy(), false);
 			
 			addNPC(new Lumi(), false);
+			addNPC(new Claire(), false);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -2682,6 +2687,10 @@ public class Game implements Serializable, XMLSaving {
 	
 	public NPC getLumi() {
 		return (NPC) this.getNPCById(getUniqueNPCId(Lumi.class));
+	}
+	
+	public NPC getClaire() {
+		return (NPC) this.getNPCById(getUniqueNPCId(Claire.class));
 	}
 
 	public NPC getGenericMaleNPC() {

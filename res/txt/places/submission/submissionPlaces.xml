@@ -1,5 +1,152 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <dialogue>
+	
+	<htmlContent tag="FIND_ITEM"><![CDATA[
+	<p>
+		As you walk through the gloomy tunnels of Submission, keeping an eye out for any sign of danger, you suddenly spot what appears to be an unopened cardboard box, dropped to one side of a rubbish pile.
+		 Stepping over towards it, you don't see any sign of a trap or ambush, so, curious as to what could be inside, you tear off the sealing tape and open the lid.
+	</p>
+	<p>
+		Just as you'd hoped, the package doesn't appear to have been opened before, and with no sign of its intended recipient in sight, you decide that there'd be no harm in taking the contents.
+		 Inside, you find...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEWER_ENTRANCE"><![CDATA[
+	<p>
+		A large stone building, spanning the entire width of the tunnel, has been erected here.
+		 Signs reading 'Dominion Enforcer Post' are displayed above each of the entrances, and within, a dozen or so Enforcers are manning desks or standing guard beside internal doorways.
+	</p>
+	<p>
+		The Enforcers here don't seem to pay you much attention, allowing you to come and go as you please.
+		 As usual, you see the short, busty form of Claire hurrying around as she delivers and fetches all sorts of miscellaneous paperwork.
+		 If you wanted to, you could approach her and ask for some more information about Submission.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CLAIRE_INFO_SUBMISSION_SOCIETY"><![CDATA[
+	<p>
+		Wanting to know a little more about this underground world, you approach the short cat-girl messenger and call out a greeting,
+		 [pc.speech(Hi Claire!)]
+	</p>
+	<p>
+		[claire.speech(Oh, hello again [pc.name]!)]
+		 Claire cheerfully calls out.
+		 [claire.speech(What can I do for you this time?)]
+	</p>
+	<p>
+		[pc.speech(I was wondering if you could tell me a little more about Submission, and the  people who live down here.)]
+	</p>
+	<p>
+		[claire.speech(Of course!)]
+		 Claire happily replies.
+		 [claire.speech(You know, not many people really ask about that sort of thing, but I so happen to be an expert on Submission history and customs!)]
+	</p>
+	<p>
+		You can't help but smile as the small cat-girl proudly pushes her huge breasts out and places her hands on her absurdly-wide hips.
+		 Looking straight into your eyes, she continues,
+		 [claire.speech(There are five main types of residents down here; rat-morphs, alligator-morphs, slimes, imps, and bat-morphs. That's not to say those are the only races down here, however. You can find all the same races as you would up in Dominion, but it's those five who make up the vast majority of the population.)]
+		 Claire wags her finger at you as she moves on.
+		 [claire.speech(Out of all of those, it's only the imps who are invariably troublesome. You get good and bad in all the other groups of Submission society, but all imps only care about two things; causing mischief, and having sex.)]
+	</p>
+	<p>
+		You can see that even the mention of imps is getting Claire annoyed, and you can only imagine how much trouble they must cause for the enforcers down here.
+		 Before you can say anything to steer the conversation in a different direction, Claire moves on.
+		 [claire.speech(Anyway. The imps stick to the tunnels, which are also filled with muggers, hungry slimes, and all sorts of unsavoury folk. You should always stick to the well-populated walkways, where the majority of rat and alligator-morphs make their home. The alligators prefer to use the water ways to travel throughout Submission, while the rat-morphs, just like all the other races, stick to the walkways.)]
+	</p>
+	<p>
+		[pc.speech(And the bat-morphs?)]
+		 You ask.
+	</p>
+	<p>
+		[claire.speech(Ah, yes, it's very rare for us to have to deal with any bat-morphs, as almost all of them stay down in the Bat Caverns. Thanks to their echolocation, they're not bothered by the dark, and have tunnelled out roosts up in the high ceilings of the caves down there.)]
+		 Claire replies, proudly smiling as she reels off all of this information.
+		 [claire.speech(About half of Submission's slime population lives down there as well. Apparently, they love the taste of the bioluminescent plants that thrive in some areas, and a lot of slimes have eaten so much that their bodies have ended up glowing as well!)]
+	</p>
+	<p>
+		[pc.speech(I see. Thanks for all the information, Claire.)]
+		 You say, smiling at the short-statured cat-girl.
+	</p>
+	<p>
+		[claire.speech(You're welcome! Let me know if there's anything else, ok?)]
+		 She replies, before hurrying off to continue with her work.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CLAIRE_INFO_LYSSIETH"><![CDATA[
+	<p>
+		As you start to walk over towards the small cat-girl messenger, she sees you approaching and puts her paperwork to one side.
+		 [claire.speech(Hello [pc.name]! Is there something I can do for you?)]
+	</p>
+	<p>
+		[pc.speech(I just wanted to ask you what you know about Lyssieth,)]
+		 you reply, noting how Claire's cheerful expression shifts into one of concern as she hears that name.
+	</p>
+	<p>
+		[claire.speech(Well, as you might already know, Lyssieth is the Lilin who's in charge of all of Submission. We enforcers work to uphold the general laws of Lilith's domain, but it's Lyssieth who's in charge of giving us any special rules to enforce.)]
+		 Claire shifts about a little as she finishes talking, which causes her huge breasts to start swaying from side to side in a pendulous manner.
+		 [claire.speech(You should keep away from her palace. Her guards operate outside of our authority, and won't hesitate to attack if they suspect you of anything.)]
+	</p>
+	<p>
+		[pc.speech(Ok, I'll be careful of them,)]
+		 you reply, before continuing,
+		 [pc.speech(but you mentioned Lyssieth setting special rules. What kind of rules are they?)]
+	</p>
+	<p>
+		Claire starts fidgeting even more as you ask that question, but, despite her discomfort, she answers you.
+		 [claire.speech(Well, don't go around telling anyone about this, but we've been told to ignore the anti-human laws that have been set in Dominion. You know, things like stopping and searching humans at random, and detaining them without reason for as long as we like.)]
+	</p>
+	<p>
+		[pc.speech(I see,)]
+		 you respond.
+		 [pc.speech(So Lyssieth's only special rule is not to discriminate against humans?)]
+	</p>
+	<p>
+		[claire.speech(Yes, but there aren't many humans living down here, so not many people know about this. Oh, and please don't go spreading this information. Everybody knows how much Lilith hates humans, and if she were to hear about this, I'm sure it'd be us, not Lyssieth, who gets punished.)]
+		 Claire mutters, before turning to carry on with her work.
+		 [claire.speech(If there's anything else, just come and find me again!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CLAIRE_INFO_TELEPORTATION"><![CDATA[
+	<p>
+		You walk up behind the small, busty cat-girl and call out,
+		 [pc.speech(Hi Claire!)]
+	</p>
+	<p>
+		The diminutive messenger spins around, causing her huge breasts to swing from side-to-side.
+		 As she sees that it's you, she happily replies,
+		 [claire.speech(Hello [pc.name]! Can I help you?)]
+	</p>
+	<p>
+		[pc.speech(I was wondering if you could tell me any more about your 'level three clearance'. You said that it allows you to teleport? I've never seen anything like that up in Dominion.)]
+	</p>
+	<p>
+		Claire grins in delight as you mention the thing that she's most proud of, and immediately thrusts her disproportionately-large breasts out towards you in order to show off the bright gold badge that's pinned to her chest.
+		 [claire.speech(That's right! I'm allowed to use our teleportation stations to travel between the Enforcer Posts in order to quickly deliver messages! Usually, only high-ranking or demonic enforcers are given a clearance level of three or higher, you know?)]
+	</p>
+	<p>
+		[pc.speech(That's pretty impressive. You must have worked hard for that.)]
+		 You reply, hoping to encourage the little cat-girl to reveal some more information about teleportation.
+	</p>
+	<p>
+		[claire.speech(That I did! I worked super hard to become the very best messenger in Submission, and it finally all paid off! You know, these teleportation stations aren't really supposed to be public knowledge, but I can't expect people to believe that I'm running from Post to Post, now, can I?)]
+		 Claire laughs, before placing her hands on her huge hips.
+		 [claire.speech(So, while I'm allowed to let people know that I can teleport around down here in Submission, my supervisor said never to let people know about the network we have up in Domi-)]
+	</p>
+	<p>
+		Claire's cheeks suddenly turn bright red, and she squeaks,
+		 [claire.speech(T-That is, n-never to tell anyone about how the enforcers work up in Dominion. N-Now if you'll excuse me!)]
+	</p>
+	<p>
+		As Claire hurries off to continue with her work, you're left wondering why these teleportation stations are meant to be kept a secret...
+	</p>
+	]]>
+	</htmlContent>
 
 	<htmlContent tag="WALKWAYS"><![CDATA[
 	<p>

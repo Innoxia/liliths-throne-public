@@ -2117,8 +2117,9 @@ public class CharacterModificationUtils {
 		contentSB.setLength(0);
 		
 		for(PenisType penis : PenisType.values()) {
-			if((penis.getRace() !=null && availableRaces.contains(penis.getRace()))
-					|| penis==PenisType.NONE) {
+			if(((penis.getRace() !=null && availableRaces.contains(penis.getRace()))
+					|| penis==PenisType.NONE)
+					&& penis!=PenisType.DILDO) {
 				
 				Colour c = Colour.TEXT_GREY;
 				

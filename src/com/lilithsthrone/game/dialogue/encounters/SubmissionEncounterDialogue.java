@@ -2,23 +2,22 @@ package com.lilithsthrone.game.dialogue.encounters;
 
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
+import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.2.1
- * @version 0.2.1
+ * @version 0.2.5
  * @author Innoxia
  */
 public class SubmissionEncounterDialogue {
 
-	public static final DialogueNodeOld ALLEY_FIND_ITEM = new DialogueNodeOld("Rubbish Pile", "", true) {
+	public static final DialogueNodeOld FIND_ITEM = new DialogueNodeOld("Rubbish Pile", "", true) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getContent() {
-			return "<p>"
-						+ "TODO Find an item in rubbish pile:"//TODO
-					+ "</p>"
+			return UtilText.parseFromXMLFile("places/submission/submissionPlaces", "FIND_ITEM")
 					+ "<p style='text-align:center;'>"
 						+ "<b>"
 						+ Encounter.getRandomItem().getDisplayName(true)

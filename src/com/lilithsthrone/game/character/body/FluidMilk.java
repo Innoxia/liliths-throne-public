@@ -2,6 +2,7 @@ package com.lilithsthrone.game.character.body;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.w3c.dom.Document;
@@ -68,13 +69,17 @@ public class FluidMilk implements BodyPartInterface, Serializable {
 		
 		fluidMilk.flavour = (FluidFlavour.valueOf(milk.getAttribute("flavour")));
 		
-		Element milkModifiers = (Element)milk.getElementsByTagName("milkModifiers").item(0);
-		fluidMilk.fluidModifiers.clear();
-		for(FluidModifier fm : FluidModifier.values()) {
-			if(Boolean.valueOf(milkModifiers.getAttribute(fm.toString()))) {
-				fluidMilk.fluidModifiers.add(fm);
-			}
-		}
+		Element milkModifiersElement = (Element)milk.getElementsByTagName("milkModifiers").item(0);
+		Collection<FluidModifier> milkFluidModifiers = fluidMilk.fluidModifiers;
+		Body.handleLoadingOfModifiers(FluidModifier.values(), null, milkModifiersElement, milkFluidModifiers);
+		
+//		Element milkModifiers = (Element)milk.getElementsByTagName("milkModifiers").item(0);
+//		fluidMilk.fluidModifiers.clear();
+//		for(FluidModifier fm : FluidModifier.values()) {
+//			if(Boolean.valueOf(milkModifiers.getAttribute(fm.toString()))) {
+//				fluidMilk.fluidModifiers.add(fm);
+//			}
+//		}
 		
 		return fluidMilk;
 	}

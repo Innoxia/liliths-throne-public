@@ -6,9 +6,11 @@ package com.lilithsthrone.game.dialogue;
  * @author Innoxia
  */
 public enum DialogueFlagValue {
+	
 	quickTrade,
 	stormTextUpdateRequired,
 	hasSnowedThisWinter,
+	
 	
 	// Essence reactions:
 	jinxedClothingDiscovered,
@@ -16,13 +18,16 @@ public enum DialogueFlagValue {
 	essenceOrgasmDiscovered,
 	essenceBottledDiscovered,
 
+	
 	// Misc.:
 	foundHappiness,
+	visitedSubmission,
 	
 	// Gym:
 	gymIntroduced,
 	gymHadTour,
 	gymIsMember,
+	
 	
 	// Introductions:
 	angelIntroduced,
@@ -35,11 +40,12 @@ public enum DialogueFlagValue {
 	kateIntroduced,
 	vickyIntroduced,
 	
+	
 	// Red-light district:
 	prostitutionLicenseObtained,
 	
+	
 	// Shopping arcade:
-
 	nyanTalkedTo,
 	nyanComplimented,
 	nyanFlirtedWith,
@@ -56,6 +62,7 @@ public enum DialogueFlagValue {
 	ashleyAttitude,
 	
 	reactedToKatePregnancy,
+	
 	
 	// Aunt's Home:
 	knowsDate,

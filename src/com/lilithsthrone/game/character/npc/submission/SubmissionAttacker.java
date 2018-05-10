@@ -11,6 +11,7 @@ import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.History;
@@ -36,7 +37,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.2.1
- * @version 0.2.2
+ * @version 0.2.5
  * @author Innoxia
  */
 public class SubmissionAttacker extends NPC {
@@ -229,6 +230,9 @@ public class SubmissionAttacker extends NPC {
 			// ADDING FETISHES:
 			
 			CharacterUtils.addFetishes(this);
+			if(this.getBodyMaterial()==BodyMaterial.SLIME) {
+				//TODO
+			}
 			
 			// BODY RANDOMISATION:
 			
@@ -338,18 +342,7 @@ public class SubmissionAttacker extends NPC {
 	}
 	
 	@Override
-	public DialogueNodeOld getEncounterDialogue() {
-//		if(Main.game.getActiveWorld().getCell(location).getPlace().getPlaceType()==PlaceType.DOMINION_BACK_ALLEYS) { TODO
-//			if(this.getHistory()==History.PROSTITUTE) {
-//				this.setPlayerKnowsName(true);
-//				return AlleywayProstituteDialogue.ALLEY_PROSTITUTE;
-//			} else {
-//				return AlleywayAttackerDialogue.ALLEY_ATTACK;
-//			}
-//		} else {
-//			return AlleywayAttackerDialogue.STORM_ATTACK;
-//		}
-
+	public DialogueNodeOld getEncounterDialogue() { //TODO slimes
 		return TunnelAttackDialogue.TUNNEL_ATTACK;
 	}
 
@@ -372,20 +365,21 @@ public class SubmissionAttacker extends NPC {
 	}
 
 	@Override
-	public Response endCombat(boolean applyEffects, boolean victory) {
-//		if(this.getHistory()==History.PROSTITUTE) { TODO
-//			if (victory) {
-//				return new Response("", "", AlleywayProstituteDialogue.AFTER_COMBAT_VICTORY);
+	public Response endCombat(boolean applyEffects, boolean victory) { //TODO slimes
+		if (victory) {
+//			if(this.getBodyMaterial()==BodyMaterial.SLIME) {
+//				return new Response("", "", TunnelSlimeDialogue.AFTER_COMBAT_PLAYER_VICTORY);
 //			} else {
-//				return new Response ("", "", AlleywayProstituteDialogue.AFTER_COMBAT_DEFEAT);
-//			}
-//		} else {
-			if (victory) {
 				return new Response("", "", TunnelAttackDialogue.AFTER_COMBAT_VICTORY);
-			} else {
-				return new Response ("", "", TunnelAttackDialogue.AFTER_COMBAT_DEFEAT);
-			}
-//		}
+//			}
+			
+		} else {
+//			if(this.getBodyMaterial()==BodyMaterial.SLIME) {
+//				return new Response("", "", TunnelSlimeDialogue.AFTER_COMBAT_PLAYER_DEFEAT);
+//			} else {
+				return new Response("", "", TunnelAttackDialogue.AFTER_COMBAT_DEFEAT);
+//			}
+		}
 	}
 	
 	@Override

@@ -961,7 +961,7 @@ public enum Sex {
 				if(Sex.getAllParticipants().contains(Main.game.getPlayer())) {
 					if((Sex.getSexPace(participant)!=SexPace.SUB_RESISTING || participant.hasFetish(Fetish.FETISH_NON_CON_SUB))) {
 						if(Sex.getNumberOfOrgasms(participant)>0 || participant.hasFetish(Fetish.FETISH_DENIAL_SELF)) {
-							sexSB.append(participant.incrementAffection(Main.game.getPlayer(), 10));
+							sexSB.append(participant.incrementAffection(Main.game.getPlayer(), 5));
 						} else {
 							sexSB.append(participant.incrementAffection(Main.game.getPlayer(), -2));
 						}

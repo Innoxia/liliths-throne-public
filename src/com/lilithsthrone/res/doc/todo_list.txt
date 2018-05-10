@@ -10,8 +10,6 @@
 	
 	- Add in a mod template for items, clothing, weapons, and sex actions.
 	
-	- Improve the slavery UI, and add more jobs & interactions (winner of Patreon content poll).
-	
 	- Adding in the next stage of the main quest (earning an audience with Lyssieth).
 	
 	- Fix bugs and sort out github issues and PRs.
@@ -23,6 +21,10 @@
 	
 	
 	Patch notes:
+	
+	Gameplay:
+		Filled in more of the placeholder text in Submission.
+		Added more content for Submission Enforcer Post, including a new Enforcer NPC, 'Claire'. When entering a Submission Enforcer Post for the first time, Claire's dialogue will trigger. (There will be a quest related to this added for the next release.)
 	
 	Slavery:
 		'Dairy Cow' job now correctly supports 8 slaves per milking room.
@@ -56,6 +58,7 @@
 		Ankle spreader bar now blocks escape in combat (if you are unable to fly).
 		Wrist restraints now block flight from arm-wings (such as harpy or bat wings).
 		NPCs now gain or lose affection towards you after sex, depending on if they were in the resisting pace or not.
+		Slimes can no longer fly.
 	
 	Bugs:
 		Fixed bug where NPCs would have a random colour for their lips/nipples/anus. This resets NPC colours for those parts only if they're not your slave, so your slave's colours won't be reset by this.
@@ -74,17 +77,67 @@
 		Fixed yet more bugs related to slavery targets being broken between scenes.
 		Fixed 'Dairy Cow' slave job having some settings from prostitute.
 		Fixed bug where fluids would sometimes load in their modifiers twice (potentially causing issues with removal of fluid modifiers).
+		Fixed slimes being able to TF penis type to 'artificial'.
 
 
-	my slaves that enter public Stocks cant be accessesed, inspected and I cant ,change permissions or jobs
 
-	pattern and secondary color options for penises
+	Don't forget about the bug where lilaya always recognizes you are a futa even when you are 8inchhes or below
+		Also don’t forget about the sheath cock issue
+		Perhaps the solution there would be that if a cock is sheathed it allows you to have a cock up to 16 before you are recognized
+		Where people will recognize you as female but say they always knew you were futa if your cock size is above 8 inches
+		
+
+	ongoing hotdogging broken
+
+
+
+	Special encounters for:
+			
+		Rat-morphs & Alligator-morphs
+			Just want to mug you
+			
+		Slimes
+			If TF fetish: They feed you biojuice canister
+			Else: They mug you
+			
+		Imps
+			Two or three at once
+			
+		Bat-morphs
+			Finish bat descriptions and racial effects
+			Most just want to talk
+			
+	Imp fortresses
+	Gambling Den
+	Bat caverns.
+		
+	Add slime TF quest.
+		Enforcer post quest - pick up when enter submission.
+		Slime TF encounters mention a slime queen.
+		They mention the slime lake as the only possible place where a queen could be.
+		
+		Go to slime lake and either defeat slime guards to take boat, or fly to island
+		The house is a staircase down into a brightly-lit underground palace
+		Slimes
+		Slime queen is "manufacturing" the bio-canisters to transform everyone into slimes (it's her milk/girlcum)
+			Can either submit and help her (she TF's you into slime through absorption)
+				Slime population increases
+			Or fight her
+				Destroy slime equipment
+				
+	If slime, then gain Lilaya's anti-slime TF quest
+		She asks for 10 angel's tears and 100 bottled essences
+		Takes 3 days to make solidification elixir
+				
+
+
+
+
 	
-	Can TF in menu to artificial...
-
-	- Add job: bedroom slave to act as alarm clock with blowjobs and sexual intercourse. 
+	- Add job: bedroom slave to act as alarm clock with blowjobs and sex. 
 	- Slave overseer job
 	- Actual movement around home for if house permission selected
+	
 	- Permission & outfit templates
 	- I'll try and add in a setting for their behaviour this version (set them to act friendly or cold)
 	DIALOGUE:
@@ -96,7 +149,6 @@
 	Harpy offspring in nests
 	Offspring dialogue improvements
 	
-	
 	when non-con is off, tone down fight loss
 	
 	Party members fucked with you
@@ -105,6 +157,8 @@
 		If win combat, can get companion to join in or watch
 	
 	
+	
+	"She has a natural bush of brown, smooth scale around her pussy."
 	
 	add a displayValues method to the race enum
 		stats shows human dmg/resistance twice
@@ -139,12 +193,10 @@
 	jockstrap
 	
 	Perhaps instead of ice shard as the first spell that Lilly gives to the MC it should be one of the elemental summoning spells. It would be a good way get new players introduced to party combat from the very begining. Besides if we also start the game with a demon stone then we already have a direct attack spell at our disposal so having ice shard is a bit redundant
-	
-	 the dominant TF item from the harpy doens't add wings?
 	 
 	 So I tried adding a major plasticity drain enchantment and the result was that absolutely none of my enchantments worked anymore, including the one I applied on the new clothing. I've tested this on multiple itmes and it produced the same result
 	 
-	 there's a wierd bug where you can't buy a room when you have a companion
+	pattern and secondary color options for penises
 	
 	Am I supposed to be able to drag Nyan straight back into her room for more sex
 	
@@ -168,15 +220,7 @@
 		
 	Fix NPCs not being deleted
 	
-	
-	
 	Elemental TF menu
-	
-	Don’t forget about the bug where lilaya always recognizes you are a futa even when you are 8inchhes or below
-		Also don’t forget about the sheath cock issue
-		Perhaps the solution there would be that if a cock is sheathed it allows you to have a cock up to 16 before you are recognized
-		Where people will recognize you as female but say they always knew you were futa if your cock size is above 8 inches
-				
 	
 	Also, would there be a way to make a piece of clothing that makes you grow a penis when equipped and have the penis disappear when unequipped with the modding system?
 	
@@ -210,8 +254,6 @@
 	spell passives unlocked when at least 4 spells known
 		
 	the elemental should include a list of whatever skills it starts with on the basic skill.  Right now all you can see in the menu is their upgraded skills
-		
-	slimes shouldn't be able to fly
 	
 	0.2.4 defaults to a window height of over 768, 768 is still common on laptops and should thus be lower
 	
