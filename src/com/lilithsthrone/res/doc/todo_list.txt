@@ -22,62 +22,62 @@
 	
 	Patch notes:
 	
-	Gameplay:
-		Filled in more of the placeholder text in Submission.
-		Added more content for Submission Enforcer Post, including a new Enforcer NPC, 'Claire'. When entering a Submission Enforcer Post for the first time, Claire's dialogue will trigger. (There will be a quest related to this added for the next release.)
+Gameplay:
+	Filled in more of the placeholder text in Submission.
+	Added more content for Submission Enforcer Post, including a new Enforcer NPC, 'Claire'. When entering a Submission Enforcer Post for the first time, Claire's dialogue will trigger. (There will be a quest related to this added for the next release.)
+
+Slavery:
+	'Dairy Cow' job now correctly supports 8 slaves per milking room.
+	Made some minor improvements to slavery UI.
+	Milking room now milks a slave of their milk, cum, and girlcum at the same time.
+	Added options to enable/disable milk, cum, and girlcum milking.
+	Moved pregnancy job settings (Promiscuity pills, no pills, or Vixen's Virility pills) from the 'Stocks' and 'Prostitute' jobs, and moved them into a standard permission.
+	Added options in milking room to set automatic selling, as well as options to drink or sell any stored fluids.
+	Balanced fluid values.
+	Added three new upgrades to the milking room.
+	Added self-milking options to milking rooms.
 	
-	Slavery:
-		'Dairy Cow' job now correctly supports 8 slaves per milking room.
-		Made some minor improvements to slavery UI.
-		Milking room now milks a slave of their milk, cum, and girlcum at the same time.
-		Added options to enable/disable milk, cum, and girlcum milking.
-		Moved pregnancy job settings (Promiscuity pills, no pills, or Vixen's Virility pills) from the 'Stocks' and 'Prostitute' jobs, and moved them into a standard permission.
-		Added options in milking room to set automatic selling, as well as options to drink or sell any stored fluids.
-		Balanced fluid values.
-		Added three new upgrades to the milking room.
-		Added self-milking options to milking rooms.
-		
-	Enchanting:
-		You can now set a custom name for any potions or clothing that you create.
-		<b>Added:</b> Saving and loading of enchantment effects. (Built upon framework created by Master of Puppets.)
+Enchanting:
+	You can now set a custom name for any potions or clothing that you create.
+	Added: Saving and loading of enchantment effects. (Built upon framework created by Master of Puppets.)
+
+Contributors:
+	Added testing for Nnxx's character 'Lumi' in the debug menu. Once she's finished, she will be added a random encounter in Dominion's alleys, but for now, she's only accessible through the debug menu.
+	Fixed typos in Telepathic Communication description. (Mach565)
+	Companion's damage scaling (on higher difficulty settings) is now treated the same as the player's. (Darkon47)
+	Added rings for masculine characters in character creation. (rfpnj)
+	Huge amount of punctuation fixes. (WoefulWombat)
+	Even more punctuation fixes. (WoefulWombat)
+	Added framework for saving and loading enchantment effects. (Master of Puppets)
+	Fixed bug with intoxication percentages not displaying correctly. (Pimvgd)
+	Fixed prologue typo. (Mach565)
+	Fixed cause of strange characters being displayed in some svgs. (Pimvgd)
+	Fixed bug where impregnation chance was using the wrong partner's fertility stat. (Itpatch)
 	
-	Contributors:
-		Added testing for Nnxx's character 'Lumi' in the debug menu. Once she's finished, she will be added a random encounter in Dominion's alleys, but for now, she's only accessible through the debug menu.
-		Fixed typos in Telepathic Communication description. (Mach565)
-		Companion's damage scaling (on higher difficulty settings) is now treated the same as the player's. (Darkon47)
-		Added rings for masculine characters in character creation. (rfpnj)
-		Huge amount of punctuation fixes. (WoefulWombat)
-		Even more punctuation fixes. (WoefulWombat)
-		Added framework for saving and loading enchantment effects. (Master of Puppets)
-		Fixed bug with intoxication percentages not displaying correctly. (Pimvgd)
-		Fixed prologue typo. (Mach565)
-		Fixed cause of strange characters being displayed in some svgs. (Pimvgd)
-		Fixed bug where impregnation chance was using the wrong partner's fertility stat. (Itpatch)
-		
-	Other:
-		Ankle spreader bar now blocks escape in combat (if you are unable to fly).
-		Wrist restraints now block flight from arm-wings (such as harpy or bat wings).
-		NPCs now gain or lose affection towards you after sex, depending on if they were in the resisting pace or not.
-		Slimes can no longer fly.
-	
-	Bugs:
-		Fixed bug where NPCs would have a random colour for their lips/nipples/anus. This resets NPC colours for those parts only if they're not your slave, so your slave's colours won't be reset by this.
-		Typo and parsing fixes.
-		Fixed issue with parsing some characters in text fields.
-		Fixed spell page showing special ability was unlocked, even when it wasn't.
-		Fixed bug where some icons would show random letters on some systems.
-		Fixed (yet another) cause of slavery stats getting stuck on the right-hand section of the screen.
-		Fixed broken colours in rainbow set status effect icon.
-		Fixed bug where fetish screen would sometimes become unresponsive.
-		NPCs should no longer spawn in with fetish or transforming fetishes if you have them set to 0% in your content options.
-		Fixed milking room upgrade being blocked when you had companions in your party.
-		Fixed slave multiple-partner sex breaking if you had companions in your party.
-		Fixed bug where slaves could start spitroast even if they weren't attracted to you.
-		Crotchless chaps no longer conceal the anus slot.
-		Fixed yet more bugs related to slavery targets being broken between scenes.
-		Fixed 'Dairy Cow' slave job having some settings from prostitute.
-		Fixed bug where fluids would sometimes load in their modifiers twice (potentially causing issues with removal of fluid modifiers).
-		Fixed slimes being able to TF penis type to 'artificial'.
+Other:
+	Ankle spreader bar now blocks escape in combat (if you are unable to fly).
+	Wrist restraints now block flight from arm-wings (such as harpy or bat wings).
+	NPCs now gain or lose affection towards you after sex, depending on if they were in the resisting pace or not.
+	Slimes can no longer fly.
+
+Bugs:
+	Fixed bug where NPCs would have a random colour for their lips/nipples/anus. This resets NPC colours for those parts only if they're not your slave, so your slave's colours won't be reset by this.
+	Typo and parsing fixes.
+	Fixed issue with parsing some characters in text fields.
+	Fixed spell page showing special ability was unlocked, even when it wasn't.
+	Fixed bug where some icons would show random letters on some systems.
+	Fixed (yet another) cause of slavery stats getting stuck on the right-hand section of the screen.
+	Fixed broken colours in rainbow set status effect icon.
+	Fixed bug where fetish screen would sometimes become unresponsive.
+	NPCs should no longer spawn in with fetish or transforming fetishes if you have them set to 0% in your content options.
+	Fixed milking room upgrade being blocked when you had companions in your party.
+	Fixed slave multiple-partner sex breaking if you had companions in your party.
+	Fixed bug where slaves could start spitroast even if they weren't attracted to you.
+	Crotchless chaps no longer conceal the anus slot.
+	Fixed yet more bugs related to slavery targets being broken between scenes.
+	Fixed 'Dairy Cow' slave job having some settings from prostitute.
+	Fixed bug where fluids would sometimes load in their modifiers twice (potentially causing issues with removal of fluid modifiers).
+	Fixed slimes being able to TF penis type to 'artificial'.
 
 
 

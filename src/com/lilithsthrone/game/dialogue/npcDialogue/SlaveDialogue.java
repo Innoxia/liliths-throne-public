@@ -789,29 +789,31 @@ public class SlaveDialogue {
 						}
 						
 					} else if (index == 3) {
-						if(!charactersPresent.get(0).isAttractedTo(Main.game.getPlayer()) || !charactersPresent.get(1).isAttractedTo(Main.game.getPlayer())) {
-							return new Response("Spitroast", UtilText.parse(charactersPresent.get(0), charactersPresent.get(1), "Neither [npc1.name] nor [npc2.name] are attracted to you..."), null);
-							
-						} else if(!charactersPresent.get(0).isAttractedTo(Main.game.getPlayer())) {
-							return new Response("Spitroast", UtilText.parse(charactersPresent.get(0), "[npc.Name] is not attracted to you..."), null);
-							
-						} else if(!charactersPresent.get(1).isAttractedTo(Main.game.getPlayer())) {
-							return new Response("Spitroast", UtilText.parse(charactersPresent.get(1), "[npc.Name] is not attracted to you..."), null);
-							
-						} else if(charactersPresent.size()>=2) {
-							return new ResponseSex("Get Spitroasted",
-									UtilText.parse(charactersPresent.get(0), charactersPresent.get(1), "Let [npc1.name] and [npc2.name] spitroast you."),
-									null, null, null, null, null, null,
-									true, true,
-									new SMDoggy(
-											Util.newHashMapOfValues(
-													new Value<>(charactersPresent.get(1), SexPositionSlot.DOGGY_INFRONT),
-													new Value<>(charactersPresent.get(0), SexPositionSlot.DOGGY_BEHIND)),
-											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
-									AFTER_SEX,
-									"<p>"
-										+ ""//TODO
-									+ "</p>");
+						if(charactersPresent.size()>=2) {
+							if(!charactersPresent.get(0).isAttractedTo(Main.game.getPlayer()) || !charactersPresent.get(1).isAttractedTo(Main.game.getPlayer())) {
+								return new Response("Spitroast", UtilText.parse(charactersPresent.get(0), charactersPresent.get(1), "Neither [npc1.name] nor [npc2.name] are attracted to you..."), null);
+								
+							} else if(!charactersPresent.get(0).isAttractedTo(Main.game.getPlayer())) {
+								return new Response("Spitroast", UtilText.parse(charactersPresent.get(0), "[npc.Name] is not attracted to you..."), null);
+								
+							} else if(!charactersPresent.get(1).isAttractedTo(Main.game.getPlayer())) {
+								return new Response("Spitroast", UtilText.parse(charactersPresent.get(1), "[npc.Name] is not attracted to you..."), null);
+								
+							} else {
+								return new ResponseSex("Get Spitroasted",
+										UtilText.parse(charactersPresent.get(0), charactersPresent.get(1), "Let [npc1.name] and [npc2.name] spitroast you."),
+										null, null, null, null, null, null,
+										true, true,
+										new SMDoggy(
+												Util.newHashMapOfValues(
+														new Value<>(charactersPresent.get(1), SexPositionSlot.DOGGY_INFRONT),
+														new Value<>(charactersPresent.get(0), SexPositionSlot.DOGGY_BEHIND)),
+												Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
+										AFTER_SEX,
+										"<p>"
+											+ ""//TODO
+										+ "</p>");
+							}
 						} else {
 							return new Response("Spitroast", "Another slave needs to be present for this...",null);
 						}
