@@ -1451,14 +1451,16 @@ public class OptionsDialogue {
 			
 			UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart("ARTIST_", Colour.BASE_AQUA, "Preferred Artist", "Which artist's work is used by default."));
 			for(Artist artist : Artwork.allArtists) {
-				UtilText.nodeContentSB.append(
-						(Main.getProperties().preferredArtist.equals(artist.getFolderName())
-								?"<div id='ARTIST_"+artist.getFolderName()+"' class='normal-button selected' style='width:25%; margin-right:4%; text-align:center; float:right;'>"
+				if (!artist.getName().equals("Custom")) {
+					UtilText.nodeContentSB.append(
+							(Main.getProperties().preferredArtist.equals(artist.getFolderName())
+									?"<div id='ARTIST_"+artist.getFolderName()+"' class='normal-button selected' style='width:25%; margin-right:4%; text-align:center; float:right;'>"
 									+ "<b style='color:"+artist.getColour().toWebHexString()+";'>"+artist.getName()+"</b>"
-								+ "</div>"
-								:"<div id='ARTIST_"+artist.getFolderName()+"' class='normal-button' style='width:25%; margin-right:4%; text-align:center; float:right;'>"
+									+ "</div>"
+									:"<div id='ARTIST_"+artist.getFolderName()+"' class='normal-button' style='width:25%; margin-right:4%; text-align:center; float:right;'>"
 									+ "[style.boldDisabled("+artist.getName()+")]"
-								+ "</div>"));
+									+ "</div>"));
+				}
 			}
 			UtilText.nodeContentSB.append("</div></div>");
 						
