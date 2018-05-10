@@ -78,6 +78,9 @@ public class Artwork {
 					}
 				}
 			}
+
+			// Add artist template for custom art
+			allArtists.add(new Artist("Custom", Colour.BASE_GREY, "custom", new ArrayList<>()));
 		}
 	}
 	
