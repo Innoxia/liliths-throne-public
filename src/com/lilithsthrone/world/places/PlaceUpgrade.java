@@ -367,8 +367,9 @@ public enum PlaceUpgrade {
 					place.removePlaceUpgrade(c, upgrade);
 				}
 			}
-			
-			Main.game.getSlaveryUtil().addMilkingRoom(new MilkingRoom(c.getType(), c.getLocation()));
+			if(Main.game.getSlaveryUtil().getMilkingRoom(c.getType(), c.getLocation())==null) {
+				Main.game.getSlaveryUtil().addMilkingRoom(new MilkingRoom(c.getType(), c.getLocation()));
+			}
 		}
 		
 		@Override

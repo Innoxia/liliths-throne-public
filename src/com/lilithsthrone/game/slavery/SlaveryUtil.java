@@ -94,7 +94,11 @@ public class SlaveryUtil implements XMLSaving {
 			for(int i=0; i<parentElement.getElementsByTagName("milkingRoom").getLength(); i++){
 				Element e = ((Element)parentElement.getElementsByTagName("milkingRoom").item(i));
 				
-				slaveryUtil.addMilkingRoom(MilkingRoom.loadFromXML(e, doc));
+				MilkingRoom room = MilkingRoom.loadFromXML(e, doc);
+				
+				if(slaveryUtil.getMilkingRoom(room.getWorldType(), room.getLocation())==null) {
+					slaveryUtil.addMilkingRoom(room);
+				}
 			}
 			
 			return slaveryUtil;

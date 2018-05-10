@@ -185,7 +185,7 @@ public class MilkingRoom implements XMLSaving {
 	}
 
 	public static int getActualMilkPerHour(GameCharacter character) {
-		return Math.min(getMaximumMilkPerHour(character), character.getBreastRawLactationRegenerationValue());
+		return (int) Math.min(getMaximumMilkPerHour(character), (character.getBreastLactationRegeneration().getPercentageRegen()*character.getBreastRawMilkStorageValue()*60));
 	}
 	
 	public static int getMaximumCumPerHour(GameCharacter character) {
