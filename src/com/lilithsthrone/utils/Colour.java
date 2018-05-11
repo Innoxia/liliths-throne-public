@@ -338,13 +338,13 @@ public enum Colour {
 	// Body parts:
 
 	// Skin (Human and Demon):
-	SKIN_PORCELAIN(Util.newColour(0xDBCDB9), Util.newColour(0xDBCDB9), "porcelain")
+	SKIN_PORCELAIN(Util.newColour(0xDBCDB9), Util.newColour(0xDBCDB9), "porcelain"),
 	SKIN_PALE(Util.newColour(0xFBF4E9), Util.newColour(0x534946), "pale"),
 	SKIN_LIGHT(BaseColour.YELLOW_LIGHT, "light"),
-	SKIN_ROSY(Util.newColour(0xDDAA93), Util.newColour(0xDDAA93), "rosy")
-	SKIN_TANNED(Util.newColour(0xC39D6B), Util.newColour(0xC39D6B), "Tanned")
+	SKIN_ROSY(Util.newColour(0xDDAA93), Util.newColour(0xDDAA93), "rosy"),
+	SKIN_TANNED(Util.newColour(0xC39D6B), Util.newColour(0xC39D6B), "Tanned"),
 	SKIN_OLIVE(BaseColour.TAN, "olive"),
-	SKIN_CHOCOLATE(Util.newColour(0x59372D), Util.newColour(0x59372D), "chocolate")
+	SKIN_CHOCOLATE(Util.newColour(0x59372D), Util.newColour(0x59372D), "chocolate"),
 	SKIN_DARK(BaseColour.BROWN_DARK, "dark"),
 	SKIN_EBONY(BaseColour.BLACK, "ebony"),
 	
