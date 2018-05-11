@@ -966,7 +966,7 @@ public enum Subspecies {
 			Race.BEE,
 			Colour.RACE_RABBIT_MORPH, //TODO Change to the proper color. Not Colour you brit! 
 			SubspeciesPreference.FOUR_ABUNDANT,
-			"A typical bipedal rabbit-morph.",
+			"A typical hexpedal bee-morph.",
 			Util.newArrayListOfValues()) {
 
 				@Override
