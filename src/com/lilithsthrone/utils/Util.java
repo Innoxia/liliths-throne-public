@@ -323,10 +323,6 @@ public class Util {
 		return String.valueOf(integer);
 	}
 	
-	public static String formatForHTML(String input) {
-		return input.replaceAll("'", "&apos;").replaceAll("\"", "&quot;");
-	}
-	
 	public static String getKeyCodeCharacter(KeyCode code) {
 		switch(code) {
 			case ADD:

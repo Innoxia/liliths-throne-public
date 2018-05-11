@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.Rose;
@@ -22,10 +23,12 @@ import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.dominion.SMRoseHands;
+import com.lilithsthrone.game.slavery.MilkingRoom;
 import com.lilithsthrone.game.slavery.SlaveJob;
 import com.lilithsthrone.game.slavery.SlavePermissionSetting;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.BaseColour;
+import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
@@ -192,7 +195,7 @@ public class LilayaHomeGeneric {
 	};
 	
 	private static Response getRoomResponse(int index, boolean milkingRoom) {
-		List<NPC> charactersPresent = Main.game.getCharactersPresent();
+		List<NPC> charactersPresent = Main.game.getNonCompanionCharactersPresent();
 		List<NPC> slavesAssignedToRoom = new ArrayList<>();
 		if(milkingRoom) {
 			slavesAssignedToRoom.addAll(charactersPresent);
@@ -204,7 +207,7 @@ public class LilayaHomeGeneric {
 				}
 			}
 		}
-		charactersPresent.removeIf((characterPresent) -> Main.game.getPlayer().hasCompanion(characterPresent) && !slavesAssignedToRoom.contains(characterPresent));
+//		charactersPresent.removeIf((characterPresent) -> Main.game.getPlayer().hasCompanion(characterPresent) && !slavesAssignedToRoom.contains(characterPresent));
 		
 		if(index==0) {
 			return null;
@@ -233,6 +236,337 @@ public class LilayaHomeGeneric {
 				return new Response("Slave List", "You'll need a slaver license before you can access this menu!",  null);
 			}
 			
+		} else if(milkingRoom) {
+			MilkingRoom room = Main.game.getSlaveryUtil().getMilkingRoom(Main.game.getPlayerCell().getType(), Main.game.getPlayerCell().getLocation());
+			
+			if(index==3) {
+				if(Main.game.getPlayer().getBreastRawStoredMilkValue()==0) {
+					return new Response("Milk Self", "There is no milk stored in your [pc.breasts], so you can't milk yourself at the moment!",  null);
+					
+				} else if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.NIPPLES, true)) {
+					return new Response("Milk Self", "You are unable to get access to your nipples, so you can't milk yourself at the moment!",  null);
+					
+				} else if(charactersPresent.size()==8) {
+					return new Response("Milk Self", "There are no free milking machines for you to use!",  null);
+					
+				} else if(Main.game.getPlayer().getHealth()<=25) {
+					return new Response("Milk Self", "You are too tired to use the milking machine! (You need over 25 energy.)",  null);
+					
+				} else {
+					return new Response("Milk Self", "Use this room's spare milking equipment to milk yourself.", MILKED) {
+						@Override
+						public void effects() {
+							int milked = MilkingRoom.getActualMilkPerHour(Main.game.getPlayer());
+							room.incrementMilkStorage(Main.game.getPlayer().getMilk(), milked);
+							Main.game.getPlayer().setBreastStoredMilk(0);
+							Main.game.getPlayer().incrementHealth(-25);
+							
+							if(Main.game.getPlayerCell().getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_ARTISAN_MILKERS)) {
+								Main.game.getTextEndStringBuilder().append(
+										"<p>"
+											+ "You lie down on the artisan milker's comfortable, padded leather bed, and, attaching the"
+											+(Main.game.getPlayerCell().getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_MILK_EFFICIENCY)
+												?" special 'Lact-o-Cups'"
+												:" soft suction cups")
+											+" to your [pc.breastRows] [pc.breasts], you flick the nearby 'on' switch."
+											+ " Immediately, the machine starts gently humming, and "
+											+(Main.game.getPlayerCell().getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_MILK_EFFICIENCY)
+													?" the aftermarket suction cups begin to expertly squeeze and suck the [pc.milk+] from your [pc.nipples+]."
+													:" begins to squeeze and suck the [pc.milk+] from your [pc.nipples+].")
+											+ " You let out a delighted sigh at the satisfying feeling of being milked in comfort, and, allowing your eyes to close, you take a relaxing, well-earned break from your daily activities."
+										+ "</p>");
+							} else if(Main.game.getPlayerCell().getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_INDUSTRIAL_MILKERS)) {
+								Main.game.getTextEndStringBuilder().append(
+										"<p>"
+											+ "You lie down on the industrial milker's uncomfortable metal bed, and, attaching the"
+											+(Main.game.getPlayerCell().getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_MILK_EFFICIENCY)
+												?" special 'Lact-o-Cups'"
+												:" hard suction cups")
+											+" to your [pc.breastRows] [pc.breasts], you flick the nearby 'on' switch."
+											+ " Immediately, the machine starts loudly whirring and humming, and "
+											+(Main.game.getPlayerCell().getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_MILK_EFFICIENCY)
+													?" the aftermarket suction cups begin to expertly squeeze and suck the [pc.milk+] from your [pc.nipples+]."
+													:" begins to roughly squeeze and suck the [pc.milk+] from your [pc.nipples+].")
+											+ " You let out a distressed moan at the harsh feeling of being milked by such a crude machine, but,"
+												+ " determined to see this through to the end, you hold still and allow the industrial-grade contraption to do its work."
+										+ "</p>");
+							} else {
+								Main.game.getTextEndStringBuilder().append(
+										"<p>"
+											+ "You lie down on the milking machine's leather bed, and, attaching the"
+											+(Main.game.getPlayerCell().getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_MILK_EFFICIENCY)
+												?" special 'Lact-o-Cups'"
+												:" suction cups")
+											+" to your [pc.breastRows] [pc.breasts], you flick the nearby 'on' switch."
+											+ " Immediately, the machine starts humming, and "
+											+(Main.game.getPlayerCell().getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_MILK_EFFICIENCY)
+													?" the aftermarket suction cups begin to expertly squeeze and suck the [pc.milk+] from your [pc.nipples+]."
+													:" begins to squeeze and suck the [pc.milk+] from your [pc.nipples+].")
+											+ " You let out a little moan at the feeling of being milked by the machine, and hold still as you allow the contraption to do its work."
+										+ "</p>");
+							}
+
+							Main.game.getTextEndStringBuilder().append(
+								"<p>"
+									+ "Before you know it, an hour has passed, and, reaching over to flick the switch off, you unstrap yourself and stand up."
+								+ "</p>"
+								+ "<p style='text-align:center; color:"+Colour.MILK.toWebHexString()+";'>"
+										+ milked+"ml of [pc.milk] added to this room's storage!"
+								+ "</p>"
+								+ "<p style='text-align:center; color:"+Colour.GENERIC_BAD.toWebHexString()+";'>"
+									+ "Being milked is tiring, and you lose 25 energy!"
+								+ "</p>");
+						}
+					};
+				}
+				
+			} else if(index==4) {
+				if(!Main.game.getPlayer().hasPenisIgnoreDildo()) {
+					return new Response("Milk Self Cum", "You don't have a penis, so you can't produce any cum...",  null);
+					
+				} else if(Main.game.getPlayer().getPenisRawCumProductionValue()==0) {
+					return new Response("Milk Self Cum", "You aren't producing any cum, so you can't milk your cock...",  null);
+					
+				} else if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.PENIS, true)) {
+					return new Response("Milk Self Cum", "You are unable to get access to your cock, so you can't milk yourself at the moment!",  null);
+					
+				} else if(charactersPresent.size()==8) {
+					return new Response("Milk Self Cum", "There are no free milking machines for you to use!",  null);
+					
+				} else if(Main.game.getPlayer().getHealth()<=25) {
+					return new Response("Milk Self Cum", "You are too tired to use the milking machine! (You need over 25 energy.)",  null);
+					
+				} else {
+					return new Response("Milk Self Cum", "Use this room's spare milking equipment to milk your cock.", MILKED) {
+						@Override
+						public void effects() {
+							int milked = MilkingRoom.getActualCumPerHour(Main.game.getPlayer());
+							room.incrementCumStorage(Main.game.getPlayer().getCum(), milked);
+							Main.game.getPlayer().incrementHealth(-25);
+							
+							if(Main.game.getPlayerCell().getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_ARTISAN_MILKERS)) {
+								Main.game.getTextEndStringBuilder().append(
+										"<p>"
+											+ "You lie down on the artisan milker's comfortable, padded leather bed, and, sliding the"
+											+(Main.game.getPlayerCell().getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_CUM_EFFICIENCY)
+												?" special 'Succ-u-Bus' suction tube"
+												:" soft suction tube")
+											+" down over your [pc.cock+], you flick the nearby 'on' switch."
+											+ " Immediately, the machine starts gently humming, and "
+											+(Main.game.getPlayerCell().getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_CUM_EFFICIENCY)
+													?" the aftermarket suction device begin to expertly squeeze and stroke your [pc.cock+]."
+													:" begins to squeeze and stroke your [pc.cock+].")
+											+ " It doesn't take long before you're letting out a delighted groan, and, bucking your [pc.hips] into the bed's soft leather padding, you feel your [pc.cum+] shooting out into the machine's tube."
+										+ "</p>");
+							} else if(Main.game.getPlayerCell().getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_INDUSTRIAL_MILKERS)) {
+								Main.game.getTextEndStringBuilder().append(
+										"<p>"
+											+ "You lie down on the industrial milker's uncomfortable metal bed, and, sliding the"
+											+(Main.game.getPlayerCell().getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_CUM_EFFICIENCY)
+												?" special 'Succ-u-Bus' suction tube"
+												:" hard suction tube")
+											+" down over your [pc.cock+], you flick the nearby 'on' switch."
+											+ " Immediately, the machine starts loudly whirring and humming, and "
+											+(Main.game.getPlayerCell().getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_CUM_EFFICIENCY)
+													?" the aftermarket suction device begin to expertly squeeze and stroke your [pc.cock+]."
+													:" begins to crudely squeeze and stroke your [pc.cock+].")
+											+ " You let out a distressed moan at the harsh feeling of being milked by such a crude machine, but,"
+												+ " determined to see this through to the end, you hold still and allow the industrial-grade contraption to do its work."
+											+ " Despite the machine's rough touch, it doesn't take long before you're letting out a heavy groan, and, bucking your [pc.hips] against the bed's cold metal,"
+												+ " you feel your [pc.cum+] shooting out into the machine's tube."
+										+ "</p>");
+							} else {
+								Main.game.getTextEndStringBuilder().append(
+										"<p>"
+											+ "You lie down on the milking machine's leather bed, and, sliding the"
+											+(Main.game.getPlayerCell().getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_CUM_EFFICIENCY)
+												?" special 'Succ-u-Bus' suction tube"
+												:" suction tube")
+											+" down over your [pc.cock+], you flick the nearby 'on' switch."
+											+ " Immediately, the machine starts humming, and "
+											+(Main.game.getPlayerCell().getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_CUM_EFFICIENCY)
+													?" the aftermarket suction device begin to expertly squeeze and stroke your [pc.cock+]."
+													:" begins to squeeze and stroke your [pc.cock+].")
+											+ " It doesn't take long before you're letting out a heavy groan, and, bucking your [pc.hips] into the bed's padding, you feel your [pc.cum+] shooting out into the machine's tube."
+										+ "</p>");
+							}
+
+							Main.game.getTextEndStringBuilder().append("<p>"
+									+ "You're given no time to recover from your orgasm, and the machine continues stroking and sucking away at your [pc.cock+]."
+									+ " Within minutes, you've reached a second climax, and, collapsing fully down onto the bed, you surrender yourself to the ceaseless workings of the milking machine..."
+								+ "</p>"
+								+ "<p>"
+									+ "Before you know it, an hour has passed, and, reaching over to flick the switch off, you unstrap yourself and stand up on shaking [pc.legs]."
+								+ "</p>"
+								+ "<p style='text-align:center; color:"+Colour.CUM.toWebHexString()+";'>"
+										+ milked+"ml of [pc.cum] added to this room's storage!"
+								+ "</p>"
+								+ "<p style='text-align:center; color:"+Colour.GENERIC_BAD.toWebHexString()+";'>"
+									+ "Being milked is tiring, and you lose 25 energy!"
+								+ "</p>");
+						}
+					};
+				}
+				
+			} else if(index==5) {
+				if(!Main.game.getPlayer().hasVagina()) {
+					return new Response("Milk Self Girlcum", "You don't have a vagina, so you can't produce any girlcum...",  null);
+					
+				} else if(Main.game.getPlayer().getVaginaWetness().getValue()==0) {
+					return new Response("Milk Self Girlcum", "Your pussy is completely dry...",  null);
+					
+				} else if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
+					return new Response("Milk Self Girlcum", "You are unable to get access to your pussy, so you can't milk yourself at the moment!",  null);
+					
+				} else if(charactersPresent.size()==8) {
+					return new Response("Milk Self Girlcum", "There are no free milking machines for you to use!",  null);
+					
+				} else if(Main.game.getPlayer().getHealth()<=25) {
+					return new Response("Milk Self Cum", "You are too tired to use the milking machine! (You need over 25 energy.)",  null);
+					
+				} else {
+					return new Response("Milk Self Girlcum", "Use this room's spare milking equipment to milk your pussy.", MILKED) {
+						@Override
+						public void effects() {
+							int milked = MilkingRoom.getActualGirlcumPerHour(Main.game.getPlayer());
+							room.incrementGirlcumStorage(Main.game.getPlayer().getGirlcum(), milked);
+							Main.game.getPlayer().incrementHealth(-25);
+							
+							if(Main.game.getPlayerCell().getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_ARTISAN_MILKERS)) {
+								Main.game.getTextEndStringBuilder().append(
+										"<p>"
+											+ "You lie down on the artisan milker's comfortable, padded leather bed, and, strapping the"
+											+(Main.game.getPlayerCell().getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_GIRLCUM_EFFICIENCY)
+												?" special 'Vivro-Pump'"
+												:" soft pump")
+											+" down over your [pc.pussy+], you flick the nearby 'on' switch."
+											+ " Immediately, the machine starts gently humming, and "
+											+(Main.game.getPlayerCell().getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_GIRLCUM_EFFICIENCY)
+													?" the aftermarket pump begins rapidly vibrating against your [pc.clit+]."
+													:" begins to gently vibrate against your [pc.clit+].")
+											+ " It doesn't take long before you're letting out a high-pitched squeal, and as your [pc.legs] tremble against the bed's soft leather padding,"
+												+ " you feel your [pc.girlcum+] "+(Main.game.getPlayer().isVaginaSquirter()?"squirting":"drooling")+" into the machine's greedy pump."
+										+ "</p>");
+							} else if(Main.game.getPlayerCell().getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_INDUSTRIAL_MILKERS)) {
+								Main.game.getTextEndStringBuilder().append(
+										"<p>"
+											+ "You lie down on the industrial milker's uncomfortable metal bed, and, strapping the"
+											+(Main.game.getPlayerCell().getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_GIRLCUM_EFFICIENCY)
+												?" special 'Vivro-Pump'"
+												:" hard pump")
+											+" down over your [pc.pussy+], you flick the nearby 'on' switch."
+											+ " Immediately, the machine starts loudly whirring and humming, and "
+											+(Main.game.getPlayerCell().getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_GIRLCUM_EFFICIENCY)
+													?" the aftermarket pump begins crudely and rapidly vibrating against your [pc.clit+]."
+													:" begins to crudely vibrate against your [pc.clit+].")
+											+ " Despite the machine's rough touch, it doesn't take long before you're letting out a high-pitched squeal, and as your [pc.legs] tremble against the bed's cold metal surface,"
+												+ " you feel your [pc.girlcum+] "+(Main.game.getPlayer().isVaginaSquirter()?"squirting":"drooling")+" into the machine's greedy pump."
+										+ "</p>");
+							} else {
+								Main.game.getTextEndStringBuilder().append(
+										"<p>"
+											+ "You lie down on the milking machine's leather bed, and, strapping the"
+											+(Main.game.getPlayerCell().getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_GIRLCUM_EFFICIENCY)
+												?" special 'Vivro-Pump'"
+												:" suction pump")
+											+" down over your [pc.pussy+], you flick the nearby 'on' switch."
+											+ " Immediately, the machine starts humming, and "
+											+(Main.game.getPlayerCell().getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_GIRLCUM_EFFICIENCY)
+													?" the aftermarket pump begins rapidly vibrating against your [pc.clit+]."
+													:" begins to vibrate against your [pc.clit+].")
+											+ " It doesn't take long before you're letting out a high-pitched squeal, and as your [pc.legs] tremble against the bed's leather padding,"
+												+ " you feel your [pc.girlcum+] "+(Main.game.getPlayer().isVaginaSquirter()?"squirting":"drooling")+" into the machine's greedy pump."
+										+ "</p>");
+							}
+
+							Main.game.getTextEndStringBuilder().append("<p>"
+									+ "You're given no time to recover from your orgasm, and the machine continues vibrating and pumping away at your [pc.pussy+]."
+									+ " Within minutes, you've reached a second climax, and, collapsing fully down onto the bed, you surrender yourself to the ceaseless workings of the milking machine..."
+								+ "</p>"
+								+ "<p>"
+									+ "Before you know it, an hour has passed, and, reaching over to flick the switch off, you unstrap yourself and stand up on your still-quivering [pc.legs]."
+								+ "</p>"
+								+ "<p style='text-align:center; color:"+Colour.GIRLCUM.toWebHexString()+";'>"
+									+ milked+"ml of [pc.girlcum] added to this room's storage!"
+								+ "</p>"
+								+ "<p style='text-align:center; color:"+Colour.GENERIC_BAD.toWebHexString()+";'>"
+									+ "Being milked is tiring, and you lose 25 energy!"
+								+ "</p>");
+						}
+					};
+				}
+				
+				
+			} else if(index==6) {
+				if(room.isAutoSellMilk()) {
+					return new ResponseEffectsOnly("Milk: [style.colourGold(Selling)]", "Any milk that's collected in this room is being automatically sold.") {
+						@Override
+						public void effects() {
+							room.setAutoSellMilk(false);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}
+					};
+					
+				} else {
+					return new ResponseEffectsOnly("Milk: [style.colourOrange(Storing)]", "Any milk that's collected in this room is being stored.") {
+						@Override
+						public void effects() {
+							room.setAutoSellMilk(true);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}
+					};
+				}
+				
+			} else if(index==7) {
+				if(room.isAutoSellCum()) {
+					return new ResponseEffectsOnly("Cum: [style.colourGold(Selling)]", "Any cum that's collected in this room is being automatically sold.") {
+						@Override
+						public void effects() {
+							room.setAutoSellCum(false);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}
+					};
+					
+				} else {
+					return new ResponseEffectsOnly("Cum: [style.colourOrange(Storing)]", "Any cum that's collected in this room is being stored.") {
+						@Override
+						public void effects() {
+							room.setAutoSellCum(true);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}
+					};
+				}
+				
+			} else if(index==8) {
+				if(room.isAutoSellGirlcum()) {
+					return new ResponseEffectsOnly("Girlcum: [style.colourGold(Selling)]", "Any girlcum that's collected in this room is being automatically sold.") {
+						@Override
+						public void effects() {
+							room.setAutoSellGirlcum(false);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}
+					};
+					
+				} else {
+					return new ResponseEffectsOnly("Girlcum: [style.colourOrange(Storing)]", "Any girlcum that's collected in this room is being stored.") {
+						@Override
+						public void effects() {
+							room.setAutoSellGirlcum(true);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}
+					};
+				}
+				
+			} else if(index-9<charactersPresent.size()) {
+				return new Response(UtilText.parse(charactersPresent.get(index-9), "[npc.Name]"), UtilText.parse(charactersPresent.get(index-9), "Interact with [npc.name]."), SlaveDialogue.SLAVE_START) {
+					@Override
+					public void effects() {
+						Main.game.setActiveNPC(charactersPresent.get(index-9));
+					}
+				};
+				
+			}
+			
 		} else if(index-3<slavesAssignedToRoom.size()) {
 			if(charactersPresent.contains(slavesAssignedToRoom.get(index-3))) {
 				return new Response(UtilText.parse(slavesAssignedToRoom.get(index-3), "[npc.Name]"), UtilText.parse(slavesAssignedToRoom.get(index-3), "Interact with [npc.name]."), SlaveDialogue.SLAVE_START) {
@@ -246,9 +580,9 @@ public class LilayaHomeGeneric {
 				return new Response(UtilText.parse(slavesAssignedToRoom.get(index-3), "[npc.Name]"), UtilText.parse(slavesAssignedToRoom.get(index-3), "Although this is [npc.name]'s room, [npc.she]'s not here at the moment."), null);
 			}
 			
-		} else {
-			return null;
 		}
+		
+		return null;
 	}
 	
 	private static StringBuilder roomSB = new StringBuilder();
@@ -269,9 +603,47 @@ public class LilayaHomeGeneric {
 	private static String formatRoomUpgrade(PlaceUpgrade upgrade) {
 		return "<p>"
 				+ "<b style='color:"+upgrade.getColour().toWebHexString()+";'>"+upgrade.getName()+"</b></br>"
-				+ upgrade.getRoomDescription(Main.game.getPlayer().getLocationPlace())
+				+ upgrade.getRoomDescription(Main.game.getPlayerCell())
 			+ "</p>";
 	}
+	
+	public static final DialogueNodeOld MILKED = new DialogueNodeOld("Room", ".", true) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public int getMinutesPassed() {
+			return 60;
+		}
+		
+		@Override
+		public boolean isRegenerationDisabled() {
+			return true;
+		}
+		
+		@Override
+		public String getLabel() {
+			return Main.game.getPlayer().getLocationPlace().getName();
+		}
+		
+		@Override
+		public String getContent() {
+			return "";
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("Continue", "Unstrap yourself from the milking machine and continue on your way.", MILKED) {
+					@Override
+					public DialogueNodeOld getNextDialogue() {
+						return Main.game.getDefaultDialogueNoEncounter();
+					}
+				};
+			} else {
+				return null;
+			}
+		}
+	};
 	
 	public static final DialogueNodeOld ROOM_WINDOW = new DialogueNodeOld("Room", ".", false) {
 		private static final long serialVersionUID = 1L;
@@ -297,7 +669,7 @@ public class LilayaHomeGeneric {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			return getRoomResponse(index, false);
+			return getRoomResponse(index, Main.game.getPlayer().getLocationPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM));
 		}
 	};
 	
@@ -324,7 +696,7 @@ public class LilayaHomeGeneric {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			return getRoomResponse(index, false);
+			return getRoomResponse(index, Main.game.getPlayer().getLocationPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM));
 		}
 	};
 	
@@ -352,173 +724,7 @@ public class LilayaHomeGeneric {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			return getRoomResponse(index, false);
-		}
-	};
-	
-	public static final DialogueNodeOld ROOM_WINDOW_SLAVE = new DialogueNodeOld("Slave's Room", ".", false) {
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public int getMinutesPassed() {
-			return 1;
-		}
-		
-		@Override
-		public String getLabel() {
-			return Main.game.getPlayer().getLocationPlace().getName();
-		}
-
-		@Override
-		public String getContent() {
-			return "<p>"
-						+ "This room has a series of large windows set into one wall, which allow a generous amount of natural daylight to flood out into the corridor when the door is left open."
-						+ " What with this room being situated on the outside of the house, the view from the windows is of the hustle and bustle of Dominion's busy streets."
-					+ "</p>"
-					+getRoomModificationsDescription();
-		}
-
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			return getRoomResponse(index, false);
-		}
-	};
-	
-	public static final DialogueNodeOld ROOM_GARDEN_GROUND_FLOOR_SLAVE = new DialogueNodeOld("Slave's Garden-view Room", ".", false) {
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public int getMinutesPassed() {
-			return 1;
-		}
-		
-		@Override
-		public String getLabel() {
-			return Main.game.getPlayer().getLocationPlace().getName();
-		}
-
-		@Override
-		public String getContent() {
-			return "<p>"
-						+ "This room has a series of wide, ceiling-height windows set into one wall, which swing open to allow access to and from the adjoining garden courtyard."
-					+ "</p>"
-					+getRoomModificationsDescription();
-		}
-
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			return getRoomResponse(index, false);
-		}
-	};
-	
-	public static final DialogueNodeOld ROOM_GARDEN_SLAVE = new DialogueNodeOld("Slave's Garden-view Room", ".", false) {
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public int getMinutesPassed() {
-			return 1;
-		}
-		
-		@Override
-		public String getLabel() {
-			return Main.game.getPlayer().getLocationPlace().getName();
-		}
-
-		@Override
-		public String getContent() {
-			return "<p>"
-						+ "This room has a series of wide, ceiling-height windows set into one wall, which allow a generous amount of natural daylight to flood out into the corridor when the door is left open."
-						+ " What with this room being situated in the interior of the house, the view from the windows is of the house's garden courtyard."
-					+ "</p>"
-					+getRoomModificationsDescription();
-		}
-
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			return getRoomResponse(index, false);
-		}
-	};
-	
-	public static final DialogueNodeOld ROOM_WINDOW_MILKING = new DialogueNodeOld("Milking Room", ".", false) {
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public int getMinutesPassed() {
-			return 1;
-		}
-		
-		@Override
-		public String getLabel() {
-			return Main.game.getPlayer().getLocationPlace().getName();
-		}
-
-		@Override
-		public String getContent() {
-			return "<p>"
-						+ "This room has a series of large windows set into one wall, which allow a generous amount of natural daylight to flood out into the corridor when the door is left open."
-						+ " What with this room being situated on the outside of the house, the view from the windows is of the hustle and bustle of Dominion's busy streets."
-					+ "</p>"
-					+getRoomModificationsDescription();
-		}
-
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			return getRoomResponse(index, true);
-		}
-	};
-	
-	public static final DialogueNodeOld ROOM_GARDEN_GROUND_FLOOR_MILKING = new DialogueNodeOld("Garden-view Milking Room", ".", false) {
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public int getMinutesPassed() {
-			return 1;
-		}
-		
-		@Override
-		public String getLabel() {
-			return Main.game.getPlayer().getLocationPlace().getName();
-		}
-
-		@Override
-		public String getContent() {
-			return "<p>"
-						+ "This room has a series of wide, ceiling-height windows set into one wall, which swing open to allow access to and from the adjoining garden courtyard."
-					+ "</p>"
-					+getRoomModificationsDescription();
-		}
-
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			return getRoomResponse(index, true);
-		}
-	};
-	
-	public static final DialogueNodeOld ROOM_GARDEN_MILKING = new DialogueNodeOld("Garden-view Milking Room", ".", false) {
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public int getMinutesPassed() {
-			return 1;
-		}
-		
-		@Override
-		public String getLabel() {
-			return Main.game.getPlayer().getLocationPlace().getName();
-		}
-
-		@Override
-		public String getContent() {
-			return "<p>"
-						+ "This room has a series of wide, ceiling-height windows set into one wall, which allow a generous amount of natural daylight to flood out into the corridor when the door is left open."
-						+ " What with this room being situated in the interior of the house, the view from the windows is of the house's garden courtyard."
-					+ "</p>"
-					+getRoomModificationsDescription();
-		}
-
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			return getRoomResponse(index, true);
+			return getRoomResponse(index, Main.game.getPlayer().getLocationPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM));
 		}
 	};
 	

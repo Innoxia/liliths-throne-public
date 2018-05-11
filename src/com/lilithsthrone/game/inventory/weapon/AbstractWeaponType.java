@@ -106,9 +106,10 @@ public abstract class AbstractWeaponType extends AbstractCoreType implements Ser
 		SVGStringMap = new EnumMap<>(DamageType.class);
 		for (DamageType dt : this.availableDamageTypes)
 			try {
-				InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/weapons/"
-						+ pathName
-						+ ".svg");
+				InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/weapons/" + pathName + ".svg");
+				if(is==null) {
+					System.err.println("Error! AbstractWeaponType icon file does not exist (Trying to read from '"+pathName+"')!");
+				}
 				String s = Util.inputStreamToString(is);
 
 				s = s.replaceAll("#ff2a2a", dt.getMultiplierAttribute().getColour().getShades()[0]);
@@ -421,6 +422,10 @@ public abstract class AbstractWeaponType extends AbstractCoreType implements Ser
 
 	public Map<DamageType, String> getSVGStringMap() {
 		return SVGStringMap;
+	}
+	
+	public String getSVGString() {
+		return SVGStringMap.get(this.getAvailableDamageTypes().get(0));
 	}
 
 	public List<Spell> getSpells() {

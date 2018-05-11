@@ -432,14 +432,14 @@ public class ItemEffectType {
 								? "a strange, warm glow spreading from what you guess must be your ovaries."
 									+ " Your mind fogs over with an overwhelming desire to feel potent sperm spurting deep into your "+(target.isVisiblyPregnant()?"pussy":"womb")
 									+", and before you can stop it, a little whimper escapes from between your [pc.lips]."
-									+ (target.hasPenis()
+									+ (target.hasPenisIgnoreDildo()
 											?" At the same time, your manhood begins to throb with need, and you feel "
 											:"") 
 							:"")
-						+ (target.hasPenis() 
+						+ (target.hasPenisIgnoreDildo() 
 								? "an overpowering desire to sink deep into a fertile female's cunt and fill her with your [pc.cum+]."
 								: "")
-						+ (!target.hasPenis() && !target.hasVagina()
+						+ (!target.hasPenisIgnoreDildo() && !target.hasVagina()
 								?"a desperate heat in [npc.her] genderless mound."
 								:"")
 					+ "</p>";
@@ -452,14 +452,14 @@ public class ItemEffectType {
 									? "a strange, warm glow spreading from [npc.her] ovaries."
 										+ " [npc.Her] mind fogs over with an overwhelming desire to feel potent sperm spurting deep into [npc.her] "+(target.isVisiblyPregnant()?"pussy":"womb")
 										+", and before [npc.she] can stop it, a little whimper escapes from between [npc.her] [npc.lips]."
-										+ (target.hasPenis()
+										+ (target.hasPenisIgnoreDildo()
 												?" At the same time, [npc.her] manhood begins to throb with need, and [npc.she] feels "
 												:"") 
 									:"")
-							+ (target.hasPenis()
+							+ (target.hasPenisIgnoreDildo()
 									? "an overpowering desire to sink deep into a fertile female's cunt and fill her with [npc.cum+]."
 									: "")
-							+ (!target.hasPenis() && !target.hasVagina()
+							+ (!target.hasPenisIgnoreDildo() && !target.hasVagina()
 									?"a desperate heat in [npc.her] genderless mound."
 									:"")
 						+ "</p>");
@@ -1807,8 +1807,11 @@ public class ItemEffectType {
 			if(target.getAssType()!=AssType.HARPY)
 				sb.append("</br>" + target.setAssType(AssType.HARPY));
 
-			if(target.hasPenis()) {
+			if(target.hasPenisIgnoreDildo()) {
 				sb.append("</br>" + target.setPenisType(PenisType.AVIAN));
+
+				if(target.getPenisRawCumProductionValue()<CumProduction.TWO_SMALL_AMOUNT.getMedianValue())
+					sb.append("</br>" + target.setCumProduction(CumProduction.TWO_SMALL_AMOUNT.getMedianValue()));
 			}
 			if(target.hasVagina()) {
 				sb.append("</br>" + target.setVaginaType(VaginaType.HARPY));
@@ -1897,7 +1900,7 @@ public class ItemEffectType {
 				sb.append("</br>" + target.setAssWetness(Wetness.TWO_MOIST.getValue()));
 				
 
-			if(target.hasPenis()) {
+			if(target.hasPenisIgnoreDildo()) {
 				sb.append("</br>" + target.setPenisType(PenisType.AVIAN));
 
 				if(target.getPenisRawCumProductionValue()<CumProduction.THREE_AVERAGE.getMedianValue())
@@ -1935,7 +1938,7 @@ public class ItemEffectType {
 				} else {
 					sb.append(UtilText.parse(target, "</br>"
 							+ "<p>"
-								+ "A deep groan escapes from between [npc.name]'s [npc.lips], and [npc.she] suddenly finds [npc.herslef] thinking of how much [npc.she] wants to dominate the next person [npc.she] meets!"
+								+ "A deep groan escapes from between [npc.name]'s [npc.lips], and [npc.she] suddenly finds [npc.herself] thinking of how much [npc.she] wants to dominate the next person [npc.she] meets!"
 								+ "</br><b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>[npc.Name] has gained the dominant fetish!</b>"
 							+ "</p>"));
 				}
@@ -1991,8 +1994,11 @@ public class ItemEffectType {
 				sb.append("</br>" + target.setAssType(AssType.HARPY));
 				
 
-			if(target.hasPenis()) {
+			if(target.hasPenisIgnoreDildo()) {
 				sb.append("</br>" + target.setPenisType(PenisType.AVIAN));
+
+				if(target.getPenisRawCumProductionValue()<CumProduction.TWO_SMALL_AMOUNT.getMedianValue())
+					sb.append("</br>" + target.setCumProduction(CumProduction.TWO_SMALL_AMOUNT.getMedianValue()));
 			}
 			if(target.hasVagina()) {
 				sb.append("</br>" + target.setVaginaType(VaginaType.HARPY));

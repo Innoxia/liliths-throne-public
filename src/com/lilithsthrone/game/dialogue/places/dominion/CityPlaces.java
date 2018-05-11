@@ -13,8 +13,9 @@ import com.lilithsthrone.game.character.npc.dominion.ReindeerOverseer;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
-import com.lilithsthrone.game.dialogue.npcDialogue.CultistDialogue;
-import com.lilithsthrone.game.dialogue.npcDialogue.ReindeerOverseerDialogue;
+import com.lilithsthrone.game.dialogue.npcDialogue.dominion.CultistDialogue;
+import com.lilithsthrone.game.dialogue.npcDialogue.dominion.ReindeerOverseerDialogue;
+import com.lilithsthrone.game.dialogue.places.submission.SubmissionGenericPlaces;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -28,7 +29,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.2.2
+ * @version 0.2.5
  * @author Innoxia
  */
 public class CityPlaces {
@@ -818,48 +819,70 @@ public class CityPlaces {
 
 		@Override
 		public String getContent() {
-			return "<p>"
-						+ "A large stone bridge has been built over Dominion's canal, and as you walk over it, you hear the unmistakable sound of rushing water coming from below."
-						+ " Peering over the side, you see the origin of the noise; a huge, brick-lined opening, covered in metal bars, has been dug out on one side of the waterway, and it's into this that the water from the canal is flowing."
-						+ " Looking closer, you see that on the other side of the bars, there's a wide set of stone steps leading down into the gloom below."
-					+ "</p>"
-					+ "<p>"
-						+ "Searching for a way to get access to those steps, and the area beyond, you soon find yourself standing before a building marked as 'Submission Enforcer Post'."
-						+ " The doors are wide open, and, peering inside, you see that the origin of the stone staircase is situated in the middle of a large, mostly-empty waiting room."
-					+ "</p>"
-					+ "<p>"
-						+ "There only appears to be one Enforcer guarding the staircase, who half-heartedly glances up from their newspaper as they catch sight of you."
-						+ " Letting out a sigh, they motion towards the staircase, clearly gesturing that you're able to come and go as you please."
-					+ "</p>";
+			return UtilText.parseFromXMLFile("places/dominion/dominionPlaces", "CITY_EXIT_SEWERS");
 		}
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseEffectsOnly("Submission", "Enter the undercity of Submission."){
+				return new Response("Submission", "Enter the undercity of Submission.", CITY_EXIT_SEWERS_ENTERING_SUBMISSION){
 					@Override
 					public void effects() {
-						Main.game.getTextStartStringBuilder().append(
-								"<p>"
-									+ "Stepping into the building marked as the 'Submission Enforcer Post', you start to make your way towards the staircase."
-									+ " Seeing you approach, the Enforcer on duty calls out,"
-									+ " [npcMale.speech(If you have any questions about Submission, you can bother the guys on duty down below."
-										+ " I'm far too busy to be acting as an information kiosk right now.)]"
-								+ "</p>"
-								+ "<p>"
-									+ "As he finishes speaking, the Enforcer lets out a long yawn, before looking back down at the newspaper in his hands."
-									+ " His brazen, unhelpful attitude lets you know that there's no point in wasting any time in trying to deal with him, and, continuing forwards, you approach the staircase in front of you."
-								+ "</p>"
-								+ "<p>"
-									+ "The deafening roar of rushing water surrounds you as you start on your way down the damp stone steps."
-									+ " The orange glow of arcane-powered lamps illuminates your way, and it only takes a moment before you reached the bottom, and find yourself stepping forwards into the interior of yet another Enforcer post..."
-								+ "</p>");
-						Main.mainController.moveGameWorld(WorldType.SUBMISSION, PlaceType.SUBMISSION_ENTRANCE, true);
+						if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.visitedSubmission)) {
+							Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/dominionPlaces", "ENTER_SUBMISSION_FIRST_TIME"));
+						}
+//						if(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_SLIME_QUEEN)) { TODO
+//							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().startQuest(QuestLine.SIDE_SLIME_QUEEN));
+//						}
+						Main.mainController.moveGameWorld(WorldType.SUBMISSION, PlaceType.SUBMISSION_ENTRANCE, false);
+						Main.game.getClaire().setLocation(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), true);
 					}
 				};
 
 			} else {
 				return null;
+			}
+		}
+	};
+	
+	public static final DialogueNodeOld CITY_EXIT_SEWERS_ENTERING_SUBMISSION = new DialogueNodeOld("Enforcer Checkpoint", "Enter the undercity of Submission.", false) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public int getMinutesPassed() {
+			return 5;
+		}
+		
+		@Override
+		public boolean isTravelDisabled() {
+			return !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.visitedSubmission);
+		}
+		
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/dominionPlaces", "ENTER_SUBMISSION");
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.visitedSubmission)) {
+				if (index == 1) {
+					return new Response("Continue", "Continue on your way through the Enforcer Post.", CITY_EXIT_SEWERS_ENTERING_SUBMISSION){
+						@Override
+						public void effects() {
+							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.visitedSubmission, true);
+						}
+						@Override
+						public DialogueNodeOld getNextDialogue(){
+							return Main.game.getDefaultDialogueNoEncounter();
+						}
+					};
+	
+				} else {
+					return null;
+				}
+			} else {
+				return SubmissionGenericPlaces.SEWER_ENTRANCE.getResponse(responseTab, index);
 			}
 		}
 	};

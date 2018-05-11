@@ -9,7 +9,6 @@ import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.NPCFlagValue;
-import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.SlaveryManagementDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -83,7 +82,7 @@ public class SlaveDialogue {
 					}
 					@Override
 					public DialogueNodeOld getNextDialogue(){
-						return DebugDialogue.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogueNoEncounter();
 					}
 				};
 				
@@ -589,7 +588,7 @@ public class SlaveDialogue {
 					return new Response("Leave", "Tell [npc.name] that you'll catch up with [npc.herHim] some other time.", SLAVE_START) {
 						@Override
 						public DialogueNodeOld getNextDialogue() {
-							return DebugDialogue.getDefaultDialogueNoEncounter();
+							return Main.game.getDefaultDialogueNoEncounter();
 						}
 						@Override
 						public void effects() {
@@ -622,9 +621,9 @@ public class SlaveDialogue {
 								@Override
 								public void effects() {
 									if(Main.game.getActiveNPC().hasFetish(Fetish.FETISH_NON_CON_SUB)) {
-										Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), 10));
+										Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), 5));
 									} else {
-										Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), -50));
+										Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), -25));
 									}
 								}
 							};
@@ -693,9 +692,9 @@ public class SlaveDialogue {
 									@Override
 									public void effects() {
 										if(Main.game.getActiveNPC().hasFetish(Fetish.FETISH_NON_CON_SUB)) {
-											Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), 10));
+											Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), 5));
 										} else {
-											Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), -50));
+											Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), -25));
 										}
 									}
 								};
@@ -790,26 +789,37 @@ public class SlaveDialogue {
 						}
 						
 					} else if (index == 3) {
-						if(charactersPresent.size()==2) {
-							return new ResponseSex("Get Spitroasted",
-									UtilText.parse(charactersPresent.get(0), charactersPresent.get(1), "Let [npc1.name] and [npc2.name] spitroast you."),
-									null, null, null, null, null, null,
-									true, true,
-									new SMDoggy(
-											Util.newHashMapOfValues(
-													new Value<>(charactersPresent.get(1), SexPositionSlot.DOGGY_INFRONT),
-													new Value<>(charactersPresent.get(0), SexPositionSlot.DOGGY_BEHIND)),
-											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
-									AFTER_SEX,
-									"<p>"
-										+ ""//TODO
-									+ "</p>");
+						if(charactersPresent.size()>=2) {
+							if(!charactersPresent.get(0).isAttractedTo(Main.game.getPlayer()) || !charactersPresent.get(1).isAttractedTo(Main.game.getPlayer())) {
+								return new Response("Spitroast", UtilText.parse(charactersPresent.get(0), charactersPresent.get(1), "Neither [npc1.name] nor [npc2.name] are attracted to you..."), null);
+								
+							} else if(!charactersPresent.get(0).isAttractedTo(Main.game.getPlayer())) {
+								return new Response("Spitroast", UtilText.parse(charactersPresent.get(0), "[npc.Name] is not attracted to you..."), null);
+								
+							} else if(!charactersPresent.get(1).isAttractedTo(Main.game.getPlayer())) {
+								return new Response("Spitroast", UtilText.parse(charactersPresent.get(1), "[npc.Name] is not attracted to you..."), null);
+								
+							} else {
+								return new ResponseSex("Get Spitroasted",
+										UtilText.parse(charactersPresent.get(0), charactersPresent.get(1), "Let [npc1.name] and [npc2.name] spitroast you."),
+										null, null, null, null, null, null,
+										true, true,
+										new SMDoggy(
+												Util.newHashMapOfValues(
+														new Value<>(charactersPresent.get(1), SexPositionSlot.DOGGY_INFRONT),
+														new Value<>(charactersPresent.get(0), SexPositionSlot.DOGGY_BEHIND)),
+												Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
+										AFTER_SEX,
+										"<p>"
+											+ ""//TODO
+										+ "</p>");
+							}
 						} else {
 							return new Response("Spitroast", "Another slave needs to be present for this...",null);
 						}
 					
 					} else if (index == 4) {
-						if(charactersPresent.size()==2) {
+						if(charactersPresent.size()>=2) {
 							return new ResponseSex("Side-by-side",
 									UtilText.parse(charactersPresent.get(0), charactersPresent.get(1), "Push [npc1.name] and [npc2.name] down onto all fours, side-by-side, and get ready to fuck them."),
 									null, null, null, null, null, null,
@@ -831,7 +841,7 @@ public class SlaveDialogue {
 						return new Response("Leave", "Tell [npc.name] that you'll catch up with [npc.herHim] some other time.", SLAVE_START) {
 							@Override
 							public DialogueNodeOld getNextDialogue() {
-								return DebugDialogue.getDefaultDialogueNoEncounter();
+								return Main.game.getDefaultDialogueNoEncounter();
 							}
 							@Override
 							public void effects() {
@@ -849,24 +859,37 @@ public class SlaveDialogue {
 					case 1:
 						return new Response("Inspect",
 								"Inspect [npc.name].",
-								SlaveryManagementDialogue.getSlaveryManagementInspectSlaveDialogue(Main.game.getActiveNPC()));
+								SlaveryManagementDialogue.getSlaveryManagementInspectSlaveDialogue(Main.game.getActiveNPC())) {
+							@Override
+							public void effects() {
+								Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(slave());
+							}
+						};
 					case 2:
 						return new Response("Job",
 								"Set [npc.name]'s job and work hours.",
-								SlaveryManagementDialogue.getSlaveryManagementSlaveJobsDialogue(Main.game.getActiveNPC()));
+								SlaveryManagementDialogue.getSlaveryManagementSlaveJobsDialogue(Main.game.getActiveNPC())) {
+							@Override
+							public void effects() {
+								Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(slave());
+							}
+						};
 					case 3:
 						return new Response("Permissions",
 								"Manage [npc.name]'s permissions.",
-								SlaveryManagementDialogue.getSlaveryManagementSlavePermissionsDialogue(Main.game.getActiveNPC()));
+								SlaveryManagementDialogue.getSlaveryManagementSlavePermissionsDialogue(Main.game.getActiveNPC())) {
+							@Override
+							public void effects() {
+								Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(slave());
+							}
+						};
 					case 4:
 						return new ResponseEffectsOnly("Inventory",
-								"Manage [npc.name]'s inventory.")
-								{
+								"Manage [npc.name]'s inventory.") {
 									@Override
-									public void effects()
-									{
-										Main.mainController.openInventory(Main.game.getActiveNPC(),
-												InventoryInteraction.FULL_MANAGEMENT);
+									public void effects() {
+										Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(slave());
+										Main.mainController.openInventory(Main.game.getActiveNPC(), InventoryInteraction.FULL_MANAGEMENT);
 									}
 								};
 					case 5:
@@ -875,6 +898,7 @@ public class SlaveDialogue {
 								SlaveryManagementDialogue.SLAVE_MANAGEMENT_COSMETICS_HAIR) {
 									@Override
 									public void effects() {
+										Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(slave());
 										Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(Main.game.getActiveNPC());
 										BodyChanging.setTarget(Main.game.getActiveNPC());
 									}
@@ -883,7 +907,7 @@ public class SlaveDialogue {
 						return new Response("Leave", "Tell [npc.name] that you'll catch up with [npc.herHim] some other time.", SLAVE_START) {
 							@Override
 							public DialogueNodeOld getNextDialogue() {
-								return DebugDialogue.getDefaultDialogueNoEncounter();
+								return Main.game.getDefaultDialogueNoEncounter();
 							}
 							@Override
 							public void effects() {
@@ -2569,7 +2593,7 @@ public class SlaveDialogue {
 				return new Response("Continue", "Continue on your way.", SLAVE_USES_YOU_POST_SEX) {
 					@Override
 					public DialogueNodeOld getNextDialogue(){
-						return DebugDialogue.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogueNoEncounter();
 					}
 					@Override
 					public void effects() {

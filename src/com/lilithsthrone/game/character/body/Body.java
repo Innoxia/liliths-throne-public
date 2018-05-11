@@ -2,6 +2,7 @@ package com.lilithsthrone.game.character.body;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.EnumMap;
 import java.util.EnumSet;
 import java.util.HashMap;
@@ -43,7 +44,6 @@ import com.lilithsthrone.game.character.body.valueEnums.CoveringModifier;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
 import com.lilithsthrone.game.character.body.valueEnums.EyeShape;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
-import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
 import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.character.body.valueEnums.FluidTypeBase;
 import com.lilithsthrone.game.character.body.valueEnums.GenitalArrangement;
@@ -79,7 +79,7 @@ import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.0
- * @version 0.2.2
+ * @version 0.2.5
  * @author Innoxia
  */
 public class Body implements Serializable, XMLSaving {
@@ -435,17 +435,8 @@ public class Body implements Serializable, XMLSaving {
 				CharacterUtils.addAttribute(doc, nippleModifiers, om.toString(), String.valueOf(this.breast.nipples.orificeNipples.hasOrificeModifier(om)));
 			}
 			
-		Element bodyMilk = doc.createElement("milk");
-		parentElement.appendChild(bodyMilk);
-			CharacterUtils.addAttribute(doc, bodyMilk, "flavour", this.breast.milk.getFlavour().toString());
-			Element milkModifiers = doc.createElement("milkModifiers");
-			bodyMilk.appendChild(milkModifiers);
-			for(FluidModifier fm : FluidModifier.values()) {
-				CharacterUtils.addAttribute(doc, milkModifiers, fm.toString(), String.valueOf(this.breast.milk.hasFluidModifier(fm)));
-			}
-			//TODO transformativeEffects;
-			
-			
+		this.breast.milk.saveAsXML(parentElement, doc);
+		
 		// Ear:
 		Element bodyEar = doc.createElement("ear");
 		parentElement.appendChild(bodyEar);
@@ -544,15 +535,7 @@ public class Body implements Serializable, XMLSaving {
 			CharacterUtils.addAttribute(doc, bodyTesticle, "numberOfTesticles", String.valueOf(this.penis.testicle.testicleCount));
 			CharacterUtils.addAttribute(doc, bodyTesticle, "internal", String.valueOf(this.penis.testicle.internal));
 		
-		Element bodyCum = doc.createElement("cum");
-		parentElement.appendChild(bodyCum);
-			CharacterUtils.addAttribute(doc, bodyCum, "flavour", this.penis.testicle.cum.flavour.toString());
-			Element cumModifiers = doc.createElement("cumModifiers");
-			bodyCum.appendChild(cumModifiers);
-			for(FluidModifier fm : FluidModifier.values()) {
-				CharacterUtils.addAttribute(doc, cumModifiers, fm.toString(), String.valueOf(this.penis.testicle.cum.hasFluidModifier(fm)));
-			}
-			//TODO transformativeEffects;
+		this.penis.testicle.cum.saveAsXML(parentElement, doc);
 		
 		
 		// Skin:
@@ -598,15 +581,7 @@ public class Body implements Serializable, XMLSaving {
 				CharacterUtils.addAttribute(doc, urethraModifiers, om.toString(), String.valueOf(this.vagina.orificeUrethra.hasOrificeModifier(om)));
 			}
 			
-		Element bodyGirlcum = doc.createElement("girlcum");
-		parentElement.appendChild(bodyGirlcum);
-			CharacterUtils.addAttribute(doc, bodyGirlcum, "flavour", this.vagina.girlcum.flavour.toString());
-			Element girlcumModifiers = doc.createElement("girlcumModifiers");
-			bodyGirlcum.appendChild(girlcumModifiers);
-			for(FluidModifier fm : FluidModifier.values()) {
-				CharacterUtils.addAttribute(doc, girlcumModifiers, fm.toString(), String.valueOf(this.vagina.girlcum.hasFluidModifier(fm)));
-			}
-			//TODO transformativeEffects;
+		this.vagina.girlcum.saveAsXML(parentElement, doc);
 			
 		
 		// Wing:
@@ -645,7 +620,7 @@ public class Body implements Serializable, XMLSaving {
 		int importedMuscle = (Integer.valueOf(element.getAttribute("muscle")));
 		CharacterUtils.appendToImportLog(log, "</br>Body: Set muscle: "+Integer.valueOf(element.getAttribute("muscle")));
 		
-		GenitalArrangement importedGenitalArrangement = GenitalArrangement.NORMAL; //TODO export
+		GenitalArrangement importedGenitalArrangement = GenitalArrangement.NORMAL;
 		if(element.getAttribute("genitalArrangement") != null && !element.getAttribute("genitalArrangement").isEmpty()) {
 			importedGenitalArrangement = GenitalArrangement.valueOf(element.getAttribute("genitalArrangement"));
 		}
@@ -725,17 +700,10 @@ public class Body implements Serializable, XMLSaving {
 					+ "</br>bleached: "+importedAss.anus.bleached
 					+ "</br>assHair: "+importedAss.anus.assHair
 					+"</br>Modifiers:");
-			Element anusModifiers = (Element)anus.getElementsByTagName("anusModifiers").item(0);
-			
-			importedAss.anus.orificeAnus.orificeModifiers.clear();
-			for(OrificeModifier om : OrificeModifier.values()) {
-				if(Boolean.valueOf(anusModifiers.getAttribute(om.toString()))) {
-					importedAss.anus.orificeAnus.orificeModifiers.add(om);
-					CharacterUtils.appendToImportLog(log, "</br>"+om.toString()+":true");
-				} else {
-					CharacterUtils.appendToImportLog(log, "</br>"+om.toString()+":false");
-				}
-			}
+			Element anusModifiersElement = (Element)anus.getElementsByTagName("anusModifiers").item(0);
+			Collection<OrificeModifier> anusModifiers = importedAss.anus.orificeAnus.orificeModifiers;
+			anusModifiers.clear();
+			handleLoadingOfModifiers(OrificeModifier.values(), log, anusModifiersElement, anusModifiers);
 		}
 		
 
@@ -804,35 +772,17 @@ public class Body implements Serializable, XMLSaving {
 				+ "</br>areolaeShape: "+importedBreast.nipples.getAreolaeShape()
 				+"</br>Modifiers:");
 		
-		Element nippleModifiers = (Element)nipples.getElementsByTagName("nippleModifiers").item(0);
+		Element nippleModifiersElement = (Element)nipples.getElementsByTagName("nippleModifiers").item(0);
 		
-		importedBreast.nipples.orificeNipples.orificeModifiers.clear();
-		for(OrificeModifier om : OrificeModifier.values()) {
-			if(Boolean.valueOf(nippleModifiers.getAttribute(om.toString()))) {
-				importedBreast.nipples.orificeNipples.orificeModifiers.add(om);
-				CharacterUtils.appendToImportLog(log, "</br>"+om.toString()+":true");
-			} else {
-				CharacterUtils.appendToImportLog(log, "</br>"+om.toString()+":false");
-			}
-		}
+		Collection<OrificeModifier> nippleOrificeModifiers = importedBreast.nipples.orificeNipples.orificeModifiers;
+		nippleOrificeModifiers.clear();
+		handleLoadingOfModifiers(OrificeModifier.values(), log, nippleModifiersElement, nippleOrificeModifiers);
 		
 		CharacterUtils.appendToImportLog(log, "</br></br>Milk:");
 		
-		Element milk = (Element)parentElement.getElementsByTagName("milk").item(0);
-		importedBreast.milk.flavour = (FluidFlavour.valueOf(milk.getAttribute("flavour")));
-		
-		CharacterUtils.appendToImportLog(log, 
-				" flavour: "+importedBreast.milk.getFlavour()
-				+ "</br>Modifiers:");
-		
-		Element milkModifiers = (Element)milk.getElementsByTagName("milkModifiers").item(0);
-		for(FluidModifier fm : FluidModifier.values()) {
-			if(Boolean.valueOf(milkModifiers.getAttribute(fm.toString()))) {
-				importedBreast.milk.fluidModifiers.add(fm);
-				CharacterUtils.appendToImportLog(log, "</br>"+fm.toString()+":true");
-			} else {
-				CharacterUtils.appendToImportLog(log, "</br>"+fm.toString()+":false");
-			}
+		importedBreast.milk = FluidMilk.loadFromXML(parentElement, doc);
+		if(Main.isVersionOlderThan(Main.VERSION_NUMBER, "0.2.5.1")) {
+			importedBreast.milk.type = importedBreast.getType().getFluidType();
 		}
 
 		
@@ -926,17 +876,11 @@ public class Body implements Serializable, XMLSaving {
 				+ "</br>lipSize: "+importedFace.mouth.getLipSize()
 				+ "</br>Modifiers: ");
 			
-		Element mouthModifiers = (Element)mouth.getElementsByTagName("mouthModifiers").item(0);
+		Element mouthModifiersElement = (Element)mouth.getElementsByTagName("mouthModifiers").item(0);
 		
-		importedFace.mouth.orificeMouth.orificeModifiers.clear();
-		for(OrificeModifier om : OrificeModifier.values()) {
-			if(Boolean.valueOf(mouthModifiers.getAttribute(om.toString()))) {
-				importedFace.mouth.orificeMouth.orificeModifiers.add(om);
-				CharacterUtils.appendToImportLog(log, "</br>"+om.toString()+":true");
-			} else {
-				CharacterUtils.appendToImportLog(log, "</br>"+om.toString()+":false");
-			}
-		}
+		Collection<OrificeModifier> mouthOrificeModifiers = importedFace.mouth.orificeMouth.orificeModifiers;
+		mouthOrificeModifiers.clear();
+		handleLoadingOfModifiers(OrificeModifier.values(), log, mouthModifiersElement, mouthOrificeModifiers);
 
 		Element tongue = (Element)parentElement.getElementsByTagName("tongue").item(0);
 			importedFace.tongue.pierced = (Boolean.valueOf(tongue.getAttribute("piercedTongue")));
@@ -948,17 +892,11 @@ public class Body implements Serializable, XMLSaving {
 					+ "</br>tongueLength: "+importedFace.tongue.getTongueLength()
 					+ "</br>Modifiers: ");
 			
-			Element tongueModifiers = (Element)tongue.getElementsByTagName("tongueModifiers").item(0);
+			Element tongueModifiersElement = (Element)tongue.getElementsByTagName("tongueModifiers").item(0);
 			
-			importedFace.tongue.tongueModifiers.clear();
-			for(TongueModifier tm : TongueModifier.values()) {
-				if(Boolean.valueOf(tongueModifiers.getAttribute(tm.toString()))) {
-					importedFace.tongue.tongueModifiers.add(tm);
-					CharacterUtils.appendToImportLog(log, "</br>"+tm.toString()+":true");
-				} else {
-					CharacterUtils.appendToImportLog(log, "</br>"+tm.toString()+":false");
-				}
-			}
+			Collection<TongueModifier> tongueModifiers = importedFace.tongue.tongueModifiers;
+			tongueModifiers.clear();
+			handleLoadingOfModifiers(TongueModifier.values(), log, tongueModifiersElement, tongueModifiers);
 			
 			
 		// **************** Hair **************** //
@@ -1076,16 +1014,15 @@ public class Body implements Serializable, XMLSaving {
 				+ "</br>pierced: "+importedPenis.isPierced()
 				+ "</br>Penis Modifiers: ");
 		
-		Element penisModifiers = (Element)penis.getElementsByTagName("penisModifiers").item(0);
-		
-		importedPenis.penisModifiers.clear();
-		for(PenisModifier pm : PenisModifier.values()) {
-			if(penisModifiers != null && Boolean.valueOf(penisModifiers.getAttribute(pm.toString()))) {
-				importedPenis.penisModifiers.add(pm);
-				CharacterUtils.appendToImportLog(log, "</br>"+pm.toString()+":true");
-			} else {
+		Collection<PenisModifier> penisModifiers = importedPenis.penisModifiers;
+		penisModifiers.clear();
+		Element penisModifiersElement = (Element)penis.getElementsByTagName("penisModifiers").item(0);
+		if (penisModifiersElement == null) {
+			for (PenisModifier pm : PenisModifier.values()) {
 				CharacterUtils.appendToImportLog(log, "</br>"+pm.toString()+":false");
 			}
+		} else {
+			handleLoadingOfModifiers(PenisModifier.values(), log, penisModifiersElement, penisModifiers);
 		}
 		
 		importedPenis.orificeUrethra.elasticity = (Integer.valueOf(penis.getAttribute("elasticity")));
@@ -1106,17 +1043,11 @@ public class Body implements Serializable, XMLSaving {
 				+ "</br>virgin: "+importedPenis.orificeUrethra.isVirgin()
 				+ "</br>Urethra Modifiers:");
 		
-		Element urethraModifiers = (Element)penis.getElementsByTagName("urethraModifiers").item(0);
+		Element urethraModifiersElement = (Element)penis.getElementsByTagName("urethraModifiers").item(0);
 		
-		importedPenis.orificeUrethra.orificeModifiers.clear();
-		for(OrificeModifier om : OrificeModifier.values()) {
-			if(Boolean.valueOf(urethraModifiers.getAttribute(om.toString()))) {
-				importedPenis.orificeUrethra.orificeModifiers.add(om);
-				CharacterUtils.appendToImportLog(log, "</br>"+om.toString()+":true");
-			} else {
-				CharacterUtils.appendToImportLog(log, "</br>"+om.toString()+":false");
-			}
-		}
+		Collection<OrificeModifier> urethraOrificeModifiers = importedPenis.orificeUrethra.orificeModifiers;
+		urethraOrificeModifiers.clear();
+		handleLoadingOfModifiers(OrificeModifier.values(), log, urethraModifiersElement, urethraOrificeModifiers);
 		
 		importedPenis.testicle.internal = (Boolean.valueOf(testicles.getAttribute("internal")));
 		
@@ -1129,21 +1060,9 @@ public class Body implements Serializable, XMLSaving {
 		
 		CharacterUtils.appendToImportLog(log, "</br></br>Cum:");
 		
-		Element cum = (Element)parentElement.getElementsByTagName("cum").item(0);
-		importedPenis.testicle.cum.flavour = (FluidFlavour.valueOf(cum.getAttribute("flavour")));
-		
-		CharacterUtils.appendToImportLog(log, 
-				" flavour: "+importedPenis.testicle.cum.getFlavour()
-				+ "</br>Modifiers:");
-		
-		Element cumModifiers = (Element)cum.getElementsByTagName("cumModifiers").item(0);
-		for(FluidModifier fm : FluidModifier.values()) {
-			if(Boolean.valueOf(cumModifiers.getAttribute(fm.toString()))) {
-				importedPenis.testicle.cum.fluidModifiers.add(fm);
-				CharacterUtils.appendToImportLog(log, "</br>"+fm.toString()+":true");
-			} else {
-				CharacterUtils.appendToImportLog(log, "</br>"+fm.toString()+":false");
-			}
+		importedPenis.testicle.cum = FluidCum.loadFromXML(parentElement, doc);
+		if(Main.isVersionOlderThan(Main.VERSION_NUMBER, "0.2.5.1")) {
+			importedPenis.testicle.cum.type = importedPenis.getType().getTesticleType().getFluidType();
 		}
 
 		
@@ -1220,16 +1139,10 @@ public class Body implements Serializable, XMLSaving {
 		
 		Element vaginaModifiers = (Element)vagina.getElementsByTagName("vaginaModifiers").item(0);
 		
-		importedVagina.orificeVagina.orificeModifiers.clear();
+		Collection<OrificeModifier> vaginaOrificeModifiers = importedVagina.orificeVagina.orificeModifiers;
+		vaginaOrificeModifiers.clear();
 		if(vaginaModifiers!=null) {
-			for(OrificeModifier om : OrificeModifier.values()) {
-				if(Boolean.valueOf(vaginaModifiers.getAttribute(om.toString()))) {
-					importedVagina.orificeVagina.orificeModifiers.add(om);
-					CharacterUtils.appendToImportLog(log, "</br>"+om.toString()+":true");
-				} else {
-					CharacterUtils.appendToImportLog(log, "</br>"+om.toString()+":false");
-				}
-			}
+			handleLoadingOfModifiers(OrificeModifier.values(), log, vaginaModifiers, vaginaOrificeModifiers);
 		}
 		
 		try {
@@ -1243,40 +1156,20 @@ public class Body implements Serializable, XMLSaving {
 				importedVagina.orificeUrethra.virgin = true;
 			}
 			
-			urethraModifiers = (Element)vagina.getElementsByTagName("urethraModifiers").item(0);
+			urethraModifiersElement = (Element)vagina.getElementsByTagName("urethraModifiers").item(0);
 			
-			importedVagina.orificeUrethra.orificeModifiers.clear();
-			for(OrificeModifier om : OrificeModifier.values()) {
-				if(Boolean.valueOf(urethraModifiers.getAttribute(om.toString()))) {
-					importedVagina.orificeUrethra.orificeModifiers.add(om);
-					CharacterUtils.appendToImportLog(log, "</br>"+om.toString()+":true");
-				} else {
-					CharacterUtils.appendToImportLog(log, "</br>"+om.toString()+":false");
-				}
-			}
-			
+			Collection<OrificeModifier> vaginaUrethraOrificeModifiers = importedVagina.orificeUrethra.orificeModifiers;
+			vaginaUrethraOrificeModifiers.clear();
+			handleLoadingOfModifiers(OrificeModifier.values(), log, urethraModifiersElement, vaginaUrethraOrificeModifiers);
 		} catch(Exception ex) {
 		}
 		
 		CharacterUtils.appendToImportLog(log, "</br></br>Girlcum:");
 		
-		Element girlcum = (Element)parentElement.getElementsByTagName("girlcum").item(0);
-		importedVagina.girlcum.flavour = (FluidFlavour.valueOf(girlcum.getAttribute("flavour")));
-		
-		CharacterUtils.appendToImportLog(log, 
-				" flavour: "+importedVagina.girlcum.getFlavour()
-				+ "</br>Modifiers:");
-		
-		Element girlcumModifiers = (Element)girlcum.getElementsByTagName("girlcumModifiers").item(0);
-		for(FluidModifier fm : FluidModifier.values()) {
-			if(Boolean.valueOf(girlcumModifiers.getAttribute(fm.toString()))) {
-				importedVagina.girlcum.fluidModifiers.add(fm);
-				CharacterUtils.appendToImportLog(log, "</br>"+fm.toString()+":true");
-			} else {
-				CharacterUtils.appendToImportLog(log, "</br>"+fm.toString()+":false");
-			}
+		importedVagina.girlcum = FluidGirlCum.loadFromXML(parentElement, doc);
+		if(Main.isVersionOlderThan(Main.VERSION_NUMBER, "0.2.5.1")) {
+			importedVagina.girlcum.type = importedVagina.getType().getFluidType();
 		}
-
 		
 		// **************** Wing **************** //
 		
@@ -1384,6 +1277,29 @@ public class Body implements Serializable, XMLSaving {
 		body.calculateRace();
 		
 		return body;
+	}
+
+	static <T extends Enum<T>> void handleLoadingOfModifiers(T[] enumValues, StringBuilder log, Element modifiersElement, Collection<T> modifiers) {
+		for(T enumValue : enumValues) {
+			String attributeValue = modifiersElement.getAttribute(enumValue.toString());
+			if(Boolean.valueOf(attributeValue)) {
+				if (!modifiers.contains(enumValue)) {
+					modifiers.add(enumValue);
+				}
+				if(log!=null) {
+					CharacterUtils.appendToImportLog(log, "</br>"+enumValue.toString()+":true");
+				}
+			} else if (!attributeValue.isEmpty()) {
+				modifiers.remove(enumValue);
+				if(log!=null) {
+					CharacterUtils.appendToImportLog(log, "</br>"+enumValue.toString()+":false");
+				}
+			} else {
+				if(log!=null) {
+					CharacterUtils.appendToImportLog(log, "</br>"+enumValue.toString()+":not present, defaulted to "+modifiers.contains(enumValue));
+				}
+			}
+		}
 	}
 	
 	
@@ -6480,9 +6396,17 @@ public class Body implements Serializable, XMLSaving {
 		}
 	}
 	
-	public boolean isAbleToFly() {
-		return arm.getType().allowsFlight()
-				|| (wing.getType().allowsFlight() && wing.getSize().isSizeAllowsFlight());
+	public boolean isAbleToFlyFromArms() {
+		if(this.getBodyMaterial()==BodyMaterial.SLIME) {
+			return false;
+		}
+		return arm.getType().allowsFlight();
+	}
+	public boolean isAbleToFlyFromWings() {
+		if(this.getBodyMaterial()==BodyMaterial.SLIME) {
+			return false;
+		}
+		return (wing.getType().allowsFlight() && wing.getSize().isSizeAllowsFlight());
 	}
 
 	public static long getSerialversionuid() {

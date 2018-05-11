@@ -1,9 +1,8 @@
-package com.lilithsthrone.game.dialogue.npcDialogue.alleyway;
+package com.lilithsthrone.game.dialogue.npcDialogue.dominion;
 
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.fetishes.Fetish;
-import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.places.dominion.RedLightDistrict;
@@ -232,7 +231,7 @@ public class AlleywayProstituteDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Leave", "You're not at all interested in having sex with a prostitute. Walk around [npc.herHim] and continue on your way.", DebugDialogue.getDefaultDialogueNoEncounter()) {
+				return new Response("Leave", "You're not at all interested in having sex with a prostitute. Walk around [npc.herHim] and continue on your way.", Main.game.getDefaultDialogueNoEncounter()) {
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(
@@ -418,7 +417,7 @@ public class AlleywayProstituteDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Continue", "Continue on your way through Dominion's alleyways...", DebugDialogue.getDefaultDialogueNoEncounter());
+				return new Response("Continue", "Continue on your way through Dominion's alleyways...", Main.game.getDefaultDialogueNoEncounter());
 				
 			} else {
 				return null;
@@ -490,7 +489,7 @@ public class AlleywayProstituteDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Leave", "Leave [npc.name] and carry on your way. <b>[npc.Name] will disappear from this area!</b>", DebugDialogue.getDefaultDialogueNoEncounter()){
+				return new Response("Leave", "Leave [npc.name] and carry on your way. <b>[npc.Name] will disappear from this area!</b>", Main.game.getDefaultDialogueNoEncounter()){
 					@Override
 					public void effects() {
 						Main.game.banishNPC(Main.game.getActiveNPC());
@@ -699,7 +698,7 @@ public class AlleywayProstituteDialogue {
 					return new Response("Continue", "Carry on your way.", AFTER_COMBAT_DEFEAT){
 						@Override
 						public DialogueNodeOld getNextDialogue() {
-							return DebugDialogue.getDefaultDialogueNoEncounter();
+							return Main.game.getDefaultDialogueNoEncounter();
 						}
 					};
 					
@@ -745,7 +744,7 @@ public class AlleywayProstituteDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Continue", "Carry on your way.", DebugDialogue.getDefaultDialogueNoEncounter()){
+				return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogueNoEncounter()){
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(
@@ -873,7 +872,7 @@ public class AlleywayProstituteDialogue {
 				return new Response(
 						"Continue",
 						"Continue on your way.",
-						DebugDialogue.getDefaultDialogueNoEncounter()){
+						Main.game.getDefaultDialogueNoEncounter()){
 					@Override
 					public void effects() {
 						Main.game.banishNPC(Main.game.getActiveNPC());
@@ -926,7 +925,7 @@ public class AlleywayProstituteDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Leave", "Leave [npc.name] and carry on your way. <b>[npc.Name] will disappear from this area!</b>", DebugDialogue.getDefaultDialogueNoEncounter()){
+				return new Response("Leave", "Leave [npc.name] and carry on your way. <b>[npc.Name] will disappear from this area!</b>", Main.game.getDefaultDialogueNoEncounter()){
 					@Override
 					public void effects() {
 						Main.game.banishNPC(Main.game.getActiveNPC());
@@ -981,7 +980,7 @@ public class AlleywayProstituteDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Continue", "Carry on your way.", DebugDialogue.getDefaultDialogueNoEncounter()){
+				return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogueNoEncounter()){
 					@Override
 					public void effects() {
 						Main.game.banishNPC(Main.game.getActiveNPC());

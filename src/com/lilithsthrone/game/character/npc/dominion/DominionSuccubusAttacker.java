@@ -23,7 +23,7 @@ import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.combat.SpellUpgrade;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
-import com.lilithsthrone.game.dialogue.npcDialogue.DominionSuccubusDialogue;
+import com.lilithsthrone.game.dialogue.npcDialogue.dominion.DominionSuccubusDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;

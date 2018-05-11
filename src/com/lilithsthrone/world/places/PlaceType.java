@@ -455,8 +455,31 @@ public enum PlaceType {
 			return Util.newArrayListOfValues(new ListValue<>(PlaceUpgrade.LILAYA_EMPTY_ROOM));
 		}
 		@Override
-		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades() {
+		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades(Set<PlaceUpgrade> upgrades) {
+			if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM)
+					|| upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_DOUBLE)) {
+				return PlaceUpgrade.getSlaveQuartersUpgrades();
+				
+			} else if(upgrades.contains(PlaceUpgrade.LILAYA_MILKING_ROOM)) {
+				return PlaceUpgrade.getMilkingUpgrades();
+			}
+			
 			return PlaceUpgrade.getCoreRoomUpgrades();
+		}
+		@Override
+		public String getSVGString(Set<PlaceUpgrade> upgrades) {
+			if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM)) {
+				return PlaceType.getSVGOverride("dominion/lilayasHome/roomSlave", Colour.BASE_CRIMSON);
+				
+			} else if(upgrades.contains(PlaceUpgrade.LILAYA_MILKING_ROOM)) {
+				return PlaceType.getSVGOverride("dominion/lilayasHome/roomMilking", Colour.BASE_ORANGE);
+				
+			} else if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_DOUBLE)) {
+				return PlaceType.getSVGOverride("dominion/lilayasHome/roomSlaveDouble", Colour.BASE_MAGENTA);
+				
+			} else {
+				return SVGString;
+			}
 		}
 		@Override
 		public boolean isAbleToBeUpgraded() {
@@ -474,8 +497,31 @@ public enum PlaceType {
 			return Util.newArrayListOfValues(new ListValue<>(PlaceUpgrade.LILAYA_EMPTY_ROOM));
 		}
 		@Override
-		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades() {
+		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades(Set<PlaceUpgrade> upgrades) {
+			if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM)
+					|| upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_DOUBLE)) {
+				return PlaceUpgrade.getSlaveQuartersUpgrades();
+				
+			} else if(upgrades.contains(PlaceUpgrade.LILAYA_MILKING_ROOM)) {
+				return PlaceUpgrade.getMilkingUpgrades();
+			}
+			
 			return PlaceUpgrade.getCoreRoomUpgrades();
+		}
+		@Override
+		public String getSVGString(Set<PlaceUpgrade> upgrades) {
+			if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM)) {
+				return PlaceType.getSVGOverride("dominion/lilayasHome/roomSlave", Colour.BASE_CRIMSON);
+				
+			} else if(upgrades.contains(PlaceUpgrade.LILAYA_MILKING_ROOM)) {
+				return PlaceType.getSVGOverride("dominion/lilayasHome/roomMilking", Colour.BASE_ORANGE);
+				
+			} else if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_DOUBLE)) {
+				return PlaceType.getSVGOverride("dominion/lilayasHome/roomSlaveDouble", Colour.BASE_MAGENTA);
+				
+			} else {
+				return SVGString;
+			}
 		}
 		@Override
 		public boolean isAbleToBeUpgraded() {
@@ -493,8 +539,31 @@ public enum PlaceType {
 			return Util.newArrayListOfValues(new ListValue<>(PlaceUpgrade.LILAYA_EMPTY_ROOM));
 		}
 		@Override
-		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades() {
+		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades(Set<PlaceUpgrade> upgrades) {
+			if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM)
+					|| upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_DOUBLE)) {
+				return PlaceUpgrade.getSlaveQuartersUpgrades();
+				
+			} else if(upgrades.contains(PlaceUpgrade.LILAYA_MILKING_ROOM)) {
+				return PlaceUpgrade.getMilkingUpgrades();
+			}
+			
 			return PlaceUpgrade.getCoreRoomUpgrades();
+		}
+		@Override
+		public String getSVGString(Set<PlaceUpgrade> upgrades) {
+			if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM)) {
+				return PlaceType.getSVGOverride("dominion/lilayasHome/roomSlave", Colour.BASE_CRIMSON);
+				
+			} else if(upgrades.contains(PlaceUpgrade.LILAYA_MILKING_ROOM)) {
+				return PlaceType.getSVGOverride("dominion/lilayasHome/roomMilking", Colour.BASE_ORANGE);
+				
+			} else if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_DOUBLE)) {
+				return PlaceType.getSVGOverride("dominion/lilayasHome/roomSlaveDouble", Colour.BASE_MAGENTA);
+				
+			} else {
+				return SVGString;
+			}
 		}
 		@Override
 		public boolean isAbleToBeUpgraded() {
@@ -512,8 +581,31 @@ public enum PlaceType {
 			return Util.newArrayListOfValues(new ListValue<>(PlaceUpgrade.LILAYA_EMPTY_ROOM));
 		}
 		@Override
-		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades() {
+		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades(Set<PlaceUpgrade> upgrades) {
+			if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM)
+					|| upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_DOUBLE)) {
+				return PlaceUpgrade.getSlaveQuartersUpgrades();
+				
+			} else if(upgrades.contains(PlaceUpgrade.LILAYA_MILKING_ROOM)) {
+				return PlaceUpgrade.getMilkingUpgrades();
+			}
+			
 			return PlaceUpgrade.getCoreRoomUpgrades();
+		}
+		@Override
+		public String getSVGString(Set<PlaceUpgrade> upgrades) {
+			if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM)) {
+				return PlaceType.getSVGOverride("dominion/lilayasHome/roomSlave", Colour.BASE_CRIMSON);
+				
+			} else if(upgrades.contains(PlaceUpgrade.LILAYA_MILKING_ROOM)) {
+				return PlaceType.getSVGOverride("dominion/lilayasHome/roomMilking", Colour.BASE_ORANGE);
+				
+			} else if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_DOUBLE)) {
+				return PlaceType.getSVGOverride("dominion/lilayasHome/roomSlaveDouble", Colour.BASE_MAGENTA);
+				
+			} else {
+				return SVGString;
+			}
 		}
 		@Override
 		public boolean isAbleToBeUpgraded() {
@@ -522,126 +614,6 @@ public enum PlaceType {
 		@Override
 		public String getPlaceNameAppendFormat(int count) {
 			return " FG-"+String.format("%02d", count);
-		}
-	},
-	
-	LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR_SLAVE("Slave's Room", "dominion/lilayasHome/roomSlave", BaseColour.CRIMSON, Colour.MAP_BACKGROUND, LilayaHomeGeneric.ROOM_WINDOW_SLAVE, null, false, true, false, "in Lilaya's Home") {
-		@Override
-		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades() {
-			return PlaceUpgrade.getSlaveQuartersUpgrades();
-		}
-		@Override
-		public boolean isAbleToBeUpgraded() {
-			return true;
-		}
-		@Override
-		public String getSVGString(Set<PlaceUpgrade> upgrades) {
-			if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_DOUBLE)) {
-				return PlaceType.getSVGOverride("dominion/lilayasHome/roomSlaveDouble", Colour.BASE_MAGENTA);
-			} else {
-				return SVGString;
-			}
-		}
-	},
-	
-	LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR_SLAVE("Slave's Garden Room", "dominion/lilayasHome/roomSlave", BaseColour.CRIMSON, Colour.MAP_BACKGROUND, LilayaHomeGeneric.ROOM_GARDEN_GROUND_FLOOR_SLAVE, null, false, true, false, "in Lilaya's Home") {
-		@Override
-		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades() {
-			return PlaceUpgrade.getSlaveQuartersUpgrades();
-		}
-		@Override
-		public boolean isAbleToBeUpgraded() {
-			return true;
-		}
-		@Override
-		public String getSVGString(Set<PlaceUpgrade> upgrades) {
-			if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_DOUBLE)) {
-				return PlaceType.getSVGOverride("dominion/lilayasHome/roomSlaveDouble", Colour.BASE_MAGENTA);
-			} else {
-				return SVGString;
-			}
-		}
-	},
-	
-	LILAYA_HOME_ROOM_WINDOW_FIRST_FLOOR_SLAVE("Slave's Room", "dominion/lilayasHome/roomSlave", BaseColour.CRIMSON, Colour.MAP_BACKGROUND, LilayaHomeGeneric.ROOM_WINDOW_SLAVE, null, false, true, false, "in Lilaya's Home") {
-		@Override
-		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades() {
-			return PlaceUpgrade.getSlaveQuartersUpgrades();
-		}
-		@Override
-		public boolean isAbleToBeUpgraded() {
-			return true;
-		}
-		@Override
-		public String getSVGString(Set<PlaceUpgrade> upgrades) {
-			if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_DOUBLE)) {
-				return PlaceType.getSVGOverride("dominion/lilayasHome/roomSlaveDouble", Colour.BASE_MAGENTA);
-			} else {
-				return SVGString;
-			}
-		}
-	},
-	
-	LILAYA_HOME_ROOM_GARDEN_FIRST_FLOOR_SLAVE("Slave's Garden Room", "dominion/lilayasHome/roomSlave", BaseColour.CRIMSON, Colour.MAP_BACKGROUND, LilayaHomeGeneric.ROOM_GARDEN_SLAVE, null, false, true, false, "in Lilaya's Home") {
-		@Override
-		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades() {
-			return PlaceUpgrade.getSlaveQuartersUpgrades();
-		}
-		@Override
-		public boolean isAbleToBeUpgraded() {
-			return true;
-		}
-		@Override
-		public String getSVGString(Set<PlaceUpgrade> upgrades) {
-			if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_DOUBLE)) {
-				return PlaceType.getSVGOverride("dominion/lilayasHome/roomSlaveDouble", Colour.BASE_MAGENTA);
-			} else {
-				return SVGString;
-			}
-		}
-	},
-	
-	LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR_MILKING("Slave's Room", "dominion/lilayasHome/roomMilking", BaseColour.ORANGE, Colour.MAP_BACKGROUND, LilayaHomeGeneric.ROOM_WINDOW_MILKING, null, false, true, false, "in Lilaya's Home") {
-		@Override
-		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades() {
-			return PlaceUpgrade.getMilkingUpgrades();
-		}
-		@Override
-		public boolean isAbleToBeUpgraded() {
-			return true;
-		}
-	},
-	
-	LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR_MILKING("Slave's Garden Room", "dominion/lilayasHome/roomMilking", BaseColour.ORANGE, Colour.MAP_BACKGROUND, LilayaHomeGeneric.ROOM_GARDEN_GROUND_FLOOR_MILKING, null, false, true, false, "in Lilaya's Home") {
-		@Override
-		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades() {
-			return PlaceUpgrade.getMilkingUpgrades();
-		}
-		@Override
-		public boolean isAbleToBeUpgraded() {
-			return true;
-		}
-	},
-	
-	LILAYA_HOME_ROOM_WINDOW_FIRST_FLOOR_MILKING("Slave's Room", "dominion/lilayasHome/roomMilking", BaseColour.ORANGE, Colour.MAP_BACKGROUND, LilayaHomeGeneric.ROOM_WINDOW_MILKING, null, false, true, false, "in Lilaya's Home") {
-		@Override
-		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades() {
-			return PlaceUpgrade.getMilkingUpgrades();
-		}
-		@Override
-		public boolean isAbleToBeUpgraded() {
-			return true;
-		}
-	},
-	
-	LILAYA_HOME_ROOM_GARDEN_FIRST_FLOOR_MILKING("Slave's Garden Room", "dominion/lilayasHome/roomMilking", BaseColour.ORANGE, Colour.MAP_BACKGROUND, LilayaHomeGeneric.ROOM_GARDEN_MILKING, null, false, true, false, "in Lilaya's Home") {
-		@Override
-		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades() {
-			return PlaceUpgrade.getMilkingUpgrades();
-		}
-		@Override
-		public boolean isAbleToBeUpgraded() {
-			return true;
 		}
 	},
 	
@@ -1106,6 +1078,9 @@ public enum PlaceType {
 		if(SVGPath!=null) {
 			try {
 				InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/map/" + SVGPath + ".svg");
+				if(is==null) {
+					System.err.println("Error! PlaceType icon file does not exist (Trying to read from '"+SVGPath+"')! (Code 1)");
+				}
 				String s = Util.inputStreamToString(is);
 				
 				if(colour!=null) {
@@ -1182,6 +1157,9 @@ public enum PlaceType {
 		if(!SVGOverrides.keySet().contains(pathName+colour)) {
 			try {
 				InputStream is = colour.getClass().getResourceAsStream("/com/lilithsthrone/res/map/" + pathName + ".svg");
+				if(is==null) {
+					System.err.println("Error! PlaceType icon file does not exist (Trying to read from '"+pathName+"')! (Code 2)");
+				}
 				String s = Util.inputStreamToString(is);
 				
 				if(colour!=null) {
@@ -1243,7 +1221,7 @@ public enum PlaceType {
 		return new ArrayList<>();
 	}
 	
-	public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades() {
+	public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades(Set<PlaceUpgrade> upgrades) {
 		return new ArrayList<>();
 	}
 

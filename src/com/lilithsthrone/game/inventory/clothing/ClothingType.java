@@ -6613,8 +6613,7 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)), 
 							Util.newArrayListOfValues(
 									new ListValue<InventorySlot>(InventorySlot.ANKLE),
-									new ListValue<InventorySlot>(InventorySlot.SOCK),
-									new ListValue<InventorySlot>(InventorySlot.ANUS))))),
+									new ListValue<InventorySlot>(InventorySlot.SOCK))))),
 			null,
 			ColourListPresets.LEATHER.getPresetColourList(),
 			ColourListPresets.ALL.getPresetColourList(),
@@ -9511,6 +9510,11 @@ public class ClothingType {
 			null,
 			null,
 			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_FINCH))){
+
+		@Override
+		public boolean isHindersArmMovement() {
+			return true;
+		}
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -9569,6 +9573,10 @@ public class ClothingType {
 			null,
 			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_FINCH))){
 		
+		@Override
+		public boolean isHindersLegMovement() {
+			return true;
+		}
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {

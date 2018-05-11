@@ -648,6 +648,9 @@ public enum Attribute {
 
 		try {
 			InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/" + pathName + ".svg");
+			if(is==null) {
+				System.err.println("Error! Attribute icon file does not exist (Trying to read from '"+pathName+"')!");
+			}
 			SVGString = Util.inputStreamToString(is);
 
 			if (colour.getShades() != null) {

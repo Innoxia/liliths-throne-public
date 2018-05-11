@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<htmlContent tag="ATTACK_INTRO"><![CDATA[
+	<p>
+		As you travel down the gloomy, twisting tunnels of Submission, the sounds of dripping water and slowly-creaking pipes echo off the stone walls to either side of you.
+		 Due to this continuous background noise, the quiet splashing of a slime's footsteps as [npc.she] sneaks up on you are all but completely concealed.
+		 It isn't until the slime is within ten metres that you suddenly become aware of their presence, and you quickly spin around to find yourself looking at [npc.a_fullRace(true)]!
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ATTACK_TRANSFORMER_PLAYER_SLIME"><![CDATA[
+	<p>
+		[npc.speech(Haha! Did I make you jump?)]
+		 [npc.She] laughs, continuing to advance on you. [npc.Her] [npc.skinColour] body shakes and ripples a little from [npc.her] joyous outburst, and [npc.she] bites [npc.her] lip as [npc.she] eyes you up and down.
+		 [npc.speech(Mmm! You're lookin' good to go already!)]
+	</p>
+	<p>
+		[npc.Name] suddenly stops, before placing [npc.her] hands on [npc.her] [npc.hips+]. Despite [npc.her] suspicious behaviour, it doesn't look like [npc.she] wants to attack you, and as [npc.she] speaks once more, this is indeed revealed to be the case. [npc.speech(Don't worry, I'm not looking for a fight or anything! I'm just out here on the Queen's orders. Gotta transform as many travellers as I can find into slimes and all that!)]
+	</p>
+	<p>
+		[pc.speech(I see.)]
+		 You reply, allowing yourself to relax a little as you realise that you aren't going to be forced into a fight.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ATTACK_TRANSFORMER_PLAYER_SLIME_OFFER_SEX"><![CDATA[
+	<p>
+		[npc.speech(So, you wanna have sex, or what?)]
+		 [npc.Name] suddenly asks.
+		 [npc.speech(I usually only fuck people right after I've turned them into slimes, but it's been hours since the last one, and I'm kind of horny.)]
+	</p>
+	<p>
+		You wonder if you should accept [npc.name]'s invitation, or decline and continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ATTACK_TRANSFORMER_PLAYER_SLIME_SLIME_NO_SEX"><![CDATA[
+	<p>
+		[npc.speech(Well, you stay safe out there.)]
+		 [npc.Name] says, before turning to leave.
+		 [npc.speech(I've gotta find more people to turn into slimes. The Queen said we're supposed to do at least five a day, and I'm only on three so far!)]
+	</p>
+	<p>
+		You wonder if you should try to put a stop to [npc.name]'s plan, or take your leave and continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ATTACK_TRANSFORMER_PLAYER_SLIME_TURN_DOWN_SEX"><![CDATA[
+	<p>
+		You don't really want to have sex with [npc.name] right now, and tell [npc.herHim] as such.
+		 [pc.speech(I'm not interested. I need to get going now, goodbye.)]
+	</p>
+	<p>
+		[npc.speech(Well, whatever.)]
+		 [npc.Name] says, before turning and making [npc.her] exit. Having dealt with [npc.name], you similarly turn around and continue on your way.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ATTACK_TRANSFORMER_PLAYER_SLIME_LEAVE"><![CDATA[
+	<p>
+		You don't really want to fight [npc.name], so simply say goodbye, before turning around and continuing on your way.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ATTACK_TRANSFORMER"><![CDATA[
+	<p>
+		[npc.speech(Haha! Did I make you jump?)]
+		 [npc.She] laughs, continuing to advance on you. [npc.Her] [npc.skinColour] body shakes and ripples a little from [npc.her] joyous outburst, and [npc.she] bites [npc.her] lip as [npc.she] eyes you up and down.
+		 [npc.speech(Mmm! You're gonna make a great slime, I can tell already!)]
+	</p>
+	<p>
+		[npc.Name] suddenly stops, before placing [npc.her] hands on [npc.her] [npc.hips+] and grinning evilly at you. [npc.speech(Now, I'm not interested in your money, or anything you have to say! The Queen's ordered me to transform at least five people into slimes every day, and you're lucky number four!)]
+	</p>
+	<p>
+		[pc.speech(What kind of Queen is ordering people to be transformed into slimes?)]
+		 You ask, stepping back and preparing yourself for a fight.
+	</p>
+	<p>
+		[npc.speech(Well, duh! The slime Queen of course! Perhaps once I've turned you into a new subject of hers, you'll get to meet her some day!)]
+		 [npc.Name] grins, before offering you an ultimatum.
+		 [npc.speech(Now, we can do this the easy way, or the hard way!)]
+	</p>
+	<p>
+		You instinctively crouch down a little as you prepare to defend yourself. Then again, you could always do things the 'easy way', and willing let [npc.name] transform you into a slime...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ATTACK"><![CDATA[
+	<p>
+		[npc.speech(Haha! Did I make you jump?)]
+		 [npc.She] laughs, continuing to advance on you. [npc.Her] [npc.skinColour] body shakes and ripples a little from [npc.her] joyous outburst, and [npc.she] bites [npc.her] lip as [npc.she] eyes you up and down.
+		 [npc.speech(Mmm! Yeah, you'll do nicely!)]
+	</p>
+	<p>
+		[pc.speech(What do you want?)]
+		 You ask in a stern tone, instinctively crouching down a little as you prepare to defend yourself.
+	</p>
+	<p>
+		[npc.speech(How about you start by handing over your cash. There's no need for this to turn ugly.)]
+		 [npc.Name] grins, obviously willing to fight you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ATTACK_REPEAT"><![CDATA[
+	<p>
+		#IF npc.isVisiblyPregnant
+		#THEN
+			[npc.speech(Haha! It's you again! Look, I'm still carrying our kids around!)]
+		#ELSE
+			[npc.speech(Haha! It's you again!)]
+		#ENDIF
+		 The familiar [npc.race] laughs, continuing to advance on you. [npc.Her] [npc.skinColour] body shakes and ripples a little from [npc.her] joyous outburst, and [npc.she] bites [npc.her] lip as [npc.she] eyes you up and down.
+		 [npc.speech(So, you gonna hand over your cash, or what?)]
+	</p>
+	<p>
+		You instinctively crouch down a little as you prepare to defend yourself.
+		 Just like last time, [npc.name] is obviously willing to fight you, and you wonder what you should do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ATTACK_PREGNANCY_REVEAL"><![CDATA[
+	<p>
+		[npc.speech(Haha! It's you again! Look here, you've gone and got me knocked up!)]
+		 The familiar [npc.race] laughs, rubbing the noticeably swollen bump in [npc.her] belly. [npc.Her] [npc.skinColour] body shakes and ripples a little from [npc.her] joyous outburst, and [npc.she] bites [npc.her] lip as [npc.she] eyes you up and down.
+		 [npc.speech(So, you gonna take responsibility, or what? Come on, I need the extra cash for our kid's clothes and stuff!)]
+	</p>
+	<p>
+		You instinctively crouch down a little as you prepare to defend yourself.
+		 Just like last time, [npc.name] is obviously willing to fight you, and you wonder what you should do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFER_MONEY"><![CDATA[
+	<p>
+		Wanting to avoid a fight if at all possible, you take a step backwards, fumbling about to grab a handful of flames to offer to [npc.name].
+		 [pc.speech(I don't want to fight! Please, just take this and leave!)]
+	</p>
+	<p>
+		[npc.speech(Sure thing, it's a lot easier for me if I don't have to pummel you into the ground first!)]
+		 [npc.Name] replies, [npc.her] desire to rob you of your money obviously being the motivating factor behind [npc.her] assault.
+	</p>
+	<p>
+		Stepping forwards, [npc.she] snatches the flames out of your [pc.hand], letting out a mocking laugh as [npc.she] commands,
+		 [npc.speech(Hah! Now get out of my sight!)]
+	</p>
+	<p>
+		Reluctant to do anything other than what [npc.she] suggests, you hurry on your way, thankful that you had enough money to avoid a fight.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFER_BODY"><![CDATA[
+	<p>
+		Wanting to avoid a fight, and unwilling to hand over any of your money, you decide to do the only other thing you can think of, and step forwards smiling seductively at [npc.name]. 
+		 [pc.speech(There's no need to fight. If you're looking for a bit of fun, all you had to do was ask...)]
+	</p>
+	<p>
+		[npc.speech(Oh really?)]
+		 [npc.name] replies, stepping forwards in an intimidating manner.
+		 You remain in place, putting on your most seductive look and trying to make yourself as small as possible as you attempt to entice [npc.name] into using you for some sexual relief.
+	</p>
+	<p>
+		Much to your delight, your would-be attacker reaches up and grabs you by the [pc.arms], before pulling you forwards into a tight embrace.
+		 Pressing [npc.her] [npc.lips] against yours, [npc.she] thrusts [npc.her] [npc.tongue] into your mouth, aggressively kissing you for a moment before pulling back, growling,
+		 [npc.speech(You're going to be a good [pc.girl] now, aren't you bitch?)]
+	</p>
+	<p>
+		Whimpering in the affirmative, you surrender yourself to [npc.name]'s dominant touch, allowing yourself to be used as payment for trespassing on [npc.her] territory...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_OFFER_BODY_SEX"><![CDATA[
+	<p>
+		End sex.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_OFFER_BODY_SEX_NO_ORGASM"><![CDATA[
+	<p>
+		[npc.Name] is not satisfied.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<htmlContent tag="ATTACK_REPEAT_TRANSFORMER"><![CDATA[
+	<p>
+		Repeat encounter with [npc.name].
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ATTACK_PREGNANCY_REVEAL_TRANSFORMER"><![CDATA[
+	<p>
+		Repeat encounter with [npc.name], where [npc.she] reveals that you've got [npc.herHim] pregnant.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<htmlContent tag="ATTACK_REPEAT_TRANSFORMER_PLAYER_SLIME"><![CDATA[
+	<p>
+		Repeat encounter with [npc.name].
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ATTACK_PREGNANCY_REVEAL_TRANSFORMER_PLAYER_SLIME"><![CDATA[
+	<p>
+		Repeat encounter with [npc.name], where [npc.she] reveals that you've got [npc.herHim] pregnant.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TRANSFORMER_PLAYER_SLIME_OFFER_SEX"><![CDATA[
+	<p>
+		[npc.Name] offers sex.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TRANSFORMER_PLAYER_SLIME_NO_SEX"><![CDATA[
+	<p>
+		[npc.Name] tells you to stay safe.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLIME_SEX_AS_DOM"><![CDATA[
+	<p>
+		You start sex with [npc.name] as the dominant partner.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_SLIME_SEX_AS_DOM"><![CDATA[
+	<p>
+		[npc.Name] is satisfied.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_SLIME_SEX_AS_DOM_NO_ORGASM"><![CDATA[
+	<p>
+		[npc.Name] is not satisfied.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLIME_SEX_AS_SUB"><![CDATA[
+	<p>
+		You start sex with [npc.name] as the submissive partner.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_SLIME_SEX_AS_SUB"><![CDATA[
+	<p>
+		[npc.Name] is satisfied.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_SLIME_SEX_AS_SUB_NO_ORGASM"><![CDATA[
+	<p>
+		[npc.Name] is not satisfied.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WILLINGLY_TRANSFORMED"><![CDATA[
+	<p>
+		[npc.Name] transforms you into a slime.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+</dialogue>

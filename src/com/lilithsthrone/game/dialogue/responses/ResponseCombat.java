@@ -32,8 +32,7 @@ public class ResponseCombat extends Response {
 		}
 		this.enemies = new ArrayList<>();
 		this.enemies.add(opponent);
-		for(GameCharacter companion : opponent.getCompanions())
-		{
+		for(GameCharacter companion : opponent.getCompanions()) {
 			this.enemies.add((NPC) companion);
 		}
 		

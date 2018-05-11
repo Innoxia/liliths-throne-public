@@ -57,6 +57,41 @@ public class UtilText {
 	public static StringBuilder nodeContentSB = new StringBuilder(4096);
 	private static StringBuilder descriptionSB = new StringBuilder();
 
+	/**
+	 * Converts the input into a format suitable for html display. i.e. converts things like '<' to "&lt;".
+	 */
+	public static String parseForHTMLDisplay(String input) {
+		StringBuilder builder = new StringBuilder();
+		
+		for (char c : input.toCharArray()) {
+			switch (c) {
+				case ' ':
+					builder.append("&nbsp;");
+					break;
+				case '<':
+					builder.append("&lt;");
+					break;
+				case '>':
+					builder.append("&gt;");
+					break;
+				case '&':
+					builder.append("&amp;");
+					break;
+				case '"':
+					builder.append("&quot;");
+					break;
+				case '\'':
+					builder.append("&#39;");
+					break;
+				default:
+					builder.append(c);
+					break;
+			}
+		}
+		
+		return builder.toString();
+	}
+	
 	public static String parsePlayerThought(String text) {
 		if(Main.game.getPlayer()==null) {
 			return "";
@@ -741,6 +776,41 @@ public class UtilText {
 			@Override
 			public boolean process(String command, String arguments, String target) {
 				return character.isCoverableAreaExposed(CoverableArea.VAGINA);
+			}
+		});
+		
+		conditionalCommandsList.add(new ParserConditionalCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("isVisiblyPregnant")),
+				"",
+				"Returns true if the character is visibly pregnant."){
+			@Override
+			public boolean process(String command, String arguments, String target) {
+				return character.isVisiblyPregnant();
+			}
+		});
+		
+		conditionalCommandsList.add(new ParserConditionalCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("isMotheredChildren"),
+						new ListValue<>("hasMotheredChildren")),
+				"",
+				"Returns true if the character has given birth before."){
+			@Override
+			public boolean process(String command, String arguments, String target) {
+				return !character.getLittersBirthed().isEmpty();
+			}
+		});
+		
+		conditionalCommandsList.add(new ParserConditionalCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("isDayTime"),
+						new ListValue<>("isDay")),
+				"",
+				"Returns true if it's currently day time (between 7am and 9pm)."){
+			@Override
+			public boolean process(String command, String arguments, String target) {
+				return Main.game.isDayTime();
 			}
 		});
 		

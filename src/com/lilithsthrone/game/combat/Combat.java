@@ -14,8 +14,7 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
-import com.lilithsthrone.game.dialogue.DebugDialogue;
-import com.lilithsthrone.game.dialogue.MapDisplay;
+import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -441,8 +440,8 @@ public enum Combat {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.NORMAL;
+		public DialogueNodeType getDialgoueNodeType() {
+			return DialogueNodeType.NORMAL;
 		}
 	};
 
@@ -489,8 +488,8 @@ public enum Combat {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.NORMAL;
+		public DialogueNodeType getDialgoueNodeType() {
+			return DialogueNodeType.NORMAL;
 		}
 	};
 	public static final DialogueNodeOld SUBMIT_CONFIRM = new DialogueNodeOld("Combat", "Submit", true) {
@@ -528,8 +527,8 @@ public enum Combat {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.NORMAL;
+		public DialogueNodeType getDialgoueNodeType() {
+			return DialogueNodeType.NORMAL;
 		}
 	};
 
@@ -559,7 +558,7 @@ public enum Combat {
 						@Override
 						public void effects() {
 							Main.game.setInCombat(false);
-							Main.game.setContent(new Response("", "", DebugDialogue.getDefaultDialogueNoEncounter()));
+							Main.game.setContent(new Response("", "", Main.game.getDefaultDialogueNoEncounter()));
 						}
 					};
 				} else {
@@ -572,8 +571,8 @@ public enum Combat {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.NORMAL;
+		public DialogueNodeType getDialgoueNodeType() {
+			return DialogueNodeType.NORMAL;
 		}
 	};
 
@@ -635,7 +634,7 @@ public enum Combat {
 						@Override
 						public void effects() {
 							Main.game.setInCombat(false);
-							Main.game.setContent(new Response("", "", DebugDialogue.getDefaultDialogueNoEncounter()));
+							Main.game.setContent(new Response("", "", Main.game.getDefaultDialogueNoEncounter()));
 						}
 					};
 				} else {
@@ -753,6 +752,9 @@ public enum Combat {
 			if (index == 0) {
 				if (escapeChance == 0) {
 					return new Response("Escape", "You can't run from this fight!", null);
+					
+				} else if(!Main.game.getPlayer().isAbleToEscape()) {
+					return new Response("Escape", Main.game.getPlayer().getUnableToEscapeDescription(), null);
 					
 				} else {
 					return new Response("Escape",
@@ -927,8 +929,8 @@ public enum Combat {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.NORMAL;
+		public DialogueNodeType getDialgoueNodeType() {
+			return DialogueNodeType.NORMAL;
 		}
 	};
 
@@ -936,37 +938,45 @@ public enum Combat {
 	// Calculations for melee attack:
 	private static void attackMain(GameCharacter attacker) {
 		GameCharacter target = getTargetedCombatant(attacker);
-		float damage = 0;
+		boolean critical = Attack.rollForCritical(attacker, target);
+		float damage = Attack.calculateDamage(attacker, target, Attack.MAIN, critical);
 		boolean isHit = Attack.rollForHit(attacker, target);
 		
 		attackStringBuilder = new StringBuilder("");
 
 		attackStringBuilder.append(getMainAttackDescription(attacker, target, isHit));
 		
-		if(isHit) {
-			boolean critical = Attack.rollForCritical(attacker, target);
-	
-			damage = Attack.calculateDamage(attacker, target, Attack.MAIN, critical);
+		DamageType dt = (attacker.getMainWeapon() == null
+					?attacker.getBodyMaterial().getUnarmedDamageType()
+					:attacker.getMainWeapon().getDamageType());
+		
+		if(damage==0) {
+			if(target.isPlayer()) {
+				attackStringBuilder.append("<p>You are completely [style.boldExcellent(immune)] to "+dt.getName()+" damage!</p>");
+			} else {
+				attackStringBuilder.append(UtilText.parse(target,"<p>[npc.Name] appears to be completely [style.boldExcellent(immune)] to "+dt.getName()+" damage!</p>"));
+			}
 			
+		} else if(isHit) {
 			if(attacker.isPlayer()) {
 				if(attacker.getMainWeapon() == null) {
 					attackStringBuilder.append("<p><b>You " + (critical ? "<b style='color: " + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>critically</b> hit for " : " hit for ") + damage + " <b style='color: "
-							+ attacker.getBodyMaterial().getUnarmedDamageType().getColour().toWebHexString() + ";'>" + attacker.getBodyMaterial().getUnarmedDamageType().getName() + "</b>!</b></p>");
+							+ dt.getColour().toWebHexString() + ";'>" + dt.getName() + "</b>!</b></p>");
 					
 				} else {
 					attackStringBuilder.append("<p><b>You " + (critical ? "<b style='color: " + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>critically</b> hit for " : " hit for ") + damage + " <b style='color: "
-							+ attacker.getMainWeapon().getDamageType().getMultiplierAttribute().getColour().toWebHexString() + ";'>" + attacker.getMainWeapon().getDamageType().getMultiplierAttribute().getName() + "</b>!</b></p>");
+							+ dt.getMultiplierAttribute().getColour().toWebHexString() + ";'>" + dt.getMultiplierAttribute().getName() + "</b>!</b></p>");
 				}
 			} else {
 				if(attacker.getMainWeapon() == null) {
 					attackStringBuilder.append("<p><b>"+(target.isPlayer()?"You were ":UtilText.parse(target,"[npc.Name] was "))
 							+ (critical ? "<b style='color: " + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>critically</b> hit for " : " hit for ") + damage + " <b style='color: "
-							+ attacker.getBodyMaterial().getUnarmedDamageType().getColour().toWebHexString() + ";'>" + attacker.getBodyMaterial().getUnarmedDamageType().getName() + "</b>!</b></p>");
+							+ dt.getColour().toWebHexString() + ";'>" + dt.getName() + "</b>!</b></p>");
 					
 				} else {
 					attackStringBuilder.append("<p><b>"+(target.isPlayer()?"You were ":UtilText.parse(target,"[npc.Name] was "))
 							+ (critical ? "<b style='color: " + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>critically</b> hit for " : " hit for ") + damage + " <b style='color: "
-							+ attacker.getMainWeapon().getDamageType().getMultiplierAttribute().getColour().toWebHexString() + ";'>" + attacker.getMainWeapon().getDamageType().getMultiplierAttribute().getName() + "</b>!</b></p>");
+							+ dt.getMultiplierAttribute().getColour().toWebHexString() + ";'>" + dt.getMultiplierAttribute().getName() + "</b>!</b></p>");
 				}
 			}
 			attackStringBuilder.append(target.incrementHealth(attacker, -damage));
@@ -994,30 +1004,38 @@ public enum Combat {
 	
 	private static void attackOffhand(GameCharacter attacker) {
 		GameCharacter target = getTargetedCombatant(attacker);
-		float damage = 0;
+		
+		boolean critical = Attack.rollForCritical(attacker, target);
+		float damage = Attack.calculateDamage(attacker, target, Attack.OFFHAND, critical);
 		boolean isHit = Attack.rollForHit(attacker, target);
 
 		attackStringBuilder = new StringBuilder("");
 
 		attackStringBuilder.append(getOffhandDescription(attacker, target, isHit));
 		
-		if(isHit) {
-			boolean critical = Attack.rollForCritical(attacker, target);
+		DamageType dt = (attacker.getOffhandWeapon() == null
+				?attacker.getBodyMaterial().getUnarmedDamageType()
+				:attacker.getMainWeapon().getDamageType());
 	
-			damage = Attack.calculateDamage(attacker, target, Attack.OFFHAND, critical);
+		if(damage==0) {
+			if(target.isPlayer()) {
+				attackStringBuilder.append("<p>You are completely [style.boldExcellent(immune)] to "+dt.getName()+" damage!</p>");
+			} else {
+				attackStringBuilder.append(UtilText.parse(target,"<p>[npc.Name] appears to be completely [style.boldExcellent(immune)] to "+dt.getName()+" damage!</p>"));
+			}
 			
-			Attribute damageAttribute = (attacker.getOffhandWeapon() == null ? attacker.getBodyMaterial().getUnarmedDamageType().getMultiplierAttribute() : attacker.getOffhandWeapon().getDamageType().getMultiplierAttribute());
+		} else if(isHit) {
+			
+			Attribute damageAttribute = dt.getMultiplierAttribute();
 	
 			if(attacker.isPlayer()) {
 				attackStringBuilder.append("<p>"
 						+ "<b>You " + (critical ? "<b style='color: " + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>critically</b> " : "") +"hit for "+ damage + " <b style='color: "
-						+ damageAttribute.getColour().toWebHexString() + ";'>"
-						+ damageAttribute.getName() + "</b>!</b></p>");
+						+ damageAttribute.getColour().toWebHexString() + ";'>" + damageAttribute.getName() + "</b>!</b></p>");
 			} else {
 				attackStringBuilder.append("<p>"
 						+ "<b>"+(target.isPlayer()?"You were ":UtilText.parse(target,"[npc.Name] was ")) + (critical ? "<b style='color: " + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>critically</b> " : "") +"hit for "+ damage + " <b style='color: "
-						+ damageAttribute.getColour().toWebHexString() + ";'>"
-						+ damageAttribute.getName() + "</b>!</b></p>");
+						+ damageAttribute.getColour().toWebHexString() + ";'>" + damageAttribute.getName() + "</b>!</b></p>");
 			}
 	
 			attackStringBuilder.append(target.incrementHealth(attacker, -damage));
@@ -1193,7 +1211,14 @@ public enum Combat {
 	
 		float lustDamage = Attack.calculateDamage(attacker, target, Attack.SEDUCTION, critical);
 		
-		if(target.hasStatusEffect(StatusEffect.DESPERATE_FOR_SEX)) {
+		if(lustDamage==0) {
+			if(target.isPlayer()) {
+				attackStringBuilder.append("<p>You are completely [style.boldExcellent(immune)] to "+DamageType.LUST.getName()+" damage!</p>");
+			} else {
+				attackStringBuilder.append(UtilText.parse(target,"<p>[npc.Name] appears to be completely [style.boldExcellent(immune)] to "+DamageType.LUST.getName()+" damage!</p>"));
+			}
+			
+		} else if(target.hasStatusEffect(StatusEffect.DESPERATE_FOR_SEX)) {
 			if(attacker.isPlayer()) {
 				attackStringBuilder.append(UtilText.parse(target,
 						"<p>"
