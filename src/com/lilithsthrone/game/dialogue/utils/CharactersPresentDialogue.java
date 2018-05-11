@@ -312,7 +312,7 @@ public class CharactersPresentDialogue {
 		}
 
 		@Override
-		public DialogueNodeType getDialgoueNodeType() {
+		public DialogueNodeType getDialogueNodeType() {
 			return DialogueNodeType.CHARACTERS_PRESENT;
 		}
 	};

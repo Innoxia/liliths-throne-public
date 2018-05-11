@@ -332,6 +332,8 @@ public class LilayasRoom {
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
 				return new ResponseSex("Submit", "Let Rose push you back on to the bed and fuck you.",
+						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)),
+						null, CorruptionLevel.THREE_DIRTY, null, null, null,
 						true, false,
 						new SMMissionary(
 								Util.newHashMapOfValues(new Value<>(Main.game.getRose(), SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS)),

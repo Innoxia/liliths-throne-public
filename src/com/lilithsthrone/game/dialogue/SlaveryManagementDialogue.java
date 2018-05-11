@@ -183,7 +183,7 @@ public class SlaveryManagementDialogue {
 		private static final long serialVersionUID = 1L;
 		
 		@Override
-		public DialogueNodeType getDialgoueNodeType() {
+		public DialogueNodeType getDialogueNodeType() {
 			return DialogueNodeType.SLAVERY_MANAGEMENT;
 		}
 		
@@ -345,7 +345,7 @@ public class SlaveryManagementDialogue {
 		private static final long serialVersionUID = 1L;
 
 		@Override
-		public DialogueNodeType getDialgoueNodeType() {
+		public DialogueNodeType getDialogueNodeType() {
 			return DialogueNodeType.SLAVERY_MANAGEMENT;
 		}
 		
@@ -532,7 +532,7 @@ public class SlaveryManagementDialogue {
 		private static final long serialVersionUID = 1L;
 
 		@Override
-		public DialogueNodeType getDialgoueNodeType() {
+		public DialogueNodeType getDialogueNodeType() {
 			return DialogueNodeType.SLAVERY_MANAGEMENT;
 		}
 		
@@ -693,7 +693,7 @@ public class SlaveryManagementDialogue {
 		private static final long serialVersionUID = 1L;
 
 		@Override
-		public DialogueNodeType getDialgoueNodeType() {
+		public DialogueNodeType getDialogueNodeType() {
 			return DialogueNodeType.SLAVERY_MANAGEMENT;
 		}
 		
@@ -915,7 +915,7 @@ public class SlaveryManagementDialogue {
 		private static final long serialVersionUID = 1L;
 
 		@Override
-		public DialogueNodeType getDialgoueNodeType() {
+		public DialogueNodeType getDialogueNodeType() {
 			return DialogueNodeType.SLAVERY_MANAGEMENT;
 		}
 		
@@ -1061,7 +1061,7 @@ public class SlaveryManagementDialogue {
 		private static final long serialVersionUID = 1L;
 
 		@Override
-		public DialogueNodeType getDialgoueNodeType() {
+		public DialogueNodeType getDialogueNodeType() {
 			return DialogueNodeType.SLAVERY_MANAGEMENT;
 		}
 
@@ -1328,7 +1328,7 @@ public class SlaveryManagementDialogue {
 		private static final long serialVersionUID = 1L;
 
 		@Override
-		public DialogueNodeType getDialgoueNodeType() {
+		public DialogueNodeType getDialogueNodeType() {
 			return DialogueNodeType.SLAVERY_MANAGEMENT;
 		}
 		
@@ -1384,7 +1384,7 @@ public class SlaveryManagementDialogue {
 		private static final long serialVersionUID = 1L;
 
 		@Override
-		public DialogueNodeType getDialgoueNodeType() {
+		public DialogueNodeType getDialogueNodeType() {
 			return DialogueNodeType.SLAVERY_MANAGEMENT;
 		}
 		
@@ -1592,7 +1592,7 @@ public class SlaveryManagementDialogue {
 		private static final long serialVersionUID = 1L;
 
 		@Override
-		public DialogueNodeType getDialgoueNodeType() {
+		public DialogueNodeType getDialogueNodeType() {
 			return DialogueNodeType.SLAVERY_MANAGEMENT;
 		}
 		
@@ -1773,7 +1773,7 @@ public class SlaveryManagementDialogue {
 		private static final long serialVersionUID = 1L;
 
 		@Override
-		public DialogueNodeType getDialgoueNodeType() {
+		public DialogueNodeType getDialogueNodeType() {
 			return DialogueNodeType.SLAVERY_MANAGEMENT;
 		}
 		
@@ -1831,7 +1831,7 @@ public class SlaveryManagementDialogue {
 		private static final long serialVersionUID = 1L;
 
 		@Override
-		public DialogueNodeType getDialgoueNodeType() {
+		public DialogueNodeType getDialogueNodeType() {
 			return DialogueNodeType.SLAVERY_MANAGEMENT;
 		}
 		
@@ -1882,7 +1882,7 @@ public class SlaveryManagementDialogue {
 		private static final long serialVersionUID = 1L;
 
 		@Override
-		public DialogueNodeType getDialgoueNodeType() {
+		public DialogueNodeType getDialogueNodeType() {
 			return DialogueNodeType.SLAVERY_MANAGEMENT;
 		}
 		
@@ -1938,7 +1938,7 @@ public class SlaveryManagementDialogue {
 		private static final long serialVersionUID = 1L;
 
 		@Override
-		public DialogueNodeType getDialgoueNodeType() {
+		public DialogueNodeType getDialogueNodeType() {
 			return DialogueNodeType.SLAVERY_MANAGEMENT;
 		}
 		
@@ -1987,7 +1987,7 @@ public class SlaveryManagementDialogue {
 		private static final long serialVersionUID = 1L;
 
 		@Override
-		public DialogueNodeType getDialgoueNodeType() {
+		public DialogueNodeType getDialogueNodeType() {
 			return DialogueNodeType.SLAVERY_MANAGEMENT;
 		}
 		
@@ -2073,7 +2073,7 @@ public class SlaveryManagementDialogue {
 		private static final long serialVersionUID = 1L;
 
 		@Override
-		public DialogueNodeType getDialgoueNodeType() {
+		public DialogueNodeType getDialogueNodeType() {
 			return DialogueNodeType.SLAVERY_MANAGEMENT;
 		}
 		

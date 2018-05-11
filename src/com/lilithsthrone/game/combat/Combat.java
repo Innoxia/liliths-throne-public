@@ -440,7 +440,7 @@ public enum Combat {
 		}
 
 		@Override
-		public DialogueNodeType getDialgoueNodeType() {
+		public DialogueNodeType getDialogueNodeType() {
 			return DialogueNodeType.NORMAL;
 		}
 	};
@@ -488,7 +488,7 @@ public enum Combat {
 		}
 
 		@Override
-		public DialogueNodeType getDialgoueNodeType() {
+		public DialogueNodeType getDialogueNodeType() {
 			return DialogueNodeType.NORMAL;
 		}
 	};
@@ -527,7 +527,7 @@ public enum Combat {
 		}
 
 		@Override
-		public DialogueNodeType getDialgoueNodeType() {
+		public DialogueNodeType getDialogueNodeType() {
 			return DialogueNodeType.NORMAL;
 		}
 	};
@@ -571,7 +571,7 @@ public enum Combat {
 		}
 
 		@Override
-		public DialogueNodeType getDialgoueNodeType() {
+		public DialogueNodeType getDialogueNodeType() {
 			return DialogueNodeType.NORMAL;
 		}
 	};
@@ -929,7 +929,7 @@ public enum Combat {
 		}
 
 		@Override
-		public DialogueNodeType getDialgoueNodeType() {
+		public DialogueNodeType getDialogueNodeType() {
 			return DialogueNodeType.NORMAL;
 		}
 	};

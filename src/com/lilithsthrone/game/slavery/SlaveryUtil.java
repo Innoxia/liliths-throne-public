@@ -335,8 +335,11 @@ public class SlaveryUtil implements XMLSaving {
 					
 					if(slave.getBreastRawStoredMilkValue()>0 && !slave.getSlaveJobSettings().contains(SlaveJobSetting.MILKING_MILK_DISABLE)) {
 						int milked = MilkingRoom.getActualMilkPerHour(slave);
+						if(milked < slave.getBreastRawStoredMilkValue() && milked < MilkingRoom.getMaximumMilkPerHour(slave)) {
+							milked = Math.min(slave.getBreastRawStoredMilkValue(), MilkingRoom.getMaximumMilkPerHour(slave));
+						}
 						slave.incrementBreastStoredMilk(-milked);
-
+						
 						if(milked>0) {
 							if(room.isAutoSellMilk()) {
 								income = Math.max(1, (int) (milked * slave.getMilk().getValuePerMl()));
@@ -409,7 +412,7 @@ public class SlaveryUtil implements XMLSaving {
 										true);
 							
 							} else {
-								room.incrementCumStorage(slave.getCum(), milked);
+								room.incrementGirlcumStorage(slave.getGirlcum(), milked);
 								
 								return new SlaveryEventLogEntry(hour, slave,
 										SlaveEvent.JOB_GIRLCUM_MILKED,

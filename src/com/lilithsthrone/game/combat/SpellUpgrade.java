@@ -88,7 +88,7 @@ public enum SpellUpgrade {
 			SpellSchool.FIRE,
 			"cloak_of_flames_ring_of_fire",
 			"Ring of Fire",
-			"Any enemy that approaches the Clock of Flames is now greeted by a retaliatory burst of fire. Damage done is affected by the wearer's fire damage, and the attacker's fire resistance.",
+			"Any enemy that approaches the Cloak of Flames is now greeted by a retaliatory burst of fire. Damage done is affected by the wearer's fire damage, and the attacker's fire resistance.",
 			null, Util.newArrayListOfValues(
 					new ListValue<>("<b>Melee</b> or <b>unarmed</b> attackers take <b>5</b> [style.colourFire(Fire Damage)]"))),
 

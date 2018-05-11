@@ -815,7 +815,8 @@ public class ZaranixHomeGroundFloorRepeat {
 			if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM
 					|| Main.game.getCurrentWeather()==Weather.RAIN) {
 				if(index==1) {
-					return new Response("Submit", "Do as Amber says and get down on all fours, ready to act as a foot stall for her.", LOUNGE_AMBER_FOOT_STALL) {
+					return new Response("Submit", "Do as Amber says and get down on all fours, ready to act as a foot stall for her.", LOUNGE_AMBER_FOOT_STALL,
+							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)), CorruptionLevel.THREE_DIRTY, null, null, null) {
 						@Override
 						public void effects() {
 							Main.game.getTextEndStringBuilder().append(Main.game.getAmber().incrementAffection(Main.game.getPlayer(), 2.5f));
@@ -861,7 +862,8 @@ public class ZaranixHomeGroundFloorRepeat {
 				
 			} else {
 				if(index==1) {
-					return new Response("Submit", "Do as Amber says and get down on all fours, ready to go for a walk.", LOUNGE_AMBER_WALKIES) {
+					return new Response("Submit", "Do as Amber says and get down on all fours, ready to go for a walk.", LOUNGE_AMBER_WALKIES,
+							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)), CorruptionLevel.THREE_DIRTY, null, null, null) {
 						@Override
 						public void effects() {
 							if(Main.game.getPlayer().getClothingInSlot(InventorySlot.NECK)==null || Main.game.getPlayer().getClothingInSlot(InventorySlot.NECK).getClothingType()!=ClothingType.AMBERS_BITCH_CHOKER) {
@@ -1170,7 +1172,7 @@ public class ZaranixHomeGroundFloorRepeat {
 			} else if(index==2) {
 				return new ResponseSex("Submit",
 						"Do as Amber says and drop down on all fours, ready for her to fuck you.",
-						null, null, null, null, null, null,
+						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)), null, CorruptionLevel.THREE_DIRTY, null, null, null,
 						!Main.getProperties().hasValue(PropertyValue.nonConContent), false,
 						new SMAmberDoggyFucked(
 								Util.newHashMapOfValues(new Value<>(Main.game.getAmber(), SexPositionSlot.DOGGY_BEHIND_AMBER)),
@@ -1347,7 +1349,7 @@ public class ZaranixHomeGroundFloorRepeat {
 			} else if(index==3) {
 				return new ResponseSex("Submit",
 						"Amber's fiery personality is seriously turning you on. You can't bring yourself to take the dominant role, but you <i>do</i> want to have sex with her. Perhaps if you submitted, she'd be willing to fuck you?",
-						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)), null, null, null, null, null,
+						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)), null, CorruptionLevel.THREE_DIRTY, null, null, null,
 						true, true,
 						new SMAmberDoggyFucked(
 								Util.newHashMapOfValues(new Value<>(Main.game.getAmber(), SexPositionSlot.DOGGY_BEHIND_AMBER)),

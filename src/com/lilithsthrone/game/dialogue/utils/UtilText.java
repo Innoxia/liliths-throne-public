@@ -722,14 +722,16 @@ public class UtilText {
 					}
 				}
 				
-				
 				if(openBrackets>0 && ((target!=null && command!=null) || String.valueOf(c).matches(".") || c!=' ')) {
 					sb.append(c);
 				}
 			}
 			
-			
 			if(startIndex!=0 || endIndex!=0) {
+				if(startIndex!=0 && endIndex==0) {
+					System.err.println("Error in parsing: StartIndex:"+startIndex+" ("+target+", "+command+")");
+					return input;
+				}
 				return parse(specialNPC, input.substring(0, startIndex)
 						+ (processingConditional
 								?parseConditionalSyntaxNew(target, command, arguments, conditionalTrue, conditionalFalse)

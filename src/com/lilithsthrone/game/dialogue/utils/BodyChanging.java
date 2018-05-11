@@ -253,7 +253,7 @@ public class BodyChanging {
 		}
 
 		@Override
-		public DialogueNodeType getDialgoueNodeType() {
+		public DialogueNodeType getDialogueNodeType() {
 			return DialogueNodeType.PHONE;
 		}
 	};
@@ -438,7 +438,7 @@ public class BodyChanging {
 		}
 
 		@Override
-		public DialogueNodeType getDialgoueNodeType() {
+		public DialogueNodeType getDialogueNodeType() {
 			return DialogueNodeType.PHONE;
 		}
 	};
@@ -529,7 +529,7 @@ public class BodyChanging {
 		}
 
 		@Override
-		public DialogueNodeType getDialgoueNodeType() {
+		public DialogueNodeType getDialogueNodeType() {
 			return DialogueNodeType.PHONE;
 		}
 	};
@@ -649,7 +649,7 @@ public class BodyChanging {
 		}
 
 		@Override
-		public DialogueNodeType getDialgoueNodeType() {
+		public DialogueNodeType getDialogueNodeType() {
 			return DialogueNodeType.PHONE;
 		}
 	};
@@ -745,7 +745,7 @@ public class BodyChanging {
 		}
 
 		@Override
-		public DialogueNodeType getDialgoueNodeType() {
+		public DialogueNodeType getDialogueNodeType() {
 			return DialogueNodeType.PHONE;
 		}
 	};
@@ -854,7 +854,7 @@ public class BodyChanging {
 		}
 
 		@Override
-		public DialogueNodeType getDialgoueNodeType() {
+		public DialogueNodeType getDialogueNodeType() {
 			return DialogueNodeType.PHONE;
 		}
 	};

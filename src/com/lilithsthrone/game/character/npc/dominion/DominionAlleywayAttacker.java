@@ -9,6 +9,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.Season;
+import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
@@ -257,6 +258,9 @@ public class DominionAlleywayAttacker extends NPC {
 			// PERSONALITY & BACKGROUND:
 			
 			CharacterUtils.setHistoryAndPersonality(this);
+			if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
+				this.setHistory(History.MUGGER);
+			}
 			
 			// ADDING FETISHES:
 			

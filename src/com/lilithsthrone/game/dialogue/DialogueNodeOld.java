@@ -98,7 +98,7 @@ public abstract class DialogueNodeOld implements Serializable {
 		return isTravelDisabled();
 	}
 
-	public DialogueNodeType getDialgoueNodeType() {
+	public DialogueNodeType getDialogueNodeType() {
 		return DialogueNodeType.NORMAL;
 	}
 

@@ -13,10 +13,10 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.inventory.enchanting.AbstractItemEffectType;
+import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
-import com.lilithsthrone.game.inventory.item.AbstractItemEffectType;
-import com.lilithsthrone.game.inventory.item.ItemEffect;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.XMLSaving;
 

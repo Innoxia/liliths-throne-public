@@ -16,7 +16,7 @@ import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
 import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.inventory.item.ItemEffect;
+import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.XMLSaving;
 
@@ -494,6 +494,6 @@ public class FluidCum implements BodyPartInterface, Serializable, XMLSaving {
 	}
 
 	public float getValuePerMl() {
-		return 0.1f + this.getFluidModifiers().size()*0.2f;
+		return 0.1f + this.getFluidModifiers().size()*0.2f + (this.getFlavour()!=FluidFlavour.CUM?0.5f:0);
 	}
 }

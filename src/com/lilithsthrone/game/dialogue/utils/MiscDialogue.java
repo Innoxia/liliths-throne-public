@@ -52,7 +52,7 @@ public class MiscDialogue {
 		}
 		
 		@Override
-		public DialogueNodeType getDialgoueNodeType() {
+		public DialogueNodeType getDialogueNodeType() {
 			return DialogueNodeType.STATUS_EFFECT_MESSAGE;
 		}
 	};

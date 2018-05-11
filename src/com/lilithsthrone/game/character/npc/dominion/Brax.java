@@ -478,7 +478,7 @@ public class Brax extends NPC {
 				return new Response("Submit to Brax",
 						"Although you've defeated him, your submissive nature is causing you to consider letting Brax dominantly fuck you...",
 						AFTER_COMBAT_VICTORY_SUBMISSIVE_SEX,
-						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)), null, null, null, null){
+						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)), CorruptionLevel.THREE_DIRTY, null, null, null){
 					@Override
 					public Femininity getFemininityRequired() {
 						return Femininity.FEMININE;

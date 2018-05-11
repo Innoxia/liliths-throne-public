@@ -115,7 +115,7 @@ public class Cell implements Serializable, XMLSaving {
 		}
 		
 		cell.getInventory().setMaximumInventorySpace(CELL_MAXIMUM_INVENTORY_SPACE);
-		
+
 		return cell;
 	}
 	

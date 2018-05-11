@@ -38,7 +38,7 @@ public class Library {
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
-			List<NPC> charactersPresent = Main.game.getCharactersPresent();
+			List<NPC> charactersPresent = Main.game.getNonCompanionCharactersPresent();
 			
 			UtilText.nodeContentSB.append("<p>"
 					+ "Pushing open the heavy wooden door, you find yourself walking into Lilaya's library."

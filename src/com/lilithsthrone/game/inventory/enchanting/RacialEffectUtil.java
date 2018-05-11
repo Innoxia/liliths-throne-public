@@ -1,4 +1,4 @@
-package com.lilithsthrone.game.inventory.item;
+package com.lilithsthrone.game.inventory.enchanting;
 
 /**
  * @since 0.1.7?

@@ -18,10 +18,10 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.Rarity;
+import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
+import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.game.inventory.enchanting.TFPotency;
-import com.lilithsthrone.game.inventory.item.ItemEffect;
-import com.lilithsthrone.game.inventory.item.ItemEffectType;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.ColourListPresets;
 import com.lilithsthrone.utils.Util;
@@ -6038,8 +6038,8 @@ public class ClothingType {
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
-			null,
-			null,
+			ColourListPresets.JUST_GREY.getPresetColourList(),
+			ColourListPresets.ALL.getPresetColourList(),
 			null,
 			null,
 			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){

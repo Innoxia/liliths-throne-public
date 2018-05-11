@@ -15,7 +15,7 @@ import com.lilithsthrone.game.character.body.types.FluidType;
 import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
 import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.inventory.item.ItemEffect;
+import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.XMLSaving;
 
@@ -457,6 +457,6 @@ public class FluidGirlCum implements BodyPartInterface, Serializable, XMLSaving 
 	}
 
 	public float getValuePerMl() {
-		return 1f + this.getFluidModifiers().size()*1f;
+		return 1f + this.getFluidModifiers().size()*1f + (this.getFlavour()!=FluidFlavour.GIRL_CUM?0.5f:0);
 	}
 }

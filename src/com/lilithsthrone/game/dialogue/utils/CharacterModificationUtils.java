@@ -517,6 +517,8 @@ public class CharacterModificationUtils {
 			?"Change how tall you are."+(!Main.game.isInNewWorld()?" This will affect some descriptions and scenes later on in the game.":"")
 			:UtilText.parse(BodyChanging.getTarget(), "Change how tall [npc.name] is.")),
 			"HEIGHT",
+			"cm",
+			"cm",
 			BodyChanging.getTarget().getHeightValue()+"cm</br>("+Util.inchesToFeetAndInches(Util.conversionCentimetresToInches(BodyChanging.getTarget().getHeightValue()))+")",
 			BodyChanging.getTarget().getHeightValue()<=BodyChanging.getTarget().getMinimumHeight(),
 			BodyChanging.getTarget().getHeightValue()>=BodyChanging.getTarget().getMaximumHeight());
@@ -618,7 +620,7 @@ public class CharacterModificationUtils {
 		}
 	}
 	
-	private static String applyFullVariableWrapper(String title, String description, String id, String value, boolean decreaseDisabled, boolean increaseDisabled) {
+	private static String applyFullVariableWrapper(String title, String description, String id, String measurement, String measurementPlural, String value, boolean decreaseDisabled, boolean increaseDisabled) {
 		return "<div class='container-full-width'>"
 					+"<div class='container-half-width'>"
 						+ "<h5 style='text-align:center;'>"
@@ -631,10 +633,10 @@ public class CharacterModificationUtils {
 					+ "<div class='container-half-width'>"
 						+ "<div class='container-half-width' style='width:calc(33.3% - 16px); text-align:center;'>"
 							+ "<div id='"+id+"_DECREASE' class='normal-button"+(decreaseDisabled?" disabled":"")+"' style='width:100%;'>"
-								+ (decreaseDisabled?"[style.boldDisabled(-1cm)]":"[style.boldBadMinor(-1cm)]")
+								+ (decreaseDisabled?"[style.boldDisabled(-1cm)]":"[style.boldBadMinor(-1"+measurement+")]")
 							+ "</div>"
 							+ "<div id='"+id+"_DECREASE_LARGE' class='normal-button"+(decreaseDisabled?" disabled":"")+"' style='width:100%;'>"
-								+ (decreaseDisabled?"[style.boldDisabled(-5cm)]":"[style.boldBad(-5cm)]")
+								+ (decreaseDisabled?"[style.boldDisabled(-5cm)]":"[style.boldBad(-5"+measurementPlural+")]")
 							+ "</div>"
 						+ "</div>"
 						+ "<div class='container-half-width' style='width:calc(33.3% - 16px); text-align:center;'>"
@@ -642,10 +644,10 @@ public class CharacterModificationUtils {
 						+ "</div>"
 						+ "<div class='container-half-width' style='width:calc(33.3% - 16px); text-align:center;'>"
 							+ "<div id='"+id+"_INCREASE' class='normal-button"+(increaseDisabled?" disabled":"")+"' style='width:100%;'>"
-								+ (increaseDisabled?"[style.boldDisabled(+1cm)]":"[style.boldGoodMinor(+1cm)]")
+								+ (increaseDisabled?"[style.boldDisabled(+1cm)]":"[style.boldGoodMinor(+1"+measurement+")]")
 							+ "</div>"
 							+ "<div id='"+id+"_INCREASE_LARGE' class='normal-button"+(increaseDisabled?" disabled":"")+"' style='width:100%;'>"
-								+ (increaseDisabled?"[style.boldDisabled(+5cm)]":"[style.boldGood(+5cm)]")
+								+ (increaseDisabled?"[style.boldDisabled(+5cm)]":"[style.boldGood(+5"+measurementPlural+")]")
 							+ "</div>"
 						+ "</div>"
 					+ "</div>"
@@ -2155,7 +2157,9 @@ public class CharacterModificationUtils {
 			?"Change the size of your penis."
 			:UtilText.parse(BodyChanging.getTarget(), "Change the size of [npc.name]'s penis.")),
 			"PENIS_SIZE",
-			BodyChanging.getTarget().getPenisRawSizeValue()+"cm</br>("+Util.inchesToFeetAndInches(Util.conversionCentimetresToInches(BodyChanging.getTarget().getPenisRawSizeValue()))+")",
+			" inch",
+			" inches",
+			Util.inchesToFeetAndInches(BodyChanging.getTarget().getPenisRawSizeValue())+"</br>("+Util.conversionInchesToCentimetres(BodyChanging.getTarget().getPenisRawSizeValue())+"cm)",
 			BodyChanging.getTarget().getPenisRawSizeValue()<=0,
 			BodyChanging.getTarget().getPenisRawSizeValue()>=PenisSize.SEVEN_STALLION.getMaximumValue());
 	}

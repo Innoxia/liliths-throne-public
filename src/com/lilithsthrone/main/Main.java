@@ -66,6 +66,8 @@ public class Main extends Application {
 
 	public static final String VERSION_NUMBER = "0.2.5",
 			VERSION_DESCRIPTION = "Alpha";
+	
+	private final static boolean DEBUG = true;
 
 	public static final Image WINDOW_IMAGE = new Image("/com/lilithsthrone/res/images/windowIcon32.png");
 
@@ -510,14 +512,15 @@ public class Main extends Application {
 		dir.mkdir();
 		
 		// Open error log
-		try {
-			@SuppressWarnings("resource")
-			PrintStream stream = new PrintStream("data/error.log");
-			System.setErr(stream);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+		if(!DEBUG) {
+			try {
+				@SuppressWarnings("resource")
+				PrintStream stream = new PrintStream("data/error.log");
+				System.setErr(stream);
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
 		}
-		
 		// Load properties:
 		if (new File("data/properties.xml").exists()) {
 			try {
@@ -625,7 +628,7 @@ public class Main extends Application {
 		} else if (Main.game.isInSex()) {
 			Main.game.flashMessage(Colour.GENERIC_BAD, "Cannot quicksave while in sex!");
 			
-		} else if (Main.game.getCurrentDialogueNode().getDialgoueNodeType()!=DialogueNodeType.NORMAL) {
+		} else if (Main.game.getCurrentDialogueNode().getDialogueNodeType()!=DialogueNodeType.NORMAL) {
 			Main.game.flashMessage(Colour.GENERIC_BAD, "Can only quicksave in a normal scene!");
 			
 		} else if (!Main.game.isStarted() || !Main.game.getCurrentDialogueNode().equals(Main.game.getDefaultDialogueNoEncounter())) {

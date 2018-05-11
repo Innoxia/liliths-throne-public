@@ -22,75 +22,87 @@
 	
 	Patch notes:
 	
-Gameplay:
-	Filled in more of the placeholder text in Submission.
-	Added more content for Submission Enforcer Post, including a new Enforcer NPC, 'Claire'. When entering a Submission Enforcer Post for the first time, Claire's dialogue will trigger. (There will be a quest related to this added for the next release.)
-
-Slavery:
-	'Dairy Cow' job now correctly supports 8 slaves per milking room.
-	Made some minor improvements to slavery UI.
-	Milking room now milks a slave of their milk, cum, and girlcum at the same time.
-	Added options to enable/disable milk, cum, and girlcum milking.
-	Moved pregnancy job settings (Promiscuity pills, no pills, or Vixen's Virility pills) from the 'Stocks' and 'Prostitute' jobs, and moved them into a standard permission.
-	Added options in milking room to set automatic selling, as well as options to drink or sell any stored fluids.
-	Balanced fluid values.
-	Added three new upgrades to the milking room.
-	Added self-milking options to milking rooms.
+	Other:
+		All 'Submit' actions in the game are no longer completely locked out by not having the Submissive fetish, and instead have an associated corruption bypass cost.
+		Having a special flavour for milk, cum, or girlcum now increases its value.
+		Vicky now stocks 12 TF potions every day, instead of 6.
+		Slightly improved item ordering in inventory.
+		Added secondary colour to 'sport shorts', for the string tie. Replaced Lumi's shorts with sport shorts.
 	
-Enchanting:
-	You can now set a custom name for any potions or clothing that you create.
-	Added: Saving and loading of enchantment effects. (Built upon framework created by Master of Puppets.)
-
-Contributors:
-	Added testing for Nnxx's character 'Lumi' in the debug menu. Once she's finished, she will be added a random encounter in Dominion's alleys, but for now, she's only accessible through the debug menu.
-	Fixed typos in Telepathic Communication description. (Mach565)
-	Companion's damage scaling (on higher difficulty settings) is now treated the same as the player's. (Darkon47)
-	Added rings for masculine characters in character creation. (rfpnj)
-	Huge amount of punctuation fixes. (WoefulWombat)
-	Even more punctuation fixes. (WoefulWombat)
-	Added framework for saving and loading enchantment effects. (Master of Puppets)
-	Fixed bug with intoxication percentages not displaying correctly. (Pimvgd)
-	Fixed prologue typo. (Mach565)
-	Fixed cause of strange characters being displayed in some svgs. (Pimvgd)
-	Fixed bug where impregnation chance was using the wrong partner's fertility stat. (Itpatch)
+	Bugs:
+		Fixed several body covering colours not being saved or loaded correctly.
+		Fixed cause of a game import error (related to SlaveryUtil).
+		Fixed cause of possible game crash when clicking on weapons in inventory.
+		Fixed bug where milking room was milking cum instead of girlcum.
+		Milk regeneration enchantments are now correctly affected by the Water School perk (i.e. it's free).
+		Fixed a malfunction in the milking machines, where, even if they were powerful enough to do it, they wouldn't extract any stored milk from a slave's breasts past their milk regeneration rate. (e.g. If a slave had 500ml of milk in their breasts, and they regenerated 100ml an hour, and the machine was capable of milking 250ml an hour, the machine would only be milking 100ml an hour, instead of 250/250/200/100/etc.)
+		Fixed Vicky's potions having strange names.
+		Fixed Vicky's inventory resetting every time you loaded the game.
+		Fixed attackers in arcane storms using prostitute dialogue.
+		Fixed TF menu penis size showing 'cm' instead of 'inches'.
+		Pressing enter in the enchanting screen's rename box will no longer make the screen go blank.
+		Fixed another(!!!!!) cause of the NPC-stuck-on-screen bug.
+		Fixed companions being treated as librarians when entering Lilaya's library.
+		Fixed custom names for clothing not persisting between saves.
+		Fixed elusive bug where slave rooms would sometimes randomly reset their upgrades.
+		Fixed debug menu being available in the prologue (as it would end up breaking everything if used).
+		Typo fixes.
+		Fixed bug where equipped condoms couldn't be clicked on.
 	
-Other:
-	Ankle spreader bar now blocks escape in combat (if you are unable to fly).
-	Wrist restraints now block flight from arm-wings (such as harpy or bat wings).
-	NPCs now gain or lose affection towards you after sex, depending on if they were in the resisting pace or not.
-	Slimes can no longer fly.
+	
+	
+	
+	Let free NPCs redress every 2 or 3 hours rather than once a day. It still prevents farming but it also keeps them from hanging around in ther tile naked all day without trying to do anything about it
+	
+	having a opaque demon stone with the fireball spell on it have me having unlocked the fireball spell unlocks the option twice during combat
+	
+	custom clothes's descriptions are still not showing up in the tooltips.
+	
+	Remove the affection changes at the start of sex now that affection gets modified at the end of sex based on our performance durring the act.
+	
+	somehow reindeer dialogue fired in slave room
+	
+	adding a way to save presets for transformation
+	
+	it seems like the part of the description where it says how many times you've had sex with someone counts the number of times they've had sex in a brothel while working for you as a slave
+	
+	Oral sex seems broken. Even NPCs with a fetish for it won't let you continue giving it to them nor will they initiate it unless they end it the very next turn.
+	
+	I'm playing the exe version of 2.4 as a slime and every time I load the save back up all my piercings are unequipped. 
+	
+	doesn't look like its been reported but I've ran into a bug involving condoms and having sex with 2 partners. If one partner is fucking your pussy and is wearing a condom when he cums, he can't get you pregnant, but somehow the other person who isn't fucking your pussy and hadn't came yet, can impregnate you.
 
-Bugs:
-	Fixed bug where NPCs would have a random colour for their lips/nipples/anus. This resets NPC colours for those parts only if they're not your slave, so your slave's colours won't be reset by this.
-	Typo and parsing fixes.
-	Fixed issue with parsing some characters in text fields.
-	Fixed spell page showing special ability was unlocked, even when it wasn't.
-	Fixed bug where some icons would show random letters on some systems.
-	Fixed (yet another) cause of slavery stats getting stuck on the right-hand section of the screen.
-	Fixed broken colours in rainbow set status effect icon.
-	Fixed bug where fetish screen would sometimes become unresponsive.
-	NPCs should no longer spawn in with fetish or transforming fetishes if you have them set to 0% in your content options.
-	Fixed milking room upgrade being blocked when you had companions in your party.
-	Fixed slave multiple-partner sex breaking if you had companions in your party.
-	Fixed bug where slaves could start spitroast even if they weren't attracted to you.
-	Crotchless chaps no longer conceal the anus slot.
-	Fixed yet more bugs related to slavery targets being broken between scenes.
-	Fixed 'Dairy Cow' slave job having some settings from prostitute.
-	Fixed bug where fluids would sometimes load in their modifiers twice (potentially causing issues with removal of fluid modifiers).
-	Fixed slimes being able to TF penis type to 'artificial'.
+	Exporting while you have an elemental summoned, or likely having any companion causes the character not being able to be imported into the auction house.
+	
+	I can't panty fap again after getting pegged by Rose
+		No actions appear, and rose's inventory is on teh right
+	
+	ongoing hotdogging broken
 
-
+	
+	those with unwilling fuck toy who use resisting at high arousal still lose affection from being in that pace
+	
+	
+	Edit the forum post on Fenoxo due to how it isn't a random generated map anymore and stuff
+	
+	
+	
+	As a slime, Succubi's Secrets eye-coloring still has a couple of... issues.
+	- the colors presented are the same as you'd get if you weren't a slime (i.e. you could make your eyes non-transparent)
+	- changing the iris color takes the money but doesn't apply the change
+	Additionally:
+	- changing eye color in the Transform menu after the first time doesn't seem to affect what is printed in the selfie
+	- going to the Covering menu in Succubi's Secret for the first time seems to set your various slime colors to a specific one (it was green when I did it moments ago)
+	All-in-all, the color changes for Slimes seem to be a bit of a mess at the moment.
+	
+	
 
 	Don't forget about the bug where lilaya always recognizes you are a futa even when you are 8inchhes or below
 		Also don’t forget about the sheath cock issue
 		Perhaps the solution there would be that if a cock is sheathed it allows you to have a cock up to 16 before you are recognized
 		Where people will recognize you as female but say they always knew you were futa if your cock size is above 8 inches
 		
-
-	ongoing hotdogging broken
-
-
-
+		
 	Special encounters for:
 			
 		Rat-morphs & Alligator-morphs

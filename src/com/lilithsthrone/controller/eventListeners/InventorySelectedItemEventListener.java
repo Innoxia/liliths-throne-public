@@ -30,14 +30,14 @@ public class InventorySelectedItemEventListener implements EventListener {
 	@Override
 	public void handleEvent(Event event) {
 
-		if (Main.game.getCurrentDialogueNode().getDialgoueNodeType() == DialogueNodeType.CHARACTERS_PRESENT || Main.game.getCurrentDialogueNode().getDialgoueNodeType() == DialogueNodeType.PHONE) {
+		if (Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.CHARACTERS_PRESENT || Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.PHONE) {
 			return;
 		}
 		
 		TooltipUpdateThread.cancelThreads=true;
 		
 		if (item != null) {
-			if(Main.game.getCurrentDialogueNode().getDialgoueNodeType()!=DialogueNodeType.INVENTORY) {
+			if(Main.game.getCurrentDialogueNode().getDialogueNodeType()!=DialogueNodeType.INVENTORY) {
 				Main.mainController.openInventory();
 			}
 			if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.quickTrade)) {
@@ -64,7 +64,7 @@ public class InventorySelectedItemEventListener implements EventListener {
 			}
 			
 		} else if (clothing != null) {
-			if(Main.game.getCurrentDialogueNode().getDialgoueNodeType()!=DialogueNodeType.INVENTORY) {
+			if(Main.game.getCurrentDialogueNode().getDialogueNodeType()!=DialogueNodeType.INVENTORY) {
 				Main.mainController.openInventory();
 			}
 			InventoryDialogue.setOwner(owner);
@@ -74,7 +74,7 @@ public class InventorySelectedItemEventListener implements EventListener {
 			Main.game.setContent(new Response("", "", InventoryDialogue.CLOTHING_INVENTORY));
 			
 		} else if (weapon != null) {
-			if(Main.game.getCurrentDialogueNode().getDialgoueNodeType()!=DialogueNodeType.INVENTORY) {
+			if(Main.game.getCurrentDialogueNode().getDialogueNodeType()!=DialogueNodeType.INVENTORY) {
 				Main.mainController.openInventory();
 			}
 			InventoryDialogue.setOwner(owner);
@@ -84,7 +84,7 @@ public class InventorySelectedItemEventListener implements EventListener {
 			Main.game.setContent(new Response("", "", InventoryDialogue.WEAPON_INVENTORY));
 
 		} else if (clothingEquipped != null) {
-			if(Main.game.getCurrentDialogueNode().getDialgoueNodeType()!=DialogueNodeType.INVENTORY) {
+			if(Main.game.getCurrentDialogueNode().getDialogueNodeType()!=DialogueNodeType.INVENTORY) {
 				Main.mainController.openInventory();
 			}
 			InventoryDialogue.setOwner(owner);
@@ -94,7 +94,7 @@ public class InventorySelectedItemEventListener implements EventListener {
 			Main.game.setContent(new Response("", "", InventoryDialogue.CLOTHING_EQUIPPED));
 
 		} else if (weaponEquipped != null) {
-			if(Main.game.getCurrentDialogueNode().getDialgoueNodeType()!=DialogueNodeType.INVENTORY) {
+			if(Main.game.getCurrentDialogueNode().getDialogueNodeType()!=DialogueNodeType.INVENTORY) {
 				Main.mainController.openInventory();
 			}
 			InventoryDialogue.setOwner(owner);

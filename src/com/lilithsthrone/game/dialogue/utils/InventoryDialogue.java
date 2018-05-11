@@ -155,8 +155,11 @@ public class InventoryDialogue {
 						return CLOTHING_INVENTORY.getResponse(responseTab, index);
 					}
 				} else if(weapon!=null) {
-					if((Main.game.getPlayer().getMainWeapon().equals(weapon) || Main.game.getPlayer().getOffhandWeapon().equals(weapon))
-							 || (inventoryNPC!=null && (inventoryNPC.getMainWeapon().equals(weapon) || inventoryNPC.getOffhandWeapon().equals(weapon)))) {
+					if(((Main.game.getPlayer().getMainWeapon()!=null && Main.game.getPlayer().getMainWeapon().equals(weapon))
+							|| (Main.game.getPlayer().getOffhandWeapon()!=null && Main.game.getPlayer().getOffhandWeapon().equals(weapon)))
+								|| (inventoryNPC!=null
+									&& ((inventoryNPC.getMainWeapon()!=null && inventoryNPC.getMainWeapon().equals(weapon))
+											|| (inventoryNPC.getOffhandWeapon()!=null && inventoryNPC.getOffhandWeapon().equals(weapon))))) {
 						return WEAPON_EQUIPPED.getResponse(responseTab, index);
 					} else {
 						return WEAPON_INVENTORY.getResponse(responseTab, index);
@@ -814,7 +817,7 @@ public class InventoryDialogue {
 		}
 
 		@Override
-		public DialogueNodeType getDialgoueNodeType() {
+		public DialogueNodeType getDialogueNodeType() {
 			return DialogueNodeType.INVENTORY;
 		}
 	};
@@ -2141,7 +2144,7 @@ public class InventoryDialogue {
 		}
 
 		@Override
-		public DialogueNodeType getDialgoueNodeType() {
+		public DialogueNodeType getDialogueNodeType() {
 			return DialogueNodeType.INVENTORY;
 		}
 	};
@@ -2891,7 +2894,7 @@ public class InventoryDialogue {
 		}
 		
 		@Override
-		public DialogueNodeType getDialgoueNodeType() {
+		public DialogueNodeType getDialogueNodeType() {
 			return DialogueNodeType.INVENTORY;
 		}
 	};
@@ -3960,7 +3963,7 @@ public class InventoryDialogue {
 		}
 
 		@Override
-		public DialogueNodeType getDialgoueNodeType() {
+		public DialogueNodeType getDialogueNodeType() {
 			return DialogueNodeType.INVENTORY;
 		}
 	};
@@ -4339,7 +4342,7 @@ public class InventoryDialogue {
 		}
 
 		@Override
-		public DialogueNodeType getDialgoueNodeType() {
+		public DialogueNodeType getDialogueNodeType() {
 			return DialogueNodeType.INVENTORY;
 		}
 	};
@@ -5221,7 +5224,7 @@ public class InventoryDialogue {
 		}
 
 		@Override
-		public DialogueNodeType getDialgoueNodeType() {
+		public DialogueNodeType getDialogueNodeType() {
 			return DialogueNodeType.INVENTORY;
 		}
 	};
@@ -5366,7 +5369,7 @@ public class InventoryDialogue {
 		}
 
 		@Override
-		public DialogueNodeType getDialgoueNodeType() {
+		public DialogueNodeType getDialogueNodeType() {
 			return DialogueNodeType.INVENTORY;
 		}
 	};
@@ -5490,7 +5493,7 @@ public class InventoryDialogue {
 		}
 
 		@Override
-		public DialogueNodeType getDialgoueNodeType() {
+		public DialogueNodeType getDialogueNodeType() {
 			return DialogueNodeType.INVENTORY;
 		}
 	};
@@ -5591,7 +5594,7 @@ public class InventoryDialogue {
 		}
 
 		@Override
-		public DialogueNodeType getDialgoueNodeType() {
+		public DialogueNodeType getDialogueNodeType() {
 			return DialogueNodeType.INVENTORY;
 		}
 	};
@@ -5689,7 +5692,7 @@ public class InventoryDialogue {
 		}
 
 		@Override
-		public DialogueNodeType getDialgoueNodeType() {
+		public DialogueNodeType getDialogueNodeType() {
 			return DialogueNodeType.INVENTORY;
 		}
 	};
