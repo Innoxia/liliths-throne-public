@@ -55,7 +55,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 
 	private Map<QuestLine, Quest> quests;
 
-	private boolean mainQuestUpdated, sideQuestUpdated, romanceQuestUpdated;
+	private boolean mainQuestUpdated, sideQuestUpdated, relationshipQuestUpdated;
 
 	private Set<Race> racesDiscoveredFromBook;
 	
@@ -87,7 +87,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 
 		mainQuestUpdated = false;
 		sideQuestUpdated = false;
-		romanceQuestUpdated = false;
+		relationshipQuestUpdated = false;
 		
 		racesDiscoveredFromBook = new HashSet<>();
 
@@ -122,7 +122,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		playerSpecific.appendChild(questUpdatesElement);
 		CharacterUtils.createXMLElementWithValue(doc, playerSpecific, "mainQuestUpdated", String.valueOf(this.mainQuestUpdated));
 		CharacterUtils.createXMLElementWithValue(doc, playerSpecific, "sideQuestUpdated", String.valueOf(this.sideQuestUpdated));
-		CharacterUtils.createXMLElementWithValue(doc, playerSpecific, "romanceQuestUpdated", String.valueOf(this.romanceQuestUpdated));
+		CharacterUtils.createXMLElementWithValue(doc, playerSpecific, "relationshipQuestUpdated", String.valueOf(this.relationshipQuestUpdated));
 		
 		Element innerElement = doc.createElement("racesDiscovered");
 		playerSpecific.appendChild(innerElement);
@@ -187,8 +187,8 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 			if(playerSpecificElement.getElementsByTagName("sideQuestUpdated").getLength()!=0) {
 				character.setSideQuestUpdated(Boolean.valueOf(((Element)playerSpecificElement.getElementsByTagName("sideQuestUpdated").item(0)).getAttribute("value")));
 			}
-			if(playerSpecificElement.getElementsByTagName("romanceQuestUpdated").getLength()!=0) {
-				character.setRomanceQuestUpdated(Boolean.valueOf(((Element)playerSpecificElement.getElementsByTagName("romanceQuestUpdated").item(0)).getAttribute("value")));
+			if(playerSpecificElement.getElementsByTagName("relationshipQuestUpdated").getLength()!=0) {
+				character.setRelationshipQuestUpdated(Boolean.valueOf(((Element)playerSpecificElement.getElementsByTagName("relationshipQuestUpdated").item(0)).getAttribute("value")));
 			}
 	
 			try {
@@ -393,12 +393,12 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		this.sideQuestUpdated = sideQuestUpdated;
 	}
 
-	public boolean isRomanceQuestUpdated() {
-		return romanceQuestUpdated;
+	public boolean isRelationshipQuestUpdated() {
+		return relationshipQuestUpdated;
 	}
 
-	public void setRomanceQuestUpdated(boolean romanceQuestUpdated) {
-		this.romanceQuestUpdated = romanceQuestUpdated;
+	public void setRelationshipQuestUpdated(boolean relationshipQuestUpdated) {
+		this.relationshipQuestUpdated = relationshipQuestUpdated;
 	}
 
 	public String startQuest(QuestLine questLine) {
@@ -418,7 +418,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 			setSideQuestUpdated(true);
 			
 		} else {
-			setRomanceQuestUpdated(true);
+			setRelationshipQuestUpdated(true);
 		}
 		
 		

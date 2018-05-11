@@ -220,7 +220,7 @@ public class Nyan extends NPC {
 		
 		specials.clear();
 
-		boolean enchantedGear = Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_NYAN_HELP);
+		boolean enchantedGear = Main.game.getPlayer().isQuestCompleted(QuestLine.RELATIONSHIP_NYAN_HELP);
 		
 		for(AbstractClothingType clothing : ClothingType.getAllClothing()) {
 			if(clothing.getItemTags().contains(ItemTag.SOLD_BY_NYAN)) {

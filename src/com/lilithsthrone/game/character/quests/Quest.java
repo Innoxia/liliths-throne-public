@@ -416,7 +416,7 @@ public enum Quest {
 	},
 	
 	
-	SIDE_NYAN_STOCK_ISSUES(QuestType.SIDE, 1, 0) {
+	RELATIONSHIP_NYAN_STOCK_ISSUES(QuestType.SIDE, 1, 0) {
 		@Override
 		public String getName() {
 			return "Offer Nyan your help";
@@ -435,7 +435,7 @@ public enum Quest {
 		}
 	},
 	
-	SIDE_NYAN_STOCK_ISSUES_AGREED_TO_HELP(QuestType.SIDE, 10, 0) {
+	RELATIONSHIP_NYAN_STOCK_ISSUES_AGREED_TO_HELP(QuestType.SIDE, 10, 0) {
 		@Override
 		public String getName() {
 			return "Confront the suppliers";
@@ -453,7 +453,7 @@ public enum Quest {
 		}
 	},
 	
-	SIDE_NYAN_STOCK_ISSUES_SUPPLIERS_BEATEN(QuestType.SIDE, 10, 100) {
+	RELATIONSHIP_NYAN_STOCK_ISSUES_SUPPLIERS_BEATEN(QuestType.SIDE, 10, 100) {
 		@Override
 		public String getName() {
 			return "Reward";

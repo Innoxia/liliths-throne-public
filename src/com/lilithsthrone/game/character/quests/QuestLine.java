@@ -41,7 +41,7 @@ public enum QuestLine {
 			QuestType.SIDE,
 			QuestTree.hypnoWatchTree),
 	
-	SIDE_NYAN_HELP("Supplier Issues", "You helped Nyan solve the problem she was having with her suppliers.",
+	RELATIONSHIP_NYAN_HELP("Supplier Issues", "You helped Nyan solve the problem she was having with her suppliers.",
 			QuestType.SIDE,
 			QuestTree.nyanTree),
 
