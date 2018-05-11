@@ -128,7 +128,7 @@ public enum RaceStage {
 	 * Used to check if a sample value has at least the bits on that are on in mustHaveBits  
 	 * ^Grammar ever?
 	 
-	 * @param mustHaveBits All the bits sample has to have to be true.
+	 * @param mustHaveBits All the bits, that sample has to have be true.
 	 * @param sample The number which we're checking for bits.
 	 * @return if the second variable has all the bits being checked
 	 * @author 8ch
