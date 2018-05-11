@@ -338,9 +338,13 @@ public enum Colour {
 	// Body parts:
 
 	// Skin (Human and Demon):
+	SKIN_PORCELAIN(Util.newColour(0xDBCDB9), Util.newColour(0xDBCDB9), "porcelain")
 	SKIN_PALE(Util.newColour(0xFBF4E9), Util.newColour(0x534946), "pale"),
 	SKIN_LIGHT(BaseColour.YELLOW_LIGHT, "light"),
+	SKIN_ROSY(Util.newColour(0xDDAA93), Util.newColour(0xDDAA93), "rosy")
+	SKIN_TANNED(Util.newColour(0xC39D6B), Util.newColour(0xC39D6B), "Tanned")
 	SKIN_OLIVE(BaseColour.TAN, "olive"),
+	SKIN_CHOCOLATE(Util.newColour(0x59372D), Util.newColour(0x59372D), "chocolate")
 	SKIN_DARK(BaseColour.BROWN_DARK, "dark"),
 	SKIN_EBONY(BaseColour.BLACK, "ebony"),
 	
@@ -514,9 +518,13 @@ public enum Colour {
 	// Skin/fur/body part groups:
 	
 	public static List<Colour> humanSkinColours = Util.newArrayListOfValues(
+			new ListValue<Colour>(Colour.SKIN_PORCELAIN),
 			new ListValue<Colour>(Colour.SKIN_PALE),
 			new ListValue<Colour>(Colour.SKIN_LIGHT),
+			new ListValue<Colour>(Colour.SKIN_ROSY),
+			new ListValue<Colour>(Colour.SKIN_TANNED),
 			new ListValue<Colour>(Colour.SKIN_OLIVE),
+			new ListValue<Colour>(Colour.SKIN_CHOCOLATE),
 			new ListValue<Colour>(Colour.SKIN_DARK),
 			new ListValue<Colour>(Colour.SKIN_EBONY));
 
@@ -524,9 +532,13 @@ public enum Colour {
 			new ListValue<Colour>(Colour.SKIN_PINK_LIGHT));
 	
 	public static List<Colour> demonSkinColours = Util.newArrayListOfValues(
+			new ListValue<Colour>(Colour.SKIN_PORCELAIN),
 			new ListValue<Colour>(Colour.SKIN_PALE),
 			new ListValue<Colour>(Colour.SKIN_LIGHT),
+			new ListValue<Colour>(Colour.SKIN_ROSY),
+			new ListValue<Colour>(Colour.SKIN_TANNED),
 			new ListValue<Colour>(Colour.SKIN_OLIVE),
+			new ListValue<Colour>(Colour.SKIN_CHOCOLATE),
 			new ListValue<Colour>(Colour.SKIN_DARK),
 			new ListValue<Colour>(Colour.SKIN_EBONY),
 			new ListValue<Colour>(Colour.SKIN_IVORY),
@@ -548,9 +560,13 @@ public enum Colour {
 			new ListValue<Colour>(Colour.SKIN_PINK));
 
 	public static List<Colour> allSkinColours = Util.newArrayListOfValues(
+			new ListValue<Colour>(Colour.SKIN_PORCELAIN),
 			new ListValue<Colour>(Colour.SKIN_PALE),
 			new ListValue<Colour>(Colour.SKIN_LIGHT),
+			new ListValue<Colour>(Colour.SKIN_ROSY),
+			new ListValue<Colour>(Colour.SKIN_TANNED),
 			new ListValue<Colour>(Colour.SKIN_OLIVE),
+			new ListValue<Colour>(Colour.SKIN_CHOCOLATE),
 			new ListValue<Colour>(Colour.SKIN_DARK),
 			new ListValue<Colour>(Colour.SKIN_EBONY),
 			new ListValue<Colour>(Colour.SKIN_IVORY),
