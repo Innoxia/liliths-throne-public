@@ -1,6 +1,13 @@
 package com.lilithsthrone.utils;
 
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -11,13 +18,13 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 import java.util.Map.Entry;
+import java.util.NoSuchElementException;
 import java.util.function.Function;
 
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.DisplacementType;
-
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 
@@ -152,6 +159,7 @@ public class Util {
 		return map;
 	}
 
+
 	public String keyCodeToShortString(KeyCode keyCode) {
 		switch (keyCode) {
 		case OPEN_BRACKET:
@@ -170,7 +178,27 @@ public class Util {
 			return keyCode.toString();
 		}
 	}
-
+	
+	public static void openLinkInDefaultBrowser(String url) {
+		Runtime runtime = Runtime.getRuntime();
+		try {
+			runtime.exec("xdg-open " + url);
+		} catch (IOException e0) {
+			Desktop desktop = Desktop.getDesktop();
+			try {
+				desktop.browse(new URI(url));
+			} catch (IOException | URISyntaxException e) {
+				e.printStackTrace();
+				e0.printStackTrace();
+			}
+		}
+	}
+	
+	public static String getFileTime(File file) throws IOException {
+	    DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy - hh:mm");
+	    return dateFormat.format(file.lastModified());
+	}
+	
 	public static class ListValue<U> {
 		private U value;
 
@@ -293,10 +321,6 @@ public class Util {
 		}
 		
 		return String.valueOf(integer);
-	}
-	
-	public static String formatForHTML(String input) {
-		return input.replaceAll("'", "&apos;").replaceAll("\"", "&quot;");
 	}
 	
 	public static String getKeyCodeCharacter(KeyCode code) {
@@ -711,23 +735,27 @@ public class Util {
 	 */
 	private static <T> String toStringList(Collection<T> items, Function<T, String> stringExtractor, String combiningWord) {
 		Iterator<T> itemIterator = items.iterator();
-		T currentItem = itemIterator.next();
-
 		utilitiesStringBuilder.setLength(0);
-		utilitiesStringBuilder.append(stringExtractor.apply(currentItem));
-		if (itemIterator.hasNext()) { // If more than one item, enter the loop
-			currentItem = itemIterator.next();
-			while (itemIterator.hasNext()) { // Use commas until we're on the last item
-				utilitiesStringBuilder.append(", " + stringExtractor.apply(currentItem));
+		try {
+			T currentItem = itemIterator.next();
+	
+			utilitiesStringBuilder.append(stringExtractor.apply(currentItem));
+			if (itemIterator.hasNext()) { // If more than one item, enter the loop
 				currentItem = itemIterator.next();
+				while (itemIterator.hasNext()) { // Use commas until we're on the last item
+					utilitiesStringBuilder.append(", " + stringExtractor.apply(currentItem));
+					currentItem = itemIterator.next();
+				}
+				utilitiesStringBuilder.append((items.size()>2?", ":" ") + combiningWord + " " + stringExtractor.apply(currentItem));
 			}
-			utilitiesStringBuilder.append(" " + combiningWord + " " + stringExtractor.apply(currentItem));
+		} catch(NoSuchElementException ex) {
+			System.err.println("Util.toStringList() error - NoSuchElementException! (It's probably nothing to worry about...)");
 		}
 		return utilitiesStringBuilder.toString();
 	}
 
-	public static String clothesToStringList(Collection<AbstractClothing> clothingSet) {
-		return Util.toStringList(clothingSet, (AbstractClothing o) -> Util.capitaliseSentence(o.getClothingType().getName()), "and");
+	public static String clothesToStringList(Collection<AbstractClothing> clothingSet, boolean capitalise) {
+		return Util.toStringList(clothingSet, (AbstractClothing o) -> (capitalise?Util.capitaliseSentence(o.getClothingType().getName()):o.getClothingType().getName()), "and");
 	}
 
 	public static String setToStringListCoverableArea(Set<CoverableArea> coverableAreaSet) {

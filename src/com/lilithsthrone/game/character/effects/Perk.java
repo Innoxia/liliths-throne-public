@@ -624,7 +624,9 @@ public enum Perk {
 			PerkCategory.PHYSICAL,
 			"perks/misc_observant",
 			Colour.GENERIC_ARCANE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.CRITICAL_CHANCE, 5)), Util.newArrayListOfValues(new ListValue<>("<span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>Gender detection</span>"))) {
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.CRITICAL_CHANCE, 5)),
+			Util.newArrayListOfValues(
+					new ListValue<>("<span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>Gender detection</span>"))) {
 		@Override
 		public String applyPerkGained(GameCharacter character) {
 			return UtilText.parsePlayerThought("");
@@ -966,7 +968,7 @@ public enum Perk {
 	
 	
 	CLOTHING_ENCHANTER(20,
-			true,
+			false,
 			"arcane weaver",
 			PerkCategory.ARCANE,
 			"perks/arcaneWeaver",
@@ -990,10 +992,10 @@ public enum Perk {
 	},
 	
 	BARREN(20,
-			false,
+			true,
 			"barren",
 			PerkCategory.PHYSICAL,
-			"perks/fitness_barren",
+			"perks/barren",
 			Colour.GENERIC_SEX,
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.FERTILITY, -100)), null) {
 
@@ -1013,10 +1015,10 @@ public enum Perk {
 	},
 	
 	FIRING_BLANKS(20,
-			false,
+			true,
 			"firing blanks",
 			PerkCategory.PHYSICAL,
-			"perks/fitness_barren",
+			"perks/firing_blanks",
 			Colour.GENERIC_SEX,
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.VIRILITY, -100)), null) {
 
@@ -1038,7 +1040,7 @@ public enum Perk {
 	private int renderingPriority;
 	protected String name;
 	private Colour colour;
-	private boolean major;
+	private boolean equippableTrait;
 
 	// Attributes modified by this Virtue:
 	private HashMap<Attribute, Integer> attributeModifiers;
@@ -1057,7 +1059,7 @@ public enum Perk {
 		this.name = name;
 		this.colour = colour;
 		
-		this.major = major;
+		this.equippableTrait = major;
 		
 		this.perkCategory = perkCategory;
 
@@ -1066,9 +1068,10 @@ public enum Perk {
 		this.extraEffects = extraEffects;
 
 		try {
-			InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/"
-					+ pathName
-					+ ".svg");
+			InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/" + pathName + ".svg");
+			if(is==null) {
+				System.err.println("Error! Perk icon file does not exist (Trying to read from '"+pathName+"')!");
+			}
 			SVGString = Util.inputStreamToString(is);
 
 			SVGString = SVGString.replaceAll("#ff2a2a", colour.getShades()[0]);
@@ -1113,8 +1116,8 @@ public enum Perk {
 		return colour;
 	}
 
-	public boolean isMajor() {
-		return major;
+	public boolean isEquippableTrait() {
+		return equippableTrait;
 	}
 
 	public abstract String getDescription(GameCharacter target);

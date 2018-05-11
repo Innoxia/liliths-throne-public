@@ -129,6 +129,24 @@ public enum TFModifier {
 			"modifier_circle_damage",
 			Rarity.RARE),
 	
+	DAMAGE_UNARMED(AttributeCategory.STRENGTH,
+			Attribute.DAMAGE_UNARMED,
+			"Applies an effect related to the secondary attribute 'Unarmed damage'.",
+			"modifier_circle_damage",
+			Rarity.RARE),
+
+	DAMAGE_MELEE_WEAPON(AttributeCategory.STRENGTH,
+			Attribute.DAMAGE_MELEE_WEAPON,
+			"Applies an effect related to the secondary attribute 'Melee weapon damage'.",
+			"modifier_circle_damage",
+			Rarity.RARE),
+
+	DAMAGE_RANGED_WEAPON(AttributeCategory.STRENGTH,
+			Attribute.DAMAGE_RANGED_WEAPON,
+			"Applies an effect related to the secondary attribute 'Ranged weapon damage'.",
+			"modifier_circle_damage",
+			Rarity.RARE),
+	
 	DAMAGE_PHYSICAL(AttributeCategory.STRENGTH,
 			Attribute.DAMAGE_PHYSICAL,
 			"Applies an effect related to the secondary attribute 'Physical damage'.",
@@ -157,12 +175,6 @@ public enum TFModifier {
 	RESISTANCE_LUST(AttributeCategory.CORRUPTION,
 			Attribute.RESISTANCE_LUST,
 			"Applies an effect related to the secondary attribute 'Seduction resistance'.",
-			"modifier_circle_resistance",
-			Rarity.RARE),
-	
-	RESISTANCE_SPELLS(AttributeCategory.INTELLIGENCE,
-			Attribute.RESISTANCE_SPELLS,
-			"Applies an effect related to the secondary attribute 'Spell resistance'.",
 			"modifier_circle_resistance",
 			Rarity.RARE),
 	
@@ -460,6 +472,13 @@ public enum TFModifier {
 			"modifier_circle_capacity",
 			Colour.BASE_PINK_LIGHT,
 			Rarity.COMMON),
+
+	TF_MOD_CAPACITY_2("capacity II",
+			"Applies an effect related to changing an orifice's capacity.",
+			"capacity",
+			"modifier_circle_capacity",
+			Colour.BASE_PINK,
+			Rarity.COMMON),
 	
 	TF_MOD_WETNESS("wetness",
 			"Applies an effect related to changing the wetness of an orifice, or the fluid production of a body part.",
@@ -475,11 +494,25 @@ public enum TFModifier {
 			Colour.BASE_AQUA,
 			Rarity.COMMON),
 	
+	TF_MOD_ELASTICITY_2("elasticity II",
+			"Applies an effect related to changing the elasticity of an orifice.",
+			"elastic",
+			"modifier_circle_elasticity",
+			Colour.BASE_BLUE_LIGHT,
+			Rarity.COMMON),
+	
 	TF_MOD_PLASTICITY("plasticity",
 			"Applies an effect related to changing the plasticity of an orifice.",
 			"plastic",
 			"modifier_circle_plasticity",
 			Colour.BASE_TEAL,
+			Rarity.COMMON),
+	
+	TF_MOD_PLASTICITY_2("plasticity II",
+			"Applies an effect related to changing the plasticity of an orifice.",
+			"plastic",
+			"modifier_circle_plasticity",
+			Colour.BASE_BLUE,
 			Rarity.COMMON),
 	
 	// modifiers:
@@ -510,6 +543,34 @@ public enum TFModifier {
 			"muscled",
 			"modifier_circle_orifice_muscled",
 			Colour.BASE_MAGENTA,
+			Rarity.COMMON),
+	
+	TF_MOD_ORIFICE_PUFFY_2("puffiness II",
+			"Applies an effect related to making an orifice puffy.",
+			"puffy",
+			"modifier_circle_orifice_puffy",
+			Colour.BASE_BLUE,
+			Rarity.COMMON),
+	
+	TF_MOD_ORIFICE_RIBBED_2("ribbing II",
+			"Applies an effect related to making an orifice internally-ribbed.",
+			"ribbed",
+			"modifier_circle_orifice_ribbed",
+			Colour.BASE_PINK,
+			Rarity.COMMON),
+	
+	TF_MOD_ORIFICE_TENTACLED_2("tentacled II",
+			"Applies an effect related to making an orifice internally-tentacled.",
+			"tentacled",
+			"modifier_circle_orifice_tentacled",
+			Colour.BASE_RED,
+			Rarity.COMMON),
+	
+	TF_MOD_ORIFICE_MUSCLED_2("muscled II",
+			"Applies an effect related to making an orifice internally-muscled.",
+			"muscled",
+			"modifier_circle_orifice_muscled",
+			Colour.BASE_PURPLE,
 			Rarity.COMMON),
 	
 	// eye shapes:
@@ -1092,15 +1153,20 @@ public enum TFModifier {
 		clothingPrimaryList.add(TF_PENIS);
 		clothingPrimaryList.add(TF_VAGINA);
 		
+
+		clothingAttributeList.add(TFModifier.FERTILITY);
+		clothingAttributeList.add(TFModifier.VIRILITY);
 		clothingAttributeList.add(TFModifier.RESISTANCE_FIRE);
 		clothingAttributeList.add(TFModifier.RESISTANCE_ICE);
 		clothingAttributeList.add(TFModifier.RESISTANCE_LUST);
 		clothingAttributeList.add(TFModifier.RESISTANCE_PHYSICAL);
 		clothingAttributeList.add(TFModifier.RESISTANCE_POISON);
-		clothingAttributeList.add(TFModifier.RESISTANCE_SPELLS);
 		clothingAttributeList.add(TFModifier.DAMAGE_FIRE);
 		clothingAttributeList.add(TFModifier.DAMAGE_ICE);
 		clothingAttributeList.add(TFModifier.DAMAGE_LUST);
+		clothingAttributeList.add(TFModifier.DAMAGE_UNARMED);
+		clothingAttributeList.add(TFModifier.DAMAGE_MELEE_WEAPON);
+		clothingAttributeList.add(TFModifier.DAMAGE_RANGED_WEAPON);
 		clothingAttributeList.add(TFModifier.DAMAGE_PHYSICAL);
 		clothingAttributeList.add(TFModifier.DAMAGE_POISON);
 		clothingAttributeList.add(TFModifier.DAMAGE_SPELLS);
@@ -1135,6 +1201,9 @@ public enum TFModifier {
 		// Set this item's file image:
 		try {
 			InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/crafting/" + SVGString + ".svg");
+			if(is==null) {
+				System.err.println("Error! TFModifier icon file does not exist (Trying to read from '"+SVGString+"')! (Code 1)");
+			}
 			String s = Util.inputStreamToString(is);
 
 			s = s.replaceAll("#ff2a2a", this.colour.getShades()[0]);
@@ -1166,6 +1235,9 @@ public enum TFModifier {
 		// Set this item's file image:
 		try {
 			InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/crafting/" + SVGString + ".svg");
+			if(is==null) {
+				System.err.println("Error! TFModifier icon file does not exist (Trying to read from '"+SVGString+"')! (Code 2)");
+			}
 			String s = Util.inputStreamToString(is);
 
 			s = s.replaceAll("#ff2a2a", this.colour.getShades()[0]);

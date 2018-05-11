@@ -1,16 +1,12 @@
 package com.lilithsthrone.game.dialogue.utils;
 
-import java.awt.Desktop;
 import java.awt.Toolkit;
 import java.io.File;
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Comparator;
 
 import com.lilithsthrone.game.Game;
+import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
@@ -27,7 +23,7 @@ import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
-import com.lilithsthrone.game.dialogue.MapDisplay;
+import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.story.CharacterCreation;
@@ -36,6 +32,9 @@ import com.lilithsthrone.game.settings.ForcedFetishTendency;
 import com.lilithsthrone.game.settings.ForcedTFTendency;
 import com.lilithsthrone.game.settings.KeyboardAction;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.rendering.Artist;
+import com.lilithsthrone.rendering.ArtistWebsite;
+import com.lilithsthrone.rendering.Artwork;
 import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.CreditsSlot;
@@ -43,7 +42,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.2.1
+ * @version 0.2.3
  * @author Innoxia
  */
 public class OptionsDialogue {
@@ -109,7 +108,7 @@ public class OptionsDialogue {
 							Main.mainController.setRightPanelContent("");
 							Main.mainController.setButtonsContent("");
 							Main.game.setRenderMap(false);
-							
+							Main.game.setPrologueFinished(false);
 							Main.startNewGame(CharacterCreation.CHARACTER_CREATION_START);
 							confirmNewGame = false;
 						}
@@ -187,7 +186,7 @@ public class OptionsDialogue {
 				return new ResponseEffectsOnly("Blog", "Opens the page:</br></br><i>https://lilithsthrone.blogspot.co.uk/</i></br></br><b>Externally in your default browser.</b>"){
 					@Override
 					public void effects() {
-						browser("https://lilithsthrone.blogspot.co.uk/");
+						Util.openLinkInDefaultBrowser("https://lilithsthrone.blogspot.co.uk/");
 						confirmNewGame=false;
 					}
 				};
@@ -196,7 +195,7 @@ public class OptionsDialogue {
 				return new ResponseEffectsOnly("Github", "Opens the page:</br></br><i>https://github.com/Innoxia/liliths-throne-public</i></br></br><b>Externally in your default browser.</b>"){
 					@Override
 					public void effects() {
-						browser("https://github.com/Innoxia/liliths-throne-public");
+						Util.openLinkInDefaultBrowser("https://github.com/Innoxia/liliths-throne-public");
 						confirmNewGame=false;
 					}
 				};
@@ -233,8 +232,8 @@ public class OptionsDialogue {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.OPTIONS;
+		public DialogueNodeType getDialogueNodeType() {
+			return DialogueNodeType.OPTIONS;
 		}
 	};
 	
@@ -322,7 +321,7 @@ public class OptionsDialogue {
 			
 			for(File f : Main.getSavedGames()){
 				try {
-					saveLoadSB.append(getSaveLoadRow("<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>"+getFileTime(f)+"</span>", f.getName(), i%2==0));
+					saveLoadSB.append(getSaveLoadRow("<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>"+Util.getFileTime(f)+"</span>", f.getName(), i%2==0));
 				} catch (IOException e3) {
 					e3.printStackTrace();
 				}
@@ -344,7 +343,7 @@ public class OptionsDialogue {
 						SAVE_LOAD) {
 					@Override
 					public String getTitle() {
-						return "Confirmations: "+(Main.getProperties().overwriteWarning
+						return "Confirmations: "+(Main.getProperties().hasValue(PropertyValue.overwriteWarning)
 								?"<span style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>ON</span>"
 								:"<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>OFF</span>");
 					}
@@ -354,7 +353,7 @@ public class OptionsDialogue {
 						loadConfirmationName = "";
 						overwriteConfirmationName = "";
 						deleteConfirmationName = "";
-						Main.getProperties().overwriteWarning = !Main.getProperties().overwriteWarning;
+						Main.getProperties().setValue(PropertyValue.overwriteWarning, !Main.getProperties().hasValue(PropertyValue.overwriteWarning));
 						Main.getProperties().savePropertiesAsXML();
 					}
 				};
@@ -368,14 +367,14 @@ public class OptionsDialogue {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.OPTIONS;
+		public DialogueNodeType getDialogueNodeType() {
+			return DialogueNodeType.OPTIONS;
 		}
 	};
 	
 	public static final DialogueNodeOld IMPORT_EXPORT = new DialogueNodeOld("Export character", "", true) {
 		private static final long serialVersionUID = 1L;
-
+	
 		@Override
 		public String getContent() {
 			return "";
@@ -384,7 +383,7 @@ public class OptionsDialogue {
 		@Override
 		public String getHeaderContent(){
 			StringBuilder saveLoadSB = new StringBuilder();
-
+	
 			saveLoadSB.append("<p>"
 						+ "Here you can export your current character, or delete any characters that you've exported in the past."
 						+ " Any NPC can be exported in-game by viewing their information screen (either from the 'characters present' or your phone's 'contacts' screen), and then pressing the small 'export character' button in the top-right."
@@ -408,7 +407,7 @@ public class OptionsDialogue {
 			int i = 0;
 			for(File f : Main.getCharactersForImport()){
 				try {
-					saveLoadSB.append(getImportRow("<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>"+getFileTime(f)+"</span>", f.getName(), i%2==0));
+					saveLoadSB.append(OptionsDialogue.getImportRow("<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>"+Util.getFileTime(f)+"</span>", f.getName(), i%2==0));
 				} catch (IOException e3) {
 					e3.printStackTrace();
 				}
@@ -429,21 +428,21 @@ public class OptionsDialogue {
 							IMPORT_EXPORT) {
 					@Override
 					public String getTitle() {
-						return "Confirmations: "+(Main.getProperties().overwriteWarning
+						return "Confirmations: "+(Main.getProperties().hasValue(PropertyValue.overwriteWarning)
 								?"<span style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>ON</span>"
 								:"<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>OFF</span>");
 					}
 					
 					@Override
 					public void effects() {
-						loadConfirmationName = "";
-						overwriteConfirmationName = "";
-						deleteConfirmationName = "";
-						Main.getProperties().overwriteWarning = !Main.getProperties().overwriteWarning;
+						OptionsDialogue.loadConfirmationName = "";
+						OptionsDialogue.overwriteConfirmationName = "";
+						OptionsDialogue.deleteConfirmationName = "";
+						Main.getProperties().setValue(PropertyValue.overwriteWarning, !Main.getProperties().hasValue(PropertyValue.overwriteWarning));
 						Main.getProperties().savePropertiesAsXML();
 					}
 				};
-
+	
 			} else if (index == 2) {
 				if(Main.game.isStarted()) {
 					return new Response("Export character", "Exports your character file to the 'data/characters/' folder.", IMPORT_EXPORT){
@@ -458,36 +457,18 @@ public class OptionsDialogue {
 				}
 			
 			} else if (index == 0) {
-				return new Response("Back", "Back to the main menu.", MENU);
-
+				return new Response("Back", "Back to the main menu.", OptionsDialogue.MENU);
+	
 			} else {
 				return null;
 			}
 		}
-
+	
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.OPTIONS;
+		public DialogueNodeType getDialogueNodeType() {
+			return DialogueNodeType.OPTIONS;
 		}
 	};
-	private static void browser(String url) {
-		Runtime runtime = Runtime.getRuntime();
-		try {
-			runtime.exec("xdg-open " + url);
-		} catch (IOException e0) {
-			Desktop desktop = Desktop.getDesktop();
-			try {
-				desktop.browse(new URI(url));
-			} catch (IOException | URISyntaxException e) {
-				e.printStackTrace();
-				e0.printStackTrace();
-			}
-		}
-	}
-	private static String getFileTime(File file) throws IOException {
-	    DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy - hh:mm");
-	    return dateFormat.format(file.lastModified());
-	}
 	
 	private static String getSaveLoadRow(String date, String name, boolean altColour) {
 		if(name!=null){
@@ -528,8 +509,8 @@ public class OptionsDialogue {
 						+ "</div>"
 						+ "<div class='container-full-width' style='width:calc(25% - 16px); text-align:center; background:transparent;'>"
 							+ (Main.isSaveGameAvailable()
-								?"<div class='square-button saveIcon' id='new_saved'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskSave()+"</div></div>"
-								:"<div class='square-button saveIcon disabled' id='new_saved_disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskSaveDisabled()+"</div></div>")
+								?"<div class='square-button saveIcon' id='new_saved' style='float:left;'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskSave()+"</div></div>"
+								:"<div class='square-button saveIcon disabled' id='new_saved_disabled' style='float:left;'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskSaveDisabled()+"</div></div>")
 						+ "</div>"
 					+ "</div>";
 				
@@ -603,7 +584,7 @@ public class OptionsDialogue {
 				
 			} else if (index == 2) {
 
-				if (Main.getProperties().lightTheme) {
+				if (Main.getProperties().hasValue(PropertyValue.lightTheme)) {
 					return new Response("Dark theme", "Switch the theme to the dark variant.", OPTIONS){
 						@Override
 						public void effects() {
@@ -650,10 +631,12 @@ public class OptionsDialogue {
 				};
 			
 			} else if (index == 5) {
-				return new Response("Fade-in: "+(Main.getProperties().fadeInText?"[style.boldGood(ON)]":"[style.boldBad(OFF)]"), "Toggle the fading in of the game's text. If turned on, it may cause some minor lag in inventory screens.", OPTIONS){
+				return new Response("Fade-in: "+(Main.getProperties().hasValue(PropertyValue.fadeInText)
+								?"[style.boldGood(ON)]"
+								:"[style.boldBad(OFF)]"), "Toggle the fading in of the game's text. If turned on, it may cause some minor lag in inventory screens.", OPTIONS){
 					@Override
 					public void effects() {
-						Main.getProperties().fadeInText = !Main.getProperties().fadeInText;
+						Main.getProperties().setValue(PropertyValue.fadeInText, !Main.getProperties().hasValue(PropertyValue.fadeInText));
 
 						Main.saveProperties();
 					}
@@ -710,8 +693,8 @@ public class OptionsDialogue {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.OPTIONS;
+		public DialogueNodeType getDialogueNodeType() {
+			return DialogueNodeType.OPTIONS;
 		}
 	};
 	
@@ -798,8 +781,8 @@ public class OptionsDialogue {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.OPTIONS;
+		public DialogueNodeType getDialogueNodeType() {
+			return DialogueNodeType.OPTIONS;
 		}
 	};
 
@@ -972,8 +955,8 @@ public class OptionsDialogue {
 		}
 		
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.OPTIONS;
+		public DialogueNodeType getDialogueNodeType() {
+			return DialogueNodeType.OPTIONS;
 		}
 	};
 	
@@ -986,19 +969,19 @@ public class OptionsDialogue {
 					+ "</td>"
 					+ "<td style='min-width:160px;'>"
 						+"<form style='padding:0;margin:0;text-align:center;'><input type='text' id='GENDER_NAME_MASCULINE_" + name + "' value='"
-						+ Util.formatForHTML(Main.getProperties().genderNameMale.get(name))
+						+ UtilText.parseForHTMLDisplay(Main.getProperties().genderNameMale.get(name))
 						+ "'>"
 						+ "</form>"
 					+ "</td>"
 					+ "<td style='min-width:160px;'>"
 						+"<form style='padding:0;margin:0;text-align:center;'><input type='text' id='GENDER_NAME_ANDROGYNOUS_" + name + "' value='"
-						+ Util.formatForHTML(Main.getProperties().genderNameNeutral.get(name))
+						+ UtilText.parseForHTMLDisplay(Main.getProperties().genderNameNeutral.get(name))
 						+ "'>"
 						+ "</form>"
 					+ "</td>"
 					+ "<td style='min-width:160px;'>"
 						+"<form style='padding:0;margin:0;text-align:center;'><input type='text' id='GENDER_NAME_FEMININE_" + name + "' value='"
-						+ Util.formatForHTML(Main.getProperties().genderNameFemale.get(name))
+						+ UtilText.parseForHTMLDisplay(Main.getProperties().genderNameFemale.get(name))
 						+ "'>"
 						+ "</form>"
 					+ "</td>"
@@ -1011,11 +994,11 @@ public class OptionsDialogue {
 					+ pronoun.getName()
 				+ "</td>"
 					+ "<td style='min-width:160px;'>"
-					+"<form style='padding:0;margin:0;text-align:center;'><input type='text' id='masculine_" + pronoun + "' value='"+ Util.formatForHTML(Main.getProperties().genderPronounMale.get(pronoun))+ "'>"
+					+"<form style='padding:0;margin:0;text-align:center;'><input type='text' id='masculine_" + pronoun + "' value='"+ UtilText.parseForHTMLDisplay(Main.getProperties().genderPronounMale.get(pronoun))+ "'>"
 					+ "</form>"
 				+ "</td>"
 				+ "<td style='min-width:160px;'>"
-					+"<form style='padding:0;margin:0;text-align:center;'><input type='text' id='feminine_" + pronoun + "' value='"+ Util.formatForHTML(Main.getProperties().genderPronounFemale.get(pronoun))+ "'></form>"
+					+"<form style='padding:0;margin:0;text-align:center;'><input type='text' id='feminine_" + pronoun + "' value='"+ UtilText.parseForHTMLDisplay(Main.getProperties().genderPronounFemale.get(pronoun))+ "'></form>"
 				+ "</td>"
 				+ "</tr>";
 	}
@@ -1040,8 +1023,8 @@ public class OptionsDialogue {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.OPTIONS;
+		public DialogueNodeType getDialogueNodeType() {
+			return DialogueNodeType.OPTIONS;
 		}
 	};
 	
@@ -1064,8 +1047,8 @@ public class OptionsDialogue {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.OPTIONS;
+		public DialogueNodeType getDialogueNodeType() {
+			return DialogueNodeType.OPTIONS;
 		}
 	};
 	
@@ -1153,8 +1136,8 @@ public class OptionsDialogue {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.OPTIONS;
+		public DialogueNodeType getDialogueNodeType() {
+			return DialogueNodeType.OPTIONS;
 		}
 	};
 	
@@ -1325,46 +1308,18 @@ public class OptionsDialogue {
 			int i=0;
 			for(Subspecies subspecies : Subspecies.values()) {
 				switch(subspecies) {
-					case ALLIGATOR_MORPH:
-						UtilText.nodeContentSB.append(getSubspeciesPreferencesPanel(subspecies, i%2==0));
-						i++;
-						break;
 					case ANGEL:
-						break;
-					case CAT_MORPH:
-						UtilText.nodeContentSB.append(getSubspeciesPreferencesPanel(subspecies, i%2==0));
-						i++;
-						break;
-					case COW_MORPH:
-						UtilText.nodeContentSB.append(getSubspeciesPreferencesPanel(subspecies, i%2==0));
-						i++;
-						break;
 					case DEMON:
-						break;
+					case ELEMENTAL_AIR:
+					case ELEMENTAL_ARCANE:
+					case ELEMENTAL_EARTH:
+					case ELEMENTAL_FIRE:
+					case ELEMENTAL_WATER:
 					case IMP:
-						break;
 					case IMP_ALPHA:
-						break;
-					case DOG_MORPH:
-						UtilText.nodeContentSB.append(getSubspeciesPreferencesPanel(subspecies, i%2==0));
-						i++;
-						break;
-					case DOG_MORPH_DOBERMANN:
-						UtilText.nodeContentSB.append(getSubspeciesPreferencesPanel(subspecies, i%2==0));
-						i++;
-						break;
 					case HARPY:
-						break;
-					case HORSE_MORPH:
-						UtilText.nodeContentSB.append(getSubspeciesPreferencesPanel(subspecies, i%2==0));
-						i++;
-						break;
+					case HARPY_RAVEN:
 					case HUMAN:
-						break;
-					case REINDEER_MORPH:
-						UtilText.nodeContentSB.append(getSubspeciesPreferencesPanel(subspecies, i%2==0));
-						i++;
-						break;
 					case SLIME:
 					case SLIME_ALLIGATOR:
 					case SLIME_ANGEL:
@@ -1373,18 +1328,32 @@ public class OptionsDialogue {
 					case SLIME_DEMON:
 					case SLIME_DOG:
 					case SLIME_DOG_DOBERMANN:
+					case SLIME_DOG_BORDER_COLLIE:
 					case SLIME_HARPY:
+					case SLIME_HARPY_RAVEN:
 					case SLIME_HORSE:
 					case SLIME_IMP:
 					case SLIME_REINDEER:
 					case SLIME_SQUIRREL:
 					case SLIME_WOLF:
+					case SLIME_BAT:
+					case SLIME_RAT:
+					case SLIME_RABBIT:
 						break;
+					case ALLIGATOR_MORPH:
+					case CAT_MORPH:
+					case COW_MORPH:
+					case HORSE_MORPH:
+					case REINDEER_MORPH:
 					case SQUIRREL_MORPH:
-						UtilText.nodeContentSB.append(getSubspeciesPreferencesPanel(subspecies, i%2==0));
-						i++;
-						break;
 					case WOLF_MORPH:
+					case DOG_MORPH:
+					case DOG_MORPH_DOBERMANN:
+					case DOG_MORPH_BORDER_COLLIE:
+					case BAT_MORPH:
+					case RAT_MORPH:
+					case RABBIT_MORPH:
+					case RABBIT_MORPH_LOP:
 						UtilText.nodeContentSB.append(getSubspeciesPreferencesPanel(subspecies, i%2==0));
 						i++;
 						break;
@@ -1411,13 +1380,13 @@ public class OptionsDialogue {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.OPTIONS;
+		public DialogueNodeType getDialogueNodeType() {
+			return DialogueNodeType.OPTIONS;
 		}
 	};
 	
 	private static String getEntryBackgroundColour(boolean alternative) {
-		if(Main.getProperties().lightTheme) {
+		if(Main.getProperties().hasValue(PropertyValue.lightTheme)) {
 			if(alternative) {
 				return "#d9d9d9";
 			}
@@ -1473,56 +1442,98 @@ public class OptionsDialogue {
 		public String getHeaderContent(){
 			UtilText.nodeContentSB.setLength(0);
 			
-			UtilText.nodeContentSB.append(
-				"<div class='container-full-width' style='background:transparent; padding:0; margin-bottom:0; margin-top:0;'>"
-					+getContentPreferenceDiv(
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+								"ARTWORK",
+								Colour.BASE_BLUE_LIGHT,
+								"Artwork",
+								"Enables artwork to be displayed in unique characters' information screens.",
+								Main.getProperties().hasValue(PropertyValue.artwork)));
+			
+			UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart("ARTIST_", Colour.BASE_AQUA, "Preferred Artist", "Which artist's work is used by default."));
+			for(Artist artist : Artwork.allArtists) {
+				UtilText.nodeContentSB.append(
+						(Main.getProperties().preferredArtist.equals(artist.getFolderName())
+								?"<div id='ARTIST_"+artist.getFolderName()+"' class='normal-button selected' style='width:25%; margin-right:4%; text-align:center; float:right;'>"
+									+ "<b style='color:"+artist.getColour().toWebHexString()+";'>"+artist.getName()+"</b>"
+								+ "</div>"
+								:"<div id='ARTIST_"+artist.getFolderName()+"' class='normal-button' style='width:25%; margin-right:4%; text-align:center; float:right;'>"
+									+ "[style.boldDisabled("+artist.getName()+")]"
+								+ "</div>"));
+			}
+			UtilText.nodeContentSB.append("</div></div>");
+						
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(
 							"NON_CON",
 							Colour.BASE_CRIMSON,
 							"Non-consent",
 							"This enables the 'resist' pace in sex scenes, which contains some more extreme non-consensual descriptions.",
-							Main.getProperties().nonConContent)
-					+getContentPreferenceDiv(
+							Main.getProperties().hasValue(PropertyValue.nonConContent)));
+			
+			
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(
 							"INCEST",
 							Colour.BASE_ROSE,
 							"Incest",
 							"This will enable sexual actions with all of your blood-relatives.",
-							Main.getProperties().incestContent)
-				+"</div>"
+							Main.getProperties().hasValue(PropertyValue.incestContent)));
 				
-				+ "<div class='container-full-width' style='background:transparent; padding:0; margin-bottom:0; margin-top:0;'>"
-					+getContentPreferenceDiv(
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+							"LACTATION",
+							Colour.BASE_YELLOW_LIGHT,
+							"Lactation",
+							"This enables lactation content.",
+							Main.getProperties().hasValue(PropertyValue.lactationContent)));
+			
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+							"URETHRAL",
+							Colour.BASE_PINK_DEEP,
+							"Urethral",
+							"This enables urethral transformations and penetrations.",
+							Main.getProperties().hasValue(PropertyValue.urethralContent)));
+				
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+							"NIPPLE_PEN",
+							Colour.BASE_PINK_DEEP,
+							"Nipple Penetrations",
+							"This enables nipple-penetration transformations and sex actions.",
+							Main.getProperties().hasValue(PropertyValue.nipplePenContent)));
+				
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(
 							"HAIR_FACIAL",
 							Colour.BASE_LILAC_LIGHT,
 							"Facial hair",
 							"This enables facial hair descriptions and content.",
-							Main.getProperties().facialHairContent)
-					+getContentPreferenceDiv(
+							Main.getProperties().hasValue(PropertyValue.facialHairContent)));
+			
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(
 							"HAIR_PUBIC",
 							Colour.BASE_LILAC,
 							"Pubic hair",
 							"This enables pubic hair descriptions and content.",
-							Main.getProperties().pubicHairContent)
-				+"</div>"
+							Main.getProperties().hasValue(PropertyValue.pubicHairContent)));
 				
-				+ "<div class='container-full-width' style='background:transparent; padding:0; margin-bottom:0; margin-top:0;'>"
-					+getContentPreferenceDiv(
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(
 						"HAIR_BODY",
 						Colour.BASE_PURPLE,
-						"Extra body hair",
-						"This enables body hair descriptions and content for armpits and assholes.",
-						Main.getProperties().bodyHairContent)
-					
-					+getContentPreferenceDiv(
+						"Underarm hair",
+						"This enables underarm hair descriptions and content.",
+						Main.getProperties().hasValue(PropertyValue.bodyHairContent)));
+
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+						"HAIR_ASS",
+						Colour.BASE_PURPLE_DARK,
+						"Ass hair",
+						"This enables ass hair descriptions and content.",
+						Main.getProperties().hasValue(PropertyValue.assHairContent)));
+			
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(
 							"FEMININE_BEARD",
-							Colour.BASE_PURPLE_DARK,
+							Colour.BASE_BLUE_STEEL,
 							"Feminine Beards",
 							"This enables feminine characters to grow beards.",
-							Main.getProperties().feminineBeardsContent)
-				+"</div>"
+							Main.getProperties().hasValue(PropertyValue.feminineBeardsContent)));
 				
-				+ "<div class='container-full-width' style='background:transparent; padding:0; margin-bottom:0; margin-top:0;'>"
-
-					+getContentPreferenceVariableDiv(
+			UtilText.nodeContentSB.append(getContentPreferenceVariableDiv(
 							"FORCED_TF",
 							Colour.TRANSFORMATION_GENERIC,
 							"Forced TF",
@@ -1530,59 +1541,47 @@ public class OptionsDialogue {
 							Main.getProperties().forcedTFPercentage+"%",
 							Main.getProperties().forcedTFPercentage,
 							0,
-							100)
-					
-					+"<div class='cosmetics-inner-container'>"
-						+ "<h5 style='text-align:center; color:"+Colour.BASE_GREEN.toWebHexString()+";'>"
-						+ "Forced TF Gender Tendency"
-						+"</h5>"
-						+ "<p style='text-align:center;'>"
-						+ "This allows you to override NPC tastes when a forced transformation will alter your gender presentation."
-						+ "</p>"
-					+(Main.getProperties().forcedTFTendency==ForcedTFTendency.NEUTRAL
-						?"<div id='FORCED_TF_TENDENCY_\"+ForcedTFTendency.NEUTRAL+\"' class='cosmetics-button active'>"
-						+ "[style.boldGood("+ForcedTFTendency.NEUTRAL.getName()+")]"
-						+ "</div>"
-						:"<div id='FORCED_TF_TENDENCY_"+ForcedTFTendency.NEUTRAL+"' class='cosmetics-button'>"
-						+ "<span style='color:"+Colour.GENERIC_BAD.getShades()[0]+";'>"+ForcedTFTendency.NEUTRAL.getName()+"</span>"
-						+ "</div>")	
-						+ ("<br>")	
-					+(Main.getProperties().forcedTFTendency==ForcedTFTendency.FEMININE
-						?"<div id='FORCED_TF_TENDENCY_\"+ForcedTFTendency.FEMININE+\"' class='cosmetics-button active'>"
-						+ "[style.boldGood("+ForcedTFTendency.FEMININE.getName()+")]"
-						+ "</div>"
-						:"<div id='FORCED_TF_TENDENCY_"+ForcedTFTendency.FEMININE+"' class='cosmetics-button'>"
-						+ "<span style='color:"+Colour.FEMININE.getShades()[0]+";'>"+ForcedTFTendency.FEMININE.getName()+"</span>"
-						+ "</div>")
-					+(Main.getProperties().forcedTFTendency==ForcedTFTendency.FEMININE_HEAVY
-						?"<div id='FORCED_TF_TENDENCY_\"+ForcedTFTendency.FEMININE_HEAVY+\"' class='cosmetics-button active'>"
-						+ "[style.boldGood("+ForcedTFTendency.FEMININE_HEAVY.getName()+")]"
-						+ "</div>"
-						:"<div id='FORCED_TF_TENDENCY_"+ForcedTFTendency.FEMININE_HEAVY+"' class='cosmetics-button'>"
-						+ "<span style='color:"+Colour.FEMININE.getShades()[0]+";'>"+ForcedTFTendency.FEMININE_HEAVY.getName()+"</span>"
-						+ "</div>")
-						
-					+(Main.getProperties().forcedTFTendency==ForcedTFTendency.MASCULINE
-						?"<div id='FORCED_TF_TENDENCY_\"+ForcedTFTendency.MASCULINE+\"' class='cosmetics-button active'>"
-						+ "[style.boldGood("+ForcedTFTendency.MASCULINE.getName()+")]"
-						+ "</div>"
-						:"<div id='FORCED_TF_TENDENCY_"+ForcedTFTendency.MASCULINE+"' class='cosmetics-button'>"
-						+ "<span style='color:"+Colour.MASCULINE.getShades()[0]+";'>"+ForcedTFTendency.MASCULINE.getName()+"</span>"
-						+ "</div>")
-					+(Main.getProperties().forcedTFTendency==ForcedTFTendency.MASCULINE_HEAVY
-						?"<div id='FORCED_TF_TENDENCY_\"+ForcedTFTendency.MASCULINE_HEAVY+\"' class='cosmetics-button active'>"
-						+ "[style.boldGood("+ForcedTFTendency.MASCULINE_HEAVY.getName()+")]"
-						+ "</div>"
-						:"<div id='FORCED_TF_TENDENCY_"+ForcedTFTendency.MASCULINE_HEAVY+"' class='cosmetics-button'>"
-						+ "<span style='color:"+Colour.MASCULINE.getShades()[0]+";'>"+ForcedTFTendency.MASCULINE_HEAVY.getName()+"</span>"
-						+ "</div>")
-						+ "</div>" 
-					+ "</div>" 
-						
-						
-					+ "<div class='container-full-width' style='background:transparent; padding:0; margin-bottom:0; margin-top:0;'>"
+							100));
 
-					+getContentPreferenceVariableDiv(
+			UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart("FORCED_TF_TENDENCY_", Colour.BASE_GREEN, "Forced TF Gender Tendency", "This allows you to override NPC tastes when a forced transformation will alter your gender presentation."));
+			UtilText.nodeContentSB.append((Main.getProperties().forcedTFTendency==ForcedTFTendency.NEUTRAL
+												?"<div id='FORCED_TF_TENDENCY_"+ForcedTFTendency.NEUTRAL+"' class='normal-button selected' style='width:31%; margin:1%; text-align:center; float:right; color:"+Colour.ANDROGYNOUS.toWebHexString()+";'>"
+													+ ForcedTFTendency.NEUTRAL.getName()
+													+ "</div>"
+												:"<div id='FORCED_TF_TENDENCY_"+ForcedTFTendency.NEUTRAL+"' class='normal-button' style='width:31%; margin:1%; text-align:center; float:right;'>"
+													+ "[style.colourDisabled("+ForcedTFTendency.NEUTRAL.getName()+")]"
+													+ "</div>")	
+											+ (Main.getProperties().forcedTFTendency==ForcedTFTendency.FEMININE
+												?"<div id='FORCED_TF_TENDENCY_"+ForcedTFTendency.FEMININE+"' class='normal-button selected' style='width:31%; margin:1%; text-align:center; float:right; color:"+Colour.FEMININE.toWebHexString()+";'>"
+													+ ForcedTFTendency.FEMININE.getName()
+													+ "</div>"
+												:"<div id='FORCED_TF_TENDENCY_"+ForcedTFTendency.FEMININE+"' class='normal-button' style='width:31%; margin:1%; text-align:center; float:right;'>"
+													+ "[style.colourDisabled("+ForcedTFTendency.FEMININE.getName()+")]"
+													+ "</div>")
+											+(Main.getProperties().forcedTFTendency==ForcedTFTendency.FEMININE_HEAVY
+												?"<div id='FORCED_TF_TENDENCY_"+ForcedTFTendency.FEMININE_HEAVY+"' class='normal-button selected' style='width:31%; margin:1%; text-align:center; float:right; color:"+Colour.FEMININE_PLUS.toWebHexString()+";'>"
+													+ ForcedTFTendency.FEMININE_HEAVY.getName()
+													+ "</div>"
+												:"<div id='FORCED_TF_TENDENCY_"+ForcedTFTendency.FEMININE_HEAVY+"' class='normal-button' style='width:31%; margin:1%; text-align:center; float:right;'>"
+													+ "[style.colourDisabled("+ForcedTFTendency.FEMININE_HEAVY.getName()+")]"
+													+ "</div>")
+											+(Main.getProperties().forcedTFTendency==ForcedTFTendency.MASCULINE_HEAVY
+												?"<div id='FORCED_TF_TENDENCY_"+ForcedTFTendency.MASCULINE_HEAVY+"' class='normal-button selected' style='width:31%; margin:1%; text-align:center; float:right; color:"+Colour.MASCULINE_PLUS.toWebHexString()+";'>"
+													+ ForcedTFTendency.MASCULINE_HEAVY.getName()
+													+ "</div>"
+												:"<div id='FORCED_TF_TENDENCY_"+ForcedTFTendency.MASCULINE_HEAVY+"' class='normal-button' style='width:31%; margin:1%; text-align:center; float:right;'>"
+													+ "[style.colourDisabled("+ForcedTFTendency.MASCULINE_HEAVY.getName()+")]"
+													+ "</div>")
+											+(Main.getProperties().forcedTFTendency==ForcedTFTendency.MASCULINE
+												?"<div id='FORCED_TF_TENDENCY_"+ForcedTFTendency.MASCULINE+"' class='normal-button selected' style='width:31%; margin:1%; text-align:center; float:right; color:"+Colour.MASCULINE.toWebHexString()+";'>"
+													+ ForcedTFTendency.MASCULINE.getName()
+													+ "</div>"
+												:"<div id='FORCED_TF_TENDENCY_"+ForcedTFTendency.MASCULINE+"' class='normal-button' style='width:31%; margin:1%; text-align:center; float:right;'>"
+													+ "[style.colourDisabled("+ForcedTFTendency.MASCULINE.getName()+")]"
+													+ "</div>"));
+			UtilText.nodeContentSB.append("</div></div>");
+			
+			UtilText.nodeContentSB.append(getContentPreferenceVariableDiv(
 							"FORCED_FETISH",
 							Colour.FETISH,
 							"Forced Fetishes",
@@ -1590,75 +1589,64 @@ public class OptionsDialogue {
 							Main.getProperties().forcedFetishPercentage+"%",
 							Main.getProperties().forcedFetishPercentage,
 							0,
-							100)
+							100));
 					
-						+"<div class='cosmetics-inner-container'>"
-							+ "<h5 style='text-align:center; color:"+Colour.FETISH.toWebHexString()+";'>"
-								+ "Forced Fetish Tendency"
-							+"</h5>"
-							+ "<p style='text-align:center;'>"
-								+ "This allows you to override NPC tastes and control the tendency for forced fetishes to be for topping or bottoming."
-							+ "</p>"
-							+(Main.getProperties().forcedFetishTendency==ForcedFetishTendency.NEUTRAL
-							?"<div id='FORCED_FETISH_TENDENCY_\"+ForcedFetishTendency.NEUTRAL+\"' class='cosmetics-button active'>"
-									+ "[style.boldGood("+ForcedFetishTendency.NEUTRAL.getName()+")]"
-									+ "</div>"
-							:"<div id='FORCED_FETISH_TENDENCY_"+ForcedFetishTendency.NEUTRAL+"' class='cosmetics-button'>"
-									+ "<span style='color:"+Colour.GENERIC_BAD.getShades()[0]+";'>"+ForcedFetishTendency.NEUTRAL.getName()+"</span>"
-									+ "</div>")	
-									+ ("<br>")	
-							+(Main.getProperties().forcedFetishTendency==ForcedFetishTendency.BOTTOM
-								?"<div id='FORCED_FETISH_TENDENCY_\"+ForcedFetishTendency.BOTTOM+\"' class='cosmetics-button active'>"
-										+ "[style.boldGood("+ForcedFetishTendency.BOTTOM.getName()+")]"
-										+ "</div>"
-								:"<div id='FORCED_FETISH_TENDENCY_"+ForcedFetishTendency.BOTTOM+"' class='cosmetics-button'>"
-										+ "<span style='color:"+Colour.BASE_PURPLE_LIGHT.getShades()[0]+";'>"+ForcedFetishTendency.BOTTOM.getName()+"</span>"
-										+ "</div>")
-							+(Main.getProperties().forcedFetishTendency==ForcedFetishTendency.BOTTOM_HEAVY
-									?"<div id='FORCED_FETISH_TENDENCY_\"+ForcedFetishTendency.BOTTOM_HEAVY+\"' class='cosmetics-button active'>"
-											+ "[style.boldGood("+ForcedFetishTendency.BOTTOM_HEAVY.getName()+")]"
-											+ "</div>"
-									:"<div id='FORCED_FETISH_TENDENCY_"+ForcedFetishTendency.BOTTOM_HEAVY+"' class='cosmetics-button'>"
-											+ "<span style='color:"+Colour.BASE_PURPLE_LIGHT.getShades()[0]+";'>"+ForcedFetishTendency.BOTTOM_HEAVY.getName()+"</span>"
-											+ "</div>")
-							
-							+(Main.getProperties().forcedFetishTendency==ForcedFetishTendency.TOP
-									?"<div id='FORCED_FETISH_TENDENCY_\"+ForcedFetishTendency.TOP+\"' class='cosmetics-button active'>"
-											+ "[style.boldGood("+ForcedFetishTendency.TOP.getName()+")]"
-											+ "</div>"
-									:"<div id='FORCED_FETISH_TENDENCY_"+ForcedFetishTendency.TOP+"' class='cosmetics-button'>"
-											+ "<span style='color:"+Colour.BASE_PURPLE_DARK.getShades()[0]+";'>"+ForcedFetishTendency.TOP.getName()+"</span>"
-											+ "</div>")
-							+(Main.getProperties().forcedFetishTendency==ForcedFetishTendency.TOP_HEAVY
-									?"<div id='FORCED_FETISH_TENDENCY_\"+ForcedFetishTendency.TOP_HEAVY+\"' class='cosmetics-button active'>"
-											+ "[style.boldGood("+ForcedFetishTendency.TOP_HEAVY.getName()+")]"
-											+ "</div>"
-									:"<div id='FORCED_FETISH_TENDENCY_"+ForcedFetishTendency.TOP_HEAVY+"' class='cosmetics-button'>"
-											+ "<span style='color:"+Colour.BASE_PURPLE_DARK.getShades()[0]+";'>"+ForcedFetishTendency.TOP_HEAVY.getName()+"</span>"
-											+ "</div>")
-						+ "</div>" 
-				+ "</div>" 
-				
 
-				+ "<div class='container-full-width' style='background:transparent; padding:0; margin-bottom:0; margin-top:0;'>"
-					+getContentPreferenceDiv(
+			UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart("FORCED_FETISH_TENDENCY_", Colour.FETISH, "Forced Fetish Tendency",
+					"This allows you to override NPC tastes and control the tendency for forced fetishes to be for topping or bottoming."));
+			UtilText.nodeContentSB.append((Main.getProperties().forcedFetishTendency==ForcedFetishTendency.NEUTRAL
+												?"<div id='FORCED_FETISH_TENDENCY_"+ForcedFetishTendency.NEUTRAL+"' class='normal-button selected' style='width:31%; margin:1%; text-align:center; float:right; color:"+Colour.ANDROGYNOUS.toWebHexString()+";'>"
+													+ ForcedFetishTendency.NEUTRAL.getName()
+													+ "</div>"
+												:"<div id='FORCED_FETISH_TENDENCY_"+ForcedFetishTendency.NEUTRAL+"' class='normal-button' style='width:31%; margin:1%; text-align:center; float:right;'>"
+													+ "[style.colourDisabled("+ForcedFetishTendency.NEUTRAL.getName()+")]"
+													+ "</div>")	
+										+(Main.getProperties().forcedFetishTendency==ForcedFetishTendency.BOTTOM
+												?"<div id='FORCED_FETISH_TENDENCY_"+ForcedFetishTendency.BOTTOM+"' class='normal-button selected' style='width:31%; margin:1%; text-align:center; float:right; color:"+Colour.BASE_PINK_LIGHT.toWebHexString()+";'>"
+													+ ForcedFetishTendency.BOTTOM.getName()
+													+ "</div>"
+												:"<div id='FORCED_FETISH_TENDENCY_"+ForcedFetishTendency.BOTTOM+"' class='normal-button' style='width:31%; margin:1%; text-align:center; float:right;'>"
+													+ "[style.colourDisabled("+ForcedFetishTendency.BOTTOM.getName()+")]"
+													+ "</div>")
+										+(Main.getProperties().forcedFetishTendency==ForcedFetishTendency.BOTTOM_HEAVY
+												?"<div id='FORCED_FETISH_TENDENCY_"+ForcedFetishTendency.BOTTOM_HEAVY+"' class='normal-button selected' style='width:31%; margin:1%; text-align:center; float:right; color:"+Colour.BASE_PINK.toWebHexString()+";'>"
+													+ ForcedFetishTendency.BOTTOM_HEAVY.getName()
+													+ "</div>"
+												:"<div id='FORCED_FETISH_TENDENCY_"+ForcedFetishTendency.BOTTOM_HEAVY+"' class='normal-button' style='width:31%; margin:1%; text-align:center; float:right;'>"
+													+ "[style.colourDisabled("+ForcedFetishTendency.BOTTOM_HEAVY.getName()+")]"
+													+ "</div>")
+										+(Main.getProperties().forcedFetishTendency==ForcedFetishTendency.TOP_HEAVY
+												?"<div id='FORCED_FETISH_TENDENCY_"+ForcedFetishTendency.TOP_HEAVY+"' class='normal-button selected' style='width:31%; margin:1%; text-align:center; float:right; color:"+Colour.BASE_PURPLE.toWebHexString()+";'>"
+													+ ForcedFetishTendency.TOP_HEAVY.getName()
+													+ "</div>"
+												:"<div id='FORCED_FETISH_TENDENCY_"+ForcedFetishTendency.TOP_HEAVY+"' class='normal-button' style='width:31%; margin:1%; text-align:center; float:right;'>"
+													+ "[style.colourDisabled("+ForcedFetishTendency.TOP_HEAVY.getName()+")]"
+													+ "</div>")
+										+(Main.getProperties().forcedFetishTendency==ForcedFetishTendency.TOP
+												?"<div id='FORCED_FETISH_TENDENCY_"+ForcedFetishTendency.TOP+"' class='normal-button selected' style='width:31%; margin:1%; text-align:center; float:right; color:"+Colour.BASE_PURPLE_LIGHT.toWebHexString()+";'>"
+													+ ForcedFetishTendency.TOP.getName()
+													+ "</div>"
+												:"<div id='FORCED_FETISH_TENDENCY_"+ForcedFetishTendency.TOP+"' class='normal-button' style='width:31%; margin:1%; text-align:center; float:right;'>"
+													+ "[style.colourDisabled("+ForcedFetishTendency.TOP.getName()+")]"
+													+ "</div>"));
+			UtilText.nodeContentSB.append("</div></div>");
+			
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(
 						"FURRY_TAIL_PENETRATION",
 						Colour.BASE_MAGENTA,
 						"Furry tail penetrations",
 						"This enables furry tails to engage in penetrative actions in sex.",
-						Main.getProperties().furryTailPenetrationContent)
+						Main.getProperties().hasValue(PropertyValue.furryTailPenetrationContent)));
 					
-					+getContentPreferenceDiv(
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(
 							"INFLATION_CONTENT",
-							Colour.CUMMED,
+							Colour.CUM,
 							"Cum Inflation",
 							"This enables cum inflation mechanics.",
-							Main.getProperties().inflationContent)
-				+"</div>"
+							Main.getProperties().hasValue(PropertyValue.inflationContent)));
 				
 
-				+ "<div class='container-full-width' style='background:transparent; padding:0; margin-bottom:0; margin-top:0;'>"
-					+getContentPreferenceVariableDiv(
+			UtilText.nodeContentSB.append(getContentPreferenceVariableDiv(
 							"PREGNANCY_BREAST_GROWTH",
 							Colour.BASE_PINK,
 							"Average Pregnancy Breast Growth",
@@ -1668,9 +1656,9 @@ public class OptionsDialogue {
 								:Main.getProperties().pregnancyBreastGrowth+" cup"+(Main.getProperties().pregnancyBreastGrowth!=1?"s":""),
 							Main.getProperties().pregnancyBreastGrowth,
 							0,
-							10)
+							10));
 					
-					+getContentPreferenceVariableDiv(
+			UtilText.nodeContentSB.append(getContentPreferenceVariableDiv(
 							"PREGNANCY_BREAST_GROWTH_LIMIT",
 							Colour.BASE_PINK_LIGHT,
 							"Pregnancy Breast Growth Limit",
@@ -1678,12 +1666,9 @@ public class OptionsDialogue {
 							CupSize.getCupSizeFromInt(Main.getProperties().pregnancyBreastGrowthLimit).getCupSizeName()+"-cup",
 							Main.getProperties().pregnancyBreastGrowthLimit,
 							0,
-							100)
-					
-				+"</div>"
-
-				+ "<div class='container-full-width' style='background:transparent; padding:0; margin-bottom:0; margin-top:0;'>"
-					+getContentPreferenceVariableDiv(
+							100));
+			
+			UtilText.nodeContentSB.append(getContentPreferenceVariableDiv(
 							"PREGNANCY_LACTATION",
 							Colour.BASE_YELLOW,
 							"Average Pregnancy Lactation",
@@ -1693,9 +1678,9 @@ public class OptionsDialogue {
 								:Main.getProperties().pregnancyLactationIncrease+"ml",
 							Main.getProperties().pregnancyLactationIncrease,
 							0,
-							1000)
+							1000));
 					
-					+getContentPreferenceVariableDiv(
+			UtilText.nodeContentSB.append(getContentPreferenceVariableDiv(
 							"PREGNANCY_LACTATION_LIMIT",
 							Colour.BASE_YELLOW_LIGHT,
 							"Pregnancy Lactation Limit",
@@ -1703,10 +1688,7 @@ public class OptionsDialogue {
 							Main.getProperties().pregnancyLactationLimit+"ml",
 							Main.getProperties().pregnancyLactationLimit,
 							0,
-							Lactation.SEVEN_MONSTROUS_AMOUNT_POURING.getMaximumValue())
-					
-				+"</div>"
-					);
+							Lactation.SEVEN_MONSTROUS_AMOUNT_POURING.getMaximumValue()));
 			
 			return UtilText.nodeContentSB.toString();
 		}
@@ -1727,80 +1709,87 @@ public class OptionsDialogue {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.OPTIONS;
+		public DialogueNodeType getDialogueNodeType() {
+			return DialogueNodeType.OPTIONS;
 		}
 	};
+	
+
+	/**
+	 * TO be followed by: </div></div>
+	 */
+	private static String getCustomContentPreferenceDivStart(String id, Colour colour, String title, String description) {
+		StringBuilder contentSB = new StringBuilder();
+
+		contentSB.append(
+				"<div class='container-full-width' style='padding:0;'>"
+					+ "<div class='container-half-width' style='width:calc(40% - 16px);'>"
+						+ "<b style='text-align:center; color:"+colour.toWebHexString()+";'>"+ title+"</b><b>:</b></br>"
+						+ description
+					+ "</div>"
+					+ "<div class='container-half-width' style='width:calc(60% - 16px);'>");
+		
+		return contentSB.toString();
+	}
 	
 	private static String getContentPreferenceDiv(String id, Colour colour, String title, String description, boolean enabled) {
 		StringBuilder contentSB = new StringBuilder();
 		
 		contentSB.append(
-				"<div class='container-half-width'>"
-				+ "<div class='container-half-width' style='width:calc(70% - 8px); margin:4px 4px 0 4px;'>"
-						+ "<h5 style='text-align:center; color:"+(enabled?colour.toWebHexString():Colour.TEXT_GREY.toWebHexString())+";'>"
-							+ title
-						+"</h5>"
-				+ "</div>"
-				+ "<div class='container-half-width' style='width:calc(30% - 8px); margin:4px 4px 0 4px;'>");
+				"<div class='container-full-width' style='padding:0;'>"
+					+ "<div class='container-half-width' style='width:calc(45% - 16px);'>"
+						+ "<b style='text-align:center; color:"+(enabled?colour.toWebHexString():Colour.TEXT_GREY.toWebHexString())+";'>"+ title+"</b><b>:</b></br>"
+						+ description
+					+ "</div>"
+					+ "<div class='container-half-width' style='width:calc(55% - 16px);'>");
 		
 		if(enabled) {
 			contentSB.append(
-					"<div id='"+id+"_OFF' class='normal-button' style='width:48%; margin-right:4%; text-align:center;'>"
+					"<div class='normal-button selected' style='width:25%; margin-right:4%; text-align:center; float:right;'>"
+							+ "[style.boldGood(ON)]"
+						+ "</div>"
+					+ "<div id='"+id+"_OFF' class='normal-button' style='width:25%; margin-right:4%; text-align:center; float:right;'>"
 						+ "[style.colourDisabled(OFF)]"
-					+ "</div>"
-					+ "<div class='normal-button selected' style='width:48%; text-align:center;'>"
-						+ "[style.boldGood(ON)]"
 					+ "</div>");
 		} else {
 			contentSB.append(
-					"<div class='normal-button selected' style='width:48%; margin-right:4%; text-align:center;'>"
-						+ "[style.boldBad(OFF)]"
-					+ "</div>"
-					+ "<div id='"+id+"_ON' class='normal-button' style='width:48%; text-align:center;'>"
+					"<div id='"+id+"_ON' class='normal-button' style='width:25%; margin-right:4%; text-align:center; float:right;'>"
 						+ "[style.colourDisabled(ON)]"
+					+ "</div>"
+					+"<div class='normal-button selected' style='width:25%; margin-right:4%; text-align:center; float:right;'>"
+						+ "[style.boldBad(OFF)]"
 					+ "</div>");
 		}
 
-		contentSB.append(
-					"</div>"
-					+ "<div class='container-full-width' style='margin-top:0;'>"
-						+ "<p style='text-align:center;'>"
-							+ description
-						+ "</p>"
-					+"</div>"
-				+"</div>");
+		contentSB.append("</div>"
+				+ "</div>");
 		
 		return contentSB.toString();
 	}
 	
 	private static String getContentPreferenceVariableDiv(String id, Colour colour, String title, String description, String valueDisplay, int value, int minimum, int maximum) {
 		StringBuilder contentSB = new StringBuilder();
+
+		contentSB.append(
+				"<div class='container-full-width' style='padding:0;'>"
+					+ "<div class='container-half-width' style='width:calc(45% - 16px);'>"
+						+ "<b style='text-align:center; color:"+colour.toWebHexString()+";'>"+ title+"</b><b>:</b></br>"
+						+ description
+					+ "</div>"
+					+ "<div class='container-half-width' style='width:calc(55% - 16px);'>");
 		
 		contentSB.append(
-				"<div class='container-half-width'>"
-				+ "<div class='container-half-width' style='width:calc(70% - 8px); margin:4px 4px 0 4px;'>"
-						+ "<h5 style='text-align:center;'>"
-							+ "<span style='color:"+colour.toWebHexString()+";'>"+title + "</span>: "+valueDisplay
-						+"</h5>"
-				+ "</div>"
-				+ "<div class='container-half-width' style='width:calc(30% - 8px); margin:4px 4px 0 4px;'>");
-		
-		contentSB.append(
-				"<div id='"+id+"_OFF' class='normal-button"+(value==minimum?" disabled":"")+"' style='width:48%; margin-right:4%; text-align:center;'>"
-					+ (value==minimum?"[style.boldDisabled(-)]":"[style.boldBad(-)]")
-				+ "</div>"
-				+ "<div id='"+id+"_ON' class='normal-button"+(value==maximum?" disabled":"")+"' style='width:48%; text-align:center;'>"
+				"<div id='"+id+"_ON' class='normal-button"+(value==maximum?" disabled":"")+"' style='width:15%; margin:0 2.5%; text-align:center; float:right;'>"
 						+ (value==maximum?"[style.boldDisabled(+)]":"[style.boldGood(+)]")
+				+ "</div>"
+				+ "<div class='container-full-width' style='text-align:center; width:calc(20%); float:right; margin:0;'>"
+					+ "<b>"+valueDisplay+"</b>"
+				+ "</div>"
+				+ "<div id='"+id+"_OFF' class='normal-button"+(value==minimum?" disabled":"")+"' style='width:15%; margin:0 2.5%; text-align:center; float:right;'>"
+					+ (value==minimum?"[style.boldDisabled(-)]":"[style.boldBad(-)]")
 				+ "</div>");
 		
-		contentSB.append(
-					"</div>"
-					+ "<div class='container-full-width' style='margin-top:0;'>"
-						+ "<p style='text-align:center;'>"
-							+ description
-						+ "</p>"
-					+"</div>"
+		contentSB.append("</div>"
 				+"</div>");
 		
 		return contentSB.toString();
@@ -1823,6 +1812,13 @@ public class OptionsDialogue {
 						+ "Lilith's Throne has been created by:</br>"
 						+ "<b style='color:#9b78fa;'>Innoxia</b>"
 						+ "</br></br>"
+						+ "Artists whose character art can be found in the game:</br>");
+			
+			for(Artist artist : Artwork.allArtists) {
+				UtilText.nodeContentSB.append("<b style='color:"+artist.getColour().toWebHexString()+";'>"+artist.getName()+"</b></br>");
+			}	
+			
+			UtilText.nodeContentSB.append("</br>"
 						+ "Special thanks to:</br>"
 						+ "<b>Sensei</b>,</br>"
 						+ "<b style='color:#fa0063;'>loveless</b>, <b style='color:#c790b2;'>Blue999</b>, and <b style='color:#ec9538;'>DesuDemona</b></br>"
@@ -1916,14 +1912,28 @@ public class OptionsDialogue {
 			if (index == 0) {
 				return new Response("Back", "Go back to the options menu.", MENU);
 				
-			}else {
+			} else {
+				int i=1;
+				for(Artist artist : Artwork.allArtists) {
+					for(ArtistWebsite website : artist.getWebsites()) {
+						if(index==i) {
+							return new ResponseEffectsOnly(website.getName(), "Opens the page:</br></br><i>"+website.getURL()+"</i></br></br><b>Externally in your default browser.</b>"){
+								@Override
+								public void effects() {
+									Util.openLinkInDefaultBrowser(website.getURL());
+								}
+							};
+						}
+						i++;
+					}
+				}
 				return null;
 			}
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.OPTIONS;
+		public DialogueNodeType getDialogueNodeType() {
+			return DialogueNodeType.OPTIONS;
 		}
 	};
 }

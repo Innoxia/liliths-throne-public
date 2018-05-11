@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade;
 
+import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
@@ -9,7 +10,6 @@ import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
-import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.responses.ResponseTrade;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -27,7 +27,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.82
- * @version 0.1.97
+ * @version 0.2.4
  * @author Innoxia
  */
 public class ArcaneArts {
@@ -50,10 +50,10 @@ public class ArcaneArts {
 				return new Response("Enter", "Step inside Arcane Arts.", SHOP_WEAPONS);
 				
 			} else if (index == 6) {
-				return new ResponseEffectsOnly("Arcade Entrance", "Fast travel to the entrance to the arcade."){
+				return new Response("Arcade Entrance", "Fast travel to the entrance to the arcade.", ShoppingArcadeDialogue.ENTRY){
 					@Override
 					public void effects() {
-						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.SHOPPING_ARCADE), PlaceType.SHOPPING_ARCADE_ENTRANCE, true);
+						Main.game.getPlayer().setLocation(WorldType.SHOPPING_ARCADE, PlaceType.SHOPPING_ARCADE_ENTRANCE);
 					}
 				};
 
@@ -149,7 +149,7 @@ public class ArcaneArts {
 									+ "</p>"
 									+ "<p>"
 										+ "[vicky.speech(Sounds good to me, bitch,)]"
-										+ " she growls, before leaping over the counter, roughly grabbing you by the [pc.arms], and shoving you towards the store's counter, before turning and locking the front door,"
+										+ " she growls, before leaping over the counter, roughly grabbing you by the [pc.arms], and shoving you towards the store's counter, before turning and locking the front door."
 										+ " [vicky.speech(I love fucking submissive customers like you.)]"
 									+ "</p>"
 									+ "<p>"
@@ -162,7 +162,7 @@ public class ArcaneArts {
 					}
 				}
 				
-			} else if (index == 3 && Main.getProperties().nonConContent && Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.arthursPackageObtained)) {
+			} else if (index == 3 && Main.getProperties().hasValue(PropertyValue.nonConContent) && Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.arthursPackageObtained)) {
 				if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true) || (Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true) && Main.game.getPlayer().hasVagina())) {
 					
 					return new ResponseSex("Nervously leave", "Vicky is far too intimidating for you... Turn around and try to escape from her gaze. [style.boldBad(You get the feeling that this will result in non-consensual sex...)]",
@@ -193,7 +193,7 @@ public class ArcaneArts {
 							+ "</p>"
 							+ "<p>"
 								+ "You let out a startled cry as the aggressive wolf-girl suddenly throws you to the floor."
-								+ " Looking up as you struggle to your feet, you see Vicky quickly locking the the front door, before she turns around and bounds over to you,"
+								+ " Looking up as you struggle to your feet, you see Vicky quickly locking the the front door, before she turns around and bounds over to you."
 								+ " [vicky.speech(You're just begging to be fucked!)]"
 							+ "</p>"
 							+ "<p>"
@@ -260,7 +260,7 @@ public class ArcaneArts {
 					+ "<p>"
 						+ "Vicky presses herself close to you, and you feel her hot breath falling on your neck as she starts letting out a low growl once again."
 						+ " As she traps you against the wall, you suddenly feel something hard, and alarmingly-large, pressing against your leg."
-						+ " Looking down, you see a huge erection tenting out the fabric of the wolf-girl's miniskirt, which she then starts to dominantly rub up against you,"
+						+ " Looking down, you see a huge erection tenting out the fabric of the wolf-girl's miniskirt, which she then starts to dominantly rub up against you."
 						+ " [vicky.speech(So what's it going to be? You got the flames? Or am I going to have to fuck the payment out of you?)]"
 					+ "</p>";
 		}
@@ -296,7 +296,7 @@ public class ArcaneArts {
 								+ "</p>"
 								+ "<p>"
 									+ "[vicky.speech(Suits me, bitch,)]"
-									+ " she growls, before grabbing you by the [pc.arms] and shoving you towards the store's counter, before turning and locking the front door,"
+									+ " she growls, before grabbing you by the [pc.arms] and shoving you towards the store's counter, before turning and locking the front door."
 									+ " [vicky.speech(I love fucking submissive customers like you.)]"
 								+ "</p>"
 								+ "<p>"
@@ -308,7 +308,7 @@ public class ArcaneArts {
 					return new Response("Offer body", "Vicky needs to be able to access your anus"+(Main.game.getPlayer().hasVagina()?" or vagina":"")+"!", null);
 				}
 				
-			} else if (index == 3 && Main.getProperties().nonConContent) {
+			} else if (index == 3 && Main.getProperties().hasValue(PropertyValue.nonConContent)) {
 				if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true) || (Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true) && Main.game.getPlayer().hasVagina())) {
 					
 					return new ResponseSex("Weakly refuse", "You can't bring yourself to say no to such an intimidating person... Try to wriggle free and leave... [style.boldBad(You get the feeling that this will result in non-consensual sex...)]",
@@ -338,7 +338,7 @@ public class ArcaneArts {
 							+ "</p>"
 							+ "<p>"
 								+ "You let out a startled cry as the aggressive wolf-girl suddenly throws you to the floor."
-								+ " Looking up as you struggle to your feet, you see Vicky quickly locking the the front door, before she turns around and bounds over to you,"
+								+ " Looking up as you struggle to your feet, you see Vicky quickly locking the the front door, before she turns around and bounds over to you."
 								+ " [vicky.speech(You're just begging to be fucked!)]"
 							+ "</p>"
 							+ "<p>"
@@ -386,7 +386,7 @@ public class ArcaneArts {
 						+ " you say, side-stepping the wolf-girl before producing one-hundred flames."
 					+ "</p>"
 					+ "<p>"
-						+ "Vicky looks noticeably disappointed as you hand over the money, and, after walking back around to the correct side of the counter, she pushes the package towards you,"
+						+ "Vicky looks noticeably disappointed as you hand over the money, and, after walking back around to the correct side of the counter, she pushes the package towards you."
 						+ " [vicky.speech(Go on then, it's all yours."
 							+ " If you wanted to take a look at my goods, or if you ever get curious about what you just missed out on, then let me know.)]"
 					+ "</p>"

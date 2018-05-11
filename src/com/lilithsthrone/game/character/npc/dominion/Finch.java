@@ -4,8 +4,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.CharacterImportSetting;
-import com.lilithsthrone.game.character.NameTriplet;
-import com.lilithsthrone.game.character.SexualOrientation;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
@@ -13,24 +11,28 @@ import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.persona.NameTriplet;
+import com.lilithsthrone.game.character.persona.PersonalityTrait;
+import com.lilithsthrone.game.character.persona.PersonalityWeight;
+import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
-import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
-import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.CharacterInventory;
+import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
-import com.lilithsthrone.game.inventory.clothing.ClothingSet;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.83
- * @version 0.1.89
+ * @version 0.2.4
  * @author Innoxia
  */
 public class Finch extends NPC {
@@ -51,6 +53,13 @@ public class Finch extends NPC {
 				RacialBody.CAT_MORPH, RaceStage.PARTIAL_FULL, new CharacterInventory(10),
 				WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION, true);
 
+		this.setPersonality(Util.newHashMapOfValues(
+				new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.AVERAGE),
+				new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.HIGH),
+				new Value<>(PersonalityTrait.EXTROVERSION, PersonalityWeight.AVERAGE),
+				new Value<>(PersonalityTrait.NEUROTICISM, PersonalityWeight.LOW),
+				new Value<>(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.HIGH)));
+		
 		if(!isImported) {
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 			
@@ -95,13 +104,14 @@ public class Finch extends NPC {
 	public void dailyReset() {
 		clearNonEquippedInventory();
 		
-		for(int i = 0; i<6; i++) {
+		// Always at least 4 slave collars:
+		for(int i = 0; i<4; i++) {
 			this.addClothing(AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR), false);
 		}
 		
 		for(AbstractClothingType clothing : ClothingType.getAllClothing()) {
-			if(clothing.getClothingSet() == ClothingSet.BDSM) {
-				for(int i = 0; i<2; i++) {
+			if(clothing.getItemTags().contains(ItemTag.SOLD_BY_FINCH)) {
+				for(int i = 0; i<Util.random.nextInt(3)+1; i++) {
 					this.addClothing(AbstractClothingType.generateClothing(clothing), false);
 				}
 			}
@@ -137,22 +147,6 @@ public class Finch extends NPC {
 
 	@Override
 	public void endSex(boolean applyEffects) {
-	}
-
-	// Combat:
-	@Override
-	public String getCombatDescription() {
-		return null;// You never fight
-	}
-
-	@Override
-	public Response endCombat(boolean applyEffects, boolean victory) {
-		return null; // You never fight
-	}
-
-	@Override
-	public Attack attackType() {
-		return null; // You never fight
 	}
 
 }

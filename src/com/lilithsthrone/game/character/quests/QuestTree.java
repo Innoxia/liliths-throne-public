@@ -4,7 +4,7 @@ import com.lilithsthrone.utils.TreeNode;
 
 /**
  * @since 0.1.99
- * @version 0.1.99
+ * @version 0.2.5
  * @author Innoxia
  */
 public class QuestTree {
@@ -16,6 +16,7 @@ public class QuestTree {
 	public static TreeNode<Quest> hypnoWatchTree = new TreeNode<Quest>(Quest.SIDE_HYPNO_WATCH_VICKY);
 	public static TreeNode<Quest> nyanTree = new TreeNode<Quest>(Quest.SIDE_NYAN_STOCK_ISSUES);
 	public static TreeNode<Quest> angryHarpyTree = new TreeNode<Quest>(Quest.HARPY_PACIFICATION_ONE);
+	public static TreeNode<Quest> slimeQueenTree = new TreeNode<Quest>(Quest.SLIME_QUEEN_ONE);
 	
 	static {
 		TreeNode<Quest> node1 = new TreeNode<Quest>(Quest.MAIN_1_A_LILAYAS_TESTS);
@@ -73,5 +74,20 @@ public class QuestTree {
 		node2.addChild(node1);
 		node2 = new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE);
 		node1.addChild(node2);
+		
+
+		node1 = new TreeNode<Quest>(Quest.SLIME_QUEEN_TWO);
+		slimeQueenTree.addChild(node1);
+		node2 = new TreeNode<Quest>(Quest.SLIME_QUEEN_THREE);
+		node1.addChild(node2);
+		TreeNode<Quest> nodeBranchA = new TreeNode<Quest>(Quest.SLIME_QUEEN_FOUR_FIGHT);
+		node2.addChild(nodeBranchA);
+		TreeNode<Quest> nodeBranchB = new TreeNode<Quest>(Quest.SLIME_QUEEN_FIVE_FIGHT);
+		nodeBranchA.addChild(nodeBranchB);
+
+		nodeBranchA = new TreeNode<Quest>(Quest.SLIME_QUEEN_FOUR_SUBMIT);
+		node2.addChild(nodeBranchA);
+		nodeBranchB = new TreeNode<Quest>(Quest.SLIME_QUEEN_FIVE_SUBMIT);
+		nodeBranchA.addChild(nodeBranchB);
 	}
 }

@@ -79,7 +79,7 @@ public class PlayerSelfNoPen {
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			PenetrationType.FINGER,
-			OrificeType.URETHRA,
+			OrificeType.URETHRA_PENIS,
 			SexParticipantType.SELF) {
 		
 		@Override

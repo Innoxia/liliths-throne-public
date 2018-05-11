@@ -127,9 +127,9 @@ public class ClothingEmporium {
 		@Override
 		public String getResponseTabTitle(int index) {
 			if(index==0) {
-				return "Talk";
-			} else if(index==1) {
 				return "Trade";
+			} else if(index==1) {
+				return "Talk";
 			} else {
 				return null;
 			}
@@ -137,7 +137,7 @@ public class ClothingEmporium {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(responseTab==0) {
+			if(responseTab==1) {
 				if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_NYAN_HELP)) {
 					if(index==1) {
 						if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.nyanTalkedTo)) {
@@ -200,7 +200,7 @@ public class ClothingEmporium {
 									+ " You should work on getting to know her a little better first. ([style.boldBad(Requires Nyan's affection to be greater than 60 (currently "+Main.game.getNyan().getAffection(Main.game.getPlayer())+").)])", null);
 							
 						} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.nyanKissed)) {
-							return new Response("Flirt", "You've already kissed Nyan today. You can repeat this action tomorrow.", null);
+							return new Response("Kiss", "You've already kissed Nyan today. You can repeat this action tomorrow.", null);
 							
 						} else {
 							return new Response("Kiss", "You can tell from the way Nyan looks at you that she wouldn't mind being kissed. Lean forwards and give her what she wants.", ROMANCE_KISS) {
@@ -243,7 +243,7 @@ public class ClothingEmporium {
 							return new Response("Gift", "Give Nyan a gift (opens gift selection screen).", ROMANCE_GIFT) {
 								@Override
 								public DialogueNodeOld getNextDialogue() {
-									return GiftDialogue.getGiftDialogue(Main.game.getNyan(), SHOP_CLOTHING_REPEAT, ROMANCE_GIFT);
+									return GiftDialogue.getGiftDialogue(Main.game.getNyan(), SHOP_CLOTHING_REPEAT, 1, ROMANCE_GIFT, 1);
 								}
 								@Override
 								public void effects() {
@@ -338,7 +338,7 @@ public class ClothingEmporium {
 				}
 				
 				
-			} else if(responseTab==1) {
+			} else if(responseTab==0) {
 				if (index == 1) {
 					return new ResponseTrade("Female Clothing", "Ask her what female clothing is available.", Main.game.getNyan()){
 						@Override
@@ -351,7 +351,7 @@ public class ClothingEmporium {
 					};
 					
 				} else if (index == 2) {
-					return new ResponseTrade("Female Underwear", "Ask her what female underwear is available.", Main.game.getNyan()){
+					return new ResponseTrade("Female Lingerie", "Ask her what female lingerie is available.", Main.game.getNyan()){
 						@Override
 						public void effects() {
 							Main.game.getNyan().clearNonEquippedInventory();
@@ -362,17 +362,6 @@ public class ClothingEmporium {
 					};
 					
 				} else if (index == 3) {
-					return new ResponseTrade("Female Lingerie", "Ask her what female lingerie is available.", Main.game.getNyan()){
-						@Override
-						public void effects() {
-							Main.game.getNyan().clearNonEquippedInventory();
-	
-							for (AbstractClothing c : ((Nyan) Main.game.getNyan()).getCommonFemaleOtherLingerie())
-								Main.game.getNyan().addClothing(c, false);
-						}
-					};
-					
-				} else if (index == 4) {
 					return new ResponseTrade("Female Accessories", "Ask her what female accessories are available.", Main.game.getNyan()){
 						@Override
 						public void effects() {
@@ -383,7 +372,7 @@ public class ClothingEmporium {
 						}
 					};
 					
-				} else if (index == 5) {
+				} else if (index == 6) {
 					return new ResponseTrade("Male Clothing", "Ask her what male clothing is available.", Main.game.getNyan()){
 						@Override
 						public void effects() {
@@ -394,7 +383,7 @@ public class ClothingEmporium {
 						}
 					};
 					
-				} else if (index == 6) {
+				} else if (index == 7) {
 					return new ResponseTrade("Male Underwear", "Ask her what male underwear is available.", Main.game.getNyan()){
 						@Override
 						public void effects() {
@@ -405,7 +394,7 @@ public class ClothingEmporium {
 						}
 					};
 					
-				} else if (index == 7) {
+				} else if (index == 8) {
 					return new ResponseTrade("Male Accessories", "Ask her what male accessories are is available.", Main.game.getNyan()){
 						@Override
 						public void effects() {
@@ -416,7 +405,7 @@ public class ClothingEmporium {
 						}
 					};
 					
-				} else if (index == 8) {
+				} else if (index == 11) {
 					return new ResponseTrade("Unisex Clothing", "Ask her what unisex clothing is available.", Main.game.getNyan()){
 						@Override
 						public void effects() {
@@ -427,7 +416,7 @@ public class ClothingEmporium {
 						}
 					};
 					
-				} else if (index == 9) {
+				} else if (index == 12) {
 					return new ResponseTrade("Unisex Underwear", "Ask her what unisex underwear is available.", Main.game.getNyan()){
 						@Override
 						public void effects() {
@@ -438,7 +427,7 @@ public class ClothingEmporium {
 						}
 					};
 					
-				} else if (index == 10) {
+				} else if (index == 13) {
 					return new ResponseTrade("Unisex Accessories", "Ask her what unisex accessories are is available.", Main.game.getNyan()){
 						@Override
 						public void effects() {
@@ -449,17 +438,21 @@ public class ClothingEmporium {
 						}
 					};
 					
-				} else if (index == 11 && Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_NYAN_HELP)) {
-					return new ResponseTrade("Specials", "Ask Nyan about any special items of clothing she might have in stock.", Main.game.getNyan()){
-						@Override
-						public void effects() {
-							Main.game.getNyan().clearNonEquippedInventory();
-	
-							for (AbstractClothing c : ((Nyan) Main.game.getNyan()).getSpecials()) {
-								Main.game.getNyan().addClothing(c, false);
+				} else if (index == 5) {
+					if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_NYAN_HELP)) {
+						return new ResponseTrade("Specials", "Ask Nyan about any special items of clothing she might have in stock.", Main.game.getNyan()){
+							@Override
+							public void effects() {
+								Main.game.getNyan().clearNonEquippedInventory();
+		
+								for (AbstractClothing c : ((Nyan) Main.game.getNyan()).getSpecials()) {
+									Main.game.getNyan().addClothing(c, false);
+								}
 							}
-						}
-					};
+						};
+					} else {
+						return new Response("Specials", "Nyan doesn't have any special items of clothing on offer at the moment...", null);
+					}
 					
 				} else if (index == 0) {
 					return new Response("Leave", "Tell Nyan that you've got to get going.", EXTERIOR) {

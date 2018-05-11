@@ -127,6 +127,9 @@ public enum SexPositionSlot {
 	
 	KNEELING_PERFORMING_ORAL("Kneeling",
 			Util.newArrayListOfValues(
+					new ListValue<>(OrgasmCumTarget.SELF_STOMACH),
+					new ListValue<>(OrgasmCumTarget.SELF_GROIN),
+					new ListValue<>(OrgasmCumTarget.SELF_LEGS),
 					new ListValue<>(OrgasmCumTarget.FLOOR))),
 	
 	/* Standing */
@@ -143,6 +146,13 @@ public enum SexPositionSlot {
 					new ListValue<>(OrgasmCumTarget.STOMACH),
 					new ListValue<>(OrgasmCumTarget.GROIN),
 					new ListValue<>(OrgasmCumTarget.LEGS),
+					new ListValue<>(OrgasmCumTarget.FLOOR))),
+	
+	MASTURBATING_KNEELING("Kneeling",
+			Util.newArrayListOfValues(
+					new ListValue<>(OrgasmCumTarget.SELF_STOMACH),
+					new ListValue<>(OrgasmCumTarget.SELF_GROIN),
+					new ListValue<>(OrgasmCumTarget.SELF_LEGS),
 					new ListValue<>(OrgasmCumTarget.FLOOR))),
 	
 	/* Chair */
@@ -188,6 +198,30 @@ public enum SexPositionSlot {
 					new ListValue<>(OrgasmCumTarget.LEGS),
 					new ListValue<>(OrgasmCumTarget.FLOOR))),
 
+	/* Milking Stall */
+	
+	MILKING_STALL_LOCKED_IN_MILKING_STALL("Locked in milking stall",
+			Util.newArrayListOfValues(
+					new ListValue<>(OrgasmCumTarget.FLOOR))),
+	
+	MILKING_STALL_RECEIVING_ORAL("Receiving oral",
+			Util.newArrayListOfValues(
+					new ListValue<>(OrgasmCumTarget.FACE),
+					new ListValue<>(OrgasmCumTarget.HAIR),
+					new ListValue<>(OrgasmCumTarget.FLOOR))),
+	
+	MILKING_STALL_PERFORMING_ORAL("Performing oral",
+			Util.newArrayListOfValues(
+					new ListValue<>(OrgasmCumTarget.FLOOR))),
+	
+	MILKING_STALL_FUCKING("Standing behind",
+			Util.newArrayListOfValues(
+					new ListValue<>(OrgasmCumTarget.ASS),
+					new ListValue<>(OrgasmCumTarget.BACK),
+					new ListValue<>(OrgasmCumTarget.GROIN),
+					new ListValue<>(OrgasmCumTarget.LEGS),
+					new ListValue<>(OrgasmCumTarget.FLOOR))),
+	
 	/* Missionary */
 	
 	MISSIONARY_ON_BACK("Lying on back",
@@ -222,6 +256,18 @@ public enum SexPositionSlot {
 	
 	DOGGY_BEHIND_AMBER("Kneeling behind",
 			DOGGY_BEHIND.getAvailableCumTargets()),
+	
+	PET_MOUNTING_ON_ALL_FOURS("On all fours",
+			DOGGY_ON_ALL_FOURS.getAvailableCumTargets()),
+	
+	PET_MOUNTING_HUMPING("Mounting",
+			DOGGY_BEHIND.getAvailableCumTargets()),
+	
+	PET_ORAL_ON_ALL_FOURS("On all fours",
+			KNEELING_PERFORMING_ORAL.getAvailableCumTargets()),
+	
+	PET_ORAL_COCKED_LEG("Cocked leg",
+			KNEELING_RECEIVING_ORAL.getAvailableCumTargets()),
 	
 	KNEELING_RECEIVING_ORAL_ZARANIX("Sitting",
 			KNEELING_RECEIVING_ORAL.getAvailableCumTargets()),

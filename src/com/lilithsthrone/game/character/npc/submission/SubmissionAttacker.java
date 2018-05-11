@@ -10,17 +10,16 @@ import org.w3c.dom.Element;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.History;
-import com.lilithsthrone.game.character.Name;
 import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.persona.History;
+import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.race.FurryPreference;
-import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.npcDialogue.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.submission.TunnelAttackDialogue;
@@ -38,7 +37,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.2.1
- * @version 0.2.1
+ * @version 0.2.5
  * @author Innoxia
  */
 public class SubmissionAttacker extends NPC {
@@ -90,34 +89,51 @@ public class SubmissionAttacker extends NPC {
 			Map<Subspecies, Integer> availableRaces = new HashMap<>();
 			for(Subspecies s : Subspecies.values()) {
 				switch(s) {
-					case ALLIGATOR_MORPH:
-						addToSubspeciesMap(30, gender, s, availableRaces);
-						break;
+					// No chance of spawn:
 					case ANGEL:
-						break;
 					case CAT_MORPH:
-						break;
 					case COW_MORPH:
-						break;
 					case DEMON:
+					case DOG_MORPH:
+					case DOG_MORPH_DOBERMANN:
+					case DOG_MORPH_BORDER_COLLIE:
+					case HARPY:
+					case HARPY_RAVEN:
+					case HORSE_MORPH:
+					case HUMAN:
+					case REINDEER_MORPH:
+					case SQUIRREL_MORPH:
+					case WOLF_MORPH:
+					case RABBIT_MORPH:
+					case RABBIT_MORPH_LOP:
+					case ELEMENTAL_AIR:
+					case ELEMENTAL_ARCANE:
+					case ELEMENTAL_EARTH:
+					case ELEMENTAL_FIRE:
+					case ELEMENTAL_WATER:
 						break;
-					case IMP:
-						addToSubspeciesMap(50, gender, s, availableRaces);
+					
+					// Rare spawns:
+					case BAT_MORPH:
+						addToSubspeciesMap(5, gender, s, availableRaces);
 						break;
 					case IMP_ALPHA:
 						addToSubspeciesMap(10, gender, s, availableRaces);
 						break;
-					case DOG_MORPH:
+						
+					// Common spawns:
+					case ALLIGATOR_MORPH:
+						addToSubspeciesMap(30, gender, s, availableRaces);
 						break;
-					case DOG_MORPH_DOBERMANN:
+					case IMP:
+						addToSubspeciesMap(50, gender, s, availableRaces);
 						break;
-					case HARPY:
-						break;
-					case HORSE_MORPH:
-						break;
-					case HUMAN:
+					case RAT_MORPH:
+						addToSubspeciesMap(40, gender, s, availableRaces);
 						break;
 					case SLIME:
+						addToSubspeciesMap(15, gender, s, availableRaces);
+						break;
 					case SLIME_ALLIGATOR:
 					case SLIME_ANGEL:
 					case SLIME_CAT:
@@ -125,19 +141,18 @@ public class SubmissionAttacker extends NPC {
 					case SLIME_DEMON:
 					case SLIME_DOG:
 					case SLIME_DOG_DOBERMANN:
+					case SLIME_DOG_BORDER_COLLIE:
 					case SLIME_HARPY:
+					case SLIME_HARPY_RAVEN:
 					case SLIME_HORSE:
 					case SLIME_IMP:
 					case SLIME_REINDEER:
 					case SLIME_SQUIRREL:
 					case SLIME_WOLF:
-						addToSubspeciesMap(30, gender, s, availableRaces);
-						break;
-					case REINDEER_MORPH:
-						break;
-					case SQUIRREL_MORPH:
-						break;
-					case WOLF_MORPH:
+					case SLIME_RAT:
+					case SLIME_BAT:
+					case SLIME_RABBIT:
+						addToSubspeciesMap(1, gender, s, availableRaces);
 						break;
 				}
 			}
@@ -215,6 +230,9 @@ public class SubmissionAttacker extends NPC {
 			// ADDING FETISHES:
 			
 			CharacterUtils.addFetishes(this);
+			if(this.getBodyMaterial()==BodyMaterial.SLIME) {
+				//TODO
+			}
 			
 			// BODY RANDOMISATION:
 			
@@ -224,6 +242,7 @@ public class SubmissionAttacker extends NPC {
 			
 			resetInventory();
 			inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
+			CharacterUtils.generateItemsInInventory(this);
 	
 			CharacterUtils.equipClothing(this, true, false);
 			CharacterUtils.applyMakeup(this, true);
@@ -323,62 +342,11 @@ public class SubmissionAttacker extends NPC {
 	}
 	
 	@Override
-	public DialogueNodeOld getEncounterDialogue() {
-//		if(Main.game.getActiveWorld().getCell(location).getPlace().getPlaceType()==PlaceType.DOMINION_BACK_ALLEYS) { TODO
-//			if(this.getHistory()==History.PROSTITUTE) {
-//				this.setPlayerKnowsName(true);
-//				return AlleywayProstituteDialogue.ALLEY_PROSTITUTE;
-//			} else {
-//				return AlleywayAttackerDialogue.ALLEY_ATTACK;
-//			}
-//		} else {
-//			return AlleywayAttackerDialogue.STORM_ATTACK;
-//		}
-
+	public DialogueNodeOld getEncounterDialogue() { //TODO slimes
 		return TunnelAttackDialogue.TUNNEL_ATTACK;
 	}
 
 	// Combat:
-
-	@Override
-	public Attack attackType() {
-		if(this.getRace()==Race.SLIME) {
-			if(!getSpecialAttacks().isEmpty()) {
-				if (Math.random() < 0.8) {
-					return Attack.SEDUCTION;
-				} else if (Math.random() < 0.85) {
-					return Attack.MAIN;
-				} else {
-					return Attack.SPECIAL_ATTACK;
-				}
-				
-			} else {
-				if (Math.random() < 0.2) {
-					return Attack.MAIN;
-				} else {
-					return Attack.SEDUCTION;
-				}
-			}
-			
-		} else {
-			if(!getSpecialAttacks().isEmpty()) {
-				if (Math.random() < 0.2) {
-					return Attack.SEDUCTION;
-				} else if (Math.random() < 0.8) {
-					return Attack.MAIN;
-				} else {
-					return Attack.SPECIAL_ATTACK;
-				}
-				
-			} else {
-				if (Math.random() < 0.7) {
-					return Attack.MAIN;
-				} else {
-					return Attack.SEDUCTION;
-				}
-			}
-		}
-	}
 
 	@Override
 	public String getCombatDescription() {
@@ -397,20 +365,21 @@ public class SubmissionAttacker extends NPC {
 	}
 
 	@Override
-	public Response endCombat(boolean applyEffects, boolean victory) {
-//		if(this.getHistory()==History.PROSTITUTE) { TODO
-//			if (victory) {
-//				return new Response("", "", AlleywayProstituteDialogue.AFTER_COMBAT_VICTORY);
+	public Response endCombat(boolean applyEffects, boolean victory) { //TODO slimes
+		if (victory) {
+//			if(this.getBodyMaterial()==BodyMaterial.SLIME) {
+//				return new Response("", "", TunnelSlimeDialogue.AFTER_COMBAT_PLAYER_VICTORY);
 //			} else {
-//				return new Response ("", "", AlleywayProstituteDialogue.AFTER_COMBAT_DEFEAT);
-//			}
-//		} else {
-			if (victory) {
 				return new Response("", "", TunnelAttackDialogue.AFTER_COMBAT_VICTORY);
-			} else {
-				return new Response ("", "", TunnelAttackDialogue.AFTER_COMBAT_DEFEAT);
-			}
-//		}
+//			}
+			
+		} else {
+//			if(this.getBodyMaterial()==BodyMaterial.SLIME) {
+//				return new Response("", "", TunnelSlimeDialogue.AFTER_COMBAT_PLAYER_DEFEAT);
+//			} else {
+				return new Response("", "", TunnelAttackDialogue.AFTER_COMBAT_DEFEAT);
+//			}
+		}
 	}
 	
 	@Override

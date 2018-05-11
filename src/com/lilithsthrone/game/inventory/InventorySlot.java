@@ -36,6 +36,7 @@ public enum InventorySlot {
 	WRIST(30, "wrists", false, false), // Bracelets
 	FINGER(30, "fingers", false, false), // Rings
 	HIPS(40, "hips", false, false), // Belts
+//	HIPS_UNDER(20, "hips-under", false, false), // suspender belts
 	ANUS(0, "anus", false, false), // Insertables
 
 	// LEG & FOOT:

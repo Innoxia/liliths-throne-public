@@ -114,7 +114,13 @@ public class SlaveryEventLogEntry implements Serializable, XMLSaving {
 				Element e = ((Element)tagNode.getElementsByTagName("tag").item(i));
 
 				try {
-					loadedTags.add(SlaveEventTag.valueOf(e.getAttribute("value")));
+					String value = e.getAttribute("value");
+					if(value.equals("JOB_LILAYA_MILK_SOLD")) {
+						value = "JOB_MILK_SOLD";
+					} else if(value.equals("JOB_LILAYA_CUM_SOLD")) {
+						value = "JOB_CUM_SOLD";
+					}
+					loadedTags.add(SlaveEventTag.valueOf(value));
 				}catch(IllegalArgumentException ex){
 				}
 			}

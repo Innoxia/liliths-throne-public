@@ -295,6 +295,87 @@
 	]]>
 	</htmlContent>
 	
+	<!-- RAT-MORPHS -->
+	
+	<htmlContent tag="RAT_MORPH_BASIC"><![CDATA[
+	<p>
+		In terms of sheer numbers, rat-morphs can be counted as a very common anthropomorphic race.
+		 Despite their significant population, however, the vast majority of rat-morphs choose to live in the undercity of Submission, making them a rare sight in all other parts of the world.
+		 Their long, naked tails, twitching nose, and rounded, rodent-like ears are usually enough to identify a rat-morph.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RAT_MORPH_ADVANCED"><![CDATA[
+	<p>
+		Rat-morphs have a rather poor reputation, and are often accused of being criminals or troublemakers.
+		 There is more than a little truth in these accusations, as Submission's rat-morph society regards thievery, skulduggery, and subterfuge as highly desirable traits.
+		 Their immense fondness for these characteristics has resulted in the most notorious of Submission's thieves being regarded as folk heroes among the rat-morph population.
+	</p>
+	<p>
+		Rat-morphs, like the other common races, get heavily affected by arcane storms.
+		 Being exposed to arcane thunder will make rat-boys enter a potent rut, while rat-girls will go into an intense heat; seeking to be bred by the first suitable partner that they can find.
+	</p>
+	<p>
+		Rat-morphs will give birth to up to four offspring at once.
+		 Their pregnancies work in exactly the same way as a normal human one.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- BAT-MORPHS -->
+	
+	<htmlContent tag="BAT_MORPH_BASIC"><![CDATA[
+	<p>
+		Bat-morphs are are a rare race, and are only found in significant numbers in the dark caverns that are linked to the undercity of Submission.
+		 Their bat-like wings and large ears are usually enough to identify someone as a bat-morph.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAT_MORPH_ADVANCED"><![CDATA[
+	<p>
+		Bat-morphs mostly keep to themselves, and, being nocturnal, they sleep in their caverns during the day and only come out at night.
+		 Thanks to their echolocation ability, which involves emitting ultrasonic squeaks to produce echoes, they can 'see' perfectly in pitch-black darkness.
+		 Bat-morphs are typically quite reclusive and shy, but, much like humans, their personalities vary considerably between individuals.
+	</p>
+	<p>
+		Bat-morphs, like the other common races, get heavily affected by arcane storms.
+		 Being exposed to arcane thunder will make bat-boys enter a potent rut, while bat-girls will go into an intense heat; seeking to be bred by the first suitable partner that they can find.
+	</p>
+	<p>
+		Bat-morphs will give birth to one or two offspring at once.
+		 Their pregnancies work in exactly the same way as a normal human one.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- RABBIT-MORPHS -->
+	
+	<htmlContent tag="RABBIT_MORPH_BASIC"><![CDATA[
+	<p>
+		Rabbit-morphs are one of the most common races to be found in the Foloi Fields, and are also occasionally to be seen wandering the streets of Dominion.
+		 Their large rabbit-like ears and round, fluffy tails are usually enough to identify someone as a rabbit-morph.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RABBIT_MORPH_ADVANCED"><![CDATA[
+	<p>
+		The vast majority of rabbit-morphs are obsessed with breeding and being bred.
+		 Although their personalities can vary wildly between individuals, they all share the same primal instinct to produce as many offspring as possible.
+	</p>
+	<p>
+		Rabbit-morphs, like the other common races, get heavily affected by arcane storms.
+		 Being exposed to arcane thunder will make rabbit-boys enter a potent rut, while rabbit-girls will go into an intense heat; seeking to be bred by the first suitable partner that they can find.
+	</p>
+	<p>
+		Rabbit-morphs will give birth to two to eight offspring at once.
+		 Their pregnancies work in exactly the same way as a normal human one.
+	</p>
+	]]>
+	</htmlContent>
+	
 	<!-- ALLIGATOR-MORPHS -->
 	
 	<htmlContent tag="ALLIGATOR_MORPH_BASIC"><![CDATA[
@@ -382,7 +463,7 @@
 	<p>
 		Harpy society is both matriarchal and very insular, and can seem quite alarming to an outside observer.
 		 All harpy society is based on femininity and beauty, and the more attractive a harpy is, the higher they are on the social ladder.
-		 Any harpies that are not part of a flock will be mercilessly bulled and taunted by members of other flocks until they submit to the protection of a matriarch.
+		 Any harpies that are not part of a flock will be mercilessly bullied and taunted by members of other flocks until they submit to the protection of a matriarch.
 	</p>
 	<p>
 		Each matriarch will have their own way for a harpy to show submission, but some of the more common demands involve public humiliation, or having to offer themselves as sexual relief for the rest of the flock.
@@ -406,6 +487,156 @@
 		 After laying is complete, the mother becomes fiercely protective of her clutch, and will refuse to sleep while she incubates her eggs for approximately eighteen to twenty-four hours.
 		 Once the eggs finally hatch, the mother will usually collapse from exhaustion.
 		 The resulting offspring will be a mixture of harpies and offspring of their partner's race.
+	</p>
+	]]>
+	</htmlContent>
+
+	<!-- ELEMENTALS -->
+	
+	<htmlContent tag="ELEMENTAL_FIRE_BASIC"><![CDATA[
+	<p>
+		From summoning forth shards of ice, to lifting objects by means of telekinetic powers, there are many different and varied ways in which the arcane can be harnessed.
+		 Of all the spells that are commonly known, however, none are as difficult or as draining to cast as those that summon forth elementals.
+	</p>
+	<p>
+		By binding their arcane aura to one spell school or another, a highly-proficient arcane user can create an elemental seemingly out of thin-air.
+		 These elementals may appear to have a will of their own, but, while it is true that they are capable of taking independent action, it has been proven by arcane researchers that they are being controlled by their summoner's subconsciousness.
+		 That is to say, they are not generally regarded as living creatures in their own right, but simply a physical manifestation of the summoner's arcane aura.
+	</p>
+	<p>
+		As only the most powerful of demons are able to cast these summoning spells, there haven't been many detailed studies conducted into the nature of elementals.
+		 What has been discovered, however, is that no matter which school an elemental is bound to, or how many times it is summoned and dispelled, the elemental is always the same core being, and will always identify itself by the same name.
+		 It is also a fact that, much like demons, the vast majority of elementals choose to take the form of a female.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ELEMENTAL_FIRE_ADVANCED"><![CDATA[
+	<p>
+		Fire elementals, much as their name would suggest, are experts in all matters related to arcane fire.
+		 They typically take the form of a female demon, made entirely of blazing orange or blue flames, save for a little obsidian core where their heart should be.
+		 Although they look hot enough to burn anyone foolish enough to come too close, the arcane flames that make up a Fire elemental's body fluctuate at around fifty-degrees Celsius, allowing them to be touched just like any other elemental.
+	</p>
+	<p>
+		Able to cast a wide range of Fire spells, and using their fiery bodies to launch devastating attacks, an elemental bound to this form seems to enjoy combat more than anything else.
+		 They typically act in a very unpredictable and excitable manner, and at times, seem to be entirely out of the control of their summoner.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ELEMENTAL_WATER_BASIC"><![CDATA[
+	<p>
+		From summoning forth shards of ice, to lifting objects by means of telekinetic powers, there are many different and varied ways in which the arcane can be harnessed.
+		 Of all the spells that are commonly known, however, none are as difficult or as draining to cast as those that summon forth elementals.
+	</p>
+	<p>
+		By binding their arcane aura to one spell school or another, a highly-proficient arcane user can create an elemental seemingly out of thin-air.
+		 These elementals may appear to have a will of their own, but, while it is true that they are capable of taking independent action, it has been proven by arcane researchers that they are being controlled by their summoner's subconsciousness.
+		 That is to say, they are not generally regarded as living creatures in their own right, but simply a physical manifestation of the summoner's arcane aura.
+	</p>
+	<p>
+		As only the most powerful of demons are able to cast these summoning spells, there haven't been many detailed studies conducted into the nature of elementals.
+		 What has been discovered, however, is that no matter which school an elemental is bound to, or how many times it is summoned and dispelled, the elemental is always the same core being, and will always identify itself by the same name.
+		 It is also a fact that, much like demons, the vast majority of elementals choose to take the form of a female.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ELEMENTAL_WATER_ADVANCED"><![CDATA[
+	<p>
+		Water elementals, much as their name would suggest, are experts in all matters related to liquids and arcane ice.
+		 They typically take the form of a female demon, made entirely of either water or ice, save for a little obsidian core where their heart should be.
+		 When in their ice form, a Water elemental's body fluctuates at around minus five-degrees Celsius, while their water form remains at around room-temperature.
+	</p>
+	<p>
+		An elemental bound to this form is able to cast a wide range of Water spells, and typically acts in a very calm and docile manner.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ELEMENTAL_EARTH_BASIC"><![CDATA[
+	<p>
+		From summoning forth shards of ice, to lifting objects by means of telekinetic powers, there are many different and varied ways in which the arcane can be harnessed.
+		 Of all the spells that are commonly known, however, none are as difficult or as draining to cast as those that summon forth elementals.
+	</p>
+	<p>
+		By binding their arcane aura to one spell school or another, a highly-proficient arcane user can create an elemental seemingly out of thin-air.
+		 These elementals may appear to have a will of their own, but, while it is true that they are capable of taking independent action, it has been proven by arcane researchers that they are being controlled by their summoner's subconsciousness.
+		 That is to say, they are not generally regarded as living creatures in their own right, but simply a physical manifestation of the summoner's arcane aura.
+	</p>
+	<p>
+		As only the most powerful of demons are able to cast these summoning spells, there haven't been many detailed studies conducted into the nature of elementals.
+		 What has been discovered, however, is that no matter which school an elemental is bound to, or how many times it is summoned and dispelled, the elemental is always the same core being, and will always identify itself by the same name.
+		 It is also a fact that, much like demons, the vast majority of elementals choose to take the form of a female.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ELEMENTAL_EARTH_ADVANCED"><![CDATA[
+	<p>
+		Earth elementals are experts in all matters related to manipulating solid objects, and are highly capable at harnessing the arcane as a means of generating waves of pure force.
+		 They typically take the form of a female demon, made entirely of either smooth stone or shiny rubber, save for a little obsidian core where their heart should be.
+	</p>
+	<p>
+		An elemental bound to this form is able to cast a wide range of Earth spells, and typically acts in a very stoic manner.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ELEMENTAL_AIR_BASIC"><![CDATA[
+	<p>
+		From summoning forth shards of ice, to lifting objects by means of telekinetic powers, there are many different and varied ways in which the arcane can be harnessed.
+		 Of all the spells that are commonly known, however, none are as difficult or as draining to cast as those that summon forth elementals.
+	</p>
+	<p>
+		By binding their arcane aura to one spell school or another, a highly-proficient arcane user can create an elemental seemingly out of thin-air.
+		 These elementals may appear to have a will of their own, but, while it is true that they are capable of taking independent action, it has been proven by arcane researchers that they are being controlled by their summoner's subconsciousness.
+		 That is to say, they are not generally regarded as living creatures in their own right, but simply a physical manifestation of the summoner's arcane aura.
+	</p>
+	<p>
+		As only the most powerful of demons are able to cast these summoning spells, there haven't been many detailed studies conducted into the nature of elementals.
+		 What has been discovered, however, is that no matter which school an elemental is bound to, or how many times it is summoned and dispelled, the elemental is always the same core being, and will always identify itself by the same name.
+		 It is also a fact that, much like demons, the vast majority of elementals choose to take the form of a female.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ELEMENTAL_AIR_ADVANCED"><![CDATA[
+	<p>
+		Air elementals are experts in all matters related to manipulating gasses, and are highly capable at focusing the arcane's power into creating clouds of poisonous vapours.
+		 They typically take the form of a female demon, made entirely of roiling, dark storm-clouds, save for a little obsidian core which floats at the spot where their heart should be.
+	</p>
+	<p>
+		An elemental bound to this form is able to cast a wide range of Air spells, and is typically quick both to anger and to forgive.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ELEMENTAL_ARCANE_BASIC"><![CDATA[
+	<p>
+		From summoning forth shards of ice, to lifting objects by means of telekinetic powers, there are many different and varied ways in which the arcane can be harnessed.
+		 Of all the spells that are commonly known, however, none are as difficult or as draining to cast as those that summon forth elementals.
+	</p>
+	<p>
+		By binding their arcane aura to one spell school or another, a highly-proficient arcane user can create an elemental seemingly out of thin-air.
+		 These elementals may appear to have a will of their own, but, while it is true that they are capable of taking independent action, it has been proven by arcane researchers that they are being controlled by their summoner's subconsciousness.
+		 That is to say, they are not generally regarded as living creatures in their own right, but simply a physical manifestation of the summoner's arcane aura.
+	</p>
+	<p>
+		As only the most powerful of demons are able to cast these summoning spells, there haven't been many detailed studies conducted into the nature of elementals.
+		 What has been discovered, however, is that no matter which school an elemental is bound to, or how many times it is summoned and dispelled, the elemental is always the same core being, and will always identify itself by the same name.
+		 It is also a fact that, much like demons, the vast majority of elementals choose to take the form of a female.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ELEMENTAL_ARCANE_ADVANCED"><![CDATA[
+	<p>
+		Arcane elementals are considered by some to be the most pure form of elemental, being experts at manipulating the very energy that formed them.
+		 They typically take the form of a female demon, made entirely of translucent pink or purple energy, save for a little obsidian core which floats at the spot where their heart should be.
+	</p>
+	<p>
+		An elemental bound to this form is able to cast a wide range of Arcane spells, and is typically only really interested in encouraging their summoner to have sex with them.
 	</p>
 	]]>
 	</htmlContent>

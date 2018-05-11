@@ -80,3 +80,10 @@ mvn package
 
 This creates the JAR file in `/target/game-1.jar`.  
 Your first build will take longer than the subsequent ones as only changed files are recompiled.
+
+## Using NetBeans
+You should be able to use NetBeans' import zip feature to easily import this project.
+1. Use the green "Clone or Download" button on the project's main page, and choose "Download ZIP".
+2. In NetBeans, navigate to: "File -> Import Project -> From Zip..."
+3. Select the ZIP download from step 1.
+4. The imported project should now run in NetBeans.

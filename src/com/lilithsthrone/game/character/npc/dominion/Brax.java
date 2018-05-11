@@ -1,15 +1,16 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.NameTriplet;
-import com.lilithsthrone.game.character.SexualOrientation;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.Covering;
@@ -38,17 +39,18 @@ import com.lilithsthrone.game.character.body.valueEnums.HipSize;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
-import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.persona.NameTriplet;
+import com.lilithsthrone.game.character.persona.PersonalityTrait;
+import com.lilithsthrone.game.character.persona.PersonalityWeight;
+import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
-import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.combat.DamageType;
-import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -57,6 +59,7 @@ import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.CharacterInventory;
+import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
@@ -72,6 +75,8 @@ import com.lilithsthrone.game.sex.managers.universal.SMCowgirl;
 import com.lilithsthrone.game.sex.managers.universal.SMDoggy;
 import com.lilithsthrone.game.sex.managers.universal.SMKneeling;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.rendering.Artist;
+import com.lilithsthrone.rendering.Artwork;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.ListValue;
@@ -81,13 +86,52 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.5
- * @version 0.1.97
+ * @version 0.2.4
  * @author Innoxia
  */
 public class Brax extends NPC {
 
 	private static final long serialVersionUID = 1L;
 
+	private static List<Artwork> braxArtwork = new ArrayList<>();
+	private static List<Artwork> breeArtwork = new ArrayList<>();
+	private static List<Artwork> brandiArtwork = new ArrayList<>();
+	
+	static {
+		String artworkFolderName = "Brax";
+				
+		if(artworkFolderName!=null && !artworkFolderName.isEmpty()) {
+			for(Artist artist : Artwork.allArtists) {
+				File f = new File("res/images/characters/"+artworkFolderName+"/"+artist.getFolderName());
+				if(f.exists()) {
+					braxArtwork.add(new Artwork(artworkFolderName, artist));
+				}
+			}
+		}
+		
+		artworkFolderName = "Bree";
+		
+		if(artworkFolderName!=null && !artworkFolderName.isEmpty()) {
+			for(Artist artist : Artwork.allArtists) {
+				File f = new File("res/images/characters/"+artworkFolderName+"/"+artist.getFolderName());
+				if(f.exists()) {
+					breeArtwork.add(new Artwork(artworkFolderName, artist));
+				}
+			}
+		}
+		
+		artworkFolderName = "Brandi";
+		
+		if(artworkFolderName!=null && !artworkFolderName.isEmpty()) {
+			for(Artist artist : Artwork.allArtists) {
+				File f = new File("res/images/characters/"+artworkFolderName+"/"+artist.getFolderName());
+				if(f.exists()) {
+					brandiArtwork.add(new Artwork(artworkFolderName, artist));
+				}
+			}
+		}
+	}
+	
 	public Brax() {
 		this(false);
 	}
@@ -96,6 +140,13 @@ public class Brax extends NPC {
 		super(new NameTriplet("Brax", "Bree", "Brandi"),
 				"The 'Chief of Dominion Operations', Brax is a high-ranking enforcer. Muscular, handsome, and with an incredibly dominant personality, he's the focus of every female enforcer's attention.", 3, Gender.M_P_MALE,
 				RacialBody.WOLF_MORPH, RaceStage.GREATER, new CharacterInventory(10), WorldType.ENFORCER_HQ, PlaceType.ENFORCER_HQ_BRAXS_OFFICE, true);
+
+		this.setPersonality(Util.newHashMapOfValues(
+				new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.LOW),
+				new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.AVERAGE),
+				new Value<>(PersonalityTrait.EXTROVERSION, PersonalityWeight.AVERAGE),
+				new Value<>(PersonalityTrait.NEUROTICISM, PersonalityWeight.LOW),
+				new Value<>(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.AVERAGE)));
 		
 		if(!isImported) {
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
@@ -129,8 +180,29 @@ public class Brax extends NPC {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
 		
 		this.setPenisVirgin(false);
+
+		if(hasFetish(Fetish.FETISH_BIMBO) && Main.isVersionOlderThan(Main.VERSION_NUMBER, "0.2.4")) {
+			this.setPiercedEar(true);
+			if(this.getClothingInSlot(InventorySlot.PIERCING_EAR)!=null) {
+				this.unequipClothingIntoVoid(this.getClothingInSlot(InventorySlot.PIERCING_EAR), true, this);
+				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_EAR_HOOPS, Colour.CLOTHING_GOLD, false), true, this);
+			}
+		}
 	}
 
+	@Override
+	public List<Artwork> getArtworkList() {
+		if(this.getName().equalsIgnoreCase("Brax")) {
+			return braxArtwork;
+			
+		} else if(this.getName().equalsIgnoreCase("Bree")) {
+			return breeArtwork;
+			
+		} else {
+			return brandiArtwork;
+		}
+	}
+	
 	@Override
 	public boolean isUnique() {
 		return true;
@@ -188,9 +260,9 @@ public class Brax extends NPC {
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.HAND_FISHNET_GLOVES, Colour.CLOTHING_WHITE, false), true, this);
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FINGER_RING, Colour.CLOTHING_GOLD, false), true, this);
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_BANGLE, Colour.CLOTHING_GOLD, false), true, this);
-				
+
 				this.setPiercedEar(true);
-				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_EAR_BASIC_RING, Colour.CLOTHING_GOLD, false), true, this);
+				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_EAR_HOOPS, Colour.CLOTHING_GOLD, false), true, this);
 				this.setPiercedNose(true);
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_NOSE_BASIC_RING, Colour.CLOTHING_GOLD, false), true, this);
 				this.setPiercedNavel(true);
@@ -253,7 +325,7 @@ public class Brax extends NPC {
 
 	@Override
 	public String getSpeechColour() {
-		if(Main.getProperties().lightTheme) {
+		if(Main.getProperties().hasValue(PropertyValue.lightTheme)) {
 			if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.bimbofiedBrax)) {
 				return "#FF0AA5";
 			} else if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.feminisedBrax)) {
@@ -384,6 +456,7 @@ public class Brax extends NPC {
 						Main.game.getDialogueFlags().values.add(DialogueFlagValue.braxBeaten);
 						Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(ClothingType.ENFORCER_SHIRT, Colour.CLOTHING_BLUE, false), false);
 						Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(ClothingType.ENFORCER_SHORTS, Colour.CLOTHING_BLUE, false), false);
+						Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(ClothingType.ENFORCER_MINI_SKIRT, Colour.CLOTHING_BLUE, false), false);
 					}
 				};
 				
@@ -397,6 +470,7 @@ public class Brax extends NPC {
 						Main.game.getDialogueFlags().values.add(DialogueFlagValue.braxBeaten);
 						Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(ClothingType.ENFORCER_SHIRT, Colour.CLOTHING_BLUE, false), false);
 						Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(ClothingType.ENFORCER_SHORTS, Colour.CLOTHING_BLUE, false), false);
+						Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(ClothingType.ENFORCER_MINI_SKIRT, Colour.CLOTHING_BLUE, false), false);
 					}
 				};
 				
@@ -404,7 +478,7 @@ public class Brax extends NPC {
 				return new Response("Submit to Brax",
 						"Although you've defeated him, your submissive nature is causing you to consider letting Brax dominantly fuck you...",
 						AFTER_COMBAT_VICTORY_SUBMISSIVE_SEX,
-						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)), null, null, null, null){
+						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)), CorruptionLevel.THREE_DIRTY, null, null, null){
 					@Override
 					public Femininity getFemininityRequired() {
 						return Femininity.FEMININE;
@@ -414,6 +488,7 @@ public class Brax extends NPC {
 						Main.game.getDialogueFlags().values.add(DialogueFlagValue.braxBeaten);
 						Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(ClothingType.ENFORCER_SHIRT, Colour.CLOTHING_BLUE, false), false);
 						Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(ClothingType.ENFORCER_SHORTS, Colour.CLOTHING_BLUE, false), false);
+						Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(ClothingType.ENFORCER_MINI_SKIRT, Colour.CLOTHING_BLUE, false), false);
 					}
 				};
 				
@@ -444,6 +519,7 @@ public class Brax extends NPC {
 				return new ResponseEffectsOnly("Outside", "You find yourself back outside once more, but this time, with new knowledge of Arthur's location.") {
 					@Override
 					public void effects() {
+//						Main.game.getPlayer().setLocation(WorldType.DOMINION, PlaceType.DOMINION_ENFORCER_HQ);
 						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.DOMINION), PlaceType.DOMINION_ENFORCER_HQ, true);
 						((Brax) Main.game.getBrax()).setBraxsPostQuestStatus();
 					}
@@ -665,7 +741,14 @@ public class Brax extends NPC {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Spit", "Spit out the transformative liquid.", AFTER_DEFEAT_TRANSFORMATION_REFUSED);
+				if(Main.game.getPlayer().hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING)) {
+					return new Response("Spit",
+							"Due to your <b style='color:"+Colour.FETISH.toWebHexString()+";'>"+Fetish.FETISH_TRANSFORMATION_RECEIVING.getName(Main.game.getPlayer())
+								+"</b> fetish, you love being transformed so much that you can't bring yourself to spit out the transformative liquid!",
+							null);
+				} else {
+					return new Response("Spit", "Spit out the transformative liquid.", AFTER_DEFEAT_TRANSFORMATION_REFUSED);
+				}
 				
 			} else if (index == 2) {
 				return new Response("Swallow", "Do as Brax says and swallow the strange liquid.", AFTER_DEFEAT_TRANSFORMATION,
@@ -677,6 +760,10 @@ public class Brax extends NPC {
 					@Override
 					public void effects() {
 						Main.game.getDialogueFlags().values.add(DialogueFlagValue.braxTransformedPlayer);
+						
+						if(Main.getProperties().forcedFetishPercentage != 0) {
+							Main.game.getPlayer().addFetish(Fetish.FETISH_SUBMISSIVE);
+						}
 						
 						switch(Main.getProperties().forcedTFPreference) {
 							case HUMAN:
@@ -1033,27 +1120,6 @@ public class Brax extends NPC {
 			}
 		}
 	};
-
-	@Override
-	public Attack attackType() {
-		if (this.getAllSpells().isEmpty()
-				|| (Math.random() < 0.7
-						|| this.getManaPercentage() <= 0.6f
-						|| (Main.game.getPlayer().getStatusEffects().contains(StatusEffect.BURN_WEAK)
-								&& this.getStatusEffects().contains(StatusEffect.FIRE_SHIELD)))) {
-			return Attack.MAIN;
-		} else {
-			return Attack.SPELL;
-		}
-	}
-
-	@Override
-	public Spell getSpell() {
-		if (!Main.game.getPlayer().getStatusEffects().contains(StatusEffect.BURN_WEAK))
-			return Spell.FIREBALL_1;
-		else
-			return Spell.FIRE_SHIELD;
-	}
 	
 	@Override
 	public int getEscapeChance() {

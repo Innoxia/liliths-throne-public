@@ -14,14 +14,13 @@ import org.w3c.dom.Element;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.utils.BaseColour;
-import com.lilithsthrone.utils.Bearing;
 import com.lilithsthrone.utils.XMLSaving;
+import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.EntranceType;
-import com.lilithsthrone.world.WorldType;
 
 /**
  * @since 0.1.?
- * @version 0.1.89
+ * @version 0.2.5
  * @author Innoxia
  */
 public class GenericPlace implements Serializable, XMLSaving {
@@ -75,11 +74,28 @@ public class GenericPlace implements Serializable, XMLSaving {
 		return element;
 	}
 	
-	public static GenericPlace loadFromXML(Element parentElement, Document doc) {
+	public static GenericPlace loadFromXML(Element parentElement, Document doc, Cell c) {
 		String placeType = parentElement.getAttribute("type");
 		
 		if(placeType.equals("ZARANIX_FF_BEDROOM")) {
 			placeType = "ZARANIX_FF_OFFICE";
+			
+		} else if(placeType.equals("LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR_SLAVE")
+				|| placeType.equals("LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR_MILKING")) {
+			placeType = "LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR";
+			
+		} else if(placeType.equals("LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR_SLAVE")
+				|| placeType.equals("LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR_MILKING")) {
+			placeType = "LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR";
+			
+		} else if(placeType.equals("LILAYA_HOME_ROOM_WINDOW_FIRST_FLOOR_SLAVE")
+				|| placeType.equals("LILAYA_HOME_ROOM_WINDOW_FIRST_FLOOR_MILKING")) {
+			placeType = "LILAYA_HOME_ROOM_WINDOW_FIRST_FLOOR";
+			
+		} else if(placeType.equals("LILAYA_HOME_ROOM_GARDEN_FIRST_FLOOR_SLAVE")
+				|| placeType.equals("LILAYA_HOME_ROOM_GARDEN_FIRST_FLOOR_MILKING")) {
+			placeType = "LILAYA_HOME_ROOM_GARDEN_FIRST_FLOOR";
+			
 		}
 		
 		GenericPlace place = new GenericPlace(PlaceType.valueOf(placeType));
@@ -100,17 +116,24 @@ public class GenericPlace implements Serializable, XMLSaving {
 					}
 				}
 				
+				place.getPlaceUpgrades().clear();
+				
 				// Add core upgrades first:
 				for(PlaceUpgrade coreUpgrade : coreUpgrades) {
+					if(coreUpgrade==PlaceUpgrade.LILAYA_EMPTY_ROOM && coreUpgrades.size()>1) {
+						continue;
+					}
 					if(!place.getPlaceUpgrades().contains(coreUpgrade)) {
-						if(!place.addPlaceUpgrade(coreUpgrade)) { // This line attempts to add the upgrade
+						if(!place.addPlaceUpgrade(c, coreUpgrade)) { // This line attempts to add the upgrade
 							System.err.println("WARNING: Import of GenericPlace ("+place.getPlaceType()+") was unable to add core upgrade: "+coreUpgrade.getName());
+						} else {
+							break; // There should only be one core upgrade added.
 						}
 					}
 				}
 				for(PlaceUpgrade upgrade : upgrades) {
 					if(!place.getPlaceUpgrades().contains(upgrade)) {
-						if(!place.addPlaceUpgrade(upgrade)) { // This line attempts to add the upgrade
+						if(!place.addPlaceUpgrade(c, upgrade)) { // This line attempts to add the upgrade
 							System.err.println("WARNING: Import of GenericPlace ("+place.getPlaceType()+") was unable to add upgrade: "+upgrade.getName());
 						}
 					}
@@ -155,7 +178,11 @@ public class GenericPlace implements Serializable, XMLSaving {
 	}
 
 	public DialogueNodeOld getDialogue(boolean withRandomEncounter) {
-		return placeType.getDialogue(withRandomEncounter);
+		return getDialogue(withRandomEncounter, false);
+	}
+	
+	public DialogueNodeOld getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
+		return placeType.getDialogue(withRandomEncounter, forceEncounter);
 	}
 
 	public boolean isPopulated() {
@@ -181,14 +208,6 @@ public class GenericPlace implements Serializable, XMLSaving {
 	
 	// For determining where this place should be placed:
 	
-	public Bearing getBearing() {
-		return placeType.getBearing();
-	}
-	
-	public WorldType getParentWorldType() {
-		return placeType.getParentWorldType();
-	}
-	
 	public PlaceType getParentPlaceType() {
 		return placeType.getParentPlaceType();
 	}
@@ -197,19 +216,18 @@ public class GenericPlace implements Serializable, XMLSaving {
 		return placeType.getParentAlignment();
 	}
 	
-	
-	public boolean addPlaceUpgrade(PlaceUpgrade upgrade) {
+	public boolean addPlaceUpgrade(Cell c, PlaceUpgrade upgrade) {
 		if(placeUpgrades.add(upgrade)) {
-			upgrade.applyInstallationEffects(this);
+			upgrade.applyInstallationEffects(c);
 			return true;
 		} else {
 			return false;
 		}
 	}
 	
-	public boolean removePlaceUpgrade(PlaceUpgrade upgrade) {
+	public boolean removePlaceUpgrade(Cell c, PlaceUpgrade upgrade) {
 		if(placeUpgrades.remove(upgrade)) {
-			upgrade.applyRemovalEffects(this);
+			upgrade.applyRemovalEffects(c);
 			return true;
 		} else {
 			return false;

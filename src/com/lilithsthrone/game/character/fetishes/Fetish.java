@@ -775,7 +775,8 @@ public enum Fetish {
 			Colour.GENERIC_ARCANE,
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<>("<span style='color:"+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Increases potency</span> <span style='color:"+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>of receiving forced transformations</span>")),
+					new ListValue<>("[style.boldGood(Increases potency)] <span style='color:"+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>of receiving forced transformations</span>"),
+					new ListValue<>("[style.boldBad(Disables)] ability to spit out TF potions")),
 			null) {
 		
 		@Override
@@ -814,7 +815,7 @@ public enum Fetish {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			if (owner.isPlayer()) {
-				return "You love the idea of giving others new fetishes, either voluntarily or otherwise, is a massive turn-on for you.";
+				return "The idea of giving people new fetishes, either voluntarily or otherwise, is a massive turn-on for you.";
 			} else {
 				return UtilText.parse(owner, "[npc.Name] loves giving others new fetishes. Watching them enjoy perverse new things, either voluntarily or otherwise, is a massive turn-on for [npc.herHim].");
 			}
@@ -847,7 +848,7 @@ public enum Fetish {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			if (owner.isPlayer()) {
-				return "You love the idea of being developing new fetishes. Gaining perverse joy from new things, either voluntarily or otherwise, is a massive turn-on for you.";
+				return "You love the idea of developing new fetishes. Gaining perverse joy from new things, either voluntarily or otherwise, is a massive turn-on for you.";
 			} else {
 				return UtilText.parse(owner, "[npc.Name] loves developing new fetishes. Gaining perverse joy from new things, either voluntarily or otherwise, is a massive turn-on for [npc.herHim].");
 			}
@@ -1450,9 +1451,10 @@ public enum Fetish {
 		}
 		
 		try {
-			InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/fetishes/"
-					+ pathName
-					+ ".svg");
+			InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/fetishes/" + pathName + ".svg");
+			if(is==null) {
+				System.err.println("Error! Fetish icon file does not exist (Trying to read from '"+pathName+"')!");
+			}
 			SVGString = Util.inputStreamToString(is);
 
 			SVGString = SVGString.replaceAll("#ff2a2a", colourShade.getShades()[0]);

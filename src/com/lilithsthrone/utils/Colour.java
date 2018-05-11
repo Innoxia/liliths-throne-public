@@ -2,6 +2,7 @@ package com.lilithsthrone.utils;
 
 import java.util.List;
 
+import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util.ListValue;
 
@@ -9,7 +10,7 @@ import javafx.scene.paint.Color;
 
 /**
  * @since 0.1.0
- * @version 0.2.1
+ * @version 0.2.3
  * @author Innoxia
  */
 public enum Colour {
@@ -49,6 +50,7 @@ public enum Colour {
 	BASE_GREEN_LIME(BaseColour.GREEN_LIME, "lime green", Util.newArrayListOfValues(new ListValue<>("limeGreen"))),
 	BASE_GREEN_LIGHT(BaseColour.GREEN_LIGHT, "light green", Util.newArrayListOfValues(new ListValue<>("lightGreen"))),
 	BASE_GREEN(BaseColour.GREEN, "green", Util.newArrayListOfValues(new ListValue<>("green"))),
+	BASE_GREEN_DARK(BaseColour.GREEN_DARK, "dark green", Util.newArrayListOfValues(new ListValue<>("darkGreen"))),
 	
 	BASE_AQUA(BaseColour.AQUA, "aqua", Util.newArrayListOfValues(new ListValue<>("aqua"))),
 	BASE_TEAL(BaseColour.TEAL, "teal", Util.newArrayListOfValues(new ListValue<>("teal"))),
@@ -57,10 +59,15 @@ public enum Colour {
 	BASE_BLUE_STEEL(BaseColour.BLUE_STEEL, "steely blue", Util.newArrayListOfValues(new ListValue<>("steelyBlue"))),
 	
 	BASE_BLACK(BaseColour.BLACK, "black", Util.newArrayListOfValues(new ListValue<>("black"))),
+	BASE_PITCH_BLACK(BaseColour.PITCH_BLACK, "black", Util.newArrayListOfValues(new ListValue<>("black"))),
 	
 	
 	
 	// Game colours:
+	BACKGROUND(Util.newColour(0x222222), Util.newColour(0xcccccc), "grey"),
+	BACKGROUND_ALT(Util.newColour(0x292929), Util.newColour(0xbbbbbb), "grey"),
+	
+	MAP_BACKGROUND_UNEXPLORED(Util.newColour(0x111), Util.newColour(0x111), "black"),
 	MAP_BACKGROUND_PINK(Util.newColour(0xb2a4bb), Util.newColour(0xb2a4bb), "pink"),
 	MAP_BACKGROUND(Util.newColour(0xbbbbbb), Util.newColour(0xbbbbbb), "grey"),
 	MAP_BACKGROUND_DARK(Util.newColour(0x888888), Util.newColour(0x8f8f8f), "dark grey"),
@@ -103,6 +110,9 @@ public enum Colour {
 	RACE_HARPY(BaseColour.PINK_LIGHT, "light pink", Util.newArrayListOfValues(new ListValue<>("harpy"))),
 	RACE_SLIME(BaseColour.PINK, "pink", Util.newArrayListOfValues(new ListValue<>("slime"))),
 	RACE_SQUIRREL_MORPH(BaseColour.GINGER, "ginger", Util.newArrayListOfValues(new ListValue<>("squirrelMorph"), new ListValue<>("squirrel"))),
+	RACE_RAT_MORPH(BaseColour.BROWN_DARK, "dark brown", Util.newArrayListOfValues(new ListValue<>("ratMorph"), new ListValue<>("rat"))),
+	RACE_RABBIT_MORPH(BaseColour.BROWN_DARK, "dark brown", Util.newArrayListOfValues(new ListValue<>("rabbitMorph"), new ListValue<>("rabbit"))),
+	RACE_BAT_MORPH(BaseColour.BLACK, "black", Util.newArrayListOfValues(new ListValue<>("batMorph"), new ListValue<>("bat"))),
 	RACE_ALLIGATOR_MORPH(BaseColour.GREEN_DARK, "dark green", Util.newArrayListOfValues(new ListValue<>("alligatorMorph"), new ListValue<>("alligator"), new ListValue<>("gatorMorph"), new ListValue<>("gator"))),
 	
 	QUEST_MAIN(BaseColour.PINK, "pink"),
@@ -174,6 +184,9 @@ public enum Colour {
 	DESIRE_STAGE_THREE(Util.newColour(0xFF3377), Util.newColour(0xf824ff), "dark pink"),
 	DESIRE_STAGE_FOUR(Util.newColour(0xffdf80), Util.newColour(0xffdf80), "gold"),
 
+
+	COMPANION(BaseColour.GREEN_LIGHT, "light green",  Util.newArrayListOfValues(new ListValue<>("companion"), new ListValue<>("companions"))),
+	
 	AFFECTION(BaseColour.PINK_LIGHT, "light pink",  Util.newArrayListOfValues(new ListValue<>("affection"))),
 	OBEDIENCE(BaseColour.PURPLE_LIGHT, "light purple",  Util.newArrayListOfValues(new ListValue<>("obedience"))),
 	
@@ -222,6 +235,9 @@ public enum Colour {
 	GENERIC_SIZE_SEVEN(Util.newColour(0x47CD52), Util.newColour(0x8e011e), "green"),
 	GENERIC_SIZE_EIGHT(Util.newColour(0x37C843), Util.newColour(0x8e011e), "green"),
 	
+	WETNESS(BaseColour.BLUE_LIGHT, "light blue", Util.newArrayListOfValues(new ListValue<>("wetness"), new ListValue<>("wet"), new ListValue<>("tfWetness"), new ListValue<>("tfWet"))),
+	PLASTICITY(BaseColour.LILAC, "lilac", Util.newArrayListOfValues(new ListValue<>("plasticity"), new ListValue<>("tfPlasticity"))),
+	ELASTICITY(BaseColour.PURPLE_LIGHT, "light purple", Util.newArrayListOfValues(new ListValue<>("elasticity"), new ListValue<>("tfElasticity"))),
 	TRANSFORMATION_GENERIC(BaseColour.GREEN_LIME, "lime", Util.newArrayListOfValues(new ListValue<>("tfGeneric"), new ListValue<>("tfBase"))),
 	TRANSFORMATION_SEXUAL(BaseColour.PINK_LIGHT, "pink", Util.newArrayListOfValues(new ListValue<>("tfSex"), new ListValue<>("tfSexual"))),
 	TRANSFORMATION_HUMAN(BaseColour.BLUE_STEEL, "pale blue", Util.newArrayListOfValues(new ListValue<>("tfHuman"))),
@@ -238,18 +254,24 @@ public enum Colour {
 	FEMININE_PLUS_NPC(BaseColour.PINK, "pink"),
 
 	// Combat colours:
-	DAMAGE_TYPE_PHYSICAL(Util.newColour(0xFF428E), Util.newColour(0xFF428E), "red", Util.newArrayListOfValues(new ListValue<>("dmgPhysical"), new ListValue<>("resPhysical"))),
+	DAMAGE_TYPE_PHYSICAL(Util.newColour(0xFF428E), Util.newColour(0xFF428E), "red", Util.newArrayListOfValues(new ListValue<>("dmgPhysical"), new ListValue<>("resPhysical"), new ListValue<>("physical"))),
 	DAMAGE_TYPE_MANA(BaseColour.PURPLE_LIGHT, "purple", Util.newArrayListOfValues(new ListValue<>("dmgMana"), new ListValue<>("resMana"))),
 	DAMAGE_TYPE_LUST(BaseColour.MAGENTA, "magenta", Util.newArrayListOfValues(new ListValue<>("dmgLust"), new ListValue<>("resLust"))),
-	DAMAGE_TYPE_SPELL(Util.newColour(0xFF6BDA), Util.newColour(0xFF6BDA), "pink", Util.newArrayListOfValues(new ListValue<>("dmgSpell"), new ListValue<>("resSpell"))),
-	DAMAGE_TYPE_FIRE(Util.newColour(0xff9955), Util.newColour(0xff9955), "orange", Util.newArrayListOfValues(new ListValue<>("dmgFire"), new ListValue<>("resFire"))),
-	DAMAGE_TYPE_COLD(Util.newColour(0x85C6FF), Util.newColour(0x85C6FF), "blue", Util.newArrayListOfValues(new ListValue<>("dmgCold"), new ListValue<>("resCold"))),
-	DAMAGE_TYPE_POISON(Util.newColour(0x85FF8B), Util.newColour(0x85FF8B), "green", Util.newArrayListOfValues(new ListValue<>("dmgPoison"), new ListValue<>("resPoison"))),
-	DAMAGE_TYPE_PURE(Util.newColour(0xFFCC00), Util.newColour(0xFFCC00), "gold", Util.newArrayListOfValues(new ListValue<>("dmgPure"), new ListValue<>("resPure"))),
+	DAMAGE_TYPE_SPELL(Util.newColour(0xFF6BDA), Util.newColour(0xFF6BDA), "pink", Util.newArrayListOfValues(new ListValue<>("dmgSpell"), new ListValue<>("resSpell"), new ListValue<>("spell"))),
+	DAMAGE_TYPE_FIRE(Util.newColour(0xff9955), Util.newColour(0xff9955), "orange", Util.newArrayListOfValues(new ListValue<>("dmgFire"), new ListValue<>("resFire"), new ListValue<>("fire"))),
+	DAMAGE_TYPE_COLD(Util.newColour(0x85C6FF), Util.newColour(0x85C6FF), "blue", Util.newArrayListOfValues(new ListValue<>("dmgCold"), new ListValue<>("resCold"), new ListValue<>("cold"), new ListValue<>("ice"))),
+	DAMAGE_TYPE_POISON(Util.newColour(0x85FF8B), Util.newColour(0x85FF8B), "green", Util.newArrayListOfValues(new ListValue<>("dmgPoison"), new ListValue<>("resPoison"), new ListValue<>("poison"))),
+	DAMAGE_TYPE_PURE(Util.newColour(0xFFCC00), Util.newColour(0xFFCC00), "gold", Util.newArrayListOfValues(new ListValue<>("dmgPure"), new ListValue<>("resPure"), new ListValue<>("pure"))),
 
+	SPELL_SCHOOL_FIRE(BaseColour.ORANGE, "orange", Util.newArrayListOfValues(new ListValue<>("spellFire"), new ListValue<>("schoolFire"))),
+	SPELL_SCHOOL_WATER(BaseColour.AQUA, "aqua", Util.newArrayListOfValues(new ListValue<>("water"), new ListValue<>("spellWater"), new ListValue<>("schoolWater"))),
+	SPELL_SCHOOL_EARTH(BaseColour.BROWN, "brown", Util.newArrayListOfValues(new ListValue<>("earth"), new ListValue<>("spellEarth"), new ListValue<>("schoolEarth"))),
+	SPELL_SCHOOL_AIR(BaseColour.BLUE_LIGHT, "light blue", Util.newArrayListOfValues(new ListValue<>("air"),new ListValue<>("spellAir"), new ListValue<>("schoolAir"))),
+	SPELL_SCHOOL_ARCANE(BaseColour.PINK, "pink", Util.newArrayListOfValues(new ListValue<>("spellArcane"), new ListValue<>("schoolArcane"))),
+	
 	// Rarity colours:
 	RARITY_UNKNOWN(BaseColour.BLACK, "grey"),
-	RARITY_JINXED(BaseColour.RED, "red", Util.newArrayListOfValues(new ListValue<>("jinxed"))),
+	RARITY_JINXED(BaseColour.RED, "red", Util.newArrayListOfValues(new ListValue<>("jinx"), new ListValue<>("jinxed"))),
 	RARITY_COMMON(Util.newColour(0xf2f2f2), Util.newColour(0xf2f2f2), "white", Util.newArrayListOfValues(new ListValue<>("common"))),
 	RARITY_UNCOMMON(Util.newColour(0x1de547), Util.newColour(0x108228), "green", Util.newArrayListOfValues(new ListValue<>("uncommon"))),
 	RARITY_RARE(Util.newColour(0x47C2FF), Util.newColour(0x47C2FF), "blue", Util.newArrayListOfValues(new ListValue<>("rare"))),
@@ -261,8 +283,11 @@ public enum Colour {
 	CURRENCY_SILVER(BaseColour.SILVER, "gold"),
 	CURRENCY_COPPER(BaseColour.COPPER, "gold"),
 
+	MILK(BaseColour.YELLOW_LIGHT, "light yellow",  Util.newArrayListOfValues(new ListValue<>("milk"), new ListValue<>("lactation"))),
+	CUM(BaseColour.BLUE_LIGHT, "light blue",  Util.newArrayListOfValues(new ListValue<>("cum"), new ListValue<>("cummed"), new ListValue<>("dirty"))),
+	GIRLCUM(BaseColour.PINK_LIGHT, "light pink",  Util.newArrayListOfValues(new ListValue<>("girlcum"), new ListValue<>("gcum"))),
+	
 	SEALED(BaseColour.PINK_DEEP, "pink"),
-	CUMMED(Util.newColour(0xE1E49B), Util.newColour(0xE1E49B), "light yellow",  Util.newArrayListOfValues(new ListValue<>("cummed"), new ListValue<>("dirty"))),
 	DISPLACED(BaseColour.CRIMSON, "crimson"),
 
 	// Text colours:
@@ -280,6 +305,7 @@ public enum Colour {
 	CLOTHING_RED_BRIGHT(Util.newColour(0xFA2424), Util.newColour(0xFA2424), "bright red"),
 	CLOTHING_RED(Util.newColour(0xD84646), Util.newColour(0xD84646), "red"),
 	CLOTHING_BROWN(Util.newColour(0xC87137), Util.newColour(0xC87137), "brown"),
+	CLOTHING_BROWN_DARK(Util.newColour(0x63391C), Util.newColour(0x63391C), "dark brown"),
 	CLOTHING_ORANGE(Util.newColour(0xE79F6F), Util.newColour(0xE79F6F), "orange"),
 	CLOTHING_ORANGE_BRIGHT(Util.newColour(0xFF7900), Util.newColour(0xFF7900), "bright orange"),
 	CLOTHING_ORANGE_DARK(Util.newColour(0xE56D00), Util.newColour(0xE56D00), "dark orange"),
@@ -342,6 +368,7 @@ public enum Colour {
 	SLIME_RED_DARK(BaseColour.RED_DARK, "translucent dark red"),
 	SLIME_BROWN_DARK(BaseColour.BROWN_DARK, "translucent dark brown"),
 	SLIME_BROWN(BaseColour.BROWN, "translucent brown"),
+	SLIME_ORANGE(BaseColour.ORANGE, "translucent orange"),
 	SLIME_TAN(BaseColour.TAN, "translucent tan"),
 	SLIME_YELLOW(BaseColour.YELLOW, "translucent yellow"),
 	SLIME_AMBER(BaseColour.AMBER, "translucent amber"),
@@ -358,19 +385,32 @@ public enum Colour {
 	SLIME_CLEAR(BaseColour.WHITE, "clear"),
 	SLIME_GREY(BaseColour.GREY, "translucent grey"),
 	SLIME_BLACK(BaseColour.BLACK, "translucent black"),
+	SLIME_WHITE(BaseColour.WHITE, "translucent white"),
 
 	// Feathers:
-	FEATHERS_BLACK(BaseColour.BLACK, "black"),
-	FEATHERS_WHITE(BaseColour.WHITE, "white"),
-	FEATHERS_BLUE(BaseColour.BLUE_LIGHT, "blue"),
-	FEATHERS_LILAC(BaseColour.LILAC, "lilac"),
-	FEATHERS_PINK(BaseColour.PINK_LIGHT, "pink"),
 	FEATHERS_RED(BaseColour.RED, "red"),
-	FEATHERS_GREEN(BaseColour.GREEN, "green"),
-	FEATHERS_YELLOW(BaseColour.YELLOW, "yellow"),
+	FEATHERS_RED_DARK(BaseColour.RED_DARK, "dark red"),
+	FEATHERS_BROWN_DARK(BaseColour.BROWN_DARK, "dark brown"),
+	FEATHERS_BROWN(BaseColour.BROWN, "brown"),
+	FEATHERS_TAN(BaseColour.TAN, "tan"),
 	FEATHERS_ORANGE(BaseColour.ORANGE, "orange"),
 	FEATHERS_GINGER(BaseColour.GINGER, "ginger"),
 	FEATHERS_BLEACH_BLONDE(BaseColour.YELLOW_LIGHT, "bleach-blonde"),
+	FEATHERS_YELLOW(BaseColour.YELLOW, "yellow"),
+	FEATHERS_AMBER(BaseColour.AMBER, "amber"),
+	FEATHERS_PINK(BaseColour.PINK, "pink"),
+	FEATHERS_PINK_LIGHT(BaseColour.PINK_LIGHT, "light pink"),
+	FEATHERS_GREEN(BaseColour.GREEN, "green"),
+	FEATHERS_GREEN_DARK(BaseColour.GREEN_DARK, "dark green"),
+	FEATHERS_BLUE_LIGHT(BaseColour.BLUE_LIGHT, "light blue"),
+	FEATHERS_BLUE(BaseColour.BLUE, "blue"),
+	FEATHERS_BLUE_DARK(BaseColour.BLUE_DARK, "dark blue"),
+	FEATHERS_LILAC(BaseColour.LILAC, "lilac"),
+	FEATHERS_PURPLE(BaseColour.PURPLE, "purple"),
+	FEATHERS_PURPLE_DARK(BaseColour.PURPLE_DARK, "dark purple"),
+	FEATHERS_GREY(BaseColour.GREY, "grey"),
+	FEATHERS_BLACK(BaseColour.BLACK, "black"),
+	FEATHERS_WHITE(BaseColour.WHITE, "white"),
 
 	// Horns:
 	HORN_WHITE(BaseColour.WHITE, "ivory"),
@@ -431,6 +471,7 @@ public enum Colour {
 	COVERING_AUBURN(BaseColour.AUBURN, "auburn"),
 	COVERING_WHITE(BaseColour.WHITE, "white"),
 	COVERING_SILVER(BaseColour.GREY, "silver"),
+	COVERING_BLUE_LIGHT(BaseColour.BLUE_LIGHT, "light blue"),
 	COVERING_BLUE(BaseColour.BLUE, "blue"),
 	COVERING_BLUE_DARK(BaseColour.BLUE_DARK, "dark blue"),
 	COVERING_PURPLE(BaseColour.PURPLE, "purple"),
@@ -445,6 +486,8 @@ public enum Colour {
 	COVERING_NONE(BaseColour.GREY, "none"),
 
 	// Eye colours:
+	EYE_WHITE(BaseColour.WHITE, "white"),
+	
 	EYE_BROWN(BaseColour.BROWN, "brown"),
 	EYE_BLUE(BaseColour.BLUE_LIGHT, "blue"),
 	EYE_HAZEL(BaseColour.TAN, "hazel"),
@@ -467,200 +510,6 @@ public enum Colour {
 	EYE_BLACK(BaseColour.BLACK, "black");
 	
 	
-	// Clothing groups:
-	
-	public static List<Colour> allClothingColours = Util.newArrayListOfValues(
-			new ListValue<Colour>(CLOTHING_WHITE),
-			new ListValue<Colour>(CLOTHING_BLACK),
-			new ListValue<Colour>(CLOTHING_GREY),
-			new ListValue<Colour>(CLOTHING_RED),
-			new ListValue<Colour>(CLOTHING_RED_BRIGHT),
-			new ListValue<Colour>(CLOTHING_RED_DARK),
-			new ListValue<Colour>(CLOTHING_ORANGE),
-			new ListValue<Colour>(CLOTHING_ORANGE_BRIGHT),
-			new ListValue<Colour>(CLOTHING_ORANGE_DARK),
-			new ListValue<Colour>(CLOTHING_BROWN),
-			new ListValue<Colour>(CLOTHING_TAN),
-			new ListValue<Colour>(CLOTHING_YELLOW),
-			new ListValue<Colour>(CLOTHING_GREEN_LIME),
-			new ListValue<Colour>(CLOTHING_GREEN),
-			new ListValue<Colour>(CLOTHING_GREEN_DARK),
-			new ListValue<Colour>(CLOTHING_TURQUOISE),
-			new ListValue<Colour>(CLOTHING_BLUE_LIGHT),
-			new ListValue<Colour>(CLOTHING_BLUE),
-			new ListValue<Colour>(CLOTHING_BLUE_DARK),
-			new ListValue<Colour>(CLOTHING_PURPLE),
-			new ListValue<Colour>(CLOTHING_PURPLE_DARK),
-			new ListValue<Colour>(CLOTHING_PURPLE_LIGHT),
-			new ListValue<Colour>(CLOTHING_PINK),
-			new ListValue<Colour>(CLOTHING_PINK_LIGHT));
-
-	public static List<Colour> allMetalColours = Util.newArrayListOfValues(
-			new ListValue<Colour>(CLOTHING_BLACK_STEEL),
-			new ListValue<Colour>(CLOTHING_STEEL),
-			new ListValue<Colour>(CLOTHING_COPPER),
-			new ListValue<Colour>(CLOTHING_SILVER),
-			new ListValue<Colour>(CLOTHING_ROSE_GOLD),
-			new ListValue<Colour>(CLOTHING_GOLD),
-			new ListValue<Colour>(CLOTHING_PLATINUM));
-	
-	public static List<Colour> lingerieColours = Util.newArrayListOfValues(
-			new ListValue<Colour>(CLOTHING_WHITE),
-			new ListValue<Colour>(CLOTHING_BLACK),
-			new ListValue<Colour>(CLOTHING_GREY),
-			new ListValue<Colour>(CLOTHING_RED),
-			new ListValue<Colour>(CLOTHING_RED_BRIGHT),
-			new ListValue<Colour>(CLOTHING_RED_DARK),
-			new ListValue<Colour>(CLOTHING_ORANGE),
-			new ListValue<Colour>(CLOTHING_ORANGE_BRIGHT),
-			new ListValue<Colour>(CLOTHING_ORANGE_DARK),
-			new ListValue<Colour>(CLOTHING_BROWN),
-			new ListValue<Colour>(CLOTHING_TAN),
-			new ListValue<Colour>(CLOTHING_YELLOW),
-			new ListValue<Colour>(CLOTHING_GREEN_LIME),
-			new ListValue<Colour>(CLOTHING_GREEN),
-			new ListValue<Colour>(CLOTHING_GREEN_DARK),
-			new ListValue<Colour>(CLOTHING_TURQUOISE),
-			new ListValue<Colour>(CLOTHING_BLUE_LIGHT),
-			new ListValue<Colour>(CLOTHING_BLUE),
-			new ListValue<Colour>(CLOTHING_BLUE_DARK),
-			new ListValue<Colour>(CLOTHING_PURPLE),
-			new ListValue<Colour>(CLOTHING_PURPLE_DARK),
-			new ListValue<Colour>(CLOTHING_PURPLE_LIGHT),
-			new ListValue<Colour>(CLOTHING_PINK),
-			new ListValue<Colour>(CLOTHING_PINK_LIGHT));
-
-//	public static List<Colour> allJewelryColours = Util.newArrayListOfValues(
-//			new ListValue<Colour>(CLOTHING_STEEL),
-//			new ListValue<Colour>(CLOTHING_COPPER),
-//			new ListValue<Colour>(CLOTHING_SILVER),
-//			new ListValue<Colour>(CLOTHING_ROSE_GOLD),
-//			new ListValue<Colour>(CLOTHING_GOLD),
-//			new ListValue<Colour>(CLOTHING_PLATINUM),
-//			new ListValue<Colour>(CLOTHING_WHITE),
-//			new ListValue<Colour>(CLOTHING_BLACK_STEEL),
-//			new ListValue<Colour>(CLOTHING_GREY),
-//			new ListValue<Colour>(CLOTHING_RED),
-//			new ListValue<Colour>(CLOTHING_RED_BRIGHT),
-//			new ListValue<Colour>(CLOTHING_RED_DARK),
-//			new ListValue<Colour>(CLOTHING_ORANGE),
-//			new ListValue<Colour>(CLOTHING_ORANGE_BRIGHT),
-//			new ListValue<Colour>(CLOTHING_ORANGE_DARK),
-//			new ListValue<Colour>(CLOTHING_BROWN),
-//			new ListValue<Colour>(CLOTHING_TAN),
-//			new ListValue<Colour>(CLOTHING_YELLOW),
-//			new ListValue<Colour>(CLOTHING_GREEN_LIME),
-//			new ListValue<Colour>(CLOTHING_GREEN),
-//			new ListValue<Colour>(CLOTHING_GREEN_DARK),
-//			new ListValue<Colour>(CLOTHING_TURQUOISE),
-//			new ListValue<Colour>(CLOTHING_BLUE_LIGHT),
-//			new ListValue<Colour>(CLOTHING_BLUE),
-//			new ListValue<Colour>(CLOTHING_BLUE_DARK),
-//			new ListValue<Colour>(CLOTHING_PURPLE),
-//			new ListValue<Colour>(CLOTHING_PURPLE_DARK),
-//			new ListValue<Colour>(CLOTHING_PURPLE_LIGHT),
-//			new ListValue<Colour>(CLOTHING_PINK),
-//			new ListValue<Colour>(CLOTHING_PINK_LIGHT));
-	
-	public static List<Colour> leatherColours = Util.newArrayListOfValues(
-			new ListValue<Colour>(CLOTHING_WHITE),
-			new ListValue<Colour>(CLOTHING_BLACK),
-			new ListValue<Colour>(CLOTHING_GREY),
-			new ListValue<Colour>(CLOTHING_BROWN),
-			new ListValue<Colour>(CLOTHING_TAN));
-
-	public static List<Colour> milkmaidColours = Util.newArrayListOfValues(
-			new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT),
-			new ListValue<Colour>(Colour.CLOTHING_BLUE_LIGHT),
-			new ListValue<Colour>(Colour.CLOTHING_PURPLE_LIGHT),
-			new ListValue<Colour>(Colour.CLOTHING_GREEN),
-			new ListValue<Colour>(Colour.CLOTHING_TAN),
-			new ListValue<Colour>(Colour.CLOTHING_BROWN),
-			new ListValue<Colour>(Colour.CLOTHING_BLACK));
-
-	public static List<Colour> blackOrWhite = Util.newArrayListOfValues(
-			new ListValue<Colour>(Colour.CLOTHING_BLACK),
-			new ListValue<Colour>(Colour.CLOTHING_WHITE));
-
-	public static List<Colour> justRed = Util.newArrayListOfValues(
-			new ListValue<Colour>(Colour.CLOTHING_RED));
-
-	public static List<Colour> justBrown = Util.newArrayListOfValues(
-			new ListValue<Colour>(Colour.CLOTHING_RED));
-
-	public static List<Colour> justYellow = Util.newArrayListOfValues(
-			new ListValue<Colour>(Colour.CLOTHING_YELLOW));
-
-	public static List<Colour> justPink = Util.newArrayListOfValues(
-			new ListValue<Colour>(Colour.CLOTHING_PINK));
-
-	public static List<Colour> justBlack = Util.newArrayListOfValues(
-			new ListValue<Colour>(Colour.CLOTHING_BLACK));
-
-	public static List<Colour> justGrey = Util.newArrayListOfValues(
-			new ListValue<Colour>(Colour.CLOTHING_GREY));
-
-	public static List<Colour> justWhite = Util.newArrayListOfValues(
-			new ListValue<Colour>(Colour.CLOTHING_WHITE));
-
-	public static List<Colour> justGold = Util.newArrayListOfValues(
-			new ListValue<Colour>(Colour.CLOTHING_GOLD));
-
-	public static List<Colour> justSteel = Util.newArrayListOfValues(
-			new ListValue<Colour>(Colour.CLOTHING_STEEL));
-
-	public static List<Colour> notWhite = Util.newArrayListOfValues(
-			new ListValue<Colour>(CLOTHING_BLACK),
-			new ListValue<Colour>(CLOTHING_GREY),
-			new ListValue<Colour>(CLOTHING_RED),
-			new ListValue<Colour>(CLOTHING_RED_BRIGHT),
-			new ListValue<Colour>(CLOTHING_RED_DARK),
-			new ListValue<Colour>(CLOTHING_ORANGE),
-			new ListValue<Colour>(CLOTHING_ORANGE_BRIGHT),
-			new ListValue<Colour>(CLOTHING_ORANGE_DARK),
-			new ListValue<Colour>(CLOTHING_BROWN),
-			new ListValue<Colour>(CLOTHING_TAN),
-			new ListValue<Colour>(CLOTHING_YELLOW),
-			new ListValue<Colour>(CLOTHING_GREEN_LIME),
-			new ListValue<Colour>(CLOTHING_GREEN),
-			new ListValue<Colour>(CLOTHING_GREEN_DARK),
-			new ListValue<Colour>(CLOTHING_TURQUOISE),
-			new ListValue<Colour>(CLOTHING_BLUE_LIGHT),
-			new ListValue<Colour>(CLOTHING_BLUE),
-			new ListValue<Colour>(CLOTHING_BLUE_DARK),
-			new ListValue<Colour>(CLOTHING_PURPLE),
-			new ListValue<Colour>(CLOTHING_PURPLE_DARK),
-			new ListValue<Colour>(CLOTHING_PURPLE_LIGHT),
-			new ListValue<Colour>(CLOTHING_PINK),
-			new ListValue<Colour>(CLOTHING_PINK_LIGHT));
-
-	public static List<Colour> denimColours = Util.newArrayListOfValues(
-			new ListValue<Colour>(Colour.CLOTHING_BLUE_LIGHT),
-			new ListValue<Colour>(Colour.CLOTHING_BLUE),
-			new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT),
-			new ListValue<Colour>(Colour.CLOTHING_PINK),
-			new ListValue<Colour>(Colour.CLOTHING_WHITE),
-			new ListValue<Colour>(Colour.CLOTHING_GREY),
-			new ListValue<Colour>(Colour.CLOTHING_BLACK));
-
-	public static List<Colour> kimonoColours = Util.newArrayListOfValues(
-			new ListValue<Colour>(Colour.CLOTHING_BLUE_LIGHT),
-			new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT),
-			new ListValue<Colour>(Colour.CLOTHING_PINK),
-			new ListValue<Colour>(Colour.CLOTHING_PURPLE),
-			new ListValue<Colour>(Colour.CLOTHING_PURPLE_LIGHT),
-			new ListValue<Colour>(Colour.CLOTHING_RED),
-			new ListValue<Colour>(Colour.CLOTHING_TURQUOISE),
-			new ListValue<Colour>(Colour.CLOTHING_WHITE),
-			new ListValue<Colour>(Colour.CLOTHING_YELLOW));
-
-	public static List<Colour> maidColours = Util.newArrayListOfValues(
-//			new ListValue<Colour>(Colour.CLOTHING_BLUE_LIGHT),
-//			new ListValue<Colour>(Colour.CLOTHING_BLUE),
-			new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT),
-			new ListValue<Colour>(Colour.CLOTHING_PINK),
-//			new ListValue<Colour>(Colour.CLOTHING_GREY),
-			new ListValue<Colour>(Colour.CLOTHING_BLACK));
 
 	// Skin/fur/body part groups:
 	
@@ -670,6 +519,9 @@ public enum Colour {
 			new ListValue<Colour>(Colour.SKIN_OLIVE),
 			new ListValue<Colour>(Colour.SKIN_DARK),
 			new ListValue<Colour>(Colour.SKIN_EBONY));
+
+	public static List<Colour> ratSkinColours = Util.newArrayListOfValues(
+			new ListValue<Colour>(Colour.SKIN_PINK_LIGHT));
 	
 	public static List<Colour> demonSkinColours = Util.newArrayListOfValues(
 			new ListValue<Colour>(Colour.SKIN_PALE),
@@ -721,6 +573,7 @@ public enum Colour {
 
 	public static List<Colour> allSlimeColours = Util.newArrayListOfValues(
 			new ListValue<Colour>(Colour.SLIME_CLEAR),
+			new ListValue<Colour>(Colour.SLIME_WHITE),
 			new ListValue<Colour>(Colour.SLIME_GREY),
 			new ListValue<Colour>(Colour.SLIME_BLACK),
 			new ListValue<Colour>(Colour.SLIME_RED),
@@ -742,8 +595,32 @@ public enum Colour {
 			new ListValue<Colour>(Colour.SLIME_PINK_LIGHT)
 			);
 	
-	
-	
+	public static List<Colour> allFeatherColours = Util.newArrayListOfValues(
+			new ListValue<Colour>(Colour.FEATHERS_WHITE),
+			new ListValue<Colour>(Colour.FEATHERS_GREY),
+			new ListValue<Colour>(Colour.FEATHERS_BLACK),
+			new ListValue<Colour>(Colour.FEATHERS_RED),
+			new ListValue<Colour>(Colour.FEATHERS_RED_DARK),
+			new ListValue<Colour>(Colour.FEATHERS_BROWN_DARK),
+			new ListValue<Colour>(Colour.FEATHERS_BROWN),
+			new ListValue<Colour>(Colour.FEATHERS_TAN),
+			new ListValue<Colour>(Colour.FEATHERS_ORANGE),
+			new ListValue<Colour>(Colour.FEATHERS_GINGER),
+			new ListValue<Colour>(Colour.FEATHERS_BLEACH_BLONDE),
+			new ListValue<Colour>(Colour.FEATHERS_YELLOW),
+			new ListValue<Colour>(Colour.FEATHERS_AMBER),
+			new ListValue<Colour>(Colour.FEATHERS_GREEN),
+			new ListValue<Colour>(Colour.FEATHERS_GREEN_DARK),
+			new ListValue<Colour>(Colour.FEATHERS_BLUE_LIGHT),
+			new ListValue<Colour>(Colour.FEATHERS_BLUE),
+			new ListValue<Colour>(Colour.FEATHERS_BLUE_DARK),
+			new ListValue<Colour>(Colour.FEATHERS_LILAC),
+			new ListValue<Colour>(Colour.FEATHERS_PURPLE),
+			new ListValue<Colour>(Colour.FEATHERS_PURPLE_DARK),
+			new ListValue<Colour>(Colour.FEATHERS_PINK),
+			new ListValue<Colour>(Colour.FEATHERS_PINK_LIGHT)
+			);
+			
 	public static List<Colour> naturalFurColours = Util.newArrayListOfValues(
 			new ListValue<Colour>(Colour.COVERING_WHITE),
 			new ListValue<Colour>(Colour.COVERING_SILVER),
@@ -757,6 +634,7 @@ public enum Colour {
 
 	public static List<Colour> dyeFurColours = Util.newArrayListOfValues(
 			new ListValue<Colour>(Colour.COVERING_BLEACH_BLONDE),
+			new ListValue<Colour>(Colour.COVERING_BLUE_LIGHT),
 			new ListValue<Colour>(Colour.COVERING_BLUE),
 			new ListValue<Colour>(Colour.COVERING_BLUE_DARK),
 			new ListValue<Colour>(Colour.COVERING_GREEN),
@@ -778,6 +656,7 @@ public enum Colour {
 	public static List<Colour> dyeScaleColours = Util.newArrayListOfValues(
 			new ListValue<Colour>(Colour.COVERING_BLEACH_BLONDE),
 			new ListValue<Colour>(Colour.COVERING_BLONDE),
+			new ListValue<Colour>(Colour.COVERING_BLUE_LIGHT),
 			new ListValue<Colour>(Colour.COVERING_BLUE),
 			new ListValue<Colour>(Colour.COVERING_BLUE_DARK),
 			new ListValue<Colour>(Colour.COVERING_GINGER),
@@ -830,25 +709,6 @@ public enum Colour {
 			new ListValue<Colour>(Colour.ANTLER_LILAC),
 			new ListValue<Colour>(Colour.ANTLER_PURPLE));
 	
-
-	// Orifices:
-	
-	public static List<Colour> orificeInteriors = Util.newArrayListOfValues(
-			new ListValue<Colour>(Colour.ORIFICE_INTERIOR),
-			new ListValue<Colour>(Colour.SKIN_PALE),
-			new ListValue<Colour>(Colour.SKIN_LIGHT),
-			new ListValue<Colour>(Colour.SKIN_OLIVE),
-			new ListValue<Colour>(Colour.SKIN_DARK),
-			new ListValue<Colour>(Colour.SKIN_EBONY),
-			new ListValue<Colour>(Colour.SKIN_RED),
-			new ListValue<Colour>(Colour.SKIN_BROWN),
-			new ListValue<Colour>(Colour.SKIN_GREEN),
-			new ListValue<Colour>(Colour.SKIN_PINK),
-			new ListValue<Colour>(Colour.SKIN_BLUE),
-			new ListValue<Colour>(Colour.SKIN_LILAC),
-			new ListValue<Colour>(Colour.SKIN_PURPLE),
-			new ListValue<Colour>(Colour.SKIN_IVORY));
-	
 	// Hair:
 	
 	public static List<Colour> naturalHairColours = Util.newArrayListOfValues(
@@ -865,6 +725,7 @@ public enum Colour {
 	
 	public static List<Colour> dyeHairColours = Util.newArrayListOfValues(
 			new ListValue<Colour>(Colour.COVERING_BLEACH_BLONDE),
+			new ListValue<Colour>(Colour.COVERING_BLUE_LIGHT),
 			new ListValue<Colour>(Colour.COVERING_BLUE),
 			new ListValue<Colour>(Colour.COVERING_BLUE_DARK),
 			new ListValue<Colour>(Colour.COVERING_GREEN),
@@ -951,6 +812,29 @@ public enum Colour {
 			new ListValue<Colour>(Colour.EYE_BLACK));
 	
 	public static List<Colour> dyePupilColours = Util.newArrayListOfValues(
+			new ListValue<Colour>(Colour.EYE_WHITE),
+			new ListValue<Colour>(Colour.EYE_SILVER),
+			new ListValue<Colour>(Colour.EYE_BROWN),
+			new ListValue<Colour>(Colour.EYE_BLUE),
+			new ListValue<Colour>(Colour.EYE_AQUA),
+			new ListValue<Colour>(Colour.EYE_GREEN),
+			new ListValue<Colour>(Colour.EYE_GREY),
+			new ListValue<Colour>(Colour.EYE_YELLOW),
+			new ListValue<Colour>(Colour.EYE_GOLD),
+			new ListValue<Colour>(Colour.EYE_RED),
+			new ListValue<Colour>(Colour.EYE_CRIMSON),
+			new ListValue<Colour>(Colour.EYE_ORANGE),
+			new ListValue<Colour>(Colour.EYE_AMBER),
+			new ListValue<Colour>(Colour.EYE_PINK),
+			new ListValue<Colour>(Colour.EYE_VIOLET),
+			new ListValue<Colour>(Colour.EYE_LILAC),
+			new ListValue<Colour>(Colour.EYE_PURPLE));
+	
+	public static List<Colour> naturalScleraColours = Util.newArrayListOfValues(
+			new ListValue<Colour>(Colour.EYE_WHITE));
+	
+	public static List<Colour> dyeScleraColours = Util.newArrayListOfValues(
+			new ListValue<Colour>(Colour.EYE_BLACK),
 			new ListValue<Colour>(Colour.EYE_SILVER),
 			new ListValue<Colour>(Colour.EYE_BROWN),
 			new ListValue<Colour>(Colour.EYE_BLUE),
@@ -1012,7 +896,7 @@ public enum Colour {
 
 	public Color getColor() {
 		if(Main.getProperties()!=null) {
-			if(Main.getProperties().lightTheme)
+			if(Main.getProperties().hasValue(PropertyValue.lightTheme))
 				return lightColour;
 			else
 				return colour;

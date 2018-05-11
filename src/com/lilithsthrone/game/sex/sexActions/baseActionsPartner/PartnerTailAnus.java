@@ -141,7 +141,7 @@ public class PartnerTailAnus {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isDom(Main.game.getPlayer()) ||Sex.isConsensual();
+			return Sex.getSexPace(Main.game.getPlayer()) != SexPace.SUB_RESISTING;
 		}
 
 		@Override
@@ -203,7 +203,7 @@ public class PartnerTailAnus {
 		
 		@Override
 		public void applyEffects() {
-			Sex.transferLubrication(Main.game.getPlayer(), Sex.getActivePartner(), PenetrationType.TAIL, OrificeType.ANUS);
+			Sex.transferLubrication(Sex.getActivePartner(), Main.game.getPlayer(), PenetrationType.TAIL, OrificeType.ANUS);
 		}
 		
 		@Override
@@ -1042,7 +1042,7 @@ public class PartnerTailAnus {
 	
 	public static final SexAction PLAYER_FUCKED_SUB_RESIST = new SexAction(
 			SexActionType.PLAYER,
-			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.ZERO_NONE,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ZERO_PURE,
 			PenetrationType.TAIL,

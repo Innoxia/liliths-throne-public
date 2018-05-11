@@ -315,7 +315,6 @@ public class SupplierDepot {
 				
 			} else if (index == 3) {
 				return new ResponseCombat("Fight", "Immediately launch into combat!",
-						null,
 						Util.newArrayListOfValues(
 								new ListValue<>(Main.game.getSupplierLeader()),
 								new ListValue<>(Main.game.getSupplierPartner())),
@@ -323,7 +322,7 @@ public class SupplierDepot {
 								new Value<>(Main.game.getPlayer(), "[pc.speech(You both need to agree to let the other suppliers back,)]"
 										+ " you declare, readying yourself for a fight,"
 										+ " [pc.speech(but I know that people like you only respect force, so I'm left with no choice but to do this!)]"),
-								new Value<>(Main.game.getSupplierLeader(), "[wolfgang.speech(Hah!)] Wolfgang shouts, [wolfgang.speech(If it's a fight you want, we'll give you one!)]"),
+								new Value<>(Main.game.getSupplierLeader(), "[wolfgang.speech(Hah!)] Wolfgang shouts. [wolfgang.speech(If it's a fight you want, we'll give you one!)]"),
 								new Value<>(Main.game.getSupplierPartner(), "[karl.speech(You're gonna pay for this, bitch!)] Karl snarls.")));
 				
 			} else {
@@ -436,7 +435,6 @@ public class SupplierDepot {
 				
 			} else if (index == 3) {
 				return new ResponseCombat("Fight", "It looks as though you're left with no choice but to fight!",
-						null,
 						Util.newArrayListOfValues(
 								new ListValue<>(Main.game.getSupplierLeader()),
 								new ListValue<>(Main.game.getSupplierPartner())),
@@ -444,7 +442,7 @@ public class SupplierDepot {
 								new Value<>(Main.game.getPlayer(), "[pc.speech(There's no way I'm agreeing to that,)]"
 										+ " you declare, readying yourself for a fight,"
 										+ " [pc.speech(so I'm left with no choice but to do this!)]"),
-								new Value<>(Main.game.getSupplierLeader(), "[wolfgang.speech(Hah!)] Wolfgang shouts, [wolfgang.speech(If it's a fight you want, we'll give you one!)]"),
+								new Value<>(Main.game.getSupplierLeader(), "[wolfgang.speech(Hah!)] Wolfgang shouts. [wolfgang.speech(If it's a fight you want, we'll give you one!)]"),
 								new Value<>(Main.game.getSupplierPartner(), "[karl.speech(You're gonna pay for this, bitch!)] Karl snarls.")));
 				
 			} else if (index == 4) {

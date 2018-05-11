@@ -10,7 +10,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 
 /**
  * @since 0.1.0
- * @version 0.1.83
+ * @version 0.2.2
  * @author Innoxia
  */
 public class Hair implements BodyPartInterface, Serializable {
@@ -225,6 +225,45 @@ public class Hair implements BodyPartInterface, Serializable {
 					UtilText.transformationContentSB.append(
 								" The transformation only lasts a matter of moments, leaving [npc.herHim] with fur-like hair.</br>"
 								+ "[npc.Name] now has [npc.hairColour] [style.boldSquirrelMorph(squirrel-like hair)]."
+							+ "</p>");
+				}
+				break;
+			case RAT_MORPH:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+								" The feeling goes away almost as quickly as it came, leaving you with fur-like hair.</br>"
+								+ "You now have [pc.hairColour] [style.boldRatMorph(rat-like hair)]."
+							+ "</p>");
+				} else {
+					UtilText.transformationContentSB.append(
+								" The transformation only lasts a matter of moments, leaving [npc.herHim] with fur-like hair.</br>"
+								+ "[npc.Name] now has [npc.hairColour] [style.boldRatMorph(rat-like hair)]."
+							+ "</p>");
+				}
+				break;
+			case RABBIT_MORPH:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+								" The feeling goes away almost as quickly as it came, leaving you with fur-like hair.</br>"
+								+ "You now have [pc.hairColour] [style.boldRabbitMorph(rabbit-like hair)]."
+							+ "</p>");
+				} else {
+					UtilText.transformationContentSB.append(
+								" The transformation only lasts a matter of moments, leaving [npc.herHim] with fur-like hair.</br>"
+								+ "[npc.Name] now has [npc.hairColour] [style.boldRabbitMorph(rabbit-like hair)]."
+							+ "</p>");
+				}
+				break;
+			case BAT_MORPH:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+								" The feeling goes away almost as quickly as it came, leaving you with fur-like hair.</br>"
+								+ "You now have [pc.hairColour] [style.boldBatMorph(bat-like hair)]."
+							+ "</p>");
+				} else {
+					UtilText.transformationContentSB.append(
+								" The transformation only lasts a matter of moments, leaving [npc.herHim] with fur-like hair.</br>"
+								+ "[npc.Name] now has [npc.hairColour] [style.boldBatMorph(bat-like hair)]."
 							+ "</p>");
 				}
 				break;

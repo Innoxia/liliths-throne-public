@@ -24,8 +24,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="5.656854"
-     inkscape:cx="5.0013764"
-     inkscape:cy="18.353574"
+     inkscape:cx="-24.69711"
+     inkscape:cy="20.828448"
      inkscape:document-units="px"
      inkscape:current-layer="layer3"
      showgrid="false"
@@ -43,7 +43,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -52,28 +52,32 @@
      id="layer3"
      inkscape:label="Stage3"
      style="display:inline">
-    <path
-       style="fill:none;fill-rule:evenodd;stroke:#4d4d4d;stroke-width:4.28687477;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 44.196027,42.299523 0.08638,5.805793 c 0.03743,2.516076 -1.560683,5.025976 -4.168008,5.001609 l -24.32601,-0.227346 c -2.435031,-0.02275 -4.381915,-2.38285 -4.395354,-5.077392 L 11.241469,17.41362 c -0.01829,-3.666008 2.663508,-4.850045 5.380519,-4.850045 l 17.657198,0 9.700091,9.245399 0.01947,5.017228"
-       id="path4145"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="cssssssccc" />
-    <path
-       style="fill:none;fill-rule:evenodd;stroke:#4d4d4d;stroke-width:7.99063635;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="M 51.961918,34.731986 27.833031,34.60818"
-       id="path4149"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="cc" />
-    <path
-       style="fill:#4d4d4d;fill-rule:evenodd;stroke:#4d4d4d;stroke-width:0.85737503px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 33.453247,13.040528 0,5.572938 c 0,2.576725 2.266847,4.375387 4.394047,4.394047 l 6.108797,0.05359 z"
-       id="path4155"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="csscc" />
-    <path
-       style="fill:none;fill-rule:evenodd;stroke:#4d4d4d;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 57.889406,35.046573 -6.875,-8.500001 0.25,15.875001 z"
-       id="path4146"
-       inkscape:connector-curvature="0" />
+    <g
+       id="g4137"
+       transform="matrix(1.092025,0,0,1.092025,-5.2955986,-4.0823313)">
+      <path
+         sodipodi:nodetypes="cssssssccc"
+         inkscape:connector-curvature="0"
+         id="path4145"
+         d="m 44.196027,42.299523 0.08638,5.805793 c 0.03743,2.516076 -1.560683,5.025976 -4.168008,5.001609 l -24.32601,-0.227346 c -2.435031,-0.02275 -4.381915,-2.38285 -4.395354,-5.077392 L 11.241469,17.41362 c -0.01829,-3.666008 2.663508,-4.850045 5.380519,-4.850045 l 17.657198,0 9.700091,9.245399 0.01947,5.017228"
+         style="fill:none;fill-rule:evenodd;stroke:#ff8080;stroke-width:4.28687477;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="path4149"
+         d="M 51.961918,34.731986 27.833031,34.60818"
+         style="fill:none;fill-rule:evenodd;stroke:#ff8080;stroke-width:7.99063635;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="csscc"
+         inkscape:connector-curvature="0"
+         id="path4155"
+         d="m 33.453247,13.040528 0,5.572938 c 0,2.576725 2.266847,4.375387 4.394047,4.394047 l 6.108797,0.05359 z"
+         style="fill:#ff8080;fill-rule:evenodd;stroke:#ff8080;stroke-width:0.85737503px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path4146"
+         d="m 57.889406,35.046573 -6.875,-8.500001 0.25,15.875001 z"
+         style="fill:none;fill-rule:evenodd;stroke:#ff8080;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    </g>
   </g>
 </svg>

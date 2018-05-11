@@ -19,12 +19,13 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreType;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.Rarity;
+import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.84
- * @version 0.2.1
+ * @version 0.2.4
  * @author Innoxia
  */
 public abstract class AbstractWeaponType extends AbstractCoreType implements Serializable {
@@ -32,6 +33,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType implements Ser
 	protected static final long serialVersionUID = 1L;
 
 	private int baseValue;
+	private boolean melee;
 	private String determiner;
 	private String pronoun;
 	private String name;
@@ -40,6 +42,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType implements Ser
 	private String description;
 	private String pathName;
 	protected int damage;
+	protected int arcaneCost;
 	protected DamageVariance damageVariance;
 	private InventorySlot slot;
 	private List<DamageType> availableDamageTypes;
@@ -49,6 +52,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType implements Ser
 	private List<Spell> spells;
 
 	public AbstractWeaponType(int baseValue,
+			boolean melee,
 			String determiner,
 			String pronoun,
 			String name,
@@ -60,11 +64,15 @@ public abstract class AbstractWeaponType extends AbstractCoreType implements Ser
 			Rarity rarity,
 			List<DamageType> availableDamageTypes,
 			int damage,
+			int arcaneCost,
 			DamageVariance damageVariance,
 			Map<Attribute, Integer> attributeModifiers,
 			List<Spell> spells) {
 
 		this.baseValue = baseValue;
+		
+		this.melee = melee;
+		
 		this.determiner = determiner;
 		this.pronoun = pronoun;
 		this.name = name;
@@ -79,6 +87,8 @@ public abstract class AbstractWeaponType extends AbstractCoreType implements Ser
 		this.damage = damage;
 		this.damageVariance = damageVariance;
 
+		this.arcaneCost = arcaneCost;
+		
 		this.pathName = pathName;
 		
 		if(attributeModifiers==null) {
@@ -96,9 +106,10 @@ public abstract class AbstractWeaponType extends AbstractCoreType implements Ser
 		SVGStringMap = new EnumMap<>(DamageType.class);
 		for (DamageType dt : this.availableDamageTypes)
 			try {
-				InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/weapons/"
-						+ pathName
-						+ ".svg");
+				InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/weapons/" + pathName + ".svg");
+				if(is==null) {
+					System.err.println("Error! AbstractWeaponType icon file does not exist (Trying to read from '"+pathName+"')!");
+				}
 				String s = Util.inputStreamToString(is);
 
 				s = s.replaceAll("#ff2a2a", dt.getMultiplierAttribute().getColour().getShades()[0]);
@@ -120,6 +131,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType implements Ser
 		if(super.equals(o)){
 			if(o instanceof AbstractWeaponType){
 				if(((AbstractWeaponType)o).getName().equals(getName())
+						&& ((AbstractWeaponType)o).isMelee() == isMelee()
 						&& ((AbstractWeaponType)o).getPathName().equals(getPathName())
 						&& ((AbstractWeaponType)o).getDamage() == getDamage()
 						&& ((AbstractWeaponType)o).getDamageVariance() == getDamageVariance()
@@ -143,6 +155,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType implements Ser
 		result = 31 * result + getPathName().hashCode();
 		result = 31 * result + getDamage();
 		result = 31 * result + getDamageVariance().hashCode();
+		result = 31 * result + (melee ? 1 : 0);
 		result = 31 * result + getSlot().hashCode();
 		result = 31 * result + getRarity().hashCode();
 		result = 31 * result + getAvailableDamageTypes().hashCode();
@@ -210,11 +223,19 @@ public abstract class AbstractWeaponType extends AbstractCoreType implements Ser
 							"You kick out at [npc.name], smiling to yourself as you feel your [pc.foot] connect with [npc.her] [npc.leg]."));
 				
 			} else {
-				return UtilText.parse(character,
-						UtilText.returnStringAtRandom(
-							"Darting forwards, [npc.name] delivers a solid punch to your [pc.arm].",
-							"[npc.Name] throws a punch at you, grinning as [npc.her] attack connects with your [pc.arm].",
-							"[npc.Name] kicks out at you, smiling to [npc.herself] as [npc.her] [npc.foot] connects with your [pc.leg]."));
+				if(target.isPlayer()) {
+					return UtilText.parse(character,
+							UtilText.returnStringAtRandom(
+								"Darting forwards, [npc.name] delivers a solid punch to your [pc.arm].",
+								"[npc.Name] throws a punch at you, grinning as [npc.her] attack connects with your [pc.arm].",
+								"[npc.Name] kicks out at you, smiling to [npc.herself] as [npc.her] [npc.foot] connects with your [pc.leg]."));
+				} else {
+					return UtilText.parse(character, target,
+							UtilText.returnStringAtRandom(
+								"Darting forwards, [npc1.name] delivers a solid punch to [npc2.name]'s [npc2.arm].",
+								"[npc1.Name] throws a punch at [npc2.name], grinning as [npc1.her] attack connects with [npc2.her] [npc2.arm].",
+								"[npc1.Name] kicks out at [npc2.name], smiling to [npc1.herself] as [npc1.her] [npc1.foot] connects with [npc2.name]'s [npc2.leg]."));
+				}
 			}
 			
 		} else {
@@ -226,11 +247,19 @@ public abstract class AbstractWeaponType extends AbstractCoreType implements Ser
 							"You kick out at [npc.name], but your [pc.foot] sails harmlessly through the air."));
 				
 			} else {
-				return UtilText.parse(character,
-						UtilText.returnStringAtRandom(
-							"Darting forwards, [npc.name] tries to deliver a punch to your [pc.arm], but you manage to step out of he way in time.",
-							"[npc.Name] throws a punch at you, but fails to make contact with any part of your body.",
-							"[npc.Name] kicks out at you, but [npc.her] [npc.foot] sails harmlessly through the air."));
+				if(target.isPlayer()) {
+					return UtilText.parse(character,
+							UtilText.returnStringAtRandom(
+								"Darting forwards, [npc.name] tries to deliver a punch to your [pc.arm], but you manage to step out of the way in time.",
+								"[npc.Name] throws a punch at you, but fails to make contact with any part of your body.",
+								"[npc.Name] kicks out at you, but [npc.her] [npc.foot] sails harmlessly through the air."));
+				} else {
+					return UtilText.parse(character, target,
+							UtilText.returnStringAtRandom(
+								"Darting forwards, [npc1.name] tries to deliver a punch to [npc2.name]'s [npc2.arm], but [npc2.she] manages to step out of the way in time.",
+								"[npc1.Name] throws a punch at [npc2.name], but fails to make contact with any part of [npc2.her] body.",
+								"[npc1.Name] kicks out at [npc2.name], but [npc1.her] [npc1.foot] sails harmlessly through the air."));
+				}
 			}
 		}
 	}
@@ -245,11 +274,19 @@ public abstract class AbstractWeaponType extends AbstractCoreType implements Ser
 							"You kick out at [npc.name], and as you do, a bolt of arcane energy shoots out of your [pc.foot] to connect with [npc.her] [npc.leg]."));
 				
 			} else {
-				return UtilText.parse(character,
-						UtilText.returnStringAtRandom(
-							"Punching [npc.her] fist out towards you, a bolt of arcane energy shoots out to strike your [pc.arm].",
-							"Striking out towards you, a bolt of arcane energy shoots out of [npc.name]'s fist to connect with your [pc.arm].",
-							"[npc.Name] kicks out at you, and as [npc.she] does so, a bolt of arcane energy shoots out of [npc.her] [npc.foot] to connect with your [pc.leg]."));
+				if(target.isPlayer()) {
+					return UtilText.parse(character,
+							UtilText.returnStringAtRandom(
+								"Punching [npc.her] fist out towards you, a bolt of arcane energy shoots out to strike your [pc.arm].",
+								"Striking out towards you, a bolt of arcane energy shoots out of [npc.name]'s fist to connect with your [pc.arm].",
+								"[npc.Name] kicks out at you, and as [npc.she] does so, a bolt of arcane energy shoots out of [npc.her] [npc.foot] to connect with your [pc.leg]."));
+				} else {
+					return UtilText.parse(character, target,
+							UtilText.returnStringAtRandom(
+								"Punching [npc1.her] fist out towards [npc2.name], a bolt of arcane energy shoots out to strike [npc2.her] [npc2.arm].",
+								"Striking out towards [npc2.name], a bolt of arcane energy shoots out of [npc1.name]'s fist to connect with [npc2.her] [npc2.arm].",
+								"[npc1.Name] kicks out at [npc2.name], and as [npc1.she] does so, a bolt of arcane energy shoots out of [npc1.her] [npc1.foot] to connect with [npc2.name]'s [npc2.leg]."));
+				}
 			}
 			
 		} else {
@@ -261,31 +298,66 @@ public abstract class AbstractWeaponType extends AbstractCoreType implements Ser
 							"You kick out at [npc.name], and as you do, a bolt of arcane energy shoots out of your [pc.foot] to sail harmlessly through the air as [npc.she] dodges your attack."));
 				
 			} else {
-				return UtilText.parse(character,
-						UtilText.returnStringAtRandom(
-							"Punching [npc.her] fist out towards you, a bolt of arcane energy shoots out to sail harmlessly through the air as you dodge [npc.her] attack.",
-							"Striking out towards you, a bolt of arcane energy shoots out of [npc.name]'s fist to sail harmlessly through the air as you dodge [npc.her] attack.",
-							"[npc.Name] kicks out at you, and as [npc.she] does so, a bolt of arcane energy shoots out of [npc.her] [npc.foot] to sail harmlessly through the air as you dodge [npc.her] attack."));
+				if(target.isPlayer()) {
+					return UtilText.parse(character,
+							UtilText.returnStringAtRandom(
+								"Punching [npc.her] fist out towards you, a bolt of arcane energy shoots out to sail harmlessly through the air as you dodge [npc.her] attack.",
+								"Striking out towards you, a bolt of arcane energy shoots out of [npc.name]'s fist to sail harmlessly through the air as you dodge [npc.her] attack.",
+								"[npc.Name] kicks out at you, and as [npc.she] does so, a bolt of arcane energy shoots out of [npc.her] [npc.foot] to sail harmlessly through the air as you dodge [npc.her] attack."));
+				} else {
+					return UtilText.parse(character,
+							UtilText.returnStringAtRandom(
+								"Punching [npc1.her] fist out towards [npc2.name], a bolt of arcane energy shoots out to sail harmlessly through the air as [npc2.name] dodges [npc1.her] attack.",
+								"Striking out towards [npc2.name], a bolt of arcane energy shoots out of [npc1.name]'s fist to sail harmlessly through the air as [npc2.name] dodges [npc1.her] attack.",
+								"[npc1.Name] kicks out at [npc2.name], and as [npc1.she] does so, a bolt of arcane energy shoots out of [npc1.her] [npc1.foot] to sail harmlessly through the air as [npc2.name] dodges [npc1.her] attack."));
+				}
 			}
 		}
 	}
 
+
+
 	public boolean isAbleToBeUsed(GameCharacter user, GameCharacter target) {
-		return true;
+		if(this.getArcaneCost()>0) {
+			return user.getEssenceCount(TFEssence.ARCANE) > 0;
+		} else {
+			return true;
+		}
 	}
-	
+
 	public String getUnableToBeUsedDescription() {
-		return "";
+		if(this.getArcaneCost()>0) {
+			return "You need at least [style.boldBad(one)] [style.boldArcane(arcane essence)] in order to use this weapon!";
+		} else {
+			return "";
+		}
 	}
 	
-	public String applyExtraEfects(GameCharacter user, GameCharacter target) {
-		return "";
+	public String applyExtraEfects(GameCharacter user, GameCharacter target, boolean isHit) {
+		if(this.getArcaneCost()>0) {
+			user.incrementEssenceCount(TFEssence.ARCANE, -this.getArcaneCost(), false);
+			if(user.isPlayer()) {
+				return "<p>"
+							+ "Firing the "+this.getName()+" drains [style.boldBad("+Util.intToString(this.getArcaneCost())+")] [style.boldArcane(arcane essence)] from your aura!"
+						+ "</p>";
+			} else {
+				return "<p>"
+							+ UtilText.parse(user, "Firing the "+this.getName()+" drains [style.boldBad("+Util.intToString(this.getArcaneCost())+")] [style.boldArcane(arcane essence)] from [npc.name]'s aura!")
+						+ "</p>";
+			}
+		} else {
+			return "";
+		}
 	}
 	
 	public int getBaseValue() {
 		return baseValue;
 	}
 	
+	public boolean isMelee() {
+		return melee;
+	}
+
 	public String getDeterminer() {
 		return determiner;
 	}
@@ -332,6 +404,10 @@ public abstract class AbstractWeaponType extends AbstractCoreType implements Ser
 		return damageVariance;
 	}
 
+	public int getArcaneCost() {
+		return arcaneCost;
+	}
+
 	public Map<Attribute, Integer> getAttributeModifiers() {
 		return attributeModifiers;
 	}
@@ -346,6 +422,10 @@ public abstract class AbstractWeaponType extends AbstractCoreType implements Ser
 
 	public Map<DamageType, String> getSVGStringMap() {
 		return SVGStringMap;
+	}
+	
+	public String getSVGString() {
+		return SVGStringMap.get(this.getAvailableDamageTypes().get(0));
 	}
 
 	public List<Spell> getSpells() {

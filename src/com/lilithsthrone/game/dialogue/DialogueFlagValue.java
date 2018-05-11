@@ -2,13 +2,15 @@ package com.lilithsthrone.game.dialogue;
 
 /**
  * @since 0.1.89
- * @version 0.1.99
+ * @version 0.2.5
  * @author Innoxia
  */
 public enum DialogueFlagValue {
+	
 	quickTrade,
 	stormTextUpdateRequired,
 	hasSnowedThisWinter,
+	
 	
 	// Essence reactions:
 	jinxedClothingDiscovered,
@@ -16,19 +18,34 @@ public enum DialogueFlagValue {
 	essenceOrgasmDiscovered,
 	essenceBottledDiscovered,
 
+	
 	// Misc.:
 	foundHappiness,
+	visitedSubmission,
 	
 	// Gym:
 	gymIntroduced,
 	gymHadTour,
 	gymIsMember,
 	
-	// Shopping arcade:
-	ralphIntroduced,
 	
+	// Introductions:
+	angelIntroduced,
+	angelsOfficeIntroduced,
+	bunnyIntroduced,
+	loppyIntroduced,
+	ashleyIntroduced,
+	ralphIntroduced,
 	nyanIntroduced,
-
+	kateIntroduced,
+	vickyIntroduced,
+	
+	
+	// Red-light district:
+	prostitutionLicenseObtained,
+	
+	
+	// Shopping arcade:
 	nyanTalkedTo,
 	nyanComplimented,
 	nyanFlirtedWith,
@@ -41,14 +58,11 @@ public enum DialogueFlagValue {
 	suppliersEncountered,
 	suppliersTriedConvincing,
 	
-	kateIntroduced,
-	
-	ashleyIntroduced,
 	ashleySexToysDiscovered,
 	ashleyAttitude,
 	
-	vickyIntroduced,
 	reactedToKatePregnancy,
+	
 	
 	// Aunt's Home:
 	knowsDate,
@@ -58,6 +72,8 @@ public enum DialogueFlagValue {
 	reactedToPregnancyLilaya,
 	waitingOnLilayaPregnancyResults,
 	essenceExtractionKnown,
+	roseToldOnYou,
+	
 	readBook1,
 	readBook2,
 	readBook3,
@@ -101,6 +117,16 @@ public enum DialogueFlagValue {
 	zaranixAmberSubdued,
 	zaranixKatherineSubdued,
 	zaranixKellySubdued,
+	
+	amberRepeatEncountered,
+	katherineRepeatEncountered,
+	kellyRepeatEncountered,
+	zaranixRepeatEncountered,
+	
+	// Lumi:
+	lumiMet,
+	lumiDisabled,
+	lumiPromisedDinner,
 	
 	;
 }

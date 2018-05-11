@@ -1,0 +1,978 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+	<htmlContent tag="ENTRANCE"><![CDATA[
+	<p>
+		Deciding that you want to take a look inside, you step up to the front doors of 'Angel's Kiss', and, pushing one of them open, you enter the establishment.
+		 A little bell rings above your head as you step forwards into the entrance hall, and as you let the door swing shut behind you, you take a look at your surroundings.
+	</p>
+	<p>
+		A golden chandelier dangles from the high ceiling above you, bathing the entire entrance hall in a soft white light.
+		 To your right, a long, mahogany counter runs in parallel to the wall, which, much like the other three that surround you, is half-panelled in dark wood, with the top half being covered in a finely detailed light-blue and white floral wallpaper.
+		 Underfoot, a rich burgundy carpet runs down the middle of the hall, with spaces on either side displaying polished oak boards.
+	</p>
+	<p>
+		There doesn't seem to be anyone in here at the moment, and you wonder just how bad business must be for there not even to be someone assigned to greet customers.
+		 With the place appearing to be abandoned, you're on the verge of turning around and making your exit when suddenly someone steps forwards from beyond the archway that links this room to the rest of the building.
+	</p>
+	<p>
+		Wearing a long, purple plunge dress, the blonde-haired, blue-eyed woman that approaches is nothing short of breath-takingly beautiful.
+		 As she steps forwards, her full, red lips turn up into a delightful smile, and she lowers her head a little as she apologises,
+		 [angel.speech(I'm so sorry that I kept you waiting, and welcome to my establishment!
+			 My name is Angel, and if there's any administrative business you need taken care of, you've come to the right place!)]
+	</p>
+	<p>
+		[pc.speech(I'm [pc.name],)]
+		 you reply, but before you can say anything further, Angel suddenly seems to remember something, and cuts you off.
+	</p>
+	<p>
+		[angel.speech(Oh! And we're still operating as a brothel too!
+		 We might not have as wide of a selection as some of our competitors, but my two girls are among the very best in all of Dominion!)]
+		 Angel wrings her hands and glances back the way she came as she continues,
+		 [angel.speech(I'm sorry that I'm not able to provide you with the level of comfort that this establishment was once known for, but ever since the Enforcers designated this as the red-light district's administrative centre, I've been buried beneath a pile of paperwork.
+		 I really need to get back to it right away, so if you're here to apply for a prostitution license, please follow me back to my office.
+		 Oh, and if you're here for Bunny or Loppy, you can find them upstairs.)]
+	</p>
+	<p>
+		With that, the madam of the establishment rushes off back to her office, leaving you once more all alone in the deserted entrance hall.
+		 You could follow Angel to her office, and try to talk to her about the current state of her brothel, or to apply for a prostitution license.
+		 You could also head upstairs and try to find the girls Angel referred to as 'Bunny' and 'Loppy'...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENTRANCE_REPEAT"><![CDATA[
+	<p>
+		Once again, you find yourself standing in the entrance hall of the brothel 'Angel's Kiss'.
+		 A golden chandelier dangles from the high ceiling above you, bathing the entire entrance hall in a soft white light.
+		 To your right, a long, mahogany counter runs in parallel to the wall, which, much like the other three that surround you, is half-panelled in dark wood, with the top half being covered in a finely detailed light-blue floral wallpaper.
+		 Underfoot, a rich burgundy carpet runs down the middle of the hall, with spaces on either side displaying polished oak boards.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENTRANCE_REPEAT_EMPTY"><![CDATA[
+	<p>
+		There doesn't seem to be anyone in here at the moment, and you wonder just how bad business must be for there not even to be someone assigned to greet customers...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENTRANCE_REPEAT_STAFFED"><![CDATA[
+	<p>
+		Your slave, [npc.name], is standing behind the front desk, and [npc.she] smiles at you and offers you a greeting.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CORRIDOR"><![CDATA[
+	<p>
+		The corridors of Angel's Kiss bear the same decor as the entrance hall.
+		 The walls are half-panelled in dark wood, with the top half being covered in a finely detailed light-blue floral wallpaper.
+		 Underfoot, a rich burgundy carpet runs down the middle of the hall, with spaces on either side displaying polished oak boards.
+		 The odd painting, cabinet, or doorway breaks up the monotony of your surroundings, which are illuminated by the soft white glow given off from the many light fixtures set into the high ceiling above.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STAIRS_UP"><![CDATA[
+	<p>
+		A grand staircase, carpeted in the same rich burgundy as the rest of the establishment, stands before you.
+		 From here, you could make your way up to the first floor of the building, or head off into the looping corridor that runs around the ground floor.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STAIRS_DOWN"><![CDATA[
+	<p>
+		A grand staircase, carpeted in the same rich burgundy as the rest of the establishment, stands before you.
+		 From here, you could make your way down to the ground floor of the building, or head off into the looping corridor that runs around the first floor.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BEDROOM"><![CDATA[
+	<p>
+		The many bedrooms in Angel's Kiss are all decorated in much the same way.
+		 A clean, king-sized bed sits against one wall, with a pair of bedside cabinets flanking it on either side.
+		 An arcane-powered free-standing lamp, giving out a deep red glow, is positioned near the window.
+		 The walls are covered in finely detailed floral wallpaper, while underfoot, there's the same burgundy carpet that runs through the rest of the establishment.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BEDROOM_EMPTY"><![CDATA[
+	<p>
+		This bedroom is currently empty, but despite the lack of any sign of a recent occupant, the room is immaculately clean and free of dust.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BEDROOM_EMPTY_WHORE_SELF_GROUND_FLOOR"><![CDATA[
+	<p>
+		This bedroom is currently empty, but despite the lack of any sign of a recent occupant, the room is immaculately clean and free of dust.
+		 Although you own a prostitution license, your agreement with Angel was that you'd only be allowed to use the first floor rooms to whore yourself out in.
+		 If you were interested in working as a prostitute, you should probably head upstairs...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BEDROOM_EMPTY_WHORE_SELF"><![CDATA[
+	<p>
+		This bedroom is currently empty, but despite the lack of any sign of a recent occupant, the room is immaculately clean and free of dust.
+		 As you own a prostitution license, and have the agreement with Angel that you're allowed to whore yourself out in the first floor rooms, you could wait in here for a client to turn up...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SELL_SELF_SUB"><![CDATA[
+	<p>
+		Deciding that you'll sell your body to a client to make some quick cash, you head down to Angel's office to let her know that you're available.
+		 After specifying that you'd like to be the submissive partner, you accept Angel's offer of having a new client sent your way, and, returning to your room, you sit down on the bed and wait...
+	</p>
+	<p>
+		Around twenty-five minutes later, you hear a knock at the door, and you turn to see [npc.a_fullRace] stepping into the room.
+		 [npc.speech(Are you [pc.name]? Angel said you're available for two-thousand flames...)]
+	</p>
+	<p>
+		[pc.speech(Yeah, that's me!)]
+		 you happily reply, jumping up from the bed and walking over towards the client.
+		 You only have a moment to decide whether you're going to let this [npc.race] pay to fuck you or not...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SELL_SELF_SUB_START"><![CDATA[
+	<p>
+		Deciding that you'll take this client, you step forwards and press yourself against [npc.herHim], sighing,
+		 [pc.speech(If you've got the money, I'm all yours...)]
+	</p>
+	<p>
+		[npc.Name] eagerly hands over the two-thousand flames, and, after taking the money and putting it to one side, you wrap your arms around [npc.herHim].
+		 Leaning in to whisper in [npc.her] ear, you [pc.moan],
+		 [pc.speech(Show me how a real [npc.race] fucks...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SELL_SELF_SUB_AFTER_SEX"><![CDATA[
+	<p>
+		You collapse down onto the bed, breathing heavily as [npc.name] disentangles [npc.herself] from your clutches.
+		 Looking down at you, [npc.she] smirks.
+		 [npc.speech(That was amazing! You're a great fuck, [pc.name]. Maybe I'll have you again some time.)]
+	</p>
+	<p>
+		As [npc.she] gathers [npc.her] things and heads towards the exit, you call out,
+		 [pc.speech(Come again soon!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SELL_SELF_DOM"><![CDATA[
+	<p>
+		Deciding that you'll sell your body to a client to make some quick cash, you head down to Angel's office to let her know that you're available.
+		 After specifying that you'd like to be the dominant partner, you accept Angel's offer of having a new client sent your way, and, returning to your room, you sit down on the bed and wait...
+	</p>
+	<p>
+		Around twenty-five minutes later, you hear a knock at the door, and you turn to see [npc.a_fullRace] stepping into the room.
+		 [npc.speech(Are you [pc.name]? Angel said you'd dominate me for two-thousand flames...)]
+	</p>
+	<p>
+		[pc.speech(Yeah, that's me!)]
+		 you reply, standing up from the bed and striding towards the client.
+		 You only have a moment to decide whether you're going to let this [npc.race] pay to be dominated by you or not...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SELL_SELF_DOM_START"><![CDATA[
+	<p>
+		Deciding that you'll take this client, you step forwards and press yourself against [npc.herHim], reaching around to take a firm grip of [npc.her] [npc.ass+] as you [pc.moan],
+		 [pc.speech(If you've got the money, I'll show you how a real dom treats [pc.her] sub...)]
+	</p>
+	<p>
+		[npc.Name] eagerly hands over the two-thousand flames, and, after taking the money and putting it to one side, you focus your attention on your new client.
+		 Leaning in to growl in [npc.her] ear, you [pc.moan],
+		 [pc.speech(It's time to show you how I fuck submissive little [npc.races] like you...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SELL_SELF_DOM_AFTER_SEX"><![CDATA[
+	<p>
+		[npc.Name] collapses down onto the bed, breathing heavily as you disentangle yourself from [npc.her] clutches.
+		 Looking down at [npc.herHim], you smirk.
+		 [pc.speech(Good bitch, you were a half-decent fuck after all! Maybe I'll let you be my toy again some time.)]
+	</p>
+	<p>
+		After waiting a moment for [npc.name] to catch [npc.her] breath, you help [npc.herHim] gather [npc.her] things and show [npc.herHim] to the exit.
+		 Smiling after [npc.herHim], you call out,
+		 [pc.speech(Come again soon!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SELL_SELF_DECLINE"><![CDATA[
+	<p>
+		Deciding that you don't want to take this client, you step forwards and apologise,
+		 [pc.speech(I'm so sorry, there must have been a mistake. I'm actually coming to the end of my shift now... I'm sure one of the girls down the corridor will love to have some fun with you though!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SELL_SELF_DECLINE_SUB"><![CDATA[
+	<p>
+		[npc.Name] lets out an annoyed huff, but doesn't press the issue.
+		 [npc.speech(Fine... Maybe I'll get to ride you another time...)]
+	</p>
+	<p>
+		With that, [npc.she] makes [npc.her] exit, leaving you alone in the bedroom once again.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SELL_SELF_DECLINE_DOM"><![CDATA[
+	<p>
+		[npc.Name] lets out a disappointed whine, but doesn't press the issue.
+		 [npc.speech(Fine... Maybe you'll want to ride me another time...)]
+	</p>
+	<p>
+		With that, [npc.she] makes [npc.her] exit, leaving you alone in the bedroom once again.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BEDROOM_OCCUPIED_SLAVE"><![CDATA[
+	<p>
+		Your slave [npc.name], [npc.a_fullRace], is currently working in this room, and [npc.she] smiles at you as you step through the open door.
+		 [npc.speech(Oh, hi, [npc.pcName]!
+		 Are you here to have some fun?
+		 I don't think there's any need to be charging you, after all...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BEDROOM_OCCUPIED_SLAVE_SEX"><![CDATA[
+	<p>
+		The door to this bedroom is firmly shut and locked, and from within, you can hear the moans of your slave, [npc1.name], as [npc1.she] entertains [npc1.her] client.
+		 Checking the ledger that's near the door, you see that [npc1.she]'s currently entertaining [npc2.a_fullRace(true)].
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BEDROOM_PROSTITUTE_SLAVE_SEX"><![CDATA[
+	<p>
+		Deciding that you'd like to have some fun with [npc.name], you step forwards and pull [npc.herHim] in against your chest.
+		 Leaning in over [npc.her] shoulder, you [pc.moan],
+		 [pc.speech(It's time for a good fuck!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BEDROOM_PROSTITUTE_SLAVE_SEX_SUB"><![CDATA[
+	<p>
+		Deciding that you'd like to have some fun with [npc.name], you step up to [npc.herHim], [pc.moaning],
+		 [pc.speech(Come on, [npc.name]! I want you to dominate me!)]
+	</p>
+	<p>
+		[npc.Name] obediently does as you ask, and, reaching around to grab hold of your [pc.ass+], [npc.she] pulls you into [npc.herHim], growling into your ear,
+		 [npc.speech(Sure thing, [npc.pcName]... <i>I'm</i> the one in charge now...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BEDROOM_OCCUPIED"><![CDATA[
+	<p>
+		The [npc.fullRace], [npc.name], is currently working in this room, and [npc.she] smiles at you as you step through the open door.
+		 [npc.speech([pc.Name]! I can never thank you enough for saving me from those alleyways...
+		 Angel insists that I charge everyone I sleep with, but I can still give you a huge discount out of my own takings!
+		 Instead of the usual two-thousand flames, I'll only charge you three-hundred.
+		 That is, if you wanted to have sex with me...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BEDROOM_OCCUPIED_SEX"><![CDATA[
+	<p>
+		The door to this bedroom is firmly shut and locked, and from within, you can hear the moans of [npc1.name] as [npc1.she] entertains [npc1.her] client.
+		 Checking the ledger that's near the door, you see that [npc1.she]'s currently entertaining [npc2.a_fullRace(true)].
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BEDROOM_PROSTITUTE_SEX"><![CDATA[
+	<p>
+		Deciding that you'd like to have some fun with [npc.name], you hand over the three-hundred flames, before stepping forwards and pulling [npc.herHim] in against your chest.
+		 Leaning in over [npc.her] shoulder, you [pc.moan],
+		 [pc.speech(It's time for a good fuck!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BEDROOM_PROSTITUTE_SEX_SUB"><![CDATA[
+	<p>
+		Deciding that you'd like to have some fun with [npc.name], you hand over the three-hundred flames, before stepping up to [npc.herHim] and [pc.moaning],
+		 [pc.speech(Come on, [npc.name]! I want you to dominate me!)]
+	</p>
+	<p>
+		[npc.Name] obediently does as you ask, and, reaching around to grab hold of your [pc.ass+], [npc.she] pulls you into [npc.herHim], growling into your ear,
+		 [npc.speech(Sure thing, [npc.pcName]... <i>I'm</i> the one in charge now...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="PROSTITUTE_AFTER_SEX"><![CDATA[
+	<p>
+		[npc.Name] collapses down onto [npc.her] bed, panting heavily.
+		 [npc.speech(Ah... [npc.pcName]... that was amazing!)]
+	</p>
+	<p>
+		You smile down at the exhausted [npc.race], before turning away and gathering your things.
+		 As you head towards the door to make your exit, [npc.name] calls out after you,
+		 [npc.speech(Please come back again!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="PROSTITUTE_AFTER_SEX_NO_ORGASM"><![CDATA[
+	<p>
+		[npc.Name] collapses down onto [npc.her] bed, letting out a happy sigh,
+		 [loppy.speech(Ah... [npc.pcName]... that was great!)]
+	</p>
+	<p>
+		[npc.She] doesn't sound completely honest, and, seeing as you didn't bring [npc.herHim] to an orgasm, you realise that [npc.she]'s just being professionally courteous.
+		 Not being too concerned with this fact, you turn away and start to gather your things.
+		 As you head towards the door to make your exit, [npc.name] calls out after you,
+		 [npc.speech(Please come back again!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BEDROOM_BUNNY"><![CDATA[
+	<p>
+		Stepping through the doorway, you discover that this bedroom, unlike most of the others in Angel's Kiss, is actually occupied.
+		 Lying on her stomach on the pink, king-sized bed that's sitting against one wall, this room's occupant is burying her face in the pillows as she kicks her slender legs up and down in frustration.
+		 Stepping forwards, you see that she's got a round, fluffy rabbit's tail growing out just above her perfectly shaped ass, and as you notice her upright rabbit's ears twitching back and forth in time with the kicking of her legs, you suddenly start to hear her muffled groans,
+		 [bunny.speech(Bored... bored... bored... BORED!)]
+	</p>
+	<p>
+		As she utters that last word, she turns over on the bed, and, catching sight of you, jumps up onto her hands and knees.
+		 [bunny.speech(Eeep! W-Wait... Are you a customer?! A real-life, <i>actual</i> customer?!)]
+	</p>
+	<p>
+		The rabbit-girl's voice, full of shock at first, quickly shifts to an excited tone, and, not giving you a moment to respond, she suddenly leaps to her feet and bounces towards you.
+		 [bunny.speech(Hi, hi, hi! Oh my goodness, a customer! Oh, I'm being super rude aren't I? I'm Bunny! So nice to meet you!)]
+	</p>
+	<p>
+		[pc.speech(Hi, Bunny, I'm [pc.name],)]
+		 you reply.
+	</p>
+	<p>
+		The rabbit-girl grabs your [pc.hand] and gives it an enthusiastic shake as she continues,
+		 [bunny.speech(So I guess Angel told you to come up here?
+		 I'm so sorry that she didn't show you up here in person, she's been super busy with stuff for a while now...
+		 But anyway! Enough of that!
+		 You wanna have sex, right?
+		 It's been aaages since my twin sis Loppy and I got any customers here, so I'm sooo horny right now.)]
+	</p>
+	<p>
+		[pc.speech(You work here with your twin sister?)]
+		 you ask.
+	</p>
+	<p>
+		[bunny.speech(Yeah, she's down the other end of the corridor.
+		 We used to share a room, back when this place was the busiest brothel in all Dominion, but ever since those Enforcers made Angel run this place as an admin centre, people started to stop coming here.
+		 Better not to get involved with anything the Enforcers have a hand in, right?)]
+		 Bunny suddenly realises what she's saying, and splutters,
+		 [bunny.speech(W-Wait, there's nothing wrong with this place, it's just people are kind of wary, y'know?
+		 A-Anyway, I started talking about boring stuff again...
+		 So yeah, Loppy's my twin sis, and, getting down to business, it's gonna be one-thousand five-hundred flames to have some fun with either of us.
+		 Angel sets the prices, so there's no haggling, ok?)]
+	</p>
+	<p>
+		You start to respond, but Bunny suddenly lets out an excited little cry, and, jumping up and down on the spot, she happily exclaims,
+		 [bunny.speech(Oh! Oh! You look like you're kinda rich, y'know?
+		 I don't make this offer to just anyone, but if you want to take Loppy and I at the same time, then for five-thousand flames I can go and fetch her here right now!
+		 Oh, and I should warn you, she's a futa, so if you're not into cocks, maybe you'd best just stick with me.)]
+	</p>
+	<p>
+		You wonder if you should take Bunny up on her offer, or decline and perhaps come back later...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BEDROOM_BUNNY_REPEAT"><![CDATA[
+	<p>
+		Once again, you find yourself stepping into Bunny's bedroom.
+		 As usual, you find her lying down on her bed, kicking her legs up and down as she waits for her next customer.
+	</p>
+	<p>
+		You take a step forwards, intending to call out a greeting, but as you do, Bunny's large, rabbit-like ears twitch backwards, and she spins over onto her back.
+		 She instantly jumps up onto her feet, calling out in excitement as she sees that it's you,
+		 [bunny.speech([pc.Name]! Hi! How're you doing? You here to come get a piece of this bunny's hot ass?! Or maybe you've got the flames to have a go with my sis and I at the same time?!)]
+	</p>
+	<p>
+		Bunny giggles as she bounds forwards, bouncing up and down on the spot as she awaits your answer.
+		 You could pay her for sex, or make an excuse and take your leave...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BEDROOM_BUNNY_SEX"><![CDATA[
+	<p>
+		You hand over one-thousand five-hundred flames to Bunny, who squeals in excitement as she sees that you're here for sex,
+		 [bunny.speech(Oooh! Yes! Finally, this bunny gets to have some fun!)]
+	</p>
+	<p>
+		Setting the money to one side, Bunny bounces forwards, wrapping her arms around your back and leaning in as she whispers,
+		 [bunny.speech(So, come on then, let's fuck like rabbits!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BEDROOM_BUNNY_THREESOME"><![CDATA[
+	<p>
+		[pc.speech(How about you run and fetch your sister,)]
+		 you say, handing over five-thousand flames.
+	</p>
+	<p>
+		Bunny's eyes go wide as she takes the money, and, placing it to one side, she lets out a delighted squeal,
+		 [bunny.speech(Oh! This is gonna be so much fun! Wait right here! I'll go get Loppy!)]
+	</p>
+	<p>
+		With that, the excited rabbit-girl sprints out of the room to fetch her twin sister.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BEDROOM_BUNNY_THREESOME_LOPPY_NOT_INTRODUCED"><![CDATA[
+	<p>
+		You're not kept waiting for long, and after less than two minutes, Bunny bounds back into the room.
+		 Following in her footsteps, and looking every bit as excited as her sister, is Loppy.
+	</p>
+	<p>
+		You can instantly tell that they're twins, as they have identical facial features.
+		 Loppy's hair and fur is a slighter darker shade of brown than her sister's, and her eyes are brown whereas Bunny's are green, but apart from that, and the fact that her rabbit-like ears are floppy instead of upright, the two sisters are mirror images of one another.
+		 As you're marvelling at how alike they look, Loppy grins at you and exclaims,
+		 [loppy.speech(Hey there, [pc.name]! Bunny's told me all about your naughty plan... Fucking us twins at the same time? This is going to be good!)]
+	</p>
+	<p>
+		Obviously the more dominant of the pair, Loppy turns towards her sister, and, grabbing both sides of her head, she pulls her into a passionate kiss.
+		 Dragging Bunny with her, she then steps over towards her sister's bed, and, reaching down to grab her ass, drags her down onto the mattress.
+		 Pushing herself up onto all fours, she tells Bunny to do the same, and within the span of just a few seconds, you're looking down at the twin rabbit-morphs as they present themselves to you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BEDROOM_BUNNY_THREESOME_LOPPY_INTRODUCED"><![CDATA[
+	<p>
+		You're not kept waiting for long, and after less than two minutes, Bunny bounds back into the room.
+		 Following in her footsteps, and looking every bit as excited as her sister, is Loppy.
+		 As she's that it's you, Loppy grins and exclaims,
+		 [loppy.speech(Hey there, [pc.name]! Bunny's told me all about your naughty plan... Fucking us twins at the same time? This is going to be good!)]
+	</p>
+	<p>
+		Obviously the more dominant of the pair, Loppy turns towards her sister, and, grabbing both sides of her head, pulls her into a passionate kiss.
+		 Dragging Bunny with her, she then steps over towards her sister's bed, and, reaching down to grab her ass, drags her down onto the mattress.
+		 Pushing herself up onto all fours, she tells Bunny to do the same, and within the span of just a few seconds, you're looking down at the twin rabbit-morphs as they present themselves to you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BEDROOM_BUNNY_DECLINE"><![CDATA[
+	<p>
+		[pc.speech(Sorry, Bunny, I don't have time right now, but I might be back later,)]
+		 you explain, before heading towards the door.
+	</p>
+	<p>
+		[bunny.speech(Awww....)]
+		 Bunny pouts.
+		 [bunny.speech(Make sure to come back soon! I can show you a real good time!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BEDROOM_BUNNY_AFTER_SEX"><![CDATA[
+	<p>
+		Bunny collapses down onto her bed, panting heavily.
+		 [bunny.speech(Ah... [pc.name]... that was amazing!)]
+	</p>
+	<p>
+		You smile down at the exhausted rabbit-morph, before turning away and gathering your things.
+		 As you head towards the door to make your exit, Bunny calls out after you,
+		 [bunny.speech(Please come back again!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BEDROOM_BUNNY_AFTER_SEX_NO_ORGASM"><![CDATA[
+	<p>
+		Bunny collapses down onto her bed, letting out a happy little sigh,
+		 [bunny.speech(Ah... [pc.name]... that was great!)]
+	</p>
+	<p>
+		She doesn't sound completely honest, and, seeing as you didn't bring Bunny to an orgasm, you realise that she's just being professionally courteous.
+		 Not being too concerned with this fact, you turn away and start to gather your things.
+		 As you head towards the door to make your exit, Bunny calls out after you,
+		 [bunny.speech(Please come back again!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BEDROOM_BUNNY_AFTER_THREESOME"><![CDATA[
+	<p>
+		The two sisters collapse down onto the bed in front of you, panting and sighing with exhaustion.
+		 As they realise that you've finished with them, Loppy is the first to make a move, and, turning over to lie on her back, she props herself up on her elbows and calls out,
+		 [pc.speech([pc.Name], that was amazing!
+		 My sis and I haven't had this much fun in forever!)]
+	</p>
+	<p>
+		Following her sister's lead, Bunny pushes herself up onto her knees, and, turning towards you, giggles,
+		 [bunny.speech(Loppy's right, that was really fantastic!
+		 You'll come back again soon, right?)]
+	</p>
+	<p>
+		Smiling down at the twin rabbit-girls before you, you reply,
+		 [pc.speech(We'll have to see, won't we?)]
+	</p>
+	<p>
+		The girls each let out a playful giggle, before Loppy stands up and gathers her things.
+		 [loppy.speech(Well, I'd better get back to my room.
+		 I hope we get to have some more fun together some time soon [pc.name]!
+		 See ya Bunny!)]
+	</p>
+	<p>
+		With that, Loppy makes her exit, and, following her lead, you gather your own things and head towards the door.
+		 Just before you make your exit, Bunny calls out after you,
+		 [bunny.speech(Please do come back again!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BEDROOM_LOPPY"><![CDATA[
+	<p>
+		As you step inside this bedroom, you see that it's actually occupied, unlike most of the other rooms in Angel's Kiss.
+		 There, standing by the window, is a floppy-eared, cotton-tailed rabbit-girl.
+		 Her back is turned towards you as she gazes out of the window, but as you enter her room, her ears suddenly twitch, and she spins to face you.
+	</p>
+	<p>
+		[loppy.speech(Who are you?)]
+		 she asks.
+		 [loppy.speech(Angel said the cleaners wouldn't be here until for another three hours... Wait... Y-You're not a customer are you?)]
+	</p>
+	<p>
+		The rabbit-girl's cheeks start to turn red as she realises her mistake, and, rushing forwards, she frantically apologises,
+		 [loppy.speech(Oh no, oh no, oh no! I'm so, so sorry!
+		 I didn't mean any offence, it's just that we haven't had any real customers for so long!
+		 I-I'm Loppy, at your service!)]
+	</p>
+	<p>
+		The rabbit-girl hastily bows her head, causing her floppy ears to swing back and forth in a rather comical manner.
+		 Smiling down at Loppy you reply,
+		 [pc.speech(Hi, Loppy, I'm [pc.name].)]
+	</p>
+	<p>
+		[loppy.speech(Pleased to meet you, [pc.name]! Oh, my sis is never going to believe this... an actual customer!)]
+		 Loppy bounces up and down in her excitement.
+		 [loppy.speech(Oh, my twin sis is Bunny by the way, and she works here too!
+		 She's just down the other end of this corridor.
+		 We actually used to share a room, but ever since Angel got mixed up in Enforcer business, all the customers stopped coming, and all of the other girls moved out to the other brothels...)]
+	</p>
+	<p>
+		Suddenly realising that she's not doing the best job of advertising her services, Loppy quickly changes the subject,
+		 [loppy.speech(Anyway! Enough of that!
+		 If you're looking for a good time, you definitely came to the right place!
+		 Oh, and I'd better warn you right now, I've got a nice tight pussy for you to fuck, but I'm also packing a little extra equipment downstairs...)]
+	</p>
+	<p>
+		Loppy giggles, and, running her hands down between her legs, she pushes her hips forwards a little.
+		 Looking down, you see that she's got a considerable bulge pressing out against the fabric of her bodysuit, and as she sees that you've noticed her 'extra equipment', Loppy giggles,
+		 [loppy.speech(I can also get a little more dominant than my sis, so if that takes your fancy, then it'll be two-thousand five-hundred flames for a session where I'm the one in charge.
+		 I'm warning you though, I can get a little rough like that...
+		 If not, I can be a good little sub and let you fuck my brains out for two-thousand flames.
+		 Oh, oh! And if you fancied taking both my sister and I at once, then for five-thousand flames we can do that too!
+		 So, what'll it be?)]
+	</p>
+	<p>
+		Loppy bites her lip and flutters her eyelids at you, waiting for your answer...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BEDROOM_LOPPY_REPEAT"><![CDATA[
+	<p>
+		Once again, you find yourself stepping into Loppy's bedroom.
+		 As usual, she's on the far side of the room, staring out of the window, but as she hears you approach, her floppy ears twitch, and she spins around to greet you,
+		 [loppy.speech([pc.name]! Hi! How're you doing? You looking for a good time?)]
+	</p>
+	<p>
+		Quickly bouncing over towards you, with her floppy ears swinging this way and that, Loppy beams at you as she continues,
+		 [loppy.speech(I'm feeling super horny right now! You're here for a fuck, right?)]
+	</p>
+	<p>
+		Loppy giggles as she comes to a halt in front of you, before starting to bounce up and down on the spot as she eagerly awaits your answer.
+		 You could pay her for sex, or make an excuse and take your leave...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BEDROOM_LOPPY_SEX"><![CDATA[
+	<p>
+		You hand over two-thousand flames to Loppy, who cries out in excitement as she sees that you're here for sex,
+		 [loppy.speech(Yes! Finally, I get to have some real fun!)]
+	</p>
+	<p>
+		Setting the money to one side, Loppy dashes forwards, wrapping her arms around your back and leaning in as she whispers,
+		 [loppy.speech(So, come on then, let's fuck like rabbits!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BEDROOM_LOPPY_SEX_SUBMISSIVE"><![CDATA[
+	<p>
+		You hand over two-thousand five-hundred flames to Loppy, who, instead of giggling in excitement as you anticipated, calmly places the money to one side, before grinning.
+		 [bunny.speech(So, you want to get dominated by this bunny's cock, huh?)]
+	</p>
+	<p>
+		You open your mouth to respond, but Loppy quickly raises her hand and presses it over your lips.
+		 [loppy.speech(Naughty, naughty... I didn't give you permission to speak!)]
+	</p>
+	<p>
+		Pressing herself up against you, Loppy uses her free hand to reach around behind your back, and, grabbing a handful of your [pc.ass+], she laughs,
+		 [bunny.speech(Mmm, yeah, I'm going to enjoy pounding this cute little ass of yours...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BEDROOM_LOPPY_DECLINE"><![CDATA[
+	<p>
+		[pc.speech(Sorry, Loppy, I don't have time right now, but I might be back later,)]
+		 you explain, before heading towards the door.
+	</p>
+	<p>
+		[loppy.speech(Awww....)]
+		 Loppy sighs.
+		 [loppy.speech(Make sure to come back soon! I can show you a real good time!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BEDROOM_LOPPY_THREESOME"><![CDATA[
+	<p>
+		[pc.speech(How about you run and fetch your sister,)]
+		 you say, handing over five-thousand flames.
+	</p>
+	<p>
+		Loppy's eyes go wide as she takes the money, and, placing it to one side, she lets out a happy cry,
+		 [loppy.speech(Oh! This is going to be amazing, I promise! Wait right here! I'll go get Bunny!)]
+	</p>
+	<p>
+		With that, the excited rabbit-girl sprints out of the room to fetch her twin sister.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BEDROOM_LOPPY_THREESOME_BUNNY_NOT_INTRODUCED"><![CDATA[
+	<p>
+		You're not kept waiting for long, and after less than two minutes, Loppy bounds back into the room.
+		 Following in her footsteps, and looking every bit as excited as her sister, is Bunny.
+	</p>
+	<p>
+		You can instantly tell that they're twins, as they have identical facial features.
+		 Bunny's hair and fur is a slighter lighter shade of brown than her sister's, and her eyes are green whereas Loppy's are brown, but apart from that, and the fact that her rabbit-like ears are upright instead of floppy, the two sisters are mirror images of one another.
+		 As you're marvelling at how alike they look, Bunny lets out an excited squal,
+		 [bunny.speech(Hey there, [pc.name]! Loppy's told me what you've got in mind! I love being fucked alongside my twin sis here! Let's get started!)]
+	</p>
+	<p>
+		Obviously the more dominant of the pair, Loppy turns towards her sister, and, grabbing both sides of her head, she pulls her into a passionate kiss.
+		 Dragging Bunny with her, she then steps over towards her bed, and, reaching down to grab Bunny's ass, she drags her down onto the mattress.
+		 Pushing herself up onto all fours, she tells Bunny to do the same, and within the span of just a few seconds, you're looking down at the twin rabbit-morphs as they present themselves to you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BEDROOM_LOPPY_THREESOME_BUNNY_INTRODUCED"><![CDATA[
+	<p>
+		You're not kept waiting for long, and after less than two minutes, Loppy bounds back into the room.
+		 Following in her footsteps, and looking every bit as excited as her sister, is Bunny.
+		 As she's that it's you, Bunny lets out an excited squeal,
+		 [loppy.speech(Hey there, [pc.name]! Loppy's told me what you've got in mind! I love being fucked alongside my twin sis here! Let's get started!)]
+	</p>
+	<p>
+		Obviously the more dominant of the pair, Loppy turns towards her sister, and, grabbing both sides of her head, pulls her into a passionate kiss.
+		 Dragging Bunny with her, she then steps over towards her bed, and, reaching down to grab Bunny's ass, drags her down onto the mattress.
+		 Pushing herself up onto all fours, she tells Bunny to do the same, and within the span of just a few seconds, you're looking down at the twin rabbit-morphs as they present themselves to you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BEDROOM_LOPPY_AFTER_SEX"><![CDATA[
+	<p>
+		Loppy collapses down onto her bed, panting heavily.
+		 [loppy.speech(Ah... [pc.name]... that was amazing!)]
+	</p>
+	<p>
+		You smile down at the exhausted rabbit-morph, before turning away and gathering your things.
+		 As you head towards the door to make your exit, Loppy calls out after you,
+		 [loppy.speech(Please come back again!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BEDROOM_LOPPY_AFTER_SEX_NO_ORGASM"><![CDATA[
+	<p>
+		Loppy collapses down onto her bed, letting out a happy little sigh,
+		 [loppy.speech(Ah... [pc.name]... that was great!)]
+	</p>
+	<p>
+		She doesn't sound completely honest, and, seeing as you didn't bring Loppy to an orgasm, you realise that she's just being professionally courteous.
+		 Not being too concerned with this fact, you turn away and start to gather your things.
+		 As you head towards the door to make your exit, Loppy calls out after you,
+		 [loppy.speech(Please come back again!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BEDROOM_LOPPY_AFTER_THREESOME"><![CDATA[
+	<p>
+		The two sisters collapse down onto the bed in front of you, panting and sighing with exhaustion.
+		 As they realise that you've finished with them, Loppy is the first to make a move, and, turning over to lie on her back, she props herself up on her elbows and calls out,
+		 [pc.speech([pc.Name], that was amazing!
+		 My sis and I haven't had this much fun in forever!)]
+	</p>
+	<p>
+		Following her sister's lead, Bunny pushes herself up onto her knees, and, turning towards you, giggles,
+		 [bunny.speech(Loppy's right, that was really fantastic!
+		 You'll come back again soon, right?)]
+	</p>
+	<p>
+		Smiling down at the twin rabbit-girls before you, you reply,
+		 [pc.speech(We'll have to see, won't we?)]
+	</p>
+	<p>
+		The girls each let out a playful giggle, before Bunny stands up and gathers her things.
+		 [bunny.speech(Well, I'd better get back to my room.
+		 I hope we get to have some more fun together some time soon, [pc.name]!
+		 See ya, Loppy!)]
+	</p>
+	<p>
+		With that, Bunny makes her exit, and, following her lead, you gather your own things and head towards the door.
+		 Just before you make your exit, Loppy calls out after you,
+		 [loppy.speech(Please do come back again!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE"><![CDATA[
+	<p>
+		The door to Angel's office is wide open, and a little sign outside her door reads: <i>'For all Administrative Enquiries, please knock and enter!'</i>
+	</p>
+	<p>
+		Following the sign's instructions, you knock the open door as you step inside.
+		 The room that you find yourself walking into is stacked high with mountains of ledgers and piles of papers.
+		 A snaking path has been left to link the doorway with a desk on the far side of the room, and it's behind this that you spot Angel busily signing and stamping her way through a stack of official-looking forms.
+		 As she hears you knock, she looks up and smiles.
+		 [angel.speech(Ah, [pc.name]! Please do come in!)]
+	</p>
+	<p>
+		Carefully weaving your way past precariously balanced towers of paperwork, you quickly find yourself standing before Angel's desk.
+		 [pc.speech(Hi, Angel,)]
+		 you say,
+		 [pc.speech(so I'm guessing that this is the place where all the admin work is done.)]
+	</p>
+	<p>
+		Angel puts her pen down and leans back in her chair.
+		 [angel.speech(Yeah... It used to all be handled at the Enforcer HQ, until one of the bright sparks over there decided that it would easier to offload all of this work on the largest and most popular brothel in Dominion.
+		 Well, at least that's what this place <i>used</i> to be.
+		 Once everyone saw that I was working for the Enforcers, they all stopped visiting.
+		 Better not to get mixed up in anything that they're associated with, right?)]
+	</p>
+	<p>
+		[pc.speech(I'm guessing you couldn't just say no to them,)]
+		 you observe.
+	</p>
+	<p>
+		Angel lets out a little laugh,
+		 [angel.speech(Hah, believe me, I tried!
+		 I told the first Enforcer that visited where to shove it, but the very next day, about twenty of them barged their way in and told me that I'd be doing it, or I'd be for sale in Slaver Alley within the hour.
+		 Typical Enforcers...)]
+		 Angel lets out a little sigh, before shaking her head and smiling up at you.
+		 [angel.speech(But anyway, enough of my woes!
+		 If it's a prostitution license you're after, then I can set you up with one of those right now.
+		 It's a five-thousand flame fee, and then you'll be able to legally charge people for having sex with you.
+		 You can also buy an enhanced license for twenty-thousand flames, which will allow you to assign any slaves that you might own as prostitutes.)]
+	</p>
+	<p>
+		Angel suddenly seems to sink into a deep thought, and, not wanting to interrupt her, you wait to see what she has on her mind.
+		 Letting out another sigh, she finally looks up at you and smiles.
+		 [angel.speech(I could also offer you a special deal that would benefit both of us.
+		 For the past few weeks, I've had my two girls, Bunny and Loppy, walking around through the red-light district, informing people that the Enforcers aren't interested in policing this establishment in any way.
+		 From what they've reported back to me, they've convinced all of our old customers to start visiting us again.
+		 The problem is, however, that all of the prostitutes that used to work for me have left, and, what with all this paperwork, I don't have time to find any new ones.)]
+	</p>
+	<p>
+		[pc.speech(So you want me to find prostitutes to come and work here?)]
+		 you say, surmising what Angel was leading up to.
+	</p>
+	<p>
+		[angel.speech(Exactly! From what I hear, there are plenty of unregistered prostitutes illegally working out of the alleyways.
+		 All you'd need to do is convince them to pay me a visit, and I'll get them started working for me!)]
+	</p>
+	<p>
+		[pc.speech(And how's that beneficial to me?)]
+	</p>
+	<p>
+		[angel.speech(Well, in exchange, I'll offer you the enhanced prostitution license for the fee of just five-thousand flames, instead of the usual twenty.
+		 Also, I'll let both you and your slaves work out of the first floor of my brothel.
+		 I'll take all of the proceeds from the alleyway prostitutes you send to me, and just fifteen percent of the proceeds from what your slaves earn.
+		 I do need at least some income to maintain their rooms, after all.)]
+	</p>
+	<p>
+		You wonder if you should agree to Angel's deal, but before you can give an answer, she continues,
+		 [angel.speech(You don't need to give me an answer right now.
+		 Just let me know when you're ready to agree!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_CONTINUE"><![CDATA[
+	<p>
+		You could ask Angel about the laws regarding prostitution in Dominion, or perhaps you could ask her about her past.
+		 Her offer of an enhanced license, plus the use of the first floor for your slaves, in exchange for five-thousand flames and the promise to send any prostitutes you encounter her way is still open as well...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_REPEAT"><![CDATA[
+	<p>
+		Once again, you find that the door to Angel's office is wide open, and the familiar little sign hanging outside her door still reads: <i>'For all Administrative Enquiries, please knock and enter!'</i>
+	</p>
+	<p>
+		Following the sign's instructions, you knock the open door as you step inside.
+		 The room that you find yourself walking into is stacked high with mountains of ledgers and piles of papers.
+		 A snaking path has been left to link the doorway with a desk on the far side of the room, and it's behind this that you spot Angel busily signing and stamping her way through a stack of official-looking forms.
+		 As she hears you knock, she looks up and smiles.
+		 [angel.speech(Ah, [pc.name]! Come in! Have you thought about my offer any more? Remember, five-thousand flames, and you get the use of the first floor both for yourself and for your slaves!)]
+	</p>
+	<p>
+		Carefully weaving your way past precariously balanced towers of paperwork, you quickly find yourself standing before Angel's desk.
+		 You could ask her about the laws regarding prostitution in Dominion, or perhaps you could ask her about her past.
+		 Her offer of an enhanced license, plus the use of the first floor for your slaves, in exchange for five-thousand flames and the promise to send any prostitutes you encounter her way is still open as well...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_REPEAT_WITH_LICENSE"><![CDATA[
+	<p>
+		Once again, you find that the door to Angel's office is wide open, and the familiar little sign hanging outside her door still reads: <i>'For all Administrative Enquiries, please knock and enter!'</i>
+	</p>
+	<p>
+		Following the sign's instructions, you knock the open door as you step inside.
+		 The room that you find yourself walking into is stacked high with mountains of ledgers and piles of papers.
+		 A snaking path has been left to link the doorway with a desk on the far side of the room, and it's behind this that you spot Angel busily signing and stamping her way through a stack of official-looking forms.
+		 As she hears you knock, she looks up and smiles.
+		 [angel.speech(Ah, [pc.name]! Come in! How are you doing? I hope the first floor's rooms are being maintained to your satisfaction.)]
+	</p>
+	<p>
+		Carefully weaving your way past precariously balanced towers of paperwork, you quickly find yourself standing before Angel's desk.
+		 You could ask her about the laws regarding prostitution in Dominion, or perhaps you could ask her about her past.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_PROSTITUTION"><![CDATA[
+	<p>
+		Wanting to know a little more about prostitution in Dominion, you ask,
+		 [pc.speech(I was wondering what the laws are regarding prostitution here in Dominion.
+		 I've seen the occasional prostitute out in the streets, so they're not just confined to the red-light district?)]
+	</p>
+	<p>
+		[angel.speech(That's right,)]
+		 Angel replies, sitting back in her chair as she lowers her pen,
+		 [angel.speech(prostitutes can work in any part of the city, so long as they have a license.
+		 Brothels, however, are only allowed to operate in the red-light district, so all of the prostitutes that you see out in the rest of Dominion are working out of their homes.)]
+	</p>
+	<p>
+		[pc.speech(I see,)]
+		 you reply,
+		 [pc.speech(and so anyone can work as a prostitute, so long as they have a license?)]
+	</p>
+	<p>
+		[angel.speech(Yes, the only exception is if a slave is working as a prostitute.
+		 Slaves don't need to have a prostitution license in order to legally sell themselves for sex, but instead, their owner must have an enhanced prostitution license.
+		 Anyone caught working as a prostitute without a license risks being arrested by the Enforcers.
+		 I hope that clears everything up!)]
+	</p>
+	<p>
+		[pc.speech(Yeah, thanks, Angel,)]
+		 you reply.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_BACKGROUND"><![CDATA[
+	<p>
+		[pc.speech(I was wondering if I could ask you a personal question,)]
+		 you begin, and, as Angel nods her head, you continue,
+		 [pc.speech(How did you end up owning this place?)]
+	</p>
+	<p>
+		[angel.speech(Ah, well, the story behind that isn't too interesting, I'm afraid, but I'm happy to tell it nonetheless,)]
+		 Angel replies, smiling.
+		 [angel.speech(I started out as a prostitute, working for a small brothel on the far side of the red-light district.
+		 Thanks to my good looks and my skills beneath the sheets, I soon built up a reputation as a first-rate whore.
+		 Due to all of that nonsense that the demons keep on propagating about 'humans being troublemakers', us human prostitutes were often on the receiving end of abuse from our clients and fellow whores.)]
+	</p>
+	<p>
+		Angel stops for a moment as she reflects on this fact, before letting out a little sigh and continuing,
+		 [angel.speech(Well, most humans eventually decide to take a couple of transformative potions to escape from all that.
+		 Myself, however...)]
+		 The corners of Angel's mouth start to turn up into a devious smile, and she lets out a triumphant laugh.
+		 [angel.speech(I loved it!
+		 In fact, I loved it so much that I made it my speciality.
+		 'Put this angel into her rightful place!' the madam at my brothel used to call out, 'She refuses to transform, as she thinks that humans are better than you!')]
+	</p>
+	<p>
+		Angel really seems to be getting into the story now, and, in her excitement, stands up from her chair and starts pacing back and forth.
+		 [angel.speech(Oh, how I loved the way my clients would use me... degrade me... make me admit how pathetic humans are...
+		 Hah! Well, they seemed to love it too! It didn't take long before I'd amassed a small fortune, and soon after moving to this brothel - which used to be called 'The Demon's Kiss', back then - I'd built up my wealth to the point where I could purchase this place from the previous owner outright!)]
+	</p>
+	<p>
+		Angel smiles to herself and sighs, before sitting back down as she starts to calm down.
+		 [angel.speech(So, that's how I ended up owning this place.
+		 I loved my work, and maybe one day I'll hire someone to run this place so I can go back to having all that fun...
+		 For now, however, I need to get this paperwork done!)]
+	</p>
+	<p>
+		[pc.speech(Thanks for sharing your story with me,)]
+		 you say, wondering what to ask Angel about next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_LICENSE_PURCHASE"><![CDATA[
+	<p>
+		Producing five-thousand flames, you place them on the desk in front of Angel.
+		 [pc.speech(I'll take you up on your offer.)]
+	</p>
+	<p>
+		A huge smile breaks out over Angel's face, and, first taking the money, she then reaches over to grab a pink-coloured piece of paper.
+		 Placing it down before her, she starts filling it out.
+		 [angel.speech(Ok, so here's your enhanced license... I'll need you to sign here... and here...)]
+	</p>
+	<p>
+		Pushing the paper towards you, Angel waits patiently while you sign in the places that she pointed to, before picking up the form and handing it over to you.
+		 [angel.speech(And there you are! You're now the owner of an enhanced prostitution license!
+		 As per our agreement, both you and your slaves can work out of the first floor of my brothel, and you'll send any prostitutes that you encounter in the alleyways to me, ok?)]
+	</p>
+	<p>
+		[pc.speech(Agreed,)]
+		 you reply, shaking Angel's offered hand to seal your agreement.
+	</p>
+	<p>
+		[angel.speech(Excellent! Well, don't let me keep you!
+		 Thank you for your business, and I look forward to seeing who you send my way!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+</dialogue>

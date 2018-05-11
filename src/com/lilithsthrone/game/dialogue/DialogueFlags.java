@@ -144,7 +144,7 @@ public class DialogueFlags implements Serializable, XMLSaving {
 				}
 			}
 		} catch(Exception ex) {
-			System.err.println("Whoopsie :^)");
+			System.err.println("Whoopsie :^)"); // Prints out "Whoopsie :^) to the error output stream."
 		}
 	}
 
@@ -184,7 +184,8 @@ public class DialogueFlags implements Serializable, XMLSaving {
 	}
 
 	public NPC getSlaveryManagerSlaveSelected() {
-		if(slaveryManagerSlaveSelected==null || slaveryManagerSlaveSelected.isEmpty()) {
+		if(slaveryManagerSlaveSelected==null
+				|| slaveryManagerSlaveSelected.isEmpty()) {
 			return null;
 		}
 		return (NPC) Main.game.getNPCById(slaveryManagerSlaveSelected);
