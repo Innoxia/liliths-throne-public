@@ -115,9 +115,9 @@ You should now be able to build and run the game using the new run configuration
 Since this does not create a .jar file, you can add Maven run configurations to package and deploy a file that you can move to another computer:
 1. Return to the "Edit Configurations" window (use Ctrl + Shift + A if you can't find it).
 2. Click the "+" and add a "Maven" configuration.
-4. Pick a name for the configuration (e.g. "Package .jar")
-5. Set "package" as the command option (without quotation marks).
-7. Click "Apply" and/or "OK".
+3. Pick a name for the configuration (e.g. "Package .jar")
+4. Set "package" as the command option (without quotation marks).
+5. Click "Apply" and/or "OK".
 
 Running the newly created configuration (Shift + F10, make sure that the correct configuration is selected in the top right corner) should create a runnable .jar file in the "target" directory within your working directory. You can rename this file to whatever you want.
 
