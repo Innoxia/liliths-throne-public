@@ -2711,12 +2711,6 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			return true;
 		}
 		
-//		if(isSlave()) {
-//			if(this.getAffection(character)<AffectionLevel.POSITIVE_ONE_FRIENDLY.getMinimumValue()) {
-//				return false;
-//			}
-//		}
-		
 		if((getSexualOrientation()==SexualOrientation.ANDROPHILIC && character.isFeminine())
 				|| (getSexualOrientation()==SexualOrientation.GYNEPHILIC && !character.isFeminine())
 				) {

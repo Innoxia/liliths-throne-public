@@ -25,9 +25,11 @@ public enum SVGImages {
 
 			menuIcon, inventoryIcon, inventoryIconDisabled, journalIcon, peopleIcon, zoomInIcon, zoomOutIcon, copyIcon, exportIcon, calendarIcon, informationIcon,
 
-			diskSave, diskSaveDisabled, diskSaveConfirm, diskOverwrite, diskLoad, diskLoadConfirm, diskDelete, diskDeleteConfirm,
+			diskSave, diskSaveDisabled, diskSaveConfirm, diskOverwrite, diskLoad, diskLoadConfirm, diskLoadDisabled, diskDelete, diskDeleteConfirm,
 			
 			itemsOnFloorIcon,
+			
+			drinkSmall, drink,
 			
 			playerMapIconMasculine,
 			playerMapIconAndrogynous,
@@ -120,6 +122,14 @@ public enum SVGImages {
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/itemsOnFloor.svg");
 			itemsOnFloorIcon = Util.inputStreamToString(is);
 			itemsOnFloorIcon = setColour(itemsOnFloorIcon, Colour.BASE_BLACK);
+
+			
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/drink_small.svg");
+			drinkSmall = Util.inputStreamToString(is);
+			drinkSmall = setColour(drinkSmall, Colour.BASE_WHITE);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/drink.svg");
+			drink = Util.inputStreamToString(is);
+			drink = setColour(drink, Colour.BASE_WHITE);
 			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/journal.svg");
 			journalIcon = Util.inputStreamToString(is);
@@ -164,6 +174,9 @@ public enum SVGImages {
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/diskLoad.svg");
 			diskLoadConfirm = Util.inputStreamToString(is);
 			diskLoadConfirm = setColour(diskLoadConfirm, Colour.GENERIC_EXCELLENT);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/diskLoad.svg");
+			diskLoadDisabled = Util.inputStreamToString(is);
+			diskLoadDisabled = setColour(diskLoadDisabled, Colour.BASE_GREY);
 			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/diskDelete.svg");
 			diskDelete = Util.inputStreamToString(is);
@@ -680,6 +693,10 @@ public enum SVGImages {
 		return diskLoadConfirm;
 	}
 
+	public String getDiskLoadDisabled() {
+		return diskLoadDisabled;
+	}
+
 	public String getDiskDelete() {
 		return diskDelete;
 	}
@@ -1166,6 +1183,14 @@ public enum SVGImages {
 
 	public String getStopwatch() {
 		return stopwatch;
+	}
+
+	public String getDrinkSmall() {
+		return drinkSmall;
+	}
+	
+	public String getDrink() {
+		return drink;
 	}
 	
 	

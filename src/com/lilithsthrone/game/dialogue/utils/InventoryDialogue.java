@@ -17,7 +17,7 @@ import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.combat.SpellSchool;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
-import com.lilithsthrone.game.dialogue.MapDisplay;
+import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.story.CharacterCreation;
@@ -814,8 +814,8 @@ public class InventoryDialogue {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.INVENTORY;
+		public DialogueNodeType getDialgoueNodeType() {
+			return DialogueNodeType.INVENTORY;
 		}
 	};
 
@@ -966,10 +966,8 @@ public class InventoryDialogue {
 						} else if(Main.game.isDebugMode()) {
 							return new Response("Enchant", "Enchant this item.", EnchantmentDialogue.ENCHANTMENT_MENU) {
 								@Override
-								public void effects() {
-									EnchantmentDialogue.effects.clear();
-									EnchantmentDialogue.resetEnchantmentVariables();
-									EnchantmentDialogue.initModifiers(item);
+								public DialogueNodeOld getNextDialogue() {
+									return EnchantmentDialogue.getEnchantmentMenu(item);
 								}
 							};
 							
@@ -977,10 +975,8 @@ public class InventoryDialogue {
 							if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
 								return new Response("Enchant", "Enchant this item.", EnchantmentDialogue.ENCHANTMENT_MENU) {
 									@Override
-									public void effects() {
-										EnchantmentDialogue.effects.clear();
-										EnchantmentDialogue.resetEnchantmentVariables();
-										EnchantmentDialogue.initModifiers(item);
+									public DialogueNodeOld getNextDialogue() {
+										return EnchantmentDialogue.getEnchantmentMenu(item);
 									}
 								};
 							}
@@ -1200,10 +1196,8 @@ public class InventoryDialogue {
 								} else if(Main.game.isDebugMode()) {
 									return new Response("Enchant", "Enchant this item.", EnchantmentDialogue.ENCHANTMENT_MENU) {
 										@Override
-										public void effects() {
-											EnchantmentDialogue.effects.clear();
-											EnchantmentDialogue.resetEnchantmentVariables();
-											EnchantmentDialogue.initModifiers(item);
+										public DialogueNodeOld getNextDialogue() {
+											return EnchantmentDialogue.getEnchantmentMenu(item);
 										}
 									};
 									
@@ -1211,10 +1205,8 @@ public class InventoryDialogue {
 									if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
 										return new Response("Enchant", "Enchant this item.", EnchantmentDialogue.ENCHANTMENT_MENU) {
 											@Override
-											public void effects() {
-												EnchantmentDialogue.effects.clear();
-												EnchantmentDialogue.resetEnchantmentVariables();
-												EnchantmentDialogue.initModifiers(item);
+											public DialogueNodeOld getNextDialogue() {
+												return EnchantmentDialogue.getEnchantmentMenu(item);
 											}
 										};
 									}
@@ -1538,10 +1530,8 @@ public class InventoryDialogue {
 								} else if(Main.game.isDebugMode()) {
 									return new Response("Enchant", "Enchant this item.", EnchantmentDialogue.ENCHANTMENT_MENU) {
 										@Override
-										public void effects() {
-											EnchantmentDialogue.effects.clear();
-											EnchantmentDialogue.resetEnchantmentVariables();
-											EnchantmentDialogue.initModifiers(item);
+										public DialogueNodeOld getNextDialogue() {
+											return EnchantmentDialogue.getEnchantmentMenu(item);
 										}
 									};
 									
@@ -1549,10 +1539,8 @@ public class InventoryDialogue {
 									if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
 										return new Response("Enchant", "Enchant this item.", EnchantmentDialogue.ENCHANTMENT_MENU) {
 											@Override
-											public void effects() {
-												EnchantmentDialogue.effects.clear();
-												EnchantmentDialogue.resetEnchantmentVariables();
-												EnchantmentDialogue.initModifiers(item);
+											public DialogueNodeOld getNextDialogue() {
+												return EnchantmentDialogue.getEnchantmentMenu(item);
 											}
 										};
 									}
@@ -2153,8 +2141,8 @@ public class InventoryDialogue {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.INVENTORY;
+		public DialogueNodeType getDialgoueNodeType() {
+			return DialogueNodeType.INVENTORY;
 		}
 	};
 	
@@ -2307,10 +2295,8 @@ public class InventoryDialogue {
 						} else if(Main.game.isDebugMode()) {
 							return new Response("Enchant", "Enchant this weapon.", EnchantmentDialogue.ENCHANTMENT_MENU) {
 								@Override
-								public void effects() {
-									EnchantmentDialogue.effects.clear();
-									EnchantmentDialogue.resetEnchantmentVariables();
-									EnchantmentDialogue.initModifiers(weapon);
+								public DialogueNodeOld getNextDialogue() {
+									return EnchantmentDialogue.getEnchantmentMenu(weapon);
 								}
 							};
 							
@@ -2318,10 +2304,8 @@ public class InventoryDialogue {
 							if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
 								return new Response("Enchant", "Enchant this weapon.", EnchantmentDialogue.ENCHANTMENT_MENU) {
 									@Override
-									public void effects() {
-										EnchantmentDialogue.effects.clear();
-										EnchantmentDialogue.resetEnchantmentVariables();
-										EnchantmentDialogue.initModifiers(weapon);
+									public DialogueNodeOld getNextDialogue() {
+										return EnchantmentDialogue.getEnchantmentMenu(weapon);
 									}
 								};
 							}
@@ -2444,10 +2428,8 @@ public class InventoryDialogue {
 								} else if(Main.game.isDebugMode()) {
 									return new Response("Enchant", "Enchant this weapon.", EnchantmentDialogue.ENCHANTMENT_MENU) {
 										@Override
-										public void effects() {
-											EnchantmentDialogue.effects.clear();
-											EnchantmentDialogue.resetEnchantmentVariables();
-											EnchantmentDialogue.initModifiers(weapon);
+										public DialogueNodeOld getNextDialogue() {
+											return EnchantmentDialogue.getEnchantmentMenu(weapon);
 										}
 									};
 									
@@ -2455,10 +2437,8 @@ public class InventoryDialogue {
 									if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
 										return new Response("Enchant", "Enchant this weapon.", EnchantmentDialogue.ENCHANTMENT_MENU) {
 											@Override
-											public void effects() {
-												EnchantmentDialogue.effects.clear();
-												EnchantmentDialogue.resetEnchantmentVariables();
-												EnchantmentDialogue.initModifiers(weapon);
+											public DialogueNodeOld getNextDialogue() {
+												return EnchantmentDialogue.getEnchantmentMenu(weapon);
 											}
 										};
 									}
@@ -2578,10 +2558,8 @@ public class InventoryDialogue {
 								} else if(Main.game.isDebugMode()) {
 									return new Response("Enchant", "Enchant this weapon.", EnchantmentDialogue.ENCHANTMENT_MENU) {
 										@Override
-										public void effects() {
-											EnchantmentDialogue.effects.clear();
-											EnchantmentDialogue.resetEnchantmentVariables();
-											EnchantmentDialogue.initModifiers(weapon);
+										public DialogueNodeOld getNextDialogue() {
+											return EnchantmentDialogue.getEnchantmentMenu(weapon);
 										}
 									};
 									
@@ -2589,10 +2567,8 @@ public class InventoryDialogue {
 									if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
 										return new Response("Enchant", "Enchant this weapon.", EnchantmentDialogue.ENCHANTMENT_MENU) {
 											@Override
-											public void effects() {
-												EnchantmentDialogue.effects.clear();
-												EnchantmentDialogue.resetEnchantmentVariables();
-												EnchantmentDialogue.initModifiers(weapon);
+											public DialogueNodeOld getNextDialogue() {
+												return EnchantmentDialogue.getEnchantmentMenu(weapon);
 											}
 										};
 									}
@@ -2915,8 +2891,8 @@ public class InventoryDialogue {
 		}
 		
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.INVENTORY;
+		public DialogueNodeType getDialgoueNodeType() {
+			return DialogueNodeType.INVENTORY;
 		}
 	};
 	
@@ -3099,10 +3075,8 @@ public class InventoryDialogue {
 						} else if(Main.game.isDebugMode()) {
 							return new Response("Enchant", "Enchant this clothing.", EnchantmentDialogue.ENCHANTMENT_MENU) {
 								@Override
-								public void effects() {
-									EnchantmentDialogue.effects.clear();
-									EnchantmentDialogue.resetEnchantmentVariables();
-									EnchantmentDialogue.initModifiers(clothing);
+								public DialogueNodeOld getNextDialogue() {
+									return EnchantmentDialogue.getEnchantmentMenu(clothing);
 								}
 							};
 							
@@ -3110,10 +3084,8 @@ public class InventoryDialogue {
 							if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
 								return new Response("Enchant", "Enchant this clothing.", EnchantmentDialogue.ENCHANTMENT_MENU) {
 									@Override
-									public void effects() {
-										EnchantmentDialogue.effects.clear();
-										EnchantmentDialogue.resetEnchantmentVariables();
-										EnchantmentDialogue.initModifiers(clothing);
+									public DialogueNodeOld getNextDialogue() {
+										return EnchantmentDialogue.getEnchantmentMenu(clothing);
 									}
 								};
 							}
@@ -3263,10 +3235,8 @@ public class InventoryDialogue {
 								}  else if(Main.game.isDebugMode()) {
 									return new Response("Enchant", "Enchant this clothing.", EnchantmentDialogue.ENCHANTMENT_MENU) {
 										@Override
-										public void effects() {
-											EnchantmentDialogue.effects.clear();
-											EnchantmentDialogue.resetEnchantmentVariables();
-											EnchantmentDialogue.initModifiers(clothing);
+										public DialogueNodeOld getNextDialogue() {
+											return EnchantmentDialogue.getEnchantmentMenu(clothing);
 										}
 									};
 									
@@ -3274,10 +3244,8 @@ public class InventoryDialogue {
 									if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
 										return new Response("Enchant", "Enchant this clothing.", EnchantmentDialogue.ENCHANTMENT_MENU) {
 											@Override
-											public void effects() {
-												EnchantmentDialogue.effects.clear();
-												EnchantmentDialogue.resetEnchantmentVariables();
-												EnchantmentDialogue.initModifiers(clothing);
+											public DialogueNodeOld getNextDialogue() {
+												return EnchantmentDialogue.getEnchantmentMenu(clothing);
 											}
 										};
 									}
@@ -3484,10 +3452,8 @@ public class InventoryDialogue {
 								}  else if(Main.game.isDebugMode()) {
 									return new Response("Enchant", "Enchant this clothing.", EnchantmentDialogue.ENCHANTMENT_MENU) {
 										@Override
-										public void effects() {
-											EnchantmentDialogue.effects.clear();
-											EnchantmentDialogue.resetEnchantmentVariables();
-											EnchantmentDialogue.initModifiers(clothing);
+										public DialogueNodeOld getNextDialogue() {
+											return EnchantmentDialogue.getEnchantmentMenu(clothing);
 										}
 									};
 									
@@ -3495,10 +3461,8 @@ public class InventoryDialogue {
 									if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
 										return new Response("Enchant", "Enchant this clothing.", EnchantmentDialogue.ENCHANTMENT_MENU) {
 											@Override
-											public void effects() {
-												EnchantmentDialogue.effects.clear();
-												EnchantmentDialogue.resetEnchantmentVariables();
-												EnchantmentDialogue.initModifiers(clothing);
+											public DialogueNodeOld getNextDialogue() {
+												return EnchantmentDialogue.getEnchantmentMenu(clothing);
 											}
 										};
 									}
@@ -3996,8 +3960,8 @@ public class InventoryDialogue {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.INVENTORY;
+		public DialogueNodeType getDialgoueNodeType() {
+			return DialogueNodeType.INVENTORY;
 		}
 	};
 	
@@ -4375,8 +4339,8 @@ public class InventoryDialogue {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.INVENTORY;
+		public DialogueNodeType getDialgoueNodeType() {
+			return DialogueNodeType.INVENTORY;
 		}
 	};
 	public static final DialogueNodeOld CLOTHING_EQUIPPED = new DialogueNodeOld("Clothing equipped", "", true) {
@@ -5257,8 +5221,8 @@ public class InventoryDialogue {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.INVENTORY;
+		public DialogueNodeType getDialgoueNodeType() {
+			return DialogueNodeType.INVENTORY;
 		}
 	};
 
@@ -5402,8 +5366,8 @@ public class InventoryDialogue {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.INVENTORY;
+		public DialogueNodeType getDialgoueNodeType() {
+			return DialogueNodeType.INVENTORY;
 		}
 	};
 
@@ -5526,8 +5490,8 @@ public class InventoryDialogue {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.INVENTORY;
+		public DialogueNodeType getDialgoueNodeType() {
+			return DialogueNodeType.INVENTORY;
 		}
 	};
 	
@@ -5627,8 +5591,8 @@ public class InventoryDialogue {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.INVENTORY;
+		public DialogueNodeType getDialgoueNodeType() {
+			return DialogueNodeType.INVENTORY;
 		}
 	};
 
@@ -5725,8 +5689,8 @@ public class InventoryDialogue {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.INVENTORY;
+		public DialogueNodeType getDialgoueNodeType() {
+			return DialogueNodeType.INVENTORY;
 		}
 	};
 

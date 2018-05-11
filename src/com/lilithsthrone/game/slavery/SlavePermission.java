@@ -8,7 +8,7 @@ import com.lilithsthrone.utils.Util.ListValue;
 
 /**
  * @since 0.1.87
- * @version 0.1.87
+ * @version 0.2.5
  * @author Innoxia
  */
 public enum SlavePermission {
@@ -32,6 +32,14 @@ public enum SlavePermission {
 					new ListValue<>(SlavePermissionSetting.SEX_IMPREGNATED),
 					new ListValue<>(SlavePermissionSetting.SEX_IMPREGNATE)),
 			false),
+
+	PREGNANCY(Colour.ATTRIBUTE_LUST,
+			"Pregnancy",
+			Util.newArrayListOfValues(
+					new ListValue<>(SlavePermissionSetting.PREGNANCY_PROMISCUITY_PILLS),
+					new ListValue<>(SlavePermissionSetting.PREGNANCY_NO_PILLS),
+					new ListValue<>(SlavePermissionSetting.PREGNANCY_VIXENS_VIRILITY)),
+			true),
 	
 	DIET(Colour.BODY_SIZE_TWO,
 			"Diet",

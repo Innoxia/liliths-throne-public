@@ -11,7 +11,7 @@ import com.lilithsthrone.utils.Util.ListValue;
 
 /**
  * @since 0.1.69.9
- * @version 0.2.2
+ * @version 0.2.5
  * @author Innoxia
  */
 public enum ParserTarget {
@@ -540,6 +540,30 @@ public enum ParserTarget {
 		@Override
 		public GameCharacter getCharacter(String tag) {
 			return Main.game.getLoppy();
+		}
+	},
+	
+	LUMI(Util.newArrayListOfValues(
+			new ListValue<>("lumi")), ""){
+		public String getDescription() {
+			return Main.game.getLumi().getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter(String tag) {
+			return Main.game.getLumi();
+		}
+	},
+	
+	CLAIRE(Util.newArrayListOfValues(
+			new ListValue<>("claire")), ""){
+		public String getDescription() {
+			return Main.game.getClaire().getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter(String tag) {
+			return Main.game.getClaire();
 		}
 	},
 	;

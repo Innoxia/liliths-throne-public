@@ -9,7 +9,7 @@ import com.lilithsthrone.game.character.body.types.HornType;
 import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
-import com.lilithsthrone.game.dialogue.MapDisplay;
+import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.main.Main;
@@ -253,8 +253,8 @@ public class BodyChanging {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.PHONE;
+		public DialogueNodeType getDialgoueNodeType() {
+			return DialogueNodeType.PHONE;
 		}
 	};
 	
@@ -438,8 +438,8 @@ public class BodyChanging {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.PHONE;
+		public DialogueNodeType getDialgoueNodeType() {
+			return DialogueNodeType.PHONE;
 		}
 	};
 	
@@ -529,8 +529,8 @@ public class BodyChanging {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.PHONE;
+		public DialogueNodeType getDialgoueNodeType() {
+			return DialogueNodeType.PHONE;
 		}
 	};
 	
@@ -649,8 +649,8 @@ public class BodyChanging {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.PHONE;
+		public DialogueNodeType getDialgoueNodeType() {
+			return DialogueNodeType.PHONE;
 		}
 	};
 	
@@ -745,8 +745,8 @@ public class BodyChanging {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.PHONE;
+		public DialogueNodeType getDialgoueNodeType() {
+			return DialogueNodeType.PHONE;
 		}
 	};
 	
@@ -854,8 +854,8 @@ public class BodyChanging {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.PHONE;
+		public DialogueNodeType getDialgoueNodeType() {
+			return DialogueNodeType.PHONE;
 		}
 	};
 	

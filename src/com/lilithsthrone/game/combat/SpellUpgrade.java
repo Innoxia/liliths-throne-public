@@ -847,6 +847,9 @@ public enum SpellUpgrade {
 		try {
 			if(!pathName.isEmpty()) {
 				InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/combat/spell/upgrade/" + pathName + ".svg");
+				if(is==null) {
+					System.err.println("Error! SpellUpgrade icon file does not exist (Trying to read from '"+pathName+"')!");
+				}
 				SVGString = Util.inputStreamToString(is);
 				is.close();
 			}

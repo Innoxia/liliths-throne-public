@@ -10,8 +10,6 @@
 	
 	- Add in a mod template for items, clothing, weapons, and sex actions.
 	
-	- Improve the slavery UI, and add more jobs & interactions (winner of Patreon content poll).
-	
 	- Adding in the next stage of the main quest (earning an audience with Lyssieth).
 	
 	- Fix bugs and sort out github issues and PRs.
@@ -24,90 +22,205 @@
 	
 	Patch notes:
 	
-	Engine:
-		Optimised save files. In the ones I tested, file size was reduced by over 50%, and load times saw a similar decrease.
-		Added support for masturbation sex scenes.
+Gameplay:
+	Filled in more of the placeholder text in Submission.
+	Added more content for Submission Enforcer Post, including a new Enforcer NPC, 'Claire'. When entering a Submission Enforcer Post for the first time, Claire's dialogue will trigger. (There will be a quest related to this added for the next release.)
+
+Slavery:
+	'Dairy Cow' job now correctly supports 8 slaves per milking room.
+	Made some minor improvements to slavery UI.
+	Milking room now milks a slave of their milk, cum, and girlcum at the same time.
+	Added options to enable/disable milk, cum, and girlcum milking.
+	Moved pregnancy job settings (Promiscuity pills, no pills, or Vixen's Virility pills) from the 'Stocks' and 'Prostitute' jobs, and moved them into a standard permission.
+	Added options in milking room to set automatic selling, as well as options to drink or sell any stored fluids.
+	Balanced fluid values.
+	Added three new upgrades to the milking room.
+	Added self-milking options to milking rooms.
 	
-	Gameplay:
-		Added: Panty masturbation scene in Lilaya's room, with a couple of follow-on sex scenes.
+Enchanting:
+	You can now set a custom name for any potions or clothing that you create.
+	Added: Saving and loading of enchantment effects. (Built upon framework created by Master of Puppets.)
+
+Contributors:
+	Added testing for Nnxx's character 'Lumi' in the debug menu. Once she's finished, she will be added a random encounter in Dominion's alleys, but for now, she's only accessible through the debug menu.
+	Fixed typos in Telepathic Communication description. (Mach565)
+	Companion's damage scaling (on higher difficulty settings) is now treated the same as the player's. (Darkon47)
+	Added rings for masculine characters in character creation. (rfpnj)
+	Huge amount of punctuation fixes. (WoefulWombat)
+	Even more punctuation fixes. (WoefulWombat)
+	Added framework for saving and loading enchantment effects. (Master of Puppets)
+	Fixed bug with intoxication percentages not displaying correctly. (Pimvgd)
+	Fixed prologue typo. (Mach565)
+	Fixed cause of strange characters being displayed in some svgs. (Pimvgd)
+	Fixed bug where impregnation chance was using the wrong partner's fertility stat. (Itpatch)
 	
-	Balancing:
-		You now need at least three spells in a spell school to unlock the related special ability.
-		Spell books are now consumed on use, and added to Lilaya's library. (This was to prevent buying a spell book, learning the spell, and then selling it, making it significantly cheaper than intended to buy & learn all spells.)
-		Made default bottled arcane essence slightly cheaper than the racially enchanted ones.
-	
-	Clothing:
-		Added: Strap-on, and support in the engine for correctly treating a strap-on as an artificial penis during sex. (BDSM set, no femininity requirements, penis slot.)
-		Added: Toeless striped stockings. (Feminine, calves slot.)
-		Added: Tube top. (Feminine, chest slot.)
-		Added more tags for clothing, including ones for plug support. Added plug modifier to nipple tape crosses (prevents cum from leaking out).
-		Added fertility and virility to available clothing attribute enchantments.
+Other:
+	Ankle spreader bar now blocks escape in combat (if you are unable to fly).
+	Wrist restraints now block flight from arm-wings (such as harpy or bat wings).
+	NPCs now gain or lose affection towards you after sex, depending on if they were in the resisting pace or not.
+	Slimes can no longer fly.
+
+Bugs:
+	Fixed bug where NPCs would have a random colour for their lips/nipples/anus. This resets NPC colours for those parts only if they're not your slave, so your slave's colours won't be reset by this.
+	Typo and parsing fixes.
+	Fixed issue with parsing some characters in text fields.
+	Fixed spell page showing special ability was unlocked, even when it wasn't.
+	Fixed bug where some icons would show random letters on some systems.
+	Fixed (yet another) cause of slavery stats getting stuck on the right-hand section of the screen.
+	Fixed broken colours in rainbow set status effect icon.
+	Fixed bug where fetish screen would sometimes become unresponsive.
+	NPCs should no longer spawn in with fetish or transforming fetishes if you have them set to 0% in your content options.
+	Fixed milking room upgrade being blocked when you had companions in your party.
+	Fixed slave multiple-partner sex breaking if you had companions in your party.
+	Fixed bug where slaves could start spitroast even if they weren't attracted to you.
+	Crotchless chaps no longer conceal the anus slot.
+	Fixed yet more bugs related to slavery targets being broken between scenes.
+	Fixed 'Dairy Cow' slave job having some settings from prostitute.
+	Fixed bug where fluids would sometimes load in their modifiers twice (potentially causing issues with removal of fluid modifiers).
+	Fixed slimes being able to TF penis type to 'artificial'.
+
+
+
+	Don't forget about the bug where lilaya always recognizes you are a futa even when you are 8inchhes or below
+		Also don’t forget about the sheath cock issue
+		Perhaps the solution there would be that if a cock is sheathed it allows you to have a cock up to 16 before you are recognized
+		Where people will recognize you as female but say they always knew you were futa if your cock size is above 8 inches
 		
-	Contributors:
-		Fixed typos in air elemental upgrades. (rfpnj)
+
+	ongoing hotdogging broken
+
+
+
+	Special encounters for:
+			
+		Rat-morphs & Alligator-morphs
+			Just want to mug you
+			
+		Slimes
+			If TF fetish: They feed you biojuice canister
+			Else: They mug you
+			
+		Imps
+			Two or three at once
+			
+		Bat-morphs
+			Finish bat descriptions and racial effects
+			Most just want to talk
+			
+	Imp fortresses
+	Gambling Den
+	Bat caverns.
 		
-	Other:
-		Added '+10 spell points' to debug menu.
-		Improved some of the demon/slime transformation menu options. Added options for internal testicles, horn size, tongue length, wing size, and horn colour.
-		Added more options for horn pattern and colour.
-		Improved item, weapon, and clothing pages in the encyclopedia, and added preview images for items.
-		You can now re-read race books, but you only receive the damage/resistance boost the first time. This should now allow new characters to gain these bonuses, even if races have been unlocked by a different playthrough.
-		The 'vacuum' spell can no longer strip a person's piercings.
-		NPCs will only re-dress themselves once a day.
-		Vicky will now buy spell books and scrolls.
-		Tidied up Lilaya's lab dialogue flow a little.
-		Added a chance to overhear Rose saying some things to Lilaya when you enter the lab.
-		Added indication in slavery overview for approximate hourly income of milking jobs.
-	
-	Bugs:
-		Fixed annoying bug where when inspecting NPCs, it would show a different, incorrect NPC's name/inventory on the right of the screen. (This should definitely be completely fixed this time. x_x)
-		Fixed Arcane elemental spell cost being extremely low.
-		Fixed dresses and kimonos that were parts of sets still blocking the leg slot.
-		Fixed the broken encyclopedia item view. 
-		Throat wetness should now correctly save/load.
-		Typos, parsing, and incorrect clothing displacement fixes.
-		Fixed slime sclera and pupil recolouring not working.
-		Resetting spell schools now refunds the correct amount of upgrade points.
-		Fixed arcane storm timer (from Arcane spell school's unique ability) not working correctly.
-		Fixed Water spell chool's unique ability (liquid TFs are free) not working correctly.
-		Being defeated in combat while your allies are still fighting will now correctly only give you the option to watch.
-		Fixed bug where there would sometimes be gaps in actions during sex.
-		Fixed some incorrect skin colouring on Rose.
-		Improved NPC removal method, which should help to reduce save file size and save/load times. This will be further improved for 0.2.5.
-		(Hopefully) fixed a cause of the bug where the game would stop being able to save.
+	Add slime TF quest.
+		Enforcer post quest - pick up when enter submission.
+		Slime TF encounters mention a slime queen.
+		They mention the slime lake as the only possible place where a queen could be.
 		
+		Go to slime lake and either defeat slime guards to take boat, or fly to island
+		The house is a staircase down into a brightly-lit underground palace
+		Slimes
+		Slime queen is "manufacturing" the bio-canisters to transform everyone into slimes (it's her milk/girlcum)
+			Can either submit and help her (she TF's you into slime through absorption)
+				Slime population increases
+			Or fight her
+				Destroy slime equipment
+				
+	If slime, then gain Lilaya's anti-slime TF quest
+		She asks for 10 angel's tears and 100 bottled essences
+		Takes 3 days to make solidification elixir
+				
+
+
+
+
 	
+	- Add job: bedroom slave to act as alarm clock with blowjobs and sex. 
+	- Slave overseer job
+	- Actual movement around home for if house permission selected
 	
-	Slavery stuff
-		- Milking work (change it so milk & cum is stored in vats, which can be sold/drunk)
-		- Bed slaves
-		- Permission & outfit templates
-		- Head girl/boy
-		- Actual movement around home for if house permission selected
+	- Permission & outfit templates
+	- I'll try and add in a setting for their behaviour this version (set them to act friendly or cold)
+	DIALOGUE:
+		- free slaves
 		- Adding content for interacting with them in their place of work.
 		- Adding content for all of the current settings (such as forbidding them to talk, and letting them leave the house).
-		- I'll try and add in a setting for their behaviour this version (set them to act friendly or cold)
-		- Add job: bedroom slave to act as alarm clock with blowjobs and sexual intercourse. 
-		- Finish milking job.
+	
+	
+	Harpy offspring in nests
+	Offspring dialogue improvements
+	
+	when non-con is off, tone down fight loss
+	
+	Party members fucked with you
+		Need to add sex action mod framework so can add all npc-on-npc variations
+		When lose combat, if NPC is attracted to your companion, they fuck them too.
+		If win combat, can get companion to join in or watch
+	
+	
+	
+	"She has a natural bush of brown, smooth scale around her pussy."
+	
+	add a displayValues method to the race enum
+		stats shows human dmg/resistance twice
 		
+	When my slave is put in stocks, any time she gets used is attributed to me
+		So it says I've had sex with her 53 times, when I haven't even done her once
 		
-	new weapons
+	"After all, without a permit, you're unable to buy anything"
+		Even with permit
+		
+	NPCs need a knows player parts, and then that needs to reflect in reveal text
+	
+	Are strap-ons supposed to count towards penile virginity
+	
+	Add tag for starting clothing
+	
+	panty scene stop masturbation sometimes not working?
+	
+	Disable autosave in prologue
+	
+	elemental should love you
+		Also I don't know if you intended for the Elementals to be 'druggable' or not, but the base attribute changes do not persist if player change the element. And Elemental with 0 corruption (possible by drugging the Elemental) will regain ~90 corruption on load,  so I have to keep it at 1 corruption.
+	
+	check: throat wetness resets if a save is loaded in 2.4.
+	
+	 slime offspring show up as human, instead of slimes.  The scenario is that my character gave birth to the offspring, with the father being the slime that has been transformed into an angel-slime-girl.  The codex shows the offspring as a female angel-slime-girl, but meeting her in the world had her show up as a woman.  The other offspring of my character are imps, mainly.  I'm not sure if it's an issue with a transformed slime alone, or just all slimes.
+	
+	retain enchantment effects when crafting in order to craft lots
+	
+	modded clothing: custom color list do not works for primary and secondary colors
+	
+	jockstrap
+	
+	Perhaps instead of ice shard as the first spell that Lilly gives to the MC it should be one of the elemental summoning spells. It would be a good way get new players introduced to party combat from the very begining. Besides if we also start the game with a demon stone then we already have a direct attack spell at our disposal so having ice shard is a bit redundant
+	 
+	 So I tried adding a major plasticity drain enchantment and the result was that absolutely none of my enchantments worked anymore, including the one I applied on the new clothing. I've tested this on multiple itmes and it produced the same result
+	 
+	pattern and secondary color options for penises
+	
+	Am I supposed to be able to drag Nyan straight back into her room for more sex
+	
+	personality changes debug menu
+	
+	still saying "a very feminine female human"
+	
+	Should you be able to fondle balls when the other character has a strap-on
+	A-And you cane take off Rose's strapon
+		W-Which doesn't stop penetrations
+	And some slaves are stuck on the stats sheet as being ready for birthing
+		I think that they were both PCs I imported
+	
+	NPCs using condoms on self/player
+	
+	Add masturbation to most areas
+	
+	broken condom content
+		
+	adding a hide/show button for status effects
 		
 	Fix NPCs not being deleted
 	
-		
-	talk tab for NPCs
-		Suggestion to move the affection gain you get from slaves to the end of the sex scene, maybe also put an affection loss if you denied them and they don't like it?
-			But that will prevent being able to start sex / stop immediately to rush the affection gain
-			if you change the affection gain for sex to happen at the end please make it so non con sex can actually end up raising affection rather than lowering it if the victim ends up in the eager pace by the end of the act.
-	With talk tab:
-		Harpy offspring in nests
-		Offspring dialogue improvements
-	
-	
 	Elemental TF menu
-	
-				
 	
 	Also, would there be a way to make a piece of clothing that makes you grow a penis when equipped and have the penis disappear when unequipped with the modding system?
 	
@@ -141,8 +254,6 @@
 	spell passives unlocked when at least 4 spells known
 		
 	the elemental should include a list of whatever skills it starts with on the basic skill.  Right now all you can see in the menu is their upgraded skills
-		
-	slimes shouldn't be able to fly
 	
 	0.2.4 defaults to a window height of over 768, 768 is still common on laptops and should thus be lower
 	

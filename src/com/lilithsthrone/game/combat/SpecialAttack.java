@@ -2184,6 +2184,9 @@ public enum SpecialAttack {
 
 		try {
 			InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/combat/" + pathName + ".svg");
+			if(is==null) {
+				System.err.println("Error! SpecialAttack icon file does not exist (Trying to read from '"+pathName+"')!");
+			}
 			SVGString = Util.inputStreamToString(is);
 
 			SVGString = SVGString.replaceAll("#ff2a2a", colourShade.getShades()[0]);
@@ -2276,7 +2279,14 @@ public enum SpecialAttack {
 		
 		float damage = Attack.calculateDamage(caster, target, Attack.SEDUCTION, critical);
 		
-		if(target.hasStatusEffect(StatusEffect.DESPERATE_FOR_SEX)) {
+		if(damage==0) {
+			if(target.isPlayer()) {
+				descriptionSB.append("<p>You are completely [style.boldExcellent(immune)] to "+DamageType.LUST.getName()+" damage!</p>");
+			} else {
+				descriptionSB.append(UtilText.parse(target,"<p>[npc.Name] appears to be completely [style.boldExcellent(immune)] to "+DamageType.LUST.getName()+" damage!</p>"));
+			}
+			
+		} else if(target.hasStatusEffect(StatusEffect.DESPERATE_FOR_SEX)) {
 			if(caster.isPlayer()) {
 				if(critical) {
 					descriptionSB.append(

@@ -28,7 +28,7 @@ import com.lilithsthrone.game.combat.SpecialAttack;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.combat.SpellUpgrade;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
-import com.lilithsthrone.game.dialogue.MapDisplay;
+import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.eventLog.EventLogEntry;
 import com.lilithsthrone.game.dialogue.utils.CharactersPresentDialogue;
 import com.lilithsthrone.game.dialogue.utils.InventoryDialogue;
@@ -793,7 +793,7 @@ public enum RenderingEngine {
 				+ "</div>"
 				);
 		
-		if(Main.game.getCurrentDialogueNode().getMapDisplay() == MapDisplay.INVENTORY || Main.game.isInCombat() || Main.game.isInSex()) {
+		if(Main.game.getCurrentDialogueNode().getDialgoueNodeType() == DialogueNodeType.INVENTORY || Main.game.isInCombat() || Main.game.isInSex()) {
 
 			//TODO
 			uiAttributeSB.append(getInventoryEquippedPanel(Main.game.getPlayer()));
@@ -818,7 +818,7 @@ public enum RenderingEngine {
 	
 	public static GameCharacter getCharacterToRender() {
 		
-		if(Main.game.getCurrentDialogueNode().getMapDisplay() == MapDisplay.CHARACTERS_PRESENT || Main.game.getCurrentDialogueNode() == PhoneDialogue.CONTACTS_CHARACTER) {
+		if(Main.game.getCurrentDialogueNode().getDialgoueNodeType() == DialogueNodeType.CHARACTERS_PRESENT || Main.game.getCurrentDialogueNode() == PhoneDialogue.CONTACTS_CHARACTER) {
 			return (NPC) CharactersPresentDialogue.characterViewed;
 		}
 		
@@ -826,7 +826,11 @@ public enum RenderingEngine {
 			return Sex.getActivePartner();
 		}
 		
-		if(InventoryDialogue.getInventoryNPC()!=null && Main.game.getCurrentDialogueNode().getMapDisplay() == MapDisplay.INVENTORY) {
+		if(Main.game.isInCombat()) {
+			return Combat.getEnemies().get(0);
+		}
+		
+		if(InventoryDialogue.getInventoryNPC()!=null && Main.game.getCurrentDialogueNode().getDialgoueNodeType() == DialogueNodeType.INVENTORY) {
 			return InventoryDialogue.getInventoryNPC();
 		}
 		
@@ -838,17 +842,10 @@ public enum RenderingEngine {
 	}
 	
 	public static String getEntryBackgroundColour(boolean alternative) {
-		if(Main.getProperties().hasValue(PropertyValue.lightTheme)) {
-			if(alternative) {
-				return "#d9d9d9";
-			}
-			return "#dddddd";
-		} else {
-			if(alternative) {
-				return "#292929";
-			}
-			return "#222222";  
+		if(alternative) {
+			return Colour.BACKGROUND_ALT.toWebHexString();
 		}
+		return Colour.BACKGROUND.toWebHexString();
 	}
 
 	public void renderAttributesPanelRight() {
@@ -862,7 +859,7 @@ public enum RenderingEngine {
 			
 			boolean renderNPC = false;
 			
-			if(Main.game.getCurrentDialogueNode().getMapDisplay() == MapDisplay.CHARACTERS_PRESENT || Main.game.getCurrentDialogueNode() == PhoneDialogue.CONTACTS_CHARACTER) {
+			if(Main.game.getCurrentDialogueNode().getDialgoueNodeType() == DialogueNodeType.CHARACTERS_PRESENT || Main.game.getCurrentDialogueNode() == PhoneDialogue.CONTACTS_CHARACTER) {
 				renderNPC = true;
 			}
 			
@@ -871,9 +868,9 @@ public enum RenderingEngine {
 			}
 			
 			if(Main.game.isInSex()
+				|| Main.game.isInCombat()
 				|| (getCharacterToRender()!=null
-					&& (Main.game.isInCombat() || renderNPC
-							|| (Main.game.getCurrentDialogueNode().getMapDisplay()==MapDisplay.INVENTORY && InventoryDialogue.getInventoryNPC()!=null)))) {
+					&& (renderNPC || (Main.game.getCurrentDialogueNode().getDialgoueNodeType()==DialogueNodeType.INVENTORY && InventoryDialogue.getInventoryNPC()!=null)))) {
 			
 				
 			if(Main.game.isInSex()) {
@@ -1513,9 +1510,9 @@ public enum RenderingEngine {
 				+ "</div>"
 
 				+ "<div class='quarterContainer'>"
-					+ "<div class='button" + (Main.game.getCharactersPresent().isEmpty() && Main.game.getCurrentDialogueNode().getMapDisplay() != MapDisplay.CHARACTERS_PRESENT ? " disabled" : "")
+					+ "<div class='button" + (Main.game.getCharactersPresent().isEmpty() && Main.game.getCurrentDialogueNode().getDialgoueNodeType() != DialogueNodeType.CHARACTERS_PRESENT ? " disabled" : "")
 					+ "' id='charactersPresent'>" + SVGImages.SVG_IMAGE_PROVIDER.getPeopleIcon()
-						+ (Main.game.getCharactersPresent().isEmpty() && Main.game.getCurrentDialogueNode().getMapDisplay() != MapDisplay.CHARACTERS_PRESENT ? "<div class='disabledLayer'></div>" : "")
+						+ (Main.game.getCharactersPresent().isEmpty() && Main.game.getCurrentDialogueNode().getDialgoueNodeType() != DialogueNodeType.CHARACTERS_PRESENT ? "<div class='disabledLayer'></div>" : "")
 					+ "</div>"
 				+ "</div>"
 

@@ -461,15 +461,7 @@ public class SubmissionGenericPlaces {
 		
 		@Override
 		public String getContent() {
-			return "<p>"
-						+ "A large stone building, spanning the entire width of the tunnel, has been erected here."
-						+ " Signs reading 'Dominion Enforcer Post' are displayed above each of the entrances, and within, a dozen or so Enforcers are manning desks or standing guard beside internal doorways."
-					+ "</p>"
-					+ "<p>"
-						+ "The Enforcers here don't seem to pay you much attention, allowing you to come and go as you please."
-						+ " You notice that one of the desks looks like an information booth, and the Enforcer stationed behind it doesn't seem to be as busy as all the others."
-						+ " If you wanted to, you could probably approach and ask for information about Submission..."
-					+ "</p>";
+			return (UtilText.parseFromXMLFile("places/submission/submissionPlaces", "SEWER_ENTRANCE"));
 		}
 
 		@Override
@@ -483,14 +475,83 @@ public class SubmissionGenericPlaces {
 				};
 
 			} else if (index == 2) {
-				return new Response("Information", "Ask about Submission society. <b>Not yet added!</b>", null);
+				return new Response("Information", "Ask Claire about Submission society.", CLAIRE_INFO_SUBMISSION_SOCIETY);
 
 			} else if (index == 3) {
-				return new Response("Lyssieth", "Ask about Lyssieth. <b>Not yet added!</b>", null);
+				return new Response("Lyssieth", "Ask Claire about Lyssieth.", CLAIRE_INFO_LYSSIETH);
+
+			} else if (index == 4) {
+				return new Response("Teleportation", "Ask Claire about teleportation.", CLAIRE_INFO_TELEPORTATION);
 
 			} else {
 				return null;
 			}
+		}
+	};
+	
+	public static final DialogueNodeOld CLAIRE_INFO_SUBMISSION_SOCIETY = new DialogueNodeOld("Enforcer Checkpoint", "", false) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public int getMinutesPassed(){
+			return 2;
+		}
+		
+		@Override
+		public String getContent() {
+			return (UtilText.parseFromXMLFile("places/submission/submissionPlaces", "CLAIRE_INFO_SUBMISSION_SOCIETY"));
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==2) {
+				return new Response("Information", "You are already asking Claire about Submission society!", null);
+			}
+			return SEWER_ENTRANCE.getResponse(responseTab, index);
+		}
+	};
+	
+	public static final DialogueNodeOld CLAIRE_INFO_LYSSIETH = new DialogueNodeOld("Enforcer Checkpoint", "", false) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public int getMinutesPassed(){
+			return 2;
+		}
+		
+		@Override
+		public String getContent() {
+			return (UtilText.parseFromXMLFile("places/submission/submissionPlaces", "CLAIRE_INFO_LYSSIETH"));
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==3) {
+				return new Response("Lyssieth", "You are already asking Claire about Lyssieth!", null);
+			}
+			return SEWER_ENTRANCE.getResponse(responseTab, index);
+		}
+	};
+	
+	public static final DialogueNodeOld CLAIRE_INFO_TELEPORTATION = new DialogueNodeOld("Enforcer Checkpoint", "", false) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public int getMinutesPassed(){
+			return 2;
+		}
+		
+		@Override
+		public String getContent() {
+			return (UtilText.parseFromXMLFile("places/submission/submissionPlaces", "CLAIRE_INFO_TELEPORTATION"));
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==4) {
+				return new Response("Teleportation", "You are already asking Claire about Teleportation!", null);
+			}
+			return SEWER_ENTRANCE.getResponse(responseTab, index);
 		}
 	};
 

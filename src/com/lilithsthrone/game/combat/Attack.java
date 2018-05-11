@@ -382,7 +382,11 @@ public enum Attack {
 	private static float getModifiedDamage(GameCharacter attacker, GameCharacter defender, Attack attackType, DamageType damageType, float attackersDamage) {
 		float damage = attackersDamage;
 		boolean damageDoubledFromElemental = false;
-
+		
+		if(defender!=null && defender.isImmuneToDamageType(damageType)) {
+			return 0;
+		}
+			
 		if(attacker instanceof Elemental) {
 			switch(attacker.getBodyMaterial()) {
 				case AIR:

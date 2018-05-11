@@ -1,10 +1,9 @@
-package com.lilithsthrone.game.dialogue.npcDialogue;
+package com.lilithsthrone.game.dialogue.npcDialogue.dominion;
 
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
 import com.lilithsthrone.game.character.attributes.PhysiqueLevel;
 import com.lilithsthrone.game.character.npc.NPC;
-import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
@@ -95,7 +94,7 @@ public class ReindeerOverseerDialogue {
 				}
 				@Override
 				public DialogueNodeOld getNextDialogue(){
-					return DebugDialogue.getDefaultDialogueNoEncounter();
+					return Main.game.getDefaultDialogueNoEncounter();
 				}
 			};
 			

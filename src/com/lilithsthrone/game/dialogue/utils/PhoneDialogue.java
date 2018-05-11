@@ -30,9 +30,8 @@ import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.combat.SpellSchool;
-import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
-import com.lilithsthrone.game.dialogue.MapDisplay;
+import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
@@ -185,8 +184,8 @@ public class PhoneDialogue {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.PHONE;
+		public DialogueNodeType getDialgoueNodeType() {
+			return DialogueNodeType.PHONE;
 		}
 	};
 
@@ -250,8 +249,8 @@ public class PhoneDialogue {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.PHONE;
+		public DialogueNodeType getDialgoueNodeType() {
+			return DialogueNodeType.PHONE;
 		}
 	};
 	public static final DialogueNodeOld PLANNER_SIDE = new DialogueNodeOld("Planner", "", true) {
@@ -328,8 +327,8 @@ public class PhoneDialogue {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.PHONE;
+		public DialogueNodeType getDialgoueNodeType() {
+			return DialogueNodeType.PHONE;
 		}
 	};
 	public static final DialogueNodeOld PLANNER_ROMANCE = new DialogueNodeOld("Planner", "", true) {
@@ -406,8 +405,8 @@ public class PhoneDialogue {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.PHONE;
+		public DialogueNodeType getDialgoueNodeType() {
+			return DialogueNodeType.PHONE;
 		}
 	};
 	
@@ -488,8 +487,8 @@ public class PhoneDialogue {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.PHONE;
+		public DialogueNodeType getDialgoueNodeType() {
+			return DialogueNodeType.PHONE;
 		}
 	};
 
@@ -536,7 +535,7 @@ public class PhoneDialogue {
 							"Spell Cost:</br>"
 							+ "<b>-"+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.SPELL_COST_MODIFIER), Attribute.SPELL_COST_MODIFIER.getUpperLimit())+"%</b>")
 
-					+ "<div class='container-full-width' style='text-align:center; background:#292929;'>"
+					+ "<div class='container-full-width' style='text-align:center; background:"+Colour.BACKGROUND_ALT.toWebHexString()+";'>"
 						+ "<b style='color:"+Colour.BASE_PINK_LIGHT.toWebHexString()+";'>Pregnancy calculation:</b> <i>"+GameCharacter.PREGNANCY_CALCULATION+"</i>"
 					+ "</div>"
 
@@ -672,8 +671,8 @@ public class PhoneDialogue {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.PHONE;
+		public DialogueNodeType getDialgoueNodeType() {
+			return DialogueNodeType.PHONE;
 		}
 	};
 	
@@ -881,8 +880,8 @@ public class PhoneDialogue {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.PHONE;
+		public DialogueNodeType getDialgoueNodeType() {
+			return DialogueNodeType.PHONE;
 		}
 	};
 	
@@ -983,8 +982,8 @@ public class PhoneDialogue {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.PHONE;
+		public DialogueNodeType getDialgoueNodeType() {
+			return DialogueNodeType.PHONE;
 		}
 	};
 	
@@ -1098,8 +1097,8 @@ public class PhoneDialogue {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.PHONE;
+		public DialogueNodeType getDialgoueNodeType() {
+			return DialogueNodeType.PHONE;
 		}
 	};
 	
@@ -1330,7 +1329,7 @@ public class PhoneDialogue {
 	}
 
 	private static String statRow(String colourLeft, String left, Colour colourCentre, String centre, String colourRight, String right, boolean light) {
-		return "<div class='container-full-width inner' style='margin-bottom:0;"+(light?"background:#292929;'":"'")+">"
+		return "<div class='container-full-width inner' style='margin-bottom:0;"+(light?"background:"+Colour.BACKGROUND_ALT.toWebHexString()+";'":"'")+">"
 				+ "<div style='color:"+colourLeft+"; width:40%; float:left; font-weight:bold; margin:0; padding:0;'>"
 					+ left
 				+ "</div>"
@@ -1344,7 +1343,7 @@ public class PhoneDialogue {
 	}
 	
 	private static String statRow(Colour colourLeft, String left, Colour colourCentre, String centre, Colour colourRight, String right, boolean light) {
-		return "<div class='container-full-width inner' style='margin-bottom:0;"+(light?"background:#292929;'":"'")+">"
+		return "<div class='container-full-width inner' style='margin-bottom:0;"+(light?"background:"+Colour.BACKGROUND_ALT.toWebHexString()+";'":"'")+">"
 					+ "<div style='color:"+colourLeft.toWebHexString()+"; width:40%; float:left; font-weight:bold; margin:0; padding:0;'>"
 						+ left
 					+ "</div>"
@@ -1362,11 +1361,11 @@ public class PhoneDialogue {
 	}
 	
 	private static String getAttributeBox(GameCharacter owner, Attribute att, String effect, boolean half) {
-		return "<div class='container-half-width' style='"+(half?"width:calc(50% - 16px);":"width:calc(33% - 16px);")+" margin-bottom:0; background:#292929;'>"
-					+ "<div class='container-half-width' style='width:66.6%;margin:0;background:#292929;'>"
+		return "<div class='container-half-width' style='"+(half?"width:calc(50% - 16px);":"width:calc(33% - 16px);")+" margin-bottom:0; background:"+Colour.BACKGROUND_ALT.toWebHexString()+";'>"
+					+ "<div class='container-half-width' style='width:66.6%;margin:0;background:"+Colour.BACKGROUND_ALT.toWebHexString()+";'>"
 						+ "<b style='color:" + att.getColour().toWebHexString() + ";'>"+Util.capitaliseSentence(att.getName())+"</b>"
 					+ "</div>"
-					+ "<div class='container-half-width' style='width:33.3%;margin:0;background:#292929;text-align:center;'>"
+					+ "<div class='container-half-width' style='width:33.3%;margin:0;background:"+Colour.BACKGROUND_ALT.toWebHexString()+";text-align:center;'>"
 						+ "<b"+(owner.getAttributeValue(att)==att.getUpperLimit()?" style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'":"")+">"+owner.getAttributeValue(att)+"</b>"
 					+ "</div>"
 					+ "<div class='container-full-width' style='height:6px;padding:0;border-radius: 2px;'>"
@@ -1374,7 +1373,7 @@ public class PhoneDialogue {
 								+ " margin:0 0 0 "+(att.getLowerLimit()>=0?0:(owner.getAttributeValue(att)>0?"50%":(Math.abs(att.getLowerLimit())+owner.getAttributeValue(att))+"%"))+";"
 								+ " height:100%; background:" + (owner.getAttributeValue(att)>0?att.getColour().toWebHexString():att.getColour().getShades()[1]) + "; float:left; border-radius: 2px;'></div>"
 					+ "</div>"
-					+ "<div class='container-half-width' style='margin:0;background:#292929; padding:0; text-align:center;'>"
+					+ "<div class='container-half-width' style='margin:0;background:"+Colour.BACKGROUND_ALT.toWebHexString()+"; padding:0; text-align:center;'>"
 							+ "Base: "+(owner.getBaseAttributeValue(att) > 0 
 								? "<b style='color:" + Colour.GENERIC_GOOD.getShades()[1] + ";"
 										: (owner.getBaseAttributeValue(att) < 0
@@ -1383,7 +1382,7 @@ public class PhoneDialogue {
 												+owner.getBaseAttributeValue(att)
 												+"</b>"
 					+ "</div>"
-					+ "<div class='container-half-width' style='margin:0;background:#292929; padding:0; text-align:center;'>"
+					+ "<div class='container-half-width' style='margin:0;background:"+Colour.BACKGROUND_ALT.toWebHexString()+"; padding:0; text-align:center;'>"
 							+ "Bonus: "
 							+ (owner.getBonusAttributeValue(att) > 0 
 									? "<b style='color:" + Colour.GENERIC_GOOD.getShades()[1] + ";"
@@ -1394,7 +1393,7 @@ public class PhoneDialogue {
 													+"</b>"
 					+ "</div>"
 					+ (effect.length()>0
-							?"<div class='container-full-width' style='margin:0;background:#292929; padding:0; text-align:center;'>"
+							?"<div class='container-full-width' style='margin:0;background:"+Colour.BACKGROUND_ALT.toWebHexString()+"; padding:0; text-align:center;'>"
 								+"<hr></hr>"
 								+ "<i>"+effect+"</i>"
 							+ "</div>"
@@ -1447,8 +1446,8 @@ public class PhoneDialogue {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.PHONE;
+		public DialogueNodeType getDialgoueNodeType() {
+			return DialogueNodeType.PHONE;
 		}
 	};
 	
@@ -1492,8 +1491,8 @@ public class PhoneDialogue {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.PHONE;
+		public DialogueNodeType getDialgoueNodeType() {
+			return DialogueNodeType.PHONE;
 		}
 	};
 	
@@ -1555,8 +1554,8 @@ public class PhoneDialogue {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.PHONE;
+		public DialogueNodeType getDialgoueNodeType() {
+			return DialogueNodeType.PHONE;
 		}
 	};
 
@@ -1624,8 +1623,8 @@ public class PhoneDialogue {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.PHONE;
+		public DialogueNodeType getDialgoueNodeType() {
+			return DialogueNodeType.PHONE;
 		}
 	};
 	public static final DialogueNodeOld CLOTHING_CATALOGUE = new DialogueNodeOld("Discovered Clothing", "", true) {
@@ -1677,8 +1676,8 @@ public class PhoneDialogue {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.PHONE;
+		public DialogueNodeType getDialgoueNodeType() {
+			return DialogueNodeType.PHONE;
 		}
 	};
 	public static final DialogueNodeOld ITEM_CATALOGUE = new DialogueNodeOld("Discovered items", "View discovered items", true) {
@@ -1741,8 +1740,8 @@ public class PhoneDialogue {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.PHONE;
+		public DialogueNodeType getDialgoueNodeType() {
+			return DialogueNodeType.PHONE;
 		}
 	};
 	
@@ -1871,8 +1870,8 @@ public class PhoneDialogue {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.PHONE;
+		public DialogueNodeType getDialgoueNodeType() {
+			return DialogueNodeType.PHONE;
 		}
 	};
 
@@ -1955,8 +1954,8 @@ public class PhoneDialogue {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.PHONE;
+		public DialogueNodeType getDialgoueNodeType() {
+			return DialogueNodeType.PHONE;
 		}
 	};
 	
@@ -1978,7 +1977,7 @@ public class PhoneDialogue {
 						+"</div>"
 						+ "<div class='container-full-width inner' style='text-align:center;'>"
 							+ "[style.boldArcane(School of Arcane ability:)] "
-								+(!Main.game.getPlayer().hasAnySpellInSchool(SpellSchool.ARCANE)
+								+(!Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.ARCANE)
 									?"[style.colourDisabled("+SpellSchool.ARCANE.getPassiveBuff()+")]</br>(Requires knowing at least <b>three</b> Arcane school spells to unlock.)"
 									:"[style.colourGood("+SpellSchool.ARCANE.getPassiveBuff()+")]")
 						+ "</div>"
@@ -2023,7 +2022,7 @@ public class PhoneDialogue {
 								CHARACTER_SPELLS_ARCANE) {
 							@Override
 							public DialogueNodeOld getNextDialogue() {
-								return DebugDialogue.getDefaultDialogueNoEncounter();
+								return Main.game.getDefaultDialogueNoEncounter();
 							}
 							@Override
 							public void effects() {
@@ -2053,8 +2052,8 @@ public class PhoneDialogue {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.PHONE;
+		public DialogueNodeType getDialgoueNodeType() {
+			return DialogueNodeType.PHONE;
 		}
 	};
 	
@@ -2076,7 +2075,7 @@ public class PhoneDialogue {
 						+"</div>"
 						+ "<div class='container-full-width inner' style='text-align:center;'>"
 							+ "[style.boldEarth(School of Earth ability:)] "
-								+(!Main.game.getPlayer().hasAnySpellInSchool(SpellSchool.EARTH)
+								+(!Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)
 									?"[style.colourDisabled("+SpellSchool.EARTH.getPassiveBuff()+")]</br>(Requires knowing at least <b>three</b> Earth school spells to unlock.)"
 									:"[style.colourGood("+SpellSchool.EARTH.getPassiveBuff()+")]")
 						+ "</div>"
@@ -2125,7 +2124,7 @@ public class PhoneDialogue {
 								CHARACTER_SPELLS_EARTH) {
 							@Override
 							public DialogueNodeOld getNextDialogue() {
-								return DebugDialogue.getDefaultDialogueNoEncounter();
+								return Main.game.getDefaultDialogueNoEncounter();
 							}
 							@Override
 							public void effects() {
@@ -2155,8 +2154,8 @@ public class PhoneDialogue {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.PHONE;
+		public DialogueNodeType getDialgoueNodeType() {
+			return DialogueNodeType.PHONE;
 		}
 	};
 	
@@ -2178,7 +2177,7 @@ public class PhoneDialogue {
 						+"</div>"
 						+ "<div class='container-full-width inner' style='text-align:center;'>"
 							+ "[style.boldWater(School of Water ability:)] "
-								+(!Main.game.getPlayer().hasAnySpellInSchool(SpellSchool.WATER)
+								+(!Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.WATER)
 									?"[style.colourDisabled("+SpellSchool.WATER.getPassiveBuff()+")]</br>(Requires knowing at least <b>three</b> Water school spells to unlock.)"
 									:"[style.colourGood("+SpellSchool.WATER.getPassiveBuff()+")]")
 						+ "</div>"
@@ -2227,7 +2226,7 @@ public class PhoneDialogue {
 								CHARACTER_SPELLS_WATER) {
 							@Override
 							public DialogueNodeOld getNextDialogue() {
-								return DebugDialogue.getDefaultDialogueNoEncounter();
+								return Main.game.getDefaultDialogueNoEncounter();
 							}
 							@Override
 							public void effects() {
@@ -2257,8 +2256,8 @@ public class PhoneDialogue {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.PHONE;
+		public DialogueNodeType getDialgoueNodeType() {
+			return DialogueNodeType.PHONE;
 		}
 	};
 	
@@ -2280,7 +2279,7 @@ public class PhoneDialogue {
 						+"</div>"
 						+ "<div class='container-full-width inner' style='text-align:center;'>"
 							+ "[style.boldAir(School of Air ability:)] "
-								+(!Main.game.getPlayer().hasAnySpellInSchool(SpellSchool.AIR)
+								+(!Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.AIR)
 									?"[style.colourDisabled("+SpellSchool.AIR.getPassiveBuff()+")]</br>(Requires knowing at least <b>three</b> Air school spells to unlock.)"
 									:"[style.colourGood("+SpellSchool.AIR.getPassiveBuff()+")]")
 						+ "</div>"
@@ -2329,7 +2328,7 @@ public class PhoneDialogue {
 								CHARACTER_SPELLS_AIR) {
 							@Override
 							public DialogueNodeOld getNextDialogue() {
-								return DebugDialogue.getDefaultDialogueNoEncounter();
+								return Main.game.getDefaultDialogueNoEncounter();
 							}
 							@Override
 							public void effects() {
@@ -2359,8 +2358,8 @@ public class PhoneDialogue {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.PHONE;
+		public DialogueNodeType getDialgoueNodeType() {
+			return DialogueNodeType.PHONE;
 		}
 	};
 	
@@ -2382,7 +2381,7 @@ public class PhoneDialogue {
 						+"</div>"
 						+ "<div class='container-full-width inner' style='text-align:center;'>"
 							+ "[style.boldFire(School of Fire ability:)] "
-								+(!Main.game.getPlayer().hasAnySpellInSchool(SpellSchool.FIRE)
+								+(!Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.FIRE)
 									?"[style.colourDisabled("+SpellSchool.FIRE.getPassiveBuff()+")]</br>(Requires knowing at least <b>three</b> Fire school spells to unlock.)"
 									:"[style.colourGood("+SpellSchool.FIRE.getPassiveBuff()+")]")
 						+ "</div>"
@@ -2431,7 +2430,7 @@ public class PhoneDialogue {
 								CHARACTER_SPELLS_FIRE) {
 							@Override
 							public DialogueNodeOld getNextDialogue() {
-								return DebugDialogue.getDefaultDialogueNoEncounter();
+								return Main.game.getDefaultDialogueNoEncounter();
 							}
 							@Override
 							public void effects() {
@@ -2461,8 +2460,8 @@ public class PhoneDialogue {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.PHONE;
+		public DialogueNodeType getDialgoueNodeType() {
+			return DialogueNodeType.PHONE;
 		}
 	};
 	
@@ -2552,8 +2551,8 @@ public class PhoneDialogue {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.PHONE;
+		public DialogueNodeType getDialgoueNodeType() {
+			return DialogueNodeType.PHONE;
 		}
 	};
 	

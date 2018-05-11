@@ -2,7 +2,6 @@ package com.lilithsthrone.game.dialogue.npcDialogue.submission;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.fetishes.Fetish;
-import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
@@ -106,7 +105,7 @@ public class BatCavernSlimeAttackerDialogue {
 				if(Main.game.getPlayer().getMoney()<25) {
 					return new Response("Offer money ("+UtilText.formatAsMoney(250, "span")+")", "You don't have enough money to offer to pay [npc.name] off. You'll have to either fight [npc.herHim] or offer [npc.herHim] your body!", null);
 				} else {
-					return new Response("Offer money ("+UtilText.formatAsMoney(250, "span")+")", "Offer to pay [npc.name] 250 flames to leave you alone.", DebugDialogue.getDefaultDialogueNoEncounter()) {
+					return new Response("Offer money ("+UtilText.formatAsMoney(250, "span")+")", "Offer to pay [npc.name] 250 flames to leave you alone.", Main.game.getDefaultDialogueNoEncounter()) {
 						@Override
 						public void effects() {
 							Main.game.getPlayer().incrementMoney(-250);
@@ -217,7 +216,7 @@ public class BatCavernSlimeAttackerDialogue {
 					return new Response("Continue", "Carry on your way...", null){
 						@Override
 						public DialogueNodeOld getNextDialogue() {
-							return DebugDialogue.getDefaultDialogueNoEncounter();
+							return Main.game.getDefaultDialogueNoEncounter();
 						}
 					};
 					
@@ -310,7 +309,7 @@ public class BatCavernSlimeAttackerDialogue {
 							AFTER_COMBAT_VICTORY){
 						@Override
 						public DialogueNodeOld getNextDialogue() {
-							return DebugDialogue.getDefaultDialogueNoEncounter();
+							return Main.game.getDefaultDialogueNoEncounter();
 						}
 						@Override
 						public void effects() {
@@ -327,7 +326,7 @@ public class BatCavernSlimeAttackerDialogue {
 					return new Response("Continue", "Carry on your way...", null){
 						@Override
 						public DialogueNodeOld getNextDialogue() {
-							return DebugDialogue.getDefaultDialogueNoEncounter();
+							return Main.game.getDefaultDialogueNoEncounter();
 						}
 					};
 					
@@ -407,7 +406,7 @@ public class BatCavernSlimeAttackerDialogue {
 							AFTER_COMBAT_VICTORY){
 						@Override
 						public DialogueNodeOld getNextDialogue() {
-							return DebugDialogue.getDefaultDialogueNoEncounter();
+							return Main.game.getDefaultDialogueNoEncounter();
 						}
 						@Override
 						public void effects() {
@@ -617,7 +616,7 @@ public class BatCavernSlimeAttackerDialogue {
 						return new Response("Continue", "Carry on your way.", AFTER_COMBAT_DEFEAT){
 							@Override
 							public DialogueNodeOld getNextDialogue() {
-								return DebugDialogue.getDefaultDialogueNoEncounter();
+								return Main.game.getDefaultDialogueNoEncounter();
 							}
 						};
 						
@@ -737,7 +736,7 @@ public class BatCavernSlimeAttackerDialogue {
 					return new Response("Continue", "Carry on your way.", AFTER_COMBAT_DEFEAT){
 						@Override
 						public DialogueNodeOld getNextDialogue() {
-							return DebugDialogue.getDefaultDialogueNoEncounter();
+							return Main.game.getDefaultDialogueNoEncounter();
 						}
 					};
 					
@@ -847,7 +846,7 @@ public class BatCavernSlimeAttackerDialogue {
 					return new Response("Continue", "Carry on your way.", AFTER_COMBAT_DEFEAT){
 						@Override
 						public DialogueNodeOld getNextDialogue() {
-							return DebugDialogue.getDefaultDialogueNoEncounter();
+							return Main.game.getDefaultDialogueNoEncounter();
 						}
 					};
 					
@@ -903,7 +902,7 @@ public class BatCavernSlimeAttackerDialogue {
 				return new Response("Continue", "Carry on your way.", AFTER_SEX_VICTORY){
 					@Override
 					public DialogueNodeOld getNextDialogue(){
-						return DebugDialogue.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogueNoEncounter();
 					}
 				};
 				
@@ -922,7 +921,7 @@ public class BatCavernSlimeAttackerDialogue {
 						AFTER_COMBAT_VICTORY){
 					@Override
 					public DialogueNodeOld getNextDialogue() {
-						return DebugDialogue.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogueNoEncounter();
 					}
 					@Override
 					public void effects() {
@@ -970,7 +969,7 @@ public class BatCavernSlimeAttackerDialogue {
 				return new Response("Continue", "Carry on your way.", AFTER_SEX_VICTORY){
 					@Override
 					public DialogueNodeOld getNextDialogue(){
-						return DebugDialogue.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogueNoEncounter();
 					}
 				};
 				

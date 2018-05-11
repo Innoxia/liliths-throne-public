@@ -48,13 +48,14 @@ import com.lilithsthrone.game.combat.SpecialAttack;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
-import com.lilithsthrone.game.dialogue.MapDisplay;
+import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.SlaveryManagementDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.CityHall;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.story.CharacterCreation;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.CharactersPresentDialogue;
+import com.lilithsthrone.game.dialogue.utils.EnchantmentDialogue;
 import com.lilithsthrone.game.dialogue.utils.InventoryDialogue;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.OptionsDialogue;
@@ -190,11 +191,13 @@ public class MainController implements Initializable {
 			return;
 		}
 		
-		if (Main.game.getCurrentDialogueNode().getMapDisplay() == MapDisplay.OPTIONS) {
+		if (Main.game.getCurrentDialogueNode().getDialgoueNodeType() == DialogueNodeType.OPTIONS) {
 			Main.game.restoreSavedContent();
 			
 		} else if (!Main.game.getCurrentDialogueNode().isOptionsDisabled()) {
-			if (Main.game.getCurrentDialogueNode().getMapDisplay() == MapDisplay.NORMAL || !Main.game.isInNewWorld()) {
+			if (Main.game.getCurrentDialogueNode().getDialgoueNodeType() == DialogueNodeType.NORMAL
+					|| Main.game.getCurrentDialogueNode().getDialgoueNodeType() == DialogueNodeType.SLAVERY_MANAGEMENT
+					|| !Main.game.isInNewWorld()) {
 				Main.game.saveDialogueNode();
 			}
 			
@@ -207,10 +210,11 @@ public class MainController implements Initializable {
 			return;
 		}
 		
-		if (Main.game.getCurrentDialogueNode().getMapDisplay() == MapDisplay.PHONE)
+		if (Main.game.getCurrentDialogueNode().getDialgoueNodeType() == DialogueNodeType.PHONE)
 			Main.game.restoreSavedContent();
 		else if (!Main.game.getCurrentDialogueNode().isOptionsDisabled()) {
-			if (Main.game.getCurrentDialogueNode().getMapDisplay() == MapDisplay.NORMAL)
+			if (Main.game.getCurrentDialogueNode().getDialgoueNodeType() == DialogueNodeType.NORMAL
+					|| Main.game.getCurrentDialogueNode().getDialgoueNodeType() == DialogueNodeType.SLAVERY_MANAGEMENT)
 				Main.game.saveDialogueNode();
 
 			Main.game.setContent(new Response("", "", PhoneDialogue.MENU));
@@ -218,10 +222,10 @@ public class MainController implements Initializable {
 	}
 
 	public boolean isInventoryDisabled() {
-		if (Main.game.getCurrentDialogueNode().getMapDisplay() == MapDisplay.INVENTORY || Main.game.isInCombat() || Main.game.isInSex()) {
+		if (Main.game.getCurrentDialogueNode().getDialgoueNodeType() == DialogueNodeType.INVENTORY || Main.game.isInCombat() || Main.game.isInSex()) {
 			return false;
 			
-		} else if (Main.game.getCurrentDialogueNode().getMapDisplay() == MapDisplay.OPTIONS || Main.game.getCurrentDialogueNode().getMapDisplay() == MapDisplay.PHONE) {
+		} else if (Main.game.getCurrentDialogueNode().getDialgoueNodeType() == DialogueNodeType.OPTIONS || Main.game.getCurrentDialogueNode().getDialgoueNodeType() == DialogueNodeType.PHONE) {
 			return Main.game.getSavedDialogueNode().isInventoryDisabled();
 			
 		} else {
@@ -264,11 +268,12 @@ public class MainController implements Initializable {
 //			npc.setPendingClothingDressing(true);
 //		}
 		
-		if (Main.game.getCurrentDialogueNode().getMapDisplay() == MapDisplay.INVENTORY) {
+		if (Main.game.getCurrentDialogueNode().getDialgoueNodeType() == DialogueNodeType.INVENTORY) {
 			Main.game.restoreSavedContent();
 
 		} else if (!isInventoryDisabled() || npc != null) {
-			if (Main.game.getCurrentDialogueNode().getMapDisplay() == MapDisplay.NORMAL) {
+			if (Main.game.getCurrentDialogueNode().getDialgoueNodeType() == DialogueNodeType.NORMAL
+					|| Main.game.getCurrentDialogueNode().getDialgoueNodeType() == DialogueNodeType.SLAVERY_MANAGEMENT) {
 				Main.game.saveDialogueNode();
 			}
 			
@@ -289,7 +294,8 @@ public class MainController implements Initializable {
 		
 		if(characterViewed!=null && characterViewed != CharactersPresentDialogue.characterViewed) {
 			
-			if (Main.game.getCurrentDialogueNode().getMapDisplay() == MapDisplay.NORMAL) {
+			if (Main.game.getCurrentDialogueNode().getDialgoueNodeType() == DialogueNodeType.NORMAL
+					|| Main.game.getCurrentDialogueNode().getDialgoueNodeType() == DialogueNodeType.SLAVERY_MANAGEMENT) {
 				Main.game.saveDialogueNode();
 			}
 			
@@ -297,12 +303,13 @@ public class MainController implements Initializable {
 			Main.game.setContent(new Response("", "", CharactersPresentDialogue.MENU));
 			
 		} else {
-			if (Main.game.getCurrentDialogueNode().getMapDisplay() == MapDisplay.CHARACTERS_PRESENT) {
+			if (Main.game.getCurrentDialogueNode().getDialgoueNodeType() == DialogueNodeType.CHARACTERS_PRESENT) {
 				Main.game.restoreSavedContent();
 				
 			} else if (!Main.game.getCharactersPresent().isEmpty()) {
 	
-				if (Main.game.getCurrentDialogueNode().getMapDisplay() == MapDisplay.NORMAL) {
+				if (Main.game.getCurrentDialogueNode().getDialgoueNodeType() == DialogueNodeType.NORMAL
+						|| Main.game.getCurrentDialogueNode().getDialgoueNodeType() == DialogueNodeType.SLAVERY_MANAGEMENT) {
 					Main.game.saveDialogueNode();
 				}
 				
@@ -395,7 +402,6 @@ public class MainController implements Initializable {
 							 
 //							 Main.game.getPlayer().resetSpells();
 //							 
-//							 System.out.println(Main.game.getPlayer().toString());
 							 
 //							 File image = new File("res/images/characters/jam/brandiNaked1.png");
 ////								+"file:/"+image.toURI().getPath()
@@ -681,6 +687,25 @@ public class MainController implements Initializable {
 									if(Main.isSaveGameAvailable()) {
 										Main.saveGame(Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent(), false);
 									}
+									Main.game.setContent(new Response("Save", "", Main.game.getCurrentDialogueNode()));
+								}
+							}
+						}
+						if(Main.game.getCurrentDialogueNode() == EnchantmentDialogue.ENCHANTMENT_MENU){
+							if((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('output_name') === document.activeElement")) {
+								allowInput = false;
+								Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenPField').innerHTML=document.getElementById('output_name').value;");
+								EnchantmentDialogue.setOutputName(Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent());
+								
+							}
+						}
+						if(Main.game.getCurrentDialogueNode() == EnchantmentDialogue.ENCHANTMENT_SAVE_LOAD){
+							if((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('new_save_name') === document.activeElement")) {
+								allowInput = false;
+								if (event.getCode() == KeyCode.ENTER) {
+									enterConsumed = true;
+									Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenPField').innerHTML=document.getElementById('new_save_name').value;");
+									EnchantmentDialogue.saveEnchant(Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent(), false);
 									Main.game.setContent(new Response("Save", "", Main.game.getCurrentDialogueNode()));
 								}
 							}
@@ -1289,7 +1314,7 @@ public class MainController implements Initializable {
 							if(character.isPlayer()) {
 								// block when in character creation
 								if(Main.game.isInNewWorld()) {
-									if (Main.game.getCurrentDialogueNode().getMapDisplay() == MapDisplay.PHONE) {
+									if (Main.game.getCurrentDialogueNode().getDialgoueNodeType() == DialogueNodeType.PHONE) {
 										if(Main.game.getCurrentDialogueNode() == PhoneDialogue.CHARACTER_APPEARANCE) {
 											openPhone();
 										} else {
@@ -1297,7 +1322,7 @@ public class MainController implements Initializable {
 										}
 										
 									} else if (!Main.game.getCurrentDialogueNode().isOptionsDisabled()) {
-										if (Main.game.getCurrentDialogueNode().getMapDisplay() == MapDisplay.NORMAL) {
+										if (Main.game.getCurrentDialogueNode().getDialgoueNodeType() == DialogueNodeType.NORMAL) {
 											Main.game.saveDialogueNode();
 										}
 										
@@ -1325,7 +1350,7 @@ public class MainController implements Initializable {
 					if(character.isPlayer()) {
 						// block when in character creation
 						if(Main.game.isInNewWorld()) {
-							if (Main.game.getCurrentDialogueNode().getMapDisplay() == MapDisplay.PHONE) {
+							if (Main.game.getCurrentDialogueNode().getDialgoueNodeType() == DialogueNodeType.PHONE) {
 								if(Main.game.getCurrentDialogueNode() == PhoneDialogue.CHARACTER_LEVEL_UP) {
 									openPhone();
 								} else {
@@ -1333,7 +1358,7 @@ public class MainController implements Initializable {
 								}
 								
 							} else if (!Main.game.getCurrentDialogueNode().isOptionsDisabled()) {
-								if (Main.game.getCurrentDialogueNode().getMapDisplay() == MapDisplay.NORMAL) {
+								if (Main.game.getCurrentDialogueNode().getDialgoueNodeType() == DialogueNodeType.NORMAL) {
 									Main.game.saveDialogueNode();
 								}
 								
@@ -1743,7 +1768,7 @@ public class MainController implements Initializable {
 	public void moveGameWorld(WorldType worldType, PlaceType placeType, boolean setDefaultDialogue) {
 		int timeToTranstition = Main.game.getActiveWorld().getWorldType().getTimeToTransition();
 
-		Main.game.setActiveWorld(Main.game.getWorlds().get(worldType), placeType, true);
+		Main.game.setActiveWorld(Main.game.getWorlds().get(worldType), placeType, setDefaultDialogue);
 		
 		Main.game.endTurn(timeToTranstition + Main.game.getActiveWorld().getWorldType().getTimeToTransition());
 	}

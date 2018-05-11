@@ -464,15 +464,17 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 
 				List<Colour> importedSecondaryColours = new ArrayList<>();
 				try {
-					if(((Element)coreAttributes.getElementsByTagName("secondaryColours").item(0)).getAttribute("values").isEmpty()) {
-						Element secondaryColoursElement = ((Element)coreAttributes.getElementsByTagName("secondaryColours").item(0));
-						if(secondaryColoursElement.getElementsByTagName("colour").getLength() > 0) {
-							for(int i=0; i<secondaryColoursElement.getElementsByTagName("colour").getLength(); i++){
-								importedSecondaryColours.add(Colour.valueOf(((Element)coreAttributes.getElementsByTagName("secondaryColours").item(0)).getTextContent()));
+					if((Element)coreAttributes.getElementsByTagName("secondaryColours").item(0)!=null) {
+						if(((Element)coreAttributes.getElementsByTagName("secondaryColours").item(0)).getAttribute("values").isEmpty()) {
+							Element secondaryColoursElement = ((Element)coreAttributes.getElementsByTagName("secondaryColours").item(0));
+							if(secondaryColoursElement.getElementsByTagName("colour").getLength() > 0) {
+								for(int i=0; i<secondaryColoursElement.getElementsByTagName("colour").getLength(); i++){
+									importedSecondaryColours.add(Colour.valueOf(((Element)coreAttributes.getElementsByTagName("secondaryColours").item(0)).getTextContent()));
+								}
 							}
+						} else {
+							importedSecondaryColours = ColourListPresets.valueOf(((Element)coreAttributes.getElementsByTagName("secondaryColours").item(0)).getAttribute("values")).getPresetColourList();
 						}
-					} else {
-						importedSecondaryColours = ColourListPresets.valueOf(((Element)coreAttributes.getElementsByTagName("secondaryColours").item(0)).getAttribute("values")).getPresetColourList();
 					}
 				} catch(Exception ex) {
 					System.err.println("AbstractClothingType loading failed. Cause: 'secondaryColours' element unable to be parsed.");
@@ -480,15 +482,17 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 
 				List<Colour> importedSecondaryColoursDye = new ArrayList<>();
 				try {
-					if(((Element)coreAttributes.getElementsByTagName("secondaryColoursDye").item(0)).getAttribute("values").isEmpty()) {
-						Element secondaryColoursElement = ((Element)coreAttributes.getElementsByTagName("secondaryColoursDye").item(0));
-						if(secondaryColoursElement.getElementsByTagName("colour").getLength() > 0) {
-							for(int i=0; i<secondaryColoursElement.getElementsByTagName("colour").getLength(); i++){
-								importedSecondaryColoursDye.add(Colour.valueOf(((Element)coreAttributes.getElementsByTagName("secondaryColoursDye").item(0)).getTextContent()));
+					if((Element)coreAttributes.getElementsByTagName("secondaryColoursDye").item(0)!=null) {
+						if(((Element)coreAttributes.getElementsByTagName("secondaryColoursDye").item(0)).getAttribute("values").isEmpty()) {
+							Element secondaryColoursElement = ((Element)coreAttributes.getElementsByTagName("secondaryColoursDye").item(0));
+							if(secondaryColoursElement.getElementsByTagName("colour").getLength() > 0) {
+								for(int i=0; i<secondaryColoursElement.getElementsByTagName("colour").getLength(); i++){
+									importedSecondaryColoursDye.add(Colour.valueOf(((Element)coreAttributes.getElementsByTagName("secondaryColoursDye").item(0)).getTextContent()));
+								}
 							}
+						} else {
+							importedSecondaryColoursDye = ColourListPresets.valueOf(((Element)coreAttributes.getElementsByTagName("secondaryColoursDye").item(0)).getAttribute("values")).getPresetColourList();
 						}
-					} else {
-						importedSecondaryColoursDye = ColourListPresets.valueOf(((Element)coreAttributes.getElementsByTagName("secondaryColoursDye").item(0)).getAttribute("values")).getPresetColourList();
 					}
 				} catch(Exception ex) {
 					System.err.println("AbstractClothingType loading failed. Cause: 'secondaryColoursDye' element unable to be parsed.");
@@ -496,15 +500,17 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 
 				List<Colour> importedTertiaryColours = new ArrayList<>();
 				try {
-					if(((Element)coreAttributes.getElementsByTagName("tertiaryColours").item(0)).getAttribute("values").isEmpty()) {
-						Element tertiaryColoursElement = ((Element)coreAttributes.getElementsByTagName("tertiaryColours").item(0));
-						if(tertiaryColoursElement.getElementsByTagName("colour").getLength() > 0) {
-							for(int i=0; i<tertiaryColoursElement.getElementsByTagName("colour").getLength(); i++){
-								importedTertiaryColours.add(Colour.valueOf(((Element)coreAttributes.getElementsByTagName("tertiaryColours").item(0)).getTextContent()));
+					if((Element)coreAttributes.getElementsByTagName("tertiaryColours").item(0)!=null) {
+						if(((Element)coreAttributes.getElementsByTagName("tertiaryColours").item(0)).getAttribute("values").isEmpty()) {
+							Element tertiaryColoursElement = ((Element)coreAttributes.getElementsByTagName("tertiaryColours").item(0));
+							if(tertiaryColoursElement.getElementsByTagName("colour").getLength() > 0) {
+								for(int i=0; i<tertiaryColoursElement.getElementsByTagName("colour").getLength(); i++){
+									importedTertiaryColours.add(Colour.valueOf(((Element)coreAttributes.getElementsByTagName("tertiaryColours").item(0)).getTextContent()));
+								}
 							}
+						} else {
+							importedTertiaryColours = ColourListPresets.valueOf(((Element)coreAttributes.getElementsByTagName("tertiaryColours").item(0)).getAttribute("values")).getPresetColourList();
 						}
-					} else {
-						importedTertiaryColours = ColourListPresets.valueOf(((Element)coreAttributes.getElementsByTagName("tertiaryColours").item(0)).getAttribute("values")).getPresetColourList();
 					}
 				} catch(Exception ex) {
 					System.err.println("AbstractClothingType loading failed. Cause: 'tertiaryColours' element unable to be parsed.");
@@ -512,15 +518,17 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 
 				List<Colour> importedTertiaryColoursDye = new ArrayList<>();
 				try {
-					if(((Element)coreAttributes.getElementsByTagName("tertiaryColoursDye").item(0)).getAttribute("values").isEmpty()) {
-						Element tertiaryColoursElement = ((Element)coreAttributes.getElementsByTagName("tertiaryColoursDye").item(0));
-						if(tertiaryColoursElement.getElementsByTagName("colour").getLength() > 0) {
-							for(int i=0; i<tertiaryColoursElement.getElementsByTagName("colour").getLength(); i++){
-								importedTertiaryColoursDye.add(Colour.valueOf(((Element)coreAttributes.getElementsByTagName("colour").item(i)).getTextContent()));
+					if((Element)coreAttributes.getElementsByTagName("tertiaryColoursDye").item(0)!=null) {
+						if(((Element)coreAttributes.getElementsByTagName("tertiaryColoursDye").item(0)).getAttribute("values").isEmpty()) {
+							Element tertiaryColoursElement = ((Element)coreAttributes.getElementsByTagName("tertiaryColoursDye").item(0));
+							if(tertiaryColoursElement.getElementsByTagName("colour").getLength() > 0) {
+								for(int i=0; i<tertiaryColoursElement.getElementsByTagName("colour").getLength(); i++){
+									importedTertiaryColoursDye.add(Colour.valueOf(((Element)coreAttributes.getElementsByTagName("colour").item(i)).getTextContent()));
+								}
 							}
+						} else {
+							importedTertiaryColoursDye = ColourListPresets.valueOf(((Element)coreAttributes.getElementsByTagName("tertiaryColoursDye").item(0)).getAttribute("values")).getPresetColourList();
 						}
-					} else {
-						importedTertiaryColoursDye = ColourListPresets.valueOf(((Element)coreAttributes.getElementsByTagName("tertiaryColoursDye").item(0)).getAttribute("values")).getPresetColourList();
 					}
 				} catch(Exception ex) {
 					System.err.println("AbstractClothingType loading failed. Cause: 'tertiaryColoursDye' element unable to be parsed.");
@@ -1256,6 +1264,14 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		return false;
 	}
 	
+	public boolean isHindersLegMovement() {
+		return false;
+	}
+	
+	public boolean isHindersArmMovement() {
+		return false;
+	}
+	
 	// Getters & setters:
 	
 	public boolean isDiscardedOnUnequip() {
@@ -1426,6 +1442,23 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		}
 	}
 
+	public String getSVGImage() {
+		Colour pColour = Colour.CLOTHING_BLACK;
+		if(this.getAllAvailablePrimaryColours()!=null && !this.getAllAvailablePrimaryColours().isEmpty()) {
+			pColour = this.getAllAvailablePrimaryColours().get(0);
+		}
+		Colour sColour = Colour.CLOTHING_BLACK;
+		if(this.getAllAvailableSecondaryColours()!=null && !this.getAllAvailableSecondaryColours().isEmpty()) {
+			sColour = this.getAllAvailableSecondaryColours().get(0);
+		}
+		Colour tColour = Colour.CLOTHING_BLACK;
+		if(this.getAllAvailableTertiaryColours()!=null && !this.getAllAvailableTertiaryColours().isEmpty()) {
+			tColour = this.getAllAvailableTertiaryColours().get(0);
+		}
+		
+		return getSVGImage(null, pColour, sColour, tColour, false);
+	}
+	
 	/**
 	 * @param colour You need to pass a colour in here.
 	 * @param colourSecondary This can be null.

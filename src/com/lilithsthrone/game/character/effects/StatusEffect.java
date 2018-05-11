@@ -2594,7 +2594,7 @@ public enum StatusEffect {
 							sb.append("</br>");
 						}
 						sb.append("You use your <b>"+clothing.getDisplayName(true)+"</b> to clean your "+clothing.getClothingType().getSlot().getName()
-								+", <b style='color:"+Colour.CUMMED.toWebHexString()+";'>dirtying "+(clothing.getClothingType().isPlural()?"them":"it")+" in the process</b>.");
+								+", <b style='color:"+Colour.CUM.toWebHexString()+";'>dirtying "+(clothing.getClothingType().isPlural()?"them":"it")+" in the process</b>.");
 					}
 					
 				} else {
@@ -2607,7 +2607,7 @@ public enum StatusEffect {
 									sb.append("</br>");
 								}
 								sb.append("You use your <b>"+clothing.getDisplayName(true)+"</b> to clean your "+clothing.getClothingType().getSlot().getName()
-										+", <b style='color:"+Colour.CUMMED.toWebHexString()+";'>dirtying "+(clothing.getClothingType().isPlural()?"them":"it")+" in the process</b>.");
+										+", <b style='color:"+Colour.CUM.toWebHexString()+";'>dirtying "+(clothing.getClothingType().isPlural()?"them":"it")+" in the process</b>.");
 							}
 						}
 					}
@@ -3012,10 +3012,10 @@ public enum StatusEffect {
 		public String getDescription(GameCharacter target) {
 			if(target.isPlayer()) {
 				return ("After recently drinking an alcoholic liquid, you're feeling a little tipsy...</br>"
-						+ "Intoxication: "+(target.getAlcoholLevel()*100)/100f+"%");
+						+ "Intoxication: "+target.getIntoxicationPercentage()+"%");
 			} else {
 				return (UtilText.parse(target, "After recently drinking an alcoholic liquid, [npc.name] is feeling a little tipsy...</br>"
-						+ "Intoxication: "+(target.getAlcoholLevel()*100)/100f+"%"));
+						+ "Intoxication: "+target.getIntoxicationPercentage()+"%"));
 			}
 		}
 		
@@ -3053,10 +3053,10 @@ public enum StatusEffect {
 		public String getDescription(GameCharacter target) {
 			if(target.isPlayer()) {
 				return ("After recently drinking an alcoholic liquid, you're feeling quite merry...</br>"
-						+ "Intoxication: "+(target.getAlcoholLevel()*100)/100f+"%");
+						+ "Intoxication: "+target.getIntoxicationPercentage()+"%");
 			} else {
 				return (UtilText.parse(target, "After recently drinking an alcoholic liquid, [npc.name] is feeling quite merry...</br>"
-						+ "Intoxication: "+(target.getAlcoholLevel()*100)/100f+"%"));
+						+ "Intoxication: "+target.getIntoxicationPercentage()+"%"));
 			}
 		}
 
@@ -3093,10 +3093,10 @@ public enum StatusEffect {
 		public String getDescription(GameCharacter target) {
 			if(target.isPlayer()) {
 				return ("After recently drinking an alcoholic liquid, you're feeling quite drunk...</br>"
-						+ "Intoxication: "+(target.getAlcoholLevel()*100)/100f+"%");
+						+ "Intoxication: "+target.getIntoxicationPercentage()+"%");
 			} else {
 				return (UtilText.parse(target, "After recently drinking an alcoholic liquid, [npc.name] is feeling quite drunk...</br>"
-						+ "Intoxication: "+(target.getAlcoholLevel()*100)/100f+"%"));
+						+ "Intoxication: "+target.getIntoxicationPercentage()+"%"));
 			}
 		}
 
@@ -3134,10 +3134,10 @@ public enum StatusEffect {
 		public String getDescription(GameCharacter target) {
 			if(target.isPlayer()) {
 				return ("After recently drinking an alcoholic liquid, you're feeling pretty hammered...</br>"
-						+ "Intoxication: "+(target.getAlcoholLevel()*100)/100f+"%");
+						+ "Intoxication: "+target.getIntoxicationPercentage()+"%");
 			} else {
 				return (UtilText.parse(target, "After recently drinking an alcoholic liquid, [npc.name] is feeling pretty hammered...</br>"
-						+ "Intoxication: "+(target.getAlcoholLevel()*100)/100f+"%"));
+						+ "Intoxication: "+target.getIntoxicationPercentage()+"%"));
 			}
 		}
 
@@ -3175,10 +3175,10 @@ public enum StatusEffect {
 		public String getDescription(GameCharacter target) {
 			if(target.isPlayer()) {
 				return ("After recently drinking an alcoholic liquid, you're feeling completely wasted...</br>"
-						+ "Intoxication: "+(target.getAlcoholLevel()*100)/100f+"%");
+						+ "Intoxication: "+target.getIntoxicationPercentage()+"%");
 			} else {
 				return (UtilText.parse(target, "After recently drinking an alcoholic liquid, [npc.name] is feeling completely wasted...</br>"
-						+ "Intoxication: "+(target.getAlcoholLevel()*100)/100f+"%"));
+						+ "Intoxication: "+target.getIntoxicationPercentage()+"%"));
 			}
 		}
 
@@ -4401,7 +4401,7 @@ public enum StatusEffect {
 			80,
 			"Pussy Creampie",
 			"creampie",
-			Colour.CUMMED,
+			Colour.CUM,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -1f)),
@@ -4445,7 +4445,7 @@ public enum StatusEffect {
 				if(!target.getLowestZLayerCoverableArea(CoverableArea.VAGINA).isDirty()) {
 					target.getLowestZLayerCoverableArea(CoverableArea.VAGINA).setDirty(true);
 					sb.append("<p>"
-								+ "The cum from your creampied pussy quickly </b><b style='color:"+Colour.CUMMED.toWebHexString()+";'>dirties</b> your "+target.getLowestZLayerCoverableArea(CoverableArea.VAGINA).getName()+"!"
+								+ "The cum from your creampied pussy quickly </b><b style='color:"+Colour.CUM.toWebHexString()+";'>dirties</b> your "+target.getLowestZLayerCoverableArea(CoverableArea.VAGINA).getName()+"!"
 							+ "</p>");
 				}
 			}
@@ -4515,7 +4515,7 @@ public enum StatusEffect {
 			80,
 			"Vaginal Urethra Creampie",
 			"creampie",
-			Colour.CUMMED,
+			Colour.CUM,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -1f)),
@@ -4556,7 +4556,7 @@ public enum StatusEffect {
 				if(!target.getLowestZLayerCoverableArea(CoverableArea.VAGINA).isDirty()) {
 					target.getLowestZLayerCoverableArea(CoverableArea.VAGINA).setDirty(true);
 					sb.append("<p>"
-								+ "Cum leaks out of your pussy's creampied urethra, quickly </b><b style='color:"+Colour.CUMMED.toWebHexString()+";'>dirtying</b> your "+target.getLowestZLayerCoverableArea(CoverableArea.VAGINA).getName()+"!"
+								+ "Cum leaks out of your pussy's creampied urethra, quickly </b><b style='color:"+Colour.CUM.toWebHexString()+";'>dirtying</b> your "+target.getLowestZLayerCoverableArea(CoverableArea.VAGINA).getName()+"!"
 							+ "</p>");
 				}
 			}
@@ -4612,7 +4612,7 @@ public enum StatusEffect {
 			80,
 			"Penis Urethra Creampie",
 			"creampie",
-			Colour.CUMMED,
+			Colour.CUM,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -1f)),
@@ -4653,7 +4653,7 @@ public enum StatusEffect {
 				if(!target.getLowestZLayerCoverableArea(CoverableArea.PENIS).isDirty()) {
 					target.getLowestZLayerCoverableArea(CoverableArea.PENIS).setDirty(true);
 					sb.append("<p>"
-								+ "Cum leaks out of your cock's creampied urethra, quickly </b><b style='color:"+Colour.CUMMED.toWebHexString()+";'>dirtying</b> your "+target.getLowestZLayerCoverableArea(CoverableArea.PENIS).getName()+"!"
+								+ "Cum leaks out of your cock's creampied urethra, quickly </b><b style='color:"+Colour.CUM.toWebHexString()+";'>dirtying</b> your "+target.getLowestZLayerCoverableArea(CoverableArea.PENIS).getName()+"!"
 							+ "</p>");
 				}
 			}
@@ -4709,7 +4709,7 @@ public enum StatusEffect {
 			80,
 			"Anal Creampie",
 			"creampie",
-			Colour.CUMMED,
+			Colour.CUM,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -1f)),
@@ -4753,7 +4753,7 @@ public enum StatusEffect {
 				if(!target.getLowestZLayerCoverableArea(CoverableArea.ANUS).isDirty()) {
 					target.getLowestZLayerCoverableArea(CoverableArea.ANUS).setDirty(true);
 					sb.append("<p>"
-								+ "The cum from your creampied asshole quickly </b><b style='color:"+Colour.CUMMED.toWebHexString()+";'>dirties</b> your "+target.getLowestZLayerCoverableArea(CoverableArea.ANUS).getName()+"!"
+								+ "The cum from your creampied asshole quickly </b><b style='color:"+Colour.CUM.toWebHexString()+";'>dirties</b> your "+target.getLowestZLayerCoverableArea(CoverableArea.ANUS).getName()+"!"
 							+ "</p>");
 				}
 			}
@@ -4823,7 +4823,7 @@ public enum StatusEffect {
 			80,
 			"Nipple Creampie",
 			"creampie",
-			Colour.CUMMED,
+			Colour.CUM,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -1f)),
@@ -4867,7 +4867,7 @@ public enum StatusEffect {
 				if(!target.getLowestZLayerCoverableArea(CoverableArea.NIPPLES).isDirty()) {
 					target.getLowestZLayerCoverableArea(CoverableArea.NIPPLES).setDirty(true);
 					sb.append("<p>"
-								+ "The cum from your creampied nipples quickly </b><b style='color:"+Colour.CUMMED.toWebHexString()+";'>dirties</b> your "+target.getLowestZLayerCoverableArea(CoverableArea.NIPPLES).getName()+"!"
+								+ "The cum from your creampied nipples quickly </b><b style='color:"+Colour.CUM.toWebHexString()+";'>dirties</b> your "+target.getLowestZLayerCoverableArea(CoverableArea.NIPPLES).getName()+"!"
 							+ "</p>");
 				}
 			}
@@ -4937,7 +4937,7 @@ public enum StatusEffect {
 			80,
 			"Cummy Meal",
 			"creampie",
-			Colour.CUMMED,
+			Colour.CUM,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -1f)),
@@ -5844,7 +5844,7 @@ public enum StatusEffect {
 			70,
 			"double rainbow",
 			"set_rainbow",
-			Colour.CLOTHING_WHITE,
+			Colour.CLOTHING_MULTICOLOURED,
 			true,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 10f)),
 			null) {
@@ -11002,6 +11002,9 @@ public enum StatusEffect {
 		if(pathName!=null && !pathName.isEmpty()) {
 			try {
 				InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/" + pathName + ".svg");
+				if(is==null) {
+					System.err.println("Error! StatusEffect icon file does not exist (Trying to read from '"+pathName+"')!");
+				}
 				SVGString = Util.colourReplacement(this.toString(), colourShade, colourShadeSecondary, colourShadeTertiary, Util.inputStreamToString(is));
 				is.close();
 			} catch (IOException e) {

@@ -13,7 +13,6 @@ import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
-import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -91,7 +90,7 @@ public class ZaranixHomeGroundFloorRepeat {
 				}
 
 			} else if (index == 0) {
-				return new Response("Leave", "Turn around and walk away.", DebugDialogue.getDefaultDialogueNoEncounter());
+				return new Response("Leave", "Turn around and walk away.", Main.game.getDefaultDialogueNoEncounter());
 
 			} else {
 				return null;

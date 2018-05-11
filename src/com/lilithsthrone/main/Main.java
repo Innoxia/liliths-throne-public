@@ -22,9 +22,8 @@ import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
-import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
-import com.lilithsthrone.game.dialogue.MapDisplay;
+import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.story.CharacterCreation;
 import com.lilithsthrone.game.dialogue.utils.OptionsDialogue;
@@ -51,7 +50,7 @@ import javafx.scene.control.ButtonType;
 
 /**
  * @since 0.1.0
- * @version 0.2.4
+ * @version 0.2.5
  * @author Innoxia
  */
 public class Main extends Application {
@@ -65,7 +64,7 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
 
-	public static final String VERSION_NUMBER = "0.2.4.5",
+	public static final String VERSION_NUMBER = "0.2.5",
 			VERSION_DESCRIPTION = "Alpha";
 
 	public static final Image WINDOW_IMAGE = new Image("/com/lilithsthrone/res/images/windowIcon32.png");
@@ -79,21 +78,16 @@ public class Main extends Application {
 //		+ "<h6 style='text-align:center;'><b style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Early Alpha!</b></h6>"
 		
 		"<p>"
-			+ "Hello again! :3"
+			+ "Hello once again!"
 		+ "</p>"
 			
 		+ "<p>"
-			+ "As I made a release last Friday, I only had a few days in which to get this preview together, so, while I've got a lot of planning and preliminary writing for the slavery & Submission content done, I haven't managed to get it added into the game for this version."
-			+ " I'll be working on adding it all over the next two days, and will then get everything finished off ready for the full release on WEdnesday. ^^"
-		+ "</p>"
-		
-		+ "<p>"
-			+ "I did finally manage to get Lilaya's panty masturbation scene into the game for this version, which I'd promised to do quite a few versions ago."
-			+ " I have a lot more content for Lilaya and Rose planned, but I'll get all of Submission finished before I get to work on that. :3"
+			+ "For this version, I've made some improvements to slavery (mostly milking room enhancements), added a way to save and load enchantments (build upon a PR from Master of Puppets), and added a small amount of in-game Submission content."
+			+ " I've got a lot more Submission content done behind-the-scenes (mainly a large side quest involving slimes and the slime TF item), but I didn't manage to get it finished for this release."
 		+ "</p>"
 			
 		+ "<p>"
-			+ "The next release will be the full public one (0.2.5) on Wednesday, 9th May."
+			+ "I'm going to continue writing Submission content over the next five days, and should have it ready for 0.2.5.5. Then I'll move on to Nightlife content, so it will all be ready and in the game for 0.2.6."
 		+ "</p>"
 			
 		+ "<p>"
@@ -150,12 +144,74 @@ public class Main extends Application {
 			+"<ul>Fixed slime sclera and pupil recolouring not working.</ul>"
 			+"<ul>Resetting spell schools now refunds the correct amount of upgrade points.</ul>"
 			+"<ul>Fixed arcane storm timer (from Arcane spell school's unique ability) not working correctly.</ul>"
-			+"<ul>Fixed Water spell chool's unique ability (liquid TFs are free) not working correctly.</ul>"
+			+"<ul>Fixed Water spell school's unique ability (liquid TFs are free) not working correctly.</ul>"
 			+"<ul>Being defeated in combat while your allies are still fighting will now correctly only give you the option to watch.</ul>"
 			+"<ul>Fixed bug where there would sometimes be gaps in actions during sex.</ul>"
 			+"<ul>Fixed some incorrect skin colouring on Rose.</ul>"
 			+"<ul>Improved NPC removal method, which should help to reduce save file size and save/load times. This will be further improved for 0.2.5.</ul>"
 			+"<ul>(Hopefully) fixed a cause of the bug where the game would stop being able to save.</ul>"
+		+ "</list>"
+
+		+ "</br>"
+
+		+ "<list>"
+			+ "<h6>v0.2.4.5</h6>"
+			+ "<li>Gameplay:</li>"
+			+ "<ul>Filled in more of the placeholder text in Submission.</ul>"
+			+ "<ul>Added more content for Submission Enforcer Post, including a new Enforcer NPC, 'Claire'. When entering a Submission Enforcer Post for the first time, Claire's dialogue will trigger. (There will be a quest related to this added for the next release.)</ul>"
+			
+			+ "<li>Slavery:</li>"
+			+ "<ul>'Dairy Cow' job now correctly supports 8 slaves per milking room.</ul>"
+			+ "<ul>Made some minor improvements to slavery UI.</ul>"
+			+ "<ul>Milking room now milks a slave of their milk, cum, and girlcum at the same time.</ul>"
+			+ "<ul>Added options to enable/disable milk, cum, and girlcum milking.</ul>"
+			+ "<ul>Moved pregnancy job settings (Promiscuity pills, no pills, or Vixen's Virility pills) from the 'Stocks' and 'Prostitute' jobs, and moved them into a standard permission.</ul>"
+			+ "<ul>Added options in milking room to set automatic selling, as well as options to drink or sell any stored fluids.</ul>"
+			+ "<ul>Balanced fluid values.</ul>"
+			+ "<ul>Added three new upgrades to the milking room.</ul>"
+			+ "<ul>Added self-milking options to milking rooms.</ul>"
+			
+			+ "<li>Enchanting:</li>"
+			+ "<ul>You can now set a custom name for any potions or clothing that you create.</ul>"
+			+ "<ul><b>Added:</b> Saving and loading of enchantment effects. (Built upon framework created by Master of Puppets.)</ul>"
+			
+			+ "<li>Contributors:</li>"
+			+ "<ul>Added testing for Nnxx's character 'Lumi' in the debug menu. Once she's finished, she will be added a random encounter in Dominion's alleys, but for now, she's only accessible through the debug menu.</ul>"
+			+ "<ul>Fixed typos in Telepathic Communication description. (Mach565)</ul>"
+			+ "<ul>Companion's damage scaling (on higher difficulty settings) is now treated the same as the player's. (Darkon47)</ul>"
+			+ "<ul>Added rings for masculine characters in character creation. (rfpnj)</ul>"
+			+ "<ul>Huge amount of punctuation fixes. (WoefulWombat)</ul>"
+			+ "<ul>Even more punctuation fixes. (WoefulWombat)</ul>"
+			+ "<ul>Added framework for saving and loading enchantment effects. (Master of Puppets)</ul>"
+			+ "<ul>Fixed bug with intoxication percentages not displaying correctly. (Pimvgd)</ul>"
+			+ "<ul>Fixed prologue typo. (Mach565)</ul>"
+			+ "<ul>Fixed cause of strange characters being displayed in some svgs. (Pimvgd)</ul>"
+			+ "<ul>Fixed bug where impregnation chance was using the wrong partner's fertility stat. (Itpatch)</ul>"
+			
+			+ "<li>Other:</li>"
+			+ "<ul>Ankle spreader bar now blocks escape in combat (if you are unable to fly).</ul>"
+			+ "<ul>Wrist restraints now block flight from arm-wings (such as harpy or bat wings).</ul>"
+			+ "<ul>NPCs now gain or lose affection towards you after sex, depending on if they were in the resisting pace or not.</ul>"
+			+ "<ul>Slimes can no longer fly.</ul>"
+			
+			+ "<li>Bugs:</li>"
+			+ "<ul>Fixed bug where NPCs would have a random colour for their lips/nipples/anus. This resets NPC colours for those parts only if they're not your slave, so your slave's colours won't be reset by this.</ul>"
+			+ "<ul>Typo and parsing fixes.</ul>"
+			+ "<ul>Fixed issue with parsing some characters in text fields.</ul>"
+			+ "<ul>Fixed spell page showing special ability was unlocked, even when it wasn't.</ul>"
+			+ "<ul>Fixed bug where some icons would show random letters on some systems.</ul>"
+			+ "<ul>Fixed (yet another) cause of slavery stats getting stuck on the right-hand section of the screen.</ul>"
+			+ "<ul>Fixed broken colours in rainbow set status effect icon.</ul>"
+			+ "<ul>Fixed bug where fetish screen would sometimes become unresponsive.</ul>"
+			+ "<ul>NPCs should no longer spawn in with fetish or transforming fetishes if you have them set to 0% in your content options.</ul>"
+			+ "<ul>Fixed milking room upgrade being blocked when you had companions in your party.</ul>"
+			+ "<ul>Fixed slave multiple-partner sex breaking if you had companions in your party.</ul>"
+			+ "<ul>Fixed bug where slaves could start spitroast even if they weren't attracted to you.</ul>"
+			+ "<ul>Crotchless chaps no longer conceal the anus slot.</ul>"
+			+ "<ul>Fixed yet more bugs related to slavery targets being broken between scenes.</ul>"
+			+ "<ul>Fixed 'Dairy Cow' slave job having some settings from prostitute.</ul>"
+			+ "<ul>Fixed bug where fluids would sometimes load in their modifiers twice (potentially causing issues with removal of fluid modifiers).</ul>"
+			+ "<ul>Fixed slimes being able to TF penis type to 'artificial'.</ul>"
 		+ "</list>"
 		;
 	
@@ -240,6 +296,7 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("Jatch", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("Cynical-Cy", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("FossorTumulus", "", 0, 0, 1, 0));
+		credits.add(new CreditsSlot("Spectacular", "", 0, 0, 1, 0));
 		
 		
 		
@@ -568,10 +625,10 @@ public class Main extends Application {
 		} else if (Main.game.isInSex()) {
 			Main.game.flashMessage(Colour.GENERIC_BAD, "Cannot quicksave while in sex!");
 			
-		} else if (Main.game.getCurrentDialogueNode().getMapDisplay()!=MapDisplay.NORMAL) {
+		} else if (Main.game.getCurrentDialogueNode().getDialgoueNodeType()!=DialogueNodeType.NORMAL) {
 			Main.game.flashMessage(Colour.GENERIC_BAD, "Can only quicksave in a normal scene!");
 			
-		} else if (!Main.game.isStarted() || !Main.game.getCurrentDialogueNode().equals(DebugDialogue.getDefaultDialogueNoEncounter())) {
+		} else if (!Main.game.isStarted() || !Main.game.getCurrentDialogueNode().equals(Main.game.getDefaultDialogueNoEncounter())) {
 			Main.game.flashMessage(Colour.GENERIC_BAD, "Cannot save in this scene!");
 			
 		} else {
@@ -591,7 +648,7 @@ public class Main extends Application {
 	}
 
 	public static boolean isSaveGameAvailable() {
-		return Main.game.isStarted() && Main.game.getSavedDialogueNode() == DebugDialogue.getDefaultDialogueNoEncounter();
+		return Main.game.isStarted() && Main.game.getSavedDialogueNode() == Main.game.getDefaultDialogueNoEncounter();
 	}
 	
 	public static void saveGame(String name, boolean allowOverwrite) {

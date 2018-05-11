@@ -64,6 +64,9 @@ public enum Colour {
 	
 	
 	// Game colours:
+	BACKGROUND(Util.newColour(0x222222), Util.newColour(0xcccccc), "grey"),
+	BACKGROUND_ALT(Util.newColour(0x292929), Util.newColour(0xbbbbbb), "grey"),
+	
 	MAP_BACKGROUND_UNEXPLORED(Util.newColour(0x111), Util.newColour(0x111), "black"),
 	MAP_BACKGROUND_PINK(Util.newColour(0xb2a4bb), Util.newColour(0xb2a4bb), "pink"),
 	MAP_BACKGROUND(Util.newColour(0xbbbbbb), Util.newColour(0xbbbbbb), "grey"),
@@ -268,7 +271,7 @@ public enum Colour {
 	
 	// Rarity colours:
 	RARITY_UNKNOWN(BaseColour.BLACK, "grey"),
-	RARITY_JINXED(BaseColour.RED, "red", Util.newArrayListOfValues(new ListValue<>("jinxed"))),
+	RARITY_JINXED(BaseColour.RED, "red", Util.newArrayListOfValues(new ListValue<>("jinx"), new ListValue<>("jinxed"))),
 	RARITY_COMMON(Util.newColour(0xf2f2f2), Util.newColour(0xf2f2f2), "white", Util.newArrayListOfValues(new ListValue<>("common"))),
 	RARITY_UNCOMMON(Util.newColour(0x1de547), Util.newColour(0x108228), "green", Util.newArrayListOfValues(new ListValue<>("uncommon"))),
 	RARITY_RARE(Util.newColour(0x47C2FF), Util.newColour(0x47C2FF), "blue", Util.newArrayListOfValues(new ListValue<>("rare"))),
@@ -280,8 +283,11 @@ public enum Colour {
 	CURRENCY_SILVER(BaseColour.SILVER, "gold"),
 	CURRENCY_COPPER(BaseColour.COPPER, "gold"),
 
+	MILK(BaseColour.YELLOW_LIGHT, "light yellow",  Util.newArrayListOfValues(new ListValue<>("milk"), new ListValue<>("lactation"))),
+	CUM(BaseColour.BLUE_LIGHT, "light blue",  Util.newArrayListOfValues(new ListValue<>("cum"), new ListValue<>("cummed"), new ListValue<>("dirty"))),
+	GIRLCUM(BaseColour.PINK_LIGHT, "light pink",  Util.newArrayListOfValues(new ListValue<>("girlcum"), new ListValue<>("gcum"))),
+	
 	SEALED(BaseColour.PINK_DEEP, "pink"),
-	CUMMED(Util.newColour(0xE1E49B), Util.newColour(0xE1E49B), "light yellow",  Util.newArrayListOfValues(new ListValue<>("cummed"), new ListValue<>("dirty"))),
 	DISPLACED(BaseColour.CRIMSON, "crimson"),
 
 	// Text colours:

@@ -1201,6 +1201,9 @@ public enum TFModifier {
 		// Set this item's file image:
 		try {
 			InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/crafting/" + SVGString + ".svg");
+			if(is==null) {
+				System.err.println("Error! TFModifier icon file does not exist (Trying to read from '"+SVGString+"')! (Code 1)");
+			}
 			String s = Util.inputStreamToString(is);
 
 			s = s.replaceAll("#ff2a2a", this.colour.getShades()[0]);
@@ -1232,6 +1235,9 @@ public enum TFModifier {
 		// Set this item's file image:
 		try {
 			InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/crafting/" + SVGString + ".svg");
+			if(is==null) {
+				System.err.println("Error! TFModifier icon file does not exist (Trying to read from '"+SVGString+"')! (Code 2)");
+			}
 			String s = Util.inputStreamToString(is);
 
 			s = s.replaceAll("#ff2a2a", this.colour.getShades()[0]);
