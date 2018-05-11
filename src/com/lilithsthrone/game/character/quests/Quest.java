@@ -416,7 +416,7 @@ public enum Quest {
 	},
 	
 	
-	RELATIONSHIP_NYAN_STOCK_ISSUES(QuestType.REALTIONSHIP, 1, 0) {
+	RELATIONSHIP_NYAN_STOCK_ISSUES(QuestType.RELATIONSHIP, 1, 0) {
 		@Override
 		public String getName() {
 			return "Offer Nyan your help";
