@@ -4568,73 +4568,65 @@ public class UtilText {
 	private static String parseSyntaxNew(String target, String command, String arguments, List<GameCharacter> specialNPCList) {
 		
 		UtilText.specialNPCList = specialNPCList;
-		parseCapitalise=false;
-		parseAddPronoun=false;
+		parseCapitalise = false;
+		parseAddPronoun = false;
 		
 		if(command.split("_").length==2) {
 			if(Character.isUpperCase(command.split("_")[0].charAt(0)))
 				parseCapitalise = true;
 			command = command.split("_")[1];
-			if(Character.isUpperCase(command.charAt(0)))
-				parseCapitalise = true;
 			parseAddPronoun = true;
+		} 
 			
-		} else {
-			if(Character.isUpperCase(command.charAt(0)))
-				parseCapitalise = true;
+		if(Character.isUpperCase(command.charAt(0))) {
+			parseCapitalise = true;
 		}
 		
-		String output = "";
-		boolean commandFound=false;
-		
-		boolean characterFound = false;
-		targetLoop:
-		for(ParserTarget parserTarget : ParserTarget.values()) {
-			for(String s : parserTarget.getTags()) {
-				if(s.toLowerCase().equals(target.toLowerCase())) {
-					character = parserTarget.getCharacter(s.toLowerCase());
-					characterFound = true;
-					break targetLoop;
-				}
-			}
-//			if(parserTarget.getTags().contains(target.toLowerCase())) {
-//				character = parserTarget.getCharacter();
-//				characterFound = true;
-//				break;
-//			}
-		}
-		if(!characterFound) {
+		ParserTarget parserTarget = findParserTargetWithTag(target);
+		if (parserTarget == null) {
 			return "INVALID_TARGET_NAME";
 		}
+		character = parserTarget.getCharacter(target.toLowerCase());
 		
 		// Commands with arguments:
-		
-		hibikeEuphoniumIsTheBest:
-		for(ParserCommand cmd : commandsList) {
-			for(String s : cmd.getTags()) {
-				if(command.equalsIgnoreCase(s)) {
-					commandFound=true;
-					output = cmd.parse(command, arguments, target);
-					if (!cmd.isAllowsCapitalisation()) {
-						parseCapitalise = false;
-					}
-					if (!cmd.isAllowsPronoun()) {
-						parseAddPronoun = false;
-					}
-					break hibikeEuphoniumIsTheBest;
-				}
-			}
+		ParserCommand cmd = findCommandWithTag(command);
+		if (cmd == null) {
+			return "<i style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>command_unknown</i>";
 		}
 		
-		if(!commandFound)
-			return "<i style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>command_unknown</i>";
+		String output = cmd.parse(command, arguments, target);
+		parseCapitalise = parseCapitalise && cmd.isAllowsCapitalisation();
+		parseAddPronoun = parseAddPronoun && cmd.isAllowsPronoun();
 		
 		if(parseAddPronoun) {
 			output = (UtilText.isVowel(output.charAt(0))?"an ":"a ")+output;
-			return (parseCapitalise?Util.capitaliseSentence(output):output);
-		} else {
-			return (parseCapitalise?Util.capitaliseSentence(output):output);
 		}
+		if (parseCapitalise) {
+			return Util.capitaliseSentence(output);
+		}
+		return output;
+	}
+
+	private static ParserTarget findParserTargetWithTag(String target) {
+		for(ParserTarget parserTarget : ParserTarget.values()) {
+			for(String s : parserTarget.getTags()) {
+				if(s.toLowerCase().equals(target.toLowerCase())) {
+					return parserTarget;
+				}
+			}
+		}
+		return null;
+	}
+
+	private static ParserCommand findCommandWithTag(String command) {
+		for(ParserCommand cmd : commandsList) {
+			for(String s : cmd.getTags()) {
+				if(command.equalsIgnoreCase(s)) {
+					return cmd;
+				}
+			}
+		}
+		return null;
 	}
 	
 	private static String parseConditionalSyntaxNew(String target, String command, String arguments, String conditionalTrue, String conditionalFalse) {
@@ -4642,20 +4634,11 @@ public class UtilText {
 			target = "npc";
 		}
 		
-		boolean characterFound = false;
-		targetLoop:
-		for(ParserTarget parserTarget : ParserTarget.values()) {
-			for(String s : parserTarget.getTags()) {
-				if(s.toLowerCase().equals(target.toLowerCase())) {
-					character = parserTarget.getCharacter(s.toLowerCase());
-					characterFound = true;
-					break targetLoop;
-				}
-			}
-		}
-		if(!characterFound) {
+		ParserTarget parserTarget = findParserTargetWithTag(target);
+		if (parserTarget == null) {
 			return "INVALID_TARGET_NAME";
 		}
+		character = parserTarget.getCharacter(target.toLowerCase());
 		
 		// Commands with arguments:
 		
