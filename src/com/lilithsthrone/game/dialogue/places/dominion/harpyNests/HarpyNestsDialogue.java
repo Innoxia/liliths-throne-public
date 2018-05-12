@@ -2,6 +2,7 @@ package com.lilithsthrone.game.dialogue.places.dominion.harpyNests;
 
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
+import com.lilithsthrone.game.combat.SpellSchool;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.encounters.Encounter;
@@ -193,6 +194,7 @@ public class HarpyNestsDialogue {
 							@Override
 							public void effects() {
 								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_HARPY_PACIFICATION, Quest.SIDE_UTIL_COMPLETE));
+								Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.getSpellScrollType(SpellSchool.AIR)), false, true);
 								Main.game.getPlayer().incrementMoney(5000);
 							}
 						};
@@ -445,7 +447,7 @@ public class HarpyNestsDialogue {
 					+ "</p>"
 						+ "The muscular horse-boy produces a little brass key, and, bending down to unlock a heavy iron safe that's sitting beneath his desk, he retrieves a bag of money."
 						+ " Setting it down in front of him, he grins up at you."
-						+ " [style.speechMasculineStrong(I still can't believe that you actually managed to do it! Well, I'll keep my end of the bargain; here's five thousand flames!)]"
+						+ " [style.speechMasculineStrong(I still can't believe that you actually managed to do it! Well, I'll keep my end of the bargain; here's five thousand flames! Here have this scroll too, for the speed with whch you handled everything)]"
 					+ "</p>"
 					+ "<p>"
 						+ "Stepping forwards, you take the offered bag of money, before thanking the enforcer sergeant."
@@ -473,6 +475,7 @@ public class HarpyNestsDialogue {
 		public Response getResponse(int responseTab, int index) {
 			return ENTRANCE_ENFORCER_POST.getResponse(0, index);
 		}
+		
 	};
 	
 	
