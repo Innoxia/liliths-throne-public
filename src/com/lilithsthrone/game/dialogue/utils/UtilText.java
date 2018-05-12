@@ -4232,12 +4232,8 @@ public class UtilText {
 				BodyPartType.EYE){//TODO
 			@Override
 			public String parse(String command, String arguments, String target) {
-				if(arguments!=null) {
-					if(arguments.equalsIgnoreCase("true")) {
-						return character.getCovering(character.getEyeType().getBodyCoveringType(character)).getFullDescription(character, true);
-					}
-				}
-				return character.getCovering(character.getEyeType().getBodyCoveringType(character)).getFullDescription(character, false);
+				return character.getCovering(character.getEyeType().getBodyCoveringType(character))
+						.getFullDescription(character, arguments != null && arguments.equalsIgnoreCase("true"));
 			}
 		});
 		
@@ -4254,12 +4250,8 @@ public class UtilText {
 				BodyPartType.EYE){//TODO
 			@Override
 			public String parse(String command, String arguments, String target) {
-				if(arguments!=null) {
-					if(arguments.equalsIgnoreCase("true")) {
-						return character.getCovering(character.getEyeType().getBodyCoveringType(character)).getColourDescriptor(character, true, parseCapitalise);
-					}
-				}
-				return character.getCovering(character.getEyeType().getBodyCoveringType(character)).getColourDescriptor(character, false, parseCapitalise);
+				return character.getCovering(character.getEyeType().getBodyCoveringType(character))
+						.getColourDescriptor(character, arguments != null && arguments.equalsIgnoreCase("true"), parseCapitalise);
 			}
 		});
 		
@@ -4280,12 +4272,8 @@ public class UtilText {
 				BodyPartType.EYE){//TODO
 			@Override
 			public String parse(String command, String arguments, String target) {
-				if(arguments!=null) {
-					if(arguments.equalsIgnoreCase("true")) {
-						return character.getCovering(character.getEyeType().getBodyCoveringType(character)).getPrimaryColourDescriptor(true);
-					}
-				}
-				return character.getCovering(character.getEyeType().getBodyCoveringType(character)).getPrimaryColourDescriptor(false);
+				return character.getCovering(character.getEyeType().getBodyCoveringType(character))
+						.getPrimaryColourDescriptor(arguments != null && arguments.equalsIgnoreCase("true"));
 			}
 		});
 
@@ -4306,12 +4294,8 @@ public class UtilText {
 				BodyPartType.EYE){//TODO
 			@Override
 			public String parse(String command, String arguments, String target) {
-				if(arguments!=null) {
-					if(arguments.equalsIgnoreCase("true")) {
-						return character.getCovering(character.getEyeType().getBodyCoveringType(character)).getSecondaryColourDescriptor(true);
-					}
-				}
-				return character.getCovering(character.getEyeType().getBodyCoveringType(character)).getSecondaryColourDescriptor(false);
+				return character.getCovering(character.getEyeType().getBodyCoveringType(character))
+						.getSecondaryColourDescriptor(arguments != null && arguments.equalsIgnoreCase("true"));
 			}
 		});
 		
@@ -4341,12 +4325,8 @@ public class UtilText {
 				BodyPartType.EYE){//TODO
 			@Override
 			public String parse(String command, String arguments, String target) {
-				if(arguments!=null) {
-					if(arguments.equalsIgnoreCase("true")) {
-						return character.getCovering(BodyCoveringType.EYE_PUPILS).getFullDescription(character, true);
-					}
-				}
-				return character.getCovering(BodyCoveringType.EYE_PUPILS).getFullDescription(character, false);
+				return character.getCovering(BodyCoveringType.EYE_PUPILS)
+						.getFullDescription(character, arguments != null && arguments.equalsIgnoreCase("true"));
 			}
 		});
 		
@@ -4363,12 +4343,8 @@ public class UtilText {
 				BodyPartType.EYE){//TODO
 			@Override
 			public String parse(String command, String arguments, String target) {
-				if(arguments!=null) {
-					if(arguments.equalsIgnoreCase("true")) {
-						return character.getCovering(BodyCoveringType.EYE_PUPILS).getColourDescriptor(character, true, parseCapitalise);
-					}
-				}
-				return character.getCovering(BodyCoveringType.EYE_PUPILS).getColourDescriptor(character, false, parseCapitalise);
+				return character.getCovering(BodyCoveringType.EYE_PUPILS)
+						.getColourDescriptor(character, arguments != null && arguments.equalsIgnoreCase("true"), parseCapitalise);
 			}
 		});
 		
@@ -4389,12 +4365,8 @@ public class UtilText {
 				BodyPartType.EYE){//TODO
 			@Override
 			public String parse(String command, String arguments, String target) {
-				if(arguments!=null) {
-					if(arguments.equalsIgnoreCase("true")) {
-						return character.getCovering(BodyCoveringType.EYE_PUPILS).getPrimaryColourDescriptor(true);
-					}
-				}
-				return character.getCovering(BodyCoveringType.EYE_PUPILS).getPrimaryColourDescriptor(false);
+				return character.getCovering(BodyCoveringType.EYE_PUPILS)
+						.getPrimaryColourDescriptor(arguments != null && arguments.equalsIgnoreCase("true"));
 			}
 		});
 
@@ -4415,12 +4387,8 @@ public class UtilText {
 				BodyPartType.EYE){//TODO
 			@Override
 			public String parse(String command, String arguments, String target) {
-				if(arguments!=null) {
-					if(arguments.equalsIgnoreCase("true")) {
-						return character.getCovering(BodyCoveringType.EYE_PUPILS).getSecondaryColourDescriptor(true);
-					}
-				}
-				return character.getCovering(BodyCoveringType.EYE_PUPILS).getSecondaryColourDescriptor(false);
+				return character.getCovering(BodyCoveringType.EYE_PUPILS)
+						.getSecondaryColourDescriptor(arguments != null && arguments.equalsIgnoreCase("true"));
 			}
 		});
 		
@@ -4435,12 +4403,8 @@ public class UtilText {
 				BodyPartType.EYE){//TODO
 			@Override
 			public String parse(String command, String arguments, String target) {
-				if(arguments!=null) {
-					if(arguments.equalsIgnoreCase("true")) {
-						return character.getCovering(BodyCoveringType.EYE_SCLERA).getFullDescription(character, true);
-					}
-				}
-				return character.getCovering(BodyCoveringType.EYE_SCLERA).getFullDescription(character, false);
+				return character.getCovering(BodyCoveringType.EYE_SCLERA)
+						.getFullDescription(character, arguments != null && arguments.equalsIgnoreCase("true"));
 			}
 		});
 		
@@ -4457,12 +4421,8 @@ public class UtilText {
 				BodyPartType.EYE){//TODO
 			@Override
 			public String parse(String command, String arguments, String target) {
-				if(arguments!=null) {
-					if(arguments.equalsIgnoreCase("true")) {
-						return character.getCovering(BodyCoveringType.EYE_SCLERA).getColourDescriptor(character, true, parseCapitalise);
-					}
-				}
-				return character.getCovering(BodyCoveringType.EYE_SCLERA).getColourDescriptor(character, false, parseCapitalise);
+				return character.getCovering(BodyCoveringType.EYE_SCLERA)
+						.getColourDescriptor(character, arguments != null && arguments.equalsIgnoreCase("true"), parseCapitalise);
 			}
 		});
 		
@@ -4483,12 +4443,8 @@ public class UtilText {
 				BodyPartType.EYE){//TODO
 			@Override
 			public String parse(String command, String arguments, String target) {
-				if(arguments!=null) {
-					if(arguments.equalsIgnoreCase("true")) {
-						return character.getCovering(BodyCoveringType.EYE_SCLERA).getPrimaryColourDescriptor(true);
-					}
-				}
-				return character.getCovering(BodyCoveringType.EYE_SCLERA).getPrimaryColourDescriptor(false);
+				return character.getCovering(BodyCoveringType.EYE_SCLERA)
+						.getPrimaryColourDescriptor(arguments != null && arguments.equalsIgnoreCase("true"));
 			}
 		});
 
@@ -4509,12 +4465,8 @@ public class UtilText {
 				BodyPartType.EYE){//TODO
 			@Override
 			public String parse(String command, String arguments, String target) {
-				if(arguments!=null) {
-					if(arguments.equalsIgnoreCase("true")) {
-						return character.getCovering(BodyCoveringType.EYE_SCLERA).getSecondaryColourDescriptor(true);
-					}
-				}
-				return character.getCovering(BodyCoveringType.EYE_SCLERA).getSecondaryColourDescriptor(false);
+				return character.getCovering(BodyCoveringType.EYE_SCLERA)
+						.getSecondaryColourDescriptor(arguments != null && arguments.equalsIgnoreCase("true"));
 			}
 		});
 		
