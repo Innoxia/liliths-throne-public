@@ -732,11 +732,12 @@ public class UtilText {
 					System.err.println("Error in parsing: StartIndex:"+startIndex+" ("+target+", "+command+")");
 					return input;
 				}
-				return parse(specialNPC, input.substring(0, startIndex)
+				return input.substring(0, startIndex) 
 						+ (processingConditional
-								?parseConditionalSyntaxNew(target, command, arguments, conditionalTrue, conditionalFalse)
-								:parseSyntaxNew(target, command, arguments, specialNPC))
-						+ input.substring(endIndex+1, input.length()));
+								? parseConditionalSyntaxNew(target, command, arguments, conditionalTrue, conditionalFalse)
+								: parseSyntaxNew(target, command, arguments, specialNPC))
+						+ parse(specialNPC, "" 
+								+input.substring(endIndex+1, input.length()));
 			} else {
 				return input;//.replaceAll(" a ", " <span style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>a big moo</span> ");
 			}
