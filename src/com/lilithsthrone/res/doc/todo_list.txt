@@ -28,6 +28,8 @@
 		Vicky now stocks 12 TF potions every day, instead of 6.
 		Slightly improved item ordering in inventory.
 		Added secondary colour to 'sport shorts', for the string tie. Replaced Lumi's shorts with sport shorts.
+		NPCs can now dress themselves once per hour instead of once per day.
+		Most demons and imps should now spawn in having already lost their penile virginity.
 	
 	Bugs:
 		Fixed several body covering colours not being saved or loaded correctly.
@@ -48,21 +50,27 @@
 		Fixed debug menu being available in the prologue (as it would end up breaking everything if used).
 		Typo fixes.
 		Fixed bug where equipped condoms couldn't be clicked on.
+		Spell actions should no longer be duplicated in combat. (Caused by unlocking a spell and also having a weapon that grants that spell.)
+		Fixed bug where a random NPC's inventory would be shown on the bottom-right during masturbation scenes. (I think this was also causing a bug where masturbation scenes could break and show no actions.)
+		Fixed Pix losing affection towards you at the end of her sex scene.
+		Fixed enchantment save/load confirmations not working properly.
+		Fixed bug where characters without genitalia would get stuck in Lialya's panty masturbation scene at 100 lust.
+		Fixed horn TF options appearing twice in the transformation options for slimes.
+	
+	
+	USE 8 0170
 	
 	
 	
 	
-	Let free NPCs redress every 2 or 3 hours rather than once a day. It still prevents farming but it also keeps them from hanging around in ther tile naked all day without trying to do anything about it
 	
-	having a opaque demon stone with the fireball spell on it have me having unlocked the fireball spell unlocks the option twice during combat
+	gag reflex as throat stretching
 	
-	custom clothes's descriptions are still not showing up in the tooltips.
+	fetish screen unresponsive
 	
-	Remove the affection changes at the start of sex now that affection gets modified at the end of sex based on our performance durring the act.
+	elemental clothing
 	
-	somehow reindeer dialogue fired in slave room
-	
-	adding a way to save presets for transformation
+	Put Burning opaque demonstone in primary slot and Freezing chaos feather in secondary slot. After that, in the battle, if you hit enemy with offhand attack it makes fire damage instead of ice.
 	
 	it seems like the part of the description where it says how many times you've had sex with someone counts the number of times they've had sex in a brothel while working for you as a slave
 	
@@ -70,6 +78,39 @@
 	
 	I'm playing the exe version of 2.4 as a slime and every time I load the save back up all my piercings are unequipped. 
 	
+	those with unwilling fuck toy who use resisting at high arousal still lose affection from being in that pace
+	
+	Have had a bug since 2.4 where even if a character likes or loves receiving oral they'll constantly stop you from performing it even if they initiate it from a dominant position. For example a scenario will go: forces you to perform > continue performing > they pull your mouth away >attempt to perform again > they pull your mouth away.
+	
+	the milker doesn't seem to milk both at once
+	apparently you can't milk more than one flui at once from any of your slaves. You gotta either get milk or cum, but never both.
+	Milking room does not seem to properly store slaves cum and girlcum, only milk gets stored. It does seem to store the player character's fluids. Tested this with Scarlett as slave, and even after increasing cum production to over 5000ml, it does not seem to milk here and then store it properly. It does seem to properly sell it, if you set it to sell imediatly.
+	
+	I have the deflowering fetish, have taken several virginities of each type, and it still remains with no xp.
+	
+	add enchantment repeat
+	
+	amber pet mounting pet might not like sex with player
+	
+	Angel's Kiss bathroom descriptions
+	
+	
+	
+	Delay/ pause the addiction withdrawl count down timer while an NPC still has one of the ongoing cumflation status effects. 
+		i.e. while they're still trying to prosses the massive load in their system they should probably be treated as having a fresh dose at least untill they run out of cum
+	
+	Ball-related actions with strap-ons
+	Cum text strap-ons
+	
+	combat loss no sex if noncon off
+	
+	sex doesn't end when you offer your body to attackers until you orgasm
+	
+	Remove the affection changes at the start of sex now that affection gets modified at the end of sex based on our performance durring the act.
+	
+	somehow reindeer dialogue fired in slave room
+	
+	adding a way to save presets for transformation
 	doesn't look like its been reported but I've ran into a bug involving condoms and having sex with 2 partners. If one partner is fucking your pussy and is wearing a condom when he cums, he can't get you pregnant, but somehow the other person who isn't fucking your pussy and hadn't came yet, can impregnate you.
 
 	Exporting while you have an elemental summoned, or likely having any companion causes the character not being able to be imported into the auction house.
@@ -78,13 +119,8 @@
 		No actions appear, and rose's inventory is on teh right
 	
 	ongoing hotdogging broken
-
-	
-	those with unwilling fuck toy who use resisting at high arousal still lose affection from being in that pace
-	
 	
 	Edit the forum post on Fenoxo due to how it isn't a random generated map anymore and stuff
-	
 	
 	
 	As a slime, Succubi's Secrets eye-coloring still has a couple of... issues.

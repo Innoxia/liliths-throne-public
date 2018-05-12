@@ -2029,7 +2029,7 @@ public enum Spell {
 				} else if(caster.hasSpellUpgrade(SpellUpgrade.LILITHS_COMMAND_2)) {
 					success = Math.random()<0.75f;
 					
-				} else if(caster.hasSpellUpgrade(SpellUpgrade.LILITHS_COMMAND_2)) {
+				} else if(caster.hasSpellUpgrade(SpellUpgrade.LILITHS_COMMAND_1)) {
 					success = Math.random()<0.5f && target.getRace().isVulnerableToLilithsLustStorm();
 					
 				} else {

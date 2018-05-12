@@ -359,13 +359,12 @@ public class BodyChanging {
 						+"</div>"
 						
 						+"<div style='clear:left;'>"
-							+ CharacterModificationUtils.getSelfTransformHornChoiceDiv(slimeRaces)
-							+ CharacterModificationUtils.getSelfTransformAntennaChoiceDiv(slimeRaces)
+							+ CharacterModificationUtils.getSelfTransformIrisChoiceDiv()
+							+ CharacterModificationUtils.getSelfTransformPupilChoiceDiv()
 						+"</div>"
 						
 						+"<div style='clear:left;'>"
-							+ CharacterModificationUtils.getSelfTransformIrisChoiceDiv()
-							+ CharacterModificationUtils.getSelfTransformPupilChoiceDiv()
+							+ CharacterModificationUtils.getSelfTransformAntennaChoiceDiv(slimeRaces)
 						+"</div>"
 						
 						+"<div style='clear:left;'>"

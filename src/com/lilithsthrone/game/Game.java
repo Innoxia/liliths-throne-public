@@ -1121,7 +1121,7 @@ public class Game implements Serializable, XMLSaving {
 			npc.calculateStatusEffects(turnTime);
 			
 			// Replace clothing if not in player's tile:
-			if(newDay) {
+			if(hoursPassed > 0) {
 				if(!Main.game.isInCombat() && !Main.game.isInSex()
 						&& (Main.game.getCurrentDialogueNode().equals(Main.game.getPlayer().getLocationPlace().getDialogue(false))
 								|| !(npc.getWorldLocation()==Main.game.getPlayer().getWorldLocation() && npc.getLocation().equals(Main.game.getPlayer().getLocation())))) {

@@ -9462,6 +9462,10 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		tempListSpells.addAll(getSpells());
 		tempListSpells.addAll(getExtraSpells());
 		
+		Set<Spell> spellSet = new HashSet<>(tempListSpells); // Remove duplicates
+		
+		tempListSpells.clear();
+		tempListSpells.addAll(spellSet);
 		tempListSpells.sort((s1, s2) -> s1.getSpellSchool().compareTo(s2.getSpellSchool()));
 		
 		return tempListSpells;

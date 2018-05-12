@@ -254,6 +254,42 @@ public class PlayerSelfPanties {
 			}
 		}
 	};
+	
+	public static final SexAction PLAYER_GENERIC_ORGASM = new SexAction(
+			SexActionType.PLAYER_ORGASM,
+			ArousalIncrease.FIVE_EXTREME,
+			ArousalIncrease.FIVE_EXTREME,
+			CorruptionLevel.ZERO_PURE,
+			null,
+			null,
+			SexParticipantType.MISC) {
+		@Override
+		public String getActionTitle() {
+			return "Orgasm";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "You've reached your climax, and can't hold back your orgasm any longer.";
+		}
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return !PLAYER_MASTURBATION_ORGASM_IN_PANTIES.isBaseRequirementsMet();
+		}
+
+		@Override
+		public String getDescription() {
+			return GenericOrgasms.getGenericOrgasmDescription(Main.game.getPlayer(), OrgasmCumTarget.LILAYA_PANTIES);
+		}
+		
+		@Override
+		public void applyEffects() {
+			if (!Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.PENIS) && !Main.game.getPlayer().isWearingCondom()) {
+				Main.game.getPlayer().getLowestZLayerCoverableArea(CoverableArea.PENIS).setDirty(true);
+			}
+		}
+	};
 
 	public static final SexAction PLAYER_STOP_SEX = new SexAction(
 			SexActionType.PLAYER_SPECIAL,

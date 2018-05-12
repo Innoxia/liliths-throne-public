@@ -960,7 +960,9 @@ public enum Sex {
 				
 				if(Sex.getAllParticipants().contains(Main.game.getPlayer())) {
 					if((Sex.getSexPace(participant)!=SexPace.SUB_RESISTING || participant.hasFetish(Fetish.FETISH_NON_CON_SUB))) {
-						if(Sex.getNumberOfOrgasms(participant)>0 || participant.hasFetish(Fetish.FETISH_DENIAL_SELF)) {
+						if(Sex.getNumberOfOrgasms(participant)>0
+								|| participant.hasFetish(Fetish.FETISH_DENIAL_SELF)
+								|| (Sex.isDom(participant) && !Sex.isSubHasEqualControl())) {
 							sexSB.append(participant.incrementAffection(Main.game.getPlayer(), 5));
 						} else {
 							sexSB.append(participant.incrementAffection(Main.game.getPlayer(), -2));
@@ -3159,6 +3161,8 @@ public enum Sex {
 		if(!Sex.isDom(Main.game.getPlayer())) {
 			if(!tempCharacterList.isEmpty()) {
 				activePartner = (NPC) tempCharacterList.get(0);
+			} else {
+				activePartner = null;
 			}
 		}
 
@@ -3172,6 +3176,8 @@ public enum Sex {
 		if(Sex.isDom(Main.game.getPlayer())) {
 			if(!tempCharacterList.isEmpty()) {
 				activePartner = (NPC) tempCharacterList.get(0);
+			} else {
+				activePartner = null;
 			}
 		}
 		

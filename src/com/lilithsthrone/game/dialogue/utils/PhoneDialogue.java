@@ -502,7 +502,7 @@ public class PhoneDialogue {
 			UtilText.nodeContentSB.append(
 					
 				"<details>"
-				+ "<summary>[style.boldExcellent(Important information)]</summary>"
+				+ "<summary>[style.boldExcellent(Stats Mechanics)]</summary>"
 					+ "<p style='text-align:center;padding:margin:0;'>"
 						+ "All derived stats start to have diminishing returns past the half-way point!</br>"
 						+ "<b>For example:</b></br>"
@@ -2472,17 +2472,18 @@ public class PhoneDialogue {
 		@Override
 		public String getContent() {
 			journalSB = new StringBuilder(
-					"<div class='container-full-width' style='padding:8px;'>"
-						+ "You can select your [style.colourLust(desire)] for each fetish [style.colourArcane(for free)],"
-							+ " or choose to take the associated [style.colourFetish(fetish)] for [style.colourArcane("+Fetish.FETISH_ANAL_GIVING.getCost()+" Arcane Essences)].</br>"
-						+ "Choosing a desire will affect bonus lust gains in sex, while taking a fetish will permanently lock your desire to 'love', and also give you special bonuses."
-						+ " Fetishes can only be removed through enchanted potions.</br>"
-						+ "Your currently selected desire has a "+Colour.FETISH.getName()+" border, but your true desire (indicated by the coloured desire icon) may be modified by enchanted clothes or other items.</br>"
-						+ "You earn experience for each fetish through performing related actions in sex."
-						+ " Experience is earned regardless of whether or not you have the associated fetish."
-						+ " Higher level fetishes will cause both you and your partner to gain more arousal from related sex actions, as well as increase the fetish's bonuses.</br>"
-						+ "Finally, derived fetishes cannot be directly unlocked, but are instead automatically applied when you meet their requirements."
-					+ "</div>");
+					"<details>"
+						+ "<summary>[style.boldFetish(Fetish Information)]</summary>"
+							+ "You can select your [style.colourLust(desire)] for each fetish [style.colourArcane(for free)],"
+							+ " or choose to take the associated [style.colourFetish(fetish)] for [style.colourArcane("+Fetish.FETISH_ANAL_GIVING.getCost()+" Arcane Essences)].</br></br>"
+							+ "Choosing a desire will affect bonus lust gains in sex, while taking a fetish will permanently lock your desire to 'love', and also give you special bonuses."
+							+ " Fetishes can only be removed through enchanted potions.</br></br>"
+							+ "Your currently selected desire has a "+Colour.FETISH.getName()+" border, but your true desire (indicated by the coloured desire icon) may be modified by enchanted clothes or other items.</br></br>"
+							+ "You earn experience for each fetish through performing related actions in sex."
+							+ " Experience is earned regardless of whether or not you have the associated fetish."
+							+ " Higher level fetishes will cause both you and your partner to gain more arousal from related sex actions, as well as increase the fetish's bonuses.</br></br>"
+							+ "Finally, derived fetishes cannot be directly unlocked, but are instead automatically applied when you meet their requirements."
+					+ "</details>");
 			
 			// Normal fetishes:
 
