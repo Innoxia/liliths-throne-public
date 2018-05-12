@@ -13,7 +13,6 @@ import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.eventLog.EventLogEntry;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.WorldType;
@@ -97,8 +96,8 @@ public enum SlaveJob {
 			-0.5f, 0.5f,
 			150, 0, 0,
 			Util.newArrayListOfValues(
-					new ListValue<>(SlaveJobSetting.TEST_SUBJECT_ALLOW_TRANSFORMATIONS_FEMALE),
-					new ListValue<>(SlaveJobSetting.TEST_SUBJECT_ALLOW_TRANSFORMATIONS_MALE)),
+					SlaveJobSetting.TEST_SUBJECT_ALLOW_TRANSFORMATIONS_FEMALE,
+					SlaveJobSetting.TEST_SUBJECT_ALLOW_TRANSFORMATIONS_MALE),
 			null, null,
 			WorldType.LILAYAS_HOUSE_GROUND_FLOOR,
 			PlaceType.LILAYA_HOME_LAB) {
@@ -116,10 +115,10 @@ public enum SlaveJob {
 			-5f, 1f,
 			0, 0, 0,
 			Util.newArrayListOfValues(
-					new ListValue<>(SlaveJobSetting.SEX_ORAL),
-					new ListValue<>(SlaveJobSetting.SEX_VAGINAL),
-					new ListValue<>(SlaveJobSetting.SEX_ANAL),
-					new ListValue<>(SlaveJobSetting.SEX_NIPPLES)),
+					SlaveJobSetting.SEX_ORAL,
+					SlaveJobSetting.SEX_VAGINAL,
+					SlaveJobSetting.SEX_ANAL,
+					SlaveJobSetting.SEX_NIPPLES),
 			null,
 			null,
 			WorldType.SLAVER_ALLEY,
@@ -138,10 +137,10 @@ public enum SlaveJob {
 			-0.25f, 0.5f,
 			200, 0, 0.5f,
 			Util.newArrayListOfValues(
-					new ListValue<>(SlaveJobSetting.SEX_ORAL),
-					new ListValue<>(SlaveJobSetting.SEX_VAGINAL),
-					new ListValue<>(SlaveJobSetting.SEX_ANAL),
-					new ListValue<>(SlaveJobSetting.SEX_NIPPLES)),
+					SlaveJobSetting.SEX_ORAL,
+					SlaveJobSetting.SEX_VAGINAL,
+					SlaveJobSetting.SEX_ANAL,
+					SlaveJobSetting.SEX_NIPPLES),
 			null,
 			null,
 			WorldType.ANGELS_KISS_FIRST_FLOOR,
@@ -185,17 +184,17 @@ public enum SlaveJob {
 			-0.25f, 1f,
 			0, 0, 0,
 			Util.newArrayListOfValues(
-					new ListValue<>(SlaveJobSetting.MILKING_MILK_DISABLE),
-					new ListValue<>(SlaveJobSetting.MILKING_CUM_DISABLE),
-					new ListValue<>(SlaveJobSetting.MILKING_GIRLCUM_DISABLE)),
+					SlaveJobSetting.MILKING_MILK_DISABLE,
+					SlaveJobSetting.MILKING_CUM_DISABLE,
+					SlaveJobSetting.MILKING_GIRLCUM_DISABLE),
 			Util.newHashMapOfValues(
 					new Value<>("Room Preference", Util.newArrayListOfValues(
-							new ListValue<>(SlaveJobSetting.MILKING_INDUSTRIAL),
-							new ListValue<>(SlaveJobSetting.MILKING_REGULAR),
-							new ListValue<>(SlaveJobSetting.MILKING_ARTISAN),
-							new ListValue<>(SlaveJobSetting.MILKING_NO_PREFERENCE)))),
+							SlaveJobSetting.MILKING_INDUSTRIAL,
+							SlaveJobSetting.MILKING_REGULAR,
+							SlaveJobSetting.MILKING_ARTISAN,
+							SlaveJobSetting.MILKING_NO_PREFERENCE))),
 			Util.newArrayListOfValues(
-					new ListValue<>(SlaveJobSetting.MILKING_NO_PREFERENCE)),
+					SlaveJobSetting.MILKING_NO_PREFERENCE),
 			WorldType.LILAYAS_HOUSE_GROUND_FLOOR,
 			PlaceType.LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR) {
 

@@ -23,7 +23,6 @@ import com.lilithsthrone.game.sex.managers.universal.SMMissionary;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
@@ -81,7 +80,7 @@ public class LilayasRoom {
 
 			} else if (index == 1) {
 				return new Response("Panties", "Look through Lilaya's pile of panties.", PANTIES,
-						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_INCEST)), CorruptionLevel.TWO_HORNY,
+						Util.newArrayListOfValues(Fetish.FETISH_INCEST), CorruptionLevel.TWO_HORNY,
 						null, null, null) {
 					@Override
 					public void effects() {
@@ -332,7 +331,7 @@ public class LilayasRoom {
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
 				return new ResponseSex("Submit", "Let Rose push you back on to the bed and fuck you.",
-						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)),
+						Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE),
 						null, CorruptionLevel.THREE_DIRTY, null, null, null,
 						true, false,
 						new SMMissionary(

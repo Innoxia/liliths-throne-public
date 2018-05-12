@@ -17,7 +17,6 @@ import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 
 /**
  * @since 0.1.82
@@ -119,7 +118,7 @@ public class PlayerTailVagina {
 		
 		@Override
 		public List<Fetish> getFetishes(GameCharacter character) {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DENIAL));
+			return Util.newArrayListOfValues(Fetish.FETISH_DENIAL);
 		}
 	};
 	
@@ -210,7 +209,7 @@ public class PlayerTailVagina {
 		
 		@Override
 		public List<Fetish> getFetishes(GameCharacter character) {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DENIAL));
+			return Util.newArrayListOfValues(Fetish.FETISH_DENIAL);
 		}
 	};
 	
@@ -610,7 +609,7 @@ public class PlayerTailVagina {
 		
 		@Override
 		public List<Fetish> getFetishes(GameCharacter character) {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE));
+			return Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE);
 		}
 	};
 	
@@ -675,7 +674,7 @@ public class PlayerTailVagina {
 		
 		@Override
 		public List<Fetish> getFetishes(GameCharacter character) {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DOMINANT),new ListValue<>(Fetish.FETISH_SADIST));
+			return Util.newArrayListOfValues(Fetish.FETISH_DOMINANT, Fetish.FETISH_SADIST);
 		}
 	};
 	

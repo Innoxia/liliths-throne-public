@@ -40,7 +40,6 @@ import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
@@ -55,12 +54,12 @@ public class Ralph extends NPC {
 	private static final long serialVersionUID = 1L;
 
 	private static List<AbstractItemType> itemsForSale = Util.newArrayListOfValues(
-			new ListValue<>(ItemType.FETISH_UNREFINED),
-			new ListValue<>(ItemType.ADDICTION_REMOVAL),
-			new ListValue<>(ItemType.MOO_MILKER_EMPTY),
-			new ListValue<>(ItemType.VIXENS_VIRILITY),
-			new ListValue<>(ItemType.PROMISCUITY_PILL),
-			new ListValue<>(ItemType.MOTHERS_MILK));
+			ItemType.FETISH_UNREFINED,
+			ItemType.ADDICTION_REMOVAL,
+			ItemType.MOO_MILKER_EMPTY,
+			ItemType.VIXENS_VIRILITY,
+			ItemType.PROMISCUITY_PILL,
+			ItemType.MOTHERS_MILK);
 	
 	static {
 		for(AbstractItemType itemType : ItemType.allItems) {

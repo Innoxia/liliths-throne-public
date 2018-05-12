@@ -38,7 +38,6 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.GenericPlace;
@@ -1711,7 +1710,7 @@ public class SlaveryManagementDialogue {
 					CoveringsNamesMap = new LinkedHashMap<>();
 
 					if(BodyChanging.getTarget().getBodyMaterial()==BodyMaterial.SLIME) {
-						CoveringsNamesMap.put(BodyCoveringType.SLIME, Util.newArrayListOfValues(new ListValue<>("SLIME")));
+						CoveringsNamesMap.put(BodyCoveringType.SLIME, Util.newArrayListOfValues("SLIME"));
 					} else {
 						for(BodyPartInterface bp : BodyChanging.getTarget().getAllBodyParts()){
 							if(bp.getType().getBodyCoveringType(BodyChanging.getTarget())!=null
@@ -1728,14 +1727,14 @@ public class SlaveryManagementDialogue {
 								if(CoveringsNamesMap.containsKey(bp.getType().getBodyCoveringType(BodyChanging.getTarget()))) {
 									CoveringsNamesMap.get(bp.getType().getBodyCoveringType(BodyChanging.getTarget())).add(name);
 								} else {
-									CoveringsNamesMap.put(bp.getType().getBodyCoveringType(BodyChanging.getTarget()), Util.newArrayListOfValues(new ListValue<>(name)));
+									CoveringsNamesMap.put(bp.getType().getBodyCoveringType(BodyChanging.getTarget()), Util.newArrayListOfValues(name));
 								}
 							}
 						}
-						CoveringsNamesMap.put(BodyCoveringType.ANUS, Util.newArrayListOfValues(new ListValue<>("anus")));
-						CoveringsNamesMap.put(BodyCoveringType.MOUTH, Util.newArrayListOfValues(new ListValue<>("mouth")));
-						CoveringsNamesMap.put(BodyCoveringType.NIPPLES, Util.newArrayListOfValues(new ListValue<>("nipples")));
-						CoveringsNamesMap.put(BodyCoveringType.TONGUE, Util.newArrayListOfValues(new ListValue<>("tongue")));
+						CoveringsNamesMap.put(BodyCoveringType.ANUS, Util.newArrayListOfValues("anus"));
+						CoveringsNamesMap.put(BodyCoveringType.MOUTH, Util.newArrayListOfValues("mouth"));
+						CoveringsNamesMap.put(BodyCoveringType.NIPPLES, Util.newArrayListOfValues("nipples"));
+						CoveringsNamesMap.put(BodyCoveringType.TONGUE, Util.newArrayListOfValues("tongue"));
 					}
 				}
 			};

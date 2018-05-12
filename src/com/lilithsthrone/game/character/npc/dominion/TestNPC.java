@@ -40,7 +40,6 @@ import com.lilithsthrone.game.sex.managers.universal.SMStanding;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
@@ -286,7 +285,7 @@ public class TestNPC extends NPC {
 				
 			} else if (index == 2 && Main.game.isNonConEnabled()) {
 				return new ResponseSex("Rape [test.herHim]", "[test.Her] back is turned, and [test.she] hasn't noticed you enter the room...",
-						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_DOM)), null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null, null, null,
+						Util.newArrayListOfValues(Fetish.FETISH_NON_CON_DOM), null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null, null, null,
 						false, false,
 						new SMDoggy(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_BEHIND)),
@@ -309,7 +308,7 @@ public class TestNPC extends NPC {
 				
 			} else if (index == 3 && Main.game.isNonConEnabled()) {
 				return new ResponseSex("Rape [test.herHim] (gentle)", "[test.Her] back is turned, and [test.she] hasn't noticed you enter the room... (Start the sex scene in the 'gentle' pace.)",
-						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_DOM)), null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null, null, null,
+						Util.newArrayListOfValues(Fetish.FETISH_NON_CON_DOM), null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null, null, null,
 						false, false,
 						new SMDoggy(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_BEHIND)),
@@ -340,7 +339,7 @@ public class TestNPC extends NPC {
 				
 			} else if (index == 4 && Main.game.isNonConEnabled()) {
 				return new ResponseSex("Rape [test.herHim] (rough)", "[test.Her] back is turned, and [test.she] hasn't noticed you enter the room... (Start the sex scene in the 'rough' pace.)",
-						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_DOM)), null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null, null, null,
+						Util.newArrayListOfValues(Fetish.FETISH_NON_CON_DOM), null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null, null, null,
 						false, false,
 						new SMDoggy(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_BEHIND)),
