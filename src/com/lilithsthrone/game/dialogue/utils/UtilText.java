@@ -485,12 +485,11 @@ public class UtilText {
 		return femaleCumNames[Util.random.nextInt(femaleCumNames.length)];
 	}
 
-	private static List<String> randomStrings = new ArrayList<>();
 	/**
 	 * @return Returns one of the supplied Strings, randomly chosen by using Random's nextInt() method.
 	 */
 	public static String returnStringAtRandom(String... strings) {
-		randomStrings.clear();
+		List<String> randomStrings = new ArrayList<>();
 		
 		for(String s : strings) {
 			if(s!=null && !s.isEmpty()) {
