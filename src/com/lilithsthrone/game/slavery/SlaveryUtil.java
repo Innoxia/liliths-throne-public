@@ -359,7 +359,7 @@ public class SlaveryUtil implements XMLSaving {
 										Util.newArrayListOfValues(
 												SlaveEventTag.JOB_MILK_SOLD),
 										Util.newArrayListOfValues("[style.boldGood("+milked+"ml)] milked: +"+UtilText.formatAsMoney(income, "bold")),
-										true);
+										true));
 								
 							} else {
 								room.incrementMilkStorage(slave.getMilk(), milked);
@@ -369,7 +369,7 @@ public class SlaveryUtil implements XMLSaving {
 										Util.newArrayListOfValues(
 												SlaveEventTag.JOB_MILK_MILKED),
 										Util.newArrayListOfValues("[style.boldGood("+milked+"ml)] added to storage."),
-										true);
+										true));
 							}
 						}
 					}
@@ -386,7 +386,7 @@ public class SlaveryUtil implements XMLSaving {
 										Util.newArrayListOfValues(
 												SlaveEventTag.JOB_CUM_SOLD),
 										Util.newArrayListOfValues("[style.boldGood("+milked+"ml)] milked: +"+UtilText.formatAsMoney(income, "bold")),
-										true);
+										true));
 							
 							} else {
 								room.incrementCumStorage(slave.getCum(), milked);
@@ -396,7 +396,7 @@ public class SlaveryUtil implements XMLSaving {
 										Util.newArrayListOfValues(
 												SlaveEventTag.JOB_CUM_MILKED),
 										Util.newArrayListOfValues("[style.boldGood("+milked+"ml)] added to storage."),
-										true);
+										true));
 							}
 						}
 					}
@@ -413,7 +413,7 @@ public class SlaveryUtil implements XMLSaving {
 										Util.newArrayListOfValues(
 												SlaveEventTag.JOB_GIRLCUM_SOLD),
 										Util.newArrayListOfValues("[style.boldGood("+milked+"ml)] milked: +"+UtilText.formatAsMoney(income, "bold")),
-										true);
+										true));
 							
 							} else {
 								room.incrementGirlcumStorage(slave.getGirlcum(), milked);
@@ -423,7 +423,7 @@ public class SlaveryUtil implements XMLSaving {
 										Util.newArrayListOfValues(
 												SlaveEventTag.JOB_GIRLCUM_MILKED),
 										Util.newArrayListOfValues("[style.boldGood("+milked+"ml)] added to storage."),
-										true);
+										true));
 							}
 						}
 					}
@@ -441,7 +441,7 @@ public class SlaveryUtil implements XMLSaving {
 									Util.newArrayListOfValues(
                       "[style.boldGood(+1)] [style.boldAffection(Affection)]",
 											"[style.boldGood(+5)] [style.boldAffection(Affection towards Lilaya)]"),
-									true);
+									true));
 
 							return events;
 							
@@ -455,7 +455,7 @@ public class SlaveryUtil implements XMLSaving {
 									Util.newArrayListOfValues(
 											"[style.boldBad(-1)] [style.boldAffection(Affection)]",
 											"[style.boldBad(-5)] [style.boldAffection(Affection towards Lilaya)]"),
-									true);
+									true));
 							return events;
 
 						}

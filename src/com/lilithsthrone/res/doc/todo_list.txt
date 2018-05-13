@@ -25,6 +25,7 @@
 	Contributors:
 		Fixed body-part modifiers being incorrectly loaded in from old save files. (Pimvgd)
 		Increased parser performance. (Pimvgd) Innoxia's note: This massively increased rendering performance in all screens for me (most notably in the inventory screen).
+		Refactored code to remove unnecessary ListValue objects. (Pimvgd)
 	
 	UI:
 		Improved inventory UI to stop that annoying stuttering/resizing caused by the scrollbar appearing and disappearing.
@@ -75,8 +76,6 @@
 	
 	
 	USE 8 0170
-	
-	Merge ListValue PR
 	
 	Patreon credits
 	
