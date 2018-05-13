@@ -447,7 +447,7 @@ public class HarpyNestsDialogue {
 					+ "</p>"
 						+ "The muscular horse-boy produces a little brass key, and, bending down to unlock a heavy iron safe that's sitting beneath his desk, he retrieves a bag of money."
 						+ " Setting it down in front of him, he grins up at you."
-						+ " [style.speechMasculineStrong(I still can't believe that you actually managed to do it! Well, I'll keep my end of the bargain; here's five thousand flames! Here have this scroll too, for the speed with whch you handled everything)]"
+						+ " [style.speechMasculineStrong(I still can't believe that you actually managed to do it! Well, I'll keep my end of the bargain; here's five thousand flames! Here have this scroll too, for the speed with whch you handled everything.)]"
 					+ "</p>"
 					+ "<p>"
 						+ "Stepping forwards, you take the offered bag of money, before thanking the enforcer sergeant."
