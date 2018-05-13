@@ -436,7 +436,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 						Element primaryColoursElement = ((Element)coreAttributes.getElementsByTagName("primaryColours").item(0));
 						if(primaryColoursElement.getElementsByTagName("colour").getLength() > 0) {
 							for(int i=0; i<primaryColoursElement.getElementsByTagName("colour").getLength(); i++){
-								importedPrimaryColours.add(Colour.valueOf(((Element)coreAttributes.getElementsByTagName("primaryColours").item(0)).getTextContent()));
+								importedPrimaryColours.add(Colour.valueOf(((Element)coreAttributes.getElementsByTagName("colour").item(i)).getTextContent()));
 							}
 						}
 					} else {
@@ -452,7 +452,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 						Element primaryColoursElement = ((Element)coreAttributes.getElementsByTagName("primaryColoursDye").item(0));
 						if(primaryColoursElement.getElementsByTagName("colour").getLength() > 0) {
 							for(int i=0; i<primaryColoursElement.getElementsByTagName("colour").getLength(); i++){
-								importedPrimaryColoursDye.add(Colour.valueOf(((Element)coreAttributes.getElementsByTagName("primaryColoursDye").item(0)).getTextContent()));
+								importedPrimaryColoursDye.add(Colour.valueOf(((Element)coreAttributes.getElementsByTagName("colour").item(i)).getTextContent()));
 							}
 						}
 					} else {
@@ -469,7 +469,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 							Element secondaryColoursElement = ((Element)coreAttributes.getElementsByTagName("secondaryColours").item(0));
 							if(secondaryColoursElement.getElementsByTagName("colour").getLength() > 0) {
 								for(int i=0; i<secondaryColoursElement.getElementsByTagName("colour").getLength(); i++){
-									importedSecondaryColours.add(Colour.valueOf(((Element)coreAttributes.getElementsByTagName("secondaryColours").item(0)).getTextContent()));
+									importedSecondaryColours.add(Colour.valueOf(((Element)coreAttributes.getElementsByTagName("colour").item(i)).getTextContent()));
 								}
 							}
 						} else {
@@ -487,7 +487,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 							Element secondaryColoursElement = ((Element)coreAttributes.getElementsByTagName("secondaryColoursDye").item(0));
 							if(secondaryColoursElement.getElementsByTagName("colour").getLength() > 0) {
 								for(int i=0; i<secondaryColoursElement.getElementsByTagName("colour").getLength(); i++){
-									importedSecondaryColoursDye.add(Colour.valueOf(((Element)coreAttributes.getElementsByTagName("secondaryColoursDye").item(0)).getTextContent()));
+									importedSecondaryColoursDye.add(Colour.valueOf(((Element)coreAttributes.getElementsByTagName("colour").item(i)).getTextContent()));
 								}
 							}
 						} else {
@@ -505,7 +505,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 							Element tertiaryColoursElement = ((Element)coreAttributes.getElementsByTagName("tertiaryColours").item(0));
 							if(tertiaryColoursElement.getElementsByTagName("colour").getLength() > 0) {
 								for(int i=0; i<tertiaryColoursElement.getElementsByTagName("colour").getLength(); i++){
-									importedTertiaryColours.add(Colour.valueOf(((Element)coreAttributes.getElementsByTagName("tertiaryColours").item(0)).getTextContent()));
+									importedTertiaryColours.add(Colour.valueOf(((Element)coreAttributes.getElementsByTagName("colour").item(i)).getTextContent()));
 								}
 							}
 						} else {
