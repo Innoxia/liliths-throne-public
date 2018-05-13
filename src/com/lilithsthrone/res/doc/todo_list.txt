@@ -41,7 +41,7 @@
 		Added description of the rooms in Angel's Kiss having small bathrooms.
 	
 	Bugs:
-		Fixed several body covering colours not being saved or loaded correctly.
+		Fixed several body covering colours not being saved or loaded correctly. (Some body colours might be reset as part of this fix, but they should now correctly save from now on.)
 		Fixed cause of a game import error (related to SlaveryUtil).
 		Fixed cause of possible game crash when clicking on weapons in inventory.
 		Fixed bug where milking room was milking cum instead of girlcum.
@@ -63,14 +63,31 @@
 		Fixed bug where a random NPC's inventory would be shown on the bottom-right during masturbation scenes. (I think this was also causing a bug where masturbation scenes could break and show no actions.)
 		Fixed Pix losing affection towards you at the end of her sex scene.
 		Fixed enchantment save/load confirmations not working properly.
-		Fixed bug where characters without genitalia would get stuck in Lialya's panty masturbation scene at 100 lust.
+		Fixed bug where characters without genitalia would get stuck in Lilaya's panty masturbation scene at 100 lust.
 		Fixed horn TF options appearing twice in the transformation options for slimes.
 		Fixed offhand attacks applying the damage type of your main weapon.
 		Fixed bug where only one of a slaves' milk/cum/girlcum would be milked.
 		Fixed sex AI bug where NPCs with oral fetishes would stop/start oral actions.
+		Fixed modded clothing colours not being able to use custom colour lists.
+		Fixed bugs in Arthur's and Amber's descriptions.
 		
 	
+	
+	
 	USE 8 0170
+	
+	Merge ListValue PR
+	
+	Patreon credits
+	
+	rfpnj PR
+	
+	Fen forms and TFGS update pictures and hotfix
+	
+	
+	
+	handjobs and breastfeeding as ongoing
+	hand as orifice
 	
 	
 	

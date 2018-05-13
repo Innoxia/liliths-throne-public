@@ -60,7 +60,7 @@ public class SexType implements Serializable, XMLSaving {
 	
 	public static SexType loadFromXML(Element parentElement, Document doc) {
 		return new SexType(
-				SexParticipantType.valueOf(parentElement.getAttribute("sexType")),
+				SexParticipantType.valueOf(parentElement.getAttribute("SexParticipantType")),
 				PenetrationType.valueOf(parentElement.getAttribute("penetrationType")),
 				OrificeType.valueOf(parentElement.getAttribute("orificeType")));
 	}

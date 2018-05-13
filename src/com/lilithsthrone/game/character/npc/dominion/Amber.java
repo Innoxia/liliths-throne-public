@@ -168,6 +168,19 @@ public class Amber extends NPC {
 	}
 	
 	@Override
+	public String getDescription() {
+		if(!playerKnowsName) {
+			return "This fiery maid is clearly outraged by the fact that you're wandering around her master's house unsupervised";
+			
+		} else {
+			return "The highest-ranking of Zaranix's maids, Amber is one of the most striking succubi you've ever seen."
+					+ " Her amber hair and eyes, from which she gets her name, glow with a brilliant luminosity, providing a stark contrast to her jet-black ebony skin."
+					+ "</br>"
+					+ "Amber is ruthlessly sadistic, and delights in imposing her dominance over her subordinates.";
+		}
+	}
+	
+	@Override
 	public boolean isUnique() {
 		return true;
 	}

@@ -443,6 +443,7 @@ public class HarpyNestsDialogue {
 					+ "<p>"
 						+ "[style.speechMasculineStrong(Hah! Well, I don't know how you managed to pull it off, but we've received messages from each one of those matriarchs saying that they'll stop causing a problem!)]"
 					+ "</p>"
+					+ "<p>"
 						+ "The muscular horse-boy produces a little brass key, and, bending down to unlock a heavy iron safe that's sitting beneath his desk, he retrieves a bag of money."
 						+ " Setting it down in front of him, he grins up at you."
 						+ " [style.speechMasculineStrong(I still can't believe that you actually managed to do it! Well, I'll keep my end of the bargain; here's five thousand flames!)]"
