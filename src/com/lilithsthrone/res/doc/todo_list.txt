@@ -22,6 +22,13 @@
 	
 	Patch notes:
 	
+	Contributors:
+		Fixed body-part modifiers being incorrectly loaded in from old save files. (Pimvgd)
+		Increased parser performance. (Pimvgd) Innoxia's note: This massively increased rendering performance in all screens for me (most notably in the inventory screen).
+	
+	UI:
+		Improved inventory UI to stop that annoying stuttering/resizing caused by the scrollbar appearing and disappearing.
+	
 	Other:
 		All 'Submit' actions in the game are no longer completely locked out by not having the Submissive fetish, and instead have an associated corruption bypass cost.
 		Having a special flavour for milk, cum, or girlcum now increases its value.
@@ -30,6 +37,8 @@
 		Added secondary colour to 'sport shorts', for the string tie. Replaced Lumi's shorts with sport shorts.
 		NPCs can now dress themselves once per hour instead of once per day.
 		Most demons and imps should now spawn in having already lost their penile virginity.
+		Added 'deflowering' fetish experience gain from taking virginities.
+		Added description of the rooms in Angel's Kiss having small bathrooms.
 	
 	Bugs:
 		Fixed several body covering colours not being saved or loaded correctly.
@@ -56,43 +65,24 @@
 		Fixed enchantment save/load confirmations not working properly.
 		Fixed bug where characters without genitalia would get stuck in Lialya's panty masturbation scene at 100 lust.
 		Fixed horn TF options appearing twice in the transformation options for slimes.
-	
+		Fixed offhand attacks applying the damage type of your main weapon.
+		Fixed bug where only one of a slaves' milk/cum/girlcum would be milked.
+		Fixed sex AI bug where NPCs with oral fetishes would stop/start oral actions.
+		
 	
 	USE 8 0170
 	
 	
 	
-	
+	it seems like the part of the description where it says how many times you've had sex with someone counts the number of times they've had sex in a brothel while working for you as a slave
 	
 	gag reflex as throat stretching
 	
-	fetish screen unresponsive
-	
 	elemental clothing
-	
-	Put Burning opaque demonstone in primary slot and Freezing chaos feather in secondary slot. After that, in the battle, if you hit enemy with offhand attack it makes fire damage instead of ice.
-	
-	it seems like the part of the description where it says how many times you've had sex with someone counts the number of times they've had sex in a brothel while working for you as a slave
-	
-	Oral sex seems broken. Even NPCs with a fetish for it won't let you continue giving it to them nor will they initiate it unless they end it the very next turn.
-	
-	I'm playing the exe version of 2.4 as a slime and every time I load the save back up all my piercings are unequipped. 
-	
-	those with unwilling fuck toy who use resisting at high arousal still lose affection from being in that pace
-	
-	Have had a bug since 2.4 where even if a character likes or loves receiving oral they'll constantly stop you from performing it even if they initiate it from a dominant position. For example a scenario will go: forces you to perform > continue performing > they pull your mouth away >attempt to perform again > they pull your mouth away.
-	
-	the milker doesn't seem to milk both at once
-	apparently you can't milk more than one flui at once from any of your slaves. You gotta either get milk or cum, but never both.
-	Milking room does not seem to properly store slaves cum and girlcum, only milk gets stored. It does seem to store the player character's fluids. Tested this with Scarlett as slave, and even after increasing cum production to over 5000ml, it does not seem to milk here and then store it properly. It does seem to properly sell it, if you set it to sell imediatly.
-	
-	I have the deflowering fetish, have taken several virginities of each type, and it still remains with no xp.
 	
 	add enchantment repeat
 	
 	amber pet mounting pet might not like sex with player
-	
-	Angel's Kiss bathroom descriptions
 	
 	
 	
@@ -107,8 +97,6 @@
 	sex doesn't end when you offer your body to attackers until you orgasm
 	
 	Remove the affection changes at the start of sex now that affection gets modified at the end of sex based on our performance durring the act.
-	
-	somehow reindeer dialogue fired in slave room
 	
 	adding a way to save presets for transformation
 	doesn't look like its been reported but I've ran into a bug involving condoms and having sex with 2 partners. If one partner is fucking your pussy and is wearing a condom when he cums, he can't get you pregnant, but somehow the other person who isn't fucking your pussy and hadn't came yet, can impregnate you.

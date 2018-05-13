@@ -328,13 +328,14 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	
 	
 	// Sex stats:
-	private int sexConsensualCount, sexAsSubCount, sexAsDomCount;
+	private int sexConsensualCount;
+	private int sexAsSubCount;
+	private int sexAsDomCount;
 	private Map<SexType, Integer> sexCountMap;
 	private Map<SexType, Integer> cumCountMap;
 	private Map<SexType, String> virginityLossMap;
 	/** String is partner ID*/
 	private Map<String, Map<SexType, Integer>> sexPartnerMap;
-
 	
 	// Fluids:
 	private float alcoholLevel = 0f;
@@ -486,6 +487,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		cumCountMap = new HashMap<>();
 		virginityLossMap = new HashMap<>();
 		
+		// Addictions:
 		addictions = new ArrayList<>();
 		psychoactiveFluidsIngested = new HashSet<>();
 		
