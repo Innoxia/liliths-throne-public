@@ -237,9 +237,9 @@ public class SlaveryUtil implements XMLSaving {
 				}
 				
 				if(Math.random()<0.05f || slave.getSlaveJob()==SlaveJob.MILKING || (Math.random()<0.5f && (slave.getSlaveJob()==SlaveJob.PUBLIC_STOCKS || slave.getSlaveJob()==SlaveJob.PROSTITUTE))) {
-					entry = generateEvent(hour, slave);
-					if(entry!=null) {
-						Main.game.addSlaveryEvent(day, slave, entry);
+					List<SlaveryEventLogEntry> entries = generateEvents(hour, slave);
+					for(SlaveryEventLogEntry e : entries) {
+						Main.game.addSlaveryEvent(day, slave, e);
 						eventAdded = true;
 					}
 				}
@@ -308,7 +308,7 @@ public class SlaveryUtil implements XMLSaving {
 	 * @param minute Time at which this event is happening.
 	 * @param slave The slave to calculate an event for.
 	 */
-	private SlaveryEventLogEntry generateEvent(int hour, NPC slave) {
+	private List<SlaveryEventLogEntry> generateEvents(int hour, NPC slave) {
 		
 		SlaveJob job = slave.getSlaveJob();
 
@@ -316,16 +316,26 @@ public class SlaveryUtil implements XMLSaving {
 		List<String> effects = new ArrayList<>();
 		List<SlaveJobSetting> settingsEnabled = new ArrayList<>();
 		
+		List<SlaveryEventLogEntry> events = new ArrayList<>();
+		
 		if(slave.getWorkHours()[hour] && job != SlaveJob.IDLE) { // Slave is working:
 			switch (job) { //TODO
 				case CLEANING:
-					return new SlaveryEventLogEntry(hour, slave, SlaveEvent.JOB_CLEANING, true);
+					events.add(new SlaveryEventLogEntry(hour, slave, SlaveEvent.JOB_CLEANING, true));
+					return events;
+					
 				case KITCHEN:
-					return new SlaveryEventLogEntry(hour, slave, SlaveEvent.JOB_COOKING, true);
+					events.add(new SlaveryEventLogEntry(hour, slave, SlaveEvent.JOB_COOKING, true));
+					return events;
+					
 				case LAB_ASSISTANT:
-					return new SlaveryEventLogEntry(hour, slave, SlaveEvent.JOB_LAB_ASSISTANT, true);
+					events.add(new SlaveryEventLogEntry(hour, slave, SlaveEvent.JOB_LAB_ASSISTANT, true));
+					return events;
+					
 				case LIBRARY:
-					return new SlaveryEventLogEntry(hour, slave, SlaveEvent.JOB_LIBRARIAN, true);
+					events.add(new SlaveryEventLogEntry(hour, slave, SlaveEvent.JOB_LIBRARIAN, true));
+					return events;
+					
 				case MILKING:
 					int income = 0;
 
@@ -344,23 +354,21 @@ public class SlaveryUtil implements XMLSaving {
 								income = Math.max(1, (int) (milked * slave.getMilk().getValuePerMl()));
 								generatedIncome += income;
 								
-								return new SlaveryEventLogEntry(hour, slave,
+								events.add(new SlaveryEventLogEntry(hour, slave,
 										SlaveEvent.JOB_MILK_MILKED,
 										Util.newArrayListOfValues(
 												SlaveEventTag.JOB_MILK_SOLD),
-										Util.newArrayListOfValues(
-												"[style.boldGood("+milked+"ml)] milked: +"+UtilText.formatAsMoney(income, "bold")),
+										Util.newArrayListOfValues("[style.boldGood("+milked+"ml)] milked: +"+UtilText.formatAsMoney(income, "bold")),
 										true);
 								
 							} else {
 								room.incrementMilkStorage(slave.getMilk(), milked);
 								
-								return new SlaveryEventLogEntry(hour, slave,
+								events.add(new SlaveryEventLogEntry(hour, slave,
 										SlaveEvent.JOB_MILK_MILKED,
 										Util.newArrayListOfValues(
 												SlaveEventTag.JOB_MILK_MILKED),
-										Util.newArrayListOfValues(
-												"[style.boldGood("+milked+"ml)] added to storage."),
+										Util.newArrayListOfValues("[style.boldGood("+milked+"ml)] added to storage."),
 										true);
 							}
 						}
@@ -373,23 +381,21 @@ public class SlaveryUtil implements XMLSaving {
 								income = Math.max(1, (int) (milked * slave.getCum().getValuePerMl()));
 								generatedIncome += income;
 								
-								return new SlaveryEventLogEntry(hour, slave,
+								events.add(new SlaveryEventLogEntry(hour, slave,
 										SlaveEvent.JOB_CUM_MILKED,
 										Util.newArrayListOfValues(
 												SlaveEventTag.JOB_CUM_SOLD),
-										Util.newArrayListOfValues(
-												"[style.boldGood("+milked+"ml)] milked: +"+UtilText.formatAsMoney(income, "bold")),
+										Util.newArrayListOfValues("[style.boldGood("+milked+"ml)] milked: +"+UtilText.formatAsMoney(income, "bold")),
 										true);
 							
 							} else {
 								room.incrementCumStorage(slave.getCum(), milked);
 								
-								return new SlaveryEventLogEntry(hour, slave,
+								events.add(new SlaveryEventLogEntry(hour, slave,
 										SlaveEvent.JOB_CUM_MILKED,
 										Util.newArrayListOfValues(
 												SlaveEventTag.JOB_CUM_MILKED),
-										Util.newArrayListOfValues(
-												"[style.boldGood("+milked+"ml)] added to storage."),
+										Util.newArrayListOfValues("[style.boldGood("+milked+"ml)] added to storage."),
 										true);
 							}
 						}
@@ -402,47 +408,47 @@ public class SlaveryUtil implements XMLSaving {
 								income = Math.max(1, (int) (milked * slave.getGirlcum().getValuePerMl()));
 								generatedIncome += income;
 								
-								return new SlaveryEventLogEntry(hour, slave,
+								events.add(new SlaveryEventLogEntry(hour, slave,
 										SlaveEvent.JOB_GIRLCUM_MILKED,
 										Util.newArrayListOfValues(
 												SlaveEventTag.JOB_GIRLCUM_SOLD),
-										Util.newArrayListOfValues(
-												"[style.boldGood("+milked+"ml)] milked: +"+UtilText.formatAsMoney(income, "bold")),
+										Util.newArrayListOfValues("[style.boldGood("+milked+"ml)] milked: +"+UtilText.formatAsMoney(income, "bold")),
 										true);
 							
 							} else {
 								room.incrementGirlcumStorage(slave.getGirlcum(), milked);
 								
-								return new SlaveryEventLogEntry(hour, slave,
+								events.add(new SlaveryEventLogEntry(hour, slave,
 										SlaveEvent.JOB_GIRLCUM_MILKED,
 										Util.newArrayListOfValues(
 												SlaveEventTag.JOB_GIRLCUM_MILKED),
-										Util.newArrayListOfValues(
-												"[style.boldGood("+milked+"ml)] added to storage."),
+										Util.newArrayListOfValues("[style.boldGood("+milked+"ml)] added to storage."),
 										true);
 							}
 						}
 					}
-					break;
+					return events;
 					
 				case TEST_SUBJECT:
 					if(slave.getSlaveJobSettings().isEmpty()) {
 						if(slave.hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING)) {
 							slave.incrementAffection(Main.game.getPlayer(), 1);
 							slave.incrementAffection(Main.game.getLilaya(), 5);
-							return new SlaveryEventLogEntry(hour, slave,
+							events.add(new SlaveryEventLogEntry(hour, slave,
 									SlaveEvent.JOB_TEST_SUBJECT,
 									Util.newArrayListOfValues(
 											SlaveEventTag.JOB_LILAYA_INTRUSIVE_TESTING),
 									Util.newArrayListOfValues(
-											"[style.boldGood(+1)] [style.boldAffection(Affection)]",
+                      "[style.boldGood(+1)] [style.boldAffection(Affection)]",
 											"[style.boldGood(+5)] [style.boldAffection(Affection towards Lilaya)]"),
 									true);
+
+							return events;
 							
 						} else {
 							slave.incrementAffection(Main.game.getPlayer(), -1);
 							slave.incrementAffection(Main.game.getLilaya(), -5);
-							return new SlaveryEventLogEntry(hour, slave,
+							events.add(new SlaveryEventLogEntry(hour, slave,
 									SlaveEvent.JOB_TEST_SUBJECT,
 									Util.newArrayListOfValues(
 											SlaveEventTag.JOB_LILAYA_INTRUSIVE_TESTING),
@@ -450,9 +456,9 @@ public class SlaveryUtil implements XMLSaving {
 											"[style.boldBad(-1)] [style.boldAffection(Affection)]",
 											"[style.boldBad(-5)] [style.boldAffection(Affection towards Lilaya)]"),
 									true);
+							return events;
+
 						}
-						
-						
 						
 					} else {
 						switch(slave.getSlaveJobSettings().get(Util.random.nextInt(slave.getSlaveJobSettings().size()))) {
@@ -479,12 +485,13 @@ public class SlaveryUtil implements XMLSaving {
 								if(!tf.isEmpty()) {
 									list.add(tf);
 								}
-								return new SlaveryEventLogEntry(hour, slave,
+								events.add(new SlaveryEventLogEntry(hour, slave,
 										SlaveEvent.JOB_TEST_SUBJECT,
 										Util.newArrayListOfValues(
 												SlaveEventTag.JOB_LILAYA_FEMININE_TF),
 										list,
-										true);
+										true));
+								return events;
 								
 							case TEST_SUBJECT_ALLOW_TRANSFORMATIONS_MALE:
 								List<String> list2 = new ArrayList<>();
@@ -509,12 +516,13 @@ public class SlaveryUtil implements XMLSaving {
 								if(!tf2.isEmpty()) {
 									list2.add(tf2);
 								}
-								return new SlaveryEventLogEntry(hour, slave,
+								events.add(new SlaveryEventLogEntry(hour, slave,
 										SlaveEvent.JOB_TEST_SUBJECT,
 										Util.newArrayListOfValues(
 												SlaveEventTag.JOB_LILAYA_MASCULINE_TF),
 										list2,
-										true);
+										true));
+								return events;
 								
 							default:
 								break;
@@ -630,12 +638,13 @@ public class SlaveryUtil implements XMLSaving {
 						}
 					}
 
-					return new SlaveryEventLogEntry(hour, slave,
+					events.add(new SlaveryEventLogEntry(hour, slave,
 							SlaveEvent.JOB_PUBLIC_STOCKS,
 							Util.newArrayListOfValues(
 									SlaveEventTag.JOB_STOCKS_USED),
 							effects,
-							true);
+							true));
+					return events;
 					
 				case PROSTITUTE:
 					effectDescriptions = new StringBuilder();
@@ -751,12 +760,13 @@ public class SlaveryUtil implements XMLSaving {
 						}
 					}
 
-					return new SlaveryEventLogEntry(hour, slave,
+					events.add(new SlaveryEventLogEntry(hour, slave,
 							SlaveEvent.JOB_PROSTITUTE,
 							Util.newArrayListOfValues(
 									SlaveEventTag.JOB_PROSTITUTE_USED),
 							effects,
-							true);
+							true));
+					return events;
 					
 					
 				case IDLE:
@@ -765,10 +775,10 @@ public class SlaveryUtil implements XMLSaving {
 			}
 			
 		} else { // Slave is resting:
-			return new SlaveryEventLogEntry(hour, slave, SlaveEvent.JOB_IDLE, true);
+			events.add(new SlaveryEventLogEntry(hour, slave, SlaveEvent.JOB_IDLE, true));
 		}
-		
-		return null;
+
+		return events;
 	}
 	
 	private List<SlaveJobSetting> getSexSettingsEnabled(NPC slave) {

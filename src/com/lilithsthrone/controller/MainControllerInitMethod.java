@@ -4735,11 +4735,13 @@ public class MainControllerInitMethod {
 						if(!Main.getProperties().hasValue(PropertyValue.overwriteWarning) || EnchantmentDialogue.overwriteConfirmationName.equals(f.getName())) {
 							EnchantmentDialogue.overwriteConfirmationName = "";
 							EnchantmentDialogue.saveEnchant(fileIdentifier, true);
+							Main.game.setContent(new Response("Save/Load", "Open the save/load game window.", EnchantmentDialogue.ENCHANTMENT_SAVE_LOAD));
+							
 						} else {
 							EnchantmentDialogue.overwriteConfirmationName = f.getName();
 							EnchantmentDialogue.loadConfirmationName = "";
 							EnchantmentDialogue.deleteConfirmationName = "";
-							Main.game.setContent(new Response("Save/Load", "Open the save/load game window.", EnchantmentDialogue.ENCHANTMENT_MENU));
+							Main.game.setContent(new Response("Save/Load", "Open the save/load game window.", EnchantmentDialogue.ENCHANTMENT_SAVE_LOAD));
 						}
 						
 					}, false);
@@ -4769,7 +4771,7 @@ public class MainControllerInitMethod {
 							EnchantmentDialogue.overwriteConfirmationName = "";
 							EnchantmentDialogue.loadConfirmationName = f.getName();
 							EnchantmentDialogue.deleteConfirmationName = "";
-							Main.game.setContent(new Response("Save/Load", "Open the save/load game window.", EnchantmentDialogue.ENCHANTMENT_MENU));
+							Main.game.setContent(new Response("Save/Load", "Open the save/load game window.", EnchantmentDialogue.ENCHANTMENT_SAVE_LOAD));
 						}
 						
 					}, false);
@@ -4786,11 +4788,13 @@ public class MainControllerInitMethod {
 						if(!Main.getProperties().hasValue(PropertyValue.overwriteWarning) || EnchantmentDialogue.deleteConfirmationName.equals(f.getName())) {
 							EnchantmentDialogue.deleteConfirmationName = "";
 							EnchantmentDialogue.deleteEnchant(fileIdentifier);
+							Main.game.setContent(new Response("Save/Load", "Open the save/load game window.", EnchantmentDialogue.ENCHANTMENT_SAVE_LOAD));
+							
 						} else {
 							EnchantmentDialogue.overwriteConfirmationName = "";
 							EnchantmentDialogue.loadConfirmationName = "";
 							EnchantmentDialogue.deleteConfirmationName = f.getName();
-							Main.game.setContent(new Response("Save/Load", "Open the save/load game window.", EnchantmentDialogue.ENCHANTMENT_MENU));
+							Main.game.setContent(new Response("Save/Load", "Open the save/load game window.", EnchantmentDialogue.ENCHANTMENT_SAVE_LOAD));
 						}
 						
 					}, false);

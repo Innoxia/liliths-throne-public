@@ -1552,12 +1552,12 @@ public class GenericOrgasms {
 			if(characterOrgasming.isPlayer()) {
 				return UtilText.parse(characterOrgasming,
 						" all over your "+characterOrgasming.getHighestZLayerCoverableArea(area).getName()+"."
-								+ " You give a lusty [pc.moan+] as your [pc.cum+] splatters onto your clothing,"
+								+ " You let out [pc.a_moan+] as your [pc.cum+] splatters onto your clothing,"
 								+ " making a mess of your outfit.");
 			} else {
 				return UtilText.parse(characterOrgasming,
 						" all over [npc.her] "+characterOrgasming.getHighestZLayerCoverableArea(area).getName()+"."
-								+ " [npc.She] give a lusty [npc.moan+] as [npc.her] [npc.cum+] splatters onto"
+								+ " [npc.She] lets out [npc.a_moan+] as [npc.her] [npc.cum+] splatters onto"
 								+ " [npc.her] clothing, making a mess of [npc.her] outfit.");
 			}
 	}

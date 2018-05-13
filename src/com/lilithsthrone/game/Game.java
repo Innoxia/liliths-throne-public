@@ -1121,7 +1121,7 @@ public class Game implements Serializable, XMLSaving {
 			npc.calculateStatusEffects(turnTime);
 			
 			// Replace clothing if not in player's tile:
-			if(newDay) {
+			if(hoursPassed > 0) {
 				if(!Main.game.isInCombat() && !Main.game.isInSex()
 						&& (Main.game.getCurrentDialogueNode().equals(Main.game.getPlayer().getLocationPlace().getDialogue(false))
 								|| !(npc.getWorldLocation()==Main.game.getPlayer().getWorldLocation() && npc.getLocation().equals(Main.game.getPlayer().getLocation())))) {
@@ -1530,7 +1530,9 @@ public class Game implements Serializable, XMLSaving {
 													+ "</div>"
 												: "")
 											+ (content != null
-													? "<div "+(Main.getProperties().hasValue(PropertyValue.fadeInText)?"id='text-content'":"")+" style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;'>"
+													? "<div "+(Main.getProperties().hasValue(PropertyValue.fadeInText)?"id='text-content'":"")
+															+" style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;"
+																+ (currentDialogueNode.getDialogueNodeType()==DialogueNodeType.INVENTORY?" overflow-y:scroll;":"")+"'>"
 															+ pastDialogueSB.toString()
 														+ "</div>"
 													: "")
@@ -1556,7 +1558,9 @@ public class Game implements Serializable, XMLSaving {
 												+ "</div>"
 											: "")
 										+ (content != null
-												? "<div "+(Main.getProperties().hasValue(PropertyValue.fadeInText)?"id='text-content'":"")+" style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;'>"
+												? "<div "+(Main.getProperties().hasValue(PropertyValue.fadeInText)?"id='text-content'":"")
+														+" style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;"
+															+ (currentDialogueNode.getDialogueNodeType()==DialogueNodeType.INVENTORY?" overflow-y:scroll;":"")+ "'>"
 														+ pastDialogueSB.toString()
 													+ "</div>"
 												: "")
@@ -1699,7 +1703,9 @@ public class Game implements Serializable, XMLSaving {
 										+ "</div>"
 									: "") 
 								+ (content != null
-									? "<div "+(Main.getProperties().hasValue(PropertyValue.fadeInText)?"id='text-content'":"")+" style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;'>"
+									? "<div "+(Main.getProperties().hasValue(PropertyValue.fadeInText)?"id='text-content'":"")
+											+" style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;"
+												+ (currentDialogueNode.getDialogueNodeType()==DialogueNodeType.INVENTORY?" overflow-y:scroll;":"")+ "'>"
 									+ pastDialogueSB.toString() + "</div>" : "")
 	//									+ textStartStringBuilder.toString() + pastDialogueSB.toString() + textEndStringBuilder.toString() + "</div>" : "")
 //							+ "</div>"
@@ -1727,7 +1733,9 @@ public class Game implements Serializable, XMLSaving {
 											+ "</div>"
 										: "")
 									+ (content != null
-										? "<div "+(Main.getProperties().hasValue(PropertyValue.fadeInText)?"id='text-content'":"")+" style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;'>"
+										? "<div "+(Main.getProperties().hasValue(PropertyValue.fadeInText)?"id='text-content'":"")
+												+" style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;"
+													+ (currentDialogueNode.getDialogueNodeType()==DialogueNodeType.INVENTORY?" overflow-y:scroll;":"")+ "'>"
 												+ pastDialogueSB.toString()
 											+ "</div>"
 										: "")
@@ -2022,8 +2030,12 @@ public class Game implements Serializable, XMLSaving {
 					+ "<h4 style='text-align:center; font-size:1.4em;'>" + dialogueTitle + "</h4>"
 					+ "<div style='max-width:800px; margin:0 auto;'>"
 						+ (currentDialogueNode.getHeaderContent() != null ? "<div id='header-content'>" + currentDialogueNode.getHeaderContent() + "</div>" : "")
-						+ (currentDialogueNode.getContent() != null ? "<div id='text-content' style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;'>"
-								+ textStartStringBuilder.toString() + pastDialogueSB.toString() + textEndStringBuilder.toString() + "</div>" : "")
+						+ (currentDialogueNode.getContent() != null
+								? "<div id='text-content'"
+									+ " style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;"
+										+ (currentDialogueNode.getDialogueNodeType()==DialogueNodeType.INVENTORY?" overflow-y:scroll;":"")+ "'>"
+									+ textStartStringBuilder.toString() + pastDialogueSB.toString() + textEndStringBuilder.toString() + "</div>"
+								: "")
 					+ "</div>"
 				+ "</div>"
 				+"<p style='text-align:center;font-size:0.6em;color:#777;'>Dialogue written by "+currentDialogueNode.getAuthor()+" for <i>Lilith's Throne v"+Main.VERSION_NUMBER+"</i></p>"

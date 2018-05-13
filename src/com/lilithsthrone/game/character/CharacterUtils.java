@@ -1044,7 +1044,7 @@ public class CharacterUtils {
 		}
 		
 		// Penis:
-		if(character.hasPenis()) {
+		if(character.hasPenis() || character.getRace()==Race.DEMON || character.getRace()==Race.IMP) {
 			if(Math.random()<0.15f
 					&& character.getHistory()!=History.PROSTITUTE
 					&& !character.hasFetish(Fetish.FETISH_CUM_STUD)
