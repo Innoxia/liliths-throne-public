@@ -1,14 +1,11 @@
 package com.lilithsthrone.game.character;
 
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Base64;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.EnumMap;
@@ -20,8 +17,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import javax.imageio.ImageIO;
 
+import com.lilithsthrone.utils.*;
 import org.w3c.dom.Comment;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -187,10 +184,6 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.Artist;
 import com.lilithsthrone.rendering.Artwork;
 import com.lilithsthrone.rendering.SVGImages;
-import com.lilithsthrone.utils.Colour;
-import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Vector2i;
-import com.lilithsthrone.utils.XMLSaving;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.World;
 import com.lilithsthrone.world.WorldType;
@@ -1920,6 +1913,10 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				}
 			}
 		}
+
+		if (!artworkList.isEmpty() && Main.getProperties().hasValue(PropertyValue.artwork)) {
+			ImageCache.INSTANCE.requestCache(new File(getCurrentArtwork().getCurrentImage()));
+		}
 	}
 	
 	public abstract boolean isUnique();
@@ -1953,115 +1950,81 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 
 	
 	protected StringBuilder infoScreenSB = new StringBuilder();
+
+	public Artwork getCurrentArtwork() {
+		// Index is not set, determine by artist
+		if(artworkIndex == -1) {
+			int i = 0;
+			for(Artwork art : artworkList) {
+				// Always override with custom art
+				if(art.getArtist().getName().equals("Custom")) {
+					artworkIndex = i;
+					break;
+				}
+
+				// Otherwise, choose the preferred artist
+				if(art.getArtist().getFolderName().equals(Main.getProperties().preferredArtist)) {
+					artworkIndex = i;
+				}
+
+				++i;
+			}
+
+			// Neither preferred nor custom art exists, so pick the first in the list
+			if(artworkIndex == -1) {
+				artworkIndex = 0;
+			}
+		}
+
+		return artworkList.get(artworkIndex);
+	}
 	
 	public String getCharacterInformationScreen() {
 		infoScreenSB.setLength(0);
-		
-		if(!this.getArtworkList().isEmpty()) {
-			if(Main.getProperties().hasValue(PropertyValue.artwork)) {
-				if(artworkIndex == -1) {
-					int i=0;
-					for(Artwork artworkIteration : this.getArtworkList()) {
-						// Always override with custom art
-						if (artworkIteration.getArtist().getFolderName().equals("custom")) {
-							artworkIndex = i;
-							break;
-						}
-						if(artworkIteration.getArtist().getFolderName().equals(Main.getProperties().preferredArtist)) {
-							artworkIndex = i;
-						}
-						i++;
-					}
-					if(artworkIndex == -1) {
-						artworkIndex = 0;
-					}
-				}
-				Artwork artwork = this.getArtworkList().get(artworkIndex);
-				
-				int width = 200;
-				int height = 400;
-				try {
-					File f = new File(artwork.getCurrentImage());
-					BufferedImage image = ImageIO.read(f);
-					width = image.getWidth();
-					height = image.getHeight();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-				
-				boolean nakedRevealed = false;
-				
-				if(Main.game.getPlayer().getSexPartnerStats(this)!=null) {
-					nakedRevealed = true;
-				}
-				
-				BufferedImage bi = null;
-				String src = "";
-				
-				try {
-					bi = ImageIO.read(new File(artwork.getCurrentImage()));
 
-					ByteArrayOutputStream out = new ByteArrayOutputStream();
-					if(artwork.getCurrentImage().endsWith("jpg")) {
-						ImageIO.write(bi, "JPG", out);
-					} else {
-						ImageIO.write(bi, "PNG", out);
-					}
-					byte[] bytes = out.toByteArray();
-
-					String base64bytes = Base64.getEncoder().encodeToString(bytes);
-					src = "data:image/png;base64," + base64bytes;
-					
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-				
-//				System.out.println(src);
-				
-				int percentageWidth = 33;
-
-				if(height>width) {
-					percentageWidth = 35;
-					
-				} else if(height==width) {
-					percentageWidth = 45;
-					
-				} else {
-					percentageWidth = 65;
-					
-				}
-				
-				infoScreenSB.append(
-						"<div class='full-width-container' style='position:relative; float:right; width:"+percentageWidth+"%; max-width:"+width+"; object-fit:scale-down;'>"
-							+ "<div class='full-width-container' style='width:100%; margin:0;'>"
-								+ "<img id='CHARACTER_IMAGE' style='"+(nakedRevealed || artwork.isCurrentImageClothed()?"":"-webkit-filter: brightness(0%);")+" width:100%;' src='"+src+"'/>"//file:/
-								+ "<div class='overlay no-pointer no-highlight' style='text-align:center;'>" // Add overlay div to stop javaFX's insane image drag+drop
-									+(nakedRevealed || artwork.isCurrentImageClothed()?"":"<p style='margin-top:50%; font-weight:bold; color:"+Colour.BASE_GREY.toWebHexString()+";'>Unlocked through sex!</p>")
-								+"</div>" 
-								+ "<div class='title-button' id='ARTWORK_INFO' style='background:transparent; left:auto; right:4px;'>"+SVGImages.SVG_IMAGE_PROVIDER.getInformationIcon()+"</div>"
-							+ "</div>"
-								+ "<div class='normal-button"+(artwork.getTotalArtworkCount()==1?" disabled":"")+"' id='ARTWORK_PREVIOUS' style='float:left; width:10%; margin:0 10%; padding:0; text-align:center;'>&lt;</div>"
-								+ "<div class='full-width-container' style='float:left; width:40%; margin:0; text-align:center;'>"+(artwork.getIndex()+1)+"/"+artwork.getTotalArtworkCount()+"</div>"
-								+ "<div class='normal-button"+(artwork.getTotalArtworkCount()==1?" disabled":"")+"' id='ARTWORK_NEXT' style='float:left; width:10%; margin:0 10%; padding:0; text-align:center;'>&gt;</div>"
-								
-								+ "<div class='normal-button"+(this.getArtworkList().size()==1?" disabled":"")+"' id='ARTWORK_ARTIST_PREVIOUS' style='float:left; width:10%; margin:0 10%; padding:0; text-align:center;'>&lt;</div>"
-								+ "<div class='full-width-container' style='float:left; width:40%; margin:0; text-align:center;'>"+this.getArtworkList().get(artworkIndex).getArtist().getName()+"</div>"
-								+ "<div class='normal-button"+(this.getArtworkList().size()==1?" disabled":"")+"' id='ARTWORK_ARTIST_NEXT' style='float:left; width:10%; margin:0 10%; padding:0; text-align:center;'>&gt;</div>"
-							+ "</div>");
-				
-			} else {
-//				infoScreenSB.append("<div class='full-width-container' style='position:relative; float:right; width:30%; margin: 5%; text-align:center;'>"
-//						+ "[style.colourDisabled(Enable 'Artwork' in the Content Options screen to see this character's artwork!)]"
-//						+ "</div>");
-				
+		if (!artworkList.isEmpty() && Main.getProperties().hasValue(PropertyValue.artwork)) {
+			Artwork artwork = this.getCurrentArtwork();
+			String imageString = "";
+			int width = 200;
+			int percentageWidth = 33;
+			try {
+				CachedImage image = ImageCache.INSTANCE.getImage(new File(artwork.getCurrentImage()));
+				imageString = image.getImageString();
+				width = image.getWidth();
+				percentageWidth = image.getPercentageWidth();
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
+
+			boolean nakedRevealed = false;
+			if(Main.game.getPlayer().getSexPartnerStats(this)!=null) {
+				nakedRevealed = true;
+			}
+
+			infoScreenSB.append(
+					"<div class='full-width-container' style='position:relative; float:right; width:"+percentageWidth+"%; max-width:"+width+"; object-fit:scale-down;'>"
+							+ "<div class='full-width-container' style='width:100%; margin:0;'>"
+							+ "<img id='CHARACTER_IMAGE' style='"+(nakedRevealed || artwork.isCurrentImageClothed()?"":"-webkit-filter: brightness(0%);")+" width:100%;' src='"+imageString+"'/>"//file:/
+							+ "<div class='overlay no-pointer no-highlight' style='text-align:center;'>" // Add overlay div to stop javaFX's insane image drag+drop
+							+(nakedRevealed || artwork.isCurrentImageClothed()?"":"<p style='margin-top:50%; font-weight:bold; color:"+Colour.BASE_GREY.toWebHexString()+";'>Unlocked through sex!</p>")
+							+"</div>"
+							+ "<div class='title-button' id='ARTWORK_INFO' style='background:transparent; left:auto; right:4px;'>"+SVGImages.SVG_IMAGE_PROVIDER.getInformationIcon()+"</div>"
+							+ "</div>"
+							+ "<div class='normal-button"+(artwork.getTotalArtworkCount()==1?" disabled":"")+"' id='ARTWORK_PREVIOUS' style='float:left; width:10%; margin:0 10%; padding:0; text-align:center;'>&lt;</div>"
+							+ "<div class='full-width-container' style='float:left; width:40%; margin:0; text-align:center;'>"+(artwork.getIndex()+1)+"/"+artwork.getTotalArtworkCount()+"</div>"
+							+ "<div class='normal-button"+(artwork.getTotalArtworkCount()==1?" disabled":"")+"' id='ARTWORK_NEXT' style='float:left; width:10%; margin:0 10%; padding:0; text-align:center;'>&gt;</div>"
+
+							+ "<div class='normal-button"+(this.getArtworkList().size()==1?" disabled":"")+"' id='ARTWORK_ARTIST_PREVIOUS' style='float:left; width:10%; margin:0 10%; padding:0; text-align:center;'>&lt;</div>"
+							+ "<div class='full-width-container' style='float:left; width:40%; margin:0; text-align:center;'>"+this.getArtworkList().get(artworkIndex).getArtist().getName()+"</div>"
+							+ "<div class='normal-button"+(this.getArtworkList().size()==1?" disabled":"")+"' id='ARTWORK_ARTIST_NEXT' style='float:left; width:10%; margin:0 10%; padding:0; text-align:center;'>&gt;</div>"
+							+ "</div>");
 		}
-		
+
 		infoScreenSB.append("<h4>Background</h4>"
 				+ "<p>"
 					+ this.getDescription()
 				+ "</p>");
-		
+
 		if(!this.isPlayer()) {
 			infoScreenSB.append("</br>"
 					+ "<h4>Relationships</h4>"
