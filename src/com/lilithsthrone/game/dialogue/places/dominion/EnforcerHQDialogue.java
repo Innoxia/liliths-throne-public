@@ -35,7 +35,6 @@ import com.lilithsthrone.game.sex.managers.universal.SMStanding;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
@@ -551,7 +550,7 @@ public class EnforcerHQDialogue {
 					
 				} else if (index == 2) {
 					if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.feminisedBrax)) {
-						return new ResponseSex("Get punished by [brax.name]", "Get [brax.name] to take out [brax.his] frustration on you.", Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)),
+						return new ResponseSex("Get punished by [brax.name]", "Get [brax.name] to take out [brax.his] frustration on you.", Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE),
 								null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(), null, null, null,
 								true, false,
 								new SMDoggy(
@@ -911,7 +910,7 @@ public class EnforcerHQDialogue {
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Turn Brax into Bree", "You and Candi force-feed [brax.name] his own potion.", INTERIOR_SECRETARY_BRAX_FEMINISE_COMPLETED,
-						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_TRANSFORMATION_GIVING)),
+						Util.newArrayListOfValues(Fetish.FETISH_TRANSFORMATION_GIVING),
 						Fetish.FETISH_TRANSFORMATION_GIVING.getAssociatedCorruptionLevel(),
 						null,
 						null,
@@ -1104,7 +1103,7 @@ public class EnforcerHQDialogue {
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Turn Bree into Brandi", "Transform Bree into a brain-dead bimbo.", INTERIOR_SECRETARY_BRAX_BIMBOFY_COMPLETED,
-						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_TRANSFORMATION_GIVING)),
+						Util.newArrayListOfValues(Fetish.FETISH_TRANSFORMATION_GIVING),
 						Fetish.FETISH_TRANSFORMATION_GIVING.getAssociatedCorruptionLevel(),
 						null,
 						null,
@@ -1348,7 +1347,7 @@ public class EnforcerHQDialogue {
 			} else if (index == 2) {
 				return new Response("Lie", "You notice that all of the models in the posters are wolf-girls. Perhaps you could pretend that Arthur is a patron of an exclusive wolf-girl themed brothel that you so happen to own...",
 						INTERIOR_BRAX_LIE,
-						null, null, Util.newArrayListOfValues(new ListValue<>(Perk.OBSERVANT)), null, null) {
+						null, null, Util.newArrayListOfValues(Perk.OBSERVANT), null, null) {
 					@Override
 					public void effects() {
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.braxEncountered, true);
@@ -1786,7 +1785,7 @@ public class EnforcerHQDialogue {
 						+ "</p>");
 					
 			} else if (index == 3) {
-				return new ResponseSex("Take control", "Take control of the situation and turn [brax.name] into your little bitch.", Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DOMINANT)),
+				return new ResponseSex("Take control", "Take control of the situation and turn [brax.name] into your little bitch.", Util.newArrayListOfValues(Fetish.FETISH_DOMINANT),
 						null, null, null, null, null,
 						true, false,
 						new SMStanding(

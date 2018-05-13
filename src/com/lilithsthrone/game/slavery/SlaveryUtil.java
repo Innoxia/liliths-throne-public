@@ -31,7 +31,6 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.XMLSaving;
-import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.WorldType;
@@ -207,7 +206,7 @@ public class SlaveryUtil implements XMLSaving {
 				Main.game.addSlaveryEvent(day, slave, new SlaveryEventLogEntry(hour,
 						slave,
 						SlaveEvent.WASHED_CLOTHES,
-						Util.newArrayListOfValues(new ListValue<>(SlaveEventTag.WASHED_CLOTHES)),
+						Util.newArrayListOfValues(SlaveEventTag.WASHED_CLOTHES),
 						true));
 			}
 			
@@ -358,10 +357,9 @@ public class SlaveryUtil implements XMLSaving {
 								events.add(new SlaveryEventLogEntry(hour, slave,
 										SlaveEvent.JOB_MILK_MILKED,
 										Util.newArrayListOfValues(
-												new ListValue<>(SlaveEventTag.JOB_MILK_SOLD)),
-										Util.newArrayListOfValues(
-												new ListValue<>("[style.boldGood("+milked+"ml)] milked: +"+UtilText.formatAsMoney(income, "bold"))),
-										true));
+												SlaveEventTag.JOB_MILK_SOLD),
+										Util.newArrayListOfValues("[style.boldGood("+milked+"ml)] milked: +"+UtilText.formatAsMoney(income, "bold")),
+										true);
 								
 							} else {
 								room.incrementMilkStorage(slave.getMilk(), milked);
@@ -369,10 +367,9 @@ public class SlaveryUtil implements XMLSaving {
 								events.add(new SlaveryEventLogEntry(hour, slave,
 										SlaveEvent.JOB_MILK_MILKED,
 										Util.newArrayListOfValues(
-												new ListValue<>(SlaveEventTag.JOB_MILK_MILKED)),
-										Util.newArrayListOfValues(
-												new ListValue<>("[style.boldGood("+milked+"ml)] added to storage.")),
-										true));
+												SlaveEventTag.JOB_MILK_MILKED),
+										Util.newArrayListOfValues("[style.boldGood("+milked+"ml)] added to storage."),
+										true);
 							}
 						}
 					}
@@ -387,10 +384,9 @@ public class SlaveryUtil implements XMLSaving {
 								events.add(new SlaveryEventLogEntry(hour, slave,
 										SlaveEvent.JOB_CUM_MILKED,
 										Util.newArrayListOfValues(
-												new ListValue<>(SlaveEventTag.JOB_CUM_SOLD)),
-										Util.newArrayListOfValues(
-												new ListValue<>("[style.boldGood("+milked+"ml)] milked: +"+UtilText.formatAsMoney(income, "bold"))),
-										true));
+												SlaveEventTag.JOB_CUM_SOLD),
+										Util.newArrayListOfValues("[style.boldGood("+milked+"ml)] milked: +"+UtilText.formatAsMoney(income, "bold")),
+										true);
 							
 							} else {
 								room.incrementCumStorage(slave.getCum(), milked);
@@ -398,10 +394,9 @@ public class SlaveryUtil implements XMLSaving {
 								events.add(new SlaveryEventLogEntry(hour, slave,
 										SlaveEvent.JOB_CUM_MILKED,
 										Util.newArrayListOfValues(
-												new ListValue<>(SlaveEventTag.JOB_CUM_MILKED)),
-										Util.newArrayListOfValues(
-												new ListValue<>("[style.boldGood("+milked+"ml)] added to storage.")),
-										true));
+												SlaveEventTag.JOB_CUM_MILKED),
+										Util.newArrayListOfValues("[style.boldGood("+milked+"ml)] added to storage."),
+										true);
 							}
 						}
 					}
@@ -416,10 +411,9 @@ public class SlaveryUtil implements XMLSaving {
 								events.add(new SlaveryEventLogEntry(hour, slave,
 										SlaveEvent.JOB_GIRLCUM_MILKED,
 										Util.newArrayListOfValues(
-												new ListValue<>(SlaveEventTag.JOB_GIRLCUM_SOLD)),
-										Util.newArrayListOfValues(
-												new ListValue<>("[style.boldGood("+milked+"ml)] milked: +"+UtilText.formatAsMoney(income, "bold"))),
-										true));
+												SlaveEventTag.JOB_GIRLCUM_SOLD),
+										Util.newArrayListOfValues("[style.boldGood("+milked+"ml)] milked: +"+UtilText.formatAsMoney(income, "bold")),
+										true);
 							
 							} else {
 								room.incrementGirlcumStorage(slave.getGirlcum(), milked);
@@ -427,10 +421,9 @@ public class SlaveryUtil implements XMLSaving {
 								events.add(new SlaveryEventLogEntry(hour, slave,
 										SlaveEvent.JOB_GIRLCUM_MILKED,
 										Util.newArrayListOfValues(
-												new ListValue<>(SlaveEventTag.JOB_GIRLCUM_MILKED)),
-										Util.newArrayListOfValues(
-												new ListValue<>("[style.boldGood("+milked+"ml)] added to storage.")),
-										true));
+												SlaveEventTag.JOB_GIRLCUM_MILKED),
+										Util.newArrayListOfValues("[style.boldGood("+milked+"ml)] added to storage."),
+										true);
 							}
 						}
 					}
@@ -444,11 +437,12 @@ public class SlaveryUtil implements XMLSaving {
 							events.add(new SlaveryEventLogEntry(hour, slave,
 									SlaveEvent.JOB_TEST_SUBJECT,
 									Util.newArrayListOfValues(
-											new ListValue<>(SlaveEventTag.JOB_LILAYA_INTRUSIVE_TESTING)),
+											SlaveEventTag.JOB_LILAYA_INTRUSIVE_TESTING),
 									Util.newArrayListOfValues(
-											new ListValue<>("[style.boldGood(+1)] [style.boldAffection(Affection)]"),
-											new ListValue<>("[style.boldGood(+5)] [style.boldAffection(Affection towards Lilaya)]")),
-									true));
+                      "[style.boldGood(+1)] [style.boldAffection(Affection)]",
+											"[style.boldGood(+5)] [style.boldAffection(Affection towards Lilaya)]"),
+									true);
+
 							return events;
 							
 						} else {
@@ -457,12 +451,13 @@ public class SlaveryUtil implements XMLSaving {
 							events.add(new SlaveryEventLogEntry(hour, slave,
 									SlaveEvent.JOB_TEST_SUBJECT,
 									Util.newArrayListOfValues(
-											new ListValue<>(SlaveEventTag.JOB_LILAYA_INTRUSIVE_TESTING)),
+											SlaveEventTag.JOB_LILAYA_INTRUSIVE_TESTING),
 									Util.newArrayListOfValues(
-											new ListValue<>("[style.boldBad(-1)] [style.boldAffection(Affection)]"),
-											new ListValue<>("[style.boldBad(-5)] [style.boldAffection(Affection towards Lilaya)]")),
-									true));
+											"[style.boldBad(-1)] [style.boldAffection(Affection)]",
+											"[style.boldBad(-5)] [style.boldAffection(Affection towards Lilaya)]"),
+									true);
 							return events;
+
 						}
 						
 					} else {
@@ -493,7 +488,7 @@ public class SlaveryUtil implements XMLSaving {
 								events.add(new SlaveryEventLogEntry(hour, slave,
 										SlaveEvent.JOB_TEST_SUBJECT,
 										Util.newArrayListOfValues(
-												new ListValue<>(SlaveEventTag.JOB_LILAYA_FEMININE_TF)),
+												SlaveEventTag.JOB_LILAYA_FEMININE_TF),
 										list,
 										true));
 								return events;
@@ -524,7 +519,7 @@ public class SlaveryUtil implements XMLSaving {
 								events.add(new SlaveryEventLogEntry(hour, slave,
 										SlaveEvent.JOB_TEST_SUBJECT,
 										Util.newArrayListOfValues(
-												new ListValue<>(SlaveEventTag.JOB_LILAYA_MASCULINE_TF)),
+												SlaveEventTag.JOB_LILAYA_MASCULINE_TF),
 										list2,
 										true));
 								return events;
@@ -646,7 +641,7 @@ public class SlaveryUtil implements XMLSaving {
 					events.add(new SlaveryEventLogEntry(hour, slave,
 							SlaveEvent.JOB_PUBLIC_STOCKS,
 							Util.newArrayListOfValues(
-									new ListValue<>(SlaveEventTag.JOB_STOCKS_USED)),
+									SlaveEventTag.JOB_STOCKS_USED),
 							effects,
 							true));
 					return events;
@@ -768,7 +763,7 @@ public class SlaveryUtil implements XMLSaving {
 					events.add(new SlaveryEventLogEntry(hour, slave,
 							SlaveEvent.JOB_PROSTITUTE,
 							Util.newArrayListOfValues(
-									new ListValue<>(SlaveEventTag.JOB_PROSTITUTE_USED)),
+									SlaveEventTag.JOB_PROSTITUTE_USED),
 							effects,
 							true));
 					return events;
@@ -948,11 +943,11 @@ public class SlaveryUtil implements XMLSaving {
 										slave,
 										SlaveEvent.SLAVE_SEX,
 										null,
-										Util.newArrayListOfValues(new ListValue<>(UtilText.parse(slave, npc,
+										Util.newArrayListOfValues(UtilText.parse(slave, npc,
 												"While dusting one of the first-floor corridors, [npc1.name] caught sight of [npc2.name],"
 												+ " and couldn't resist pulling [npc2.herHim] into an empty room and giving [npc2.herHim] a "+slave.getSexPaceDomPreference().getName()+" fucking."
 												+ (impregnationAttempt?"</br>[style.colourSex([npc2.Name] might have gotten pregnant!)]":"")
-												+ (gettingPregnantAttempt?"</br>[style.colourSex([npc1.Name] might have gotten pregnant!)]":"")))),
+												+ (gettingPregnantAttempt?"</br>[style.colourSex([npc1.Name] might have gotten pregnant!)]":""))),
 										true);
 								
 							case IDLE: //TODO
@@ -960,21 +955,21 @@ public class SlaveryUtil implements XMLSaving {
 										slave,
 										SlaveEvent.SLAVE_SEX,
 										null,
-										Util.newArrayListOfValues(new ListValue<>(UtilText.parse(slave, npc,
+										Util.newArrayListOfValues(UtilText.parse(slave, npc,
 												"[npc1.name] gave [npc2.name] a "+slave.getSexPaceDomPreference().getName()+" fucking."
 												+ (impregnationAttempt?"</br>[style.colourSex([npc2.Name] might have gotten pregnant!)]":"")
-												+ (gettingPregnantAttempt?"</br>[style.colourSex([npc1.Name] might have gotten pregnant!)]":"")))),
+												+ (gettingPregnantAttempt?"</br>[style.colourSex([npc1.Name] might have gotten pregnant!)]":""))),
 										true);
 							case KITCHEN:
 								return new SlaveryEventLogEntry(hour,
 										slave,
 										SlaveEvent.SLAVE_SEX,
 										null,
-										Util.newArrayListOfValues(new ListValue<>(UtilText.parse(slave, npc,
+										Util.newArrayListOfValues(UtilText.parse(slave, npc,
 												"While working in the kitchen, [npc1.name] saw [npc2.name] enter the pantry alone,"
 														+ " and couldn't resist following [npc2.herHim] inside, before locking the door and giving [npc2.herHim] a "+slave.getSexPaceDomPreference().getName()+" fucking."
 												+ (impregnationAttempt?"</br>[style.colourSex([npc2.Name] might have gotten pregnant!)]":"")
-												+ (gettingPregnantAttempt?"</br>[style.colourSex([npc1.Name] might have gotten pregnant!)]":"")))),
+												+ (gettingPregnantAttempt?"</br>[style.colourSex([npc1.Name] might have gotten pregnant!)]":""))),
 										true);
 								
 							case LAB_ASSISTANT: case TEST_SUBJECT:
@@ -982,10 +977,10 @@ public class SlaveryUtil implements XMLSaving {
 										slave,
 										SlaveEvent.SLAVE_SEX,
 										null,
-										Util.newArrayListOfValues(new ListValue<>(UtilText.parse(slave, npc,
+										Util.newArrayListOfValues(UtilText.parse(slave, npc,
 												"When Lilaya left the lab to take a break, [npc1.name] used the opportunity to give [npc2.name] a "+slave.getSexPaceDomPreference().getName()+" fucking on one of the lab's tables."
 												+ (impregnationAttempt?"</br>[style.colourSex([npc2.Name] might have gotten pregnant!)]":"")
-												+ (gettingPregnantAttempt?"</br>[style.colourSex([npc1.Name] might have gotten pregnant!)]":"")))),
+												+ (gettingPregnantAttempt?"</br>[style.colourSex([npc1.Name] might have gotten pregnant!)]":""))),
 										true);
 								
 							case LIBRARY:
@@ -993,10 +988,10 @@ public class SlaveryUtil implements XMLSaving {
 										slave,
 										SlaveEvent.SLAVE_SEX,
 										null,
-										Util.newArrayListOfValues(new ListValue<>(UtilText.parse(slave, npc,
+										Util.newArrayListOfValues(UtilText.parse(slave, npc,
 												"[npc1.Name] pulled [npc2.name] behind one of the shelves in the Library, before giving [npc2.herHim] a "+slave.getSexPaceDomPreference().getName()+" fucking."
 												+ (impregnationAttempt?"</br>[style.colourSex([npc2.Name] might have gotten pregnant!)]":"")
-												+ (gettingPregnantAttempt?"</br>[style.colourSex([npc1.Name] might have gotten pregnant!)]":"")))),
+												+ (gettingPregnantAttempt?"</br>[style.colourSex([npc1.Name] might have gotten pregnant!)]":""))),
 										true);
 							case PUBLIC_STOCKS:
 								//TODO 

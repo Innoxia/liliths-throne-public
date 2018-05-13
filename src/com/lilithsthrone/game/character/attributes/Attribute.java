@@ -9,7 +9,6 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 
 /**
  * @since 0.1.0
@@ -119,7 +118,7 @@ public enum Attribute {
 			"Physique",
 			"strengthIcon",
 			Colour.ATTRIBUTE_PHYSIQUE,
-			"power", "weakness", Util.newArrayListOfValues(new ListValue<String>("<b>+2</b> <b style='color: " + Colour.ATTRIBUTE_HEALTH.toWebHexString() + "'>Energy</b> per 1 physique"))) {
+			"power", "weakness", Util.newArrayListOfValues("<b>+2</b> <b style='color: " + Colour.ATTRIBUTE_HEALTH.toWebHexString() + "'>Energy</b> per 1 physique")) {
 						@Override
 						public String getDescription(GameCharacter owner) {
 							if(owner.isPlayer())
@@ -138,7 +137,7 @@ public enum Attribute {
 			"Arcane",
 			"intelligenceIcon",
 			Colour.ATTRIBUTE_ARCANE,
-			"arcane-boost", "arcane-drain", Util.newArrayListOfValues(new ListValue<String>("<b>+2</b> <b style='color: " + Colour.ATTRIBUTE_MANA.toWebHexString() + "'>Aura</b> per 1 arcane"))) {
+			"arcane-boost", "arcane-drain", Util.newArrayListOfValues("<b>+2</b> <b style='color: " + Colour.ATTRIBUTE_MANA.toWebHexString() + "'>Aura</b> per 1 arcane")) {
 						@Override
 						public String getDescription(GameCharacter owner) {
 							if(owner.isPlayer())
@@ -157,8 +156,8 @@ public enum Attribute {
 			"Corruption",
 			"corruptionIcon",
 			Colour.ATTRIBUTE_CORRUPTION,
-			"corruption", "purity", Util.newArrayListOfValues(new ListValue<String>("<b>-0.5</b> <b style='color: " + Colour.ATTRIBUTE_MANA.toWebHexString() + "'>arousal resistance</b> per 1 physical corruption"),
-					new ListValue<String>("<b>+0.5</b> <b style='color: " + Colour.DAMAGE_TYPE_MANA.toWebHexString() + "'>arousal damage</b> per 1 physical corruption"))) {
+			"corruption", "purity", Util.newArrayListOfValues("<b>-0.5</b> <b style='color: " + Colour.ATTRIBUTE_MANA.toWebHexString() + "'>arousal resistance</b> per 1 physical corruption",
+					"<b>+0.5</b> <b style='color: " + Colour.DAMAGE_TYPE_MANA.toWebHexString() + "'>arousal damage</b> per 1 physical corruption")) {
 						@Override
 						public String getDescription(GameCharacter owner) {
 							if(owner.isPlayer()) {

@@ -38,7 +38,6 @@ import com.lilithsthrone.rendering.RenderingEngine;
 import com.lilithsthrone.utils.ClothingZLayerComparator;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -1099,7 +1098,7 @@ public class InventoryDialogue {
 								} else if(item.getItemType().isFetishGiving()) {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (opponent)",
 											"Get "+inventoryNPC.getName("the")+" to "+ item.getItemType().getUseName() + " the " + item.getName() + ".", Combat.ENEMY_ATTACK,
-											Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_KINK_GIVING)),
+											Util.newArrayListOfValues(Fetish.FETISH_KINK_GIVING),
 											Fetish.FETISH_KINK_GIVING.getAssociatedCorruptionLevel(),
 											null,
 											null,
@@ -1116,7 +1115,7 @@ public class InventoryDialogue {
 								} else if(item.getItemType().isTransformative()) {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (opponent)",
 											"Get "+inventoryNPC.getName("the")+" to "+ item.getItemType().getUseName() + " the " + item.getName() + ".", Combat.ENEMY_ATTACK,
-											Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_TRANSFORMATION_GIVING)),
+											Util.newArrayListOfValues(Fetish.FETISH_TRANSFORMATION_GIVING),
 											Fetish.FETISH_TRANSFORMATION_GIVING.getAssociatedCorruptionLevel(),
 											null,
 											null,
@@ -1269,7 +1268,7 @@ public class InventoryDialogue {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (them)",
 											"Get "+inventoryNPC.getName("the")+" to "+ item.getItemType().getUseName() + " the " + item.getName() + ".",
 											INVENTORY_MENU,
-											Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_KINK_GIVING)),
+											Util.newArrayListOfValues(Fetish.FETISH_KINK_GIVING),
 											Fetish.FETISH_KINK_GIVING.getAssociatedCorruptionLevel(),
 											null,
 											null,
@@ -1284,7 +1283,7 @@ public class InventoryDialogue {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (them)",
 											"Get "+inventoryNPC.getName("the")+" to "+ item.getItemType().getUseName() + " the " + item.getName() + ".",
 											INVENTORY_MENU,
-											Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_TRANSFORMATION_GIVING)),
+											Util.newArrayListOfValues(Fetish.FETISH_TRANSFORMATION_GIVING),
 											Fetish.FETISH_TRANSFORMATION_GIVING.getAssociatedCorruptionLevel(),
 											null,
 											null,
@@ -1318,7 +1317,7 @@ public class InventoryDialogue {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" all (them)",
 											"Get "+inventoryNPC.getName("the")+" to "+ item.getItemType().getUseName() + " all of the " + item.getNamePlural() + " in your inventory.",
 											INVENTORY_MENU,
-											Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_KINK_GIVING)),
+											Util.newArrayListOfValues(Fetish.FETISH_KINK_GIVING),
 											Fetish.FETISH_KINK_GIVING.getAssociatedCorruptionLevel(),
 											null,
 											null,
@@ -1336,7 +1335,7 @@ public class InventoryDialogue {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" all (them)",
 											"Get "+inventoryNPC.getName("the")+" to "+ item.getItemType().getUseName() + " all of the " + item.getNamePlural() + " in your inventory.",
 											INVENTORY_MENU,
-											Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_TRANSFORMATION_GIVING)),
+											Util.newArrayListOfValues(Fetish.FETISH_TRANSFORMATION_GIVING),
 											Fetish.FETISH_TRANSFORMATION_GIVING.getAssociatedCorruptionLevel(),
 											null,
 											null,
@@ -1426,7 +1425,7 @@ public class InventoryDialogue {
 								} else if(item.getItemType().isFetishGiving()) {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (partner)",
 											"Get "+inventoryNPC.getName("the")+" to "+ item.getItemType().getUseName() + " the " + item.getName() + ".", Sex.SEX_DIALOGUE,
-											Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_KINK_GIVING)),
+											Util.newArrayListOfValues(Fetish.FETISH_KINK_GIVING),
 											Fetish.FETISH_KINK_GIVING.getAssociatedCorruptionLevel(),
 											null,
 											null,
@@ -1444,7 +1443,7 @@ public class InventoryDialogue {
 								} else if(item.getItemType().isTransformative()) {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (partner)",
 											"Get "+inventoryNPC.getName("the")+" to "+ item.getItemType().getUseName() + " the " + item.getName() + ".", Sex.SEX_DIALOGUE,
-											Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_TRANSFORMATION_GIVING)),
+											Util.newArrayListOfValues(Fetish.FETISH_TRANSFORMATION_GIVING),
 											Fetish.FETISH_TRANSFORMATION_GIVING.getAssociatedCorruptionLevel(),
 											null,
 											null,
@@ -1841,7 +1840,7 @@ public class InventoryDialogue {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (them)",
 											"Get "+inventoryNPC.getName("the")+" to "+ item.getItemType().getUseName() + " the " + item.getName() + ".",
 											INVENTORY_MENU,
-											Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_KINK_GIVING)),
+											Util.newArrayListOfValues(Fetish.FETISH_KINK_GIVING),
 											Fetish.FETISH_KINK_GIVING.getAssociatedCorruptionLevel(),
 											null,
 											null,
@@ -1856,7 +1855,7 @@ public class InventoryDialogue {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (them)",
 											"Get "+inventoryNPC.getName("the")+" to "+ item.getItemType().getUseName() + " the " + item.getName() + ".",
 											INVENTORY_MENU,
-											Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_TRANSFORMATION_GIVING)),
+											Util.newArrayListOfValues(Fetish.FETISH_TRANSFORMATION_GIVING),
 											Fetish.FETISH_TRANSFORMATION_GIVING.getAssociatedCorruptionLevel(),
 											null,
 											null,
@@ -1890,7 +1889,7 @@ public class InventoryDialogue {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" all (them)",
 											UtilText.parse(inventoryNPC, Util.capitaliseSentence("Get [npc.name] to "+item.getItemType().getUseName()) + " all of the " + item.getName() + " that are currently in [npc.her] inventory."),
 											INVENTORY_MENU,
-											Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_KINK_GIVING)),
+											Util.newArrayListOfValues(Fetish.FETISH_KINK_GIVING),
 											Fetish.FETISH_KINK_GIVING.getAssociatedCorruptionLevel(),
 											null,
 											null,
@@ -1908,7 +1907,7 @@ public class InventoryDialogue {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" all (them)",
 											UtilText.parse(inventoryNPC, Util.capitaliseSentence("Get [npc.name] to "+item.getItemType().getUseName()) + " all of the " + item.getName() + " that are currently in [npc.her] inventory."),
 											INVENTORY_MENU,
-											Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_TRANSFORMATION_GIVING)),
+											Util.newArrayListOfValues(Fetish.FETISH_TRANSFORMATION_GIVING),
 											Fetish.FETISH_TRANSFORMATION_GIVING.getAssociatedCorruptionLevel(),
 											null,
 											null,
@@ -2001,7 +2000,7 @@ public class InventoryDialogue {
 //									return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (partner)",
 //											"Get "+inventoryNPC.getName("the")+" to "+ item.getItemType().getUseName() + " the " + item.getName() + ".",
 //											Sex.SEX_DIALOGUE,
-//											Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_KINK_GIVING)),
+//											Util.newArrayListOfValues(Fetish.FETISH_KINK_GIVING),
 //											Fetish.v.getAssociatedCorruptionLevel(),
 //											null,
 //											null,
@@ -2019,7 +2018,7 @@ public class InventoryDialogue {
 //									return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (partner)",
 //											"Get "+inventoryNPC.getName("the")+" to "+ item.getItemType().getUseName() + " the " + item.getName() + ".",
 //											Sex.SEX_DIALOGUE,
-//											Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_TRANSFORMATION_GIVING)),
+//											Util.newArrayListOfValues(Fetish.FETISH_TRANSFORMATION_GIVING),
 //											Fetish.FETISH_TRANSFORMATION_GIVING.getAssociatedCorruptionLevel(),
 //											null,
 //											null,

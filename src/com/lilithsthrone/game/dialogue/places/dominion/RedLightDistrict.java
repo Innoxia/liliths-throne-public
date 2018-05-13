@@ -22,7 +22,6 @@ import com.lilithsthrone.game.sex.managers.universal.SMDoggy;
 import com.lilithsthrone.game.sex.managers.universal.SMStanding;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.world.Cell;
@@ -278,10 +277,10 @@ public class RedLightDistrict {
 //					}
 //					System.out.println(currentSex.getTags().get(0));
 					
-					return UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_OCCUPIED_SLAVE_SEX", Util.newArrayListOfValues(new ListValue<>(prostitute), new ListValue<>(client))); //TODO need obedience/affection variations
+					return UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_OCCUPIED_SLAVE_SEX", Util.newArrayListOfValues(prostitute, client)); //TODO need obedience/affection variations
 
 				} else {
-					return UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_OCCUPIED_SEX", Util.newArrayListOfValues(new ListValue<>(prostitute), new ListValue<>(client)));
+					return UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_OCCUPIED_SEX", Util.newArrayListOfValues(prostitute, client));
 				}
 				
 			} else if(charactersPresent.isEmpty()) {
@@ -298,9 +297,9 @@ public class RedLightDistrict {
 			} else {
 				Main.game.setActiveNPC(charactersPresent.get(0));
 				if(charactersPresent.get(0).isSlave() && charactersPresent.get(0).getOwner().isPlayer()) {
-					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_OCCUPIED_SLAVE", Util.newArrayListOfValues(new ListValue<>(charactersPresent.get(0))))); //TODO need obedience/affection variations
+					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_OCCUPIED_SLAVE", Util.newArrayListOfValues(charactersPresent.get(0)))); //TODO need obedience/affection variations
 				} else {
-					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_OCCUPIED", Util.newArrayListOfValues(new ListValue<>(charactersPresent.get(0)))));
+					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_OCCUPIED", Util.newArrayListOfValues(charactersPresent.get(0))));
 				}
 			}
 			

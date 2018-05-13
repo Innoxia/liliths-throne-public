@@ -44,7 +44,6 @@ import com.lilithsthrone.rendering.Artist;
 import com.lilithsthrone.rendering.Artwork;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
@@ -448,7 +447,7 @@ public class Lilaya extends NPC {
 	
 	@Override
 	public List<Class<?>> getUniqueSexClasses() {
-		return Util.newArrayListOfValues(new ListValue<>(SALilayaSpecials.class));
+		return Util.newArrayListOfValues(SALilayaSpecials.class);
 	}
 
 	/**

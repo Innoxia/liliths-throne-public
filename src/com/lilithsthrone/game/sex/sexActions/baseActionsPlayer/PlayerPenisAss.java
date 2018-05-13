@@ -16,7 +16,6 @@ import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 
 /**
  * @since 0.1.90
@@ -107,9 +106,9 @@ public class PlayerPenisAss {
 		@Override
 		public List<Fetish> getFetishes(GameCharacter character) {
 			if(character.isPlayer()) {
-				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_GIVING), new ListValue<>(Fetish.FETISH_DENIAL));
+				return Util.newArrayListOfValues(Fetish.FETISH_ANAL_GIVING, Fetish.FETISH_DENIAL);
 			} else {
-				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_RECEIVING));
+				return Util.newArrayListOfValues(Fetish.FETISH_ANAL_RECEIVING);
 			}
 		}
 	};
@@ -195,9 +194,9 @@ public class PlayerPenisAss {
 		@Override
 		public List<Fetish> getFetishes(GameCharacter character) {
 			if(character.isPlayer()) {
-				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_GIVING));
+				return Util.newArrayListOfValues(Fetish.FETISH_ANAL_GIVING);
 			} else {
-				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_RECEIVING), new ListValue<>(Fetish.FETISH_DENIAL));
+				return Util.newArrayListOfValues(Fetish.FETISH_ANAL_RECEIVING, Fetish.FETISH_DENIAL);
 			}
 		}
 	};
