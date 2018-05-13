@@ -18,7 +18,6 @@ import com.lilithsthrone.game.sex.managers.universal.SMStanding;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.utils.Util.Value;
 
 /**
@@ -133,7 +132,7 @@ public class TunnelAttackDialogue {
 			} else if (index == 3) {
 				if(Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer())) {
 					return new ResponseSex("Offer body", "Offer your body to [npc.name] so that you can avoid a violent confrontation.",
-							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)), null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(),
+							Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(),
 							null, null, null,
 							true, true,
 							new SMStanding(
@@ -268,7 +267,7 @@ public class TunnelAttackDialogue {
 					return new ResponseSex("Submit",
 							"You're not really sure what to do now...</br>"
 								+ "Perhaps it would be best to let [npc.name] choose what to do next?",
-							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)),
+							Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE),
 							null, CorruptionLevel.THREE_DIRTY, null, null, null,
 							true, true,
 							new SMStanding(
@@ -334,7 +333,7 @@ public class TunnelAttackDialogue {
 				} else if (index == 2) {
 					return new ResponseSex(
 							"Rape [npc.herHim]", "[npc.She] needs to be punished for attacking you like that...",
-							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_DOM)), null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null, null, null,
+							Util.newArrayListOfValues(Fetish.FETISH_NON_CON_DOM), null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null, null, null,
 							false, false,
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
@@ -347,7 +346,7 @@ public class TunnelAttackDialogue {
 					
 				} else if (index == 3) {
 					return new ResponseSex("Rape [npc.herHim] (gentle)", "[npc.She] needs to be punished for attacking you like that... (Start the sex scene in the 'gentle' pace.)",
-							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_DOM)), null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null, null, null,
+							Util.newArrayListOfValues(Fetish.FETISH_NON_CON_DOM), null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null, null, null,
 							false, false,
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
@@ -368,7 +367,7 @@ public class TunnelAttackDialogue {
 					
 				} else if (index == 4) {
 					return new ResponseSex("Rape [npc.herHim] (rough)", "[npc.She] needs to be punished for attacking you like that... (Start the sex scene in the 'rough' pace.)",
-							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_DOM)), null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null, null, null,
+							Util.newArrayListOfValues(Fetish.FETISH_NON_CON_DOM), null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null, null, null,
 							false, false,
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
@@ -528,7 +527,7 @@ public class TunnelAttackDialogue {
 					
 				} else if (index == 2) {
 					return new Response("Swallow", "Do as you're told and swallow the strange potion.", AFTER_COMBAT_TRANSFORMATION,
-							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_TRANSFORMATION_RECEIVING)),
+							Util.newArrayListOfValues(Fetish.FETISH_TRANSFORMATION_RECEIVING),
 							Fetish.FETISH_TRANSFORMATION_RECEIVING.getAssociatedCorruptionLevel(),
 							null,
 							null,

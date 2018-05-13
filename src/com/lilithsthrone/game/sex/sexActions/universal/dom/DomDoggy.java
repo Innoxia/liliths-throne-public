@@ -19,7 +19,6 @@ import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 
 /**
  * @since 0.1.69
@@ -444,7 +443,7 @@ public class DomDoggy {
 		@Override
 		public List<OrificeType> getAreasCummedIn(GameCharacter cumProvider, GameCharacter cumTarget) {
 			if(cumProvider.equals(Main.game.getPlayer()) && cumTarget.equals(Sex.getTargetedPartner(Main.game.getPlayer()))) {
-				return Util.newArrayListOfValues(new ListValue<>(OrificeType.ANUS));
+				return Util.newArrayListOfValues(OrificeType.ANUS);
 			} else {
 				return null;
 			}
@@ -553,7 +552,7 @@ public class DomDoggy {
 		@Override
 		public List<OrificeType> getAreasCummedIn(GameCharacter cumProvider, GameCharacter cumTarget) {
 			if(cumProvider.equals(Main.game.getPlayer()) && cumTarget.equals(Sex.getTargetedPartner(Main.game.getPlayer()))) {
-				return Util.newArrayListOfValues(new ListValue<>(OrificeType.VAGINA));
+				return Util.newArrayListOfValues(OrificeType.VAGINA);
 			} else {
 				return null;
 			}

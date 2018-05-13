@@ -19,7 +19,6 @@ import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericOrgasms;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 
 /**
  * @since 0.2.5
@@ -72,7 +71,7 @@ public class PlayerSelfPanties {
 		@Override
 		public List<Fetish> getExtraFetishes(GameCharacter characterPerformingAction) {
 			if(characterPerformingAction.isPlayer()) {
-				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_INCEST));
+				return Util.newArrayListOfValues(Fetish.FETISH_INCEST);
 			} else {
 				return null;
 			}
@@ -124,7 +123,7 @@ public class PlayerSelfPanties {
 		@Override
 		public List<Fetish> getExtraFetishes(GameCharacter characterPerformingAction) {
 			if(characterPerformingAction.isPlayer()) {
-				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_INCEST));
+				return Util.newArrayListOfValues(Fetish.FETISH_INCEST);
 			} else {
 				return null;
 			}
@@ -168,7 +167,7 @@ public class PlayerSelfPanties {
 		@Override
 		public List<Fetish> getExtraFetishes(GameCharacter characterPerformingAction) {
 			if(characterPerformingAction.isPlayer()) {
-				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_MASTURBATION));
+				return Util.newArrayListOfValues(Fetish.FETISH_MASTURBATION);
 			} else {
 				return null;
 			}
@@ -207,8 +206,8 @@ public class PlayerSelfPanties {
 		public List<Fetish> getExtraFetishes(GameCharacter characterPerformingAction) {
 			if(characterPerformingAction.isPlayer()) {
 				return Util.newArrayListOfValues(
-						new ListValue<>(Fetish.FETISH_INCEST),
-						new ListValue<>(Fetish.FETISH_MASTURBATION));
+						Fetish.FETISH_INCEST,
+						Fetish.FETISH_MASTURBATION);
 			} else {
 				return null;
 			}

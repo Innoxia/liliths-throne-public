@@ -6,7 +6,6 @@ import java.util.Map;
 
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -26,19 +25,19 @@ public enum WorldType {
 //			PlaceType.DOMINION_STREET,
 //			PlaceType.DOMINION_BACK_ALLEYS,
 //			Util.newArrayListOfValues(
-//					new ListValue<PlaceType>(PlaceType.),
-//					new ListValue<PlaceType>(PlaceType.),
-//					new ListValue<PlaceType>(PlaceType.),
-//					new ListValue<PlaceType>(PlaceType.),
-//					new ListValue<PlaceType>(PlaceType.),
-//					new ListValue<PlaceType>(PlaceType.),
-//					new ListValue<PlaceType>(PlaceType.),
-//					new ListValue<PlaceType>(PlaceType.),
+//					PlaceType.,
+//					PlaceType.,
+//					PlaceType.,
+//					PlaceType.,
+//					PlaceType.,
+//					PlaceType.,
+//					PlaceType.,
+//					PlaceType.,
 //
 //			Util.newArrayListOfValues(
-//					new ListValue<PlaceType>(PlaceType.),
-//					new ListValue<PlaceType>(PlaceType.DOMINION_DARK_ALLEYS),
-//					new ListValue<PlaceType>(PlaceType.DOMINION_DARK_ALLEYS))),
+//					PlaceType.,
+//					PlaceType.DOMINION_DARK_ALLEYS,
+//					PlaceType.DOMINION_DARK_ALLEYS)),
 
 	DOMINION("Dominion",
 			Colour.BASE_PURPLE,
@@ -324,11 +323,11 @@ public enum WorldType {
 			PlaceType.JUNGLE_PATH,
 			PlaceType.JUNGLE_DENSE_JUNGLE,
 			Util.newArrayListOfValues(
-					new ListValue<PlaceType>(PlaceType.JUNGLE_BROTHEL),
-					new ListValue<PlaceType>(PlaceType.JUNGLE_CLUB),
-					new ListValue<PlaceType>(PlaceType.JUNGLE_ENTRANCE)),
+					PlaceType.JUNGLE_BROTHEL,
+					PlaceType.JUNGLE_CLUB,
+					PlaceType.JUNGLE_ENTRANCE),
 
-			Util.newArrayListOfValues(new ListValue<PlaceType>(PlaceType.JUNGLE_TENTACLE_QUEENS_LAIR)));
+			Util.newArrayListOfValues(PlaceType.JUNGLE_TENTACLE_QUEENS_LAIR));
 
 	
 	private final String name, fileLocation;

@@ -74,7 +74,6 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.RenderingEngine;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.WorldType;
@@ -1788,7 +1787,7 @@ public class MainController implements Initializable {
 		if (Main.game.getPlayer().getLocation().getY() + 1 < Main.game.getActiveWorld().WORLD_HEIGHT) {
 			if (Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY() + 1).getPlace().getPlaceType() != PlaceType.GENERIC_IMPASSABLE) {
 				if (Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().isItemsDisappear()) {
-					Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).resetInventory(Util.newArrayListOfValues(new ListValue<>(Rarity.LEGENDARY)));
+					Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).resetInventory(Util.newArrayListOfValues(Rarity.LEGENDARY));
 				}
 				Main.game.getPlayer().setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY() + 1));
 				DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true);
@@ -1804,7 +1803,7 @@ public class MainController implements Initializable {
 		if (Main.game.getPlayer().getLocation().getY() - 1 >= 0) {
 			if (Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY() - 1).getPlace().getPlaceType() != PlaceType.GENERIC_IMPASSABLE) {
 				if (Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().isItemsDisappear()) {
-					Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).resetInventory(Util.newArrayListOfValues(new ListValue<>(Rarity.LEGENDARY)));
+					Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).resetInventory(Util.newArrayListOfValues(Rarity.LEGENDARY));
 				}
 				Main.game.getPlayer().setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY() - 1));
 				DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true);
@@ -1820,7 +1819,7 @@ public class MainController implements Initializable {
 		if (Main.game.getPlayer().getLocation().getX() + 1 < Main.game.getActiveWorld().WORLD_WIDTH) {
 			if (Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation().getX() + 1, Main.game.getPlayer().getLocation().getY()).getPlace().getPlaceType() != PlaceType.GENERIC_IMPASSABLE) {
 				if (Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().isItemsDisappear()) {
-					Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).resetInventory(Util.newArrayListOfValues(new ListValue<>(Rarity.LEGENDARY)));
+					Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).resetInventory(Util.newArrayListOfValues(Rarity.LEGENDARY));
 				}
 				Main.game.getPlayer().setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX() + 1, Main.game.getPlayer().getLocation().getY()));
 				DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true);
@@ -1836,7 +1835,7 @@ public class MainController implements Initializable {
 		if (Main.game.getPlayer().getLocation().getX() - 1 >= 0) {
 			if (Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation().getX() - 1, Main.game.getPlayer().getLocation().getY()).getPlace().getPlaceType() != PlaceType.GENERIC_IMPASSABLE) {
 				if (Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().isItemsDisappear()) {
-					Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).resetInventory(Util.newArrayListOfValues(new ListValue<>(Rarity.LEGENDARY)));
+					Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).resetInventory(Util.newArrayListOfValues(Rarity.LEGENDARY));
 				}
 				Main.game.getPlayer().setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX() - 1, Main.game.getPlayer().getLocation().getY()));
 				DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true);

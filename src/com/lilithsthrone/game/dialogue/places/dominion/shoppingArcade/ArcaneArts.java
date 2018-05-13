@@ -20,7 +20,6 @@ import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.dominion.SMVickyOverDesk;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
@@ -137,7 +136,7 @@ public class ArcaneArts {
 				} else {
 					if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true) || (Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true) && Main.game.getPlayer().hasVagina())) {
 						return new ResponseSex("Offer body", "Let Vicky use your body.",
-								Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)), null, CorruptionLevel.TWO_HORNY, null, null, null,
+								Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, CorruptionLevel.TWO_HORNY, null, null, null,
 								true, false,
 								new SMVickyOverDesk(
 										Util.newHashMapOfValues(new Value<>(Main.game.getVicky(), SexPositionSlot.MISSIONARY_DESK_DOM_VICKY)),
@@ -167,8 +166,8 @@ public class ArcaneArts {
 					
 					return new ResponseSex("Nervously leave", "Vicky is far too intimidating for you... Turn around and try to escape from her gaze. [style.boldBad(You get the feeling that this will result in non-consensual sex...)]",
 							Util.newArrayListOfValues(
-									new ListValue<>(Fetish.FETISH_SUBMISSIVE),
-									new ListValue<>(Fetish.FETISH_NON_CON_SUB)), null, CorruptionLevel.FOUR_LUSTFUL, null, null, null,
+									Fetish.FETISH_SUBMISSIVE,
+									Fetish.FETISH_NON_CON_SUB), null, CorruptionLevel.FOUR_LUSTFUL, null, null, null,
 							false, false,
 							new SMVickyOverDesk(
 									Util.newHashMapOfValues(new Value<>(Main.game.getVicky(), SexPositionSlot.MISSIONARY_DESK_DOM_VICKY)),
@@ -284,7 +283,7 @@ public class ArcaneArts {
 			} else if (index == 2) {
 				if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true) || (Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true) && Main.game.getPlayer().hasVagina())) {
 					return new ResponseSex("Offer body", "Let Vicky use your body as payment for the fee.",
-							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)), null, CorruptionLevel.TWO_HORNY, null, null, null,
+							Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, CorruptionLevel.TWO_HORNY, null, null, null,
 							true, false,
 							new SMVickyOverDesk(
 									Util.newHashMapOfValues(new Value<>(Main.game.getVicky(), SexPositionSlot.MISSIONARY_DESK_DOM_VICKY)),
@@ -313,8 +312,8 @@ public class ArcaneArts {
 					
 					return new ResponseSex("Weakly refuse", "You can't bring yourself to say no to such an intimidating person... Try to wriggle free and leave... [style.boldBad(You get the feeling that this will result in non-consensual sex...)]",
 							Util.newArrayListOfValues(
-									new ListValue<>(Fetish.FETISH_SUBMISSIVE),
-									new ListValue<>(Fetish.FETISH_NON_CON_SUB)), null, CorruptionLevel.FOUR_LUSTFUL, null, null, null,
+									Fetish.FETISH_SUBMISSIVE,
+									Fetish.FETISH_NON_CON_SUB), null, CorruptionLevel.FOUR_LUSTFUL, null, null, null,
 							false, false,
 							new SMVickyOverDesk(
 									Util.newHashMapOfValues(new Value<>(Main.game.getVicky(), SexPositionSlot.MISSIONARY_DESK_DOM_VICKY)),

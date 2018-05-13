@@ -25,7 +25,6 @@ import com.lilithsthrone.game.sex.managers.universal.SMStanding;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.utils.Util.Value;
 
 public class HarpyNestsAttackerDialogue {
@@ -336,7 +335,7 @@ public class HarpyNestsAttackerDialogue {
 					return new ResponseSex("Submit",
 							"You're not really sure what to do now...</br>"
 								+ "Perhaps it would be best to let [npc.name] choose what to do next?",
-							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)),
+							Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE),
 							null, CorruptionLevel.THREE_DIRTY, null, null, null,
 							true, true,
 							new SMStanding(
@@ -401,7 +400,7 @@ public class HarpyNestsAttackerDialogue {
 					
 				} else if (index == 2) {
 					return new ResponseSex(
-							"Rape [npc.herHim]", "[npc.She] needs to be punished for attacking you like that...", Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_DOM)),
+							"Rape [npc.herHim]", "[npc.She] needs to be punished for attacking you like that...", Util.newArrayListOfValues(Fetish.FETISH_NON_CON_DOM),
 							null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null,
 							null, null,
 							false, false,
@@ -416,7 +415,7 @@ public class HarpyNestsAttackerDialogue {
 					
 				} else if (index == 3) {
 					return new ResponseSex("Rape [npc.herHim] (gentle)",
-							"[npc.She] needs to be punished for attacking you like that... (Start the sex scene in the 'gentle' pace.)", Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_DOM)),
+							"[npc.She] needs to be punished for attacking you like that... (Start the sex scene in the 'gentle' pace.)", Util.newArrayListOfValues(Fetish.FETISH_NON_CON_DOM),
 							null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null, null, null,
 							false, false,
 							new SMStanding(
@@ -438,7 +437,7 @@ public class HarpyNestsAttackerDialogue {
 					
 				} else if (index == 4) {
 					return new ResponseSex("Rape [npc.herHim] (rough)",
-							"[npc.She] needs to be punished for attacking you like that... (Start the sex scene in the 'rough' pace.)", Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_DOM)),
+							"[npc.She] needs to be punished for attacking you like that... (Start the sex scene in the 'rough' pace.)", Util.newArrayListOfValues(Fetish.FETISH_NON_CON_DOM),
 							null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null, null, null,
 							false, false,
 							new SMStanding(
@@ -600,11 +599,11 @@ public class HarpyNestsAttackerDialogue {
 					}
 					
 				} else if (index == 2) {
-					ArrayList<Fetish> applicableFetishes = Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_TRANSFORMATION_RECEIVING));
+					ArrayList<Fetish> applicableFetishes = Util.newArrayListOfValues(Fetish.FETISH_TRANSFORMATION_RECEIVING);
 					CorruptionLevel applicableCorrutionLevel = Fetish.FETISH_TRANSFORMATION_RECEIVING.getAssociatedCorruptionLevel();
 					
 					if(potion.getValue().getItemType() == ItemType.FETISH_REFINED) {
-						applicableFetishes = Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_KINK_RECEIVING));
+						applicableFetishes = Util.newArrayListOfValues(Fetish.FETISH_KINK_RECEIVING);
 						applicableCorrutionLevel = Fetish.FETISH_KINK_RECEIVING.getAssociatedCorruptionLevel();
 					}
 					

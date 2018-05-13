@@ -29,7 +29,6 @@ import com.lilithsthrone.game.sex.managers.universal.SMStanding;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -594,7 +593,7 @@ public class DominionOffspringDialogue {
 					
 				} else if (index == 4) {
 					return new Response("Passionate kiss", "Passionately kiss [npc.name] on the lips, and feel [npc.herHim] up as you do so.", OFFSPRING_ENCOUNTER_TALKING,
-							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_INCEST)),
+							Util.newArrayListOfValues(Fetish.FETISH_INCEST),
 							CorruptionLevel.FOUR_LUSTFUL,
 							null,
 							null,
@@ -1436,7 +1435,7 @@ public class DominionOffspringDialogue {
 					
 				} else if (index == 8) {
 					return new Response("Sex", "Tell [npc.name] that you want to have sex with [npc.herHim].", OFFSPRING_ENCOUNTER_SEX,
-							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_INCEST)),
+							Util.newArrayListOfValues(Fetish.FETISH_INCEST),
 							CorruptionLevel.FIVE_CORRUPT,
 							null,
 							null,
@@ -2268,7 +2267,7 @@ public class DominionOffspringDialogue {
 					
 				} else {
 					return new ResponseSex(
-							"Rape [npc.herHim]", "[npc.She] needs to be punished for attacking you like that...", Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_DOM)),
+							"Rape [npc.herHim]", "[npc.She] needs to be punished for attacking you like that...", Util.newArrayListOfValues(Fetish.FETISH_NON_CON_DOM),
 							null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null, null, null,
 							false, false,
 							new SMStanding(
@@ -2317,7 +2316,7 @@ public class DominionOffspringDialogue {
 					
 				} else {
 					return new ResponseSex("Rape [npc.herHim] (gentle)",
-							"[npc.She] needs to be punished for attacking you like that... (Start the sex scene in the 'gentle' pace.)", Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_DOM)),
+							"[npc.She] needs to be punished for attacking you like that... (Start the sex scene in the 'gentle' pace.)", Util.newArrayListOfValues(Fetish.FETISH_NON_CON_DOM),
 							null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null, null, null,
 							false, false,
 							new SMStanding(
@@ -2375,7 +2374,7 @@ public class DominionOffspringDialogue {
 					
 				} else {
 					return new ResponseSex("Rape [npc.herHim] (rough)",
-							"[npc.She] needs to be punished for attacking you like that... (Start the sex scene in the 'rough' pace.)", Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_DOM)),
+							"[npc.She] needs to be punished for attacking you like that... (Start the sex scene in the 'rough' pace.)", Util.newArrayListOfValues(Fetish.FETISH_NON_CON_DOM),
 							null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null, null, null,
 							false, false,
 							new SMStanding(
@@ -2409,7 +2408,7 @@ public class DominionOffspringDialogue {
 					return new ResponseSex("Submit",
 							"You're not really sure what to do now...</br>"
 								+ "Perhaps it would be best to let [npc.name] choose what to do next?",
-							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)), null, null, null, null, null,
+							Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, null, null, null, null,
 							true, true,
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(offspring(), SexPositionSlot.STANDING_DOMINANT)),

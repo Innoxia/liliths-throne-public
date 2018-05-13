@@ -9,6 +9,7 @@ import java.net.URISyntaxException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -199,36 +200,14 @@ public class Util {
 	    return dateFormat.format(file.lastModified());
 	}
 	
-	public static class ListValue<U> {
-		private U value;
-
-		public ListValue(U value) {
-			this.value = value;
-		}
-
-		public U getValue() {
-			return value;
-		}
-	}
-
 	@SafeVarargs
-	public static <U> ArrayList<U> newArrayListOfValues(ListValue<U>... values) {
-		ArrayList<U> list = new ArrayList<>();
-
-		for (ListValue<U> v : values)
-			list.add(v.value);
-
-		return list;
+	public static <U> ArrayList<U> newArrayListOfValues(U... values) {
+		return new ArrayList<>(Arrays.asList(values));
 	}
 	
 	@SafeVarargs
-	public static <U> HashSet<U> newHashSetOfValues(ListValue<U>... values) {
-		HashSet<U> list = new HashSet<>();
-
-		for (ListValue<U> v : values)
-			list.add(v.value);
-
-		return list;
+	public static <U> HashSet<U> newHashSetOfValues(U... values) {
+		return new HashSet<>(Arrays.asList(values));
 	}
 	
 	public static <T> T getRandomObjectFromWeightedMap(Map<T, Integer> map) {

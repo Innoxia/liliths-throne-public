@@ -17,7 +17,6 @@ import com.lilithsthrone.game.sex.managers.dominion.zaranix.SMZaranixCockSucking
 import com.lilithsthrone.game.sex.managers.universal.SMStanding;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
@@ -142,7 +141,7 @@ public class ZaranixHomeFirstFloor {
 				} else if(index==2) {
 					return new ResponseSex("Submit",
 							"You can't bring yourself to take the dominant role, but you <i>do</i> want to have sex with Kelly. Perhaps if you submitted, she'd be willing to fuck you?",
-							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)), null, CorruptionLevel.THREE_DIRTY, null, null, null,
+							Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, CorruptionLevel.THREE_DIRTY, null, null, null,
 							true, true,
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getKelly(), SexPositionSlot.STANDING_DOMINANT)),
@@ -337,7 +336,7 @@ public class ZaranixHomeFirstFloor {
 				
 			} else if(index==2) {
 				return new Response("'Thank' Zaranix", "You feel a little sorry for Zaranix. Perhaps you could offer to give him a blowjob as thanks...", ZARANIX_ROOM_EXPLANATION_THANK_ZARANIX,
-						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ORAL_GIVING)), CorruptionLevel.TWO_HORNY, null, null, null) {
+						Util.newArrayListOfValues(Fetish.FETISH_ORAL_GIVING), CorruptionLevel.TWO_HORNY, null, null, null) {
 					@Override
 					public boolean isSexHighlight() {
 						return true;
