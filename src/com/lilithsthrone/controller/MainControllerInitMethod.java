@@ -1169,21 +1169,22 @@ public class MainControllerInitMethod {
 				for(Entry<FluidMilk, Float> entry : room.getMilkStorage().entrySet()) {
 					id ="MILK_DRINK_SMALL_"+entry.hashCode();
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
+						int milkAmount = (int) (Math.min(room.getMilkStorage().get(entry.getKey()), 100));
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-							if(room.getMilkStorage().get(entry.getKey())>=100) {
-								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().ingestFluid(entry.getKey().getType(), OrificeType.MOUTH, 100, entry.getKey().getFluidModifiers()));
-								room.incrementMilkStorage(entry.getKey(), -100);
+							if(milkAmount>0) {
+								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().ingestFluid(entry.getKey().getType(), OrificeType.MOUTH, milkAmount, entry.getKey().getFluidModifiers()));
+								room.incrementMilkStorage(entry.getKey(), -milkAmount);
 								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 							}
 						}, false);
 						
 						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-						if(room.getMilkStorage().get(entry.getKey())>=100) {
-							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Drink (100ml)", "Drink 100ml of the "+entry.getKey().getName(null)+".");
+						if(milkAmount>0) {
+							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Drink ("+milkAmount+"ml)", "Drink "+milkAmount+"ml of the "+entry.getKey().getName(null)+".");
 							MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 						} else {
-							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Drink (100ml)", "There needs to be at least 100ml of "+entry.getKey().getName(null)+" stored here before you can drink it!");
+							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Drink (0ml)", "There needs to be at least 1ml of "+entry.getKey().getName(null)+" stored here before you can drink it!");
 							MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 						}
 					}
@@ -1230,21 +1231,22 @@ public class MainControllerInitMethod {
 				for(Entry<FluidCum, Float> entry : room.getCumStorage().entrySet()) {
 					id ="CUM_DRINK_SMALL_"+entry.hashCode();
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
+						int cumAmount = (int) (Math.min(room.getCumStorage().get(entry.getKey()), 100));
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-							if(room.getCumStorage().get(entry.getKey())>=100) {
-								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().ingestFluid(entry.getKey().getType(), OrificeType.MOUTH, 100, entry.getKey().getFluidModifiers()));
-								room.incrementCumStorage(entry.getKey(), -100);
+							if(room.getCumStorage().get(entry.getKey())>0) {
+								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().ingestFluid(entry.getKey().getType(), OrificeType.MOUTH, cumAmount, entry.getKey().getFluidModifiers()));
+								room.incrementCumStorage(entry.getKey(), -cumAmount);
 								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 							}
 						}, false);
 						
 						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-						if(room.getCumStorage().get(entry.getKey())>=100) {
-							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Drink (100ml)", "Drink 100ml of the "+entry.getKey().getName(null)+".");
+						if(room.getCumStorage().get(entry.getKey())>0) {
+							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Drink ("+cumAmount+"ml)", "Drink "+cumAmount+"ml of the "+entry.getKey().getName(null)+".");
 							MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 						} else {
-							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Drink (100ml)", "There needs to be at least 100ml of "+entry.getKey().getName(null)+" stored here before you can drink it!");
+							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Drink (0ml)", "There needs to be at least 1ml of "+entry.getKey().getName(null)+" stored here before you can drink it!");
 							MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 						}
 					}
@@ -1291,21 +1293,22 @@ public class MainControllerInitMethod {
 				for(Entry<FluidGirlCum, Float> entry : room.getGirlcumStorage().entrySet()) {
 					id ="GIRLCUM_DRINK_SMALL_"+entry.hashCode();
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
+						int girlcumAmount = (int) (Math.min(room.getGirlcumStorage().get(entry.getKey()), 100));
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-							if(room.getGirlcumStorage().get(entry.getKey())>=100) {
-								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().ingestFluid(entry.getKey().getType(), OrificeType.MOUTH, 100, entry.getKey().getFluidModifiers()));
-								room.incrementGirlcumStorage(entry.getKey(), -100);
+							if(room.getGirlcumStorage().get(entry.getKey())>0) {
+								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().ingestFluid(entry.getKey().getType(), OrificeType.MOUTH, girlcumAmount, entry.getKey().getFluidModifiers()));
+								room.incrementGirlcumStorage(entry.getKey(), -girlcumAmount);
 								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 							}
 						}, false);
 						
 						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-						if(room.getGirlcumStorage().get(entry.getKey())>=100) {
-							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Drink (100ml)", "Drink 100ml of the "+entry.getKey().getName(null)+".");
+						if(room.getGirlcumStorage().get(entry.getKey())>0) {
+							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Drink ("+girlcumAmount+"ml)", "Drink "+girlcumAmount+"ml of the "+entry.getKey().getName(null)+".");
 							MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 						} else {
-							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Drink (100ml)", "There needs to be at least 100ml of "+entry.getKey().getName(null)+" stored here before you can drink it!");
+							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Drink (0ml)", "There needs to be at least 1ml of "+entry.getKey().getName(null)+" stored here before you can drink it!");
 							MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 						}
 					}
@@ -4638,7 +4641,7 @@ public class MainControllerInitMethod {
 							OptionsDialogue.overwriteConfirmationName = "";
 							OptionsDialogue.loadConfirmationName = "";
 							OptionsDialogue.deleteConfirmationName = f.getName();
-							Main.game.setContent(new Response("Save/Load", "Open the save/load game window.", OptionsDialogue.SAVE_LOAD));
+							Main.game.setContent(new Response("Save/Load", "Open the save/load game window.", OptionsDialogue.IMPORT_EXPORT));
 						}
 						
 					}, false);
@@ -4735,11 +4738,13 @@ public class MainControllerInitMethod {
 						if(!Main.getProperties().hasValue(PropertyValue.overwriteWarning) || EnchantmentDialogue.overwriteConfirmationName.equals(f.getName())) {
 							EnchantmentDialogue.overwriteConfirmationName = "";
 							EnchantmentDialogue.saveEnchant(fileIdentifier, true);
+							Main.game.setContent(new Response("Save/Load", "Open the save/load game window.", EnchantmentDialogue.ENCHANTMENT_SAVE_LOAD));
+							
 						} else {
 							EnchantmentDialogue.overwriteConfirmationName = f.getName();
 							EnchantmentDialogue.loadConfirmationName = "";
 							EnchantmentDialogue.deleteConfirmationName = "";
-							Main.game.setContent(new Response("Save/Load", "Open the save/load game window.", EnchantmentDialogue.ENCHANTMENT_MENU));
+							Main.game.setContent(new Response("Save/Load", "Open the save/load game window.", EnchantmentDialogue.ENCHANTMENT_SAVE_LOAD));
 						}
 						
 					}, false);
@@ -4769,7 +4774,7 @@ public class MainControllerInitMethod {
 							EnchantmentDialogue.overwriteConfirmationName = "";
 							EnchantmentDialogue.loadConfirmationName = f.getName();
 							EnchantmentDialogue.deleteConfirmationName = "";
-							Main.game.setContent(new Response("Save/Load", "Open the save/load game window.", EnchantmentDialogue.ENCHANTMENT_MENU));
+							Main.game.setContent(new Response("Save/Load", "Open the save/load game window.", EnchantmentDialogue.ENCHANTMENT_SAVE_LOAD));
 						}
 						
 					}, false);
@@ -4786,11 +4791,13 @@ public class MainControllerInitMethod {
 						if(!Main.getProperties().hasValue(PropertyValue.overwriteWarning) || EnchantmentDialogue.deleteConfirmationName.equals(f.getName())) {
 							EnchantmentDialogue.deleteConfirmationName = "";
 							EnchantmentDialogue.deleteEnchant(fileIdentifier);
+							Main.game.setContent(new Response("Save/Load", "Open the save/load game window.", EnchantmentDialogue.ENCHANTMENT_SAVE_LOAD));
+							
 						} else {
 							EnchantmentDialogue.overwriteConfirmationName = "";
 							EnchantmentDialogue.loadConfirmationName = "";
 							EnchantmentDialogue.deleteConfirmationName = f.getName();
-							Main.game.setContent(new Response("Save/Load", "Open the save/load game window.", EnchantmentDialogue.ENCHANTMENT_MENU));
+							Main.game.setContent(new Response("Save/Load", "Open the save/load game window.", EnchantmentDialogue.ENCHANTMENT_SAVE_LOAD));
 						}
 						
 					}, false);

@@ -19,7 +19,6 @@ import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericOrgasms;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 
 /**
  * @since 0.2.5
@@ -72,7 +71,7 @@ public class PlayerSelfPanties {
 		@Override
 		public List<Fetish> getExtraFetishes(GameCharacter characterPerformingAction) {
 			if(characterPerformingAction.isPlayer()) {
-				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_INCEST));
+				return Util.newArrayListOfValues(Fetish.FETISH_INCEST);
 			} else {
 				return null;
 			}
@@ -124,7 +123,7 @@ public class PlayerSelfPanties {
 		@Override
 		public List<Fetish> getExtraFetishes(GameCharacter characterPerformingAction) {
 			if(characterPerformingAction.isPlayer()) {
-				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_INCEST));
+				return Util.newArrayListOfValues(Fetish.FETISH_INCEST);
 			} else {
 				return null;
 			}
@@ -168,7 +167,7 @@ public class PlayerSelfPanties {
 		@Override
 		public List<Fetish> getExtraFetishes(GameCharacter characterPerformingAction) {
 			if(characterPerformingAction.isPlayer()) {
-				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_MASTURBATION));
+				return Util.newArrayListOfValues(Fetish.FETISH_MASTURBATION);
 			} else {
 				return null;
 			}
@@ -207,8 +206,8 @@ public class PlayerSelfPanties {
 		public List<Fetish> getExtraFetishes(GameCharacter characterPerformingAction) {
 			if(characterPerformingAction.isPlayer()) {
 				return Util.newArrayListOfValues(
-						new ListValue<>(Fetish.FETISH_INCEST),
-						new ListValue<>(Fetish.FETISH_MASTURBATION));
+						Fetish.FETISH_INCEST,
+						Fetish.FETISH_MASTURBATION);
 			} else {
 				return null;
 			}
@@ -240,6 +239,42 @@ public class PlayerSelfPanties {
 						&& !Main.game.getPlayer().isWearingCondom())
 					|| (Main.game.getPlayer().hasVagina()
 						&& Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.VAGINA));
+		}
+
+		@Override
+		public String getDescription() {
+			return GenericOrgasms.getGenericOrgasmDescription(Main.game.getPlayer(), OrgasmCumTarget.LILAYA_PANTIES);
+		}
+		
+		@Override
+		public void applyEffects() {
+			if (!Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.PENIS) && !Main.game.getPlayer().isWearingCondom()) {
+				Main.game.getPlayer().getLowestZLayerCoverableArea(CoverableArea.PENIS).setDirty(true);
+			}
+		}
+	};
+	
+	public static final SexAction PLAYER_GENERIC_ORGASM = new SexAction(
+			SexActionType.PLAYER_ORGASM,
+			ArousalIncrease.FIVE_EXTREME,
+			ArousalIncrease.FIVE_EXTREME,
+			CorruptionLevel.ZERO_PURE,
+			null,
+			null,
+			SexParticipantType.MISC) {
+		@Override
+		public String getActionTitle() {
+			return "Orgasm";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "You've reached your climax, and can't hold back your orgasm any longer.";
+		}
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return !PLAYER_MASTURBATION_ORGASM_IN_PANTIES.isBaseRequirementsMet();
 		}
 
 		@Override

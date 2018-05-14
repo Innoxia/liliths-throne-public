@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.dialogue.encounters;
 
+import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -17,6 +18,7 @@ import com.lilithsthrone.game.character.npc.dominion.DominionAlleywayAttacker;
 import com.lilithsthrone.game.character.npc.dominion.DominionSuccubusAttacker;
 import com.lilithsthrone.game.character.npc.dominion.HarpyNestsAttacker;
 import com.lilithsthrone.game.character.npc.dominion.Lumi;
+import com.lilithsthrone.game.character.npc.dominion.RentalMommy;
 import com.lilithsthrone.game.character.npc.submission.BatMorphCavernAttacker;
 import com.lilithsthrone.game.character.npc.submission.SlimeCavernAttacker;
 import com.lilithsthrone.game.character.npc.submission.SubmissionAttacker;
@@ -43,7 +45,7 @@ import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.0
- * @version 0.1.88
+ * @version 0.2.5
  * @author Innoxia
  */
 public enum Encounter {
@@ -128,7 +130,7 @@ public enum Encounter {
 	
 				return Main.game.getActiveNPC().getEncounterDialogue();
 				
-			}  else if(node == EncounterType.DOMINION_STREET_FIND_HAPPINESS
+			} else if(node == EncounterType.DOMINION_STREET_FIND_HAPPINESS
 					&& Main.game.getPlayer().getName().equalsIgnoreCase("Kinariu")
 					&& !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.foundHappiness)) {
 				Main.game.getDialogueFlags().setFlag(DialogueFlagValue.foundHappiness, true);
@@ -137,6 +139,34 @@ public enum Encounter {
 			} else {
 				return null;
 			}
+		}
+	},
+	
+	DOMINION_BOULEVARD(Util.newHashMapOfValues(
+			new Value<EncounterType, Float>(EncounterType.DOMINION_STREET_RENTAL_MOMMY, 10f))) {
+		@Override
+		protected DialogueNodeOld initialiseEncounter(EncounterType node) {
+			if(node == EncounterType.DOMINION_STREET_RENTAL_MOMMY) {
+				LocalDateTime time = Main.game.getDateNow();
+				
+				if(time.getMonth().equals(Month.MAY) /*&& time.getDayOfWeek().equals(DayOfWeek.SUNDAY)*/ && time.getDayOfMonth()>7 && time.getDayOfMonth()<=14
+						&& !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.mommyFound)
+						&& Main.game.getCurrentWeather()!=Weather.MAGIC_STORM) {
+					
+					Main.game.setActiveNPC(new RentalMommy());
+					
+					try {
+						Main.game.addNPC(Main.game.getActiveNPC(), false);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+		
+					return Main.game.getActiveNPC().getEncounterDialogue();
+					
+				}
+			}
+			
+			return null;
 		}
 	},
 

@@ -57,13 +57,12 @@ import com.lilithsthrone.utils.BaseColour;
 import com.lilithsthrone.utils.Bearing;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.world.EntranceType;
 import com.lilithsthrone.world.WorldType;
 
 /**
  * @since 0.1.0
- * @version 0.1.99
+ * @version 0.2.5
  * @author Innoxia
  */
 public enum PlaceType {
@@ -97,7 +96,7 @@ public enum PlaceType {
 		}
 	},
 	
-	DOMINION_BOULEVARD("Dominion Boulevard", null, null, Colour.MAP_BACKGROUND_PINK, CityPlaces.BOULEVARD, null, false, false, true, "in the streets of Dominion") {
+	DOMINION_BOULEVARD("Dominion Boulevard", null, null, Colour.MAP_BACKGROUND_PINK, CityPlaces.BOULEVARD, Encounter.DOMINION_BOULEVARD, false, false, true, "in the streets of Dominion") {
 
 		@Override
 		public List<Subspecies> getSpeciesPopulatingArea() {
@@ -452,7 +451,7 @@ public enum PlaceType {
 	LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR("Room", "dominion/lilayasHome/room", BaseColour.GREY, Colour.MAP_BACKGROUND, LilayaHomeGeneric.ROOM_WINDOW, null, false, true, false, "in Lilaya's Home") {
 		@Override
 		public ArrayList<PlaceUpgrade> getStartingPlaceUpgrades() {
-			return Util.newArrayListOfValues(new ListValue<>(PlaceUpgrade.LILAYA_EMPTY_ROOM));
+			return Util.newArrayListOfValues(PlaceUpgrade.LILAYA_EMPTY_ROOM);
 		}
 		@Override
 		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades(Set<PlaceUpgrade> upgrades) {
@@ -494,7 +493,7 @@ public enum PlaceType {
 	LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR("Garden Room", "dominion/lilayasHome/room", BaseColour.GREY, Colour.MAP_BACKGROUND, LilayaHomeGeneric.ROOM_GARDEN_GROUND_FLOOR, null, false, true, false, "in Lilaya's Home") {
 		@Override
 		public ArrayList<PlaceUpgrade> getStartingPlaceUpgrades() {
-			return Util.newArrayListOfValues(new ListValue<>(PlaceUpgrade.LILAYA_EMPTY_ROOM));
+			return Util.newArrayListOfValues(PlaceUpgrade.LILAYA_EMPTY_ROOM);
 		}
 		@Override
 		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades(Set<PlaceUpgrade> upgrades) {
@@ -536,7 +535,7 @@ public enum PlaceType {
 	LILAYA_HOME_ROOM_WINDOW_FIRST_FLOOR("Room", "dominion/lilayasHome/room", BaseColour.GREY, Colour.MAP_BACKGROUND, LilayaHomeGeneric.ROOM_WINDOW, null, false, true, false, "in Lilaya's Home") {
 		@Override
 		public ArrayList<PlaceUpgrade> getStartingPlaceUpgrades() {
-			return Util.newArrayListOfValues(new ListValue<>(PlaceUpgrade.LILAYA_EMPTY_ROOM));
+			return Util.newArrayListOfValues(PlaceUpgrade.LILAYA_EMPTY_ROOM);
 		}
 		@Override
 		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades(Set<PlaceUpgrade> upgrades) {
@@ -578,7 +577,7 @@ public enum PlaceType {
 	LILAYA_HOME_ROOM_GARDEN_FIRST_FLOOR("Garden Room", "dominion/lilayasHome/room", BaseColour.GREY, Colour.MAP_BACKGROUND, LilayaHomeGeneric.ROOM_GARDEN, null, false, true, false, "in Lilaya's Home") {
 		@Override
 		public ArrayList<PlaceUpgrade> getStartingPlaceUpgrades() {
-			return Util.newArrayListOfValues(new ListValue<>(PlaceUpgrade.LILAYA_EMPTY_ROOM));
+			return Util.newArrayListOfValues(PlaceUpgrade.LILAYA_EMPTY_ROOM);
 		}
 		@Override
 		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades(Set<PlaceUpgrade> upgrades) {
@@ -973,7 +972,7 @@ public enum PlaceType {
 	SLAVER_ALLEY_SLAVERY_ADMINISTRATION("Slavery Administration", "dominion/slaverAlley/slaveryAdministration", BaseColour.PURPLE, Colour.MAP_BACKGROUND, SlaverAlleyDialogue.SLAVERY_ADMINISTRATION_EXTERIOR, null, false, true, true, "in Slaver's Alley"){
 		@Override
 		public ArrayList<PlaceUpgrade> getStartingPlaceUpgrades() {
-			return Util.newArrayListOfValues(new ListValue<>(PlaceUpgrade.SLAVERY_ADMINISTRATION_CELLS));
+			return Util.newArrayListOfValues(PlaceUpgrade.SLAVERY_ADMINISTRATION_CELLS);
 		}
 	},
 	

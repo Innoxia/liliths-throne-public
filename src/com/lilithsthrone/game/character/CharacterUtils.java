@@ -100,7 +100,6 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.ColourListPresets;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -1045,7 +1044,7 @@ public class CharacterUtils {
 		}
 		
 		// Penis:
-		if(character.hasPenis()) {
+		if(character.hasPenis() || character.getRace()==Race.DEMON || character.getRace()==Race.IMP) {
 			if(Math.random()<0.15f
 					&& character.getHistory()!=History.PROSTITUTE
 					&& !character.hasFetish(Fetish.FETISH_CUM_STUD)
@@ -1510,11 +1509,11 @@ public class CharacterUtils {
 	public static void applyMakeup(GameCharacter character, boolean overideExistingMakeup) {
 		if((character.isFeminine() && !character.hasFetish(Fetish.FETISH_CROSS_DRESSER)) || (!character.isFeminine() && character.hasFetish(Fetish.FETISH_CROSS_DRESSER))) {
 			List<Colour> colours = Util.newArrayListOfValues(
-					new ListValue<>(Colour.COVERING_NONE),
-					new ListValue<>(Colour.COVERING_CLEAR),
-					new ListValue<>(Colour.COVERING_RED),
-					new ListValue<>(Colour.COVERING_PINK),
-					new ListValue<>(Colour.COVERING_BLUE));
+					Colour.COVERING_NONE,
+					Colour.COVERING_CLEAR,
+					Colour.COVERING_RED,
+					Colour.COVERING_PINK,
+					Colour.COVERING_BLUE);
 			
 			if(character.getHistory()==History.PROSTITUTE) {
 				colours.remove(Colour.COVERING_NONE);
@@ -1570,51 +1569,51 @@ public class CharacterUtils {
 	static {
 		suitableFeminineClothing.put(History.PROSTITUTE,
 				Util.newArrayListOfValues(
-						new ListValue<>(ClothingType.ANKLE_BRACELET),
-						new ListValue<>(ClothingType.CHEST_LACY_PLUNGE_BRA),
-						new ListValue<>(ClothingType.CHEST_OPEN_CUP_BRA),
-						new ListValue<>(ClothingType.CHEST_PLUNGE_BRA),
-						new ListValue<>(ClothingType.EYES_AVIATORS),
-						new ListValue<>(ClothingType.FINGER_RING),
-						new ListValue<>(ClothingType.FOOT_ANKLE_BOOTS),
-						new ListValue<>(ClothingType.FOOT_HEELS),
-						new ListValue<>(ClothingType.FOOT_THIGH_HIGH_BOOTS),
-						new ListValue<>(ClothingType.FOOT_STILETTO_HEELS),
-						new ListValue<>(ClothingType.GROIN_BACKLESS_PANTIES),
-						new ListValue<>(ClothingType.GROIN_CROTCHLESS_PANTIES),
-						new ListValue<>(ClothingType.GROIN_CROTCHLESS_THONG),
-						new ListValue<>(ClothingType.GROIN_LACY_PANTIES),
-						new ListValue<>(ClothingType.GROIN_THONG),
-						new ListValue<>(ClothingType.GROIN_VSTRING),
-						new ListValue<>(ClothingType.HAND_ELBOWLENGTH_GLOVES),
-						new ListValue<>(ClothingType.HEAD_HEADBAND),
-						new ListValue<>(ClothingType.HEAD_HEADBAND_BOW),
-						new ListValue<>(ClothingType.LEG_CROTCHLESS_CHAPS),
-						new ListValue<>(ClothingType.LEG_MICRO_SKIRT_BELTED),
-						new ListValue<>(ClothingType.LEG_MICRO_SKIRT_PLEATED),
-						new ListValue<>(ClothingType.LEG_MINI_SKIRT),
-						new ListValue<>(ClothingType.LEG_SKIRT),
-						new ListValue<>(ClothingType.NECK_HEART_NECKLACE),
-						new ListValue<>(ClothingType.NECK_ANKH_NECKLACE),
-						new ListValue<>(ClothingType.NIPPLE_TAPE_CROSSES),
-						new ListValue<>(ClothingType.SOCK_FISHNET_STOCKINGS),
-						new ListValue<>(ClothingType.SOCK_TIGHTS),
-						new ListValue<>(ClothingType.STOMACH_OVERBUST_CORSET),
-						new ListValue<>(ClothingType.STOMACH_UNDERBUST_CORSET),
-						new ListValue<>(ClothingType.TORSO_FISHNET_TOP),
-						new ListValue<>(ClothingType.TORSO_KEYHOLE_CROPTOP),
-						new ListValue<>(ClothingType.TORSO_SHORT_CROPTOP),
-						new ListValue<>(ClothingType.WRIST_BANGLE),
-						new ListValue<>(ClothingType.WRIST_WOMENS_WATCH),
+						ClothingType.ANKLE_BRACELET,
+						ClothingType.CHEST_LACY_PLUNGE_BRA,
+						ClothingType.CHEST_OPEN_CUP_BRA,
+						ClothingType.CHEST_PLUNGE_BRA,
+						ClothingType.EYES_AVIATORS,
+						ClothingType.FINGER_RING,
+						ClothingType.FOOT_ANKLE_BOOTS,
+						ClothingType.FOOT_HEELS,
+						ClothingType.FOOT_THIGH_HIGH_BOOTS,
+						ClothingType.FOOT_STILETTO_HEELS,
+						ClothingType.GROIN_BACKLESS_PANTIES,
+						ClothingType.GROIN_CROTCHLESS_PANTIES,
+						ClothingType.GROIN_CROTCHLESS_THONG,
+						ClothingType.GROIN_LACY_PANTIES,
+						ClothingType.GROIN_THONG,
+						ClothingType.GROIN_VSTRING,
+						ClothingType.HAND_ELBOWLENGTH_GLOVES,
+						ClothingType.HEAD_HEADBAND,
+						ClothingType.HEAD_HEADBAND_BOW,
+						ClothingType.LEG_CROTCHLESS_CHAPS,
+						ClothingType.LEG_MICRO_SKIRT_BELTED,
+						ClothingType.LEG_MICRO_SKIRT_PLEATED,
+						ClothingType.LEG_MINI_SKIRT,
+						ClothingType.LEG_SKIRT,
+						ClothingType.NECK_HEART_NECKLACE,
+						ClothingType.NECK_ANKH_NECKLACE,
+						ClothingType.NIPPLE_TAPE_CROSSES,
+						ClothingType.SOCK_FISHNET_STOCKINGS,
+						ClothingType.SOCK_TIGHTS,
+						ClothingType.STOMACH_OVERBUST_CORSET,
+						ClothingType.STOMACH_UNDERBUST_CORSET,
+						ClothingType.TORSO_FISHNET_TOP,
+						ClothingType.TORSO_KEYHOLE_CROPTOP,
+						ClothingType.TORSO_SHORT_CROPTOP,
+						ClothingType.WRIST_BANGLE,
+						ClothingType.WRIST_WOMENS_WATCH,
 						
-						new ListValue<>(ClothingType.PIERCING_EAR_BASIC_RING),
-						new ListValue<>(ClothingType.PIERCING_LIP_RINGS),
-						new ListValue<>(ClothingType.PIERCING_NAVEL_GEM),
-						new ListValue<>(ClothingType.PIERCING_NIPPLE_BARS),
-						new ListValue<>(ClothingType.PIERCING_NOSE_BASIC_RING),
-						new ListValue<>(ClothingType.PIERCING_PENIS_RING),
-						new ListValue<>(ClothingType.PIERCING_TONGUE_BAR),
-						new ListValue<>(ClothingType.PIERCING_VAGINA_BARBELL_RING)));
+						ClothingType.PIERCING_EAR_BASIC_RING,
+						ClothingType.PIERCING_LIP_RINGS,
+						ClothingType.PIERCING_NAVEL_GEM,
+						ClothingType.PIERCING_NIPPLE_BARS,
+						ClothingType.PIERCING_NOSE_BASIC_RING,
+						ClothingType.PIERCING_PENIS_RING,
+						ClothingType.PIERCING_TONGUE_BAR,
+						ClothingType.PIERCING_VAGINA_BARBELL_RING));
 	}
 	
 //	private static void equipPreset(GameCharacter character, boolean replaceUnsuitableClothing, boolean onlyAddCoreClothing) {

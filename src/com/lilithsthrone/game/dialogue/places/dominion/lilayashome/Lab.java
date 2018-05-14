@@ -33,7 +33,6 @@ import com.lilithsthrone.game.sex.managers.universal.SMStanding;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
@@ -400,7 +399,7 @@ public class Lab {
 					if(Main.game.getLilaya().isVisiblyPregnant()) {
 						return new ResponseSex("\"Tests\"",
 								"Let Lilaya run her \"tests\" on you.",
-								Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_INCEST)), null, CorruptionLevel.FOUR_LUSTFUL, null, null, null,
+								Util.newArrayListOfValues(Fetish.FETISH_INCEST), null, CorruptionLevel.FOUR_LUSTFUL, null, null, null,
 								true, true,
 								new SMChairLilaya(
 										Util.newHashMapOfValues(new Value<>(Main.game.getLilaya(), SexPositionSlot.CHAIR_TOP_LILAYA)),
@@ -426,7 +425,7 @@ public class Lab {
 					} else {
 						return new ResponseSex("\"Tests\"",
 								"Let Lilaya run her \"tests\" on you.",
-								Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_INCEST)),
+								Util.newArrayListOfValues(Fetish.FETISH_INCEST),
 								null,
 								CorruptionLevel.FOUR_LUSTFUL, null, null, null,
 								true, true,
@@ -862,7 +861,7 @@ public class Lab {
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseSex("Sex", "Start having sex with Lilaya.",
-						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_INCEST)), null, CorruptionLevel.FOUR_LUSTFUL, null, null, null,
+						Util.newArrayListOfValues(Fetish.FETISH_INCEST), null, CorruptionLevel.FOUR_LUSTFUL, null, null, null,
 						true, true,
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
@@ -884,7 +883,7 @@ public class Lab {
 
 			} if (index == 2) {
 				return new ResponseSex("Submissive Sex", "Start having submissive sex with Lilaya.",
-						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_INCEST)), null, CorruptionLevel.FOUR_LUSTFUL, null, null, null,
+						Util.newArrayListOfValues(Fetish.FETISH_INCEST), null, CorruptionLevel.FOUR_LUSTFUL, null, null, null,
 						true, true,
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getLilaya(), SexPositionSlot.STANDING_DOMINANT)),
@@ -1846,7 +1845,7 @@ public class Lab {
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseSex("Sex",
-						"Start having sex with Lilaya.", Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_INCEST)),
+						"Start having sex with Lilaya.", Util.newArrayListOfValues(Fetish.FETISH_INCEST),
 						null,
 						CorruptionLevel.FOUR_LUSTFUL, null, null, null,
 						true, true,
@@ -2092,7 +2091,7 @@ public class Lab {
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseSex("Let it happen",
-						"You know that this can only end one way. Although Lilaya reminds you of your aunt Lily, you always did have a crush on her...", Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_INCEST)),
+						"You know that this can only end one way. Although Lilaya reminds you of your aunt Lily, you always did have a crush on her...", Util.newArrayListOfValues(Fetish.FETISH_INCEST),
 						null, CorruptionLevel.FOUR_LUSTFUL, null, null, null,
 						true, true,
 						new SMChairLilaya(

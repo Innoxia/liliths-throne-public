@@ -3,8 +3,8 @@
 <clothing>
 	<!-- GENERAL INFORMATION: If you are unsure of anything, please use the LT Discord to ask for help!
 	Your clothing's id (which is very important to the game), is calculated from your clothing's folder and .xml name using the following code:
-		innerChild.getParentFile().getName()+"_"+innerChild.getName().split("\\.")[0]
-	This results in this particular item's id being: "rentalMommy_rental_mommy".
+		modAuthorDirectory.getName()+"_"+innerChild.getParentFile().getName()+"_"+innerChild.getName().split("\\.")[0]
+	This results in this particular item's id being: "innoxia_rentalMommy_rental_mommy".
 	IMPORTANT: If you ever change the name of this .xml, or containing folder, any items of this clothing that exist in the game will be removed!-->
 	
 	<coreAtributes>

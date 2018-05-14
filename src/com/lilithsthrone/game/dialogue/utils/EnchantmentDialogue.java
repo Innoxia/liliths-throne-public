@@ -26,6 +26,7 @@ import org.w3c.dom.Element;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
+import com.lilithsthrone.game.dialogue.eventLog.EventLogEntry;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
@@ -345,12 +346,14 @@ public class EnchantmentDialogue {
 								return InventoryDialogue.CLOTHING_INVENTORY;
 							}
 							
-						} else {
-							if(Main.game.getPlayer().getMainWeapon().equals(ingredient) || Main.game.getPlayer().getOffhandWeapon().equals(ingredient)) {
+						} else if(ingredient instanceof AbstractWeapon){
+							if(Main.game.getPlayer().hasWeaponEquipped((AbstractWeapon) ingredient)) {
 								return InventoryDialogue.WEAPON_EQUIPPED;
 							} else {
 								return InventoryDialogue.WEAPON_INVENTORY;
 							}
+						} else {
+							throw new IllegalStateException("If it's not an item, not clothing, and not a weapon, then what?");
 						}
 					}
 					@Override
@@ -374,10 +377,11 @@ public class EnchantmentDialogue {
 							
 							craftItem(ingredient, effects);
 							
-							if((previousIngredient instanceof AbstractItem?Main.game.getPlayer().hasItem((AbstractItem) previousIngredient):true)
-									&& (previousIngredient instanceof AbstractClothing?Main.game.getPlayer().hasClothing((AbstractClothing) previousIngredient):true)
-									&& (previousIngredient instanceof AbstractWeapon?Main.game.getPlayer().hasWeapon((AbstractWeapon) previousIngredient):true)) {
+							if((previousIngredient instanceof AbstractItem && Main.game.getPlayer().hasItem((AbstractItem) previousIngredient))
+									|| (previousIngredient instanceof AbstractClothing && Main.game.getPlayer().hasClothing((AbstractClothing) previousIngredient))
+									|| (previousIngredient instanceof AbstractWeapon && Main.game.getPlayer().hasWeapon((AbstractWeapon) previousIngredient))) {
 								ingredient = previousIngredient;
+								effects = new ArrayList<>(previousEffects);
 								Main.game.setContent(new Response("", "", ENCHANTMENT_MENU));
 							} else {
 								Main.game.setContent(new Response("", "", InventoryDialogue.INVENTORY_MENU));
@@ -421,14 +425,16 @@ public class EnchantmentDialogue {
 		if(ingredient instanceof AbstractItem) {
 			Main.game.getPlayer().removeItem((AbstractItem) ingredient);
 			AbstractItem craftedItem = EnchantingUtils.craftItem(ingredient, effects);
-			Main.game.getPlayer().addItem(craftedItem, false, true);
+			Main.game.getPlayer().addItem(craftedItem, false);
+			Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourExcellent(Item Crafted)]", Util.capitaliseSentence(craftedItem.getName(false, true))), false);
 			
 		} else if(ingredient instanceof AbstractClothing) {
 			Main.game.getPlayer().removeClothing((AbstractClothing) ingredient);
 			AbstractClothing craftedClothing = EnchantingUtils.craftClothing(ingredient, effects);
 			Main.game.getPlayer().addClothing(craftedClothing, false);
+			Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourExcellent(Clothing Crafted)]", Util.capitaliseSentence(craftedClothing.getName(false, true))), false);
 			
-		} else if(ingredient instanceof AbstractWeapon) {
+		} else if(ingredient instanceof AbstractWeapon) { //TODO
 			Main.game.getPlayer().removeWeapon((AbstractWeapon) ingredient);
 		}
 		
