@@ -22,73 +22,17 @@
 	
 	Patch notes:
 	
-	Gameplay:
-		Added a small encounter for Mother's Day on Dominion's boulevard tiles. There's a 10% chance for it to fire, and it requires the game's date to be the second week of May. (I thought that the second Sunday of May was too narrow a time period.)
-	
-	Contributors:
-		Fixed body-part modifiers being incorrectly loaded in from old save files. (Pimvgd)
-		Increased parser performance. (Pimvgd) Innoxia's note: This massively increased rendering performance in all screens for me (most notably in the inventory screen).
-		Refactored code to remove unnecessary ListValue objects. (Pimvgd)
-		Fixed penis size alteration buttons incorrectly showing 'cm' when disabled. (Pimvgd)
-		Added hasWeaponEquipped method to handle possible future issues with enchanting weapons. (Pimvgd)
-		Fixed softlock caused by opening options menu during examining alexandria in intro. (Pimvgd)
-	
-	UI:
-		Improved inventory UI to stop that annoying stuttering/resizing caused by the scrollbar appearing and disappearing.
-	
-	Other:
-		All 'Submit' actions in the game are no longer completely locked out by not having the Submissive fetish, and instead have an associated corruption bypass cost.
-		Having a special flavour for milk, cum, or girlcum now increases its value.
-		Vicky now stocks 12 TF potions every day, instead of 6.
-		Slightly improved item ordering in inventory.
-		Added secondary colour to 'sport shorts', for the string tie. Replaced Lumi's shorts with sport shorts.
-		NPCs can now dress themselves once per hour instead of once per day.
-		Most demons and imps should now spawn in having already lost their penile virginity.
-		Added 'deflowering' fetish experience gain from taking virginities.
-		Added description of the rooms in Angel's Kiss having small bathrooms.
-		You can now drink fluids in the milking room if the total quantity is less than 100ml.
-		Enchanting effects are no longer cleared if there's another item of the same type in your inventory. (So if you want to craft lots of potions, you can now keep on clicking 'Craft', without needing to reload the effects every time.)
-	
-	Bugs:
-		Fixed several body covering colours not being saved or loaded correctly. (Some body colours might be reset as part of this fix, but they should now correctly save from now on.)
-		Fixed cause of a game import error (related to SlaveryUtil).
-		Fixed cause of possible game crash when clicking on weapons in inventory.
-		Fixed bug where milking room was milking cum instead of girlcum.
-		Milk regeneration enchantments are now correctly affected by the Water School perk (i.e. it's free).
-		Fixed a malfunction in the milking machines, where, even if they were powerful enough to do it, they wouldn't extract any stored milk from a slave's breasts past their milk regeneration rate. (e.g. If a slave had 500ml of milk in their breasts, and they regenerated 100ml an hour, and the machine was capable of milking 250ml an hour, the machine would only be milking 100ml an hour, instead of 250/250/200/100/etc.)
-		Fixed Vicky's potions having strange names.
-		Fixed Vicky's inventory resetting every time you loaded the game.
-		Fixed attackers in arcane storms using prostitute dialogue.
-		Fixed TF menu penis size showing 'cm' instead of 'inches'.
-		Pressing enter in the enchanting screen's rename box will no longer make the screen go blank.
-		Fixed another(!!!!!) cause of the NPC-stuck-on-screen bug.
-		Fixed companions being treated as librarians when entering Lilaya's library.
-		Fixed custom names for clothing not persisting between saves.
-		Fixed elusive bug where slave rooms would sometimes randomly reset their upgrades.
-		Fixed debug menu being available in the prologue (as it would end up breaking everything if used).
-		Typo fixes.
-		Fixed bug where equipped condoms couldn't be clicked on.
-		Spell actions should no longer be duplicated in combat. (Caused by unlocking a spell and also having a weapon that grants that spell.)
-		Fixed bug where a random NPC's inventory would be shown on the bottom-right during masturbation scenes. (I think this was also causing a bug where masturbation scenes could break and show no actions.)
-		Fixed Pix losing affection towards you at the end of her sex scene.
-		Fixed enchantment save/load confirmations not working properly.
-		Fixed bug where characters without genitalia would get stuck in Lilaya's panty masturbation scene at 100 lust.
-		Fixed horn TF options appearing twice in the transformation options for slimes.
-		Fixed offhand attacks applying the damage type of your main weapon.
-		Fixed bug where only one of a slaves' milk/cum/girlcum would be milked.
-		Fixed sex AI bug where NPCs with oral fetishes would stop/start oral actions.
-		Fixed modded clothing colours not being able to use custom colour lists.
-		Fixed bugs in Arthur's and Amber's descriptions.
-		Fluids will no longer show in the milking room if there's 0ml of them.
-		Fixed bug where the 'pet' in Amber's walkies fucking scene would sometimes generate with fetishes that would cause the scene to never progress.
-		Fixed bug where characters couldn't be imported as slaves if they had been exported with companions in their party.
-		Fixed bug where trying to delete an exported character with confirmations on would send you to the save/load screen.
 	
 	
 	
 	
 	
 	
+		
+	
+	I think the feathers are bugged in this version, I mean the purple ones. They only come in poison instead of all elements.
+	-edit-
+	The import doesn't import completely, my char lost her make-up.
 	
 	Lilaya fuck scene
 	

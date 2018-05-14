@@ -64,7 +64,7 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
 
-	public static final String VERSION_NUMBER = "0.2.5.1",
+	public static final String VERSION_NUMBER = "0.2.5.2",
 			VERSION_DESCRIPTION = "Alpha";
 	
 	private final static boolean DEBUG = false;
@@ -285,6 +285,18 @@ public class Main extends Application {
 			+"<ul>Fixed bug where the 'pet' in Amber's walkies fucking scene would sometimes generate with fetishes that would cause the scene to never progress.</ul>"
 			+"<ul>Fixed bug where characters couldn't be imported as slaves if they had been exported with companions in their party.</ul>"
 			+"<ul>Fixed bug where trying to delete an exported character with confirmations on would send you to the save/load screen.</ul>"
+		+ "</list>"
+
+		+ "</br>"
+
+		+ "<list>"
+			+ "<h6>v0.2.5.2</h6>"
+			+ "<li>Contributors:<li>"
+			+ "<ul>Fixed bug with conditional statements cutting off text. (Itpatch)</ul>"
+			
+			+ "<li>Bugs:</li>"
+			+ "<ul>Fixed bug where Lilaya would act as though you'd just creampied her for as long as she had a creampie effect was.</ul>"
+			+ "<ul>Fixed Rental Mommy even continuously firing until you hired her at least once.</ul>"
 		+ "</list>"
 		;
 	
