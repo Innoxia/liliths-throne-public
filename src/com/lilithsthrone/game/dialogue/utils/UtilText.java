@@ -731,10 +731,11 @@ public class UtilText {
 					return input;
 				}
 				return input.substring(0, startIndex) 
-						+ parse(specialNPC, (processingConditional
-								? parseConditionalSyntaxNew(target, command, arguments, conditionalTrue, conditionalFalse)
-								: parseSyntaxNew(target, command, arguments, specialNPC)
-						+ input.substring(endIndex+1, input.length())));
+						+ parse(specialNPC,
+								(processingConditional
+									? parseConditionalSyntaxNew(target, command, arguments, conditionalTrue, conditionalFalse)
+									: parseSyntaxNew(target, command, arguments, specialNPC))
+								+ input.substring(endIndex+1, input.length()));
 			} else {
 				return input;//.replaceAll(" a ", " <span style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>a big moo</span> ");
 			}
