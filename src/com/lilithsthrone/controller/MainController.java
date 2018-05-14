@@ -194,9 +194,10 @@ public class MainController implements Initializable {
 			Main.game.restoreSavedContent();
 			
 		} else if (!Main.game.getCurrentDialogueNode().isOptionsDisabled()) {
-			if (Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.NORMAL
-					|| Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.SLAVERY_MANAGEMENT
-					|| !Main.game.isInNewWorld()) {
+			DialogueNodeType currentDialogueNodeType = Main.game.getCurrentDialogueNode().getDialogueNodeType();
+			if (currentDialogueNodeType == DialogueNodeType.NORMAL
+					|| currentDialogueNodeType == DialogueNodeType.SLAVERY_MANAGEMENT
+					|| (!Main.game.isInNewWorld() && currentDialogueNodeType != DialogueNodeType.CHARACTERS_PRESENT)) {
 				Main.game.saveDialogueNode();
 			}
 			
