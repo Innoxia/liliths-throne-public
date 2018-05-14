@@ -228,6 +228,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 
 	private List<Artwork> artworkList;
 	private int artworkIndex = -1;
+	private String artworkFolderName = "";
 	
 	
 	// Location:
@@ -1897,10 +1898,15 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 
 	public void loadImages() {
-		// Get folder by class name if unique, character name otherwise
 		String folder = getArtworkFolderName();
+		if (folder.equals(artworkFolderName)) {
+			// Nothing changed, abort loading
+			return;
+		} else {
+			artworkList.clear();
+			artworkFolderName = folder;
+		}
 
-		artworkList.clear();
 		if(!folder.isEmpty()) {
 			for(Artist artist : Artwork.allArtists) {
 				File f = new File("res/images/characters/" + folder + "/" + artist.getFolderName());
@@ -2157,6 +2163,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 
 	protected String getArtworkFolderName() {
+		// Get folder by class name if unique, character name otherwise
 		return this.isUnique() ? this.getClass().getSimpleName() : "generic/" + this.getNameIgnoresPlayerKnowledge();
 	}
 
