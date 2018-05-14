@@ -1898,14 +1898,14 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 
 	public void loadImages() {
 		// Get folder by class name if unique, character name otherwise
-		String artworkFolderName = this.isUnique() ? this.getClass().getSimpleName() : "generic/" + this.getNameIgnoresPlayerKnowledge();
-		// System.out.println("Looking for images in " + artworkFolderName); // Debug output
+		String folder = getArtworkFolderName();
 
-		if(!artworkFolderName.isEmpty()) {
+		artworkList.clear();
+		if(!folder.isEmpty()) {
 			for(Artist artist : Artwork.allArtists) {
-				File f = new File("res/images/characters/" + artworkFolderName+"/" + artist.getFolderName());
+				File f = new File("res/images/characters/" + folder + "/" + artist.getFolderName());
 				if(f.exists()) {
-					Artwork art = new Artwork(artworkFolderName, artist);
+					Artwork art = new Artwork(folder, artist);
 					// Cull empty artwork lists
 					if (art.getTotalArtworkCount() > 0) {
 						artworkList.add(art);
@@ -2154,6 +2154,10 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						+ "<b>"+value+"</b>"
 					+ "</td>"
 				+ "</tr>";
+	}
+
+	protected String getArtworkFolderName() {
+		return this.isUnique() ? this.getClass().getSimpleName() : "generic/" + this.getNameIgnoresPlayerKnowledge();
 	}
 
 	public List<Artwork> getArtworkList() {
@@ -12415,6 +12419,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		
 		if (body.getFemininity() < femininity) {
 			if (body.setFemininity(femininity)) {
+				loadImages();
 				if(isPlayer()) {
 						return "<p>"
 									+ "You feel your body subtly shifting to become <b style='color:" + Colour.FEMININE.toWebHexString() + ";'>more feminine</b>.</br>"
@@ -12432,6 +12437,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			}
 		} else {
 			if (body.setFemininity(femininity)) {
+				loadImages();
 				if(isPlayer()) {
 					return "<p>"
 								+ "You feel your body subtly shifting to become <b style='color:" + Colour.MASCULINE.toWebHexString() + ";'>more masculine</b>.</br>"
