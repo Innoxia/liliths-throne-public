@@ -67,7 +67,7 @@
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="MOMMYS_EXTRAS_BREASTFEEDING"><![CDATA[
+	<htmlContent tag="MOMMYS_EXTRAS_OFFER_BREASTFEEDING"><![CDATA[
 	<p>
 		As you're wondering if you should take Mommy up on her offer or not, she suddenly seems to remember something, and happily continues, [npc.speech(Oh! If you wanted Mommy to feed you, I can do that too! It's five hundred flames if you want to do it inside, or a thousand if you want me to feed you out here. And just so we're clear, I'm talking about feeding you with these right here.)]
 	</p>
@@ -175,7 +175,7 @@
 		[pc.speech(Mommy, could I have some milk out here?)] You ask, before handing over one thousand flames.
 	</p>
 	<p>
-		[npc.speech(Of course, sweetie!] Mommy happily replies, while stroking your head. [npc.speech(Mommy's nice and full and today, so you make sure to drink as much milk as you want!)]
+		[npc.speech(Of course, sweetie!)] Mommy happily replies, while continuing to stroke your head. [npc.speech(Mommy's nice and full and today, so you make sure to drink as much milk as you want!)]
 	</p>
 	<p>
 		You eagerly watch as Mommy pulls her t-shirt up to just beneath her chin, exposing her [npc.breastSize], [npc.breastShape] [npc.breasts], and the black maternity bra which is supporting them. Reaching up to unfasten one of the bra's specially-designed cups, she reveals her [npc.nippleSize], puffy [npc.nipples], which are surrounded by [npc.areolaSize] areolae.

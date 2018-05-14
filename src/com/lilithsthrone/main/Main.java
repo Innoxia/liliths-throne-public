@@ -93,7 +93,7 @@ public class Main extends Application {
 		+ "</p>"
 			
 		+ "<p>"
-			+ "<b>The github/Patreon update (0.2.5.5) will be out one day later than usual, on Thursday 17th (going into the early hours of Friday 18th).</b>"
+			+ "Please be aware that the github/Patreon update (0.2.5.5) <b>might</b> be out one day later than usual, on Thursday 17th (going into the early hours of Friday 18th). I'll make a blog post if this turns out to be the case."
 		+ "</p>"
 			
 		+ "<p>"

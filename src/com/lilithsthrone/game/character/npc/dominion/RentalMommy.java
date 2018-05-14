@@ -59,7 +59,7 @@ public class RentalMommy extends NPC {
 	
 	public RentalMommy(boolean isImported) {
 		super(new NameTriplet("Mommy"),
-				"'Mommy' earns a living by renting herself out as a temporary mommy to those in need of some motherly love.", 10, Gender.F_V_B_FEMALE, RacialBody.COW_MORPH, RaceStage.PARTIAL,
+				"'Mommy' earns a living by renting herself out to those in need of some motherly love.", 10, Gender.F_V_B_FEMALE, RacialBody.COW_MORPH, RaceStage.PARTIAL,
 				new CharacterInventory(10), WorldType.DOMINION, PlaceType.DOMINION_BOULEVARD, false);
 
 		if(!isImported) {
@@ -140,7 +140,7 @@ public class RentalMommy extends NPC {
 			this.setSkinCovering(new Covering(BodyCoveringType.BOVINE_FUR, CoveringPattern.SPOTTED, Colour.COVERING_WHITE, false, Colour.COVERING_BLACK, false), true);
 			this.setHairCovering(new Covering(BodyCoveringType.HAIR_HUMAN, Colour.COVERING_BLACK), true);
 			this.setHairCovering(new Covering(BodyCoveringType.HAIR_BOVINE_FUR, Colour.COVERING_BLACK), true);
-			this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Main.game.getPlayer().getCovering(BodyCoveringType.HUMAN).getPrimaryColour()), true);
+			this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Main.game.getLilaya().getCovering(BodyCoveringType.HUMAN).getPrimaryColour()), true);
 			
 			this.setLipstick(new Covering(BodyCoveringType.MAKEUP_LIPSTICK, Colour.COVERING_RED));
 			this.setEyeLiner(new Covering(BodyCoveringType.MAKEUP_EYE_LINER, Colour.COVERING_BLACK));
@@ -156,7 +156,7 @@ public class RentalMommy extends NPC {
 			
 			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_LACY_PANTIES, Colour.CLOTHING_BLACK, false), true, this);
 			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_NURSING_BRA, Colour.CLOTHING_BLACK, false), true, this);
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_JEANS, Colour.CLOTHING_BLUE, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_TIGHT_TROUSERS, Colour.CLOTHING_BLUE, false), true, this);
 			try {
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_rentalMommy_rental_mommy"), Colour.CLOTHING_WHITE, Colour.CLOTHING_BLACK, Colour.CLOTHING_BLACK, false), true, this);
 			} catch(Exception ex) {

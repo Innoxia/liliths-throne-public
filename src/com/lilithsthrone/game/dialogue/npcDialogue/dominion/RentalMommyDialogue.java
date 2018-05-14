@@ -38,7 +38,7 @@ public class RentalMommyDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Hire "+UtilText.formatAsMoney(50, "span"), "", ENCOUNTER) {
+				return new Response("Hire "+UtilText.formatAsMoney(50, "span"), "", MOMMYS_EXTRAS) {
 					@Override
 					public void effects() {
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.mommyFound, true);
@@ -72,7 +72,7 @@ public class RentalMommyDialogue {
 			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("characters/dominion/rentalMommy", "MOMMYS_EXTRAS"));
 			
 			if(Main.getProperties().hasValue(PropertyValue.lactationContent)) {
-				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("characters/dominion/rentalMommy", "MOMMYS_EXTRAS_BREASTFEEDING"));
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("characters/dominion/rentalMommy", "MOMMYS_EXTRAS_OFFER_BREASTFEEDING"));
 			}
 			
 			return UtilText.nodeContentSB.toString();
@@ -131,7 +131,7 @@ public class RentalMommyDialogue {
 				if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
 					return new Response("Public Breastfeeding "+UtilText.formatAsMoneyUncoloured(1000, "span"), "You can't access your mouth, so you can't be breastfed by Mommy!", null);
 				}
-				return new Response("Public Breastfeeding "+UtilText.formatAsMoney(1000, "span"), "Remain out here on the bench, and, in full sight of the public, be breastfed by Mommy.", MOMMYS_EXTRAS_BREASTFEEDING) {
+				return new Response("Public Breastfeeding "+UtilText.formatAsMoney(1000, "span"), "Remain out here on the bench, and, in full sight of the public, be breastfed by Mommy.", MOMMYS_EXTRAS_BREASTFEEDING_PUBLIC) {
 					@Override
 					public void effects() {
 						Main.game.getActiveNPC().getPlayerKnowsAreas().add(CoverableArea.BREASTS);
