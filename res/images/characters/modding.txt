@@ -12,18 +12,18 @@ For example, adding an own image for the unique character Scarlett requires the 
 1) Go to the "Scarlett" folder and create a folder called "custom" inside it.
 2) Put your .png or .jpg images within that folder.
 3) Rename your images so that they all start with "clothed", "partial" or "naked", e.g. (clothed1.jpg, clothed2.png and naked1.jpg).
-4) Restart the game to apply the changes.
+4) Save and reload to apply the changes.
 
 Another example for adding images to a randomized character:
 1) Go inside the "generic" directory (create it if necessary).
 2) Create a folder with the name of the NPC. Remember that automatically generated names aren't unique, so you may want to rename the character in the game.
 3) Create a subfolder called "custom".
 4) Put your images inside it and rename them accordingly.
-5) Restart the game to apply the changes.
+5) Save and reload to apply the changes.
 
 
 EXCEPTIONS:
 
-Some unique NPCs have multiple classes (and therefore folders) based on their states:
-- Brax has the folders 'Brax', 'Bree', and 'Brandi' for his transformations.
+Some unique NPCs have different folders based on their states:
+- Brax has the folders 'Brax', 'Bree', and 'Brandi' based on his femininity (which changes by transforming him).
 - Lilaya has the folders 'LilayaPale', 'LilayaLight', 'LilayaOlive', 'LilayaDark', 'LilayaEbony' for the variations of her skin tone (based on your character's starting skin tone).
