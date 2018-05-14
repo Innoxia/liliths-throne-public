@@ -1914,7 +1914,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			}
 		}
 
-		if (!artworkList.isEmpty() && Main.getProperties().hasValue(PropertyValue.artwork)) {
+		if (!getArtworkList().isEmpty() && Main.getProperties().hasValue(PropertyValue.artwork)) {
 			ImageCache.INSTANCE.requestCache(new File(getCurrentArtwork().getCurrentImage()));
 		}
 	}
@@ -1955,7 +1955,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		// Index is not set, determine by artist
 		if(artworkIndex == -1) {
 			int i = 0;
-			for(Artwork art : artworkList) {
+			for(Artwork art : getArtworkList()) {
 				// Always override with custom art
 				if(art.getArtist().getName().equals("Custom")) {
 					artworkIndex = i;
@@ -1976,13 +1976,13 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			}
 		}
 
-		return artworkList.get(artworkIndex);
+		return getArtworkList().get(artworkIndex);
 	}
 	
 	public String getCharacterInformationScreen() {
 		infoScreenSB.setLength(0);
 
-		if (!artworkList.isEmpty() && Main.getProperties().hasValue(PropertyValue.artwork)) {
+		if (!getArtworkList().isEmpty() && Main.getProperties().hasValue(PropertyValue.artwork)) {
 			Artwork artwork = this.getCurrentArtwork();
 			String imageString = "";
 			int width = 200;
@@ -2161,7 +2161,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 	
 	public int getArtworkIndex() {
-		if(artworkIndex >= artworkList.size() || artworkIndex < 0) {
+		if(artworkIndex >= getArtworkList().size() || artworkIndex < 0) {
 			artworkIndex = 0;
 		}
 		return artworkIndex;
