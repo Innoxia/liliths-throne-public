@@ -7,6 +7,7 @@ import java.util.List;
 import com.lilithsthrone.game.Season;
 import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.body.EnumGender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.Cultist;
 import com.lilithsthrone.game.character.npc.dominion.ReindeerOverseer;
@@ -567,8 +568,8 @@ public class CityPlaces {
 									possibleSubspecies.add(Subspecies.HORSE_MORPH);
 									possibleSubspecies.add(Subspecies.WOLF_MORPH);
 									
-									String randomFemalePerson = possibleSubspecies.get(Util.random.nextInt(possibleSubspecies.size())).getSingularFemaleName();
-									String randomMalePerson = possibleSubspecies.get(Util.random.nextInt(possibleSubspecies.size())).getSingularMaleName();
+									String randomFemalePerson = possibleSubspecies.get(Util.random.nextInt(possibleSubspecies.size())).getName(EnumGender.FEMALE);
+									String randomMalePerson = possibleSubspecies.get(Util.random.nextInt(possibleSubspecies.size())).getName(EnumGender.MALE);
 									
 									Main.game.getTextEndStringBuilder().append("<p>"
 											+UtilText.returnStringAtRandom(

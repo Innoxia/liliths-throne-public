@@ -17,6 +17,7 @@ import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
 import com.lilithsthrone.game.character.attributes.LustLevel;
 import com.lilithsthrone.game.character.attributes.PhysiqueLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
+import com.lilithsthrone.game.character.body.EnumGender;
 import com.lilithsthrone.game.character.body.types.AntennaType;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.HornType;
@@ -605,7 +606,7 @@ public class TooltipInformationEventListener implements EventListener {
 					tooltipSB.append("<div class='title' style='color:" + owner.getRace().getColour().toWebHexString() + ";'>"
 							+(owner.getRaceStage().getName()!=""?"<b style='color:"+owner.getRaceStage().getColour().toWebHexString()+";'>" + Util.capitaliseSentence(owner.getRaceStage().getName())+"</b> ":"")
 							+ "<b style='color:"+owner.getRace().getColour().toWebHexString()+";'>"
-							+ (owner.isFeminine()?Util.capitaliseSentence(owner.getSubspecies().getSingularFemaleName()):Util.capitaliseSentence(owner.getSubspecies().getSingularMaleName()))
+							+ (owner.isFeminine()?Util.capitaliseSentence(owner.getSubspecies().getName(EnumGender.FEMALE)):Util.capitaliseSentence(owner.getSubspecies().getName(EnumGender.MALE)))
 							+ "</b>"
 							+ "</div>");
 	

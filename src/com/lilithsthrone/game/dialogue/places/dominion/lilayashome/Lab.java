@@ -8,6 +8,7 @@ import com.lilithsthrone.game.character.PlayerCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
+import com.lilithsthrone.game.character.body.EnumGender;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.effects.StatusEffect;
@@ -2785,22 +2786,22 @@ public class Lab {
 			
 			if(Main.game.getPlayer().getLastLitterBirthed().getSonsFromFather() > 0) {
 				UtilText.nodeContentSB.append("</br></br>Some time later, you imagine seeing a strangely familiar "
-							+Main.game.getPlayer().getLastLitterBirthed().getFatherRace().getOffspringMaleNameSingular()+" bending down over you, who plants a kiss on your cheek and mutters something in your ear before walking out the door...");
+							+Main.game.getPlayer().getLastLitterBirthed().getFatherRace().getOffspringName(EnumGender.MALE)+" bending down over you, who plants a kiss on your cheek and mutters something in your ear before walking out the door...");
 				
 			} else {
 				if(Main.game.getPlayer().getLastLitterBirthed().getSonsFromMother() > 0) {
 				UtilText.nodeContentSB.append("</br></br>Some time later, you imagine seeing a strangely familiar "
-							+Main.game.getPlayer().getLastLitterBirthed().getMotherRace().getOffspringMaleNameSingular()+" bending down over you, who plants a kiss on your cheek and mutters something in your ear before walking out the door...");
+							+Main.game.getPlayer().getLastLitterBirthed().getMotherRace().getOffspringName(EnumGender.MALE)+" bending down over you, who plants a kiss on your cheek and mutters something in your ear before walking out the door...");
 				}
 			}
 			if(Main.game.getPlayer().getLastLitterBirthed().getDaughtersFromFather() > 0) {
 				UtilText.nodeContentSB.append("</br></br>Some time later, you imagine seeing a strangely familiar "
-						+Main.game.getPlayer().getLastLitterBirthed().getFatherRace().getOffspringMaleNameSingular()+" bending down over you, who gives you a loving hug and a stroke of your head before departing...");
+						+Main.game.getPlayer().getLastLitterBirthed().getFatherRace().getOffspringName(EnumGender.MALE)+" bending down over you, who gives you a loving hug and a stroke of your head before departing...");
 				
 			} else {
 				if(Main.game.getPlayer().getLastLitterBirthed().getDaughtersFromMother() > 0) {
 					UtilText.nodeContentSB.append("</br></br>Some time later, you imagine seeing a strangely familiar "
-							+Main.game.getPlayer().getLastLitterBirthed().getMotherRace().getOffspringMaleNameSingular()+" bending down over you, who gives you a loving hug and a stroke of your head before departing...");
+							+Main.game.getPlayer().getLastLitterBirthed().getMotherRace().getOffspringName(EnumGender.MALE)+" bending down over you, who gives you a loving hug and a stroke of your head before departing...");
 				}
 			}
 			
@@ -3081,22 +3082,22 @@ public class Lab {
 			
 			if(Main.game.getPlayer().getLastLitterBirthed().getDaughtersFromMother()>0) {
 				UtilText.nodeContentSB.append(
-						" Within moments, a little head bursts through the top, and your eyes open wide as you see a tiny "+Main.game.getPlayer().getLastLitterBirthed().getMotherRace().getOffspringFemaleNameSingular()+" crawling out."
+						" Within moments, a little head bursts through the top, and your eyes open wide as you see a tiny "+Main.game.getPlayer().getLastLitterBirthed().getMotherRace().getOffspringName(EnumGender.FEMALE)+" crawling out."
 						+ " A little egg-tooth is still attached to her forehead, but after a quick shake, she drops it off onto the bed beneath her.");
 				
 			} else if(Main.game.getPlayer().getLastLitterBirthed().getSonsFromMother()>0) {
 				UtilText.nodeContentSB.append(
-						" Within moments, a little head bursts through the top, and your eyes open wide as you see a tiny "+Main.game.getPlayer().getLastLitterBirthed().getMotherRace().getOffspringMaleNameSingular()+" crawling out."
+						" Within moments, a little head bursts through the top, and your eyes open wide as you see a tiny "+Main.game.getPlayer().getLastLitterBirthed().getMotherRace().getOffspringName(EnumGender.MALE)+" crawling out."
 						+ " A little egg-tooth is still attached to his forehead, but after a quick shake, he drops it off onto the bed beneath him.");
 				
 			} else if(Main.game.getPlayer().getLastLitterBirthed().getDaughtersFromFather()>0) {
 				UtilText.nodeContentSB.append(
-						" Within moments, a little head bursts through the top, and your eyes open wide as you see a tiny "+Main.game.getPlayer().getLastLitterBirthed().getFatherRace().getOffspringFemaleNameSingular()+" crawling out."
+						" Within moments, a little head bursts through the top, and your eyes open wide as you see a tiny "+Main.game.getPlayer().getLastLitterBirthed().getFatherRace().getOffspringName(EnumGender.FEMALE)+" crawling out."
 						+ " A little egg-tooth is still attached to her forehead, but after a quick shake, she drops it off onto the bed beneath her.");
 				
 			} else {
 				UtilText.nodeContentSB.append(
-						" Within moments, a little head bursts through the top, and your eyes open wide as you see a tiny "+Main.game.getPlayer().getLastLitterBirthed().getFatherRace().getOffspringMaleNameSingular()+" crawling out."
+						" Within moments, a little head bursts through the top, and your eyes open wide as you see a tiny "+Main.game.getPlayer().getLastLitterBirthed().getFatherRace().getOffspringName(EnumGender.MALE)+" crawling out."
 								+ " A little egg-tooth is still attached to his forehead, but after a quick shake, he drops it off onto the bed beneath him.");
 				
 			}
@@ -3279,8 +3280,8 @@ public class Lab {
 						break;
 				}
 				litterSB.append(" <b style='color:"+ Colour.MASCULINE.toWebHexString()+ ";'>"+ (Main.game.getPlayer().getLastLitterBirthed().getSonsFromFather() > 1
-								? Main.game.getPlayer().getLastLitterBirthed().getFatherRace().getOffspringMaleName()+ "</b>, who have their father's features."
-								: Main.game.getPlayer().getLastLitterBirthed().getFatherRace().getOffspringMaleNameSingular()+ "</b>, who has his father's features."));
+								? Main.game.getPlayer().getLastLitterBirthed().getFatherRace().getOffspringName(EnumGender.MALES)+ "</b>, who have their father's features."
+								: Main.game.getPlayer().getLastLitterBirthed().getFatherRace().getOffspringName(EnumGender.MALE)+ "</b>, who has his father's features."));
 			}
 			
 			if (Main.game.getPlayer().getLastLitterBirthed().getSonsFromMother() > 0) {
@@ -3367,8 +3368,8 @@ public class Lab {
 						break;
 				}
 				litterSB.append(" <b style='color:"+ Colour.MASCULINE.toWebHexString()+ ";'>"+ (Main.game.getPlayer().getLastLitterBirthed().getSonsFromMother() > 1
-								? Main.game.getPlayer().getLastLitterBirthed().getMotherRace().getOffspringMaleName()+ "</b>, who have your features."
-								: Main.game.getPlayer().getLastLitterBirthed().getMotherRace().getOffspringMaleNameSingular()+ "</b>, who has your features."));
+								? Main.game.getPlayer().getLastLitterBirthed().getMotherRace().getOffspringName(EnumGender.MALES)+ "</b>, who have your features."
+								: Main.game.getPlayer().getLastLitterBirthed().getMotherRace().getOffspringName(EnumGender.MALE)+ "</b>, who has your features."));
 			}
 			
 			if (Main.game.getPlayer().getLastLitterBirthed().getDaughtersFromFather() > 0) {
@@ -3455,8 +3456,8 @@ public class Lab {
 						break;
 				}
 				litterSB.append(" <b style='color:"+ Colour.FEMININE.toWebHexString()+ ";'>"+ (Main.game.getPlayer().getLastLitterBirthed().getDaughtersFromFather() > 1
-							? Main.game.getPlayer().getLastLitterBirthed().getFatherRace().getOffspringFemaleName()+ "</b>, who have their father's features."
-							: Main.game.getPlayer().getLastLitterBirthed().getFatherRace().getOffspringFemaleNameSingular()+ "</b>, who has her father's features."));
+							? Main.game.getPlayer().getLastLitterBirthed().getFatherRace().getOffspringName(EnumGender.FEMALES)+ "</b>, who have their father's features."
+							: Main.game.getPlayer().getLastLitterBirthed().getFatherRace().getOffspringName(EnumGender.FEMALE)+ "</b>, who has her father's features."));
 			}
 			
 			if (Main.game.getPlayer().getLastLitterBirthed().getDaughtersFromMother() > 0) {
@@ -3543,8 +3544,8 @@ public class Lab {
 						break;
 				}
 				litterSB.append(" <b style='color:"+ Colour.FEMININE.toWebHexString()+ ";'>"+ (Main.game.getPlayer().getLastLitterBirthed().getDaughtersFromMother() > 1
-							? Main.game.getPlayer().getLastLitterBirthed().getMotherRace().getOffspringFemaleName()+ "</b>, who have your features."
-							: Main.game.getPlayer().getLastLitterBirthed().getMotherRace().getOffspringFemaleNameSingular()+ "</b>, who has your features."));
+							? Main.game.getPlayer().getLastLitterBirthed().getMotherRace().getName(EnumGender.FEMALES)+ "</b>, who have your features."
+							: Main.game.getPlayer().getLastLitterBirthed().getMotherRace().getName(EnumGender.FEMALE)+ "</b>, who has your features."));
 			}
 
 			litterSB.append("</p>"

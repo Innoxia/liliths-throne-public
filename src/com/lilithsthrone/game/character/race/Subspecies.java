@@ -6,19 +6,33 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+ 
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.Covering;
+import com.lilithsthrone.game.character.body.EnumGender;
+import com.lilithsthrone.game.character.body.types.AntennaType;
+import com.lilithsthrone.game.character.body.types.ArmType;
+import com.lilithsthrone.game.character.body.types.AssType;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.types.BreastType;
 import com.lilithsthrone.game.character.body.types.EarType;
+import com.lilithsthrone.game.character.body.types.EyeType;
+import com.lilithsthrone.game.character.body.types.FaceType;
+import com.lilithsthrone.game.character.body.types.HairType;
+import com.lilithsthrone.game.character.body.types.HornType;
+import com.lilithsthrone.game.character.body.types.LegType;
 import com.lilithsthrone.game.character.body.types.PenisType;
+import com.lilithsthrone.game.character.body.types.SkinType;
 import com.lilithsthrone.game.character.body.types.TailType;
+import com.lilithsthrone.game.character.body.types.VaginaType;
+import com.lilithsthrone.game.character.body.types.WingType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringModifier;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
 import com.lilithsthrone.game.character.body.valueEnums.Height;
-import com.lilithsthrone.utils.Colour;
+ import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.world.WorldType;
@@ -90,20 +104,8 @@ public enum Subspecies {
 		}
 		
 		@Override
-		public String getOffspringMaleName() {
-			return "imps";
-		}
-		@Override
-		public String getOffspringMaleNameSingular() {
-			return "imp";
-		}
-		@Override
-		public String getOffspringFemaleName() {
-			return "imps";
-		}
-		@Override
-		public String getOffspringFemaleNameSingular() {
-			return "imp";
+		public String getOffspringName(EnumGender pick) {
+			return getOffspringName(pick,"imp","imps","imp","imps");
 		}
 		
 		@Override
@@ -1443,43 +1445,50 @@ public enum Subspecies {
 		return false;
 	}
 	
-	public String getName() {
-		return name;
+	public String getName(EnumGender pick) {
+		switch (pick) {
+		case FEMALE:case FUTA:
+			return singularFemaleName;
+		case FEMALES:case FUTAS:
+			return pluralFemaleName;
+		 
+		case MALE:case HERM:
+			return singularMaleName;
+		case MALES:case HERMS:
+			return pluralMaleName;
+			 
+		case NONE:case GENDERLESS:
+			return name;
+		case GENDERLESSES:	
+			return namePlural;
+			
+		}
+		return "getName ERROR";
 	}
 	
-	public String getNamePlural() {
-		return namePlural;
-	}
-	
-	public String getSingularMaleName() {
-		return singularMaleName;
-	}
 
-	public String getSingularFemaleName() {
-		return singularFemaleName;
+	
+	public String getOffspringName(EnumGender pick) {
+		return getOffspringName(pick, singularFemaleName, pluralFemaleName, singularMaleName, pluralMaleName);
 	}
 	
-	public String getPluralMaleName() {
-		return pluralMaleName;
-	}
-
-	public String getPluralFemaleName() {
-		return pluralFemaleName;
-	}
-
-	public String getOffspringMaleName() {
-		return pluralMaleName;
-	}
-	public String getOffspringMaleNameSingular() {
-		return singularMaleName;
-	}
-	
-	public String getOffspringFemaleName() {
-		return pluralFemaleName;
-	}
-	
-	public String getOffspringFemaleNameSingular() {
-		return singularFemaleName;
+	public static final String getOffspringName(EnumGender pick, String singularFemaleName, String pluralFemaleName, String singularMaleName, String pluralMaleName ) {
+		String result ="";
+		switch (pick) {
+		case GENDERLESS: case GENDERLESSES:
+			result = "[Genderless hardcoded result]"; //TODO not do this! Fix it.
+		case MALE:case HERM:
+			result = singularMaleName;
+		case MALES:case HERMS:
+			result = pluralMaleName;
+		case FEMALE:case FUTA:
+			result = singularFemaleName;
+		case FEMALES:case FUTAS:
+			result = pluralFemaleName;
+		case NONE:
+			return "[NONE is a invalid value for getOffspringName() method.]";
+		}	
+		return result;
 	}
 	
 	public Race getRace() {

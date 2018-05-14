@@ -9,6 +9,7 @@ import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.character.body.EnumGender;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.Lactation;
 import com.lilithsthrone.game.character.fetishes.Fetish;
@@ -1406,7 +1407,7 @@ public class OptionsDialogue {
 		sb.append("<div class='container-full-width' style='text-align:center; background:"+getEntryBackgroundColour(altColour)+";'>");
 		
 		sb.append("<div class='container-full-width' style='text-align:center; width:calc(40% - 16px);background:transparent;'>"
-					+"<b style='color:"+s.getColour().toWebHexString()+"; float:left; width:100%; text-align:center;'>" +Util.capitaliseSentence(s.getName())+"</b>"
+					+"<b style='color:"+s.getColour().toWebHexString()+"; float:left; width:100%; text-align:center;'>" +Util.capitaliseSentence(s.getName(EnumGender.NONE))+"</b>"
 					+"</br>"
 					+ s.getDescription()
 				+"</div>"

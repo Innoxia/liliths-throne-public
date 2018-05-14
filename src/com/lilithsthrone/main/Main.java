@@ -16,6 +16,7 @@ import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.PlayerCharacter;
+import com.lilithsthrone.game.character.body.EnumGender;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.persona.NameTriplet;
@@ -674,7 +675,7 @@ public class Main extends Application {
 			properties.level = game.getPlayer().getLevel();
 			properties.money = game.getPlayer().getMoney();
 			properties.arcaneEssences = game.getPlayer().getEssenceCount(TFEssence.ARCANE);
-			properties.race = game.getPlayer().getSubspecies().getName();
+			properties.race = game.getPlayer().getSubspecies().getName(EnumGender.NONE);
 			properties.quest = game.getPlayer().getQuest(QuestLine.MAIN).getName();
 
 			properties.savePropertiesAsXML();

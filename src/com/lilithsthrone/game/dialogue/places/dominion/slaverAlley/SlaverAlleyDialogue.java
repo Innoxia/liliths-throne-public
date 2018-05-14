@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+import com.lilithsthrone.game.character.body.EnumGender;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.quests.Quest;
@@ -301,7 +302,7 @@ public class SlaverAlleyDialogue {
 								+ "<div style='width:40%; float:left; margin:0; padding:0; text-align:center;'>"
 									+ "<b style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>"+slave.getName()+"</b> - "
 									+ "<span style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(slave.getGender().getName())+"</span> "
-									+ "<span style='color:"+slave.getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence((slave.isFeminine()?slave.getSubspecies().getSingularFemaleName():slave.getSubspecies().getSingularMaleName()))+"</span>"
+									+ "<span style='color:"+slave.getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence((slave.isFeminine()?slave.getSubspecies().getName(EnumGender.FEMALE):slave.getSubspecies().getName(EnumGender.MALE)))+"</span>"
 								+ "</div>"
 								+ "<div style='float:left; width:17%; margin:0; padding:0; text-align:center;'>"
 									+ "<b style='color:"+slave.getObedience().getColour().toWebHexString()+";'>"+slave.getObedienceValue()+ "</b>"

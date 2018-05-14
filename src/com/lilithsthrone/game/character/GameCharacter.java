@@ -39,6 +39,7 @@ import com.lilithsthrone.game.character.body.BodyPartInterface;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.Dildo;
+import com.lilithsthrone.game.character.body.EnumGender;
 import com.lilithsthrone.game.character.body.FluidCum;
 import com.lilithsthrone.game.character.body.FluidGirlCum;
 import com.lilithsthrone.game.character.body.FluidMilk;
@@ -2338,13 +2339,13 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				if(getSubspecies()==Subspecies.HUMAN)
 					return "woman";
 				else
-					return getSubspecies().getSingularFemaleName();
+					return getSubspecies().getName(EnumGender.FEMALE);
 				
 			} else {
 				if(getSubspecies()==Subspecies.HUMAN)
 					return "man";
 				else
-					return getSubspecies().getSingularMaleName();
+					return getSubspecies().getName(EnumGender.MALE);
 			}
 			
 		} else {

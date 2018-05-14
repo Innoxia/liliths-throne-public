@@ -7,6 +7,7 @@ import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
+import com.lilithsthrone.game.character.body.EnumGender;
 import com.lilithsthrone.game.character.npc.dominion.DominionAlleywayAttacker;
 import com.lilithsthrone.game.character.npc.dominion.DominionSuccubusAttacker;
 import com.lilithsthrone.game.character.race.Race;
@@ -155,7 +156,7 @@ public interface SexManagerInterface {
 			Collections.shuffle(racesPresent);
 			List<String> raceNames = new ArrayList<>();
 			for(int i=0; i<racesPresent.size() && i<3;i++) {
-				raceNames.add(Subspecies.getMainSubspeciesOfRace(racesPresent.get(i)).getNamePlural());
+				raceNames.add(Subspecies.getMainSubspeciesOfRace(racesPresent.get(i)).getName(EnumGender.GENDERLESSES));
 			}
 			if(raceNames.size() < racesPresent.size()) {
 				raceNames.add("many other races");

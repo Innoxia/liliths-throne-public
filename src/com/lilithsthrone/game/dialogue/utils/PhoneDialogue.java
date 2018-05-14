@@ -9,6 +9,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.Litter;
 import com.lilithsthrone.game.character.PregnancyPossibility;
 import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.character.body.EnumGender;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
@@ -1041,7 +1042,7 @@ public class PhoneDialogue {
 									+ "<b style='color:"+Colour.FEMININE.toWebHexString()+";'>"+(Main.game.getPlayer().getCharactersEncountered().contains(npc.getId())?npc.getName():"Unknown")+"</b>"
 								+ "</td>"
 								+ "<td style='min-width:100px;'>"
-									+ "<b style='color:"+npc.getRace().getColour().toWebHexString()+";'>"+npc.getSubspecies().getOffspringFemaleNameSingular()+"</b>"
+									+ "<b style='color:"+npc.getRace().getColour().toWebHexString()+";'>"+npc.getSubspecies().getOffspringName(EnumGender.FEMALE)+"</b>"
 								+ "</td>"
 								+ "<td style='min-width:100px;'>"
 									+ "<b>"+(npc.getMother()==null?"???":(npc.getMother().isPlayer()?"You":npc.getMother().getName()))+"</b>"
@@ -1057,7 +1058,7 @@ public class PhoneDialogue {
 									+ "<b style='color:"+Colour.MASCULINE.toWebHexString()+";'>"+(Main.game.getPlayer().getCharactersEncountered().contains(npc.getId())?npc.getName():"Unknown")+"</b>"
 								+ "</td>"
 								+ "<td style='min-width:100px;'>"
-									+ "<b style='color:"+npc.getRace().getColour().toWebHexString()+";'>"+npc.getSubspecies().getOffspringMaleNameSingular()+"</b>"
+									+ "<b style='color:"+npc.getRace().getColour().toWebHexString()+";'>"+npc.getSubspecies().getOffspringName(EnumGender.MALE)+"</b>"
 								+ "</td>"
 								+ "<td style='min-width:100px;'>"
 									+ "<b>"+(npc.getMother()==null?"???":(npc.getMother().isPlayer()?"You":npc.getMother().getName()))+"</b>"
@@ -1169,7 +1170,7 @@ public class PhoneDialogue {
 										?"<b style='color:"+pp.getFather().getRaceStage().getColour().toWebHexString()+";'>" + Util.capitaliseSentence(pp.getFather().getRaceStage().getName())+"</b> "
 										:"")
 								+ "<b style='color:"+pp.getFather().getRace().getColour().toWebHexString()+";'>"
-								+ (pp.getFather().getGender().isFeminine()?Util.capitaliseSentence(pp.getFather().getSubspecies().getSingularFemaleName()):Util.capitaliseSentence(pp.getFather().getSubspecies().getSingularMaleName()))
+								+ (pp.getFather().getGender().isFeminine()?Util.capitaliseSentence(pp.getFather().getSubspecies().getName(EnumGender.FEMALE)):Util.capitaliseSentence(pp.getFather().getSubspecies().getName(EnumGender.MALE)))
 								+ "</b><b>) Probability: "));
 					
 					if (pp.getProbability() <= 0) {
@@ -1243,7 +1244,7 @@ public class PhoneDialogue {
 									?"<b style='color:"+pp.getMother().getRaceStage().getColour().toWebHexString()+";'>" + Util.capitaliseSentence(pp.getMother().getRaceStage().getName())+"</b> "
 									:"")
 							+ "<b style='color:"+pp.getMother().getRace().getColour().toWebHexString()+";'>"
-							+ (pp.getMother().getGender().isFeminine()?Util.capitaliseSentence(pp.getMother().getSubspecies().getSingularFemaleName()):Util.capitaliseSentence(pp.getMother().getSubspecies().getSingularMaleName()))
+							+ (pp.getMother().getGender().isFeminine()?Util.capitaliseSentence(pp.getMother().getSubspecies().getName(EnumGender.FEMALE)):Util.capitaliseSentence(pp.getMother().getSubspecies().getName(EnumGender.MALE)))
 							+ "</b><b>)</b>"));
 				
 				if(pp.getMother().hasStatusEffect(StatusEffect.PREGNANT_0)) {
@@ -1840,10 +1841,10 @@ public class PhoneDialogue {
 							if(sub.getRace()==race) {
 								raceSB.append(
 										"<p>"
-											+ "<b>Subspecies:</b> <b style='color:"+sub.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(sub.getName())+"</b>"
+											+ "<b>Subspecies:</b> <b style='color:"+sub.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(sub.getName(EnumGender.NONE))+"</b>"
 											+ "</br>"
-											+ "(<span style='color:"+Femininity.valueOf(racialBody.getMaleFemininity()).getColour().toWebHexString()+";'>"+Util.capitaliseSentence(sub.getSingularMaleName())+"</span>"
-											+ "/<span style='color:"+Femininity.valueOf(racialBody.getFemaleFemininity()).getColour().toWebHexString()+";'>"+Util.capitaliseSentence(sub.getSingularFemaleName())+"</span>)"
+											+ "(<span style='color:"+Femininity.valueOf(racialBody.getMaleFemininity()).getColour().toWebHexString()+";'>"+Util.capitaliseSentence(sub.getName(EnumGender.MALE))+"</span>"
+											+ "/<span style='color:"+Femininity.valueOf(racialBody.getFemaleFemininity()).getColour().toWebHexString()+";'>"+Util.capitaliseSentence(sub.getName(EnumGender.FEMALE))+"</span>)"
 											+ "</br>"
 											+ sub.getDescription()
 										+ "</p>");

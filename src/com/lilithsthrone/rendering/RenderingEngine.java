@@ -18,6 +18,7 @@ import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
 import com.lilithsthrone.game.character.attributes.LustLevel;
 import com.lilithsthrone.game.character.attributes.PhysiqueLevel;
+import com.lilithsthrone.game.character.body.EnumGender;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
@@ -996,7 +997,7 @@ public enum RenderingEngine {
 									+ (character.isRaceConcealed()
 											?"<span style='color:"+Colour.RACE_UNKNOWN.toWebHexString()+";'>Unknown"
 											:"<span style='color:"+character.getRace().getColour().toWebHexString()+";'>"
-												+Util.capitaliseSentence((character.isFeminine()?character.getSubspecies().getSingularFemaleName():character.getSubspecies().getSingularMaleName())))
+												+Util.capitaliseSentence((character.isFeminine()?character.getSubspecies().getName(EnumGender.FEMALE):character.getSubspecies().getName(EnumGender.MALE))))
 									+"</span>"
 								+ "<div class='overlay-inventory' id='CHARACTERS_PRESENT_"+character.getId()+"'></div>"
 							+ "</div>");
@@ -1617,7 +1618,7 @@ public enum RenderingEngine {
 							+ "<div class='full-width-container' style='text-align:center;padding:0;margin:0;'>"
 								+ "<b style='color:"+ Femininity.valueOf(character.getFemininityValue()).getColour().toWebHexString() + ";'>"
 									+ (character.getName().length() == 0
-											? Util.capitaliseSentence(character.isFeminine()?character.getSubspecies().getSingularFemaleName():character.getSubspecies().getSingularMaleName())
+											? Util.capitaliseSentence(character.isFeminine()?character.getSubspecies().getName(EnumGender.FEMALE):character.getSubspecies().getName(EnumGender.MALE))
 											: Util.capitaliseSentence(character.getName()))
 								+"</b>"
 								+ " - Level "+ character.getLevel()
@@ -1864,7 +1865,7 @@ public enum RenderingEngine {
 							+ "<div class='full-width-container' style='text-align:center;padding:0;margin:0;'>"
 								+ "<b style='color:"+ Femininity.valueOf(character.getFemininityValue()).getColour().toWebHexString() + ";'>"
 									+ (character.getName().length() == 0
-											? Util.capitaliseSentence(character.isFeminine()?character.getSubspecies().getSingularFemaleName():character.getSubspecies().getSingularMaleName())
+											? Util.capitaliseSentence(character.isFeminine()?character.getSubspecies().getName(EnumGender.FEMALE):character.getSubspecies().getName(EnumGender.MALE))
 											: Util.capitaliseSentence(character.getName()))
 								+"</b>"
 									+ " - <span style='color:"+Sex.getSexPace(character).getColour().toWebHexString()+";'>"+ Util.capitaliseSentence(Sex.getSexPace(character).getName())+"</span>"

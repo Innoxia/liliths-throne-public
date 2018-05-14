@@ -19,6 +19,7 @@ import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.attributes.ObedienceLevel;
 import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.CoverableArea;
+import com.lilithsthrone.game.character.body.EnumGender;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.valueEnums.AssSize;
@@ -895,9 +896,9 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		
 		if(Main.getProperties().forcedTFPreference != FurryPreference.HUMAN) {
 			if (getPreferredBody().getGender().isFeminine()) {
-				raceName = getPreferredBody().getGender().getName() + " " + getPreferredBody().getSubspecies().getSingularFemaleName();
+				raceName = getPreferredBody().getGender().getName() + " " + getPreferredBody().getSubspecies().getName(EnumGender.FEMALE);
 			} else {
-				raceName = getPreferredBody().getGender().getName() + " " + getPreferredBody().getSubspecies().getSingularMaleName();
+				raceName = getPreferredBody().getGender().getName() + " " + getPreferredBody().getSubspecies().getName(EnumGender.MALE);
 			}
 		
 			switch(getPreferredBody().getRace()) {

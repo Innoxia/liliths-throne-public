@@ -21,6 +21,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.BodyPartInterface;
 import com.lilithsthrone.game.character.body.CoverableArea;
+import com.lilithsthrone.game.character.body.EnumGender;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.BodyPartType;
 import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
@@ -5031,9 +5032,9 @@ public class UtilText {
 		if(race==null)
 			return "";
 		if (character.isFeminine()) {
-			return race.getSingularFemaleName();
+			return race.getName(EnumGender.FEMALE);
 		} else {
-			return race.getSingularMaleName();
+			return race.getName(EnumGender.MALE);
 		}
 	}
 	
@@ -5041,9 +5042,9 @@ public class UtilText {
 		if(race==null)
 			return "";
 		if (character.isFeminine()) {
-			return race.getPluralFemaleName();
+			return race.getName(EnumGender.FEMALES);
 		} else {
-			return race.getPluralMaleName();
+			return race.getName(EnumGender.MALES);
 		}
 	}
 	

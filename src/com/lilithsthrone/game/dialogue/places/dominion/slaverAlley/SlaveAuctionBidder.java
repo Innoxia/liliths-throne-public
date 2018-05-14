@@ -2,6 +2,7 @@ package com.lilithsthrone.game.dialogue.places.dominion.slaverAlley;
 
 import java.util.List;
 
+import com.lilithsthrone.game.character.body.EnumGender;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -32,9 +33,9 @@ public class SlaveAuctionBidder {
 		this.successfulBidComments = successfulBidComments;
 		
 		if(gender.isFeminine()) {
-			name = race.getSingularFemaleName();
+			name = race.getName(EnumGender.FEMALE);
 		} else {
-			name = race.getSingularMaleName();
+			name = race.getName(EnumGender.MALE);
 		}
 	}
 
