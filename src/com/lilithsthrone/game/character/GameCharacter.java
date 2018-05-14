@@ -10555,6 +10555,11 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		return inventory.hasWeapon(weapon);
 	}
 	
+	public boolean hasWeaponEquipped(AbstractWeapon weapon) {
+		return (getMainWeapon()!=null && getMainWeapon().equals(weapon))
+				|| (getOffhandWeapon()!=null && getOffhandWeapon().equals(weapon));
+	}
+	
 	public String dropWeapon(AbstractWeapon weapon) {
 		if (inventory.dropWeapon(weapon, location)) {
 			return droppedItemText(weapon);

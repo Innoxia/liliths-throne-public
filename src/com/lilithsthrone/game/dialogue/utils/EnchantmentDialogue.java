@@ -346,12 +346,14 @@ public class EnchantmentDialogue {
 								return InventoryDialogue.CLOTHING_INVENTORY;
 							}
 							
-						} else {
-							if(Main.game.getPlayer().getMainWeapon().equals(ingredient) || Main.game.getPlayer().getOffhandWeapon().equals(ingredient)) {
+						} else if(ingredient instanceof AbstractWeapon){
+							if(Main.game.getPlayer().hasWeaponEquipped((AbstractWeapon) ingredient)) {
 								return InventoryDialogue.WEAPON_EQUIPPED;
 							} else {
 								return InventoryDialogue.WEAPON_INVENTORY;
 							}
+						} else {
+							throw new IllegalStateException("If it's not an item, not clothing, and not a weapon, then what?");
 						}
 					}
 					@Override
