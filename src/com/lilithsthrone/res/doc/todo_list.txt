@@ -22,10 +22,16 @@
 	
 	Patch notes:
 	
+	Gameplay:
+		Added a small encounter for Mother's Day on Dominion's boulevard tiles. There's a 10% chance for it to fire, and it requires the game's date to be the second week of May. (I thought that the second Sunday of May was too narrow a time period.)
+	
 	Contributors:
 		Fixed body-part modifiers being incorrectly loaded in from old save files. (Pimvgd)
 		Increased parser performance. (Pimvgd) Innoxia's note: This massively increased rendering performance in all screens for me (most notably in the inventory screen).
 		Refactored code to remove unnecessary ListValue objects. (Pimvgd)
+		Fixed penis size alteration buttons incorrectly showing 'cm' when disabled. (Pimvgd)
+		Added hasWeaponEquipped method to handle possible future issues with enchanting weapons. (Pimvgd)
+		Fixed softlock caused by opening options menu during examining alexandria in intro. (Pimvgd)
 	
 	UI:
 		Improved inventory UI to stop that annoying stuttering/resizing caused by the scrollbar appearing and disappearing.
@@ -40,6 +46,8 @@
 		Most demons and imps should now spawn in having already lost their penile virginity.
 		Added 'deflowering' fetish experience gain from taking virginities.
 		Added description of the rooms in Angel's Kiss having small bathrooms.
+		You can now drink fluids in the milking room if the total quantity is less than 100ml.
+		Enchanting effects are no longer cleared if there's another item of the same type in your inventory. (So if you want to craft lots of potions, you can now keep on clicking 'Craft', without needing to reload the effects every time.)
 	
 	Bugs:
 		Fixed several body covering colours not being saved or loaded correctly. (Some body colours might be reset as part of this fix, but they should now correctly save from now on.)
@@ -71,13 +79,22 @@
 		Fixed sex AI bug where NPCs with oral fetishes would stop/start oral actions.
 		Fixed modded clothing colours not being able to use custom colour lists.
 		Fixed bugs in Arthur's and Amber's descriptions.
-		
+		Fluids will no longer show in the milking room if there's 0ml of them.
+		Fixed bug where the 'pet' in Amber's walkies fucking scene would sometimes generate with fetishes that would cause the scene to never progress.
+		Fixed bug where characters couldn't be imported as slaves if they had been exported with companions in their party.
+		Fixed bug where trying to delete an exported character with confirmations on would send you to the save/load screen.
 	
 	
+	
+	
+	
+	
+	
+	Lilaya fuck scene
+	
+	Anyone have trouble with the game freezing up if you get jumped in your house by a slave while under the "Risk of pregnancy" status effect
 	
 	USE 8 0170
-	
-	Patreon credits
 	
 	rfpnj PR
 	
@@ -85,9 +102,10 @@
 	
 	
 	
+	after growing more than 1 tail I lost the option to tail peg
+	
 	handjobs and breastfeeding as ongoing
 	hand as orifice
-	
 	
 	
 	it seems like the part of the description where it says how many times you've had sex with someone counts the number of times they've had sex in a brothel while working for you as a slave
@@ -96,9 +114,6 @@
 	
 	elemental clothing
 	
-	add enchantment repeat
-	
-	amber pet mounting pet might not like sex with player
 	
 	
 	

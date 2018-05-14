@@ -1828,6 +1828,8 @@ public class ZaranixHomeGroundFloorRepeat {
 							}
 							owner.addSlave(pet);
 							pet.unequipAllClothingIntoVoid();
+							pet.clearFetishDesires();
+							pet.clearFetishes();
 							if(Main.game.getPlayer().hasVagina() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
 								if(Math.random()<0.33f) {
 									pet.addFetish(Fetish.FETISH_ANAL_GIVING);

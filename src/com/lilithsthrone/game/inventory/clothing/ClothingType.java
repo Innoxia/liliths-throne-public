@@ -11596,8 +11596,8 @@ public class ClothingType {
 									for (File innerChild : innerDirectoryListing) {
 										AbstractClothingType ct = new AbstractClothingType(innerChild) {};
 										moddedClothingList.add(ct);
-//										System.out.println(modAuthorDirectory.getName()+"_"+innerChild.getParentFile().getName()+"_"+innerChild.getName().split("\\.")[0]);
 										String id = modAuthorDirectory.getName()+"_"+innerChild.getParentFile().getName()+"_"+innerChild.getName().split("\\.")[0];
+//										System.out.println(id);
 										clothingToIdMap.put(ct, id);
 										idToClothingMap.put(id, ct);
 									}

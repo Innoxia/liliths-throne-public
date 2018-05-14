@@ -62,7 +62,7 @@ import com.lilithsthrone.world.WorldType;
 
 /**
  * @since 0.1.0
- * @version 0.1.99
+ * @version 0.2.5
  * @author Innoxia
  */
 public enum PlaceType {
@@ -96,7 +96,7 @@ public enum PlaceType {
 		}
 	},
 	
-	DOMINION_BOULEVARD("Dominion Boulevard", null, null, Colour.MAP_BACKGROUND_PINK, CityPlaces.BOULEVARD, null, false, false, true, "in the streets of Dominion") {
+	DOMINION_BOULEVARD("Dominion Boulevard", null, null, Colour.MAP_BACKGROUND_PINK, CityPlaces.BOULEVARD, Encounter.DOMINION_BOULEVARD, false, false, true, "in the streets of Dominion") {
 
 		@Override
 		public List<Subspecies> getSpeciesPopulatingArea() {

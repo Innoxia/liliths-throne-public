@@ -22,6 +22,7 @@ public enum DialogueFlagValue {
 	// Misc.:
 	foundHappiness,
 	visitedSubmission,
+	mommyFound,
 	
 	// Gym:
 	gymIntroduced,

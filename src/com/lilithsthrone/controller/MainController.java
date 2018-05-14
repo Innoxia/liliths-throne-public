@@ -399,9 +399,6 @@ public class MainController implements Initializable {
 						
 						 if(event.getCode()==KeyCode.END){
 							 
-//							 Main.game.getPlayer().resetSpells();
-//							 
-							 
 //							 File image = new File("res/images/characters/jam/brandiNaked1.png");
 ////								+"file:/"+image.toURI().getPath()
 ////							+"<img src=\"file:/"+image.toURI().getPath()+"\" width='250' height='600'/>"

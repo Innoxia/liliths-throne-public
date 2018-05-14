@@ -409,7 +409,7 @@ public class UtilText {
 			tagColour = amountColour.toWebHexString();
 		}
 		
-		return "<" + tag + " style='color:" + Colour.CURRENCY_GOLD.toWebHexString() + "; padding-right:2px;'>" + getCurrencySymbol() + "</" + tag + ">"
+		return "<" + tag + " style='color:" + (amountColour==Colour.TEXT?Colour.TEXT.toWebHexString():Colour.CURRENCY_GOLD.toWebHexString()) + "; padding-right:2px;'>" + getCurrencySymbol() + "</" + tag + ">"
 					+ "<" + tag + " style='color:" + tagColour + ";'>" + moneyString + "</" + tag + ">";
 	}
 	
@@ -871,6 +871,34 @@ public class UtilText {
 		});
 		
 		
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues("money"),
+				true,
+				false,
+				"(amount, tag)",
+				"Formats the supplied number as money, using the tag as the html tag."){
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return UtilText.formatAsMoney(arguments.split(", ")[0], arguments.split(", ")[1]);
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"moneyUncoloured",
+						"moneyNoColour",
+						"moneyUncolored",
+						"moneyNoColor"),
+				true,
+				false,
+				"(amount, tag)",
+				"Formats the supplied number as money, using the tag as the html tag."){
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return UtilText.formatAsMoneyUncoloured(Integer.valueOf(arguments.split(", ")[0]), arguments.split(", ")[1]);
+			}
+		});
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues("name"),
