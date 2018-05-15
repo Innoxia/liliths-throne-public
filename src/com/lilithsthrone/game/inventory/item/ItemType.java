@@ -3426,7 +3426,59 @@ public class ItemType {
 		}
 	};
 	
-	public static AbstractItemType BOOK_CAT_MORPH = new AbstractItemType(250,
+	private static AbstractItemType createBookItem(int value,
+			String determiner,
+			boolean plural,
+			String name,
+			String namePlural,
+			String description,
+			String pathName,
+			Colour colourPrimary,
+			Colour colourSecondary,
+			Colour colourTertiary,
+			Rarity rarity,
+			TFEssence relatedEssence,
+			List<ItemEffect> effects,
+			List<ItemTag> itemTags) { 
+		return new AbstractItemType(value,
+				determiner,
+				plural,
+				name,
+				namePlural,
+				description,
+				pathName,
+				colourPrimary,
+				colourSecondary,
+				colourTertiary,
+				rarity,
+				relatedEssence,
+				effects,
+				itemTags) {
+
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public boolean isConsumedOnUse() {
+				return false;
+			}
+			
+			@Override
+			public String getUseName() {
+				return "read";
+			}
+			
+			@Override
+			public String getUseDescription(GameCharacter user, GameCharacter target) {
+				return getGenericUseDescription(user, target,
+						"Opening the book, you read its contents...",
+						"Opening the book, you force [npc.name] to read its contents...",
+						"[npc.Name] produces a book, titled '"+name+"', which [npc.she] then starts to read...",
+						"[npc.Name] produces a book, titled '"+name+"', which [npc.she] then forces you to read...");
+			}
+		};
+	}
+	
+	public static AbstractItemType BOOK_CAT_MORPH = createBookItem(250,
 			null,
 			false,
 			"Curious Kitties",
@@ -3439,32 +3491,10 @@ public class ItemType {
 			Rarity.LEGENDARY,
 			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_CAT_MORPH)),
-			Util.newArrayListOfValues(ItemTag.BOOK)) {
-
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public boolean isConsumedOnUse() {
-			return false;
-		}
-		
-		@Override
-		public String getUseName() {
-			return "read";
-		}
-		
-		@Override
-		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getGenericUseDescription(user, target,
-					"Opening the book, you read its contents...",
-					"Opening the book, you force [npc.name] to read its contents...",
-					"[npc.Name] produces a book, titled 'Curious Kitties', which [npc.she] then starts to read...",
-					"[npc.Name] produces a book, titled 'Curious Kitties', which [npc.she] then forces you to read...");
-		}
-	};
+			Util.newArrayListOfValues(ItemTag.BOOK));
 	
 
-	public static AbstractItemType BOOK_COW_MORPH = new AbstractItemType(250,
+	public static AbstractItemType BOOK_COW_MORPH = createBookItem(250,
 			null,
 			false,
 			"Milking Cows",
@@ -3477,32 +3507,10 @@ public class ItemType {
 			Rarity.LEGENDARY,
 			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_COW_MORPH)),
-			Util.newArrayListOfValues(ItemTag.BOOK)) {
-
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public boolean isConsumedOnUse() {
-			return false;
-		}
-		
-		@Override
-		public String getUseName() {
-			return "read";
-		}
-		
-		@Override
-		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getGenericUseDescription(user, target,
-					"Opening the book, you read its contents...",
-					"Opening the book, you force [npc.name] to read its contents...",
-					"[npc.Name] produces a book, titled 'Milking Cows', which [npc.she] then starts to read...",
-					"[npc.Name] produces a book, titled 'Milking Cows', which [npc.she] then forces you to read...");
-		}
-	};
+			Util.newArrayListOfValues(ItemTag.BOOK));
 	
 
-	public static AbstractItemType BOOK_DEMON = new AbstractItemType(250,
+	public static AbstractItemType BOOK_DEMON = createBookItem(250,
 			null,
 			false,
 			"Demonic Origins",
@@ -3515,31 +3523,9 @@ public class ItemType {
 			Rarity.LEGENDARY,
 			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_DEMON)),
-			Util.newArrayListOfValues(ItemTag.BOOK)) {
-
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public boolean isConsumedOnUse() {
-			return false;
-		}
-		
-		@Override
-		public String getUseName() {
-			return "read";
-		}
-		
-		@Override
-		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getGenericUseDescription(user, target,
-					"Opening the book, you read its contents...",
-					"Opening the book, you force [npc.name] to read its contents...",
-					"[npc.Name] produces a book, titled 'Demonic Origins', which [npc.she] then starts to read...",
-					"[npc.Name] produces a book, titled 'Demonic Origins', which [npc.she] then forces you to read...");
-		}
-	};
+			Util.newArrayListOfValues(ItemTag.BOOK));
 	
-	public static AbstractItemType BOOK_IMP = new AbstractItemType(250,
+	public static AbstractItemType BOOK_IMP = createBookItem(250,
 			null,
 			false,
 			"Impish Fiends",
@@ -3552,31 +3538,9 @@ public class ItemType {
 			Rarity.LEGENDARY,
 			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_IMP)),
-			Util.newArrayListOfValues(ItemTag.BOOK)) {
-
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public boolean isConsumedOnUse() {
-			return false;
-		}
-		
-		@Override
-		public String getUseName() {
-			return "read";
-		}
-		
-		@Override
-		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getGenericUseDescription(user, target,
-					"Opening the book, you read its contents...",
-					"Opening the book, you force [npc.name] to read its contents...",
-					"[npc.Name] produces a book, titled 'Impish Fiends', which [npc.she] then starts to read...",
-					"[npc.Name] produces a book, titled 'Impish Fiends', which [npc.she] then forces you to read...");
-		}
-	};
+			Util.newArrayListOfValues(ItemTag.BOOK));
 	
-	public static AbstractItemType BOOK_DOG_MORPH = new AbstractItemType(250,
+	public static AbstractItemType BOOK_DOG_MORPH = createBookItem(250,
 			null,
 			false,
 			"Canine Culture",
@@ -3589,31 +3553,9 @@ public class ItemType {
 			Rarity.LEGENDARY,
 			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_DOG_MORPH)),
-			Util.newArrayListOfValues(ItemTag.BOOK)) {
-
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public boolean isConsumedOnUse() {
-			return false;
-		}
-		
-		@Override
-		public String getUseName() {
-			return "read";
-		}
-		
-		@Override
-		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getGenericUseDescription(user, target,
-					"Opening the book, you read its contents...",
-					"Opening the book, you force [npc.name] to read its contents...",
-					"[npc.Name] produces a book, titled 'Canine Culture', which [npc.she] then starts to read...",
-					"[npc.Name] produces a book, titled 'Canine Culture', which [npc.she] then forces you to read...");
-		}
-	};
+			Util.newArrayListOfValues(ItemTag.BOOK));
 	
-	public static AbstractItemType BOOK_ALLIGATOR_MORPH = new AbstractItemType(250,
+	public static AbstractItemType BOOK_ALLIGATOR_MORPH = createBookItem(250,
 			null,
 			false,
 			"Rasselin' Gators",
@@ -3626,31 +3568,9 @@ public class ItemType {
 			Rarity.LEGENDARY,
 			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_ALLIGATOR_MORPH)),
-			Util.newArrayListOfValues(ItemTag.BOOK)) {
-		
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public boolean isConsumedOnUse() {
-			return false;
-		}
-		
-		@Override
-		public String getUseName() {
-			return "read";
-		}
-		
-		@Override
-		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getGenericUseDescription(user, target,
-					"Opening the book, you read its contents...",
-					"Opening the book, you force [npc.name] to read its contents...",
-					"[npc.Name] produces a book, titled 'Rasselin' Gators', which [npc.she] then starts to read...",
-					"[npc.Name] produces a book, titled 'Rasselin' Gators', which [npc.she] then forces you to read...");
-		}
-	};
+			Util.newArrayListOfValues(ItemTag.BOOK));
 	
-	public static AbstractItemType BOOK_HARPY = new AbstractItemType(250,
+	public static AbstractItemType BOOK_HARPY = createBookItem(250,
 			null,
 			false,
 			"All About Harpies",
@@ -3663,31 +3583,9 @@ public class ItemType {
 			Rarity.LEGENDARY,
 			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_HARPY)),
-			Util.newArrayListOfValues(ItemTag.BOOK)) {
-		
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public boolean isConsumedOnUse() {
-			return false;
-		}
-		
-		@Override
-		public String getUseName() {
-			return "read";
-		}
-		
-		@Override
-		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getGenericUseDescription(user, target,
-					"Opening the book, you read its contents...",
-					"Opening the book, you force [npc.name] to read its contents...",
-					"[npc.Name] produces a book, titled 'All About Harpies', which [npc.she] then starts to read...",
-					"[npc.Name] produces a book, titled 'All About Harpies', which [npc.she] then forces you to read...");
-		}
-	};
+			Util.newArrayListOfValues(ItemTag.BOOK));
 	
-	public static AbstractItemType BOOK_HORSE_MORPH = new AbstractItemType(250,
+	public static AbstractItemType BOOK_HORSE_MORPH = createBookItem(250,
 			null,
 			false,
 			"Equine Encyclopedia",
@@ -3700,31 +3598,9 @@ public class ItemType {
 			Rarity.LEGENDARY,
 			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_HORSE_MORPH)),
-			Util.newArrayListOfValues(ItemTag.BOOK)) {
-		
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public boolean isConsumedOnUse() {
-			return false;
-		}
-		
-		@Override
-		public String getUseName() {
-			return "read";
-		}
-		
-		@Override
-		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getGenericUseDescription(user, target,
-					"Opening the book, you read its contents...",
-					"Opening the book, you force [npc.name] to read its contents...",
-					"[npc.Name] produces a book, titled 'Equine Encyclopedia', which [npc.she] then starts to read...",
-					"[npc.Name] produces a book, titled 'Equine Encyclopedia', which [npc.she] then forces you to read...");
-		}
-	};
+			Util.newArrayListOfValues(ItemTag.BOOK));
 	
-	public static AbstractItemType BOOK_REINDEER_MORPH = new AbstractItemType(250,
+	public static AbstractItemType BOOK_REINDEER_MORPH = createBookItem(250,
 			null,
 			false,
 			"The Eight",
@@ -3737,31 +3613,9 @@ public class ItemType {
 			Rarity.LEGENDARY,
 			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_REINDEER_MORPH)),
-			Util.newArrayListOfValues(ItemTag.BOOK)) {
-		
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public boolean isConsumedOnUse() {
-			return false;
-		}
-		
-		@Override
-		public String getUseName() {
-			return "read";
-		}
-		
-		@Override
-		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getGenericUseDescription(user, target,
-					"Opening the book, you read its contents...",
-					"Opening the book, you force [npc.name] to read its contents...",
-					"[npc.Name] produces a book, titled 'The Eight', which [npc.she] then starts to read...",
-					"[npc.Name] produces a book, titled 'The Eight', which [npc.she] then forces you to read...");
-		}
-	};
+			Util.newArrayListOfValues(ItemTag.BOOK));
 	
-	public static AbstractItemType BOOK_HUMAN = new AbstractItemType(250,
+	public static AbstractItemType BOOK_HUMAN = createBookItem(250,
 			null,
 			false,
 			"Concerning Humans",
@@ -3774,31 +3628,9 @@ public class ItemType {
 			Rarity.LEGENDARY,
 			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_HUMAN)),
-			Util.newArrayListOfValues(ItemTag.BOOK)) {
-
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public boolean isConsumedOnUse() {
-			return false;
-		}
-		
-		@Override
-		public String getUseName() {
-			return "read";
-		}
-		
-		@Override
-		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getGenericUseDescription(user, target,
-					"Opening the book, you read its contents...",
-					"Opening the book, you force [npc.name] to read its contents...",
-					"[npc.Name] produces a book, titled 'Concerning Humans', which [npc.she] then starts to read...",
-					"[npc.Name] produces a book, titled 'Concerning Humans', which [npc.she] then forces you to read...");
-		}
-	};
+			Util.newArrayListOfValues(ItemTag.BOOK));
 	
-	public static AbstractItemType BOOK_SQUIRREL_MORPH = new AbstractItemType(250,
+	public static AbstractItemType BOOK_SQUIRREL_MORPH = createBookItem(250,
 			null,
 			false,
 			"Chasing Squirrels",
@@ -3811,31 +3643,9 @@ public class ItemType {
 			Rarity.LEGENDARY,
 			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_SQUIRREL_MORPH)),
-			Util.newArrayListOfValues(ItemTag.BOOK)) {
-
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public boolean isConsumedOnUse() {
-			return false;
-		}
-		
-		@Override
-		public String getUseName() {
-			return "read";
-		}
-		
-		@Override
-		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getGenericUseDescription(user, target,
-					"Opening the book, you read its contents...",
-					"Opening the book, you force [npc.name] to read its contents...",
-					"[npc.Name] produces a book, titled 'Chasing Squirrels', which [npc.she] then starts to read...",
-					"[npc.Name] produces a book, titled 'Chasing Squirrels', which [npc.she] then forces you to read...");
-		}
-	};
+			Util.newArrayListOfValues(ItemTag.BOOK));
 	
-	public static AbstractItemType BOOK_RAT_MORPH = new AbstractItemType(250,
+	public static AbstractItemType BOOK_RAT_MORPH = createBookItem(250,
 			null,
 			false,
 			"Causing Mischief",
@@ -3848,31 +3658,9 @@ public class ItemType {
 			Rarity.LEGENDARY,
 			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_RAT_MORPH)),
-			Util.newArrayListOfValues(ItemTag.BOOK)) {
-
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public boolean isConsumedOnUse() {
-			return false;
-		}
-		
-		@Override
-		public String getUseName() {
-			return "read";
-		}
-		
-		@Override
-		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getGenericUseDescription(user, target,
-					"Opening the book, you read its contents...",
-					"Opening the book, you force [npc.name] to read its contents...",
-					"[npc.Name] produces a book, titled 'Causing Mischief', which [npc.she] then starts to read...",
-					"[npc.Name] produces a book, titled 'Causing Mischief', which [npc.she] then forces you to read...");
-		}
-	};
+			Util.newArrayListOfValues(ItemTag.BOOK));
 	
-	public static AbstractItemType BOOK_RABBIT_MORPH = new AbstractItemType(250,
+	public static AbstractItemType BOOK_RABBIT_MORPH = createBookItem(250,
 			null,
 			false,
 			"Bunny Litters",
@@ -3885,31 +3673,9 @@ public class ItemType {
 			Rarity.LEGENDARY,
 			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_RABBIT_MORPH)),
-			Util.newArrayListOfValues(ItemTag.BOOK)) {
-
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public boolean isConsumedOnUse() {
-			return false;
-		}
-		
-		@Override
-		public String getUseName() {
-			return "read";
-		}
-		
-		@Override
-		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getGenericUseDescription(user, target,
-					"Opening the book, you read its contents...",
-					"Opening the book, you force [npc.name] to read its contents...",
-					"[npc.Name] produces a book, titled 'Bunny Litters', which [npc.she] then starts to read...",
-					"[npc.Name] produces a book, titled 'Bunny Litters', which [npc.she] then forces you to read...");
-		}
-	};
+			Util.newArrayListOfValues(ItemTag.BOOK));
 	
-	public static AbstractItemType BOOK_BAT_MORPH = new AbstractItemType(250,
+	public static AbstractItemType BOOK_BAT_MORPH = createBookItem(250,
 			null,
 			false,
 			"Flying Foxes",
@@ -3922,31 +3688,9 @@ public class ItemType {
 			Rarity.LEGENDARY,
 			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_BAT_MORPH)),
-			Util.newArrayListOfValues(ItemTag.BOOK)) {
-
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public boolean isConsumedOnUse() {
-			return false;
-		}
-		
-		@Override
-		public String getUseName() {
-			return "read";
-		}
-		
-		@Override
-		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getGenericUseDescription(user, target,
-					"Opening the book, you read its contents...",
-					"Opening the book, you force [npc.name] to read its contents...",
-					"[npc.Name] produces a book, titled 'Flying Foxes', which [npc.she] then starts to read...",
-					"[npc.Name] produces a book, titled 'Flying Foxes', which [npc.she] then forces you to read...");
-		}
-	};
+			Util.newArrayListOfValues(ItemTag.BOOK));
 	
-	public static AbstractItemType BOOK_WOLF_MORPH = new AbstractItemType(250,
+	public static AbstractItemType BOOK_WOLF_MORPH = createBookItem(250,
 			null,
 			false,
 			"Prowling Lupines",
@@ -3959,31 +3703,9 @@ public class ItemType {
 			Rarity.LEGENDARY,
 			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_WOLF_MORPH)),
-			Util.newArrayListOfValues(ItemTag.BOOK)) {
-
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public boolean isConsumedOnUse() {
-			return false;
-		}
-		
-		@Override
-		public String getUseName() {
-			return "read";
-		}
-		
-		@Override
-		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getGenericUseDescription(user, target,
-					"Opening the book, you read its contents...",
-					"Opening the book, you force [npc.name] to read its contents...",
-					"[npc.Name] produces a book, titled 'Prowling Lupines', which [npc.she] then starts to read...",
-					"[npc.Name] produces a book, titled 'Prowling Lupines', which [npc.she] then forces you to read...");
-		}
-	};
+			Util.newArrayListOfValues(ItemTag.BOOK));
 	
-	public static AbstractItemType BOOK_SLIME = new AbstractItemType(250,
+	public static AbstractItemType BOOK_SLIME = createBookItem(250,
 			null,
 			false,
 			"Slimy Fun",
@@ -3996,29 +3718,7 @@ public class ItemType {
 			Rarity.LEGENDARY,
 			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_SLIME)),
-			Util.newArrayListOfValues(ItemTag.BOOK)) {
-
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public boolean isConsumedOnUse() {
-			return false;
-		}
-		
-		@Override
-		public String getUseName() {
-			return "read";
-		}
-		
-		@Override
-		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getGenericUseDescription(user, target,
-					"Opening the book, you read its contents...",
-					"Opening the book, you force [npc.name] to read its contents...",
-					"[npc.Name] produces a book, titled 'Slimy Fun', which [npc.she] then starts to read...",
-					"[npc.Name] produces a book, titled 'Slimy Fun', which [npc.she] then forces you to read...");
-		}
-	};
+			Util.newArrayListOfValues(ItemTag.BOOK));
 	
 	public static AbstractItemType PRESENT = new AbstractItemType(250,
 			"a",
