@@ -32,7 +32,6 @@ import com.lilithsthrone.game.sex.managers.dominion.zaranix.SMPetOral;
 import com.lilithsthrone.game.sex.managers.universal.SMStanding;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.WorldType;
@@ -141,7 +140,7 @@ public class ZaranixHomeGroundFloorRepeat {
 
 			} else if (index == 2) {
 				return new Response("Apologise", "Do as Amber says and get down on your knees to apologise to her.", OUTSIDE_APOLOGY,
-						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)), CorruptionLevel.THREE_DIRTY, null, null, null) {
+						Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), CorruptionLevel.THREE_DIRTY, null, null, null) {
 					@Override
 					public void effects() {
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.amberRepeatEncountered, true);
@@ -440,7 +439,7 @@ public class ZaranixHomeGroundFloorRepeat {
 				} else if(index==3) {
 					return new ResponseSex("Submit",
 							"You can't bring yourself to take the dominant role, but you <i>do</i> want to have sex with Katherine. Perhaps if you submitted, [katherine.she]'d be willing to fuck you?",
-							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)), null, CorruptionLevel.THREE_DIRTY, null, null, null,
+							Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, CorruptionLevel.THREE_DIRTY, null, null, null,
 							true, true,
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getKatherine(), SexPositionSlot.STANDING_DOMINANT)),
@@ -609,7 +608,7 @@ public class ZaranixHomeGroundFloorRepeat {
 				} else if(index==2) {
 					return new ResponseSex("Submit",
 							"You can't bring yourself to take the dominant role, but you <i>do</i> want to have sex with Katherine. Perhaps if you submitted, [katherine.she]'d be willing to fuck you?",
-							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)), null, CorruptionLevel.THREE_DIRTY, null, null, null,
+							Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, CorruptionLevel.THREE_DIRTY, null, null, null,
 							true, true,
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getKatherine(), SexPositionSlot.STANDING_DOMINANT)),
@@ -815,7 +814,8 @@ public class ZaranixHomeGroundFloorRepeat {
 			if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM
 					|| Main.game.getCurrentWeather()==Weather.RAIN) {
 				if(index==1) {
-					return new Response("Submit", "Do as Amber says and get down on all fours, ready to act as a foot stall for her.", LOUNGE_AMBER_FOOT_STALL) {
+					return new Response("Submit", "Do as Amber says and get down on all fours, ready to act as a foot stall for her.", LOUNGE_AMBER_FOOT_STALL,
+							Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), CorruptionLevel.THREE_DIRTY, null, null, null) {
 						@Override
 						public void effects() {
 							Main.game.getTextEndStringBuilder().append(Main.game.getAmber().incrementAffection(Main.game.getPlayer(), 2.5f));
@@ -838,7 +838,7 @@ public class ZaranixHomeGroundFloorRepeat {
 						
 					} else {
 						return new ResponseSex("Submissive sex", "Ask Mistress Amber to fuck you. As you've been a good bitch for her, you think that she'll say yes.",
-								Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE), new ListValue<>(Fetish.FETISH_MASOCHIST)), null, CorruptionLevel.THREE_DIRTY, null, null, null,
+								Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE, Fetish.FETISH_MASOCHIST), null, CorruptionLevel.THREE_DIRTY, null, null, null,
 								true, false,
 								new SMAmberDoggyFucked(
 										Util.newHashMapOfValues(new Value<>(Main.game.getAmber(), SexPositionSlot.DOGGY_BEHIND_AMBER)),
@@ -861,7 +861,8 @@ public class ZaranixHomeGroundFloorRepeat {
 				
 			} else {
 				if(index==1) {
-					return new Response("Submit", "Do as Amber says and get down on all fours, ready to go for a walk.", LOUNGE_AMBER_WALKIES) {
+					return new Response("Submit", "Do as Amber says and get down on all fours, ready to go for a walk.", LOUNGE_AMBER_WALKIES,
+							Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), CorruptionLevel.THREE_DIRTY, null, null, null) {
 						@Override
 						public void effects() {
 							if(Main.game.getPlayer().getClothingInSlot(InventorySlot.NECK)==null || Main.game.getPlayer().getClothingInSlot(InventorySlot.NECK).getClothingType()!=ClothingType.AMBERS_BITCH_CHOKER) {
@@ -901,7 +902,7 @@ public class ZaranixHomeGroundFloorRepeat {
 						
 					} else {
 						return new ResponseSex("Submissive sex", "Ask Mistress Amber to fuck you. As you've been a good bitch for her, you think that she'll say yes.",
-								Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE), new ListValue<>(Fetish.FETISH_MASOCHIST)), null, CorruptionLevel.THREE_DIRTY, null, null, null,
+								Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE, Fetish.FETISH_MASOCHIST), null, CorruptionLevel.THREE_DIRTY, null, null, null,
 								true, false,
 								new SMAmberDoggyFucked(
 										Util.newHashMapOfValues(new Value<>(Main.game.getAmber(), SexPositionSlot.DOGGY_BEHIND_AMBER)),
@@ -1170,7 +1171,7 @@ public class ZaranixHomeGroundFloorRepeat {
 			} else if(index==2) {
 				return new ResponseSex("Submit",
 						"Do as Amber says and drop down on all fours, ready for her to fuck you.",
-						null, null, null, null, null, null,
+						Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, CorruptionLevel.THREE_DIRTY, null, null, null,
 						!Main.getProperties().hasValue(PropertyValue.nonConContent), false,
 						new SMAmberDoggyFucked(
 								Util.newHashMapOfValues(new Value<>(Main.game.getAmber(), SexPositionSlot.DOGGY_BEHIND_AMBER)),
@@ -1347,7 +1348,7 @@ public class ZaranixHomeGroundFloorRepeat {
 			} else if(index==3) {
 				return new ResponseSex("Submit",
 						"Amber's fiery personality is seriously turning you on. You can't bring yourself to take the dominant role, but you <i>do</i> want to have sex with her. Perhaps if you submitted, she'd be willing to fuck you?",
-						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)), null, null, null, null, null,
+						Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, CorruptionLevel.THREE_DIRTY, null, null, null,
 						true, true,
 						new SMAmberDoggyFucked(
 								Util.newHashMapOfValues(new Value<>(Main.game.getAmber(), SexPositionSlot.DOGGY_BEHIND_AMBER)),
@@ -1827,6 +1828,8 @@ public class ZaranixHomeGroundFloorRepeat {
 							}
 							owner.addSlave(pet);
 							pet.unequipAllClothingIntoVoid();
+							pet.clearFetishDesires();
+							pet.clearFetishes();
 							if(Main.game.getPlayer().hasVagina() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
 								if(Math.random()<0.33f) {
 									pet.addFetish(Fetish.FETISH_ANAL_GIVING);
@@ -1868,14 +1871,14 @@ public class ZaranixHomeGroundFloorRepeat {
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloorRepeat", "WALKIES_PET_FUCKS_SNIFFING", Util.newArrayListOfValues(new ListValue<>(owner), new ListValue<>(pet))));
+			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloorRepeat", "WALKIES_PET_FUCKS_SNIFFING", Util.newArrayListOfValues(owner, pet)));
 			
 			if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true) || (Main.game.getPlayer().hasVagina() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true))) {
-				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloorRepeat", "WALKIES_PET_FUCKS_SNIFFING_MOUNTING", Util.newArrayListOfValues(new ListValue<>(owner), new ListValue<>(pet))));
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloorRepeat", "WALKIES_PET_FUCKS_SNIFFING_MOUNTING", Util.newArrayListOfValues(owner, pet)));
 			} else if (Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
-				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloorRepeat", "WALKIES_PET_FUCKS_SNIFFING_ORAL", Util.newArrayListOfValues(new ListValue<>(owner), new ListValue<>(pet))));
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloorRepeat", "WALKIES_PET_FUCKS_SNIFFING_ORAL", Util.newArrayListOfValues(owner, pet)));
 			} else {
-				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloorRepeat", "WALKIES_PET_FUCKS_SNIFFING_NO_SEX", Util.newArrayListOfValues(new ListValue<>(owner), new ListValue<>(pet))));
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloorRepeat", "WALKIES_PET_FUCKS_SNIFFING_NO_SEX", Util.newArrayListOfValues(owner, pet)));
 			}
 			
 			return UtilText.nodeContentSB.toString();
@@ -1922,10 +1925,10 @@ public class ZaranixHomeGroundFloorRepeat {
 										Util.newHashMapOfValues(new Value<>(pet, SexPositionSlot.PET_MOUNTING_HUMPING)),
 										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.PET_MOUNTING_ON_ALL_FOURS))),
 								WALKIES_PET_FUCKS_POST_SEX,
-								UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloorRepeat", "WALKIES_PET_FUCKS_START", Util.newArrayListOfValues(new ListValue<>(owner), new ListValue<>(pet)))
+								UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloorRepeat", "WALKIES_PET_FUCKS_START", Util.newArrayListOfValues(owner, pet))
 								+ (Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.ANUS) || (Main.game.getPlayer().hasVagina() && Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.VAGINA))
-										?UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloorRepeat", "WALKIES_PET_FUCKS_START_EXPOSED", Util.newArrayListOfValues(new ListValue<>(owner), new ListValue<>(pet)))
-										:UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloorRepeat", "WALKIES_PET_FUCKS_START_CLOTHING", Util.newArrayListOfValues(new ListValue<>(owner), new ListValue<>(pet))))
+										?UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloorRepeat", "WALKIES_PET_FUCKS_START_EXPOSED", Util.newArrayListOfValues(owner, pet))
+										:UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloorRepeat", "WALKIES_PET_FUCKS_START_CLOTHING", Util.newArrayListOfValues(owner, pet)))
 								) {
 							@Override
 							public void effects() {
@@ -1948,7 +1951,7 @@ public class ZaranixHomeGroundFloorRepeat {
 										Util.newHashMapOfValues(new Value<>(pet, SexPositionSlot.PET_ORAL_COCKED_LEG)),
 										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.PET_ORAL_ON_ALL_FOURS))),
 								WALKIES_PET_FUCKS_POST_SEX_ORAL,
-								UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloorRepeat", "WALKIES_PET_FUCKS_START_ORAL", Util.newArrayListOfValues(new ListValue<>(owner), new ListValue<>(pet)))) {
+								UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloorRepeat", "WALKIES_PET_FUCKS_START_ORAL", Util.newArrayListOfValues(owner, pet))) {
 							@Override
 							public void effects() {
 								Main.game.getTextEndStringBuilder().append(Main.game.getAmber().incrementAffection(Main.game.getPlayer(), 10f));
@@ -1973,7 +1976,7 @@ public class ZaranixHomeGroundFloorRepeat {
 
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloorRepeat", "WALKIES_PET_FUCKS_POST_SEX", Util.newArrayListOfValues(new ListValue<>(owner), new ListValue<>(pet)));
+			return UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloorRepeat", "WALKIES_PET_FUCKS_POST_SEX", Util.newArrayListOfValues(owner, pet));
 		}
 
 		@Override
@@ -2006,7 +2009,7 @@ public class ZaranixHomeGroundFloorRepeat {
 
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloorRepeat", "WALKIES_PET_FUCKS_POST_SEX_ORAL", Util.newArrayListOfValues(new ListValue<>(owner), new ListValue<>(pet)));
+			return UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloorRepeat", "WALKIES_PET_FUCKS_POST_SEX_ORAL", Util.newArrayListOfValues(owner, pet));
 		}
 
 		@Override
@@ -2039,7 +2042,7 @@ public class ZaranixHomeGroundFloorRepeat {
 
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloorRepeat", "WALKIES_PET_FUCKS_REFUSE", Util.newArrayListOfValues(new ListValue<>(owner), new ListValue<>(pet)));
+			return UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloorRepeat", "WALKIES_PET_FUCKS_REFUSE", Util.newArrayListOfValues(owner, pet));
 		}
 
 		@Override

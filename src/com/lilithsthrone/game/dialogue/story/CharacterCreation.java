@@ -51,12 +51,11 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.world.WorldType;
-import com.lilithsthrone.world.places.GenericPlace;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.2.4
+ * @version 0.2.5
  * @author Innoxia
  */
 public class CharacterCreation {
@@ -1675,6 +1674,7 @@ public class CharacterCreation {
 		Main.getProperties().addRaceDiscovered(Main.game.getRose().getRace());
 
 		moveNPCOutOfPlayerTile();
+		Main.game.setPrologueFinished(true);
 	}
 	
 	public static final DialogueNodeOld FINAL_CHECK = new DialogueNodeOld("Start", "", true) {
@@ -1685,8 +1685,8 @@ public class CharacterCreation {
 			UtilText.nodeContentSB.setLength(0);
 			UtilText.nodeContentSB.append(
 				"<div class='container-full-width' style='text-align:center;'>"
-					+ "<i>Once you're happy with your appearance, press the 'Start Game' button to proceed to begin!</br>"
-					+ "[style.boldBad(You will not be unable to undo your choices if you proceed past this point, so make sure you're happy with everything before continuing!)]</i>"
+					+ "<i>Once you're happy with your appearance, press the 'Start Game' button to begin!</br>"
+					+ "[style.colourGood(This is the end of character creation, so only proceed once you're happy with your choices!)]</i>"
 				+ "</div>"
 				+ "</br>"
 				+ "<div class='container-full-width'>"
@@ -1727,11 +1727,8 @@ public class CharacterCreation {
 						
 						applyGameStart();
 						applySkipPrologueStart();
-						Main.game.setActiveWorld(
-								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR),
-								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getPlacesOfInterest().get(new GenericPlace(PlaceType.LILAYA_HOME_ROOM_PLAYER)),
-								true);
-
+						Main.game.getPlayer().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_PLAYER);
+						Main.game.setContent(new Response("", "", Main.game.getDefaultDialogueNoEncounter()));
 					}
 				};
 				
@@ -1882,10 +1879,8 @@ public class CharacterCreation {
 						
 						applyGameStart();
 						applySkipPrologueStart();
-						Main.game.setActiveWorld(
-								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR),
-								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getPlacesOfInterest().get(new GenericPlace(PlaceType.LILAYA_HOME_ROOM_PLAYER)),
-								true);
+						Main.game.getPlayer().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_PLAYER);
+						Main.game.setContent(new Response("", "", Main.game.getDefaultDialogueNoEncounter()));
 					}
 				};
 				

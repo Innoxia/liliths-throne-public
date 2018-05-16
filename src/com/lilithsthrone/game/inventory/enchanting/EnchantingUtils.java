@@ -15,7 +15,6 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
-import com.lilithsthrone.game.inventory.item.ItemEffect;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.SVGImages;
@@ -74,7 +73,6 @@ public class EnchantingUtils {
 			return Util.capitaliseSentence(ingredient.getName());
 		}
 		
-		
 		if(((AbstractItem)ingredient).getItemType().getId().equals(ItemType.ORIENTATION_HYPNO_WATCH.getId())) {
 			if(effects.isEmpty() || effects.get(0).getPrimaryModifier()==TFModifier.REMOVAL) {
 				return "Hypno-Watch";
@@ -98,6 +96,8 @@ public class EnchantingUtils {
 				potionDescriptor = ingredient.getEffects().get(0).getItemEffectType().getPotionDescriptor();
 			} catch(Exception ex) {
 				// :3
+				// Cat-face comments aren't helpful damn it!
+				System.err.println("EnchantingUtils: getPotionName() error 1."); 
 			}
 		}
 		
@@ -141,10 +141,11 @@ public class EnchantingUtils {
 		
 		if(Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.WATER)
 				&& (effect.getPrimaryModifier()==TFModifier.TF_MOD_WETNESS
-						|| effect.getSecondaryModifier()==TFModifier.TF_MOD_WETNESS
 						|| effect.getPrimaryModifier()==TFModifier.TF_MILK
 						|| effect.getPrimaryModifier()==TFModifier.TF_CUM
-						|| effect.getPrimaryModifier()==TFModifier.TF_GIRLCUM)) {
+						|| effect.getPrimaryModifier()==TFModifier.TF_GIRLCUM
+						|| effect.getSecondaryModifier()==TFModifier.TF_MOD_WETNESS
+						|| effect.getSecondaryModifier()==TFModifier.TF_MOD_REGENERATION)) {
 			cost = 0;
 		}
 		
@@ -169,10 +170,11 @@ public class EnchantingUtils {
 		for(Entry<ItemEffect, Integer> entry : effectCount.entrySet()) {
 			if(Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.WATER)
 					&& (entry.getKey().getPrimaryModifier()==TFModifier.TF_MOD_WETNESS
-							|| entry.getKey().getSecondaryModifier()==TFModifier.TF_MOD_WETNESS
 							|| entry.getKey().getPrimaryModifier()==TFModifier.TF_MILK
 							|| entry.getKey().getPrimaryModifier()==TFModifier.TF_CUM
-							|| entry.getKey().getPrimaryModifier()==TFModifier.TF_GIRLCUM)) {
+							|| entry.getKey().getPrimaryModifier()==TFModifier.TF_GIRLCUM
+							|| entry.getKey().getSecondaryModifier()==TFModifier.TF_MOD_WETNESS
+							|| entry.getKey().getSecondaryModifier()==TFModifier.TF_MOD_REGENERATION)) {
 				// No cost
 			} else {
 				cost += entry.getKey().getCost() * Math.abs(entry.getValue());

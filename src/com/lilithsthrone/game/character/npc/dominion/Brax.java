@@ -79,7 +79,6 @@ import com.lilithsthrone.rendering.Artist;
 import com.lilithsthrone.rendering.Artwork;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
@@ -464,7 +463,7 @@ public class Brax extends NPC {
 				return new Response("Dominate Brax",
 						"Brax's broken, horny form is too much for you to resist, and you can't help but smile down deviously at the wolf-boy as you prepare to make him your bitch.",
 						AFTER_COMBAT_VICTORY_DOMINANT_SEX,
-						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DOMINANT)), CorruptionLevel.ONE_VANILLA, null, null, null){
+						Util.newArrayListOfValues(Fetish.FETISH_DOMINANT), CorruptionLevel.ONE_VANILLA, null, null, null){
 					@Override
 					public void effects() {
 						Main.game.getDialogueFlags().values.add(DialogueFlagValue.braxBeaten);
@@ -478,7 +477,7 @@ public class Brax extends NPC {
 				return new Response("Submit to Brax",
 						"Although you've defeated him, your submissive nature is causing you to consider letting Brax dominantly fuck you...",
 						AFTER_COMBAT_VICTORY_SUBMISSIVE_SEX,
-						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)), null, null, null, null){
+						Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), CorruptionLevel.THREE_DIRTY, null, null, null){
 					@Override
 					public Femininity getFemininityRequired() {
 						return Femininity.FEMININE;
@@ -752,7 +751,7 @@ public class Brax extends NPC {
 				
 			} else if (index == 2) {
 				return new Response("Swallow", "Do as Brax says and swallow the strange liquid.", AFTER_DEFEAT_TRANSFORMATION,
-						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_TRANSFORMATION_RECEIVING)),
+						Util.newArrayListOfValues(Fetish.FETISH_TRANSFORMATION_RECEIVING),
 						Fetish.FETISH_TRANSFORMATION_RECEIVING.getAssociatedCorruptionLevel(),
 						null,
 						null,

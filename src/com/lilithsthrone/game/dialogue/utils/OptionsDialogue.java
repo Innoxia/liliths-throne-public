@@ -109,7 +109,7 @@ public class OptionsDialogue {
 							Main.mainController.setRightPanelContent("");
 							Main.mainController.setButtonsContent("");
 							Main.game.setRenderMap(false);
-							
+							Main.game.setPrologueFinished(false);
 							Main.startNewGame(CharacterCreation.CHARACTER_CREATION_START);
 							confirmNewGame = false;
 						}
@@ -233,7 +233,7 @@ public class OptionsDialogue {
 		}
 
 		@Override
-		public DialogueNodeType getDialgoueNodeType() {
+		public DialogueNodeType getDialogueNodeType() {
 			return DialogueNodeType.OPTIONS;
 		}
 	};
@@ -368,7 +368,7 @@ public class OptionsDialogue {
 		}
 
 		@Override
-		public DialogueNodeType getDialgoueNodeType() {
+		public DialogueNodeType getDialogueNodeType() {
 			return DialogueNodeType.OPTIONS;
 		}
 	};
@@ -466,7 +466,7 @@ public class OptionsDialogue {
 		}
 	
 		@Override
-		public DialogueNodeType getDialgoueNodeType() {
+		public DialogueNodeType getDialogueNodeType() {
 			return DialogueNodeType.OPTIONS;
 		}
 	};
@@ -694,7 +694,7 @@ public class OptionsDialogue {
 		}
 
 		@Override
-		public DialogueNodeType getDialgoueNodeType() {
+		public DialogueNodeType getDialogueNodeType() {
 			return DialogueNodeType.OPTIONS;
 		}
 	};
@@ -782,7 +782,7 @@ public class OptionsDialogue {
 		}
 
 		@Override
-		public DialogueNodeType getDialgoueNodeType() {
+		public DialogueNodeType getDialogueNodeType() {
 			return DialogueNodeType.OPTIONS;
 		}
 	};
@@ -956,7 +956,7 @@ public class OptionsDialogue {
 		}
 		
 		@Override
-		public DialogueNodeType getDialgoueNodeType() {
+		public DialogueNodeType getDialogueNodeType() {
 			return DialogueNodeType.OPTIONS;
 		}
 	};
@@ -1024,7 +1024,7 @@ public class OptionsDialogue {
 		}
 
 		@Override
-		public DialogueNodeType getDialgoueNodeType() {
+		public DialogueNodeType getDialogueNodeType() {
 			return DialogueNodeType.OPTIONS;
 		}
 	};
@@ -1048,7 +1048,7 @@ public class OptionsDialogue {
 		}
 
 		@Override
-		public DialogueNodeType getDialgoueNodeType() {
+		public DialogueNodeType getDialogueNodeType() {
 			return DialogueNodeType.OPTIONS;
 		}
 	};
@@ -1137,7 +1137,7 @@ public class OptionsDialogue {
 		}
 
 		@Override
-		public DialogueNodeType getDialgoueNodeType() {
+		public DialogueNodeType getDialogueNodeType() {
 			return DialogueNodeType.OPTIONS;
 		}
 	};
@@ -1382,7 +1382,7 @@ public class OptionsDialogue {
 		}
 
 		@Override
-		public DialogueNodeType getDialgoueNodeType() {
+		public DialogueNodeType getDialogueNodeType() {
 			return DialogueNodeType.OPTIONS;
 		}
 	};
@@ -1711,7 +1711,7 @@ public class OptionsDialogue {
 		}
 
 		@Override
-		public DialogueNodeType getDialgoueNodeType() {
+		public DialogueNodeType getDialogueNodeType() {
 			return DialogueNodeType.OPTIONS;
 		}
 	};
@@ -1934,7 +1934,7 @@ public class OptionsDialogue {
 		}
 
 		@Override
-		public DialogueNodeType getDialgoueNodeType() {
+		public DialogueNodeType getDialogueNodeType() {
 			return DialogueNodeType.OPTIONS;
 		}
 	};

@@ -17,7 +17,6 @@ import com.lilithsthrone.game.sex.managers.dominion.SexManagerRalphDiscount;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
@@ -229,7 +228,7 @@ public class RalphsSnacks {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseSex("Agree", "Agree to do as Ralph says and suck his cock.", Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ORAL_GIVING)),
+				return new ResponseSex("Agree", "Agree to do as Ralph says and suck his cock.", Util.newArrayListOfValues(Fetish.FETISH_ORAL_GIVING),
 						null, CorruptionLevel.TWO_HORNY, null, null, null,
 						true, true,
 						new SexManagerRalphDiscount(

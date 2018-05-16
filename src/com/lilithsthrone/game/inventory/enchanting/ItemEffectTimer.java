@@ -1,4 +1,4 @@
-package com.lilithsthrone.game.inventory.item;
+package com.lilithsthrone.game.inventory.enchanting;
 
 /**
  * I am tired and don't know what I'm doing. I hope this isn't too stupid.

@@ -263,7 +263,24 @@ public class Body implements Serializable, XMLSaving {
 			}
 		}
 		
+		addDiscoveredBodyCoveringsFromMaterial(bodyMaterial);
+		
 		calculateRace();
+	}
+	
+	public void addDiscoveredBodyCoveringsFromMaterial(BodyMaterial bodyMaterial) {
+		if(bodyMaterial==BodyMaterial.SLIME) {
+			coveringsDiscovered.add(BodyCoveringType.SLIME_SCLERA);
+			coveringsDiscovered.add(BodyCoveringType.SLIME_NIPPLES);
+			coveringsDiscovered.add(BodyCoveringType.SLIME_MOUTH);
+			coveringsDiscovered.add(BodyCoveringType.SLIME_ANUS);
+		} else {
+			coveringsDiscovered.add(BodyCoveringType.EYE_SCLERA);
+			coveringsDiscovered.add(BodyCoveringType.NIPPLES);
+			coveringsDiscovered.add(BodyCoveringType.TONGUE);
+			coveringsDiscovered.add(BodyCoveringType.MOUTH);
+			coveringsDiscovered.add(BodyCoveringType.ANUS);
+		}
 	}
 	
 	
@@ -347,7 +364,7 @@ public class Body implements Serializable, XMLSaving {
 		
 		
 		for(BodyCoveringType bct : BodyCoveringType.values()) {
-			if(this.getBodyCoveringTypesDiscovered().contains(bct)) {
+			if(this.getBodyCoveringTypesDiscovered().contains(bct)) { //TODO
 				Element element = doc.createElement("bodyCovering");
 				bodyCore.appendChild(element);
 				
@@ -1243,13 +1260,14 @@ public class Body implements Serializable, XMLSaving {
 				}
 				
 				if(e.getAttribute("modifier").isEmpty()) {
-					body.setBodyCoveringForXMLImport(BodyCoveringType.valueOf(type),
+					body.setBodyCoveringForXMLImport(BodyCoveringType.valueOf(null, type),
 							CoveringPattern.valueOf(e.getAttribute("pattern")),
 							Colour.valueOf(colourPrimary),
 							!e.getAttribute("glowPrimary").isEmpty()?Boolean.valueOf(e.getAttribute("glowPrimary")):false,
 							Colour.valueOf(colourSecondary),
 							!e.getAttribute("glowSecondary").isEmpty()?Boolean.valueOf(e.getAttribute("glowSecondary")):false);
-				} else {
+					
+				} else { //TODO
 					BodyCoveringType coveringType = BodyCoveringType.valueOf(type);
 					CoveringModifier modifier = CoveringModifier.valueOf(e.getAttribute("modifier"));
 					
@@ -6077,6 +6095,8 @@ public class Body implements Serializable, XMLSaving {
 		if(this.bodyMaterial == bodyMaterial) {
 			return false;
 		}
+		
+		addDiscoveredBodyCoveringsFromMaterial(bodyMaterial);
 		
 		this.bodyMaterial = bodyMaterial;
 		

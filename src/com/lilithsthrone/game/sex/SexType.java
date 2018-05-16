@@ -2,12 +2,18 @@ package com.lilithsthrone.game.sex;
 
 import java.io.Serializable;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
+import com.lilithsthrone.game.character.CharacterUtils;
+import com.lilithsthrone.utils.XMLSaving;
+
 /**
  * @since 0.1.53
- * @version 0.1.98
+ * @version 0.2.5
  * @author Innoxia
  */
-public class SexType implements Serializable {
+public class SexType implements Serializable, XMLSaving {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -39,6 +45,24 @@ public class SexType implements Serializable {
 		result = 31 * result + getPenetrationType().hashCode();
 		result = 31 * result + getOrificeType().hashCode();
 		return result;
+	}
+	
+	public Element saveAsXML(Element parentElement, Document doc) {
+		Element effect = doc.createElement("sexType");
+		parentElement.appendChild(effect);
+
+		CharacterUtils.addAttribute(doc, effect, "SexParticipantType", asParticipant.toString());
+		CharacterUtils.addAttribute(doc, effect, "penetrationType", penetrationType.toString());
+		CharacterUtils.addAttribute(doc, effect, "orificeType", orificeType.toString());
+		
+		return effect;
+	}
+	
+	public static SexType loadFromXML(Element parentElement, Document doc) {
+		return new SexType(
+				SexParticipantType.valueOf(parentElement.getAttribute("SexParticipantType")),
+				PenetrationType.valueOf(parentElement.getAttribute("penetrationType")),
+				OrificeType.valueOf(parentElement.getAttribute("orificeType")));
 	}
 	
 	public String getName() {

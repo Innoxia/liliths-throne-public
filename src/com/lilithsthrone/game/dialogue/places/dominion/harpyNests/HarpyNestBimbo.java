@@ -10,15 +10,14 @@ import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
+import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
-import com.lilithsthrone.game.inventory.item.ItemEffectType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.universal.SMStanding;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.utils.Util.Value;
 
 /**
@@ -278,7 +277,7 @@ public class HarpyNestBimbo {
 						
 				} else if (index == 2) {
 					return new Response("Bimbo queen", "This bitch is, like, super not cool. You should totally convince the nest that you should be their queen!", HARPY_NEST_BIMBO_QUEEN,
-							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_BIMBO)), null, null, Femininity.FEMININE_STRONG, null) {
+							Util.newArrayListOfValues(Fetish.FETISH_BIMBO), null, null, Femininity.FEMININE_STRONG, null) {
 						@Override
 						public void effects() {
 							Main.game.getDialogueFlags().values.add(DialogueFlagValue.bimboEncountered);
@@ -362,7 +361,7 @@ public class HarpyNestBimbo {
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Bimbo queen", "Well, you, like, tried to talk and stuff, but this bitch isn't listening! You should totally convince the nest that you should be their queen!", HARPY_NEST_BIMBO_QUEEN,
-						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_BIMBO)), null, null, Femininity.FEMININE_STRONG, null) {
+						Util.newArrayListOfValues(Fetish.FETISH_BIMBO), null, null, Femininity.FEMININE_STRONG, null) {
 					@Override
 					public void effects() {
 						Main.game.getDialogueFlags().values.add(DialogueFlagValue.bimboPacified);
@@ -634,7 +633,7 @@ public class HarpyNestBimbo {
 				return new Response("Open wide",
 						"Allow [bimboHarpy.Name] to push the lollipop into your mouth... [style.boldBad(Warning:)] <b>Due to the nature of harpies needing a special form, this transformation bypasses TF preferences!</b>",
 						HARPY_NEST_BIMBO_FIGHT_LOSE_PUNISHMENT,
-						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_TRANSFORMATION_RECEIVING)),
+						Util.newArrayListOfValues(Fetish.FETISH_TRANSFORMATION_RECEIVING),
 						Fetish.FETISH_TRANSFORMATION_RECEIVING.getAssociatedCorruptionLevel(),
 						null,
 						null,
@@ -747,7 +746,7 @@ public class HarpyNestBimbo {
 				return new Response("Open wide",
 						"Allow [bimboHarpy.Name] to push the lollipop into your mouth... [style.boldBad(Warning:)] <b>Due to the nature of harpies needing a special form, this transformation bypasses TF preferences!</b>",
 						HARPY_NEST_BIMBO_FIGHT_LOSE_PUNISHMENT,
-						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_TRANSFORMATION_RECEIVING)),
+						Util.newArrayListOfValues(Fetish.FETISH_TRANSFORMATION_RECEIVING),
 						Fetish.FETISH_TRANSFORMATION_RECEIVING.getAssociatedCorruptionLevel(),
 						null,
 						null,

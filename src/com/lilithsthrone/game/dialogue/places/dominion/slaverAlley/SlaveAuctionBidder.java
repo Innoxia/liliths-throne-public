@@ -8,7 +8,6 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 
 /**
  * @since 0.1.90
@@ -89,22 +88,22 @@ public class SlaveAuctionBidder {
 		Gender gender = genders[Util.random.nextInt(genders.length)];
 		
 		List<String> biddingComments = Util.newArrayListOfValues(
-				new ListValue<>("I deserve a new fucktoy..."),
-				new ListValue<>("My slaves need a new toy..."),
-				new ListValue<>(UtilText.parse(slave, "I could put [npc.herHim] to work in the brothel...")),
-				new ListValue<>(UtilText.parse(slave, "I could put [npc.herHim] to work in the milking sheds...")),
-				new ListValue<>(UtilText.parse(slave, "[npc.She] looks like [npc.she]'d make a good maid...")));
+				"I deserve a new fucktoy...",
+				"My slaves need a new toy...",
+				UtilText.parse(slave, "I could put [npc.herHim] to work in the brothel..."),
+				UtilText.parse(slave, "I could put [npc.herHim] to work in the milking sheds..."),
+				UtilText.parse(slave, "[npc.She] looks like [npc.she]'d make a good maid..."));
 		
 		List<String> failedBidComments = Util.newArrayListOfValues(
-				new ListValue<>("I can't afford that..."),
-				new ListValue<>("That's too much for me..."),
-				new ListValue<>("Maybe I'll bid on the next one..."));
+				"I can't afford that...",
+				"That's too much for me...",
+				"Maybe I'll bid on the next one...");
 		
 		List<String> successfulBidComments = Util.newArrayListOfValues(
-				new ListValue<>(UtilText.parse(slave, "I'm going to break [npc.herHim] in as soon as I get home...")),
-				new ListValue<>(UtilText.parse(slave, "I'll get my other slaves to break [npc.herHim] in...")),
-				new ListValue<>(UtilText.parse(slave, "I'm sure [npc.she]'ll love [npc.her] new life in my brothel...")),
-				new ListValue<>(UtilText.parse(slave, "I'm sure [npc.she]'ll love [npc.her] new life in the milking sheds...")));
+				UtilText.parse(slave, "I'm going to break [npc.herHim] in as soon as I get home..."),
+				UtilText.parse(slave, "I'll get my other slaves to break [npc.herHim] in..."),
+				UtilText.parse(slave, "I'm sure [npc.she]'ll love [npc.her] new life in my brothel..."),
+				UtilText.parse(slave, "I'm sure [npc.she]'ll love [npc.her] new life in the milking sheds..."));
 		
 		return new SlaveAuctionBidder(race, gender, biddingComments, failedBidComments, successfulBidComments);
 	}

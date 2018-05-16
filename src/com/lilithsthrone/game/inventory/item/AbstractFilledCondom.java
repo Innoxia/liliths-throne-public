@@ -13,6 +13,7 @@ import com.lilithsthrone.game.character.body.FluidCum;
 import com.lilithsthrone.game.character.body.types.FluidType;
 import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.character.fetishes.Fetish;
+import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;

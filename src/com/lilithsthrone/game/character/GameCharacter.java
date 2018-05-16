@@ -164,10 +164,10 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingSet;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.clothing.DisplacementType;
+import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
-import com.lilithsthrone.game.inventory.item.ItemEffect;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
@@ -236,6 +236,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 
 	private List<Artwork> artworkList;
 	private int artworkIndex = -1;
+	
 	
 	// Location:
 	protected WorldType worldLocation;
@@ -328,13 +329,14 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	
 	
 	// Sex stats:
-	private int sexConsensualCount, sexAsSubCount, sexAsDomCount;
+	private int sexConsensualCount;
+	private int sexAsSubCount;
+	private int sexAsDomCount;
 	private Map<SexType, Integer> sexCountMap;
 	private Map<SexType, Integer> cumCountMap;
 	private Map<SexType, String> virginityLossMap;
 	/** String is partner ID*/
 	private Map<String, Map<SexType, Integer>> sexPartnerMap;
-
 	
 	// Fluids:
 	private float alcoholLevel = 0f;
@@ -486,6 +488,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		cumCountMap = new HashMap<>();
 		virginityLossMap = new HashMap<>();
 		
+		// Addictions:
 		addictions = new ArrayList<>();
 		psychoactiveFluidsIngested = new HashSet<>();
 		
@@ -2310,7 +2313,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	
 	public void setBody(Gender startingGender, RacialBody startingBodyType, RaceStage stage) {
 		body = CharacterUtils.generateBody(startingGender, startingBodyType, stage);
-
+		
 		postTransformationCalculation();
 	}
 	
@@ -2903,7 +2906,16 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	
 	// Companions:
 	
-	private void setElementalID(String elementalID) {
+	/**
+	 * <b>Only to be called on character slave import! Don't use this method!!!</b>
+	 */
+	protected void clearAllCompanionVariables() {
+		this.partyLeader="";
+		this.getCompanionsId().clear();
+		this.elementalID = "";
+	}
+	
+	protected void setElementalID(String elementalID) {
 		this.elementalID = elementalID;
 	}
 	
@@ -3723,6 +3735,12 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		applyFetishLossEffects(fetish);
 		
 		return true;
+	}
+	
+	public void clearFetishes() {
+		for(Fetish fetish : this.getFetishes()) {
+			removeFetish(fetish);
+		}
 	}
 	
 	private void applyFetishLossEffects(Fetish fetish) {
@@ -9466,6 +9484,10 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		tempListSpells.addAll(getSpells());
 		tempListSpells.addAll(getExtraSpells());
 		
+		Set<Spell> spellSet = new HashSet<>(tempListSpells); // Remove duplicates
+		
+		tempListSpells.clear();
+		tempListSpells.addAll(spellSet);
 		tempListSpells.sort((s1, s2) -> s1.getSpellSchool().compareTo(s2.getSpellSchool()));
 		
 		return tempListSpells;
@@ -10536,6 +10558,11 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	
 	public boolean hasWeapon(AbstractWeapon weapon) {
 		return inventory.hasWeapon(weapon);
+	}
+	
+	public boolean hasWeaponEquipped(AbstractWeapon weapon) {
+		return (getMainWeapon()!=null && getMainWeapon().equals(weapon))
+				|| (getOffhandWeapon()!=null && getOffhandWeapon().equals(weapon));
 	}
 	
 	public String dropWeapon(AbstractWeapon weapon) {
@@ -12285,7 +12312,6 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		for(BodyPartInterface bp : body.getAllBodyParts()) {
 			BodyCoveringType bct = bp.getType().getBodyCoveringType(this);
 			if(!body.getBodyCoveringTypesDiscovered().contains(bct)) {
-				
 				if(bct!=null) {
 					body.getBodyCoveringTypesDiscovered().add(bct);
 					
@@ -12768,7 +12794,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		}
 		
 		body.setPubicHair(pubicHair);
-
+		
+		postTransformationCalculation();
+		
 		return UtilText.transformationContentSB.toString();
 	}
 	public String setPubicHair(int value) {
@@ -12949,6 +12977,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		return body.getArm().getUnderarmHair();
 	}
 	public Covering getUnderarmHairType() {
+		body.getBodyCoveringTypesDiscovered().add(getBodyHairCoveringType(getArmType().getRace()));
 		return getCovering(getBodyHairCoveringType(getArmType().getRace()));
 	}
 	public String setUnderarmHair(BodyHair underarmHair) {
@@ -13044,6 +13073,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		return body.getAss().getAnus().getAssHair();
 	}
 	public Covering getAssHairType() {
+		body.getBodyCoveringTypesDiscovered().add(body.getAss().getAnus().getAssHairType(this).getType());
 		return body.getAss().getAnus().getAssHairType(this);
 	}
 	public String setAssHair(BodyHair assHair) {
@@ -13640,7 +13670,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 	// Coverings:
 	public String setEyeCovering(Covering covering) {
-		return body.getEye().setEyeCovering(this, covering);
+		String description = body.getEye().setEyeCovering(this, covering);
+		postTransformationCalculation();
+		return description;
 	}
 	// Eye makeup:
 	public Covering getEyeLiner() {
@@ -13873,6 +13905,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		return body.getFace().getFacialHair();
 	}
 	public Covering getFacialHairType() {
+		body.getBodyCoveringTypesDiscovered().add(body.getFace().getFacialHairType(this).getType());
 		return body.getFace().getFacialHairType(this);
 	}
 	public String setFacialHair(BodyHair facialHair) {

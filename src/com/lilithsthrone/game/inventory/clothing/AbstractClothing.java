@@ -22,12 +22,12 @@ import com.lilithsthrone.game.inventory.AbstractCoreType;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.Rarity;
+import com.lilithsthrone.game.inventory.enchanting.AbstractItemEffectType;
+import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
+import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.game.inventory.enchanting.TFPotency;
-import com.lilithsthrone.game.inventory.item.AbstractItemEffectType;
-import com.lilithsthrone.game.inventory.item.ItemEffect;
-import com.lilithsthrone.game.inventory.item.ItemEffectType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -173,6 +173,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 		parentElement.appendChild(element);
 		
 		CharacterUtils.addAttribute(doc, element, "id", this.getClothingType().getId());
+		CharacterUtils.addAttribute(doc, element, "name", this.getName());
 		CharacterUtils.addAttribute(doc, element, "colour", this.getColour().toString());
 		CharacterUtils.addAttribute(doc, element, "colourSecondary", this.getSecondaryColour().toString());
 		CharacterUtils.addAttribute(doc, element, "colourTertiary", this.getTertiaryColour().toString());
@@ -210,6 +211,11 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 		if(clothing==null) {
 			System.err.println("Warning: An instance of AbstractClothing was unable to be imported. ("+parentElement.getAttribute("id")+")");
 			return null;
+		}
+		
+
+		if(!parentElement.getAttribute("name").isEmpty()) {
+			clothing.setName(parentElement.getAttribute("name"));
 		}
 		
 		// Try to load colour:
@@ -502,11 +508,25 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 	
 	public String getName(boolean withDeterminer, boolean withRarityColour) {
 		if (!enchantmentKnown) {
-			return (withDeterminer ? (getClothingType().isPlural() ? getClothingType().getDeterminer() + " " : (Util.isVowel(getColour().getName().charAt(0)) ? "an " : "a ")) : " ")
-					+ getColour().getName() + (withRarityColour ? (" <span style='color: " + Colour.RARITY_UNKNOWN.toWebHexString() + ";'>" + name + "</span>") : " "+name);
+			return (withDeterminer
+						? (getClothingType().isPlural()
+								? getClothingType().getDeterminer() + " "
+								: (Util.isVowel(getColour().getName().charAt(0)) ? "an " : "a "))
+						: "")
+					+ getColour().getName()
+					+ (withRarityColour
+							? (" <span style='color: " + Colour.RARITY_UNKNOWN.toWebHexString() + ";'>" + name + "</span>")
+							: " "+name);
 		} else {
-			return (withDeterminer ? (getClothingType().isPlural() ? getClothingType().getDeterminer() + " " : (Util.isVowel(getColour().getName().charAt(0)) ? "an " : "a ")) : " ")
-					+ getColour().getName() + (withRarityColour ? (" <span style='color: " + rarity.getColour().toWebHexString() + ";'>" + name + "</span>") : " "+name);
+			return (withDeterminer
+					? (getClothingType().isPlural()
+							? getClothingType().getDeterminer() + " "
+							: (Util.isVowel(getColour().getName().charAt(0)) ? "an " : "a "))
+					: "")
+					+ getColour().getName()
+					+ (withRarityColour
+							? (" <span style='color: " + this.getRarity().getColour().toWebHexString() + ";'>" + name + "</span>")
+							: " "+name);
 		}
 	}
 
@@ -693,13 +713,13 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 				extraInformationSB.append((getClothingType().isPlural() ? "They are" : "It is") + " <b style='color: " + Colour.ATTRIBUTE_CORRUPTION.toWebHexString() + ";'>jinxed</b> and can't be removed!</br>");
 			
 			} else if(this.getClothingType().isDiscardedOnUnequip()) {
-				extraInformationSB.append("[style.boldBad(Removing your "+this.getName()+" will cause it to be discarded!)]");
+				extraInformationSB.append("[style.boldBad(Removing your "+this.getName()+" will cause "+(getClothingType().isPlural() ? "them" : "it")+" to be discarded!)]</br>");
 			}
 			
 			if(cummedIn) {
 				extraInformationSB.append((getClothingType().isPlural() ? "They have" : "It has") + " been <b style='color: " + Colour.CUM.toWebHexString() + ";'>covered in sexual fluids</b>!</br>");
 			}
-
+			
 			if(this.getClothingType().isMufflesSpeech()) {
 				extraInformationSB.append((getClothingType().isPlural() ? "They are" : "It is") + " [style.boldBad(muffling your speech)].</br>");
 			}
@@ -742,7 +762,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 				extraInformationSB.append((getClothingType().isPlural() ? "They are" : "It is") + " [style.boldCorruption(jinxed)] and can't be removed!</br>");
 				
 			} else if(this.getClothingType().isDiscardedOnUnequip()) {
-				extraInformationSB.append("[style.boldBad(Removing [npc.name]'s "+this.getName()+" will cause it to be discarded!)]</br>");
+				extraInformationSB.append("[style.boldBad(Removing [npc.name]'s "+this.getName()+" will cause "+(getClothingType().isPlural() ? "them" : "it")+" to be discarded!)]</br>");
 			}
 
 			if(cummedIn) {

@@ -161,7 +161,7 @@ public class Game implements Serializable, XMLSaving {
 	
 	private Encounter currentEncounter;
 	
-	private boolean hintsOn, started;
+	private boolean hintsOn, started, prologueFinished;
 	
 	private DialogueFlags dialogueFlags;
 	
@@ -201,6 +201,7 @@ public class Game implements Serializable, XMLSaving {
 
 		hintsOn = false;
 		started = false;
+		prologueFinished = true;
 
 		NPCMap = new HashMap<>();
 
@@ -367,7 +368,12 @@ public class Game implements Serializable, XMLSaving {
 				CharacterUtils.addAttribute(doc, informationNode, "gatheringStormDuration", String.valueOf(Main.game.gatheringStormDuration));
 				CharacterUtils.addAttribute(doc, informationNode, "weatherTimeRemaining", String.valueOf(Main.game.weatherTimeRemaining));
 	
-				Main.game.getSlaveryUtil().saveAsXML(game, doc);
+				try {
+					Main.game.getSlaveryUtil().saveAsXML(game, doc);
+				}catch(Exception ex) {
+					System.err.println("SlaveryUtil saving failed!");
+					Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "<style='color:"+Colour.GENERIC_TERRIBLE.toWebHexString()+";'>Partial Save Fail<b>", "SlaveryUtil failure"), false);
+				}
 				
 				Element dateNode = doc.createElement("date");
 				informationNode.appendChild(dateNode);
@@ -531,7 +537,10 @@ public class Game implements Serializable, XMLSaving {
 
 				try {
 					Element slaveryNode = (Element) gameElement.getElementsByTagName("slavery").item(0);
-					Main.game.setSlaveryUtil(SlaveryUtil.loadFromXML(slaveryNode, doc));
+					SlaveryUtil su = SlaveryUtil.loadFromXML(slaveryNode, doc);
+					if(su!=null) {
+						Main.game.setSlaveryUtil(su);
+					}
 				} catch(Exception ex) {
 				}
 				
@@ -772,7 +781,7 @@ public class Game implements Serializable, XMLSaving {
 					}
 				}
 				
-				if(Main.isVersionOlderThan(version, "0.2.5")) { //Reset ass/nipple/lip colours
+				if(Main.isVersionOlderThan(version, "0.2.5.1")) { //Reset ass/nipple/lip colours
 					for(NPC npc : Main.game.getAllNPCs()) {
 						if(!npc.isSlave() || (npc.getOwner()!=null && !npc.getOwner().isPlayer()))
 						npc.setSkinCovering(new Covering(npc.getSkinType().getBodyCoveringType(npc), npc.getCovering(npc.getSkinType().getBodyCoveringType(npc)).getPrimaryColour()), true);
@@ -1112,7 +1121,7 @@ public class Game implements Serializable, XMLSaving {
 			npc.calculateStatusEffects(turnTime);
 			
 			// Replace clothing if not in player's tile:
-			if(newDay) {
+			if(hoursPassed > 0) {
 				if(!Main.game.isInCombat() && !Main.game.isInSex()
 						&& (Main.game.getCurrentDialogueNode().equals(Main.game.getPlayer().getLocationPlace().getDialogue(false))
 								|| !(npc.getWorldLocation()==Main.game.getPlayer().getWorldLocation() && npc.getLocation().equals(Main.game.getPlayer().getLocation())))) {
@@ -1240,7 +1249,7 @@ public class Game implements Serializable, XMLSaving {
 		Main.mainController.getTooltip().hide();
 		
 		if(!Main.game.getPlayer().getStatusEffectDescriptions().isEmpty() && Main.game.getCurrentDialogueNode()!=MiscDialogue.STATUS_EFFECTS){
-			if(Main.game.getCurrentDialogueNode().getDialgoueNodeType()==DialogueNodeType.NORMAL) {
+			if(Main.game.getCurrentDialogueNode().getDialogueNodeType()==DialogueNodeType.NORMAL) {
 				Main.game.saveDialogueNode();
 			}
 			
@@ -1276,7 +1285,7 @@ public class Game implements Serializable, XMLSaving {
 		
 		// Miscellaneous things:
 		
-		if(Main.game.getCurrentDialogueNode().getDialgoueNodeType()!=DialogueNodeType.SLAVERY_MANAGEMENT) { // Catch slavery management NPC not correctly being assigned to null:
+		if(Main.game.getCurrentDialogueNode().getDialogueNodeType()==DialogueNodeType.NORMAL) { // Catch slavery management NPC not correctly being assigned to null:
 			Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(null);
 		}
 		
@@ -1449,7 +1458,7 @@ public class Game implements Serializable, XMLSaving {
 							}
 
 							if(node.isDisplaysActionTitleOnContinuesDialogue()) {
-								if (currentDialogueNode.getDialgoueNodeType() == DialogueNodeType.NORMAL) {
+								if (currentDialogueNode.getDialogueNodeType() == DialogueNodeType.NORMAL) {
 									positionAnchor++;
 								}
 							
@@ -1473,7 +1482,7 @@ public class Game implements Serializable, XMLSaving {
 						if (getMapDisplay() == DialogueNodeType.NORMAL)
 							initialPositionAnchor = positionAnchor;
 
-						if (currentDialogueNode.getDialgoueNodeType() == DialogueNodeType.NORMAL)
+						if (currentDialogueNode.getDialogueNodeType() == DialogueNodeType.NORMAL)
 							positionAnchor = 0;
 						
 						pastDialogueSB.setLength(0);
@@ -1521,7 +1530,9 @@ public class Game implements Serializable, XMLSaving {
 													+ "</div>"
 												: "")
 											+ (content != null
-													? "<div "+(Main.getProperties().hasValue(PropertyValue.fadeInText)?"id='text-content'":"")+" style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;'>"
+													? "<div "+(Main.getProperties().hasValue(PropertyValue.fadeInText)?"id='text-content'":"")
+															+" style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;"
+																+ (currentDialogueNode.getDialogueNodeType()==DialogueNodeType.INVENTORY?" overflow-y:scroll;":"")+"'>"
 															+ pastDialogueSB.toString()
 														+ "</div>"
 													: "")
@@ -1547,7 +1558,9 @@ public class Game implements Serializable, XMLSaving {
 												+ "</div>"
 											: "")
 										+ (content != null
-												? "<div "+(Main.getProperties().hasValue(PropertyValue.fadeInText)?"id='text-content'":"")+" style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;'>"
+												? "<div "+(Main.getProperties().hasValue(PropertyValue.fadeInText)?"id='text-content'":"")
+														+" style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;"
+															+ (currentDialogueNode.getDialogueNodeType()==DialogueNodeType.INVENTORY?" overflow-y:scroll;":"")+ "'>"
 														+ pastDialogueSB.toString()
 													+ "</div>"
 												: "")
@@ -1626,7 +1639,7 @@ public class Game implements Serializable, XMLSaving {
 					
 
 					if(node.isDisplaysActionTitleOnContinuesDialogue()) {
-						if (currentDialogueNode.getDialgoueNodeType() == DialogueNodeType.NORMAL) {
+						if (currentDialogueNode.getDialogueNodeType() == DialogueNodeType.NORMAL) {
 							positionAnchor++;
 						}
 						
@@ -1637,7 +1650,7 @@ public class Game implements Serializable, XMLSaving {
 				}
 			} else {
 				dialogueTitle = UtilText.parse(node.getLabel());
-				if (currentDialogueNode.getDialgoueNodeType() == DialogueNodeType.NORMAL) {
+				if (currentDialogueNode.getDialogueNodeType() == DialogueNodeType.NORMAL) {
 					positionAnchor = 0;
 				}
 				
@@ -1690,7 +1703,9 @@ public class Game implements Serializable, XMLSaving {
 										+ "</div>"
 									: "") 
 								+ (content != null
-									? "<div "+(Main.getProperties().hasValue(PropertyValue.fadeInText)?"id='text-content'":"")+" style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;'>"
+									? "<div "+(Main.getProperties().hasValue(PropertyValue.fadeInText)?"id='text-content'":"")
+											+" style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;"
+												+ (currentDialogueNode.getDialogueNodeType()==DialogueNodeType.INVENTORY?" overflow-y:scroll;":"")+ "'>"
 									+ pastDialogueSB.toString() + "</div>" : "")
 	//									+ textStartStringBuilder.toString() + pastDialogueSB.toString() + textEndStringBuilder.toString() + "</div>" : "")
 //							+ "</div>"
@@ -1718,7 +1733,9 @@ public class Game implements Serializable, XMLSaving {
 											+ "</div>"
 										: "")
 									+ (content != null
-										? "<div "+(Main.getProperties().hasValue(PropertyValue.fadeInText)?"id='text-content'":"")+" style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;'>"
+										? "<div "+(Main.getProperties().hasValue(PropertyValue.fadeInText)?"id='text-content'":"")
+												+" style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;"
+													+ (currentDialogueNode.getDialogueNodeType()==DialogueNodeType.INVENTORY?" overflow-y:scroll;":"")+ "'>"
 												+ pastDialogueSB.toString()
 											+ "</div>"
 										: "")
@@ -1755,7 +1772,7 @@ public class Game implements Serializable, XMLSaving {
 	}
 	
 	private static boolean isContentScroll(DialogueNodeOld node) {
-		return (node.getDialgoueNodeType()!=DialogueNodeType.CHARACTERS_PRESENT
+		return (node.getDialogueNodeType()!=DialogueNodeType.CHARACTERS_PRESENT
 				&& !node.equals(PhoneDialogue.CHARACTER_APPEARANCE)
 				&& !node.equals(PhoneDialogue.CONTACTS_CHARACTER))
 				|| node.equals(BodyChanging.BODY_CHANGING_ASS)
@@ -2013,8 +2030,12 @@ public class Game implements Serializable, XMLSaving {
 					+ "<h4 style='text-align:center; font-size:1.4em;'>" + dialogueTitle + "</h4>"
 					+ "<div style='max-width:800px; margin:0 auto;'>"
 						+ (currentDialogueNode.getHeaderContent() != null ? "<div id='header-content'>" + currentDialogueNode.getHeaderContent() + "</div>" : "")
-						+ (currentDialogueNode.getContent() != null ? "<div id='text-content' style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;'>"
-								+ textStartStringBuilder.toString() + pastDialogueSB.toString() + textEndStringBuilder.toString() + "</div>" : "")
+						+ (currentDialogueNode.getContent() != null
+								? "<div id='text-content'"
+									+ " style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;"
+										+ (currentDialogueNode.getDialogueNodeType()==DialogueNodeType.INVENTORY?" overflow-y:scroll;":"")+ "'>"
+									+ textStartStringBuilder.toString() + pastDialogueSB.toString() + textEndStringBuilder.toString() + "</div>"
+								: "")
 					+ "</div>"
 				+ "</div>"
 				+"<p style='text-align:center;font-size:0.6em;color:#777;'>Dialogue written by "+currentDialogueNode.getAuthor()+" for <i>Lilith's Throne v"+Main.VERSION_NUMBER+"</i></p>"
@@ -2231,7 +2252,7 @@ public class Game implements Serializable, XMLSaving {
 			String content = currentDialogueNode.getContent();
 			
 			currentDialogue = 
-					(savedDialogueNode.getDialgoueNodeType()!=DialogueNodeType.PHONE && savedDialogueNode.getDialgoueNodeType()!=DialogueNodeType.CHARACTERS_PRESENT
+					(savedDialogueNode.getDialogueNodeType()!=DialogueNodeType.PHONE && savedDialogueNode.getDialogueNodeType()!=DialogueNodeType.CHARACTERS_PRESENT
 						?"<body onLoad='scrollToElement()'>"
 							+ "<script>function scrollToElement() {document.getElementById('content-block').scrollTop = document.getElementById('position" + (positionAnchor) + "').offsetTop -64;}</script>"
 						:"<body>")
@@ -2910,6 +2931,14 @@ public class Game implements Serializable, XMLSaving {
 		return Main.game.getPlayer().getWorldLocation()!=WorldType.EMPTY;
 	}
 
+	public boolean isPrologueFinished() {
+		return prologueFinished;
+	}
+
+	public void setPrologueFinished(boolean prologueFinished) {
+		this.prologueFinished = prologueFinished;
+	}
+	
 	public StringBuilder getTextStartStringBuilder() {
 		return textStartStringBuilder;
 	}
@@ -2932,7 +2961,7 @@ public class Game implements Serializable, XMLSaving {
 
 	public DialogueNodeType getMapDisplay() {
 		if (currentDialogueNode != null)
-			return currentDialogueNode.getDialgoueNodeType();
+			return currentDialogueNode.getDialogueNodeType();
 		else
 			return null;
 	}

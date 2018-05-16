@@ -22,7 +22,6 @@ import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 
 /**
  * @since 0.1.64
@@ -476,16 +475,16 @@ public class SARalphOrgasms {
 		public List<OrificeType> getAreasCummedIn(GameCharacter cumProvider, GameCharacter cumTarget) {
 			if(!cumProvider.isPlayer() && cumTarget.equals(Sex.getTargetedPartner(cumProvider))) {
 				if (Sex.getPenetrationTypeInOrifice(cumTarget, OrificeType.VAGINA) == PenetrationType.PENIS && Sex.getPenetratingCharacterUsingOrifice(cumTarget, OrificeType.VAGINA).equals(cumProvider)) {
-					return Util.newArrayListOfValues(new ListValue<>(OrificeType.VAGINA));
+					return Util.newArrayListOfValues(OrificeType.VAGINA);
 					
 				} else if (Sex.getPenetrationTypeInOrifice(cumTarget, OrificeType.ANUS) == PenetrationType.PENIS && Sex.getPenetratingCharacterUsingOrifice(cumTarget, OrificeType.ANUS).equals(cumProvider)) {
-					return Util.newArrayListOfValues(new ListValue<>(OrificeType.ANUS));
+					return Util.newArrayListOfValues(OrificeType.ANUS);
 					
 				} else if (Sex.getPenetrationTypeInOrifice(cumTarget, OrificeType.MOUTH) == PenetrationType.PENIS && Sex.getPenetratingCharacterUsingOrifice(cumTarget, OrificeType.MOUTH).equals(cumProvider)) {
-					return Util.newArrayListOfValues(new ListValue<>(OrificeType.MOUTH));
+					return Util.newArrayListOfValues(OrificeType.MOUTH);
 					
 				} else if (Sex.getPenetrationTypeInOrifice(cumTarget, OrificeType.NIPPLE) == PenetrationType.PENIS && Sex.getPenetratingCharacterUsingOrifice(cumTarget, OrificeType.NIPPLE).equals(cumProvider)) {
-					return Util.newArrayListOfValues(new ListValue<>(OrificeType.NIPPLE));
+					return Util.newArrayListOfValues(OrificeType.NIPPLE);
 					
 				} else {
 					return null;

@@ -35,12 +35,11 @@ import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
-import com.lilithsthrone.world.places.GenericPlace;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.2.1
+ * @version 0.2.5
  * @author Innoxia
  */
 public class PrologueDialogue {
@@ -1267,10 +1266,7 @@ public class PrologueDialogue {
 					public void effects() {
 						Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_ENTRANCE_HALL, false);
 						Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_ENTRANCE_HALL, false);
-						Main.game.setActiveWorld(
-								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR),
-								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR).getPlacesOfInterest().get(new GenericPlace(PlaceType.LILAYA_HOME_ENTRANCE_HALL)),
-								false);
+						Main.game.getPlayer().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_ENTRANCE_HALL);
 					}
 				};
 				
@@ -1386,10 +1382,7 @@ public class PrologueDialogue {
 					public void effects() {
 						Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, false);
 						Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, false);
-						Main.game.setActiveWorld(
-								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR),
-								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR).getPlacesOfInterest().get(new GenericPlace(PlaceType.LILAYA_HOME_LAB)),
-								false);
+						Main.game.getPlayer().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB);
 					}
 				};
 				
@@ -1735,10 +1728,7 @@ public class PrologueDialogue {
 					@Override
 					public void effects() {
 						Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_PLAYER, false);
-						Main.game.setActiveWorld(
-								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR),
-								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getPlacesOfInterest().get(new GenericPlace(PlaceType.LILAYA_HOME_ROOM_PLAYER)),
-								false);
+						Main.game.getPlayer().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_PLAYER);
 					}
 				};
 				
@@ -1918,6 +1908,7 @@ public class PrologueDialogue {
 				return new Response("Freedom!", "Decide what you want to do next.", RoomPlayer.ROOM){
 					@Override
 					public void effects() {
+						Main.game.setPrologueFinished(true);
 						Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, false);
 						Main.saveGame("AutoSave_"+Main.game.getPlayer().getName(), true);
 					}

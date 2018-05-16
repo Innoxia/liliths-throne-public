@@ -15,7 +15,7 @@ import com.lilithsthrone.game.character.body.types.FluidType;
 import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
 import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.inventory.item.ItemEffect;
+import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.utils.Util;
 
 /**
@@ -493,6 +493,6 @@ public class FluidMilk implements BodyPartInterface, Serializable {
 	}
 	
 	public float getValuePerMl() {
-		return 0.1f + this.getFluidModifiers().size()*0.4f;
+		return 0.1f + this.getFluidModifiers().size()*0.4f + (this.getFlavour()!=FluidFlavour.MILK?0.5f:0);
 	}
 }

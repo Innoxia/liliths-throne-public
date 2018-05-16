@@ -24,7 +24,6 @@ import com.lilithsthrone.game.sex.managers.dominion.cultist.SMCultistKneeling;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.utils.Util.Value;
 
 /**
@@ -195,7 +194,7 @@ public class CultistDialogue {
 				
 			} else if(index == 3) {
 				if(Main.game.getPlayer().hasVagina()) {
-					return new ResponseSex("Offer Pussy", "Offer [npc.name] your pussy instead.", Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_PREGNANCY), new ListValue<>(Fetish.FETISH_BROODMOTHER)),
+					return new ResponseSex("Offer Pussy", "Offer [npc.name] your pussy instead.", Util.newArrayListOfValues(Fetish.FETISH_PREGNANCY, Fetish.FETISH_BROODMOTHER),
 							null, Fetish.FETISH_PREGNANCY.getAssociatedCorruptionLevel(), null, null, null,
 							true, false,
 							new SMAltarMissionary(
@@ -240,7 +239,7 @@ public class CultistDialogue {
 				}
 				
 			} else if(index==4) {
-				return new ResponseSex("Offer Ass", "Offer [npc.name] your ass instead.", Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_RECEIVING)),
+				return new ResponseSex("Offer Ass", "Offer [npc.name] your ass instead.", Util.newArrayListOfValues(Fetish.FETISH_ANAL_RECEIVING),
 						null, Fetish.FETISH_ANAL_RECEIVING.getAssociatedCorruptionLevel(), null, null, null,
 						true, false,
 						new SMAltarMissionary(

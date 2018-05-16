@@ -15,7 +15,6 @@ import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 
 /**
  * @since 0.1.52
@@ -94,9 +93,9 @@ public class SABraxSubStart {
 		@Override
 		public List<Fetish> getFetishes(GameCharacter character) {
 			if(character.isPlayer()) {
-				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DOMINANT));
+				return Util.newArrayListOfValues(Fetish.FETISH_DOMINANT);
 			} else {
-				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE));
+				return Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE);
 			}
 		}
 	};

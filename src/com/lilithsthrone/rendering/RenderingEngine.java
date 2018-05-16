@@ -794,7 +794,7 @@ public enum RenderingEngine {
 				+ "</div>"
 				);
 		
-		if(Main.game.getCurrentDialogueNode().getDialgoueNodeType() == DialogueNodeType.INVENTORY || Main.game.isInCombat() || Main.game.isInSex()) {
+		if(Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.INVENTORY || Main.game.isInCombat() || Main.game.isInSex()) {
 
 			//TODO
 			uiAttributeSB.append(getInventoryEquippedPanel(Main.game.getPlayer()));
@@ -819,7 +819,7 @@ public enum RenderingEngine {
 	
 	public static GameCharacter getCharacterToRender() {
 		
-		if(Main.game.getCurrentDialogueNode().getDialgoueNodeType() == DialogueNodeType.CHARACTERS_PRESENT || Main.game.getCurrentDialogueNode() == PhoneDialogue.CONTACTS_CHARACTER) {
+		if(Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.CHARACTERS_PRESENT || Main.game.getCurrentDialogueNode() == PhoneDialogue.CONTACTS_CHARACTER) {
 			return (NPC) CharactersPresentDialogue.characterViewed;
 		}
 		
@@ -831,7 +831,7 @@ public enum RenderingEngine {
 			return Combat.getEnemies().get(0);
 		}
 		
-		if(InventoryDialogue.getInventoryNPC()!=null && Main.game.getCurrentDialogueNode().getDialgoueNodeType() == DialogueNodeType.INVENTORY) {
+		if(InventoryDialogue.getInventoryNPC()!=null && Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.INVENTORY) {
 			return InventoryDialogue.getInventoryNPC();
 		}
 		
@@ -860,7 +860,7 @@ public enum RenderingEngine {
 			
 			boolean renderNPC = false;
 			
-			if(Main.game.getCurrentDialogueNode().getDialgoueNodeType() == DialogueNodeType.CHARACTERS_PRESENT || Main.game.getCurrentDialogueNode() == PhoneDialogue.CONTACTS_CHARACTER) {
+			if(Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.CHARACTERS_PRESENT || Main.game.getCurrentDialogueNode() == PhoneDialogue.CONTACTS_CHARACTER) {
 				renderNPC = true;
 			}
 			
@@ -871,7 +871,7 @@ public enum RenderingEngine {
 			if(Main.game.isInSex()
 				|| Main.game.isInCombat()
 				|| (getCharacterToRender()!=null
-					&& (renderNPC || (Main.game.getCurrentDialogueNode().getDialgoueNodeType()==DialogueNodeType.INVENTORY && InventoryDialogue.getInventoryNPC()!=null)))) {
+					&& (renderNPC || (Main.game.getCurrentDialogueNode().getDialogueNodeType()==DialogueNodeType.INVENTORY && InventoryDialogue.getInventoryNPC()!=null)))) {
 			
 				
 			if(Main.game.isInSex()) {
@@ -1511,9 +1511,9 @@ public enum RenderingEngine {
 				+ "</div>"
 
 				+ "<div class='quarterContainer'>"
-					+ "<div class='button" + (Main.game.getCharactersPresent().isEmpty() && Main.game.getCurrentDialogueNode().getDialgoueNodeType() != DialogueNodeType.CHARACTERS_PRESENT ? " disabled" : "")
+					+ "<div class='button" + (Main.game.getCharactersPresent().isEmpty() && Main.game.getCurrentDialogueNode().getDialogueNodeType() != DialogueNodeType.CHARACTERS_PRESENT ? " disabled" : "")
 					+ "' id='charactersPresent'>" + SVGImages.SVG_IMAGE_PROVIDER.getPeopleIcon()
-						+ (Main.game.getCharactersPresent().isEmpty() && Main.game.getCurrentDialogueNode().getDialgoueNodeType() != DialogueNodeType.CHARACTERS_PRESENT ? "<div class='disabledLayer'></div>" : "")
+						+ (Main.game.getCharactersPresent().isEmpty() && Main.game.getCurrentDialogueNode().getDialogueNodeType() != DialogueNodeType.CHARACTERS_PRESENT ? "<div class='disabledLayer'></div>" : "")
 					+ "</div>"
 				+ "</div>"
 
