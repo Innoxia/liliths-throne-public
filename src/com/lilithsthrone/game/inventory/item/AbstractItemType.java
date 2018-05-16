@@ -83,17 +83,17 @@ public abstract class AbstractItemType extends AbstractCoreType implements Seria
 		}
 
 		if (colourPrimary == null) {
-			this.colourPrimary = com.lilithsthrone.utils.Colour.CLOTHING_BLACK;
+			this.colourPrimary = Colour.CLOTHING_BLACK;
 		} else {
 			this.colourPrimary = colourPrimary;
 		}
 		if (colourSecondary == null) {
-			this.colourSecondary = com.lilithsthrone.utils.Colour.CLOTHING_BLACK;
+			this.colourSecondary = Colour.CLOTHING_BLACK;
 		} else {
 			this.colourSecondary = colourSecondary;
 		}
 		if (colourTertiary == null) {
-			this.colourTertiary = com.lilithsthrone.utils.Colour.CLOTHING_BLACK;
+			this.colourTertiary = Colour.CLOTHING_BLACK;
 		} else {
 			this.colourTertiary = colourTertiary;
 		}
