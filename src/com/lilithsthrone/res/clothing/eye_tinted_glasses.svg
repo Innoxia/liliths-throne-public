@@ -14,7 +14,7 @@
    id="svg4206"
    version="1.1"
    inkscape:version="0.92.2 (5c3e80d, 2017-08-06)"
-   sodipodi:docname="tinted_glasses.svg"
+   sodipodi:docname="eye_sunglasses_n.svg"
    inkscape:export-filename="G:\Games\WM\Resources\Fonts\Trainer\Lilith's Throne\res\mods\naas\items\clothing\naas\eye_sunglasses1.png"
    inkscape:export-xdpi="96"
    inkscape:export-ydpi="96">
@@ -26,19 +26,7 @@
      id="defs4208">
     <linearGradient
        inkscape:collect="always"
-       id="linearGradient4686">
-      <stop
-         style="stop-color:#ff2a2a;stop-opacity:1;"
-         offset="0"
-         id="stop4682" />
-      <stop
-         style="stop-color:#ff2a2a;stop-opacity:0;"
-         offset="1"
-         id="stop4684" />
-    </linearGradient>
-    <linearGradient
-       inkscape:collect="always"
-       id="linearGradient4678">
+       id="innograd1">
       <stop
          style="stop-color:#ff2a2a;stop-opacity:1;"
          offset="0"
@@ -1844,16 +1832,7 @@
        cusp_linecap_type="round" />
     <linearGradient
        inkscape:collect="always"
-       xlink:href="#linearGradient4678"
-       id="linearGradient4680"
-       x1="143.27959"
-       y1="144.8876"
-       x2="240.75916"
-       y2="144.8876"
-       gradientUnits="userSpaceOnUse" />
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient4686"
+       xlink:href="#innograd1"
        id="linearGradient4688"
        x1="15.170776"
        y1="145.31094"
@@ -1934,8 +1913,8 @@
          id="feComposite4724" />
     </filter>
     <filter
-       inkscape:label="Refractive Glass"
-       inkscape:menu-tooltip="Double reflection through glass with some refraction"
+       inkscape:label="Frosted Glass"
+       inkscape:menu-tooltip="Satiny glass effect"
        inkscape:menu="Non-realistic 3D Shaders"
        height="1.5"
        y="-0.25"
@@ -2000,12 +1979,89 @@
          result="result14"
          id="feComposite4766" />
       <feComposite
-         result="result15"
+         result="fbSourceGraphic"
          in2="SourceGraphic"
          operator="in"
          in="result14"
          id="feComposite4768" />
+      <feColorMatrix
+         result="fbSourceGraphicAlpha"
+         in="fbSourceGraphic"
+         values="0 0 0 -1 0 0 0 0 -1 0 0 0 0 -1 0 0 0 0 1 0"
+         id="feColorMatrix5456" />
+      <feGaussianBlur
+         id="feGaussianBlur5458"
+         in="fbSourceGraphic"
+         result="result8"
+         stdDeviation="5" />
+      <feComposite
+         in2="result8"
+         id="feComposite5460"
+         result="result18"
+         operator="xor"
+         in="fbSourceGraphic" />
+      <feComposite
+         in2="result18"
+         id="feComposite5462"
+         result="result16"
+         operator="arithmetic"
+         k2="0.5"
+         k1="1"
+         in="result8" />
+      <feComposite
+         in2="result8"
+         id="feComposite5464"
+         in="result16"
+         operator="atop"
+         result="result6" />
+      <feOffset
+         id="feOffset5466"
+         in="result6"
+         result="result17" />
+      <feDisplacementMap
+         in2="result16"
+         id="feDisplacementMap5468"
+         result="result4"
+         scale="100"
+         yChannelSelector="A"
+         xChannelSelector="A"
+         in="result17" />
+      <feComposite
+         in2="result4"
+         id="feComposite5470"
+         k3="1"
+         in="result17"
+         operator="arithmetic"
+         result="result2" />
+      <feComposite
+         in2="result17"
+         id="feComposite5472"
+         operator="out"
+         in="result2"
+         result="fbSourceGraphic" />
+      <feComposite
+         in2="fbSourceGraphic"
+         id="feComposite5474"
+         result="result14"
+         operator="over"
+         in="fbSourceGraphic" />
+      <feComposite
+         in2="fbSourceGraphic"
+         id="feComposite5476"
+         in="result14"
+         operator="in"
+         result="result15" />
     </filter>
+    <linearGradient
+       gradientTransform="matrix(-1,0,0,1,255.92993,-0.42334)"
+       inkscape:collect="always"
+       xlink:href="#innograd1"
+       id="linearGradient4688-4"
+       x1="15.170776"
+       y1="145.31094"
+       x2="112.65035"
+       y2="145.31094"
+       gradientUnits="userSpaceOnUse" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -2015,8 +2071,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="5.6983428"
-     inkscape:cx="128.11006"
-     inkscape:cy="128.99751"
+     inkscape:cx="142.40917"
+     inkscape:cy="104.73342"
      inkscape:document-units="px"
      inkscape:current-layer="layer3"
      showgrid="false"
@@ -2034,7 +2090,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -2123,13 +2179,7 @@
     <path
        id="path4512"
        d="m 33.595182,116.06393 c 7.024017,0.0267 15.510233,1.05993 24.466602,1.53752 24.99324,1.33273 55.058376,6.40411 54.582996,17.67608 l -0.47872,6.98245 c 0,0 -5.42566,19.28676 -15.851758,26.11409 -7.778133,5.09338 -19.38958,5.46919 -34.424894,6.06813 -48.705758,1.94021 -44.86465,-20.73609 -46.628006,-42.88664 -1.017694,-12.78382 6.627083,-15.53612 18.33378,-15.49163 z"
-       style="fill:url(#linearGradient4688);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;filter:url(#filter4770)"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="ssccssss" />
-    <path
-       id="path4523"
-       d="m 222.33475,115.64059 c -7.02401,0.0267 -15.51022,1.05993 -24.46659,1.53752 -24.99325,1.33274 -55.05838,6.40411 -54.583,17.67608 l 0.47872,6.98245 c 0,0 5.42566,19.28676 15.85175,26.1141 7.77814,5.09337 19.38958,5.46918 34.4249,6.06812 48.70576,1.94021 44.86465,-20.73609 46.628,-42.88664 1.0177,-12.78382 -6.62708,-15.53611 -18.33378,-15.49163 z"
-       style="display:inline;opacity:1;fill:url(#linearGradient4680);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;filter:url(#filter4726)"
+       style="fill:url(#linearGradient4688);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="ssccssss" />
     <path
@@ -2167,5 +2217,11 @@
        id="path4470-3"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="csscscc" />
+    <path
+       id="path4512-2"
+       d="m 222.33475,115.64059 c -7.02402,0.0267 -15.51023,1.05993 -24.4666,1.53752 -24.99324,1.33273 -55.05838,6.40411 -54.583,17.67608 l 0.47872,6.98245 c 0,0 5.42566,19.28676 15.85176,26.11409 7.77813,5.09338 19.38958,5.46919 34.4249,6.06813 48.70575,1.94021 44.86464,-20.73609 46.628,-42.88664 1.01769,-12.78382 -6.62708,-15.53612 -18.33378,-15.49163 z"
+       style="display:inline;opacity:1;fill:url(#linearGradient4688-4);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ssccssss" />
   </g>
 </svg>
