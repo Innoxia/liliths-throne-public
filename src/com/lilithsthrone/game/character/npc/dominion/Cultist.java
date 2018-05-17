@@ -43,7 +43,6 @@ import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
@@ -153,10 +152,10 @@ public class Cultist extends NPC {
 			
 			// Makeup:
 			colours = Util.newArrayListOfValues(
-					new ListValue<>(Colour.COVERING_NONE),
-					new ListValue<>(Colour.COVERING_ORANGE),
-					new ListValue<>(Colour.COVERING_PURPLE),
-					new ListValue<>(Colour.COVERING_BLACK));
+					Colour.COVERING_NONE,
+					Colour.COVERING_ORANGE,
+					Colour.COVERING_PURPLE,
+					Colour.COVERING_BLACK);
 			
 			Colour colourForCoordination = colours.get(Util.random.nextInt(colours.size()));
 			Colour colourForNails = colours.get(Util.random.nextInt(colours.size()));

@@ -1015,7 +1015,7 @@ public enum Combat {
 		
 		DamageType dt = (attacker.getOffhandWeapon() == null
 				?attacker.getBodyMaterial().getUnarmedDamageType()
-				:attacker.getMainWeapon().getDamageType());
+				:attacker.getOffhandWeapon().getDamageType());
 	
 		if(damage==0) {
 			if(target.isPlayer()) {

@@ -17,7 +17,6 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.world.Cell;
 
 /**
@@ -237,7 +236,7 @@ public enum PlaceUpgrade {
 									+ "</div>");
 							
 							milkyMilknessSB.append("<div style='float:left; width:15%; margin:0 auto; padding:0; display:inline-block; text-align:center; background:transparent;'>"
-									+ "<div id='MILK_DRINK_SMALL_"+entry.hashCode()+"' "+(entry.getValue()>=100?"class='square-button big'":"class='square-button big disabled'")+">"
+									+ "<div id='MILK_DRINK_SMALL_"+entry.hashCode()+"' "+(entry.getValue()>0?"class='square-button big'":"class='square-button big disabled'")+">"
 											+ "<div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDrinkSmall()+"</div></div>"
 									+ "<div id='MILK_DRINK_"+entry.hashCode()+"' "+(entry.getValue()>=500?"class='square-button big'":"class='square-button big disabled'")+">"
 											+ "<div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDrink()+"</div></div>"
@@ -290,7 +289,7 @@ public enum PlaceUpgrade {
 									+ "</div>");
 	
 							milkyMilknessSB.append("<div style='float:left; width:15%; margin:0 auto; padding:0; display:inline-block; text-align:center; background:transparent;'>"
-									+ "<div id='CUM_DRINK_SMALL_"+entry.hashCode()+"' "+(entry.getValue()>=100?"class='square-button big'":"class='square-button big disabled'")+">"
+									+ "<div id='CUM_DRINK_SMALL_"+entry.hashCode()+"' "+(entry.getValue()>0?"class='square-button big'":"class='square-button big disabled'")+">"
 											+ "<div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDrinkSmall()+"</div></div>"
 									+ "<div id='CUM_DRINK"+entry.hashCode()+"' "+(entry.getValue()>=500?"class='square-button big'":"class='square-button big disabled'")+">"
 											+ "<div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDrink()+"</div></div>"
@@ -342,7 +341,7 @@ public enum PlaceUpgrade {
 									+ "</div>");
 	
 							milkyMilknessSB.append("<div style='float:left; width:15%; margin:0 auto; padding:0; display:inline-block; text-align:center; background:transparent;'>"
-									+ "<div id='GIRLCUM_DRINK_SMALL_"+entry.hashCode()+"' "+(entry.getValue()>=100?"class='square-button big'":"class='square-button big disabled'")+">"
+									+ "<div id='GIRLCUM_DRINK_SMALL_"+entry.hashCode()+"' "+(entry.getValue()>0?"class='square-button big'":"class='square-button big disabled'")+">"
 											+ "<div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDrinkSmall()+"</div></div>"
 									+ "<div id='GIRLCUM_DRINK_"+entry.hashCode()+"' "+(entry.getValue()>=500?"class='square-button big'":"class='square-button big disabled'")+">"
 											+ "<div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDrink()+"</div></div>"
@@ -705,34 +704,34 @@ public enum PlaceUpgrade {
 
 	static {
 		coreRoomUpgrades = Util.newArrayListOfValues(
-				new ListValue<>(PlaceUpgrade.LILAYA_SLAVE_ROOM),
-				new ListValue<>(PlaceUpgrade.LILAYA_SLAVE_ROOM_DOUBLE),
+				PlaceUpgrade.LILAYA_SLAVE_ROOM,
+				PlaceUpgrade.LILAYA_SLAVE_ROOM_DOUBLE,
 				
-				new ListValue<>(PlaceUpgrade.LILAYA_MILKING_ROOM),
+				PlaceUpgrade.LILAYA_MILKING_ROOM,
 				
-				new ListValue<>(PlaceUpgrade.LILAYA_ARTHUR_ROOM));
+				PlaceUpgrade.LILAYA_ARTHUR_ROOM);
 		
 		slaveQuartersUpgrades = Util.newArrayListOfValues(
-				new ListValue<>(PlaceUpgrade.LILAYA_SLAVE_ROOM_ROOM_SERVICE),
+				PlaceUpgrade.LILAYA_SLAVE_ROOM_ROOM_SERVICE,
 				
-				new ListValue<>(PlaceUpgrade.LILAYA_SLAVE_ROOM_UPGRADE_BED),
-				new ListValue<>(PlaceUpgrade.LILAYA_SLAVE_ROOM_DOWNGRADE_BED),
+				PlaceUpgrade.LILAYA_SLAVE_ROOM_UPGRADE_BED,
+				PlaceUpgrade.LILAYA_SLAVE_ROOM_DOWNGRADE_BED,
 				
-				new ListValue<>(PlaceUpgrade.LILAYA_SLAVE_ROOM_ARCANE_INSTRUMENTS),
-				new ListValue<>(PlaceUpgrade.LILAYA_SLAVE_ROOM_OBEDIENCE_TRAINER),
+				PlaceUpgrade.LILAYA_SLAVE_ROOM_ARCANE_INSTRUMENTS,
+				PlaceUpgrade.LILAYA_SLAVE_ROOM_OBEDIENCE_TRAINER,
 				
-				new ListValue<>(PlaceUpgrade.LILAYA_EMPTY_ROOM),
-				new ListValue<>(PlaceUpgrade.LILAYA_ARTHUR_ROOM));
+				PlaceUpgrade.LILAYA_EMPTY_ROOM,
+				PlaceUpgrade.LILAYA_ARTHUR_ROOM);
 		
 		getMilkingUpgrades = Util.newArrayListOfValues(
-				new ListValue<>(PlaceUpgrade.LILAYA_MILKING_ROOM_ARTISAN_MILKERS),
-				new ListValue<>(PlaceUpgrade.LILAYA_MILKING_ROOM_INDUSTRIAL_MILKERS),
+				PlaceUpgrade.LILAYA_MILKING_ROOM_ARTISAN_MILKERS,
+				PlaceUpgrade.LILAYA_MILKING_ROOM_INDUSTRIAL_MILKERS,
 
-				new ListValue<>(PlaceUpgrade.LILAYA_MILKING_ROOM_MILK_EFFICIENCY),
-				new ListValue<>(PlaceUpgrade.LILAYA_MILKING_ROOM_CUM_EFFICIENCY),
-				new ListValue<>(PlaceUpgrade.LILAYA_MILKING_ROOM_GIRLCUM_EFFICIENCY),
+				PlaceUpgrade.LILAYA_MILKING_ROOM_MILK_EFFICIENCY,
+				PlaceUpgrade.LILAYA_MILKING_ROOM_CUM_EFFICIENCY,
+				PlaceUpgrade.LILAYA_MILKING_ROOM_GIRLCUM_EFFICIENCY,
 				
-				new ListValue<>(PlaceUpgrade.LILAYA_EMPTY_ROOM));
+				PlaceUpgrade.LILAYA_EMPTY_ROOM);
 	}
 	
 	

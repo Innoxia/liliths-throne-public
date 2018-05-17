@@ -31,7 +31,6 @@ import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.universal.SMChair;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
@@ -586,7 +585,7 @@ public class SuccubisSecrets {
 					CoveringsNamesMap = new LinkedHashMap<>();
 					
 					if(Main.game.getPlayer().getBodyMaterial()==BodyMaterial.SLIME) {
-						CoveringsNamesMap.put(BodyCoveringType.SLIME, Util.newArrayListOfValues(new ListValue<>("SLIME")));
+						CoveringsNamesMap.put(BodyCoveringType.SLIME, Util.newArrayListOfValues("SLIME"));
 						
 					} else {
 						for(BodyPartInterface bp : Main.game.getPlayer().getAllBodyParts()){
@@ -604,7 +603,7 @@ public class SuccubisSecrets {
 								if(CoveringsNamesMap.containsKey(bp.getType().getBodyCoveringType(Main.game.getPlayer()))) {
 									CoveringsNamesMap.get(bp.getType().getBodyCoveringType(Main.game.getPlayer())).add(name);
 								} else {
-									CoveringsNamesMap.put(bp.getType().getBodyCoveringType(Main.game.getPlayer()), Util.newArrayListOfValues(new ListValue<>(name)));
+									CoveringsNamesMap.put(bp.getType().getBodyCoveringType(Main.game.getPlayer()), Util.newArrayListOfValues(name));
 								}
 							}
 						}
@@ -626,10 +625,10 @@ public class SuccubisSecrets {
 							CoveringsNamesMap.get(Main.game.getPlayer().getAssHairType().getType()).add("growing around your anus");
 						}
 						
-						CoveringsNamesMap.put(BodyCoveringType.ANUS, Util.newArrayListOfValues(new ListValue<>("anus")));
-						CoveringsNamesMap.put(BodyCoveringType.MOUTH, Util.newArrayListOfValues(new ListValue<>("mouth")));
-						CoveringsNamesMap.put(BodyCoveringType.NIPPLES, Util.newArrayListOfValues(new ListValue<>("nipples")));
-						CoveringsNamesMap.put(BodyCoveringType.TONGUE, Util.newArrayListOfValues(new ListValue<>("tongue")));
+						CoveringsNamesMap.put(BodyCoveringType.ANUS, Util.newArrayListOfValues("anus"));
+						CoveringsNamesMap.put(BodyCoveringType.MOUTH, Util.newArrayListOfValues("mouth"));
+						CoveringsNamesMap.put(BodyCoveringType.NIPPLES, Util.newArrayListOfValues("nipples"));
+						CoveringsNamesMap.put(BodyCoveringType.TONGUE, Util.newArrayListOfValues("tongue"));
 					}
 
 					if(Main.game.getKate().isVisiblyPregnant() && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.reactedToKatePregnancy)) {

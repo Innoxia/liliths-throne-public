@@ -328,13 +328,14 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	
 	
 	// Sex stats:
-	private int sexConsensualCount, sexAsSubCount, sexAsDomCount;
+	private int sexConsensualCount;
+	private int sexAsSubCount;
+	private int sexAsDomCount;
 	private Map<SexType, Integer> sexCountMap;
 	private Map<SexType, Integer> cumCountMap;
 	private Map<SexType, String> virginityLossMap;
 	/** String is partner ID*/
 	private Map<String, Map<SexType, Integer>> sexPartnerMap;
-
 	
 	// Fluids:
 	private float alcoholLevel = 0f;
@@ -486,6 +487,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		cumCountMap = new HashMap<>();
 		virginityLossMap = new HashMap<>();
 		
+		// Addictions:
 		addictions = new ArrayList<>();
 		psychoactiveFluidsIngested = new HashSet<>();
 		
@@ -2899,7 +2901,16 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	
 	// Companions:
 	
-	private void setElementalID(String elementalID) {
+	/**
+	 * <b>Only to be called on character slave import! Don't use this method!!!</b>
+	 */
+	protected void clearAllCompanionVariables() {
+		this.partyLeader="";
+		this.getCompanionsId().clear();
+		this.elementalID = "";
+	}
+	
+	protected void setElementalID(String elementalID) {
 		this.elementalID = elementalID;
 	}
 	
@@ -3719,6 +3730,12 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		applyFetishLossEffects(fetish);
 		
 		return true;
+	}
+	
+	public void clearFetishes() {
+		for(Fetish fetish : this.getFetishes()) {
+			removeFetish(fetish);
+		}
 	}
 	
 	private void applyFetishLossEffects(Fetish fetish) {
@@ -9462,6 +9479,10 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		tempListSpells.addAll(getSpells());
 		tempListSpells.addAll(getExtraSpells());
 		
+		Set<Spell> spellSet = new HashSet<>(tempListSpells); // Remove duplicates
+		
+		tempListSpells.clear();
+		tempListSpells.addAll(spellSet);
 		tempListSpells.sort((s1, s2) -> s1.getSpellSchool().compareTo(s2.getSpellSchool()));
 		
 		return tempListSpells;
@@ -10532,6 +10553,11 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	
 	public boolean hasWeapon(AbstractWeapon weapon) {
 		return inventory.hasWeapon(weapon);
+	}
+	
+	public boolean hasWeaponEquipped(AbstractWeapon weapon) {
+		return (getMainWeapon()!=null && getMainWeapon().equals(weapon))
+				|| (getOffhandWeapon()!=null && getOffhandWeapon().equals(weapon));
 	}
 	
 	public String dropWeapon(AbstractWeapon weapon) {

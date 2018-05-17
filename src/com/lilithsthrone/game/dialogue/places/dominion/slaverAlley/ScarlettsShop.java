@@ -19,7 +19,6 @@ import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -518,7 +517,7 @@ public class ScarlettsShop {
 				
 			} else if (index == 3) {
 				return new Response("Slap her", "Slap Scarlett and remind her that she's now your property.", ALEXAS_SHOP_SLAP,
-						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SADIST)),
+						Util.newArrayListOfValues(Fetish.FETISH_SADIST),
 						CorruptionLevel.FOUR_LUSTFUL,
 						null,
 						null,

@@ -22,7 +22,7 @@ import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceUpgrade;
 
 /**
- * @since 0..2.5
+ * @since 0.2.5
  * @version 0.2.5
  * @author Innoxia
  */
@@ -285,6 +285,9 @@ public class MilkingRoom implements XMLSaving {
 	public void incrementMilkStorage(FluidMilk milk, float quantity) {
 		milkStorage.putIfAbsent(milk, 0f);
 		milkStorage.put(milk, milkStorage.get(milk)+quantity);
+		if(milkStorage.get(milk)==0) {
+			milkStorage.remove(milk);
+		}
 	}
 	
 	public Map<FluidCum, Float> getCumStorage() {
@@ -294,6 +297,9 @@ public class MilkingRoom implements XMLSaving {
 	public void incrementCumStorage(FluidCum cum, float quantity) {
 		cumStorage.putIfAbsent(cum, 0f);
 		cumStorage.put(cum, cumStorage.get(cum)+quantity);
+		if(cumStorage.get(cum)==0) {
+			cumStorage.remove(cum);
+		}
 	}
 	
 	public Map<FluidGirlCum, Float> getGirlcumStorage() {
@@ -303,6 +309,9 @@ public class MilkingRoom implements XMLSaving {
 	public void incrementGirlcumStorage(FluidGirlCum girlcum, float quantity) {
 		girlcumStorage.putIfAbsent(girlcum, 0f);
 		girlcumStorage.put(girlcum, girlcumStorage.get(girlcum)+quantity);
+		if(girlcumStorage.get(girlcum)==0) {
+			girlcumStorage.remove(girlcum);
+		}
 	}
 	
 }
