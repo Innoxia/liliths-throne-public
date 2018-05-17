@@ -1057,6 +1057,25 @@ public class ItemEffectType {
 		}
 	};
 	
+	public static AbstractItemEffectType PEACH = new AbstractItemEffectType(Util.newArrayListOfValues(
+			new ListValue<>("[style.boldGood(Increase)] 1 [style.boldHealth(ass size)]")),
+			Colour.ATTRIBUTE_CORRUPTION) {
+		
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+			 target.incrementAssSize(1);
+			
+			if(target.isPlayer()) {
+				return "<p style='text-align:center;'>"
+							+"It's kind of sweet."
+						+"</p>";
+			} else {
+				return "";
+			}
+		}
+	},
+	
+	
 	public static AbstractItemEffectType GIFT_CHOCOLATES = new AbstractItemEffectType(Util.newArrayListOfValues(
 			"[style.boldGood(Restores)] 30% [style.boldHealth(energy)]"),
 			Colour.ATTRIBUTE_HEALTH) {
