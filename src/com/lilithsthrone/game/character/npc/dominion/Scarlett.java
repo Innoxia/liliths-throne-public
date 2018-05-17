@@ -3,28 +3,31 @@ package com.lilithsthrone.game.character.npc.dominion;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterImportSetting;
-import com.lilithsthrone.game.character.NameTriplet;
-import com.lilithsthrone.game.character.SexualOrientation;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.persona.NameTriplet;
+import com.lilithsthrone.game.character.persona.PersonalityTrait;
+import com.lilithsthrone.game.character.persona.PersonalityWeight;
+import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
-import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
-import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -48,6 +51,13 @@ public class Scarlett extends NPC {
 				5, Gender.M_P_MALE, RacialBody.HARPY, RaceStage.LESSER,
 				new CharacterInventory(30), WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP, true);
 
+		this.setPersonality(Util.newHashMapOfValues(
+				new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.LOW),
+				new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.LOW),
+				new Value<>(PersonalityTrait.EXTROVERSION, PersonalityWeight.LOW),
+				new Value<>(PersonalityTrait.NEUROTICISM, PersonalityWeight.HIGH),
+				new Value<>(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.AVERAGE)));
+		
 		if(!isImported) {
 			this.setSexualOrientation(SexualOrientation.GYNEPHILIC);
 			
@@ -125,7 +135,7 @@ public class Scarlett extends NPC {
 	
 	@Override
 	public String getSpeechColour() {
-		if(Main.getProperties().lightTheme) {
+		if(Main.getProperties().hasValue(PropertyValue.lightTheme)) {
 			return "#FA0060";
 		} else {
 			return "#FF94BD";
@@ -145,18 +155,5 @@ public class Scarlett extends NPC {
 	public void endSex(boolean applyEffects) {
 	}
 
-	// Combat (you never fight):
-	@Override
-	public String getCombatDescription() {
-		return null;
-	}
-	@Override
-	public Response endCombat(boolean applyEffects, boolean victory) {
-		return null;
-	}
-	@Override
-	public Attack attackType() {
-		return null;
-	}
 
 }

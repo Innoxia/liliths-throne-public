@@ -15,7 +15,6 @@ import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 
 /**
  * @since 0.1.79
@@ -82,7 +81,7 @@ public class PartnerSelfNoPen {
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			PenetrationType.FINGER,
-			OrificeType.URETHRA,
+			OrificeType.URETHRA_PENIS,
 			SexParticipantType.SELF) {
 		
 		@Override
@@ -181,7 +180,7 @@ public class PartnerSelfNoPen {
 			if(character.isPlayer()) {
 				return null;
 			} else {
-				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_MASTURBATION));
+				return Util.newArrayListOfValues(Fetish.FETISH_MASTURBATION);
 			}
 		}
 	};

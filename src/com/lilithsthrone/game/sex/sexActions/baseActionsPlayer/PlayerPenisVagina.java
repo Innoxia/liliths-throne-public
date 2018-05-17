@@ -23,7 +23,6 @@ import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.game.sex.sexActions.universal.sub.SubCowgirl;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 
 /**
  * @since 0.1.79
@@ -121,7 +120,7 @@ public class PlayerPenisVagina {
 		
 		@Override
 		public List<Fetish> getFetishes(GameCharacter character) {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DENIAL));
+			return Util.newArrayListOfValues(Fetish.FETISH_DENIAL);
 		}
 	};
 	
@@ -206,12 +205,12 @@ public class PlayerPenisVagina {
 		
 		@Override
 		public void applyEffects() {
-			Sex.transferLubrication(Sex.getActivePartner(), Main.game.getPlayer(), PenetrationType.PENIS, OrificeType.VAGINA);
+			Sex.transferLubrication(Main.game.getPlayer(), Sex.getActivePartner(), PenetrationType.PENIS, OrificeType.VAGINA);
 		}
 		
 		@Override
 		public List<Fetish> getFetishes(GameCharacter character) {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DENIAL));
+			return Util.newArrayListOfValues(Fetish.FETISH_DENIAL);
 		}
 	};
 	

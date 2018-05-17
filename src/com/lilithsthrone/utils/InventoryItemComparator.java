@@ -7,7 +7,7 @@ import com.lilithsthrone.game.inventory.item.AbstractItem;
 
 /**
  * @since 0.1.66
- * @version 0.1.7
+ * @version 0.2.5
  * @author Innoxia
  */
 public class InventoryItemComparator implements Comparator<AbstractItem>, Serializable {
@@ -19,13 +19,15 @@ public class InventoryItemComparator implements Comparator<AbstractItem>, Serial
 		
 		if (result != 0) {
 			return result;
-		} else {
-			result = first.getName().compareTo(second.getName());
 			
-			if(result!=0)
+		} else {
+			result = first.getItemType().toString().compareTo(second.getItemType().toString());
+			
+			if(result!=0) {
 				return result;
-			else
+			} else {
 				return first.getColour().getName().compareTo(second.getColour().getName());
+			}
 		}
 	}
 }

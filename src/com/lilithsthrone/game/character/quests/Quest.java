@@ -538,7 +538,137 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "After informing the Enforcers that you've pacified all three of the major harpy nests, they resumed their regular patrols, resulting in the Harpy Nests being safe to travel through!";
 		}
-	};
+	},
+	
+	
+	
+	// Slime Queen:
+	
+	SLIME_QUEEN_ONE(QuestType.SIDE, 6, 25) {
+		@Override
+		public String getName() {
+			return "Troublesome Slimes";
+		}
+
+		@Override
+		public String getDescription() {
+			return "When you first arrived in Submission, an enforcer informed you of an ongoing situation in the tunnels."
+					+ " Apparently, there are are an increasing number of Slimes who are attacking innocent travellers and transforming them into more Slimes."
+					+ " If you're able to offer any information on where these aggressive Slimes are coming from, you could earn a five-thousand flame reward.";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "One of the Slimes that you encountered in the tunnels told you that they'd been given orders to transform people by a certain 'Slime Queen'.";
+		}
+	},
+	
+	SLIME_QUEEN_TWO(QuestType.SIDE, 1, 10) {
+		@Override
+		public String getName() {
+			return "Report Back";
+		}
+
+		@Override
+		public String getDescription() {
+			return "You should report back to one of Submission's Enforcer Posts with this information regarding a 'Slime Queen'.";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "The Enforcer that you reported to told you that they'd heard rumours of a Slime Queen before, but no trace of any such thing has ever been found in Submission."
+					+ " They suggested that you could take a look down in the Bat Caverns, and offered you a further twenty-thousand flames if you could find this Queen and put an end to her scheming.";
+		}
+	},
+	
+	SLIME_QUEEN_THREE(QuestType.SIDE, 20, 10) {
+		@Override
+		public String getName() {
+			return "Slime Queen";
+		}
+
+		@Override
+		public String getDescription() {
+			return "Travel down into the Bat Caverns and search for the rumoured Slime Queen.";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "In the middle of Slime Lake, you discovered the Slime Queen's lair!";
+		}
+	},
+	
+	SLIME_QUEEN_FOUR_FIGHT(QuestType.SIDE, 20, 200) {
+		@Override
+		public String getName() {
+			return "Depose the Queen";
+		}
+
+		@Override
+		public String getDescription() {
+			return "You decided to fight the Slime Queen in order to force her to stop her plans of transforming everyone into slimes.";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "You defeated the Slime Queen! After the battle, she agreed to stop ordering slimes to transform people.";
+		}
+	},
+	
+	SLIME_QUEEN_FIVE_FIGHT(QuestType.SIDE, 1, 100) {
+		@Override
+		public String getName() {
+			return "Final Report";
+		}
+
+		@Override
+		public String getDescription() {
+			return "Report back to the Enforcer Post and tell them that you've dealt with the Slime Queen.";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "You reported back to the Enforcer Post and collected your reward of twenty-thousand flames.";
+		}
+	},
+	
+	SLIME_QUEEN_FOUR_SUBMIT(QuestType.SIDE, 20, 25) {
+		@Override
+		public String getName() {
+			return "Submit to the Queen";
+		}
+
+		@Override
+		public String getDescription() {
+			return "Submit to the Slime Queen and allow her to transform you into one of her subjects.";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "You submitted to the Slime Queen, and allowed her to transform you into one of her subjects!"
+					+ " ";
+		}
+	},
+	
+	SLIME_QUEEN_FIVE_SUBMIT(QuestType.SIDE, 1, 100) {
+		@Override
+		public String getName() {
+			return "Final Report";
+		}
+
+		@Override
+		public String getDescription() {
+			return "Report back to the Enforcer Post and tell them that there's no such thing as a Slime Queen.";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "Although the enforcers were a little skeptical, you managed to convince them that there's no such thing as a Slime Queen."
+					+ " With your Queen now safe from enforcer investigation, it's only a matter of time before all of Submission is a Slime paradise...";
+		}
+	},
+	
+	;
 
 	private int level, experienceReward;
 	private QuestType questType;

@@ -40,4 +40,9 @@ public class SMAltarMissionarySealed extends SexManagerDefault {
 			return !((Cultist)Sex.getActivePartner()).isSealedSex() || Sex.isDom(Sex.getActivePartner());
 		}
 	}
+	
+	@Override
+	public boolean isPlayerAbleToSwapPositions() {
+		return false;
+	}
 }

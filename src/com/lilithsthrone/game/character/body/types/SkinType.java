@@ -7,7 +7,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 
 /**
  * @since 0.1.83
- * @version 0.2.1
+ * @version 0.2.2
  * @author Innoxia
  */
 public enum SkinType implements BodyPartTypeInterface {
@@ -28,6 +28,12 @@ public enum SkinType implements BodyPartTypeInterface {
 	CAT_MORPH(BodyCoveringType.FELINE_FUR, Race.CAT_MORPH),
 
 	SQUIRREL_MORPH(BodyCoveringType.SQUIRREL_FUR, Race.SQUIRREL_MORPH),
+
+	RAT_MORPH(BodyCoveringType.RAT_FUR, Race.RAT_MORPH),
+
+	RABBIT_MORPH(BodyCoveringType.RABBIT_FUR, Race.RABBIT_MORPH),
+
+	BAT_MORPH(BodyCoveringType.BAT_FUR, Race.BAT_MORPH),
 
 	ALLIGATOR_MORPH(BodyCoveringType.ALLIGATOR_SCALES, Race.ALLIGATOR_MORPH),
 
@@ -90,6 +96,44 @@ public enum SkinType implements BodyPartTypeInterface {
 				return coveringType.getNamePlural(gc);
 		}
 	}
+	
+	public String getTransformName() {
+		switch(this){
+			case CAT_MORPH:
+				return "feline";
+			case COW_MORPH:
+				return "bovine";
+			case DEMON_COMMON:
+				return "demonic";
+			case IMP:
+				return "impish";
+			case DOG_MORPH:
+				return "canine";
+			case HARPY:
+				return "plume";
+			case HORSE_MORPH:
+				return "equine";
+			case REINDEER_MORPH:
+				return "rangiferine";
+			case LYCAN:
+				return "lupine";
+			case SQUIRREL_MORPH:
+				return "fluffy";
+			case ALLIGATOR_MORPH:
+				return "alligator";
+			case RAT_MORPH:
+				return "rat";
+			case RABBIT_MORPH:
+				return "rabbit";
+			case ANGEL:
+				return "angel";
+			case BAT_MORPH:
+				return "bat";
+			case HUMAN:
+				return "human";
+		}
+		return "";
+	}
 
 	@Override
 	public String getDescriptor(GameCharacter gc) {
@@ -109,7 +153,7 @@ public enum SkinType implements BodyPartTypeInterface {
 			case SQUIRREL_MORPH:
 				return UtilText.returnStringAtRandom("squirrel-like");
 			case ALLIGATOR_MORPH:
-				return UtilText.returnStringAtRandom("gator-like");
+				return UtilText.returnStringAtRandom("alligator-like");
 			case HARPY:
 				return UtilText.returnStringAtRandom("bird-like");
 			case HORSE_MORPH:
@@ -120,6 +164,12 @@ public enum SkinType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("");
 			case LYCAN:
 				return UtilText.returnStringAtRandom("wolf-like");
+			case BAT_MORPH:
+				return UtilText.returnStringAtRandom("bat-like");
+			case RAT_MORPH:
+				return UtilText.returnStringAtRandom("rat-like");
+			case RABBIT_MORPH:
+				return UtilText.returnStringAtRandom("rabbit-like");
 		}
 		return "";
 	}

@@ -17,7 +17,6 @@ import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 
 /**
  * @since 0.1.82
@@ -119,7 +118,7 @@ public class PartnerTailVagina {
 		
 		@Override
 		public List<Fetish> getFetishes(GameCharacter character) {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DENIAL));
+			return Util.newArrayListOfValues(Fetish.FETISH_DENIAL);
 		}
 	};
 	
@@ -205,12 +204,12 @@ public class PartnerTailVagina {
 		
 		@Override
 		public void applyEffects() {
-			Sex.transferLubrication(Main.game.getPlayer(), Sex.getActivePartner(), PenetrationType.TAIL, OrificeType.VAGINA);
+			Sex.transferLubrication(Sex.getActivePartner(), Main.game.getPlayer(), PenetrationType.TAIL, OrificeType.VAGINA);
 		}
 		
 		@Override
 		public List<Fetish> getFetishes(GameCharacter character) {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DENIAL));
+			return Util.newArrayListOfValues(Fetish.FETISH_DENIAL);
 		}
 	};
 	
@@ -1036,7 +1035,7 @@ public class PartnerTailVagina {
 	
 	public static final SexAction PLAYER_FUCKED_SUB_RESIST = new SexAction(
 			SexActionType.PLAYER,
-			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.ZERO_NONE,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ZERO_PURE,
 			PenetrationType.TAIL,

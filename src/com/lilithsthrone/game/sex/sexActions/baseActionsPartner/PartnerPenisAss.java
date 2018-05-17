@@ -16,7 +16,6 @@ import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 
 /**
  * @since 0.1.90
@@ -106,9 +105,9 @@ public class PartnerPenisAss {
 		@Override
 		public List<Fetish> getFetishes(GameCharacter character) {
 			if(character.isPlayer()) {
-				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_RECEIVING));
+				return Util.newArrayListOfValues(Fetish.FETISH_ANAL_RECEIVING);
 			} else {
-				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_GIVING), new ListValue<>(Fetish.FETISH_DENIAL));
+				return Util.newArrayListOfValues(Fetish.FETISH_ANAL_GIVING, Fetish.FETISH_DENIAL);
 			}
 		}
 	};
@@ -133,7 +132,7 @@ public class PartnerPenisAss {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isDom(Main.game.getPlayer()) ||Sex.isConsensual();
+			return Sex.getSexPace(Main.game.getPlayer()) != SexPace.SUB_RESISTING;
 		}
 
 		@Override
@@ -190,15 +189,15 @@ public class PartnerPenisAss {
 		
 		@Override
 		public void applyEffects() {
-			Sex.transferLubrication(Main.game.getPlayer(), Sex.getActivePartner(), PenetrationType.PENIS, OrificeType.ASS);
+			Sex.transferLubrication(Sex.getActivePartner(), Main.game.getPlayer(), PenetrationType.PENIS, OrificeType.ASS);
 		}
 		
 		@Override
 		public List<Fetish> getFetishes(GameCharacter character) {
 			if(character.isPlayer()) {
-				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_RECEIVING), new ListValue<>(Fetish.FETISH_DENIAL));
+				return Util.newArrayListOfValues(Fetish.FETISH_ANAL_RECEIVING, Fetish.FETISH_DENIAL);
 			} else {
-				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_GIVING));
+				return Util.newArrayListOfValues(Fetish.FETISH_ANAL_GIVING);
 			}
 		}
 	};
@@ -1052,7 +1051,7 @@ public class PartnerPenisAss {
 	
 	public static final SexAction PLAYER_FUCKED_ANALLY_SUB_RESIST = new SexAction(
 			SexActionType.PLAYER,
-			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.ZERO_NONE,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ZERO_PURE,
 			PenetrationType.PENIS,

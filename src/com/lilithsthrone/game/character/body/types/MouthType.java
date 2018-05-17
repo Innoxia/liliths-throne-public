@@ -12,7 +12,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 
 /**
  * @since 0.1.83
- * @version 0.2.1
+ * @version 0.2.2
  * @author Innoxia
  */
 public enum MouthType implements BodyPartTypeInterface {
@@ -34,6 +34,12 @@ public enum MouthType implements BodyPartTypeInterface {
 	COW_MORPH(BodyCoveringType.MOUTH, Race.COW_MORPH),
 	
 	SQUIRREL_MORPH(BodyCoveringType.MOUTH, Race.SQUIRREL_MORPH),
+	
+	RAT_MORPH(BodyCoveringType.MOUTH, Race.RAT_MORPH),
+	
+	RABBIT_MORPH(BodyCoveringType.MOUTH, Race.RABBIT_MORPH),
+	
+	BAT_MORPH(BodyCoveringType.MOUTH, Race.BAT_MORPH),
 	
 	ALLIGATOR_MORPH(BodyCoveringType.MOUTH, Race.ALLIGATOR_MORPH),
 	

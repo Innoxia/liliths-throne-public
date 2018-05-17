@@ -4,8 +4,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.CharacterImportSetting;
-import com.lilithsthrone.game.character.NameTriplet;
-import com.lilithsthrone.game.character.SexualOrientation;
+import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.HornType;
@@ -13,17 +12,18 @@ import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.Height;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.body.valueEnums.WingSize;
-import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.persona.NameTriplet;
+import com.lilithsthrone.game.character.persona.PersonalityTrait;
+import com.lilithsthrone.game.character.persona.PersonalityWeight;
+import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
-import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.combat.DamageType;
-import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
@@ -45,14 +45,13 @@ import com.lilithsthrone.game.sex.managers.universal.SMStanding;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.?
- * @version 0.1.99
+ * @version 0.2.4
  * @author Innoxia
  */
 public class Zaranix extends NPC {
@@ -69,6 +68,13 @@ public class Zaranix extends NPC {
 						+ " Muscular, tall, and handsome, Zaranix uses both his cunning mind and good looks to get what he wants.",
 				15, Gender.M_P_MALE, RacialBody.DEMON, RaceStage.GREATER, new CharacterInventory(10), WorldType.ZARANIX_HOUSE_FIRST_FLOOR, PlaceType.ZARANIX_FF_OFFICE, true);
 
+		this.setPersonality(Util.newHashMapOfValues(
+				new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.HIGH),
+				new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.HIGH),
+				new Value<>(PersonalityTrait.EXTROVERSION, PersonalityWeight.AVERAGE),
+				new Value<>(PersonalityTrait.NEUROTICISM, PersonalityWeight.LOW),
+				new Value<>(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.HIGH)));
+		
 		if(!isImported) {
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 			
@@ -295,7 +301,7 @@ public class Zaranix extends NPC {
 			} else if(index==3) {
 				return new ResponseSex("Submit",
 						"Allow Zaranix to fuck you.",
-						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)), null, null, null, null, null,
+						Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, CorruptionLevel.THREE_DIRTY, null, null, null,
 						true, true,
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getZaranix(), SexPositionSlot.STANDING_DOMINANT)),
@@ -405,8 +411,15 @@ public class Zaranix extends NPC {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Spit", "Spit out the potion.", AFTER_COMBAT_DEFEAT_SPIT);
-			
+				if(Main.game.getPlayer().hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING)) {
+					return new Response("Spit",
+							"Due to your <b style='color:"+Colour.FETISH.toWebHexString()+";'>"+Fetish.FETISH_TRANSFORMATION_RECEIVING.getName(Main.game.getPlayer())
+								+"</b> fetish, you love being transformed so much that you can't bring yourself to spit out the transformative liquid!",
+							null);
+				} else {
+					return new Response("Spit", "Spit out the potion.", AFTER_COMBAT_DEFEAT_SPIT);
+				}
+				
 			} else if(index==2) {
 				return new Response("Swallow", "Swallow the potion.", AFTER_COMBAT_DEFEAT_SWALLOW) {
 					@Override
@@ -565,27 +578,6 @@ public class Zaranix extends NPC {
 			}
 		}
 	};
-	
-	@Override
-	public Attack attackType() {
-		if (Math.random() < 0.6
-				|| this.getManaPercentage() <= 0.4f
-				|| (Main.game.getPlayer().getStatusEffects().contains(StatusEffect.DAZED)
-						&& this.getStatusEffects().contains(StatusEffect.ARCANE_SHIELD))) {
-			return Attack.MAIN;
-		} else {
-			return Attack.SPELL;
-		}
-	}
-	
-	@Override
-	public Spell getSpell() {
-		if (!Main.game.getPlayer().getStatusEffects().contains(StatusEffect.DAZED)) {
-			return Spell.SLAM_1;
-		} else {
-			return Spell.ARCANE_SHIELD;
-		}
-	}
 	
 	// Sex:
 

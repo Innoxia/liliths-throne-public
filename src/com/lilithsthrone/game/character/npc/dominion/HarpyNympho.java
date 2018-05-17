@@ -3,10 +3,9 @@ package com.lilithsthrone.game.character.npc.dominion;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.NameTriplet;
-import com.lilithsthrone.game.character.SexualOrientation;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
@@ -15,11 +14,14 @@ import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.persona.NameTriplet;
+import com.lilithsthrone.game.character.persona.PersonalityTrait;
+import com.lilithsthrone.game.character.persona.PersonalityWeight;
+import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
-import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestNympho;
@@ -35,6 +37,8 @@ import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -59,6 +63,13 @@ public class HarpyNympho extends NPC {
 				7, Gender.F_V_B_FEMALE, RacialBody.HARPY, RaceStage.LESSER,
 				new CharacterInventory(30), WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_HARPY_NEST_PINK, true);
 
+		this.setPersonality(Util.newHashMapOfValues(
+				new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.AVERAGE),
+				new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.AVERAGE),
+				new Value<>(PersonalityTrait.EXTROVERSION, PersonalityWeight.HIGH),
+				new Value<>(PersonalityTrait.NEUROTICISM, PersonalityWeight.HIGH),
+				new Value<>(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.HIGH)));
+		
 		if(!isImported) {
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 	
@@ -111,7 +122,7 @@ public class HarpyNympho extends NPC {
 	
 	@Override
 	public String getSpeechColour() {
-		if(Main.getProperties().lightTheme) {
+		if(Main.getProperties().hasValue(PropertyValue.lightTheme)) {
 			return "#D60AB8";
 			
 		} else {
@@ -146,26 +157,6 @@ public class HarpyNympho extends NPC {
 	
 	public int getEscapeChance() {
 		return 0;
-	}
-	
-	@Override
-	public Attack attackType() {
-		if(!getSpecialAttacks().isEmpty()) {
-			if (Math.random() < 0.1) {
-				return Attack.MAIN;
-			} else if (Math.random() < 0.8) {
-				return Attack.SEDUCTION;
-			} else {
-				return Attack.SPECIAL_ATTACK;
-			}
-			
-		} else {
-			if (Math.random() < 0.2) {
-				return Attack.MAIN;
-			} else {
-				return Attack.SEDUCTION;
-			}
-		}
 	}
 	
 	@Override

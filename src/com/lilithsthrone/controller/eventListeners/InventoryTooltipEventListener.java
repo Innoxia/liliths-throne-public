@@ -25,12 +25,12 @@ import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.ShopTransaction;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
+import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.game.inventory.enchanting.TFPotency;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
-import com.lilithsthrone.game.inventory.item.ItemEffect;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.main.Main;
@@ -41,7 +41,7 @@ import com.lilithsthrone.utils.Util;
  * Shows the tooltip at the given element's position.
  * 
  * @since 0.1.0
- * @version 0.2.0
+ * @version 0.2.4
  * @author Innoxia
  */
 public class InventoryTooltipEventListener implements EventListener {
@@ -187,8 +187,14 @@ public class InventoryTooltipEventListener implements EventListener {
 			Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
 
 		} else if (genericItem != null) {
-			Main.mainController.setTooltipSize(360, 60);
-			Main.mainController.setTooltipContent(UtilText.parse("<div class='title'>" + Util.capitaliseSentence(genericItem.getName(false)) + "</div>"));
+			Main.mainController.setTooltipSize(360, 416);
+
+			tooltipSB.setLength(0);
+			tooltipSB.append("<div class='title'>" + Util.capitaliseSentence(genericItem.getName(true)) + "</div>"
+
+					+ "<div class='picture full' style='position:relative;'>" + genericItem.getSVGString() + "</div>");
+			
+			Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
 			
 		} else if (genericClothing != null) {
 
@@ -270,6 +276,7 @@ public class InventoryTooltipEventListener implements EventListener {
 						} else {
 							
 							boolean piercingBlocked=false;
+							boolean bypassesPiercing = !equippedToCharacter.getBody().getBodyMaterial().isRequiresPiercing();
 							
 							switch(invSlot){
 								case PIERCING_VAGINA:
@@ -280,7 +287,8 @@ public class InventoryTooltipEventListener implements EventListener {
 														?"[npc.Name] doesn't have a vagina."
 														:"You don't know if [npc.name] has a vagina.")));
 										piercingBlocked=true;
-									} else if(!equippedToCharacter.isPiercedVagina()) {
+										
+									} else if(!bypassesPiercing && !equippedToCharacter.isPiercedVagina()) {
 										setBlockedTooltipContent(getTooltipText(equippedToCharacter,
 												"Your vagina has not been pierced.",
 												(equippedToCharacter.getPlayerKnowsAreas().contains(CoverableArea.VAGINA)
@@ -289,40 +297,53 @@ public class InventoryTooltipEventListener implements EventListener {
 										piercingBlocked=true;
 									}
 									break;
+									
 								case PIERCING_EAR:
-									if(!equippedToCharacter.isPiercedEar()) {
-										setBlockedTooltipContent(getTooltipText(equippedToCharacter,
-												"Your ears have not been pierced.",
-												"[npc.Name]'s ears have not been pierced."));
-										piercingBlocked=true;
+									if(!bypassesPiercing) {
+										if(!equippedToCharacter.isPiercedEar()) {
+											setBlockedTooltipContent(getTooltipText(equippedToCharacter,
+													"Your ears have not been pierced.",
+													"[npc.Name]'s ears have not been pierced."));
+											piercingBlocked=true;
+										}
 									}
 									break;
+									
 								case PIERCING_LIP:
-									if(!equippedToCharacter.isPiercedLip()) {
-										setBlockedTooltipContent(getTooltipText(equippedToCharacter,
-												"Your lips have not been pierced.",
-												"[npc.Name]'s lips have not been pierced."));
-										piercingBlocked=true;
+									if(!bypassesPiercing) {
+										if(!equippedToCharacter.isPiercedLip()) {
+											setBlockedTooltipContent(getTooltipText(equippedToCharacter,
+													"Your lips have not been pierced.",
+													"[npc.Name]'s lips have not been pierced."));
+											piercingBlocked=true;
+										}
 									}
 									break;
+									
 								case PIERCING_NIPPLE:
-									if(!equippedToCharacter.isPiercedNipple()) {
-										setBlockedTooltipContent(getTooltipText(equippedToCharacter,
-												"Your nipples have not been pierced.",
-												(equippedToCharacter.getPlayerKnowsAreas().contains(CoverableArea.NIPPLES)
-														?"[npc.Name]'s nipples have not been pierced."
-														:"You don't know if [npc.name]'s nipples have been pierced.")));
-										piercingBlocked=true;
+									if(!bypassesPiercing) {
+										if(!equippedToCharacter.isPiercedNipple()) {
+											setBlockedTooltipContent(getTooltipText(equippedToCharacter,
+													"Your nipples have not been pierced.",
+													(equippedToCharacter.getPlayerKnowsAreas().contains(CoverableArea.NIPPLES)
+															?"[npc.Name]'s nipples have not been pierced."
+															:"You don't know if [npc.name]'s nipples have been pierced.")));
+											piercingBlocked=true;
+										}
 									}
 									break;
+									
 								case PIERCING_NOSE:
-									if(!equippedToCharacter.isPiercedNose()) {
-										setBlockedTooltipContent(getTooltipText(equippedToCharacter,
-												"Your nose has not been pierced.",
-												"[npc.Name]'s nose has not been pierced."));
-										piercingBlocked=true;
+									if(!bypassesPiercing) {
+										if(!equippedToCharacter.isPiercedNose()) {
+											setBlockedTooltipContent(getTooltipText(equippedToCharacter,
+													"Your nose has not been pierced.",
+													"[npc.Name]'s nose has not been pierced."));
+											piercingBlocked=true;
+										}
 									}
 									break;
+									
 								case PIERCING_PENIS:
 									if(equippedToCharacter.getPenisType()==PenisType.NONE) {
 										setBlockedTooltipContent(getTooltipText(equippedToCharacter,
@@ -331,7 +352,8 @@ public class InventoryTooltipEventListener implements EventListener {
 														?"[npc.Name] doesn't have a penis."
 														:"You don't know if [npc.name] has a penis.")));
 										piercingBlocked=true;
-									} else if(!equippedToCharacter.isPiercedPenis()) {
+										
+									} else if(!bypassesPiercing && !equippedToCharacter.isPiercedPenis()) {
 										setBlockedTooltipContent(getTooltipText(equippedToCharacter,
 												"Your penis has not been pierced.",
 												(equippedToCharacter.getPlayerKnowsAreas().contains(CoverableArea.PENIS)
@@ -340,20 +362,26 @@ public class InventoryTooltipEventListener implements EventListener {
 										piercingBlocked=true;
 									}
 									break;
+									
 								case PIERCING_STOMACH:
-									if(!equippedToCharacter.isPiercedNavel()) {
-										setBlockedTooltipContent(getTooltipText(equippedToCharacter,
-												"Your navel has not been pierced.",
-												"[npc.Name]'s navel has not been pierced."));
-										piercingBlocked=true;
+									if(!bypassesPiercing) {
+										if(!equippedToCharacter.isPiercedNavel()) {
+											setBlockedTooltipContent(getTooltipText(equippedToCharacter,
+													"Your navel has not been pierced.",
+													"[npc.Name]'s navel has not been pierced."));
+											piercingBlocked=true;
+										}
 									}
 									break;
+									
 								case PIERCING_TONGUE:
-									if(!equippedToCharacter.isPiercedTongue()) {
-										setBlockedTooltipContent(getTooltipText(equippedToCharacter,
-												"Your tongue has not been pierced.",
-												"[npc.Name]'s tongue has not been pierced."));
-										piercingBlocked=true;
+									if(!bypassesPiercing) {
+										if(!equippedToCharacter.isPiercedTongue()) {
+											setBlockedTooltipContent(getTooltipText(equippedToCharacter,
+													"Your tongue has not been pierced.",
+													"[npc.Name]'s tongue has not been pierced."));
+											piercingBlocked=true;
+										}
 									}
 									break;
 								default:
@@ -385,8 +413,8 @@ public class InventoryTooltipEventListener implements EventListener {
 					+ UtilText.parse(enchantmentModifier.getDescription())
 					+ "</div>"
 					+ "<div class='subTitle'>"
-							+ "<b style='color:"+EnchantmentDialogue.ingredient.getRelatedEssence().getColour().toWebHexString() + ";'>+"
-								+ enchantmentModifier.getValue()+" "+EnchantmentDialogue.ingredient.getRelatedEssence().getName()+"</b> essence cost"
+							+ "<b style='color:"+EnchantmentDialogue.getIngredient().getRelatedEssence().getColour().toWebHexString() + ";'>+"
+								+ enchantmentModifier.getValue()+" "+EnchantmentDialogue.getIngredient().getRelatedEssence().getName()+"</b> essence cost"
 					+ "</div>"));
 		
 		} else if(potency!=null) {
@@ -573,17 +601,6 @@ public class InventoryTooltipEventListener implements EventListener {
 							+ " <b style='color:" + absWep.getDamageType().getMultiplierAttribute().getColour().toWebHexString() + ";'>Damage</b>");
 		}
 
-		// Spell school:
-		tooltipSB.append("</br>"
-				+ "<b>"
-					+(absWep.getWeaponType().getSlot() == InventorySlot.WEAPON_MAIN ? "Offensive" : "Defensive")
-				+"</b>"
-				+ " <b style='color:"+absWep.getSpellSchool().getColour().toWebHexString()+";'>"
-					+Util.capitaliseSentence(absWep.getSpellSchool().getName())
-				+"</b>"
-				+ " <b>spells</b>");
-		
-		
 //		if (absWep.getEffects().size() != 0) { TODO enchanting effects
 //			for (ItemEffect e : absWep.getEffects()) {
 //				for(String s : e.getEffectsDescription(owner, owner)) {

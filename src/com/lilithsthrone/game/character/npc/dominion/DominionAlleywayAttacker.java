@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -8,24 +9,25 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.Season;
+import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.History;
-import com.lilithsthrone.game.character.Name;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.npc.misc.GenericSexualPartner;
+import com.lilithsthrone.game.character.persona.History;
+import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.npcDialogue.SlaveDialogue;
-import com.lilithsthrone.game.dialogue.npcDialogue.alleyway.AlleywayAttackerDialogue;
-import com.lilithsthrone.game.dialogue.npcDialogue.alleyway.AlleywayProstituteDialogue;
+import com.lilithsthrone.game.dialogue.npcDialogue.dominion.AlleywayAttackerDialogue;
+import com.lilithsthrone.game.dialogue.npcDialogue.dominion.AlleywayProstituteDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
@@ -40,7 +42,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.66
- * @version 0.1.95
+ * @version 0.2.2
  * @author Innoxia
  */
 public class DominionAlleywayAttacker extends NPC {
@@ -101,11 +103,66 @@ public class DominionAlleywayAttacker extends NPC {
 			Map<Subspecies, Integer> availableRaces = new HashMap<>();
 			for(Subspecies s : Subspecies.values()) {
 				switch(s) {
+					// No spawn chance:
+					case ANGEL:
+					case BAT_MORPH:
+					case DEMON:
+					case HARPY:
+					case HARPY_RAVEN:
+					case HUMAN:
+					case IMP:
+					case IMP_ALPHA:
+					case ELEMENTAL_AIR:
+					case ELEMENTAL_ARCANE:
+					case ELEMENTAL_EARTH:
+					case ELEMENTAL_FIRE:
+					case ELEMENTAL_WATER:
+						break;
+						
+					// Canals spawn only:
 					case ALLIGATOR_MORPH:
 						addToSubspeciesMap(canalSpecies?20:0, gender, s, availableRaces);
 						break;
-					case ANGEL:
+					case SLIME:
+					case SLIME_ALLIGATOR:
+					case SLIME_ANGEL:
+					case SLIME_CAT:
+					case SLIME_CAT_LYNX:
+					case SLIME_CAT_LEOPARD_SNOW:
+					case SLIME_CAT_LEOPARD:
+					case SLIME_CAT_LION:
+					case SLIME_CAT_TIGER:
+					case SLIME_CAT_CHEETAH:
+					case SLIME_CAT_OCELOT:
+					case SLIME_COW:
+					case SLIME_DEMON:
+					case SLIME_DOG:
+					case SLIME_DOG_DOBERMANN:
+					case SLIME_DOG_BORDER_COLLIE:
+					case SLIME_HARPY:
+					case SLIME_HARPY_RAVEN:
+					case SLIME_HORSE:
+					case SLIME_IMP:
+					case SLIME_REINDEER:
+					case SLIME_SQUIRREL:
+					case SLIME_BAT:
+					case SLIME_RAT:
+					case SLIME_WOLF:
+					case SLIME_RABBIT:
+						addToSubspeciesMap(canalSpecies?2:0, gender, s, availableRaces);
 						break;
+					case RAT_MORPH:
+						addToSubspeciesMap(canalSpecies?10:0, gender, s, availableRaces);
+						break;
+						
+					// Special spawns:
+					case REINDEER_MORPH:
+						if(Main.game.getSeason()==Season.WINTER && Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.hasSnowedThisWinter)) {
+							addToSubspeciesMap(canalSpecies?1:10, gender, s, availableRaces);
+						}
+						break;
+						
+					// Regular spawns:
 					case CAT_MORPH:
 						addToSubspeciesMap(canalSpecies?5:20, gender, s, availableRaces);
 						break;
@@ -133,58 +190,29 @@ public class DominionAlleywayAttacker extends NPC {
 					case COW_MORPH:
 						addToSubspeciesMap(canalSpecies?1:10, gender, s, availableRaces);
 						break;
-					case DEMON:
-						break;
-					case IMP:
-						break;
-					case IMP_ALPHA:
-						break;
 					case DOG_MORPH:
-						addToSubspeciesMap(canalSpecies?3:15, gender, s, availableRaces);
+						addToSubspeciesMap(canalSpecies?3:12, gender, s, availableRaces);
 						break;
 					case DOG_MORPH_DOBERMANN:
-						addToSubspeciesMap(canalSpecies?2:5, gender, s, availableRaces);
+						addToSubspeciesMap(canalSpecies?1:4, gender, s, availableRaces);
 						break;
-					case HARPY:
+					case DOG_MORPH_BORDER_COLLIE:
+						addToSubspeciesMap(canalSpecies?1:4, gender, s, availableRaces);
 						break;
 					case HORSE_MORPH:
 						addToSubspeciesMap(canalSpecies?5:20, gender, s, availableRaces);
-						break;
-					case HUMAN:
-						break;
-					case SLIME:
-					case SLIME_ALLIGATOR:
-					case SLIME_ANGEL:
-					case SLIME_CAT:
-					case SLIME_CAT_LYNX:
-					case SLIME_CAT_LEOPARD_SNOW:
-					case SLIME_CAT_LEOPARD:
-					case SLIME_CAT_LION:
-					case SLIME_CAT_TIGER:
-					case SLIME_CAT_CHEETAH:
-					case SLIME_CAT_OCELOT:
-					case SLIME_COW:
-					case SLIME_DEMON:
-					case SLIME_DOG:
-					case SLIME_DOG_DOBERMANN:
-					case SLIME_HARPY:
-					case SLIME_HORSE:
-					case SLIME_IMP:
-					case SLIME_REINDEER:
-					case SLIME_SQUIRREL:
-					case SLIME_WOLF:
-						addToSubspeciesMap(canalSpecies?2:0, gender, s, availableRaces);
-						break;
-					case REINDEER_MORPH:
-						if(Main.game.getSeason()==Season.WINTER && Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.hasSnowedThisWinter)) {
-							addToSubspeciesMap(canalSpecies?1:10, gender, s, availableRaces);
-						}
 						break;
 					case SQUIRREL_MORPH:
 						addToSubspeciesMap(canalSpecies?1:10, gender, s, availableRaces);
 						break;
 					case WOLF_MORPH:
 						addToSubspeciesMap(canalSpecies?5:20, gender, s, availableRaces);
+						break;
+					case RABBIT_MORPH:
+						addToSubspeciesMap(canalSpecies?1:3, gender, s, availableRaces);
+						break;
+					case RABBIT_MORPH_LOP:
+						addToSubspeciesMap(canalSpecies?1:3, gender, s, availableRaces);
 						break;
 				}
 			}
@@ -258,6 +286,9 @@ public class DominionAlleywayAttacker extends NPC {
 			// PERSONALITY & BACKGROUND:
 			
 			CharacterUtils.setHistoryAndPersonality(this);
+			if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
+				this.setHistory(History.MUGGER);
+			}
 			
 			// ADDING FETISHES:
 			
@@ -271,6 +302,7 @@ public class DominionAlleywayAttacker extends NPC {
 			
 			resetInventory();
 			inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
+			CharacterUtils.generateItemsInInventory(this);
 	
 			CharacterUtils.equipClothing(this, true, false);
 			CharacterUtils.applyMakeup(this, true);
@@ -324,6 +356,36 @@ public class DominionAlleywayAttacker extends NPC {
 		}
 		
 		setBody(gender, species, raceStage);
+	}
+	
+	@Override
+	public void hourlyUpdate() {
+		if(this.getHistory()==History.PROSTITUTE && this.getLocationPlace().getPlaceType()==PlaceType.ANGELS_KISS_BEDROOM) {
+			// Remove client:
+			List<NPC> charactersPresent = Main.game.getCharactersPresent(this.getWorldLocation(), this.getLocation());
+			if(charactersPresent.size()>1) {
+				for(NPC npc : charactersPresent) {
+					if(npc instanceof GenericSexualPartner) {
+	//					System.out.println("partner removed for "+slave.getName());
+						Main.game.banishNPC(npc);
+					}
+				}
+				
+			} else if(Math.random()<0.33f) { // Add client:
+				GenericSexualPartner partner;
+				
+				if(Math.random()<0.25f) {
+					partner = new GenericSexualPartner(Gender.F_P_V_B_FUTANARI, this.getWorldLocation(), this.getLocation(), false);
+				} else {
+					partner = new GenericSexualPartner(Gender.M_P_MALE, this.getWorldLocation(), this.getLocation(), false);
+				}
+				try {
+					Main.game.addNPC(partner, false);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 	
 	@Override
@@ -392,26 +454,6 @@ public class DominionAlleywayAttacker extends NPC {
 	}
 
 	// Combat:
-
-	@Override
-	public Attack attackType() {
-		if(!getSpecialAttacks().isEmpty()) {
-			if (Math.random() < 0.2) {
-				return Attack.SEDUCTION;
-			} else if (Math.random() < 0.8) {
-				return Attack.MAIN;
-			} else {
-				return Attack.SPECIAL_ATTACK;
-			}
-			
-		} else {
-			if (Math.random() < 0.7) {
-				return Attack.MAIN;
-			} else {
-				return Attack.SEDUCTION;
-			}
-		}
-	}
 
 	@Override
 	public String getCombatDescription() {

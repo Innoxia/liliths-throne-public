@@ -6,8 +6,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.lilithsthrone.game.character.Personality;
-import com.lilithsthrone.game.character.SexualOrientation;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.AttributeRange;
 import com.lilithsthrone.game.character.body.types.AntennaType;
@@ -50,14 +48,16 @@ import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.body.valueEnums.WingSize;
 import com.lilithsthrone.game.character.gender.Gender;
+import com.lilithsthrone.game.character.persona.PersonalityTrait;
+import com.lilithsthrone.game.character.persona.PersonalityWeight;
+import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.0
- * @version 0.1.83
+ * @version 0.2.2
  * @author Innoxia
  */
 public enum RacialBody {
@@ -81,7 +81,7 @@ public enum RacialBody {
 			HairType.HUMAN, HairLength.TWO_SHORT, HairLength.FOUR_MID_BACK,
 			LegType.HUMAN,
 			SkinType.HUMAN, BodyMaterial.FLESH,
-			HornLength.ZERO_TINY, HornLength.ZERO_TINY, Util.newArrayListOfValues(new ListValue<>(HornType.NONE)),
+			HornLength.ZERO_TINY, HornLength.ZERO_TINY, Util.newArrayListOfValues(HornType.NONE),
 			PenisType.HUMAN, PenisSize.TWO_AVERAGE, PenisGirth.TWO_AVERAGE,
 			PenisType.NONE, PenisSize.TWO_AVERAGE, PenisGirth.TWO_AVERAGE,
 			TesticleSize.TWO_AVERAGE, 2, CumProduction.THREE_AVERAGE,
@@ -109,7 +109,7 @@ public enum RacialBody {
 			HairType.ANGEL, HairLength.TWO_SHORT, HairLength.FOUR_MID_BACK,
 			LegType.ANGEL,
 			SkinType.ANGEL, BodyMaterial.FLESH,
-			HornLength.ZERO_TINY, HornLength.ZERO_TINY, Util.newArrayListOfValues(new ListValue<>(HornType.NONE)),
+			HornLength.ZERO_TINY, HornLength.ZERO_TINY, Util.newArrayListOfValues(HornType.NONE),
 			PenisType.ANGEL, PenisSize.FOUR_HUGE, PenisGirth.TWO_AVERAGE,
 			PenisType.NONE, PenisSize.TWO_AVERAGE, PenisGirth.TWO_AVERAGE,
 			TesticleSize.FOUR_HUGE, 2, CumProduction.SEVEN_MONSTROUS,
@@ -119,8 +119,13 @@ public enum RacialBody {
 			GenitalArrangement.NORMAL) {
 
 		@Override
-		public Personality getPersonality() {
-			return generatePersonality(50, 10, 20, 20);
+		public Map<PersonalityTrait, PersonalityWeight> getPersonality() {
+			return Util.newHashMapOfValues(
+					new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.HIGH),
+					new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.HIGH),
+					new Value<>(PersonalityTrait.EXTROVERSION, PersonalityWeight.AVERAGE),
+					new Value<>(PersonalityTrait.NEUROTICISM, PersonalityWeight.AVERAGE),
+					new Value<>(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.AVERAGE));
 		}
 		
 		@Override
@@ -149,7 +154,7 @@ public enum RacialBody {
 			LegType.DEMON_COMMON,
 			SkinType.DEMON_COMMON, BodyMaterial.FLESH,
 			HornLength.ONE_SMALL, HornLength.TWO_LONG,
-				Util.newArrayListOfValues(new ListValue<>(HornType.CURLED), new ListValue<>(HornType.SPIRAL), new ListValue<>(HornType.SWEPT_BACK), new ListValue<>(HornType.CURVED), new ListValue<>(HornType.STRAIGHT)),
+				Util.newArrayListOfValues(HornType.CURLED, HornType.SPIRAL, HornType.SWEPT_BACK, HornType.CURVED, HornType.STRAIGHT),
 			PenisType.DEMON_COMMON, PenisSize.FIVE_ENORMOUS, PenisGirth.THREE_THICK,
 			PenisType.NONE, PenisSize.TWO_AVERAGE, PenisGirth.THREE_THICK,
 			TesticleSize.FOUR_HUGE, 4, CumProduction.SIX_EXTREME,
@@ -157,10 +162,15 @@ public enum RacialBody {
 			VaginaType.DEMON_COMMON, Wetness.SEVEN_DROOLING, Capacity.ONE_EXTREMELY_TIGHT, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.SEVEN_ELASTIC, OrificePlasticity.ZERO_RUBBERY,
 			WingType.DEMON_COMMON, WingSize.ONE_SMALL, WingSize.ONE_SMALL,
 			GenitalArrangement.NORMAL) {
-		
+
 		@Override
-		public Personality getPersonality() {
-			return generatePersonality(40, 10, 30, 20);
+		public Map<PersonalityTrait, PersonalityWeight> getPersonality() {
+			return Util.newHashMapOfValues(
+					new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.AVERAGE),
+					new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.AVERAGE),
+					new Value<>(PersonalityTrait.EXTROVERSION, PersonalityWeight.AVERAGE),
+					new Value<>(PersonalityTrait.NEUROTICISM, PersonalityWeight.AVERAGE),
+					new Value<>(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.HIGH));
 		}
 		
 		@Override
@@ -188,7 +198,7 @@ public enum RacialBody {
 			LegType.IMP,
 			SkinType.IMP, BodyMaterial.FLESH,
 			HornLength.ONE_SMALL, HornLength.TWO_LONG,
-				Util.newArrayListOfValues(new ListValue<>(HornType.CURLED), new ListValue<>(HornType.SPIRAL), new ListValue<>(HornType.SWEPT_BACK), new ListValue<>(HornType.CURVED), new ListValue<>(HornType.STRAIGHT)),
+				Util.newArrayListOfValues(HornType.CURLED, HornType.SPIRAL, HornType.SWEPT_BACK, HornType.CURVED, HornType.STRAIGHT),
 			PenisType.IMP, PenisSize.FOUR_HUGE, PenisGirth.THREE_THICK,
 			PenisType.NONE, PenisSize.TWO_AVERAGE, PenisGirth.THREE_THICK,
 			TesticleSize.THREE_LARGE, 4, CumProduction.SIX_EXTREME,
@@ -198,8 +208,13 @@ public enum RacialBody {
 			GenitalArrangement.NORMAL) {
 		
 		@Override
-		public Personality getPersonality() {
-			return generatePersonality(40, 10, 30, 20);
+		public Map<PersonalityTrait, PersonalityWeight> getPersonality() {
+			return Util.newHashMapOfValues(
+					new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.LOW),
+					new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.LOW),
+					new Value<>(PersonalityTrait.EXTROVERSION, PersonalityWeight.AVERAGE),
+					new Value<>(PersonalityTrait.NEUROTICISM, PersonalityWeight.AVERAGE),
+					new Value<>(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.AVERAGE));
 		}
 		
 		@Override
@@ -228,7 +243,7 @@ public enum RacialBody {
 			HairType.COW_MORPH, HairLength.TWO_SHORT, HairLength.THREE_SHOULDER_LENGTH,
 			LegType.COW_MORPH,
 			SkinType.COW_MORPH, BodyMaterial.FLESH,
-			HornLength.TWO_LONG, HornLength.ONE_SMALL, Util.newArrayListOfValues(new ListValue<>(HornType.BOVINE_CURVED), new ListValue<>(HornType.BOVINE_STRAIGHT)),
+			HornLength.TWO_LONG, HornLength.ONE_SMALL, Util.newArrayListOfValues(HornType.BOVINE_CURVED, HornType.BOVINE_STRAIGHT),
 			PenisType.BOVINE, PenisSize.THREE_LARGE, PenisGirth.THREE_THICK,
 			PenisType.NONE, PenisSize.TWO_AVERAGE, PenisGirth.THREE_THICK,
 			TesticleSize.THREE_LARGE, 2, CumProduction.FOUR_LARGE,
@@ -236,11 +251,6 @@ public enum RacialBody {
 			VaginaType.COW_MORPH, Wetness.THREE_WET, Capacity.TWO_TIGHT, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FOUR_LIMBER, OrificePlasticity.THREE_RESILIENT,
 			WingType.NONE, WingSize.ZERO_TINY, WingSize.ZERO_TINY,
 			GenitalArrangement.NORMAL) {
-
-		@Override
-		public Personality getPersonality() {
-			return generatePersonality(30, 50, 10, 10);
-		}
 	},
 	
 	// CANINES:
@@ -263,7 +273,7 @@ public enum RacialBody {
 			HairType.DOG_MORPH, HairLength.TWO_SHORT, HairLength.THREE_SHOULDER_LENGTH,
 			LegType.DOG_MORPH,
 			SkinType.DOG_MORPH, BodyMaterial.FLESH,
-			HornLength.ZERO_TINY, HornLength.ZERO_TINY, Util.newArrayListOfValues(new ListValue<>(HornType.NONE)),
+			HornLength.ZERO_TINY, HornLength.ZERO_TINY, Util.newArrayListOfValues(HornType.NONE),
 			PenisType.CANINE, PenisSize.TWO_AVERAGE, PenisGirth.TWO_AVERAGE,
 			PenisType.NONE, PenisSize.TWO_AVERAGE, PenisGirth.TWO_AVERAGE,
 			TesticleSize.THREE_LARGE, 2, CumProduction.FOUR_LARGE,
@@ -273,8 +283,13 @@ public enum RacialBody {
 			GenitalArrangement.NORMAL) {
 
 		@Override
-		public Personality getPersonality() {
-			return generatePersonality(60, 10, 20, 10);
+		public Map<PersonalityTrait, PersonalityWeight> getPersonality() {
+			return Util.newHashMapOfValues(
+					new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.HIGH),
+					new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.AVERAGE),
+					new Value<>(PersonalityTrait.EXTROVERSION, PersonalityWeight.HIGH),
+					new Value<>(PersonalityTrait.NEUROTICISM, PersonalityWeight.AVERAGE),
+					new Value<>(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.AVERAGE));
 		}
 	},
 	
@@ -297,7 +312,7 @@ public enum RacialBody {
 			HairType.LYCAN, HairLength.TWO_SHORT, HairLength.THREE_SHOULDER_LENGTH,
 			LegType.LYCAN,
 			SkinType.LYCAN, BodyMaterial.FLESH,
-			HornLength.ZERO_TINY, HornLength.ZERO_TINY, Util.newArrayListOfValues(new ListValue<>(HornType.NONE)),
+			HornLength.ZERO_TINY, HornLength.ZERO_TINY, Util.newArrayListOfValues(HornType.NONE),
 			PenisType.LUPINE, PenisSize.THREE_LARGE, PenisGirth.THREE_THICK,
 			PenisType.NONE, PenisSize.TWO_AVERAGE, PenisGirth.THREE_THICK,
 			TesticleSize.THREE_LARGE, 2, CumProduction.FIVE_HUGE,
@@ -306,10 +321,6 @@ public enum RacialBody {
 			WingType.NONE, WingSize.ZERO_TINY, WingSize.ZERO_TINY,
 			GenitalArrangement.NORMAL) {
 
-		@Override
-		public Personality getPersonality() {
-			return generatePersonality(20, 10, 60, 10);
-		}
 	},
 
 	// FELINES:
@@ -332,7 +343,7 @@ public enum RacialBody {
 			HairType.CAT_MORPH, HairLength.TWO_SHORT, HairLength.THREE_SHOULDER_LENGTH,
 			LegType.CAT_MORPH,
 			SkinType.CAT_MORPH, BodyMaterial.FLESH,
-			HornLength.ZERO_TINY, HornLength.ZERO_TINY, Util.newArrayListOfValues(new ListValue<>(HornType.NONE)),
+			HornLength.ZERO_TINY, HornLength.ZERO_TINY, Util.newArrayListOfValues(HornType.NONE),
 			PenisType.FELINE, PenisSize.TWO_AVERAGE, PenisGirth.TWO_AVERAGE,
 			PenisType.NONE, PenisSize.TWO_AVERAGE, PenisGirth.TWO_AVERAGE,
 			TesticleSize.TWO_AVERAGE, 2, CumProduction.THREE_AVERAGE,
@@ -341,10 +352,6 @@ public enum RacialBody {
 			WingType.NONE, WingSize.ZERO_TINY, WingSize.ZERO_TINY,
 			GenitalArrangement.NORMAL) {
 
-		@Override
-		public Personality getPersonality() {
-			return generatePersonality(30, 20, 10, 40);
-		}
 	},
 
 	// EQUINES:
@@ -367,7 +374,7 @@ public enum RacialBody {
 			HairType.HORSE_MORPH, HairLength.TWO_SHORT, HairLength.FOUR_MID_BACK,
 			LegType.HORSE_MORPH,
 			SkinType.HORSE_MORPH, BodyMaterial.FLESH,
-			HornLength.ZERO_TINY, HornLength.ZERO_TINY, Util.newArrayListOfValues(new ListValue<>(HornType.NONE)),
+			HornLength.ZERO_TINY, HornLength.ZERO_TINY, Util.newArrayListOfValues(HornType.NONE),
 			PenisType.EQUINE, PenisSize.FOUR_HUGE, PenisGirth.FOUR_FAT,
 			PenisType.NONE, PenisSize.TWO_AVERAGE, PenisGirth.FOUR_FAT,
 			TesticleSize.FOUR_HUGE, 2, CumProduction.FIVE_HUGE,
@@ -376,10 +383,6 @@ public enum RacialBody {
 			WingType.NONE, WingSize.ZERO_TINY, WingSize.ZERO_TINY,
 			GenitalArrangement.NORMAL) {
 
-		@Override
-		public Personality getPersonality() {
-			return generatePersonality(20, 40, 30, 10);
-		}
 	},
 
 	REINDEER_MORPH(Util.newHashMapOfValues(
@@ -400,7 +403,7 @@ public enum RacialBody {
 			HairType.REINDEER_MORPH, HairLength.TWO_SHORT, HairLength.THREE_SHOULDER_LENGTH,
 			LegType.REINDEER_MORPH,
 			SkinType.REINDEER_MORPH, BodyMaterial.FLESH,
-			HornLength.THREE_HUGE, HornLength.TWO_LONG, Util.newArrayListOfValues(new ListValue<>(HornType.REINDEER_RACK)),
+			HornLength.THREE_HUGE, HornLength.TWO_LONG, Util.newArrayListOfValues(HornType.REINDEER_RACK),
 			PenisType.REINDEER_MORPH, PenisSize.THREE_LARGE, PenisGirth.THREE_THICK,
 			PenisType.NONE, PenisSize.TWO_AVERAGE, PenisGirth.THREE_THICK,
 			TesticleSize.THREE_LARGE, 2, CumProduction.THREE_AVERAGE,
@@ -409,10 +412,6 @@ public enum RacialBody {
 			WingType.NONE, WingSize.ZERO_TINY, WingSize.ZERO_TINY,
 			GenitalArrangement.NORMAL) {
 	
-		@Override
-		public Personality getPersonality() {
-			return generatePersonality(30, 30, 20, 20);
-		}
 	},
 
 	// REPTILE:
@@ -434,7 +433,7 @@ public enum RacialBody {
 		    HairType.ALLIGATOR_MORPH, HairLength.ZERO_BALD, HairLength.ZERO_BALD,
 		    LegType.ALLIGATOR_MORPH,
 		    SkinType.ALLIGATOR_MORPH, BodyMaterial.FLESH,
-			HornLength.ZERO_TINY, HornLength.ZERO_TINY, Util.newArrayListOfValues(new ListValue<>(HornType.NONE)),
+			HornLength.ZERO_TINY, HornLength.ZERO_TINY, Util.newArrayListOfValues(HornType.NONE),
 		    PenisType.ALLIGATOR_MORPH, PenisSize.THREE_LARGE, PenisGirth.THREE_THICK,
 		    PenisType.NONE, PenisSize.TWO_AVERAGE, PenisGirth.THREE_THICK,
 		    TesticleSize.FOUR_HUGE, 2, CumProduction.FIVE_HUGE,
@@ -442,11 +441,6 @@ public enum RacialBody {
 		    VaginaType.ALLIGATOR_MORPH, Wetness.SEVEN_DROOLING, Capacity.ONE_EXTREMELY_TIGHT, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.SEVEN_ELASTIC, OrificePlasticity.ZERO_RUBBERY,
 		    WingType.NONE, WingSize.ZERO_TINY, WingSize.ZERO_TINY,
 		    GenitalArrangement.CLOACA) {
-
-		@Override
-		public Personality getPersonality() {
-			return generatePersonality(10, 40, 40, 10);
-		}
 		
 		@Override
 		public boolean isHairTypeLinkedToFaceType() {
@@ -473,7 +467,7 @@ public enum RacialBody {
 			HairType.SQUIRREL_MORPH, HairLength.ONE_VERY_SHORT, HairLength.TWO_SHORT,
 			LegType.SQUIRREL_MORPH,
 			SkinType.SQUIRREL_MORPH, BodyMaterial.FLESH,
-			HornLength.ZERO_TINY, HornLength.ZERO_TINY, Util.newArrayListOfValues(new ListValue<>(HornType.NONE)),
+			HornLength.ZERO_TINY, HornLength.ZERO_TINY, Util.newArrayListOfValues(HornType.NONE),
 			PenisType.SQUIRREL, PenisSize.FOUR_HUGE, PenisGirth.THREE_THICK,
 			PenisType.NONE, PenisSize.TWO_AVERAGE, PenisGirth.THREE_THICK,
 			TesticleSize.THREE_LARGE, 2, CumProduction.THREE_AVERAGE,
@@ -482,12 +476,113 @@ public enum RacialBody {
 			WingType.NONE, WingSize.ZERO_TINY, WingSize.ZERO_TINY,
 			GenitalArrangement.NORMAL) {
 
+	},
+
+	RAT_MORPH(Util.newHashMapOfValues(
+				new Value<Attribute, AttributeRange>(Attribute.MAJOR_PHYSIQUE, new AttributeRange(10f, 20f)),
+				new Value<Attribute, AttributeRange>(Attribute.MAJOR_ARCANE, new AttributeRange(0f, 0f)),
+				new Value<Attribute, AttributeRange>(Attribute.MAJOR_CORRUPTION, new AttributeRange(30f, 50f))),
+			AntennaType.NONE,
+			ArmType.RAT_MORPH, 1,
+			AssType.RAT_MORPH, AssSize.TWO_SMALL, AssSize.THREE_NORMAL, Wetness.ZERO_DRY, Capacity.ONE_EXTREMELY_TIGHT, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT,
+			BreastType.RAT_MORPH,
+			CupSize.FLAT, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.ZERO_TINY, 1,
+			CupSize.C, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.TWO_BIG, 1,
+			170, 35, BodySize.TWO_AVERAGE.getMedianValue(), Muscle.THREE_MUSCULAR.getMedianValue(),
+			160, 85, BodySize.TWO_AVERAGE.getMedianValue(), Muscle.TWO_TONED.getMedianValue(),
+			EarType.RAT_MORPH,
+			EyeType.RAT_MORPH,
+			FaceType.RAT_MORPH, LipSize.ONE_AVERAGE, LipSize.TWO_FULL,
+			HairType.RAT_MORPH, HairLength.ONE_VERY_SHORT, HairLength.THREE_SHOULDER_LENGTH,
+			LegType.RAT_MORPH,
+			SkinType.RAT_MORPH, BodyMaterial.FLESH,
+			HornLength.ZERO_TINY, HornLength.ZERO_TINY, Util.newArrayListOfValues(HornType.NONE),
+			PenisType.RAT_MORPH, PenisSize.THREE_LARGE, PenisGirth.TWO_AVERAGE,
+			PenisType.NONE, PenisSize.TWO_AVERAGE, PenisGirth.TWO_AVERAGE,
+			TesticleSize.TWO_AVERAGE, 2, CumProduction.THREE_AVERAGE,
+			TailType.RAT_MORPH,
+			VaginaType.RAT_MORPH, Wetness.TWO_MOIST, Capacity.THREE_SLIGHTLY_LOOSE, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FOUR_LIMBER, OrificePlasticity.THREE_RESILIENT,
+			WingType.NONE, WingSize.ZERO_TINY, WingSize.ZERO_TINY,
+			GenitalArrangement.NORMAL) {
+
 		@Override
-		public Personality getPersonality() {
-			return generatePersonality(40, 10, 10, 40);
+		public Map<PersonalityTrait, PersonalityWeight> getPersonality() {
+			return Util.newHashMapOfValues(
+					new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.LOW),
+					new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.AVERAGE),
+					new Value<>(PersonalityTrait.EXTROVERSION, PersonalityWeight.AVERAGE),
+					new Value<>(PersonalityTrait.NEUROTICISM, PersonalityWeight.AVERAGE),
+					new Value<>(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.AVERAGE));
 		}
 	},
 
+	RABBIT_MORPH(Util.newHashMapOfValues(
+				new Value<Attribute, AttributeRange>(Attribute.MAJOR_PHYSIQUE, new AttributeRange(5f, 15f)),
+				new Value<Attribute, AttributeRange>(Attribute.MAJOR_ARCANE, new AttributeRange(0f, 0f)),
+				new Value<Attribute, AttributeRange>(Attribute.MAJOR_CORRUPTION, new AttributeRange(20f, 60f))),
+			AntennaType.NONE,
+			ArmType.RABBIT_MORPH, 1,
+			AssType.RABBIT_MORPH, AssSize.TWO_SMALL, AssSize.THREE_NORMAL, Wetness.ZERO_DRY, Capacity.ONE_EXTREMELY_TIGHT, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT,
+			BreastType.RABBIT_MORPH,
+			CupSize.FLAT, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.ZERO_TINY, 1,
+			CupSize.E, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.TWO_BIG, 1,
+			170, 35, BodySize.TWO_AVERAGE.getMedianValue(), Muscle.THREE_MUSCULAR.getMedianValue(),
+			160, 85, BodySize.TWO_AVERAGE.getMedianValue(), Muscle.TWO_TONED.getMedianValue(),
+			EarType.RABBIT_MORPH,
+			EyeType.RABBIT_MORPH,
+			FaceType.RABBIT_MORPH, LipSize.ONE_AVERAGE, LipSize.TWO_FULL,
+			HairType.RABBIT_MORPH, HairLength.ONE_VERY_SHORT, HairLength.THREE_SHOULDER_LENGTH,
+			LegType.RABBIT_MORPH,
+			SkinType.RABBIT_MORPH, BodyMaterial.FLESH,
+			HornLength.ZERO_TINY, HornLength.ZERO_TINY, Util.newArrayListOfValues(HornType.NONE),
+			PenisType.RABBIT_MORPH, PenisSize.THREE_LARGE, PenisGirth.TWO_AVERAGE,
+			PenisType.NONE, PenisSize.TWO_AVERAGE, PenisGirth.TWO_AVERAGE,
+			TesticleSize.TWO_AVERAGE, 2, CumProduction.THREE_AVERAGE,
+			TailType.RABBIT_MORPH,
+			VaginaType.RABBIT_MORPH, Wetness.TWO_MOIST, Capacity.THREE_SLIGHTLY_LOOSE, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FOUR_LIMBER, OrificePlasticity.THREE_RESILIENT,
+			WingType.NONE, WingSize.ZERO_TINY, WingSize.ZERO_TINY,
+			GenitalArrangement.NORMAL) {
+
+	},
+
+	BAT_MORPH(Util.newHashMapOfValues(
+				new Value<Attribute, AttributeRange>(Attribute.MAJOR_PHYSIQUE, new AttributeRange(5f, 10f)),
+				new Value<Attribute, AttributeRange>(Attribute.MAJOR_ARCANE, new AttributeRange(0f, 0f)),
+				new Value<Attribute, AttributeRange>(Attribute.MAJOR_CORRUPTION, new AttributeRange(10f, 30f))),
+			AntennaType.NONE,
+			ArmType.BAT_MORPH, 1,
+			AssType.BAT_MORPH, AssSize.TWO_SMALL, AssSize.THREE_NORMAL, Wetness.ZERO_DRY, Capacity.ONE_EXTREMELY_TIGHT, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT,
+			BreastType.BAT_MORPH,
+			CupSize.FLAT, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.ZERO_TINY, 1,
+			CupSize.C, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.TWO_BIG, 1,
+			170, 35, BodySize.TWO_AVERAGE.getMedianValue(), Muscle.THREE_MUSCULAR.getMedianValue(),
+			160, 85, BodySize.TWO_AVERAGE.getMedianValue(), Muscle.TWO_TONED.getMedianValue(),
+			EarType.BAT_MORPH,
+			EyeType.BAT_MORPH,
+			FaceType.BAT_MORPH, LipSize.ONE_AVERAGE, LipSize.TWO_FULL,
+			HairType.BAT_MORPH, HairLength.ONE_VERY_SHORT, HairLength.THREE_SHOULDER_LENGTH,
+			LegType.BAT_MORPH,
+			SkinType.BAT_MORPH, BodyMaterial.FLESH,
+			HornLength.ZERO_TINY, HornLength.ZERO_TINY, Util.newArrayListOfValues(HornType.NONE),
+			PenisType.BAT_MORPH, PenisSize.THREE_LARGE, PenisGirth.TWO_AVERAGE,
+			PenisType.NONE, PenisSize.TWO_AVERAGE, PenisGirth.TWO_AVERAGE,
+			TesticleSize.TWO_AVERAGE, 2, CumProduction.THREE_AVERAGE,
+			TailType.NONE,
+			VaginaType.BAT_MORPH, Wetness.TWO_MOIST, Capacity.THREE_SLIGHTLY_LOOSE, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FOUR_LIMBER, OrificePlasticity.THREE_RESILIENT,
+			WingType.NONE, WingSize.ZERO_TINY, WingSize.ZERO_TINY,
+			GenitalArrangement.NORMAL) {
+
+		@Override
+		public Map<PersonalityTrait, PersonalityWeight> getPersonality() {
+			return Util.newHashMapOfValues(
+					new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.AVERAGE),
+					new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.AVERAGE),
+					new Value<>(PersonalityTrait.EXTROVERSION, PersonalityWeight.HIGH),
+					new Value<>(PersonalityTrait.NEUROTICISM, PersonalityWeight.AVERAGE),
+					new Value<>(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.AVERAGE));
+		}
+	},
+	
 	// AVIAN:
 	HARPY(Util.newHashMapOfValues(
 				new Value<Attribute, AttributeRange>(Attribute.MAJOR_PHYSIQUE, new AttributeRange(0f, 15f)),
@@ -497,7 +592,7 @@ public enum RacialBody {
 			ArmType.HARPY, 1,
 			AssType.HARPY, AssSize.TWO_SMALL, AssSize.THREE_NORMAL, Wetness.ZERO_DRY, Capacity.ONE_EXTREMELY_TIGHT, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT,
 			BreastType.HARPY,
-			CupSize.TRAINING_B, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.ZERO_TINY, 1,
+			CupSize.TRAINING_A, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.ZERO_TINY, 1,
 			CupSize.B, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.TWO_BIG, 1,
 			150, 75, BodySize.ZERO_SKINNY.getMedianValue(), Muscle.THREE_MUSCULAR.getMedianValue(),
 			150, 95, BodySize.ZERO_SKINNY.getMedianValue(), Muscle.ONE_LIGHTLY_MUSCLED.getMedianValue(),
@@ -507,7 +602,7 @@ public enum RacialBody {
 			HairType.HARPY, HairLength.THREE_SHOULDER_LENGTH, HairLength.FIVE_ABOVE_ASS,
 			LegType.HARPY,
 			SkinType.HARPY, BodyMaterial.FLESH,
-			HornLength.ZERO_TINY, HornLength.ZERO_TINY, Util.newArrayListOfValues(new ListValue<>(HornType.NONE)),
+			HornLength.ZERO_TINY, HornLength.ZERO_TINY, Util.newArrayListOfValues(HornType.NONE),
 			PenisType.AVIAN, PenisSize.ONE_TINY, PenisGirth.ONE_THIN,
 			PenisType.NONE, PenisSize.ONE_TINY, PenisGirth.ONE_THIN,
 			TesticleSize.ZERO_VESTIGIAL, 2, CumProduction.ONE_TRICKLE,
@@ -515,10 +610,15 @@ public enum RacialBody {
 			VaginaType.HARPY, Wetness.THREE_WET, Capacity.TWO_TIGHT, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FOUR_LIMBER, OrificePlasticity.THREE_RESILIENT,
 			WingType.NONE, WingSize.ZERO_TINY, WingSize.ZERO_TINY,
 			GenitalArrangement.CLOACA) {
-		
+
 		@Override
-		public Personality getPersonality() {
-			return generatePersonality(70, 10, 10, 10);
+		public Map<PersonalityTrait, PersonalityWeight> getPersonality() {
+			return Util.newHashMapOfValues(
+					new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.LOW),
+					new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.AVERAGE),
+					new Value<>(PersonalityTrait.EXTROVERSION, PersonalityWeight.HIGH),
+					new Value<>(PersonalityTrait.NEUROTICISM, PersonalityWeight.HIGH),
+					new Value<>(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.AVERAGE));
 		}
 		
 		@Override
@@ -695,6 +795,8 @@ public enum RacialBody {
 
 	public static RacialBody valueOfRace(Race race) {
 		switch (race) {
+			case NONE:
+				break;
 			case ANGEL:
 				return RacialBody.ANGEL;
 			case CAT_MORPH:
@@ -702,6 +804,11 @@ public enum RacialBody {
 			case COW_MORPH:
 				return RacialBody.COW_MORPH;
 			case DEMON:
+			case ELEMENTAL_AIR:
+			case ELEMENTAL_ARCANE:
+			case ELEMENTAL_EARTH:
+			case ELEMENTAL_FIRE:
+			case ELEMENTAL_WATER:
 				return RacialBody.DEMON;
 			case IMP:
 				return RacialBody.IMP;
@@ -723,6 +830,12 @@ public enum RacialBody {
 				return RacialBody.SQUIRREL_MORPH;
 			case SLIME:
 				return RacialBody.HUMAN;
+			case BAT_MORPH:
+				return RacialBody.BAT_MORPH;
+			case RAT_MORPH:
+				return RacialBody.RAT_MORPH;
+			case RABBIT_MORPH:
+				return RacialBody.RABBIT_MORPH;
 		}
 		return RacialBody.HUMAN;
 	}
@@ -762,38 +875,18 @@ public enum RacialBody {
 		return valueOfRace(availableRaces.get(Util.random.nextInt(availableRaces.size())));
 	}
 	
-	public Personality getPersonality() {
-		return generatePersonality(25, 25, 25, 25);
-	}
-	
-	private static Personality generatePersonality(int sociableChance, int calmChance, int commandingChance, int analyticalChance) {
-		Map<Personality, Integer> personalityChance = new HashMap<>();
-		
-		for(Personality p : Personality.values()) {
-			switch(p) {
-				case AIR_SOCIABLE:
-					personalityChance.put(p, sociableChance);
-					break;
-				case EARTH_CALM:
-					personalityChance.put(p, calmChance);
-					break;
-				case FIRE_COMMANDING:
-					personalityChance.put(p, commandingChance);
-					break;
-				case WATER_ANALYTICAL:
-					personalityChance.put(p, analyticalChance);
-					break;
-			}
-		}
-		int roll = Util.random.nextInt(sociableChance + calmChance + commandingChance + analyticalChance)+1;
-		int total = 0;
-		for(Entry<Personality, Integer> e : personalityChance.entrySet()) {
-			total+=e.getValue();
-			if(roll <= total) {
-				return e.getKey();
-			}
-		}
-		return Personality.AIR_SOCIABLE;
+	/**
+	 * @return A map of personality traits and their normal associated values for this race.</br>
+	 *  When generating an individual's personality, there is a 25% chance of the weight of each of these traits being moved up or down by 1 (e.g. from AVERAGE to HIGH), and a 5% chance of them being moved up or down 2 (e.g. from LOW to HIGH).</br>
+	 *  As a result, a race with all weights set to AVERAGE should end up with a mostly-balanced personality, with one or two traits being skewed up or down.
+	 */
+	public Map<PersonalityTrait, PersonalityWeight> getPersonality() {
+		return Util.newHashMapOfValues(
+				new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.AVERAGE),
+				new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.AVERAGE),
+				new Value<>(PersonalityTrait.EXTROVERSION, PersonalityWeight.AVERAGE),
+				new Value<>(PersonalityTrait.NEUROTICISM, PersonalityWeight.AVERAGE),
+				new Value<>(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.AVERAGE));
 	}
 	
 	public SexualOrientation getSexualOrientation(Gender gender) {

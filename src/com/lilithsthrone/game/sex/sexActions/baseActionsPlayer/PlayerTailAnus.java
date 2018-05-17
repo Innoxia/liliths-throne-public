@@ -16,7 +16,6 @@ import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 
 /**
  * @since 0.1.82
@@ -118,7 +117,7 @@ public class PlayerTailAnus {
 		
 		@Override
 		public List<Fetish> getFetishes(GameCharacter character) {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DENIAL));
+			return Util.newArrayListOfValues(Fetish.FETISH_DENIAL);
 		}
 	};
 	
@@ -207,12 +206,12 @@ public class PlayerTailAnus {
 		
 		@Override
 		public void applyEffects() {
-			Sex.transferLubrication(Sex.getActivePartner(), Main.game.getPlayer(), PenetrationType.TAIL, OrificeType.ANUS);
+			Sex.transferLubrication(Main.game.getPlayer(), Sex.getActivePartner(), PenetrationType.TAIL, OrificeType.ANUS);
 		}
 		
 		@Override
 		public List<Fetish> getFetishes(GameCharacter character) {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DENIAL));
+			return Util.newArrayListOfValues(Fetish.FETISH_DENIAL);
 		}
 	};
 	

@@ -1,7 +1,10 @@
 package com.lilithsthrone.game.inventory.clothing;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumMap;
@@ -11,27 +14,36 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreType;
 import com.lilithsthrone.game.inventory.InventorySlot;
+import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.Rarity;
+import com.lilithsthrone.game.inventory.enchanting.AbstractItemEffectType;
+import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
+import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.game.inventory.enchanting.TFPotency;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
-import com.lilithsthrone.game.inventory.item.ItemEffect;
-import com.lilithsthrone.game.inventory.item.ItemEffectType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.ColourListPresets;
 import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.84
- * @version 0.2.0
+ * @version 0.2.4
  * @author Innoxia
  */
 public abstract class AbstractClothingType extends AbstractCoreType {
@@ -41,6 +53,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	private String determiner, name, namePlural, description, pathName, pathNameEquipped;
 
 	private boolean plural;
+	private boolean isMod;
 	private int baseValue;
 	private int physicalResistance;
 	private int femininityMinimum;
@@ -48,15 +61,20 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	private Femininity femininityRestriction;
 	private InventorySlot slot;
 
+	// Enchantments:
+	private int enchantmentLimit;
+	protected List<ItemEffect> effects;
+
+	
+	// Images:
+	private Map<Colour, Map<Colour, Map<Colour, String>>> SVGStringMap;
+	private Map<Colour, Map<Colour, Map<Colour, String>>> SVGStringEquippedMap;
+	
+	
 	// Access and block stuff:
 	private List<BlockedParts> blockedPartsList;
 	private List<InventorySlot> incompatibleSlots;
 
-	private Map<Colour, Map<Colour, Map<Colour, String>>> SVGStringMap;
-	private Map<Colour, Map<Colour, Map<Colour, String>>> SVGStringEquippedMap;
-
-	protected List<ItemEffect> effects;
-	
 	private ClothingSet clothingSet;
 	private Rarity rarity;
 	private List<Colour> availablePrimaryColours;
@@ -72,6 +90,11 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	private List<Colour> allAvailableTertiaryColours;
 
 	private List<DisplacementType> displacementTypesAvailableWithoutNONE;
+	
+	private List<ItemTag> itemTags;
+
+	private Map<DisplacementType, Map<DisplacementDescriptionType, String>> displacementDescriptionsPlayer;
+	private Map<DisplacementType, Map<DisplacementDescriptionType, String>> displacementDescriptionsNPC;
 	
 	protected AbstractClothingType(
 			int baseValue,
@@ -94,7 +117,8 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			List<Colour> availableSecondaryColours,
 			List<Colour> availableSecondaryDyeColours,
 			List<Colour> availableTertiaryColours,
-			List<Colour> availableTertiaryDyeColours) {
+			List<Colour> availableTertiaryDyeColours,
+			List<ItemTag> itemTags) {
 		this(baseValue,
 				determiner,
 				plural,
@@ -115,7 +139,9 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 				availablePrimaryDyeColours,
 				availableSecondaryColours,
 				availableSecondaryDyeColours,
-				availableTertiaryColours, availableTertiaryDyeColours);
+				availableTertiaryColours,
+				availableTertiaryDyeColours,
+				itemTags);
 	}
 	
 	public AbstractClothingType(
@@ -140,9 +166,12 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			List<Colour> availableSecondaryColours,
 			List<Colour> availableSecondaryDyeColours,
 			List<Colour> availableTertiaryColours,
-			List<Colour> availableTertiaryDyeColours) {
+			List<Colour> availableTertiaryDyeColours,
+			List<ItemTag> itemTags) {
 		
 		this.baseValue = baseValue;
+		
+		this.isMod = false;
 		
 		this.determiner = determiner;
 		this.plural = plural;
@@ -151,22 +180,10 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		this.description = description;
 
 		this.physicalResistance = physicalResistance;
-
+		
+		setUpFemininity(femininityRestriction);
+		
 		this.femininityRestriction = femininityRestriction;
-
-		if (femininityRestriction == null) {
-			femininityMinimum = 0;
-			femininityMaximum = 100;
-		} else if (femininityRestriction == Femininity.FEMININE) {
-			femininityMinimum = Femininity.ANDROGYNOUS.getMinimumFemininity();
-			femininityMaximum = 100;
-		} else if (femininityRestriction == Femininity.ANDROGYNOUS) {
-			femininityMinimum = Femininity.ANDROGYNOUS.getMinimumFemininity();
-			femininityMaximum = Femininity.ANDROGYNOUS.getMaximumFemininity();
-		} else if (femininityRestriction == Femininity.MASCULINE) {
-			femininityMinimum = 0;
-			femininityMaximum = Femininity.ANDROGYNOUS.getMaximumFemininity();
-		}
 
 		this.slot = slot;
 		this.rarity = rarity;
@@ -175,6 +192,8 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		this.pathName = pathName;
 		this.pathNameEquipped = pathNameEquipped;
 
+		enchantmentLimit = -1;
+		
 		// Attribute modifiers:
 		if (effects != null) {
 			this.effects = new ArrayList<>(effects);
@@ -189,12 +208,371 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			this.blockedPartsList = new ArrayList<>();
 		}
 		
+		// MAke sure that clothing can't conceal itself (in case I made an error in defining concealed slots):
+		for(BlockedParts bp : this.blockedPartsList) {
+			bp.concealedSlots.removeIf((concealedSlot) -> concealedSlot == this.slot);
+		}
+		
 		// Incompatible slots:
 		if (incompatibleSlots != null) {
 			this.incompatibleSlots = incompatibleSlots;
 		} else {
 			this.incompatibleSlots = new ArrayList<>();
 		}
+		
+		setUpColours(availablePrimaryColours,
+				availablePrimaryDyeColours,
+				availableSecondaryColours,
+				availableSecondaryDyeColours,
+				availableTertiaryColours,
+				availableTertiaryDyeColours);
+		
+		if(itemTags==null) {
+			this.itemTags = new ArrayList<>();
+		} else {
+			this.itemTags = itemTags;
+		}
+
+		
+		finalSetUp();
+	}
+	
+	public AbstractClothingType(File clothingXMLFile) {
+
+		if (clothingXMLFile.exists()) {
+			try {
+				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+				DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+				Document doc = dBuilder.parse(clothingXMLFile);
+				
+				// Cast magic:
+				doc.getDocumentElement().normalize();
+				
+				Element clothingElement = (Element) doc.getElementsByTagName("clothing").item(0);
+				
+				Element coreAttributes = (Element) clothingElement.getElementsByTagName("coreAtributes").item(0);
+				
+				List<ItemEffect> defaultEffects = new ArrayList<>();
+				try {
+					Element effectsElement = (Element)coreAttributes.getElementsByTagName("effects").item(0);
+					for(int i=0; i<effectsElement.getElementsByTagName("effect").getLength(); i++){
+						Element e = ((Element)effectsElement.getElementsByTagName("effect").item(i));
+						defaultEffects.add(ItemEffect.loadFromXML(e, doc));
+					}
+				} catch(Exception ex) {
+					System.err.println("AbstractClothingType loading failed. Cause: 'effects' element unable to be parsed.");
+				}
+				
+				List<BlockedParts> defaultBlockedParts = new ArrayList<>();
+				try {
+					Element blockedPartsElement = (Element)coreAttributes.getElementsByTagName("blockedPartsList").item(0);
+					for(int i=0; i<blockedPartsElement.getElementsByTagName("blockedParts").getLength(); i++){
+						Element e = ((Element)blockedPartsElement.getElementsByTagName("blockedParts").item(i));
+						defaultBlockedParts.add(BlockedParts.loadFromXML(e, doc));
+					}
+				} catch(Exception ex) {
+					System.err.println("AbstractClothingType loading failed. Cause: 'blockedPartsList' element unable to be parsed.");
+				}
+				
+				List<InventorySlot> defaultIncompatibleSlots = new ArrayList<>();
+				Element incompatibleSlotsElement = (Element)coreAttributes.getElementsByTagName("incompatibleSlots").item(0);
+				try {
+					for(int i=0; i<incompatibleSlotsElement.getElementsByTagName("slot").getLength(); i++){
+						Element e = ((Element)incompatibleSlotsElement.getElementsByTagName("slot").item(i));
+						defaultIncompatibleSlots.add(InventorySlot.valueOf(e.getTextContent()));
+					}
+				} catch(Exception ex) {
+					System.err.println("AbstractClothingType loading failed. Cause: 'incompatibleSlots' element unable to be parsed.");
+				}
+				
+				List<ItemTag> defaultItemTags = new ArrayList<>();
+				Element itemTagsElement = (Element)coreAttributes.getElementsByTagName("itemTags").item(0);
+				try {
+					for(int i=0; i<itemTagsElement.getElementsByTagName("tag").getLength(); i++){
+						Element e = ((Element)itemTagsElement.getElementsByTagName("tag").item(i));
+						defaultItemTags.add(ItemTag.valueOf(e.getTextContent()));
+					}
+				} catch(Exception ex) {
+					System.err.println("AbstractClothingType loading failed. Cause: 'itemTags' element unable to be parsed.");
+				}
+				
+				//TODO
+				displacementDescriptionsPlayer = new HashMap<>();
+				displacementDescriptionsNPC = new HashMap<>();
+
+				if(clothingElement.getElementsByTagName("replacementText").getLength() > 0) {
+					for(int i=0; i<clothingElement.getElementsByTagName("replacementText").getLength(); i++){
+						try {
+							Element equipTextElement = (Element)clothingElement.getElementsByTagName("replacementText").item(i);
+							DisplacementType type = DisplacementType.valueOf(equipTextElement.getAttribute("type"));
+						
+							displacementDescriptionsPlayer.putIfAbsent(type, new HashMap<>());
+							displacementDescriptionsNPC.putIfAbsent(type, new HashMap<>());
+							try {
+								displacementDescriptionsPlayer.get(type).put(DisplacementDescriptionType.REPLACEMENT, equipTextElement.getElementsByTagName("playerNPC").item(0).getTextContent());
+							} catch(Exception ex) {
+							}
+							try {
+								displacementDescriptionsPlayer.get(type).put(DisplacementDescriptionType.REPLACEMENT_ROUGH, equipTextElement.getElementsByTagName("playerNPCRough").item(0).getTextContent());
+							} catch(Exception ex) {
+							}
+							try {
+								displacementDescriptionsPlayer.get(type).put(DisplacementDescriptionType.REPLACEMENT_SELF, equipTextElement.getElementsByTagName("playerSelf").item(0).getTextContent());
+							} catch(Exception ex) {
+							}
+							try {
+								displacementDescriptionsNPC.get(type).put(DisplacementDescriptionType.REPLACEMENT, equipTextElement.getElementsByTagName("NPCPlayer").item(0).getTextContent());
+							} catch(Exception ex) {
+							}
+							try {
+								displacementDescriptionsNPC.get(type).put(DisplacementDescriptionType.REPLACEMENT_ROUGH, equipTextElement.getElementsByTagName("NPCPlayerRough").item(0).getTextContent());
+							} catch(Exception ex) {
+							}
+							try {
+								displacementDescriptionsNPC.get(type).put(DisplacementDescriptionType.REPLACEMENT_SELF, equipTextElement.getElementsByTagName("NPCSelf").item(0).getTextContent());
+							} catch(Exception ex) {
+							}
+							try {
+								displacementDescriptionsNPC.get(type).put(DisplacementDescriptionType.NPC_ON_NPC_REPLACEMENT, equipTextElement.getElementsByTagName("NPCOtherNPC").item(0).getTextContent());
+							} catch(Exception ex) {
+							}
+							try {
+								displacementDescriptionsNPC.get(type).put(DisplacementDescriptionType.NPC_ON_NPC_REPLACEMENT_ROUGH, equipTextElement.getElementsByTagName("NPCOtherNPCRough").item(0).getTextContent());
+							} catch(Exception ex) {
+							}
+							
+						} catch(Exception ex) {
+							System.err.println("AbstractClothingType loading failed. Cause: 'replacementText' element unable to be parsed.");
+						}
+					}
+				}
+				
+				if(clothingElement.getElementsByTagName("displacementText").getLength() > 0) {
+					for(int i=0; i<clothingElement.getElementsByTagName("displacementText").getLength(); i++){
+						try {
+							Element equipTextElement = (Element)clothingElement.getElementsByTagName("displacementText").item(i);
+							DisplacementType type = DisplacementType.valueOf(equipTextElement.getAttribute("type"));
+						
+							displacementDescriptionsPlayer.putIfAbsent(type, new HashMap<>());
+							displacementDescriptionsNPC.putIfAbsent(type, new HashMap<>());
+							try {
+								displacementDescriptionsPlayer.get(type).put(DisplacementDescriptionType.DISPLACEMENT, equipTextElement.getElementsByTagName("playerNPC").item(0).getTextContent());
+							} catch(Exception ex) {
+							}
+							try {
+								displacementDescriptionsPlayer.get(type).put(DisplacementDescriptionType.DISPLACEMENT_ROUGH, equipTextElement.getElementsByTagName("playerNPCRough").item(0).getTextContent());
+							} catch(Exception ex) {
+							}
+							try {
+								displacementDescriptionsPlayer.get(type).put(DisplacementDescriptionType.DISPLACEMENT_SELF, equipTextElement.getElementsByTagName("playerSelf").item(0).getTextContent());
+							} catch(Exception ex) {
+							}
+							try {
+								displacementDescriptionsNPC.get(type).put(DisplacementDescriptionType.DISPLACEMENT, equipTextElement.getElementsByTagName("NPCPlayer").item(0).getTextContent());
+							} catch(Exception ex) {
+							}
+							try {
+								displacementDescriptionsNPC.get(type).put(DisplacementDescriptionType.DISPLACEMENT_ROUGH, equipTextElement.getElementsByTagName("NPCPlayerRough").item(0).getTextContent());
+							} catch(Exception ex) {
+							}
+							try {
+								displacementDescriptionsNPC.get(type).put(DisplacementDescriptionType.DISPLACEMENT_SELF, equipTextElement.getElementsByTagName("NPCSelf").item(0).getTextContent());
+							} catch(Exception ex) {
+							}
+							try {
+								displacementDescriptionsNPC.get(type).put(DisplacementDescriptionType.NPC_ON_NPC_DISPLACEMENT, equipTextElement.getElementsByTagName("NPCOtherNPC").item(0).getTextContent());
+							} catch(Exception ex) {
+							}
+							try {
+								displacementDescriptionsNPC.get(type).put(DisplacementDescriptionType.NPC_ON_NPC_DISPLACEMENT_ROUGH, equipTextElement.getElementsByTagName("NPCOtherNPCRough").item(0).getTextContent());
+							} catch(Exception ex) {
+							}
+							
+						} catch(Exception ex) {
+							System.err.println("AbstractClothingType loading failed. Cause: 'displacementText' element unable to be parsed.");
+						}
+					}
+				}
+				
+				
+				this.isMod = true;
+				
+				this.baseValue = Integer.valueOf(coreAttributes.getElementsByTagName("value").item(0).getTextContent());
+				this.determiner = coreAttributes.getElementsByTagName("determiner").item(0).getTextContent();
+				this.plural = Boolean.valueOf(((Element)coreAttributes.getElementsByTagName("namePlural").item(0)).getAttribute("pluralByDefault"));
+				this.name = coreAttributes.getElementsByTagName("name").item(0).getTextContent();
+				this.namePlural = coreAttributes.getElementsByTagName("namePlural").item(0).getTextContent();
+				this.description = coreAttributes.getElementsByTagName("description").item(0).getTextContent();
+				this.physicalResistance = Integer.valueOf(coreAttributes.getElementsByTagName("physicalResistance").item(0).getTextContent());
+				setUpFemininity(Femininity.valueOf(coreAttributes.getElementsByTagName("femininity").item(0).getTextContent()));
+				this.slot = InventorySlot.valueOf(coreAttributes.getElementsByTagName("slot").item(0).getTextContent());
+				this.rarity = Rarity.valueOf(coreAttributes.getElementsByTagName("rarity").item(0).getTextContent());
+				
+				enchantmentLimit = -1;
+				try {
+					enchantmentLimit = Integer.valueOf(coreAttributes.getElementsByTagName("enchantmentLimit").item(0).getTextContent());
+				} catch(Exception ex) {
+				}
+				
+				this.clothingSet = !coreAttributes.getElementsByTagName("clothingSet").item(0).hasChildNodes()
+									? null
+									: ClothingSet.valueOf(coreAttributes.getElementsByTagName("clothingSet").item(0).getTextContent());
+				
+				this.pathName = clothingXMLFile.getParentFile().getAbsolutePath() + "/" + coreAttributes.getElementsByTagName("imageName").item(0).getTextContent();
+				
+				this.pathNameEquipped = !coreAttributes.getElementsByTagName("imageEquippedName").item(0).hasChildNodes()
+									? null
+									: coreAttributes.getElementsByTagName("imageEquippedName").item(0).getTextContent();
+				
+				this.effects = defaultEffects;
+
+				this.blockedPartsList = defaultBlockedParts;
+				
+				this.incompatibleSlots = defaultIncompatibleSlots;
+				
+				List<Colour> importedPrimaryColours = new ArrayList<>();
+				try {
+					if(((Element)coreAttributes.getElementsByTagName("primaryColours").item(0)).getAttribute("values").isEmpty()) {
+						Element primaryColoursElement = ((Element)coreAttributes.getElementsByTagName("primaryColours").item(0));
+						if(primaryColoursElement.getElementsByTagName("colour").getLength() > 0) {
+							for(int i=0; i<primaryColoursElement.getElementsByTagName("colour").getLength(); i++){
+								importedPrimaryColours.add(Colour.valueOf(((Element)coreAttributes.getElementsByTagName("colour").item(i)).getTextContent()));
+							}
+						}
+					} else {
+						importedPrimaryColours = ColourListPresets.valueOf(((Element)coreAttributes.getElementsByTagName("primaryColours").item(0)).getAttribute("values")).getPresetColourList();
+					}
+				} catch(Exception ex) {
+					System.err.println("AbstractClothingType loading failed. Cause: 'primaryColours' element unable to be parsed.");
+				}
+
+				List<Colour> importedPrimaryColoursDye = new ArrayList<>();
+				try {
+					if(((Element)coreAttributes.getElementsByTagName("primaryColoursDye").item(0)).getAttribute("values").isEmpty()) {
+						Element primaryColoursElement = ((Element)coreAttributes.getElementsByTagName("primaryColoursDye").item(0));
+						if(primaryColoursElement.getElementsByTagName("colour").getLength() > 0) {
+							for(int i=0; i<primaryColoursElement.getElementsByTagName("colour").getLength(); i++){
+								importedPrimaryColoursDye.add(Colour.valueOf(((Element)coreAttributes.getElementsByTagName("colour").item(i)).getTextContent()));
+							}
+						}
+					} else {
+						importedPrimaryColoursDye = ColourListPresets.valueOf(((Element)coreAttributes.getElementsByTagName("primaryColoursDye").item(0)).getAttribute("values")).getPresetColourList();
+					}
+				} catch(Exception ex) {
+					System.err.println("AbstractClothingType loading failed. Cause: 'primaryColoursDye' element unable to be parsed.");
+				}
+
+				List<Colour> importedSecondaryColours = new ArrayList<>();
+				try {
+					if((Element)coreAttributes.getElementsByTagName("secondaryColours").item(0)!=null) {
+						if(((Element)coreAttributes.getElementsByTagName("secondaryColours").item(0)).getAttribute("values").isEmpty()) {
+							Element secondaryColoursElement = ((Element)coreAttributes.getElementsByTagName("secondaryColours").item(0));
+							if(secondaryColoursElement.getElementsByTagName("colour").getLength() > 0) {
+								for(int i=0; i<secondaryColoursElement.getElementsByTagName("colour").getLength(); i++){
+									importedSecondaryColours.add(Colour.valueOf(((Element)coreAttributes.getElementsByTagName("colour").item(i)).getTextContent()));
+								}
+							}
+						} else {
+							importedSecondaryColours = ColourListPresets.valueOf(((Element)coreAttributes.getElementsByTagName("secondaryColours").item(0)).getAttribute("values")).getPresetColourList();
+						}
+					}
+				} catch(Exception ex) {
+					System.err.println("AbstractClothingType loading failed. Cause: 'secondaryColours' element unable to be parsed.");
+				}
+
+				List<Colour> importedSecondaryColoursDye = new ArrayList<>();
+				try {
+					if((Element)coreAttributes.getElementsByTagName("secondaryColoursDye").item(0)!=null) {
+						if(((Element)coreAttributes.getElementsByTagName("secondaryColoursDye").item(0)).getAttribute("values").isEmpty()) {
+							Element secondaryColoursElement = ((Element)coreAttributes.getElementsByTagName("secondaryColoursDye").item(0));
+							if(secondaryColoursElement.getElementsByTagName("colour").getLength() > 0) {
+								for(int i=0; i<secondaryColoursElement.getElementsByTagName("colour").getLength(); i++){
+									importedSecondaryColoursDye.add(Colour.valueOf(((Element)coreAttributes.getElementsByTagName("colour").item(i)).getTextContent()));
+								}
+							}
+						} else {
+							importedSecondaryColoursDye = ColourListPresets.valueOf(((Element)coreAttributes.getElementsByTagName("secondaryColoursDye").item(0)).getAttribute("values")).getPresetColourList();
+						}
+					}
+				} catch(Exception ex) {
+					System.err.println("AbstractClothingType loading failed. Cause: 'secondaryColoursDye' element unable to be parsed.");
+				}
+
+				List<Colour> importedTertiaryColours = new ArrayList<>();
+				try {
+					if((Element)coreAttributes.getElementsByTagName("tertiaryColours").item(0)!=null) {
+						if(((Element)coreAttributes.getElementsByTagName("tertiaryColours").item(0)).getAttribute("values").isEmpty()) {
+							Element tertiaryColoursElement = ((Element)coreAttributes.getElementsByTagName("tertiaryColours").item(0));
+							if(tertiaryColoursElement.getElementsByTagName("colour").getLength() > 0) {
+								for(int i=0; i<tertiaryColoursElement.getElementsByTagName("colour").getLength(); i++){
+									importedTertiaryColours.add(Colour.valueOf(((Element)coreAttributes.getElementsByTagName("colour").item(i)).getTextContent()));
+								}
+							}
+						} else {
+							importedTertiaryColours = ColourListPresets.valueOf(((Element)coreAttributes.getElementsByTagName("tertiaryColours").item(0)).getAttribute("values")).getPresetColourList();
+						}
+					}
+				} catch(Exception ex) {
+					System.err.println("AbstractClothingType loading failed. Cause: 'tertiaryColours' element unable to be parsed.");
+				}
+
+				List<Colour> importedTertiaryColoursDye = new ArrayList<>();
+				try {
+					if((Element)coreAttributes.getElementsByTagName("tertiaryColoursDye").item(0)!=null) {
+						if(((Element)coreAttributes.getElementsByTagName("tertiaryColoursDye").item(0)).getAttribute("values").isEmpty()) {
+							Element tertiaryColoursElement = ((Element)coreAttributes.getElementsByTagName("tertiaryColoursDye").item(0));
+							if(tertiaryColoursElement.getElementsByTagName("colour").getLength() > 0) {
+								for(int i=0; i<tertiaryColoursElement.getElementsByTagName("colour").getLength(); i++){
+									importedTertiaryColoursDye.add(Colour.valueOf(((Element)coreAttributes.getElementsByTagName("colour").item(i)).getTextContent()));
+								}
+							}
+						} else {
+							importedTertiaryColoursDye = ColourListPresets.valueOf(((Element)coreAttributes.getElementsByTagName("tertiaryColoursDye").item(0)).getAttribute("values")).getPresetColourList();
+						}
+					}
+				} catch(Exception ex) {
+					System.err.println("AbstractClothingType loading failed. Cause: 'tertiaryColoursDye' element unable to be parsed.");
+				}
+				
+				setUpColours(
+						importedPrimaryColours,
+						importedPrimaryColoursDye,
+						importedSecondaryColours,
+						importedSecondaryColoursDye,
+						importedTertiaryColours,
+						importedTertiaryColoursDye);
+				
+				this.itemTags = defaultItemTags;
+				
+				finalSetUp();
+
+			} catch(Exception ex) {
+				System.err.println("ClothingType was unable to be loaded from file!");
+			}
+		}
+	}
+	
+	private void setUpFemininity(Femininity femininity) {
+		if (femininity == null || femininity == Femininity.ANDROGYNOUS) {
+			femininityMinimum = 0;
+			femininityMaximum = 100;
+			
+		} else if (femininity == Femininity.FEMININE) {
+			femininityMinimum = Femininity.ANDROGYNOUS.getMinimumFemininity();
+			femininityMaximum = 100;
+			
+		} else if (femininity == Femininity.MASCULINE) {
+			femininityMinimum = 0;
+			femininityMaximum = Femininity.ANDROGYNOUS.getMaximumFemininity();
+		}
+	}
+	
+	private void setUpColours(List<Colour> availablePrimaryColours,
+			List<Colour> availablePrimaryDyeColours,
+			List<Colour> availableSecondaryColours,
+			List<Colour> availableSecondaryDyeColours,
+			List<Colour> availableTertiaryColours,
+			List<Colour> availableTertiaryDyeColours) {
 		
 		this.availablePrimaryColours = new ArrayList<>();
 		if (availablePrimaryColours == null) {
@@ -260,11 +638,9 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		}
 		this.allAvailableTertiaryColours.addAll(colourSet);
 		this.allAvailableTertiaryColours.sort((c1, c2) -> c1.compareTo(c2));
-		
-
-		SVGStringMap = new HashMap<>();
-		SVGStringEquippedMap = new HashMap<>();
-
+	}
+	
+	private void finalSetUp() {
 		displacementTypesAvailableWithoutNONE = new ArrayList<>();
 		for (BlockedParts bp : this.blockedPartsList) {
 			if (bp.displacementType != DisplacementType.REMOVE_OR_EQUIP) {
@@ -272,6 +648,9 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			}
 		}
 		Collections.sort(displacementTypesAvailableWithoutNONE);
+
+		SVGStringMap = new HashMap<>();
+		SVGStringEquippedMap = new HashMap<>();
 	}
 	
 	@Override
@@ -471,7 +850,15 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	}
 	
 	public static String getEquipDescriptions(GameCharacter clothingOwner, GameCharacter clothingEquipper, boolean rough,
-			String playerEquipping, String playerEquippingNpc, String playerEquippingNpcRough, String npcEquipping, String npcEquippingPlayer, String npcEquippingPlayerRough) {
+			String playerEquipping,
+			String playerEquippingNpc,
+			String playerEquippingNpcRough,
+			String npcEquipping,
+			String npcEquippingPlayer,
+			String npcEquippingPlayerRough,
+			String npcEquippingOtherNPC,
+			String npcEquippingOtherNPCRough) {
+		
 		if (clothingEquipper.isPlayer()) {
 			if(clothingOwner.isPlayer()) {
 				return UtilText.parse(clothingOwner, playerEquipping);
@@ -491,7 +878,17 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 					return UtilText.parse(clothingEquipper, npcEquippingPlayer);
 				}
 			} else {
-				return UtilText.parse(clothingOwner, npcEquipping);
+				if(clothingOwner.equals(clothingEquipper)) {
+					return UtilText.parse(clothingOwner, npcEquipping);
+				} else {
+					if(rough && npcEquippingOtherNPCRough!=null) {
+						return UtilText.parse(clothingEquipper, clothingOwner, npcEquippingOtherNPCRough);
+					} else if(npcEquippingOtherNPC!=null){
+						return UtilText.parse(clothingEquipper, clothingOwner, npcEquippingOtherNPC);
+					} else {
+						return UtilText.parse(clothingEquipper, clothingOwner, "[npc1.Name] manipulates [npc2.name]'s clothing.");
+					}
+				}
 			}
 		}
 	}
@@ -499,11 +896,28 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	public String equipText(GameCharacter clothingOwner, GameCharacter clothingEquipper, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 		if (clothingEquipper.isPlayer()) {
 			if(clothingOwner.isPlayer()) {
+				if(displacementDescriptionsPlayer!=null
+						&& displacementDescriptionsPlayer.containsKey(DisplacementType.REMOVE_OR_EQUIP)
+						&& displacementDescriptionsPlayer.get(DisplacementType.REMOVE_OR_EQUIP).containsKey(DisplacementDescriptionType.REPLACEMENT_SELF)) {
+					return displacementDescriptionsPlayer.get(DisplacementType.REMOVE_OR_EQUIP).get(DisplacementDescriptionType.REPLACEMENT_SELF);
+				}
 				return "You equip the "+clothing.getName()+"";
+				
 			} else {
 				if(rough) {
+					if(displacementDescriptionsPlayer!=null
+							&& displacementDescriptionsPlayer.containsKey(DisplacementType.REMOVE_OR_EQUIP)
+							&& displacementDescriptionsPlayer.get(DisplacementType.REMOVE_OR_EQUIP).containsKey(DisplacementDescriptionType.REPLACEMENT_ROUGH)) {
+						return UtilText.parse(clothingOwner, displacementDescriptionsPlayer.get(DisplacementType.REMOVE_OR_EQUIP).get(DisplacementDescriptionType.REPLACEMENT_ROUGH));
+					}
 					return UtilText.parse(clothingOwner, "You roughly force "+clothing.getName(true)+" onto [npc.name].");
+					
 				} else {
+					if(displacementDescriptionsPlayer!=null
+							&& displacementDescriptionsPlayer.containsKey(DisplacementType.REMOVE_OR_EQUIP)
+							&& displacementDescriptionsPlayer.get(DisplacementType.REMOVE_OR_EQUIP).containsKey(DisplacementDescriptionType.REPLACEMENT)) {
+						return UtilText.parse(clothingOwner, displacementDescriptionsPlayer.get(DisplacementType.REMOVE_OR_EQUIP).get(DisplacementDescriptionType.REPLACEMENT));
+					}
 					return UtilText.parse(clothingOwner, "You put "+clothing.getName(true)+" on [npc.name].");
 				}
 			}
@@ -511,12 +925,48 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		} else {
 			if (clothingOwner.isPlayer()) {
 				if(rough) {
+					if(displacementDescriptionsNPC!=null
+							&& displacementDescriptionsNPC.containsKey(DisplacementType.REMOVE_OR_EQUIP)
+							&& displacementDescriptionsNPC.get(DisplacementType.REMOVE_OR_EQUIP).containsKey(DisplacementDescriptionType.REPLACEMENT_ROUGH)) {
+						return UtilText.parse(clothingEquipper, displacementDescriptionsNPC.get(DisplacementType.REMOVE_OR_EQUIP).get(DisplacementDescriptionType.REPLACEMENT_ROUGH));
+					}
 					return UtilText.parse(clothingEquipper, "[npc.Name] roughly forces "+clothing.getName(true)+" onto you.");
+					
 				} else {
+					if(displacementDescriptionsNPC!=null
+							&& displacementDescriptionsNPC.containsKey(DisplacementType.REMOVE_OR_EQUIP)
+							&& displacementDescriptionsNPC.get(DisplacementType.REMOVE_OR_EQUIP).containsKey(DisplacementDescriptionType.REPLACEMENT)) {
+						return UtilText.parse(clothingEquipper, displacementDescriptionsNPC.get(DisplacementType.REMOVE_OR_EQUIP).get(DisplacementDescriptionType.REPLACEMENT));
+					}
 					return UtilText.parse(clothingEquipper, "[npc.Name] puts "+clothing.getName(true)+" on you.");
 				}
 			} else {
-				return UtilText.parse(clothingOwner, "[npc.Name] equips "+clothing.getName(true)+".");
+				if(clothingOwner.equals(clothingEquipper)) {
+					if(displacementDescriptionsNPC!=null
+							&& displacementDescriptionsNPC.containsKey(DisplacementType.REMOVE_OR_EQUIP)
+							&& displacementDescriptionsNPC.get(DisplacementType.REMOVE_OR_EQUIP).containsKey(DisplacementDescriptionType.REPLACEMENT_SELF)) {
+						return UtilText.parse(clothingOwner, displacementDescriptionsNPC.get(DisplacementType.REMOVE_OR_EQUIP).get(DisplacementDescriptionType.REPLACEMENT_SELF));
+					}
+					return UtilText.parse(clothingOwner, "[npc.Name] equips "+clothing.getName(true)+".");
+					
+				} else {
+					if(rough) {
+						if(displacementDescriptionsNPC!=null
+								&& displacementDescriptionsNPC.containsKey(DisplacementType.REMOVE_OR_EQUIP)
+								&& displacementDescriptionsNPC.get(DisplacementType.REMOVE_OR_EQUIP).containsKey(DisplacementDescriptionType.NPC_ON_NPC_REPLACEMENT_ROUGH)) {
+							return UtilText.parse(clothingEquipper, clothingOwner,displacementDescriptionsNPC.get(DisplacementType.REMOVE_OR_EQUIP).get(DisplacementDescriptionType.NPC_ON_NPC_REPLACEMENT_ROUGH));
+						}
+						return UtilText.parse(clothingEquipper, clothingOwner, "[npc.Name] roughly forces [npc2.name] to equip "+clothing.getName(true)+".");
+						
+					} else {
+						if(displacementDescriptionsNPC!=null
+								&& displacementDescriptionsNPC.containsKey(DisplacementType.REMOVE_OR_EQUIP)
+								&& displacementDescriptionsNPC.get(DisplacementType.REMOVE_OR_EQUIP).containsKey(DisplacementDescriptionType.NPC_ON_NPC_REPLACEMENT)) {
+							return UtilText.parse(clothingEquipper, clothingOwner,displacementDescriptionsNPC.get(DisplacementType.REMOVE_OR_EQUIP).get(DisplacementDescriptionType.NPC_ON_NPC_REPLACEMENT));
+						}
+						return UtilText.parse(clothingEquipper, clothingOwner, "[npc.Name] gets [npc2.name] to equip "+clothing.getName(true)+".");
+					}
+				}
 			}
 		}
 	}
@@ -524,11 +974,26 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 		if (clothingRemover.isPlayer()) {
 			if(clothingOwner.isPlayer()) {
+				if(displacementDescriptionsPlayer!=null
+						&& displacementDescriptionsPlayer.containsKey(DisplacementType.REMOVE_OR_EQUIP)
+						&& displacementDescriptionsPlayer.get(DisplacementType.REMOVE_OR_EQUIP).containsKey(DisplacementDescriptionType.DISPLACEMENT_SELF)) {
+					return displacementDescriptionsPlayer.get(DisplacementType.REMOVE_OR_EQUIP).get(DisplacementDescriptionType.DISPLACEMENT_SELF);
+				}
 				return "You unequip the "+clothing.getName()+"";
 			} else {
 				if(rough) {
+					if(displacementDescriptionsPlayer!=null
+							&& displacementDescriptionsPlayer.containsKey(DisplacementType.REMOVE_OR_EQUIP)
+							&& displacementDescriptionsPlayer.get(DisplacementType.REMOVE_OR_EQUIP).containsKey(DisplacementDescriptionType.DISPLACEMENT_ROUGH)) {
+						return UtilText.parse(clothingOwner, displacementDescriptionsPlayer.get(DisplacementType.REMOVE_OR_EQUIP).get(DisplacementDescriptionType.DISPLACEMENT_ROUGH));
+					}
 					return UtilText.parse(clothingOwner, "You roughly take off [npc.name]'s "+clothing.getName()+".");
 				} else {
+					if(displacementDescriptionsPlayer!=null
+							&& displacementDescriptionsPlayer.containsKey(DisplacementType.REMOVE_OR_EQUIP)
+							&& displacementDescriptionsPlayer.get(DisplacementType.REMOVE_OR_EQUIP).containsKey(DisplacementDescriptionType.DISPLACEMENT)) {
+						return UtilText.parse(clothingOwner, displacementDescriptionsPlayer.get(DisplacementType.REMOVE_OR_EQUIP).get(DisplacementDescriptionType.DISPLACEMENT));
+					}
 					return UtilText.parse(clothingOwner, "You take off [npc.name]'s "+clothing.getName()+".");
 				}
 			}
@@ -536,12 +1001,47 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		} else {
 			if (clothingOwner.isPlayer()) {
 				if(rough) {
+					if(displacementDescriptionsNPC!=null
+							&& displacementDescriptionsNPC.containsKey(DisplacementType.REMOVE_OR_EQUIP)
+							&& displacementDescriptionsNPC.get(DisplacementType.REMOVE_OR_EQUIP).containsKey(DisplacementDescriptionType.DISPLACEMENT_ROUGH)) {
+						return UtilText.parse(clothingRemover, displacementDescriptionsNPC.get(DisplacementType.REMOVE_OR_EQUIP).get(DisplacementDescriptionType.DISPLACEMENT_ROUGH));
+					}
 					return UtilText.parse(clothingRemover, "[npc.Name] roughly takes off your "+clothing.getName()+".");
 				} else {
+					if(displacementDescriptionsNPC!=null
+							&& displacementDescriptionsNPC.containsKey(DisplacementType.REMOVE_OR_EQUIP)
+							&& displacementDescriptionsNPC.get(DisplacementType.REMOVE_OR_EQUIP).containsKey(DisplacementDescriptionType.DISPLACEMENT)) {
+						return UtilText.parse(clothingRemover, displacementDescriptionsNPC.get(DisplacementType.REMOVE_OR_EQUIP).get(DisplacementDescriptionType.DISPLACEMENT));
+					}
 					return UtilText.parse(clothingRemover, "[npc.Name] takes off your "+clothing.getName()+".");
 				}
 			} else {
-				return UtilText.parse(clothingOwner, "[npc.Name] unequips [npc.her] "+clothing.getName()+".");
+				if(clothingOwner.equals(clothingRemover)) {
+					if(displacementDescriptionsNPC!=null
+							&& displacementDescriptionsNPC.containsKey(DisplacementType.REMOVE_OR_EQUIP)
+							&& displacementDescriptionsNPC.get(DisplacementType.REMOVE_OR_EQUIP).containsKey(DisplacementDescriptionType.DISPLACEMENT_SELF)) {
+						return UtilText.parse(clothingOwner, displacementDescriptionsNPC.get(DisplacementType.REMOVE_OR_EQUIP).get(DisplacementDescriptionType.DISPLACEMENT_SELF));
+					}
+					return UtilText.parse(clothingOwner, "[npc.Name] unequips [npc.her] "+clothing.getName()+".");
+					
+				} else {
+					if(rough) {
+						if(displacementDescriptionsNPC!=null
+								&& displacementDescriptionsNPC.containsKey(DisplacementType.REMOVE_OR_EQUIP)
+								&& displacementDescriptionsNPC.get(DisplacementType.REMOVE_OR_EQUIP).containsKey(DisplacementDescriptionType.NPC_ON_NPC_DISPLACEMENT_ROUGH)) {
+							return UtilText.parse(clothingRemover, clothingOwner,displacementDescriptionsNPC.get(DisplacementType.REMOVE_OR_EQUIP).get(DisplacementDescriptionType.NPC_ON_NPC_DISPLACEMENT_ROUGH));
+						}
+						return UtilText.parse(clothingRemover, clothingOwner, "[npc.Name] roughly forces [npc2.name] to equip "+clothing.getName(true)+".");
+						
+					} else {
+						if(displacementDescriptionsNPC!=null
+								&& displacementDescriptionsNPC.containsKey(DisplacementType.REMOVE_OR_EQUIP)
+								&& displacementDescriptionsNPC.get(DisplacementType.REMOVE_OR_EQUIP).containsKey(DisplacementDescriptionType.NPC_ON_NPC_DISPLACEMENT)) {
+							return UtilText.parse(clothingRemover, clothingOwner,displacementDescriptionsNPC.get(DisplacementType.REMOVE_OR_EQUIP).get(DisplacementDescriptionType.NPC_ON_NPC_DISPLACEMENT));
+						}
+						return UtilText.parse(clothingRemover, clothingOwner, "[npc.Name] gets [npc2.name] to equip "+clothing.getName(true)+".");
+					}
+				}
 			}
 		}
 	}
@@ -549,11 +1049,26 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	public String displaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
 		if (clothingRemover.isPlayer()) {
 			if(clothingOwner.isPlayer()) {
+				if(displacementDescriptionsPlayer!=null
+						&& displacementDescriptionsPlayer.containsKey(dt)
+						&& displacementDescriptionsPlayer.get(dt).containsKey(DisplacementDescriptionType.DISPLACEMENT_SELF)) {
+					return displacementDescriptionsPlayer.get(dt).get(DisplacementDescriptionType.DISPLACEMENT_SELF);
+				}
 				return "You "+dt.getDescription()+" your "+this.getName()+"";
 			} else {
 				if(rough) {
+					if(displacementDescriptionsPlayer!=null
+							&& displacementDescriptionsPlayer.containsKey(dt)
+							&& displacementDescriptionsPlayer.get(dt).containsKey(DisplacementDescriptionType.DISPLACEMENT_ROUGH)) {
+						return UtilText.parse(clothingOwner, displacementDescriptionsPlayer.get(dt).get(DisplacementDescriptionType.DISPLACEMENT_ROUGH));
+					}
 					return UtilText.parse(clothingOwner, "You roughly "+dt.getDescription()+" [npc.name]'s "+this.getName()+".");
 				} else {
+					if(displacementDescriptionsPlayer!=null
+							&& displacementDescriptionsPlayer.containsKey(dt)
+							&& displacementDescriptionsPlayer.get(dt).containsKey(DisplacementDescriptionType.DISPLACEMENT)) {
+						return UtilText.parse(clothingOwner, displacementDescriptionsPlayer.get(dt).get(DisplacementDescriptionType.DISPLACEMENT));
+					}
 					return UtilText.parse(clothingOwner, "You "+dt.getDescription()+" [npc.name]'s "+this.getName()+".");
 				}
 			}
@@ -561,12 +1076,48 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		} else {
 			if (clothingOwner.isPlayer()) {
 				if(rough) {
+					if(displacementDescriptionsNPC!=null
+							&& displacementDescriptionsNPC.containsKey(dt)
+							&& displacementDescriptionsNPC.get(dt).containsKey(DisplacementDescriptionType.DISPLACEMENT_ROUGH)) {
+						return UtilText.parse(clothingRemover, displacementDescriptionsNPC.get(dt).get(DisplacementDescriptionType.DISPLACEMENT_ROUGH));
+					}
 					return UtilText.parse(clothingRemover, "[npc.Name] roughly "+dt.getDescriptionThirdPerson()+" your "+this.getName()+".");
+					
 				} else {
+					if(displacementDescriptionsNPC!=null
+							&& displacementDescriptionsNPC.containsKey(dt)
+							&& displacementDescriptionsNPC.get(dt).containsKey(DisplacementDescriptionType.DISPLACEMENT)) {
+						return UtilText.parse(clothingRemover, displacementDescriptionsNPC.get(dt).get(DisplacementDescriptionType.DISPLACEMENT));
+					}
 					return UtilText.parse(clothingRemover, "[npc.Name] "+dt.getDescriptionThirdPerson()+" your "+this.getName()+".");
 				}
 			} else {
-				return UtilText.parse(clothingOwner, "[npc.Name] "+dt.getDescriptionThirdPerson()+" [npc.her] "+this.getName()+".");
+				if(clothingOwner.equals(clothingRemover)) {
+					if(displacementDescriptionsNPC!=null
+							&& displacementDescriptionsNPC.containsKey(dt)
+							&& displacementDescriptionsNPC.get(dt).containsKey(DisplacementDescriptionType.DISPLACEMENT_SELF)) {
+						return UtilText.parse(clothingRemover, displacementDescriptionsNPC.get(dt).get(DisplacementDescriptionType.DISPLACEMENT_SELF));
+					}
+					return UtilText.parse(clothingOwner, "[npc.Name] "+dt.getDescriptionThirdPerson()+" [npc.her] "+this.getName()+".");
+					
+				} else {
+					if(rough) {
+						if(displacementDescriptionsNPC!=null
+								&& displacementDescriptionsNPC.containsKey(dt)
+								&& displacementDescriptionsNPC.get(dt).containsKey(DisplacementDescriptionType.NPC_ON_NPC_DISPLACEMENT_ROUGH)) {
+							return UtilText.parse(clothingRemover, clothingOwner,displacementDescriptionsNPC.get(dt).get(DisplacementDescriptionType.NPC_ON_NPC_DISPLACEMENT_ROUGH));
+						}
+						return UtilText.parse(clothingRemover, clothingOwner, "[npc.Name] roughly "+dt.getDescriptionThirdPerson()+" [npc2.name]'s "+this.getName()+".");
+						
+					} else {
+						if(displacementDescriptionsNPC!=null
+								&& displacementDescriptionsNPC.containsKey(dt)
+								&& displacementDescriptionsNPC.get(dt).containsKey(DisplacementDescriptionType.NPC_ON_NPC_DISPLACEMENT)) {
+							return UtilText.parse(clothingRemover, clothingOwner,displacementDescriptionsNPC.get(dt).get(DisplacementDescriptionType.NPC_ON_NPC_DISPLACEMENT));
+						}
+						return UtilText.parse(clothingRemover, clothingOwner, "[npc.Name] "+dt.getDescriptionThirdPerson()+" [npc2.name]'s "+this.getName()+".");
+					}
+				}
 			}
 		}
 	}
@@ -574,11 +1125,26 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	public String replaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
 		if (clothingRemover.isPlayer()) {
 			if(clothingOwner.isPlayer()) {
+				if(displacementDescriptionsPlayer!=null
+						&& displacementDescriptionsPlayer.containsKey(dt)
+						&& displacementDescriptionsPlayer.get(dt).containsKey(DisplacementDescriptionType.REPLACEMENT_SELF)) {
+					return displacementDescriptionsPlayer.get(dt).get(DisplacementDescriptionType.REPLACEMENT_SELF);
+				}
 				return "You "+dt.getOppositeDescription()+" your "+this.getName()+"";
 			} else {
 				if(rough) {
+					if(displacementDescriptionsPlayer!=null
+							&& displacementDescriptionsPlayer.containsKey(dt)
+							&& displacementDescriptionsPlayer.get(dt).containsKey(DisplacementDescriptionType.REPLACEMENT_ROUGH)) {
+						return UtilText.parse(clothingOwner, displacementDescriptionsPlayer.get(dt).get(DisplacementDescriptionType.REPLACEMENT_ROUGH));
+					}
 					return UtilText.parse(clothingOwner, "You roughly "+dt.getOppositeDescription()+" [npc.name]'s "+this.getName()+".");
 				} else {
+					if(displacementDescriptionsPlayer!=null
+							&& displacementDescriptionsPlayer.containsKey(dt)
+							&& displacementDescriptionsPlayer.get(dt).containsKey(DisplacementDescriptionType.REPLACEMENT)) {
+						return UtilText.parse(clothingOwner, displacementDescriptionsPlayer.get(dt).get(DisplacementDescriptionType.REPLACEMENT));
+					}
 					return UtilText.parse(clothingOwner, "You "+dt.getOppositeDescription()+" [npc.name]'s "+this.getName()+".");
 				}
 			}
@@ -586,32 +1152,123 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		} else {
 			if (clothingOwner.isPlayer()) {
 				if(rough) {
+					if(displacementDescriptionsNPC!=null
+							&& displacementDescriptionsNPC.containsKey(dt)
+							&& displacementDescriptionsNPC.get(dt).containsKey(DisplacementDescriptionType.REPLACEMENT_ROUGH)) {
+						return UtilText.parse(clothingRemover, displacementDescriptionsNPC.get(dt).get(DisplacementDescriptionType.REPLACEMENT_ROUGH));
+					}
 					return UtilText.parse(clothingRemover, "[npc.Name] roughly "+dt.getOppositeDescriptionThirdPerson()+" your "+this.getName()+".");
+					
 				} else {
+					if(displacementDescriptionsNPC!=null
+							&& displacementDescriptionsNPC.containsKey(dt)
+							&& displacementDescriptionsNPC.get(dt).containsKey(DisplacementDescriptionType.REPLACEMENT)) {
+						return UtilText.parse(clothingRemover, displacementDescriptionsNPC.get(dt).get(DisplacementDescriptionType.REPLACEMENT));
+					}
 					return UtilText.parse(clothingRemover, "[npc.Name] "+dt.getOppositeDescriptionThirdPerson()+" your "+this.getName()+".");
 				}
 			} else {
-				return UtilText.parse(clothingOwner, "[npc.Name] "+dt.getOppositeDescriptionThirdPerson()+" [npc.her] "+this.getName()+".");
+				if(clothingOwner.equals(clothingRemover)) {
+					if(displacementDescriptionsNPC!=null
+							&& displacementDescriptionsNPC.containsKey(dt)
+							&& displacementDescriptionsNPC.get(dt).containsKey(DisplacementDescriptionType.REPLACEMENT_SELF)) {
+						return UtilText.parse(clothingRemover, displacementDescriptionsNPC.get(dt).get(DisplacementDescriptionType.REPLACEMENT_SELF));
+					}
+					return UtilText.parse(clothingOwner, "[npc.Name] "+dt.getOppositeDescriptionThirdPerson()+" [npc.her] "+this.getName()+".");
+					
+				} else {
+					if(rough) {
+						if(displacementDescriptionsNPC!=null
+								&& displacementDescriptionsNPC.containsKey(dt)
+								&& displacementDescriptionsNPC.get(dt).containsKey(DisplacementDescriptionType.NPC_ON_NPC_REPLACEMENT_ROUGH)) {
+							return UtilText.parse(clothingRemover, clothingOwner,displacementDescriptionsNPC.get(dt).get(DisplacementDescriptionType.NPC_ON_NPC_REPLACEMENT_ROUGH));
+						}
+						return UtilText.parse(clothingRemover, clothingOwner, "[npc.Name] roughly "+dt.getOppositeDescriptionThirdPerson()+" [npc2.name]'s "+this.getName()+".");
+						
+					} else {
+						if(displacementDescriptionsNPC!=null
+								&& displacementDescriptionsNPC.containsKey(dt)
+								&& displacementDescriptionsNPC.get(dt).containsKey(DisplacementDescriptionType.NPC_ON_NPC_REPLACEMENT)) {
+							return UtilText.parse(clothingRemover, clothingOwner,displacementDescriptionsNPC.get(dt).get(DisplacementDescriptionType.NPC_ON_NPC_REPLACEMENT));
+						}
+						return UtilText.parse(clothingRemover, clothingOwner, "[npc.Name] "+dt.getOppositeDescriptionThirdPerson()+" [npc2.name]'s "+this.getName()+".");
+					}
+				}
 			}
 		}
 	}
 	
 	public boolean isCanBeEquipped(GameCharacter clothingOwner) {
+		// This might not be the most efficient way of making this method, but I found it to be easily-readable:
+		if(clothingOwner.hasPenisIgnoreDildo() && this.getItemTags().contains(ItemTag.REQUIRES_NO_PENIS)) {
+			return false;
+		}
+		if(!clothingOwner.hasPenisIgnoreDildo() && this.getItemTags().contains(ItemTag.REQUIRES_PENIS)) {
+			return false;
+		}
+		if(clothingOwner.hasVagina() && this.getItemTags().contains(ItemTag.REQUIRES_NO_VAGINA)) {
+			return false;
+		}
+		if(!clothingOwner.hasVagina() && this.getItemTags().contains(ItemTag.REQUIRES_VAGINA)) {
+			return false;
+		}
 		return true;
 	}	
 
-	public String getCannotBeEquippedText(GameCharacter characterClothingOwner) {
-		return "";
-	}	
-	
-	/**
-	 * @return True if this clothing is blocking the CoverableArea from sight.
-	 */
-	public boolean isBlocksFromSight() {
-		return true;
+	public String getCannotBeEquippedText(GameCharacter clothingOwner) {
+		if(clothingOwner.hasPenisIgnoreDildo() && this.getItemTags().contains(ItemTag.REQUIRES_NO_PENIS)) {
+			if(clothingOwner.isPlayer()) {
+				return "You have a penis, which is blocking you from wearing the "+this.getName()+"!";
+			} else {
+				return UtilText.parse(clothingOwner,
+						"[npc.Name] has a penis, which is blocking [npc.herHim] from wearing the "+this.getName()+"!");
+			}
+		}
+		
+		if(!clothingOwner.hasPenisIgnoreDildo() && this.getItemTags().contains(ItemTag.REQUIRES_PENIS)) {
+			if(clothingOwner.isPlayer()) {
+				return "You don't have a penis, so you can't wear the "+this.getName()+"!";
+			} else {
+				return UtilText.parse(clothingOwner,
+						"[npc.Name] doesn't have a penis, so [npc.she] can't wear the "+this.getName()+"!");
+			}
+		}
+		
+		if(clothingOwner.hasVagina() && this.getItemTags().contains(ItemTag.REQUIRES_NO_VAGINA)) {
+			if(clothingOwner.isPlayer()) {
+				return "You have a vagina, which is blocking you from wearing the "+this.getName()+"!";
+			} else {
+				return UtilText.parse(clothingOwner,
+						"[npc.Name] has a vagina, which is blocking [npc.herHim] from wearing the "+this.getName()+"!");
+			}
+		}
+		
+		if(!clothingOwner.hasVagina() && this.getItemTags().contains(ItemTag.REQUIRES_VAGINA)) {
+			if(clothingOwner.isPlayer()) {
+				return "You don't have a vagina, so you can't wear the "+this.getName()+"!";
+			} else {
+				return UtilText.parse(clothingOwner,
+						"[npc.Name] doesn't have a vagina, so [npc.she] can't wear the "+this.getName()+"!");
+			}
+		}
+		
+		if(clothingOwner.isPlayer()) {
+			return "You cannot wear the "+this.getName()+"!";
+		} else {
+			return UtilText.parse(clothingOwner,
+					"[npc.Name] cannot wear the "+this.getName()+"!");
+		}
 	}
 	
 	public boolean isMufflesSpeech() {
+		return false;
+	}
+	
+	public boolean isHindersLegMovement() {
+		return false;
+	}
+	
+	public boolean isHindersArmMovement() {
 		return false;
 	}
 	
@@ -785,6 +1442,23 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		}
 	}
 
+	public String getSVGImage() {
+		Colour pColour = Colour.CLOTHING_BLACK;
+		if(this.getAllAvailablePrimaryColours()!=null && !this.getAllAvailablePrimaryColours().isEmpty()) {
+			pColour = this.getAllAvailablePrimaryColours().get(0);
+		}
+		Colour sColour = Colour.CLOTHING_BLACK;
+		if(this.getAllAvailableSecondaryColours()!=null && !this.getAllAvailableSecondaryColours().isEmpty()) {
+			sColour = this.getAllAvailableSecondaryColours().get(0);
+		}
+		Colour tColour = Colour.CLOTHING_BLACK;
+		if(this.getAllAvailableTertiaryColours()!=null && !this.getAllAvailableTertiaryColours().isEmpty()) {
+			tColour = this.getAllAvailableTertiaryColours().get(0);
+		}
+		
+		return getSVGImage(null, pColour, sColour, tColour, false);
+	}
+	
 	/**
 	 * @param colour You need to pass a colour in here.
 	 * @param colourSecondary This can be null.
@@ -875,8 +1549,21 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 				} else {
 					if (getAllAvailablePrimaryColours().contains(colour)) {
 						try {
-							InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/clothing/" + pathNameEquipped + ".svg");
-							String s = Util.inputStreamToString(is);
+							
+							InputStream is;
+							String s;
+							if(isMod) {
+								List<String> lines = Files.readAllLines(Paths.get(pathNameEquipped));
+								StringBuilder sb = new StringBuilder();
+								for(String line : lines) {
+									sb.append(line);
+								}
+								s = sb.toString();
+							} else {
+								is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/clothing/" + pathNameEquipped + ".svg");
+								s = Util.inputStreamToString(is);
+								is.close();
+							}
 							
 							s = Util.colourReplacement(this.getId(), colour, colourSecondary, colourTertiary, s);
 							
@@ -896,8 +1583,6 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 
 							addSVGStringEquippedMapping(colour, colourSecondary, colourTertiary, s);
 							
-							is.close();
-		
 							return s;
 						} catch (IOException e) {
 							e.printStackTrace();
@@ -913,8 +1598,21 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 				} else {
 					if (getAllAvailablePrimaryColours().contains(colour)) {
 						try {
-							InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/clothing/" + pathName + ".svg");
-							String s = Util.inputStreamToString(is);
+							
+							InputStream is;
+							String s;
+							if(isMod) {
+								List<String> lines = Files.readAllLines(Paths.get(pathName));
+								StringBuilder sb = new StringBuilder();
+								for(String line : lines) {
+									sb.append(line);
+								}
+								s = sb.toString();
+							} else {
+								is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/clothing/" + pathName + ".svg");
+								s = Util.inputStreamToString(is);
+								is.close();
+							}
 							
 							s = Util.colourReplacement(this.getId(), colour, colourSecondary, colourTertiary, s);
 							
@@ -934,7 +1632,6 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 							
 							addSVGStringMapping(colour, colourSecondary, colourTertiary, s);
 							
-							is.close();
 		
 							return s;
 						} catch (IOException e) {
@@ -967,11 +1664,15 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	// Enchantments:
 	
 	public int getEnchantmentLimit() {
-		int base = (getClothingSet()==null?5:10);
-		return base + getIncompatibleSlots().size()*base;
+		if(enchantmentLimit==-1) {
+			int base = (getClothingSet()==null?5:10);
+			return base + getIncompatibleSlots().size()*base;
+		} else {
+			return enchantmentLimit;
+		}
 	}
 	
-	public ItemEffectType getEnchantmentEffect() {
+	public AbstractItemEffectType getEnchantmentEffect() {
 		return ItemEffectType.CLOTHING;
 	}
 	
@@ -981,5 +1682,9 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	
 	public AbstractClothingType getEnchantmentItemType(List<ItemEffect> effects) {
 		return this;
+	}
+
+	public List<ItemTag> getItemTags() {
+		return itemTags;
 	}
 }

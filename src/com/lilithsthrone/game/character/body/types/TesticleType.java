@@ -7,13 +7,15 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 
 /**
  * @since 0.1.83
- * @version 0.2.1
+ * @version 0.2.5
  * @author Innoxia
  */
 public enum TesticleType implements BodyPartTypeInterface {
 	
 	NONE(null, FluidType.CUM_HUMAN, null, false),
 
+	DILDO(BodyCoveringType.RUBBER, FluidType.CUM_HUMAN, Race.HUMAN, false),
+	
 	HUMAN(BodyCoveringType.PENIS, FluidType.CUM_HUMAN, Race.HUMAN, false),
 
 	ANGEL(BodyCoveringType.PENIS, FluidType.CUM_ANGEL, Race.ANGEL, false),
@@ -38,7 +40,13 @@ public enum TesticleType implements BodyPartTypeInterface {
 
 	AVIAN(BodyCoveringType.PENIS, FluidType.CUM_HARPY, Race.HARPY, true),
 	
-	SQUIRREL(BodyCoveringType.SQUIRREL_FUR, FluidType.CUM_SQUIRREL_MORPH, Race.SQUIRREL_MORPH, false);
+	SQUIRREL(BodyCoveringType.SQUIRREL_FUR, FluidType.CUM_SQUIRREL_MORPH, Race.SQUIRREL_MORPH, false),
+
+	RAT_MORPH(BodyCoveringType.PENIS, FluidType.CUM_RAT_MORPH, Race.RAT_MORPH, false),
+	
+	RABBIT_MORPH(BodyCoveringType.PENIS, FluidType.CUM_RABBIT_MORPH, Race.RABBIT_MORPH, false),
+
+	BAT_MORPH(BodyCoveringType.PENIS, FluidType.CUM_BAT_MORPH, Race.BAT_MORPH, false);
 
 	
 	private BodyCoveringType skinType;

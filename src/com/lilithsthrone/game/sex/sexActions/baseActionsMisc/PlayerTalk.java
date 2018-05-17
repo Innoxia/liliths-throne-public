@@ -20,7 +20,6 @@ import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 
 /**
  * @since 0.1.79
@@ -51,24 +50,31 @@ public class PlayerTalk {
 		public String getActionTitle() {
 			switch(Sex.getSexPace(Main.game.getPlayer())) {
 				case DOM_GENTLE:
-					return "Dirty talk";
 				case DOM_NORMAL:
+				case SUB_EAGER:
+				case SUB_NORMAL:
 					return "Dirty talk";
 				case DOM_ROUGH:
 					return "Rough talk";
-				case SUB_EAGER:
-					return "Dirty talk";
-				case SUB_NORMAL:
-					return "Dirty talk";
 				case SUB_RESISTING:
-					return "Beg for [npc.herHim] to stop";
-				default:
-					return "Dirty talk";
+					return "Beg to stop";
 			}
+			return "Dirty talk";
 		}
 
 		@Override
 		public String getActionDescription() {
+			switch(Sex.getSexPace(Main.game.getPlayer())) {
+				case DOM_GENTLE:
+				case DOM_NORMAL:
+				case SUB_EAGER:
+				case SUB_NORMAL:
+					return "Talk dirty to [npc.name].";
+				case DOM_ROUGH:
+					return "Talk rough to [npc.name].";
+				case SUB_RESISTING:
+					return "Beg for [npc.herHim] to stop using you.";
+			}
 			return "Talk dirty to [npc.name].";
 		}
 
@@ -192,11 +198,11 @@ public class PlayerTalk {
 		public List<Fetish> getFetishes(GameCharacter character) {
 			if(character.isPlayer()) {
 				if(Sex.getSexPace(Main.game.getPlayer())==SexPace.SUB_RESISTING) {
-					return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_SUB));
+					return Util.newArrayListOfValues(Fetish.FETISH_NON_CON_SUB);
 				}
 			} else {
 				if(Sex.getSexPace(Main.game.getPlayer())==SexPace.SUB_RESISTING) {
-					return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_DOM));
+					return Util.newArrayListOfValues(Fetish.FETISH_NON_CON_DOM);
 				}
 			}
 			
@@ -289,14 +295,14 @@ public class PlayerTalk {
 		public List<Fetish> getFetishes(GameCharacter character) {
 			if(character.isPlayer()) {
 				if(Main.game.getPlayer().getVaginaType()!=VaginaType.NONE) {
-					return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_RECEIVING), new ListValue<>(Fetish.FETISH_PURE_VIRGIN));
+					return Util.newArrayListOfValues(Fetish.FETISH_ANAL_RECEIVING, Fetish.FETISH_PURE_VIRGIN);
 					
 				} else {
-					return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_RECEIVING));
+					return Util.newArrayListOfValues(Fetish.FETISH_ANAL_RECEIVING);
 				}
 				
 			} else {
-				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_GIVING));
+				return Util.newArrayListOfValues(Fetish.FETISH_ANAL_GIVING);
 			}
 		}
 	};
@@ -343,10 +349,10 @@ public class PlayerTalk {
 		@Override
 		public List<Fetish> getFetishes(GameCharacter character) {
 			if(character.isPlayer()) {
-				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ORAL_GIVING));
+				return Util.newArrayListOfValues(Fetish.FETISH_ORAL_GIVING);
 				
 			} else {
-				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ORAL_RECEIVING));
+				return Util.newArrayListOfValues(Fetish.FETISH_ORAL_RECEIVING);
 			}
 		}
 	};
@@ -394,10 +400,10 @@ public class PlayerTalk {
 		@Override
 		public List<Fetish> getFetishes(GameCharacter character) {
 			if(character.isPlayer()) {
-				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_BREASTS_SELF));
+				return Util.newArrayListOfValues(Fetish.FETISH_BREASTS_SELF);
 				
 			} else {
-				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_BREASTS_OTHERS));
+				return Util.newArrayListOfValues(Fetish.FETISH_BREASTS_OTHERS);
 			}
 		}
 	};
@@ -447,10 +453,10 @@ public class PlayerTalk {
 		@Override
 		public List<Fetish> getFetishes(GameCharacter character) {
 			if(character.isPlayer()) {
-				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_BREASTS_SELF));
+				return Util.newArrayListOfValues(Fetish.FETISH_BREASTS_SELF);
 				
 			} else {
-				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_BREASTS_OTHERS));
+				return Util.newArrayListOfValues(Fetish.FETISH_BREASTS_OTHERS);
 			}
 		}
 	};
@@ -500,9 +506,9 @@ public class PlayerTalk {
 		@Override
 		public List<Fetish> getFetishes(GameCharacter character) {
 			if(character.isPlayer()) {
-				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_BREASTS_SELF));
+				return Util.newArrayListOfValues(Fetish.FETISH_BREASTS_SELF);
 			} else {
-				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_BREASTS_OTHERS));
+				return Util.newArrayListOfValues(Fetish.FETISH_BREASTS_OTHERS);
 			}
 		}
 	};

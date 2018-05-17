@@ -152,7 +152,10 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements Seriali
 		element = (Element)parentElement.getElementsByTagName("spells").item(0);
 		for(int i=0; i<element.getElementsByTagName("spell").getLength(); i++){
 			Element e = ((Element)element.getElementsByTagName("spell").item(i));
-			weapon.spells.add(Spell.valueOf(e.getAttribute("value")));
+			try {
+				weapon.spells.add(Spell.valueOf(e.getAttribute("value")));
+			} catch(Exception ex) {
+			}
 		}
 		
 		return weapon;
@@ -211,7 +214,7 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements Seriali
 						descriptionSB.append(", ");
 				}
 
-				descriptionSB.append("<b style='color:" + s.getDamageType().getMultiplierAttribute().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(s.getName()) + "</b>");
+				descriptionSB.append("<b style='color:" + s.getSpellSchool().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(s.getName()) + "</b>");
 				i++;
 			}
 			descriptionSB.append(".</p>");
@@ -308,8 +311,8 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements Seriali
 		return this.getWeaponType().getUnableToBeUsedDescription();
 	}
 	
-	public String applyExtraEfects(GameCharacter user, GameCharacter target) {
-		return this.getWeaponType().applyExtraEfects(user, target);
+	public String applyExtraEfects(GameCharacter user, GameCharacter target, boolean isHit) {
+		return this.getWeaponType().applyExtraEfects(user, target, isHit);
 	}
 
 }

@@ -16,7 +16,6 @@ import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 
 /**
  * @since 0.1.82
@@ -117,7 +116,7 @@ public class PartnerTailAnus {
 		
 		@Override
 		public List<Fetish> getFetishes(GameCharacter character) {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DENIAL));
+			return Util.newArrayListOfValues(Fetish.FETISH_DENIAL);
 		}
 	};
 	
@@ -141,7 +140,7 @@ public class PartnerTailAnus {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isDom(Main.game.getPlayer()) ||Sex.isConsensual();
+			return Sex.getSexPace(Main.game.getPlayer()) != SexPace.SUB_RESISTING;
 		}
 
 		@Override
@@ -203,12 +202,12 @@ public class PartnerTailAnus {
 		
 		@Override
 		public void applyEffects() {
-			Sex.transferLubrication(Main.game.getPlayer(), Sex.getActivePartner(), PenetrationType.TAIL, OrificeType.ANUS);
+			Sex.transferLubrication(Sex.getActivePartner(), Main.game.getPlayer(), PenetrationType.TAIL, OrificeType.ANUS);
 		}
 		
 		@Override
 		public List<Fetish> getFetishes(GameCharacter character) {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DENIAL));
+			return Util.newArrayListOfValues(Fetish.FETISH_DENIAL);
 		}
 	};
 	
@@ -1042,7 +1041,7 @@ public class PartnerTailAnus {
 	
 	public static final SexAction PLAYER_FUCKED_SUB_RESIST = new SexAction(
 			SexActionType.PLAYER,
-			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.ZERO_NONE,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ZERO_PURE,
 			PenetrationType.TAIL,

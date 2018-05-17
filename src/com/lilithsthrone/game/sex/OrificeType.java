@@ -12,21 +12,23 @@ public enum OrificeType {
 	MOUTH(2,
 			-0.5f, -0.5f, -1f,
 			0.5f, -0.5f ,-1f,
-			2) {
+			2,
+			true) {
 		@Override
 		public String getName(GameCharacter owner) {
 			return "mouth";
 		}
 		@Override
 		public boolean isFree(GameCharacter owner) {
-			return Sex.isOrificeFree(owner, this);
+			return Sex.isOrificeFree(owner, this) && Sex.isPenetrationTypeFree(owner, PenetrationType.TONGUE);
 		}
 	},
 	
 	NIPPLE(2,
 			-0.5f, -0.5f, -1f,
 			0.5f, -0.5f ,-1f,
-			5) {
+			5,
+			true) {
 		@Override
 		public String getName(GameCharacter owner) {
 			return owner.getNippleName();
@@ -44,7 +46,8 @@ public enum OrificeType {
 	BREAST(1,
 			-0.5f, -0.5f, -1f,
 			0.5f, -0.5f ,-1f,
-			5) {
+			5,
+			false) {
 		@Override
 		public String getName(GameCharacter owner) {
 			return owner.getBreastName();
@@ -62,7 +65,8 @@ public enum OrificeType {
 	ASS(1,
 			-0.5f, -0.5f, -1f,
 			0.5f, -0.5f ,-1f,
-			5) {
+			5,
+			false) {
 		@Override
 		public String getName(GameCharacter owner) {
 			return owner.getAssName(false);
@@ -76,7 +80,8 @@ public enum OrificeType {
 	ANUS(2,
 			-0.5f, -0.5f, -1f,
 			0.5f, -0.5f ,-1f,
-			5) {
+			5,
+			true) {
 		@Override
 		public String getName(GameCharacter owner) {
 			return owner.getAnusName(false);
@@ -90,7 +95,8 @@ public enum OrificeType {
 	VAGINA(4,
 			-0.5f, -0.5f, -1f,
 			0.5f, -0.5f ,-1f,
-			5) {
+			5,
+			true) {
 		@Override
 		public String getName(GameCharacter owner) {
 			return owner.getVaginaName(false);
@@ -104,7 +110,8 @@ public enum OrificeType {
 	THIGHS(1,
 			-0.5f, -0.5f, -1f,
 			0.5f, -0.5f ,-1f,
-			5) {
+			5,
+			false) {
 		@Override
 		public String getName(GameCharacter owner) {
 			return "thighs";
@@ -119,17 +126,33 @@ public enum OrificeType {
 		}
 	},
 	
-	URETHRA(1,
+	URETHRA_VAGINA(1,
 			-0.5f, -0.5f, -1f,
 			0.5f, -0.5f ,-1f,
-			5) {
+			5,
+			true) {
 		@Override
 		public String getName(GameCharacter owner) {
 			return "urethra";
 		}
 		@Override
 		public boolean isFree(GameCharacter owner) {
-			return Sex.isPenetrationTypeFree(owner, PenetrationType.PENIS);
+			return Sex.isOrificeFree(owner, this);
+		}
+	},
+	
+	URETHRA_PENIS(1,
+			-0.5f, -0.5f, -1f,
+			0.5f, -0.5f ,-1f,
+			5,
+			true) {
+		@Override
+		public String getName(GameCharacter owner) {
+			return "urethra";
+		}
+		@Override
+		public boolean isFree(GameCharacter owner) {
+			return Sex.isOrificeFree(owner, this) && Sex.isPenetrationTypeFree(owner, PenetrationType.PENIS);
 		}
 	};
 
@@ -141,6 +164,7 @@ public enum OrificeType {
 	private float arousalChangePenetratingTooLoose;
 	private float arousalChangePenetratingDry;
 	private int cumLossPerMinute;
+	private boolean takesPenisVirginity;
 
 	private OrificeType(float baseArousalWhenPenetrated,
 			float arousalChangePenetratedStretching,
@@ -149,7 +173,8 @@ public enum OrificeType {
 			float arousalChangePenetratingStretching,
 			float arousalChangePenetratingTooLoose,
 			float arousalChangePenetratingDry,
-			int cumLossPerMinute) {
+			int cumLossPerMinute,
+			boolean takesPenisVirginity) {
 		this.baseArousalWhenPenetrated = baseArousalWhenPenetrated;
 		this.arousalChangePenetratedStretching = arousalChangePenetratedStretching;
 		this.arousalChangePenetratedTooLoose = arousalChangePenetratedTooLoose;
@@ -158,6 +183,7 @@ public enum OrificeType {
 		this.arousalChangePenetratingTooLoose = arousalChangePenetratingTooLoose;
 		this.arousalChangePenetratingDry = arousalChangePenetratingDry;
 		this.cumLossPerMinute = cumLossPerMinute;
+		this.takesPenisVirginity = takesPenisVirginity;
 	}
 
 	public abstract String getName(GameCharacter owner);
@@ -198,6 +224,10 @@ public enum OrificeType {
 
 	public int getCumLossPerMinute() {
 		return cumLossPerMinute;
+	}
+
+	public boolean isTakesPenisVirginity() {
+		return takesPenisVirginity;
 	}
 	
 }

@@ -39,5 +39,10 @@ public class SMRoseHands extends SexManagerDefault {
 	public boolean isAbleToRemoveOthersClothing(GameCharacter character){
 		return false;
 	}
+	
+	@Override
+	public boolean isPlayerAbleToSwapPositions() {
+		return false;
+	}
 
 }

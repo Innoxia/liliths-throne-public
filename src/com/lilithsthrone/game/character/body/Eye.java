@@ -12,7 +12,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.1.83
+ * @version 0.2.2
  * @author Innoxia
  */
 public class Eye implements BodyPartInterface, Serializable {
@@ -195,6 +195,45 @@ public class Eye implements BodyPartInterface, Serializable {
 								+ "[npc.Name] now has [style.boldSquirrelMorph(squirrel-like eyes)]");
 				}
 				break;
+			case RAT_MORPH:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+								" By the time you hesitantly open them again, they've changed into rat-like eyes, with larger-than-average pupils and small irises."
+								+ "</br>"
+								+ "You now have [style.boldRatMorph(rat-like eyes)]");
+				} else {
+					UtilText.transformationContentSB.append(
+								" By the time [npc.she] hesitantly opens them again, they've changed into rat-like eyes, with larger-than-average pupils and small irises."
+								+ "</br>"
+								+ "[npc.Name] now has [style.boldRatMorph(rat-like eyes)]");
+				}
+				break;
+			case RABBIT_MORPH:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+								" By the time you hesitantly open them again, they've changed into rabbit-like eyes, with larger-than-average pupils and small irises."
+								+ "</br>"
+								+ "You now have [style.boldRabbitMorph(rabbit-like eyes)]");
+				} else {
+					UtilText.transformationContentSB.append(
+								" By the time [npc.she] hesitantly opens them again, they've changed into rabbit-like eyes, with larger-than-average pupils and small irises."
+								+ "</br>"
+								+ "[npc.Name] now has [style.boldRabbitMorph(rabbit-like eyes)]");
+				}
+				break;
+			case BAT_MORPH:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+								" By the time you hesitantly open them again, they've changed into bat-like eyes, with larger-than-average pupils and small irises."
+								+ "</br>"
+								+ "You now have [style.boldBatMorph(bat-like eyes)]");
+				} else {
+					UtilText.transformationContentSB.append(
+								" By the time [npc.she] hesitantly opens them again, they've changed into bat-like eyes, with larger-than-average pupils and small irises."
+								+ "</br>"
+								+ "[npc.Name] now has [style.boldBatMorph(bat-like eyes)]");
+				}
+				break;
 			case ALLIGATOR_MORPH:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
@@ -366,7 +405,9 @@ public class Eye implements BodyPartInterface, Serializable {
 	}
 	
 	public String setEyeCovering(GameCharacter owner, Covering covering) {
-		if(owner.getCovering(owner.getEyeType().getBodyCoveringType(owner)).equals(covering) || owner.getCovering(BodyCoveringType.EYE_PUPILS).equals(covering)) {
+		if(owner.getCovering(owner.getEyeType().getBodyCoveringType(owner)).equals(covering)
+				|| owner.getCovering(BodyCoveringType.EYE_PUPILS).equals(covering)
+				|| owner.getCovering(BodyCoveringType.EYE_SCLERA).equals(covering)) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 		}
 		
@@ -385,11 +426,15 @@ public class Eye implements BodyPartInterface, Serializable {
 			} else {
 				UtilText.transformationContentSB.append("[pc.irisPrimaryColour(true)] [pc.irisShape] irises ");
 			}
-			
 			if(covering.getPattern() == CoveringPattern.EYE_PUPILS_HETEROCHROMATIC) {
-				UtilText.transformationContentSB.append("with heterochromatic [pc.pupilPrimaryColour(true)] and [pc.pupilSecondaryColour(true)] [pc.pupilShape] pupils.</p>");
+				UtilText.transformationContentSB.append("with heterochromatic [pc.pupilPrimaryColour(true)]-and-[pc.pupilSecondaryColour(true)] [pc.pupilShape] pupils ");
 			} else {
-				UtilText.transformationContentSB.append("with [pc.pupilPrimaryColour(true)] [pc.pupilShape] pupils.</p>");
+				UtilText.transformationContentSB.append("with [pc.pupilPrimaryColour(true)] [pc.pupilShape] pupils ");
+			}
+			if(covering.getPattern() == CoveringPattern.EYE_SCLERA_HETEROCHROMATIC) {
+				UtilText.transformationContentSB.append("and heterochromatic [pc.scleraPrimaryColour(true)]-and-[pc.scleraSecondaryColour(true)] sclerae.</p>");
+			} else {
+				UtilText.transformationContentSB.append("and [pc.scleraPrimaryColour(true)] sclerae.</p>");
 			}
 			
 		} else {
@@ -399,15 +444,19 @@ public class Eye implements BodyPartInterface, Serializable {
 						+ "[npc.She] now has ");
 		
 			if(covering.getPattern() == CoveringPattern.EYE_IRISES_HETEROCHROMATIC) {
-				UtilText.transformationContentSB.append("heterochromatic [pc.irisPrimaryColour(true)] and [pc.irisSecondaryColour(true)] [npc.irisShape] irises, ");
+				UtilText.transformationContentSB.append("heterochromatic [npc.irisPrimaryColour(true)]-and-[npc.irisSecondaryColour(true)] [npc.irisShape] irises, ");
 			} else {
-				UtilText.transformationContentSB.append("[pc.irisPrimaryColour(true)] [npc.irisShape] irises ");
+				UtilText.transformationContentSB.append("[npc.irisPrimaryColour(true)] [npc.irisShape] irises ");
 			}
-			
 			if(covering.getPattern() == CoveringPattern.EYE_PUPILS_HETEROCHROMATIC) {
-				UtilText.transformationContentSB.append("with heterochromatic [pc.pupilPrimaryColour(true)] and [pc.pupilSecondaryColour(true)] [npc.pupilShape] pupils.</p>");
+				UtilText.transformationContentSB.append("with heterochromatic [npc.pupilPrimaryColour(true)]-and-[npc.pupilSecondaryColour(true)] [npc.pupilShape] pupils ");
 			} else {
-				UtilText.transformationContentSB.append("with [pc.pupilPrimaryColour(true)] [npc.pupilShape] pupils.</p>");
+				UtilText.transformationContentSB.append("with [npc.pupilPrimaryColour(true)] [npc.pupilShape] pupils ");
+			}
+			if(covering.getPattern() == CoveringPattern.EYE_SCLERA_HETEROCHROMATIC) {
+				UtilText.transformationContentSB.append("and heterochromatic [npc.scleraPrimaryColour(true)]-and-[npc.scleraSecondaryColour(true)] sclerae.</p>");
+			} else {
+				UtilText.transformationContentSB.append("and [npc.scleraPrimaryColour(true)] sclerae.</p>");
 			}
 		}
 		

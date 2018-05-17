@@ -6,7 +6,6 @@ import java.util.Map;
 
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -26,19 +25,19 @@ public enum WorldType {
 //			PlaceType.DOMINION_STREET,
 //			PlaceType.DOMINION_BACK_ALLEYS,
 //			Util.newArrayListOfValues(
-//					new ListValue<PlaceType>(PlaceType.),
-//					new ListValue<PlaceType>(PlaceType.),
-//					new ListValue<PlaceType>(PlaceType.),
-//					new ListValue<PlaceType>(PlaceType.),
-//					new ListValue<PlaceType>(PlaceType.),
-//					new ListValue<PlaceType>(PlaceType.),
-//					new ListValue<PlaceType>(PlaceType.),
-//					new ListValue<PlaceType>(PlaceType.),
+//					PlaceType.,
+//					PlaceType.,
+//					PlaceType.,
+//					PlaceType.,
+//					PlaceType.,
+//					PlaceType.,
+//					PlaceType.,
+//					PlaceType.,
 //
 //			Util.newArrayListOfValues(
-//					new ListValue<PlaceType>(PlaceType.),
-//					new ListValue<PlaceType>(PlaceType.DOMINION_DARK_ALLEYS),
-//					new ListValue<PlaceType>(PlaceType.DOMINION_DARK_ALLEYS))),
+//					PlaceType.,
+//					PlaceType.DOMINION_DARK_ALLEYS,
+//					PlaceType.DOMINION_DARK_ALLEYS)),
 
 	DOMINION("Dominion",
 			Colour.BASE_PURPLE,
@@ -78,7 +77,8 @@ public enum WorldType {
 					new Value<>(new Color(0x0000ff), PlaceType.DOMINION_ENFORCER_HQ),
 					new Value<>(new Color(0x000080), PlaceType.DOMINION_NIGHTLIFE_DISTRICT),
 					new Value<>(new Color(0xff0000), PlaceType.DOMINION_SLAVER_ALLEY),
-					new Value<>(new Color(0x4bff00), PlaceType.DOMINION_PARK)
+					new Value<>(new Color(0x4bff00), PlaceType.DOMINION_PARK),
+					new Value<>(new Color(0xff4000), PlaceType.DOMINION_RED_LIGHT_DISTRICT)
 					
 					)),
 	
@@ -187,7 +187,6 @@ public enum WorldType {
 			1,
 			"/com/lilithsthrone/res/map/dominion/slaverAlley/slaverAlley.png",
 			Util.newHashMapOfValues(
-					
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					new Value<>(new Color(0x808080), PlaceType.SLAVER_ALLEY_PATH),
 					new Value<>(new Color(0xff0000), PlaceType.SLAVER_ALLEY_ENTRANCE),
@@ -195,15 +194,13 @@ public enum WorldType {
 					new Value<>(new Color(0x0000ff), PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION),
 					new Value<>(new Color(0xff0080), PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP),
 					new Value<>(new Color(0xffff00), PlaceType.SLAVER_ALLEY_AUCTIONING_BLOCK),
-					new Value<>(new Color(0x00ff00), PlaceType.SLAVER_ALLEY_PUBLIC_STOCKS),
-					new Value<>(new Color(0x0080ff), PlaceType.SLAVER_ALLEY_BROTHEL))),
+					new Value<>(new Color(0x00ff00), PlaceType.SLAVER_ALLEY_PUBLIC_STOCKS))),
 	
 	SHOPPING_ARCADE("Shopping Arcade",
 			Colour.BASE_YELLOW,
 			1,
 			"/com/lilithsthrone/res/map/dominion/shoppingArcade/shoppingArcade.png",
 			Util.newHashMapOfValues(
-					
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					new Value<>(new Color(0x808080), PlaceType.SHOPPING_ARCADE_PATH),
 					new Value<>(new Color(0xff0000), PlaceType.SHOPPING_ARCADE_ENTRANCE),
@@ -227,7 +224,6 @@ public enum WorldType {
 			1,
 			"/com/lilithsthrone/res/map/dominion/shoppingArcade/supplierDen.png",
 			Util.newHashMapOfValues(
-					
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					new Value<>(new Color(0x808080), PlaceType.SUPPLIER_DEPOT_CORRIDOR),
 					new Value<>(new Color(0xff0000), PlaceType.SUPPLIER_DEPOT_ENTRANCE),
@@ -239,7 +235,6 @@ public enum WorldType {
 			1,
 			"/com/lilithsthrone/res/map/dominion/enforcerHQ/enforcerHQ.png",
 			Util.newHashMapOfValues(
-					
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					new Value<>(new Color(0x808080), PlaceType.ENFORCER_HQ_CORRIDOR),
 					new Value<>(new Color(0xff0000), PlaceType.ENFORCER_HQ_ENTRANCE),
@@ -247,6 +242,30 @@ public enum WorldType {
 					new Value<>(new Color(0x8000ff), PlaceType.ENFORCER_HQ_WAITING_AREA),
 					new Value<>(new Color(0x0080ff), PlaceType.ENFORCER_HQ_RECEPTION_DESK),
 					new Value<>(new Color(0xff8000), PlaceType.ENFORCER_HQ_BRAXS_OFFICE))),
+
+	ANGELS_KISS_GROUND_FLOOR("Angel's Kiss",
+			Colour.BASE_MAGENTA,
+			1,
+			"/com/lilithsthrone/res/map/dominion/angelsKiss/angelsKissGroundFloor.png",
+			Util.newHashMapOfValues(
+					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
+					new Value<>(new Color(0x808080), PlaceType.ANGELS_KISS_CORRIDOR),
+					new Value<>(new Color(0x00ff00), PlaceType.ANGELS_KISS_ENTRANCE),
+					new Value<>(new Color(0xff0000), PlaceType.ANGELS_KISS_STAIRCASE_UP),
+					new Value<>(new Color(0x00ffff), PlaceType.ANGELS_KISS_OFFICE),
+					new Value<>(new Color(0xff00ff), PlaceType.ANGELS_KISS_BEDROOM))),
+	
+	ANGELS_KISS_FIRST_FLOOR("Angel's Kiss",
+			Colour.BASE_MAGENTA,
+			1,
+			"/com/lilithsthrone/res/map/dominion/angelsKiss/angelsKissFirstFloor.png",
+			Util.newHashMapOfValues(
+					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
+					new Value<>(new Color(0x808080), PlaceType.ANGELS_KISS_CORRIDOR),
+					new Value<>(new Color(0xff0000), PlaceType.ANGELS_KISS_STAIRCASE_DOWN),
+					new Value<>(new Color(0xff00ff), PlaceType.ANGELS_KISS_BEDROOM),
+					new Value<>(new Color(0xffff00), PlaceType.ANGELS_KISS_BEDROOM_BUNNY),
+					new Value<>(new Color(0xff8000), PlaceType.ANGELS_KISS_BEDROOM_LOPPY))),
 	
 	// Other:
 
@@ -278,6 +297,25 @@ public enum WorldType {
 					new Value<>(new Color(0xc8ff00), PlaceType.SUBMISSION_IMP_FORTRESS_5),
 					new Value<>(new Color(0xfaff00), PlaceType.SUBMISSION_IMP_FORTRESS_6))),
 
+	BAT_CAVERNS("Bat Caverns",
+			Colour.BASE_BLACK,
+			1,
+			"/com/lilithsthrone/res/map/submission/batCaverns/batCaverns.png",
+			Util.newHashMapOfValues(
+					
+					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
+
+					new Value<>(new Color(0x00ff00), PlaceType.BAT_CAVERN_ENTRANCE),
+					
+					new Value<>(new Color(0x008080), PlaceType.BAT_CAVERN_DARK),
+					new Value<>(new Color(0x808080), PlaceType.BAT_CAVERN_LIGHT),
+					
+					new Value<>(new Color(0x0080ff), PlaceType.BAT_CAVERN_RIVER),
+					new Value<>(new Color(0x40b4ff), PlaceType.BAT_CAVERN_RIVER_CROSSING),
+					new Value<>(new Color(0x004080), PlaceType.BAT_CAVERN_RIVER_END),
+					
+					new Value<>(new Color(0xff80ff), PlaceType.BAT_CAVERN_SLIME_QUEEN_LAIR))),
+	
 	JUNGLE(6,
 			"jungle",
 			Colour.BASE_GREEN_LIME,
@@ -285,11 +323,11 @@ public enum WorldType {
 			PlaceType.JUNGLE_PATH,
 			PlaceType.JUNGLE_DENSE_JUNGLE,
 			Util.newArrayListOfValues(
-					new ListValue<PlaceType>(PlaceType.JUNGLE_BROTHEL),
-					new ListValue<PlaceType>(PlaceType.JUNGLE_CLUB),
-					new ListValue<PlaceType>(PlaceType.JUNGLE_ENTRANCE)),
+					PlaceType.JUNGLE_BROTHEL,
+					PlaceType.JUNGLE_CLUB,
+					PlaceType.JUNGLE_ENTRANCE),
 
-			Util.newArrayListOfValues(new ListValue<PlaceType>(PlaceType.JUNGLE_TENTACLE_QUEENS_LAIR)));
+			Util.newArrayListOfValues(PlaceType.JUNGLE_TENTACLE_QUEENS_LAIR));
 
 	
 	private final String name, fileLocation;

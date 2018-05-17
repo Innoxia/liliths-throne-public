@@ -1,11 +1,13 @@
 package com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.body.BodyPartInterface;
 import com.lilithsthrone.game.character.body.Eye;
 import com.lilithsthrone.game.character.body.Hair;
@@ -29,7 +31,6 @@ import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.universal.SMChair;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
@@ -198,7 +199,7 @@ public class SuccubisSecrets {
 						+ "[pc.speech(Excuse me?)]"
 					+ "</p>"
 					+ "<p>"
-						+ "Her eyes instantly snap open, and as she lets out an annoyed huff, you realise that she was merely pretending to be asleep this whole time,"
+						+ "Her eyes instantly snap open, and as she lets out an annoyed huff, you realise that she was merely pretending to be asleep this whole time."
 						+ " [kate.speech(Am I really that rusty?! You didn't want to fuck me at all, not one little bit?"
 							+ " Y'know, that's one downside of not having any customers. I haven't had sex in, like, three whole days! And then, when someone finally arrives, they don't even want to have any fun!)]"
 					+ "</p>";
@@ -272,7 +273,7 @@ public class SuccubisSecrets {
 					+ "</p>"
 					+ "<p>"
 					+ "You can't take your eyes off of the lewd display before you, and you start to wonder how much longer she's going to keep this up."
-					+ " Just as you're deciding on what to do next, the demon suddenly opens her eyes, letting out an annoyed little huff as she stares right at you, "
+					+ " Just as you're deciding on what to do next, the demon suddenly opens her eyes, letting out an annoyed little huff as she stares right at you. "
 					+ UtilText.parseSpeech("How much longer do I have to do this for before you come over here and fuck me?! Y'know, that's one downside of not having any customers, I haven't had sex in, like, three whole days!",
 							Main.game.getKate())
 					+ "</p>";
@@ -340,7 +341,7 @@ public class SuccubisSecrets {
 						+ " you hear her beg, but you've already made up your mind."
 						+ "</p>"
 						+ "<p>"
-						+ UtilText.parsePlayerSpeech("Can you please cover yourself up?! I though this was a beauty salon, not a brothel...")
+						+ UtilText.parsePlayerSpeech("Can you please cover yourself up?! I thought this was a beauty salon, not a brothel...")
 						+" you say, your words coming out a little stronger than they might normally have done as you struggle to keep your lust under control."
 						+ "</p>"
 						+ "<p>"
@@ -356,7 +357,7 @@ public class SuccubisSecrets {
 						+" breasts, her wide hips and long, perfectly-formed legs finish her look as a top-class super-model."
 						+ "</p>"
 						+ "<p>"
-						+ "She seems to have got her own lust under control by now, and as she looks up, she seems rather ashamed of what she just did, "
+						+ "She seems to have got her own lust under control by now, and as she looks up, she seems rather ashamed of what she just did. "
 						+ UtilText.parseSpeech("Ehhh, sorry about that... You know, it's pretty hard for us demons sometimes... Anyway! What are you even doing in here?"
 								+ " Weren't you deterred by the boarded-up windows and stuff?",
 							Main.game.getKate())
@@ -378,7 +379,7 @@ public class SuccubisSecrets {
 						+ "<p>"
 						+ UtilText.parseSpeech("Well, I suppose I don't mind one customer every now and then. I could use the cash after all,",
 							Main.game.getKate())
-						+" she says, motioning for you to come and sit down, "
+						+" she says, motioning for you to come and sit down. "
 						+ UtilText.parseSpeech("Oh, and I'm Kate by the way. Now come over here and take a seat.",
 							Main.game.getKate())
 						+ "</p>"
@@ -424,16 +425,16 @@ public class SuccubisSecrets {
 						+ " With a yawn, she slowly sits up, still cradling her round tummy as she grins at you."
 						+ "</p>"
 						+ "<p>"
-						+ "[kate.speech(Hehe, look what you did!)] she laughs, [kate.speech(Mmm, it sure is nice being pregnant...)]"
+						+ "[kate.speech(Hehe, look what you did!)] she laughs. [kate.speech(Mmm, it sure is nice being pregnant...)]"
 						+ "</p>"
 						+ "<p>"
 						+ "She hands you a nearby brochure, and as you thank her, you can't help but feel quite taken aback at how casual she's acting about this."
 						+ "</p>"
 						+ "<p>"
-						+ "[pc.speech(Is there anything I can get for you?)] you ask, unsure of quite how to react to Kate's blas&eacute; attitude, [pc.speech(You don't seem very concerned about being pregnant...)]"
+						+ "[pc.speech(Is there anything I can get for you?)] you ask, unsure of quite how to react to Kate's blas&eacute; attitude. [pc.speech(You don't seem very concerned about being pregnant...)]"
 						+ "</p>"
 						+ "<p>"
-						+ "[kate.speech(Aww that's sweet of you, but I'm fine thanks. I love being pregnant!)] she laughs again, [kate.speech(It gives me an excuse to just lie around all day. Anyway, just let me know if you need something.)]"
+						+ "[kate.speech(Aww that's sweet of you, but I'm fine thanks. I love being pregnant!)] she laughs again. [kate.speech(It gives me an excuse to just lie around all day. Anyway, just let me know if you need something.)]"
 						+ "</p>"
 						+ "<p>"
 						+ "With that, she sinks back down into her chair, and before you can respond, her snores start to fill the empty shop once more..."
@@ -521,8 +522,8 @@ public class SuccubisSecrets {
 			};
 			
 		} else if (index == 2) {
-			if(Main.game.getPlayer().getBodyMaterial()==BodyMaterial.SLIME) {
-				return new Response("Makeup", "Kate is unable to apply any makeup to your slimy body!", null);
+			if(!Main.game.getPlayer().getBodyMaterial().isAbleToWearMakeup()) {
+				return new Response("Makeup", "As your body is made of "+Main.game.getPlayer().getBodyMaterial().getName()+", Kate is unable to apply any makeup!", null);
 				
 			} else {
 				return new Response("Makeup",
@@ -584,11 +585,11 @@ public class SuccubisSecrets {
 					CoveringsNamesMap = new LinkedHashMap<>();
 					
 					if(Main.game.getPlayer().getBodyMaterial()==BodyMaterial.SLIME) {
-						CoveringsNamesMap.put(BodyCoveringType.SLIME, Util.newArrayListOfValues(new ListValue<>("SLIME")));
+						CoveringsNamesMap.put(BodyCoveringType.SLIME, Util.newArrayListOfValues("SLIME"));
+						
 					} else {
 						for(BodyPartInterface bp : Main.game.getPlayer().getAllBodyParts()){
 							if(bp.getType().getBodyCoveringType(Main.game.getPlayer())!=null
-									&& bp.getType().getBodyCoveringType(Main.game.getPlayer()).getRace()!=null
 									&& !(bp instanceof Hair)
 									&& !(bp instanceof Eye)) {
 								
@@ -602,14 +603,32 @@ public class SuccubisSecrets {
 								if(CoveringsNamesMap.containsKey(bp.getType().getBodyCoveringType(Main.game.getPlayer()))) {
 									CoveringsNamesMap.get(bp.getType().getBodyCoveringType(Main.game.getPlayer())).add(name);
 								} else {
-									CoveringsNamesMap.put(bp.getType().getBodyCoveringType(Main.game.getPlayer()), Util.newArrayListOfValues(new ListValue<>(name)));
+									CoveringsNamesMap.put(bp.getType().getBodyCoveringType(Main.game.getPlayer()), Util.newArrayListOfValues(name));
 								}
 							}
 						}
-						CoveringsNamesMap.put(BodyCoveringType.ANUS, Util.newArrayListOfValues(new ListValue<>("anus")));
-						CoveringsNamesMap.put(BodyCoveringType.MOUTH, Util.newArrayListOfValues(new ListValue<>("mouth")));
-						CoveringsNamesMap.put(BodyCoveringType.NIPPLES, Util.newArrayListOfValues(new ListValue<>("nipples")));
-						CoveringsNamesMap.put(BodyCoveringType.TONGUE, Util.newArrayListOfValues(new ListValue<>("tongue")));
+
+						if(Main.getProperties().hasValue(PropertyValue.pubicHairContent)) {
+							CoveringsNamesMap.putIfAbsent(Main.game.getPlayer().getPubicHairType().getType(), new ArrayList<>());
+							CoveringsNamesMap.get(Main.game.getPlayer().getPubicHairType().getType()).add("growing around your pubic region");
+						}
+						if(Main.getProperties().hasValue(PropertyValue.facialHairContent)) {
+							CoveringsNamesMap.putIfAbsent(Main.game.getPlayer().getFacialHairType().getType(), new ArrayList<>());
+							CoveringsNamesMap.get(Main.game.getPlayer().getFacialHairType().getType()).add("covering your face");
+						}
+						if(Main.getProperties().hasValue(PropertyValue.bodyHairContent)) {
+							CoveringsNamesMap.putIfAbsent(Main.game.getPlayer().getBodyHairCoveringType(), new ArrayList<>());
+							CoveringsNamesMap.get(Main.game.getPlayer().getBodyHairCoveringType()).add("growing in your underarms");
+						}
+						if(Main.getProperties().hasValue(PropertyValue.assHairContent)) {
+							CoveringsNamesMap.putIfAbsent(Main.game.getPlayer().getAssHairType().getType(), new ArrayList<>());
+							CoveringsNamesMap.get(Main.game.getPlayer().getAssHairType().getType()).add("growing around your anus");
+						}
+						
+						CoveringsNamesMap.put(BodyCoveringType.ANUS, Util.newArrayListOfValues("anus"));
+						CoveringsNamesMap.put(BodyCoveringType.MOUTH, Util.newArrayListOfValues("mouth"));
+						CoveringsNamesMap.put(BodyCoveringType.NIPPLES, Util.newArrayListOfValues("nipples"));
+						CoveringsNamesMap.put(BodyCoveringType.TONGUE, Util.newArrayListOfValues("tongue"));
 					}
 
 					if(Main.game.getKate().isVisiblyPregnant() && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.reactedToKatePregnancy)) {
@@ -746,7 +765,7 @@ public class SuccubisSecrets {
 					title = "Slime";
 					description = "Your entire body is made of slime!";
 					
-				} if(bct == BodyCoveringType.ANUS) {
+				} else if(bct == BodyCoveringType.ANUS) {
 					title = "Anus";
 					description = "This is the skin that's currently covering your anal rim. The secondary colour determines what your anus's inner-walls look like.";
 					
@@ -773,7 +792,20 @@ public class SuccubisSecrets {
 				} else if(bct == BodyCoveringType.TONGUE) {
 					title = "Tongue";
 					description = "This is the skin that's currently covering your tongue.";
+				
+				} else if(Main.getProperties().hasValue(PropertyValue.pubicHairContent) && bct == Main.game.getPlayer().getPubicHairType().getType()) {
+					title = "Pubic "+bct.getName(Main.game.getPlayer());
+					description = "This is the "+bct.getName(Main.game.getPlayer())+" that's currently "+Util.stringsToStringList(entry.getValue(), false)+".";
+					
+				} else if(Main.getProperties().hasValue(PropertyValue.facialHairContent) && bct == Main.game.getPlayer().getFacialHairType().getType()) {
+					title = "Facial "+bct.getName(Main.game.getPlayer());
+					description = "This is the "+bct.getName(Main.game.getPlayer())+" that's currently "+Util.stringsToStringList(entry.getValue(), false)+".";
+					
+				} else if(Main.getProperties().hasValue(PropertyValue.bodyHairContent) && bct == Main.game.getPlayer().getBodyHairCoveringType()) {
+					title = "Body "+bct.getName(Main.game.getPlayer());
+					description = "This is the "+bct.getName(Main.game.getPlayer())+" that's currently "+Util.stringsToStringList(entry.getValue(), false)+".";
 				}
+					
 				
 				UtilText.nodeContentSB.append(CharacterModificationUtils.getKatesDivCoveringsNew(
 						true, 
@@ -823,7 +855,10 @@ public class SuccubisSecrets {
 							true, Main.game.getPlayer().getEyeType().getBodyCoveringType(Main.game.getPlayer()), "Irises", "The iris is the coloured part of the eye that's responsible for controlling the diameter and size of the pupil.", true, true)
 
 					+CharacterModificationUtils.getKatesDivCoveringsNew(
-							true, BodyCoveringType.EYE_PUPILS, "Pupils", "The pupil is a hole located in the centre of the iris that allows light to strike the retina.", true, true);
+							true, BodyCoveringType.EYE_PUPILS, "Pupils", "The pupil is a hole located in the centre of the iris that allows light to strike the retina.", true, true)
+
+					+CharacterModificationUtils.getKatesDivCoveringsNew(
+							true, BodyCoveringType.EYE_SCLERA, "Sclerae", "The sclera is the (typically white) part of the eye that surrounds the iris.", true, true);
 		}
 		
 		@Override
@@ -925,17 +960,18 @@ public class SuccubisSecrets {
 							?CharacterModificationUtils.getKatesDivUnderarmHair("Underarm hair", "The body hair found in your armpits.")
 							:"")
 					
-					+(Main.game.isBodyHairEnabled()
+					+(Main.game.isAssHairEnabled()
 							?CharacterModificationUtils.getKatesDivAssHair("Ass hair", "The body hair found around your asshole.")
 							:"")
 					);
 			
 			for(BodyCoveringType bct : BodyCoveringType.values()) {
 				if((Main.game.isFacialHairEnabled() && Main.game.getPlayer().getFacialHairType().getType()==bct)
-						|| (Main.game.isBodyHairEnabled() && (Main.game.getPlayer().getUnderarmHairType().getType()==bct || Main.game.getPlayer().getAssHairType().getType()==bct))
+						|| (Main.game.isBodyHairEnabled() && Main.game.getPlayer().getUnderarmHairType().getType()==bct)
+						|| (Main.game.isAssHairEnabled() &&  Main.game.getPlayer().getAssHairType().getType()==bct)
 						|| (Main.game.isPubicHairEnabled() && Main.game.getPlayer().getPubicHairType().getType()==bct)) {
 					UtilText.nodeContentSB.append(CharacterModificationUtils.getKatesDivCoveringsNew(
-							true, bct, "Body hair", "This is your body hair ("+bct.getRace().getName()+").", true, true));
+							true, bct, "Body hair", "Your body hair.", true, true));
 					
 				}
 			}

@@ -14,21 +14,20 @@ import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.Rarity;
-import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.84
- * @version 0.2.0
+ * @version 0.2.4
  * @author Innoxia
  */
 public class WeaponType {
 	
 	public static AbstractWeaponType MELEE_CHAOS_RARE = new AbstractWeaponType(1000,
+			true,
 			"an",
 			"it",
 			"opaque demonstone",
@@ -40,11 +39,12 @@ public class WeaponType {
 			"meleeCrystal1",
 			Rarity.RARE,
 			Util.newArrayListOfValues(
-					new ListValue<DamageType>(DamageType.PHYSICAL),
-					new ListValue<DamageType>(DamageType.FIRE),
-					new ListValue<DamageType>(DamageType.ICE),
-					new ListValue<DamageType>(DamageType.POISON)),
+					DamageType.PHYSICAL,
+					DamageType.FIRE,
+					DamageType.ICE,
+					DamageType.POISON),
 			8,
+			0,
 			DamageVariance.MEDIUM,
 			null,
 			null) {
@@ -71,9 +71,48 @@ public class WeaponType {
 			return UtilText.parse(target,
 					"Strike at [npc.name] in melee, using your crystal's power to inflict extra damage!");
 		}
+		
+		@Override
+		public Map<Attribute, Integer> getGenerationAttributeModifiers(DamageType dt) {
+			switch(dt) {
+				case FIRE:
+					return Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_FIRE, 5));
+				case ICE:
+					return Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_ICE, 5));
+				case LUST:
+					return Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_PHYSICAL, 5));
+				case MISC:
+					break;
+				case PHYSICAL:
+					return Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_PHYSICAL, 5));
+				case POISON:
+					return Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_POISON, 5));
+			}
+			return null;
+		}
+		
+		@Override
+		public List<Spell> getGenerationSpells(DamageType dt) {
+			switch(dt) {
+				case FIRE:
+					return Util.newArrayListOfValues(Spell.FIREBALL);
+				case ICE:
+					return Util.newArrayListOfValues(Spell.ICE_SHARD);
+				case LUST:
+					return Util.newArrayListOfValues(Spell.ARCANE_AROUSAL);
+				case MISC:
+					break;
+				case PHYSICAL:
+					return Util.newArrayListOfValues(Spell.SLAM);
+				case POISON:
+					return Util.newArrayListOfValues(Spell.POISON_VAPOURS);
+			}
+			return null;
+		}
 	};
 	
 	public static AbstractWeaponType MELEE_CHAOS_EPIC = new AbstractWeaponType(1500,
+			true,
 			"a",
 			"it",
 			"misty demonstone",
@@ -85,11 +124,12 @@ public class WeaponType {
 			"meleeCrystal2",
 			Rarity.EPIC,
 			Util.newArrayListOfValues(
-					new ListValue<DamageType>(DamageType.PHYSICAL),
-					new ListValue<DamageType>(DamageType.FIRE),
-					new ListValue<DamageType>(DamageType.ICE),
-					new ListValue<DamageType>(DamageType.POISON)),
+					DamageType.PHYSICAL,
+					DamageType.FIRE,
+					DamageType.ICE,
+					DamageType.POISON),
 			14,
+			0,
 			DamageVariance.MEDIUM,
 			null,
 			null) {
@@ -121,17 +161,17 @@ public class WeaponType {
 		public Map<Attribute, Integer> getGenerationAttributeModifiers(DamageType dt) {
 			switch(dt) {
 				case FIRE:
-					return Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_FIRE, 5));
+					return Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_FIRE, 10));
 				case ICE:
-					return Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_ICE, 5));
+					return Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_ICE, 10));
 				case LUST:
-					break;
+					return Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_PHYSICAL, 10));
 				case MISC:
 					break;
 				case PHYSICAL:
-					return Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_PHYSICAL, 5));
+					return Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_PHYSICAL, 10));
 				case POISON:
-					return Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_POISON, 5));
+					return Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_POISON, 10));
 			}
 			return null;
 		}
@@ -140,23 +180,24 @@ public class WeaponType {
 		public List<Spell> getGenerationSpells(DamageType dt) {
 			switch(dt) {
 				case FIRE:
-					return Util.newArrayListOfValues(new ListValue<>(Spell.FIREBALL_1));
+					return Util.newArrayListOfValues(Spell.FIREBALL);
 				case ICE:
-					return Util.newArrayListOfValues(new ListValue<>(Spell.ICESHARD_1));
+					return Util.newArrayListOfValues(Spell.ICE_SHARD);
 				case LUST:
-					break;
+					return Util.newArrayListOfValues(Spell.ARCANE_AROUSAL);
 				case MISC:
 					break;
 				case PHYSICAL:
-					return Util.newArrayListOfValues(new ListValue<>(Spell.SLAM_1));
+					return Util.newArrayListOfValues(Spell.SLAM);
 				case POISON:
-					return Util.newArrayListOfValues(new ListValue<>(Spell.POISON_NOVA_1));
+					return Util.newArrayListOfValues(Spell.POISON_VAPOURS);
 			}
 			return null;
 		}
 	};
 	
 	public static AbstractWeaponType MELEE_CHAOS_LEGENDARY = new AbstractWeaponType(2500,
+			true,
 			"a",
 			"it",
 			"clear demonstone",
@@ -168,11 +209,12 @@ public class WeaponType {
 			"meleeCrystal3",
 			Rarity.LEGENDARY,
 			Util.newArrayListOfValues(
-					new ListValue<DamageType>(DamageType.PHYSICAL),
-					new ListValue<DamageType>(DamageType.FIRE),
-					new ListValue<DamageType>(DamageType.ICE),
-					new ListValue<DamageType>(DamageType.POISON)),
+					DamageType.PHYSICAL,
+					DamageType.FIRE,
+					DamageType.ICE,
+					DamageType.POISON),
 			20,
+			0,
 			DamageVariance.LOW,
 			null,
 			null){
@@ -205,51 +247,45 @@ public class WeaponType {
 			switch(dt) {
 				case FIRE:
 					return Util.newHashMapOfValues(
-							new Value<>(Attribute.DAMAGE_FIRE, 5),
+							new Value<>(Attribute.DAMAGE_FIRE, 10),
 							new Value<>(Attribute.RESISTANCE_FIRE, 5));
 				case ICE:
 					return Util.newHashMapOfValues(
-							new Value<>(Attribute.DAMAGE_ICE, 5),
+							new Value<>(Attribute.DAMAGE_ICE, 10),
 							new Value<>(Attribute.RESISTANCE_ICE, 5));
 				case LUST:
-					break;
+					return Util.newHashMapOfValues(
+							new Value<>(Attribute.DAMAGE_PHYSICAL, 10),
+							new Value<>(Attribute.RESISTANCE_PHYSICAL, 5));
 				case MISC:
 					break;
 				case PHYSICAL:
 					return Util.newHashMapOfValues(
-							new Value<>(Attribute.DAMAGE_PHYSICAL, 5),
+							new Value<>(Attribute.DAMAGE_PHYSICAL, 10),
 							new Value<>(Attribute.RESISTANCE_PHYSICAL, 5));
 				case POISON:
 					return Util.newHashMapOfValues(
-							new Value<>(Attribute.DAMAGE_POISON, 5),
+							new Value<>(Attribute.DAMAGE_POISON, 10),
 							new Value<>(Attribute.RESISTANCE_POISON, 5));
 			}
 			return null;
 		}
-		
+
 		@Override
 		public List<Spell> getGenerationSpells(DamageType dt) {
 			switch(dt) {
 				case FIRE:
-					return Util.newArrayListOfValues(
-							new ListValue<>(Spell.FIREBALL_1),
-							new ListValue<>(Spell.FIRE_SHIELD));
+					return Util.newArrayListOfValues(Spell.FIREBALL);
 				case ICE:
-					return Util.newArrayListOfValues(
-							new ListValue<>(Spell.ICESHARD_1),
-							new ListValue<>(Spell.ICE_SHIELD));
+					return Util.newArrayListOfValues(Spell.ICE_SHARD);
 				case LUST:
-					break;
+					return Util.newArrayListOfValues(Spell.ARCANE_AROUSAL);
 				case MISC:
 					break;
 				case PHYSICAL:
-					return Util.newArrayListOfValues(
-							new ListValue<>(Spell.SLAM_1),
-							new ListValue<>(Spell.ARCANE_SHIELD));
+					return Util.newArrayListOfValues(Spell.SLAM);
 				case POISON:
-					return Util.newArrayListOfValues(
-							new ListValue<>(Spell.POISON_NOVA_1),
-							new ListValue<>(Spell.POISON_SHIELD));
+					return Util.newArrayListOfValues(Spell.POISON_VAPOURS);
 			}
 			return null;
 		}
@@ -257,6 +293,7 @@ public class WeaponType {
 
 	// OFFHAND
 	public static AbstractWeaponType OFFHAND_CHAOS_RARE = new AbstractWeaponType(1000,
+			false,
 			"a",
 			"it",
 			"chaos feather",
@@ -267,8 +304,9 @@ public class WeaponType {
 			InventorySlot.WEAPON_OFFHAND,
 			"rangedFeather1",
 			Rarity.RARE,
-			Util.newArrayListOfValues(new ListValue<DamageType>(DamageType.PHYSICAL), new ListValue<DamageType>(DamageType.FIRE), new ListValue<DamageType>(DamageType.ICE), new ListValue<DamageType>(DamageType.POISON)),
+			Util.newArrayListOfValues(DamageType.PHYSICAL, DamageType.FIRE, DamageType.ICE, DamageType.POISON),
 			8,
+			0,
 			DamageVariance.HIGH,
 			null,
 			null) {
@@ -295,9 +333,48 @@ public class WeaponType {
 			return UtilText.parse(target,
 					"Use your feather's power to shoot a bolt of energy at [npc.name]!");
 		}
+		
+		@Override
+		public Map<Attribute, Integer> getGenerationAttributeModifiers(DamageType dt) {
+			switch(dt) {
+				case FIRE:
+					return Util.newHashMapOfValues(new Value<>(Attribute.RESISTANCE_FIRE, 5));
+				case ICE:
+					return Util.newHashMapOfValues(new Value<>(Attribute.RESISTANCE_ICE, 5));
+				case LUST:
+					return Util.newHashMapOfValues(new Value<>(Attribute.RESISTANCE_PHYSICAL, 5));
+				case MISC:
+					break;
+				case PHYSICAL:
+					return Util.newHashMapOfValues(new Value<>(Attribute.RESISTANCE_PHYSICAL, 5));
+				case POISON:
+					return Util.newHashMapOfValues(new Value<>(Attribute.RESISTANCE_POISON, 5));
+			}
+			return null;
+		}
+		
+		@Override
+		public List<Spell> getGenerationSpells(DamageType dt) {
+			switch(dt) {
+				case FIRE:
+					return Util.newArrayListOfValues(Spell.FIREBALL);
+				case ICE:
+					return Util.newArrayListOfValues(Spell.ICE_SHARD);
+				case LUST:
+					return Util.newArrayListOfValues(Spell.ARCANE_AROUSAL);
+				case MISC:
+					break;
+				case PHYSICAL:
+					return Util.newArrayListOfValues(Spell.SLAM);
+				case POISON:
+					return Util.newArrayListOfValues(Spell.POISON_VAPOURS);
+			}
+			return null;
+		}
 	};
 	
 	public static AbstractWeaponType OFFHAND_CHAOS_EPIC = new AbstractWeaponType(1500,
+			false,
 			"a",
 			"it",
 			"chaos feather",
@@ -308,8 +385,9 @@ public class WeaponType {
 			InventorySlot.WEAPON_OFFHAND,
 			"rangedFeather2",
 			Rarity.EPIC,
-			Util.newArrayListOfValues(new ListValue<DamageType>(DamageType.PHYSICAL), new ListValue<DamageType>(DamageType.FIRE), new ListValue<DamageType>(DamageType.ICE), new ListValue<DamageType>(DamageType.POISON)),
+			Util.newArrayListOfValues(DamageType.POISON),
 			14,
+			0,
 			DamageVariance.HIGH,
 			null,
 			null) {
@@ -341,17 +419,17 @@ public class WeaponType {
 		public Map<Attribute, Integer> getGenerationAttributeModifiers(DamageType dt) {
 			switch(dt) {
 				case FIRE:
-					return Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_FIRE, 5));
+					return Util.newHashMapOfValues(new Value<>(Attribute.RESISTANCE_FIRE, 10));
 				case ICE:
-					return Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_ICE, 5));
+					return Util.newHashMapOfValues(new Value<>(Attribute.RESISTANCE_ICE, 10));
 				case LUST:
-					break;
+					return Util.newHashMapOfValues(new Value<>(Attribute.RESISTANCE_PHYSICAL, 10));
 				case MISC:
 					break;
 				case PHYSICAL:
-					return Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_PHYSICAL, 5));
+					return Util.newHashMapOfValues(new Value<>(Attribute.RESISTANCE_PHYSICAL, 10));
 				case POISON:
-					return Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_POISON, 5));
+					return Util.newHashMapOfValues(new Value<>(Attribute.RESISTANCE_POISON, 10));
 			}
 			return null;
 		}
@@ -360,17 +438,17 @@ public class WeaponType {
 		public List<Spell> getGenerationSpells(DamageType dt) {
 			switch(dt) {
 				case FIRE:
-					return Util.newArrayListOfValues(new ListValue<>(Spell.FIRE_SHIELD));
+					return Util.newArrayListOfValues(Spell.FIREBALL);
 				case ICE:
-					return Util.newArrayListOfValues(new ListValue<>(Spell.ICE_SHIELD));
+					return Util.newArrayListOfValues(Spell.ICE_SHARD);
 				case LUST:
-					break;
+					return Util.newArrayListOfValues(Spell.ARCANE_AROUSAL);
 				case MISC:
 					break;
 				case PHYSICAL:
-					return Util.newArrayListOfValues(new ListValue<>(Spell.ARCANE_SHIELD));
+					return Util.newArrayListOfValues(Spell.SLAM);
 				case POISON:
-					return Util.newArrayListOfValues(new ListValue<>(Spell.POISON_SHIELD));
+					return Util.newArrayListOfValues(Spell.POISON_VAPOURS);
 			}
 			return null;
 		}
@@ -378,6 +456,7 @@ public class WeaponType {
 	
 	// I made this in one of my lunch breaks x_x
 	public static AbstractWeaponType MAIN_WESTERN_KKP = new AbstractWeaponType(25000,
+			false,
 			"a",
 			"it",
 			"Western KKP",
@@ -387,8 +466,9 @@ public class WeaponType {
 			InventorySlot.WEAPON_MAIN,
 			"western_kkp",
 			Rarity.LEGENDARY,
-			Util.newArrayListOfValues(new ListValue<DamageType>(DamageType.PHYSICAL)),
+			Util.newArrayListOfValues(DamageType.PHYSICAL),
 			100000,
+			0,
 			DamageVariance.LOW,
 			null,
 			null) {
@@ -418,6 +498,7 @@ public class WeaponType {
 	};
 	
 	public static AbstractWeaponType RANGED_MUSKET = new AbstractWeaponType(15000,
+			false,
 			"an",
 			"it",
 			"Arcane Musket",
@@ -429,8 +510,9 @@ public class WeaponType {
 			"arcaneMusket",
 			Rarity.LEGENDARY,
 			Util.newArrayListOfValues(
-					new ListValue<DamageType>(DamageType.PHYSICAL)),
+					DamageType.PHYSICAL),
 			25,
+			1,
 			DamageVariance.LOW,
 			null,
 			null) {
@@ -446,31 +528,7 @@ public class WeaponType {
 		public String unequipText(GameCharacter character) {
 			return "You put your musket away.";
 		}
-
-		@Override
-		public boolean isAbleToBeUsed(GameCharacter user, GameCharacter target) {
-			return user.getEssenceCount(TFEssence.ARCANE) > 0;
-		}
-
-		@Override
-		public String getUnableToBeUsedDescription() {
-			return "You need at least [style.boldBad(one)] [style.boldArcane(arcane essence)] in order to fire the musket!";
-		}
-
-		@Override
-		public String applyExtraEfects(GameCharacter user, GameCharacter target) {
-			user.incrementEssenceCount(TFEssence.ARCANE, -1);
-			if(user.isPlayer()) {
-				return "<p>"
-							+ "Firing the arcane musket drains [style.boldBad(one)] [style.boldArcane(arcane essence)] from your aura!"
-						+ "</p>";
-			} else {
-				return "<p>"
-							+ UtilText.parse(user, "Firing the arcane musket drains [style.boldBad(one)] [style.boldArcane(arcane essence)] from [npc.name]'s aura!")
-						+ "</p>";
-			}
-		}
-
+		
 		@Override
 		public String getAttackDescription(GameCharacter character, GameCharacter target, boolean isHit) {
 			if(isHit) {
@@ -515,6 +573,7 @@ public class WeaponType {
 	};
 	
 	public static AbstractWeaponType MAIN_WITCH_BROOM = new AbstractWeaponType(5000,
+			true,
 			"a",
 			"it",
 			"Witch's Broom",
@@ -526,16 +585,17 @@ public class WeaponType {
 			"primary_witch_broom",
 			Rarity.EPIC,
 			Util.newArrayListOfValues(
-					new ListValue<DamageType>(DamageType.PHYSICAL),
-					new ListValue<DamageType>(DamageType.FIRE),
-					new ListValue<DamageType>(DamageType.ICE),
-					new ListValue<DamageType>(DamageType.POISON)),
+					DamageType.PHYSICAL,
+					DamageType.FIRE,
+					DamageType.ICE,
+					DamageType.POISON),
 			5,
+			0,
 			DamageVariance.LOW,
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 5)),
 			Util.newArrayListOfValues(
-					new ListValue<Spell>(Spell.WITCH_SEAL),
-					new ListValue<Spell>(Spell.WITCH_CHARM))) {
+					Spell.WITCH_SEAL,
+					Spell.WITCH_CHARM)) {
 		
 		private static final long serialVersionUID = 1L;
 		
@@ -593,6 +653,7 @@ public class WeaponType {
 	};
 	
 	public static AbstractWeaponType MAIN_FEATHER_DUSTER = new AbstractWeaponType(250,
+			true,
 			"a",
 			"it",
 			"feather duster",
@@ -602,12 +663,12 @@ public class WeaponType {
 			InventorySlot.WEAPON_MAIN,
 			"feather_duster",
 			Rarity.EPIC,
-			Util.newArrayListOfValues(new ListValue<DamageType>(DamageType.PHYSICAL)),
+			Util.newArrayListOfValues(DamageType.PHYSICAL),
 			2,
+			0,
 			DamageVariance.LOW,
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5)),
-			Util.newArrayListOfValues(
-					new ListValue<Spell>(Spell.ARCANE_SHIELD))) {
+			null) {
 		
 		private static final long serialVersionUID = 1L;
 		

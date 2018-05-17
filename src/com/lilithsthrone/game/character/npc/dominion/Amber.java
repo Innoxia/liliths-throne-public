@@ -4,29 +4,34 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.CharacterImportSetting;
-import com.lilithsthrone.game.character.NameTriplet;
-import com.lilithsthrone.game.character.SexualOrientation;
+import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.HornType;
+import com.lilithsthrone.game.character.body.types.TailType;
+import com.lilithsthrone.game.character.body.types.WingType;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.HairLength;
 import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
-import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.persona.NameTriplet;
+import com.lilithsthrone.game.character.persona.PersonalityTrait;
+import com.lilithsthrone.game.character.persona.PersonalityWeight;
+import com.lilithsthrone.game.character.persona.SexualOrientation;
+import com.lilithsthrone.game.character.quests.Quest;
+import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
-import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.combat.DamageType;
-import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.places.dominion.zaranixHome.ZaranixHomeGroundFloorRepeat;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
@@ -49,14 +54,13 @@ import com.lilithsthrone.game.sex.managers.universal.SMStanding;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.95
- * @version 0.1.97
+ * @version 0.2.4
  * @author Innoxia
  */
 public class Amber extends NPC {
@@ -72,40 +76,28 @@ public class Amber extends NPC {
 				"The highest-ranking of Zaranix's maids, Amber is clearly outraged by the fact that you're wandering around her master's house unsupervised.",
 				12, Gender.F_P_V_B_FUTANARI, RacialBody.DEMON, RaceStage.GREATER, new CharacterInventory(10), WorldType.ZARANIX_HOUSE_GROUND_FLOOR, PlaceType.ZARANIX_GF_LOUNGE, true);
 
+		this.setPersonality(Util.newHashMapOfValues(
+				new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.LOW),
+				new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.AVERAGE),
+				new Value<>(PersonalityTrait.EXTROVERSION, PersonalityWeight.AVERAGE),
+				new Value<>(PersonalityTrait.NEUROTICISM, PersonalityWeight.AVERAGE),
+				new Value<>(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.HIGH)));
+		
 		if(!isImported) {
 			this.setPlayerKnowsName(false);
 			
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 			
-			this.setHeight(180);
-			
-			this.setEyeCovering(new Covering(BodyCoveringType.EYE_DEMON_COMMON, CoveringPattern.NONE, Colour.EYE_AMBER, true, Colour.EYE_AMBER, true));
-			this.setHairCovering(new Covering(BodyCoveringType.HAIR_DEMON, CoveringPattern.NONE, Colour.COVERING_AMBER, true, Colour.COVERING_AMBER, true), true);
-			this.setHairLength(HairLength.THREE_SHOULDER_LENGTH.getMedianValue());
-			this.setHairStyle(HairStyle.SIDECUT);
-			this.setSkinCovering(new Covering(BodyCoveringType.DEMON_COMMON, Colour.SKIN_EBONY), true);
-			
-			this.setBreastSize(CupSize.DD.getMeasurement());
-			
-			this.setHornType(HornType.SWEPT_BACK);
-			
-			this.setMuscle(Muscle.THREE_MUSCULAR.getMedianValue());
-			this.setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
+			this.resetBody();
 			
 			this.addFetish(Fetish.FETISH_DOMINANT);
 			this.addFetish(Fetish.FETISH_SADIST);
 			this.addFetish(Fetish.FETISH_DEFLOWERING);
-
-			this.setVaginaVirgin(false);
-			this.setAssVirgin(false);
-			this.setFaceVirgin(false);
-			this.setNippleVirgin(false);
-			this.setPenisVirgin(false);
 			
 			this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MELEE_CHAOS_EPIC, DamageType.FIRE));
 			
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_CROTCHLESS_THONG, Colour.CLOTHING_RED, false), true, this);
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_OPEN_CUP_BRA, Colour.CLOTHING_RED, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_CROTCHLESS_THONG, Colour.CLOTHING_RED_DARK, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_OPEN_CUP_BRA, Colour.CLOTHING_RED_DARK, false), true, this);
 			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.STOMACH_UNDERBUST_CORSET, Colour.CLOTHING_BLACK, false), true, this);
 			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.MAID_DRESS, Colour.CLOTHING_BLACK, false), true, this);
 			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.MAID_HEADPIECE, Colour.CLOTHING_BLACK, false), true, this);
@@ -118,6 +110,19 @@ public class Amber extends NPC {
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
+		
+		this.unequipAllClothingIntoVoid();
+
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_CROTCHLESS_THONG, Colour.CLOTHING_RED_DARK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_OPEN_CUP_BRA, Colour.CLOTHING_RED_DARK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.STOMACH_UNDERBUST_CORSET, Colour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.MAID_DRESS, Colour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.MAID_HEADPIECE, Colour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.MAID_STOCKINGS, Colour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.MAID_SLEEVES, Colour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.MAID_HEELS, Colour.CLOTHING_BLACK, false), true, this);
+		
+		this.resetBody();
 	}
 	
 	public void resetBody() {
@@ -125,18 +130,30 @@ public class Amber extends NPC {
 		
 		this.setHeight(180);
 		
+		this.setTailType(TailType.DEMON_HAIR_TIP);
+		this.setWingType(WingType.NONE);
+		
 		this.setEyeCovering(new Covering(BodyCoveringType.EYE_DEMON_COMMON, CoveringPattern.NONE, Colour.EYE_AMBER, true, Colour.EYE_AMBER, true));
 		this.setHairCovering(new Covering(BodyCoveringType.HAIR_DEMON, CoveringPattern.NONE, Colour.COVERING_AMBER, true, Colour.COVERING_AMBER, true), true);
-		this.setHairLength(HairLength.THREE_SHOULDER_LENGTH.getMedianValue());
-		this.setHairStyle(HairStyle.SIDECUT);
+		this.setHairLength(HairLength.FIVE_ABOVE_ASS.getMedianValue());
+		this.setHairStyle(HairStyle.WAVY);
 		this.setSkinCovering(new Covering(BodyCoveringType.DEMON_COMMON, Colour.SKIN_EBONY), true);
 		
-		this.setBreastSize(CupSize.DD.getMeasurement());
+		this.setFootNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, Colour.COVERING_AMBER));
+		this.setHandNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, Colour.COVERING_AMBER));
+		
+		this.setBreastSize(CupSize.G.getMeasurement());
 		
 		this.setHornType(HornType.SWEPT_BACK);
 		
 		this.setMuscle(Muscle.THREE_MUSCULAR.getMedianValue());
 		this.setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
+
+		this.setVaginaVirgin(false);
+		this.setAssVirgin(false);
+		this.setFaceVirgin(false);
+		this.setNippleVirgin(false);
+		this.setPenisVirgin(false);
 	}
 
 	@Override
@@ -146,6 +163,19 @@ public class Amber extends NPC {
 			
 		} else {
 			return "Amber";
+		}
+	}
+	
+	@Override
+	public String getDescription() {
+		if(!playerKnowsName) {
+			return "This fiery maid is clearly outraged by the fact that you're wandering around her master's house unsupervised";
+			
+		} else {
+			return "The highest-ranking of Zaranix's maids, Amber is one of the most striking succubi you've ever seen."
+					+ " Her amber hair and eyes, from which she gets her name, glow with a brilliant luminosity, providing a stark contrast to her jet-black ebony skin."
+					+ "</br>"
+					+ "Amber is ruthlessly sadistic, and delights in imposing her dominance over her subordinates.";
 		}
 	}
 	
@@ -211,15 +241,25 @@ public class Amber extends NPC {
 	
 	@Override
 	public Response endCombat(boolean applyEffects, boolean victory) {
-		if (victory) {
-			return new Response("", "", AFTER_COMBAT_VICTORY) {
-				@Override
-				public void effects() {
-					Main.game.getDialogueFlags().setFlag(DialogueFlagValue.zaranixAmberSubdued, true);
-				}
-			};
+		if (Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_H_THE_GREAT_ESCAPE)) {
+			if (victory) {
+				return new Response("", "", ZaranixHomeGroundFloorRepeat.COMBAT_VICTORY);
+			} else {
+				return new Response("", "", ZaranixHomeGroundFloorRepeat.COMBAT_LOSS);
+			}
+			
 		} else {
-			return new Response("", "", AFTER_COMBAT_DEFEAT);
+			if (victory) {
+				return new Response("", "", AFTER_COMBAT_VICTORY) {
+					@Override
+					public void effects() {
+						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.zaranixAmberSubdued, true);
+					}
+				};
+			} else {
+				return new Response("", "", AFTER_COMBAT_DEFEAT);
+			}
+			
 		}
 	}
 	
@@ -276,7 +316,7 @@ public class Amber extends NPC {
 			} else if(index==3) {
 				return new ResponseSex("Submit",
 						"Amber's fiery personality is seriously turning you on. You can't bring yourself to take the dominant role, but you <i>do</i> want to have sex with her. Perhaps if you submitted, she'd be willing to fuck you?",
-						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)), null, null, null, null, null,
+						Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, CorruptionLevel.THREE_DIRTY, null, null, null,
 						true, true,
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getAmber(), SexPositionSlot.STANDING_DOMINANT)),
@@ -433,27 +473,6 @@ public class Amber extends NPC {
 			}
 		}
 	};
-	
-	@Override
-	public Attack attackType() {
-		if (Math.random() < 0.6
-				|| this.getManaPercentage() <= 0.4f
-				|| (Main.game.getPlayer().getStatusEffects().contains(StatusEffect.DAZED)
-						&& this.getStatusEffects().contains(StatusEffect.ARCANE_SHIELD))) {
-			return Attack.MAIN;
-		} else {
-			return Attack.SPELL;
-		}
-	}
-	
-	@Override
-	public Spell getSpell() {
-		if (!Main.game.getPlayer().getStatusEffects().contains(StatusEffect.DAZED)) {
-			return Spell.SLAM_1;
-		} else {
-			return Spell.ARCANE_SHIELD;
-		}
-	}
 	
 	@Override
 	public int getEscapeChance() {

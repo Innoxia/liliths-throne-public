@@ -8,15 +8,35 @@ import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 
 /**
  * @since 0.1.0
- * @version 0.1.87
+ * @version 0.2.5
  * @author Innoxia
  */
 public enum Race {
 
+	NONE("none",
+			"none",
+			"none",
+			"none",
+			"none",
+			"none",
+			"",
+			"",
+			Colour.RACE_HUMAN,
+			Disposition.CIVILIZED,
+			StatusEffect.PURE_HUMAN,
+			Util.newArrayListOfValues(Attack.MAIN),
+			true,
+			0.5f,
+			1,
+			1,
+			Attribute.DAMAGE_HUMAN,
+			Attribute.RESISTANCE_HUMAN,
+			FurryPreference.NORMAL,
+			FurryPreference.NORMAL),
+	
 	// HUMAN:
 	HUMAN("human",
 			"humans",
@@ -30,12 +50,11 @@ public enum Race {
 			UtilText.parseFromXMLFile("characters/raceInfo", "HUMAN_BASIC"),
 
 			UtilText.parseFromXMLFile("characters/raceInfo", "HUMAN_ADVANCED"),
-
+			
 			Colour.RACE_HUMAN,
-			Genus.HUMAN,
 			Disposition.CIVILIZED,
 			StatusEffect.PURE_HUMAN,
-			Util.newArrayListOfValues(new ListValue<Attack>(Attack.MAIN)),
+			Util.newArrayListOfValues(Attack.MAIN),
 			true,
 			0.5f,
 			1,
@@ -58,10 +77,11 @@ public enum Race {
 			UtilText.parseFromXMLFile("characters/raceInfo", "ANGEL_ADVANCED"),
 
 			Colour.CLOTHING_WHITE,
-			Genus.CELESTIAL,
 			Disposition.CIVILIZED,
 			StatusEffect.PURE_HUMAN,
-			Util.newArrayListOfValues(new ListValue<Attack>(Attack.MAIN), new ListValue<Attack>(Attack.SPELL)),
+			Util.newArrayListOfValues(
+					Attack.MAIN,
+					Attack.SPELL),
 			false,
 			0.25f,
 			1,
@@ -84,10 +104,12 @@ public enum Race {
 			UtilText.parseFromXMLFile("characters/raceInfo", "DEMON_ADVANCED"),
 
 			Colour.RACE_DEMON,
-			Genus.CELESTIAL,
 			Disposition.CIVILIZED,
 			StatusEffect.DEMON,
-			Util.newArrayListOfValues(new ListValue<Attack>(Attack.SEDUCTION), new ListValue<Attack>(Attack.SPELL)),
+			Util.newArrayListOfValues(
+					Attack.SPECIAL_ATTACK,
+					Attack.SEDUCTION,
+					Attack.SPELL),
 			false,
 			0.75f,
 			2,
@@ -109,10 +131,11 @@ public enum Race {
 			UtilText.parseFromXMLFile("characters/raceInfo", "IMP_ADVANCED"),
 
 			Colour.RACE_DEMON,
-			Genus.CELESTIAL,
 			Disposition.UNPREDICTABLE,
 			StatusEffect.IMP,
-			Util.newArrayListOfValues(new ListValue<Attack>(Attack.SEDUCTION), new ListValue<Attack>(Attack.SPELL)),
+			Util.newArrayListOfValues(
+					Attack.MAIN,
+					Attack.SEDUCTION),
 			true,
 			0.75f,
 			2,
@@ -135,10 +158,11 @@ public enum Race {
 			UtilText.parseFromXMLFile("characters/raceInfo", "COW_MORPH_ADVANCED"),
 
 			Colour.RACE_COW_MORPH,
-			Genus.BOVINE,
 			Disposition.CIVILIZED,
 			StatusEffect.COW_MORPH,
-			Util.newArrayListOfValues(new ListValue<Attack>(Attack.SPECIAL_ATTACK), new ListValue<Attack>(Attack.MAIN), new ListValue<Attack>(Attack.SEDUCTION)),
+			Util.newArrayListOfValues(
+					Attack.MAIN,
+					Attack.SPECIAL_ATTACK),
 			true,
 			0.5f,
 			1,
@@ -161,10 +185,9 @@ public enum Race {
 			UtilText.parseFromXMLFile("characters/raceInfo", "DOG_MORPH_ADVANCED"),
 
 			Colour.RACE_DOG_MORPH,
-			Genus.CANINE,
 			Disposition.CIVILIZED,
 			StatusEffect.DOG_MORPH,
-			Util.newArrayListOfValues(new ListValue<Attack>(Attack.SPECIAL_ATTACK), new ListValue<Attack>(Attack.MAIN), new ListValue<Attack>(Attack.SEDUCTION)),
+			Util.newArrayListOfValues(Attack.MAIN),
 			true,
 			0.5f,
 			1,
@@ -186,10 +209,11 @@ public enum Race {
 			UtilText.parseFromXMLFile("characters/raceInfo", "WOLF_MORPH_ADVANCED"),
 			
 			Colour.RACE_WOLF_MORPH,
-			Genus.CANINE,
 			Disposition.SAVAGE,
 			StatusEffect.WOLF_MORPH,
-			Util.newArrayListOfValues(new ListValue<Attack>(Attack.SPECIAL_ATTACK), new ListValue<Attack>(Attack.MAIN)),
+			Util.newArrayListOfValues(
+					Attack.MAIN,
+					Attack.SPECIAL_ATTACK),
 			true,
 			0.5f,
 			1,
@@ -212,10 +236,11 @@ public enum Race {
 			UtilText.parseFromXMLFile("characters/raceInfo", "CAT_MORPH_ADVANCED"),
 
 			Colour.RACE_CAT_MORPH,
-			Genus.FELINE,
 			Disposition.CIVILIZED,
 			StatusEffect.CAT_MORPH,
-			Util.newArrayListOfValues(new ListValue<Attack>(Attack.SPECIAL_ATTACK), new ListValue<Attack>(Attack.MAIN), new ListValue<Attack>(Attack.SEDUCTION)),
+			Util.newArrayListOfValues(
+					Attack.SEDUCTION,
+					Attack.SPECIAL_ATTACK),
 			true,
 			0.5f,
 			1,
@@ -238,10 +263,11 @@ public enum Race {
 			UtilText.parseFromXMLFile("characters/raceInfo", "HORSE_MORPH_ADVANCED"),
 
 			Colour.RACE_HORSE_MORPH,
-			Genus.EQUINE,
 			Disposition.CIVILIZED,
 			StatusEffect.HORSE_MORPH,
-			Util.newArrayListOfValues(new ListValue<Attack>(Attack.MAIN)),
+			Util.newArrayListOfValues(
+					Attack.MAIN,
+					Attack.SPECIAL_ATTACK),
 			true,
 			0.5f,
 			1,
@@ -264,10 +290,11 @@ public enum Race {
 			UtilText.parseFromXMLFile("characters/raceInfo", "REINDEER_MORPH_ADVANCED"),
 		 
 	  Colour.RACE_REINDEER_MORPH,
-			Genus.RANGIFERINE,
 			Disposition.CIVILIZED,
 			StatusEffect.REINDEER_MORPH,
-			Util.newArrayListOfValues(new ListValue<Attack>(Attack.SPECIAL_ATTACK), new ListValue<Attack>(Attack.MAIN)),
+			Util.newArrayListOfValues(
+					Attack.MAIN,
+					Attack.SPECIAL_ATTACK),
 			true,
 			0.5f,
 			1,
@@ -290,16 +317,94 @@ public enum Race {
 			UtilText.parseFromXMLFile("characters/raceInfo", "SQUIRREL_MORPH_ADVANCED"),
 
 			Colour.RACE_SQUIRREL_MORPH,
-			Genus.RODENT,
 			Disposition.CIVILIZED,
 			StatusEffect.SQUIRREL_MORPH,
-			Util.newArrayListOfValues(new ListValue<Attack>(Attack.SPECIAL_ATTACK), new ListValue<Attack>(Attack.MAIN)),
+			Util.newArrayListOfValues(
+					Attack.MAIN),
 			true,
-			0.25f,
+			0.5f,
 			1,
 			2,
 			Attribute.DAMAGE_SQUIRREL_MORPH,
 			Attribute.RESISTANCE_SQUIRREL_MORPH,
+			FurryPreference.NORMAL,
+			FurryPreference.NORMAL),
+
+	RAT_MORPH("rat-morph",
+			"rat-morphs",
+			"rat-boy",
+			"rat-girl",
+			"rat-boys",
+			"rat-girls",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "RAT_MORPH_BASIC"),
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "RAT_MORPH_ADVANCED"),
+
+			Colour.RACE_RAT_MORPH,
+			Disposition.NEUTRAL,
+			StatusEffect.RAT_MORPH,
+			Util.newArrayListOfValues(
+					Attack.MAIN,
+					Attack.SPECIAL_ATTACK),
+			true,
+			0.5f,
+			1,
+			4,
+			Attribute.DAMAGE_RAT_MORPH,
+			Attribute.RESISTANCE_RAT_MORPH,
+			FurryPreference.NORMAL,
+			FurryPreference.NORMAL),
+
+	RABBIT_MORPH("rabbit-morph",
+			"rabbit-morphs",
+			"rabbit-boy",
+			"rabbit-girl",
+			"rabbit-boys",
+			"rabbit-girls",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "RABBIT_MORPH_BASIC"),
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "RABBIT_MORPH_ADVANCED"),
+
+			Colour.RACE_RABBIT_MORPH,
+			Disposition.NEUTRAL,
+			StatusEffect.RABBIT_MORPH,
+			Util.newArrayListOfValues(
+					Attack.SEDUCTION,
+					Attack.SPECIAL_ATTACK),
+			true,
+			0.5f,
+			2,
+			8,
+			Attribute.DAMAGE_RABBIT_MORPH,
+			Attribute.RESISTANCE_RABBIT_MORPH,
+			FurryPreference.NORMAL,
+			FurryPreference.NORMAL),
+	
+	BAT_MORPH("bat-morph",
+			"bat-morphs",
+			"bat-boy",
+			"bat-girl",
+			"bat-boys",
+			"bat-girls",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "BAT_MORPH_BASIC"),
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "BAT_MORPH_ADVANCED"),
+
+			Colour.RACE_BAT_MORPH,
+			Disposition.NEUTRAL,
+			StatusEffect.BAT_MORPH,
+			Util.newArrayListOfValues(
+					Attack.MAIN,
+					Attack.SPECIAL_ATTACK),
+			true,
+			0.5f,
+			1,
+			2,
+			Attribute.DAMAGE_BAT_MORPH,
+			Attribute.RESISTANCE_BAT_MORPH,
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL),
 	
@@ -315,10 +420,11 @@ public enum Race {
 			UtilText.parseFromXMLFile("characters/raceInfo", "ALLIGATOR_MORPH_ADVANCED"),
 
 			Colour.RACE_ALLIGATOR_MORPH,
-			Genus.REPTILE,
 			Disposition.NEUTRAL,
 			StatusEffect.ALLIGATOR_MORPH,
-			Util.newArrayListOfValues(new ListValue<Attack>(Attack.SPECIAL_ATTACK), new ListValue<Attack>(Attack.MAIN)),
+			Util.newArrayListOfValues(
+					Attack.MAIN,
+					Attack.SPECIAL_ATTACK),
 			true,
 			0.5f,
 			1,
@@ -341,10 +447,9 @@ public enum Race {
 			UtilText.parseFromXMLFile("characters/raceInfo", "SLIME_ADVANCED"),
 
 			Colour.RACE_SLIME,
-			Genus.SLIME,
 			Disposition.NEUTRAL,
 			StatusEffect.SLIME,
-			Util.newArrayListOfValues(new ListValue<Attack>(Attack.SEDUCTION)),
+			Util.newArrayListOfValues(Attack.SEDUCTION),
 			true,
 			0.5f,
 			1,
@@ -367,10 +472,11 @@ public enum Race {
 			UtilText.parseFromXMLFile("characters/raceInfo", "HARPY_ADVANCED"),
 			
 			Colour.RACE_HARPY,
-			Genus.AVIAN,
 			Disposition.NEUTRAL,
 			StatusEffect.HARPY,
-			Util.newArrayListOfValues(new ListValue<Attack>(Attack.SPECIAL_ATTACK), new ListValue<Attack>(Attack.SEDUCTION)),
+			Util.newArrayListOfValues(
+					Attack.SEDUCTION,
+					Attack.SPECIAL_ATTACK),
 			true,
 			0.5f,
 			3,
@@ -378,7 +484,142 @@ public enum Race {
 			Attribute.DAMAGE_HARPY,
 			Attribute.RESISTANCE_HARPY,
 			FurryPreference.NORMAL,
-			FurryPreference.NORMAL);
+			FurryPreference.NORMAL),
+	
+
+	// ELEMENTALS:
+	ELEMENTAL_EARTH("earth elemental",
+			"earth elementals",
+			"earth elemental",
+			"earth elemental",
+			"earth elementals",
+			"earth elementals",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "ELEMENTAL_EARTH_BASIC"),
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "ELEMENTAL_EARTH_ADVANCED"),
+
+			Colour.SPELL_SCHOOL_EARTH,
+			Disposition.NEUTRAL,
+			StatusEffect.ELEMENTAL_EARTH,
+			Util.newArrayListOfValues(
+					Attack.MAIN,
+					Attack.SPELL),
+			false,
+			0.5f,
+			1,
+			1,
+			Attribute.DAMAGE_ELEMENTAL_EARTH,
+			Attribute.RESISTANCE_ELEMENTAL_EARTH,
+			FurryPreference.MAXIMUM,
+			FurryPreference.MAXIMUM),
+	
+	ELEMENTAL_WATER("water elemental",
+			"water elementals",
+			"water elemental",
+			"water elemental",
+			"water elementals",
+			"water elementals",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "ELEMENTAL_WATER_BASIC"),
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "ELEMENTAL_WATER_ADVANCED"),
+
+			Colour.SPELL_SCHOOL_WATER,
+			Disposition.NEUTRAL,
+			StatusEffect.ELEMENTAL_WATER,
+			Util.newArrayListOfValues(
+					Attack.MAIN,
+					Attack.SPELL),
+			false,
+			0.5f,
+			1,
+			1,
+			Attribute.DAMAGE_ELEMENTAL_WATER,
+			Attribute.RESISTANCE_ELEMENTAL_WATER,
+			FurryPreference.MAXIMUM,
+			FurryPreference.MAXIMUM),
+	
+	ELEMENTAL_AIR("air elemental",
+			"air elementals",
+			"air elemental",
+			"air elemental",
+			"air elementals",
+			"air elementals",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "ELEMENTAL_AIR_BASIC"),
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "ELEMENTAL_AIR_ADVANCED"),
+
+			Colour.SPELL_SCHOOL_AIR,
+			Disposition.NEUTRAL,
+			StatusEffect.ELEMENTAL_AIR,
+			Util.newArrayListOfValues(
+					Attack.MAIN,
+					Attack.SPELL),
+			false,
+			0.5f,
+			1,
+			1,
+			Attribute.DAMAGE_ELEMENTAL_AIR,
+			Attribute.RESISTANCE_ELEMENTAL_AIR,
+			FurryPreference.MAXIMUM,
+			FurryPreference.MAXIMUM),
+	
+	ELEMENTAL_FIRE("fire elemental",
+			"fire elementals",
+			"fire elemental",
+			"fire elemental",
+			"fire elementals",
+			"fire elementals",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "ELEMENTAL_FIRE_BASIC"),
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "ELEMENTAL_FIRE_ADVANCED"),
+
+			Colour.SPELL_SCHOOL_FIRE,
+			Disposition.NEUTRAL,
+			StatusEffect.ELEMENTAL_FIRE,
+			Util.newArrayListOfValues(
+					Attack.MAIN,
+					Attack.SEDUCTION,
+					Attack.SPELL),
+			false,
+			0.5f,
+			1,
+			1,
+			Attribute.DAMAGE_ELEMENTAL_FIRE,
+			Attribute.RESISTANCE_ELEMENTAL_FIRE,
+			FurryPreference.MAXIMUM,
+			FurryPreference.MAXIMUM),
+	
+	ELEMENTAL_ARCANE("arcane elemental",
+			"arcane elementals",
+			"arcane elemental",
+			"arcane elemental",
+			"arcane elementals",
+			"arcane elementals",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "ELEMENTAL_ARCANE_BASIC"),
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "ELEMENTAL_ARCANE_ADVANCED"),
+
+			Colour.SPELL_SCHOOL_ARCANE,
+			Disposition.NEUTRAL,
+			StatusEffect.ELEMENTAL_ARCANE,
+			Util.newArrayListOfValues(
+					Attack.SEDUCTION,
+					Attack.SPELL),
+			false,
+			0.5f,
+			1,
+			1,
+			Attribute.DAMAGE_ELEMENTAL_ARCANE,
+			Attribute.RESISTANCE_ELEMENTAL_ARCANE,
+			FurryPreference.MAXIMUM,
+			FurryPreference.MAXIMUM),
+	
+	;
 
 	/*
 	 * // INSECTS: BEE_MORPH("bee-morph",
@@ -1181,7 +1422,6 @@ public enum Race {
 
 	private String name, basicDescription, advancedDescription;
 	private Colour colour;
-	private Genus genus;
 	private Disposition disposition;
 	private StatusEffect statusEffect;
 	private List<Attack> preferredAttacks;
@@ -1202,7 +1442,6 @@ public enum Race {
 			String advancedDescription,
 
 			Colour colour,
-			Genus genus,
 			Disposition disposition,
 			StatusEffect statusEffect,
 			List<Attack> preferredAttacks,
@@ -1223,7 +1462,6 @@ public enum Race {
 		this.advancedDescription = advancedDescription;
 
 		this.colour = colour;
-		this.genus = genus;
 		this.disposition = disposition;
 		this.statusEffect = statusEffect;
 
@@ -1253,10 +1491,6 @@ public enum Race {
 
 	public String getAdvancedDescription() {
 		return advancedDescription;
-	}
-
-	public Genus getGenus() {
-		return genus;
 	}
 
 	public Disposition getDisposition() {

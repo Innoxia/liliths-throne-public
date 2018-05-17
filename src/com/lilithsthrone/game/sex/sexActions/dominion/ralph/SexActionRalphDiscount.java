@@ -21,7 +21,6 @@ import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 
 /**
  * @since 0.1.64
@@ -345,9 +344,9 @@ public class SexActionRalphDiscount {
 		@Override
 		public List<Fetish> getFetishes(GameCharacter character) {
 			if(character.isPlayer()) {
-				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE), new ListValue<>(Fetish.FETISH_PREGNANCY), new ListValue<>(Fetish.FETISH_BROODMOTHER));
+				return Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE, Fetish.FETISH_PREGNANCY, Fetish.FETISH_BROODMOTHER);
 			} else {
-				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_IMPREGNATION));
+				return Util.newArrayListOfValues(Fetish.FETISH_IMPREGNATION);
 			}
 		}
 	};
@@ -410,9 +409,9 @@ public class SexActionRalphDiscount {
 		@Override
 		public List<Fetish> getFetishes(GameCharacter character) {
 			if(character.isPlayer()) {
-				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE), new ListValue<>(Fetish.FETISH_ANAL_RECEIVING));
+				return Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE, Fetish.FETISH_ANAL_RECEIVING);
 			} else {
-				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_GIVING));
+				return Util.newArrayListOfValues(Fetish.FETISH_ANAL_GIVING);
 			}
 		}
 	};

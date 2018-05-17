@@ -11,17 +11,16 @@ import com.lilithsthrone.game.Season;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.History;
-import com.lilithsthrone.game.character.Name;
-import com.lilithsthrone.game.character.SexualOrientation;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.persona.History;
+import com.lilithsthrone.game.character.persona.Name;
+import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -91,11 +90,66 @@ public class SlaveInStocks extends NPC {
 			Map<Subspecies, Integer> availableRaces = new HashMap<>();
 			for(Subspecies s : Subspecies.values()) {
 				switch(s) {
+					// No spawn chance:
+					case ANGEL:
+					case DEMON:
+					case HARPY:
+					case HARPY_RAVEN:
+					case HUMAN:
+					case IMP:
+					case IMP_ALPHA:
+					case SLIME:
+					case SLIME_ALLIGATOR:
+					case SLIME_ANGEL:
+					case SLIME_CAT:
+					case SLIME_CAT_LYNX:
+					case SLIME_CAT_LEOPARD_SNOW:
+					case SLIME_CAT_LEOPARD:
+					case SLIME_CAT_LION:
+					case SLIME_CAT_TIGER:
+					case SLIME_CAT_CHEETAH:
+					case SLIME_CAT_OCELOT:
+					case SLIME_COW:
+					case SLIME_DEMON:
+					case SLIME_DOG:
+					case SLIME_DOG_DOBERMANN:
+					case SLIME_DOG_BORDER_COLLIE:
+					case SLIME_HARPY:
+					case SLIME_HARPY_RAVEN:
+					case SLIME_HORSE:
+					case SLIME_IMP:
+					case SLIME_REINDEER:
+					case SLIME_SQUIRREL:
+					case SLIME_WOLF:
+					case SLIME_RAT:
+					case SLIME_BAT:
+					case SLIME_RABBIT:
+					case ELEMENTAL_AIR:
+					case ELEMENTAL_ARCANE:
+					case ELEMENTAL_EARTH:
+					case ELEMENTAL_FIRE:
+					case ELEMENTAL_WATER:
+						break;
+					
+					// Special spawns:
+					case REINDEER_MORPH:
+						if(Main.game.getSeason()==Season.WINTER && Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.hasSnowedThisWinter)) {
+							addToSubspeciesMap(10, gender, s, availableRaces);
+						}
+						break;
+						
+					// Rare spawns:
 					case ALLIGATOR_MORPH:
 						addToSubspeciesMap(5, gender, s, availableRaces);
 						break;
-					case ANGEL:
+					case BAT_MORPH:
+						addToSubspeciesMap(5, gender, s, availableRaces);
 						break;
+					case RAT_MORPH:
+						addToSubspeciesMap(5, gender, s, availableRaces);
+						break;
+						
+					// Common spawns:
 					case CAT_MORPH:
 						addToSubspeciesMap(20, gender, s, availableRaces);
 						break;
@@ -123,51 +177,17 @@ public class SlaveInStocks extends NPC {
 					case COW_MORPH:
 						addToSubspeciesMap(10, gender, s, availableRaces);
 						break;
-					case DEMON:
-						break;
-					case IMP:
-						break;
-					case IMP_ALPHA:
-						break;
 					case DOG_MORPH:
 						addToSubspeciesMap(20, gender, s, availableRaces);
 						break;
 					case DOG_MORPH_DOBERMANN:
-						addToSubspeciesMap(10, gender, s, availableRaces);
+						addToSubspeciesMap(5, gender, s, availableRaces);
 						break;
-					case HARPY:
+					case DOG_MORPH_BORDER_COLLIE:
+						addToSubspeciesMap(5, gender, s, availableRaces);
 						break;
 					case HORSE_MORPH:
 						addToSubspeciesMap(20, gender, s, availableRaces);
-						break;
-					case HUMAN:
-						break;
-					case SLIME:
-					case SLIME_ALLIGATOR:
-					case SLIME_ANGEL:
-					case SLIME_CAT:
-					case SLIME_CAT_LYNX:
-					case SLIME_CAT_LEOPARD_SNOW:
-					case SLIME_CAT_LEOPARD:
-					case SLIME_CAT_LION:
-					case SLIME_CAT_TIGER:
-					case SLIME_CAT_CHEETAH:
-					case SLIME_CAT_OCELOT:
-					case SLIME_COW:
-					case SLIME_DEMON:
-					case SLIME_DOG:
-					case SLIME_DOG_DOBERMANN:
-					case SLIME_HARPY:
-					case SLIME_HORSE:
-					case SLIME_IMP:
-					case SLIME_REINDEER:
-					case SLIME_SQUIRREL:
-					case SLIME_WOLF:
-						break;
-					case REINDEER_MORPH:
-						if(Main.game.getSeason()==Season.WINTER && Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.hasSnowedThisWinter)) {
-							addToSubspeciesMap(10, gender, s, availableRaces);
-						}
 						break;
 					case SQUIRREL_MORPH:
 						addToSubspeciesMap(10, gender, s, availableRaces);
@@ -175,7 +195,12 @@ public class SlaveInStocks extends NPC {
 					case WOLF_MORPH:
 						addToSubspeciesMap(20, gender, s, availableRaces);
 						break;
-				
+					case RABBIT_MORPH:
+						addToSubspeciesMap(3, gender, s, availableRaces);
+						break;
+					case RABBIT_MORPH_LOP:
+						addToSubspeciesMap(3, gender, s, availableRaces);
+						break;
 				}
 			}
 			
@@ -599,10 +624,4 @@ public class SlaveInStocks extends NPC {
 		return null;
 	}
 
-	@Override
-	public Attack attackType() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 }

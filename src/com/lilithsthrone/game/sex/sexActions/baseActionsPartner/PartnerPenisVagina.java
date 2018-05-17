@@ -23,7 +23,6 @@ import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.game.sex.sexActions.universal.dom.DomCowgirl;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 
 /**
  * @since 0.1.79
@@ -121,7 +120,7 @@ public class PartnerPenisVagina {
 		
 		@Override
 		public List<Fetish> getFetishes(GameCharacter character) {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DENIAL));
+			return Util.newArrayListOfValues(Fetish.FETISH_DENIAL);
 		}
 	};
 	
@@ -145,7 +144,7 @@ public class PartnerPenisVagina {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getSexPace(Main.game.getPlayer())!=SexPace.SUB_RESISTING && (Sex.isDom(Main.game.getPlayer()) || Sex.isSubHasEqualControl());
+			return Sex.getSexPace(Main.game.getPlayer()) != SexPace.SUB_RESISTING;
 		}
 
 		@Override
@@ -206,12 +205,12 @@ public class PartnerPenisVagina {
 		
 		@Override
 		public void applyEffects() {
-			Sex.transferLubrication(Main.game.getPlayer(), Sex.getActivePartner(), PenetrationType.PENIS, OrificeType.VAGINA);
+			Sex.transferLubrication(Sex.getActivePartner(), Main.game.getPlayer(), PenetrationType.PENIS, OrificeType.VAGINA);
 		}
 		
 		@Override
 		public List<Fetish> getFetishes(GameCharacter character) {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DENIAL));
+			return Util.newArrayListOfValues(Fetish.FETISH_DENIAL);
 		}
 	};
 	
@@ -1434,7 +1433,7 @@ public class PartnerPenisVagina {
 	
 	public static final SexAction PLAYER_FUCKED_SUB_RESIST = new SexAction(
 			SexActionType.PLAYER,
-			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.ZERO_NONE,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ZERO_PURE,
 			PenetrationType.PENIS,

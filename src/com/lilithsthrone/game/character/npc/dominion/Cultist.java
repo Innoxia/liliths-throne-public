@@ -10,7 +10,6 @@ import org.w3c.dom.Element;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.Name;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
@@ -19,13 +18,13 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.combat.Attack;
-import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
-import com.lilithsthrone.game.dialogue.npcDialogue.CultistDialogue;
+import com.lilithsthrone.game.dialogue.npcDialogue.dominion.CultistDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
@@ -44,14 +43,13 @@ import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.88
- * @version 0.1.99
+ * @version 0.2.2
  * @author Innoxia
  */
 public class Cultist extends NPC {
@@ -87,6 +85,7 @@ public class Cultist extends NPC {
 			this.addFetish(Fetish.FETISH_ORAL_RECEIVING);
 			this.addFetish(Fetish.FETISH_ORAL_GIVING);
 			this.addFetish(Fetish.FETISH_ANAL_GIVING);
+			this.addFetish(Fetish.FETISH_VAGINAL_GIVING);
 			this.addFetish(Fetish.FETISH_IMPREGNATION);
 			CharacterUtils.addFetishes(this);
 			
@@ -153,10 +152,10 @@ public class Cultist extends NPC {
 			
 			// Makeup:
 			colours = Util.newArrayListOfValues(
-					new ListValue<>(Colour.COVERING_NONE),
-					new ListValue<>(Colour.COVERING_ORANGE),
-					new ListValue<>(Colour.COVERING_PURPLE),
-					new ListValue<>(Colour.COVERING_BLACK));
+					Colour.COVERING_NONE,
+					Colour.COVERING_ORANGE,
+					Colour.COVERING_PURPLE,
+					Colour.COVERING_BLACK);
 			
 			Colour colourForCoordination = colours.get(Util.random.nextInt(colours.size()));
 			Colour colourForNails = colours.get(Util.random.nextInt(colours.size()));
@@ -246,24 +245,6 @@ public class Cultist extends NPC {
 		}
 		
 		return Attack.SEDUCTION;
-	}
-
-	@Override
-	public Spell getSpell() {
-		List<Spell> spellsAvailable = new ArrayList<>();
-		
-		if(!Main.game.getPlayer().getStatusEffects().contains(StatusEffect.WITCH_SEAL)) {
-			spellsAvailable.add(Spell.WITCH_SEAL);
-		}
-		if(!this.getStatusEffects().contains(StatusEffect.WITCH_CHARM)) {
-			spellsAvailable.add(Spell.WITCH_CHARM);
-		}
-		
-		if(spellsAvailable.isEmpty()) {
-			return null;
-		} else {
-			return spellsAvailable.get(Util.random.nextInt(spellsAvailable.size()));
-		}
 	}
 	
 	@Override
@@ -489,7 +470,7 @@ public class Cultist extends NPC {
 				"You tear open the packet and forcefully roll the condom down the length [npc.name]'s [npc.penis].",
 				"[npc.Name] tears open the packet and rolls the condom down the length of [npc.her] [npc.penis].",
 				"[npc.Name] tears open the packet and rolls the condom down the length of your [pc.penis].",
-				"[npc.Name] tears open the packet and forcefully rolls the condom down the length of your [pc.penis].");
+				"[npc.Name] tears open the packet and forcefully rolls the condom down the length of your [pc.penis].", null, null);
 	}
 	
 //	// Losing virginity: TODO

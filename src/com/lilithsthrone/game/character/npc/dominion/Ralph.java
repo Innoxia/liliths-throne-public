@@ -1,12 +1,12 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
+import java.util.List;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.NameTriplet;
-import com.lilithsthrone.game.character.SexualOrientation;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
@@ -15,15 +15,19 @@ import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.persona.NameTriplet;
+import com.lilithsthrone.game.character.persona.PersonalityTrait;
+import com.lilithsthrone.game.character.persona.PersonalityWeight;
+import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
-import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.RalphsSnacks;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.CharacterInventory;
+import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
@@ -36,6 +40,7 @@ import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -48,38 +53,22 @@ public class Ralph extends NPC {
 
 	private static final long serialVersionUID = 1L;
 
-	private AbstractItemType[] itemsForSale = new AbstractItemType[] {
-			ItemType.RACE_INGREDIENT_CAT_MORPH,
-			ItemType.RACE_INGREDIENT_DOG_MORPH,
-			ItemType.RACE_INGREDIENT_HARPY,
-			ItemType.RACE_INGREDIENT_HORSE_MORPH,
-			ItemType.RACE_INGREDIENT_WOLF_MORPH,
-			ItemType.RACE_INGREDIENT_SQUIRREL_MORPH,
-			ItemType.RACE_INGREDIENT_ALLIGATOR_MORPH,
-			ItemType.RACE_INGREDIENT_REINDEER_MORPH,
-			ItemType.RACE_INGREDIENT_COW_MORPH,
-			ItemType.RACE_INGREDIENT_HUMAN,
-			ItemType.RACE_INGREDIENT_DEMON,
-
-			ItemType.STR_INGREDIENT_EQUINE_CIDER,
-			ItemType.STR_INGREDIENT_WOLF_WHISKEY,
-			ItemType.STR_INGREDIENT_BUBBLE_MILK,
-			ItemType.STR_INGREDIENT_SWAMP_WATER,
-			ItemType.INT_INGREDIENT_FELINE_FANCY,
-			ItemType.FIT_INGREDIENT_CANINE_CRUSH,
-			ItemType.FIT_INGREDIENT_EGG_NOG,
-			ItemType.SEX_INGREDIENT_HARPY_PERFUME,
-			ItemType.SEX_INGREDIENT_SLIME_QUENCHER,
-			ItemType.COR_INGREDIENT_LILITHS_GIFT,
-			ItemType.FIT_INGREDIENT_SQUIRREL_JAVA,
+	private static List<AbstractItemType> itemsForSale = Util.newArrayListOfValues(
 			ItemType.FETISH_UNREFINED,
 			ItemType.ADDICTION_REMOVAL,
-
 			ItemType.MOO_MILKER_EMPTY,
 			ItemType.VIXENS_VIRILITY,
 			ItemType.PROMISCUITY_PILL,
-			ItemType.MOTHERS_MILK };
-
+			ItemType.MOTHERS_MILK);
+	
+	static {
+		for(AbstractItemType itemType : ItemType.allItems) {
+			if(!itemType.getItemTags().contains(ItemTag.NOT_FOR_SALE) && (itemType.getItemTags().contains(ItemTag.ATTRIBUTE_TF_ITEM) || itemType.getItemTags().contains(ItemTag.RACIAL_TF_ITEM))) {
+				itemsForSale.add(itemType);
+			}
+		}
+	}
+	
 	public Ralph() {
 		this(false);
 	}
@@ -89,6 +78,13 @@ public class Ralph extends NPC {
 				10, Gender.M_P_MALE, RacialBody.HORSE_MORPH, RaceStage.GREATER,
 				new CharacterInventory(10), WorldType.SHOPPING_ARCADE, PlaceType.SHOPPING_ARCADE_RALPHS_SHOP, true);
 
+		this.setPersonality(Util.newHashMapOfValues(
+				new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.AVERAGE),
+				new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.AVERAGE),
+				new Value<>(PersonalityTrait.EXTROVERSION, PersonalityWeight.AVERAGE),
+				new Value<>(PersonalityTrait.NEUROTICISM, PersonalityWeight.LOW),
+				new Value<>(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.AVERAGE)));
+		
 		if(!isImported) {
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 			
@@ -266,20 +262,6 @@ public class Ralph extends NPC {
 			}
 		}
 	};
-
-	// Combat (you never fight Ralph):
-	@Override
-	public String getCombatDescription() {
-		return null;
-	}
-	@Override
-	public Response endCombat(boolean applyEffects, boolean victory) {
-		return null;
-	}
-	@Override
-	public Attack attackType() {
-		return null;
-	}
 	
 	@Override
 	public String getCondomEquipEffects(GameCharacter equipper, GameCharacter target, boolean rough) {
@@ -321,7 +303,7 @@ public class Ralph extends NPC {
 				"You tear open the packet and forcefully roll the condom down the length [npc.name]'s [npc.penis].",
 				"[npc.Name] tears open the packet and rolls the condom down the length of [npc.her] [npc.penis].",
 				"[npc.Name] tears open the packet and rolls the condom down the length of your [pc.penis].",
-				"[npc.Name] tears open the packet and forcefully rolls the condom down the length of your [pc.penis].");
+				"[npc.Name] tears open the packet and forcefully rolls the condom down the length of your [pc.penis].", null, null);
 	}
 	
 	

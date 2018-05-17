@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,8 +9,6 @@ import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.NameTriplet;
-import com.lilithsthrone.game.character.SexualOrientation;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.HornType;
@@ -24,9 +23,12 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.persona.NameTriplet;
+import com.lilithsthrone.game.character.persona.PersonalityTrait;
+import com.lilithsthrone.game.character.persona.PersonalityWeight;
+import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
-import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.Lab;
@@ -38,9 +40,11 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.sex.sexActions.dominion.lilaya.SALilayaSpecials;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.rendering.Artist;
+import com.lilithsthrone.rendering.Artwork;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
+import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -53,6 +57,69 @@ public class Lilaya extends NPC {
 
 	private static final long serialVersionUID = 1L;
 
+	private static List<Artwork> lilayaPaleArtwork = new ArrayList<>();
+	private static List<Artwork> lilayaLightArtwork = new ArrayList<>();
+	private static List<Artwork> lilayaOliveArtwork = new ArrayList<>();
+	private static List<Artwork> lilayaDarkArtwork = new ArrayList<>();
+	private static List<Artwork> lilayaEbonyArtwork = new ArrayList<>();
+	
+	static {
+		String artworkFolderName = "LilayaPale";
+				
+		if(artworkFolderName!=null && !artworkFolderName.isEmpty()) {
+			for(Artist artist : Artwork.allArtists) {
+				File f = new File("res/images/characters/"+artworkFolderName+"/"+artist.getFolderName());
+				if(f.exists()) {
+					lilayaPaleArtwork.add(new Artwork(artworkFolderName, artist));
+				}
+			}
+		}
+		
+		artworkFolderName = "LilayaLight";
+		
+		if(artworkFolderName!=null && !artworkFolderName.isEmpty()) {
+			for(Artist artist : Artwork.allArtists) {
+				File f = new File("res/images/characters/"+artworkFolderName+"/"+artist.getFolderName());
+				if(f.exists()) {
+					lilayaLightArtwork.add(new Artwork(artworkFolderName, artist));
+				}
+			}
+		}
+		
+		artworkFolderName = "LilayaOlive";
+		
+		if(artworkFolderName!=null && !artworkFolderName.isEmpty()) {
+			for(Artist artist : Artwork.allArtists) {
+				File f = new File("res/images/characters/"+artworkFolderName+"/"+artist.getFolderName());
+				if(f.exists()) {
+					lilayaOliveArtwork.add(new Artwork(artworkFolderName, artist));
+				}
+			}
+		}
+		
+		artworkFolderName = "LilayaDark";
+		
+		if(artworkFolderName!=null && !artworkFolderName.isEmpty()) {
+			for(Artist artist : Artwork.allArtists) {
+				File f = new File("res/images/characters/"+artworkFolderName+"/"+artist.getFolderName());
+				if(f.exists()) {
+					lilayaDarkArtwork.add(new Artwork(artworkFolderName, artist));
+				}
+			}
+		}
+		
+		artworkFolderName = "LilayaEbony";
+		
+		if(artworkFolderName!=null && !artworkFolderName.isEmpty()) {
+			for(Artist artist : Artwork.allArtists) {
+				File f = new File("res/images/characters/"+artworkFolderName+"/"+artist.getFolderName());
+				if(f.exists()) {
+					lilayaEbonyArtwork.add(new Artwork(artworkFolderName, artist));
+				}
+			}
+		}
+	}
+	
 	// Mother's name is Lyssieth
 
 	public Lilaya() {
@@ -66,6 +133,13 @@ public class Lilaya extends NPC {
 						+ " Due to her demonic appearance and the fact that she's the daughter of the Lilin Lyssieth, people usually regard Lilaya with a mixture of fear and respect.",
 				10, Gender.F_V_B_FEMALE, RacialBody.DEMON, RaceStage.PARTIAL_FULL, new CharacterInventory(10), WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, true);
 
+		this.setPersonality(Util.newHashMapOfValues(
+				new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.AVERAGE),
+				new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.HIGH),
+				new Value<>(PersonalityTrait.EXTROVERSION, PersonalityWeight.LOW),
+				new Value<>(PersonalityTrait.NEUROTICISM, PersonalityWeight.AVERAGE),
+				new Value<>(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.HIGH)));
+		
 		if(!isImported) {
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 			
@@ -116,6 +190,35 @@ public class Lilaya extends NPC {
 	@Override
 	public boolean isUnique() {
 		return true;
+	}
+	
+	// Prevent issues with Geisha Lilaya immediately
+	// backing out of submissive sex
+	
+	@Override
+	public boolean isAttractedTo(GameCharacter character) {
+		return true;
+	}
+
+	@Override
+	public List<Artwork> getArtworkList() {
+		if(this.getCovering(BodyCoveringType.HUMAN).getPrimaryColour()==Colour.SKIN_PALE) {
+			return lilayaPaleArtwork;
+			
+		} else if(this.getCovering(BodyCoveringType.HUMAN).getPrimaryColour()==Colour.SKIN_LIGHT) {
+			return lilayaLightArtwork;
+			
+		} else if(this.getCovering(BodyCoveringType.HUMAN).getPrimaryColour()==Colour.SKIN_OLIVE) {
+			return lilayaOliveArtwork;
+			
+		} else if(this.getCovering(BodyCoveringType.HUMAN).getPrimaryColour()==Colour.SKIN_DARK) {
+			return lilayaDarkArtwork;
+			
+		} else if(this.getCovering(BodyCoveringType.HUMAN).getPrimaryColour()==Colour.SKIN_EBONY) {
+			return lilayaEbonyArtwork;
+		}
+		
+		return lilayaLightArtwork;
 	}
 	
 	@Override
@@ -245,9 +348,6 @@ public class Lilaya extends NPC {
 					return new Response("Continue", "Leave the lab and let Lilaya carry on with her work.", Lab.LAB_EXIT){
 						@Override
 						public void effects() {
-							if(Main.game.getLilaya().hasStatusEffect(StatusEffect.CREAMPIE_VAGINA) && !Main.game.getLilaya().isVisiblyPregnant()) {
-								Main.game.getDialogueFlags().values.add(DialogueFlagValue.waitingOnLilayaPregnancyResults);
-							}
 							Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, false);
 						}
 					};
@@ -333,9 +433,6 @@ public class Lilaya extends NPC {
 						@Override
 						public void effects() {
 							Main.game.getPlayer().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_PLAYER, true);
-							if(Main.game.getLilaya().hasStatusEffect(StatusEffect.CREAMPIE_VAGINA) && !Main.game.getLilaya().isVisiblyPregnant()) {
-								Main.game.getDialogueFlags().values.add(DialogueFlagValue.waitingOnLilayaPregnancyResults);
-							}
 						}
 					};
 				}
@@ -345,27 +442,12 @@ public class Lilaya extends NPC {
 			}
 		}
 	};
-
-	// Combat (you never fight Lilaya):
-	@Override
-	public String getCombatDescription() {
-		return null;
-	}
-	@Override
-	public Response endCombat(boolean applyEffects, boolean victory) {
-		return null;
-	}
-	@Override
-	public Attack attackType() {
-		return null;
-	}
-	
 	
 	// Sex:
 	
 	@Override
 	public List<Class<?>> getUniqueSexClasses() {
-		return Util.newArrayListOfValues(new ListValue<>(SALilayaSpecials.class));
+		return Util.newArrayListOfValues(SALilayaSpecials.class);
 	}
 
 	/**

@@ -17,7 +17,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.1.83
+ * @version 0.2.3
  * @author Innoxia
  */
 public class HarpyNestsDialogue {
@@ -232,7 +232,7 @@ public class HarpyNestsDialogue {
 						+ "[pc.speech(Hi, I'm here to find a harpy matriarch called Alexa, you wouldn't happen to know where she is, would you?)]"
 					+ "</p>"
 					+"<p>"
-						+"A look of surprise crosses the wolf-girl's face as you mention that name, "
+						+"A look of surprise crosses the wolf-girl's face as you mention that name. "
 						+ "[style.speechFeminine(Well, I don't know where exactly in the Nests any particular harpies are, but if it's the matriarch you're after with that name, then watch out; she's trouble."
 						+ " She's got a reputation for being extremely quick to take offence at anything, even for a harpy, so choose your words wisely when you find her.)]"
 					+ "</p>"
@@ -280,7 +280,7 @@ public class HarpyNestsDialogue {
 						+ "[pc.speech(Hi, I'm just up here to have a look around the Harpy Nests, don't mind me.)]"
 					+ "</p>"
 					+"<p>"
-						+"The cat-boy raises one eyebrow and leans back in his chair, "
+						+"The cat-boy raises one eyebrow and leans back in his chair. "
 						+ "[style.speechMasculine(Oh you are, are you? And do you know <i>anything</i> about harpies?)]"
 					+ "</p>"
 					+ "<p>"
@@ -345,7 +345,7 @@ public class HarpyNestsDialogue {
 						+ " He's currently giving orders to a pair of cat-girls, and you hang around for a moment, waiting for him to finish his business."
 					+ "</p>"
 					+ "<p>"
-						+ "[style.speechMasculineStrong(Alright, report back here as soon as you get that warrant,)] you hear him say,"
+						+ "[style.speechMasculineStrong(Alright, report back here as soon as you get that warrant,)] you hear him say."
 						+ " [style.speechMasculineStrong(These harpies are getting out of control..."
 						+ " Oh, and Alice, before you go, if I hear just <i>one more</i> rumour about you shirking your duties to go visit your boyfriend, I'll fuck you myself! Now get out of my sight!)]"
 					+ "</p>"
@@ -354,11 +354,11 @@ public class HarpyNestsDialogue {
 					+ "</p>"
 					+ "<p>"
 						+ "Seeing your opportunity to find out more about what's going on in the Harpy Nests, you walk up to the muscular horse-boy."
-						+ " Noticing your approach, he lets out a grunt,"
+						+ " Noticing your approach, he lets out a grunt."
 						+ " [style.speechMasculineStrong(What is it now? If one of those harpy bitches out there did something, I don't have the time to help you. You should have known the risks before going out there!)]"
 					+ "</p>"
 					+ "<p>"
-						+ "[pc.speech(Actually, <i>I</i> was wondering if I could help <i>you</i>,)] you say,"
+						+ "[pc.speech(Actually, <i>I</i> was wondering if I could help <i>you</i>,)] you say."
 						+ " [pc.speech(I couldn't help but overhear how much trouble you're having with these harpies. Perhaps I could sort them out for you?)]"
 					+ "</p>"
 					+ "<p>"
@@ -398,7 +398,7 @@ public class HarpyNestsDialogue {
 						+ " [style.speechMasculineStrong(I could offer a five thousand flame reward.)]"
 					+ "</p>"
 					+ "<p>"
-						+ "[pc.speech(Consider it done,)] you say, before moving to leave the office, [pc.speech(I'll be back to claim that reward!)]"
+						+ "[pc.speech(Consider it done,)] you say, before moving to leave the office. [pc.speech(I'll be back to claim that reward!)]"
 					+ "</p>"
 					+ "<p>"
 						+ "You hear the horse-boy grunt as he sinks down into his chair, and, closing the door behind you, you walk back out into the Enforcer Post."
@@ -433,7 +433,7 @@ public class HarpyNestsDialogue {
 					+ "</p>"
 					+ "<p>"
 						+ ""
-						+ "[style.speechMasculineStrong(Hah! Hungry for more Alic- Oh! It's you!)] the horse-boy calls out, tucking in his shirt as he sits down in his chair,"
+						+ "[style.speechMasculineStrong(Hah! Hungry for more, Alic- Oh! It's you!)] the horse-boy calls out, tucking in his shirt as he sits down in his chair."
 						+ " [style.speechMasculineStrong(I heard what you've been up to out there!)]"
 					+ "</p>"
 					+ "<p>"
@@ -443,8 +443,9 @@ public class HarpyNestsDialogue {
 					+ "<p>"
 						+ "[style.speechMasculineStrong(Hah! Well, I don't know how you managed to pull it off, but we've received messages from each one of those matriarchs saying that they'll stop causing a problem!)]"
 					+ "</p>"
+					+ "<p>"
 						+ "The muscular horse-boy produces a little brass key, and, bending down to unlock a heavy iron safe that's sitting beneath his desk, he retrieves a bag of money."
-						+ " Setting it down in front of him, he grins up at you,"
+						+ " Setting it down in front of him, he grins up at you."
 						+ " [style.speechMasculineStrong(I still can't believe that you actually managed to do it! Well, I'll keep my end of the bargain; here's five thousand flames!)]"
 					+ "</p>"
 					+ "<p>"
@@ -573,19 +574,15 @@ public class HarpyNestsDialogue {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(index == 6) {
+			if(index == 1) {
 				if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_HARPY_PACIFICATION)) {
 					return new ResponseEffectsOnly(
 							"Look for trouble",
 							"Although you've pacified the harpy nests, you're sure that you can find a harpy who's looking for a confrontation..."){
 								@Override
 								public void effects() {
-									DialogueNodeOld dn = Encounter.HARPY_NEST_LOOK_FOR_TROUBLE.getRandomEncounter();
-									if (dn == null) {
-										Main.game.setContent(new Response("", "", WALKWAY));
-									} else {
-										Main.game.setContent(new Response("", "", dn));
-									}
+									DialogueNodeOld dn = Encounter.HARPY_NEST_LOOK_FOR_TROUBLE.getRandomEncounter(true);
+									Main.game.setContent(new Response("", "", dn));
 								}
 							};
 							
@@ -595,7 +592,7 @@ public class HarpyNestsDialogue {
 							"Explore the walkways. Although you don't think you're any more or less likely to find anything by doing this, at least you won't have to keep travelling back and forth..."){
 								@Override
 								public void effects() {
-									DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true);
+									DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
 									Main.game.setContent(new Response("", "", dn));
 								}
 							};
@@ -703,19 +700,15 @@ public class HarpyNestsDialogue {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(index == 6) {
+			if(index == 1) {
 				if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_HARPY_PACIFICATION)) {
 					return new ResponseEffectsOnly(
 							"Look for trouble",
 							"Although you've pacified the harpy nests, you're sure that you can find a harpy who's looking for a confrontation..."){
 								@Override
 								public void effects() {
-									DialogueNodeOld dn = Encounter.HARPY_NEST_LOOK_FOR_TROUBLE.getRandomEncounter();
-									if (dn == null) {
-										Main.game.setContent(new Response("", "", WALKWAY));
-									} else {
-										Main.game.setContent(new Response("", "", dn));
-									}
+									DialogueNodeOld dn = Encounter.HARPY_NEST_LOOK_FOR_TROUBLE.getRandomEncounter(true);
+									Main.game.setContent(new Response("", "", dn));
 								}
 							};
 							
@@ -725,7 +718,7 @@ public class HarpyNestsDialogue {
 							"Explore the walkways. Although you don't think you're any more or less likely to find anything by doing this, at least you won't have to keep travelling back and forth..."){
 								@Override
 								public void effects() {
-									DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true);
+									DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
 									Main.game.setContent(new Response("", "", dn));
 								}
 							};

@@ -4,7 +4,7 @@ import java.util.Map.Entry;
 
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
-import com.lilithsthrone.game.dialogue.MapDisplay;
+import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.main.Main;
@@ -52,8 +52,8 @@ public class MiscDialogue {
 		}
 		
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.STATUS_EFFECT_MESSAGE;
+		public DialogueNodeType getDialogueNodeType() {
+			return DialogueNodeType.STATUS_EFFECT_MESSAGE;
 		}
 	};
 }

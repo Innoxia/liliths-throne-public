@@ -16,6 +16,7 @@ import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.utils.XMLSaving;
 import com.lilithsthrone.world.places.GenericPlace;
+import com.lilithsthrone.world.places.PlaceUpgrade;
 
 /**
  * @since 0.1.0
@@ -103,7 +104,7 @@ public class Cell implements Serializable, XMLSaving {
 		cell.setWestAccess(Boolean.valueOf(parentElement.getAttribute("westAccess")));
 		cell.setBlocked(Boolean.valueOf(parentElement.getAttribute("blocked")));
 		
-		cell.setPlace(GenericPlace.loadFromXML(((Element)parentElement.getElementsByTagName("place").item(0)), doc));
+		cell.setPlace(GenericPlace.loadFromXML(((Element)parentElement.getElementsByTagName("place").item(0)), doc, cell), false);
 		
 		try {
 			if(parentElement.getElementsByTagName("characterInventory").getLength()>0) {
@@ -114,7 +115,7 @@ public class Cell implements Serializable, XMLSaving {
 		}
 		
 		cell.getInventory().setMaximumInventorySpace(CELL_MAXIMUM_INVENTORY_SPACE);
-		
+
 		return cell;
 	}
 	
@@ -159,10 +160,21 @@ public class Cell implements Serializable, XMLSaving {
 		return place;
 	}
 
-	public void setPlace(GenericPlace place) {
+	public void setPlace(GenericPlace place, boolean applyInventoryInit) {
 		this.place = place;
+		if(applyInventoryInit) {
+			place.getPlaceType().applyInventoryInit(this.getInventory());
+		}
 	}
 
+	public boolean addPlaceUpgrade(PlaceUpgrade upgrade) {
+		return getPlace().addPlaceUpgrade(this, upgrade);
+	}
+	
+	public boolean removePlaceUpgrade(PlaceUpgrade upgrade) {
+		return getPlace().removePlaceUpgrade(this, upgrade);
+	}
+	
 	public Vector2i getLocation() {
 		return location;
 	}
