@@ -4020,6 +4020,44 @@ public class ItemType {
 		}
 	};
 	
+	public static AbstractItemType PEACH = new AbstractItemType(
+			25,
+			null,
+			false,
+			"Peach",
+			"Peaches",
+			"A delicate fruit often cultivated in temperate climates. Also it kind of looks like an booty if you squint.",
+			"peach",
+			Colour.GENERIC_ARCANE,
+			null,
+			null,
+			Rarity.LEGENDARY,
+			null,
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.PEACH))), null) {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public boolean canBeSold() {
+			return false;
+		}
+		
+		@Override
+		public String getUseName() {
+			return "eat";
+		}
+		
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return getGenericUseDescription(user, target,
+					"You eat the peach. The sweet taste of rapture overwhelmes you.",
+					"You force [npc.name] to eat the peach. The sweet taste of rapture overwhelmes them.",
+					"[npc.Name] produces an peach, and then proceeds to eat it. The sweet taste of rapture overwhelmes you both.",
+					"[npc.Name] produces an peach, and then proceeds to force you to eat it. The sweet taste of rapture overwhelmes you both.");
+		}
+	};
+	
+	
 	public static AbstractItemType PRESENT = new AbstractItemType(250,
 			"a",
 			false,
