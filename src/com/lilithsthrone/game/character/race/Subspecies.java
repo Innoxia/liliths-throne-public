@@ -328,7 +328,7 @@ public enum Subspecies {
 	},
 	
 	//TODO
-	CAT_MORPH_LYNX("raceCatMorphLynx",
+	CAT_MORPH_LYNX("statusEffects/raceCatMorphLynx",
 			"lynx-morph",
 			"lynx-morphs",
 			"lynx",
@@ -336,7 +336,7 @@ public enum Subspecies {
 			"lynxes",
 			"lynxes",
 			Race.CAT_MORPH,
-			Colour.RACE_CAT_MORPH,
+			Colour.RACE_CAT_MORPH_LYNX,
 			SubspeciesPreference.TWO_AVERAGE,
 			"A cat-morph which resembles an anthropomorphised lynx. To be identified as a Lynx-morph, a character must be a cat-morph that has fluffy fur, tufted ears, short tail and side-fluff hair type.",
 			Util.newArrayListOfValues(WorldType.DOMINION)) {
@@ -358,7 +358,7 @@ public enum Subspecies {
 		}
 	},
 	
-	CAT_MORPH_LEOPARD_SNOW("raceCatMorphLeopardSnow",
+	CAT_MORPH_LEOPARD_SNOW("statusEffects/raceCatMorphLeopardSnow",
 			"snow leopard-morph",
 			"snow leopard-morphs",
 			"snow leopard",
@@ -366,7 +366,7 @@ public enum Subspecies {
 			"snow leopards",
 			"snow leopards",
 			Race.CAT_MORPH,
-			Colour.RACE_CAT_MORPH,
+			Colour.RACE_CAT_MORPH_LEOPARD_SNOW,
 			SubspeciesPreference.TWO_AVERAGE,
 			"A cat-morph which resembles an anthropomorphised snow leopard. To be identified as a snow leopard-morph, a character must be a cat-morph that has fluffy spotted fur, normal tail and panther face.",
 			Util.newArrayListOfValues(WorldType.DOMINION)) {
@@ -393,7 +393,7 @@ public enum Subspecies {
 		}
 	},
 	
-	CAT_MORPH_LEOPARD("raceCatMorphLeopard",
+	CAT_MORPH_LEOPARD("statusEffects/raceCatMorphLeopard",
 			"leopard-morph",
 			"leopard-morphs",
 			"leopard",
@@ -401,7 +401,7 @@ public enum Subspecies {
 			"leopard",
 			"leopard",
 			Race.CAT_MORPH,
-			Colour.RACE_CAT_MORPH,
+			Colour.RACE_CAT_MORPH_LEOPARD,
 			SubspeciesPreference.TWO_AVERAGE,
 			"A cat-morph which resembles an anthropomorphised leopard. To be identified as a leopard-morph, a character must be a cat-morph that has short spotted fur, normal tail and panther face.",
 			Util.newArrayListOfValues(WorldType.DOMINION)) {
@@ -424,7 +424,7 @@ public enum Subspecies {
 		}
 	},
 	
-	CAT_MORPH_LION("raceCatMorphLion",
+	CAT_MORPH_LION("statusEffects/raceCatMorphLion",
 			"lion-morph",
 			"lion-morphs",
 			"lion",
@@ -432,7 +432,7 @@ public enum Subspecies {
 			"lions",
 			"lions",
 			Race.CAT_MORPH,
-			Colour.RACE_CAT_MORPH,
+			Colour.RACE_CAT_MORPH_LION,
 			SubspeciesPreference.TWO_AVERAGE,
 			"A cat-morph which resembles an anthropomorphised lion. To be identified as a lion-morph, a character must be a cat-morph that has short fur, tufted tail and panther face.",
 			Util.newArrayListOfValues(WorldType.DOMINION)) {
@@ -458,7 +458,7 @@ public enum Subspecies {
 		}
 	},
 	
-	CAT_MORPH_TIGER("raceCatMorphTiger",
+	CAT_MORPH_TIGER("statusEffects/raceCatMorphTiger",
 			"tiger-morph",
 			"tiger-morphs",
 			"tiger",
@@ -466,7 +466,7 @@ public enum Subspecies {
 			"tigers",
 			"tigers",
 			Race.CAT_MORPH,
-			Colour.RACE_CAT_MORPH,
+			Colour.RACE_CAT_MORPH_TIGER,
 			SubspeciesPreference.TWO_AVERAGE,
 			"A cat-morph which resembles an anthropomorphised tuger. To be identified as a tiger-morph, a character must be a cat-morph that has striped fur, normal tail and panther face.",
 			Util.newArrayListOfValues(WorldType.DOMINION)) {
@@ -492,7 +492,7 @@ public enum Subspecies {
 		}
 	},
 	
-	CAT_MORPH_CHEETAH("raceCatMorphCheetah",
+	CAT_MORPH_CHEETAH("statusEffects/raceCatMorphCheetah",
 			"cheetah-morph",
 			"cheetah-morphs",
 			"cheetah",
@@ -500,7 +500,7 @@ public enum Subspecies {
 			"cheetahs",
 			"cheetahs",
 			Race.CAT_MORPH,
-			Colour.RACE_CAT_MORPH,
+			Colour.RACE_CAT_MORPH_CHEETAH,
 			SubspeciesPreference.TWO_AVERAGE,
 			"A cat-morph which resembles an anthropomorphised cheetah. To be identified as a cheetah-morph, a character must be a cat-morph that has short, spotted fur and not identified as other feline morphs.",
 			Util.newArrayListOfValues(WorldType.DOMINION)) {
@@ -536,17 +536,17 @@ public enum Subspecies {
 		}
 	},
 	
-	CAT_MORPH_OCELOT("raceCatMorphOcelot",
-			"ocelot-morph",
-			"ocelot-morphs",
-			"ocelot",
-			"ocelot",
-			"ocelots",
-			"ocelots",
+	CAT_MORPH_CARACAL("statusEffects/raceCatMorphCaracal",
+			"caracal-morph",
+			"caracal-morphs",
+			"caracal",
+			"caracal",
+			"caracals",
+			"caracals",
 			Race.CAT_MORPH,
-			Colour.RACE_CAT_MORPH,
+			Colour.RACE_CAT_MORPH_CARACAL,
 			SubspeciesPreference.TWO_AVERAGE,
-			"A cat-morph which resembles an anthropomorphised ocelot. To be identified as an ocelot-morph, a character must be a cat-morph with tufted ears.",
+			"A cat-morph which resembles an anthropomorphised caracal. To be identified as a caracal-morph, a character must be a cat-morph with tufted ears.",
 			Util.newArrayListOfValues(WorldType.DOMINION)) {
 		@Override
 		public void applySpeciesChanges(Body body) {
@@ -1035,7 +1035,7 @@ public enum Subspecies {
 		}
 	},
 	
-	SLIME_CAT_LYNX("raceSlime",
+	SLIME_CAT_LYNX("statusEffects/raceSlime",
 			"lynx-slime",
 			"lynx-slimes",
 			"lynx-slime-boy",
@@ -1053,7 +1053,7 @@ public enum Subspecies {
 		}
 	},
 	
-	SLIME_CAT_LEOPARD_SNOW("raceSlime",
+	SLIME_CAT_LEOPARD_SNOW("statusEffects/raceSlime",
 			"snow leopard-slime",
 			"snow leopard-slimes",
 			"snow leopard-slime-boy",
@@ -1071,7 +1071,7 @@ public enum Subspecies {
 		}
 	},
 	
-	SLIME_CAT_LEOPARD("raceSlime",
+	SLIME_CAT_LEOPARD("statusEffects/raceSlime",
 			"leopard-slime",
 			"leopard-slimes",
 			"leopard-slime-boy",
@@ -1089,7 +1089,7 @@ public enum Subspecies {
 		}
 	},
 	
-	SLIME_CAT_LION("raceSlime",
+	SLIME_CAT_LION("statusEffects/raceSlime",
 			"lion-slime",
 			"lion-slimes",
 			"lion-slime-boy",
@@ -1107,7 +1107,7 @@ public enum Subspecies {
 		}
 	},
 	
-	SLIME_CAT_TIGER("raceSlime",
+	SLIME_CAT_TIGER("statusEffects/raceSlime",
 			"tiger-slime",
 			"tiger-slimes",
 			"tiger-slime-boy",
@@ -1125,7 +1125,7 @@ public enum Subspecies {
 		}
 	},
 	
-	SLIME_CAT_CHEETAH("raceSlime",
+	SLIME_CAT_CHEETAH("statusEffects/raceSlime",
 			"cheetah-slime",
 			"cheetah-slimes",
 			"cheetah-slime-boy",
@@ -1143,17 +1143,17 @@ public enum Subspecies {
 		}
 	},
 	
-	SLIME_CAT_OCELOT("raceSlime",
-			"ocelot-slime",
-			"ocelot-slimes",
-			"ocelot-slime-boy",
-			"ocelot-slime-girl",
-			"ocelot-slime-boys",
-			"ocelot-slime-girls",
+	SLIME_CAT_CARACAL("statusEffects/raceSlime",
+			"caracal-slime",
+			"caracal-slimes",
+			"caracal-slime-boy",
+			"caracal-slime-girl",
+			"caracal-slime-boys",
+			"caracal-slime-girls",
 			Race.SLIME,
 			Colour.RACE_SLIME,
 			SubspeciesPreference.FOUR_ABUNDANT,
-			"A slime that's taken on the form of a ocelot-morph.",
+			"A slime that's taken on the form of a caracal-morph.",
 			Util.newArrayListOfValues(WorldType.SUBMISSION)) {
 		@Override
 		public void applySpeciesChanges(Body body) {
@@ -1600,8 +1600,8 @@ public enum Subspecies {
 				case CAT_MORPH:
 					subspecies = Subspecies.CAT_MORPH;
 					if(body.getHair().getType() == HairType.CAT_MORPH_SIDEFLUFF
-							&& body.getCoverings().get(BodyCoveringType.FELINE_FUR).getPattern() == CoveringPattern.SPOTTED
 							&& body.getEar().getType()==EarType.CAT_MORPH_TUFTED
+							&& body.getCoverings().get(BodyCoveringType.FELINE_FUR).getModifier() == CoveringModifier.FLUFFY
 							&& body.getTail().getType()==TailType.CAT_MORPH_SHORT
 							) {
 							subspecies = Subspecies.CAT_MORPH_LYNX;
@@ -1638,7 +1638,7 @@ public enum Subspecies {
 							subspecies = Subspecies.CAT_MORPH_CHEETAH;
 						}
 					else if(body.getEar().getType()==EarType.CAT_MORPH_TUFTED) {
-							subspecies = Subspecies.CAT_MORPH_OCELOT;
+							subspecies = Subspecies.CAT_MORPH_CARACAL;
 						}
 					break;
 				case COW_MORPH:
@@ -1748,7 +1748,7 @@ public enum Subspecies {
 									subspecies = Subspecies.SLIME_CAT_CHEETAH;
 								}
 							else if(body.getEar().getType()==EarType.CAT_MORPH_TUFTED) {
-									subspecies = Subspecies.SLIME_CAT_OCELOT;
+									subspecies = Subspecies.SLIME_CAT_CARACAL;
 								}
 							break;
 						case COW_MORPH:

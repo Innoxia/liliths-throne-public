@@ -156,6 +156,7 @@ public enum BodyCoveringType {
 			"fur",
 			Util.newArrayListOfValues(
 					CoveringModifier.SMOOTH,
+					CoveringModifier.SHORT,
 					CoveringModifier.FLUFFY),
 			null,
 			Util.newArrayListOfValues(

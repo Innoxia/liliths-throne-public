@@ -995,7 +995,7 @@ public enum RenderingEngine {
 								+ " - "
 									+ (character.isRaceConcealed()
 											?"<span style='color:"+Colour.RACE_UNKNOWN.toWebHexString()+";'>Unknown"
-											:"<span style='color:"+character.getRace().getColour().toWebHexString()+";'>"
+											:"<span style='color:"+character.getSubspecies().getColour().toWebHexString()+";'>"
 												+Util.capitaliseSentence((character.isFeminine()?character.getSubspecies().getSingularFemaleName():character.getSubspecies().getSingularMaleName())))
 									+"</span>"
 								+ "<div class='overlay-inventory' id='CHARACTERS_PRESENT_"+character.getId()+"'></div>"

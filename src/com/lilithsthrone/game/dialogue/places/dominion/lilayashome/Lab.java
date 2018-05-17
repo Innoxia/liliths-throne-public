@@ -3192,7 +3192,7 @@ public class Lab {
 						break;
 					case CAT_MORPH:
 					case CAT_MORPH_LYNX:
-					case CAT_MORPH_OCELOT:
+					case CAT_MORPH_CARACAL:
 					case CAT_MORPH_CHEETAH:
 						litterSB.append(" good-looking");
 						break;
@@ -3243,7 +3243,7 @@ public class Lab {
 					case SLIME_CAT_LION:
 					case SLIME_CAT_TIGER:
 					case SLIME_CAT_CHEETAH:
-					case SLIME_CAT_OCELOT:
+					case SLIME_CAT_CARACAL:
 					case SLIME_COW:
 					case SLIME_DEMON:
 					case SLIME_DOG:
@@ -3294,7 +3294,7 @@ public class Lab {
 						break;
 					case CAT_MORPH:
 					case CAT_MORPH_LYNX:
-					case CAT_MORPH_OCELOT:
+					case CAT_MORPH_CARACAL:
 					case CAT_MORPH_CHEETAH:
 						litterSB.append(" good-looking");
 						break;
@@ -3345,7 +3345,7 @@ public class Lab {
 					case SLIME_CAT_LION:
 					case SLIME_CAT_TIGER:
 					case SLIME_CAT_CHEETAH:
-					case SLIME_CAT_OCELOT:
+					case SLIME_CAT_CARACAL:
 					case SLIME_COW:
 					case SLIME_DEMON:
 					case SLIME_DOG:
@@ -3396,7 +3396,7 @@ public class Lab {
 						break;
 					case CAT_MORPH:
 					case CAT_MORPH_LYNX:
-					case CAT_MORPH_OCELOT:
+					case CAT_MORPH_CARACAL:
 					case CAT_MORPH_CHEETAH:
 						litterSB.append(" pretty");
 						break;
@@ -3447,7 +3447,7 @@ public class Lab {
 					case SLIME_CAT_LION:
 					case SLIME_CAT_TIGER:
 					case SLIME_CAT_CHEETAH:
-					case SLIME_CAT_OCELOT:
+					case SLIME_CAT_CARACAL:
 					case SLIME_COW:
 					case SLIME_DEMON:
 					case SLIME_DOG:
@@ -3498,7 +3498,7 @@ public class Lab {
 						break;
 					case CAT_MORPH:
 					case CAT_MORPH_LYNX:
-					case CAT_MORPH_OCELOT:
+					case CAT_MORPH_CARACAL:
 					case CAT_MORPH_CHEETAH:
 						litterSB.append(" pretty");
 						break;
@@ -3549,7 +3549,7 @@ public class Lab {
 					case SLIME_CAT_LION:
 					case SLIME_CAT_TIGER:
 					case SLIME_CAT_CHEETAH:
-					case SLIME_CAT_OCELOT:
+					case SLIME_CAT_CARACAL:
 					case SLIME_COW:
 					case SLIME_DEMON:
 					case SLIME_DOG:

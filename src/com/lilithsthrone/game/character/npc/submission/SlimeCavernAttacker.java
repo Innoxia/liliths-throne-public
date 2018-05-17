@@ -83,7 +83,7 @@ public class SlimeCavernAttacker extends NPC {
 					case CAT_MORPH_TIGER:
 					case CAT_MORPH_LYNX:
 					case CAT_MORPH_CHEETAH:
-					case CAT_MORPH_OCELOT:
+					case CAT_MORPH_CARACAL:
 					case COW_MORPH:
 					case DEMON:
 					case DOG_MORPH:
@@ -121,7 +121,7 @@ public class SlimeCavernAttacker extends NPC {
 					case SLIME_CAT_LYNX:
 					case SLIME_CAT_LION:
 					case SLIME_CAT_TIGER:
-					case SLIME_CAT_OCELOT:
+					case SLIME_CAT_CARACAL:
 					case SLIME_CAT_CHEETAH:
 					case SLIME_COW:
 					case SLIME_DEMON:

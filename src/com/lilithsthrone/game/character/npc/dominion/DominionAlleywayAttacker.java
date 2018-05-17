@@ -133,7 +133,7 @@ public class DominionAlleywayAttacker extends NPC {
 					case SLIME_CAT_LION:
 					case SLIME_CAT_TIGER:
 					case SLIME_CAT_CHEETAH:
-					case SLIME_CAT_OCELOT:
+					case SLIME_CAT_CARACAL:
 					case SLIME_COW:
 					case SLIME_DEMON:
 					case SLIME_DOG:
@@ -184,7 +184,7 @@ public class DominionAlleywayAttacker extends NPC {
 					case CAT_MORPH_CHEETAH:
 						addToSubspeciesMap(canalSpecies?2:5, gender, s, availableRaces);
 						break;
-					case CAT_MORPH_OCELOT:
+					case CAT_MORPH_CARACAL:
 						addToSubspeciesMap(canalSpecies?2:5, gender, s, availableRaces);
 						break;
 					case COW_MORPH:
