@@ -101,6 +101,40 @@ public class Main extends Application {
 
 		+ "<list>"
 			+ "<h6>v0.2.5.5</h6>"
+			+"<li>Gameplay:</li>"
+			+"<ul>Added new quest 'Slime Queen'. You should automatically pick this up from Claire when you enter Submission (she will repeat her initial dialogue if you've already seen it).</ul>"
+			+"<ul>Added unique slime attack descriptions for Submission's tunnels, along with transformation behaviour of wanting to TF you into a slime.</ul>"
+			+"<ul>(Not yet finished!) Added the map 'Slime Queen's tower' as part of the new quest, with 4 new NPCs in there.</ul>"
+
+			+"<li>Balance:</li>"
+			+"<ul>Changed slime's status effect from -100 physical damage to -100 unarmed damage.</ul>"
+
+			+"<li>Artwork:</li>"
+			+"<ul>Added Jam's artwork of Claire.</ul>"
+
+			+"<li>Weapons:</li>"
+			+"<ul>Added support for dying weapon colours.</ul>"
+			+"<ul>Added: Zweihander (Main weapon slot).</ul>"
+			+"<ul>Added: Knightly Sword (Main weapon slot).</ul>"
+			+"<ul>Added: Buckler (Offhand weapon slot).</ul>"
+
+			+"<li>Clothing:</li>"
+			+"<ul>Added secondary colour to navel barbell (for the gem).</ul>"
+			+"<ul>Added snowflake jewelry to Nyan's shop.</ul>"
+			+"<ul>Added: Sun necklace (no femininity requirements, neck slot).</ul>"
+			+"<ul>Added: Sun earrings (no femininity requirements, ear piercing slot).</ul>"
+			+"<ul>Added: Sun nose stud (no femininity requirements, nose piercing slot).</ul>"
+
+			+"<li>Other:</li>"
+			+"<ul>The losing party's elementals are now dispelled at the end of combat.</ul>"
+			+"<ul>Slightly changed biojuice canister icon, lowered its value, and removed it from random Submission drops.</ul>"
+
+			+"<li>Bugs:</li>"
+			+"<ul>Fixed bug in clothing displacement detection method, which could sometimes cause the game to lock up when wearing sealed clothing.</ul>"
+			+"<ul>Fixed chaos feathers only being available in the poison damage type.</ul>"
+			+"<ul>Enchanting clothing will no longer reset item tags (which was causing the bug of nipple tape crosses losing their plugging effect).</ul>"
+			+"<ul>Fixed obsolete reference to a dress in succubus attacker dialogue.</ul>"
+			+"<ul>Fixed slime colours resetting every time the game was loaded.</ul>"
 		+ "</list>"
 		;
 	
