@@ -585,12 +585,6 @@ public class SlaveInStocks extends NPC {
 	}
 
 	@Override
-	public String getCombatDescription() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public Response endCombat(boolean applyEffects, boolean playerVictory) {
 		// TODO Auto-generated method stub
 		return null;

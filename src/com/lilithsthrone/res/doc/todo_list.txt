@@ -22,28 +22,160 @@
 	
 	Patch notes:
 	
+	Gameplay:
+		Added new quest 'Slime Queen'. You should automatically pick this up from Claire when you enter Submission (she will repeat her initial dialogue if you've already seen it).
+		Added unique slime attack descriptions for Submission's tunnels, along with transformation behaviour of wanting to TF you into a slime.
+		(Not yet finished!) Added the map 'Slime Queen's tower' as part of the new quest, with 4 new NPCs in there.
+	
+	Balance:
+		Changed slime's status effect from -100 physical damage to -100 unarmed damage.
+	
+	Artwork:
+		Added Jam's artwork of Claire.
+	
+	Weapons:
+		Added support for dying weapon colours.
+		Added: Zweihander (Main weapon slot).
+		Added: Knightly Sword (Main weapon slot).
+		Added: Buckler (Offhand weapon slot).
+	
+	Clothing:
+		Added secondary colour to navel barbell (for the gem).
+		Added snowflake jewelry to Nyan's shop.
+		Added: Sun necklace (no femininity requirements, neck slot).
+		Added: Sun earrings (no femininity requirements, ear piercing slot).
+		Added: Sun nose stud (no femininity requirements, nose piercing slot).
+	
+	Other:
+		The losing party's elementals are now dispelled at the end of combat.
+		Slightly changed biojuice canister icon, lowered its value, and removed it from random Submission drops.
+	
+	Bugs:
+		Fixed bug in clothing displacement detection method, which could sometimes cause the game to lock up when wearing sealed clothing.
+		Fixed chaos feathers only being available in the poison damage type.
+		Enchanting clothing will no longer reset item tags (which was causing the bug of nipple tape crosses losing their plugging effect).
+		Fixed obsolete reference to a dress in succubus attacker dialogue.
+		Fixed slime colours resetting every time the game was loaded.
 	
 	
 	
 	
-	
-	
+	Add slime TF quest.
+		[X] Enforcer post quest - pick up when enter submission.
+		[X] Add slime encounters
+			[X] If TF fetish OR first slime after getting quest: They want to feed you biojuice canister
+			[X] Else: They mug you
+			[X] Slime TF encounters mention a slime queen.
+		[X] Returning to Claire quest. (She comments on you being a slime)
+		[X] Claire mentions the Bat Caverns as the only place a Slime Queen could be hiding.
+		[X] Add unique Slime Queen NPC, and slime guards (who take you to the queen if they beat you).
+		[X] Add Slime Queen's lair map
+		[X] Add royal guard
+		[X] Go to slime lake and either take boat, or fly to island
+		[X] Test map and NPC additions
+		[X] Bypass initial fight if PC is slime, maid, or butler
+		[X] Guard encounter - they fuck you and then throw you out if win
+		[X] Trick royal guard into tiring himself out before fight, can then bypass if brawler or soldier
+		[X] Royal guard fucks you and throws you out if wins
+		[x] Slime queen is "manufacturing" the bio-canisters to transform everyone into slimes (it's her milk/girlcum)
+			She refuses to fight (and makes her case for why she's doing it). You can either:
+				[x] Help her
+					[x] She offers to TF you into slime through absorption
+					[x] Slime population in Submission massively increases
+				[x] Convince her to stop
+					[x] She reluctantly accepts
+				[x] Force her to stop
+					[x] "Rape" her
+		[ ] All tower descriptions done
+		[ ] Return to Claire and tell her there's no slime queen (She comments on you being a slime)
+		
+	[ ] Harpy offspring
+		
+	Slime solidification quest
+		[ ] If slime, then gain Lilaya's anti-slime TF quest
+			[ ] She asks for 5 angel's tears and 25 bottled essences
+			[ ] Quest completes, and can always return to her to get her to make more
 		
 	
-	I think the feathers are bugged in this version, I mean the purple ones. They only come in poison instead of all elements.
-	-edit-
+	Special encounters for:
+			
+		Rat-morphs & Alligator-morphs
+			[ ] Just want to mug you (Follow outline below)
+			
+		Imps
+			[ ] Imp gang encounter (1-3 imps)
+				[ ] Mugging
+				[ ] TF
+			[ ] Alpha Imp gang encounter (Alpha + 2-4 imps, for 5 max)
+			
+		[ ] Finish bat caverns (finding items)
+		Bat-morphs
+			[ ] Finish bat descriptions and racial effects
+			[ ] Glowing slime attacks
+			[ ] Talking encounter
+			[ ] Mugging encounter
+			
+	Imp fortresses
+		[ ] Fortress 1
+		[ ] Fortress 2
+		[ ] Fortress 3
+		[ ] Fortress 4
+		[ ] Fortress 5
+	
+	Gambling Den
+		[ ] Pregnancy roulette
+		[ ] Dice poker
+		[ ] Overpriced trader
+	
+	
+	
+	Random encounters:
+	Intro
+	Leave/Pay
+	Fight
+		Post-fight win
+			Sex
+			Leave
+		Post-fight loss
+			TF
+				Sex
+				Enemy leaves
+			Sex
+			Enemy leaves
+	Submit
+		Sex
+			
+			
+			
+	Can read Candi ass & va after loading
+	
+	: When you get parts unpierced, the piercings stay in until manually removed.
+		
+	stats human damage/resistance shown twice	
+	
+	Strapon is bugged overall. It kinda counts as a real cock so I got the penile virginity loss message (which then applies on a newly grown one as well) and NPCs try to shrink it when they transform me and I cannot grow a natural cock when using potions.
+	
+	organise getItemUseEffects()
+	
+	I have 8 slaves working the milking room and it's set to storing but it doesn't store anything. It works when I self milk though.
+	
+	Is anyone getting a bug where the milker job turns everyone's fluid into Human stuff? I've been milking wolf/horse/alligator/cows but all I ever get is human cum/milk.
+	
+	fix stats bars
+	
+	When looking at Ashley's description, it will say "She is free-willed, and will do whatever she wants", when it should say "they"
+	
+	spreader bar blocks jeans removal, but jeans conceal spreader bar
+	
 	The import doesn't import completely, my char lost her make-up.
 	
 	Lilaya fuck scene
 	
 	Anyone have trouble with the game freezing up if you get jumped in your house by a slave while under the "Risk of pregnancy" status effect
 	
-	USE 8 0170
-	
 	rfpnj PR
 	
-	Fen forms and TFGS update pictures and hotfix
-	
+	thrusting hips out for nipple pen?
 	
 	
 	after growing more than 1 tail I lost the option to tail peg
@@ -51,6 +183,7 @@
 	handjobs and breastfeeding as ongoing
 	hand as orifice
 	
+	Can you not remove addictive qualities out of a slave's cum? I keep trying to use Enchanted Angel Tears to remove it but it doesn't do shit
 	
 	it seems like the part of the description where it says how many times you've had sex with someone counts the number of times they've had sex in a brothel while working for you as a slave
 	
@@ -101,48 +234,6 @@
 		Perhaps the solution there would be that if a cock is sheathed it allows you to have a cock up to 16 before you are recognized
 		Where people will recognize you as female but say they always knew you were futa if your cock size is above 8 inches
 		
-		
-	Special encounters for:
-			
-		Rat-morphs & Alligator-morphs
-			Just want to mug you
-			
-		Slimes
-			If TF fetish: They feed you biojuice canister
-			Else: They mug you
-			
-		Imps
-			Two or three at once
-			
-		Bat-morphs
-			Finish bat descriptions and racial effects
-			Most just want to talk
-			
-	Imp fortresses
-	Gambling Den
-	Bat caverns.
-		
-	Add slime TF quest.
-		Enforcer post quest - pick up when enter submission.
-		Slime TF encounters mention a slime queen.
-		They mention the slime lake as the only possible place where a queen could be.
-		
-		Go to slime lake and either defeat slime guards to take boat, or fly to island
-		The house is a staircase down into a brightly-lit underground palace
-		Slimes
-		Slime queen is "manufacturing" the bio-canisters to transform everyone into slimes (it's her milk/girlcum)
-			Can either submit and help her (she TF's you into slime through absorption)
-				Slime population increases
-			Or fight her
-				Destroy slime equipment
-				
-	If slime, then gain Lilaya's anti-slime TF quest
-		She asks for 10 angel's tears and 100 bottled essences
-		Takes 3 days to make solidification elixir
-				
-
-
-
 
 	
 	- Add job: bedroom slave to act as alarm clock with blowjobs and sex. 

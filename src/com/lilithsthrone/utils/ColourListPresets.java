@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  * @since 0.2.4
- * @version 0.2.4
+ * @version 0.2.6
  * @author Innoxia
  */
 public enum ColourListPresets {
@@ -19,12 +19,18 @@ public enum ColourListPresets {
 	
 	JUST_BLACK(Util.newArrayListOfValues(
 			Colour.CLOTHING_BLACK)),
+
+	JUST_DARK_RED(Util.newArrayListOfValues(
+			Colour.CLOTHING_RED_DARK)),
 	
 	JUST_RED(Util.newArrayListOfValues(
 			Colour.CLOTHING_RED)),
 	
 	JUST_BROWN(Util.newArrayListOfValues(
 			Colour.CLOTHING_BROWN)),
+	
+	JUST_ORANGE(Util.newArrayListOfValues(
+			Colour.CLOTHING_ORANGE)),
 	
 	JUST_YELLOW(Util.newArrayListOfValues(
 			Colour.CLOTHING_YELLOW)),
@@ -40,6 +46,12 @@ public enum ColourListPresets {
 	
 	JUST_STEEL(Util.newArrayListOfValues(
 			Colour.CLOTHING_STEEL)),
+
+	JUST_SILVER(Util.newArrayListOfValues(
+			Colour.CLOTHING_SILVER)),
+
+	JUST_COPPER(Util.newArrayListOfValues(
+			Colour.CLOTHING_COPPER)),
 	
 	BLACK_OR_WHITE(Util.newArrayListOfValues(
 			Colour.CLOTHING_BLACK,

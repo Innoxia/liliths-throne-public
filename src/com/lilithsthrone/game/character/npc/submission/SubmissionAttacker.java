@@ -12,10 +12,14 @@ import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
+import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.History;
 import com.lilithsthrone.game.character.persona.Name;
+import com.lilithsthrone.game.character.persona.SexualOrientation;
+import com.lilithsthrone.game.character.quests.Quest;
+import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
@@ -23,6 +27,7 @@ import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.npcDialogue.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.submission.TunnelAttackDialogue;
+import com.lilithsthrone.game.dialogue.npcDialogue.submission.TunnelSlimeDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
@@ -132,7 +137,7 @@ public class SubmissionAttacker extends NPC {
 						addToSubspeciesMap(40, gender, s, availableRaces);
 						break;
 					case SLIME:
-						addToSubspeciesMap(15, gender, s, availableRaces);
+						addToSubspeciesMap(20, gender, s, availableRaces);
 						break;
 					case SLIME_ALLIGATOR:
 					case SLIME_ANGEL:
@@ -231,7 +236,10 @@ public class SubmissionAttacker extends NPC {
 			
 			CharacterUtils.addFetishes(this);
 			if(this.getBodyMaterial()==BodyMaterial.SLIME) {
-				//TODO
+				if(Main.game.getPlayer().getQuest(QuestLine.SIDE_SLIME_QUEEN) == Quest.SLIME_QUEEN_ONE) {
+					this.addFetish(Fetish.FETISH_TRANSFORMATION_GIVING);
+					this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+				}
 			}
 			
 			// BODY RANDOMISATION:
@@ -342,43 +350,55 @@ public class SubmissionAttacker extends NPC {
 	}
 	
 	@Override
-	public DialogueNodeOld getEncounterDialogue() { //TODO slimes
-		return TunnelAttackDialogue.TUNNEL_ATTACK;
-	}
-
-	// Combat:
-
-	@Override
-	public String getCombatDescription() {
-		if(this.isPregnant()) {
-			return "The consequence of your refusal to pull out of [npc.name] is standing right before you."
-					+ " Visibly pregnant, your one-time sexual partner has a devious grin on [npc.her] face, and you're not quite sure if you want to know what [npc.she]'s planning for [npc.her] revenge...";
-		} else {
-			if(this.isAttractedTo(Main.game.getPlayer())) {
-				return UtilText.parse(this, "[npc.Name] is quite clearly turned on by your strong aura. [npc.She]'s willing to fight you in order to claim your body.");
+	public DialogueNodeOld getEncounterDialogue() {
+		if(this.getBodyMaterial()==BodyMaterial.SLIME) {
+			
+			if(this.getLastTimeEncountered()==NPC.DEFAULT_TIME_START_VALUE) {
+				if(this.hasFetish(Fetish.FETISH_TRANSFORMATION_GIVING) && Main.game.getPlayer().getBodyMaterial()!=BodyMaterial.SLIME) {
+					if(Main.game.getPlayer().getQuest(QuestLine.SIDE_SLIME_QUEEN) == Quest.SLIME_QUEEN_ONE) {
+						Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/tunnelSlime", "ATTACK_TRANSFORMER_SLIME_QUEEN"));
+					} else {
+						Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/tunnelSlime", "ATTACK_TRANSFORMER"));
+					}
+				}
+				
+				if(Main.game.getPlayer().getQuest(QuestLine.SIDE_SLIME_QUEEN)==Quest.SLIME_QUEEN_ONE) {
+					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_SLIME_QUEEN, Quest.SLIME_QUEEN_TWO));
+				}
+				
+				return TunnelSlimeDialogue.ATTACK;
 				
 			} else {
-				return UtilText.parse(this, "Although your strong aura is having an effect on [npc.name], [npc.she]'s only really interested in robbing you of your possessions.");
+				if(!this.isReactedToPregnancy() && this.isVisiblyPregnant()) {
+					this.setReactedToPregnancy(true);
+					return TunnelSlimeDialogue.ATTACK_PREGNANCY_REVEAL;
+				}
 				
+				return TunnelSlimeDialogue.ATTACK_REPEAT;
 			}
+			
+		} else {
+			return TunnelAttackDialogue.TUNNEL_ATTACK;
 		}
 	}
 
+	// Combat:
+	
 	@Override
-	public Response endCombat(boolean applyEffects, boolean victory) { //TODO slimes
+	public Response endCombat(boolean applyEffects, boolean victory) {
 		if (victory) {
-//			if(this.getBodyMaterial()==BodyMaterial.SLIME) {
-//				return new Response("", "", TunnelSlimeDialogue.AFTER_COMBAT_PLAYER_VICTORY);
-//			} else {
+			if(this.getBodyMaterial()==BodyMaterial.SLIME) {
+				return new Response("", "", TunnelSlimeDialogue.AFTER_COMBAT_PLAYER_VICTORY);
+			} else {
 				return new Response("", "", TunnelAttackDialogue.AFTER_COMBAT_VICTORY);
-//			}
+			}
 			
 		} else {
-//			if(this.getBodyMaterial()==BodyMaterial.SLIME) {
-//				return new Response("", "", TunnelSlimeDialogue.AFTER_COMBAT_PLAYER_DEFEAT);
-//			} else {
+			if(this.getBodyMaterial()==BodyMaterial.SLIME) {
+				return new Response("", "", TunnelSlimeDialogue.AFTER_COMBAT_PLAYER_DEFEAT);
+			} else {
 				return new Response("", "", TunnelAttackDialogue.AFTER_COMBAT_DEFEAT);
-//			}
+			}
 		}
 	}
 	

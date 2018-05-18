@@ -371,6 +371,7 @@ public enum Colour {
 	SLIME_TAN(BaseColour.TAN, "translucent tan"),
 	SLIME_YELLOW(BaseColour.YELLOW, "translucent yellow"),
 	SLIME_AMBER(BaseColour.AMBER, "translucent amber"),
+	SLIME_PINK_DARK(BaseColour.PINK_DEEP, "translucent dark pink"),
 	SLIME_PINK(BaseColour.PINK, "translucent pink"),
 	SLIME_PINK_LIGHT(BaseColour.PINK_LIGHT, "translucent light pink"),
 	SLIME_GREEN(BaseColour.GREEN, "translucent green"),
@@ -590,6 +591,7 @@ public enum Colour {
 			Colour.SLIME_LILAC,
 			Colour.SLIME_PURPLE,
 			Colour.SLIME_PURPLE_DARK,
+			Colour.SLIME_PINK_DARK,
 			Colour.SLIME_PINK,
 			Colour.SLIME_PINK_LIGHT
 			);

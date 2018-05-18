@@ -181,11 +181,6 @@ public class ZaranixMaidKelly extends NPC {
 	// Combat:
 	
 	@Override
-	public String getCombatDescription() {
-		return "Despite her commitment to defending her master's home, Kelly's choice of weapon - the feather duster that she was using to clean the corridor - doesn't strike you as being the most effective of combat implements...";
-	}
-
-	@Override
 	public String getMainAttackDescription(boolean isHit) {
 		return "<p>"
 				+ UtilText.returnStringAtRandom(

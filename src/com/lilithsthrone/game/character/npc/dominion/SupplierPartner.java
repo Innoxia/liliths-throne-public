@@ -140,10 +140,6 @@ public class SupplierPartner extends NPC {
 	}
 
 	// Combat:
-	@Override
-	public String getCombatDescription() { //TODO
-		return ".";
-	}
 
 	@Override
 	public Response endCombat(boolean applyEffects, boolean victory) {

@@ -28,7 +28,6 @@ import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestDominant;
 import com.lilithsthrone.game.dialogue.responses.Response;
-import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
@@ -156,12 +155,6 @@ public class HarpyDominant extends NPC {
 	
 	public int getEscapeChance() {
 		return 0;
-	}
-	
-	@Override
-	public String getCombatDescription() {
-		return UtilText.parse(this,
-				"After watching you defeat [dominantHarpyCompanion.name], [dominantHarpy.name] rushes forwards, determined to teach you a lesson in front of her flock.");
 	}
 	
 	@Override

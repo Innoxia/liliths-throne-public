@@ -172,11 +172,6 @@ public class Zaranix extends NPC {
 	
 
 	// Combat:
-	
-	@Override
-	public String getCombatDescription() {
-		return "Zaranix is furious at your intrusion into his laboratory, and who knows what he'll do to you if you fall here?";
-	}
 
 	@Override
 	public String getMainAttackDescription(boolean isHit) {
