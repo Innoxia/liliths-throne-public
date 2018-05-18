@@ -67,9 +67,11 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 
 	
 	// Images:
-	private Map<Colour, Map<Colour, Map<Colour, String>>> SVGStringMap;
-	private Map<Colour, Map<Colour, Map<Colour, String>>> SVGStringEquippedMap;
+	private Map<Colour, Map<Colour, Map<Colour, Map<String, String>>>> SVGStringMap;
+	private Map<Colour, Map<Colour, Map<Colour, Map<String, String>>>> SVGStringEquippedMap;
 	
+	// Pattern data:
+	private boolean isPatternAvailable;
 	
 	// Access and block stuff:
 	private List<BlockedParts> blockedPartsList;
@@ -191,6 +193,8 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 
 		this.pathName = pathName;
 		this.pathNameEquipped = pathNameEquipped;
+		
+		this.isPatternAvailable = false;
 
 		enchantmentLimit = -1;
 		
@@ -407,6 +411,8 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 				setUpFemininity(Femininity.valueOf(coreAttributes.getElementsByTagName("femininity").item(0).getTextContent()));
 				this.slot = InventorySlot.valueOf(coreAttributes.getElementsByTagName("slot").item(0).getTextContent());
 				this.rarity = Rarity.valueOf(coreAttributes.getElementsByTagName("rarity").item(0).getTextContent());
+				
+				this.isPatternAvailable = false;
 				
 				enchantmentLimit = -1;
 				try {
@@ -651,6 +657,9 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 
 		SVGStringMap = new HashMap<>();
 		SVGStringEquippedMap = new HashMap<>();
+		
+		// Causes crash if done from here for some reason.
+		//this.isPatternAvailable = this.getSVGImage().contains("label=\"patternLayer\"");
 	}
 	
 	@Override
@@ -1393,51 +1402,81 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 //		return SVGStringEquippedMap;
 //	}
 	
-	private void addSVGStringMapping(Colour colour, Colour colourSecondary, Colour colourTertiary, String s) {
+	private void addSVGStringMapping(Colour colour, Colour colourSecondary, Colour colourTertiary, String pattern, String s) {
+		if(pattern == null) {
+			pattern = "none"; // The map does not contain null as a key.
+		}
 		if(SVGStringMap.get(colour)==null) {
 			SVGStringMap.put(colour, new HashMap<>());
 			SVGStringMap.get(colour).put(colourSecondary, new HashMap<>());
+			SVGStringMap.get(colour).get(colourSecondary).put(colourTertiary, new HashMap<>());
 			
 		} else if(SVGStringMap.get(colour).get(colourSecondary)==null) {
 			SVGStringMap.get(colour).put(colourSecondary, new HashMap<>());
+			SVGStringMap.get(colour).get(colourSecondary).put(colourTertiary, new HashMap<>());
+		} else if(SVGStringMap.get(colour).get(colourSecondary).get(colourTertiary)==null) {
+			SVGStringMap.get(colour).get(colourSecondary).put(colourTertiary, new HashMap<>());
 		}
 		
-		SVGStringMap.get(colour).get(colourSecondary).put(colourTertiary, s);
+		SVGStringMap.get(colour).get(colourSecondary).get(colourTertiary).put(pattern, s);
 	}
 	
-	private void addSVGStringEquippedMapping(Colour colour, Colour colourSecondary, Colour colourTertiary, String s) {
+	private void addSVGStringEquippedMapping(Colour colour, Colour colourSecondary, Colour colourTertiary, String pattern, String s) {
+		if(pattern == null) {
+			pattern = "none"; // The map does not contain null as a key.
+		}
 		if(SVGStringEquippedMap.get(colour)==null) {
 			SVGStringEquippedMap.put(colour, new HashMap<>());
 			SVGStringEquippedMap.get(colour).put(colourSecondary, new HashMap<>());
+			SVGStringEquippedMap.get(colour).get(colourSecondary).put(colourTertiary, new HashMap<>());
 			
 		} else if(SVGStringEquippedMap.get(colour).get(colourSecondary)==null) {
 			SVGStringEquippedMap.get(colour).put(colourSecondary, new HashMap<>());
+			SVGStringEquippedMap.get(colour).get(colourSecondary).put(colourTertiary, new HashMap<>());
+		} else if(SVGStringEquippedMap.get(colour).get(colourSecondary).get(colourTertiary)==null) {
+			SVGStringEquippedMap.get(colour).get(colourSecondary).put(colourTertiary, new HashMap<>());
 		}
 		
-		SVGStringEquippedMap.get(colour).get(colourSecondary).put(colourTertiary, s);
+		SVGStringEquippedMap.get(colour).get(colourSecondary).get(colourTertiary).put(pattern, s);
 	}
 	
 	
-	private String getSVGStringFromMap(Colour colour, Colour colourSecondary, Colour colourTertiary) {
+	private String getSVGStringFromMap(Colour colour, Colour colourSecondary, Colour colourTertiary, String pattern) {
+		if(pattern == null) {
+			pattern = "none"; // The map does not contain null as a key.
+		}
 		if(SVGStringMap.get(colour)==null) {
 			return null;
 		} else {
 			if(SVGStringMap.get(colour).get(colourSecondary)==null) {
 				return null;
 			} else {
-				return SVGStringMap.get(colour).get(colourSecondary).get(colourTertiary);
+				if(SVGStringMap.get(colour).get(colourSecondary).get(colourTertiary)==null) {
+					return null;
+				}
+				else {
+					return SVGStringMap.get(colour).get(colourSecondary).get(colourTertiary).get(pattern);
+				}
 			}
 		}
 	}
 	
-	private String getSVGStringFromEquippedMap(Colour colour, Colour colourSecondary, Colour colourTertiary) {
+	private String getSVGStringFromEquippedMap(Colour colour, Colour colourSecondary, Colour colourTertiary, String pattern) {
+		if(pattern == null) {
+			pattern = "none"; // The map does not contain null as a key.
+		}
 		if(SVGStringEquippedMap.get(colour)==null) {
 			return null;
 		} else {
 			if(SVGStringEquippedMap.get(colour).get(colourSecondary)==null) {
 				return null;
 			} else {
-				return SVGStringEquippedMap.get(colour).get(colourSecondary).get(colourTertiary);
+				if(SVGStringEquippedMap.get(colour).get(colourSecondary).get(colourTertiary)==null) {
+					return null;
+				}
+				else {
+					return SVGStringEquippedMap.get(colour).get(colourSecondary).get(colourTertiary).get(pattern);
+				}
 			}
 		}
 	}
@@ -1456,7 +1495,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			tColour = this.getAllAvailableTertiaryColours().get(0);
 		}
 		
-		return getSVGImage(null, pColour, sColour, tColour, false);
+		return getSVGImage(null, pColour, sColour, tColour, false, null);
 	}
 	
 	/**
@@ -1464,8 +1503,8 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	 * @param colourSecondary This can be null.
 	 * @param colourTertiary This can be null.
 	 */
-	public String getSVGImage(Colour colour, Colour colourSecondary, Colour colourTertiary) {
-		return getSVGImage(null, colour, colourSecondary, colourTertiary, false);
+	public String getSVGImage(Colour colour, Colour colourSecondary, Colour colourTertiary, String pattern) {
+		return getSVGImage(null, colour, colourSecondary, colourTertiary, false, pattern);
 	}
 	
 	/**
@@ -1474,11 +1513,11 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	 * @param colourSecondary This can be null.
 	 * @param colourTertiary This can be null.
 	 */
-	public String getSVGEquippedImage(GameCharacter character, Colour colour, Colour colourSecondary, Colour colourTertiary) {
-		return getSVGImage(character, colour, colourSecondary, colourTertiary, true);
+	public String getSVGEquippedImage(GameCharacter character, Colour colour, Colour colourSecondary, Colour colourTertiary, String pattern) {
+		return getSVGImage(character, colour, colourSecondary, colourTertiary, true, pattern);
 	}
 	
-	private String getSVGImage(GameCharacter character, Colour colour, Colour colourSecondary, Colour colourTertiary, boolean equippedVariant) {
+	private String getSVGImage(GameCharacter character, Colour colour, Colour colourSecondary, Colour colourTertiary, boolean equippedVariant, String pattern) {
 		if (!allAvailablePrimaryColours.contains(colour)) {
 			return "";
 		}
@@ -1489,15 +1528,17 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 					InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/clothing/belt_used_condoms_base_back.svg");
 					String s = "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;padding:0;margin:0'>"+Util.inputStreamToString(is)+"</div>";
 					is.close();
+					s = getSVGWithHandledPattern(s, pattern);
 					s = Util.colourReplacement(this.getId(), colour, colourSecondary, colourTertiary, s);
 
 					if(!equippedVariant) {
 						is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/clothing/belt_used_condoms_base_front.svg");
 						s += "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;padding:0;margin:0'>" + Util.inputStreamToString(is) + "</div>";
+						s = getSVGWithHandledPattern(s, pattern);
 						s = Util.colourReplacement(this.getId(), colour, colourSecondary, colourTertiary, s);
 						is.close();
 						
-						addSVGStringEquippedMapping(colour, colourSecondary, colourTertiary, s);
+						addSVGStringEquippedMapping(colour, colourSecondary, colourTertiary, pattern, s);
 						
 						return s;
 						
@@ -1511,6 +1552,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 									
 									is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/clothing/belt_used_condoms_"+condomColours.size()+"_back.svg");
 									s += "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;padding:0;margin:0'>" + Util.inputStreamToString(is) + "</div>";
+									s = getSVGWithHandledPattern(s, pattern);
 									s = Util.colourReplacement(this.getId(), item.getColour(), null, null, s);
 									is.close();
 								}
@@ -1520,6 +1562,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 						is.close();
 						is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/clothing/belt_used_condoms_base_front.svg");
 						s += "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;padding:0;margin:0'>" + Util.inputStreamToString(is) + "</div>";
+						s = getSVGWithHandledPattern(s, pattern);
 						s = Util.colourReplacement(this.getId(), colour, colourSecondary, colourTertiary, s);
 						is.close();
 						
@@ -1527,6 +1570,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 						for(Colour c : condomColours) {
 							is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/clothing/belt_used_condoms_"+i+"_front.svg");
 							s += "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;padding:0;margin:0'>" + Util.inputStreamToString(is) + "</div>";
+							s = getSVGWithHandledPattern(s, pattern);
 							s = Util.colourReplacement(this.getId(), c, null, null, s);
 							is.close();
 							i++;
@@ -1542,7 +1586,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			
 		} else {
 			if(equippedVariant && pathNameEquipped!=null) {
-				String stringFromMap = getSVGStringFromEquippedMap(colour, colourSecondary, colourTertiary);
+				String stringFromMap = getSVGStringFromEquippedMap(colour, colourSecondary, colourTertiary, pattern);
 				if (stringFromMap!=null && !this.equals(ClothingType.WRIST_WOMENS_WATCH) && !this.equals(ClothingType.WRIST_MENS_WATCH)) {
 					return stringFromMap;
 					
@@ -1565,6 +1609,8 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 								is.close();
 							}
 							
+							s = getSVGWithHandledPattern(s, pattern);
+							
 							s = Util.colourReplacement(this.getId(), colour, colourSecondary, colourTertiary, s);
 							
 							// Add minute and hour hands to women's and men's watches:
@@ -1581,7 +1627,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 											+ "deg);'>" + SVGImages.SVG_IMAGE_PROVIDER.getMensWatchMinuteHand() + "</div>"
 										: "");
 
-							addSVGStringEquippedMapping(colour, colourSecondary, colourTertiary, s);
+							addSVGStringEquippedMapping(colour, colourSecondary, colourTertiary, pattern, s);
 							
 							return s;
 						} catch (IOException e) {
@@ -1591,7 +1637,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 				}
 				
 			} else {
-				String stringFromMap = getSVGStringFromMap(colour, colourSecondary, colourTertiary);
+				String stringFromMap = getSVGStringFromMap(colour, colourSecondary, colourTertiary, pattern);
 				if (stringFromMap!=null && !this.equals(ClothingType.WRIST_WOMENS_WATCH) && !this.equals(ClothingType.WRIST_MENS_WATCH)) {
 					return stringFromMap;
 					
@@ -1614,6 +1660,8 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 								is.close();
 							}
 							
+							s = getSVGWithHandledPattern(s, pattern);
+							
 							s = Util.colourReplacement(this.getId(), colour, colourSecondary, colourTertiary, s);
 							
 							// Add minute and hour hands to women's and men's watches:
@@ -1630,8 +1678,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 											+ "deg);'>" + SVGImages.SVG_IMAGE_PROVIDER.getMensWatchMinuteHand() + "</div>"
 										: "");
 							
-							addSVGStringMapping(colour, colourSecondary, colourTertiary, s);
-							
+							addSVGStringMapping(colour, colourSecondary, colourTertiary, pattern, s);
 		
 							return s;
 						} catch (IOException e) {
@@ -1642,6 +1689,111 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			}
 		}
 		return "";
+	}
+	
+	private String getSVGWithHandledPattern(String s, String pattern)
+	{
+		if(!s.contains("label=\"patternLayer\"")) { // Making sure that the pattern layer exists.
+			return s;
+		}
+		
+		if(!this.isPatternAvailable) {
+			this.isPatternAvailable = true;
+		}
+		
+		if(pattern == null || pattern == "none") {
+			return s; // No pattern - no need to adjust anything.
+		}
+		
+		String returnable;
+		
+		// Locating the "patternLayer".
+		int patternLayerStartIndex = s.indexOf("label=\"patternLayer\"");
+		int patternLayerEndIndex = s.indexOf("</g>", patternLayerStartIndex);
+		
+		// Setting up clip mask
+		String newClipMask = "<clipPath id=\"internalPatternClip\">";
+		
+		int firstShapeStartIndex = s.indexOf("<path", patternLayerStartIndex);
+		int lastShapeEndIndex = firstShapeStartIndex;
+		
+		boolean continueSetUp = true;
+		
+		while(continueSetUp){
+			int currentShapeStartIndex = s.indexOf("<path", lastShapeEndIndex);
+			int currentShapeEndIndex = s.indexOf(" />", currentShapeStartIndex);
+			
+			if(currentShapeEndIndex > patternLayerEndIndex || currentShapeEndIndex == -1 || currentShapeStartIndex == -1) {
+				continueSetUp = false;
+			} else {
+				newClipMask = newClipMask + s.substring(currentShapeStartIndex, currentShapeEndIndex) + " />";
+				lastShapeEndIndex = currentShapeEndIndex;
+			}
+		}
+		
+		newClipMask = newClipMask + "</clipPath>";
+		
+		// Adding clip mask to the returned string.
+		returnable = s.substring(0, s.indexOf("<defs")) 
+				+ "<defs>" 
+				+ newClipMask;
+		
+		// Loading pattern
+		String loadedPattern;
+		try {
+			File patternFile = new File(System.getProperty("user.dir")+"/res/patterns/" + pattern.toLowerCase() + ".svg");
+			List<String> lines = Files.readAllLines(patternFile.toPath());
+			StringBuilder sb = new StringBuilder();
+			for(String line : lines) {
+				sb.append(line);
+			}
+			loadedPattern = sb.toString();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return s;
+		}
+		/*try {
+			InputStream is = this.getClass().getResourceAsStream("/res/patterns/" + pattern.toLowerCase() + ".svg");
+			loadedPattern = Util.inputStreamToString(is);
+			is.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return s;
+		}*/
+		
+		// Getting shapes from the pattern
+		String newPattern = "";
+		
+		int firstPatternShapeStartIndex = loadedPattern.indexOf("<path");
+		int lastPatternShapeEndIndex = firstPatternShapeStartIndex;
+		
+		boolean continuePatternSetUp = true;
+		
+		while(continuePatternSetUp){
+			int currentShapeStartIndex = loadedPattern.indexOf("<path", lastPatternShapeEndIndex);
+			int currentShapeEndIndex = loadedPattern.indexOf(" />", currentShapeStartIndex);
+			
+			if(currentShapeEndIndex == -1 || currentShapeStartIndex == -1) {
+				continuePatternSetUp = false;
+			} else {
+				newPattern = newPattern
+						+ loadedPattern.substring(currentShapeStartIndex, currentShapeEndIndex)
+						+ "clip-path=\"url(#internalPatternClip)\""
+						+ "/>";
+				lastPatternShapeEndIndex = currentShapeEndIndex;
+			}
+		}
+
+		returnable = returnable + s.substring(s.indexOf("</defs>"), firstShapeStartIndex) 
+				+ newPattern
+				+ s.substring(patternLayerEndIndex);
+		
+		return returnable;
+	}
+	
+	public boolean isPatternAvailable()
+	{
+		return this.isPatternAvailable;
 	}
 
 	public Rarity getRarity() {

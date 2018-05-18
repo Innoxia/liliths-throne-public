@@ -8,7 +8,9 @@ import java.util.stream.Collectors;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
+import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.LegType;
+import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.quests.QuestLine;
@@ -18,6 +20,7 @@ import com.lilithsthrone.game.combat.SpellSchool;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
+import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.SuccubisSecrets;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.story.CharacterCreation;
@@ -34,6 +37,7 @@ import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.sexActions.SexActionUtility;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.rendering.Pattern;
 import com.lilithsthrone.rendering.RenderingEngine;
 import com.lilithsthrone.utils.ClothingZLayerComparator;
 import com.lilithsthrone.utils.Colour;
@@ -5228,11 +5232,13 @@ public class InventoryDialogue {
 	public static Colour dyePreviewPrimary;
 	public static Colour dyePreviewSecondary;
 	public static Colour dyePreviewTertiary;
+	public static String dyePreviewPattern;
 	
 	private static void resetDyeColours() {
 		dyePreviewPrimary = clothing.getColour();
 		dyePreviewSecondary = clothing.getSecondaryColour();
 		dyePreviewTertiary = clothing.getTertiaryColour();
+		dyePreviewPattern = clothing.getPattern();
 	}
 	
 	public static final DialogueNodeOld DYE_CLOTHING = new DialogueNodeOld("Dye clothing", "", true) {
@@ -5256,7 +5262,7 @@ public class InventoryDialogue {
 					+ "<div class='container-full-width'>"
 						+ "<div class='inventoryImage'>"
 							+ "<div class='inventoryImage-content'>"
-								+ clothing.getClothingType().getSVGImage(dyePreviewPrimary, dyePreviewSecondary, dyePreviewTertiary)
+								+ clothing.getClothingType().getSVGImage(dyePreviewPrimary, dyePreviewSecondary, dyePreviewTertiary, dyePreviewPattern)
 							+ "</div>"
 						+ "</div>"
 						+ "<h3 style='text-align:center;'><b>Dye & Preview</b></h3>"
@@ -5295,7 +5301,30 @@ public class InventoryDialogue {
 				}
 				inventorySB.append("</div>");
 			}
-			inventorySB.append("</div>");
+			
+			if(clothing.getClothingType().isPatternAvailable())
+			{
+				inventorySB.append(
+						"</br>"
+						+ "<div class='container-full-width'>"
+						+ "Pattern:</br>");
+	 
+				for (Pattern pattern : Pattern.getAllPatterns().values()) {
+					if (dyePreviewPattern.equals(pattern.getName())) {
+						inventorySB.append(
+								"<div class='cosmetics-button active'>"
+									+ "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>" + Util.capitaliseSentence(pattern.getNiceName()) + "</b>"
+								+ "</div>");
+					} else {
+						inventorySB.append(
+								"<div id='ITEM_PATTERN_"+pattern.getName()+"' class='cosmetics-button'>"
+								+ "<span style='color:"+Colour.TRANSFORMATION_GENERIC.getShades()[0]+";'>" + Util.capitaliseSentence(pattern.getNiceName()) + "</span>"
+								+ "</div>");
+					}
+				}
+				inventorySB.append("</div>");
+			}
+			
 			
 			return inventorySB.toString();
 		}
@@ -5306,7 +5335,7 @@ public class InventoryDialogue {
 				return new Response("Back", "Return to the previous menu.", INVENTORY_MENU);
 
 			} else if (index == 1) {
-				if(dyePreviewPrimary == clothing.getColour() && dyePreviewSecondary == clothing.getSecondaryColour() && dyePreviewTertiary == clothing.getTertiaryColour()) {
+				if(dyePreviewPrimary == clothing.getColour() && dyePreviewSecondary == clothing.getSecondaryColour() && dyePreviewTertiary == clothing.getTertiaryColour() && dyePreviewPattern == clothing.getPattern()) {
 					return new Response("Dye",
 							"You need to choose different colours before being able to dye the " + clothing.getName() + "!",
 							null); 
@@ -5348,6 +5377,7 @@ public class InventoryDialogue {
 							clothing.setColour(dyePreviewPrimary);
 							clothing.setSecondaryColour(dyePreviewSecondary);
 							clothing.setTertiaryColour(dyePreviewTertiary);
+							clothing.setPattern(dyePreviewPattern);
 							owner.addClothing(clothing, false);
 
 						} else {
@@ -5355,6 +5385,7 @@ public class InventoryDialogue {
 							clothing.setColour(dyePreviewPrimary);
 							clothing.setSecondaryColour(dyePreviewSecondary);
 							clothing.setTertiaryColour(dyePreviewTertiary);
+							clothing.setPattern(dyePreviewPattern);
 							Main.game.getPlayerCell().getInventory().addClothing(clothing);
 						}
 					}
@@ -5391,7 +5422,7 @@ public class InventoryDialogue {
 					+ "<div class='container-full-width'>"
 						+ "<div class='inventoryImage'>"
 							+ "<div class='inventoryImage-content'>"
-								+ clothing.getClothingType().getSVGImage(dyePreviewPrimary, dyePreviewSecondary, dyePreviewTertiary)
+								+ clothing.getClothingType().getSVGImage(dyePreviewPrimary, dyePreviewSecondary, dyePreviewTertiary, dyePreviewPattern)
 							+ "</div>"
 						+ "</div>"
 						+ "<h3 style='text-align:center;'><b>Dye & Preview</b></h3>"
@@ -5441,7 +5472,7 @@ public class InventoryDialogue {
 				return new Response("Back", "Return to the previous menu.", INVENTORY_MENU);
 
 			} else if (index == 1) {
-				if(dyePreviewPrimary == clothing.getColour() && dyePreviewSecondary == clothing.getSecondaryColour() && dyePreviewTertiary == clothing.getTertiaryColour()) {
+				if(dyePreviewPrimary == clothing.getColour() && dyePreviewSecondary == clothing.getSecondaryColour() && dyePreviewTertiary == clothing.getTertiaryColour() && dyePreviewPattern == clothing.getPattern()) {
 					return new Response("Dye",
 							"You need to choose different colours before being able to dye the " + clothing.getName() + "!",
 							null); 
@@ -5481,6 +5512,7 @@ public class InventoryDialogue {
 						clothing.setColour(dyePreviewPrimary);
 						clothing.setSecondaryColour(dyePreviewSecondary);
 						clothing.setTertiaryColour(dyePreviewTertiary);
+						clothing.setPattern(dyePreviewPattern);
 					}
 				};
 
@@ -5516,7 +5548,7 @@ public class InventoryDialogue {
 					+ "<div class='container-full-width'>"
 						+ "<div class='inventoryImage'>"
 							+ "<div class='inventoryImage-content'>"
-								+ clothing.getClothingType().getSVGImage(dyePreviewPrimary, dyePreviewSecondary, dyePreviewTertiary)
+								+ clothing.getClothingType().getSVGImage(dyePreviewPrimary, dyePreviewSecondary, dyePreviewTertiary, dyePreviewPattern)
 							+ "</div>"
 						+ "</div>"
 						+ "<h3 style='text-align:center;'><b>Dye & Preview</b></h3>"
@@ -5566,7 +5598,7 @@ public class InventoryDialogue {
 				return new Response("Back", "Return to the previous menu.", CLOTHING_INVENTORY);
 
 			} else if (index == 1) {
-				if(dyePreviewPrimary == clothing.getColour() && dyePreviewSecondary == clothing.getSecondaryColour() && dyePreviewTertiary == clothing.getTertiaryColour()) {
+				if(dyePreviewPrimary == clothing.getColour() && dyePreviewSecondary == clothing.getSecondaryColour() && dyePreviewTertiary == clothing.getTertiaryColour() && dyePreviewPattern == clothing.getPattern()) {
 					return new Response("Dye",
 							"You need to choose different colours before being able to dye the " + clothing.getName() + "!",
 							null); 
@@ -5581,6 +5613,7 @@ public class InventoryDialogue {
 						clothing.setColour(dyePreviewPrimary);
 						clothing.setSecondaryColour(dyePreviewSecondary);
 						clothing.setTertiaryColour(dyePreviewTertiary);
+						clothing.setPattern(dyePreviewPattern);
 						Main.game.getPlayerCell().getInventory().addClothing(clothing);
 					}
 				};
@@ -5616,7 +5649,7 @@ public class InventoryDialogue {
 					+ "<div class='container-full-width'>"
 						+ "<div class='inventoryImage'>"
 							+ "<div class='inventoryImage-content'>"
-								+ clothing.getClothingType().getSVGImage(dyePreviewPrimary, dyePreviewSecondary, dyePreviewTertiary)
+								+ clothing.getClothingType().getSVGImage(dyePreviewPrimary, dyePreviewSecondary, dyePreviewTertiary, dyePreviewPattern)
 							+ "</div>"
 						+ "</div>"
 						+ "<h3 style='text-align:center;'><b>Dye & Preview</b></h3>"
@@ -5666,7 +5699,7 @@ public class InventoryDialogue {
 				return new Response("Back", "Return to the previous menu.", CLOTHING_EQUIPPED);
 
 			} else if (index  == 1) {
-				if(dyePreviewPrimary == clothing.getColour() && dyePreviewSecondary == clothing.getSecondaryColour() && dyePreviewTertiary == clothing.getTertiaryColour()) {
+				if(dyePreviewPrimary == clothing.getColour() && dyePreviewSecondary == clothing.getSecondaryColour() && dyePreviewTertiary == clothing.getTertiaryColour() && dyePreviewPattern == clothing.getPattern()) {
 					return new Response("Dye",
 							"You need to choose different colours before being able to dye the " + clothing.getName() + "!",
 							null); 
@@ -5680,6 +5713,7 @@ public class InventoryDialogue {
 						clothing.setColour(dyePreviewPrimary);
 						clothing.setSecondaryColour(dyePreviewSecondary);
 						clothing.setTertiaryColour(dyePreviewTertiary);
+						clothing.setPattern(dyePreviewPattern);
 					}
 				};
 

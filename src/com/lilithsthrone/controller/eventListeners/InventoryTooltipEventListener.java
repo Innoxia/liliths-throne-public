@@ -34,6 +34,7 @@ import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.rendering.Pattern;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 
@@ -56,6 +57,7 @@ public class InventoryTooltipEventListener implements EventListener {
 	private Colour colour;
 	private Colour secondaryColour;
 	private Colour tertiaryColour;
+	private Pattern pattern;
 	private AbstractClothingType genericClothing;
 	private AbstractClothing dyeClothing;
 	private InventorySlot invSlot;
@@ -166,21 +168,28 @@ public class InventoryTooltipEventListener implements EventListener {
 						
 						+ "<div class='subTitle'>" + Util.capitaliseSentence(colour.getName()) + "</div>"
 	
-						+ "<div class='picture full' style='position:relative;'>" + dyeClothing.getClothingType().getSVGImage(colour, InventoryDialogue.dyePreviewSecondary, InventoryDialogue.dyePreviewTertiary) + "</div>");
+						+ "<div class='picture full' style='position:relative;'>" + dyeClothing.getClothingType().getSVGImage(colour, InventoryDialogue.dyePreviewSecondary, InventoryDialogue.dyePreviewTertiary, InventoryDialogue.dyePreviewPattern) + "</div>");
 			
 			} else if(secondaryColour!=null) {
 				tooltipSB.append("<div class='title' style='color:" + dyeClothing.getRarity().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(dyeClothing.getName()) + "</div>"
 						
 						+ "<div class='subTitle'>" + Util.capitaliseSentence(secondaryColour.getName()) + "</div>"
 	
-						+ "<div class='picture full' style='position:relative;'>" + dyeClothing.getClothingType().getSVGImage(InventoryDialogue.dyePreviewPrimary, secondaryColour, InventoryDialogue.dyePreviewTertiary) + "</div>");
+						+ "<div class='picture full' style='position:relative;'>" + dyeClothing.getClothingType().getSVGImage(InventoryDialogue.dyePreviewPrimary, secondaryColour, InventoryDialogue.dyePreviewTertiary, InventoryDialogue.dyePreviewPattern) + "</div>");
 				
 			} else if(tertiaryColour!=null) {
 				tooltipSB.append("<div class='title' style='color:" + dyeClothing.getRarity().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(dyeClothing.getName()) + "</div>"
 						
 						+ "<div class='subTitle'>" + Util.capitaliseSentence(tertiaryColour.getName()) + "</div>"
 	
-						+ "<div class='picture full' style='position:relative;'>" + dyeClothing.getClothingType().getSVGImage(InventoryDialogue.dyePreviewPrimary, InventoryDialogue.dyePreviewSecondary, tertiaryColour) + "</div>");
+						+ "<div class='picture full' style='position:relative;'>" + dyeClothing.getClothingType().getSVGImage(InventoryDialogue.dyePreviewPrimary, InventoryDialogue.dyePreviewSecondary, tertiaryColour, InventoryDialogue.dyePreviewPattern) + "</div>");
+				
+			} else if(pattern!=null) {
+				tooltipSB.append("<div class='title' style='color:" + dyeClothing.getRarity().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(dyeClothing.getName()) + "</div>"
+						
+						+ "<div class='subTitle'>" + Util.capitaliseSentence(pattern.getNiceName()) + "</div>"
+	
+						+ "<div class='picture full' style='position:relative;'>" + dyeClothing.getClothingType().getSVGImage(InventoryDialogue.dyePreviewPrimary, InventoryDialogue.dyePreviewSecondary, InventoryDialogue.dyePreviewTertiary, pattern.getName()) + "</div>");
 				
 			}
 			
@@ -207,7 +216,7 @@ public class InventoryTooltipEventListener implements EventListener {
 
 					+ "<div class='picture full' style='position:relative;'>" + genericClothing.getSVGImage(colour,
 							genericClothing.getAvailableSecondaryColours().isEmpty()?null:genericClothing.getAvailableSecondaryColours().get(0),
-							genericClothing.getAvailableTertiaryColours().isEmpty()?null:genericClothing.getAvailableTertiaryColours().get(0)) + "</div>");
+							genericClothing.getAvailableTertiaryColours().isEmpty()?null:genericClothing.getAvailableTertiaryColours().get(0), null) + "</div>");
 			
 			Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
 
@@ -492,6 +501,13 @@ public class InventoryTooltipEventListener implements EventListener {
 		return this;
 	}
 	
+	public InventoryTooltipEventListener setDyeClothingPattern(AbstractClothing dyeClothing, Pattern pattern) {
+		resetVariables();
+		this.dyeClothing = dyeClothing;
+		this.pattern = pattern;
+		return this;
+	}
+	
 	public InventoryTooltipEventListener setGenericClothing(AbstractClothingType genericClothing, Colour colour) {
 		resetVariables();
 		this.genericClothing = genericClothing;
@@ -554,6 +570,7 @@ public class InventoryTooltipEventListener implements EventListener {
 		dyeClothing = null;
 		secondaryColour = null;
 		tertiaryColour = null;
+		pattern = null;
 		genericClothing = null;
 		invSlot = null;
 		enchantmentModifier = null;

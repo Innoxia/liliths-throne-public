@@ -143,6 +143,7 @@ import com.lilithsthrone.game.slavery.SlavePermissionSetting;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.Artist;
 import com.lilithsthrone.rendering.Artwork;
+import com.lilithsthrone.rendering.Pattern;
 import com.lilithsthrone.rendering.RenderingEngine;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -3480,6 +3481,28 @@ public class MainControllerInitMethod {
 							InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setDyeClothingTertiary(InventoryDialogue.getClothing(), c);
 							MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
 						}
+					}
+				}
+				for(Pattern pattern : Pattern.getAllPatterns().values()) {
+					id = "ITEM_PATTERN_"+pattern.getName();
+					
+					if (((EventTarget) MainController.document.getElementById(id)) != null) {
+						
+						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+							if(InventoryDialogue.dyePreviewPattern != pattern.getName()){
+								InventoryDialogue.dyePreviewPattern = pattern.getName();
+								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+							}
+						}, false);
+						
+						// For some reason tooltips here cause massive lag.
+						/*if(InventoryDialogue.dyePreviewPattern != pattern.getName())
+						{
+							MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+							MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+							InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setDyeClothingPattern(InventoryDialogue.getClothing(), pattern);
+							MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
+						}*/
 					}
 				}
 			}
