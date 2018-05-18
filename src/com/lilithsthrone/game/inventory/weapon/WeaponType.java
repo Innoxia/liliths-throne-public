@@ -13,15 +13,17 @@ import com.lilithsthrone.game.combat.DamageVariance;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
+import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.ColourListPresets;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.84
- * @version 0.2.4
+ * @version 0.2.6
  * @author Innoxia
  */
 public class WeaponType {
@@ -30,6 +32,7 @@ public class WeaponType {
 			true,
 			"an",
 			"it",
+			false,
 			"opaque demonstone",
 			"opaque demonstones",
 			"Crystal Strike",
@@ -47,7 +50,12 @@ public class WeaponType {
 			0,
 			DamageVariance.MEDIUM,
 			null,
-			null) {
+			null,
+			null,
+			null,
+			null,
+			null,
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_VICKY)) {
 		
 		private static final long serialVersionUID = 1L;
 				
@@ -115,6 +123,7 @@ public class WeaponType {
 			true,
 			"a",
 			"it",
+			false,
 			"misty demonstone",
 			"misty demonstones",
 			"Crystal Strike",
@@ -128,11 +137,16 @@ public class WeaponType {
 					DamageType.FIRE,
 					DamageType.ICE,
 					DamageType.POISON),
-			14,
+			12,
 			0,
 			DamageVariance.MEDIUM,
 			null,
-			null) {
+			null,
+			null,
+			null,
+			null,
+			null,
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_VICKY)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -200,6 +214,7 @@ public class WeaponType {
 			true,
 			"a",
 			"it",
+			false,
 			"clear demonstone",
 			"clear demonstones",
 			"Crystal Strike",
@@ -213,11 +228,16 @@ public class WeaponType {
 					DamageType.FIRE,
 					DamageType.ICE,
 					DamageType.POISON),
-			20,
+			16,
 			0,
 			DamageVariance.LOW,
 			null,
-			null){
+			null,
+			null,
+			null,
+			null,
+			null,
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_VICKY)){
 
 		private static final long serialVersionUID = 1L;
 
@@ -290,12 +310,329 @@ public class WeaponType {
 			return null;
 		}
 	};
+	
+	public static AbstractWeaponType MELEE_ZWEIHANDER = new AbstractWeaponType(5000,
+			true,
+			"a",
+			"it",
+			false,
+			"Zweih&auml;nder",
+			"Zweih&auml;nders",
+			"Slash",
+			"As its name of 'Zweih&auml;nder' (two-hander) suggests, this sword is so large that it requires two hands to wield correctly."
+					+ " The blade is made out of ethereal arcane energy, which, instead of cutting someone, drains their energy as it passes through them.",
+			InventorySlot.WEAPON_MAIN,
+			"zweihander",
+			Rarity.EPIC,
+			Util.newArrayListOfValues(
+					DamageType.PHYSICAL,
+					DamageType.FIRE,
+					DamageType.ICE,
+					DamageType.POISON),
+			20,
+			0,
+			DamageVariance.MEDIUM,
+			null,
+			null,
+			ColourListPresets.JUST_BLACK.getPresetColourList(),
+			ColourListPresets.ALL.getPresetColourList(),
+			ColourListPresets.JUST_STEEL.getPresetColourList(),
+			ColourListPresets.ALL_METAL.getPresetColourList(),
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_VICKY)) {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String equipText(GameCharacter character) {
+			return "You ready your "+this.getName()+".";
+		}
+
+		@Override
+		public String unequipText(GameCharacter character) {
+			return "You put your "+this.getName()+" away.";
+		}
+
+		@Override
+		public String getAttackDescription(GameCharacter character, GameCharacter target, boolean isHit) {
+			return getDescriptions(character, target, isHit,
+					UtilText.returnStringAtRandom(
+							"You slash your "+this.getName()+" at [npc.name], grinning as the ethereal arcane blade travels through [npc.her] body!",
+							"Slashing out at [npc.name] with your "+this.getName()+", you grin as you see the ethereal blade travel straight through [npc.her] body!",
+							"You slash at [npc.name] with your "+this.getName()+", causing [npc.herHim] to stagger back as the ethereal blade passes right through [npc.her] chest!"),
+					UtilText.returnStringAtRandom(
+							"[npc.Name] slashes [npc.her] "+this.getName()+" at you, grinning as the ethereal arcane blade travels through your body!",
+							"Slashing out at you with [npc.her] "+this.getName()+", [npc.name] grins as [npc.she] sees the ethereal blade travel straight through your body!",
+							"[npc.Name] slashes at you with [npc.her] "+this.getName()+", causing you to stagger back as the ethereal blade passes right through your chest!"),
+					UtilText.returnStringAtRandom(
+							"[npc.Name] slashes [npc.her] "+this.getName()+" at [npc2.name], grinning as the ethereal arcane blade travels through [npc2.her] body!",
+							"Slashing out at [npc2.name] with [npc.her] "+this.getName()+", [npc.name] grins as [npc.she] sees the ethereal blade travel straight through [npc2.her] body!",
+							"[npc.Name] slashes at [npc2.name] with [npc.her] "+this.getName()+", causing [npc2.herHim] to stagger back as the ethereal blade passes right through [npc2.her] chest!"),
+					UtilText.returnStringAtRandom(
+							"You slash your "+this.getName()+" at [npc.name], but the blade sails harmlessly through mid-air as you miss your target!",
+							"Slashing out at [npc.name] with your "+this.getName()+", you sigh in frustration as you end up missing your target!",
+							"You slash at [npc.name] with your "+this.getName()+", but fail to land a hit!"),
+					UtilText.returnStringAtRandom(
+							"[npc.Name] slashes [npc.her] "+this.getName()+" at you, but the blade sails harmlessly through mid-air as [npc.she] misses you!",
+							"Slashing out at you with [npc.her] "+this.getName()+", [npc.name] sighs in frustration as [npc.she] ends up missing you!",
+							"[npc.Name] slashes at you with [npc.her] "+this.getName()+", but fails to land a hit!"),
+					UtilText.returnStringAtRandom(
+							"[npc.Name] slashes [npc.her] "+this.getName()+" at [npc2.name], but the blade sails harmlessly through mid-air as [npc.she] misses [npc2.herHim]!",
+							"Slashing out at [npc2.name] with [npc.her] "+this.getName()+", [npc.name] sighs in frustration as [npc.she] ends up missing [npc2.herHim]!",
+							"[npc.Name] slashes at [npc2.name] with [npc.her] "+this.getName()+", but fails to land a hit!"));
+		}
+
+		@Override
+		public String getAttackDescription(GameCharacter user, GameCharacter target) {
+			return UtilText.parse(target,
+					"Strike at [npc.name] with your zweihander!");
+		}
+
+		@Override
+		public Map<Attribute, Integer> getGenerationAttributeModifiers(DamageType dt) {
+			switch(dt) {
+				case FIRE:
+					return Util.newHashMapOfValues(
+							new Value<>(Attribute.DAMAGE_FIRE, 5),
+							new Value<>(Attribute.DAMAGE_MELEE_WEAPON, 15));
+				case ICE:
+					return Util.newHashMapOfValues(
+							new Value<>(Attribute.DAMAGE_ICE, 5),
+							new Value<>(Attribute.DAMAGE_MELEE_WEAPON, 15));
+				case LUST:
+					return Util.newHashMapOfValues(
+							new Value<>(Attribute.DAMAGE_PHYSICAL, 5),
+							new Value<>(Attribute.DAMAGE_MELEE_WEAPON, 15));
+				case MISC:
+					break;
+				case PHYSICAL:
+					return Util.newHashMapOfValues(
+							new Value<>(Attribute.DAMAGE_PHYSICAL, 5),
+							new Value<>(Attribute.DAMAGE_MELEE_WEAPON, 15));
+				case POISON:
+					return Util.newHashMapOfValues(
+							new Value<>(Attribute.DAMAGE_POISON, 5),
+							new Value<>(Attribute.DAMAGE_MELEE_WEAPON, 15));
+			}
+			return null;
+		}
+	};
+	
+	public static AbstractWeaponType MELEE_KNIGHTLY_SWORD = new AbstractWeaponType(2500,
+			true,
+			"a",
+			"it",
+			false,
+			"Knightly Sword",
+			"Knightly Swords",
+			"Slash",
+			"This straight-edged sword has a single-handed cruciform hilt."
+					+ " The 75cm-long blade is made out of ethereal arcane energy, which, instead of cutting someone, drains their energy as it passes through them.",
+			InventorySlot.WEAPON_MAIN,
+			"knightlySword",
+			Rarity.EPIC,
+			Util.newArrayListOfValues(
+					DamageType.PHYSICAL,
+					DamageType.FIRE,
+					DamageType.ICE,
+					DamageType.POISON),
+			18,
+			0,
+			DamageVariance.LOW,
+			null,
+			null,
+			ColourListPresets.JUST_BLACK.getPresetColourList(),
+			ColourListPresets.ALL.getPresetColourList(),
+			ColourListPresets.JUST_STEEL.getPresetColourList(),
+			ColourListPresets.ALL_METAL.getPresetColourList(),
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_VICKY)) {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String equipText(GameCharacter character) {
+			return "You ready your "+this.getName()+".";
+		}
+
+		@Override
+		public String unequipText(GameCharacter character) {
+			return "You put your "+this.getName()+" away.";
+		}
+
+		@Override
+		public String getAttackDescription(GameCharacter character, GameCharacter target, boolean isHit) {
+			return getDescriptions(character, target, isHit,
+					UtilText.returnStringAtRandom(
+							"You slash your "+this.getName()+" at [npc.name], grinning as the ethereal arcane blade travels through [npc.her] body!",
+							"Slashing out at [npc.name] with your "+this.getName()+", you grin as you see the ethereal blade travel straight through [npc.her] body!",
+							"You slash at [npc.name] with your "+this.getName()+", causing [npc.herHim] to stagger back as the ethereal blade passes right through [npc.her] chest!"),
+					UtilText.returnStringAtRandom(
+							"[npc.Name] slashes [npc.her] "+this.getName()+" at you, grinning as the ethereal arcane blade travels through your body!",
+							"Slashing out at you with [npc.her] "+this.getName()+", [npc.name] grins as [npc.she] sees the ethereal blade travel straight through your body!",
+							"[npc.Name] slashes at you with [npc.her] "+this.getName()+", causing you to stagger back as the ethereal blade passes right through your chest!"),
+					UtilText.returnStringAtRandom(
+							"[npc.Name] slashes [npc.her] "+this.getName()+" at [npc2.name], grinning as the ethereal arcane blade travels through [npc2.her] body!",
+							"Slashing out at [npc2.name] with [npc.her] "+this.getName()+", [npc.name] grins as [npc.she] sees the ethereal blade travel straight through [npc2.her] body!",
+							"[npc.Name] slashes at [npc2.name] with [npc.her] "+this.getName()+", causing [npc2.herHim] to stagger back as the ethereal blade passes right through [npc2.her] chest!"),
+					UtilText.returnStringAtRandom(
+							"You slash your "+this.getName()+" at [npc.name], but the blade sails harmlessly through mid-air as you miss your target!",
+							"Slashing out at [npc.name] with your "+this.getName()+", you sigh in frustration as you end up missing your target!",
+							"You slash at [npc.name] with your "+this.getName()+", but fail to land a hit!"),
+					UtilText.returnStringAtRandom(
+							"[npc.Name] slashes [npc.her] "+this.getName()+" at you, but the blade sails harmlessly through mid-air as [npc.she] misses you!",
+							"Slashing out at you with [npc.her] "+this.getName()+", [npc.name] sighs in frustration as [npc.she] ends up missing you!",
+							"[npc.Name] slashes at you with [npc.her] "+this.getName()+", but fails to land a hit!"),
+					UtilText.returnStringAtRandom(
+							"[npc.Name] slashes [npc.her] "+this.getName()+" at [npc2.name], but the blade sails harmlessly through mid-air as [npc.she] misses [npc2.herHim]!",
+							"Slashing out at [npc2.name] with [npc.her] "+this.getName()+", [npc.name] sighs in frustration as [npc.she] ends up missing [npc2.herHim]!",
+							"[npc.Name] slashes at [npc2.name] with [npc.her] "+this.getName()+", but fails to land a hit!"));
+		}
+
+		@Override
+		public String getAttackDescription(GameCharacter user, GameCharacter target) {
+			return UtilText.parse(target,
+					"Strike at [npc.name] with your "+this.getName()+"!");
+		}
+
+		@Override
+		public Map<Attribute, Integer> getGenerationAttributeModifiers(DamageType dt) {
+			switch(dt) {
+				case FIRE:
+					return Util.newHashMapOfValues(
+							new Value<>(Attribute.DAMAGE_FIRE, 5),
+							new Value<>(Attribute.CRITICAL_CHANCE, 5));
+				case ICE:
+					return Util.newHashMapOfValues(
+							new Value<>(Attribute.DAMAGE_ICE, 5),
+							new Value<>(Attribute.CRITICAL_CHANCE, 5));
+				case LUST:
+					return Util.newHashMapOfValues(
+							new Value<>(Attribute.DAMAGE_PHYSICAL, 5),
+							new Value<>(Attribute.CRITICAL_CHANCE, 5));
+				case MISC:
+					break;
+				case PHYSICAL:
+					return Util.newHashMapOfValues(
+							new Value<>(Attribute.DAMAGE_PHYSICAL, 5),
+							new Value<>(Attribute.CRITICAL_CHANCE, 5));
+				case POISON:
+					return Util.newHashMapOfValues(
+							new Value<>(Attribute.DAMAGE_POISON, 5),
+							new Value<>(Attribute.CRITICAL_CHANCE, 5));
+			}
+			return null;
+		}
+	};
+	
+	public static AbstractWeaponType OFFHAND_BUCKLER = new AbstractWeaponType(1000,
+			true,
+			"a",
+			"it",
+			false,
+			"Buckler",
+			"Bucklers",
+			"Bash",
+			"A small metal shield, measuring 45cm in diameter, and gripped in one hand by means of a handle positioned behind the boss."
+					+ " Shields such as this one are typically enchanted to help the wielder resist a certain type of arcane damage.",
+			InventorySlot.WEAPON_OFFHAND,
+			"buckler",
+			Rarity.EPIC,
+			Util.newArrayListOfValues(
+					DamageType.FIRE,
+					DamageType.ICE,
+					DamageType.POISON),
+			6,
+			0,
+			DamageVariance.HIGH,
+			null,
+			null,
+			ColourListPresets.JUST_STEEL.getPresetColourList(),
+			ColourListPresets.ALL_METAL.getPresetColourList(),
+			ColourListPresets.JUST_STEEL.getPresetColourList(),
+			ColourListPresets.ALL_METAL.getPresetColourList(),
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_VICKY)) {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String equipText(GameCharacter character) {
+			return "You ready your "+this.getName()+".";
+		}
+
+		@Override
+		public String unequipText(GameCharacter character) {
+			return "You put your "+this.getName()+" away.";
+		}
+
+		@Override
+		public String getAttackDescription(GameCharacter character, GameCharacter target, boolean isHit) {
+			return getDescriptions(character, target, isHit,
+					UtilText.returnStringAtRandom(
+							"You bash your "+this.getName()+" at [npc.name], grinning as you end up whacking [npc.herHim] right on the [npc.arm]!",
+							"Striking out at [npc.name] with your "+this.getName()+", you grin as you bash [npc.herHim] right in the chest!",
+							"You strike at [npc.name] with your "+this.getName()+", causing [npc.herHim] to stagger back as you bash [npc.her] torso!"),
+					UtilText.returnStringAtRandom(
+							"[npc.Name] bashes [npc.her] "+this.getName()+" at you, grinning as [npc.she] whacks you right on the [pc.arm]!",
+							"Striking out at you with [npc.her] "+this.getName()+", [npc.name] grins as [npc.she] bashes you right in the chest!",
+							"[npc.Name] strikes at you with [npc.her] "+this.getName()+", causing you to stagger back [npc.she] bashes your torso!"),
+					UtilText.returnStringAtRandom(
+							"[npc.Name] bashes [npc.her] "+this.getName()+" at [npc2.name], grinning as [npc.she] whacks [npc2.herHim] right on the [npc2.arm]!",
+							"Striking out at [npc2.name] with [npc.her] "+this.getName()+", [npc.name] grins as [npc.she] bashes [npc2.herHim] right in the chest!",
+							"[npc.Name] strikes at [npc2.name] with [npc.her] "+this.getName()+", causing [npc2.herHim] to stagger back [npc.she] bashes [npc2.her] torso!"),
+					UtilText.returnStringAtRandom(
+							"You bash your "+this.getName()+" at [npc.name], but your strike sails harmlessly through mid-air as you miss your target!",
+							"Striking out at [npc.name] with your "+this.getName()+", you sigh in frustration as you end up missing your target!",
+							"You slash at [npc.name] with your "+this.getName()+", but fail to land a hit!"),
+					UtilText.returnStringAtRandom(
+							"[npc.Name] bashes [npc.her] "+this.getName()+" at you, but [npc.her] strike sails harmlessly through mid-air as [npc.she] misses you!",
+							"Striking out at you with [npc.her] "+this.getName()+", [npc.name] sighs in frustration as [npc.she] ends up missing you!",
+							"[npc.Name] strikes at you with [npc.her] "+this.getName()+", but fails to land a hit!"),
+					UtilText.returnStringAtRandom(
+							"[npc.Name] bashes [npc.her] "+this.getName()+" at [npc2.name], but [npc.her] strike sails harmlessly through mid-air as [npc.she] misses [npc2.herHim]!",
+							"Striking out at [npc2.name] with [npc.her] "+this.getName()+", [npc.name] sighs in frustration as [npc.she] ends up missing [npc2.herHim]!",
+							"[npc.Name] strikes at [npc2.name] with [npc.her] "+this.getName()+", but fails to land a hit!"));
+		}
+
+		@Override
+		public String getAttackDescription(GameCharacter user, GameCharacter target) {
+			return UtilText.parse(target,
+					"Strike at [npc.name] with your "+this.getName()+"!");
+		}
+
+		@Override
+		public Map<Attribute, Integer> getGenerationAttributeModifiers(DamageType dt) {
+			switch(dt) {
+				case FIRE:
+					return Util.newHashMapOfValues(
+							new Value<>(Attribute.RESISTANCE_FIRE, 15),
+							new Value<>(Attribute.RESISTANCE_PHYSICAL, 15));
+				case ICE:
+					return Util.newHashMapOfValues(
+							new Value<>(Attribute.RESISTANCE_ICE, 15),
+							new Value<>(Attribute.RESISTANCE_PHYSICAL, 15));
+				case LUST:
+					return Util.newHashMapOfValues(
+							new Value<>(Attribute.RESISTANCE_LUST, 15),
+							new Value<>(Attribute.RESISTANCE_PHYSICAL, 15));
+				case MISC:
+					break;
+				case PHYSICAL:
+					return Util.newHashMapOfValues(
+							new Value<>(Attribute.RESISTANCE_PHYSICAL, 30));
+				case POISON:
+					return Util.newHashMapOfValues(
+							new Value<>(Attribute.RESISTANCE_POISON, 15),
+							new Value<>(Attribute.RESISTANCE_PHYSICAL, 15));
+			}
+			return null;
+		}
+	};
 
 	// OFFHAND
 	public static AbstractWeaponType OFFHAND_CHAOS_RARE = new AbstractWeaponType(1000,
 			false,
 			"a",
 			"it",
+			false,
 			"chaos feather",
 			"chaos feathers",
 			"Feather Bolt",
@@ -309,7 +646,12 @@ public class WeaponType {
 			0,
 			DamageVariance.HIGH,
 			null,
-			null) {
+			null,
+			null,
+			null,
+			null,
+			null,
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_VICKY)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -377,6 +719,7 @@ public class WeaponType {
 			false,
 			"a",
 			"it",
+			false,
 			"chaos feather",
 			"chaos feathers",
 			"Feather Bolt",
@@ -385,12 +728,17 @@ public class WeaponType {
 			InventorySlot.WEAPON_OFFHAND,
 			"rangedFeather2",
 			Rarity.EPIC,
-			Util.newArrayListOfValues(DamageType.POISON),
+			Util.newArrayListOfValues(DamageType.PHYSICAL, DamageType.FIRE, DamageType.ICE, DamageType.POISON),
 			14,
 			0,
 			DamageVariance.HIGH,
 			null,
-			null) {
+			null,
+			null,
+			null,
+			null,
+			null,
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_VICKY)) {
 		
 		private static final long serialVersionUID = 1L;
 
@@ -459,6 +807,7 @@ public class WeaponType {
 			false,
 			"a",
 			"it",
+			false,
 			"Western KKP",
 			"Western KKPs",
 			"Fire KKP",
@@ -471,7 +820,12 @@ public class WeaponType {
 			0,
 			DamageVariance.LOW,
 			null,
-			null) {
+			null,
+			null,
+			null,
+			null,
+			null,
+			Util.newArrayListOfValues(ItemTag.REMOVE_FROM_DEBUG_SPAWNER)) {
 		
 		private static final long serialVersionUID = 1L;
 
@@ -501,6 +855,7 @@ public class WeaponType {
 			false,
 			"an",
 			"it",
+			false,
 			"Arcane Musket",
 			"Arcane Muskets",
 			"Fire Musket",
@@ -514,6 +869,11 @@ public class WeaponType {
 			25,
 			1,
 			DamageVariance.LOW,
+			null,
+			null,
+			null,
+			null,
+			null,
 			null,
 			null) {
 		
@@ -576,6 +936,7 @@ public class WeaponType {
 			true,
 			"a",
 			"it",
+			false,
 			"Witch's Broom",
 			"Witch's Brooms",
 			"Broom Swipe",
@@ -595,7 +956,12 @@ public class WeaponType {
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 5)),
 			Util.newArrayListOfValues(
 					Spell.WITCH_SEAL,
-					Spell.WITCH_CHARM)) {
+					Spell.WITCH_CHARM),
+			null,
+			null,
+			null,
+			null,
+			null) {
 		
 		private static final long serialVersionUID = 1L;
 		
@@ -656,6 +1022,7 @@ public class WeaponType {
 			true,
 			"a",
 			"it",
+			false,
 			"feather duster",
 			"feather dusters",
 			"Duster Tickle",
@@ -668,7 +1035,12 @@ public class WeaponType {
 			0,
 			DamageVariance.LOW,
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5)),
-			null) {
+			null,
+			null,
+			null,
+			null,
+			null,
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_VICKY)) {
 		
 		private static final long serialVersionUID = 1L;
 		

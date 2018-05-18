@@ -430,10 +430,6 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		
 		return Attack.MAIN;
 	}
-
-	public String getCombatDescription() {
-		return UtilText.parse(this, "[npc.Name] is ready for a fight!");
-	}
 	
 	public Response endCombat(boolean applyEffects, boolean playerVictory) {
 		return null;
@@ -585,7 +581,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				case HUMAN:
 					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_HUMAN));
 				case SLIME:
-					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.SEX_INGREDIENT_SLIME_QUENCHER));
+					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_SLIME));
 				case ANGEL:
 					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_HUMAN));
 				case DEMON: case IMP:

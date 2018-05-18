@@ -227,7 +227,7 @@ public class CultistDialogue {
 								AbstractClothing clothing = Main.game.getPlayer().getClothingBlockingCoverableAreaAccess(CoverableArea.VAGINA, true);
 								while (clothing != null) {
 									clothing.setSealed(false);
-									
+									System.out.println(clothing.getName());
 									clothing = Main.game.getPlayer().getClothingBlockingCoverableAreaAccess(CoverableArea.VAGINA, true);
 								}
 							}

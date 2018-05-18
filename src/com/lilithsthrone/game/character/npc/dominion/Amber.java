@@ -214,11 +214,6 @@ public class Amber extends NPC {
 	// Combat:
 	
 	@Override
-	public String getCombatDescription() {
-		return "The maid's fiery amber hair and eyes both glow with an intense fury as she fiercely launches her attack!";
-	}
-
-	@Override
 	public String getMainAttackDescription(boolean isHit) {
 		return "<p>"
 					+ UtilText.returnStringAtRandom(

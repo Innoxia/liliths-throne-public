@@ -65,7 +65,7 @@ public enum DialogueFlagValue {
 	reactedToKatePregnancy,
 	
 	
-	// Aunt's Home:
+	// Lilaya's Home:
 	knowsDate,
 	lilayaDateTalk,
 	auntHomeJustEntered,
@@ -128,6 +128,16 @@ public enum DialogueFlagValue {
 	lumiMet,
 	lumiDisabled,
 	lumiPromisedDinner,
+	
+	// Slime Queen's Tower:
+	slimeGuardsIntroduced,
+	slimeGuardsBluffed,
+	slimeGuardsDefeated,
+	slimeRoyalGuardIntroduced,
+	slimeRoyalGuardDefeated,
+	slimeQueenHelped,
+	slimeQueenConvinced,
+	slimeQueenForced
 	
 	;
 }
