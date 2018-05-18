@@ -428,22 +428,6 @@ public class DominionAlleywayAttacker extends NPC {
 	// Combat:
 
 	@Override
-	public String getCombatDescription() {
-		if(this.isPregnant()) {
-			return "The consequence of your refusal to pull out of [npc.name] is standing right before you."
-					+ " Visibly pregnant, your one-time sexual partner has a devious grin on [npc.her] face, and you're not quite sure if you want to know what [npc.she]'s planning for [npc.her] revenge...";
-		} else {
-			if(this.isAttractedTo(Main.game.getPlayer())) {
-				return UtilText.parse(this, "[npc.Name] is quite clearly turned on by your strong aura. [npc.She]'s willing to fight you in order to claim your body.");
-				
-			} else {
-				return UtilText.parse(this, "Although your strong aura is having an effect on [npc.name], [npc.she]'s only really interested in robbing you of your possessions.");
-				
-			}
-		}
-	}
-
-	@Override
 	public Response endCombat(boolean applyEffects, boolean victory) {
 		if(this.getHistory()==History.PROSTITUTE) {
 			if (victory) {

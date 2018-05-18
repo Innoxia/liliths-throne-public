@@ -779,6 +779,18 @@ public class UtilText {
 				return character.isCoverableAreaExposed(CoverableArea.VAGINA);
 			}
 		});
+
+		conditionalCommandsList.add(new ParserConditionalCommand(
+				Util.newArrayListOfValues(
+						"isAbleToFly",
+						"canFly"),
+				"",
+				"Returns true if the character can fly."){
+			@Override
+			public boolean process(String command, String arguments, String target) {
+				return character.isAbleToFly();
+			}
+		});
 		
 		conditionalCommandsList.add(new ParserConditionalCommand(
 				Util.newArrayListOfValues(

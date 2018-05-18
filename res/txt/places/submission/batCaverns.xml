@@ -83,7 +83,88 @@
 		The underground river before you widens out into a huge, still body of water. You can't help but stop in your tracks as you find yourself looking upon a gigantic underground lake, its still, black waters illuminated by the countless mushrooms of the bioluminescent fungi forests that line its banks.  
 	</p>
 	<p>
-		Out in the middle of the lake, you see a small island, covered in glowing lichens, mosses, and mushrooms. On the island's highest point, there's a particularly large, stout mushroom, its wide base looking to be roughly the same circumference as a small house. You see windows carved into the sides, and can't help but wonder who lives there...
+		Out in the middle of the lake, you see a small island, covered in glowing lichens, mosses, and mushrooms. On the island's highest point, you can see that someone's built a stout stone tower, complete with medieval-style crenellations. Although it's quite some distance away, you can see light shining out from the arrow slits in the tower's walls, and at the base, a large wooden door appears to be firmly closed and barred. 
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLIME_LAKE_QUEEN_UNKNOWN"><![CDATA[
+	<p>
+		From this distance, it looks like there's no possible way to gain entry to such a well-fortified structure. You have no reason to visit the tower at the moment, but if ever you had business with a reclusive individual who might lock themselves away somewhere in the Bat Caverns, you now know where to look.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLIME_LAKE_QUEEN_GUESS"><![CDATA[
+	<p>
+		You have a strong feeling that this is the place where the elusive 'Slime Queen' is hiding. Looking around for a way to cross the wide expanse of water, you soon find a small jetty, which has been built behind several particularly large mushroom-trees in order to try and keep it hidden from passersby. There are several little wooden boats tied up beside it, each one complete with a pair of oars. You suppose that this is how the Queen's visitors travel back and forth from her tower, and wonder if you should use one of these boats to pay her a visit.
+		#IFpc.isAbleToFly#THEN
+		 Then again, you could always just fly over there...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLIME_LAKE_QUEEN_KNOWLEDGE"><![CDATA[
+	<p>
+		You now know that this is the place where the elusive 'Slime Queen' lives. Walking over to the place where the jetty is concealed, you see that there are several little wooden boats still tied up beside it. You suppose that this is how the Queen's visitors travel back and forth from her tower, and wonder if you should use one of the boats to pay her a visit.
+		#IFpc.isAbleToFly#THEN
+		 Then again, you could always just fly over there...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLIME_LAKE_BOAT"><![CDATA[
+	<p>
+		You step down into the nearest wooden boat, before quickly sitting down and grabbing hold of the sides in order to stop it from rocking. Sliding the oars through the oarlocks, you push off from the jetty and start rowing towards the island.
+	</p>
+	<p>
+		Your journey across the lake is uneventful, and before you know it, you've reached your destination. Built into the lake's shore, you see a jetty which is very similar to the one from which you departed. Mooring your boat alongside this jetty, you start to walk up the island's gentle incline towards the stout stone tower.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLIME_LAKE_FLY"><![CDATA[
+	<p>
+		Seeing no need to use one of boats, you take a small run up towards the lake's shore, and, with a flap of your wings, launch yourself into the air. Circling around a couple of times to gain altitude, you glide over the lake's calm, still surface, speedily making your way towards the island.
+	</p>
+	<p>
+		It only takes a minute or so to reach your destination, and, with a final flap of your wings, you land on the island's shore, right beside a wooden jetty that's the mirror image of the one on the lake's far side. Smiling to yourself as you think about those poor people who aren't able to fly, you begin to walk up the island's gentle incline towards the stout stone tower.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLIME_LAKE_PACIFIED"><![CDATA[
+	<p>
+		As you approach, you see that the front door is slightly ajar, and from within, a thin beam of golden light shines out onto the island's mossy knoll. Although there's no sign of life outside the tower, you know that [slimeIce.name] and [slimeFire.name] are standing guard just inside the entrance. As you've already come to an arrangement with the Slime Queen, you're free to come and go from her tower without having to worry about fighting her guards.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLIME_LAKE_READY_FIGHT"><![CDATA[
+	<p>
+		As you approach, you see that the front door is slightly ajar, and from within, a thin beam of golden light shines out onto the island's mossy knoll. Although there's no sign of life outside the tower, you're certain that there must be guards just inside the entrance, and ready yourself for a fight.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLIME_LAKE_BOAT_RETURN"><![CDATA[
+	<p>
+		Walking down to the lake's shore, you soon find the island's wooden jetty. Deciding upon the nearest boat, you quickly lower yourself into it and grab hold of the sides in order to stop it from rocking. Sliding the oars through the oarlocks, you push off from the jetty and start rowing towards the far shore.
+	</p>
+	<p>
+		Your journey across the lake is uneventful, and before you know it, you've reached your destination. Tying the boat up at the jetty, you step out onto solid ground once more.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLIME_LAKE_FLY_RETURN"><![CDATA[
+	<p>
+		Seeing no need to use the little wooden boat, you take a small run up towards the lake's shore, and, with a flap of your wings, launch yourself into the air. Circling around a couple of times to gain altitude, you glide over the lake's calm, still surface, speedily making your way towards the far shore.
+	</p>
+	<p>
+		It only takes a minute or so to reach your destination, and, with a final flap of your wings, you've reached your destination. Smiling to yourself as you think about those poor people who aren't able to fly, you set off to continue on your journey.
 	</p>
 	]]>
 	</htmlContent>

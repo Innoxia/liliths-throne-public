@@ -3435,7 +3435,12 @@ public class MainControllerInitMethod {
 			// -------------------- Phone listeners -------------------- // TODO track listeners
 			
 			// Phone item viewer:
-			for (AbstractClothingType clothing : ClothingType.getAllClothing()) {
+			if(Main.game.getCurrentDialogueNode()==InventoryDialogue.DYE_CLOTHING
+					|| Main.game.getCurrentDialogueNode()==InventoryDialogue.DYE_CLOTHING_CHARACTER_CREATION
+					|| Main.game.getCurrentDialogueNode()==InventoryDialogue.DYE_EQUIPPED_CLOTHING
+					|| Main.game.getCurrentDialogueNode()==InventoryDialogue.DYE_EQUIPPED_CLOTHING_CHARACTER_CREATION) {
+//				for (AbstractClothingType clothing : ClothingType.getAllClothing()) {
+				AbstractClothingType clothing = InventoryDialogue.getClothing().getClothingType();
 				for (Colour c : clothing.getAllAvailablePrimaryColours()) {
 					id = "PRIMARY_"+clothing.hashCode() + "_" + c.toString();
 					if ((EventTarget) MainController.document.getElementById(id) != null) {
@@ -3480,6 +3485,40 @@ public class MainControllerInitMethod {
 							InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setDyeClothingTertiary(InventoryDialogue.getClothing(), c);
 							MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
 						}
+					}
+				}
+//				}
+			}
+			
+			if(Main.game.getCurrentDialogueNode()==InventoryDialogue.DYE_WEAPON
+					|| Main.game.getCurrentDialogueNode()==InventoryDialogue.DYE_EQUIPPED_WEAPON) {
+				AbstractWeaponType weapon = InventoryDialogue.getWeapon().getWeaponType();
+				for (Colour c : weapon.getAllAvailablePrimaryColours()) {
+					id = "PRIMARY_"+weapon.hashCode() + "_" + c.toString();
+					if ((EventTarget) MainController.document.getElementById(id) != null) {
+						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+							InventoryDialogue.dyePreviewPrimary = c;
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+						
+						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+						InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setDyeWeaponPrimary(InventoryDialogue.getWeapon(), c);
+						MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
+					}
+				}
+				for (Colour c : weapon.getAllAvailableSecondaryColours()) {
+					id = "SECONDARY_"+weapon.hashCode() + "_" + c.toString();
+					if ((EventTarget) MainController.document.getElementById(id) != null) {
+						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+							InventoryDialogue.dyePreviewSecondary = c;
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+						
+						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+						InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setDyeWeaponSecondary(InventoryDialogue.getWeapon(), c);
+						MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
 					}
 				}
 			}

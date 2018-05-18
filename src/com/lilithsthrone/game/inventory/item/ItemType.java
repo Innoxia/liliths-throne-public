@@ -1940,12 +1940,12 @@ public class ItemType {
 		}
 	};
 	
-	public static AbstractItemType RACE_INGREDIENT_SLIME = new AbstractItemType(50000,
+	public static AbstractItemType RACE_INGREDIENT_SLIME = new AbstractItemType(5000,
 			"a",
 			false,
 			"Biojuice Canister",
-			"Biojuice Canister",
-			"A canister of glowing green liquid."
+			"Biojuice Canisters",
+			"A canister of glowing pink liquid, which has a thick, slimy consistency."
 					+ " The warning sign on the front makes it quite clear that drinking this would be a bad idea...",
 			"raceSlimeBiojuice",
 			Colour.RACE_SLIME,
@@ -1979,12 +1979,12 @@ public class ItemType {
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getGenericUseDescription(user, target,
 					"Ignoring the warning on the front, you unseal one end of the canister and bring it up to your [pc.lips]."
-							+ " The glowing green liquid within gives off a faintly sweet smell, and you tilt your head back and gulp it all down...",
+							+ " The glowing pink liquid within gives off a faintly sweet smell, and you tilt your head back and gulp it all down...",
 					"You unseal one end of the canister and bring it up to [npc.name]'s [npc.lips]."
-							+ " Tilting [npc.her] head back, you force [npc.herHim] to drink down all of the glowing green liquid...",
+							+ " Tilting [npc.her] head back, you force [npc.herHim] to drink down all of the glowing pink liquid...",
 					"[npc.Name] pulls out a canister of Biojuice, and, unsealing one end of the canister, [npc.she] brings it up to [npc.her] [npc.lips] and gulps it all down....",
 					"[npc.Name] pulls out a canister of Biojuice, and, unsealing one end of the canister, [npc.she] brings it up to your [pc.lips]."
-							+ " The glowing green liquid within gives off a faintly sweet smell, and [npc.name] tilts your head back and forces you to gulp it all down....");
+							+ " The glowing pink liquid within gives off a faintly sweet smell, and [npc.name] tilts your head back and forces you to gulp it all down....");
 		}
 	};
 	

@@ -354,12 +354,7 @@ public class Brax extends NPC {
 	}
 
 	// Combat:
-	@Override
-	public String getCombatDescription() {
-		return "Brax is crouched down in a fighting stance. His huge muscles and obvious knowledge of the arcane make him a formidable opponent."
-				+ " An unsettling grin is plastered across his face, and you get the feeling that he's enjoying the chance to have a fight.";
-	}
-
+	
 	@Override
 	public String getMainAttackDescription(boolean isHit) {
 		return "<p>"

@@ -148,6 +148,61 @@
 	]]>
 	</htmlContent>
 
+	<htmlContent tag="CLAIRE_INFO_REPORT_BACK"><![CDATA[
+	<p>
+		With the thought of the one-thousand flame reward on your mind, you walk up behind the short, busty cat-girl, and call out, [pc.speech(Hi Claire!)]
+	</p>
+	<p>
+		Claire immediately spins around, and, upon seeing that it's you, she grins and places her hands on her huge hips.
+		 [claire.speech(Hi [pc.name]! What can I do for you?)]
+	</p>
+	<p>
+		[pc.speech(Well, I've got some information on the slimes that are transforming people out in Submission's tunnels.)]
+	</p>
+	<p>
+		[claire.speech(I knew you'd ignore my warnings and go into there!)]
+		 Claire replies as she angrily wags her finger at you.
+		 [claire.speech(But if you managed to get some useful information out of it, then please do tell! That one-thousand flame reward is still available.)]
+	</p>
+	<p>
+		[pc.speech(Well, when I encountered one of those slimes, they mentioned that they were transforming people due to following orders from a 'Slime Queen'. They even mentioned something about a quota of having to transform five people a day.)] You explain, recollecting what the slime said when you first encountered them.
+	</p>
+	<p>
+		[claire.speech(Hmm... A Slime Queen...)]
+		 Claire mutters, before starting to pace back and forth. You can't help but notice the way her massive hips and huge breasts rhythmically sway from side to side as she struts back and forth, and look on in amusement as you notice that the other enforcers are all giving her a wide berth.
+		 [claire.speech(You know, we'd heard rumours of a slime calling herself a Queen before, but we've scoured every last inch of the tunnels, and haven't found any trace of her.)]
+	</p>
+	<p>
+		[pc.speech(Perhaps she isn't in the tunnels?)]
+		 You offer.
+	</p>
+	<p>
+		[claire.speech(Well, that's no good for us then.)]
+		 Claire sighs, stopping in front of you and placing her hands on her hips once more.
+		 [claire.speech(We're only authorised to patrol the tunnels and walkways. The only place where a Slime Queen could be hiding - if one even exists, that is - would be down in the Bat Caverns. We simply don't have the manpower to patrol down there, so who knows what could be hiding away down there in the dark...)]
+	</p>
+	<p>
+		[pc.speech(So you want me to go down there and find evidence of the Slime Queen?)]
+		 You ask, guessing where this conversation is headed.
+	</p>
+	<p>
+		[claire.speech(W-What? No! It's far too dangerous!)] Claire quickly replies, flustered by your response. [claire.speech(There are bat-morphs which can swoop down on you at any moment, aggressive slimes who'd just love to attack you, and the whole place is completely pitch-black! Well, there are patches of bioluminescent fungi, but it's still really dark and scary down there!)]
+	</p>
+	<p>
+		[pc.speech(Well, if I were to go down there and find a Slime Queen, that'd help you out, right?)] You ask, ignoring Claire's warnings.
+	</p>
+	<p>
+		[claire.speech(W-Well, yes. I don't like to tell anyone, as I don't want to encourage people to seek out danger, but we do have a twenty-thousand flame reward for anyone who's able to put an end to this slime transformation problem.)] Claire says, wringing her hands with worry. [claire.speech(So if you're able to find and convince this Queen to stop, you'll have earned that reward. But please don't go looking for danger down there! I need to get back on with work now, but promise me you'll be careful before I go!)]
+	</p>
+	<p>
+		[pc.speech(Don't worry so much.)] You reply. [pc.speech(I'm always careful.)]
+	</p>
+	<p>
+		With a sigh of relief, Claire turns and rushes off to fetch your one-thousand flame reward, and, after returning to hand it over to you, she returns to her work. You wonder if it'd be worth risking a visit to the Bat Caverns. After all, if you were able to find and subdue this 'Slime Queen', you'd earn twenty-thousand flames...
+	</p>
+	]]>
+	</htmlContent>
+	
 	<htmlContent tag="WALKWAYS"><![CDATA[
 	<p>
 		The main tunnels of Submission are surprisingly spacious, clean and full of life.

@@ -85,6 +85,10 @@ import com.lilithsthrone.game.character.npc.misc.PrologueFemale;
 import com.lilithsthrone.game.character.npc.misc.PrologueMale;
 import com.lilithsthrone.game.character.npc.misc.SlaveImport;
 import com.lilithsthrone.game.character.npc.submission.Claire;
+import com.lilithsthrone.game.character.npc.submission.SlimeGuardFire;
+import com.lilithsthrone.game.character.npc.submission.SlimeGuardIce;
+import com.lilithsthrone.game.character.npc.submission.SlimeQueen;
+import com.lilithsthrone.game.character.npc.submission.SlimeRoyalGuard;
 import com.lilithsthrone.game.character.persona.History;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
@@ -746,6 +750,12 @@ public class Game implements Serializable, XMLSaving {
 				if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Claire.class))) {
 					Main.game.addNPC(new Claire(), false);
 				}
+				if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(SlimeQueen.class))) { // Add slime queen quest NPCs:
+					Main.game.addNPC(new SlimeQueen(), false);
+					Main.game.addNPC(new SlimeGuardIce(), false);
+					Main.game.addNPC(new SlimeGuardFire(), false);
+					Main.game.addNPC(new SlimeRoyalGuard(), false);
+				}
 				
 				// To prevent errors from previous versions, reset Zaranix progress if prior to 0.1.95:
 				if(Main.isVersionOlderThan(version, "0.1.90.5")) {
@@ -983,6 +993,11 @@ public class Game implements Serializable, XMLSaving {
 			
 			addNPC(new Lumi(), false);
 			addNPC(new Claire(), false);
+
+			addNPC(new SlimeQueen(), false);
+			addNPC(new SlimeGuardIce(), false);
+			addNPC(new SlimeGuardFire(), false);
+			addNPC(new SlimeRoyalGuard(), false);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -2714,6 +2729,22 @@ public class Game implements Serializable, XMLSaving {
 		return (NPC) this.getNPCById(getUniqueNPCId(Claire.class));
 	}
 
+	public NPC getSlimeQueen() {
+		return (NPC) this.getNPCById(getUniqueNPCId(SlimeQueen.class));
+	}
+
+	public NPC getSlimeGuardIce() {
+		return (NPC) this.getNPCById(getUniqueNPCId(SlimeGuardIce.class));
+	}
+
+	public NPC getSlimeGuardFire() {
+		return (NPC) this.getNPCById(getUniqueNPCId(SlimeGuardFire.class));
+	}
+
+	public NPC getSlimeRoyalGuard() {
+		return (NPC) this.getNPCById(getUniqueNPCId(SlimeRoyalGuard.class));
+	}
+	
 	public NPC getGenericMaleNPC() {
 		return (NPC) this.getNPCById(getUniqueNPCId(GenericMaleNPC.class));
 	}

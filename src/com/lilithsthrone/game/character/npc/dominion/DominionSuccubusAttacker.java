@@ -169,12 +169,6 @@ public class DominionSuccubusAttacker extends NPC {
 
 	// Combat:
 
-	@Override
-	public String getCombatDescription() {
-		return UtilText.parse(this,
-				"Although strong enough to easily overpower most solitary travellers, this horny [npc.race] is finding it difficult to focus on harnessing [npc.her] arcane aura, resulting in [npc.herHim] being far weaker than a normal demon.");
-	}
-
 	public String getItemUseEffects(AbstractItem item, GameCharacter user, GameCharacter target){
 		// Player is using an item:
 		if(user.isPlayer()){
