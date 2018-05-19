@@ -233,6 +233,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	 * Applies an update to this NPC every time the game makes a turn.
 	 */
 	public void turnUpdate() {
+		NPCAI.NPCMoveToNextLocation(this);
 	}
 	
 	public abstract void changeFurryLevel();

@@ -42,6 +42,7 @@ import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.GenderPreference;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.npc.NPCAI;
 import com.lilithsthrone.game.character.npc.dominion.Alexa;
 import com.lilithsthrone.game.character.npc.dominion.Amber;
 import com.lilithsthrone.game.character.npc.dominion.Angel;
@@ -1012,6 +1013,8 @@ public class Game implements Serializable, XMLSaving {
 		
 //		long tStart = System.nanoTime();
 		
+		
+		
 		long startHour = getHour();
 		
 		if(advanceTime) {
@@ -1081,7 +1084,7 @@ public class Game implements Serializable, XMLSaving {
 		// Apply status effects and update all NPCs:
 		isInNPCUpdateLoop = true;
 		
-		for(NPC npc : NPCMap.values()) {
+		for(NPC npc : NPCMap.values()){
 			// Remove Dominion attackers if they aren't in alleyways: TODO this is because storm attackers need to be removed after a storm
 			if(npc.getLocationPlace().getPlaceType() != PlaceType.DOMINION_BACK_ALLEYS
 					&& npc.getLocationPlace().getPlaceType() != PlaceType.DOMINION_CANAL
@@ -1288,8 +1291,6 @@ public class Game implements Serializable, XMLSaving {
 		if(Main.game.getCurrentDialogueNode().getDialogueNodeType()==DialogueNodeType.NORMAL) { // Catch slavery management NPC not correctly being assigned to null:
 			Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(null);
 		}
-		
-		
 		
 //		System.out.println((System.nanoTime()-tStart)/1000000000d+"s");
 	}
