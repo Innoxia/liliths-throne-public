@@ -1073,7 +1073,7 @@ public class ItemEffectType {
 				return "";
 			}
 		}
-	},
+	};
 	
 	
 	public static AbstractItemEffectType GIFT_CHOCOLATES = new AbstractItemEffectType(Util.newArrayListOfValues(
