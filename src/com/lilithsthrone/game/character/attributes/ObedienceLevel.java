@@ -49,6 +49,13 @@ public enum ObedienceLevel {
 	private static StringBuilder sb = new StringBuilder();
 	public static String getDescription(GameCharacter character, ObedienceLevel affectionLevel, boolean withColour, boolean longDescription) {
 		sb.setLength(0);
+		if(character.isPlayer()) {
+			if(withColour) {
+				return "You are <b style='color:"+affectionLevel.getColour().toWebHexString()+";'>free-willed</b>"+(longDescription?", and will do whatever you want.":".");
+			} else {
+				return "You are free-willed"+(longDescription?" and will do whatever you want.":".");
+			}
+		}
 		
 		switch(affectionLevel) {
 			case NEGATIVE_FIVE_REBELLIOUS:

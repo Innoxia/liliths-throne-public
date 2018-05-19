@@ -14,7 +14,7 @@
    id="svg4206"
    version="1.1"
    inkscape:version="0.91 r13725"
-   sodipodi:docname="torso_over_open_groin_jacket.svg">
+   sodipodi:docname="torso_over_dress_coat.svg">
   <style
      id="style3">
     svg { cursor: default; }
@@ -23,7 +23,7 @@
      id="defs4208">
     <linearGradient
        inkscape:collect="always"
-       id="3">
+       id="innoGrad3">
       <stop
          style="stop-color:#000000;stop-opacity:0.25098041"
          offset="0"
@@ -165,7 +165,7 @@
        cusp_linecap_type="round" />
     <linearGradient
        inkscape:collect="always"
-       id="1">
+       id="innoGrad2">
       <stop
          style="stop-color:#000000;stop-opacity:0.25098041"
          offset="0"
@@ -177,7 +177,7 @@
     </linearGradient>
     <linearGradient
        inkscape:collect="always"
-       id="2">
+       id="innoGrad1">
       <stop
          style="stop-color:#000000;stop-opacity:0"
          offset="0"
@@ -2763,7 +2763,7 @@
        cusp_linecap_type="round" />
     <linearGradient
        inkscape:collect="always"
-       xlink:href="#2"
+       xlink:href="#innoGrad1"
        id="linearGradient4608"
        x1="-93.035713"
        y1="110.82143"
@@ -2773,7 +2773,7 @@
        gradientTransform="translate(245.97214,-19.192898)" />
     <linearGradient
        inkscape:collect="always"
-       xlink:href="#1"
+       xlink:href="#innoGrad2"
        id="linearGradient4626"
        x1="-86.60714"
        y1="122.78572"
@@ -2783,7 +2783,7 @@
        gradientTransform="translate(245.97214,-19.192898)" />
     <linearGradient
        inkscape:collect="always"
-       xlink:href="#3"
+       xlink:href="#innoGrad3"
        id="linearGradient4680"
        x1="-106.94991"
        y1="66.21759"
@@ -2799,9 +2799,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.979899"
-     inkscape:cx="183.00454"
-     inkscape:cy="73.399031"
+     inkscape:zoom="5.6"
+     inkscape:cx="144.95785"
+     inkscape:cy="152.0345"
      inkscape:document-units="px"
      inkscape:current-layer="layer4"
      showgrid="false"

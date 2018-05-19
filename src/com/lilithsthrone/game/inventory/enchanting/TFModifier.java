@@ -129,6 +129,24 @@ public enum TFModifier {
 			"modifier_circle_damage",
 			Rarity.RARE),
 	
+	DAMAGE_UNARMED(AttributeCategory.STRENGTH,
+			Attribute.DAMAGE_UNARMED,
+			"Applies an effect related to the secondary attribute 'Unarmed damage'.",
+			"modifier_circle_damage",
+			Rarity.RARE),
+
+	DAMAGE_MELEE_WEAPON(AttributeCategory.STRENGTH,
+			Attribute.DAMAGE_MELEE_WEAPON,
+			"Applies an effect related to the secondary attribute 'Melee weapon damage'.",
+			"modifier_circle_damage",
+			Rarity.RARE),
+
+	DAMAGE_RANGED_WEAPON(AttributeCategory.STRENGTH,
+			Attribute.DAMAGE_RANGED_WEAPON,
+			"Applies an effect related to the secondary attribute 'Ranged weapon damage'.",
+			"modifier_circle_damage",
+			Rarity.RARE),
+	
 	DAMAGE_PHYSICAL(AttributeCategory.STRENGTH,
 			Attribute.DAMAGE_PHYSICAL,
 			"Applies an effect related to the secondary attribute 'Physical damage'.",
@@ -157,12 +175,6 @@ public enum TFModifier {
 	RESISTANCE_LUST(AttributeCategory.CORRUPTION,
 			Attribute.RESISTANCE_LUST,
 			"Applies an effect related to the secondary attribute 'Seduction resistance'.",
-			"modifier_circle_resistance",
-			Rarity.RARE),
-	
-	RESISTANCE_SPELLS(AttributeCategory.INTELLIGENCE,
-			Attribute.RESISTANCE_SPELLS,
-			"Applies an effect related to the secondary attribute 'Spell resistance'.",
 			"modifier_circle_resistance",
 			Rarity.RARE),
 	
@@ -1141,15 +1153,20 @@ public enum TFModifier {
 		clothingPrimaryList.add(TF_PENIS);
 		clothingPrimaryList.add(TF_VAGINA);
 		
+
+		clothingAttributeList.add(TFModifier.FERTILITY);
+		clothingAttributeList.add(TFModifier.VIRILITY);
 		clothingAttributeList.add(TFModifier.RESISTANCE_FIRE);
 		clothingAttributeList.add(TFModifier.RESISTANCE_ICE);
 		clothingAttributeList.add(TFModifier.RESISTANCE_LUST);
 		clothingAttributeList.add(TFModifier.RESISTANCE_PHYSICAL);
 		clothingAttributeList.add(TFModifier.RESISTANCE_POISON);
-		clothingAttributeList.add(TFModifier.RESISTANCE_SPELLS);
 		clothingAttributeList.add(TFModifier.DAMAGE_FIRE);
 		clothingAttributeList.add(TFModifier.DAMAGE_ICE);
 		clothingAttributeList.add(TFModifier.DAMAGE_LUST);
+		clothingAttributeList.add(TFModifier.DAMAGE_UNARMED);
+		clothingAttributeList.add(TFModifier.DAMAGE_MELEE_WEAPON);
+		clothingAttributeList.add(TFModifier.DAMAGE_RANGED_WEAPON);
 		clothingAttributeList.add(TFModifier.DAMAGE_PHYSICAL);
 		clothingAttributeList.add(TFModifier.DAMAGE_POISON);
 		clothingAttributeList.add(TFModifier.DAMAGE_SPELLS);
@@ -1184,6 +1201,9 @@ public enum TFModifier {
 		// Set this item's file image:
 		try {
 			InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/crafting/" + SVGString + ".svg");
+			if(is==null) {
+				System.err.println("Error! TFModifier icon file does not exist (Trying to read from '"+SVGString+"')! (Code 1)");
+			}
 			String s = Util.inputStreamToString(is);
 
 			s = s.replaceAll("#ff2a2a", this.colour.getShades()[0]);
@@ -1215,6 +1235,9 @@ public enum TFModifier {
 		// Set this item's file image:
 		try {
 			InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/crafting/" + SVGString + ".svg");
+			if(is==null) {
+				System.err.println("Error! TFModifier icon file does not exist (Trying to read from '"+SVGString+"')! (Code 2)");
+			}
 			String s = Util.inputStreamToString(is);
 
 			s = s.replaceAll("#ff2a2a", this.colour.getShades()[0]);

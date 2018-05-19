@@ -184,7 +184,8 @@ public class DialogueFlags implements Serializable, XMLSaving {
 	}
 
 	public NPC getSlaveryManagerSlaveSelected() {
-		if(slaveryManagerSlaveSelected==null || slaveryManagerSlaveSelected.isEmpty()) {
+		if(slaveryManagerSlaveSelected==null
+				|| slaveryManagerSlaveSelected.isEmpty()) {
 			return null;
 		}
 		return (NPC) Main.game.getNPCById(slaveryManagerSlaveSelected);

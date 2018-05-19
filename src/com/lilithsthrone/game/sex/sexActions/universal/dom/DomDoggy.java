@@ -19,11 +19,10 @@ import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 
 /**
  * @since 0.1.69
- * @version 0.1.96
+ * @version 0.2.5
  * @author Innoxia
  */
 public class DomDoggy {
@@ -214,6 +213,11 @@ public class DomDoggy {
 		}
 
 		@Override
+		public boolean isBaseRequirementsMet() {
+			return Main.game.getPlayer().hasPenisIgnoreDildo();
+		}
+		
+		@Override
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
 			
@@ -355,7 +359,9 @@ public class DomDoggy {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getActivePartner().isCoverableAreaExposed(CoverableArea.MOUTH) && Sex.isDom(Main.game.getPlayer());
+			return Sex.getActivePartner().isCoverableAreaExposed(CoverableArea.MOUTH)
+					&& Sex.isDom(Main.game.getPlayer())
+					&& Main.game.getPlayer().hasPenisIgnoreDildo();
 		}
 		
 		@Override
@@ -437,7 +443,7 @@ public class DomDoggy {
 		@Override
 		public List<OrificeType> getAreasCummedIn(GameCharacter cumProvider, GameCharacter cumTarget) {
 			if(cumProvider.equals(Main.game.getPlayer()) && cumTarget.equals(Sex.getTargetedPartner(Main.game.getPlayer()))) {
-				return Util.newArrayListOfValues(new ListValue<>(OrificeType.ANUS));
+				return Util.newArrayListOfValues(OrificeType.ANUS);
 			} else {
 				return null;
 			}
@@ -463,7 +469,9 @@ public class DomDoggy {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getActivePartner().isCoverableAreaExposed(CoverableArea.MOUTH) && Sex.isDom(Main.game.getPlayer());
+			return Sex.getActivePartner().isCoverableAreaExposed(CoverableArea.MOUTH)
+					&& Sex.isDom(Main.game.getPlayer())
+					&& Main.game.getPlayer().hasPenisIgnoreDildo();
 		}
 		
 		@Override
@@ -544,7 +552,7 @@ public class DomDoggy {
 		@Override
 		public List<OrificeType> getAreasCummedIn(GameCharacter cumProvider, GameCharacter cumTarget) {
 			if(cumProvider.equals(Main.game.getPlayer()) && cumTarget.equals(Sex.getTargetedPartner(Main.game.getPlayer()))) {
-				return Util.newArrayListOfValues(new ListValue<>(OrificeType.VAGINA));
+				return Util.newArrayListOfValues(OrificeType.VAGINA);
 			} else {
 				return null;
 			}

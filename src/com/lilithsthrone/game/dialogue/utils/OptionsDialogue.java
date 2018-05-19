@@ -23,7 +23,7 @@ import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
-import com.lilithsthrone.game.dialogue.MapDisplay;
+import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.story.CharacterCreation;
@@ -108,7 +108,7 @@ public class OptionsDialogue {
 							Main.mainController.setRightPanelContent("");
 							Main.mainController.setButtonsContent("");
 							Main.game.setRenderMap(false);
-							
+							Main.game.setPrologueFinished(false);
 							Main.startNewGame(CharacterCreation.CHARACTER_CREATION_START);
 							confirmNewGame = false;
 						}
@@ -232,8 +232,8 @@ public class OptionsDialogue {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.OPTIONS;
+		public DialogueNodeType getDialogueNodeType() {
+			return DialogueNodeType.OPTIONS;
 		}
 	};
 	
@@ -367,8 +367,8 @@ public class OptionsDialogue {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.OPTIONS;
+		public DialogueNodeType getDialogueNodeType() {
+			return DialogueNodeType.OPTIONS;
 		}
 	};
 	
@@ -465,8 +465,8 @@ public class OptionsDialogue {
 		}
 	
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.OPTIONS;
+		public DialogueNodeType getDialogueNodeType() {
+			return DialogueNodeType.OPTIONS;
 		}
 	};
 	
@@ -509,8 +509,8 @@ public class OptionsDialogue {
 						+ "</div>"
 						+ "<div class='container-full-width' style='width:calc(25% - 16px); text-align:center; background:transparent;'>"
 							+ (Main.isSaveGameAvailable()
-								?"<div class='square-button saveIcon' id='new_saved'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskSave()+"</div></div>"
-								:"<div class='square-button saveIcon disabled' id='new_saved_disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskSaveDisabled()+"</div></div>")
+								?"<div class='square-button saveIcon' id='new_saved' style='float:left;'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskSave()+"</div></div>"
+								:"<div class='square-button saveIcon disabled' id='new_saved_disabled' style='float:left;'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskSaveDisabled()+"</div></div>")
 						+ "</div>"
 					+ "</div>";
 				
@@ -693,8 +693,8 @@ public class OptionsDialogue {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.OPTIONS;
+		public DialogueNodeType getDialogueNodeType() {
+			return DialogueNodeType.OPTIONS;
 		}
 	};
 	
@@ -781,8 +781,8 @@ public class OptionsDialogue {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.OPTIONS;
+		public DialogueNodeType getDialogueNodeType() {
+			return DialogueNodeType.OPTIONS;
 		}
 	};
 
@@ -955,8 +955,8 @@ public class OptionsDialogue {
 		}
 		
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.OPTIONS;
+		public DialogueNodeType getDialogueNodeType() {
+			return DialogueNodeType.OPTIONS;
 		}
 	};
 	
@@ -969,19 +969,19 @@ public class OptionsDialogue {
 					+ "</td>"
 					+ "<td style='min-width:160px;'>"
 						+"<form style='padding:0;margin:0;text-align:center;'><input type='text' id='GENDER_NAME_MASCULINE_" + name + "' value='"
-						+ Util.formatForHTML(Main.getProperties().genderNameMale.get(name))
+						+ UtilText.parseForHTMLDisplay(Main.getProperties().genderNameMale.get(name))
 						+ "'>"
 						+ "</form>"
 					+ "</td>"
 					+ "<td style='min-width:160px;'>"
 						+"<form style='padding:0;margin:0;text-align:center;'><input type='text' id='GENDER_NAME_ANDROGYNOUS_" + name + "' value='"
-						+ Util.formatForHTML(Main.getProperties().genderNameNeutral.get(name))
+						+ UtilText.parseForHTMLDisplay(Main.getProperties().genderNameNeutral.get(name))
 						+ "'>"
 						+ "</form>"
 					+ "</td>"
 					+ "<td style='min-width:160px;'>"
 						+"<form style='padding:0;margin:0;text-align:center;'><input type='text' id='GENDER_NAME_FEMININE_" + name + "' value='"
-						+ Util.formatForHTML(Main.getProperties().genderNameFemale.get(name))
+						+ UtilText.parseForHTMLDisplay(Main.getProperties().genderNameFemale.get(name))
 						+ "'>"
 						+ "</form>"
 					+ "</td>"
@@ -994,11 +994,11 @@ public class OptionsDialogue {
 					+ pronoun.getName()
 				+ "</td>"
 					+ "<td style='min-width:160px;'>"
-					+"<form style='padding:0;margin:0;text-align:center;'><input type='text' id='masculine_" + pronoun + "' value='"+ Util.formatForHTML(Main.getProperties().genderPronounMale.get(pronoun))+ "'>"
+					+"<form style='padding:0;margin:0;text-align:center;'><input type='text' id='masculine_" + pronoun + "' value='"+ UtilText.parseForHTMLDisplay(Main.getProperties().genderPronounMale.get(pronoun))+ "'>"
 					+ "</form>"
 				+ "</td>"
 				+ "<td style='min-width:160px;'>"
-					+"<form style='padding:0;margin:0;text-align:center;'><input type='text' id='feminine_" + pronoun + "' value='"+ Util.formatForHTML(Main.getProperties().genderPronounFemale.get(pronoun))+ "'></form>"
+					+"<form style='padding:0;margin:0;text-align:center;'><input type='text' id='feminine_" + pronoun + "' value='"+ UtilText.parseForHTMLDisplay(Main.getProperties().genderPronounFemale.get(pronoun))+ "'></form>"
 				+ "</td>"
 				+ "</tr>";
 	}
@@ -1023,8 +1023,8 @@ public class OptionsDialogue {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.OPTIONS;
+		public DialogueNodeType getDialogueNodeType() {
+			return DialogueNodeType.OPTIONS;
 		}
 	};
 	
@@ -1047,8 +1047,8 @@ public class OptionsDialogue {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.OPTIONS;
+		public DialogueNodeType getDialogueNodeType() {
+			return DialogueNodeType.OPTIONS;
 		}
 	};
 	
@@ -1136,8 +1136,8 @@ public class OptionsDialogue {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.OPTIONS;
+		public DialogueNodeType getDialogueNodeType() {
+			return DialogueNodeType.OPTIONS;
 		}
 	};
 	
@@ -1310,6 +1310,11 @@ public class OptionsDialogue {
 				switch(subspecies) {
 					case ANGEL:
 					case DEMON:
+					case ELEMENTAL_AIR:
+					case ELEMENTAL_ARCANE:
+					case ELEMENTAL_EARTH:
+					case ELEMENTAL_FIRE:
+					case ELEMENTAL_WATER:
 					case IMP:
 					case IMP_ALPHA:
 					case HARPY:
@@ -1375,8 +1380,8 @@ public class OptionsDialogue {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.OPTIONS;
+		public DialogueNodeType getDialogueNodeType() {
+			return DialogueNodeType.OPTIONS;
 		}
 	};
 	
@@ -1635,7 +1640,7 @@ public class OptionsDialogue {
 					
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(
 							"INFLATION_CONTENT",
-							Colour.CUMMED,
+							Colour.CUM,
 							"Cum Inflation",
 							"This enables cum inflation mechanics.",
 							Main.getProperties().hasValue(PropertyValue.inflationContent)));
@@ -1704,8 +1709,8 @@ public class OptionsDialogue {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.OPTIONS;
+		public DialogueNodeType getDialogueNodeType() {
+			return DialogueNodeType.OPTIONS;
 		}
 	};
 	
@@ -1927,8 +1932,8 @@ public class OptionsDialogue {
 		}
 
 		@Override
-		public MapDisplay getMapDisplay() {
-			return MapDisplay.OPTIONS;
+		public DialogueNodeType getDialogueNodeType() {
+			return DialogueNodeType.OPTIONS;
 		}
 	};
 }

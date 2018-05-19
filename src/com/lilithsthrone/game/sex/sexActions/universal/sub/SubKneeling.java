@@ -20,7 +20,6 @@ import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 
 /**
  * @since 0.1.69
@@ -201,9 +200,10 @@ public class SubKneeling {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getActivePartner().getPenisRawSizeValue() >= PenisSize.TWO_AVERAGE.getMedianValue();
+			return Sex.getActivePartner().getPenisRawSizeValue() >= PenisSize.TWO_AVERAGE.getMedianValue()
+					&& Sex.getActivePartner().hasPenisIgnoreDildo();
 		}
-		
+
 		@Override
 		public String getActionTitle() {
 			return "Deep throat";
@@ -283,7 +283,7 @@ public class SubKneeling {
 		@Override
 		public List<OrificeType> getAreasCummedIn(GameCharacter cumProvider, GameCharacter cumTarget) {
 			if(cumProvider.equals(Sex.getActivePartner()) && cumTarget.equals(Sex.getTargetedPartner(Sex.getActivePartner()))) {
-				return Util.newArrayListOfValues(new ListValue<>(OrificeType.MOUTH));
+				return Util.newArrayListOfValues(OrificeType.MOUTH);
 			} else {
 				return null;
 			}
@@ -307,7 +307,12 @@ public class SubKneeling {
 		public String getActionDescription() {
 			return "";
 		}
-
+		
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return Sex.getActivePartner().hasPenisIgnoreDildo();
+		}
+		
 		@Override
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
@@ -338,22 +343,22 @@ public class SubKneeling {
 					UtilText.nodeContentSB.append(", a small trickle of [npc.cum+] squirts out all over your [pc.face+].");
 					break;
 				case TWO_SMALL_AMOUNT:
-					UtilText.nodeContentSB.append(", a small amount of [pc.cum+] squirts out all over your [pc.face+].");
+					UtilText.nodeContentSB.append(", a small amount of [npc.cum+] squirts out all over your [pc.face+].");
 					break;
 				case THREE_AVERAGE:
-					UtilText.nodeContentSB.append(", [npc.her] [pc.cum+] squirts out all over your [pc.face+].");
+					UtilText.nodeContentSB.append(", [npc.her] [npc.cum+] squirts out all over your [pc.face+].");
 					break;
 				case FOUR_LARGE:
-					UtilText.nodeContentSB.append(", [npc.her] [pc.cum+] shoots out all over your [pc.face+].");
+					UtilText.nodeContentSB.append(", [npc.her] [npc.cum+] shoots out all over your [pc.face+].");
 					break;
 				case FIVE_HUGE:
-					UtilText.nodeContentSB.append(", [npc.her] [pc.cum+] pours out all over your [pc.face+].");
+					UtilText.nodeContentSB.append(", [npc.her] [npc.cum+] pours out all over your [pc.face+].");
 					break;
 				case SIX_EXTREME:
-					UtilText.nodeContentSB.append(", [npc.her] [pc.cum+] pours out all over your [pc.face+].");
+					UtilText.nodeContentSB.append(", [npc.her] [npc.cum+] pours out all over your [pc.face+].");
 					break;
 				case SEVEN_MONSTROUS:
-					UtilText.nodeContentSB.append(", [npc.her] [pc.cum+] pours out all over your [pc.face+].");
+					UtilText.nodeContentSB.append(", [npc.her] [npc.cum+] pours out all over your [pc.face+].");
 					break;
 				default:
 					break;
@@ -390,7 +395,7 @@ public class SubKneeling {
 		public List<CoverableArea> getAreasCummedOn(GameCharacter cumProvider, GameCharacter cumTarget) {
 			if(cumProvider.isPlayer() && cumTarget.equals(Sex.getTargetedPartner(Main.game.getPlayer()))) {
 				return Util.newArrayListOfValues(
-						new ListValue<>(CoverableArea.MOUTH));
+						CoverableArea.MOUTH);
 			}
 			return null; 
 		}

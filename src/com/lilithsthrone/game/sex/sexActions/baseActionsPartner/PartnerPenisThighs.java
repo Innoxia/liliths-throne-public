@@ -856,7 +856,7 @@ public class PartnerPenisThighs {
 	
 	public static final SexAction PLAYER_THIGH_SEX_SUB_RESIST = new SexAction(
 			SexActionType.PLAYER,
-			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.ZERO_NONE,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ZERO_PURE,
 			PenetrationType.PENIS,

@@ -348,6 +348,38 @@ public enum SexPositionType {
 		}
 	},
 	
+	MASTURBATION("Kneeling",
+			Util.newHashMapOfValues(
+					new Value<>(
+							SexPositionSlot.MASTURBATING_KNEELING,
+							Util.newHashMapOfValues(
+							new Value<>(
+									SexPositionSlot.MASTURBATING_KNEELING,
+									new SexActionPresetPair(
+											SexActionPresets.playerMasturbating,
+											SexActionPresets.partnerMasturbating)))))) {
+		@Override
+		public String getDescription() {
+			return "You're kneeling on the floor, ready to masturbate.";
+		}
+	},
+	
+	PANTY_MASTURBATION("Kneeling",
+			Util.newHashMapOfValues(
+					new Value<>(
+							SexPositionSlot.MASTURBATING_KNEELING,
+							Util.newHashMapOfValues(
+							new Value<>(
+									SexPositionSlot.MASTURBATING_KNEELING,
+									new SexActionPresetPair(
+											SexActionPresets.playerPantiesMasturbating,
+											SexActionPresets.partnerPantiesMasturbating)))))) {
+		@Override
+		public String getDescription() {
+			return "You're kneeling on the floor, ready to masturbate with the panties clenched in your [pc.hand].";
+		}
+	},
+	
 	CHAIR_SEX("Chair sex",
 			Util.newHashMapOfValues(
 					new Value<>(

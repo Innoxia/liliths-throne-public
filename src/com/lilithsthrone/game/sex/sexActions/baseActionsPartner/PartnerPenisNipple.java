@@ -16,7 +16,6 @@ import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 
 /**
  * @since 0.1.82
@@ -116,9 +115,9 @@ public class PartnerPenisNipple {
 		@Override
 		public List<Fetish> getFetishes(GameCharacter character) {
 			if(character.isPlayer()) {
-				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DENIAL), new ListValue<>(Fetish.FETISH_BREASTS_SELF));
+				return Util.newArrayListOfValues(Fetish.FETISH_DENIAL, Fetish.FETISH_BREASTS_SELF);
 			} else {
-				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DENIAL), new ListValue<>(Fetish.FETISH_BREASTS_OTHERS));
+				return Util.newArrayListOfValues(Fetish.FETISH_DENIAL, Fetish.FETISH_BREASTS_OTHERS);
 			}
 		}
 	};
@@ -210,9 +209,9 @@ public class PartnerPenisNipple {
 		@Override
 		public List<Fetish> getFetishes(GameCharacter character) {
 			if(character.isPlayer()) {
-				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DENIAL), new ListValue<>(Fetish.FETISH_BREASTS_SELF));
+				return Util.newArrayListOfValues(Fetish.FETISH_DENIAL, Fetish.FETISH_BREASTS_SELF);
 			} else {
-				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DENIAL), new ListValue<>(Fetish.FETISH_BREASTS_OTHERS));
+				return Util.newArrayListOfValues(Fetish.FETISH_DENIAL, Fetish.FETISH_BREASTS_OTHERS);
 			}
 		}
 	};
@@ -1044,7 +1043,7 @@ public class PartnerPenisNipple {
 	
 	public static final SexAction PLAYER_FUCKED_SUB_RESIST = new SexAction(
 			SexActionType.PLAYER,
-			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.ZERO_NONE,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ZERO_PURE,
 			PenetrationType.PENIS,

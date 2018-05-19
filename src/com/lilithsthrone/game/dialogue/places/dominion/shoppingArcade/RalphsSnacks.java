@@ -17,7 +17,6 @@ import com.lilithsthrone.game.sex.managers.dominion.SexManagerRalphDiscount;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
@@ -204,7 +203,7 @@ public class RalphsSnacks {
 						+ "</p>"
 						+ "<p>"
 							+ "Ralph cheerfully leads you back over to the special display, and as he informs you of some of the prices, your suspicions prove to be correct."
-							+ " While some of the items are a reasonable price, the bottles of various transformative liquids are quite expensive."
+							+ " While some of the items are a reasonable price, the more exotic foodstuffs are quite expensive."
 							+ " Looking across at the friendly shopkeeper, you ask him if there's any way he'd drop the prices a little."
 						+ "</p>"
 						+ "<p>"
@@ -229,7 +228,7 @@ public class RalphsSnacks {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseSex("Agree", "Agree to do as Ralph says and suck his cock.", Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ORAL_GIVING)),
+				return new ResponseSex("Agree", "Agree to do as Ralph says and suck his cock.", Util.newArrayListOfValues(Fetish.FETISH_ORAL_GIVING),
 						null, CorruptionLevel.TWO_HORNY, null, null, null,
 						true, true,
 						new SexManagerRalphDiscount(
@@ -310,7 +309,7 @@ public class RalphsSnacks {
 							+ "[pc.speech(No thanks,)] you say, stepping to one side and moving away from the horny shopkeeper."
 						+ "</p>"
 						+ "<p>"
-							+ "[ralph.speech(Well, no harm in either of us asking!)] he laughs, turning around and heading back to his counter, "
+							+ "[ralph.speech(Well, no harm in either of us asking!)] he laughs, turning around and heading back to his counter. "
 							+ "[ralph.speech(If you need anything else, just let me know.)]" 
 						+ "</p>"
 						+ "<p>"

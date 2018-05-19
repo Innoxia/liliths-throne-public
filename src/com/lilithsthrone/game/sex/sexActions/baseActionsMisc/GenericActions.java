@@ -27,7 +27,6 @@ import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 
 /**
  * @since 0.1.79
@@ -233,7 +232,7 @@ public class GenericActions {
 	
 	public static final SexAction PLAYER_RESIST = new SexAction(
 			SexActionType.PLAYER,
-			ArousalIncrease.NEGATIVE_MINOR,
+			ArousalIncrease.ZERO_NONE,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			null,
@@ -247,7 +246,7 @@ public class GenericActions {
 			if(Main.game.getPlayer().hasFetish(Fetish.FETISH_NON_CON_SUB)) {
 				return ArousalIncrease.THREE_NORMAL;
 			}
-			return ArousalIncrease.NEGATIVE;
+			return ArousalIncrease.ZERO_NONE;
 		}
 		
 		@Override
@@ -309,9 +308,9 @@ public class GenericActions {
 		@Override
 		public List<Fetish> getFetishes(GameCharacter character) {
 			if(character.isPlayer()) {
-				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_SUB));
+				return Util.newArrayListOfValues(Fetish.FETISH_NON_CON_SUB);
 			} else {
-				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_DOM));
+				return Util.newArrayListOfValues(Fetish.FETISH_NON_CON_DOM);
 			}
 		}
 	};
@@ -877,7 +876,7 @@ public class GenericActions {
 	
 	public static final SexAction PARTNER_RESIST = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.NEGATIVE_MINOR,
+			ArousalIncrease.ZERO_NONE,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			null,
@@ -891,7 +890,7 @@ public class GenericActions {
 			if(Sex.getActivePartner().hasFetish(Fetish.FETISH_NON_CON_SUB)) {
 				return ArousalIncrease.THREE_NORMAL;
 			}
-			return ArousalIncrease.NEGATIVE;
+			return ArousalIncrease.ZERO_NONE;
 		}
 		
 		@Override
@@ -954,9 +953,9 @@ public class GenericActions {
 		@Override
 		public List<Fetish> getFetishes(GameCharacter character) {
 			if(character.isPlayer()) {
-				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_DOM));
+				return Util.newArrayListOfValues(Fetish.FETISH_NON_CON_DOM);
 			} else {
-				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_SUB));
+				return Util.newArrayListOfValues(Fetish.FETISH_NON_CON_SUB);
 			}
 		}
 	};
@@ -1083,9 +1082,9 @@ public class GenericActions {
 		@Override
 		public List<Fetish> getFetishes(GameCharacter character) {
 			if(character.isPlayer()) {
-				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE));
+				return Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE);
 			} else {
-				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DOMINANT));
+				return Util.newArrayListOfValues(Fetish.FETISH_DOMINANT);
 			}
 		}
 	};

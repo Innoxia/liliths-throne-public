@@ -11,17 +11,16 @@ import com.lilithsthrone.game.Season;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.History;
-import com.lilithsthrone.game.character.Name;
-import com.lilithsthrone.game.character.SexualOrientation;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.persona.History;
+import com.lilithsthrone.game.character.persona.Name;
+import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -118,6 +117,11 @@ public class SlaveInStocks extends NPC {
 					case SLIME_RAT:
 					case SLIME_BAT:
 					case SLIME_RABBIT:
+					case ELEMENTAL_AIR:
+					case ELEMENTAL_ARCANE:
+					case ELEMENTAL_EARTH:
+					case ELEMENTAL_FIRE:
+					case ELEMENTAL_WATER:
 						break;
 					
 					// Special spawns:
@@ -581,21 +585,9 @@ public class SlaveInStocks extends NPC {
 	}
 
 	@Override
-	public String getCombatDescription() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public Response endCombat(boolean applyEffects, boolean playerVictory) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
-	public Attack attackType() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 }

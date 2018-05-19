@@ -288,7 +288,7 @@ public class DemonHome {
 					+ "</p>"
 					+ "<p>"
 					+ "Sensing a source of information, you step over to the dog-girl and offer her a hand up."
-					+ " She glances up at you with a worried look in her eyes, "
+					+ " She glances up at you with a worried look in her eyes. "
 					+ UtilText.parseNPCSpeech("Y-you're not an enforcer... are you?", Femininity.FEMININE)
 					+ " she asks."
 					+ "</p>"

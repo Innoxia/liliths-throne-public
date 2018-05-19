@@ -17,7 +17,6 @@ import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.universal.SMDoggy;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
@@ -315,15 +314,14 @@ public class SupplierDepot {
 				
 			} else if (index == 3) {
 				return new ResponseCombat("Fight", "Immediately launch into combat!",
-						null,
 						Util.newArrayListOfValues(
-								new ListValue<>(Main.game.getSupplierLeader()),
-								new ListValue<>(Main.game.getSupplierPartner())),
+								Main.game.getSupplierLeader(),
+								Main.game.getSupplierPartner()),
 						Util.newHashMapOfValues(
 								new Value<>(Main.game.getPlayer(), "[pc.speech(You both need to agree to let the other suppliers back,)]"
 										+ " you declare, readying yourself for a fight,"
 										+ " [pc.speech(but I know that people like you only respect force, so I'm left with no choice but to do this!)]"),
-								new Value<>(Main.game.getSupplierLeader(), "[wolfgang.speech(Hah!)] Wolfgang shouts, [wolfgang.speech(If it's a fight you want, we'll give you one!)]"),
+								new Value<>(Main.game.getSupplierLeader(), "[wolfgang.speech(Hah!)] Wolfgang shouts. [wolfgang.speech(If it's a fight you want, we'll give you one!)]"),
 								new Value<>(Main.game.getSupplierPartner(), "[karl.speech(You're gonna pay for this, bitch!)] Karl snarls.")));
 				
 			} else {
@@ -359,7 +357,7 @@ public class SupplierDepot {
 				if (index == 1) {
 					return new ResponseSex("Fuck Them",
 							UtilText.parse(Main.game.getSupplierLeader(), Main.game.getSupplierPartner(), "Push Wolfgang and Karl down side-by-side in the doggy-style position, ready to have some fun with them..."),
-							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DOMINANT)), null, null, null, null, null,
+							Util.newArrayListOfValues(Fetish.FETISH_DOMINANT), null, null, null, null, null,
 							true, false,
 							new SMDoggy(
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_BEHIND)),
@@ -436,15 +434,14 @@ public class SupplierDepot {
 				
 			} else if (index == 3) {
 				return new ResponseCombat("Fight", "It looks as though you're left with no choice but to fight!",
-						null,
 						Util.newArrayListOfValues(
-								new ListValue<>(Main.game.getSupplierLeader()),
-								new ListValue<>(Main.game.getSupplierPartner())),
+								Main.game.getSupplierLeader(),
+								Main.game.getSupplierPartner()),
 						Util.newHashMapOfValues(
 								new Value<>(Main.game.getPlayer(), "[pc.speech(There's no way I'm agreeing to that,)]"
 										+ " you declare, readying yourself for a fight,"
 										+ " [pc.speech(so I'm left with no choice but to do this!)]"),
-								new Value<>(Main.game.getSupplierLeader(), "[wolfgang.speech(Hah!)] Wolfgang shouts, [wolfgang.speech(If it's a fight you want, we'll give you one!)]"),
+								new Value<>(Main.game.getSupplierLeader(), "[wolfgang.speech(Hah!)] Wolfgang shouts. [wolfgang.speech(If it's a fight you want, we'll give you one!)]"),
 								new Value<>(Main.game.getSupplierPartner(), "[karl.speech(You're gonna pay for this, bitch!)] Karl snarls.")));
 				
 			} else if (index == 4) {
