@@ -4,7 +4,7 @@ import com.lilithsthrone.utils.TreeNode;
 
 /**
  * @since 0.1.1
- * @version 0.1.99
+ * @version 0.2.5
  * @author Innoxia
  */
 public enum QuestLine {
@@ -45,9 +45,15 @@ public enum QuestLine {
 			QuestType.SIDE,
 			QuestTree.nyanTree),
 
-	SIDE_HARPY_PACIFICATION("Angry harpies", "You managed to calm down all three of the harpy matriarchs, resulting in the Harpy Nests being safe to travel through!",
+	SIDE_HARPY_PACIFICATION("Angry Harpies", "You managed to calm down all three of the harpy matriarchs, resulting in the Harpy Nests being safe to travel through!",
 			QuestType.SIDE,
-			QuestTree.angryHarpyTree);
+			QuestTree.angryHarpyTree),
+
+	SIDE_SLIME_QUEEN("Slime Queen", "You dealt with the Slime Queen!",
+			QuestType.SIDE,
+			QuestTree.slimeQueenTree)
+	
+	;
 
 	private String name, completedDescription;
 	private QuestType type;

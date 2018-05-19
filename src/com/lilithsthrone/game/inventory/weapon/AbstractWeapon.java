@@ -27,7 +27,7 @@ import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.0
- * @version 0.1.87
+ * @version 0.2.6
  * @author Innoxia
  */
 public abstract class AbstractWeapon extends AbstractCoreItem implements Serializable, XMLSaving {
@@ -38,8 +38,10 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements Seriali
 	private DamageType damageType;
 	private Attribute coreEnchantment;
 	private List<Spell> spells;
+	private Colour primaryColour;
+	private Colour secondaryColour;
 
-	public AbstractWeapon(AbstractWeaponType weaponType, DamageType dt) {
+	public AbstractWeapon(AbstractWeaponType weaponType, DamageType dt, Colour primaryColour, Colour secondaryColour) {
 		super(weaponType.getName(), weaponType.getNamePlural(), weaponType.getPathName(), dt.getMultiplierAttribute().getColour(), weaponType.getRarity(), weaponType.getAttributeModifiers());
 		
 		this.weaponType = weaponType;
@@ -69,7 +71,9 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements Seriali
 				highestEnchantment = attributeModifiers.get(a);
 			}
 		}
-		
+
+		this.primaryColour = primaryColour;
+		this.secondaryColour = secondaryColour;
 	}
 	
 	@Override
@@ -77,6 +81,8 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements Seriali
 		if(super.equals(o)){
 			if(o instanceof AbstractWeapon){
 				if(((AbstractWeapon)o).getWeaponType().equals(getWeaponType())
+						&& ((AbstractWeapon)o).getPrimaryColour()==primaryColour
+						&& ((AbstractWeapon)o).getSecondaryColour()==secondaryColour
 						&& ((AbstractWeapon)o).getDamageType()==damageType
 						&& ((AbstractWeapon)o).getCoreEnchantment()==coreEnchantment
 						&& ((AbstractWeapon)o).getSpells().equals(spells)
@@ -93,8 +99,15 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements Seriali
 		int result = super.hashCode();
 		result = 31 * result + getWeaponType().hashCode();
 		result = 31 * result + damageType.hashCode();
-		if(coreEnchantment!=null)
+		if(getPrimaryColour()!=null) {
+			result = 31 * result + getPrimaryColour().hashCode();
+		}
+		if(getSecondaryColour()!=null) {
+			result = 31 * result + getSecondaryColour().hashCode();
+		}
+		if(coreEnchantment!=null) {
 			result = 31 * result + coreEnchantment.hashCode();
+		}
 		result = 31 * result + spells.hashCode();
 		return result;
 	}
@@ -152,7 +165,10 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements Seriali
 		element = (Element)parentElement.getElementsByTagName("spells").item(0);
 		for(int i=0; i<element.getElementsByTagName("spell").getLength(); i++){
 			Element e = ((Element)element.getElementsByTagName("spell").item(i));
-			weapon.spells.add(Spell.valueOf(e.getAttribute("value")));
+			try {
+				weapon.spells.add(Spell.valueOf(e.getAttribute("value")));
+			} catch(Exception ex) {
+			}
 		}
 		
 		return weapon;
@@ -164,6 +180,23 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements Seriali
 
 	private StringBuilder descriptionSB = new StringBuilder("");
 
+
+	public Colour getPrimaryColour() {
+		return primaryColour;
+	}
+
+	public void setPrimaryColour(Colour primaryColour) {
+		this.primaryColour = primaryColour;
+	}
+	
+	public Colour getSecondaryColour() {
+		return secondaryColour;
+	}
+
+	public void setSecondaryColour(Colour secondaryColour) {
+		this.secondaryColour = secondaryColour;
+	}
+	
 	public String getDescription() {
 		descriptionSB = new StringBuilder();
 
@@ -211,7 +244,7 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements Seriali
 						descriptionSB.append(", ");
 				}
 
-				descriptionSB.append("<b style='color:" + s.getDamageType().getMultiplierAttribute().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(s.getName()) + "</b>");
+				descriptionSB.append("<b style='color:" + s.getSpellSchool().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(s.getName()) + "</b>");
 				i++;
 			}
 			descriptionSB.append(".</p>");
@@ -285,7 +318,7 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements Seriali
 
 	@Override
 	public String getSVGString() {
-		return weaponType.getSVGStringMap().get(damageType);
+		return weaponType.getSVGImage(damageType, this.getPrimaryColour(), this.getSecondaryColour());
 	}
 
 	public List<Spell> getSpells() {
@@ -308,8 +341,8 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements Seriali
 		return this.getWeaponType().getUnableToBeUsedDescription();
 	}
 	
-	public String applyExtraEfects(GameCharacter user, GameCharacter target) {
-		return this.getWeaponType().applyExtraEfects(user, target);
+	public String applyExtraEfects(GameCharacter user, GameCharacter target, boolean isHit) {
+		return this.getWeaponType().applyExtraEfects(user, target, isHit);
 	}
 
 }

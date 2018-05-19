@@ -280,7 +280,8 @@ public class SlaverAlleyDialogue {
 							+ "</div>"
 						+ "</div>");
 			
-			List<NPC> charactersPresent = Main.game.getCharactersPresent();
+			List<NPC> charactersPresent = new ArrayList<>(Main.game.getCharactersPresent());
+			charactersPresent.removeIf((npc) -> Main.game.getPlayer().getCompanions().contains(npc));
 			
 			charactersPresent.sort(Comparator.comparing(NPC::getName));
 			
@@ -296,7 +297,7 @@ public class SlaverAlleyDialogue {
 					boolean alternateBackground = i%2==0;
 					
 					UtilText.nodeContentSB.append(UtilText.parse(slave,
-							"<div class='container-full-width inner' style='margin-bottom:0;"+(alternateBackground?"background:#292929;'":"'")+"'>"
+							"<div class='container-full-width inner' style='margin-bottom:0;"+(alternateBackground?"background:"+Colour.BACKGROUND_ALT.toWebHexString()+";'":"'")+"'>"
 								+ "<div style='width:40%; float:left; margin:0; padding:0; text-align:center;'>"
 									+ "<b style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>"+slave.getName()+"</b> - "
 									+ "<span style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(slave.getGender().getName())+"</span> "
@@ -570,7 +571,12 @@ public class SlaverAlleyDialogue {
 					+ "</p>");
 
 			List<String> sexAvailability = new ArrayList<>();
-			for(NPC npc : Main.game.getCharactersPresent()) {
+			
+
+			List<NPC> charactersPresent = new ArrayList<>(Main.game.getCharactersPresent());
+			charactersPresent.removeIf((npc) -> Main.game.getPlayer().getCompanions().contains(npc));
+			
+			for(NPC npc : charactersPresent) {
 				UtilText.nodeContentSB.append(UtilText.parse(npc, 
 						"<p>"
 							+ "[npc.Name]," + (npc.getOwner().isPlayer()?" <b style=color:"+Colour.GENERIC_ARCANE.toWebHexString()+";>who is your slave</b>, and is":"")
@@ -603,6 +609,7 @@ public class SlaverAlleyDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			List<NPC> charactersPresent = Main.game.getCharactersPresent();
+			charactersPresent.removeIf((npc) -> Main.game.getPlayer().getCompanions().contains(npc));
 			
 			if(index==0) {
 				return new Response("Complain", "You don't like the idea of slaves being publicly used. There appears to be an enforcer watching over the area, so perhaps you should go and complain to him... (Not yet implemented!)", null);
@@ -710,16 +717,16 @@ public class SlaverAlleyDialogue {
 					+ "</p>"
 					+ "<p>"
 						+ "[finch.speech(Ah, if it isn't my <i>favourite</i> customer, [pc.name]!)]"
-						+ " he shouts, beckoning you over to the desk,"
+						+ " he shouts, beckoning you over to the desk."
 						+ " [finch.speech(What can I help you with today?)]"
 					+ "</p>"
 					+ "<p>"
 						+ "Walking forwards, you return [finch.name]'s greeting,"
-						+ " [pc.speech(Hi [finch.name].)]"
+						+ " [pc.speech(Hi, [finch.name].)]"
 					+ "</p>"
 					+ "<p>"
 						+ "[finch.speech(As an owner of a slaver license, I'm pleased to offer you my services,)]"
-						+ " he says, standing up to reveal his tiny feline cock,"
+						+ " he says, standing up to reveal his tiny feline cock."
 						+ " [finch.speech(I've got slave collars, with the appropriate paperwork already completed, as well as a large selection of clothing suitable for your slaves!)]"
 					+ "</p>"
 					+ "<p>"
@@ -742,7 +749,7 @@ public class SlaverAlleyDialogue {
 							+ "</p>"
 							+ "<p>"
 								+ "[finch.speech(Welcome!)]"
-								+ " he shouts, beckoning you over to the desk,"
+								+ " he shouts, beckoning you over to the desk."
 								+ " [finch.speech(Can I help you with anything?)]"
 							+ "</p>"
 							+ "<p>"
@@ -753,7 +760,7 @@ public class SlaverAlleyDialogue {
 								+ "[finch.speech(I'm afraid that there's not really much to see here."
 									+ " All the <i>fun</i> happens in the holding cells, and they're off-limits."
 									+ " Unless you've got a slaver license, there's really not much I can offer you, except for a good day!)]"
-								+ " he says, standing up and bowing a little,"
+								+ " he says, standing up and bowing a little."
 								+ " [finch.speech(Oh, where are my manners?! I'm [finch.name], the manager of the Slavery Administration."
 									+ " I keep petitioning my superiors to have the name changed to something a little more <i>exciting</i>, but they're quite set in their ways.)]"
 							+ "</p>"
@@ -779,7 +786,7 @@ public class SlaverAlleyDialogue {
 						+ "</p>"
 						+ "<p>"
 							+ "[finch.speech(Hello again!)]"
-							+ " he shouts, beckoning you over to the desk,"
+							+ " he shouts, beckoning you over to the desk."
 							+ " [finch.speech(Can I help you with anything?)]"
 						+ "</p>"
 						+ "<p>"
@@ -868,14 +875,14 @@ public class SlaverAlleyDialogue {
 						+ " [pc.speech(How do I get a slaver license? Is there some kind of form I need to fill out?)]"
 					+ "</p>"
 					+ "<p>"
-						+ "[finch.Name] leans back in his chair, grinning up at you,"
+						+ "[finch.Name] leans back in his chair, grinning up at you."
 						+ " [finch.speech(Yeah, there's a form to fill out, <i>and</i> a fee of five-thousand flames to pay, but slaver licenses aren't handed out to just anyone."
 							+ " If you're looking to apply for one, you're going to have to join the waiting list."
 							+ " Last time I looked, I think the estimated wait time for new applicants is just over four years...)]"
 					+ "</p>"
 					+ "<p>"
 						+ "[pc.speech(Four years?!)]"
-						+ " you exclaim in disbelief,"
+						+ " you exclaim in disbelief."
 						+ " [pc.speech(Is there no other way to get one?)]"
 					+ "</p>"
 					+ "<p>"
@@ -900,7 +907,7 @@ public class SlaverAlleyDialogue {
 		@Override
 		public String getContent() {
 			return "<p>"
-						+ "Walking up to [finch.name]'s desk, you place the letter of recommendation down in front of him,"
+						+ "Walking up to [finch.name]'s desk, you place the letter of recommendation down in front of him."
 						+ " [pc.speech(I got a letter of recommendation from my aunt, so can I get that license now?)]"
 					+ "</p>"
 					+ "<p>"
@@ -913,12 +920,12 @@ public class SlaverAlleyDialogue {
 					+ "</p>"
 					+ "<p>"
 						+ "[finch.speech(Your aunt is <i>Lilaya</i>?)]"
-						+ " he asks, putting the letter to one side,"
-						+ " [finch.speech(why didn't you say so earlier?! If you've got the five-thousand flame fee, I'll process your license right now!)]"
+						+ " he asks, putting the letter to one side."
+						+ " [finch.speech(Why didn't you say so earlier?! If you've got the five-thousand flame fee, I'll process your license right now!)]"
 					+ "</p>"
 					+ "<p>"
 						+ "[pc.speech(Oh, great!)]"
-						+ " you cheerily reply, handing over the money,"
+						+ " you cheerily reply, handing over the money."
 						+ " [pc.speech(I guess you know Lilaya then?)]"
 					+ "</p>"
 					+ "<p>"
@@ -964,7 +971,7 @@ public class SlaverAlleyDialogue {
 		public String getContent() {
 			return "<p>"
 						+ "[finch.speech(So, before you run off and try to enslave the first person you meet, you need to be aware of the basics,)]"
-							+ " [finch.name] states, pointing down at the checklist in front of him,"
+							+ " [finch.name] states, pointing down at the checklist in front of him."
 						+ " [finch.speech(First off, all slaves are meant to wear an enchanted slave collar, which can only be purchased from here at the Slavery Administration building."
 							+ " Although some slave owners allow their slaves to work without wearing one, we strongly advise against this."
 							+ " We're unable to track down any runaway slaves who don't have their collars on, so if you decide to take theirs off, don't come crying to me when they run away!)]"
@@ -995,7 +1002,7 @@ public class SlaverAlleyDialogue {
 							+ " With this new system, we're making sure that all slaves go through the proper channels.)]"
 					+ "</p>"
 					+ "<p>"
-						+ "[finch.Name] picks up the last piece of paper you signed and holds it out for you to take,"
+						+ "[finch.Name] picks up the last piece of paper you signed and holds it out for you to take."
 						+ " [finch.speech(That's all there really is to it. With this license, you're able to buy and sell slaves in any manner you like."
 							+ " The only restriction is on enslavement, which, as I said, can only be done to those who are willing, or those who are wanted by the Enforcers.)]"
 					+ "</p>"

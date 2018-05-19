@@ -13,7 +13,6 @@ import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
-import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.combat.Spell;
@@ -26,12 +25,12 @@ import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.ShopTransaction;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
+import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.game.inventory.enchanting.TFPotency;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
-import com.lilithsthrone.game.inventory.item.ItemEffect;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.main.Main;
@@ -42,7 +41,7 @@ import com.lilithsthrone.utils.Util;
  * Shows the tooltip at the given element's position.
  * 
  * @since 0.1.0
- * @version 0.2.0
+ * @version 0.2.4
  * @author Innoxia
  */
 public class InventoryTooltipEventListener implements EventListener {
@@ -59,6 +58,7 @@ public class InventoryTooltipEventListener implements EventListener {
 	private Colour tertiaryColour;
 	private AbstractClothingType genericClothing;
 	private AbstractClothing dyeClothing;
+	private AbstractWeapon dyeWeapon;
 	private InventorySlot invSlot;
 	private TFModifier enchantmentModifier;
 	private TFPotency potency;
@@ -164,32 +164,51 @@ public class InventoryTooltipEventListener implements EventListener {
 			tooltipSB.setLength(0);
 			if(colour!=null) {
 				tooltipSB.append("<div class='title' style='color:" + dyeClothing.getRarity().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(dyeClothing.getName()) + "</div>"
-						
 						+ "<div class='subTitle'>" + Util.capitaliseSentence(colour.getName()) + "</div>"
-	
 						+ "<div class='picture full' style='position:relative;'>" + dyeClothing.getClothingType().getSVGImage(colour, InventoryDialogue.dyePreviewSecondary, InventoryDialogue.dyePreviewTertiary) + "</div>");
 			
 			} else if(secondaryColour!=null) {
 				tooltipSB.append("<div class='title' style='color:" + dyeClothing.getRarity().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(dyeClothing.getName()) + "</div>"
-						
 						+ "<div class='subTitle'>" + Util.capitaliseSentence(secondaryColour.getName()) + "</div>"
-	
 						+ "<div class='picture full' style='position:relative;'>" + dyeClothing.getClothingType().getSVGImage(InventoryDialogue.dyePreviewPrimary, secondaryColour, InventoryDialogue.dyePreviewTertiary) + "</div>");
 				
 			} else if(tertiaryColour!=null) {
 				tooltipSB.append("<div class='title' style='color:" + dyeClothing.getRarity().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(dyeClothing.getName()) + "</div>"
-						
 						+ "<div class='subTitle'>" + Util.capitaliseSentence(tertiaryColour.getName()) + "</div>"
-	
 						+ "<div class='picture full' style='position:relative;'>" + dyeClothing.getClothingType().getSVGImage(InventoryDialogue.dyePreviewPrimary, InventoryDialogue.dyePreviewSecondary, tertiaryColour) + "</div>");
 				
 			}
 			
 			Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
 
+		} else if (dyeWeapon != null) {
+			Main.mainController.setTooltipSize(360, 446);
+
+			tooltipSB.setLength(0);
+			
+			if(colour!=null) {
+				tooltipSB.append("<div class='title' style='color:" + dyeWeapon.getRarity().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(dyeWeapon.getName()) + "</div>"
+						+ "<div class='subTitle'>" + Util.capitaliseSentence(colour.getName()) + "</div>"
+						+ "<div class='picture full' style='position:relative;'>" + dyeWeapon.getWeaponType().getSVGImage(dyeWeapon.getDamageType(), colour, InventoryDialogue.dyePreviewSecondary) + "</div>");
+			
+			} else if(secondaryColour!=null) {
+				tooltipSB.append("<div class='title' style='color:" + dyeWeapon.getRarity().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(dyeWeapon.getName()) + "</div>"
+						+ "<div class='subTitle'>" + Util.capitaliseSentence(secondaryColour.getName()) + "</div>"
+						+ "<div class='picture full' style='position:relative;'>" + dyeWeapon.getWeaponType().getSVGImage(dyeWeapon.getDamageType(), InventoryDialogue.dyePreviewPrimary, secondaryColour) + "</div>");
+				
+			}
+			
+			Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
+
 		} else if (genericItem != null) {
-			Main.mainController.setTooltipSize(360, 60);
-			Main.mainController.setTooltipContent(UtilText.parse("<div class='title'>" + Util.capitaliseSentence(genericItem.getName(false)) + "</div>"));
+			Main.mainController.setTooltipSize(360, 416);
+
+			tooltipSB.setLength(0);
+			tooltipSB.append("<div class='title'>" + Util.capitaliseSentence(genericItem.getName(true)) + "</div>"
+
+					+ "<div class='picture full' style='position:relative;'>" + genericItem.getSVGString() + "</div>");
+			
+			Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
 			
 		} else if (genericClothing != null) {
 
@@ -215,7 +234,7 @@ public class InventoryTooltipEventListener implements EventListener {
 
 					+ "<div class='subTitle'>" + Util.capitaliseSentence(dt.getName()) + "</div>"
 
-					+ "<div class='picture full'>" + genericWeapon.getSVGStringMap().get(dt) + "</div>");
+					+ "<div class='picture full'>" + genericWeapon.getSVGImage() + "</div>");
 
 			Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
 
@@ -271,7 +290,7 @@ public class InventoryTooltipEventListener implements EventListener {
 						} else {
 							
 							boolean piercingBlocked=false;
-							boolean isSlime = equippedToCharacter.getBody().getBodyMaterial()==BodyMaterial.SLIME;
+							boolean bypassesPiercing = !equippedToCharacter.getBody().getBodyMaterial().isRequiresPiercing();
 							
 							switch(invSlot){
 								case PIERCING_VAGINA:
@@ -282,7 +301,8 @@ public class InventoryTooltipEventListener implements EventListener {
 														?"[npc.Name] doesn't have a vagina."
 														:"You don't know if [npc.name] has a vagina.")));
 										piercingBlocked=true;
-									} else if(!isSlime && !equippedToCharacter.isPiercedVagina()) {
+										
+									} else if(!bypassesPiercing && !equippedToCharacter.isPiercedVagina()) {
 										setBlockedTooltipContent(getTooltipText(equippedToCharacter,
 												"Your vagina has not been pierced.",
 												(equippedToCharacter.getPlayerKnowsAreas().contains(CoverableArea.VAGINA)
@@ -291,8 +311,9 @@ public class InventoryTooltipEventListener implements EventListener {
 										piercingBlocked=true;
 									}
 									break;
+									
 								case PIERCING_EAR:
-									if(!isSlime) {
+									if(!bypassesPiercing) {
 										if(!equippedToCharacter.isPiercedEar()) {
 											setBlockedTooltipContent(getTooltipText(equippedToCharacter,
 													"Your ears have not been pierced.",
@@ -301,8 +322,9 @@ public class InventoryTooltipEventListener implements EventListener {
 										}
 									}
 									break;
+									
 								case PIERCING_LIP:
-									if(!isSlime) {
+									if(!bypassesPiercing) {
 										if(!equippedToCharacter.isPiercedLip()) {
 											setBlockedTooltipContent(getTooltipText(equippedToCharacter,
 													"Your lips have not been pierced.",
@@ -311,8 +333,9 @@ public class InventoryTooltipEventListener implements EventListener {
 										}
 									}
 									break;
+									
 								case PIERCING_NIPPLE:
-									if(!isSlime) {
+									if(!bypassesPiercing) {
 										if(!equippedToCharacter.isPiercedNipple()) {
 											setBlockedTooltipContent(getTooltipText(equippedToCharacter,
 													"Your nipples have not been pierced.",
@@ -323,8 +346,9 @@ public class InventoryTooltipEventListener implements EventListener {
 										}
 									}
 									break;
+									
 								case PIERCING_NOSE:
-									if(!isSlime) {
+									if(!bypassesPiercing) {
 										if(!equippedToCharacter.isPiercedNose()) {
 											setBlockedTooltipContent(getTooltipText(equippedToCharacter,
 													"Your nose has not been pierced.",
@@ -333,6 +357,7 @@ public class InventoryTooltipEventListener implements EventListener {
 										}
 									}
 									break;
+									
 								case PIERCING_PENIS:
 									if(equippedToCharacter.getPenisType()==PenisType.NONE) {
 										setBlockedTooltipContent(getTooltipText(equippedToCharacter,
@@ -342,7 +367,7 @@ public class InventoryTooltipEventListener implements EventListener {
 														:"You don't know if [npc.name] has a penis.")));
 										piercingBlocked=true;
 										
-									} else if(!isSlime && !equippedToCharacter.isPiercedPenis()) {
+									} else if(!bypassesPiercing && !equippedToCharacter.isPiercedPenis()) {
 										setBlockedTooltipContent(getTooltipText(equippedToCharacter,
 												"Your penis has not been pierced.",
 												(equippedToCharacter.getPlayerKnowsAreas().contains(CoverableArea.PENIS)
@@ -351,8 +376,9 @@ public class InventoryTooltipEventListener implements EventListener {
 										piercingBlocked=true;
 									}
 									break;
+									
 								case PIERCING_STOMACH:
-									if(!isSlime) {
+									if(!bypassesPiercing) {
 										if(!equippedToCharacter.isPiercedNavel()) {
 											setBlockedTooltipContent(getTooltipText(equippedToCharacter,
 													"Your navel has not been pierced.",
@@ -361,8 +387,9 @@ public class InventoryTooltipEventListener implements EventListener {
 										}
 									}
 									break;
+									
 								case PIERCING_TONGUE:
-									if(!isSlime) {
+									if(!bypassesPiercing) {
 										if(!equippedToCharacter.isPiercedTongue()) {
 											setBlockedTooltipContent(getTooltipText(equippedToCharacter,
 													"Your tongue has not been pierced.",
@@ -400,8 +427,8 @@ public class InventoryTooltipEventListener implements EventListener {
 					+ UtilText.parse(enchantmentModifier.getDescription())
 					+ "</div>"
 					+ "<div class='subTitle'>"
-							+ "<b style='color:"+EnchantmentDialogue.ingredient.getRelatedEssence().getColour().toWebHexString() + ";'>+"
-								+ enchantmentModifier.getValue()+" "+EnchantmentDialogue.ingredient.getRelatedEssence().getName()+"</b> essence cost"
+							+ "<b style='color:"+EnchantmentDialogue.getIngredient().getRelatedEssence().getColour().toWebHexString() + ";'>+"
+								+ enchantmentModifier.getValue()+" "+EnchantmentDialogue.getIngredient().getRelatedEssence().getName()+"</b> essence cost"
 					+ "</div>"));
 		
 		} else if(potency!=null) {
@@ -478,6 +505,20 @@ public class InventoryTooltipEventListener implements EventListener {
 		this.tertiaryColour = tertiaryColour;
 		return this;
 	}
+
+	public InventoryTooltipEventListener setDyeWeaponPrimary(AbstractWeapon dyeWeapon, Colour colour) {
+		resetVariables();
+		this.dyeWeapon = dyeWeapon;
+		this.colour = colour;
+		return this;
+	}
+	
+	public InventoryTooltipEventListener setDyeWeaponSecondary(AbstractWeapon dyeWeapon, Colour secondaryColour) {
+		resetVariables();
+		this.dyeWeapon = dyeWeapon;
+		this.secondaryColour = secondaryColour;
+		return this;
+	}
 	
 	public InventoryTooltipEventListener setGenericClothing(AbstractClothingType genericClothing, Colour colour) {
 		resetVariables();
@@ -539,6 +580,7 @@ public class InventoryTooltipEventListener implements EventListener {
 		clothing = null;
 		colour = null;
 		dyeClothing = null;
+		dyeWeapon = null;
 		secondaryColour = null;
 		tertiaryColour = null;
 		genericClothing = null;
@@ -588,17 +630,6 @@ public class InventoryTooltipEventListener implements EventListener {
 							+ " <b style='color:" + absWep.getDamageType().getMultiplierAttribute().getColour().toWebHexString() + ";'>Damage</b>");
 		}
 
-		// Spell school:
-		tooltipSB.append("</br>"
-				+ "<b>"
-					+(absWep.getWeaponType().getSlot() == InventorySlot.WEAPON_MAIN ? "Offensive" : "Defensive")
-				+"</b>"
-				+ " <b style='color:"+absWep.getSpellSchool().getColour().toWebHexString()+";'>"
-					+Util.capitaliseSentence(absWep.getSpellSchool().getName())
-				+"</b>"
-				+ " <b>spells</b>");
-		
-		
 //		if (absWep.getEffects().size() != 0) { TODO enchanting effects
 //			for (ItemEffect e : absWep.getEffects()) {
 //				for(String s : e.getEffectsDescription(owner, owner)) {

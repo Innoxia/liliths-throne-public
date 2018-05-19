@@ -62,7 +62,7 @@ import com.lilithsthrone.utils.Util;
  * Lasciate ogni speranza, voi ch'entrate.
  *
  * @since 0.1.0
- * @version 0.2.2
+ * @version 0.2.5
  * @author Innoxia
  */
 public enum Sex {
@@ -126,6 +126,8 @@ public enum Sex {
 	private static boolean sexStarted = false;
 	private static boolean consensual;
 	private static boolean subHasEqualControl;
+	private static boolean publicSex;
+	private static boolean positionChangingAllowed;
 
 	private static Map<GameCharacter, SexPositionSlot> dominants;
 	private static Map<GameCharacter, SexPositionSlot> submissives;
@@ -172,7 +174,8 @@ public enum Sex {
 	
 	private static Set<GameCharacter> charactersAbleToRemoveSelfClothing, charactersAbleToRemoveOthersClothing;
 	
-	private static boolean sexFinished, partnerAllowedToUseSelfActions;
+	private static boolean sexFinished;
+	private static boolean partnerAllowedToUseSelfActions;
 	
 	private static AbstractClothing selectedClothing;
 	
@@ -191,25 +194,32 @@ public enum Sex {
 		
 		Sex.consensual = consensual;
 		Sex.subHasEqualControl = subHasEqualControl;
+		Sex.positionChangingAllowed = sexManager.isPositionChangingAllowed();
 		
 //		Main.game.setActiveNPC(activePartner);
 
 		actionsAvailable = new HashMap<>();
 		orgasmActionsAvailable = new HashMap<>();
 		
+		forceSexPaceMap = new HashMap<>();
+		
 		setSexManager(sexManager);
+		
+		publicSex = sexManager.isPublicSex();
 		
 		Sex.postSexDialogue = postSexDialogue;
 		
 		sexStarted = false;
 
-		if(isConsensual()) {
-			activePartner.setSexConsensualCount(activePartner.getSexConsensualCount()+1);
-		}
-		if(isDom(Main.game.getPlayer())) {
-			activePartner.setSexAsSubCount(activePartner.getSexAsSubCount()+1);
-		} else {
-			activePartner.setSexAsDomCount(activePartner.getSexAsDomCount()+1);
+		if(activePartner!=null) {
+			if(isConsensual()) {
+				activePartner.setSexConsensualCount(activePartner.getSexConsensualCount()+1);
+			}
+			if(isDom(Main.game.getPlayer())) {
+				activePartner.setSexAsSubCount(activePartner.getSexAsSubCount()+1);
+			} else {
+				activePartner.setSexAsDomCount(activePartner.getSexAsDomCount()+1);
+			}
 		}
 		
 		ongoingPenetrationMap = new HashMap<>();
@@ -278,13 +288,6 @@ public enum Sex {
 		for(GameCharacter character : Sex.getAllParticipants()) {
 			areasTooLoose.put(character, new HashSet<>());
 		}
-		
-//		areasCummedIn = new HashMap<>();
-//		for(GameCharacter character : Sex.getAllParticipants()) {
-//			areasCummedIn.put(character, new HashSet<>());
-//		}
-		
-		forceSexPaceMap = new HashMap<>();
 		
 		for(GameCharacter character : Sex.getAllParticipants()) {
 			if(character instanceof NPC) {
@@ -397,6 +400,10 @@ public enum Sex {
 		sexSB = new StringBuilder(sexStartDescription);
 
 		sexSB.append(sexManager.getStartSexDescription());
+		
+		if(Sex.isPublicSex()) {
+			sexSB.append(Sex.getSexManager().getPublicSexStartingDescription());
+		}
 
 		sexSB.append("<p style='text-align:center;'><b>Starting Position:</b> <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>"+sexManager.getPosition().getName()+"</b></br>"
 				+"<i><b>"+sexManager.getPosition().getDescription()+"</b></i></p>");
@@ -497,9 +504,9 @@ public enum Sex {
 			Main.game.getPlayer().setPenisType(PenisType.NONE);
 		}
 		
-		activePartner.setLastTimeHadSex(Main.game.getMinutesPassed(), Sex.getNumberOfOrgasms(activePartner)>0);
 		for(GameCharacter participant : Sex.getAllParticipants()) {
 			if(participant instanceof NPC) {
+				((NPC) participant).setLastTimeHadSex(Main.game.getMinutesPassed(), Sex.getNumberOfOrgasms(participant)>0);
 				((NPC)participant).endSex(true);
 			}
 		}
@@ -510,419 +517,468 @@ public enum Sex {
 	public static void applyEndSexEffects() {
 		sexSB = new StringBuilder();
 
-		// Stretching effects for each of the player's orifices:
-		if (Main.game.getPlayer().getAssRawCapacityValue() != Main.game.getPlayer().getAssStretchedCapacity() && areasStretched.get(Main.game.getPlayer()).contains(OrificeType.ANUS)) {
-			if (Main.game.getPlayer().getAssPlasticity() == OrificePlasticity.ZERO_RUBBERY){
+		boolean auraEventTriggered = false;
+		for(GameCharacter participant : Sex.getAllParticipants()) {
+			if(participant.isPlayer()) {
+				// Stretching effects for each of the player's orifices:
+				if (participant.getAssRawCapacityValue() != participant.getAssStretchedCapacity() && areasStretched.get(participant).contains(OrificeType.ANUS)) {
+					if (participant.getAssPlasticity() == OrificePlasticity.ZERO_RUBBERY){
 
-				Main.game.getPlayer().setAssStretchedCapacity(Main.game.getPlayer().getAssRawCapacityValue());
+						participant.setAssStretchedCapacity(participant.getAssRawCapacityValue());
 
-				sexSB.append("<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Your asshole quickly recovers from its ordeal, and instantly returns to its original size!</b></p>");
+						sexSB.append("<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Your asshole quickly recovers from its ordeal, and instantly returns to its original size!</b></p>");
 
-			} else {
-
-				// Increment core capacity by the Elasticity's capacityIncreaseModifier:
-				Main.game.getPlayer().incrementAssCapacity(
-						(Main.game.getPlayer().getAssStretchedCapacity()-Main.game.getPlayer().getAssRawCapacityValue())*Main.game.getPlayer().getAssPlasticity().getCapacityIncreaseModifier(),
-						false);
-
-				sexSB.append("<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Your " + Main.game.getPlayer().getAssPlasticity().getDescriptor() + " asshole has been stretched from its ordeal, and is currently "
-						+ Capacity.getCapacityFromValue(Main.game.getPlayer().getAssStretchedCapacity()).getDescriptor() + "!");
-
-				if(Main.game.getPlayer().getAssPlasticity().getCapacityIncreaseModifier()>0) {
-					sexSB.append(" It will recover some of its original size, eventually tightening back to being " + Capacity.getCapacityFromValue(Main.game.getPlayer().getAssRawCapacityValue()).getDescriptor() + "!</b></p>");
-				} else {
-					sexSB.append(" It will recover all of its original size, eventually tightening back to being " + Capacity.getCapacityFromValue(Main.game.getPlayer().getAssRawCapacityValue()).getDescriptor() + "!</b></p>");
-				}
-			}
-		}
-		
-		if (Main.game.getPlayer().getVaginaRawCapacityValue() != Main.game.getPlayer().getVaginaStretchedCapacity() && areasStretched.get(Main.game.getPlayer()).contains(OrificeType.VAGINA)) {
-			if (Main.game.getPlayer().getVaginaPlasticity() == OrificePlasticity.ZERO_RUBBERY){
-
-				Main.game.getPlayer().setVaginaStretchedCapacity(Main.game.getPlayer().getVaginaRawCapacityValue());
-
-				sexSB.append("<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Your vagina quickly recovers from its ordeal, and instantly returns to its original size!</b></p>");
-
-			} else {
-				// Increment core capacity by the Elasticity's capacityIncreaseModifier:
-				Main.game.getPlayer().incrementVaginaCapacity(
-						(Main.game.getPlayer().getVaginaStretchedCapacity()-Main.game.getPlayer().getVaginaRawCapacityValue())*Main.game.getPlayer().getVaginaPlasticity().getCapacityIncreaseModifier(),
-						false);
-				
-				sexSB.append("<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Your " + Main.game.getPlayer().getVaginaPlasticity().getDescriptor() + " pussy has been stretched from its ordeal, and is currently "
-						+ Capacity.getCapacityFromValue(Main.game.getPlayer().getVaginaStretchedCapacity()).getDescriptor() + "!");
-
-				if(Main.game.getPlayer().getVaginaPlasticity().getCapacityIncreaseModifier()>0) {
-					sexSB.append(" It will recover some of its original size, eventually tightening back to being " + Capacity.getCapacityFromValue(Main.game.getPlayer().getVaginaRawCapacityValue()).getDescriptor() + "!</b></p>");
-				} else {
-					sexSB.append(" It will recover all of its original size, eventually tightening back to being " + Capacity.getCapacityFromValue(Main.game.getPlayer().getVaginaRawCapacityValue()).getDescriptor() + "!</b></p>");
-				}
-			}
-		}
-		
-		if (Main.game.getPlayer().getNippleRawCapacityValue() != Main.game.getPlayer().getNippleStretchedCapacity() && areasStretched.get(Main.game.getPlayer()).contains(OrificeType.NIPPLE)) {
-			if (Main.game.getPlayer().getNipplePlasticity() == OrificePlasticity.ZERO_RUBBERY){
-
-				Main.game.getPlayer().setNippleStretchedCapacity(Main.game.getPlayer().getNippleRawCapacityValue());
-
-				sexSB.append("<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Your [pc.nipples+] quickly recover from their ordeal, and instantly return to their original size!</b></p>");
-
-			} else {
-				// Increment core capacity by the Elasticity's capacityIncreaseModifier:
-				Main.game.getPlayer().incrementNippleCapacity(
-						(Main.game.getPlayer().getNippleStretchedCapacity()-Main.game.getPlayer().getNippleRawCapacityValue())*Main.game.getPlayer().getNipplePlasticity().getCapacityIncreaseModifier(),
-						false);
-
-				sexSB.append("<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Your " + Main.game.getPlayer().getNipplePlasticity().getDescriptor() + " nipple-cunts have been stretched from their ordeal, and are currently "
-						+ Capacity.getCapacityFromValue(Main.game.getPlayer().getNippleStretchedCapacity()).getDescriptor() + "!");
-
-				if(Main.game.getPlayer().getNipplePlasticity().getCapacityIncreaseModifier()>0) {
-					sexSB.append(" They will recover some of their original size, eventually tightening back to being " + Capacity.getCapacityFromValue(Main.game.getPlayer().getNippleRawCapacityValue()).getDescriptor() + "!</b></p>");
-				} else {
-					sexSB.append(" They will recover all of their original size, eventually tightening back to being " + Capacity.getCapacityFromValue(Main.game.getPlayer().getNippleRawCapacityValue()).getDescriptor() + "!</b></p>");
-				}
-			}
-		}
-		
-		if (Main.game.getPlayer().getPenisRawCapacityValue() != Main.game.getPlayer().getPenisStretchedCapacity() && areasStretched.get(Main.game.getPlayer()).contains(OrificeType.URETHRA_PENIS)) {
-			if (Main.game.getPlayer().getUrethraPlasticity() == OrificePlasticity.ZERO_RUBBERY){
-
-				Main.game.getPlayer().setPenisStretchedCapacity(Main.game.getPlayer().getPenisRawCapacityValue());
-
-				sexSB.append("<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Your cock's urethra quickly recovers from its ordeal, and instantly returns to its original size!</b></p>");
-
-			} else {
-
-				// Increment core capacity by the Elasticity's capacityIncreaseModifier:
-				Main.game.getPlayer().incrementPenisCapacity(
-						(Main.game.getPlayer().getPenisStretchedCapacity()-Main.game.getPlayer().getPenisRawCapacityValue())*Main.game.getPlayer().getUrethraPlasticity().getCapacityIncreaseModifier(),
-						false);
-
-				sexSB.append("<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Your cock's " + Main.game.getPlayer().getUrethraPlasticity().getDescriptor() + " urethra has been stretched from its ordeal, and is currently "
-						+ Capacity.getCapacityFromValue(Main.game.getPlayer().getPenisStretchedCapacity()).getDescriptor() + "!");
-
-				if(Main.game.getPlayer().getUrethraPlasticity().getCapacityIncreaseModifier()>0) {
-					sexSB.append(" It will recover some of its original size, eventually tightening back to being " + Capacity.getCapacityFromValue(Main.game.getPlayer().getPenisRawCapacityValue()).getDescriptor() + "!</b></p>");
-				} else {
-					sexSB.append(" It will recover all of its original size, eventually tightening back to being " + Capacity.getCapacityFromValue(Main.game.getPlayer().getPenisRawCapacityValue()).getDescriptor() + "!</b></p>");
-				}
-			}
-		}
-		
-		if (Main.game.getPlayer().getVaginaUrethraRawCapacityValue() != Main.game.getPlayer().getVaginaUrethraStretchedCapacity() && areasStretched.get(Main.game.getPlayer()).contains(OrificeType.URETHRA_VAGINA)) {
-			if (Main.game.getPlayer().getVaginaUrethraPlasticity() == OrificePlasticity.ZERO_RUBBERY){
-
-				Main.game.getPlayer().setVaginaUrethraStretchedCapacity(Main.game.getPlayer().getVaginaUrethraRawCapacityValue());
-
-				sexSB.append("<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Your pussy's urethra quickly recovers from its ordeal, and instantly returns to its original size!</b></p>");
-
-			} else {
-
-				// Increment core capacity by the Elasticity's capacityIncreaseModifier:
-				Main.game.getPlayer().incrementVaginaUrethraCapacity(
-						(Main.game.getPlayer().getVaginaUrethraStretchedCapacity()-Main.game.getPlayer().getVaginaUrethraRawCapacityValue())*Main.game.getPlayer().getVaginaUrethraPlasticity().getCapacityIncreaseModifier(),
-						false);
-
-				sexSB.append("<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Your pussy's " + Main.game.getPlayer().getVaginaUrethraPlasticity().getDescriptor() + " urethra has been stretched from its ordeal, and is currently "
-						+ Capacity.getCapacityFromValue(Main.game.getPlayer().getVaginaUrethraStretchedCapacity()).getDescriptor() + "!");
-
-				if(Main.game.getPlayer().getVaginaUrethraPlasticity().getCapacityIncreaseModifier()>0) {
-					sexSB.append(" It will recover some of its original size, eventually tightening back to being " + Capacity.getCapacityFromValue(Main.game.getPlayer().getVaginaUrethraRawCapacityValue()).getDescriptor() + "!</b></p>");
-				} else {
-					sexSB.append(" It will recover all of its original size, eventually tightening back to being " + Capacity.getCapacityFromValue(Main.game.getPlayer().getVaginaUrethraRawCapacityValue()).getDescriptor() + "!</b></p>");
-				}
-			}
-		}
-		
-		if (Main.game.getPlayer().getFaceRawCapacityValue() != Main.game.getPlayer().getFaceStretchedCapacity() && areasStretched.get(Main.game.getPlayer()).contains(OrificeType.MOUTH)) {
-				// Increment core capacity by the Elasticity's capacityIncreaseModifier:
-				Main.game.getPlayer().incrementFaceCapacity(
-						(Main.game.getPlayer().getFaceStretchedCapacity()-Main.game.getPlayer().getFaceRawCapacityValue())*Main.game.getPlayer().getFacePlasticity().getCapacityIncreaseModifier(),
-						false);
-				// Special case for throat, as you aren't stretching it out, merely getting more experienced at sucking cock:
-				Main.game.getPlayer().setFaceStretchedCapacity(Main.game.getPlayer().getFaceRawCapacityValue());
-
-				sexSB.append("<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>From your oral experience with " + activePartner.getName("the") + "'s " + activePartner.getPenisSize().getDescriptor()
-						+ " cock, you are now experienced enough to comfortably suck " + PenisSize.getPenisSizeFromInt((int)Main.game.getPlayer().getFaceRawCapacityValue()).getDescriptor() + " cocks!</b></p>");
-		}
-
-		// Stretching effects for each of the partner's orifices:
-		if (activePartner.getAssRawCapacityValue() != activePartner.getAssStretchedCapacity() && areasStretched.get(Sex.getActivePartner()).contains(OrificeType.ANUS)) {
-			if (activePartner.getAssPlasticity() == OrificePlasticity.ZERO_RUBBERY){
-
-				activePartner.setAssStretchedCapacity(activePartner.getAssRawCapacityValue());
-
-				sexSB.append(UtilText.parse(activePartner,
-						"<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>[npc.Her] asshole quickly recovers from its ordeal, and instantly returns to its original size!</b></p>"));
-
-			} else {
-
-				// Increment core capacity by the Elasticity's capacityIncreaseModifier:
-				activePartner.incrementAssCapacity(
-						(activePartner.getAssStretchedCapacity()-activePartner.getAssRawCapacityValue())*activePartner.getAssPlasticity().getCapacityIncreaseModifier(),
-						false);
-
-				sexSB.append(UtilText.parse(activePartner,
-								"<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>[npc.Her] " + activePartner.getAssElasticity().getDescriptor() + " asshole has been stretched from its ordeal, and is currently "
-						+ Capacity.getCapacityFromValue(activePartner.getAssStretchedCapacity()).getDescriptor() + "!"));
-
-				if(activePartner.getAssPlasticity().getCapacityIncreaseModifier()>0) {
-					sexSB.append(" It will recover some of its original size, eventually tightening back to being " + Capacity.getCapacityFromValue(activePartner.getAssRawCapacityValue()).getDescriptor() + "!</b></p>");
-				} else {
-					sexSB.append(" It will recover all of its original size, eventually tightening back to being " + Capacity.getCapacityFromValue(activePartner.getAssRawCapacityValue()).getDescriptor() + "!</b></p>");
-				}
-			}
-		}
-		
-		if (activePartner.getVaginaRawCapacityValue() != activePartner.getVaginaStretchedCapacity() && areasStretched.get(Sex.getActivePartner()).contains(OrificeType.VAGINA)) {
-			if (activePartner.getVaginaPlasticity() == OrificePlasticity.ZERO_RUBBERY){
-
-				activePartner.setVaginaStretchedCapacity(activePartner.getVaginaRawCapacityValue());
-
-
-				sexSB.append(UtilText.parse(activePartner,
-						"<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>[npc.Her] vagina quickly recovers from its ordeal, and instantly returns to its original size!</b></p>"));
-
-			} else {
-
-				// Increment core capacity by the Elasticity's capacityIncreaseModifier:
-				activePartner.incrementVaginaCapacity(
-						(activePartner.getVaginaStretchedCapacity()-activePartner.getVaginaRawCapacityValue())*activePartner.getVaginaPlasticity().getCapacityIncreaseModifier(),
-						false);
-
-				sexSB.append(UtilText.parse(activePartner,
-						"<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>[npc.Her] " + activePartner.getVaginaPlasticity().getDescriptor() + " pussy has been stretched from its ordeal, and is currently "
-						+ Capacity.getCapacityFromValue(activePartner.getVaginaStretchedCapacity()).getDescriptor() + "!"));
-
-				if(activePartner.getVaginaPlasticity().getCapacityIncreaseModifier()>0) {
-					sexSB.append(" It will recover some of its original size, eventually tightening back to being " + Capacity.getCapacityFromValue(activePartner.getVaginaRawCapacityValue()).getDescriptor() + "!</b></p>");
-				} else {
-					sexSB.append(" It will recover all of its original size, eventually tightening back to being " + Capacity.getCapacityFromValue(activePartner.getVaginaRawCapacityValue()).getDescriptor() + "!</b></p>");
-				}
-			}
-		}
-		
-		if (activePartner.getNippleRawCapacityValue() != activePartner.getNippleStretchedCapacity() && areasStretched.get(Sex.getActivePartner()).contains(OrificeType.NIPPLE)) {
-			if (activePartner.getNipplePlasticity() == OrificePlasticity.ZERO_RUBBERY){
-
-				activePartner.setNippleStretchedCapacity(activePartner.getNippleRawCapacityValue());
-
-				sexSB.append(UtilText.parse(activePartner,
-						"<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>[npc.Her] [npc.nipples+] quickly recover from their ordeal, and instantly return to their original size!</b></p>"));
-
-			} else {
-
-				// Increment core capacity by the Elasticity's capacityIncreaseModifier:
-				activePartner.incrementNippleCapacity(
-						(activePartner.getNippleStretchedCapacity()-activePartner.getNippleRawCapacityValue())*activePartner.getNipplePlasticity().getCapacityIncreaseModifier(),
-						false);
-
-				sexSB.append(UtilText.parse(activePartner,
-						"<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>[npc.Her] " + activePartner.getNipplePlasticity().getDescriptor() + " nipple-cunts have been stretched from their ordeal, and are currently "
-						+ Capacity.getCapacityFromValue(activePartner.getNippleStretchedCapacity()).getDescriptor() + "!"));
-
-				if(activePartner.getNipplePlasticity().getCapacityIncreaseModifier()>0) {
-					sexSB.append(" They will recover some of their original size, eventually tightening back to being " + Capacity.getCapacityFromValue(activePartner.getNippleRawCapacityValue()).getDescriptor() + "!</b></p>");
-				} else {
-					sexSB.append(" They will recover all of their original size, eventually tightening back to being " + Capacity.getCapacityFromValue(activePartner.getNippleRawCapacityValue()).getDescriptor() + "!</b></p>");
-				}
-			}
-		}
-		
-		if (activePartner.getPenisRawCapacityValue() != activePartner.getPenisStretchedCapacity() && areasStretched.get(Sex.getActivePartner()).contains(OrificeType.URETHRA_PENIS)) {
-			if (activePartner.getUrethraPlasticity() == OrificePlasticity.ZERO_RUBBERY){
-
-				activePartner.setPenisStretchedCapacity(activePartner.getPenisRawCapacityValue());
-
-				sexSB.append(UtilText.parse(activePartner,
-						"<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>[npc.Her] cock's urethra quickly recovers from its ordeal, and instantly returns to its original size!</b></p>"));
-
-			} else {
-
-				// Increment core capacity by the Elasticity's capacityIncreaseModifier:
-				activePartner.incrementPenisCapacity(
-						(activePartner.getPenisStretchedCapacity()-activePartner.getPenisRawCapacityValue())*activePartner.getUrethraPlasticity().getCapacityIncreaseModifier(),
-						false);
-
-				sexSB.append(UtilText.parse(activePartner,
-						"<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>[npc.Her] cock's " + activePartner.getUrethraPlasticity().getDescriptor() + " urethra has been stretched from its ordeal, and is currently "
-						+ Capacity.getCapacityFromValue(activePartner.getPenisStretchedCapacity()).getDescriptor() + "!"));
-
-				if(activePartner.getUrethraPlasticity().getCapacityIncreaseModifier()>0) {
-					sexSB.append(" It will recover some of its original size, eventually tightening back to being " + Capacity.getCapacityFromValue(activePartner.getPenisRawCapacityValue()).getDescriptor() + "!</b></p>");
-				} else {
-					sexSB.append(" It will recover all of its original size, eventually tightening back to being " + Capacity.getCapacityFromValue(activePartner.getPenisRawCapacityValue()).getDescriptor() + "!</b></p>");
-				}
-			}
-		}
-		
-		if (activePartner.getVaginaUrethraRawCapacityValue() != activePartner.getVaginaUrethraStretchedCapacity() && areasStretched.get(Sex.getActivePartner()).contains(OrificeType.URETHRA_VAGINA)) {
-			if (activePartner.getVaginaUrethraPlasticity() == OrificePlasticity.ZERO_RUBBERY){
-
-				activePartner.setVaginaUrethraStretchedCapacity(activePartner.getVaginaUrethraRawCapacityValue());
-
-				sexSB.append(UtilText.parse(activePartner,
-						"<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>[npc.Her] vagina's urethra quickly recovers from its ordeal, and instantly returns to its original size!</b></p>"));
-
-			} else {
-
-				// Increment core capacity by the Elasticity's capacityIncreaseModifier:
-				activePartner.incrementVaginaUrethraCapacity(
-						(activePartner.getVaginaUrethraStretchedCapacity()-activePartner.getVaginaUrethraRawCapacityValue())*activePartner.getVaginaUrethraPlasticity().getCapacityIncreaseModifier(),
-						false);
-
-				sexSB.append(UtilText.parse(activePartner,
-						"<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>[npc.Her] vagina's " + activePartner.getVaginaUrethraPlasticity().getDescriptor() + " urethra has been stretched from its ordeal, and is currently "
-						+ Capacity.getCapacityFromValue(activePartner.getVaginaUrethraStretchedCapacity()).getDescriptor() + "!"));
-
-				if(activePartner.getVaginaUrethraPlasticity().getCapacityIncreaseModifier()>0) {
-					sexSB.append(" It will recover some of its original size, eventually tightening back to being " + Capacity.getCapacityFromValue(activePartner.getVaginaUrethraRawCapacityValue()).getDescriptor() + "!</b></p>");
-				} else {
-					sexSB.append(" It will recover all of its original size, eventually tightening back to being " + Capacity.getCapacityFromValue(activePartner.getVaginaUrethraRawCapacityValue()).getDescriptor() + "!</b></p>");
-				}
-			}
-		}
-		
-		if (activePartner.getFaceRawCapacityValue() != activePartner.getFaceStretchedCapacity() && areasStretched.get(Sex.getActivePartner()).contains(OrificeType.MOUTH)) {
-			// Increment core capacity by the Elasticity's capacityIncreaseModifier:
-			activePartner.incrementFaceCapacity(
-					(activePartner.getFaceStretchedCapacity()-activePartner.getFaceRawCapacityValue())*activePartner.getFacePlasticity().getCapacityIncreaseModifier(),
-					false);
-			// Special case for throat, as you aren't stretching it out, merely getting more experienced at sucking cock:
-			activePartner.setFaceStretchedCapacity(activePartner.getFaceRawCapacityValue());
-
-			sexSB.append("<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>From [npc.her] oral experience with your [pc.cockSize] cock, [npc.she] is now experienced enough to comfortably suck "
-					+ PenisSize.getPenisSizeFromInt((int)Main.game.getPlayer().getFaceRawCapacityValue()).getDescriptor() + " cocks!</b></p>");
-		}
-		
-
-//		// Player pregnancy:
-//		if (!areasCummedIn.get(Main.game.getPlayer()).isEmpty()) {
-//			if (areasCummedIn.get(Main.game.getPlayer()).contains(OrificeType.VAGINA))
-//				sexSB.append(Main.game.getPlayer().rollForPregnancy(activePartner));
-//		}
-//		// Partner pregnancy:
-//		if (!areasCummedIn.get(Sex.getActivePartner()).isEmpty() && activePartner.isAbleToBeImpregnated()) {
-//			if (areasCummedIn.get(Sex.getActivePartner()).contains(OrificeType.VAGINA))
-//				sexSB.append(activePartner.rollForPregnancy(Main.game.getPlayer()));
-//		}
-		
-		if(Main.game.getPlayer().getArousal() > ArousalLevel.THREE_HEATED.getMaximumValue()) {
-			Main.game.getPlayer().addStatusEffect(StatusEffect.FRUSTRATED_NO_ORGASM, 240+postSexDialogue.getMinutesPassed());
-			sexSB.append("<p style='text-align:center'>[style.boldArcane(After stopping so close to the edge, you're left feeling frustrated and horny!)]</p>");
-		}
-		if(getNumberOfOrgasms(Main.game.getPlayer()) > 0
-				&& Main.game.isInNewWorld()) {
-			Main.game.getPlayer().removeStatusEffect(StatusEffect.FRUSTRATED_NO_ORGASM);
-			if(Main.game.getPlayer().hasStatusEffect(StatusEffect.RECOVERING_AURA)) {
-				sexSB.append("<p style='text-align:center'><b>Your arcane aura is still strengthened from a previous sexual encounter, so</b> [style.boldArcane(you don't receive any arcane essences!)]</p>");
-				
-			} else {
-				if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.essenceOrgasmDiscovered)) {
-					Main.game.getDialogueFlags().values.add(DialogueFlagValue.essenceOrgasmDiscovered);
-					if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
-						sexSB.append(
-								UtilText.parse(activePartner,
-								"<p>"
-									+ "As you disentangle yourself from [npc.name], you suddenly become aware of a strange, shimmering pink glow that's started to materialise around your body,"
-										+ " just like the one you saw in Lilaya's lab when she ran her tests on you."
-									+ " Quickly realising that you're somehow able to see your own arcane aura, you watch, fascinated, as it rapidly increases in luminosity."
-									+ " Just as you think that it can't get any brighter, your aura suddenly leaps back into your body, and you find yourself sharply inhaling as you feel it gaining strength."
-								+ "</p>"
-								+ "<p>"
-									+ "Looking back over at [npc.name], you see that [npc.she] seems completely oblivious to what you've just witnessed."
-									+ " You think that it would probably be best to go and ask Lilaya about what just happened..."
-								+ "</p>"
-								+(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)?Main.game.getPlayer().startQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY):"")));
-						
 					} else {
-						sexSB.append(
-								UtilText.parse(activePartner,
-								"<p>"
-									+ "As you disentangle yourself from [npc.name], you suddenly become aware of a strange, shimmering pink glow that's started to materialise around your body,"
-										+ " just like the one you saw in Lilaya's lab when she ran her tests on you."
-									+ " Quickly realising that you're somehow able to see your own arcane aura, you watch, fascinated, as it rapidly increases in luminosity."
-									+ " Just as you think that it can't get any brighter, your aura suddenly leaps back into your body, and you find yourself sharply inhaling as you feel it gaining strength."
-								+ "</p>"
-								+ "<p>"
-									+ "Looking back over at [npc.name], you see that [npc.she] seems completely oblivious to what you've just witnessed."
-									+ " You suddenly remember what Lilaya told you about absorbing essences, and how it's absolutely harmless for both parties involved, and breathe a sigh of relief..."
-								+ "</p>"));
+
+						// Increment core capacity by the Elasticity's capacityIncreaseModifier:
+						participant.incrementAssCapacity(
+								(participant.getAssStretchedCapacity()-participant.getAssRawCapacityValue())*participant.getAssPlasticity().getCapacityIncreaseModifier(),
+								false);
+
+						sexSB.append("<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Your " + participant.getAssPlasticity().getDescriptor() + " asshole has been stretched from its ordeal, and is currently "
+								+ Capacity.getCapacityFromValue(participant.getAssStretchedCapacity()).getDescriptor() + "!");
+
+						if(participant.getAssPlasticity().getCapacityIncreaseModifier()>0) {
+							sexSB.append(" It will recover some of its original size, eventually tightening back to being " + Capacity.getCapacityFromValue(participant.getAssRawCapacityValue()).getDescriptor() + "!</b></p>");
+						} else {
+							sexSB.append(" It will recover all of its original size, eventually tightening back to being " + Capacity.getCapacityFromValue(participant.getAssRawCapacityValue()).getDescriptor() + "!</b></p>");
+						}
 					}
 				}
 				
-				sexSB.append("<p style='text-align:center'>You feel your aura pulsating all around you as it draws strength from the sexual energy of your orgasm...</p>"
+				if (participant.getVaginaRawCapacityValue() != participant.getVaginaStretchedCapacity() && areasStretched.get(participant).contains(OrificeType.VAGINA)) {
+					if (participant.getVaginaPlasticity() == OrificePlasticity.ZERO_RUBBERY){
+
+						participant.setVaginaStretchedCapacity(participant.getVaginaRawCapacityValue());
+
+						sexSB.append("<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Your vagina quickly recovers from its ordeal, and instantly returns to its original size!</b></p>");
+
+					} else {
+						// Increment core capacity by the Elasticity's capacityIncreaseModifier:
+						participant.incrementVaginaCapacity(
+								(participant.getVaginaStretchedCapacity()-participant.getVaginaRawCapacityValue())*participant.getVaginaPlasticity().getCapacityIncreaseModifier(),
+								false);
+						
+						sexSB.append("<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Your " + participant.getVaginaPlasticity().getDescriptor() + " pussy has been stretched from its ordeal, and is currently "
+								+ Capacity.getCapacityFromValue(participant.getVaginaStretchedCapacity()).getDescriptor() + "!");
+
+						if(participant.getVaginaPlasticity().getCapacityIncreaseModifier()>0) {
+							sexSB.append(" It will recover some of its original size, eventually tightening back to being " + Capacity.getCapacityFromValue(participant.getVaginaRawCapacityValue()).getDescriptor() + "!</b></p>");
+						} else {
+							sexSB.append(" It will recover all of its original size, eventually tightening back to being " + Capacity.getCapacityFromValue(participant.getVaginaRawCapacityValue()).getDescriptor() + "!</b></p>");
+						}
+					}
+				}
+				
+				if (participant.getNippleRawCapacityValue() != participant.getNippleStretchedCapacity() && areasStretched.get(participant).contains(OrificeType.NIPPLE)) {
+					if (participant.getNipplePlasticity() == OrificePlasticity.ZERO_RUBBERY){
+
+						participant.setNippleStretchedCapacity(participant.getNippleRawCapacityValue());
+
+						sexSB.append("<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Your [pc.nipples+] quickly recover from their ordeal, and instantly return to their original size!</b></p>");
+
+					} else {
+						// Increment core capacity by the Elasticity's capacityIncreaseModifier:
+						participant.incrementNippleCapacity(
+								(participant.getNippleStretchedCapacity()-participant.getNippleRawCapacityValue())*participant.getNipplePlasticity().getCapacityIncreaseModifier(),
+								false);
+
+						sexSB.append("<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Your " + participant.getNipplePlasticity().getDescriptor() + " nipple-cunts have been stretched from their ordeal, and are currently "
+								+ Capacity.getCapacityFromValue(participant.getNippleStretchedCapacity()).getDescriptor() + "!");
+
+						if(participant.getNipplePlasticity().getCapacityIncreaseModifier()>0) {
+							sexSB.append(" They will recover some of their original size, eventually tightening back to being " + Capacity.getCapacityFromValue(participant.getNippleRawCapacityValue()).getDescriptor() + "!</b></p>");
+						} else {
+							sexSB.append(" They will recover all of their original size, eventually tightening back to being " + Capacity.getCapacityFromValue(participant.getNippleRawCapacityValue()).getDescriptor() + "!</b></p>");
+						}
+					}
+				}
+				
+				if (participant.getPenisRawCapacityValue() != participant.getPenisStretchedCapacity() && areasStretched.get(participant).contains(OrificeType.URETHRA_PENIS)) {
+					if (participant.getUrethraPlasticity() == OrificePlasticity.ZERO_RUBBERY){
+
+						participant.setPenisStretchedCapacity(participant.getPenisRawCapacityValue());
+
+						sexSB.append("<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Your cock's urethra quickly recovers from its ordeal, and instantly returns to its original size!</b></p>");
+
+					} else {
+
+						// Increment core capacity by the Elasticity's capacityIncreaseModifier:
+						participant.incrementPenisCapacity(
+								(participant.getPenisStretchedCapacity()-participant.getPenisRawCapacityValue())*participant.getUrethraPlasticity().getCapacityIncreaseModifier(),
+								false);
+
+						sexSB.append("<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Your cock's " + participant.getUrethraPlasticity().getDescriptor() + " urethra has been stretched from its ordeal, and is currently "
+								+ Capacity.getCapacityFromValue(participant.getPenisStretchedCapacity()).getDescriptor() + "!");
+
+						if(participant.getUrethraPlasticity().getCapacityIncreaseModifier()>0) {
+							sexSB.append(" It will recover some of its original size, eventually tightening back to being " + Capacity.getCapacityFromValue(participant.getPenisRawCapacityValue()).getDescriptor() + "!</b></p>");
+						} else {
+							sexSB.append(" It will recover all of its original size, eventually tightening back to being " + Capacity.getCapacityFromValue(participant.getPenisRawCapacityValue()).getDescriptor() + "!</b></p>");
+						}
+					}
+				}
+				
+				if (participant.getVaginaUrethraRawCapacityValue() != participant.getVaginaUrethraStretchedCapacity() && areasStretched.get(participant).contains(OrificeType.URETHRA_VAGINA)) {
+					if (participant.getVaginaUrethraPlasticity() == OrificePlasticity.ZERO_RUBBERY){
+
+						participant.setVaginaUrethraStretchedCapacity(participant.getVaginaUrethraRawCapacityValue());
+
+						sexSB.append("<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Your pussy's urethra quickly recovers from its ordeal, and instantly returns to its original size!</b></p>");
+
+					} else {
+
+						// Increment core capacity by the Elasticity's capacityIncreaseModifier:
+						participant.incrementVaginaUrethraCapacity(
+								(participant.getVaginaUrethraStretchedCapacity()-participant.getVaginaUrethraRawCapacityValue())*participant.getVaginaUrethraPlasticity().getCapacityIncreaseModifier(),
+								false);
+
+						sexSB.append("<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Your pussy's " + participant.getVaginaUrethraPlasticity().getDescriptor() + " urethra has been stretched from its ordeal, and is currently "
+								+ Capacity.getCapacityFromValue(participant.getVaginaUrethraStretchedCapacity()).getDescriptor() + "!");
+
+						if(participant.getVaginaUrethraPlasticity().getCapacityIncreaseModifier()>0) {
+							sexSB.append(" It will recover some of its original size, eventually tightening back to being " + Capacity.getCapacityFromValue(participant.getVaginaUrethraRawCapacityValue()).getDescriptor() + "!</b></p>");
+						} else {
+							sexSB.append(" It will recover all of its original size, eventually tightening back to being " + Capacity.getCapacityFromValue(participant.getVaginaUrethraRawCapacityValue()).getDescriptor() + "!</b></p>");
+						}
+					}
+				}
+				
+				if (participant.getFaceRawCapacityValue() != participant.getFaceStretchedCapacity() && areasStretched.get(participant).contains(OrificeType.MOUTH)) {
+						// Increment core capacity by the Elasticity's capacityIncreaseModifier:
+						participant.incrementFaceCapacity(
+								(participant.getFaceStretchedCapacity()-participant.getFaceRawCapacityValue())*participant.getFacePlasticity().getCapacityIncreaseModifier(),
+								false);
+						// Special case for throat, as you aren't stretching it out, merely getting more experienced at sucking cock:
+						participant.setFaceStretchedCapacity(participant.getFaceRawCapacityValue());
+
+						sexSB.append("<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>From your oral experience with " + activePartner.getName("the") + "'s " + activePartner.getPenisSize().getDescriptor()
+								+ " cock, you are now experienced enough to comfortably suck " + PenisSize.getPenisSizeFromInt((int)participant.getFaceRawCapacityValue()).getDescriptor() + " cocks!</b></p>");
+				}
+
+				if(participant.getArousal() > ArousalLevel.THREE_HEATED.getMaximumValue()) {
+					participant.addStatusEffect(StatusEffect.FRUSTRATED_NO_ORGASM, 240+postSexDialogue.getMinutesPassed());
+					sexSB.append("<p style='text-align:center'>[style.boldArcane(After stopping so close to the edge, you're left feeling frustrated and horny!)]</p>");
+				}
+				if(getNumberOfOrgasms(participant) > 0
+						&& Main.game.isInNewWorld()) {
+					participant.removeStatusEffect(StatusEffect.FRUSTRATED_NO_ORGASM);
+					if(participant.hasStatusEffect(StatusEffect.RECOVERING_AURA)) {
+						sexSB.append("<p style='text-align:center'><b>Your arcane aura is still strengthened from a previous sexual encounter, so</b> [style.boldArcane(you don't receive any arcane essences!)]</p>");
+						
+					} else {
+						if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.essenceOrgasmDiscovered)) {
+							Main.game.getDialogueFlags().values.add(DialogueFlagValue.essenceOrgasmDiscovered);
+							if(!((PlayerCharacter) participant).isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
+								if(activePartner!=null) {
+									sexSB.append(
+											UtilText.parse(activePartner,
+											"<p>"
+												+ "As you disentangle yourself from [npc.name], you suddenly become aware of a strange, shimmering pink glow that's started to materialise around your body,"
+													+ " just like the one you saw in Lilaya's lab when she ran her tests on you."
+												+ " Quickly realising that you're somehow able to see your own arcane aura, you watch, fascinated, as it rapidly increases in luminosity."
+												+ " Just as you think that it can't get any brighter, your aura suddenly leaps back into your body, and you find yourself sharply inhaling as you feel it gaining strength."
+											+ "</p>"
+											+ "<p>"
+												+ "Looking back over at [npc.name], you see that [npc.she] seems completely oblivious to what you've just witnessed."
+												+ " You think that it would probably be best to go and ask Lilaya about what just happened..."
+											+ "</p>"
+											+(!((PlayerCharacter) participant).hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)
+													?((PlayerCharacter) participant).startQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)
+													:"")));
+								} else {
+									sexSB.append("<p>"
+												+ "As you stop masturbating, you suddenly become aware of a strange, shimmering pink glow that's started to materialise around your body,"
+													+ " just like the one you saw in Lilaya's lab when she ran her tests on you."
+												+ " Quickly realising that you're somehow able to see your own arcane aura, you watch, fascinated, as it rapidly increases in luminosity."
+												+ " Just as you think that it can't get any brighter, your aura suddenly leaps back into your body, and you find yourself sharply inhaling as you feel it gaining strength."
+											+ "</p>"
+											+ "<p>"
+												+ "You think that it would probably be best to go and ask Lilaya about what just happened..."
+											+ "</p>"
+											+(!((PlayerCharacter) participant).hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)
+													?((PlayerCharacter) participant).startQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)
+													:""));
+								}
+								
+							} else {
+								if(activePartner!=null) {
+									sexSB.append(
+											UtilText.parse(activePartner,
+											"<p>"
+												+ "As you disentangle yourself from [npc.name], you suddenly become aware of a strange, shimmering pink glow that's started to materialise around your body,"
+													+ " just like the one you saw in Lilaya's lab when she ran her tests on you."
+												+ " Quickly realising that you're somehow able to see your own arcane aura, you watch, fascinated, as it rapidly increases in luminosity."
+												+ " Just as you think that it can't get any brighter, your aura suddenly leaps back into your body, and you find yourself sharply inhaling as you feel it gaining strength."
+											+ "</p>"
+											+ "<p>"
+												+ "Looking back over at [npc.name], you see that [npc.she] seems completely oblivious to what you've just witnessed."
+												+ " You suddenly remember what Lilaya told you about absorbing essences, and how it's absolutely harmless for both parties involved, and breathe a sigh of relief..."
+											+ "</p>"));
+								} else {
+									sexSB.append("<p>"
+												+ "As you stop masturbating, you suddenly become aware of a strange, shimmering pink glow that's started to materialise around your body,"
+													+ " just like the one you saw in Lilaya's lab when she ran her tests on you."
+												+ " Quickly realising that you're somehow able to see your own arcane aura, you watch, fascinated, as it rapidly increases in luminosity."
+												+ " Just as you think that it can't get any brighter, your aura suddenly leaps back into your body, and you find yourself sharply inhaling as you feel it gaining strength."
+											+ "</p>"
+											+ "<p>"
+												+ "You suddenly remember what Lilaya told you about absorbing essences, and how it's absolutely harmless for both parties involved, and breathe a sigh of relief..."
+											+ "</p>");
+								}
+							}
+						}
+						
+						sexSB.append("<p style='text-align:center'>You feel your aura pulsating all around you as it draws strength from the sexual energy of your orgasm...</p>"
+										+"<div class='container-full-width' style='text-align:center;'>"
+											+ (participant.hasTrait(Perk.NYMPHOMANIAC, true)
+													?participant.incrementEssenceCount(TFEssence.ARCANE, 4, true)
+													:participant.incrementEssenceCount(TFEssence.ARCANE, 2, true))
+										+ "</div>");
+						
+					}
+					participant.addStatusEffect(StatusEffect.RECOVERING_AURA, 240);
+					
+					participant.setLust(0);
+				}
+				
+				
+			// Partner effects:
+			} else {
+				// Stretching effects:
+				if (participant.getAssRawCapacityValue() != participant.getAssStretchedCapacity() && areasStretched.get(Sex.getActivePartner()).contains(OrificeType.ANUS)) {
+					if (participant.getAssPlasticity() == OrificePlasticity.ZERO_RUBBERY){
+		
+						participant.setAssStretchedCapacity(participant.getAssRawCapacityValue());
+		
+						sexSB.append(UtilText.parse(participant,
+								"<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>[npc.Her] asshole quickly recovers from its ordeal, and instantly returns to its original size!</b></p>"));
+		
+					} else {
+		
+						// Increment core capacity by the Elasticity's capacityIncreaseModifier:
+						participant.incrementAssCapacity(
+								(participant.getAssStretchedCapacity()-participant.getAssRawCapacityValue())*participant.getAssPlasticity().getCapacityIncreaseModifier(),
+								false);
+		
+						sexSB.append(UtilText.parse(participant,
+										"<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>[npc.Her] " + participant.getAssElasticity().getDescriptor() + " asshole has been stretched from its ordeal, and is currently "
+								+ Capacity.getCapacityFromValue(participant.getAssStretchedCapacity()).getDescriptor() + "!"));
+		
+						if(participant.getAssPlasticity().getCapacityIncreaseModifier()>0) {
+							sexSB.append(" It will recover some of its original size, eventually tightening back to being " + Capacity.getCapacityFromValue(participant.getAssRawCapacityValue()).getDescriptor() + "!</b></p>");
+						} else {
+							sexSB.append(" It will recover all of its original size, eventually tightening back to being " + Capacity.getCapacityFromValue(participant.getAssRawCapacityValue()).getDescriptor() + "!</b></p>");
+						}
+					}
+				}
+				
+				if (participant.getVaginaRawCapacityValue() != participant.getVaginaStretchedCapacity() && areasStretched.get(Sex.getActivePartner()).contains(OrificeType.VAGINA)) {
+					if (participant.getVaginaPlasticity() == OrificePlasticity.ZERO_RUBBERY){
+		
+						participant.setVaginaStretchedCapacity(participant.getVaginaRawCapacityValue());
+		
+		
+						sexSB.append(UtilText.parse(participant,
+								"<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>[npc.Her] vagina quickly recovers from its ordeal, and instantly returns to its original size!</b></p>"));
+		
+					} else {
+		
+						// Increment core capacity by the Elasticity's capacityIncreaseModifier:
+						participant.incrementVaginaCapacity(
+								(participant.getVaginaStretchedCapacity()-participant.getVaginaRawCapacityValue())*participant.getVaginaPlasticity().getCapacityIncreaseModifier(),
+								false);
+		
+						sexSB.append(UtilText.parse(participant,
+								"<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>[npc.Her] " + participant.getVaginaPlasticity().getDescriptor() + " pussy has been stretched from its ordeal, and is currently "
+								+ Capacity.getCapacityFromValue(participant.getVaginaStretchedCapacity()).getDescriptor() + "!"));
+		
+						if(participant.getVaginaPlasticity().getCapacityIncreaseModifier()>0) {
+							sexSB.append(" It will recover some of its original size, eventually tightening back to being " + Capacity.getCapacityFromValue(participant.getVaginaRawCapacityValue()).getDescriptor() + "!</b></p>");
+						} else {
+							sexSB.append(" It will recover all of its original size, eventually tightening back to being " + Capacity.getCapacityFromValue(participant.getVaginaRawCapacityValue()).getDescriptor() + "!</b></p>");
+						}
+					}
+				}
+				
+				if (participant.getNippleRawCapacityValue() != participant.getNippleStretchedCapacity() && areasStretched.get(Sex.getActivePartner()).contains(OrificeType.NIPPLE)) {
+					if (participant.getNipplePlasticity() == OrificePlasticity.ZERO_RUBBERY){
+		
+						participant.setNippleStretchedCapacity(participant.getNippleRawCapacityValue());
+		
+						sexSB.append(UtilText.parse(participant,
+								"<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>[npc.Her] [npc.nipples+] quickly recover from their ordeal, and instantly return to their original size!</b></p>"));
+		
+					} else {
+		
+						// Increment core capacity by the Elasticity's capacityIncreaseModifier:
+						participant.incrementNippleCapacity(
+								(participant.getNippleStretchedCapacity()-participant.getNippleRawCapacityValue())*participant.getNipplePlasticity().getCapacityIncreaseModifier(),
+								false);
+		
+						sexSB.append(UtilText.parse(participant,
+								"<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>[npc.Her] " + participant.getNipplePlasticity().getDescriptor() + " nipple-cunts have been stretched from their ordeal, and are currently "
+								+ Capacity.getCapacityFromValue(participant.getNippleStretchedCapacity()).getDescriptor() + "!"));
+		
+						if(participant.getNipplePlasticity().getCapacityIncreaseModifier()>0) {
+							sexSB.append(" They will recover some of their original size, eventually tightening back to being " + Capacity.getCapacityFromValue(participant.getNippleRawCapacityValue()).getDescriptor() + "!</b></p>");
+						} else {
+							sexSB.append(" They will recover all of their original size, eventually tightening back to being " + Capacity.getCapacityFromValue(participant.getNippleRawCapacityValue()).getDescriptor() + "!</b></p>");
+						}
+					}
+				}
+				
+				if (participant.getPenisRawCapacityValue() != participant.getPenisStretchedCapacity() && areasStretched.get(Sex.getActivePartner()).contains(OrificeType.URETHRA_PENIS)) {
+					if (participant.getUrethraPlasticity() == OrificePlasticity.ZERO_RUBBERY){
+		
+						participant.setPenisStretchedCapacity(participant.getPenisRawCapacityValue());
+		
+						sexSB.append(UtilText.parse(participant,
+								"<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>[npc.Her] cock's urethra quickly recovers from its ordeal, and instantly returns to its original size!</b></p>"));
+		
+					} else {
+		
+						// Increment core capacity by the Elasticity's capacityIncreaseModifier:
+						participant.incrementPenisCapacity(
+								(participant.getPenisStretchedCapacity()-participant.getPenisRawCapacityValue())*participant.getUrethraPlasticity().getCapacityIncreaseModifier(),
+								false);
+		
+						sexSB.append(UtilText.parse(participant,
+								"<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>[npc.Her] cock's " + participant.getUrethraPlasticity().getDescriptor() + " urethra has been stretched from its ordeal, and is currently "
+								+ Capacity.getCapacityFromValue(participant.getPenisStretchedCapacity()).getDescriptor() + "!"));
+		
+						if(participant.getUrethraPlasticity().getCapacityIncreaseModifier()>0) {
+							sexSB.append(" It will recover some of its original size, eventually tightening back to being " + Capacity.getCapacityFromValue(participant.getPenisRawCapacityValue()).getDescriptor() + "!</b></p>");
+						} else {
+							sexSB.append(" It will recover all of its original size, eventually tightening back to being " + Capacity.getCapacityFromValue(participant.getPenisRawCapacityValue()).getDescriptor() + "!</b></p>");
+						}
+					}
+				}
+				
+				if (participant.getVaginaUrethraRawCapacityValue() != participant.getVaginaUrethraStretchedCapacity() && areasStretched.get(Sex.getActivePartner()).contains(OrificeType.URETHRA_VAGINA)) {
+					if (participant.getVaginaUrethraPlasticity() == OrificePlasticity.ZERO_RUBBERY){
+		
+						participant.setVaginaUrethraStretchedCapacity(participant.getVaginaUrethraRawCapacityValue());
+		
+						sexSB.append(UtilText.parse(participant,
+								"<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>[npc.Her] vagina's urethra quickly recovers from its ordeal, and instantly returns to its original size!</b></p>"));
+		
+					} else {
+		
+						// Increment core capacity by the Elasticity's capacityIncreaseModifier:
+						participant.incrementVaginaUrethraCapacity(
+								(participant.getVaginaUrethraStretchedCapacity()-participant.getVaginaUrethraRawCapacityValue())*participant.getVaginaUrethraPlasticity().getCapacityIncreaseModifier(),
+								false);
+		
+						sexSB.append(UtilText.parse(participant,
+								"<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>[npc.Her] vagina's " + participant.getVaginaUrethraPlasticity().getDescriptor() + " urethra has been stretched from its ordeal, and is currently "
+								+ Capacity.getCapacityFromValue(participant.getVaginaUrethraStretchedCapacity()).getDescriptor() + "!"));
+		
+						if(participant.getVaginaUrethraPlasticity().getCapacityIncreaseModifier()>0) {
+							sexSB.append(" It will recover some of its original size, eventually tightening back to being " + Capacity.getCapacityFromValue(participant.getVaginaUrethraRawCapacityValue()).getDescriptor() + "!</b></p>");
+						} else {
+							sexSB.append(" It will recover all of its original size, eventually tightening back to being " + Capacity.getCapacityFromValue(participant.getVaginaUrethraRawCapacityValue()).getDescriptor() + "!</b></p>");
+						}
+					}
+				}
+				
+				if (participant.getFaceRawCapacityValue() != participant.getFaceStretchedCapacity() && areasStretched.get(Sex.getActivePartner()).contains(OrificeType.MOUTH)) {
+					// Increment core capacity by the Elasticity's capacityIncreaseModifier:
+					participant.incrementFaceCapacity(
+							(participant.getFaceStretchedCapacity()-participant.getFaceRawCapacityValue())*participant.getFacePlasticity().getCapacityIncreaseModifier(),
+							false);
+					// Special case for throat, as you aren't stretching it out, merely getting more experienced at sucking cock:
+					participant.setFaceStretchedCapacity(participant.getFaceRawCapacityValue());
+		
+					sexSB.append("<p><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>From [npc.her] oral experience with your [pc.cockSize] cock, [npc.she] is now experienced enough to comfortably suck "
+							+ PenisSize.getPenisSizeFromInt((int)Main.game.getPlayer().getFaceRawCapacityValue()).getDescriptor() + " cocks!</b></p>");
+				}
+				
+				
+				// Extra effects:
+				if(participant.getArousal() > ArousalLevel.THREE_HEATED.getMaximumValue()) {
+					participant.addStatusEffect(StatusEffect.FRUSTRATED_NO_ORGASM, 240+postSexDialogue.getMinutesPassed());
+					sexSB.append("<p style='text-align:center'>[style.boldArcane(After stopping so close to the edge, [npc.name] is left feeling frustrated and horny!)]</p>");
+				}
+				if(getNumberOfOrgasms(participant) > 0
+						&& Main.game.isInNewWorld()) {
+					participant.removeStatusEffect(StatusEffect.FRUSTRATED_NO_ORGASM);
+					if(participant.hasStatusEffect(StatusEffect.RECOVERING_AURA)) {
+						sexSB.append("<p style='text-align:center'><b>[npc.Name]'s arcane aura is still strengthened from a previous sexual encounter, so</b> [style.boldArcane(you don't receive any arcane essences!)]</p>");
+						
+					} else {
+						
+						if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.essenceOrgasmDiscovered)) {
+							Main.game.getDialogueFlags().values.add(DialogueFlagValue.essenceOrgasmDiscovered);
+							if(!auraEventTriggered) {
+								if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
+									sexSB.append(
+											UtilText.parse(participant,
+											"<p>"
+												+ "As you disentangle yourself from [npc.name], you suddenly become aware of a strange, shimmering pink glow that's started to materialise around [npc.her] body,"
+													+ " just like the one you saw in Lilaya's lab when she ran her tests on you."
+												+ " Quickly realising that you're somehow able to see [npc.name]'s arcane aura, you watch, fascinated, as it rapidly increases in luminosity."
+												+ " Just as you think that it can't get any brighter, [npc.her] aura suddenly leaps back into [npc.her] body, but as it does so, a single shard breaks off and flies towards you."
+												+ " Unable to dodge in time, you find yourself sharply inhaling as the small piece of [npc.name]'s aura shoots into your chest."
+											+ "</p>"
+											+ "<p>"
+												+ "Alarmed at what's just happened, you look back over at [npc.name], only to see that [npc.she] seems completely oblivious to what you've just witnessed."
+												+ " You think that it would probably be best to go and ask Lilaya about what just happened..."
+											+ "</p>"
+											+(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)?Main.game.getPlayer().startQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY):"")));
+									
+								} else {
+									sexSB.append(
+											UtilText.parse(participant,
+											"<p>"
+												+ "As you disentangle yourself from [npc.name], you suddenly become aware of a strange, shimmering pink glow that's started to materialise around [npc.her] body,"
+													+ " just like the one you saw in Lilaya's lab when she ran her tests on you."
+												+ " Quickly realising that you're somehow able to see [npc.name]'s arcane aura, you watch, fascinated, as it rapidly increases in luminosity."
+												+ " Just as you think that it can't get any brighter, [npc.her] aura suddenly leaps back into [npc.her] body, but as it does so, a single shard breaks off and flies towards you."
+												+ " Unable to dodge in time, you find yourself sharply inhaling as the small piece of [npc.name]'s aura shoots into your chest."
+											+ "</p>"
+											+ "<p>"
+												+ "Alarmed at what's just happened, you look back over at [npc.name], only to see that [npc.she] seems completely oblivious to what you've just witnessed."
+												+ " You suddenly remember what Lilaya told you about absorbing essences, and how it's absolutely harmless for both parties involved, and breathe a sigh of relief..."
+											+ "</p>"));
+								}
+								auraEventTriggered = true;
+							}
+						}
+						
+						sexSB.append("<p style='text-align:center'>You feel your aura drawing strength from the sexual energy of [npc.name]'s orgasm...</p>"
 								+"<div class='container-full-width' style='text-align:center;'>"
 									+ (Main.game.getPlayer().hasTrait(Perk.NYMPHOMANIAC, true)
 											?Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, 4, true)
 											:Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, 2, true))
 								+ "</div>");
-				
-			}
-			Main.game.getPlayer().addStatusEffect(StatusEffect.RECOVERING_AURA, 240);	
-		}
-		
-		if(activePartner.getArousal() > ArousalLevel.THREE_HEATED.getMaximumValue()) {
-			activePartner.addStatusEffect(StatusEffect.FRUSTRATED_NO_ORGASM, 240+postSexDialogue.getMinutesPassed());
-			sexSB.append("<p style='text-align:center'>[style.boldArcane(After stopping so close to the edge, [npc.name] is left feeling frustrated and horny!)]</p>");
-		}
-		if(getNumberOfOrgasms(activePartner) > 0
-				&& Main.game.isInNewWorld()) {
-			activePartner.removeStatusEffect(StatusEffect.FRUSTRATED_NO_ORGASM);
-			if(activePartner.hasStatusEffect(StatusEffect.RECOVERING_AURA)) {
-				sexSB.append("<p style='text-align:center'><b>[npc.Name]'s arcane aura is still strengthened from a previous sexual encounter, so</b> [style.boldArcane(you don't receive any arcane essences!)]</p>");
-				
-			} else {
-				
-				if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.essenceOrgasmDiscovered)) {
-					Main.game.getDialogueFlags().values.add(DialogueFlagValue.essenceOrgasmDiscovered);
-					if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
-						sexSB.append(
-								UtilText.parse(activePartner,
-								"<p>"
-									+ "As you disentangle yourself from [npc.name], you suddenly become aware of a strange, shimmering pink glow that's started to materialise around [npc.her] body,"
-										+ " just like the one you saw in Lilaya's lab when she ran her tests on you."
-									+ " Quickly realising that you're somehow able to see [npc.name]'s arcane aura, you watch, fascinated, as it rapidly increases in luminosity."
-									+ " Just as you think that it can't get any brighter, [npc.her] aura suddenly leaps back into [npc.her] body, but as it does so, a single shard breaks off and flies towards you."
-									+ " Unable to dodge in time, you find yourself sharply inhaling as the small piece of [npc.name]'s aura shoots into your chest."
-								+ "</p>"
-								+ "<p>"
-									+ "Alarmed at what's just happened, you look back over at [npc.name], only to see that [npc.she] seems completely oblivious to what you've just witnessed."
-									+ " You think that it would probably be best to go and ask Lilaya about what just happened..."
-								+ "</p>"
-								+(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)?Main.game.getPlayer().startQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY):"")));
 						
+					}
+					participant.addStatusEffect(StatusEffect.RECOVERING_AURA, 240);
+
+				}
+				
+				if(Sex.getAllParticipants().contains(Main.game.getPlayer())) {
+					if((Sex.getSexPace(participant)!=SexPace.SUB_RESISTING || participant.hasFetish(Fetish.FETISH_NON_CON_SUB))) {
+						if(Sex.getNumberOfOrgasms(participant)>0
+								|| participant.hasFetish(Fetish.FETISH_DENIAL_SELF)
+								|| (Sex.isDom(participant) && !Sex.isSubHasEqualControl())) {
+							sexSB.append(participant.incrementAffection(Main.game.getPlayer(), 5));
+						} else {
+							sexSB.append(participant.incrementAffection(Main.game.getPlayer(), -2));
+						}
 					} else {
-						sexSB.append(
-								UtilText.parse(activePartner,
-								"<p>"
-									+ "As you disentangle yourself from [npc.name], you suddenly become aware of a strange, shimmering pink glow that's started to materialise around [npc.her] body,"
-										+ " just like the one you saw in Lilaya's lab when she ran her tests on you."
-									+ " Quickly realising that you're somehow able to see [npc.name]'s arcane aura, you watch, fascinated, as it rapidly increases in luminosity."
-									+ " Just as you think that it can't get any brighter, [npc.her] aura suddenly leaps back into [npc.her] body, but as it does so, a single shard breaks off and flies towards you."
-									+ " Unable to dodge in time, you find yourself sharply inhaling as the small piece of [npc.name]'s aura shoots into your chest."
-								+ "</p>"
-								+ "<p>"
-									+ "Alarmed at what's just happened, you look back over at [npc.name], only to see that [npc.she] seems completely oblivious to what you've just witnessed."
-									+ " You suddenly remember what Lilaya told you about absorbing essences, and how it's absolutely harmless for both parties involved, and breathe a sigh of relief..."
-								+ "</p>"));
+						sexSB.append(participant.incrementAffection(Main.game.getPlayer(), -50));
 					}
 				}
 				
-				sexSB.append("<p style='text-align:center'>You feel your aura drawing strength from the sexual energy of [npc.name]'s orgasm...</p>"
-						+"<div class='container-full-width' style='text-align:center;'>"
-							+ (Main.game.getPlayer().hasTrait(Perk.NYMPHOMANIAC, true)
-									?Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, 4, true)
-									:Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, 2, true))
-						+ "</div>");
-				
+				if(getNumberOfOrgasms(participant) > 0) {
+					participant.setLust(0);
+				}
 			}
-			activePartner.addStatusEffect(StatusEffect.RECOVERING_AURA, 240);
 		}
 		
-		if(Sex.getNumberOfOrgasms(Main.game.getPlayer())>0) {
-			Main.game.getPlayer().setLust(0);
-		}
+		sexSB.append(Sex.getSexManager().applyEndSexEffects());
 		
 		endSexDescription = sexSB.toString();
 	}
@@ -958,7 +1014,10 @@ public enum Sex {
 
 		@Override
 		public String getLabel() {
-			return (!Sex.isConsensual() && Main.getProperties().hasValue(PropertyValue.nonConContent)?"Non-consensual ":"")+(Sex.getSexManager().isPublicSex()?"Public ":"")+"Sex: "+getPosition().getName();
+			return (!Sex.isConsensual() && Main.getProperties().hasValue(PropertyValue.nonConContent)?"Non-consensual ":"")
+					+(Sex.isPublicSex()?"Public ":"")
+					+(Sex.getAllParticipants().size()>1?"Sex: ":"Masturbation: ")
+					+getPosition().getName();
 		}
 
 		@Override
@@ -971,7 +1030,7 @@ public enum Sex {
 			if (sexFinished
 //					|| lastUsedPartnerAction == SexActionUtility.PARTNER_ORGASM_MUTUAL_WAIT
 					|| Main.game.getPlayer().getArousal() >= ArousalLevel.FIVE_ORGASM_IMMINENT.getMaximumValue()
-					|| activePartner.getArousal() >= ArousalLevel.FIVE_ORGASM_IMMINENT.getMaximumValue()) {
+					|| (activePartner!=null && activePartner.getArousal() >= ArousalLevel.FIVE_ORGASM_IMMINENT.getMaximumValue())) {
 				return null;
 			}
 			if(index==0) {
@@ -1013,7 +1072,7 @@ public enum Sex {
 			} else if(
 //					lastUsedPartnerAction == SexActionUtility.PARTNER_ORGASM_MUTUAL_WAIT ||
 					Main.game.getPlayer().getArousal() >= ArousalLevel.FIVE_ORGASM_IMMINENT.getMaximumValue()
-						|| activePartner.getArousal() >= ArousalLevel.FIVE_ORGASM_IMMINENT.getMaximumValue()) {
+						|| (activePartner!=null && activePartner.getArousal() >= ArousalLevel.FIVE_ORGASM_IMMINENT.getMaximumValue())) {
 					
 				if(index == 0){
 					return null;
@@ -1211,46 +1270,49 @@ public enum Sex {
 		} else {
 			// Partner action is done afterwards:
 			// Update lists for the partner's action choice.
-			
-			GameCharacter active = Sex.getActivePartner();
-			
-			for(GameCharacter character : Sex.getAllParticipants()) {
-				if(!character.isPlayer()) {
-					Sex.setActivePartner((NPC) character);
-					
-					if(sexActionPlayer.getActionType()!=SexActionType.PLAYER_ORGASM && sexActionPlayer.getActionType()!=SexActionType.PLAYER_ORGASM_NO_AROUSAL_RESET) {
-						calculateAvailableSexActionsPartner();
-			
-						SexActionInterface sexActionPartner = sexManager.getPartnerSexAction(sexActionPlayer);
+			if(!Sex.isMasturbation()) {
+				GameCharacter active = Sex.getActivePartner();
+				
+				for(GameCharacter character : Sex.getAllParticipants()) {
+					if(!character.isPlayer()) {
+						Sex.setActivePartner((NPC) character);
 						
-						sexSB.append("</br><p>" + sexActionPartner.getDescription() + "</p>");
-			
-						endString = sexActionPartner.baseEffects();
-						lastUsedPartnerAction = sexActionPartner;
-						
-						applyGenericDescriptionsAndEffects(Sex.getActivePartner(), sexActionPartner);
-
-						sexSB.append(endString);
-						
-						s = UtilText.parse(character, sexSB.toString());
-						sexSB.setLength(0);
-						sexSB.append(s);
-						
-						sexDescription = sexSB.toString();
-						
-						// End sex conditions:
-						if (sexActionPartner.endsSex()) {
-							applyEndSexEffects();
-							sexFinished = true;
+						if(sexActionPlayer.getActionType()!=SexActionType.PLAYER_ORGASM && sexActionPlayer.getActionType()!=SexActionType.PLAYER_ORGASM_NO_AROUSAL_RESET) {
+							calculateAvailableSexActionsPartner();
+				
+							SexActionInterface sexActionPartner = sexManager.getPartnerSexAction(sexActionPlayer);
+							
+							sexSB.append("</br><p>" + sexActionPartner.getDescription() + "</p>");
+				
+							endString = sexActionPartner.baseEffects();
+							lastUsedPartnerAction = sexActionPartner;
+							
+							applyGenericDescriptionsAndEffects(Sex.getActivePartner(), sexActionPartner);
+	
+							sexSB.append(endString);
+							
+							s = UtilText.parse(character, sexSB.toString());
+							sexSB.setLength(0);
+							sexSB.append(s);
+							
+							sexDescription = sexSB.toString();
+							
+							// End sex conditions:
+							if (sexActionPartner.endsSex()) {
+								applyEndSexEffects();
+								sexFinished = true;
+							}
+						} else {
+							sexDescription = sexSB.toString();
 						}
-					} else {
-						sexDescription = sexSB.toString();
 					}
 				}
+				Sex.setActivePartner((NPC) active);
+			} else {
+				sexDescription = sexSB.toString();
 			}
-			Sex.setActivePartner((NPC) active);
 			
-			if(Sex.getSexManager().isPublicSex()) {
+			if(Sex.isPublicSex()) {
 				sexSB.append(Sex.getSexManager().getRandomPublicSexDescription());
 				sexDescription = sexSB.toString();
 			}
@@ -1290,7 +1352,7 @@ public enum Sex {
 				}
 			}
 
-		} else if (activePartner.getArousal() >= ArousalLevel.FIVE_ORGASM_IMMINENT.getMaximumValue()) { // Add orgasm reactions if partner is ready to orgasm:
+		} else if (activePartner!=null && activePartner.getArousal() >= ArousalLevel.FIVE_ORGASM_IMMINENT.getMaximumValue()) { // Add orgasm reactions if partner is ready to orgasm:
 			for (SexActionInterface sexAction : Sex.getActionsAvailablePlayer()) {
 				if (sexAction.getActionType()==SexActionType.PLAYER_PREPARE_PARTNER_ORGASM && sexAction.isAddedToAvailableSexActions()) {
 					availableSexActionsPlayer.add(sexAction);
@@ -1323,19 +1385,21 @@ public enum Sex {
 		sexActionsPlayer.clear();
 		positionActionsPlayer.clear();
 		for(SexActionInterface action : availableSexActionsPlayer) {
-			switch(action.getCategory()) {
-				case MISCELLANEOUS: case CHARACTER_SWITCH:
-					miscActionsPlayer.add(action);
-					break;
-				case POSITIONING:
-					positionActionsPlayer.add(action);
-					break;
-				case SELF:
-					selfActionsPlayer.add(action);
-					break;
-				case SEX:
-					sexActionsPlayer.add(action);
-					break;
+			if(action.toResponse()!=null) {
+				switch(action.getCategory()) {
+					case MISCELLANEOUS: case CHARACTER_SWITCH:
+						miscActionsPlayer.add(action);
+						break;
+					case POSITIONING:
+						positionActionsPlayer.add(action);
+						break;
+					case SELF:
+						selfActionsPlayer.add(action);
+						break;
+					case SEX:
+						sexActionsPlayer.add(action);
+						break;
+				}
 			}
 		}
 		positionActionsPlayer.sort((a1, a2) -> a1.getActionTitle().compareTo(a2.getActionTitle()));
@@ -1899,7 +1963,7 @@ public enum Sex {
 		
 		// Only apply penetration effects if this action isn't an orgasm, and it isn't the end of sex. (Otherwise, ongoing descriptions get appended after the main description, which usually don't make sense.) TODO
 		if (!Sex.getOrgasmActionsPlayer().contains(sexAction)
-				&& !Sex.getOrgasmActionsPartner().contains(sexAction)
+				&& (Sex.isMasturbation() || (!Sex.isMasturbation() && !Sex.getOrgasmActionsPartner().contains(sexAction)))
 				&& sexAction.getActionType() != SexActionType.PARTNER_POSITIONING
 				&& sexAction.getActionType() != SexActionType.PLAYER_POSITIONING
 				&& !sexAction.endsSex()) {
@@ -2291,9 +2355,9 @@ public enum Sex {
 		boolean appendDescription =
 				!(orifice==OrificeType.MOUTH && lubrication==LubricationType.PLAYER_SALIVA) // Don't give descriptions of saliva lubricating your own mouth.
 				&& !(orifice==OrificeType.MOUTH && lubrication==LubricationType.PARTNER_SALIVA)
-				&& (orifice==OrificeType.VAGINA?activePartner.isCoverableAreaExposed(CoverableArea.VAGINA):true)
-				&& (orifice==OrificeType.ANUS?activePartner.isCoverableAreaExposed(CoverableArea.ANUS):true)
-				&& (orifice==OrificeType.NIPPLE?activePartner.isCoverableAreaExposed(CoverableArea.NIPPLES):true);
+				&& (orifice==OrificeType.VAGINA?activePartner!=null && activePartner.isCoverableAreaExposed(CoverableArea.VAGINA):true)
+				&& (orifice==OrificeType.ANUS?activePartner!=null && activePartner.isCoverableAreaExposed(CoverableArea.ANUS):true)
+				&& (orifice==OrificeType.NIPPLE?activePartner!=null && activePartner.isCoverableAreaExposed(CoverableArea.NIPPLES):true);
 		
 		if(wetOrificeTypes.get(character).get(orifice).add(lubrication)){
 			if(appendDescription && appendTextToSex) {
@@ -2359,7 +2423,7 @@ public enum Sex {
 	public static void removePenetration(GameCharacter characterPenetrating, GameCharacter characterPenetrated, boolean appendRemovalText, PenetrationType penetrationType, OrificeType orifice) {
 		if(ongoingPenetrationMap.get(characterPenetrating).get(characterPenetrated).containsKey(penetrationType)) {
 			if(ongoingPenetrationMap.get(characterPenetrating).get(characterPenetrated).get(penetrationType).remove(orifice)) {
-				if(appendRemovalText) {
+				if(appendRemovalText && activePartner!=null) {
 					sexSB.append(formatStopPenetration(activePartner.getStopPenetrationDescription(characterPenetrating, penetrationType, characterPenetrated, orifice)));
 				}
 			}
@@ -2384,6 +2448,7 @@ public enum Sex {
 				penileVirginityLoss = characterPenetrating.getVirginityLossPenetrationDescription(characterPenetrating, PenetrationType.PENIS, characterPenetrated, orifice);
 				if(characterPenetrated.hasFetish(Fetish.FETISH_DEFLOWERING)) {
 					characterPenetrated.incrementExperience(Fetish.getExperienceGainFromTakingOtherVirginity(characterPenetrated), true);
+					characterPenetrated.incrementFetishExperience(Fetish.FETISH_DEFLOWERING, Fetish.FETISH_DEFLOWERING.getExperienceGainFromSexAction());
 				}
 				characterPenetrating.setVirginityLoss(relatedSexTypeForCharacterPenetrating, characterPenetrated.getName("a") + " " + characterPenetrated.getLostVirginityDescriptor());
 				characterPenetrating.setPenisVirgin(false);
@@ -2400,6 +2465,7 @@ public enum Sex {
 						sexSB.append(characterPenetrating.getVirginityLossOrificeDescription(characterPenetrating, penetrationType, characterPenetrated, OrificeType.ANUS));
 						if(characterPenetrating.hasFetish(Fetish.FETISH_DEFLOWERING)) {
 							characterPenetrating.incrementExperience(Fetish.getExperienceGainFromTakingOtherVirginity(characterPenetrating), true);
+							characterPenetrating.incrementFetishExperience(Fetish.FETISH_DEFLOWERING, Fetish.FETISH_DEFLOWERING.getExperienceGainFromSexAction());
 						}
 						characterPenetrated.setVirginityLoss(relatedSexTypeForCharacterPenetrated, characterPenetrating.getName("a") + " " + characterPenetrating.getLostVirginityDescriptor());
 						characterPenetrated.setAssVirgin(false);
@@ -2419,6 +2485,7 @@ public enum Sex {
 						sexSB.append(characterPenetrating.getVirginityLossOrificeDescription(characterPenetrating, penetrationType, characterPenetrated, OrificeType.VAGINA));
 						if(characterPenetrating.hasFetish(Fetish.FETISH_DEFLOWERING)) {
 							characterPenetrating.incrementExperience(Fetish.getExperienceGainFromTakingVaginalVirginity(characterPenetrating), true);
+							characterPenetrating.incrementFetishExperience(Fetish.FETISH_DEFLOWERING, Fetish.FETISH_DEFLOWERING.getExperienceGainFromSexAction());
 						}
 						characterPenetrated.setVirginityLoss(relatedSexTypeForCharacterPenetrated, characterPenetrating.getName("a") + " " + characterPenetrating.getLostVirginityDescriptor());
 						characterPenetrated.setVaginaVirgin(false);
@@ -2438,6 +2505,7 @@ public enum Sex {
 							sexSB.append(characterPenetrating.getVirginityLossOrificeDescription(characterPenetrating, penetrationType, characterPenetrated, OrificeType.NIPPLE));
 							if(characterPenetrating.hasFetish(Fetish.FETISH_DEFLOWERING)) {
 								characterPenetrating.incrementExperience(Fetish.getExperienceGainFromTakingOtherVirginity(characterPenetrating), true);
+								characterPenetrating.incrementFetishExperience(Fetish.FETISH_DEFLOWERING, Fetish.FETISH_DEFLOWERING.getExperienceGainFromSexAction());
 							}
 							characterPenetrated.setVirginityLoss(relatedSexTypeForCharacterPenetrated, characterPenetrating.getName("a") + " " + characterPenetrating.getLostVirginityDescriptor());
 							characterPenetrated.setNippleVirgin(false);
@@ -2457,6 +2525,7 @@ public enum Sex {
 							sexSB.append(characterPenetrating.getVirginityLossOrificeDescription(characterPenetrating, penetrationType, characterPenetrated, OrificeType.URETHRA_PENIS));
 							if(characterPenetrating.hasFetish(Fetish.FETISH_DEFLOWERING)) {
 								characterPenetrating.incrementExperience(Fetish.getExperienceGainFromTakingOtherVirginity(characterPenetrating), true);
+								characterPenetrating.incrementFetishExperience(Fetish.FETISH_DEFLOWERING, Fetish.FETISH_DEFLOWERING.getExperienceGainFromSexAction());
 							}
 							characterPenetrated.setVirginityLoss(relatedSexTypeForCharacterPenetrated, characterPenetrating.getName("a") + " " + characterPenetrating.getLostVirginityDescriptor());
 							characterPenetrated.setUrethraVirgin(false);
@@ -2476,6 +2545,7 @@ public enum Sex {
 						sexSB.append(characterPenetrating.getVirginityLossOrificeDescription(characterPenetrating, penetrationType, characterPenetrated, OrificeType.URETHRA_VAGINA));
 						if(characterPenetrating.hasFetish(Fetish.FETISH_DEFLOWERING)) {
 							characterPenetrating.incrementExperience(Fetish.getExperienceGainFromTakingOtherVirginity(characterPenetrating), true);
+							characterPenetrating.incrementFetishExperience(Fetish.FETISH_DEFLOWERING, Fetish.FETISH_DEFLOWERING.getExperienceGainFromSexAction());
 						}
 						characterPenetrated.setVirginityLoss(relatedSexTypeForCharacterPenetrated, characterPenetrating.getName("a") + " " + characterPenetrating.getLostVirginityDescriptor());
 						characterPenetrated.setVaginaUrethraVirgin(false);
@@ -2495,6 +2565,7 @@ public enum Sex {
 							sexSB.append(characterPenetrating.getVirginityLossOrificeDescription(characterPenetrating, penetrationType, characterPenetrated, OrificeType.MOUTH));
 							if(characterPenetrating.hasFetish(Fetish.FETISH_DEFLOWERING)) {
 								characterPenetrating.incrementExperience(Fetish.getExperienceGainFromTakingOtherVirginity(characterPenetrating), true);
+								characterPenetrating.incrementFetishExperience(Fetish.FETISH_DEFLOWERING, Fetish.FETISH_DEFLOWERING.getExperienceGainFromSexAction());
 							}
 							characterPenetrated.setVirginityLoss(relatedSexTypeForCharacterPenetrated, characterPenetrating.getName("a") + " " + characterPenetrating.getLostVirginityDescriptor());
 							characterPenetrated.setFaceVirgin(false);
@@ -2736,12 +2807,21 @@ public enum Sex {
 		Sex.subHasEqualControl = subHasEqualControl;
 	}
 	
+	public static boolean isPositionChangingAllowed() {
+		return positionChangingAllowed;
+	}
+
+	public static void setPositionChangingAllowed(boolean positionChangingAllowed) {
+		Sex.positionChangingAllowed = positionChangingAllowed;
+	}
+	
+	
 	/**
 	 * @param targeter The character whose target is to be found.
 	 * @return The character that the 'targeter' is currently focusing on.
 	 */
 	public static GameCharacter getTargetedPartner(GameCharacter targeter) {
-		if(targeter.isPlayer()) {
+		if(targeter.isPlayer() && Sex.allParticipants.size()>1) {
 			return activePartner;
 		} else {
 			return Main.game.getPlayer();
@@ -2761,6 +2841,10 @@ public enum Sex {
 	
 	public static int getTotalParticipantCount() {
 		return dominants.size()+submissives.size();
+	}
+	
+	public static boolean isMasturbation() {
+		return Sex.allParticipants.size()==1;
 	}
 	
 	public static List<GameCharacter> getAllParticipants() {
@@ -3066,7 +3150,7 @@ public enum Sex {
 			orgasmActionsAvailable.put(character, new HashMap<>());
 			
 			for(GameCharacter target : Sex.allParticipants) {
-				if(!character.equals(target)) {
+				if(!character.equals(target) || Sex.isMasturbation()) {
 					actionsAvailable.get(character).put(target, new HashSet<>());
 					orgasmActionsAvailable.get(character).put(target, new HashSet<>());
 				}
@@ -3084,6 +3168,8 @@ public enum Sex {
 		if(!Sex.isDom(Main.game.getPlayer())) {
 			if(!tempCharacterList.isEmpty()) {
 				activePartner = (NPC) tempCharacterList.get(0);
+			} else {
+				activePartner = null;
 			}
 		}
 
@@ -3097,6 +3183,8 @@ public enum Sex {
 		if(Sex.isDom(Main.game.getPlayer())) {
 			if(!tempCharacterList.isEmpty()) {
 				activePartner = (NPC) tempCharacterList.get(0);
+			} else {
+				activePartner = null;
 			}
 		}
 		
@@ -3125,7 +3213,7 @@ public enum Sex {
 
 		for(GameCharacter character : Sex.allParticipants) {
 			for(GameCharacter target : Sex.allParticipants) {
-				if(!character.equals(target)) {
+				if(!character.equals(target) || Sex.isMasturbation()) {
 					actionsAvailable.get(character).get(target).clear();
 					orgasmActionsAvailable.get(character).get(target).clear();
 				}
@@ -3134,7 +3222,7 @@ public enum Sex {
 					
 		for(GameCharacter character : Sex.allParticipants) {
 			for(GameCharacter target : Sex.allParticipants) {
-				if(!character.equals(target)) {
+				if(!character.equals(target) || Sex.isMasturbation()) {
 					SexActionPresetPair pair = Sex.sexManager.getPosition().getSlotTargets().get(Sex.getSexPositionSlot(character)).get(Sex.getSexPositionSlot(target));
 					if(character.isPlayer()) {
 						addActionsFromContainingClasses(character, target, pair.getPlayerSexActionContainingClasses());
@@ -3251,9 +3339,14 @@ public enum Sex {
 	}
 	
 	public static SexPace getSexPace(GameCharacter character) {
+		if(character==null) {
+			return null;
+		}
+		
 		if(forceSexPaceMap.containsKey(character)) {
 			return forceSexPaceMap.get(character);
 		}
+		
 		return LustLevel.getLustLevelFromValue(character.getLust()).getSexPace(Sex.isConsensual(), character);
 	}
 	
@@ -3329,6 +3422,10 @@ public enum Sex {
 	
 	public static boolean isDom(GameCharacter character) {
 		return Sex.dominants.keySet().contains(character);
+	}
+	
+	public static boolean isPublicSex() {
+		return publicSex;
 	}
 	
 	public static boolean isSexFinished() {
@@ -3445,10 +3542,6 @@ public enum Sex {
 	
 	private static List<Fetish> getFetishesFromPenetrationAndOrificeTypes(GameCharacter character, GameCharacter characterPenetrating, PenetrationType penetrationType, GameCharacter characterOrifice, OrificeType orificeBeingUsed) {
 		List<Fetish> associatedFetishes = new ArrayList<>();
-		
-		if(Sex.getSexManager().isPublicSex()) {
-			associatedFetishes.add(Fetish.FETISH_EXHIBITIONIST);
-		}
 		
 		switch(penetrationType) {
 			case FINGER:

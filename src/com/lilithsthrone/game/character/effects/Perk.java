@@ -13,7 +13,6 @@ import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.utils.Util.Value;
 
 /**
@@ -34,7 +33,7 @@ public enum Perk {
 			Util.newHashMapOfValues(
 					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 25),
 					new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, 25)),
-			Util.newArrayListOfValues(new ListValue<>("[style.boldExcellent(Doubles)] all slave and self-prostitution income"))) {
+			Util.newArrayListOfValues("[style.boldExcellent(Doubles)] all slave and self-prostitution income")) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return ".";//TODO
@@ -50,7 +49,7 @@ public enum Perk {
 			Util.newHashMapOfValues(
 					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 15),
 					new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 15)),
-			Util.newArrayListOfValues(new ListValue<>("[style.boldExcellent(Triples)] all mugging income"))) {
+			Util.newArrayListOfValues("[style.boldExcellent(Triples)] all mugging income")) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return ".";//TODO
@@ -70,7 +69,7 @@ public enum Perk {
 					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 5),
 					new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 5),
 					new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, 5)),
-			Util.newArrayListOfValues(new ListValue<>("[style.boldExcellent(Boosts)] 'Well Rested' bonus"))) {
+			Util.newArrayListOfValues("[style.boldExcellent(Boosts)] 'Well Rested' bonus")) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "With so much free time on your hands, you've managed to improve yourself in several different ways."
@@ -86,7 +85,7 @@ public enum Perk {
 			Colour.BASE_BROWN,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Integer>(Attribute.CRITICAL_DAMAGE, 50)),
-			Util.newArrayListOfValues(new ListValue<>("[style.boldExcellent(+25%)] all slave income"))) {
+			Util.newArrayListOfValues("[style.boldExcellent(+25%)] all slave income")) {
 		@Override
 		public String getName(GameCharacter owner) {
 			if(owner.isFeminine()) {
@@ -110,7 +109,7 @@ public enum Perk {
 			Colour.BASE_YELLOW,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 10)),
-			Util.newArrayListOfValues(new ListValue<>("[style.boldExcellent(25%)] discount in all stores"))) {
+			Util.newArrayListOfValues("[style.boldExcellent(25%)] discount in all stores")) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Your student discount has never failed you before!"
@@ -126,7 +125,7 @@ public enum Perk {
 			Colour.BASE_GREY,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 25)),
-			Util.newArrayListOfValues(new ListValue<>("[style.boldExcellent(Double)] length of all spell effects"))) {
+			Util.newArrayListOfValues("[style.boldExcellent(Double)] length of all spell effects")) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "You find that your abilities as a musician translate quite well into the art of seduction."
@@ -142,7 +141,7 @@ public enum Perk {
 			Colour.BASE_BLUE_LIGHT,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Integer>(Attribute.SPELL_COST_MODIFIER, 10)),
-			Util.newArrayListOfValues(new ListValue<>("[style.boldExcellent(Triple)] all slave obedience gains"))) {
+			Util.newArrayListOfValues("[style.boldExcellent(Triple)] all slave obedience gains")) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "You know exactly how to deal with unruly students."
@@ -158,7 +157,7 @@ public enum Perk {
 			Colour.BASE_PURPLE,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Integer>(Attribute.DAMAGE_SPELLS, 25)),
-			Util.newArrayListOfValues(new ListValue<>("[style.boldExcellent(+25%)] to all experience gains"))) {
+			Util.newArrayListOfValues("[style.boldExcellent(+25%)] to all experience gains")) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "You keep a diary of your personal thoughts and encounters, allowing you to reflect upon and learn from your experiences."
@@ -174,7 +173,7 @@ public enum Perk {
 			Colour.BASE_ORANGE,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Integer>(Attribute.RESISTANCE_POISON, 50)),
-			Util.newArrayListOfValues(new ListValue<>("[style.boldExcellent(Double)] all potions effects' strength and length"))) {
+			Util.newArrayListOfValues("[style.boldExcellent(Double)] all potions effects' strength and length")) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Thanks to spending a considerable amount of time tasting food, you have both a significant resistance to poison, as well as the ability to make the most of things that are a culinary marvel.";
@@ -192,7 +191,7 @@ public enum Perk {
 					new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 20),
 					new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 10),
 					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 10)),
-			Util.newArrayListOfValues(new ListValue<>("Your first strike in combat deals [style.boldExcellent(double)] damage"))) {
+			Util.newArrayListOfValues("Your first strike in combat deals [style.boldExcellent(double)] damage")) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "You've spent a considerable amount of time training to fight, and as a result, you are far stronger and healthier than a normal person."
@@ -208,7 +207,7 @@ public enum Perk {
 			Colour.BASE_TEAL,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 10)),
-			Util.newArrayListOfValues(new ListValue<>("All non-zero escape chances in combat are boosted to [style.boldExcellent(100%)]"))) {
+			Util.newArrayListOfValues("All non-zero escape chances in combat are boosted to [style.boldExcellent(100%)]")) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "You are a world-class sprinter, and have a guaranteed 100% success of escaping any combat situation where running away is an option.";
@@ -225,8 +224,8 @@ public enum Perk {
 					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 5),
 					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5)),
 			Util.newArrayListOfValues(
-					new ListValue<>("[style.boldExcellent(Boosted)] Maid's set bonuses"),
-					new ListValue<>("[style.boldExcellent(Double)] slave income from maids and butlers"))) {
+					"[style.boldExcellent(Boosted)] Maid's set bonuses",
+					"[style.boldExcellent(Double)] slave income from maids and butlers")) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "You are the perfect example of a hard-working maid, and while wearing a complete set of maid's clothes, the bonus that you receive is considerably boosted."
@@ -244,8 +243,8 @@ public enum Perk {
 					new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, 25),
 					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5)),
 			Util.newArrayListOfValues(
-					new ListValue<>("[style.boldExcellent(Boosted)] Butler's set bonuses"),
-					new ListValue<>("[style.boldExcellent(Double)] slave income from maids and butlers"))) {
+					"[style.boldExcellent(Boosted)] Butler's set bonuses",
+					"[style.boldExcellent(Double)] slave income from maids and butlers")) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "You are the perfect example of a hard-working and composed butler, and while wearing a complete set of butler's clothes, the bonus that you receive is considerably boosted."
@@ -624,7 +623,9 @@ public enum Perk {
 			PerkCategory.PHYSICAL,
 			"perks/misc_observant",
 			Colour.GENERIC_ARCANE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.CRITICAL_CHANCE, 5)), Util.newArrayListOfValues(new ListValue<>("<span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>Gender detection</span>"))) {
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.CRITICAL_CHANCE, 5)),
+			Util.newArrayListOfValues(
+					"<span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>Gender detection</span>")) {
 		@Override
 		public String applyPerkGained(GameCharacter character) {
 			return UtilText.parsePlayerThought("");
@@ -655,7 +656,7 @@ public enum Perk {
 			"perks/physical_accurate",
 			Colour.GENERIC_ARCANE,
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.CRITICAL_CHANCE, 5)),
-			Util.newArrayListOfValues(new ListValue<>("<span style='color:"+ Colour.GENERIC_COMBAT.toWebHexString()+ ";'>Critical</span> spells apply <b style='color:"+Colour.ATTRIBUTE_LUST.toWebHexString()+";'>Arcane weakness</b>"))) {
+			Util.newArrayListOfValues("<span style='color:"+ Colour.GENERIC_COMBAT.toWebHexString()+ ";'>Critical</span> spells apply <b style='color:"+Colour.ATTRIBUTE_LUST.toWebHexString()+";'>Arcane weakness</b>")) {
 		@Override
 		public String applyPerkGained(GameCharacter character) {
 			return UtilText.parsePlayerThought("");
@@ -681,7 +682,7 @@ public enum Perk {
 //			"perks/misc_observant",
 //			Colour.GENERIC_ARCANE,
 //			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 5)),
-//			Util.newArrayListOfValues(new ListValue<>("<span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>Telepathic seduction</span>"))) {
+//			Util.newArrayListOfValues("<span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>Telepathic seduction</span>")) {
 //		@Override
 //		public String applyPerkGained(GameCharacter character) {
 //			return UtilText.parsePlayerThought("");
@@ -856,7 +857,7 @@ public enum Perk {
 			"perks/fitness_runner",
 			Colour.ATTRIBUTE_PHYSIQUE,
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 3)),
-			Util.newArrayListOfValues(new ListValue<>("<span style='color:"+ Colour.ATTRIBUTE_PHYSIQUE.toWebHexString()+ ";'>Improved escape chance</span>"))) {
+			Util.newArrayListOfValues("<span style='color:"+ Colour.ATTRIBUTE_PHYSIQUE.toWebHexString()+ ";'>Improved escape chance</span>")) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -873,7 +874,7 @@ public enum Perk {
 			"perks/fitness_runner_2",
 			Colour.ATTRIBUTE_PHYSIQUE,
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5)),
-			Util.newArrayListOfValues(new ListValue<>("<span style='color:"+ Colour.ATTRIBUTE_PHYSIQUE.toWebHexString()+ ";'>Improved escape chance</span>"))) {
+			Util.newArrayListOfValues("<span style='color:"+ Colour.ATTRIBUTE_PHYSIQUE.toWebHexString()+ ";'>Improved escape chance</span>")) {
 		@Override
 		public String getName(GameCharacter character) {
 			if (character.isFeminine())
@@ -896,8 +897,8 @@ public enum Perk {
 			PerkCategory.ARCANE,
 			"perks/fitness_female_attraction",
 			Colour.FEMININE,
-			null, Util.newArrayListOfValues(new ListValue<>("+10% <span style='color:" + Attribute.DAMAGE_LUST.getColour().toWebHexString() + ";'>lust damage</span>"
-					+ " vs <span style='color:" + Colour.FEMININE.toWebHexString()+ ";'>feminine opponents</span>"))) {
+			null, Util.newArrayListOfValues("+10% <span style='color:" + Attribute.DAMAGE_LUST.getColour().toWebHexString() + ";'>lust damage</span>"
+					+ " vs <span style='color:" + Colour.FEMININE.toWebHexString()+ ";'>feminine opponents</span>")) {
 		@Override
 		public String applyPerkGained(GameCharacter character) {
 			return UtilText.parsePlayerThought("");
@@ -923,8 +924,8 @@ public enum Perk {
 			PerkCategory.ARCANE,
 			"perks/fitness_male_attraction",
 			Colour.MASCULINE,
-			null, Util.newArrayListOfValues(new ListValue<>("+10% <span style='color:" + Attribute.DAMAGE_LUST.getColour().toWebHexString() + ";'>lust damage</span>"
-					+ " vs <span style='color:" + Colour.MASCULINE.toWebHexString()+ ";'>masculine opponents</span>"))) {
+			null, Util.newArrayListOfValues("+10% <span style='color:" + Attribute.DAMAGE_LUST.getColour().toWebHexString() + ";'>lust damage</span>"
+					+ " vs <span style='color:" + Colour.MASCULINE.toWebHexString()+ ";'>masculine opponents</span>")) {
 		@Override
 		public String applyPerkGained(GameCharacter character) {
 			return UtilText.parsePlayerThought("");
@@ -953,7 +954,7 @@ public enum Perk {
 			Colour.GENERIC_SEX,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, -25)),
-			Util.newArrayListOfValues(new ListValue<>("Doubles <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString()+ ";'>arcane essence gain</span> from each orgasm"))) {
+			Util.newArrayListOfValues("Doubles <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString()+ ";'>arcane essence gain</span> from each orgasm")) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -972,7 +973,7 @@ public enum Perk {
 			"perks/arcaneWeaver",
 			Colour.GENERIC_ARCANE,
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 1)),
-			Util.newArrayListOfValues(new ListValue<>("<span style='color:"+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Halves cost of all clothing enchantments</span>"))) {
+			Util.newArrayListOfValues("<span style='color:"+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Halves cost of all clothing enchantments</span>")) {
 
 		@Override
 		public boolean isAlwaysAvailable() {
@@ -1066,9 +1067,10 @@ public enum Perk {
 		this.extraEffects = extraEffects;
 
 		try {
-			InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/"
-					+ pathName
-					+ ".svg");
+			InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/" + pathName + ".svg");
+			if(is==null) {
+				System.err.println("Error! Perk icon file does not exist (Trying to read from '"+pathName+"')!");
+			}
 			SVGString = Util.inputStreamToString(is);
 
 			SVGString = SVGString.replaceAll("#ff2a2a", colour.getShades()[0]);

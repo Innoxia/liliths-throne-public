@@ -100,7 +100,9 @@ public class Penis implements BodyPartInterface, Serializable {
 		list.add(type.getDescriptor(owner));
 		if(Main.game.isInSex()) {
 			list.add("hard");
-			list.add("throbbing");
+			if(this.getType()!=PenisType.DILDO) {
+				list.add("throbbing");
+			}
 		}
 		
         return UtilText.returnStringAtRandom(list.toArray(new String[]{}));
@@ -238,6 +240,8 @@ public class Penis implements BodyPartInterface, Serializable {
 		testicle.setType(owner, type.getTesticleType());
 		
 		switch (type) {
+			case DILDO:
+				return "You have somehow transformed your penis into a dildo... This is a bug... (please let Innoxia know!)";
 			case NONE:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(

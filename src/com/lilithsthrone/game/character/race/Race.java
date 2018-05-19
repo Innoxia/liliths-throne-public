@@ -8,15 +8,35 @@ import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 
 /**
  * @since 0.1.0
- * @version 0.1.87
+ * @version 0.2.5
  * @author Innoxia
  */
 public enum Race {
 
+	NONE("none",
+			"none",
+			"none",
+			"none",
+			"none",
+			"none",
+			"",
+			"",
+			Colour.RACE_HUMAN,
+			Disposition.CIVILIZED,
+			StatusEffect.PURE_HUMAN,
+			Util.newArrayListOfValues(Attack.MAIN),
+			true,
+			0.5f,
+			1,
+			1,
+			Attribute.DAMAGE_HUMAN,
+			Attribute.RESISTANCE_HUMAN,
+			FurryPreference.NORMAL,
+			FurryPreference.NORMAL),
+	
 	// HUMAN:
 	HUMAN("human",
 			"humans",
@@ -34,7 +54,7 @@ public enum Race {
 			Colour.RACE_HUMAN,
 			Disposition.CIVILIZED,
 			StatusEffect.PURE_HUMAN,
-			Util.newArrayListOfValues(new ListValue<Attack>(Attack.MAIN)),
+			Util.newArrayListOfValues(Attack.MAIN),
 			true,
 			0.5f,
 			1,
@@ -59,7 +79,9 @@ public enum Race {
 			Colour.CLOTHING_WHITE,
 			Disposition.CIVILIZED,
 			StatusEffect.PURE_HUMAN,
-			Util.newArrayListOfValues(new ListValue<Attack>(Attack.MAIN), new ListValue<Attack>(Attack.SPELL)),
+			Util.newArrayListOfValues(
+					Attack.MAIN,
+					Attack.SPELL),
 			false,
 			0.25f,
 			1,
@@ -84,7 +106,10 @@ public enum Race {
 			Colour.RACE_DEMON,
 			Disposition.CIVILIZED,
 			StatusEffect.DEMON,
-			Util.newArrayListOfValues(new ListValue<Attack>(Attack.SEDUCTION), new ListValue<Attack>(Attack.SPELL)),
+			Util.newArrayListOfValues(
+					Attack.SPECIAL_ATTACK,
+					Attack.SEDUCTION,
+					Attack.SPELL),
 			false,
 			0.75f,
 			2,
@@ -108,7 +133,9 @@ public enum Race {
 			Colour.RACE_DEMON,
 			Disposition.UNPREDICTABLE,
 			StatusEffect.IMP,
-			Util.newArrayListOfValues(new ListValue<Attack>(Attack.SEDUCTION), new ListValue<Attack>(Attack.SPELL)),
+			Util.newArrayListOfValues(
+					Attack.MAIN,
+					Attack.SEDUCTION),
 			true,
 			0.75f,
 			2,
@@ -133,7 +160,9 @@ public enum Race {
 			Colour.RACE_COW_MORPH,
 			Disposition.CIVILIZED,
 			StatusEffect.COW_MORPH,
-			Util.newArrayListOfValues(new ListValue<Attack>(Attack.SPECIAL_ATTACK), new ListValue<Attack>(Attack.MAIN), new ListValue<Attack>(Attack.SEDUCTION)),
+			Util.newArrayListOfValues(
+					Attack.MAIN,
+					Attack.SPECIAL_ATTACK),
 			true,
 			0.5f,
 			1,
@@ -158,7 +187,7 @@ public enum Race {
 			Colour.RACE_DOG_MORPH,
 			Disposition.CIVILIZED,
 			StatusEffect.DOG_MORPH,
-			Util.newArrayListOfValues(new ListValue<Attack>(Attack.SPECIAL_ATTACK), new ListValue<Attack>(Attack.MAIN), new ListValue<Attack>(Attack.SEDUCTION)),
+			Util.newArrayListOfValues(Attack.MAIN),
 			true,
 			0.5f,
 			1,
@@ -182,7 +211,9 @@ public enum Race {
 			Colour.RACE_WOLF_MORPH,
 			Disposition.SAVAGE,
 			StatusEffect.WOLF_MORPH,
-			Util.newArrayListOfValues(new ListValue<Attack>(Attack.SPECIAL_ATTACK), new ListValue<Attack>(Attack.MAIN)),
+			Util.newArrayListOfValues(
+					Attack.MAIN,
+					Attack.SPECIAL_ATTACK),
 			true,
 			0.5f,
 			1,
@@ -207,7 +238,9 @@ public enum Race {
 			Colour.RACE_CAT_MORPH,
 			Disposition.CIVILIZED,
 			StatusEffect.CAT_MORPH,
-			Util.newArrayListOfValues(new ListValue<Attack>(Attack.SPECIAL_ATTACK), new ListValue<Attack>(Attack.MAIN), new ListValue<Attack>(Attack.SEDUCTION)),
+			Util.newArrayListOfValues(
+					Attack.SEDUCTION,
+					Attack.SPECIAL_ATTACK),
 			true,
 			0.5f,
 			1,
@@ -232,7 +265,9 @@ public enum Race {
 			Colour.RACE_HORSE_MORPH,
 			Disposition.CIVILIZED,
 			StatusEffect.HORSE_MORPH,
-			Util.newArrayListOfValues(new ListValue<Attack>(Attack.MAIN)),
+			Util.newArrayListOfValues(
+					Attack.MAIN,
+					Attack.SPECIAL_ATTACK),
 			true,
 			0.5f,
 			1,
@@ -257,7 +292,9 @@ public enum Race {
 	  Colour.RACE_REINDEER_MORPH,
 			Disposition.CIVILIZED,
 			StatusEffect.REINDEER_MORPH,
-			Util.newArrayListOfValues(new ListValue<Attack>(Attack.SPECIAL_ATTACK), new ListValue<Attack>(Attack.MAIN)),
+			Util.newArrayListOfValues(
+					Attack.MAIN,
+					Attack.SPECIAL_ATTACK),
 			true,
 			0.5f,
 			1,
@@ -282,7 +319,8 @@ public enum Race {
 			Colour.RACE_SQUIRREL_MORPH,
 			Disposition.CIVILIZED,
 			StatusEffect.SQUIRREL_MORPH,
-			Util.newArrayListOfValues(new ListValue<Attack>(Attack.SPECIAL_ATTACK), new ListValue<Attack>(Attack.MAIN)),
+			Util.newArrayListOfValues(
+					Attack.MAIN),
 			true,
 			0.5f,
 			1,
@@ -306,7 +344,9 @@ public enum Race {
 			Colour.RACE_RAT_MORPH,
 			Disposition.NEUTRAL,
 			StatusEffect.RAT_MORPH,
-			Util.newArrayListOfValues(new ListValue<Attack>(Attack.SPECIAL_ATTACK), new ListValue<Attack>(Attack.MAIN)),
+			Util.newArrayListOfValues(
+					Attack.MAIN,
+					Attack.SPECIAL_ATTACK),
 			true,
 			0.5f,
 			1,
@@ -330,7 +370,9 @@ public enum Race {
 			Colour.RACE_RABBIT_MORPH,
 			Disposition.NEUTRAL,
 			StatusEffect.RABBIT_MORPH,
-			Util.newArrayListOfValues(new ListValue<Attack>(Attack.SPECIAL_ATTACK), new ListValue<Attack>(Attack.MAIN)),
+			Util.newArrayListOfValues(
+					Attack.SEDUCTION,
+					Attack.SPECIAL_ATTACK),
 			true,
 			0.5f,
 			2,
@@ -354,7 +396,9 @@ public enum Race {
 			Colour.RACE_BAT_MORPH,
 			Disposition.NEUTRAL,
 			StatusEffect.BAT_MORPH,
-			Util.newArrayListOfValues(new ListValue<Attack>(Attack.SPECIAL_ATTACK), new ListValue<Attack>(Attack.MAIN)),
+			Util.newArrayListOfValues(
+					Attack.MAIN,
+					Attack.SPECIAL_ATTACK),
 			true,
 			0.5f,
 			1,
@@ -378,7 +422,9 @@ public enum Race {
 			Colour.RACE_ALLIGATOR_MORPH,
 			Disposition.NEUTRAL,
 			StatusEffect.ALLIGATOR_MORPH,
-			Util.newArrayListOfValues(new ListValue<Attack>(Attack.SPECIAL_ATTACK), new ListValue<Attack>(Attack.MAIN)),
+			Util.newArrayListOfValues(
+					Attack.MAIN,
+					Attack.SPECIAL_ATTACK),
 			true,
 			0.5f,
 			1,
@@ -403,7 +449,7 @@ public enum Race {
 			Colour.RACE_SLIME,
 			Disposition.NEUTRAL,
 			StatusEffect.SLIME,
-			Util.newArrayListOfValues(new ListValue<Attack>(Attack.SEDUCTION)),
+			Util.newArrayListOfValues(Attack.SEDUCTION),
 			true,
 			0.5f,
 			1,
@@ -428,7 +474,9 @@ public enum Race {
 			Colour.RACE_HARPY,
 			Disposition.NEUTRAL,
 			StatusEffect.HARPY,
-			Util.newArrayListOfValues(new ListValue<Attack>(Attack.SPECIAL_ATTACK), new ListValue<Attack>(Attack.SEDUCTION)),
+			Util.newArrayListOfValues(
+					Attack.SEDUCTION,
+					Attack.SPECIAL_ATTACK),
 			true,
 			0.5f,
 			3,
@@ -436,7 +484,142 @@ public enum Race {
 			Attribute.DAMAGE_HARPY,
 			Attribute.RESISTANCE_HARPY,
 			FurryPreference.NORMAL,
-			FurryPreference.NORMAL);
+			FurryPreference.NORMAL),
+	
+
+	// ELEMENTALS:
+	ELEMENTAL_EARTH("earth elemental",
+			"earth elementals",
+			"earth elemental",
+			"earth elemental",
+			"earth elementals",
+			"earth elementals",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "ELEMENTAL_EARTH_BASIC"),
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "ELEMENTAL_EARTH_ADVANCED"),
+
+			Colour.SPELL_SCHOOL_EARTH,
+			Disposition.NEUTRAL,
+			StatusEffect.ELEMENTAL_EARTH,
+			Util.newArrayListOfValues(
+					Attack.MAIN,
+					Attack.SPELL),
+			false,
+			0.5f,
+			1,
+			1,
+			Attribute.DAMAGE_ELEMENTAL_EARTH,
+			Attribute.RESISTANCE_ELEMENTAL_EARTH,
+			FurryPreference.MAXIMUM,
+			FurryPreference.MAXIMUM),
+	
+	ELEMENTAL_WATER("water elemental",
+			"water elementals",
+			"water elemental",
+			"water elemental",
+			"water elementals",
+			"water elementals",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "ELEMENTAL_WATER_BASIC"),
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "ELEMENTAL_WATER_ADVANCED"),
+
+			Colour.SPELL_SCHOOL_WATER,
+			Disposition.NEUTRAL,
+			StatusEffect.ELEMENTAL_WATER,
+			Util.newArrayListOfValues(
+					Attack.MAIN,
+					Attack.SPELL),
+			false,
+			0.5f,
+			1,
+			1,
+			Attribute.DAMAGE_ELEMENTAL_WATER,
+			Attribute.RESISTANCE_ELEMENTAL_WATER,
+			FurryPreference.MAXIMUM,
+			FurryPreference.MAXIMUM),
+	
+	ELEMENTAL_AIR("air elemental",
+			"air elementals",
+			"air elemental",
+			"air elemental",
+			"air elementals",
+			"air elementals",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "ELEMENTAL_AIR_BASIC"),
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "ELEMENTAL_AIR_ADVANCED"),
+
+			Colour.SPELL_SCHOOL_AIR,
+			Disposition.NEUTRAL,
+			StatusEffect.ELEMENTAL_AIR,
+			Util.newArrayListOfValues(
+					Attack.MAIN,
+					Attack.SPELL),
+			false,
+			0.5f,
+			1,
+			1,
+			Attribute.DAMAGE_ELEMENTAL_AIR,
+			Attribute.RESISTANCE_ELEMENTAL_AIR,
+			FurryPreference.MAXIMUM,
+			FurryPreference.MAXIMUM),
+	
+	ELEMENTAL_FIRE("fire elemental",
+			"fire elementals",
+			"fire elemental",
+			"fire elemental",
+			"fire elementals",
+			"fire elementals",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "ELEMENTAL_FIRE_BASIC"),
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "ELEMENTAL_FIRE_ADVANCED"),
+
+			Colour.SPELL_SCHOOL_FIRE,
+			Disposition.NEUTRAL,
+			StatusEffect.ELEMENTAL_FIRE,
+			Util.newArrayListOfValues(
+					Attack.MAIN,
+					Attack.SEDUCTION,
+					Attack.SPELL),
+			false,
+			0.5f,
+			1,
+			1,
+			Attribute.DAMAGE_ELEMENTAL_FIRE,
+			Attribute.RESISTANCE_ELEMENTAL_FIRE,
+			FurryPreference.MAXIMUM,
+			FurryPreference.MAXIMUM),
+	
+	ELEMENTAL_ARCANE("arcane elemental",
+			"arcane elementals",
+			"arcane elemental",
+			"arcane elemental",
+			"arcane elementals",
+			"arcane elementals",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "ELEMENTAL_ARCANE_BASIC"),
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "ELEMENTAL_ARCANE_ADVANCED"),
+
+			Colour.SPELL_SCHOOL_ARCANE,
+			Disposition.NEUTRAL,
+			StatusEffect.ELEMENTAL_ARCANE,
+			Util.newArrayListOfValues(
+					Attack.SEDUCTION,
+					Attack.SPELL),
+			false,
+			0.5f,
+			1,
+			1,
+			Attribute.DAMAGE_ELEMENTAL_ARCANE,
+			Attribute.RESISTANCE_ELEMENTAL_ARCANE,
+			FurryPreference.MAXIMUM,
+			FurryPreference.MAXIMUM),
+	
+	;
 
 	/*
 	 * // INSECTS: BEE_MORPH("bee-morph",

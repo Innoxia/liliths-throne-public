@@ -17,6 +17,10 @@ public enum CoveringModifier {
 	SPARKLY("sparkly"),
 	METALLIC("metallic"),
 
+	BLAZING("blazing"),
+	SHIMMERING("shimmering"),
+	SWIRLING("swirling"),
+	
 	GOOEY("gooey") {
 		@Override
 		public String getName() {

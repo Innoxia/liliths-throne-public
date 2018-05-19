@@ -6,16 +6,16 @@ import org.w3c.dom.Element;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.Name;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.npcDialogue.SlaveDialogue;
+import com.lilithsthrone.game.dialogue.npcDialogue.submission.BatCavernAttackerDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.submission.TunnelAttackDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -31,7 +31,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.2.3
- * @version 0.2.3
+ * @version 0.2.4
  * @author Innoxia
  */
 public class BatMorphCavernAttacker extends NPC {
@@ -57,9 +57,9 @@ public class BatMorphCavernAttacker extends NPC {
 		if(!isImported) {
 			this.setWorldLocation(Main.game.getPlayer().getWorldLocation());
 			this.setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY()));
-			
-			// Set random level from 5 to 8:
-			setLevel(5 + Util.random.nextInt(4));
+
+			// Set random level from 8 to 12:
+			setLevel(8 + Util.random.nextInt(5));
 			
 			// RACE & NAME:
 			
@@ -104,6 +104,7 @@ public class BatMorphCavernAttacker extends NPC {
 			
 			resetInventory();
 			inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
+			CharacterUtils.generateItemsInInventory(this);
 	
 			CharacterUtils.equipClothing(this, true, false);
 			CharacterUtils.applyMakeup(this, true);
@@ -166,46 +167,10 @@ public class BatMorphCavernAttacker extends NPC {
 	
 	@Override
 	public DialogueNodeOld getEncounterDialogue() {
-		return TunnelAttackDialogue.TUNNEL_ATTACK;
+		return BatCavernAttackerDialogue.BAT_MORPH_ATTACK;
 	}
 
 	// Combat:
-
-	@Override
-	public Attack attackType() {
-		if(!getSpecialAttacks().isEmpty()) {
-			if (Math.random() < 0.2) {
-				return Attack.SEDUCTION;
-			} else if (Math.random() < 0.8) {
-				return Attack.MAIN;
-			} else {
-				return Attack.SPECIAL_ATTACK;
-			}
-			
-		} else {
-			if (Math.random() < 0.7) {
-				return Attack.MAIN;
-			} else {
-				return Attack.SEDUCTION;
-			}
-		}
-	}
-
-	@Override
-	public String getCombatDescription() {
-		if(this.isPregnant()) {
-			return "The consequence of your refusal to pull out of [npc.name] is standing right before you."
-					+ " Visibly pregnant, your one-time sexual partner has a devious grin on [npc.her] face, and you're not quite sure if you want to know what [npc.she]'s planning for [npc.her] revenge...";
-		} else {
-			if(this.isAttractedTo(Main.game.getPlayer())) {
-				return UtilText.parse(this, "[npc.Name] is quite clearly turned on by your strong aura. [npc.She]'s willing to fight you in order to claim your body.");
-				
-			} else {
-				return UtilText.parse(this, "Although your strong aura is having an effect on [npc.name], [npc.she]'s only really interested in robbing you of your possessions.");
-				
-			}
-		}
-	}
 
 	@Override
 	public Response endCombat(boolean applyEffects, boolean victory) {

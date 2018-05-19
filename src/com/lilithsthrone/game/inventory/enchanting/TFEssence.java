@@ -123,6 +123,9 @@ public enum TFEssence {
 		// Set this item's file image:
 		try {
 			InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/crafting/" + SVGString + ".svg");
+			if(is==null) {
+				System.err.println("Error! TFEssence icon file does not exist (Trying to read from '"+SVGString+"')!");
+			}
 			String base = Util.inputStreamToString(is);
 			
 			String s = base;

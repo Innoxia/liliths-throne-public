@@ -18,7 +18,6 @@ import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 
 /**
  * @since 0.1.69
@@ -212,7 +211,8 @@ public class DomKneeling {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Main.game.getPlayer().getPenisRawSizeValue() >= PenisSize.TWO_AVERAGE.getMedianValue();
+			return Main.game.getPlayer().getPenisRawSizeValue() >= PenisSize.TWO_AVERAGE.getMedianValue()
+					&& Main.game.getPlayer().hasPenisIgnoreDildo();
 		}
 
 		@Override
@@ -278,7 +278,7 @@ public class DomKneeling {
 		@Override
 		public List<OrificeType> getAreasCummedIn(GameCharacter cumProvider, GameCharacter cumTarget) {
 			if(cumProvider.equals(Main.game.getPlayer()) && cumTarget.equals(Sex.getTargetedPartner(Main.game.getPlayer()))) {
-				return Util.newArrayListOfValues(new ListValue<>(OrificeType.MOUTH));
+				return Util.newArrayListOfValues(OrificeType.MOUTH);
 			} else {
 				return null;
 			}
@@ -303,7 +303,12 @@ public class DomKneeling {
 		public String getActionDescription() {
 			return "Pull your cock out from [npc.name]'s throat and give [npc.herHim] a facial.";
 		}
-
+		
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return Main.game.getPlayer().hasPenisIgnoreDildo();
+		}
+		
 		@Override
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
@@ -366,7 +371,7 @@ public class DomKneeling {
 		public List<CoverableArea> getAreasCummedOn(GameCharacter cumProvider, GameCharacter cumTarget) {
 			if(cumProvider.isPlayer() && cumTarget.equals(Sex.getTargetedPartner(Main.game.getPlayer()))) {
 				return Util.newArrayListOfValues(
-						new ListValue<>(CoverableArea.MOUTH));
+						CoverableArea.MOUTH);
 			}
 			return null; 
 		}

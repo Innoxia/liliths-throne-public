@@ -80,3 +80,55 @@ mvn package
 
 This creates the JAR file in `/target/game-1.jar`.  
 Your first build will take longer than the subsequent ones as only changed files are recompiled.
+
+## Using NetBeans
+You should be able to use NetBeans' import zip feature to easily import this project.
+1. Use the green "Clone or Download" button on the project's main page, and choose "Download ZIP".
+2. In NetBeans, navigate to: "File -> Import Project -> From Zip..."
+3. Select the ZIP download from step 1.
+4. The imported project should now run in NetBeans.
+
+## Using IntelliJ IDEA
+You can use IDEA to clone the repository directly:
+1. Import the project from Git with "File" > "New" > "Project from Version Control" > "Git"
+2. The "Git Repository URL" is https://github.com/Innoxia/liliths-throne-public, verify it by clicking the "Test" button.
+3. "Parent Directory" and "Directory Name" define where to store the project locally, so pick the location you prefer.
+4. Click "Clone" to start importing the project.
+5. After a moment, you should see a popup in the bottom right corner informing you that there is an unmanaged pom.xml. Click the popup and select "Add as Maven Project".
+
+Alternatively, you can use a fully local copy:
+1. Go to https://github.com/Innoxia/liliths-throne-public in your preferred web browser and click "Clone or Download", then "Download ZIP".
+2. Extract the zip file where you want the project to be.
+3. In IDEA, go to "File" > "New" > "Project from Existing Sources".
+4. Navigate to the folder you extracted in step 2, select it and click "OK".
+5. In the next prompt, select "Import project from external model" and pick "Maven".
+6. Click "Next" multiple times and then "Finish". Configure the project as desired, but the default settings should be fine.
+
+Your IDE should now load the project tree with ressources, sources, etc. and generate project files as needed. Next, you need to create run configurations:
+1. For the default quick start, press Ctrl + Shift + A and search for "Edit Configurations". Open the action with that name.
+2. In the dialogue, click the "+" in the top left corner and choose "Application".
+3. Pick a name for the configuration that you will recognize (e.g. "Build and run").
+4. Click the "..." next to the "Main class" text field and search for "Main". Pick the class with that name (com.lilithsthrone.main) and click "OK".
+5. Click "Apply" and/or "OK".
+
+You should now be able to build and run the game using the new run configuration (which should be selected by default). The default hotkey is Shift + F10.
+Since this does not create a .jar file, you can add Maven run configurations to package and deploy a file that you can move to another computer:
+1. Return to the "Edit Configurations" window (use Ctrl + Shift + A if you can't find it).
+2. Click the "+" and add a "Maven" configuration.
+3. Pick a name for the configuration (e.g. "Package .jar")
+4. Set "package" as the command option (without quotation marks).
+5. Click "Apply" and/or "OK".
+
+Running the newly created configuration (Shift + F10, make sure that the correct configuration is selected in the top right corner) should create a runnable .jar file in the "target" directory within your working directory. You can rename this file to whatever you want.
+
+Note that executing it will display a warning that the "res" folder wasn't found. This is because it is copied to the wrong location during the Maven building process. You can manually copy it either from your project root directory or from "target/classes" so that it resides in the same directory as the .jar file.
+Also note that the "data" directory (that stores settings and save games) may be overriden during the building process, so make a backup of it beforehand.
+
+### Common issues
+
+#### The Main class isn't recognized and unresolved symbol errors for Java
+
+The importer sometimes fails to set the correct JDK for your project.
+1. Open the "Project Structure" dialogue (the default keybind is Ctrl + Shift + Alt + S or search for it with Ctrl + Shift + A)
+2. In the "Project" tab, select an appropriate project SDK from the drop-down menu.
+3. If there is none, click "New..." > "JDK" and locate it manually. Note that it must be for Java version 1.8 or higher.

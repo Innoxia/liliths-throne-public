@@ -12,7 +12,6 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
-import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
@@ -50,10 +49,11 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Inventory for a Character. Tracks weapons equipped, clothes worn & inventory space.
+ * Inventory for a Character. Tracks weapons equipped, clothes worn & inventory space.</br>
+ * Only the very bravest dare venture past line 717.
  * 
  * @since 0.1.0
- * @version 0.2.2
+ * @version 0.2.4
  * @author Innoxia
  */
 public class CharacterInventory implements Serializable, XMLSaving {
@@ -661,22 +661,30 @@ public class CharacterInventory implements Serializable, XMLSaving {
 		return clothingCurrentlyEquipped;
 	}
 
-	public List<InventorySlot> getInventorySlotsConcealed() {
-		Set<InventorySlot> concealed = new HashSet<>();
-		Set<InventorySlot> revealed = new HashSet<>();
+	/**
+	 * @return Map of concealed slots as keys, with a list of clothing that's concealing said slot as the value. 
+	 */
+	public Map<InventorySlot, List<AbstractClothing>> getInventorySlotsConcealed() {
+		Map<InventorySlot, List<AbstractClothing>> concealedMap = new HashMap<>();
+		Set<InventorySlot> itemConcealed = new HashSet<>();
+		Set<InventorySlot> itemRevealed = new HashSet<>();
 		for(AbstractClothing c : getClothingCurrentlyEquipped()) {
+			itemConcealed.clear();
+			itemRevealed.clear();
 			for(BlockedParts bp : c.getClothingType().getBlockedPartsList()) {
 				if(!c.getDisplacedList().contains(bp.displacementType)) {
-					concealed.addAll(bp.concealedSlots);
+					itemConcealed.addAll(bp.concealedSlots);
 				} else {
-					revealed.addAll(bp.concealedSlots);
+					itemRevealed.addAll(bp.concealedSlots);
 				}
 			}
+			itemConcealed.removeAll(itemRevealed);
+			for(InventorySlot slot : itemConcealed) {
+				concealedMap.putIfAbsent(slot, new ArrayList<>());
+				concealedMap.get(slot).add(c);
+			}
 		}
-		concealed.removeAll(revealed);
-		List<InventorySlot> concealedFinal = new ArrayList<>();
-		concealedFinal.addAll(concealed);
-		return concealedFinal;
+		return concealedMap;
 	}
 	
 	/**
@@ -713,10 +721,13 @@ public class CharacterInventory implements Serializable, XMLSaving {
 		tempSB = new StringBuilder();
 		List<AbstractClothing> clothingToRemove = new ArrayList<>();
 		for (AbstractClothing c : clothingCurrentlyEquipped){
-			
 			// Race:
 			if (c.getClothingType().getSlot().slotBlockedByRace(character) != null) {
 				transformationIncompatible(character, c, clothingToRemove, c.getClothingType().getSlot().getCannotBeWornDescription(character));
+				
+			// Clothing specials:
+			} else if (!c.isCanBeEquipped(character)) {
+				transformationIncompatible(character, c, clothingToRemove, c.getCannotBeEquippedText(character));
 				
 			// Piercings:
 			} else if(c.getClothingType().getSlot()==InventorySlot.PIERCING_EAR && !character.isPiercedEar()){
@@ -818,7 +829,7 @@ public class CharacterInventory implements Serializable, XMLSaving {
 		}
 		
 		// Can't equip piercings if that body part isn't pierced:
-		if(characterClothingOwner.getBody().getBodyMaterial()!=BodyMaterial.SLIME) { // Slimes don't care about non-cock piercings:
+		if(characterClothingOwner.getBody().getBodyMaterial().isRequiresPiercing()) { // Slimes and some elementals don't care about non-cock piercings:
 			if (!characterClothingOwner.isPiercedEar() && newClothing.getClothingType().getSlot() == InventorySlot.PIERCING_EAR) {
 				equipTextSB.append(characterClothingOwner.isPlayer()
 						?"Your ears need to be pierced before you can wear the "+newClothing.getName()+"!"
@@ -1122,9 +1133,9 @@ public class CharacterInventory implements Serializable, XMLSaving {
 				clothingToBeReplaced.sort(new ReverseClothingZLayerComparator());
 				if (!clothingToBeReplaced.isEmpty()) {// clothingCountToBeReplaced-incompatibleUnequippableClothing.size()>0)
 					equipTextSB.append(characterClothingOwner.isPlayer()
-							?"</br>You replace your " + Util.clothesToStringList(clothingToBeReplaced) + "."
+							?"</br>You replace your " + Util.clothesToStringList(clothingToBeReplaced, false) + "."
 							:UtilText.parse(characterClothingOwner,
-									"</br>[npc.Name] replaces [npc.her] " + Util.clothesToStringList(clothingToBeReplaced) + "."));
+									"</br>[npc.Name] replaces [npc.her] " + Util.clothesToStringList(clothingToBeReplaced, false) + "."));
 				}
 				
 				// Check for clothing sets:
@@ -1145,12 +1156,18 @@ public class CharacterInventory implements Serializable, XMLSaving {
 				equipTextSB.append(Util.capitaliseSentence(newClothing.getName(true))+ " "+(newClothing.getClothingType().isPlural()?"are":"is")+" able to be equipped.");
 			} else {
 				equipTextSB.append(Util.capitaliseSentence("Before" + newClothing.getClothingType().getDeterminer()) + " " + newClothing.getName()
-					+ " is able to be equipped, " + Util.clothesToStringList(clothingToRemove.keySet()) + " need"
+					+ " is able to be equipped, " + Util.clothesToStringList(clothingToRemove.keySet(), false) + " need"
 						+ (clothingToRemove.size() > 1 ? "" : "s") + " to be removed.");
 			}
 		}
 
 		return true;
+	}
+	
+	public void forceUnequipClothingIntoVoid(GameCharacter characterClothingOwner, GameCharacter characterRemovingClothing, AbstractClothing clothing) {
+		clothing.onUnequipApplyEffects(characterClothingOwner, characterRemovingClothing, false);
+		clothingCurrentlyEquipped.remove(clothing);
+		clothing.getDisplacedList().clear();
 	}
 	
 	public boolean isAbleToUnequip(AbstractClothing clothing, boolean unequipIfAble, boolean automaticClothingManagement, GameCharacter characterClothingOwner, GameCharacter characterRemovingClothing) {
@@ -1242,15 +1259,16 @@ public class CharacterInventory implements Serializable, XMLSaving {
 				}
 		}
 
-		if (continuingIsAbleToEquip)
+		if (continuingIsAbleToEquip) {
 			return true;
-
-		if (!automaticClothingManagement && clothingToRemove.size() != 1) {
+		}
+		
+		if (!automaticClothingManagement && clothingToRemove.size() > 1) { // Greater than 1, as it will contain the item of clothing that's trying to be removed.
 			equipTextSB.append(characterClothingOwner.isPlayer()
-					?"Before your " + clothing.getName() + " "+(clothing.getClothingType().isPlural()?"are":"is")+" able to be removed, " + Util.clothesToStringList(clothingToRemove.keySet()) + " need"
+					?"Before your " + clothing.getName() + " "+(clothing.getClothingType().isPlural()?"are":"is")+" able to be removed, " + Util.clothesToStringList(clothingToRemove.keySet(), false) + " need"
 						+ (clothingToRemove.size() > 1 ? "" : "s") + " to be removed."
 					:UtilText.parse(characterClothingOwner,
-							"Before [npc.name]'s " + clothing.getName() + " "+(clothing.getClothingType().isPlural()?"are":"is")+" able to be removed, " + Util.clothesToStringList(clothingToRemove.keySet()) + " need"
+							"Before [npc.name]'s " + clothing.getName() + " "+(clothing.getClothingType().isPlural()?"are":"is")+" able to be removed, " + Util.clothesToStringList(clothingToRemove.keySet(), false) + " need"
 									+ (clothingToRemove.size() > 1 ? "" : "s") + " to be removed."));
 			
 			for(AbstractClothing c : clothingToRemove.keySet()) {
@@ -1299,9 +1317,9 @@ public class CharacterInventory implements Serializable, XMLSaving {
 
 			if (!clothingToBeReplaced.isEmpty() && !continuingIsAbleToEquip) {
 				equipTextSB.append(characterClothingOwner.isPlayer()
-						?"</br>You replace your " + Util.clothesToStringList(clothingToBeReplaced) + "."
+						?"</br>You replace your " + Util.clothesToStringList(clothingToBeReplaced, false) + "."
 						:UtilText.parse(characterClothingOwner,
-								"</br>You replace [npc.name]'s " + Util.clothesToStringList(clothingToBeReplaced) + "."));
+								"</br>You replace [npc.name]'s " + Util.clothesToStringList(clothingToBeReplaced, false) + "."));
 			}
 			
 			// Check for clothing sets:
@@ -1372,7 +1390,11 @@ public class CharacterInventory implements Serializable, XMLSaving {
 							for (BlockedParts bpEquipped : equippedClothing.getClothingType().getBlockedPartsList()) {
 								for (ClothingAccess caBlocked : bpEquipped.clothingAccessBlocked) {
 
-									if (bp.clothingAccessRequired.contains(caBlocked) && !equippedClothing.getDisplacedList().contains(bpEquipped.displacementType) && !isDisplacementAvailableFromElsewhere(equippedClothing, caBlocked)) {
+									if (bp.clothingAccessRequired.contains(caBlocked)
+											&& (automaticClothingManagement
+													?isAbleToBeDisplaced(equippedClothing, bpEquipped.displacementType, false, true, characterClothingOwner, characterRemovingClothing, false)
+													:!equippedClothing.getDisplacedList().contains(bpEquipped.displacementType))
+											&& !isDisplacementAvailableFromElsewhere(equippedClothing, caBlocked)) {
 										
 										if (bpEquipped.displacementType != DisplacementType.REMOVE_OR_EQUIP && !clothingToRemove.containsKey(equippedClothing)) { // Can be displaced:
 											if (!equippedClothing.getDisplacedList().contains(bpEquipped.displacementType)){ // Not already displaced:
@@ -1441,7 +1463,7 @@ public class CharacterInventory implements Serializable, XMLSaving {
 			replaceClothingList.remove(clothing);
 			replaceClothingList.sort(new ReverseClothingZLayerComparator());
 			if (!replaceClothingList.isEmpty()) {
-				unableToDisplaceText.append("</br>You replace "+(characterClothingOwner.isPlayer()?"your":characterClothingOwner.getName()+"'s")+" " + Util.clothesToStringList(replaceClothingList) + ".");
+				unableToDisplaceText.append("</br>You replace "+(characterClothingOwner.isPlayer()?"your":characterClothingOwner.getName()+"'s")+" " + Util.clothesToStringList(replaceClothingList, false) + ".");
 			}
 			
 			return true;
@@ -1550,7 +1572,7 @@ public class CharacterInventory implements Serializable, XMLSaving {
 			replaceClothingList.addAll(clothingToRemove.keySet());
 			replaceClothingList.sort(new ReverseClothingZLayerComparator());
 			if (!replaceClothingList.isEmpty()) {
-				unableToReplaceText.append("</br>You replace "+(characterClothingOwner.isPlayer()?"your":characterClothingOwner.getName()+"'s")+" " + Util.clothesToStringList(replaceClothingList) + ".");
+				unableToReplaceText.append("</br>You replace "+(characterClothingOwner.isPlayer()?"your":characterClothingOwner.getName()+"'s")+" " + Util.clothesToStringList(replaceClothingList, false) + ".");
 			}
 			
 			return true;
@@ -1580,35 +1602,35 @@ public class CharacterInventory implements Serializable, XMLSaving {
 		// For every piece of equipped clothing, if it's blocking the coverable area, see if it can be displaced or removed.
 		// If it can't, continue searching to see if another displacement type has revealed that area.
 		// If it hasn't, return false.
-		
-		for (AbstractClothing clothing : clothingCurrentlyEquipped) {
-			for (BlockedParts bp : clothing.getClothingType().getBlockedPartsList()) {
-				if (bp.blockedBodyParts.contains(area)) {// If this clothing is blocking the area you are trying to access:
-					if (!clothing.getDisplacedList().contains(bp.displacementType)) { // If the clothing  hasn't been displaced:
-						if (byRemovingClothing) {
-							if (bp.displacementType == DisplacementType.REMOVE_OR_EQUIP) {
-								if (!isAbleToUnequip(clothing, false, byRemovingClothing, null, null)) {// If the clothing can't be removed from this area:
-									if(!isCoverableAreaExposedFromElsewhere(clothing, area)) {
-										return false;
-									}
-								}
-							} else {
-								if (!isAbleToBeDisplaced(clothing, bp.displacementType, false, byRemovingClothing, null, null)) {// If the clothing can't be displaced from this area:
-									if(!isCoverableAreaExposedFromElsewhere(clothing, area)) {
-										return false;
-									}
-								}
-							}
-						} else {
-							if(!isCoverableAreaExposedFromElsewhere(clothing, area)) {
-								return false;
-							}
-						}
-					}
-				}
-			}
-		}
-		return true;
+		return getClothingBlockingCoverableAreaAccess(area, byRemovingClothing)==null;
+//		for (AbstractClothing clothing : clothingCurrentlyEquipped) {
+//			for (BlockedParts bp : clothing.getClothingType().getBlockedPartsList()) {
+//				if (bp.blockedBodyParts.contains(area)) {// If this clothing is blocking the area you are trying to access:
+//					if (!clothing.getDisplacedList().contains(bp.displacementType)) { // If the clothing  hasn't been displaced:
+//						if (byRemovingClothing) {
+//							if (bp.displacementType == DisplacementType.REMOVE_OR_EQUIP) {
+//								if (!isAbleToUnequip(clothing, false, byRemovingClothing, null, null)) {// If the clothing can't be removed from this area:
+//									if(!isCoverableAreaExposedFromElsewhere(clothing, area)) {
+//										return false;
+//									}
+//								}
+//							} else {
+//								if (!isAbleToBeDisplaced(clothing, bp.displacementType, false, byRemovingClothing, null, null)) {// If the clothing can't be displaced from this area:
+//									if(!isCoverableAreaExposedFromElsewhere(clothing, area)) {
+//										return false;
+//									}
+//								}
+//							}
+//						} else {
+//							if(!isCoverableAreaExposedFromElsewhere(clothing, area)) {
+//								return false;
+//							}
+//						}
+//					}
+//				}
+//			}
+//		}
+//		return true;
 	}
 	
 	/**
@@ -1620,9 +1642,9 @@ public class CharacterInventory implements Serializable, XMLSaving {
 	public AbstractClothing getClothingBlockingCoverableAreaAccess(CoverableArea area, boolean byRemovingClothing) {
 		// For every piece of equipped clothing, if it's blocking the coverable area, see if it can be displaced or removed.
 		// If it can't, continue searching to see if another displacement type has revealed that area.
-		// If it hasn't, return false.
 		
-		for (AbstractClothing clothing : clothingCurrentlyEquipped) {
+		List<AbstractClothing> blockingClothingList = new ArrayList<>();
+ 		for (AbstractClothing clothing : clothingCurrentlyEquipped) {
 			for (BlockedParts bp : clothing.getClothingType().getBlockedPartsList()) {
 				if (bp.blockedBodyParts.contains(area)) {// If this clothing is blocking the area you are trying to access:
 					if (!clothing.getDisplacedList().contains(bp.displacementType)) { // If the clothing  hasn't been displaced:
@@ -1630,25 +1652,36 @@ public class CharacterInventory implements Serializable, XMLSaving {
 							if (bp.displacementType == DisplacementType.REMOVE_OR_EQUIP) {
 								if (!isAbleToUnequip(clothing, false, byRemovingClothing, null, null)) {// If the clothing can't be removed from this area:
 									if(!isCoverableAreaExposedFromElsewhere(clothing, area)) {
-										return clothing;
+										blockingClothingList.add(clothing);
+										continue;
 									}
 								}
 							} else {
 								if (!isAbleToBeDisplaced(clothing, bp.displacementType, false, byRemovingClothing, null, null)) {// If the clothing can't be displaced from this area:
 									if(!isCoverableAreaExposedFromElsewhere(clothing, area)) {
-										return clothing;
+										blockingClothingList.add(clothing);
+										continue;
 									}
 								}
 							}
 						} else {
 							if(!isCoverableAreaExposedFromElsewhere(clothing, area)) {
-								return clothing;
+								blockingClothingList.add(clothing);
+								continue;
 							}
 						}
 					}
 				}
 			}
 		}
+ 		if(!blockingClothingList.isEmpty()) {
+	 		for(AbstractClothing c : blockingClothingList) {
+	 			if(c.isSealed()) {
+	 				return c;
+	 			}
+	 		}
+	 		return blockingClothingList.get(0);
+ 		}
 		return null;
 	}
 	

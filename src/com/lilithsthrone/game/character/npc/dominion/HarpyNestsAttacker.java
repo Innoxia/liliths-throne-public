@@ -6,18 +6,16 @@ import org.w3c.dom.Element;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.Name;
 import com.lilithsthrone.game.character.attributes.Attribute;
-import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
-import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
-import com.lilithsthrone.game.dialogue.npcDialogue.HarpyNestsAttackerDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.SlaveDialogue;
+import com.lilithsthrone.game.dialogue.npcDialogue.dominion.HarpyNestsAttackerDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
@@ -65,10 +63,18 @@ public class HarpyNestsAttacker extends NPC {
 			
 			
 			// RACE & NAME:
-			if(gender.isFeminine()) {
-				setBody(Gender.F_V_B_FEMALE, RacialBody.HARPY, RaceStage.LESSER);
+			if(this.hasPenis()) {
+				if(this.hasBreasts()) {
+					setBody(Gender.F_P_B_SHEMALE, RacialBody.HARPY, RaceStage.LESSER);
+				} else {
+					setBody(Gender.F_P_TRAP, RacialBody.HARPY, RaceStage.LESSER);
+				}
 			} else {
-				setBody(Gender.F_P_TRAP, RacialBody.HARPY, RaceStage.LESSER);
+				if(this.hasBreasts()) {
+					setBody(Gender.F_V_B_FEMALE, RacialBody.HARPY, RaceStage.LESSER);
+				} else {
+					setBody(Gender.F_V_FEMALE, RacialBody.HARPY, RaceStage.LESSER);
+				}
 			}
 	
 			setName(Name.getRandomTriplet(Race.HARPY));
@@ -85,6 +91,7 @@ public class HarpyNestsAttacker extends NPC {
 			// INVENTORY:
 			resetInventory();
 			inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
+			CharacterUtils.generateItemsInInventory(this);
 			
 			CharacterUtils.equipClothing(this, true, false);
 			CharacterUtils.applyMakeup(this, true);
@@ -138,38 +145,11 @@ public class HarpyNestsAttacker extends NPC {
 	// Combat:
 
 	@Override
-	public String getCombatDescription() {
-		if(this.isPregnant()) {
-			if(hasFetish(Fetish.FETISH_PREGNANCY)) {
-				return "Visibly pregnant, [npc.name] has an elated grin on [npc.her] face, but although [npc.she] seems happy about being knocked up, [npc.she]'s still intent on 'teaching you a lesson'...";
-				
-			} else {
-				return "The consequence of finishing inside [npc.name] is standing right before you."
-						+ " Visibly pregnant, [npc.she] has a devious grin on [npc.her] face, and it's quite clear that [npc.she] wants to get some revenge...";
-			}
-		} else {
-			return UtilText.parse(this,
-					"[npc.Name] is angry that you've strayed too close to [npc.her] nest, and seems more than willing to fight you in order to teach you a lesson.");
-		}
-	}
-
-	@Override
 	public Response endCombat(boolean applyEffects, boolean victory) {
 		if (victory) {
 			return new Response("", "", HarpyNestsAttackerDialogue.AFTER_COMBAT_VICTORY);
 		} else {
 			return new Response ("", "", HarpyNestsAttackerDialogue.AFTER_COMBAT_DEFEAT);
-		}
-	}
-
-	
-
-	@Override
-	public Attack attackType() {
-		if (Math.random() < 0.7) {
-			return Attack.SEDUCTION;
-		} else {
-			return Attack.MAIN;
 		}
 	}
 	

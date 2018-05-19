@@ -43,6 +43,9 @@ public enum FetishLevel {
 		
 		try {
 			InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/fetishes/" + pathName + ".svg");
+			if(is==null) {
+				System.err.println("Error! FetishLevel icon file does not exist (Trying to read from '"+pathName+"')!");
+			}
 			SVGImageOverlay = Util.inputStreamToString(is);
 
 			SVGImageOverlay = SVGImageOverlay.replaceAll("#ff2a2a", Colour.BASE_PINK.getShades()[0]);

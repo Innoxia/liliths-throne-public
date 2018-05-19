@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  * @since 0.1.83
- * @version 0.2.2
+ * @version 0.2.4
  * @author Innoxia
  */
 public enum CoveringPattern {
@@ -22,6 +22,8 @@ public enum CoveringPattern {
 	EYE_IRISES_HETEROCHROMATIC("heterochromatic"),
 	EYE_PUPILS("standard"),
 	EYE_PUPILS_HETEROCHROMATIC("heterochromatic"),
+	EYE_SCLERA("standard"),
+	EYE_SCLERA_HETEROCHROMATIC("heterochromatic"),
 
 	HIGHLIGHTS("highlighted"),
 	STRIPED("striped"),

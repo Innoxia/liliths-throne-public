@@ -3,6 +3,7 @@ package com.lilithsthrone.game.sex.sexActions;
 import java.util.List;
 import java.util.Set;
 
+import com.lilithsthrone.controller.MainController;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
@@ -230,6 +231,12 @@ public interface SexActionInterface {
 	
 	public default Response toResponse() {
 		if(isBaseRequirementsMet() && isPhysicallyPossible() && !isBannedFromSexManager()) {
+
+			if((this.getActionType()==SexActionType.PARTNER_POSITIONING
+					|| this.getActionType()==SexActionType.PLAYER_POSITIONING)
+					&& !Sex.isPositionChangingAllowed()) {
+				return null;
+			}
 			
 //			if(!this.getParticipantType().isUsingSelfOrificeType()) {
 				if(getAssociatedOrificeType()!=null) {
@@ -560,7 +567,7 @@ public interface SexActionInterface {
 				@Override
 				public void effects() {
 					SexActionInterface.this.applyEffects();
-					Main.mainController.updateUI();
+					MainController.updateUI();
 					Main.game.updateResponses();
 				}
 				@Override
@@ -696,10 +703,20 @@ public interface SexActionInterface {
 	
 	public default boolean isBannedFromSexManager() {
 		if(getAssociatedOrificeType() != null) {
-			for(GameCharacter character : Sex.getAllParticipants()) {
-				if(Sex.getSexManager().getOrificesBannedMap().get(character)!=null && Sex.getSexManager().getOrificesBannedMap().get(character).contains(getAssociatedOrificeType())) {
-					return true;
-				}
+			GameCharacter orificeCharacter = this.getActionType().isPlayerAction()
+												?Main.game.getPlayer()
+												:Sex.getActivePartner();
+			boolean usingSelfOrifice = true;
+			if(!this.getParticipantType().isUsingSelfOrificeType()) {
+				orificeCharacter = Sex.getTargetedPartner(orificeCharacter);
+				usingSelfOrifice = false;
+			}
+			if (Sex.getSexManager().getOrificesBannedMap().get(orificeCharacter) != null
+					&& Sex.getSexManager().getOrificesBannedMap().get(orificeCharacter).contains(getAssociatedOrificeType())
+					&& (usingSelfOrifice
+							? this.getParticipantType().isUsingSelfOrificeType()
+							: !this.getParticipantType().isUsingSelfOrificeType())) {
+				return true;
 			}
 		}
 		
