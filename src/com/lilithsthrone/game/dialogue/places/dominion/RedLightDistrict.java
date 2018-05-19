@@ -6,7 +6,6 @@ import java.util.List;
 import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
-import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.gender.GenderPreference;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.misc.GenericSexualPartner;
@@ -394,22 +393,7 @@ public class RedLightDistrict {
 					return new Response("Sell body (Sub)", "Tell Angel that you've like to act as the submissive partner, and then wait around for a client to show up.", ANGELS_KISS_SELL_SELF_SUB){
 						@Override
 						public void effects() {
-							Gender gender = GenderPreference.getGenderFromUserPreferences();
-							if(!Main.game.getPlayer().isAttractedTo(gender))
-							{
-								switch(Main.game.getPlayer().getSexualOrientation())
-								{
-									case ANDROPHILIC:
-										gender = gender.toMasculine();
-										break;
-									case GYNEPHILIC:
-										gender = gender.toFeminine();
-										break;
-									default:
-										break;
-								}
-							}
-							NPC npc = new GenericSexualPartner(gender, Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
+							NPC npc = new GenericSexualPartner(GenderPreference.getGenderFromUserPreferences(Main.game.getPlayer().getSexualOrientation()), Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
 							if(Math.random()<0.4f) {
 								npc.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 							} else {
@@ -438,22 +422,7 @@ public class RedLightDistrict {
 					return new Response("Sell body (Dom)", "Tell Angel that you've like to act as the dominant partner, and then wait around for a client to show up.", ANGELS_KISS_SELL_SELF_DOM){
 						@Override
 						public void effects() {
-							Gender gender = GenderPreference.getGenderFromUserPreferences();
-							if(!Main.game.getPlayer().isAttractedTo(gender))
-							{
-								switch(Main.game.getPlayer().getSexualOrientation())
-								{
-									case ANDROPHILIC:
-										gender = gender.toMasculine();
-										break;
-									case GYNEPHILIC:
-										gender = gender.toFeminine();
-										break;
-									default:
-										break;
-								}
-							}
-							NPC npc = new GenericSexualPartner(gender, Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
+							NPC npc = new GenericSexualPartner(GenderPreference.getGenderFromUserPreferences(Main.game.getPlayer().getSexualOrientation()), Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
 							if(Math.random()<0.4f) {
 								npc.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 							} else {
