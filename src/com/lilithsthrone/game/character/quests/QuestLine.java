@@ -42,7 +42,7 @@ public enum QuestLine {
 			QuestTree.hypnoWatchTree),
 	
 	RELATIONSHIP_NYAN_HELP("Supplier Issues", "You helped Nyan solve the problem she was having with her suppliers.",
-			QuestType.SIDE,
+			QuestType.RELATIONSHIP,
 			QuestTree.nyanTree),
 
 	SIDE_HARPY_PACIFICATION("Angry Harpies", "You managed to calm down all three of the harpy matriarchs, resulting in the Harpy Nests being safe to travel through!",
