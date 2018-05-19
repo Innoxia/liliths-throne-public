@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.gender;
 
+import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 
@@ -24,11 +25,29 @@ public enum GenderPreference {
 		this.name= name;
 		this.value=value;
 	}
-	
+
 	public static Gender getGenderFromUserPreferences() {
+		return getGenderFromUserPreferences(SexualOrientation.AMBIPHILIC);
+	}
+	
+	public static Gender getGenderFromUserPreferences(SexualOrientation orientation) {
 		int total=0;
 		for(Gender g : Gender.values()) {
-			total+=Main.getProperties().genderPreferencesMap.get(g);
+			//TODO maybe needs a SexualOrientation.isAttractedTo() method?
+			switch(orientation)
+			{
+				case AMBIPHILIC:
+					total+=Main.getProperties().genderPreferencesMap.get(g);
+					break;
+				case GYNEPHILIC:
+					if(g.isFeminine())
+						total+=Main.getProperties().genderPreferencesMap.get(g);
+					break;
+				case ANDROPHILIC:
+					if(!g.isFeminine())
+						total+=Main.getProperties().genderPreferencesMap.get(g);
+					break;
+			}
 		}
 		
 		if(total == 0) {
@@ -43,9 +62,32 @@ public enum GenderPreference {
 		
 		int newTotal=0;
 		for(Gender g : Gender.values()) {
-			newTotal+=Main.getProperties().genderPreferencesMap.get(g);
-			if(random<=newTotal) {
-				return g;
+			switch(orientation)
+			{
+				case AMBIPHILIC:
+					newTotal+=Main.getProperties().genderPreferencesMap.get(g);
+					if(random<=newTotal) {
+						return g;
+					}
+					break;
+				case GYNEPHILIC:
+					if(g.isFeminine())
+					{
+						newTotal+=Main.getProperties().genderPreferencesMap.get(g);
+						if(random<=newTotal) {
+							return g;
+						}
+					}
+					break;
+				case ANDROPHILIC:
+					if(!g.isFeminine())
+					{
+						newTotal+=Main.getProperties().genderPreferencesMap.get(g);
+						if(random<=newTotal) {
+							return g;
+						}
+					}
+					break;
 			}
 		}
 		
