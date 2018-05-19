@@ -1058,7 +1058,7 @@ public class ItemEffectType {
 	};
 	
 	public static AbstractItemEffectType PEACH = new AbstractItemEffectType(Util.newArrayListOfValues(
-			new ListValue<>("[style.boldGood(Increase)] 1 [style.boldHealth(ass size)]")),
+			"[style.boldGood(Increase)] 1 [style.boldHealth(ass size)]"),
 			Colour.ATTRIBUTE_CORRUPTION) {
 		
 		@Override
