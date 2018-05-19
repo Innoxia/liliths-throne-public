@@ -4033,7 +4033,7 @@ public class ItemType {
 			null,
 			Rarity.LEGENDARY,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.PEACH))), null) {
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.PEACH)), null) {
 
 		private static final long serialVersionUID = 1L;
 
