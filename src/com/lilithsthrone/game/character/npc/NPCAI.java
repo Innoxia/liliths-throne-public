@@ -5,7 +5,7 @@ package com.lilithsthrone.game.character.npc;
 import java.util.Random;
 
 import com.lilithsthrone.world.places.PlaceType;
-
+import com.lilithsthrone.game.slavery.SlavePermissionSetting;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Vector2i;
 
@@ -15,14 +15,37 @@ import java.util.List;;
 /* This is a attempt at creating some sort of AI for NPC and try to add:
  * 	-Roaming NPC in the map instead of static location
  * 	-Trigger encounter upon meeting the player in the map  
- * 	-Chase player
+ * 	-Chase player on sight
+ * 	
+ * 
+ * 	**Time consuming idea**
+ * 	-Path finding algorithm for NPC goal(example: Slave has use_you permission could have to get to you before using you instead of teleporting)
+ * 
  * 
  * PS: Java is not my main language 
  */
 
 public abstract class NPCAI {
+	public static void AIEndTurn(NPC CurrentNpc)
+	{
+		//Movement:
+		
+		//Everybody that is not a slave or a companion can move
+		if(!CurrentNpc.isSlave() && !Main.game.getPlayer().getCompanions().contains(CurrentNpc))
+		{
+			NPCMoveToNextRandomLocation(CurrentNpc);
+		}
+		//If a slave, but resting can move with house_freedom permission
+		else if(Main.game.getSlaveryUtil().isResting(CurrentNpc))
+		{
+			if(CurrentNpc.hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_HOUSE_FREEDOM)) 
+			{
+			NPCMoveToNextRandomLocation(CurrentNpc);
+			}
+		}
+	}
 	
-	public static void NPCMoveToNextLocation(NPC CurrentNpc)
+	public static void NPCMoveToNextRandomLocation(NPC CurrentNpc)
 	{
 		List<Vector2i> AvailableLocation = new ArrayList<Vector2i>();		
 		Random rand = new Random();
