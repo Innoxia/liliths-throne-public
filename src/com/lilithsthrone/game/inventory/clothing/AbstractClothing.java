@@ -117,6 +117,8 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 				clothingType.getRarity(),
 				null);
 
+		this.itemTags = new HashSet<>(clothingType.getItemTags());
+		
 		this.clothingType = clothingType;
 		this.effects = clothingType.getEffects();
 

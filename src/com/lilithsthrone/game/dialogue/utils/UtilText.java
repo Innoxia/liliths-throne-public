@@ -731,10 +731,11 @@ public class UtilText {
 					return input;
 				}
 				return input.substring(0, startIndex) 
-						+ parse(specialNPC, (processingConditional
-								? parseConditionalSyntaxNew(target, command, arguments, conditionalTrue, conditionalFalse)
-								: parseSyntaxNew(target, command, arguments, specialNPC)
-						+ input.substring(endIndex+1, input.length())));
+						+ parse(specialNPC,
+								(processingConditional
+									? parseConditionalSyntaxNew(target, command, arguments, conditionalTrue, conditionalFalse)
+									: parseSyntaxNew(target, command, arguments, specialNPC))
+								+ input.substring(endIndex+1, input.length()));
 			} else {
 				return input;//.replaceAll(" a ", " <span style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>a big moo</span> ");
 			}
@@ -776,6 +777,18 @@ public class UtilText {
 			@Override
 			public boolean process(String command, String arguments, String target) {
 				return character.isCoverableAreaExposed(CoverableArea.VAGINA);
+			}
+		});
+
+		conditionalCommandsList.add(new ParserConditionalCommand(
+				Util.newArrayListOfValues(
+						"isAbleToFly",
+						"canFly"),
+				"",
+				"Returns true if the character can fly."){
+			@Override
+			public boolean process(String command, String arguments, String target) {
+				return character.isAbleToFly();
 			}
 		});
 		

@@ -73,7 +73,7 @@
 	<p>
 		[claire.speech(Pleased to meet you, [pc.name]. Oh, and one last thing! We've recently been having some trouble with some slimes attacking innocent travellers and then transforming them into even more slimes.)]
 		 Claire says, taking on a stern expression as she looks you right in the eyes.
-		 [claire.speech(Now, I know I just told you to stay out of the tunnels, but I get the feeling you're not going to listen to my advice. If you do end up going in there, just be extra careful of any slimes you bump into. And if, by some miracle, you're able to get any information on why these slimes are doing this, there's a five-thousand flame reward being offered.)]
+		 [claire.speech(Now, I know I just told you to stay out of the tunnels, but I get the feeling you're not going to listen to my advice. If you do end up going in there, just be extra careful of any slimes you bump into. And if, by some miracle, you're able to get any information on why these slimes are doing this, there's a one-thousand flame reward being offered if you report it to me.)]
 	</p>
 	<p>
 		[pc.speech(Thanks for the warning.)]

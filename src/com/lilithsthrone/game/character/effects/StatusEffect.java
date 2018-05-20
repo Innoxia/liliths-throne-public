@@ -2135,7 +2135,7 @@ public enum StatusEffect {
 			Colour.CLOTHING_BLUE_LIGHT,
 			true,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 100f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, -100f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_UNARMED, -100f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 15f)),
 			Util.newArrayListOfValues(
 					"<b style='color: "+ Colour.TRANSFORMATION_GENERIC.toWebHexString()+ ";'>Can morph body at will</b>",
@@ -2143,7 +2143,7 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			return "Due to their soft and morphable bodies, slimes have an extremely high resistance to physical damage, but they can't really do much physical damage either."
+			return "Due to their soft and morphable bodies, slimes have an extremely high resistance to physical damage, but they can't really inflict any damage without a weapon."
 					+ " They can morph their bodies to seem extremely attractive to their opponents.";
 		}
 

@@ -23,83 +23,159 @@
 	Patch notes:
 	
 	Gameplay:
-		Added a small encounter for Mother's Day on Dominion's boulevard tiles. There's a 10% chance for it to fire, and it requires the game's date to be the second week of May. (I thought that the second Sunday of May was too narrow a time period.)
+		Added new quest 'Slime Queen'. You should automatically pick this up from Claire when you enter Submission (she will repeat her initial dialogue if you've already seen it).
+		Added unique slime attack descriptions for Submission's tunnels, along with transformation behaviour of wanting to TF you into a slime.
+		(Not yet finished!) Added the map 'Slime Queen's tower' as part of the new quest, with 4 new NPCs in there.
 	
-	Contributors:
-		Fixed body-part modifiers being incorrectly loaded in from old save files. (Pimvgd)
-		Increased parser performance. (Pimvgd) Innoxia's note: This massively increased rendering performance in all screens for me (most notably in the inventory screen).
-		Refactored code to remove unnecessary ListValue objects. (Pimvgd)
-		Fixed penis size alteration buttons incorrectly showing 'cm' when disabled. (Pimvgd)
-		Added hasWeaponEquipped method to handle possible future issues with enchanting weapons. (Pimvgd)
-		Fixed softlock caused by opening options menu during examining alexandria in intro. (Pimvgd)
+	Balance:
+		Changed slime's status effect from -100 physical damage to -100 unarmed damage.
 	
-	UI:
-		Improved inventory UI to stop that annoying stuttering/resizing caused by the scrollbar appearing and disappearing.
+	Artwork:
+		Added Jam's artwork of Claire.
+	
+	Weapons:
+		Added support for dying weapon colours.
+		Added: Zweihander (Main weapon slot).
+		Added: Knightly Sword (Main weapon slot).
+		Added: Buckler (Offhand weapon slot).
+	
+	Clothing:
+		Added secondary colour to navel barbell (for the gem).
+		Added snowflake jewelry to Nyan's shop.
+		Added: Sun necklace (no femininity requirements, neck slot).
+		Added: Sun earrings (no femininity requirements, ear piercing slot).
+		Added: Sun nose stud (no femininity requirements, nose piercing slot).
 	
 	Other:
-		All 'Submit' actions in the game are no longer completely locked out by not having the Submissive fetish, and instead have an associated corruption bypass cost.
-		Having a special flavour for milk, cum, or girlcum now increases its value.
-		Vicky now stocks 12 TF potions every day, instead of 6.
-		Slightly improved item ordering in inventory.
-		Added secondary colour to 'sport shorts', for the string tie. Replaced Lumi's shorts with sport shorts.
-		NPCs can now dress themselves once per hour instead of once per day.
-		Most demons and imps should now spawn in having already lost their penile virginity.
-		Added 'deflowering' fetish experience gain from taking virginities.
-		Added description of the rooms in Angel's Kiss having small bathrooms.
-		You can now drink fluids in the milking room if the total quantity is less than 100ml.
-		Enchanting effects are no longer cleared if there's another item of the same type in your inventory. (So if you want to craft lots of potions, you can now keep on clicking 'Craft', without needing to reload the effects every time.)
+		The losing party's elementals are now dispelled at the end of combat.
+		Slightly changed biojuice canister icon, lowered its value, and removed it from random Submission drops.
 	
 	Bugs:
-		Fixed several body covering colours not being saved or loaded correctly. (Some body colours might be reset as part of this fix, but they should now correctly save from now on.)
-		Fixed cause of a game import error (related to SlaveryUtil).
-		Fixed cause of possible game crash when clicking on weapons in inventory.
-		Fixed bug where milking room was milking cum instead of girlcum.
-		Milk regeneration enchantments are now correctly affected by the Water School perk (i.e. it's free).
-		Fixed a malfunction in the milking machines, where, even if they were powerful enough to do it, they wouldn't extract any stored milk from a slave's breasts past their milk regeneration rate. (e.g. If a slave had 500ml of milk in their breasts, and they regenerated 100ml an hour, and the machine was capable of milking 250ml an hour, the machine would only be milking 100ml an hour, instead of 250/250/200/100/etc.)
-		Fixed Vicky's potions having strange names.
-		Fixed Vicky's inventory resetting every time you loaded the game.
-		Fixed attackers in arcane storms using prostitute dialogue.
-		Fixed TF menu penis size showing 'cm' instead of 'inches'.
-		Pressing enter in the enchanting screen's rename box will no longer make the screen go blank.
-		Fixed another(!!!!!) cause of the NPC-stuck-on-screen bug.
-		Fixed companions being treated as librarians when entering Lilaya's library.
-		Fixed custom names for clothing not persisting between saves.
-		Fixed elusive bug where slave rooms would sometimes randomly reset their upgrades.
-		Fixed debug menu being available in the prologue (as it would end up breaking everything if used).
-		Typo fixes.
-		Fixed bug where equipped condoms couldn't be clicked on.
-		Spell actions should no longer be duplicated in combat. (Caused by unlocking a spell and also having a weapon that grants that spell.)
-		Fixed bug where a random NPC's inventory would be shown on the bottom-right during masturbation scenes. (I think this was also causing a bug where masturbation scenes could break and show no actions.)
-		Fixed Pix losing affection towards you at the end of her sex scene.
-		Fixed enchantment save/load confirmations not working properly.
-		Fixed bug where characters without genitalia would get stuck in Lilaya's panty masturbation scene at 100 lust.
-		Fixed horn TF options appearing twice in the transformation options for slimes.
-		Fixed offhand attacks applying the damage type of your main weapon.
-		Fixed bug where only one of a slaves' milk/cum/girlcum would be milked.
-		Fixed sex AI bug where NPCs with oral fetishes would stop/start oral actions.
-		Fixed modded clothing colours not being able to use custom colour lists.
-		Fixed bugs in Arthur's and Amber's descriptions.
-		Fluids will no longer show in the milking room if there's 0ml of them.
-		Fixed bug where the 'pet' in Amber's walkies fucking scene would sometimes generate with fetishes that would cause the scene to never progress.
-		Fixed bug where characters couldn't be imported as slaves if they had been exported with companions in their party.
-		Fixed bug where trying to delete an exported character with confirmations on would send you to the save/load screen.
+		Fixed bug in clothing displacement detection method, which could sometimes cause the game to lock up when wearing sealed clothing.
+		Fixed chaos feathers only being available in the poison damage type.
+		Enchanting clothing will no longer reset item tags (which was causing the bug of nipple tape crosses losing their plugging effect).
+		Fixed obsolete reference to a dress in succubus attacker dialogue.
+		Fixed slime colours resetting every time the game was loaded.
 	
 	
 	
 	
+	Add slime TF quest.
+		[X] Enforcer post quest - pick up when enter submission.
+		[X] Add slime encounters
+			[X] If TF fetish OR first slime after getting quest: They want to feed you biojuice canister
+			[X] Else: They mug you
+			[X] Slime TF encounters mention a slime queen.
+		[X] Returning to Claire quest. (She comments on you being a slime)
+		[X] Claire mentions the Bat Caverns as the only place a Slime Queen could be hiding.
+		[X] Add unique Slime Queen NPC, and slime guards (who take you to the queen if they beat you).
+		[X] Add Slime Queen's lair map
+		[X] Add royal guard
+		[X] Go to slime lake and either take boat, or fly to island
+		[X] Test map and NPC additions
+		[X] Bypass initial fight if PC is slime, maid, or butler
+		[X] Guard encounter - they fuck you and then throw you out if win
+		[X] Trick royal guard into tiring himself out before fight, can then bypass if brawler or soldier
+		[X] Royal guard fucks you and throws you out if wins
+		[x] Slime queen is "manufacturing" the bio-canisters to transform everyone into slimes (it's her milk/girlcum)
+			She refuses to fight (and makes her case for why she's doing it). You can either:
+				[x] Help her
+					[x] She offers to TF you into slime through absorption
+					[x] Slime population in Submission massively increases
+				[x] Convince her to stop
+					[x] She reluctantly accepts
+				[x] Force her to stop
+					[x] "Rape" her
+		[ ] All tower descriptions done
+		[ ] Return to Claire and tell her there's no slime queen (She comments on you being a slime)
+		
+	[ ] Harpy offspring
+		
+	Slime solidification quest
+		[ ] If slime, then gain Lilaya's anti-slime TF quest
+			[ ] She asks for 5 angel's tears and 25 bottled essences
+			[ ] Quest completes, and can always return to her to get her to make more
+		
+	
+	Special encounters for:
+			
+		Rat-morphs & Alligator-morphs
+			[ ] Just want to mug you (Follow outline below)
+			
+		Imps
+			[ ] Imp gang encounter (1-3 imps)
+				[ ] Mugging
+				[ ] TF
+			[ ] Alpha Imp gang encounter (Alpha + 2-4 imps, for 5 max)
+			
+		[ ] Finish bat caverns (finding items)
+		Bat-morphs
+			[ ] Finish bat descriptions and racial effects
+			[ ] Glowing slime attacks
+			[ ] Talking encounter
+			[ ] Mugging encounter
+			
+	Imp fortresses
+		[ ] Fortress 1
+		[ ] Fortress 2
+		[ ] Fortress 3
+		[ ] Fortress 4
+		[ ] Fortress 5
+	
+	Gambling Den
+		[ ] Pregnancy roulette
+		[ ] Dice poker
+		[ ] Overpriced trader
 	
 	
+	
+	Random encounters:
+	Intro
+	Leave/Pay
+	Fight
+		Post-fight win
+			Sex
+			Leave
+		Post-fight loss
+			TF
+				Sex
+				Enemy leaves
+			Sex
+			Enemy leaves
+	Submit
+		Sex
+			
+			
+			
+	Can read Candi ass & va after loading
+	
+	: When you get parts unpierced, the piercings stay in until manually removed.
+		
+	stats human damage/resistance shown twice	
+	
+	Strapon is bugged overall. It kinda counts as a real cock so I got the penile virginity loss message (which then applies on a newly grown one as well) and NPCs try to shrink it when they transform me and I cannot grow a natural cock when using potions.
+	
+	organise getItemUseEffects()
+	
+	I have 8 slaves working the milking room and it's set to storing but it doesn't store anything. It works when I self milk though.
+	
+	Is anyone getting a bug where the milker job turns everyone's fluid into Human stuff? I've been milking wolf/horse/alligator/cows but all I ever get is human cum/milk.
+	
+	fix stats bars
+	
+	When looking at Ashley's description, it will say "She is free-willed, and will do whatever she wants", when it should say "they"
+	
+	spreader bar blocks jeans removal, but jeans conceal spreader bar
+	
+	The import doesn't import completely, my char lost her make-up.
 	
 	Lilaya fuck scene
 	
 	Anyone have trouble with the game freezing up if you get jumped in your house by a slave while under the "Risk of pregnancy" status effect
 	
-	USE 8 0170
-	
 	rfpnj PR
 	
-	Fen forms and TFGS update pictures and hotfix
-	
+	thrusting hips out for nipple pen?
 	
 	
 	after growing more than 1 tail I lost the option to tail peg
@@ -107,6 +183,7 @@
 	handjobs and breastfeeding as ongoing
 	hand as orifice
 	
+	Can you not remove addictive qualities out of a slave's cum? I keep trying to use Enchanted Angel Tears to remove it but it doesn't do shit
 	
 	it seems like the part of the description where it says how many times you've had sex with someone counts the number of times they've had sex in a brothel while working for you as a slave
 	
@@ -157,48 +234,6 @@
 		Perhaps the solution there would be that if a cock is sheathed it allows you to have a cock up to 16 before you are recognized
 		Where people will recognize you as female but say they always knew you were futa if your cock size is above 8 inches
 		
-		
-	Special encounters for:
-			
-		Rat-morphs & Alligator-morphs
-			Just want to mug you
-			
-		Slimes
-			If TF fetish: They feed you biojuice canister
-			Else: They mug you
-			
-		Imps
-			Two or three at once
-			
-		Bat-morphs
-			Finish bat descriptions and racial effects
-			Most just want to talk
-			
-	Imp fortresses
-	Gambling Den
-	Bat caverns.
-		
-	Add slime TF quest.
-		Enforcer post quest - pick up when enter submission.
-		Slime TF encounters mention a slime queen.
-		They mention the slime lake as the only possible place where a queen could be.
-		
-		Go to slime lake and either defeat slime guards to take boat, or fly to island
-		The house is a staircase down into a brightly-lit underground palace
-		Slimes
-		Slime queen is "manufacturing" the bio-canisters to transform everyone into slimes (it's her milk/girlcum)
-			Can either submit and help her (she TF's you into slime through absorption)
-				Slime population increases
-			Or fight her
-				Destroy slime equipment
-				
-	If slime, then gain Lilaya's anti-slime TF quest
-		She asks for 10 angel's tears and 100 bottled essences
-		Takes 3 days to make solidification elixir
-				
-
-
-
 
 	
 	- Add job: bedroom slave to act as alarm clock with blowjobs and sex. 

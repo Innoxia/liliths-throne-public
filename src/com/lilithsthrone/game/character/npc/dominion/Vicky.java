@@ -214,13 +214,14 @@ public class Vicky extends NPC {
 	@Override
 	public void dailyReset() {
 		clearNonEquippedInventory();
-
-		for(int i=0;i<2;i++){
-			this.addWeapon(AbstractWeaponType.generateWeapon(WeaponType.OFFHAND_CHAOS_RARE), false);
-			this.addWeapon(AbstractWeaponType.generateWeapon(WeaponType.MELEE_CHAOS_RARE), false);
+		
+		for(AbstractWeaponType wt : WeaponType.allweapons) {
+			if(wt.getItemTags().contains(ItemTag.SOLD_BY_VICKY)) {
+				for(int i=0; i<1+Util.random.nextInt(3); i++){
+					this.addWeapon(AbstractWeaponType.generateWeapon(wt), false);
+				}
+			}
 		}
-		this.addWeapon(AbstractWeaponType.generateWeapon(WeaponType.OFFHAND_CHAOS_EPIC), false);
-		this.addWeapon(AbstractWeaponType.generateWeapon(WeaponType.MELEE_CHAOS_EPIC), false);
 		
 		AbstractItem ingredient = AbstractItemType.generateItem(availableIngredients[Util.random.nextInt(availableIngredients.length)]);
 		TFModifier primaryMod = TFModifier.getTFRacialBodyPartsList().get(Util.random.nextInt(TFModifier.getTFRacialBodyPartsList().size()));

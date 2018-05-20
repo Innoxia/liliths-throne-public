@@ -101,7 +101,7 @@ public class LoadedEnchantment {
 			if(item!=null) {
 				return ((AbstractWeapon)item).getSVGString();
 			}
-			return weaponType.getSVGString();
+			return weaponType.getSVGImage();
 		}
 	}
 	

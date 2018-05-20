@@ -512,11 +512,7 @@ public enum Encounter {
 				
 			} else if (node == EncounterType.SUBMISSION_FIND_ITEM) {
 				
-				if(Math.random()<0.8f) {
-					randomItem = AbstractItemType.generateItem(ItemType.submissionTunnelItems.get(Util.random.nextInt(ItemType.submissionTunnelItems.size())));
-				} else {
-					randomItem = AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_SLIME);
-				}
+				randomItem = AbstractItemType.generateItem(ItemType.submissionTunnelItems.get(Util.random.nextInt(ItemType.submissionTunnelItems.size())));
 				
 				Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addItem(randomItem);
 				return SubmissionEncounterDialogue.FIND_ITEM;
