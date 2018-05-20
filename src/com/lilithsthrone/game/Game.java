@@ -1025,8 +1025,7 @@ public class Game implements Serializable, XMLSaving {
 	
 	public void endTurn(int turnTime, boolean advanceTime) {
 		
-//		long tStart = System.nanoTime();
-		
+//		long tStart = System.nanoTime();		
 		long startHour = getHour();
 		
 		if(advanceTime) {
@@ -1303,8 +1302,6 @@ public class Game implements Serializable, XMLSaving {
 		if(Main.game.getCurrentDialogueNode().getDialogueNodeType()==DialogueNodeType.NORMAL) { // Catch slavery management NPC not correctly being assigned to null:
 			Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(null);
 		}
-		
-		
 		
 //		System.out.println((System.nanoTime()-tStart)/1000000000d+"s");
 	}

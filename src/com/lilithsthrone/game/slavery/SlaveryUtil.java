@@ -1075,4 +1075,9 @@ public class SlaveryUtil implements XMLSaving {
 		return slavesResting;
 	}
 	
+	public boolean isResting(NPC npc)
+	{
+		return !npc.isSlave() || slavesResting.contains(npc);		
+	}
+	
 }
