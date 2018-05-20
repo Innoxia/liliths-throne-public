@@ -806,7 +806,7 @@ public class ItemEffectType {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			target.incrementHealth(target.getAttributeValue(Attribute.HEALTH_MAXIMUM)/20);
+			target.incrementHealth(target.getAttributeValue(Attribute.MANA_MAXIMUM)/20);
 
 			return "<p style='text-align:center;'>"
 					+(target.isPlayer()
