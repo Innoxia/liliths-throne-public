@@ -35,7 +35,9 @@ public enum Race {
 			Attribute.DAMAGE_HUMAN,
 			Attribute.RESISTANCE_HUMAN,
 			FurryPreference.NORMAL,
-			FurryPreference.NORMAL),
+			FurryPreference.NORMAL,
+			
+			"None"),
 	
 	// HUMAN:
 	HUMAN("human",
@@ -62,7 +64,9 @@ public enum Race {
 			Attribute.DAMAGE_HUMAN,
 			Attribute.RESISTANCE_HUMAN,
 			FurryPreference.NORMAL,
-			FurryPreference.NORMAL),
+			FurryPreference.NORMAL,
+			
+			"sapien"),
 
 	// ANGEL:
 	ANGEL("angel",
@@ -89,7 +93,10 @@ public enum Race {
 			Attribute.DAMAGE_ANGEL,
 			Attribute.RESISTANCE_ANGEL,
 			FurryPreference.NORMAL,
-			FurryPreference.NORMAL),
+			FurryPreference.NORMAL,
+			
+			"angelic"
+			),
 
 	// DEMON:
 	DEMON("demon",
@@ -117,7 +124,9 @@ public enum Race {
 			Attribute.DAMAGE_DEMON,
 			Attribute.RESISTANCE_DEMON,
 			FurryPreference.MAXIMUM,
-			FurryPreference.MAXIMUM),
+			FurryPreference.MAXIMUM,
+			
+			"demonic"),
 
 	IMP("imp",
 			"imps",
@@ -143,7 +152,8 @@ public enum Race {
 			Attribute.DAMAGE_IMP,
 			Attribute.RESISTANCE_IMP,
 			FurryPreference.MAXIMUM,
-			FurryPreference.MAXIMUM),
+			FurryPreference.MAXIMUM,
+			"impish"),
 
 	// BOVINES:
 	COW_MORPH("cow-morph",
@@ -170,7 +180,9 @@ public enum Race {
 			Attribute.DAMAGE_COW_MORPH,
 			Attribute.RESISTANCE_COW_MORPH,
 			FurryPreference.NORMAL,
-			FurryPreference.NORMAL),
+			FurryPreference.NORMAL,
+			
+			"bovine"),
 
 	// CANINES:
 	DOG_MORPH("dog-morph",
@@ -195,7 +207,9 @@ public enum Race {
 			Attribute.DAMAGE_DOG_MORPH,
 			Attribute.RESISTANCE_DOG_MORPH,
 			FurryPreference.NORMAL,
-			FurryPreference.NORMAL),
+			FurryPreference.NORMAL,
+			
+			"canine"),
 
 	WOLF_MORPH("wolf-morph",
 			"wolf-morphs",
@@ -221,7 +235,9 @@ public enum Race {
 			Attribute.DAMAGE_WOLF_MORPH,
 			Attribute.RESISTANCE_WOLF_MORPH,
 			FurryPreference.NORMAL,
-			FurryPreference.NORMAL),
+			FurryPreference.NORMAL,
+			
+			"lupine"),
 
 	// FELINES:
 	CAT_MORPH("cat-morph",
@@ -248,7 +264,9 @@ public enum Race {
 			Attribute.DAMAGE_CAT_MORPH,
 			Attribute.RESISTANCE_CAT_MORPH,
 			FurryPreference.NORMAL,
-			FurryPreference.NORMAL),
+			FurryPreference.NORMAL,
+			
+			"feline"),
 
 	// EQUINE:
 	HORSE_MORPH("horse-morph",
@@ -275,7 +293,9 @@ public enum Race {
 			Attribute.DAMAGE_HORSE_MORPH,
 			Attribute.RESISTANCE_HORSE_MORPH,
 			FurryPreference.NORMAL,
-			FurryPreference.NORMAL),
+			FurryPreference.NORMAL,
+			
+			"equine"),
 
 	
 	 REINDEER_MORPH("reindeer-morph",
@@ -302,7 +322,9 @@ public enum Race {
 			Attribute.DAMAGE_REINDEER_MORPH,
 			Attribute.RESISTANCE_REINDEER_MORPH,
 			FurryPreference.NORMAL,
-			FurryPreference.NORMAL),
+			FurryPreference.NORMAL,
+			
+			 "rangiferine"),
 			
 
 	SQUIRREL_MORPH("squirrel-morph",
@@ -328,7 +350,9 @@ public enum Race {
 			Attribute.DAMAGE_SQUIRREL_MORPH,
 			Attribute.RESISTANCE_SQUIRREL_MORPH,
 			FurryPreference.NORMAL,
-			FurryPreference.NORMAL),
+			FurryPreference.NORMAL,
+			
+			"furry"),
 
 	RAT_MORPH("rat-morph",
 			"rat-morphs",
@@ -354,7 +378,9 @@ public enum Race {
 			Attribute.DAMAGE_RAT_MORPH,
 			Attribute.RESISTANCE_RAT_MORPH,
 			FurryPreference.NORMAL,
-			FurryPreference.NORMAL),
+			FurryPreference.NORMAL,
+			
+			"rat"),
 
 	RABBIT_MORPH("rabbit-morph",
 			"rabbit-morphs",
@@ -380,7 +406,9 @@ public enum Race {
 			Attribute.DAMAGE_RABBIT_MORPH,
 			Attribute.RESISTANCE_RABBIT_MORPH,
 			FurryPreference.NORMAL,
-			FurryPreference.NORMAL),
+			FurryPreference.NORMAL,
+			
+			"rabbit"),
 	
 	BAT_MORPH("bat-morph",
 			"bat-morphs",
@@ -406,7 +434,8 @@ public enum Race {
 			Attribute.DAMAGE_BAT_MORPH,
 			Attribute.RESISTANCE_BAT_MORPH,
 			FurryPreference.NORMAL,
-			FurryPreference.NORMAL),
+			FurryPreference.NORMAL,
+			"bat"),
 	
 	ALLIGATOR_MORPH("alligator-morph",
 			"alligator-morphs",
@@ -432,7 +461,9 @@ public enum Race {
 			Attribute.DAMAGE_ALLIGATOR_MORPH,
 			Attribute.RESISTANCE_ALLIGATOR_MORPH,
 			FurryPreference.NORMAL,
-			FurryPreference.NORMAL),
+			FurryPreference.NORMAL,
+			
+			"alligator"),
 
 	// SLIME:
 	SLIME("slime",
@@ -457,7 +488,8 @@ public enum Race {
 			Attribute.DAMAGE_SLIME,
 			Attribute.RESISTANCE_SLIME,
 			FurryPreference.MAXIMUM,
-			FurryPreference.MAXIMUM),
+			FurryPreference.MAXIMUM,
+			"slimey"),
 
 	// AVIAN:
 	HARPY("harpy",
@@ -484,7 +516,9 @@ public enum Race {
 			Attribute.DAMAGE_HARPY,
 			Attribute.RESISTANCE_HARPY,
 			FurryPreference.NORMAL,
-			FurryPreference.NORMAL),
+			FurryPreference.NORMAL,
+			
+			"feathered"),
 	
 
 	// ELEMENTALS:
@@ -512,7 +546,9 @@ public enum Race {
 			Attribute.DAMAGE_ELEMENTAL_EARTH,
 			Attribute.RESISTANCE_ELEMENTAL_EARTH,
 			FurryPreference.MAXIMUM,
-			FurryPreference.MAXIMUM),
+			FurryPreference.MAXIMUM,
+			
+			"earthy"),
 	
 	ELEMENTAL_WATER("water elemental",
 			"water elementals",
@@ -538,7 +574,9 @@ public enum Race {
 			Attribute.DAMAGE_ELEMENTAL_WATER,
 			Attribute.RESISTANCE_ELEMENTAL_WATER,
 			FurryPreference.MAXIMUM,
-			FurryPreference.MAXIMUM),
+			FurryPreference.MAXIMUM,
+			
+			"watery"),
 	
 	ELEMENTAL_AIR("air elemental",
 			"air elementals",
@@ -564,7 +602,9 @@ public enum Race {
 			Attribute.DAMAGE_ELEMENTAL_AIR,
 			Attribute.RESISTANCE_ELEMENTAL_AIR,
 			FurryPreference.MAXIMUM,
-			FurryPreference.MAXIMUM),
+			FurryPreference.MAXIMUM,
+			
+			"gassy"),
 	
 	ELEMENTAL_FIRE("fire elemental",
 			"fire elementals",
@@ -591,7 +631,9 @@ public enum Race {
 			Attribute.DAMAGE_ELEMENTAL_FIRE,
 			Attribute.RESISTANCE_ELEMENTAL_FIRE,
 			FurryPreference.MAXIMUM,
-			FurryPreference.MAXIMUM),
+			FurryPreference.MAXIMUM,
+			
+			"firey"),
 	
 	ELEMENTAL_ARCANE("arcane elemental",
 			"arcane elementals",
@@ -617,7 +659,9 @@ public enum Race {
 			Attribute.DAMAGE_ELEMENTAL_ARCANE,
 			Attribute.RESISTANCE_ELEMENTAL_ARCANE,
 			FurryPreference.MAXIMUM,
-			FurryPreference.MAXIMUM),
+			FurryPreference.MAXIMUM,
+			
+			"choatic"),
 	
 	
 
@@ -716,7 +760,9 @@ public enum Race {
 			Attribute.DAMAGE_HARPY,
 			Attribute.RESISTANCE_HARPY,
 			FurryPreference.NORMAL,
-			FurryPreference.NORMAL
+			FurryPreference.NORMAL,
+			
+			"apis"
 			);
 	/*
 	 * TIGER_MORPH("tiger-morph",
@@ -1443,7 +1489,7 @@ public enum Race {
 	 * StatusEffect.LILIN);
 	 */
 
-	private String name, basicDescription, advancedDescription;
+	private String name, basicDescription, advancedDescription, transformationName;
 	private Colour colour;
 	private Disposition disposition;
 	private StatusEffect statusEffect;
@@ -1478,12 +1524,16 @@ public enum Race {
 			Attribute resistanceMultiplier,
 			
 			FurryPreference defaultFemininePreference,
-			FurryPreference defaultMasculinePreference) {
+			FurryPreference defaultMasculinePreference,
+			
+			String transformName) {
 		this.name = name;
 
 		this.basicDescription = basicDescription;
 		this.advancedDescription = advancedDescription;
 
+		
+		this.transformationName = transformName;
 		this.colour = colour;
 		this.disposition = disposition;
 		this.statusEffect = statusEffect;
@@ -1546,6 +1596,11 @@ public enum Race {
 	
 	public boolean isAffectedByFurryPreference() {
 		return defaultFemininePreference != null && defaultMasculinePreference!=null;
+	}
+	
+	public String getTransformName() {
+		
+		return this.transformationName;
 	}
 	
 	// Offspring names:

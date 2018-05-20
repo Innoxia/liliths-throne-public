@@ -127,45 +127,7 @@ public enum EyeType implements BodyPartTypeInterface {
 		return "";
 	}
 	
-	public String getTransformName() {
-		switch(this){
-			case ANGEL:
-				return "angelic";
-			case CAT_MORPH:
-				return "feline";
-			case DEMON_COMMON:
-				return "demonic";
-			case IMP:
-				return "impish";
-			case DOG_MORPH:
-				return "canine";
-			case COW_MORPH:
-				return "bovine";
-			case SQUIRREL_MORPH:
-				return "squirrel-like";
-			case ALLIGATOR_MORPH:
-				return "alligator";
-			case HARPY:
-				return "avian";
-			case HORSE_MORPH:
-				return "equine";
-			case REINDEER_MORPH:
-				return "rangiferine";
-			case HUMAN:
-				return "human";
-			case LYCAN:
-				return "lupine";
-			case RAT_MORPH:
-				return "rat";
-			case RABBIT_MORPH:
-				return "rabbit";
-			case BAT_MORPH:
-				return "bat";
-			case BEE:
-				return "apis";
-		}
-		return "";
-	}
+
 
 	@Override
 	public BodyCoveringType getBodyCoveringType(Body body) {

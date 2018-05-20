@@ -163,49 +163,6 @@ public enum PenisType implements BodyPartTypeInterface {
 		return "";
 	}
 	
-	public String getTransformName() {
-		switch(this){
-			case ANGEL:
-				return "angelic";
-			case AVIAN:
-				return "avian";
-			case BOVINE:
-				return "bovine";
-			case CANINE:
-				return "canine";
-			case DEMON_COMMON:
-				return "demonic";
-			case IMP:
-				return "impish";
-			case EQUINE:
-				return "equine";
-			case REINDEER_MORPH:
-				return "rangiferine";
-			case FELINE:
-				return "feline";
-			case HUMAN:
-				return "human";
-			case NONE:
-				return "none";
-			case SQUIRREL:
-				return "squirrel";
-			case ALLIGATOR_MORPH:
-				return "alligator";
-			case LUPINE:
-				return "lupine";
-			case BAT_MORPH:
-				return "bat";
-			case RAT_MORPH:
-				return "rat";
-			case RABBIT_MORPH:
-				return "rabbit";
-			case DILDO:
-				return "artificial";
-			case BEE:
-				return "apis";
-		}
-		return "";
-	}
 
 	@Override
 	public BodyCoveringType getBodyCoveringType(Body body) {

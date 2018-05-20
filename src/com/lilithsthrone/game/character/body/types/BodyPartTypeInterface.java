@@ -58,5 +58,9 @@ public interface BodyPartTypeInterface {
 		return getBodyCoveringType(gc.getBody());
 	}
 
+	public default String getTransformName() {
+		return getRace().getTransformName();
+	}
+	
 	public Race getRace();
 }

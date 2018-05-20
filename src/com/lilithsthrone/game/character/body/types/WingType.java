@@ -78,19 +78,15 @@ public enum WingType implements BodyPartTypeInterface {
 	
 	public String getTransformName() {
 		switch(this){
-			case ANGEL:
-				return "angelic";
 			case DEMON_COMMON:
-				return "bat-like";
 			case IMP:
 				return "bat-like";
-			case BEE:
-				return "apis";
-			case NONE:
-				return "none";
+			default:
+				return getRace().getTransformName();
 		}
-		return "";
+		 
 	}
+
 
 	@Override
 	public BodyCoveringType getBodyCoveringType(Body body) {

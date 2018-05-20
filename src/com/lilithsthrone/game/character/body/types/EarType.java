@@ -129,48 +129,19 @@ public enum EarType implements BodyPartTypeInterface {
 	
 	public String getTransformName() {
 		switch(this){
-			case ANGEL:
-				return "angelic";
-			case CAT_MORPH:
-				return "feline";
-			case DEMON_COMMON:
-				return "demonic";
-			case IMP:
-				return "impish";
-			case DOG_MORPH:
-				return "canine";
 			case DOG_MORPH_POINTED:
 				return "pointed canine";
 			case DOG_MORPH_FOLDED:
 				return "folded canine";
-			case COW_MORPH:
-				return "bovine";
-			case SQUIRREL_MORPH:
-				return "furry";
-			case ALLIGATOR_MORPH:
-				return "alligator";
-			case HARPY:
-				return "avian";
-			case HORSE_MORPH:
-				return "equine";
-			case REINDEER_MORPH:
-				return "rangiferine";
-			case HUMAN:
-				return "human";
-			case LYCAN:
-				return "lupine";
-			case BAT_MORPH:
-				return "bat";
-			case RAT_MORPH:
-				return "rat";
 			case RABBIT_MORPH:
 				return "upright rabbit";
 			case RABBIT_MORPH_FLOPPY:
 				return "floppy rabbit";
-			case BEE:
-				return "bee-ear";
+			default:
+				return getRace().getTransformName();
+				
 		}
-		return "";
+		
 	}
 	
 	@Override

@@ -219,47 +219,7 @@ public enum VaginaType implements BodyPartTypeInterface {
 		
 	}
 
-	public String getTransformName() {
-		switch(this){
-			case ANGEL:
-				return "angelic";
-			case HARPY:
-				return "avian";
-			case COW_MORPH:
-				return "bovine";
-			case DOG_MORPH:
-				return "canine";
-			case DEMON_COMMON:
-				return "demonic";
-			case IMP:
-				return "impish";
-			case HORSE_MORPH:
-				return "equine";
-			case REINDEER_MORPH:
-				return "rangiferine";
-			case CAT_MORPH:
-				return "feline";
-			case HUMAN:
-				return "human";
-			case NONE:
-				return "none";
-			case SQUIRREL_MORPH:
-				return "squirrel";
-			case ALLIGATOR_MORPH:
-				return "alligator";
-			case WOLF_MORPH:
-				return "lupine";
-			case BAT_MORPH:
-				return "bat";
-			case RAT_MORPH:
-				return "rat";
-			case RABBIT_MORPH:
-				return "rabbit";
-			case BEE:
-				return "apis";
-		}
-		return "";
-	}
+
 	
 	@Override
 	public BodyCoveringType getBodyCoveringType(Body body) {
