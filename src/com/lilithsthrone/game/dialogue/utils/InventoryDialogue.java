@@ -5461,6 +5461,29 @@ public class InventoryDialogue {
 				}
 				inventorySB.append("</div>");
 			}
+			
+			if(clothing.getClothingType().isPatternAvailable())
+			{
+				inventorySB.append(
+						"</br>"
+						+ "<div class='container-full-width'>"
+						+ "Pattern:</br>");
+	 
+				for (Pattern pattern : Pattern.getAllPatterns().values()) {
+					if (dyePreviewPattern.equals(pattern.getName())) {
+						inventorySB.append(
+								"<div class='cosmetics-button active'>"
+									+ "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>" + Util.capitaliseSentence(pattern.getNiceName()) + "</b>"
+								+ "</div>");
+					} else {
+						inventorySB.append(
+								"<div id='ITEM_PATTERN_"+pattern.getName()+"' class='cosmetics-button'>"
+								+ "<span style='color:"+Colour.TRANSFORMATION_GENERIC.getShades()[0]+";'>" + Util.capitaliseSentence(pattern.getNiceName()) + "</span>"
+								+ "</div>");
+					}
+				}
+				inventorySB.append("</div>");
+			}
 			inventorySB.append("</div>");
 			
 			return inventorySB.toString();
@@ -5587,6 +5610,29 @@ public class InventoryDialogue {
 				}
 				inventorySB.append("</div>");
 			}
+			
+			if(clothing.getClothingType().isPatternAvailable())
+			{
+				inventorySB.append(
+						"</br>"
+						+ "<div class='container-full-width'>"
+						+ "Pattern:</br>");
+	 
+				for (Pattern pattern : Pattern.getAllPatterns().values()) {
+					if (dyePreviewPattern.equals(pattern.getName())) {
+						inventorySB.append(
+								"<div class='cosmetics-button active'>"
+									+ "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>" + Util.capitaliseSentence(pattern.getNiceName()) + "</b>"
+								+ "</div>");
+					} else {
+						inventorySB.append(
+								"<div id='ITEM_PATTERN_"+pattern.getName()+"' class='cosmetics-button'>"
+								+ "<span style='color:"+Colour.TRANSFORMATION_GENERIC.getShades()[0]+";'>" + Util.capitaliseSentence(pattern.getNiceName()) + "</span>"
+								+ "</div>");
+					}
+				}
+				inventorySB.append("</div>");
+			}
 			inventorySB.append("</div>");
 			
 			return inventorySB.toString();
@@ -5685,6 +5731,29 @@ public class InventoryDialogue {
 										+ " style='width:auto; margin-right:4px;"+(dyePreviewTertiary==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
 							+ "<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";'></div>"
 						+ "</div>");
+				}
+				inventorySB.append("</div>");
+			}
+			
+			if(clothing.getClothingType().isPatternAvailable())
+			{
+				inventorySB.append(
+						"</br>"
+						+ "<div class='container-full-width'>"
+						+ "Pattern:</br>");
+	 
+				for (Pattern pattern : Pattern.getAllPatterns().values()) {
+					if (dyePreviewPattern.equals(pattern.getName())) {
+						inventorySB.append(
+								"<div class='cosmetics-button active'>"
+									+ "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>" + Util.capitaliseSentence(pattern.getNiceName()) + "</b>"
+								+ "</div>");
+					} else {
+						inventorySB.append(
+								"<div id='ITEM_PATTERN_"+pattern.getName()+"' class='cosmetics-button'>"
+								+ "<span style='color:"+Colour.TRANSFORMATION_GENERIC.getShades()[0]+";'>" + Util.capitaliseSentence(pattern.getNiceName()) + "</span>"
+								+ "</div>");
+					}
 				}
 				inventorySB.append("</div>");
 			}

@@ -582,7 +582,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 		}
 		
 		return Util.capitaliseSentence(getColour().getName()) + " "
-				+ (this.getPattern() != "none"?Pattern.getPattern(this.getPattern()).getNiceName():"")
+				+ (!this.getPattern().equalsIgnoreCase("none")?Pattern.getPattern(this.getPattern()).getNiceName():"")
 				+ (withRarityColour
 					? (" <span style='color: " + (!this.isEnchantmentKnown()?Colour.RARITY_UNKNOWN:this.getRarity().getColour()).toWebHexString() + ";'>" + name + "</span>")
 					: name)

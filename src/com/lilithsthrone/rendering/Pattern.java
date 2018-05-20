@@ -81,3 +81,31 @@ public class Pattern {
 	}
 	
 }
+
+
+// Can't find a good place to put the list for the future, so I'll put it here:
+// Items supporting patterns as of the creation of the system:
+//
+// Bikini Bottoms
+// Backless Panties
+// Boxers
+// Boyshorts
+// Thigh highs
+// Work boots
+// Swimsuit
+// Bikini
+// Briefs
+// Crotchless briefs
+// Crotchless panties
+// Crotchless thong
+// Panties
+// Vstring
+// Elbow Length gloves
+// Fingerless gloves
+// Gloves
+// Cargo trousers
+// Thigh high socks
+// Knee high socks
+// Tshirt
+
+

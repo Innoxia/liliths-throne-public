@@ -1733,6 +1733,8 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		
 		newClipMask = newClipMask + "</clipPath>";
 		
+		//System.out.print(newClipMask);
+		
 		// Adding clip mask to the returned string.
 		returnable = s.substring(0, s.indexOf("<defs")) 
 				+ "<defs>" 
@@ -1765,12 +1767,22 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		String newPattern = "";
 		
 		int firstPatternShapeStartIndex = loadedPattern.indexOf("<path");
+		int firstRectStartIndex = loadedPattern.indexOf("<rect");
+		if((firstRectStartIndex != -1 && firstRectStartIndex < firstPatternShapeStartIndex) || firstPatternShapeStartIndex == -1)
+		{
+			firstPatternShapeStartIndex = firstRectStartIndex;
+		}
 		int lastPatternShapeEndIndex = firstPatternShapeStartIndex;
 		
 		boolean continuePatternSetUp = true;
 		
 		while(continuePatternSetUp){
 			int currentShapeStartIndex = loadedPattern.indexOf("<path", lastPatternShapeEndIndex);
+			int currentRectStartIndex = loadedPattern.indexOf("<rect", lastPatternShapeEndIndex);
+			if((currentRectStartIndex != -1 && currentRectStartIndex < currentShapeStartIndex) || currentShapeStartIndex == -1)
+			{
+				currentShapeStartIndex = currentRectStartIndex;
+			}
 			int currentShapeEndIndex = loadedPattern.indexOf(" />", currentShapeStartIndex);
 			
 			if(currentShapeEndIndex == -1 || currentShapeStartIndex == -1) {
@@ -1787,6 +1799,8 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		returnable = returnable + s.substring(s.indexOf("</defs>"), firstShapeStartIndex) 
 				+ newPattern
 				+ s.substring(patternLayerEndIndex);
+		
+		//System.out.print(returnable);
 		
 		return returnable;
 	}

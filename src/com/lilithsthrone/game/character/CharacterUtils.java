@@ -97,6 +97,7 @@ import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.rendering.Pattern;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.ColourListPresets;
 import com.lilithsthrone.utils.Util;
@@ -1363,6 +1364,15 @@ public class CharacterUtils {
 		Colour primaryColour = ColourListPresets.ALL.getPresetColourList().get(Util.random.nextInt(ColourListPresets.ALL.getPresetColourList().size())),
 				secondaryColour = ColourListPresets.ALL.getPresetColourList().get(Util.random.nextInt(ColourListPresets.ALL.getPresetColourList().size())),
 				lingerieColour = ColourListPresets.LINGERIE.getPresetColourList().get(Util.random.nextInt(ColourListPresets.LINGERIE.getPresetColourList().size()));
+
+		String clothingPattern = "none";
+	    int patternIndex = (int) (Math.random() * Pattern.getAllPatterns().values().size());
+	    for(Pattern pattern: Pattern.getAllPatterns().values()) if (--patternIndex < 0) {
+	    	if(Math.random() >= 0.8f) {
+	    		clothingPattern = pattern.getName(); 
+	    	}
+	    	break;
+	    }
 		
 		List<InventorySlot> inventorySlotsInPriorityOrder = new ArrayList<>();
 		inventorySlotsInPriorityOrder.add(InventorySlot.TORSO_UNDER); // Torso needs to be randomly decided first, to give girls a chance to wear a dress.
@@ -1399,16 +1409,18 @@ public class CharacterUtils {
 							AbstractClothingType ct = getClothingTypeForSlot(character, slot, clothingToUse);
 							
 							clothingToUse.remove(ClothingType.PENIS_CONDOM);
+							AbstractClothing clothingToAdd = AbstractClothingType.generateClothing(
+									ct,
+									(slot == InventorySlot.GROIN || slot==InventorySlot.CHEST || slot==InventorySlot.SOCK
+											? ct.getAvailablePrimaryColours().contains(lingerieColour)?lingerieColour:ct.getAvailablePrimaryColours().get(Util.random.nextInt(ct.getAvailablePrimaryColours().size()))
+											: (slot.isCoreClothing()
+													?ct.getAvailablePrimaryColours().contains(primaryColour)?primaryColour:ct.getAvailablePrimaryColours().get(Util.random.nextInt(ct.getAvailablePrimaryColours().size()))
+													:ct.getAvailablePrimaryColours().contains(secondaryColour)?secondaryColour:ct.getAvailablePrimaryColours().get(Util.random.nextInt(ct.getAvailablePrimaryColours().size())))),
+									false);
+							clothingToAdd.setPattern(clothingPattern);
 							
 							if(ct!=null) {
-								character.equipClothingFromNowhere(AbstractClothingType.generateClothing(
-										ct,
-										(slot == InventorySlot.GROIN || slot==InventorySlot.CHEST || slot==InventorySlot.SOCK
-												? ct.getAvailablePrimaryColours().contains(lingerieColour)?lingerieColour:ct.getAvailablePrimaryColours().get(Util.random.nextInt(ct.getAvailablePrimaryColours().size()))
-												: (slot.isCoreClothing()
-														?ct.getAvailablePrimaryColours().contains(primaryColour)?primaryColour:ct.getAvailablePrimaryColours().get(Util.random.nextInt(ct.getAvailablePrimaryColours().size()))
-														:ct.getAvailablePrimaryColours().contains(secondaryColour)?secondaryColour:ct.getAvailablePrimaryColours().get(Util.random.nextInt(ct.getAvailablePrimaryColours().size())))),
-										false), true, character);
+								character.equipClothingFromNowhere(clothingToAdd, true, character);
 							}
 						}
 					}
@@ -1438,16 +1450,18 @@ public class CharacterUtils {
 							List<AbstractClothingType> clothingToUse = ClothingType.getCommonClothingMapMaleIncludingAndrogynous().get(slot);
 							clothingToUse.remove(ClothingType.PENIS_CONDOM);
 							AbstractClothingType ct = getClothingTypeForSlot(character, slot, clothingToUse);
-							
-							if(ct!=null) {
-							character.equipClothingFromNowhere(AbstractClothingType.generateClothing(
+							AbstractClothing clothingToAdd = AbstractClothingType.generateClothing(
 									ct,
 									(slot == InventorySlot.GROIN || slot==InventorySlot.CHEST || slot==InventorySlot.SOCK
 											?  ct.getAvailablePrimaryColours().contains(lingerieColour)?lingerieColour:ct.getAvailablePrimaryColours().get(Util.random.nextInt(ct.getAvailablePrimaryColours().size()))
 													: (slot.isCoreClothing()
 															?ct.getAvailablePrimaryColours().contains(primaryColour)?primaryColour:ct.getAvailablePrimaryColours().get(Util.random.nextInt(ct.getAvailablePrimaryColours().size()))
 															:ct.getAvailablePrimaryColours().contains(secondaryColour)?secondaryColour:ct.getAvailablePrimaryColours().get(Util.random.nextInt(ct.getAvailablePrimaryColours().size())))),
-									false), true, character);
+									false);
+							clothingToAdd.setPattern(clothingPattern);
+							
+							if(ct!=null) {
+							character.equipClothingFromNowhere(clothingToAdd, true, character);
 							}
 								
 						}
