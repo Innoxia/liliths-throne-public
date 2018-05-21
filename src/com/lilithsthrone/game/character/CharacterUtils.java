@@ -1408,18 +1408,18 @@ public class CharacterUtils {
 							}
 							AbstractClothingType ct = getClothingTypeForSlot(character, slot, clothingToUse);
 							
-							clothingToUse.remove(ClothingType.PENIS_CONDOM);
-							AbstractClothing clothingToAdd = AbstractClothingType.generateClothing(
-									ct,
-									(slot == InventorySlot.GROIN || slot==InventorySlot.CHEST || slot==InventorySlot.SOCK
-											? ct.getAvailablePrimaryColours().contains(lingerieColour)?lingerieColour:ct.getAvailablePrimaryColours().get(Util.random.nextInt(ct.getAvailablePrimaryColours().size()))
-											: (slot.isCoreClothing()
-													?ct.getAvailablePrimaryColours().contains(primaryColour)?primaryColour:ct.getAvailablePrimaryColours().get(Util.random.nextInt(ct.getAvailablePrimaryColours().size()))
-													:ct.getAvailablePrimaryColours().contains(secondaryColour)?secondaryColour:ct.getAvailablePrimaryColours().get(Util.random.nextInt(ct.getAvailablePrimaryColours().size())))),
-									false);
-							clothingToAdd.setPattern(clothingPattern);
-							
 							if(ct!=null) {
+								clothingToUse.remove(ClothingType.PENIS_CONDOM);
+								AbstractClothing clothingToAdd = AbstractClothingType.generateClothing(
+										ct,
+										(slot == InventorySlot.GROIN || slot==InventorySlot.CHEST || slot==InventorySlot.SOCK
+												? ct.getAvailablePrimaryColours().contains(lingerieColour)?lingerieColour:ct.getAvailablePrimaryColours().get(Util.random.nextInt(ct.getAvailablePrimaryColours().size()))
+												: (slot.isCoreClothing()
+														?ct.getAvailablePrimaryColours().contains(primaryColour)?primaryColour:ct.getAvailablePrimaryColours().get(Util.random.nextInt(ct.getAvailablePrimaryColours().size()))
+														:ct.getAvailablePrimaryColours().contains(secondaryColour)?secondaryColour:ct.getAvailablePrimaryColours().get(Util.random.nextInt(ct.getAvailablePrimaryColours().size())))),
+										false);
+								clothingToAdd.setPattern(clothingPattern);
+								
 								character.equipClothingFromNowhere(clothingToAdd, true, character);
 							}
 						}
@@ -1450,18 +1450,19 @@ public class CharacterUtils {
 							List<AbstractClothingType> clothingToUse = ClothingType.getCommonClothingMapMaleIncludingAndrogynous().get(slot);
 							clothingToUse.remove(ClothingType.PENIS_CONDOM);
 							AbstractClothingType ct = getClothingTypeForSlot(character, slot, clothingToUse);
-							AbstractClothing clothingToAdd = AbstractClothingType.generateClothing(
-									ct,
-									(slot == InventorySlot.GROIN || slot==InventorySlot.CHEST || slot==InventorySlot.SOCK
-											?  ct.getAvailablePrimaryColours().contains(lingerieColour)?lingerieColour:ct.getAvailablePrimaryColours().get(Util.random.nextInt(ct.getAvailablePrimaryColours().size()))
-													: (slot.isCoreClothing()
-															?ct.getAvailablePrimaryColours().contains(primaryColour)?primaryColour:ct.getAvailablePrimaryColours().get(Util.random.nextInt(ct.getAvailablePrimaryColours().size()))
-															:ct.getAvailablePrimaryColours().contains(secondaryColour)?secondaryColour:ct.getAvailablePrimaryColours().get(Util.random.nextInt(ct.getAvailablePrimaryColours().size())))),
-									false);
-							clothingToAdd.setPattern(clothingPattern);
 							
 							if(ct!=null) {
-							character.equipClothingFromNowhere(clothingToAdd, true, character);
+								AbstractClothing clothingToAdd = AbstractClothingType.generateClothing(
+										ct,
+										(slot == InventorySlot.GROIN || slot==InventorySlot.CHEST || slot==InventorySlot.SOCK
+												?  ct.getAvailablePrimaryColours().contains(lingerieColour)?lingerieColour:ct.getAvailablePrimaryColours().get(Util.random.nextInt(ct.getAvailablePrimaryColours().size()))
+														: (slot.isCoreClothing()
+																?ct.getAvailablePrimaryColours().contains(primaryColour)?primaryColour:ct.getAvailablePrimaryColours().get(Util.random.nextInt(ct.getAvailablePrimaryColours().size()))
+																:ct.getAvailablePrimaryColours().contains(secondaryColour)?secondaryColour:ct.getAvailablePrimaryColours().get(Util.random.nextInt(ct.getAvailablePrimaryColours().size())))),
+										false);
+								clothingToAdd.setPattern(clothingPattern);
+								
+								character.equipClothingFromNowhere(clothingToAdd, true, character);
 							}
 								
 						}

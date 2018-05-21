@@ -10,7 +10,7 @@ public class Pattern {
 	private static Map<String, Pattern> allPatterns;
 	
 	private String name;
-	private String SVGString; // TODO ADD THIS
+	//private String SVGString; // TODO ADD THIS
 	
 	static {
 		allPatterns = new HashMap<>();

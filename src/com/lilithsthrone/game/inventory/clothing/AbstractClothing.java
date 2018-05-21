@@ -350,7 +350,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 	}
 	
 	/**
-	 * Will return false if it doesn't support patterns. TODO: Add the check.
+	 * Will return false if it doesn't support patterns. 
 	 * @return
 	 */
 	public boolean canHavePatterns()

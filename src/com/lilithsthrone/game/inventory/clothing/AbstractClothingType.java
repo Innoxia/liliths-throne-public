@@ -1701,7 +1701,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			this.isPatternAvailable = true;
 		}
 		
-		if(pattern == null || pattern == "none") {
+		if(pattern == null || pattern.equals("none")) {
 			return s; // No pattern - no need to adjust anything.
 		}
 		
