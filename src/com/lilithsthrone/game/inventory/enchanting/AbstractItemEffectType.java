@@ -1200,7 +1200,7 @@ public abstract class AbstractItemEffectType {
 				
 			case TF_HORNS:
 				secondaryModPotencyMap.put(TFModifier.REMOVAL, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
-				for(int i=0; i< RacialBody.valueOfRace(race).getHornType().size();i++) {
+				for(int i=0; i< HornType.getHornTypesSuitableForTransformation(RacialBody.valueOfRace(race).getHornType()).size();i++) {
 					secondaryModPotencyMap.put(TFModifier.valueOf("TF_TYPE_"+(i+1)), Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
 				}
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_SIZE, TFPotency.getAllPotencies());
@@ -2274,8 +2274,9 @@ public abstract class AbstractItemEffectType {
 								return new RacialEffectUtil("Removes an extra pair of horns.", singleDrain, " pair of horns") { @Override public String applyEffect() { return target.incrementHornRows(singleDrain); } };
 							case MINOR_BOOST: default:
 								return new RacialEffectUtil("Adds an extra pair of horns.", singleBoost, " pair of horns") { @Override public String applyEffect() {
-									if(target.getHornType()==HornType.NONE && RacialBody.valueOfRace(race).getHornType().size()>1) {
-										return target.setHornType(RacialBody.valueOfRace(race).getHornType().get(1));
+									List<HornType> hornTypesSuitableForTransformation = HornType.getHornTypesSuitableForTransformation(RacialBody.valueOfRace(race).getHornType());
+									if(target.getHornType()==HornType.NONE && !hornTypesSuitableForTransformation.isEmpty()) {
+										return target.setHornType(hornTypesSuitableForTransformation.get(0));
 									} else {
 										return target.incrementHornRows(singleBoost);
 									} } };
@@ -2285,24 +2286,19 @@ public abstract class AbstractItemEffectType {
 						return new RacialEffectUtil("Removes horns.", 0, "") { @Override public String applyEffect() { return target.setHornType(HornType.NONE); } };
 						
 					case TF_TYPE_1:
-						return new RacialEffectUtil((RacialBody.valueOfRace(race).getHornType().get(0)==HornType.NONE?"Removes horns.":"Grows "+RacialBody.valueOfRace(race).getHornType().get(0).getTransformName()+" horns."), 0, "") {
-							@Override public String applyEffect() { return target.setHornType(RacialBody.valueOfRace(race).getHornType().get(0)); } };
+						return getHornTypeRacialEffectUtil(race, target, 0);
 
 					case TF_TYPE_2:
-						return new RacialEffectUtil((RacialBody.valueOfRace(race).getHornType().get(1)==HornType.NONE?"Removes horns.":"Grows "+RacialBody.valueOfRace(race).getHornType().get(1).getTransformName()+" horns."), 0, "") {
-							@Override public String applyEffect() { return target.setHornType(RacialBody.valueOfRace(race).getHornType().get(1)); } };
+						return getHornTypeRacialEffectUtil(race, target, 1);
 
 					case TF_TYPE_3:
-						return new RacialEffectUtil((RacialBody.valueOfRace(race).getHornType().get(2)==HornType.NONE?"Removes horns.":"Grows "+RacialBody.valueOfRace(race).getHornType().get(2).getTransformName()+" horns."), 0, "") {
-							@Override public String applyEffect() { return target.setHornType(RacialBody.valueOfRace(race).getHornType().get(2)); } };
+						return getHornTypeRacialEffectUtil(race, target, 2);
 
 					case TF_TYPE_4:
-						return new RacialEffectUtil((RacialBody.valueOfRace(race).getHornType().get(3)==HornType.NONE?"Removes horns.":"Grows "+RacialBody.valueOfRace(race).getHornType().get(3).getTransformName()+" horns."), 0, "") {
-							@Override public String applyEffect() { return target.setHornType(RacialBody.valueOfRace(race).getHornType().get(3)); } };
+						return getHornTypeRacialEffectUtil(race, target, 3);
 
 					case TF_TYPE_5:
-						return new RacialEffectUtil((RacialBody.valueOfRace(race).getHornType().get(4)==HornType.NONE?"Removes horns.":"Grows "+RacialBody.valueOfRace(race).getHornType().get(4).getTransformName()+" horns."), 0, "") {
-							@Override public String applyEffect() { return target.setHornType(RacialBody.valueOfRace(race).getHornType().get(4)); } };
+						return getHornTypeRacialEffectUtil(race, target, 4);
 							
 					default:
 						return new RacialEffectUtil(Util.capitaliseSentence(race.getName())+" horns transformation.", 0, "") { @Override public String applyEffect() { return target.setHornType(RacialBody.valueOfRace(race).getRandomHornType(false)); } };
@@ -3180,6 +3176,12 @@ public abstract class AbstractItemEffectType {
 				return getRacialEffect(race, mod, modSecondary, pot, user, target).applyEffect();
 			}
 		};
+	}
+
+	private static RacialEffectUtil getHornTypeRacialEffectUtil(Race race, GameCharacter target, int index) {
+		HornType selectedHornType = HornType.getHornTypesSuitableForTransformation(RacialBody.valueOfRace(race).getHornType()).get(index);
+		return new RacialEffectUtil("Grows "+selectedHornType.getTransformName()+" horns.", 0, "") {
+			@Override public String applyEffect() { return target.setHornType(selectedHornType); } };
 	}
 	
 }
