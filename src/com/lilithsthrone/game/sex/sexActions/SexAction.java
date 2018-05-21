@@ -873,6 +873,9 @@ public abstract class SexAction implements SexActionInterface {
 				case FETISH_BROODMOTHER:
 					associatedFetishesPartner.add(Fetish.FETISH_SEEDER);
 					break;
+				case FETISH_COCK_ADDICT:
+					associatedFetishesPartner.add(Fetish.FETISH_DICK_DEALER);
+					break;
 				case FETISH_CROSS_DRESSER:
 					break;
 				case FETISH_CUM_ADDICT:
@@ -888,6 +891,9 @@ public abstract class SexAction implements SexActionInterface {
 					break;
 				case FETISH_DENIAL_SELF:
 					associatedFetishesPartner.add(Fetish.FETISH_DENIAL);
+					break;
+				case FETISH_DICK_DEALER:
+					associatedFetishesPartner.add(Fetish.FETISH_COCK_ADDICT);
 					break;
 				case FETISH_DOMINANT:
 					associatedFetishesPartner.add(Fetish.FETISH_SUBMISSIVE);
