@@ -14,6 +14,8 @@ import com.lilithsthrone.game.character.body.valueEnums.NippleShape;
 import com.lilithsthrone.game.character.body.valueEnums.NippleSize;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.InventorySlot;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.main.Main;
@@ -365,12 +367,26 @@ public class Nipples implements BodyPartInterface, Serializable {
 				return UtilText.parse(owner,
 						"<p>[npc.Name]'s [npc.nipples] are now [style.boldGrow(pierced)]!</p>");
 			}
+			
 		} else {
+			AbstractClothing c = owner.getClothingInSlot(InventorySlot.PIERCING_NIPPLE);
+			String piercingUnequip = "";
+			if(c!=null) {
+				owner.forceUnequipClothingIntoVoid(owner, c);
+				piercingUnequip = owner.addClothing(c, false);
+			}
+			
 			if(owner.isPlayer()) {
-				return "<p>Your [pc.nipples] are [style.boldShrink(no longer pierced)]!</p>";
+				return "<p>"
+							+ "Your [pc.nipples] are [style.boldShrink(no longer pierced)]!"
+						+ "</p>"
+						+piercingUnequip;
 			} else {
 				return UtilText.parse(owner,
-						"<p>[npc.Name]'s [npc.nipples] are [style.boldShrink(no longer pierced)]!</p>");
+						"<p>"
+								+ "[npc.Name]'s [npc.nipples] are [style.boldShrink(no longer pierced)]!"
+						+ "</p>"
+						+piercingUnequip);
 			}
 		}
 		

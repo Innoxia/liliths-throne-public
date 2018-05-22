@@ -55,17 +55,23 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.2.4
+ * @version 0.2.6
  * @author Innoxia
  */
 public class Nyan extends NPC {
 
 	private static final long serialVersionUID = 1L;
 
-	private List<AbstractClothing> commonFemaleClothing, commonFemaleUnderwear, commonFemaleAccessories,
-									commonMaleClothing, commonMaleLingerie, commonMaleAccessories,
-									commonAndrogynousClothing, commonAndrogynousLingerie, commonAndrogynousAccessories,
-									specials;
+	private List<AbstractClothing> commonFemaleClothing;
+	private List<AbstractClothing> commonFemaleUnderwear;
+	private List<AbstractClothing> commonFemaleAccessories;
+	private List<AbstractClothing> commonMaleClothing;
+	private List<AbstractClothing> commonMaleLingerie;
+	private List<AbstractClothing> commonMaleAccessories;
+	private List<AbstractClothing> commonAndrogynousClothing;
+	private List<AbstractClothing> commonAndrogynousLingerie;
+	private List<AbstractClothing> commonAndrogynousAccessories;
+	private List<AbstractClothing> specials;
 
 	public Nyan() {
 		this(false);

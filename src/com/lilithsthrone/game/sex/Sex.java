@@ -2444,6 +2444,7 @@ public enum Sex {
 		
 		if (penetrationType == PenetrationType.PENIS) {
 			if(characterPenetrating.isPenisVirgin()
+					&& characterPenetrating.hasPenisIgnoreDildo()
 					&& orifice.isTakesPenisVirginity()) {
 				penileVirginityLoss = characterPenetrating.getVirginityLossPenetrationDescription(characterPenetrating, PenetrationType.PENIS, characterPenetrated, orifice);
 				if(characterPenetrated.hasFetish(Fetish.FETISH_DEFLOWERING)) {
@@ -2456,7 +2457,27 @@ public enum Sex {
 			
 		}
 		
-		if (orifice == OrificeType.ANUS) {
+		if (orifice == OrificeType.ASS) {
+			if (initialPenetrations.get(characterPenetrated).contains(OrificeType.ASS)) {
+				sexSB.append(formatInitialPenetration(characterPenetrating.getPenetrationDescription(true, characterPenetrating, penetrationType, characterPenetrated, orifice)));
+				
+				initialPenetrations.get(characterPenetrated).remove(OrificeType.ASS);
+				
+			} else {
+				sexSB.append(formatPenetration(characterPenetrating.getPenetrationDescription(false, characterPenetrating, penetrationType, characterPenetrated, orifice)));
+			}
+				
+		} else if (orifice == OrificeType.BREAST) {
+			if (initialPenetrations.get(characterPenetrated).contains(OrificeType.BREAST)) {
+				sexSB.append(formatInitialPenetration(characterPenetrating.getPenetrationDescription(true, characterPenetrating, penetrationType, characterPenetrated, orifice)));
+				
+				initialPenetrations.get(characterPenetrated).remove(OrificeType.BREAST);
+				
+			} else {
+				sexSB.append(formatPenetration(characterPenetrating.getPenetrationDescription(false, characterPenetrating, penetrationType, characterPenetrated, orifice)));
+			}
+				
+		} else if (orifice == OrificeType.ANUS) {
 			if (initialPenetrations.get(characterPenetrated).contains(OrificeType.ANUS)) {
 				sexSB.append(formatInitialPenetration(characterPenetrating.getPenetrationDescription(true, characterPenetrating, penetrationType, characterPenetrated, orifice)));
 				
@@ -2476,7 +2497,7 @@ public enum Sex {
 				sexSB.append(formatPenetration(characterPenetrating.getPenetrationDescription(false, characterPenetrating, penetrationType, characterPenetrated, orifice)));
 			}
 				
-		}  else if (orifice == OrificeType.VAGINA) {
+		} else if (orifice == OrificeType.VAGINA) {
 			if (initialPenetrations.get(characterPenetrated).contains(OrificeType.VAGINA)) {
 				sexSB.append(formatInitialPenetration(characterPenetrating.getPenetrationDescription(true, characterPenetrating, penetrationType, characterPenetrated, orifice)));
 				

@@ -76,6 +76,7 @@ public class FluidCum implements BodyPartInterface, Serializable, XMLSaving {
 
 		Element cumModifiers = (Element)cum.getElementsByTagName("cumModifiers").item(0);
 		List<FluidModifier> fluidModifiers = fluidCum.fluidModifiers;
+		
 		Body.handleLoadingOfModifiers(FluidModifier.values(), null, cumModifiers, fluidModifiers);
 		
 //		Element cumModifiers = (Element)cum.getElementsByTagName("cumModifiers").item(0);
@@ -494,6 +495,6 @@ public class FluidCum implements BodyPartInterface, Serializable, XMLSaving {
 	}
 
 	public float getValuePerMl() {
-		return 0.1f + this.getFluidModifiers().size()*0.2f + (this.getFlavour()!=FluidFlavour.CUM?0.5f:0);
+		return 0.1f + this.getFluidModifiers().size()*0.1f + (this.getFlavour()!=FluidFlavour.CUM?0.5f:0);
 	}
 }

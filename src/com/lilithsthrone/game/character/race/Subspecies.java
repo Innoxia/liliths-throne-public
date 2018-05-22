@@ -24,7 +24,7 @@ import com.lilithsthrone.world.WorldType;
 
 /**
  * @since 0.1.91
- * @version 0.2.1
+ * @version 0.2.6
  * @author tukaima, Innoxia
  */
 public enum Subspecies {
@@ -61,7 +61,7 @@ public enum Subspecies {
 			Colour.RACE_ANGEL,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"A typical angel.",
-			Util.newArrayListOfValues()) {
+			Util.newArrayListOfValues(WorldType.DOMINION)) { //TODO remove later on
 		@Override
 		public void applySpeciesChanges(Body body) {
 			// TODO Auto-generated method stub
@@ -461,10 +461,10 @@ public enum Subspecies {
 	SLIME_DEMON("statusEffects/raceSlime",
 			"demon-slime",
 			"demon-slimes",
-			"demon-slime-boy",
-			"demon-slime-girl",
-			"demon-slime-boys",
-			"demon-slime-girls",
+			"incubus-slime",
+			"succubus-slime",
+			"incubus-slimes",
+			"succubus-slimes",
 			Race.SLIME,
 			Colour.RACE_SLIME,
 			SubspeciesPreference.FOUR_ABUNDANT,

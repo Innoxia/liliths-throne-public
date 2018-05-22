@@ -22,41 +22,38 @@
 	
 	Patch notes:
 	
-	Gameplay:
-		Added new quest 'Slime Queen'. You should automatically pick this up from Claire when you enter Submission (she will repeat her initial dialogue if you've already seen it).
-		Added unique slime attack descriptions for Submission's tunnels, along with transformation behaviour of wanting to TF you into a slime.
-		(Not yet finished!) Added the map 'Slime Queen's tower' as part of the new quest, with 4 new NPCs in there.
+Gameplay:
+	Finished Slime Queen's quest, adding the upper floor of the tower.
+	Added harpy offspring encounters in the Harpy Nests.
+	Temporarily re-enabled angel offspring in Dominion (for those of you who have set yourself to be angels through the debug menu).
+	Added item 'Glowing Mushrooms', found randomly in the bat Caverns as well as being dropped by slimes down there.
+	Filled in last placeholders in Bat Cavern descriptions.
+	Added unique encounter/attack descriptions for slimes and bats in the bat caverns.
+
+Other:
+	Added variation in the slime guards' dialogue for if you have the related content setting turned off.
+	Added ongoing penetration descriptions for hotdogging and paizuri, and added icon for hotdogging status effect.
+	Increased value of girlcum, and slightly decreased extra modifiers' impact on cum value.
+	Reduced biojuice canister value from 5000 to 2500.
+	You can now enchant biojuice canisters to make a potion that returns body material to normal.
 	
-	Balance:
-		Changed slime's status effect from -100 physical damage to -100 unarmed damage.
-	
-	Artwork:
-		Added Jam's artwork of Claire.
-	
-	Weapons:
-		Added support for dying weapon colours.
-		Added: Zweihander (Main weapon slot).
-		Added: Knightly Sword (Main weapon slot).
-		Added: Buckler (Offhand weapon slot).
-	
-	Clothing:
-		Added secondary colour to navel barbell (for the gem).
-		Added snowflake jewelry to Nyan's shop.
-		Added: Sun necklace (no femininity requirements, neck slot).
-		Added: Sun earrings (no femininity requirements, ear piercing slot).
-		Added: Sun nose stud (no femininity requirements, nose piercing slot).
-	
-	Other:
-		The losing party's elementals are now dispelled at the end of combat.
-		Slightly changed biojuice canister icon, lowered its value, and removed it from random Submission drops.
-	
-	Bugs:
-		Fixed bug in clothing displacement detection method, which could sometimes cause the game to lock up when wearing sealed clothing.
-		Fixed chaos feathers only being available in the poison damage type.
-		Enchanting clothing will no longer reset item tags (which was causing the bug of nipple tape crosses losing their plugging effect).
-		Fixed obsolete reference to a dress in succubus attacker dialogue.
-		Fixed slime colours resetting every time the game was loaded.
-	
+Bugs:
+	Fixed bug where when entering Submission, you would sometimes travel down to an incorrect tile location.
+	Fixed being forced to have sex with the slime guards after beating them in combat.
+	Fixed some typos and parsing errors in 0.2.5.5's content.
+	Removed biojuice canisters from bat cavern drops.
+	Typo fixes.
+	Fixed Blaze and Crystal's earrings being unequipped when loading a save.
+	Fixed Blaze and Crystal's repeat encounter acting like they'd never seen you before.
+	Fixed bug where switching target in combat would not show the correct target's inventory.
+	Fixed human damage/resistance stats being shown twice in phone's stats menu.
+	Fixed NPCs spawning in with multiple books in their inventory.
+	Fixed bug where you'd gain knowledge of some characters' breasts/genitals on game load. (This was affecting Candi, Claire, and probably many others.)
+	Fixed jewellery not being unequipped when removing piercings.
+	Characters will no longer lose penile virginity from using strapons.
+	Penis transformations will no longer be applied to equipped strap-on.
+	Fixed rendering bugs in stats page.
+	Fixed bug where spreader bar being equipped under trousers would result in the spreader bar blocking trouser removal, and also being concealed, making both items of clothing impossible to remove.
 	
 	
 	
@@ -86,21 +83,27 @@
 					[x] She reluctantly accepts
 				[x] Force her to stop
 					[x] "Rape" her
-		[ ] All tower descriptions done
-		[ ] Return to Claire and tell her there's no slime queen (She comments on you being a slime)
+		[X] All tower descriptions done
+		[X] Return to Claire and tell her there's no slime queen (She comments on you being a slime)
+		[X] Test slime queen quest
 		
-	[ ] Harpy offspring
-		
-	Slime solidification quest
-		[ ] If slime, then gain Lilaya's anti-slime TF quest
-			[ ] She asks for 5 angel's tears and 25 bottled essences
-			[ ] Quest completes, and can always return to her to get her to make more
-		
+	[X] Harpy
+	[X] angel
+	[ ] imp offspring
+	
+	[X] Add solidification enchantment to biojuice
+	
 	
 	Special encounters for:
-			
+		
+		[X] Finish bat caverns (finding items)
+		[X] Glowing slimes
+		[X] Slime encounters
+		[X] Add bat encounter
+		[ ] Add bat racial effect descriptions
+		
 		Rat-morphs & Alligator-morphs
-			[ ] Just want to mug you (Follow outline below)
+			[ ] Just want to mug you
 			
 		Imps
 			[ ] Imp gang encounter (1-3 imps)
@@ -108,24 +111,19 @@
 				[ ] TF
 			[ ] Alpha Imp gang encounter (Alpha + 2-4 imps, for 5 max)
 			
-		[ ] Finish bat caverns (finding items)
-		Bat-morphs
-			[ ] Finish bat descriptions and racial effects
-			[ ] Glowing slime attacks
-			[ ] Talking encounter
-			[ ] Mugging encounter
 			
+	
+	Gambling Den
+		[ ] Pregnancy roulette
+		[ ] Dice poker
+		[ ] Overpriced trader
+		
 	Imp fortresses
 		[ ] Fortress 1
 		[ ] Fortress 2
 		[ ] Fortress 3
 		[ ] Fortress 4
 		[ ] Fortress 5
-	
-	Gambling Den
-		[ ] Pregnancy roulette
-		[ ] Dice poker
-		[ ] Overpriced trader
 	
 	
 	
@@ -144,28 +142,37 @@
 			Enemy leaves
 	Submit
 		Sex
-			
-			
-			
-	Can read Candi ass & va after loading
-	
-	: When you get parts unpierced, the piercings stay in until manually removed.
 		
-	stats human damage/resistance shown twice	
-	
-	Strapon is bugged overall. It kinda counts as a real cock so I got the penile virginity loss message (which then applies on a newly grown one as well) and NPCs try to shrink it when they transform me and I cannot grow a natural cock when using potions.
-	
-	organise getItemUseEffects()
-	
+		
+		
+		
+	hot pink crazy high hooker heels. 
+		i love the Halucigenic effect.and the bimbo fetish would be fun. 
+		and when i thought about that i came up with the name "trippy heels" which made me think, if there was a way to disable normal combat moves, and restrict to maybe just seduction /seduction and spells, that would be super cool.
+			because "the heels are so high you cant fight, youd just trip!" and maybe give a small penalty to running away in addition. 
+
+		
+	When you're the submissive partner, having a 'let's go again' command right after your partner cums. Maybe they'll switch positions, and it'd set things so they wouldn't end the sex until their next orgasm.
+		
+	periwinkle colour
+		
+	When looking at Ashley's description, it will say "She is free-willed, and will do whatever she wants", when it should say "they"
+		
 	I have 8 slaves working the milking room and it's set to storing but it doesn't store anything. It works when I self milk though.
 	
 	Is anyone getting a bug where the milker job turns everyone's fluid into Human stuff? I've been milking wolf/horse/alligator/cows but all I ever get is human cum/milk.
 	
-	fix stats bars
+	cum parser is broken and gives me human cum(edited)
+		It should be avian. 2_5 returns avian. 2_5_2 returns human(edited)
+		It's also making my cum honey flavored
+		When it should be slimy
+		Bug exists in both 2_5 and 2_5_2
+		Ok so cum flavor is actually random
 	
-	When looking at Ashley's description, it will say "She is free-willed, and will do whatever she wants", when it should say "they"
+	Nyan should probably start stocking multiple copies of each clothing item. 
+	It's starting to feel weird to have a clothing store that only ever has one of each item in stock when you're buying outfits for an entire party of companions and or mansion of servants
 	
-	spreader bar blocks jeans removal, but jeans conceal spreader bar
+	organise getItemUseEffects()
 	
 	The import doesn't import completely, my char lost her make-up.
 	
@@ -213,10 +220,6 @@
 	
 	I can't panty fap again after getting pegged by Rose
 		No actions appear, and rose's inventory is on teh right
-	
-	ongoing hotdogging broken
-	
-	Edit the forum post on Fenoxo due to how it isn't a random generated map anymore and stuff
 	
 	
 	As a slime, Succubi's Secrets eye-coloring still has a couple of... issues.

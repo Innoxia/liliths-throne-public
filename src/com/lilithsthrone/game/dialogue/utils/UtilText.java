@@ -16,6 +16,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
@@ -754,6 +755,21 @@ public class UtilText {
 	
 	static{
 		
+
+		conditionalCommandsList.add(new ParserConditionalCommand(
+				Util.newArrayListOfValues(
+						"isIncestOn",
+						"isIncestEnabled",
+						"incestOn",
+						"incestEnabled"),
+				"",
+				"Returns true if the player has the incest content toggle on."){
+			@Override
+			public boolean process(String command, String arguments, String target) {
+				return Main.getProperties().hasValue(PropertyValue.incestContent);
+			}
+		});
+		
 		conditionalCommandsList.add(new ParserConditionalCommand(
 				Util.newArrayListOfValues(
 						"isPlayer",
@@ -1188,6 +1204,24 @@ public class UtilText {
 					return "mistress";
 				} else {
 					return "master";
+				}
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"heroine",
+						"hero"),
+				true,
+				true,
+				"",//TODO
+				"Description of method"){//TODO
+			@Override
+			public String parse(String command, String arguments, String target) {
+				if(character.isFeminine()) {
+					return "heroine";
+				} else {
+					return "hero";
 				}
 			}
 		});

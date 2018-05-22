@@ -89,9 +89,10 @@ public class SlimeGuardIce extends NPC {
 			
 			// BODY RANDOMISATION:
 			
-			this.setSkinCovering(new Covering(BodyCoveringType.SLIME, Colour.SLIME_BLUE), false);
+			this.setSkinCovering(new Covering(BodyCoveringType.SLIME, Colour.SLIME_BLUE), true);
 			this.setSkinCovering(new Covering(BodyCoveringType.SLIME_EYE, Colour.SLIME_BLUE_LIGHT), false);
 			this.setSkinCovering(new Covering(BodyCoveringType.SLIME_SCLERA, Colour.SLIME_BLUE_LIGHT), false);
+			this.setSkinCovering(new Covering(BodyCoveringType.SLIME_PUPILS, Colour.SLIME_BLUE), false);
 			this.setSkinCovering(new Covering(BodyCoveringType.SLIME_HAIR, Colour.SLIME_BLUE_DARK), false);
 			
 			// INVENTORY:
@@ -113,6 +114,9 @@ public class SlimeGuardIce extends NPC {
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
+		this.setSkinCovering(new Covering(BodyCoveringType.SLIME_PUPILS, Colour.SLIME_BLUE), false);
+		this.clearNonEquippedInventory();
+		equipClothing(true, false);
 	}
 	
 	@Override
@@ -132,7 +136,6 @@ public class SlimeGuardIce extends NPC {
 	@Override
 	public void equipClothing(boolean replaceUnsuitableClothing, boolean onlyAddCoreClothing) {
 		this.unequipAllClothingIntoVoid();
-		
 		
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(
 				ClothingType.FINGER_RING,

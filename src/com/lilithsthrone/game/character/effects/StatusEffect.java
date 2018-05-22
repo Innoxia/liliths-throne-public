@@ -9884,7 +9884,7 @@ public enum StatusEffect {
 	
 	ANUS_STATUS(
 			96,
-			"Ass status",
+			"Anus status",
 			null,
 			Colour.GENERIC_SEX,
 			false,
@@ -10010,6 +10010,137 @@ public enum StatusEffect {
 		@Override
 		public String getSVGString(GameCharacter owner) {
 			return getOrificeSVGString(owner, OrificeType.ANUS, SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaAnus());
+		}
+	},
+
+	ASS_STATUS(
+			96,
+			"Ass status",
+			null,
+			Colour.GENERIC_SEX,
+			false,
+			null,
+			null) {
+		
+		@Override
+		public float getArousalPerTurnSelf(GameCharacter target) {
+			return getOrificeArousalPerTurnSelf(target, OrificeType.ASS);
+		}
+
+		@Override
+		public float getArousalPerTurnPartner(GameCharacter self, GameCharacter target) {
+			return getOrificeArousalPerTurnPartner(self, target, OrificeType.ASS);
+		}
+				
+		@Override
+		public List<String> getModifiersAsStringList(GameCharacter target) {
+			return getOrificeModifiersAsStringList(target, OrificeType.ASS);
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			descriptionSB = new StringBuilder();
+			OrificeType type = OrificeType.ASS;
+			
+			descriptionSB.append("<p style='text-align:center;margin-top:0;'>");
+
+			GameCharacter penetrator = Sex.getPenetratingCharacterUsingOrifice(target ,type);
+			
+			if(Sex.getPenetrationTypeInOrifice(target, type) != null) {
+				switch(Sex.getPenetrationTypeInOrifice(target, type)){
+					case FINGER:
+						if(target.isPlayer()) {
+							descriptionSB.append(penetrator.isPlayer()
+									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>groping</b> your own [pc.ass]!"
+									:"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>groping</b> your [pc.ass]!");
+						} else {
+							descriptionSB.append(penetrator.isPlayer()
+									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>groping</b> [npc.name]'s [npc.ass]!"
+									:(target.equals(penetrator)
+											?"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>groping</b> [npc.her] own [npc.ass]!"
+											:UtilText.parse(Util.newArrayListOfValues(penetrator, target),
+													"[npc1.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>groping</b> [npc2.name]'s [npc2.ass]!")));
+						}
+						break;
+						
+					case PENIS:
+						if(target.isPlayer()) {
+							descriptionSB.append(penetrator.isPlayer()
+									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>hotdogging</b> yourself!"
+									:"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>hotdogging</b> you!");
+						} else {
+							descriptionSB.append(penetrator.isPlayer()
+									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>hotdogging</b> [npc.name]!"
+									:(target.equals(penetrator)
+											?"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>hotdogging</b> [npc.herself]!"
+											:UtilText.parse(Util.newArrayListOfValues(penetrator, target),
+													"[npc1.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>hotdogging</b> [npc2.name]!")));
+						}
+						break;
+						
+					case TAIL:
+						if(target.isPlayer()) {
+							descriptionSB.append(penetrator.isPlayer()
+									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-hotdogging</b> yourself!"
+									:"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-hotdogging</b> you!");
+						} else {
+							descriptionSB.append(penetrator.isPlayer()
+									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-hotdogging</b> [npc.name]!"
+									:(target.equals(penetrator)
+											?"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-hotdogging</b> [npc.herself]!"
+											:UtilText.parse(Util.newArrayListOfValues(penetrator, target),
+													"[npc1.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-hotdogging</b> [npc2.name]!")));
+						}
+						break;
+						
+					case TONGUE:
+						if(target.isPlayer()) {
+							descriptionSB.append(penetrator.isPlayer()
+									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>licking</b> your own [pc.ass]!"
+									:"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>licking</b> on you!");
+						} else {
+							descriptionSB.append(penetrator.isPlayer()
+									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>licking</b> [npc.name]'s [npc.ass]!"
+									:(target.equals(penetrator)
+											?"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>licking</b> [npc.her] own [npc.ass]!"
+											:UtilText.parse(Util.newArrayListOfValues(penetrator, target),
+													"[npc1.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>licking</b> [npc2.name]'s [npc2.ass]!")));
+						}
+						break;
+					default:
+						descriptionSB.append("<b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>Penetrated.</b>");
+						break;
+				}
+			} else {
+				descriptionSB.append("<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
+			}
+			
+			appendOrificeAdditionGenericDescriptions(target, OrificeType.ASS, target.isPlayer()?"Your [pc.ass]":UtilText.parse(target, "[npc.Name]'s [npc.ass]"), descriptionSB);
+			
+			if(target.isPlayer()) {
+				if(penetrator!=null && !penetrator.isPlayer()) {
+					return UtilText.parse(penetrator, descriptionSB.toString());
+				} else {
+					return descriptionSB.toString();
+				}
+			} else {
+				return UtilText.parse(target, descriptionSB.toString());
+			}
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return Main.game.isInSex();
+		}
+		
+		@Override
+		public boolean isSexEffect() {
+			return true;
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return getOrificeSVGString(owner, OrificeType.ASS, SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaAss());
 		}
 	},
 	
