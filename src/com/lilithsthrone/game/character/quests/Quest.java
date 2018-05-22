@@ -692,13 +692,13 @@ public enum Quest {
 
 		@Override
 		public String getDescription() {
-			return "Report back to the Enforcer Post and tell them that there's no such thing as a Slime Queen.";
+			return "Report back to the Enforcer Post and tell them that you defeated the Slime Queen.";
 		}
 
 		@Override
 		public String getCompletedDescription() {
-			return "Although the enforcers were a little skeptical, you managed to convince them that there's no such thing as a Slime Queen."
-					+ " With your Queen now safe from enforcer investigation, it's only a matter of time before all of Submission is a Slime paradise...";
+			return "Although the enforcers were a bit surprised, you managed to convince them that the Slime Queen would no longer be a hazard."
+					+ " With the Queen now tamed, and behaving, Submission is safer for civilians";
 		}
 	},
 	
