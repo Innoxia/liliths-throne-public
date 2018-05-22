@@ -9,6 +9,8 @@ import com.lilithsthrone.game.character.body.types.MouthType;
 import com.lilithsthrone.game.character.body.valueEnums.LipSize;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.InventorySlot;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.main.Main;
 
 /**
@@ -163,12 +165,26 @@ public class Mouth implements BodyPartInterface, Serializable {
 				return UtilText.parse(owner,
 						"<p>[npc.Name]'s [npc.lips] are now [style.boldGrow(pierced)]!</p>");
 			}
+			
 		} else {
+			AbstractClothing c = owner.getClothingInSlot(InventorySlot.PIERCING_LIP);
+			String piercingUnequip = "";
+			if(c!=null) {
+				owner.forceUnequipClothingIntoVoid(owner, c);
+				piercingUnequip = owner.addClothing(c, false);
+			}
+			
 			if(owner.isPlayer()) {
-				return "<p>Your [pc.lips] are [style.boldShrink(no longer pierced)]!</p>";
+				return "<p>"
+							+ "Your [pc.lips] are [style.boldShrink(no longer pierced)]!"
+						+ "</p>"
+						+piercingUnequip;
 			} else {
 				return UtilText.parse(owner,
-						"<p>[npc.Name]'s [npc.lips] are [style.boldShrink(no longer pierced)]!</p>");
+						"<p>"
+								+ "[npc.Name]'s [npc.lips] are [style.boldShrink(no longer pierced)]!"
+						+ "</p>"
+						+piercingUnequip);
 			}
 		}
 	}

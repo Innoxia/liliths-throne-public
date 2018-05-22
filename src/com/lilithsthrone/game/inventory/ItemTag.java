@@ -29,6 +29,8 @@ public enum ItemTag {
 	REQUIRES_VAGINA,
 	REQUIRES_NO_VAGINA,
 	
+	REVEALS_CONCEALABLE_SLOT, // If a piece of clothing has this tag, it will always be visible, even if another item of clothing is concealing its slot. (Used for spreader bar.)
+	
 	DILDO_TINY, // 3 inches
 	DILDO_AVERAGE, // 6 inches
 	DILDO_LARGE, // 10 inches

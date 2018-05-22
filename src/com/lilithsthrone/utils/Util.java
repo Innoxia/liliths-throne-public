@@ -73,16 +73,20 @@ public class Util {
 	
 	public static String colourReplacement(String gradientReplacementID, Colour colour, Colour colourSecondary, Colour colourTertiary, String inputString) {
 		String s = inputString;
+		
 		for (int i = 0; i <= 14; i++) {
 			s = s.replaceAll("linearGradient" + i, gradientReplacementID + colour.toString() + (colourSecondary!=null?colourSecondary.toString():"") + (colourTertiary!=null?colourTertiary.toString():"") + "linearGradient" + i);
 			s = s.replaceAll("innoGrad" + i, gradientReplacementID + colour.toString() + (colourSecondary!=null?colourSecondary.toString():"") + (colourTertiary!=null?colourTertiary.toString():"") + "innoGrad" + i);
 			
 		}
-		s = s.replaceAll("#ff2a2a", colour.getShades()[0]);
-		s = s.replaceAll("#ff5555", colour.getShades()[1]);
-		s = s.replaceAll("#ff8080", colour.getShades()[2]);
-		s = s.replaceAll("#ffaaaa", colour.getShades()[3]);
-		s = s.replaceAll("#ffd5d5", colour.getShades()[4]);
+		
+		if(colour!=null) {
+			s = s.replaceAll("#ff2a2a", colour.getShades()[0]);
+			s = s.replaceAll("#ff5555", colour.getShades()[1]);
+			s = s.replaceAll("#ff8080", colour.getShades()[2]);
+			s = s.replaceAll("#ffaaaa", colour.getShades()[3]);
+			s = s.replaceAll("#ffd5d5", colour.getShades()[4]);
+		}
 		
 		if(colourSecondary!=null) {
 			s = s.replaceAll("#ff7f2a", colourSecondary.getShades()[0]);

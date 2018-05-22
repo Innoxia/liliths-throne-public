@@ -120,7 +120,7 @@ public class SlimeRoyalGuard extends NPC {
 			this.addSpell(Spell.SLAM);
 			this.addSpell(Spell.TELEKENETIC_SHOWER);
 			
-			this.setAttribute(Attribute.MAJOR_PHYSIQUE, 75);
+			this.setAttribute(Attribute.MAJOR_PHYSIQUE, 60);
 			this.setAttribute(Attribute.MAJOR_ARCANE, 20);
 			this.setAttribute(Attribute.DAMAGE_MELEE_WEAPON, 50);
 			this.setAttribute(Attribute.RESISTANCE_LUST, 50);

@@ -1109,6 +1109,7 @@ public class CharacterUtils {
 			List<AbstractCoreItem> items = character.getLootItems();
 			if(!items.isEmpty()) {
 				AbstractCoreItem item = items.get(Util.random.nextInt(items.size()));
+				items.remove(item);
 				if (item instanceof AbstractItem) {
 					character.addItem((AbstractItem) item, false);
 					

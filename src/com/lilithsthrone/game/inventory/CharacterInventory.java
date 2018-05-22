@@ -674,6 +674,12 @@ public class CharacterInventory implements Serializable, XMLSaving {
 			for(BlockedParts bp : c.getClothingType().getBlockedPartsList()) {
 				if(!c.getDisplacedList().contains(bp.displacementType)) {
 					itemConcealed.addAll(bp.concealedSlots);
+					for(InventorySlot invSlot : bp.concealedSlots) {
+						if(this.getClothingInSlot(invSlot)!=null && this.getClothingInSlot(invSlot).getItemTags().contains(ItemTag.REVEALS_CONCEALABLE_SLOT)) {
+							itemRevealed.add(invSlot);
+						}
+					}
+					
 				} else {
 					itemRevealed.addAll(bp.concealedSlots);
 				}

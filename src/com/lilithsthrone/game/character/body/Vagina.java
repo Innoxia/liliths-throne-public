@@ -17,6 +17,8 @@ import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.InventorySlot;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.main.Main;
@@ -1045,11 +1047,24 @@ public class Vagina implements BodyPartInterface, Serializable {
 						"<p>[npc.Name]'s [npc.pussy] is now [style.boldGrow(pierced)]!</p>");
 			}
 		} else {
+			AbstractClothing c = owner.getClothingInSlot(InventorySlot.PIERCING_VAGINA);
+			String piercingUnequip = "";
+			if(c!=null) {
+				owner.forceUnequipClothingIntoVoid(owner, c);
+				piercingUnequip = owner.addClothing(c, false);
+			}
+			
 			if(owner.isPlayer()) {
-				return "<p>Your [pc.pussy] is [style.boldShrink(no longer pierced)]!</p>";
+				return "<p>"
+							+ "Your [pc.pussy] is [style.boldShrink(no longer pierced)]!"
+						+ "</p>"
+						+piercingUnequip;
 			} else {
 				return UtilText.parse(owner,
-						"<p>[npc.Name]'s [npc.pussy] is [style.boldShrink(no longer pierced)]!</p>");
+						"<p>"
+								+ "[npc.Name]'s [npc.pussy] is [style.boldShrink(no longer pierced)]!"
+						+ "</p>"
+						+piercingUnequip);
 			}
 		}
 	}

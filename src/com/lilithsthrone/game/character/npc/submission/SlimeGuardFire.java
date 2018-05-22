@@ -89,9 +89,10 @@ public class SlimeGuardFire extends NPC {
 			
 			// BODY RANDOMISATION:
 			
-			this.setSkinCovering(new Covering(BodyCoveringType.SLIME, Colour.SLIME_ORANGE), false);
+			this.setSkinCovering(new Covering(BodyCoveringType.SLIME, Colour.SLIME_ORANGE), true);
 			this.setSkinCovering(new Covering(BodyCoveringType.SLIME_EYE, Colour.SLIME_ORANGE), false);
 			this.setSkinCovering(new Covering(BodyCoveringType.SLIME_SCLERA, Colour.SLIME_ORANGE), false);
+			this.setSkinCovering(new Covering(BodyCoveringType.SLIME_PUPILS, Colour.SLIME_ORANGE), false);
 			this.setSkinCovering(new Covering(BodyCoveringType.SLIME_HAIR, Colour.SLIME_RED), false);
 			
 			// INVENTORY:
@@ -102,7 +103,7 @@ public class SlimeGuardFire extends NPC {
 			
 			equipClothing(true, false);
 			
-			this.setAttribute(Attribute.MAJOR_PHYSIQUE, 55);
+			this.setAttribute(Attribute.MAJOR_PHYSIQUE, 45);
 			
 			setMana(getAttributeValue(Attribute.MANA_MAXIMUM));
 			setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM));
@@ -112,6 +113,9 @@ public class SlimeGuardFire extends NPC {
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
+		this.setSkinCovering(new Covering(BodyCoveringType.SLIME_PUPILS, Colour.SLIME_ORANGE), false);
+		this.clearNonEquippedInventory();
+		equipClothing(true, false);
 	}
 	
 	@Override

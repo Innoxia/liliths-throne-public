@@ -228,6 +228,13 @@ public enum TFModifier {
 	
 	
 	// Racial parts:
+
+	TF_MATERIAL_FLESH("flesh",
+			"Turns a person's body material to flesh.",
+			"flesh",
+			"modifier_circle_tf_material_flesh",
+			Colour.BASE_CRIMSON,
+			Rarity.LEGENDARY),
 	
 	TF_ANTENNA("antennae",
 			"Applies a transformative effect to your antennae.",
