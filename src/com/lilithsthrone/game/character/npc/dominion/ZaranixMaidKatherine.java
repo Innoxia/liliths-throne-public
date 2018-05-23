@@ -40,7 +40,6 @@ import com.lilithsthrone.game.sex.managers.universal.SMStanding;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
@@ -180,11 +179,6 @@ public class ZaranixMaidKatherine extends NPC {
 	
 
 	// Combat:
-	
-	@Override
-	public String getCombatDescription() {
-		return "Despite her commitment to defending her master's home, Katherine's choice of weapon - the feather duster that she was using to clean the corridor - doesn't strike you as being the most effective of combat implements...";
-	}
 
 	@Override
 	public String getMainAttackDescription(boolean isHit) {
@@ -277,7 +271,7 @@ public class ZaranixMaidKatherine extends NPC {
 			} else if(index==3) {
 				return new ResponseSex("Submit",
 						"You can't bring yourself to take the dominant role, but you <i>do</i> want to have sex with Katherine. Perhaps if you submitted, she'd be willing to fuck you?",
-						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)), null, CorruptionLevel.THREE_DIRTY, null, null, null,
+						Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, CorruptionLevel.THREE_DIRTY, null, null, null,
 						true, true,
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getKatherine(), SexPositionSlot.STANDING_DOMINANT)),

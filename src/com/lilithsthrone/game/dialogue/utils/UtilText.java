@@ -16,6 +16,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
@@ -43,7 +44,6 @@ import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 
 /**
  * @since 0.1.0
@@ -410,7 +410,7 @@ public class UtilText {
 			tagColour = amountColour.toWebHexString();
 		}
 		
-		return "<" + tag + " style='color:" + Colour.CURRENCY_GOLD.toWebHexString() + "; padding-right:2px;'>" + getCurrencySymbol() + "</" + tag + ">"
+		return "<" + tag + " style='color:" + (amountColour==Colour.TEXT?Colour.TEXT.toWebHexString():Colour.CURRENCY_GOLD.toWebHexString()) + "; padding-right:2px;'>" + getCurrencySymbol() + "</" + tag + ">"
 					+ "<" + tag + " style='color:" + tagColour + ";'>" + moneyString + "</" + tag + ">";
 	}
 	
@@ -485,12 +485,11 @@ public class UtilText {
 		return femaleCumNames[Util.random.nextInt(femaleCumNames.length)];
 	}
 
-	private static List<String> randomStrings = new ArrayList<>();
 	/**
 	 * @return Returns one of the supplied Strings, randomly chosen by using Random's nextInt() method.
 	 */
 	public static String returnStringAtRandom(String... strings) {
-		randomStrings.clear();
+		List<String> randomStrings = new ArrayList<>();
 		
 		for(String s : strings) {
 			if(s!=null && !s.isEmpty()) {
@@ -556,11 +555,11 @@ public class UtilText {
 	}
 	
 	public static String parse(GameCharacter specialNPC, String input) {
-		return parse(Util.newArrayListOfValues(new ListValue<>(specialNPC)), input);
+		return parse(Util.newArrayListOfValues(specialNPC), input);
 	}
 	
 	public static String parse(GameCharacter specialNPC1, GameCharacter specialNPC2, String input) {
-		return parse(Util.newArrayListOfValues(new ListValue<>(specialNPC1), new ListValue<>(specialNPC2)), input);
+		return parse(Util.newArrayListOfValues(specialNPC1, specialNPC2), input);
 	}
 	
 	/**
@@ -732,11 +731,12 @@ public class UtilText {
 					System.err.println("Error in parsing: StartIndex:"+startIndex+" ("+target+", "+command+")");
 					return input;
 				}
-				return parse(specialNPC, input.substring(0, startIndex)
-						+ (processingConditional
-								?parseConditionalSyntaxNew(target, command, arguments, conditionalTrue, conditionalFalse)
-								:parseSyntaxNew(target, command, arguments, specialNPC))
-						+ input.substring(endIndex+1, input.length()));
+				return input.substring(0, startIndex) 
+						+ parse(specialNPC,
+								(processingConditional
+									? parseConditionalSyntaxNew(target, command, arguments, conditionalTrue, conditionalFalse)
+									: parseSyntaxNew(target, command, arguments, specialNPC))
+								+ input.substring(endIndex+1, input.length()));
 			} else {
 				return input;//.replaceAll(" a ", " <span style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>a big moo</span> ");
 			}
@@ -755,10 +755,25 @@ public class UtilText {
 	
 	static{
 		
+
 		conditionalCommandsList.add(new ParserConditionalCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("isPlayer"),
-						new ListValue<>("player")),
+						"isIncestOn",
+						"isIncestEnabled",
+						"incestOn",
+						"incestEnabled"),
+				"",
+				"Returns true if the player has the incest content toggle on."){
+			@Override
+			public boolean process(String command, String arguments, String target) {
+				return Main.getProperties().hasValue(PropertyValue.incestContent);
+			}
+		});
+		
+		conditionalCommandsList.add(new ParserConditionalCommand(
+				Util.newArrayListOfValues(
+						"isPlayer",
+						"player"),
 				"",
 				"Returns true if the character is the player."){
 			@Override
@@ -769,10 +784,10 @@ public class UtilText {
 		
 		conditionalCommandsList.add(new ParserConditionalCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("isVaginaExposed"),
-						new ListValue<>("isPussyExposed"),
-						new ListValue<>("isExposedVagina"),
-						new ListValue<>("isExposedPussy")),
+						"isVaginaExposed",
+						"isPussyExposed",
+						"isExposedVagina",
+						"isExposedPussy"),
 				"",
 				"Returns true if the character's vagina is exposed."){
 			@Override
@@ -780,10 +795,22 @@ public class UtilText {
 				return character.isCoverableAreaExposed(CoverableArea.VAGINA);
 			}
 		});
+
+		conditionalCommandsList.add(new ParserConditionalCommand(
+				Util.newArrayListOfValues(
+						"isAbleToFly",
+						"canFly"),
+				"",
+				"Returns true if the character can fly."){
+			@Override
+			public boolean process(String command, String arguments, String target) {
+				return character.isAbleToFly();
+			}
+		});
 		
 		conditionalCommandsList.add(new ParserConditionalCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("isVisiblyPregnant")),
+						"isVisiblyPregnant"),
 				"",
 				"Returns true if the character is visibly pregnant."){
 			@Override
@@ -794,8 +821,8 @@ public class UtilText {
 		
 		conditionalCommandsList.add(new ParserConditionalCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("isMotheredChildren"),
-						new ListValue<>("hasMotheredChildren")),
+						"isMotheredChildren",
+						"hasMotheredChildren"),
 				"",
 				"Returns true if the character has given birth before."){
 			@Override
@@ -806,8 +833,8 @@ public class UtilText {
 		
 		conditionalCommandsList.add(new ParserConditionalCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("isDayTime"),
-						new ListValue<>("isDay")),
+						"isDayTime",
+						"isDay"),
 				"",
 				"Returns true if it's currently day time (between 7am and 9pm)."){
 			@Override
@@ -818,8 +845,8 @@ public class UtilText {
 		
 		conditionalCommandsList.add(new ParserConditionalCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("isArcaneStorm"),
-						new ListValue<>("isStorm")),
+						"isArcaneStorm",
+						"isStorm"),
 				"",
 				"Returns true if the weather is currently an arcane storm."){
 			@Override
@@ -830,8 +857,8 @@ public class UtilText {
 		
 		conditionalCommandsList.add(new ParserConditionalCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("hairLengthMinimum"),
-						new ListValue<>("minimumHairLength")),
+						"hairLengthMinimum",
+						"minimumHairLength"),
 				"(HairLength Enum)",
 				"Returns true if the character's hair is at least as long as the supplied hair length's minimum value."){
 			@Override
@@ -852,8 +879,8 @@ public class UtilText {
 		
 		conditionalCommandsList.add(new ParserConditionalCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("hairLengthMaximum"),
-						new ListValue<>("maximumHairLength")),
+						"hairLengthMaximum",
+						"maximumHairLength"),
 				"(HairLength Enum)",
 				"Returns true if the character's hair is no longer than the supplied hair length's maximum value."){
 			@Override
@@ -875,7 +902,35 @@ public class UtilText {
 		
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(new ListValue<>("name")),
+				Util.newArrayListOfValues("money"),
+				true,
+				false,
+				"(amount, tag)",
+				"Formats the supplied number as money, using the tag as the html tag."){
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return UtilText.formatAsMoney(arguments.split(", ")[0], arguments.split(", ")[1]);
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"moneyUncoloured",
+						"moneyNoColour",
+						"moneyUncolored",
+						"moneyNoColor"),
+				true,
+				false,
+				"(amount, tag)",
+				"Formats the supplied number as money, using the tag as the html tag."){
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return UtilText.formatAsMoneyUncoloured(Integer.valueOf(arguments.split(", ")[0]), arguments.split(", ")[1]);
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues("name"),
 				true,
 				false,
 				"(prefix)",
@@ -895,7 +950,7 @@ public class UtilText {
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(new ListValue<>("surname")),
+				Util.newArrayListOfValues("surname"),
 				true,
 				false,
 				"",
@@ -907,7 +962,7 @@ public class UtilText {
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(new ListValue<>("fullName")),
+				Util.newArrayListOfValues("fullName"),
 				true,
 				false,
 				"(prefix)",
@@ -928,8 +983,8 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("pcName"),
-						new ListValue<>("pcPetName")),
+						"pcName",
+						"pcPetName"),
 				true,
 				false,
 				"",
@@ -942,8 +997,8 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("description"),
-						new ListValue<>("desc")),
+						"description",
+						"desc"),
 				true,
 				false,
 				"",//TODO
@@ -956,7 +1011,7 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("gender")),
+						"gender"),
 				true,
 				true,
 				"(coloured)",//TODO
@@ -982,9 +1037,9 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("genderAppears"),
-						new ListValue<>("genderAppearsAs"),
-						new ListValue<>("appearsAsGender")),
+						"genderAppears",
+						"genderAppearsAs",
+						"appearsAsGender"),
 				true,
 				true,
 				"(coloured)",//TODO
@@ -1010,8 +1065,8 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("daughter"),
-						new ListValue<>("son")),
+						"daughter",
+						"son"),
 				true,
 				true,
 				"",//TODO
@@ -1028,8 +1083,8 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("mother"),
-						new ListValue<>("father")),
+						"mother",
+						"father"),
 				true,
 				true,
 				"",//TODO
@@ -1046,8 +1101,8 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("mommy"),
-						new ListValue<>("daddy")),
+						"mommy",
+						"daddy"),
 				true,
 				true,
 				"",//TODO
@@ -1064,9 +1119,9 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("mom"),
-						new ListValue<>("mum"),
-						new ListValue<>("dad")),
+						"mom",
+						"mum",
+						"dad"),
 				true,
 				true,
 				"",//TODO
@@ -1083,8 +1138,8 @@ public class UtilText {
 
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("sister"),
-						new ListValue<>("brother")),
+						"sister",
+						"brother"),
 				true,
 				true,
 				"",//TODO
@@ -1101,8 +1156,8 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("sis"),
-						new ListValue<>("bro")),
+						"sis",
+						"bro"),
 				true,
 				true,
 				"",//TODO
@@ -1119,8 +1174,8 @@ public class UtilText {
 
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("niece"),
-						new ListValue<>("nephew")),
+						"niece",
+						"nephew"),
 				true,
 				true,
 				"",//TODO
@@ -1137,8 +1192,8 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("mistress"),
-						new ListValue<>("master")),
+						"mistress",
+						"master"),
 				true,
 				true,
 				"",//TODO
@@ -1155,10 +1210,28 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("miss"),
-						new ListValue<>("ms"),
-						new ListValue<>("mister"),
-						new ListValue<>("mr")),
+						"heroine",
+						"hero"),
+				true,
+				true,
+				"",//TODO
+				"Description of method"){//TODO
+			@Override
+			public String parse(String command, String arguments, String target) {
+				if(character.isFeminine()) {
+					return "heroine";
+				} else {
+					return "hero";
+				}
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"miss",
+						"ms",
+						"mister",
+						"mr"),
 				true,
 				true,
 				"",//TODO
@@ -1175,8 +1248,8 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("boyfriend"),
-						new ListValue<>("girlfriend")),
+						"boyfriend",
+						"girlfriend"),
 				true,
 				true,
 				"",//TODO
@@ -1193,8 +1266,8 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("bitch"),
-						new ListValue<>("slut")),
+						"bitch",
+						"slut"),
 				true,
 				true,
 				"",
@@ -1211,8 +1284,8 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("fullRace"),
-						new ListValue<>("femininityRace")),
+						"fullRace",
+						"femininityRace"),
 				true,
 				true,
 				"(coloured)",//TODO
@@ -1241,7 +1314,7 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("race")),
+						"race"),
 				true,
 				true,
 				"",//TODO
@@ -1254,7 +1327,7 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("races")),
+						"races"),
 				true,
 				true,
 				"",//TODO
@@ -1267,7 +1340,7 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("raceStage")),
+						"raceStage"),
 				true,
 				true,
 				"",//TODO
@@ -1280,7 +1353,7 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("materialName")),
+						"materialName"),
 				true,
 				true,
 				"",
@@ -1293,7 +1366,7 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("materialSkin")),
+						"materialSkin"),
 				true,
 				true,
 				"",
@@ -1306,7 +1379,7 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("materialSkinAdjective")),
+						"materialSkinAdjective"),
 				true,
 				true,
 				"",
@@ -1319,7 +1392,7 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("materialSkinAlt")),
+						"materialSkinAlt"),
 				true,
 				true,
 				"",
@@ -1332,7 +1405,7 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("materialSkinAltAdjective")),
+						"materialSkinAltAdjective"),
 				true,
 				true,
 				"",
@@ -1345,7 +1418,7 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("materialOrifice")),
+						"materialOrifice"),
 				true,
 				true,
 				"",
@@ -1358,7 +1431,7 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("materialOrificeAdjective")),
+						"materialOrificeAdjective"),
 				true,
 				true,
 				"",
@@ -1371,7 +1444,7 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("materialOrificeAlt")),
+						"materialOrificeAlt"),
 				true,
 				true,
 				"",
@@ -1384,7 +1457,7 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("materialOrificeAltAdjective")),
+						"materialOrificeAltAdjective"),
 				true,
 				true,
 				"",
@@ -1397,7 +1470,7 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("materialHair")),
+						"materialHair"),
 				true,
 				true,
 				"",
@@ -1410,7 +1483,7 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("materialHairAdjective")),
+						"materialHairAdjective"),
 				true,
 				true,
 				"",
@@ -1423,8 +1496,8 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("materialHairBody"),
-						new ListValue<>("materialBodyHair")),
+						"materialHairBody",
+						"materialBodyHair"),
 				true,
 				true,
 				"",
@@ -1437,8 +1510,8 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("materialHairBodyAdjective"),
-						new ListValue<>("materialBodyHairAdjective")),
+						"materialHairBodyAdjective",
+						"materialBodyHairAdjective"),
 				true,
 				true,
 				"",
@@ -1451,7 +1524,7 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("materialHairAlt")),
+						"materialHairAlt"),
 				true,
 				true,
 				"",
@@ -1464,7 +1537,7 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("materialHairAltAdjective")),
+						"materialHairAltAdjective"),
 				true,
 				true,
 				"",
@@ -1477,7 +1550,7 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("materialFur")),
+						"materialFur"),
 				true,
 				true,
 				"",
@@ -1490,7 +1563,7 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("materialFurAdjective")),
+						"materialFurAdjective"),
 				true,
 				true,
 				"",
@@ -1503,7 +1576,7 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("materialFurAlt")),
+						"materialFurAlt"),
 				true,
 				true,
 				"",
@@ -1516,7 +1589,7 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("materialFurAltAdjective")),
+						"materialFurAltAdjective"),
 				true,
 				true,
 				"",
@@ -1529,8 +1602,8 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("materialFeather"),
-						new ListValue<>("materialFeathers")),
+						"materialFeather",
+						"materialFeathers"),
 				true,
 				true,
 				"",
@@ -1543,8 +1616,8 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("materialFeatherAdjective"),
-						new ListValue<>("materialFeathersAdjective")),
+						"materialFeatherAdjective",
+						"materialFeathersAdjective"),
 				true,
 				true,
 				"",
@@ -1557,8 +1630,8 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("materialFeatherAlt"),
-						new ListValue<>("materialFeathersAlt")),
+						"materialFeatherAlt",
+						"materialFeathersAlt"),
 				true,
 				true,
 				"",
@@ -1571,8 +1644,8 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("materialFeatherAltAdjective"),
-						new ListValue<>("materialFeathersAltAdjective")),
+						"materialFeatherAltAdjective",
+						"materialFeathersAltAdjective"),
 				true,
 				true,
 				"",
@@ -1585,8 +1658,8 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("materialScale"),
-						new ListValue<>("materialScales")),
+						"materialScale",
+						"materialScales"),
 				true,
 				true,
 				"",
@@ -1599,8 +1672,8 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("materialScaleAdjective"),
-						new ListValue<>("materialScalesAdjective")),
+						"materialScaleAdjective",
+						"materialScalesAdjective"),
 				true,
 				true,
 				"",
@@ -1613,8 +1686,8 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("materialScaleAlt"),
-						new ListValue<>("materialScalesAlt")),
+						"materialScaleAlt",
+						"materialScalesAlt"),
 				true,
 				true,
 				"",
@@ -1627,8 +1700,8 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("materialScaleAltAdjective"),
-						new ListValue<>("materialScalesAltAdjective")),
+						"materialScaleAltAdjective",
+						"materialScalesAltAdjective"),
 				true,
 				true,
 				"",
@@ -1641,7 +1714,7 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("materialShell")),
+						"materialShell"),
 				true,
 				true,
 				"",
@@ -1654,7 +1727,7 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("materialShellAdjective")),
+						"materialShellAdjective"),
 				true,
 				true,
 				"",
@@ -1667,7 +1740,7 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("materialShellAlt")),
+						"materialShellAlt"),
 				true,
 				true,
 				"",
@@ -1680,7 +1753,7 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("materialShellAltAdjective")),
+						"materialShellAltAdjective"),
 				true,
 				true,
 				"",
@@ -1693,7 +1766,7 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("materialKeratin")),
+						"materialKeratin"),
 				true,
 				true,
 				"",
@@ -1706,7 +1779,7 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("materialKeratinAdjective")),
+						"materialKeratinAdjective"),
 				true,
 				true,
 				"",
@@ -1719,7 +1792,7 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("materialKeratinAlt")),
+						"materialKeratinAlt"),
 				true,
 				true,
 				"",
@@ -1732,7 +1805,7 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("materialKeratinAltAdjective")),
+						"materialKeratinAltAdjective"),
 				true,
 				true,
 				"",
@@ -1745,10 +1818,10 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("femininity"),
-						new ListValue<>("fem"),
-						new ListValue<>("masculinity"),
-						new ListValue<>("mas")),
+						"femininity",
+						"fem",
+						"masculinity",
+						"mas"),
 				true,
 				true,
 				"(coloured)",//TODO
@@ -1761,7 +1834,7 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("bodySize")),
+						"bodySize"),
 				true,
 				true,
 				"",//TODO
@@ -1774,7 +1847,7 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("muscle")),
+						"muscle"),
 				true,
 				true,
 				"",//TODO
@@ -1787,7 +1860,7 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("bodyShape")),
+						"bodyShape"),
 				true,
 				true,
 				"",//TODO
@@ -1800,7 +1873,7 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("height")),
+						"height"),
 				true,
 				true,
 				"",//TODO
@@ -1813,7 +1886,7 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("heightCm")),
+						"heightCm"),
 				false,
 				false,
 				"",//TODO
@@ -1826,7 +1899,7 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("heightInches")),
+						"heightInches"),
 				false,
 				false,
 				"",//TODO
@@ -1839,7 +1912,7 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("heightFeetInches")),
+						"heightFeetInches"),
 				false,
 				false,
 				"",//TODO
@@ -1852,7 +1925,7 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("weight")),
+						"weight"),
 				false,
 				false,
 				"",//TODO
@@ -1865,10 +1938,10 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("speech"),
-						new ListValue<>("dialogue"),
-						new ListValue<>("talk"),
-						new ListValue<>("say")),
+						"speech",
+						"dialogue",
+						"talk",
+						"say"),
 				false,
 				false,
 				"(speech content)",
@@ -1885,10 +1958,10 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("speechMasculine"),
-						new ListValue<>("dialogueMasculine"),
-						new ListValue<>("talkMasculine"),
-						new ListValue<>("sayMasculine")),
+						"speechMasculine",
+						"dialogueMasculine",
+						"talkMasculine",
+						"sayMasculine"),
 				false,
 				false,
 				"(speech content)",
@@ -1905,10 +1978,10 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("speechMasculineStrong"),
-						new ListValue<>("dialogueMasculineStrong"),
-						new ListValue<>("talkMasculineStrong"),
-						new ListValue<>("sayMasculineStrong")),
+						"speechMasculineStrong",
+						"dialogueMasculineStrong",
+						"talkMasculineStrong",
+						"sayMasculineStrong"),
 				false,
 				false,
 				"(speech content)",
@@ -1925,10 +1998,10 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("speechAndrogynous"),
-						new ListValue<>("dialogueAndrogynous"),
-						new ListValue<>("talkAndrogynous"),
-						new ListValue<>("sayAndrogynous")),
+						"speechAndrogynous",
+						"dialogueAndrogynous",
+						"talkAndrogynous",
+						"sayAndrogynous"),
 				false,
 				false,
 				"(speech content)",
@@ -1945,10 +2018,10 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("speechFeminine"),
-						new ListValue<>("dialogueFeminine"),
-						new ListValue<>("talkFeminine"),
-						new ListValue<>("sayFeminine")),
+						"speechFeminine",
+						"dialogueFeminine",
+						"talkFeminine",
+						"sayFeminine"),
 				false,
 				false,
 				"(speech content)",
@@ -1965,10 +2038,10 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("speechNoEffects"),
-						new ListValue<>("dialogueNoEffects"),
-						new ListValue<>("talkNoEffects"),
-						new ListValue<>("sayNoEffects")),
+						"speechNoEffects",
+						"dialogueNoEffects",
+						"talkNoEffects",
+						"sayNoEffects"),
 				false,
 				false,
 				"(speech content)",
@@ -1985,7 +2058,7 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("thought")),
+						"thought"),
 				false,
 				false,
 				"(thought content)",
@@ -2002,10 +2075,10 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("moan"),
-						new ListValue<>("groan"),
-						new ListValue<>("sob"),
-						new ListValue<>("cry")),
+						"moan",
+						"groan",
+						"sob",
+						"cry"),
 				true,
 				true,
 				"",
@@ -2033,14 +2106,14 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("moan+"),
-						new ListValue<>("moanD"),
-						new ListValue<>("groan+"),
-						new ListValue<>("groanD"),
-						new ListValue<>("sob+"),
-						new ListValue<>("sobD"),
-						new ListValue<>("cry+"),
-						new ListValue<>("cryD")),
+						"moan+",
+						"moanD",
+						"groan+",
+						"groanD",
+						"sob+",
+						"sobD",
+						"cry+",
+						"cryD"),
 				true,
 				true,
 				"",
@@ -2069,10 +2142,10 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("moanVerb"),
-						new ListValue<>("groanVerb"),
-						new ListValue<>("sobVerb"),
-						new ListValue<>("cryVerb")),
+						"moanVerb",
+						"groanVerb",
+						"sobVerb",
+						"cryVerb"),
 				true,
 				true,
 				"",
@@ -2100,14 +2173,14 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("moanVerb+"),
-						new ListValue<>("moanVerbD"),
-						new ListValue<>("groanVerb+"),
-						new ListValue<>("groanVerbD"),
-						new ListValue<>("sobVerb+"),
-						new ListValue<>("sobVerbD"),
-						new ListValue<>("cryVerb+"),
-						new ListValue<>("cryVerbD")),
+						"moanVerb+",
+						"moanVerbD",
+						"groanVerb+",
+						"groanVerbD",
+						"sobVerb+",
+						"sobVerbD",
+						"cryVerb+",
+						"cryVerbD"),
 				true,
 				true,
 				"",
@@ -2136,10 +2209,10 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("moans"),
-						new ListValue<>("groans"),
-						new ListValue<>("sobs"),
-						new ListValue<>("cries")),
+						"moans",
+						"groans",
+						"sobs",
+						"cries"),
 				true,
 				false,
 				"",
@@ -2168,14 +2241,14 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("moans+"),
-						new ListValue<>("moansD"),
-						new ListValue<>("groans+"),
-						new ListValue<>("groansD"),
-						new ListValue<>("sobs+"),
-						new ListValue<>("sobsD"),
-						new ListValue<>("cries+"),
-						new ListValue<>("criesD")),
+						"moans+",
+						"moansD",
+						"groans+",
+						"groansD",
+						"sobs+",
+						"sobsD",
+						"cries+",
+						"criesD"),
 				true,
 				false,
 				"",
@@ -2205,10 +2278,10 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("moansVerb"),
-						new ListValue<>("groansVerb"),
-						new ListValue<>("sobsVerb"),
-						new ListValue<>("criesVerb")),
+						"moansVerb",
+						"groansVerb",
+						"sobsVerb",
+						"criesVerb"),
 				true,
 				false,
 				"",
@@ -2237,14 +2310,14 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("moansVerb+"),
-						new ListValue<>("moansVerbD"),
-						new ListValue<>("groansVerb+"),
-						new ListValue<>("groansVerbD"),
-						new ListValue<>("sobsVerb+"),
-						new ListValue<>("sobsVerbD"),
-						new ListValue<>("criesVerb+"),
-						new ListValue<>("criesVerbD")),
+						"moansVerb+",
+						"moansVerbD",
+						"groansVerb+",
+						"groansVerbD",
+						"sobsVerb+",
+						"sobsVerbD",
+						"criesVerb+",
+						"criesVerbD"),
 				true,
 				false,
 				"",
@@ -2274,10 +2347,10 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("moaning"),
-						new ListValue<>("groaning"),
-						new ListValue<>("sobbing"),
-						new ListValue<>("crying")),
+						"moaning",
+						"groaning",
+						"sobbing",
+						"crying"),
 				true,
 				false,
 				"",
@@ -2304,14 +2377,14 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("moaning+"),
-						new ListValue<>("moaningD"),
-						new ListValue<>("groaning+"),
-						new ListValue<>("groaningD"),
-						new ListValue<>("sobbing+"),
-						new ListValue<>("sobbingD"),
-						new ListValue<>("crying+"),
-						new ListValue<>("cryingD")),
+						"moaning+",
+						"moaningD",
+						"groaning+",
+						"groaningD",
+						"sobbing+",
+						"sobbingD",
+						"crying+",
+						"cryingD"),
 				true,
 				false,
 				"",
@@ -2338,8 +2411,8 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("scent"),
-						new ListValue<>("smell")),
+						"scent",
+						"smell"),
 				true,
 				true,
 				"",
@@ -2359,8 +2432,8 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("girl"),
-						new ListValue<>("boy")),
+						"girl",
+						"boy"),
 				true,
 				true,
 				"",
@@ -2376,8 +2449,8 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("woman"),
-						new ListValue<>("man")),
+						"woman",
+						"man"),
 				true,
 				true,
 				"",
@@ -2393,8 +2466,8 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("female"),
-						new ListValue<>("male")),
+						"female",
+						"male"),
 				true,
 				true,
 				"",
@@ -2410,8 +2483,8 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("feminine"),
-						new ListValue<>("masculine")),
+						"feminine",
+						"masculine"),
 				true,
 				true,
 				"",
@@ -2427,12 +2500,12 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("her"),
-						new ListValue<>("his"),
-						new ListValue<>("herPos"),
-						new ListValue<>("herHis"),
-						new ListValue<>("hisPos"),
-						new ListValue<>("hisHer")),
+						"her",
+						"his",
+						"herPos",
+						"herHis",
+						"hisPos",
+						"hisHer"),
 				true,
 				true,
 				"",
@@ -2457,9 +2530,9 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("hers"),
-						new ListValue<>("hersHis"),
-						new ListValue<>("hisHers")),
+						"hers",
+						"hersHis",
+						"hisHers"),
 				true,
 				true,
 				"",
@@ -2484,10 +2557,10 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("him"),
-						new ListValue<>("herPro"),
-						new ListValue<>("herHim"),
-						new ListValue<>("himHer")),
+						"him",
+						"herPro",
+						"herHim",
+						"himHer"),
 				true,
 				true,
 				"",
@@ -2512,10 +2585,10 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("she"),
-						new ListValue<>("sheHe"),
-						new ListValue<>("he"),
-						new ListValue<>("heShe")),
+						"she",
+						"sheHe",
+						"he",
+						"heShe"),
 				true,
 				true,
 				"",
@@ -2540,8 +2613,8 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("herself"),
-						new ListValue<>("himself")),
+						"herself",
+						"himself"),
 				true,
 				true,
 				"",
@@ -2568,9 +2641,9 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("topClothing"),
-						new ListValue<>("highestClothing"),
-						new ListValue<>("highClothing")),
+						"topClothing",
+						"highestClothing",
+						"highClothing"),
 				true,
 				true,
 				"(bodyPart)",
@@ -2623,9 +2696,9 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("bottomClothing"),
-						new ListValue<>("lowestClothing"),
-						new ListValue<>("lowClothing")),
+						"bottomClothing",
+						"lowestClothing",
+						"lowClothing"),
 				true,
 				true,
 				"(bodyPart)",
@@ -2681,8 +2754,8 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("bold"),
-						new ListValue<>("b")),
+						"bold",
+						"b"),
 				false,
 				false,
 				"(text to make bold)",
@@ -2698,9 +2771,9 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("italic"),
-						new ListValue<>("italics"),
-						new ListValue<>("i")),
+						"italic",
+						"italics",
+						"i"),
 				false,
 				false,
 				"(text to italicise)",
@@ -2798,123 +2871,123 @@ public class UtilText {
 		// Add standard parsing for all types:
 
 		addStandardParsingCommands(
-				Util.newArrayListOfValues(new ListValue<>("antenna")),
-				Util.newArrayListOfValues(new ListValue<>("antennae")),
+				Util.newArrayListOfValues("antenna"),
+				Util.newArrayListOfValues("antennae"),
 				BodyPartType.ANTENNA);
 				
 		addStandardParsingCommands(
-				Util.newArrayListOfValues(new ListValue<>("arm")),
-				Util.newArrayListOfValues(new ListValue<>("arms")),
+				Util.newArrayListOfValues("arm"),
+				Util.newArrayListOfValues("arms"),
 				BodyPartType.ARM);
 		
 		addStandardParsingCommands(
-				Util.newArrayListOfValues(new ListValue<>("ass"), new ListValue<>("butt")),
-				Util.newArrayListOfValues(new ListValue<>("asses"), new ListValue<>("butts")),
+				Util.newArrayListOfValues("ass", "butt"),
+				Util.newArrayListOfValues("asses", "butts"),
 				BodyPartType.ASS);
 		
 		addStandardParsingCommands(
-				Util.newArrayListOfValues(new ListValue<>("anus"), new ListValue<>("asshole")),
-				Util.newArrayListOfValues(new ListValue<>("anuses"), new ListValue<>("assholes")),
+				Util.newArrayListOfValues("anus", "asshole"),
+				Util.newArrayListOfValues("anuses", "assholes"),
 				BodyPartType.ANUS);
 		
 		addStandardParsingCommands(
-				Util.newArrayListOfValues(new ListValue<>("breast"), new ListValue<>("tit"), new ListValue<>("boob"), new ListValue<>("chest")),
-				Util.newArrayListOfValues(new ListValue<>("breasts"), new ListValue<>("tits"), new ListValue<>("boobs")),
+				Util.newArrayListOfValues("breast", "tit", "boob", "chest"),
+				Util.newArrayListOfValues("breasts", "tits", "boobs"),
 				BodyPartType.BREAST);
 
 		addStandardParsingCommands(
-				Util.newArrayListOfValues(new ListValue<>("nipple"), new ListValue<>("teat")),
-				Util.newArrayListOfValues(new ListValue<>("nipples"), new ListValue<>("teats")),
+				Util.newArrayListOfValues("nipple", "teat"),
+				Util.newArrayListOfValues("nipples", "teats"),
 				BodyPartType.NIPPLES);
 
 		addStandardParsingCommands(
-				Util.newArrayListOfValues(new ListValue<>("milk")),
-				Util.newArrayListOfValues(new ListValue<>("milks")), // milks? Really?
+				Util.newArrayListOfValues("milk"),
+				Util.newArrayListOfValues("milks"), // milks? Really?
 				BodyPartType.MILK);
 		
 		addStandardParsingCommands(
-				Util.newArrayListOfValues(new ListValue<>("ear")),
-				Util.newArrayListOfValues(new ListValue<>("ears")),
+				Util.newArrayListOfValues("ear"),
+				Util.newArrayListOfValues("ears"),
 				BodyPartType.EAR);
 		
 		addStandardParsingCommands(
-				Util.newArrayListOfValues(new ListValue<>("eye")),
-				Util.newArrayListOfValues(new ListValue<>("eyes")),
+				Util.newArrayListOfValues("eye"),
+				Util.newArrayListOfValues("eyes"),
 				BodyPartType.EYE);
 		
 		addStandardParsingCommands(
-				Util.newArrayListOfValues(new ListValue<>("face")),
-				Util.newArrayListOfValues(new ListValue<>("faces")),
+				Util.newArrayListOfValues("face"),
+				Util.newArrayListOfValues("faces"),
 				BodyPartType.FACE);
 		
 		addStandardParsingCommands(
-				Util.newArrayListOfValues(new ListValue<>("mouth")),
-				Util.newArrayListOfValues(new ListValue<>("mouths")),
+				Util.newArrayListOfValues("mouth"),
+				Util.newArrayListOfValues("mouths"),
 				BodyPartType.MOUTH);
 		
 		addStandardParsingCommands(
-				Util.newArrayListOfValues(new ListValue<>("hairSingular"), new ListValue<>("feather")),
-				Util.newArrayListOfValues(new ListValue<>("hair"), new ListValue<>("feathers")),
+				Util.newArrayListOfValues("hairSingular", "feather"),
+				Util.newArrayListOfValues("hair", "feathers"),
 				BodyPartType.HAIR);
 
 		addStandardParsingCommands(
-				Util.newArrayListOfValues(new ListValue<>("horn")),
-				Util.newArrayListOfValues(new ListValue<>("horns")),
+				Util.newArrayListOfValues("horn"),
+				Util.newArrayListOfValues("horns"),
 				BodyPartType.HORN);
 		
 		addStandardParsingCommands(
-				Util.newArrayListOfValues(new ListValue<>("leg")),
-				Util.newArrayListOfValues(new ListValue<>("legs")),
+				Util.newArrayListOfValues("leg"),
+				Util.newArrayListOfValues("legs"),
 				BodyPartType.LEG);
 		
 		addStandardParsingCommands(
-				Util.newArrayListOfValues(new ListValue<>("penis"), new ListValue<>("cock"), new ListValue<>("dick")),
-				Util.newArrayListOfValues(new ListValue<>("penises"), new ListValue<>("cocks"), new ListValue<>("dicks")),
+				Util.newArrayListOfValues("penis", "cock", "dick"),
+				Util.newArrayListOfValues("penises", "cocks", "dicks"),
 				BodyPartType.PENIS);
 
 		addStandardParsingCommands(
-				Util.newArrayListOfValues(new ListValue<>("secondPenis"), new ListValue<>("secondCock"), new ListValue<>("secondDick"), new ListValue<>("penis2"), new ListValue<>("cock2"), new ListValue<>("dick2")),
-				Util.newArrayListOfValues(new ListValue<>("secondPenises"), new ListValue<>("secondCocks"), new ListValue<>("secondDicks"), new ListValue<>("penises2"), new ListValue<>("cocks2"), new ListValue<>("dicks2")),
+				Util.newArrayListOfValues("secondPenis", "secondCock", "secondDick", "penis2", "cock2", "dick2"),
+				Util.newArrayListOfValues("secondPenises", "secondCocks", "secondDicks", "penises2", "cocks2", "dicks2"),
 				BodyPartType.SECOND_PENIS);
 		
 		addStandardParsingCommands(
-				Util.newArrayListOfValues(new ListValue<>("testicle"), new ListValue<>("ball")),
-				Util.newArrayListOfValues(new ListValue<>("testicles"), new ListValue<>("balls")),
+				Util.newArrayListOfValues("testicle", "ball"),
+				Util.newArrayListOfValues("testicles", "balls"),
 				BodyPartType.TESTICLES);
 
 		addStandardParsingCommands(
-				Util.newArrayListOfValues(new ListValue<>("cum")),
-				Util.newArrayListOfValues(new ListValue<>("cums")), // :s
+				Util.newArrayListOfValues("cum"),
+				Util.newArrayListOfValues("cums"), // :s
 				BodyPartType.CUM);
 		
 		addStandardParsingCommands(
-				Util.newArrayListOfValues(new ListValue<>("skin")),
-				Util.newArrayListOfValues(new ListValue<>("skinPlural")),
+				Util.newArrayListOfValues("skin"),
+				Util.newArrayListOfValues("skinPlural"),
 				BodyPartType.SKIN);
 		
 		addStandardParsingCommands(
-				Util.newArrayListOfValues(new ListValue<>("tail")),
-				Util.newArrayListOfValues(new ListValue<>("tails")),
+				Util.newArrayListOfValues("tail"),
+				Util.newArrayListOfValues("tails"),
 				BodyPartType.TAIL);
 		
 		addStandardParsingCommands(
-				Util.newArrayListOfValues(new ListValue<>("tongue")),
-				Util.newArrayListOfValues(new ListValue<>("tongues")),
+				Util.newArrayListOfValues("tongue"),
+				Util.newArrayListOfValues("tongues"),
 				BodyPartType.TONGUE);
 		
 		addStandardParsingCommands(
-				Util.newArrayListOfValues(new ListValue<>("vagina"), new ListValue<>("pussy"), new ListValue<>("cunt")),
-				Util.newArrayListOfValues(new ListValue<>("vaginas"), new ListValue<>("pussies"), new ListValue<>("cunts")),
+				Util.newArrayListOfValues("vagina", "pussy", "cunt"),
+				Util.newArrayListOfValues("vaginas", "pussies", "cunts"),
 				BodyPartType.VAGINA);
 
 		addStandardParsingCommands(
-				Util.newArrayListOfValues(new ListValue<>("girlcum"), new ListValue<>("gcum")),
-				Util.newArrayListOfValues(new ListValue<>("girlcums"), new ListValue<>("gcums")),
+				Util.newArrayListOfValues("girlcum", "gcum"),
+				Util.newArrayListOfValues("girlcums", "gcums"),
 				BodyPartType.GIRL_CUM);
 
 		addStandardParsingCommands(
-				Util.newArrayListOfValues(new ListValue<>("wing")),
-				Util.newArrayListOfValues(new ListValue<>("wings")),
+				Util.newArrayListOfValues("wing"),
+				Util.newArrayListOfValues("wings"),
 				BodyPartType.WING);
 		
 		
@@ -2924,7 +2997,7 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("armRows")),
+						"armRows"),
 				true,
 				true,
 				"",
@@ -2944,7 +3017,7 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("hand")),
+						"hand"),
 				true,
 				true,
 				"",
@@ -2958,8 +3031,8 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("hand+"),
-						new ListValue<>("handD")),
+						"hand+",
+						"handD"),
 				true,
 				true,
 				"",
@@ -2973,7 +3046,7 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("hands")),
+						"hands"),
 				true,
 				true,
 				"",
@@ -2987,8 +3060,8 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("hands+"),
-						new ListValue<>("handsD")),
+						"hands+",
+						"handsD"),
 				true,
 				false,
 				"",
@@ -3002,7 +3075,7 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("finger")),
+						"finger"),
 				true,
 				true,
 				"",
@@ -3016,8 +3089,8 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("finger+"),
-						new ListValue<>("fingerD")),
+						"finger+",
+						"fingerD"),
 				true,
 				true,
 				"",
@@ -3031,7 +3104,7 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("fingers")),
+						"fingers"),
 				true,
 				true,
 				"",
@@ -3045,8 +3118,8 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("fingers+"),
-						new ListValue<>("fingersD")),
+						"fingers+",
+						"fingersD"),
 				true,
 				false,
 				"",
@@ -3062,7 +3135,7 @@ public class UtilText {
 		// Ass:
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("assSize")),
+						"assSize"),
 				true,
 				true,
 				"",
@@ -3076,8 +3149,8 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("assCapacity"),
-						new ListValue<>("assholeCapacity")),
+						"assCapacity",
+						"assholeCapacity"),
 				true,
 				true,
 				"",
@@ -3091,8 +3164,8 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("assElasticity"),
-						new ListValue<>("assholeElasticity")),
+						"assElasticity",
+						"assholeElasticity"),
 				true,
 				true,
 				"",
@@ -3106,8 +3179,8 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("assWetness"),
-						new ListValue<>("assholeWetness")),
+						"assWetness",
+						"assholeWetness"),
 				true,
 				true,
 				"",
@@ -3123,8 +3196,8 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("hipSkin"),
-						new ListValue<>("hipsSkin")),
+						"hipSkin",
+						"hipsSkin"),
 				true,
 				true,
 				"",
@@ -3138,8 +3211,8 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("hipSkin+"),
-						new ListValue<>("hipsSkin+")),
+						"hipSkin+",
+						"hipsSkin+"),
 				true,
 				true,
 				"",
@@ -3153,8 +3226,8 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("hip"),
-						new ListValue<>("hips")),
+						"hip",
+						"hips"),
 				true,
 				true,
 				"",
@@ -3168,10 +3241,10 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("hip+"),
-						new ListValue<>("hipD"),
-						new ListValue<>("hips+"),
-						new ListValue<>("hipsD")),
+						"hip+",
+						"hipD",
+						"hips+",
+						"hipsD"),
 				true,
 				true,
 				"",
@@ -3185,8 +3258,8 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("hipSize"),
-						new ListValue<>("hipsSize")),
+						"hipSize",
+						"hipsSize"),
 				true,
 				true,
 				"",
@@ -3202,12 +3275,12 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("breastSize"),
-						new ListValue<>("breastsSize"),
-						new ListValue<>("titSize"),
-						new ListValue<>("titsSize"),
-						new ListValue<>("boobSize"),
-						new ListValue<>("boobsSize")),
+						"breastSize",
+						"breastsSize",
+						"titSize",
+						"titsSize",
+						"boobSize",
+						"boobsSize"),
 				true,
 				true,
 				"",
@@ -3221,12 +3294,12 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("breastShape"),
-						new ListValue<>("breastsShape"),
-						new ListValue<>("titShape"),
-						new ListValue<>("titsShape"),
-						new ListValue<>("boobShape"),
-						new ListValue<>("boobsShape")),
+						"breastShape",
+						"breastsShape",
+						"titShape",
+						"titsShape",
+						"boobShape",
+						"boobsShape"),
 				true,
 				true,
 				"",
@@ -3240,8 +3313,8 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("nippleSize"),
-						new ListValue<>("nipplesSize")),
+						"nippleSize",
+						"nipplesSize"),
 				true,
 				true,
 				"",
@@ -3255,8 +3328,8 @@ public class UtilText {
 
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("areolaSize"),
-						new ListValue<>("areolaeSize")),
+						"areolaSize",
+						"areolaeSize"),
 				true,
 				true,
 				"",
@@ -3270,14 +3343,14 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("cupSize"),
-						new ListValue<>("cups"),
-						new ListValue<>("breastCups"),
-						new ListValue<>("breastsCups"),
-						new ListValue<>("titCups"),
-						new ListValue<>("titsCups"),
-						new ListValue<>("boobCups"),
-						new ListValue<>("boobsCups")),
+						"cupSize",
+						"cups",
+						"breastCups",
+						"breastsCups",
+						"titCups",
+						"titsCups",
+						"boobCups",
+						"boobsCups"),
 				true,
 				true,
 				"",
@@ -3291,12 +3364,12 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("breastCapacity"),
-						new ListValue<>("breastsCapacity"),
-						new ListValue<>("titCapacity"),
-						new ListValue<>("titsCapacity"),
-						new ListValue<>("boobCapacity"),
-						new ListValue<>("boobsCapacity")),
+						"breastCapacity",
+						"breastsCapacity",
+						"titCapacity",
+						"titsCapacity",
+						"boobCapacity",
+						"boobsCapacity"),
 				true,
 				true,
 				"",
@@ -3310,12 +3383,12 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("breastElasticity"),
-						new ListValue<>("breastsElasticity"),
-						new ListValue<>("titElasticity"),
-						new ListValue<>("titsElasticity"),
-						new ListValue<>("boobElasticity"),
-						new ListValue<>("boobsElasticity")),
+						"breastElasticity",
+						"breastsElasticity",
+						"titElasticity",
+						"titsElasticity",
+						"boobElasticity",
+						"boobsElasticity"),
 				true,
 				true,
 				"",
@@ -3329,8 +3402,8 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("breastRows"),
-						new ListValue<>("nippleRows")),
+						"breastRows",
+						"nippleRows"),
 				true,
 				true,
 				"",
@@ -3348,8 +3421,8 @@ public class UtilText {
 		
 //		commandsList.add(new ParserCommand(
 //				Util.newArrayListOfValues(
-//						new ListValue<>("milk"),
-//						new ListValue<>("milkName")),
+//						"milk",
+//						"milkName"),
 //				true,
 //				true,
 //				"",
@@ -3363,7 +3436,7 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("lactation")),
+						"lactation"),
 				true,
 				true,
 				"",
@@ -3377,8 +3450,8 @@ public class UtilText {
 
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("milkRegen"),
-						new ListValue<>("milkRegeneration")),
+						"milkRegen",
+						"milkRegeneration"),
 				true,
 				true,
 				"",
@@ -3394,10 +3467,10 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("eyePairs"),
-						new ListValue<>("eyesPairs"),
-						new ListValue<>("eyeRows"),
-						new ListValue<>("eyesRows")),
+						"eyePairs",
+						"eyesPairs",
+						"eyeRows",
+						"eyesRows"),
 				true,
 				false,
 				"",
@@ -3413,8 +3486,8 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("tongueLength"),
-						new ListValue<>("tongueSize")),
+						"tongueLength",
+						"tongueSize"),
 				true,
 				true,
 				"",
@@ -3428,7 +3501,7 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("nose")),
+						"nose"),
 				true,
 				false,
 				"",
@@ -3442,7 +3515,7 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("noses")),
+						"noses"),
 				true,
 				false,
 				"",
@@ -3456,8 +3529,8 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("lipSize"),
-						new ListValue<>("lipsSize")),
+						"lipSize",
+						"lipsSize"),
 				true,
 				false,
 				"",
@@ -3471,7 +3544,7 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("lip")),
+						"lip"),
 				true,
 				false,
 				"",
@@ -3485,8 +3558,8 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("lip+"),
-						new ListValue<>("lipD")),
+						"lip+",
+						"lipD"),
 				true,
 				false,
 				"",
@@ -3500,7 +3573,7 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("lips")),
+						"lips"),
 				true,
 				false,
 				"",
@@ -3514,8 +3587,8 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("lips+"),
-						new ListValue<>("lipsD")),
+						"lips+",
+						"lipsD"),
 				true,
 				false,
 				"",
@@ -3531,7 +3604,7 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("hairLength")),
+						"hairLength"),
 				true,
 				true,
 				"",
@@ -3547,10 +3620,10 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("hornSize"),
-						new ListValue<>("hornsSize"),
-						new ListValue<>("hornLength"),
-						new ListValue<>("hornsLength")),
+						"hornSize",
+						"hornsSize",
+						"hornLength",
+						"hornsLength"),
 				true,
 				true,
 				"",
@@ -3566,7 +3639,7 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("thighs")),
+						"thighs"),
 				true,
 				true,
 				"",
@@ -3580,8 +3653,8 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("thighs+"),
-						new ListValue<>("thighsD")),
+						"thighs+",
+						"thighsD"),
 				true,
 				true,
 				"",
@@ -3595,7 +3668,7 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("foot")),
+						"foot"),
 				true,
 				true,
 				"",
@@ -3609,8 +3682,8 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("foot+"),
-						new ListValue<>("footD")),
+						"foot+",
+						"footD"),
 				true,
 				true,
 				"",
@@ -3624,7 +3697,7 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("feet")),
+						"feet"),
 				true,
 				true,
 				"",
@@ -3638,8 +3711,8 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("feet+"),
-						new ListValue<>("feetD")),
+						"feet+",
+						"feetD"),
 				true,
 				false,
 				"",
@@ -3655,10 +3728,10 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("penisUrethra"),
-						new ListValue<>("cockUrethra"),
-						new ListValue<>("urethraPenis"),
-						new ListValue<>("urethraCock")),
+						"penisUrethra",
+						"cockUrethra",
+						"urethraPenis",
+						"urethraCock"),
 				true,
 				true,
 				"",
@@ -3672,14 +3745,14 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("penisUrethra+"),
-						new ListValue<>("cockUrethra+"),
-						new ListValue<>("urethraPenis+"),
-						new ListValue<>("urethraCock+"),
-						new ListValue<>("penisUrethraD"),
-						new ListValue<>("cockUrethraD"),
-						new ListValue<>("urethraPenisD"),
-						new ListValue<>("urethraCockD")),
+						"penisUrethra+",
+						"cockUrethra+",
+						"urethraPenis+",
+						"urethraCock+",
+						"penisUrethraD",
+						"cockUrethraD",
+						"urethraPenisD",
+						"urethraCockD"),
 				true,
 				true,
 				"",
@@ -3693,10 +3766,10 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("cumAmount"),
-						new ListValue<>("cumProduction"),
-						new ListValue<>("jizzAmount"),
-						new ListValue<>("jizzProduction")),
+						"cumAmount",
+						"cumProduction",
+						"jizzAmount",
+						"jizzProduction"),
 				true,
 				true,
 				"",
@@ -3710,8 +3783,8 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("cumMl"),
-						new ListValue<>("cumMeasurement")),
+						"cumMl",
+						"cumMeasurement"),
 				false,
 				false,
 				"",
@@ -3725,9 +3798,9 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("ballsCount"),
-						new ListValue<>("ballCount"),
-						new ListValue<>("testiclesCount")),
+						"ballsCount",
+						"ballCount",
+						"testiclesCount"),
 				true,
 				false,
 				"",
@@ -3743,10 +3816,10 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("ballSize"),
-						new ListValue<>("ballsSize"),
-						new ListValue<>("testicleSize"),
-						new ListValue<>("testiclesSize")),
+						"ballSize",
+						"ballsSize",
+						"testicleSize",
+						"testiclesSize"),
 				true,
 				true,
 				"",
@@ -3760,9 +3833,9 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("penisHead"),
-						new ListValue<>("cockHead"),
-						new ListValue<>("dickHead")),
+						"penisHead",
+						"cockHead",
+						"dickHead"),
 				true,
 				true,
 				"",
@@ -3776,12 +3849,12 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("penisHead+"),
-						new ListValue<>("penisHeadD"),
-						new ListValue<>("cockHead+"),
-						new ListValue<>("cockHeadD"),
-						new ListValue<>("dickHead+"),
-						new ListValue<>("dickHeadD")),
+						"penisHead+",
+						"penisHeadD",
+						"cockHead+",
+						"cockHeadD",
+						"dickHead+",
+						"dickHeadD"),
 				true,
 				true,
 				"",
@@ -3795,9 +3868,9 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("penisSize"),
-						new ListValue<>("cockSize"),
-						new ListValue<>("dickSize")),
+						"penisSize",
+						"cockSize",
+						"dickSize"),
 				true,
 				true,
 				"",
@@ -3811,9 +3884,9 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("penisGirth"),
-						new ListValue<>("cockGirth"),
-						new ListValue<>("dickGrith")),
+						"penisGirth",
+						"cockGirth",
+						"dickGrith"),
 				true,
 				true,
 				"",
@@ -3827,7 +3900,7 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("penisCm")),
+						"penisCm"),
 				false,
 				false,
 				"",
@@ -3841,7 +3914,7 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("penisInches")),
+						"penisInches"),
 				false,
 				false,
 				"",
@@ -3855,7 +3928,7 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("urethra")),
+						"urethra"),
 				false,
 				false,
 				"",
@@ -3871,12 +3944,12 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("secondPenisHead"),
-						new ListValue<>("secondCockHead"),
-						new ListValue<>("secondDickHead"),
-						new ListValue<>("penis2Head"),
-						new ListValue<>("cock2Head"),
-						new ListValue<>("dick2Head")),
+						"secondPenisHead",
+						"secondCockHead",
+						"secondDickHead",
+						"penis2Head",
+						"cock2Head",
+						"dick2Head"),
 				true,
 				true,
 				"",
@@ -3890,18 +3963,18 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("secondPenisHead+"),
-						new ListValue<>("secondCockHead+"),
-						new ListValue<>("secondDickHead+"),
-						new ListValue<>("penis2Head+"),
-						new ListValue<>("cock2Head+"),
-						new ListValue<>("dick2Head+"),
-						new ListValue<>("secondPenisHeadD"),
-						new ListValue<>("secondCockHeadD"),
-						new ListValue<>("secondDickHeadD"),
-						new ListValue<>("penis2HeadD"),
-						new ListValue<>("cock2HeadD"),
-						new ListValue<>("dick2HeadD")),
+						"secondPenisHead+",
+						"secondCockHead+",
+						"secondDickHead+",
+						"penis2Head+",
+						"cock2Head+",
+						"dick2Head+",
+						"secondPenisHeadD",
+						"secondCockHeadD",
+						"secondDickHeadD",
+						"penis2HeadD",
+						"cock2HeadD",
+						"dick2HeadD"),
 				true,
 				true,
 				"",
@@ -3915,12 +3988,12 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("secondPenisSize"),
-						new ListValue<>("secondCockSize"),
-						new ListValue<>("secondDickSize"),
-						new ListValue<>("penis2Size"),
-						new ListValue<>("cock2Size"),
-						new ListValue<>("dick2Size")),
+						"secondPenisSize",
+						"secondCockSize",
+						"secondDickSize",
+						"penis2Size",
+						"cock2Size",
+						"dick2Size"),
 				true,
 				true,
 				"",
@@ -3934,8 +4007,8 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("secondPenisCm"),
-						new ListValue<>("penis2Cm")),
+						"secondPenisCm",
+						"penis2Cm"),
 				false,
 				false,
 				"",
@@ -3949,8 +4022,8 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("secondPenisInches"),
-						new ListValue<>("penis2Inches")),
+						"secondPenisInches",
+						"penis2Inches"),
 				false,
 				false,
 				"",
@@ -3964,7 +4037,7 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("secondUrethra")),
+						"secondUrethra"),
 				false,
 				false,
 				"",
@@ -3980,8 +4053,8 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("tailCount"),
-						new ListValue<>("tailsCount")),
+						"tailCount",
+						"tailsCount"),
 				true,
 				false,
 				"",
@@ -3997,10 +4070,10 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("vaginaUrethra"),
-						new ListValue<>("vaginalUrethra"),
-						new ListValue<>("urethraVagina"),
-						new ListValue<>("urethraVaginal")),
+						"vaginaUrethra",
+						"vaginalUrethra",
+						"urethraVagina",
+						"urethraVaginal"),
 				true,
 				true,
 				"",
@@ -4014,14 +4087,14 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("vaginaUrethra+"),
-						new ListValue<>("vaginalUrethra+"),
-						new ListValue<>("urethraVagina+"),
-						new ListValue<>("urethraVaginal+"),
-						new ListValue<>("vaginaUrethraD"),
-						new ListValue<>("vaginalUrethraD"),
-						new ListValue<>("urethraVaginaD"),
-						new ListValue<>("urethraVaginalD")),
+						"vaginaUrethra+",
+						"vaginalUrethra+",
+						"urethraVagina+",
+						"urethraVaginal+",
+						"vaginaUrethraD",
+						"vaginalUrethraD",
+						"urethraVaginaD",
+						"urethraVaginalD"),
 				true,
 				true,
 				"",
@@ -4035,9 +4108,9 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("vaginaCapacity"),
-						new ListValue<>("pussyCapacity"),
-						new ListValue<>("cuntCapacity")),
+						"vaginaCapacity",
+						"pussyCapacity",
+						"cuntCapacity"),
 				true,
 				true,
 				"",
@@ -4051,9 +4124,9 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("vaginaElasticity"),
-						new ListValue<>("pussyElasticity"),
-						new ListValue<>("cuntElasticity")),
+						"vaginaElasticity",
+						"pussyElasticity",
+						"cuntElasticity"),
 				true,
 				true,
 				"",
@@ -4067,9 +4140,9 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("vaginaWetness"),
-						new ListValue<>("pussyWetness"),
-						new ListValue<>("cuntWetness")),
+						"vaginaWetness",
+						"pussyWetness",
+						"cuntWetness"),
 				true,
 				true,
 				"",
@@ -4083,7 +4156,7 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("labiaSize")),
+						"labiaSize"),
 				true,
 				true,
 				"",
@@ -4097,7 +4170,7 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("labia")),
+						"labia"),
 				true,
 				true,
 				"",
@@ -4111,8 +4184,8 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("labia+"),
-						new ListValue<>("labiaD")),
+						"labia+",
+						"labiaD"),
 				true,
 				true,
 				"",
@@ -4126,8 +4199,8 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("clit"),
-						new ListValue<>("clitoris")),
+						"clit",
+						"clitoris"),
 				true,
 				true,
 				"",
@@ -4141,10 +4214,10 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("clit+"),
-						new ListValue<>("clitD"),
-						new ListValue<>("clitoris+"),
-						new ListValue<>("clitorisD")),
+						"clit+",
+						"clitD",
+						"clitoris+",
+						"clitorisD"),
 				true,
 				true,
 				"",
@@ -4158,8 +4231,8 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("clitSize"),
-						new ListValue<>("clitorisSize")),
+						"clitSize",
+						"clitorisSize"),
 				true,
 				true,
 				"",
@@ -4173,8 +4246,8 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("clitSizeInches"),
-						new ListValue<>("clitorisSizeInches")),
+						"clitSizeInches",
+						"clitorisSizeInches"),
 				true,
 				true,
 				"",
@@ -4190,8 +4263,8 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("wingSize"),
-						new ListValue<>("wingsSize")),
+						"wingSize",
+						"wingsSize"),
 				true,
 				true,
 				"",
@@ -4207,8 +4280,8 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("irisShape"),
-						new ListValue<>("irisesShape")),
+						"irisShape",
+						"irisesShape"),
 				true,
 				true,
 				"",
@@ -4222,8 +4295,8 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("irisFullDescription"),
-						new ListValue<>("irisesFullDescription")),
+						"irisFullDescription",
+						"irisesFullDescription"),
 				true,
 				true,
 				"true If you want this colour's name to be coloured.",
@@ -4231,21 +4304,17 @@ public class UtilText {
 				BodyPartType.EYE){//TODO
 			@Override
 			public String parse(String command, String arguments, String target) {
-				if(arguments!=null) {
-					if(arguments.equalsIgnoreCase("true")) {
-						return character.getCovering(character.getEyeType().getBodyCoveringType(character)).getFullDescription(character, true);
-					}
-				}
-				return character.getCovering(character.getEyeType().getBodyCoveringType(character)).getFullDescription(character, false);
+				return character.getCovering(character.getEyeType().getBodyCoveringType(character))
+						.getFullDescription(character, arguments != null && arguments.equalsIgnoreCase("true"));
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("irisColour"),
-						new ListValue<>("irisColor"),
-						new ListValue<>("irisesColour"),
-						new ListValue<>("irisesColor")),
+						"irisColour",
+						"irisColor",
+						"irisesColour",
+						"irisesColor"),
 				true,
 				true,
 				"true If you want this colour's name to be coloured.",
@@ -4253,25 +4322,21 @@ public class UtilText {
 				BodyPartType.EYE){//TODO
 			@Override
 			public String parse(String command, String arguments, String target) {
-				if(arguments!=null) {
-					if(arguments.equalsIgnoreCase("true")) {
-						return character.getCovering(character.getEyeType().getBodyCoveringType(character)).getColourDescriptor(character, true, parseCapitalise);
-					}
-				}
-				return character.getCovering(character.getEyeType().getBodyCoveringType(character)).getColourDescriptor(character, false, parseCapitalise);
+				return character.getCovering(character.getEyeType().getBodyCoveringType(character))
+						.getColourDescriptor(character, arguments != null && arguments.equalsIgnoreCase("true"), parseCapitalise);
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("irisColourPrimary"),
-						new ListValue<>("irisColorPrimary"),
-						new ListValue<>("irisesColourPrimary"),
-						new ListValue<>("irisesColorPrimary"),
-						new ListValue<>("irisPrimaryColour"),
-						new ListValue<>("irisPrimaryColor"),
-						new ListValue<>("irisesPrimaryColour"),
-						new ListValue<>("irisesPrimaryColor")),
+						"irisColourPrimary",
+						"irisColorPrimary",
+						"irisesColourPrimary",
+						"irisesColorPrimary",
+						"irisPrimaryColour",
+						"irisPrimaryColor",
+						"irisesPrimaryColour",
+						"irisesPrimaryColor"),
 				true,
 				true,
 				"true If you want this colour's name to be coloured.",
@@ -4279,25 +4344,21 @@ public class UtilText {
 				BodyPartType.EYE){//TODO
 			@Override
 			public String parse(String command, String arguments, String target) {
-				if(arguments!=null) {
-					if(arguments.equalsIgnoreCase("true")) {
-						return character.getCovering(character.getEyeType().getBodyCoveringType(character)).getPrimaryColourDescriptor(true);
-					}
-				}
-				return character.getCovering(character.getEyeType().getBodyCoveringType(character)).getPrimaryColourDescriptor(false);
+				return character.getCovering(character.getEyeType().getBodyCoveringType(character))
+						.getPrimaryColourDescriptor(arguments != null && arguments.equalsIgnoreCase("true"));
 			}
 		});
 
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("irisColourSecondary"),
-						new ListValue<>("irisColorSecondary"),
-						new ListValue<>("irisesColourSecondary"),
-						new ListValue<>("irisesColorSecondary"),
-						new ListValue<>("irisSecondaryColour"),
-						new ListValue<>("irisSecondaryColor"),
-						new ListValue<>("irisesSecondaryColour"),
-						new ListValue<>("irisesSecondaryColor")),
+						"irisColourSecondary",
+						"irisColorSecondary",
+						"irisesColourSecondary",
+						"irisesColorSecondary",
+						"irisSecondaryColour",
+						"irisSecondaryColor",
+						"irisesSecondaryColour",
+						"irisesSecondaryColor"),
 				true,
 				true,
 				"true If you want this colour's name to be coloured.",
@@ -4305,19 +4366,15 @@ public class UtilText {
 				BodyPartType.EYE){//TODO
 			@Override
 			public String parse(String command, String arguments, String target) {
-				if(arguments!=null) {
-					if(arguments.equalsIgnoreCase("true")) {
-						return character.getCovering(character.getEyeType().getBodyCoveringType(character)).getSecondaryColourDescriptor(true);
-					}
-				}
-				return character.getCovering(character.getEyeType().getBodyCoveringType(character)).getSecondaryColourDescriptor(false);
+				return character.getCovering(character.getEyeType().getBodyCoveringType(character))
+						.getSecondaryColourDescriptor(arguments != null && arguments.equalsIgnoreCase("true"));
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("pupilShape"),
-						new ListValue<>("pupilsShape")),
+						"pupilShape",
+						"pupilsShape"),
 				true,
 				true,
 				"",
@@ -4331,8 +4388,8 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("pupilFullDescription"),
-						new ListValue<>("pupilsFullDescription")),
+						"pupilFullDescription",
+						"pupilsFullDescription"),
 				true,
 				true,
 				"true If you want this colour's name to be coloured.",
@@ -4340,21 +4397,17 @@ public class UtilText {
 				BodyPartType.EYE){//TODO
 			@Override
 			public String parse(String command, String arguments, String target) {
-				if(arguments!=null) {
-					if(arguments.equalsIgnoreCase("true")) {
-						return character.getCovering(BodyCoveringType.EYE_PUPILS).getFullDescription(character, true);
-					}
-				}
-				return character.getCovering(BodyCoveringType.EYE_PUPILS).getFullDescription(character, false);
+				return character.getCovering(BodyCoveringType.EYE_PUPILS)
+						.getFullDescription(character, arguments != null && arguments.equalsIgnoreCase("true"));
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("pupilColour"),
-						new ListValue<>("pupilColor"),
-						new ListValue<>("pupilsColour"),
-						new ListValue<>("pupilsColor")),
+						"pupilColour",
+						"pupilColor",
+						"pupilsColour",
+						"pupilsColor"),
 				true,
 				true,
 				"true If you want this colour's name to be coloured.",
@@ -4362,25 +4415,21 @@ public class UtilText {
 				BodyPartType.EYE){//TODO
 			@Override
 			public String parse(String command, String arguments, String target) {
-				if(arguments!=null) {
-					if(arguments.equalsIgnoreCase("true")) {
-						return character.getCovering(BodyCoveringType.EYE_PUPILS).getColourDescriptor(character, true, parseCapitalise);
-					}
-				}
-				return character.getCovering(BodyCoveringType.EYE_PUPILS).getColourDescriptor(character, false, parseCapitalise);
+				return character.getCovering(BodyCoveringType.EYE_PUPILS)
+						.getColourDescriptor(character, arguments != null && arguments.equalsIgnoreCase("true"), parseCapitalise);
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("pupilColourPrimary"),
-						new ListValue<>("pupilColorPrimary"),
-						new ListValue<>("pupilsColourPrimary"),
-						new ListValue<>("pupilsColorPrimary"),
-						new ListValue<>("pupilPrimaryColour"),
-						new ListValue<>("pupilPrimaryColor"),
-						new ListValue<>("pupilsPrimaryColour"),
-						new ListValue<>("pupilsPrimaryColor")),
+						"pupilColourPrimary",
+						"pupilColorPrimary",
+						"pupilsColourPrimary",
+						"pupilsColorPrimary",
+						"pupilPrimaryColour",
+						"pupilPrimaryColor",
+						"pupilsPrimaryColour",
+						"pupilsPrimaryColor"),
 				true,
 				true,
 				"true If you want this colour's name to be coloured.",
@@ -4388,25 +4437,21 @@ public class UtilText {
 				BodyPartType.EYE){//TODO
 			@Override
 			public String parse(String command, String arguments, String target) {
-				if(arguments!=null) {
-					if(arguments.equalsIgnoreCase("true")) {
-						return character.getCovering(BodyCoveringType.EYE_PUPILS).getPrimaryColourDescriptor(true);
-					}
-				}
-				return character.getCovering(BodyCoveringType.EYE_PUPILS).getPrimaryColourDescriptor(false);
+				return character.getCovering(BodyCoveringType.EYE_PUPILS)
+						.getPrimaryColourDescriptor(arguments != null && arguments.equalsIgnoreCase("true"));
 			}
 		});
 
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("pupilColourSecondary"),
-						new ListValue<>("pupilColorSecondary"),
-						new ListValue<>("pupilsColourSecondary"),
-						new ListValue<>("pupilsColorSecondary"),
-						new ListValue<>("pupilSecondaryColour"),
-						new ListValue<>("pupilSecondaryColor"),
-						new ListValue<>("pupilsSecondaryColour"),
-						new ListValue<>("pupilsSecondaryColor")),
+						"pupilColourSecondary",
+						"pupilColorSecondary",
+						"pupilsColourSecondary",
+						"pupilsColorSecondary",
+						"pupilSecondaryColour",
+						"pupilSecondaryColor",
+						"pupilsSecondaryColour",
+						"pupilsSecondaryColor"),
 				true,
 				true,
 				"true If you want this colour's name to be coloured.",
@@ -4414,19 +4459,15 @@ public class UtilText {
 				BodyPartType.EYE){//TODO
 			@Override
 			public String parse(String command, String arguments, String target) {
-				if(arguments!=null) {
-					if(arguments.equalsIgnoreCase("true")) {
-						return character.getCovering(BodyCoveringType.EYE_PUPILS).getSecondaryColourDescriptor(true);
-					}
-				}
-				return character.getCovering(BodyCoveringType.EYE_PUPILS).getSecondaryColourDescriptor(false);
+				return character.getCovering(BodyCoveringType.EYE_PUPILS)
+						.getSecondaryColourDescriptor(arguments != null && arguments.equalsIgnoreCase("true"));
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("scleraFullDescription"),
-						new ListValue<>("scleraeFullDescription")),
+						"scleraFullDescription",
+						"scleraeFullDescription"),
 				true,
 				true,
 				"true If you want this colour's name to be coloured.",
@@ -4434,21 +4475,17 @@ public class UtilText {
 				BodyPartType.EYE){//TODO
 			@Override
 			public String parse(String command, String arguments, String target) {
-				if(arguments!=null) {
-					if(arguments.equalsIgnoreCase("true")) {
-						return character.getCovering(BodyCoveringType.EYE_SCLERA).getFullDescription(character, true);
-					}
-				}
-				return character.getCovering(BodyCoveringType.EYE_SCLERA).getFullDescription(character, false);
+				return character.getCovering(BodyCoveringType.EYE_SCLERA)
+						.getFullDescription(character, arguments != null && arguments.equalsIgnoreCase("true"));
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("scleraColour"),
-						new ListValue<>("scleraColor"),
-						new ListValue<>("scleraeColour"),
-						new ListValue<>("scleraeColor")),
+						"scleraColour",
+						"scleraColor",
+						"scleraeColour",
+						"scleraeColor"),
 				true,
 				true,
 				"true If you want this colour's name to be coloured.",
@@ -4456,25 +4493,21 @@ public class UtilText {
 				BodyPartType.EYE){//TODO
 			@Override
 			public String parse(String command, String arguments, String target) {
-				if(arguments!=null) {
-					if(arguments.equalsIgnoreCase("true")) {
-						return character.getCovering(BodyCoveringType.EYE_SCLERA).getColourDescriptor(character, true, parseCapitalise);
-					}
-				}
-				return character.getCovering(BodyCoveringType.EYE_SCLERA).getColourDescriptor(character, false, parseCapitalise);
+				return character.getCovering(BodyCoveringType.EYE_SCLERA)
+						.getColourDescriptor(character, arguments != null && arguments.equalsIgnoreCase("true"), parseCapitalise);
 			}
 		});
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("scleraColourPrimary"),
-						new ListValue<>("scleraColorPrimary"),
-						new ListValue<>("scleraeColourPrimary"),
-						new ListValue<>("scleraeColorPrimary"),
-						new ListValue<>("scleraPrimaryColour"),
-						new ListValue<>("scleraPrimaryColor"),
-						new ListValue<>("scleraePrimaryColour"),
-						new ListValue<>("scleraePrimaryColor")),
+						"scleraColourPrimary",
+						"scleraColorPrimary",
+						"scleraeColourPrimary",
+						"scleraeColorPrimary",
+						"scleraPrimaryColour",
+						"scleraPrimaryColor",
+						"scleraePrimaryColour",
+						"scleraePrimaryColor"),
 				true,
 				true,
 				"true If you want this colour's name to be coloured.",
@@ -4482,25 +4515,21 @@ public class UtilText {
 				BodyPartType.EYE){//TODO
 			@Override
 			public String parse(String command, String arguments, String target) {
-				if(arguments!=null) {
-					if(arguments.equalsIgnoreCase("true")) {
-						return character.getCovering(BodyCoveringType.EYE_SCLERA).getPrimaryColourDescriptor(true);
-					}
-				}
-				return character.getCovering(BodyCoveringType.EYE_SCLERA).getPrimaryColourDescriptor(false);
+				return character.getCovering(BodyCoveringType.EYE_SCLERA)
+						.getPrimaryColourDescriptor(arguments != null && arguments.equalsIgnoreCase("true"));
 			}
 		});
 
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("scleraColourSecondary"),
-						new ListValue<>("scleraColorSecondary"),
-						new ListValue<>("scleraeColourSecondary"),
-						new ListValue<>("scleraeColorSecondary"),
-						new ListValue<>("scleraSecondaryColour"),
-						new ListValue<>("scleraSecondaryColor"),
-						new ListValue<>("scleraeSecondaryColour"),
-						new ListValue<>("scleraeSecondaryColor")),
+						"scleraColourSecondary",
+						"scleraColorSecondary",
+						"scleraeColourSecondary",
+						"scleraeColorSecondary",
+						"scleraSecondaryColour",
+						"scleraSecondaryColor",
+						"scleraeSecondaryColour",
+						"scleraeSecondaryColor"),
 				true,
 				true,
 				"true If you want this colour's name to be coloured.",
@@ -4508,12 +4537,8 @@ public class UtilText {
 				BodyPartType.EYE){//TODO
 			@Override
 			public String parse(String command, String arguments, String target) {
-				if(arguments!=null) {
-					if(arguments.equalsIgnoreCase("true")) {
-						return character.getCovering(BodyCoveringType.EYE_SCLERA).getSecondaryColourDescriptor(true);
-					}
-				}
-				return character.getCovering(BodyCoveringType.EYE_SCLERA).getSecondaryColourDescriptor(false);
+				return character.getCovering(BodyCoveringType.EYE_SCLERA)
+						.getSecondaryColourDescriptor(arguments != null && arguments.equalsIgnoreCase("true"));
 			}
 		});
 		
@@ -4521,8 +4546,8 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("tailHead"),
-						new ListValue<>("tailTip")),
+						"tailHead",
+						"tailTip"),
 				true,
 				true,
 				"",
@@ -4536,10 +4561,10 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						new ListValue<>("tailHead+"),
-						new ListValue<>("tailHeadD"),
-						new ListValue<>("tailTip+"),
-						new ListValue<>("tailTipD")),
+						"tailHead+",
+						"tailHeadD",
+						"tailTip+",
+						"tailTipD"),
 				true,
 				true,
 				"",
@@ -4567,73 +4592,65 @@ public class UtilText {
 	private static String parseSyntaxNew(String target, String command, String arguments, List<GameCharacter> specialNPCList) {
 		
 		UtilText.specialNPCList = specialNPCList;
-		parseCapitalise=false;
-		parseAddPronoun=false;
+		parseCapitalise = false;
+		parseAddPronoun = false;
 		
 		if(command.split("_").length==2) {
 			if(Character.isUpperCase(command.split("_")[0].charAt(0)))
 				parseCapitalise = true;
 			command = command.split("_")[1];
-			if(Character.isUpperCase(command.charAt(0)))
-				parseCapitalise = true;
 			parseAddPronoun = true;
+		} 
 			
-		} else {
-			if(Character.isUpperCase(command.charAt(0)))
-				parseCapitalise = true;
+		if(Character.isUpperCase(command.charAt(0))) {
+			parseCapitalise = true;
 		}
 		
-		String output = "";
-		boolean commandFound=false;
-		
-		boolean characterFound = false;
-		targetLoop:
-		for(ParserTarget parserTarget : ParserTarget.values()) {
-			for(String s : parserTarget.getTags()) {
-				if(s.toLowerCase().equals(target.toLowerCase())) {
-					character = parserTarget.getCharacter(s.toLowerCase());
-					characterFound = true;
-					break targetLoop;
-				}
-			}
-//			if(parserTarget.getTags().contains(target.toLowerCase())) {
-//				character = parserTarget.getCharacter();
-//				characterFound = true;
-//				break;
-//			}
-		}
-		if(!characterFound) {
+		ParserTarget parserTarget = findParserTargetWithTag(target);
+		if (parserTarget == null) {
 			return "INVALID_TARGET_NAME";
 		}
+		character = parserTarget.getCharacter(target.toLowerCase());
 		
 		// Commands with arguments:
-		
-		hibikeEuphoniumIsTheBest:
-		for(ParserCommand cmd : commandsList) {
-			for(String s : cmd.getTags()) {
-				if(command.equalsIgnoreCase(s)) {
-					commandFound=true;
-					output = cmd.parse(command, arguments, target);
-					if (!cmd.isAllowsCapitalisation()) {
-						parseCapitalise = false;
-					}
-					if (!cmd.isAllowsPronoun()) {
-						parseAddPronoun = false;
-					}
-					break hibikeEuphoniumIsTheBest;
-				}
-			}
+		ParserCommand cmd = findCommandWithTag(command);
+		if (cmd == null) {
+			return "<i style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>command_unknown</i>";
 		}
 		
-		if(!commandFound)
-			return "<i style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>command_unknown</i>";
+		String output = cmd.parse(command, arguments, target);
+		parseCapitalise = parseCapitalise && cmd.isAllowsCapitalisation();
+		parseAddPronoun = parseAddPronoun && cmd.isAllowsPronoun();
 		
 		if(parseAddPronoun) {
 			output = (UtilText.isVowel(output.charAt(0))?"an ":"a ")+output;
-			return (parseCapitalise?Util.capitaliseSentence(output):output);
-		} else {
-			return (parseCapitalise?Util.capitaliseSentence(output):output);
 		}
+		if (parseCapitalise) {
+			return Util.capitaliseSentence(output);
+		}
+		return output;
+	}
+
+	private static ParserTarget findParserTargetWithTag(String target) {
+		for(ParserTarget parserTarget : ParserTarget.values()) {
+			for(String s : parserTarget.getTags()) {
+				if(s.toLowerCase().equals(target.toLowerCase())) {
+					return parserTarget;
+				}
+			}
+		}
+		return null;
+	}
+
+	private static ParserCommand findCommandWithTag(String command) {
+		for(ParserCommand cmd : commandsList) {
+			for(String s : cmd.getTags()) {
+				if(command.equalsIgnoreCase(s)) {
+					return cmd;
+				}
+			}
+		}
+		return null;
 	}
 	
 	private static String parseConditionalSyntaxNew(String target, String command, String arguments, String conditionalTrue, String conditionalFalse) {
@@ -4641,20 +4658,11 @@ public class UtilText {
 			target = "npc";
 		}
 		
-		boolean characterFound = false;
-		targetLoop:
-		for(ParserTarget parserTarget : ParserTarget.values()) {
-			for(String s : parserTarget.getTags()) {
-				if(s.toLowerCase().equals(target.toLowerCase())) {
-					character = parserTarget.getCharacter(s.toLowerCase());
-					characterFound = true;
-					break targetLoop;
-				}
-			}
-		}
-		if(!characterFound) {
+		ParserTarget parserTarget = findParserTargetWithTag(target);
+		if (parserTarget == null) {
 			return "INVALID_TARGET_NAME";
 		}
+		character = parserTarget.getCharacter(target.toLowerCase());
 		
 		// Commands with arguments:
 		

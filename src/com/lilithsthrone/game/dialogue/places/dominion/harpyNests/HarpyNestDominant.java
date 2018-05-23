@@ -18,7 +18,6 @@ import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.universal.SMStanding;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.utils.Util.Value;
 
 /**
@@ -323,7 +322,7 @@ public class HarpyNestDominant {
 						
 				} else if (index == 2) {
 					return new Response("Usurp throne", "How <i>dare</i> she speak to you like that! It's time to show her who's really in control here!", HARPY_NEST_DOMINANT_QUEEN,
-							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DOMINANT)), null, null, Femininity.FEMININE_STRONG, null) {
+							Util.newArrayListOfValues(Fetish.FETISH_DOMINANT), null, null, Femininity.FEMININE_STRONG, null) {
 						@Override
 						public void effects() {
 							Main.game.getDialogueFlags().values.add(DialogueFlagValue.dominantEncountered);
@@ -407,7 +406,7 @@ public class HarpyNestDominant {
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Usurp throne", "Your patience has run out. It's time to show this bitch who's really in control here!", HARPY_NEST_DOMINANT_QUEEN,
-						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DOMINANT)), null, null, Femininity.FEMININE_STRONG, null) {
+						Util.newArrayListOfValues(Fetish.FETISH_DOMINANT), null, null, Femininity.FEMININE_STRONG, null) {
 					@Override
 					public void effects() {
 						Main.game.getDialogueFlags().values.add(DialogueFlagValue.dominantPacified);
@@ -680,7 +679,7 @@ public class HarpyNestDominant {
 				return new Response("Stay still",
 						"Allow [harpyDominant.Name] to spray you with the strange perfume... [style.boldBad(Warning:)] <b>Due to the nature of harpies needing a special form, this transformation bypasses TF preferences!</b>",
 						HARPY_NEST_DOMINANT_FIGHT_LOSE_PUNISHMENT,
-						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_TRANSFORMATION_RECEIVING)),
+						Util.newArrayListOfValues(Fetish.FETISH_TRANSFORMATION_RECEIVING),
 						Fetish.FETISH_TRANSFORMATION_RECEIVING.getAssociatedCorruptionLevel(),
 						null,
 						null,
@@ -788,7 +787,7 @@ public class HarpyNestDominant {
 				return new Response("Stay still",
 						"Allow [harpyDominant.Name] to spray you with the strange perfume... [style.boldBad(Warning:)] <b>Due to the nature of harpies needing a special form, this transformation bypasses TF preferences!</b>",
 						HARPY_NEST_DOMINANT_FIGHT_LOSE_PUNISHMENT,
-						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_TRANSFORMATION_RECEIVING)),
+						Util.newArrayListOfValues(Fetish.FETISH_TRANSFORMATION_RECEIVING),
 						Fetish.FETISH_TRANSFORMATION_RECEIVING.getAssociatedCorruptionLevel(),
 						null,
 						null,

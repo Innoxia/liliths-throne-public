@@ -80,14 +80,27 @@ public class QuestTree {
 		slimeQueenTree.addChild(node1);
 		node2 = new TreeNode<Quest>(Quest.SLIME_QUEEN_THREE);
 		node1.addChild(node2);
-		TreeNode<Quest> nodeBranchA = new TreeNode<Quest>(Quest.SLIME_QUEEN_FOUR_FIGHT);
-		node2.addChild(nodeBranchA);
-		TreeNode<Quest> nodeBranchB = new TreeNode<Quest>(Quest.SLIME_QUEEN_FIVE_FIGHT);
-		nodeBranchA.addChild(nodeBranchB);
+		node1 = new TreeNode<Quest>(Quest.SLIME_QUEEN_FOUR);
+		node2.addChild(node1);
+		
+		
+		TreeNode<Quest> nodeBranchA = new TreeNode<Quest>(Quest.SLIME_QUEEN_FIVE_FORCE);
+		node1.addChild(nodeBranchA);
+		TreeNode<Quest> nodeBranchB = new TreeNode<Quest>(Quest.SLIME_QUEEN_FIVE_CONVINCE);
+		node1.addChild(nodeBranchB);
+		TreeNode<Quest> nodeBranchC = new TreeNode<Quest>(Quest.SLIME_QUEEN_FIVE_SUBMIT);
+		node1.addChild(nodeBranchC);
 
-		nodeBranchA = new TreeNode<Quest>(Quest.SLIME_QUEEN_FOUR_SUBMIT);
-		node2.addChild(nodeBranchA);
-		nodeBranchB = new TreeNode<Quest>(Quest.SLIME_QUEEN_FIVE_SUBMIT);
-		nodeBranchA.addChild(nodeBranchB);
+		node2 = new TreeNode<Quest>(Quest.SLIME_QUEEN_SIX_FORCE);
+		nodeBranchA.addChild(node2);
+		node2.addChild(new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE));
+		
+		node2 = new TreeNode<Quest>(Quest.SLIME_QUEEN_SIX_CONVINCE);
+		nodeBranchB.addChild(node2);
+		node2.addChild(new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE));
+		
+		node2 = new TreeNode<Quest>(Quest.SLIME_QUEEN_SIX_SUBMIT);
+		nodeBranchC.addChild(node2);
+		node2.addChild(new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE));
 	}
 }

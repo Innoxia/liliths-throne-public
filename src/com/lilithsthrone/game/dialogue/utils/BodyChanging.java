@@ -14,7 +14,6 @@ import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 
 /**
  * @since 0.1.90
@@ -92,7 +91,7 @@ public class BodyChanging {
 		}
 	}
 
-	private static List<Race> demonRace = Util.newArrayListOfValues(new ListValue<>(Race.DEMON));
+	private static List<Race> demonRace = Util.newArrayListOfValues(Race.DEMON);
 	private static List<Race> slimeRaces = new ArrayList<>();
 	static {
 		for(Race r : Race.values()) {
@@ -359,13 +358,12 @@ public class BodyChanging {
 						+"</div>"
 						
 						+"<div style='clear:left;'>"
-							+ CharacterModificationUtils.getSelfTransformHornChoiceDiv(slimeRaces)
-							+ CharacterModificationUtils.getSelfTransformAntennaChoiceDiv(slimeRaces)
+							+ CharacterModificationUtils.getSelfTransformIrisChoiceDiv()
+							+ CharacterModificationUtils.getSelfTransformPupilChoiceDiv()
 						+"</div>"
 						
 						+"<div style='clear:left;'>"
-							+ CharacterModificationUtils.getSelfTransformIrisChoiceDiv()
-							+ CharacterModificationUtils.getSelfTransformPupilChoiceDiv()
+							+ CharacterModificationUtils.getSelfTransformAntennaChoiceDiv(slimeRaces)
 						+"</div>"
 						
 						+"<div style='clear:left;'>"

@@ -502,7 +502,7 @@ public class PhoneDialogue {
 			UtilText.nodeContentSB.append(
 					
 				"<details>"
-				+ "<summary>[style.boldExcellent(Important information)]</summary>"
+				+ "<summary>[style.boldExcellent(Stats Mechanics)]</summary>"
 					+ "<p style='text-align:center;padding:margin:0;'>"
 						+ "All derived stats start to have diminishing returns past the half-way point!</br>"
 						+ "<b>For example:</b></br>"
@@ -631,16 +631,17 @@ public class PhoneDialogue {
 					+ "<h6 style='color:"+Colour.GENERIC_COMBAT.toWebHexString()+"; text-align:center;'>Racial values</h6>");
 			
 			for(Race race : Race.values()) {
-
-				UtilText.nodeContentSB.append(
-						getAttributeBox(Main.game.getPlayer(), race.getDamageMultiplier(),
-								Util.capitaliseSentence(race.getName())+" Damage:</br>"
-								+ "<b>"+(100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(race.getDamageMultiplier()), race.getDamageMultiplier().getUpperLimit()))+"%</b>",
-								true)
-						+ getAttributeBox(Main.game.getPlayer(), race.getResistanceMultiplier(),
-								Util.capitaliseSentence(race.getName())+" Resistance:</br>"
-								+ "<b>"+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(race.getResistanceMultiplier()), race.getResistanceMultiplier().getUpperLimit())+"%</b>",
-								true));
+				if(race!=Race.NONE) {
+					UtilText.nodeContentSB.append(
+							getAttributeBox(Main.game.getPlayer(), race.getDamageMultiplier(),
+									Util.capitaliseSentence(race.getName())+" Damage:</br>"
+									+ "<b>"+(100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(race.getDamageMultiplier()), race.getDamageMultiplier().getUpperLimit()))+"%</b>",
+									true)
+							+ getAttributeBox(Main.game.getPlayer(), race.getResistanceMultiplier(),
+									Util.capitaliseSentence(race.getName())+" Resistance:</br>"
+									+ "<b>"+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(race.getResistanceMultiplier()), race.getResistanceMultiplier().getUpperLimit())+"%</b>",
+									true));
+				}
 			}
 			
 			UtilText.nodeContentSB.append("</div>");
@@ -1361,16 +1362,32 @@ public class PhoneDialogue {
 	}
 	
 	private static String getAttributeBox(GameCharacter owner, Attribute att, String effect, boolean half) {
+		float width = (Math.abs(owner.getAttributeValue(att))/(att.getUpperLimit()-att.getLowerLimit())) * 100;
+		Colour colour = (owner.getAttributeValue(att)==0
+							?Colour.TEXT
+							:(owner.getAttributeValue(att)==att.getUpperLimit()
+								?Colour.GENERIC_EXCELLENT
+								:(owner.getAttributeValue(att)==att.getUpperLimit()
+									?Colour.GENERIC_TERRIBLE
+									:(owner.getAttributeValue(att)>0
+										?Colour.GENERIC_GOOD
+										:Colour.GENERIC_BAD))));
+		
 		return "<div class='container-half-width' style='"+(half?"width:calc(50% - 16px);":"width:calc(33% - 16px);")+" margin-bottom:0; background:"+Colour.BACKGROUND_ALT.toWebHexString()+";'>"
 					+ "<div class='container-half-width' style='width:66.6%;margin:0;background:"+Colour.BACKGROUND_ALT.toWebHexString()+";'>"
 						+ "<b style='color:" + att.getColour().toWebHexString() + ";'>"+Util.capitaliseSentence(att.getName())+"</b>"
 					+ "</div>"
 					+ "<div class='container-half-width' style='width:33.3%;margin:0;background:"+Colour.BACKGROUND_ALT.toWebHexString()+";text-align:center;'>"
-						+ "<b"+(owner.getAttributeValue(att)==att.getUpperLimit()?" style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'":"")+">"+owner.getAttributeValue(att)+"</b>"
+						+ "<b style='color:"+colour.toWebHexString()+";'>"+owner.getAttributeValue(att)+"</b>"
 					+ "</div>"
 					+ "<div class='container-full-width' style='height:6px;padding:0;border-radius: 2px;'>"
-						+ "<div class='container-full-width' style='width:" + (owner.getAttributeValue(att)/att.getUpperLimit()) * (att.getLowerLimit()==0?100:50) + "%; padding:0;"
-								+ " margin:0 0 0 "+(att.getLowerLimit()>=0?0:(owner.getAttributeValue(att)>0?"50%":(Math.abs(att.getLowerLimit())+owner.getAttributeValue(att))+"%"))+";"
+						+ "<div class='container-full-width' style='width:" + width + "%; padding:0;"
+								+ " margin:0 0 0 "
+									+(att.getLowerLimit()>=0
+										?0
+										:(owner.getAttributeValue(att)>0
+											?"50%"
+											:(50-width)+"%"))+";"
 								+ " height:100%; background:" + (owner.getAttributeValue(att)>0?att.getColour().toWebHexString():att.getColour().getShades()[1]) + "; float:left; border-radius: 2px;'></div>"
 					+ "</div>"
 					+ "<div class='container-half-width' style='margin:0;background:"+Colour.BACKGROUND_ALT.toWebHexString()+"; padding:0; text-align:center;'>"
@@ -2472,17 +2489,18 @@ public class PhoneDialogue {
 		@Override
 		public String getContent() {
 			journalSB = new StringBuilder(
-					"<div class='container-full-width' style='padding:8px;'>"
-						+ "You can select your [style.colourLust(desire)] for each fetish [style.colourArcane(for free)],"
-							+ " or choose to take the associated [style.colourFetish(fetish)] for [style.colourArcane("+Fetish.FETISH_ANAL_GIVING.getCost()+" Arcane Essences)].</br>"
-						+ "Choosing a desire will affect bonus lust gains in sex, while taking a fetish will permanently lock your desire to 'love', and also give you special bonuses."
-						+ " Fetishes can only be removed through enchanted potions.</br>"
-						+ "Your currently selected desire has a "+Colour.FETISH.getName()+" border, but your true desire (indicated by the coloured desire icon) may be modified by enchanted clothes or other items.</br>"
-						+ "You earn experience for each fetish through performing related actions in sex."
-						+ " Experience is earned regardless of whether or not you have the associated fetish."
-						+ " Higher level fetishes will cause both you and your partner to gain more arousal from related sex actions, as well as increase the fetish's bonuses.</br>"
-						+ "Finally, derived fetishes cannot be directly unlocked, but are instead automatically applied when you meet their requirements."
-					+ "</div>");
+					"<details>"
+						+ "<summary>[style.boldFetish(Fetish Information)]</summary>"
+							+ "You can select your [style.colourLust(desire)] for each fetish [style.colourArcane(for free)],"
+							+ " or choose to take the associated [style.colourFetish(fetish)] for [style.colourArcane("+Fetish.FETISH_ANAL_GIVING.getCost()+" Arcane Essences)].</br></br>"
+							+ "Choosing a desire will affect bonus lust gains in sex, while taking a fetish will permanently lock your desire to 'love', and also give you special bonuses."
+							+ " Fetishes can only be removed through enchanted potions.</br></br>"
+							+ "Your currently selected desire has a "+Colour.FETISH.getName()+" border, but your true desire (indicated by the coloured desire icon) may be modified by enchanted clothes or other items.</br></br>"
+							+ "You earn experience for each fetish through performing related actions in sex."
+							+ " Experience is earned regardless of whether or not you have the associated fetish."
+							+ " Higher level fetishes will cause both you and your partner to gain more arousal from related sex actions, as well as increase the fetish's bonuses.</br></br>"
+							+ "Finally, derived fetishes cannot be directly unlocked, but are instead automatically applied when you meet their requirements."
+					+ "</details>");
 			
 			// Normal fetishes:
 

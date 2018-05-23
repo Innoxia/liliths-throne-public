@@ -18,6 +18,7 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.enchanting.AbstractItemEffectType;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
+import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -344,6 +345,15 @@ public abstract class AbstractItemType extends AbstractCoreType implements Seria
 					+ " The closer you move it to your " + clothing.getName() + ", the brighter the glow becomes, until suddenly, images of different colours start flashing through your mind."
 					+ " As you touch the bristles to the " + clothing.getName() + "'s surface, the Dye-brush instantly evaporates!"
 					+ " You see that the arcane enchantment has dyed the " + clothing.getName() + " " + colour.getName() + "."
+				+ "</p>";
+	}
+	
+	public String getDyeBrushEffects(AbstractWeapon weapon, Colour colour) {
+		return "<p>"
+					+ "As you take hold of the Dye-brush, you see the purple glow around the tip growing in strength."
+					+ " The closer you move it to your " + weapon.getName() + ", the brighter the glow becomes, until suddenly, images of different colours start flashing through your mind."
+					+ " As you touch the bristles to the " + weapon.getName() + "'s surface, the Dye-brush instantly evaporates!"
+					+ " You see that the arcane enchantment has dyed the " + weapon.getName() + " " + colour.getName() + "."
 				+ "</p>";
 	}
 

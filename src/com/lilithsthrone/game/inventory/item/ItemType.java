@@ -29,7 +29,6 @@ import com.lilithsthrone.game.inventory.enchanting.TFPotency;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
@@ -319,10 +318,10 @@ public class ItemType {
 			null,
 			Rarity.UNCOMMON,
 			TFEssence.ARCANE,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.STR_EQUINE_CIDER))),
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.STR_EQUINE_CIDER)),
 			Util.newArrayListOfValues(
-					new ListValue<>(ItemTag.DOMINION_ALLEYWAY_SPAWN),
-					new ListValue<>(ItemTag.ATTRIBUTE_TF_ITEM))) {
+					ItemTag.DOMINION_ALLEYWAY_SPAWN,
+					ItemTag.ATTRIBUTE_TF_ITEM)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -366,10 +365,10 @@ public class ItemType {
 			null,
 			Rarity.UNCOMMON,
 			TFEssence.ARCANE,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.STR_BUBBLE_MILK))), 
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.STR_BUBBLE_MILK)), 
 			Util.newArrayListOfValues(
-					new ListValue<>(ItemTag.DOMINION_ALLEYWAY_SPAWN),
-					new ListValue<>(ItemTag.ATTRIBUTE_TF_ITEM))) {
+					ItemTag.DOMINION_ALLEYWAY_SPAWN,
+					ItemTag.ATTRIBUTE_TF_ITEM)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -413,10 +412,10 @@ public class ItemType {
 			null,
 			Rarity.UNCOMMON,
 			TFEssence.ARCANE,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.STR_WOLF_WHISKEY))), 
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.STR_WOLF_WHISKEY)), 
 			Util.newArrayListOfValues(
-					new ListValue<>(ItemTag.DOMINION_ALLEYWAY_SPAWN),
-					new ListValue<>(ItemTag.ATTRIBUTE_TF_ITEM))) {
+					ItemTag.DOMINION_ALLEYWAY_SPAWN,
+					ItemTag.ATTRIBUTE_TF_ITEM)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -460,10 +459,10 @@ public class ItemType {
 			null,
 			Rarity.UNCOMMON,
 			TFEssence.ARCANE,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.STR_SWAMP_WATER))), 
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.STR_SWAMP_WATER)), 
 			Util.newArrayListOfValues(
-					new ListValue<>(ItemTag.SUBMISSION_TUNNEL_SPAWN),
-					new ListValue<>(ItemTag.ATTRIBUTE_TF_ITEM))) {
+					ItemTag.SUBMISSION_TUNNEL_SPAWN,
+					ItemTag.ATTRIBUTE_TF_ITEM)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -509,10 +508,10 @@ public class ItemType {
 			null,
 			Rarity.UNCOMMON,
 			TFEssence.ARCANE,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.STR_BLACK_RATS_RUM))), 
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.STR_BLACK_RATS_RUM)), 
 			Util.newArrayListOfValues(
-					new ListValue<>(ItemTag.SUBMISSION_TUNNEL_SPAWN),
-					new ListValue<>(ItemTag.ATTRIBUTE_TF_ITEM))) {
+					ItemTag.SUBMISSION_TUNNEL_SPAWN,
+					ItemTag.ATTRIBUTE_TF_ITEM)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -558,10 +557,10 @@ public class ItemType {
 			null,
 			Rarity.UNCOMMON,
 			TFEssence.ARCANE,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.INT_FELINE_FANCY))),
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.INT_FELINE_FANCY)),
 			Util.newArrayListOfValues(
-					new ListValue<>(ItemTag.DOMINION_ALLEYWAY_SPAWN),
-					new ListValue<>(ItemTag.ATTRIBUTE_TF_ITEM))) {
+					ItemTag.DOMINION_ALLEYWAY_SPAWN,
+					ItemTag.ATTRIBUTE_TF_ITEM)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -605,11 +604,12 @@ public class ItemType {
 			null,
 			Rarity.UNCOMMON,
 			TFEssence.ARCANE,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.INT_VANILLA_WATER))), 
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.INT_VANILLA_WATER)), 
 			Util.newArrayListOfValues(
-					new ListValue<>(ItemTag.DOMINION_ALLEYWAY_SPAWN),
-					new ListValue<>(ItemTag.SUBMISSION_TUNNEL_SPAWN),
-					new ListValue<>(ItemTag.ATTRIBUTE_TF_ITEM))) {
+					ItemTag.DOMINION_ALLEYWAY_SPAWN,
+					ItemTag.SUBMISSION_TUNNEL_SPAWN,
+					ItemTag.BAT_CAVERNS_SPAWN,
+					ItemTag.ATTRIBUTE_TF_ITEM)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -655,10 +655,10 @@ public class ItemType {
 			null,
 			Rarity.UNCOMMON,
 			TFEssence.ARCANE,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.FIT_CANINE_CRUSH))),
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.FIT_CANINE_CRUSH)),
 			Util.newArrayListOfValues(
-					new ListValue<>(ItemTag.DOMINION_ALLEYWAY_SPAWN),
-					new ListValue<>(ItemTag.ATTRIBUTE_TF_ITEM))) {
+					ItemTag.DOMINION_ALLEYWAY_SPAWN,
+					ItemTag.ATTRIBUTE_TF_ITEM)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -704,10 +704,10 @@ public class ItemType {
 			null,
 			Rarity.UNCOMMON,
 			TFEssence.ARCANE,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.FIT_SQUIRREL_JAVA))),
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.FIT_SQUIRREL_JAVA)),
 			Util.newArrayListOfValues(
-					new ListValue<>(ItemTag.DOMINION_ALLEYWAY_SPAWN),
-					new ListValue<>(ItemTag.ATTRIBUTE_TF_ITEM))) {
+					ItemTag.DOMINION_ALLEYWAY_SPAWN,
+					ItemTag.ATTRIBUTE_TF_ITEM)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -753,10 +753,10 @@ public class ItemType {
 			null,
 			Rarity.UNCOMMON,
 			TFEssence.ARCANE,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.INT_FRUIT_BAT_SQUASH))),
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.INT_FRUIT_BAT_SQUASH)),
 			Util.newArrayListOfValues(
-					new ListValue<>(ItemTag.BAT_CAVERNS_SPAWN),
-					new ListValue<>(ItemTag.ATTRIBUTE_TF_ITEM))) {
+					ItemTag.BAT_CAVERNS_SPAWN,
+					ItemTag.ATTRIBUTE_TF_ITEM)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -801,10 +801,10 @@ public class ItemType {
 			null,
 			Rarity.UNCOMMON,
 			TFEssence.ARCANE,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.FIT_EGG_NOG))),
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.FIT_EGG_NOG)),
 			Util.newArrayListOfValues(
-					new ListValue<>(ItemTag.REINDEER_GIFT),
-					new ListValue<>(ItemTag.ATTRIBUTE_TF_ITEM))) {
+					ItemTag.REINDEER_GIFT,
+					ItemTag.ATTRIBUTE_TF_ITEM)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -850,9 +850,9 @@ public class ItemType {
 			null,
 			Rarity.UNCOMMON,
 			TFEssence.ARCANE,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.SEX_HARPY_PERFUME))),
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.SEX_HARPY_PERFUME)),
 			Util.newArrayListOfValues(
-					new ListValue<>(ItemTag.ATTRIBUTE_TF_ITEM))) {
+					ItemTag.ATTRIBUTE_TF_ITEM)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -896,11 +896,11 @@ public class ItemType {
 			null,
 			Rarity.UNCOMMON,
 			TFEssence.ARCANE,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.SEX_SLIME_DRINK))),
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.SEX_SLIME_DRINK)),
 			Util.newArrayListOfValues(
-					new ListValue<>(ItemTag.BAT_CAVERNS_SPAWN),
-					new ListValue<>(ItemTag.SUBMISSION_TUNNEL_SPAWN),
-					new ListValue<>(ItemTag.ATTRIBUTE_TF_ITEM))) {
+					ItemTag.BAT_CAVERNS_SPAWN,
+					ItemTag.SUBMISSION_TUNNEL_SPAWN,
+					ItemTag.ATTRIBUTE_TF_ITEM)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -944,10 +944,10 @@ public class ItemType {
 			null,
 			Rarity.UNCOMMON,
 			TFEssence.ARCANE,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.SEX_RABBIT_MORPH_DRINK))),
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.SEX_RABBIT_MORPH_DRINK)),
 			Util.newArrayListOfValues(
-					new ListValue<>(ItemTag.DOMINION_ALLEYWAY_SPAWN), //TODO
-					new ListValue<>(ItemTag.ATTRIBUTE_TF_ITEM))) {
+					ItemTag.DOMINION_ALLEYWAY_SPAWN, //TODO
+					ItemTag.ATTRIBUTE_TF_ITEM)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -991,10 +991,10 @@ public class ItemType {
 			null,
 			Rarity.UNCOMMON,
 			TFEssence.ARCANE,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.SEX_MINCE_PIE))),
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.SEX_MINCE_PIE)),
 			Util.newArrayListOfValues(
-					new ListValue<>(ItemTag.REINDEER_GIFT),
-					new ListValue<>(ItemTag.ATTRIBUTE_TF_ITEM))) {
+					ItemTag.REINDEER_GIFT,
+					ItemTag.ATTRIBUTE_TF_ITEM)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1041,10 +1041,10 @@ public class ItemType {
 			null,
 			Rarity.UNCOMMON,
 			TFEssence.ARCANE,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.COR_LILITHS_GIFT))),
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.COR_LILITHS_GIFT)),
 			Util.newArrayListOfValues(
-					new ListValue<>(ItemTag.DOMINION_ALLEYWAY_SPAWN),
-					new ListValue<>(ItemTag.ATTRIBUTE_TF_ITEM))) {
+					ItemTag.DOMINION_ALLEYWAY_SPAWN,
+					ItemTag.ATTRIBUTE_TF_ITEM)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1089,10 +1089,10 @@ public class ItemType {
 			null,
 			Rarity.UNCOMMON,
 			TFEssence.ARCANE,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.COR_IMPISH_BREW))),
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.COR_IMPISH_BREW)),
 			Util.newArrayListOfValues(
-					new ListValue<>(ItemTag.SUBMISSION_TUNNEL_SPAWN),
-					new ListValue<>(ItemTag.ATTRIBUTE_TF_ITEM))) {
+					ItemTag.SUBMISSION_TUNNEL_SPAWN,
+					ItemTag.ATTRIBUTE_TF_ITEM)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1135,11 +1135,12 @@ public class ItemType {
 			null,
 			Rarity.EPIC,
 			TFEssence.ARCANE,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.MYSTERY_KINK))),
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.MYSTERY_KINK)),
 			Util.newArrayListOfValues(
-					new ListValue<>(ItemTag.DOMINION_ALLEYWAY_SPAWN),
-					new ListValue<>(ItemTag.SUBMISSION_TUNNEL_SPAWN),
-					new ListValue<>(ItemTag.MISC_TF_ITEM))) {
+					ItemTag.DOMINION_ALLEYWAY_SPAWN,
+					ItemTag.SUBMISSION_TUNNEL_SPAWN,
+					ItemTag.BAT_CAVERNS_SPAWN,
+					ItemTag.MISC_TF_ITEM)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1230,11 +1231,12 @@ public class ItemType {
 			null,
 			Rarity.LEGENDARY,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.ADDICTION_REMOVAL))),
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.ADDICTION_REMOVAL)),
 			Util.newArrayListOfValues(
-					new ListValue<>(ItemTag.DOMINION_ALLEYWAY_SPAWN),
-					new ListValue<>(ItemTag.SUBMISSION_TUNNEL_SPAWN),
-					new ListValue<>(ItemTag.MISC_TF_ITEM))) {
+					ItemTag.DOMINION_ALLEYWAY_SPAWN,
+					ItemTag.SUBMISSION_TUNNEL_SPAWN,
+					ItemTag.BAT_CAVERNS_SPAWN,
+					ItemTag.MISC_TF_ITEM)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1264,6 +1266,50 @@ public class ItemType {
 		}
 	};
 	
+	public static AbstractItemType MUSHROOM = new AbstractItemType(500,
+			"a cluster of",
+			true,
+			"Glowing Mushroom",
+			"Glowing Mushrooms",
+			"Bioluminescent mushrooms such as these are commonly found growing in the Bat Caverns."
+					+ " The slimes which call those caverns their home are particularly fond of consuming these mushrooms, which is what causes their bodies to glow.",
+			"mushrooms",
+			Colour.BASE_BLUE_LIGHT,
+			null,
+			null,
+			Rarity.EPIC,
+			null,
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.MUSHROOMS)),
+			Util.newArrayListOfValues(
+					ItemTag.BAT_CAVERNS_SPAWN)) {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public boolean isAbleToBeUsedInSex() {
+			return true;
+		}
+
+		@Override
+		public boolean isAbleToBeUsedInCombat() {
+			return true;
+		}
+
+		@Override
+		public String getUseName() {
+			return "eat";
+		}
+
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return getGenericUseDescription(user, target,
+					"You pop the small cluster of glowing mushrooms into your mouth, and as you chew and swallow them down, you discover that they have a refreshing, minty taste.",
+					"You pop the small cluster of glowing mushrooms into [npc.name]'s mouth, before making sure that [npc.she] chews and swallows them down.",
+					"[npc.Name] pops a small cluster of glowing mushrooms into [npc.her] mouth, before chewing and swallowing them down.",
+					"[npc.Name] pops a small cluster of glowing mushrooms into your mouth, and as [npc.she] makes you chew and swallow them down, you discover that they have a refreshing, minty taste.");
+		}
+	};
+	
 	// Racial ingredients:
 	
 	public static AbstractItemType RACE_INGREDIENT_DEMON = new AbstractItemType(2500,
@@ -1279,11 +1325,11 @@ public class ItemType {
 			null,
 			Rarity.LEGENDARY,
 			TFEssence.ARCANE,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_INNOXIAS_GIFT))),
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_INNOXIAS_GIFT)),
 			Util.newArrayListOfValues(
-					new ListValue<>(ItemTag.DOMINION_ALLEYWAY_SPAWN),
-					new ListValue<>(ItemTag.SUBMISSION_TUNNEL_SPAWN),
-					new ListValue<>(ItemTag.RACIAL_TF_ITEM))) {
+					ItemTag.DOMINION_ALLEYWAY_SPAWN,
+					ItemTag.SUBMISSION_TUNNEL_SPAWN,
+					ItemTag.RACIAL_TF_ITEM)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1327,11 +1373,11 @@ public class ItemType {
 			null,
 			Rarity.RARE,
 			TFEssence.ARCANE,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_ANGELS_TEARS))),
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_ANGELS_TEARS)),
 			Util.newArrayListOfValues(
-					new ListValue<>(ItemTag.DOMINION_ALLEYWAY_SPAWN),
-					new ListValue<>(ItemTag.SUBMISSION_TUNNEL_SPAWN),
-					new ListValue<>(ItemTag.RACIAL_TF_ITEM))) {
+					ItemTag.DOMINION_ALLEYWAY_SPAWN,
+					ItemTag.SUBMISSION_TUNNEL_SPAWN,
+					ItemTag.RACIAL_TF_ITEM)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1375,10 +1421,10 @@ public class ItemType {
 			null,
 			Rarity.RARE,
 			TFEssence.ARCANE,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_KITTYS_REWARD))),
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_KITTYS_REWARD)),
 			Util.newArrayListOfValues(
-					new ListValue<>(ItemTag.DOMINION_ALLEYWAY_SPAWN),
-					new ListValue<>(ItemTag.RACIAL_TF_ITEM))) {
+					ItemTag.DOMINION_ALLEYWAY_SPAWN,
+					ItemTag.RACIAL_TF_ITEM)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1424,10 +1470,10 @@ public class ItemType {
 			null,
 			Rarity.RARE,
 			TFEssence.ARCANE,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_BUBBLE_CREAM))),
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_BUBBLE_CREAM)),
 			Util.newArrayListOfValues(
-					new ListValue<>(ItemTag.DOMINION_ALLEYWAY_SPAWN),
-					new ListValue<>(ItemTag.RACIAL_TF_ITEM))) {
+					ItemTag.DOMINION_ALLEYWAY_SPAWN,
+					ItemTag.RACIAL_TF_ITEM)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1475,10 +1521,10 @@ public class ItemType {
 			null,
 			Rarity.RARE,
 			TFEssence.ARCANE,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_ROUND_NUTS))),
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_ROUND_NUTS)),
 			Util.newArrayListOfValues(
-					new ListValue<>(ItemTag.DOMINION_ALLEYWAY_SPAWN),
-					new ListValue<>(ItemTag.RACIAL_TF_ITEM))) {
+					ItemTag.DOMINION_ALLEYWAY_SPAWN,
+					ItemTag.RACIAL_TF_ITEM)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1524,10 +1570,10 @@ public class ItemType {
 			null,
 			Rarity.RARE,
 			TFEssence.ARCANE,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_FRUIT_SALAD))),
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_FRUIT_SALAD)),
 			Util.newArrayListOfValues(
-					new ListValue<>(ItemTag.BAT_CAVERNS_SPAWN),
-					new ListValue<>(ItemTag.RACIAL_TF_ITEM))) {
+					ItemTag.BAT_CAVERNS_SPAWN,
+					ItemTag.RACIAL_TF_ITEM)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1571,10 +1617,10 @@ public class ItemType {
 			null,
 			Rarity.RARE,
 			TFEssence.ARCANE,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_BURGER))),
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_BURGER)),
 			Util.newArrayListOfValues(
-					new ListValue<>(ItemTag.SUBMISSION_TUNNEL_SPAWN),
-					new ListValue<>(ItemTag.RACIAL_TF_ITEM))) {
+					ItemTag.SUBMISSION_TUNNEL_SPAWN,
+					ItemTag.RACIAL_TF_ITEM)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1620,10 +1666,10 @@ public class ItemType {
 			null,
 			Rarity.RARE,
 			TFEssence.ARCANE,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_CARROT_CAKE))),
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_CARROT_CAKE)),
 			Util.newArrayListOfValues(
-					new ListValue<>(ItemTag.DOMINION_ALLEYWAY_SPAWN), //TODO
-					new ListValue<>(ItemTag.RACIAL_TF_ITEM))) {
+					ItemTag.DOMINION_ALLEYWAY_SPAWN, //TODO
+					ItemTag.RACIAL_TF_ITEM)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1667,10 +1713,10 @@ public class ItemType {
 			null,
 			Rarity.RARE,
 			TFEssence.ARCANE,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_CANINE_CRUNCH))),
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_CANINE_CRUNCH)),
 			Util.newArrayListOfValues(
-					new ListValue<>(ItemTag.DOMINION_ALLEYWAY_SPAWN),
-					new ListValue<>(ItemTag.RACIAL_TF_ITEM))) {
+					ItemTag.DOMINION_ALLEYWAY_SPAWN,
+					ItemTag.RACIAL_TF_ITEM)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1714,10 +1760,10 @@ public class ItemType {
 			null,
 			Rarity.RARE,
 			TFEssence.ARCANE,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_SUGAR_CARROT_CUBE))),
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_SUGAR_CARROT_CUBE)),
 			Util.newArrayListOfValues(
-					new ListValue<>(ItemTag.DOMINION_ALLEYWAY_SPAWN),
-					new ListValue<>(ItemTag.RACIAL_TF_ITEM))) {
+					ItemTag.DOMINION_ALLEYWAY_SPAWN,
+					ItemTag.RACIAL_TF_ITEM)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1760,10 +1806,10 @@ public class ItemType {
 			null,
 			Rarity.RARE,
 			TFEssence.ARCANE,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_SUGAR_COOKIE))),
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_SUGAR_COOKIE)),
 			Util.newArrayListOfValues(
-					new ListValue<>(ItemTag.REINDEER_GIFT),
-					new ListValue<>(ItemTag.RACIAL_TF_ITEM))) {
+					ItemTag.REINDEER_GIFT,
+					ItemTag.RACIAL_TF_ITEM)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1809,10 +1855,10 @@ public class ItemType {
 			null,
 			Rarity.RARE,
 			TFEssence.ARCANE,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_ALLIGATORS_GUMBO))),
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_ALLIGATORS_GUMBO)),
 			Util.newArrayListOfValues(
-					new ListValue<>(ItemTag.SUBMISSION_TUNNEL_SPAWN),
-					new ListValue<>(ItemTag.RACIAL_TF_ITEM))) {
+					ItemTag.SUBMISSION_TUNNEL_SPAWN,
+					ItemTag.RACIAL_TF_ITEM)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1857,10 +1903,10 @@ public class ItemType {
 			null,
 			Rarity.RARE,
 			TFEssence.ARCANE,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_MEAT_AND_MARROW))),
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_MEAT_AND_MARROW)),
 			Util.newArrayListOfValues(
-					new ListValue<>(ItemTag.DOMINION_ALLEYWAY_SPAWN),
-					new ListValue<>(ItemTag.RACIAL_TF_ITEM))) {
+					ItemTag.DOMINION_ALLEYWAY_SPAWN,
+					ItemTag.RACIAL_TF_ITEM)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1906,9 +1952,9 @@ public class ItemType {
 			null,
 			Rarity.RARE,
 			TFEssence.ARCANE,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_LOLLIPOP))),
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_LOLLIPOP)),
 			Util.newArrayListOfValues(
-					new ListValue<>(ItemTag.RACIAL_TF_ITEM))) {
+					ItemTag.RACIAL_TF_ITEM)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1941,12 +1987,12 @@ public class ItemType {
 		}
 	};
 	
-	public static AbstractItemType RACE_INGREDIENT_SLIME = new AbstractItemType(50000,
+	public static AbstractItemType RACE_INGREDIENT_SLIME = new AbstractItemType(2500,
 			"a",
 			false,
 			"Biojuice Canister",
-			"Biojuice Canister",
-			"A canister of glowing green liquid."
+			"Biojuice Canisters",
+			"A canister of glowing pink liquid, which has a thick, slimy consistency."
 					+ " The warning sign on the front makes it quite clear that drinking this would be a bad idea...",
 			"raceSlimeBiojuice",
 			Colour.RACE_SLIME,
@@ -1954,12 +2000,22 @@ public class ItemType {
 			null,
 			Rarity.LEGENDARY,
 			TFEssence.ARCANE,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_BIOJUICE))),
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_BIOJUICE)),
 			Util.newArrayListOfValues(
-					new ListValue<>(ItemTag.RACIAL_TF_ITEM),
-					new ListValue<>(ItemTag.NOT_FOR_SALE))) {
+					ItemTag.RACIAL_TF_ITEM,
+					ItemTag.NOT_FOR_SALE)) {
 
 		private static final long serialVersionUID = 1L;
+
+		@Override
+		public AbstractItemEffectType getEnchantmentEffect() {
+			return ItemEffectType.RACE_SLIME;
+		}
+
+		@Override
+		public AbstractItemType getEnchantmentItemType(List<ItemEffect> effects) {
+			return ELIXIR;
+		}
 
 		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -1980,12 +2036,12 @@ public class ItemType {
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getGenericUseDescription(user, target,
 					"Ignoring the warning on the front, you unseal one end of the canister and bring it up to your [pc.lips]."
-							+ " The glowing green liquid within gives off a faintly sweet smell, and you tilt your head back and gulp it all down...",
+							+ " The glowing pink liquid within gives off a faintly sweet smell, and you tilt your head back and gulp it all down...",
 					"You unseal one end of the canister and bring it up to [npc.name]'s [npc.lips]."
-							+ " Tilting [npc.her] head back, you force [npc.herHim] to drink down all of the glowing green liquid...",
+							+ " Tilting [npc.her] head back, you force [npc.herHim] to drink down all of the glowing pink liquid...",
 					"[npc.Name] pulls out a canister of Biojuice, and, unsealing one end of the canister, [npc.she] brings it up to [npc.her] [npc.lips] and gulps it all down....",
 					"[npc.Name] pulls out a canister of Biojuice, and, unsealing one end of the canister, [npc.she] brings it up to your [pc.lips]."
-							+ " The glowing green liquid within gives off a faintly sweet smell, and [npc.name] tilts your head back and forces you to gulp it all down....");
+							+ " The glowing pink liquid within gives off a faintly sweet smell, and [npc.name] tilts your head back and forces you to gulp it all down....");
 		}
 	};
 	
@@ -2002,7 +2058,7 @@ public class ItemType {
 //			50,
 //			Rarity.LEGENDARY,
 //			null,
-//			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_ANGEL)))) {
+//			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_ANGEL))) {
 //
 //		@Override
 //		public String getUseName() {
@@ -2142,8 +2198,8 @@ public class ItemType {
 			null,
 			Rarity.EPIC,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_ARCANE))),
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.ESSENCE))) {
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_ARCANE)),
+			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -2180,8 +2236,8 @@ public class ItemType {
 			null,
 			Rarity.EPIC,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_CAT_MORPH))),
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.ESSENCE))) {
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_CAT_MORPH)),
+			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -2219,8 +2275,8 @@ public class ItemType {
 			null,
 			Rarity.EPIC,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_COW_MORPH))),
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.ESSENCE))) {
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_COW_MORPH)),
+			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -2257,8 +2313,8 @@ public class ItemType {
 			null,
 			Rarity.EPIC,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_DEMON))),
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.ESSENCE))) {
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_DEMON)),
+			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -2295,8 +2351,8 @@ public class ItemType {
 			null,
 			Rarity.EPIC,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_IMP))),
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.ESSENCE))) {
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_IMP)),
+			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -2333,8 +2389,8 @@ public class ItemType {
 			null,
 			Rarity.EPIC,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_ALLIGATOR_MORPH))),
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.ESSENCE))) {
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_ALLIGATOR_MORPH)),
+			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -2364,8 +2420,8 @@ public class ItemType {
 			null,
 			Rarity.EPIC,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_SQUIRREL_MORPH))),
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.ESSENCE))) {
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_SQUIRREL_MORPH)),
+			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -2402,8 +2458,8 @@ public class ItemType {
 			null,
 			Rarity.EPIC,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_RAT_MORPH))),
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.ESSENCE))) {
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_RAT_MORPH)),
+			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -2440,8 +2496,8 @@ public class ItemType {
 			null,
 			Rarity.EPIC,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_RABBIT_MORPH))),
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.ESSENCE))) {
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_RABBIT_MORPH)),
+			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -2478,8 +2534,8 @@ public class ItemType {
 			null,
 			Rarity.EPIC,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_BAT_MORPH))),
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.ESSENCE))) {
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_BAT_MORPH)),
+			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -2516,8 +2572,8 @@ public class ItemType {
 			null,
 			Rarity.EPIC,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_DOG_MORPH))),
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.ESSENCE))) {
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_DOG_MORPH)),
+			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -2554,8 +2610,8 @@ public class ItemType {
 			null,
 			Rarity.EPIC,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_HARPY))),
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.ESSENCE))) {
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_HARPY)),
+			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -2592,8 +2648,8 @@ public class ItemType {
 			null,
 			Rarity.EPIC,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_HORSE_MORPH))),
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.ESSENCE))) {
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_HORSE_MORPH)),
+			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -2630,8 +2686,8 @@ public class ItemType {
 			null,
 			Rarity.EPIC,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_REINDEER_MORPH))),
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.ESSENCE))) {
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_REINDEER_MORPH)),
+			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -2668,8 +2724,8 @@ public class ItemType {
 			null,
 			Rarity.EPIC,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_HUMAN))),
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.ESSENCE))) {
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_HUMAN)),
+			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -2706,8 +2762,8 @@ public class ItemType {
 			null,
 			Rarity.EPIC,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_WOLF_MORPH))),
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.ESSENCE))) {
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_WOLF_MORPH)),
+			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -2744,8 +2800,8 @@ public class ItemType {
 			null,
 			Rarity.EPIC,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_SLIME))),
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.ESSENCE))) {
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_SLIME)),
+			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -2785,10 +2841,10 @@ public class ItemType {
 			null,
 			Rarity.LEGENDARY,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BIMBO_LOLLIPOP))),
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BIMBO_LOLLIPOP)),
 			Util.newArrayListOfValues(
-					new ListValue<>(ItemTag.RACIAL_TF_ITEM),
-					new ListValue<>(ItemTag.NOT_FOR_SALE))) {
+					ItemTag.RACIAL_TF_ITEM,
+					ItemTag.NOT_FOR_SALE)) {
 
 		private static final long serialVersionUID = 1L;
 		
@@ -2832,10 +2888,10 @@ public class ItemType {
 			null,
 			Rarity.LEGENDARY,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.NYMPHO_LOLLIPOP))),
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.NYMPHO_LOLLIPOP)),
 			Util.newArrayListOfValues(
-					new ListValue<>(ItemTag.RACIAL_TF_ITEM),
-					new ListValue<>(ItemTag.NOT_FOR_SALE))) {
+					ItemTag.RACIAL_TF_ITEM,
+					ItemTag.NOT_FOR_SALE)) {
 
 		private static final long serialVersionUID = 1L;
 		
@@ -2878,10 +2934,10 @@ public class ItemType {
 			null,
 			Rarity.LEGENDARY,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.DOMINANT_PERFUME))),
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.DOMINANT_PERFUME)),
 			Util.newArrayListOfValues(
-					new ListValue<>(ItemTag.RACIAL_TF_ITEM),
-					new ListValue<>(ItemTag.NOT_FOR_SALE))) {
+					ItemTag.RACIAL_TF_ITEM,
+					ItemTag.NOT_FOR_SALE)) {
 
 		private static final long serialVersionUID = 1L;
 		
@@ -3030,10 +3086,10 @@ public class ItemType {
 			null,
 			Rarity.EPIC,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.DYE_BRUSH))),
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.DYE_BRUSH)),
 			Util.newArrayListOfValues(
-					new ListValue<>(ItemTag.DOMINION_ALLEYWAY_SPAWN),
-					new ListValue<>(ItemTag.SUBMISSION_TUNNEL_SPAWN))) {
+					ItemTag.DOMINION_ALLEYWAY_SPAWN,
+					ItemTag.SUBMISSION_TUNNEL_SPAWN)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -3080,9 +3136,9 @@ public class ItemType {
 			null,
 			Rarity.COMMON,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.USED_CONDOM_DRINK))),
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.USED_CONDOM_DRINK)),
 			Util.newArrayListOfValues(
-					new ListValue<>(ItemTag.REMOVE_FROM_DEBUG_SPAWNER))) {
+					ItemTag.REMOVE_FROM_DEBUG_SPAWNER)) {
 		
 		private static final long serialVersionUID = 1L;
 
@@ -3176,7 +3232,7 @@ public class ItemType {
 			null,
 			Rarity.LEGENDARY,
 			TFEssence.ARCANE,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.ORIENTATION_CHANGE))), null) {
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.ORIENTATION_CHANGE)), null) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -3235,11 +3291,12 @@ public class ItemType {
 			null,
 			Rarity.COMMON,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.VIXENS_VIRILITY))),
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.VIXENS_VIRILITY)),
 			Util.newArrayListOfValues(
-					new ListValue<>(ItemTag.DOMINION_ALLEYWAY_SPAWN),
-					new ListValue<>(ItemTag.SUBMISSION_TUNNEL_SPAWN),
-					new ListValue<>(ItemTag.ATTRIBUTE_TF_ITEM))) {
+					ItemTag.DOMINION_ALLEYWAY_SPAWN,
+					ItemTag.SUBMISSION_TUNNEL_SPAWN,
+					ItemTag.BAT_CAVERNS_SPAWN,
+					ItemTag.ATTRIBUTE_TF_ITEM)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -3273,11 +3330,12 @@ public class ItemType {
 			null,
 			Rarity.COMMON,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.PROMISCUITY_PILL))),
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.PROMISCUITY_PILL)),
 			Util.newArrayListOfValues(
-					new ListValue<>(ItemTag.DOMINION_ALLEYWAY_SPAWN),
-					new ListValue<>(ItemTag.SUBMISSION_TUNNEL_SPAWN),
-					new ListValue<>(ItemTag.ATTRIBUTE_TF_ITEM))) {
+					ItemTag.DOMINION_ALLEYWAY_SPAWN,
+					ItemTag.SUBMISSION_TUNNEL_SPAWN,
+					ItemTag.BAT_CAVERNS_SPAWN,
+					ItemTag.ATTRIBUTE_TF_ITEM)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -3308,10 +3366,11 @@ public class ItemType {
 			null,
 			Rarity.COMMON,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.MOO_MILKER))),
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.MOO_MILKER)),
 			Util.newArrayListOfValues(
-					new ListValue<>(ItemTag.DOMINION_ALLEYWAY_SPAWN),
-					new ListValue<>(ItemTag.SUBMISSION_TUNNEL_SPAWN))) {
+					ItemTag.DOMINION_ALLEYWAY_SPAWN,
+					ItemTag.SUBMISSION_TUNNEL_SPAWN,
+					ItemTag.BAT_CAVERNS_SPAWN)) {
 
 		private static final long serialVersionUID = 1L;
 		
@@ -3370,9 +3429,9 @@ public class ItemType {
 			null,
 			Rarity.COMMON,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.FILLED_MOO_MILKER_DRINK))),
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.FILLED_MOO_MILKER_DRINK)),
 			Util.newArrayListOfValues(
-					new ListValue<>(ItemTag.REMOVE_FROM_DEBUG_SPAWNER))) {
+					ItemTag.REMOVE_FROM_DEBUG_SPAWNER)) {
 		
 		private static final long serialVersionUID = 1L;
 
@@ -3404,11 +3463,11 @@ public class ItemType {
 			null,
 			Rarity.COMMON,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.MOTHERS_MILK))),
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.MOTHERS_MILK)),
 			Util.newArrayListOfValues(
-					new ListValue<>(ItemTag.DOMINION_ALLEYWAY_SPAWN),
-					new ListValue<>(ItemTag.SUBMISSION_TUNNEL_SPAWN),
-					new ListValue<>(ItemTag.MISC_TF_ITEM))) {
+					ItemTag.DOMINION_ALLEYWAY_SPAWN,
+					ItemTag.SUBMISSION_TUNNEL_SPAWN,
+					ItemTag.MISC_TF_ITEM)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -3439,8 +3498,8 @@ public class ItemType {
 			null,
 			Rarity.LEGENDARY,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_CAT_MORPH))),
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.BOOK))) {
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_CAT_MORPH)),
+			Util.newArrayListOfValues(ItemTag.BOOK)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -3477,8 +3536,8 @@ public class ItemType {
 			null,
 			Rarity.LEGENDARY,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_COW_MORPH))),
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.BOOK))) {
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_COW_MORPH)),
+			Util.newArrayListOfValues(ItemTag.BOOK)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -3515,8 +3574,8 @@ public class ItemType {
 			null,
 			Rarity.LEGENDARY,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_DEMON))),
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.BOOK))) {
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_DEMON)),
+			Util.newArrayListOfValues(ItemTag.BOOK)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -3552,8 +3611,8 @@ public class ItemType {
 			null,
 			Rarity.LEGENDARY,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_IMP))),
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.BOOK))) {
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_IMP)),
+			Util.newArrayListOfValues(ItemTag.BOOK)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -3589,8 +3648,8 @@ public class ItemType {
 			null,
 			Rarity.LEGENDARY,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_DOG_MORPH))),
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.BOOK))) {
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_DOG_MORPH)),
+			Util.newArrayListOfValues(ItemTag.BOOK)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -3626,8 +3685,8 @@ public class ItemType {
 			null,
 			Rarity.LEGENDARY,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_ALLIGATOR_MORPH))),
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.BOOK))) {
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_ALLIGATOR_MORPH)),
+			Util.newArrayListOfValues(ItemTag.BOOK)) {
 		
 		private static final long serialVersionUID = 1L;
 
@@ -3663,8 +3722,8 @@ public class ItemType {
 			null,
 			Rarity.LEGENDARY,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_HARPY))),
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.BOOK))) {
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_HARPY)),
+			Util.newArrayListOfValues(ItemTag.BOOK)) {
 		
 		private static final long serialVersionUID = 1L;
 
@@ -3700,8 +3759,8 @@ public class ItemType {
 			null,
 			Rarity.LEGENDARY,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_HORSE_MORPH))),
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.BOOK))) {
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_HORSE_MORPH)),
+			Util.newArrayListOfValues(ItemTag.BOOK)) {
 		
 		private static final long serialVersionUID = 1L;
 
@@ -3737,8 +3796,8 @@ public class ItemType {
 			null,
 			Rarity.LEGENDARY,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_REINDEER_MORPH))),
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.BOOK))) {
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_REINDEER_MORPH)),
+			Util.newArrayListOfValues(ItemTag.BOOK)) {
 		
 		private static final long serialVersionUID = 1L;
 
@@ -3774,8 +3833,8 @@ public class ItemType {
 			null,
 			Rarity.LEGENDARY,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_HUMAN))),
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.BOOK))) {
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_HUMAN)),
+			Util.newArrayListOfValues(ItemTag.BOOK)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -3811,8 +3870,8 @@ public class ItemType {
 			null,
 			Rarity.LEGENDARY,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_SQUIRREL_MORPH))),
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.BOOK))) {
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_SQUIRREL_MORPH)),
+			Util.newArrayListOfValues(ItemTag.BOOK)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -3848,8 +3907,8 @@ public class ItemType {
 			null,
 			Rarity.LEGENDARY,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_RAT_MORPH))),
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.BOOK))) {
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_RAT_MORPH)),
+			Util.newArrayListOfValues(ItemTag.BOOK)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -3885,8 +3944,8 @@ public class ItemType {
 			null,
 			Rarity.LEGENDARY,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_RABBIT_MORPH))),
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.BOOK))) {
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_RABBIT_MORPH)),
+			Util.newArrayListOfValues(ItemTag.BOOK)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -3922,8 +3981,8 @@ public class ItemType {
 			null,
 			Rarity.LEGENDARY,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_BAT_MORPH))),
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.BOOK))) {
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_BAT_MORPH)),
+			Util.newArrayListOfValues(ItemTag.BOOK)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -3959,8 +4018,8 @@ public class ItemType {
 			null,
 			Rarity.LEGENDARY,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_WOLF_MORPH))),
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.BOOK))) {
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_WOLF_MORPH)),
+			Util.newArrayListOfValues(ItemTag.BOOK)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -3996,8 +4055,8 @@ public class ItemType {
 			null,
 			Rarity.LEGENDARY,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_SLIME))),
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.BOOK))) {
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_SLIME)),
+			Util.newArrayListOfValues(ItemTag.BOOK)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -4033,7 +4092,7 @@ public class ItemType {
 			null,
 			Rarity.RARE,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.PRESENT))), null) {
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.PRESENT)), null) {
 
 		private static final long serialVersionUID = 1L;
 		
@@ -4078,7 +4137,7 @@ public class ItemType {
 			Rarity.UNCOMMON,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.GIFT))) {
+			Util.newArrayListOfValues(ItemTag.GIFT)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -4124,7 +4183,7 @@ public class ItemType {
 			Rarity.UNCOMMON,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.GIFT))) {
+			Util.newArrayListOfValues(ItemTag.GIFT)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -4171,8 +4230,8 @@ public class ItemType {
 			Colour.BASE_YELLOW,
 			Rarity.UNCOMMON,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.GIFT_CHOCOLATES))),
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.GIFT))) {
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.GIFT_CHOCOLATES)),
+			Util.newArrayListOfValues(ItemTag.GIFT)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -4214,8 +4273,8 @@ public class ItemType {
 			null,
 			Rarity.UNCOMMON,
 			TFEssence.ARCANE,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.GIFT_PERFUME))),
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.GIFT))) {
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.GIFT_PERFUME)),
+			Util.newArrayListOfValues(ItemTag.GIFT)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -4259,7 +4318,7 @@ public class ItemType {
 			Rarity.UNCOMMON,
 			TFEssence.ARCANE,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.GIFT))) {
+			Util.newArrayListOfValues(ItemTag.GIFT)) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -4307,7 +4366,7 @@ public class ItemType {
 			null,
 			Rarity.LEGENDARY,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.EGGPLANT))), null) {
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.EGGPLANT)), null) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -4719,7 +4778,7 @@ public class ItemType {
 			}
 			
 			List<String> effectsString = Util.newArrayListOfValues(
-					new ListValue<>("[style.boldExcellent(Permanently)] gain the spell '<b style='color:"+s.getSpellSchool().getColour().toWebHexString()+";'>"+s.getName()+"</b>'."));
+					"[style.boldExcellent(Permanently)] gain the spell '<b style='color:"+s.getSpellSchool().getColour().toWebHexString()+";'>"+s.getName()+"</b>'.");
 
 			if(s == Spell.ELEMENTAL_EARTH) {
 				effectsString.add("Adds "+Race.ELEMENTAL_EARTH.getName()+" encyclopedia entry.");
@@ -4903,8 +4962,8 @@ public class ItemType {
 					null,
 					Rarity.LEGENDARY,
 					null,
-					Util.newArrayListOfValues(new ListValue<>(new ItemEffect(effectType))),
-					Util.newArrayListOfValues(new ListValue<>(ItemTag.SPELL_BOOK))) {
+					Util.newArrayListOfValues(new ItemEffect(effectType)),
+					Util.newArrayListOfValues(ItemTag.SPELL_BOOK)) {
 		
 				private static final long serialVersionUID = 1L;
 				
@@ -4969,7 +5028,7 @@ public class ItemType {
 		for(SpellSchool school : SpellSchool.values()) {
 			
 			AbstractItemEffectType effectType = new AbstractItemEffectType(Util.newArrayListOfValues(
-							new ListValue<>("[style.boldExcellent(+1)] to <span style='color:"+school.getColour().toWebHexString()+";'>"+school.getName()+"</span> upgrade points.")),
+							"[style.boldExcellent(+1)] to <span style='color:"+school.getColour().toWebHexString()+";'>"+school.getName()+"</span> upgrade points."),
 							school.getColour()) {
 						
 						@Override
@@ -4996,8 +5055,8 @@ public class ItemType {
 					null,
 					Rarity.EPIC,
 					null,
-					Util.newArrayListOfValues(new ListValue<>(new ItemEffect(effectType))),
-					Util.newArrayListOfValues(new ListValue<>(ItemTag.SPELL_SCROLL))) {
+					Util.newArrayListOfValues(new ItemEffect(effectType)),
+					Util.newArrayListOfValues(ItemTag.SPELL_SCROLL)) {
 		
 				private static final long serialVersionUID = 1L;
 				

@@ -960,7 +960,9 @@ public enum Sex {
 				
 				if(Sex.getAllParticipants().contains(Main.game.getPlayer())) {
 					if((Sex.getSexPace(participant)!=SexPace.SUB_RESISTING || participant.hasFetish(Fetish.FETISH_NON_CON_SUB))) {
-						if(Sex.getNumberOfOrgasms(participant)>0 || participant.hasFetish(Fetish.FETISH_DENIAL_SELF)) {
+						if(Sex.getNumberOfOrgasms(participant)>0
+								|| participant.hasFetish(Fetish.FETISH_DENIAL_SELF)
+								|| (Sex.isDom(participant) && !Sex.isSubHasEqualControl())) {
 							sexSB.append(participant.incrementAffection(Main.game.getPlayer(), 5));
 						} else {
 							sexSB.append(participant.incrementAffection(Main.game.getPlayer(), -2));
@@ -2442,10 +2444,12 @@ public enum Sex {
 		
 		if (penetrationType == PenetrationType.PENIS) {
 			if(characterPenetrating.isPenisVirgin()
+					&& characterPenetrating.hasPenisIgnoreDildo()
 					&& orifice.isTakesPenisVirginity()) {
 				penileVirginityLoss = characterPenetrating.getVirginityLossPenetrationDescription(characterPenetrating, PenetrationType.PENIS, characterPenetrated, orifice);
 				if(characterPenetrated.hasFetish(Fetish.FETISH_DEFLOWERING)) {
 					characterPenetrated.incrementExperience(Fetish.getExperienceGainFromTakingOtherVirginity(characterPenetrated), true);
+					characterPenetrated.incrementFetishExperience(Fetish.FETISH_DEFLOWERING, Fetish.FETISH_DEFLOWERING.getExperienceGainFromSexAction());
 				}
 				characterPenetrating.setVirginityLoss(relatedSexTypeForCharacterPenetrating, characterPenetrated.getName("a") + " " + characterPenetrated.getLostVirginityDescriptor());
 				characterPenetrating.setPenisVirgin(false);
@@ -2453,7 +2457,27 @@ public enum Sex {
 			
 		}
 		
-		if (orifice == OrificeType.ANUS) {
+		if (orifice == OrificeType.ASS) {
+			if (initialPenetrations.get(characterPenetrated).contains(OrificeType.ASS)) {
+				sexSB.append(formatInitialPenetration(characterPenetrating.getPenetrationDescription(true, characterPenetrating, penetrationType, characterPenetrated, orifice)));
+				
+				initialPenetrations.get(characterPenetrated).remove(OrificeType.ASS);
+				
+			} else {
+				sexSB.append(formatPenetration(characterPenetrating.getPenetrationDescription(false, characterPenetrating, penetrationType, characterPenetrated, orifice)));
+			}
+				
+		} else if (orifice == OrificeType.BREAST) {
+			if (initialPenetrations.get(characterPenetrated).contains(OrificeType.BREAST)) {
+				sexSB.append(formatInitialPenetration(characterPenetrating.getPenetrationDescription(true, characterPenetrating, penetrationType, characterPenetrated, orifice)));
+				
+				initialPenetrations.get(characterPenetrated).remove(OrificeType.BREAST);
+				
+			} else {
+				sexSB.append(formatPenetration(characterPenetrating.getPenetrationDescription(false, characterPenetrating, penetrationType, characterPenetrated, orifice)));
+			}
+				
+		} else if (orifice == OrificeType.ANUS) {
 			if (initialPenetrations.get(characterPenetrated).contains(OrificeType.ANUS)) {
 				sexSB.append(formatInitialPenetration(characterPenetrating.getPenetrationDescription(true, characterPenetrating, penetrationType, characterPenetrated, orifice)));
 				
@@ -2462,6 +2486,7 @@ public enum Sex {
 						sexSB.append(characterPenetrating.getVirginityLossOrificeDescription(characterPenetrating, penetrationType, characterPenetrated, OrificeType.ANUS));
 						if(characterPenetrating.hasFetish(Fetish.FETISH_DEFLOWERING)) {
 							characterPenetrating.incrementExperience(Fetish.getExperienceGainFromTakingOtherVirginity(characterPenetrating), true);
+							characterPenetrating.incrementFetishExperience(Fetish.FETISH_DEFLOWERING, Fetish.FETISH_DEFLOWERING.getExperienceGainFromSexAction());
 						}
 						characterPenetrated.setVirginityLoss(relatedSexTypeForCharacterPenetrated, characterPenetrating.getName("a") + " " + characterPenetrating.getLostVirginityDescriptor());
 						characterPenetrated.setAssVirgin(false);
@@ -2472,7 +2497,7 @@ public enum Sex {
 				sexSB.append(formatPenetration(characterPenetrating.getPenetrationDescription(false, characterPenetrating, penetrationType, characterPenetrated, orifice)));
 			}
 				
-		}  else if (orifice == OrificeType.VAGINA) {
+		} else if (orifice == OrificeType.VAGINA) {
 			if (initialPenetrations.get(characterPenetrated).contains(OrificeType.VAGINA)) {
 				sexSB.append(formatInitialPenetration(characterPenetrating.getPenetrationDescription(true, characterPenetrating, penetrationType, characterPenetrated, orifice)));
 				
@@ -2481,6 +2506,7 @@ public enum Sex {
 						sexSB.append(characterPenetrating.getVirginityLossOrificeDescription(characterPenetrating, penetrationType, characterPenetrated, OrificeType.VAGINA));
 						if(characterPenetrating.hasFetish(Fetish.FETISH_DEFLOWERING)) {
 							characterPenetrating.incrementExperience(Fetish.getExperienceGainFromTakingVaginalVirginity(characterPenetrating), true);
+							characterPenetrating.incrementFetishExperience(Fetish.FETISH_DEFLOWERING, Fetish.FETISH_DEFLOWERING.getExperienceGainFromSexAction());
 						}
 						characterPenetrated.setVirginityLoss(relatedSexTypeForCharacterPenetrated, characterPenetrating.getName("a") + " " + characterPenetrating.getLostVirginityDescriptor());
 						characterPenetrated.setVaginaVirgin(false);
@@ -2500,6 +2526,7 @@ public enum Sex {
 							sexSB.append(characterPenetrating.getVirginityLossOrificeDescription(characterPenetrating, penetrationType, characterPenetrated, OrificeType.NIPPLE));
 							if(characterPenetrating.hasFetish(Fetish.FETISH_DEFLOWERING)) {
 								characterPenetrating.incrementExperience(Fetish.getExperienceGainFromTakingOtherVirginity(characterPenetrating), true);
+								characterPenetrating.incrementFetishExperience(Fetish.FETISH_DEFLOWERING, Fetish.FETISH_DEFLOWERING.getExperienceGainFromSexAction());
 							}
 							characterPenetrated.setVirginityLoss(relatedSexTypeForCharacterPenetrated, characterPenetrating.getName("a") + " " + characterPenetrating.getLostVirginityDescriptor());
 							characterPenetrated.setNippleVirgin(false);
@@ -2519,6 +2546,7 @@ public enum Sex {
 							sexSB.append(characterPenetrating.getVirginityLossOrificeDescription(characterPenetrating, penetrationType, characterPenetrated, OrificeType.URETHRA_PENIS));
 							if(characterPenetrating.hasFetish(Fetish.FETISH_DEFLOWERING)) {
 								characterPenetrating.incrementExperience(Fetish.getExperienceGainFromTakingOtherVirginity(characterPenetrating), true);
+								characterPenetrating.incrementFetishExperience(Fetish.FETISH_DEFLOWERING, Fetish.FETISH_DEFLOWERING.getExperienceGainFromSexAction());
 							}
 							characterPenetrated.setVirginityLoss(relatedSexTypeForCharacterPenetrated, characterPenetrating.getName("a") + " " + characterPenetrating.getLostVirginityDescriptor());
 							characterPenetrated.setUrethraVirgin(false);
@@ -2538,6 +2566,7 @@ public enum Sex {
 						sexSB.append(characterPenetrating.getVirginityLossOrificeDescription(characterPenetrating, penetrationType, characterPenetrated, OrificeType.URETHRA_VAGINA));
 						if(characterPenetrating.hasFetish(Fetish.FETISH_DEFLOWERING)) {
 							characterPenetrating.incrementExperience(Fetish.getExperienceGainFromTakingOtherVirginity(characterPenetrating), true);
+							characterPenetrating.incrementFetishExperience(Fetish.FETISH_DEFLOWERING, Fetish.FETISH_DEFLOWERING.getExperienceGainFromSexAction());
 						}
 						characterPenetrated.setVirginityLoss(relatedSexTypeForCharacterPenetrated, characterPenetrating.getName("a") + " " + characterPenetrating.getLostVirginityDescriptor());
 						characterPenetrated.setVaginaUrethraVirgin(false);
@@ -2557,6 +2586,7 @@ public enum Sex {
 							sexSB.append(characterPenetrating.getVirginityLossOrificeDescription(characterPenetrating, penetrationType, characterPenetrated, OrificeType.MOUTH));
 							if(characterPenetrating.hasFetish(Fetish.FETISH_DEFLOWERING)) {
 								characterPenetrating.incrementExperience(Fetish.getExperienceGainFromTakingOtherVirginity(characterPenetrating), true);
+								characterPenetrating.incrementFetishExperience(Fetish.FETISH_DEFLOWERING, Fetish.FETISH_DEFLOWERING.getExperienceGainFromSexAction());
 							}
 							characterPenetrated.setVirginityLoss(relatedSexTypeForCharacterPenetrated, characterPenetrating.getName("a") + " " + characterPenetrating.getLostVirginityDescriptor());
 							characterPenetrated.setFaceVirgin(false);
@@ -3159,6 +3189,8 @@ public enum Sex {
 		if(!Sex.isDom(Main.game.getPlayer())) {
 			if(!tempCharacterList.isEmpty()) {
 				activePartner = (NPC) tempCharacterList.get(0);
+			} else {
+				activePartner = null;
 			}
 		}
 
@@ -3172,6 +3204,8 @@ public enum Sex {
 		if(Sex.isDom(Main.game.getPlayer())) {
 			if(!tempCharacterList.isEmpty()) {
 				activePartner = (NPC) tempCharacterList.get(0);
+			} else {
+				activePartner = null;
 			}
 		}
 		

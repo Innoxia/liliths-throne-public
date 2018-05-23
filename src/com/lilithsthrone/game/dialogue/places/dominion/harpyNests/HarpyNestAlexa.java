@@ -11,7 +11,6 @@ import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -254,7 +253,7 @@ public class HarpyNestAlexa {
 				
 			} else if(index==2) {
 				return new Response("Take punishment", "Offer to take Scarlett's punishment for her.", ALEXAS_NEST_TAKE_PUNISHMENT,
-						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE), new ListValue<>(Fetish.FETISH_MASOCHIST)),
+						Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE, Fetish.FETISH_MASOCHIST),
 						CorruptionLevel.THREE_DIRTY,
 						null,
 						null,
@@ -403,7 +402,7 @@ public class HarpyNestAlexa {
 				
 			} else if(index==3) {
 				return new Response("Beg for more", "Beg to be punished.", ALEXAS_NEST_TAKE_PUNISHMENT_ENJOY,
-						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_MASOCHIST)),
+						Util.newArrayListOfValues(Fetish.FETISH_MASOCHIST),
 						CorruptionLevel.THREE_DIRTY,
 						null,
 						null,

@@ -230,21 +230,20 @@ public enum Combat {
 			}
 			
 			for(NPC ally : allies) {
-				postCombatStringBuilder.append("<div class='container-full-width' style='text-align:center;'>"+ally.incrementExperience(xp, true)+"</div>");
+				postCombatStringBuilder.append(ally.incrementExperience(xp, true));
 			}
 			
-			postCombatStringBuilder.append("<div class='container-full-width' style='text-align:center;'>"+Main.game.getPlayer().incrementExperience(xp, true)+"</div>");
+			postCombatStringBuilder.append(Main.game.getPlayer().incrementExperience(xp, true));
 			
-			Main.game.getPlayer().incrementMoney(money);
 			if (money > 0) {
-				postCombatStringBuilder.append("<div class='container-full-width' style='text-align:center;'>You gained " + UtilText.formatAsMoney(money) + "!</div>");
+				postCombatStringBuilder.append(Main.game.getPlayer().incrementMoney(money));
 			}
 			
 			// Apply loot drop:
 			for(NPC enemy : enemies) {
 				if(enemy.getLootItems()!=null) {
 					for(AbstractCoreItem item : enemy.getLootItems()) {
-						postCombatStringBuilder.append("<div class='container-full-width' style='text-align:center;'>You gained <b style='color:"+item.getRarity().getColour().toWebHexString()+";'>"+item.getName()+"</b>!</div>");
+						postCombatStringBuilder.append("<div class='container-full-width' style='text-align:center;'>You [style.boldGood(gained)] <b style='color:"+item.getRarity().getColour().toWebHexString()+";'>"+item.getName()+"</b>!</div>");
 						if(item instanceof AbstractItem) {
 							Main.game.getPlayer().addItem((AbstractItem) item, false, true);
 						} else if(item instanceof AbstractWeapon) {
@@ -253,6 +252,11 @@ public enum Combat {
 							Main.game.getPlayer().addClothing((AbstractClothing) item, false);
 						}
 					}
+				}
+				if(enemy.isElementalSummoned()) {
+					enemy.removeCompanion(enemy.getElemental());
+					enemy.getElemental().returnToHome();
+					postCombatStringBuilder.append(UtilText.parse(enemy, enemy.getElemental(), "<div class='container-full-width' style='text-align:center;'>[npc1.Name]'s elemental, [npc2.name], is [style.boldTerrible(dispelled)]!</div>"));
 				}
 			}
 
@@ -337,8 +341,22 @@ public enum Combat {
 			int money = Main.game.getPlayer().getMoney();
 			int moneyLoss = (-enemies.get(0).getLootMoney()/2)*enemies.size();
 			Main.game.getPlayer().incrementMoney(moneyLoss);
-			postCombatStringBuilder.append("<h6 style='text-align:center;'>You <b style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>lost</b> "+ UtilText.formatAsMoney(Math.abs(Main.game.getPlayer().getMoney()==0?money:moneyLoss)) + "!</h6>");
-
+			postCombatStringBuilder.append("<div class='container-full-width' style='text-align:center;'>You [style.boldBad(lost)] " + UtilText.formatAsMoney(Math.abs(Main.game.getPlayer().getMoney()==0?money:moneyLoss)) + "!</div>");
+			
+			// Remove elementals:
+			if(Main.game.getPlayer().isElementalSummoned()) {
+				Main.game.getPlayer().removeCompanion(Main.game.getPlayer().getElemental());
+				Main.game.getPlayer().getElemental().returnToHome();
+				postCombatStringBuilder.append(UtilText.parse(Main.game.getPlayer().getElemental(), "<div class='container-full-width' style='text-align:center;'>Your elemental, [npc.name], is [style.boldTerrible(dispelled)]!</div>"));
+			}
+			for(NPC ally : allies) {
+				if(ally.isElementalSummoned()) {
+					ally.removeCompanion(ally.getElemental());
+					ally.getElemental().returnToHome();
+					postCombatStringBuilder.append(UtilText.parse(ally, ally.getElemental(), "<div class='container-full-width' style='text-align:center;'>[npc1.Name]'s elemental, [npc2.name], is [style.boldTerrible(dispelled)]!</div>"));
+				}
+			}
+			
 			for(NPC enemy : enemies) {
 				enemy.setWonCombatCount(enemy.getWonCombatCount()+1);
 			}
@@ -1015,7 +1033,7 @@ public enum Combat {
 		
 		DamageType dt = (attacker.getOffhandWeapon() == null
 				?attacker.getBodyMaterial().getUnarmedDamageType()
-				:attacker.getMainWeapon().getDamageType());
+				:attacker.getOffhandWeapon().getDamageType());
 	
 		if(damage==0) {
 			if(target.isPlayer()) {

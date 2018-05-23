@@ -7,7 +7,6 @@ import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
-import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.Name;
@@ -144,22 +143,6 @@ public class HarpyNestsAttacker extends NPC {
 	}
 
 	// Combat:
-
-	@Override
-	public String getCombatDescription() {
-		if(this.isPregnant()) {
-			if(hasFetish(Fetish.FETISH_PREGNANCY)) {
-				return "Visibly pregnant, [npc.name] has an elated grin on [npc.her] face, but although [npc.she] seems happy about being knocked up, [npc.she]'s still intent on 'teaching you a lesson'...";
-				
-			} else {
-				return "The consequence of finishing inside [npc.name] is standing right before you."
-						+ " Visibly pregnant, [npc.she] has a devious grin on [npc.her] face, and it's quite clear that [npc.she] wants to get some revenge...";
-			}
-		} else {
-			return UtilText.parse(this,
-					"[npc.Name] is angry that you've strayed too close to [npc.her] nest, and seems more than willing to fight you in order to teach you a lesson.");
-		}
-	}
 
 	@Override
 	public Response endCombat(boolean applyEffects, boolean victory) {

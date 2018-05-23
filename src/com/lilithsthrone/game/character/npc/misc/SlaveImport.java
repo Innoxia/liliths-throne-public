@@ -45,6 +45,8 @@ public class SlaveImport extends NPC {
 		if(!this.getId().endsWith("SlaveImport")) {
 			this.setId(Main.game.getNextNPCId(SlaveImport.class));
 		}
+		
+		this.clearAllCompanionVariables();
 	}
 	
 	public void applyNewlyImportedSlaveVariables() {

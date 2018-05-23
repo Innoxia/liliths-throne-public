@@ -25,7 +25,6 @@ import com.lilithsthrone.game.inventory.enchanting.TFPotency;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.ColourListPresets;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 
 /**
  * @since 0.1.84
@@ -35,67 +34,66 @@ import com.lilithsthrone.utils.Util.ListValue;
 public class ClothingType {
 	
 	private static List<InventorySlot> concealedPartialTorso = Util.newArrayListOfValues(
-					new ListValue<InventorySlot>(InventorySlot.STOMACH),
-					new ListValue<InventorySlot>(InventorySlot.CHEST),
-					new ListValue<InventorySlot>(InventorySlot.NIPPLE),
-					new ListValue<InventorySlot>(InventorySlot.PIERCING_NIPPLE),
-					new ListValue<InventorySlot>(InventorySlot.PIERCING_STOMACH));
+					InventorySlot.STOMACH,
+					InventorySlot.CHEST,
+					InventorySlot.NIPPLE,
+					InventorySlot.PIERCING_NIPPLE,
+					InventorySlot.PIERCING_STOMACH);
 
 	private static List<InventorySlot> concealedPartialTorsoStomachVisible = Util.newArrayListOfValues(
-					new ListValue<InventorySlot>(InventorySlot.CHEST),
-					new ListValue<InventorySlot>(InventorySlot.NIPPLE),
-					new ListValue<InventorySlot>(InventorySlot.PIERCING_NIPPLE));
+					InventorySlot.CHEST,
+					InventorySlot.NIPPLE,
+					InventorySlot.PIERCING_NIPPLE);
 
-	private static List<InventorySlot> concealedStomach = Util.newArrayListOfValues(
-					new ListValue<InventorySlot>(InventorySlot.PIERCING_STOMACH));
+	private static List<InventorySlot> concealedStomach = Util.newArrayListOfValues(InventorySlot.PIERCING_STOMACH);
 
 	private static List<InventorySlot> concealedBreasts = Util.newArrayListOfValues(
-					new ListValue<InventorySlot>(InventorySlot.NIPPLE),
-					new ListValue<InventorySlot>(InventorySlot.PIERCING_NIPPLE));
+					InventorySlot.NIPPLE,
+					InventorySlot.PIERCING_NIPPLE);
 	
 	private static List<InventorySlot> concealedFullTorso = Util.newArrayListOfValues(
-					new ListValue<InventorySlot>(InventorySlot.TORSO_UNDER),
-					new ListValue<InventorySlot>(InventorySlot.STOMACH),
-					new ListValue<InventorySlot>(InventorySlot.CHEST),
-					new ListValue<InventorySlot>(InventorySlot.NIPPLE),
-					new ListValue<InventorySlot>(InventorySlot.PIERCING_NIPPLE),
-					new ListValue<InventorySlot>(InventorySlot.PIERCING_STOMACH));
+					InventorySlot.TORSO_UNDER,
+					InventorySlot.STOMACH,
+					InventorySlot.CHEST,
+					InventorySlot.NIPPLE,
+					InventorySlot.PIERCING_NIPPLE,
+					InventorySlot.PIERCING_STOMACH);
 
 	private static List<InventorySlot> concealedGenitals = Util.newArrayListOfValues(
-					new ListValue<InventorySlot>(InventorySlot.VAGINA),
-					new ListValue<InventorySlot>(InventorySlot.ANUS),
-					new ListValue<InventorySlot>(InventorySlot.PENIS),
-					new ListValue<InventorySlot>(InventorySlot.PIERCING_PENIS),
-					new ListValue<InventorySlot>(InventorySlot.PIERCING_VAGINA));
+					InventorySlot.VAGINA,
+					InventorySlot.ANUS,
+					InventorySlot.PENIS,
+					InventorySlot.PIERCING_PENIS,
+					InventorySlot.PIERCING_VAGINA);
 	
 	private static List<InventorySlot> concealedGroin = Util.newArrayListOfValues(
-					new ListValue<InventorySlot>(InventorySlot.GROIN),
-					new ListValue<InventorySlot>(InventorySlot.VAGINA),
-					new ListValue<InventorySlot>(InventorySlot.ANUS),
-					new ListValue<InventorySlot>(InventorySlot.PENIS),
-					new ListValue<InventorySlot>(InventorySlot.PIERCING_PENIS),
-					new ListValue<InventorySlot>(InventorySlot.PIERCING_VAGINA));
+					InventorySlot.GROIN,
+					InventorySlot.VAGINA,
+					InventorySlot.ANUS,
+					InventorySlot.PENIS,
+					InventorySlot.PIERCING_PENIS,
+					InventorySlot.PIERCING_VAGINA);
 	
 	private static List<InventorySlot> concealedDressFrontFull = Util.newArrayListOfValues(
-			new ListValue<InventorySlot>(InventorySlot.STOMACH),
-			new ListValue<InventorySlot>(InventorySlot.CHEST),
-			new ListValue<InventorySlot>(InventorySlot.NIPPLE),
-			new ListValue<InventorySlot>(InventorySlot.PIERCING_NIPPLE),
-			new ListValue<InventorySlot>(InventorySlot.PIERCING_STOMACH),
-			new ListValue<InventorySlot>(InventorySlot.GROIN),
-			new ListValue<InventorySlot>(InventorySlot.VAGINA),
-			new ListValue<InventorySlot>(InventorySlot.PENIS),
-			new ListValue<InventorySlot>(InventorySlot.PIERCING_PENIS),
-			new ListValue<InventorySlot>(InventorySlot.PIERCING_VAGINA));
+			InventorySlot.STOMACH,
+			InventorySlot.CHEST,
+			InventorySlot.NIPPLE,
+			InventorySlot.PIERCING_NIPPLE,
+			InventorySlot.PIERCING_STOMACH,
+			InventorySlot.GROIN,
+			InventorySlot.VAGINA,
+			InventorySlot.PENIS,
+			InventorySlot.PIERCING_PENIS,
+			InventorySlot.PIERCING_VAGINA);
 	
 	private static List<InventorySlot> concealedUnzipsGroin = Util.newArrayListOfValues(
-			new ListValue<InventorySlot>(InventorySlot.GROIN),
-			new ListValue<InventorySlot>(InventorySlot.PENIS),
-			new ListValue<InventorySlot>(InventorySlot.PIERCING_PENIS));
+			InventorySlot.GROIN,
+			InventorySlot.PENIS,
+			InventorySlot.PIERCING_PENIS);
 
 	private static List<InventorySlot> concealedAnklesFromTrousers = Util.newArrayListOfValues(
-			new ListValue<InventorySlot>(InventorySlot.ANKLE),
-			new ListValue<InventorySlot>(InventorySlot.SOCK));
+			InventorySlot.ANKLE,
+			InventorySlot.SOCK);
 	
 	private static String braEquipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 		return AbstractClothingType.getEquipDescriptions(clothingOwner, clothingRemover, rough,
@@ -152,15 +150,15 @@ public class ClothingType {
 			null,
 			"head_circlet",
 			Util.newArrayListOfValues(
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.MAJOR_DRAIN, 0)),
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.INTELLIGENCE, TFPotency.MAJOR_DRAIN, 0))),
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.MAJOR_DRAIN, 0),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.INTELLIGENCE, TFPotency.MAJOR_DRAIN, 0)),
+			Util.newArrayListOfValues(
 					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
+									ClothingAccess.HEAD),
 							null,
-							null, null))),
+							null, null)),
 			null,
 			ColourListPresets.JUST_GOLD.getPresetColourList(),
 			null,
@@ -207,7 +205,7 @@ public class ClothingType {
 			null,
 			"piercing_ear_ring",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null))),
+			Util.newArrayListOfValues(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null)),
 			null,
 			ColourListPresets.ALL_METAL.getPresetColourList(),
 			null,
@@ -215,7 +213,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_KATE))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_KATE)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -253,7 +251,7 @@ public class ClothingType {
 			null,
 			"piercing_ear_hoops",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null))),
+			Util.newArrayListOfValues(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null)),
 			null,
 			ColourListPresets.ALL_METAL.getPresetColourList(),
 			null,
@@ -261,7 +259,7 @@ public class ClothingType {
 			ColourListPresets.ALL_METAL.getPresetColourList(),
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_KATE))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_KATE)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -299,7 +297,7 @@ public class ClothingType {
 			null,
 			"piercing_ear_snowflakes",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null))),
+			Util.newArrayListOfValues(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null)),
 			null,
 			ColourListPresets.ALL_METAL.getPresetColourList(),
 			null,
@@ -307,7 +305,56 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.REINDEER_GIFT))){
+			Util.newArrayListOfValues(
+					ItemTag.REINDEER_GIFT,
+					ItemTag.SOLD_BY_NYAN)){
+
+		@Override
+		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You clip the earrings into place.",
+					"You clip [npc.name]'s new earrings into place.",
+					null,
+					"[npc.Name] clips [npc.her] earrings into place.",
+					"[npc.Name] clips your new earrings into place.",
+					null, null, null);
+		}
+
+		@Override
+		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You unclip your earrings.",
+					"You unclip [npc.name]'s earrings.",
+					null,
+					"[npc.Name] unclips [npc.her] earrings.",
+					"[npc.Name] unclips your earrings.",
+					null, null, null);
+		}
+	};
+	
+	public static AbstractClothingType PIERCING_EAR_SUN = new AbstractClothingType(150,
+			"a pair of",
+			true,
+			"sun earring",
+			"sun earrings",
+			"A pair of sun earrings.",
+			0,
+			null,
+			InventorySlot.PIERCING_EAR,
+			Rarity.COMMON,
+			null,
+			"piercing_ear_sun",
+			null,
+			Util.newArrayListOfValues(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null)),
+			null,
+			ColourListPresets.JUST_COPPER.getPresetColourList(),
+			ColourListPresets.ALL_METAL.getPresetColourList(),
+			ColourListPresets.JUST_ORANGE.getPresetColourList(),
+			ColourListPresets.ALL.getPresetColourList(),
+			null,
+			null,
+			Util.newArrayListOfValues(
+					ItemTag.SOLD_BY_NYAN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -346,7 +393,7 @@ public class ClothingType {
 			null,
 			"piercing_nose_ring",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null))),
+			Util.newArrayListOfValues(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null)),
 			null,
 			ColourListPresets.ALL_METAL.getPresetColourList(),
 			null,
@@ -354,7 +401,7 @@ public class ClothingType {
 			null,
 			null,
 			null, 
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_KATE))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_KATE)){
 		
 
 		@Override
@@ -393,7 +440,7 @@ public class ClothingType {
 			null,
 			"piercing_nose_snowflake",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null))),
+			Util.newArrayListOfValues(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null)),
 			null,
 			ColourListPresets.ALL_METAL.getPresetColourList(),
 			null,
@@ -401,7 +448,56 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.REINDEER_GIFT))){
+			Util.newArrayListOfValues(
+					ItemTag.SOLD_BY_NYAN)){
+
+		@Override
+		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You slide the nose stud into place.",
+					"You slide [npc.name]'s new nose stud into place.",
+					null,
+					"[npc.Name] slides [npc.her] nose stud into place.",
+					"[npc.Name] slides your new nose stud into place.",
+					null, null, null);
+		}
+
+		@Override
+		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You slide the nose stud out.",
+					"You slide [npc.name]'s nose stud out.",
+					null,
+					"[npc.Name] slides [npc.her] nose stud out.",
+					"[npc.Name] slides your nose stud out.",
+					null, null, null);
+		}
+	};
+	
+	public static AbstractClothingType PIERCING_NOSE_SUN_STUD = new AbstractClothingType(50,
+			"a",
+			false,
+			"sun nose stud",
+			"sun nose studs",
+			"A nose stud in the shape of the sun.",
+			0,
+			null,
+			InventorySlot.PIERCING_NOSE,
+			Rarity.COMMON,
+			null,
+			"piercing_nose_sun",
+			null,
+			Util.newArrayListOfValues(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null)),
+			null,
+			ColourListPresets.JUST_COPPER.getPresetColourList(),
+			ColourListPresets.ALL_METAL.getPresetColourList(),
+			ColourListPresets.JUST_ORANGE.getPresetColourList(),
+			ColourListPresets.ALL.getPresetColourList(),
+			null,
+			null,
+			Util.newArrayListOfValues(
+					ItemTag.REINDEER_GIFT,
+					ItemTag.SOLD_BY_NYAN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -440,7 +536,7 @@ public class ClothingType {
 			null,
 			"piercing_lip_double_ring",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null))),
+			Util.newArrayListOfValues(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null)),
 			null,
 			ColourListPresets.ALL_METAL.getPresetColourList(),
 			null,
@@ -448,7 +544,7 @@ public class ClothingType {
 			null,
 			null,
 			null, 
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_KATE))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_KATE)){
 		
 
 		@Override
@@ -487,7 +583,7 @@ public class ClothingType {
 			null,
 			"piercing_tongue_bar",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null))),
+			Util.newArrayListOfValues(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null)),
 			null,
 			ColourListPresets.ALL_METAL.getPresetColourList(),
 			null,
@@ -495,7 +591,7 @@ public class ClothingType {
 			null,
 			null,
 			null, 
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_KATE))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_KATE)){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -533,15 +629,15 @@ public class ClothingType {
 			null,
 			"piercing_navel_basic",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null))),
+			Util.newArrayListOfValues(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null)),
 			null,
 			ColourListPresets.ALL_METAL.getPresetColourList(),
 			null,
-			null,
-			null,
+			ColourListPresets.JUST_WHITE.getPresetColourList(),
+			ColourListPresets.ALL.getPresetColourList(),
 			null,
 			null, 
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_KATE))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_KATE)){
 		
 
 		@Override
@@ -580,7 +676,7 @@ public class ClothingType {
 			null,
 			"piercing_nipple_bars",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null))),
+			Util.newArrayListOfValues(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null)),
 			null,
 			ColourListPresets.ALL_METAL.getPresetColourList(),
 			null,
@@ -588,7 +684,7 @@ public class ClothingType {
 			null,
 			null,
 			null, 
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_KATE))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_KATE)){
 		
 
 		@Override
@@ -627,12 +723,12 @@ public class ClothingType {
 			null,
 			"piercing_vagina_barbell_ring",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(
+			Util.newArrayListOfValues(
 					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
 							null,
 							null,
-							null, null))),
+							null, null)),
 			null,
 			ColourListPresets.ALL_METAL.getPresetColourList(),
 			null,
@@ -640,7 +736,7 @@ public class ClothingType {
 			null,
 			null,
 			null, 
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_KATE))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_KATE)){
 		
 
 		@Override
@@ -679,7 +775,7 @@ public class ClothingType {
 			null,
 			"piercing_penis_ring",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null))),
+			Util.newArrayListOfValues(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null)),
 			null,
 			ColourListPresets.ALL_METAL.getPresetColourList(),
 			null,
@@ -687,7 +783,7 @@ public class ClothingType {
 			null,
 			null,
 			null, 
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_KATE))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_KATE)){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -726,7 +822,7 @@ public class ClothingType {
 			null,
 			"head_circlet",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.HEAD)), null, null, null))),
+			Util.newArrayListOfValues(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(ClothingAccess.HEAD), null, null, null)),
 			null,
 			ColourListPresets.ALL_METAL.getPresetColourList(),
 			null,
@@ -734,7 +830,7 @@ public class ClothingType {
 			null,
 			null,
 			null, 
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -772,7 +868,7 @@ public class ClothingType {
 			null,
 			"head_tiara",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.HEAD)), null, null, null))),
+			Util.newArrayListOfValues(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(ClothingAccess.HEAD), null, null, null)),
 			null,
 			ColourListPresets.ALL_METAL.getPresetColourList(),
 			null,
@@ -780,7 +876,7 @@ public class ClothingType {
 			null,
 			null,
 			null, 
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 		
 
 		@Override
@@ -819,7 +915,7 @@ public class ClothingType {
 			null,
 			"head_headband",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.HEAD)), null, null, null))),
+			Util.newArrayListOfValues(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(ClothingAccess.HEAD), null, null, null)),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
@@ -827,7 +923,7 @@ public class ClothingType {
 			null,
 			null,
 			null, 
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -865,7 +961,7 @@ public class ClothingType {
 			null,
 			"head_headband_bow",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.HEAD)), null, null, null))),
+			Util.newArrayListOfValues(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(ClothingAccess.HEAD), null, null, null)),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
@@ -873,7 +969,7 @@ public class ClothingType {
 			null,
 			null, 
 			null, 
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -911,7 +1007,7 @@ public class ClothingType {
 			null,
 			"head_sweatband",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.HEAD)), null, null, null))),
+			Util.newArrayListOfValues(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(ClothingAccess.HEAD), null, null, null)),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
@@ -919,7 +1015,7 @@ public class ClothingType {
 			null,
 			null,
 			null, 
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -958,14 +1054,12 @@ public class ClothingType {
 			"head_cap",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(
+					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
-							Util.newArrayListOfValues(
-									new ListValue<CoverableArea>(CoverableArea.HAIR)),
+							Util.newArrayListOfValues(ClothingAccess.HEAD),
+							Util.newArrayListOfValues(CoverableArea.HAIR),
 							null,
-									null))),
+							null)),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
@@ -973,7 +1067,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -1012,13 +1106,12 @@ public class ClothingType {
 			"head_cowboy_hat",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(
+					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
-							Util.newArrayListOfValues(
-									new ListValue<CoverableArea>(CoverableArea.HAIR)),
+							Util.newArrayListOfValues(ClothingAccess.HEAD),
+							Util.newArrayListOfValues(CoverableArea.HAIR),
 							null,
-							null))),
+							null)),
 			null,
 			ColourListPresets.LEATHER.getPresetColourList(),
 			ColourListPresets.ALL.getPresetColourList(),
@@ -1026,7 +1119,7 @@ public class ClothingType {
 			null,
 			null,
 			null, 
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -1064,7 +1157,7 @@ public class ClothingType {
 			null,
 			"head_antler_headband",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.HEAD)), null, null, null))),
+			Util.newArrayListOfValues(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(ClothingAccess.HEAD), null, null, null)),
 			null,
 			ColourListPresets.JUST_BROWN.getPresetColourList(),
 			null,
@@ -1072,7 +1165,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.REINDEER_GIFT))){
+			Util.newArrayListOfValues(ItemTag.REINDEER_GIFT)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -1111,7 +1204,7 @@ public class ClothingType {
 			null,
 			"eye_glasses",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.EYES)), null, null, null))),
+			Util.newArrayListOfValues(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(ClothingAccess.EYES), null, null, null)),
 			null,
 			ColourListPresets.ALL_METAL.getPresetColourList(),
 			null,
@@ -1119,7 +1212,7 @@ public class ClothingType {
 			null,
 			null,
 			null, 
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -1156,7 +1249,7 @@ public class ClothingType {
 			null,
 			"eye_aviators",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.EYES)), null, null, null))),
+			Util.newArrayListOfValues(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(ClothingAccess.EYES), null, null, null)),
 			null,
 			ColourListPresets.ALL_METAL.getPresetColourList(),
 			null,
@@ -1164,7 +1257,7 @@ public class ClothingType {
 			null,
 			null,
 			null, 
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 		
 			@Override
 			public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -1205,20 +1298,19 @@ public class ClothingType {
 			"mouth_bandana",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(
+					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
 							null,
 							null,
-							null, null)),
-					new ListValue<BlockedParts>(new BlockedParts(
+							null, null),
+					new BlockedParts(
 							DisplacementType.PULLS_DOWN,
 							null,
-							Util.newArrayListOfValues(
-									new ListValue<CoverableArea>(CoverableArea.MOUTH)),
+							Util.newArrayListOfValues(CoverableArea.MOUTH),
 							null,
 							Util.newArrayListOfValues(
-									new ListValue<InventorySlot>(InventorySlot.PIERCING_LIP),
-									new ListValue<InventorySlot>(InventorySlot.PIERCING_TONGUE))))),
+									InventorySlot.PIERCING_LIP,
+									InventorySlot.PIERCING_TONGUE))),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
@@ -1226,7 +1318,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))) {
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)) {
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -1289,7 +1381,7 @@ public class ClothingType {
 			null,
 			"neck_heartNecklace",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null))),
+			Util.newArrayListOfValues(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null)),
 			null,
 			ColourListPresets.ALL_METAL.getPresetColourList(),
 			null,
@@ -1297,7 +1389,7 @@ public class ClothingType {
 			null,
 			null,
 			null, 
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -1335,7 +1427,7 @@ public class ClothingType {
 			null,
 			"neck_snowflake_necklace",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null))),
+			Util.newArrayListOfValues(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null)),
 			null,
 			ColourListPresets.ALL_METAL.getPresetColourList(),
 			null,
@@ -1343,7 +1435,57 @@ public class ClothingType {
 			null,
 			null,
 			null, 
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.REINDEER_GIFT))){
+			Util.newArrayListOfValues(
+					ItemTag.REINDEER_GIFT,
+					ItemTag.SOLD_BY_NYAN)){
+		
+
+		@Override
+		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You put on the necklace, clipping the chain together at the back of your neck.",
+					"fasten the necklace around [npc.name]'s neck.",
+					"You hold [npc.name]'s head still as you fasten the necklace around [npc.her] neck.",
+					"[npc.Name] puts a necklace around [npc.her] neck, before reaching around to fasten the clip at the back.",
+					"[npc.Name] clips a necklace around your neck.",
+					"[npc.Name] holds your head still and fastens a necklace around your neck.", null, null);
+		}
+
+		@Override
+		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You unclip your necklace and take it off.",
+					"You unclip [npc.name]'s necklace and take it off.",
+					"You grab [npc.name]'s necklace and yank it from [npc.her] neck.",
+					"[npc.Name] unclips [npc.her] necklace and takes it off.",
+					"[npc.Name] unclips your necklace and removes it.",
+					"[npc.Name] grabs your necklace and yanks it from your neck.", null, null);
+		}
+	};
+	
+	public static AbstractClothingType NECK_SUN_NECKLACE = new AbstractClothingType(250,
+			"a",
+			false,
+			"sun necklace",
+			"sun necklaces",
+			"A necklace with a little sun pendant.",
+			0,
+			null,
+			InventorySlot.NECK,
+			Rarity.COMMON,
+			null,
+			"neck_sun_necklace",
+			null,
+			Util.newArrayListOfValues(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null)),
+			null,
+			ColourListPresets.JUST_COPPER.getPresetColourList(),
+			ColourListPresets.ALL_METAL.getPresetColourList(),
+			ColourListPresets.JUST_ORANGE.getPresetColourList(),
+			ColourListPresets.ALL.getPresetColourList(),
+			null,
+			null, 
+			Util.newArrayListOfValues(
+					ItemTag.SOLD_BY_NYAN)){
 		
 
 		@Override
@@ -1382,7 +1524,7 @@ public class ClothingType {
 			null,
 			"neck_ankhNecklace",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null))),
+			Util.newArrayListOfValues(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null)),
 			null,
 			ColourListPresets.ALL_METAL.getPresetColourList(),
 			null,
@@ -1390,7 +1532,7 @@ public class ClothingType {
 			null,
 			null,
 			null, 
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -1428,7 +1570,7 @@ public class ClothingType {
 			null,
 			"neck_bell_collar",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null))),
+			Util.newArrayListOfValues(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null)),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
@@ -1436,7 +1578,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -1474,7 +1616,7 @@ public class ClothingType {
 			null,
 			"neck_scarf",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null))),
+			Util.newArrayListOfValues(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null)),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
@@ -1482,7 +1624,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -1520,7 +1662,7 @@ public class ClothingType {
 			null,
 			"neck_tie",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null))),
+			Util.newArrayListOfValues(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null)),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
@@ -1528,8 +1670,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(
-					ItemTag.SOLD_BY_NYAN))) {
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)) {
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -1567,12 +1708,12 @@ public class ClothingType {
 			null,
 			"neck_collar_bowtie",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null))),
+			Util.newArrayListOfValues(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null)),
 			null,
 			ColourListPresets.JUST_BLACK.getPresetColourList(), ColourListPresets.ALL.getPresetColourList(),
 			ColourListPresets.JUST_WHITE.getPresetColourList(), ColourListPresets.ALL.getPresetColourList(),
 			ColourListPresets.JUST_BLACK.getPresetColourList(), ColourListPresets.ALL.getPresetColourList(), 
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -1611,19 +1752,19 @@ public class ClothingType {
 			null,
 			"neck_breeder_collar",
 			Util.newArrayListOfValues(
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.FERTILITY, TFPotency.MAJOR_BOOST, 0)),
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.FERTILITY, TFPotency.MAJOR_BOOST, 0)),
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.FERTILITY, TFPotency.MAJOR_BOOST, 0)),
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.FERTILITY, TFPotency.MAJOR_BOOST, 0)),
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.FERTILITY, TFPotency.MAJOR_BOOST, 0)),
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ENSLAVEMENT, TFModifier.ARCANE_BOOST, TFPotency.MINOR_BOOST, 0)),
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SEALING, TFModifier.ARCANE_BOOST, TFPotency.MINOR_BOOST, 0)),
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.TF_MOD_FETISH_BEHAVIOUR, TFModifier.TF_MOD_FETISH_PREGNANCY, TFPotency.MAJOR_BOOST, 0)),
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.TF_MOD_FETISH_BEHAVIOUR, TFModifier.TF_MOD_FETISH_IMPREGNATION, TFPotency.MAJOR_BOOST, 0)),
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.TF_MOD_FETISH_BEHAVIOUR, TFModifier.TF_MOD_FETISH_BROODMOTHER, TFPotency.MAJOR_BOOST, 0)),
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.TF_MOD_FETISH_BEHAVIOUR, TFModifier.TF_MOD_FETISH_SEEDER, TFPotency.MAJOR_BOOST, 0)),
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.TF_VAGINA, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, Wetness.SEVEN_DROOLING.getValue()))),
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null))),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.FERTILITY, TFPotency.MAJOR_BOOST, 0),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.FERTILITY, TFPotency.MAJOR_BOOST, 0),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.FERTILITY, TFPotency.MAJOR_BOOST, 0),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.FERTILITY, TFPotency.MAJOR_BOOST, 0),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.FERTILITY, TFPotency.MAJOR_BOOST, 0),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ENSLAVEMENT, TFModifier.ARCANE_BOOST, TFPotency.MINOR_BOOST, 0),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SEALING, TFModifier.ARCANE_BOOST, TFPotency.MINOR_BOOST, 0),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.TF_MOD_FETISH_BEHAVIOUR, TFModifier.TF_MOD_FETISH_PREGNANCY, TFPotency.MAJOR_BOOST, 0),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.TF_MOD_FETISH_BEHAVIOUR, TFModifier.TF_MOD_FETISH_IMPREGNATION, TFPotency.MAJOR_BOOST, 0),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.TF_MOD_FETISH_BEHAVIOUR, TFModifier.TF_MOD_FETISH_BROODMOTHER, TFPotency.MAJOR_BOOST, 0),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.TF_MOD_FETISH_BEHAVIOUR, TFModifier.TF_MOD_FETISH_SEEDER, TFPotency.MAJOR_BOOST, 0),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.TF_VAGINA, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, Wetness.SEVEN_DROOLING.getValue())),
+			Util.newArrayListOfValues(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null)),
 			null,
 			ColourListPresets.JUST_PINK.getPresetColourList(),
 			ColourListPresets.ALL.getPresetColourList(),
@@ -1631,7 +1772,7 @@ public class ClothingType {
 			ColourListPresets.ALL_METAL.getPresetColourList(),
 			ColourListPresets.JUST_STEEL.getPresetColourList(),
 			ColourListPresets.ALL_METAL.getPresetColourList(), 
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -1678,24 +1819,22 @@ public class ClothingType {
 			"torso_oxfordShirt",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(
+					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)),
-							Util.newArrayListOfValues(
-									new ListValue<CoverableArea>(CoverableArea.BACK)),
-							null, null)),
-					new ListValue<BlockedParts>(new BlockedParts(
+							Util.newArrayListOfValues(ClothingAccess.ARMS_UP_TO_SHOULDER),
+							Util.newArrayListOfValues(CoverableArea.BACK),
+							null, null),
+					new BlockedParts(
 							DisplacementType.UNBUTTONS,
 							null,
 							Util.newArrayListOfValues(
-									new ListValue<CoverableArea>(CoverableArea.BREASTS),
-									new ListValue<CoverableArea>(CoverableArea.NIPPLES),
-									new ListValue<CoverableArea>(CoverableArea.STOMACH)),
+									CoverableArea.BREASTS,
+									CoverableArea.NIPPLES,
+									CoverableArea.STOMACH),
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
-									new ListValue<ClothingAccess>(ClothingAccess.WAIST)),
-							concealedPartialTorso))),
+									ClothingAccess.CHEST,
+									ClothingAccess.WAIST),
+							concealedPartialTorso)),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
@@ -1703,7 +1842,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -1764,24 +1903,22 @@ public class ClothingType {
 			"torso_shortSleeveShirt",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(
+					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)),
-							Util.newArrayListOfValues(
-									new ListValue<CoverableArea>(CoverableArea.BACK)),
-							null, null)),
-					new ListValue<BlockedParts>(new BlockedParts(
+							Util.newArrayListOfValues(ClothingAccess.ARMS_UP_TO_SHOULDER),
+							Util.newArrayListOfValues(CoverableArea.BACK),
+							null, null),
+					new BlockedParts(
 							DisplacementType.UNBUTTONS,
 							null,
 							Util.newArrayListOfValues(
-									new ListValue<CoverableArea>(CoverableArea.BREASTS),
-									new ListValue<CoverableArea>(CoverableArea.NIPPLES),
-									new ListValue<CoverableArea>(CoverableArea.STOMACH)),
+									CoverableArea.BREASTS,
+									CoverableArea.NIPPLES,
+									CoverableArea.STOMACH),
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
-									new ListValue<ClothingAccess>(ClothingAccess.WAIST)),
-							concealedPartialTorso))),
+									ClothingAccess.CHEST,
+									ClothingAccess.WAIST),
+							concealedPartialTorso)),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
@@ -1789,7 +1926,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -1850,32 +1987,31 @@ public class ClothingType {
 			"torso_over_hoodie",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(
+					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
-									new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
-							Util.newArrayListOfValues(
-									new ListValue<CoverableArea>(CoverableArea.BACK)),
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)), null
-							)),
-					new ListValue<BlockedParts>(new BlockedParts(
+									ClothingAccess.ARMS_UP_TO_SHOULDER,
+									ClothingAccess.HEAD),
+							Util.newArrayListOfValues(CoverableArea.BACK),
+							Util.newArrayListOfValues(ClothingAccess.ARMS_UP_TO_SHOULDER), 
+							null
+							),
+					new BlockedParts(
 							DisplacementType.PULLS_UP,
 							null,
 							Util.newArrayListOfValues(
-									new ListValue<CoverableArea>(CoverableArea.BREASTS),
-									new ListValue<CoverableArea>(CoverableArea.NIPPLES),
-									new ListValue<CoverableArea>(CoverableArea.STOMACH)),
+									CoverableArea.BREASTS,
+									CoverableArea.NIPPLES,
+									CoverableArea.STOMACH),
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
-									new ListValue<ClothingAccess>(ClothingAccess.WAIST)),
-							concealedFullTorso))),
+									ClothingAccess.CHEST,
+									ClothingAccess.WAIST),
+							concealedFullTorso)),
 			null,
 			ColourListPresets.ALL.getPresetColourList(), null,
 			null, null,
 			null, null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -1936,16 +2072,12 @@ public class ClothingType {
 			"torso_open_cardigan",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(
-							new BlockedParts(
-									DisplacementType.REMOVE_OR_EQUIP,
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)),
-									Util.newArrayListOfValues(
-											new ListValue<CoverableArea>(CoverableArea.BACK)),
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)),
-									null))),
+					new BlockedParts(
+							DisplacementType.REMOVE_OR_EQUIP,
+							Util.newArrayListOfValues(ClothingAccess.ARMS_UP_TO_SHOULDER),
+							Util.newArrayListOfValues(CoverableArea.BACK),
+							Util.newArrayListOfValues(ClothingAccess.ARMS_UP_TO_SHOULDER),
+							null)),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
@@ -1953,7 +2085,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -1992,25 +2124,23 @@ public class ClothingType {
 			"torso_over_blazer",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(
+					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)),
-							Util.newArrayListOfValues(
-									new ListValue<CoverableArea>(CoverableArea.BACK)),
-							Util.newArrayListOfValues(
-							new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)), null)),
-					new ListValue<BlockedParts>(new BlockedParts(
+							Util.newArrayListOfValues(ClothingAccess.ARMS_UP_TO_SHOULDER),
+							Util.newArrayListOfValues(CoverableArea.BACK),
+							Util.newArrayListOfValues(ClothingAccess.ARMS_UP_TO_SHOULDER), 
+							null),
+					new BlockedParts(
 							DisplacementType.UNBUTTONS,
 							null,
 							Util.newArrayListOfValues(
-									new ListValue<CoverableArea>(CoverableArea.BREASTS),
-									new ListValue<CoverableArea>(CoverableArea.NIPPLES),
-									new ListValue<CoverableArea>(CoverableArea.STOMACH)),
+									CoverableArea.BREASTS,
+									CoverableArea.NIPPLES,
+									CoverableArea.STOMACH),
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
-									new ListValue<ClothingAccess>(ClothingAccess.WAIST)),
-							concealedPartialTorso))),
+									ClothingAccess.CHEST,
+									ClothingAccess.WAIST),
+							concealedPartialTorso)),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
@@ -2018,7 +2148,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -2058,25 +2188,24 @@ public class ClothingType {
 
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(
+					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
+							Util.newArrayListOfValues(ClothingAccess.ARMS_UP_TO_SHOULDER),
+							Util.newArrayListOfValues(CoverableArea.BACK),
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)),
-							Util.newArrayListOfValues(
-									new ListValue<CoverableArea>(CoverableArea.BACK)),
-							Util.newArrayListOfValues(
-							new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)), null)),
-					new ListValue<BlockedParts>(new BlockedParts(
+							ClothingAccess.ARMS_UP_TO_SHOULDER), 
+							null),
+					new BlockedParts(
 							DisplacementType.UNZIPS,
 							null,
 							Util.newArrayListOfValues(
-									new ListValue<CoverableArea>(CoverableArea.BREASTS),
-									new ListValue<CoverableArea>(CoverableArea.NIPPLES),
-									new ListValue<CoverableArea>(CoverableArea.STOMACH)),
+									CoverableArea.BREASTS,
+									CoverableArea.NIPPLES,
+									CoverableArea.STOMACH),
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
-									new ListValue<ClothingAccess>(ClothingAccess.WAIST)),
-							concealedFullTorso))),
+									ClothingAccess.CHEST,
+									ClothingAccess.WAIST),
+							concealedFullTorso)),
 			null,
 			ColourListPresets.LEATHER.getPresetColourList(),
 			ColourListPresets.ALL.getPresetColourList(),
@@ -2084,7 +2213,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -2123,27 +2252,24 @@ public class ClothingType {
 			"torso_over_suit_jacket",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(
-							new BlockedParts(
-									DisplacementType.REMOVE_OR_EQUIP,
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)),
-									Util.newArrayListOfValues(
-											new ListValue<CoverableArea>(CoverableArea.BACK)),
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)), null
-									)),
-					new ListValue<BlockedParts>(new BlockedParts(
+					new BlockedParts(
+							DisplacementType.REMOVE_OR_EQUIP,
+							Util.newArrayListOfValues(ClothingAccess.ARMS_UP_TO_SHOULDER),
+							Util.newArrayListOfValues(CoverableArea.BACK),
+							Util.newArrayListOfValues(ClothingAccess.ARMS_UP_TO_SHOULDER), 
+							null
+							),
+					new BlockedParts(
 							DisplacementType.UNBUTTONS,
 							null,
 							Util.newArrayListOfValues(
-									new ListValue<CoverableArea>(CoverableArea.BREASTS),
-									new ListValue<CoverableArea>(CoverableArea.NIPPLES),
-									new ListValue<CoverableArea>(CoverableArea.STOMACH)),
+									CoverableArea.BREASTS,
+									CoverableArea.NIPPLES,
+									CoverableArea.STOMACH),
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
-									new ListValue<ClothingAccess>(ClothingAccess.WAIST)),
-							concealedPartialTorso))),
+									ClothingAccess.CHEST,
+									ClothingAccess.WAIST),
+							concealedPartialTorso)),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
@@ -2151,7 +2277,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -2190,27 +2316,24 @@ public class ClothingType {
 			"torso_over_dress_coat",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(
-							new BlockedParts(
-									DisplacementType.REMOVE_OR_EQUIP,
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)),
-									Util.newArrayListOfValues(
-											new ListValue<CoverableArea>(CoverableArea.BACK)),
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)), null
-									)),
-					new ListValue<BlockedParts>(new BlockedParts(
+					new BlockedParts(
+							DisplacementType.REMOVE_OR_EQUIP,
+							Util.newArrayListOfValues(ClothingAccess.ARMS_UP_TO_SHOULDER),
+							Util.newArrayListOfValues(CoverableArea.BACK),
+							Util.newArrayListOfValues(ClothingAccess.ARMS_UP_TO_SHOULDER), 
+							null
+							),
+					new BlockedParts(
 							DisplacementType.UNBUTTONS,
 							null,
 							Util.newArrayListOfValues(
-									new ListValue<CoverableArea>(CoverableArea.BREASTS),
-									new ListValue<CoverableArea>(CoverableArea.NIPPLES),
-									new ListValue<CoverableArea>(CoverableArea.STOMACH)),
+									CoverableArea.BREASTS,
+									CoverableArea.NIPPLES,
+									CoverableArea.STOMACH),
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
-									new ListValue<ClothingAccess>(ClothingAccess.WAIST)),
-							concealedPartialTorso))),
+									ClothingAccess.CHEST,
+									ClothingAccess.WAIST),
+							concealedPartialTorso)),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
@@ -2218,7 +2341,7 @@ public class ClothingType {
 			ColourListPresets.ALL.getPresetColourList(),
 			ColourListPresets.JUST_WHITE.getPresetColourList(),
 			ColourListPresets.ALL.getPresetColourList(),
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -2257,72 +2380,68 @@ public class ClothingType {
 			"torso_over_cloak",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(
-							new BlockedParts(
-									DisplacementType.REMOVE_OR_EQUIP,
-									null,
-									Util.newArrayListOfValues(
-											new ListValue<CoverableArea>(CoverableArea.BACK)),
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)), null
-									)),
-					new ListValue<BlockedParts>(
-							new BlockedParts(
-									DisplacementType.PULLS_UP,
-									null,
-									Util.newArrayListOfValues(
-											new ListValue<CoverableArea>(CoverableArea.ANUS),
-											new ListValue<CoverableArea>(CoverableArea.PENIS),
-											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.GROIN)), null)),
-					new ListValue<BlockedParts>(
-							new BlockedParts(
-									DisplacementType.SHIFTS_ASIDE,
-									null,
-									Util.newArrayListOfValues(
-											new ListValue<CoverableArea>(CoverableArea.BREASTS),
-											new ListValue<CoverableArea>(CoverableArea.NIPPLES),
-											new ListValue<CoverableArea>(CoverableArea.PENIS),
-											new ListValue<CoverableArea>(CoverableArea.VAGINA),
-											new ListValue<CoverableArea>(CoverableArea.STOMACH)),
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.GROIN),
-											new ListValue<ClothingAccess>(ClothingAccess.CHEST),
-											new ListValue<ClothingAccess>(ClothingAccess.WAIST)),
-									Util.newArrayListOfValues(
-											new ListValue<InventorySlot>(InventorySlot.ANKLE),
-											new ListValue<InventorySlot>(InventorySlot.ANUS),
-											new ListValue<InventorySlot>(InventorySlot.CHEST),
-											new ListValue<InventorySlot>(InventorySlot.FINGER),
-											new ListValue<InventorySlot>(InventorySlot.FOOT),
-											new ListValue<InventorySlot>(InventorySlot.GROIN),
-											new ListValue<InventorySlot>(InventorySlot.HAIR),
-											new ListValue<InventorySlot>(InventorySlot.HAND),
-											new ListValue<InventorySlot>(InventorySlot.HEAD),
-											new ListValue<InventorySlot>(InventorySlot.HIPS),
-											new ListValue<InventorySlot>(InventorySlot.HORNS),
-											new ListValue<InventorySlot>(InventorySlot.LEG),
-											new ListValue<InventorySlot>(InventorySlot.MOUTH),
-											new ListValue<InventorySlot>(InventorySlot.NECK),
-											new ListValue<InventorySlot>(InventorySlot.NIPPLE),
-											new ListValue<InventorySlot>(InventorySlot.PENIS),
-											new ListValue<InventorySlot>(InventorySlot.PIERCING_EAR),
-											new ListValue<InventorySlot>(InventorySlot.PIERCING_LIP),
-											new ListValue<InventorySlot>(InventorySlot.PIERCING_NIPPLE),
-											new ListValue<InventorySlot>(InventorySlot.PIERCING_NOSE),
-											new ListValue<InventorySlot>(InventorySlot.PIERCING_PENIS),
-											new ListValue<InventorySlot>(InventorySlot.PIERCING_STOMACH),
-											new ListValue<InventorySlot>(InventorySlot.PIERCING_TONGUE),
-											new ListValue<InventorySlot>(InventorySlot.PIERCING_VAGINA),
-											new ListValue<InventorySlot>(InventorySlot.SOCK),
-											new ListValue<InventorySlot>(InventorySlot.STOMACH),
-											new ListValue<InventorySlot>(InventorySlot.TAIL),
-											new ListValue<InventorySlot>(InventorySlot.TORSO_UNDER),
-											new ListValue<InventorySlot>(InventorySlot.VAGINA),
-											new ListValue<InventorySlot>(InventorySlot.WEAPON_MAIN),
-											new ListValue<InventorySlot>(InventorySlot.WEAPON_OFFHAND),
-											new ListValue<InventorySlot>(InventorySlot.WRIST))))),
+					new BlockedParts(
+							DisplacementType.REMOVE_OR_EQUIP,
+							null,
+							Util.newArrayListOfValues(CoverableArea.BACK),
+							Util.newArrayListOfValues(ClothingAccess.ARMS_UP_TO_SHOULDER), 
+							null
+							),
+					new BlockedParts(
+							DisplacementType.PULLS_UP,
+							null,
+							Util.newArrayListOfValues(
+									CoverableArea.ANUS,
+									CoverableArea.PENIS,
+									CoverableArea.VAGINA),
+							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							null),
+					new BlockedParts(
+							DisplacementType.SHIFTS_ASIDE,
+							null,
+							Util.newArrayListOfValues(
+									CoverableArea.BREASTS,
+									CoverableArea.NIPPLES,
+									CoverableArea.PENIS,
+									CoverableArea.VAGINA,
+									CoverableArea.STOMACH),
+							Util.newArrayListOfValues(
+									ClothingAccess.GROIN,
+									ClothingAccess.CHEST,
+									ClothingAccess.WAIST),
+							Util.newArrayListOfValues(
+									InventorySlot.ANKLE,
+									InventorySlot.ANUS,
+									InventorySlot.CHEST,
+									InventorySlot.FINGER,
+									InventorySlot.FOOT,
+									InventorySlot.GROIN,
+									InventorySlot.HAIR,
+									InventorySlot.HAND,
+									InventorySlot.HEAD,
+									InventorySlot.HIPS,
+									InventorySlot.HORNS,
+									InventorySlot.LEG,
+									InventorySlot.MOUTH,
+									InventorySlot.NECK,
+									InventorySlot.NIPPLE,
+									InventorySlot.PENIS,
+									InventorySlot.PIERCING_EAR,
+									InventorySlot.PIERCING_LIP,
+									InventorySlot.PIERCING_NIPPLE,
+									InventorySlot.PIERCING_NOSE,
+									InventorySlot.PIERCING_PENIS,
+									InventorySlot.PIERCING_STOMACH,
+									InventorySlot.PIERCING_TONGUE,
+									InventorySlot.PIERCING_VAGINA,
+									InventorySlot.SOCK,
+									InventorySlot.STOMACH,
+									InventorySlot.TAIL,
+									InventorySlot.TORSO_UNDER,
+									InventorySlot.VAGINA,
+									InventorySlot.WEAPON_MAIN,
+									InventorySlot.WEAPON_OFFHAND,
+									InventorySlot.WRIST))),
 			null,
 			ColourListPresets.LEATHER.getPresetColourList(),
 			ColourListPresets.ALL.getPresetColourList(),
@@ -2330,7 +2449,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -2370,26 +2489,24 @@ public class ClothingType {
 			"torso_ribbed_sweater",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(
-							new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
-									new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
-							null,
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)), null)),
-					new ListValue<BlockedParts>(
-							new BlockedParts(DisplacementType.PULLS_UP,
-							null,
-							Util.newArrayListOfValues(
-									new ListValue<CoverableArea>(CoverableArea.BREASTS),
-									new ListValue<CoverableArea>(CoverableArea.NIPPLES),
-									new ListValue<CoverableArea>(CoverableArea.STOMACH),
-									new ListValue<CoverableArea>(CoverableArea.BACK)),
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
-									new ListValue<ClothingAccess>(ClothingAccess.WAIST)),
-							concealedFullTorso))),
+					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
+						Util.newArrayListOfValues(
+								ClothingAccess.ARMS_UP_TO_SHOULDER,
+								ClothingAccess.HEAD),
+						null,
+						Util.newArrayListOfValues(ClothingAccess.ARMS_UP_TO_SHOULDER),
+						null),
+					new BlockedParts(DisplacementType.PULLS_UP,
+						null,
+						Util.newArrayListOfValues(
+								CoverableArea.BREASTS,
+								CoverableArea.NIPPLES,
+								CoverableArea.STOMACH,
+								CoverableArea.BACK),
+						Util.newArrayListOfValues(
+								ClothingAccess.CHEST,
+								ClothingAccess.WAIST),
+						concealedFullTorso)),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
@@ -2397,7 +2514,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 	};
 
 	public static AbstractClothingType TORSO_OVER_CHRISTMAS_SWEATER = new AbstractClothingType(100,
@@ -2414,26 +2531,24 @@ public class ClothingType {
 			"torso_over_christmas_sweater",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(
-							new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
+					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
-									new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
+									ClothingAccess.ARMS_UP_TO_SHOULDER,
+									ClothingAccess.HEAD),
+							null,
+							Util.newArrayListOfValues(ClothingAccess.ARMS_UP_TO_SHOULDER), 
+							null),
+					new BlockedParts(DisplacementType.PULLS_UP,
 							null,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)), null)),
-					new ListValue<BlockedParts>(
-							new BlockedParts(DisplacementType.PULLS_UP,
-							null,
+									CoverableArea.BREASTS,
+									CoverableArea.NIPPLES,
+									CoverableArea.STOMACH,
+									CoverableArea.BACK),
 							Util.newArrayListOfValues(
-									new ListValue<CoverableArea>(CoverableArea.BREASTS),
-									new ListValue<CoverableArea>(CoverableArea.NIPPLES),
-									new ListValue<CoverableArea>(CoverableArea.STOMACH),
-									new ListValue<CoverableArea>(CoverableArea.BACK)),
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
-									new ListValue<ClothingAccess>(ClothingAccess.WAIST)),
-							concealedFullTorso))),
+									ClothingAccess.CHEST,
+									ClothingAccess.WAIST),
+							concealedFullTorso)),
 
 			null,
 			ColourListPresets.NOT_WHITE.getPresetColourList(),
@@ -2442,7 +2557,7 @@ public class ClothingType {
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.REINDEER_GIFT))){
+			Util.newArrayListOfValues(ItemTag.REINDEER_GIFT)){
 	};
 	
 	public static AbstractClothingType TORSO_KEYHOLE_SWEATER = new AbstractClothingType(350,
@@ -2460,32 +2575,29 @@ public class ClothingType {
 			null,
 
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(
+					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
-									new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
+									ClothingAccess.ARMS_UP_TO_SHOULDER,
+									ClothingAccess.HEAD),
+							null,
+							Util.newArrayListOfValues(ClothingAccess.ARMS_UP_TO_SHOULDER), 
+							null),
+					new BlockedParts(DisplacementType.PULLS_DOWN,
+							null,
+							Util.newArrayListOfValues(CoverableArea.NIPPLES),
+							Util.newArrayListOfValues(ClothingAccess.CHEST), 
+							null),
+					new BlockedParts(DisplacementType.PULLS_UP,
 							null,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)), null)),
-					new ListValue<BlockedParts>(
-							new BlockedParts(DisplacementType.PULLS_DOWN,
-							null,
+									CoverableArea.NIPPLES,
+									CoverableArea.STOMACH,
+									CoverableArea.BACK),
 							Util.newArrayListOfValues(
-									new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.CHEST)), null)),
-					new ListValue<BlockedParts>(
-							new BlockedParts(DisplacementType.PULLS_UP,
-							null,
-							Util.newArrayListOfValues(
-									new ListValue<CoverableArea>(CoverableArea.NIPPLES),
-									new ListValue<CoverableArea>(CoverableArea.STOMACH),
-									new ListValue<CoverableArea>(CoverableArea.BACK)),
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
-									new ListValue<ClothingAccess>(ClothingAccess.WAIST)),
-							concealedPartialTorso))),
+									ClothingAccess.CHEST,
+									ClothingAccess.WAIST),
+							concealedPartialTorso)),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
@@ -2493,7 +2605,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 	};
 	
 	public static AbstractClothingType TORSO_SLEEVELESS_TURTLENECK = new AbstractClothingType(350,
@@ -2510,31 +2622,31 @@ public class ClothingType {
 			"torso_sleeveless_turtleneck",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(
+					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
-									new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
+									ClothingAccess.ARMS_UP_TO_SHOULDER,
+									ClothingAccess.HEAD),
 							null,
 							null, null
-							)),
-					new ListValue<BlockedParts>(new BlockedParts(
+							),
+					new BlockedParts(
 							DisplacementType.PULLS_UP,
 							null,
 							Util.newArrayListOfValues(
-									new ListValue<CoverableArea>(CoverableArea.BREASTS),
-									new ListValue<CoverableArea>(CoverableArea.NIPPLES),
-									new ListValue<CoverableArea>(CoverableArea.STOMACH),
-									new ListValue<CoverableArea>(CoverableArea.BACK)),
+									CoverableArea.BREASTS,
+									CoverableArea.NIPPLES,
+									CoverableArea.STOMACH,
+									CoverableArea.BACK),
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
-									new ListValue<ClothingAccess>(ClothingAccess.WAIST)),
-							concealedPartialTorso))),
+									ClothingAccess.CHEST,
+									ClothingAccess.WAIST),
+							concealedPartialTorso)),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
 			null, null, null, null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 	};
 	
 	public static AbstractClothingType TORSO_TSHIRT = new AbstractClothingType(80,
@@ -2551,26 +2663,26 @@ public class ClothingType {
 			"torso_tshirt",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(
+					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
-									new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
+									ClothingAccess.ARMS_UP_TO_SHOULDER,
+									ClothingAccess.HEAD),
 							null,
 							null, null
-							)),
-					new ListValue<BlockedParts>(new BlockedParts(
+							),
+					new BlockedParts(
 							DisplacementType.PULLS_UP,
 							null,
 							Util.newArrayListOfValues(
-									new ListValue<CoverableArea>(CoverableArea.BREASTS),
-									new ListValue<CoverableArea>(CoverableArea.NIPPLES),
-									new ListValue<CoverableArea>(CoverableArea.STOMACH),
-									new ListValue<CoverableArea>(CoverableArea.BACK)),
+									CoverableArea.BREASTS,
+									CoverableArea.NIPPLES,
+									CoverableArea.STOMACH,
+									CoverableArea.BACK),
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
-									new ListValue<ClothingAccess>(ClothingAccess.WAIST)),
-							concealedPartialTorso))),
+									ClothingAccess.CHEST,
+									ClothingAccess.WAIST),
+							concealedPartialTorso)),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
@@ -2578,7 +2690,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -2637,26 +2749,25 @@ public class ClothingType {
 			null,
 			"torso_keyhole_croptop",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(
+			Util.newArrayListOfValues(
 					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
-									new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
+									ClothingAccess.ARMS_UP_TO_SHOULDER,
+									ClothingAccess.HEAD),
 							null,
-							null, null)),
-					new ListValue<BlockedParts>(
-							new BlockedParts(
-									DisplacementType.PULLS_UP,
-									null,
-									Util.newArrayListOfValues(
-											new ListValue<CoverableArea>(CoverableArea.NIPPLES),
-											new ListValue<CoverableArea>(CoverableArea.STOMACH),
-											new ListValue<CoverableArea>(CoverableArea.BACK)),
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.CHEST),
-											new ListValue<ClothingAccess>(ClothingAccess.WAIST)),
-									concealedPartialTorso))),
+							null, null),
+					new BlockedParts(
+							DisplacementType.PULLS_UP,
+							null,
+							Util.newArrayListOfValues(
+									CoverableArea.NIPPLES,
+									CoverableArea.STOMACH,
+									CoverableArea.BACK),
+							Util.newArrayListOfValues(
+									ClothingAccess.CHEST,
+									ClothingAccess.WAIST),
+							concealedPartialTorso)),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
@@ -2664,7 +2775,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -2702,24 +2813,22 @@ public class ClothingType {
 			null,
 			"torso_short_croptop",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(
+			Util.newArrayListOfValues(
 					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
-									new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
+									ClothingAccess.ARMS_UP_TO_SHOULDER,
+									ClothingAccess.HEAD),
 							null,
-							null, null)),
-					new ListValue<BlockedParts>(
-							new BlockedParts(
-									DisplacementType.PULLS_UP,
-									null,
-									Util.newArrayListOfValues(
-											new ListValue<CoverableArea>(CoverableArea.BREASTS),
-											new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.CHEST)),
-									concealedPartialTorsoStomachVisible))),
+							null, null),
+					new BlockedParts(
+							DisplacementType.PULLS_UP,
+							null,
+							Util.newArrayListOfValues(
+									CoverableArea.BREASTS,
+									CoverableArea.NIPPLES),
+							Util.newArrayListOfValues(ClothingAccess.CHEST),
+							concealedPartialTorsoStomachVisible)),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
@@ -2727,7 +2836,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -2766,20 +2875,19 @@ public class ClothingType {
 			"torso_fishnet_top",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(
-							new BlockedParts(
-									DisplacementType.REMOVE_OR_EQUIP,
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
-											new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
-									null,
-									null, null)),
-					new ListValue<BlockedParts>(
-							new BlockedParts(
-									DisplacementType.PULLS_UP,
-									null,
-									null,
-									Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.CHEST)), null))),
+					new BlockedParts(
+							DisplacementType.REMOVE_OR_EQUIP,
+							Util.newArrayListOfValues(
+									ClothingAccess.ARMS_UP_TO_SHOULDER,
+									ClothingAccess.HEAD),
+							null,
+							null, null),
+					new BlockedParts(
+							DisplacementType.PULLS_UP,
+							null,
+							null,
+							Util.newArrayListOfValues(ClothingAccess.CHEST), 
+							null)),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
@@ -2787,7 +2895,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -2825,27 +2933,26 @@ public class ClothingType {
 			null,
 			"torso_blouse",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(
+			Util.newArrayListOfValues(
 					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
-									new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
+									ClothingAccess.ARMS_UP_TO_SHOULDER,
+									ClothingAccess.HEAD),
 							null,
-							null, null)),
-					new ListValue<BlockedParts>(
-							new BlockedParts(
-									DisplacementType.PULLS_UP,
-									null,
-									Util.newArrayListOfValues(
-											new ListValue<CoverableArea>(CoverableArea.BREASTS),
-											new ListValue<CoverableArea>(CoverableArea.NIPPLES),
-											new ListValue<CoverableArea>(CoverableArea.STOMACH),
-											new ListValue<CoverableArea>(CoverableArea.BACK)),
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.CHEST),
-											new ListValue<ClothingAccess>(ClothingAccess.WAIST)),
-									concealedPartialTorso))),
+							null, null),
+					new BlockedParts(
+							DisplacementType.PULLS_UP,
+							null,
+							Util.newArrayListOfValues(
+									CoverableArea.BREASTS,
+									CoverableArea.NIPPLES,
+									CoverableArea.STOMACH,
+									CoverableArea.BACK),
+							Util.newArrayListOfValues(
+									ClothingAccess.CHEST,
+									ClothingAccess.WAIST),
+							concealedPartialTorso)),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
@@ -2853,7 +2960,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -2892,26 +2999,24 @@ public class ClothingType {
 			null,
 			"torso_cami_straps",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(
+			Util.newArrayListOfValues(
 					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
-									new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
+									ClothingAccess.ARMS_UP_TO_SHOULDER,
+									ClothingAccess.HEAD),
 							null,
-							null, null)),
-					new ListValue<BlockedParts>(
-							new BlockedParts(
-									DisplacementType.PULLS_UP,
-									null,
-									Util.newArrayListOfValues(
-											new ListValue<CoverableArea>(CoverableArea.BREASTS),
-											new ListValue<CoverableArea>(CoverableArea.NIPPLES),
-											new ListValue<CoverableArea>(CoverableArea.STOMACH),
-											new ListValue<CoverableArea>(CoverableArea.BACK)),
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.CHEST)),
-									concealedPartialTorsoStomachVisible))),
+							null, null),
+					new BlockedParts(
+							DisplacementType.PULLS_UP,
+							null,
+							Util.newArrayListOfValues(
+									CoverableArea.BREASTS,
+									CoverableArea.NIPPLES,
+									CoverableArea.STOMACH,
+									CoverableArea.BACK),
+							Util.newArrayListOfValues(ClothingAccess.CHEST),
+							concealedPartialTorsoStomachVisible)),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
@@ -2919,7 +3024,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 	};
 
 	public static AbstractClothingType TORSO_SKATER_DRESS = new AbstractClothingType(250,
@@ -2936,32 +3041,29 @@ public class ClothingType {
 			"torso_skater_dress",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(
-							new BlockedParts(
-									DisplacementType.REMOVE_OR_EQUIP,
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
-											new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
-									Util.newArrayListOfValues(
-											new ListValue<CoverableArea>(CoverableArea.BREASTS),
-											new ListValue<CoverableArea>(CoverableArea.NIPPLES),
-											new ListValue<CoverableArea>(CoverableArea.STOMACH),
-											new ListValue<CoverableArea>(CoverableArea.BACK)),
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.CHEST),
-											new ListValue<ClothingAccess>(ClothingAccess.WAIST)),
-									concealedPartialTorso)),
-					new ListValue<BlockedParts>(
-							new BlockedParts(
-									DisplacementType.PULLS_UP,
-									null,
-									Util.newArrayListOfValues(
-											new ListValue<CoverableArea>(CoverableArea.ANUS),
-											new ListValue<CoverableArea>(CoverableArea.PENIS),
-											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
-									concealedGroin))),
+					new BlockedParts(
+							DisplacementType.REMOVE_OR_EQUIP,
+							Util.newArrayListOfValues(
+									ClothingAccess.ARMS_UP_TO_SHOULDER,
+									ClothingAccess.HEAD),
+							Util.newArrayListOfValues(
+									CoverableArea.BREASTS,
+									CoverableArea.NIPPLES,
+									CoverableArea.STOMACH,
+									CoverableArea.BACK),
+							Util.newArrayListOfValues(
+									ClothingAccess.CHEST,
+									ClothingAccess.WAIST),
+							concealedPartialTorso),
+					new BlockedParts(
+							DisplacementType.PULLS_UP,
+							null,
+							Util.newArrayListOfValues(
+									CoverableArea.ANUS,
+									CoverableArea.PENIS,
+									CoverableArea.VAGINA),
+							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							concealedGroin)),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
@@ -2969,7 +3071,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -3031,40 +3133,39 @@ public class ClothingType {
 			"torso_corset_dress",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(
+					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
-									new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
+									ClothingAccess.ARMS_UP_TO_SHOULDER,
+									ClothingAccess.HEAD),
 							Util.newArrayListOfValues(
-									new ListValue<CoverableArea>(CoverableArea.BREASTS),
-									new ListValue<CoverableArea>(CoverableArea.NIPPLES),
-									new ListValue<CoverableArea>(CoverableArea.STOMACH),
-									new ListValue<CoverableArea>(CoverableArea.BACK)),
+									CoverableArea.BREASTS,
+									CoverableArea.NIPPLES,
+									CoverableArea.STOMACH,
+									CoverableArea.BACK),
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
-									new ListValue<ClothingAccess>(ClothingAccess.WAIST)),
-							concealedPartialTorso)),
-					new ListValue<BlockedParts>(new BlockedParts(
+									ClothingAccess.CHEST,
+									ClothingAccess.WAIST),
+							concealedPartialTorso),
+					new BlockedParts(
 							DisplacementType.PULLS_UP,
 							null,
 							Util.newArrayListOfValues(
-									new ListValue<CoverableArea>(CoverableArea.ANUS),
-									new ListValue<CoverableArea>(CoverableArea.PENIS),
-									new ListValue<CoverableArea>(CoverableArea.VAGINA)),
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
-							concealedGroin))),
+									CoverableArea.ANUS,
+									CoverableArea.PENIS,
+									CoverableArea.VAGINA),
+							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							concealedGroin)),
 			Util.newArrayListOfValues(
-					new ListValue<InventorySlot>(InventorySlot.STOMACH),
-					new ListValue<InventorySlot>(InventorySlot.CHEST)),
+					InventorySlot.STOMACH,
+					InventorySlot.CHEST),
 			ColourListPresets.JUST_BLACK.getPresetColourList(),
 			ColourListPresets.ALL.getPresetColourList(),
 			ColourListPresets.JUST_BLACK.getPresetColourList(),
 			ColourListPresets.ALL.getPresetColourList(),
 			ColourListPresets.JUST_BLACK.getPresetColourList(),
 			ColourListPresets.ALL.getPresetColourList(),
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -3103,29 +3204,28 @@ public class ClothingType {
 			"torso_virgin_killer_sweater",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(
+					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
-									new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
+									ClothingAccess.ARMS_UP_TO_SHOULDER,
+									ClothingAccess.HEAD),
 							Util.newArrayListOfValues(
-									new ListValue<CoverableArea>(CoverableArea.BREASTS),
-									new ListValue<CoverableArea>(CoverableArea.NIPPLES),
-									new ListValue<CoverableArea>(CoverableArea.STOMACH)),
+									CoverableArea.BREASTS,
+									CoverableArea.NIPPLES,
+									CoverableArea.STOMACH),
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
-									new ListValue<ClothingAccess>(ClothingAccess.WAIST)),
-							concealedPartialTorso)),
-					new ListValue<BlockedParts>(new BlockedParts(
+									ClothingAccess.CHEST,
+									ClothingAccess.WAIST),
+							concealedPartialTorso),
+					new BlockedParts(
 							DisplacementType.PULLS_UP,
 							null,
 							Util.newArrayListOfValues(
-									new ListValue<CoverableArea>(CoverableArea.ANUS),
-									new ListValue<CoverableArea>(CoverableArea.PENIS),
-									new ListValue<CoverableArea>(CoverableArea.VAGINA)),
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
-							concealedGroin))),
+									CoverableArea.ANUS,
+									CoverableArea.PENIS,
+									CoverableArea.VAGINA),
+							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							concealedGroin)),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
@@ -3133,7 +3233,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 	};
 
 	public static AbstractClothingType TORSO_SLIP_DRESS = new AbstractClothingType(800,
@@ -3150,32 +3250,29 @@ public class ClothingType {
 			"torso_slip_dress",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(
-							new BlockedParts(
-									DisplacementType.REMOVE_OR_EQUIP,
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
-											new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
-									Util.newArrayListOfValues(
-											new ListValue<CoverableArea>(CoverableArea.BREASTS),
-											new ListValue<CoverableArea>(CoverableArea.NIPPLES),
-											new ListValue<CoverableArea>(CoverableArea.STOMACH),
-											new ListValue<CoverableArea>(CoverableArea.BACK)),
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.CHEST),
-											new ListValue<ClothingAccess>(ClothingAccess.WAIST)),
-									concealedPartialTorso)),
-					new ListValue<BlockedParts>(
-							new BlockedParts(
-									DisplacementType.PULLS_UP,
-									null,
-									Util.newArrayListOfValues(
-											new ListValue<CoverableArea>(CoverableArea.ANUS),
-											new ListValue<CoverableArea>(CoverableArea.PENIS),
-											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
-									concealedGroin))),
+					new BlockedParts(
+							DisplacementType.REMOVE_OR_EQUIP,
+							Util.newArrayListOfValues(
+									ClothingAccess.ARMS_UP_TO_SHOULDER,
+									ClothingAccess.HEAD),
+							Util.newArrayListOfValues(
+									CoverableArea.BREASTS,
+									CoverableArea.NIPPLES,
+									CoverableArea.STOMACH,
+									CoverableArea.BACK),
+							Util.newArrayListOfValues(
+									ClothingAccess.CHEST,
+									ClothingAccess.WAIST),
+							concealedPartialTorso),
+					new BlockedParts(
+							DisplacementType.PULLS_UP,
+							null,
+							Util.newArrayListOfValues(
+									CoverableArea.ANUS,
+									CoverableArea.PENIS,
+									CoverableArea.VAGINA),
+							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							concealedGroin)),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
@@ -3183,7 +3280,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -3244,29 +3341,25 @@ public class ClothingType {
 			"torso_plunge_dress",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(
-							new BlockedParts(
-									DisplacementType.REMOVE_OR_EQUIP,
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)),
-									Util.newArrayListOfValues(
-											new ListValue<CoverableArea>(CoverableArea.NIPPLES),
-											new ListValue<CoverableArea>(CoverableArea.STOMACH),
-											new ListValue<CoverableArea>(CoverableArea.BACK)),
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.CHEST),
-											new ListValue<ClothingAccess>(ClothingAccess.WAIST)),
-									concealedPartialTorso)),
-					new ListValue<BlockedParts>(
-							new BlockedParts(DisplacementType.PULLS_UP,
-									null,
-									Util.newArrayListOfValues(
-											new ListValue<CoverableArea>(CoverableArea.ANUS),
-											new ListValue<CoverableArea>(CoverableArea.PENIS),
-											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
-									concealedGroin))),
+					new BlockedParts(
+							DisplacementType.REMOVE_OR_EQUIP,
+							Util.newArrayListOfValues(ClothingAccess.ARMS_UP_TO_SHOULDER),
+							Util.newArrayListOfValues(
+									CoverableArea.NIPPLES,
+									CoverableArea.STOMACH,
+									CoverableArea.BACK),
+							Util.newArrayListOfValues(
+									ClothingAccess.CHEST,
+									ClothingAccess.WAIST),
+							concealedPartialTorso),
+					new BlockedParts(DisplacementType.PULLS_UP,
+							null,
+							Util.newArrayListOfValues(
+									CoverableArea.ANUS,
+									CoverableArea.PENIS,
+									CoverableArea.VAGINA),
+							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							concealedGroin)),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
@@ -3274,7 +3367,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -3334,32 +3427,30 @@ public class ClothingType {
 			null,
 			"torso_long_sleeve_dress",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(
+			Util.newArrayListOfValues(
 					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
-									new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
+									ClothingAccess.ARMS_UP_TO_SHOULDER,
+									ClothingAccess.HEAD),
 							Util.newArrayListOfValues(
-									new ListValue<CoverableArea>(CoverableArea.BREASTS),
-									new ListValue<CoverableArea>(CoverableArea.NIPPLES),
-									new ListValue<CoverableArea>(CoverableArea.STOMACH),
-									new ListValue<CoverableArea>(CoverableArea.BACK)),
+									CoverableArea.BREASTS,
+									CoverableArea.NIPPLES,
+									CoverableArea.STOMACH,
+									CoverableArea.BACK),
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
-									new ListValue<ClothingAccess>(ClothingAccess.WAIST)),
-							concealedPartialTorso)),
-					new ListValue<BlockedParts>(
-							new BlockedParts(
-									DisplacementType.PULLS_UP,
-									null,
-									Util.newArrayListOfValues(
-											new ListValue<CoverableArea>(CoverableArea.ANUS),
-											new ListValue<CoverableArea>(CoverableArea.PENIS),
-											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
-									concealedGroin))),
+									ClothingAccess.CHEST,
+									ClothingAccess.WAIST),
+							concealedPartialTorso),
+					new BlockedParts(
+							DisplacementType.PULLS_UP,
+							null,
+							Util.newArrayListOfValues(
+									CoverableArea.ANUS,
+									CoverableArea.PENIS,
+									CoverableArea.VAGINA),
+							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							concealedGroin)),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
@@ -3367,7 +3458,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -3427,40 +3518,35 @@ public class ClothingType {
 			null,
 			"torso_bodyconzip_dress",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(
+			Util.newArrayListOfValues(
 					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
+							Util.newArrayListOfValues(ClothingAccess.ARMS_UP_TO_SHOULDER),
+							Util.newArrayListOfValues(CoverableArea.BACK),
+							null, null),
+					new BlockedParts(
+							DisplacementType.PULLS_UP,
+							null,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)),
+									CoverableArea.ANUS,
+									CoverableArea.PENIS,
+									CoverableArea.VAGINA),
+							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							concealedGroin),
+					new BlockedParts(
+							DisplacementType.UNZIPS,
+							null,
 							Util.newArrayListOfValues(
-									new ListValue<CoverableArea>(CoverableArea.BACK)),
-							null, null)),
-					new ListValue<BlockedParts>(
-							new BlockedParts(
-									DisplacementType.PULLS_UP,
-									null,
-									Util.newArrayListOfValues(
-											new ListValue<CoverableArea>(CoverableArea.ANUS),
-											new ListValue<CoverableArea>(CoverableArea.PENIS),
-											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
-									concealedGroin)),
-					new ListValue<BlockedParts>(
-							new BlockedParts(
-									DisplacementType.UNZIPS,
-									null,
-									Util.newArrayListOfValues(
-											new ListValue<CoverableArea>(CoverableArea.BREASTS),
-											new ListValue<CoverableArea>(CoverableArea.NIPPLES),
-											new ListValue<CoverableArea>(CoverableArea.PENIS),
-											new ListValue<CoverableArea>(CoverableArea.STOMACH),
-											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.CHEST),
-											new ListValue<ClothingAccess>(ClothingAccess.WAIST),
-											new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
-									concealedDressFrontFull))),
+									CoverableArea.BREASTS,
+									CoverableArea.NIPPLES,
+									CoverableArea.PENIS,
+									CoverableArea.STOMACH,
+									CoverableArea.VAGINA),
+							Util.newArrayListOfValues(
+									ClothingAccess.CHEST,
+									ClothingAccess.WAIST,
+									ClothingAccess.GROIN),
+							concealedDressFrontFull)),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
@@ -3468,7 +3554,7 @@ public class ClothingType {
 			ColourListPresets.ALL_METAL.getPresetColourList(),
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -3557,56 +3643,49 @@ public class ClothingType {
 			"chest_swimsuit",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(
-							new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
+					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
-									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN),
-									new ListValue<ClothingAccess>(ClothingAccess.GROIN),
-									new ListValue<ClothingAccess>(ClothingAccess.WAIST),
-									new ListValue<ClothingAccess>(ClothingAccess.CHEST)),
+									ClothingAccess.ARMS_UP_TO_SHOULDER,
+									ClothingAccess.LEGS_UP_TO_GROIN,
+									ClothingAccess.GROIN,
+									ClothingAccess.WAIST,
+									ClothingAccess.CHEST),
 							Util.newArrayListOfValues(
-									new ListValue<CoverableArea>(CoverableArea.STOMACH),
-									new ListValue<CoverableArea>(CoverableArea.BACK)),
-							Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.WAIST)),
+									CoverableArea.STOMACH,
+									CoverableArea.BACK),
+							Util.newArrayListOfValues(ClothingAccess.WAIST),
+							Util.newArrayListOfValues(InventorySlot.PIERCING_STOMACH)),
+					new BlockedParts(DisplacementType.SHIFTS_ASIDE,
+							Util.newArrayListOfValues(ClothingAccess.GROIN),
 							Util.newArrayListOfValues(
-									new ListValue<InventorySlot>(InventorySlot.PIERCING_STOMACH)))),
-					new ListValue<BlockedParts>(
-							new BlockedParts(DisplacementType.SHIFTS_ASIDE,
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
-							Util.newArrayListOfValues(
-									new ListValue<CoverableArea>(CoverableArea.ANUS),
-									new ListValue<CoverableArea>(CoverableArea.PENIS),
-									new ListValue<CoverableArea>(CoverableArea.VAGINA)),
+									CoverableArea.ANUS,
+									CoverableArea.PENIS,
+									CoverableArea.VAGINA),
 							null,
 							Util.newArrayListOfValues(
-									new ListValue<InventorySlot>(InventorySlot.VAGINA),
-									new ListValue<InventorySlot>(InventorySlot.PENIS),
-									new ListValue<InventorySlot>(InventorySlot.PIERCING_PENIS),
-									new ListValue<InventorySlot>(InventorySlot.PIERCING_VAGINA)))),
-					new ListValue<BlockedParts>(
-							new BlockedParts(DisplacementType.PULLS_DOWN,
+									InventorySlot.VAGINA,
+									InventorySlot.PENIS,
+									InventorySlot.PIERCING_PENIS,
+									InventorySlot.PIERCING_VAGINA)),
+					new BlockedParts(DisplacementType.PULLS_DOWN,
+							Util.newArrayListOfValues(ClothingAccess.CHEST),
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.CHEST)),
+									CoverableArea.BREASTS,
+									CoverableArea.NIPPLES),
+							Util.newArrayListOfValues(ClothingAccess.CHEST),
 							Util.newArrayListOfValues(
-									new ListValue<CoverableArea>(CoverableArea.BREASTS),
-									new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.CHEST)),
-							Util.newArrayListOfValues(
-									new ListValue<InventorySlot>(InventorySlot.NIPPLE),
-									new ListValue<InventorySlot>(InventorySlot.PIERCING_NIPPLE))))),
+									InventorySlot.NIPPLE,
+									InventorySlot.PIERCING_NIPPLE))),
 			Util.newArrayListOfValues(
-					new ListValue<InventorySlot>(InventorySlot.GROIN),
-					new ListValue<InventorySlot>(InventorySlot.STOMACH)),
+					InventorySlot.GROIN,
+					InventorySlot.STOMACH),
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
 			null,
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -3692,24 +3771,22 @@ public class ClothingType {
 			null,
 			"torso_tube_top",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(
+			Util.newArrayListOfValues(
 					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
-									new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
+									ClothingAccess.ARMS_UP_TO_SHOULDER,
+									ClothingAccess.HEAD),
 							null,
-							null, null)),
-					new ListValue<BlockedParts>(
-							new BlockedParts(
-									DisplacementType.PULLS_UP,
-									null,
-									Util.newArrayListOfValues(
-											new ListValue<CoverableArea>(CoverableArea.BREASTS),
-											new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.CHEST)),
-									concealedPartialTorsoStomachVisible))),
+							null, null),
+					new BlockedParts(
+							DisplacementType.PULLS_UP,
+							null,
+							Util.newArrayListOfValues(
+									CoverableArea.BREASTS,
+									CoverableArea.NIPPLES),
+							Util.newArrayListOfValues(ClothingAccess.CHEST),
+							concealedPartialTorsoStomachVisible)),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
@@ -3717,7 +3794,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -3756,27 +3833,25 @@ public class ClothingType {
 			"chest_chemise",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(
-							new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
-											new ListValue<ClothingAccess>(ClothingAccess.CHEST)),
-									Util.newArrayListOfValues(
-											new ListValue<CoverableArea>(CoverableArea.BREASTS),
-											new ListValue<CoverableArea>(CoverableArea.NIPPLES),
-											new ListValue<CoverableArea>(CoverableArea.STOMACH),
-											new ListValue<CoverableArea>(CoverableArea.BACK)),
-									null,
-									null)), // It's see-through
-					new ListValue<BlockedParts>(
-							new BlockedParts(DisplacementType.PULLS_UP,
-									Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
-									Util.newArrayListOfValues(
-											new ListValue<CoverableArea>(CoverableArea.ANUS),
-											new ListValue<CoverableArea>(CoverableArea.PENIS),
-											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
-									null,
-									null)) // It's see-through
+					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
+							Util.newArrayListOfValues(
+									ClothingAccess.ARMS_UP_TO_SHOULDER,
+									ClothingAccess.CHEST),
+							Util.newArrayListOfValues(
+									CoverableArea.BREASTS,
+									CoverableArea.NIPPLES,
+									CoverableArea.STOMACH,
+									CoverableArea.BACK),
+							null,
+							null), // It's see-through
+					new BlockedParts(DisplacementType.PULLS_UP,
+							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							Util.newArrayListOfValues(
+									CoverableArea.ANUS,
+									CoverableArea.PENIS,
+									CoverableArea.VAGINA),
+							null,
+							null) // It's see-through
 					),
 			null,
 			ColourListPresets.LINGERIE.getPresetColourList(),
@@ -3785,7 +3860,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -3846,22 +3921,17 @@ public class ClothingType {
 			"chest_plunge_bra",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(
-							new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
-									Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
-											new ListValue<ClothingAccess>(ClothingAccess.CHEST)),
-									null,
-									null,
-									null)),
-					new ListValue<BlockedParts>(
-							new BlockedParts(DisplacementType.PULLS_DOWN,
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.CHEST)),
-									Util.newArrayListOfValues(
-											new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.CHEST)),
-									concealedBreasts))
+					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
+							Util.newArrayListOfValues(ClothingAccess.ARMS_UP_TO_SHOULDER,
+									ClothingAccess.CHEST),
+							null,
+							null,
+							null),
+					new BlockedParts(DisplacementType.PULLS_DOWN,
+							Util.newArrayListOfValues(ClothingAccess.CHEST),
+							Util.newArrayListOfValues(CoverableArea.NIPPLES),
+							Util.newArrayListOfValues(ClothingAccess.CHEST),
+							concealedBreasts)
 					),
 			null,
 			ColourListPresets.LINGERIE.getPresetColourList(),
@@ -3870,7 +3940,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -3908,22 +3978,17 @@ public class ClothingType {
 			null,
 
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(
-							new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
-									Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
-											new ListValue<ClothingAccess>(ClothingAccess.CHEST)),
-									null,
-									null,
-									null)),
-					new ListValue<BlockedParts>(
-							new BlockedParts(DisplacementType.PULLS_DOWN,
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.CHEST)),
-									Util.newArrayListOfValues(
-											new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.CHEST)),
-									concealedBreasts))
+					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
+							Util.newArrayListOfValues(ClothingAccess.ARMS_UP_TO_SHOULDER,
+									ClothingAccess.CHEST),
+							null,
+							null,
+							null),
+					new BlockedParts(DisplacementType.PULLS_DOWN,
+							Util.newArrayListOfValues(ClothingAccess.CHEST),
+							Util.newArrayListOfValues(CoverableArea.NIPPLES),
+							Util.newArrayListOfValues(ClothingAccess.CHEST),
+							concealedBreasts)
 					),
 			null,
 			ColourListPresets.LINGERIE.getPresetColourList(),
@@ -3932,7 +3997,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -3969,13 +4034,12 @@ public class ClothingType {
 			"chest_open_cup_bra",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(
-							new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
-									Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
-											new ListValue<ClothingAccess>(ClothingAccess.CHEST)),
-									null,
-									null,
-									null))),
+					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
+							Util.newArrayListOfValues(ClothingAccess.ARMS_UP_TO_SHOULDER,
+									ClothingAccess.CHEST),
+							null,
+							null,
+							null)),
 			null,
 			ColourListPresets.LINGERIE.getPresetColourList(),
 			null,
@@ -3983,7 +4047,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -4009,23 +4073,18 @@ public class ClothingType {
 			"chest_sports_bra",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(
-							new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
-									Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
-											new ListValue<ClothingAccess>(ClothingAccess.CHEST)),
-									Util.newArrayListOfValues(
-											new ListValue<CoverableArea>(CoverableArea.BACK)),
-									null, null)),
-					new ListValue<BlockedParts>(
-							new BlockedParts(DisplacementType.PULLS_UP,
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.CHEST)),
-									Util.newArrayListOfValues(
-											new ListValue<CoverableArea>(CoverableArea.BREASTS),
-											new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.CHEST)),
-									concealedBreasts))
+					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
+							Util.newArrayListOfValues(ClothingAccess.ARMS_UP_TO_SHOULDER,
+									ClothingAccess.CHEST),
+							Util.newArrayListOfValues(CoverableArea.BACK),
+							null, null),
+					new BlockedParts(DisplacementType.PULLS_UP,
+							Util.newArrayListOfValues(ClothingAccess.CHEST),
+							Util.newArrayListOfValues(
+									CoverableArea.BREASTS,
+									CoverableArea.NIPPLES),
+							Util.newArrayListOfValues(ClothingAccess.CHEST),
+							concealedBreasts)
 					),
 			null,
 			ColourListPresets.LINGERIE.getPresetColourList(),
@@ -4034,7 +4093,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -4072,22 +4131,18 @@ public class ClothingType {
 			"chest_croptop_bra",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(
-							new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
-									Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
-											new ListValue<ClothingAccess>(ClothingAccess.CHEST)),
-									null,
-									null, null)),
-					new ListValue<BlockedParts>(
-							new BlockedParts(DisplacementType.PULLS_UP,
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.CHEST)),
-									Util.newArrayListOfValues(
-											new ListValue<CoverableArea>(CoverableArea.BREASTS),
-											new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.CHEST)),
-									concealedBreasts))),
+					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
+							Util.newArrayListOfValues(ClothingAccess.ARMS_UP_TO_SHOULDER,
+									ClothingAccess.CHEST),
+							null,
+							null, null),
+					new BlockedParts(DisplacementType.PULLS_UP,
+							Util.newArrayListOfValues(ClothingAccess.CHEST),
+							Util.newArrayListOfValues(
+									CoverableArea.BREASTS,
+									CoverableArea.NIPPLES),
+							Util.newArrayListOfValues(ClothingAccess.CHEST),
+							concealedBreasts)),
 			null,
 			ColourListPresets.LINGERIE.getPresetColourList(),
 			null,
@@ -4095,7 +4150,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -4134,22 +4189,17 @@ public class ClothingType {
 			"chest_fullcup_bra",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(
-							new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
-									Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
-											new ListValue<ClothingAccess>(ClothingAccess.CHEST)),
-									null,
-									null,
-									null)),
-					new ListValue<BlockedParts>(
-							new BlockedParts(DisplacementType.PULLS_DOWN,
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.CHEST)),
-									Util.newArrayListOfValues(
-											new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.CHEST)),
-									concealedBreasts))),
+					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
+							Util.newArrayListOfValues(ClothingAccess.ARMS_UP_TO_SHOULDER,
+									ClothingAccess.CHEST),
+							null,
+							null,
+							null),
+					new BlockedParts(DisplacementType.PULLS_DOWN,
+							Util.newArrayListOfValues(ClothingAccess.CHEST),
+							Util.newArrayListOfValues(CoverableArea.NIPPLES),
+							Util.newArrayListOfValues(ClothingAccess.CHEST),
+							concealedBreasts)),
 			null,
 			ColourListPresets.LINGERIE.getPresetColourList(),
 			null,
@@ -4157,7 +4207,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -4194,21 +4244,16 @@ public class ClothingType {
 			"chest_nursing_bra",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(
-							new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
-									Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
-											new ListValue<ClothingAccess>(ClothingAccess.CHEST)),
-									null,
-									null, null)),
-					new ListValue<BlockedParts>(
-							new BlockedParts(DisplacementType.PULLS_DOWN,
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.CHEST)),
-									Util.newArrayListOfValues(
-											new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.CHEST)),
-									concealedBreasts))
+					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
+							Util.newArrayListOfValues(ClothingAccess.ARMS_UP_TO_SHOULDER,
+									ClothingAccess.CHEST),
+							null,
+							null, null),
+					new BlockedParts(DisplacementType.PULLS_DOWN,
+							Util.newArrayListOfValues(ClothingAccess.CHEST),
+							Util.newArrayListOfValues(CoverableArea.NIPPLES),
+							Util.newArrayListOfValues(ClothingAccess.CHEST),
+							concealedBreasts)
 					),
 			null,
 			ColourListPresets.LINGERIE.getPresetColourList(),
@@ -4217,7 +4262,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -4266,21 +4311,16 @@ public class ClothingType {
 			"chest_striped_bra",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(
-							new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
-									Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
-											new ListValue<ClothingAccess>(ClothingAccess.CHEST)),
-									null,
-									null, null)),
-					new ListValue<BlockedParts>(
-							new BlockedParts(DisplacementType.PULLS_DOWN,
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.CHEST)),
-									Util.newArrayListOfValues(
-											new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.CHEST)),
-									concealedBreasts))),
+					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
+							Util.newArrayListOfValues(ClothingAccess.ARMS_UP_TO_SHOULDER,
+									ClothingAccess.CHEST),
+							null,
+							null, null),
+					new BlockedParts(DisplacementType.PULLS_DOWN,
+							Util.newArrayListOfValues(ClothingAccess.CHEST),
+							Util.newArrayListOfValues(CoverableArea.NIPPLES),
+							Util.newArrayListOfValues(ClothingAccess.CHEST),
+							concealedBreasts)),
 			null,
 			ColourListPresets.NOT_WHITE.getPresetColourList(),
 			ColourListPresets.ALL.getPresetColourList(),
@@ -4288,7 +4328,7 @@ public class ClothingType {
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -4327,21 +4367,16 @@ public class ClothingType {
 			"chest_bikini",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(
-							new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
-									Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
-											new ListValue<ClothingAccess>(ClothingAccess.CHEST)),
-									null,
-									null, null)),
-					new ListValue<BlockedParts>(
-							new BlockedParts(DisplacementType.PULLS_UP,
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.CHEST)),
-									Util.newArrayListOfValues(
-											new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.CHEST)),
-									concealedBreasts))
+					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
+							Util.newArrayListOfValues(ClothingAccess.ARMS_UP_TO_SHOULDER,
+									ClothingAccess.CHEST),
+							null,
+							null, null),
+					new BlockedParts(DisplacementType.PULLS_UP,
+							Util.newArrayListOfValues(ClothingAccess.CHEST),
+							Util.newArrayListOfValues(CoverableArea.NIPPLES),
+							Util.newArrayListOfValues(ClothingAccess.CHEST),
+							concealedBreasts)
 					),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
@@ -4350,7 +4385,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -4410,16 +4445,15 @@ public class ClothingType {
 			null,
 			"chest_sarashi",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(
+			Util.newArrayListOfValues(
 					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
+							Util.newArrayListOfValues(ClothingAccess.CHEST),
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.CHEST)),
-							Util.newArrayListOfValues(
-									new ListValue<CoverableArea>(CoverableArea.BREASTS),
-									new ListValue<CoverableArea>(CoverableArea.NIPPLES),
-									new ListValue<CoverableArea>(CoverableArea.BACK)),
+									CoverableArea.BREASTS,
+									CoverableArea.NIPPLES,
+									CoverableArea.BACK),
 							null,
-							concealedBreasts))),
+							concealedBreasts)),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
@@ -4427,7 +4461,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -4466,16 +4500,13 @@ public class ClothingType {
 			null,
 			"chest_tapecrosses",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(
+			Util.newArrayListOfValues(
 					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.CHEST)),
-							Util.newArrayListOfValues(
-									new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
+							Util.newArrayListOfValues(ClothingAccess.CHEST),
+							Util.newArrayListOfValues(CoverableArea.NIPPLES),
 							null,
-							Util.newArrayListOfValues(
-									new ListValue<InventorySlot>(InventorySlot.PIERCING_NIPPLE))))),
+							Util.newArrayListOfValues(InventorySlot.PIERCING_NIPPLE))),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
@@ -4484,8 +4515,8 @@ public class ClothingType {
 			null,
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<>(ItemTag.PLUGS_NIPPLES),
-					new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+					ItemTag.PLUGS_NIPPLES,
+					ItemTag.SOLD_BY_NYAN)){
 		
 		/* TODO:
 			Replace with special item "roll of tape"
@@ -4537,47 +4568,39 @@ public class ClothingType {
 			"stomach_lowback_body",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(
-							new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
+					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN),
-									new ListValue<ClothingAccess>(ClothingAccess.GROIN),
-									new ListValue<ClothingAccess>(ClothingAccess.WAIST),
-									new ListValue<ClothingAccess>(ClothingAccess.CHEST)),
+									ClothingAccess.LEGS_UP_TO_GROIN,
+									ClothingAccess.GROIN,
+									ClothingAccess.WAIST,
+									ClothingAccess.CHEST),
 							Util.newArrayListOfValues(
-									new ListValue<CoverableArea>(CoverableArea.STOMACH),
-									new ListValue<CoverableArea>(CoverableArea.BACK)),
+									CoverableArea.STOMACH,
+									CoverableArea.BACK),
+							Util.newArrayListOfValues(ClothingAccess.WAIST),
+							concealedStomach),
+					new BlockedParts(DisplacementType.SHIFTS_ASIDE, null,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.WAIST)),
-							concealedStomach)),
-					new ListValue<BlockedParts>(
-							new BlockedParts(DisplacementType.SHIFTS_ASIDE, null,
-							Util.newArrayListOfValues(
-									new ListValue<CoverableArea>(CoverableArea.ANUS),
-									new ListValue<CoverableArea>(CoverableArea.PENIS),
-									new ListValue<CoverableArea>(CoverableArea.VAGINA)),
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
-							concealedGenitals)),
-					new ListValue<BlockedParts>(
-							new BlockedParts(DisplacementType.PULLS_DOWN,
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.CHEST)),
-							Util.newArrayListOfValues(
-									new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.CHEST)),
-							concealedBreasts))),
+									CoverableArea.ANUS,
+									CoverableArea.PENIS,
+									CoverableArea.VAGINA),
+							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							concealedGenitals),
+					new BlockedParts(DisplacementType.PULLS_DOWN,
+							Util.newArrayListOfValues(ClothingAccess.CHEST),
+							Util.newArrayListOfValues(CoverableArea.NIPPLES),
+							Util.newArrayListOfValues(ClothingAccess.CHEST),
+							concealedBreasts)),
 			Util.newArrayListOfValues(
-					new ListValue<InventorySlot>(InventorySlot.GROIN),
-					new ListValue<InventorySlot>(InventorySlot.CHEST)),
+					InventorySlot.GROIN,
+					InventorySlot.CHEST),
 			ColourListPresets.LINGERIE.getPresetColourList(),
 			null,
 			null,
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -4659,15 +4682,14 @@ public class ClothingType {
 			"stomach_underbust_corset",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(
-							new BlockedParts(
-								DisplacementType.REMOVE_OR_EQUIP,
-								Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.WAIST)),
-								Util.newArrayListOfValues(
-										new ListValue<CoverableArea>(CoverableArea.STOMACH),
-										new ListValue<CoverableArea>(CoverableArea.BACK)),
-								Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.WAIST)),
-								concealedStomach))),
+					new BlockedParts(
+						DisplacementType.REMOVE_OR_EQUIP,
+						Util.newArrayListOfValues(ClothingAccess.WAIST),
+						Util.newArrayListOfValues(
+								CoverableArea.STOMACH,
+								CoverableArea.BACK),
+						Util.newArrayListOfValues(ClothingAccess.WAIST),
+						concealedStomach)),
 			null,
 			ColourListPresets.LINGERIE.getPresetColourList(),
 			null,
@@ -4675,7 +4697,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -4713,32 +4735,30 @@ public class ClothingType {
 			null, "stomach_overbust_corset",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(
-							new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.WAIST),
-											new ListValue<ClothingAccess>(ClothingAccess.CHEST)),
-									Util.newArrayListOfValues(
-											new ListValue<CoverableArea>(CoverableArea.BREASTS),
-											new ListValue<CoverableArea>(CoverableArea.NIPPLES),
-											new ListValue<CoverableArea>(CoverableArea.STOMACH),
-											new ListValue<CoverableArea>(CoverableArea.BACK)),
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.WAIST),
-											new ListValue<ClothingAccess>(ClothingAccess.CHEST)),
-									Util.newArrayListOfValues(
-											new ListValue<InventorySlot>(InventorySlot.NIPPLE),
-											new ListValue<InventorySlot>(InventorySlot.PIERCING_NIPPLE),
-											new ListValue<InventorySlot>(InventorySlot.PIERCING_STOMACH))))),
-			Util.newArrayListOfValues(
-					new ListValue<InventorySlot>(InventorySlot.CHEST)),
+					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
+							Util.newArrayListOfValues(
+									ClothingAccess.WAIST,
+									ClothingAccess.CHEST),
+							Util.newArrayListOfValues(
+									CoverableArea.BREASTS,
+									CoverableArea.NIPPLES,
+									CoverableArea.STOMACH,
+									CoverableArea.BACK),
+							Util.newArrayListOfValues(
+									ClothingAccess.WAIST,
+									ClothingAccess.CHEST),
+							Util.newArrayListOfValues(
+									InventorySlot.NIPPLE,
+									InventorySlot.PIERCING_NIPPLE,
+									InventorySlot.PIERCING_STOMACH))),
+			Util.newArrayListOfValues(InventorySlot.CHEST),
 			ColourListPresets.LINGERIE.getPresetColourList(),
 			null,
 			null,
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -4778,15 +4798,14 @@ public class ClothingType {
 			"stomach_sarashi",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(
-							new BlockedParts(
-								DisplacementType.REMOVE_OR_EQUIP,
-								Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.WAIST)),
-								Util.newArrayListOfValues(
-										new ListValue<CoverableArea>(CoverableArea.STOMACH),
-										new ListValue<CoverableArea>(CoverableArea.BACK)),
-								Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.WAIST)),
-								concealedStomach))),
+					new BlockedParts(
+						DisplacementType.REMOVE_OR_EQUIP,
+						Util.newArrayListOfValues(ClothingAccess.WAIST),
+						Util.newArrayListOfValues(
+								CoverableArea.STOMACH,
+								CoverableArea.BACK),
+						Util.newArrayListOfValues(ClothingAccess.WAIST),
+						concealedStomach)),
 			null,
 			ColourListPresets.LINGERIE.getPresetColourList(),
 			null,
@@ -4794,7 +4813,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -4836,15 +4855,12 @@ public class ClothingType {
 			"hand_gloves",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(
+					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.FINGERS)),
+							Util.newArrayListOfValues(ClothingAccess.FINGERS),
 							null,
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.FINGERS)),
-							Util.newArrayListOfValues(
-									new ListValue<InventorySlot>(InventorySlot.FINGER))))),
+							Util.newArrayListOfValues(ClothingAccess.FINGERS),
+							Util.newArrayListOfValues(InventorySlot.FINGER))),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
@@ -4852,7 +4868,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -4891,14 +4907,13 @@ public class ClothingType {
 			null,
 			"hand_fingerless_gloves",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(
+			Util.newArrayListOfValues(
 					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.FINGERS)),
+							Util.newArrayListOfValues(ClothingAccess.FINGERS),
 							null,
 							null,
-							null))),
+							null)),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
@@ -4906,7 +4921,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -4945,14 +4960,13 @@ public class ClothingType {
 			"hand_elbowlength_gloves",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
+					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.FINGERS),
-									new ListValue<ClothingAccess>(ClothingAccess.WRISTS)),
+									ClothingAccess.FINGERS,
+									ClothingAccess.WRISTS),
 							null,
 							null,
-							Util.newArrayListOfValues(
-									new ListValue<InventorySlot>(InventorySlot.FINGER))))),
+							Util.newArrayListOfValues(InventorySlot.FINGER))),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
@@ -4960,7 +4974,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -5000,15 +5014,14 @@ public class ClothingType {
 			"hand_wraps",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(
-							new BlockedParts(
-									DisplacementType.REMOVE_OR_EQUIP,
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.FINGERS),
-											new ListValue<ClothingAccess>(ClothingAccess.WRISTS)),
-									null,
-									null,
-									null))),
+					new BlockedParts(
+							DisplacementType.REMOVE_OR_EQUIP,
+							Util.newArrayListOfValues(
+									ClothingAccess.FINGERS,
+									ClothingAccess.WRISTS),
+							null,
+							null,
+							null)),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
@@ -5016,7 +5029,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -5055,15 +5068,14 @@ public class ClothingType {
 			"hand_fishnet_gloves",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(
-							new BlockedParts(
-									DisplacementType.REMOVE_OR_EQUIP,
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.FINGERS),
-											new ListValue<ClothingAccess>(ClothingAccess.WRISTS)),
-									null,
-									null,
-									null))),
+					new BlockedParts(
+							DisplacementType.REMOVE_OR_EQUIP,
+							Util.newArrayListOfValues(
+									ClothingAccess.FINGERS,
+									ClothingAccess.WRISTS),
+							null,
+							null,
+							null)),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
@@ -5071,7 +5083,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -5117,14 +5129,12 @@ public class ClothingType {
 			"wrist_womens_watch",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(
+					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.WRISTS)),
+							Util.newArrayListOfValues(ClothingAccess.WRISTS),
 							null,
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.WRISTS)),
-							null))),
+							Util.newArrayListOfValues(ClothingAccess.WRISTS),
+							null)),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
@@ -5132,7 +5142,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 		
 
 		@Override
@@ -5173,14 +5183,12 @@ public class ClothingType {
 			"wrist_mens_watch",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(
+					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.WRISTS)),
+							Util.newArrayListOfValues(ClothingAccess.WRISTS),
 							null,
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.WRISTS)),
-							null))),
+							Util.newArrayListOfValues(ClothingAccess.WRISTS),
+							null)),
 			null,
 			ColourListPresets.ALL_METAL.getPresetColourList(),
 			null,
@@ -5188,7 +5196,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -5228,14 +5236,12 @@ public class ClothingType {
 			"wrist_bangle",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(
+					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.WRISTS)),
+							Util.newArrayListOfValues(ClothingAccess.WRISTS),
 							null,
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.WRISTS)),
-							null))),
+							Util.newArrayListOfValues(ClothingAccess.WRISTS),
+							null)),
 			null,
 			ColourListPresets.ALL_METAL.getPresetColourList(),
 			null,
@@ -5243,7 +5249,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -5281,21 +5287,19 @@ public class ClothingType {
 			null,
 			"wrist_suit_cuffs",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(
+			Util.newArrayListOfValues(
 					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.WRISTS)),
+							Util.newArrayListOfValues(ClothingAccess.WRISTS),
 							null,
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.WRISTS)),
-							null))),
+							Util.newArrayListOfValues(ClothingAccess.WRISTS),
+							null)),
 			null,
 			ColourListPresets.JUST_WHITE.getPresetColourList(), ColourListPresets.ALL.getPresetColourList(),
 			ColourListPresets.JUST_BLACK.getPresetColourList(), ColourListPresets.ALL.getPresetColourList(),
 			null,
 			null, 
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -5333,15 +5337,13 @@ public class ClothingType {
 			null,
 			"wrist_sweatbands",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(
+			Util.newArrayListOfValues(
 					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.WRISTS)),
+							Util.newArrayListOfValues(ClothingAccess.WRISTS),
 							null,
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.WRISTS)),
-							null))),
+							Util.newArrayListOfValues(ClothingAccess.WRISTS),
+							null)),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
@@ -5349,7 +5351,7 @@ public class ClothingType {
 			null,
 			null,
 			null, 
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -5388,15 +5390,12 @@ public class ClothingType {
 			Rarity.COMMON,
 			null,
 			"finger_ring",
-
 			null,
-
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(
+			Util.newArrayListOfValues(
 					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.FINGERS)),
+							Util.newArrayListOfValues(ClothingAccess.FINGERS),
 							null,
-							null, null))),
+							null, null)),
 
 			null,
 			ColourListPresets.ALL_METAL.getPresetColourList(),
@@ -5405,7 +5404,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -5446,12 +5445,12 @@ public class ClothingType {
 			"belt_used_condoms",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(
+					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
 							null,
 							null,
 							null,
-							null))),
+							null)),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
@@ -5459,7 +5458,7 @@ public class ClothingType {
 			null,
 			null,
 			null, 
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -5502,18 +5501,18 @@ public class ClothingType {
 			"hips_suspender_belt",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(
+					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
 							null,
 							null,
 							null,
-							null))),
+							null)),
 			null,
 			ColourListPresets.LINGERIE.getPresetColourList(), ColourListPresets.ALL.getPresetColourList(),
 			ColourListPresets.JUST_STEEL.getPresetColourList(), ColourListPresets.ALL_METAL.getPresetColourList(),
 			null,
 			null, 
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -5554,16 +5553,14 @@ public class ClothingType {
 			"leg_skirt",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(
-							new BlockedParts(DisplacementType.PULLS_UP,
+					new BlockedParts(DisplacementType.PULLS_UP,
 							null,
 							Util.newArrayListOfValues(
-									new ListValue<CoverableArea>(CoverableArea.ANUS),
-									new ListValue<CoverableArea>(CoverableArea.PENIS),
-									new ListValue<CoverableArea>(CoverableArea.VAGINA)),
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
-							concealedGroin))),
+									CoverableArea.ANUS,
+									CoverableArea.PENIS,
+									CoverableArea.VAGINA),
+							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							concealedGroin)),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
@@ -5571,7 +5568,7 @@ public class ClothingType {
 			null,
 			null,
 			null, 
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -5633,16 +5630,14 @@ public class ClothingType {
 			"leg_pencil_skirt",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(
-							new BlockedParts(DisplacementType.PULLS_UP,
+					new BlockedParts(DisplacementType.PULLS_UP,
 							null,
 							Util.newArrayListOfValues(
-									new ListValue<CoverableArea>(CoverableArea.ANUS),
-									new ListValue<CoverableArea>(CoverableArea.PENIS),
-									new ListValue<CoverableArea>(CoverableArea.VAGINA)),
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
-							concealedGroin))),
+									CoverableArea.ANUS,
+									CoverableArea.PENIS,
+									CoverableArea.VAGINA),
+							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							concealedGroin)),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
@@ -5650,7 +5645,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -5712,16 +5707,14 @@ public class ClothingType {
 			"leg_mini_skirt",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(
-							new BlockedParts(DisplacementType.PULLS_UP,
+					new BlockedParts(DisplacementType.PULLS_UP,
 							null,
 							Util.newArrayListOfValues(
-									new ListValue<CoverableArea>(CoverableArea.ANUS),
-									new ListValue<CoverableArea>(CoverableArea.PENIS),
-									new ListValue<CoverableArea>(CoverableArea.VAGINA)),
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
-							concealedGroin))),
+									CoverableArea.ANUS,
+									CoverableArea.PENIS,
+									CoverableArea.VAGINA),
+							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							concealedGroin)),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
@@ -5729,7 +5722,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -5768,12 +5761,12 @@ public class ClothingType {
 			"leg_micro_skirt_pleated",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(
+					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
 							null,
 							null,
 							null,
-							null))),
+							null)),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
@@ -5781,7 +5774,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -5824,12 +5817,12 @@ public class ClothingType {
 			"leg_micro_skirt_belted",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(
+					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
 							null,
 							null,
 							null,
-							null))),
+							null)),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
@@ -5837,7 +5830,7 @@ public class ClothingType {
 			null,
 			null,
 			null, 
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -5879,34 +5872,28 @@ public class ClothingType {
 			null,
 			"leg_shorts",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(
+			Util.newArrayListOfValues(
 					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)),
+							Util.newArrayListOfValues(ClothingAccess.LEGS_UP_TO_GROIN),
+							null,
+							Util.newArrayListOfValues(ClothingAccess.LEGS_UP_TO_GROIN), 
+							null),
+					new BlockedParts(
+							DisplacementType.PULLS_DOWN,
 							null,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)), null)),
-					new ListValue<BlockedParts>(
-							new BlockedParts(
-									DisplacementType.PULLS_DOWN,
-									null,
-									Util.newArrayListOfValues(
-											new ListValue<CoverableArea>(CoverableArea.ANUS),
-											new ListValue<CoverableArea>(CoverableArea.PENIS),
-											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
-									concealedGroin)),
-					new ListValue<BlockedParts>(
-							new BlockedParts(
-									DisplacementType.UNZIPS,
-									null,
-									Util.newArrayListOfValues(
-											new ListValue<CoverableArea>(CoverableArea.PENIS)),
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
-									concealedUnzipsGroin))),
+									CoverableArea.ANUS,
+									CoverableArea.PENIS,
+									CoverableArea.VAGINA),
+							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							concealedGroin),
+					new BlockedParts(
+							DisplacementType.UNZIPS,
+							null,
+							Util.newArrayListOfValues(CoverableArea.PENIS),
+							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							concealedUnzipsGroin)),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
@@ -5914,7 +5901,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 			
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -5952,25 +5939,22 @@ public class ClothingType {
 			null,
 			"leg_bikeShorts",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(
+			Util.newArrayListOfValues(
 					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)),
+							Util.newArrayListOfValues(ClothingAccess.LEGS_UP_TO_GROIN),
+							null,
+							Util.newArrayListOfValues(ClothingAccess.LEGS_UP_TO_GROIN), 
+							null),
+					new BlockedParts(
+							DisplacementType.PULLS_DOWN,
 							null,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)), null)),
-					new ListValue<BlockedParts>(
-							new BlockedParts(
-									DisplacementType.PULLS_DOWN,
-									null,
-									Util.newArrayListOfValues(
-											new ListValue<CoverableArea>(CoverableArea.ANUS),
-											new ListValue<CoverableArea>(CoverableArea.PENIS),
-											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
-									concealedGroin))),
+									CoverableArea.ANUS,
+									CoverableArea.PENIS,
+									CoverableArea.VAGINA),
+							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							concealedGroin)),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
@@ -5978,7 +5962,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -6016,25 +6000,22 @@ public class ClothingType {
 			null,
 			"leg_sport_shorts",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(
+			Util.newArrayListOfValues(
 					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)),
+							Util.newArrayListOfValues(ClothingAccess.LEGS_UP_TO_GROIN),
 							null,
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)), null)),
-					new ListValue<BlockedParts>(
-							new BlockedParts(
-									DisplacementType.PULLS_DOWN,
-									null,
-									Util.newArrayListOfValues(
-											new ListValue<CoverableArea>(CoverableArea.ANUS),
-											new ListValue<CoverableArea>(CoverableArea.PENIS),
-											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
-									concealedGroin))),
+							Util.newArrayListOfValues(ClothingAccess.LEGS_UP_TO_GROIN),
+							null),
+						new BlockedParts(
+								DisplacementType.PULLS_DOWN,
+								null,
+								Util.newArrayListOfValues(
+										CoverableArea.ANUS,
+										CoverableArea.PENIS,
+										CoverableArea.VAGINA),
+								Util.newArrayListOfValues(ClothingAccess.GROIN),
+								concealedGroin)),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
@@ -6042,7 +6023,7 @@ public class ClothingType {
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 			
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -6080,25 +6061,22 @@ public class ClothingType {
 			null,
 			"leg_hotpants",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(
+			Util.newArrayListOfValues(
 					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)),
+							Util.newArrayListOfValues(ClothingAccess.LEGS_UP_TO_GROIN),
+							null,
+							Util.newArrayListOfValues(ClothingAccess.LEGS_UP_TO_GROIN),
+							null),
+					new BlockedParts(
+							DisplacementType.PULLS_DOWN,
 							null,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)), null)),
-					new ListValue<BlockedParts>(
-							new BlockedParts(
-									DisplacementType.PULLS_DOWN,
-									null,
-									Util.newArrayListOfValues(
-											new ListValue<CoverableArea>(CoverableArea.ANUS),
-											new ListValue<CoverableArea>(CoverableArea.PENIS),
-											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
-									concealedGroin))),
+									CoverableArea.ANUS,
+									CoverableArea.PENIS,
+									CoverableArea.VAGINA),
+							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							concealedGroin)),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
@@ -6106,7 +6084,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -6145,36 +6123,29 @@ public class ClothingType {
 			"leg_tight_jeans",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(
-							new BlockedParts(
-									DisplacementType.REMOVE_OR_EQUIP,
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.FEET),
-											new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)),
-									null,
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)),
-									concealedAnklesFromTrousers)),
-					new ListValue<BlockedParts>(
-							new BlockedParts(
-									DisplacementType.PULLS_DOWN,
-									null,
-									Util.newArrayListOfValues(
-											new ListValue<CoverableArea>(CoverableArea.ANUS),
-											new ListValue<CoverableArea>(CoverableArea.PENIS),
-											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
-									concealedGroin)),
-					new ListValue<BlockedParts>(
-							new BlockedParts(
-									DisplacementType.UNZIPS,
-									null,
-									Util.newArrayListOfValues(
-											new ListValue<CoverableArea>(CoverableArea.PENIS)),
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
-									concealedUnzipsGroin))),
+					new BlockedParts(
+							DisplacementType.REMOVE_OR_EQUIP,
+							Util.newArrayListOfValues(
+									ClothingAccess.FEET,
+									ClothingAccess.LEGS_UP_TO_GROIN),
+							null,
+							Util.newArrayListOfValues(ClothingAccess.LEGS_UP_TO_GROIN),
+							concealedAnklesFromTrousers),
+					new BlockedParts(
+							DisplacementType.PULLS_DOWN,
+							null,
+							Util.newArrayListOfValues(
+									CoverableArea.ANUS,
+									CoverableArea.PENIS,
+									CoverableArea.VAGINA),
+							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							concealedGroin),
+					new BlockedParts(
+							DisplacementType.UNZIPS,
+							null,
+							Util.newArrayListOfValues(CoverableArea.PENIS),
+							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							concealedUnzipsGroin)),
 			null,
 			ColourListPresets.DENIM.getPresetColourList(),
 			ColourListPresets.ALL.getPresetColourList(),
@@ -6182,7 +6153,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -6220,36 +6191,30 @@ public class ClothingType {
 			null,
 			"leg_jeans",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(
+			Util.newArrayListOfValues(
 					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.FEET),
-									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)),
+									ClothingAccess.FEET,
+									ClothingAccess.LEGS_UP_TO_GROIN),
+							null,
+							Util.newArrayListOfValues(ClothingAccess.LEGS_UP_TO_GROIN),
+							concealedAnklesFromTrousers),
+					new BlockedParts(
+							DisplacementType.PULLS_DOWN,
 							null,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)),
-							concealedAnklesFromTrousers)),
-					new ListValue<BlockedParts>(
-							new BlockedParts(
-									DisplacementType.PULLS_DOWN,
-									null,
-									Util.newArrayListOfValues(
-											new ListValue<CoverableArea>(CoverableArea.ANUS),
-											new ListValue<CoverableArea>(CoverableArea.PENIS),
-											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
-									concealedGroin)),
-					new ListValue<BlockedParts>(
-							new BlockedParts(
-									DisplacementType.UNZIPS,
-									null,
-									Util.newArrayListOfValues(
-											new ListValue<CoverableArea>(CoverableArea.PENIS)),
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
-									concealedUnzipsGroin))),
+									CoverableArea.ANUS,
+									CoverableArea.PENIS,
+									CoverableArea.VAGINA),
+							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							concealedGroin),
+					new BlockedParts(
+							DisplacementType.UNZIPS,
+							null,
+							Util.newArrayListOfValues(CoverableArea.PENIS),
+							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							concealedUnzipsGroin)),
 			null,
 			ColourListPresets.DENIM.getPresetColourList(),
 			ColourListPresets.ALL.getPresetColourList(),
@@ -6257,7 +6222,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -6296,36 +6261,29 @@ public class ClothingType {
 			"leg_trousers",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(
-							new BlockedParts(
-									DisplacementType.REMOVE_OR_EQUIP,
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.FEET),
-											new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)),
-									null,
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)),
-									concealedAnklesFromTrousers)),
-					new ListValue<BlockedParts>(
-							new BlockedParts(
-									DisplacementType.PULLS_DOWN,
-									null,
-									Util.newArrayListOfValues(
-											new ListValue<CoverableArea>(CoverableArea.ANUS),
-											new ListValue<CoverableArea>(CoverableArea.PENIS),
-											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
-									concealedGroin)),
-					new ListValue<BlockedParts>(
-							new BlockedParts(
-									DisplacementType.UNZIPS,
-									null,
-									Util.newArrayListOfValues(
-											new ListValue<CoverableArea>(CoverableArea.PENIS)),
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
-									concealedUnzipsGroin))),
+					new BlockedParts(
+							DisplacementType.REMOVE_OR_EQUIP,
+							Util.newArrayListOfValues(
+									ClothingAccess.FEET,
+									ClothingAccess.LEGS_UP_TO_GROIN),
+							null,
+							Util.newArrayListOfValues(ClothingAccess.LEGS_UP_TO_GROIN),
+							concealedAnklesFromTrousers),
+					new BlockedParts(
+							DisplacementType.PULLS_DOWN,
+							null,
+							Util.newArrayListOfValues(
+									CoverableArea.ANUS,
+									CoverableArea.PENIS,
+									CoverableArea.VAGINA),
+							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							concealedGroin),
+					new BlockedParts(
+							DisplacementType.UNZIPS,
+							null,
+							Util.newArrayListOfValues(CoverableArea.PENIS),
+							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							concealedUnzipsGroin)),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
@@ -6333,7 +6291,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -6371,36 +6329,30 @@ public class ClothingType {
 			null,
 			"leg_cargo_trousers",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(
+			Util.newArrayListOfValues(
 					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.FEET),
-									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)),
+									ClothingAccess.FEET,
+									ClothingAccess.LEGS_UP_TO_GROIN),
+							null,
+							Util.newArrayListOfValues(ClothingAccess.LEGS_UP_TO_GROIN),
+							concealedAnklesFromTrousers),
+					new BlockedParts(
+							DisplacementType.PULLS_DOWN,
 							null,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)),
-							concealedAnklesFromTrousers)),
-					new ListValue<BlockedParts>(
-							new BlockedParts(
-									DisplacementType.PULLS_DOWN,
-									null,
-									Util.newArrayListOfValues(
-											new ListValue<CoverableArea>(CoverableArea.ANUS),
-											new ListValue<CoverableArea>(CoverableArea.PENIS),
-											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
-									concealedGroin)),
-					new ListValue<BlockedParts>(
-							new BlockedParts(
-									DisplacementType.UNZIPS,
-									null,
-									Util.newArrayListOfValues(
-											new ListValue<CoverableArea>(CoverableArea.PENIS)),
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
-									concealedUnzipsGroin))),
+									CoverableArea.ANUS,
+									CoverableArea.PENIS,
+									CoverableArea.VAGINA),
+							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							concealedGroin),
+					new BlockedParts(
+							DisplacementType.UNZIPS,
+							null,
+							Util.newArrayListOfValues(CoverableArea.PENIS),
+							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							concealedUnzipsGroin)),
 			null,
 			ColourListPresets.LEATHER.getPresetColourList(),
 			ColourListPresets.ALL.getPresetColourList(),
@@ -6408,7 +6360,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 		
 
 		@Override
@@ -6448,23 +6400,22 @@ public class ClothingType {
 			"leg_yoga_pants",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(
+					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.FEET),
-									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)),
+									ClothingAccess.FEET,
+									ClothingAccess.LEGS_UP_TO_GROIN),
+							null,
+							Util.newArrayListOfValues(ClothingAccess.LEGS_UP_TO_GROIN),
+							concealedAnklesFromTrousers),
+					new BlockedParts(DisplacementType.PULLS_DOWN,
 							null,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)),
-							concealedAnklesFromTrousers)),
-					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.PULLS_DOWN,
-							null,
-							Util.newArrayListOfValues(
-									new ListValue<CoverableArea>(CoverableArea.ANUS),
-									new ListValue<CoverableArea>(CoverableArea.PENIS),
-									new ListValue<CoverableArea>(CoverableArea.VAGINA)),
-							Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
-							concealedGroin))),
+									CoverableArea.ANUS,
+									CoverableArea.PENIS,
+									CoverableArea.VAGINA),
+							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							concealedGroin)),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
@@ -6472,7 +6423,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -6511,28 +6462,25 @@ public class ClothingType {
 			"leg_assless_chaps",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(
-							new BlockedParts(
-									DisplacementType.REMOVE_OR_EQUIP,
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.FEET),
-											new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)),
-									null,
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)),
-									concealedAnklesFromTrousers)),
-					new ListValue<BlockedParts>(
-							new BlockedParts(DisplacementType.PULLS_DOWN,
+					new BlockedParts(
+							DisplacementType.REMOVE_OR_EQUIP,
+							Util.newArrayListOfValues(
+									ClothingAccess.FEET,
+									ClothingAccess.LEGS_UP_TO_GROIN),
+							null,
+							Util.newArrayListOfValues(ClothingAccess.LEGS_UP_TO_GROIN),
+							concealedAnklesFromTrousers),
+					new BlockedParts(DisplacementType.PULLS_DOWN,
 							null,
 							Util.newArrayListOfValues(
-									new ListValue<CoverableArea>(CoverableArea.PENIS),
-									new ListValue<CoverableArea>(CoverableArea.VAGINA)),
+									CoverableArea.PENIS,
+									CoverableArea.VAGINA),
 							null,
 							Util.newArrayListOfValues(
-									new ListValue<InventorySlot>(InventorySlot.VAGINA),
-									new ListValue<InventorySlot>(InventorySlot.PENIS),
-									new ListValue<InventorySlot>(InventorySlot.PIERCING_PENIS),
-									new ListValue<InventorySlot>(InventorySlot.PIERCING_VAGINA))))),
+									InventorySlot.VAGINA,
+									InventorySlot.PENIS,
+									InventorySlot.PIERCING_PENIS,
+									InventorySlot.PIERCING_VAGINA))),
 
 			null,
 			ColourListPresets.LEATHER.getPresetColourList(),
@@ -6541,7 +6489,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -6602,18 +6550,17 @@ public class ClothingType {
 			null,
 			"leg_crotchless_chaps",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(
+			Util.newArrayListOfValues(
 					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.FEET),
-									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)),
+									ClothingAccess.FEET,
+									ClothingAccess.LEGS_UP_TO_GROIN),
 							null,
+							Util.newArrayListOfValues(ClothingAccess.LEGS_UP_TO_GROIN), 
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)), 
-							Util.newArrayListOfValues(
-									new ListValue<InventorySlot>(InventorySlot.ANKLE),
-									new ListValue<InventorySlot>(InventorySlot.SOCK))))),
+									InventorySlot.ANKLE,
+									InventorySlot.SOCK))),
 			null,
 			ColourListPresets.LEATHER.getPresetColourList(),
 			ColourListPresets.ALL.getPresetColourList(),
@@ -6621,7 +6568,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -6664,23 +6611,21 @@ public class ClothingType {
 			null,
 
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(
-							new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
+					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL),
-									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN),
-									new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
+									ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL,
+									ClothingAccess.LEGS_UP_TO_GROIN,
+									ClothingAccess.GROIN),
 							null,
-							null, null)),
-					new ListValue<BlockedParts>(
-							new BlockedParts(DisplacementType.SHIFTS_ASIDE,
-							Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
+							null, null),
+					new BlockedParts(DisplacementType.SHIFTS_ASIDE,
+							Util.newArrayListOfValues(ClothingAccess.GROIN),
 							Util.newArrayListOfValues(
-									new ListValue<CoverableArea>(CoverableArea.ANUS),
-									new ListValue<CoverableArea>(CoverableArea.PENIS),
-									new ListValue<CoverableArea>(CoverableArea.VAGINA)),
+									CoverableArea.ANUS,
+									CoverableArea.PENIS,
+									CoverableArea.VAGINA),
 							null,
-							concealedGenitals))),
+							concealedGenitals)),
 			null,
 			ColourListPresets.LINGERIE.getPresetColourList(),
 			null,
@@ -6688,7 +6633,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -6727,23 +6672,21 @@ public class ClothingType {
 			"groin_shimapan",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(
-							new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
+					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL),
-									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN),
-									new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
+									ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL,
+									ClothingAccess.LEGS_UP_TO_GROIN,
+									ClothingAccess.GROIN),
 							null,
-							null, null)),
-					new ListValue<BlockedParts>(
-							new BlockedParts(DisplacementType.SHIFTS_ASIDE,
-							Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
+							null, null),
+					new BlockedParts(DisplacementType.SHIFTS_ASIDE,
+							Util.newArrayListOfValues(ClothingAccess.GROIN),
 							Util.newArrayListOfValues(
-									new ListValue<CoverableArea>(CoverableArea.ANUS),
-									new ListValue<CoverableArea>(CoverableArea.PENIS),
-									new ListValue<CoverableArea>(CoverableArea.VAGINA)),
+									CoverableArea.ANUS,
+									CoverableArea.PENIS,
+									CoverableArea.VAGINA),
 							null,
-							concealedGenitals))),
+							concealedGenitals)),
 			null,
 			ColourListPresets.NOT_WHITE.getPresetColourList(),
 			ColourListPresets.ALL.getPresetColourList(),
@@ -6751,7 +6694,7 @@ public class ClothingType {
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -6790,24 +6733,22 @@ public class ClothingType {
 			"groin_lacy_panties",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(
-							new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
+					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL),
-									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN),
-									new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
+									ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL,
+									ClothingAccess.LEGS_UP_TO_GROIN,
+									ClothingAccess.GROIN),
 							null,
 							null,
-							null)),
-					new ListValue<BlockedParts>(
-							new BlockedParts(DisplacementType.SHIFTS_ASIDE,
-							Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
+							null),
+					new BlockedParts(DisplacementType.SHIFTS_ASIDE,
+							Util.newArrayListOfValues(ClothingAccess.GROIN),
 							Util.newArrayListOfValues(
-									new ListValue<CoverableArea>(CoverableArea.ANUS),
-									new ListValue<CoverableArea>(CoverableArea.PENIS),
-									new ListValue<CoverableArea>(CoverableArea.VAGINA)),
+									CoverableArea.ANUS,
+									CoverableArea.PENIS,
+									CoverableArea.VAGINA),
 							null,
-							concealedGenitals))),
+							concealedGenitals)),
 			null,
 			ColourListPresets.LINGERIE.getPresetColourList(),
 			null,
@@ -6815,7 +6756,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -6854,22 +6795,21 @@ public class ClothingType {
 			"groin_vstring",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
+					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL),
-									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN),
-									new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
-							null, null, null)),
-					new ListValue<BlockedParts>(new BlockedParts(
+									ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL,
+									ClothingAccess.LEGS_UP_TO_GROIN,
+									ClothingAccess.GROIN),
+							null, null, null),
+					new BlockedParts(
 							DisplacementType.SHIFTS_ASIDE,
+							Util.newArrayListOfValues(ClothingAccess.GROIN),
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
-							Util.newArrayListOfValues(
-									new ListValue<CoverableArea>(CoverableArea.ANUS),
-									new ListValue<CoverableArea>(CoverableArea.PENIS),
-									new ListValue<CoverableArea>(CoverableArea.VAGINA)),
+									CoverableArea.ANUS,
+									CoverableArea.PENIS,
+									CoverableArea.VAGINA),
 							null,
-							concealedGenitals))),
+							concealedGenitals)),
 			null,
 			ColourListPresets.LINGERIE.getPresetColourList(),
 			null,
@@ -6877,7 +6817,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -6938,24 +6878,24 @@ public class ClothingType {
 			"groin_thong",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(
+					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL),
-									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN),
-									new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
+									ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL,
+									ClothingAccess.LEGS_UP_TO_GROIN,
+									ClothingAccess.GROIN),
 							null,
 							null,
-							null)),
-					new ListValue<BlockedParts>(new BlockedParts(
+							null),
+					new BlockedParts(
 							DisplacementType.SHIFTS_ASIDE,
-							Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
+							Util.newArrayListOfValues(ClothingAccess.GROIN),
 							Util.newArrayListOfValues(
-									new ListValue<CoverableArea>(CoverableArea.ANUS),
-									new ListValue<CoverableArea>(CoverableArea.PENIS),
-									new ListValue<CoverableArea>(CoverableArea.VAGINA)),
+									CoverableArea.ANUS,
+									CoverableArea.PENIS,
+									CoverableArea.VAGINA),
 							null,
-							concealedGenitals))),
+							concealedGenitals)),
 			null,
 			ColourListPresets.LINGERIE.getPresetColourList(),
 			null,
@@ -6963,7 +6903,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -7024,24 +6964,23 @@ public class ClothingType {
 			"groin_bikini",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
+					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL),
-									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN),
-									new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
+									ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL,
+									ClothingAccess.LEGS_UP_TO_GROIN,
+									ClothingAccess.GROIN),
 							null,
 							null,
-							null)),
-					new ListValue<BlockedParts>(new BlockedParts(
+							null),
+					new BlockedParts(
 							DisplacementType.SHIFTS_ASIDE,
+							Util.newArrayListOfValues(ClothingAccess.GROIN),
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
-							Util.newArrayListOfValues(
-									new ListValue<CoverableArea>(CoverableArea.ANUS),
-									new ListValue<CoverableArea>(CoverableArea.PENIS),
-									new ListValue<CoverableArea>(CoverableArea.VAGINA)),
+									CoverableArea.ANUS,
+									CoverableArea.PENIS,
+									CoverableArea.VAGINA),
 							null,
-							concealedGenitals))),
+							concealedGenitals)),
 			null,
 			ColourListPresets.LINGERIE.getPresetColourList(),
 			null,
@@ -7049,7 +6988,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -7110,24 +7049,23 @@ public class ClothingType {
 			"groin_boyshorts",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
+					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL),
-									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN),
-									new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
+									ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL,
+									ClothingAccess.LEGS_UP_TO_GROIN,
+									ClothingAccess.GROIN),
 							null,
 							null,
-							null)),
-					new ListValue<BlockedParts>(new BlockedParts(
+							null),
+					new BlockedParts(
 							DisplacementType.SHIFTS_ASIDE,
+							Util.newArrayListOfValues(ClothingAccess.GROIN),
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
-							Util.newArrayListOfValues(
-									new ListValue<CoverableArea>(CoverableArea.ANUS),
-									new ListValue<CoverableArea>(CoverableArea.PENIS),
-									new ListValue<CoverableArea>(CoverableArea.VAGINA)),
+									CoverableArea.ANUS,
+									CoverableArea.PENIS,
+									CoverableArea.VAGINA),
 							null,
-							concealedGenitals))),
+							concealedGenitals)),
 			null,
 			ColourListPresets.LINGERIE.getPresetColourList(),
 			null,
@@ -7135,7 +7073,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -7197,24 +7135,22 @@ public class ClothingType {
 			"groin_briefs",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
+					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL),
-									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN),
-									new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
+									ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL,
+									ClothingAccess.LEGS_UP_TO_GROIN,
+									ClothingAccess.GROIN),
 							null,
 							null,
-							null)),
-					new ListValue<BlockedParts>(
-							new BlockedParts(DisplacementType.SHIFTS_ASIDE,
+							null),
+					new BlockedParts(DisplacementType.SHIFTS_ASIDE,
+							Util.newArrayListOfValues(ClothingAccess.GROIN),
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
-							Util.newArrayListOfValues(
-									new ListValue<CoverableArea>(CoverableArea.ANUS),
-									new ListValue<CoverableArea>(CoverableArea.PENIS),
-									new ListValue<CoverableArea>(CoverableArea.VAGINA)),
+									CoverableArea.ANUS,
+									CoverableArea.PENIS,
+									CoverableArea.VAGINA),
 							null,
-							concealedGenitals))),
+							concealedGenitals)),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
@@ -7222,7 +7158,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -7287,22 +7223,20 @@ public class ClothingType {
 			"groin_boxers",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
+					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL),
-									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN),
-									new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
-							null, null, null)),
-					new ListValue<BlockedParts>(
-							new BlockedParts(DisplacementType.SHIFTS_ASIDE,
+									ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL,
+									ClothingAccess.LEGS_UP_TO_GROIN,
+									ClothingAccess.GROIN),
+							null, null, null),
+					new BlockedParts(DisplacementType.SHIFTS_ASIDE,
+							Util.newArrayListOfValues(ClothingAccess.GROIN),
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
-							Util.newArrayListOfValues(
-									new ListValue<CoverableArea>(CoverableArea.ANUS),
-									new ListValue<CoverableArea>(CoverableArea.PENIS),
-									new ListValue<CoverableArea>(CoverableArea.VAGINA)),
+									CoverableArea.ANUS,
+									CoverableArea.PENIS,
+									CoverableArea.VAGINA),
 							null,
-							concealedGenitals))),
+							concealedGenitals)),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
@@ -7310,7 +7244,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -7372,26 +7306,24 @@ public class ClothingType {
 			"groin_backless_panties",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(
-							new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
+					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL),
-									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN),
-									new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
+									ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL,
+									ClothingAccess.LEGS_UP_TO_GROIN,
+									ClothingAccess.GROIN),
 							null,
-							null, null)),
-					new ListValue<BlockedParts>(
-							new BlockedParts(DisplacementType.SHIFTS_ASIDE,
-							Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
+							null, null),
+					new BlockedParts(DisplacementType.SHIFTS_ASIDE,
+							Util.newArrayListOfValues(ClothingAccess.GROIN),
 							Util.newArrayListOfValues(
-									new ListValue<CoverableArea>(CoverableArea.PENIS),
-									new ListValue<CoverableArea>(CoverableArea.VAGINA)),
+									CoverableArea.PENIS,
+									CoverableArea.VAGINA),
 							null, 
 							Util.newArrayListOfValues(
-									new ListValue<InventorySlot>(InventorySlot.VAGINA),
-									new ListValue<InventorySlot>(InventorySlot.PENIS),
-									new ListValue<InventorySlot>(InventorySlot.PIERCING_PENIS),
-									new ListValue<InventorySlot>(InventorySlot.PIERCING_VAGINA))))),
+									InventorySlot.VAGINA,
+									InventorySlot.PENIS,
+									InventorySlot.PIERCING_PENIS,
+									InventorySlot.PIERCING_VAGINA))),
 			null,
 			ColourListPresets.LINGERIE.getPresetColourList(),
 			null,
@@ -7399,7 +7331,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -7461,15 +7393,14 @@ public class ClothingType {
 			"groin_crotchless_panties",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(
-							new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
+					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL),
-									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN),
-									new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
+									ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL,
+									ClothingAccess.LEGS_UP_TO_GROIN,
+									ClothingAccess.GROIN),
 							null,
 							null,
-							null))),
+							null)),
 			null,
 			ColourListPresets.LINGERIE.getPresetColourList(),
 			null,
@@ -7477,7 +7408,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -7518,15 +7449,14 @@ public class ClothingType {
 			"groin_crotchless_thong",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(
-							new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
+					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL),
-									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN),
-									new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
+									ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL,
+									ClothingAccess.LEGS_UP_TO_GROIN,
+									ClothingAccess.GROIN),
 							null,
 							null,
-							null))),
+							null)),
 			null,
 			ColourListPresets.LINGERIE.getPresetColourList(),
 			null,
@@ -7534,7 +7464,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -7573,22 +7503,18 @@ public class ClothingType {
 			"groin_crotchless_briefs",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
+					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL),
-									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN),
-									new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
-							null, null, null)),
-					new ListValue<BlockedParts>(
-							new BlockedParts(
-									DisplacementType.SHIFTS_ASIDE,
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
-									Util.newArrayListOfValues(
-											new ListValue<CoverableArea>(CoverableArea.ANUS)),
-									null,
-									Util.newArrayListOfValues(
-											new ListValue<InventorySlot>(InventorySlot.ANUS))))),
+									ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL,
+									ClothingAccess.LEGS_UP_TO_GROIN,
+									ClothingAccess.GROIN),
+							null, null, null),
+					new BlockedParts(
+							DisplacementType.SHIFTS_ASIDE,
+							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							Util.newArrayListOfValues(CoverableArea.ANUS),
+							null,
+							Util.newArrayListOfValues(InventorySlot.ANUS))),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
@@ -7596,7 +7522,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -7662,14 +7588,13 @@ public class ClothingType {
 			null,
 			"sock_socks",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(
+			Util.newArrayListOfValues(
 					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.FEET)),
+							Util.newArrayListOfValues(ClothingAccess.FEET),
 							null,
 							null,
-							null))),
+							null)),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
@@ -7677,7 +7602,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -7715,13 +7640,12 @@ public class ClothingType {
 			null,
 			"sock_trainer_socks",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(
+			Util.newArrayListOfValues(
 					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.FEET)),
+							Util.newArrayListOfValues(ClothingAccess.FEET),
 							null,
-							null, null))),
+							null, null)),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
@@ -7729,7 +7653,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -7768,14 +7692,14 @@ public class ClothingType {
 			"sock_kneehigh_socks",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(
+					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.FEET),
-									new ListValue<ClothingAccess>(ClothingAccess.CALVES)),
+									ClothingAccess.FEET,
+									ClothingAccess.CALVES),
 							null,
 							null,
-							null))),
+							null)),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
@@ -7783,7 +7707,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -7821,15 +7745,15 @@ public class ClothingType {
 			null,
 			"sock_thighhigh_socks",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(
+			Util.newArrayListOfValues(
 					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.FEET),
-									new ListValue<ClothingAccess>(ClothingAccess.CALVES)),
+									ClothingAccess.FEET,
+									ClothingAccess.CALVES),
 							null,
 							null,
-							null))),
+							null)),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
@@ -7837,7 +7761,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -7875,15 +7799,15 @@ public class ClothingType {
 			null,
 			"sock_stockings",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(
+			Util.newArrayListOfValues(
 					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.FEET),
-									new ListValue<ClothingAccess>(ClothingAccess.CALVES)),
+									ClothingAccess.FEET,
+									ClothingAccess.CALVES),
 							null,
 							null,
-							null))),
+							null)),
 			null,
 			ColourListPresets.JUST_BLACK.getPresetColourList(),
 			ColourListPresets.ALL.getPresetColourList(),
@@ -7891,7 +7815,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 		
 
 		@Override
@@ -7931,15 +7855,15 @@ public class ClothingType {
 			null,
 			"sock_toeless_striped_stockings",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(
+			Util.newArrayListOfValues(
 					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.FEET),
-									new ListValue<ClothingAccess>(ClothingAccess.CALVES)),
+									ClothingAccess.FEET,
+									ClothingAccess.CALVES),
 							null,
 							null,
-							null))),
+							null)),
 			null,
 			ColourListPresets.JUST_WHITE.getPresetColourList(),
 			ColourListPresets.ALL.getPresetColourList(),
@@ -7947,7 +7871,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 		
 
 		@Override
@@ -7986,14 +7910,14 @@ public class ClothingType {
 			null,
 			"sock_thighhigh_socks_striped",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(
+			Util.newArrayListOfValues(
 					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.FEET),
-									new ListValue<ClothingAccess>(ClothingAccess.CALVES)),
+									ClothingAccess.FEET,
+									ClothingAccess.CALVES),
 							null,
-							null, null))),
+							null, null)),
 			null,
 			ColourListPresets.NOT_WHITE.getPresetColourList(),
 			ColourListPresets.ALL.getPresetColourList(),
@@ -8001,7 +7925,7 @@ public class ClothingType {
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -8039,30 +7963,25 @@ public class ClothingType {
 			null,
 			"sock_tights",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(
-							new BlockedParts(
-									DisplacementType.REMOVE_OR_EQUIP,
-									Util.newArrayListOfValues(new ListValue<ClothingAccess>(
-											ClothingAccess.FEET),
-											new ListValue<ClothingAccess>(
-													ClothingAccess.CALVES),
-											new ListValue<ClothingAccess>(
-													ClothingAccess.LEGS_UP_TO_GROIN)),
-									null,
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL)),
-									null)),
-					new ListValue<BlockedParts>(
-							new BlockedParts(
-									DisplacementType.PULLS_DOWN,
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
-									Util.newArrayListOfValues(
-											new ListValue<CoverableArea>(CoverableArea.ANUS),
-											new ListValue<CoverableArea>(CoverableArea.PENIS),
-											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
-									Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
-									null))),
+			Util.newArrayListOfValues(
+					new BlockedParts(
+							DisplacementType.REMOVE_OR_EQUIP,
+							Util.newArrayListOfValues(
+									ClothingAccess.FEET,
+									ClothingAccess.CALVES,
+									ClothingAccess.LEGS_UP_TO_GROIN),
+							null,
+							Util.newArrayListOfValues(ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL),
+							null),
+					new BlockedParts(
+							DisplacementType.PULLS_DOWN,
+							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							Util.newArrayListOfValues(
+									CoverableArea.ANUS,
+									CoverableArea.PENIS,
+									CoverableArea.VAGINA),
+							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							null)),
 
 			null,
 			ColourListPresets.JUST_BLACK.getPresetColourList(),
@@ -8071,7 +7990,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -8133,14 +8052,14 @@ public class ClothingType {
 			"sock_fishnets",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(
+					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.FEET),
-									new ListValue<ClothingAccess>(ClothingAccess.CALVES)),
+									ClothingAccess.FEET,
+									ClothingAccess.CALVES),
 							null,
 							null,
-							null))),
+							null)),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
@@ -8148,7 +8067,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -8189,14 +8108,12 @@ public class ClothingType {
 			"ankle_bracelet",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(
+					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.CALVES)),
+							Util.newArrayListOfValues(ClothingAccess.CALVES),
 							null,
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.CALVES)),
-							null))),
+							Util.newArrayListOfValues(ClothingAccess.CALVES),
+							null)),
 			null,
 			ColourListPresets.ALL_METAL.getPresetColourList(),
 			null,
@@ -8204,7 +8121,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -8243,14 +8160,12 @@ public class ClothingType {
 			"ankle_shin_guards",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(
+					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.CALVES)),
+							Util.newArrayListOfValues(ClothingAccess.CALVES),
 							null,
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.CALVES)),
-							null))),
+							Util.newArrayListOfValues(ClothingAccess.CALVES),
+							null)),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
@@ -8258,7 +8173,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -8300,15 +8215,13 @@ public class ClothingType {
 			null,
 			"foot_heels",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(
+			Util.newArrayListOfValues(
 					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.FEET)),
+							Util.newArrayListOfValues(ClothingAccess.FEET),
 							null,
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.FEET)),
-							null))),
+							Util.newArrayListOfValues(ClothingAccess.FEET),
+							null)),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
@@ -8316,7 +8229,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -8354,15 +8267,13 @@ public class ClothingType {
 			null,
 			"foot_stiletto_heels",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(
+			Util.newArrayListOfValues(
 					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.FEET)),
+							Util.newArrayListOfValues(ClothingAccess.FEET),
 							null,
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.FEET)),
-							null))),
+							Util.newArrayListOfValues(ClothingAccess.FEET),
+							null)),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
@@ -8370,7 +8281,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -8409,14 +8320,12 @@ public class ClothingType {
 			"foot_chelsea_boots",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(
+					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.FEET)),
+							Util.newArrayListOfValues(ClothingAccess.FEET),
 							null,
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.FEET)),
-							null))),
+							Util.newArrayListOfValues(ClothingAccess.FEET),
+							null)),
 			null,
 			ColourListPresets.LEATHER.getPresetColourList(),
 			ColourListPresets.ALL.getPresetColourList(),
@@ -8424,7 +8333,7 @@ public class ClothingType {
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -8464,14 +8373,12 @@ public class ClothingType {
 			"foot_ankle_boots",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(
+					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.FEET)),
+							Util.newArrayListOfValues(ClothingAccess.FEET),
 							null,
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.FEET)),
-							null))),
+							Util.newArrayListOfValues(ClothingAccess.FEET),
+							null)),
 			null,
 			ColourListPresets.LEATHER.getPresetColourList(),
 			ColourListPresets.ALL.getPresetColourList(),
@@ -8479,7 +8386,7 @@ public class ClothingType {
 			ColourListPresets.ALL.getPresetColourList(),
 			ColourListPresets.ALL_METAL.getPresetColourList(),
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -8519,14 +8426,12 @@ public class ClothingType {
 			"foot_platform_boots",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(
+					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.FEET)),
+							Util.newArrayListOfValues(ClothingAccess.FEET),
 							null,
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.FEET)),
-							null))),
+							Util.newArrayListOfValues(ClothingAccess.FEET),
+							null)),
 			null,
 			ColourListPresets.LEATHER.getPresetColourList(),
 			ColourListPresets.ALL.getPresetColourList(),
@@ -8534,7 +8439,7 @@ public class ClothingType {
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -8574,15 +8479,12 @@ public class ClothingType {
 			"foot_thigh_high_boots",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(
+					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.FEET)),
+							Util.newArrayListOfValues(ClothingAccess.FEET),
 							null,
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.FEET)),
-							Util.newArrayListOfValues(
-									new ListValue<InventorySlot>(InventorySlot.ANKLE))))),
+							Util.newArrayListOfValues(ClothingAccess.FEET),
+							Util.newArrayListOfValues(InventorySlot.ANKLE))),
 			null,
 			ColourListPresets.LEATHER.getPresetColourList(),
 			ColourListPresets.ALL.getPresetColourList(),
@@ -8590,7 +8492,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 		
 
 		@Override
@@ -8630,14 +8532,12 @@ public class ClothingType {
 			"foot_mens_smart_shoes",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(
+					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.FEET)),
+							Util.newArrayListOfValues(ClothingAccess.FEET),
 							null,
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.FEET)),
-							null))),
+							Util.newArrayListOfValues(ClothingAccess.FEET),
+							null)),
 			null,
 			ColourListPresets.LEATHER.getPresetColourList(),
 			ColourListPresets.ALL.getPresetColourList(),
@@ -8645,7 +8545,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -8684,14 +8584,12 @@ public class ClothingType {
 			"foot_work_boots",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(
+					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.FEET)),
+							Util.newArrayListOfValues(ClothingAccess.FEET),
 							null,
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.FEET)),
-							null))),
+							Util.newArrayListOfValues(ClothingAccess.FEET),
+							null)),
 			null,
 			ColourListPresets.LEATHER.getPresetColourList(),
 			ColourListPresets.ALL.getPresetColourList(),
@@ -8699,7 +8597,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -8740,14 +8638,13 @@ public class ClothingType {
 			null,
 			"foot_trainers",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(
+			Util.newArrayListOfValues(
 					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.FEET)),
+							Util.newArrayListOfValues(ClothingAccess.FEET),
 							null,
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.FEET)), null))),
+							Util.newArrayListOfValues(ClothingAccess.FEET), 
+							null)),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
@@ -8755,7 +8652,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -8793,14 +8690,13 @@ public class ClothingType {
 			null,
 			"foot_low_top_skater_shoes",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(
+			Util.newArrayListOfValues(
 					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.FEET)),
+							Util.newArrayListOfValues(ClothingAccess.FEET),
 							null,
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.FEET)), null))),
+							Util.newArrayListOfValues(ClothingAccess.FEET),
+							null)),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
@@ -8808,7 +8704,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 		
 			@Override
 			public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -8848,12 +8744,11 @@ public class ClothingType {
 			"penis_condom_equipped",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(
+					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
+							Util.newArrayListOfValues(ClothingAccess.GROIN),
 							null,
-							null, null))),
+							null, null)),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
@@ -8861,7 +8756,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.REQUIRES_PENIS))){
+			Util.newArrayListOfValues(ItemTag.REQUIRES_PENIS)){
 		
 		@Override
 		public boolean isDiscardedOnUnequip() {
@@ -8920,15 +8815,14 @@ public class ClothingType {
 			ClothingSet.MAID,
 			"maidHeadband",
 			Util.newArrayListOfValues(
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_LUST, TFPotency.BOOST, 0))),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_LUST, TFPotency.BOOST, 0)),
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(
+					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
+							Util.newArrayListOfValues(ClothingAccess.HEAD),
 							null,
 							null,
-							null))),
+							null)),
 			null,
 			ColourListPresets.MAID.getPresetColourList(),
 			ColourListPresets.ALL.getPresetColourList(),
@@ -8936,7 +8830,7 @@ public class ClothingType {
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -8976,33 +8870,31 @@ public class ClothingType {
 			ClothingSet.MAID,
 			"maidDress",
 			Util.newArrayListOfValues(
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_LUST, TFPotency.MAJOR_BOOST, 0))),
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(
-						new BlockedParts(
-								DisplacementType.REMOVE_OR_EQUIP,
-								Util.newArrayListOfValues(
-										new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
-										new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
-								Util.newArrayListOfValues(
-										new ListValue<CoverableArea>(CoverableArea.BREASTS),
-										new ListValue<CoverableArea>(CoverableArea.NIPPLES),
-										new ListValue<CoverableArea>(CoverableArea.STOMACH),
-										new ListValue<CoverableArea>(CoverableArea.BACK)),
-								Util.newArrayListOfValues(
-										new ListValue<ClothingAccess>(ClothingAccess.CHEST),
-										new ListValue<ClothingAccess>(ClothingAccess.WAIST)),
-								concealedPartialTorso)),
-					new ListValue<BlockedParts>(
-							new BlockedParts(
-									DisplacementType.PULLS_UP,
-									null,
-									Util.newArrayListOfValues(
-											new ListValue<CoverableArea>(CoverableArea.ANUS),
-											new ListValue<CoverableArea>(CoverableArea.PENIS),
-											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.GROIN)), 
-									concealedGroin))),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_LUST, TFPotency.MAJOR_BOOST, 0)),
+			Util.newArrayListOfValues(
+					new BlockedParts(
+							DisplacementType.REMOVE_OR_EQUIP,
+							Util.newArrayListOfValues(
+									ClothingAccess.ARMS_UP_TO_SHOULDER,
+									ClothingAccess.HEAD),
+							Util.newArrayListOfValues(
+									CoverableArea.BREASTS,
+									CoverableArea.NIPPLES,
+									CoverableArea.STOMACH,
+									CoverableArea.BACK),
+							Util.newArrayListOfValues(
+									ClothingAccess.CHEST,
+									ClothingAccess.WAIST),
+							concealedPartialTorso),
+					new BlockedParts(
+							DisplacementType.PULLS_UP,
+							null,
+							Util.newArrayListOfValues(
+									CoverableArea.ANUS,
+									CoverableArea.PENIS,
+									CoverableArea.VAGINA),
+							Util.newArrayListOfValues(ClothingAccess.GROIN), 
+							concealedGroin)),
 			null,
 			ColourListPresets.MAID.getPresetColourList(),
 			ColourListPresets.ALL.getPresetColourList(),
@@ -9010,7 +8902,7 @@ public class ClothingType {
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -9090,14 +8982,14 @@ public class ClothingType {
 			ClothingSet.MAID,
 			"maidStockings",
 			Util.newArrayListOfValues(
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_LUST, TFPotency.BOOST, 0))),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_LUST, TFPotency.BOOST, 0)),
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(
+					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.FEET),
-									new ListValue<ClothingAccess>(ClothingAccess.CALVES)),
-							null, null, null))),
+									ClothingAccess.FEET,
+									ClothingAccess.CALVES),
+							null, null, null)),
 			null,
 			ColourListPresets.MAID.getPresetColourList(),
 			ColourListPresets.ALL.getPresetColourList(),
@@ -9105,7 +8997,7 @@ public class ClothingType {
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -9143,13 +9035,12 @@ public class ClothingType {
 			ClothingSet.MAID,
 			"maidHeels",
 			Util.newArrayListOfValues(
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_LUST, TFPotency.BOOST, 0))),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_LUST, TFPotency.BOOST, 0)),
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(
+					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.FEET)),
-							null, null, null))),
+							Util.newArrayListOfValues(ClothingAccess.FEET),
+							null, null, null)),
 			null,
 			ColourListPresets.MAID.getPresetColourList(),
 			ColourListPresets.ALL.getPresetColourList(),
@@ -9157,7 +9048,7 @@ public class ClothingType {
 			ColourListPresets.ALL.getPresetColourList(),
 			ColourListPresets.JUST_STEEL.getPresetColourList(),
 			ColourListPresets.ALL_METAL.getPresetColourList(),
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -9195,13 +9086,12 @@ public class ClothingType {
 			ClothingSet.MAID,
 			"maidGloves",
 			Util.newArrayListOfValues(
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_LUST, TFPotency.BOOST, 0))),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_LUST, TFPotency.BOOST, 0)),
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(
+					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.WRISTS)),
-							null, null, null))),
+							Util.newArrayListOfValues(ClothingAccess.WRISTS),
+							null, null, null)),
 			null,
 			ColourListPresets.MAID.getPresetColourList(),
 			ColourListPresets.ALL.getPresetColourList(),
@@ -9209,7 +9099,7 @@ public class ClothingType {
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -9249,27 +9139,27 @@ public class ClothingType {
 			ClothingSet.BDSM,
 			"bdsm_neck_metal_collar",
 			Util.newArrayListOfValues(
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ENSLAVEMENT, TFModifier.ARCANE_BOOST, TFPotency.BOOST, 0)),
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SEALING, TFModifier.ARCANE_BOOST, TFPotency.BOOST, 0)),
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_SPELLS, TFPotency.MAJOR_DRAIN, 0)),
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_SPELLS, TFPotency.MAJOR_DRAIN, 0)),
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_SPELLS, TFPotency.MAJOR_DRAIN, 0)),
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_SPELLS, TFPotency.MAJOR_DRAIN, 0)),
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_SPELLS, TFPotency.MAJOR_DRAIN, 0)),
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_LUST, TFPotency.MAJOR_DRAIN, 0)),
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_LUST, TFPotency.MAJOR_DRAIN, 0)),
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_LUST, TFPotency.MAJOR_DRAIN, 0)),
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_LUST, TFPotency.MAJOR_DRAIN, 0)),
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_LUST, TFPotency.MAJOR_DRAIN, 0)),
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.SPELL_COST_MODIFIER, TFPotency.MAJOR_DRAIN, 0)),
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.SPELL_COST_MODIFIER, TFPotency.MAJOR_DRAIN, 0)),
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.SPELL_COST_MODIFIER, TFPotency.MAJOR_DRAIN, 0)),
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.SPELL_COST_MODIFIER, TFPotency.MAJOR_DRAIN, 0)),
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.SPELL_COST_MODIFIER, TFPotency.MAJOR_DRAIN, 0))),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ENSLAVEMENT, TFModifier.ARCANE_BOOST, TFPotency.BOOST, 0),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SEALING, TFModifier.ARCANE_BOOST, TFPotency.BOOST, 0),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_SPELLS, TFPotency.MAJOR_DRAIN, 0),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_SPELLS, TFPotency.MAJOR_DRAIN, 0),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_SPELLS, TFPotency.MAJOR_DRAIN, 0),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_SPELLS, TFPotency.MAJOR_DRAIN, 0),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_SPELLS, TFPotency.MAJOR_DRAIN, 0),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_LUST, TFPotency.MAJOR_DRAIN, 0),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_LUST, TFPotency.MAJOR_DRAIN, 0),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_LUST, TFPotency.MAJOR_DRAIN, 0),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_LUST, TFPotency.MAJOR_DRAIN, 0),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_LUST, TFPotency.MAJOR_DRAIN, 0),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.SPELL_COST_MODIFIER, TFPotency.MAJOR_DRAIN, 0),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.SPELL_COST_MODIFIER, TFPotency.MAJOR_DRAIN, 0),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.SPELL_COST_MODIFIER, TFPotency.MAJOR_DRAIN, 0),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.SPELL_COST_MODIFIER, TFPotency.MAJOR_DRAIN, 0),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.SPELL_COST_MODIFIER, TFPotency.MAJOR_DRAIN, 0)),
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(
+					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
-							null, null, null, null))),
+							null, null, null, null)),
 			null,
 			ColourListPresets.ALL_METAL.getPresetColourList(),
 			null,
@@ -9277,7 +9167,7 @@ public class ClothingType {
 			ColourListPresets.ALL_METAL.getPresetColourList(),
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_FINCH))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_FINCH)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -9320,15 +9210,14 @@ public class ClothingType {
 			ClothingSet.BDSM,
 			"bdsm_mouth_ballgag",
 			Util.newArrayListOfValues(
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SEALING, TFModifier.ARCANE_BOOST, TFPotency.BOOST, 0)),
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.MAJOR_DRAIN, 0))),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SEALING, TFModifier.ARCANE_BOOST, TFPotency.BOOST, 0),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.MAJOR_DRAIN, 0)),
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(
+					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
 							null,
-							Util.newArrayListOfValues(
-									new ListValue<CoverableArea>(CoverableArea.MOUTH)),
-							null, null))),
+							Util.newArrayListOfValues(CoverableArea.MOUTH),
+							null, null)),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
@@ -9336,8 +9225,7 @@ public class ClothingType {
 			ColourListPresets.ALL.getPresetColourList(),
 			ColourListPresets.JUST_STEEL.getPresetColourList(),
 			ColourListPresets.ALL_METAL.getPresetColourList(),
-			Util.newArrayListOfValues(
-					new ListValue<>(ItemTag.SOLD_BY_FINCH))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_FINCH)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -9384,14 +9272,14 @@ public class ClothingType {
 			ClothingSet.BDSM,
 			"bdsm_mouth_ringgag",
 			Util.newArrayListOfValues(
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SEALING, TFModifier.ARCANE_BOOST, TFPotency.BOOST, 0)),
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.MAJOR_DRAIN, 0))),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SEALING, TFModifier.ARCANE_BOOST, TFPotency.BOOST, 0),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.MAJOR_DRAIN, 0)),
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(
+					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
 							null,
 							null,
-							null, null))),
+							null, null)),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
@@ -9399,7 +9287,7 @@ public class ClothingType {
 			ColourListPresets.ALL.getPresetColourList(),
 			ColourListPresets.JUST_STEEL.getPresetColourList(),
 			ColourListPresets.ALL_METAL.getPresetColourList(),
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_FINCH))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_FINCH)){
 		
 
 		@Override
@@ -9439,14 +9327,14 @@ public class ClothingType {
 			ClothingSet.BDSM,
 			"bdsm_neck_choker",
 			Util.newArrayListOfValues(
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SEALING, TFModifier.ARCANE_BOOST, TFPotency.BOOST, 0)),
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.MAJOR_DRAIN, 0))),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SEALING, TFModifier.ARCANE_BOOST, TFPotency.BOOST, 0),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.MAJOR_DRAIN, 0)),
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(
+					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
 							null,
 							null,
-							null, null))),
+							null, null)),
 			null,
 			ColourListPresets.ALL_METAL.getPresetColourList(),
 			null,
@@ -9454,7 +9342,7 @@ public class ClothingType {
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_FINCH))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_FINCH)){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -9493,15 +9381,14 @@ public class ClothingType {
 			ClothingSet.BDSM,
 			"bdsm_wrist_restraints",
 			Util.newArrayListOfValues(
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SEALING, TFModifier.ARCANE_BOOST, TFPotency.BOOST, 0)),
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.MAJOR_DRAIN, 0))),
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SEALING, TFModifier.ARCANE_BOOST, TFPotency.BOOST, 0),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.MAJOR_DRAIN, 0)),
+			Util.newArrayListOfValues(new BlockedParts(
 					DisplacementType.REMOVE_OR_EQUIP,
-					Util.newArrayListOfValues(
-							new ListValue<ClothingAccess>(ClothingAccess.WRISTS)),
+					Util.newArrayListOfValues(ClothingAccess.WRISTS),
 					null,
-					Util.newArrayListOfValues(
-							new ListValue<ClothingAccess>(ClothingAccess.WRISTS)), null))),
+					Util.newArrayListOfValues(ClothingAccess.WRISTS), 
+					null)),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
@@ -9509,7 +9396,7 @@ public class ClothingType {
 			ColourListPresets.ALL_METAL.getPresetColourList(),
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_FINCH))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_FINCH)){
 
 		@Override
 		public boolean isHindersArmMovement() {
@@ -9553,17 +9440,17 @@ public class ClothingType {
 			ClothingSet.BDSM,
 			"bdsm_ankle_spreaderbar",
 			Util.newArrayListOfValues(
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SEALING, TFModifier.ARCANE_BOOST, TFPotency.BOOST, 0)),
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.MAJOR_DRAIN, 0))),
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SEALING, TFModifier.ARCANE_BOOST, TFPotency.BOOST, 0),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.MAJOR_DRAIN, 0)),
+			Util.newArrayListOfValues(new BlockedParts(
 					DisplacementType.REMOVE_OR_EQUIP,
-					Util.newArrayListOfValues(
-							new ListValue<>(ClothingAccess.CALVES)),
+					Util.newArrayListOfValues(ClothingAccess.CALVES),
 					null,
 					Util.newArrayListOfValues(
-							new ListValue<>(ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL),
-							new ListValue<>(ClothingAccess.LEGS_UP_TO_GROIN),
-							new ListValue<>(ClothingAccess.CALVES)), null))),
+							ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL,
+							ClothingAccess.LEGS_UP_TO_GROIN,
+							ClothingAccess.CALVES), 
+					null)),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
@@ -9571,7 +9458,9 @@ public class ClothingType {
 			ColourListPresets.ALL_METAL.getPresetColourList(),
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_FINCH))){
+			Util.newArrayListOfValues(
+					ItemTag.SOLD_BY_FINCH,
+					ItemTag.REVEALS_CONCEALABLE_SLOT)){
 		
 		@Override
 		public boolean isHindersLegMovement() {
@@ -9615,19 +9504,19 @@ public class ClothingType {
 			ClothingSet.BDSM,
 			"bdsm_groin_chastity_belt",
 			Util.newArrayListOfValues(
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SEALING, TFModifier.ARCANE_BOOST, TFPotency.BOOST, 0)),
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.MAJOR_DRAIN, 0))),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SEALING, TFModifier.ARCANE_BOOST, TFPotency.BOOST, 0),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.MAJOR_DRAIN, 0)),
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(
+					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL),
-									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN),
-									new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
+									ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL,
+									ClothingAccess.LEGS_UP_TO_GROIN,
+									ClothingAccess.GROIN),
 							Util.newArrayListOfValues(
-									new ListValue<CoverableArea>(CoverableArea.PENIS),
-									new ListValue<CoverableArea>(CoverableArea.VAGINA)),
-							null, null))),
+									CoverableArea.PENIS,
+									CoverableArea.VAGINA),
+							null, null)),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
@@ -9635,7 +9524,7 @@ public class ClothingType {
 			ColourListPresets.ALL_METAL.getPresetColourList(),
 			ColourListPresets.JUST_GOLD.getPresetColourList(),
 			ColourListPresets.ALL_METAL.getPresetColourList(),
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_FINCH))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_FINCH)){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -9674,20 +9563,20 @@ public class ClothingType {
 			ClothingSet.BDSM,
 			"bdsm_groin_chastity_belt_full",
 			Util.newArrayListOfValues(
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SEALING, TFModifier.ARCANE_BOOST, TFPotency.BOOST, 0)),
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.MAJOR_DRAIN, 0))),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SEALING, TFModifier.ARCANE_BOOST, TFPotency.BOOST, 0),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.MAJOR_DRAIN, 0)),
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(
+					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL),
-									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN),
-									new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
+									ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL,
+									ClothingAccess.LEGS_UP_TO_GROIN,
+									ClothingAccess.GROIN),
 							Util.newArrayListOfValues(
-									new ListValue<CoverableArea>(CoverableArea.PENIS),
-									new ListValue<CoverableArea>(CoverableArea.VAGINA),
-									new ListValue<CoverableArea>(CoverableArea.ANUS)),
-							null, null))),
+									CoverableArea.PENIS,
+									CoverableArea.VAGINA,
+									CoverableArea.ANUS),
+							null, null)),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
@@ -9695,7 +9584,7 @@ public class ClothingType {
 			ColourListPresets.ALL_METAL.getPresetColourList(),
 			ColourListPresets.JUST_GOLD.getPresetColourList(),
 			ColourListPresets.ALL_METAL.getPresetColourList(),
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_FINCH))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_FINCH)){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -9734,16 +9623,14 @@ public class ClothingType {
 			ClothingSet.BDSM,
 			"bdsm_groin_chastityCage",
 			Util.newArrayListOfValues(
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SEALING, TFModifier.ARCANE_BOOST, TFPotency.BOOST, 0)),
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.MAJOR_DRAIN, 0))),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SEALING, TFModifier.ARCANE_BOOST, TFPotency.BOOST, 0),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.MAJOR_DRAIN, 0)),
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(
+					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
-							Util.newArrayListOfValues(
-									new ListValue<CoverableArea>(CoverableArea.PENIS)),
-							null, null))),
+							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							Util.newArrayListOfValues(CoverableArea.PENIS),
+							null, null)),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
@@ -9752,8 +9639,8 @@ public class ClothingType {
 			ColourListPresets.JUST_STEEL.getPresetColourList(),
 			ColourListPresets.ALL_METAL.getPresetColourList(),
 			Util.newArrayListOfValues(
-					new ListValue<>(ItemTag.SOLD_BY_FINCH),
-					new ListValue<>(ItemTag.REQUIRES_PENIS))){
+					ItemTag.SOLD_BY_FINCH,
+					ItemTag.REQUIRES_PENIS)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -9795,13 +9682,12 @@ public class ClothingType {
 			"bdsm_penis_strapon",
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(
+					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
+							Util.newArrayListOfValues(ClothingAccess.GROIN),
 							null,
 							null,
-							null))),
+							null)),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
@@ -9810,9 +9696,9 @@ public class ClothingType {
 			ColourListPresets.JUST_STEEL.getPresetColourList(),
 			ColourListPresets.ALL_METAL.getPresetColourList(),
 			Util.newArrayListOfValues(
-					new ListValue<>(ItemTag.SOLD_BY_FINCH),
-					new ListValue<>(ItemTag.REQUIRES_NO_PENIS),
-					new ListValue<>(ItemTag.DILDO_LARGE))){
+					ItemTag.SOLD_BY_FINCH,
+					ItemTag.REQUIRES_NO_PENIS,
+					ItemTag.DILDO_LARGE)){
 		
 			@Override
 			public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -9854,20 +9740,21 @@ public class ClothingType {
 			ClothingSet.BDSM,
 			"bdsm_stomach_karada",
 			Util.newArrayListOfValues(
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SEALING, TFModifier.ARCANE_BOOST, TFPotency.BOOST, 0)),
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.MAJOR_DRAIN, 0))),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SEALING, TFModifier.ARCANE_BOOST, TFPotency.BOOST, 0),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.MAJOR_DRAIN, 0)),
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(
+					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.GROIN),
-									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
-									new ListValue<ClothingAccess>(ClothingAccess.WAIST)),
+									ClothingAccess.GROIN,
+									ClothingAccess.CHEST,
+									ClothingAccess.WAIST),
 							null,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL),
-									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
-									new ListValue<ClothingAccess>(ClothingAccess.WAIST)), null))),
+									ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL,
+									ClothingAccess.CHEST,
+									ClothingAccess.WAIST), 
+							null)),
 			null,
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
@@ -9875,7 +9762,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_FINCH))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_FINCH)){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -9914,33 +9801,31 @@ public class ClothingType {
 			ClothingSet.ENFORCER,
 			"enforcerShirt",
 			Util.newArrayListOfValues(
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.MAJOR_BOOST, 0)),
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_PHYSICAL, TFPotency.MAJOR_BOOST, 0))),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.MAJOR_BOOST, 0),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_PHYSICAL, TFPotency.MAJOR_BOOST, 0)),
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(
+					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)),
-							Util.newArrayListOfValues(
-									new ListValue<CoverableArea>(CoverableArea.BACK)),
+							Util.newArrayListOfValues(ClothingAccess.ARMS_UP_TO_SHOULDER),
+							Util.newArrayListOfValues(CoverableArea.BACK),
 							null,
-							null)),
-					new ListValue<BlockedParts>(new BlockedParts(
+							null),
+					new BlockedParts(
 							DisplacementType.UNBUTTONS,
 							null,
 							Util.newArrayListOfValues(
-									new ListValue<CoverableArea>(CoverableArea.BREASTS),
-									new ListValue<CoverableArea>(CoverableArea.NIPPLES),
-									new ListValue<CoverableArea>(CoverableArea.STOMACH)),
+									CoverableArea.BREASTS,
+									CoverableArea.NIPPLES,
+									CoverableArea.STOMACH),
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
-									new ListValue<ClothingAccess>(ClothingAccess.WAIST)),
-							concealedPartialTorso))),
+									ClothingAccess.CHEST,
+									ClothingAccess.WAIST),
+							concealedPartialTorso)),
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_BLUE),
-					new ListValue<Colour>(Colour.CLOTHING_BLACK),
-					new ListValue<Colour>(Colour.CLOTHING_PINK)),
+					Colour.CLOTHING_BLUE,
+					Colour.CLOTHING_BLACK,
+					Colour.CLOTHING_PINK),
 			ColourListPresets.ALL.getPresetColourList(),
 			ColourListPresets.JUST_BLACK.getPresetColourList(),
 			ColourListPresets.ALL.getPresetColourList(),
@@ -9985,40 +9870,35 @@ public class ClothingType {
 			ClothingSet.ENFORCER,
 			"enforcerShorts",
 			Util.newArrayListOfValues(
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.MAJOR_BOOST, 0)),
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_PHYSICAL, TFPotency.MAJOR_BOOST, 0))),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.MAJOR_BOOST, 0),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_PHYSICAL, TFPotency.MAJOR_BOOST, 0)),
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(
+					new BlockedParts(
 									DisplacementType.REMOVE_OR_EQUIP,
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)),
+									Util.newArrayListOfValues(ClothingAccess.LEGS_UP_TO_GROIN),
 									null,
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)),
-									null)),
-					new ListValue<BlockedParts>(new BlockedParts(
+									Util.newArrayListOfValues(ClothingAccess.LEGS_UP_TO_GROIN),
+									null),
+					new BlockedParts(
 									DisplacementType.PULLS_DOWN,
 									null,
 									Util.newArrayListOfValues(
-											new ListValue<CoverableArea>(CoverableArea.ANUS),
-											new ListValue<CoverableArea>(CoverableArea.PENIS),
-											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
-									concealedGroin)),
-					new ListValue<BlockedParts>(new BlockedParts(
+											CoverableArea.ANUS,
+											CoverableArea.PENIS,
+											CoverableArea.VAGINA),
+									Util.newArrayListOfValues(ClothingAccess.GROIN),
+									concealedGroin),
+					new BlockedParts(
 									DisplacementType.UNZIPS,
 									null,
-									Util.newArrayListOfValues(
-											new ListValue<CoverableArea>(CoverableArea.PENIS)),
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
-									concealedUnzipsGroin))),
+									Util.newArrayListOfValues(CoverableArea.PENIS),
+									Util.newArrayListOfValues(ClothingAccess.GROIN),
+									concealedUnzipsGroin)),
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_BLUE),
-					new ListValue<Colour>(Colour.CLOTHING_BLACK),
-					new ListValue<Colour>(Colour.CLOTHING_PINK)),
+					Colour.CLOTHING_BLUE,
+					Colour.CLOTHING_BLACK,
+					Colour.CLOTHING_PINK),
 			ColourListPresets.ALL.getPresetColourList(),
 			ColourListPresets.JUST_BLACK.getPresetColourList(),
 			ColourListPresets.ALL.getPresetColourList(),
@@ -10062,24 +9942,22 @@ public class ClothingType {
 			ClothingSet.ENFORCER,
 			"enforcer_miniskirt",
 			Util.newArrayListOfValues(
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.MAJOR_BOOST, 0)),
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_PHYSICAL, TFPotency.MAJOR_BOOST, 0))),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.MAJOR_BOOST, 0),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_PHYSICAL, TFPotency.MAJOR_BOOST, 0)),
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(
-							new BlockedParts(DisplacementType.PULLS_UP,
+					new BlockedParts(DisplacementType.PULLS_UP,
 							null,
 							Util.newArrayListOfValues(
-									new ListValue<CoverableArea>(CoverableArea.ANUS),
-									new ListValue<CoverableArea>(CoverableArea.PENIS),
-									new ListValue<CoverableArea>(CoverableArea.VAGINA)),
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
-							concealedGroin))),
+									CoverableArea.ANUS,
+									CoverableArea.PENIS,
+									CoverableArea.VAGINA),
+							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							concealedGroin)),
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_BLUE),
-					new ListValue<Colour>(Colour.CLOTHING_BLACK),
-					new ListValue<Colour>(Colour.CLOTHING_PINK)),
+					Colour.CLOTHING_BLUE,
+					Colour.CLOTHING_BLACK,
+					Colour.CLOTHING_PINK),
 			ColourListPresets.ALL.getPresetColourList(),
 			ColourListPresets.JUST_BLACK.getPresetColourList(),
 			ColourListPresets.ALL.getPresetColourList(),
@@ -10123,11 +10001,11 @@ public class ClothingType {
 			ClothingSet.CATTLE,
 			"piercing_livestock_tags",
 			Util.newArrayListOfValues(
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.BOOST, 0))),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.BOOST, 0)),
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(
+					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
-							null, null, null, null))),
+							null, null, null, null)),
 			null,
 			ColourListPresets.JUST_YELLOW.getPresetColourList(),
 			ColourListPresets.ALL.getPresetColourList(),
@@ -10135,7 +10013,7 @@ public class ClothingType {
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_FINCH))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_FINCH)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -10173,11 +10051,11 @@ public class ClothingType {
 			ClothingSet.CATTLE,
 			"piercing_nose_cow_ring",
 			Util.newArrayListOfValues(
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.MAJOR_BOOST, 0))),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.MAJOR_BOOST, 0)),
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(
+					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
-							null, null, null, null))),
+							null, null, null, null)),
 			null,
 			ColourListPresets.ALL_METAL.getPresetColourList(),
 			null,
@@ -10185,7 +10063,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_FINCH))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_FINCH)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -10223,11 +10101,11 @@ public class ClothingType {
 			ClothingSet.CATTLE,
 			"neck_cowbell_collar",
 			Util.newArrayListOfValues(
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.MAJOR_BOOST, 0))),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.MAJOR_BOOST, 0)),
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(
+					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
-							null, null, null, null))),
+							null, null, null, null)),
 			null,
 			ColourListPresets.ALL_METAL.getPresetColourList(),
 			null,
@@ -10235,7 +10113,7 @@ public class ClothingType {
 			ColourListPresets.ALL.getPresetColourList(),
 			ColourListPresets.JUST_STEEL.getPresetColourList(),
 			ColourListPresets.ALL_METAL.getPresetColourList(),
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_FINCH))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_FINCH)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -10275,42 +10153,38 @@ public class ClothingType {
 			ClothingSet.MILK_MAID,
 			"milk_maid_dress",
 			Util.newArrayListOfValues(
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.MAJOR_BOOST, 0))),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.MAJOR_BOOST, 0)),
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(
+					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
-									new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
+									ClothingAccess.ARMS_UP_TO_SHOULDER,
+									ClothingAccess.HEAD),
 							Util.newArrayListOfValues(
-									new ListValue<CoverableArea>(CoverableArea.STOMACH),
-									new ListValue<CoverableArea>(CoverableArea.BACK)),
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.WAIST)),
-							concealedPartialTorso)),
-					new ListValue<BlockedParts>(new BlockedParts(
+									CoverableArea.STOMACH,
+									CoverableArea.BACK),
+							Util.newArrayListOfValues(ClothingAccess.WAIST),
+							concealedPartialTorso),
+					new BlockedParts(
 							DisplacementType.PULLS_UP,
 							null,
 							Util.newArrayListOfValues(
-									new ListValue<CoverableArea>(CoverableArea.ANUS),
-									new ListValue<CoverableArea>(CoverableArea.PENIS),
-									new ListValue<CoverableArea>(CoverableArea.VAGINA)),
+									CoverableArea.ANUS,
+									CoverableArea.PENIS,
+									CoverableArea.VAGINA),
+							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							concealedGroin),
+					new BlockedParts(
+							DisplacementType.PULLS_DOWN,
+							null,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
-							concealedGroin)),
-					new ListValue<BlockedParts>(
-							new BlockedParts(
-									DisplacementType.PULLS_DOWN,
-									null,
-									Util.newArrayListOfValues(
-											new ListValue<CoverableArea>(CoverableArea.BREASTS),
-											new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.CHEST)),
-									Util.newArrayListOfValues(
-											new ListValue<InventorySlot>(InventorySlot.CHEST),
-											new ListValue<InventorySlot>(InventorySlot.NIPPLE),
-											new ListValue<InventorySlot>(InventorySlot.PIERCING_NIPPLE))))),
+									CoverableArea.BREASTS,
+									CoverableArea.NIPPLES),
+							Util.newArrayListOfValues(ClothingAccess.CHEST),
+							Util.newArrayListOfValues(
+									InventorySlot.CHEST,
+									InventorySlot.NIPPLE,
+									InventorySlot.PIERCING_NIPPLE))),
 			null,
 			ColourListPresets.MILK_MAID.getPresetColourList(),
 			ColourListPresets.ALL.getPresetColourList(),
@@ -10318,7 +10192,7 @@ public class ClothingType {
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 	};
 	
 	public static AbstractClothingType MILK_MAID_HEADBAND = new AbstractClothingType(400,
@@ -10334,13 +10208,12 @@ public class ClothingType {
 			ClothingSet.MILK_MAID,
 			"milk_maid_headband",
 			Util.newArrayListOfValues(
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.BOOST, 0))),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.BOOST, 0)),
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(
+					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
-							null, null, null))),
+							Util.newArrayListOfValues(ClothingAccess.HEAD),
+							null, null, null)),
 			null,
 			ColourListPresets.MILK_MAID.getPresetColourList(),
 			ColourListPresets.ALL.getPresetColourList(),
@@ -10348,7 +10221,7 @@ public class ClothingType {
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 		
 			@Override
 			public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -10386,13 +10259,12 @@ public class ClothingType {
 			ClothingSet.MILK_MAID,
 			"milk_maid_kerchief",
 			Util.newArrayListOfValues(
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.BOOST, 0))),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.BOOST, 0)),
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(
+					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
-							null, null, null))),
+							Util.newArrayListOfValues(ClothingAccess.HEAD),
+							null, null, null)),
 			null,
 			ColourListPresets.JUST_WHITE.getPresetColourList(),
 			ColourListPresets.ALL.getPresetColourList(),
@@ -10400,7 +10272,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -10438,23 +10310,22 @@ public class ClothingType {
 			ClothingSet.RAINBOW,
 			"sock_rainbow_stockings",
 			Util.newArrayListOfValues(
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.BOOST, 0))),
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.BOOST, 0)),
+			Util.newArrayListOfValues(
 					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.FEET),
-									new ListValue<ClothingAccess>(ClothingAccess.CALVES)),
-							null, null, null))),
+									ClothingAccess.FEET,
+									ClothingAccess.CALVES),
+							null, null, null)),
 			null,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_MULTICOLOURED)),
-			null,
+			Util.newArrayListOfValues(Colour.CLOTHING_MULTICOLOURED),
 			null,
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			null,
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -10493,24 +10364,23 @@ public class ClothingType {
 			ClothingSet.RAINBOW,
 			"hand_rainbow_fingerless_gloves",
 			Util.newArrayListOfValues(
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.BOOST, 0))),
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.BOOST, 0)),
+			Util.newArrayListOfValues(
 					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.FINGERS),
-									new ListValue<ClothingAccess>(ClothingAccess.WRISTS)),
+									ClothingAccess.FINGERS,
+									ClothingAccess.WRISTS),
 							null,
-							null, null))),
+							null, null)),
 			null,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_MULTICOLOURED)),
-			null,
+			Util.newArrayListOfValues(Colour.CLOTHING_MULTICOLOURED),
 			null,
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			null,
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -10549,37 +10419,37 @@ public class ClothingType {
 			null,
 			"torso_tshirt_megamilk",
 			Util.newArrayListOfValues(
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.MAJOR_BOOST, 0))),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.MAJOR_BOOST, 0)),
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(
+					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
-									new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
+									ClothingAccess.ARMS_UP_TO_SHOULDER,
+									ClothingAccess.HEAD),
 							null,
-							null, null)),
-					new ListValue<BlockedParts>(new BlockedParts(
+							null, null),
+					new BlockedParts(
 							DisplacementType.PULLS_UP,
 							null,
 							Util.newArrayListOfValues(
-									new ListValue<CoverableArea>(CoverableArea.BREASTS),
-									new ListValue<CoverableArea>(CoverableArea.NIPPLES),
-									new ListValue<CoverableArea>(CoverableArea.STOMACH),
-									new ListValue<CoverableArea>(CoverableArea.BACK)),
+									CoverableArea.BREASTS,
+									CoverableArea.NIPPLES,
+									CoverableArea.STOMACH,
+									CoverableArea.BACK),
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
-									new ListValue<ClothingAccess>(ClothingAccess.WAIST)),
-							concealedPartialTorso))),
+									ClothingAccess.CHEST,
+									ClothingAccess.WAIST),
+							concealedPartialTorso)),
 			null,
 			Util.newArrayListOfValues(
-							new ListValue<Colour>(Colour.CLOTHING_BLUE),
-							new ListValue<Colour>(Colour.CLOTHING_BLACK)),
+							Colour.CLOTHING_BLUE,
+							Colour.CLOTHING_BLACK),
 			ColourListPresets.ALL.getPresetColourList(),
 			ColourListPresets.JUST_WHITE.getPresetColourList(),
 			ColourListPresets.ALL.getPresetColourList(),
 			ColourListPresets.JUST_BLACK.getPresetColourList(),
 			ColourListPresets.ALL.getPresetColourList(),
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -10619,13 +10489,12 @@ public class ClothingType {
 			ClothingSet.WITCH,
 			"witch_hat",
 			Util.newArrayListOfValues(
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_SPELLS, TFPotency.MAJOR_BOOST, 0))),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_SPELLS, TFPotency.MAJOR_BOOST, 0)),
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(
+					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
-							null, null, null))),
+							Util.newArrayListOfValues(ClothingAccess.HEAD),
+							null, null, null)),
 			null,
 			ColourListPresets.BLACK_OR_WHITE.getPresetColourList(),
 			ColourListPresets.ALL.getPresetColourList(),
@@ -10671,34 +10540,32 @@ public class ClothingType {
 			ClothingSet.WITCH,
 			"witch_dress",
 			Util.newArrayListOfValues(
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_SPELLS, TFPotency.MAJOR_BOOST, 0)),
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.SPELL_COST_MODIFIER, TFPotency.MAJOR_BOOST, 0))),
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_SPELLS, TFPotency.MAJOR_BOOST, 0),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.SPELL_COST_MODIFIER, TFPotency.MAJOR_BOOST, 0)),
+			Util.newArrayListOfValues(
 					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
-									new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
+									ClothingAccess.ARMS_UP_TO_SHOULDER,
+									ClothingAccess.HEAD),
 							Util.newArrayListOfValues(
-									new ListValue<CoverableArea>(CoverableArea.BREASTS),
-									new ListValue<CoverableArea>(CoverableArea.NIPPLES),
-									new ListValue<CoverableArea>(CoverableArea.STOMACH),
-									new ListValue<CoverableArea>(CoverableArea.BACK)),
+									CoverableArea.BREASTS,
+									CoverableArea.NIPPLES,
+									CoverableArea.STOMACH,
+									CoverableArea.BACK),
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
-									new ListValue<ClothingAccess>(ClothingAccess.WAIST)),
-							concealedPartialTorso)),
-					new ListValue<BlockedParts>(
-							new BlockedParts(
-									DisplacementType.PULLS_UP,
-									null,
-									Util.newArrayListOfValues(
-											new ListValue<CoverableArea>(CoverableArea.ANUS),
-											new ListValue<CoverableArea>(CoverableArea.PENIS),
-											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
-									concealedGroin))),
+									ClothingAccess.CHEST,
+									ClothingAccess.WAIST),
+							concealedPartialTorso),
+					new BlockedParts(
+							DisplacementType.PULLS_UP,
+							null,
+							Util.newArrayListOfValues(
+									CoverableArea.ANUS,
+									CoverableArea.PENIS,
+									CoverableArea.VAGINA),
+							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							concealedGroin)),
 			null,
 			ColourListPresets.BLACK_OR_WHITE.getPresetColourList(),
 			ColourListPresets.ALL.getPresetColourList(),
@@ -10765,15 +10632,14 @@ public class ClothingType {
 			ClothingSet.WITCH,
 			"witch_boots",
 			Util.newArrayListOfValues(
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.SPELL_COST_MODIFIER, TFPotency.MAJOR_BOOST, 0))),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.SPELL_COST_MODIFIER, TFPotency.MAJOR_BOOST, 0)),
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(
+					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.FEET)),
+							Util.newArrayListOfValues(ClothingAccess.FEET),
 							null,
 							null,
-							null))),
+							null)),
 			null,
 			ColourListPresets.BLACK_OR_WHITE.getPresetColourList(),
 			ColourListPresets.ALL.getPresetColourList(),
@@ -10819,17 +10685,14 @@ public class ClothingType {
 			ClothingSet.WITCH,
 			"witch_boots_thigh_high",
 			Util.newArrayListOfValues(
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.SPELL_COST_MODIFIER, TFPotency.MAJOR_BOOST, 0))),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.SPELL_COST_MODIFIER, TFPotency.MAJOR_BOOST, 0)),
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(
+					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.FEET)),
+							Util.newArrayListOfValues(ClothingAccess.FEET),
 							null,
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.FEET)),
-							Util.newArrayListOfValues(
-									new ListValue<InventorySlot>(InventorySlot.ANKLE))))),
+							Util.newArrayListOfValues(ClothingAccess.FEET),
+							Util.newArrayListOfValues(InventorySlot.ANKLE))),
 			null,
 			ColourListPresets.BLACK_OR_WHITE.getPresetColourList(),
 			ColourListPresets.ALL.getPresetColourList(),
@@ -10876,7 +10739,7 @@ public class ClothingType {
 			ClothingSet.GEISHA,
 			"kimono_hair_kanzashi",
 			Util.newArrayListOfValues(
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_LUST, TFPotency.MAJOR_BOOST, 0))),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_LUST, TFPotency.MAJOR_BOOST, 0)),
 			null,
 			null,
 			ColourListPresets.KIMONO.getPresetColourList(),
@@ -10885,7 +10748,7 @@ public class ClothingType {
 			ColourListPresets.ALL.getPresetColourList(),
 			ColourListPresets.KIMONO.getPresetColourList(),
 			ColourListPresets.ALL.getPresetColourList(),
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.REINDEER_GIFT))){
+			Util.newArrayListOfValues(ItemTag.REINDEER_GIFT)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -10924,47 +10787,45 @@ public class ClothingType {
 			ClothingSet.GEISHA,
 			"kimono_torso_kimono",
 			Util.newArrayListOfValues(
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.MAJOR_BOOST, 0)),
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_LUST, TFPotency.MAJOR_BOOST, 0))),
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.MAJOR_BOOST, 0),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_LUST, TFPotency.MAJOR_BOOST, 0)),
+			Util.newArrayListOfValues(
 					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
-									new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
+									ClothingAccess.ARMS_UP_TO_SHOULDER,
+									ClothingAccess.HEAD),
 							Util.newArrayListOfValues(
-									new ListValue<CoverableArea>(CoverableArea.BREASTS),
-									new ListValue<CoverableArea>(CoverableArea.NIPPLES),
-									new ListValue<CoverableArea>(CoverableArea.BACK)),
+									CoverableArea.BREASTS,
+									CoverableArea.NIPPLES,
+									CoverableArea.BACK),
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
-									new ListValue<ClothingAccess>(ClothingAccess.WAIST)), null)),
-					new ListValue<BlockedParts>(
-							new BlockedParts(
-									DisplacementType.UNTIE,
-									null,
-									Util.newArrayListOfValues(
-											new ListValue<CoverableArea>(CoverableArea.PENIS),
-											new ListValue<CoverableArea>(CoverableArea.VAGINA),
-											new ListValue<CoverableArea>(CoverableArea.BREASTS),
-											new ListValue<CoverableArea>(CoverableArea.NIPPLES),
-											new ListValue<CoverableArea>(CoverableArea.STOMACH)),
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.GROIN),
-											new ListValue<ClothingAccess>(ClothingAccess.CHEST),
-											new ListValue<ClothingAccess>(ClothingAccess.WAIST)),
-									concealedDressFrontFull)),
-					new ListValue<BlockedParts>(
-							new BlockedParts(
-									DisplacementType.PULLS_UP,
-									null,
-									Util.newArrayListOfValues(
-											new ListValue<CoverableArea>(CoverableArea.ANUS),
-											new ListValue<CoverableArea>(CoverableArea.PENIS),
-											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
-									concealedGroin))),
+									ClothingAccess.CHEST,
+									ClothingAccess.WAIST), 
+							null),
+					new BlockedParts(
+							DisplacementType.UNTIE,
+							null,
+							Util.newArrayListOfValues(
+									CoverableArea.PENIS,
+									CoverableArea.VAGINA,
+									CoverableArea.BREASTS,
+									CoverableArea.NIPPLES,
+									CoverableArea.STOMACH),
+							Util.newArrayListOfValues(
+									ClothingAccess.GROIN,
+									ClothingAccess.CHEST,
+									ClothingAccess.WAIST),
+							concealedDressFrontFull),
+					new BlockedParts(
+							DisplacementType.PULLS_UP,
+							null,
+							Util.newArrayListOfValues(
+									CoverableArea.ANUS,
+									CoverableArea.PENIS,
+									CoverableArea.VAGINA),
+							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							concealedGroin)),
 			null,
 			ColourListPresets.KIMONO.getPresetColourList(),
 			ColourListPresets.ALL.getPresetColourList(),
@@ -10972,7 +10833,7 @@ public class ClothingType {
 			ColourListPresets.ALL.getPresetColourList(),
 			ColourListPresets.KIMONO.getPresetColourList(),
 			ColourListPresets.ALL.getPresetColourList(),
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.REINDEER_GIFT))){
+			Util.newArrayListOfValues(ItemTag.REINDEER_GIFT)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -11010,13 +10871,12 @@ public class ClothingType {
 			ClothingSet.GEISHA,
 			"kimono_foot_geta",
 			Util.newArrayListOfValues(
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_LUST, TFPotency.BOOST, 0))),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_LUST, TFPotency.BOOST, 0)),
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(
+					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.FEET)),
-							null, null, null))),
+							Util.newArrayListOfValues(ClothingAccess.FEET),
+							null, null, null)),
 			null,
 			ColourListPresets.KIMONO.getPresetColourList(),
 			ColourListPresets.ALL.getPresetColourList(),
@@ -11024,7 +10884,7 @@ public class ClothingType {
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.REINDEER_GIFT))){
+			Util.newArrayListOfValues(ItemTag.REINDEER_GIFT)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -11062,61 +10922,59 @@ public class ClothingType {
 			ClothingSet.RONIN,
 			"kimono_torso_mens_kimono",
 			Util.newArrayListOfValues(
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.MAJOR_BOOST, 0)),
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_PHYSICAL, TFPotency.MAJOR_BOOST, 0))),
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.MAJOR_BOOST, 0),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_PHYSICAL, TFPotency.MAJOR_BOOST, 0)),
+			Util.newArrayListOfValues(
 					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
-									new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
+									ClothingAccess.ARMS_UP_TO_SHOULDER,
+									ClothingAccess.HEAD),
 							Util.newArrayListOfValues(
-									new ListValue<CoverableArea>(CoverableArea.BREASTS),
-									new ListValue<CoverableArea>(CoverableArea.NIPPLES),
-									new ListValue<CoverableArea>(CoverableArea.BACK)),
+									CoverableArea.BREASTS,
+									CoverableArea.NIPPLES,
+									CoverableArea.BACK),
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
-									new ListValue<ClothingAccess>(ClothingAccess.WAIST)), null)),
-					new ListValue<BlockedParts>(
-							new BlockedParts(
-									DisplacementType.UNTIE,
-									null,
-									Util.newArrayListOfValues(
-											new ListValue<CoverableArea>(CoverableArea.ANUS),
-											new ListValue<CoverableArea>(CoverableArea.PENIS),
-											new ListValue<CoverableArea>(CoverableArea.VAGINA),
-											new ListValue<CoverableArea>(CoverableArea.BREASTS),
-											new ListValue<CoverableArea>(CoverableArea.NIPPLES),
-											new ListValue<CoverableArea>(CoverableArea.STOMACH)),
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.GROIN),
-											new ListValue<ClothingAccess>(ClothingAccess.CHEST),
-											new ListValue<ClothingAccess>(ClothingAccess.WAIST)),
-									concealedDressFrontFull)),
-					new ListValue<BlockedParts>(
-							new BlockedParts(
-									DisplacementType.PULLS_UP,
-									null,
-									Util.newArrayListOfValues(
-											new ListValue<CoverableArea>(CoverableArea.ANUS),
-											new ListValue<CoverableArea>(CoverableArea.PENIS),
-											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
-									concealedGroin))),
+									ClothingAccess.CHEST,
+									ClothingAccess.WAIST), 
+							null),
+					new BlockedParts(
+							DisplacementType.UNTIE,
+							null,
+							Util.newArrayListOfValues(
+									CoverableArea.ANUS,
+									CoverableArea.PENIS,
+									CoverableArea.VAGINA,
+									CoverableArea.BREASTS,
+									CoverableArea.NIPPLES,
+									CoverableArea.STOMACH),
+							Util.newArrayListOfValues(
+									ClothingAccess.GROIN,
+									ClothingAccess.CHEST,
+									ClothingAccess.WAIST),
+							concealedDressFrontFull),
+					new BlockedParts(
+							DisplacementType.PULLS_UP,
+							null,
+							Util.newArrayListOfValues(
+									CoverableArea.ANUS,
+									CoverableArea.PENIS,
+									CoverableArea.VAGINA),
+							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							concealedGroin)),
 			null,
 			Util.newArrayListOfValues(
-							new ListValue<Colour>(Colour.CLOTHING_BLACK),
-							new ListValue<Colour>(Colour.CLOTHING_GREY),
-							new ListValue<Colour>(Colour.CLOTHING_BLUE)),
+							Colour.CLOTHING_BLACK,
+							Colour.CLOTHING_GREY,
+							Colour.CLOTHING_BLUE),
 			ColourListPresets.ALL.getPresetColourList(),
 			Util.newArrayListOfValues(
-							new ListValue<Colour>(Colour.CLOTHING_BLUE_LIGHT),
-							new ListValue<Colour>(Colour.CLOTHING_WHITE)),
+							Colour.CLOTHING_BLUE_LIGHT,
+							Colour.CLOTHING_WHITE),
 			ColourListPresets.ALL.getPresetColourList(),
 			ColourListPresets.JUST_GREY.getPresetColourList(),
 			ColourListPresets.ALL.getPresetColourList(),
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.REINDEER_GIFT))){
+			Util.newArrayListOfValues(ItemTag.REINDEER_GIFT)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -11154,29 +11012,25 @@ public class ClothingType {
 			ClothingSet.RONIN,
 			"kimono_torso_over_haori",
 			Util.newArrayListOfValues(
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_PHYSICAL, TFPotency.MAJOR_BOOST, 0))),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_PHYSICAL, TFPotency.MAJOR_BOOST, 0)),
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(
-							new BlockedParts(
-									DisplacementType.REMOVE_OR_EQUIP,
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)),
-									Util.newArrayListOfValues(
-											new ListValue<CoverableArea>(CoverableArea.BACK)),
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)),
-									null))),
+					new BlockedParts(
+							DisplacementType.REMOVE_OR_EQUIP,
+							Util.newArrayListOfValues(ClothingAccess.ARMS_UP_TO_SHOULDER),
+							Util.newArrayListOfValues(CoverableArea.BACK),
+							Util.newArrayListOfValues(ClothingAccess.ARMS_UP_TO_SHOULDER),
+							null)),
 			null,
 			Util.newArrayListOfValues(
-							new ListValue<Colour>(Colour.CLOTHING_BLACK),
-							new ListValue<Colour>(Colour.CLOTHING_GREY),
-							new ListValue<Colour>(Colour.CLOTHING_BLUE)),
+							Colour.CLOTHING_BLACK,
+							Colour.CLOTHING_GREY,
+							Colour.CLOTHING_BLUE),
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.REINDEER_GIFT))){
+			Util.newArrayListOfValues(ItemTag.REINDEER_GIFT)){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -11214,19 +11068,22 @@ public class ClothingType {
 			ClothingSet.RONIN,
 			"kimono_foot_mens_geta",
 			Util.newArrayListOfValues(
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_PHYSICAL, TFPotency.BOOST, 0))),
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET)), null, null, null))),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_PHYSICAL, TFPotency.BOOST, 0)),
+			Util.newArrayListOfValues(
+					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
+							Util.newArrayListOfValues(ClothingAccess.FEET), 
+							null, null, null)),
 			null,
 			Util.newArrayListOfValues(
-							new ListValue<Colour>(Colour.CLOTHING_BLACK),
-							new ListValue<Colour>(Colour.CLOTHING_GREY),
-							new ListValue<Colour>(Colour.CLOTHING_BLUE)),
+							Colour.CLOTHING_BLACK,
+							Colour.CLOTHING_GREY,
+							Colour.CLOTHING_BLUE),
 			ColourListPresets.ALL.getPresetColourList(),
 			ColourListPresets.JUST_BLACK.getPresetColourList(),
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.REINDEER_GIFT))){
+			Util.newArrayListOfValues(ItemTag.REINDEER_GIFT)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -11265,13 +11122,12 @@ public class ClothingType {
 			ClothingSet.JOLNIR,
 			"jolnir_head_hat",
 			Util.newArrayListOfValues(
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.CRITICAL_DAMAGE, TFPotency.MAJOR_BOOST, 0))),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.CRITICAL_DAMAGE, TFPotency.MAJOR_BOOST, 0)),
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(
+					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
-							null, null, null))),
+							Util.newArrayListOfValues(ClothingAccess.HEAD),
+							null, null, null)),
 			null,
 			ColourListPresets.JUST_RED.getPresetColourList(),
 			ColourListPresets.ALL.getPresetColourList(),
@@ -11279,7 +11135,7 @@ public class ClothingType {
 			ColourListPresets.ALL.getPresetColourList(),
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.REINDEER_GIFT))){
+			Util.newArrayListOfValues(ItemTag.REINDEER_GIFT)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -11318,18 +11174,15 @@ public class ClothingType {
 			ClothingSet.JOLNIR,
 			"jolnir_torso_over_coat",
 			Util.newArrayListOfValues(
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.SPELL_COST_MODIFIER, TFPotency.MAJOR_BOOST, 0)), 
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_SPELLS, TFPotency.MAJOR_BOOST, 0))),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.SPELL_COST_MODIFIER, TFPotency.MAJOR_BOOST, 0), 
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_SPELLS, TFPotency.MAJOR_BOOST, 0)),
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(
-							new BlockedParts(
-									DisplacementType.REMOVE_OR_EQUIP,
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)),
-									null,
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)),
-									concealedFullTorso))),
+					new BlockedParts(
+							DisplacementType.REMOVE_OR_EQUIP,
+							Util.newArrayListOfValues(ClothingAccess.ARMS_UP_TO_SHOULDER),
+							null,
+							Util.newArrayListOfValues(ClothingAccess.ARMS_UP_TO_SHOULDER),
+							concealedFullTorso)),
 			null,
 			ColourListPresets.JUST_RED.getPresetColourList(),
 			ColourListPresets.ALL.getPresetColourList(),
@@ -11337,7 +11190,7 @@ public class ClothingType {
 			ColourListPresets.ALL.getPresetColourList(),
 			ColourListPresets.JUST_BLACK.getPresetColourList(),
 			ColourListPresets.ALL.getPresetColourList(),
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.REINDEER_GIFT))){
+			Util.newArrayListOfValues(ItemTag.REINDEER_GIFT)){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -11375,34 +11228,32 @@ public class ClothingType {
 			ClothingSet.JOLNIR,
 			"jolnir_torso_dress",
 			Util.newArrayListOfValues(
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.SPELL_COST_MODIFIER, TFPotency.MAJOR_BOOST, 0)), 
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_SPELLS, TFPotency.MAJOR_BOOST, 0))),
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.SPELL_COST_MODIFIER, TFPotency.MAJOR_BOOST, 0), 
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_SPELLS, TFPotency.MAJOR_BOOST, 0)),
+			Util.newArrayListOfValues(
 					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
-									new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
+									ClothingAccess.ARMS_UP_TO_SHOULDER,
+									ClothingAccess.HEAD),
 							Util.newArrayListOfValues(
-									new ListValue<CoverableArea>(CoverableArea.BREASTS),
-									new ListValue<CoverableArea>(CoverableArea.NIPPLES),
-									new ListValue<CoverableArea>(CoverableArea.STOMACH),
-									new ListValue<CoverableArea>(CoverableArea.BACK)),
+									CoverableArea.BREASTS,
+									CoverableArea.NIPPLES,
+									CoverableArea.STOMACH,
+									CoverableArea.BACK),
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
-									new ListValue<ClothingAccess>(ClothingAccess.WAIST)),
-							concealedPartialTorso)),
-					new ListValue<BlockedParts>(
-							new BlockedParts(
-									DisplacementType.PULLS_UP,
-									null,
-									Util.newArrayListOfValues(
-											new ListValue<CoverableArea>(CoverableArea.ANUS),
-											new ListValue<CoverableArea>(CoverableArea.PENIS),
-											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
-									concealedGroin))),
+									ClothingAccess.CHEST,
+									ClothingAccess.WAIST),
+							concealedPartialTorso),
+					new BlockedParts(
+							DisplacementType.PULLS_UP,
+							null,
+							Util.newArrayListOfValues(
+									CoverableArea.ANUS,
+									CoverableArea.PENIS,
+									CoverableArea.VAGINA),
+							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							concealedGroin)),
 			null,
 			ColourListPresets.JUST_RED.getPresetColourList(),
 			ColourListPresets.ALL.getPresetColourList(),
@@ -11410,7 +11261,7 @@ public class ClothingType {
 			ColourListPresets.ALL.getPresetColourList(),
 			ColourListPresets.JUST_BLACK.getPresetColourList(),
 			ColourListPresets.ALL.getPresetColourList(),
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.REINDEER_GIFT))){
+			Util.newArrayListOfValues(ItemTag.REINDEER_GIFT)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -11470,13 +11321,12 @@ public class ClothingType {
 			ClothingSet.JOLNIR,
 			"jolnir_foot_boots",
 			Util.newArrayListOfValues(
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.CRITICAL_CHANCE, TFPotency.MAJOR_BOOST, 0))),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.CRITICAL_CHANCE, TFPotency.MAJOR_BOOST, 0)),
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(
+					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.FEET)),
-							null, null, null))),
+							Util.newArrayListOfValues(ClothingAccess.FEET),
+							null, null, null)),
 			null,
 			ColourListPresets.JUST_RED.getPresetColourList(),
 			ColourListPresets.ALL.getPresetColourList(),
@@ -11484,7 +11334,7 @@ public class ClothingType {
 			ColourListPresets.ALL.getPresetColourList(),
 			ColourListPresets.JUST_WHITE.getPresetColourList(),
 			ColourListPresets.ALL.getPresetColourList(),
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.REINDEER_GIFT))){
+			Util.newArrayListOfValues(ItemTag.REINDEER_GIFT)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -11522,13 +11372,12 @@ public class ClothingType {
 			ClothingSet.JOLNIR,
 			"jolnir_foot_boots_feminine",
 			Util.newArrayListOfValues(
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.CRITICAL_CHANCE, TFPotency.MAJOR_BOOST, 0))),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.CRITICAL_CHANCE, TFPotency.MAJOR_BOOST, 0)),
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(
+					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.FEET)),
-							null, null, null))),
+							Util.newArrayListOfValues(ClothingAccess.FEET),
+							null, null, null)),
 			null,
 			ColourListPresets.JUST_RED.getPresetColourList(),
 			ColourListPresets.ALL.getPresetColourList(),
@@ -11536,7 +11385,7 @@ public class ClothingType {
 			ColourListPresets.ALL.getPresetColourList(),
 			ColourListPresets.JUST_WHITE.getPresetColourList(),
 			ColourListPresets.ALL.getPresetColourList(),
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.REINDEER_GIFT))){
+			Util.newArrayListOfValues(ItemTag.REINDEER_GIFT)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -11575,45 +11424,40 @@ public class ClothingType {
 			ClothingSet.SCIENTIST,
 			"torso_over_lab_coat",
 			Util.newArrayListOfValues(
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_FIRE, TFPotency.BOOST, 0)), 
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_ICE, TFPotency.BOOST, 0)), 
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_POISON, TFPotency.BOOST, 0))),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_FIRE, TFPotency.BOOST, 0), 
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_ICE, TFPotency.BOOST, 0), 
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_POISON, TFPotency.BOOST, 0)),
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(
-							new BlockedParts(
-									DisplacementType.REMOVE_OR_EQUIP,
-									null,
-									Util.newArrayListOfValues(
-											new ListValue<CoverableArea>(CoverableArea.BACK)),
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)), null
-									)),
-					new ListValue<BlockedParts>(
-							new BlockedParts(
-									DisplacementType.PULLS_UP,
-									null,
-									Util.newArrayListOfValues(
-											new ListValue<CoverableArea>(CoverableArea.ANUS),
-											new ListValue<CoverableArea>(CoverableArea.PENIS),
-											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
-									concealedGroin)),
-					new ListValue<BlockedParts>(
-							new BlockedParts(
-									DisplacementType.UNBUTTONS,
-									null,
-									Util.newArrayListOfValues(
-											new ListValue<CoverableArea>(CoverableArea.BREASTS),
-											new ListValue<CoverableArea>(CoverableArea.NIPPLES),
-											new ListValue<CoverableArea>(CoverableArea.PENIS),
-											new ListValue<CoverableArea>(CoverableArea.VAGINA),
-											new ListValue<CoverableArea>(CoverableArea.STOMACH)),
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.GROIN),
-											new ListValue<ClothingAccess>(ClothingAccess.CHEST),
-											new ListValue<ClothingAccess>(ClothingAccess.WAIST)),
-									concealedDressFrontFull))),
+					new BlockedParts(
+							DisplacementType.REMOVE_OR_EQUIP,
+							null,
+							Util.newArrayListOfValues(CoverableArea.BACK),
+							Util.newArrayListOfValues(ClothingAccess.ARMS_UP_TO_SHOULDER), 
+							null
+							),
+					new BlockedParts(
+							DisplacementType.PULLS_UP,
+							null,
+							Util.newArrayListOfValues(
+									CoverableArea.ANUS,
+									CoverableArea.PENIS,
+									CoverableArea.VAGINA),
+							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							concealedGroin),
+					new BlockedParts(
+							DisplacementType.UNBUTTONS,
+							null,
+							Util.newArrayListOfValues(
+									CoverableArea.BREASTS,
+									CoverableArea.NIPPLES,
+									CoverableArea.PENIS,
+									CoverableArea.VAGINA,
+									CoverableArea.STOMACH),
+							Util.newArrayListOfValues(
+									ClothingAccess.GROIN,
+									ClothingAccess.CHEST,
+									ClothingAccess.WAIST),
+							concealedDressFrontFull)),
 			null,
 			ColourListPresets.BLACK_OR_WHITE.getPresetColourList(),
 			ColourListPresets.ALL.getPresetColourList(),
@@ -11621,7 +11465,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -11659,18 +11503,17 @@ public class ClothingType {
 			ClothingSet.SCIENTIST,
 			"eye_safety_goggles",
 			Util.newArrayListOfValues(
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_FIRE, TFPotency.BOOST, 0)), 
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_ICE, TFPotency.BOOST, 0)), 
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_POISON, TFPotency.BOOST, 0))),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_FIRE, TFPotency.BOOST, 0), 
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_ICE, TFPotency.BOOST, 0), 
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_POISON, TFPotency.BOOST, 0)),
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(
-							new BlockedParts(
-									DisplacementType.REMOVE_OR_EQUIP,
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.HEAD),
-											new ListValue<ClothingAccess>(ClothingAccess.EYES)),
-									null,
-									null, null))),
+					new BlockedParts(
+							DisplacementType.REMOVE_OR_EQUIP,
+							Util.newArrayListOfValues(
+									ClothingAccess.HEAD,
+									ClothingAccess.EYES),
+							null,
+							null, null)),
 			null,
 			ColourListPresets.JUST_BLACK.getPresetColourList(),
 			ColourListPresets.ALL.getPresetColourList(),
@@ -11678,7 +11521,7 @@ public class ClothingType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SOLD_BY_NYAN))){
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -11767,27 +11610,28 @@ public class ClothingType {
 			null,
 			"ambers_bitch_choker",
 			Util.newArrayListOfValues(
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.TF_MOD_FETISH_BEHAVIOUR, TFModifier.TF_MOD_FETISH_SUBMISSIVE, TFPotency.MAJOR_BOOST, 0)),
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SEALING, TFModifier.ARCANE_BOOST, TFPotency.MINOR_BOOST, 0)),
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.MAJOR_DRAIN, 0)),
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_LUST, TFPotency.MAJOR_DRAIN, 0)),
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_LUST, TFPotency.MAJOR_DRAIN, 0)),
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_LUST, TFPotency.MAJOR_DRAIN, 0)),
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_LUST, TFPotency.MAJOR_DRAIN, 0)),
-					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_LUST, TFPotency.MAJOR_DRAIN, 0))),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.TF_MOD_FETISH_BEHAVIOUR, TFModifier.TF_MOD_FETISH_SUBMISSIVE, TFPotency.MAJOR_BOOST, 0),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SEALING, TFModifier.ARCANE_BOOST, TFPotency.MINOR_BOOST, 0),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.MAJOR_DRAIN, 0),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_LUST, TFPotency.MAJOR_DRAIN, 0),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_LUST, TFPotency.MAJOR_DRAIN, 0),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_LUST, TFPotency.MAJOR_DRAIN, 0),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_LUST, TFPotency.MAJOR_DRAIN, 0),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_LUST, TFPotency.MAJOR_DRAIN, 0)),
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(
+					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
 							null,
 							null,
-							null, null))),
+							null, null)),
 			null,
-			Util.newArrayListOfValues(new ListValue<>(Colour.CLOTHING_PINK_LIGHT)),
+			Util.newArrayListOfValues(Colour.CLOTHING_PINK_LIGHT),
 			ColourListPresets.ALL.getPresetColourList(),
 			ColourListPresets.JUST_STEEL.getPresetColourList(),
 			ColourListPresets.ALL_METAL.getPresetColourList(),
 			null,
-			null, null){
+			null,
+			null){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -11811,6 +11655,68 @@ public class ClothingType {
 					null, null, null);
 		}
 	};
+
+	public static AbstractClothingType HEAD_SLIME_QUEENS_TIARA = new AbstractClothingType(10000,
+			"the",
+			false,
+			"Slime Queen's Tiara",
+			"Slime Queen's Tiaras",
+			"Worn by the Slime Queen, this tiara consists of a thin band of metal, studded with precious gemstones.",
+			1,
+			Femininity.FEMININE,
+			InventorySlot.HEAD,
+			Rarity.LEGENDARY,
+			null,
+			"head_slime_queens_tiara",
+			Util.newArrayListOfValues(
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_LUST, TFPotency.MAJOR_BOOST, 0),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_LUST, TFPotency.MAJOR_BOOST, 0),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_LUST, TFPotency.MAJOR_BOOST, 0),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_LUST, TFPotency.MAJOR_BOOST, 0),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_LUST, TFPotency.MAJOR_BOOST, 0),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.CRITICAL_DAMAGE, TFPotency.MAJOR_BOOST, 0),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.CRITICAL_DAMAGE, TFPotency.MAJOR_BOOST, 0),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.CRITICAL_DAMAGE, TFPotency.MAJOR_BOOST, 0),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.CRITICAL_DAMAGE, TFPotency.MAJOR_BOOST, 0),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.CRITICAL_DAMAGE, TFPotency.MAJOR_BOOST, 0)),
+			Util.newArrayListOfValues(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(ClothingAccess.HEAD), null, null, null)),
+			null,
+			ColourListPresets.JUST_GOLD.getPresetColourList(),
+			ColourListPresets.ALL_METAL.getPresetColourList(),
+			ColourListPresets.JUST_DARK_RED.getPresetColourList(),
+			ColourListPresets.ALL.getPresetColourList(),
+			ColourListPresets.JUST_GOLD.getPresetColourList(),
+			ColourListPresets.ALL_METAL.getPresetColourList(),
+			null){
+		
+		@Override
+		public int getEnchantmentLimit() {
+			return 10;
+		}
+
+		@Override
+		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You place the tiara on your head.",
+					"You place the tiara on [npc.name]'s head.",
+					null,
+					"[npc.Name] places the tiara on [npc.her] head.",
+					"[npc.Name] places the tiara on your head.",
+					null, null, null);
+		}
+
+		@Override
+		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You take off your tiara.",
+					"You take off [npc.name]'s tiara.",
+					null,
+					"[npc.Name] takes [npc.her] tiara off.",
+					"[npc.Name] takes your tiara off.",
+					null, null, null);
+		}
+	};
+	
 	
 	private static List<AbstractClothingType> allClothing, moddedClothingList,
 										commonClothing, commonFemaleClothing, commonMaleClothing, commonAndrogynousClothing,
@@ -11861,8 +11767,8 @@ public class ClothingType {
 			commonClothingMapMaleIncludingAndrogynous.put(slot, new ArrayList<>());
 		}
 		
-		coreClothingSlots = Util.newArrayListOfValues(new ListValue<>(InventorySlot.TORSO_UNDER), new ListValue<>(InventorySlot.LEG));
-		lingerieSlots = Util.newArrayListOfValues(new ListValue<>(InventorySlot.CHEST), new ListValue<>(InventorySlot.GROIN), new ListValue<>(InventorySlot.STOMACH), new ListValue<>(InventorySlot.SOCK));
+		coreClothingSlots = Util.newArrayListOfValues(InventorySlot.TORSO_UNDER, InventorySlot.LEG);
+		lingerieSlots = Util.newArrayListOfValues(InventorySlot.CHEST, InventorySlot.GROIN, InventorySlot.STOMACH, InventorySlot.SOCK);
 
 		allClothing = new ArrayList<>();
 		commonClothing = new ArrayList<>();
@@ -11903,8 +11809,8 @@ public class ClothingType {
 									for (File innerChild : innerDirectoryListing) {
 										AbstractClothingType ct = new AbstractClothingType(innerChild) {};
 										moddedClothingList.add(ct);
-//										System.out.println(modAuthorDirectory.getName()+"_"+innerChild.getParentFile().getName()+"_"+innerChild.getName().split("\\.")[0]);
 										String id = modAuthorDirectory.getName()+"_"+innerChild.getParentFile().getName()+"_"+innerChild.getName().split("\\.")[0];
+//										System.out.println(id);
 										clothingToIdMap.put(ct, id);
 										idToClothingMap.put(id, ct);
 									}

@@ -549,7 +549,14 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 			// --- Stop foreplay actions: ---
 			for(SexActionInterface action : availableActions) {
 				if(action.getActionType() == SexActionType.PARTNER_STOP_PENETRATION) {
-					if(!(action.getAssociatedPenetrationType()==PenetrationType.TONGUE && action.getAssociatedOrificeType()==OrificeType.MOUTH)) { // Don't stop kissing actions:
+					// Don't stop kissing or fetishised oral actions:
+					if(!(action.getAssociatedPenetrationType()==PenetrationType.TONGUE && action.getAssociatedOrificeType()==OrificeType.MOUTH)
+							&& !(Sex.getActivePartner().hasFetish(Fetish.FETISH_ORAL_RECEIVING)
+									&& ((!action.getParticipantType().isUsingSelfOrificeType() && action.getAssociatedOrificeType()==OrificeType.MOUTH)
+											|| (!action.getParticipantType().isUsingSelfPenetrationType() && action.getAssociatedPenetrationType()==PenetrationType.TONGUE)))
+							&& !(Sex.getActivePartner().hasFetish(Fetish.FETISH_ORAL_GIVING)
+									&& ((action.getParticipantType().isUsingSelfOrificeType() && action.getAssociatedOrificeType()==OrificeType.MOUTH)
+											|| (action.getParticipantType().isUsingSelfPenetrationType() && action.getAssociatedPenetrationType()==PenetrationType.TONGUE)))) {
 						returnableActions.add(action);
 					}
 				}
