@@ -508,9 +508,8 @@ public class Brax extends NPC {
 						+ " Instead, you push Brax back into his chair, tutting in disapproval as he lets out a desperate whine."
 					+ "</p>"
 					+ "<p>"
-						+ "Taking one last look around Brax's office, you notice that there's a neatly-folded spare uniform lying on top of a cabinet."
-						+ " It also has a scroll sitting on top of the pile of uniform pieces."
-						+ " Deciding to punish Brax a little more for trying to beat you up, <b>you take the spare uniform, and the scroll and add them to your inventory</b>."
+						+ "Taking one last look around Brax's office, you notice that there's a neatly-folded spare uniform lying on top of a cabinet next to a small scroll."
+						+ " Deciding to punish Brax a little more for trying to beat you up, <b>you take the spare uniform and the scroll, and add them to your inventory</b>."
 					+ "</p>";
 		}
 		
