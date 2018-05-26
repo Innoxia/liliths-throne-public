@@ -18,6 +18,7 @@ public enum Colour {
 	
 	BASE_WHITE(BaseColour.WHITE, "white", Util.newArrayListOfValues("white")),
 	BASE_GREY(BaseColour.GREY, "grey", Util.newArrayListOfValues("grey")),
+	BASE_GREY_DARK(BaseColour.GREY_DARK, "dark grey", Util.newArrayListOfValues("darkGrey")),
 	
 	BASE_ROSE(BaseColour.ROSE, "rose", Util.newArrayListOfValues("rose")),
 	BASE_LILAC(BaseColour.LILAC, "lilac", Util.newArrayListOfValues("lilac")),
@@ -418,7 +419,7 @@ public enum Colour {
 	// Horns:
 	HORN_WHITE(BaseColour.WHITE, "ivory"),
 	HORN_GREY(BaseColour.GREY, "grey"),
-	HORN_DARK_GREY(BaseColour.GREY, "dark-grey"),
+	HORN_DARK_GREY(BaseColour.GREY_DARK, "dark-grey"),
 	HORN_BLACK(BaseColour.BLACK, "black"),
 	
 	HORN_RED(BaseColour.RED, "red"),
