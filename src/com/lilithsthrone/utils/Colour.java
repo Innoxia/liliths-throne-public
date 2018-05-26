@@ -440,7 +440,7 @@ public enum Colour {
 	ANTLER_BROWN(BaseColour.BROWN, "brown"),
 	ANTLER_DARK_BROWN(BaseColour.BROWN_DARK, "dark brown"),
 	ANTLER_GREY(BaseColour.GREY, "grey"),
-	ANTLER_DARK_GREY(BaseColour.GREY, "dark-grey"),
+	ANTLER_DARK_GREY(BaseColour.GREY_DARK, "dark-grey"),
 	ANTLER_BLACK(BaseColour.BLACK, "black"),
 	
 	ANTLER_RED(BaseColour.RED, "red"),
