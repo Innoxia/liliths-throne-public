@@ -420,6 +420,12 @@ public enum Attribute {
 			return "Increases damage vs wolf-morphs.";
 		}
 	},
+	DAMAGE_FOX_MORPH(0, -100, 100, "fox-morph damage", "Fox-morph damage", "swordIcon", Colour.RACE_FOX_MORPH, "fox-morph-obliteration", "fox-morph-mercy", null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Increases damage vs fox-morphs.";
+		}
+	},
 	DAMAGE_SLIME(0, -100, 100, "slime damage", "Slime damage", "swordIcon", Colour.RACE_SLIME, "slime-obliteration", "slime-mercy", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -551,6 +557,12 @@ public enum Attribute {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Increases resistance vs damage inflicted by wolf-morphs.";
+		}
+	},
+	RESISTANCE_FOX_MORPH(0, -100, 100, "fox-morph resistance", "Fox-morph resistance", "shieldIcon", Colour.RACE_FOX_MORPH, "fox-morph-immunity", "fox-morph-vulnerability", null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Increases resistance vs damage inflicted by fox-morphs.";
 		}
 	},
 	RESISTANCE_SLIME(0, -100, 100, "slime resistance", "Slime resistance", "shieldIcon", Colour.RACE_SLIME, "slime-immunity", "slime-vulnerability", null) {

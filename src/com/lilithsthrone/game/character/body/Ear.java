@@ -149,6 +149,40 @@ public class Ear implements BodyPartInterface, Serializable {
 							+ "</p>");
 				}
 				break;
+			case FOX_MORPH:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+								" They quickly grow into large, upright points, and shift to sit higher up on your head than a normal pair of human ears would."
+								+ " A layer of [pc.earFullDescriptionColour] grows to cover them, and as the transformation finishes, you discover that you can easily twitch your new fox-like ears back and forth."
+								+ "</br>"
+								+ "You now have [style.boldFoxMorph(anthropomorphic, fox-like ears)]."
+							+ "</p>");
+				} else {
+					UtilText.transformationContentSB.append(
+								" They quickly grow into large, upright points, and shift to sit higher up on [npc.her] head than a normal pair of human ears would."
+								+ " A layer of [npc.earFullDescriptionColour] grows to cover them, and as the transformation finishes, [npc.she] experimentally twitches [npc.her] new fox-like ears back and forth."
+								+ "</br>"
+								+ "[npc.Name] now has [style.boldFoxMorph(anthropomorphic, fox-like ears)]."
+							+ "</p>");
+				}
+				break;
+			case FOX_MORPH_BIG:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+								" They quickly grow into massive, upright points, only stopping once they're as large as the rest of your head, and shift to sit higher up on your head than a normal pair of human ears would."
+								+ " A layer of [pc.earFullDescriptionColour] grows to cover them, and as the transformation finishes, you discover that you can easily twitch your new fox-like ears back and forth."
+								+ "</br>"
+								+ "You now have [style.boldFoxMorph(large, anthropomorphic, fox-like ears)]."
+							+ "</p>");
+				} else {
+					UtilText.transformationContentSB.append(
+								" They quickly grow into massive, upright points, only stopping once they're as large as the rest of [npc.his] head, and shift to sit higher up on [npc.her] head than a normal pair of human ears would."
+								+ " A layer of [npc.earFullDescriptionColour] grows to cover them, and as the transformation finishes, [npc.she] experimentally twitches [npc.her] new fox-like ears back and forth."
+								+ "</br>"
+								+ "[npc.Name] now has [style.boldFoxMorph(large, anthropomorphic, fox-like ears)]."
+							+ "</p>");
+				}
+				break;
 			case LYCAN:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(

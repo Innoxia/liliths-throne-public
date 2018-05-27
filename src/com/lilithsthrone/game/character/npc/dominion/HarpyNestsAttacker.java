@@ -296,6 +296,7 @@ public class HarpyNestsAttacker extends NPC {
 						|| item.getItemType().equals(ItemType.FIT_INGREDIENT_CANINE_CRUSH)
 						|| item.getItemType().equals(ItemType.FIT_INGREDIENT_SQUIRREL_JAVA)
 						|| item.getItemType().equals(ItemType.INT_INGREDIENT_FELINE_FANCY)
+						|| item.getItemType().equals(ItemType.INT_INGREDIENT_GRAPE_JUICE)
 						|| item.getItemType().equals(ItemType.STR_INGREDIENT_EQUINE_CIDER)
 						|| item.getItemType().equals(ItemType.STR_INGREDIENT_WOLF_WHISKEY)
 						|| item.getItemType().equals(ItemType.STR_INGREDIENT_SWAMP_WATER)

@@ -149,6 +149,23 @@ public enum BodyCoveringType {
 			Colour.dyeFurColours,
 			Colour.naturalFurColours,
 			Colour.dyeFurColours),
+	
+	FOX_FUR("a layer of",
+			false,
+			"fur",
+			"fur",
+			Util.newArrayListOfValues(
+					CoveringModifier.FLUFFY,
+					CoveringModifier.SMOOTH),
+			null,
+			Util.newArrayListOfValues(
+					CoveringPattern.NONE,
+					CoveringPattern.MARKED),
+			CoveringPattern.allHairCoveringPatterns,
+			Colour.naturalFurColours,
+			Colour.dyeFurColours,
+			Colour.naturalFurColours,
+			Colour.dyeFurColours),
 
 	FELINE_FUR("a layer of",
 			false,
@@ -905,6 +922,21 @@ public enum BodyCoveringType {
 			Colour.dyeHairColours,
 			Colour.naturalHairColours,
 			Colour.dyeHairColours),
+	
+	HAIR_FOX_FUR("a layer of",
+			false,
+			"hair",
+			"hair",
+			Util.newArrayListOfValues(
+					CoveringModifier.FURRY),
+			null,
+			Util.newArrayListOfValues(
+					CoveringPattern.NONE),
+			CoveringPattern.allHairCoveringPatterns,
+			Colour.naturalHairColours,
+			Colour.dyeHairColours,
+			Colour.naturalHairColours,
+			Colour.dyeHairColours),
 
 	HAIR_FELINE_FUR("a layer of",
 			false,
@@ -1129,6 +1161,20 @@ public enum BodyCoveringType {
 			Colour.dyeHairColours),
 
 	BODY_HAIR_LYCAN_FUR("a layer of",
+			false,
+			"hair",
+			"hair",
+			Util.newArrayListOfValues(
+					CoveringModifier.FURRY),
+			null,
+			null,
+			CoveringPattern.allHairCoveringPatterns,
+			Colour.naturalHairColours,
+			Colour.dyeHairColours,
+			Colour.naturalHairColours,
+			Colour.dyeHairColours),
+	
+	BODY_HAIR_FOX_FUR("a layer of",
 			false,
 			"hair",
 			"hair",
@@ -1367,6 +1413,22 @@ public enum BodyCoveringType {
 			Colour.dyeIrisColours),
 
 	EYE_LYCAN("a pair of",
+			true,
+			"eyes",
+			"eye",
+			Util.newArrayListOfValues(
+					CoveringModifier.EYE),
+			null,
+			Util.newArrayListOfValues(
+					CoveringPattern.EYE_IRISES),
+			Util.newArrayListOfValues(
+					CoveringPattern.EYE_IRISES_HETEROCHROMATIC),
+			Colour.naturalPredatorIrisColours,
+			Colour.dyePredatorIrisColours,
+			Colour.naturalPredatorIrisColours,
+			Colour.dyePredatorIrisColours),
+	
+	EYE_FOX_MORPH("a pair of",
 			true,
 			"eyes",
 			"eye",

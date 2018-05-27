@@ -145,6 +145,23 @@ public class Skin implements BodyPartInterface, Serializable {
 							+ "</p>");
 				}
 				break;
+			case FOX_MORPH:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+								" After just a few moments, the transformation comes to an end, and you let out a deep sigh as the itching finally stops, leaving your torso covered with fox-like fur."
+								+ " Looking at your new fur, you see that it's a little shaggy around your joints and is quite densely packed."
+								+ "</br>"
+								+ "You now have [style.boldFoxMorph(vulpine)], [pc.skinFullDescription]."
+							+ "</p>");
+				} else {
+					UtilText.transformationContentSB.append(
+								" After just a few moments, the transformation comes to an end, and [npc.she] lets out a deep sigh as the itching finally stops, leaving [npc.her] torso covered with fox-like fur."
+								+ " [npc.Her] new fur is a little shaggy around [npc.her] joints and is quite densely packed."
+								+ "</br>"
+								+ "[npc.Name] now has [style.boldFoxMorph(vulpine)], [npc.skinFullDescription]."
+							+ "</p>");
+				}
+				break;
 			case LYCAN:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(

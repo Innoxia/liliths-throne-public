@@ -263,6 +263,33 @@ public class Tail implements BodyPartInterface, Serializable {
 							);
 				}
 				break;
+			case FOX_MORPH: case FOX_MORPH_MAGIC:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+							(owner.getTailCount()==1
+								?" A bushy, fox-like tail sprouts from just above your ass, rapidly growing in size until it's about half the length of one of your legs."
+									+ " You quickly realise that you have limited control over it, and it takes a lot of effort to stop it from betraying your emotions."
+									+ "</br>"
+									+ "You now have a [style.boldFoxMorph(fox-like tail)]"
+								:" [pc.TailCount] bushy, fox-like tails sprout from just above your ass, rapidly growing in size until they're each about half the length of one of your legs."
+									+ " You quickly realise that you have limited control over them, and it takes a lot of effort to stop them from betraying your emotions."
+									+ "</br>"
+									+ "You now have [pc.tailCount] [style.boldFoxMorph(fox-like tails)]")
+							);
+				} else {
+					UtilText.transformationContentSB.append(
+							(owner.getTailCount()==1
+								?" A bushy, fox-like tail sprouts from just above [npc.her] ass, rapidly growing in size until it's about half the length of one of [npc.her] legs."
+									+ " [npc.She] quickly realises that [npc.she] has limited control over it, and it takes a lot of effort to stop it from betraying [npc.her] emotions."
+									+ "</br>"
+									+ "[npc.Name] now has a [style.boldFoxMorph(fox-like tail)]"
+								:" [npc.TailCount] bushy, fox-like tails sprout from just above [npc.her] ass, rapidly growing in size until they're each about half the length of one of [npc.her] legs."
+									+ " [npc.She] quickly realises that [npc.she] has limited control over them, and it takes a lot of effort to stop them from betraying [npc.her] emotions."
+									+ "</br>"
+									+ "[npc.Name] now has [npc.tailCount] [style.boldFoxMorph(fox-like tails)]")
+							);
+				}
+				break;
 			case HARPY:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(

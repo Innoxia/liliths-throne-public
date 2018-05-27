@@ -132,6 +132,8 @@ public class DominionAlleywayAttacker extends NPC {
 					case SLIME_DOG:
 					case SLIME_DOG_DOBERMANN:
 					case SLIME_DOG_BORDER_COLLIE:
+					case SLIME_FOX:
+					case SLIME_FOX_FENNEC:
 					case SLIME_HARPY:
 					case SLIME_HARPY_RAVEN:
 					case SLIME_HORSE:
@@ -170,6 +172,12 @@ public class DominionAlleywayAttacker extends NPC {
 						break;
 					case DOG_MORPH_BORDER_COLLIE:
 						addToSubspeciesMap(canalSpecies?1:4, gender, s, availableRaces);
+						break;
+					case FOX_MORPH:
+						addToSubspeciesMap(canalSpecies?1:10, gender, s, availableRaces);
+						break;
+					case FOX_MORPH_FENNEC:
+						addToSubspeciesMap(5, gender, s, availableRaces);
 						break;
 					case HORSE_MORPH:
 						addToSubspeciesMap(canalSpecies?5:20, gender, s, availableRaces);
@@ -587,6 +595,7 @@ public class DominionAlleywayAttacker extends NPC {
 						|| item.getItemType().equals(ItemType.FIT_INGREDIENT_CANINE_CRUSH)
 						|| item.getItemType().equals(ItemType.FIT_INGREDIENT_SQUIRREL_JAVA)
 						|| item.getItemType().equals(ItemType.INT_INGREDIENT_FELINE_FANCY)
+						|| item.getItemType().equals(ItemType.INT_INGREDIENT_GRAPE_JUICE)
 						|| item.getItemType().equals(ItemType.STR_INGREDIENT_EQUINE_CIDER)
 						|| item.getItemType().equals(ItemType.STR_INGREDIENT_WOLF_WHISKEY)
 						|| item.getItemType().equals(ItemType.STR_INGREDIENT_SWAMP_WATER)

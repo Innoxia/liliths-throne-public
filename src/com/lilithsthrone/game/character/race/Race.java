@@ -222,6 +222,33 @@ public enum Race {
 			Attribute.RESISTANCE_WOLF_MORPH,
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL),
+	
+	FOX_MORPH("fox-morph",
+			"fox-morphs",
+			"fox-boy",
+			"fox-girl",
+			"fox-boys",
+			"fox-girls",
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "FOX_MORPH_BASIC"),
+
+			UtilText.parseFromXMLFile("characters/raceInfo", "FOX_MORPH_ADVANCED"),
+			
+			Colour.RACE_FOX_MORPH,
+			Disposition.UNPREDICTABLE,
+			StatusEffect.FOX_MORPH,
+			Util.newArrayListOfValues(
+					Attack.MAIN,
+					Attack.SEDUCTION,
+					Attack.SPELL),
+			true,
+			0.5f,
+			1,
+			2,
+			Attribute.DAMAGE_FOX_MORPH,
+			Attribute.RESISTANCE_FOX_MORPH,
+			FurryPreference.NORMAL,
+			FurryPreference.NORMAL),
 
 	// FELINES:
 	CAT_MORPH("cat-morph",

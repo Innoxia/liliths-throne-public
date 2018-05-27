@@ -37,6 +37,8 @@ public enum PenisType implements BodyPartTypeInterface {
 	CANINE(BodyCoveringType.PENIS, TesticleType.CANINE, Race.DOG_MORPH, PenisModifier.KNOTTED, PenisModifier.SHEATHED, PenisModifier.TAPERED),
 	
 	LUPINE(BodyCoveringType.PENIS, TesticleType.LUPINE, Race.WOLF_MORPH, PenisModifier.KNOTTED, PenisModifier.SHEATHED, PenisModifier.TAPERED),
+	
+	VULPINE(BodyCoveringType.PENIS, TesticleType.FOX_MORPH, Race.FOX_MORPH, PenisModifier.KNOTTED, PenisModifier.SHEATHED, PenisModifier.TAPERED),
 
 	FELINE(BodyCoveringType.PENIS, TesticleType.FELINE, Race.CAT_MORPH, PenisModifier.BARBED, PenisModifier.SHEATHED),
 
@@ -133,6 +135,8 @@ public enum PenisType implements BodyPartTypeInterface {
 						return UtilText.returnStringAtRandom("rodent", "squirrel-", "squirrel-like");
 					case LUPINE:
 						return UtilText.returnStringAtRandom("lupine", "wolf-", "wolf-like", "bestial");
+					case VULPINE:
+						return UtilText.returnStringAtRandom("vulpine", "fox-", "fox-like", "bestial");
 					case BAT_MORPH:
 						return UtilText.returnStringAtRandom("bat-", "bat-like");
 					case RAT_MORPH:
@@ -189,6 +193,8 @@ public enum PenisType implements BodyPartTypeInterface {
 				return "alligator";
 			case LUPINE:
 				return "lupine";
+			case VULPINE:
+				return "vulpine";
 			case BAT_MORPH:
 				return "bat";
 			case RAT_MORPH:
@@ -279,6 +285,9 @@ public enum PenisType implements BodyPartTypeInterface {
 				break;
 			case LUPINE:
 				prefix = UtilText.returnStringAtRandom("wolf-", "lupine-");
+				break;
+			case VULPINE:
+				prefix = UtilText.returnStringAtRandom("fox-", "vulpine-");
 				break;
 			case RAT_MORPH:
 				prefix = UtilText.returnStringAtRandom("rat-", "rodent-");

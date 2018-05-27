@@ -2585,7 +2585,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			case ALLIGATOR_MORPH:
 				value = 10000;
 				break;
-			case WOLF_MORPH:
+			case WOLF_MORPH: case FOX_MORPH:
 				value = 10000;
 				break;
 			case SLIME:
@@ -12445,6 +12445,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				return BodyCoveringType.BODY_HAIR_IMP;
 			case DOG_MORPH:
 				return BodyCoveringType.BODY_HAIR_CANINE_FUR;
+			case FOX_MORPH:
+				return BodyCoveringType.BODY_HAIR_FOX_FUR;
 			case ALLIGATOR_MORPH:
 				return BodyCoveringType.BODY_HAIR_SCALES_ALLIGATOR;
 			case HARPY:

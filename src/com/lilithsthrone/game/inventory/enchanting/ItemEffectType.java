@@ -169,6 +169,18 @@ public class ItemEffectType {
 		}
 	};
 	
+	public static AbstractItemEffectType BOOK_READ_FOX_MORPH = new AbstractItemEffectType(Util.newArrayListOfValues(
+			"Adds fox-morph encyclopedia entry.",
+			"[style.boldExcellent(+5)] [style.boldDogMorph("+Attribute.DAMAGE_FOX_MORPH.getName()+")]",
+			"[style.boldExcellent(+5)] [style.boldDogMorph("+Attribute.RESISTANCE_FOX_MORPH.getName()+")]"),
+			Colour.RACE_FOX_MORPH) {
+		
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+			return getBookEffect(Race.FOX_MORPH, ItemType.BOOK_FOX_MORPH);
+		}
+	};
+	
 	public static AbstractItemEffectType BOOK_READ_ALLIGATOR_MORPH = new AbstractItemEffectType(Util.newArrayListOfValues(
 			"Adds alligator-morph encyclopedia entry.",
 			"[style.boldExcellent(+5)] [style.boldAlligatorMorph("+Attribute.DAMAGE_ALLIGATOR_MORPH.getName()+")]",
@@ -738,6 +750,25 @@ public class ItemEffectType {
 		}
 	};
 	
+	public static AbstractItemEffectType INT_GRAPE_JUICE = new AbstractItemEffectType(Util.newArrayListOfValues(
+			"[style.boldGood(Restores)] 5% [style.boldAura(aura)]",
+			"[style.boldGood(+10)] [style.boldPhysique(critical hit damage)] to 'potion effects'"),
+			Colour.ATTRIBUTE_PHYSIQUE) {
+		
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+			target.incrementMana(target.getAttributeValue(Attribute.MANA_MAXIMUM)/20);
+			
+			return "<p style='text-align:center;'>"
+					+(target.isPlayer()
+						?"Your senses are heightened..."
+						:UtilText.parse(target, "[npc.Name]'s senses are heightened..."))
+					+ "</br>"
+					+ target.addPotionEffect(Attribute.CRITICAL_DAMAGE, 10)
+					+"</p>";
+		}
+	};
+	
 	public static AbstractItemEffectType INT_VANILLA_WATER = new AbstractItemEffectType(Util.newArrayListOfValues(
 			"[style.boldGood(Restores)] 5% [style.boldAura(aura)]",
 			"[style.boldGood(+1)] [style.boldIntelligence(arcane)] to 'potion effects'"),
@@ -1283,6 +1314,25 @@ public class ItemEffectType {
 		@Override
 		public String getPotionDescriptor() {
 			return "canine";
+		}
+		
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+			return (target.isPlayer()
+						?"You start to feel a lot more energetic..."
+						:UtilText.parse(target, "[npc.Name] starts to feel a lot more energetic..."))
+					+ "</br>"
+					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 2);
+		}
+	};
+	
+	public static AbstractItemEffectType RACE_FOX_PIE = new AbstractItemEffectType(Util.newArrayListOfValues(
+			"[style.boldGood(+2)] [style.boldPhysique(physique)] to 'potion effects'"),
+			Colour.RACE_FOX_MORPH) {
+
+		@Override
+		public String getPotionDescriptor() {
+			return "vulpine";
 		}
 		
 		@Override
@@ -2801,6 +2851,35 @@ public class ItemEffectType {
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			return getRacialEffect(Race.DOG_MORPH, primaryModifier, secondaryModifier, potency, user, target).applyEffect();
+		}
+	};
+	
+	public static AbstractItemEffectType RACE_FOX_MORPH = new AbstractItemEffectType(null,
+			Colour.RACE_FOX_MORPH) {
+
+		@Override
+		public List<TFModifier> getPrimaryModifiers() {
+			return TFModifier.getTFRacialBodyPartsList();
+		}
+
+		@Override
+		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
+			return getRacialSecondaryModifiers(Race.FOX_MORPH, primaryModifier);
+		}
+		
+		@Override
+		public List<TFPotency> getPotencyModifiers(TFModifier primaryModifier, TFModifier secondaryModifier) {
+			return getRacialPotencyModifiers(Race.FOX_MORPH, primaryModifier, secondaryModifier);
+		}
+		
+		@Override
+		public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
+			return Util.newArrayListOfValues(getRacialEffect(Race.FOX_MORPH, primaryModifier, secondaryModifier, potency, user, target).getDescriptionPlusChangeDescription());
+		}
+		
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+			return getRacialEffect(Race.FOX_MORPH, primaryModifier, secondaryModifier, potency, user, target).applyEffect();
 		}
 	};
 	

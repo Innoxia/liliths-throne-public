@@ -30,6 +30,8 @@ public enum LegType implements BodyPartTypeInterface {
 	DOG_MORPH(BodyCoveringType.CANINE_FUR, Race.DOG_MORPH),
 	
 	LYCAN(BodyCoveringType.LYCAN_FUR, Race.WOLF_MORPH),
+	
+	FOX_MORPH(BodyCoveringType.FOX_FUR, Race.FOX_MORPH),
 
 	SQUIRREL_MORPH(BodyCoveringType.SQUIRREL_FUR, Race.SQUIRREL_MORPH),
 
@@ -106,6 +108,8 @@ public enum LegType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("furry", "fur-coated", "anthropomorphic squirrel-like");
 			case LYCAN:
 				return UtilText.returnStringAtRandom("furry", "fur-coated", "anthropomorphic wolf-like");
+			case FOX_MORPH:
+				return UtilText.returnStringAtRandom("furry", "fur-coated", "anthropomorphic fox-like");
 			case RAT_MORPH:
 				return UtilText.returnStringAtRandom("furry", "fur-coated", "anthropomorphic rat-like");
 			case RABBIT_MORPH:
@@ -144,6 +148,8 @@ public enum LegType implements BodyPartTypeInterface {
 				return "human";
 			case LYCAN:
 				return "lupine";
+			case FOX_MORPH:
+				return "vulpine";
 			case BAT_MORPH:
 				return "bat";
 			case RAT_MORPH:
@@ -209,6 +215,8 @@ public enum LegType implements BodyPartTypeInterface {
 					return UtilText.returnStringAtRandom("soft", "feminine");
 				case LYCAN:
 					return UtilText.returnStringAtRandom("soft", "feminine", "wolf-like", "furry", "paw-like");
+				case FOX_MORPH:
+					return UtilText.returnStringAtRandom("soft", "feminine", "fox-like", "furry", "paw-like");
 				case SQUIRREL_MORPH:
 					return UtilText.returnStringAtRandom("soft", "feminine", "squirrel-like", "paw-like", "furry");
 				case BAT_MORPH:
@@ -244,6 +252,8 @@ public enum LegType implements BodyPartTypeInterface {
 					return UtilText.returnStringAtRandom("");
 				case LYCAN:
 					return UtilText.returnStringAtRandom("wolf-like", "furry", "paw-like");
+				case FOX_MORPH:
+					return UtilText.returnStringAtRandom("fox-like", "furry", "paw-like");
 				case SQUIRREL_MORPH:
 					return UtilText.returnStringAtRandom("soft", "squirrel-like", "paw-like", "furry");
 				case BAT_MORPH:
