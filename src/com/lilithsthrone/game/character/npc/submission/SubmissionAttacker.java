@@ -24,6 +24,7 @@ import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
+import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.npcDialogue.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.submission.TunnelAttackDialogue;
@@ -91,6 +92,9 @@ public class SubmissionAttacker extends NPC {
 				humanChance = 0.75f;
 			}
 			
+			int slimeChance = Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.slimeQueenHelped) && Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_SLIME_QUEEN) ? 50 : 20;
+			int otherSlimeChance = Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.slimeQueenHelped) && Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_SLIME_QUEEN) ? 2 : 1;
+			
 			Map<Subspecies, Integer> availableRaces = new HashMap<>();
 			for(Subspecies s : Subspecies.values()) {
 				switch(s) {
@@ -137,7 +141,7 @@ public class SubmissionAttacker extends NPC {
 						addToSubspeciesMap(40, gender, s, availableRaces);
 						break;
 					case SLIME:
-						addToSubspeciesMap(20, gender, s, availableRaces);
+						addToSubspeciesMap(slimeChance, gender, s, availableRaces);
 						break;
 					case SLIME_ALLIGATOR:
 					case SLIME_ANGEL:
@@ -157,7 +161,7 @@ public class SubmissionAttacker extends NPC {
 					case SLIME_RAT:
 					case SLIME_BAT:
 					case SLIME_RABBIT:
-						addToSubspeciesMap(1, gender, s, availableRaces);
+						addToSubspeciesMap(otherSlimeChance, gender, s, availableRaces);
 						break;
 				}
 			}

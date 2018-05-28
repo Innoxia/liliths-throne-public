@@ -3147,6 +3147,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			case SUPPLIER_DEN:
 			case SLIME_QUEENS_LAIR_GROUND_FLOOR:
 			case SLIME_QUEENS_LAIR_FIRST_FLOOR:
+			case GAMBLING_DEN:
 				return "This isn't a suitable place to be having sex with [npc.name]!";
 			case ZARANIX_HOUSE_FIRST_FLOOR:
 			case ZARANIX_HOUSE_GROUND_FLOOR:

@@ -2,7 +2,7 @@ package com.lilithsthrone.game.dialogue;
 
 /**
  * @since 0.1.89
- * @version 0.2.5
+ * @version 0.2.6
  * @author Innoxia
  */
 public enum DialogueFlagValue {
@@ -40,6 +40,10 @@ public enum DialogueFlagValue {
 	nyanIntroduced,
 	kateIntroduced,
 	vickyIntroduced,
+
+	roxyIntroduced,
+	axelIntroduced,
+	eponaIntroduced,
 	
 	
 	// Red-light district:

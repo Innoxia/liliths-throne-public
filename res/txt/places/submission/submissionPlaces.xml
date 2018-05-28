@@ -203,7 +203,7 @@
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="CLAIRE_INFO_REPORT_BACK"><![CDATA[
+	<htmlContent tag="CLAIRE_INFO_SLIME_QUEEN_REPORT_BACK"><![CDATA[
 	<p>
 		Wanting to report on your success with dealing with the Slime Queen, you walk up to where Claire is working and call out to her, [pc.speech(Hi Claire!)]
 	</p>
@@ -240,7 +240,7 @@
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="CLAIRE_INFO_REPORT_BACK_LIE"><![CDATA[
+	<htmlContent tag="CLAIRE_INFO_SLIME_QUEEN_REPORT_BACK_LIE"><![CDATA[
 	<p>
 		Wanting to make your fictitious report that the Slime Queen has been dealt with, you walk up to where Claire is working and call out to her, [pc.speech(Hi Claire!)]
 	</p>

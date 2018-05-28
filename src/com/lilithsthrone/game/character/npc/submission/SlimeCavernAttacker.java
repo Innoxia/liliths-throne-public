@@ -16,12 +16,16 @@ import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.race.FurryPreference;
+import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.npcDialogue.SlaveDialogue;
+import com.lilithsthrone.game.dialogue.npcDialogue.submission.BatCavernAttackerDialogue;
+import com.lilithsthrone.game.dialogue.npcDialogue.submission.BatCavernBatAttackerDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.submission.BatCavernSlimeAttackerDialogue;
+import com.lilithsthrone.game.dialogue.npcDialogue.submission.TunnelAttackDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
@@ -255,17 +259,41 @@ public class SlimeCavernAttacker extends NPC {
 	
 	@Override
 	public DialogueNodeOld getEncounterDialogue() {
-		return BatCavernSlimeAttackerDialogue.SLIME_ATTACK;
+		if(this.getBodyMaterial()==BodyMaterial.SLIME) {
+			return BatCavernSlimeAttackerDialogue.SLIME_ATTACK;
+			
+		} if(this.getRace()==Race.BAT_MORPH) {
+			return BatCavernBatAttackerDialogue.BAT_MORPH_ATTACK;
+			
+		} else {
+			return BatCavernAttackerDialogue.ATTACK;
+		}
 	}
 
 	// Combat:
 
 	@Override
 	public Response endCombat(boolean applyEffects, boolean victory) {
-		if (victory) {
-			return new Response("", "", BatCavernSlimeAttackerDialogue.AFTER_COMBAT_VICTORY);
+		if(this.getBodyMaterial()==BodyMaterial.SLIME) {
+			if (victory) {
+				return new Response("", "", BatCavernSlimeAttackerDialogue.AFTER_COMBAT_VICTORY);
+			} else {
+				return new Response ("", "", BatCavernSlimeAttackerDialogue.AFTER_COMBAT_DEFEAT);
+			}
+			
+		} if(this.getRace()==Race.BAT_MORPH) {
+			if (victory) {
+				return new Response("", "", BatCavernBatAttackerDialogue.AFTER_COMBAT_VICTORY);
+			} else {
+				return new Response ("", "", BatCavernBatAttackerDialogue.AFTER_COMBAT_DEFEAT);
+			}
+			
 		} else {
-			return new Response ("", "", BatCavernSlimeAttackerDialogue.AFTER_COMBAT_DEFEAT);
+			if (victory) {
+				return new Response("", "", TunnelAttackDialogue.AFTER_COMBAT_VICTORY);
+			} else {
+				return new Response ("", "", TunnelAttackDialogue.AFTER_COMBAT_DEFEAT);
+			}
 		}
 	}
 	

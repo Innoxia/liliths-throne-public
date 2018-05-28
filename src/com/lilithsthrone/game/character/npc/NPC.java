@@ -39,6 +39,7 @@ import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
+import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.character.persona.History;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
@@ -379,7 +380,18 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		
 		for(Spell spell : this.getAllSpells()) {
 			if(this.getMana()>spell.getModifiedCost(this)) {
-				spellsAbleToCast.add(spell);
+				if(this instanceof Elemental) {
+					if(spell!=Spell.ELEMENTAL_AIR
+							&& spell!=Spell.ELEMENTAL_ARCANE
+							&& spell!=Spell.ELEMENTAL_EARTH
+							&& spell!=Spell.ELEMENTAL_FIRE
+							&& spell!=Spell.ELEMENTAL_WATER) {
+						spellsAbleToCast.add(spell);
+					}
+					
+				} else {
+					spellsAbleToCast.add(spell);
+				}
 			}
 		}
 		

@@ -67,7 +67,7 @@ public class Main extends Application {
 	public static final String VERSION_NUMBER = "0.2.5.8",
 			VERSION_DESCRIPTION = "Alpha";
 	
-	private final static boolean DEBUG = false;
+	private final static boolean DEBUG = true;
 
 	public static final Image WINDOW_IMAGE = new Image("/com/lilithsthrone/res/images/windowIcon32.png");
 
@@ -272,6 +272,8 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("Freekingamer", "", 0, 0, 0, 1));
 		credits.add(new CreditsSlot("Strigon888", "", 0, 0, 0, 1));
 		credits.add(new CreditsSlot("sebasjac", "", 0, 0, 0, 1));
+		credits.add(new CreditsSlot("Starchiller", "", 0, 0, 0, 1));
+		credits.add(new CreditsSlot("Kitsune Lyn", "", 0, 0, 0, 1));
 		credits.add(new CreditsSlot("Daniel D Magnan", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("shrikes", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("Chattyneko", "", 0, 0, 1, 0));

@@ -1253,8 +1253,8 @@ public class ClothingType {
 			null,
 			ColourListPresets.ALL_METAL.getPresetColourList(),
 			null,
-			null,
-			null,
+			ColourListPresets.JUST_ORANGE.getPresetColourList(),
+			ColourListPresets.ALL.getPresetColourList(),
 			null,
 			null, 
 			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
@@ -1279,6 +1279,52 @@ public class ClothingType {
 						"[npc.Name] takes [npc.her] aviators off.",
 						"[npc.Name] takes your aviators off.",
 						"[npc.Name] grabs your aviators and roughly pulls them off.", null, null);
+			}
+	};
+	
+	public static AbstractClothingType EYES_PATCH = new AbstractClothingType(200,
+			"an",
+			false,
+			"eye-patch",
+			"eye-patches",
+			"A small patch, made from cloth, which is attached to an elastic band and designed to be worn around the head.",
+			0,
+			null,
+			InventorySlot.EYES,
+			Rarity.COMMON,
+			null,
+			"eye_patch",
+			null,
+			Util.newArrayListOfValues(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(ClothingAccess.EYES), null, null, null)),
+			null,
+			ColourListPresets.JUST_BLACK.getPresetColourList(),
+			ColourListPresets.ALL.getPresetColourList(),
+			ColourListPresets.JUST_BLACK.getPresetColourList(),
+			ColourListPresets.ALL.getPresetColourList(),
+			null,
+			null, 
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
+		
+			@Override
+			public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+				return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+						"You fasten the eye patch around your head, before moving it into place to cover your eye.",
+						"You fasten the eye patch around [npc.name]'s head, before moving it into place to cover [npc.her] eye.",
+						null,
+						"[npc.Name] fastens the eye patch around [npc.her] head, before moving it into place to cover [npc.her] eye.",
+						"[npc.Name] fastens the eye patch around your head, before moving it into place to cover your eye.",
+						null, null, null);
+			}
+
+			@Override
+			public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+				return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+						"You take off your eye patch.",
+						"You take off [npc.name]'s eye patch.",
+						"You grab [npc.name]'s eye patch and roughly pull it off.",
+						"[npc.Name] takes [npc.her] eye patch off.",
+						"[npc.Name] takes your eye patch off.",
+						"[npc.Name] grabs your eye patch and roughly pulls it off.", null, null);
 			}
 	};
 	
@@ -6818,52 +6864,30 @@ public class ClothingType {
 			null,
 			null,
 			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
-
+		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You step into the v-string panties before pulling them up to cover your private parts.";
-			else
-				return UtilText.parse(clothingOwner,
-						"[npc.Name] steps into " + clothing.getName(true) + " before pulling them up to cover [npc.her] private parts.");
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You step into the v-string panties before pulling them up to cover your private parts.",
+					"You pull the v-string panties up [npc.name]'s [npc.legs] to cover [npc.her] private parts.",
+					null,
+					"[npc.Name] steps into the v-string panties before pulling them up to cover [npc.her] private parts.",
+					"[npc.Name] pulls the v-string panties up your [pc.legs] to cover your private parts.",
+					null, null, null);
 		}
 
 		@Override
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You pull down your v-string panties and kick them off your feet.";
-			else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer())
-				return UtilText.parse(clothingOwner, "[npc.Name] pulls down [npc.her] v-string panties, kicking them off [npc.her] feet.");
-			else {
-				if (clothingOwner.isPlayer())
-					return "[npc.Name] pulls your v-string panties down and slides them off your feet.";
-				else
-					return UtilText.parse(clothingOwner, "You pull [npc.name]'s v-string panties down and slide them off [npc.her] feet.");
-			}
-		}
-
-		@Override
-		public String displaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You shift your v-string panties to one side.";
-			else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer())
-				return UtilText.parse(clothingOwner, "[npc.Name] shifts [npc.her] v-string panties to one side.");
-			else {
-				if (clothingOwner.isPlayer())
-					return "[npc.Name] shifts your v-string panties to one side.";
-				else
-					return UtilText.parse(clothingOwner, "You shift [npc.name]'s v-string panties to one side.");
-			}
-		}
-
-		@Override
-		public String replaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You move your v-string panties back into their proper place.";
-			else
-				return UtilText.parse(clothingOwner, "[npc.Name] moves [npc.her] v-string panties back into their proper place.");
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You pull down your v-string panties and kick them off your [pc.feet].",
+					"You pull down [npc.name]'s v-string panties and slide them off [npc.her] [npc.feet].",
+					null,
+					"[npc.Name] pulls [npc.her] v-string panties down and kicks them off [npc.her] [npc.feet].",
+					"[npc.Name] pulls your v-string panties down and slides them off your [pc.feet].",
+					null, null, null);
 		}
 	};
+	
 	public static AbstractClothingType GROIN_THONG = new AbstractClothingType(200,
 			"a",
 			false,
@@ -6907,49 +6931,27 @@ public class ClothingType {
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You step into the thong before pulling it up to cover your private parts.";
-			else
-				return UtilText.parse(clothingOwner,
-						"[npc.Name] steps into " + clothing.getName(true) + " before pulling it up to cover [npc.her] private parts.");
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You step into the thong before pulling them up to cover your private parts.",
+					"You pull the thong up [npc.name]'s [npc.legs] to cover [npc.her] private parts.",
+					null,
+					"[npc.Name] steps into the thong before pulling them up to cover [npc.her] private parts.",
+					"[npc.Name] pulls the thong up your [pc.legs] to cover your private parts.",
+					null, null, null);
 		}
 
 		@Override
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You pull down your thong and kick it off your feet.";
-			else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer())
-				return UtilText.parse(clothingOwner, "[npc.Name] pulls down [npc.her] thong and kicks it off [npc.her] feet.");
-			else {
-				if (clothingOwner.isPlayer())
-					return "[npc.Name] pulls your thong down and slides it off your feet.";
-				else
-					return UtilText.parse(clothingOwner, "You pull [npc.name]'s thong down and slide it off [npc.her] feet.");
-			}
-		}
-
-		@Override
-		public String displaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You shift your thong to one side.";
-			else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer())
-				return UtilText.parse(clothingOwner, "[npc.Name] shifts [npc.her] thong to one side.");
-			else {
-				if (clothingOwner.isPlayer())
-					return "[npc.Name] shifts your thong to one side.";
-				else
-					return UtilText.parse(clothingOwner, "You shift [npc.name]'s thong to one side.");
-			}
-		}
-
-		@Override
-		public String replaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You move your thong back into its proper place.";
-			else
-				return UtilText.parse(clothingOwner, "[npc.Name] moves [npc.her] thong back into its proper place.");
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You pull down your thong and kick them off your [pc.feet].",
+					"You pull down [npc.name]'s thong and slide them off [npc.her] [npc.feet].",
+					null,
+					"[npc.Name] pulls [npc.her] thong down and kicks them off [npc.her] [npc.feet].",
+					"[npc.Name] pulls your thong down and slides them off your [pc.feet].",
+					null, null, null);
 		}
 	};
+	
 	public static AbstractClothingType GROIN_BIKINI = new AbstractClothingType(150,
 			"a pair of",
 			true,
@@ -6992,49 +6994,27 @@ public class ClothingType {
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You step into the bikini bottoms before pulling them up to cover your private parts.";
-			else
-				return UtilText.parse(clothingOwner,
-						"[npc.Name] steps into " + clothing.getName(true) + " before pulling them up to cover [npc.her] private parts.");
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You step into the bikini bottoms before pulling them up to cover your private parts.",
+					"You pull the bikini bottoms up [npc.name]'s [npc.legs] to cover [npc.her] private parts.",
+					null,
+					"[npc.Name] steps into the bikini bottoms before pulling them up to cover [npc.her] private parts.",
+					"[npc.Name] pulls the bikini bottoms up your [pc.legs] to cover your private parts.",
+					null, null, null);
 		}
 
 		@Override
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You pull down your bikini bottoms and kick them off your feet.";
-			else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer())
-				return UtilText.parse(clothingOwner, "[npc.Name] pulls down [npc.her] bikini bottoms, kicking them off [npc.her] feet.");
-			else {
-				if (clothingOwner.isPlayer())
-					return "[npc.Name] pulls your bikini bottoms down and slides them off your feet.";
-				else
-					return UtilText.parse(clothingOwner, "You pull [npc.name]'s bikini bottoms down and slide them off [npc.her] feet.");
-			}
-		}
-
-		@Override
-		public String displaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You shift your bikini bottoms to one side.";
-			else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer())
-				return UtilText.parse(clothingOwner, "[npc.Name] shifts [npc.her] bikini bottoms to one side.");
-			else {
-				if (clothingOwner.isPlayer())
-					return "[npc.Name] shifts your bikini bottoms to one side.";
-				else
-					return UtilText.parse(clothingOwner, "You shift [npc.name]'s bikini bottoms to one side.");
-			}
-		}
-
-		@Override
-		public String replaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You move your bikini bottoms back into their proper place.";
-			else
-				return UtilText.parse(clothingOwner, "[npc.Name] moves [npc.her] bikini bottoms back into their proper place.");
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You pull down your bikini bottoms and kick them off your [pc.feet].",
+					"You pull down [npc.name]'s bikini bottoms and slide them off [npc.her] [npc.feet].",
+					null,
+					"[npc.Name] pulls [npc.her] bikini bottoms down and kicks them off [npc.her] [npc.feet].",
+					"[npc.Name] pulls your bikini bottoms down and slides them off your [pc.feet].",
+					null, null, null);
 		}
 	};
+	
 	public static AbstractClothingType GROIN_BOYSHORTS = new AbstractClothingType(150,
 			"a pair of",
 			true,
@@ -7077,47 +7057,24 @@ public class ClothingType {
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You step into the boyshorts before pulling them up to cover your private parts.";
-			else
-				return UtilText.parse(clothingOwner,
-						"[npc.Name] steps into " + clothing.getName(true) + " before pulling them up to cover [npc.her] private parts.");
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You step into the boyshorts before pulling them up to cover your private parts.",
+					"You pull the boyshorts up [npc.name]'s [npc.legs] to cover [npc.her] private parts.",
+					null,
+					"[npc.Name] steps into the boyshorts before pulling them up to cover [npc.her] private parts.",
+					"[npc.Name] pulls the boyshorts up your [pc.legs] to cover your private parts.",
+					null, null, null);
 		}
 
 		@Override
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You pull down your boyshorts and kick them off your feet.";
-			else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer())
-				return UtilText.parse(clothingOwner, "[npc.Name] pulls down [npc.her] boyshorts, kicking them off [npc.her] feet.");
-			else {
-				if (clothingOwner.isPlayer())
-					return "[npc.Name] pulls your boyshorts down and slides them off your feet.";
-				else
-					return UtilText.parse(clothingOwner, "You pull [npc.name]'s boyshorts down and slide them off [npc.her] feet.");
-			}
-		}
-
-		@Override
-		public String displaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You shift your boyshorts to one side.";
-			else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer())
-				return UtilText.parse(clothingOwner, "[npc.Name] shifts [npc.her] boyshorts to one side.");
-			else {
-				if (clothingOwner.isPlayer())
-					return "[npc.Name] shifts your boyshorts to one side.";
-				else
-					return UtilText.parse(clothingOwner, "You shift [npc.name]'s boyshorts to one side.");
-			}
-		}
-
-		@Override
-		public String replaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You move your boyshorts back into their proper place.";
-			else
-				return UtilText.parse(clothingOwner, "[npc.Name] moves [npc.her] boyshorts back into their proper place.");
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You pull down your boyshorts and kick them off your [pc.feet].",
+					"You pull down [npc.name]'s boyshorts and slide them off [npc.her] [npc.feet].",
+					null,
+					"[npc.Name] pulls [npc.her] boyshorts down and kicks them off [npc.her] [npc.feet].",
+					"[npc.Name] pulls your boyshorts down and slides them off your [pc.feet].",
+					null, null, null);
 		}
 	};
 	
@@ -7159,53 +7116,27 @@ public class ClothingType {
 			null,
 			null,
 			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
-		
+
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer()) {
-				return "You step into the briefs before pulling them up to your waist.";
-			} else {
-				return UtilText.parse(clothingOwner, "[npc.Name] steps into " + clothing.getName(true) + " before pulling them up to cover [npc.her] waist.");
-			}
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You step into the briefs before pulling them up to cover your private parts.",
+					"You pull the briefs up [npc.name]'s [npc.legs] to cover [npc.her] private parts.",
+					null,
+					"[npc.Name] steps into the briefs before pulling them up to cover [npc.her] private parts.",
+					"[npc.Name] pulls the briefs up your [pc.legs] to cover your private parts.",
+					null, null, null);
 		}
 
 		@Override
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer()) {
-				return "You pull down your briefs and kick them off your feet.";
-			} else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer()) {
-				return UtilText.parse(clothingOwner, "[npc.Name] pulls down [npc.her] " + clothing.getName(true) + " before before kicking them off [npc.her] [npc.feet].");
-			} else {
-				if (clothingOwner.isPlayer()) {
-					return UtilText.parse(clothingRemover, "[npc.Name] pulls down your briefs before sliding them off your [pc.feet].");
-				} else {
-					return UtilText.parse(clothingOwner, "You pull [npc.name]'s briefs down before before sliding them off [npc.her] [npc.feet].");
-				}
-			}
-		}
-
-		@Override
-		public String displaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer()) {
-				return "You shift your briefs to one side.";
-			} else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer()) {
-				return UtilText.parse(clothingOwner, "[npc.Name] shifts [npc.her] briefs to one side.");
-			} else {
-				if (clothingOwner.isPlayer()) {
-					return UtilText.parse(clothingRemover, "[npc.Name] shifts your briefs to one side.");
-				} else {
-					return UtilText.parse(clothingOwner, "You shift [npc.name]'s briefs to one side.");
-				}
-			}
-		}
-
-		@Override
-		public String replaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer()) {
-				return "You move your briefs back into their proper place.";
-			} else {
-				return UtilText.parse(clothingOwner, "[npc.Name] moves [npc.her] briefs back into their proper place.");
-			}
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You pull down your briefs and kick them off your [pc.feet].",
+					"You pull down [npc.name]'s briefs and slide them off [npc.her] [npc.feet].",
+					null,
+					"[npc.Name] pulls [npc.her] briefs down and kicks them off [npc.her] [npc.feet].",
+					"[npc.Name] pulls your briefs down and slides them off your [pc.feet].",
+					null, null, null);
 		}
 	};
 	
@@ -7245,50 +7176,86 @@ public class ClothingType {
 			null,
 			null,
 			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
-		
+
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You step into the boxers before pulling them up to cover your private parts.";
-			else
-				return UtilText.parse(clothingOwner,
-						"[npc.Name] steps into " + clothing.getName(true) + " before pulling them up to cover [npc.her] private parts.");
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You step into the boxers before pulling them up to cover your private parts.",
+					"You pull the boxers up [npc.name]'s [npc.legs] to cover [npc.her] private parts.",
+					null,
+					"[npc.Name] steps into the boxers before pulling them up to cover [npc.her] private parts.",
+					"[npc.Name] pulls the boxers up your [pc.legs] to cover your private parts.",
+					null, null, null);
 		}
 
 		@Override
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You pull down your boxers and kick them off your feet.";
-			else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer())
-				return UtilText.parse(clothingOwner, "[npc.Name] pulls down [npc.her] boxers, kicking them off [npc.her] feet.");
-			else {
-				if (clothingOwner.isPlayer())
-					return "[npc.Name] pulls your boxers down and slides them off your feet.";
-				else
-					return UtilText.parse(clothingOwner, "You pull [npc.name]'s boxers down and slide them off [npc.her] feet.");
-			}
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You pull down your boxers and kick them off your [pc.feet].",
+					"You pull down [npc.name]'s boxers and slide them off [npc.her] [npc.feet].",
+					null,
+					"[npc.Name] pulls [npc.her] boxers down and kicks them off [npc.her] [npc.feet].",
+					"[npc.Name] pulls your boxers down and slides them off your [pc.feet].",
+					null, null, null);
+		}
+	};
+	
+	public static AbstractClothingType GROIN_JOCKSTRAP = new AbstractClothingType(100,
+			"a",
+			false,
+			"jockstrap",
+			"jockstraps",
+			"An undergarment that protects and supports the wearer's male genitalia, while leaving their ass exposed.",
+			2,
+			Femininity.MASCULINE,
+			InventorySlot.GROIN,
+			Rarity.COMMON,
+			null,
+			"groin_jockstrap",
+			null,
+			Util.newArrayListOfValues(
+					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
+							Util.newArrayListOfValues(
+									ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL,
+									ClothingAccess.LEGS_UP_TO_GROIN,
+									ClothingAccess.GROIN),
+							null, null, null),
+					new BlockedParts(DisplacementType.SHIFTS_ASIDE,
+							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							Util.newArrayListOfValues(
+									CoverableArea.PENIS,
+									CoverableArea.VAGINA),
+							null,
+							concealedGenitals)),
+			null,
+			ColourListPresets.ALL.getPresetColourList(),
+			null,
+			ColourListPresets.JUST_BLACK.getPresetColourList(),
+			ColourListPresets.ALL.getPresetColourList(),
+			null,
+			null,
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
+
+		@Override
+		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You step into the jockstrap before pulling them up to cover your private parts.",
+					"You pull the jockstrap up [npc.name]'s [npc.legs] to cover [npc.her] private parts.",
+					null,
+					"[npc.Name] steps into the jockstrap before pulling them up to cover [npc.her] private parts.",
+					"[npc.Name] pulls the jockstrap up your [pc.legs] to cover your private parts.",
+					null, null, null);
 		}
 
 		@Override
-		public String displaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You shift your boxers to one side.";
-			else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer())
-				return UtilText.parse(clothingOwner, "[npc.Name] shifts [npc.her] boxers to one side.");
-			else {
-				if (clothingOwner.isPlayer())
-					return "[npc.Name] shifts your boxers to one side.";
-				else
-					return UtilText.parse(clothingOwner, "You shift [npc.name]'s boxers to one side.");
-			}
-		}
-
-		@Override
-		public String replaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You move your boxers back into their proper place.";
-			else
-				return UtilText.parse(clothingOwner, "[npc.Name] moves [npc.her] boxers back into their proper place.");
+		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You pull down your jockstrap and kick them off your [pc.feet].",
+					"You pull down [npc.name]'s jockstrap and slide them off [npc.her] [npc.feet].",
+					null,
+					"[npc.Name] pulls [npc.her] jockstrap down and kicks them off [npc.her] [npc.feet].",
+					"[npc.Name] pulls your jockstrap down and slides them off your [pc.feet].",
+					null, null, null);
 		}
 	};
 	

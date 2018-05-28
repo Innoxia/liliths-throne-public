@@ -84,7 +84,10 @@ import com.lilithsthrone.game.character.npc.misc.GenericMaleNPC;
 import com.lilithsthrone.game.character.npc.misc.PrologueFemale;
 import com.lilithsthrone.game.character.npc.misc.PrologueMale;
 import com.lilithsthrone.game.character.npc.misc.SlaveImport;
+import com.lilithsthrone.game.character.npc.submission.Axel;
 import com.lilithsthrone.game.character.npc.submission.Claire;
+import com.lilithsthrone.game.character.npc.submission.Epona;
+import com.lilithsthrone.game.character.npc.submission.Roxy;
 import com.lilithsthrone.game.character.npc.submission.SlimeGuardFire;
 import com.lilithsthrone.game.character.npc.submission.SlimeGuardIce;
 import com.lilithsthrone.game.character.npc.submission.SlimeQueen;
@@ -755,6 +758,11 @@ public class Game implements Serializable, XMLSaving {
 					Main.game.addNPC(new SlimeGuardIce(), false);
 					Main.game.addNPC(new SlimeGuardFire(), false);
 					Main.game.addNPC(new SlimeRoyalGuard(), false);
+				}
+				if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Roxy.class))) { // Add gambling den NPCs:
+					Main.game.addNPC(new Roxy(), false);
+					Main.game.addNPC(new Axel(), false);
+					Main.game.addNPC(new Epona(), false);
 				}
 				
 				// To prevent errors from previous versions, reset Zaranix progress if prior to 0.1.95:
@@ -2743,6 +2751,18 @@ public class Game implements Serializable, XMLSaving {
 
 	public NPC getSlimeRoyalGuard() {
 		return (NPC) this.getNPCById(getUniqueNPCId(SlimeRoyalGuard.class));
+	}
+
+	public NPC getRoxy() {
+		return (NPC) this.getNPCById(getUniqueNPCId(Roxy.class));
+	}
+
+	public NPC getAxel() {
+		return (NPC) this.getNPCById(getUniqueNPCId(Axel.class));
+	}
+
+	public NPC getEpona() {
+		return (NPC) this.getNPCById(getUniqueNPCId(Epona.class));
 	}
 	
 	public NPC getGenericMaleNPC() {

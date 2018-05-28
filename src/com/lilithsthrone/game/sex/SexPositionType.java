@@ -852,6 +852,30 @@ public enum SexPositionType {
 		}
 	},
 	
+	FACE_SITTING_ROXY("Face-sitting",
+			Util.newHashMapOfValues(
+					new Value<>(
+							SexPositionSlot.SITTING_ON_FACE_ROXY,
+							Util.newHashMapOfValues(
+							new Value<>(
+									SexPositionSlot.LICKING_PUSSY_ROXY,
+									new SexActionPresetPair(
+											SexActionPresets.empty,
+											SexActionPresets.partnerFaceSittingRoxy)))),
+					new Value<>(
+							SexPositionSlot.LICKING_PUSSY_ROXY,
+							Util.newHashMapOfValues(
+							new Value<>(
+									SexPositionSlot.SITTING_ON_FACE_ROXY,
+									new SexActionPresetPair(
+											SexActionPresets.playerFaceSittingRoxy,
+											SexActionPresets.empty)))))) {
+		@Override
+		public String getDescription() {
+			return "You're lying on your back beneath Roxy, with your lips just inches away from her [roxy.pussy+].";
+		}
+	},
+	
 	;
 	
 	private String name;

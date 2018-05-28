@@ -3,58 +3,64 @@
 
 	<htmlContent tag="ATTACK_REPEAT_PREGNANCY_REACT"><![CDATA[
 	<p>
-		In your peripheral vision, you suddenly see a glowing [npc.skinColour] light starting to draw near. Turning towards it, you ready yourself for a fight, and within just a moment, the familiar figure of [npc.name] draws to a halt before you.
+		In your peripheral vision, you suddenly see a figure sneaking towards you. Turning towards them, you ready yourself for a fight, and within just a moment, the familiar figure of [npc.name] is standing right before you.
 	</p>
 	<p>
-		[npc.speech(Ooh! It's you again!)] [npc.she] giggles, clearly high on mushrooms again, [npc.speech(Look! You went and got me all pregnant!)]
+		[npc.speech(Well, well, well!)] [npc.she] states, placing one of [npc.her] [npc.hands] on [npc.her] [npc.hips+], while the other strokes [npc.her] rounded belly. [npc.speech(Look who it is! I'm still pregnant with our kids, see?!)]
 	</p>
 	<p>
-		You look down at [npc.her] swollen belly, but before you can make a comment, [npc.she] continues, [npc.speech(So, I'm gonna need some cash from you, ok? I'm no going to take no for an answer.)]
+		Before you can reply to [npc.name], [npc.she] continues, [npc.speech(So I'm gonna need some money, ok? This is all your fault for not pulling out, so it's only fair you pay for our kids' clothes and stuff. Oh, and this is non-negotiable. Either you hand over some cash, right now, or else I'll make you!)]
 	</p>
 	<p>
-		You can tell that [npc.name] is willing to fight, and you only have a moment in which to decide what to do...
+		You can tell that [npc.name] is willing to fight you in order to get some money, so you could choose to defend yourself, or just hand over the cash that [npc.she]'s asking for...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="ATTACK_REPEAT_PREGNANCY"><![CDATA[
 	<p>
-		In your peripheral vision, you suddenly see a glowing [npc.skinColour] light starting to draw near. Turning towards it, you ready yourself for a fight, and within just a moment, the familiar figure of [npc.name] draws to a halt before you.
+		In your peripheral vision, you suddenly see a figure sneaking towards you. Turning towards them, you ready yourself for a fight, and within just a moment, the familiar figure of [npc.name] is standing right before you.
 	</p>
 	<p>
-		[npc.speech(Ooh! It's you again!)] [npc.she] giggles, clearly high on mushrooms again, [npc.speech(Look! I'm still pregnant with our kids!)]
+		[npc.speech(Well, well, well!)] [npc.she] states, placing one of [npc.her] [npc.hands] on [npc.her] [npc.hips+], while the other strokes [npc.her] rounded belly. [npc.speech(Take a look at what you did! You got me pregnant!)]
 	</p>
 	<p>
-		You look down at [npc.her] swollen belly, but before you can make a comment, [npc.she] continues, [npc.speech(So, I'm gonna need some cash from you, ok? I'm no going to take no for an answer.)]
+		Before you can reply to [npc.name], [npc.she] continues, [npc.speech(So I'm gonna need some money, ok? This is all your fault for not pulling out, so it's only fair you pay for our kids' clothes and stuff. Oh, and this is non-negotiable. Either you hand over some cash, right now, or else I'll make you!)]
 	</p>
 	<p>
-		You can tell that [npc.name] is willing to fight, and you only have a moment in which to decide what to do...
+		You can tell that [npc.name] is willing to fight you in order to get some money, so you could choose to defend yourself, or just hand over the cash that [npc.she]'s asking for...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="ATTACK_REPEAT"><![CDATA[
 	<p>
-		In your peripheral vision, you suddenly see a glowing [npc.skinColour] light starting to draw near. Turning towards it, you ready yourself for a fight, and within just a moment, the familiar figure of [npc.name] draws to a halt before you.
+		In your peripheral vision, you suddenly see a figure sneaking towards you. Turning towards them, you ready yourself for a fight, and within just a moment, the familiar figure of [npc.name] is standing right before you.
 	</p>
 	<p>
-		[npc.speech(Ooh! It's you again!)] [npc.she] giggles, clearly high on mushrooms again, [npc.speech(I'm gonna need some cash from you, ok? I spent all my flames on buying some 'shrooms from my friend, and now I need more for... umm... more 'shrooms!)]
+		[npc.speech(Well, well, well!)] [npc.she] states, placing [npc.her] [npc.hands] on [npc.her] [npc.hips+] and striking a confident pose. [npc.speech(Look who it is! You didn't have enough of me the last time, huh?)]
 	</p>
 	<p>
-		You can tell that [npc.name] is willing to fight, and you only have a moment in which to decide what to do...
+		Before you can reply to [npc.name], [npc.she] continues, [npc.speech(So, same as last time, I'm gonna need some money, ok? You can't just be walking around in my territory for free, you understand? Oh, and this is non-negotiable. Either you hand over some cash, right now, or else I'll make you!)]
+	</p>
+	<p>
+		You can tell that [npc.name] is willing to fight you in order to get some money, so you could choose to defend yourself, or just hand over the cash that [npc.she]'s asking for...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="ATTACK"><![CDATA[
 	<p>
-		In your peripheral vision, you suddenly see a glowing [npc.skinColour] light starting to draw near. Turning towards it, you ready yourself for a fight, and within just a moment, [npc.a_fullRace(true)] draws to a halt before you.
+		In your peripheral vision, you suddenly see a figure sneaking towards you. Turning towards them, you ready yourself for a fight, and within just a moment, [npc.a_fullRace(true)] is standing right before you.
 	</p>
 	<p>
-		[npc.speech(Ooh! A poor innocent traveller wandering through my magical realm!)] [npc.she] giggles, clearly high on mushrooms, [npc.speech(I'm gonna need some cash from you, ok? I spent all my flames on buying some 'shrooms from my friend, and now I need more for... umm... more 'shrooms!)]
+		[npc.speech(Well, well, well!)] [npc.she] states, placing [npc.her] [npc.hands] on [npc.her] [npc.hips+] and striking a confident pose. [npc.speech(What do we have here? Someone who's walking through my territory without my permission?)]
 	</p>
 	<p>
-		You can tell that [npc.name] is willing to fight, and you only have a moment in which to decide what to do...
+		Before you can reply to [npc.name], [npc.she] continues, [npc.speech(You can't just be walking around in my territory for free, you understand? Either you hand over some cash, right now, or else I'll make you!)]
+	</p>
+	<p>
+		You can tell that [npc.name] is willing to fight you in order to get some money, so you could choose to defend yourself, or just hand over the cash that [npc.she]'s asking for...
 	</p>
 	]]>
 	</htmlContent>
@@ -78,10 +84,10 @@
 		You really don't want to fight [npc.name], and take a step backwards as you agree to [npc.her] demands. [pc.speech(Ok, ok. I'll give you your money. There's no need for violence, ok?)]
 	</p>
 	<p>
-		[npc.speech(Uh-huh. Just give me your flames already! I need to go buy more 'shrooms!)] [npc.name] desperately whines, stepping forwards and holding out [npc.her] [npc.hands].
+		[npc.speech(Good, that's good!)] [npc.name] replies, stepping forwards and holding out [npc.her] [npc.hands]. [npc.speech(So hand it over, ok? I need that money, or else I'll have failed to confront you! And I can't go back to my friends and say that, now, can I? So give me the money! That's right, two-hundred and fifty flames!)]
 	</p>
 	<p>
-		You do as [npc.she] asks, and, after you've handed over two-hundred and fifty flames, [npc.she] lets out a happy little giggle, before turning around and rushing off in the direction from whence she came.
+		Wanting to put an end to the [npc.race]'s incessant chattering, you quickly give [npc.herHim] the two-hundred and fifty flames. As soon as you've handed the money over, [npc.she] lets out a happy little giggle, before turning around and quickly flying off in the direction from whence she came.
 	</p>
 	<p>
 		You let out a sigh of relief as you see [npc.herHim] go, and, happy that you were able to avoid a fight, you continue on your way...
@@ -106,22 +112,6 @@
 	</p>
 	<p>
 		Whimpering in the affirmative, you surrender yourself to [npc.name]'s dominant touch, allowing yourself to be used as payment for trespassing on [npc.her] territory...
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="ATTACK_PAID_OFF_WITH_MUSHROOM"><![CDATA[
-	<p>
-		You really don't want to fight [npc.name], and take a step backwards as you offer [npc.herHim] the thing [npc.she] seems to want the most. [pc.speech(Well, instead of money, how about I give you this mushroom I found?)]
-	</p>
-	<p>
-		[npc.speech(W-What?! You have 'shrooms?)] [npc.name] desperately whines, stepping forwards and holding out [npc.her] [npc.hands]. [npc.speech(Give them to me!)]
-	</p>
-	<p>
-		You do as [npc.she] asks, and, after you've handed over one of your Glowing Mushrooms, [npc.she] lets out a happy little giggle, before turning around and rushing off in the direction from whence she came.
-	</p>
-	<p>
-		You let out a sigh of relief as you see [npc.herHim] go, and, happy that you were able to avoid a fight, you continue on your way...
 	</p>
 	]]>
 	</htmlContent>

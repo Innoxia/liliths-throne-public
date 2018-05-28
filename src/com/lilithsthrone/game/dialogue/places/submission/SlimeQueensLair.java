@@ -594,22 +594,7 @@ public class SlimeQueensLair {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.SIDE_SLIME_QUEEN, Quest.SLIME_QUEEN_FIVE_CONVINCE)) {
-				if(index==1) {
-					return new Response("Talk", "Ask [slimeRoyalGuard.name] how [slimeRoyalGuard.he] ended up guarding the Slime Queen.", ROYAL_GUARD_POST_TALK);
-					
-				} else if(index==2) {
-					return new ResponseCombat("Spar",
-							"Accept [slimeRoyalGuard.name]'s offer of a sparring match, with the agreement that the winner can do whatever they like with the loser's body.",
-							Util.newArrayListOfValues(Main.game.getSlimeRoyalGuard()),
-							Util.newHashMapOfValues(
-									new Value<>(Main.game.getPlayer(), "[pc.speech(Fine, I'll spar with you,)] you say, readying yourself for a fight, [pc.speech(but remember what you said about your body being mine when you lose!)]"),
-									new Value<>(Main.game.getSlimeRoyalGuard(), "[slimeRoyalGuard.speech(Hah!)] [slimeRoyalGuard.name] booms, [slimeRoyalGuard.speech(I'm looking forwards to claiming my prize!)]")));
-				} else {
-					return null;
-				}
-				
-			} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.slimeRoyalGuardDefeated)) {
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.slimeRoyalGuardDefeated)) {
 				if(index==1) {
 					return new ResponseSex("Sex",
 							UtilText.parse(Main.game.getSlimeRoyalGuard(), "Pull [slimeRoyalGuard.name] to [slimeRoyalGuard.his] feet and get ready to fuck [slimeRoyalGuard.him]."),
@@ -633,6 +618,21 @@ public class SlimeQueensLair {
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
 							AFTER_SLIME_ROYAL_GUARD_SEX_AS_SUB,
 							UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "SLIME_ROYAL_GUARD_BEGIN_SEX_AS_SUB"));
+				} else {
+					return null;
+				}
+				
+			} else if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.SIDE_SLIME_QUEEN, Quest.SLIME_QUEEN_FIVE_CONVINCE)) {
+				if(index==1) {
+					return new Response("Talk", "Ask [slimeRoyalGuard.name] how [slimeRoyalGuard.he] ended up guarding the Slime Queen.", ROYAL_GUARD_POST_TALK);
+					
+				} else if(index==2) {
+					return new ResponseCombat("Spar",
+							"Accept [slimeRoyalGuard.name]'s offer of a sparring match, with the agreement that the winner can do whatever they like with the loser's body.",
+							Util.newArrayListOfValues(Main.game.getSlimeRoyalGuard()),
+							Util.newHashMapOfValues(
+									new Value<>(Main.game.getPlayer(), "[pc.speech(Fine, I'll spar with you,)] you say, readying yourself for a fight, [pc.speech(but remember what you said about your body being mine when you lose!)]"),
+									new Value<>(Main.game.getSlimeRoyalGuard(), "[slimeRoyalGuard.speech(Hah!)] [slimeRoyalGuard.name] booms, [slimeRoyalGuard.speech(I'm looking forwards to claiming my prize!)]")));
 				} else {
 					return null;
 				}
@@ -938,6 +938,73 @@ public class SlimeQueensLair {
 		}
 	};
 	
+	public static final DialogueNodeOld SLIME_ROYAL_GUARD_SPARRING_PLAYER_VICTORY = new DialogueNodeOld("Victory", "", false) {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "SLIME_ROYAL_GUARD_SPARRING_PLAYER_VICTORY");
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new ResponseSex("Sex",
+						UtilText.parse(Main.game.getSlimeRoyalGuard(), "Pull [slimeRoyalGuard.name] to [slimeRoyalGuard.his] feet and get ready to fuck [slimeRoyalGuard.him]."),
+						null, null, null, null, null, null,
+						true, false,
+						new SMStanding(
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
+								Util.newHashMapOfValues(
+										new Value<>(Main.game.getSlimeRoyalGuard(), SexPositionSlot.STANDING_SUBMISSIVE))),
+						AFTER_SLIME_ROYAL_GUARD_SEX_AS_DOM,
+						UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "SLIME_ROYAL_GUARD_BEGIN_SEX_AS_DOM"));
+			
+			} else if(index==2) {
+				return new ResponseSex("Submit",
+						UtilText.parse(Main.game.getSlimeRoyalGuard(), "Let [slimeRoyalGuard.name] fuck you."),
+						Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(), null, null, null,
+						true, true,
+						new SMStanding(
+								Util.newHashMapOfValues(
+										new Value<>(Main.game.getSlimeRoyalGuard(), SexPositionSlot.STANDING_DOMINANT)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+						AFTER_SLIME_ROYAL_GUARD_SEX_AS_SUB,
+						UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "SLIME_ROYAL_GUARD_BEGIN_SEX_AS_SUB"));
+			} else {
+				return null;
+			}
+		}
+	};
+	
+	public static final DialogueNodeOld SLIME_ROYAL_GUARD_SPARRING_PLAYER_DEFEAT = new DialogueNodeOld("Defeat", "", true) {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "SLIME_ROYAL_GUARD_SPARRING_PLAYER_DEFEAT");
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new ResponseSex("Sex",
+						"[slimeRoyalGuard.Name] moves to have some fun with you...",
+						Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(), null, null, null,
+						true, false,
+						new SMStanding(
+								Util.newHashMapOfValues(
+										new Value<>(Main.game.getSlimeRoyalGuard(), SexPositionSlot.STANDING_DOMINANT)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+						AFTER_SLIME_ROYAL_GUARD_SEX_SPARRING_DEFEATED,
+						UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "SLIME_ROYAL_GUARD_COMBAT_PLAYER_DEFEAT_SEX"));
+				
+			} else {
+				return null;
+			}
+		}
+	};
+	
 	public static final DialogueNodeOld AFTER_SLIME_ROYAL_GUARD_SEX_DEFEATED = new DialogueNodeOld("Finished", "", true) {
 		private static final long serialVersionUID = 1L;
 		
@@ -960,6 +1027,20 @@ public class SlimeQueensLair {
 			} else {
 				return null;
 			}
+		}
+	};
+	
+	public static final DialogueNodeOld AFTER_SLIME_ROYAL_GUARD_SEX_SPARRING_DEFEATED = new DialogueNodeOld("Finished", "", false) {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "AFTER_SLIME_ROYAL_GUARD_SEX_SPARRING_DEFEATED");
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return ROYAL_GUARD_POST.getResponse(responseTab, index);
 		}
 	};
 	
@@ -1083,7 +1164,8 @@ public class SlimeQueensLair {
 						}
 						@Override
 						public void effects() {
-							Main.game.getPlayer().setBodyMaterial(BodyMaterial.SLIME);
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setBodyMaterial(BodyMaterial.SLIME));
+							Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "SLIME_QUEEN_BATH_TRANSFORM_END"));
 						}
 					};
 				}
@@ -1158,15 +1240,7 @@ public class SlimeQueensLair {
 		
 		@Override
 		public String getContent() {
-			UtilText.nodeContentSB.setLength(0);
-			
-			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "SLIME_QUEEN_BATH_TRANSFORM"));
-
-			UtilText.nodeContentSB.append(Main.game.getPlayer().setBodyMaterial(BodyMaterial.SLIME));
-			
-			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "SLIME_QUEEN_BATH_TRANSFORM_END"));
-			
-			return UtilText.nodeContentSB.toString();
+			return UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "SLIME_QUEEN_BATH_TRANSFORM");
 		}
 
 		@Override

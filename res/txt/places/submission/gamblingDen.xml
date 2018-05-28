@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<htmlContent tag="ENTRANCE"><![CDATA[
+	<p>
+		Entrance - [Axel.Name]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AXEL_INTRO"><![CDATA[
+	<p>
+		Entrance - [Axel.Name]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CORRIDOR"><![CDATA[
+	<p>
+		Gambling Den
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TRADER"><![CDATA[
+	<p>
+		[roxy.Name] intro. offers random item 
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TRADER_REPEAT"><![CDATA[
+	<p>
+		[roxy.Name] repeat. offers random item 
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TRADER_REPEAT_ADDICT"><![CDATA[
+	<p>
+		[roxy.Name]. Addicted to her girlcum.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROXY_SEX_START"><![CDATA[
+	<p>
+		You position yourself beneath Roxy.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROXY_SEX_START_ADDICT"><![CDATA[
+	<p>
+		You are desperate for Roxy's girlcum.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_ROXY_SEX"><![CDATA[
+	<p>
+		Roxy tells you about her addicitve girlcum.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_ROXY_SEX_ADDICT"><![CDATA[
+	<p>
+		Got fix of girlcum.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GAMBLING"><![CDATA[
+	<p>
+		Dice poker tables
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="PREGNANCY_ROULETTE"><![CDATA[
+	<p>
+		[Epona.Name]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="PREGNANCY_ROULETTE_NORMAL"><![CDATA[
+	<p>
+		Stalls for breeding by males
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="PREGNANCY_ROULETTE_FUTA"><![CDATA[
+	<p>
+		Stalls for breeding by futas
+	</p>
+	]]>
+	</htmlContent>
+	
+</dialogue>
