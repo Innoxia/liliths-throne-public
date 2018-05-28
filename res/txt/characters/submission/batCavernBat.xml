@@ -87,7 +87,7 @@
 		[npc.speech(Good, that's good!)] [npc.name] replies, stepping forwards and holding out [npc.her] [npc.hands]. [npc.speech(So hand it over, ok? I need that money, or else I'll have failed to confront you! And I can't go back to my friends and say that, now, can I? So give me the money! That's right, two-hundred and fifty flames!)]
 	</p>
 	<p>
-		Wanting to put an end to the [npc.race]'s incessant chattering, you quickly give [npc.herHim] the two-hundred and fifty flames. As soon as you've handed the money over, [npc.she] lets out a happy little giggle, before turning around and quickly flying off in the direction from whence she came.
+		Wanting to put an end to the [npc.race]'s incessant chattering, you quickly give [npc.herHim] the two-hundred and fifty flames. As soon as you've handed the money over, [npc.she] lets out a happy little giggle, before turning around and quickly flying off in the direction from whence [npc.she] came.
 	</p>
 	<p>
 		You let out a sigh of relief as you see [npc.herHim] go, and, happy that you were able to avoid a fight, you continue on your way...
