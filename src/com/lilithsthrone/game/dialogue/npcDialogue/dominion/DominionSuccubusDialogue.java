@@ -427,6 +427,7 @@ public class DominionSuccubusDialogue {
 					@Override
 					public void effects() {
 						Main.game.getActiveNPC().getPlayerKnowsAreas().add(CoverableArea.PENIS);
+						Main.game.getActiveNPC().setPenisType(PenisType.NONE);
 						Main.game.getTextStartStringBuilder().append(
 								"<p>"
 								+ "Not really liking the idea of [npc.name] having a cock, you tell [npc.herHim] as much, "
@@ -590,6 +591,7 @@ public class DominionSuccubusDialogue {
 					@Override
 					public void effects() {
 						Main.game.getActiveNPC().getPlayerKnowsAreas().add(CoverableArea.VAGINA);
+						Main.game.getActiveNPC().setVaginaType(VaginaType.DEMON_COMMON);
 						Main.game.getTextStartStringBuilder().append(
 								"<p>"
 								+ "Wanting to make sure that [npc.she]'s got a nice demonic pussy, you order [npc.herHim], "
