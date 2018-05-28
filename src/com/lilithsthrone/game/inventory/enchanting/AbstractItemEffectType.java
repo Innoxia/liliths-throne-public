@@ -781,10 +781,8 @@ public abstract class AbstractItemEffectType {
 			if(increment + currentValue < limit) {
 				return false;
 			}
-		} else {
-			if(increment + currentValue > limit) {
-				return false;
-			}
+		} else if(increment + currentValue > limit) {
+			return false;
 		}
 		return true;
 	}
@@ -794,10 +792,8 @@ public abstract class AbstractItemEffectType {
 			if(currentValue <= limit) {
 				return false;
 			}
-		} else {
-			if(currentValue >= limit) {
-				return false;
-			}
+		} else if(currentValue >= limit) {
+			return false;
 		}
 		return true;
 	}
