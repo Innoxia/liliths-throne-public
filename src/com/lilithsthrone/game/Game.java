@@ -1059,7 +1059,7 @@ public class Game implements Serializable, XMLSaving {
 		}
 		
 		// If the time has passed midnight on this turn:
-		boolean newDay = ((int) (minutesPassed / (60 * 24)) != (int) (((minutesPassed - turnTime) / (60 * 24))));
+		boolean newDay = getDayNumber(minutesPassed) != getDayNumber(minutesPassed - turnTime);
 		
 		if(newDay) {
 			pendingSlaveInStocksReset = true;
@@ -2206,7 +2206,7 @@ public class Game implements Serializable, XMLSaving {
 			}
 			
 		} else {
-			int minIndex = ((responsePointer/5))*5;
+			int minIndex = (responsePointer/5)*5;
 			
 			if(responsePointer > minIndex) {
 				responsePointer--;

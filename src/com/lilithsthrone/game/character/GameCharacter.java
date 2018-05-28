@@ -11588,19 +11588,14 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 
 	public boolean isOrificePlugged(OrificeType ot) {
-		for(AbstractClothing clothing : this.getClothingCurrentlyEquipped()) {
-			if(ot==OrificeType.ANUS && clothing.getItemTags().contains(ItemTag.PLUGS_ANUS)) {
-				return true;
-				
-			} else if(ot==OrificeType.VAGINA && clothing.getItemTags().contains(ItemTag.PLUGS_VAGINA)) {
-				return true;
-				
-			} else if(ot==OrificeType.NIPPLE && clothing.getItemTags().contains(ItemTag.PLUGS_NIPPLES)) {
-				return true;
-			}
-		}
+		HashMap<OrificeType, ItemTag> plugMap = new HashMap<>();
+		plugMap.put(OrificeType.ANUS, ItemTag.PLUGS_ANUS);
+		plugMap.put(OrificeType.VAGINA, ItemTag.PLUGS_VAGINA);
+		plugMap.put(OrificeType.NIPPLE, ItemTag.PLUGS_NIPPLES);
+		ItemTag lookingFor = plugMap.get(ot);
 		
-		return false;
+		return lookingFor != null 
+				&& getClothingCurrentlyEquipped().stream().anyMatch(c -> c.getItemTags().contains(lookingFor));
 	}
 	
 	public int getClothingAverageFemininity() {
