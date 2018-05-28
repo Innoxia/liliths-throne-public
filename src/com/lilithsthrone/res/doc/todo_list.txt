@@ -30,6 +30,9 @@
 		Added: Eye patch (no femininity requirements, eye slot).
 		Added: Jockstrap (masculine, groin slot).
 		
+	Contributors:
+		Fixed inserted bimbo/sex/muffled/drunk words breaking capitalisation. (pinnae)
+		
 	Other:
 		Elementals can no longer summon elementals.
 	

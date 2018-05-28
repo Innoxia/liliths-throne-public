@@ -244,9 +244,19 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 					for(int i=0; i<((Element) playerSpecificElement.getElementsByTagName("questMap").item(0)).getElementsByTagName("entry").getLength(); i++){
 						Element e = (Element) ((Element) playerSpecificElement.getElementsByTagName("questMap").item(0)).getElementsByTagName("entry").item(i);
 						try {
-						character.quests.put(
-								QuestLine.valueOf(e.getAttribute("questLine")),
-								Quest.valueOf(e.getAttribute("quest")));
+							String questLine = e.getAttribute("questLine");
+							if(questLine.contains("SIDE_NYAN")) {
+								questLine = questLine.replace("SIDE_NYAN", "RELATIONSHIP_NYAN");
+							}
+							
+							String quest = e.getAttribute("quest");
+							if(quest.contains("SIDE_NYAN")) {
+								quest = quest.replace("SIDE_NYAN", "RELATIONSHIP_NYAN");
+							}
+							
+							character.quests.put(
+									QuestLine.valueOf(questLine),
+									Quest.valueOf(quest));
 						} catch(Exception ex) {
 						}
 					}
