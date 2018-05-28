@@ -800,13 +800,13 @@ public class ItemEffectType {
 	};
 	
 	public static AbstractItemEffectType INT_FRUIT_BAT_SQUASH = new AbstractItemEffectType(Util.newArrayListOfValues(
-			"[style.boldGood(Restores)] 5% [style.boldHealth(energy)]",
+			"[style.boldGood(Restores)] 5% [style.boldAura(aura)]",
 			"[style.boldGood(+1)] [style.boldArcane(arcane)] to 'potion effects'"),
 			Colour.ATTRIBUTE_ARCANE) {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			target.incrementHealth(target.getAttributeValue(Attribute.HEALTH_MAXIMUM)/20);
+			target.incrementMana(target.getAttributeValue(Attribute.MANA_MAXIMUM)/20);
 
 			return "<p style='text-align:center;'>"
 					+(target.isPlayer()
