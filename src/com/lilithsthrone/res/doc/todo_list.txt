@@ -34,6 +34,8 @@
 		Fixed inserted bimbo/sex/muffled/drunk words breaking capitalisation. (pinnae)
 		Changed 'Romance' quests to 'Relationship' quests, and reassigned Nyan's side quest as a relationship quest. (rfpnj)
 		Improved action ordering and availability in sex's 'Repeat Actions' tab. (Master of Puppets)
+		Added some new skin colours. (rfpnj)
+		Fixed several issues with coding style. (Pimvgd)
 		
 	Other:
 		Elementals can no longer summon elementals.

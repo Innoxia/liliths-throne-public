@@ -2459,6 +2459,35 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		this.sexualOrientation = sexualOrientation;
 	}
 
+	public boolean isAttractedTo(GameCharacter character) {
+		if(hasStatusEffect(StatusEffect.WEATHER_STORM_VULNERABLE)) { // If they're vulnerable to arcane storms, they will always be eager during a storm:
+			return true;
+		}
+		
+		if((getSexualOrientation()==SexualOrientation.ANDROPHILIC && character.isFeminine())
+				|| (getSexualOrientation()==SexualOrientation.GYNEPHILIC && !character.isFeminine())
+				) {
+			return false;
+		}
+		
+		if(this.isRelatedTo(character)) {
+			if (!hasFetish(Fetish.FETISH_INCEST)) {
+				return false;
+			}
+		}
+		
+		return true;
+	}
+	
+	public boolean isAttractedTo(Gender gender) {
+		if((getSexualOrientation()==SexualOrientation.ANDROPHILIC && gender.isFeminine())
+				|| (getSexualOrientation()==SexualOrientation.GYNEPHILIC && !gender.isFeminine())
+				) {
+			return false;
+		}
+		
+		return true;
+	}
 	
 	// Obedience:
 	
