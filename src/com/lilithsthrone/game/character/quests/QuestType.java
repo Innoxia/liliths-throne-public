@@ -10,7 +10,7 @@ import com.lilithsthrone.utils.Colour;
 public enum QuestType {
 	MAIN(Colour.QUEST_MAIN),
 	SIDE(Colour.QUEST_SIDE),
-	ROMANCE(Colour.QUEST_ROMANCE);
+	RELATIONSHIP(Colour.QUEST_RELATIONSHIP);
 
 	private Colour colour;
 
