@@ -186,7 +186,7 @@ public enum ColourListPresets {
 			Colour.CLOTHING_PURPLE_DARK,
 			Colour.CLOTHING_PURPLE_LIGHT,
 			Colour.CLOTHING_PINK,
-			Colour.CLOTHING_PINK_LIGHT));
+			Colour.CLOTHING_PINK_LIGHT)),
 	
 	ALL_WITH_METALS(Util.newArrayListOfValues(
 			Colour.CLOTHING_WHITE,
