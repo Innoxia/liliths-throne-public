@@ -3206,6 +3206,8 @@ public class Lab {
 					case IMP_ALPHA:
 					case FOX_MORPH:
 					case FOX_MORPH_FENNEC:
+					case FOX_ASCENDANT:
+					case FOX_ASCENDANT_FENNEC:
 						litterSB.append(" mischievous");
 						break;
 					case DOG_MORPH: case DOG_MORPH_DOBERMANN: case DOG_MORPH_BORDER_COLLIE:
@@ -3296,6 +3298,8 @@ public class Lab {
 					case IMP_ALPHA:
 					case FOX_MORPH:
 					case FOX_MORPH_FENNEC:
+					case FOX_ASCENDANT:
+					case FOX_ASCENDANT_FENNEC:
 						litterSB.append(" mischievous");
 						break;
 					case DOG_MORPH: case DOG_MORPH_DOBERMANN: case DOG_MORPH_BORDER_COLLIE:
@@ -3386,6 +3390,8 @@ public class Lab {
 					case IMP_ALPHA:
 					case FOX_MORPH:
 					case FOX_MORPH_FENNEC:
+					case FOX_ASCENDANT:
+					case FOX_ASCENDANT_FENNEC:
 						litterSB.append(" cheeky");
 						break;
 					case DOG_MORPH: case DOG_MORPH_DOBERMANN: case DOG_MORPH_BORDER_COLLIE:
@@ -3476,6 +3482,8 @@ public class Lab {
 					case IMP_ALPHA:
 					case FOX_MORPH:
 					case FOX_MORPH_FENNEC:
+					case FOX_ASCENDANT:
+					case FOX_ASCENDANT_FENNEC:
 						litterSB.append(" cheeky");
 						break;
 					case DOG_MORPH: case DOG_MORPH_DOBERMANN: case DOG_MORPH_BORDER_COLLIE:

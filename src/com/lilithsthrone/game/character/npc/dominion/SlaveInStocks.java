@@ -98,6 +98,8 @@ public class SlaveInStocks extends NPC {
 					case HUMAN:
 					case IMP:
 					case IMP_ALPHA:
+					case FOX_ASCENDANT:
+					case FOX_ASCENDANT_FENNEC:
 					case SLIME:
 					case SLIME_ALLIGATOR:
 					case SLIME_ANGEL:

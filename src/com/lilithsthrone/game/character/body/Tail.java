@@ -263,16 +263,16 @@ public class Tail implements BodyPartInterface, Serializable {
 							);
 				}
 				break;
-			case FOX_MORPH: case FOX_MORPH_MAGIC:
+			case FOX_MORPH:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
 							(owner.getTailCount()==1
 								?" A bushy, fox-like tail sprouts from just above your ass, rapidly growing in size until it's about half the length of one of your legs."
-									+ " You quickly realise that you have limited control over it, and it takes a lot of effort to stop it from betraying your emotions."
+									+ " You quickly realise that you have a decent amount of control over it, and it retains heat more easily than other kinds of tails."
 									+ "</br>"
 									+ "You now have a [style.boldFoxMorph(fox-like tail)]"
 								:" [pc.TailCount] bushy, fox-like tails sprout from just above your ass, rapidly growing in size until they're each about half the length of one of your legs."
-									+ " You quickly realise that you have limited control over them, and it takes a lot of effort to stop them from betraying your emotions."
+									+ " You quickly realise that you have a decent amount of control over them, and they retain heat more easily than other kinds of tails."
 									+ "</br>"
 									+ "You now have [pc.tailCount] [style.boldFoxMorph(fox-like tails)]")
 							);
@@ -280,13 +280,46 @@ public class Tail implements BodyPartInterface, Serializable {
 					UtilText.transformationContentSB.append(
 							(owner.getTailCount()==1
 								?" A bushy, fox-like tail sprouts from just above [npc.her] ass, rapidly growing in size until it's about half the length of one of [npc.her] legs."
-									+ " [npc.She] quickly realises that [npc.she] has limited control over it, and it takes a lot of effort to stop it from betraying [npc.her] emotions."
+									+ " [npc.She] quickly realises that [npc.she] has a decent amount of control over it, and it retains heat more easily than other kinds of tails."
 									+ "</br>"
 									+ "[npc.Name] now has a [style.boldFoxMorph(fox-like tail)]"
 								:" [npc.TailCount] bushy, fox-like tails sprout from just above [npc.her] ass, rapidly growing in size until they're each about half the length of one of [npc.her] legs."
-									+ " [npc.She] quickly realises that [npc.she] has limited control over them, and it takes a lot of effort to stop them from betraying [npc.her] emotions."
+									+ " [npc.She] quickly realises that [npc.she] has a decent amount of control over them, and they retain heat more easily than other kinds of tails."
 									+ "</br>"
 									+ "[npc.Name] now has [npc.tailCount] [style.boldFoxMorph(fox-like tails)]")
+							);
+				}
+				break;
+			case FOX_MORPH_MAGIC:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+							(owner.getTailCount()==1
+								?" A bushy, fox-like tail sprouts from just above your ass, rapidly growing in size until it's about half the length of one of your legs."
+									+ " Your tail quickly becomes wreathed in an arcane fire, almost as if to display your unusual magic ability."
+									+ "</br>"
+									+ "You now have a [style.boldFoxMorph(fox-like tail)]"
+									+ "</br>"
+									+ "<i>Magic fox tails (and the ability to increase their number) will eventually be removed from transformation potions.</i>"
+								:" [pc.TailCount] bushy, fox-like tails sprout from just above your ass, rapidly growing in size until they're each about half the length of one of your legs."
+									+ " Your tails quickly become wreathed in an arcane fire, almost as if to display your unusual magic ability."
+									+ "</br>"
+									+ "<i>Magic fox tails (and the ability to increase their number) will eventually be removed from transformation potions.</i>")
+							);
+				} else {
+					UtilText.transformationContentSB.append(
+							(owner.getTailCount()==1
+								?" A bushy, fox-like tail sprouts from just above [npc.her] ass, rapidly growing in size until it's about half the length of one of [npc.her] legs."
+									+ " [npc.She] tail quickly becomes wreathed in an arcane fire, almost as if to display the owner's unusual magic ability."
+									+ "</br>"
+									+ "[npc.Name] now has a [style.boldFoxMorph(arcane fox-like tail)]\n"
+									+ "</br>" 
+									+ "<i>Magic fox tails (and the ability to increase their number) will eventually be removed from transformation potions.</i>"
+								:" [npc.TailCount] bushy, fox-like tails sprout from just above [npc.her] ass, rapidly growing in size until they're each about half the length of one of [npc.her] legs."
+									+ " [npc.HerHis] tails quickly becomes wreathed in an arcane fire, almost as if to display the owner's unusual magic ability."
+									+ "</br>"
+									+ "[npc.Name] now has [npc.tailCount] [style.boldFoxMorph(arcane fox-like tails)]"
+									+ "</br>"
+									+ "<i>Magic fox tails (and the ability to increase their number) will eventually be removed from transformation potions.</i>")
 							);
 				}
 				break;

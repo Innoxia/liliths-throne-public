@@ -84,6 +84,8 @@ public class SlimeCavernAttacker extends NPC {
 					case DOG_MORPH_BORDER_COLLIE:
 					case FOX_MORPH:
 					case FOX_MORPH_FENNEC:
+					case FOX_ASCENDANT:
+					case FOX_ASCENDANT_FENNEC:
 					case HARPY:
 					case HARPY_RAVEN:
 					case HORSE_MORPH:

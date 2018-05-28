@@ -321,7 +321,7 @@ public enum Subspecies {
 			Race.FOX_MORPH,
 			Colour.RACE_FOX_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
-			"A bipedal fox-morph with dirty blonde or bleach blonde fur and distinctive large ears.",
+			"A bipedal fox-morph with tan or bleach blonde fur and distinctive large ears.",
 			Util.newArrayListOfValues(WorldType.DOMINION)) {
 		@Override
 		public void applySpeciesChanges(Body body) {
@@ -336,6 +336,59 @@ public enum Subspecies {
 			body.updateCoverings(true, true, true, true);
 			if(body.getEar().getType()==EarType.FOX_MORPH) {
 				body.getEar().setType(null, EarType.FOX_MORPH_BIG);
+			}
+		}
+	},
+	
+	FOX_ASCENDANT("statusEffects/raceFox",
+			"youko",
+			"youkos",
+			"youko-boy",
+			"youko-girl",
+			"youko-boys",
+			"youko-girls",
+			Race.FOX_MORPH,
+			Colour.RACE_FOX_MORPH,
+			SubspeciesPreference.FOUR_ABUNDANT,
+			"A fox-morph, empowered by the gifts of a Lilin.",
+			Util.newArrayListOfValues(WorldType.DOMINION)) {
+		@Override
+		public void applySpeciesChanges(Body body) {
+			Subspecies.applyFoxColoring(body);
+			if(body.getTail().getType()==TailType.FOX_MORPH) {
+				body.getTail().setType(null, TailType.FOX_MORPH_MAGIC);
+			}
+		}
+	},
+	
+	FOX_ASCENDANT_FENNEC("statusEffects/raceFox",
+			"fennec-youko-morph",
+			"fennec-youko-morphs",
+			"fennec-youko-boy",
+			"fennec-youko-girl",
+			"fennec-youko-boys",
+			"fennec-youko-girls",
+			Race.FOX_MORPH,
+			Colour.RACE_FOX_MORPH,
+			SubspeciesPreference.FOUR_ABUNDANT,
+			"A fennec-morph, empowered by the gifts of a Lilin.",
+			Util.newArrayListOfValues(WorldType.DOMINION)) {
+		@Override
+		public void applySpeciesChanges(Body body) {
+			Colour fennecColour = Colour.COVERING_BLEACH_BLONDE;
+			double rand = Math.random();
+			if(rand<0.5f) {
+				fennecColour = Colour.COVERING_DIRTY_BLONDE;
+			}
+			body.getCoverings().put(BodyCoveringType.FOX_FUR, new Covering(BodyCoveringType.FOX_FUR, CoveringPattern.NONE, fennecColour, false, fennecColour, false));
+			body.getCoverings().put(BodyCoveringType.HAIR_FOX_FUR, new Covering(BodyCoveringType.FOX_FUR, CoveringPattern.NONE, fennecColour, false, fennecColour, false));
+			body.getCoverings().put(BodyCoveringType.HUMAN, new Covering(BodyCoveringType.HUMAN, CoveringPattern.NONE, Colour.SKIN_OLIVE, false, Colour.SKIN_OLIVE, false));
+			body.updateCoverings(true, true, true, true);
+			if(body.getEar().getType()==EarType.FOX_MORPH) {
+				body.getEar().setType(null, EarType.FOX_MORPH_BIG);
+			}
+			if(body.getTail().getType()==TailType.FOX_MORPH) {
+				body.getTail().setType(null, TailType.FOX_MORPH_MAGIC);
 			}
 		}
 	},
@@ -1399,6 +1452,17 @@ public enum Subspecies {
 					break;
 				case FOX_MORPH:
 					subspecies = Subspecies.FOX_MORPH;
+					Covering fox_fur = body.getCoverings().get(BodyCoveringType.FOX_FUR);
+					List<Colour> fennecColours = Util.newArrayListOfValues(Colour.COVERING_BLEACH_BLONDE, Colour.COVERING_TAN);
+					
+					if (fennecColours.contains(fox_fur.getPrimaryColour())
+					&& fennecColours.contains(fox_fur.getSecondaryColour())
+					&& (body.getEar().getType()==EarType.FOX_MORPH_BIG)) {
+						subspecies = (body.getTail().getType() == TailType.FOX_MORPH_MAGIC) ?
+								Subspecies.FOX_ASCENDANT_FENNEC : Subspecies.FOX_MORPH_FENNEC;
+					} else if (body.getTail().getType() == TailType.FOX_MORPH_MAGIC) {
+						subspecies = Subspecies.FOX_ASCENDANT;
+					}
 					break;
 				case HARPY:
 					subspecies = Subspecies.HARPY;

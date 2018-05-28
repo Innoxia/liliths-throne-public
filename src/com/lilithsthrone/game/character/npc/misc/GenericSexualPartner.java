@@ -83,6 +83,8 @@ public class GenericSexualPartner extends NPC {
 					case DEMON:
 					case IMP:
 					case IMP_ALPHA:
+					case FOX_ASCENDANT:
+					case FOX_ASCENDANT_FENNEC:
 					case ELEMENTAL_AIR:
 					case ELEMENTAL_ARCANE:
 					case ELEMENTAL_EARTH:

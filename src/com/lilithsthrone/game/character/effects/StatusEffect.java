@@ -19,6 +19,7 @@ import com.lilithsthrone.game.character.attributes.PhysiqueLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.FluidType;
 import com.lilithsthrone.game.character.body.types.PenisType;
+import com.lilithsthrone.game.character.body.types.TailType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
@@ -1869,12 +1870,283 @@ public enum StatusEffect {
 		public boolean isConditionsMet(GameCharacter target) {
 			return target.getRace() == Race.FOX_MORPH
 					&& !target.isRaceConcealed()
-					&& target.getRaceStage() == RaceStage.GREATER;
+					&& target.getRaceStage() == RaceStage.GREATER
+					&& target.getTailType() != TailType.FOX_MORPH_MAGIC;
 		}
 
 		@Override
 		public String getSVGString(GameCharacter owner) {
 			return owner.getSubspecies().getSVGString(owner);
+		}
+	},
+	
+	FOX_ASCENDANT_1(1000,
+			"1-tailed youko",
+			"raceFoxTailEffect",
+			Colour.RACE_FOX_MORPH,
+			Colour.GENERIC_ARCANE,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, 6f),
+					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 25f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 10f)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer())
+				return "You are a fox-morph, your service to a particular Lilin having afforded you one magical tail, gained from a secret trial.";
+			else
+				return UtilText.parse(target, target.getName("The")
+						+ " is a fox-morph, [npc.his] service to a particular Lilin having afforded [npc.him] one magical tail, gained from a secret trial.");
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getRace() == Race.FOX_MORPH
+					&& !target.isRaceConcealed()
+					&& target.getTailCount() == 1
+					&& target.getTailType() == TailType.FOX_MORPH_MAGIC;
+		}
+	},
+	
+	FOX_ASCENDANT_2(1000,
+			"2-tailed youko",
+			"raceFoxTailEffect",
+			Colour.RACE_FOX_MORPH,
+			Colour.GENERIC_ARCANE,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, 7f),
+					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 30f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 20f)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer())
+				return "You are a fox-morph, your service to a particular Lilin having afforded you two magical tails, gained from a few trials.";
+			else
+				return UtilText.parse(target, target.getName("The")
+						+ " is a fox-morph, [npc.his] service to a particular Lilin having afforded [npc.him] two magical tails, gained from a few trials.");
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getRace() == Race.FOX_MORPH
+					&& !target.isRaceConcealed()
+					&& target.getTailCount() == 2
+					&& target.getTailType() == TailType.FOX_MORPH_MAGIC;
+		}
+	},
+	
+	FOX_ASCENDANT_3(1000,
+			"3-tailed youko",
+			"raceFoxTailEffect",
+			Colour.RACE_FOX_MORPH,
+			Colour.GENERIC_ARCANE,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, 8f),
+					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 35f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 30f)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer())
+				return "You are a fox-morph, your service to a particular Lilin having afforded you three magical tails, gained from a few trials.";
+			else
+				return UtilText.parse(target, target.getName("The")
+						+ " is a fox-morph, [npc.his] service to a particular Lilin having afforded [npc.him] three magical tails, gained from a few trials.");
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getRace() == Race.FOX_MORPH
+					&& !target.isRaceConcealed()
+					&& target.getTailCount() == 3
+					&& target.getTailType() == TailType.FOX_MORPH_MAGIC;
+		}
+	},
+	
+	FOX_ASCENDANT_4(1000,
+			"4-tailed youko",
+			"raceFoxTailEffect",
+			Colour.RACE_FOX_MORPH,
+			Colour.GENERIC_ARCANE,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, 9f),
+					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 40f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 40f)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer())
+				return "You are a fox-morph, your service to a particular Lilin having afforded you four magical tails, gained over many trials.";
+			else
+				return UtilText.parse(target, target.getName("The")
+						+ " is a fox-morph, [npc.his] service to a particular Lilin having afforded [npc.him] four magical tails, gained over many trials.");
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getRace() == Race.FOX_MORPH
+					&& !target.isRaceConcealed()
+					&& target.getTailCount() == 4
+					&& target.getTailType() == TailType.FOX_MORPH_MAGIC;
+		}
+	},
+	
+	FOX_ASCENDANT_5(1000,
+			"5-tailed youko",
+			"raceFoxTailEffect",
+			Colour.RACE_FOX_MORPH,
+			Colour.GENERIC_ARCANE,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, 10f),
+					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 45f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 50f)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer())
+				return "You are a fox-morph, your service to a particular Lilin having afforded you five magical tails, gained over many trials.";
+			else
+				return UtilText.parse(target, target.getName("The")
+						+ " is a fox-morph, [npc.his] service to a particular Lilin having afforded [npc.him] five magical tails, gained over many trials.");
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getRace() == Race.FOX_MORPH
+					&& !target.isRaceConcealed()
+					&& target.getTailCount() == 5
+					&& target.getTailType() == TailType.FOX_MORPH_MAGIC;
+		}
+	},
+	
+	FOX_ASCENDANT_6(1000,
+			"6-tailed youko",
+			"raceFoxTailEffect",
+			Colour.RACE_FOX_MORPH,
+			Colour.GENERIC_ARCANE,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, 11f),
+					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 50f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 60f)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer())
+				return "You are a fox-morph, your service to a particular Lilin having afforded you six magical tails, gained over many trials.";
+			else
+				return UtilText.parse(target, target.getName("The")
+						+ " is a fox-morph, [npc.his] service to a particular Lilin having afforded [npc.him] six magical tails, gained over many trials.");
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getRace() == Race.FOX_MORPH
+					&& !target.isRaceConcealed()
+					&& target.getTailCount() == 6
+					&& target.getTailType() == TailType.FOX_MORPH_MAGIC;
+		}
+	},
+
+	FOX_ASCENDANT_7(1000,
+			"7-tailed youko",
+			"raceFoxTailEffect",
+			Colour.RACE_FOX_MORPH,
+			Colour.GENERIC_ARCANE,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, 12f),
+					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 55f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 70f)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer())
+				return "You are a fox-morph, your service to a particular Lilin having afforded you seven magical tails, gained over many trials.";
+			else
+				return UtilText.parse(target, target.getName("The")
+						+ " is a fox-morph, [npc.his] service to a particular Lilin having afforded [npc.him] seven magical tails, gained over many trials.");
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getRace() == Race.FOX_MORPH
+					&& !target.isRaceConcealed()
+					&& target.getTailCount() == 7
+					&& target.getTailType() == TailType.FOX_MORPH_MAGIC;
+		}
+	},
+	
+	FOX_ASCENDANT_8(1000,
+			"8-tailed youko",
+			"raceFoxTailEffect",
+			Colour.RACE_FOX_MORPH,
+			Colour.GENERIC_ARCANE,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, 13f),
+					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 60f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 80f)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer())
+				return "You are a fox-morph, your service to a particular Lilin having afforded you eight magical tails, gained over many trials.";
+			else
+				return UtilText.parse(target, target.getName("The")
+						+ " is a fox-morph, [npc.his] service to a particular Lilin having afforded [npc.him] eight magical tails, gained over many trials.");
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getRace() == Race.FOX_MORPH
+					&& !target.isRaceConcealed()
+					&& target.getTailCount() == 8
+					&& target.getTailType() == TailType.FOX_MORPH_MAGIC;
+		}
+	},
+	
+	FOX_ASCENDANT_FINAL(1000,
+			"ascendant youko",
+			"raceFoxTailEffect",
+			Colour.RACE_FOX_MORPH,
+			Colour.GENERIC_ARCANE,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, 25f),
+					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 100f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 100f)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer())
+				return "You are a fox-morph, your vast number of tails a signal of your unending dedication to a particular Lilin, gained over many trials.";
+			else
+				return UtilText.parse(target, target.getName("The")
+						+ " is a fox-morph, [npc.his] vast number of tails a signal of [npc.his] unending dedication to a particular Lilin, gained over many trials.");
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getRace() == Race.FOX_MORPH
+					&& !target.isRaceConcealed()
+					&& target.getTailCount() >= 9
+					&& target.getTailType() == TailType.FOX_MORPH_MAGIC;
 		}
 	},
 
