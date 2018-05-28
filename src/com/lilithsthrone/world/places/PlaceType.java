@@ -883,7 +883,7 @@ public enum PlaceType {
 	SHOPPING_ARCADE_SUPPLIER_DEPOT("Supplier Depot", "dominion/shoppingArcade/supplierDepot", BaseColour.CRIMSON, Colour.MAP_BACKGROUND, SupplierDepot.EXTERIOR, null, false, true, true, "in the supplier depot") {
 		@Override
 		public BaseColour getColour() {
-			if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_NYAN_HELP)) {
+			if(Main.game.getPlayer().isQuestCompleted(QuestLine.RELATIONSHIP_NYAN_HELP)) {
 				return BaseColour.GREEN;
 			} else {
 				return BaseColour.CRIMSON;
@@ -891,7 +891,7 @@ public enum PlaceType {
 		}
 		@Override
 		public String getSVGString(Set<PlaceUpgrade> upgrades) {
-			if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_NYAN_HELP)) {
+			if(Main.game.getPlayer().isQuestCompleted(QuestLine.RELATIONSHIP_NYAN_HELP)) {
 				return PlaceType.getSVGOverride("dominion/shoppingArcade/supplierDepot", Colour.BASE_GREEN);
 			} else {
 				return SVGString;
@@ -912,11 +912,11 @@ public enum PlaceType {
 	SUPPLIER_DEPOT_ENTRANCE("Reception Area", "dominion/shoppingArcade/exit", BaseColour.GREY, Colour.MAP_BACKGROUND, SupplierDepot.SUPPLIER_DEPOT_RECEPTION, null, false, true, false, "in the supplier depot") {
 		@Override
 		public boolean isPopulated() {
-			return Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_NYAN_HELP);
+			return Main.game.getPlayer().isQuestCompleted(QuestLine.RELATIONSHIP_NYAN_HELP);
 		}
 		@Override
 		public String getSVGString(Set<PlaceUpgrade> upgrades) {
-			if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_NYAN_HELP)) {
+			if(Main.game.getPlayer().isQuestCompleted(QuestLine.RELATIONSHIP_NYAN_HELP)) {
 				return PlaceType.getSVGOverride("dominion/shoppingArcade/exit", Colour.BASE_GREEN);
 			} else {
 				return SVGString;
@@ -929,7 +929,7 @@ public enum PlaceType {
 	SUPPLIER_DEPOT_OFFICE("Office", "dominion/shoppingArcade/supplierOffice", BaseColour.CRIMSON, Colour.MAP_BACKGROUND, SupplierDepot.SUPPLIER_DEPOT_OFFICE, null, true, true, false, "in the supplier depot") {
 		@Override
 		public boolean isDangerous() {
-			return !Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_NYAN_HELP);
+			return !Main.game.getPlayer().isQuestCompleted(QuestLine.RELATIONSHIP_NYAN_HELP);
 		}
 		@Override
 		public DialogueNodeOld getDialogue(boolean withRandomEncounter, boolean forceEncounter) {

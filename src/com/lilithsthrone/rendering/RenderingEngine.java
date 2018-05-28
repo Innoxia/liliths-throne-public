@@ -1488,7 +1488,7 @@ public enum RenderingEngine {
 					+ "<div class='button" + (
 							Main.game.getPlayer().isMainQuestUpdated()
 							|| Main.game.getPlayer().isSideQuestUpdated()
-							|| Main.game.getPlayer().isRomanceQuestUpdated()
+							|| Main.game.getPlayer().isRelationshipQuestUpdated()
 							|| Main.getProperties().hasValue(PropertyValue.newWeaponDiscovered)
 							|| Main.getProperties().hasValue(PropertyValue.newClothingDiscovered)
 							|| Main.getProperties().hasValue(PropertyValue.newItemDiscovered)

@@ -116,7 +116,7 @@ public enum Colour {
 	
 	QUEST_MAIN(BaseColour.PINK, "pink"),
 	QUEST_SIDE(BaseColour.BLUE, "blue"),
-	QUEST_ROMANCE(BaseColour.PINK_LIGHT, "pink"),
+	QUEST_RELATIONSHIP(BaseColour.PINK_LIGHT, "pink"),
 
 	MAP_MARKER(Util.newColour(0x6163DB), Util.newColour(0x6163DB), "blue"),
 
