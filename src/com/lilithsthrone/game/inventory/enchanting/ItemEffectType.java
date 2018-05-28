@@ -800,7 +800,7 @@ public class ItemEffectType {
 	};
 	
 	public static AbstractItemEffectType INT_FRUIT_BAT_SQUASH = new AbstractItemEffectType(Util.newArrayListOfValues(
-			"[style.boldGood(Restores)] 5% [style.boldHealth(energy)]",
+			"[style.boldGood(Restores)] 5% [style.boldAura(aura)]",
 			"[style.boldGood(+1)] [style.boldArcane(arcane)] to 'potion effects'"),
 			Colour.ATTRIBUTE_ARCANE) {
 		
