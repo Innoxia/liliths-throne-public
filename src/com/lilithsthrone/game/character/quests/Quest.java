@@ -628,7 +628,7 @@ public enum Quest {
 
 		@Override
 		public String getCompletedDescription() {
-			return "You submitted to the Slime Queen, and allowed her to transform you into one of her subjects!";
+			return "You decided to help the Slime Queen with her plans, and agreed to trick the enforcers into believing that she's no longer a threat!";
 		}
 	},
 	
@@ -645,7 +645,8 @@ public enum Quest {
 
 		@Override
 		public String getCompletedDescription() {
-			return "You told Claire that the Slime Queen is no longer a threat, and received the twenty-thousand flame reward.";
+			return "You told Claire that the Slime Queen is no longer a threat, and received the twenty-thousand flame reward."
+				+ " With your Queen now safe from enforcer investigation, it's only a matter of time before all of Submission is a Slime paradise!";
 		}
 	},
 	
@@ -657,13 +658,12 @@ public enum Quest {
 
 		@Override
 		public String getDescription() {
-			return "Report back to the Enforcer Post and tell them that there's no such thing as a Slime Queen.";
+			return "You decide to convince the Slime Queen to abandon her plans.";
 		}
 
 		@Override
 		public String getCompletedDescription() {
-			return "Although the enforcers were a little skeptical, you managed to convince them that there's no such thing as a Slime Queen."
-					+ " With your Queen now safe from enforcer investigation, it's only a matter of time before all of Submission is a Slime paradise...";
+			return "You convinced Catherine to abandon her plan of transforming everyone in Submission into slimes.";
 		}
 	},
 	
@@ -692,13 +692,12 @@ public enum Quest {
 
 		@Override
 		public String getDescription() {
-			return "Report back to the Enforcer Post and tell them that you defeated the Slime Queen.";
+			return "Force the Slime Queen to abandom her plans.";
 		}
 
 		@Override
 		public String getCompletedDescription() {
-			return "Although the enforcers were a bit surprised, you managed to convince them that the Slime Queen would no longer be a hazard."
-					+ " With the Queen now tamed, and behaving, Submission is safer for civilians";
+			return "You forced Catherine to abandon her plan of transforming everyone in Submission into slimes.";
 		}
 	},
 	
