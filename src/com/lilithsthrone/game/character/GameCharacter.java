@@ -1028,11 +1028,6 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			character.setSurname(((Element)element.getElementsByTagName("surname").item(0)).getAttribute("value"));
 			CharacterUtils.appendToImportLog(log, "</br>Set surname: " + ((Element)element.getElementsByTagName("surname").item(0)).getAttribute("value"));
 		}
-
-		// Initialize artworks after name is available
-		if (deferredImageLoading && character.getArtworkList().isEmpty()) {
-			character.loadImages();
-		}
 		
 		// Level:
 		character.setLevel(Integer.valueOf(((Element)element.getElementsByTagName("level").item(0)).getAttribute("value")));
@@ -1320,6 +1315,11 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		character.body = Body.loadFromXML(log, (Element) parentElement.getElementsByTagName("body").item(0), doc);
 		if(!setGenderIdentity) {
 			character.setGenderIdentity(character.getGender());
+		}
+
+		// Initialize artworks after name and femininity is available
+		if (deferredImageLoading && character.getArtworkList().isEmpty()) {
+			character.loadImages();
 		}
 		
 		
