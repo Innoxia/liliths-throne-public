@@ -393,7 +393,7 @@ public class RedLightDistrict {
 					return new Response("Sell body (Sub)", "Tell Angel that you've like to act as the submissive partner, and then wait around for a client to show up.", ANGELS_KISS_SELL_SELF_SUB){
 						@Override
 						public void effects() {
-							NPC npc = new GenericSexualPartner(GenderPreference.getGenderFromUserPreferences(), Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
+							NPC npc = new GenericSexualPartner(GenderPreference.getGenderFromUserPreferences(Main.game.getPlayer().getSexualOrientation()), Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
 							if(Math.random()<0.4f) {
 								npc.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 							} else {
@@ -405,6 +405,10 @@ public class RedLightDistrict {
 							}
 							npc.removeFetish(Fetish.FETISH_SUBMISSIVE);
 							npc.setFetishDesire(Fetish.FETISH_DOMINANT, FetishDesire.THREE_LIKE);
+							if(!npc.isAttractedTo(Main.game.getPlayer()))
+							{
+								npc.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+							}
 							try {
 								Main.game.addNPC(npc, false);
 								Main.game.setActiveNPC(npc);
@@ -418,7 +422,7 @@ public class RedLightDistrict {
 					return new Response("Sell body (Dom)", "Tell Angel that you've like to act as the dominant partner, and then wait around for a client to show up.", ANGELS_KISS_SELL_SELF_DOM){
 						@Override
 						public void effects() {
-							NPC npc = new GenericSexualPartner(GenderPreference.getGenderFromUserPreferences(), Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
+							NPC npc = new GenericSexualPartner(GenderPreference.getGenderFromUserPreferences(Main.game.getPlayer().getSexualOrientation()), Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
 							if(Math.random()<0.4f) {
 								npc.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 							} else {
@@ -430,6 +434,10 @@ public class RedLightDistrict {
 							}
 							npc.removeFetish(Fetish.FETISH_DOMINANT);
 							npc.setFetishDesire(Fetish.FETISH_SUBMISSIVE, FetishDesire.THREE_LIKE);
+							if(!npc.isAttractedTo(Main.game.getPlayer()))
+							{
+								npc.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+							}
 							try {
 								Main.game.addNPC(npc, false);
 								Main.game.setActiveNPC(npc);
