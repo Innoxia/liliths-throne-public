@@ -1821,8 +1821,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				if(!e.getAttribute("value").equals("NOT_SET")) { // Don't load in stats from unknown NPCs
 					character.sexPartnerMap.put(e.getAttribute("value"), new HashMap<>());
 					
-					for(int j=0; j<element.getElementsByTagName("entry").getLength(); j++){
-						Element e2 = ((Element)element.getElementsByTagName("entry").item(j));
+					for(int j=0; j<e.getElementsByTagName("entry").getLength(); j++){
+						Element e2 = ((Element) e.getElementsByTagName("entry").item(j));
 	
 						try {
 							character.sexPartnerMap.get(e.getAttribute("value")).put(

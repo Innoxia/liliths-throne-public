@@ -6,7 +6,7 @@ package com.lilithsthrone.controller.xmlParsing;
  * 
  * <p>Exception thrown when mandatory tag is missing, thus making XML mod invalid. If mod can still be loaded and used without a tag, use {@link Element#getOptionalFirstOf(java.lang.String)} instead</p>
  */
-public class XMLMissingTagException extends Exception{
+public class XMLMissingTagException extends Exception {
     /**
      * <p>Error that reports the missing tag and file in which missing tag was reported.</p>
      * 
