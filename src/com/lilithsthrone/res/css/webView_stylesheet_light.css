@@ -22,8 +22,9 @@ div {
 }
 #main-content{
 	display: flex;
-	flex-flow: column;
+	-webkit-flex-flow: column;
 	height: 100%;
+	width:100%;
 	cursor:default;
 }
 #header-content{
@@ -48,6 +49,7 @@ div {
 .div-center{
 	margin: 8px auto 8px auto;
 	overflow-x:hidden;
+	width:100%;
 	max-width:1000px;
 	padding:16px;
 	

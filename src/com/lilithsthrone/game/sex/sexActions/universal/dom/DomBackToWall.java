@@ -89,7 +89,7 @@ public class DomBackToWall {
 //
 //		@Override
 //		public List<CoverableArea> getPlayerAreasCummedIn() {
-//			return Util.newArrayListOfValues(new ListValue<>(CoverableArea.VAGINA));
+//			return Util.newArrayListOfValues(CoverableArea.VAGINA);
 //		}
 //	},
 	

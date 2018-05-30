@@ -20,9 +20,10 @@ import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
-import com.lilithsthrone.game.combat.Attack;
+import com.lilithsthrone.game.combat.Spell;
+import com.lilithsthrone.game.combat.SpellUpgrade;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
-import com.lilithsthrone.game.dialogue.npcDialogue.DominionSuccubusDialogue;
+import com.lilithsthrone.game.dialogue.npcDialogue.dominion.DominionSuccubusDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
@@ -89,12 +90,17 @@ public class DominionSuccubusAttacker extends NPC {
 			// Set random inventory & weapons:
 			resetInventory();
 			inventory.setMoney(50);
+			CharacterUtils.generateItemsInInventory(this);
 			
 			// CLOTHING:
 			
 			this.equipClothing(true, false);
 			
 			CharacterUtils.applyMakeup(this, true);
+			
+			this.addSpell(Spell.ARCANE_AROUSAL);
+			this.addSpell(Spell.TELEPATHIC_COMMUNICATION);
+			this.addSpellUpgrade(SpellUpgrade.TELEPATHIC_COMMUNICATION_1);
 			
 			setMana(getAttributeValue(Attribute.MANA_MAXIMUM));
 			setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM));
@@ -162,25 +168,6 @@ public class DominionSuccubusAttacker extends NPC {
 	}
 
 	// Combat:
-
-	@Override
-	public String getCombatDescription() {
-		return UtilText.parse(this,
-				"Although strong enough to easily overpower most solitary travellers, this horny [npc.race] is finding it difficult to focus on harnessing [npc.her] arcane aura, resulting in [npc.herHim] being far weaker than a normal demon.");
-	}
-	
-	@Override
-	public Attack attackType() {
-		double rnd = Math.random();
-		
-		if (rnd < 0.1) {
-			return Attack.MAIN;
-		} else if (rnd < 0.5) {
-			return Attack.SPECIAL_ATTACK;
-		} else {
-			return Attack.SEDUCTION;
-		}
-	}
 
 	public String getItemUseEffects(AbstractItem item, GameCharacter user, GameCharacter target){
 		// Player is using an item:
@@ -316,43 +303,6 @@ public class DominionSuccubusAttacker extends NPC {
 							"[npc.Name] looks annoyed that you're trying to put up a fight, and leaps forwards to deliver a solid punch to your [pc.arm].",
 							"With an angry shout, [npc.Name] darts forwards and punches you right in the chest!",
 							"With a frustrated cry, [npc.Name] kicks out at your shins."));
-		}
-	}
-	
-	@Override
-	public String getSeductionDescription() {
-		if(this.isFeminine()) {
-			return UtilText.parse(this,
-					UtilText.returnStringAtRandom(
-							"[npc.Name] puts on a smouldering look, and as her eyes meet yours, you hear an extremely lewd moan echoing around in your head, [npc.thought(~Aaah!~ "
-									+(this.hasVagina()
-											?"You're making me so wet!"
-											:this.hasPenis()
-												?"You're getting me so hard!"
-												:"You're turning me on so much!")+")]",
-							"[npc.Name] locks her big, innocent-looking eyes with yours, and as she pouts, you hear an echoing moan deep within your mind, [npc.thought("+
-									(this.hasVagina()
-											?"~Mmm!~ Fuck me! ~Aaa!~ My pussy's wet and ready for you!"
-											:this.hasPenis()
-												?"~Mmm!~ I can't wait to fuck you! ~Aaa!~ You're going to love my cock!"
-												:"~Mmm!~ Fuck me! ~Aaa!~ I need you so badly!")+")]",
-							"[npc.Name] pouts innocently at you, before blowing you a wet kiss. As she straightens back up, you feel a ghostly pair of wet lips press against your cheek."));
-		} else {
-			return UtilText.parse(this,
-					UtilText.returnStringAtRandom(
-							"[npc.Name] puts on a confident look, and as his eyes meet yours, you hear an extremely lewd groan echoing around in your head, [npc.thought(~Mmm!~ "
-									+(this.hasVagina()
-											?"You're making me so wet!"
-											:this.hasPenis()
-												?"You're getting me so hard!"
-												:"You're turning me on so much!")+")]",
-							"[npc.Name] locks his eyes with yours, and as he throws you a charming smile, you hear an echoing groan deep within your mind, [npc.thought("+
-									(this.hasVagina()
-											?"~Mmm!~ Fuck me! ~Aaa!~ My pussy's wet and ready for you!"
-											:this.hasPenis()
-												?"~Mmm!~ I can't wait to fuck you! You're going to love my cock!"
-												:"~Mmm!~ I can't wait to have some fun with you!")+")]",
-							"[npc.Name] throws you a charming smile, before winking at you and striking a heroic pose. As he straightens back up, you feel a ghostly pair of arms pulling you into a strong, confident embrace."));
 		}
 	}
 

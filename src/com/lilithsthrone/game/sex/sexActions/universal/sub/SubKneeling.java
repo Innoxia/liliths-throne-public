@@ -20,7 +20,6 @@ import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 
 /**
  * @since 0.1.69
@@ -201,9 +200,10 @@ public class SubKneeling {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getActivePartner().getPenisRawSizeValue() >= PenisSize.TWO_AVERAGE.getMedianValue();
+			return Sex.getActivePartner().getPenisRawSizeValue() >= PenisSize.TWO_AVERAGE.getMedianValue()
+					&& Sex.getActivePartner().hasPenisIgnoreDildo();
 		}
-		
+
 		@Override
 		public String getActionTitle() {
 			return "Deep throat";
@@ -283,7 +283,7 @@ public class SubKneeling {
 		@Override
 		public List<OrificeType> getAreasCummedIn(GameCharacter cumProvider, GameCharacter cumTarget) {
 			if(cumProvider.equals(Sex.getActivePartner()) && cumTarget.equals(Sex.getTargetedPartner(Sex.getActivePartner()))) {
-				return Util.newArrayListOfValues(new ListValue<>(OrificeType.MOUTH));
+				return Util.newArrayListOfValues(OrificeType.MOUTH);
 			} else {
 				return null;
 			}
@@ -307,7 +307,12 @@ public class SubKneeling {
 		public String getActionDescription() {
 			return "";
 		}
-
+		
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return Sex.getActivePartner().hasPenisIgnoreDildo();
+		}
+		
 		@Override
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
@@ -390,7 +395,7 @@ public class SubKneeling {
 		public List<CoverableArea> getAreasCummedOn(GameCharacter cumProvider, GameCharacter cumTarget) {
 			if(cumProvider.isPlayer() && cumTarget.equals(Sex.getTargetedPartner(Main.game.getPlayer()))) {
 				return Util.newArrayListOfValues(
-						new ListValue<>(CoverableArea.MOUTH));
+						CoverableArea.MOUTH);
 			}
 			return null; 
 		}

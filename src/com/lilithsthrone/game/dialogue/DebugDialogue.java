@@ -3,6 +3,7 @@ package com.lilithsthrone.game.dialogue;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.ArmType;
@@ -22,7 +23,10 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RacialBody;
+import com.lilithsthrone.game.combat.SpellSchool;
+import com.lilithsthrone.game.dialogue.npcDialogue.unique.LumiDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
+import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.utils.ParserCommand;
 import com.lilithsthrone.game.dialogue.utils.ParserTarget;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -40,23 +44,14 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.BaseColour;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.1.97
+ * @version 0.2.5
  * @author Innoxia
  */
 public class DebugDialogue {
-	// Holds all basic DialogueNodes that don't belong to a specific
-	// NPC/Dungeon/Event
-
-	public static DialogueNodeOld getDefaultDialogue() {
-		return Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true);
-	}
-
-	public static DialogueNodeOld getDefaultDialogueNoEncounter() {
-		return Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(false);
-	}
 
 	public static final DialogueNodeOld DEBUG_MENU = new DialogueNodeOld("A powerful tool", "Open debug menu.", false) {
 		private static final long serialVersionUID = 1L;
@@ -88,7 +83,7 @@ public class DebugDialogue {
 				return new Response("Back", "", DEBUG_MENU){
 					@Override
 					public DialogueNodeOld getNextDialogue() {
-						return getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogueNoEncounter();
 					}
 				};
 				
@@ -142,7 +137,7 @@ public class DebugDialogue {
 				};
 				
 			} else if (index == 6) {
-				return new Response("+50 essences", "Add 10 to each essence type.", DEBUG_MENU){
+				return new Response("+50 essences", "Add 50 to each essence type.", DEBUG_MENU){
 					@Override
 					public void effects() {
 						for(TFEssence essence : TFEssence.values()) {
@@ -266,6 +261,43 @@ public class DebugDialogue {
 						}
 					};
 					
+			} else if (index == 21) {
+					return new Response("Reset spells", "Resets all of your spells and upgrades, and removes all of your spell upgrade points.", DEBUG_MENU){
+						@Override
+						public void effects() {
+							Main.game.getPlayer().resetSpells();
+							Main.game.getPlayer().clearSpellUpgradePoints();
+							
+						}
+					};
+					
+			} else if (index == 22) {
+				return new Response("+10 Spell Points", "Add 10 spell points to each spell school.", DEBUG_MENU){
+					@Override
+					public void effects() {
+						for(SpellSchool school : SpellSchool.values()) {
+							Main.game.getPlayer().incrementSpellUpgradePoints(school, 10);
+						}
+					}
+				};
+				
+			} else if (index == 23) {
+				if(Main.game.getPlayer().getLocationPlace().getPlaceType()!=PlaceType.DOMINION_BACK_ALLEYS) {
+					return new Response("Lumi test", "Lumi can only be spawned in alleyway tiles.", null);
+					
+				} else if(!Main.game.getNonCompanionCharactersPresent().isEmpty()) {
+					return new Response("Lumi test", "Lumi can only be spawned into empty tiles!", null);
+					
+				}  else if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
+					return new Response("Lumi test", "Lumi can not be spawned during an arcane storm.", null);
+				}
+				return new ResponseEffectsOnly("Lumi test", "Spawn Lumi to test her dialogue and scenes."){
+					@Override
+					public void effects() {
+						Main.game.setContent(new Response("", "", LumiDialogue.LUMI_APPEARS));
+					}
+				};
+				
 			}
 			else {
 				return null;
@@ -393,7 +425,11 @@ public class DebugDialogue {
 				for(AbstractWeaponType weaponType : weaponsTotal) {
 					if(weaponType.getSlot()==activeSlot) {
 						inventorySB.append("<div class='inventory-item-slot unequipped "+ weaponType.getRarity().getName() + "'>"
-												+ "<div class='inventory-icon-content'>"+weaponType.getSVGStringMap().get(weaponType.getAvailableDamageTypes().get(0))+"</div>"
+												+ "<div class='inventory-icon-content'>"+weaponType.getSVGImage(
+														weaponType.getAvailableDamageTypes().get(0),
+														weaponType.getAvailablePrimaryColours().isEmpty()?null:weaponType.getAvailablePrimaryColours().get(0),
+														weaponType.getAvailableSecondaryColours().isEmpty()?null:weaponType.getAvailableSecondaryColours().get(0))
+												+"</div>"
 												+ "<div class='overlay' id='" + weaponType.getId() + "_SPAWN'></div>"
 											+ "</div>");
 						count++;
@@ -1250,6 +1286,7 @@ public class DebugDialogue {
 				boolean first=true;
 				for(String s : character.getTags()) {
 					UtilText.nodeContentSB.append((first?"":" | ") +"<i style='color:"+Colour.CLOTHING_BLUE_LIGHT.toWebHexString()+";'>"+s+"</i>");
+					first = false;
 				}
 				
 				UtilText.nodeContentSB.append("</br>"

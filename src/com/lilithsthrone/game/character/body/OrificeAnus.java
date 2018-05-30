@@ -7,7 +7,6 @@ import java.util.Set;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.types.OrificeInterface;
-import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
@@ -15,6 +14,11 @@ import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 
+/**
+ * @since 0.1.?
+ * @version 0.2.4
+ * @author Innoxia
+ */
 public class OrificeAnus implements OrificeInterface, Serializable {
 	private static final long serialVersionUID = 1L;
 	
@@ -56,12 +60,12 @@ public class OrificeAnus implements OrificeInterface, Serializable {
 			}
 		}
 
-		if(this.wetness < Wetness.SEVEN_DROOLING.getValue() && owner.getBodyMaterial()==BodyMaterial.SLIME) {
+		if(this.wetness < Wetness.SEVEN_DROOLING.getValue() && owner.getBodyMaterial().isOrificesAlwaysMaximumWetness()) {
 			this.wetness = Wetness.SEVEN_DROOLING.getValue();
 			if(owner.isPlayer()) {
-				return "<p style='text-align:center;'>[style.colourSex(Due to being a slime, your [pc.asshole] can't be anything but "+Wetness.SEVEN_DROOLING.getDescriptor()+"...)]</p>";
+				return "<p style='text-align:center;'>[style.colourSex(Due to being made out of "+owner.getBodyMaterial().getName()+", your [pc.asshole] can't be anything but "+Wetness.SEVEN_DROOLING.getDescriptor()+"...)]</p>";
 			} else {
-				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourSex(Due to being a slime, [npc.name]'s [npc.asshole] can't be anything but "+Wetness.SEVEN_DROOLING.getDescriptor()+"...)]</p>");
+				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourSex(Due to being made out of "+owner.getBodyMaterial().getName()+", [npc.name]'s [npc.asshole] can't be anything but "+Wetness.SEVEN_DROOLING.getDescriptor()+"...)]</p>");
 			}
 		}
 		

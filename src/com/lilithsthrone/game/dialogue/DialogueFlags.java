@@ -184,7 +184,8 @@ public class DialogueFlags implements Serializable, XMLSaving {
 	}
 
 	public NPC getSlaveryManagerSlaveSelected() {
-		if(slaveryManagerSlaveSelected==null || slaveryManagerSlaveSelected.isEmpty()) {
+		if(slaveryManagerSlaveSelected==null
+				|| slaveryManagerSlaveSelected.isEmpty()) {
 			return null;
 		}
 		return (NPC) Main.game.getNPCById(slaveryManagerSlaveSelected);
@@ -192,7 +193,6 @@ public class DialogueFlags implements Serializable, XMLSaving {
 
 	public void setSlaveryManagerSlaveSelected(GameCharacter slaveryManagerSlaveSelected) {
 		if(slaveryManagerSlaveSelected==null) {
-			Main.game.setActiveNPC(null);
 			this.slaveryManagerSlaveSelected = null;
 		} else {
 			this.slaveryManagerSlaveSelected = slaveryManagerSlaveSelected.getId();

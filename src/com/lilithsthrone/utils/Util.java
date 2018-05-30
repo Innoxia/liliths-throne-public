@@ -9,6 +9,7 @@ import java.net.URISyntaxException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -18,6 +19,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 import java.util.Map.Entry;
+import java.util.NoSuchElementException;
 import java.util.function.Function;
 
 import com.lilithsthrone.game.character.body.CoverableArea;
@@ -198,36 +200,14 @@ public class Util {
 	    return dateFormat.format(file.lastModified());
 	}
 	
-	public static class ListValue<U> {
-		private U value;
-
-		public ListValue(U value) {
-			this.value = value;
-		}
-
-		public U getValue() {
-			return value;
-		}
-	}
-
 	@SafeVarargs
-	public static <U> ArrayList<U> newArrayListOfValues(ListValue<U>... values) {
-		ArrayList<U> list = new ArrayList<>();
-
-		for (ListValue<U> v : values)
-			list.add(v.value);
-
-		return list;
+	public static <U> ArrayList<U> newArrayListOfValues(U... values) {
+		return new ArrayList<>(Arrays.asList(values));
 	}
 	
 	@SafeVarargs
-	public static <U> HashSet<U> newHashSetOfValues(ListValue<U>... values) {
-		HashSet<U> list = new HashSet<>();
-
-		for (ListValue<U> v : values)
-			list.add(v.value);
-
-		return list;
+	public static <U> HashSet<U> newHashSetOfValues(U... values) {
+		return new HashSet<>(Arrays.asList(values));
 	}
 	
 	public static <T> T getRandomObjectFromWeightedMap(Map<T, Integer> map) {
@@ -320,10 +300,6 @@ public class Util {
 		}
 		
 		return String.valueOf(integer);
-	}
-	
-	public static String formatForHTML(String input) {
-		return input.replaceAll("'", "&apos;").replaceAll("\"", "&quot;");
 	}
 	
 	public static String getKeyCodeCharacter(KeyCode code) {
@@ -738,17 +714,21 @@ public class Util {
 	 */
 	private static <T> String toStringList(Collection<T> items, Function<T, String> stringExtractor, String combiningWord) {
 		Iterator<T> itemIterator = items.iterator();
-		T currentItem = itemIterator.next();
-
 		utilitiesStringBuilder.setLength(0);
-		utilitiesStringBuilder.append(stringExtractor.apply(currentItem));
-		if (itemIterator.hasNext()) { // If more than one item, enter the loop
-			currentItem = itemIterator.next();
-			while (itemIterator.hasNext()) { // Use commas until we're on the last item
-				utilitiesStringBuilder.append(", " + stringExtractor.apply(currentItem));
+		try {
+			T currentItem = itemIterator.next();
+	
+			utilitiesStringBuilder.append(stringExtractor.apply(currentItem));
+			if (itemIterator.hasNext()) { // If more than one item, enter the loop
 				currentItem = itemIterator.next();
+				while (itemIterator.hasNext()) { // Use commas until we're on the last item
+					utilitiesStringBuilder.append(", " + stringExtractor.apply(currentItem));
+					currentItem = itemIterator.next();
+				}
+				utilitiesStringBuilder.append((items.size()>2?", ":" ") + combiningWord + " " + stringExtractor.apply(currentItem));
 			}
-			utilitiesStringBuilder.append((items.size()>2?", ":" ") + combiningWord + " " + stringExtractor.apply(currentItem));
+		} catch(NoSuchElementException ex) {
+			System.err.println("Util.toStringList() error - NoSuchElementException! (It's probably nothing to worry about...)");
 		}
 		return utilitiesStringBuilder.toString();
 	}

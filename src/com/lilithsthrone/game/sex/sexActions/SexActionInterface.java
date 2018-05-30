@@ -3,6 +3,7 @@ package com.lilithsthrone.game.sex.sexActions;
 import java.util.List;
 import java.util.Set;
 
+import com.lilithsthrone.controller.MainController;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
@@ -230,6 +231,12 @@ public interface SexActionInterface {
 	
 	public default Response toResponse() {
 		if(isBaseRequirementsMet() && isPhysicallyPossible() && !isBannedFromSexManager()) {
+
+			if((this.getActionType()==SexActionType.PARTNER_POSITIONING
+					|| this.getActionType()==SexActionType.PLAYER_POSITIONING)
+					&& !Sex.isPositionChangingAllowed()) {
+				return null;
+			}
 			
 //			if(!this.getParticipantType().isUsingSelfOrificeType()) {
 				if(getAssociatedOrificeType()!=null) {
@@ -560,7 +567,7 @@ public interface SexActionInterface {
 				@Override
 				public void effects() {
 					SexActionInterface.this.applyEffects();
-					Main.mainController.updateUI();
+					MainController.updateUI();
 					Main.game.updateResponses();
 				}
 				@Override

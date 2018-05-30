@@ -34,15 +34,15 @@
 	</p>
 	<p>
 		[pix.speech(Heya! Hi! How're ya doin'!)]
-		 She exclaims, reaching forwards to give your hand an enthusiastic shake with both of her paw-like hands.
+		 she exclaims, reaching forwards to give your hand an enthusiastic shake with both of her paw-like hands.
 	</p>
 	<p>
 		[pc.speech(Hello-)]
-		 You start to say, but the dog-girl quickly starts to speak over you.
+		 you start to say, but the dog-girl quickly starts to speak over you.
 	</p>
 	<p>
 		[pix.speech(Wohoo! So, you've decided to come get fit, huh, huh, huh?)]
-		 She asks, but before you can reply, she continues speaking. 
+		 she asks, but before you can reply, she continues speaking, 
 		[pix.speech(So don't just stand there! Oh, I'm Pix by the way! Come on, I'll give you a tour!)]
 	</p>
 	<p>
@@ -58,15 +58,15 @@
 	</p>
 	<p>
 		[pix.speech(Heya, great to see you again! How're ya doin'!)]
-		 She exclaims, bounding over to you with a huge grin on her face.
+		 she exclaims, bounding over to you with a huge grin on her face.
 	</p>
 	<p>
 		[pc.speech(Hello aga-)]
-		 You start to say, but the hyperactive dog-girl quickly starts to speak over you.
+		 you start to say, but the hyperactive dog-girl quickly starts to speak over you.
 	</p>
 	<p>
 		[pix.speech(Wohoo! So, you've decided to come have that tour, huh, huh, huh?)]
-		 She asks, but before you can reply, she continues speaking.
+		 she asks, but before you can reply, she continues speaking,
 		 [pix.speech(So don't just stand there! Come on, follow me!)]
 	</p>
 	<p>
@@ -78,7 +78,7 @@
 	<htmlContent tag="GYM_EXIT"><![CDATA[
 	<p>
 		You quickly shout to Pix that you don't have time for her tour right now, but you might come back later.
-		 She doesn't seem fazed at all by your reluctant response, and calls out after you as you leave.
+		 She doesn't seem fazed at all by your reluctant response, and calls out after you as you leave,
 		 [pix.speech(No worries! Come back at any time, I'll be waiting to see you again!)]
 	</p>
 	]]>
@@ -91,7 +91,7 @@
 	</p>
 	<p>
 		[pix.speech(So, like, here's all the weights and machines and stuff!)]
-		 She shouts, bouncing happily around the room as you follow in her footsteps.
+		 she shouts, bouncing happily around the room as you follow in her footsteps.
 		 [pix.speech(It's usually not much busier than this, so when you sign up, you'll find that you never have to wait for any of the equipment!)]
 	</p>
 	<p>
@@ -102,7 +102,7 @@
 	</p>
 	<p>
 		[pix.speech(Follow me! Follow me!)]
-		 She shouts, interrupting your thoughts as she continues her tour.
+		 she shouts, interrupting your thoughts as she continues her tour.
 	</p>
 	<p>
 		Pix continues to show you around the gym, and you're surprised to find that there's an indoor olympic-sized swimming pool in the back.
@@ -112,7 +112,7 @@
 	</p>
 	<p>
 		[pix.speech(So, what'ya think?! Pretty awesome, huh?!)]
-		 She shouts, before moving onto the business-side of things.
+		 she shouts, before moving onto the business-side of things.
 		 [pix.speech(Now, life-time membership is ten-thousand flames, or you can just pay each time you come here, which is one-hundred flames per entry!
 		 So, what'll be?! If you get the life-time membership, that includes personal workout sessions with none other than your new friend, Pix!
 		 You know, I don't do this often, but I can see that you're kinda special and I'd really like to get the chance to work with that body of yours, so just for you,
@@ -127,7 +127,7 @@
 		 Pushing open the door, you step into the lobby, where you're immediately greeted by the familiar bouncing figure of Pix.
 	</p>
 	<p>
-		[pix.speech(Heya [pc.name]! How're ya doin'?!)]
+		[pix.speech(Heya, [pc.name]! How're ya doin'?!)]
 		 She asks, beaming at you.
 	</p>
 	]]>
@@ -155,7 +155,7 @@
 	</p>
 	<p>
 		[pix.speech(Remember, if you get a life-time membership, I can help you train!)]
-		 She shouts after you while bouncing up and down on the spot.
+		 she shouts after you while bouncing up and down on the spot.
 	</p>
 	<p>
 		You head over to the changing rooms, where you discover that the gym provides clean exercise clothes for people who haven't brought any.
@@ -171,7 +171,7 @@
 	</p>
 	<p>
 		[pix.speech(Wohoo! That's, like, so amazing! Now I can help you train and stuff, and you can, like, come and go anytime without paying anything extra!)]
-		 She explains, and without warning, she leaps forwards and gives you a hug.
+		 she explains, and without warning, she leaps forwards and gives you a hug.
 	</p>
 	<p>
 		You're somewhat taken aback by her sudden move, but before you can react, she releases you and runs off to fetch a contract from behind the front desk.
@@ -183,7 +183,7 @@
 	</p>
 	<p>
 		[pix.speech(Awesome! So, that's all done! Congratulations! You can go ahead and get changed and stuff, just call me over whenever you're ready for some personal training!)]
-		 She exclaims, before running off to fill in her side of the paperwork.
+		 she exclaims, before running off to fill in her side of the paperwork.
 	</p>
 	<p>
 		You head over to the changing rooms, where you see that the gym provides clean exercise clothes for people who haven't brought any.
@@ -198,8 +198,8 @@
 		 Pushing open the door, you step into the lobby, where you're immediately greeted by the familiar bouncing figure of Pix.
 	</p>
 	<p>
-		[pix.speech(Heya [pc.name]! How're ya doin'?! Gonna have a personal session today?!)]
-		 She asks, beaming at you.
+		[pix.speech(Heya, [pc.name]! How're ya doin'?! Gonna have a personal session today?!)]
+		 she asks, beaming at you.
 	</p>
 	<p>
 		You start to reply to the energetic dog-girl, but, once again, she immediately cuts you off.
@@ -258,7 +258,7 @@
 	</p>
 	<p>
 		[pix.speech(Heya! How're ya doin'?!)]
-		 She squeals, obviously extremely pleased that you've asked her to come over.
+		 she squeals, obviously extremely pleased that you've asked her to come over.
 	</p>
 	<p>
 		You start to say that you'd like her to show you a good routine to follow, but before you're even halfway through your first sentence, she hastily interrupts you in her eagerness to respond, 
@@ -283,7 +283,7 @@
 	<htmlContent tag="GYM_PIX_TRAINING_CARDIO"><![CDATA[
 	<p>
 		[pix.speech(Come on now! No slacking!)]
-		 She exclaims as she leads you over towards the running machines.
+		 she exclaims as she leads you over towards the running machines.
 	</p>
 	<p>
 		You let out a groan as you see what Pix has got in store for you.
@@ -321,7 +321,7 @@
 	<p>
 		After what feels like an eternity, the dog-girl trainer finally leans over and dials the difficulty back, instructing you to take a few minutes to do a cooldown walk.
 		 As you pant from exertion, Pix leans over and uses a towel to wipe the sweat from your forehead.
-		 She brushes her hand over your body as she retracts, and reminds you of what she promised earlier.
+		 She brushes her hand over your body as she retracts, and reminds you of what she promised earlier,
 		 [pix.speech(You're like, my star pupil, y'know! I said I'd make it worth your while, remember?!
 		 So come meet me in the showers if you want a little one-to-one cooldown exercise...)]
 	</p>
@@ -350,7 +350,7 @@
 	</p>
 		
 	<p>
-		You start to let out a yell in surprise, but the dog-girl quickly clasps a paw-like hand over your mouth as she leans in, pressing her naked body against yours as she growls in your ear.
+		You start to let out a yell in surprise, but the dog-girl quickly clasps a paw-like hand over your mouth as she leans in, pressing her naked body against yours as she growls in your ear,
 		 [pix.speech(Haha! So, like, were you trying to avoid me or something?!
 		 'Cause that kinda makes me sad!
 		 And y'know, it also kinda makes me think that you need a little punishment!
@@ -383,7 +383,7 @@
 	
 	<htmlContent tag="GYM_PIX_ASSAULT_TOO_TIRED"><![CDATA[
 	<p>
-		You're far too tired to do any more physical exercise right now, and tell Pix as such.
+		You're far too tired to do any more physical exercise right now, and tell Pix as such,
 		 [pc.speech(I wasn't avoiding you, I'm just too tired for this right now. Maybe we can carry on in about half an hour or something?)]
 	</p>
 	<p>
@@ -407,7 +407,7 @@
 	
 	<htmlContent tag="GYM_PIX_ASSAULT_OFFER_SEX"><![CDATA[
 	<p>
-		As tired as you are, Pix turns you on far too much to refuse her advances, and you turn your head to one side as you eagerly respond.
+		As tired as you are, Pix turns you on far too much to refuse her advances, and you turn your head to one side as you eagerly respond,
 		 [pc.speech(Perhaps you'll let me make it up to you?)]
 	</p>
 	<p>
@@ -431,8 +431,8 @@
 	
 	<htmlContent tag="GYM_PIX_ASSAULT_ACCEPT_PUNISHMENT"><![CDATA[
 	<p>
-		You don't want Pix to think that you've been avoiding her, and you turn your head to one side as you apologise.
-		 [pc.speech(Sorry Pix, I wasn't trying to avoid you, I just didn't see you anywhere nearby!)]
+		You don't want Pix to think that you've been avoiding her, and you turn your head to one side as you apologise,
+		 [pc.speech(Sorry, Pix, I wasn't trying to avoid you, I just didn't see you anywhere nearby!)]
 	</p>
 	<p>
 		Although you can't see her reaction, you feel her grip on your wrists tighten as you say you're sorry.
@@ -465,7 +465,7 @@
 		 [pix.speech(Like, nobody's ever managed to do <i>this</i> before!)]
 	</p>
 	<p>
-		Leaning in over her shoulder, you can't help but grin as you growl into Pix's ear.
+		Leaning in over her shoulder, you can't help but grin as you growl into Pix's ear,
 		 [pc.speech(It looks <i>you're</i> who's the one in need of some punishment...)]
 	</p>
 	]]>
@@ -482,7 +482,7 @@
 		 [pix.speech(I knew ya were holdin' back! Well, I guess I'll just have ta get ya another time!)]
 	</p>
 	<p>
-		Throwing you a mischievous grin, she bolts off towards the exit, calling out behind her as she goes.
+		Throwing you a mischievous grin, she bolts off towards the exit, calling out behind her as she goes,
 		 [pix.speech(Come back soon! You're, like, still my star pupil!)]
 	</p>
 	<p>
@@ -496,8 +496,8 @@
 	<p>
 		Hooking your arms under Pix's, you drag the exhausted dog-girl out from the showers, and into the changing rooms.
 		 Lying her down on one of the wooden benches, you grab a nearby towel, before quickly drying her body off.
-		 You can't help but grin as she sighs.
-		 [pix.speech(Ahh... Thanks [pc.name]... That sure was fun, y'know...)]
+		 You can't help but grin as she sighs,
+		 [pix.speech(Ahh... Thanks, [pc.name]... That sure was fun, y'know...)]
 	</p>
 	<p>
 		You let out a satisfied sigh of your own in response, and, as the dog-girl lies back on the bench, you dry yourself off and get changed.
@@ -540,7 +540,7 @@
 		 In fact, you're completely oblivious to Pix's presence, right up until the moment she pounces forwards and pins you up against the wall.
 	</p>
 	<p>
-		You start to let out a yell in surprise, but the dog-girl quickly clasps a paw-like hand over your mouth as she leans in, pressing her naked body against yours as she growls in your ear.
+		You start to let out a yell in surprise, but the dog-girl quickly clasps a paw-like hand over your mouth as she leans in, pressing her naked body against yours as she growls in your ear,
 		 [pix.speech(Haha! So, like, you ready for your special cooldown?!
 		 Y'know, I'm like, super into punishments, orgasm denial, and all that good stuff, so if you aren't interested in that kinda thing, now's your chance to let me know!)]
 		 As she lifts her hand from over your mouth, you're given a chance to respond.
@@ -550,17 +550,17 @@
 	
 	<htmlContent tag="GYM_PIX_ASSAULT_CONSENSUAL_START"><![CDATA[
 	<p>
-		As tired as you are, Pix's offer seems too good to turn down, and you turn your head to one side as you eagerly respond.
+		As tired as you are, Pix's offer seems too good to turn down, and you turn your head to one side as you eagerly respond,
 		 [pc.speech(That sounds good to me! Don't hold back!)]
 	</p>
 	<p>
 		Although you can't see her reaction, you feel her grip on your wrists tighten as you try to turn to face her.
-		 Leaning into your back, Pix growls into your ear once more.
+		 Leaning into your back, Pix growls into your ear once more,
 		 [pix.speech(That's the spirit! This is gonna be, like, super fun!)]
 	</p>
 	<p>
 		As she speaks, she releases the grip on one of your wrists, and as she crushes you up against the wall of the shower, you feel her hand slip around and down between your legs.
-		 You let out a gasp as she starts stroking your crotch, and as her naked breasts squish into your back, her growls soften down a little.
+		 You let out a gasp as she starts stroking your crotch, and as her naked breasts squish into your back, her growls soften down a little,
 		 [pix.speech(You're gonna be a good [pc.girl] for Pix now, aren't ya?!)]
 	</p>
 	]]>
@@ -568,15 +568,15 @@
 	
 	<htmlContent tag="GYM_PIX_ASSAULT_CONSENSUAL_DECLINED"><![CDATA[
 	<p>
-		You're far too tired for any more physical exercise right now, and tell Pix as such.
+		You're far too tired for any more physical exercise right now, and tell Pix as such,
 		 [pc.speech(Sorry, Pix, I'm too tired for this right now. Maybe next time?)]
 	</p>
 	<p>
-		Pix's grip on your wrists instantly loosens, and she steps back, letting out a disappointed whine.
+		Pix's grip on your wrists instantly loosens, and she steps back, letting out a disappointed whine,
 		 [pix.speech(Aww, that's, like too bad! Well, maybe we can have some fun the next time you're here!)]
 	</p>
 	<p>
-		Throwing you a mischievous grin, she bolts off towards the exit, calling out behind her as she goes.
+		Throwing you a mischievous grin, she bolts off towards the exit, calling out behind her as she goes,
 		 [pix.speech(Please do come back soon! You're, like, my star pupil!)]
 	</p>
 	<p>

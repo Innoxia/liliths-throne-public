@@ -113,6 +113,7 @@ public class Rose extends NPC {
 		if(this.getMainWeapon()==null) {
 			this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MAIN_FEATHER_DUSTER));
 		}
+		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_LIGHT), true);
 	}
 
 	@Override
@@ -131,6 +132,15 @@ public class Rose extends NPC {
 
 	@Override
 	public void endSex(boolean applyEffects) {
+		if(applyEffects) {
+			if(this.getClothingInSlot(InventorySlot.PENIS)!=null) {
+				this.unequipClothingIntoVoid(this.getClothingInSlot(InventorySlot.PENIS), true, this);
+				if(this.getClothingInSlot(InventorySlot.GROIN)==null) {
+					this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_VSTRING, Colour.CLOTHING_BLACK, false), true, this);
+				}
+				this.replaceAllClothing();
+			}
+		}
 	}
 	
 	public static final DialogueNodeOld END_HAND_SEX = new DialogueNodeOld("Recover", "Both you and Rose and exhausted from your hand-holding session.", true) {

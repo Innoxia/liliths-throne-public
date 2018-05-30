@@ -1,12 +1,15 @@
 package com.lilithsthrone.game.slavery;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
+import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
@@ -14,8 +17,8 @@ import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
-import com.lilithsthrone.game.character.npc.GenericSexualPartner;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.npc.misc.GenericSexualPartner;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.dialogue.SlaveryManagementDialogue;
 import com.lilithsthrone.game.dialogue.eventLog.SlaveryEventLogEntry;
@@ -27,24 +30,26 @@ import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
+import com.lilithsthrone.utils.XMLSaving;
+import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.WorldType;
-import com.lilithsthrone.world.places.PlaceUpgrade;
 
 /**
+ * A class to handle all slave-related mechanics.
+ * 
  * @since 0.1.87
- * @version 0.2.3
+ * @version 0.2.5
  * @author Innoxia
  */
-public class SlaveryUtil implements Serializable {
-	
-	private static final long serialVersionUID = 1L;
+public class SlaveryUtil implements XMLSaving {
 	
 	private Map<SlaveJob, List<NPC>> slavesAtJob;
 	private List<NPC> slavesResting;
 	private int generatedIncome;
 	private int generatedUpkeep;
+	
+	private List<MilkingRoom> milkingRooms;
 	
 	// Slave income:
 	private Map<NPC, Integer> slaveDailyIncome;
@@ -59,9 +64,51 @@ public class SlaveryUtil implements Serializable {
 		generatedIncome = 0;
 		generatedUpkeep = 0;
 		
+		milkingRooms = new ArrayList<>();
+		
 		slaveDailyIncome = new HashMap<>();
 	}
 
+	public Element saveAsXML(Element parentElement, Document doc) {
+		Element element = doc.createElement("slavery");
+		parentElement.appendChild(element);
+		
+		CharacterUtils.addAttribute(doc, element, "generatedIncome", String.valueOf(Main.game.getSlaveryUtil().getGeneratedIncome()));
+		CharacterUtils.addAttribute(doc, element, "generatedUpkeep", String.valueOf(Main.game.getSlaveryUtil().getGeneratedUpkeep()));
+		
+		for(MilkingRoom room : this.getMilkingRooms()) {
+			room.saveAsXML(element, doc);
+		}
+		
+		return element;
+	}
+	
+	public static SlaveryUtil loadFromXML(Element parentElement, Document doc) {
+		try {
+			SlaveryUtil slaveryUtil = new SlaveryUtil();
+			
+			slaveryUtil.setGeneratedIncome(Integer.valueOf(parentElement.getAttribute("generatedIncome")));
+			slaveryUtil.setGeneratedUpkeep(Integer.valueOf(parentElement.getAttribute("generatedUpkeep")));
+			
+			for(int i=0; i<parentElement.getElementsByTagName("milkingRoom").getLength(); i++){
+				Element e = ((Element)parentElement.getElementsByTagName("milkingRoom").item(i));
+				
+				MilkingRoom room = MilkingRoom.loadFromXML(e, doc);
+				
+				if(slaveryUtil.getMilkingRoom(room.getWorldType(), room.getLocation())==null) {
+					slaveryUtil.addMilkingRoom(room);
+				}
+			}
+			
+			return slaveryUtil;
+			
+		} catch(Exception ex) {
+			System.err.println("Warning: SlaveryUtil failed to import!");
+			return null;
+		}
+	}
+	
+	
 	private void clearSlavesJobTracking() {
 		for(SlaveJob job : SlaveJob.values()) {
 			slavesAtJob.get(job).clear();
@@ -111,9 +158,11 @@ public class SlaveryUtil implements Serializable {
 			// If at work:
 			if(slave.getWorkHours()[hour]) {
 				// Get paid for hour's work:
-				int income = slave.getSlaveJob().getFinalHourlyIncomeAfterModifiers(slave);
-				generatedIncome += income;
-				incrementSlaveDailyIncome(slave, income);
+				if(slave.getSlaveJob()!=SlaveJob.MILKING) {
+					int income = slave.getSlaveJob().getFinalHourlyIncomeAfterModifiers(slave);
+					generatedIncome += income;
+					incrementSlaveDailyIncome(slave, income);
+				}
 				// Overworked effect:
 				if(slave.hasStatusEffect(StatusEffect.OVERWORKED)) {
 					slave.incrementAffection(slave.getOwner(), -0.1f);
@@ -157,7 +206,7 @@ public class SlaveryUtil implements Serializable {
 				Main.game.addSlaveryEvent(day, slave, new SlaveryEventLogEntry(hour,
 						slave,
 						SlaveEvent.WASHED_CLOTHES,
-						Util.newArrayListOfValues(new ListValue<>(SlaveEventTag.WASHED_CLOTHES)),
+						Util.newArrayListOfValues(SlaveEventTag.WASHED_CLOTHES),
 						true));
 			}
 			
@@ -188,9 +237,9 @@ public class SlaveryUtil implements Serializable {
 				}
 				
 				if(Math.random()<0.05f || slave.getSlaveJob()==SlaveJob.MILKING || (Math.random()<0.5f && (slave.getSlaveJob()==SlaveJob.PUBLIC_STOCKS || slave.getSlaveJob()==SlaveJob.PROSTITUTE))) {
-					entry = generateEvent(hour, slave);
-					if(entry!=null) {
-						Main.game.addSlaveryEvent(day, slave, entry);
+					List<SlaveryEventLogEntry> entries = generateEvents(hour, slave);
+					for(SlaveryEventLogEntry e : entries) {
+						Main.game.addSlaveryEvent(day, slave, e);
 						eventAdded = true;
 					}
 				}
@@ -259,7 +308,7 @@ public class SlaveryUtil implements Serializable {
 	 * @param minute Time at which this event is happening.
 	 * @param slave The slave to calculate an event for.
 	 */
-	private SlaveryEventLogEntry generateEvent(int hour, NPC slave) {
+	private List<SlaveryEventLogEntry> generateEvents(int hour, NPC slave) {
 		
 		SlaveJob job = slave.getSlaveJob();
 
@@ -267,85 +316,149 @@ public class SlaveryUtil implements Serializable {
 		List<String> effects = new ArrayList<>();
 		List<SlaveJobSetting> settingsEnabled = new ArrayList<>();
 		
+		List<SlaveryEventLogEntry> events = new ArrayList<>();
+		
 		if(slave.getWorkHours()[hour] && job != SlaveJob.IDLE) { // Slave is working:
 			switch (job) { //TODO
 				case CLEANING:
-					return new SlaveryEventLogEntry(hour, slave, SlaveEvent.JOB_CLEANING, true);
-				case KITCHEN:
-					return new SlaveryEventLogEntry(hour, slave, SlaveEvent.JOB_COOKING, true);
-				case LAB_ASSISTANT:
-					return new SlaveryEventLogEntry(hour, slave, SlaveEvent.JOB_LAB_ASSISTANT, true);
-				case LIBRARY:
-					return new SlaveryEventLogEntry(hour, slave, SlaveEvent.JOB_LIBRARIAN, true);
-				case MILKING:
-					int cumMilked = 25;
-					int milkMilked = 500;
-					int income = 0;
-					if(slave.getLocationPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_ARTISAN_MILKERS)) {
-						cumMilked = 15;
-						milkMilked = 250;
-					} else if(slave.getLocationPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_INDUSTRIAL_MILKERS)) {
-						cumMilked = 150;
-						milkMilked = 1000;
-					}
+					events.add(new SlaveryEventLogEntry(hour, slave, SlaveEvent.JOB_CLEANING, true));
+					return events;
 					
-					if(slave.getBreastRawStoredMilkValue()>0) {
-						int milked = Math.min(slave.getBreastRawStoredMilkValue(), milkMilked);
-						slave.incrementBreastStoredMilk(-milkMilked);
-						income = milked * (1 + slave.getMilk().getFluidModifiers().size());
-						generatedIncome += income;
+				case KITCHEN:
+					events.add(new SlaveryEventLogEntry(hour, slave, SlaveEvent.JOB_COOKING, true));
+					return events;
+					
+				case LAB_ASSISTANT:
+					events.add(new SlaveryEventLogEntry(hour, slave, SlaveEvent.JOB_LAB_ASSISTANT, true));
+					return events;
+					
+				case LIBRARY:
+					events.add(new SlaveryEventLogEntry(hour, slave, SlaveEvent.JOB_LIBRARIAN, true));
+					return events;
+					
+				case MILKING:
+					int income = 0;
+
+					Cell c = MilkingRoom.getMilkingCell(slave);
+					MilkingRoom room = this.getMilkingRoom(c.getType(), c.getLocation());
+					
+					if(slave.getBreastRawStoredMilkValue()>0 && !slave.getSlaveJobSettings().contains(SlaveJobSetting.MILKING_MILK_DISABLE)) {
+						int milked = MilkingRoom.getActualMilkPerHour(slave);
+						if(milked < slave.getBreastRawStoredMilkValue() && milked < MilkingRoom.getMaximumMilkPerHour(slave)) {
+							milked = Math.min(slave.getBreastRawStoredMilkValue(), MilkingRoom.getMaximumMilkPerHour(slave));
+						}
+						slave.incrementBreastStoredMilk(-milked);
 						
-						return new SlaveryEventLogEntry(hour, slave,
-								SlaveEvent.JOB_MILK_MILKED,
-								Util.newArrayListOfValues(
-										new ListValue<>(SlaveEventTag.JOB_LILAYA_MILK_SOLD)),
-								Util.newArrayListOfValues(
-										new ListValue<>("[style.boldGood("+milked+"ml)] milked: +"+UtilText.formatAsMoney(income, "bold"))),
-								true);
-						
-					} else if(slave.hasPenis() && slave.getPenisRawCumProductionValue()>0) {
-						int milked = Math.min(slave.getPenisRawCumProductionValue(), cumMilked);
-						slave.incrementBreastStoredMilk(-cumMilked);
-						income = milked * (1 + slave.getCum().getFluidModifiers().size());
-						generatedIncome += income;
-						
-						return new SlaveryEventLogEntry(hour, slave,
-								SlaveEvent.JOB_CUM_MILKED,
-								Util.newArrayListOfValues(
-										new ListValue<>(SlaveEventTag.JOB_LILAYA_CUM_SOLD)),
-								Util.newArrayListOfValues(
-										new ListValue<>("[style.boldGood("+milked+"ml)] milked: +"+UtilText.formatAsMoney(income, "bold"))),
-								true);
+						if(milked>0) {
+							if(room.isAutoSellMilk()) {
+								income = Math.max(1, (int) (milked * slave.getMilk().getValuePerMl()));
+								generatedIncome += income;
+								
+								events.add(new SlaveryEventLogEntry(hour, slave,
+										SlaveEvent.JOB_MILK_MILKED,
+										Util.newArrayListOfValues(
+												SlaveEventTag.JOB_MILK_SOLD),
+										Util.newArrayListOfValues("[style.boldGood("+milked+"ml)] milked: +"+UtilText.formatAsMoney(income, "bold")),
+										true));
+								
+							} else {
+								room.incrementMilkStorage(slave.getMilk(), milked);
+								
+								events.add(new SlaveryEventLogEntry(hour, slave,
+										SlaveEvent.JOB_MILK_MILKED,
+										Util.newArrayListOfValues(
+												SlaveEventTag.JOB_MILK_MILKED),
+										Util.newArrayListOfValues("[style.boldGood("+milked+"ml)] added to storage."),
+										true));
+							}
+						}
 					}
-					break;
+					if(slave.hasPenisIgnoreDildo() && slave.getPenisRawCumProductionValue()>0 && !slave.getSlaveJobSettings().contains(SlaveJobSetting.MILKING_CUM_DISABLE)) {
+						int milked = MilkingRoom.getActualCumPerHour(slave);
+
+						if(milked>0) {
+							if(room.isAutoSellCum()) {
+								income = Math.max(1, (int) (milked * slave.getCum().getValuePerMl()));
+								generatedIncome += income;
+								
+								events.add(new SlaveryEventLogEntry(hour, slave,
+										SlaveEvent.JOB_CUM_MILKED,
+										Util.newArrayListOfValues(
+												SlaveEventTag.JOB_CUM_SOLD),
+										Util.newArrayListOfValues("[style.boldGood("+milked+"ml)] milked: +"+UtilText.formatAsMoney(income, "bold")),
+										true));
+							
+							} else {
+								room.incrementCumStorage(slave.getCum(), milked);
+								
+								events.add(new SlaveryEventLogEntry(hour, slave,
+										SlaveEvent.JOB_CUM_MILKED,
+										Util.newArrayListOfValues(
+												SlaveEventTag.JOB_CUM_MILKED),
+										Util.newArrayListOfValues("[style.boldGood("+milked+"ml)] added to storage."),
+										true));
+							}
+						}
+					}
+					if(slave.hasVagina() && !slave.getSlaveJobSettings().contains(SlaveJobSetting.MILKING_GIRLCUM_DISABLE)) {
+						int milked = MilkingRoom.getActualGirlcumPerHour(slave);
+						
+						if(milked>0) {
+							if(room.isAutoSellGirlcum()) {
+								income = Math.max(1, (int) (milked * slave.getGirlcum().getValuePerMl()));
+								generatedIncome += income;
+								
+								events.add(new SlaveryEventLogEntry(hour, slave,
+										SlaveEvent.JOB_GIRLCUM_MILKED,
+										Util.newArrayListOfValues(
+												SlaveEventTag.JOB_GIRLCUM_SOLD),
+										Util.newArrayListOfValues("[style.boldGood("+milked+"ml)] milked: +"+UtilText.formatAsMoney(income, "bold")),
+										true));
+							
+							} else {
+								room.incrementGirlcumStorage(slave.getGirlcum(), milked);
+								
+								events.add(new SlaveryEventLogEntry(hour, slave,
+										SlaveEvent.JOB_GIRLCUM_MILKED,
+										Util.newArrayListOfValues(
+												SlaveEventTag.JOB_GIRLCUM_MILKED),
+										Util.newArrayListOfValues("[style.boldGood("+milked+"ml)] added to storage."),
+										true));
+							}
+						}
+					}
+					return events;
+					
 				case TEST_SUBJECT:
 					if(slave.getSlaveJobSettings().isEmpty()) {
 						if(slave.hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING)) {
 							slave.incrementAffection(Main.game.getPlayer(), 1);
 							slave.incrementAffection(Main.game.getLilaya(), 5);
-							return new SlaveryEventLogEntry(hour, slave,
+							events.add(new SlaveryEventLogEntry(hour, slave,
 									SlaveEvent.JOB_TEST_SUBJECT,
 									Util.newArrayListOfValues(
-											new ListValue<>(SlaveEventTag.JOB_LILAYA_INTRUSIVE_TESTING)),
+											SlaveEventTag.JOB_LILAYA_INTRUSIVE_TESTING),
 									Util.newArrayListOfValues(
-											new ListValue<>("[style.boldGood(+1)] [style.boldAffection(Affection)]"),
-											new ListValue<>("[style.boldGood(+5)] [style.boldAffection(Affection towards Lilaya)]")),
-									true);
+                      "[style.boldGood(+1)] [style.boldAffection(Affection)]",
+											"[style.boldGood(+5)] [style.boldAffection(Affection towards Lilaya)]"),
+									true));
+
+							return events;
 							
 						} else {
 							slave.incrementAffection(Main.game.getPlayer(), -1);
 							slave.incrementAffection(Main.game.getLilaya(), -5);
-							return new SlaveryEventLogEntry(hour, slave,
+							events.add(new SlaveryEventLogEntry(hour, slave,
 									SlaveEvent.JOB_TEST_SUBJECT,
 									Util.newArrayListOfValues(
-											new ListValue<>(SlaveEventTag.JOB_LILAYA_INTRUSIVE_TESTING)),
+											SlaveEventTag.JOB_LILAYA_INTRUSIVE_TESTING),
 									Util.newArrayListOfValues(
-											new ListValue<>("[style.boldBad(-1)] [style.boldAffection(Affection)]"),
-											new ListValue<>("[style.boldBad(-5)] [style.boldAffection(Affection towards Lilaya)]")),
-									true);
+											"[style.boldBad(-1)] [style.boldAffection(Affection)]",
+											"[style.boldBad(-5)] [style.boldAffection(Affection towards Lilaya)]"),
+									true));
+							return events;
+
 						}
-						
-						
 						
 					} else {
 						switch(slave.getSlaveJobSettings().get(Util.random.nextInt(slave.getSlaveJobSettings().size()))) {
@@ -372,12 +485,13 @@ public class SlaveryUtil implements Serializable {
 								if(!tf.isEmpty()) {
 									list.add(tf);
 								}
-								return new SlaveryEventLogEntry(hour, slave,
+								events.add(new SlaveryEventLogEntry(hour, slave,
 										SlaveEvent.JOB_TEST_SUBJECT,
 										Util.newArrayListOfValues(
-												new ListValue<>(SlaveEventTag.JOB_LILAYA_FEMININE_TF)),
+												SlaveEventTag.JOB_LILAYA_FEMININE_TF),
 										list,
-										true);
+										true));
+								return events;
 								
 							case TEST_SUBJECT_ALLOW_TRANSFORMATIONS_MALE:
 								List<String> list2 = new ArrayList<>();
@@ -402,12 +516,13 @@ public class SlaveryUtil implements Serializable {
 								if(!tf2.isEmpty()) {
 									list2.add(tf2);
 								}
-								return new SlaveryEventLogEntry(hour, slave,
+								events.add(new SlaveryEventLogEntry(hour, slave,
 										SlaveEvent.JOB_TEST_SUBJECT,
 										Util.newArrayListOfValues(
-												new ListValue<>(SlaveEventTag.JOB_LILAYA_MASCULINE_TF)),
+												SlaveEventTag.JOB_LILAYA_MASCULINE_TF),
 										list2,
-										true);
+										true));
+								return events;
 								
 							default:
 								break;
@@ -450,9 +565,10 @@ public class SlaveryUtil implements Serializable {
 												"[npc.A_race] roughly fucked "+UtilText.parse(slave, "[npc.name]'s [npc.asshole+], before filling [npc.herHim] with"+UtilText.parse(Main.game.getGenericFemaleNPC()," [npc.cum+]!")),
 												"[npc.A_race] filled "+UtilText.parse(slave, "[npc.name]'s [npc.asshole+]")+UtilText.parse(Main.game.getGenericFemaleNPC()," with [npc.her] [npc.cum+], "))));
 	
-								effects.add("<span style='color:"+Colour.CUMMED.toWebHexString()+";'>Anal Creampie:</span> "+effectDescriptions.toString());
+								effects.add("<span style='color:"+Colour.CUM.toWebHexString()+";'>Anal Creampie:</span> "+effectDescriptions.toString());
 								effectDescriptions.setLength(0);
-								slave.calculateGenericSexEffects(false, stocksPartner, new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.ANUS), true);
+								slave.calculateGenericSexEffects(false, stocksPartner, new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.ANUS),
+										!slave.getSlavePermissionSettings().get(SlavePermission.PREGNANCY).contains(SlavePermissionSetting.PREGNANCY_PROMISCUITY_PILLS));
 								
 								break;
 								
@@ -463,10 +579,11 @@ public class SlaveryUtil implements Serializable {
 												"[npc.A_race] roughly face-fucked "+UtilText.parse(slave, "[npc.name], before filling [npc.her] stomach with"+UtilText.parse(Main.game.getGenericFemaleNPC()," [npc.cum+]!")),
 												"[npc.A_race] filled "+UtilText.parse(slave, "[npc.name]'s stomach")+UtilText.parse(Main.game.getGenericFemaleNPC()," with [npc.her] [npc.cum+]!"))));
 	
-								effects.add("<span style='color:"+Colour.CUMMED.toWebHexString()+";'>Swallowed Cum:</span> "+effectDescriptions.toString());
+								effects.add("<span style='color:"+Colour.CUM.toWebHexString()+";'>Swallowed Cum:</span> "+effectDescriptions.toString());
 								effectDescriptions.setLength(0);
 
-								slave.calculateGenericSexEffects(false, stocksPartner, new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.MOUTH), true);
+								slave.calculateGenericSexEffects(false, stocksPartner, new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.MOUTH),
+										!slave.getSlavePermissionSettings().get(SlavePermission.PREGNANCY).contains(SlavePermissionSetting.PREGNANCY_PROMISCUITY_PILLS));
 								break;
 								
 							case SEX_NIPPLES:
@@ -476,10 +593,11 @@ public class SlaveryUtil implements Serializable {
 												"[npc.A_race] roughly fucked "+UtilText.parse(slave, "[npc.name]'s [npc.nipples+], before filling [npc.her] [npc.breasts+] with"+UtilText.parse(Main.game.getGenericFemaleNPC()," [npc.cum+]!")),
 												"[npc.A_race] filled "+UtilText.parse(slave, "[npc.name]'s [npc.nipples+]")+UtilText.parse(Main.game.getGenericFemaleNPC()," with [npc.her] [npc.cum+], "))));
 	
-								effects.add("<span style='color:"+Colour.CUMMED.toWebHexString()+";'>Nipple Creampie:</span> "+effectDescriptions.toString());
+								effects.add("<span style='color:"+Colour.CUM.toWebHexString()+";'>Nipple Creampie:</span> "+effectDescriptions.toString());
 								effectDescriptions.setLength(0);
 
-								slave.calculateGenericSexEffects(false, stocksPartner, new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.NIPPLE), true);
+								slave.calculateGenericSexEffects(false, stocksPartner, new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.NIPPLE),
+										!slave.getSlavePermissionSettings().get(SlavePermission.PREGNANCY).contains(SlavePermissionSetting.PREGNANCY_PROMISCUITY_PILLS));
 								break;
 								
 							case SEX_VAGINAL:
@@ -489,14 +607,15 @@ public class SlaveryUtil implements Serializable {
 												"[npc.A_race] roughly fucked "+UtilText.parse(slave, "[npc.name]'s [npc.pussy+], "),
 												"[npc.A_race] filled "+UtilText.parse(slave, "[npc.name]'s [npc.pussy+]")+UtilText.parse(Main.game.getGenericFemaleNPC()," with [npc.her] [npc.cum+], "))));
 
-								slave.calculateGenericSexEffects(false, stocksPartner, new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.VAGINA), !slave.getSlaveJobSettings().contains(SlaveJobSetting.SEX_PROMISCUITY_PILLS));
+								slave.calculateGenericSexEffects(false, stocksPartner, new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.VAGINA),
+										!slave.getSlavePermissionSettings().get(SlavePermission.PREGNANCY).contains(SlavePermissionSetting.PREGNANCY_PROMISCUITY_PILLS));
 	
 								if(slave.isVisiblyPregnant()) {
 									effectDescriptions.append(UtilText.parse(slave, "but as [npc.she]'s already pregnant, the only result is a fresh creampie..."));
-									effects.add("<span style='color:"+Colour.CUMMED.toWebHexString()+";'>Pussy Creampie:</span> "+effectDescriptions.toString());
+									effects.add("<span style='color:"+Colour.CUM.toWebHexString()+";'>Pussy Creampie:</span> "+effectDescriptions.toString());
 									effectDescriptions.setLength(0);
 									
-								} else if(!slave.getSlaveJobSettings().contains(SlaveJobSetting.SEX_PROMISCUITY_PILLS)) {
+								} else if(!slave.getSlavePermissionSettings().get(SlavePermission.PREGNANCY).contains(SlavePermissionSetting.PREGNANCY_PROMISCUITY_PILLS)) {
 									effectDescriptions.append(UtilText.parse(slave, "resulting in a risk of pregnancy!"));
 									effects.add("<span style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Pregnancy Risk:</span> "+effectDescriptions.toString());
 									effectDescriptions.setLength(0);
@@ -507,7 +626,7 @@ public class SlaveryUtil implements Serializable {
 									} else {
 										effectDescriptions.append(UtilText.parse(slave, "but as [npc.she]'s on promiscuity pills, there's no chance of [npc.herHim] getting pregnant."));
 									}
-									effects.add("<span style='color:"+Colour.CUMMED.toWebHexString()+";'>Pussy Creampie:</span> "+effectDescriptions.toString());
+									effects.add("<span style='color:"+Colour.CUM.toWebHexString()+";'>Pussy Creampie:</span> "+effectDescriptions.toString());
 									effectDescriptions.setLength(0);
 								}
 								
@@ -519,12 +638,13 @@ public class SlaveryUtil implements Serializable {
 						}
 					}
 
-					return new SlaveryEventLogEntry(hour, slave,
+					events.add(new SlaveryEventLogEntry(hour, slave,
 							SlaveEvent.JOB_PUBLIC_STOCKS,
 							Util.newArrayListOfValues(
-									new ListValue<>(SlaveEventTag.JOB_STOCKS_USED)),
+									SlaveEventTag.JOB_STOCKS_USED),
 							effects,
-							true);
+							true));
+					return events;
 					
 				case PROSTITUTE:
 					effectDescriptions = new StringBuilder();
@@ -567,10 +687,11 @@ public class SlaveryUtil implements Serializable {
 												"[npc.A_race] roughly fucked "+UtilText.parse(slave, "[npc.name]'s [npc.asshole+], before filling [npc.herHim] with")+" [npc.cum+]!",
 												"[npc.A_race] filled "+UtilText.parse(slave, "[npc.name]'s [npc.asshole+]")+" with [npc.her] [npc.cum+]!")));
 									
-								effects.add("<span style='color:"+Colour.CUMMED.toWebHexString()+";'>Anal Creampie:</span> "+effectDescriptions.toString());
+								effects.add("<span style='color:"+Colour.CUM.toWebHexString()+";'>Anal Creampie:</span> "+effectDescriptions.toString());
 								effectDescriptions.setLength(0);
 
-								slave.calculateGenericSexEffects(false, partner, new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.ANUS), true);
+								slave.calculateGenericSexEffects(false, partner, new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.ANUS),
+										!slave.getSlavePermissionSettings().get(SlavePermission.PREGNANCY).contains(SlavePermissionSetting.PREGNANCY_PROMISCUITY_PILLS));
 								break;
 								
 							case SEX_ORAL:
@@ -580,10 +701,11 @@ public class SlaveryUtil implements Serializable {
 												"[npc.A_race] roughly face-fucked "+UtilText.parse(slave, "[npc.name], before filling [npc.her] stomach with"+UtilText.parse(partner," [npc.cum+]!")),
 												"[npc.A_race] filled "+UtilText.parse(slave, "[npc.name]'s stomach")+UtilText.parse(partner," with [npc.her] [npc.cum+]!"))));
 	
-								effects.add("<span style='color:"+Colour.CUMMED.toWebHexString()+";'>Swallowed Cum:</span> "+effectDescriptions.toString());
+								effects.add("<span style='color:"+Colour.CUM.toWebHexString()+";'>Swallowed Cum:</span> "+effectDescriptions.toString());
 								effectDescriptions.setLength(0);
 
-								slave.calculateGenericSexEffects(false, partner, new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.MOUTH), true);
+								slave.calculateGenericSexEffects(false, partner, new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.MOUTH),
+										!slave.getSlavePermissionSettings().get(SlavePermission.PREGNANCY).contains(SlavePermissionSetting.PREGNANCY_PROMISCUITY_PILLS));
 								break;
 								
 							case SEX_NIPPLES:
@@ -594,9 +716,10 @@ public class SlaveryUtil implements Serializable {
 												"[npc.A_race] filled "+UtilText.parse(slave, "[npc.name]'s [npc.nipples+]")+UtilText.parse(partner," with [npc.her] [npc.cum+]!"))));
 									
 	
-								effects.add("<span style='color:"+Colour.CUMMED.toWebHexString()+";'>Nipple Creampie:</span> "+effectDescriptions.toString());
+								effects.add("<span style='color:"+Colour.CUM.toWebHexString()+";'>Nipple Creampie:</span> "+effectDescriptions.toString());
 								effectDescriptions.setLength(0);
-								slave.calculateGenericSexEffects(false, partner, new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.NIPPLE), true);
+								slave.calculateGenericSexEffects(false, partner, new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.NIPPLE),
+										!slave.getSlavePermissionSettings().get(SlavePermission.PREGNANCY).contains(SlavePermissionSetting.PREGNANCY_PROMISCUITY_PILLS));
 								break;
 								
 							case SEX_VAGINAL:
@@ -606,14 +729,15 @@ public class SlaveryUtil implements Serializable {
 												"[npc.A_race] roughly fucked "+UtilText.parse(slave, "[npc.name]'s [npc.pussy+], "),
 												"[npc.A_race] filled "+UtilText.parse(slave, "[npc.name]'s [npc.pussy+]")+UtilText.parse(partner," with [npc.her] [npc.cum+], "))));
 
-								slave.calculateGenericSexEffects(false, partner, new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.VAGINA), !slave.getSlaveJobSettings().contains(SlaveJobSetting.SEX_PROMISCUITY_PILLS));
+								slave.calculateGenericSexEffects(false, partner, new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.VAGINA),
+										!slave.getSlavePermissionSettings().get(SlavePermission.PREGNANCY).contains(SlavePermissionSetting.PREGNANCY_PROMISCUITY_PILLS));
 								
 								if(slave.isVisiblyPregnant()) {
 									effectDescriptions.append(UtilText.parse(slave, "but as [npc.she]'s already pregnant, the only result is a fresh creampie..."));
-									effects.add("<span style='color:"+Colour.CUMMED.toWebHexString()+";'>Pussy Creampie:</span> "+effectDescriptions.toString());
+									effects.add("<span style='color:"+Colour.CUM.toWebHexString()+";'>Pussy Creampie:</span> "+effectDescriptions.toString());
 									effectDescriptions.setLength(0);
 									
-								} else if(!slave.getSlaveJobSettings().contains(SlaveJobSetting.SEX_PROMISCUITY_PILLS)) {
+								} else if(!slave.getSlavePermissionSettings().get(SlavePermission.PREGNANCY).contains(SlavePermissionSetting.PREGNANCY_PROMISCUITY_PILLS)) {
 									effectDescriptions.append(UtilText.parse(slave, "resulting in a risk of pregnancy!"));
 									effects.add("<span style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Pregnancy Risk:</span> "+effectDescriptions.toString());
 									effectDescriptions.setLength(0);
@@ -624,7 +748,7 @@ public class SlaveryUtil implements Serializable {
 									} else {
 										effectDescriptions.append(UtilText.parse(slave, "but as [npc.she]'s on promiscuity pills, there's no chance of [npc.herHim] getting pregnant."));
 									}
-									effects.add("<span style='color:"+Colour.CUMMED.toWebHexString()+";'>Pussy Creampie:</span> "+effectDescriptions.toString());
+									effects.add("<span style='color:"+Colour.CUM.toWebHexString()+";'>Pussy Creampie:</span> "+effectDescriptions.toString());
 									effectDescriptions.setLength(0);
 								}
 								
@@ -636,12 +760,13 @@ public class SlaveryUtil implements Serializable {
 						}
 					}
 
-					return new SlaveryEventLogEntry(hour, slave,
+					events.add(new SlaveryEventLogEntry(hour, slave,
 							SlaveEvent.JOB_PROSTITUTE,
 							Util.newArrayListOfValues(
-									new ListValue<>(SlaveEventTag.JOB_PROSTITUTE_USED)),
+									SlaveEventTag.JOB_PROSTITUTE_USED),
 							effects,
-							true);
+							true));
+					return events;
 					
 					
 				case IDLE:
@@ -650,10 +775,10 @@ public class SlaveryUtil implements Serializable {
 			}
 			
 		} else { // Slave is resting:
-			return new SlaveryEventLogEntry(hour, slave, SlaveEvent.JOB_IDLE, true);
+			events.add(new SlaveryEventLogEntry(hour, slave, SlaveEvent.JOB_IDLE, true));
 		}
-		
-		return null;
+
+		return events;
 	}
 	
 	private List<SlaveJobSetting> getSexSettingsEnabled(NPC slave) {
@@ -818,11 +943,11 @@ public class SlaveryUtil implements Serializable {
 										slave,
 										SlaveEvent.SLAVE_SEX,
 										null,
-										Util.newArrayListOfValues(new ListValue<>(UtilText.parse(slave, npc,
+										Util.newArrayListOfValues(UtilText.parse(slave, npc,
 												"While dusting one of the first-floor corridors, [npc1.name] caught sight of [npc2.name],"
 												+ " and couldn't resist pulling [npc2.herHim] into an empty room and giving [npc2.herHim] a "+slave.getSexPaceDomPreference().getName()+" fucking."
 												+ (impregnationAttempt?"</br>[style.colourSex([npc2.Name] might have gotten pregnant!)]":"")
-												+ (gettingPregnantAttempt?"</br>[style.colourSex([npc1.Name] might have gotten pregnant!)]":"")))),
+												+ (gettingPregnantAttempt?"</br>[style.colourSex([npc1.Name] might have gotten pregnant!)]":""))),
 										true);
 								
 							case IDLE: //TODO
@@ -830,21 +955,21 @@ public class SlaveryUtil implements Serializable {
 										slave,
 										SlaveEvent.SLAVE_SEX,
 										null,
-										Util.newArrayListOfValues(new ListValue<>(UtilText.parse(slave, npc,
+										Util.newArrayListOfValues(UtilText.parse(slave, npc,
 												"[npc1.name] gave [npc2.name] a "+slave.getSexPaceDomPreference().getName()+" fucking."
 												+ (impregnationAttempt?"</br>[style.colourSex([npc2.Name] might have gotten pregnant!)]":"")
-												+ (gettingPregnantAttempt?"</br>[style.colourSex([npc1.Name] might have gotten pregnant!)]":"")))),
+												+ (gettingPregnantAttempt?"</br>[style.colourSex([npc1.Name] might have gotten pregnant!)]":""))),
 										true);
 							case KITCHEN:
 								return new SlaveryEventLogEntry(hour,
 										slave,
 										SlaveEvent.SLAVE_SEX,
 										null,
-										Util.newArrayListOfValues(new ListValue<>(UtilText.parse(slave, npc,
+										Util.newArrayListOfValues(UtilText.parse(slave, npc,
 												"While working in the kitchen, [npc1.name] saw [npc2.name] enter the pantry alone,"
 														+ " and couldn't resist following [npc2.herHim] inside, before locking the door and giving [npc2.herHim] a "+slave.getSexPaceDomPreference().getName()+" fucking."
 												+ (impregnationAttempt?"</br>[style.colourSex([npc2.Name] might have gotten pregnant!)]":"")
-												+ (gettingPregnantAttempt?"</br>[style.colourSex([npc1.Name] might have gotten pregnant!)]":"")))),
+												+ (gettingPregnantAttempt?"</br>[style.colourSex([npc1.Name] might have gotten pregnant!)]":""))),
 										true);
 								
 							case LAB_ASSISTANT: case TEST_SUBJECT:
@@ -852,10 +977,10 @@ public class SlaveryUtil implements Serializable {
 										slave,
 										SlaveEvent.SLAVE_SEX,
 										null,
-										Util.newArrayListOfValues(new ListValue<>(UtilText.parse(slave, npc,
+										Util.newArrayListOfValues(UtilText.parse(slave, npc,
 												"When Lilaya left the lab to take a break, [npc1.name] used the opportunity to give [npc2.name] a "+slave.getSexPaceDomPreference().getName()+" fucking on one of the lab's tables."
 												+ (impregnationAttempt?"</br>[style.colourSex([npc2.Name] might have gotten pregnant!)]":"")
-												+ (gettingPregnantAttempt?"</br>[style.colourSex([npc1.Name] might have gotten pregnant!)]":"")))),
+												+ (gettingPregnantAttempt?"</br>[style.colourSex([npc1.Name] might have gotten pregnant!)]":""))),
 										true);
 								
 							case LIBRARY:
@@ -863,10 +988,10 @@ public class SlaveryUtil implements Serializable {
 										slave,
 										SlaveEvent.SLAVE_SEX,
 										null,
-										Util.newArrayListOfValues(new ListValue<>(UtilText.parse(slave, npc,
+										Util.newArrayListOfValues(UtilText.parse(slave, npc,
 												"[npc1.Name] pulled [npc2.name] behind one of the shelves in the Library, before giving [npc2.herHim] a "+slave.getSexPaceDomPreference().getName()+" fucking."
 												+ (impregnationAttempt?"</br>[style.colourSex([npc2.Name] might have gotten pregnant!)]":"")
-												+ (gettingPregnantAttempt?"</br>[style.colourSex([npc1.Name] might have gotten pregnant!)]":"")))),
+												+ (gettingPregnantAttempt?"</br>[style.colourSex([npc1.Name] might have gotten pregnant!)]":""))),
 										true);
 							case PUBLIC_STOCKS:
 								//TODO 
@@ -889,6 +1014,27 @@ public class SlaveryUtil implements Serializable {
 	}
 	
 	
+	public MilkingRoom getMilkingRoom(WorldType worldType, Vector2i location) {
+		for(MilkingRoom room : getMilkingRooms()) {
+			if(room.getWorldType() == worldType && room.getLocation().equals(location)) {
+				return room;
+			}
+		}
+		return null;
+	}
+	
+	public List<MilkingRoom> getMilkingRooms() {
+		return milkingRooms;
+	}
+	
+	public boolean addMilkingRoom(MilkingRoom milkingRoom) {
+		return milkingRooms.add(milkingRoom);
+	}
+	
+	public boolean removeMilkingRoom(MilkingRoom milkingRoom) {
+		return milkingRooms.remove(milkingRoom);
+	}
+
 	public void payOutBalance() {
 		Main.game.getPlayer().incrementMoney(getGeneratedBalance());
 		

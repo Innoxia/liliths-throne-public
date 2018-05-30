@@ -11,19 +11,23 @@ import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
+import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.History;
 import com.lilithsthrone.game.character.persona.Name;
+import com.lilithsthrone.game.character.persona.SexualOrientation;
+import com.lilithsthrone.game.character.quests.Quest;
+import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.FurryPreference;
-import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.npcDialogue.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.submission.TunnelAttackDialogue;
+import com.lilithsthrone.game.dialogue.npcDialogue.submission.TunnelSlimeDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
@@ -38,7 +42,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.2.1
- * @version 0.2.2
+ * @version 0.2.5
  * @author Innoxia
  */
 public class SubmissionAttacker extends NPC {
@@ -107,6 +111,11 @@ public class SubmissionAttacker extends NPC {
 					case WOLF_MORPH:
 					case RABBIT_MORPH:
 					case RABBIT_MORPH_LOP:
+					case ELEMENTAL_AIR:
+					case ELEMENTAL_ARCANE:
+					case ELEMENTAL_EARTH:
+					case ELEMENTAL_FIRE:
+					case ELEMENTAL_WATER:
 						break;
 					
 					// Rare spawns:
@@ -128,7 +137,7 @@ public class SubmissionAttacker extends NPC {
 						addToSubspeciesMap(40, gender, s, availableRaces);
 						break;
 					case SLIME:
-						addToSubspeciesMap(15, gender, s, availableRaces);
+						addToSubspeciesMap(20, gender, s, availableRaces);
 						break;
 					case SLIME_ALLIGATOR:
 					case SLIME_ANGEL:
@@ -226,6 +235,12 @@ public class SubmissionAttacker extends NPC {
 			// ADDING FETISHES:
 			
 			CharacterUtils.addFetishes(this);
+			if(this.getBodyMaterial()==BodyMaterial.SLIME) {
+				if(Main.game.getPlayer().getQuest(QuestLine.SIDE_SLIME_QUEEN) == Quest.SLIME_QUEEN_ONE) {
+					this.addFetish(Fetish.FETISH_TRANSFORMATION_GIVING);
+					this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+				}
+			}
 			
 			// BODY RANDOMISATION:
 			
@@ -235,6 +250,7 @@ public class SubmissionAttacker extends NPC {
 			
 			resetInventory();
 			inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
+			CharacterUtils.generateItemsInInventory(this);
 	
 			CharacterUtils.equipClothing(this, true, false);
 			CharacterUtils.applyMakeup(this, true);
@@ -335,93 +351,55 @@ public class SubmissionAttacker extends NPC {
 	
 	@Override
 	public DialogueNodeOld getEncounterDialogue() {
-//		if(Main.game.getActiveWorld().getCell(location).getPlace().getPlaceType()==PlaceType.DOMINION_BACK_ALLEYS) { TODO
-//			if(this.getHistory()==History.PROSTITUTE) {
-//				this.setPlayerKnowsName(true);
-//				return AlleywayProstituteDialogue.ALLEY_PROSTITUTE;
-//			} else {
-//				return AlleywayAttackerDialogue.ALLEY_ATTACK;
-//			}
-//		} else {
-//			return AlleywayAttackerDialogue.STORM_ATTACK;
-//		}
-
-		return TunnelAttackDialogue.TUNNEL_ATTACK;
-	}
-
-	// Combat:
-
-	@Override
-	public Attack attackType() {
-		if(this.getRace()==Race.SLIME) {
-			if(!getSpecialAttacks().isEmpty()) {
-				if (Math.random() < 0.8) {
-					return Attack.SEDUCTION;
-				} else if (Math.random() < 0.85) {
-					return Attack.MAIN;
-				} else {
-					return Attack.SPECIAL_ATTACK;
+		if(this.getBodyMaterial()==BodyMaterial.SLIME) {
+			
+			if(this.getLastTimeEncountered()==NPC.DEFAULT_TIME_START_VALUE) {
+				if(this.hasFetish(Fetish.FETISH_TRANSFORMATION_GIVING) && Main.game.getPlayer().getBodyMaterial()!=BodyMaterial.SLIME) {
+					if(Main.game.getPlayer().getQuest(QuestLine.SIDE_SLIME_QUEEN) == Quest.SLIME_QUEEN_ONE) {
+						Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/tunnelSlime", "ATTACK_TRANSFORMER_SLIME_QUEEN"));
+					} else {
+						Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/tunnelSlime", "ATTACK_TRANSFORMER"));
+					}
 				}
 				
-			} else {
-				if (Math.random() < 0.2) {
-					return Attack.MAIN;
-				} else {
-					return Attack.SEDUCTION;
+				if(Main.game.getPlayer().getQuest(QuestLine.SIDE_SLIME_QUEEN)==Quest.SLIME_QUEEN_ONE) {
+					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_SLIME_QUEEN, Quest.SLIME_QUEEN_TWO));
 				}
+				
+				return TunnelSlimeDialogue.ATTACK;
+				
+			} else {
+				if(!this.isReactedToPregnancy() && this.isVisiblyPregnant()) {
+					this.setReactedToPregnancy(true);
+					return TunnelSlimeDialogue.ATTACK_PREGNANCY_REVEAL;
+				}
+				
+				return TunnelSlimeDialogue.ATTACK_REPEAT;
 			}
 			
 		} else {
-			if(!getSpecialAttacks().isEmpty()) {
-				if (Math.random() < 0.2) {
-					return Attack.SEDUCTION;
-				} else if (Math.random() < 0.8) {
-					return Attack.MAIN;
-				} else {
-					return Attack.SPECIAL_ATTACK;
-				}
-				
-			} else {
-				if (Math.random() < 0.7) {
-					return Attack.MAIN;
-				} else {
-					return Attack.SEDUCTION;
-				}
-			}
+			return TunnelAttackDialogue.TUNNEL_ATTACK;
 		}
 	}
 
-	@Override
-	public String getCombatDescription() {
-		if(this.isPregnant()) {
-			return "The consequence of your refusal to pull out of [npc.name] is standing right before you."
-					+ " Visibly pregnant, your one-time sexual partner has a devious grin on [npc.her] face, and you're not quite sure if you want to know what [npc.she]'s planning for [npc.her] revenge...";
-		} else {
-			if(this.isAttractedTo(Main.game.getPlayer())) {
-				return UtilText.parse(this, "[npc.Name] is quite clearly turned on by your strong aura. [npc.She]'s willing to fight you in order to claim your body.");
-				
-			} else {
-				return UtilText.parse(this, "Although your strong aura is having an effect on [npc.name], [npc.she]'s only really interested in robbing you of your possessions.");
-				
-			}
-		}
-	}
-
+	// Combat:
+	
 	@Override
 	public Response endCombat(boolean applyEffects, boolean victory) {
-//		if(this.getHistory()==History.PROSTITUTE) { TODO
-//			if (victory) {
-//				return new Response("", "", AlleywayProstituteDialogue.AFTER_COMBAT_VICTORY);
-//			} else {
-//				return new Response ("", "", AlleywayProstituteDialogue.AFTER_COMBAT_DEFEAT);
-//			}
-//		} else {
-			if (victory) {
-				return new Response("", "", TunnelAttackDialogue.AFTER_COMBAT_VICTORY);
+		if (victory) {
+			if(this.getBodyMaterial()==BodyMaterial.SLIME) {
+				return new Response("", "", TunnelSlimeDialogue.AFTER_COMBAT_PLAYER_VICTORY);
 			} else {
-				return new Response ("", "", TunnelAttackDialogue.AFTER_COMBAT_DEFEAT);
+				return new Response("", "", TunnelAttackDialogue.AFTER_COMBAT_VICTORY);
 			}
-//		}
+			
+		} else {
+			if(this.getBodyMaterial()==BodyMaterial.SLIME) {
+				return new Response("", "", TunnelSlimeDialogue.AFTER_COMBAT_PLAYER_DEFEAT);
+			} else {
+				return new Response("", "", TunnelAttackDialogue.AFTER_COMBAT_DEFEAT);
+			}
+		}
 	}
 	
 	@Override

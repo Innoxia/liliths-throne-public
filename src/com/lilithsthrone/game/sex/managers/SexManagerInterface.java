@@ -66,6 +66,17 @@ public interface SexManagerInterface {
 		return true;
 	}
 	
+	public default String applyEndSexEffects() {
+		return "";
+	}
+	
+	/**
+	 * @return true by default. If set to return false, no position-changing actions at all are available in the sex scene.
+	 */
+	public default boolean isPositionChangingAllowed() {
+		return true;
+	}
+	
 	public default boolean isPlayerAbleToStopSex() {
 		return Sex.isDom(Main.game.getPlayer())
 				|| (Sex.isSubHasEqualControl()
@@ -185,22 +196,37 @@ public interface SexManagerInterface {
 
 	// Player:
 	public default String getPlayerAssRevealReaction() {
+		if(Sex.isMasturbation()) {
+			return "";
+		}
 		return Sex.getActivePartner().getAssRevealDescription(Main.game.getPlayer());
 	}
 
 	public default String getPlayerVaginaRevealReaction() {
+		if(Sex.isMasturbation()) {
+			return "";
+		}
 		return Sex.getActivePartner().getVaginaRevealDescription(Main.game.getPlayer());
 	}
 
 	public default String getPlayerBreastsRevealReaction() {
+		if(Sex.isMasturbation()) {
+			return "";
+		}
 		return Sex.getActivePartner().getBreastsRevealDescription(Main.game.getPlayer());
 	}
 
 	public default String getPlayerPenisRevealReaction() {
+		if(Sex.isMasturbation()) {
+			return "";
+		}
 		return Sex.getActivePartner().getPenisRevealDescription(Main.game.getPlayer());
 	}
 
 	public default String getPlayerMoundRevealReaction() {
+		if(Sex.isMasturbation()) {
+			return "";
+		}
 		return Sex.getActivePartner().getMoundRevealDescription(Main.game.getPlayer());
 	}
 

@@ -31,6 +31,7 @@ import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestsDial
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.Lab;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.Library;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.LilayaHomeGeneric;
+import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.LilayasRoom;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.RoomPlayer;
 import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.ArcaneArts;
 import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.ClothingEmporium;
@@ -47,22 +48,24 @@ import com.lilithsthrone.game.dialogue.places.dominion.zaranixHome.ZaranixHomeFi
 import com.lilithsthrone.game.dialogue.places.dominion.zaranixHome.ZaranixHomeGroundFloor;
 import com.lilithsthrone.game.dialogue.places.dominion.zaranixHome.ZaranixHomeGroundFloorRepeat;
 import com.lilithsthrone.game.dialogue.places.submission.BatCaverns;
+import com.lilithsthrone.game.dialogue.places.submission.SlimeQueensLair;
 import com.lilithsthrone.game.dialogue.places.submission.SubmissionGenericPlaces;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
+import com.lilithsthrone.game.inventory.item.AbstractItemType;
+import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.BaseColour;
 import com.lilithsthrone.utils.Bearing;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.world.EntranceType;
 import com.lilithsthrone.world.WorldType;
 
 /**
  * @since 0.1.0
- * @version 0.1.99
+ * @version 0.2.5
  * @author Innoxia
  */
 public enum PlaceType {
@@ -96,7 +99,7 @@ public enum PlaceType {
 		}
 	},
 	
-	DOMINION_BOULEVARD("Dominion Boulevard", null, null, Colour.MAP_BACKGROUND_PINK, CityPlaces.BOULEVARD, null, false, false, true, "in the streets of Dominion") {
+	DOMINION_BOULEVARD("Dominion Boulevard", null, null, Colour.MAP_BACKGROUND_PINK, CityPlaces.BOULEVARD, Encounter.DOMINION_BOULEVARD, false, false, true, "in the streets of Dominion") {
 
 		@Override
 		public List<Subspecies> getSpeciesPopulatingArea() {
@@ -451,11 +454,34 @@ public enum PlaceType {
 	LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR("Room", "dominion/lilayasHome/room", BaseColour.GREY, Colour.MAP_BACKGROUND, LilayaHomeGeneric.ROOM_WINDOW, null, false, true, false, "in Lilaya's Home") {
 		@Override
 		public ArrayList<PlaceUpgrade> getStartingPlaceUpgrades() {
-			return Util.newArrayListOfValues(new ListValue<>(PlaceUpgrade.LILAYA_EMPTY_ROOM));
+			return Util.newArrayListOfValues(PlaceUpgrade.LILAYA_EMPTY_ROOM);
 		}
 		@Override
-		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades() {
+		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades(Set<PlaceUpgrade> upgrades) {
+			if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM)
+					|| upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_DOUBLE)) {
+				return PlaceUpgrade.getSlaveQuartersUpgrades();
+				
+			} else if(upgrades.contains(PlaceUpgrade.LILAYA_MILKING_ROOM)) {
+				return PlaceUpgrade.getMilkingUpgrades();
+			}
+			
 			return PlaceUpgrade.getCoreRoomUpgrades();
+		}
+		@Override
+		public String getSVGString(Set<PlaceUpgrade> upgrades) {
+			if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM)) {
+				return PlaceType.getSVGOverride("dominion/lilayasHome/roomSlave", Colour.BASE_CRIMSON);
+				
+			} else if(upgrades.contains(PlaceUpgrade.LILAYA_MILKING_ROOM)) {
+				return PlaceType.getSVGOverride("dominion/lilayasHome/roomMilking", Colour.BASE_ORANGE);
+				
+			} else if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_DOUBLE)) {
+				return PlaceType.getSVGOverride("dominion/lilayasHome/roomSlaveDouble", Colour.BASE_MAGENTA);
+				
+			} else {
+				return SVGString;
+			}
 		}
 		@Override
 		public boolean isAbleToBeUpgraded() {
@@ -470,11 +496,34 @@ public enum PlaceType {
 	LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR("Garden Room", "dominion/lilayasHome/room", BaseColour.GREY, Colour.MAP_BACKGROUND, LilayaHomeGeneric.ROOM_GARDEN_GROUND_FLOOR, null, false, true, false, "in Lilaya's Home") {
 		@Override
 		public ArrayList<PlaceUpgrade> getStartingPlaceUpgrades() {
-			return Util.newArrayListOfValues(new ListValue<>(PlaceUpgrade.LILAYA_EMPTY_ROOM));
+			return Util.newArrayListOfValues(PlaceUpgrade.LILAYA_EMPTY_ROOM);
 		}
 		@Override
-		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades() {
+		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades(Set<PlaceUpgrade> upgrades) {
+			if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM)
+					|| upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_DOUBLE)) {
+				return PlaceUpgrade.getSlaveQuartersUpgrades();
+				
+			} else if(upgrades.contains(PlaceUpgrade.LILAYA_MILKING_ROOM)) {
+				return PlaceUpgrade.getMilkingUpgrades();
+			}
+			
 			return PlaceUpgrade.getCoreRoomUpgrades();
+		}
+		@Override
+		public String getSVGString(Set<PlaceUpgrade> upgrades) {
+			if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM)) {
+				return PlaceType.getSVGOverride("dominion/lilayasHome/roomSlave", Colour.BASE_CRIMSON);
+				
+			} else if(upgrades.contains(PlaceUpgrade.LILAYA_MILKING_ROOM)) {
+				return PlaceType.getSVGOverride("dominion/lilayasHome/roomMilking", Colour.BASE_ORANGE);
+				
+			} else if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_DOUBLE)) {
+				return PlaceType.getSVGOverride("dominion/lilayasHome/roomSlaveDouble", Colour.BASE_MAGENTA);
+				
+			} else {
+				return SVGString;
+			}
 		}
 		@Override
 		public boolean isAbleToBeUpgraded() {
@@ -489,11 +538,34 @@ public enum PlaceType {
 	LILAYA_HOME_ROOM_WINDOW_FIRST_FLOOR("Room", "dominion/lilayasHome/room", BaseColour.GREY, Colour.MAP_BACKGROUND, LilayaHomeGeneric.ROOM_WINDOW, null, false, true, false, "in Lilaya's Home") {
 		@Override
 		public ArrayList<PlaceUpgrade> getStartingPlaceUpgrades() {
-			return Util.newArrayListOfValues(new ListValue<>(PlaceUpgrade.LILAYA_EMPTY_ROOM));
+			return Util.newArrayListOfValues(PlaceUpgrade.LILAYA_EMPTY_ROOM);
 		}
 		@Override
-		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades() {
+		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades(Set<PlaceUpgrade> upgrades) {
+			if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM)
+					|| upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_DOUBLE)) {
+				return PlaceUpgrade.getSlaveQuartersUpgrades();
+				
+			} else if(upgrades.contains(PlaceUpgrade.LILAYA_MILKING_ROOM)) {
+				return PlaceUpgrade.getMilkingUpgrades();
+			}
+			
 			return PlaceUpgrade.getCoreRoomUpgrades();
+		}
+		@Override
+		public String getSVGString(Set<PlaceUpgrade> upgrades) {
+			if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM)) {
+				return PlaceType.getSVGOverride("dominion/lilayasHome/roomSlave", Colour.BASE_CRIMSON);
+				
+			} else if(upgrades.contains(PlaceUpgrade.LILAYA_MILKING_ROOM)) {
+				return PlaceType.getSVGOverride("dominion/lilayasHome/roomMilking", Colour.BASE_ORANGE);
+				
+			} else if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_DOUBLE)) {
+				return PlaceType.getSVGOverride("dominion/lilayasHome/roomSlaveDouble", Colour.BASE_MAGENTA);
+				
+			} else {
+				return SVGString;
+			}
 		}
 		@Override
 		public boolean isAbleToBeUpgraded() {
@@ -508,11 +580,34 @@ public enum PlaceType {
 	LILAYA_HOME_ROOM_GARDEN_FIRST_FLOOR("Garden Room", "dominion/lilayasHome/room", BaseColour.GREY, Colour.MAP_BACKGROUND, LilayaHomeGeneric.ROOM_GARDEN, null, false, true, false, "in Lilaya's Home") {
 		@Override
 		public ArrayList<PlaceUpgrade> getStartingPlaceUpgrades() {
-			return Util.newArrayListOfValues(new ListValue<>(PlaceUpgrade.LILAYA_EMPTY_ROOM));
+			return Util.newArrayListOfValues(PlaceUpgrade.LILAYA_EMPTY_ROOM);
 		}
 		@Override
-		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades() {
+		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades(Set<PlaceUpgrade> upgrades) {
+			if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM)
+					|| upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_DOUBLE)) {
+				return PlaceUpgrade.getSlaveQuartersUpgrades();
+				
+			} else if(upgrades.contains(PlaceUpgrade.LILAYA_MILKING_ROOM)) {
+				return PlaceUpgrade.getMilkingUpgrades();
+			}
+			
 			return PlaceUpgrade.getCoreRoomUpgrades();
+		}
+		@Override
+		public String getSVGString(Set<PlaceUpgrade> upgrades) {
+			if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM)) {
+				return PlaceType.getSVGOverride("dominion/lilayasHome/roomSlave", Colour.BASE_CRIMSON);
+				
+			} else if(upgrades.contains(PlaceUpgrade.LILAYA_MILKING_ROOM)) {
+				return PlaceType.getSVGOverride("dominion/lilayasHome/roomMilking", Colour.BASE_ORANGE);
+				
+			} else if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_DOUBLE)) {
+				return PlaceType.getSVGOverride("dominion/lilayasHome/roomSlaveDouble", Colour.BASE_MAGENTA);
+				
+			} else {
+				return SVGString;
+			}
 		}
 		@Override
 		public boolean isAbleToBeUpgraded() {
@@ -521,126 +616,6 @@ public enum PlaceType {
 		@Override
 		public String getPlaceNameAppendFormat(int count) {
 			return " FG-"+String.format("%02d", count);
-		}
-	},
-	
-	LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR_SLAVE("Slave's Room", "dominion/lilayasHome/roomSlave", BaseColour.CRIMSON, Colour.MAP_BACKGROUND, LilayaHomeGeneric.ROOM_WINDOW_SLAVE, null, false, true, false, "in Lilaya's Home") {
-		@Override
-		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades() {
-			return PlaceUpgrade.getSlaveQuartersUpgrades();
-		}
-		@Override
-		public boolean isAbleToBeUpgraded() {
-			return true;
-		}
-		@Override
-		public String getSVGString(Set<PlaceUpgrade> upgrades) {
-			if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_DOUBLE)) {
-				return PlaceType.getSVGOverride("dominion/lilayasHome/roomSlaveDouble", Colour.BASE_MAGENTA);
-			} else {
-				return SVGString;
-			}
-		}
-	},
-	
-	LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR_SLAVE("Slave's Garden Room", "dominion/lilayasHome/roomSlave", BaseColour.CRIMSON, Colour.MAP_BACKGROUND, LilayaHomeGeneric.ROOM_GARDEN_GROUND_FLOOR_SLAVE, null, false, true, false, "in Lilaya's Home") {
-		@Override
-		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades() {
-			return PlaceUpgrade.getSlaveQuartersUpgrades();
-		}
-		@Override
-		public boolean isAbleToBeUpgraded() {
-			return true;
-		}
-		@Override
-		public String getSVGString(Set<PlaceUpgrade> upgrades) {
-			if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_DOUBLE)) {
-				return PlaceType.getSVGOverride("dominion/lilayasHome/roomSlaveDouble", Colour.BASE_MAGENTA);
-			} else {
-				return SVGString;
-			}
-		}
-	},
-	
-	LILAYA_HOME_ROOM_WINDOW_FIRST_FLOOR_SLAVE("Slave's Room", "dominion/lilayasHome/roomSlave", BaseColour.CRIMSON, Colour.MAP_BACKGROUND, LilayaHomeGeneric.ROOM_WINDOW_SLAVE, null, false, true, false, "in Lilaya's Home") {
-		@Override
-		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades() {
-			return PlaceUpgrade.getSlaveQuartersUpgrades();
-		}
-		@Override
-		public boolean isAbleToBeUpgraded() {
-			return true;
-		}
-		@Override
-		public String getSVGString(Set<PlaceUpgrade> upgrades) {
-			if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_DOUBLE)) {
-				return PlaceType.getSVGOverride("dominion/lilayasHome/roomSlaveDouble", Colour.BASE_MAGENTA);
-			} else {
-				return SVGString;
-			}
-		}
-	},
-	
-	LILAYA_HOME_ROOM_GARDEN_FIRST_FLOOR_SLAVE("Slave's Garden Room", "dominion/lilayasHome/roomSlave", BaseColour.CRIMSON, Colour.MAP_BACKGROUND, LilayaHomeGeneric.ROOM_GARDEN_SLAVE, null, false, true, false, "in Lilaya's Home") {
-		@Override
-		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades() {
-			return PlaceUpgrade.getSlaveQuartersUpgrades();
-		}
-		@Override
-		public boolean isAbleToBeUpgraded() {
-			return true;
-		}
-		@Override
-		public String getSVGString(Set<PlaceUpgrade> upgrades) {
-			if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_DOUBLE)) {
-				return PlaceType.getSVGOverride("dominion/lilayasHome/roomSlaveDouble", Colour.BASE_MAGENTA);
-			} else {
-				return SVGString;
-			}
-		}
-	},
-	
-	LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR_MILKING("Slave's Room", "dominion/lilayasHome/roomMilking", BaseColour.ORANGE, Colour.MAP_BACKGROUND, LilayaHomeGeneric.ROOM_WINDOW_MILKING, null, false, true, false, "in Lilaya's Home") {
-		@Override
-		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades() {
-			return PlaceUpgrade.getMilkingUpgrades();
-		}
-		@Override
-		public boolean isAbleToBeUpgraded() {
-			return true;
-		}
-	},
-	
-	LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR_MILKING("Slave's Garden Room", "dominion/lilayasHome/roomMilking", BaseColour.ORANGE, Colour.MAP_BACKGROUND, LilayaHomeGeneric.ROOM_GARDEN_GROUND_FLOOR_MILKING, null, false, true, false, "in Lilaya's Home") {
-		@Override
-		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades() {
-			return PlaceUpgrade.getMilkingUpgrades();
-		}
-		@Override
-		public boolean isAbleToBeUpgraded() {
-			return true;
-		}
-	},
-	
-	LILAYA_HOME_ROOM_WINDOW_FIRST_FLOOR_MILKING("Slave's Room", "dominion/lilayasHome/roomMilking", BaseColour.ORANGE, Colour.MAP_BACKGROUND, LilayaHomeGeneric.ROOM_WINDOW_MILKING, null, false, true, false, "in Lilaya's Home") {
-		@Override
-		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades() {
-			return PlaceUpgrade.getMilkingUpgrades();
-		}
-		@Override
-		public boolean isAbleToBeUpgraded() {
-			return true;
-		}
-	},
-	
-	LILAYA_HOME_ROOM_GARDEN_FIRST_FLOOR_MILKING("Slave's Garden Room", "dominion/lilayasHome/roomMilking", BaseColour.ORANGE, Colour.MAP_BACKGROUND, LilayaHomeGeneric.ROOM_GARDEN_MILKING, null, false, true, false, "in Lilaya's Home") {
-		@Override
-		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades() {
-			return PlaceUpgrade.getMilkingUpgrades();
-		}
-		@Override
-		public boolean isAbleToBeUpgraded() {
-			return true;
 		}
 	},
 	
@@ -670,7 +645,7 @@ public enum PlaceType {
 
 	// First floor:
 
-	LILAYA_HOME_ROOM_LILAYA("Lilaya's Room", "dominion/lilayasHome/roomLilaya", BaseColour.CRIMSON, Colour.MAP_BACKGROUND, LilayaHomeGeneric.ROOM_LILAYA, null, false, true, false, "in Lilaya's Home"),
+	LILAYA_HOME_ROOM_LILAYA("Lilaya's Room", "dominion/lilayasHome/roomLilaya", BaseColour.CRIMSON, Colour.MAP_BACKGROUND, LilayasRoom.ROOM_LILAYA, null, false, true, false, "in Lilaya's Home"),
 	
 	LILAYA_HOME_ROOM_ROSE("Rose's Room", "dominion/lilayasHome/roomRose", BaseColour.PINK, Colour.MAP_BACKGROUND, LilayaHomeGeneric.ROOM_ROSE, null, false, true, false, "in Lilaya's Home"),
 	
@@ -1000,7 +975,7 @@ public enum PlaceType {
 	SLAVER_ALLEY_SLAVERY_ADMINISTRATION("Slavery Administration", "dominion/slaverAlley/slaveryAdministration", BaseColour.PURPLE, Colour.MAP_BACKGROUND, SlaverAlleyDialogue.SLAVERY_ADMINISTRATION_EXTERIOR, null, false, true, true, "in Slaver's Alley"){
 		@Override
 		public ArrayList<PlaceUpgrade> getStartingPlaceUpgrades() {
-			return Util.newArrayListOfValues(new ListValue<>(PlaceUpgrade.SLAVERY_ADMINISTRATION_CELLS));
+			return Util.newArrayListOfValues(PlaceUpgrade.SLAVERY_ADMINISTRATION_CELLS);
 		}
 	},
 	
@@ -1067,7 +1042,29 @@ public enum PlaceType {
 	BAT_CAVERN_RIVER("Underground River", "submission/batCaverns/cavernRiver", BaseColour.BLUE, Colour.MAP_BACKGROUND, BatCaverns.RIVER, Encounter.BAT_CAVERN, true, true, true, "in the Bat Caverns"),
 	BAT_CAVERN_RIVER_CROSSING("Mushroom Bridge", "submission/batCaverns/cavernBridge", BaseColour.TEAL, Colour.MAP_BACKGROUND, BatCaverns.RIVER_BRIDGE, Encounter.BAT_CAVERN, true, true, true, "in the Bat Caverns"),
 	BAT_CAVERN_RIVER_END("Underground River End", "submission/batCaverns/cavernRiverEnd", BaseColour.BLUE_DARK, Colour.MAP_BACKGROUND, BatCaverns.RIVER_END, Encounter.BAT_CAVERN, true, true, true, "in the Bat Caverns"),
-	BAT_CAVERN_SLIME_QUEEN_LAIR("Slime Lake", "submission/batCaverns/cavernLake", BaseColour.PINK_LIGHT, Colour.MAP_BACKGROUND, BatCaverns.SLIME_LAKE, Encounter.BAT_CAVERN, true, true, true, "beside Slime Lake");
+	BAT_CAVERN_SLIME_QUEEN_LAIR("Slime Lake", "submission/batCaverns/cavernLake", BaseColour.PINK_LIGHT, Colour.MAP_BACKGROUND, BatCaverns.SLIME_LAKE, Encounter.BAT_CAVERN, true, true, true, "beside Slime Lake"),
+	
+
+	SLIME_QUEENS_LAIR_CORRIDOR("Corridor", null, null, Colour.MAP_BACKGROUND, SlimeQueensLair.CORRIDOR, null, false, true, true, "in the Slime Queen's tower"),
+	SLIME_QUEENS_LAIR_ENTRANCE("Entrance Hall", "submission/slimeQueensLair/entranceHall", BaseColour.RED, Colour.MAP_BACKGROUND, SlimeQueensLair.ENTRANCE, null, false, true, true, "in the Slime Queen's tower"),
+	SLIME_QUEENS_LAIR_STAIRS_UP("Spiral Staircase", "submission/slimeQueensLair/staircase", BaseColour.GREEN, Colour.MAP_BACKGROUND, SlimeQueensLair.STAIRCASE_UP, null, false, true, true, "in the Slime Queen's tower"),
+	SLIME_QUEENS_LAIR_STAIRS_DOWN("Spiral Staircase", "submission/slimeQueensLair/staircase", BaseColour.RED, Colour.MAP_BACKGROUND, SlimeQueensLair.STAIRCASE_DOWN, null, false, true, true, "in the Slime Queen's tower"),
+	SLIME_QUEENS_LAIR_ROOM("Bedroom", "submission/slimeQueensLair/room", BaseColour.BLUE_LIGHT, Colour.MAP_BACKGROUND, SlimeQueensLair.ROOM, null, false, true, true, "in the Slime Queen's tower"),
+	SLIME_QUEENS_LAIR_STORAGE_VATS("Distillery", "submission/slimeQueensLair/storageVats", BaseColour.ORANGE, Colour.MAP_BACKGROUND, SlimeQueensLair.STORAGE_VATS, null, false, true, false, "in the Slime Queen's tower") {
+		@Override
+		public void applyInventoryInit(CharacterInventory inventory) {
+			for(int i=0; i<15; i++) {
+				inventory.addItem(AbstractItemType.generateItem(ItemType.SEX_INGREDIENT_SLIME_QUENCHER));
+			}
+			for(int i=0; i<5; i++) {
+				inventory.addItem(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_SLIME));
+			}
+		}
+	},
+	SLIME_QUEENS_LAIR_ENTRANCE_GUARDS("Guard Post", "submission/slimeQueensLair/guards", BaseColour.RED, Colour.MAP_BACKGROUND, SlimeQueensLair.GUARD_POST, null, true, true, true, "in the Slime Queen's tower"),
+	SLIME_QUEENS_LAIR_ROYAL_GUARD("Royal Guard Post", "submission/slimeQueensLair/royalGuards", BaseColour.PURPLE, Colour.MAP_BACKGROUND, SlimeQueensLair.ROYAL_GUARD_POST, null, true, true, true, "in the Slime Queen's tower"),
+	SLIME_QUEENS_LAIR_SLIME_QUEEN("Bed Chamber", "submission/slimeQueensLair/bedChamber", BaseColour.PINK, Colour.MAP_BACKGROUND, SlimeQueensLair.BED_CHAMBER, null, true, true, true, "in the Slime Queen's tower"),
+	;
 
 	
 	private String name;
@@ -1105,6 +1102,9 @@ public enum PlaceType {
 		if(SVGPath!=null) {
 			try {
 				InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/map/" + SVGPath + ".svg");
+				if(is==null) {
+					System.err.println("Error! PlaceType icon file does not exist (Trying to read from '"+SVGPath+"')! (Code 1)");
+				}
 				String s = Util.inputStreamToString(is);
 				
 				if(colour!=null) {
@@ -1181,6 +1181,9 @@ public enum PlaceType {
 		if(!SVGOverrides.keySet().contains(pathName+colour)) {
 			try {
 				InputStream is = colour.getClass().getResourceAsStream("/com/lilithsthrone/res/map/" + pathName + ".svg");
+				if(is==null) {
+					System.err.println("Error! PlaceType icon file does not exist (Trying to read from '"+pathName+"')! (Code 2)");
+				}
 				String s = Util.inputStreamToString(is);
 				
 				if(colour!=null) {
@@ -1242,7 +1245,7 @@ public enum PlaceType {
 		return new ArrayList<>();
 	}
 	
-	public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades() {
+	public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades(Set<PlaceUpgrade> upgrades) {
 		return new ArrayList<>();
 	}
 

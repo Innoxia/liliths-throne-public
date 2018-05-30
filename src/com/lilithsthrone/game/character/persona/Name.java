@@ -7,209 +7,208 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 
 /**
  * @since 0.1.0
- * @version 0.1.75
+ * @version 0.2.4
  * @author Innoxia
  */
 public enum Name {
 
 	HUMAN(Util.newArrayListOfValues(
-					new ListValue<>(new NameTriplet("Alexander", "Alex", "Alexandria")),
-					new ListValue<>(new NameTriplet("Alexius", "Alex", "Alexia")),
-					new ListValue<>(new NameTriplet("Alex", "Alex", "Alex")),
-					new ListValue<>(new NameTriplet("Ash", "Ashe", "Ashley")),
+					new NameTriplet("Alexander", "Alex", "Alexandria"),
+					new NameTriplet("Alexius", "Alex", "Alexia"),
+					new NameTriplet("Alex", "Alex", "Alex"),
+					new NameTriplet("Ash", "Ashe", "Ashley"),
 					
-					new ListValue<>(new NameTriplet("Bart", "Bailey", "Bridget")),
-					new ListValue<>(new NameTriplet("Ben", "Beverly", "Bella")),
+					new NameTriplet("Bart", "Bailey", "Bridget"),
+					new NameTriplet("Ben", "Beverly", "Bella"),
 					
-					new ListValue<>(new NameTriplet("Carl", "Casey", "Cadence")),
-					new ListValue<>(new NameTriplet("Charlie", "Charlie", "Charlie")),
+					new NameTriplet("Carl", "Casey", "Cadence"),
+					new NameTriplet("Charlie", "Charlie", "Charlie"),
 					
-					new ListValue<>(new NameTriplet("Daniel", "Danny", "Dani")),
-					new ListValue<>(new NameTriplet("Dale", "Devon", "Diana")),
+					new NameTriplet("Daniel", "Danny", "Dani"),
+					new NameTriplet("Dale", "Devon", "Diana"),
 					
-					new ListValue<>(new NameTriplet("Edward", "Ed", "Elaine")),
-					new ListValue<>(new NameTriplet("Eli", "Emery", "Evelyn")),
+					new NameTriplet("Edward", "Ed", "Elaine"),
+					new NameTriplet("Eli", "Emery", "Evelyn"),
 					
-					new ListValue<>(new NameTriplet("Fred", "Frankie", "Felicity")),
+					new NameTriplet("Fred", "Frankie", "Felicity"),
 					
-					new ListValue<>(new NameTriplet("George", "Georgie", "Grace")),
+					new NameTriplet("George", "Georgie", "Grace"),
 					
-					new ListValue<>(new NameTriplet("Harry", "Harley", "Hailey")),
-					new ListValue<>(new NameTriplet("Hank", "Haiden", "Holly")),
+					new NameTriplet("Harry", "Harley", "Hailey"),
+					new NameTriplet("Hank", "Haiden", "Holly"),
 					
-					new ListValue<>(new NameTriplet("Ian", "Izzy", "Isabelle")),
+					new NameTriplet("Ian", "Izzy", "Isabelle"),
 
-					new ListValue<>(new NameTriplet("James", "Jackie", "Jasmine")),
-					new ListValue<>(new NameTriplet("Jack", "Jay", "Jennifer")),
-					new ListValue<>(new NameTriplet("Jean", "Jess", "Jessica")),
+					new NameTriplet("James", "Jackie", "Jasmine"),
+					new NameTriplet("Jack", "Jay", "Jennifer"),
+					new NameTriplet("Jean", "Jess", "Jessica"),
 
-					new ListValue<>(new NameTriplet("Kevin", "Kel", "Katie")),
-					new ListValue<>(new NameTriplet("Ken", "Kelly", "Katherine")),
+					new NameTriplet("Kevin", "Kel", "Katie"),
+					new NameTriplet("Ken", "Kelly", "Katherine"),
 
-					new ListValue<>(new NameTriplet("Lee", "Louie", "Lauren")),
-					new ListValue<>(new NameTriplet("Leonard", "Linden", "Leah")),
-					new ListValue<>(new NameTriplet("Len", "Lumi", "Laura")),
+					new NameTriplet("Lee", "Louie", "Lauren"),
+					new NameTriplet("Leonard", "Linden", "Leah"),
+					new NameTriplet("Len", "Lumi", "Laura"),
 					
-					new ListValue<>(new NameTriplet("Micheal", "Maddy", "Maria")),
-					new ListValue<>(new NameTriplet("Mike", "Max", "Miranda")),
+					new NameTriplet("Micheal", "Maddy", "Maria"),
+					new NameTriplet("Mike", "Max", "Miranda"),
 					
-					new ListValue<>(new NameTriplet("Nicholas", "Nat", "Natalia")),
+					new NameTriplet("Nicholas", "Nat", "Natalia"),
 					
-					new ListValue<>(new NameTriplet("Oliver", "Oli", "Olivia")),
+					new NameTriplet("Oliver", "Oli", "Olivia"),
 					
-					new ListValue<>(new NameTriplet("Peter", "Parker", "Paige")),
-					new ListValue<>(new NameTriplet("Pete", "Phoenix", "Penelope")),
+					new NameTriplet("Peter", "Parker", "Paige"),
+					new NameTriplet("Pete", "Phoenix", "Penelope"),
 					
-					new ListValue<>(new NameTriplet("Quentin", "Quinn", "Quinta")),
+					new NameTriplet("Quentin", "Quinn", "Quinta"),
 					
-					new ListValue<>(new NameTriplet("Richard", "Robby", "Rachel")),
+					new NameTriplet("Richard", "Robby", "Rachel"),
 					
-					new ListValue<>(new NameTriplet("Stanley", "Sam", "Stephanie")),
-					new ListValue<>(new NameTriplet("Stan", "Sacha", "Summer")),
+					new NameTriplet("Stanley", "Sam", "Stephanie"),
+					new NameTriplet("Stan", "Sacha", "Summer"),
 					
-					new ListValue<>(new NameTriplet("Thomas", "Toni", "Tracy")),
+					new NameTriplet("Thomas", "Toni", "Tracy"),
 
-					new ListValue<>(new NameTriplet("Ulysses", "Umber", "Ursula")),
+					new NameTriplet("Ulysses", "Umber", "Ursula"),
 
-					new ListValue<>(new NameTriplet("Vincent", "Val", "Violet")),
-					new ListValue<>(new NameTriplet("Vinn", "Vic", "Vixen")),
+					new NameTriplet("Vincent", "Val", "Violet"),
+					new NameTriplet("Vinn", "Vic", "Vixen"),
 
-					new ListValue<>(new NameTriplet("William", "Winter", "Whitney")),
-					new ListValue<>(new NameTriplet("Will", "Wynne", "Willow")))),
+					new NameTriplet("William", "Winter", "Whitney"),
+					new NameTriplet("Will", "Wynne", "Willow"))),
 	
 	EQUINE(Util.newArrayListOfValues(
-					new ListValue<>(new NameTriplet("Aqua", "Aqua", "Aqua")),
+					new NameTriplet("Aqua", "Aqua", "Aqua"),
 					
-					new ListValue<>(new NameTriplet("Bramble", "Bramble", "Bramble")),
+					new NameTriplet("Bramble", "Bramble", "Bramble"),
 
-					new ListValue<>(new NameTriplet("Dasher", "Dasher", "Dasher")),
-					new ListValue<>(new NameTriplet("Dazzle", "Dazzle", "Dazzle")),
+					new NameTriplet("Dasher", "Dasher", "Dasher"),
+					new NameTriplet("Dazzle", "Dazzle", "Dazzle"),
 
-					new ListValue<>(new NameTriplet("Flint", "Flint", "Flint")),
+					new NameTriplet("Flint", "Flint", "Flint"),
 					
-					new ListValue<>(new NameTriplet("Fleet", "Fleet", "Fleet")),
+					new NameTriplet("Fleet", "Fleet", "Fleet"),
 					
-					new ListValue<>(new NameTriplet("Midnight", "Midnight", "Midnight")),
-					new ListValue<>(new NameTriplet("Moonwind", "Moonwind", "Moonwind")),
+					new NameTriplet("Midnight", "Midnight", "Midnight"),
+					new NameTriplet("Moonwind", "Moonwind", "Moonwind"),
 
-					new ListValue<>(new NameTriplet("Nimbus", "Nimbus", "Nimbus")),
+					new NameTriplet("Nimbus", "Nimbus", "Nimbus"),
 
-					new ListValue<>(new NameTriplet("Pearl", "Pearl", "Pearl")),
-					new ListValue<>(new NameTriplet("Prixie", "Prixie", "Prixie")),
+					new NameTriplet("Pearl", "Pearl", "Pearl"),
+					new NameTriplet("Prixie", "Prixie", "Prixie"),
 					
-					new ListValue<>(new NameTriplet("Skyfeet", "Skyfeet", "Skyfeet")),
-					new ListValue<>(new NameTriplet("Starr", "Starr", "Starr")),
-					new ListValue<>(new NameTriplet("Spirit", "Spirit", "Spirit")),
+					new NameTriplet("Skyfeet", "Skyfeet", "Skyfeet"),
+					new NameTriplet("Starr", "Starr", "Starr"),
+					new NameTriplet("Spirit", "Spirit", "Spirit"),
 					
-					new ListValue<>(new NameTriplet("Thundermane", "Thundermane", "Thundermane")),
-					new ListValue<>(new NameTriplet("Twilight", "Twilight", "Twilight")),
+					new NameTriplet("Thundermane", "Thundermane", "Thundermane"),
+					new NameTriplet("Twilight", "Twilight", "Twilight"),
 					
-					new ListValue<>(new NameTriplet("Wildlight", "Wildlight", "Wildlight")))),
+					new NameTriplet("Wildlight", "Wildlight", "Wildlight"))),
 	
 	// Similar to equine names
 	REINDEER(Util.newArrayListOfValues(
 			
-			new ListValue<>(new NameTriplet("Dasher", "Dasher", "Dasher")),
-			new ListValue<>(new NameTriplet("Dancer", "Dancer", "Dancer")),
-			new ListValue<>(new NameTriplet("Prancer", "Prancer", "Prancer")),
-			new ListValue<>(new NameTriplet("Vixen", "Vixen", "Vixen")),
-			new ListValue<>(new NameTriplet("Comet", "Comet", "Comet")),
-			new ListValue<>(new NameTriplet("Cupid", "Cupid", "Cupid")),
-			new ListValue<>(new NameTriplet("Dunder", "Dunder", "Dunder")),
-			new ListValue<>(new NameTriplet("Blixem", "Blixem", "Blixem")),
+			new NameTriplet("Dasher", "Dasher", "Dasher"),
+			new NameTriplet("Dancer", "Dancer", "Dancer"),
+			new NameTriplet("Prancer", "Prancer", "Prancer"),
+			new NameTriplet("Vixen", "Vixen", "Vixen"),
+			new NameTriplet("Comet", "Comet", "Comet"),
+			new NameTriplet("Cupid", "Cupid", "Cupid"),
+			new NameTriplet("Dunder", "Dunder", "Dunder"),
+			new NameTriplet("Blixem", "Blixem", "Blixem"),
 			
-			new ListValue<>(new NameTriplet("Aqua", "Aqua", "Aqua")),
+			new NameTriplet("Aqua", "Aqua", "Aqua"),
 			
-			new ListValue<>(new NameTriplet("Bramble", "Bramble", "Bramble")),
+			new NameTriplet("Bramble", "Bramble", "Bramble"),
 
-			new ListValue<>(new NameTriplet("Dasher", "Dasher", "Dasher")),
-			new ListValue<>(new NameTriplet("Dazzle", "Dazzle", "Dazzle")),
+			new NameTriplet("Dasher", "Dasher", "Dasher"),
+			new NameTriplet("Dazzle", "Dazzle", "Dazzle"),
 
-			new ListValue<>(new NameTriplet("Flint", "Flint", "Flint")),
+			new NameTriplet("Flint", "Flint", "Flint"),
 			
-			new ListValue<>(new NameTriplet("Fleet", "Fleet", "Fleet")),
+			new NameTriplet("Fleet", "Fleet", "Fleet"),
 			
-			new ListValue<>(new NameTriplet("Midnight", "Midnight", "Midnight")),
-			new ListValue<>(new NameTriplet("Moonwind", "Moonwind", "Moonwind")),
+			new NameTriplet("Midnight", "Midnight", "Midnight"),
+			new NameTriplet("Moonwind", "Moonwind", "Moonwind"),
 
-			new ListValue<>(new NameTriplet("Nimbus", "Nimbus", "Nimbus")),
+			new NameTriplet("Nimbus", "Nimbus", "Nimbus"),
 
-			new ListValue<>(new NameTriplet("Pearl", "Pearl", "Pearl")),
-			new ListValue<>(new NameTriplet("Prixie", "Prixie", "Prixie")),
+			new NameTriplet("Pearl", "Pearl", "Pearl"),
+			new NameTriplet("Prixie", "Prixie", "Prixie"),
 			
-			new ListValue<>(new NameTriplet("Skyfeet", "Skyfeet", "Skyfeet")),
-			new ListValue<>(new NameTriplet("Starr", "Starr", "Starr")),
-			new ListValue<>(new NameTriplet("Spirit", "Spirit", "Spirit")),
+			new NameTriplet("Skyfeet", "Skyfeet", "Skyfeet"),
+			new NameTriplet("Starr", "Starr", "Starr"),
+			new NameTriplet("Spirit", "Spirit", "Spirit"),
 			
-			new ListValue<>(new NameTriplet("Thundermane", "Thundermane", "Thundermane")),
-			new ListValue<>(new NameTriplet("Twilight", "Twilight", "Twilight")),
+			new NameTriplet("Thundermane", "Thundermane", "Thundermane"),
+			new NameTriplet("Twilight", "Twilight", "Twilight"),
 			
-			new ListValue<>(new NameTriplet("Wildlight", "Wildlight", "Wildlight")))),
+			new NameTriplet("Wildlight", "Wildlight", "Wildlight"))),
 	
 	// No offence if your name is on here... x_x
 	PROSTITUTE(Util.newArrayListOfValues(
-					new ListValue<>(new NameTriplet("Amber", "Amber", "Amber")),
-					new ListValue<>(new NameTriplet("Autumn", "Autumn", "Autumn")),
+					new NameTriplet("Amber", "Amber", "Amber"),
+					new NameTriplet("Autumn", "Autumn", "Autumn"),
 
-					new ListValue<>(new NameTriplet("Bambi", "Bambi", "Bambi")),
-					new ListValue<>(new NameTriplet("Ben", "Brandy", "Brandy")),
-					new ListValue<>(new NameTriplet("Brian", "Brianna", "Brianna")),
+					new NameTriplet("Bambi", "Bambi", "Bambi"),
+					new NameTriplet("Ben", "Brandy", "Brandy"),
+					new NameTriplet("Brian", "Brianna", "Brianna"),
 
-					new ListValue<>(new NameTriplet("Carl", "Chloe", "Chloe")),
-					new ListValue<>(new NameTriplet("Carl", "Claudia", "Claudia")),
-					new ListValue<>(new NameTriplet("Carl", "Charlene", "Charlene")),
-					new ListValue<>(new NameTriplet("Chad", "Chantelle", "Chantelle")),
-					new ListValue<>(new NameTriplet("Carl", "Courtney", "Courtney")),
-					new ListValue<>(new NameTriplet("Carl", "Cassandra", "Cassandra")),
-					new ListValue<>(new NameTriplet("Chad", "Channing", "Channing")),
-					new ListValue<>(new NameTriplet("Carl", "Crystal", "Crystal")),
-					new ListValue<>(new NameTriplet("Casey", "Casey", "Casey")),
+					new NameTriplet("Carl", "Chloe", "Chloe"),
+					new NameTriplet("Carl", "Claudia", "Claudia"),
+					new NameTriplet("Carl", "Charlene", "Charlene"),
+					new NameTriplet("Chad", "Chantelle", "Chantelle"),
+					new NameTriplet("Carl", "Courtney", "Courtney"),
+					new NameTriplet("Carl", "Cassandra", "Cassandra"),
+					new NameTriplet("Chad", "Channing", "Channing"),
+					new NameTriplet("Carl", "Crystal", "Crystal"),
+					new NameTriplet("Casey", "Casey", "Casey"),
 
-					new ListValue<>(new NameTriplet("Dom", "Dolly", "Dolly")),
-					new ListValue<>(new NameTriplet("Devon", "Devon", "Devon")),
-					new ListValue<>(new NameTriplet("Dale", "Dakota", "Dakota")),
+					new NameTriplet("Dom", "Dolly", "Dolly"),
+					new NameTriplet("Devon", "Devon", "Devon"),
+					new NameTriplet("Dale", "Dakota", "Dakota"),
 
-					new ListValue<>(new NameTriplet("Emmett", "Emmalou", "Emmalou")), // Great Scott!
+					new NameTriplet("Emmett", "Emmalou", "Emmalou"), // Great Scott!
 					
-					new ListValue<>(new NameTriplet("Harry", "Heather", "Heather")),
+					new NameTriplet("Harry", "Heather", "Heather"),
 
-					new ListValue<>(new NameTriplet("Jimmy", "Jenny", "Jenny")),
-					new ListValue<>(new NameTriplet("Joe", "Jolene", "Jolene")),
+					new NameTriplet("Jimmy", "Jenny", "Jenny"),
+					new NameTriplet("Joe", "Jolene", "Jolene"),
 
-					new ListValue<>(new NameTriplet("Kyle", "Kylie", "Kylie")),
-					new ListValue<>(new NameTriplet("Karl", "Kendra", "Kendra")),
-					new ListValue<>(new NameTriplet("Karl", "Krista", "Krista")),
-					new ListValue<>(new NameTriplet("Kelsey", "Kelsey", "Kelsey")),
+					new NameTriplet("Kyle", "Kylie", "Kylie"),
+					new NameTriplet("Karl", "Kendra", "Kendra"),
+					new NameTriplet("Karl", "Krista", "Krista"),
+					new NameTriplet("Kelsey", "Kelsey", "Kelsey"),
 
-					new ListValue<>(new NameTriplet("Lawrence", "Lauren", "Lauren")),
+					new NameTriplet("Lawrence", "Lauren", "Lauren"),
 					
-					new ListValue<>(new NameTriplet("Mike", "Misty", "Misty")),
-					new ListValue<>(new NameTriplet("Mike", "Melody", "Melody")),
-					new ListValue<>(new NameTriplet("Mike", "Mindy", "Mindy")),
+					new NameTriplet("Mike", "Misty", "Misty"),
+					new NameTriplet("Mike", "Melody", "Melody"),
+					new NameTriplet("Mike", "Mindy", "Mindy"),
 					
-					new ListValue<>(new NameTriplet("Nikki", "Nikki", "Nikki")),
-					new ListValue<>(new NameTriplet("Noel", "Noel", "Noel")),
+					new NameTriplet("Nikki", "Nikki", "Nikki"),
+					new NameTriplet("Noel", "Noel", "Noel"),
 					
-					new ListValue<>(new NameTriplet("Ruby", "Ruby", "Ruby")),
-					new ListValue<>(new NameTriplet("Reba", "Reba", "Reba")),
+					new NameTriplet("Ruby", "Ruby", "Ruby"),
+					new NameTriplet("Reba", "Reba", "Reba"),
 
-					new ListValue<>(new NameTriplet("Savannah", "Savannah", "Savannah")),
-					new ListValue<>(new NameTriplet("Sam", "Samantha", "Samantha")),
-					new ListValue<>(new NameTriplet("Sean", "Serena", "Serena")),
-					new ListValue<>(new NameTriplet("Sierra", "Sierra", "Sierra")),
-					new ListValue<>(new NameTriplet("Shelby", "Shelby", "Shelby")),
-					new ListValue<>(new NameTriplet("Shawn", "Shawna", "Shawna")),
+					new NameTriplet("Savannah", "Savannah", "Savannah"),
+					new NameTriplet("Sam", "Samantha", "Samantha"),
+					new NameTriplet("Sean", "Serena", "Serena"),
+					new NameTriplet("Sierra", "Sierra", "Sierra"),
+					new NameTriplet("Shelby", "Shelby", "Shelby"),
+					new NameTriplet("Shawn", "Shawna", "Shawna"),
 
-					new ListValue<>(new NameTriplet("Tim", "Trina", "Trina")),
-					new ListValue<>(new NameTriplet("Tammy", "Tammy", "Tammy")),
-					new ListValue<>(new NameTriplet("Tom", "Tara", "Tara")),
-					new ListValue<>(new NameTriplet("Taylor", "Taylor", "Taylor")),
+					new NameTriplet("Tim", "Trina", "Trina"),
+					new NameTriplet("Tammy", "Tammy", "Tammy"),
+					new NameTriplet("Tom", "Tara", "Tara"),
+					new NameTriplet("Taylor", "Taylor", "Taylor"),
 					
-					new ListValue<>(new NameTriplet("Urleen", "Urleen", "Urleen")))),
+					new NameTriplet("Urleen", "Urleen", "Urleen"))),
 	
 	;
 	
@@ -254,6 +253,7 @@ public enum Name {
 		Name name = Name.HUMAN;
 		
 		switch(gc.getRace()) {
+			case NONE:
 			case ANGEL:
 			case CAT_MORPH:
 			case COW_MORPH:
@@ -269,6 +269,11 @@ public enum Name {
 			case BAT_MORPH:
 			case RAT_MORPH:
 			case RABBIT_MORPH:
+			case ELEMENTAL_AIR:
+			case ELEMENTAL_ARCANE:
+			case ELEMENTAL_EARTH:
+			case ELEMENTAL_FIRE:
+			case ELEMENTAL_WATER:
 				break;
 				
 			case REINDEER_MORPH:
@@ -298,6 +303,7 @@ public enum Name {
 		Name name = Name.HUMAN;
 		
 		switch(r) {
+			case NONE:
 			case ANGEL:
 			case CAT_MORPH:
 			case COW_MORPH:
@@ -313,7 +319,13 @@ public enum Name {
 			case RABBIT_MORPH:
 			break;
 			
-			case DEMON: case IMP:
+			case DEMON:
+			case IMP:
+			case ELEMENTAL_AIR:
+			case ELEMENTAL_ARCANE:
+			case ELEMENTAL_EARTH:
+			case ELEMENTAL_FIRE:
+			case ELEMENTAL_WATER:
 				return getDemonName();
 			case REINDEER_MORPH:
 				name = Name.REINDEER;

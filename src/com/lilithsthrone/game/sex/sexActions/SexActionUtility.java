@@ -25,6 +25,7 @@ public class SexActionUtility {
 			null,
 			null,
 			SexParticipantType.MISC) {
+		
 		@Override
 		public String getActionTitle() {
 			return "Do nothing";
@@ -34,9 +35,13 @@ public class SexActionUtility {
 		public String getActionDescription() {
 			return "Don't make a move.";
 		}
-
+		
 		@Override
 		public String getDescription() {
+			if(Sex.isMasturbation()) {
+				return "You remain still, not making a move...";
+			}
+			
 			switch(Sex.getSexPace(Main.game.getPlayer())) {
 				case DOM_GENTLE:
 					return UtilText.returnStringAtRandom(
@@ -94,7 +99,7 @@ public class SexActionUtility {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isDom(Main.game.getPlayer()) || Sex.isSubHasEqualControl();
+			return true;//Sex.isDom(Main.game.getPlayer()) || Sex.isSubHasEqualControl();
 		}
 		
 		@Override
@@ -102,36 +107,36 @@ public class SexActionUtility {
 			switch(Sex.getSexPace(Main.game.getPlayer())) {
 				case DOM_GENTLE:
 					return UtilText.returnStringAtRandom(
-							"You take a moment to focus on something other than [npc.name], calming yourself down in the process.",
+							Sex.isMasturbation()?"":"You take a moment to focus on something other than [npc.name], calming yourself down in the process.",
 							"Closing your [pc.eyes], you take a deep breath, calming yourself down and lowering your arousal.",
 							"Taking a deep breath, you focus on calming yourself down a little.");
 				case DOM_NORMAL:
 					return UtilText.returnStringAtRandom(
-							"You take a moment to focus on something other than [npc.name], calming yourself down in the process.",
+							Sex.isMasturbation()?"":"You take a moment to focus on something other than [npc.name], calming yourself down in the process.",
 							"Closing your [pc.eyes], you take a deep breath, calming yourself down and lowering your arousal.",
 							"Taking a deep breath, you focus on calming yourself down a little.");
 				case DOM_ROUGH:
 					return UtilText.returnStringAtRandom(
-							"You take a moment to focus on something other than [npc.name], calming yourself down in the process.",
+							Sex.isMasturbation()?"":"You take a moment to focus on something other than [npc.name], calming yourself down in the process.",
 							"Closing your [pc.eyes], you take a deep breath, calming yourself down and lowering your arousal.",
 							"Taking a deep breath, you focus on calming yourself down a little.");
 				case SUB_EAGER:
 					return UtilText.returnStringAtRandom(
-							"You take a moment to focus on something other than [npc.name], calming yourself down in the process.",
+							Sex.isMasturbation()?"":"You take a moment to focus on something other than [npc.name], calming yourself down in the process.",
 							"Closing your [pc.eyes], you take a deep breath, calming yourself down and lowering your arousal.",
 							"Taking a deep breath, you focus on calming yourself down a little.");
 				case SUB_NORMAL:
 					return UtilText.returnStringAtRandom(
-							"You take a moment to focus on something other than [npc.name], calming yourself down in the process.",
+							Sex.isMasturbation()?"":"You take a moment to focus on something other than [npc.name], calming yourself down in the process.",
 							"Closing your [pc.eyes], you take a deep breath, calming yourself down and lowering your arousal.",
 							"Taking a deep breath, you focus on calming yourself down a little.");
 				case SUB_RESISTING:
 					return UtilText.returnStringAtRandom(
-							"Still weakly struggling against [npc.name], you try to calm yourself down a little, reminding yourself that this will all be over soon.",
+							Sex.isMasturbation()?"":"Still weakly struggling against [npc.name], you try to calm yourself down a little, reminding yourself that this will all be over soon.",
 							"Scrunching your [pc.eyes] shut, you try to take a deep breath, pretending that this isn't happening as you seek to calm yourself down.",
-							"Taking a deep breath, you try to calm down a little, before continuing to struggle against [npc.name].");
+							Sex.isMasturbation()?"":"Taking a deep breath, you try to calm down a little, before continuing to struggle against [npc.name].");
 				default:
-					return "You try to focus on something other than the [npc.race] you're currently having sex with. By doing so, you manage to calm yourself down a little, reducing your arousal.";
+					return Sex.isMasturbation()?"":"You try to focus on something other than the [npc.race] you're currently having sex with. By doing so, you manage to calm yourself down a little, reducing your arousal.";
 			}
 		}
 	};
@@ -302,7 +307,7 @@ public class SexActionUtility {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isDom(Main.game.getPlayer());
+			return Sex.isDom(Main.game.getPlayer()) && !Sex.isMasturbation();
 		}
 
 		@Override

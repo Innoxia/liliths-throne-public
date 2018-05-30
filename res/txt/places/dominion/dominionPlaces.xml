@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<htmlContent tag="CITY_EXIT_SEWERS"><![CDATA[
+	<p>
+		A large stone bridge has been built over Dominion's canal, and as you walk over it, you hear the unmistakable sound of rushing water coming from below.
+		 Peering over the side, you see the origin of the noise; a huge, brick-lined opening, covered in metal bars, has been dug out on one side of the waterway, and it's into this that the water from the canal is flowing.
+		 Looking closer, you see that on the other side of the bars, there's a wide set of stone steps leading down into the gloom below.
+	</p>
+	<p>
+		Searching for a way to get access to those steps, and the area beyond, you soon find yourself standing before a building marked as 'Submission Enforcer Post'.
+		 The doors are wide open, and, peering inside, you see that the origin of the stone staircase is situated in the middle of a large, mostly-empty waiting room.
+	</p>
+	<p>
+		There only appears to be one Enforcer guarding the staircase, who half-heartedly glances up from their newspaper as they catch sight of you.
+		 Letting out a sigh, they motion towards the staircase, clearly gesturing that you're able to come and go as you please.
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="ENTER_SUBMISSION"><![CDATA[
+	<p>
+		Stepping into the building marked as the 'Submission Enforcer Post', you start to make your way towards the staircase.
+		 Seeing you approach, the Enforcer on duty calls out,
+		 [npcMale.speech(If you have any questions about Submission, you can bother the guys on duty down below.
+		 Or if you see a waddling little cat-girl, with tits bigger than anyone else, it'd be better to ask her.
+		 I'm far too busy to be acting as an information kiosk right now.)]
+	</p>
+	<p>
+		As he finishes speaking, the Enforcer lets out a long yawn, before looking back down at the newspaper in his hands.
+		 His brazen, unhelpful attitude lets you know that there's no point in wasting any time in trying to deal with him, and, continuing forwards, start on your way down the stone staircase in front of you.
+		 The deafening roar of rushing water quickly envelops you as you begin your downwards descent, and beneath the orange glow of arcane-powered lamps, you quickly hurry down the damp stone steps.
+	</p>
+	<p>
+		As you reach the bottom, you find yourself confronted by a weathered wooden door, with a helpful sign tacked to the front, reading; 'Please Enter'.
+		 Following the sign's instruction, you push open the door and step forwards into the interior of yet another Enforcer post.
+		 This one is far more active than its counterpart on the surface, and all around you, enforcers are either hurrying to and fro, or busily working at wooden desks.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENTER_SUBMISSION_FIRST_TIME"><![CDATA[
+	<p>
+		As the door swings shut behind you, a very short cat-girl enforcer rushes forwards.
+		 Even with the high heels that she's currently wearing, she can't be any more than five-feet tall, but her breasts, hips, and thighs are without doubt the largest of any of the enforcers in the room.
+		 As she comes to a rather unsteady halt in front of you, a big grin breaks out across her face, and she cries out in a very friendly voice,
+		 [claire.speech(Hey! I haven't seen you down here before! This your first time in Submission?)]
+	</p>
+	<p>
+		[pc.speech(That's right,)]
+		 you reply,
+		 [pc.speech(but aren't there quite a few of these enforcer posts? Surely there are lots of people you don't see.)]
+	</p>
+	<p>
+		[claire.speech(~Ahem!~)]
+		 The cat-girl coughs, pushing her disproportionately-large breasts out in your general direction.
+		 Your eyes are instantly drawn to a particularly bright gold badge that's fastened to her shirt, and as the cat-girl sees you glancing at it, she smirks.
+		 [claire.speech(You know what this badge right here on my chest means?)]
+	</p>
+	<p>
+		[pc.speech(Well-)]
+		 You start to reply, but the grinning cat-girl instantly cuts you off.
+	</p>
+	<p>
+		[claire.speech(It means that I have level three clearance! That's right, I, Claire, the humble messenger, am entrusted to use teleportation stations! Nobody who enters Submission escapes my notice!)]
+		 She declares, puffing out her chest even more as she places her hands on her absurdly-wide hips.
+		 [claire.speech(So, as you're new, I need to let you know a few things! One, please don't go swimming in the waterways. The alligator-morphs can get a little snappy if they think you're barging in on their territory. Two, stay out of the tunnels. We don't have the manpower to patrol them, so if you go and get yourself mugged or something, don't come crying to us saying we didn't warn you! And three, stay away from Lyssieth's palace. She doesn't receive visitors, and if you go poking about near there, her guards will end up beating you up or something.)]
+	</p>
+	<p>
+		[pc.speech(I see. Well, nice to meet you Claire, I'm [pc.name].)]
+		 You reply.
+	</p>
+	<p>
+		[claire.speech(Pleased to meet you, [pc.name]. Oh, and one last thing! We've recently been having some trouble with some slimes attacking innocent travellers and then transforming them into even more slimes.)]
+		 Claire says, taking on a stern expression as she looks you right in the eyes.
+		 [claire.speech(Now, I know I just told you to stay out of the tunnels, but I get the feeling you're not going to listen to my advice. If you do end up going in there, just be extra careful of any slimes you bump into. And if, by some miracle, you're able to get any information on why these slimes are doing this, there's a one-thousand flame reward being offered if you report it to me.)]
+	</p>
+	<p>
+		[pc.speech(Thanks for the warning.)]
+		 You say.
+	</p>
+	<p>
+		[claire.speech(You're welcome! Watch yourself out there [pc.name]!)]
+		 Claire cheerfully replies.
+		 [claire.speech(If you need anything else, I'm always around, so don't hesitate to come and ask!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+</dialogue>
