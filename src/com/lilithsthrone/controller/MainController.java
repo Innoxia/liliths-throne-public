@@ -977,13 +977,14 @@ public class MainController implements Initializable {
 			webEngine.setUserStyleSheetLocation(getClass().getResource("/com/lilithsthrone/res/css/webView_stylesheet.css").toExternalForm());
 		}
 		
-		if(debugAllowListeners)
-		webEngine.getLoadWorker().stateProperty().addListener((ObservableValue<? extends State> ov, State oldState, State newState) -> {
-			if (newState == State.SUCCEEDED) {
-				unbindListeners(document);
-				manageMainListeners();
-			}
-		});
+		if(debugAllowListeners) {
+			webEngine.getLoadWorker().stateProperty().addListener((ObservableValue<? extends State> ov, State oldState, State newState) -> {
+				if (newState == State.SUCCEEDED) {
+					unbindListeners(document);
+					manageMainListeners();
+				}
+			});
+		}
 
 		// Buttons webview:
 
@@ -1017,13 +1018,14 @@ public class MainController implements Initializable {
 			webEngineAttributes.setUserStyleSheetLocation(getClass().getResource("/com/lilithsthrone/res/css/webViewAttributes_stylesheet.css").toExternalForm());
 		}
 		
-		if(debugAllowListeners)
-		webEngineAttributes.getLoadWorker().stateProperty().addListener((ObservableValue<? extends State> ov, State oldState, State newState) -> {
-			if (newState == State.SUCCEEDED) {
-				unbindListeners(documentAttributes);
-				manageAttributeListeners();
-			}
-		});
+		if(debugAllowListeners){
+			webEngineAttributes.getLoadWorker().stateProperty().addListener((ObservableValue<? extends State> ov, State oldState, State newState) -> {
+				if (newState == State.SUCCEEDED) {
+					unbindListeners(documentAttributes);
+					manageAttributeListeners();
+				}
+			});
+		}
 		
 		// Attributes WebView:
 		webViewRight.setContextMenuEnabled(false);
@@ -1036,13 +1038,14 @@ public class MainController implements Initializable {
 			webEngineRight.setUserStyleSheetLocation(getClass().getResource("/com/lilithsthrone/res/css/webViewAttributes_stylesheet.css").toExternalForm());
 		}
 		
-		if(debugAllowListeners)
+		if(debugAllowListeners) {
 			webEngineRight.getLoadWorker().stateProperty().addListener((ObservableValue<? extends State> ov, State oldState, State newState) -> {
-			if (newState == State.SUCCEEDED) {
-				unbindListeners(documentRight);
-				manageRightListeners();
-			}
-		});
+				if (newState == State.SUCCEEDED) {
+					unbindListeners(documentRight);
+					manageRightListeners();
+				}
+			});
+		}
 		
 	}
 	

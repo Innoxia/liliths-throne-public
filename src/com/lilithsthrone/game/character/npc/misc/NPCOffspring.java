@@ -16,6 +16,7 @@ import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.DominionOffspringDialogue;
+import com.lilithsthrone.game.dialogue.npcDialogue.dominion.HarpyNestOffspringDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
@@ -90,7 +91,11 @@ public class NPCOffspring extends NPC {
 		
 		CharacterUtils.applyMakeup(this, true);
 
-		this.setEnslavementDialogue(DominionOffspringDialogue.ENSLAVEMENT_DIALOGUE);
+		if(this.getWorldLocation()==WorldType.HARPY_NEST) {
+			this.setEnslavementDialogue(HarpyNestOffspringDialogue.ENSLAVEMENT_DIALOGUE);
+		} else {
+			this.setEnslavementDialogue(DominionOffspringDialogue.ENSLAVEMENT_DIALOGUE);
+		}
 		
 		setMana(getAttributeValue(Attribute.MANA_MAXIMUM));
 		setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM));
@@ -101,6 +106,11 @@ public class NPCOffspring extends NPC {
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
+		if(this.getWorldLocation()==WorldType.HARPY_NEST) {
+			this.setEnslavementDialogue(HarpyNestOffspringDialogue.ENSLAVEMENT_DIALOGUE);
+		} else {
+			this.setEnslavementDialogue(DominionOffspringDialogue.ENSLAVEMENT_DIALOGUE);
+		}
 	}
 	
 	@Override
@@ -165,17 +175,30 @@ public class NPCOffspring extends NPC {
 	
 	@Override
 	public DialogueNodeOld getEncounterDialogue() {
-		return DominionOffspringDialogue.OFFSPRING_ENCOUNTER;
+		if(this.getWorldLocation()==WorldType.HARPY_NEST) {
+			return HarpyNestOffspringDialogue.OFFSPRING_ENCOUNTER;
+		} else {
+			return DominionOffspringDialogue.OFFSPRING_ENCOUNTER;
+		}
 	}
 
 	// Combat:
 
 	@Override
 	public Response endCombat(boolean applyEffects, boolean victory) {
-		if (victory) {
-			return new Response("", "", DominionOffspringDialogue.AFTER_COMBAT_VICTORY);
+		if(this.getWorldLocation()==WorldType.HARPY_NEST) {
+			if (victory) {
+				return new Response("", "", HarpyNestOffspringDialogue.AFTER_COMBAT_VICTORY);
+			} else {
+				return new Response ("", "", HarpyNestOffspringDialogue.AFTER_COMBAT_DEFEAT);
+			}
+			
 		} else {
-			return new Response ("", "", DominionOffspringDialogue.AFTER_COMBAT_DEFEAT);
+			if (victory) {
+				return new Response("", "", DominionOffspringDialogue.AFTER_COMBAT_VICTORY);
+			} else {
+				return new Response ("", "", DominionOffspringDialogue.AFTER_COMBAT_DEFEAT);
+			}
 		}
 	}
 	

@@ -800,13 +800,13 @@ public class ItemEffectType {
 	};
 	
 	public static AbstractItemEffectType INT_FRUIT_BAT_SQUASH = new AbstractItemEffectType(Util.newArrayListOfValues(
-			"[style.boldGood(Restores)] 5% [style.boldHealth(energy)]",
+			"[style.boldGood(Restores)] 5% [style.boldAura(aura)]",
 			"[style.boldGood(+1)] [style.boldArcane(arcane)] to 'potion effects'"),
 			Colour.ATTRIBUTE_ARCANE) {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			target.incrementHealth(target.getAttributeValue(Attribute.HEALTH_MAXIMUM)/20);
+			target.incrementMana(target.getAttributeValue(Attribute.MANA_MAXIMUM)/20);
 
 			return "<p style='text-align:center;'>"
 					+(target.isPlayer()
@@ -1034,6 +1034,79 @@ public class ItemEffectType {
 							+"</p>";
 				}
 			}
+		}
+	};
+	
+	public static AbstractItemEffectType MUSHROOMS = new AbstractItemEffectType(Util.newArrayListOfValues(
+			"[style.boldTfGeneric(Makes slime and orifice interiors glow)]",
+			"Causes a [style.boldPsychoactive(psychoactive trip)]"),
+			Colour.ATTRIBUTE_CORRUPTION) {
+		
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+			StringBuilder sb = new StringBuilder();
+
+			sb.append("<p>");
+				if(target.getBodyMaterial()==BodyMaterial.SLIME) {
+					if(target.isPlayer()) {
+						sb.append("Your slimy body starts [style.boldTfGeneric(glowing)]!");
+					} else {
+						sb.append(UtilText.parse(target, "[npc.Name]'s slimy body starts [style.boldTfGeneric(glowing)]!"));
+					}
+					
+					target.getCovering(BodyCoveringType.SLIME).setPrimaryGlowing(true);
+					target.getCovering(BodyCoveringType.SLIME).setSecondaryGlowing(true);
+
+					target.getCovering(BodyCoveringType.SLIME_ANUS).setPrimaryGlowing(true);
+					target.getCovering(BodyCoveringType.SLIME_ANUS).setSecondaryGlowing(true);
+
+					target.getCovering(BodyCoveringType.SLIME_EYE).setPrimaryGlowing(true);
+					target.getCovering(BodyCoveringType.SLIME_EYE).setSecondaryGlowing(true);
+
+					target.getCovering(BodyCoveringType.SLIME_HAIR).setPrimaryGlowing(true);
+					target.getCovering(BodyCoveringType.SLIME_HAIR).setSecondaryGlowing(true);
+
+					target.getCovering(BodyCoveringType.SLIME_MOUTH).setPrimaryGlowing(true);
+					target.getCovering(BodyCoveringType.SLIME_MOUTH).setSecondaryGlowing(true);
+
+					target.getCovering(BodyCoveringType.SLIME_NIPPLES).setPrimaryGlowing(true);
+					target.getCovering(BodyCoveringType.SLIME_NIPPLES).setSecondaryGlowing(true);
+
+					target.getCovering(BodyCoveringType.SLIME_PUPILS).setPrimaryGlowing(true);
+					target.getCovering(BodyCoveringType.SLIME_PUPILS).setSecondaryGlowing(true);
+
+					target.getCovering(BodyCoveringType.SLIME_SCLERA).setPrimaryGlowing(true);
+					target.getCovering(BodyCoveringType.SLIME_SCLERA).setSecondaryGlowing(true);
+
+					target.getCovering(BodyCoveringType.SLIME_VAGINA).setPrimaryGlowing(true);
+					target.getCovering(BodyCoveringType.SLIME_VAGINA).setSecondaryGlowing(true);
+					
+				} else {
+					if(target.isPlayer()) {
+						sb.append("The interiors of all of your orifices start to [style.boldTfGeneric(glow)]!");
+					} else {
+						sb.append(UtilText.parse(target, "The interiors of all of [npc.name]'s orifices start to [style.boldTfGeneric(glow)]!"));
+					}
+
+					target.getCovering(BodyCoveringType.MOUTH).setSecondaryGlowing(true);
+					target.getCovering(BodyCoveringType.ANUS).setSecondaryGlowing(true);
+					target.getCovering(BodyCoveringType.VAGINA).setSecondaryGlowing(true);
+					target.getCovering(BodyCoveringType.PENIS).setSecondaryGlowing(true);
+					target.getCovering(BodyCoveringType.NIPPLES).setSecondaryGlowing(true);
+				}
+			sb.append("</p>");
+
+			target.addStatusEffect(StatusEffect.PSYCHOACTIVE, 6*60);
+
+			sb.append("<p>");
+				if(target.isPlayer()) {
+					sb.append("Multi-coloured stars and spots start to fade in and out of your vision, and you feel your head spinning as you start to [style.boldPsychoactive(trip out)]!");
+				} else {
+					sb.append(UtilText.parse(target, "Multi-coloured stars and spots start to fade in and out of [npc.name]'s vision, and [npc.she] feels [npc.her] head spinning as [npc.she] starts to [style.boldPsychoactive(trip out)]!"));
+				}
+			sb.append("</p>");
+			
+			return sb.toString();
 		}
 	};
 	
@@ -1737,7 +1810,9 @@ public class ItemEffectType {
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			StringBuilder sb = new StringBuilder();
 			
-			sb.append("As the lollipop's transformative effects start to make themselves known, you start to feel very light-headed...");
+			sb.append("<p>"
+						+ "As the lollipop's transformative effects start to make themselves known, you start to feel very light-headed..."
+					+ "</p>");
 			
 			if(!target.hasFetish(Fetish.FETISH_BIMBO)) {
 				target.addFetish(Fetish.FETISH_BIMBO);
@@ -1827,7 +1902,9 @@ public class ItemEffectType {
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			StringBuilder sb = new StringBuilder();
 			
-			sb.append("As the lollipop's transformative effects start to make themselves known, you start to feel very light-headed...");
+			sb.append("<p>"
+						+ "As the lollipop's transformative effects start to make themselves known, you start to feel very light-headed..."
+					+ "</p>");
 			
 			if(!target.hasTrait(Perk.NYMPHOMANIAC, false)) {
 				target.addPerk(Perk.NYMPHOMANIAC);
@@ -2869,6 +2946,35 @@ public class ItemEffectType {
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			return getRacialEffect(Race.HARPY, primaryModifier, secondaryModifier, potency, user, target).applyEffect();
+		}
+	};
+
+	public static AbstractItemEffectType RACE_SLIME = new AbstractItemEffectType(null,
+			Colour.RACE_SLIME) {
+
+		@Override
+		public List<TFModifier> getPrimaryModifiers() {
+			return Util.newArrayListOfValues(TFModifier.TF_MATERIAL_FLESH);
+		}
+
+		@Override
+		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
+			return Util.newArrayListOfValues(TFModifier.ARCANE_BOOST);
+		}
+		
+		@Override
+		public List<TFPotency> getPotencyModifiers(TFModifier primaryModifier, TFModifier secondaryModifier) {
+			return Util.newArrayListOfValues(TFPotency.MINOR_BOOST);
+		}
+		
+		@Override
+		public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
+			return Util.newArrayListOfValues("Changes the target's body material to flesh.");
+		}
+		
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+			return target.setBodyMaterial(BodyMaterial.FLESH);
 		}
 	};
 	

@@ -21,6 +21,7 @@ import com.lilithsthrone.game.character.body.valueEnums.HairLength;
 import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
 import com.lilithsthrone.game.character.body.valueEnums.Height;
 import com.lilithsthrone.game.character.body.valueEnums.HipSize;
+import com.lilithsthrone.game.character.body.valueEnums.LabiaSize;
 import com.lilithsthrone.game.character.body.valueEnums.Lactation;
 import com.lilithsthrone.game.character.body.valueEnums.LipSize;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
@@ -113,6 +114,7 @@ public class SlimeQueen extends NPC {
 			this.setSkinCovering(new Covering(BodyCoveringType.SLIME, Colour.SLIME_PINK), false);
 			this.setSkinCovering(new Covering(BodyCoveringType.SLIME_EYE, Colour.SLIME_PINK_LIGHT), false);
 			this.setSkinCovering(new Covering(BodyCoveringType.SLIME_SCLERA, Colour.SLIME_PINK_LIGHT), false);
+			this.setSkinCovering(new Covering(BodyCoveringType.SLIME_PUPILS, Colour.SLIME_PINK), false);
 			this.setSkinCovering(new Covering(BodyCoveringType.SLIME_ANUS, CoveringPattern.ORIFICE_ANUS, Colour.SLIME_PINK_DARK, false, Colour.SLIME_PINK_DARK, true), false);
 			this.setSkinCovering(new Covering(BodyCoveringType.SLIME_HAIR, Colour.SLIME_PINK_DARK), false);
 			this.setSkinCovering(new Covering(BodyCoveringType.SLIME_MOUTH, CoveringPattern.ORIFICE_MOUTH, Colour.SLIME_PINK_DARK, false, Colour.SLIME_PINK_DARK, true), false);
@@ -146,6 +148,7 @@ public class SlimeQueen extends NPC {
 			this.setVaginaCapacity(Capacity.FIVE_ROOMY.getMedianValue(), true);
 			this.setGirlcumFlavour(FluidFlavour.STRAWBERRY);
 			this.setVaginaSquirter(true);
+			this.setVaginaLabiaSize(LabiaSize.FOUR_MASSIVE.getValue());
 			
 			this.setCumFlavour(FluidFlavour.STRAWBERRY);
 			
@@ -166,6 +169,7 @@ public class SlimeQueen extends NPC {
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
 		this.equipClothing(true, false);
+		this.setVaginaLabiaSize(LabiaSize.FOUR_MASSIVE.getValue());
 	}
 	
 	@Override

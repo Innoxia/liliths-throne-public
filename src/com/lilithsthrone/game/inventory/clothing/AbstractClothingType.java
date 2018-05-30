@@ -404,7 +404,8 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 				this.namePlural = coreAttributes.getElementsByTagName("namePlural").item(0).getTextContent();
 				this.description = coreAttributes.getElementsByTagName("description").item(0).getTextContent();
 				this.physicalResistance = Integer.valueOf(coreAttributes.getElementsByTagName("physicalResistance").item(0).getTextContent());
-				setUpFemininity(Femininity.valueOf(coreAttributes.getElementsByTagName("femininity").item(0).getTextContent()));
+				this.femininityRestriction = Femininity.valueOf(coreAttributes.getElementsByTagName("femininity").item(0).getTextContent());
+				setUpFemininity(this.femininityRestriction);
 				this.slot = InventorySlot.valueOf(coreAttributes.getElementsByTagName("slot").item(0).getTextContent());
 				this.rarity = Rarity.valueOf(coreAttributes.getElementsByTagName("rarity").item(0).getTextContent());
 				

@@ -9458,7 +9458,9 @@ public class ClothingType {
 			ColourListPresets.ALL_METAL.getPresetColourList(),
 			null,
 			null,
-			Util.newArrayListOfValues(ItemTag.SOLD_BY_FINCH)){
+			Util.newArrayListOfValues(
+					ItemTag.SOLD_BY_FINCH,
+					ItemTag.REVEALS_CONCEALABLE_SLOT)){
 		
 		@Override
 		public boolean isHindersLegMovement() {

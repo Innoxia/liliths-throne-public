@@ -22,11 +22,11 @@ import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.npcDialogue.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.submission.BatCavernSlimeAttackerDialogue;
-import com.lilithsthrone.game.dialogue.npcDialogue.submission.TunnelAttackDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
+import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.main.Main;
@@ -37,7 +37,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.2.3
- * @version 0.2.3
+ * @version 0.2.6
  * @author Innoxia
  */
 public class SlimeCavernAttacker extends NPC {
@@ -147,8 +147,6 @@ public class SlimeCavernAttacker extends NPC {
 
 			setBody(gender, species, RaceStage.GREATER);
 			
-			this.setBodyMaterial(BodyMaterial.SLIME);
-			
 			setSexualOrientation(RacialBody.valueOfRace(getRace()).getSexualOrientation(gender));
 	
 			setName(Name.getRandomTriplet(species.getRace()));
@@ -166,10 +164,12 @@ public class SlimeCavernAttacker extends NPC {
 			
 			CharacterUtils.randomiseBody(this);
 			
+			this.setBodyMaterial(BodyMaterial.SLIME);
+			
 			// INVENTORY:
 			
 			resetInventory();
-			inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
+			inventory.setMoney(50 + Util.random.nextInt(getLevel()*10) + 1);
 			CharacterUtils.generateItemsInInventory(this);
 	
 			CharacterUtils.equipClothing(this, true, false);
@@ -179,6 +179,8 @@ public class SlimeCavernAttacker extends NPC {
 			for (Attribute a : RacialBody.valueOfRace(species.getRace()).getAttributeModifiers().keySet()) {
 				attributes.put(a, RacialBody.valueOfRace(species.getRace()).getAttributeModifiers().get(a).getMinimum() + RacialBody.valueOfRace(species.getRace()).getAttributeModifiers().get(a).getRandomVariance());
 			}
+			
+			this.useItem(AbstractItemType.generateItem(ItemType.MUSHROOM), this, false);
 			
 			setMana(getAttributeValue(Attribute.MANA_MAXIMUM));
 			setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM));
@@ -205,6 +207,13 @@ public class SlimeCavernAttacker extends NPC {
 	}
 	
 	@Override
+	public void hourlyUpdate() {
+		if(!this.isSlave()) {
+			this.useItem(AbstractItemType.generateItem(ItemType.MUSHROOM), this, false);
+		}
+	}
+	
+	@Override
 	public boolean isUnique() {
 		return false;
 	}
@@ -213,10 +222,11 @@ public class SlimeCavernAttacker extends NPC {
 	public String getDescription() {
 		if(this.isSlave()) {
 			return (UtilText.parse(this,
-					"[npc.Name]'s days of attacking innocent travellers in the bat caverns are now over. Having run afoul of the law, [npc.she]'s now a slave, and is no more than [npc.her] owner's property."));
+					"[npc.Name]'s days of getting high on mushrooms and attacking innocent travellers in the Bat Caverns are now over."
+							+ " Having been enslaved as punishment for [npc.her] lawless behaviour, [npc.she]'s now a slave, and is no more than [npc.her] owner's property."));
 		} else {
 			return (UtilText.parse(this,
-					"[npc.Name] is a resident of the bat caverns, and enjoys nothing more than attacking innocent travellers that pass by [npc.her] home."));
+					"[npc.Name] is a resident of the bat caverns, and loves nothing more than getting high on mushrooms, attacking innocent travellers, and having sex."));
 		}
 	}
 	
@@ -253,9 +263,9 @@ public class SlimeCavernAttacker extends NPC {
 	@Override
 	public Response endCombat(boolean applyEffects, boolean victory) {
 		if (victory) {
-			return new Response("", "", TunnelAttackDialogue.AFTER_COMBAT_VICTORY);
+			return new Response("", "", BatCavernSlimeAttackerDialogue.AFTER_COMBAT_VICTORY);
 		} else {
-			return new Response ("", "", TunnelAttackDialogue.AFTER_COMBAT_DEFEAT);
+			return new Response ("", "", BatCavernSlimeAttackerDialogue.AFTER_COMBAT_DEFEAT);
 		}
 	}
 	

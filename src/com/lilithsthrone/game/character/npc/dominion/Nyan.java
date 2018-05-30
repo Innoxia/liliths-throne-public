@@ -55,17 +55,23 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.2.4
+ * @version 0.2.6
  * @author Innoxia
  */
 public class Nyan extends NPC {
 
 	private static final long serialVersionUID = 1L;
 
-	private List<AbstractClothing> commonFemaleClothing, commonFemaleUnderwear, commonFemaleAccessories,
-									commonMaleClothing, commonMaleLingerie, commonMaleAccessories,
-									commonAndrogynousClothing, commonAndrogynousLingerie, commonAndrogynousAccessories,
-									specials;
+	private List<AbstractClothing> commonFemaleClothing;
+	private List<AbstractClothing> commonFemaleUnderwear;
+	private List<AbstractClothing> commonFemaleAccessories;
+	private List<AbstractClothing> commonMaleClothing;
+	private List<AbstractClothing> commonMaleLingerie;
+	private List<AbstractClothing> commonMaleAccessories;
+	private List<AbstractClothing> commonAndrogynousClothing;
+	private List<AbstractClothing> commonAndrogynousLingerie;
+	private List<AbstractClothing> commonAndrogynousAccessories;
+	private List<AbstractClothing> specials;
 
 	public Nyan() {
 		this(false);
@@ -223,7 +229,7 @@ public class Nyan extends NPC {
 		
 		specials.clear();
 
-		boolean enchantedGear = Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_NYAN_HELP);
+		boolean enchantedGear = Main.game.getPlayer().isQuestCompleted(QuestLine.RELATIONSHIP_NYAN_HELP);
 		
 		for(AbstractClothingType clothing : ClothingType.getAllClothing()) {
 			if(clothing.getItemTags().contains(ItemTag.SOLD_BY_NYAN)) {

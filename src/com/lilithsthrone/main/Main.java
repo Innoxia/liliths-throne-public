@@ -63,7 +63,7 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
 
-	public static final String VERSION_NUMBER = "0.2.5.5",
+	public static final String VERSION_NUMBER = "0.2.5.8",
 			VERSION_DESCRIPTION = "Alpha";
 	
 	private final static boolean DEBUG = false;
@@ -83,12 +83,11 @@ public class Main extends Application {
 		+ "</p>"
 			
 		+ "<p>"
-			+ "I struggled a little this week to catch up from the days that I spent making the 0.2.5.1 hotfix. Even with the extra day, I didn't manage to get as much Submission content done as I'd have liked."
-			+ " I'm going to continue writing Submission content over the next few days, and I'll try to get a more polished version (0.2.5.6) out as soon as I possibly can (hopefully by Monday)."
+			+ "I've got this preview in a far more polished state than the one that I released on Thursday (0.2.5.5). I'll get the imp fortresses and gambling den added over Tuesday and Wednesday, and then add the start of Nightlife content for the next release. ^^"
 		+ "</p>"
 			
 		+ "<p>"
-			+ "I promise that I'll work my hardest on this and do my very best to avoid any more delays, but making and releasing a more polished version might have a knock-on effect of pushing 0.2.6 back to Friday 25th."
+			+ "The full public release will be out on <b>Friday 25th</b>."
 		+ "</p>"
 			
 		+ "<p>"
@@ -134,6 +133,44 @@ public class Main extends Application {
 			+"<ul>Enchanting clothing will no longer reset item tags (which was causing the bug of nipple tape crosses losing their plugging effect).</ul>"
 			+"<ul>Fixed obsolete reference to a dress in succubus attacker dialogue.</ul>"
 			+"<ul>Fixed slime colours resetting every time the game was loaded.</ul>"
+		+ "</list>"
+
+		+ "</br>"
+
+		+ "<list>"
+			+ "<h6>v0.2.5.8</h6>"
+			+"<li>Gameplay:</li>"
+			+"<ul>Finished Slime Queen's quest, adding the upper floor of the tower.</ul>"
+			+"<ul>Added harpy offspring encounters in the Harpy Nests.</ul>"
+			+"<ul>Temporarily re-enabled angel offspring in Dominion (for those of you who have set yourself to be angels through the debug menu).</ul>"
+			+"<ul>Added item 'Glowing Mushrooms', found randomly in the bat Caverns as well as being dropped by slimes down there.</ul>"
+			+"<ul>Filled in last placeholders in Bat Cavern descriptions.</ul>"
+			+"<ul>Added unique encounter/attack descriptions for slimes and bats in the bat caverns.</ul>"
+			
+			+"<li>Other:</li>"
+			+"<ul>Added variation in the slime guards' dialogue for if you have the related content setting turned off.</ul>"
+			+"<ul>Added ongoing penetration descriptions for hotdogging and paizuri, and added icon for hotdogging status effect.</ul>"
+			+"<ul>Increased value of girlcum, and slightly decreased extra modifiers' impact on cum value.</ul>"
+			+"<ul>Reduced biojuice canister value from 5000 to 2500.</ul>"
+			+"<ul>You can now enchant biojuice canisters to make a potion that returns body material to normal.</ul>"
+			
+			+"<li>Bugs:</li>"
+			+"<ul>Fixed bug where when entering Submission, you would sometimes travel down to an incorrect tile location.</ul>"
+			+"<ul>Fixed being forced to have sex with the slime guards after beating them in combat.</ul>"
+			+"<ul>Fixed some typos and parsing errors in 0.2.5.5's content.</ul>"
+			+"<ul>Removed biojuice canisters from bat cavern drops.</ul>"
+			+"<ul>Typo fixes.</ul>"
+			+"<ul>Fixed Blaze and Crystal's earrings being unequipped when loading a save.</ul>"
+			+"<ul>Fixed Blaze and Crystal's repeat encounter acting like they'd never seen you before.</ul>"
+			+"<ul>Fixed bug where switching target in combat would not show the correct target's inventory.</ul>"
+			+"<ul>Fixed human damage/resistance stats being shown twice in phone's stats menu.</ul>"
+			+"<ul>Fixed NPCs spawning in with multiple books in their inventory.</ul>"
+			+"<ul>Fixed bug where you'd gain knowledge of some characters' breasts/genitals on game load. (This was affecting Candi, Claire, and probably many others.)</ul>"
+			+"<ul>Fixed jewellery not being unequipped when removing piercings.</ul>"
+			+"<ul>Characters will no longer lose penile virginity from using strapons.</ul>"
+			+"<ul>Penis transformations will no longer be applied to equipped strap-on.</ul>"
+			+"<ul>Fixed rendering bugs in stats page.</ul>"
+			+"<ul>Fixed bug where spreader bar being equipped under trousers would result in the spreader bar blocking trouser removal, and also being concealed, making both items of clothing impossible to remove.</ul>"
 		+ "</list>"
 		;
 	
@@ -203,6 +240,7 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("Deimios", "", 0, 0, 3, 1));
 		credits.add(new CreditsSlot("Nnxx", "", 0, 1, 3, 1));
 		credits.add(new CreditsSlot("Eushully", "", 0, 0, 0, 4));
+		credits.add(new CreditsSlot("cinless", "", 0, 0, 0, 4));
 		
 		credits.add(new CreditsSlot("KazukiNero", "", 0, 0, 3, 0));
 		credits.add(new CreditsSlot("Archan9el S117", "", 0, 0, 0, 3));
@@ -237,6 +275,8 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("shrikes", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("Chattyneko", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("Neximus", "", 0, 0, 1, 0));
+		credits.add(new CreditsSlot("IreCobra", "", 0, 0, 1, 0));
+		credits.add(new CreditsSlot("Garkylal", "", 0, 0, 1, 0));
 		
 		
 		credits.add(new CreditsSlot("Adhana Konker", "", 0, 0, 3, 0));

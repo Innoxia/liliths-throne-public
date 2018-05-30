@@ -84,7 +84,7 @@ public class PhoneDialogue {
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response(
-						(Main.game.getPlayer().isMainQuestUpdated() || Main.game.getPlayer().isSideQuestUpdated() || Main.game.getPlayer().isRomanceQuestUpdated())
+						(Main.game.getPlayer().isMainQuestUpdated() || Main.game.getPlayer().isSideQuestUpdated() || Main.game.getPlayer().isRelationshipQuestUpdated())
 							?"<span style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>Quests</span>"
 							:"Quests",
 						"Open your planner to view your current quests.", PLANNER_MAIN){
@@ -236,12 +236,12 @@ public class PhoneDialogue {
 				};
 				
 			} else if (index == 3) {
-				return new Response((Main.game.getPlayer().isRomanceQuestUpdated()
-						?"<span style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>Romance quests</span>"
-						:"Romance quests"), "View your romance quests.", PLANNER_ROMANCE){
+				return new Response((Main.game.getPlayer().isRelationshipQuestUpdated()
+						?"<span style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>Relationship quests</span>"
+						:"Relationship quests"), "View your relationship quests.", PLANNER_RELATIONSHIP){
 					@Override
 					public void effects() {
-						Main.game.getPlayer().setRomanceQuestUpdated(false);
+						Main.game.getPlayer().setRelationshipQuestUpdated(false);
 					}
 				};
 				
@@ -315,12 +315,12 @@ public class PhoneDialogue {
 			} else if (index == 2) {
 				return new Response("Side quests", "View your side quests.", null);
 			} else if (index == 3) {
-				return new Response((Main.game.getPlayer().isRomanceQuestUpdated()
-						?"<span style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>Romance quests</span>"
-						:"Romance quests"), "View your romance quests.", PLANNER_ROMANCE){
+				return new Response((Main.game.getPlayer().isRelationshipQuestUpdated()
+						?"<span style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>Relationship quests</span>"
+						:"Relationship quests"), "View your relationship quests.", PLANNER_RELATIONSHIP){
 					@Override
 					public void effects() {
-						Main.game.getPlayer().setRomanceQuestUpdated(false);
+						Main.game.getPlayer().setRelationshipQuestUpdated(false);
 					}
 				};
 			} else if (index == 0) {
@@ -335,19 +335,19 @@ public class PhoneDialogue {
 			return DialogueNodeType.PHONE;
 		}
 	};
-	public static final DialogueNodeOld PLANNER_ROMANCE = new DialogueNodeOld("Planner", "", true) {
+	public static final DialogueNodeOld PLANNER_RELATIONSHIP = new DialogueNodeOld("Planner", "", true) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getContent() {
 			journalSB = new StringBuilder();
 
-			boolean romanceQuestsFound = false;
+			boolean relationshipQuestFound = false;
 			
 			// Side Quests:
 			for (QuestLine questLine : Main.game.getPlayer().getQuests().keySet()) {
-				if(questLine.getType()==QuestType.ROMANCE) {
-					romanceQuestsFound = true;
+				if(questLine.getType()==QuestType.RELATIONSHIP) {
+					relationshipQuestFound = true;
 					
 					TreeNode<Quest> currentNode = questLine.getQuestTree().getFirstNodeWithData(Main.game.getPlayer().getQuest(questLine));
 					
@@ -379,8 +379,8 @@ public class PhoneDialogue {
 				}
 			}
 			
-			if(!romanceQuestsFound) {
-				journalSB.append("<div class='subTitle'>You haven't got any romance quests!</div>");
+			if(!relationshipQuestFound) {
+				journalSB.append("<div class='subTitle'>You haven't got any relationship quests!</div>");
 			}
 
 			return journalSB.toString();
@@ -400,7 +400,7 @@ public class PhoneDialogue {
 					}
 				};
 			} else if (index == 3) {
-				return new Response("Romance quests", "View your romance quests.", null);
+				return new Response("Relationship quests", "View your relationship quests.", null);
 			} else if (index == 0) {
 				return new Response("Back", "Return to the phone's main menu.", MENU);
 			} else {
@@ -635,16 +635,17 @@ public class PhoneDialogue {
 					+ "<h6 style='color:"+Colour.GENERIC_COMBAT.toWebHexString()+"; text-align:center;'>Racial values</h6>");
 			
 			for(Race race : Race.values()) {
-
-				UtilText.nodeContentSB.append(
-						getAttributeBox(Main.game.getPlayer(), race.getDamageMultiplier(),
-								Util.capitaliseSentence(race.getName())+" Damage:</br>"
-								+ "<b>"+(100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(race.getDamageMultiplier()), race.getDamageMultiplier().getUpperLimit()))+"%</b>",
-								true)
-						+ getAttributeBox(Main.game.getPlayer(), race.getResistanceMultiplier(),
-								Util.capitaliseSentence(race.getName())+" Resistance:</br>"
-								+ "<b>"+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(race.getResistanceMultiplier()), race.getResistanceMultiplier().getUpperLimit())+"%</b>",
-								true));
+				if(race!=Race.NONE) {
+					UtilText.nodeContentSB.append(
+							getAttributeBox(Main.game.getPlayer(), race.getDamageMultiplier(),
+									Util.capitaliseSentence(race.getName())+" Damage:</br>"
+									+ "<b>"+(100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(race.getDamageMultiplier()), race.getDamageMultiplier().getUpperLimit()))+"%</b>",
+									true)
+							+ getAttributeBox(Main.game.getPlayer(), race.getResistanceMultiplier(),
+									Util.capitaliseSentence(race.getName())+" Resistance:</br>"
+									+ "<b>"+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(race.getResistanceMultiplier()), race.getResistanceMultiplier().getUpperLimit())+"%</b>",
+									true));
+				}
 			}
 			
 			UtilText.nodeContentSB.append("</div>");
@@ -1365,16 +1366,32 @@ public class PhoneDialogue {
 	}
 	
 	private static String getAttributeBox(GameCharacter owner, Attribute att, String effect, boolean half) {
+		float width = (Math.abs(owner.getAttributeValue(att))/(att.getUpperLimit()-att.getLowerLimit())) * 100;
+		Colour colour = (owner.getAttributeValue(att)==0
+							?Colour.TEXT
+							:(owner.getAttributeValue(att)==att.getUpperLimit()
+								?Colour.GENERIC_EXCELLENT
+								:(owner.getAttributeValue(att)==att.getUpperLimit()
+									?Colour.GENERIC_TERRIBLE
+									:(owner.getAttributeValue(att)>0
+										?Colour.GENERIC_GOOD
+										:Colour.GENERIC_BAD))));
+		
 		return "<div class='container-half-width' style='"+(half?"width:calc(50% - 16px);":"width:calc(33% - 16px);")+" margin-bottom:0; background:"+Colour.BACKGROUND_ALT.toWebHexString()+";'>"
 					+ "<div class='container-half-width' style='width:66.6%;margin:0;background:"+Colour.BACKGROUND_ALT.toWebHexString()+";'>"
 						+ "<b style='color:" + att.getColour().toWebHexString() + ";'>"+Util.capitaliseSentence(att.getName())+"</b>"
 					+ "</div>"
 					+ "<div class='container-half-width' style='width:33.3%;margin:0;background:"+Colour.BACKGROUND_ALT.toWebHexString()+";text-align:center;'>"
-						+ "<b"+(owner.getAttributeValue(att)==att.getUpperLimit()?" style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'":"")+">"+owner.getAttributeValue(att)+"</b>"
+						+ "<b style='color:"+colour.toWebHexString()+";'>"+owner.getAttributeValue(att)+"</b>"
 					+ "</div>"
 					+ "<div class='container-full-width' style='height:6px;padding:0;border-radius: 2px;'>"
-						+ "<div class='container-full-width' style='width:" + (owner.getAttributeValue(att)/att.getUpperLimit()) * (att.getLowerLimit()==0?100:50) + "%; padding:0;"
-								+ " margin:0 0 0 "+(att.getLowerLimit()>=0?0:(owner.getAttributeValue(att)>0?"50%":(Math.abs(att.getLowerLimit())+owner.getAttributeValue(att))+"%"))+";"
+						+ "<div class='container-full-width' style='width:" + width + "%; padding:0;"
+								+ " margin:0 0 0 "
+									+(att.getLowerLimit()>=0
+										?0
+										:(owner.getAttributeValue(att)>0
+											?"50%"
+											:(50-width)+"%"))+";"
 								+ " height:100%; background:" + (owner.getAttributeValue(att)>0?att.getColour().toWebHexString():att.getColour().getShades()[1]) + "; float:left; border-radius: 2px;'></div>"
 					+ "</div>"
 					+ "<div class='container-half-width' style='margin:0;background:"+Colour.BACKGROUND_ALT.toWebHexString()+"; padding:0; text-align:center;'>"

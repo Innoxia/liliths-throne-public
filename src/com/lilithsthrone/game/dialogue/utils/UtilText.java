@@ -16,6 +16,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
@@ -569,6 +570,12 @@ public class UtilText {
 		return parse(Util.newArrayListOfValues(specialNPC1, specialNPC2), input);
 	}
 	
+	enum ParseMode {
+		UNKNOWN,
+		CONDITIONAL,
+		REGULAR
+	}
+	
 	/**
 	 * Parses supplied text.
 	 */
@@ -579,8 +586,8 @@ public class UtilText {
 		
 		// {npc1.isPlayer?Your:[npc1.Name]'s} [npc1.moans] are muffled into {npc2.isPlayer?your:[npc2.name]'s} [npc2.mouth]. {npc1.isPlayer?{npc1.isPlayer?Your:[npc1.Name]'s} feel turned on...}
 		try {
+			StringBuilder resultBuilder = new StringBuilder();
 			StringBuilder sb = new StringBuilder();
-			
 			int openBrackets = 0;
 			int closeBrackets = 0;
 			int openArg = 0;
@@ -589,38 +596,37 @@ public class UtilText {
 			int startIndex = 0;
 			int endIndex = 0;
 			
-			String target=null;
-			String command=null;
-			String arguments=null;
-			String conditionalTrue=null;
-			String conditionalFalse=null;
+			String target = null;
+			String command = null;
+			String arguments = null;
+			String conditionalTrue = null;
+			String conditionalFalse = null;
 			
-			boolean conditionalElseFound=false;
-			boolean processingConditional=false;
-			boolean processingRegular=false;
+			boolean conditionalElseFound = false;
+			ParseMode currentParseMode = ParseMode.UNKNOWN;
+			
+			int startedParsingSegmentAt = 0;
 			
 			for (int i = 0; i < input.length(); i++) {
 				char c = input.charAt(i);
 				
-				if(!processingRegular) {
-					if(c=='F' && i-1>1 && input.charAt(i-1)=='I' && i-2>=0 && input.charAt(i-2)=='#') {
-						if(openBrackets==0) {
-							processingConditional=true;
+				if (currentParseMode != ParseMode.REGULAR) {
+					if (substringMatchesInReverseAtIndex(input, "#IF", i)) {
+						if (openBrackets == 0) {
+							currentParseMode = ParseMode.CONDITIONAL;
 							startIndex = i-2;
 						}
 						
 						openBrackets++;
 						
-					} else if(processingConditional) {
+					} else if (currentParseMode == ParseMode.CONDITIONAL) {
 						if(c=='.' && target==null) {
-							target=sb.toString().substring(1); // Cut off the '#IF' at the start.
-							target = target.trim();
+							target = sb.toString().substring(1).trim(); // Cut off the '#IF' at the start.
 							sb.setLength(0);
 						
 						} else if(c=='(') {
 							if(command==null) {
-								command=sb.toString().substring(1); // Cut off the '.' at the start.
-								command = command.trim();
+								command = sb.toString().substring(1).trim(); // Cut off the '.' at the start.
 								sb.setLength(0);
 							}
 							
@@ -629,46 +635,33 @@ public class UtilText {
 						} else if(c==')') {
 							closeArg++;
 							
-							if(openArg==closeArg){
+							if (openArg == closeArg){
 								arguments = sb.toString().substring(1);
 							}
 							
-						} else if((c=='N' &&
-								(i-1>1 && input.charAt(i-1)=='E')
-								&& (i-2>=0 && input.charAt(i-2)=='H')
-								&& (i-3>=0 && input.charAt(i-3)=='T')
-								&& (i-4>=0 && input.charAt(i-4)=='#'))) {
+						} else if(substringMatchesInReverseAtIndex(input, "#THEN", i)) {
 							conditionalThens++;
 							
-							if(conditionalThens==1){
-								if(command==null) {
-									command=sb.toString().substring(1, sb.length()-4); // Cut off the '#THEN' at the start.
+							if (conditionalThens == 1){
+								if (command == null) {
+									command = sb.toString().substring(1, sb.length()-4); // Cut off the '#THEN' at the start.
 									command = command.replaceAll("\n", "").replaceAll("\t", "");
 									command = command.trim();
 								}
 								sb.setLength(0);
 							}
 							
-						} else if((c=='E' &&
-								(i-1>1 && input.charAt(i-1)=='S')
-								&& (i-2>=0 && input.charAt(i-2)=='L')
-								&& (i-3>=0 && input.charAt(i-3)=='E')
-								&& (i-4>=0 && input.charAt(i-4)=='#')) && openBrackets-1==closeBrackets) {
+						} else if(substringMatchesInReverseAtIndex(input, "#ELSE", i) && openBrackets-1==closeBrackets) {
 							conditionalElseFound = true;
 							conditionalTrue = sb.toString().substring(1, sb.length()-4); // Cut off the '#ELSE' at the start.
 							sb.setLength(0);
 							
-						} else if(c=='F' &&
-								(i-1>1 && input.charAt(i-1)=='I')
-								&& (i-2>=0 && input.charAt(i-2)=='D')
-								&& (i-3>=0 && input.charAt(i-3)=='N')
-								&& (i-4>=0 && input.charAt(i-4)=='E')
-								&& (i-5>=0 && input.charAt(i-5)=='#')) {
+						} else if(substringMatchesInReverseAtIndex(input, "#ENDIF", i)) {
 							closeBrackets++;
 							
-							if(openBrackets==closeBrackets) {
+							if (openBrackets == closeBrackets) {
 								
-								if(conditionalElseFound){
+								if (conditionalElseFound) {
 									conditionalFalse = sb.toString().substring(1, sb.length()-5); // Cut off the '#ENDIF' at the start.
 								} else {
 									conditionalTrue = sb.toString().substring(1, sb.length()-5); // Cut off the '#ENDIF' at the start.
@@ -676,53 +669,51 @@ public class UtilText {
 								}
 			
 								endIndex = i;
-								break;
 							}
 						}
 					}
 				}
 				
-				if(!processingConditional) {
-					if(c=='[') {
+				if (currentParseMode != ParseMode.CONDITIONAL) {
+					if (c == '[') {
 						if(openBrackets==0) {
-							processingRegular=true;
+							currentParseMode = ParseMode.REGULAR;
 							startIndex = i;
 						}
 						
 						openBrackets++;
 						
-					} else if(processingRegular) {
+					} else if (currentParseMode == ParseMode.REGULAR) {
 						
-						if(c=='.' && target==null) {
-							target=sb.toString().substring(1); // Cut off the '[' at the start.
+						if (c =='.' && target == null) {
+							target = sb.toString().substring(1); // Cut off the '[' at the start.
 							sb.setLength(0);
 						
-						} else if(c=='(') {
-							if(command==null) {
-								command=sb.toString().substring(1); // Cut off the '.' at the start.
+						} else if (c == '(') {
+							if(command == null) {
+								command = sb.toString().substring(1); // Cut off the '.' at the start.
 								sb.setLength(0);
 							}
 							
 							openArg++;
 							
-						} else if(c==')') {
+						} else if (c == ')') {
 							closeArg++;
 							
-							if(openArg==closeArg){
+							if (openArg == closeArg){
 								arguments = sb.toString().substring(1);
 							}
 							
-						} else if(c==']') {
+						} else if (c == ']') {
 							closeBrackets++;
 							
-							if(openBrackets==closeBrackets) {
-								if(command==null) {
-									command=sb.toString().substring(1); // Cut off the '.' at the start.
+							if (openBrackets == closeBrackets) {
+								if (command == null) {
+									command = sb.toString().substring(1); // Cut off the '.' at the start.
 									sb.setLength(0);
 								}
 			
 								endIndex = i;
-								break;
 							}
 						}
 					}
@@ -731,27 +722,65 @@ public class UtilText {
 				if(openBrackets>0 && ((target!=null && command!=null) || String.valueOf(c).matches(".") || c!=' ')) {
 					sb.append(c);
 				}
+				
+				if (endIndex != 0) {
+					resultBuilder.append(input.substring(startedParsingSegmentAt, startIndex));
+					String subResult = (currentParseMode == ParseMode.CONDITIONAL
+							? parseConditionalSyntaxNew(target, command, arguments, conditionalTrue, conditionalFalse)
+							: parseSyntaxNew(target, command, arguments, specialNPC)
+						);
+					if (openBrackets > 1) {
+						subResult = parse(specialNPC, subResult);
+					}
+					resultBuilder.append(subResult);
+					
+					startedParsingSegmentAt = endIndex + 1;
+					//This is the lamest version of recursion unrolling there is:
+					//just reset all your variables by hand.
+					sb = new StringBuilder();
+					
+					openBrackets = 0;
+					closeBrackets = 0;
+					openArg = 0;
+					closeArg = 0;
+					conditionalThens = 0;
+					startIndex = 0;
+					endIndex = 0;
+					
+					target = null;
+					command = null;
+					arguments = null;
+					conditionalTrue = null;
+					conditionalFalse = null;
+					
+					conditionalElseFound = false;
+					currentParseMode = ParseMode.UNKNOWN;
+				}
 			}
 			
-			if(startIndex!=0 || endIndex!=0) {
-				if(startIndex!=0 && endIndex==0) {
-					System.err.println("Error in parsing: StartIndex:"+startIndex+" ("+target+", "+command+")");
-					return input;
-				}
-				return input.substring(0, startIndex) 
-						+ parse(specialNPC,
-								(processingConditional
-									? parseConditionalSyntaxNew(target, command, arguments, conditionalTrue, conditionalFalse)
-									: parseSyntaxNew(target, command, arguments, specialNPC))
-								+ input.substring(endIndex+1, input.length()));
-			} else {
-				return input;//.replaceAll(" a ", " <span style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>a big moo</span> ");
+			if (startIndex != 0) {
+				System.err.println("Error in parsing: StartIndex:"+startIndex+" ("+target+", "+command+")");
+				return input;
 			}
+			if (startedParsingSegmentAt < input.length()) {
+				resultBuilder.append(input.substring(startedParsingSegmentAt, input.length()));
+			}
+			
+			return resultBuilder.toString();
 		} catch(Exception ex) {
 			System.err.println("Failed to parse: "+input);
 			ex.printStackTrace();
 			return "";
 		}
+	}
+	
+	private static boolean substringMatchesInReverseAtIndex(String haystack, String needle, int index) {
+		index++;//this fixes my off by one error and I'm too tired to figure out why
+		int startingLocation = index - needle.length();
+		if (startingLocation < 0 || index >= haystack.length()) {
+			return false;
+		}
+		return haystack.substring(startingLocation, index).equals(needle);
 	}
 	
 
@@ -761,6 +790,21 @@ public class UtilText {
 	public static Map<BodyPartType, List<ParserCommand>> commandsMap = new EnumMap<>(BodyPartType.class);
 	
 	static{
+		
+
+		conditionalCommandsList.add(new ParserConditionalCommand(
+				Util.newArrayListOfValues(
+						"isIncestOn",
+						"isIncestEnabled",
+						"incestOn",
+						"incestEnabled"),
+				"",
+				"Returns true if the player has the incest content toggle on."){
+			@Override
+			public boolean process(String command, String arguments, String target) {
+				return Main.getProperties().hasValue(PropertyValue.incestContent);
+			}
+		});
 		
 		conditionalCommandsList.add(new ParserConditionalCommand(
 				Util.newArrayListOfValues(
@@ -1196,6 +1240,24 @@ public class UtilText {
 					return "mistress";
 				} else {
 					return "master";
+				}
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"heroine",
+						"hero"),
+				true,
+				true,
+				"",//TODO
+				"Description of method"){//TODO
+			@Override
+			public String parse(String command, String arguments, String target) {
+				if(character.isFeminine()) {
+					return "heroine";
+				} else {
+					return "hero";
 				}
 			}
 		});

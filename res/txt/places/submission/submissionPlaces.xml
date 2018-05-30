@@ -203,6 +203,80 @@
 	]]>
 	</htmlContent>
 	
+	<htmlContent tag="CLAIRE_INFO_REPORT_BACK"><![CDATA[
+	<p>
+		Wanting to report on your success with dealing with the Slime Queen, you walk up to where Claire is working and call out to her, [pc.speech(Hi Claire!)]
+	</p>
+	<p>
+		The little cat-girl spins around, looking confused at first, but then grinning as she catches sight of you. Placing her paperwork to one side, she places her hands on her huge hips and greets you, [claire.speech(Hi [pc.name]! You've been staying safe, right?)]
+	</p>
+	<p>
+		[pc.speech(Well, sort of.)] you reply, [pc.speech(I did kind of go down into the Bat Caverns and find the Slime Queen though...)]
+	</p>
+	<p>
+		[claire.speech(Y-You what?!)] Claire shouts, puffing up her chest and wagging a finger at you. [claire.speech(I told you that was too dangerous!)]
+	</p>
+	<p>
+		[pc.speech(Well, dangerous or not, I did as you asked.)] you reply, holding up the Slime Queen's crown for Claire to see. [pc.speech(I put an end to her plans of transforming everyone in Submission to slimes, and I brought her crown back as proof.)]
+	</p>
+	<p>
+		[claire.speech(Really? She actually existed? And you managed to stop her?)] Claire asks, returning her hands to her hips once more. [claire.speech(That's amazing... Where did you find her?)]
+	</p>
+	<p>
+		[pc.speech(She's living in a tower, built on an island in the middle of an underground lake.)] you reply. [pc.speech(She said that she doesn't have any way to contact the people who claim to be her subjects, so she can't ask them to stop. She did, however, promise to stop producing those transformative 'Biojuice Canisters'.)]
+	</p>
+	<p>
+		[claire.speech(You've been such a huge help.)] Claire sighs, [claire.speech(With the sheer number of new cases of forced slime transformations, we were close to breaking point. You've no idea how much this is going to help us out. Let me get that reward I promised!)]
+	</p>
+	<p>
+		You watch as Claire hurries off into one of the back rooms, and, just a moment later, returns with a bag of coins in her hand. [claire.speech(Here you are!)] she squeaks, [claire.speech(Thank you so much, [pc.name]!)]
+	</p>
+	<p>
+		[pc.speech(You're welcome.)] you reply, smiling at the little cat-girl.
+	</p>
+	<p>
+		[claire.speech(Well, back to work for me! Stay out of trouble!)] Claire happily says, before turning around and getting back to her paperwork. You step away from the busy cat-girl, wondering what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CLAIRE_INFO_REPORT_BACK_LIE"><![CDATA[
+	<p>
+		Wanting to make your fictitious report that the Slime Queen has been dealt with, you walk up to where Claire is working and call out to her, [pc.speech(Hi Claire!)]
+	</p>
+	<p>
+		The little cat-girl spins around, looking confused at first, but then grinning as she catches sight of you. Placing her paperwork to one side, she places her hands on her huge hips and greets you, [claire.speech(Hi [pc.name]! You've been staying safe, right?)]
+	</p>
+	<p>
+		[pc.speech(Well, sort of.)] you reply, [pc.speech(I did kind of go down into the Bat Caverns and find the Slime Queen though...)]
+	</p>
+	<p>
+		[claire.speech(Y-You what?!)] Claire shouts, puffing up her chest and wagging a finger at you. [claire.speech(I told you that was too dangerous!)]
+	</p>
+	<p>
+		[pc.speech(Well, dangerous or not, I did as you asked.)] you reply, holding up the Slime Queen's crown for Claire to see. [pc.speech(I put an end to her plans of transforming everyone in Submission to slimes, and I brought her crown back as proof.)]
+	</p>
+	<p>
+		[claire.speech(Really? She actually existed? And you managed to stop her?)] Claire asks, returning her hands to her hips once more. [claire.speech(That's amazing... Where did you find her?)]
+	</p>
+	<p>
+		[pc.speech(She was hiding in one of those bioluminescent mushroom caverns.)] you lie, not wanting the enforcers to find Catherine. [pc.speech(She said that she doesn't have any way to contact the people who claim to be her subjects, so she can't ask them to stop. She did, however, promise to stop producing those transformative 'Biojuice Canisters'.)]
+	</p>
+	<p>
+		[claire.speech(You've been such a huge help.)] Claire sighs, [claire.speech(With the sheer number of new cases of forced slime transformations, we were close to breaking point. You've no idea how much this is going to help us out. Let me get that reward I promised!)]
+	</p>
+	<p>
+		You watch as Claire hurries off into one of the back rooms, and, just a moment later, returns with a bag of coins in her hand. [claire.speech(Here you are!)] she squeaks, [claire.speech(Thank you so much, [pc.name]!)]
+	</p>
+	<p>
+		[pc.speech(You're welcome.)] you reply, smiling at the little cat-girl.
+	</p>
+	<p>
+		[claire.speech(Well, back to work for me! Stay out of trouble!)] Claire happily says, before turning around and getting back to her paperwork. You step away from the busy cat-girl, wondering what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
 	<htmlContent tag="WALKWAYS"><![CDATA[
 	<p>
 		The main tunnels of Submission are surprisingly spacious, clean and full of life.

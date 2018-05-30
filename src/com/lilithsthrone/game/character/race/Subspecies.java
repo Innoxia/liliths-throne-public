@@ -24,7 +24,7 @@ import com.lilithsthrone.world.WorldType;
 
 /**
  * @since 0.1.91
- * @version 0.2.1
+ * @version 0.2.6
  * @author tukaima, Innoxia
  */
 public enum Subspecies {
@@ -61,7 +61,7 @@ public enum Subspecies {
 			Colour.RACE_ANGEL,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"A typical angel.",
-			Util.newArrayListOfValues()) {
+			Util.newArrayListOfValues(WorldType.DOMINION)) { //TODO remove later on
 		@Override
 		public void applySpeciesChanges(Body body) {
 			// TODO Auto-generated method stub
@@ -461,10 +461,10 @@ public enum Subspecies {
 	SLIME_DEMON("statusEffects/raceSlime",
 			"demon-slime",
 			"demon-slimes",
-			"demon-slime-boy",
-			"demon-slime-girl",
-			"demon-slime-boys",
-			"demon-slime-girls",
+			"incubus-slime",
+			"succubus-slime",
+			"incubus-slimes",
+			"succubus-slimes",
 			Race.SLIME,
 			Colour.RACE_SLIME,
 			SubspeciesPreference.FOUR_ABUNDANT,
@@ -1209,8 +1209,6 @@ public enum Subspecies {
 	}
 	
 	public static Subspecies getSubspeciesFromBody(Body body, Race race) {
-		Subspecies subspecies = null;
-		
 		switch(body.getBodyMaterial()) {
 			case FIRE:
 				return Subspecies.ELEMENTAL_FIRE;
@@ -1229,174 +1227,173 @@ public enum Subspecies {
 				break;
 		}
 		
-		if(subspecies==null) {
-			switch(race) {
-				case NONE:
-					break;
-				case ALLIGATOR_MORPH:
-					subspecies = Subspecies.ALLIGATOR_MORPH;
-					break;
-				case ANGEL:
-					subspecies = Subspecies.ANGEL;
-					break;
-				case CAT_MORPH:
-					subspecies = Subspecies.CAT_MORPH;
-					break;
-				case COW_MORPH:
-					subspecies = Subspecies.COW_MORPH;
-					break;
-				case DEMON:
-				case ELEMENTAL_AIR:
-				case ELEMENTAL_ARCANE:
-				case ELEMENTAL_EARTH:
-				case ELEMENTAL_FIRE:
-				case ELEMENTAL_WATER:
-					subspecies = Subspecies.DEMON;
-					break;
-				case IMP:
-					subspecies = Subspecies.IMP;
-					if(body.getHeightValue()>Height.NEGATIVE_ONE_TINY.getMinimumValue()) {
-						subspecies = Subspecies.IMP_ALPHA;
-					}
-					break;
-				case DOG_MORPH:
-					subspecies = Subspecies.DOG_MORPH;
-					
-					if(body.getCoverings().get(BodyCoveringType.CANINE_FUR).getPrimaryColour()==Colour.COVERING_BLACK
-						&& (body.getCoverings().get(BodyCoveringType.CANINE_FUR).getSecondaryColour()==Colour.COVERING_BROWN
-								|| body.getCoverings().get(BodyCoveringType.CANINE_FUR).getSecondaryColour()==Colour.COVERING_BROWN_DARK
-								|| body.getCoverings().get(BodyCoveringType.CANINE_FUR).getSecondaryColour()==Colour.COVERING_TAN)
+		Subspecies subspecies = null;
+		switch(race) {
+			case NONE:
+				break;
+			case ALLIGATOR_MORPH:
+				subspecies = Subspecies.ALLIGATOR_MORPH;
+				break;
+			case ANGEL:
+				subspecies = Subspecies.ANGEL;
+				break;
+			case CAT_MORPH:
+				subspecies = Subspecies.CAT_MORPH;
+				break;
+			case COW_MORPH:
+				subspecies = Subspecies.COW_MORPH;
+				break;
+			case DEMON:
+			case ELEMENTAL_AIR:
+			case ELEMENTAL_ARCANE:
+			case ELEMENTAL_EARTH:
+			case ELEMENTAL_FIRE:
+			case ELEMENTAL_WATER:
+				subspecies = Subspecies.DEMON;
+				break;
+			case IMP:
+				subspecies = Subspecies.IMP;
+				if(body.getHeightValue()>Height.NEGATIVE_ONE_TINY.getMinimumValue()) {
+					subspecies = Subspecies.IMP_ALPHA;
+				}
+				break;
+			case DOG_MORPH:
+				subspecies = Subspecies.DOG_MORPH;
+				
+				if(body.getCoverings().get(BodyCoveringType.CANINE_FUR).getPrimaryColour()==Colour.COVERING_BLACK
+					&& (body.getCoverings().get(BodyCoveringType.CANINE_FUR).getSecondaryColour()==Colour.COVERING_BROWN
+							|| body.getCoverings().get(BodyCoveringType.CANINE_FUR).getSecondaryColour()==Colour.COVERING_BROWN_DARK
+							|| body.getCoverings().get(BodyCoveringType.CANINE_FUR).getSecondaryColour()==Colour.COVERING_TAN)
+					&& body.getCoverings().get(BodyCoveringType.CANINE_FUR).getPattern() == CoveringPattern.MARKED
+					&& body.getCoverings().get(BodyCoveringType.CANINE_FUR).getModifier() == CoveringModifier.SHORT
+					) {
+					subspecies = Subspecies.DOG_MORPH_DOBERMANN;
+				}
+				
+				if(body.getCoverings().get(BodyCoveringType.CANINE_FUR).getPrimaryColour()==Colour.COVERING_BLACK
+						&& body.getCoverings().get(BodyCoveringType.CANINE_FUR).getSecondaryColour()==Colour.COVERING_WHITE
 						&& body.getCoverings().get(BodyCoveringType.CANINE_FUR).getPattern() == CoveringPattern.MARKED
-						&& body.getCoverings().get(BodyCoveringType.CANINE_FUR).getModifier() == CoveringModifier.SHORT
+						&& body.getCoverings().get(BodyCoveringType.CANINE_FUR).getModifier() == CoveringModifier.FLUFFY
+						&& (body.getEar().getType()==EarType.DOG_MORPH_FOLDED || body.getEar().getType()==EarType.DOG_MORPH_POINTED)
 						) {
-						subspecies = Subspecies.DOG_MORPH_DOBERMANN;
-					}
-					
-					if(body.getCoverings().get(BodyCoveringType.CANINE_FUR).getPrimaryColour()==Colour.COVERING_BLACK
-							&& body.getCoverings().get(BodyCoveringType.CANINE_FUR).getSecondaryColour()==Colour.COVERING_WHITE
-							&& body.getCoverings().get(BodyCoveringType.CANINE_FUR).getPattern() == CoveringPattern.MARKED
-							&& body.getCoverings().get(BodyCoveringType.CANINE_FUR).getModifier() == CoveringModifier.FLUFFY
-							&& (body.getEar().getType()==EarType.DOG_MORPH_FOLDED || body.getEar().getType()==EarType.DOG_MORPH_POINTED)
-							) {
-							subspecies = Subspecies.DOG_MORPH_BORDER_COLLIE;
-					}
-					break;
-				case HARPY:
-					subspecies = Subspecies.HARPY;
-					if(body.getCoverings().get(BodyCoveringType.FEATHERS).getPrimaryColour()==Colour.FEATHERS_BLACK) {
-						subspecies = Subspecies.HARPY_RAVEN;
-					}
-					break;
-				case HORSE_MORPH:
-					subspecies = Subspecies.HORSE_MORPH;
-					break;
-				case HUMAN:
-					subspecies = Subspecies.HUMAN;
-					break;
-				case REINDEER_MORPH:
-					subspecies = Subspecies.REINDEER_MORPH;
-					break;
-				case SQUIRREL_MORPH:
-					subspecies = Subspecies.SQUIRREL_MORPH;
-					break;
-				case RAT_MORPH:
-					subspecies = Subspecies.RAT_MORPH;
-					break;
-				case BAT_MORPH:
-					subspecies = Subspecies.BAT_MORPH;
-					break;
-				case WOLF_MORPH:
-					subspecies = Subspecies.WOLF_MORPH;
-					break;
-				case SLIME:
-					subspecies = Subspecies.SLIME;
-					switch(body.getRaceFromPartWeighting()) {
-						case NONE:
-							break;
-						case ALLIGATOR_MORPH:
-							subspecies = Subspecies.SLIME_ALLIGATOR;
-							break;
-						case ANGEL:
-							subspecies = Subspecies.SLIME_ANGEL;
-							break;
-						case CAT_MORPH:
-							subspecies = Subspecies.SLIME_CAT;
-							break;
-						case COW_MORPH:
-							subspecies = Subspecies.SLIME_COW;
-							break;
-						case DEMON:
-						case ELEMENTAL_AIR:
-						case ELEMENTAL_ARCANE:
-						case ELEMENTAL_EARTH:
-						case ELEMENTAL_FIRE:
-						case ELEMENTAL_WATER:
-							subspecies = Subspecies.SLIME_DEMON;
-							break;
-						case DOG_MORPH:
-							if(body.getCoverings().get(BodyCoveringType.SLIME).getPrimaryColour()==Colour.SLIME_BLACK
-									&& (body.getCoverings().get(BodyCoveringType.SLIME).getSecondaryColour()==Colour.SLIME_BROWN
-											|| body.getCoverings().get(BodyCoveringType.SLIME).getSecondaryColour()==Colour.SLIME_BROWN_DARK
-											|| body.getCoverings().get(BodyCoveringType.SLIME).getSecondaryColour()==Colour.SLIME_TAN)
-									&& body.getCoverings().get(BodyCoveringType.SLIME).getPattern() == CoveringPattern.MARKED) {
-								subspecies = Subspecies.SLIME_DOG_DOBERMANN;
+						subspecies = Subspecies.DOG_MORPH_BORDER_COLLIE;
+				}
+				break;
+			case HARPY:
+				subspecies = Subspecies.HARPY;
+				if(body.getCoverings().get(BodyCoveringType.FEATHERS).getPrimaryColour()==Colour.FEATHERS_BLACK) {
+					subspecies = Subspecies.HARPY_RAVEN;
+				}
+				break;
+			case HORSE_MORPH:
+				subspecies = Subspecies.HORSE_MORPH;
+				break;
+			case HUMAN:
+				subspecies = Subspecies.HUMAN;
+				break;
+			case REINDEER_MORPH:
+				subspecies = Subspecies.REINDEER_MORPH;
+				break;
+			case SQUIRREL_MORPH:
+				subspecies = Subspecies.SQUIRREL_MORPH;
+				break;
+			case RAT_MORPH:
+				subspecies = Subspecies.RAT_MORPH;
+				break;
+			case BAT_MORPH:
+				subspecies = Subspecies.BAT_MORPH;
+				break;
+			case WOLF_MORPH:
+				subspecies = Subspecies.WOLF_MORPH;
+				break;
+			case SLIME:
+				subspecies = Subspecies.SLIME;
+				switch(body.getRaceFromPartWeighting()) {
+					case NONE:
+						break;
+					case ALLIGATOR_MORPH:
+						subspecies = Subspecies.SLIME_ALLIGATOR;
+						break;
+					case ANGEL:
+						subspecies = Subspecies.SLIME_ANGEL;
+						break;
+					case CAT_MORPH:
+						subspecies = Subspecies.SLIME_CAT;
+						break;
+					case COW_MORPH:
+						subspecies = Subspecies.SLIME_COW;
+						break;
+					case DEMON:
+					case ELEMENTAL_AIR:
+					case ELEMENTAL_ARCANE:
+					case ELEMENTAL_EARTH:
+					case ELEMENTAL_FIRE:
+					case ELEMENTAL_WATER:
+						subspecies = Subspecies.SLIME_DEMON;
+						break;
+					case DOG_MORPH:
+						if(body.getCoverings().get(BodyCoveringType.SLIME).getPrimaryColour()==Colour.SLIME_BLACK
+								&& (body.getCoverings().get(BodyCoveringType.SLIME).getSecondaryColour()==Colour.SLIME_BROWN
+										|| body.getCoverings().get(BodyCoveringType.SLIME).getSecondaryColour()==Colour.SLIME_BROWN_DARK
+										|| body.getCoverings().get(BodyCoveringType.SLIME).getSecondaryColour()==Colour.SLIME_TAN)
+								&& body.getCoverings().get(BodyCoveringType.SLIME).getPattern() == CoveringPattern.MARKED) {
+							subspecies = Subspecies.SLIME_DOG_DOBERMANN;
+							
+						} else if(body.getCoverings().get(BodyCoveringType.CANINE_FUR).getPrimaryColour()==Colour.SLIME_BLACK
+								&& (body.getCoverings().get(BodyCoveringType.CANINE_FUR).getSecondaryColour()==Colour.SLIME_WHITE)
+								&& body.getCoverings().get(BodyCoveringType.CANINE_FUR).getPattern() == CoveringPattern.MARKED
+								&& (body.getEar().getType()==EarType.DOG_MORPH_FOLDED || body.getEar().getType()==EarType.DOG_MORPH_POINTED)
+								) {
+								subspecies = Subspecies.SLIME_DOG_BORDER_COLLIE;
 								
-							} else if(body.getCoverings().get(BodyCoveringType.CANINE_FUR).getPrimaryColour()==Colour.SLIME_BLACK
-									&& (body.getCoverings().get(BodyCoveringType.CANINE_FUR).getSecondaryColour()==Colour.SLIME_WHITE)
-									&& body.getCoverings().get(BodyCoveringType.CANINE_FUR).getPattern() == CoveringPattern.MARKED
-									&& (body.getEar().getType()==EarType.DOG_MORPH_FOLDED || body.getEar().getType()==EarType.DOG_MORPH_POINTED)
-									) {
-									subspecies = Subspecies.SLIME_DOG_BORDER_COLLIE;
-									
-							} else {
-								subspecies = Subspecies.SLIME_DOG;
-							}
-							break;
-						case HARPY:
-							subspecies = Subspecies.SLIME_HARPY;
-							if(body.getCoverings().get(BodyCoveringType.SLIME).getPrimaryColour()==Colour.SLIME_BLACK) {
-								subspecies = Subspecies.SLIME_HARPY_RAVEN;
-							}
-							break;
-						case HORSE_MORPH:
-							subspecies = Subspecies.SLIME_HORSE;
-							break;
-						case HUMAN:
-							subspecies = Subspecies.SLIME;
-							break;
-						case IMP:
-							subspecies = Subspecies.SLIME_IMP;
-							break;
-						case REINDEER_MORPH:
-							subspecies = Subspecies.SLIME_REINDEER;
-							break;
-						case SLIME:
-							subspecies = Subspecies.SLIME;
-							break;
-						case SQUIRREL_MORPH:
-							subspecies = Subspecies.SLIME_SQUIRREL;
-							break;
-						case RAT_MORPH:
-							subspecies = Subspecies.SLIME_RAT;
-							break;
-						case BAT_MORPH:
-							subspecies = Subspecies.SLIME_BAT;
-							break;
-						case RABBIT_MORPH:
-							subspecies = Subspecies.SLIME_RABBIT;
-							break;
-						case WOLF_MORPH:
-							subspecies = Subspecies.SLIME_WOLF;
-							break;
-					}
-					break;
-				case RABBIT_MORPH:
-					subspecies = Subspecies.RABBIT_MORPH;
-					if(body.getEar().getType()==EarType.RABBIT_MORPH_FLOPPY) {
-						subspecies = Subspecies.RABBIT_MORPH_LOP;
-					}
-					break;
-			}
+						} else {
+							subspecies = Subspecies.SLIME_DOG;
+						}
+						break;
+					case HARPY:
+						subspecies = Subspecies.SLIME_HARPY;
+						if(body.getCoverings().get(BodyCoveringType.SLIME).getPrimaryColour()==Colour.SLIME_BLACK) {
+							subspecies = Subspecies.SLIME_HARPY_RAVEN;
+						}
+						break;
+					case HORSE_MORPH:
+						subspecies = Subspecies.SLIME_HORSE;
+						break;
+					case HUMAN:
+						subspecies = Subspecies.SLIME;
+						break;
+					case IMP:
+						subspecies = Subspecies.SLIME_IMP;
+						break;
+					case REINDEER_MORPH:
+						subspecies = Subspecies.SLIME_REINDEER;
+						break;
+					case SLIME:
+						subspecies = Subspecies.SLIME;
+						break;
+					case SQUIRREL_MORPH:
+						subspecies = Subspecies.SLIME_SQUIRREL;
+						break;
+					case RAT_MORPH:
+						subspecies = Subspecies.SLIME_RAT;
+						break;
+					case BAT_MORPH:
+						subspecies = Subspecies.SLIME_BAT;
+						break;
+					case RABBIT_MORPH:
+						subspecies = Subspecies.SLIME_RABBIT;
+						break;
+					case WOLF_MORPH:
+						subspecies = Subspecies.SLIME_WOLF;
+						break;
+				}
+				break;
+			case RABBIT_MORPH:
+				subspecies = Subspecies.RABBIT_MORPH;
+				if(body.getEar().getType()==EarType.RABBIT_MORPH_FLOPPY) {
+					subspecies = Subspecies.RABBIT_MORPH_LOP;
+				}
+				break;
 		}
 		
 		return subspecies;

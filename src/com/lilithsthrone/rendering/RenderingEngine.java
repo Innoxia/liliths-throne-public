@@ -827,7 +827,7 @@ public enum RenderingEngine {
 		}
 		
 		if(Main.game.isInCombat()) {
-			return Combat.getEnemies().get(0);
+			return Combat.getTargetedCombatant(Main.game.getPlayer());
 		}
 		
 		if(InventoryDialogue.getInventoryNPC()!=null && Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.INVENTORY) {
@@ -1488,7 +1488,7 @@ public enum RenderingEngine {
 					+ "<div class='button" + (
 							Main.game.getPlayer().isMainQuestUpdated()
 							|| Main.game.getPlayer().isSideQuestUpdated()
-							|| Main.game.getPlayer().isRomanceQuestUpdated()
+							|| Main.game.getPlayer().isRelationshipQuestUpdated()
 							|| Main.getProperties().hasValue(PropertyValue.newWeaponDiscovered)
 							|| Main.getProperties().hasValue(PropertyValue.newClothingDiscovered)
 							|| Main.getProperties().hasValue(PropertyValue.newItemDiscovered)
