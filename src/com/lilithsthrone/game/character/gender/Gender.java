@@ -104,47 +104,98 @@ public enum Gender {
 	}
 
 	/**
-	 * Possessive: his, her
+	 * Dependent possessive pronoun: his, her
 	 */
-	public String getPossessiveBeforeNoun() {
-		if(isFeminine()) {
-			return Main.getProperties().genderPronounFemale.get(GenderPronoun.POSSESSIVE_BEFORE_NOUN);
-		} else {
-			return Main.getProperties().genderPronounMale.get(GenderPronoun.POSSESSIVE_BEFORE_NOUN);
+	public String getDependentPossessive() {
+		switch(Main.getProperties().playerPronouns) {
+			case FIRST_PERSON:
+				return Main.getProperties().genderPronounFirst.get(GenderPronoun.DEPENDENT_POSSESSIVE_PRONOUN);
+			case SECOND_PERSON:
+				return Main.getProperties().genderPronounSecond.get(GenderPronoun.DEPENDENT_POSSESSIVE_PRONOUN);
+			case THIRD_PERSON:
+				if(isFeminine()) {
+					return Main.getProperties().genderPronounFemale.get(GenderPronoun.DEPENDENT_POSSESSIVE_PRONOUN);
+				} else {
+					return Main.getProperties().genderPronounMale.get(GenderPronoun.DEPENDENT_POSSESSIVE_PRONOUN);
+				}
 		}
+		return "";
 	}
 
 	/**
-	 * Possessive: his, hers
+	 * Independent possessive pronoun: his, hers
 	 */
-	public String getPossessiveAlone() {
-		if(isFeminine()) {
-			return Main.getProperties().genderPronounFemale.get(GenderPronoun.POSSESSIVE_ALONE);
-		} else {
-			return Main.getProperties().genderPronounMale.get(GenderPronoun.POSSESSIVE_ALONE);
+	public String getIndependentPossessive() {
+		switch(Main.getProperties().playerPronouns) {
+			case FIRST_PERSON:
+				return Main.getProperties().genderPronounFirst.get(GenderPronoun.INDEPENDENT_POSSESSIVE_PRONOUN);
+			case SECOND_PERSON:
+				return Main.getProperties().genderPronounSecond.get(GenderPronoun.INDEPENDENT_POSSESSIVE_PRONOUN);
+			case THIRD_PERSON:
+				if(isFeminine()) {
+					return Main.getProperties().genderPronounFemale.get(GenderPronoun.INDEPENDENT_POSSESSIVE_PRONOUN);
+				} else {
+					return Main.getProperties().genderPronounMale.get(GenderPronoun.INDEPENDENT_POSSESSIVE_PRONOUN);
+				}
 		}
+		return "";
 	}
 
 	/**
-	 * Second person: he, she
+	 * Subjective pronoun: he, she
 	 */
-	public String getSecondPerson() {
-		if(isFeminine()) {
-			return Main.getProperties().genderPronounFemale.get(GenderPronoun.SECOND_PERSON);
-		} else {
-			return Main.getProperties().genderPronounMale.get(GenderPronoun.SECOND_PERSON);
+	public String getSubjective() {
+		switch(Main.getProperties().playerPronouns) {
+			case FIRST_PERSON:
+				return Main.getProperties().genderPronounFirst.get(GenderPronoun.SUBJECTIVE_PRONOUN);
+			case SECOND_PERSON:
+				return Main.getProperties().genderPronounSecond.get(GenderPronoun.SUBJECTIVE_PRONOUN);
+			case THIRD_PERSON:
+				if(isFeminine()) {
+					return Main.getProperties().genderPronounFemale.get(GenderPronoun.SUBJECTIVE_PRONOUN);
+				} else {
+					return Main.getProperties().genderPronounMale.get(GenderPronoun.SUBJECTIVE_PRONOUN);
+				}
 		}
+		return "";
 	}
 
 	/**
-	 * Pronoun: him, her
+	 * Objective pronoun: him, her
 	 */
-	public String getThirdPerson() {
-		if(isFeminine()) {
-			return Main.getProperties().genderPronounFemale.get(GenderPronoun.THIRD_PERSON);
-		} else {
-			return Main.getProperties().genderPronounMale.get(GenderPronoun.THIRD_PERSON);
+	public String getObjective() {
+		switch(Main.getProperties().playerPronouns) {
+			case FIRST_PERSON:
+				return Main.getProperties().genderPronounFirst.get(GenderPronoun.OBJECTIVE_PRONOUN);
+			case SECOND_PERSON:
+				return Main.getProperties().genderPronounSecond.get(GenderPronoun.OBJECTIVE_PRONOUN);
+			case THIRD_PERSON:
+				if(isFeminine()) {
+					return Main.getProperties().genderPronounFemale.get(GenderPronoun.OBJECTIVE_PRONOUN);
+				} else {
+					return Main.getProperties().genderPronounMale.get(GenderPronoun.OBJECTIVE_PRONOUN);
+				}
 		}
+		return "";
+	}
+
+	/**
+	 * Reflexive pronoun: himself, herself
+	 */
+	public String getReflexive() {
+		switch(Main.getProperties().playerPronouns) {
+			case FIRST_PERSON:
+				return Main.getProperties().genderPronounFirst.get(GenderPronoun.REFLEXIVE_PRONOUN);
+			case SECOND_PERSON:
+				return Main.getProperties().genderPronounSecond.get(GenderPronoun.REFLEXIVE_PRONOUN);
+			case THIRD_PERSON:
+				if(isFeminine()) {
+					return Main.getProperties().genderPronounFemale.get(GenderPronoun.REFLEXIVE_PRONOUN);
+				} else {
+					return Main.getProperties().genderPronounMale.get(GenderPronoun.REFLEXIVE_PRONOUN);
+				}
+		}
+		return "";
 	}
 
 	public GenderPreference getGenderPreferenceDefault() {

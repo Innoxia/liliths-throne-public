@@ -31,6 +31,7 @@ import com.lilithsthrone.game.settings.DifficultyLevel;
 import com.lilithsthrone.game.settings.ForcedFetishTendency;
 import com.lilithsthrone.game.settings.ForcedTFTendency;
 import com.lilithsthrone.game.settings.KeyboardAction;
+import com.lilithsthrone.game.settings.PlayerPronouns;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.Artist;
 import com.lilithsthrone.rendering.ArtistWebsite;
@@ -853,15 +854,18 @@ public class OptionsDialogue {
 						+ "<table align='center'>"
 							+ "<tr>"
 								+ "<th>Pronoun</th>"
-								+ "<th style='color:"+Colour.MASCULINE.toWebHexString()+";'>Masculine</th>"
-								+ "<th style='color:"+Colour.FEMININE.toWebHexString()+";'>Feminine</th>"
+								+ "<th>First person</th>"
+								+ "<th>Second person</th>"
+								+ "<th style='color:"+Colour.MASCULINE.toWebHexString()+";'>Third person masculine</th>"
+								+ "<th style='color:"+Colour.FEMININE.toWebHexString()+";'>Third person feminine</th>"
 							+ "</tr>"
-							+ getPronounTableRow(GenderPronoun.NOUN)
-							+ getPronounTableRow(GenderPronoun.YOUNG_NOUN)
-							+ getPronounTableRow(GenderPronoun.SECOND_PERSON)
-							+ getPronounTableRow(GenderPronoun.THIRD_PERSON)
-							+ getPronounTableRow(GenderPronoun.POSSESSIVE_BEFORE_NOUN)
-							+ getPronounTableRow(GenderPronoun.POSSESSIVE_ALONE)
+							+ getPronounTableRow(GenderPronoun.NOUN, true)
+							+ getPronounTableRow(GenderPronoun.YOUNG_NOUN, true)
+							+ getPronounTableRow(GenderPronoun.SUBJECTIVE_PRONOUN, false)
+							+ getPronounTableRow(GenderPronoun.OBJECTIVE_PRONOUN, false)
+							+ getPronounTableRow(GenderPronoun.DEPENDENT_POSSESSIVE_PRONOUN, false)
+							+ getPronounTableRow(GenderPronoun.INDEPENDENT_POSSESSIVE_PRONOUN, false)
+							+ getPronounTableRow(GenderPronoun.REFLEXIVE_PRONOUN, false)
 						+ "</table>"
 					+ "</p>"
 					+ "<h5 style='text-align:center;'><span style='color:"+Colour.ANDROGYNOUS.toWebHexString()+";'>Androgynous bodies</span> (option 3)</h5>"
@@ -912,6 +916,8 @@ public class OptionsDialogue {
 							Main.getProperties().genderNameFemale.put(gn, gn.getFeminine());
 						}
 						for (GenderPronoun gp : GenderPronoun.values()) {
+							Main.getProperties().genderPronounFirst.put(gp, gp.getFirst());
+							Main.getProperties().genderPronounSecond.put(gp, gp.getSecond());
 							Main.getProperties().genderPronounFemale.put(gp, gp.getFeminine());
 							Main.getProperties().genderPronounMale.put(gp, gp.getMasculine());
 						}
@@ -942,6 +948,26 @@ public class OptionsDialogue {
 								break;
 						}
 						
+						Main.saveProperties();
+					}
+				};
+
+			} else if (index == 4) {
+				return new Response("Player pronouns: " + Main.getProperties().playerPronouns.getDescription(),
+						"Cycle the pronouns used for the player character.<br/><em>This is an unfinished option, most of the content still uses second person pronouns regardless of this option</em>.", OPTIONS_PRONOUNS) {
+					@Override
+					public void effects() {
+						switch(Main.getProperties().playerPronouns) {
+							case FIRST_PERSON:
+								Main.getProperties().playerPronouns = PlayerPronouns.SECOND_PERSON;
+								break;
+							case SECOND_PERSON:
+								Main.getProperties().playerPronouns = PlayerPronouns.THIRD_PERSON;
+								break;
+							case THIRD_PERSON:
+								Main.getProperties().playerPronouns = PlayerPronouns.FIRST_PERSON;
+								break;
+						}
 						Main.saveProperties();
 					}
 				};
@@ -988,19 +1014,23 @@ public class OptionsDialogue {
 				+ "</tr>";
 	}
 	
-	private static String getPronounTableRow(GenderPronoun pronoun) {
+	private static String getPronounTableRow(GenderPronoun pronoun, boolean thirdPersonOnly) {
 		return "<tr>"
 				+ "<td>"
 					+ pronoun.getName()
 				+ "</td>"
-					+ "<td style='min-width:160px;'>"
-					+"<form style='padding:0;margin:0;text-align:center;'><input type='text' id='masculine_" + pronoun + "' value='"+ UtilText.parseForHTMLDisplay(Main.getProperties().genderPronounMale.get(pronoun))+ "'>"
-					+ "</form>"
-				+ "</td>"
-				+ "<td style='min-width:160px;'>"
-					+"<form style='padding:0;margin:0;text-align:center;'><input type='text' id='feminine_" + pronoun + "' value='"+ UtilText.parseForHTMLDisplay(Main.getProperties().genderPronounFemale.get(pronoun))+ "'></form>"
-				+ "</td>"
+					+ getPronounTableElement("first", pronoun.toString(), UtilText.parseForHTMLDisplay(Main.getProperties().genderPronounFirst.get(pronoun)), thirdPersonOnly)
+					+ getPronounTableElement("second", pronoun.toString(), UtilText.parseForHTMLDisplay(Main.getProperties().genderPronounSecond.get(pronoun)), thirdPersonOnly)
+					+ getPronounTableElement("masculine", pronoun.toString(), UtilText.parseForHTMLDisplay(Main.getProperties().genderPronounMale.get(pronoun)), false)
+					+ getPronounTableElement("feminine", pronoun.toString(), UtilText.parseForHTMLDisplay(Main.getProperties().genderPronounFemale.get(pronoun)), false)
 				+ "</tr>";
+	}
+
+	private static String getPronounTableElement(String kind, String pronoun, String value, boolean disabled) {
+		return "<td style='min-width:160px;'>"
+				+"<form style='padding:0;margin:0;text-align:center;'><input type='text' id='" + kind + "_" + pronoun + "' value='" + (disabled ? "N/A' disabled>" : (value + "'>"))
+				+ "</form>"
+				+ "</td>";
 	}
 	
 	

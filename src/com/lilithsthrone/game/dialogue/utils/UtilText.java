@@ -38,6 +38,7 @@ import com.lilithsthrone.game.character.gender.GenderPronoun;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
+import com.lilithsthrone.game.settings.PlayerPronouns;
 import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
@@ -962,17 +963,10 @@ public class UtilText {
 				true,
 				false,
 				"(prefix)",
-				"Returns the name of the target, <b>automatically appending</b> 'the' to names that don't start with a capital letter. If you want the basic form of the name, pass in a space as an argument."
-				+ " If a prefix is provided, the prefix will be appended (with an automatic addition of a space) to non-capitalised names."){
+				"Returns the name of the target, <b>automatically prepending</b> 'the' to names that don't start with a capital letter. If you want the basic form of the name, pass in a space as an argument."
+				+ " If a prefix is provided, the prefix will be prepended (with an automatic addition of a space) to non-capitalised names."){
 			@Override
 			public String parse(String command, String arguments, String target) {
-				if(target.startsWith("npc") && character.isPlayer()) {
-					if(command.startsWith("N")) {
-						return "You";
-					} else {
-						return "you";
-					}
-				}
 				if(arguments!=null) {
 					return character.getName(arguments);
 				} else {
@@ -988,22 +982,15 @@ public class UtilText {
 				Util.newArrayListOfValues("namePos"),
 				true,
 				false,
-				"(real name)",
-				"Returns a possessive version of the name of the target, <b>automatically appending</b> 'the' to names that don't start with a capital letter."
-				+ " If you need the actual player name for third-person reference, pass a space as an argument.") {
+				"(prefix)",
+				"Returns a possessive version of the name of the target, <b>automatically prepending</b> 'the' to names that don't start with a capital letter. If you want the basic form of the name, pass in a space as an argument."
+				+ " If a prefix is provided, the prefix will be prepended (with an automatic addition of a space) to non-capitalised names.") {
 			@Override
 			public String parse(String command, String arguments, String target) {
 				if(arguments!=null) {
-					return character.getName() + "'s";
+					return character.getName(arguments) + "'s";
 				} else {
-					if(character.isPlayer()) {
-						if(command.startsWith("N")) {
-							return "Your";
-						} else {						 
-							return "your";
-						}
-					}
-					if(character.isPlayerKnowsName()) {
+					if(character.isPlayerKnowsName() || character.isPlayer()) {
 						return character.getName() + "'s";
 					}
 					return character.getName("the") + "'s";
@@ -1015,21 +1002,23 @@ public class UtilText {
 				Util.newArrayListOfValues("nameIs"),
 				false,
 				false,
-				"(real name)",
-				"Returns a contractive version of the name of the target, <b>automatically appending</b> 'the' to names that don't start with a capital letter."
-				+ " If you need the actual player name for third-person reference, pass a space as an argument.") {
+				"(contracted, prefix)",
+				"Returns the name of the target plus a verb, <b>automatically prepending</b> 'the' to names that don't start with a capital letter. If you want the basic form of the name, pass in a space as an argument."
+				+ " If a prefix is provided, the prefix will be prepended (with an automatic addition of a space) to non-capitalised names."
+				+ " If the 'contracted' argument is the string 'true', the verb is contracted") {
 			@Override
 			public String parse(String command, String arguments, String target) {
+				String[] args = arguments.split(", ");
+				String suffix = (args[0] == "true" ? "'s" : " is");
+				arguments = (args.length == 2 ? args[1] : null);
+				
 				if(arguments!=null) {
-					return character.getName() + "'s";
+					return character.getName() + suffix;
 				} else {
-					if(character.isPlayer()) {
-						return "you're";
+					if(character.isPlayerKnowsName() || character.isPlayer()) {
+						return character.getName() + suffix;
 					}
-					if(character.isPlayerKnowsName()) {
-						return character.getName() + "'s";
-					}
-					return character.getName("the") + "'s";
+					return character.getName("the") + suffix;
 				}
 			}
 		});
@@ -1038,21 +1027,23 @@ public class UtilText {
 				Util.newArrayListOfValues("nameHas"),
 				false,
 				false,
-				"(real name)",
-				"Returns a contractive version of the name of the target, <b>automatically appending</b> 'the' to names that don't start with a capital letter."
-				+ " If you need the actual player name for third-person reference, pass a space as an argument.") {
+				"(contracted, prefix)",
+				"Returns the name of the target plus a verb, <b>automatically prepending</b> 'the' to names that don't start with a capital letter. If you want the basic form of the name, pass in a space as an argument."
+				+ " If a prefix is provided, the prefix will be prepended (with an automatic addition of a space) to non-capitalised names."
+				+ " If the 'contracted' argument is the string 'true', the verb is contracted") {
 			@Override
 			public String parse(String command, String arguments, String target) {
+				String[] args = arguments.split(", ");
+				String suffix = (args[0] == "true" ? "'s" : " has");
+				arguments = (args.length == 2 ? args[1] : null);
+				
 				if(arguments!=null) {
-					return character.getName() + "'s";
+					return character.getName() + suffix;
 				} else {
-					if(character.isPlayer()) {
-						return "you've";
+					if(character.isPlayerKnowsName() || character.isPlayer()) {
+						return character.getName() + suffix;
 					}
-					if(character.isPlayerKnowsName()) {
-						return character.getName() + "'s";
-					}
-					return character.getName("the") + "'s";
+					return character.getName("the") + suffix;
 				}
 			}
 		});
@@ -1067,7 +1058,7 @@ public class UtilText {
 				"Returns a verb in the (probably) correct person for this character. A player might get 'wiggle' where an NPC would get 'wiggles'.") {
 			@Override
 			public String parse(String command, String arguments, String target) {
-				if (character.isPlayer()) {
+				if (character.isPlayer() && Main.getProperties().playerPronouns != PlayerPronouns.THIRD_PERSON) {
 					return arguments;
 				} else if (arguments.endsWith("s")
 						||arguments.endsWith("x")
@@ -1104,8 +1095,8 @@ public class UtilText {
 				true,
 				false,
 				"(prefix)",
-				"Returns the name of the target, <b>automatically appending</b> 'the' to names that don't start with a capital letter. If you want the basic form of the name, pass in a space as an argument."
-				+ " If a prefix is provided, the prefix will be appended (with an automatic addition of a space) to non-capitalised names."){
+				"Returns the name of the target, <b>automatically prepending</b> 'the' to names that don't start with a capital letter. If you want the basic form of the name, pass in a space as an argument."
+				+ " If a prefix is provided, the prefix will be prepended (with an automatic addition of a space) to non-capitalised names."){
 			@Override
 			public String parse(String command, String arguments, String target) {
 				if(arguments!=null) {
@@ -1118,7 +1109,7 @@ public class UtilText {
 				}
 			}
 		});
-		
+
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
 						"pcName",
@@ -2635,6 +2626,114 @@ public class UtilText {
 					return "masculine";
 			}
 		});
+
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"sheName",
+						"heName",
+						"youName"),
+				true,
+				true,
+				"(prefix)",
+				"If the target is the PC, returns either a pronoun or the PC's name depending on the pronoun settings."
+				+ " If the target is an NPC, returns the NPC's name.") {
+			@Override
+			public String parse(String command, String arguments, String target) {
+				if(!character.isPlayer() || Main.getProperties().playerPronouns == PlayerPronouns.THIRD_PERSON) {
+					if(arguments != null) {
+						return character.getName(arguments);
+					} else {
+						if(character.isPlayerKnowsName() || character.isPlayer()) {
+							return character.getName();
+						}
+						return character.getName("the");
+					}
+				} else {
+					return Gender.F_V_B_FEMALE.getSubjective();
+				}	
+			}
+		});
+
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"hersName",
+						"hisHersName",
+						"yoursName"),
+				true,
+				true,
+				"(prefix)",
+				"If the target is the PC, returns either a pronoun or the PC's name depending on the pronoun settings."
+				+ " If the target is an NPC, returns the NPC's name.") {
+			@Override
+			public String parse(String command, String arguments, String target) {
+				if(!character.isPlayer() || Main.getProperties().playerPronouns == PlayerPronouns.THIRD_PERSON) {
+					if(arguments != null) {
+						return character.getName(arguments) + "'s";
+					} else {
+						if(character.isPlayerKnowsName() || character.isPlayer()) {
+							return character.getName() + "'s";
+						}
+						return character.getName("the") + "'s";
+					}
+				} else {
+					return Gender.F_V_B_FEMALE.getIndependentPossessive();
+				}	
+			}
+		});
+
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"herName",
+						"hisName",
+						"yourName"),
+				true,
+				true,
+				"(prefix)",
+				"If the target is the PC, returns either a pronoun or the PC's name depending on the pronoun settings."
+				+ " If the target is an NPC, returns the NPC's name.") {
+			@Override
+			public String parse(String command, String arguments, String target) {
+				if(!character.isPlayer() || Main.getProperties().playerPronouns == PlayerPronouns.THIRD_PERSON) {
+					if(arguments != null) {
+						return character.getName(arguments) + "'s";
+					} else {
+						if(character.isPlayerKnowsName() || character.isPlayer()) {
+							return character.getName() + "'s";
+						}
+						return character.getName("the") + "'s";
+					}
+				} else {
+					return Gender.F_V_B_FEMALE.getDependentPossessive();
+				}	
+			}
+		});
+
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"herObjName",
+						"himName",
+						"youObjName"),
+				true,
+				true,
+				"(prefix)",
+				"If the target is the PC, returns either a pronoun or the PC's name depending on the pronoun settings."
+				+ " If the target is an NPC, returns the NPC's name.") {
+			@Override
+			public String parse(String command, String arguments, String target) {
+				if(!character.isPlayer() || Main.getProperties().playerPronouns == PlayerPronouns.THIRD_PERSON) {
+					if(arguments != null) {
+						return character.getName(arguments);
+					} else {
+						if(character.isPlayerKnowsName() || character.isPlayer()) {
+							return character.getName();
+						}
+						return character.getName("the");
+					}
+				} else {
+					return Gender.F_V_B_FEMALE.getObjective();
+				}	
+			}
+		});
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
@@ -2643,29 +2742,25 @@ public class UtilText {
 						"herPos",
 						"herHis",
 						"hisPos",
-						"hisHer"),
+						"hisHer",
+						"your"),
 				true,
 				true,
-				"(real pronoun)",
-				"Returns the correct gender-specific possessive pronoun for this character (your, her, his). By default, returns 'your' for player character."
-				+ " If you need the actual third-person player character pronoun, pass a space as an argument."){
+				"",
+				"Returns the correct gender-specific possessive pronoun for this character (your, her, his)."){
 			@Override
 			public String parse(String command, String arguments, String target) {
-				if(arguments==null && character.isPlayer()) {
-					return "your";
-				} else {
-					if(character.isFeminine()) {
-						if(character.isPlayer()) {
-							return Gender.F_V_B_FEMALE.getPossessiveBeforeNoun();
-						} else {
-							return GenderPronoun.POSSESSIVE_BEFORE_NOUN.getFeminine();
-						}
+				if(character.isFeminine()) {
+					if(character.isPlayer()) {
+						return Gender.F_V_B_FEMALE.getDependentPossessive();
 					} else {
-						if(character.isPlayer()) {
-							return Gender.M_P_MALE.getPossessiveBeforeNoun();
-						} else {
-							return GenderPronoun.POSSESSIVE_BEFORE_NOUN.getMasculine();
-						}
+						return GenderPronoun.DEPENDENT_POSSESSIVE_PRONOUN.getFeminine();
+					}
+				} else {
+					if(character.isPlayer()) {
+						return Gender.M_P_MALE.getDependentPossessive();
+					} else {
+						return GenderPronoun.DEPENDENT_POSSESSIVE_PRONOUN.getMasculine();
 					}
 				}
 			}
@@ -2675,7 +2770,8 @@ public class UtilText {
 				Util.newArrayListOfValues(
 						"hers",
 						"hersHis",
-						"hisHers"),
+						"hisHers",
+						"yours"),
 				true,
 				true,
 				"",
@@ -2684,15 +2780,15 @@ public class UtilText {
 			public String parse(String command, String arguments, String target) {
 				if(character.isFeminine()) {
 					if(character.isPlayer()) {
-						return Gender.F_V_B_FEMALE.getPossessiveAlone();
+						return Gender.F_V_B_FEMALE.getIndependentPossessive();
 					} else {
-						return GenderPronoun.POSSESSIVE_ALONE.getFeminine();
+						return GenderPronoun.INDEPENDENT_POSSESSIVE_PRONOUN.getFeminine();
 					}
 				} else {
 					if(character.isPlayer()) {
-						return Gender.M_P_MALE.getPossessiveAlone();
+						return Gender.M_P_MALE.getIndependentPossessive();
 					} else {
-						return GenderPronoun.POSSESSIVE_ALONE.getMasculine();
+						return GenderPronoun.INDEPENDENT_POSSESSIVE_PRONOUN.getMasculine();
 					}
 				}
 			}
@@ -2702,30 +2798,27 @@ public class UtilText {
 				Util.newArrayListOfValues(
 						"him",
 						"herPro",
+						"herObj",
 						"herHim",
-						"himHer"),
+						"himHer",
+						"youObj"),
 				true,
 				true,
-				"(real pronoun)",
-				"Returns the correct pronoun for this character (you, him, her). By default, returns 'you' for player character."
-				+ " If you need the regular third-person player character pronoun, pass a space as an argument."){
+				"",
+				"Returns the correct pronoun for this character (you, him, her)."){
 			@Override
 			public String parse(String command, String arguments, String target) {
-				if(arguments==null && character.isPlayer()) {
-					return "you";
-				} else {
-					if(character.isFeminine()) {
-						if(character.isPlayer()) {
-							return Gender.F_V_B_FEMALE.getThirdPerson();
-						} else {
-							return GenderPronoun.THIRD_PERSON.getFeminine();
-						}
+				if(character.isFeminine()) {
+					if(character.isPlayer()) {
+						return Gender.F_V_B_FEMALE.getObjective();
 					} else {
-						if(character.isPlayer()) {
-							return Gender.M_P_MALE.getThirdPerson();
-						} else {
-							return GenderPronoun.THIRD_PERSON.getMasculine();
-						}
+						return GenderPronoun.OBJECTIVE_PRONOUN.getFeminine();
+					}
+				} else {
+					if(character.isPlayer()) {
+						return Gender.M_P_MALE.getObjective();
+					} else {
+						return GenderPronoun.OBJECTIVE_PRONOUN.getMasculine();
 					}
 				}
 			}
@@ -2736,29 +2829,52 @@ public class UtilText {
 						"she",
 						"sheHe",
 						"he",
-						"heShe"),
+						"heShe",
+						"you"),
 				true,
 				true,
-				"(real pronoun)",
-				"Returns the correct pronoun for this character (you, she, he). By default, returns 'you' for player character."
-				+ " If you need the regular third-person player character pronoun, pass a space as an argument."){
+				"",
+				"Returns the correct pronoun for this character (you, she, he)."){
 			@Override
 			public String parse(String command, String arguments, String target) {
-				if(arguments==null && character.isPlayer()) {
-					return "you";
-				} else {
-					if(character.isFeminine()) {
-						if(character.isPlayer()) {
-							return Gender.F_V_B_FEMALE.getSecondPerson();
-						} else {
-							return GenderPronoun.SECOND_PERSON.getFeminine();
-						}
+				if(character.isFeminine()) {
+					if(character.isPlayer()) {
+						return Gender.F_V_B_FEMALE.getSubjective();
 					} else {
-						if(character.isPlayer()) {
-							return Gender.M_P_MALE.getSecondPerson();
-						} else {
-							return GenderPronoun.SECOND_PERSON.getMasculine();
-						}
+						return GenderPronoun.SUBJECTIVE_PRONOUN.getFeminine();
+					}
+				} else {
+					if(character.isPlayer()) {
+						return Gender.M_P_MALE.getSubjective();
+					} else {
+						return GenderPronoun.SUBJECTIVE_PRONOUN.getMasculine();
+					}
+				}
+			}
+		});
+
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"herself",
+						"himself",
+						"yourself"),
+				true,
+				true,
+				"",
+				"Returns the correct gender-specific reflexive pronoun for this character (yourself, herself, himself)."){
+			@Override
+			public String parse(String command, String arguments, String target) {
+				if(character.isFeminine()) {
+					if(character.isPlayer()) {
+						return Gender.F_V_B_FEMALE.getReflexive();
+					} else {
+						return GenderPronoun.REFLEXIVE_PRONOUN.getFeminine();
+					}
+				} else {
+					if(character.isPlayer()) {
+						return Gender.M_P_MALE.getReflexive();
+					} else {
+						return GenderPronoun.REFLEXIVE_PRONOUN.getMasculine();
 					}
 				}
 			}
@@ -2769,99 +2885,154 @@ public class UtilText {
 						"sheIs",
 						"sheHeIs",
 						"heIs",
-						"heSheIs"),
+						"heSheIs",
+						"youAre"),
 				true,
 				true,
-				"(real pronoun)",
-				"Returns the correct gender-specific pronoun contraction for this character (you're, she's, he's). By default, returns 'you're' for player character."
-				+ " If you need the regular third-person player character pronoun contraction, pass a space as an argument."){
+				"(contracted)",
+				"Returns the correct gender-specific pronoun plus verb for this character (you are, she is, he is)."
+				+ "Pass any argument to get the contracted version (you're, she's, he's)"){
 			@Override
 			public String parse(String command, String arguments, String target) {
-				if(arguments==null && character.isPlayer()) {
-					return "you're";
+				PlayerPronouns pro = Main.getProperties().playerPronouns;
+
+				if(character.isPlayer() && pro != PlayerPronouns.THIRD_PERSON) {
+					String suffix = (pro == PlayerPronouns.FIRST_PERSON ?
+							(arguments == null ? " am" : "'m") :
+							(arguments == null ? " are" : "'re"));
+
+					return Gender.F_V_B_FEMALE.getSubjective() + suffix;
 				} else {
+					String suffix = (arguments == null ? " is" : "'s");
+
 					if(character.isFeminine()) {
 						if(character.isPlayer()) {
-							return Gender.F_V_B_FEMALE.getSecondPerson() + "'s";
+							return Gender.F_V_B_FEMALE.getSubjective() + suffix;
 						} else {
-							return GenderPronoun.SECOND_PERSON.getFeminine() + "'s";
+							return GenderPronoun.SUBJECTIVE_PRONOUN.getFeminine() + suffix;
 						}
 					} else {
 						if(character.isPlayer()) {
-							return Gender.M_P_MALE.getSecondPerson() + "'s";
+							return Gender.M_P_MALE.getSubjective() + suffix;
 						} else {
-							return GenderPronoun.SECOND_PERSON.getMasculine() + "'s";
+							return GenderPronoun.SUBJECTIVE_PRONOUN.getMasculine() + suffix;
 						}
 					}
 				}
 			}
 		});
-		
+
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"sheNameIs",
+						"heNameIs",
+						"youNameAre"),
+				true,
+				true,
+				"(contracted, prefix)",
+				"If the target is the PC, returns either a pronoun or the PC's name depending on the pronoun settings, plus a verb."
+				+ " If the target is an NPC, returns the NPC's name plus a verb.") {
+			@Override
+			public String parse(String command, String arguments, String target) {
+				PlayerPronouns pro = Main.getProperties().playerPronouns;
+				String[] args = arguments.split(", ");
+
+				if(!character.isPlayer() || pro == PlayerPronouns.THIRD_PERSON) {
+					String suffix = (args[0] == "true" ? "'s" : " is");
+					arguments = (args.length == 2 ? args[1] : null);
+
+					if(arguments != null) {
+						return character.getName(arguments) + suffix;
+					} else {
+						if(character.isPlayerKnowsName() || character.isPlayer()) {
+							return character.getName() + suffix;
+						}
+						return character.getName("the") + suffix;
+					}
+				} else {
+					String suffix = (pro == PlayerPronouns.FIRST_PERSON ?
+						(args[0] == "true" ? "'m" : " am") :
+						(args[0] == "true" ? "'re" : " are"));
+
+					return Gender.F_V_B_FEMALE.getSubjective() + suffix;
+				}	
+			}
+		});
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
 						"sheHas",
 						"sheHeHas",
 						"heHas",
-						"heSheHas"),
+						"heSheHas",
+						"youHave"),
 				true,
 				true,
-				"(real pronoun)",
-				"Returns the correct gender-specific pronoun contraction for this character (you've, she's, he's). By default, returns 'you've' for player character."
-				+ " If you need the regular third-person player character pronoun contraction, pass a space as an argument."){
+				"(contracted)",
+				"Returns the correct gender-specific pronoun contraction for this character (you've, she's, he's)."){
 			@Override
 			public String parse(String command, String arguments, String target) {
-				if(arguments==null && character.isPlayer()) {
-					return "you've";
+				PlayerPronouns pro = Main.getProperties().playerPronouns;
+
+				if(character.isPlayer() && pro != PlayerPronouns.THIRD_PERSON) {
+					String suffix = (arguments == null ? " have" : "'ve");
+
+					return Gender.F_V_B_FEMALE.getSubjective() + suffix;
 				} else {
+					String suffix = (arguments == null ? " is" : "'s");
+
 					if(character.isFeminine()) {
 						if(character.isPlayer()) {
-							return Gender.F_V_B_FEMALE.getSecondPerson() + "'s";
+							return Gender.F_V_B_FEMALE.getSubjective() + suffix;
 						} else {
-							return GenderPronoun.SECOND_PERSON.getFeminine() + "'s";
+							return GenderPronoun.SUBJECTIVE_PRONOUN.getFeminine() + suffix;
 						}
 					} else {
 						if(character.isPlayer()) {
-							return Gender.M_P_MALE.getSecondPerson() + "'s";
+							return Gender.M_P_MALE.getSubjective() + suffix;
 						} else {
-							return GenderPronoun.SECOND_PERSON.getMasculine() + "'s";
+							return GenderPronoun.SUBJECTIVE_PRONOUN.getMasculine() + suffix;
 						}
 					}
 				}
 			}
 		});
-		
+
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						"herself",
-						"himself"),
+						"sheNameHas",
+						"heNameHas",
+						"youNameHave"),
 				true,
 				true,
-				"",
-				"Returns correct gender-specific reflexive pronoun for this character (yourself, herself, himself). By default, returns 'yourself' for player character."
-						+ " If you need the regular reflexive player character pronoun, pass a space as an argument."){
-					@Override
-					public String parse(String command, String arguments, String target) {
-						if(arguments==null && character.isPlayer()) {
-							return "yourself";
-						} else {
-							if(character.isFeminine()) {
-								if(character.isPlayer()) {
-									return Gender.F_V_B_FEMALE.getThirdPerson()+"self";
-								} else {
-									return GenderPronoun.THIRD_PERSON.getFeminine()+"self";
-								}
-							} else {
-								if(character.isPlayer()) {
-									return Gender.M_P_MALE.getThirdPerson()+"self";
-								} else {
-									return GenderPronoun.THIRD_PERSON.getMasculine()+"self";
-								}
-							}
+				"(contracted, prefix)",
+				"If the target is the PC, returns either a pronoun or the PC's name depending on the pronoun settings, plus a verb."
+				+ " If the target is an NPC, returns the NPC's name plus a verb.") {
+			@Override
+			public String parse(String command, String arguments, String target) {
+				PlayerPronouns pro = Main.getProperties().playerPronouns;
+				String[] args = arguments.split(", ");
+
+				if(!character.isPlayer() || pro == PlayerPronouns.THIRD_PERSON) {
+					String suffix = (args[0] == "true" ? "'s" : " has");
+					arguments = (args.length == 2 ? args[1] : null);
+
+					if(arguments != null) {
+						return character.getName(arguments) + suffix;
+					} else {
+						if(character.isPlayerKnowsName() || character.isPlayer()) {
+							return character.getName() + suffix;
 						}
+						return character.getName("the") + suffix;
 					}
-				});
-		
+				} else {
+					String suffix = (args[0] == "true" ? "'ve" : " have");
+
+					return Gender.F_V_B_FEMALE.getSubjective() + suffix;
+				}	
+			}
+		});
+
 		// Clothing:
 		
 		commandsList.add(new ParserCommand(

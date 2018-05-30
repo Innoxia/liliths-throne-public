@@ -1046,7 +1046,7 @@ public class DebugDialogue {
 				return new Response("Load example 1", "", PARSER){
 					@Override
 					public void effects() {
-						rawText = "You see [lilaya.name] sitting at one of the tables in [lilaya.herHis] lab, playing around with an inert demonstone."
+						rawText = "[pc.YouName] [pc.verb(see)] [lilaya.name] sitting at one of the tables in [lilaya.herHis] lab, playing around with an inert demonstone."
 								+ " [rose.name] is sitting beside [lilaya.herPro], gazing up lovingly into [lilaya.name]'s [lilaya.eyes+] as [rose.her] [rose.tail+] gently swishes back and forth behind [rose.herPro]."
 								+ "\n</br></br>\n"
 								+ "Unable to concentrate with [lilaya.her] slave hovering so close at hand, [lilaya.name] places the demonstone down onto the table, before wrapping [lilaya.her] [lilaya.arms+] around [rose.name]'s back and pulling"
@@ -1103,11 +1103,11 @@ public class DebugDialogue {
 					
 					+ "<p>"
 					+"An example of use in a sentence would be:</br></br>"
-					+"As you start to read Innoxia's tedious parsing documentation, [lilaya.name] steps up behind you and wraps [lilaya.her] [lilaya.tail+] around your [pc.leg]."
-					+" Leaning in over your shoulder, [lilaya.she] groans, [lilaya.speech(Oh my God. This is so boring!)]'</br></br>"
+					+"As [pc.youName] [pc.verb(start)] to read Innoxia's tedious parsing documentation, [lilaya.name] steps up behind [pc.youObj] and wraps [lilaya.her] [lilaya.tail+] around [pc.your] [pc.leg]."
+					+" Leaning in over [pc.your] shoulder, [lilaya.she] groans, [lilaya.speech(Oh my God. This is so boring!)]'</br></br>"
 					+ "parses to:</br></br>"
-					+ UtilText.parse("As you start to read Innoxia's tedious parsing documentation, [lilaya.name] steps up behind you and wraps [lilaya.her] [lilaya.tail+] around your [pc.leg]."
-							+ " Leaning in over your shoulder, [lilaya.she] groans, [lilaya.speech(Oh my God. This is so boring!)]")
+					+ UtilText.parse("As [pc.youName] [pc.verb(start)] to read Innoxia's tedious parsing documentation, [lilaya.name] steps up behind [pc.youObj] and wraps [lilaya.her] [lilaya.tail+] around [pc.your] [pc.leg]."
+							+ " Leaning in over [pc.your] shoulder, [lilaya.she] groans, [lilaya.speech(Oh my God. This is so boring!)]")
 					+ "</p>"
 					+ "</br>"
 					

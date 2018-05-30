@@ -44,6 +44,7 @@ import com.lilithsthrone.game.settings.ForcedFetishTendency;
 import com.lilithsthrone.game.settings.ForcedTFTendency;
 import com.lilithsthrone.game.settings.KeyCodeWithModifiers;
 import com.lilithsthrone.game.settings.KeyboardAction;
+import com.lilithsthrone.game.settings.PlayerPronouns;
 import com.lilithsthrone.main.Main;
 
 /**
@@ -88,7 +89,8 @@ public class Properties implements Serializable {
 	public Map<KeyboardAction, KeyCodeWithModifiers> hotkeyMapPrimary, hotkeyMapSecondary;
 
 	public Map<GenderNames, String> genderNameFemale, genderNameMale, genderNameNeutral;
-	public Map<GenderPronoun, String> genderPronounFemale, genderPronounMale;
+	public Map<GenderPronoun, String> genderPronounFirst, genderPronounSecond, genderPronounFemale, genderPronounMale;
+	public PlayerPronouns playerPronouns = PlayerPronouns.SECOND_PERSON;
 	
 	public Map<Gender, Integer> genderPreferencesMap;
 	private Map<Subspecies, FurryPreference> subspeciesFeminineFurryPreferencesMap, subspeciesMasculineFurryPreferencesMap;
@@ -124,10 +126,14 @@ public class Properties implements Serializable {
 			genderNameNeutral.put(gn, gn.getNeutral());
 		}
 		
+		genderPronounFirst = new EnumMap<>(GenderPronoun.class);
+		genderPronounSecond = new EnumMap<>(GenderPronoun.class);
 		genderPronounFemale = new EnumMap<>(GenderPronoun.class);
 		genderPronounMale = new EnumMap<>(GenderPronoun.class);
 
 		for (GenderPronoun gp : GenderPronoun.values()) {
+			genderPronounFirst.put(gp, gp.getFirst());
+			genderPronounSecond.put(gp, gp.getSecond());
 			genderPronounFemale.put(gp, gp.getFeminine());
 			genderPronounMale.put(gp, gp.getMasculine());
 		}
@@ -210,6 +216,7 @@ public class Properties implements Serializable {
 			createXMLElementWithValue(doc, settings, "preferredArtist", preferredArtist);
 			
 			createXMLElementWithValue(doc, settings, "androgynousIdentification", String.valueOf(androgynousIdentification));
+			createXMLElementWithValue(doc, settings, "playerPronouns", String.valueOf(playerPronouns));
 			createXMLElementWithValue(doc, settings, "humanEncountersLevel", String.valueOf(humanEncountersLevel));
 			createXMLElementWithValue(doc, settings, "multiBreasts", String.valueOf(multiBreasts));
 			createXMLElementWithValue(doc, settings, "forcedTFPercentage", String.valueOf(forcedTFPercentage));
@@ -300,6 +307,20 @@ public class Properties implements Serializable {
 				Attr pronounName = doc.createAttribute("pronounName");
 				pronounName.setValue(gp.toString());
 				element.setAttributeNode(pronounName);
+
+				Attr firstValue = doc.createAttribute("firstValue");
+				if(genderPronounFirst.get(gp)!=null)
+					firstValue.setValue(genderPronounFirst.get(gp));
+				else
+					firstValue.setValue(gp.getFirst());
+				element.setAttributeNode(firstValue);
+
+				Attr secondValue = doc.createAttribute("secondValue");
+				if(genderPronounSecond.get(gp)!=null)
+					secondValue.setValue(genderPronounSecond.get(gp));
+				else
+					secondValue.setValue(gp.getSecond());
+				element.setAttributeNode(secondValue);
 				
 				Attr feminineValue = doc.createAttribute("feminineValue");
 				if(genderPronounFemale.get(gp)!=null)
@@ -553,6 +574,10 @@ public class Properties implements Serializable {
 					androgynousIdentification = AndrogynousIdentification.valueOf(((Element)element.getElementsByTagName("androgynousIdentification").item(0)).getAttribute("value"));
 				}
 				
+				if(element.getElementsByTagName("playerPronouns").item(0)!=null) {
+					playerPronouns = PlayerPronouns.valueOf(((Element)element.getElementsByTagName("playerPronouns").item(0)).getAttribute("value"));
+				}
+				
 				if(element.getElementsByTagName("humanEncountersLevel").item(0)!=null) {
 					humanEncountersLevel = Integer.valueOf(((Element)element.getElementsByTagName("humanEncountersLevel").item(0)).getAttribute("value"));
 				} else {
@@ -646,6 +671,18 @@ public class Properties implements Serializable {
 						Element e = ((Element)element.getElementsByTagName("pronoun").item(i));
 						
 						try {
+							if(!e.getAttribute("firstValue").isEmpty()) {
+								genderPronounFirst.put(GenderPronoun.valueOf(e.getAttribute("pronounName")), e.getAttribute("firstValue"));
+							} else {
+								genderPronounFirst.put(GenderPronoun.valueOf(e.getAttribute("pronounName")), GenderPronoun.valueOf(e.getAttribute("pronounName")).getFirst());
+							}
+
+							if(!e.getAttribute("secondValue").isEmpty()) {
+								genderPronounSecond.put(GenderPronoun.valueOf(e.getAttribute("pronounName")), e.getAttribute("secondValue"));
+							} else {
+								genderPronounSecond.put(GenderPronoun.valueOf(e.getAttribute("pronounName")), GenderPronoun.valueOf(e.getAttribute("pronounName")).getSecond());
+							}
+
 							if(!e.getAttribute("feminineValue").isEmpty()) {
 								genderPronounFemale.put(GenderPronoun.valueOf(e.getAttribute("pronounName")), e.getAttribute("feminineValue"));
 							} else {
