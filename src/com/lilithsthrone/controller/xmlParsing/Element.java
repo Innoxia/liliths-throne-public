@@ -32,9 +32,9 @@ public class Element {
      * @param fileDirectory String of a location of original file
      */
     private Element(org.w3c.dom.Element w3cElement, String fileDirectory, org.w3c.dom.Document document) {
-		innerElement = w3cElement;
-		this.fileDirectory = fileDirectory;
-		this.document = document;
+	innerElement = w3cElement;
+	this.fileDirectory = fileDirectory;
+	this.document = document;
     }
     /**
      * Loads and prepares document for reading and returns root element, for example {@code <clothing>} in clothes mods.
@@ -45,15 +45,15 @@ public class Element {
      * @throws XMLLoadException
      */
     public static Element getDocumentRootElement(File xmlFile) throws XMLLoadException{
-		try{	    
-			String fileDirectory = xmlFile.getAbsolutePath();
-			Document parsedDocument = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(xmlFile);
-			parsedDocument.getDocumentElement().normalize();
-			return new Element(parsedDocument.getDocumentElement(),fileDirectory, parsedDocument);
-		}
-		catch(Exception e){
-			throw new XMLLoadException(e);	
-		}	
+	try{	    
+	    String fileDirectory = xmlFile.getAbsolutePath();
+	    Document parsedDocument = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(xmlFile);
+	    parsedDocument.getDocumentElement().normalize();
+	    return new Element(parsedDocument.getDocumentElement(),fileDirectory, parsedDocument);
+	}
+	catch(Exception e){
+	    throw new XMLLoadException(e);	
+	}	
     }
     /**
      * <p>
@@ -63,7 +63,7 @@ public class Element {
      * returns "element"
      */
     public String getTagName() {
-		return innerElement.getTagName();
+	return innerElement.getTagName();
     }
 
     /**
@@ -91,14 +91,14 @@ public class Element {
      * {@code <element>Inner text</element>} returns "Inner text".
      */
     public String getTextContent() {
-		try {
-			return innerElement.getTextContent();
-		} catch (DOMException ex) {
-			System.err.println(String.format("DOM exception: text content in element \"%s\" probably exceeds max allowed."
-				+ "XML parsing will try to continue with empty text content",
-				getTagName()));
-			return "";
-		}
+	try {
+	    return innerElement.getTextContent();
+	} catch (DOMException ex) {
+	    System.err.println(String.format("DOM exception: text content in element \"%s\" probably exceeds max allowed."
+		+ "XML parsing will try to continue with empty text content",
+		getTagName()));
+	    return "";
+	}
     }
     /**
      * Returns inner element. Used to support legacy code
@@ -108,7 +108,7 @@ public class Element {
      */
     @Deprecated
     public org.w3c.dom.Element getInnerElement(){
-		return innerElement;
+	return innerElement;
     }
     
     /**
@@ -119,7 +119,7 @@ public class Element {
      */
     @Deprecated
     public org.w3c.dom.Document getDocument(){
-		return document;
+	return document;
     }
     /**
      * <p>
@@ -137,11 +137,11 @@ public class Element {
      * @throws XMLMissingTagException
      */
     public Element getMandatoryFirstOf(String tag) throws XMLMissingTagException {
-		org.w3c.dom.Element firstElement = (org.w3c.dom.Element) innerElement.getElementsByTagName(tag).item(0);
-		if (firstElement == null) {
-			throw new XMLMissingTagException(tag, fileDirectory);//throw error if there's no elements found
-		}
-		return new Element(firstElement, fileDirectory, document);
+	org.w3c.dom.Element firstElement = (org.w3c.dom.Element) innerElement.getElementsByTagName(tag).item(0);
+	if (firstElement == null) {
+	    throw new XMLMissingTagException(tag, fileDirectory);//throw error if there's no elements found
+	}
+	return new Element(firstElement, fileDirectory, document);
     }
 
     /**
@@ -167,11 +167,11 @@ public class Element {
      * @return First element found with given tag.
      */
     public Optional<Element> getOptionalFirstOf(String tag) {
-		org.w3c.dom.Element foundElement = (org.w3c.dom.Element) innerElement.getElementsByTagName(tag).item(0);
-		if (foundElement == null) {
-			return Optional.empty(); //return empty Optional if there's no elements found
-		}
-		return Optional.of(new Element(foundElement, fileDirectory, document));
+	org.w3c.dom.Element foundElement = (org.w3c.dom.Element) innerElement.getElementsByTagName(tag).item(0);
+	if (foundElement == null) {
+	    return Optional.empty(); //return empty Optional if there's no elements found
+	}
+	return Optional.of(new Element(foundElement, fileDirectory, document));
     }
 
     /**
@@ -183,20 +183,20 @@ public class Element {
      * @return {@link java.util.List} of Elements with given tag.
      */
     public List<Element> getAllOf(String tag) {
-		org.w3c.dom.NodeList nl = innerElement.getElementsByTagName(tag);
-		List<Element> returnList = new ArrayList<>();
-		for (int i = 0; i < nl.getLength(); i++) {
-			returnList.add(new Element((org.w3c.dom.Element) nl.item(i), this.fileDirectory, this.document));
-		}
-		return returnList;
+	org.w3c.dom.NodeList nl = innerElement.getElementsByTagName(tag);
+	List<Element> returnList = new ArrayList<>();
+	for (int i = 0; i < nl.getLength(); i++) {
+	    returnList.add(new Element((org.w3c.dom.Element) nl.item(i), this.fileDirectory, this.document));
+	}
+	return returnList;
     }
 	
-	public List<Element> getAll(){
-		org.w3c.dom.NodeList nl = innerElement.getChildNodes();
-		List<Element> returnList = new ArrayList<>();
-		for (int i = 0; i < nl.getLength(); i++) {
-			returnList.add(new Element((org.w3c.dom.Element) nl.item(i), this.fileDirectory, this.document));
-		}
-		return returnList;
+    public List<Element> getAll(){
+	org.w3c.dom.NodeList nl = innerElement.getChildNodes();
+	List<Element> returnList = new ArrayList<>();
+	for (int i = 0; i < nl.getLength(); i++) {
+	    returnList.add(new Element((org.w3c.dom.Element) nl.item(i), this.fileDirectory, this.document));
 	}
+	return returnList;
+    }
 }

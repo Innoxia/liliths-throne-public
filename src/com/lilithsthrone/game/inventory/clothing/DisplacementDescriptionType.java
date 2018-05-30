@@ -28,38 +28,38 @@ public enum DisplacementDescriptionType {
 	 * @throws IllegalArgumentException
 	 */
 	public static DisplacementDescriptionType byTagsPath(String tagsIdentifier) throws IllegalArgumentException {
-		switch(tagsIdentifier){
-			case "displacementText playerNPC":
-			case "displacementText NPCPlayer":
-				return DISPLACEMENT;
-			case "displacementText playerNPCRough":
-			case "displacementText NPCPlayerRough":
-				return DISPLACEMENT_ROUGH;				
-			case "displacementText playerSelf":
-			case "displacementText NPCSelf":
-				return DISPLACEMENT_SELF;
-			case "displacementText NPCOtherNPC":
-				return NPC_ON_NPC_DISPLACEMENT;
-			case "displacementText NPCOtherNPCRough":
-				return NPC_ON_NPC_DISPLACEMENT_ROUGH;
-			
-			case "replacementText playerNPC":
-			case "replacementText NPCPlayer":
-				return REPLACEMENT;
-			case "replacementText playerNPCRough":
-			case "replacementText NPCPlayerRough":
-				return REPLACEMENT_ROUGH;				
-			case "replacementText playerSelf":
-			case "replacementText NPCSelf":
-				return REPLACEMENT_SELF;
-			case "replacementText NPCOtherNPC":
-				return NPC_ON_NPC_REPLACEMENT;
-			case "replacementText NPCOtherNPCRough":
-				return NPC_ON_NPC_REPLACEMENT_ROUGH;
-				
-			default:
-				throw new IllegalArgumentException();
-		}	
+	    switch(tagsIdentifier){
+		case "displacementText playerNPC":
+		case "displacementText NPCPlayer":
+		    return DISPLACEMENT;
+		case "displacementText playerNPCRough":
+		case "displacementText NPCPlayerRough":
+		    return DISPLACEMENT_ROUGH;				
+		case "displacementText playerSelf":
+		case "displacementText NPCSelf":
+		    return DISPLACEMENT_SELF;
+		case "displacementText NPCOtherNPC":
+		    return NPC_ON_NPC_DISPLACEMENT;
+		case "displacementText NPCOtherNPCRough":
+		    return NPC_ON_NPC_DISPLACEMENT_ROUGH;
+
+		case "replacementText playerNPC":
+		case "replacementText NPCPlayer":
+		    return REPLACEMENT;
+		case "replacementText playerNPCRough":
+		case "replacementText NPCPlayerRough":
+		    return REPLACEMENT_ROUGH;				
+		case "replacementText playerSelf":
+		case "replacementText NPCSelf":
+		    return REPLACEMENT_SELF;
+		case "replacementText NPCOtherNPC":
+		    return NPC_ON_NPC_REPLACEMENT;
+		case "replacementText NPCOtherNPCRough":
+		    return NPC_ON_NPC_REPLACEMENT_ROUGH;
+
+		default:
+		    throw new IllegalArgumentException();
+	    }	
 	}	
 	
 //	public static DisplacementDescriptionType byTagsPath(String tagsIdentifier) throws IllegalArgumentException {
