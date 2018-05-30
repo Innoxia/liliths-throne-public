@@ -242,9 +242,18 @@ public class CharacterUtils {
 		boolean feminineGender = startingGender.isFeminine();
 		NPC blankNPC = Main.game.getGenericAndrogynousNPC();
 		GameCharacter parentTakesAfter = mother;
+		float motherRate = 0.5f;
 		
-		// Core body type is random:
-		if(Math.random()<=0.5 || mother.getSubspecies().isOffspringAlwaysMothersRace()) {
+		// Modify the rate at which children resemble either given parent.
+		// If a subspecies specifically forces offspring of the same species, this effectively sets the mother's odds to 100%.
+		if(mother.getSubspecies().isOffspringAlwaysMothersRace()) {
+			motherRate = 1f;
+		} else {
+			motherRate += mother.getGenesRateValue()/100;
+			motherRate -= father.getGenesRateValue()/100;
+		}
+				
+		if(Math.random()<=motherRate) {
 			startingBodyType = motherBody;
 			stage = mother.getRaceStage();
 		} else {
@@ -903,7 +912,8 @@ public class CharacterUtils {
 				(startingGender.isFeminine() ? startingBodyType.getFemaleHeight() : startingBodyType.getMaleHeight()),
 				startingGender.getType()==PronounType.NEUTRAL?50:(startingGender.isFeminine() ? startingBodyType.getFemaleFemininity() : startingBodyType.getMaleFemininity()),
 				(startingGender.isFeminine() ? startingBodyType.getFemaleBodySize() : startingBodyType.getMaleBodySize()),
-				(startingGender.isFeminine() ? startingBodyType.getFemaleMuscle() : startingBodyType.getMaleMuscle()))
+				(startingGender.isFeminine() ? startingBodyType.getFemaleMuscle() : startingBodyType.getMaleMuscle()),
+				(startingGender.isFeminine() ? startingBodyType.getFemaleGenesRate() : startingBodyType.getMaleGenesRate()))
 						.vagina(hasVagina
 								? new Vagina(stage.isVaginaFurry()?startingBodyType.getVaginaType():VaginaType.HUMAN,
 										LabiaSize.getRandomLabiaSize().getValue(),

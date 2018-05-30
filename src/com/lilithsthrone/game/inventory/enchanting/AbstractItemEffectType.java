@@ -1131,6 +1131,7 @@ public abstract class AbstractItemEffectType {
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.getAllPotencies());
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_SIZE_TERTIARY, TFPotency.getAllPotencies());
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_FEMININITY, TFPotency.getAllPotencies());
+				secondaryModPotencyMap.put(TFModifier.TF_MOD_GENES_RATE, TFPotency.getAllPotencies());
 				if(Main.game.isPubicHairEnabled()) {
 					secondaryModPotencyMap.put(TFModifier.TF_MOD_BODY_HAIR, TFPotency.getAllPotencies());
 				}
@@ -1911,6 +1912,21 @@ public abstract class AbstractItemEffectType {
 								return new RacialEffectUtil("Increase in femininity.", mediumChangeBoost, " femininity") { @Override public String applyEffect() { return target.incrementFemininity(mediumChangeBoost); } };
 							case MAJOR_BOOST:
 								return new RacialEffectUtil("Huge increase in femininity.", mediumChangeMajorBoost, " femininity") { @Override public String applyEffect() { return target.incrementFemininity(mediumChangeMajorBoost); } };
+						}
+					case TF_MOD_GENES_RATE:
+						switch(potency) {
+							case MAJOR_DRAIN:
+								return new RacialEffectUtil("Huge decrease in offspring's resemblance.", largeChangeMajorDrain, " offspring's resemblance") { @Override public String applyEffect() { return target.incrementGenesRate(largeChangeMajorDrain); } };
+							case DRAIN:
+								return new RacialEffectUtil("Decrease in offspring's resemblance.", largeChangeDrain, " offspring's resemblance") { @Override public String applyEffect() { return target.incrementGenesRate(largeChangeDrain); } };
+							case MINOR_DRAIN:
+								return new RacialEffectUtil("Small decrease in offspring's resemblance.", largeChangeMinorDrain, " offspring's resemblance") { @Override public String applyEffect() { return target.incrementGenesRate(largeChangeMinorDrain); } };
+							case MINOR_BOOST: default:
+								return new RacialEffectUtil("Small increase in offspring's resemblance.", largeChangeMinorBoost, " offspring's resemblance") { @Override public String applyEffect() { return target.incrementGenesRate(largeChangeMinorBoost); } };
+							case BOOST:
+								return new RacialEffectUtil("Increase in offspring's resemblance.", largeChangeBoost, " offspring's resemblance") { @Override public String applyEffect() { return target.incrementGenesRate(largeChangeBoost); } };
+							case MAJOR_BOOST:
+								return new RacialEffectUtil("Huge increase in offspring's resemblance.", largeChangeMajorBoost, " offspring's resemblance") { @Override public String applyEffect() { return target.incrementGenesRate(largeChangeMajorBoost); } };
 						}
 					case TF_MOD_BODY_HAIR:
 						switch(potency) {

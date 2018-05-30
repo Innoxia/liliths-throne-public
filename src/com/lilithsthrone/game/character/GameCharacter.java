@@ -82,6 +82,7 @@ import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
 import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.character.body.valueEnums.FluidRegeneration;
 import com.lilithsthrone.game.character.body.valueEnums.FluidTypeBase;
+import com.lilithsthrone.game.character.body.valueEnums.GenesRate;
 import com.lilithsthrone.game.character.body.valueEnums.GenitalArrangement;
 import com.lilithsthrone.game.character.body.valueEnums.HairLength;
 import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
@@ -12783,6 +12784,51 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	public boolean isAbleToFly() {
 		return isAbleToFlyFromArms() || body.isAbleToFlyFromWings();
 	}
+	
+	// offspring's resemblance:
+		public GenesRate getGenesRate() {
+			return GenesRate.valueOf(body.getGenesRate());
+		}
+		
+		public int getGenesRateValue() {
+			return body.getGenesRate();
+		}
+		
+		public String setGenesRate(int genesRate) {
+			if (body.getGenesRate() < genesRate) {
+				int adjustedGenesRate = Math.max(0,Math.min(100,genesRate+50));
+				return isPlayer()
+							? "<p class='center'>"
+								+ "Something deep within you shifts, and there's a sudden, but brief, change through some of your cells."
+								+ "</br>"
+								+ "Your offspring's resemblance value is now <b>" + genesRate + "cm</b>."
+								+ "</br>"
+								+ "Unaffected by other factors, there is a <b>" + adjustedGenesRate + "%</b> chance of offspring resembling you."
+							+ "</p>"
+							: UtilText.parse(this,
+								"<p class='center'>"
+										+ "Something deep within [npc.herHim] shifts, and there's a sudden, but brief, change through some of [npc.herHis] cells."
+										+ "</br>"
+										+ "[npc.herHis] offspring's resemblance value is now <b>" + genesRate + "cm</b>."
+										+ "</br>"
+										+ "Unaffected by other factors, there is a <b>" + adjustedGenesRate + "%</b> chance of offspring resembling [npc.herHim]."
+								+ "</p>");
+			}
+			
+			if(isPlayer()) {
+				return "<p class='center'>"
+						+ "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>Your offspring resemblance doesn't change...</span>"
+					+ "</p>";
+			} else {
+				return "<p class='center'>"
+						+ UtilText.parse(this, "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>[npc.Name]'s offspring resemblance doesn't change...</span>")
+					+ "</p>";
+			}
+		}
+
+		public String incrementGenesRate(int increment) {
+			return setGenesRate(getGenesRateValue() + increment);
+		}
 	
 	// Pubic Hair:
 	public BodyHair getPubicHair() {
