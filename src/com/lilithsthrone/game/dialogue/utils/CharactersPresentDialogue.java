@@ -193,6 +193,25 @@ public class CharactersPresentDialogue {
 							};
 						}
 					}
+					
+				} else if(index==10) {
+					if(!characterViewed.isElementalSummoned()) {
+						return new Response("Dispell Elemental", "[npc.Name] doesn't have an elemental summoned...", null);
+						
+					} else {
+						if(!Main.game.isSavedDialogueNeutral()) {
+							return new Response("Dispell Elemental", "You're in the middle of something right now! (Can only be used when in a tile's default dialogue.)", null);
+							
+						} else {
+							return new Response("Dispell Elemental", "Tell [npc.name] to dispell [npc.her] elemental.", MENU){
+								@Override
+								public void effects() {
+									characterViewed.removeCompanion(characterViewed.getElemental());
+									characterViewed.getElemental().returnToHome();
+								}
+							};
+						}
+					}
 				}
 				
 			} else if (responseTab==2 && Main.game.getPlayer().hasCompanion(characterViewed)){

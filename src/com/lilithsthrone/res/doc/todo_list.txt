@@ -19,11 +19,14 @@
 	- Finish guide for user submitted content
 
 	
-	
 	Patch notes:
 	
 	Gameplay:
 		Added 'generic' encounter variations for bat and slime attackers in the Bat Caverns (for if you've transformed them).
+		<b>Added:</b> Support for tattoos, with ability to have them enchanted just like clothing. Kate can now give/enchant/remove both your and your slaves' tattoos.
+		Added modding support for tattoos. (Works in the same way as clothing mods.)
+		Added scar support. (I'll add a way to add/remove scars for the next version.)
+		<b>Added:</b> Basics of the gambling den (will be finished in 0.2.6.1). It has a small internal map, three unique NPCs, a dice poker game, a shop, and 'pregnancy roulette'.
 	
 	Clothing:
 		Added secondary dye colour to aviators.
@@ -31,14 +34,38 @@
 		Added: Jockstrap (masculine, groin slot).
 		
 	Contributors:
+		Changed Lumi's 'Take Advantage' scene to actually be a sex scene (only available if noncon is on). (Nnxx)
 		Fixed inserted bimbo/sex/muffled/drunk words breaking capitalisation. (pinnae)
 		Changed 'Romance' quests to 'Relationship' quests, and reassigned Nyan's side quest as a relationship quest. (rfpnj)
 		Improved action ordering and availability in sex's 'Repeat Actions' tab. (Master of Puppets)
 		Added some new skin colours. (rfpnj)
 		Fixed several issues with coding style. (Pimvgd)
+		Converted UtilText.parse from recursive to iterative. This increases performance by a small amount, and reduces memory usage by a large amount. (Pimvgd)
+		Deduplicated book itemtypes. (Pimvgd)
+		Punctuation fixes in Rental Mommy encounter. (WoefulWombat)
+		Punctuation fixes in panty masturbation scenes. (WoefulWombat)
+		Changed Fruit Bat Squash to restore aura, not energy, to fit in with the other arcane-related consumables. (rfpnj)
+		Fixed HornType.NONE showing up as an option for enchanting. Horn removal can be done by selecting the remove option. (Pimvgd)
+		Fixed 'No cock' and 'Vagina' actions in succubus encounter not doing anything. (Master of Puppets)
+		Fixed incorrect pronoun parsing in bat encounter. (Mach565)
+		Fixed incorrect Slime Queen quest completion descriptions. (rfpnj)
+		Fixed typo in Brax's scene. (Pimvgd)
+		Fixed inconsistent starting positions in Brax's sex scenes. (rfpnj)
+		Fixed FemininityRestriction not being set properly for clothing loaded as mod. (Pimvgd)
+		Added mod folder to gitignore. (Pimvgd)
+		Fixed instance of weapon comparator contract violation when checking weapon type. (Pimvgd)
+		Added a new colour preset, 'ALL_WITH_METALS'. (rfpnj)
+		Fixed several causes of slow load times, which, as an example, reduced a huge save file's load time from 40+ seconds down to 5. (Pimvgd)
 		
 	Other:
+		Added 'wing' slot as an inventory & tattoo slot.
+		Reorganised inventory slots in the UI, so that 'optional' ones are at the bottom (tail, wings, horns, penis, and vagina).
 		Elementals can no longer summon elementals.
+		Elementals are now unable to drink potions.
+		Companions' elementals now show up in the character panel.
+		Companion icons now show up on the map.
+		Added 'Dispell elemental' action in your companions' 'Manage' tab, so you can get them to remove their elementals after a fight.
+		Added a few tattoos to Kate.
 	
 	Bugs:
 		Fixed Claire repeating the first 'report back' dialogue after dealing with the slime queen.
@@ -50,52 +77,29 @@
 		Fixed Slime Queen regenerating her crown after she's given it to you.
 		Fixed slime transformation scenes saying 'Nothing happens...'.
 		Fixed Maximilian's post-sparring scenes.
+		Fixed bug where harpies, imps, and slimes would have their spawn rate set to 0% if you ever selected 'disable all' in the furry preferences screen.
+		Fixed horizontal scrollbar appearing when inspecting watches.
+		Fixed bug in combat where companions summoning elementals would throw an error.
+		Fixed bug where if a companion summoned an elemental, that elemental would block encounters.
+		Fixed clothing mod bug, where user-defined colours wouldn't work correctly.
 	
 	
 	
 	
+	[ ] Get all descriptions finished
 	
+	[ ] Roxy content done
 	
+	[ ] Pregnancy roulette done
 	
+	[ ] Axel/Vengar quest done
 	
+	[ ] Can earn money by:
+		Warm up pregnancy roulette participants
+		Clean up pregnancy roulette stalls
 	
+	[ ] Imp fortresses
 	
-	
-	
-	I think this is caused by the human settings applying to these races:
-		Has slime kids been fixed yet? Few updates ago they'd spawn as humans if they spawned in at all.
-		I can't get imps or slimes to spawn in the submission or caverns at all, what the hell?
-		harpys not spawning
-	
-	tattoos & scars for Roxy
-	
-	feminine watch bug?
-	
-	Gambling Den
-		[X] Map
-		[X] NPCs
-		[ ] Axel
-			[ ] Gives Vengar blackmail quest (after getting to know him)
-		[ ] Roxy
-			[ ] Sells stuff overpriced
-			[ ] Offers random item if you serve as her pussy licker for an hour
-				[ ] She rolls two dice to see what you get
-		[ ] Pregnancy roulette
-			Choose as target
-				[ ] Epona warms you and others up
-				[ ] Bet on who will impregnate you
-				[ ] Lose bet if fail/win if correct
-			Choose as seeder
-				[ ] Epona warms you up
-				[ ] Win if impregnate girl
-		[ ] Dice poker
-			[ ] 3 players
-			[ ] Bet money or body
-			[ ] If lose, lose money or gangbanged
-		Can earn money by:
-			Warm up pregnancy roulette participants
-			Clean up pregnancy roulette stalls
-			Service trader rat-girl
 	
 	
 	[ ] TF menu for slimes in queen quest
@@ -133,6 +137,29 @@
 		[ ] Fortress 5
 	
 	
+	
+	
+	
+	
+	
+	make DOMINION_ALLEYWAY_SPAWN, SUBMISSION_TUNNEL_SPAWN work for clothing
+	
+	Conceal tattoo slots
+	
+	Add character creation tattoos and scars
+	
+	Right panel resets when switching tattoos in slave management
+	
+	Add flying ability like teleport
+	
+	'free scarlett' action does not send Scarlett back to Alexa's nest
+	
+	futa cock bug still exists. If you have internal balls. People will think you are still 100% female up to a certain size I think 12” but then say they knew you were futa because of the bulge
+	
+	We legitimately do need an option to purge non-unique npc's who aren't loaded into the game world from the save file.
+		Besides your kids, a lot of alley attackers stay in even if you give them the boot, stockades slave, brothel customers, and others.
+	
+	So, I think i found a bug. When as a slime and transforming myself the options between "eye color" and "slime color" seem to conflict with each other... For instance, when I go to change my eye color it changes the description of my skin to be "made out of (selected color here) irises!", creepy lol.
 	
 	non-fishnet thigh-high stockings
 	

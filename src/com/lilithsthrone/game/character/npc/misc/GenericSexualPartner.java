@@ -2,7 +2,6 @@ package com.lilithsthrone.game.character.npc.misc;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -15,7 +14,6 @@ import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.persona.NameTriplet;
-import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -31,7 +29,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.2.2
- * @version 0.2.2
+ * @version 0.2.6
  * @author Innoxia
  */
 public class GenericSexualPartner extends NPC {
@@ -57,23 +55,6 @@ public class GenericSexualPartner extends NPC {
 			setLevel(Util.random.nextInt(5) + 5);
 			
 			// RACE & NAME:
-			
-			Subspecies species = Subspecies.DOG_MORPH;
-			
-			double humanChance = 0;
-			
-			if(Main.getProperties().humanEncountersLevel==1) {
-				humanChance = 0.05f;
-				
-			} else if(Main.getProperties().humanEncountersLevel==2) {
-				humanChance = 0.25f;
-				
-			} else if(Main.getProperties().humanEncountersLevel==3) {
-				humanChance = 0.5f;
-				
-			} else if(Main.getProperties().humanEncountersLevel==4) {
-				humanChance = 0.75f;
-			}
 			
 			Map<Subspecies, Integer> availableRaces = new HashMap<>();
 			for(Subspecies s : Subspecies.values()) {
@@ -173,68 +154,11 @@ public class GenericSexualPartner extends NPC {
 				}
 			}
 			
-			if(gender.isFeminine()) {
-				for(Entry<Subspecies, FurryPreference> entry : Main.getProperties().subspeciesFeminineFurryPreferencesMap.entrySet()) {
-					if(entry.getValue() == FurryPreference.HUMAN) {
-						availableRaces.remove(entry.getKey());
-					}
-				}
-			} else {
-				for(Entry<Subspecies, FurryPreference> entry : Main.getProperties().subspeciesMasculineFurryPreferencesMap.entrySet()) {
-					if(entry.getValue() == FurryPreference.HUMAN) {
-						availableRaces.remove(entry.getKey());
-					}
-				}
-			}
-			
-			if(availableRaces.isEmpty() || Math.random()<humanChance) {
-				setBody(gender, RacialBody.HUMAN, RaceStage.HUMAN);
-				
-			} else {
-				species = Util.getRandomObjectFromWeightedMap(availableRaces);
-				
-				if(gender.isFeminine()) {
-					switch(Main.getProperties().subspeciesFeminineFurryPreferencesMap.get(species)) {
-						case HUMAN:
-							setBody(gender, RacialBody.HUMAN, RaceStage.HUMAN);
-							break;
-						case MINIMUM:
-							setBodyFromPreferences(1, gender, species);
-							break;
-						case REDUCED:
-							setBodyFromPreferences(2, gender, species);
-							break;
-						case NORMAL:
-							setBodyFromPreferences(3, gender, species);
-							break;
-						case MAXIMUM:
-							setBody(gender, species, RaceStage.GREATER);
-							break;
-					}
-				} else {
-					switch(Main.getProperties().subspeciesMasculineFurryPreferencesMap.get(species)) {
-						case HUMAN:
-							setBody(gender, RacialBody.HUMAN, RaceStage.HUMAN);
-							break;
-						case MINIMUM:
-							setBodyFromPreferences(1, gender, species);
-							break;
-						case REDUCED:
-							setBodyFromPreferences(2, gender, species);
-							break;
-						case NORMAL:
-							setBodyFromPreferences(3, gender, species);
-							break;
-						case MAXIMUM:
-							setBody(gender, species, RaceStage.GREATER);
-							break;
-					}
-				}
-			}
+			this.setBodyFromSubspeciesPreference(gender, availableRaces);
 			
 			setSexualOrientation(RacialBody.valueOfRace(getRace()).getSexualOrientation(gender));
 	
-			setName(Name.getRandomTriplet(species.getRace()));
+			setName(Name.getRandomTriplet(this.getRace()));
 			this.setPlayerKnowsName(false);
 			setDescription(UtilText.parse(this,
 					"[npc.Name] is a resident of Dominion, who's currently only interested in having sex."));
@@ -260,42 +184,13 @@ public class GenericSexualPartner extends NPC {
 			CharacterUtils.applyMakeup(this, true);
 			
 			// Set starting attributes based on the character's race
-			for (Attribute a : RacialBody.valueOfRace(species.getRace()).getAttributeModifiers().keySet()) {
-				attributes.put(a, RacialBody.valueOfRace(species.getRace()).getAttributeModifiers().get(a).getMinimum() + RacialBody.valueOfRace(species.getRace()).getAttributeModifiers().get(a).getRandomVariance());
+			for (Attribute a : RacialBody.valueOfRace(this.getRace()).getAttributeModifiers().keySet()) {
+				attributes.put(a, RacialBody.valueOfRace(this.getRace()).getAttributeModifiers().get(a).getMinimum() + RacialBody.valueOfRace(this.getRace()).getAttributeModifiers().get(a).getRandomVariance());
 			}
 			
 			setMana(getAttributeValue(Attribute.MANA_MAXIMUM));
 			setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM));
 		}
-	}
-	
-	private void addToSubspeciesMap(int weight, Gender gender, Subspecies subspecies, Map<Subspecies, Integer> map) {
-		if(weight!=0) {
-			if(gender.isFeminine()) {
-				if(Main.getProperties().subspeciesFeminineFurryPreferencesMap!=FurryPreference.HUMAN && Main.getProperties().subspeciesFemininePreferencesMap.get(subspecies).getValue()>0) {
-					map.put(subspecies, weight*Main.getProperties().subspeciesFemininePreferencesMap.get(subspecies).getValue());
-				}
-			} else {
-				if(Main.getProperties().subspeciesMasculineFurryPreferencesMap!=FurryPreference.HUMAN && Main.getProperties().subspeciesMasculinePreferencesMap.get(subspecies).getValue()>0) {
-					map.put(subspecies, weight*Main.getProperties().subspeciesMasculinePreferencesMap.get(subspecies).getValue());
-				}
-			}
-		}
-	}
-
-	private void setBodyFromPreferences(int i, Gender gender, Subspecies species) {
-		int choice = Util.random.nextInt(i)+1;
-		RaceStage raceStage = RaceStage.PARTIAL;
-		
-		if (choice == 1) {
-			raceStage = RaceStage.PARTIAL;
-		} else if (choice == 2) {
-			raceStage = RaceStage.LESSER;
-		} else {
-			raceStage = RaceStage.GREATER;
-		}
-		
-		setBody(gender, species, raceStage);
 	}
 	
 	@Override

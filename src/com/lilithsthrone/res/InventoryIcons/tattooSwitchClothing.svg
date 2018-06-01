@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   viewBox="0 0 64.000001 64.000001"
+   id="svg4311"
+   version="1.1"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)"
+   sodipodi:docname="tattooSwitchClothing.svg">
+  <defs
+     id="defs4313">
+    <inkscape:path-effect
+       effect="powerstroke"
+       id="path-effect4183"
+       is_visible="true"
+       offset_points="0.238227,0.51804536"
+       sort_points="true"
+       interpolator_type="Linear"
+       interpolator_beta="0.2"
+       start_linecap_type="zerowidth"
+       linejoin_type="round"
+       miter_limit="4"
+       end_linecap_type="zerowidth"
+       cusp_linecap_type="round" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="7.919596"
+     inkscape:cx="44.87911"
+     inkscape:cy="41.605721"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer5"
+     showgrid="false"
+     units="px"
+     inkscape:window-width="2560"
+     inkscape:window-height="1388"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata4316">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:groupmode="layer"
+     id="layer5"
+     inkscape:label="Stage5"
+     style="display:inline">
+    <g
+       id="g4149"
+       transform="matrix(0.64465755,0,0,0.62123624,-12.758958,-19.981315)">
+      <path
+         style="display:inline;fill:#1a1a1a;fill-rule:evenodd;stroke:#1a1a1a;stroke-width:0.77581865;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 39.195651,50.724043 c -0.671606,-6.212404 -4.467291,-6.319945 -6.677007,-7.217206 5.302693,3.46675 2.572094,5.8676 0.79054,6.800459 -3.170327,1.660045 -11.433621,-4.744451 0.732618,-11.069309 -8.151675,-1.556184 -15.392802,9.934767 -3.95643,15.499057 2.433651,1.184076 0.230402,2.875044 6.755961,7.328324 0,0 -0.774634,0.606395 -5.45843,-1.252992 6.738569,5.016932 10.162283,3.283727 14.142399,8.668472 -2.025785,-4.725552 -7.009172,-5.784122 -9.817929,-10.828829 -2.054184,-3.689445 -0.678511,-13.169667 3.488278,-7.927976 z"
+         id="path4148"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="ccscscccsc" />
+      <path
+         sodipodi:nodetypes="ccscscccsc"
+         inkscape:connector-curvature="0"
+         id="path4158"
+         d="m 52.465815,50.724043 c 0.671605,-6.212404 4.467292,-6.319945 6.677006,-7.217206 -5.302692,3.46675 -2.572094,5.8676 -0.790539,6.800459 3.170326,1.660045 11.433621,-4.744451 -0.732619,-11.069309 8.151675,-1.556184 15.392804,9.934767 3.95643,15.499057 -2.433651,1.184076 -0.230401,2.875044 -6.75596,7.328324 0,0 0.774634,0.606395 5.45843,-1.252992 -6.73857,5.016932 -10.162283,3.283727 -14.142399,8.668472 2.025784,-4.725552 7.009173,-5.784122 9.81793,-10.828829 2.054182,-3.689445 0.67851,-13.169667 -3.488279,-7.927976 z"
+         style="display:inline;fill:#1a1a1a;fill-rule:evenodd;stroke:#1a1a1a;stroke-width:0.77581865;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    </g>
+    <path
+       style="display:inline;fill:#cccccc;fill-rule:evenodd;stroke:#1a1a1a;stroke-width:0.50986159;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 36.444232,34.236289 c -3.235034,9.291777 -7.914927,16.196202 -12.206098,23.742911 1.841106,0.692462 3.600602,0.998731 5.316731,1.110416 1.582371,0.961128 2.905046,1.08824 4.119085,0.864557 1.308487,0.904086 3.241935,1.22655 6.177173,0.618701 0.403757,1.220216 1.810937,1.135642 3.456312,0.740276 3.356006,0.385872 3.47647,-0.177901 4.651049,-0.432277 1.240279,0.146759 2.480562,0.584458 3.72084,-0.370142 1.36774,0.229369 2.603657,0.02914 3.720838,-0.556558 2.528995,-0.378894 4.354974,-1.083901 5.380677,-2.161395 C 56.293654,50.001432 51.54336,42.228895 48.624165,34.325447 Z m 0.718005,2.158693 c 0.754365,3.354755 -2.637326,10.052887 -3.886533,10.25041 0.233334,-1.585265 2.090714,-5.70062 3.886533,-10.25041 z m 7.369525,1.003805 c 1.313896,2.82211 2.28207,9.181683 1.701075,10.481912 -1.619254,-1.444022 -2.268631,-7.798276 -1.701075,-10.481912 z m -4.043135,-0.441324 c 1.498218,3.063097 -0.210056,8.74762 -1.326441,11.13066 -1.828671,-2.438727 0.77204,-4.728709 1.326441,-11.13066 z m 6.711885,-0.344704 c 1.201404,1.856913 2.676605,7.071137 4.240445,11.086313 -2.982294,-2.121994 -4.328778,-9.416548 -4.240445,-11.086313 z"
+       id="path4151"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccccccccccccccccccccccc" />
+    <path
+       style="display:inline;fill:#cccccc;fill-rule:evenodd;stroke:#1a1a1a;stroke-width:0.50986159;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 36.812056,31.326159 V 29.97249 c -1.554374,-2.012958 -1.506224,-3.284958 -1.409482,-5.327342 1.702481,-0.565155 2.721775,-2.056452 3.00713,-4.103353 l 2.536826,-2.402993 c -0.02606,2.383875 0.05508,4.75114 2.114224,6.812012 2.167103,-1.312712 2.927347,-3.715061 3.5237,-6.244346 0.995089,2.301171 0.990262,5.299346 3.241807,6.724682 -0.3194,1.92349 -0.06468,3.646875 -1.691376,6.02601 z"
+       id="path4153"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccccccccc" />
+  </g>
+</svg>

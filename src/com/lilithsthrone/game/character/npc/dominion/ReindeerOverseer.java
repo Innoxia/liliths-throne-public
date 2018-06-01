@@ -65,7 +65,7 @@ public class ReindeerOverseer extends NPC {
 			Subspecies species = Subspecies.REINDEER_MORPH;
 				
 			if(gender.isFeminine()) {
-				switch(Main.getProperties().subspeciesFeminineFurryPreferencesMap.get(species)) {
+				switch(Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(species)) {
 					case HUMAN: case MINIMUM:
 						setBodyFromPreferences(1, gender, species);
 						break;
@@ -80,7 +80,7 @@ public class ReindeerOverseer extends NPC {
 						break;
 				}
 			} else {
-				switch(Main.getProperties().subspeciesMasculineFurryPreferencesMap.get(species)) {
+				switch(Main.getProperties().getSubspeciesMasculineFurryPreferencesMap().get(species)) {
 					case HUMAN: case MINIMUM:
 						setBodyFromPreferences(1, gender, species);
 						break;
@@ -134,21 +134,6 @@ public class ReindeerOverseer extends NPC {
 	@Override
 	public boolean isUnique() {
 		return false;
-	}
-	
-	private void setBodyFromPreferences(int i, Gender gender, Subspecies race) {
-		int choice = Util.random.nextInt(i)+1;
-		RaceStage raceStage = RaceStage.PARTIAL;
-		
-		if (choice == 1) {
-			raceStage = RaceStage.PARTIAL;
-		} else if (choice == 2) {
-			raceStage = RaceStage.LESSER;
-		} else {
-			raceStage = RaceStage.GREATER;
-		}
-		
-		setBody(gender, race, raceStage);
 	}
 	
 	@Override

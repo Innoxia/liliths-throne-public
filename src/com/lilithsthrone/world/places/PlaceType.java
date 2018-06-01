@@ -1072,22 +1072,37 @@ public enum PlaceType {
 	GAMBLING_DEN_CORRIDOR("Gambling Den", null, BaseColour.BLACK, Colour.MAP_BACKGROUND, GamblingDenDialogue.CORRIDOR, null, false, true, true, "in the Gambling Den") {
 		@Override
 		public List<Subspecies> getSpeciesPopulatingArea() {
-			return Subspecies.getWorldSpecies().get(WorldType.DOMINION);
+			return Subspecies.getWorldSpecies().get(WorldType.SUBMISSION);
 		}
 	},
 
 	GAMBLING_DEN_ENTRANCE("Entrance", "submission/gamblingDen/entrance", BaseColour.GREEN, Colour.MAP_BACKGROUND, GamblingDenDialogue.ENTRANCE, null, false, true, true, "in the Gambling Den") {
 		@Override
 		public List<Subspecies> getSpeciesPopulatingArea() {
-			return Subspecies.getWorldSpecies().get(WorldType.DOMINION);
+			return Subspecies.getWorldSpecies().get(WorldType.SUBMISSION);
 		}
 	},
 	
 	GAMBLING_DEN_TRADER("Trader", "submission/gamblingDen/trader", BaseColour.TEAL, Colour.MAP_BACKGROUND, GamblingDenDialogue.TRADER, null, false, true, true, "in the Gambling Den"),
-	GAMBLING_DEN_GAMBLING("Dice Poker Tables", "submission/gamblingDen/gambling", BaseColour.GOLD, Colour.MAP_BACKGROUND, GamblingDenDialogue.GAMBLING, null, false, true, true, "in the Gambling Den"),
+	GAMBLING_DEN_GAMBLING("Dice Poker Tables", "submission/gamblingDen/gambling", BaseColour.GOLD, Colour.MAP_BACKGROUND, GamblingDenDialogue.GAMBLING, null, false, true, true, "in the Gambling Den") {
+		@Override
+		public List<Subspecies> getSpeciesPopulatingArea() {
+			return Subspecies.getWorldSpecies().get(WorldType.SUBMISSION);
+		}
+	},
 	GAMBLING_DEN_PREGNANCY_ROULETTE("Pregnancy Roulette", "submission/gamblingDen/referee", BaseColour.ROSE, Colour.MAP_BACKGROUND, GamblingDenDialogue.PREGNANCY_ROULETTE, null, false, true, true, "in the Gambling Den"),
-	GAMBLING_DEN_PREGNANCY("Breeding Stalls", "submission/gamblingDen/normalPregnancy", BaseColour.PINK_LIGHT, Colour.MAP_BACKGROUND, GamblingDenDialogue.PREGNANCY_ROULETTE_NORMAL, null, false, true, true, "in the Gambling Den"),
-	GAMBLING_DEN_FUTA_PREGNANCY("Futa Breeding Stalls", "submission/gamblingDen/futaPregnancy", BaseColour.PINK, Colour.MAP_BACKGROUND, GamblingDenDialogue.PREGNANCY_ROULETTE_FUTA, null, false, true, true, "in the Gambling Den"),
+	GAMBLING_DEN_PREGNANCY("Breeding Stalls", "submission/gamblingDen/normalPregnancy", BaseColour.PINK_LIGHT, Colour.MAP_BACKGROUND, GamblingDenDialogue.PREGNANCY_ROULETTE_NORMAL, null, false, true, true, "in the Gambling Den") {
+		@Override
+		public List<Subspecies> getSpeciesPopulatingArea() {
+			return Subspecies.getWorldSpecies().get(WorldType.SUBMISSION);
+		}
+	},
+	GAMBLING_DEN_FUTA_PREGNANCY("Futa Breeding Stalls", "submission/gamblingDen/futaPregnancy", BaseColour.PINK, Colour.MAP_BACKGROUND, GamblingDenDialogue.PREGNANCY_ROULETTE_FUTA, null, false, true, true, "in the Gambling Den") {
+		@Override
+		public List<Subspecies> getSpeciesPopulatingArea() {
+			return Subspecies.getWorldSpecies().get(WorldType.SUBMISSION);
+		}
+	},
 	
 	
 	;

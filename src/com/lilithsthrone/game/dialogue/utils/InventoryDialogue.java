@@ -1276,7 +1276,7 @@ public class InventoryDialogue {
 											null){
 										@Override
 										public void effects(){
-											Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + Main.game.getPlayer().useItem(item, inventoryNPC, false) + "</p>");
+											Main.game.getTextEndStringBuilder().append(inventoryNPC.getItemUseEffects(item, Main.game.getPlayer(), inventoryNPC));
 											resetPostAction();
 										}
 									};
@@ -1291,7 +1291,7 @@ public class InventoryDialogue {
 											null){
 										@Override
 										public void effects(){
-											Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + Main.game.getPlayer().useItem(item, inventoryNPC, false) + "</p>");
+											Main.game.getTextEndStringBuilder().append(inventoryNPC.getItemUseEffects(item, Main.game.getPlayer(), inventoryNPC));
 											resetPostAction();
 										}
 									};
@@ -1302,7 +1302,7 @@ public class InventoryDialogue {
 											INVENTORY_MENU){
 										@Override
 										public void effects(){
-											Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + Main.game.getPlayer().useItem(item, inventoryNPC, false) + "</p>");
+											Main.game.getTextEndStringBuilder().append(inventoryNPC.getItemUseEffects(item, Main.game.getPlayer(), inventoryNPC));
 											resetPostAction();
 										}
 									};
@@ -1327,7 +1327,7 @@ public class InventoryDialogue {
 										public void effects(){
 											int itemCount = Main.game.getPlayer().getItemCount(item);
 											for(int i=0;i<itemCount;i++) {
-												Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + Main.game.getPlayer().useItem(item, inventoryNPC, false) + "</p>");
+												Main.game.getTextEndStringBuilder().append(inventoryNPC.getItemUseEffects(item, Main.game.getPlayer(), inventoryNPC));
 											}
 											resetPostAction();
 										}
@@ -1345,7 +1345,7 @@ public class InventoryDialogue {
 										public void effects(){
 											int itemCount = Main.game.getPlayer().getItemCount(item);
 											for(int i=0;i<itemCount;i++) {
-												Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + Main.game.getPlayer().useItem(item, inventoryNPC, false) + "</p>");
+												Main.game.getTextEndStringBuilder().append(inventoryNPC.getItemUseEffects(item, Main.game.getPlayer(), inventoryNPC));
 											}
 											resetPostAction();
 										}
@@ -1359,7 +1359,7 @@ public class InventoryDialogue {
 										public void effects(){
 											int itemCount = Main.game.getPlayer().getItemCount(item);
 											for(int i=0;i<itemCount;i++) {
-												Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + Main.game.getPlayer().useItem(item, inventoryNPC, false) + "</p>");
+												Main.game.getTextEndStringBuilder().append(inventoryNPC.getItemUseEffects(item, Main.game.getPlayer(), inventoryNPC));
 											}
 											resetPostAction();
 										}

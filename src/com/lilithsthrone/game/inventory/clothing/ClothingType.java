@@ -1789,8 +1789,7 @@ public class ClothingType {
 			false,
 			"breeder collar",
 			"breeder collars",
-			"A <span style='color:"+Colour.CLOTHING_PINK.toWebHexString()+"; text-shadow: 0px 0px 4px "+Colour.CLOTHING_PINK.getShades()[4]+";'>glowing pink</span> leather collar,"
-					+ " with bold metal lettering attached to the front spelling out the word 'BREEDER'.",
+			"A [style.glowPink(glowing pink)] leather collar, with bold metal lettering attached to the front spelling out the word 'BREEDER'.",
 			1,
 			null,
 			InventorySlot.NECK,

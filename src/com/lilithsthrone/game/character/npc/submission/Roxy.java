@@ -22,6 +22,8 @@ import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
+import com.lilithsthrone.game.character.markings.Scar;
+import com.lilithsthrone.game.character.markings.ScarType;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
@@ -32,6 +34,7 @@ import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.CharacterInventory;
+import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
@@ -109,6 +112,8 @@ public class Roxy extends NPC {
 			this.addFetish(Fetish.FETISH_DOMINANT);
 			
 			this.setFemininity(85);
+			
+			this.setScar(InventorySlot.EYES, new Scar(ScarType.CLAW_MARKS, true));
 			
 			this.setMuscle(Muscle.THREE_MUSCULAR.getMedianValue());
 			this.setBodySize(BodySize.TWO_AVERAGE.getMedianValue());

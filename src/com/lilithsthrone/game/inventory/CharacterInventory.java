@@ -207,16 +207,14 @@ public class CharacterInventory implements Serializable, XMLSaving {
 		for(int i=0; i<itemsInInventory.getElementsByTagName("item").getLength(); i++){
 			Element e = ((Element)itemsInInventory.getElementsByTagName("item").item(i));
 			
-			for(int itemCount = 0 ; itemCount < Integer.valueOf(e.getAttribute("count")); itemCount++) {
-				if(e.getAttribute("id").equals(ItemType.itemToIdMap.get(ItemType.CONDOM_USED))) {
-					inventory.addItem(AbstractFilledCondom.loadFromXML(e, doc));
-					
-				} else if(e.getAttribute("id").equals(ItemType.itemToIdMap.get(ItemType.MOO_MILKER_FULL))) {
-					inventory.addItem(AbstractFilledBreastPump.loadFromXML(e, doc));
-					
-				} else {
-					inventory.addItem(AbstractItem.loadFromXML(e, doc));
-				}
+			if(e.getAttribute("id").equals(ItemType.itemToIdMap.get(ItemType.CONDOM_USED))) {
+				inventory.addItem(AbstractFilledCondom.loadFromXML(e, doc), Integer.valueOf(e.getAttribute("count")));
+				
+			} else if(e.getAttribute("id").equals(ItemType.itemToIdMap.get(ItemType.MOO_MILKER_FULL))) {
+				inventory.addItem(AbstractFilledBreastPump.loadFromXML(e, doc), Integer.valueOf(e.getAttribute("count")));
+				
+			} else {
+				inventory.addItem(AbstractItem.loadFromXML(e, doc), Integer.valueOf(e.getAttribute("count")));
 			}
 		}
 		
@@ -391,18 +389,28 @@ public class CharacterInventory implements Serializable, XMLSaving {
 	 * Add an item to this inventory.
 	 * @return true if added, false if inventory was full.
 	 */
-	public boolean addItem(AbstractItem item) {
+	public boolean addItem(AbstractItem item, int count) {
 		if(item==null) {
 			return false;
 		}
 		
 		if (canAddItem(item)) {
-			itemsInInventory.add(item);
+			for(int i=0; i<count ; i++) {
+				itemsInInventory.add(item);
+			}
 			recalculateMapOfDuplicateItems();
 			return true;
 		}
 		
 		return false;
+	}
+	
+	/**
+	 * Add an item to this inventory.
+	 * @return true if added, false if inventory was full.
+	 */
+	public boolean addItem(AbstractItem item) {
+		return addItem(item, 1);
 	}
 	
 	public boolean canAddItem(AbstractItem item) {

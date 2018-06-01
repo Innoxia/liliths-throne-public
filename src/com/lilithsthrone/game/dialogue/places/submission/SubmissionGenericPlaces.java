@@ -10,6 +10,7 @@ import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.places.submission.dicePoker.DicePokerTable;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -177,10 +178,11 @@ public class SubmissionGenericPlaces {
 						}
 						
 						try {
-							Main.game.addNPC(new GamblingDenPatron(GenderPreference.getGenderFromUserPreferences()), false);
-							Main.game.addNPC(new GamblingDenPatron(GenderPreference.getGenderFromUserPreferences()), false);
-							Main.game.addNPC(new GamblingDenPatron(GenderPreference.getGenderFromUserPreferences()), false);
-							Main.game.addNPC(new GamblingDenPatron(GenderPreference.getGenderFromUserPreferences()), false);
+							Main.game.addNPC(new GamblingDenPatron(GenderPreference.getGenderFromUserPreferences(), DicePokerTable.COPPER, false), false);
+							Main.game.addNPC(new GamblingDenPatron(GenderPreference.getGenderFromUserPreferences(), DicePokerTable.COPPER, false), false);
+							Main.game.addNPC(new GamblingDenPatron(GenderPreference.getGenderFromUserPreferences(), DicePokerTable.SILVER, false), false);
+							Main.game.addNPC(new GamblingDenPatron(GenderPreference.getGenderFromUserPreferences(), DicePokerTable.SILVER, false), false);
+							Main.game.addNPC(new GamblingDenPatron(GenderPreference.getGenderFromUserPreferences(), DicePokerTable.GOLD, false), false);
 						} catch (Exception e) {
 							e.printStackTrace();
 						}

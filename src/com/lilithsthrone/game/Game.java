@@ -645,8 +645,10 @@ public class Game implements Serializable, XMLSaving {
 				List<String> addedIds = new ArrayList<>();
 				List<NPC> slaveImports = new ArrayList<>();
 				// Load NPCs:
-				for(int i=0; i<gameElement.getElementsByTagName("NPC").getLength(); i++) {
-					Element e = (Element) gameElement.getElementsByTagName("NPC").item(i);
+				
+                NodeList npcs = gameElement.getElementsByTagName("NPC");
+                for(int i=0; i < npcs.getLength(); i++) {
+                    Element e = (Element) npcs.item(i);
 					
 					if(!addedIds.contains(((Element)e.getElementsByTagName("id").item(0)).getAttribute("value"))) {
 						String className = ((Element)e.getElementsByTagName("pathName").item(0)).getAttribute("value");
@@ -1555,7 +1557,7 @@ public class Game implements Serializable, XMLSaving {
 											+ (content != null
 													? "<div "+(Main.getProperties().hasValue(PropertyValue.fadeInText)?"id='text-content'":"")
 															+" style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;"
-																+ (currentDialogueNode.getDialogueNodeType()==DialogueNodeType.INVENTORY?" overflow-y:scroll;":"")+"'>"
+																+ (currentDialogueNode.getDialogueNodeType()==DialogueNodeType.INVENTORY?" overflow-y:scroll; overflow-x:hidden;":"")+"'>"
 															+ pastDialogueSB.toString()
 														+ "</div>"
 													: "")
@@ -1583,7 +1585,7 @@ public class Game implements Serializable, XMLSaving {
 										+ (content != null
 												? "<div "+(Main.getProperties().hasValue(PropertyValue.fadeInText)?"id='text-content'":"")
 														+" style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;"
-															+ (currentDialogueNode.getDialogueNodeType()==DialogueNodeType.INVENTORY?" overflow-y:scroll;":"")+ "'>"
+															+ (currentDialogueNode.getDialogueNodeType()==DialogueNodeType.INVENTORY?" overflow-y:scroll; overflow-x:hidden;":"")+ "'>"
 														+ pastDialogueSB.toString()
 													+ "</div>"
 												: "")
@@ -1728,7 +1730,7 @@ public class Game implements Serializable, XMLSaving {
 								+ (content != null
 									? "<div "+(Main.getProperties().hasValue(PropertyValue.fadeInText)?"id='text-content'":"")
 											+" style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;"
-												+ (currentDialogueNode.getDialogueNodeType()==DialogueNodeType.INVENTORY?" overflow-y:scroll;":"")+ "'>"
+												+ (currentDialogueNode.getDialogueNodeType()==DialogueNodeType.INVENTORY?" overflow-y:scroll; overflow-x:hidden;":"")+ "'>"
 									+ pastDialogueSB.toString() + "</div>" : "")
 	//									+ textStartStringBuilder.toString() + pastDialogueSB.toString() + textEndStringBuilder.toString() + "</div>" : "")
 //							+ "</div>"
@@ -1758,7 +1760,7 @@ public class Game implements Serializable, XMLSaving {
 									+ (content != null
 										? "<div "+(Main.getProperties().hasValue(PropertyValue.fadeInText)?"id='text-content'":"")
 												+" style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;"
-													+ (currentDialogueNode.getDialogueNodeType()==DialogueNodeType.INVENTORY?" overflow-y:scroll;":"")+ "'>"
+													+ (currentDialogueNode.getDialogueNodeType()==DialogueNodeType.INVENTORY?" overflow-y:scroll; overflow-x:hidden;":"")+ "'>"
 												+ pastDialogueSB.toString()
 											+ "</div>"
 										: "")
@@ -2056,7 +2058,7 @@ public class Game implements Serializable, XMLSaving {
 						+ (currentDialogueNode.getContent() != null
 								? "<div id='text-content'"
 									+ " style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;"
-										+ (currentDialogueNode.getDialogueNodeType()==DialogueNodeType.INVENTORY?" overflow-y:scroll;":"")+ "'>"
+										+ (currentDialogueNode.getDialogueNodeType()==DialogueNodeType.INVENTORY?" overflow-y:scroll; overflow-x:hidden;":"")+ "'>"
 									+ textStartStringBuilder.toString() + pastDialogueSB.toString() + textEndStringBuilder.toString() + "</div>"
 								: "")
 					+ "</div>"
@@ -2374,7 +2376,14 @@ public class Game implements Serializable, XMLSaving {
 	public List<NPC> getNonCompanionCharactersPresent() {
 		List<NPC> nonCompanionCharactersPresent = new ArrayList<>();
 		nonCompanionCharactersPresent.addAll(getCharactersPresent());
-		nonCompanionCharactersPresent.removeIf((npc) -> Main.game.getPlayer().hasCompanion(npc));
+		nonCompanionCharactersPresent.removeIf((npc) -> Main.game.getPlayer().hasCompanion(npc) || (npc.getPartyLeader()!=null && Main.game.getPlayer().hasCompanion(npc.getPartyLeader())));
+		return nonCompanionCharactersPresent;
+	}
+
+	public List<NPC> getNonCompanionCharactersPresent(Cell cell) {
+		List<NPC> nonCompanionCharactersPresent = new ArrayList<>();
+		nonCompanionCharactersPresent.addAll(getCharactersPresent(cell));
+		nonCompanionCharactersPresent.removeIf((npc) -> Main.game.getPlayer().hasCompanion(npc) || (npc.getPartyLeader()!=null && Main.game.getPlayer().hasCompanion(npc.getPartyLeader())));
 		return nonCompanionCharactersPresent;
 	}
 	

@@ -2,23 +2,19 @@ package com.lilithsthrone.game.dialogue.places.submission;
 
 import java.util.List;
 
-import com.lilithsthrone.game.character.attributes.CorruptionLevel;
-import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.FluidType;
 import com.lilithsthrone.game.character.effects.Addiction;
-import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.npc.submission.GamblingDenPatron;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.places.submission.dicePoker.DicePoker;
+import com.lilithsthrone.game.dialogue.places.submission.dicePoker.DicePokerTable;
 import com.lilithsthrone.game.dialogue.responses.Response;
-import com.lilithsthrone.game.dialogue.responses.ResponseSex;
+import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseTrade;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.sex.SexPositionSlot;
-import com.lilithsthrone.game.sex.managers.submission.SMRoxyPussyLicker;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -136,49 +132,51 @@ public class GamblingDenDialogue {
 				};
 				
 			} else if (index == 2) {
-				Addiction ratGCumAdd = Main.game.getPlayer().getAddiction(FluidType.GIRL_CUM_RAT_MORPH);
-				if(ratGCumAdd!=null && ratGCumAdd.getProviderIDs().contains(Main.game.getRoxy().getId())) {
-					if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
-						return new ResponseSex("Lick for fix", "Desperate to get another fix of her addictive girl cum, you agree to serve as Roxy's 'pussy licker' for an hour.",
-								Util.newArrayListOfValues(Fetish.FETISH_ORAL_GIVING), null, CorruptionLevel.TWO_HORNY, null, null, null,
-								true, false,
-								new SMRoxyPussyLicker(
-										Util.newHashMapOfValues(new Value<>(Main.game.getRoxy(), SexPositionSlot.SITTING_ON_FACE_ROXY)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.LICKING_PUSSY_ROXY))),
-								AFTER_ROXY_SEX_ADDICT,
-								UtilText.parseFromXMLFile("places/submission/gamblingDen", "ROXY_SEX_START_ADDICT")){
-							@Override
-							public void effects() {
-								Main.game.getRoxy().displaceClothingForAccess(CoverableArea.VAGINA);
-								Main.game.getDialogueFlags().values.add(DialogueFlagValue.roxyIntroduced);
-							}
-						};
-						
-					} else {
-						return new Response("Lick for fix", "You can only service Roxy if you're able to gain access to your mouth!", null);
-					}
-					
-				} else {
-					if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
-						return new ResponseSex("Lick for item", "Agree to serve as Roxy's 'pussy licker' for an hour, in exchange for a random item from her shop.",
-								Util.newArrayListOfValues(Fetish.FETISH_ORAL_GIVING), null, CorruptionLevel.TWO_HORNY, null, null, null,
-								true, false,
-								new SMRoxyPussyLicker(
-										Util.newHashMapOfValues(new Value<>(Main.game.getRoxy(), SexPositionSlot.SITTING_ON_FACE_ROXY)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.LICKING_PUSSY_ROXY))),
-								AFTER_ROXY_SEX,
-								UtilText.parseFromXMLFile("places/submission/gamblingDen", "ROXY_SEX_START")){
-							@Override
-							public void effects() {
-								Main.game.getRoxy().displaceClothingForAccess(CoverableArea.VAGINA);
-								Main.game.getDialogueFlags().values.add(DialogueFlagValue.roxyIntroduced);
-							}
-						};
-						
-					} else {
-						return new Response("Lick for item", "You can only service Roxy if you're able to gain access to your mouth!", null);
-					}
-				}
+
+				return new Response("Lick for item", "(Will be added in 0.2.6.1!) Agree to serve as Roxy's 'pussy licker' for an hour, in exchange for a random item from her shop.", null);
+//				Addiction ratGCumAdd = Main.game.getPlayer().getAddiction(FluidType.GIRL_CUM_RAT_MORPH);
+//				if(ratGCumAdd!=null && ratGCumAdd.getProviderIDs().contains(Main.game.getRoxy().getId())) {
+//					if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
+//						return new ResponseSex("Lick for fix", "Desperate to get another fix of her addictive girl cum, you agree to serve as Roxy's 'pussy licker' for an hour.",
+//								Util.newArrayListOfValues(Fetish.FETISH_ORAL_GIVING), null, CorruptionLevel.TWO_HORNY, null, null, null,
+//								true, false,
+//								new SMRoxyPussyLicker(
+//										Util.newHashMapOfValues(new Value<>(Main.game.getRoxy(), SexPositionSlot.SITTING_ON_FACE_ROXY)),
+//										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.LICKING_PUSSY_ROXY))),
+//								AFTER_ROXY_SEX_ADDICT,
+//								UtilText.parseFromXMLFile("places/submission/gamblingDen", "ROXY_SEX_START_ADDICT")){
+//							@Override
+//							public void effects() {
+//								Main.game.getRoxy().displaceClothingForAccess(CoverableArea.VAGINA);
+//								Main.game.getDialogueFlags().values.add(DialogueFlagValue.roxyIntroduced);
+//							}
+//						};
+//						
+//					} else {
+//						return new Response("Lick for fix", "You can only service Roxy if you're able to gain access to your mouth!", null);
+//					}
+//					
+//				} else {
+//					if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
+//						return new ResponseSex("Lick for item", "Agree to serve as Roxy's 'pussy licker' for an hour, in exchange for a random item from her shop.",
+//								Util.newArrayListOfValues(Fetish.FETISH_ORAL_GIVING), null, CorruptionLevel.TWO_HORNY, null, null, null,
+//								true, false,
+//								new SMRoxyPussyLicker(
+//										Util.newHashMapOfValues(new Value<>(Main.game.getRoxy(), SexPositionSlot.SITTING_ON_FACE_ROXY)),
+//										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.LICKING_PUSSY_ROXY))),
+//								AFTER_ROXY_SEX,
+//								UtilText.parseFromXMLFile("places/submission/gamblingDen", "ROXY_SEX_START")){
+//							@Override
+//							public void effects() {
+//								Main.game.getRoxy().displaceClothingForAccess(CoverableArea.VAGINA);
+//								Main.game.getDialogueFlags().values.add(DialogueFlagValue.roxyIntroduced);
+//							}
+//						};
+//						
+//					} else {
+//						return new Response("Lick for item", "You can only service Roxy if you're able to gain access to your mouth!", null);
+//					}
+//				}
 
 			} else {
 				return null;
@@ -220,7 +218,7 @@ public class GamblingDenDialogue {
 		
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/gamblingDen", "GAMBLING");
+			return UtilText.parseFromXMLFile("places/submission/gamblingDen", "GAMBLING"); //TODO rules
 		}
 
 		@Override
@@ -228,27 +226,36 @@ public class GamblingDenDialogue {
 			if(index==0) {
 				return null;
 				
-			} else if(index==1) {
-				return new Response("Rules", "Read the rules of how to play dice poker.", GAMBLING_RULES);
-				
 			} else {
 				List<NPC> gamblers = Main.game.getNonCompanionCharactersPresent();
+
+				try {
+					gamblers.sort((g1, g2) -> ((GamblingDenPatron) g1).getTable().compareTo(((GamblingDenPatron) g2).getTable()));
+				} catch(Exception ex) {
+				}
 				
-				if(index-2<gamblers.size()) {
-					NPC gambler = gamblers.get(index-2);
-					if(Main.game.getPlayer().getMoney()>=300) {
-						return new Response("<span style='color:"+gambler.getFemininity().getColour().toWebHexString()+";'>"+gambler.getName()+"</span> ("+UtilText.formatAsMoney(300, "span")+")",
-								"Start playing dice poker with "+gambler.getName()+".",
-								GAMBLING_START) {
+				if(index-1<gamblers.size()) {
+					DicePokerTable table = DicePokerTable.COPPER;
+					NPC gambler = gamblers.get(index-1);
+					try {
+						table = ((GamblingDenPatron) gambler).getTable();
+					} catch(Exception ex) {
+					}
+					int buyIn = table.getInitialBet()+table.getRaiseAmount();
+					if(Main.game.getPlayer().getMoney()>=buyIn) {
+						return new ResponseEffectsOnly("<span style='color:"+table.getColour().toWebHexString()+";'>"+gambler.getName()+"</span> ("+UtilText.formatAsMoney(buyIn, "span")+")",
+								"Start playing dice poker with "+gambler.getName()+". The buy-in amount is "+UtilText.formatAsMoney(table.getInitialBet(), "span")
+									+", but you'll also need "+UtilText.formatAsMoney(table.getRaiseAmount(), "span")+" for any raises.") {
 							@Override
 							public void effects() {
-								//TODO set npc
+								Main.game.setContent(new Response("", "", DicePoker.initDicePoker(gambler)));
 							}
 						};
 						
 					} else {
-						return new Response("<b style='color:"+gambler.getFemininity().getColour().toWebHexString()+";'>"+gambler.getName()+"</b> ("+UtilText.formatAsMoneyUncoloured(300, "span")+")",
-								"You need at least 300 flames in order to start a game of dice poker!",
+						return new Response("<span style='color:"+table.getColour().toWebHexString()+";'>"+gambler.getName()+"</span> ("+UtilText.formatAsMoney(buyIn, "span")+")",
+								"The buy-in amount is "+UtilText.formatAsMoney(table.getInitialBet(), "span")
+								+", but you'll also need "+UtilText.formatAsMoney(table.getRaiseAmount(), "span")+" for any raises. As a result, you don't have enough money to play at this table!",
 								null);
 					}
 					
@@ -274,25 +281,6 @@ public class GamblingDenDialogue {
 				
 			} else {
 				return GAMBLING.getResponse(responseTab, index);
-			}
-		}
-	};
-	
-	public static final DialogueNodeOld GAMBLING_START = new DialogueNodeOld("Dice Poker Tables", "", true, true) {
-		private static final long serialVersionUID = 1L;
-		
-		@Override
-		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/gamblingDen", "GAMBLING_START");
-		}
-
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if(index==1) {
-				return new Response("Dice Poker", "Start playing dice poker.", GAMBLING_START);
-				
-			} else {
-				return null;
 			}
 		}
 	};

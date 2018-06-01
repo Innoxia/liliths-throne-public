@@ -50,7 +50,7 @@ import javafx.scene.control.ButtonType;
 
 /**
  * @since 0.1.0
- * @version 0.2.5
+ * @version 0.2.6
  * @author Innoxia
  */
 public class Main extends Application {
@@ -64,7 +64,7 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
 
-	public static final String VERSION_NUMBER = "0.2.5.8",
+	public static final String VERSION_NUMBER = "0.2.6",
 			VERSION_DESCRIPTION = "Alpha";
 	
 	private final static boolean DEBUG = true;
@@ -84,11 +84,13 @@ public class Main extends Application {
 		+ "</p>"
 			
 		+ "<p>"
-			+ "I've got this preview in a far more polished state than the one that I released on Thursday (0.2.5.5). I'll get the imp fortresses and gambling den added over Tuesday and Wednesday, and then add the start of Nightlife content for the next release. ^^"
+			+ "Sorry once again for the delay last week! For this version, I've managed to get tattoos fully implemented, as well as adding in mechanics for the gambling Den's dice poker."
+			+ " Both of these things took a little longer than I'd hoped (especially the tattoos), so the Gambling Den content is only half-finished."
+			+ " I will be releasing another mini update (v0.2.6.1) in two days (on Saturday evening), which will have the Gambling Den's content completely finished."
 		+ "</p>"
 			
 		+ "<p>"
-			+ "The full public release will be out on <b>Friday 25th</b>."
+			+ "So, to reiterate, there will be a mini-update, v0.2.6.1, out on the evening/night of <b>Saturday 2nd</b>."
 		+ "</p>"
 			
 		+ "<p>"
@@ -172,6 +174,73 @@ public class Main extends Application {
 			+"<ul>Penis transformations will no longer be applied to equipped strap-on.</ul>"
 			+"<ul>Fixed rendering bugs in stats page.</ul>"
 			+"<ul>Fixed bug where spreader bar being equipped under trousers would result in the spreader bar blocking trouser removal, and also being concealed, making both items of clothing impossible to remove.</ul>"
+		+ "</list>"
+
+		+ "</br>"
+
+		+ "<list>"
+			+ "<h6>v0.2.5.8</h6>"
+			+"<li>Gameplay:</li>"
+			+"<ul>Added 'generic' encounter variations for bat and slime attackers in the Bat Caverns (for if you've transformed them).</ul>"
+			+"<ul><b>Added:</b> Support for tattoos, with ability to have them enchanted just like clothing. Kate can now give/enchant/remove both your and your slaves' tattoos.</ul>"
+			+"<ul>Added modding support for tattoos. (Works in the same way as clothing mods.)</ul>"
+			+"<ul>Added scar support. (I'll add a way to add/remove scars for the next version.)</ul>"
+			+"<ul><b>Added:</b> Basics of the gambling den (will be finished in 0.2.6.1). It has a small internal map, three unique NPCs, a dice poker game, a shop, and 'pregnancy roulette'.</ul>"
+			
+			+"<li>Clothing:</li>"
+			+"<ul>Added secondary dye colour to aviators.</ul>"
+			+"<ul>Added: Eye patch (no femininity requirements, eye slot).</ul>"
+			+"<ul>Added: Jockstrap (masculine, groin slot).</ul>"
+			
+			+"<li>Contributors:</li>"
+			+"<ul>Changed Lumi's 'Take Advantage' scene to actually be a sex scene (only available if noncon is on). (Nnxx)</ul>"
+			+"<ul>Fixed inserted bimbo/sex/muffled/drunk words breaking capitalisation. (pinnae)</ul>"
+			+"<ul>Changed 'Romance' quests to 'Relationship' quests, and reassigned Nyan's side quest as a relationship quest. (rfpnj)</ul>"
+			+"<ul>Improved action ordering and availability in sex's 'Repeat Actions' tab. (Master of Puppets)</ul>"
+			+"<ul>Added some new skin colours. (rfpnj)</ul>"
+			+"<ul>Fixed several issues with coding style. (Pimvgd)</ul>"
+			+"<ul>Converted UtilText.parse from recursive to iterative. This increases performance by a small amount, and reduces memory usage by a large amount. (Pimvgd)</ul>"
+			+"<ul>Deduplicated book itemtypes. (Pimvgd)</ul>"
+			+"<ul>Punctuation fixes in Rental Mommy encounter. (WoefulWombat)</ul>"
+			+"<ul>Punctuation fixes in panty masturbation scenes. (WoefulWombat)</ul>"
+			+"<ul>Changed Fruit Bat Squash to restore aura, not energy, to fit in with the other arcane-related consumables. (rfpnj)</ul>"
+			+"<ul>Fixed HornType.NONE showing up as an option for enchanting. Horn removal can be done by selecting the remove option. (Pimvgd)</ul>"
+			+"<ul>Fixed 'No cock' and 'Vagina' actions in succubus encounter not doing anything. (Master of Puppets)</ul>"
+			+"<ul>Fixed incorrect pronoun parsing in bat encounter. (Mach565)</ul>"
+			+"<ul>Fixed incorrect Slime Queen quest completion descriptions. (rfpnj)</ul>"
+			+"<ul>Fixed typo in Brax's scene. (Pimvgd)</ul>"
+			+"<ul>Fixed inconsistent starting positions in Brax's sex scenes. (rfpnj)</ul>"
+			+"<ul>Fixed FemininityRestriction not being set properly for clothing loaded as mod. (Pimvgd)</ul>"
+			+"<ul>Added mod folder to gitignore. (Pimvgd)</ul>"
+			+"<ul>Fixed instance of weapon comparator contract violation when checking weapon type. (Pimvgd)</ul>"
+			+"<ul>Added a new colour preset, 'ALL_WITH_METALS'. (rfpnj)</ul>"
+			+"<ul>Fixed several causes of slow load times, which, as an example, reduced a huge save file's load time from 40+ seconds down to 5. (Pimvgd)</ul>"
+			
+			+"<li>Other:</li>"
+			+"<ul>Added 'wing' slot as an inventory & tattoo slot.</ul>"
+			+"<ul>Reorganised inventory slots in the UI, so that 'optional' ones are at the bottom (tail, wings, horns, penis, and vagina).</ul>"
+			+"<ul>Elementals can no longer summon elementals.</ul>"
+			+"<ul>Elementals are now unable to drink potions.</ul>"
+			+"<ul>Companions' elementals now show up in the character panel.</ul>"
+			+"<ul>Companion icons now show up on the map.</ul>"
+			+"<ul>Added 'Dispell elemental' action in your companions' 'Manage' tab, so you can get them to remove their elementals after a fight.</ul>"
+			+"<ul>Added a few tattoos to Kate.</ul>"
+			
+			+"<li>Bugs:</li>"
+			+"<ul>Fixed Claire repeating the first 'report back' dialogue after dealing with the slime queen.</ul>"
+			+"<ul>Typo fixes.</ul>"
+			+"<ul>Fixed harpy offspring not spawning in after the nests have been pacified.</ul>"
+			+"<ul>Added 'offer body' dialogue to slime and bat attacker scenes.</ul>"
+			+"<ul>Helping the Slime Queen now correctly increases slime spawn rates in Submission.</ul>"
+			+"<ul>Fixed Maximilian spawning in as a virgin.</ul>"
+			+"<ul>Fixed Slime Queen regenerating her crown after she's given it to you.</ul>"
+			+"<ul>Fixed slime transformation scenes saying 'Nothing happens...'.</ul>"
+			+"<ul>Fixed Maximilian's post-sparring scenes.</ul>"
+			+"<ul>Fixed bug where harpies, imps, and slimes would have their spawn rate set to 0% if you ever selected 'disable all' in the furry preferences screen.</ul>"
+			+"<ul>Fixed horizontal scrollbar appearing when inspecting watches.</ul>"
+			+"<ul>Fixed bug in combat where companions summoning elementals would throw an error.</ul>"
+			+"<ul>Fixed bug where if a companion summoned an elemental, that elemental would block encounters.</ul>"
+			+"<ul>Fixed clothing mod bug, where user-defined colours wouldn't work correctly.</ul>"
 		+ "</list>"
 		;
 	

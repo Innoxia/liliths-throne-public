@@ -47,8 +47,8 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.1.98
- * @author Innoxia
+ * @version 0.2.6
+ * @author Innoxia, Pimvgd
  */
 public class UtilText {
 
@@ -391,6 +391,10 @@ public class UtilText {
 	public static String formatAsMoney(String money, String tag) {
 		return "<" + tag + " style='color:" + Colour.CURRENCY_GOLD.toWebHexString() + "; padding-right:2px;'>" + getCurrencySymbol() + "</" + tag + ">"
 				+ "<" + tag + " style='color:" + Colour.TEXT.getShades(8)[3] + ";'>" + money + "</" + tag + ">";
+	}
+	
+	public static String applyGlow(String input, Colour colour) {
+		return "<span style='color:"+colour.toWebHexString()+"; text-shadow: 0px 0px 4px "+colour.getShades()[4]+";'>"+input+"</span>";
 	}
 	
 	private static NumberFormat nf = NumberFormat.getNumberInstance(Locale.getDefault());
@@ -2852,6 +2856,28 @@ public class UtilText {
 							return "<i style='color:"+c.toWebHexString()+";'>"+arguments+"</i>";
 						else
 							return "<i style='color:"+c.toWebHexString()+";'>...</i>";
+					}
+				});
+				
+				commandNames = new ArrayList<>();
+				for(String s : c.getFormattingNames()) {
+					commandNames.add("glow"+Util.capitaliseSentence(s));
+					commandNames.add("glowing"+Util.capitaliseSentence(s));
+					commandNames.add("g"+Util.capitaliseSentence(s));
+				}
+				
+				commandsList.add(new ParserCommand(
+						commandNames,
+						false,
+						false,
+						"(text to glow)",
+						"Description of method"){//TODO
+					@Override
+					public String parse(String command, String arguments, String target) {
+						if(arguments!=null)
+							return applyGlow(arguments, c);
+						else
+							return "<i>...</i>";
 					}
 				});
 			}

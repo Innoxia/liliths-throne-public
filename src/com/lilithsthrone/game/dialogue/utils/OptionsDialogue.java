@@ -1416,13 +1416,13 @@ public class OptionsDialogue {
 		
 		for(FurryPreference preference : FurryPreference.values()) {
 			sb.append("<div id='FEMININE_"+preference+"_"+s+"' class='square-button small"
-						+(Main.getProperties().subspeciesFeminineFurryPreferencesMap.get(s)==preference
+						+(Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(s)==preference
 							?" selected' style='border-color:"+Colour.FEMININE_PLUS.toWebHexString()+";'><div class='square-button-content'>"+preference.getSVGImage(false)+"</div></div>"
 							:"'><div class='square-button-content'>"+preference.getSVGImage(true)+"</div></div>"));
 		}
 		for(FurryPreference preference : FurryPreference.values()) {
 			sb.append("<div id='MASCULINE_"+preference+"_"+s+"' class='square-button small"
-						+(Main.getProperties().subspeciesMasculineFurryPreferencesMap.get(s)==preference
+						+(Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(s)==preference
 							?" selected' style='border-color:"+Colour.MASCULINE_PLUS.toWebHexString()+";'><div class='square-button-content'>"+preference.getSVGImage(false)+"</div></div>"
 							:"'><div class='square-button-content'>"+preference.getSVGImage(true)+"</div></div>"));
 		}

@@ -91,8 +91,8 @@ public class Properties implements Serializable {
 	public Map<GenderPronoun, String> genderPronounFemale, genderPronounMale;
 	
 	public Map<Gender, Integer> genderPreferencesMap;
-	public Map<Subspecies, FurryPreference> subspeciesFeminineFurryPreferencesMap, subspeciesMasculineFurryPreferencesMap;
-	public Map<Subspecies, SubspeciesPreference> subspeciesFemininePreferencesMap, subspeciesMasculinePreferencesMap;
+	private Map<Subspecies, FurryPreference> subspeciesFeminineFurryPreferencesMap, subspeciesMasculineFurryPreferencesMap;
+	private Map<Subspecies, SubspeciesPreference> subspeciesFemininePreferencesMap, subspeciesMasculinePreferencesMap;
 	
 	// Transformation Settings
 	public FurryPreference forcedTFPreference;
@@ -688,8 +688,8 @@ public class Properties implements Serializable {
 						
 						if(!e.getAttribute("subspecies").isEmpty()) {
 							try {
-								subspeciesFemininePreferencesMap.put(Subspecies.valueOf(e.getAttribute("subspecies")), SubspeciesPreference.valueOf(e.getAttribute("preference")));
-								subspeciesFeminineFurryPreferencesMap.put(Subspecies.valueOf(e.getAttribute("subspecies")), FurryPreference.valueOf(e.getAttribute("furryPreference")));
+								this.setFeminineSubspeciesPreference(Subspecies.valueOf(e.getAttribute("subspecies")), SubspeciesPreference.valueOf(e.getAttribute("preference")));
+								this.setFeminineFurryPreference(Subspecies.valueOf(e.getAttribute("subspecies")), FurryPreference.valueOf(e.getAttribute("furryPreference")));
 							} catch(Exception ex) {
 							}
 						}
@@ -701,8 +701,8 @@ public class Properties implements Serializable {
 						
 						if(!e.getAttribute("subspecies").isEmpty()) {
 							try {
-								subspeciesMasculinePreferencesMap.put(Subspecies.valueOf(e.getAttribute("subspecies")), SubspeciesPreference.valueOf(e.getAttribute("preference")));
-								subspeciesMasculineFurryPreferencesMap.put(Subspecies.valueOf(e.getAttribute("subspecies")), FurryPreference.valueOf(e.getAttribute("furryPreference")));
+								this.setMasculineSubspeciesPreference(Subspecies.valueOf(e.getAttribute("subspecies")), SubspeciesPreference.valueOf(e.getAttribute("preference")));
+								this.setMasculineFurryPreference(Subspecies.valueOf(e.getAttribute("subspecies")), FurryPreference.valueOf(e.getAttribute("furryPreference")));
 								
 							} catch(Exception ex) {
 							}
@@ -853,5 +853,41 @@ public class Properties implements Serializable {
 	
 	public boolean isAdvancedRaceKnowledgeDiscovered(Race race) {
 		return racesAdvancedKnowledge.contains(race);
+	}
+	
+	public void setFeminineFurryPreference(Subspecies subspecies, FurryPreference furryPreference) {
+		if(subspecies.getRace().isAffectedByFurryPreference()) {
+			subspeciesFeminineFurryPreferencesMap.put(subspecies, furryPreference);
+		}
+	}
+	
+	public void setMasculineFurryPreference(Subspecies subspecies, FurryPreference furryPreference) {
+		if(subspecies.getRace().isAffectedByFurryPreference()) {
+			subspeciesMasculineFurryPreferencesMap.put(subspecies, furryPreference);
+		}
+	}
+	
+	public void setFeminineSubspeciesPreference(Subspecies subspecies, SubspeciesPreference subspeciesPreference) {
+		subspeciesFemininePreferencesMap.put(subspecies, subspeciesPreference);
+	}
+	
+	public void setMasculineSubspeciesPreference(Subspecies subspecies, SubspeciesPreference subspeciesPreference) {
+		subspeciesMasculinePreferencesMap.put(subspecies, subspeciesPreference);
+	}
+
+	public Map<Subspecies, FurryPreference> getSubspeciesFeminineFurryPreferencesMap() {
+		return subspeciesFeminineFurryPreferencesMap;
+	}
+
+	public Map<Subspecies, FurryPreference> getSubspeciesMasculineFurryPreferencesMap() {
+		return subspeciesMasculineFurryPreferencesMap;
+	}
+
+	public Map<Subspecies, SubspeciesPreference> getSubspeciesFemininePreferencesMap() {
+		return subspeciesFemininePreferencesMap;
+	}
+
+	public Map<Subspecies, SubspeciesPreference> getSubspeciesMasculinePreferencesMap() {
+		return subspeciesMasculinePreferencesMap;
 	}
 }
