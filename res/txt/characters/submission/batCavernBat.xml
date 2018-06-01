@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<htmlContent tag="ATTACK_REPEAT_PREGNANCY_REACT"><![CDATA[
+	<p>
+		In your peripheral vision, you suddenly see a figure swooping down towards you from high up above. Turning towards them, you ready yourself for a fight, and within just a moment, the familiar figure of [npc.name] lands just in front of you.
+	</p>
+	<p>
+		[npc.speech(Well, well, well!)] [npc.she] states, placing one of [npc.her] [npc.hands] on [npc.her] [npc.hips+], while the other strokes [npc.her] rounded belly. [npc.speech(Take a look at what you did! See? You got me pregnant! That's right, you've gone and got me knocked up! I'm carrying your kids now, see, see, see?)]
+	</p>
+	<p>
+		You look down at [npc.her] swollen belly, but before you can make a comment, the talkative [npc.race] continues chattering away, [npc.speech(So, now, I was talking with my friends, and we were all in agreement. You're going to have to give me some money. I'm going to need to buy clothes, food, all that stuff, y'know? And it's kind of unfair that I have to pay for all of that. I mean, this is kinda all your fault, not pulling out and everything, so you should really pay me for all that. Oh, oh, and also, if you don't, then I'm gonna have to kinda make you. My friends and I agreed, you see? We decided that I'd be well within my rights to force you to give me that money. I was just kinda being nice briefly explaining all this to you, but I'm going to have to put my foot down now. You hand over that money, and I'll be on my way, ok? If you don't, I'm going to attack you and make you! And you don't want that, do you? Of course you don't! To think, the mother of your children, attacking you just so that [npc.she] can get some money for our kids! That's kind of wrong, don't you think? So hand it over now, ok. Two-hundred and fifty flames. That should do it. My friends and I agreed, you see? That's far less than others would ask, so just hand it over, ok? Ok?)]
+	</p>
+	<p>
+		With [npc.name]'s fast-paced rant finally at an end, you're given a moment in which to think about your situation. You can tell that [npc.name] is willing to fight you in order to get some money, so you could choose to defend yourself, or just hand over the cash that [npc.she]'s asking for...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ATTACK_REPEAT_PREGNANCY"><![CDATA[
+	<p>
+		In your peripheral vision, you suddenly see a figure swooping down towards you from high up above. Turning towards them, you ready yourself for a fight, and within just a moment, the familiar figure of [npc.name] lands just in front of you.
+	</p>
+	<p>
+		[npc.speech(Well, well, well!)] [npc.she] states, placing one of [npc.her] [npc.hands] on [npc.her] [npc.hips+], while the other strokes [npc.her] rounded belly. [npc.speech(Look who it is! I'm still carrying our kids around, see?)]
+	</p>
+	<p>
+		You look down at [npc.her] swollen belly, but before you can make a comment, the talkative [npc.race] continues chattering away, [npc.speech(So, now, I was talking with my friends, and we were all in agreement. You're going to have to give me some money. I'm going to need to buy clothes, food, all that stuff, y'know? And it's kind of unfair that I have to pay for all of that. I mean, this is kinda all your fault, not pulling out and everything, so you should really pay me for all that. Oh, oh, and also, if you don't, then I'm gonna have to kinda make you. My friends and I agreed, you see? We decided that I'd be well within my rights to force you to give me that money. I was just kinda being nice briefly explaining all this to you, but I'm going to have to put my foot down now. You hand over that money, and I'll be on my way, ok? If you don't, I'm going to attack you and make you! And you don't want that, do you? Of course you don't! To think, the mother of your children, attacking you just so that [npc.she] can get some money for our kids! That's kind of wrong, don't you think? So hand it over now, ok. Two-hundred and fifty flames. That should do it. My friends and I agreed, you see? That's far less than others would ask, so just hand it over, ok? Ok?)]
+	</p>
+	<p>
+		With [npc.name]'s fast-paced rant finally at an end, you're given a moment in which to think about your situation. You can tell that [npc.name] is willing to fight you in order to get some money, so you could choose to defend yourself, or just hand over the cash that [npc.she]'s asking for...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ATTACK_REPEAT"><![CDATA[
+	<p>
+		In your peripheral vision, you suddenly see a figure swooping down towards you from high up above. Turning towards them, you ready yourself for a fight, and within just a moment, the familiar figure of [npc.name] lands just in front of you.
+	</p>
+	<p>
+		[npc.speech(Well, well, well!)] [npc.she] states, placing [npc.her] [npc.hands] on [npc.her] [npc.hips+] and striking a confident pose. [npc.speech(Look who it is! You didn't have enough of me the last time, huh?)]
+	</p>
+	<p>
+		Before you can make a comment, the talkative [npc.race] continues chattering away, [npc.speech(So you thought you'd come back into my territory, hmm? I mean, not that it's really <i>my</i> territory, there are loads of us living up in the roosts, but I mean that this is the place that I call home. And you came walking past, obviously up to no good, and so I thought to myself, 'Hmmm, that person looks like they're up to no good!'. And so then I swooped down to see who it was, and it was you! And I know that <i>you're</i> up to no good, so then I thought, 'Hmmmmmm, I'd better put them in their place!'. Y'know what I mean? I can't just be watching you walk past and choose not to do anything! That would make me, like, irresponsible or something! So now I'm here, and you're there, and I'm gonna have to teach you a lesson! My friends and I were talking about this sort of thing just the other day, y'know? We were saying how we can't just let people go without trying to confront them first! So here I am, confronting you! And now you're going to have to pay me. Yes, that's right, pay me! Two-hundred and fifty flames, to be exact! So you pay me, or else I'm gonna make you pay! Funny how that works, huh? Anyway, what's it going to be? I tried to keep this brief, as I'm very busy right now, so I'd appreciate it if you could do the same. Just hand over your money, and that'll be that, ok?)]
+	</p>
+	<p>
+		With [npc.name]'s fast-paced rant finally at an end, you're given a moment in which to think about your situation. You can tell that [npc.name] is willing to fight you in order to get some money, so you could choose to defend yourself, or just hand over the cash that [npc.she]'s asking for...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ATTACK"><![CDATA[
+	<p>
+		In your peripheral vision, you suddenly see a figure swooping down towards you from high up above. Turning towards them, you ready yourself for a fight, and within just a moment, [npc.a_fullRace(true)] lands just in front of you.
+	</p>
+	<p>
+		[npc.speech(Well, well, well!)] [npc.she] states, placing [npc.her] [npc.hands] on [npc.her] [npc.hips+] and striking a confident pose. [npc.speech(A trespasser! What kind of business do you have down here?!)]
+	</p>
+	<p>
+		Before you can even start to answer, the talkative [npc.race] continues chattering away, [npc.speech(So you thought you'd just waltz right into my territory, hmm? I mean, not that it's really <i>my</i> territory, there are loads of us living up in the roosts, but I mean that this is the place that I call home. And you came walking past, obviously up to no good, and so I thought to myself, 'Hmmm, that person looks like they're up to no good!'. And so then I swooped down to see who it was, and it was you! And I can just tell from looking at you that you're up to no good, so then I thought, 'Hmmmmmm, I'd better put them in their place!'. Y'know what I mean? I can't just be watching you walk past and choose not to do anything! That would make me, like, irresponsible or something! So now I'm here, and you're there, and I'm gonna have to teach you a lesson! My friends and I were talking about this sort of thing just the other day, y'know? We were saying how we can't just let people go without trying to confront them first! So here I am, confronting you! And now you're going to have to pay me. Yes, that's right, pay me! Two-hundred and fifty flames, to be exact! So you pay me, or else I'm gonna make you pay! Funny how that works, huh? Anyway, what's it going to be? I tried to keep this brief, as I'm very busy right now, so I'd appreciate it if you could do the same. Just hand over your money, and that'll be that, ok?)]
+	</p>
+	<p>
+		With [npc.name]'s fast-paced rant finally at an end, you're given a moment in which to think about your situation. You can tell that [npc.name] is willing to fight you in order to get some money, so you could choose to defend yourself, or just hand over the cash that [npc.she]'s asking for...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ATTRACTED_TO_PLAYER"><![CDATA[
+	<p>
+		From the way [npc.she] keeps on glancing hungrily down at your body, you can tell that [npc.name] is attracted to you. If you were to fight [npc.herHim], and lose, [npc.she]'d be sure to force [npc.herself] on you...
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="NOT_ATTRACTED_TO_PLAYER"><![CDATA[
+	<p>
+		You can tell that [npc.name] isn't attracted to you. If you were to fight [npc.herHim], and lose, [npc.she]'d most likely only be interested in stealing your flames...
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="ATTACK_PAID_OFF"><![CDATA[
+	<p>
+		You really don't want to fight [npc.name], and take a step backwards as you agree to [npc.her] demands. [pc.speech(Ok, ok. I'll give you your money. There's no need for violence, ok?)]
+	</p>
+	<p>
+		[npc.speech(Good, that's good!)] [npc.name] replies, stepping forwards and holding out [npc.her] [npc.hands]. [npc.speech(So hand it over, ok? I need that money, or else I'll have failed to confront you! And I can't go back to my friends and say that, now, can I? So give me the money! That's right, two-hundred and fifty flames!)]
+	</p>
+	<p>
+		Wanting to put an end to the [npc.race]'s incessant chattering, you quickly give [npc.herHim] the two-hundred and fifty flames. As soon as you've handed the money over, [npc.she] lets out a happy little giggle, before turning around and quickly flying off in the direction from whence [npc.she] came.
+	</p>
+	<p>
+		You let out a sigh of relief as you see [npc.herHim] go, and, happy that you were able to avoid a fight, you continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ATTACK_OFFER_BODY"><![CDATA[
+	<p>
+		Wanting to avoid a fight, and unwilling to hand over any of your money, you decide to do the only other thing you can think of, and step forwards smiling seductively at [npc.name]. 
+		 [pc.speech(There's no need to fight. If you're looking for a bit of fun, all you had to do was ask...)]
+	</p>
+	<p>
+		[npc.speech(Oh really?)]
+		 [npc.name] replies, stepping forwards in an intimidating manner.
+		 You remain in place, putting on your most seductive look and trying to make yourself as small as possible as you attempt to entice [npc.name] into using you for some sexual relief.
+	</p>
+	<p>
+		Much to your delight, your would-be attacker reaches up and grabs you by the [pc.arms], before pulling you forwards into a tight embrace.
+		 Pressing [npc.her] [npc.lips] against yours, [npc.she] thrusts [npc.her] [npc.tongue] into your mouth, aggressively kissing you for a moment before pulling back, growling,
+		 [npc.speech(You're going to be a good [pc.girl] now, aren't you bitch?)]
+	</p>
+	<p>
+		Whimpering in the affirmative, you surrender yourself to [npc.name]'s dominant touch, allowing yourself to be used as payment for trespassing on [npc.her] territory...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENEMY_DEFEATED_WANTS_SEX"><![CDATA[
+	<p>
+		[npc.Name] collapses to the floor, letting out a defeated sigh as [npc.she] gazes up at you. Looking down at the vanquished [npc.race] before you, you see that [npc.she]'s got a desperately hungry look in [npc.her] eyes. Before you can say anything, [npc.she] suddenly reaches down to [npc.her] crotch and starts stroking [npc.herself], making pitiful little whining noises as [npc.she] squirms on the floor.
+	</p>
+	<p>
+		[npc.speech(Aaah! What are you waiting for?! Come fuck me!)] [npc.she] pleads, biting [npc.her] [npc.lip] as [npc.she] continues touching [npc.herself].
+	</p>
+	<p>
+		You wonder if you should indulge [npc.her] request. After all, [npc.she] <i>was</i> going to do the same to you, and [npc.she] quite clearly wants it. Then again, maybe it's best to just leave...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENEMY_DEFEATED"><![CDATA[
+	<p>
+		[npc.Name] collapses to the floor, letting out a defeated sigh as [npc.she] gazes up at you. Looking down at the vanquished [npc.race] before you, you see that [npc.she]'s got a desperate look of regret in [npc.her] eyes. Making pitiful little whining noises, [npc.she] tries to shuffle away from you, clearly worried about what your intentions might be.
+	</p>
+	<p>
+		[npc.speech(J-Just take my money and leave me alone!)], [npc.she] pleads, throwing some flames at your feet.
+	</p>
+	<p>
+		You wonder if you should do as [npc.she] says, and leave [npc.herHim] alone. Then again, you <i>could</i> take advantage of [npc.her] weakened, vulnerable body...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENEMY_DEFEATED_SUBMIT"><![CDATA[
+	<p>
+		You really aren't sure what to do next, and start to feel pretty uncomfortable with the fact that you just beat up this poor [npc.race]. Leaning down, you do the first thing that comes into your mind, and start apologising. [pc.speech(Sorry... I was just trying to defend myself, you know... Erm... Is there anything I can do to make it up to you?)]
+	</p>
+	<p>
+		For a moment, a look of confusion crosses over [npc.name]'s face, but, as [npc.she] sees that you're genuinely troubled by what you've just done, an evil grin crosses [npc.her] face. [npc.She] stands up, and, grabbing you by the [pc.arm], roughly pulls you into [npc.her] as [npc.she] growls, [npc.speech(How about you start by apologising properly?!)]
+	</p>
+	<p>
+		[npc.Name]'s strong, dominant grip on your [pc.arm] causes you to let out a lewd little moan, and your submissive nature takes over as you do as [npc.she] asks. [pc.speech(I'm really sorry! Please forgive me! I'll do anything! Anything you ask! Just please, don't be mad!)]
+	</p>
+	<p>
+		[npc.Name] roughly yanks you forwards, and with a menacing growl, [npc.she] forces [npc.her] tongue into your mouth. You let out a muffled yelp as your opponent takes charge, but as you feel [npc.her] [npc.hands] reaching down to start roughly groping your ass, you realise that you couldn't be happier with how things have turned out...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+</dialogue>

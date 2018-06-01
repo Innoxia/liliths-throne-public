@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- For a version with comments, see "rental_mommy.xml". -->
+<clothing>
+	<coreAtributes>
+		<value>150</value>
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[Rental-Daddy T-shirt]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Rental-Daddy T-shirts]]></namePlural>
+		<description><![CDATA[A T-shirt that bears the words 'Rental Daddy', with the price of fifty flames displayed below that.]]></description>
+		<physicalResistance>1</physicalResistance>
+		<femininity>ANDROGYNOUS</femininity>
+		<slot>TORSO_UNDER</slot>
+		<rarity>UNCOMMON</rarity>
+		<clothingSet/>
+		<imageName>rental_daddy.svg</imageName>
+		<imageEquippedName/>
+		<enchantmentLimit/>
+		<effects>
+              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_LUST" timer="0"/>
+              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_LUST" timer="0"/>
+              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="VIRILITY" timer="0"/>
+              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="VIRILITY" timer="0"/>
+              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="TF_MOD_FETISH_BEHAVIOUR" secondaryModifier="TF_MOD_FETISH_SEEDER" timer="0"/>
+		</effects>
+		<blockedPartsList>
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired>
+					<clothingAccess>ARMS_UP_TO_SHOULDER</clothingAccess>
+					<clothingAccess>HEAD</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts/>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+			<blockedParts>
+				<displacementType>PULLS_UP</displacementType>
+				<clothingAccessRequired/>
+				<blockedBodyParts>
+					<bodyPart>BREASTS</bodyPart>
+					<bodyPart>NIPPLES</bodyPart>
+					<bodyPart>STOMACH</bodyPart>
+					<bodyPart>BACK</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked>
+					<clothingAccess>CHEST</clothingAccess>
+					<clothingAccess>WAIST</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots>
+					<slot>CHEST</slot>
+					<slot>NIPPLE</slot>
+					<slot>STOMACH</slot>
+					<slot>PIERCING_STOMACH</slot>
+					<slot>PIERCING_NIPPLE</slot>
+				</concealedSlots>
+			</blockedParts>
+		</blockedPartsList>
+		<incompatibleSlots/>
+		<primaryColours values="JUST_WHITE"/>
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours values="JUST_BLACK"/>
+		<secondaryColoursDye values="ALL"/>
+		<tertiaryColours values="JUST_WHITE"/>
+		<tertiaryColoursDye values="ALL"/>
+		<itemTags>
+			<tag>SOLD_BY_NYAN</tag>
+		</itemTags>
+	</coreAtributes>
+
+	<displacementText type="REMOVE_OR_EQUIP">
+		<playerSelf><![CDATA[
+			You take off your T-shirt.
+		]]></playerSelf>
+		<playerNPC><![CDATA[
+			You pull off [npc.name]'s T-shirt.
+		]]></playerNPC>
+		<playerNPCRough><![CDATA[
+			You grab hold of [npc.name]'s T-shirt and roughly pull it off over [npc.her] head.
+		]]></playerNPCRough>
+		<NPCSelf><![CDATA[
+			[npc.Name] takes [npc.her] T-shirt off.
+		]]></NPCSelf>
+		<NPCPlayer><![CDATA[
+			[npc.Name] pulls your T-shirt off.
+		]]></NPCPlayer>
+		<NPCPlayerRough><![CDATA[
+			[npc.Name] grabs hold of your T-shirt and roughly pulls it off over your head.
+		]]></NPCPlayerRough>
+		<NPCOtherNPC><![CDATA[
+			[npc1.Name] pulls [npc2.name]'s T-shirt off.
+		]]></NPCOtherNPC>
+		<NPCOtherNPCRough><![CDATA[
+			[npc.Name] grabs hold of [npc2.name]'s T-shirt and roughly pulls it off over [npc2.her] head.
+		]]></NPCOtherNPCRough>
+	</displacementText>
+
+	<replacementText type="REMOVE_OR_EQUIP">
+		<playerSelf><![CDATA[
+			You pull on the T-shirt.
+		]]></playerSelf>
+		<playerNPC><![CDATA[
+			You guide [npc.name]'s [npc.arms] through the T-shirt's sleeves as you pull it on [npc.herHim].
+		]]></playerNPC>
+		<playerNPCRough><![CDATA[
+			You hold [npc.name] still as you roughly force the T-shirt down over [npc.her] head, before pulling it down over [npc.her] torso.
+		]]></playerNPCRough>
+		<NPCSelf><![CDATA[
+			[npc.Name] pulls on the T-shirt.
+		]]></NPCSelf>
+		<NPCPlayer><![CDATA[
+			[npc.Name] guides your [pc.arms] through the T-shirt's sleeves, before pulling it down over your torso.
+		]]></NPCPlayer>
+		<NPCPlayerRough><![CDATA[
+			[npc.Name] holds you still as [npc.she] roughly forces the T-shirt down over your head, before pushing your [pc.arms] through the sleeves.
+		]]></NPCPlayerRough>
+		<NPCOtherNPC><![CDATA[
+			[npc1.Name] guides [npc2.name]'s [npc2.arms] through the T-shirt's sleeves before pulling it down over [npc2.her] torso.
+		]]></NPCOtherNPC>
+		<NPCOtherNPCRough><![CDATA[
+			[npc1.Name] holds [npc2.name] still as [npc1.she] roughly forces the T-shirt down over [npc2.her] head, before pulling it down over [npc2.her] torso.
+		]]></NPCOtherNPCRough>
+	</replacementText>
+
+	<displacementText type="PULLS_UP">
+		<playerSelf><![CDATA[
+			You pull your T-shirt up to just below your chin.
+		]]></playerSelf>
+		<playerNPC><![CDATA[
+			You pull up [npc.name]'s T-shirt.
+		]]></playerNPC>
+		<playerNPCRough><![CDATA[
+			You roughly yank up [npc.name]'s T-shirt.
+		]]></playerNPCRough>
+		<NPCSelf><![CDATA[
+			[npc.Name] pulls [npc.her] T-shirt up to just below [npc.her] chin.
+		]]></NPCSelf>
+		<NPCPlayer><![CDATA[
+			[npc.Name] pulls up your T-shirt.
+		]]></NPCPlayer>
+		<NPCPlayerRough><![CDATA[
+			[npc.Name] roughly yanks up your T-shirt.
+		]]></NPCPlayerRough>
+		<NPCOtherNPC><![CDATA[
+			[npc1.Name] pulls up [npc2.name]'s T-shirt.
+		]]></NPCOtherNPC>
+		<NPCOtherNPCRough><![CDATA[
+			[npc.Name] roughly pulls up [npc2.name]'s T-shirt.
+		]]></NPCOtherNPCRough>
+	</displacementText>
+	
+	<replacementText type="PULLS_DOWN">
+		<playerSelf><![CDATA[
+			You pull your T-shirt back down, covering your torso.
+		]]></playerSelf>
+		<playerNPC><![CDATA[
+			You pull down [npc.name]'s T-shirt.
+		]]></playerNPC>
+		<playerNPCRough><![CDATA[
+			You roughly pull down [npc.name]'s T-shirt.
+		]]></playerNPCRough>
+		<NPCSelf><![CDATA[
+			[npc.Name] pulls [npc.her] T-shirt back down to cover [npc.her] torso.
+		]]></NPCSelf>
+		<NPCPlayer><![CDATA[
+			[npc.Name] pulls down your T-shirt.
+		]]></NPCPlayer>
+		<NPCPlayerRough><![CDATA[
+			[npc.Name] roughly pulls down your T-shirt.
+		]]></NPCPlayerRough>
+		<NPCOtherNPC><![CDATA[
+			[npc1.Name] pulls down [npc2.name]'s T-shirt.
+		]]></NPCOtherNPC>
+		<NPCOtherNPCRough><![CDATA[
+			[npc.Name] roughly pulls down [npc2.name]'s T-shirt.
+		]]></NPCOtherNPCRough>
+	</replacementText>
+	
+</clothing>

@@ -12,6 +12,8 @@ import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.InventorySlot;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.main.Main;
 
 /**
@@ -404,12 +406,26 @@ public class Face implements BodyPartInterface, Serializable {
 				return UtilText.parse(owner,
 						"<p>[npc.Name]'s [npc.nose] is now [style.boldGrow(pierced)]!</p>");
 			}
+			
 		} else {
+			AbstractClothing c = owner.getClothingInSlot(InventorySlot.PIERCING_NOSE);
+			String piercingUnequip = "";
+			if(c!=null) {
+				owner.forceUnequipClothingIntoVoid(owner, c);
+				piercingUnequip = owner.addClothing(c, false);
+			}
+			
 			if(owner.isPlayer()) {
-				return "<p>Your [pc.nose] is [style.boldShrink(no longer pierced)]!</p>";
+				return "<p>"
+							+ "Your [pc.nose] is [style.boldShrink(no longer pierced)]!"
+						+ "</p>"
+						+piercingUnequip;
 			} else {
 				return UtilText.parse(owner,
-						"<p>[npc.Name]'s [npc.nose] is [style.boldShrink(no longer pierced)]!</p>");
+						"<p>"
+								+ "[npc.Name]'s [npc.nose] is [style.boldShrink(no longer pierced)]!"
+						+ "</p>"
+						+piercingUnequip);
 			}
 		}
 	}

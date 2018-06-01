@@ -8,8 +8,6 @@ import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.NameTriplet;
-import com.lilithsthrone.game.character.SexualOrientation;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.HornType;
@@ -22,10 +20,17 @@ import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.body.valueEnums.WingSize;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
+import com.lilithsthrone.game.character.markings.Tattoo;
+import com.lilithsthrone.game.character.markings.TattooType;
+import com.lilithsthrone.game.character.markings.TattooWriting;
+import com.lilithsthrone.game.character.markings.TattooWritingStyle;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.persona.NameTriplet;
+import com.lilithsthrone.game.character.persona.PersonalityTrait;
+import com.lilithsthrone.game.character.persona.PersonalityWeight;
+import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
-import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.SuccubisSecrets;
@@ -33,15 +38,21 @@ import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.CharacterInventory;
+import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
+import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
+import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
+import com.lilithsthrone.game.inventory.enchanting.TFModifier;
+import com.lilithsthrone.game.inventory.enchanting.TFPotency;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -64,7 +75,60 @@ public class Kate extends NPC {
 				10, Gender.F_V_B_FEMALE, RacialBody.DEMON, RaceStage.GREATER,
 				new CharacterInventory(10), WorldType.SHOPPING_ARCADE, PlaceType.SHOPPING_ARCADE_KATES_SHOP, true);
 
+		this.setPersonality(Util.newHashMapOfValues(
+				new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.AVERAGE),
+				new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.LOW),
+				new Value<>(PersonalityTrait.EXTROVERSION, PersonalityWeight.AVERAGE),
+				new Value<>(PersonalityTrait.NEUROTICISM, PersonalityWeight.AVERAGE),
+				new Value<>(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.HIGH)));
+		
 		if(!isImported) {
+			try {
+				Tattoo tat = new Tattoo(
+						TattooType.getTattooTypeFromId("innoxia_heartWomb_heart_womb"),
+						Colour.CLOTHING_PINK,
+						Colour.CLOTHING_PINK_LIGHT,
+						Colour.CLOTHING_PURPLE,
+						true,
+						new TattooWriting(
+								"Breed me!",
+								Colour.CLOTHING_PINK_LIGHT,
+								true,
+								TattooWritingStyle.ITALICISED),
+						null);
+				
+				for(int i=0; i<10; i++) {
+					tat.addEffect(new ItemEffect(ItemEffectType.TATTOO, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.FERTILITY, TFPotency.MAJOR_BOOST, 0));
+				}
+				
+				this.addTattoo(InventorySlot.GROIN, tat);
+				
+				this.addTattoo(InventorySlot.TORSO_OVER,
+						new Tattoo(
+							TattooType.BUTTERFLIES,
+							Colour.CLOTHING_PURPLE,
+							Colour.CLOTHING_PINK,
+							Colour.CLOTHING_PINK_LIGHT,
+							false,
+							null,
+							null));
+				
+				this.addTattoo(InventorySlot.TORSO_UNDER,
+						new Tattoo(
+							TattooType.TRIBAL,
+							Colour.CLOTHING_BLACK,
+							null,
+							null,
+							false,
+							new TattooWriting(
+									"Don't pull out!",
+									Colour.CLOTHING_BLACK,
+									false),
+							null));
+				
+			} catch(Exception ex) {
+			}
+			
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 	
 			this.setEyeCovering(new Covering(BodyCoveringType.EYE_DEMON_COMMON, Colour.EYE_GREEN));
@@ -109,7 +173,7 @@ public class Kate extends NPC {
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
-
+		
 		this.setWingSize(WingSize.ONE_SMALL.getValue());
 		
 		this.setHairCovering(new Covering(BodyCoveringType.HAIR_DEMON, Colour.COVERING_RED), true);
@@ -130,6 +194,54 @@ public class Kate extends NPC {
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_FISHNET_STOCKINGS, Colour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_HEELS, Colour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_EAR_BASIC_RING, Colour.CLOTHING_GOLD, false), true, this);
+		
+		if(this.getTattooInSlot(InventorySlot.GROIN)==null) {
+			try {
+				Tattoo tat = new Tattoo(
+						TattooType.getTattooTypeFromId("innoxia_heartWomb_heart_womb"),
+						Colour.CLOTHING_PINK,
+						Colour.CLOTHING_PINK_LIGHT,
+						Colour.CLOTHING_PURPLE,
+						true,
+						new TattooWriting(
+								"Breed me!",
+								Colour.CLOTHING_PINK_LIGHT,
+								true,
+								TattooWritingStyle.ITALICISED),
+						null);
+				
+				for(int i=0; i<10; i++) {
+					tat.addEffect(new ItemEffect(ItemEffectType.TATTOO, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.FERTILITY, TFPotency.MAJOR_BOOST, 0));
+				}
+				
+				this.addTattoo(InventorySlot.GROIN, tat);
+				
+				this.addTattoo(InventorySlot.TORSO_OVER,
+						new Tattoo(
+							TattooType.BUTTERFLIES,
+							Colour.CLOTHING_PURPLE,
+							Colour.CLOTHING_PINK,
+							Colour.CLOTHING_PINK_LIGHT,
+							false,
+							null,
+							null));
+				
+				this.addTattoo(InventorySlot.TORSO_UNDER,
+						new Tattoo(
+							TattooType.TRIBAL,
+							Colour.CLOTHING_BLACK,
+							null,
+							null,
+							false,
+							new TattooWriting(
+									"Don't pull out!",
+									Colour.CLOTHING_BLACK,
+									false),
+							null));
+				
+			} catch(Exception ex) {
+			}
+		}
 
 		dailyReset();
 	}
@@ -292,20 +404,6 @@ public class Kate extends NPC {
 			}
 		}
 	};
-
-	// Combat (you never fight Kate):
-	@Override
-	public String getCombatDescription() {
-		return null;
-	}
-	@Override
-	public Response endCombat(boolean applyEffects, boolean victory) {
-		return null;
-	}
-	@Override
-	public Attack attackType() {
-		return null;
-	}
 	
 	@Override
 	public String getItemUseEffects(AbstractItem item, GameCharacter user, GameCharacter target){
@@ -367,7 +465,7 @@ public class Kate extends NPC {
 				"You tear open the packet and forcefully roll the condom down the length [npc.name]'s [npc.penis].",
 				"[npc.Name] tears open the packet and rolls the condom down the length of [npc.her] [npc.penis].",
 				"[npc.Name] tears open the packet and rolls the condom down the length of your [pc.penis].",
-				"[npc.Name] tears open the packet and forcefully rolls the condom down the length of your [pc.penis].");
+				"[npc.Name] tears open the packet and forcefully rolls the condom down the length of your [pc.penis].", null, null);
 	}
 	
 	

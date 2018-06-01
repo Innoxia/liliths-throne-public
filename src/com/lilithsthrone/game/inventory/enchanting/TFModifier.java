@@ -129,6 +129,24 @@ public enum TFModifier {
 			"modifier_circle_damage",
 			Rarity.RARE),
 	
+	DAMAGE_UNARMED(AttributeCategory.STRENGTH,
+			Attribute.DAMAGE_UNARMED,
+			"Applies an effect related to the secondary attribute 'Unarmed damage'.",
+			"modifier_circle_damage",
+			Rarity.RARE),
+
+	DAMAGE_MELEE_WEAPON(AttributeCategory.STRENGTH,
+			Attribute.DAMAGE_MELEE_WEAPON,
+			"Applies an effect related to the secondary attribute 'Melee weapon damage'.",
+			"modifier_circle_damage",
+			Rarity.RARE),
+
+	DAMAGE_RANGED_WEAPON(AttributeCategory.STRENGTH,
+			Attribute.DAMAGE_RANGED_WEAPON,
+			"Applies an effect related to the secondary attribute 'Ranged weapon damage'.",
+			"modifier_circle_damage",
+			Rarity.RARE),
+	
 	DAMAGE_PHYSICAL(AttributeCategory.STRENGTH,
 			Attribute.DAMAGE_PHYSICAL,
 			"Applies an effect related to the secondary attribute 'Physical damage'.",
@@ -157,12 +175,6 @@ public enum TFModifier {
 	RESISTANCE_LUST(AttributeCategory.CORRUPTION,
 			Attribute.RESISTANCE_LUST,
 			"Applies an effect related to the secondary attribute 'Seduction resistance'.",
-			"modifier_circle_resistance",
-			Rarity.RARE),
-	
-	RESISTANCE_SPELLS(AttributeCategory.INTELLIGENCE,
-			Attribute.RESISTANCE_SPELLS,
-			"Applies an effect related to the secondary attribute 'Spell resistance'.",
 			"modifier_circle_resistance",
 			Rarity.RARE),
 	
@@ -216,6 +228,13 @@ public enum TFModifier {
 	
 	
 	// Racial parts:
+
+	TF_MATERIAL_FLESH("flesh",
+			"Turns a person's body material to flesh.",
+			"flesh",
+			"modifier_circle_tf_material_flesh",
+			Colour.BASE_CRIMSON,
+			Rarity.LEGENDARY),
 	
 	TF_ANTENNA("antennae",
 			"Applies a transformative effect to your antennae.",
@@ -1029,6 +1048,8 @@ public enum TFModifier {
 	private static List<TFModifier> clothingPrimaryList = new ArrayList<>();
 	private static List<TFModifier> clothingAttributeList = new ArrayList<>();
 	
+	private static List<TFModifier> tattooPrimaryList = new ArrayList<>();
+	
 	static {
 
 		TFModStrengthList.add(NONE);
@@ -1141,21 +1162,37 @@ public enum TFModifier {
 		clothingPrimaryList.add(TF_PENIS);
 		clothingPrimaryList.add(TF_VAGINA);
 		
+		clothingAttributeList.add(TFModifier.FERTILITY);
+		clothingAttributeList.add(TFModifier.VIRILITY);
 		clothingAttributeList.add(TFModifier.RESISTANCE_FIRE);
 		clothingAttributeList.add(TFModifier.RESISTANCE_ICE);
 		clothingAttributeList.add(TFModifier.RESISTANCE_LUST);
 		clothingAttributeList.add(TFModifier.RESISTANCE_PHYSICAL);
 		clothingAttributeList.add(TFModifier.RESISTANCE_POISON);
-		clothingAttributeList.add(TFModifier.RESISTANCE_SPELLS);
 		clothingAttributeList.add(TFModifier.DAMAGE_FIRE);
 		clothingAttributeList.add(TFModifier.DAMAGE_ICE);
 		clothingAttributeList.add(TFModifier.DAMAGE_LUST);
+		clothingAttributeList.add(TFModifier.DAMAGE_UNARMED);
+		clothingAttributeList.add(TFModifier.DAMAGE_MELEE_WEAPON);
+		clothingAttributeList.add(TFModifier.DAMAGE_RANGED_WEAPON);
 		clothingAttributeList.add(TFModifier.DAMAGE_PHYSICAL);
 		clothingAttributeList.add(TFModifier.DAMAGE_POISON);
 		clothingAttributeList.add(TFModifier.DAMAGE_SPELLS);
 		clothingAttributeList.add(TFModifier.SPELL_COST_MODIFIER);
 		clothingAttributeList.add(TFModifier.CRITICAL_CHANCE);
 		clothingAttributeList.add(TFModifier.CRITICAL_DAMAGE);
+		
+
+		tattooPrimaryList.add(TFModifier.CLOTHING_ATTRIBUTE);
+		tattooPrimaryList.add(TFModifier.TF_MOD_FETISH_BODY_PART);
+		tattooPrimaryList.add(TFModifier.TF_MOD_FETISH_BEHAVIOUR);
+		tattooPrimaryList.add(TF_FACE);
+		tattooPrimaryList.add(TF_CORE);
+		tattooPrimaryList.add(TF_HAIR);
+		tattooPrimaryList.add(TF_ASS);
+		tattooPrimaryList.add(TF_BREASTS);
+		tattooPrimaryList.add(TF_PENIS);
+		tattooPrimaryList.add(TF_VAGINA);
 	}
 	
 	
@@ -1184,6 +1221,9 @@ public enum TFModifier {
 		// Set this item's file image:
 		try {
 			InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/crafting/" + SVGString + ".svg");
+			if(is==null) {
+				System.err.println("Error! TFModifier icon file does not exist (Trying to read from '"+SVGString+"')! (Code 1)");
+			}
 			String s = Util.inputStreamToString(is);
 
 			s = s.replaceAll("#ff2a2a", this.colour.getShades()[0]);
@@ -1215,6 +1255,9 @@ public enum TFModifier {
 		// Set this item's file image:
 		try {
 			InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/crafting/" + SVGString + ".svg");
+			if(is==null) {
+				System.err.println("Error! TFModifier icon file does not exist (Trying to read from '"+SVGString+"')! (Code 2)");
+			}
 			String s = Util.inputStreamToString(is);
 
 			s = s.replaceAll("#ff2a2a", this.colour.getShades()[0]);
@@ -1338,5 +1381,9 @@ public enum TFModifier {
 
 	public static List<TFModifier> getClothingPrimaryList() {
 		return clothingPrimaryList;
+	}
+
+	public static List<TFModifier> getTattooPrimaryList() {
+		return tattooPrimaryList;
 	}
 }

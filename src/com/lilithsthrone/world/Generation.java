@@ -83,7 +83,6 @@ public class Generation extends Task<Boolean> {
 				for(int w = 0 ; w < img.getWidth(); w++) {
 					for(int h = 0 ; h < img.getHeight(); h++) {
 						grid[w][img.getHeight()-1-h].setPlace(new GenericPlace(worldType.getPlacesMap().get(new Color(img.getRGB(w, h)))), true);
-						world.addPlaceOfInterest(grid[w][img.getHeight()-1-h].getPlace(), new Vector2i(w, img.getHeight()-1-h));
 					}
 				}
 
@@ -183,50 +182,6 @@ public class Generation extends Task<Boolean> {
 				System.out.println(worldType.getName()+" Break 1");
 			
 			int coreX = 0, coreY = 0;
-			// Set aligned entrances:
-			for(PlaceType pt : worldType.getPlaces()) {
-				if(pt.getParentWorldType()!=null) {
-					if(pt.getParentAlignment()!=null) {
-						if(debug)
-							System.out.println(pt.getName()+" Break 1a");
-						Vector2i location = null;
-						switch(pt.getParentAlignment()) {
-							case ALIGNED:
-								location = Main.game.getWorlds().get(pt.getParentWorldType()).getPlacesOfInterest().get(new GenericPlace(pt.getParentPlaceType()));
-								if(debug)
-									System.out.println(location);
-								grid[location.getX()/2][location.getY()/2].setPlace(new GenericPlace(pt), true);
-								grid[location.getX()/2][location.getY()/2].setBlocked(false);
-								visited[location.getX()/2][location.getY()/2] = false;
-								if(debug)
-									System.out.println(location);
-								break;
-							case ALIGNED_FLIP_HORIZONTAL:
-								location = Main.game.getWorlds().get(pt.getParentWorldType()).getPlacesOfInterest().get(new GenericPlace(pt.getParentPlaceType()));
-								grid[width - 1 - (location.getX())/2][location.getY()/2].setPlace(new GenericPlace(pt), true);
-								grid[width - 1 - (location.getX())/2][location.getY()/2].setBlocked(false);
-								visited[width - 1 - (location.getX())/2][location.getY()/2] = false;
-								if(debug)
-									System.out.println(location);
-								break;
-							case ALIGNED_FLIP_VERTICAL:
-								location = Main.game.getWorlds().get(pt.getParentWorldType()).getPlacesOfInterest().get(new GenericPlace(pt.getParentPlaceType()));
-								grid[location.getX()/2][height - 1 - (location.getY())/2].setPlace(new GenericPlace(pt), true);
-								grid[location.getX()/2][height - 1 - (location.getY())/2].setBlocked(false);
-								visited[location.getX()/2][height - 1 - (location.getY())/2] = false;
-								if(debug)
-									System.out.println(location);
-								break;
-							default:
-								break;
-						}
-						if(debug)
-							System.out.println(pt.getName()+" Break 1b");
-					}
-				}
-				if(debug)
-					System.out.println(worldType.getName()+" Break 1c");
-			}
 			
 			if(debug)
 				System.out.println(worldType.getName()+" Break 2");
@@ -412,7 +367,6 @@ public class Generation extends Task<Boolean> {
 					if (i % 2 == 0 && j % 2 == 0) {
 						if (finalGrid[i / 2][j / 2].getPlace().getPlaceType() != worldType.getStandardPlace()) {
 							expandedGrid[i][j].setPlace(finalGrid[i / 2][j / 2].getPlace(), true);
-							w.addPlaceOfInterest(finalGrid[i / 2][j / 2].getPlace(), new Vector2i(i, j));
 						}
 					} else if (i % 2 == 0) {
 						if (finalGrid[i / 2][j / 2].isNorthAccess())

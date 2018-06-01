@@ -11,85 +11,183 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 
 /**
  * @since 0.1.0
- * @version 0.2.1
+ * @version 0.2.6
  * @author Innoxia
  */
 public enum InventorySlot {
 
-
 	// HEAD:
-	HEAD(40, "head", false, false), // Headgear
-	EYES(50, "eyes", false, false), // Eyes
-	HAIR(20, "hair", false, false), // Ribbons, hairbands
-	MOUTH(10, "mouth", false, false), // Mouth
-	NECK(30, "neck", false, false), // Necklaces
+	
+	/** Clothing slot "head". Used for headgear.</br>
+	 *  Tattoo slot "head".*/
+	HEAD(40, "head", false, false, "head"),
 
+	/** Clothing slot "eyes". Used for glasses.</br>
+	 *  Tattoo slot "upper face".*/
+	EYES(50, "eyes", false, false, "upper face"),
+
+	/** Clothing slot "hair". Used for ribbons and hairbands.</br>
+	 *  Tattoo slot "ears".*/
+	HAIR(20, "hair", false, false, "ears"),
+
+	/** Clothing slot "mouth". Used for ballgags.</br>
+	 *  Tattoo slot "lower face".*/
+	MOUTH(10, "mouth", false, false, "lower face"),
+
+	/** Clothing slot "neck". Used for necklaces and scarfs.</br>
+	 *  Tattoo slot "neck".*/
+	NECK(30, "neck", false, false, "neck"), // Necklaces
+	
+	
 	// TORSO:
-	TORSO_OVER(50, "over-torso", false, false), // Coats
-	TORSO_UNDER(40, "torso", true, false), // Shirts
-	CHEST(10, "chest", true, false), // Bras
-	NIPPLE(5, "nipples", false, false), // Nipple shields, insertables
-	STOMACH(10, "stomach", false, false), // Corsets
 
+	/** Clothing slot "over-torso". Used for coats.</br>
+	 *  Tattoo slot "upper back".*/
+	TORSO_OVER(50, "over-torso", false, false, "upper back"),
+
+	/** Clothing slot "torso". Used for shirts.</br>
+	 *  Tattoo slot "upper face".*/
+	TORSO_UNDER(40, "torso", true, false, "lower back"),
+
+	/** Clothing slot "chest". Used for bras.</br>
+	 *  Tattoo slot "chest".*/
+	CHEST(10, "chest", true, false, "chest"),
+
+	/** Clothing slot "nipples". Used for nipple shields, plugs.</br>
+	 *  Tattoo slot "nipples".*/
+	NIPPLE(5, "nipples", false, false, "nipples"),
+
+	/** Clothing slot "stomach". Used for corsets.</br>
+	 *  Tattoo slot "stomach".*/
+	STOMACH(10, "stomach", false, false, "stomach"),
+
+	
 	// HAND:
-	HAND(20, "hands", false, false), // Gloves
-	WRIST(30, "wrists", false, false), // Bracelets
-	FINGER(30, "fingers", false, false), // Rings
-	HIPS(40, "hips", false, false), // Belts
-	ANUS(0, "anus", false, false), // Insertables
 
+	/** Clothing slot "hands". Used for gloves.</br>
+	 *  Tattoo slot "forearms".*/
+	HAND(20, "hands", false, false, "forearms"),
+
+	/** Clothing slot "wrists". Used for bracelets.</br>
+	 *  Tattoo slot "upper arms".*/
+	WRIST(30, "wrists", false, false, "upper arms"),
+
+	/** Clothing slot "fingers". Used for rings.</br>
+	 *  Tattoo slot "hands".*/
+	FINGER(30, "fingers", false, false, "hands"),
+
+	/** Clothing slot "hips". Used for belts.</br>
+	 *  Tattoo slot "hips".*/
+	HIPS(40, "hips", false, false, "hips"),
+
+//	/** Clothing slot "hips-under". Used for suspender belts.</br>
+//	 *  Tattoo slot "".*/
+//	HIPS_UNDER(20, "hips-under", false, false), // suspender belts
+
+	/** Clothing slot "anus". Used for plugs.</br>
+	 *  Tattoo slot "ass".*/
+	ANUS(0, "anus", false, false, "ass"),
+
+	
 	// LEG & FOOT:
-	LEG(30, "legs", true, false), // Trousers
-	GROIN(10, "groin", true, false), // Underwear
-	FOOT(40, "feet", true, false), // Shoes
-	SOCK(10, "calves", true, false), // Socks
-	ANKLE(50, "ankles", false, false), // Ankle bracelets
+
+	/** Clothing slot "legs". Used for trousers.</br>
+	 *  Tattoo slot "upper leg".*/
+	LEG(30, "legs", true, false, "upper leg"),
+
+	/** Clothing slot "groin". Used for underwear.</br>
+	 *  Tattoo slot "lower abdomen".*/
+	GROIN(10, "groin", true, false, "lower abdomen"),
+
+	/** Clothing slot "feet". Used for shoes.</br>
+	 *  Tattoo slot "feet".*/
+	FOOT(40, "feet", true, false, "feet"),
+
+	/** Clothing slot "calves". Used for socks.</br>
+	 *  Tattoo slot "lower leg".*/
+	SOCK(10, "calves", true, false, "lower leg"),
+
+	/** Clothing slot "ankles". Used for bracelets.</br>
+	 *  Tattoo slot "ankles".*/
+	ANKLE(50, "ankles", false, false, "ankles"),
+	
 	
 	// OPTIONAL EXTRAS:
-	HORNS(50, "horns", false, false), // Decorations
-//	WINGS(50, "wings", false, false), // Decorations
-	TAIL(50, "tail", false, false), // Decorations
-	PENIS(0, "penis", false, false), // Cock socks & insertables
-	VAGINA(0, "vagina", false, false), // Insertables
+
+	/** Clothing slot "horns". Used for horn decorations.</br>
+	 *  Tattoo slot "horns".*/
+	HORNS(50, "horns", false, false, "horns"),
+
+	/** Clothing slot "wings". Used for wing decorations.</br>
+	 *  Tattoo slot "wings".*/
+	WINGS(50, "wings", false, false, "wings"),
+
+	/** Clothing slot "tail". Used for tail decorations.</br>
+	 *  Tattoo slot "tail".*/
+	TAIL(50, "tail", false, false, "tail"),
+
+	/** Clothing slot "penis". Used for cock socks, cages, and plugs.</br>
+	 *  Tattoo slot "penis".*/
+	PENIS(0, "penis", false, false, "penis"), // 
+
+	/** Clothing slot "vagina". Used for plugs.</br>
+	 *  Tattoo slot "vagina".*/
+	VAGINA(0, "vagina", false, false, "vagina"),
 
 	// PIERCING:
-	PIERCING_EAR(0, "ear piercing", false, true),
-	PIERCING_NOSE(0, "nose piercing", false, true),
-	PIERCING_TONGUE(0, "tongue piercing", false, true),
-	PIERCING_LIP(0, "lip piercing", false, true),
-	PIERCING_STOMACH(0, "navel piercing", false, true),
-	PIERCING_NIPPLE(0, "nipple piercing", false, true),
-	PIERCING_VAGINA(0, "vaginal piercing", false, true),
-	PIERCING_PENIS(0, "cock piercing", false, true),
+	PIERCING_EAR(0, "ear piercing", false, true, null),
+	PIERCING_NOSE(0, "nose piercing", false, true, null),
+	PIERCING_TONGUE(0, "tongue piercing", false, true, null),
+	PIERCING_LIP(0, "lip piercing", false, true, null),
+	PIERCING_STOMACH(0, "navel piercing", false, true, null),
+	PIERCING_NIPPLE(0, "nipple piercing", false, true, null),
+	PIERCING_VAGINA(0, "vaginal piercing", false, true, null),
+	PIERCING_PENIS(0, "cock piercing", false, true, null),
 
 	// EQUIPPABLE:
-	WEAPON_MAIN(0, "primary weapon", false, false),
-	WEAPON_OFFHAND(0, "secondary weapon", false, false);
+	WEAPON_MAIN(0, "primary weapon", false, false, null),
+	WEAPON_OFFHAND(0, "secondary weapon", false, false, null);
 
 	private int zLayer;
 	private String name;
+	private String tattooSlotName;
 	private boolean jewellery, coreClothing;
-	private static List<InventorySlot> clothingSlots, piercingSlots;
+	private static List<InventorySlot> clothingSlots;
+	private static List<InventorySlot> piercingSlots;
 
 	static {
 		clothingSlots = new ArrayList<>();
 		piercingSlots = new ArrayList<>();
-
+		
 		clothingSlots.add(HEAD);
 		clothingSlots.add(EYES);
+		clothingSlots.add(HAIR);
 		clothingSlots.add(MOUTH);
 		clothingSlots.add(NECK);
+
+		clothingSlots.add(TORSO_OVER);
 		clothingSlots.add(TORSO_UNDER);
 		clothingSlots.add(CHEST);
+		clothingSlots.add(NIPPLE);
 		clothingSlots.add(STOMACH);
+		
 		clothingSlots.add(HAND);
 		clothingSlots.add(WRIST);
 		clothingSlots.add(FINGER);
+		clothingSlots.add(HIPS);
+		clothingSlots.add(ANUS);
+		
 		clothingSlots.add(LEG);
 		clothingSlots.add(GROIN);
 		clothingSlots.add(FOOT);
 		clothingSlots.add(SOCK);
 		clothingSlots.add(ANKLE);
+		
+		clothingSlots.add(HORNS);
+		clothingSlots.add(TAIL);
+		clothingSlots.add(PENIS);
+		clothingSlots.add(VAGINA);
+		
 		
 		piercingSlots.add(PIERCING_EAR);
 		piercingSlots.add(PIERCING_NOSE);
@@ -101,11 +199,12 @@ public enum InventorySlot {
 		piercingSlots.add(PIERCING_PENIS);
 	}
 
-	private InventorySlot(int zLayer, String name, boolean coreClothing, boolean jewellery) {
+	private InventorySlot(int zLayer, String name, boolean coreClothing, boolean jewellery, String tattooSlotName) {
 		this.zLayer = zLayer;
 		this.name = name;
 		this.coreClothing = coreClothing;
 		this.jewellery = jewellery;
+		this.tattooSlotName = tattooSlotName;
 	}
 
 	public int getZLayer() {
@@ -114,6 +213,10 @@ public enum InventorySlot {
 
 	public String getName() {
 		return name;
+	}
+
+	public String getTattooSlotName() {
+		return tattooSlotName;
 	}
 	
 	public boolean isCoreClothing() {

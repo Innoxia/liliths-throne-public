@@ -15,7 +15,10 @@ import com.lilithsthrone.game.inventory.AbstractCoreType;
 import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
+import com.lilithsthrone.game.inventory.enchanting.AbstractItemEffectType;
+import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
+import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -81,17 +84,17 @@ public abstract class AbstractItemType extends AbstractCoreType implements Seria
 		}
 
 		if (colourPrimary == null) {
-			this.colourPrimary = com.lilithsthrone.utils.Colour.CLOTHING_BLACK;
+			this.colourPrimary = Colour.CLOTHING_BLACK;
 		} else {
 			this.colourPrimary = colourPrimary;
 		}
 		if (colourSecondary == null) {
-			this.colourSecondary = com.lilithsthrone.utils.Colour.CLOTHING_BLACK;
+			this.colourSecondary = Colour.CLOTHING_BLACK;
 		} else {
 			this.colourSecondary = colourSecondary;
 		}
 		if (colourTertiary == null) {
-			this.colourTertiary = com.lilithsthrone.utils.Colour.CLOTHING_BLACK;
+			this.colourTertiary = Colour.CLOTHING_BLACK;
 		} else {
 			this.colourTertiary = colourTertiary;
 		}
@@ -99,6 +102,9 @@ public abstract class AbstractItemType extends AbstractCoreType implements Seria
 		// Set this item's file image:
 		try {
 			InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/items/" + pathName + ".svg");
+			if(is==null) {
+				System.err.println("Error! AbstractItemType icon file does not exist (Trying to read from '"+pathName+"')!");
+			}
 			String s = Util.inputStreamToString(is);
 
 			SVGString = colourReplacement(this.getColourPrimary(), this.getColourSecondary(), this.getColourTertiary(), s);
@@ -207,7 +213,7 @@ public abstract class AbstractItemType extends AbstractCoreType implements Seria
 		return 100;
 	}
 	
-	public ItemEffectType getEnchantmentEffect() {
+	public AbstractItemEffectType getEnchantmentEffect() {
 		return null;
 	}
 	
@@ -339,6 +345,15 @@ public abstract class AbstractItemType extends AbstractCoreType implements Seria
 					+ " The closer you move it to your " + clothing.getName() + ", the brighter the glow becomes, until suddenly, images of different colours start flashing through your mind."
 					+ " As you touch the bristles to the " + clothing.getName() + "'s surface, the Dye-brush instantly evaporates!"
 					+ " You see that the arcane enchantment has dyed the " + clothing.getName() + " " + colour.getName() + "."
+				+ "</p>";
+	}
+	
+	public String getDyeBrushEffects(AbstractWeapon weapon, Colour colour) {
+		return "<p>"
+					+ "As you take hold of the Dye-brush, you see the purple glow around the tip growing in strength."
+					+ " The closer you move it to your " + weapon.getName() + ", the brighter the glow becomes, until suddenly, images of different colours start flashing through your mind."
+					+ " As you touch the bristles to the " + weapon.getName() + "'s surface, the Dye-brush instantly evaporates!"
+					+ " You see that the arcane enchantment has dyed the " + weapon.getName() + " " + colour.getName() + "."
 				+ "</p>";
 	}
 

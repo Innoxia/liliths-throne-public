@@ -11,7 +11,6 @@ import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -139,7 +138,7 @@ public class HarpyNestAlexa {
 				+ "</p>"
 				+ "<p>"
 					+ "[femaleNPC.speech(Stop! Wait! You can't come in here!)]"
-					+ " she shouts, waving her pink-feathered wings in front of your face,"
+					+ " she shouts, waving her pink-feathered wings in front of your face."
 					+ " [femaleNPC.speech(You need an appointment if you want to see Alexa!)]"
 				+ "</p>"
 				+ "<p>"
@@ -149,7 +148,7 @@ public class HarpyNestAlexa {
 				+ "</p>"
 				+ "<p>"
 					+ "A few of the surrounding harpies, obviously listening in to your conversation, suddenly start whispering to one another."
-					+ " The harpy that you're dealing with trips over her words as she hurries to respond, obviously caught off-guard at the mention of Scarlett's name,"
+					+ " The harpy that you're dealing with trips over her words as she hurries to respond, obviously caught off-guard at the mention of Scarlett's name."
 					+ " [femaleNPC.speech(W-Wait, Scarlett?! As in, <i>the</i> Scarlett? She's meant to be banished to Slaver Alley!)]"
 				+ "</p>"
 				+ "<p>"
@@ -159,7 +158,7 @@ public class HarpyNestAlexa {
 				+ "</p>"
 				+ "<p>"
 					+ "[femaleNPC.speech(Yes! Of course!)]"
-					+ " the harpy exclaims,"
+					+ " the harpy exclaims."
 					+ " [femaleNPC.speech(Thank goodness Alexa's in a good mood... Follow me!)]"
 				+ "</p>"
 				+ "<p>"
@@ -218,21 +217,21 @@ public class HarpyNestAlexa {
 		@Override
 		public String getContent() {
 			return "<p>"
-						+ "[pc.speech(She wanted me to tell you that her slavery business has failed. She's run out of money, and she has no slaves left.)]"
+						+ "[pc.speech(She wanted me to tell you that her slavery business has failed. She's run out of money, and she has no slaves left,)]"
 						+ " you explain, noticing that Alexa's pale cheeks start flushing red as you talk."
 						+ " Before you have an opportunity to relay Scarlett's request that you take her punishment for her, Alexa speaks."
 					+ "</p>"
 					+ "<p>"
-						+ "[alexa.speech(That... <i>bitch</i>!)] she exclaims, losing her noble composure as she starts pacing back and forth,"
+						+ "[alexa.speech(That... <i>bitch</i>!)] she exclaims, losing her noble composure as she starts pacing back and forth."
 						+ " [alexa.speech(That <i>stupid slut</i>! I told her this was her last chance!)]"
 					+ "</p>"
 					+ "<p>"
-						+ "The harpy closest to Alexa's throne moves towards her matriarch, seeking to calm her down,"
+						+ "The harpy closest to Alexa's throne moves towards her matriarch, seeking to calm her down."
 						+ " [femaleNPC.speech(Alexa, please! Don't get angry, she's not worth it!)]"
 					+ "</p>"
 					+ "<p>"
 						+ "[alexa.speech(Be quiet!)]"
-						+ " Alexa screeches, quickly working herself up into a fit as she continues to curse,"
+						+ " Alexa screeches, quickly working herself up into a fit as she continues to curse."
 						+ " [alexa.speech(That whore's going to pay for this! How many chances have I given her?! I've had enough!)]"
 					+ "</p>"
 					+ "<p>"
@@ -254,7 +253,7 @@ public class HarpyNestAlexa {
 				
 			} else if(index==2) {
 				return new Response("Take punishment", "Offer to take Scarlett's punishment for her.", ALEXAS_NEST_TAKE_PUNISHMENT,
-						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE), new ListValue<>(Fetish.FETISH_MASOCHIST)),
+						Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE, Fetish.FETISH_MASOCHIST),
 						CorruptionLevel.THREE_DIRTY,
 						null,
 						null,
@@ -336,11 +335,11 @@ public class HarpyNestAlexa {
 		public String getContent() {
 			return "<p>"
 						+ "[pc.speech(Wait!)]"
-						+ " you cry out,"
+						+ " you cry out."
 						+ " [pc.speech(There's something else!)]"
 					+ "</p>"
 					+ "<p>"
-						+ "Alexa lowers her wings and turns towards you,"
+						+ "Alexa lowers her wings and turns towards you."
 						+ " [alexa.speech(What is it?!)]"
 					+ "</p>"
 					+ "<p>"
@@ -349,7 +348,7 @@ public class HarpyNestAlexa {
 					+ "</p>"
 					+ "<p>"
 						+ "[alexa.speech(Oh, well in that case, everything's forgiven!)]"
-						+ " she responds, her voice dripping with sarcasm,"
+						+ " she responds, her voice dripping with sarcasm."
 						+ " [alexa.speech(I'll just let Scarlett get away with everything! After all, <i>you're</i> going to take her punishment for her!)]"
 					+ "</p>"
 					+ "<p>"
@@ -370,8 +369,8 @@ public class HarpyNestAlexa {
 					+ "</p>"
 					+ "<p>"
 						+ "[alexa.speech(You've got my full attention now, sweetheart,)]"
-						+ " she whispers down into your [pc.ear],"
-						+ " [alexa.speech(let's see if this is really what you wanted!)]"
+						+ " she whispers down into your [pc.ear]."
+						+ " [alexa.speech(Let's see if this is really what you wanted!)]"
 					+ "</p>"
 					+ "<p>"
 						+ "With that, Alexa raises her right wing high in the air, and, with a swift thwack, she slaps down on your naked [pc.ass]."
@@ -403,7 +402,7 @@ public class HarpyNestAlexa {
 				
 			} else if(index==3) {
 				return new Response("Beg for more", "Beg to be punished.", ALEXAS_NEST_TAKE_PUNISHMENT_ENJOY,
-						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_MASOCHIST)),
+						Util.newArrayListOfValues(Fetish.FETISH_MASOCHIST),
 						CorruptionLevel.THREE_DIRTY,
 						null,
 						null,
@@ -506,7 +505,7 @@ public class HarpyNestAlexa {
 					+ "</p>"
 					+ "<p>"
 						+ "[alexa.speech(Silly [pc.girl],)]"
-						+ " Alexa says, looking down at you,"
+						+ " Alexa says, looking down at you."
 						+ " [alexa.speech(I wonder if Scarlett will struggle as much as you did. Knowing her, I'd bet on it...)]"
 					+ "</p>"
 					+ "<p>"
@@ -579,7 +578,7 @@ public class HarpyNestAlexa {
 					+ "</p>"
 					+ "<p>"
 						+ "[alexa.speech(Silly [pc.girl],)]"
-						+ " Alexa says, looking down at you,"
+						+ " Alexa says, looking down at you."
 						+ " [alexa.speech(I wonder if Scarlett will enjoy her punishment as much as you did. Knowing her, I doubt it...)]"
 					+ "</p>"
 					+ "<p>"

@@ -22,8 +22,9 @@ div {
 }
 #main-content{
 	display: flex;
-	flex-flow: column;
+	-webkit-flex-flow: column;
 	height: 100%;
+	width:100%;
 	cursor:default;
 }
 #header-content{
@@ -48,6 +49,7 @@ div {
 .div-center{
 	margin: 8px auto 8px auto;
 	overflow-x:hidden;
+	width:100%;
 	max-width:1000px;
 	padding:16px;
 	
@@ -915,6 +917,7 @@ position:relative;
 /*INVENTORY VIEW*/
 
 .inventory-container {
+float:left;
 	position:relative;
 	display: inline-block;
 	width:49.5%;
@@ -1523,6 +1526,7 @@ position:relative;
   position: absolute;
   width: 100%;
   height: 100%;
+	border-radius: 5px;
 }
 .enchanting-essence-effect {
 	text-align: center;
@@ -1549,7 +1553,7 @@ position:relative;
 	background-color:#3e3e41;
 }
 .common {
-	background-color:#4b4b4e;
+	background-color:#404040;
 }
 .common:hover{
 	background-color:#646468;
@@ -1781,6 +1785,15 @@ border-radius:5px;
 	border-radius:5px;
 	background:#292929;
 	cursor:pointer;
+}
+.title-button.no-select{
+	cursor:default;
+}
+.title-button.no-select:hover{
+	background:#292929;
+}
+.title-button.no-select:active {
+	background:#292929;
 }
 .title-button:hover{
 	background:#333;

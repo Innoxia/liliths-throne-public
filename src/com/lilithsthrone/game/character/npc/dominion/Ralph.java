@@ -7,8 +7,6 @@ import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.NameTriplet;
-import com.lilithsthrone.game.character.SexualOrientation;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
@@ -17,9 +15,12 @@ import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.persona.NameTriplet;
+import com.lilithsthrone.game.character.persona.PersonalityTrait;
+import com.lilithsthrone.game.character.persona.PersonalityWeight;
+import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
-import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.RalphsSnacks;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -39,7 +40,7 @@ import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
+import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -53,12 +54,12 @@ public class Ralph extends NPC {
 	private static final long serialVersionUID = 1L;
 
 	private static List<AbstractItemType> itemsForSale = Util.newArrayListOfValues(
-			new ListValue<>(ItemType.FETISH_UNREFINED),
-			new ListValue<>(ItemType.ADDICTION_REMOVAL),
-			new ListValue<>(ItemType.MOO_MILKER_EMPTY),
-			new ListValue<>(ItemType.VIXENS_VIRILITY),
-			new ListValue<>(ItemType.PROMISCUITY_PILL),
-			new ListValue<>(ItemType.MOTHERS_MILK));
+			ItemType.FETISH_UNREFINED,
+			ItemType.ADDICTION_REMOVAL,
+			ItemType.MOO_MILKER_EMPTY,
+			ItemType.VIXENS_VIRILITY,
+			ItemType.PROMISCUITY_PILL,
+			ItemType.MOTHERS_MILK);
 	
 	static {
 		for(AbstractItemType itemType : ItemType.allItems) {
@@ -76,6 +77,13 @@ public class Ralph extends NPC {
 		super(new NameTriplet("Ralph"), "Ralph is the owner of the shop 'Ralph's Snacks'. There's an air of confidence in the way he holds himself, and he behaves in a professional manner at all times.",
 				10, Gender.M_P_MALE, RacialBody.HORSE_MORPH, RaceStage.GREATER,
 				new CharacterInventory(10), WorldType.SHOPPING_ARCADE, PlaceType.SHOPPING_ARCADE_RALPHS_SHOP, true);
+
+		this.setPersonality(Util.newHashMapOfValues(
+				new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.AVERAGE),
+				new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.AVERAGE),
+				new Value<>(PersonalityTrait.EXTROVERSION, PersonalityWeight.AVERAGE),
+				new Value<>(PersonalityTrait.NEUROTICISM, PersonalityWeight.LOW),
+				new Value<>(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.AVERAGE)));
 		
 		if(!isImported) {
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
@@ -254,20 +262,6 @@ public class Ralph extends NPC {
 			}
 		}
 	};
-
-	// Combat (you never fight Ralph):
-	@Override
-	public String getCombatDescription() {
-		return null;
-	}
-	@Override
-	public Response endCombat(boolean applyEffects, boolean victory) {
-		return null;
-	}
-	@Override
-	public Attack attackType() {
-		return null;
-	}
 	
 	@Override
 	public String getCondomEquipEffects(GameCharacter equipper, GameCharacter target, boolean rough) {
@@ -309,7 +303,7 @@ public class Ralph extends NPC {
 				"You tear open the packet and forcefully roll the condom down the length [npc.name]'s [npc.penis].",
 				"[npc.Name] tears open the packet and rolls the condom down the length of [npc.her] [npc.penis].",
 				"[npc.Name] tears open the packet and rolls the condom down the length of your [pc.penis].",
-				"[npc.Name] tears open the packet and forcefully rolls the condom down the length of your [pc.penis].");
+				"[npc.Name] tears open the packet and forcefully rolls the condom down the length of your [pc.penis].", null, null);
 	}
 	
 	

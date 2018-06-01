@@ -6,13 +6,12 @@ import java.util.Map;
 
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.1.89
+ * @version 0.2.6
  * @author Innoxia
  */
 public enum WorldType {
@@ -26,19 +25,19 @@ public enum WorldType {
 //			PlaceType.DOMINION_STREET,
 //			PlaceType.DOMINION_BACK_ALLEYS,
 //			Util.newArrayListOfValues(
-//					new ListValue<PlaceType>(PlaceType.),
-//					new ListValue<PlaceType>(PlaceType.),
-//					new ListValue<PlaceType>(PlaceType.),
-//					new ListValue<PlaceType>(PlaceType.),
-//					new ListValue<PlaceType>(PlaceType.),
-//					new ListValue<PlaceType>(PlaceType.),
-//					new ListValue<PlaceType>(PlaceType.),
-//					new ListValue<PlaceType>(PlaceType.),
+//					PlaceType.,
+//					PlaceType.,
+//					PlaceType.,
+//					PlaceType.,
+//					PlaceType.,
+//					PlaceType.,
+//					PlaceType.,
+//					PlaceType.,
 //
 //			Util.newArrayListOfValues(
-//					new ListValue<PlaceType>(PlaceType.),
-//					new ListValue<PlaceType>(PlaceType.DOMINION_DARK_ALLEYS),
-//					new ListValue<PlaceType>(PlaceType.DOMINION_DARK_ALLEYS))),
+//					PlaceType.,
+//					PlaceType.DOMINION_DARK_ALLEYS,
+//					PlaceType.DOMINION_DARK_ALLEYS)),
 
 	DOMINION("Dominion",
 			Colour.BASE_PURPLE,
@@ -301,7 +300,7 @@ public enum WorldType {
 	BAT_CAVERNS("Bat Caverns",
 			Colour.BASE_BLACK,
 			1,
-			"/com/lilithsthrone/res/map/submission/batCaverns.png",
+			"/com/lilithsthrone/res/map/submission/batCaverns/batCaverns.png",
 			Util.newHashMapOfValues(
 					
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
@@ -316,6 +315,67 @@ public enum WorldType {
 					new Value<>(new Color(0x004080), PlaceType.BAT_CAVERN_RIVER_END),
 					
 					new Value<>(new Color(0xff80ff), PlaceType.BAT_CAVERN_SLIME_QUEEN_LAIR))),
+
+	SLIME_QUEENS_LAIR_GROUND_FLOOR("Slime Queen's Tower",
+			Colour.BASE_PINK,
+			1,
+			"/com/lilithsthrone/res/map/submission/slimeQueensLair/slimeQueensLairGroundFloor.png",
+			Util.newHashMapOfValues(
+					
+					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
+
+					new Value<>(new Color(0x808080), PlaceType.SLIME_QUEENS_LAIR_CORRIDOR),
+					
+					new Value<>(new Color(0x00ff00), PlaceType.SLIME_QUEENS_LAIR_ENTRANCE),
+					new Value<>(new Color(0xff0000), PlaceType.SLIME_QUEENS_LAIR_STAIRS_UP),
+					
+					new Value<>(new Color(0xff8000), PlaceType.SLIME_QUEENS_LAIR_STORAGE_VATS),
+					new Value<>(new Color(0x40b4ff), PlaceType.SLIME_QUEENS_LAIR_ROOM),
+					
+					new Value<>(new Color(0xff80ff), PlaceType.SLIME_QUEENS_LAIR_ENTRANCE_GUARDS),
+					
+					new Value<>(new Color(0xffff00), PlaceType.SLIME_QUEENS_LAIR_SLIME_QUEEN))),
+
+	SLIME_QUEENS_LAIR_FIRST_FLOOR("Slime Queen's Tower",
+			Colour.BASE_PINK,
+			1,
+			"/com/lilithsthrone/res/map/submission/slimeQueensLair/slimeQueensLairFirstFloor.png",
+			Util.newHashMapOfValues(
+					
+					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
+
+					new Value<>(new Color(0x808080), PlaceType.SLIME_QUEENS_LAIR_CORRIDOR),
+					
+					new Value<>(new Color(0x00ff00), PlaceType.SLIME_QUEENS_LAIR_STAIRS_DOWN),
+					
+					new Value<>(new Color(0x40b4ff), PlaceType.SLIME_QUEENS_LAIR_ROOM),
+					
+					new Value<>(new Color(0xff00ff), PlaceType.SLIME_QUEENS_LAIR_ROYAL_GUARD),
+					new Value<>(new Color(0xffff00), PlaceType.SLIME_QUEENS_LAIR_SLIME_QUEEN))),
+
+	GAMBLING_DEN("Gambling Den",
+			Colour.BASE_GOLD,
+			1,
+			"/com/lilithsthrone/res/map/submission/gamblingDen/gamblingDen.png",
+			Util.newHashMapOfValues(
+					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
+					new Value<>(new Color(0x808080), PlaceType.GAMBLING_DEN_CORRIDOR),
+					
+					new Value<>(new Color(0x00ff00), PlaceType.GAMBLING_DEN_ENTRANCE),
+					
+					new Value<>(new Color(0xffff00), PlaceType.GAMBLING_DEN_TRADER),
+					
+					new Value<>(new Color(0x0080ff), PlaceType.GAMBLING_DEN_GAMBLING),
+					
+					new Value<>(new Color(0xff80ff), PlaceType.GAMBLING_DEN_PREGNANCY),
+					new Value<>(new Color(0xff00ff), PlaceType.GAMBLING_DEN_FUTA_PREGNANCY),
+					new Value<>(new Color(0xff8000), PlaceType.GAMBLING_DEN_PREGNANCY_ROULETTE)
+					)){
+		@Override
+		public boolean isRevealedOnStart() {
+			return true;
+		}
+	},
 	
 	JUNGLE(6,
 			"jungle",
@@ -324,11 +384,11 @@ public enum WorldType {
 			PlaceType.JUNGLE_PATH,
 			PlaceType.JUNGLE_DENSE_JUNGLE,
 			Util.newArrayListOfValues(
-					new ListValue<PlaceType>(PlaceType.JUNGLE_BROTHEL),
-					new ListValue<PlaceType>(PlaceType.JUNGLE_CLUB),
-					new ListValue<PlaceType>(PlaceType.JUNGLE_ENTRANCE)),
+					PlaceType.JUNGLE_BROTHEL,
+					PlaceType.JUNGLE_CLUB,
+					PlaceType.JUNGLE_ENTRANCE),
 
-			Util.newArrayListOfValues(new ListValue<PlaceType>(PlaceType.JUNGLE_TENTACLE_QUEENS_LAIR)));
+			Util.newArrayListOfValues(PlaceType.JUNGLE_TENTACLE_QUEENS_LAIR));
 
 	
 	private final String name, fileLocation;

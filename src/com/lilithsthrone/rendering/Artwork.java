@@ -39,12 +39,7 @@ public class Artwork {
 		if(dir.exists()) {
 			FilenameFilter textFilter = new FilenameFilter() {
 				public boolean accept(File dir, String name) {
-					String lowercaseName = name.toLowerCase();
-					if (lowercaseName.endsWith(".xml")) {
-						return true;
-					} else {
-						return false;
-					}
+					return name.toLowerCase().endsWith(".xml");
 				}
 			};
 			

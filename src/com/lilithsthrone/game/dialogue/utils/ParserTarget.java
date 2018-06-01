@@ -7,18 +7,17 @@ import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 
 /**
  * @since 0.1.69.9
- * @version 0.2.2
+ * @version 0.2.5
  * @author Innoxia
  */
 public enum ParserTarget {
 	
 	STYLE(Util.newArrayListOfValues(
-			new ListValue<>("style"),
-			new ListValue<>("game")),
+			"style",
+			"game"),
 			"Returns the same as 'pc', but should be used for style methods such as style.bold or style.italics or conditional methods such as game.isArcaneStorm.") {
 				@Override
 				public GameCharacter getCharacter(String tag) {
@@ -27,8 +26,8 @@ public enum ParserTarget {
 			},
 	
 	PC(Util.newArrayListOfValues(
-			new ListValue<>("pc"),
-			new ListValue<>("player")),
+			"pc",
+			"player"),
 			"The player character.") {
 				@Override
 				public GameCharacter getCharacter(String tag) {
@@ -37,13 +36,13 @@ public enum ParserTarget {
 			},
 	
 	NPC(Util.newArrayListOfValues(
-			new ListValue<>("npc"),
-			new ListValue<>("npc1"),
-			new ListValue<>("npc2"),
-			new ListValue<>("npc3"),
-			new ListValue<>("npc4"),
-			new ListValue<>("npc5"),
-			new ListValue<>("npc6")),
+			"npc",
+			"npc1",
+			"npc2",
+			"npc3",
+			"npc4",
+			"npc5",
+			"npc6"),
 			"The currently 'active' NPC.</br>"
 			+"<b>The tag 'npc' can be extended with a number, starting at 1, to signify which npc in the scene it is referring to!</b> e.g. 'npc1' is the first npc, 'npc2' is the second, etc.</br>"
 			+ "If in <b>combat</b>, it returns your opponent.</br>"
@@ -65,7 +64,9 @@ public enum ParserTarget {
 						return Sex.getActivePartner();
 						
 					} else if (Main.game.getCurrentDialogueNode()!=null) {
-						if(Main.game.getCurrentDialogueNode()==CharactersPresentDialogue.MENU || Main.game.getCurrentDialogueNode()==PhoneDialogue.CONTACTS) {
+						if(Main.game.getCurrentDialogueNode()==CharactersPresentDialogue.MENU
+								 || Main.game.getCurrentDialogueNode()==PhoneDialogue.CONTACTS
+								 || Main.game.getCurrentDialogueNode()==PhoneDialogue.CONTACTS_CHARACTER) {
 							return CharactersPresentDialogue.characterViewed;
 							
 						} else if(Main.game.getActiveNPC()!=null) {
@@ -84,8 +85,7 @@ public enum ParserTarget {
 				}
 			},
 	
-	PROLOGUE_MALE(Util.newArrayListOfValues(
-			new ListValue<>("prologueMale")), ""){
+	PROLOGUE_MALE(Util.newArrayListOfValues("prologueMale"), "") {
 		public String getDescription() {
 			return Main.game.getPrologueMale().getDescription();
 		}
@@ -96,8 +96,7 @@ public enum ParserTarget {
 		}
 	},
 	
-	PROLOGUE_FEMALE(Util.newArrayListOfValues(
-			new ListValue<>("prologueFemale")), ""){
+	PROLOGUE_FEMALE(Util.newArrayListOfValues("prologueFemale"), "") {
 		public String getDescription() {
 			return Main.game.getPrologueFemale().getDescription();
 		}
@@ -109,10 +108,10 @@ public enum ParserTarget {
 	},
 	
 	NPC_MALE(Util.newArrayListOfValues(
-			new ListValue<>("NPCmale"),
-			new ListValue<>("maleNPC"),
-			new ListValue<>("genericMale"),
-			new ListValue<>("maleGeneric")), ""){
+			"NPCmale",
+			"maleNPC",
+			"genericMale",
+			"maleGeneric"), "") {
 		public String getDescription() {
 			return Main.game.getGenericMaleNPC().getDescription();
 		}
@@ -124,10 +123,10 @@ public enum ParserTarget {
 	},
 	
 	NPC_FEMALE(Util.newArrayListOfValues(
-			new ListValue<>("NPCfemale"),
-			new ListValue<>("femaleNPC"),
-			new ListValue<>("genericFemale"),
-			new ListValue<>("femaleGeneric")), ""){
+			"NPCfemale",
+			"femaleNPC",
+			"genericFemale",
+			"femaleGeneric"), "") {
 		public String getDescription() {
 			return Main.game.getGenericFemaleNPC().getDescription();
 		}
@@ -139,10 +138,10 @@ public enum ParserTarget {
 	},
 	
 	NPC_ANDROGYNOUS(Util.newArrayListOfValues(
-			new ListValue<>("NPCandrogynous"),
-			new ListValue<>("androgynousNPC"),
-			new ListValue<>("NPCambiguous"),
-			new ListValue<>("ambiguousNPC")), ""){
+			"NPCandrogynous",
+			"androgynousNPC",
+			"NPCambiguous",
+			"ambiguousNPC"), "") {
 		public String getDescription() {
 			return Main.game.getGenericAndrogynousNPC().getDescription();
 		}
@@ -154,8 +153,8 @@ public enum ParserTarget {
 	},
 	
 	TEST_NPC(Util.newArrayListOfValues(
-			new ListValue<>("testNPC"),
-			new ListValue<>("test")), ""){
+			"testNPC",
+			"test"), "") {
 		public String getDescription() {
 			return Main.game.getTestNPC().getDescription();
 		}
@@ -167,8 +166,8 @@ public enum ParserTarget {
 	},
 	
 	LILAYA(Util.newArrayListOfValues(
-			new ListValue<>("lilaya"),
-			new ListValue<>("aunt")), ""){
+			"lilaya",
+			"aunt"), "") {
 		public String getDescription() {
 			return Main.game.getLilaya().getDescription();
 		}
@@ -179,8 +178,7 @@ public enum ParserTarget {
 		}
 	},
 	
-	ROSE(Util.newArrayListOfValues(
-			new ListValue<>("rose")), ""){
+	ROSE(Util.newArrayListOfValues("rose"), "") {
 		public String getDescription() {
 			return Main.game.getRose().getDescription();
 		}
@@ -191,8 +189,7 @@ public enum ParserTarget {
 		}
 	},
 	
-	KATE(Util.newArrayListOfValues(
-			new ListValue<>("kate")), ""){
+	KATE(Util.newArrayListOfValues("kate"), "") {
 		public String getDescription() {
 			return Main.game.getKate().getDescription();
 		}
@@ -203,8 +200,7 @@ public enum ParserTarget {
 		}
 	},
 	
-	RALPH(Util.newArrayListOfValues(
-			new ListValue<>("ralph")), ""){
+	RALPH(Util.newArrayListOfValues("ralph"), "") {
 		public String getDescription() {
 			return Main.game.getRalph().getDescription();
 		}
@@ -215,8 +211,7 @@ public enum ParserTarget {
 		}
 	},
 	
-	NYAN(Util.newArrayListOfValues(
-			new ListValue<>("nyan")), ""){
+	NYAN(Util.newArrayListOfValues("nyan"), "") {
 		public String getDescription() {
 			return Main.game.getNyan().getDescription();
 		}
@@ -227,8 +222,7 @@ public enum ParserTarget {
 		}
 	},
 	
-	VICKY(Util.newArrayListOfValues(
-			new ListValue<>("vicky")), ""){
+	VICKY(Util.newArrayListOfValues("vicky"), "") {
 		public String getDescription() {
 			return Main.game.getVicky().getDescription();
 		}
@@ -239,8 +233,7 @@ public enum ParserTarget {
 		}
 	},
 	
-	PIX(Util.newArrayListOfValues(
-			new ListValue<>("pix")), ""){
+	PIX(Util.newArrayListOfValues("pix"), "") {
 		public String getDescription() {
 			return Main.game.getPix().getDescription();
 		}
@@ -251,8 +244,7 @@ public enum ParserTarget {
 		}
 	},
 	
-	BRAX(Util.newArrayListOfValues(
-			new ListValue<>("brax")), ""){
+	BRAX(Util.newArrayListOfValues("brax"), "") {
 		public String getDescription() {
 			return Main.game.getBrax().getDescription();
 		}
@@ -263,8 +255,7 @@ public enum ParserTarget {
 		}
 	},
 	
-	CANDI(Util.newArrayListOfValues(
-			new ListValue<>("candi")), ""){
+	CANDI(Util.newArrayListOfValues("candi"), "") {
 		public String getDescription() {
 			return Main.game.getCandi().getDescription();
 		}
@@ -275,8 +266,7 @@ public enum ParserTarget {
 		}
 	},
 	
-	SCARLETT(Util.newArrayListOfValues(
-			new ListValue<>("scarlett")), ""){
+	SCARLETT(Util.newArrayListOfValues("scarlett"), "") {
 		public String getDescription() {
 			return Main.game.getScarlett().getDescription();
 		}
@@ -287,8 +277,7 @@ public enum ParserTarget {
 		}
 	},
 	
-	ALEXA(Util.newArrayListOfValues(
-			new ListValue<>("alexa")), ""){
+	ALEXA(Util.newArrayListOfValues("alexa"), "") {
 		public String getDescription() {
 			return Main.game.getAlexa().getDescription();
 		}
@@ -300,9 +289,9 @@ public enum ParserTarget {
 	},
 	
 	HARPY_BIMBO(Util.newArrayListOfValues(
-			new ListValue<>("brittany"),
-			new ListValue<>("bimboHarpy"),
-			new ListValue<>("harpyBimbo")), ""){
+			"brittany",
+			"bimboHarpy",
+			"harpyBimbo"), "") {
 		public String getDescription() {
 			return Main.game.getHarpyBimbo().getDescription();
 		}
@@ -314,9 +303,9 @@ public enum ParserTarget {
 	},
 	
 	HARPY_BIMBO_COMPANION(Util.newArrayListOfValues(
-			new ListValue<>("lauren"),
-			new ListValue<>("bimboHarpyCompanion"),
-			new ListValue<>("harpyBimboCompanion")), ""){
+			"lauren",
+			"bimboHarpyCompanion",
+			"harpyBimboCompanion"), "") {
 		public String getDescription() {
 			return Main.game.getHarpyBimboCompanion().getDescription();
 		}
@@ -328,9 +317,9 @@ public enum ParserTarget {
 	},
 	
 	HARPY_DOMINANT(Util.newArrayListOfValues(
-			new ListValue<>("diana"),
-			new ListValue<>("dominantHarpy"),
-			new ListValue<>("harpyDominant")), ""){
+			"diana",
+			"dominantHarpy",
+			"harpyDominant"), "") {
 		public String getDescription() {
 			return Main.game.getHarpyDominant().getDescription();
 		}
@@ -342,9 +331,9 @@ public enum ParserTarget {
 	},
 	
 	HARPY_DOMINANT_COMPANION(Util.newArrayListOfValues(
-			new ListValue<>("harley"),
-			new ListValue<>("dominantHarpyCompanion"),
-			new ListValue<>("harpyDominantCompanion")), ""){
+			"harley",
+			"dominantHarpyCompanion",
+			"harpyDominantCompanion"), "") {
 		public String getDescription() {
 			return Main.game.getHarpyDominantCompanion().getDescription();
 		}
@@ -356,9 +345,9 @@ public enum ParserTarget {
 	},
 	
 	HARPY_NYMPHO(Util.newArrayListOfValues(
-			new ListValue<>("lexi"),
-			new ListValue<>("nymphoHarpy"),
-			new ListValue<>("harpyNympho")), ""){
+			"lexi",
+			"nymphoHarpy",
+			"harpyNympho"), "") {
 		public String getDescription() {
 			return Main.game.getHarpyNympho().getDescription();
 		}
@@ -370,9 +359,9 @@ public enum ParserTarget {
 	},
 	
 	HARPY_NYMPHO_COMPANION(Util.newArrayListOfValues(
-			new ListValue<>("max"),
-			new ListValue<>("nymphoHarpyCompanion"),
-			new ListValue<>("harpyNymphoCompanion")), ""){
+			"max",
+			"nymphoHarpyCompanion",
+			"harpyNymphoCompanion"), "") {
 		public String getDescription() {
 			return Main.game.getHarpyNymphoCompanion().getDescription();
 		}
@@ -383,8 +372,7 @@ public enum ParserTarget {
 		}
 	},
 	
-	PAZU(Util.newArrayListOfValues(
-			new ListValue<>("pazu")), ""){
+	PAZU(Util.newArrayListOfValues("pazu"), "") {
 		public String getDescription() {
 			return Main.game.getPazu().getDescription();
 		}
@@ -395,8 +383,7 @@ public enum ParserTarget {
 		}
 	},
 	
-	FINCH(Util.newArrayListOfValues(
-			new ListValue<>("finch")), ""){
+	FINCH(Util.newArrayListOfValues("finch"), "") {
 		public String getDescription() {
 			return Main.game.getFinch().getDescription();
 		}
@@ -407,8 +394,7 @@ public enum ParserTarget {
 		}
 	},
 	
-	ZARANIX(Util.newArrayListOfValues(
-			new ListValue<>("zaranix")), ""){
+	ZARANIX(Util.newArrayListOfValues("zaranix"), "") {
 		public String getDescription() {
 			return Main.game.getZaranix().getDescription();
 		}
@@ -419,8 +405,7 @@ public enum ParserTarget {
 		}
 	},
 	
-	AMBER(Util.newArrayListOfValues(
-			new ListValue<>("amber")), ""){
+	AMBER(Util.newArrayListOfValues("amber"), "") {
 		public String getDescription() {
 			return Main.game.getAmber().getDescription();
 		}
@@ -431,8 +416,7 @@ public enum ParserTarget {
 		}
 	},
 	
-	ARTHUR(Util.newArrayListOfValues(
-			new ListValue<>("arthur")), ""){
+	ARTHUR(Util.newArrayListOfValues("arthur"), "") {
 		public String getDescription() {
 			return Main.game.getArthur().getDescription();
 		}
@@ -443,8 +427,7 @@ public enum ParserTarget {
 		}
 	},
 	
-	KELLY(Util.newArrayListOfValues(
-			new ListValue<>("kelly")), ""){
+	KELLY(Util.newArrayListOfValues("kelly"), "") {
 		public String getDescription() {
 			return Main.game.getKelly().getDescription();
 		}
@@ -455,8 +438,7 @@ public enum ParserTarget {
 		}
 	},
 	
-	KATHERINE(Util.newArrayListOfValues(
-			new ListValue<>("katherine")), ""){
+	KATHERINE(Util.newArrayListOfValues("katherine"), "") {
 		public String getDescription() {
 			return Main.game.getKatherine().getDescription();
 		}
@@ -467,8 +449,7 @@ public enum ParserTarget {
 		}
 	},
 	
-	ASHLEY(Util.newArrayListOfValues(
-			new ListValue<>("ashley")), ""){
+	ASHLEY(Util.newArrayListOfValues("ashley"), "") {
 		public String getDescription() {
 			return Main.game.getAshley().getDescription();
 		}
@@ -480,8 +461,8 @@ public enum ParserTarget {
 	},
 	
 	WOLFGANG(Util.newArrayListOfValues(
-			new ListValue<>("wolfgang"),
-			new ListValue<>("supplierLeader")), ""){
+			"wolfgang",
+			"supplierLeader"), "") {
 		public String getDescription() {
 			return Main.game.getSupplierLeader().getDescription();
 		}
@@ -493,8 +474,8 @@ public enum ParserTarget {
 	},
 	
 	KARL(Util.newArrayListOfValues(
-			new ListValue<>("karl"),
-			new ListValue<>("supplierPartner")), ""){
+			"karl",
+			"supplierPartner"), "") {
 		public String getDescription() {
 			return Main.game.getSupplierPartner().getDescription();
 		}
@@ -505,8 +486,7 @@ public enum ParserTarget {
 		}
 	},
 	
-	ANGEL(Util.newArrayListOfValues(
-			new ListValue<>("angel")), ""){
+	ANGEL(Util.newArrayListOfValues("angel"), "") {
 		public String getDescription() {
 			return Main.game.getAngel().getDescription();
 		}
@@ -517,8 +497,7 @@ public enum ParserTarget {
 		}
 	},
 	
-	BUNNY(Util.newArrayListOfValues(
-			new ListValue<>("bunny")), ""){
+	BUNNY(Util.newArrayListOfValues("bunny"), "") {
 		public String getDescription() {
 			return Main.game.getBunny().getDescription();
 		}
@@ -529,8 +508,7 @@ public enum ParserTarget {
 		}
 	},
 	
-	LOPPY(Util.newArrayListOfValues(
-			new ListValue<>("loppy")), ""){
+	LOPPY(Util.newArrayListOfValues("loppy"), "") {
 		public String getDescription() {
 			return Main.game.getLoppy().getDescription();
 		}
@@ -538,6 +516,105 @@ public enum ParserTarget {
 		@Override
 		public GameCharacter getCharacter(String tag) {
 			return Main.game.getLoppy();
+		}
+	},
+	
+	LUMI(Util.newArrayListOfValues("lumi"), "") {
+		public String getDescription() {
+			return Main.game.getLumi().getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter(String tag) {
+			return Main.game.getLumi();
+		}
+	},
+	
+	CLAIRE(Util.newArrayListOfValues("claire"), "") {
+		public String getDescription() {
+			return Main.game.getClaire().getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter(String tag) {
+			return Main.game.getClaire();
+		}
+	},
+	
+	SLIME_QUEEN(Util.newArrayListOfValues("slimeQueen"), "") {
+		public String getDescription() {
+			return Main.game.getSlimeQueen().getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter(String tag) {
+			return Main.game.getSlimeQueen();
+		}
+	},
+	
+	SLIME_GUARD_ICE(Util.newArrayListOfValues("slimeGuardIce", "slimeIce"), "") {
+		public String getDescription() {
+			return Main.game.getSlimeGuardIce().getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter(String tag) {
+			return Main.game.getSlimeGuardIce();
+		}
+	},
+	
+	SLIME_GUARD_FIRE(Util.newArrayListOfValues("slimeGuardFire", "slimeFire"), "") {
+		public String getDescription() {
+			return Main.game.getSlimeGuardFire().getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter(String tag) {
+			return Main.game.getSlimeGuardFire();
+		}
+	},
+	
+	SLIME_ROYAL_GUARD(Util.newArrayListOfValues("slimeRoyalGuard", "royalGuardSlime"), "") {
+		public String getDescription() {
+			return Main.game.getSlimeRoyalGuard().getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter(String tag) {
+			return Main.game.getSlimeRoyalGuard();
+		}
+	},
+	
+	ROXY(Util.newArrayListOfValues("roxy"), "") {
+		public String getDescription() {
+			return Main.game.getRoxy().getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter(String tag) {
+			return Main.game.getRoxy();
+		}
+	},
+	
+	AXEL(Util.newArrayListOfValues("axel"), "") {
+		public String getDescription() {
+			return Main.game.getAxel().getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter(String tag) {
+			return Main.game.getAxel();
+		}
+	},
+	
+	EPONA(Util.newArrayListOfValues("epona"), "") {
+		public String getDescription() {
+			return Main.game.getEpona().getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter(String tag) {
+			return Main.game.getEpona();
 		}
 	},
 	;

@@ -416,7 +416,7 @@ public enum Quest {
 	},
 	
 	
-	SIDE_NYAN_STOCK_ISSUES(QuestType.SIDE, 1, 0) {
+	RELATIONSHIP_NYAN_STOCK_ISSUES(QuestType.RELATIONSHIP, 1, 0) {
 		@Override
 		public String getName() {
 			return "Offer Nyan your help";
@@ -435,7 +435,7 @@ public enum Quest {
 		}
 	},
 	
-	SIDE_NYAN_STOCK_ISSUES_AGREED_TO_HELP(QuestType.SIDE, 10, 0) {
+	RELATIONSHIP_NYAN_STOCK_ISSUES_AGREED_TO_HELP(QuestType.RELATIONSHIP, 10, 0) {
 		@Override
 		public String getName() {
 			return "Confront the suppliers";
@@ -453,7 +453,7 @@ public enum Quest {
 		}
 	},
 	
-	SIDE_NYAN_STOCK_ISSUES_SUPPLIERS_BEATEN(QuestType.SIDE, 10, 100) {
+	RELATIONSHIP_NYAN_STOCK_ISSUES_SUPPLIERS_BEATEN(QuestType.RELATIONSHIP, 10, 100) {
 		@Override
 		public String getName() {
 			return "Reward";
@@ -538,7 +538,187 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "After informing the Enforcers that you've pacified all three of the major harpy nests, they resumed their regular patrols, resulting in the Harpy Nests being safe to travel through!";
 		}
-	};
+	},
+	
+	
+	
+	// Slime Queen:
+	
+	SLIME_QUEEN_ONE(QuestType.SIDE, 10, 25) {
+		@Override
+		public String getName() {
+			return "Troublesome Slimes";
+		}
+
+		@Override
+		public String getDescription() {
+			return "When you first arrived in Submission, an enforcer informed you of an ongoing situation in the tunnels."
+					+ " Apparently, there are are an increasing number of Slimes who are attacking innocent travellers and transforming them into more Slimes."
+					+ " If you're able to offer any information on where these aggressive Slimes are coming from, you could earn a one-thousand flame reward.";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "One of the Slimes that you encountered in the tunnels told you that they'd been given orders to transform people by a certain 'Slime Queen'.";
+		}
+	},
+	
+	SLIME_QUEEN_TWO(QuestType.SIDE, 1, 10) {
+		@Override
+		public String getName() {
+			return "Report Back";
+		}
+
+		@Override
+		public String getDescription() {
+			return "You should report back to one of Submission's Enforcer Posts with this information regarding a 'Slime Queen'.";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "The Enforcer that you reported to told you that they'd heard rumours of a Slime Queen before, but no trace of any such thing has ever been found in Submission."
+					+ " They suggested that you could take a look down in the Bat Caverns, and offered you a further twenty-thousand flames if you could find this Queen and put an end to her scheming.";
+		}
+	},
+	
+	SLIME_QUEEN_THREE(QuestType.SIDE, 15, 25) {
+		@Override
+		public String getName() {
+			return "Finding the Slime Queen";
+		}
+
+		@Override
+		public String getDescription() {
+			return "Travel down into the Bat Caverns and search for the rumoured Slime Queen.";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "In the middle of Slime Lake, you discovered the Slime Queen's lair!";
+		}
+	},
+	
+	SLIME_QUEEN_FOUR(QuestType.SIDE, 20, 50) {
+		@Override
+		public String getName() {
+			return "Confront the Queen";
+		}
+
+		@Override
+		public String getDescription() {
+			return "Travel up the tower and find the Slime Queen.";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "You found the Slime Queen at the top of the tower.";
+		}
+	},
+	
+	SLIME_QUEEN_FIVE_SUBMIT(QuestType.SIDE, 1, 25) {
+		@Override
+		public String getName() {
+			return "Help the Queen";
+		}
+
+		@Override
+		public String getDescription() {
+			return "You decided to help the Slime Queen with her plans of transforming Submission's population into slimes.";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "You decided to help the Slime Queen with her plans, and agreed to trick the enforcers into believing that she's no longer a threat!";
+		}
+	},
+	
+	SLIME_QUEEN_SIX_SUBMIT(QuestType.SIDE, 1, 200) {
+		@Override
+		public String getName() {
+			return "Final Report";
+		}
+
+		@Override
+		public String getDescription() {
+			return "Report back to Claire and tell her that the Slime Queen will no longer be a problem.";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "You told Claire that the Slime Queen is no longer a threat, and received the twenty-thousand flame reward."
+				+ " With your Queen now safe from enforcer investigation, it's only a matter of time before all of Submission is a Slime paradise!";
+		}
+	},
+	
+	SLIME_QUEEN_FIVE_CONVINCE(QuestType.SIDE, 1, 25) {
+		@Override
+		public String getName() {
+			return "Convince the Queen";
+		}
+
+		@Override
+		public String getDescription() {
+			return "You decide to convince the Slime Queen to abandon her plans.";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "You convinced Catherine to abandon her plan of transforming everyone in Submission into slimes.";
+		}
+	},
+	
+	SLIME_QUEEN_SIX_CONVINCE(QuestType.SIDE, 1, 200) {
+		@Override
+		public String getName() {
+			return "Final Report";
+		}
+
+		@Override
+		public String getDescription() {
+			return "Report back to Claire and tell her that the Slime Queen will no longer be a problem.";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "You told Claire that the Slime Queen is no longer a threat, and received the twenty-thousand flame reward.";
+		}
+	},
+	
+	SLIME_QUEEN_FIVE_FORCE(QuestType.SIDE, 1, 25) {
+		@Override
+		public String getName() {
+			return "Force the Queen";
+		}
+
+		@Override
+		public String getDescription() {
+			return "Force the Slime Queen to abandon her plans.";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "You forced Catherine to abandon her plan of transforming everyone in Submission into slimes.";
+		}
+	},
+	
+	SLIME_QUEEN_SIX_FORCE(QuestType.SIDE, 1, 200) {
+		@Override
+		public String getName() {
+			return "Final Report";
+		}
+
+		@Override
+		public String getDescription() {
+			return "Report back to Claire and tell her that the Slime Queen will no longer be a problem.";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "You told Claire that the Slime Queen is no longer a threat, and received the twenty-thousand flame reward.";
+		}
+	},
+	
+	;
 
 	private int level, experienceReward;
 	private QuestType questType;

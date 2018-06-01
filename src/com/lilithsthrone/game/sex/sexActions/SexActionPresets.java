@@ -6,7 +6,9 @@ import java.util.List;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericActions;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericOrgasms;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericPositioning;
+import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.PartnerMasturbation;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.PartnerTalk;
+import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.PlayerMasturbation;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.PlayerTalk;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerFingerAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerFingerNipple;
@@ -64,6 +66,7 @@ import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfFin
 import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfFingerNipple;
 import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfFingerVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfNoPen;
+import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfPanties;
 import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfTailAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfTailMouth;
 import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfTailNipple;
@@ -188,6 +191,15 @@ public class SexActionPresets {
 	public static List<Class<?>> playerStandingSub = new ArrayList<>();
 	public static List<Class<?>> partnerStandingSub = new ArrayList<>();
 
+	
+	/* Masturbating */
+
+	public static List<Class<?>> playerMasturbating = new ArrayList<>();
+	public static List<Class<?>> partnerMasturbating = new ArrayList<>();
+
+	public static List<Class<?>> playerPantiesMasturbating = new ArrayList<>();
+	public static List<Class<?>> partnerPantiesMasturbating = new ArrayList<>();
+	
 	/* Chair sex */
 
 	public static List<Class<?>> playerChairTop = new ArrayList<>();
@@ -295,6 +307,9 @@ public class SexActionPresets {
 
 	public static List<Class<?>> playerMissionaryAltarSealedDomCultistOral = new ArrayList<>();
 	public static List<Class<?>> partnerMissionaryAltarSealedDomCultistOral = new ArrayList<>();
+
+	public static List<Class<?>> playerFaceSittingRoxy = new ArrayList<>();
+	public static List<Class<?>> partnerFaceSittingRoxy = new ArrayList<>();
 	
 	
 	
@@ -864,6 +879,22 @@ public class SexActionPresets {
 		partnerStandingSub.add(PartnerTailAnus.class);
 		
 		partnerStandingSub.addAll(partnerGenerics);
+		
+		
+		// Masturbating: TODO
+
+		playerMasturbating.addAll(playerDefaultSelf);
+		playerMasturbating.add(PlayerMasturbation.class);
+		
+		partnerMasturbating.addAll(partnerDefaultSelf);
+		partnerMasturbating.add(PartnerMasturbation.class);
+
+
+		playerPantiesMasturbating.addAll(playerDefaultSelf);
+		playerPantiesMasturbating.add(PlayerSelfPanties.class);
+		
+		partnerPantiesMasturbating.addAll(partnerDefaultSelf);
+		partnerPantiesMasturbating.add(PartnerMasturbation.class);
 		
 		
 		// Chair player top:
@@ -1497,6 +1528,24 @@ public class SexActionPresets {
 		playerMissionaryAltarSealedDomCultistOral.addAll(playerMissionaryAltarDomCultistOral);
 		
 		partnerMissionaryAltarSealedDomCultistOral.addAll(partnerMissionaryAltarDomCultistOral);
+		
+		
+		// Roxy:
+		
+		playerFaceSittingRoxy.addAll(playerDefaultSelf);
+		
+		playerFaceSittingRoxy.add(PlayerTongueVagina.class);
+		
+		playerFaceSittingRoxy.addAll(playerGenerics);
+		
+		
+		// Sixty-nine partner top:
+
+//		partnerFaceSittingRoxy.addAll(partnerDefaultSelf);
+
+		partnerFaceSittingRoxy.add(PlayerTongueVagina.class);
+		
+		partnerSixtyNineOnTop.addAll(partnerGenerics);
 		
 	}
 }

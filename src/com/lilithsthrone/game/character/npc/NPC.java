@@ -1,32 +1,19 @@
 package com.lilithsthrone.game.character.npc;
 
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-
-import javax.imageio.ImageIO;
-
 import java.util.Set;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.History;
-import com.lilithsthrone.game.character.NameTriplet;
-import com.lilithsthrone.game.character.SexualOrientation;
-import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.attributes.ObedienceLevel;
@@ -52,25 +39,31 @@ import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
+import com.lilithsthrone.game.character.npc.misc.Elemental;
+import com.lilithsthrone.game.character.persona.History;
+import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Attack;
+import com.lilithsthrone.game.combat.Combat;
+import com.lilithsthrone.game.combat.SpecialAttack;
 import com.lilithsthrone.game.combat.Spell;
+import com.lilithsthrone.game.combat.SpellSchool;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.enchanting.EnchantingUtils;
+import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.game.inventory.enchanting.TFPotency;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
-import com.lilithsthrone.game.inventory.item.ItemEffect;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.settings.ForcedTFTendency;
 import com.lilithsthrone.game.sex.OrificeType;
@@ -82,12 +75,8 @@ import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.game.slavery.SlaveJob;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.rendering.Artist;
-import com.lilithsthrone.rendering.Artwork;
-import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.XMLSaving;
 import com.lilithsthrone.world.WorldType;
@@ -95,7 +84,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.2.2
+ * @version 0.2.6
  * @author Innoxia
  */
 public abstract class NPC extends GameCharacter implements XMLSaving {
@@ -120,9 +109,6 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	
 	protected Value<String, AbstractItem> heldTransformativePotion = null;
 	
-	private List<Artwork> artworkList;
-	private int artworkIndex = -1;
-	
 	protected NPC(NameTriplet nameTriplet, String description, int level, Gender startingGender, RacialBody startingRace,
 			RaceStage stage, CharacterInventory inventory, WorldType worldLocation, PlaceType startingPlace, boolean addedToContacts) {
 		super(nameTriplet, description, level, startingGender, startingRace, stage, inventory, worldLocation, startingPlace);
@@ -135,19 +121,6 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		sellModifier=1.5f;
 		
 		NPCFlagValues = new HashSet<>();
-		
-		artworkList = new ArrayList<>();
-		
-		String artworkFolderName = this.getClass().getSimpleName();
-		
-		if(artworkFolderName!=null && !artworkFolderName.isEmpty()) {
-			for(Artist artist : Artwork.allArtists) {
-				File f = new File("res/images/characters/"+artworkFolderName+"/"+artist.getFolderName());
-				if(f.exists()) {
-					artworkList.add(new Artwork(artworkFolderName, artist));
-				}
-			}
-		}
 		
 		if(getLocation().equals(Main.game.getPlayer().getLocation()) && getWorldLocation()==Main.game.getPlayer().getWorldLocation()) {
 			for(CoverableArea ca : CoverableArea.values()) {
@@ -254,6 +227,12 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	 * Applies an hourly update to this NPC.
 	 */
 	public void hourlyUpdate() {
+	}
+	
+	/**
+	 * Applies an update to this NPC every time the game makes a turn.
+	 */
+	public void turnUpdate() {
 	}
 	
 	public abstract void changeFurryLevel();
@@ -395,18 +374,78 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 
 	// Combat:
 	
-	public abstract String getCombatDescription();
-
-	
-
-	public abstract Response endCombat(boolean applyEffects, boolean playerVictory);
-
-	public abstract Attack attackType();
-
-	public Spell getSpell() {
-		return null;
+	public List<Spell> getSpellsAbleToCast() {
+		List<Spell> spellsAbleToCast = new ArrayList<>();
+		
+		for(Spell spell : this.getAllSpells()) {
+			if(this.getMana()>spell.getModifiedCost(this)) {
+				if(this instanceof Elemental) {
+					if(spell!=Spell.ELEMENTAL_AIR
+							&& spell!=Spell.ELEMENTAL_ARCANE
+							&& spell!=Spell.ELEMENTAL_EARTH
+							&& spell!=Spell.ELEMENTAL_FIRE
+							&& spell!=Spell.ELEMENTAL_WATER) {
+						spellsAbleToCast.add(spell);
+					}
+					
+				} else {
+					spellsAbleToCast.add(spell);
+				}
+			}
+		}
+		
+		return spellsAbleToCast;
 	}
 	
+	public List<SpecialAttack> getSpecialAttacksAbleToUse() {
+		List<SpecialAttack> specialAttacksAbleToUse = new ArrayList<>();
+		
+		for(SpecialAttack sa : this.getSpecialAttacks()) {
+			if(Main.game.isInCombat()) {
+				if(Combat.getCooldown(this, sa)==0) {
+					specialAttacksAbleToUse.add(sa);
+				}
+			} else {
+				specialAttacksAbleToUse.add(sa);
+			}
+		}
+		
+		return specialAttacksAbleToUse;
+	}
+	
+	public Attack attackType() {
+		boolean canCastASpell = !getSpellsAbleToCast().isEmpty();
+		boolean canCastASpecialAttack = !getSpecialAttacksAbleToUse().isEmpty();
+		
+		Map<Attack, Integer> attackWeightingMap = new HashMap<>();
+		
+		attackWeightingMap.put(Attack.MAIN, this.getRace().getPreferredAttacks().contains(Attack.MAIN)?75:50);
+		attackWeightingMap.put(Attack.OFFHAND, this.getOffhandWeapon()==null?0:(this.getRace().getPreferredAttacks().contains(Attack.MAIN)?50:25));
+		attackWeightingMap.put(Attack.SEDUCTION, this.getRace().getPreferredAttacks().contains(Attack.SEDUCTION)?100:(int)this.getAttributeValue(Attribute.MAJOR_CORRUPTION));
+		attackWeightingMap.put(Attack.SPELL, !canCastASpell?0:(this.getRace().getPreferredAttacks().contains(Attack.MAIN)?100:50));
+		attackWeightingMap.put(Attack.SPECIAL_ATTACK, !canCastASpecialAttack?0:(this.getRace().getPreferredAttacks().contains(Attack.MAIN)?100:50));
+		
+		int total = 0;
+		for(Entry<Attack, Integer> entry : attackWeightingMap.entrySet()) {
+			total+=entry.getValue();
+		}
+		
+		int index = Util.random.nextInt(total);
+		total = 0;
+		for(Entry<Attack, Integer> entry : attackWeightingMap.entrySet()) {
+			total+=entry.getValue();
+			if(index<total) {
+				return entry.getKey();
+			}
+		}
+		
+		return Attack.MAIN;
+	}
+	
+	public Response endCombat(boolean applyEffects, boolean playerVictory) {
+		return null;
+	};
+
 	public int getEscapeChance() {
 		return 30;
 	}
@@ -429,125 +468,165 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		double rnd = Math.random();
 		
 		if(rnd<=0.05) {
-			return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.FETISH_UNREFINED)));
+			return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.FETISH_UNREFINED));
 			
 		} else if(rnd<=0.1) {
-			return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.ADDICTION_REMOVAL)));
+			return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.ADDICTION_REMOVAL));
 			
 		} else if(rnd <= 0.6) {
 			switch(getRace()) {
+				case NONE:
+					break;
 				case CAT_MORPH:
-					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.INT_INGREDIENT_FELINE_FANCY)));
+					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.INT_INGREDIENT_FELINE_FANCY));
 				case COW_MORPH:
-					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.STR_INGREDIENT_BUBBLE_MILK)));
+					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.STR_INGREDIENT_BUBBLE_MILK));
 				case DOG_MORPH:
-					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.FIT_INGREDIENT_CANINE_CRUSH)));
+					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.FIT_INGREDIENT_CANINE_CRUSH));
 				case HORSE_MORPH:
-					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.STR_INGREDIENT_EQUINE_CIDER)));
+					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.STR_INGREDIENT_EQUINE_CIDER));
 				case REINDEER_MORPH:
-					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.FIT_INGREDIENT_EGG_NOG)));
+					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.FIT_INGREDIENT_EGG_NOG));
 				case WOLF_MORPH:
-					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.STR_INGREDIENT_WOLF_WHISKEY)));
+					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.STR_INGREDIENT_WOLF_WHISKEY));
 				case HUMAN:
-					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.INT_INGREDIENT_VANILLA_WATER)));
+					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.INT_INGREDIENT_VANILLA_WATER));
 				case SLIME:
-					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.SEX_INGREDIENT_SLIME_QUENCHER)));
+					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.SEX_INGREDIENT_SLIME_QUENCHER));
 				case ANGEL:
-					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.DYE_BRUSH)));
+					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.DYE_BRUSH));
 				case DEMON:
-					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.COR_INGREDIENT_LILITHS_GIFT)));
+					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.COR_INGREDIENT_LILITHS_GIFT));
 				case IMP:
-					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.COR_INGREDIENT_IMPISH_BREW)));
+					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.COR_INGREDIENT_IMPISH_BREW));
 				case HARPY:
-					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.SEX_INGREDIENT_HARPY_PERFUME)));
+					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.SEX_INGREDIENT_HARPY_PERFUME));
 				case ALLIGATOR_MORPH:
-					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.STR_INGREDIENT_SWAMP_WATER)));
+					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.STR_INGREDIENT_SWAMP_WATER));
 				case SQUIRREL_MORPH:
-					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.FIT_INGREDIENT_SQUIRREL_JAVA)));
+					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.FIT_INGREDIENT_SQUIRREL_JAVA));
 				case BAT_MORPH:
-					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.INT_INGREDIENT_FRUIT_BAT_SQUASH)));
+					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.INT_INGREDIENT_FRUIT_BAT_SQUASH));
 				case RAT_MORPH:
-					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.STR_INGREDIENT_BLACK_RATS_RUM)));
+					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.STR_INGREDIENT_BLACK_RATS_RUM));
 				case RABBIT_MORPH:
-					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.SEX_INGREDIENT_BUNNY_JUICE)));
+					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.SEX_INGREDIENT_BUNNY_JUICE));
+				case ELEMENTAL_AIR:
+					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.AIR)));
+				case ELEMENTAL_ARCANE:
+					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.ARCANE)));
+				case ELEMENTAL_EARTH:
+					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.EARTH)));
+				case ELEMENTAL_FIRE:
+					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.FIRE)));
+				case ELEMENTAL_WATER:
+					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.WATER)));
 			}
 			
 		} else if(rnd <= 0.8 && !Main.game.getPlayer().getRacesDiscoveredFromBook().contains(getRace())) {
 			switch(getRace()) {
+				case NONE:
+					break;
 				case CAT_MORPH:
-					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.BOOK_CAT_MORPH)));
+					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.BOOK_CAT_MORPH));
 				case COW_MORPH:
-					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.BOOK_COW_MORPH)));
+					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.BOOK_COW_MORPH));
 				case DOG_MORPH:
-					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.BOOK_DOG_MORPH)));
+					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.BOOK_DOG_MORPH));
 				case HORSE_MORPH:
-					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.BOOK_HORSE_MORPH)));
+					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.BOOK_HORSE_MORPH));
 				case REINDEER_MORPH:
-					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.BOOK_REINDEER_MORPH)));
+					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.BOOK_REINDEER_MORPH));
 				case WOLF_MORPH:
-					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.BOOK_WOLF_MORPH)));
+					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.BOOK_WOLF_MORPH));
 				case HUMAN:
-					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.BOOK_HUMAN)));
+					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.BOOK_HUMAN));
 				case SLIME:
-					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.BOOK_SLIME)));
+					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.BOOK_SLIME));
 				case ANGEL:
-					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.DYE_BRUSH)));
+					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.DYE_BRUSH));
 				case DEMON:
-					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.BOOK_DEMON)));
+					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.BOOK_DEMON));
 				case IMP:
-					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.BOOK_IMP)));
+					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.BOOK_IMP));
 				case HARPY:
-					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.BOOK_HARPY)));
+					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.BOOK_HARPY));
 				case ALLIGATOR_MORPH:
-					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.BOOK_ALLIGATOR_MORPH)));
+					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.BOOK_ALLIGATOR_MORPH));
 				case SQUIRREL_MORPH:
-					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.BOOK_SQUIRREL_MORPH)));
+					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.BOOK_SQUIRREL_MORPH));
 				case BAT_MORPH:
-					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.BOOK_BAT_MORPH)));
+					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.BOOK_BAT_MORPH));
 				case RAT_MORPH:
-					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.BOOK_RAT_MORPH)));
+					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.BOOK_RAT_MORPH));
 				case RABBIT_MORPH:
-					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.BOOK_RABBIT_MORPH)));
+					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.BOOK_RABBIT_MORPH));
+				case ELEMENTAL_AIR: //TODO books
+					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.AIR)));
+				case ELEMENTAL_ARCANE:
+					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.ARCANE)));
+				case ELEMENTAL_EARTH:
+					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.EARTH)));
+				case ELEMENTAL_FIRE:
+					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.FIRE)));
+				case ELEMENTAL_WATER:
+					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.WATER)));
 			}
 		
 		} else {
 			switch(getRace()) {
+				case NONE:
+					break;
 				case CAT_MORPH:
-					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_CAT_MORPH)));
+					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_CAT_MORPH));
 				case COW_MORPH:
-					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_COW_MORPH)));
+					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_COW_MORPH));
 				case DOG_MORPH:
-					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_DOG_MORPH)));
+					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_DOG_MORPH));
 				case HORSE_MORPH:
-					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_HORSE_MORPH)));
+					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_HORSE_MORPH));
 				case REINDEER_MORPH:
-					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_REINDEER_MORPH)));
+					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_REINDEER_MORPH));
 				case WOLF_MORPH:
-					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_WOLF_MORPH)));
+					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_WOLF_MORPH));
 				case HUMAN:
-					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_HUMAN)));
+					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_HUMAN));
 				case SLIME:
-					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.SEX_INGREDIENT_SLIME_QUENCHER)));
+					if(this.hasFetish(Fetish.FETISH_TRANSFORMATION_GIVING)) {
+						return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_SLIME));
+					} else {
+						return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.SEX_INGREDIENT_SLIME_QUENCHER));
+					}
 				case ANGEL:
-					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_HUMAN)));
+					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_HUMAN));
 				case DEMON: case IMP:
-					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_DEMON)));
+					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_DEMON));
 				case HARPY:
-					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_HARPY)));
+					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_HARPY));
 				case ALLIGATOR_MORPH:
-					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_ALLIGATOR_MORPH)));
+					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_ALLIGATOR_MORPH));
 				case SQUIRREL_MORPH:
-					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_SQUIRREL_MORPH)));
+					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_SQUIRREL_MORPH));
 				case BAT_MORPH:
-					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_BAT_MORPH)));
+					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_BAT_MORPH));
 				case RAT_MORPH:
-					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_RAT_MORPH)));
+					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_RAT_MORPH));
 				case RABBIT_MORPH:
-					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_RABBIT_MORPH)));
+					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_RABBIT_MORPH));
+				case ELEMENTAL_AIR:
+					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.AIR)));
+				case ELEMENTAL_ARCANE:
+					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.ARCANE)));
+				case ELEMENTAL_EARTH:
+					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.EARTH)));
+				case ELEMENTAL_FIRE:
+					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.FIRE)));
+				case ELEMENTAL_WATER:
+					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.idToItemMap.get("SPELL_SCROLL_"+SpellSchool.WATER)));
 			}
 		}
 		
-		return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.DYE_BRUSH)));
+		return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.DYE_BRUSH));
 	}
 	
 	public Map<TFEssence, Integer> getLootEssenceDrops() {
@@ -823,6 +902,8 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			}
 		
 			switch(getPreferredBody().getRace()) {
+				case NONE:
+					break;
 				case CAT_MORPH:
 					itemType = ItemType.RACE_INGREDIENT_CAT_MORPH;
 					reaction = "Time to turn you into a cute little "+raceName+"!";
@@ -880,6 +961,11 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				case IMP:
 				case HUMAN:
 				case SLIME:
+				case ELEMENTAL_AIR:
+				case ELEMENTAL_ARCANE:
+				case ELEMENTAL_EARTH:
+				case ELEMENTAL_FIRE:
+				case ELEMENTAL_WATER:
 					itemType = ItemType.RACE_INGREDIENT_HUMAN;
 					break;
 			}
@@ -898,7 +984,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				vaginaSet = true;
 			}
 			
-			if((Main.game.getPlayer().getPenisType() == getPreferredBody().getPenis().getType()) || (getPreferredBody().getPenis().getType()!=PenisType.NONE && Main.game.getPlayer().hasPenis())) {
+			if((Main.game.getPlayer().getPenisType() == getPreferredBody().getPenis().getType()) || (getPreferredBody().getPenis().getType()!=PenisType.NONE && Main.game.getPlayer().hasPenisIgnoreDildo())) {
 				penisSet = true;
 			}
 			
@@ -927,6 +1013,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 							possibleEffects.put(new ItemEffect(genitalsItemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.REMOVAL, TFPotency.MINOR_BOOST, 1), "Let's get rid of that tight little cunt of yours!");
 							removingVagina = true;
 						}
+						
 					} else if((Main.getProperties().forcedTFPreference != FurryPreference.HUMAN && Main.getProperties().forcedTFPreference != FurryPreference.MINIMUM) || getPreferredBody().getVagina().getType()==VaginaType.HUMAN) {
 						possibleEffects.put(new ItemEffect(genitalsItemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.NONE, TFPotency.MINOR_BOOST, 1),
 								"Let's give you a nice "+getPreferredBody().getVagina().getName(Main.game.getPlayer(), false)+"!");
@@ -934,6 +1021,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					}
 				}
 			}
+			
 			if(Main.game.getPlayer().getPenisType() != getPreferredBody().getPenis().getType()) {
 				if(getPreferredBody().getPenis().getType() == PenisType.NONE) {
 					if(Main.game.getPlayer().getPenisRawSizeValue() > 1) {
@@ -943,12 +1031,14 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 						possibleEffects.put(new ItemEffect(genitalsItemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.REMOVAL, TFPotency.MINOR_BOOST, 1), "Let's get rid of that pathetic little cock of yours!");
 						removingPenis = true;
 					}
+					
 				} else if((Main.getProperties().forcedTFPreference != FurryPreference.HUMAN && Main.getProperties().forcedTFPreference != FurryPreference.MINIMUM) || getPreferredBody().getPenis().getType()==PenisType.HUMAN) {
 					possibleEffects.put(new ItemEffect(genitalsItemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.NONE, TFPotency.MINOR_BOOST, 1),
 							"Let's give you a nice "+getPreferredBody().getPenis().getName(Main.game.getPlayer(), false)+"!");
 					addingPenis = true;
 				}
 			}
+			
 			if(!possibleEffects.isEmpty()) {
 				String s = "";
 				if(possibleEffects.size()>1) {
@@ -1335,7 +1425,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			// Preferred race stage:
 			
 			if(preferredGender.isFeminine()) {
-				switch(Main.getProperties().subspeciesFeminineFurryPreferencesMap.get(species)) {
+				switch(Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(species)) {
 					case HUMAN:
 						stage = RaceStage.HUMAN;
 						break;
@@ -1353,7 +1443,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 						break;
 				}
 			} else {
-				switch(Main.getProperties().subspeciesMasculineFurryPreferencesMap.get(species)) {
+				switch(Main.getProperties().getSubspeciesMasculineFurryPreferencesMap().get(species)) {
 					case HUMAN:
 						stage = RaceStage.HUMAN;
 						break;
@@ -2252,7 +2342,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	private boolean isKeenToPerformFetishAction(GameCharacter target, Fetish fetish) {
 		if(fetish == Fetish.FETISH_ORAL_GIVING) {
 			for(Addiction add : this.getAddictions()) {
-				if(target.hasPenis() && add.getFluid() == target.getCumType()) {
+				if(target.hasPenisIgnoreDildo() && add.getFluid() == target.getCumType()) {
 					return true;
 				}
 				if(target.hasVagina() && add.getFluid() == target.getGirlcumType()) {
@@ -2273,7 +2363,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	private boolean isKeenToAvoidFetishAction(GameCharacter target, Fetish fetish) {
 		if(fetish == Fetish.FETISH_ORAL_GIVING) {
 			for(Addiction add : this.getAddictions()) {
-				if(target.hasPenis() && add.getFluid() == target.getCumType()) {
+				if(target.hasPenisIgnoreDildo() && add.getFluid() == target.getCumType()) {
 					return false;
 				}
 				if(target.hasVagina() && add.getFluid() == target.getGirlcumType()) {
@@ -2360,13 +2450,13 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		if(foreplaySexTypes.isEmpty()) {
 			// Player penetrates:
 			List<PenetrationType> penTypes = Util.newArrayListOfValues(
-					new ListValue<>(PenetrationType.FINGER),
-					new ListValue<>(PenetrationType.TONGUE));
+					PenetrationType.FINGER,
+					PenetrationType.TONGUE);
 
 			List<OrificeType> orificeTypes = Util.newArrayListOfValues(
-					new ListValue<>(OrificeType.BREAST),
-					new ListValue<>(OrificeType.NIPPLE),
-					new ListValue<>(OrificeType.VAGINA));
+					OrificeType.BREAST,
+					OrificeType.NIPPLE,
+					OrificeType.VAGINA);
 			
 			for(PenetrationType pen : penTypes) {
 				for(OrificeType orifice : orificeTypes) {
@@ -2382,16 +2472,16 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		if(mainSexTypes.isEmpty()) { //TODO make a better weighting method, rather than just adding multiple entries
 			// Player penetrates:
 			List<PenetrationType> penTypes = Util.newArrayListOfValues(
-					new ListValue<>(PenetrationType.PENIS),
-					new ListValue<>(PenetrationType.PENIS),
-					new ListValue<>(PenetrationType.PENIS),
-					new ListValue<>(PenetrationType.TAIL));
+					PenetrationType.PENIS,
+					PenetrationType.PENIS,
+					PenetrationType.PENIS,
+					PenetrationType.TAIL);
 
 			List<OrificeType> orificeTypes = Util.newArrayListOfValues(
-					new ListValue<>(OrificeType.BREAST),
-					new ListValue<>(OrificeType.VAGINA),
-					new ListValue<>(OrificeType.VAGINA),
-					new ListValue<>(OrificeType.VAGINA));
+					OrificeType.BREAST,
+					OrificeType.VAGINA,
+					OrificeType.VAGINA,
+					OrificeType.VAGINA);
 			
 			for(PenetrationType pen : penTypes) {
 				for(OrificeType orifice : orificeTypes) {
@@ -2617,32 +2707,6 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	public boolean isWillingToRape(GameCharacter character) {
 		return this.getFetishDesire(Fetish.FETISH_NON_CON_DOM)!=FetishDesire.ONE_DISLIKE && this.getFetishDesire(Fetish.FETISH_NON_CON_DOM)!=FetishDesire.ZERO_HATE;
 	}
-	
-	public boolean isAttractedTo(GameCharacter character) {
-		if(hasStatusEffect(StatusEffect.WEATHER_STORM_VULNERABLE)) { // If they're vulnerable to arcane storms, they will always be eager during a storm:
-			return true;
-		}
-		
-//		if(isSlave()) {
-//			if(this.getAffection(character)<AffectionLevel.POSITIVE_ONE_FRIENDLY.getMinimumValue()) {
-//				return false;
-//			}
-//		}
-		
-		if((getSexualOrientation()==SexualOrientation.ANDROPHILIC && character.isFeminine())
-				|| (getSexualOrientation()==SexualOrientation.GYNEPHILIC && !character.isFeminine())
-				) {
-			return false;
-		}
-		
-		if(this.isRelatedTo(character)) {
-			if (!hasFetish(Fetish.FETISH_INCEST)) {
-				return false;
-			}
-		}
-		
-		return true;
-	}
 
 	public SexPace getSexPaceSubPreference(GameCharacter character){
 		if(!isAttractedTo(character) || this.hasFetish(Fetish.FETISH_NON_CON_SUB)) {
@@ -2675,8 +2739,8 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		}
 		
 		if (hasFetish(Fetish.FETISH_SUBMISSIVE) // Subs like being sub I guess ^^
-				|| (hasFetish(Fetish.FETISH_PREGNANCY) && character.hasPenis() && hasVagina()) // Want to get pregnant
-				|| (hasFetish(Fetish.FETISH_IMPREGNATION) && character.hasVagina() && hasPenis()) // Want to impregnate player
+				|| (hasFetish(Fetish.FETISH_PREGNANCY) && character.hasPenisIgnoreDildo() && hasVagina()) // Want to get pregnant
+				|| (hasFetish(Fetish.FETISH_IMPREGNATION) && character.hasVagina() && hasPenisIgnoreDildo()) // Want to impregnate player
 				) {
 			return SexPace.SUB_EAGER;
 		}
@@ -2718,12 +2782,21 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				
 			// Player uses item on NPC:
 			} else {
-				if(target.isSlave()) {
+				if(target.isSlave() && target.getOwner()!=null && target.getOwner().isPlayer()) {
 					return Main.game.getPlayer().useItem(item, target, false);
+					
+				} else if(target instanceof Elemental) {
+					return "<p>"
+								+ UtilText.parse(this, "As you move to get [npc.name] to "+item.getItemType().getUseName()+" the "+item.getName()+", [npc.she] calmly states,"
+										+ " [npc.speech(Being an elemental, I am unable to "+item.getItemType().getUseName()+" that.)]")
+							+ "</p>"
+							+ "<p>"
+								+ "You put the "+item.getName()+" back in your inventory."
+							+ "</p>";
 					
 				} else {
 					return "<p>"
-								+ "You try to give [npc.name] the "+item.getName()+", but [npc.she] refuses to take it. You put the "+item.getName()+" back in your inventory."
+								+ UtilText.parse(this, "You try to give [npc.name] the "+item.getName()+", but [npc.she] refuses to take it. You put the "+item.getName()+" back in your inventory.")
 							+ "</p>";
 					
 				}
@@ -2735,225 +2808,118 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		}
 	}
 	
-	protected StringBuilder infoScreenSB = new StringBuilder();
-	
-	public String getCharacterInformationScreen() {
-		infoScreenSB.setLength(0);
-		
-		if(!this.getArtworkList().isEmpty()) {
-			if(Main.getProperties().hasValue(PropertyValue.artwork)) {
-				if(artworkIndex == -1) {
-					int i=0;
-					for(Artwork artworkIteration : this.getArtworkList()) {
-						if(artworkIteration.getArtist().getFolderName().equals(Main.getProperties().preferredArtist)) {
-							artworkIndex = i;
-							break;
-						}
-						i++;
-					}
-					if(artworkIndex == -1) {
-						artworkIndex = 0;
-					}
-				}
-				Artwork artwork = this.getArtworkList().get(artworkIndex);
+	protected static String getItemUseEffectsAllowingUse(AbstractItem item, GameCharacter user, GameCharacter target) {
+		// Player is using an item:
+		if(user.isPlayer()){
+			// Player uses item on themselves:
+			if(target.isPlayer()){
+				return Main.game.getPlayer().useItem(item, target, false);
 				
-				int width = 200;
-				int height = 400;
-				try {
-					File f = new File(artwork.getCurrentImage());
-					BufferedImage image = ImageIO.read(f);
-					width = image.getWidth();
-					height = image.getHeight();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-				
-				boolean nakedRevealed = false;
-				
-				if(Main.game.getPlayer().getSexPartnerStats(this)!=null) {
-					nakedRevealed = true;
-				}
-				
-				BufferedImage bi = null;
-				String src = "";
-				
-				try {
-					bi = ImageIO.read(new File(artwork.getCurrentImage()));
-
-					ByteArrayOutputStream out = new ByteArrayOutputStream();
-					if(artwork.getCurrentImage().endsWith("jpg")) {
-						ImageIO.write(bi, "JPG", out);
-					} else {
-						ImageIO.write(bi, "PNG", out);
-					}
-					byte[] bytes = out.toByteArray();
-
-					String base64bytes = Base64.getEncoder().encodeToString(bytes);
-					src = "data:image/png;base64," + base64bytes;
-					
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-				
-//				System.out.println(src);
-				
-				int percentageWidth = (height>=width?33:66);
-				
-				infoScreenSB.append(
-						"<div class='full-width-container' style='position:relative; float:right; width:"+percentageWidth+"%; max-width:"+width+"; object-fit:scale-down;'>"
-							+ "<div class='full-width-container' style='width:100%; margin:0;'>"
-								+ "<img id='CHARACTER_IMAGE' style='"+(nakedRevealed || artwork.isCurrentImageClothed()?"":"-webkit-filter: brightness(0%);")+" width:100%;' src='"+src+"'/>"//file:/
-								+ "<div class='overlay no-pointer no-highlight' style='text-align:center;'>" // Add overlay div to stop javaFX's insane image drag+drop
-									+(nakedRevealed || artwork.isCurrentImageClothed()?"":"<p style='margin-top:50%; font-weight:bold; color:"+Colour.BASE_GREY.toWebHexString()+";'>Unlocked through sex!</p>")
-								+"</div>" 
-								+ "<div class='title-button' id='ARTWORK_INFO' style='background:transparent; left:auto; right:4px;'>"+SVGImages.SVG_IMAGE_PROVIDER.getInformationIcon()+"</div>"
-							+ "</div>"
-								+ "<div class='normal-button"+(artwork.getTotalArtworkCount()==1?" disabled":"")+"' id='ARTWORK_PREVIOUS' style='float:left; width:10%; margin:0 10%; padding:0; text-align:center;'>&lt;</div>"
-								+ "<div class='full-width-container' style='float:left; width:40%; margin:0; text-align:center;'>"+(artwork.getIndex()+1)+"/"+artwork.getTotalArtworkCount()+"</div>"
-								+ "<div class='normal-button"+(artwork.getTotalArtworkCount()==1?" disabled":"")+"' id='ARTWORK_NEXT' style='float:left; width:10%; margin:0 10%; padding:0; text-align:center;'>&gt;</div>"
-								
-								+ "<div class='normal-button"+(this.getArtworkList().size()==1?" disabled":"")+"' id='ARTWORK_ARTIST_PREVIOUS' style='float:left; width:10%; margin:0 10%; padding:0; text-align:center;'>&lt;</div>"
-								+ "<div class='full-width-container' style='float:left; width:40%; margin:0; text-align:center;'>"+this.getArtworkList().get(artworkIndex).getArtist().getName()+"</div>"
-								+ "<div class='normal-button"+(this.getArtworkList().size()==1?" disabled":"")+"' id='ARTWORK_ARTIST_NEXT' style='float:left; width:10%; margin:0 10%; padding:0; text-align:center;'>&gt;</div>"
-							+ "</div>");
-				
+			// Player uses item on NPC:
 			} else {
-//				infoScreenSB.append("<div class='full-width-container' style='position:relative; float:right; width:30%; margin: 5%; text-align:center;'>"
-//						+ "[style.colourDisabled(Enable 'Artwork' in the Content Options screen to see this character's artwork!)]"
-//						+ "</div>");
-				
-			}
-		}
-		
-		infoScreenSB.append("<h4>Background</h4>"
-				+ "<p>"
-					+ this.getDescription()
-				+ "</p>"
-				+ "</br>"
-				+ "<h4>Relationships</h4>"
-				+ "<p>"
-					+ "[style.boldAffection(Affection:)]</br>"
-					+ AffectionLevel.getDescription(this, Main.game.getPlayer(),
-							AffectionLevel.getAffectionLevelFromValue(this.getAffection(Main.game.getPlayer())), true));
-		
-		for(Entry<String, Float> entry : this.getAffectionMap().entrySet()) {
-			GameCharacter target = Main.game.getNPCById(entry.getKey());
-			if(!target.isPlayer()) {
-				infoScreenSB.append("</br>" + AffectionLevel.getDescription(this, target, AffectionLevel.getAffectionLevelFromValue(this.getAffection(target)), true));
-			}
-		}
-		
-		infoScreenSB.append("</br></br>"
-					+ "[style.boldObedience(Obedience:)]</br>"
-					+ UtilText.parse(this,
-							(this.isSlave()
-								?"[npc.Name] [style.boldArcane(is a slave)], owned by "+(this.getOwner().isPlayer()?"you!":this.getOwner().getName("a")+".")
-								:"[npc.Name] [style.boldGood(is not a slave)]."))
-					+ "</br>"+ObedienceLevel.getDescription(this, ObedienceLevel.getObedienceLevelFromValue(this.getObedienceValue()), true, true));
-		
-		if(!this.getSlavesOwned().isEmpty()) {
-			infoScreenSB.append("</br></br>"
-					+ "[style.boldArcane(Slaves owned:)]");
-			for(String id : this.getSlavesOwned()) {
-				infoScreenSB.append(UtilText.parse(Main.game.getNPCById(id), "</br>[npc.Name]"));
-			}
-		}
-		
-		infoScreenSB.append("</p>"
-				+ "</br>"
-					+ "<h4>Appearance</h4>"
-				+ "<p>"
-					+ this.getBodyDescription()
-				+ "</p>"
-				+ getStats(this));
-		
-		return infoScreenSB.toString();
-	}
+				if(item.getItemType().equals(ItemType.PROMISCUITY_PILL)) {
+					Main.game.getPlayer().useItem(item, target, false);
+					if(!Main.game.isInSex() || Sex.isDom(Main.game.getPlayer())) {
+						return "<p>"
+								+ "Holding out a 'Promiscuity pill' to [npc.name], you tell [npc.her] to swallow it so that you don't have to worry about any unexpected pregnancies."
+								+ " Letting out a reluctant sigh, [npc.she] nevertheless takes the pill out of your hand, and, popping it out of its wrapping, [npc.she] whines at you,"
+								+ " [npc.speech(Fine! I kinda like the taste of these things anyway...)]"
+								+ "</p>";
+					} else {
+						return "<p>"
+								+ "Holding out a 'Promiscuity pill' to [npc.name], you ask [npc.her] to swallow it so that you don't have to worry about any unexpected pregnancies."
+								+ " Letting out an annoyed sigh, [npc.she] nevertheless takes the pill out of your hand, and, popping it out of its wrapping, [npc.she] growls at you,"
+								+ " [npc.speech(Fine! I don't care either way, but I kinda like the taste of these things...)]"
+								+ "</p>";
+					}
 	
-	public static String getStats(NPC character) {
-		return "<h4 style='text-align:center;'>Stats</h4>"
-				+"<table align='center'>"
-
-				+ "<tr style='height:8px; color:"+character.getGender().getColour().toWebHexString()+";'><th>Core</th></tr>"
-				+ statRow("Femininity", String.valueOf(character.getFemininityValue()))
-				+ statRow("Height (cm)", String.valueOf(character.getHeightValue()))
-				+ statRow("Hair length (inches)", String.valueOf(Util.conversionInchesToCentimetres(character.getHairRawLengthValue())))
-				+ "<tr style='height:8px;'></tr>"
-
-				+ "<tr style='height:8px; color:"+Colour.TRANSFORMATION_SEXUAL.toWebHexString()+";'><th>Breasts</th></tr>"
-				+ statRow("Cup size", character.getBreastRawSizeValue() == 0 ? "N/A" : Util.capitaliseSentence(character.getBreastSize().getCupSizeName()))
-				+ (character.getPlayerKnowsAreas().contains(CoverableArea.NIPPLES)
-					?statRow("Milk Storage (mL)", String.valueOf(character.getBreastRawMilkStorageValue()))
-						+statRow("Milk regeneration (%/minute)", String.valueOf((Math.round(character.getBreastLactationRegeneration().getPercentageRegen()*100)*100)/100f))
-						+ statRow("Capacity (inches)", String.valueOf(character.getNippleRawCapacityValue()))
-						+ statRow("Elasticity", String.valueOf(character.getNippleElasticity().getValue()) + " ("+Util.capitaliseSentence(character.getNippleElasticity().getDescriptor())+")")
-					:statRow("Milk Storage (mL)", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>")
-						+ statRow("Capacity (inches)","<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>")
-						+ statRow("Elasticity", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>"))
-				+ "<tr style='height:8px;'></tr>"
-
-				+ "<tr style='height:8px; color:"+Colour.TRANSFORMATION_SEXUAL.toWebHexString()+";'><th>Penis</th></tr>"
-				+ (character.getPlayerKnowsAreas().contains(CoverableArea.PENIS)
-					?statRow("Length (inches)", character.getPenisType() == PenisType.NONE ? "N/A" : String.valueOf(character.getPenisRawSizeValue()))
-						+ statRow("Ball size", character.getPenisType() == PenisType.NONE ? "N/A" : Util.capitaliseSentence(character.getTesticleSize().getDescriptor()))
-						+ statRow("Cum production (mL)", character.getPenisType() == PenisType.NONE ? "N/A" : String.valueOf(character.getPenisRawCumProductionValue()))
-					:statRow("Length (inches)", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>")
-						+ statRow("Ball size", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>")
-						+ statRow("Cum production (mL)", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>"))
-				+ "<tr style='height:8px;'></tr>"
-
-				+ "<tr style='height:8px; color:"+Colour.TRANSFORMATION_SEXUAL.toWebHexString()+";'><th>Vagina</th></tr>"
-				+ (character.getPlayerKnowsAreas().contains(CoverableArea.VAGINA)
-					?statRow("Capacity (inches)", character.getVaginaType() == VaginaType.NONE ? "N/A" : String.valueOf(character.getVaginaRawCapacityValue()))
-						+ statRow("Elasticity", String.valueOf(character.getVaginaElasticity().getValue()) + " ("+Util.capitaliseSentence(character.getVaginaElasticity().getDescriptor())+")")
-						+ statRow("Wetness", character.getVaginaType() == VaginaType.NONE ? "N/A" : String.valueOf(character.getVaginaWetness().getValue()) +" ("+Util.capitaliseSentence(character.getVaginaWetness().getDescriptor())+")")
-						+ statRow("Clit size (inches)", character.getVaginaType() == VaginaType.NONE ? "N/A" : String.valueOf(character.getVaginaRawClitorisSizeValue()))
-					:statRow("Capacity (inches)", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>")
-						+ statRow("Elasticity", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>")
-						+ statRow("Wetness", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>")
-						+ statRow("Clit size (inches)", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>"))
-				+ "<tr style='height:8px;'></tr>"
-
-				+ "<tr style='height:8px; color:"+Colour.TRANSFORMATION_SEXUAL.toWebHexString()+";'><th>Anus</th></tr>"
-				+ (character.getPlayerKnowsAreas().contains(CoverableArea.ANUS)
-					?statRow("Capacity (inches)", String.valueOf(character.getAssRawCapacityValue()))
-						+ statRow("Elasticity", String.valueOf(character.getAssElasticity().getValue()) + " ("+Util.capitaliseSentence(character.getAssElasticity().getDescriptor())+")")
-						+ statRow("Wetness", String.valueOf(character.getAssWetness().getValue()) +" ("+Util.capitaliseSentence(character.getAssWetness().getDescriptor())+")")
-					:statRow("Capacity (inches)", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>")
-						+ statRow("Elasticity", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>")
-						+ statRow("Wetness", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>"))
-				+ "</table>";
-	}
-	
-	private static String statRow(String title, String value) {
-		return "<tr>"
-					+ "<td style='min-width:100px;'>"
-						+ "<b>"+title+"</b>"
-					+ "</td>"
-					+ "<td style='min-width:100px;'>"
-						+ "<b>"+value+"</b>"
-					+ "</td>"
-				+ "</tr>";
-	}
-
-	public List<Artwork> getArtworkList() {
-		return artworkList;
-	}
-	
-	public int getArtworkIndex() {
-		return artworkIndex;
-	}
-
-	public void setArtworkIndex(int artworkIndex) {
-		artworkIndex = artworkIndex % getArtworkList().size();
-		if(artworkIndex < 0) {
-			artworkIndex = getArtworkList().size() + artworkIndex;
+				} else if(item.getItemType().equals(ItemType.VIXENS_VIRILITY)) {
+					Main.game.getPlayer().useItem(item, target, false);
+					if(!Main.game.isInSex() || Sex.isDom(Main.game.getPlayer())) {
+						return "<p>"
+								+ "Holding out a 'Vixen's Virility' pill to [npc.name], you tell [npc.her] to swallow it."
+								+ " Letting out a reluctant sigh, [npc.she] nevertheless takes the pill out of your hand, and, popping it out of its wrapping, [npc.she] whines at you,"
+								+ " [npc.speech(Fine! I kinda like the taste of these things anyway...)]"
+								+ "</p>";
+					} else {
+						return "<p>"
+								+ "Holding out a 'Vixen's Virility' pill to [npc.name], you ask [npc.her] to swallow it."
+								+ " Letting out an annoyed sigh, [npc.she] nevertheless takes the pill out of your hand, and, popping it out of its wrapping, [npc.she] growls at you,"
+								+ " [npc.speech(Fine! I don't care either way, but I kinda like the taste of these things...)]"
+								+ "</p>";
+					}
+						
+				} else if(item.getItemType().equals(ItemType.POTION) || item.getItemType().equals(ItemType.ELIXIR) || item.getItemType().equals(ItemType.FETISH_UNREFINED) || item.getItemType().equals(ItemType.FETISH_REFINED)) {
+					if(!Main.game.isInSex() || Sex.isDom(Main.game.getPlayer())) {
+						return "<p>"
+									+ "Taking your "+item.getName()+" out from your inventory, you hold it out to [npc.name]."
+									+ " Seeing what you're offering [npc.herHim], [npc.she] shifts about uncomfortably, "
+									+ " [npc.speech(Do you really expect me to drink some rando- ~Mrph!~)]"
+								+ "</p>"
+								+ "<p>"
+									+ "Not liking the start of [npc.her] response, you quickly remove the bottle's stopper, and, rather unceremoniously, shove the neck down [npc.her] throat."
+									+ " You pinch [npc.her] nose and hold [npc.herHim] still, forcing [npc.herHim] to down all of the liquid before finally letting [npc.herHim] go."
+									+ " [npc.She] coughs and splutters for a moment, before letting out a surprised cry as [npc.she] starts to feel the liquid's effects taking root deep in [npc.her] body..."
+								+ "</p>"
+								+Main.game.getPlayer().useItem(item, target, false, true);
+					} else {
+						return "<p>"
+									+ "You try to give [npc.name] your "+item.getName()+", but [npc.she] takes one look at it and laughs,"
+									+ " [npc.speech(Hah! Nice try, but do you really expect me to drink some random potion?!)]</br>"
+									+ "You reluctantly put the "+item.getName()+" back in your inventory, disappointed that [npc.she]'s not interested."
+								+ "</p>";
+					}
+						
+				} else if(item.getItemType().equals(ItemType.MOTHERS_MILK)) {
+					if(!Main.game.isInSex() || Sex.isDom(Main.game.getPlayer())) {
+						return "<p>"
+									+ "Taking the bottle of "+item.getName()+" out from your inventory, you hold it out to [npc.name]."
+									+ " Seeing what you're offering [npc.herHim], [npc.she] shifts about uncomfortably, "
+									+ " [npc.speech(Do you really expect me to drink tha- ~Mrph!~)]"
+								+ "</p>"
+								+ "<p>"
+									+ "Not liking the start of [npc.her] response, you unceremoniously shove the bottle's teat into [npc.her] mouth."
+									+ " You pinch [npc.her] nose and hold [npc.herHim] still, forcing [npc.herHim] to down all of the liquid before finally letting [npc.herHim] go."
+									+ " [npc.She] coughs and splutters for a moment, before letting out a surprised cry as [npc.she] starts to feel the liquid's effects taking root deep in [npc.her] body..."
+								+ "</p>"
+								+Main.game.getPlayer().useItem(item, target, false, true);
+					} else {
+						return "<p>"
+									+ "You try to give [npc.name] your "+item.getName()+", but [npc.she] takes one look at it and laughs,"
+									+ " [npc.speech(Hah! Nice try, but do you really expect me to drink some random potion?!)]</br>"
+									+ "You reluctantly put the "+item.getName()+" back in your inventory, disappointed that [npc.she]'s not interested."
+								+ "</p>";
+					}
+						
+				} else if(item.getItemType().equals(ItemType.EGGPLANT)) {
+					
+					if(!Main.game.isInSex() || Sex.isDom(Main.game.getPlayer())) {
+						return "<p>"
+									+ "Taking the eggplant from your inventory, you hold it out to [npc.name]."
+									+ " Seeing what you're offering [npc.herHim], [npc.she] shifts about uncomfortably, "
+									+ " [npc.speech(W-What are you going to do with th- -~Mrph!~)]"
+								+ "</p>"
+								+ "<p>"
+									+ "Not liking the start of [npc.her] response, you quickly shove the eggplant into [npc.her] mouth, grinning as you force [npc.herHim] to eat the purple fruit..."
+								+ "</p>"
+								+Main.game.getPlayer().useItem(item, target, false, true);
+					} else {
+						return "<p>"
+									+ "You try to give [npc.name] your "+item.getName()+", but [npc.she] takes one look at it and laughs,"
+									+ " [npc.speech(Hah! Did you really think I was going to eat that?!)]</br>"
+									+ "You reluctantly put the "+item.getName()+" back in your inventory, disappointed that [npc.she]'s not interested."
+								+ "</p>";
+					}
+					
+				} else {
+					return Main.game.getPlayer().useItem(item, target, false);
+				}
+			}
+			
+		// NPC is using an item:
+		} else {
+			return user.useItem(item, target, false);
 		}
-		this.artworkIndex = artworkIndex;
-	}
-
-	public void incrementArtworkIndex(int increment) {
-		setArtworkIndex(this.artworkIndex + increment);
 	}
 
 }

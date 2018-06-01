@@ -15,7 +15,12 @@ import org.w3c.dom.NodeList;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.effects.Perk;
+import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.gender.Gender;
+import com.lilithsthrone.game.character.persona.NameTriplet;
+import com.lilithsthrone.game.character.persona.PersonalityTrait;
+import com.lilithsthrone.game.character.persona.PersonalityWeight;
+import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.quests.QuestType;
@@ -37,7 +42,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.2.1
+ * @version 0.2.4
  * @author Innoxia
  */
 public class PlayerCharacter extends GameCharacter implements XMLSaving {
@@ -50,7 +55,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 
 	private Map<QuestLine, Quest> quests;
 
-	private boolean mainQuestUpdated, sideQuestUpdated, romanceQuestUpdated;
+	private boolean mainQuestUpdated, sideQuestUpdated, relationshipQuestUpdated;
 
 	private Set<Race> racesDiscoveredFromBook;
 	
@@ -59,8 +64,8 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 
 	private List<String> charactersEncountered;
 	
-	public PlayerCharacter(NameTriplet nameTriplet, String description, int level, Gender gender, RacialBody startingRace, RaceStage stage, CharacterInventory inventory, WorldType startingWorld, PlaceType startingPlace) {
-		super(nameTriplet, description, level, gender, startingRace, stage, new CharacterInventory(0), startingWorld, startingPlace);
+	public PlayerCharacter(NameTriplet nameTriplet, int level, Gender gender, RacialBody startingRace, RaceStage stage, CharacterInventory inventory, WorldType startingWorld, PlaceType startingPlace) {
+		super(nameTriplet, "", level, gender, startingRace, stage, new CharacterInventory(0), startingWorld, startingPlace);
 
 		this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 		
@@ -72,11 +77,17 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		
 		karma = 0;
 		
+		for(PersonalityTrait trait : PersonalityTrait.values()) {
+			this.setPersonalityTrait(trait, PersonalityWeight.AVERAGE);
+		}
+		
+		this.setMaxCompanions(1);
+		
 		quests = new EnumMap<>(QuestLine.class);
 
 		mainQuestUpdated = false;
 		sideQuestUpdated = false;
-		romanceQuestUpdated = false;
+		relationshipQuestUpdated = false;
 		
 		racesDiscoveredFromBook = new HashSet<>();
 
@@ -111,7 +122,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		playerSpecific.appendChild(questUpdatesElement);
 		CharacterUtils.createXMLElementWithValue(doc, playerSpecific, "mainQuestUpdated", String.valueOf(this.mainQuestUpdated));
 		CharacterUtils.createXMLElementWithValue(doc, playerSpecific, "sideQuestUpdated", String.valueOf(this.sideQuestUpdated));
-		CharacterUtils.createXMLElementWithValue(doc, playerSpecific, "romanceQuestUpdated", String.valueOf(this.romanceQuestUpdated));
+		CharacterUtils.createXMLElementWithValue(doc, playerSpecific, "relationshipQuestUpdated", String.valueOf(this.relationshipQuestUpdated));
 		
 		Element innerElement = doc.createElement("racesDiscovered");
 		playerSpecific.appendChild(innerElement);
@@ -148,7 +159,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	}
 	
 	public static PlayerCharacter loadFromXML(StringBuilder log, Element parentElement, Document doc, CharacterImportSetting... settings) {
-		PlayerCharacter character = new PlayerCharacter(new NameTriplet(""), "", 0, Gender.F_V_B_FEMALE, RacialBody.HUMAN, RaceStage.HUMAN, new CharacterInventory(0), WorldType.DOMINION, PlaceType.DOMINION_AUNTS_HOME);
+		PlayerCharacter character = new PlayerCharacter(new NameTriplet(""), 0, Gender.F_V_B_FEMALE, RacialBody.HUMAN, RaceStage.HUMAN, new CharacterInventory(0), WorldType.DOMINION, PlaceType.DOMINION_AUNTS_HOME);
 		
 		GameCharacter.loadGameCharacterVariablesFromXML(character, log, parentElement, doc, settings);
 
@@ -176,8 +187,8 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 			if(playerSpecificElement.getElementsByTagName("sideQuestUpdated").getLength()!=0) {
 				character.setSideQuestUpdated(Boolean.valueOf(((Element)playerSpecificElement.getElementsByTagName("sideQuestUpdated").item(0)).getAttribute("value")));
 			}
-			if(playerSpecificElement.getElementsByTagName("romanceQuestUpdated").getLength()!=0) {
-				character.setRomanceQuestUpdated(Boolean.valueOf(((Element)playerSpecificElement.getElementsByTagName("romanceQuestUpdated").item(0)).getAttribute("value")));
+			if(playerSpecificElement.getElementsByTagName("relationshipQuestUpdated").getLength()!=0) {
+				character.setRelationshipQuestUpdated(Boolean.valueOf(((Element)playerSpecificElement.getElementsByTagName("relationshipQuestUpdated").item(0)).getAttribute("value")));
 			}
 	
 			try {
@@ -233,9 +244,18 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 					for(int i=0; i<((Element) playerSpecificElement.getElementsByTagName("questMap").item(0)).getElementsByTagName("entry").getLength(); i++){
 						Element e = (Element) ((Element) playerSpecificElement.getElementsByTagName("questMap").item(0)).getElementsByTagName("entry").item(i);
 						try {
-						character.quests.put(
-								QuestLine.valueOf(e.getAttribute("questLine")),
-								Quest.valueOf(e.getAttribute("quest")));
+							String questLine = e.getAttribute("questLine");
+							if(questLine.contains("SIDE_NYAN")) {
+								questLine = questLine.replace("SIDE_NYAN", "RELATIONSHIP_NYAN");
+							}
+							
+							String quest = e.getAttribute("quest");
+							if(quest.contains("SIDE_NYAN")) {
+								quest = quest.replace("SIDE_NYAN", "RELATIONSHIP_NYAN");
+							}
+							character.quests.put(
+									QuestLine.valueOf(questLine),
+									Quest.valueOf(quest));
 						} catch(Exception ex) {
 						}
 					}
@@ -309,6 +329,17 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		return body.getDescription(this);
 	}
 
+	@Override
+	public String getDescription() {
+		if(!Main.game.isInNewWorld()) {
+			return ""; // This isn't displayed anywhere before the game starts for real.
+		} else {
+			return "Having been pulled into an enchanted mirror in your aunt Lily's museum, you woke up to find yourself in another world."
+					+ " By a stroke of good fortune, one of the first people you met was Lilaya; this world's version of your aunt."
+					+ " Having convinced her that your story is true, you're now working towards finding a way to get back to your old world.";
+		}
+	}
+	
 	public String getTitle() {
 		return title;
 	}
@@ -371,12 +402,12 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		this.sideQuestUpdated = sideQuestUpdated;
 	}
 
-	public boolean isRomanceQuestUpdated() {
-		return romanceQuestUpdated;
+	public boolean isRelationshipQuestUpdated() {
+		return relationshipQuestUpdated;
 	}
 
-	public void setRomanceQuestUpdated(boolean romanceQuestUpdated) {
-		this.romanceQuestUpdated = romanceQuestUpdated;
+	public void setRelationshipQuestUpdated(boolean relationshipQuestUpdated) {
+		this.relationshipQuestUpdated = relationshipQuestUpdated;
 	}
 
 	public String startQuest(QuestLine questLine) {
@@ -396,7 +427,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 			setSideQuestUpdated(true);
 			
 		} else {
-			setRomanceQuestUpdated(true);
+			setRelationshipQuestUpdated(true);
 		}
 		
 		
@@ -539,6 +570,55 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	@Override
 	public String getSeductionDescription() {
 		String description = "";
+		if(this.hasStatusEffect(StatusEffect.TELEPATHIC_COMMUNICATION)
+				|| this.hasStatusEffect(StatusEffect.TELEPATHIC_COMMUNICATION_POWER_OF_SUGGESTION)
+				|| this.hasStatusEffect(StatusEffect.TELEPATHIC_COMMUNICATION_PROJECTED_TOUCH)) {
+			if(this.isFeminine()) {
+				return UtilText.parse(Combat.getTargetedCombatant(this),
+						UtilText.returnStringAtRandom(
+								"You put on a smouldering look, and as your [pc.eyes] meet [npc.name]'s, you project an extremely lewd moan into [npc.her] head,"
+										+ " [pc.thought(~Aaah!~ "
+											+(this.hasVagina()
+													?"You're making me so wet!"
+													:this.hasPenis()
+														?"You're getting me so hard!"
+														:"You're turning me on so much!")+")]",
+								"You lock your [pc.eyes] with [npc.name]'s, and, putting on your most innocent look as you pout at [npc.herHim], you project an echoing moan deep into [npc.her] mind,"
+									+ " [pc.thought("+
+											(this.hasVagina()
+													?"~Mmm!~ Fuck me! ~Aaa!~ My pussy's wet and ready for you!"
+													:this.hasPenis()
+														?"~Mmm!~ I can't wait to fuck you! ~Aaa!~ You're going to love my cock!"
+														:"~Mmm!~ Fuck me! ~Aaa!~ I need you so badly!")+")]",
+								(this.hasStatusEffect(StatusEffect.TELEPATHIC_COMMUNICATION_POWER_OF_SUGGESTION)
+										|| this.hasStatusEffect(StatusEffect.TELEPATHIC_COMMUNICATION_PROJECTED_TOUCH)
+										?"You pout innocently at [npc.name], before blowing [npc.herHim] a wet kiss."
+												+ " As you straighten back up, you project the feeling of a ghostly pair of wet lips pressing against [npc.her] cheek."
+										:"")));
+			} else {
+				return UtilText.parse(Combat.getTargetedCombatant(this),
+						UtilText.returnStringAtRandom(
+								"You put on a confident look, and as your [pc.eyes] meet [npc.name]'s, you project an extremely lewd groan into [npc.her] head,"
+									+ " [pc.thought(~Mmm!~ "
+											+(this.hasVagina()
+													?"You're making me so wet!"
+													:this.hasPenis()
+														?"You're getting me so hard!"
+														:"You're turning me on so much!")+")]",
+								"You lock your [pc.eyes] with [npc.name]'s, and, throwing [npc.herHim] a charming smile, you project an echoing groan deep into [npc.her] mind,"
+									+ " [pc.thought("+
+											(this.hasVagina()
+													?"~Mmm!~ Fuck me! ~Aaa!~ My pussy's wet and ready for you!"
+													:this.hasPenis()
+														?"~Mmm!~ I can't wait to fuck you! You're going to love my cock!"
+														:"~Mmm!~ I can't wait to have some fun with you!")+")]",
+								(this.hasStatusEffect(StatusEffect.TELEPATHIC_COMMUNICATION_POWER_OF_SUGGESTION)
+										|| this.hasStatusEffect(StatusEffect.TELEPATHIC_COMMUNICATION_PROJECTED_TOUCH)
+										?"You throw [npc.name] a charming smile, before winking at [npc.herHim] and striking a heroic pose."
+												+ " As you straighten back up, you project the feeling of a ghostly pair of arms pulling [npc.herHim] into a strong, confident embrace."
+										:"")));
+			}
+		}
 		
 		if(this.isFeminine()) {
 			description = UtilText.parse(Combat.getTargetedCombatant(this),

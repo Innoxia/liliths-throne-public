@@ -36,7 +36,7 @@ public class PlayerPenisUrethraVagina {
 		
 		@Override
 		public String getActionTitle() {
-			return "Fuck pusys's urethra";
+			return "Fuck pussy's urethra";
 		}
 
 		@Override

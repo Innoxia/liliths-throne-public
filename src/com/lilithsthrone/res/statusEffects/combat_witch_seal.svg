@@ -148,17 +148,7 @@
            height="63.63961"
            x="0.25253814"
            y="-0.27095523" /></flowRegion><flowPara
-         id="flowPara4174" /></flowRoot>    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="38.482143"
-       y="27.125002"
-       id="text4158"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan4160"
-         x="38.482143"
-         y="27.125002" /></text>
+         id="flowPara4174" /></flowRoot>   
     <path
        style="fill:#ff2a2a;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.55032927px;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 32.142808,3.319669 c -15.599635,10e-8 -29.7730417,13.434008 -29.7730417,28.568062 0,15.155249 14.0471377,28.905219 29.6467727,28.905219 15.621,0 29.794525,-13.371162 29.794525,-28.526411 0,-15.134054 -14.047256,-28.94687 -29.668256,-28.94687 z m 0.08599,3.9716256 c 14.054667,0 25.441406,11.0699234 25.441406,24.7011714 0,13.631249 -11.38674,24.701172 -25.441406,24.701172 -14.033331,0 -25.4218754,-11.069923 -25.4218754,-24.701172 0,-13.631248 11.3885434,-24.7011714 25.4218754,-24.7011714 z"

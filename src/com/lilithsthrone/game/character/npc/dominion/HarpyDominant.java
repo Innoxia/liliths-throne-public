@@ -6,8 +6,6 @@ import org.w3c.dom.Element;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.NameTriplet;
-import com.lilithsthrone.game.character.SexualOrientation;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
@@ -18,16 +16,18 @@ import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.persona.NameTriplet;
+import com.lilithsthrone.game.character.persona.PersonalityTrait;
+import com.lilithsthrone.game.character.persona.PersonalityWeight;
+import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
-import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestDominant;
 import com.lilithsthrone.game.dialogue.responses.Response;
-import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
@@ -38,6 +38,8 @@ import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -61,6 +63,13 @@ public class HarpyDominant extends NPC {
 				7, Gender.F_V_B_FEMALE, RacialBody.HARPY, RaceStage.LESSER,
 				new CharacterInventory(30), WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_HARPY_NEST_RED, true);
 
+		this.setPersonality(Util.newHashMapOfValues(
+				new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.LOW),
+				new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.HIGH),
+				new Value<>(PersonalityTrait.EXTROVERSION, PersonalityWeight.AVERAGE),
+				new Value<>(PersonalityTrait.NEUROTICISM, PersonalityWeight.HIGH),
+				new Value<>(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.AVERAGE)));
+		
 		if(!isImported) {
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 			
@@ -146,32 +155,6 @@ public class HarpyDominant extends NPC {
 	
 	public int getEscapeChance() {
 		return 0;
-	}
-	
-	@Override
-	public Attack attackType() {
-		if(!getSpecialAttacks().isEmpty()) {
-			if (Math.random() < 0.7) {
-				return Attack.MAIN;
-			} else if (Math.random() < 0.8) {
-				return Attack.SEDUCTION;
-			} else {
-				return Attack.SPECIAL_ATTACK;
-			}
-			
-		} else {
-			if (Math.random() < 0.8) {
-				return Attack.MAIN;
-			} else {
-				return Attack.SEDUCTION;
-			}
-		}
-	}
-
-	@Override
-	public String getCombatDescription() {
-		return UtilText.parse(this,
-				"After watching you defeat [dominantHarpyCompanion.name], [dominantHarpy.name] rushes forwards, determined to teach you a lesson in front of her flock.");
 	}
 	
 	@Override

@@ -16,6 +16,8 @@ import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
 import com.lilithsthrone.game.character.body.valueEnums.PenisModifier;
 import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.InventorySlot;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -100,7 +102,9 @@ public class Penis implements BodyPartInterface, Serializable {
 		list.add(type.getDescriptor(owner));
 		if(Main.game.isInSex()) {
 			list.add("hard");
-			list.add("throbbing");
+			if(this.getType()!=PenisType.DILDO) {
+				list.add("throbbing");
+			}
 		}
 		
         return UtilText.returnStringAtRandom(list.toArray(new String[]{}));
@@ -238,6 +242,8 @@ public class Penis implements BodyPartInterface, Serializable {
 		testicle.setType(owner, type.getTesticleType());
 		
 		switch (type) {
+			case DILDO:
+				return "You have somehow transformed your penis into a dildo... This is a bug... (please let Innoxia know!)";
 			case NONE:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
@@ -693,12 +699,26 @@ public class Penis implements BodyPartInterface, Serializable {
 				return UtilText.parse(owner,
 						"<p>[npc.Name]'s [npc.cock] is now [style.boldGrow(pierced)]!</p>");
 			}
+			
 		} else {
+			AbstractClothing c = owner.getClothingInSlot(InventorySlot.PIERCING_PENIS);
+			String piercingUnequip = "";
+			if(c!=null) {
+				owner.forceUnequipClothingIntoVoid(owner, c);
+				piercingUnequip = owner.addClothing(c, false);
+			}
+			
 			if(owner.isPlayer()) {
-				return "<p>Your [pc.cock] is [style.boldShrink(no longer pierced)]!</p>";
+				return "<p>"
+							+ "Your [pc.cock] is [style.boldShrink(no longer pierced)]!"
+						+ "</p>"
+						+piercingUnequip;
 			} else {
 				return UtilText.parse(owner,
-						"<p>[npc.Name]'s [npc.cock] is [style.boldShrink(no longer pierced)]!</p>");
+						"<p>"
+								+ "[npc.Name]'s [npc.cock] is [style.boldShrink(no longer pierced)]!"
+						+ "</p>"
+						+piercingUnequip);
 			}
 		}
 	}

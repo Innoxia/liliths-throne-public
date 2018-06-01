@@ -16,13 +16,13 @@ import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
 import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.inventory.item.ItemEffect;
+import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.83
- * @version 0.1.89
+ * @version 0.2.5
  * @author Innoxia
  */
 public class FluidCum implements BodyPartInterface, Serializable, XMLSaving {
@@ -48,6 +48,8 @@ public class FluidCum implements BodyPartInterface, Serializable, XMLSaving {
 
 		CharacterUtils.addAttribute(doc, element, "type", this.type.toString());
 		CharacterUtils.addAttribute(doc, element, "flavour", this.flavour.toString());
+		
+		
 		Element cumModifiers = doc.createElement("cumModifiers");
 		element.appendChild(cumModifiers);
 		for(FluidModifier fm : FluidModifier.values()) {
@@ -61,18 +63,58 @@ public class FluidCum implements BodyPartInterface, Serializable, XMLSaving {
 		
 		Element cum = (Element)parentElement.getElementsByTagName("cum").item(0);
 
-		FluidCum fluidCum = new FluidCum(FluidType.valueOf(cum.getAttribute("type")));
+		FluidType fluidType = FluidType.CUM_HUMAN;
+		try {
+			fluidType = FluidType.valueOf(cum.getAttribute("type"));
+		} catch(Exception ex) {
+		}
+		
+		FluidCum fluidCum = new FluidCum(fluidType);
 		
 		fluidCum.flavour = (FluidFlavour.valueOf(cum.getAttribute("flavour")));
 		
+
 		Element cumModifiers = (Element)cum.getElementsByTagName("cumModifiers").item(0);
-		for(FluidModifier fm : FluidModifier.values()) {
-			if(Boolean.valueOf(cumModifiers.getAttribute(fm.toString()))) {
-				fluidCum.fluidModifiers.add(fm);
-			}
-		}
+		List<FluidModifier> fluidModifiers = fluidCum.fluidModifiers;
+		
+		Body.handleLoadingOfModifiers(FluidModifier.values(), null, cumModifiers, fluidModifiers);
+		
+//		Element cumModifiers = (Element)cum.getElementsByTagName("cumModifiers").item(0);
+//		fluidCum.fluidModifiers.clear();
+//		for(FluidModifier fm : FluidModifier.values()) {
+//			if(Boolean.valueOf(cumModifiers.getAttribute(fm.toString()))) {
+//				if (!fluidCum.hasFluidModifier(fm)) {
+//					fluidCum.fluidModifiers.add(fm);
+//				}
+//			} else if (!cumModifiers.getAttribute(fm.toString()).isEmpty()) {
+//				fluidCum.fluidModifiers.remove(fm);
+//			}
+//		}
 		
 		return fluidCum;
+	}
+	
+	@Override
+	public boolean equals (Object o) {
+		if(o instanceof FluidCum){
+			if(((FluidCum)o).getType().equals(this.getType())
+				&& ((FluidCum)o).getFlavour() == this.getFlavour()
+				&& ((FluidCum)o).getFluidModifiers().equals(this.getFluidModifiers())
+				&& ((FluidCum)o).getTransformativeEffects().equals(this.getTransformativeEffects())){
+					return true;
+			}
+		}
+		return false;
+	}
+	
+	@Override
+	public int hashCode() {
+		int result = 17;
+		result = 31 * result + this.getType().hashCode();
+		result = 31 * result + this.getFlavour().hashCode();
+		result = 31 * result + this.getFluidModifiers().hashCode();
+		result = 31 * result + this.getTransformativeEffects().hashCode();
+		return result;
 	}
 	
 	@Override
@@ -450,5 +492,9 @@ public class FluidCum implements BodyPartInterface, Serializable, XMLSaving {
 	 */
 	public List<FluidModifier> getFluidModifiers() {
 		return fluidModifiers;
+	}
+
+	public float getValuePerMl() {
+		return 0.1f + this.getFluidModifiers().size()*0.1f + (this.getFlavour()!=FluidFlavour.CUM?0.5f:0);
 	}
 }

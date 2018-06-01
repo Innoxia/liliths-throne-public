@@ -348,6 +348,38 @@ public enum SexPositionType {
 		}
 	},
 	
+	MASTURBATION("Kneeling",
+			Util.newHashMapOfValues(
+					new Value<>(
+							SexPositionSlot.MASTURBATING_KNEELING,
+							Util.newHashMapOfValues(
+							new Value<>(
+									SexPositionSlot.MASTURBATING_KNEELING,
+									new SexActionPresetPair(
+											SexActionPresets.playerMasturbating,
+											SexActionPresets.partnerMasturbating)))))) {
+		@Override
+		public String getDescription() {
+			return "You're kneeling on the floor, ready to masturbate.";
+		}
+	},
+	
+	PANTY_MASTURBATION("Kneeling",
+			Util.newHashMapOfValues(
+					new Value<>(
+							SexPositionSlot.MASTURBATING_KNEELING,
+							Util.newHashMapOfValues(
+							new Value<>(
+									SexPositionSlot.MASTURBATING_KNEELING,
+									new SexActionPresetPair(
+											SexActionPresets.playerPantiesMasturbating,
+											SexActionPresets.partnerPantiesMasturbating)))))) {
+		@Override
+		public String getDescription() {
+			return "You're kneeling on the floor, ready to masturbate with the panties clenched in your [pc.hand].";
+		}
+	},
+	
 	CHAIR_SEX("Chair sex",
 			Util.newHashMapOfValues(
 					new Value<>(
@@ -817,6 +849,30 @@ public enum SexPositionType {
 			} else {
 				return "[npc.Name] is lying back on top of the chapel's altar, and you're kneeling down between [npc.her] [npc.legs], ready to have some oral fun in the missionary position.";
 			}
+		}
+	},
+	
+	FACE_SITTING_ROXY("Face-sitting",
+			Util.newHashMapOfValues(
+					new Value<>(
+							SexPositionSlot.SITTING_ON_FACE_ROXY,
+							Util.newHashMapOfValues(
+							new Value<>(
+									SexPositionSlot.LICKING_PUSSY_ROXY,
+									new SexActionPresetPair(
+											SexActionPresets.empty,
+											SexActionPresets.partnerFaceSittingRoxy)))),
+					new Value<>(
+							SexPositionSlot.LICKING_PUSSY_ROXY,
+							Util.newHashMapOfValues(
+							new Value<>(
+									SexPositionSlot.SITTING_ON_FACE_ROXY,
+									new SexActionPresetPair(
+											SexActionPresets.playerFaceSittingRoxy,
+											SexActionPresets.empty)))))) {
+		@Override
+		public String getDescription() {
+			return "You're lying on your back beneath Roxy, with your lips just inches away from her [roxy.pussy+].";
 		}
 	},
 	

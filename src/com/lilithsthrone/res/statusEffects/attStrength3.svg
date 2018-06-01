@@ -14,7 +14,7 @@
    viewBox="0 0 64.000001 64.000001"
    id="svg4311"
    version="1.1"
-   inkscape:version="0.91 r13725"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)"
    sodipodi:docname="attStrength3.svg">
   <defs
      id="defs4313" />
@@ -26,7 +26,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="11.313708"
-     inkscape:cx="12.207916"
+     inkscape:cx="-2.8622979"
      inkscape:cy="38.809674"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -56,7 +56,7 @@
      transform="translate(0,-988.36216)"
      style="display:inline">
     <path
-       style="fill:#ff5599;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:#ffaaaa;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 14.051389,1013.3018 c -3.342798,-13.36178 15.952259,-13.32405 18.795434,-2.801 2.254598,-10.6255 20.260748,-10.64541 17.968634,3.2527 -1.758342,10.6616 -14.936491,10.3563 -18.837317,26.1974 -3.344628,-15.7966 -15.322631,-16.24 -17.926749,-26.6491 z"
        id="path4859"
        inkscape:connector-curvature="0"

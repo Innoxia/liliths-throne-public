@@ -1578,14 +1578,10 @@ public enum SpecialAttack {
 				attackText = UtilText.parse(target,
 						(UtilText.returnStringAtRandom(
 						"You tilt your head down in a sign of submission, before looking up with big, innocent eyes, "
-								+ (target.getAppearsAsGender().isFeminine()
-									?"[pc.speech(I'll be a good [pc.girl]! I promise!)]"
-									:"[pc.speech(I'll be a good [pc.girl]! I promise!)]"),
+								+ "[pc.speech(I'll be a good [pc.girl]! I promise!)]",
 
 						"You bite your lip and shuffle your feet as you do your best to look as weak as possible, "
-								+ (target.getAppearsAsGender().isFeminine()
-									?"[pc.speech(I'll do anything you want!)]"
-									:"[pc.speech(I'll do anything you want!)]"),
+								+ "[pc.speech(I'll do anything you want!)]",
 
 						"You shuffle your feet and make yourself as small as possible, before lustfully gazing up at [npc.name], "
 								+ (target.getAppearsAsGender().isFeminine()
@@ -1601,14 +1597,10 @@ public enum SpecialAttack {
 				attackText = UtilText.parse(caster,
 						(UtilText.returnStringAtRandom(
 						"[npc.Name] tilts [npc.her] head down in a sign of submission, before looking up with big, innocent eyes, "
-								+ (target.getAppearsAsGender().isFeminine()
-									?"[npc.speech(I'll be a good [npc.girl]! I promise!)]"
-									:"[npc.speech(I'll be a good [npc.girl]! I promise!)]"),
+								+ "[npc.speech(I'll be a good [npc.girl]! I promise!)]",
 
 						"[npc.Name] bites [npc.her] [npc.lip] and shuffles [npc.her] [npc.feet] as [npc.she] does [npc.her] best to look as weak as possible, "
-								+ (target.getAppearsAsGender().isFeminine()
-									?"[npc.speech(I'll do anything you want!)]"
-									:"[npc.speech(I'll do anything you want!)]"),
+								+ "[npc.speech(I'll do anything you want!)]",
 
 						"[npc.Name] shuffles [npc.her] [npc.feet] and makes [npc.herself] as small as possible, before lustfully gazing up at you, "
 								+ (target.getAppearsAsGender().isFeminine()
@@ -1625,14 +1617,10 @@ public enum SpecialAttack {
 				attackText = UtilText.parse(caster, target,
 						(UtilText.returnStringAtRandom(
 						"[npc.Name] tilts [npc.her] head down in a sign of submission, before looking up with big, innocent eyes, "
-								+ (target.getAppearsAsGender().isFeminine()
-									?"[npc.speech(I'll be a good [npc.girl]! I promise!)]"
-									:"[npc.speech(I'll be a good [npc.girl]! I promise!)]"),
+								+ "[npc.speech(I'll be a good [npc.girl]! I promise!)]",
 
 						"[npc.Name] bites [npc.her] [npc.lip] and shuffles [npc.her] [npc.feet] as [npc.she] does [npc.her] best to look as weak as possible, "
-								+ (target.getAppearsAsGender().isFeminine()
-									?"[npc.speech(I'll do anything you want!)]"
-									:"[npc.speech(I'll do anything you want!)]"),
+								+ "[npc.speech(I'll do anything you want!)]",
 
 						"[npc.Name] shuffles [npc.her] [npc.feet] and makes [npc.herself] as small as possible, before lustfully gazing up at [npc2.name], "
 								+ (target.getAppearsAsGender().isFeminine()
@@ -2184,6 +2172,9 @@ public enum SpecialAttack {
 
 		try {
 			InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/combat/" + pathName + ".svg");
+			if(is==null) {
+				System.err.println("Error! SpecialAttack icon file does not exist (Trying to read from '"+pathName+"')!");
+			}
 			SVGString = Util.inputStreamToString(is);
 
 			SVGString = SVGString.replaceAll("#ff2a2a", colourShade.getShades()[0]);
@@ -2207,10 +2198,10 @@ public enum SpecialAttack {
 		if (caster == Main.game.getPlayer()) {
 			if (isCritical)
 				descriptionSB.append("<p>" + (isHit ? "<b>You <b style='color: " + Colour.CLOTHING_GOLD.toWebHexString() + ";'>critically</b> hit for " + damage + " <b style='color: " + damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>"
-						+ damageType.getName() + "</b>" + " damage!</b>" : "<b>You missed!</b>") + "</p>");
+						+ damageType.getName() + "</b>" + "!</b>" : "<b>You missed!</b>") + "</p>");
 			else
 				descriptionSB.append(
-						"<p>" + (isHit ? "<b>You did " + damage + " <b style='color: " + damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>" + damageType.getName() + "</b>" + " damage!</b>" : "<b>You missed!</b>") + "</p>");
+						"<p>" + (isHit ? "<b>You did " + damage + " <b style='color: " + damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>" + damageType.getName() + "</b>" + "!</b>" : "<b>You missed!</b>") + "</p>");
 
 			if (statusEffects != null && isHit) {
 				descriptionSB.append(UtilText.parse(target, "<p>[npc.She] is now suffering "));
@@ -2276,7 +2267,14 @@ public enum SpecialAttack {
 		
 		float damage = Attack.calculateDamage(caster, target, Attack.SEDUCTION, critical);
 		
-		if(target.hasStatusEffect(StatusEffect.DESPERATE_FOR_SEX)) {
+		if(damage==0) {
+			if(target.isPlayer()) {
+				descriptionSB.append("<p>You are completely [style.boldExcellent(immune)] to "+DamageType.LUST.getName()+" damage!</p>");
+			} else {
+				descriptionSB.append(UtilText.parse(target,"<p>[npc.Name] appears to be completely [style.boldExcellent(immune)] to "+DamageType.LUST.getName()+" damage!</p>"));
+			}
+			
+		} else if(target.hasStatusEffect(StatusEffect.DESPERATE_FOR_SEX)) {
 			if(caster.isPlayer()) {
 				if(critical) {
 					descriptionSB.append(

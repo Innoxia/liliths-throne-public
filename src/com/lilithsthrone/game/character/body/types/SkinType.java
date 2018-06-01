@@ -96,6 +96,44 @@ public enum SkinType implements BodyPartTypeInterface {
 				return coveringType.getNamePlural(gc);
 		}
 	}
+	
+	public String getTransformName() {
+		switch(this){
+			case CAT_MORPH:
+				return "feline";
+			case COW_MORPH:
+				return "bovine";
+			case DEMON_COMMON:
+				return "demonic";
+			case IMP:
+				return "impish";
+			case DOG_MORPH:
+				return "canine";
+			case HARPY:
+				return "plume";
+			case HORSE_MORPH:
+				return "equine";
+			case REINDEER_MORPH:
+				return "rangiferine";
+			case LYCAN:
+				return "lupine";
+			case SQUIRREL_MORPH:
+				return "fluffy";
+			case ALLIGATOR_MORPH:
+				return "alligator";
+			case RAT_MORPH:
+				return "rat";
+			case RABBIT_MORPH:
+				return "rabbit";
+			case ANGEL:
+				return "angel";
+			case BAT_MORPH:
+				return "bat";
+			case HUMAN:
+				return "human";
+		}
+		return "";
+	}
 
 	@Override
 	public String getDescriptor(GameCharacter gc) {
