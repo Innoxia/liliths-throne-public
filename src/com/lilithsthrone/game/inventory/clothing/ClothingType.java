@@ -1328,7 +1328,52 @@ public class ClothingType {
 			}
 	};
 	
+	public static AbstractClothingType EYES_TINTED_GLASSES = new AbstractClothingType(800,
+			"a pair of",
+			true,
+			"tinted glasses",
+			"tinted glasses",
+			"A pair of thin-rimmed tinted glasses.",
+			0,
+			null,
+			InventorySlot.EYES,
+			Rarity.COMMON,
+			null,
+			"eye_tinted_glasses",
+			null,
+			Util.newArrayListOfValues(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(ClothingAccess.EYES), null, null, null)),
+			null,
+			ColourListPresets.ALL.getPresetColourList(),
+			null,
+			ColourListPresets.ALL_METAL.getPresetColourList(),
+			null,
+			null,
+			null, 
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
+		
+		@Override
+		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You put on your glasses.",
+					"You push the glasses onto [npc.name]'s face.",
+					null,
+					"[npc.Name] puts on [npc.her] glasses.",
+					"[npc.Name] pushes the pair of glasses onto your face.",
+					null, null, null);
+		}
 
+		@Override
+		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You take off your glasses.",
+					"You take off [npc.name]'s glasses.",
+					"You grab [npc.name]'s glasses and roughly pull them off.", // Rude!
+					"[npc.Name] takes [npc.her] glasses off.",
+					"[npc.Name] takes your glasses off.",
+					"[npc.Name] grabs your glasses and roughly pulls them off.", null, null);
+		}
+	};
+	
 	// MOUTH
 	public static AbstractClothingType MOUTH_BANDANA = new AbstractClothingType(80,
 			"a",
