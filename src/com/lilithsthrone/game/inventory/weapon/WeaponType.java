@@ -1110,6 +1110,112 @@ public class WeaponType {
 		}
 	};
 
+	public static AbstractWeaponType OFFHAND_BOW_AND_ARROW = new AbstractWeaponType(2500,
+			true,
+			"a",
+			"it",
+			false,
+			"Bow and arrow",
+			"Bow and arrows",
+			"Fire Arrow",
+			"This bow and arrow set is infused with the power of the Lilin."
+					+ " The arrow is said the be fletched with feathers dropped by the Lilin, and tipped with a fragment of crystallized cum.",
+			InventorySlot.WEAPON_OFFHAND,
+			"bowandarrow",
+			Rarity.EPIC,
+			Util.newArrayListOfValues(
+					DamageType.PHYSICAL,
+					DamageType.FIRE,
+					DamageType.ICE,
+					DamageType.POISON),
+			18,
+			0,
+			DamageVariance.LOW,
+			null,
+			null,
+			null,
+			null,
+			null,
+			null,
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_VICKY)) {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String equipText(GameCharacter character) {
+			return "You ready your "+this.getName()+".";
+		}
+
+		@Override
+		public String unequipText(GameCharacter character) {
+			return "You put your "+this.getName()+" away.";
+		}
+
+		@Override
+		public String getAttackDescription(GameCharacter character, GameCharacter target, boolean isHit) {
+			return getDescriptions(character, target, isHit,
+					UtilText.returnStringAtRandom(
+							"You shoot your "+this.getName()+" at [npc.name], grinning as the ethereal arcane arrow travels through [npc.her] body!",
+							"Lobbing out at [npc.name] with your "+this.getName()+", you grin as you see the ethereal arrow travel straight through [npc.her] body!",
+							"You shoot at [npc.name] with your "+this.getName()+", causing [npc.herHim] to stagger back as the ethereal arrow passes right through [npc.her] chest!"),
+					UtilText.returnStringAtRandom(
+							"[npc.Name] shoots [npc.her] "+this.getName()+" at you, grinning as the ethereal arcane arrow travels through your body!",
+							"Lobbing out at you with [npc.her] "+this.getName()+", [npc.name] grins as [npc.she] sees the ethereal arrow travel straight through your body!",
+							"[npc.Name] shoots at you with [npc.her] "+this.getName()+", causing you to stagger back as the ethereal arrow passes right through your chest!"),
+					UtilText.returnStringAtRandom(
+							"[npc.Name] shoots [npc.her] "+this.getName()+" at [npc2.name], grinning as the ethereal arcane arrow travels through [npc2.her] body!",
+							"Lobbing out at [npc2.name] with [npc.her] "+this.getName()+", [npc.name] grins as [npc.she] sees the ethereal arrow travel straight through [npc2.her] body!",
+							"[npc.Name] shoots at [npc2.name] with [npc.her] "+this.getName()+", causing [npc2.herHim] to stagger back as the ethereal arrow passes right through [npc2.her] chest!"),
+					UtilText.returnStringAtRandom(
+							"You shoot your "+this.getName()+" at [npc.name], but the arrow sails harmlessly through mid-air as you miss your target!",
+							"Lobbing out at [npc.name] with your "+this.getName()+", you sigh in frustration as you end up missing your target!",
+							"You shoot at [npc.name] with your "+this.getName()+", but fail to land a hit!"),
+					UtilText.returnStringAtRandom(
+							"[npc.Name] shoots [npc.her] "+this.getName()+" at you, but the arrow sails harmlessly through mid-air as [npc.she] misses you!",
+							"Lobbing out at you with [npc.her] "+this.getName()+", [npc.name] sighs in frustration as [npc.she] ends up missing you!",
+							"[npc.Name] shoots at you with [npc.her] "+this.getName()+", but fails to land a hit!"),
+					UtilText.returnStringAtRandom(
+							"[npc.Name] shoots [npc.her] "+this.getName()+" at [npc2.name], but the arrow sails harmlessly through mid-air as [npc.she] misses [npc2.herHim]!",
+							"Lobbing out at [npc2.name] with [npc.her] "+this.getName()+", [npc.name] sighs in frustration as [npc.she] ends up missing [npc2.herHim]!",
+							"[npc.Name] shoots at [npc2.name] with [npc.her] "+this.getName()+", but fails to land a hit!"));
+		}
+
+		@Override
+		public String getAttackDescription(GameCharacter user, GameCharacter target) {
+			return UtilText.parse(target,
+					"Shoot at [npc.name] with your "+this.getName()+"!");
+		}
+
+		@Override
+		public Map<Attribute, Integer> getGenerationAttributeModifiers(DamageType dt) {
+			switch(dt) {
+				case FIRE:
+					return Util.newHashMapOfValues(
+							new Value<>(Attribute.DAMAGE_FIRE, 5),
+							new Value<>(Attribute.CRITICAL_CHANCE, 5));
+				case ICE:
+					return Util.newHashMapOfValues(
+							new Value<>(Attribute.DAMAGE_ICE, 5),
+							new Value<>(Attribute.CRITICAL_CHANCE, 5));
+				case LUST:
+					return Util.newHashMapOfValues(
+							new Value<>(Attribute.DAMAGE_PHYSICAL, 5),
+							new Value<>(Attribute.CRITICAL_CHANCE, 5));
+				case MISC:
+					break;
+				case PHYSICAL:
+					return Util.newHashMapOfValues(
+							new Value<>(Attribute.DAMAGE_PHYSICAL, 5),
+							new Value<>(Attribute.CRITICAL_CHANCE, 5));
+				case POISON:
+					return Util.newHashMapOfValues(
+							new Value<>(Attribute.DAMAGE_POISON, 5),
+							new Value<>(Attribute.CRITICAL_CHANCE, 5));
+			}
+			return null;
+		}
+	};
+	
 	public static List<AbstractWeaponType> rareWeapons = new ArrayList<>(), allweapons = new ArrayList<>();
 	
 	public static Map<AbstractWeaponType, String> weaponToIdMap = new HashMap<>();
