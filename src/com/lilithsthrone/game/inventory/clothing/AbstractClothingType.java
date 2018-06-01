@@ -239,158 +239,158 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	}
 	
 	public AbstractClothingType(File clothingXMLFile) throws XMLLoadException { // Be sure to catch this exception correctly - if it's thrown mod is invalid and should not be continued to load
-	    try{
-		Element clothingElement = Element.getDocumentRootElement(clothingXMLFile); // Loads the document and returns the root element - in clothing mods it's <clothing>
-		Element coreAttributes = clothingElement.getMandatoryFirstOf("coreAtributes"); // Assuming this element appears just once, get an element by tag. If there's no such element, throw exception and halt loading this mod - it is invalid and continuing may/will cause severe bugs
+		try{
+			Element clothingElement = Element.getDocumentRootElement(clothingXMLFile); // Loads the document and returns the root element - in clothing mods it's <clothing>
+			Element coreAttributes = clothingElement.getMandatoryFirstOf("coreAtributes"); // Assuming this element appears just once, get an element by tag. If there's no such element, throw exception and halt loading this mod - it is invalid and continuing may/will cause severe bugs
 
-		this.effects = coreAttributes
-		    .getMandatoryFirstOf("effects") 
-		    .getAllOf("effect") // Get all child elements with this tag (checking only contents of parent element) and return them as List<Element>
-		    .stream() // Convert this list to Stream<Element>, which lets us do some nifty operations on every element at once
-		    .map( e -> ItemEffect.loadFromXML(e.getInnerElement(),e.getDocument())) // Take every element and do something with them, return a Stream of results after this action. Here we load item effects and get Stream<ItemEffect>
-		    .collect(Collectors.toList()); // Collect stream back into a list, but this time we get List<ItemEffect> we need! 
+			this.effects = coreAttributes
+				.getMandatoryFirstOf("effects") 
+				.getAllOf("effect") // Get all child elements with this tag (checking only contents of parent element) and return them as List<Element>
+				.stream() // Convert this list to Stream<Element>, which lets us do some nifty operations on every element at once
+				.map( e -> ItemEffect.loadFromXML(e.getInnerElement(),e.getDocument())) // Take every element and do something with them, return a Stream of results after this action. Here we load item effects and get Stream<ItemEffect>
+				.collect(Collectors.toList()); // Collect stream back into a list, but this time we get List<ItemEffect> we need! 
 
-		this.blockedPartsList = coreAttributes
-		    .getMandatoryFirstOf("blockedPartsList")
-		    .getAllOf("blockedParts").stream()
-		    .map( e -> BlockedParts.loadFromXML(e.getInnerElement(), e.getDocument()))
-		    .collect(Collectors.toList());
+			this.blockedPartsList = coreAttributes
+				.getMandatoryFirstOf("blockedPartsList")
+				.getAllOf("blockedParts").stream()
+				.map( e -> BlockedParts.loadFromXML(e.getInnerElement(), e.getDocument()))
+				.collect(Collectors.toList());
 
-		this.incompatibleSlots = coreAttributes
-		    .getMandatoryFirstOf("incompatibleSlots")
-		    .getAllOf("slot").stream()
-		    .map(Element::getTextContent).map(InventorySlot::valueOf)
-		    .collect(Collectors.toList());
+			this.incompatibleSlots = coreAttributes
+				.getMandatoryFirstOf("incompatibleSlots")
+				.getAllOf("slot").stream()
+				.map(Element::getTextContent).map(InventorySlot::valueOf)
+				.collect(Collectors.toList());
 
-		this.itemTags = coreAttributes
-		    .getMandatoryFirstOf("itemTags")
-		    .getAllOf("tag").stream()
-		    .map(Element::getTextContent).map(ItemTag::valueOf)
-		    .collect(Collectors.toList());
+			this.itemTags = coreAttributes
+				.getMandatoryFirstOf("itemTags")
+				.getAllOf("tag").stream()
+				.map(Element::getTextContent).map(ItemTag::valueOf)
+				.collect(Collectors.toList());
 
-		this.displacementDescriptionsPlayer = new HashMap<>();
-		this.displacementDescriptionsNPC = new HashMap<>();
+			this.displacementDescriptionsPlayer = new HashMap<>();
+			this.displacementDescriptionsNPC = new HashMap<>();
 
-		Consumer<String> loadItemMoveDescriptions = repositionDescListTag -> { 
-		    clothingElement.getAllOf(repositionDescListTag).stream() // <clothing>, not <coreAttributes>!
-			.forEach( descriptionList ->{
-			    DisplacementType type = DisplacementType.valueOf(descriptionList.getAttribute("type"));
-			    displacementDescriptionsPlayer.putIfAbsent(type, new HashMap<>());
-			    displacementDescriptionsNPC.putIfAbsent(type, new HashMap<>());
-			    Map<DisplacementDescriptionType, String> playerMap = displacementDescriptionsPlayer.get(type);
-			    Map<DisplacementDescriptionType, String> npcMap = displacementDescriptionsNPC.get(type);
+			Consumer<String> loadItemMoveDescriptions = repositionDescListTag -> { 
+				clothingElement.getAllOf(repositionDescListTag).stream() // <clothing>, not <coreAttributes>!
+				.forEach( descriptionList ->{
+					DisplacementType type = DisplacementType.valueOf(descriptionList.getAttribute("type"));
+					displacementDescriptionsPlayer.putIfAbsent(type, new HashMap<>());
+					displacementDescriptionsNPC.putIfAbsent(type, new HashMap<>());
+					Map<DisplacementDescriptionType, String> playerMap = displacementDescriptionsPlayer.get(type);
+					Map<DisplacementDescriptionType, String> npcMap = displacementDescriptionsNPC.get(type);
 
-			    Function<Map<DisplacementDescriptionType, String>, Consumer<String>> putTagContentTo = mapToPutIn -> tagName ->{ // try to get element by tag, if it exists, put in specified map
-				descriptionList.getOptionalFirstOf(tagName)
-				    .ifPresent(desc -> 
-					mapToPutIn.put(DisplacementDescriptionType.byTagsPath(repositionDescListTag+" "+desc.getTagName()), desc.getTextContent()));
-			    };					
-			    Consumer<String> toPlayerMap = putTagContentTo.apply(playerMap);
-			    Consumer<String> toNPCMap = putTagContentTo.apply(npcMap);
+					Function<Map<DisplacementDescriptionType, String>, Consumer<String>> putTagContentTo = mapToPutIn -> tagName ->{ // try to get element by tag, if it exists, put in specified map
+					descriptionList.getOptionalFirstOf(tagName)
+						.ifPresent(desc -> 
+						mapToPutIn.put(DisplacementDescriptionType.byTagsPath(repositionDescListTag+" "+desc.getTagName()), desc.getTextContent()));
+					};
+					Consumer<String> toPlayerMap = putTagContentTo.apply(playerMap);
+					Consumer<String> toNPCMap = putTagContentTo.apply(npcMap);
 
-			    toPlayerMap.accept("playerNPC");
-			    toPlayerMap.accept("playerNPCRough");
-			    toPlayerMap.accept("playerSelf");
+					toPlayerMap.accept("playerNPC");
+					toPlayerMap.accept("playerNPCRough");
+					toPlayerMap.accept("playerSelf");
 
-			    toNPCMap.accept("NPCPlayer");
-			    toNPCMap.accept("NPCPlayerRough");
-			    toNPCMap.accept("NPCSelf");
+					toNPCMap.accept("NPCPlayer");
+					toNPCMap.accept("NPCPlayerRough");
+					toNPCMap.accept("NPCSelf");
 
-			    toNPCMap.accept("NPCOtherNPC");
-			    toNPCMap.accept("NPCOtherNPCRough");
-			});
-		};
+					toNPCMap.accept("NPCOtherNPC");
+					toNPCMap.accept("NPCOtherNPCRough");
+				});
+			};
 
-		loadItemMoveDescriptions.accept("replacementText");
-		loadItemMoveDescriptions.accept("displacementText");			
+			loadItemMoveDescriptions.accept("replacementText");
+			loadItemMoveDescriptions.accept("displacementText");
 
-		this.isMod = true;
+			this.isMod = true;
 
-		this.name =        coreAttributes.getMandatoryFirstOf("name").getTextContent();
-		this.namePlural =  coreAttributes.getMandatoryFirstOf("namePlural").getTextContent();
-		this.description = coreAttributes.getMandatoryFirstOf("description").getTextContent();
-		this.determiner =  coreAttributes.getMandatoryFirstOf("determiner").getTextContent();
+			this.name =        coreAttributes.getMandatoryFirstOf("name").getTextContent();
+			this.namePlural =  coreAttributes.getMandatoryFirstOf("namePlural").getTextContent();
+			this.description = coreAttributes.getMandatoryFirstOf("description").getTextContent();
+			this.determiner =  coreAttributes.getMandatoryFirstOf("determiner").getTextContent();
 
-		this.plural =             Boolean.valueOf(coreAttributes.getMandatoryFirstOf("namePlural").getAttribute("pluralByDefault"));
-		this.baseValue =          Integer.valueOf(coreAttributes.getMandatoryFirstOf("value").getTextContent());
-		this.physicalResistance = Integer.valueOf(coreAttributes.getMandatoryFirstOf("physicalResistance").getTextContent());	
-		this.slot =         InventorySlot.valueOf(coreAttributes.getMandatoryFirstOf("slot").getTextContent());
-		this.rarity =              Rarity.valueOf(coreAttributes.getMandatoryFirstOf("rarity").getTextContent());
+			this.plural =             Boolean.valueOf(coreAttributes.getMandatoryFirstOf("namePlural").getAttribute("pluralByDefault"));
+			this.baseValue =          Integer.valueOf(coreAttributes.getMandatoryFirstOf("value").getTextContent());
+			this.physicalResistance = Integer.valueOf(coreAttributes.getMandatoryFirstOf("physicalResistance").getTextContent());	
+			this.slot =         InventorySlot.valueOf(coreAttributes.getMandatoryFirstOf("slot").getTextContent());
+			this.rarity =              Rarity.valueOf(coreAttributes.getMandatoryFirstOf("rarity").getTextContent());
 
-		this.femininityRestriction = Femininity.valueOf(coreAttributes.getMandatoryFirstOf("femininity").getTextContent());
-		setUpFemininity(this.femininityRestriction);
+			this.femininityRestriction = Femininity.valueOf(coreAttributes.getMandatoryFirstOf("femininity").getTextContent());
+			setUpFemininity(this.femininityRestriction);
 
-		Predicate<Element> filterEmptyElements = element -> !element.getTextContent().isEmpty(); //helper function to filter out empty elements. Could put lambda directly in as argument, but this is quicker (with decent IDE).
+			Predicate<Element> filterEmptyElements = element -> !element.getTextContent().isEmpty(); //helper function to filter out empty elements.
 
-		this.enchantmentLimit = coreAttributes.getOptionalFirstOf("enchantmentLimit") // three possible cases
-		    .filter(filterEmptyElements) // <enchantmentLimit> or <enchantmentLimit></enchantmentLimit> - text content is "" - trying to convert to Integer throws  - filter it out so default value gets assigned
-		    .map(Element::getTextContent).map(Integer::valueOf) //<enchantmentLimit>x</enchantmentLimit>, x being Integer		
-		    .orElse(-1);// empty element or no value in element, assign default value;
+			this.enchantmentLimit = coreAttributes.getOptionalFirstOf("enchantmentLimit") // three possible cases
+				.filter(filterEmptyElements) // <enchantmentLimit> or <enchantmentLimit></enchantmentLimit> - text content is "" - trying to convert to Integer throws  - filter it out so default value gets assigned
+				.map(Element::getTextContent).map(Integer::valueOf) //<enchantmentLimit>x</enchantmentLimit>, x being Integer		
+				.orElse(-1);// empty element or no value in element, assign default value;
 
-		this.clothingSet = coreAttributes.getOptionalFirstOf("clothingSet")
-		    .filter(filterEmptyElements)
-		    .map(Element::getTextContent).map(ClothingSet::valueOf)
-		    .orElse(null);
+			this.clothingSet = coreAttributes.getOptionalFirstOf("clothingSet")
+				.filter(filterEmptyElements)
+				.map(Element::getTextContent).map(ClothingSet::valueOf)
+				.orElse(null);
 
-		this.pathName = clothingXMLFile.getParentFile().getAbsolutePath() + "/" 
-			+ coreAttributes.getMandatoryFirstOf("imageName").getTextContent();
+			this.pathName = clothingXMLFile.getParentFile().getAbsolutePath() + "/" 
+				+ coreAttributes.getMandatoryFirstOf("imageName").getTextContent();
 
-		this.pathNameEquipped = coreAttributes.getOptionalFirstOf("imageEquippedName")
-		    .filter(filterEmptyElements)
-		    .map(Element::getTextContent)
-		    .orElse(null);
+			this.pathNameEquipped = coreAttributes.getOptionalFirstOf("imageEquippedName")
+				.filter(filterEmptyElements)
+				.map(Element::getTextContent)
+				.orElse(null);
 
-		Function< Element, List<Colour> > getColoursFromElement = (colorsElement) -> { //Helper function to get the colors depending on if it's a specified group or a list of individual colors
-		    if(colorsElement.getAttribute("values").isEmpty()){
-			return colorsElement.getAllOf("colour").stream()
-			    .map(Element::getTextContent).map(Colour::valueOf)
-			    .collect(Collectors.toList());
-		    }
-		    else{
-			return ColourListPresets.valueOf(colorsElement.getAttribute("values"))
-			    .getPresetColourList();
-		    }
-		};
+			Function< Element, List<Colour> > getColoursFromElement = (colorsElement) -> { //Helper function to get the colors depending on if it's a specified group or a list of individual colors
+				if(colorsElement.getAttribute("values").isEmpty()){
+					return colorsElement.getAllOf("colour").stream()
+						.map(Element::getTextContent).map(Colour::valueOf)
+						.collect(Collectors.toList());
+				}
+				else{
+				return ColourListPresets.valueOf(colorsElement.getAttribute("values"))
+					.getPresetColourList();
+				}
+			};
 
-		List<Colour> importedPrimaryColours = getColoursFromElement
-		    .apply(coreAttributes.getMandatoryFirstOf("primaryColours"));	
-		List<Colour> importedPrimaryColoursDye = getColoursFromElement
-		    .apply(coreAttributes.getMandatoryFirstOf("primaryColoursDye"));		
+			List<Colour> importedPrimaryColours = getColoursFromElement
+				.apply(coreAttributes.getMandatoryFirstOf("primaryColours"));	
+			List<Colour> importedPrimaryColoursDye = getColoursFromElement
+				.apply(coreAttributes.getMandatoryFirstOf("primaryColoursDye"));		
 
-		List<Colour> importedSecondaryColours = coreAttributes.getOptionalFirstOf("secondaryColours")
-		    .map(getColoursFromElement::apply)
-		    .orElse(new ArrayList<>()); // ArrayList::new doesn't work here						
-		List<Colour> importedSecondaryColoursDye = coreAttributes.getOptionalFirstOf("secondaryColoursDye")
-		    .map(getColoursFromElement::apply)
-		    .orElse(new ArrayList<>());
+			List<Colour> importedSecondaryColours = coreAttributes.getOptionalFirstOf("secondaryColours")
+				.map(getColoursFromElement::apply)
+				.orElseGet(ArrayList::new); // ArrayList::new doesn't work here	
+			List<Colour> importedSecondaryColoursDye = coreAttributes.getOptionalFirstOf("secondaryColoursDye")
+				.map(getColoursFromElement::apply)
+				.orElseGet(ArrayList::new);
 
-		List<Colour> importedTertiaryColours = coreAttributes.getOptionalFirstOf("tertiaryColours")
-		    .map(getColoursFromElement::apply)
-		    .orElse(new ArrayList<>());		
-		List<Colour> importedTertiaryColoursDye = coreAttributes.getOptionalFirstOf("tertiaryColoursDye")
-		    .map(getColoursFromElement::apply)
-		    .orElse(new ArrayList<>());
+			List<Colour> importedTertiaryColours = coreAttributes.getOptionalFirstOf("tertiaryColours")
+				.map(getColoursFromElement::apply)
+				.orElseGet(ArrayList::new);
+			List<Colour> importedTertiaryColoursDye = coreAttributes.getOptionalFirstOf("tertiaryColoursDye")
+				.map(getColoursFromElement::apply)
+				.orElseGet(ArrayList::new);
 
-		setUpColours(
-		    importedPrimaryColours,
-		    importedPrimaryColoursDye,
-		    importedSecondaryColours,
-		    importedSecondaryColoursDye,
-		    importedTertiaryColours,
-		    importedTertiaryColoursDye
-		);
+			setUpColours(
+				importedPrimaryColours,
+				importedPrimaryColoursDye,
+				importedSecondaryColours,
+				importedSecondaryColoursDye,
+				importedTertiaryColours,
+				importedTertiaryColoursDye
+			);
 
-		finalSetUp();
-	    }
-	    catch(XMLMissingTagException ex){
-		throw new XMLLoadException(ex);
-	    }
-	    catch(Exception e){
-		System.out.println(e);
-		throw new XMLLoadException(e);
-	    }
+			finalSetUp();
+		}
+		catch(XMLMissingTagException ex){
+			throw new XMLLoadException(ex);
+		}
+		catch(Exception e){
+			System.out.println(e);
+			throw new XMLLoadException(e);
+		}
 	}
-	
+
 	private void setUpFemininity(Femininity femininity) {
 		if (femininity == null || femininity == Femininity.ANDROGYNOUS) {
 			femininityMinimum = 0;

@@ -20,7 +20,7 @@ public enum DisplacementDescriptionType {
 	NPC_ON_NPC_DISPLACEMENT_ROUGH,
 	
 	NPC_ON_NPC_REPLACEMENT,
-	NPC_ON_NPC_REPLACEMENT_ROUGH;	
+	NPC_ON_NPC_REPLACEMENT_ROUGH;
 	
 	/**
 	 * @param tagsIdentifier "[parent element's tag name] [child element's tag name]", for example "displacementText playerSelf"
