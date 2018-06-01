@@ -307,6 +307,9 @@ public class SexActionPresets {
 
 	public static List<Class<?>> playerMissionaryAltarSealedDomCultistOral = new ArrayList<>();
 	public static List<Class<?>> partnerMissionaryAltarSealedDomCultistOral = new ArrayList<>();
+
+	public static List<Class<?>> playerFaceSittingRoxy = new ArrayList<>();
+	public static List<Class<?>> partnerFaceSittingRoxy = new ArrayList<>();
 	
 	
 	
@@ -1525,6 +1528,24 @@ public class SexActionPresets {
 		playerMissionaryAltarSealedDomCultistOral.addAll(playerMissionaryAltarDomCultistOral);
 		
 		partnerMissionaryAltarSealedDomCultistOral.addAll(partnerMissionaryAltarDomCultistOral);
+		
+		
+		// Roxy:
+		
+		playerFaceSittingRoxy.addAll(playerDefaultSelf);
+		
+		playerFaceSittingRoxy.add(PlayerTongueVagina.class);
+		
+		playerFaceSittingRoxy.addAll(playerGenerics);
+		
+		
+		// Sixty-nine partner top:
+
+//		partnerFaceSittingRoxy.addAll(partnerDefaultSelf);
+
+		partnerFaceSittingRoxy.add(PlayerTongueVagina.class);
+		
+		partnerSixtyNineOnTop.addAll(partnerGenerics);
 		
 	}
 }

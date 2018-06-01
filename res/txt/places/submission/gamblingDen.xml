@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<htmlContent tag="ENTRANCE"><![CDATA[
+	<p>
+		<i>The gambling den descriptions are all placeholders at the moment! I'll be writing them in tomorrow, and will release an update (0.2.6.1) in the evening!</i>
+	</p>
+	<p>
+		(TODO) You enter the gambling den. [axel.Name], [axel.a_race], greets you and introduces himself as the owner. He  tells you about the shop, dice poker, and pregnancy roulette.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENTRANCE_REPEAT"><![CDATA[
+	<p>
+		(TODO) [axel.Name], [axel.a_race], greets you again.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AXEL_INTRO"><![CDATA[
+	<p>
+		(TODO) [Axel.Name] tells you to have fun, and if you ever want a chat, he's here.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CORRIDOR"><![CDATA[
+	<p>
+		(TODO) The wide, spacious atrium of the Gambling Den is filled with people of all races. Tables and chairs line the walls, and many of the establishment's patrons are drinking and playing casual gambling games with one another.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TRADER"><![CDATA[
+	<p>
+		(TODO) [roxy.Name]'s intro. While being very friendly, she's incredibly vulgar and ill-mannered. She offers you a random item in exchange for being her pussy licker for an hour. (She mentions having got the idea a couple of years ago from 'some horse-boy' she met up in Dominion.)
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TRADER_REPEAT"><![CDATA[
+	<p>
+		(TODO) [roxy.Name]'s repeat dialogue. She offers you a random item in exchange for being her pussy licker for an hour.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TRADER_REPEAT_ADDICT"><![CDATA[
+	<p>
+		(TODO) [roxy.Name]. As you're addicted to her girlcum, she demands payment in exhange for allowing you to lick her pussy.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROXY_SEX_START"><![CDATA[
+	<p>
+		(TODO) You position yourself beneath Roxy. She roughly plants herself on your face, and starts grinding her [roxy.pussy+] against your mouth.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROXY_SEX_START_ADDICT"><![CDATA[
+	<p>
+		(TODO) You are desperate for Roxy's girlcum. You position yourself beneath Roxy. She roughly plants herself on your face, and starts grinding her [roxy.pussy+] against your mouth.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_ROXY_SEX"><![CDATA[
+	<p>
+		(TODO) Roxy tells you about her addictive girlcum, and, although she gives you an item (rigged to be a crappy item), she says that she'll make that loss back when she charges you to get another fix of her addictive girlcum.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_ROXY_SEX_ADDICT"><![CDATA[
+	<p>
+		(TODO) Got fix of girlcum. Roxy tells you to come back soon so she can get more money.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GAMBLING"><![CDATA[
+	<p>
+		(TODO) This huge hall is dedicated to dice poker. At least fifty tables are scattered around the very busy area. There are only a few free tables.
+	</p>
+	<p>
+		The hall is split into three sections, with each one decorated in colours of copper, silver, and gold. The starting bet is more expensive at silver and gold tables.
+	</p>
+	<p>
+		<b>Rules explanation:</b></br>
+		Buy-in to start a game.</br>
+		Roll dice.</br>
+		Increase bet (raise), or leave bet as just the buy-in (call).</br>
+		Select as many dice as you want to reroll.</br>
+		Reroll.</br>
+		The winner gets all the money.
+	</p>
+	<p>
+		<b>Results ranking (from winning to losing):</b></br>
+		1. Five of a kind: Five dice of the same value. (e.g. 33333)</br>
+		2. Four of a kind: Four dice of the same value. (e.g. 55551)</br>
+		3. High straight: Consecutive numbers starting at two. (e.g. 23456)</br>
+		4. Full house: Two dice of the same value, plus three dice of a different, same value. (e.g. 22666)</br>
+		5. Three of a kind: Three dice of the same value. (e.g. 44415)</br>
+		6. Low straight: Consecutive numbers starting at one. (e.g. 12345)</br>
+		7. Two pair: Two dice of the same value, plus two dice of a different, same value. (e.g. 55331)</br>
+		8. Pair; Two dice of the same value. (e.g. 22415)</br>
+		9. Runt: All dice of different values. (e.g. 13456)
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="PREGNANCY_ROULETTE"><![CDATA[
+	<p>
+		(TODO) [Epona.Name] introduces pregnancy roulette. You can either be the impregnator or the one being impregnated.
+	</p>
+	<p>
+		If impregnator: Bet that you will be the father. Along with four others, cum inside girl in a breeding stall. Epona then uses a pregnancy test to determine who is the father (if anyone). If you are the father, you win double your bet. If the girl didn't guess that you would be the father, you receive four times your bet.
+	</p>
+	<p>
+		If one being impregnated: Introduced to five guys or futas. You bet on which one will be the father. They then all cum inside you while you're locked in a breeding stall. Epona then uses a pregnancy test to determine who is the father (if anyone). If you guessed correctly, you win double your bet.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="PREGNANCY_ROULETTE_NORMAL"><![CDATA[
+	<p>
+		(TODO) There are stalls here for breeding by males. Several of them are hanging out. Can talk to them (gives idea of who is the most likely to impregnate you).
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="PREGNANCY_ROULETTE_FUTA"><![CDATA[
+	<p>
+		(TODO) There are stalls here for breeding by futas. Several of them are hanging out. Can talk to them (gives idea of who is the most likely to impregnate you).
+	</p>
+	]]>
+	</htmlContent>
+	
+</dialogue>

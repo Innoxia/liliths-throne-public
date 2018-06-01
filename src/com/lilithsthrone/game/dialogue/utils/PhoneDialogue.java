@@ -83,7 +83,7 @@ public class PhoneDialogue {
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response(
-						(Main.game.getPlayer().isMainQuestUpdated() || Main.game.getPlayer().isSideQuestUpdated() || Main.game.getPlayer().isRomanceQuestUpdated())
+						(Main.game.getPlayer().isMainQuestUpdated() || Main.game.getPlayer().isSideQuestUpdated() || Main.game.getPlayer().isRelationshipQuestUpdated())
 							?"<span style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>Quests</span>"
 							:"Quests",
 						"Open your planner to view your current quests.", PLANNER_MAIN){
@@ -232,12 +232,12 @@ public class PhoneDialogue {
 				};
 				
 			} else if (index == 3) {
-				return new Response((Main.game.getPlayer().isRomanceQuestUpdated()
-						?"<span style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>Romance quests</span>"
-						:"Romance quests"), "View your romance quests.", PLANNER_ROMANCE){
+				return new Response((Main.game.getPlayer().isRelationshipQuestUpdated()
+						?"<span style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>Relationship quests</span>"
+						:"Relationship quests"), "View your relationship quests.", PLANNER_RELATIONSHIP){
 					@Override
 					public void effects() {
-						Main.game.getPlayer().setRomanceQuestUpdated(false);
+						Main.game.getPlayer().setRelationshipQuestUpdated(false);
 					}
 				};
 				
@@ -311,12 +311,12 @@ public class PhoneDialogue {
 			} else if (index == 2) {
 				return new Response("Side quests", "View your side quests.", null);
 			} else if (index == 3) {
-				return new Response((Main.game.getPlayer().isRomanceQuestUpdated()
-						?"<span style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>Romance quests</span>"
-						:"Romance quests"), "View your romance quests.", PLANNER_ROMANCE){
+				return new Response((Main.game.getPlayer().isRelationshipQuestUpdated()
+						?"<span style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>Relationship quests</span>"
+						:"Relationship quests"), "View your relationship quests.", PLANNER_RELATIONSHIP){
 					@Override
 					public void effects() {
-						Main.game.getPlayer().setRomanceQuestUpdated(false);
+						Main.game.getPlayer().setRelationshipQuestUpdated(false);
 					}
 				};
 			} else if (index == 0) {
@@ -331,19 +331,19 @@ public class PhoneDialogue {
 			return DialogueNodeType.PHONE;
 		}
 	};
-	public static final DialogueNodeOld PLANNER_ROMANCE = new DialogueNodeOld("Planner", "", true) {
+	public static final DialogueNodeOld PLANNER_RELATIONSHIP = new DialogueNodeOld("Planner", "", true) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getContent() {
 			journalSB = new StringBuilder();
 
-			boolean romanceQuestsFound = false;
+			boolean relationshipQuestFound = false;
 			
 			// Side Quests:
 			for (QuestLine questLine : Main.game.getPlayer().getQuests().keySet()) {
-				if(questLine.getType()==QuestType.ROMANCE) {
-					romanceQuestsFound = true;
+				if(questLine.getType()==QuestType.RELATIONSHIP) {
+					relationshipQuestFound = true;
 					
 					TreeNode<Quest> currentNode = questLine.getQuestTree().getFirstNodeWithData(Main.game.getPlayer().getQuest(questLine));
 					
@@ -375,8 +375,8 @@ public class PhoneDialogue {
 				}
 			}
 			
-			if(!romanceQuestsFound) {
-				journalSB.append("<div class='subTitle'>You haven't got any romance quests!</div>");
+			if(!relationshipQuestFound) {
+				journalSB.append("<div class='subTitle'>You haven't got any relationship quests!</div>");
 			}
 
 			return journalSB.toString();
@@ -396,7 +396,7 @@ public class PhoneDialogue {
 					}
 				};
 			} else if (index == 3) {
-				return new Response("Romance quests", "View your romance quests.", null);
+				return new Response("Relationship quests", "View your relationship quests.", null);
 			} else if (index == 0) {
 				return new Response("Back", "Return to the phone's main menu.", MENU);
 			} else {
@@ -2605,7 +2605,7 @@ public class PhoneDialogue {
 									? " unlocked' style='border:2px solid " + Colour.TEXT_GREY.toWebHexString() + ";" + "'>"
 									: " locked' style='border:2px solid " + Colour.TEXT_GREY.toWebHexString() + ";'>"))
 										+ "<div class='fetish-icon-content'>"+fetish.getSVGString()+"</div>"
-										+ "<div style='width:40%;height:40%;position:absolute;top:0;right:0;'>"+level.getSVGImageOverlay()+"</div>"
+										+ "<div style='width:40%;height:40%;position:absolute;top:0;right:4px;'>"+level.getSVGImageOverlay()+"</div>"
 										+ (Main.game.getPlayer().hasFetish(fetish) // Overlay to create disabled effect:
 											? ""
 											: (fetish.isAvailable(Main.game.getPlayer())

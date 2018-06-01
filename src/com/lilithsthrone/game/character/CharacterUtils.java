@@ -256,8 +256,8 @@ public class CharacterUtils {
 		}
 		
 		switch(startingGender.isFeminine()
-				?Main.getProperties().subspeciesFeminineFurryPreferencesMap.get(raceTakesAfter)
-				:Main.getProperties().subspeciesMasculineFurryPreferencesMap.get(raceTakesAfter)) {
+				?Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(raceTakesAfter)
+				:Main.getProperties().getSubspeciesMasculineFurryPreferencesMap().get(raceTakesAfter)) {
 			case HUMAN:
 				stage = RaceStage.HUMAN;
 				break;

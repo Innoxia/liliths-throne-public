@@ -120,7 +120,6 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 		this.itemTags = new HashSet<>(clothingType.getItemTags());
 		
 		this.clothingType = clothingType;
-		this.effects = clothingType.getEffects();
 
 		cummedIn = false;
 		enchantmentKnown = true;
@@ -393,12 +392,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 	private static StringBuilder descriptionSB = new StringBuilder();
 
 	public String getTypeDescription() {
-		if(this.getClothingType().equals(ClothingType.NECK_BREEDER_COLLAR)) {
-			return"A <span style='color:"+this.getColour().toWebHexString()+"; text-shadow: 0px 0px 4px "+this.getColour().getShades()[4]+";'>glowing "+this.getColour().getName()+"</span> leather collar,"
-						+ " with bold metal lettering attached to the front spelling out the word 'BREEDER'.";
-		} else {
-			return this.getClothingType().getDescription();
-		}
+		return this.getClothingType().getDescription();
 	}
 	
 	@Override
@@ -1126,9 +1120,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 	}
 
 	public void addEffect(ItemEffect effect) {
-//		if(!this.getEffects().contains(effect)) {
-			effects.add(effect);
-//		}
+		effects.add(effect);
 	}
 	
 	@Override

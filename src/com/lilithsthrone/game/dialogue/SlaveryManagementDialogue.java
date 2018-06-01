@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.ObedienceLevel;
 import com.lilithsthrone.game.character.body.BodyPartInterface;
@@ -20,6 +21,8 @@ import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.FaceType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.PiercingType;
+import com.lilithsthrone.game.character.markings.TattooCounterType;
+import com.lilithsthrone.game.character.markings.TattooType;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.dialogue.eventLog.SlaveryEventLogEntry;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -46,7 +49,7 @@ import com.lilithsthrone.world.places.PlaceUpgrade;
 
 /**
  * @since 0.1.8?
- * @version 0.2.3
+ * @version 0.2.6
  * @author Innoxia
  */
 public class SlaveryManagementDialogue {
@@ -1744,8 +1747,7 @@ public class SlaveryManagementDialogue {
 
 		} else if (index == 7) {
 			return new Response("Tattoos", "Most of the brochure is taken up with drawings and photographs displaying Kate's considerable artistic talents."
-					+ " She's even able to apply arcane-enchanted tattoos, but they look to be very expensive...</br>"
-					+ "<b>Will be done as soon as possible!</b>", null);
+					+ " She's even able to apply arcane-enchanted tattoos, but they look to be very expensive...", SLAVE_MANAGEMENT_TATTOOS);
 
 		} else if (index == 0) {
 			return new Response("Back", "Return to the slave management screen.",  SLAVE_LIST) {
@@ -2136,6 +2138,104 @@ public class SlaveryManagementDialogue {
 			} else {
 				return getCosmeticsResponse(responseTab, index);
 			}
+		}
+	};
+	
+	public static final DialogueNodeOld SLAVE_MANAGEMENT_TATTOOS = new DialogueNodeOld("Succubi's Secrets", "-", true) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getContent() {
+			return CharacterModificationUtils.getKatesDivTattoos();
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 7) {
+				return new Response("Tattoos",
+						UtilText.parse(BodyChanging.getTarget(), "You are already managing [npc.name]'s tattoos!"),
+						null);
+				
+			} else if(index==11) {
+				return new Response("Confirmations: ",
+						"Toggle tattoo removal confirmations."
+							+ " When turned on, it will take two clicks to remove tattoos."
+							+ " When turned off, it will only take one click.",
+							SLAVE_MANAGEMENT_TATTOOS) {
+					@Override
+					public String getTitle() {
+						return "Confirmations: "+(Main.getProperties().hasValue(PropertyValue.tattooRemovalConfirmations)
+									?"<span style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>ON</span>"
+									:"<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>OFF</span>");
+					}
+					
+					@Override
+					public void effects() {
+						Main.getProperties().setValue(PropertyValue.tattooRemovalConfirmations, !Main.getProperties().hasValue(PropertyValue.tattooRemovalConfirmations));
+						Main.getProperties().savePropertiesAsXML();
+					}
+				};
+				
+			} else {
+				return getCosmeticsResponse(responseTab, index);
+			}
+		}
+
+		@Override
+		public boolean reloadOnRestore() {
+			return true;
+		}
+	};
+	
+	public static final DialogueNodeOld SLAVE_MANAGEMENT_TATTOOS_ADD = new DialogueNodeOld("Succubi's Secrets", "-", true) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getLabel() {
+			return "Succubi's Secrets - "+Util.capitaliseSentence(CharacterModificationUtils.tattooInventorySlot.getName()) +" Tattoo";
+		}
+		
+		@Override
+		public String getContent() {
+			return CharacterModificationUtils.getKatesDivTattoosAdd();
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			int value = CharacterModificationUtils.tattoo.getValue();
+			
+			if (index == 1) {
+				if(Main.game.getPlayer().getMoney()<value) {
+					return new Response("Apply ("+UtilText.formatAsMoneyUncoloured(value, "span")+")",
+							UtilText.parse(BodyChanging.getTarget(), "You don't have enough money to give [npc.name] a tattoo!"),  null);
+					
+				} else if(CharacterModificationUtils.tattoo.getType().equals(TattooType.NONE)
+						&& CharacterModificationUtils.tattoo.getWriting().getText().isEmpty()
+						&& CharacterModificationUtils.tattoo.getCounter().getType()==TattooCounterType.NONE) {
+					return new Response("Apply ("+UtilText.formatAsMoneyUncoloured(value, "span")+")", "You need to select a tattoo type, add some writing, or add a counter in order to make a tattoo!", null);
+					
+				} else {
+					return new Response("Apply ("+UtilText.formatAsMoney(value, "span")+")", 
+							UtilText.parse(BodyChanging.getTarget(), "Pay Kate to give [npc.name] this tattoo!"), SLAVE_MANAGEMENT_TATTOOS) {
+						@Override
+						public void effects() {
+							Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().incrementMoney(-value));
+							
+							BodyChanging.getTarget().addTattoo(CharacterModificationUtils.tattooInventorySlot, CharacterModificationUtils.tattoo);
+						}
+					};
+				}
+			
+			} else if(index==0) {
+				return new Response("Back", "Decide not to get this tattoo and return to the main selection screen.", SLAVE_MANAGEMENT_TATTOOS);
+			}
+			
+			return null;
+		}
+
+		@Override
+		public boolean reloadOnRestore() {
+			return true;
 		}
 	};
 }

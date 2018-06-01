@@ -285,7 +285,7 @@ public class TooltipInformationEventListener implements EventListener {
 					tooltipSB.append("<div class='subTitle' style='text-align:center;'>Cost: [style.boldArcane("
 							+ (FetishDesire.getCostToChange()==0
 								?"Free"
-								:""+FetishDesire.getCostToChange()+" Arcane Essence"+(FetishDesire.getCostToChange()>1?"s":""))
+								:Integer.toString(FetishDesire.getCostToChange())+" Arcane Essence"+(FetishDesire.getCostToChange()>1?"s":""))
 							+ ")]</div>");
 				}
 			}

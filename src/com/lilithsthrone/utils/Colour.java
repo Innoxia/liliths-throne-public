@@ -18,6 +18,7 @@ public enum Colour {
 	
 	BASE_WHITE(BaseColour.WHITE, "white", Util.newArrayListOfValues("white")),
 	BASE_GREY(BaseColour.GREY, "grey", Util.newArrayListOfValues("grey")),
+	BASE_GREY_DARK(BaseColour.GREY_DARK, "dark grey", Util.newArrayListOfValues("darkGrey")),
 	
 	BASE_ROSE(BaseColour.ROSE, "rose", Util.newArrayListOfValues("rose")),
 	BASE_LILAC(BaseColour.LILAC, "lilac", Util.newArrayListOfValues("lilac")),
@@ -85,6 +86,9 @@ public enum Colour {
 	GENERIC_EXPERIENCE(BaseColour.BLUE_LIGHT, "light blue"),
 	COOLDOWN(BaseColour.CRIMSON, "crimson", Util.newArrayListOfValues("cooldown")),
 
+	SCAR(BaseColour.TAN, "tan"),
+	TATTOO(BaseColour.GREY, "grey"),
+	
 	PERK(BaseColour.AQUA, "aqua"),
 	TRAIT(BaseColour.GREEN_LIGHT, "green"),
 	FETISH(BaseColour.PINK_LIGHT, "light pink", Util.newArrayListOfValues("fetish")),
@@ -116,7 +120,7 @@ public enum Colour {
 	
 	QUEST_MAIN(BaseColour.PINK, "pink"),
 	QUEST_SIDE(BaseColour.BLUE, "blue"),
-	QUEST_ROMANCE(BaseColour.PINK_LIGHT, "pink"),
+	QUEST_RELATIONSHIP(BaseColour.PINK_LIGHT, "pink"),
 
 	MAP_MARKER(Util.newColour(0x6163DB), Util.newColour(0x6163DB), "blue"),
 
@@ -337,9 +341,13 @@ public enum Colour {
 	// Body parts:
 
 	// Skin (Human and Demon):
+	SKIN_PORCELAIN(Util.newColour(0xDBCDB9), Util.newColour(0xDBCDB9), "porcelain"),
 	SKIN_PALE(Util.newColour(0xFBF4E9), Util.newColour(0x534946), "pale"),
 	SKIN_LIGHT(BaseColour.YELLOW_LIGHT, "light"),
+	SKIN_ROSY(Util.newColour(0xDDAA93), Util.newColour(0xDDAA93), "rosy"),
+	SKIN_TANNED(Util.newColour(0xC39D6B), Util.newColour(0xC39D6B), "Tanned"),
 	SKIN_OLIVE(BaseColour.TAN, "olive"),
+	SKIN_CHOCOLATE(Util.newColour(0x59372D), Util.newColour(0x59372D), "chocolate"),
 	SKIN_DARK(BaseColour.BROWN_DARK, "dark"),
 	SKIN_EBONY(BaseColour.BLACK, "ebony"),
 	
@@ -415,7 +423,7 @@ public enum Colour {
 	// Horns:
 	HORN_WHITE(BaseColour.WHITE, "ivory"),
 	HORN_GREY(BaseColour.GREY, "grey"),
-	HORN_DARK_GREY(BaseColour.GREY, "dark-grey"),
+	HORN_DARK_GREY(BaseColour.GREY_DARK, "dark-grey"),
 	HORN_BLACK(BaseColour.BLACK, "black"),
 	
 	HORN_RED(BaseColour.RED, "red"),
@@ -436,7 +444,7 @@ public enum Colour {
 	ANTLER_BROWN(BaseColour.BROWN, "brown"),
 	ANTLER_DARK_BROWN(BaseColour.BROWN_DARK, "dark brown"),
 	ANTLER_GREY(BaseColour.GREY, "grey"),
-	ANTLER_DARK_GREY(BaseColour.GREY, "dark-grey"),
+	ANTLER_DARK_GREY(BaseColour.GREY_DARK, "dark-grey"),
 	ANTLER_BLACK(BaseColour.BLACK, "black"),
 	
 	ANTLER_RED(BaseColour.RED, "red"),
@@ -514,9 +522,14 @@ public enum Colour {
 	// Skin/fur/body part groups:
 	
 	public static List<Colour> humanSkinColours = Util.newArrayListOfValues(
+
+			Colour.SKIN_PORCELAIN,
 			Colour.SKIN_PALE,
 			Colour.SKIN_LIGHT,
+			Colour.SKIN_ROSY,
+			Colour.SKIN_TANNED,
 			Colour.SKIN_OLIVE,
+			Colour.SKIN_CHOCOLATE,
 			Colour.SKIN_DARK,
 			Colour.SKIN_EBONY);
 
@@ -524,9 +537,14 @@ public enum Colour {
 			Colour.SKIN_PINK_LIGHT);
 	
 	public static List<Colour> demonSkinColours = Util.newArrayListOfValues(
+
+			Colour.SKIN_PORCELAIN,
 			Colour.SKIN_PALE,
 			Colour.SKIN_LIGHT,
+			Colour.SKIN_ROSY,
+			Colour.SKIN_TANNED,
 			Colour.SKIN_OLIVE,
+			Colour.SKIN_CHOCOLATE,
 			Colour.SKIN_DARK,
 			Colour.SKIN_EBONY,
 			Colour.SKIN_IVORY,
@@ -548,9 +566,13 @@ public enum Colour {
 			Colour.SKIN_PINK);
 
 	public static List<Colour> allSkinColours = Util.newArrayListOfValues(
+			Colour.SKIN_PORCELAIN,
 			Colour.SKIN_PALE,
 			Colour.SKIN_LIGHT,
+			Colour.SKIN_ROSY,
+			Colour.SKIN_TANNED,
 			Colour.SKIN_OLIVE,
+			Colour.SKIN_CHOCOLATE,
 			Colour.SKIN_DARK,
 			Colour.SKIN_EBONY,
 			Colour.SKIN_IVORY,
@@ -570,6 +592,7 @@ public enum Colour {
 			Colour.SKIN_PURPLE_DARK,
 			Colour.SKIN_PINK_LIGHT,
 			Colour.SKIN_PINK);
+
 
 	public static List<Colour> allSlimeColours = Util.newArrayListOfValues(
 			Colour.SLIME_CLEAR,

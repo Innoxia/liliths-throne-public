@@ -568,7 +568,6 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 				return (SexAction) returnableActions.get(Util.random.nextInt(returnableActions.size()));
 			}
 			
-			// Foreplay actions are stopped:
 			
 			// If the NPC has a preference, they are more likely to choose actions related to that:
 			List<SexActionInterface> penetrativeActionList = new ArrayList<>();
@@ -657,7 +656,14 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 		// Ban stop penetration actions:
 		for(SexActionInterface action : availableActions) {
 			if(action.getActionType() == SexActionType.PARTNER_STOP_PENETRATION) {
-				if(action.getAssociatedPenetrationType().isTakesVirginity()) {
+				if((!(action.getAssociatedPenetrationType()==PenetrationType.TONGUE && action.getAssociatedOrificeType()==OrificeType.MOUTH)
+						&& !(Sex.getActivePartner().hasFetish(Fetish.FETISH_ORAL_RECEIVING)
+								&& ((!action.getParticipantType().isUsingSelfOrificeType() && action.getAssociatedOrificeType()==OrificeType.MOUTH)
+										|| (!action.getParticipantType().isUsingSelfPenetrationType() && action.getAssociatedPenetrationType()==PenetrationType.TONGUE)))
+						&& !(Sex.getActivePartner().hasFetish(Fetish.FETISH_ORAL_GIVING)
+								&& ((action.getParticipantType().isUsingSelfOrificeType() && action.getAssociatedOrificeType()==OrificeType.MOUTH)
+										|| (action.getParticipantType().isUsingSelfPenetrationType() && action.getAssociatedPenetrationType()==PenetrationType.TONGUE))))
+						|| action.getAssociatedPenetrationType().isTakesVirginity()) {
 					bannedActions.add(action);
 				}
 			}

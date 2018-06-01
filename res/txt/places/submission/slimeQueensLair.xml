@@ -643,7 +643,7 @@
 		[slimeRoyalGuard.Name] staggers back against the nearest wall, before sinking down to his knees before you. His huge, two-handed sword clatters to the ground, and he looks up at you, panting, [slimeRoyalGuard.speech(I yield! No more...)]
 	</p>
 	<p>
-		You step forwards, grinning at the [npc.race] as he surrenders to you. With the Slime Queen's royal guard defeated, there's nothing stopping you from continuing on to her room. Then again, you could stop to have some fun with [slimeRoyalGuard.name] first...
+		You step forwards, grinning at the [slimeRoyalGuard.race] as he surrenders to you. With the Slime Queen's royal guard defeated, there's nothing stopping you from continuing on to her room. Then again, you could stop to have some fun with [slimeRoyalGuard.name] first...
 	</p>
 	]]>
 	</htmlContent>
@@ -654,6 +654,26 @@
 	</p>
 	<p>
 		[slimeRoyalGuard.speech(There's no shame in losing to me!)] [slimeRoyalGuard.name] laughs, before placing his blade to one side and stepping up to you. [slimeRoyalGuard.speech(Now, I think you and I should have a little fun before you leave.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLIME_ROYAL_GUARD_SPARRING_PLAYER_VICTORY"><![CDATA[
+	<p>
+		[slimeRoyalGuard.Name] staggers back against the nearest wall, before sinking down to his knees before you. His huge, two-handed sword clatters to the ground, and he looks up at you, panting, [slimeRoyalGuard.speech(I yield! No more...)]
+	</p>
+	<p>
+		You step forwards, grinning at the [slimeRoyalGuard.race] as he surrenders to you. With the Slime Queen's royal guard defeated, there's nothing stopping you from continuing on to her room. Then again, you could stop to have some fun with [slimeRoyalGuard.name] first...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLIME_ROYAL_GUARD_SPARRING_PLAYER_DEFEAT"><![CDATA[
+	<p>
+		Unable to continue fighting any longer, you stagger back against the nearest wall, panting, [pc.speech(N-No more...)]
+	</p>
+	<p>
+		[slimeRoyalGuard.speech(There's no shame in losing to me!)] [slimeRoyalGuard.name] laughs, before placing his blade to one side and stepping up to you. [slimeRoyalGuard.speech(Now, just as we agreed, I get to have some fun with you!)]
 	</p>
 	]]>
 	</htmlContent>
@@ -687,6 +707,16 @@
 	</p>
 	<p>
 		You don't try to get up right away, and simply lie back on the island's gentle hill, trying to catch your breath. After some time, you finally feel like you've recovered enough energy to be able to stand, and, pushing yourself to your feet, you make sure that you're still in possession of all your things, before looking back at the Slime Queen's tower. You see that the front door has been left slightly ajar, and while you're in no state to try and take another fight right away, you know that you can always come back and give it another go some other time...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_SLIME_ROYAL_GUARD_SEX_SPARRING_DEFEATED"><![CDATA[
+	<p>
+		[slimeRoyalGuard.Name] steps back, allowing you to sink to the floor as you're completely overcome with exhaustion.
+	</p>
+	<p>
+		[slimeRoyalGuard.speech(Hah! That was fun!)] He laughs, [slimeRoyalGuard.speech(Let me know if you want to go again!)]
 	</p>
 	]]>
 	</htmlContent>

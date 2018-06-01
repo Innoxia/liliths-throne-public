@@ -436,7 +436,27 @@ public enum Encounter {
 					Main.game.setActiveNPC(npc);
 					return Main.game.getActiveNPC().getEncounterDialogue();
 				}
-
+				
+				if(Main.game.isIncestEnabled() && Math.random()<0.2f) { // Incest
+					List<NPC> offspringAvailable = new ArrayList<>();
+					offspringAvailable.addAll(Main.game.getOffspring().stream().filter(npc -> !npc.isSlave()
+																								&& npc.getSubspecies().getWorldLocations().contains(WorldType.HARPY_NEST)
+																								&& npc.getLastTimeEncountered()==NPC.DEFAULT_TIME_START_VALUE).collect(Collectors.toList()));
+					offspringAvailable.removeAll(Main.game.getOffspringSpawned());
+					
+					if(!offspringAvailable.isEmpty()) {
+						NPC offspring = offspringAvailable.get(Util.random.nextInt(offspringAvailable.size()));
+						Main.game.getOffspringSpawned().add(offspring);
+						
+						offspring.setWorldLocation(Main.game.getPlayer().getWorldLocation());
+						offspring.setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY()));
+						
+						Main.game.setActiveNPC(offspring);
+						
+						return Main.game.getActiveNPC().getEncounterDialogue();
+					}
+				}
+				
 				Main.game.setActiveNPC(new HarpyNestsAttacker(GenderPreference.getGenderFromUserPreferences()));
 				
 				Main.game.getActiveNPC().setLocation(Main.game.getPlayer().getLocation());

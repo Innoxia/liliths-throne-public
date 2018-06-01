@@ -79,6 +79,14 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.gender.GenderPreference;
+import com.lilithsthrone.game.character.markings.AbstractTattooType;
+import com.lilithsthrone.game.character.markings.Tattoo;
+import com.lilithsthrone.game.character.markings.TattooCountType;
+import com.lilithsthrone.game.character.markings.TattooCounter;
+import com.lilithsthrone.game.character.markings.TattooCounterType;
+import com.lilithsthrone.game.character.markings.TattooType;
+import com.lilithsthrone.game.character.markings.TattooWriting;
+import com.lilithsthrone.game.character.markings.TattooWritingStyle;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.History;
 import com.lilithsthrone.game.character.persona.NameTriplet;
@@ -99,6 +107,7 @@ import com.lilithsthrone.game.dialogue.SlaveryManagementDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.LilayaHomeGeneric;
 import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.SuccubisSecrets;
 import com.lilithsthrone.game.dialogue.places.dominion.slaverAlley.SlaverAlleyDialogue;
+import com.lilithsthrone.game.dialogue.places.submission.dicePoker.DicePoker;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.story.CharacterCreation;
@@ -156,7 +165,7 @@ import com.lilithsthrone.world.places.PlaceUpgrade;
  * This method was causing MainController to lag out Eclipse, so I moved it to a separate file.
  * 
  * @since 0.2.5
- * @version 0.2.5
+ * @version 0.2.6
  * @author Innoxia
  */
 public class MainControllerInitMethod {
@@ -372,77 +381,6 @@ public class MainControllerInitMethod {
 		
 		if(Main.game.isStarted()) {
 			id = "";
-			
-			// Equipped inventory:
-			
-			// For weapons:
-			InventorySlot[] inventorySlots = { InventorySlot.WEAPON_MAIN, InventorySlot.WEAPON_OFFHAND };
-			for (InventorySlot invSlot : inventorySlots) {
-				id = "PLAYER_" + invSlot.toString() + "Slot";
-				if (((EventTarget) MainController.document.getElementById(id)) != null) {
-					InventorySelectedItemEventListener el = new InventorySelectedItemEventListener().setWeaponEquipped(Main.game.getPlayer(), invSlot);
-					MainController.addEventListener(MainController.document, id, "click", el, false);
-					MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
-					MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-					InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setInventorySlot(invSlot, Main.game.getPlayer());
-					MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
-				}
-				
-				id = "NPC_" + invSlot.toString() + "Slot";
-				if (((EventTarget) MainController.document.getElementById(id)) != null) {
-					InventorySelectedItemEventListener el = new InventorySelectedItemEventListener().setWeaponEquipped(InventoryDialogue.getInventoryNPC(), invSlot);
-					MainController.addEventListener(MainController.document, id, "click", el, false);
-					MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
-					MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-					InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setInventorySlot(invSlot, InventoryDialogue.getInventoryNPC());
-					MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
-				}
-				
-				id = "NPC_VIEW_" + invSlot.toString() + "Slot";
-				if (((EventTarget) MainController.document.getElementById(id)) != null) {
-					MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
-					MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-					InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setInventorySlot(invSlot, CharactersPresentDialogue.characterViewed);
-					MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
-				}
-			}
-
-			// For all equipped clothing slots:
-			for (InventorySlot invSlot : InventorySlot.values()) {
-				id = "PLAYER_" + invSlot.toString() + "Slot";
-				if (invSlot != InventorySlot.WEAPON_MAIN && invSlot != InventorySlot.WEAPON_OFFHAND) {
-					if (((EventTarget) MainController.document.getElementById(id)) != null) {
-						InventorySelectedItemEventListener el = new InventorySelectedItemEventListener().setClothingEquipped(Main.game.getPlayer(),invSlot);
-						MainController.addEventListener(MainController.document, id, "click", el, false);
-						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
-						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-						InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setInventorySlot(invSlot, Main.game.getPlayer());
-						MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
-					}
-				}
-				
-				id = "NPC_" + invSlot.toString() + "Slot";
-				if (invSlot != InventorySlot.WEAPON_MAIN && invSlot != InventorySlot.WEAPON_OFFHAND) {
-					if (((EventTarget) MainController.document.getElementById(id)) != null) {
-						InventorySelectedItemEventListener el = new InventorySelectedItemEventListener().setClothingEquipped(InventoryDialogue.getInventoryNPC(), invSlot);
-						MainController.addEventListener(MainController.document, id, "click", el, false);
-						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
-						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-						InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setInventorySlot(invSlot, InventoryDialogue.getInventoryNPC());
-						MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
-					}
-				}
-				
-				id = "NPC_VIEW_" + invSlot.toString() + "Slot";
-				if (invSlot != InventorySlot.WEAPON_MAIN && invSlot != InventorySlot.WEAPON_OFFHAND) {
-					if (((EventTarget) MainController.document.getElementById(id)) != null) {
-						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
-						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-						InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setInventorySlot(invSlot, CharactersPresentDialogue.characterViewed);
-						MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
-					}
-				}
-			}
 			
 			// Gifts:
 			if(Main.game.getCurrentDialogueNode().equals(GiftDialogue.GIFT_DIALOGUE)) {
@@ -841,6 +779,7 @@ public class MainControllerInitMethod {
 								EnchantmentDialogue.resetEnchantmentVariables();
 							}
 						});
+						
 					} else if(EnchantmentDialogue.getIngredient() instanceof AbstractClothing) {
 						Main.game.setContent(new Response("Back", "Stop enchanting.", InventoryDialogue.CLOTHING_INVENTORY){
 							@Override
@@ -849,8 +788,16 @@ public class MainControllerInitMethod {
 							}
 						});
 						
-					} else {
+					} else if(EnchantmentDialogue.getIngredient() instanceof AbstractWeapon) {
 						Main.game.setContent(new Response("Back", "Stop enchanting.", InventoryDialogue.WEAPON_INVENTORY){
+							@Override
+							public void effects() {
+								EnchantmentDialogue.resetEnchantmentVariables();
+							}
+						});
+						
+					} else if(EnchantmentDialogue.getIngredient() instanceof Tattoo) {
+						Main.game.setContent(new Response("Back", "Stop enchanting.", BodyChanging.getTarget().isPlayer()?SuccubisSecrets.SHOP_BEAUTY_SALON_TATTOOS:SlaveryManagementDialogue.SLAVE_MANAGEMENT_TATTOOS){
 							@Override
 							public void effects() {
 								EnchantmentDialogue.resetEnchantmentVariables();
@@ -864,14 +811,20 @@ public class MainControllerInitMethod {
 				MainController.addEventListener(MainController.document, "INGREDIENT_ENCHANTING", "mousemove", MainController.moveTooltipListener, false);
 				MainController.addEventListener(MainController.document, "INGREDIENT_ENCHANTING", "mouseleave", MainController.hideTooltipListener, false);
 				
-				InventoryTooltipEventListener el2;
+				InventoryTooltipEventListener el2 = null;
 				if(EnchantmentDialogue.getIngredient() instanceof AbstractItem) {
 					el2 = new InventoryTooltipEventListener().setItem((AbstractItem) EnchantmentDialogue.getIngredient(), Main.game.getPlayer(), null);
+					
 				} else if(EnchantmentDialogue.getIngredient() instanceof AbstractClothing) {
 					el2 = new InventoryTooltipEventListener().setClothing((AbstractClothing) EnchantmentDialogue.getIngredient(), Main.game.getPlayer(), null);
-				} else {
+					
+				} else if(EnchantmentDialogue.getIngredient() instanceof AbstractWeapon) {
 					el2 = new InventoryTooltipEventListener().setWeapon((AbstractWeapon) EnchantmentDialogue.getIngredient(), Main.game.getPlayer());
+					
+				}  else if(EnchantmentDialogue.getIngredient() instanceof Tattoo) {
+					el2 = new InventoryTooltipEventListener().setTattoo(EnchantmentDialogue.getTattooSlot(), (Tattoo) EnchantmentDialogue.getIngredient(), EnchantmentDialogue.getTattooBearer(), EnchantmentDialogue.getTattooBearer());
 				}
+				
 				MainController.addEventListener(MainController.document, "INGREDIENT_ENCHANTING", "mouseenter", el2, false);
 			}
 			
@@ -3034,7 +2987,7 @@ public class MainControllerInitMethod {
 			
 			
 			boolean noCost = !Main.game.isInNewWorld() || Main.game.getCurrentDialogueNode().getDialogueNodeType()==DialogueNodeType.PHONE;
-
+			
 			for(BodyCoveringType bct : BodyCoveringType.values()) {
 				
 				id = "APPLY_COVERING_"+bct;
@@ -3431,6 +3384,308 @@ public class MainControllerInitMethod {
 					}, false);
 				}
 			}
+			
+			if(Main.game.getCurrentDialogueNode()==SuccubisSecrets.SHOP_BEAUTY_SALON_TATTOOS
+					|| Main.game.getCurrentDialogueNode()==SlaveryManagementDialogue.SLAVE_MANAGEMENT_TATTOOS) {
+				for(InventorySlot invSlot : InventorySlot.getClothingSlots()) {
+					id = "TATTOO_INFO_"+invSlot.toString();
+					if (((EventTarget) MainController.document.getElementById(id)) != null) {
+						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+						
+						if(BodyChanging.getTarget().getTattooInSlot(invSlot)!=null) {
+							InventoryTooltipEventListener el = new InventoryTooltipEventListener().setTattoo(invSlot, BodyChanging.getTarget().getTattooInSlot(invSlot), BodyChanging.getTarget(), BodyChanging.getTarget());
+							MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
+						} else {
+							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation(Util.capitaliseSentence(invSlot.getTattooSlotName()), "");
+							MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
+						}
+					}
+					
+					id = "TATTOO_ADD_REMOVE_"+invSlot.toString();
+					if (((EventTarget) MainController.document.getElementById(id)) != null) {
+						if(BodyChanging.getTarget().getTattooInSlot(invSlot)==null) {
+							((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+								Main.game.setContent(new Response("", "",
+										Main.game.getCurrentDialogueNode()==SuccubisSecrets.SHOP_BEAUTY_SALON_TATTOOS
+											?SuccubisSecrets.SHOP_BEAUTY_SALON_TATTOOS_ADD
+											:SlaveryManagementDialogue.SLAVE_MANAGEMENT_TATTOOS_ADD){
+									@Override
+									public void effects() {
+										SuccubisSecrets.invSlotTattooToRemove = null;
+										CharacterModificationUtils.resetTattooVariables(invSlot);
+									}
+								});
+							}, false);
+						
+						} else {
+							((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+								if(Main.game.getPlayer().getMoney()>=100) {
+									Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
+										@Override
+										public void effects() {
+											if(SuccubisSecrets.invSlotTattooToRemove == invSlot || !Main.getProperties().hasValue(PropertyValue.tattooRemovalConfirmations)) {
+												SuccubisSecrets.invSlotTattooToRemove = null;
+												Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().incrementMoney(-100)); //TODO Kate description
+												BodyChanging.getTarget().removeTattoo(invSlot);
+											} else {
+												SuccubisSecrets.invSlotTattooToRemove = invSlot;
+											}
+										}
+									});
+								}
+							}, false);
+							
+							MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+							MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Remove tattoo",
+									Main.game.getPlayer().getMoney()>=100
+										?"It will cost "+UtilText.formatAsMoney(100, "span")+" to remove this tattoo!"
+												+ (!Main.getProperties().hasValue(PropertyValue.tattooRemovalConfirmations)?" (<i>You will need to click twice to remove it.</i>)":"")
+										:"You don't have the required "+UtilText.formatAsMoney(100, "span")+" to remove this tattoo!");
+							MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
+						}
+					}
+					
+					id = "TATTOO_ENCHANT_"+invSlot.toString();
+					if (((EventTarget) MainController.document.getElementById(id)) != null) {
+						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+							Main.game.setContent(new Response("", "", EnchantmentDialogue.ENCHANTMENT_MENU){
+								@Override
+								public DialogueNodeOld getNextDialogue() {
+									return EnchantmentDialogue.getEnchantmentMenu(BodyChanging.getTarget().getTattooInSlot(invSlot), BodyChanging.getTarget(), invSlot);
+								}
+							});
+						}, false);
+					}
+				}
+			}
+
+			if(Main.game.getCurrentDialogueNode()==SuccubisSecrets.SHOP_BEAUTY_SALON_TATTOOS_ADD
+					|| Main.game.getCurrentDialogueNode()==SlaveryManagementDialogue.SLAVE_MANAGEMENT_TATTOOS_ADD) {
+				id = "NEW_TATTOO_INFO";
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+					MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+					
+					InventoryTooltipEventListener el = new InventoryTooltipEventListener().setTattoo(CharacterModificationUtils.tattooInventorySlot, CharacterModificationUtils.tattoo, BodyChanging.getTarget(), BodyChanging.getTarget());
+					MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
+				}
+				
+				for(AbstractTattooType type : TattooType.getAllTattooTypes()) {
+					id = "TATTOO_TYPE_"+type.getId();
+					if (((EventTarget) MainController.document.getElementById(id)) != null) {
+						if(type.getSlotAvailability().contains(CharacterModificationUtils.tattooInventorySlot)) {
+							if(!CharacterModificationUtils.tattoo.getType().equals(type)) {
+								((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+									Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
+										@Override
+										public void effects() {
+											Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenPField').innerHTML=document.getElementById('tattoo_name').value;");
+											CharacterModificationUtils.tattoo.getWriting().setText(Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent());
+											CharacterModificationUtils.tattoo.setType(type);
+											CharacterModificationUtils.resetTattooColours();
+										}
+									});
+								}, false);
+							}
+						}
+						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+						TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation(Util.capitaliseSentence(type.getName()), type.getDescription()
+								+(type.getSlotAvailability().contains(CharacterModificationUtils.tattooInventorySlot)
+										?""
+										:"</br>[style.italicsBad(This tattoo type can't be applied to '"+CharacterModificationUtils.tattooInventorySlot.getTattooSlotName()+"'!)]</br>"
+												+ "Available slots: "+Util.tattooInventorySlotsToStringList(type.getSlotAvailability())));
+						MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
+					}
+				}
+				
+				for(Colour c : CharacterModificationUtils.tattoo.getType().getAvailablePrimaryColours()) {
+					id = "TATTOO_COLOUR_PRIMARY_"+c.toString();
+					if (((EventTarget) MainController.document.getElementById(id)) != null) {
+						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
+								@Override
+								public void effects() {
+									Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenPField').innerHTML=document.getElementById('tattoo_name').value;");
+									CharacterModificationUtils.tattoo.getWriting().setText(Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent());
+									CharacterModificationUtils.tattoo.setPrimaryColour(c);
+								}
+							});
+						}, false);
+					}
+				}
+				
+				for(Colour c : CharacterModificationUtils.tattoo.getType().getAvailableSecondaryColours()) {
+					id = "TATTOO_COLOUR_SECONDARY_"+c.toString();
+					if (((EventTarget) MainController.document.getElementById(id)) != null) {
+						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
+								@Override
+								public void effects() {
+									Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenPField').innerHTML=document.getElementById('tattoo_name').value;");
+									CharacterModificationUtils.tattoo.getWriting().setText(Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent());
+									CharacterModificationUtils.tattoo.setSecondaryColour(c);
+								}
+							});
+						}, false);
+					}
+				}
+				
+				for(Colour c : CharacterModificationUtils.tattoo.getType().getAvailableTertiaryColours()) {
+					id = "TATTOO_COLOUR_TERTIARY_"+c.toString();
+					if (((EventTarget) MainController.document.getElementById(id)) != null) {
+						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
+								@Override
+								public void effects() {
+									Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenPField').innerHTML=document.getElementById('tattoo_name').value;");
+									CharacterModificationUtils.tattoo.getWriting().setText(Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent());
+									CharacterModificationUtils.tattoo.setTertiaryColour(c);
+								}
+							});
+						}, false);
+					}
+				}
+				
+				id = "TATTOO_GLOW";
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
+							@Override
+							public void effects() {
+								Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenPField').innerHTML=document.getElementById('tattoo_name').value;");
+								CharacterModificationUtils.tattoo.getWriting().setText(Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent());
+								CharacterModificationUtils.tattoo.setGlowing(!CharacterModificationUtils.tattoo.isGlowing());
+							}
+						});
+					}, false);
+				}
+				
+				// Writing:
+
+				for(TattooWritingStyle style : TattooWritingStyle.values()) {
+					id = "TATTOO_WRITING_STYLE_"+style.toString();
+					if (((EventTarget) MainController.document.getElementById(id)) != null) {
+						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
+								@Override
+								public void effects() {
+									Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenPField').innerHTML=document.getElementById('tattoo_name').value;");
+									CharacterModificationUtils.tattoo.getWriting().setText(Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent());
+									if(!CharacterModificationUtils.tattoo.getWriting().getStyles().contains(style)) {
+										CharacterModificationUtils.tattoo.getWriting().addStyle(style);
+									} else {
+										CharacterModificationUtils.tattoo.getWriting().removeStyle(style);
+									}
+								}
+							});
+						}, false);
+					}
+				}
+
+				for(Colour c : TattooWriting.getAvailableColours()) {
+					id = "TATTOO_WRITING_COLOUR_"+c.toString();
+					if (((EventTarget) MainController.document.getElementById(id)) != null) {
+						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
+								@Override
+								public void effects() {
+									Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenPField').innerHTML=document.getElementById('tattoo_name').value;");
+									CharacterModificationUtils.tattoo.getWriting().setText(Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent());
+									CharacterModificationUtils.tattoo.getWriting().setColour(c);
+								}
+							});
+						}, false);
+					}
+				}
+				
+				id = "TATTOO_WRITING_GLOW";
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
+							@Override
+							public void effects() {
+								Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenPField').innerHTML=document.getElementById('tattoo_name').value;");
+								CharacterModificationUtils.tattoo.getWriting().setText(Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent());
+								CharacterModificationUtils.tattoo.getWriting().setGlow(!CharacterModificationUtils.tattoo.getWriting().isGlow());
+							}
+						});
+					}, false);
+				}
+				
+				// Counter:
+
+				for(TattooCounterType counterType : TattooCounterType.values()) {
+					id = "TATTOO_COUNTER_TYPE_"+counterType.toString();
+					if (((EventTarget) MainController.document.getElementById(id)) != null) {
+						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
+								@Override
+								public void effects() {
+									Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenPField').innerHTML=document.getElementById('tattoo_name').value;");
+									CharacterModificationUtils.tattoo.getWriting().setText(Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent());
+									CharacterModificationUtils.tattoo.getCounter().setType(counterType);
+								}
+							});
+						}, false);
+
+						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+						TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation(Util.capitaliseSentence(counterType.getName()), counterType.getDescription());
+						MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
+					}
+				}
+
+				for(TattooCountType countType : TattooCountType.values()) {
+					id = "TATTOO_COUNT_TYPE_"+countType.toString();
+					if (((EventTarget) MainController.document.getElementById(id)) != null) {
+						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
+								@Override
+								public void effects() {
+									Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenPField').innerHTML=document.getElementById('tattoo_name').value;");
+									CharacterModificationUtils.tattoo.getWriting().setText(Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent());
+									CharacterModificationUtils.tattoo.getCounter().setCountType(countType);
+								}
+							});
+						}, false);
+					}
+				}
+
+				for(Colour c : TattooCounter.getAvailableColours()) {
+					id = "TATTOO_COUNTER_COLOUR_"+c.toString();
+					if (((EventTarget) MainController.document.getElementById(id)) != null) {
+						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
+								@Override
+								public void effects() {
+									Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenPField').innerHTML=document.getElementById('tattoo_name').value;");
+									CharacterModificationUtils.tattoo.getWriting().setText(Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent());
+									CharacterModificationUtils.tattoo.getCounter().setColour(c);
+								}
+							});
+						}, false);
+					}
+				}
+				
+				id = "TATTOO_COUNTER_GLOW";
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
+							@Override
+							public void effects() {
+								Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenPField').innerHTML=document.getElementById('tattoo_name').value;");
+								CharacterModificationUtils.tattoo.getWriting().setText(Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent());
+								CharacterModificationUtils.tattoo.getCounter().setGlow(!CharacterModificationUtils.tattoo.getCounter().isGlow());
+							}
+						});
+					}, false);
+				}
+				
+			}
+			
 			
 			
 			// -------------------- Phone listeners -------------------- // TODO track listeners
@@ -3966,8 +4221,8 @@ public class MainControllerInitMethod {
 			if (((EventTarget) MainController.document.getElementById("furry_preference_female_human_all")) != null) {
 				((EventTarget) MainController.document.getElementById("furry_preference_female_human_all")).addEventListener("click", e -> {
 					for (Subspecies r : Subspecies.values()) {
-						Main.getProperties().subspeciesFeminineFurryPreferencesMap.put(r, FurryPreference.HUMAN);
-						Main.getProperties().subspeciesMasculineFurryPreferencesMap.put(r, FurryPreference.HUMAN);
+						Main.getProperties().setFeminineFurryPreference(r, FurryPreference.HUMAN);
+						Main.getProperties().setMasculineFurryPreference(r, FurryPreference.HUMAN);
 					}
 					Main.saveProperties();
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
@@ -3976,8 +4231,8 @@ public class MainControllerInitMethod {
 			if (((EventTarget) MainController.document.getElementById("furry_preference_female_minimum_all")) != null) {
 				((EventTarget) MainController.document.getElementById("furry_preference_female_minimum_all")).addEventListener("click", e -> {
 					for (Subspecies r : Subspecies.values()) {
-						Main.getProperties().subspeciesFeminineFurryPreferencesMap.put(r, FurryPreference.MINIMUM);
-						Main.getProperties().subspeciesMasculineFurryPreferencesMap.put(r, FurryPreference.MINIMUM);
+						Main.getProperties().setFeminineFurryPreference(r, FurryPreference.MINIMUM);
+						Main.getProperties().setMasculineFurryPreference(r, FurryPreference.MINIMUM);
 					}
 					Main.saveProperties();
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
@@ -3986,8 +4241,8 @@ public class MainControllerInitMethod {
 			if (((EventTarget) MainController.document.getElementById("furry_preference_female_reduced_all")) != null) {
 				((EventTarget) MainController.document.getElementById("furry_preference_female_reduced_all")).addEventListener("click", e -> {
 					for (Subspecies r : Subspecies.values()) {
-						Main.getProperties().subspeciesFeminineFurryPreferencesMap.put(r, FurryPreference.REDUCED);
-						Main.getProperties().subspeciesMasculineFurryPreferencesMap.put(r, FurryPreference.REDUCED);
+						Main.getProperties().setFeminineFurryPreference(r, FurryPreference.REDUCED);
+						Main.getProperties().setMasculineFurryPreference(r, FurryPreference.REDUCED);
 					}
 					Main.saveProperties();
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
@@ -3996,8 +4251,8 @@ public class MainControllerInitMethod {
 			if (((EventTarget) MainController.document.getElementById("furry_preference_female_normal_all")) != null) {
 				((EventTarget) MainController.document.getElementById("furry_preference_female_normal_all")).addEventListener("click", e -> {
 					for (Subspecies r : Subspecies.values()) {
-						Main.getProperties().subspeciesFeminineFurryPreferencesMap.put(r, FurryPreference.NORMAL);
-						Main.getProperties().subspeciesMasculineFurryPreferencesMap.put(r, FurryPreference.NORMAL);
+						Main.getProperties().setFeminineFurryPreference(r, FurryPreference.NORMAL);
+						Main.getProperties().setMasculineFurryPreference(r, FurryPreference.NORMAL);
 					}
 					Main.saveProperties();
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
@@ -4006,8 +4261,8 @@ public class MainControllerInitMethod {
 			if (((EventTarget) MainController.document.getElementById("furry_preference_female_maximum_all")) != null) {
 				((EventTarget) MainController.document.getElementById("furry_preference_female_maximum_all")).addEventListener("click", e -> {
 					for (Subspecies r : Subspecies.values()) {
-						Main.getProperties().subspeciesFeminineFurryPreferencesMap.put(r, FurryPreference.MAXIMUM);
-						Main.getProperties().subspeciesMasculineFurryPreferencesMap.put(r, FurryPreference.MAXIMUM);
+						Main.getProperties().setFeminineFurryPreference(r, FurryPreference.MAXIMUM);
+						Main.getProperties().setMasculineFurryPreference(r, FurryPreference.MAXIMUM);
 					}
 					Main.saveProperties();
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
@@ -4019,7 +4274,7 @@ public class MainControllerInitMethod {
 					id = "FEMININE_" + preference+"_"+s;
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-							Main.getProperties().subspeciesFeminineFurryPreferencesMap.put(s, preference);
+							Main.getProperties().setFeminineFurryPreference(s, preference);
 							Main.saveProperties();
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 						}, false);
@@ -4032,7 +4287,7 @@ public class MainControllerInitMethod {
 					id = "MASCULINE_" + preference+"_"+s;
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-							Main.getProperties().subspeciesMasculineFurryPreferencesMap.put(s, preference);
+							Main.getProperties().setMasculineFurryPreference(s, preference);
 							Main.saveProperties();
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 						}, false);
@@ -4822,7 +5077,8 @@ public class MainControllerInitMethod {
 						if(!Main.getProperties().hasValue(PropertyValue.overwriteWarning) || EnchantmentDialogue.loadConfirmationName.equals(f.getName())) {
 							EnchantmentDialogue.loadConfirmationName = "";
 							LoadedEnchantment lEnch = EnchantmentDialogue.loadEnchant(fileIdentifier);
-							EnchantmentDialogue.resetEnchantmentVariables();
+							
+							EnchantmentDialogue.resetNonTattooEnchantmentVariables();
 							EnchantmentDialogue.initModifiers(lEnch.getSuitableItem());
 							EnchantmentDialogue.getEffects().clear();
 							for(ItemEffect ie : lEnch.getEffects()) {
@@ -4895,8 +5151,33 @@ public class MainControllerInitMethod {
 			}
 		}
 		
+
+		// Save/load enchantment:
+		if(Main.game.isStarted() && Main.game.getPlayerCell().getPlace().getPlaceType()==PlaceType.GAMBLING_DEN_GAMBLING) {
+			for(int i=0; i<DicePoker.getPlayerDice().size(); i++) {
+				setDiceHandler(i);
+			}
+		}
+		
 		MainController.setResponseEventListeners();
 	
 	}
 	
+	static void setDiceHandler(int i) {
+		String id = "DICE_PLAYER_"+i;
+		if (((EventTarget) MainController.document.getElementById(id)) != null) {
+			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+				if(DicePoker.isAbleToSelectReroll()) {
+					DicePoker.setReroll(DicePoker.getPlayerDice().get(i));
+				}
+			}, false);
+			
+			MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+			MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+			TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation(
+					"Mark for reroll",
+					DicePoker.isAbleToSelectReroll()?"":"[style.italicsBad(You cannot mark your dice for reroll in this scene!)]");
+			MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
+		}
+	}
 }
