@@ -6,11 +6,11 @@ package com.lilithsthrone.controller.xmlParsing;
  * 
  * <p>Exception thrown when XML file fails to load, with details for exact cause.</p>
  */
-public class XMLLoadException extends Exception{
-    /**
-     * @param cause Actual exception that was thrown, for example SAXException or XMLMissingTagException.
-     */
-    public XMLLoadException(Throwable cause){	
-	super("XML file failed to load. Cause: " + cause.getClass().getSimpleName(), cause);
-    }
+public class XMLLoadException extends Exception {
+	/**
+	 * @param cause Actual exception that was thrown, for example SAXException or XMLMissingTagException.
+	 */
+	public XMLLoadException(Throwable cause){	
+		super("XML file failed to load. Cause: " + cause.getClass().getSimpleName(), cause);
+	}
 }

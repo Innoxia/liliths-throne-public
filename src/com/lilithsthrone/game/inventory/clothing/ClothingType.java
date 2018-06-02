@@ -11809,17 +11809,16 @@ public class ClothingType {
 								if (innerDirectoryListing != null) {
 									for (File innerChild : innerDirectoryListing) {
 										try{
-										    AbstractClothingType ct = new AbstractClothingType(innerChild) {};
-										    moddedClothingList.add(ct);
-										    String id = modAuthorDirectory.getName()+"_"+innerChild.getParentFile().getName()+"_"+innerChild.getName().split("\\.")[0];
-    //										System.out.println(id);
-										    clothingToIdMap.put(ct, id);
-										    idToClothingMap.put(id, ct);
+											AbstractClothingType ct = new AbstractClothingType(innerChild) {};
+											moddedClothingList.add(ct);
+											String id = modAuthorDirectory.getName()+"_"+innerChild.getParentFile().getName()+"_"+innerChild.getName().split("\\.")[0];
+											clothingToIdMap.put(ct, id);
+											idToClothingMap.put(id, ct);
 										}
 										catch(XMLLoadException ex){ // we want to catch any errors here; we shouldn't want to load any mods that are invalid as that may cause severe bugs
-										    System.err.println(ex);
-										    System.out.println(ex); // temporary, I think mod loading failure should be displayed to player on screen
-										}								
+											System.err.println(ex);
+											System.out.println(ex); // temporary, I think mod loading failure should be displayed to player on screen
+										}
 									}
 								}
 							}
