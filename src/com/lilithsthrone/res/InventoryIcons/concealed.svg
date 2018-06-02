@@ -12,7 +12,7 @@
    viewBox="0 0 64.000001 64.000001"
    id="svg4311"
    version="1.1"
-   inkscape:version="0.91 r13725"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)"
    sodipodi:docname="concealed.svg">
   <defs
      id="defs4313">
@@ -38,7 +38,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="7.919596"
-     inkscape:cx="49.580448"
+     inkscape:cx="28.051572"
      inkscape:cy="29.416809"
      inkscape:document-units="px"
      inkscape:current-layer="g4149"
@@ -57,7 +57,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -69,14 +69,15 @@
     <flowRoot
        xml:space="preserve"
        id="flowRoot4142"
-       style="fill:black;stroke:none;stroke-opacity:1;stroke-width:1px;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;font-family:sans-serif;font-style:normal;font-weight:normal;font-size:40px;line-height:125%;letter-spacing:0px;word-spacing:0px"><flowRegion
+       style="font-style:normal;font-weight:normal;line-height:0.01%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"><flowRegion
          id="flowRegion4144"><rect
            id="rect4146"
            width="41.858196"
            height="40.848045"
            x="15.404826"
            y="13.1767" /></flowRegion><flowPara
-         id="flowPara4148" /></flowRoot>    <g
+         id="flowPara4148"
+         style="font-size:40px;line-height:1.25"> </flowPara></flowRoot>    <g
        id="g4149"
        transform="matrix(0.81,0,0,0.81,6.124262,5.004821)">
       <path

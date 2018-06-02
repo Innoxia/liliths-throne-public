@@ -150,7 +150,13 @@ public class TunnelSlimeDialogue {
 							}
 							@Override
 							public void effects() {
-								Main.game.getPlayer().setBodyMaterial(BodyMaterial.SLIME);
+								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setBodyMaterial(BodyMaterial.SLIME));
+								
+								if(slime().isAttractedTo(Main.game.getPlayer())) {
+									Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/tunnelSlime", "TRANSFORMED_SLIME_OFFER_SEX"));
+								} else {
+									Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/tunnelSlime", "TRANSFORMED_SLIME_NO_SEX"));
+								}
 							}
 						};
 						
@@ -354,19 +360,7 @@ public class TunnelSlimeDialogue {
 		
 		@Override
 		public String getContent() {
-			UtilText.nodeContentSB.setLength(0);
-			
-			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/tunnelSlime", "TRANSFORMED"));
-			
-			UtilText.nodeContentSB.append(Main.game.getPlayer().setBodyMaterial(BodyMaterial.SLIME));
-			
-			if(slime().isAttractedTo(Main.game.getPlayer())) {
-				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/tunnelSlime", "TRANSFORMED_SLIME_OFFER_SEX"));
-			} else {
-				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/tunnelSlime", "TRANSFORMED_SLIME_NO_SEX"));
-			}
-			
-			return UtilText.nodeContentSB.toString();
+			return UtilText.parseFromXMLFile("places/submission/tunnelSlime", "TRANSFORMED");
 		}
 
 		@Override

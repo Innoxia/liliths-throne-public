@@ -11,7 +11,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.1.89
+ * @version 0.2.6
  * @author Innoxia
  */
 public enum WorldType {
@@ -352,6 +352,30 @@ public enum WorldType {
 					
 					new Value<>(new Color(0xff00ff), PlaceType.SLIME_QUEENS_LAIR_ROYAL_GUARD),
 					new Value<>(new Color(0xffff00), PlaceType.SLIME_QUEENS_LAIR_SLIME_QUEEN))),
+
+	GAMBLING_DEN("Gambling Den",
+			Colour.BASE_GOLD,
+			1,
+			"/com/lilithsthrone/res/map/submission/gamblingDen/gamblingDen.png",
+			Util.newHashMapOfValues(
+					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
+					new Value<>(new Color(0x808080), PlaceType.GAMBLING_DEN_CORRIDOR),
+					
+					new Value<>(new Color(0x00ff00), PlaceType.GAMBLING_DEN_ENTRANCE),
+					
+					new Value<>(new Color(0xffff00), PlaceType.GAMBLING_DEN_TRADER),
+					
+					new Value<>(new Color(0x0080ff), PlaceType.GAMBLING_DEN_GAMBLING),
+					
+					new Value<>(new Color(0xff80ff), PlaceType.GAMBLING_DEN_PREGNANCY),
+					new Value<>(new Color(0xff00ff), PlaceType.GAMBLING_DEN_FUTA_PREGNANCY),
+					new Value<>(new Color(0xff8000), PlaceType.GAMBLING_DEN_PREGNANCY_ROULETTE)
+					)){
+		@Override
+		public boolean isRevealedOnStart() {
+			return true;
+		}
+	},
 	
 	JUNGLE(6,
 			"jungle",

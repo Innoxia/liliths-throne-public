@@ -47,8 +47,8 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.1.98
- * @author Innoxia
+ * @version 0.2.6
+ * @author Innoxia, Pimvgd
  */
 public class UtilText {
 
@@ -393,6 +393,10 @@ public class UtilText {
 				+ "<" + tag + " style='color:" + Colour.TEXT.getShades(8)[3] + ";'>" + money + "</" + tag + ">";
 	}
 	
+	public static String applyGlow(String input, Colour colour) {
+		return "<span style='color:"+colour.toWebHexString()+"; text-shadow: 0px 0px 4px "+colour.getShades()[4]+";'>"+input+"</span>";
+	}
+	
 	private static NumberFormat nf = NumberFormat.getNumberInstance(Locale.getDefault());
 	private static DecimalFormat formatter;
 	static{
@@ -448,37 +452,7 @@ public class UtilText {
 			return "a";
 		}
 	}
-
-//	private static String[] assNames = new String[] { "ass", "rear end", "butt", "rump" };
-//
-//	public static String getAssName() {
-//		return assNames[Util.random.nextInt(assNames.length)];
-//	}
-//
-//	private static String[] breastsNames = new String[] { "breasts", "boobs", "mammaries", "tits" };
-//
-//	public static String getBreastsName() {
-//		return breastsNames[Util.random.nextInt(breastsNames.length)];
-//	}
-
-	// private static String[] penisNames = new String[]{"cock", "dick", "knob",
-	// "member", "penis", "prick", "shaft", "manhood"};
-	// public static String getPenisName(){
-	// return penisNames[Utilities.random.nextInt(penisNames.length)];
-	// }
-
-//	private static String[] vaginaNames = new String[] { "cherry", "cunt", "fuck hole", "gash", "kitty", "muff", "pussy", "sex", "slit", "twat", "vagina" };
-//
-//	public static String getVaginaName() {
-//		return vaginaNames[Util.random.nextInt(vaginaNames.length)];
-//	}
-
-//	private static String[] cumNames = new String[] { "cum", "cream", "jism", "jizz", "load", "seed", "spooge" };
-//
-//	public static String getCumName() {
-//		return cumNames[Util.random.nextInt(cumNames.length)];
-//	}
-
+	
 	private static String[] femaleCumNames = new String[] { "juices" };
 
 	public static String getFemaleCumName() {
@@ -2882,6 +2856,28 @@ public class UtilText {
 							return "<i style='color:"+c.toWebHexString()+";'>"+arguments+"</i>";
 						else
 							return "<i style='color:"+c.toWebHexString()+";'>...</i>";
+					}
+				});
+				
+				commandNames = new ArrayList<>();
+				for(String s : c.getFormattingNames()) {
+					commandNames.add("glow"+Util.capitaliseSentence(s));
+					commandNames.add("glowing"+Util.capitaliseSentence(s));
+					commandNames.add("g"+Util.capitaliseSentence(s));
+				}
+				
+				commandsList.add(new ParserCommand(
+						commandNames,
+						false,
+						false,
+						"(text to glow)",
+						"Description of method"){//TODO
+					@Override
+					public String parse(String command, String arguments, String target) {
+						if(arguments!=null)
+							return applyGlow(arguments, c);
+						else
+							return "<i>...</i>";
 					}
 				});
 			}

@@ -20,6 +20,7 @@ import java.util.Map.Entry;
 import java.util.NoSuchElementException;
 import java.util.Random;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.function.Function;
 import java.util.regex.Pattern;
 
@@ -233,6 +234,25 @@ public class Util {
 
 		return null;
 	}
+	
+	public static <T> T getRandomObjectFromWeightedFloatMap(Map<T, Float> map) {
+		int total = 0;
+		for(float f : map.values()) {
+			total+=f;
+		}
+		
+		float choice = (float) (Math.random()*total);
+		
+		total = 0;
+		for(Entry<T, Float> entry : map.entrySet()) {
+			total+=entry.getValue();
+			if(choice<=total) {
+				return entry.getKey();
+			}
+		}
+
+		return null;
+	}
 
 	public static String getDayOfMonthSuffix(int n) {
 		if (n >= 11 && n <= 13) {
@@ -281,30 +301,92 @@ public class Util {
 			"ninety"
 	};
 	
+	/**
+	 * Only works up to 99 thousand (I think)
+	 * @param integer
+	 * @return
+	 */
 	public static String intToString(int integer) {
-		if(integer>=0 && integer<1000){
-			String intToString = "";
-			if(integer>=100) {
-				intToString = numbersLessThanTwenty[(integer%1000)/100]+" hundred";
-				if(integer%100!=0) {
-					if(integer%100<20) {
-						intToString+=" and "+numbersLessThanTwenty[integer%100];
-					} else {
-						intToString+=" and "+tensGreaterThanNineteen[(integer%100)/10] + ((integer%10!=0)?"-"+numbersLessThanTwenty[integer%10]:"");
-					}
-				}
-			} else {
-				if(integer%100<20) {
-					intToString+=numbersLessThanTwenty[integer%100];
-				} else {
-					intToString+=tensGreaterThanNineteen[(integer%100)/10] + ((integer%10!=0)?"-"+numbersLessThanTwenty[integer%10]:"");
-				}
-			}
-			
-			return intToString;
+//		if(integer>=0 && integer<1000){
+		String intToString = "";
+		
+		if(integer<0) {
+			intToString = "minus ";
 		}
 		
-		return String.valueOf(integer);
+		if(integer>=1000) {
+			if(integer%1000<20) {
+				intToString+=numbersLessThanTwenty[integer%100]+" thousand";
+			} else {
+				intToString+=tensGreaterThanNineteen[(integer%100)/10] + ((integer%10!=0)?"-"+numbersLessThanTwenty[integer%10]:"")+" thousand";
+			}
+		}
+		
+		if(integer>=100) {
+			if(integer>=1000) {
+				intToString+=", ";
+			}
+			intToString = numbersLessThanTwenty[(integer%1000)/100]+" hundred";
+			if(integer%100!=0) {
+				if(integer%100<20) {
+					intToString+=" and ";
+				} else {
+					intToString+=" and ";
+				}
+			}
+		}
+		
+		if(integer%100<20) {
+			intToString+=numbersLessThanTwenty[integer%100];
+		} else {
+			intToString+=tensGreaterThanNineteen[(integer%100)/10] + ((integer%10!=0)?"-"+numbersLessThanTwenty[integer%10]:"");
+		}
+		
+		return intToString;
+			
+//		}
+		
+//		return String.valueOf(integer);
+	}
+	
+	private final static TreeMap<Integer, String> numeralMap = new TreeMap<Integer, String>();
+	static {
+        numeralMap.put(1000, "M");
+        numeralMap.put(900, "CM");
+        numeralMap.put(500, "D");
+        numeralMap.put(400, "CD");
+        numeralMap.put(100, "C");
+        numeralMap.put(90, "XC");
+        numeralMap.put(50, "L");
+        numeralMap.put(40, "XL");
+        numeralMap.put(10, "X");
+        numeralMap.put(9, "IX");
+        numeralMap.put(5, "V");
+        numeralMap.put(4, "IV");
+        numeralMap.put(1, "I");
+    }
+	
+	public static String intToNumerals(int integer) {
+		if(integer<=0) {
+			return "0";
+		}
+		int l =  numeralMap.floorKey(integer);
+        if (integer == l) {
+            return numeralMap.get(integer);
+        }
+        return numeralMap.get(l) + intToNumerals(integer-l);
+	}
+	
+	public static String intToTally(int integer) {
+		StringBuilder numeralSB = new StringBuilder();
+		for(int i=0; i<integer/5; i++) {
+			numeralSB.append("<strike>IIII</strike> ");
+		}
+		for(int i=0; i<integer%5; i++) {
+			numeralSB.append("I");
+		}
+		
+		return numeralSB.toString();
 	}
 	
 	public static String getKeyCodeCharacter(KeyCode code) {
@@ -750,6 +832,10 @@ public class Util {
 
 	public static String inventorySlotsToStringList(List<InventorySlot> inventorySlots) {
 		return Util.toStringList(inventorySlots, InventorySlot::getName, "and");
+	}
+	
+	public static String tattooInventorySlotsToStringList(List<InventorySlot> inventorySlots) {
+		return Util.toStringList(inventorySlots, InventorySlot::getTattooSlotName, "and");
 	}
 
 	public static String displacementTypesToStringList(List<DisplacementType> displacedList) {

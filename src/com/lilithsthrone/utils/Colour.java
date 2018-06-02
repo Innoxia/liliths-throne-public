@@ -86,6 +86,9 @@ public enum Colour {
 	GENERIC_EXPERIENCE(BaseColour.BLUE_LIGHT, "light blue"),
 	COOLDOWN(BaseColour.CRIMSON, "crimson", Util.newArrayListOfValues("cooldown")),
 
+	SCAR(BaseColour.TAN, "tan"),
+	TATTOO(BaseColour.GREY, "grey"),
+	
 	PERK(BaseColour.AQUA, "aqua"),
 	TRAIT(BaseColour.GREEN_LIGHT, "green"),
 	FETISH(BaseColour.PINK_LIGHT, "light pink", Util.newArrayListOfValues("fetish")),

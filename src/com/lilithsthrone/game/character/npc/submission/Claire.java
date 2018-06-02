@@ -50,7 +50,7 @@ public class Claire extends NPC {
 					+ " As a result of this, she seems to be in multiple places at once, and whenever you enter one of the enforcer posts, Claire is sure to already be there.",
 				10, Gender.F_V_B_FEMALE, RacialBody.CAT_MORPH, RaceStage.GREATER,
 				new CharacterInventory(30), WorldType.SUBMISSION, PlaceType.SUBMISSION_ENTRANCE, true);
-
+		
 		this.setPersonality(Util.newHashMapOfValues(
 				new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.HIGH),
 				new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.AVERAGE),

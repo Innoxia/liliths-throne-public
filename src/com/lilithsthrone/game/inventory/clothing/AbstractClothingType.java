@@ -390,7 +390,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			throw new XMLLoadException(e);
 		}
 	}
-
+	
 	private void setUpFemininity(Femininity femininity) {
 		if (femininity == null || femininity == Femininity.ANDROGYNOUS) {
 			femininityMinimum = 0;

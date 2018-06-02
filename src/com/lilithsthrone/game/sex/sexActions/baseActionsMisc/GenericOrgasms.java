@@ -339,6 +339,12 @@ public class GenericOrgasms {
 					orgasmText = "[npc.Name] reaches down and places a [npc.hand] on your head, letting out [npc.a_moan+] as [npc.she] prepares to reach [npc.her] climax.";
 				}
 				break;
+			case LICKING_PUSSY_ROXY:
+				orgasmText = "You let out a muffled [pc.moan] into Roxy's [roxy.pussy+] as you prepare to reach your climax.";
+				break;
+			case SITTING_ON_FACE_ROXY:
+				orgasmText = "[npc.Name] grinds [npc.her] [npc.pussy+] down against your face, letting out [npc.a_moan+] as [npc.she] prepares to reach [npc.her] climax.";
+				break;
 		}
 		
 		return UtilText.parse(characterOrgasming.isPlayer()?Sex.getTargetedPartner(characterOrgasming):characterOrgasming, orgasmText);
