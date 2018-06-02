@@ -2505,7 +2505,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 
 	public String getName() {
 		if(this.isSlave()) {
-			if(this.getOwner().isPlayer()) {
+			if(this.getOwner() != null && this.getOwner().isPlayer()) {
 				playerKnowsName = true;
 			}
 		}
