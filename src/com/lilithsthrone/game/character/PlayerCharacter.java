@@ -10,6 +10,7 @@ import java.util.Set;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import com.lilithsthrone.game.character.attributes.Attribute;
@@ -193,26 +194,34 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 			}
 	
 			try {
-				if(playerSpecificElement.getElementsByTagName("racesDiscovered").item(0)!=null) {
-					for(int i=0; i<((Element) playerSpecificElement.getElementsByTagName("racesDiscovered").item(0)).getElementsByTagName("race").getLength(); i++){
-						Element e = (Element) ((Element) playerSpecificElement.getElementsByTagName("racesDiscovered").item(0)).getElementsByTagName("race").item(i);
+				Element racesDiscoveredElement = (Element) playerSpecificElement.getElementsByTagName("racesDiscovered").item(0);
+				if(racesDiscoveredElement != null) {
+					
+					NodeList races = racesDiscoveredElement.getElementsByTagName("race");
+					for(int i=0; i < races.getLength(); i++){
+						Element e = (Element) races.item(i);
 						character.addRaceDiscoveredFromBook(Race.valueOf(e.getAttribute("value")));
 					}
 				}
 			} catch(Exception ex) {
 			}
-	
-			if(playerSpecificElement.getElementsByTagName("charactersEncountered").item(0)!=null) {
-				for(int i=0; i<((Element) playerSpecificElement.getElementsByTagName("charactersEncountered").item(0)).getElementsByTagName("id").getLength(); i++){
-					Element e = (Element) ((Element) playerSpecificElement.getElementsByTagName("charactersEncountered").item(0)).getElementsByTagName("id").item(i);
+			
+			Element charactersEncounteredElement = (Element) playerSpecificElement.getElementsByTagName("charactersEncountered").item(0);
+			if(charactersEncounteredElement != null) {
+				NodeList charactersEncounteredIds = charactersEncounteredElement.getElementsByTagName("id");
+				for(int i=0; i<charactersEncounteredIds.getLength(); i++){
+					Element e = (Element) charactersEncounteredIds.item(i);
 					character.addCharacterEncountered(e.getAttribute("value"));
 				}
 			}
 			
-			if(Main.isVersionOlderThan(version, "0.1.99.5")) {
-				if(playerSpecificElement.getElementsByTagName("questMap").item(0)!=null) {
-					for(int i=0; i<((Element) playerSpecificElement.getElementsByTagName("questMap").item(0)).getElementsByTagName("entry").getLength(); i++){
-						Element e = (Element) ((Element) playerSpecificElement.getElementsByTagName("questMap").item(0)).getElementsByTagName("entry").item(i);
+			Element questMapElement = (Element) playerSpecificElement.getElementsByTagName("questMap").item(0);
+			if(questMapElement!=null) {
+				NodeList questMapEntries = questMapElement.getElementsByTagName("entry");
+				if(Main.isVersionOlderThan(version, "0.1.99.5")) {
+				
+					for(int i=0; i< questMapEntries.getLength(); i++){
+						Element e = (Element) questMapEntries.item(i);
 						
 						try {
 							int progress = Integer.valueOf(e.getAttribute("progress"));
@@ -238,12 +247,9 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 							System.err.println("ERR Quest!");
 						}
 					}
-				}
-				
-			} else {
-				if(playerSpecificElement.getElementsByTagName("questMap").item(0)!=null) {
-					for(int i=0; i<((Element) playerSpecificElement.getElementsByTagName("questMap").item(0)).getElementsByTagName("entry").getLength(); i++){
-						Element e = (Element) ((Element) playerSpecificElement.getElementsByTagName("questMap").item(0)).getElementsByTagName("entry").item(i);
+				} else {
+					for(int i=0; i<questMapEntries.getLength(); i++){
+						Element e = (Element) questMapEntries.item(i);
 						try {
 							String questLine = e.getAttribute("questLine");
 							if(questLine.contains("SIDE_NYAN")) {

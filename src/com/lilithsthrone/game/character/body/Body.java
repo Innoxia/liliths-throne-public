@@ -13,6 +13,8 @@ import java.util.Map.Entry;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.Litter;
@@ -1259,8 +1261,9 @@ public class Body implements Serializable, XMLSaving {
 		}
 		
 		
-		for(int i=0; i<element.getElementsByTagName("bodyCovering").getLength(); i++){
-			Element e = ((Element)element.getElementsByTagName("bodyCovering").item(i));
+		NodeList bodyCoverings = element.getElementsByTagName("bodyCovering");
+		for(int i = 0; i < bodyCoverings.getLength(); i++){
+			Element e = ((Element)bodyCoverings.item(i));
 
 			String type = e.getAttribute("type");
 			if(type.equals("HORN_COW") || type.equals("HORN_DEMON")) {

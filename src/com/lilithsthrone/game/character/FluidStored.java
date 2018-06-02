@@ -93,7 +93,7 @@ public class FluidStored implements XMLSaving {
 
 	public static FluidStored loadFromXML(StringBuilder log, Element parentElement, Document doc) {
 		String ID = parentElement.getAttribute("charactersFluidID");
-		int millimetres = Integer.valueOf(parentElement.getAttribute("millilitres"));
+		int millimetres = Integer.parseInt(parentElement.getAttribute("millilitres"));
 		
 		if(parentElement.getElementsByTagName("milk").item(0)!=null) {
 			return new FluidStored(ID, FluidMilk.loadFromXML(parentElement, doc), millimetres);

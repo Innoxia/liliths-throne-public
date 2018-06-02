@@ -566,8 +566,9 @@ public class Game implements Serializable, XMLSaving {
 				
 				Main.game.dialogueFlags = DialogueFlags.loadFromXML((Element) gameElement.getElementsByTagName("dialogueFlags").item(0), doc);
 				
-				for(int i=0; i<((Element) gameElement.getElementsByTagName("eventLog").item(0)).getElementsByTagName("eventLogEntry").getLength(); i++){
-					Element e = (Element) ((Element) gameElement.getElementsByTagName("eventLog").item(0)).getElementsByTagName("eventLogEntry").item(i);
+				NodeList eventLogEntryElements = ((Element) gameElement.getElementsByTagName("eventLog").item(0)).getElementsByTagName("eventLogEntry");
+				for(int i = 0; i < eventLogEntryElements.getLength(); i++){
+					Element e = (Element) eventLogEntryElements.item(i);
 					Main.game.eventLog.add(EventLogEntry.loadFromXML(e, doc));
 				}
 				Main.game.eventLog.sort(Comparator.comparingLong(EventLogEntry::getTime));
@@ -576,13 +577,15 @@ public class Game implements Serializable, XMLSaving {
 				NodeList nodes = gameElement.getElementsByTagName("slaveryEventLog");
 				Element extraEffectNode = (Element) nodes.item(0);
 				if(extraEffectNode != null) {
-					for(int i=0; i< extraEffectNode.getElementsByTagName("day").getLength(); i++){
+					NodeList slaveryDayLogElements = extraEffectNode.getElementsByTagName("day");
+					for(int i = 0; i < slaveryDayLogElements.getLength(); i++){
 						Element e = (Element) gameElement.getElementsByTagName("day").item(i);
 						int day = Integer.valueOf(e.getAttribute("value"));
 						Main.game.slaveryEventLog.put(day, new ArrayList<>());
 						
-						for(int j=0; j< e.getElementsByTagName("eventLogEntry").getLength(); j++){
-							Element entry = (Element) e.getElementsByTagName("eventLogEntry").item(j);
+						NodeList dayEventLogElements = e.getElementsByTagName("eventLogEntry");
+						for(int j = 0; j < dayEventLogElements.getLength(); j++){
+							Element entry = (Element) dayEventLogElements.item(j);
 							Main.game.slaveryEventLog.get(day).add(SlaveryEventLogEntry.loadFromXML(entry, doc));
 						}
 					}
@@ -593,20 +596,19 @@ public class Game implements Serializable, XMLSaving {
 				}
 				
 				// Maps:
-				for(int i=0; i<((Element) gameElement.getElementsByTagName("maps").item(0)).getElementsByTagName("world").getLength(); i++){
-					
-					Element e = (Element) ((Element) gameElement.getElementsByTagName("maps").item(0)).getElementsByTagName("world").item(i);
-					
-					if((!e.getAttribute("worldType").equals("SEWERS") || !Main.isVersionOlderThan(loadingVersion, "0.2.0.5"))
-							&& (!e.getAttribute("worldType").equals("SUBMISSION") || !Main.isVersionOlderThan(loadingVersion, "0.2.1.5"))
-							&& (!e.getAttribute("worldType").equals("DOMINION") || !Main.isVersionOlderThan(loadingVersion, "0.2.2"))
-							&& (!e.getAttribute("worldType").equals("SLAVER_ALLEY") || !Main.isVersionOlderThan(loadingVersion, "0.2.2"))
-							&& (!e.getAttribute("worldType").equals("HARPY_NEST") || !Main.isVersionOlderThan(loadingVersion, "0.2.1.5"))
-							&& (!e.getAttribute("worldType").equals("BAT_CAVERNS") || !Main.isVersionOlderThan(loadingVersion, "0.2.3.5"))) {
+				NodeList worlds = ((Element) gameElement.getElementsByTagName("maps").item(0)).getElementsByTagName("world");
+				for(int i = 0; i < worlds.getLength(); i++) {
+					Element e = (Element) worlds.item(i);
+					String worldType = e.getAttribute("worldType");
+					if((!worldType.equals("SEWERS") || !Main.isVersionOlderThan(loadingVersion, "0.2.0.5"))
+							&& (!worldType.equals("SUBMISSION") || !Main.isVersionOlderThan(loadingVersion, "0.2.1.5"))
+							&& (!worldType.equals("DOMINION") || !Main.isVersionOlderThan(loadingVersion, "0.2.2"))
+							&& (!worldType.equals("SLAVER_ALLEY") || !Main.isVersionOlderThan(loadingVersion, "0.2.2"))
+							&& (!worldType.equals("HARPY_NEST") || !Main.isVersionOlderThan(loadingVersion, "0.2.1.5"))
+							&& (!worldType.equals("BAT_CAVERNS") || !Main.isVersionOlderThan(loadingVersion, "0.2.3.5"))) {
 						World world = World.loadFromXML(e, doc);
 						Main.game.worlds.put(world.getWorldType(), world);
 					}
-					
 				}
 				
 				// Add missing world types:

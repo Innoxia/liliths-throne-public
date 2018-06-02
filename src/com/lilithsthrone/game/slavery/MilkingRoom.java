@@ -8,6 +8,7 @@ import java.util.Map.Entry;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
@@ -106,22 +107,25 @@ public class MilkingRoom implements XMLSaving {
 			} catch(Exception ex) {
 			}
 
-			for(int i=0; i<parentElement.getElementsByTagName("milkStorage").getLength(); i++){
-				Element milkStorageElement = (Element)parentElement.getElementsByTagName("milkStorage").item(i);
+			NodeList milkStorageElements = parentElement.getElementsByTagName("milkStorage");
+			for(int i=0; i<milkStorageElements.getLength(); i++){
+				Element milkStorageElement = (Element)milkStorageElements.item(i);
 				Float quantity = Float.valueOf(milkStorageElement.getAttribute("milkQuantity"));
 				FluidMilk milk = FluidMilk.loadFromXML(milkStorageElement, doc);
 				room.incrementMilkStorage(milk, quantity);
 			}
 
-			for(int i=0; i<parentElement.getElementsByTagName("cumStorage").getLength(); i++){
-				Element cumStorageElement = (Element)parentElement.getElementsByTagName("cumStorage").item(i);
+			NodeList cumStorageElements = parentElement.getElementsByTagName("cumStorage");
+			for(int i=0; i<cumStorageElements.getLength(); i++){
+				Element cumStorageElement = (Element)cumStorageElements.item(i);
 				Float quantity = Float.valueOf(cumStorageElement.getAttribute("cumQuantity"));
 				FluidCum cum = FluidCum.loadFromXML(cumStorageElement, doc);
 				room.incrementCumStorage(cum, quantity);
 			}
 
-			for(int i=0; i<parentElement.getElementsByTagName("girlcumStorage").getLength(); i++){
-				Element cumStorageElement = (Element)parentElement.getElementsByTagName("girlcumStorage").item(i);
+			NodeList girlCumStorageElements = parentElement.getElementsByTagName("girlcumStorage");
+			for(int i=0; i<girlCumStorageElements.getLength(); i++){
+				Element cumStorageElement = (Element)girlCumStorageElements.item(i);
 				Float quantity = Float.valueOf(cumStorageElement.getAttribute("girlcumQuantity"));
 				FluidGirlCum cum = FluidGirlCum.loadFromXML(cumStorageElement, doc);
 				room.incrementGirlcumStorage(cum, quantity);

@@ -6,6 +6,7 @@ import java.util.Map.Entry;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
@@ -193,9 +194,9 @@ public class CharacterInventory implements Serializable, XMLSaving {
 					doc));
 		}
 		
-		Element clothingEquipped = (Element) parentElement.getElementsByTagName("clothingEquipped").item(0);
-		for(int i=0; i<clothingEquipped.getElementsByTagName("clothing").getLength(); i++){
-			Element e = ((Element)clothingEquipped.getElementsByTagName("clothing").item(i));
+		NodeList clothingEquipped = ((Element) parentElement.getElementsByTagName("clothingEquipped").item(0)).getElementsByTagName("clothing");
+		for(int i=0; i<clothingEquipped.getLength(); i++){
+			Element e = ((Element)clothingEquipped.item(i));
 			
 			AbstractClothing clothing = AbstractClothing.loadFromXML(e, doc);
 			if(clothing!=null) {
@@ -203,24 +204,27 @@ public class CharacterInventory implements Serializable, XMLSaving {
 			}
 		}
 		
-		Element itemsInInventory = (Element) parentElement.getElementsByTagName("itemsInInventory").item(0);
-		for(int i=0; i<itemsInInventory.getElementsByTagName("item").getLength(); i++){
-			Element e = ((Element)itemsInInventory.getElementsByTagName("item").item(i));
+		NodeList itemsInInventory = ((Element) parentElement.getElementsByTagName("itemsInInventory").item(0)).getElementsByTagName("item");
+		for(int i=0; i<itemsInInventory.getLength(); i++){
+			Element e = ((Element)itemsInInventory.item(i));
 			
-			if(e.getAttribute("id").equals(ItemType.itemToIdMap.get(ItemType.CONDOM_USED))) {
-				inventory.addItem(AbstractFilledCondom.loadFromXML(e, doc), Integer.valueOf(e.getAttribute("count")));
+			int count = Integer.valueOf(e.getAttribute("count"));
+			String id = e.getAttribute("id");
+			if(id.equals(ItemType.itemToIdMap.get(ItemType.CONDOM_USED))) {
+				inventory.addItem(AbstractFilledCondom.loadFromXML(e, doc), count);
 				
-			} else if(e.getAttribute("id").equals(ItemType.itemToIdMap.get(ItemType.MOO_MILKER_FULL))) {
-				inventory.addItem(AbstractFilledBreastPump.loadFromXML(e, doc), Integer.valueOf(e.getAttribute("count")));
+			} else if(id.equals(ItemType.itemToIdMap.get(ItemType.MOO_MILKER_FULL))) {
+				inventory.addItem(AbstractFilledBreastPump.loadFromXML(e, doc), count);
 				
 			} else {
-				inventory.addItem(AbstractItem.loadFromXML(e, doc), Integer.valueOf(e.getAttribute("count")));
+				inventory.addItem(AbstractItem.loadFromXML(e, doc), count);
 			}
 		}
 		
 		Element clothingInInventory = (Element) parentElement.getElementsByTagName("clothingInInventory").item(0);
-		for(int i=0; i<clothingInInventory.getElementsByTagName("clothing").getLength(); i++){
-			Element e = ((Element)clothingInInventory.getElementsByTagName("clothing").item(i));
+		NodeList clothingElements = clothingInInventory.getElementsByTagName("clothing");
+		for(int i=0; i<clothingElements.getLength(); i++){
+			Element e = ((Element)clothingElements.item(i));
 
 			for(int clothingCount = 0 ; clothingCount < Integer.valueOf(e.getAttribute("count")); clothingCount++) {
 				AbstractClothing clothing = AbstractClothing.loadFromXML(e, doc);
@@ -231,10 +235,11 @@ public class CharacterInventory implements Serializable, XMLSaving {
 		}
 		
 		Element weaponsInInventory = (Element) parentElement.getElementsByTagName("weaponsInInventory").item(0);
-		for(int i=0; i<weaponsInInventory.getElementsByTagName("weapon").getLength(); i++){
-			Element e = ((Element)weaponsInInventory.getElementsByTagName("weapon").item(i));
+		NodeList weaponElements = weaponsInInventory.getElementsByTagName("weapon");
+		for(int i=0; i<weaponElements.getLength(); i++){
+			Element e = ((Element)weaponElements.item(i));
 
-			for(int weaponCount = 0 ; weaponCount < Integer.valueOf(e.getAttribute("count")); weaponCount++) {
+			for(int weaponCount = 0; weaponCount < Integer.valueOf(e.getAttribute("count")); weaponCount++) {
 				inventory.addWeapon(AbstractWeapon.loadFromXML(e, doc));
 			}
 		}
