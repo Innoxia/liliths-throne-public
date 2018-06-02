@@ -1755,14 +1755,6 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			e.printStackTrace();
 			return s;
 		}
-		/*try {
-			InputStream is = this.getClass().getResourceAsStream("/res/patterns/" + pattern.toLowerCase() + ".svg");
-			loadedPattern = Util.inputStreamToString(is);
-			is.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-			return s;
-		}*/
 		
 		// Getting shapes from the pattern
 		String newPattern = "";
