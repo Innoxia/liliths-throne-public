@@ -5790,7 +5790,7 @@ public class InventoryDialogue {
 				return new Response("Back", "Return to the previous menu.", CLOTHING_EQUIPPED);
 
 			} else if (index  == 1) {
-				if(dyePreviewPrimary == clothing.getColour() && dyePreviewSecondary == clothing.getSecondaryColour() && dyePreviewPattern.equals(clothing.getPattern())) {
+				if(dyePreviewPrimary == clothing.getColour() && dyePreviewSecondary == clothing.getSecondaryColour() && dyePreviewTertiary == clothing.getTertiaryColour() && dyePreviewPattern.equals(clothing.getPattern())) {
 					return new Response("Dye",
 							"You need to choose different colours before being able to dye the " + clothing.getName() + "!",
 							null); 

@@ -1368,8 +1368,8 @@ public class CharacterUtils {
 
 		String clothingPattern = "none";
 		if(Math.random() >= 0.8f) {
-            List<Pattern> possiblePatterns = new ArrayList<>(Pattern.getAllPatterns().values());
-            clothingPattern = possiblePatterns.get(Util.random.nextInt(possiblePatterns.size())).getName();
+		    List<Pattern> possiblePatterns = new ArrayList<>(Pattern.getAllPatterns().values());
+		    clothingPattern = possiblePatterns.get(Util.random.nextInt(possiblePatterns.size())).getName();
 		}
 		
 		List<InventorySlot> inventorySlotsInPriorityOrder = new ArrayList<>();
