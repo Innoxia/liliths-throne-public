@@ -205,21 +205,26 @@ public class CharacterInventory implements Serializable, XMLSaving {
 		}
 		
 		NodeList itemsInInventory = ((Element) parentElement.getElementsByTagName("itemsInInventory").item(0)).getElementsByTagName("item");
+		Map<AbstractItem, Integer> itemMapToAdd = new HashMap<>();
 		for(int i=0; i<itemsInInventory.getLength(); i++){
 			Element e = ((Element)itemsInInventory.item(i));
 			
-			int count = Integer.valueOf(e.getAttribute("count"));
+			int count = Integer.parseInt(e.getAttribute("count"));
 			String id = e.getAttribute("id");
 			if(id.equals(ItemType.itemToIdMap.get(ItemType.CONDOM_USED))) {
-				inventory.addItem(AbstractFilledCondom.loadFromXML(e, doc), count);
+				itemMapToAdd.put(AbstractFilledCondom.loadFromXML(e, doc), count);
 				
 			} else if(id.equals(ItemType.itemToIdMap.get(ItemType.MOO_MILKER_FULL))) {
-				inventory.addItem(AbstractFilledBreastPump.loadFromXML(e, doc), count);
+				itemMapToAdd.put(AbstractFilledBreastPump.loadFromXML(e, doc), count);
 				
 			} else {
-				inventory.addItem(AbstractItem.loadFromXML(e, doc), count);
+				AbstractItem itemLoadedFromXML = AbstractItem.loadFromXML(e, doc);
+				if (itemLoadedFromXML != null) {
+					itemMapToAdd.put(itemLoadedFromXML, count);
+				}
 			}
 		}
+		inventory.addItems(itemMapToAdd);
 		
 		Element clothingInInventory = (Element) parentElement.getElementsByTagName("clothingInInventory").item(0);
 		NodeList clothingElements = clothingInInventory.getElementsByTagName("clothing");
@@ -388,6 +393,22 @@ public class CharacterInventory implements Serializable, XMLSaving {
 	
 	public AbstractItem getItem(int index) {
 		return itemsInInventory.get(index);
+	}
+	
+	/**
+	 * For internal use only. Adds multiple items. Does not check size limits.
+	 * @param itemMap
+	 */
+	private void addItems(Map<AbstractItem, Integer> itemMap) {
+		for (Map.Entry<AbstractItem, Integer> entry : itemMap.entrySet()) {
+			AbstractItem item = entry.getKey();
+			
+			int count = entry.getValue();
+			for(int i = 0; i < count; i++) {
+				itemsInInventory.add(item);
+			}
+		}
+		recalculateMapOfDuplicateItems();
 	}
 	
 	/**

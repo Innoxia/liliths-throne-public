@@ -36,6 +36,7 @@ import com.lilithsthrone.game.character.body.types.TailType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.types.WingType;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeShape;
+import com.lilithsthrone.game.character.body.valueEnums.BodyCoveringSkinToneColorHelper;
 import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.BodyShape;
@@ -291,10 +292,6 @@ public class Body implements Serializable, XMLSaving {
 		// Everything is based on human skin value:
 		StartingSkinTone tone = StartingSkinTone.values()[Util.random.nextInt(StartingSkinTone.values().length)];
 		
-		List<Colour> suitableColours = tone.getAssociatedColours();
-		
-		List<Colour> colourApplicationList = new ArrayList<>();
-
 		for (BodyCoveringType s : BodyCoveringType.values()) {
 			
 			// Specials:
@@ -312,24 +309,13 @@ public class Body implements Serializable, XMLSaving {
 						Colour.COVERING_NONE, false));
 				continue;
 			}
-			
-			colourApplicationList.clear();
-			colourApplicationList.addAll(s.getNaturalColoursPrimary());
-			colourApplicationList.retainAll(suitableColours);
-			if(colourApplicationList.isEmpty()) {
-				colourApplicationList.addAll(s.getNaturalColoursPrimary());
-			}
+			List<Colour> colourApplicationList = BodyCoveringSkinToneColorHelper.getAcceptableColoursForPrimary(tone, s);
 			Colour primary = colourApplicationList.get(Util.random.nextInt(colourApplicationList.size()));
 			
 			Colour secondary = primary;
 			
 			if(!s.getNaturalColoursSecondary().isEmpty()) {
-				colourApplicationList.clear();
-				colourApplicationList.addAll(s.getNaturalColoursSecondary());
-				colourApplicationList.retainAll(suitableColours);
-				if(colourApplicationList.isEmpty()) {
-					colourApplicationList.addAll(s.getNaturalColoursSecondary());
-				}
+				colourApplicationList = BodyCoveringSkinToneColorHelper.getAcceptableColoursForSecondary(tone, s);
 				secondary = colourApplicationList.get(Util.random.nextInt(colourApplicationList.size()));
 			}
 			

@@ -3,6 +3,8 @@ package com.lilithsthrone.game;
 import java.io.File;
 import java.io.Serializable;
 import java.io.StringWriter;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -652,9 +654,12 @@ public class Game implements Serializable, XMLSaving {
 				List<String> addedIds = new ArrayList<>();
 				List<NPC> slaveImports = new ArrayList<>();
 				// Load NPCs:
-				
-                NodeList npcs = gameElement.getElementsByTagName("NPC");
-                for(int i=0; i < npcs.getLength(); i++) {
+				NodeList npcs = gameElement.getElementsByTagName("NPC");
+				Map<String, Class<? extends NPC>> npcClasses = new HashMap<>();
+				Map<Class<? extends NPC>, Method> loadFromXMLMethods = new HashMap<>();
+				Map<Class<? extends NPC>, Constructor<? extends NPC>> constructors = new HashMap<>();
+                int totalNpcCount = npcs.getLength();
+				for(int i=0; i < totalNpcCount; i++) {
                     Element e = (Element) npcs.item(i);
 					
 					if(!addedIds.contains(((Element)e.getElementsByTagName("id").item(0)).getAttribute("value"))) {
@@ -666,12 +671,7 @@ public class Game implements Serializable, XMLSaving {
 //								System.out.println(className);
 							}
 						}
-						@SuppressWarnings("unchecked")
-						Class<? extends NPC> npcClass = (Class<? extends NPC>) Class.forName(className);
-						Method m = npcClass.getMethod("loadFromXML", Element.class, Document.class, CharacterImportSetting[].class);
-						
-						NPC npc = npcClass.getDeclaredConstructor(boolean.class).newInstance(true);
-						m.invoke(npc, e, doc, new CharacterImportSetting[] {});
+						NPC npc = loadNPC(doc, e, className, npcClasses, loadFromXMLMethods, constructors);
 						Main.game.addNPC(npc, true);
 						addedIds.add(npc.getId());
 						
@@ -859,6 +859,32 @@ public class Game implements Serializable, XMLSaving {
 		Main.game.setContent(new Response(startingDialogueNode.getLabel(), startingDialogueNode.getDescription(), startingDialogueNode), false);
 		
 		Main.game.endTurn(0);
+	}
+
+	@SuppressWarnings("unchecked")
+	private static NPC loadNPC(Document doc, Element e, String className, 
+			Map<String, Class<? extends NPC>> classMap, Map<Class<? extends NPC>, Method> loadFromXMLMethodMap,
+			Map<Class<? extends NPC>, Constructor<? extends NPC>> constructorMap) throws ClassNotFoundException,
+			NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
+		
+		Class<? extends NPC> npcClass = classMap.get(className);
+		if (npcClass == null) {
+			npcClass = (Class<? extends NPC>) Class.forName(className);
+			classMap.put(className, npcClass);
+			Method m = npcClass.getMethod("loadFromXML", Element.class, Document.class, CharacterImportSetting[].class);
+			loadFromXMLMethodMap.put(npcClass, m);
+			
+			Constructor<? extends NPC> declaredConstructor = npcClass.getDeclaredConstructor(boolean.class);
+			constructorMap.put(npcClass, declaredConstructor);
+			NPC npc = declaredConstructor.newInstance(true);
+			m.invoke(npc, e, doc, new CharacterImportSetting[] {});
+			return npc;
+		} else {
+			Constructor<? extends NPC> declaredConstructor = constructorMap.get(npcClass);
+			NPC npc = declaredConstructor.newInstance(true);
+			loadFromXMLMethodMap.get(npcClass).invoke(npc, e, doc, new CharacterImportSetting[] {});
+			return npc;
+		}
 	}
 	
 	public Element saveAsXML(Element parentElement, Document doc) {
@@ -2905,9 +2931,9 @@ public class Game implements Serializable, XMLSaving {
 			// Support old versions (in the format "Stan-Stan-Stan-49"):
 			String[] split = npc.getId().split("-");
 			try{
-				tallyCount = Integer.valueOf(split[split.length-1]);
+				tallyCount = Integer.parseInt(split[split.length-1]);
 			}catch(NumberFormatException ex) {
-				tallyCount = Integer.valueOf(npc.getId().split(",")[0]);
+				tallyCount = Integer.parseInt(npc.getId().split(",")[0]);
 			}
 			if(tallyCount>npcTally) {
 				npcTally = tallyCount;

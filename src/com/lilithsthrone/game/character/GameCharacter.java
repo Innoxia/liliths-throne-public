@@ -1141,7 +1141,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		}
 		
 		if(element.getElementsByTagName("obedience").getLength()!=0) {
-			character.setObedience(Float.valueOf(((Element)element.getElementsByTagName("obedience").item(0)).getAttribute("value")));
+			character.setObedienceSilentlyFromSavefile(Float.valueOf(((Element)element.getElementsByTagName("obedience").item(0)).getAttribute("value")));
 			CharacterUtils.appendToImportLog(log, "</br>Set obedience: "+character.getObedience());
 		}
 		
@@ -2713,6 +2713,10 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	public float getObedienceValue() {
 		return Math.round(obedience*100)/100f;
 	}
+	
+	public void setObedienceSilentlyFromSavefile(float obedience) {
+		this.obedience = Math.max(-100, Math.min(100, obedience));
+	}
 
 	public String setObedience(float obedience) {
 		return setObedience(obedience, true);
@@ -4131,14 +4135,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		// Clothing effects:
 		for(AbstractClothing c : this.getClothingCurrentlyEquipped()) {
 			for(ItemEffect ie : c.getEffects()) {
-				if(this.isPlayer()) {
-					String clothingEffectDescription = ie.applyEffect(this, this, turnTime);
-					if(!clothingEffectDescription.isEmpty()) {
-						statusEffectDescriptions.putIfAbsent(StatusEffect.CLOTHING_EFFECT, "");
-						statusEffectDescriptions.put(StatusEffect.CLOTHING_EFFECT, statusEffectDescriptions.get(StatusEffect.CLOTHING_EFFECT) + clothingEffectDescription);
-					}
-				} else {
-					ie.applyEffect(this, this, turnTime);
+				String clothingEffectDescription = ie.applyEffect(this, this, turnTime);
+				if (this.isPlayer() && !clothingEffectDescription.isEmpty()) {
+					statusEffectDescriptions.put(StatusEffect.CLOTHING_EFFECT, statusEffectDescriptions.computeIfAbsent(StatusEffect.CLOTHING_EFFECT, x -> "") + clothingEffectDescription);
 				}
 			}
 		}
@@ -4146,14 +4145,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		// Tattoo effects:
 		for(Tattoo tattoo : tattoos.values()) {
 			for(ItemEffect ie : tattoo.getEffects()) {
-				if(this.isPlayer()) {
-					String tattooEffectDescription = ie.applyEffect(this, this, turnTime);
-					if(!tattooEffectDescription.isEmpty()) {
-						statusEffectDescriptions.putIfAbsent(StatusEffect.CLOTHING_EFFECT, "");
-						statusEffectDescriptions.put(StatusEffect.CLOTHING_EFFECT, statusEffectDescriptions.get(StatusEffect.CLOTHING_EFFECT) + tattooEffectDescription);
-					}
-				} else {
-					ie.applyEffect(this, this, turnTime);
+				String tattooEffectDescription = ie.applyEffect(this, this, turnTime);
+				if (this.isPlayer() && !tattooEffectDescription.isEmpty()) {
+					statusEffectDescriptions.put(StatusEffect.CLOTHING_EFFECT, statusEffectDescriptions.computeIfAbsent(StatusEffect.CLOTHING_EFFECT, x -> "") + tattooEffectDescription);
 				}
 			}
 		}
