@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 public class Pattern {
 	
@@ -13,7 +14,7 @@ public class Pattern {
 	//private String SVGString; // TODO ADD THIS
 	
 	static {
-		allPatterns = new HashMap<>();
+		allPatterns = new TreeMap<>();
 		
 		File dir = new File("res/patterns");
 		
@@ -36,7 +37,7 @@ public class Pattern {
 					try {
 						String newPatternName = subFile.getName().substring(0, subFile.getName().indexOf(".svg"));
 						allPatterns.put(newPatternName, new Pattern(newPatternName));
-						System.out.println("Added Pattern: " + newPatternName);
+						//System.out.println("Added Pattern: " + newPatternName);
 						
 					} catch(Exception ex) {
 					}

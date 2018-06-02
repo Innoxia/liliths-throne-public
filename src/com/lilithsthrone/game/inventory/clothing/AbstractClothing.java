@@ -239,7 +239,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 				}
 			}
 			if(!parentElement.getAttribute("pattern").isEmpty()) {
-				String pat = String.valueOf(parentElement.getAttribute("pattern"));
+				String pat = parentElement.getAttribute("pattern");
 				clothing.setPattern(pat);
 			}
 		} catch(Exception ex) {
@@ -346,15 +346,6 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 
 	public void setTertiaryColour(Colour tertiaryColour) {
 		this.tertiaryColour = tertiaryColour;
-	}
-	
-	/**
-	 * Will return false if it doesn't support patterns. 
-	 * @return
-	 */
-	public boolean canHavePatterns()
-	{
-		return this.clothingType.isPatternAvailable();
 	}
 	
 	/**

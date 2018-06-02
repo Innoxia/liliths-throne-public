@@ -1367,13 +1367,10 @@ public class CharacterUtils {
 				lingerieColour = ColourListPresets.LINGERIE.getPresetColourList().get(Util.random.nextInt(ColourListPresets.LINGERIE.getPresetColourList().size()));
 
 		String clothingPattern = "none";
-	    int patternIndex = (int) (Math.random() * Pattern.getAllPatterns().values().size());
-	    for(Pattern pattern: Pattern.getAllPatterns().values()) if (--patternIndex < 0) {
-	    	if(Math.random() >= 0.8f) {
-	    		clothingPattern = pattern.getName(); 
-	    	}
-	    	break;
-	    }
+		if(Math.random() >= 0.8f) {
+            List<Pattern> possiblePatterns = new ArrayList<>(Pattern.getAllPatterns().values());
+            clothingPattern = possiblePatterns.get(Util.random.nextInt(possiblePatterns.size())).getName();
+		}
 		
 		List<InventorySlot> inventorySlotsInPriorityOrder = new ArrayList<>();
 		inventorySlotsInPriorityOrder.add(InventorySlot.TORSO_UNDER); // Torso needs to be randomly decided first, to give girls a chance to wear a dress.
