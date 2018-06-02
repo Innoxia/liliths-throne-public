@@ -46,7 +46,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.2.5
- * @version 0.2.5
+ * @version 0.2.6
  * @author Innoxia
  */
 public class RentalMommy extends NPC {
@@ -72,7 +72,7 @@ public class RentalMommy extends NPC {
 			
 			Subspecies species = Subspecies.COW_MORPH;
 				
-			switch(Main.getProperties().subspeciesFeminineFurryPreferencesMap.get(species)) {
+			switch(Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(species)) {
 				case HUMAN:
 					setBody(Gender.F_V_B_FEMALE, Subspecies.HUMAN, RaceStage.HUMAN);
 					break;
@@ -179,21 +179,6 @@ public class RentalMommy extends NPC {
 	@Override
 	public boolean isUnique() {
 		return true;
-	}
-	
-	private void setBodyFromPreferences(int i, Gender gender, Subspecies race) {
-		int choice = Util.random.nextInt(i)+1;
-		RaceStage raceStage = RaceStage.PARTIAL;
-		
-		if (choice == 1) {
-			raceStage = RaceStage.PARTIAL;
-		} else if (choice == 2) {
-			raceStage = RaceStage.LESSER;
-		} else {
-			raceStage = RaceStage.GREATER;
-		}
-		
-		setBody(gender, race, raceStage);
 	}
 	
 	// Sex:

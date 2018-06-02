@@ -416,7 +416,7 @@ public enum Quest {
 	},
 	
 	
-	SIDE_NYAN_STOCK_ISSUES(QuestType.SIDE, 1, 0) {
+	RELATIONSHIP_NYAN_STOCK_ISSUES(QuestType.RELATIONSHIP, 1, 0) {
 		@Override
 		public String getName() {
 			return "Offer Nyan your help";
@@ -435,7 +435,7 @@ public enum Quest {
 		}
 	},
 	
-	SIDE_NYAN_STOCK_ISSUES_AGREED_TO_HELP(QuestType.SIDE, 10, 0) {
+	RELATIONSHIP_NYAN_STOCK_ISSUES_AGREED_TO_HELP(QuestType.RELATIONSHIP, 10, 0) {
 		@Override
 		public String getName() {
 			return "Confront the suppliers";
@@ -453,7 +453,7 @@ public enum Quest {
 		}
 	},
 	
-	SIDE_NYAN_STOCK_ISSUES_SUPPLIERS_BEATEN(QuestType.SIDE, 10, 100) {
+	RELATIONSHIP_NYAN_STOCK_ISSUES_SUPPLIERS_BEATEN(QuestType.RELATIONSHIP, 10, 100) {
 		@Override
 		public String getName() {
 			return "Reward";
@@ -628,7 +628,25 @@ public enum Quest {
 
 		@Override
 		public String getCompletedDescription() {
-			return "You submitted to the Slime Queen, and allowed her to transform you into one of her subjects!";
+			return "You decided to help the Slime Queen with her plans, and agreed to trick the enforcers into believing that she's no longer a threat!";
+		}
+	},
+	
+	SLIME_QUEEN_SIX_SUBMIT(QuestType.SIDE, 1, 200) {
+		@Override
+		public String getName() {
+			return "Final Report";
+		}
+
+		@Override
+		public String getDescription() {
+			return "Report back to Claire and tell her that the Slime Queen will no longer be a problem.";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "You told Claire that the Slime Queen is no longer a threat, and received the twenty-thousand flame reward."
+				+ " With your Queen now safe from enforcer investigation, it's only a matter of time before all of Submission is a Slime paradise!";
 		}
 	},
 	
@@ -640,13 +658,29 @@ public enum Quest {
 
 		@Override
 		public String getDescription() {
-			return "Report back to the Enforcer Post and tell them that there's no such thing as a Slime Queen.";
+			return "You decide to convince the Slime Queen to abandon her plans.";
 		}
 
 		@Override
 		public String getCompletedDescription() {
-			return "Although the enforcers were a little skeptical, you managed to convince them that there's no such thing as a Slime Queen."
-					+ " With your Queen now safe from enforcer investigation, it's only a matter of time before all of Submission is a Slime paradise...";
+			return "You convinced Catherine to abandon her plan of transforming everyone in Submission into slimes.";
+		}
+	},
+	
+	SLIME_QUEEN_SIX_CONVINCE(QuestType.SIDE, 1, 200) {
+		@Override
+		public String getName() {
+			return "Final Report";
+		}
+
+		@Override
+		public String getDescription() {
+			return "Report back to Claire and tell her that the Slime Queen will no longer be a problem.";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "You told Claire that the Slime Queen is no longer a threat, and received the twenty-thousand flame reward.";
 		}
 	},
 	
@@ -658,17 +692,16 @@ public enum Quest {
 
 		@Override
 		public String getDescription() {
-			return "Report back to the Enforcer Post and tell them that there's no such thing as a Slime Queen.";
+			return "Force the Slime Queen to abandon her plans.";
 		}
 
 		@Override
 		public String getCompletedDescription() {
-			return "Although the enforcers were a little skeptical, you managed to convince them that there's no such thing as a Slime Queen."
-					+ " With your Queen now safe from enforcer investigation, it's only a matter of time before all of Submission is a Slime paradise...";
+			return "You forced Catherine to abandon her plan of transforming everyone in Submission into slimes.";
 		}
 	},
 	
-	SLIME_QUEEN_SIX(QuestType.SIDE, 1, 200) {
+	SLIME_QUEEN_SIX_FORCE(QuestType.SIDE, 1, 200) {
 		@Override
 		public String getName() {
 			return "Final Report";

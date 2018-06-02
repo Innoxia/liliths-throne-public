@@ -365,7 +365,17 @@ public enum SexPositionSlot {
 
 	MISSIONARY_ALTAR_SEALED_KNEELING_BETWEEN_LEGS("Between legs (oral)",
 			Util.newArrayListOfValues(
-					OrgasmCumTarget.FLOOR));
+					OrgasmCumTarget.FLOOR)),
+	
+	SITTING_ON_FACE_ROXY("Sitting",
+			Util.newArrayListOfValues(
+					OrgasmCumTarget.FACE)),
+	
+	LICKING_PUSSY_ROXY("Sat on",
+			Util.newArrayListOfValues(
+					OrgasmCumTarget.SELF_GROIN,
+					OrgasmCumTarget.SELF_BREASTS,
+					OrgasmCumTarget.SELF_LEGS));
 	
 	
 	private String name;

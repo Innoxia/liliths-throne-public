@@ -21,7 +21,7 @@
 	</p>
 	<p>
 		As you take in your surrounds, you discover that you're surrounded on all sides by every shade of pink imaginable.
-		 From the pale rose hue of the walls, to the offensively-bright hot pink sheets on her bed, you feel as though you can probably take a reasonable guess as to what Lilaya's favourite colour is.
+		 From the pale rose hue of the walls, to the offensively bright hot pink sheets on her bed, you feel as though you can probably take a reasonable guess as to what Lilaya's favourite colour is.
 		 Some pieces of furniture, which have been painted white, along with the white ceiling and thick, cream carpet underfoot, are the only parts of her room that aren't one type of pink or another.
 	</p>
 	<p>
@@ -145,17 +145,17 @@
 		 Quickly turning the handle, you pull open the door to find yourself standing before a very shocked-looking Rose.
 	</p>
 	<p>
-		Taking the initiative, you quickly blurt out your excuses.
+		Taking the initiative, you quickly blurt out your excuses,
 		 [pc.speech(Ah, hello Rose! I was just checking all of the rooms for any sign of trouble. This one's safe enough!)]
 	</p>
 	<p>
-		[rose.speech(I wouldn't dare question the motives of one of Mistress's guests, but one might wonder what sort of 'trouble' one would expect to find in her room.)]
+		[rose.speech(I wouldn't dare question the motives of one of Mistress's guests, but one might wonder what sort of 'trouble' one would expect to find in her room,)]
 		 Rose says, raising one eyebrow as she steps back to make room for you to proceed out into the corridor.
 	</p>
 	<p>
-		[pc.speech(Ah, well, that's the thing with trouble; you don't know what it is until you find it.)]
-		 You say, ignoring Rose's still-raised eyebrow.
-		 [pc.speech(Anyway, I need to head back to my room now, I'll see you later Rose!)]
+		[pc.speech(Ah, well, that's the thing with trouble; you don't know what it is until you find it,)]
+		 you say, ignoring Rose's still-raised eyebrow.
+		 [pc.speech(Anyway, I need to head back to my room now, I'll see you later, Rose!)]
 	</p>
 	<p>
 		You hurry off down the corridor, not daring to look back.
@@ -182,7 +182,7 @@
 	</p>
 	<p>
 		[pc.speech(Well, I was just... Erm...)]
-		 You start, not sure quite what to say.
+		 you start, not sure quite what to say.
 	</p>
 	<p>
 		[rose.speech(You were just masturbating to Mistress's dirty underwear?)]
@@ -203,7 +203,7 @@
 		 [pc.speech(Please, Rose, promise me that you won't tell Lilaya!)]
 	</p>
 	<p>
-		[rose.speech(I'm sorry, but I can't do that. Now, if you'll excuse me.)]
+		[rose.speech(I'm sorry, but I can't do that. Now, if you'll excuse me,)]
 		 Rose replies, before stepping around you and hurrying off down the stairs.
 	</p>
 	<p>
@@ -215,7 +215,7 @@
 	<htmlContent tag="APOLOGY"><![CDATA[
 	<p>
 		[pc.speech(Rose! Wait!)]
-		 You call out, and, much to your relief, the cat-girl maid stops in the doorway.
+		 you call out, and, much to your relief, the cat-girl maid stops in the doorway.
 	</p>
 	<p>
 		[rose.speech(May I help you?)]
@@ -223,10 +223,10 @@
 	</p>
 	<p>
 		[pc.speech(I'm sorry! Please, don't tell Lilaya! I'm really, really sorry!)]
-		 You call out, desperate for Rose to keep this a secret between the two of you.
+		 you call out, desperate for Rose to keep this a secret between the two of you.
 	</p>
 	<p>
-		The hint of sadistic delight in Rose's voice is unmistakable as she curtsies and addresses you once more.
+		The hint of sadistic delight in Rose's voice is unmistakable as she curtsies and addresses you once more,
 		[rose.speech(I'm sorry, but this really isn't something that I can keep from Mistress. Have a good day.)]
 	</p>
 	<p>
@@ -242,7 +242,7 @@
 		 [pc.speech(Please, Rose, promise me that you won't tell Lilaya!)]
 	</p>
 	<p>
-		[rose.speech(I'm sorry, but I can't do that. Now, if you'll excuse me.)]
+		[rose.speech(I'm sorry, but I can't do that. Now, if you'll excuse me,)]
 		 Rose replies, before stepping around you and hurrying off down the stairs.
 	</p>
 	<p>
@@ -254,12 +254,12 @@
 	<htmlContent tag="BEG"><![CDATA[
 	<p>
 		[pc.speech(Rose! Please!)]
-		 You cry out in desperation, clasping your [pc.hands] together as you beg for her to remain silent.
+		 you cry out in desperation, clasping your [pc.hands] together as you beg for her to remain silent.
 		 [pc.speech(Don't tell Lilaya! I'll do anything! Anything you ask!)]
 	</p>
 	<p>
 		Already half-out of the doorway, Rose stops in her tracks as she hears your words.
-		 Keeping her back turned towards you, she offers you an ultimatum.
+		 Keeping her back turned towards you, she offers you an ultimatum,
 		 [rose.speech(I could keep this from Mistress, but under only one condition. That being, you submit to my punishment.)]
 	</p>
 	<p>
@@ -280,11 +280,11 @@
 	
 	<htmlContent tag="BEG_FLEE"><![CDATA[
 	<p>
-		You really don't want to be on the receiving end of that kind of punishment, and, jumping to your feet, you tell Rose as much.
+		You really don't want to be on the receiving end of that kind of punishment, and, jumping to your feet, you tell Rose as much,
 		 [pc.speech(I really don't want to do that, Rose. Just... please, promise me that you won't tell Lilaya about all this!)]
 	</p>
 	<p>
-		[rose.speech(I'm sorry, but I can't do that. Now, if you'll excuse me.)]
+		[rose.speech(I'm sorry, but I can't do that. Now, if you'll excuse me,)]
 		 Rose replies, before quickly putting the strap-on away and hurrying off down the corridor.
 	</p>
 	<p>
@@ -296,18 +296,18 @@
 	<htmlContent tag="ROSE_AS_DOM"><![CDATA[
 	<p>
 		[pc.speech(Ok, just don't let Lilaya know...)]
-		 You say, looking down at the floor.
+		 you say, looking down at the floor.
 	</p>
 	<p>
-		[rose.speech(Excellent.)]
+		[rose.speech(Excellent,)]
 		 Rose replies, lifting her maid's dress and dropping her thong to the floor.
-		 With a clear amount of previous practice, she then swiftly secures the strap-on's harness in pace around her groin.
+		 With a clear amount of previous practice, she then swiftly secures the strap-on's harness in place around her groin.
 		 [rose.speech(You'll call me Mistress for the duration of this, and you'd better show me a proper amount of respect, or else Lilaya will be certain to hear all about what it is that you like to do with her underwear. Now, let's start with you telling me how bad you've been.)]
 	</p>
 	<p>
 		Looking up, you see a determined, dominant glint in Rose's eyes, and you know for a fact that she'll follow through with her threat if you don't do as you're told.
 		 [pc.speech(I-I've been very bad... Mistress!)]
-		 You say, remembering at the last moment to address her in the proper manner.
+		 you say, remembering at the last moment to address her in the proper manner.
 	</p>
 	<p>
 		[rose.speech(Ooh, that was a close one!)]
@@ -323,18 +323,18 @@
 		 [rose.speech(And how are you going to earn forgiveness?)]
 	</p>
 	<p>
-		[pc.speech(By... By letting you fuck me, Mistress.)]
-		 You answer, avoiding Rose's gaze.
-		 Suddenly, the cat-girl gives you a surprisingly-hard shove, and you find yourself falling back onto Lilaya's bed.
+		[pc.speech(By... By letting you fuck me, Mistress,)]
+		 you answer, avoiding Rose's gaze.
+		 Suddenly, the cat-girl gives you a surprisingly hard shove, and you find yourself falling back onto Lilaya's bed.
 	</p>
 	<p>
-		[rose.speech(Now spread your legs, you horny slut.)]
+		[rose.speech(Now spread your legs, you horny slut,)]
 		 Rose snaps, stepping forwards as you hurry to obey.
 		 Grinning down at you, Rose leans forwards as she commands,
 		 [rose.speech(Beg for me to fuck you.)]
 	</p>
 	<p>
-		[pc.speech(Please Mistress, fuck me! I've been a very bad [pc.girl]! Please, I want to earn your forgiveness! Fuck me!)]
+		[pc.speech(Please, Mistress, fuck me! I've been a very bad [pc.girl]! Please, I want to earn your forgiveness! Fuck me!)]
 	</p>
 	<p>
 		[rose.speech(Well, if you insist!)]
@@ -349,18 +349,18 @@
 		 [rose.speech(Well, I think you've been adequately punished now.)]
 	</p>
 	<p>
-		[pc.speech(Yes Mistress... Thank you Mistress...)]
+		[pc.speech(Yes, Mistress... Thank you, Mistress...)]
 		 You pant, lying back on Lilaya's bed as you catch your breath.
 		 You hear Rose unfastening her strap-on, before she moves to retrieve her thong and get her clothes back in order.
 	</p>
 	<p>
-		[rose.speech(Now, back to your room.)]
-		 She commands.
+		[rose.speech(Now, back to your room,)]
+		 she commands.
 		 [rose.speech(And remember, the next time you see me, you're to treat me as Lilaya's slave once more. Understood?)]
 	</p>
 	<p>
-		[pc.speech(Y-Yes Mistress.)]
-		 You reply, before quickly gathering your things and hurrying to the door.
+		[pc.speech(Y-Yes, Mistress,)]
+		 you reply, before quickly gathering your things and hurrying to the door.
 		 Glancing back one last time at Rose, you see her grinning evilly at you.
 		 Letting out a little cry, you quickly turn away and rush off down the corridor, not daring to stop until you're back safe and sound in your own room...
 	</p>
@@ -371,7 +371,7 @@
 	<p>
 		You decide that there's only one thing for it.
 		 You'll have to threaten Rose into silence.
-		 Standing up, you quickly stride forwards until you're standing just in front of Rose, and, putting on your most menacing tone, you growl at her.
+		 Standing up, you quickly stride forwards until you're standing just in front of Rose, and, putting on your most menacing tone, you growl at her,
 		 [pc.speech(You'd <i>better</i> not tell Lilaya about all this. You'll be sorry if you do!)]
 	</p>
 	<p>

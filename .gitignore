@@ -7,3 +7,4 @@ target/
 *.old
 *.class
 *.log
+res/mods/

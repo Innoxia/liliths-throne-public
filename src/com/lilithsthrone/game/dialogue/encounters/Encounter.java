@@ -340,6 +340,26 @@ public enum Encounter {
 					Main.game.setActiveNPC(npc);
 					return Main.game.getActiveNPC().getEncounterDialogue();
 				}
+				
+				if(Main.game.isIncestEnabled() && Math.random()<0.2f) { // Incest
+					List<NPC> offspringAvailable = new ArrayList<>();
+					offspringAvailable.addAll(Main.game.getOffspring().stream().filter(npc -> !npc.isSlave()
+																								&& npc.getSubspecies().getWorldLocations().contains(WorldType.HARPY_NEST)
+																								&& npc.getLastTimeEncountered()==NPC.DEFAULT_TIME_START_VALUE).collect(Collectors.toList()));
+					offspringAvailable.removeAll(Main.game.getOffspringSpawned());
+					
+					if(!offspringAvailable.isEmpty()) {
+						NPC offspring = offspringAvailable.get(Util.random.nextInt(offspringAvailable.size()));
+						Main.game.getOffspringSpawned().add(offspring);
+						
+						offspring.setWorldLocation(Main.game.getPlayer().getWorldLocation());
+						offspring.setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY()));
+						
+						Main.game.setActiveNPC(offspring);
+						
+						return Main.game.getActiveNPC().getEncounterDialogue();
+					}
+				}
 
 				Main.game.setActiveNPC(new HarpyNestsAttacker(GenderPreference.getGenderFromUserPreferences()));
 				
@@ -416,7 +436,27 @@ public enum Encounter {
 					Main.game.setActiveNPC(npc);
 					return Main.game.getActiveNPC().getEncounterDialogue();
 				}
-
+				
+				if(Main.game.isIncestEnabled() && Math.random()<0.2f) { // Incest
+					List<NPC> offspringAvailable = new ArrayList<>();
+					offspringAvailable.addAll(Main.game.getOffspring().stream().filter(npc -> !npc.isSlave()
+																								&& npc.getSubspecies().getWorldLocations().contains(WorldType.HARPY_NEST)
+																								&& npc.getLastTimeEncountered()==NPC.DEFAULT_TIME_START_VALUE).collect(Collectors.toList()));
+					offspringAvailable.removeAll(Main.game.getOffspringSpawned());
+					
+					if(!offspringAvailable.isEmpty()) {
+						NPC offspring = offspringAvailable.get(Util.random.nextInt(offspringAvailable.size()));
+						Main.game.getOffspringSpawned().add(offspring);
+						
+						offspring.setWorldLocation(Main.game.getPlayer().getWorldLocation());
+						offspring.setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY()));
+						
+						Main.game.setActiveNPC(offspring);
+						
+						return Main.game.getActiveNPC().getEncounterDialogue();
+					}
+				}
+				
 				Main.game.setActiveNPC(new HarpyNestsAttacker(GenderPreference.getGenderFromUserPreferences()));
 				
 				Main.game.getActiveNPC().setLocation(Main.game.getPlayer().getLocation());
@@ -524,9 +564,9 @@ public enum Encounter {
 	},
 	
 	BAT_CAVERN(Util.newHashMapOfValues(
-			new Value<EncounterType, Float>(EncounterType.BAT_CAVERN_BAT_ATTACK, 10f),
+			new Value<EncounterType, Float>(EncounterType.BAT_CAVERN_BAT_ATTACK, 8f),
 			new Value<EncounterType, Float>(EncounterType.BAT_CAVERN_SLIME_ATTACK, 6f),
-			new Value<EncounterType, Float>(EncounterType.BAT_CAVERN_FIND_ITEM, 4f))) {
+			new Value<EncounterType, Float>(EncounterType.BAT_CAVERN_FIND_ITEM, 6f))) {
 
 		@Override
 		protected DialogueNodeOld initialiseEncounter(EncounterType node) {
@@ -568,12 +608,8 @@ public enum Encounter {
 				
 			} else if (node == EncounterType.BAT_CAVERN_FIND_ITEM) {
 				
-				if(Math.random()<0.8f) {
-					randomItem = AbstractItemType.generateItem(ItemType.batCavernItems.get(Util.random.nextInt(ItemType.batCavernItems.size())));
-				} else {
-					randomItem = AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_SLIME);
-				}
-				
+				randomItem = AbstractItemType.generateItem(ItemType.batCavernItems.get(Util.random.nextInt(ItemType.batCavernItems.size())));
+
 				Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addItem(randomItem);
 				return BatCavernsEncounterDialogue.FIND_ITEM;
 				

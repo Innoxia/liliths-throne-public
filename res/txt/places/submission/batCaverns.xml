@@ -3,8 +3,7 @@
 
 	<htmlContent tag="STAIRCASE"><![CDATA[
 	<p>
-		This area of the bat caverns is home to the staircase that leads back up to Submission.
-		 Apart from that notable feature, the rest of this area lacks any significant landmark.
+		This area of the bat caverns is home to the staircase that leads back up to Submission. A wooden sign next to the staircase warns any traveller against consuming the mushrooms found in certain parts of the caverns. A picture of some glowing blue mushrooms is displayed next to this warning, and beneath that, there's some information that identifies this particular fungi to be an exception. Apparently, it's the only edible type of mushroom that grows down here, and is highly sought-after by the slimes which inhabit these caverns. Apparently, eating these mushrooms has caused the slimes down here to glow, and also causes them to experience psychedelic effects, which makes their behaviour highly unpredictable.
 	</p>
 	<p>
 		Looking up towards the top of the staircase, you see the relatively-bright lighting of Submission's tunnels shining down to illuminate the top dozen or so steps.
@@ -165,6 +164,46 @@
 	</p>
 	<p>
 		It only takes a minute or so to reach your destination, and, with a final flap of your wings, you've reached your destination. Smiling to yourself as you think about those poor people who aren't able to fly, you set off to continue on your journey.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FIND_MUSHROOMS_LIGHT"><![CDATA[
+	<p>
+		Although there's no shortage of bioluminescent fungi in this area, you can tell that the vast majority of it is poisonous, and is clearly unsuitable for consumption. As you walk past a particularly large mushroom-tree, however, you see a little cluster of glowing blue mushrooms that look to be quite different from all the rest. Crouching down, you take a look at this peculiar fungi, and, comparing it to the mushrooms on the sign at the entrance to the Bat Caverns, you're certain that these are the ones that are edible.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FIND_MUSHROOMS_DARK"><![CDATA[
+	<p>
+		As you walk through the dark caverns, your footsteps causing the bioluminescent lichen underfoot to illuminate your way, you see a faint glimmer of light on the floor up ahead. Approaching this irregularity, you find that the light source is in fact a small cluster of glowing blue mushrooms. Crouching down, you take a look at this peculiar fungi, and, comparing it to the mushrooms on the sign at the entrance to the Bat Caverns, you're certain that these are the ones that are edible.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FIND_ITEM_LIGHT"><![CDATA[
+	<p>
+		As you travel through the underground mushroom forest, you see a splash of bright purple slime sprayed up the side of a nearby mushroom-tree. First glancing around to check that the slime who left this mark is long gone, you then take a step towards this purple goo in order to investigate further.
+	</p>
+	<p>
+		As you approach, you see that there's a similar patch of glowing slime on the floor at the base of the tree, but unlike the goo splashed up the trunk, this slime is a bright orange. Beside this pool of orange goo, you see that one of the participants of what you assume to have been a sexual encounter has dropped a little package.
+	</p>
+	<p>
+		Opening this package reveals:
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FIND_ITEM_DARK"><![CDATA[
+	<p>
+		As you walk through the dark caverns, your footsteps causing the bioluminescent lichen underfoot to illuminate your way, you see a splash of bright pink slime sprayed up the side of the wall up ahead. First glancing around to check that the slime who left this mark is long gone, you then take a step towards this pink goo in order to investigate further.
+	</p>
+	<p>
+		As you approach, you see that there's a similar patch of glowing slime on the floor at the base of the wall, but unlike the goo which first drew your attention, this slime is a bright green. Beside this pool of green goo, you see that one of the participants of what you assume to have been a sexual encounter has dropped a little package.
+	</p>
+	<p>
+		Opening this package reveals:
 	</p>
 	]]>
 	</htmlContent>

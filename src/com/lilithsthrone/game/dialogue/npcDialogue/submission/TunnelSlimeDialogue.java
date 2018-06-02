@@ -150,7 +150,13 @@ public class TunnelSlimeDialogue {
 							}
 							@Override
 							public void effects() {
-								Main.game.getPlayer().setBodyMaterial(BodyMaterial.SLIME);
+								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setBodyMaterial(BodyMaterial.SLIME));
+								
+								if(slime().isAttractedTo(Main.game.getPlayer())) {
+									Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/tunnelSlime", "TRANSFORMED_SLIME_OFFER_SEX"));
+								} else {
+									Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/tunnelSlime", "TRANSFORMED_SLIME_NO_SEX"));
+								}
 							}
 						};
 						
@@ -168,7 +174,7 @@ public class TunnelSlimeDialogue {
 									new Value<>(slime(), "")));
 				
 				} else if (index == 2) {
-					if(Main.game.getPlayer().getMoney()<25) {
+					if(Main.game.getPlayer().getMoney()<250) {
 						return new Response("Offer money ("+UtilText.formatAsMoney(250, "span")+")", "You don't have enough money to offer to pay [npc.name] off. You'll have to either fight [npc.herHim] or offer [npc.herHim] your body!", null);
 					} else {
 						return new Response("Offer money ("+UtilText.formatAsMoney(250, "span")+")", "Offer to pay [npc.name] 250 flames to leave you alone.", OFFER_MONEY) {
@@ -354,19 +360,7 @@ public class TunnelSlimeDialogue {
 		
 		@Override
 		public String getContent() {
-			UtilText.nodeContentSB.setLength(0);
-			
-			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/tunnelSlime", "TRANSFORMED"));
-			
-			UtilText.nodeContentSB.append(Main.game.getPlayer().setBodyMaterial(BodyMaterial.SLIME));
-			
-			if(slime().isAttractedTo(Main.game.getPlayer())) {
-				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/tunnelSlime", "TRANSFORMED_SLIME_OFFER_SEX"));
-			} else {
-				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/tunnelSlime", "TRANSFORMED_SLIME_NO_SEX"));
-			}
-			
-			return UtilText.nodeContentSB.toString();
+			return UtilText.parseFromXMLFile("places/submission/tunnelSlime", "TRANSFORMED");
 		}
 
 		@Override

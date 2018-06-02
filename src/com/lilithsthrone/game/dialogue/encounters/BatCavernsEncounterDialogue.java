@@ -2,11 +2,14 @@ package com.lilithsthrone.game.dialogue.encounters;
 
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
+import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.2.4
- * @version 0.2.4
+ * @version 0.2.6
  * @author Innoxia
  */
 public class BatCavernsEncounterDialogue {
@@ -16,14 +19,34 @@ public class BatCavernsEncounterDialogue {
 
 		@Override
 		public String getContent() {
-			return "<p>"
-						+ "TODO Find a discarded item, with a pool of slime next to it."//TODO
-					+ "</p>"
-					+ "<p style='text-align:center;'>"
-						+ "<b>"
-						+ Encounter.getRandomItem().getDisplayName(true)
-						+ "</b>"
-					+ "</p>";
+			if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.BAT_CAVERN_SLIME_QUEEN_LAIR || Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.BAT_CAVERN_LIGHT) {
+				if(Encounter.getRandomItem().getItemType()==ItemType.MUSHROOM) {
+					return UtilText.parseFromXMLFile("places/submission/batCaverns", "FIND_MUSHROOMS_LIGHT")
+							+ "<p style='text-align:center;'>"
+								+ "<b>"+ Encounter.getRandomItem().getDisplayName(true)+ "</b>"
+							+ "</p>";
+					
+				} else {
+					return UtilText.parseFromXMLFile("places/submission/batCaverns", "FIND_ITEM_LIGHT")
+							+ "<p style='text-align:center;'>"
+								+ "<b>"+ Encounter.getRandomItem().getDisplayName(true)+ "</b>"
+							+ "</p>";
+				}
+				
+			} else {
+				if(Encounter.getRandomItem().getItemType()==ItemType.MUSHROOM) {
+					return UtilText.parseFromXMLFile("places/submission/batCaverns", "FIND_MUSHROOMS_DARK")
+							+ "<p style='text-align:center;'>"
+								+ "<b>"+ Encounter.getRandomItem().getDisplayName(true)+ "</b>"
+							+ "</p>";
+					
+				} else {
+					return UtilText.parseFromXMLFile("places/submission/batCaverns", "FIND_ITEM_DARK")
+							+ "<p style='text-align:center;'>"
+								+ "<b>"+ Encounter.getRandomItem().getDisplayName(true)+ "</b>"
+							+ "</p>";
+				}
+			}
 		}
 		
 		@Override

@@ -39,9 +39,9 @@ import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
+import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.character.persona.History;
 import com.lilithsthrone.game.character.persona.NameTriplet;
-import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
@@ -84,7 +84,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.2.2
+ * @version 0.2.6
  * @author Innoxia
  */
 public abstract class NPC extends GameCharacter implements XMLSaving {
@@ -379,7 +379,18 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		
 		for(Spell spell : this.getAllSpells()) {
 			if(this.getMana()>spell.getModifiedCost(this)) {
-				spellsAbleToCast.add(spell);
+				if(this instanceof Elemental) {
+					if(spell!=Spell.ELEMENTAL_AIR
+							&& spell!=Spell.ELEMENTAL_ARCANE
+							&& spell!=Spell.ELEMENTAL_EARTH
+							&& spell!=Spell.ELEMENTAL_FIRE
+							&& spell!=Spell.ELEMENTAL_WATER) {
+						spellsAbleToCast.add(spell);
+					}
+					
+				} else {
+					spellsAbleToCast.add(spell);
+				}
 			}
 		}
 		
@@ -581,7 +592,11 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				case HUMAN:
 					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_HUMAN));
 				case SLIME:
-					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_SLIME));
+					if(this.hasFetish(Fetish.FETISH_TRANSFORMATION_GIVING)) {
+						return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_SLIME));
+					} else {
+						return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.SEX_INGREDIENT_SLIME_QUENCHER));
+					}
 				case ANGEL:
 					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_HUMAN));
 				case DEMON: case IMP:
@@ -998,6 +1013,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 							possibleEffects.put(new ItemEffect(genitalsItemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.REMOVAL, TFPotency.MINOR_BOOST, 1), "Let's get rid of that tight little cunt of yours!");
 							removingVagina = true;
 						}
+						
 					} else if((Main.getProperties().forcedTFPreference != FurryPreference.HUMAN && Main.getProperties().forcedTFPreference != FurryPreference.MINIMUM) || getPreferredBody().getVagina().getType()==VaginaType.HUMAN) {
 						possibleEffects.put(new ItemEffect(genitalsItemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.NONE, TFPotency.MINOR_BOOST, 1),
 								"Let's give you a nice "+getPreferredBody().getVagina().getName(Main.game.getPlayer(), false)+"!");
@@ -1005,6 +1021,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					}
 				}
 			}
+			
 			if(Main.game.getPlayer().getPenisType() != getPreferredBody().getPenis().getType()) {
 				if(getPreferredBody().getPenis().getType() == PenisType.NONE) {
 					if(Main.game.getPlayer().getPenisRawSizeValue() > 1) {
@@ -1014,12 +1031,14 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 						possibleEffects.put(new ItemEffect(genitalsItemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.REMOVAL, TFPotency.MINOR_BOOST, 1), "Let's get rid of that pathetic little cock of yours!");
 						removingPenis = true;
 					}
+					
 				} else if((Main.getProperties().forcedTFPreference != FurryPreference.HUMAN && Main.getProperties().forcedTFPreference != FurryPreference.MINIMUM) || getPreferredBody().getPenis().getType()==PenisType.HUMAN) {
 					possibleEffects.put(new ItemEffect(genitalsItemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.NONE, TFPotency.MINOR_BOOST, 1),
 							"Let's give you a nice "+getPreferredBody().getPenis().getName(Main.game.getPlayer(), false)+"!");
 					addingPenis = true;
 				}
 			}
+			
 			if(!possibleEffects.isEmpty()) {
 				String s = "";
 				if(possibleEffects.size()>1) {
@@ -1406,7 +1425,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			// Preferred race stage:
 			
 			if(preferredGender.isFeminine()) {
-				switch(Main.getProperties().subspeciesFeminineFurryPreferencesMap.get(species)) {
+				switch(Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(species)) {
 					case HUMAN:
 						stage = RaceStage.HUMAN;
 						break;
@@ -1424,7 +1443,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 						break;
 				}
 			} else {
-				switch(Main.getProperties().subspeciesMasculineFurryPreferencesMap.get(species)) {
+				switch(Main.getProperties().getSubspeciesMasculineFurryPreferencesMap().get(species)) {
 					case HUMAN:
 						stage = RaceStage.HUMAN;
 						break;
@@ -2688,26 +2707,6 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	public boolean isWillingToRape(GameCharacter character) {
 		return this.getFetishDesire(Fetish.FETISH_NON_CON_DOM)!=FetishDesire.ONE_DISLIKE && this.getFetishDesire(Fetish.FETISH_NON_CON_DOM)!=FetishDesire.ZERO_HATE;
 	}
-	
-	public boolean isAttractedTo(GameCharacter character) {
-		if(hasStatusEffect(StatusEffect.WEATHER_STORM_VULNERABLE)) { // If they're vulnerable to arcane storms, they will always be eager during a storm:
-			return true;
-		}
-		
-		if((getSexualOrientation()==SexualOrientation.ANDROPHILIC && character.isFeminine())
-				|| (getSexualOrientation()==SexualOrientation.GYNEPHILIC && !character.isFeminine())
-				) {
-			return false;
-		}
-		
-		if(this.isRelatedTo(character)) {
-			if (!hasFetish(Fetish.FETISH_INCEST)) {
-				return false;
-			}
-		}
-		
-		return true;
-	}
 
 	public SexPace getSexPaceSubPreference(GameCharacter character){
 		if(!isAttractedTo(character) || this.hasFetish(Fetish.FETISH_NON_CON_SUB)) {
@@ -2786,9 +2785,18 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				if(target.isSlave() && target.getOwner()!=null && target.getOwner().isPlayer()) {
 					return Main.game.getPlayer().useItem(item, target, false);
 					
+				} else if(target instanceof Elemental) {
+					return "<p>"
+								+ UtilText.parse(this, "As you move to get [npc.name] to "+item.getItemType().getUseName()+" the "+item.getName()+", [npc.she] calmly states,"
+										+ " [npc.speech(Being an elemental, I am unable to "+item.getItemType().getUseName()+" that.)]")
+							+ "</p>"
+							+ "<p>"
+								+ "You put the "+item.getName()+" back in your inventory."
+							+ "</p>";
+					
 				} else {
 					return "<p>"
-								+ "You try to give [npc.name] the "+item.getName()+", but [npc.she] refuses to take it. You put the "+item.getName()+" back in your inventory."
+								+ UtilText.parse(this, "You try to give [npc.name] the "+item.getName()+", but [npc.she] refuses to take it. You put the "+item.getName()+" back in your inventory.")
 							+ "</p>";
 					
 				}
@@ -2797,6 +2805,120 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		// NPC is using an item:
 		} else {
 			return this.useItem(item, target, false);
+		}
+	}
+	
+	protected static String getItemUseEffectsAllowingUse(AbstractItem item, GameCharacter user, GameCharacter target) {
+		// Player is using an item:
+		if(user.isPlayer()){
+			// Player uses item on themselves:
+			if(target.isPlayer()){
+				return Main.game.getPlayer().useItem(item, target, false);
+				
+			// Player uses item on NPC:
+			} else {
+				if(item.getItemType().equals(ItemType.PROMISCUITY_PILL)) {
+					Main.game.getPlayer().useItem(item, target, false);
+					if(!Main.game.isInSex() || Sex.isDom(Main.game.getPlayer())) {
+						return "<p>"
+								+ "Holding out a 'Promiscuity pill' to [npc.name], you tell [npc.her] to swallow it so that you don't have to worry about any unexpected pregnancies."
+								+ " Letting out a reluctant sigh, [npc.she] nevertheless takes the pill out of your hand, and, popping it out of its wrapping, [npc.she] whines at you,"
+								+ " [npc.speech(Fine! I kinda like the taste of these things anyway...)]"
+								+ "</p>";
+					} else {
+						return "<p>"
+								+ "Holding out a 'Promiscuity pill' to [npc.name], you ask [npc.her] to swallow it so that you don't have to worry about any unexpected pregnancies."
+								+ " Letting out an annoyed sigh, [npc.she] nevertheless takes the pill out of your hand, and, popping it out of its wrapping, [npc.she] growls at you,"
+								+ " [npc.speech(Fine! I don't care either way, but I kinda like the taste of these things...)]"
+								+ "</p>";
+					}
+	
+				} else if(item.getItemType().equals(ItemType.VIXENS_VIRILITY)) {
+					Main.game.getPlayer().useItem(item, target, false);
+					if(!Main.game.isInSex() || Sex.isDom(Main.game.getPlayer())) {
+						return "<p>"
+								+ "Holding out a 'Vixen's Virility' pill to [npc.name], you tell [npc.her] to swallow it."
+								+ " Letting out a reluctant sigh, [npc.she] nevertheless takes the pill out of your hand, and, popping it out of its wrapping, [npc.she] whines at you,"
+								+ " [npc.speech(Fine! I kinda like the taste of these things anyway...)]"
+								+ "</p>";
+					} else {
+						return "<p>"
+								+ "Holding out a 'Vixen's Virility' pill to [npc.name], you ask [npc.her] to swallow it."
+								+ " Letting out an annoyed sigh, [npc.she] nevertheless takes the pill out of your hand, and, popping it out of its wrapping, [npc.she] growls at you,"
+								+ " [npc.speech(Fine! I don't care either way, but I kinda like the taste of these things...)]"
+								+ "</p>";
+					}
+						
+				} else if(item.getItemType().equals(ItemType.POTION) || item.getItemType().equals(ItemType.ELIXIR) || item.getItemType().equals(ItemType.FETISH_UNREFINED) || item.getItemType().equals(ItemType.FETISH_REFINED)) {
+					if(!Main.game.isInSex() || Sex.isDom(Main.game.getPlayer())) {
+						return "<p>"
+									+ "Taking your "+item.getName()+" out from your inventory, you hold it out to [npc.name]."
+									+ " Seeing what you're offering [npc.herHim], [npc.she] shifts about uncomfortably, "
+									+ " [npc.speech(Do you really expect me to drink some rando- ~Mrph!~)]"
+								+ "</p>"
+								+ "<p>"
+									+ "Not liking the start of [npc.her] response, you quickly remove the bottle's stopper, and, rather unceremoniously, shove the neck down [npc.her] throat."
+									+ " You pinch [npc.her] nose and hold [npc.herHim] still, forcing [npc.herHim] to down all of the liquid before finally letting [npc.herHim] go."
+									+ " [npc.She] coughs and splutters for a moment, before letting out a surprised cry as [npc.she] starts to feel the liquid's effects taking root deep in [npc.her] body..."
+								+ "</p>"
+								+Main.game.getPlayer().useItem(item, target, false, true);
+					} else {
+						return "<p>"
+									+ "You try to give [npc.name] your "+item.getName()+", but [npc.she] takes one look at it and laughs,"
+									+ " [npc.speech(Hah! Nice try, but do you really expect me to drink some random potion?!)]</br>"
+									+ "You reluctantly put the "+item.getName()+" back in your inventory, disappointed that [npc.she]'s not interested."
+								+ "</p>";
+					}
+						
+				} else if(item.getItemType().equals(ItemType.MOTHERS_MILK)) {
+					if(!Main.game.isInSex() || Sex.isDom(Main.game.getPlayer())) {
+						return "<p>"
+									+ "Taking the bottle of "+item.getName()+" out from your inventory, you hold it out to [npc.name]."
+									+ " Seeing what you're offering [npc.herHim], [npc.she] shifts about uncomfortably, "
+									+ " [npc.speech(Do you really expect me to drink tha- ~Mrph!~)]"
+								+ "</p>"
+								+ "<p>"
+									+ "Not liking the start of [npc.her] response, you unceremoniously shove the bottle's teat into [npc.her] mouth."
+									+ " You pinch [npc.her] nose and hold [npc.herHim] still, forcing [npc.herHim] to down all of the liquid before finally letting [npc.herHim] go."
+									+ " [npc.She] coughs and splutters for a moment, before letting out a surprised cry as [npc.she] starts to feel the liquid's effects taking root deep in [npc.her] body..."
+								+ "</p>"
+								+Main.game.getPlayer().useItem(item, target, false, true);
+					} else {
+						return "<p>"
+									+ "You try to give [npc.name] your "+item.getName()+", but [npc.she] takes one look at it and laughs,"
+									+ " [npc.speech(Hah! Nice try, but do you really expect me to drink some random potion?!)]</br>"
+									+ "You reluctantly put the "+item.getName()+" back in your inventory, disappointed that [npc.she]'s not interested."
+								+ "</p>";
+					}
+						
+				} else if(item.getItemType().equals(ItemType.EGGPLANT)) {
+					
+					if(!Main.game.isInSex() || Sex.isDom(Main.game.getPlayer())) {
+						return "<p>"
+									+ "Taking the eggplant from your inventory, you hold it out to [npc.name]."
+									+ " Seeing what you're offering [npc.herHim], [npc.she] shifts about uncomfortably, "
+									+ " [npc.speech(W-What are you going to do with th- -~Mrph!~)]"
+								+ "</p>"
+								+ "<p>"
+									+ "Not liking the start of [npc.her] response, you quickly shove the eggplant into [npc.her] mouth, grinning as you force [npc.herHim] to eat the purple fruit..."
+								+ "</p>"
+								+Main.game.getPlayer().useItem(item, target, false, true);
+					} else {
+						return "<p>"
+									+ "You try to give [npc.name] your "+item.getName()+", but [npc.she] takes one look at it and laughs,"
+									+ " [npc.speech(Hah! Did you really think I was going to eat that?!)]</br>"
+									+ "You reluctantly put the "+item.getName()+" back in your inventory, disappointed that [npc.she]'s not interested."
+								+ "</p>";
+					}
+					
+				} else {
+					return Main.game.getPlayer().useItem(item, target, false);
+				}
+			}
+			
+		// NPC is using an item:
+		} else {
+			return user.useItem(item, target, false);
 		}
 	}
 

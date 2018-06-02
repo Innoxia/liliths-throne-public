@@ -309,22 +309,7 @@ public class BatCaverns {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new ResponseEffectsOnly(
-						"Open Door",
-						"Push open the tower's front door and step inside."){
-							@Override
-							public void effects() {
-								Main.game.getPlayer().setLocation(WorldType.SLIME_QUEENS_LAIR_GROUND_FLOOR, PlaceType.SLIME_QUEENS_LAIR_ENTRANCE);
-								Main.game.getTextStartStringBuilder().append(
-										"<p>"
-											+ "Walking up to the base of the stone tower, you place [pc.a_hand] on the iron-barred oaken door, and with a firm shove, push it open and step inside."
-										+ "</p>");
-								if(Main.game.getPlayer().isQuestProgressLessThan(QuestLine.SIDE_SLIME_QUEEN, Quest.SLIME_QUEEN_FOUR)) {
-									Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_SLIME_QUEEN, Quest.SLIME_QUEEN_FOUR));
-								}
-								Main.game.setContent(new Response("", "", Main.game.getDefaultDialogueNoEncounter()));
-							}
-						};
+				return new Response("Explore", "You'd need to be on the other side of the lake in order to explore this area!", null);
 						
 			} else if(index==2 && Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.SIDE_SLIME_QUEEN, Quest.SLIME_QUEEN_TWO)) {
 				return new Response("Return by boat", "Return to the other side of the lake by boat.", SLIME_LAKE) {
@@ -347,6 +332,24 @@ public class BatCaverns {
 					return new Response("Return by flying", "You aren't able to fly. It looks like you'll have to use the boat...", null);
 				}
 				
+			} else if (index==4) {
+				return new ResponseEffectsOnly(
+						"Open Door",
+						"Push open the tower's front door and step inside."){
+							@Override
+							public void effects() {
+								Main.game.getPlayer().setLocation(WorldType.SLIME_QUEENS_LAIR_GROUND_FLOOR, PlaceType.SLIME_QUEENS_LAIR_ENTRANCE);
+								Main.game.getTextStartStringBuilder().append(
+										"<p>"
+											+ "Walking up to the base of the stone tower, you place [pc.a_hand] on the iron-barred oaken door, and with a firm shove, push it open and step inside."
+										+ "</p>");
+								if(Main.game.getPlayer().isQuestProgressLessThan(QuestLine.SIDE_SLIME_QUEEN, Quest.SLIME_QUEEN_FOUR)) {
+									Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_SLIME_QUEEN, Quest.SLIME_QUEEN_FOUR));
+								}
+								Main.game.setContent(new Response("", "", Main.game.getDefaultDialogueNoEncounter()));
+							}
+						};
+						
 			} else {
 				return null;
 			}

@@ -255,8 +255,8 @@ public class CharacterUtils {
 		}
 		
 		switch(startingGender.isFeminine()
-				?Main.getProperties().subspeciesFeminineFurryPreferencesMap.get(raceTakesAfter)
-				:Main.getProperties().subspeciesMasculineFurryPreferencesMap.get(raceTakesAfter)) {
+				?Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(raceTakesAfter)
+				:Main.getProperties().getSubspeciesMasculineFurryPreferencesMap().get(raceTakesAfter)) {
 			case HUMAN:
 				stage = RaceStage.HUMAN;
 				break;
@@ -1109,6 +1109,7 @@ public class CharacterUtils {
 			List<AbstractCoreItem> items = character.getLootItems();
 			if(!items.isEmpty()) {
 				AbstractCoreItem item = items.get(Util.random.nextInt(items.size()));
+				items.remove(item);
 				if (item instanceof AbstractItem) {
 					character.addItem((AbstractItem) item, false);
 					

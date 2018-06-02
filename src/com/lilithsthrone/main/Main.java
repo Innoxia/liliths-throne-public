@@ -50,7 +50,7 @@ import javafx.scene.control.ButtonType;
 
 /**
  * @since 0.1.0
- * @version 0.2.5
+ * @version 0.2.6
  * @author Innoxia
  */
 public class Main extends Application {
@@ -64,10 +64,10 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
 
-	public static final String VERSION_NUMBER = "0.2.5.5",
+	public static final String VERSION_NUMBER = "0.2.6",
 			VERSION_DESCRIPTION = "Alpha";
 	
-	private final static boolean DEBUG = false;
+	private final static boolean DEBUG = true;
 
 	public static final Image WINDOW_IMAGE = new Image("/com/lilithsthrone/res/images/windowIcon32.png");
 
@@ -84,12 +84,13 @@ public class Main extends Application {
 		+ "</p>"
 			
 		+ "<p>"
-			+ "I struggled a little this week to catch up from the days that I spent making the 0.2.5.1 hotfix. Even with the extra day, I didn't manage to get as much Submission content done as I'd have liked."
-			+ " I'm going to continue writing Submission content over the next few days, and I'll try to get a more polished version (0.2.5.6) out as soon as I possibly can (hopefully by Monday)."
+			+ "Sorry once again for the delay last week! For this version, I've managed to get tattoos fully implemented, as well as adding in mechanics for the gambling Den's dice poker."
+			+ " Both of these things took a little longer than I'd hoped (especially the tattoos), so the Gambling Den content is only half-finished."
+			+ " I will be releasing another mini update (v0.2.6.1) in two days (on Saturday evening), which will have the Gambling Den's content completely finished."
 		+ "</p>"
 			
 		+ "<p>"
-			+ "I promise that I'll work my hardest on this and do my very best to avoid any more delays, but making and releasing a more polished version might have a knock-on effect of pushing 0.2.6 back to Friday 25th."
+			+ "So, to reiterate, there will be a mini-update, v0.2.6.1, out on the evening/night of <b>Saturday 2nd</b>."
 		+ "</p>"
 			
 		+ "<p>"
@@ -135,6 +136,111 @@ public class Main extends Application {
 			+"<ul>Enchanting clothing will no longer reset item tags (which was causing the bug of nipple tape crosses losing their plugging effect).</ul>"
 			+"<ul>Fixed obsolete reference to a dress in succubus attacker dialogue.</ul>"
 			+"<ul>Fixed slime colours resetting every time the game was loaded.</ul>"
+		+ "</list>"
+
+		+ "</br>"
+
+		+ "<list>"
+			+ "<h6>v0.2.5.8</h6>"
+			+"<li>Gameplay:</li>"
+			+"<ul>Finished Slime Queen's quest, adding the upper floor of the tower.</ul>"
+			+"<ul>Added harpy offspring encounters in the Harpy Nests.</ul>"
+			+"<ul>Temporarily re-enabled angel offspring in Dominion (for those of you who have set yourself to be angels through the debug menu).</ul>"
+			+"<ul>Added item 'Glowing Mushrooms', found randomly in the bat Caverns as well as being dropped by slimes down there.</ul>"
+			+"<ul>Filled in last placeholders in Bat Cavern descriptions.</ul>"
+			+"<ul>Added unique encounter/attack descriptions for slimes and bats in the bat caverns.</ul>"
+			
+			+"<li>Other:</li>"
+			+"<ul>Added variation in the slime guards' dialogue for if you have the related content setting turned off.</ul>"
+			+"<ul>Added ongoing penetration descriptions for hotdogging and paizuri, and added icon for hotdogging status effect.</ul>"
+			+"<ul>Increased value of girlcum, and slightly decreased extra modifiers' impact on cum value.</ul>"
+			+"<ul>Reduced biojuice canister value from 5000 to 2500.</ul>"
+			+"<ul>You can now enchant biojuice canisters to make a potion that returns body material to normal.</ul>"
+			
+			+"<li>Bugs:</li>"
+			+"<ul>Fixed bug where when entering Submission, you would sometimes travel down to an incorrect tile location.</ul>"
+			+"<ul>Fixed being forced to have sex with the slime guards after beating them in combat.</ul>"
+			+"<ul>Fixed some typos and parsing errors in 0.2.5.5's content.</ul>"
+			+"<ul>Removed biojuice canisters from bat cavern drops.</ul>"
+			+"<ul>Typo fixes.</ul>"
+			+"<ul>Fixed Blaze and Crystal's earrings being unequipped when loading a save.</ul>"
+			+"<ul>Fixed Blaze and Crystal's repeat encounter acting like they'd never seen you before.</ul>"
+			+"<ul>Fixed bug where switching target in combat would not show the correct target's inventory.</ul>"
+			+"<ul>Fixed human damage/resistance stats being shown twice in phone's stats menu.</ul>"
+			+"<ul>Fixed NPCs spawning in with multiple books in their inventory.</ul>"
+			+"<ul>Fixed bug where you'd gain knowledge of some characters' breasts/genitals on game load. (This was affecting Candi, Claire, and probably many others.)</ul>"
+			+"<ul>Fixed jewellery not being unequipped when removing piercings.</ul>"
+			+"<ul>Characters will no longer lose penile virginity from using strapons.</ul>"
+			+"<ul>Penis transformations will no longer be applied to equipped strap-on.</ul>"
+			+"<ul>Fixed rendering bugs in stats page.</ul>"
+			+"<ul>Fixed bug where spreader bar being equipped under trousers would result in the spreader bar blocking trouser removal, and also being concealed, making both items of clothing impossible to remove.</ul>"
+		+ "</list>"
+
+		+ "</br>"
+
+		+ "<list>"
+			+ "<h6>v0.2.5.8</h6>"
+			+"<li>Gameplay:</li>"
+			+"<ul>Added 'generic' encounter variations for bat and slime attackers in the Bat Caverns (for if you've transformed them).</ul>"
+			+"<ul><b>Added:</b> Support for tattoos, with ability to have them enchanted just like clothing. Kate can now give/enchant/remove both your and your slaves' tattoos.</ul>"
+			+"<ul>Added modding support for tattoos. (Works in the same way as clothing mods.)</ul>"
+			+"<ul>Added scar support. (I'll add a way to add/remove scars for the next version.)</ul>"
+			+"<ul><b>Added:</b> Basics of the gambling den (will be finished in 0.2.6.1). It has a small internal map, three unique NPCs, a dice poker game, a shop, and 'pregnancy roulette'.</ul>"
+			
+			+"<li>Clothing:</li>"
+			+"<ul>Added secondary dye colour to aviators.</ul>"
+			+"<ul>Added: Eye patch (no femininity requirements, eye slot).</ul>"
+			+"<ul>Added: Jockstrap (masculine, groin slot).</ul>"
+			
+			+"<li>Contributors:</li>"
+			+"<ul>Changed Lumi's 'Take Advantage' scene to actually be a sex scene (only available if noncon is on). (Nnxx)</ul>"
+			+"<ul>Fixed inserted bimbo/sex/muffled/drunk words breaking capitalisation. (pinnae)</ul>"
+			+"<ul>Changed 'Romance' quests to 'Relationship' quests, and reassigned Nyan's side quest as a relationship quest. (rfpnj)</ul>"
+			+"<ul>Improved action ordering and availability in sex's 'Repeat Actions' tab. (Master of Puppets)</ul>"
+			+"<ul>Added some new skin colours. (rfpnj)</ul>"
+			+"<ul>Fixed several issues with coding style. (Pimvgd)</ul>"
+			+"<ul>Converted UtilText.parse from recursive to iterative. This increases performance by a small amount, and reduces memory usage by a large amount. (Pimvgd)</ul>"
+			+"<ul>Deduplicated book itemtypes. (Pimvgd)</ul>"
+			+"<ul>Punctuation fixes in Rental Mommy encounter. (WoefulWombat)</ul>"
+			+"<ul>Punctuation fixes in panty masturbation scenes. (WoefulWombat)</ul>"
+			+"<ul>Changed Fruit Bat Squash to restore aura, not energy, to fit in with the other arcane-related consumables. (rfpnj)</ul>"
+			+"<ul>Fixed HornType.NONE showing up as an option for enchanting. Horn removal can be done by selecting the remove option. (Pimvgd)</ul>"
+			+"<ul>Fixed 'No cock' and 'Vagina' actions in succubus encounter not doing anything. (Master of Puppets)</ul>"
+			+"<ul>Fixed incorrect pronoun parsing in bat encounter. (Mach565)</ul>"
+			+"<ul>Fixed incorrect Slime Queen quest completion descriptions. (rfpnj)</ul>"
+			+"<ul>Fixed typo in Brax's scene. (Pimvgd)</ul>"
+			+"<ul>Fixed inconsistent starting positions in Brax's sex scenes. (rfpnj)</ul>"
+			+"<ul>Fixed FemininityRestriction not being set properly for clothing loaded as mod. (Pimvgd)</ul>"
+			+"<ul>Added mod folder to gitignore. (Pimvgd)</ul>"
+			+"<ul>Fixed instance of weapon comparator contract violation when checking weapon type. (Pimvgd)</ul>"
+			+"<ul>Added a new colour preset, 'ALL_WITH_METALS'. (rfpnj)</ul>"
+			+"<ul>Fixed several causes of slow load times, which, as an example, reduced a huge save file's load time from 40+ seconds down to 5. (Pimvgd)</ul>"
+			
+			+"<li>Other:</li>"
+			+"<ul>Added 'wing' slot as an inventory & tattoo slot.</ul>"
+			+"<ul>Reorganised inventory slots in the UI, so that 'optional' ones are at the bottom (tail, wings, horns, penis, and vagina).</ul>"
+			+"<ul>Elementals can no longer summon elementals.</ul>"
+			+"<ul>Elementals are now unable to drink potions.</ul>"
+			+"<ul>Companions' elementals now show up in the character panel.</ul>"
+			+"<ul>Companion icons now show up on the map.</ul>"
+			+"<ul>Added 'Dispell elemental' action in your companions' 'Manage' tab, so you can get them to remove their elementals after a fight.</ul>"
+			+"<ul>Added a few tattoos to Kate.</ul>"
+			
+			+"<li>Bugs:</li>"
+			+"<ul>Fixed Claire repeating the first 'report back' dialogue after dealing with the slime queen.</ul>"
+			+"<ul>Typo fixes.</ul>"
+			+"<ul>Fixed harpy offspring not spawning in after the nests have been pacified.</ul>"
+			+"<ul>Added 'offer body' dialogue to slime and bat attacker scenes.</ul>"
+			+"<ul>Helping the Slime Queen now correctly increases slime spawn rates in Submission.</ul>"
+			+"<ul>Fixed Maximilian spawning in as a virgin.</ul>"
+			+"<ul>Fixed Slime Queen regenerating her crown after she's given it to you.</ul>"
+			+"<ul>Fixed slime transformation scenes saying 'Nothing happens...'.</ul>"
+			+"<ul>Fixed Maximilian's post-sparring scenes.</ul>"
+			+"<ul>Fixed bug where harpies, imps, and slimes would have their spawn rate set to 0% if you ever selected 'disable all' in the furry preferences screen.</ul>"
+			+"<ul>Fixed horizontal scrollbar appearing when inspecting watches.</ul>"
+			+"<ul>Fixed bug in combat where companions summoning elementals would throw an error.</ul>"
+			+"<ul>Fixed bug where if a companion summoned an elemental, that elemental would block encounters.</ul>"
+			+"<ul>Fixed clothing mod bug, where user-defined colours wouldn't work correctly.</ul>"
 		+ "</list>"
 		;
 	
@@ -204,6 +310,7 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("Deimios", "", 0, 0, 3, 1));
 		credits.add(new CreditsSlot("Nnxx", "", 0, 1, 3, 1));
 		credits.add(new CreditsSlot("Eushully", "", 0, 0, 0, 4));
+		credits.add(new CreditsSlot("cinless", "", 0, 0, 0, 4));
 		
 		credits.add(new CreditsSlot("KazukiNero", "", 0, 0, 3, 0));
 		credits.add(new CreditsSlot("Archan9el S117", "", 0, 0, 0, 3));
@@ -234,10 +341,14 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("Freekingamer", "", 0, 0, 0, 1));
 		credits.add(new CreditsSlot("Strigon888", "", 0, 0, 0, 1));
 		credits.add(new CreditsSlot("sebasjac", "", 0, 0, 0, 1));
+		credits.add(new CreditsSlot("Starchiller", "", 0, 0, 0, 1));
+		credits.add(new CreditsSlot("Kitsune Lyn", "", 0, 0, 0, 1));
 		credits.add(new CreditsSlot("Daniel D Magnan", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("shrikes", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("Chattyneko", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("Neximus", "", 0, 0, 1, 0));
+		credits.add(new CreditsSlot("IreCobra", "", 0, 0, 1, 0));
+		credits.add(new CreditsSlot("Garkylal", "", 0, 0, 1, 0));
 		
 		
 		credits.add(new CreditsSlot("Adhana Konker", "", 0, 0, 3, 0));

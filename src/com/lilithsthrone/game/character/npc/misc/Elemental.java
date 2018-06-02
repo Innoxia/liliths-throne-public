@@ -60,18 +60,6 @@ public class Elemental extends NPC {
 			setName(Name.getRandomTriplet(Race.DEMON));
 			this.setPlayerKnowsName(true);
 			
-//			// PERSONALITY & BACKGROUND:
-//			
-//			CharacterUtils.setHistoryAndPersonality(this);
-//			
-//			// ADDING FETISHES:
-//			
-//			CharacterUtils.addFetishes(this);
-//			
-//			// BODY RANDOMISATION:
-//			
-//			CharacterUtils.randomiseBody(this);
-			
 			// INVENTORY:
 			
 			resetInventory();

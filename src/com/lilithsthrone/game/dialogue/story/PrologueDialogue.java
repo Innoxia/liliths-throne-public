@@ -842,8 +842,8 @@ public class PrologueDialogue {
 					@Override
 					public void effects(){
 						for(Subspecies r : Subspecies.values()) {
-							Main.getProperties().subspeciesFeminineFurryPreferencesMap.put(r, FurryPreference.MAXIMUM);
-							Main.getProperties().subspeciesMasculineFurryPreferencesMap.put(r, FurryPreference.MAXIMUM);
+							Main.getProperties().setFeminineFurryPreference(r, FurryPreference.MAXIMUM);
+							Main.getProperties().setMasculineFurryPreference(r, FurryPreference.MAXIMUM);
 						}
 						Main.saveProperties();
 					}
@@ -858,8 +858,8 @@ public class PrologueDialogue {
 					@Override
 					public void effects(){
 						for(Subspecies r : Subspecies.values()) {
-							Main.getProperties().subspeciesFeminineFurryPreferencesMap.put(r, FurryPreference.HUMAN);
-							Main.getProperties().subspeciesMasculineFurryPreferencesMap.put(r, FurryPreference.HUMAN);
+							Main.getProperties().setFeminineFurryPreference(r, FurryPreference.HUMAN);
+							Main.getProperties().setMasculineFurryPreference(r, FurryPreference.HUMAN);
 						}
 						Main.saveProperties();
 					}

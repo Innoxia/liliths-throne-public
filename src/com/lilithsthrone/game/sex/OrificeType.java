@@ -69,7 +69,8 @@ public enum OrificeType {
 			false) {
 		@Override
 		public String getName(GameCharacter owner) {
-			return owner.getAssName(false);
+			return "ass cheeks";
+//			return owner.getAssName(false);
 		}
 		@Override
 		public boolean isFree(GameCharacter owner) {
