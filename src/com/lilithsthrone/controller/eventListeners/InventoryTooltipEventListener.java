@@ -256,7 +256,7 @@ public class InventoryTooltipEventListener implements EventListener {
 
 					+ "<div class='subTitle'>" + Util.capitaliseSentence(dt.getName()) + "</div>"
 
-					+ "<div class='picture full'>" + genericWeapon.getSVGImage() + "</div>");
+					+ "<div class='picture full'>" + genericWeapon.getSVGImage(dt, null, null) + "</div>");
 
 			Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
 
