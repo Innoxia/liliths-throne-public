@@ -21,37 +21,49 @@
 	
 	Patch notes:
 	
-	Gameplay:
-		Finished all descriptions in Gambling Den.
-		Added slot machines to the Gambling Den.
-		Added Roxy's content.
-		Added item 'Arcane Pregnancy Tester', which reveals if a person is pregnant, along with some information about the litter. (Sold by Ralph and Roxy, and found in Dominion alleyways and Submission tunnels.)
-		Added mechanics for pregnancy roulette. It should all be fully functional, but the descriptions are still placeholders, as I ran out of time. I'll have them fully finished for the next release.
 	
 	Contributors:
-		<b>Added:</b> Clothing patterns. Several pieces of clothing now have support for the patterns; Camo, Cow-patterned, Tiger-striped (horizontal), Tiger-striped (vertical), Leopard-printed, and rainbow. (Irbynx)
-		Fixed typo in colours. (rfpnj)
-		Fixed orgasm descriptions mentioning player's name. (Pimvgd)
-		Fixed cause of saves in slaver alley stocks cell breaking. (Master of Puppets)
+		Fixed DominionSuccubusAttacker-slaves throwing nullpointers for TF items. (Pimvgd)
+		Typo and parsing fixes. (Pimvgd)
+		Fixed intToString method causing crashes/bugs. (Pimvgd)
+		Fixed some characters being able to get pregnant even although that's not supposed to happen, such as Alexandria in the intro. (Pimvgd)
+		Fixed encyclopedia weapon colours not displaying properly. (Pimvgd)
+		Fixed cause of the mysterious -5 to lust resist on new player characters. (Pimvgd)
+		Fixed slavery upkeep persisting across new games. (Pimvgd)
+		Fixed slime queen quest completion 'report back' dialogue displaying the wrong report back text. (Pimvgd)
+		Fixed cause of a crash with bimbo characters' dirty talk. (Master of Puppets)
+		Fixed offspring renaming with enter key hardlocking game. (Pimvgd)
+		Enabled female beards when the option for female beards is turned on. (Pimvgd)
+		Fix tattoo enchantments not applying their effects. (Pimvgd)
 	
 	Other:
-		AI will now always reroll the dice poker hand 'runt'.
-		Lumi now uses the resist pace in her sex scene.
+		Slightly tweaked slot machine odds.
 	
-	Bugs:
-		Fixed dice poker sex scene using the wrong NPC, or failing to start entirely.
-		Fixed feminine furry preference changes influencing masculine furry preferences.
-		Fixed Kate not charging you for enchanting tattoos.
-		Fixed bug where when giving slaves tattoos, the counter output example showed your stat rather than the slave's stat.
-		Fixed background error in some sex actions that would cause the action to appear not to have worked.
-		Fixed cause of Slime Queen's dialogue bugging out and not being able to be selected.
-		Fixed bug where NPCs would not choose any sex action if they disliked/hated noncon and it was a noncon scene.
+	Bugs:	
+		Fixed bug where NPCs would all end sex immediately when orgasming with a creampie.
 	
 	
 	
+	
+	
+	"A crowd of angels" for public sex
 	
 	After an ally summons an elemental, whenever you select said ally, the menu visually freezes (everything works, but you can't see what buttons you're clicking).
 	
+	Not sure what's causing it, but I'm getting a bug where my slaves are listed as pregnant by the tracker, but don't gain the pregnancy buff/debuff, and are permanently stuck as "ready to give birth", they're even getting milk, but are in no way in game or description, pregnant.
+	[07:41] Razor Howl: To clarify: Other NPC's can get pregnant and give birth, but not my slaves for some reason.
+	
+	Edit: Slaves CAN give birth, but the tracker still thinks they're heavily pregnant, even after birth
+	
+	With Blaze and Crystal, if you return after leaving they act friendly and the text suggests you should be able to walk past, but you aren't able to do so
+		
+		
+	0.2.6 Bug: am unable to to let my slave drink a potion
+		 Nothing happens when I click the button
+		Nevermind - bypassed it by giving them the potion, then having them drink it from their inventory
+		For more context, I just loaded my save from version 0.252 into the current 0.260
+		
+		
 	[ ] Get all descriptions finished
 	
 	[ ] Roxy content done
@@ -118,6 +130,7 @@
 	
 	
 	
+	Need to add way to get scars. Add tattoos and scars to character creation.
 	
 	when in tattoo menu, if you then click "trade with kate", and then go back to tattoos, screen content doesn't parse
 	

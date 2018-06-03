@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.dialogue.places.submission;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -236,8 +237,8 @@ public class GamblingDenDialogue {
 									new Value<>(Subspecies.ELEMENTAL_ARCANE, 500));
 							
 							Map<Subspecies, Integer> slotMachineValueProbabilities = Util.newHashMapOfValues(
-									new Value<>(Subspecies.HUMAN, 20),
-									new Value<>(Subspecies.IMP, 10),
+									new Value<>(Subspecies.HUMAN, 16),
+									new Value<>(Subspecies.IMP, 8),
 									new Value<>(Subspecies.DOG_MORPH, 2),
 									new Value<>(Subspecies.CAT_MORPH, 2),
 									new Value<>(Subspecies.COW_MORPH, 2),
@@ -264,7 +265,7 @@ public class GamblingDenDialogue {
 								List<Subspecies> results = new ArrayList<>();
 	
 								boolean winner = false;
-								if(Math.random()<0.38f) {
+								if(Math.random()<0.32f) {
 									Subspecies s = Util.getRandomObjectFromWeightedMap(slotMachineValueProbabilities);
 									for(int i=0; i<3; i++) {
 										results.add(s);
@@ -275,8 +276,11 @@ public class GamblingDenDialogue {
 									for(int i=0; i<3; i++) {
 										Subspecies s = races.get(Util.random.nextInt(races.size()));
 										results.add(s);
-										races.remove(s);
+										if(i==0) {
+											races.remove(s);
+										}
 									}
+									Collections.shuffle(results);
 								}
 								
 								for(Subspecies r : results) {
