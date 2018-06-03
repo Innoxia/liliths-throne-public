@@ -691,6 +691,7 @@ public class UtilText {
 				
 				if (endIndex != 0) {
 					resultBuilder.append(input.substring(startedParsingSegmentAt, startIndex));
+					UtilText.specialNPCList = specialNPC;
 					String subResult = (currentParseMode == ParseMode.CONDITIONAL
 							? parseConditionalSyntaxNew(target, command, arguments, conditionalTrue, conditionalFalse)
 							: parseSyntaxNew(target, command, arguments, specialNPC)
