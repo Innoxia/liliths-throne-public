@@ -29,6 +29,7 @@ import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.game.inventory.enchanting.TFPotency;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.rendering.Pattern;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.XMLSaving;
@@ -50,6 +51,8 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 	private Colour secondaryColour, tertiaryColour;
 	private boolean cummedIn, enchantmentKnown;
 	private List<DisplacementType> displacedList;
+	
+	private String pattern; // name of the pattern. 
 	
 	public AbstractClothing(AbstractClothingType clothingType, Colour colour, Colour secondaryColour, Colour tertiaryColour, boolean allowRandomEnchantment) {
 		super(clothingType.getName(),
@@ -178,6 +181,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 		CharacterUtils.addAttribute(doc, element, "colour", this.getColour().toString());
 		CharacterUtils.addAttribute(doc, element, "colourSecondary", this.getSecondaryColour().toString());
 		CharacterUtils.addAttribute(doc, element, "colourTertiary", this.getTertiaryColour().toString());
+		CharacterUtils.addAttribute(doc, element, "pattern", this.getPattern());
 		CharacterUtils.addAttribute(doc, element, "isDirty", String.valueOf(this.isDirty()));
 		CharacterUtils.addAttribute(doc, element, "enchantmentKnown", String.valueOf(this.isEnchantmentKnown()));
 		
@@ -233,6 +237,10 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 				if(clothing.clothingType.getAllAvailableTertiaryColours().contains(terColour)) {
 					clothing.setTertiaryColour(terColour);
 				}
+			}
+			if(!parentElement.getAttribute("pattern").isEmpty()) {
+				String pat = parentElement.getAttribute("pattern");
+				clothing.setPattern(pat);
 			}
 		} catch(Exception ex) {
 		}
@@ -338,6 +346,27 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 
 	public void setTertiaryColour(Colour tertiaryColour) {
 		this.tertiaryColour = tertiaryColour;
+	}
+	
+	/**
+	 * Returns the name of a pattern that the clothing has.
+	 * @return
+	 */
+	public String getPattern()
+	{
+		if(pattern == null) {
+			return "none";
+		}
+		return pattern;
+	}
+	
+	/**
+	 * Changes pattern to specified one. Will not render that pattern if it doesn't exist or the item doesn't support it anyway.
+	 * @param pattern
+	 */
+	public void setPattern(String pattern)
+	{
+		this.pattern = pattern;
 	}
 
 	/**
@@ -540,6 +569,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 		}
 		
 		return Util.capitaliseSentence(getColour().getName()) + " "
+				+ (!this.getPattern().equalsIgnoreCase("none")?Pattern.getPattern(this.getPattern()).getNiceName():"")
 				+ (withRarityColour
 					? (" <span style='color: " + (!this.isEnchantmentKnown()?Colour.RARITY_UNKNOWN:this.getRarity().getColour()).toWebHexString() + ";'>" + name + "</span>")
 					: name)
@@ -550,11 +580,11 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 
 	@Override
 	public String getSVGString() {
-		return getClothingType().getSVGImage(colourShade, secondaryColour, tertiaryColour);
+		return getClothingType().getSVGImage(colourShade, secondaryColour, tertiaryColour, pattern);
 	}
 	
 	public String getSVGEquippedString(GameCharacter character) {
-		return getClothingType().getSVGEquippedImage(character, colourShade, secondaryColour, tertiaryColour);
+		return getClothingType().getSVGEquippedImage(character, colourShade, secondaryColour, tertiaryColour, pattern);
 	}
 
 	/**
