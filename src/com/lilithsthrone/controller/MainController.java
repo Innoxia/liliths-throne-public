@@ -804,6 +804,34 @@ public class MainController implements Initializable {
 						
 						if(((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('offspringPetNameInput') === document.activeElement"))) {
 							allowInput = false;
+							if (event.getCode() == KeyCode.ENTER) {
+								enterConsumed = true;
+								boolean unsuitableName = false;
+							 	if(Main.mainController.getWebEngine().executeScript("document.getElementById('offspringPetNameInput')")!=null) {
+								 
+									Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldName').innerHTML=document.getElementById('offspringPetNameInput').value;");
+									if(Main.mainController.getWebEngine().getDocument()!=null) {
+										if (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() < 2
+												|| Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 32)
+											unsuitableName = true;
+										else {
+											unsuitableName = false;
+										}
+									}
+									
+									if (!unsuitableName) {
+										Main.game.setContent(new Response("Rename", "", Main.game.getCurrentDialogueNode()){
+											@Override
+											public void effects() {
+												Main.game.getActiveNPC().setPlayerPetName(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent());
+											}
+										});
+									} else {
+										Main.game.setContent(new Response("Rename", "", Main.game.getCurrentDialogueNode()));
+									}
+									
+								}
+							}
 						}
 						
 						if(Main.game.getCurrentDialogueNode() == OptionsDialogue.OPTIONS_PRONOUNS){
