@@ -28,6 +28,12 @@
 		Added item 'Arcane Pregnancy Tester', which reveals if a person is pregnant, along with some information about the litter. (Sold by Ralph and Roxy, and found in Dominion alleyways and Submission tunnels.)
 		Added mechanics for pregnancy roulette. It should all be fully functional, but the descriptions are still placeholders, as I ran out of time. I'll have them fully finished for the next release.
 	
+	Contributors:
+		<b>Added:</b> Clothing patterns. Several pieces of clothing now have support for the patterns; Camo, Cow-patterned, Tiger-striped (horizontal), Tiger-striped (vertical), Leopard-printed, and rainbow. (Irbynx)
+		Fixed typo in colours. (rfpnj)
+		Fixed orgasm descriptions mentioning player's name. (Pimvgd)
+		Fixed cause of saves in slaver alley stocks cell breaking. (Master of Puppets)
+	
 	Other:
 		AI will now always reroll the dice poker hand 'runt'.
 		Lumi now uses the resist pace in her sex scene.

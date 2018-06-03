@@ -64,10 +64,10 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
 
-	public static final String VERSION_NUMBER = "0.2.6",
+	public static final String VERSION_NUMBER = "0.2.6.1",
 			VERSION_DESCRIPTION = "Alpha";
 	
-	private final static boolean DEBUG = true;
+	private final static boolean DEBUG = false;
 
 	public static final Image WINDOW_IMAGE = new Image("/com/lilithsthrone/res/images/windowIcon32.png");
 
@@ -241,6 +241,37 @@ public class Main extends Application {
 			+"<ul>Fixed bug in combat where companions summoning elementals would throw an error.</ul>"
 			+"<ul>Fixed bug where if a companion summoned an elemental, that elemental would block encounters.</ul>"
 			+"<ul>Fixed clothing mod bug, where user-defined colours wouldn't work correctly.</ul>"
+		+ "</list>"
+
+		+ "</br>"
+
+		+ "<list>"
+			+ "<h6>v0.2.6.1</h6>"
+			+"<li>Gameplay:</li>"
+			+"<ul>Finished all descriptions in Gambling Den.</ul>"
+			+"<ul>Added slot machines to the Gambling Den.</ul>"
+			+"<ul>Added Roxy's content.</ul>"
+			+"<ul>Added item 'Arcane Pregnancy Tester', which reveals if a person is pregnant, along with some information about the litter. (Sold by Ralph and Roxy, and found in Dominion alleyways and Submission tunnels.)</ul>"
+			+"<ul>Added mechanics for pregnancy roulette. It should all be fully functional, but the descriptions are still placeholders, as I ran out of time. I'll have them fully finished for the next release.</ul>"
+			
+			+"<li>Contributors:</li>"
+			+"<ul><b>Added:</b> Clothing patterns. Several pieces of clothing now have support for the patterns; Camo, Cow-patterned, Tiger-striped (horizontal), Tiger-striped (vertical), Leopard-printed, and rainbow. (Irbynx)</ul>"
+			+"<ul>Fixed typo in colours. (rfpnj)</ul>"
+			+"<ul>Fixed orgasm descriptions mentioning player's name. (Pimvgd)</ul>"
+			+"<ul>Fixed cause of saves in slaver alley stocks cell breaking. (Master of Puppets)</ul>"
+			
+			+"<li>Other:</li>"
+			+"<ul>AI will now always reroll the dice poker hand 'runt'.</ul>"
+			+"<ul>Lumi now uses the resist pace in her sex scene.</ul>"
+			
+			+"<li>Bugs:</li>"
+			+"<ul>Fixed dice poker sex scene using the wrong NPC, or failing to start entirely.</ul>"
+			+"<ul>Fixed feminine furry preference changes influencing masculine furry preferences.</ul>"
+			+"<ul>Fixed Kate not charging you for enchanting tattoos.</ul>"
+			+"<ul>Fixed bug where when giving slaves tattoos, the counter output example showed your stat rather than the slave's stat.</ul>"
+			+"<ul>Fixed background error in some sex actions that would cause the action to appear not to have worked.</ul>"
+			+"<ul>Fixed cause of Slime Queen's dialogue bugging out and not being able to be selected.</ul>"
+			+"<ul>Fixed bug where NPCs would not choose any sex action if they disliked/hated noncon and it was a noncon scene.</ul>"
 		+ "</list>"
 		;
 	

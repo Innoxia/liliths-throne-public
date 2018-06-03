@@ -2,10 +2,14 @@ package com.lilithsthrone.rendering;
 
 import java.io.File;
 import java.io.FilenameFilter;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
+/**
+ * @since 0.2.6
+ * @version 0.2.6
+ * @author Irbynx
+ */
 public class Pattern {
 	
 	private static Map<String, Pattern> allPatterns;
