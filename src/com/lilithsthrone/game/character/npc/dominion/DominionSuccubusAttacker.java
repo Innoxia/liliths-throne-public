@@ -170,6 +170,10 @@ public class DominionSuccubusAttacker extends NPC {
 	// Combat:
 
 	public String getItemUseEffects(AbstractItem item, GameCharacter user, GameCharacter target){
+		if (getOwner() == user) {
+			return getItemUseEffectsAllowingUse(item, user, target);
+		}
+		
 		// Player is using an item:
 		if(user.isPlayer()){
 			// Player uses item on themselves:
