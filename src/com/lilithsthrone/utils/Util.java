@@ -667,7 +667,7 @@ public class Util {
 		return insertIntoSentences(sentence, frequency, inserts, true);
 	}
 
-	private static String[] bimboWords = new String[] { ", like, ", ", like, ", ", like, ", ", um, ", ", uh, ", ", ah, " };
+	private static String[] bimboWords = new String[] { ", like,", ", like,", ", like,", ", um,", ", uh,", ", ah," };
 	/**
 	 * Turns a normal sentence into the kind of thing a Bimbo would come out with.
 	 * Can be safely used in conjunction with addStutter.
