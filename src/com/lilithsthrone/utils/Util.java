@@ -302,7 +302,7 @@ public class Util {
 	};
 	
 	/**
-	 * Only works up to 99 thousand (I think)
+	 * Only works for values -99,999 to 99,999.
 	 * @param integer
 	 * @return
 	 */
@@ -313,31 +313,42 @@ public class Util {
 		if(integer<0) {
 			intToString = "minus ";
 		}
+		integer = Math.abs(integer);
+		if (integer >= 100_000) {
+			return intToString + " a lot";
+		}
+		
 		
 		if(integer>=1000) {
-			if(integer%1000<20) {
-				intToString+=numbersLessThanTwenty[integer%100]+" thousand";
+			if((integer/1000)<20) {
+				intToString+=numbersLessThanTwenty[(integer/1000)]+" thousand";
 			} else {
-				intToString+=tensGreaterThanNineteen[(integer%100)/10] + ((integer%10!=0)?"-"+numbersLessThanTwenty[integer%10]:"")+" thousand";
+				intToString+=tensGreaterThanNineteen[integer/10000] + (((integer/1000)%10!=0)?"-"+numbersLessThanTwenty[(integer/1000)%10]:"")+" thousand";
 			}
 		}
 		
 		if(integer>=100) {
-			if(integer>=1000) {
+			if(integer>=1000 && integer%1000 != 0) {
 				intToString+=", ";
 			}
-			intToString = numbersLessThanTwenty[(integer%1000)/100]+" hundred";
+			integer = integer % 1000;
+			if (intToString.isEmpty() || integer>=100) {
+				intToString += numbersLessThanTwenty[integer/100]+" hundred";
+			}
 			if(integer%100!=0) {
-				if(integer%100<20) {
-					intToString+=" and ";
-				} else {
-					intToString+=" and ";
-				}
+				intToString+=" and ";
+				integer = integer % 100;
 			}
 		}
 		
 		if(integer%100<20) {
-			intToString+=numbersLessThanTwenty[integer%100];
+			if (integer%100 == 0) {
+				if (intToString.isEmpty()) {
+					return "zero";
+				}
+			} else {
+				intToString+=numbersLessThanTwenty[integer%100];
+			}
 		} else {
 			intToString+=tensGreaterThanNineteen[(integer%100)/10] + ((integer%10!=0)?"-"+numbersLessThanTwenty[integer%10]:"");
 		}
@@ -665,7 +676,7 @@ public class Util {
 		return insertIntoSentences(sentence, frequency, inserts, true);
 	}
 
-	private static String[] bimboWords = new String[] { ", like, ", ", like, ", ", like, ", ", um, ", ", uh, ", ", ah, " };
+	private static String[] bimboWords = new String[] { ", like,", ", like,", ", like,", ", um,", ", uh,", ", ah," };
 	/**
 	 * Turns a normal sentence into the kind of thing a Bimbo would come out with.
 	 * Can be safely used in conjunction with addStutter.

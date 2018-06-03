@@ -206,6 +206,11 @@ public class GenericSexualPartner extends NPC {
 	}
 	
 	@Override
+	public boolean isAbleToBeImpregnated() {
+		return true;
+	}
+	
+	@Override
 	public void changeFurryLevel(){
 	}
 	

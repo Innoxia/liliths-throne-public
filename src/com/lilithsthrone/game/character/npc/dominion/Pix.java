@@ -126,6 +126,11 @@ public class Pix extends NPC {
 	}
 	
 	@Override
+	public boolean isAbleToBeImpregnated() {
+		return true;
+	}
+	
+	@Override
 	public void changeFurryLevel(){
 	}
 	

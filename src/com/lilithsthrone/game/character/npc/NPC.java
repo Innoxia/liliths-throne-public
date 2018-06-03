@@ -672,6 +672,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	 * 
 	 * @return
 	 */
+	@Override
 	public boolean isAbleToBeImpregnated() {
 		return false;
 	}

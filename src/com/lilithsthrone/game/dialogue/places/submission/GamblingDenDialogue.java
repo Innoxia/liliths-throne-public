@@ -1287,8 +1287,8 @@ public class GamblingDenDialogue {
 		
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/gamblingDen", "PREGNANCY_ROULETTE_BREEDER_FINISHED"
-					+mother.useItem(AbstractItemType.generateItem(ItemType.PREGNANCY_TEST), mother, false));
+			return UtilText.parseFromXMLFile("places/submission/gamblingDen", "PREGNANCY_ROULETTE_BREEDER_FINISHED")
+					+mother.useItem(AbstractItemType.generateItem(ItemType.PREGNANCY_TEST), mother, false);
 		}
 
 		@Override

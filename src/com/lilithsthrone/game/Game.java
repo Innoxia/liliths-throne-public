@@ -101,6 +101,7 @@ import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueFlags;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
+import com.lilithsthrone.game.dialogue.SlaveryManagementDialogue;
 import com.lilithsthrone.game.dialogue.encounters.Encounter;
 import com.lilithsthrone.game.dialogue.eventLog.EventLogEntry;
 import com.lilithsthrone.game.dialogue.eventLog.SlaveryEventLogEntry;
@@ -197,6 +198,7 @@ public class Game implements Serializable, XMLSaving {
 		for (WorldType type : WorldType.values()) {
 			worlds.put(type, null);
 		}
+		SlaveryManagementDialogue.resetImportantCells();
 		startingDate = LocalDateTime.of(LocalDateTime.now().getYear(), LocalDateTime.now().getMonth(), LocalDateTime.now().getDayOfMonth(), 00, 00).plusYears(3);
 		minutesPassed = 20 * 60;
 		inCombat = false;
@@ -3100,6 +3102,10 @@ public class Game implements Serializable, XMLSaving {
 		return Main.getProperties().hasValue(PropertyValue.facialHairContent);
 	}
 	
+	public boolean isFemaleFacialHairEnabled() {
+		return Main.getProperties().hasValue(PropertyValue.feminineBeardsContent);
+	}
+	
 	public boolean isPubicHairEnabled() {
 		return Main.getProperties().hasValue(PropertyValue.pubicHairContent);
 	}
@@ -3155,7 +3161,8 @@ public class Game implements Serializable, XMLSaving {
 	}
 
 	public SlaveryUtil setSlaveryUtil(SlaveryUtil slaveryUtil) {
-		return this.slaveryUtil = slaveryUtil;
+		this.slaveryUtil = slaveryUtil;
+		return slaveryUtil;
 	}
 	
 	public DialogueNodeOld getDefaultDialogue() {

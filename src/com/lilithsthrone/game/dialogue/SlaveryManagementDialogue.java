@@ -475,6 +475,10 @@ public class SlaveryManagementDialogue {
 	
 	private static List<Cell> importantCells = new ArrayList<>();
 	
+	public static void resetImportantCells() {
+		importantCells = new ArrayList<>();
+	}
+	
 	public static List<Cell> getImportantCells() {
 		if(importantCells.isEmpty()) {
 			WorldType[] importantWorlds = new WorldType[] {WorldType.LILAYAS_HOUSE_GROUND_FLOOR, WorldType.LILAYAS_HOUSE_FIRST_FLOOR};
@@ -2093,7 +2097,8 @@ public class SlaveryManagementDialogue {
 					+CharacterModificationUtils.getKatesDivAnalBleaching("Anal bleaching", "Anal bleaching is the process of lightening the colour of the skin around the anus, to make it more uniform with the surrounding area.")
 
 					+(Main.game.isFacialHairEnabled()
-							?CharacterModificationUtils.getKatesDivFacialHair("Facial hair", "The body hair found on [npc.name]'s face. Feminine characters cannot grow facial hair.")
+							? CharacterModificationUtils.getKatesDivFacialHair("Facial hair", "The body hair found on [npc.name]'s face." 
+									+ (Main.game.isFemaleFacialHairEnabled() ? "" : " Feminine characters cannot grow facial hair."))
 							:"")
 					
 					+(Main.game.isPubicHairEnabled()
