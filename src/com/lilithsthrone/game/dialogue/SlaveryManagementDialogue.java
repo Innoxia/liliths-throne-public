@@ -475,6 +475,10 @@ public class SlaveryManagementDialogue {
 	
 	private static List<Cell> importantCells = new ArrayList<>();
 	
+	public static void resetImportantCells() {
+		importantCells = new ArrayList<>();
+	}
+	
 	public static List<Cell> getImportantCells() {
 		if(importantCells.isEmpty()) {
 			WorldType[] importantWorlds = new WorldType[] {WorldType.LILAYAS_HOUSE_GROUND_FLOOR, WorldType.LILAYAS_HOUSE_FIRST_FLOOR};
