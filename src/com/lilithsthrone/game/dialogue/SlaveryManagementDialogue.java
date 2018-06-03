@@ -2093,7 +2093,8 @@ public class SlaveryManagementDialogue {
 					+CharacterModificationUtils.getKatesDivAnalBleaching("Anal bleaching", "Anal bleaching is the process of lightening the colour of the skin around the anus, to make it more uniform with the surrounding area.")
 
 					+(Main.game.isFacialHairEnabled()
-							?CharacterModificationUtils.getKatesDivFacialHair("Facial hair", "The body hair found on [npc.name]'s face. Feminine characters cannot grow facial hair.")
+							? CharacterModificationUtils.getKatesDivFacialHair("Facial hair", "The body hair found on [npc.name]'s face." 
+									+ (Main.game.isFemaleFacialHairEnabled() ? "" : " Feminine characters cannot grow facial hair."))
 							:"")
 					
 					+(Main.game.isPubicHairEnabled()

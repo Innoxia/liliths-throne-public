@@ -3100,6 +3100,10 @@ public class Game implements Serializable, XMLSaving {
 		return Main.getProperties().hasValue(PropertyValue.facialHairContent);
 	}
 	
+	public boolean isFemaleFacialHairEnabled() {
+		return Main.getProperties().hasValue(PropertyValue.feminineBeardsContent);
+	}
+	
 	public boolean isPubicHairEnabled() {
 		return Main.getProperties().hasValue(PropertyValue.pubicHairContent);
 	}
