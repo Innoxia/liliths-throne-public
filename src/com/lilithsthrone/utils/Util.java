@@ -604,6 +604,8 @@ public class Util {
 	 *            boolean, whether the text contains a period, exlamation or question mark
 	 */
 	private static boolean isEndOfSentence(String text) {
+		if(text.length() == 0)
+			return false;
 		return endOfSentence.matcher(text.substring(text.length()-1)).matches();
 	}
 
