@@ -179,7 +179,7 @@ public class Main extends Application {
 		+ "</br>"
 
 		+ "<list>"
-			+ "<h6>v0.2.5.8</h6>"
+			+ "<h6>v0.2.6</h6>"
 			+"<li>Gameplay:</li>"
 			+"<ul>Added 'generic' encounter variations for bat and slime attackers in the Bat Caverns (for if you've transformed them).</ul>"
 			+"<ul><b>Added:</b> Support for tattoos, with ability to have them enchanted just like clothing. Kate can now give/enchant/remove both your and your slaves' tattoos.</ul>"

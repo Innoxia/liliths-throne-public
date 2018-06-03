@@ -141,7 +141,11 @@ public enum DialogueFlagValue {
 	slimeRoyalGuardDefeated,
 	slimeQueenHelped,
 	slimeQueenConvinced,
-	slimeQueenForced
+	slimeQueenForced,
+	
+	// Gambling Den:
+	axelToldAboutVengar,
+	roxyAddicted,
 	
 	;
 }

@@ -46,7 +46,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.2.1
+ * @version 0.2.6
  * @author Innoxia
  */
 public class Ralph extends NPC {
@@ -59,7 +59,8 @@ public class Ralph extends NPC {
 			ItemType.MOO_MILKER_EMPTY,
 			ItemType.VIXENS_VIRILITY,
 			ItemType.PROMISCUITY_PILL,
-			ItemType.MOTHERS_MILK);
+			ItemType.MOTHERS_MILK,
+			ItemType.PREGNANCY_TEST);
 	
 	static {
 		for(AbstractItemType itemType : ItemType.allItems) {

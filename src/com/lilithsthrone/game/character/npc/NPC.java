@@ -16,7 +16,6 @@ import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
-import com.lilithsthrone.game.character.attributes.ObedienceLevel;
 import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.PenisType;
@@ -35,12 +34,10 @@ import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.effects.Addiction;
 import com.lilithsthrone.game.character.effects.Perk;
-import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.misc.Elemental;
-import com.lilithsthrone.game.character.persona.History;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.Race;
@@ -2708,60 +2705,68 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		return this.getFetishDesire(Fetish.FETISH_NON_CON_DOM)!=FetishDesire.ONE_DISLIKE && this.getFetishDesire(Fetish.FETISH_NON_CON_DOM)!=FetishDesire.ZERO_HATE;
 	}
 
+	/**
+	 * Override to force this character to use a certain SexPace in sex. Return null to use default Pace calculations.
+	 */
 	public SexPace getSexPaceSubPreference(GameCharacter character){
-		if(!isAttractedTo(character) || this.hasFetish(Fetish.FETISH_NON_CON_SUB)) {
-			if(Main.game.isNonConEnabled()) {
-				if(isSlave()) {
-					if(this.getObedienceValue()>=ObedienceLevel.POSITIVE_FIVE_SUBSERVIENT.getMinimumValue()) {
-						return SexPace.SUB_EAGER;
-						
-					} else if(this.getObedienceValue()>=ObedienceLevel.POSITIVE_TWO_OBEDIENT.getMinimumValue()) {
-						return SexPace.SUB_NORMAL;
-					}
-				}
-				
-				if (getHistory() == History.PROSTITUTE) {
-					if(Sex.isConsensual()) {
-						return SexPace.SUB_NORMAL;
-					}
-				}
-				
-				return SexPace.SUB_RESISTING;
-				
-			} else {
-				return SexPace.SUB_NORMAL;
-				
-			}
-		}
-		
-		if(hasStatusEffect(StatusEffect.WEATHER_STORM_VULNERABLE)) { // If they're vulnerable to arcane storms, they will always be eager during a storm:
-			return SexPace.SUB_EAGER;
-		}
-		
-		if (hasFetish(Fetish.FETISH_SUBMISSIVE) // Subs like being sub I guess ^^
-				|| (hasFetish(Fetish.FETISH_PREGNANCY) && character.hasPenisIgnoreDildo() && hasVagina()) // Want to get pregnant
-				|| (hasFetish(Fetish.FETISH_IMPREGNATION) && character.hasVagina() && hasPenisIgnoreDildo()) // Want to impregnate player
-				) {
-			return SexPace.SUB_EAGER;
-		}
-		
-		return SexPace.SUB_NORMAL;
+		return null;
+//		if(!isAttractedTo(character) || this.hasFetish(Fetish.FETISH_NON_CON_SUB)) {
+//			if(Main.game.isNonConEnabled()) {
+//				if(isSlave()) {
+//					if(this.getObedienceValue()>=ObedienceLevel.POSITIVE_FIVE_SUBSERVIENT.getMinimumValue()) {
+//						return SexPace.SUB_EAGER;
+//						
+//					} else if(this.getObedienceValue()>=ObedienceLevel.POSITIVE_TWO_OBEDIENT.getMinimumValue()) {
+//						return SexPace.SUB_NORMAL;
+//					}
+//				}
+//				
+//				if (getHistory() == History.PROSTITUTE) {
+//					if(Sex.isConsensual()) {
+//						return SexPace.SUB_NORMAL;
+//					}
+//				}
+//				
+//				return SexPace.SUB_RESISTING;
+//				
+//			} else {
+//				return SexPace.SUB_NORMAL;
+//				
+//			}
+//		}
+//		
+//		if(hasStatusEffect(StatusEffect.WEATHER_STORM_VULNERABLE)) { // If they're vulnerable to arcane storms, they will always be eager during a storm:
+//			return SexPace.SUB_EAGER;
+//		}
+//		
+//		if (hasFetish(Fetish.FETISH_SUBMISSIVE) // Subs like being sub I guess ^^
+//				|| (hasFetish(Fetish.FETISH_PREGNANCY) && character.hasPenisIgnoreDildo() && hasVagina()) // Want to get pregnant
+//				|| (hasFetish(Fetish.FETISH_IMPREGNATION) && character.hasVagina() && hasPenisIgnoreDildo()) // Want to impregnate player
+//				) {
+//			return SexPace.SUB_EAGER;
+//		}
+//		
+//		return SexPace.SUB_NORMAL;
 	}
 	
+	/**
+	 * Override to force this character to use a certain SexPace in sex. Return null to use default Pace calculations.
+	 */
 	public SexPace getSexPaceDomPreference(){
-		if(hasStatusEffect(StatusEffect.FETISH_PURE_VIRGIN)
-				|| (hasFetish(Fetish.FETISH_SUBMISSIVE) && !hasFetish(Fetish.FETISH_DOMINANT)) // Subs like being sub I guess ^^
-				) {
-			return SexPace.DOM_GENTLE;
-		}
-		
-		if(hasFetish(Fetish.FETISH_SADIST)
-				|| hasFetish(Fetish.FETISH_DOMINANT)
-				) {
-			return SexPace.DOM_ROUGH;
-		}
-		
-		return SexPace.DOM_NORMAL;
+		return null;
+//		if(hasStatusEffect(StatusEffect.FETISH_PURE_VIRGIN)
+//				|| (hasFetish(Fetish.FETISH_SUBMISSIVE) && !hasFetish(Fetish.FETISH_DOMINANT)) // Subs like being sub I guess ^^
+//				) {
+//			return SexPace.DOM_GENTLE;
+//		}
+//		
+//		if(hasFetish(Fetish.FETISH_SADIST)
+//				|| hasFetish(Fetish.FETISH_DOMINANT)
+//				) {
+//			return SexPace.DOM_ROUGH;
+//		}
+//		
+//		return SexPace.DOM_NORMAL;
 	}
 	
 	public List<Class<?>> getUniqueSexClasses() {

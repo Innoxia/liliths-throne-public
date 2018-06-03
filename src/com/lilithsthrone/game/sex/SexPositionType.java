@@ -454,10 +454,15 @@ public enum SexPositionType {
 											SexActionPresets.partnerStocksStandingBehind)))))) {
 		@Override
 		public String getDescription() {
-			if(Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.STOCKS_RECEIVING_ORAL) {
+			if(Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.STOCKS_LOCKED_IN_STOCKS) {
+				return "You are locked into the stocks, ready for breeding. [npc.Name] is standing right behind you, ready to penetrate your [pc.pussy+] at any moment.";
+				
+			} else if(Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.STOCKS_RECEIVING_ORAL) {
 				return "[npc.Name] is locked into the stocks, ready for public use. You're standing in front of [npc.her] [npc.face], ready to put [npc.her] mouth to good use.";
+				
 			} else if(Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.STOCKS_PERFORMING_ORAL) {
 				return "[npc.Name] is locked into the stocks, ready for public use. You're kneeling behind [npc.herHim], ready to perform oral on [npc.herHim].";
+				
 			} else {
 				return "[npc.Name] is locked into the stocks, ready for public use. You're standing behind [npc.herHim], ready to take advantage of [npc.her] compromising position.";
 			}

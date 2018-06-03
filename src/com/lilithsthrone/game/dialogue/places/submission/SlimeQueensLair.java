@@ -16,6 +16,8 @@ import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
+import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.universal.SMDoggy;
@@ -1080,8 +1082,10 @@ public class SlimeQueensLair {
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.slimeQueenConvinced, true);
 							
 							AbstractClothing crown = Main.game.getSlimeQueen().getClothingInSlot(InventorySlot.HEAD);
-							Main.game.getSlimeQueen().unequipClothingOntoFloor(crown, true, Main.game.getSlimeQueen());
-							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addClothing(crown, true));
+							if(crown!=null) {
+								Main.game.getSlimeQueen().unequipClothingIntoVoid(crown, true, Main.game.getSlimeQueen());
+							}
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(ClothingType.HEAD_SLIME_QUEENS_TIARA, false), true));
 							
 							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_SLIME_QUEEN, Quest.SLIME_QUEEN_FIVE_CONVINCE));
 							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_SLIME_QUEEN, Quest.SLIME_QUEEN_SIX_CONVINCE));
@@ -1094,10 +1098,12 @@ public class SlimeQueensLair {
 						@Override
 						public void effects() {
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.slimeQueenForced, true);
-							
+
 							AbstractClothing crown = Main.game.getSlimeQueen().getClothingInSlot(InventorySlot.HEAD);
-							Main.game.getSlimeQueen().unequipClothingOntoFloor(crown, true, Main.game.getSlimeQueen());
-							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addClothing(crown, true));
+							if(crown!=null) {
+								Main.game.getSlimeQueen().unequipClothingIntoVoid(crown, true, Main.game.getSlimeQueen());
+							}
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(ClothingType.HEAD_SLIME_QUEENS_TIARA, false), true));
 							
 							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_SLIME_QUEEN, Quest.SLIME_QUEEN_FIVE_FORCE));
 							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_SLIME_QUEEN, Quest.SLIME_QUEEN_SIX_FORCE));
@@ -1112,8 +1118,10 @@ public class SlimeQueensLair {
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.slimeQueenHelped, true);
 
 							AbstractClothing crown = Main.game.getSlimeQueen().getClothingInSlot(InventorySlot.HEAD);
-							Main.game.getSlimeQueen().unequipClothingOntoFloor(crown, true, Main.game.getSlimeQueen());
-							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addClothing(crown, true));
+							if(crown!=null) {
+								Main.game.getSlimeQueen().unequipClothingIntoVoid(crown, true, Main.game.getSlimeQueen());
+							}
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(ClothingType.HEAD_SLIME_QUEENS_TIARA, false), true));
 							
 							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_SLIME_QUEEN, Quest.SLIME_QUEEN_FIVE_SUBMIT));
 							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_SLIME_QUEEN, Quest.SLIME_QUEEN_SIX_SUBMIT));

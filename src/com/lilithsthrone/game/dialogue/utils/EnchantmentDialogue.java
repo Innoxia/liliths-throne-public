@@ -489,13 +489,13 @@ public class EnchantmentDialogue {
 			Main.game.getPlayer().removeWeapon((AbstractWeapon) ingredient);
 			
 		} else if(ingredient instanceof Tattoo) {
+			Main.game.getPlayer().incrementMoney(-EnchantingUtils.getCost(ingredient, effects)*EnchantingUtils.FLAME_COST_MODIFER);
+			
 			EnchantingUtils.craftTattoo(ingredient, effects);
 			Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourExcellent(Tattoo Enchanted)]", Util.capitaliseSentence(((Tattoo)ingredient).getName())), false);
 		}
 		
-		if(ingredient instanceof Tattoo) {
-			Main.game.getPlayer().incrementMoney(-EnchantingUtils.getCost(ingredient, effects)*EnchantingUtils.FLAME_COST_MODIFER);
-		} else {
+		if(!(ingredient instanceof Tattoo)) {
 			Main.game.getPlayer().incrementEssenceCount(ingredient.getRelatedEssence(), -EnchantingUtils.getCost(ingredient, effects), false);
 		}
 		

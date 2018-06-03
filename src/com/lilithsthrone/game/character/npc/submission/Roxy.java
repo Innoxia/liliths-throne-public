@@ -42,6 +42,7 @@ import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
+import com.lilithsthrone.game.sex.sexActions.submission.roxy.SARoxySpecials;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
@@ -62,7 +63,8 @@ public class Roxy extends NPC {
 			ItemType.MOO_MILKER_EMPTY,
 			ItemType.VIXENS_VIRILITY,
 			ItemType.PROMISCUITY_PILL,
-			ItemType.MOTHERS_MILK);
+			ItemType.MOTHERS_MILK,
+			ItemType.PREGNANCY_TEST);
 
 	static {
 		for(AbstractItemType itemType : ItemType.allItems) {
@@ -255,4 +257,9 @@ public class Roxy extends NPC {
 		return false;
 	}
 
+	
+	@Override
+	public List<Class<?>> getUniqueSexClasses() {
+		return Util.newArrayListOfValues(SARoxySpecials.class);
+	}
 }
