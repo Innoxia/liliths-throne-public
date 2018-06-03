@@ -27,6 +27,7 @@ import com.lilithsthrone.game.sex.sexActions.SexActionPriority;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.69
@@ -927,7 +928,11 @@ public class GenericOrgasms {
 	
 	private static String getCumQuantityDescription(GameCharacter characterOrgasming) {
 		
-		String targetName = "#IFnpc1.isPlayer#THENyour#ELSE[npc1.name]'s#ENDIF";
+//		String targetName = "#IFnpc1.isPlayer#THENyour#ELSE[npc1.name]'s#ENDIF";
+		String targetName = "your";
+		if(!characterOrgasming.isPlayer()) {
+			targetName = "[npc1.name]'s";
+		}
 		String cumQuantityDescription = targetName+" [npc1.cum+] squirts";
 		
 		switch (characterOrgasming.getPenisCumProduction()) {
@@ -2690,7 +2695,9 @@ public class GenericOrgasms {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return isTakingCock(Main.game.getPlayer());
+			return isTakingCock(Main.game.getPlayer())
+					&& Main.game.getPlayer().getLocationPlace().getPlaceType()!=PlaceType.GAMBLING_DEN_FUTA_PREGNANCY
+					&& Main.game.getPlayer().getLocationPlace().getPlaceType()!=PlaceType.GAMBLING_DEN_PREGNANCY;
 		}
 
 		@Override
@@ -3033,6 +3040,22 @@ public class GenericOrgasms {
 			null,
 			null,
 			SexParticipantType.MISC) {
+		
+		@Override
+		public SexActionPriority getPriority() {
+			if(Main.game.getPlayer().getLocationPlace().getPlaceType()!=PlaceType.GAMBLING_DEN_FUTA_PREGNANCY
+					&& Main.game.getPlayer().getLocationPlace().getPlaceType()!=PlaceType.GAMBLING_DEN_PREGNANCY) {
+				return SexActionPriority.UNIQUE_MAX;
+			}
+			return SexActionPriority.NORMAL;
+		}
+		
+		@Override
+		public boolean endsSex() {
+			return Main.game.getPlayer().getLocationPlace().getPlaceType()!=PlaceType.GAMBLING_DEN_FUTA_PREGNANCY
+					|| Main.game.getPlayer().getLocationPlace().getPlaceType()!=PlaceType.GAMBLING_DEN_PREGNANCY;
+		}
+		
 		@Override
 		public String getActionTitle() {
 			GameCharacter characterPenetrated = Sex.getCharactersBeingPenetratedBy(Sex.getActivePartner(), PenetrationType.PENIS).get(0);

@@ -1422,7 +1422,7 @@ public class OptionsDialogue {
 		}
 		for(FurryPreference preference : FurryPreference.values()) {
 			sb.append("<div id='MASCULINE_"+preference+"_"+s+"' class='square-button small"
-						+(Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(s)==preference
+						+(Main.getProperties().getSubspeciesMasculineFurryPreferencesMap().get(s)==preference
 							?" selected' style='border-color:"+Colour.MASCULINE_PLUS.toWebHexString()+";'><div class='square-button-content'>"+preference.getSVGImage(false)+"</div></div>"
 							:"'><div class='square-button-content'>"+preference.getSVGImage(true)+"</div></div>"));
 		}

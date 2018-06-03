@@ -515,6 +515,38 @@ public class ItemEffectType {
 		}
 	};
 	
+
+	public static AbstractItemEffectType PREGNANCY_TEST = new AbstractItemEffectType(Util.newArrayListOfValues(
+			"Reveals pregnancy info."),
+			Colour.GENERIC_SEX) {
+		
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+			if(target.isPregnant()) {
+				return "<p>"
+						+ "The digital readout lights up with two parallel red lines, with flashing pink text next to that displaying: '[style.italicsArcane(Pregnant!)]'"
+					+ "</p>"
+					+ "<p>"
+						+ "Underneath the flashing pregnancy confirmation, there's some extra information, which reads:</br>"
+						+ "<i>"
+						+ "Father: "+(target.getPregnantLitter().getFather()!=null
+										?target.getPregnantLitter().getFather().getNameIgnoresPlayerKnowledge()+" ("+Util.capitaliseSentence(target.getPregnantLitter().getFatherRace().getName())+")"
+										:"Unknown!")+"</br>"
+						+ "Litter size: " +target.getPregnantLitter().getTotalLitterCount()+"</br>"
+						+ "[style.colourFeminine(Daughters)]: " +(target.getPregnantLitter().getDaughtersFromFather()+target.getPregnantLitter().getDaughtersFromMother())+"</br>"
+						+ "[style.colourMasculine(Sons)]: " +(target.getPregnantLitter().getSonsFromFather()+target.getPregnantLitter().getSonsFromMother())+"</br>"
+						+ "</i>"
+					+ "</p>";
+				
+			} else {
+				return "<p>"
+					+ "The digital readout lights up with a single red line, with solid black text next to that displaying: '<i>Not Pregnant.</i>'"
+				+ "</p>";
+			}
+		}
+	};
+	
+	
 	public static AbstractItemEffectType MOTHERS_MILK = new AbstractItemEffectType(Util.newArrayListOfValues(
 			"Advances pregnancy."),
 			Colour.GENERIC_SEX) {

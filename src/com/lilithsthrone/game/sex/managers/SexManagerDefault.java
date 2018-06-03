@@ -656,14 +656,19 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 		// Ban stop penetration actions:
 		for(SexActionInterface action : availableActions) {
 			if(action.getActionType() == SexActionType.PARTNER_STOP_PENETRATION) {
-				if((!(action.getAssociatedPenetrationType()==PenetrationType.TONGUE && action.getAssociatedOrificeType()==OrificeType.MOUTH)
-						&& !(Sex.getActivePartner().hasFetish(Fetish.FETISH_ORAL_RECEIVING)
-								&& ((!action.getParticipantType().isUsingSelfOrificeType() && action.getAssociatedOrificeType()==OrificeType.MOUTH)
-										|| (!action.getParticipantType().isUsingSelfPenetrationType() && action.getAssociatedPenetrationType()==PenetrationType.TONGUE)))
-						&& !(Sex.getActivePartner().hasFetish(Fetish.FETISH_ORAL_GIVING)
-								&& ((action.getParticipantType().isUsingSelfOrificeType() && action.getAssociatedOrificeType()==OrificeType.MOUTH)
-										|| (action.getParticipantType().isUsingSelfPenetrationType() && action.getAssociatedPenetrationType()==PenetrationType.TONGUE))))
-						|| action.getAssociatedPenetrationType().isTakesVirginity()) {
+				if(action.getAssociatedPenetrationType().isTakesVirginity()) {
+					bannedActions.add(action);
+				}
+				
+				if(Sex.getActivePartner().hasFetish(Fetish.FETISH_ORAL_RECEIVING)
+						&& ((!action.getParticipantType().isUsingSelfOrificeType() && action.getAssociatedOrificeType()==OrificeType.MOUTH)
+								|| (!action.getParticipantType().isUsingSelfPenetrationType() && action.getAssociatedPenetrationType()==PenetrationType.TONGUE))) {
+					bannedActions.add(action);
+				}
+				
+				if(Sex.getActivePartner().hasFetish(Fetish.FETISH_ORAL_GIVING)
+						&& ((action.getParticipantType().isUsingSelfOrificeType() && action.getAssociatedOrificeType()==OrificeType.MOUTH)
+								|| (action.getParticipantType().isUsingSelfPenetrationType() && action.getAssociatedPenetrationType()==PenetrationType.TONGUE))) {
 					bannedActions.add(action);
 				}
 			}

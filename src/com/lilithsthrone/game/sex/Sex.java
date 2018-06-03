@@ -295,33 +295,17 @@ public enum Sex {
 			}
 			
 			// Default starting lust and arousal:
-			character.setLust(50);
-			character.setArousal(0);
-			if(Sex.isDom(character)) {
-				if(character.hasFetish(Fetish.FETISH_DOMINANT)) {
-					character.setLust(85);
-					character.setArousal(10);
-				} else if(character.hasFetish(Fetish.FETISH_SUBMISSIVE)) {
-					character.setLust(10);
-				}
-			} else {
-				if(character.hasFetish(Fetish.FETISH_SUBMISSIVE)) {
-					character.setLust(85);
-					character.setArousal(10);
-				}
-			}
-			
-			
-			if(Main.getProperties().hasValue(PropertyValue.nonConContent)) {
-				if(!character.isPlayer()) {
-					if(!((NPC) character).isAttractedTo(Main.game.getPlayer())) {
-						character.setLust(0);
-					}
-				}
-			}
+			Sex.getSexManager().initStartingLustAndArousal(character);
 			
 			if(character.isPlayer()) {
 				forceSexPaceMap.put(character, Sex.isDom(character)?SexPace.DOM_NORMAL:SexPace.SUB_NORMAL);
+			} else {
+				if(Sex.isDom(character) && ((NPC)character).getSexPaceDomPreference()!=null) {
+					forceSexPaceMap.put(character, ((NPC)character).getSexPaceDomPreference());
+				}
+				if(!Sex.isDom(character) && ((NPC)character).getSexPaceSubPreference(Sex.getTargetedPartner(character))!=null) {
+					forceSexPaceMap.put(character, ((NPC)character).getSexPaceSubPreference(Sex.getTargetedPartner(character)));
+				}
 			}
 			
 			if(sexManager.getStartingSexPaceModifier(character)!=null) {
@@ -1624,9 +1608,11 @@ public enum Sex {
 						boolean dislikedAction = false;
 						if(sexAction.getFetishes(activePartner)!=null) {
 							for(Fetish f : sexAction.getFetishes(activePartner)) {
-								if(activePartner.getFetishDesire(f)==FetishDesire.ONE_DISLIKE || activePartner.getFetishDesire(f)==FetishDesire.ZERO_HATE) {
-									dislikedAction = true;
-									break;
+								if(f!=Fetish.FETISH_NON_CON_SUB) {
+									if(activePartner.getFetishDesire(f)==FetishDesire.ONE_DISLIKE || activePartner.getFetishDesire(f)==FetishDesire.ZERO_HATE) {
+										dislikedAction = true;
+										break;
+									}
 								}
 							}
 						}

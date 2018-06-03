@@ -4043,7 +4043,7 @@ public class CharacterModificationUtils {
 							+ "</div>");
 				}
 				contentSB.append("<div class='container-full-width'>"
-						+ "Output: "+tattoo.getFormattedCounterOutput(Main.game.getPlayer())
+						+ "Output: "+tattoo.getFormattedCounterOutput(BodyChanging.getTarget())
 						+ "</div>");
 			contentSB.append("</div>");
 			

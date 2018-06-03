@@ -594,18 +594,16 @@ public class Util {
 		return utilitiesStringBuilder.toString();
 	}
 
-	private static Pattern endOfSentence = Pattern.compile("[.!?]");
+	private static Pattern endOfSentence = Pattern.compile("[,.!?]");
 	/**
-	 * Determine whether a given string contains sentence-ending punctuation
-	 *
-	 * @param text
-	 *            text to check whether
-	 * @return
-	 *            boolean, whether the text contains a period, exlamation or question mark
+	 * Determine whether a given string contains sentence-ending punctuation.
+	 * @param text text to check whether
+	 * @return boolean whether the text contains a period, exclamation or question mark
 	 */
 	private static boolean isEndOfSentence(String text) {
-		if(text.length() == 0)
+		if(text.isEmpty()) {
 			return false;
+		}
 		return endOfSentence.matcher(text.substring(text.length()-1)).matches();
 	}
 

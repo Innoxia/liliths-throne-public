@@ -7,6 +7,7 @@ import java.util.Set;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.npc.NPC;
@@ -107,6 +108,12 @@ public class DialogueFlags implements Serializable, XMLSaving {
 				newFlags.values.add(DialogueFlagValue.valueOf(e.getAttribute("value")));
 			} catch(Exception ex) {
 			}
+		}
+		
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.6.1")) {
+			newFlags.values.remove(DialogueFlagValue.axelIntroduced);
+			newFlags.values.remove(DialogueFlagValue.roxyIntroduced);
+			newFlags.values.remove(DialogueFlagValue.eponaIntroduced);
 		}
 
 		loadSet(parentElement, doc, newFlags.reindeerEncounteredIDs, "reindeerEncounteredIDs");

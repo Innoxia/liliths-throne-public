@@ -198,7 +198,11 @@ public class DicePoker {
 	
 	private static void calculateGamblerRerolls() {
 		List<Dice> rerollDice = new ArrayList<>(gamblerDice);
-		rerollDice.removeAll(Hand.getDiceInHand(gamblerDice));
+		
+		if(Hand.getHand(gamblerDice)!=Hand.NINE_RUNT) {
+			rerollDice.removeAll(Hand.getDiceInHand(gamblerDice));
+		}
+		
 		diceToReroll.addAll(rerollDice);
 	}
 	
@@ -437,8 +441,16 @@ public class DicePoker {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
+			boolean reroll = false;
+			for(Dice d : playerDice) {
+				if(diceToReroll.contains(d)) {
+					reroll=true;
+					break;
+				}
+			}
+			
 			if(index==1) {
-				return new ResponseEffectsOnly("Roll", "Roll your dice.") {
+				return new ResponseEffectsOnly(reroll?"Roll":"No Roll", reroll?"Roll your dice.":"Choose not to re-roll any of your dice. (Click on your dice to select them for re-roll.)") {
 					@Override
 					public void effects() {
 						boolean diceRerolled = !diceToReroll.isEmpty();
@@ -595,19 +607,19 @@ public class DicePoker {
 				
 			} else if(index==2) {
 				return new ResponseSex("Accept",
-						"Allow [npc.name] to publicly fuck you in order to get your money back.",
+						UtilText.parse(gambler, "Allow [npc.name] to publicly fuck you in order to get your money back."),
 						true, false,
 						new SMStanding(
-								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
+								Util.newHashMapOfValues(new Value<>(gambler, SexPositionSlot.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
 						END_LOSS_SEX,
-						"<p>"
+						UtilText.parse(gambler,"<p>"
 							+ "[pc.speech(Ok...)] you reply, [pc.speech(You can use me however you like...)]"
 						+ "</p>"
 						+ "<p>"
 							+ "[npc.Name] lets out a lustful [npc.moan], before stepping forwards and wrapping [npc.her] [npc.arms] around your back."
 							+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], before growling, [npc.speech(This is gonna' be good!)]"
-						+ "</p>") {
+						+ "</p>")) {
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().incrementMoney(moneyPool/2));

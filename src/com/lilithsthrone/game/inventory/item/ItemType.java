@@ -3450,6 +3450,41 @@ public class ItemType {
 		}
 	};
 	
+	public static AbstractItemType PREGNANCY_TEST = new AbstractItemType(100,
+			"an",
+			false,
+			"Arcane Pregnancy Tester",
+			"Arcane Pregnancy Testers",
+			"A small plastic wand, no longer than 15cm, which has a digital readout embedded in the middle."
+					+ " The small instruction leaflet that came with it says to 'swipe the tester over the target's stomach to find out who the father is!'",
+			"pregnancy_test",
+			Colour.CLOTHING_WHITE,
+			Colour.GENERIC_ARCANE,
+			null,
+			Rarity.COMMON,
+			null,
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.PREGNANCY_TEST)),
+			Util.newArrayListOfValues(
+					ItemTag.DOMINION_ALLEYWAY_SPAWN,
+					ItemTag.SUBMISSION_TUNNEL_SPAWN)) {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getUseName() {
+			return "use";
+		}
+		
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return getGenericUseDescription(user, target,
+					"You swipe the pregnancy tester over your stomach, waiting until you hear it beep before bringing it up to take a look at the readout.",
+					"You swipe the pregnancy tester over [npc.name]'s stomach, waiting until you hear it beep before bringing it up to take a look at the readout.",
+					"[npc.Name] swipes the pregnancy tester over [npc.her] stomach, waiting until [npc.she] hears it beep before bringing it up to take a look at the readout.",
+					"[npc.Name] swipes the pregnancy tester over your stomach, waiting until [npc.she] hears it beep before bringing it up to take a look at the readout.");
+		}
+	};
+	
 	public static AbstractItemType MOTHERS_MILK = new AbstractItemType(100,
 			"a bottle of",
 			false,
