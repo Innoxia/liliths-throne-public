@@ -164,7 +164,7 @@ public class Library {
 			}  else if (books == 6) {
 				return new Response("Races of Dominion", "A section of the library dedicated to books concerning the predominate races within the city.", DOMINION_RACES);
 
-			}else if (books == 7) {
+			} else if (books == 7) {
 				return new Response("Foloi Fields", "A section of the library dedicated to books about the area known as the Foloi Fields.", FIELDS_BOOKS);
 
 			} else if (books == 8) {
@@ -176,7 +176,7 @@ public class Library {
 			} else if (books == 10) {
 				return new Response("The Desert", "A section of the library dedicated to books on the area known as the Desert. (Not yet implemented.)", null);
 
-			}else if (books == 0) {
+			} else if (books == 0) {
 				return new Response("Back", "Return to the main library menu.", LIBRARY);
 
 			} else {
