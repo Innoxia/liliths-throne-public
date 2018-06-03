@@ -556,7 +556,7 @@ public class EnchantmentDialogue {
 		if(ingredient instanceof AbstractClothing
 				|| ingredient instanceof Tattoo) {
 			EnchantmentDialogue.effects = new ArrayList<>(ingredient.getEffects());
-			if (tattooBearer.getTattooInSlot(tattooSlot) == ingredient) {
+			if (ingredient instanceof Tattoo && tattooBearer.getTattooInSlot(tattooSlot) == ingredient) {
 				EnchantmentDialogue.isEquipped = true;
 				EnchantmentDialogue.isEquippedIn = tattooSlot;
 				EnchantmentDialogue.isEquippedTo = tattooBearer;

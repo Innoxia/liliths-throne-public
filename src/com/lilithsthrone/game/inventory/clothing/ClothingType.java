@@ -7099,7 +7099,7 @@ public class ClothingType {
 							null,
 							null,
 							null),
-					new BlockedParts(DisplacementType.SHIFTS_ASIDE,
+					new BlockedParts(DisplacementType.PULLS_DOWN,
 							Util.newArrayListOfValues(ClothingAccess.GROIN),
 							Util.newArrayListOfValues(
 									CoverableArea.ANUS,

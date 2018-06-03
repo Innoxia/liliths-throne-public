@@ -35,13 +35,15 @@
 		Fixed offspring renaming with enter key hardlocking game. (Pimvgd)
 		Enabled female beards when the option for female beards is turned on. (Pimvgd)
 		Fix tattoo enchantments not applying their effects. (Pimvgd)
+		Fixed milk regeneration enchantments always applying a huge boost/drain, instead of a more reasonably scaled one. (Delvigore)
+		Added Util method to make selecting random items from lists easier. (Master of Puppets)
 	
 	Other:
 		Slightly tweaked slot machine odds.
 	
 	Bugs:	
 		Fixed bug where NPCs would all end sex immediately when orgasming with a creampie.
-	
+		Fixed tattoo writing being saved with a huge amount of trailing whitespace.
 	
 	
 	

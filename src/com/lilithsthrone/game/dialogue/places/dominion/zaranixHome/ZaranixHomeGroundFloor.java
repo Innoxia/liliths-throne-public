@@ -19,7 +19,6 @@ import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
-import com.lilithsthrone.game.inventory.clothing.DisplacementType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.dominion.zaranix.SMAmberDoggyFucked;
 import com.lilithsthrone.game.sex.managers.dominion.zaranix.SMZaranixCockSucking;
@@ -592,8 +591,7 @@ public class ZaranixHomeGroundFloor {
 						}
 						@Override
 						public void effects() {
-							Main.game.getZaranix().isAbleToBeDisplaced(Main.game.getZaranix().getClothingInSlot(InventorySlot.LEG), DisplacementType.PULLS_DOWN, true, true, Main.game.getAmber());
-							Main.game.getZaranix().isAbleToBeDisplaced(Main.game.getZaranix().getClothingInSlot(InventorySlot.GROIN), DisplacementType.SHIFTS_ASIDE, true, true, Main.game.getAmber());
+							Main.game.getZaranix().displaceClothingForAccess(CoverableArea.PENIS);
 							Main.game.getArthur().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, true);
 						}
 					};

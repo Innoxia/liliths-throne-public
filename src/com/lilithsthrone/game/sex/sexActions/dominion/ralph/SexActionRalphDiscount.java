@@ -335,10 +335,7 @@ public class SexActionRalphDiscount {
 			
 			SexFlags.askedForBigDiscount=true;
 			
-			while(!Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.VAGINA)){
-				Main.game.getPlayer().isAbleToBeDisplaced(Main.game.getPlayer().getNextClothingToRemoveForCoverableAreaAccess(CoverableArea.VAGINA).getKey(),
-						Main.game.getPlayer().getNextClothingToRemoveForCoverableAreaAccess(CoverableArea.VAGINA).getValue(), true, true, Main.game.getRalph());
-			}
+			Main.game.getPlayer().displaceClothingForAccess(CoverableArea.VAGINA);
 		}
 		
 		@Override
@@ -400,10 +397,7 @@ public class SexActionRalphDiscount {
 			
 			SexFlags.askedForBigDiscount=true;
 			
-			while(!Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.ANUS)){
-				Main.game.getPlayer().isAbleToBeDisplaced(Main.game.getPlayer().getNextClothingToRemoveForCoverableAreaAccess(CoverableArea.ANUS).getKey(),
-						Main.game.getPlayer().getNextClothingToRemoveForCoverableAreaAccess(CoverableArea.ANUS).getValue(), true, true, Main.game.getRalph());
-			}
+			Main.game.getPlayer().displaceClothingForAccess(CoverableArea.ANUS);
 		}
 		
 		@Override

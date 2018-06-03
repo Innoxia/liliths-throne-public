@@ -66,7 +66,7 @@ public class TattooWriting implements XMLSaving {
 		CharacterUtils.addAttribute(doc, element, "colour", this.getColour().toString());
 		CharacterUtils.addAttribute(doc, element, "glow", String.valueOf(this.isGlow()));
 		
-		element.appendChild(doc.createCDATASection(this.getText()));
+		element.appendChild(doc.createCDATASection(this.getText().trim()));
 		
 		Element innerElement = doc.createElement("styles");
 		element.appendChild(innerElement);
