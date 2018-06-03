@@ -377,8 +377,6 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		this.setLocation(Main.game.getWorlds().get(worldLocation).getCell(startingPlace).getLocation());
 		homeLocation = location;
 		
-		history = History.UNEMPLOYED;
-		
 		// Set up personality:
 		personality = new HashMap<>();
 		for(Entry<PersonalityTrait, PersonalityWeight> entry : startingRace.getPersonality().entrySet()) {
@@ -505,6 +503,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			attributes.put(a, (float) a.getBaseValue());
 			bonusAttributes.put(a, 0f);
 		}
+		
+		setHistory(History.UNEMPLOYED);
 		// Set starting attributes based on the character's race
 		for (Attribute a : startingRace.getAttributeModifiers().keySet()) {
 			attributes.put(a, startingRace.getAttributeModifiers().get(a).getMinimum() + startingRace.getAttributeModifiers().get(a).getRandomVariance());
@@ -2592,12 +2592,15 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	 */
 	public void setHistory(History history) {
 		// Revert attributes from old History:
-		if(this.history.getAssociatedPerk()!=null && this.isPlayer()) {
-			for (Attribute att : this.history.getAssociatedPerk().getAttributeModifiers().keySet()) {
-				incrementBonusAttribute(att, -this.history.getAssociatedPerk().getAttributeModifiers().get(att));
+		if (this.history != null) {
+			if(this.history.getAssociatedPerk()!=null && this.isPlayer()) {
+				for (Attribute att : this.history.getAssociatedPerk().getAttributeModifiers().keySet()) {
+					incrementBonusAttribute(att, -this.history.getAssociatedPerk().getAttributeModifiers().get(att));
+				}
 			}
+			this.history.revertExtraEffects(this);
 		}
-		this.history.revertExtraEffects(this);
+		
 
 		// Implement attributes from new History:
 		if(history.getAssociatedPerk()!=null && this.isPlayer()) {
