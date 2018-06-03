@@ -63,9 +63,9 @@ public enum Height {
 		return minimumValue + (maximumValue - minimumValue) / 2;
 	}
 
-	public static Height getHeightFromInt(int inches) {
+	public static Height getHeightFromInt(int centimeters) {
 		for(Height cs : Height.values()) {
-			if(inches>=cs.getMinimumValue() && inches<cs.getMaximumValue()) {
+			if(centimeters >= cs.getMinimumValue() && centimeters < cs.getMaximumValue()) {
 				return cs;
 			}
 		}
