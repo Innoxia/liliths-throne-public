@@ -1029,14 +1029,14 @@ public class CharacterUtils {
 			Covering currentCovering = character.getCovering(character.getHairType().getBodyCoveringType(character));
 			character.setHairCovering(new Covering(
 					currentCovering.getType(),
-					currentCovering.getType().getDyePatterns().get(Util.random.nextInt(currentCovering.getType().getDyePatterns().size())),
+					Util.randomItemFrom(currentCovering.getType().getDyePatterns()),
 					currentCovering.getType().getAllPrimaryColours().isEmpty()
 						?currentCovering.getPrimaryColour()
-						:currentCovering.getType().getAllPrimaryColours().get(Util.random.nextInt(currentCovering.getType().getAllPrimaryColours().size())),
+						:Util.randomItemFrom(currentCovering.getType().getAllPrimaryColours()),
 					Math.random()<=0.05f,
 					currentCovering.getType().getAllSecondaryColours().isEmpty()
 						?currentCovering.getSecondaryColour()
-						:currentCovering.getType().getAllSecondaryColours().get(Util.random.nextInt(currentCovering.getType().getAllSecondaryColours().size())),
+						:Util.randomItemFrom(currentCovering.getType().getAllSecondaryColours()),
 					Math.random()<=0.05f),
 					true);
 		}
@@ -1241,7 +1241,7 @@ public class CharacterUtils {
 		availableFetishes.removeAll(character.getFetishes());
 		
 		int[] numberProb = new int[] {1, 1, 2, 2, 2, 2, 3, 3, 3, 4, 4, 5};
-		int numberOfFetishes = numberProb[Util.random.nextInt(numberProb.length)] - character.getFetishes().size();
+		int numberOfFetishes = Util.randomItemFrom(numberProb) - character.getFetishes().size();
 		
 		int fetishesAssigned = 0;
 		
@@ -1274,7 +1274,7 @@ public class CharacterUtils {
 		}
 		
 		while(fetishesAssigned < numberOfFetishes && !availableFetishes.isEmpty()) {
-			Fetish f = availableFetishes.get(Util.random.nextInt(availableFetishes.size()));
+			Fetish f = Util.randomItemFrom(availableFetishes);
 			character.addFetish(f);
 			while(availableFetishes.remove(f)) {}
 			fetishesAssigned++;
@@ -1311,12 +1311,12 @@ public class CharacterUtils {
 		// Desires:
 		int[] posDesireProb = new int[] {1, 1, 2, 2, 2, 3, 3};
 		int[] negDesireProb = new int[] {3, 3, 4, 4, 4, 5, 5};
-		int numberOfPositiveDesires = posDesireProb[Util.random.nextInt(posDesireProb.length)];
-		int numberOfNegativeDesires = negDesireProb[Util.random.nextInt(negDesireProb.length)];
+		int numberOfPositiveDesires = Util.randomItemFrom(posDesireProb);
+		int numberOfNegativeDesires = Util.randomItemFrom(negDesireProb);
 		
 		int desiresAssigned = 0;
 		while(desiresAssigned < numberOfPositiveDesires && !availableFetishes.isEmpty()) {
-			Fetish f = availableFetishes.get(Util.random.nextInt(availableFetishes.size()));
+			Fetish f = Util.randomItemFrom(availableFetishes);
 			character.setFetishDesire(f, FetishDesire.THREE_LIKE);
 			availableFetishes.remove(f);
 			switch(f) {
@@ -1347,7 +1347,7 @@ public class CharacterUtils {
 		availableFetishes.remove(Fetish.FETISH_CUM_STUD); // Who doesn't like cumming? :3
 		
 		while(desiresAssigned < numberOfNegativeDesires && !availableFetishes.isEmpty()) {
-			Fetish f = availableFetishes.get(Util.random.nextInt(availableFetishes.size()));
+			Fetish f = Util.randomItemFrom(availableFetishes);
 			character.setFetishDesire(f, Math.random()>0.5?FetishDesire.ONE_DISLIKE:FetishDesire.ZERO_HATE);
 			if(f == Fetish.FETISH_DOMINANT) {
 				availableFetishes.remove(Fetish.FETISH_SUBMISSIVE);
@@ -1515,7 +1515,7 @@ public class CharacterUtils {
 			return null;
 			
 		} else {
-			return availableClothing.get(Util.random.nextInt(availableClothing.size()));
+			return Util.randomItemFrom(availableClothing);
 		}
 	}
 	
@@ -1533,8 +1533,8 @@ public class CharacterUtils {
 				colours.remove(Colour.COVERING_CLEAR);
 			}
 			
-			Colour colourForCoordination = colours.get(Util.random.nextInt(colours.size()));
-			Colour colourForNails = colours.get(Util.random.nextInt(colours.size()));
+			Colour colourForCoordination = Util.randomItemFrom(colours);
+			Colour colourForNails = Util.randomItemFrom(colours);
 			
 			character.setLipstick(new Covering(BodyCoveringType.MAKEUP_LIPSTICK, colourForCoordination));
 			character.setEyeLiner(new Covering(BodyCoveringType.MAKEUP_EYE_LINER, Colour.COVERING_BLACK));
