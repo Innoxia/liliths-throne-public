@@ -205,6 +205,11 @@ public class Nyan extends NPC {
 	public boolean isUnique() {
 		return true;
 	}
+	
+	@Override
+	public boolean isAbleToBeImpregnated() {
+		return true;
+	}
 
 	@Override
 	public void dailyReset() {

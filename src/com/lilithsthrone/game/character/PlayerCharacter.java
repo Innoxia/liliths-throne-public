@@ -643,4 +643,9 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 				+ description
 				+ "</p>";
 	}
+
+	@Override
+	public boolean isAbleToBeImpregnated() {
+		return true;
+	}
 }
