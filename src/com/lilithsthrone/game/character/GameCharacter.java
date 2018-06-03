@@ -10090,6 +10090,10 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			pregnancyChance /= 2;
 		}
 		
+		if (!isAbleToBeImpregnated()) {
+			pregnancyChance = 0;
+		}
+		
 		if(pregnancyChance>1) {
 			pregnancyChance=1;
 		}
@@ -15697,5 +15701,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	public String getWingPronoun() {
 		return body.getWing().getType().getPronoun();
 	}
+	
+	public abstract boolean isAbleToBeImpregnated();
 
 }
