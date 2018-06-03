@@ -1804,17 +1804,17 @@ public abstract class AbstractItemEffectType {
 					case TF_MOD_REGENERATION:
 						switch(potency) {
 							case MAJOR_DRAIN:
-								return new RacialEffectUtil("Huge decrease in milk regeneration.", smallChangeMajorDrain, "") { @Override public String applyEffect() { return target.incrementBreastLactationRegeneration(largeChangeMajorDrain); } };
+								return new RacialEffectUtil("Huge decrease in milk regeneration.", smallChangeMajorDrain, "") { @Override public String applyEffect() { return target.incrementBreastLactationRegeneration(smallChangeMajorDrain); } };
 							case DRAIN:
-								return new RacialEffectUtil("Decrease in milk regeneration.", smallChangeDrain, "") { @Override public String applyEffect() { return target.incrementBreastLactationRegeneration(largeChangeDrain); } };
+								return new RacialEffectUtil("Decrease in milk regeneration.", smallChangeDrain, "") { @Override public String applyEffect() { return target.incrementBreastLactationRegeneration(smallChangeDrain); } };
 							case MINOR_DRAIN:
-								return new RacialEffectUtil("Small decrease in milk regeneration.", smallChangeMinorDrain, "") { @Override public String applyEffect() { return target.incrementBreastLactationRegeneration(largeChangeMinorDrain); } };
+								return new RacialEffectUtil("Small decrease in milk regeneration.", smallChangeMinorDrain, "") { @Override public String applyEffect() { return target.incrementBreastLactationRegeneration(smallChangeMinorDrain); } };
 							case MINOR_BOOST: default:
-								return new RacialEffectUtil("Small increase in milk regeneration.", smallChangeMinorBoost, "") { @Override public String applyEffect() { return target.incrementBreastLactationRegeneration(largeChangeMinorBoost); } };
+								return new RacialEffectUtil("Small increase in milk regeneration.", smallChangeMinorBoost, "") { @Override public String applyEffect() { return target.incrementBreastLactationRegeneration(smallChangeMinorBoost); } };
 							case BOOST:
-								return new RacialEffectUtil("Increase in milk regeneration.", smallChangeBoost, "") { @Override public String applyEffect() { return target.incrementBreastLactationRegeneration(largeChangeBoost); } };
+								return new RacialEffectUtil("Increase in milk regeneration.", smallChangeBoost, "") { @Override public String applyEffect() { return target.incrementBreastLactationRegeneration(smallChangeBoost); } };
 							case MAJOR_BOOST:
-								return new RacialEffectUtil("Huge increase in milk regeneration.", smallChangeMajorBoost, "") { @Override public String applyEffect() { return target.incrementBreastLactationRegeneration(largeChangeMajorBoost); } };
+								return new RacialEffectUtil("Huge increase in milk regeneration.", smallChangeMajorBoost, "") { @Override public String applyEffect() { return target.incrementBreastLactationRegeneration(smallChangeMajorBoost); } };
 						}
 						
 					case TF_MOD_ORIFICE_PUFFY:
