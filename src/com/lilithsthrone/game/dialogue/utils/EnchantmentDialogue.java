@@ -83,6 +83,10 @@ public class EnchantmentDialogue {
 	private static Map<String, LoadedEnchantment> loadedEnchantmentsMap;
 	
 	private static String outputName = "";
+	
+	private static boolean isEquipped = false;
+	private static GameCharacter isEquippedTo = null;
+	private static InventorySlot isEquippedIn = null;
 
 	private static String inventoryView() {
 		inventorySB.setLength(0);
@@ -490,8 +494,13 @@ public class EnchantmentDialogue {
 			
 		} else if(ingredient instanceof Tattoo) {
 			Main.game.getPlayer().incrementMoney(-EnchantingUtils.getCost(ingredient, effects)*EnchantingUtils.FLAME_COST_MODIFER);
-			
-			EnchantingUtils.craftTattoo(ingredient, effects);
+			if (EnchantmentDialogue.isEquipped) {
+				EnchantmentDialogue.isEquippedTo.removeTattoo(EnchantmentDialogue.isEquippedIn);
+				EnchantingUtils.craftTattoo(ingredient, effects);
+				EnchantmentDialogue.isEquippedTo.addTattoo(EnchantmentDialogue.isEquippedIn, (Tattoo) ingredient);
+			} else {
+				EnchantingUtils.craftTattoo(ingredient, effects);
+			}
 			Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourExcellent(Tattoo Enchanted)]", Util.capitaliseSentence(((Tattoo)ingredient).getName())), false);
 		}
 		
@@ -517,6 +526,9 @@ public class EnchantmentDialogue {
 		EnchantmentDialogue.limit = 0;
 		EnchantmentDialogue.tattooBearer = null;
 		EnchantmentDialogue.tattooSlot = null;
+		EnchantmentDialogue.isEquipped = false;
+		EnchantmentDialogue.isEquippedIn = null;
+		EnchantmentDialogue.isEquippedTo = null;
 	}
 	
 	public static void resetNonTattooEnchantmentVariables() {
@@ -544,6 +556,11 @@ public class EnchantmentDialogue {
 		if(ingredient instanceof AbstractClothing
 				|| ingredient instanceof Tattoo) {
 			EnchantmentDialogue.effects = new ArrayList<>(ingredient.getEffects());
+			if (tattooBearer.getTattooInSlot(tattooSlot) == ingredient) {
+				EnchantmentDialogue.isEquipped = true;
+				EnchantmentDialogue.isEquippedIn = tattooSlot;
+				EnchantmentDialogue.isEquippedTo = tattooBearer;
+			}
 		} else {
 			EnchantmentDialogue.effects = new ArrayList<>();
 		}
