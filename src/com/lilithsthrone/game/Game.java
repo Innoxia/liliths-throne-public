@@ -1012,6 +1012,10 @@ public class Game implements Serializable, XMLSaving {
 			addNPC(new SlimeGuardFire(), false);
 			addNPC(new SlimeRoyalGuard(), false);
 			
+			addNPC(new Roxy(), false);
+			addNPC(new Axel(), false);
+			addNPC(new Epona(), false);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
