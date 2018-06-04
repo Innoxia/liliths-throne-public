@@ -692,7 +692,7 @@ public enum Quest {
 
 		@Override
 		public String getDescription() {
-			return "Force the Slime Queen to abandom her plans.";
+			return "Force the Slime Queen to abandon her plans.";
 		}
 
 		@Override

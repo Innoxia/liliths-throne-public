@@ -203,7 +203,7 @@
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="CLAIRE_INFO_REPORT_BACK"><![CDATA[
+	<htmlContent tag="CLAIRE_INFO_SLIME_QUEEN_REPORT_BACK"><![CDATA[
 	<p>
 		Wanting to report on your success with dealing with the Slime Queen, you walk up to where Claire is working and call out to her, [pc.speech(Hi Claire!)]
 	</p>
@@ -240,7 +240,7 @@
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="CLAIRE_INFO_REPORT_BACK_LIE"><![CDATA[
+	<htmlContent tag="CLAIRE_INFO_SLIME_QUEEN_REPORT_BACK_LIE"><![CDATA[
 	<p>
 		Wanting to make your fictitious report that the Slime Queen has been dealt with, you walk up to where Claire is working and call out to her, [pc.speech(Hi Claire!)]
 	</p>
@@ -407,9 +407,9 @@
 	</p>
 	<p>
 		A huge, two-story building, reaching up to the tunnel's ceiling, has been built into the wall on one side of this area.
-		 A sign above one of its many entrances declares it to be the 'Gambling Den'.
+		 A sign above the entrance declares it to be the 'Gambling Den'.
 		 While the market stalls aren't worth your time, this building looks as though it contains something of interest.
-		 Walking up to the doorway, you see a little sign bearing the words 'Open 24/7', and you wonder if you should go inside and take a look...
+		 Walking up to the open doorway, you see a little sign fixed onto the wall, which bears the words 'Open 24/7'.
 	</p>
 	]]>
 	</htmlContent>

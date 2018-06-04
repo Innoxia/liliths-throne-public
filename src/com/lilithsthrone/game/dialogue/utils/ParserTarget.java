@@ -584,6 +584,39 @@ public enum ParserTarget {
 			return Main.game.getSlimeRoyalGuard();
 		}
 	},
+	
+	ROXY(Util.newArrayListOfValues("roxy"), "") {
+		public String getDescription() {
+			return Main.game.getRoxy().getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter(String tag) {
+			return Main.game.getRoxy();
+		}
+	},
+	
+	AXEL(Util.newArrayListOfValues("axel"), "") {
+		public String getDescription() {
+			return Main.game.getAxel().getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter(String tag) {
+			return Main.game.getAxel();
+		}
+	},
+	
+	EPONA(Util.newArrayListOfValues("epona"), "") {
+		public String getDescription() {
+			return Main.game.getEpona().getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter(String tag) {
+			return Main.game.getEpona();
+		}
+	},
 	;
 	
 	

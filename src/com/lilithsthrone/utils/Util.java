@@ -20,6 +20,7 @@ import java.util.Map.Entry;
 import java.util.NoSuchElementException;
 import java.util.Random;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.function.Function;
 import java.util.regex.Pattern;
 
@@ -78,7 +79,6 @@ public class Util {
 		for (int i = 0; i <= 14; i++) {
 			s = s.replaceAll("linearGradient" + i, gradientReplacementID + colour.toString() + (colourSecondary!=null?colourSecondary.toString():"") + (colourTertiary!=null?colourTertiary.toString():"") + "linearGradient" + i);
 			s = s.replaceAll("innoGrad" + i, gradientReplacementID + colour.toString() + (colourSecondary!=null?colourSecondary.toString():"") + (colourTertiary!=null?colourTertiary.toString():"") + "innoGrad" + i);
-			
 		}
 		
 		if(colour!=null) {
@@ -233,6 +233,25 @@ public class Util {
 
 		return null;
 	}
+	
+	public static <T> T getRandomObjectFromWeightedFloatMap(Map<T, Float> map) {
+		int total = 0;
+		for(float f : map.values()) {
+			total+=f;
+		}
+		
+		float choice = (float) (Math.random()*total);
+		
+		total = 0;
+		for(Entry<T, Float> entry : map.entrySet()) {
+			total+=entry.getValue();
+			if(choice<=total) {
+				return entry.getKey();
+			}
+		}
+
+		return null;
+	}
 
 	public static String getDayOfMonthSuffix(int n) {
 		if (n >= 11 && n <= 13) {
@@ -281,30 +300,103 @@ public class Util {
 			"ninety"
 	};
 	
+	/**
+	 * Only works for values -99,999 to 99,999.
+	 * @param integer
+	 * @return
+	 */
 	public static String intToString(int integer) {
-		if(integer>=0 && integer<1000){
-			String intToString = "";
-			if(integer>=100) {
-				intToString = numbersLessThanTwenty[(integer%1000)/100]+" hundred";
-				if(integer%100!=0) {
-					if(integer%100<20) {
-						intToString+=" and "+numbersLessThanTwenty[integer%100];
-					} else {
-						intToString+=" and "+tensGreaterThanNineteen[(integer%100)/10] + ((integer%10!=0)?"-"+numbersLessThanTwenty[integer%10]:"");
-					}
-				}
-			} else {
-				if(integer%100<20) {
-					intToString+=numbersLessThanTwenty[integer%100];
-				} else {
-					intToString+=tensGreaterThanNineteen[(integer%100)/10] + ((integer%10!=0)?"-"+numbersLessThanTwenty[integer%10]:"");
-				}
-			}
-			
-			return intToString;
+//		if(integer>=0 && integer<1000){
+		String intToString = "";
+		
+		if(integer<0) {
+			intToString = "minus ";
+		}
+		integer = Math.abs(integer);
+		if (integer >= 100_000) {
+			return intToString + " a lot";
 		}
 		
-		return String.valueOf(integer);
+		
+		if(integer>=1000) {
+			if((integer/1000)<20) {
+				intToString+=numbersLessThanTwenty[(integer/1000)]+" thousand";
+			} else {
+				intToString+=tensGreaterThanNineteen[integer/10000] + (((integer/1000)%10!=0)?"-"+numbersLessThanTwenty[(integer/1000)%10]:"")+" thousand";
+			}
+		}
+		
+		if(integer>=100) {
+			if(integer>=1000 && integer%1000 != 0) {
+				intToString+=", ";
+			}
+			integer = integer % 1000;
+			if (intToString.isEmpty() || integer>=100) {
+				intToString += numbersLessThanTwenty[integer/100]+" hundred";
+			}
+			if(integer%100!=0) {
+				intToString+=" and ";
+				integer = integer % 100;
+			}
+		}
+		
+		if(integer%100<20) {
+			if (integer%100 == 0) {
+				if (intToString.isEmpty()) {
+					return "zero";
+				}
+			} else {
+				intToString+=numbersLessThanTwenty[integer%100];
+			}
+		} else {
+			intToString+=tensGreaterThanNineteen[(integer%100)/10] + ((integer%10!=0)?"-"+numbersLessThanTwenty[integer%10]:"");
+		}
+		
+		return intToString;
+			
+//		}
+		
+//		return String.valueOf(integer);
+	}
+	
+	private final static TreeMap<Integer, String> numeralMap = new TreeMap<Integer, String>();
+	static {
+        numeralMap.put(1000, "M");
+        numeralMap.put(900, "CM");
+        numeralMap.put(500, "D");
+        numeralMap.put(400, "CD");
+        numeralMap.put(100, "C");
+        numeralMap.put(90, "XC");
+        numeralMap.put(50, "L");
+        numeralMap.put(40, "XL");
+        numeralMap.put(10, "X");
+        numeralMap.put(9, "IX");
+        numeralMap.put(5, "V");
+        numeralMap.put(4, "IV");
+        numeralMap.put(1, "I");
+    }
+	
+	public static String intToNumerals(int integer) {
+		if(integer<=0) {
+			return "0";
+		}
+		int l =  numeralMap.floorKey(integer);
+        if (integer == l) {
+            return numeralMap.get(integer);
+        }
+        return numeralMap.get(l) + intToNumerals(integer-l);
+	}
+	
+	public static String intToTally(int integer) {
+		StringBuilder numeralSB = new StringBuilder();
+		for(int i=0; i<integer/5; i++) {
+			numeralSB.append("<strike>IIII</strike> ");
+		}
+		for(int i=0; i<integer%5; i++) {
+			numeralSB.append("I");
+		}
+		
+		return numeralSB.toString();
 	}
 	
 	public static String getKeyCodeCharacter(KeyCode code) {
@@ -512,16 +604,16 @@ public class Util {
 		return utilitiesStringBuilder.toString();
 	}
 
-	private static Pattern endOfSentence = Pattern.compile("[.!?]");
+	private static Pattern endOfSentence = Pattern.compile("[,.!?]");
 	/**
-	 * Determine whether a given string contains sentence-ending punctuation
-	 *
-	 * @param text
-	 *            text to check whether
-	 * @return
-	 *            boolean, whether the text contains a period, exlamation or question mark
+	 * Determine whether a given string contains sentence-ending punctuation.
+	 * @param text text to check whether
+	 * @return boolean whether the text contains a period, exclamation or question mark
 	 */
 	private static boolean isEndOfSentence(String text) {
+		if(text.isEmpty()) {
+			return false;
+		}
 		return endOfSentence.matcher(text.substring(text.length()-1)).matches();
 	}
 
@@ -583,7 +675,7 @@ public class Util {
 		return insertIntoSentences(sentence, frequency, inserts, true);
 	}
 
-	private static String[] bimboWords = new String[] { ", like, ", ", like, ", ", like, ", ", um, ", ", uh, ", ", ah, " };
+	private static String[] bimboWords = new String[] { ", like,", ", like,", ", like,", ", um,", ", uh,", ", ah," };
 	/**
 	 * Turns a normal sentence into the kind of thing a Bimbo would come out with.
 	 * Can be safely used in conjunction with addStutter.
@@ -751,9 +843,22 @@ public class Util {
 	public static String inventorySlotsToStringList(List<InventorySlot> inventorySlots) {
 		return Util.toStringList(inventorySlots, InventorySlot::getName, "and");
 	}
+	
+	public static String tattooInventorySlotsToStringList(List<InventorySlot> inventorySlots) {
+		return Util.toStringList(inventorySlots, InventorySlot::getTattooSlotName, "and");
+	}
 
 	public static String displacementTypesToStringList(List<DisplacementType> displacedList) {
 		return Util.toStringList(displacedList, DisplacementType::getDescriptionPast, "and");
 	}
 
+	public static <Any> Any randomItemFrom(List<Any> list)
+	{
+		return list.get(Util.random.nextInt(list.size()));
+	}
+
+	public static int randomItemFrom(int[] array)
+	{
+		return array[Util.random.nextInt(array.length)];
+	}
 }

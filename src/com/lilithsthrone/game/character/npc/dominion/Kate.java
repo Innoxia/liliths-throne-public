@@ -20,6 +20,10 @@ import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.body.valueEnums.WingSize;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
+import com.lilithsthrone.game.character.markings.Tattoo;
+import com.lilithsthrone.game.character.markings.TattooType;
+import com.lilithsthrone.game.character.markings.TattooWriting;
+import com.lilithsthrone.game.character.markings.TattooWritingStyle;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
@@ -34,9 +38,14 @@ import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.CharacterInventory;
+import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
+import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
+import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
+import com.lilithsthrone.game.inventory.enchanting.TFModifier;
+import com.lilithsthrone.game.inventory.enchanting.TFPotency;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.Sex;
@@ -76,6 +85,52 @@ public class Kate extends NPC {
 				new Value<>(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.HIGH)));
 		
 		if(!isImported) {
+			try {
+				Tattoo tat = new Tattoo(
+						TattooType.getTattooTypeFromId("innoxia_heartWomb_heart_womb"),
+						Colour.CLOTHING_PINK,
+						Colour.CLOTHING_PINK_LIGHT,
+						Colour.CLOTHING_PURPLE,
+						true,
+						new TattooWriting(
+								"Breed me!",
+								Colour.CLOTHING_PINK_LIGHT,
+								true,
+								TattooWritingStyle.ITALICISED),
+						null);
+				
+				for(int i=0; i<10; i++) {
+					tat.addEffect(new ItemEffect(ItemEffectType.TATTOO, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.FERTILITY, TFPotency.MAJOR_BOOST, 0));
+				}
+				
+				this.addTattoo(InventorySlot.GROIN, tat);
+				
+				this.addTattoo(InventorySlot.TORSO_OVER,
+						new Tattoo(
+							TattooType.BUTTERFLIES,
+							Colour.CLOTHING_PURPLE,
+							Colour.CLOTHING_PINK,
+							Colour.CLOTHING_PINK_LIGHT,
+							false,
+							null,
+							null));
+				
+				this.addTattoo(InventorySlot.TORSO_UNDER,
+						new Tattoo(
+							TattooType.TRIBAL,
+							Colour.CLOTHING_BLACK,
+							null,
+							null,
+							false,
+							new TattooWriting(
+									"Don't pull out!",
+									Colour.CLOTHING_BLACK,
+									false),
+							null));
+				
+			} catch(Exception ex) {
+			}
+			
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 	
 			this.setEyeCovering(new Covering(BodyCoveringType.EYE_DEMON_COMMON, Colour.EYE_GREEN));
@@ -143,6 +198,54 @@ public class Kate extends NPC {
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_FISHNET_STOCKINGS, Colour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_HEELS, Colour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_EAR_BASIC_RING, Colour.CLOTHING_GOLD, false), true, this);
+		
+		if(this.getTattooInSlot(InventorySlot.GROIN)==null) {
+			try {
+				Tattoo tat = new Tattoo(
+						TattooType.getTattooTypeFromId("innoxia_heartWomb_heart_womb"),
+						Colour.CLOTHING_PINK,
+						Colour.CLOTHING_PINK_LIGHT,
+						Colour.CLOTHING_PURPLE,
+						true,
+						new TattooWriting(
+								"Breed me!",
+								Colour.CLOTHING_PINK_LIGHT,
+								true,
+								TattooWritingStyle.ITALICISED),
+						null);
+				
+				for(int i=0; i<10; i++) {
+					tat.addEffect(new ItemEffect(ItemEffectType.TATTOO, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.FERTILITY, TFPotency.MAJOR_BOOST, 0));
+				}
+				
+				this.addTattoo(InventorySlot.GROIN, tat);
+				
+				this.addTattoo(InventorySlot.TORSO_OVER,
+						new Tattoo(
+							TattooType.BUTTERFLIES,
+							Colour.CLOTHING_PURPLE,
+							Colour.CLOTHING_PINK,
+							Colour.CLOTHING_PINK_LIGHT,
+							false,
+							null,
+							null));
+				
+				this.addTattoo(InventorySlot.TORSO_UNDER,
+						new Tattoo(
+							TattooType.TRIBAL,
+							Colour.CLOTHING_BLACK,
+							null,
+							null,
+							false,
+							new TattooWriting(
+									"Don't pull out!",
+									Colour.CLOTHING_BLACK,
+									false),
+							null));
+				
+			} catch(Exception ex) {
+			}
+		}
 
 		dailyReset();
 	}

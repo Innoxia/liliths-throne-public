@@ -23,6 +23,7 @@ import com.lilithsthrone.game.character.npc.submission.BatMorphCavernAttacker;
 import com.lilithsthrone.game.character.npc.submission.SlimeCavernAttacker;
 import com.lilithsthrone.game.character.npc.submission.SubmissionAttacker;
 import com.lilithsthrone.game.character.quests.QuestLine;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.npcDialogue.SlaveDialogue;
@@ -192,7 +193,7 @@ public enum Encounter {
 				if(Main.game.isIncestEnabled() && Math.random()<0.2f) { // Incest
 					List<NPC> offspringAvailable = new ArrayList<>();
 					offspringAvailable.addAll(Main.game.getOffspring().stream().filter(npc -> !npc.isSlave()
-																								&& npc.getSubspecies().getWorldLocations().contains(WorldType.DOMINION)
+																								&& (npc.getSubspecies().getWorldLocations().contains(WorldType.DOMINION) || npc.getSubspecies()==Subspecies.ANGEL)
 																								&& npc.getLastTimeEncountered()==NPC.DEFAULT_TIME_START_VALUE).collect(Collectors.toList()));
 					offspringAvailable.removeAll(Main.game.getOffspringSpawned());
 					
@@ -436,7 +437,27 @@ public enum Encounter {
 					Main.game.setActiveNPC(npc);
 					return Main.game.getActiveNPC().getEncounterDialogue();
 				}
-
+				
+				if(Main.game.isIncestEnabled() && Math.random()<0.2f) { // Incest
+					List<NPC> offspringAvailable = new ArrayList<>();
+					offspringAvailable.addAll(Main.game.getOffspring().stream().filter(npc -> !npc.isSlave()
+																								&& npc.getSubspecies().getWorldLocations().contains(WorldType.HARPY_NEST)
+																								&& npc.getLastTimeEncountered()==NPC.DEFAULT_TIME_START_VALUE).collect(Collectors.toList()));
+					offspringAvailable.removeAll(Main.game.getOffspringSpawned());
+					
+					if(!offspringAvailable.isEmpty()) {
+						NPC offspring = offspringAvailable.get(Util.random.nextInt(offspringAvailable.size()));
+						Main.game.getOffspringSpawned().add(offspring);
+						
+						offspring.setWorldLocation(Main.game.getPlayer().getWorldLocation());
+						offspring.setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY()));
+						
+						Main.game.setActiveNPC(offspring);
+						
+						return Main.game.getActiveNPC().getEncounterDialogue();
+					}
+				}
+				
 				Main.game.setActiveNPC(new HarpyNestsAttacker(GenderPreference.getGenderFromUserPreferences()));
 				
 				Main.game.getActiveNPC().setLocation(Main.game.getPlayer().getLocation());

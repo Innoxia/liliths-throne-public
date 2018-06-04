@@ -35,7 +35,8 @@ public enum Race {
 			Attribute.DAMAGE_HUMAN,
 			Attribute.RESISTANCE_HUMAN,
 			FurryPreference.NORMAL,
-			FurryPreference.NORMAL),
+			FurryPreference.NORMAL,
+			false),
 	
 	// HUMAN:
 	HUMAN("human",
@@ -62,7 +63,8 @@ public enum Race {
 			Attribute.DAMAGE_HUMAN,
 			Attribute.RESISTANCE_HUMAN,
 			FurryPreference.NORMAL,
-			FurryPreference.NORMAL),
+			FurryPreference.NORMAL,
+			false),
 
 	// ANGEL:
 	ANGEL("angel",
@@ -89,7 +91,8 @@ public enum Race {
 			Attribute.DAMAGE_ANGEL,
 			Attribute.RESISTANCE_ANGEL,
 			FurryPreference.NORMAL,
-			FurryPreference.NORMAL),
+			FurryPreference.NORMAL,
+			false),
 
 	// DEMON:
 	DEMON("demon",
@@ -117,7 +120,8 @@ public enum Race {
 			Attribute.DAMAGE_DEMON,
 			Attribute.RESISTANCE_DEMON,
 			FurryPreference.MAXIMUM,
-			FurryPreference.MAXIMUM),
+			FurryPreference.MAXIMUM,
+			false),
 
 	IMP("imp",
 			"imps",
@@ -143,7 +147,8 @@ public enum Race {
 			Attribute.DAMAGE_IMP,
 			Attribute.RESISTANCE_IMP,
 			FurryPreference.MAXIMUM,
-			FurryPreference.MAXIMUM),
+			FurryPreference.MAXIMUM,
+			false),
 
 	// BOVINES:
 	COW_MORPH("cow-morph",
@@ -170,7 +175,8 @@ public enum Race {
 			Attribute.DAMAGE_COW_MORPH,
 			Attribute.RESISTANCE_COW_MORPH,
 			FurryPreference.NORMAL,
-			FurryPreference.NORMAL),
+			FurryPreference.NORMAL,
+			true),
 
 	// CANINES:
 	DOG_MORPH("dog-morph",
@@ -195,7 +201,8 @@ public enum Race {
 			Attribute.DAMAGE_DOG_MORPH,
 			Attribute.RESISTANCE_DOG_MORPH,
 			FurryPreference.NORMAL,
-			FurryPreference.NORMAL),
+			FurryPreference.NORMAL,
+			true),
 
 	WOLF_MORPH("wolf-morph",
 			"wolf-morphs",
@@ -221,7 +228,8 @@ public enum Race {
 			Attribute.DAMAGE_WOLF_MORPH,
 			Attribute.RESISTANCE_WOLF_MORPH,
 			FurryPreference.NORMAL,
-			FurryPreference.NORMAL),
+			FurryPreference.NORMAL,
+			true),
 
 	// FELINES:
 	CAT_MORPH("cat-morph",
@@ -248,7 +256,8 @@ public enum Race {
 			Attribute.DAMAGE_CAT_MORPH,
 			Attribute.RESISTANCE_CAT_MORPH,
 			FurryPreference.NORMAL,
-			FurryPreference.NORMAL),
+			FurryPreference.NORMAL,
+			true),
 
 	// EQUINE:
 	HORSE_MORPH("horse-morph",
@@ -275,7 +284,8 @@ public enum Race {
 			Attribute.DAMAGE_HORSE_MORPH,
 			Attribute.RESISTANCE_HORSE_MORPH,
 			FurryPreference.NORMAL,
-			FurryPreference.NORMAL),
+			FurryPreference.NORMAL,
+			true),
 
 	
 	 REINDEER_MORPH("reindeer-morph",
@@ -302,7 +312,8 @@ public enum Race {
 			Attribute.DAMAGE_REINDEER_MORPH,
 			Attribute.RESISTANCE_REINDEER_MORPH,
 			FurryPreference.NORMAL,
-			FurryPreference.NORMAL),
+			FurryPreference.NORMAL,
+			true),
 			
 
 	SQUIRREL_MORPH("squirrel-morph",
@@ -328,7 +339,8 @@ public enum Race {
 			Attribute.DAMAGE_SQUIRREL_MORPH,
 			Attribute.RESISTANCE_SQUIRREL_MORPH,
 			FurryPreference.NORMAL,
-			FurryPreference.NORMAL),
+			FurryPreference.NORMAL,
+			true),
 
 	RAT_MORPH("rat-morph",
 			"rat-morphs",
@@ -354,7 +366,8 @@ public enum Race {
 			Attribute.DAMAGE_RAT_MORPH,
 			Attribute.RESISTANCE_RAT_MORPH,
 			FurryPreference.NORMAL,
-			FurryPreference.NORMAL),
+			FurryPreference.NORMAL,
+			true),
 
 	RABBIT_MORPH("rabbit-morph",
 			"rabbit-morphs",
@@ -380,7 +393,8 @@ public enum Race {
 			Attribute.DAMAGE_RABBIT_MORPH,
 			Attribute.RESISTANCE_RABBIT_MORPH,
 			FurryPreference.NORMAL,
-			FurryPreference.NORMAL),
+			FurryPreference.NORMAL,
+			true),
 	
 	BAT_MORPH("bat-morph",
 			"bat-morphs",
@@ -406,7 +420,8 @@ public enum Race {
 			Attribute.DAMAGE_BAT_MORPH,
 			Attribute.RESISTANCE_BAT_MORPH,
 			FurryPreference.NORMAL,
-			FurryPreference.NORMAL),
+			FurryPreference.NORMAL,
+			true),
 	
 	ALLIGATOR_MORPH("alligator-morph",
 			"alligator-morphs",
@@ -432,7 +447,8 @@ public enum Race {
 			Attribute.DAMAGE_ALLIGATOR_MORPH,
 			Attribute.RESISTANCE_ALLIGATOR_MORPH,
 			FurryPreference.NORMAL,
-			FurryPreference.NORMAL),
+			FurryPreference.NORMAL,
+			true),
 
 	// SLIME:
 	SLIME("slime",
@@ -457,7 +473,8 @@ public enum Race {
 			Attribute.DAMAGE_SLIME,
 			Attribute.RESISTANCE_SLIME,
 			FurryPreference.MAXIMUM,
-			FurryPreference.MAXIMUM),
+			FurryPreference.MAXIMUM,
+			false),
 
 	// AVIAN:
 	HARPY("harpy",
@@ -484,7 +501,8 @@ public enum Race {
 			Attribute.DAMAGE_HARPY,
 			Attribute.RESISTANCE_HARPY,
 			FurryPreference.NORMAL,
-			FurryPreference.NORMAL),
+			FurryPreference.NORMAL,
+			false),
 	
 
 	// ELEMENTALS:
@@ -512,7 +530,8 @@ public enum Race {
 			Attribute.DAMAGE_ELEMENTAL_EARTH,
 			Attribute.RESISTANCE_ELEMENTAL_EARTH,
 			FurryPreference.MAXIMUM,
-			FurryPreference.MAXIMUM),
+			FurryPreference.MAXIMUM,
+			false),
 	
 	ELEMENTAL_WATER("water elemental",
 			"water elementals",
@@ -538,7 +557,8 @@ public enum Race {
 			Attribute.DAMAGE_ELEMENTAL_WATER,
 			Attribute.RESISTANCE_ELEMENTAL_WATER,
 			FurryPreference.MAXIMUM,
-			FurryPreference.MAXIMUM),
+			FurryPreference.MAXIMUM,
+			false),
 	
 	ELEMENTAL_AIR("air elemental",
 			"air elementals",
@@ -564,7 +584,8 @@ public enum Race {
 			Attribute.DAMAGE_ELEMENTAL_AIR,
 			Attribute.RESISTANCE_ELEMENTAL_AIR,
 			FurryPreference.MAXIMUM,
-			FurryPreference.MAXIMUM),
+			FurryPreference.MAXIMUM,
+			false),
 	
 	ELEMENTAL_FIRE("fire elemental",
 			"fire elementals",
@@ -591,7 +612,8 @@ public enum Race {
 			Attribute.DAMAGE_ELEMENTAL_FIRE,
 			Attribute.RESISTANCE_ELEMENTAL_FIRE,
 			FurryPreference.MAXIMUM,
-			FurryPreference.MAXIMUM),
+			FurryPreference.MAXIMUM,
+			false),
 	
 	ELEMENTAL_ARCANE("arcane elemental",
 			"arcane elementals",
@@ -617,7 +639,8 @@ public enum Race {
 			Attribute.DAMAGE_ELEMENTAL_ARCANE,
 			Attribute.RESISTANCE_ELEMENTAL_ARCANE,
 			FurryPreference.MAXIMUM,
-			FurryPreference.MAXIMUM),
+			FurryPreference.MAXIMUM,
+			false),
 	
 	;
 
@@ -1171,72 +1194,6 @@ public enum Race {
 	 * 
 	 * 
 	 * 
-	 * COW_MORPH("cow morph",
-	 * 
-	 * "Bovines are a humanoid race most commonly found in the city of Dominion."
-	 * +
-	 * " Bovines are quite stupid and the females are very submissive, and will happily do whatever their friends tell them to do."
-	 * +
-	 * " They are mostly known for their females having gigantic breasts and heavy lactation."
-	 * +
-	 * " Due to this, they are often the target of unwanted attention from the other races."
-	 * +
-	 * " Bovines love to have their breasts milked, and prefer their sexual partners to pay attention to their breasts."
-	 * ,
-	 * 
-	 * "Bovines are humanoid, with a human body and face." +
-	 * " Their legs and arms are covered in a fine layer of fur, ending at the thigh and upper arm."
-	 * + " Their feet are shaped into hooves." +
-	 * " A cow-like tail grows from above their ass." +
-	 * " They have a pair of cow-like ears and a pair of horns, with males having considerable larger horns than females."
-	 * +
-	 * " Females typically have three pairs of gigantic breasts, with multiple nipples on each."
-	 * + " Males have a horse-like cock.",
-	 * 
-	 * "Female bovines are extremely passive, and will usually submit when attacked."
-	 * + " Males, however, will defend themselves." +
-	 * " They are completely unable to use magic." +
-	 * "Males will use physical attacks in combat, and if a female decides to fight, she will use seduction."
-	 * ,
-	 * 
-	 * " Bovines will breed with any other race." +
-	 * " A Bovine pregnancy results in a pair of Bovines, which will rapidly reach full maturity and leave to make their own way in Dominion."
-	 * ,
-	 * 
-	 * RacialBody.BOVINE, Genus.BOVINE, Disposition.CIVILIZED,
-	 * StatusEffect.COW_MORPH),
-	 * 
-	 * MINOTAUR("minotaur",
-	 * 
-	 * "Minotaurs are an exclusively male humanoid monster race." +
-	 * " Minotaurs are extremely dominant and aggressive, and will attack almost anything on sight."
-	 * + " As a result, Minotaurs have been driven out of Dominion society." +
-	 * " A minotaur will usually have a herd of submissive Bovines following him everywhere."
-	 * +
-	 * " Minotaurs show a special interest in free Bovines, and after raping them, will force them to join his herd."
-	 * +
-	 * " The minotaur will then forcefully transform the Bovine into a hyper-breasted submissive fuck toy."
-	 * ,
-	 * 
-	 * "Minotaurs are humanoid monsters, with a fine layer of fur covering their entire bodies."
-	 * + " Their feet are shaped into hooves and their legs are digitigrade." +
-	 * " A cow-like tail grows from above their ass." +
-	 * " They have a pair of cow-like ears and a pair of huge horns." +
-	 * " They have anthropomorphic cow-like faces." +
-	 * " They have a gigantic horse-like cock.",
-	 * 
-	 * "Minotaurs will attack almost anything they see." +
-	 * " They are unable to learn magic, and will always fight using brute force."
-	 * ,
-	 * 
-	 * "Minotaurs will breed with anything they can catch." +
-	 * " Each Minotaur pregnancy will result in a single Minotaur, which will rapidly reach full maturity and leave to find a herd of his own."
-	 * ,
-	 * 
-	 * RacialBody.MINOTAUR, Genus.BOVINE, Disposition.UNPREDICTABLE,
-	 * StatusEffect.MINOTAUR),
-	 * 
-	 * 
 	 * 
 	 * SPIDER_MORPH("spider morph",
 	 * 
@@ -1430,6 +1387,7 @@ public enum Race {
 	private float chanceForMaleOffspring;
 	private Attribute damageMultiplier, resistanceMultiplier;
 	private FurryPreference defaultFemininePreference, defaultMasculinePreference;
+	private boolean affectedByFurryPreference;
 	
 	private Race(String name,
 			String namePlural,
@@ -1455,7 +1413,7 @@ public enum Race {
 			Attribute resistanceMultiplier,
 			
 			FurryPreference defaultFemininePreference,
-			FurryPreference defaultMasculinePreference) {
+			FurryPreference defaultMasculinePreference, boolean affectedByFurryPreference) {
 		this.name = name;
 
 		this.basicDescription = basicDescription;
@@ -1479,6 +1437,8 @@ public enum Race {
 		
 		this.defaultFemininePreference = defaultFemininePreference;
 		this.defaultMasculinePreference = defaultMasculinePreference;
+		
+		this.affectedByFurryPreference = affectedByFurryPreference;
 	}
 
 	public String getName() {
@@ -1522,10 +1482,8 @@ public enum Race {
 	}
 	
 	public boolean isAffectedByFurryPreference() {
-		return defaultFemininePreference != null && defaultMasculinePreference!=null;
+		return affectedByFurryPreference;
 	}
-	
-	// Offspring names:
 	
 	public float getChanceForMaleOffspring() {
 		return chanceForMaleOffspring;

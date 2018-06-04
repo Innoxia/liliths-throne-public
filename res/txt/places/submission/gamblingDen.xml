@@ -1,0 +1,657 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<htmlContent tag="ENTRANCE"><![CDATA[
+	<p>
+		The wooden doors of the Gambling Den's front entrance are propped open, allowing you to easily make your way forwards into the establishment. As you enter, you find yourself standing in a very large entrance hall. A sign hanging from the ceiling in front of you reads 'Welcome to the Gambling Den!', and from somewhere further within the building, you hear the distinctive sounds of laughter, conversation, and then of a slot machine dispensing coins to a lucky winner. 
+	</p>
+	<p>
+		Although there only a few people loitering around in this entrance hall, the constant drone of chatter coming from up ahead lets you know that this place must be quite popular. As you start to walk forwards, intent on exploring the establishment, a voice suddenly calls out from your right-hand side, [axel.speech(Hello there! I haven't seen you here before!)]
+	</p>
+	<p>
+		Turning towards the source of the voice, you see a tall, muscular alligator-boy grinning at you. The scales covering his body are all a brilliant white, and as he comes to a halt in front of you, his pair of bright blue eyes lock onto yours, and he continues, [axel.speech(I'm Axel, the owner of this place, and I like to say hello to every fresh face I see!)]
+	</p>
+	<p>
+		[pc.speech(I'm [pc.name],)] you reply, returning the alligator-boy's greeting as he happily reaches out to shake your hand.
+	</p>
+	<p>
+		[axel.speech(It's a pleasure to meet you! Now, if you're looking to have some fun, you've come to the right place. We've got dice poker straight ahead down the hall here,)] Axel says, pointing one of his clawed hands forwards, before turning it to the right and continuing, [axel.speech(and the slot machines are lining the main atrium down to the right there. If you continue on down to the very end, you'll find my good friend Epona, who runs our very special 'pregnancy roulette' game! You can get all the details of that from her.)]
+	</p>
+	<p>
+		[pc.speech(Thanks,)] you say, [pc.speech(I'll go and check it all out.)]
+	</p>
+	<p>
+		[axel.speech(Oh, and, erm, we've also got a shop,)] Axel says, the friendly tone of his voice shifting into one of discomfort, [axel.speech(Roxy's the one that runs it. Just be careful around her, ok?)]
+	</p>
+	<p>
+		[pc.speech(Ok, I'll see you around,)] you say, letting Axel hurry off to one side of the hall before moving off to explore the building.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENTRANCE_REPEAT"><![CDATA[
+	<p>
+		You find yourself standing in the Gambling Den's entrance hall. A sign hanging from the ceiling in front of you reads 'Welcome to the Gambling Den!', and from somewhere further within the building, you hear the distinctive sounds of laughter, conversation, and then of a slot machine dispensing coins to a lucky winner. 
+	</p>
+	<p>
+		To one side of the hall, you see the large, muscular figure of Axel, the owner of this establishment. The albino alligator-boy looks to be busy keeping a close watch over everyone who comes and goes.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AXEL"><![CDATA[
+	<p>
+		Deciding that you'd like to talk to Axel, you approach the albino alligator-boy and call out to him, [pc.speech(Hi Axel!)]
+	</p>
+	<p>
+		[axel.speech(Ah, hello [pc.name]!)] he responds, turning to face you. [axel.speech(What can I do for you?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AXEL_BUSINESS"><![CDATA[
+	<p>
+		[pc.speech(How are you? Is business going well?)] you ask.
+	</p>
+	<p>
+		[axel.speech(I'm doing well, thank you.)] Axel responds, before letting out a sigh as he continues, [axel.speech(But business could be going better...)]
+	</p>
+	<p>
+		Before you can respond to this, the alligator-boy shakes his head and smiles at you. [axel.speech(Sorry, I don't mean to be pessimistic, and I don't want to offload my worries onto you. Everything's fine with me, thanks for asking.)] 
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AXEL_BUSINESS_VENGAR"><![CDATA[
+	<p>
+		[pc.speech(How are you? Is business going well?)] you ask.
+	</p>
+	<p>
+		[axel.speech(I'm doing well, thank you.)] Axel responds, before letting out a sigh as he continues, [axel.speech(But I don't know how much longer I can keep this place open. Business is going extremely well, but Vengar's demanding more and more protection money. I've already told him that he's going to run this place into the ground, but he just doesn't care.)]
+	</p>
+	<p>
+		Before you can respond to this, the alligator-boy shakes his head and smiles at you. [axel.speech(Sorry, I don't mean to be pessimistic, and I don't want to offload my worries onto you. Is there anything else I can help you with?)] 
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AXEL_ROXY"><![CDATA[
+	<p>
+		[pc.speech(So what's the story with Roxy?)] you ask, [pc.speech(She seems to be a little rough with her customers.)]
+	</p>
+	<p>
+		[axel.speech(Yeah, she's nothing but trouble.)] Axel sighs, [axel.speech(If it were up to me, I'd have thrown her out a long time ago. Seeing as she's Vengar's sister, I've got no choice but to leave her alo-)]
+	</p>
+	<p>
+		Axel suddenly stops talking mid-sentence, and, realising that he's said more than he meant to, starts to panic. [axel.speech(I-I mean, s-she's no trouble at all, ok? I never really meant to say that I want to throw her out! I was just joking, you understand?)]
+	</p>
+	<p>
+		[pc.speech(What's the matter?)] you ask, worried about Axel's sudden shift in tone. [pc.speech(And who's Vengar?)]
+	</p>
+	<p>
+		Axel glances around nervously, before lowering his voice and leaning in towards you. [axel.speech(Y-You mean you're not working for him?)]
+	</p>
+	<p>
+		[pc.speech(I don't even know who he is.)] you reply.
+	</p>
+	<p>
+		Axel lets out a big sigh of relief, [axel.speech(Thank goodness. I've been getting careless recently. I really shouldn't have mentioned Vengar.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AXEL_ROXY_VENGAR"><![CDATA[
+	<p>
+		[pc.speech(So what's the story with Roxy?)] you ask, [pc.speech(You said you'd have thrown her out if it was up to you.)]
+	</p>
+	<p>
+		[axel.speech(Yeah, I shouldn't have let that slip...)] Axel sighs, [axel.speech(But seeing as I did, I guess I should tell you the whole story.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CORRIDOR"><![CDATA[
+	<p>
+		The wide, spacious atrium of the Gambling Den is filled with the laughter and chatter of at least a hundred customers. Looking around, you see all manner of races, not just the usual alligator and rat-morphs which make up most of Submission's population.
+	</p>
+	<p>
+		Lining the walls of this vast hall are countless slot machines, in front of which sit the vast majority of the people in this area. Down the middle of the hall, numerous tables and chairs have been set out, and it's here that the rest of the establishment's patrons are drinking and playing casual gambling games with one another.
+	</p>
+	<p>
+		Although most of the slot machines are occupied, there are still quite a few which have been left vacant, and you could easily walk up to one and have a go, if you so desired.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TRADER"><![CDATA[
+	<p>
+		Adjoining the main atrium of the Gambling Den, you spot an open-fronted shop, with the sign 'Roxy's Fun Box' fixed to the wall above the opening. The interior is filled with rows of shelves, holding all manner of different goods, but despite quite obviously being open for business, the shop floor looks to be completely deserted. Wanting to investigate further, you step forwards into the shop, before starting to look around for any sign of the owner, 'Roxy'.
+	</p>
+	<p>
+		Despite there being a counter running along the far wall, you can't see anyone standing behind it. Recalling Axel's warning that you should be careful around Roxy, you carefully start walking up and down the aisles, on the lookout for any sign of trouble.
+	</p>
+	<p>
+		As you're taking a look at some of the goods on offer, you suddenly hear movement coming from behind the shop's counter, and, turning to face it, you see a rather scruffy-looking rat-girl standing up, before yawning and stretching her arms up above her head. The first thing you notice about her is the series of claw-shaped scars running down over one side of her face. A black eye patch conceals whatever damage this old wound has done to her eye, which gives her a rather ominous appearance. The second thing you notice about this brown-furred rat-girl is the fact that she's wearing an abundance of gold jewellery, with every possible piercing that you can imagine being home to some form of decorative ornament or another.
+	</p>
+	<p>
+		As she catches sight of you with her good eye, the rat-girl sneers, before unleashing one of the most profane greetings you've ever heard, [roxy.speech(Heh, someone's finally fuckin' come to buy some o' my shit. Well, that'd fuckin' better be what yer here for. The last cunt that came in here just fuckin' stood around like some gormless twat, an' I had to fuckin' scream at 'im to get 'im to fuck off. You don't look like a complete fuckin' idiot, so I'm hopin' yer gonna buy somethin', an' not waste my fuckin' time.)]
+	</p>
+	<p>
+		At this point, the foul-mouthed rat-girl smirks at you, before a cackling, grating laughter bursts out from between her lips. Placing both of her hands on the counter in front of her, she leans forwards and continues, [roxy.speech(The name's Roxy. You got a problem with any o' my prices, or what I've got fer sale, you fuckin' keep it to yourself, ok?)]
+	</p>
+	<p>
+		[pc.speech(Right...)] you say, taken a little off-guard by just how crass Roxy is. [pc.speech(I'm [pc.name].)]
+	</p>
+	<p>
+		[roxy.speech(Heh. You ain't like most of the cunts that wander in 'ere. I can tell there's somethin' real special about yer.)] Roxy grins, before beckoning you closer with one hand. Deciding to follow along for now, you step towards the counter, allowing Roxy to continue, [roxy.speech(I don't offer this to everyone, but I got a real fuckin' special deal fer you. Not gonna give yer the whole story, I ain't got time fer that shit, but a couple years ago I used to wander 'round that shithole Dominion, an' I came across this real fuckin' hung horse-boy runnin' a shop up there. Well, he showed me his cock, fuckin' huge it was, an' said he'd sell me his stuff real cheap if I'd blow 'im right then and there. Well, there ain't no way I was sayin' no to that!)] Roxy bursts out laughing yet again, the sudden, grating noise causing you to flinch. [roxy.speech(So anyways, I'd keep on goin' back to suck his fuckin' huge cock and get a real good price on the shit he was sellin'. Anyways, the whole point o' this story is that it gave me an idea, y'see?)]
+	</p>
+	<p>
+		Roxy pauses for a moment, and, hoping that she's finally getting to the point, you ask, [pc.speech(What idea was that?)]
+	</p>
+	<p>
+		[roxy.speech(Ay! Don't fuckin' interrupt!)] she berates you, before once again bursting out in her abrasive laughter. Before you can react to her rude reply, she continues, [roxy.speech(Anyways, now that I've got my own shop and shit, I was thinkin' I'd do the same as that fuckin' horse-boy, but make it even better! Instead of just givin' yer some kinda shitty discount, if yer wanna come lick my cunt for an hour or so, I'll give yer a fuckin' free item from my shop!)]
+	</p>
+	<p>
+		[pc.speech(What kind of free item?)] you ask, immediately regretting asking your question, as it causes Roxy to let out yet another of her infuriatingly-annoying laughs.
+	</p>
+	<p>
+		[roxy.speech(I got a couple o' dice here. Yer come down here and let me plant my fuckin' sweet cunt on yer face, and I'll roll these to decide on a random fuckin' item from my shop. Whattya say?)]
+	</p>
+	<p>
+		Before you can answer, Roxy steps back from the counter, pulling up the skirt of her dress with one hand to reveal the fact that she's not wearing any underwear. As you look down at the sudden movement, she reaches down with her free hand to spread her exposed pussy, laughing yet again as she teases you, [roxy.speech(Come on, I can tell yer want a taste o' my fuckin' cunt! Al yer gotta do is let me sit on yer fuckin' cute little face fer an hour or so. Easiest item you'll ever earn!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TRADER_REPLY_NO"><![CDATA[
+	<p>
+		You really aren't interested in letting this obnoxious rat-girl sit on your face for an hour, and, taking a step away from the counter, you tell her as much, [pc.speech(I only came in to take a look at what you had for sale. I'm not interested in your deal.)]
+	</p>
+	<p>
+		[roxy.speech(Alright, alright, no need to be such a fuckin' cunt about it,)] Roxy huffs, lowering her skirt and leaning down on the counter once more. [roxy.speech(Yer still ain't as bad as most o' the stupid twats that wander in 'ere, so if yer ever change yer mind, just let me know, ok? Remember, yer get a free fuckin' item outta it!)]
+	</p>
+	<p>
+		[pc.speech(Ok, I'll keep that in mind.)] you say, before moving off to look around the store.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TRADER_REPLY_YES"><![CDATA[
+	<p>
+		[pc.speech(Ok, I'll accept your deal.)] you say.
+	</p>
+	<p>
+		[roxy.speech(Heh! I fuckin' knew yer would!)] Roxy exclaims, letting out another of her abrasive laughs as she steps to one side and lifts up the hinged part of the counter. [roxy.speech(Come on then! Get back here and fuckin' lie down already!)]
+	</p>
+	<p>
+		You do as the rat-girl says, and step forwards behind the counter. As you pass Roxy, she reaches down and gives your [pc.ass+] a firm squeeze, before letting the counter-top slam shut behind you. [roxy.speech(Mmm, yeah, that's a fuckin' sweet ass yer got there! Now get down.)]
+	</p>
+	<p>
+		Once again doing as Roxy says, you lie down on your back behind the counter. Looking up, you see Roxy hike up her skirt, before stepping over your face and sinking down onto her knees. With her [roxy.pussy+] now hovering just above your face, Roxy sneers, [roxy.speech(You'd better make this fuckin' good, y'hear? Get that fuckin' tongue of yours nice 'n deep! I ain't had my cunt serviced fer a fuckin' while now, so you'd better put some fuckin' effort into it!)] 
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TRADER_REPEAT"><![CDATA[
+	<p>
+		As you step foot inside Roxy's store once again, you see the rat-girl leaning on the counter over on the far side of the room. She sees you enter her shop, and calls out, [roxy.speech(Hey [pc.name]! Yer back to buy some of this shit I got on offer?)]
+	</p>
+	<p>
+		[pc.speech(Hi Roxy.)] you reply. [pc.speech(I just wanted to see what you've got in stock.)]
+	</p>
+	<p>
+		[roxy.speech(Well, seein' as it's you, I don't mind yer takin' a look around fer a bit. Oh, and remember, if yer want a free item, my special offer's still on!)] Roxy says, before bursting out in her abrasive laughter. [roxy.speech(All yer gotta do is come lie behind my counter fer an hour, so I can plant my sweet fuckin' cunt on yer face!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TRADER_REPEAT_ADDICT"><![CDATA[
+	<p>
+		As you step foot inside Roxy's store once again, you see the rat-girl leaning on the counter over on the far side of the room. She sees you enter her shop, and calls out, [roxy.speech(Hey [pc.name]! Yer got a craving fer my fuckin' cunt, haven't yer?)]
+	</p>
+	<p>
+		[pc.speech(Hi Roxy.)] you reply, trying not to reveal the fact that you're desperate for another taste of her pussy.
+	</p>
+	<p>
+		[roxy.speech(Heh! Don't try to hide it!)] Roxy exclaims, before bursting out in her abrasive laughter. [roxy.speech(I can tell yer want nothin' more than for me to plant my sweet fuckin' cunt on yer face! Yer just desperate fer another taste o' my wet twat, ain't yer?)]
+	</p>
+	<p>
+		[pc.speech(Y-Yes...)] you admit, your craving for Roxy's girlcum getting the better of you.
+	</p>
+	<p>
+		[roxy.speech(Heh! Just as I fuckin' planned!)] Roxy suddenly laughs, making you flinch. [roxy.speech(It's gonna cost yer a thousand flames to get another taste o' my sweet fuckin' nectar. I gotta make the cost o' that item I gave yer back!)]
+	</p>
+	<p>
+		You can't help but let out a desperate whine as you imagine yourself getting another taste of Roxy's girlcum. Perhaps it would be worth handing over a thousand flames to get your fix...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TRADER_REPEAT_BEATEN_ADDICTION"><![CDATA[
+	<p>
+		As you step foot inside Roxy's store once again, you see the rat-girl leaning on the counter over on the far side of the room. She sees you enter her shop, and calls out, [roxy.speech(Hey [pc.name]! Yer got a craving fer gettin' addicted to my fuckin' cunt again, eh?)]
+	</p>
+	<p>
+		[pc.speech(Hi Roxy.)] you reply, ignoring her question.
+	</p>
+	<p>
+		[roxy.speech(Heh! Don't try to hide it!)] Roxy exclaims, before bursting out in her abrasive laughter. [roxy.speech(I can tell yer want nothin' more than for me to plant my sweet fuckin' cunt on yer face! Yer just desperate fer another taste o' my wet twat, ain't yer?)]
+	</p>
+	<p>
+		[pc.speech(No, I'm not.)] you reply, having rid yourself of your addiction to Roxy's girlcum.
+	</p>
+	<p>
+		[roxy.speech(Heh! Yer can't hold out for long!)] Roxy suddenly laughs, making you flinch. [roxy.speech(I'll give yer another free item if yer agree to come get another taste o' my sweet fuckin' nectar. Come on, we both know yer love it!)]
+	</p>
+	<p>
+		You can't help but let out a sigh as you remember the last time you serviced Roxy's pussy. Despite ridding yourself of the addiction that followed, you still find a small part of yourself wanting to do it all again...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROXY_SEX_START"><![CDATA[
+	<p>
+		[pc.speech(I'd like to accept your your deal to get a free item.)] you say.
+	</p>
+	<p>
+		[roxy.speech(Heh! I fuckin' knew yer wouldn't be able to resist my cunt!)] Roxy exclaims, letting out another of her abrasive laughs as she steps to one side and lifts up the hinged part of the counter. [roxy.speech(Come on then! Get back here and fuckin' lie down already!)]
+	</p>
+	<p>
+		You do as the rat-girl says, and step forwards behind the counter. As you pass Roxy, she reaches down and gives your [pc.ass+] a firm squeeze, before letting the counter-top slam shut behind you. [roxy.speech(Mmm, yeah, that's a fuckin' sweet ass yer got there! Now get down.)]
+	</p>
+	<p>
+		Once again doing as Roxy says, you lie down on your back behind the counter. Looking up, you see Roxy hike up her skirt, before stepping over your face and sinking down onto her knees. With her [roxy.pussy+] now hovering just above your face, Roxy sneers, [roxy.speech(You'd better make this fuckin' good, y'hear? Get that fuckin' tongue of yours nice 'n deep! I ain't had my cunt serviced fer a fuckin' while now, so you'd better put some fuckin' effort into it!)] 
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROXY_SEX_START_ADDICT"><![CDATA[
+	<p>
+		Desperate for another taste of Roxy's girlcum, you place a thousand flames on teh counter in front of her, before pleading, [pc.speech(Please! I need another taste! Please, let me lick your pussy!)]
+	</p>
+	<p>
+		[roxy.speech(Heh! I can't believe this fuckin' plan of mine actually worked!)] Roxy exclaims, letting out another of her abrasive laughs as she scoops up your money. Stepping to one side, she then lifts up the hinged part of the counter, before grinning at you. [roxy.speech(Come on then! Get back here and fuckin' lie down already!)]
+	</p>
+	<p>
+		You eagerly do as the rat-girl says, and hurry forwards behind the counter. As you pass Roxy, she reaches down and gives your [pc.ass+] a sharp slap, before letting the counter-top slam shut behind you. [roxy.speech(Yer just fuckin' desperate fer another taste o' my cunt, ain't yer? Now hurry up and get down already. I'm lookin' forwards to this too.)]
+	</p>
+	<p>
+		Once again doing as Roxy says, you quickly lie down on your back behind the counter. Looking up, you see Roxy hike up her skirt, before stepping over your face and sinking down onto her knees. With her [roxy.pussy+] now hovering just above your face, Roxy sneers, [roxy.speech(You'd better make this fuckin' good, y'hear? Get that fuckin' tongue of yours nice 'n deep! Yer did a good job at servicing my cunt the last time, so you'd better put the same fuckin' amount of effort into it now!)] 
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_ROXY_SEX"><![CDATA[
+	<p>
+		As Roxy starts to stand up, you desperately sit up to try and get one last lick of her pussy. Looking down to see you doing this, the rat-girl lets out another of her annoying laughs, before stepping to one side and denying you a final taste of her juices. [roxy.speech(Come on now! That's fuckin' enough! Get back to the other side o' the counter!)]
+	</p>
+	<p>
+		You reluctantly do as Roxy says, and, lifting up the counter top, you step back around to the other side. Ashamed at having been tricked into getting addicted to Roxy's girlcum, you start to take your leave, but the rat-girl calls out to stop you. [roxy.speech(Ay! Not so fuckin' fast! Yer want yer free item, don't ya?)]
+	</p>
+	<p>
+		[pc.speech(Oh, yeah...)] you reply, turning back and stepping towards the counter.
+	</p>
+	<p>
+		[roxy.speech(Don't yer worry! I'll be gettin' the value of this back soon enough!)] Roxy laughs, [roxy.speech(Yer gonna come crawlin' back fer another taste o' my cunt before long, and it's gonna cost yer next time!)]
+	</p>
+	<p>
+		With that, Roxy leans down to fetch a couple of dice from beneath the counter, before grinning at you. [roxy.speech(Right. I'm gonna roll these, and the item yer gonna get is based on the total value, yer get me? Two or three, yer get a vanilla water, then four or five, it's one o' those fruit boxes the bat-morphs fuckin' love. Then, if yer lucky enough to get over that, it's a mother's milk for six an' seven, a bottle o' rum for eight or nine, a fuckin' burger for ten or eleven, and, if yer really, <i>really</i> fuckin' lucky, yer get a bottle o' angel's tears for a twelve.)]
+	</p>
+	<p>
+		[pc.speech(Alright,)] you say, [pc.speech(let's see then.)]
+	</p>
+	<p>
+		[roxy.speech(Fuckin' calm down! I'm gettin' to it!)] Roxy laughs, grabbing the dice and preparing to roll...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_ROXY_SEX_ADDICT"><![CDATA[
+	<p>
+		As Roxy starts to stand up, you desperately sit up to try and get one last lick of her pussy. Looking down to see you doing this, the rat-girl lets out another of her annoying laughs, before stepping to one side and denying you a final taste of her juices. [roxy.speech(Come on now! That's fuckin' enough! Get back to the other side o' the counter!)]
+	</p>
+	<p>
+		You reluctantly do as Roxy says, and, lifting up the counter top, you step back around to the other side. Having got your fix of Roxy's addictive girlcum, you turn to take your leave, and as you head off, the rat-girl calls out to you, [roxy.speech(Make sure to bring more o' yer cash when yer get more cravings fer my sweet fuckin' cunt!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GAMBLING"><![CDATA[
+	<p>
+		In one corner of the Gambling Den's central atrium, several pairs of glass doors have been propped open to grant easy access to a huge, adjoining hall, which is dedicated solely to the immensely popular game of dice poker. At least fifty tables are scattered around the hall's floor, and although each one only seats two players, there are far more than a hundred people present, as around most of the tables, large crowds of onlookers have gathered around to watch ongoing games.
+	</p>
+	<p>
+		The hall is split into three sections, with each one decorated in copper, silver, or gold. The copper section is by far the largest, and from the nearby signs, you gather that these are the tables at which the betting is lowest. The silver section is roughly half the size of the copper one, and is a place where gamblers are willing to bet considerable sums of money on the outcome of their games. Finally, the gold section is the smallest of all three, and is reserved for players willing to bet huge sums of money.
+	</p>
+	<p>
+		Although the vast majority of tables are occupied, you can spot at least one in each section which has just one player sitting at it. If you wanted to, you could walk up to one of these tables and sit down for a game, or you could walk up to one of the nearby signs to read about the rules of dice poker.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GAMBLING_RULES"><![CDATA[
+	<p>
+		Deciding to read the rules of dice poker before starting a game, you walk up to the nearest informative sign, and briefly scan over it...
+	</p>
+	<p style='text-align:center;'>
+		<b>Axel's Rules For Dice Poker</b></br>
+		1. Both players place the buy-in amount to start a game. This is [style.money(500, span)] for [style.colourCopper(copper)] tables, [style.money(2500, span)] for [style.colourSilver(silver)], and [style.money(10000, span)] for [style.colourGold(gold)].</br>
+		2. Both players roll five dice each.</br>
+		3. Players can choose to increase the bet (referred to as a 'raise'), or leave the bet at the buy-in amount (referred to as a 'call').</br>
+		4. After betting is done, each player selects as many of their dice as they want to re-roll.</br>
+		5. The players re-roll their chosen dice.</br>
+		6. The ranking of each player's dice is compared to find the winner, who then takes all of the money in the pot.
+	</p>
+	<p style='text-align:center;'>
+		<b>Results ranking (from winning to losing)</b></br>
+		1. Five of a kind: Five dice of the same value. (e.g. 33333)</br>
+		2. Four of a kind: Four dice of the same value. (e.g. 55551)</br>
+		3. High straight: Consecutive numbers starting at two. (e.g. 23456)</br>
+		4. Full house: Two dice of the same value, plus three dice of a different, same value. (e.g. 22666)</br>
+		5. Three of a kind: Three dice of the same value. (e.g. 44415)</br>
+		6. Low straight: Consecutive numbers starting at one. (e.g. 12345)</br>
+		7. Two pair: Two dice of the same value, plus two dice of a different, same value. (e.g. 55331)</br>
+		8. Pair: Two dice of the same value. (e.g. 22415)</br>
+		9. Runt: All dice of different values. (e.g. 13456)</br></br>
+		
+		If both players have the same ranking, the total value of the dice that make up their rank are compared. For example:</br>
+		Player A: 33661</br>
+		Player B: 22115</br>
+		Although both players have 'Two pair', player A wins, as the total of their ranking dice is 20 (3+3+6+6), compared to player B's 6 (2+2+1+1).</br></br>
+		
+		If both players have the same ranking, and the same value, the game is a draw, and the money in the pot is returned to each player's hand.
+	</p>
+	<p>
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="PREGNANCY_ROULETTE_MALE_STALLS"><![CDATA[
+	<p>
+		Behind a small privacy screen, there are several wooden breeding stalls. A stylised blue silhouette of a horse-boy sporting a massive erection is painted on to the front of each of these screens, letting you know that this area is for male breeders.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="PREGNANCY_ROULETTE_FUTA_STALLS"><![CDATA[
+	<p>
+		Behind a small privacy screen, there are several wooden breeding stalls. A stylised pink silhouette of a horse-girl sporting a massive erection is painted on to the front of each of these screens, letting you know that this area is for futa breeders.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="PREGNANCY_ROULETTE"><![CDATA[
+	<p>
+		At the far end of the atrium, a long wooden counter has been build into the wall. As you approach, you see a brown-haired horse girl standing behind it, who catches your eye and beckons you over to her. Deciding to do as she's suggesting, you walk over to the counter.
+	</p>
+	<p>
+		[epona.speech(Heya!)] the horse-girl calls out, [epona.speech(You're a new face! You interested in pregnancy at all? Y'know, getting knocked up, knocking other sluts up, all that good stuff.)]
+	</p>
+	<p>
+		[pc.speech(Maybe. What's this about?)] you ask.
+	</p>
+	<p>
+		[epona.speech(Well, to keep it brief, the name's Epona, and I'm the one in charge of our special game, 'Pregnancy Roulette'!)] Epona happily explains, [epona.speech(Basically, if you put in a bet of ten thousand flames, you can either try to knock a volunteer up, along with five other breeders, or volunteer to get knocked up yourself, and guess which one of the six studs is gonna get you preggers!)]
+	</p>
+	<p>
+		[pc.speech(Ten thousand flames? That's a pretty large buy-in.)] you observe.
+	</p>
+	<p>
+		[epona.speech(Yeah, well, this is kind of the premium game here in the Gambling Den. But with a big buy-in, comes the chance of a big reward! If you get a girl pregnant, you win double your money back! Oh, and if you're the one getting knocked up, and you guess the father correctly, you win thirty thousand flames! Just let me know if you're interested, or want me to go over the rules with you.)]
+	</p>
+	<p>
+		[pc.speech(Will do. Thanks Epona.)] you reply, wondering what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="PREGNANCY_ROULETTE_REPEAT"><![CDATA[
+	<p>
+		At the far end of the atrium, a long wooden counter has been build into the wall. As you approach, you see a brown-haired horse girl standing behind it, who catches your eye and beckons you over to her. Deciding to do as she's suggesting, you walk over to the counter.
+	</p>
+	<p>
+		[epona.speech(Heya again!)] the horse-girl calls out, [epona.speech(You interested in a round of pregnancy roulette?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="PREGNANCY_ROULETTE_RULES"><![CDATA[
+	<p>
+		[pc.speech(Could you explin the rules to me?)] you ask Epona.
+	</p>
+	<p>
+		[epona.speech(Sure thing!)] the horse-girl happily responds, [epona.speech(If you're looking to be one of the breeders, you first need to put in a bet of ten thousand flames. After that, you join five others in trying to knock a volunteer up. Once you've all filled the lucky girl with your cum, I run a pregnancy tester over her belly, and whoever's the father wins twenty thousand flames!)]
+	</p>
+	<p>
+		[pc.speech(I see.)] you reply.
+	</p>
+	<p>
+		[epona.speech(If, however, you're looking to be the one being bred, then, just like the breeders, you first need to put in a bet of ten thousand flames. After that, you have to guess which of the six studs is going to knock you up! Once they've all filled you up with cum, I run a pregnancy tester over your belly, and if you correctly guessed who the father is, you win thirty thousand flames!)]
+	</p>
+	<p>
+		[pc.speech(Ok, that seems simple enough.)] you say. [pc.speech(Thanks for explaining it to me, Epona.)]
+	</p>
+	<p>
+		[epona.speech(You're welcome!)] Epona happily replies, [epona.speech(Just let me know if you want to play!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="PREGNANCY_ROULETTE_MOTHER_SELECTION_FUTA"><![CDATA[
+	<p>
+		[pc.speech(Epona?)] you ask, getting the horse-girl's attention before continuing, [pc.speech(I'd like to play a game of pregnancy roulette, as the one being bred.)]
+	</p>
+	<p>
+		[epona.speech(Oh! What fun! You want to be fucked by guys, or futas?)] Epona happily asks.
+	</p>
+	<p>
+		[pc.speech(Futas.)] you reply, glancing over towards the futa breeding stalls.
+	</p>
+	<p>
+		[epona.speech(Great!)] Epona happily calls out, before rushing out from behind her counter. [epona.speech(Follow me!)]
+	</p>
+	<p>
+		Epona then leads you over to the futa breeding stalls, where she introduces you to the girls who have volunteered as breeders. [epona.speech(So, which one do you think's gonna knock you up?)] 
+	</p>
+	<p>
+		You look over the six futas before you, before telling Epona which one you think will be the father of your kids...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="PREGNANCY_ROULETTE_MOTHER_SELECTION"><![CDATA[
+	<p>
+		[pc.speech(Epona?)] you ask, getting the horse-girl's attention before continuing, [pc.speech(I'd like to play a game of pregnancy roulette, as the one being bred.)]
+	</p>
+	<p>
+		[epona.speech(Oh! What fun! You want to be fucked by guys, or futas?)] Epona happily asks.
+	</p>
+	<p>
+		[pc.speech(The guys.)] you reply, glancing over towards the male breeding stalls.
+	</p>
+	<p>
+		[epona.speech(Great!)] Epona happily calls out, before rushing out from behind her counter. [epona.speech(Follow me!)]
+	</p>
+	<p>
+		Epona then leads you over to the breeding stalls, where she introduces you to the guys who have volunteered as breeders. [epona.speech(So, which one do you think's gonna knock you up?)] 
+	</p>
+	<p>
+		You look over the six guys before you, before telling Epona which one you think will be the father of your kids...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="PREGNANCY_ROULETTE_MOTHER_START"><![CDATA[
+	<p>
+		After telling Epona which one you think will get you pregnant, you allow the horse-girl to lock you into the stocks. As she's buckling you in, you see several other horse-girls tending to the breeders, stroking and sucking their cocks as they warm them up, ready to breed you.
+	</p>
+	<p>
+		After just a moment, you're securely fastened in place, and Epona calls the first breeder over. [epona.speech(Have fun you two! I can't wait to see who the lucky winner will be!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROULETTE_STARTING"><![CDATA[
+	<p>
+		[npc.Name] steps up behind you, before hungrily grabbing your [pc.ass+]. [npc.speech(I'm gonna pump you full of kids!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROULETTE_STARTING"><![CDATA[
+	<p>
+		[npc.Name] rubs [npc.her] fingers up and down over your [pc.pussy+], before [npc.moaning], [npc.speech(You're gonna be stuffed full of my cum in a moment, [pc.girl]!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROULETTE_STARTING"><![CDATA[
+	<p>
+		[npc.Name] steps forwards, sliding a finger up into your [pc.pussy+] as [npc.she] [npc.moansVerb], [npc.speech(Mmm, yeah, this is a nice cunt you've got!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROULETTE_STARTING"><![CDATA[
+	<p>
+		[npc.Name] steps up behind you, before lining [npc.her] [npc.cock+] up to your [pc.pussy+]. [npc.speech(You're gonna love carrying my kids.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROULETTE_STARTING"><![CDATA[
+	<p>
+		[npc.Name] steps up behind you, before delivering a sharp slap to your [pc.ass+]. [npc.speech(I'm gonna fill you up real good!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_ROULETTE_SEX"><![CDATA[
+	<p>
+		As [npc.name] steps back, [npc.she] lets out a low [npc.moan], [npc.speech(Your pussy's lookin' real good, stuffed full of my cum like that!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_ROULETTE_SEX"><![CDATA[
+	<p>
+		[npc.Name] steps back, letting out a low whistle as [npc.she] admires the creampie [npc.she]'s just given you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_ROULETTE_SEX"><![CDATA[
+	<p>
+		As [npc.name] steps back, laughing as [npc.she] looks down at your creampied pussy, [npc.speech(There's no way that's not gonna get you pregnant!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_ROULETTE_SEX"><![CDATA[
+	<p>
+		As [npc.name] steps back, [npc.she] gives your [pc.ass+] a squeeze. [npc.speech(You're gonna love being a mommy!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="PREGNANCY_ROULETTE_MOTHER_FINISHED"><![CDATA[
+	<p>
+		As all of the breeders have now finished, Epona steps forwards and unbuckles you from the stocks. As you stand up, you feel cum sliding out of your well-used pussy, and Epona hands you a tissue to clean yourself up.
+	</p>
+	<p>
+		As you wipe some of the cum off your leg, Epona swipes a pregnancy test over your stomach, before reading out the results:
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="PREGNANCY_ROULETTE_MOTHER_WINNER"><![CDATA[
+	<p>
+		You correctly guessed who the father would be, and Epona gives you your prize of thirty thousand flames! You wonder if you should ever tell your kids how they were conceived...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="PREGNANCY_ROULETTE_MOTHER_LOSER"><![CDATA[
+	<p>
+		You failed to guess who the father would be, so you lost your ten thousand flames! You wonder if you should ever tell your kids how they were conceived...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="PREGNANCY_ROULETTE_MOTHER_LOSER_NO_PREGNANCY"><![CDATA[
+	<p>
+		You failed to get pregnant, so everyone loses! Epona keeps everyone's bets, and wishes you all better luck next time.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="PREGNANCY_ROULETTE_BREEDER"><![CDATA[
+	<p>
+		[pc.speech(Epona?)] you ask, getting the horse-girl's attention before continuing, [pc.speech(I'd like to play a game of pregnancy roulette, as one of the breeders.)]
+	</p>
+	<p>
+		[epona.speech(Oh! What fun!)] Epona happily calls out, before rushing out from behind her counter. [epona.speech(Follow me!)]
+	</p>
+	<p>
+		Epona then leads you over to the breeding stalls, where she introduces you to the other guys who have volunteered as breeders. You look across to see that the volunteer being bred is already fastened into the stocks. Horse-girl helpers quickly appear from behind you, and gain access to your cock, before starting to stroke it in order to get you warmed up.
+	</p>
+	<p>
+		[epona.speech(So, you want to go first?)] Epona asks you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="PREGNANCY_ROULETTE_BREEDER_FIRST"><![CDATA[
+	<p>
+		You agree to go first, and step up behind the volunteer.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="PREGNANCY_ROULETTE_BREEDER_MIDDLE"><![CDATA[
+	<p>
+		You say you'll go in the middle of the pack. The horse-girl helpers stroke and lick your cock as they keep you hard and ready to instantly penetrate the volunteer when it's your turn.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="PREGNANCY_ROULETTE_BREEDER_LAST"><![CDATA[
+	<p>
+		You say you'll go last. The horse-girl helpers stroke and lick your cock as they keep you hard and ready to instantly penetrate the volunteer when it's your turn.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="PREGNANCY_ROULETTE_BREEDER_FINISHED"><![CDATA[
+	<p>
+		Once all of the breeders have finished, Epona steps forwards and unbuckles the volunteer from the stocks. As she stands up, you see cum sliding out of her well-used pussy, and Epona hands her a tissue to clean herself up.
+	</p>
+	<p>
+		As the volunteer wipes some of the cum off her leg, Epona swipes a pregnancy test over her stomach, before reading out the results:
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="PREGNANCY_ROULETTE_BREEDER_WINNER"><![CDATA[
+	<p>
+		You impregnated the volunteer, and won twenty thousand flames! You wonder if you should ever tell your kids how they were conceived...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="PREGNANCY_ROULETTE_BREEDER_LOSER"><![CDATA[
+	<p>
+		You weren't the father of the volunteer's kids, so you lost your ten thousand flame bet!
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="PREGNANCY_ROULETTE_BREEDER_LOSER_NO_PREGNANCY"><![CDATA[
+	<p>
+		You failed to impregnate the volunteer, so everyone loses! Epona keeps everyone's bets, and wishes you all better luck next time.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+</dialogue>

@@ -19,80 +19,83 @@
 	- Finish guide for user submitted content
 
 	
-	
 	Patch notes:
 	
-Gameplay:
-	Finished Slime Queen's quest, adding the upper floor of the tower.
-	Added harpy offspring encounters in the Harpy Nests.
-	Temporarily re-enabled angel offspring in Dominion (for those of you who have set yourself to be angels through the debug menu).
-	Added item 'Glowing Mushrooms', found randomly in the bat Caverns as well as being dropped by slimes down there.
-	Filled in last placeholders in Bat Cavern descriptions.
-	Added unique encounter/attack descriptions for slimes and bats in the bat caverns.
-
-Other:
-	Added variation in the slime guards' dialogue for if you have the related content setting turned off.
-	Added ongoing penetration descriptions for hotdogging and paizuri, and added icon for hotdogging status effect.
-	Increased value of girlcum, and slightly decreased extra modifiers' impact on cum value.
-	Reduced biojuice canister value from 5000 to 2500.
-	You can now enchant biojuice canisters to make a potion that returns body material to normal.
 	
-Bugs:
-	Fixed bug where when entering Submission, you would sometimes travel down to an incorrect tile location.
-	Fixed being forced to have sex with the slime guards after beating them in combat.
-	Fixed some typos and parsing errors in 0.2.5.5's content.
-	Removed biojuice canisters from bat cavern drops.
-	Typo fixes.
-	Fixed Blaze and Crystal's earrings being unequipped when loading a save.
-	Fixed Blaze and Crystal's repeat encounter acting like they'd never seen you before.
-	Fixed bug where switching target in combat would not show the correct target's inventory.
-	Fixed human damage/resistance stats being shown twice in phone's stats menu.
-	Fixed NPCs spawning in with multiple books in their inventory.
-	Fixed bug where you'd gain knowledge of some characters' breasts/genitals on game load. (This was affecting Candi, Claire, and probably many others.)
-	Fixed jewellery not being unequipped when removing piercings.
-	Characters will no longer lose penile virginity from using strapons.
-	Penis transformations will no longer be applied to equipped strap-on.
-	Fixed rendering bugs in stats page.
-	Fixed bug where spreader bar being equipped under trousers would result in the spreader bar blocking trouser removal, and also being concealed, making both items of clothing impossible to remove.
+	Contributors:
+		Fixed DominionSuccubusAttacker-slaves throwing nullpointers for TF items. (Pimvgd)
+		Typo and parsing fixes. (Pimvgd)
+		Fixed intToString method causing crashes/bugs. (Pimvgd)
+		Fixed some characters being able to get pregnant even although that's not supposed to happen, such as Alexandria in the intro. (Pimvgd)
+		Fixed encyclopedia weapon colours not displaying properly. (Pimvgd)
+		Fixed cause of the mysterious -5 to lust resist on new player characters. (Pimvgd)
+		Fixed slavery upkeep persisting across new games. (Pimvgd)
+		Fixed slime queen quest completion 'report back' dialogue displaying the wrong report back text. (Pimvgd)
+		Fixed cause of a crash with bimbo characters' dirty talk. (Master of Puppets)
+		Fixed offspring renaming with enter key hardlocking game. (Pimvgd)
+		Enabled female beards when the option for female beards is turned on. (Pimvgd)
+		Fix tattoo enchantments not applying their effects. (Pimvgd)
+		Fixed milk regeneration enchantments always applying a huge boost/drain, instead of a more reasonably scaled one. (Delvigore)
+		Added Util method to make selecting random items from lists easier. (Master of Puppets)
+		Improved boxer and briefs displacement methods. (Master of Puppets)
 	
+	Other:
+		Slightly tweaked slot machine odds.
 	
-	
-	Add slime TF quest.
-		[X] Enforcer post quest - pick up when enter submission.
-		[X] Add slime encounters
-			[X] If TF fetish OR first slime after getting quest: They want to feed you biojuice canister
-			[X] Else: They mug you
-			[X] Slime TF encounters mention a slime queen.
-		[X] Returning to Claire quest. (She comments on you being a slime)
-		[X] Claire mentions the Bat Caverns as the only place a Slime Queen could be hiding.
-		[X] Add unique Slime Queen NPC, and slime guards (who take you to the queen if they beat you).
-		[X] Add Slime Queen's lair map
-		[X] Add royal guard
-		[X] Go to slime lake and either take boat, or fly to island
-		[X] Test map and NPC additions
-		[X] Bypass initial fight if PC is slime, maid, or butler
-		[X] Guard encounter - they fuck you and then throw you out if win
-		[X] Trick royal guard into tiring himself out before fight, can then bypass if brawler or soldier
-		[X] Royal guard fucks you and throws you out if wins
-		[x] Slime queen is "manufacturing" the bio-canisters to transform everyone into slimes (it's her milk/girlcum)
-			She refuses to fight (and makes her case for why she's doing it). You can either:
-				[x] Help her
-					[x] She offers to TF you into slime through absorption
-					[x] Slime population in Submission massively increases
-				[x] Convince her to stop
-					[x] She reluctantly accepts
-				[x] Force her to stop
-					[x] "Rape" her
-		[X] All tower descriptions done
-		[X] Return to Claire and tell her there's no slime queen (She comments on you being a slime)
-		[X] Test slime queen quest
+	Bugs:	
+		Fixed bug where NPCs would all end sex immediately when orgasming with a creampie.
+		Fixed tattoo writing being saved with a huge amount of trailing whitespace.
+		Fixed issue with slave imports importing companions.
+		Fixed angels being described as part of the group watching public sex.
+		Fixed bug with Blaze and Crystal, where if you returned after beating them then leaving, the dialogue would incorrectly return the 'friendly' scene.
 		
-	[X] Harpy
-	[X] angel
-	[ ] imp offspring
 	
-	[X] Add solidification enchantment to biojuice
 	
+	
+	
+	
+	Not sure what's causing it, but I'm getting a bug where my slaves are listed as pregnant by the tracker, but don't gain the pregnancy buff/debuff,
+		 and are permanently stuck as "ready to give birth", they're even getting milk, but are in no way in game or description, pregnant.
+		To clarify: Other NPC's can get pregnant and give birth, but not my slaves for some reason.
+	Edit: Slaves CAN give birth, but the tracker still thinks they're heavily pregnant, even after birth
+	
+		
+	[ ] Get all descriptions finished
+	
+	[ ] Roxy content done
+	
+	[ ] Pregnancy roulette done
+	
+	[ ] Axel/Vengar quest done
+		Talk to Roxy
+		Talk to Axel about Roxy
+			He says how she's the ex of Vengar, and he's been told to let her run her shop
+		Talk to Axel about Vengar
+			He says how he's being forced to pay protection money, like most of the other shops in Submission
+		Offer to help
+			Quest:
+				Vengar's Gang
+					Rat Warren
+					Entry
+						Say you're there to deliver Axel's monthly payment
+						Say you're a prostitute
+						Smash down door
+					
+	
+	[ ] Can earn money by:
+		Warm up pregnancy roulette participants
+		Clean up pregnancy roulette stalls
+	
+	[ ] Imp fortresses
+	
+	
+	
+	[ ] TF menu for slimes in queen quest
+	
+	[ ] Imp Offspring
+	[ ] Tunnel Offspring
+	[ ] Bat Offspring
+	[ ] Slime offspring
 	
 	Special encounters for:
 		
@@ -100,7 +103,8 @@ Bugs:
 		[X] Glowing slimes
 		[X] Slime encounters
 		[X] Add bat encounter
-		[ ] Add bat racial effect descriptions
+		[X] Add generic encounter (for if TF'd)
+		[ ] Add bat racial effect descriptions - chatty
 		
 		Rat-morphs & Alligator-morphs
 			[ ] Just want to mug you
@@ -111,14 +115,9 @@ Bugs:
 				[ ] TF
 			[ ] Alpha Imp gang encounter (Alpha + 2-4 imps, for 5 max)
 			
-			
-	
-	Gambling Den
-		[ ] Pregnancy roulette
-		[ ] Dice poker
-		[ ] Overpriced trader
 		
 	Imp fortresses
+		small randomly-generated internal map, which will reset a few days after you beat the fortress's boss (with a new boss being generated) 
 		[ ] Fortress 1
 		[ ] Fortress 2
 		[ ] Fortress 3
@@ -127,30 +126,64 @@ Bugs:
 	
 	
 	
-	Random encounters:
-	Intro
-	Leave/Pay
-	Fight
-		Post-fight win
-			Sex
-			Leave
-		Post-fight loss
-			TF
-				Sex
-				Enemy leaves
-			Sex
-			Enemy leaves
-	Submit
-		Sex
+	Need to add way to get scars. Add tattoos and scars to character creation.
+	
+	when in tattoo menu, if you then click "trade with kate", and then go back to tattoos, screen content doesn't parse
+	
+	Lilaya shouldn't scream to pull out when she's pregnant, that doesn't make sense
+	
+	Tattoos don't get renamed when you enchant them
+	
+	make DOMINION_ALLEYWAY_SPAWN, SUBMISSION_TUNNEL_SPAWN work for clothing
+	
+	Conceal tattoo slots
+	
+	Add character creation tattoos and scars
+	
+	Right panel resets when switching tattoos in slave management
+	
+	Add flying ability like teleport
+	
+	'free scarlett' action does not send Scarlett back to Alexa's nest
+	
+	futa cock bug still exists. If you have internal balls. People will think you are still 100% female up to a certain size I think 12” but then say they knew you were futa because of the bulge
+	
+	We legitimately do need an option to purge non-unique npc's who aren't loaded into the game world from the save file.
+		Besides your kids, a lot of alley attackers stay in even if you give them the boot, stockades slave, brothel customers, and others.
+	
+	So, I think i found a bug. When as a slime and transforming myself the options between "eye color" and "slime color" seem to conflict with each other... For instance, when I go to change my eye color it changes the description of my skin to be "made out of (selected color here) irises!", creepy lol.
+	
+	non-fishnet thigh-high stockings
+	
+	There is a strange bug with a imported slave with a summoning spell,in which 2 things can happen:
+		1st)The Element become a "new" Npcs which you can interact,in any title that you last had combat with.
+		2)You can no longer interact with your companion instead you are stuck with the elemental talk scene….which is blank aka you can no longer send your back companion/slave home,and you are stuck with them till you save/reload then number 1 happens.
 		
+	when a slave summons a Elemental and battle it stuck with you and you can't have enemies spawn because of the Elemental
+	
+	Also making an elemental spawn on another elemental you've spawned earlier will break the tile you're on
+	
+	It would be nice if removing an item reset its count down to the next tick though. It would make synchronizing the ticks of multiple worn items a lot easier. Cause a problem I've noticed is that if you wear too many hourly tick items made at different times then the lack of synchronization with the tick updates leads to a lot of messages the interrupt the flow of Gameplay.(edited)
+	My first thought was that it could be something like one step or 10% of the final goal's size, whichever is larger.  The % could also be scaled based on how strong of an effect it is.  Minor enchantments jump by 5%, then 10%, and 15%.
+	The reason I brought it up was because I made an item that did a joint body part and associated fluid enchantment (dick size + cum production or breast size + lactation production) and noticed that the body part size reached the max almost immediately, while almost no progress had been made on the fluid.  Then I compared that to heights as well.
+	Hmm, it's probably better for it to be less than 5%, since it would always take 20 ticks or less to fully transform something.
+	 Mind you, most of the transformations are finished long before 20 ticks, except for those fluid and height based ones.
+	
+	Add [game.random(one, two, three, four)]
+	
+	potion effects to 24 hours
 		
-		
-		
+	: Not sure if it has been mentioned before but the character page describes Claire as having a slender, toned body, whereas the quest itself says she is pretty wide all around (disproportionately-large breasts, absurdly-wide hips, etc)  ps: these are written in the game, not my words.... 
+	I mean, even the picture drawn by Jam shows her as curvy so... perhaps her body should be changed to "large" or "very large" with either little to no muscle definition?(edited)
+	
+	I have somehow had an F character put their fingers in my character's cooch when I'm kneeling
+	
+	Stop teleport in enforcer HQ
+	
 	hot pink crazy high hooker heels. 
 		i love the Halucigenic effect.and the bimbo fetish would be fun. 
 		and when i thought about that i came up with the name "trippy heels" which made me think, if there was a way to disable normal combat moves, and restrict to maybe just seduction /seduction and spells, that would be super cool.
 			because "the heels are so high you cant fight, youd just trip!" and maybe give a small penalty to running away in addition. 
-
 		
 	When you're the submissive partner, having a 'let's go again' command right after your partner cums. Maybe they'll switch positions, and it'd set things so they wouldn't end the sex until their next orgasm.
 		

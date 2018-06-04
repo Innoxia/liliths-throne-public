@@ -1579,10 +1579,11 @@ public enum Combat {
 
 	public static void endCombatTurn() {
 		
-		for(NPC character : allCombatants) {
+		List<NPC> combatants = new ArrayList<>(allCombatants); // To avoid concurrent modification when the 'summon elemental' spell adds combatants.
+		for(NPC character : combatants) {
 			attackNPC(character);
 		}
-
+		
 		// Player end turn effects:
 //		removeBeneficialEffects(Main.game.getPlayer());
 		for(SpecialAttack sa : Combat.getCooldowns(Main.game.getPlayer()).keySet()) {

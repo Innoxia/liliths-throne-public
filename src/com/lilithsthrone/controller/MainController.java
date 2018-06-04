@@ -51,9 +51,11 @@ import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.SlaveryManagementDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.CityHall;
+import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.SuccubisSecrets;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.story.CharacterCreation;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
+import com.lilithsthrone.game.dialogue.utils.CharacterModificationUtils;
 import com.lilithsthrone.game.dialogue.utils.CharactersPresentDialogue;
 import com.lilithsthrone.game.dialogue.utils.EnchantmentDialogue;
 import com.lilithsthrone.game.dialogue.utils.InventoryDialogue;
@@ -95,7 +97,7 @@ import javafx.scene.web.WebView;
 
 /**
  * @since 0.1.0
- * @version 0.2.4
+ * @version 0.2.6
  * @author Innoxia
  */
 public class MainController implements Initializable {
@@ -399,6 +401,24 @@ public class MainController implements Initializable {
 //						 }
 						
 						 if(event.getCode()==KeyCode.END){
+							 
+//							 Main.game.getPlayer().setScar(InventorySlot.EYES, new Scar(ScarType.CLAW_MARKS, true));
+//							 
+//							 Tattoo tat = new Tattoo(TattooType.FLOWERS, Colour.CLOTHING_PINK, false, Colour.CLOTHING_GREEN, false, Colour.CLOTHING_YELLOW, false,
+//									 new TattooWriting("Times I've been a Mommy", Colour.CLOTHING_WHITE, true, TattooWritingStyle.CURSIVE),
+//									 new TattooCounter(TattooCounterType.PREGNANCY, TattooCountType.WRITTEN, Colour.CLOTHING_PURPLE, false));
+//							 
+//							 tat.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.FERTILITY, TFPotency.MAJOR_BOOST, 0));
+//							 
+//							 Main.game.getPlayer().addTattoo(InventorySlot.WRIST, tat);
+//							 
+//							 
+//							 Main.game.getPlayer().addTattoo(InventorySlot.TORSO_OVER, new Tattoo(TattooType.TRIBAL, Colour.CLOTHING_BLACK, false, null, false, null, false,
+//									 null,
+//									 null));
+							 
+//							 System.out.println("Numeral:"+Util.intToNumerals(3788));
+//							 System.out.println(Util.intToTally(56));
 							 
 //							 File image = new File("res/images/characters/jam/brandiNaked1.png");
 ////								+"file:/"+image.toURI().getPath()
@@ -711,6 +731,19 @@ public class MainController implements Initializable {
 								}
 							}
 						}
+						if(Main.game.getCurrentDialogueNode() == SuccubisSecrets.SHOP_BEAUTY_SALON_TATTOOS_ADD
+								|| Main.game.getCurrentDialogueNode() == SlaveryManagementDialogue.SLAVE_MANAGEMENT_TATTOOS_ADD){
+							if((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('tattoo_name') === document.activeElement")) {
+								allowInput = false;
+								if (event.getCode() == KeyCode.ENTER) {
+									enterConsumed = true;
+									Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+								} else {
+									Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenPField').innerHTML=document.getElementById('tattoo_name').value;");
+									CharacterModificationUtils.tattoo.getWriting().setText(Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent());
+								}
+							}
+						}
 						if(Main.game.getCurrentDialogueNode() == SlaveryManagementDialogue.SLAVE_MANAGEMENT_INSPECT
 								|| Main.game.getCurrentDialogueNode() == SlaveryManagementDialogue.SLAVE_MANAGEMENT_JOBS
 								|| Main.game.getCurrentDialogueNode() == SlaveryManagementDialogue.SLAVE_MANAGEMENT_PERMISSIONS){
@@ -771,6 +804,34 @@ public class MainController implements Initializable {
 						
 						if(((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('offspringPetNameInput') === document.activeElement"))) {
 							allowInput = false;
+							if (event.getCode() == KeyCode.ENTER) {
+								enterConsumed = true;
+								boolean unsuitableName = false;
+							 	if(Main.mainController.getWebEngine().executeScript("document.getElementById('offspringPetNameInput')")!=null) {
+								 
+									Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldName').innerHTML=document.getElementById('offspringPetNameInput').value;");
+									if(Main.mainController.getWebEngine().getDocument()!=null) {
+										if (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() < 2
+												|| Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 32)
+											unsuitableName = true;
+										else {
+											unsuitableName = false;
+										}
+									}
+									
+									if (!unsuitableName) {
+										Main.game.setContent(new Response("Rename", "", Main.game.getCurrentDialogueNode()){
+											@Override
+											public void effects() {
+												Main.game.getActiveNPC().setPlayerPetName(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent());
+											}
+										});
+									} else {
+										Main.game.setContent(new Response("Rename", "", Main.game.getCurrentDialogueNode()));
+									}
+									
+								}
+							}
 						}
 						
 						if(Main.game.getCurrentDialogueNode() == OptionsDialogue.OPTIONS_PRONOUNS){
@@ -1223,9 +1284,10 @@ public class MainController implements Initializable {
 			id = invSlot.toString() + "Slot";
 			if (invSlot != InventorySlot.WEAPON_MAIN && invSlot != InventorySlot.WEAPON_OFFHAND) {
 				if (((EventTarget) documentAttributes.getElementById(id)) != null) {
-					
-					InventorySelectedItemEventListener el = new InventorySelectedItemEventListener().setClothingEquipped(Main.game.getPlayer(),invSlot);
-					addEventListener(documentAttributes, id, "click", el, false);
+					if(!RenderingEngine.ENGINE.isRenderingTattoosLeft()) {
+						InventorySelectedItemEventListener el = new InventorySelectedItemEventListener().setClothingEquipped(Main.game.getPlayer(),invSlot);
+						addEventListener(documentAttributes, id, "click", el, false);
+					}
 					addEventListener(documentAttributes, id, "mousemove", moveTooltipListener, false);
 					addEventListener(documentAttributes, id, "mouseleave", hideTooltipListener, false);
 					InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setInventorySlot(invSlot, Main.game.getPlayer());
@@ -1241,6 +1303,22 @@ public class MainController implements Initializable {
 					addEventListener(documentAttributes, id, "mouseenter", el2, false);
 				}
 			}
+		}
+		
+		id = "TATTOO_SWITCH_LEFT";
+		if (((EventTarget) documentAttributes.getElementById(id)) != null) {
+			((EventTarget) documentAttributes.getElementById(id)).addEventListener("click", e -> {
+				RenderingEngine.ENGINE.setRenderingTattoosLeft(!RenderingEngine.ENGINE.isRenderingTattoosLeft());
+				this.updateUILeftPanel();
+			}, false);
+			addEventListener(documentAttributes, id, "mousemove", moveTooltipListener, false);
+			addEventListener(documentAttributes, id, "mouseleave", hideTooltipListener, false);
+			TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation(
+					!RenderingEngine.ENGINE.isRenderingTattoosLeft()
+						?"Switch to tattoos"
+						:"Switch to clothing",
+					"");
+			addEventListener(documentAttributes, id, "mouseenter", el2, false);
 		}
 
 
@@ -1457,8 +1535,10 @@ public class MainController implements Initializable {
 						addEventListener(documentRight, id, "mouseenter", el2, false);
 						
 					} else {
-						InventorySelectedItemEventListener el = new InventorySelectedItemEventListener().setClothingEquipped(RenderingEngine.getCharacterToRender(), invSlot);
-						addEventListener(documentRight, id, "click", el, false);
+						if(!RenderingEngine.ENGINE.isRenderingTattoosRight()) {
+							InventorySelectedItemEventListener el = new InventorySelectedItemEventListener().setClothingEquipped(RenderingEngine.getCharacterToRender(), invSlot);
+							addEventListener(documentRight, id, "click", el, false);
+						}
 						
 						addEventListener(documentRight, id, "mousemove", moveTooltipListener, false);
 						addEventListener(documentRight, id, "mouseleave", hideTooltipListener, false);
@@ -1478,6 +1558,22 @@ public class MainController implements Initializable {
 					addEventListener(documentRight, id, "mouseenter", el2, false);
 				}
 			}
+		}
+		
+		id = "TATTOO_SWITCH_RIGHT";
+		if (((EventTarget) documentRight.getElementById(id)) != null) {
+			((EventTarget) documentRight.getElementById(id)).addEventListener("click", e -> {
+				RenderingEngine.ENGINE.setRenderingTattoosRight(!RenderingEngine.ENGINE.isRenderingTattoosRight());
+				updateUIRightPanel();
+			}, false);
+			addEventListener(documentRight, id, "mousemove", moveTooltipListener, false);
+			addEventListener(documentRight, id, "mouseleave", hideTooltipListener, false);
+			TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation(
+					!RenderingEngine.ENGINE.isRenderingTattoosRight()
+						?"Switch to tattoos"
+						:"Switch to clothing",
+					"");
+			addEventListener(documentRight, id, "mouseenter", el2, false);
 		}
 		
 		for(NPC character : Main.game.getCharactersPresent()) {

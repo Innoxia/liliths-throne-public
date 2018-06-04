@@ -61,7 +61,7 @@ public enum Subspecies {
 			Colour.RACE_ANGEL,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"A typical angel.",
-			Util.newArrayListOfValues(WorldType.DOMINION)) { //TODO remove later on
+			Util.newArrayListOfValues()) { //TODO remove later on
 		@Override
 		public void applySpeciesChanges(Body body) {
 			// TODO Auto-generated method stub

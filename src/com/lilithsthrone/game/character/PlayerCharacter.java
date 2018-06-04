@@ -250,12 +250,11 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 							if(questLine.contains("SIDE_NYAN")) {
 								questLine = questLine.replace("SIDE_NYAN", "RELATIONSHIP_NYAN");
 							}
-
+							
 							String quest = e.getAttribute("quest");
 							if(quest.contains("SIDE_NYAN")) {
 								quest = quest.replace("SIDE_NYAN", "RELATIONSHIP_NYAN");
 							}
-
 							character.quests.put(
 									QuestLine.valueOf(questLine),
 									Quest.valueOf(quest));
@@ -645,5 +644,10 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		return "<p>"
 				+ description
 				+ "</p>";
+	}
+
+	@Override
+	public boolean isAbleToBeImpregnated() {
+		return true;
 	}
 }

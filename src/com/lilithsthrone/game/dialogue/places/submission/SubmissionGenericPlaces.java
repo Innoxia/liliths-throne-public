@@ -1,11 +1,16 @@
 package com.lilithsthrone.game.dialogue.places.submission;
 
+import java.util.List;
+
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.gender.GenderPreference;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.npc.submission.GamblingDenPatron;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.places.submission.dicePoker.DicePokerTable;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -161,7 +166,30 @@ public class SubmissionGenericPlaces {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Gambling Den", "Enter the Gambling Den. <b>Not yet added!</b>", null);
+				return new Response("Gambling Den", "Enter the Gambling Den.", GamblingDenDialogue.ENTRANCE) {
+					@Override
+					public void effects() {
+						List<NPC> gamblersPresent = Main.game.getCharactersPresent(Main.game.getWorlds().get(WorldType.GAMBLING_DEN).getCell(PlaceType.GAMBLING_DEN_GAMBLING));
+						
+						for(NPC npc : gamblersPresent) {
+							if(npc instanceof GamblingDenPatron) {
+								Main.game.removeNPC(npc);
+							}
+						}
+						
+						try {
+							Main.game.addNPC(new GamblingDenPatron(GenderPreference.getGenderFromUserPreferences(), DicePokerTable.COPPER, false), false);
+							Main.game.addNPC(new GamblingDenPatron(GenderPreference.getGenderFromUserPreferences(), DicePokerTable.COPPER, false), false);
+							Main.game.addNPC(new GamblingDenPatron(GenderPreference.getGenderFromUserPreferences(), DicePokerTable.SILVER, false), false);
+							Main.game.addNPC(new GamblingDenPatron(GenderPreference.getGenderFromUserPreferences(), DicePokerTable.SILVER, false), false);
+							Main.game.addNPC(new GamblingDenPatron(GenderPreference.getGenderFromUserPreferences(), DicePokerTable.GOLD, false), false);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+						
+						Main.game.getPlayer().setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_ENTRANCE);
+					}
+				};
 
 			} else {
 				return null;
@@ -499,7 +527,7 @@ public class SubmissionGenericPlaces {
 				} else if(Main.game.getPlayer().getQuest(QuestLine.SIDE_SLIME_QUEEN)==Quest.SLIME_QUEEN_SIX_SUBMIT
 							|| Main.game.getPlayer().getQuest(QuestLine.SIDE_SLIME_QUEEN)==Quest.SLIME_QUEEN_SIX_FORCE
 							|| Main.game.getPlayer().getQuest(QuestLine.SIDE_SLIME_QUEEN)==Quest.SLIME_QUEEN_SIX_CONVINCE) {
-					return new Response("Report Back", "Report to Claire that you've defeated the Slime Queen.", CLAIRE_INFO_REPORT_BACK) {
+					return new Response("Report Back", "Report to Claire that you've defeated the Slime Queen.", CLAIRE_INFO_SLIME_QUEEN_REPORT_BACK) {
 						@Override
 						public void effects() {
 							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(20000));
@@ -552,7 +580,7 @@ public class SubmissionGenericPlaces {
 		@Override
 		public String getContent() {
 			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.slimeQueenHelped)) {
-				return UtilText.parseFromXMLFile("places/submission/submissionPlaces", "CLAIRE_INFO_REPORT_BACK_LIE");
+				return UtilText.parseFromXMLFile("places/submission/submissionPlaces", "CLAIRE_INFO_SLIME_QUEEN_REPORT_BACK_LIE");
 			} else {
 				return UtilText.parseFromXMLFile("places/submission/submissionPlaces", "CLAIRE_INFO_SLIME_QUEEN_REPORT_BACK");
 			}

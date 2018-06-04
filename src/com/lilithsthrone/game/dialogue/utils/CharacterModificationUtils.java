@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Breast;
 import com.lilithsthrone.game.character.body.Covering;
@@ -60,23 +61,33 @@ import com.lilithsthrone.game.character.body.valueEnums.TongueLength;
 import com.lilithsthrone.game.character.body.valueEnums.TongueModifier;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.body.valueEnums.WingSize;
+import com.lilithsthrone.game.character.markings.AbstractTattooType;
+import com.lilithsthrone.game.character.markings.Tattoo;
+import com.lilithsthrone.game.character.markings.TattooCountType;
+import com.lilithsthrone.game.character.markings.TattooCounter;
+import com.lilithsthrone.game.character.markings.TattooCounterType;
+import com.lilithsthrone.game.character.markings.TattooType;
+import com.lilithsthrone.game.character.markings.TattooWriting;
+import com.lilithsthrone.game.character.markings.TattooWritingStyle;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.PersonalityWeight;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.SuccubisSecrets;
+import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.rendering.RenderingEngine;
 import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.7?
- * @version 0.2.4
+ * @version 0.2.6
  * @author Innoxia
  */
 public class CharacterModificationUtils {
@@ -3259,7 +3270,7 @@ public class CharacterModificationUtils {
 	}
 	
 	public static String getKatesDivFacialHair(String title, String description) {
-		return getKatesDivGenericBodyHair(title, description, BodyChanging.getTarget().getFacialHair(), "FACIAL_HAIR_", BodyChanging.getTarget().isFeminine());
+		return getKatesDivGenericBodyHair(title, description, BodyChanging.getTarget().getFacialHair(), "FACIAL_HAIR_", BodyChanging.getTarget().isFeminine() && !Main.game.isFemaleFacialHairEnabled());
 	}
 	
 	public static String getKatesDivPubicHair(String title, String description) {
@@ -3396,7 +3407,6 @@ public class CharacterModificationUtils {
 	public static Map<BodyCoveringType, Covering> getCoveringsToBeApplied() {
 		return coveringsToBeApplied;
 	}
-
 
 	public static String getKatesDivCoveringsNew(boolean withCost, BodyCoveringType coveringType, String title, String description, boolean withSecondary, boolean withGlow) {
 		return getKatesDivCoveringsNew(withCost, coveringType, title, description, withSecondary, withGlow, true);
@@ -3704,6 +3714,342 @@ public class CharacterModificationUtils {
 		contentSB.append(
 				"</div>"
 			+ "</div>");
+		
+		return contentSB.toString();
+	}
+
+	public static String getKatesDivTattoos() {
+		contentSB.setLength(0);
+		
+		contentSB.append("<div class='container-full-width'>"
+				+ "<h5 style='width:100%; text-align:center;'>Main Areas</h5>");
+		
+		for(InventorySlot invSlot : RenderingEngine.mainInventorySlots) {
+			contentSB.append(getTattooDiv(invSlot));
+		}
+		
+		contentSB.append("</div>");
+		
+		contentSB.append("<div class='container-full-width'>"
+				+ "<h5 style='width:100%; text-align:center;'>Secondary Areas</h5>");
+		
+		for(InventorySlot invSlot : RenderingEngine.secondaryInventorySlots) {
+			contentSB.append(getTattooDiv(invSlot));
+		}
+		
+		contentSB.append("</div>");
+		
+		return contentSB.toString();
+	}
+	
+	private static String getTattooDiv(InventorySlot invSlot) {
+		Tattoo tattooInSlot = BodyChanging.getTarget().getTattooInSlot(invSlot);
+		boolean disabled = false;
+		
+		switch(invSlot) {
+			case HORNS:
+				if(BodyChanging.getTarget().getHornType()==HornType.NONE) {
+					disabled = true;
+				}
+				break;
+			case PENIS:
+				if(!BodyChanging.getTarget().hasPenisIgnoreDildo()) {
+					disabled = true;
+				}
+				break;
+			case TAIL:
+				if(BodyChanging.getTarget().getTailType()==TailType.NONE) {
+					disabled = true;
+				}
+				break;
+			case VAGINA:
+				if(!BodyChanging.getTarget().hasVagina()) {
+					disabled = true;
+				}
+				break;
+			case WINGS:
+				if(BodyChanging.getTarget().getWingType()==WingType.NONE) {
+					disabled = true;
+				}
+				break;
+			default:
+				break;
+		}
+		
+		return "<div class='container-half-width inner' style='width:23%;margin:1%;'>"
+				+ "<div class='container-full-width inner' style='width:100%; margin:0; text-align:center;'>"+Util.capitaliseSentence(invSlot.getTattooSlotName())+"</div>"
+				+(disabled
+					?"<div class='inventory-item-slot disabled' style='width:48%;margin:0 1%'></div>"
+					:"<div class='modifier-icon' style='width:48%;margin:0 1%'>"
+						+ (tattooInSlot==null
+							?"<div class='modifier-icon-content'></div>"
+							:"<div class='modifier-icon-content "+tattooInSlot.getRarity().getName()+"'>"+tattooInSlot.getSVGImage(BodyChanging.getTarget())+"</div>")
+						+ "<div class='overlay no-pointer' id='TATTOO_INFO_"+invSlot.toString()+"'></div>"
+					+ "</div>")
+				
+				+ "<div class='container-half-width inner' style='width:48%;margin:1%;'>"
+					+ "<div style='float:left; width:98%; margin:0 1%; padding:0;'>"
+						+ "<div class='normal-button"+(disabled?" disabled":"")+"' "+(!disabled?"id='TATTOO_ADD_REMOVE_"+invSlot.toString()+"'":"")+" style='width:100%;'>"
+							+(tattooInSlot==null
+								?"Add"
+								:(SuccubisSecrets.invSlotTattooToRemove==invSlot || !Main.getProperties().hasValue(PropertyValue.tattooRemovalConfirmations)?"[style.colourBad(Remove)]":"Remove"))
+						+"</div>"
+					+ "</div>"
+					+ "<div style='float:left; width:98%; margin:0 1%; padding:0;'>"
+						+ "<div class='normal-button"+(disabled || tattooInSlot==null?" disabled":"")+"' "+(!disabled?"id='TATTOO_ENCHANT_"+invSlot.toString()+"'":"")+" style='width:100%;'>Enchant</div>"
+					+ "</div>"
+				+ "</div>"
+			+ "</div>";
+	}
+	
+	public static InventorySlot tattooInventorySlot = null;
+	public static Tattoo tattoo = null;
+	
+	public static void resetTattooVariables(InventorySlot slot) {
+		tattooInventorySlot = slot;
+
+		tattoo = new Tattoo(
+				TattooType.TRIBAL,
+				Colour.CLOTHING_GREY,
+				null,
+				null,
+				false,
+				new TattooWriting(
+						"",
+						Colour.BASE_GREY,
+						false),
+				new TattooCounter(
+						TattooCounterType.NONE,
+						TattooCountType.NUMBERS,
+						Colour.BASE_GREY,
+						false));
+	}
+	
+	public static void resetTattooColours() {
+		if(!tattoo.getType().getAvailablePrimaryColours().contains(tattoo.getPrimaryColour())) {
+			tattoo.setPrimaryColour(tattoo.getType().getAvailablePrimaryColours().get(0));
+		}
+		
+		if(!tattoo.getType().getAvailableSecondaryColours().contains(tattoo.getSecondaryColour())) {
+			if(tattoo.getType().getAvailableSecondaryColours().isEmpty()) {
+				tattoo.setSecondaryColour(null);
+			} else {
+				tattoo.setSecondaryColour(tattoo.getType().getAvailableSecondaryColours().get(0));
+			}
+		}
+
+		if(!tattoo.getType().getAvailableTertiaryColours().contains(tattoo.getTertiaryColour())) {
+			if(tattoo.getType().getAvailableTertiaryColours().isEmpty()) {
+				tattoo.setTertiaryColour(null);
+			} else {
+				tattoo.setTertiaryColour(tattoo.getType().getAvailableTertiaryColours().get(0));
+			}
+		}
+		
+		tattoo.setGlowing(false);
+	}
+	
+	public static String getKatesDivTattoosAdd() {
+		contentSB.setLength(0);
+		
+		// Type:
+	
+		contentSB.append("<div class='container-full-width'>");
+			contentSB.append("<div class='container-full-width' style='width:75%; margin:0; position:relative; text-align:center;'>");
+				contentSB.append("<h5 style='width:100%; text-align:center;'>Select Type</h5>");
+		
+				for(AbstractTattooType type : TattooType.getAllTattooTypes()) {
+					if(type.getSlotAvailability().contains(tattooInventorySlot)) {
+						contentSB.append("<div style='width:18%; margin:1%; padding:0; display:inline-block;'>"
+											+ "<div class='normal-button"+(tattoo.getType()==type?" selected":"")+"' id='TATTOO_TYPE_"+type.getId()+"'"
+													+ " style='width:100%; margin:0; color:"+(tattoo.getType()==type?Colour.GENERIC_GOOD:Colour.TEXT_HALF_GREY).toWebHexString()+";'>"+Util.capitaliseSentence(type.getName())+"</div>"
+										+ "</div>");
+						
+					} else {
+						contentSB.append("<div style='width:18%; margin:1%; padding:0; display:inline-block;'>"
+								+ "<div class='normal-button disabled' id='TATTOO_TYPE_"+type.getId()+"'"
+										+ " style='width:100%; margin:0;'>"+Util.capitaliseSentence(type.getName())+"</div>"
+							+ "</div>");
+					}
+				}
+				contentSB.append("</div>"
+						+ "<div class='container-full-width' style='width:25%; margin:0;'>");
+				
+				contentSB.append("<div class='modifier-icon' style='float:left; width:100%; margin:0; text-align:center;'>"
+									+ "<div class='modifier-icon-content'>"+tattoo.getSVGImage(BodyChanging.getTarget())+"</div>"
+									+ "<div class='overlay no-pointer' id='NEW_TATTOO_INFO'></div>"
+								+ "</div>");
+			
+			contentSB.append("</div>");
+		contentSB.append("</div>");
+	
+		// Colours:
+
+		contentSB.append("<div class='container-full-width'>"
+				+ "<h5 style='width:100%; text-align:center;'>Select Colours</h5>");
+			
+			// Primary:
+			contentSB.append("<div class='container-full-width' style='width:33.3%; margin:0;'>");
+				for (Colour c : tattoo.getType().getAvailablePrimaryColours()) {
+					contentSB.append("<div class='normal-button"+(tattoo.getPrimaryColour()==c?" selected":"")+"' id='TATTOO_COLOUR_PRIMARY_"+c+"'"
+											+ " style='width:auto; margin-right:4px;"+(tattoo.getPrimaryColour()==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
+										+ "<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";"+(c==Colour.COVERING_NONE?" color:"+Colour.BASE_RED.toWebHexString()+";'>X":"'>")+"</div>"
+									+ "</div>");
+				}
+			contentSB.append("</div>");
+
+			// Secondary:
+			contentSB.append("<div class='container-full-width' style='width:33.3%; margin:0;'>");
+			if(tattoo.getType().getAvailableSecondaryColours().isEmpty()) {
+				contentSB.append(
+						"<p style='text-align:center;'>[style.italicsDisabled(No secondary colours available...)]</p>");
+				
+			} else {
+				for (Colour c : tattoo.getType().getAvailableSecondaryColours()) {
+					contentSB.append("<div class='normal-button"+(tattoo.getSecondaryColour()==c?" selected":"")+"' id='TATTOO_COLOUR_SECONDARY_"+c+"'"
+											+ " style='width:auto; margin-right:4px;"+(tattoo.getSecondaryColour()==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
+										+ "<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";"+(c==Colour.COVERING_NONE?" color:"+Colour.BASE_RED.toWebHexString()+";'>X":"'>")+"</div>"
+									+ "</div>");
+				}
+			}
+			contentSB.append("</div>");
+
+			// Tertiary:
+			contentSB.append("<div class='container-full-width' style='width:33.3%; margin:0;'>");
+			if(tattoo.getType().getAvailableTertiaryColours().isEmpty()) {
+				contentSB.append(
+						"<p style='text-align:center;'>[style.italicsDisabled(No tertiary colours available...)]</p>");
+				
+			} else {
+				for (Colour c : tattoo.getType().getAvailableTertiaryColours()) {
+					contentSB.append("<div class='normal-button"+(tattoo.getTertiaryColour()==c?" selected":"")+"' id='TATTOO_COLOUR_TERTIARY_"+c+"'"
+											+ " style='width:auto; margin-right:4px;"+(tattoo.getTertiaryColour()==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
+										+ "<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";"+(c==Colour.COVERING_NONE?" color:"+Colour.BASE_RED.toWebHexString()+";'>X":"'>")+"</div>"
+									+ "</div>");
+				}
+			}
+			contentSB.append("</div>");
+			
+			contentSB.append("<div class='container-full-width'>");
+				if(tattoo.getType().equals(TattooType.NONE)) {
+					contentSB.append(
+							"<div class='normal-button disabled' style='width:20%; margin:2% 40%; padding:0; text-align:center;'>"
+								+ "Glow"
+							+ "</div>");
+					
+				} else if(tattoo.isGlowing()) {
+					contentSB.append(
+							"<div class='normal-button active' id='TATTOO_GLOW' style='width:20%; margin:2% 40%; padding:0; text-align:center;'>"
+								+ "[style.boldArcane(Glow)]"
+							+ "</div>");
+				} else {
+					contentSB.append(
+							"<div id='TATTOO_GLOW' class='normal-button' style='width:20%; margin:2% 40%; padding:0; text-align:center;'>"
+								+ "<span style='color:"+Colour.GENERIC_ARCANE.getShades()[0]+";'>Glow</span>"
+							+ "</div>");
+				}
+			contentSB.append("</div>");
+
+		contentSB.append("</div>");
+	
+		// Writing:
+
+		contentSB.append("<div class='container-full-width'>"
+				+ "<h5 style='width:100%; text-align:center;'>Select Writing</h5>");
+		
+			contentSB.append("<div class='container-full-width' style='width:66.6%; margin:0; position:relative; text-align:center;'>"
+					+"<form style='padding:0; margin:0 0 4px 0; text-align:center;'>"
+						+ "<input type='text' id='tattoo_name' value='" +UtilText.parseForHTMLDisplay(tattoo.getWriting().getText())+"' style='padding:0;margin:0;width:80%;'>"// "+(tattoo.getWriting().getStyle()==TattooWritingStyle.NONE?"disabled":"")+">"
+					+ "</form>"
+					+ "<p style='width:100%; text-align:center;'>Writing Style</p>");
+			for(TattooWritingStyle style : TattooWritingStyle.values()) {
+				contentSB.append("<div style='width:18%; margin:0 1%; padding:0; display:inline-block;'>"
+									+ "<div class='normal-button"+(tattoo.getWriting().getStyles().contains(style)?" selected":"")+"' id='TATTOO_WRITING_STYLE_"+style.toString()+"'"
+											+ " style='width:100%; margin:0; color:"+(tattoo.getWriting().getStyles().contains(style)?Colour.GENERIC_GOOD:Colour.TEXT_HALF_GREY).toWebHexString()+";'>"+Util.capitaliseSentence(style.getName())+"</div>"
+								+ "</div>");
+			}
+			contentSB.append("<div class='container-full-width'>"
+					+ "Output: "+tattoo.getFormattedWritingOutput()
+					+ "</div>");
+			contentSB.append("</div>");
+			
+			contentSB.append("<div class='container-full-width' style='width:33.3%; margin:0;'>");
+				for (Colour c : TattooWriting.getAvailableColours()) {
+					contentSB.append("<div class='normal-button"+(tattoo.getWriting().getColour()==c?" selected":"")+"' id='TATTOO_WRITING_COLOUR_"+c+"'"
+											+ " style='width:auto; margin-right:4px;"+(tattoo.getWriting().getColour()==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
+										+ "<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";"+(c==Colour.COVERING_NONE?" color:"+Colour.BASE_RED.toWebHexString()+";'>X":"'>")+"</div>"
+									+ "</div>");
+				}
+				contentSB.append("</br>");
+				if(tattoo.getWriting().isGlow()) {
+					contentSB.append(
+							"<div class='normal-button selected' id='TATTOO_WRITING_GLOW' style='width:50%; margin:2% 25%; padding:0; text-align:center;'>"
+								+ "[style.boldArcane(Glow)]"
+							+ "</div>");
+				} else {
+					contentSB.append(
+							"<div id='TATTOO_WRITING_GLOW' class='normal-button' style='width:50%; margin:2% 25%; padding:0; text-align:center;'>"
+								+ "<span style='color:"+Colour.GENERIC_ARCANE.getShades()[0]+";'>Glow</span>"
+							+ "</div>");
+				}
+			contentSB.append("</div>");
+		contentSB.append("</div>");
+
+		// Counter:
+
+		contentSB.append("<div class='container-full-width'>"
+				+ "<h5 style='width:100%; text-align:center;'>Select Counter</h5>");
+		
+			contentSB.append("<div class='container-full-width' style='width:66.6%; margin:0;'>");
+				contentSB.append("<div class='container-full-width' style='position:relative; text-align:center;'>");
+					contentSB.append("<p style='width:100%; text-align:center;'>Counter Type</p>");
+					for(TattooCounterType counterType : TattooCounterType.values()) {
+						contentSB.append("<div style='width:23%; margin:1%; padding:0; display:inline-block;'>"
+											+ "<div class='normal-button"+(tattoo.getCounter().getType()==counterType?" selected":"")+"' id='TATTOO_COUNTER_TYPE_"+counterType.toString()+"'"
+													+ " style='width:100%; margin:0; color:"+(tattoo.getCounter().getType()==counterType?Colour.GENERIC_GOOD:Colour.TEXT_HALF_GREY).toWebHexString()+";'>"
+												+Util.capitaliseSentence(counterType.getName())+"</div>"
+										+ "</div>");
+					}
+				contentSB.append("</div>");
+				contentSB.append("<div class='container-full-width' style='position:relative; text-align:center;'>");
+					contentSB.append("<p style='width:100%; text-align:center;'>Counter Style</p>");
+					for(TattooCountType countType : TattooCountType.values()) {
+						contentSB.append("<div style='width:23%; margin:1%; padding:0; display:inline-block;'>"
+											+ "<div class='normal-button"+(tattoo.getCounter().getCountType()==countType?" selected":"")+"' id='TATTOO_COUNT_TYPE_"+countType.toString()+"'"
+													+ " style='width:100%; margin:0; color:"+(tattoo.getCounter().getCountType()==countType?Colour.GENERIC_GOOD:Colour.TEXT_HALF_GREY).toWebHexString()+";'>"
+												+Util.capitaliseSentence(countType.getName())+"</div>"
+										+ "</div>");
+					}
+				contentSB.append("</div>");
+			contentSB.append("</div>");
+			
+			contentSB.append("<div class='container-full-width' style='width:33.3%; margin:0;'>");
+				for (Colour c : TattooCounter.getAvailableColours()) {
+					contentSB.append("<div class='normal-button"+(tattoo.getCounter().getColour()==c?" selected":"")+"' id='TATTOO_COUNTER_COLOUR_"+c+"'"
+											+ " style='width:auto; margin-right:4px;"+(tattoo.getCounter().getColour()==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
+										+ "<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";"+(c==Colour.COVERING_NONE?" color:"+Colour.BASE_RED.toWebHexString()+";'>X":"'>")+"</div>"
+									+ "</div>");
+				}
+				contentSB.append("</br>");
+				if(tattoo.getCounter().isGlow()) {
+					contentSB.append(
+							"<div class='normal-button selected' id='TATTOO_COUNTER_GLOW' style='width:50%; margin:2% 25%; padding:0; text-align:center;'>"
+								+ "[style.boldArcane(Glow)]"
+							+ "</div>");
+				} else {
+					contentSB.append(
+							"<div id='TATTOO_COUNTER_GLOW' class='normal-button' style='width:50%; margin:2% 25%; padding:0; text-align:center;'>"
+								+ "<span style='color:"+Colour.GENERIC_ARCANE.getShades()[0]+";'>Glow</span>"
+							+ "</div>");
+				}
+				contentSB.append("<div class='container-full-width'>"
+						+ "Output: "+tattoo.getFormattedCounterOutput(BodyChanging.getTarget())
+						+ "</div>");
+			contentSB.append("</div>");
+			
+		contentSB.append("</div>");
+
+		contentSB.append("<p id='hiddenPField' style='display:none;'></p>");
 		
 		return contentSB.toString();
 	}

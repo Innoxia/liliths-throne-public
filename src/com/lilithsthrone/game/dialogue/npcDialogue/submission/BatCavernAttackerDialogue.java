@@ -27,7 +27,7 @@ import com.lilithsthrone.utils.Util.Value;
  */
 public class BatCavernAttackerDialogue {
 	
-	public static final DialogueNodeOld BAT_MORPH_ATTACK = new DialogueNodeOld("Assaulted!", "A bat-morph swoops down from above!", true) {
+	public static final DialogueNodeOld ATTACK = new DialogueNodeOld("Assaulted!", "A denizen of the Bat Caverns attacks you!", true) {
 		private static final long serialVersionUID = 1L;
 		
 		@Override
@@ -41,31 +41,31 @@ public class BatCavernAttackerDialogue {
 				if(Main.game.getActiveNPC().isVisiblyPregnant()){
 					// Pregnant encounters:
 					if(!Main.game.getActiveNPC().isReactedToPregnancy()) {
-						return UtilText.parseFromXMLFile("characters/submission/batCavernBat", "ATTACK_REPEAT_PREGNANCY_REACT")
+						return UtilText.parseFromXMLFile("characters/submission/batCavernDefault", "ATTACK_REPEAT_PREGNANCY_REACT")
 								+ "<p style='text-align:center;'>" 
 									+ "<b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>You ended up getting [npc.name] pregnant!</b>"
 								+ "</p>";
 					
 					} else {
-						return UtilText.parseFromXMLFile("characters/submission/batCavernBat", "ATTACK_REPEAT_PREGNANCY")
+						return UtilText.parseFromXMLFile("characters/submission/batCavernDefault", "ATTACK_REPEAT_PREGNANCY")
 									+ (Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer())
-										?UtilText.parseFromXMLFile("characters/submission/batCavernBat", "ATTRACTED_TO_PLAYER")
-										:UtilText.parseFromXMLFile("characters/submission/batCavernBat", "NOT_ATTRACTED_TO_PLAYER"));
+										?UtilText.parseFromXMLFile("characters/submission/batCavernDefault", "ATTRACTED_TO_PLAYER")
+										:UtilText.parseFromXMLFile("characters/submission/batCavernDefault", "NOT_ATTRACTED_TO_PLAYER"));
 					}
 					
 				} else {
 					// Standard repeat encounter:
-					return UtilText.parseFromXMLFile("characters/submission/batCavernBat", "ATTACK_REPEAT")
+					return UtilText.parseFromXMLFile("characters/submission/batCavernDefault", "ATTACK_REPEAT")
 								+ (Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer())
-										?UtilText.parseFromXMLFile("characters/submission/batCavernBat", "ATTRACTED_TO_PLAYER")
-										:UtilText.parseFromXMLFile("characters/submission/batCavernBat", "NOT_ATTRACTED_TO_PLAYER"));
+										?UtilText.parseFromXMLFile("characters/submission/batCavernDefault", "ATTRACTED_TO_PLAYER")
+										:UtilText.parseFromXMLFile("characters/submission/batCavernDefault", "NOT_ATTRACTED_TO_PLAYER"));
 				}
 				
 			} else {
-				return UtilText.parseFromXMLFile("characters/submission/batCavernBat", "ATTACK")
+				return UtilText.parseFromXMLFile("characters/submission/batCavernDefault", "ATTACK")
 						+ (Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer())
-								?UtilText.parseFromXMLFile("characters/submission/batCavernBat", "ATTRACTED_TO_PLAYER")
-								:UtilText.parseFromXMLFile("characters/submission/batCavernBat", "NOT_ATTRACTED_TO_PLAYER"));
+								?UtilText.parseFromXMLFile("characters/submission/batCavernDefault", "ATTRACTED_TO_PLAYER")
+								:UtilText.parseFromXMLFile("characters/submission/batCavernDefault", "NOT_ATTRACTED_TO_PLAYER"));
 			}
 		}
 
@@ -81,7 +81,7 @@ public class BatCavernAttackerDialogue {
 					return new Response("Offer money ("+UtilText.formatAsMoney(250, "span")+")", "Offer to pay [npc.name] 250 flames to leave you alone.", Main.game.getDefaultDialogueNoEncounter()) {
 						@Override
 						public void effects() {
-							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("characters/submission/batCavernBat", "ATTACK_PAID_OFF")
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("characters/submission/batCavernDefault", "ATTACK_PAID_OFF")
 									+ Main.game.getPlayer().incrementMoney(-250));
 						}
 					};
@@ -97,7 +97,7 @@ public class BatCavernAttackerDialogue {
 									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
 							AFTER_SEX_DEFEAT,
-							UtilText.parseFromXMLFile("characters/submission/batCavernBat", "ATTACK_OFFER_BODY"));
+							UtilText.parseFromXMLFile("characters/submission/batCavernDefault", "ATTACK_OFFER_BODY"));
 				} else {
 					return new Response("Offer body", "You can tell that [npc.name] isn't at all interested in having sex with you. You'll either have to offer [npc.herHim] some money, or prepare for a fight!", null);
 				}

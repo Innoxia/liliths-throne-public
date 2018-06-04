@@ -111,6 +111,7 @@ public class Covering  {
 //				return gc.getCovering(BodyCoveringType.SLIME).getColourDescriptor(gc, coloured, capitalised);
 //			}
 //		}
+		// Hopefully nobody ever discovers this appalling mess... BlobSweats
 		if(coloured) {
 			switch(pattern) {
 				case HIGHLIGHTS:

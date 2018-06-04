@@ -442,6 +442,9 @@ h6{
 	-webkit-user-select: none;
 }
 
+.inventory-item-slot.secondary{
+	width:14.67%;
+}
 .inventory-item-slot.piercing{
 	width:40%;
 	margin:5%;
@@ -491,6 +494,9 @@ h6{
 	border-radius:5px;
 	cursor:pointer;
 }
+.overlay-inventory.no-pointer{
+	cursor:default;
+}
 
 .femininityIcon{
 	position:absolute;
@@ -526,11 +532,11 @@ h6{
 	pointer-events: none;
 	-webkit-user-select: none;
 }
-.jinxedIcon{
+.scarIcon{
 	position:absolute;
 	width:40%;
 	height:40%;
-	left:0;
+	right:0;
 	pointer-events: none;
 	-webkit-user-select: none;
 }

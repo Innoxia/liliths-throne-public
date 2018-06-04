@@ -8,6 +8,8 @@ import java.util.Map.Entry;
 
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.fetishes.Fetish;
+import com.lilithsthrone.game.character.markings.AbstractTattooType;
+import com.lilithsthrone.game.character.markings.Tattoo;
 import com.lilithsthrone.game.combat.SpellSchool;
 import com.lilithsthrone.game.dialogue.utils.EnchantmentDialogue;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
@@ -23,11 +25,13 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.75
- * @version 0.2.0
+ * @version 0.2.6
  * @author Innoxia
  */
 public class EnchantingUtils {
-
+	
+	public static final int FLAME_COST_MODIFER = 500;
+	
 	public static AbstractItem craftItem(AbstractCoreItem ingredient, List<ItemEffect> effects) {
 
 		AbstractItem craftedItem = null;
@@ -67,9 +71,18 @@ public class EnchantingUtils {
 		return craftedClothing;
 	}
 	
+	public static void craftTattoo(AbstractCoreItem ingredient, List<ItemEffect> effects) {
+		List<ItemEffect> effectsToBeAdded = new ArrayList<>(effects);
+		((Tattoo)ingredient).setEffects(effectsToBeAdded);
+	}
+	
 	public static String getPotionName(AbstractCoreItem ingredient, List<ItemEffect> effects) {
 		
 		if(ingredient.getEnchantmentItemType(effects) instanceof AbstractClothingType) {
+			return Util.capitaliseSentence(ingredient.getName());
+		}
+		
+		if(ingredient.getEnchantmentItemType(effects) instanceof AbstractTattooType) {
 			return Util.capitaliseSentence(ingredient.getName());
 		}
 		
@@ -139,7 +152,8 @@ public class EnchantingUtils {
 			cost/=2;
 		}
 		
-		if(Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.WATER)
+		if(!(ingredient instanceof Tattoo)
+				&& Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.WATER)
 				&& (effect.getPrimaryModifier()==TFModifier.TF_MOD_WETNESS
 						|| effect.getPrimaryModifier()==TFModifier.TF_MILK
 						|| effect.getPrimaryModifier()==TFModifier.TF_CUM
@@ -168,7 +182,8 @@ public class EnchantingUtils {
 			}
 		}
 		for(Entry<ItemEffect, Integer> entry : effectCount.entrySet()) {
-			if(Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.WATER)
+			if(!(ingredient instanceof Tattoo)
+					&& Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.WATER)
 					&& (entry.getKey().getPrimaryModifier()==TFModifier.TF_MOD_WETNESS
 							|| entry.getKey().getPrimaryModifier()==TFModifier.TF_MILK
 							|| entry.getKey().getPrimaryModifier()==TFModifier.TF_CUM
@@ -188,13 +203,16 @@ public class EnchantingUtils {
 			cost/=2;
 		}
 		
-		
 		return cost;
 	}
 	
 	public static String getSVGString(AbstractCoreItem ingredient, List<ItemEffect> effects) {
 		
 		if(ingredient.getEnchantmentItemType(effects) instanceof AbstractClothingType) {
+			return ingredient.getSVGString();
+		}
+		
+		if(ingredient.getEnchantmentItemType(effects) instanceof AbstractTattooType) {
 			return ingredient.getSVGString();
 		}
 		

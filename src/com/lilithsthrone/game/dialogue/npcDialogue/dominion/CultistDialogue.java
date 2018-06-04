@@ -13,7 +13,6 @@ import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
-import com.lilithsthrone.game.inventory.clothing.DisplacementType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.game.sex.Sex;
@@ -93,9 +92,7 @@ public class CultistDialogue {
 					@Override
 					public void effects() {
 						// Pull up dress:
-						if(Main.game.getActiveNPC().getClothingInSlot(InventorySlot.TORSO_UNDER)!=null) {
-							Main.game.getActiveNPC().isAbleToBeDisplaced(Main.game.getActiveNPC().getClothingInSlot(InventorySlot.TORSO_UNDER), DisplacementType.PULLS_UP, true, true, Main.game.getActiveNPC());
-						}
+						Main.game.getActiveNPC().displaceClothingForAccess(CoverableArea.PENIS);
 					}
 				};
 				
