@@ -3973,7 +3973,12 @@ public class MainControllerInitMethod {
 			}
 			if (Main.game.getCurrentDialogueNode() == PhoneDialogue.CHARACTER_COLOUR
 					|| Main.game.getCurrentDialogueNode() == CharacterCreation.CHOOSE_ADVANCED_APPEARANCE_COLOUR) {
-				for (Colour c : ColourListPresets.ALL.getPresetColourList()) {
+
+				List<Colour> allPlayerColours = Util.newArrayListOfValues();
+				allPlayerColours.addAll(ColourListPresets.ALL.getPresetColourList());
+				allPlayerColours.addAll(Colour.naturalHairColours);
+				allPlayerColours.addAll(Colour.dyeHairColours);
+				for (Colour c : allPlayerColours) {
 					id = "COLOUR_" + c.toString();
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
