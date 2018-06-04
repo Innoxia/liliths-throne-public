@@ -7159,6 +7159,14 @@ public class ClothingType {
 									ClothingAccess.LEGS_UP_TO_GROIN,
 									ClothingAccess.GROIN),
 							null, null, null),
+					new BlockedParts(DisplacementType.UNBUTTONS,
+							Util.newArrayListOfValues(ClothingAccess.GROIN),
+							Util.newArrayListOfValues(
+									CoverableArea.PENIS),
+							null,
+							Util.newArrayListOfValues(
+									InventorySlot.PENIS,
+									InventorySlot.PIERCING_PENIS)),
 					new BlockedParts(DisplacementType.SHIFTS_ASIDE,
 							Util.newArrayListOfValues(ClothingAccess.GROIN),
 							Util.newArrayListOfValues(

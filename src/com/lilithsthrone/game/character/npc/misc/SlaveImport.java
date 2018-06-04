@@ -40,7 +40,7 @@ public class SlaveImport extends NPC {
 	
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
-		loadNPCVariablesFromXML(this, null, parentElement, doc, CharacterImportSetting.NO_PREGNANCY);
+		loadNPCVariablesFromXML(this, null, parentElement, doc, CharacterImportSetting.NO_PREGNANCY, CharacterImportSetting.NO_COMPANIONS, CharacterImportSetting.NO_ELEMENTAL);
 		
 		if(!this.getId().endsWith("SlaveImport")) {
 			this.setId(Main.game.getNextNPCId(SlaveImport.class));

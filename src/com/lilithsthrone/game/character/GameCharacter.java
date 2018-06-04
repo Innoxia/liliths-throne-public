@@ -1039,7 +1039,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	public static void loadGameCharacterVariablesFromXML(GameCharacter character, StringBuilder log, Element parentElement, Document doc, CharacterImportSetting... settings) {
 
 		boolean noPregnancy = Arrays.asList(settings).contains(CharacterImportSetting.NO_PREGNANCY);
-		
+		boolean noCompanions = Arrays.asList(settings).contains(CharacterImportSetting.NO_COMPANIONS);
+		boolean noElemental = Arrays.asList(settings).contains(CharacterImportSetting.NO_ELEMENTAL);
 		
 		// ************** Core information **************//
 		
@@ -1111,7 +1112,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				CharacterUtils.appendToImportLog(log, "</br>History import failed. Set history to: "+character.getHistory());
 			}
 		}
-		if(element.getElementsByTagName("elemental").getLength()!=0) {
+		if(!noElemental && element.getElementsByTagName("elemental").getLength()!=0) {
 			character.setElementalID(((Element)element.getElementsByTagName("elemental").item(0)).getAttribute("value"));
 		}
 		
@@ -1756,24 +1757,26 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		
 		// ************** Companions **************//
 		
-		nodes = parentElement.getElementsByTagName("companions");
-		Element companionsElement = (Element) nodes.item(0);
-		if(companionsElement!=null) {
-			
-			for(int i=0; i<((Element) companionsElement.getElementsByTagName("companionsFollowing").item(0)).getElementsByTagName("companion").getLength(); i++){
-				Element e = ((Element)companionsElement.getElementsByTagName("companion").item(i));
+		if(!noCompanions) {
+			nodes = parentElement.getElementsByTagName("companions");
+			Element companionsElement = (Element) nodes.item(0);
+			if(companionsElement!=null) {
 				
-				if(!e.getAttribute("id").equals("NOT_SET")) {
-					character.getCompanionsId().add(e.getAttribute("id"));
-					CharacterUtils.appendToImportLog(log, "</br>Added companion: "+e.getAttribute("id"));
+				for(int i=0; i<((Element) companionsElement.getElementsByTagName("companionsFollowing").item(0)).getElementsByTagName("companion").getLength(); i++){
+					Element e = ((Element)companionsElement.getElementsByTagName("companion").item(i));
+					
+					if(!e.getAttribute("id").equals("NOT_SET")) {
+						character.getCompanionsId().add(e.getAttribute("id"));
+						CharacterUtils.appendToImportLog(log, "</br>Added companion: "+e.getAttribute("id"));
+					}
 				}
+				
+				character.setPartyLeader(((Element)companionsElement.getElementsByTagName("partyLeader").item(0)).getAttribute("value"));
+				CharacterUtils.appendToImportLog(log, "</br>Set party leader: "+((Element)companionsElement.getElementsByTagName("partyLeader").item(0)).getAttribute("value"));
+				
+				character.setMaxCompanions(Integer.valueOf(((Element)companionsElement.getElementsByTagName("maxCompanions").item(0)).getAttribute("value")));
+				CharacterUtils.appendToImportLog(log, "</br>Set max companions: "+String.valueOf(character.getMaxCompanions()));
 			}
-			
-			character.setPartyLeader(((Element)companionsElement.getElementsByTagName("partyLeader").item(0)).getAttribute("value"));
-			CharacterUtils.appendToImportLog(log, "</br>Set party leader: "+((Element)companionsElement.getElementsByTagName("partyLeader").item(0)).getAttribute("value"));
-			
-			character.setMaxCompanions(Integer.valueOf(((Element)companionsElement.getElementsByTagName("maxCompanions").item(0)).getAttribute("value")));
-			CharacterUtils.appendToImportLog(log, "</br>Set max companions: "+String.valueOf(character.getMaxCompanions()));
 		}
 		
 		

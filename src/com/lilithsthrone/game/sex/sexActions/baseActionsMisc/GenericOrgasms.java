@@ -3043,8 +3043,8 @@ public class GenericOrgasms {
 		
 		@Override
 		public SexActionPriority getPriority() {
-			if(Main.game.getPlayer().getLocationPlace().getPlaceType()!=PlaceType.GAMBLING_DEN_FUTA_PREGNANCY
-					&& Main.game.getPlayer().getLocationPlace().getPlaceType()!=PlaceType.GAMBLING_DEN_PREGNANCY) {
+			if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.GAMBLING_DEN_FUTA_PREGNANCY
+					|| Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.GAMBLING_DEN_PREGNANCY) {
 				return SexActionPriority.UNIQUE_MAX;
 			}
 			return SexActionPriority.NORMAL;

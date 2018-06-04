@@ -79,7 +79,6 @@ public class Util {
 		for (int i = 0; i <= 14; i++) {
 			s = s.replaceAll("linearGradient" + i, gradientReplacementID + colour.toString() + (colourSecondary!=null?colourSecondary.toString():"") + (colourTertiary!=null?colourTertiary.toString():"") + "linearGradient" + i);
 			s = s.replaceAll("innoGrad" + i, gradientReplacementID + colour.toString() + (colourSecondary!=null?colourSecondary.toString():"") + (colourTertiary!=null?colourTertiary.toString():"") + "innoGrad" + i);
-			
 		}
 		
 		if(colour!=null) {

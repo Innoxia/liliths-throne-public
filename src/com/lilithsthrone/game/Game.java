@@ -246,7 +246,6 @@ public class Game implements Serializable, XMLSaving {
 			doc.appendChild(characterNode);
 			character.saveAsXML(characterNode, doc);
 			
-			
 			// Ending stuff:
 			
 			TransformerFactory tf = TransformerFactory.newInstance();

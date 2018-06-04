@@ -37,6 +37,7 @@
 		Fix tattoo enchantments not applying their effects. (Pimvgd)
 		Fixed milk regeneration enchantments always applying a huge boost/drain, instead of a more reasonably scaled one. (Delvigore)
 		Added Util method to make selecting random items from lists easier. (Master of Puppets)
+		Improved boxer and briefs displacement methods. (Master of Puppets)
 	
 	Other:
 		Slightly tweaked slot machine odds.
@@ -44,27 +45,20 @@
 	Bugs:	
 		Fixed bug where NPCs would all end sex immediately when orgasming with a creampie.
 		Fixed tattoo writing being saved with a huge amount of trailing whitespace.
+		Fixed issue with slave imports importing companions.
+		Fixed angels being described as part of the group watching public sex.
+		Fixed bug with Blaze and Crystal, where if you returned after beating them then leaving, the dialogue would incorrectly return the 'friendly' scene.
+		
 	
 	
 	
 	
-	"A crowd of angels" for public sex
 	
-	After an ally summons an elemental, whenever you select said ally, the menu visually freezes (everything works, but you can't see what buttons you're clicking).
-	
-	Not sure what's causing it, but I'm getting a bug where my slaves are listed as pregnant by the tracker, but don't gain the pregnancy buff/debuff, and are permanently stuck as "ready to give birth", they're even getting milk, but are in no way in game or description, pregnant.
-	[07:41] Razor Howl: To clarify: Other NPC's can get pregnant and give birth, but not my slaves for some reason.
-	
+	Not sure what's causing it, but I'm getting a bug where my slaves are listed as pregnant by the tracker, but don't gain the pregnancy buff/debuff,
+		 and are permanently stuck as "ready to give birth", they're even getting milk, but are in no way in game or description, pregnant.
+		To clarify: Other NPC's can get pregnant and give birth, but not my slaves for some reason.
 	Edit: Slaves CAN give birth, but the tracker still thinks they're heavily pregnant, even after birth
 	
-	With Blaze and Crystal, if you return after leaving they act friendly and the text suggests you should be able to walk past, but you aren't able to do so
-		
-		
-	0.2.6 Bug: am unable to to let my slave drink a potion
-		 Nothing happens when I click the button
-		Nevermind - bypassed it by giving them the potion, then having them drink it from their inventory
-		For more context, I just loaded my save from version 0.252 into the current 0.260
-		
 		
 	[ ] Get all descriptions finished
 	

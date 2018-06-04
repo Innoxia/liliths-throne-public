@@ -23,6 +23,7 @@ import com.lilithsthrone.game.character.npc.submission.BatMorphCavernAttacker;
 import com.lilithsthrone.game.character.npc.submission.SlimeCavernAttacker;
 import com.lilithsthrone.game.character.npc.submission.SubmissionAttacker;
 import com.lilithsthrone.game.character.quests.QuestLine;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.npcDialogue.SlaveDialogue;
@@ -192,7 +193,7 @@ public enum Encounter {
 				if(Main.game.isIncestEnabled() && Math.random()<0.2f) { // Incest
 					List<NPC> offspringAvailable = new ArrayList<>();
 					offspringAvailable.addAll(Main.game.getOffspring().stream().filter(npc -> !npc.isSlave()
-																								&& npc.getSubspecies().getWorldLocations().contains(WorldType.DOMINION)
+																								&& (npc.getSubspecies().getWorldLocations().contains(WorldType.DOMINION) || npc.getSubspecies()==Subspecies.ANGEL)
 																								&& npc.getLastTimeEncountered()==NPC.DEFAULT_TIME_START_VALUE).collect(Collectors.toList()));
 					offspringAvailable.removeAll(Main.game.getOffspringSpawned());
 					

@@ -67,7 +67,7 @@ public class Main extends Application {
 	public static final String VERSION_NUMBER = "0.2.6.2",
 			VERSION_DESCRIPTION = "Alpha";
 	
-	private final static boolean DEBUG = true;
+	private final static boolean DEBUG = false;
 
 	public static final Image WINDOW_IMAGE = new Image("/com/lilithsthrone/res/images/windowIcon32.png");
 
@@ -272,6 +272,38 @@ public class Main extends Application {
 			+"<ul>Fixed background error in some sex actions that would cause the action to appear not to have worked.</ul>"
 			+"<ul>Fixed cause of Slime Queen's dialogue bugging out and not being able to be selected.</ul>"
 			+"<ul>Fixed bug where NPCs would not choose any sex action if they disliked/hated noncon and it was a noncon scene.</ul>"
+		+ "</list>"
+
+		+ "</br>"
+
+		+ "<list>"
+			+ "<h6>v0.2.6.2</h6>"
+			+"<li>Contributors:</li>"
+			+"<ul>Fixed DominionSuccubusAttacker-slaves throwing nullpointers for TF items. (Pimvgd)</ul>"
+			+"<ul>Typo and parsing fixes. (Pimvgd)</ul>"
+			+"<ul>Fixed intToString method causing crashes/bugs. (Pimvgd)</ul>"
+			+"<ul>Fixed some characters being able to get pregnant even although that's not supposed to happen, such as Alexandria in the intro. (Pimvgd)</ul>"
+			+"<ul>Fixed encyclopedia weapon colours not displaying properly. (Pimvgd)</ul>"
+			+"<ul>Fixed cause of the mysterious -5 to lust resist on new player characters. (Pimvgd)</ul>"
+			+"<ul>Fixed slavery upkeep persisting across new games. (Pimvgd)</ul>"
+			+"<ul>Fixed slime queen quest completion 'report back' dialogue displaying the wrong report back text. (Pimvgd)</ul>"
+			+"<ul>Fixed cause of a crash with bimbo characters' dirty talk. (Master of Puppets)</ul>"
+			+"<ul>Fixed offspring renaming with enter key hardlocking game. (Pimvgd)</ul>"
+			+"<ul>Enabled female beards when the option for female beards is turned on. (Pimvgd)</ul>"
+			+"<ul>Fix tattoo enchantments not applying their effects. (Pimvgd)</ul>"
+			+"<ul>Fixed milk regeneration enchantments always applying a huge boost/drain, instead of a more reasonably scaled one. (Delvigore)</ul>"
+			+"<ul>Added Util method to make selecting random items from lists easier. (Master of Puppets)</ul>"
+			+"<ul>Improved boxer and briefs displacement methods. (Master of Puppets)</ul>"
+			
+			+"<li>Other:</li>"
+			+"<ul>Slightly tweaked slot machine odds.</ul>"
+			
+			+"<li>Bugs:</li>"
+			+"<ul>Fixed bug where NPCs would all end sex immediately when orgasming with a creampie.</ul>"
+			+"<ul>Fixed tattoo writing being saved with a huge amount of trailing whitespace.</ul>"
+			+"<ul>Fixed issue with slave imports importing companions.</ul>"
+			+"<ul>Fixed angels being described as part of the group watching public sex.</ul>"
+			+"<ul>Fixed bug with Blaze and Crystal, where if you returned after beating them then leaving, the dialogue would incorrectly return the 'friendly' scene.</ul>"
 		+ "</list>"
 		;
 	
