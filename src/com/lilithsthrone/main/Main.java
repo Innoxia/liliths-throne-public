@@ -84,13 +84,7 @@ public class Main extends Application {
 		+ "</p>"
 			
 		+ "<p>"
-			+ "Sorry once again for the delay last week! For this version, I've managed to get tattoos fully implemented, as well as adding in mechanics for the gambling Den's dice poker."
-			+ " Both of these things took a little longer than I'd hoped (especially the tattoos), so the Gambling Den content is only half-finished."
-			+ " I will be releasing another mini update (v0.2.6.1) in two days (on Saturday evening), which will have the Gambling Den's content completely finished."
-		+ "</p>"
-			
-		+ "<p>"
-			+ "So, to reiterate, there will be a mini-update, v0.2.6.1, out on the evening/night of <b>Saturday 2nd</b>."
+			+ "Here's the updated version of 0.2.6, which includes bug fixes from both patch 0.2.6.1, and 0.2.6.2. The next full, public release will be on the night of Wednesday, 13th June. :3"
 		+ "</p>"
 			
 		+ "<p>"
