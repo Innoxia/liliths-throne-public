@@ -3202,9 +3202,14 @@ public enum StatusEffect {
 			extraEffects.clear();
 			
 			for(Addiction addiction : target.getAddictions()) {
+				long oneDayLater = addiction.getLastTimeSatisfied() + (24 * 60);
+				long now = Main.game.getMinutesPassed();
+				long timeLeft = oneDayLater - now;
+				long hoursLeft = timeLeft / 60;
+				long minutesLeft = timeLeft % 60;
 				extraEffects.add("<b style='color:"+addiction.getFluid().getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(addiction.getFluid().getDescriptor(target))+" "+addiction.getFluid().getName(target)+"</b>: "
-						+ (Main.game.getMinutesPassed()-addiction.getLastTimeSatisfied()<24*60
-								?" [style.colourGood("+(23-(Main.game.getMinutesPassed()-addiction.getLastTimeSatisfied())/60)+":"+String.format("%02d", (60-(Main.game.getMinutesPassed()-addiction.getLastTimeSatisfied())%60))+")]"
+						+ (timeLeft > 0
+								?" [style.colourGood("+hoursLeft+":"+String.format("%02d", minutesLeft)+")]"
 								:" [style.boldArcane(Withdrawal!)]"));
 			}
 			
@@ -3264,11 +3269,17 @@ public enum StatusEffect {
 				}
 
 				for(Addiction addiction : target.getAddictions()) {
-					long timeDifference = Main.game.getMinutesPassed()-addiction.getLastTimeSatisfied();
-					if(timeDifference>=24*60 && timeDifference<2*24*60) {
+					long oneDayLater = addiction.getLastTimeSatisfied() + (24 * 60);
+					long twoDaysLater = oneDayLater + (24 * 60);
+					long now = Main.game.getMinutesPassed();
+					
+					if(oneDayLater <= now && now < twoDaysLater) {
+						long timeLeft = twoDaysLater - now;
+						long hoursLeft = timeLeft / 60;
+						long minutesLeft = timeLeft % 60;
 						sb.append("</br>"
 								+ "<b style='color:"+addiction.getFluid().getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(addiction.getFluid().getDescriptor(target))+" "+addiction.getFluid().getName(target)+"</b>: "
-								+ " [style.boldArcane(worsens in)] "+(2*24-1-(Main.game.getMinutesPassed()-addiction.getLastTimeSatisfied())/60)+":"+String.format("%02d", (60-(Main.game.getMinutesPassed()-addiction.getLastTimeSatisfied())%60)));
+								+ " [style.boldArcane(worsens in)] "+hoursLeft+":"+String.format("%02d", minutesLeft));
 					}
 				}
 				
@@ -3287,8 +3298,11 @@ public enum StatusEffect {
 		public boolean isConditionsMet(GameCharacter target) {
 			// Time without getting fluid:
 			for(Addiction addiction : target.getAddictions()) {
-				long timeDifference = Main.game.getMinutesPassed()-addiction.getLastTimeSatisfied();
-				if(timeDifference>=24*60 && timeDifference<2*24*60) {
+				long oneDayLater = addiction.getLastTimeSatisfied() + (24 * 60);
+				long twoDaysLater = oneDayLater + (24 * 60);
+				long now = Main.game.getMinutesPassed();
+				
+				if (oneDayLater <= now && now < twoDaysLater) {
 					return true;
 				}
 			}
@@ -3320,11 +3334,17 @@ public enum StatusEffect {
 				}
 
 				for(Addiction addiction : target.getAddictions()) {
-					long timeDifference = Main.game.getMinutesPassed()-addiction.getLastTimeSatisfied();
-					if(timeDifference>=2*24*60 && timeDifference<3*24*60) {
+					long twoDaysLater = addiction.getLastTimeSatisfied() + (24 * 60 * 2);
+					long threeDaysLater = twoDaysLater + (24 * 60);
+					long now = Main.game.getMinutesPassed();
+					
+					if (twoDaysLater <= now && now < threeDaysLater) {
+						long timeLeft = threeDaysLater - now;
+						long hoursLeft = timeLeft / 60;
+						long minutesLeft = timeLeft % 60;
 						sb.append("</br>"
 								+ "<b style='color:"+addiction.getFluid().getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(addiction.getFluid().getDescriptor(target))+" "+addiction.getFluid().getName(target)+"</b>: "
-								+ " [style.boldArcane(worsens in)] "+(3*24-1-(Main.game.getMinutesPassed()-addiction.getLastTimeSatisfied())/60)+":"+String.format("%02d", (60-(Main.game.getMinutesPassed()-addiction.getLastTimeSatisfied())%60)));
+								+ " [style.boldArcane(worsens in)] "+hoursLeft+":"+String.format("%02d", minutesLeft));
 					}
 				}
 				
@@ -3343,8 +3363,11 @@ public enum StatusEffect {
 		public boolean isConditionsMet(GameCharacter target) {
 			// Time without getting fluid:
 			for(Addiction addiction : target.getAddictions()) {
-				long timeDifference = Main.game.getMinutesPassed()-addiction.getLastTimeSatisfied();
-				if(timeDifference>=2*24*60 && timeDifference<3*24*60) {
+				long twoDaysLater = addiction.getLastTimeSatisfied() + (24 * 60 * 2);
+				long threeDaysLater = twoDaysLater + (24 * 60);
+				long now = Main.game.getMinutesPassed();
+				
+				if (twoDaysLater <= now && now < threeDaysLater) {
 					return true;
 				}
 			}
@@ -3376,11 +3399,17 @@ public enum StatusEffect {
 				}
 
 				for(Addiction addiction : target.getAddictions()) {
-					long timeDifference = Main.game.getMinutesPassed()-addiction.getLastTimeSatisfied();
-					if(timeDifference>=3*24*60 && timeDifference<4*24*60) {
+					long threeDaysLater = addiction.getLastTimeSatisfied() + (24 * 60 * 3);
+					long fourDaysLater = threeDaysLater + (24 * 60);
+					long now = Main.game.getMinutesPassed();
+					
+					if (threeDaysLater <= now && now < fourDaysLater) {
+						long timeLeft = fourDaysLater - now;
+						long hoursLeft = timeLeft / 60;
+						long minutesLeft = timeLeft % 60;
 						sb.append("</br>"
 								+ "<b style='color:"+addiction.getFluid().getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(addiction.getFluid().getDescriptor(target))+" "+addiction.getFluid().getName(target)+"</b>: "
-								+ " [style.boldArcane(worsens in)] "+(4*24-1-(Main.game.getMinutesPassed()-addiction.getLastTimeSatisfied())/60)+":"+String.format("%02d", (60-(Main.game.getMinutesPassed()-addiction.getLastTimeSatisfied())%60)));
+								+ " [style.boldArcane(worsens in)] "+hoursLeft+":"+String.format("%02d", minutesLeft));
 					}
 				}
 				
@@ -3399,8 +3428,11 @@ public enum StatusEffect {
 		public boolean isConditionsMet(GameCharacter target) {
 			// Time without getting fluid:
 			for(Addiction addiction : target.getAddictions()) {
-				long timeDifference = Main.game.getMinutesPassed()-addiction.getLastTimeSatisfied();
-				if(timeDifference>=3*24*60 && timeDifference<4*24*60) {
+				long threeDaysLater = addiction.getLastTimeSatisfied() + (24 * 60 * 3);
+				long fourDaysLater = threeDaysLater + (24 * 60);
+				long now = Main.game.getMinutesPassed();
+				
+				if (threeDaysLater <= now && now < fourDaysLater) {
 					return true;
 				}
 			}
@@ -3432,11 +3464,17 @@ public enum StatusEffect {
 				}
 
 				for(Addiction addiction : target.getAddictions()) {
-					long timeDifference = Main.game.getMinutesPassed()-addiction.getLastTimeSatisfied();
-					if(timeDifference>=4*24*60 && timeDifference<5*24*60) {
+					long fourDaysLater = addiction.getLastTimeSatisfied() + (24 * 60 * 4);
+					long fiveDaysLater = fourDaysLater + (24 * 60);
+					long now = Main.game.getMinutesPassed();
+					
+					if (fourDaysLater <= now && now < fiveDaysLater) {
+						long timeLeft = fiveDaysLater - now;
+						long hoursLeft = timeLeft / 60;
+						long minutesLeft = timeLeft % 60;
 						sb.append("</br>"
 								+ "<b style='color:"+addiction.getFluid().getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(addiction.getFluid().getDescriptor(target))+" "+addiction.getFluid().getName(target)+"</b>: "
-								+ " [style.boldArcane(worsens in)] "+(5*24-1-(Main.game.getMinutesPassed()-addiction.getLastTimeSatisfied())/60)+":"+String.format("%02d", (60-(Main.game.getMinutesPassed()-addiction.getLastTimeSatisfied())%60)));
+								+ " [style.boldArcane(worsens in)] "+hoursLeft+":"+String.format("%02d", minutesLeft));
 					}
 				}
 				
@@ -3455,8 +3493,11 @@ public enum StatusEffect {
 		public boolean isConditionsMet(GameCharacter target) {
 			// Time without getting fluid:
 			for(Addiction addiction : target.getAddictions()) {
-				long timeDifference = Main.game.getMinutesPassed()-addiction.getLastTimeSatisfied();
-				if(timeDifference>=4*24*60 && timeDifference<5*24*60) {
+				long fourDaysLater = addiction.getLastTimeSatisfied() + (24 * 60 * 4);
+				long fiveDaysLater = fourDaysLater + (24 * 60);
+				long now = Main.game.getMinutesPassed();
+				
+				if (fourDaysLater <= now && now < fiveDaysLater) {
 					return true;
 				}
 			}
@@ -3488,8 +3529,10 @@ public enum StatusEffect {
 				}
 
 				for(Addiction addiction : target.getAddictions()) {
-					long timeDifference = Main.game.getMinutesPassed()-addiction.getLastTimeSatisfied();
-					if(timeDifference>=5*24*60) {
+					long fiveDaysLater = addiction.getLastTimeSatisfied() + (24 * 60 * 5);
+					long now = Main.game.getMinutesPassed();
+					
+					if (fiveDaysLater <= now) {
 						sb.append("</br>"
 								+ "<b style='color:"+addiction.getFluid().getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(addiction.getFluid().getDescriptor(target))+" "+addiction.getFluid().getName(target)+"</b>.");
 					}
@@ -3510,8 +3553,10 @@ public enum StatusEffect {
 		public boolean isConditionsMet(GameCharacter target) {
 			// Time without getting fluid:
 			for(Addiction addiction : target.getAddictions()) {
-				long timeDifference = Main.game.getMinutesPassed()-addiction.getLastTimeSatisfied();
-				if(timeDifference>=5*24*60) {
+				long fiveDaysLater = addiction.getLastTimeSatisfied() + (24 * 60 * 5);
+				long now = Main.game.getMinutesPassed();
+				
+				if (fiveDaysLater <= now) {
 					return true;
 				}
 			}
