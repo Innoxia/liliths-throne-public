@@ -5965,11 +5965,11 @@ public enum StatusEffect {
 			70,
 			"Snowflake",
 			"set_snowflake",
-			Colour.CLOTHING_SILVER,
+			Colour.BASE_BLUE_LIGHT,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 5f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, 5f)),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, 10f)),
 			null) {
 
 		@Override
@@ -5997,11 +5997,11 @@ public enum StatusEffect {
 			70,
 			"Sun",
 			"set_sun",
-			Colour.CLOTHING_COPPER,
+			Colour.BASE_ORANGE,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 5f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, 5f)),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, 10f)),
 			null) {
 
 		@Override

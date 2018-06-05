@@ -39,6 +39,7 @@
 		Punctuation Fixes for Slime Queen Quest. (WoefulWombat)
 		Fixed missing explore button for the 'canal end' tiles. (Pimvgd)
 		Deduplicated colourReplacement in AbstractItemType. (Pimvgd)
+		Added set bonuses for sun and snowflake jewellery. (rfpnj)
 	
 	Other:
 		Changed boxers and crotchless briefs to be pulled down instead of shifted aside.
