@@ -2508,7 +2508,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 
 	public String getName() {
 		if(this.isSlave()) {
-			if(this.getOwner() != null && this.getOwner().isPlayer()) {
+			if(Main.game.isStarted() && (this.getOwner() != null && this.getOwner().isPlayer())) {
 				playerKnowsName = true;
 			}
 		}
@@ -7213,7 +7213,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		if(characterBeingRevealed.getPenisType()==PenisType.DILDO) {
 			return "<p>"+
 					"[npc.Name] grins as [npc.she] sees that you're wearing a strap-on. "
-					+ "[npc.speech(Looking to a little extra fun, huh?!)]"
+					+ "[npc.speech(Looking to have a little extra fun, huh?)]"
 				+ "</p>";
 		}
 		

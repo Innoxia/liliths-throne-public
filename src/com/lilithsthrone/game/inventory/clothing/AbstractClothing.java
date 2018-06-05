@@ -48,11 +48,15 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 	private AbstractClothingType clothingType;
 	protected List<ItemEffect> effects;
 	
-	private Colour secondaryColour, tertiaryColour;
+	private Colour secondaryColour;
+	private Colour tertiaryColour;
 	private boolean cummedIn, enchantmentKnown;
 	private List<DisplacementType> displacedList;
 	
 	private String pattern; // name of the pattern. 
+	private Colour patternColour;
+	private Colour patternSecondaryColour;
+	private Colour patternTertiaryColour;
 	
 	public AbstractClothing(AbstractClothingType clothingType, Colour colour, Colour secondaryColour, Colour tertiaryColour, boolean allowRandomEnchantment) {
 		super(clothingType.getName(),
@@ -76,6 +80,10 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 		
 		this.secondaryColour = secondaryColour;
 		this.tertiaryColour = tertiaryColour;
+		
+		patternColour = Colour.CLOTHING_BLACK;
+		patternSecondaryColour = Colour.CLOTHING_BLACK;
+		patternTertiaryColour = Colour.CLOTHING_BLACK;
 
 		displacedList = new ArrayList<>();
 
@@ -141,6 +149,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 				if(((AbstractClothing)o).getClothingType().equals(getClothingType())
 						&& ((AbstractClothing)o).getSecondaryColour()==secondaryColour
 						&& ((AbstractClothing)o).getTertiaryColour()==tertiaryColour
+						&& ((AbstractClothing)o).getPattern().equals(getPattern())
 						&& ((AbstractClothing)o).isSealed()==this.isSealed()
 						&& ((AbstractClothing)o).isDirty()==cummedIn
 						&& ((AbstractClothing)o).isEnchantmentKnown()==enchantmentKnown
@@ -164,6 +173,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 		if(getTertiaryColour()!=null) {
 			result = 31 * result + getTertiaryColour().hashCode();
 		}
+		result = 31 * result + getPattern().hashCode();
 		result = 31 * result + (this.isSealed() ? 1 : 0);
 		result = 31 * result + (cummedIn ? 1 : 0);
 		result = 31 * result + (enchantmentKnown ? 1 : 0);
@@ -177,7 +187,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 		parentElement.appendChild(element);
 		
 		CharacterUtils.addAttribute(doc, element, "id", this.getClothingType().getId());
-		CharacterUtils.addAttribute(doc, element, "name", this.getName());
+		CharacterUtils.addAttribute(doc, element, "name", name);
 		CharacterUtils.addAttribute(doc, element, "colour", this.getColour().toString());
 		CharacterUtils.addAttribute(doc, element, "colourSecondary", this.getSecondaryColour().toString());
 		CharacterUtils.addAttribute(doc, element, "colourTertiary", this.getTertiaryColour().toString());
@@ -352,8 +362,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 	 * Returns the name of a pattern that the clothing has.
 	 * @return
 	 */
-	public String getPattern()
-	{
+	public String getPattern() {
 		if(pattern == null) {
 			return "none";
 		}
@@ -364,9 +373,20 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 	 * Changes pattern to specified one. Will not render that pattern if it doesn't exist or the item doesn't support it anyway.
 	 * @param pattern
 	 */
-	public void setPattern(String pattern)
-	{
+	public void setPattern(String pattern) {
 		this.pattern = pattern;
+	}
+
+	public Colour getPatternColour() {
+		return patternColour;
+	}
+
+	public Colour getPatternSecondaryColour() {
+		return patternSecondaryColour;
+	}
+
+	public Colour getPatternTertiaryColour() {
+		return patternTertiaryColour;
 	}
 
 	/**
@@ -521,14 +541,19 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 		}
 		return super.getPrice(modifier);
 	}
-
+	
+	@Override
+	public String getName() {
+		return this.getEffects().isEmpty()?this.getClothingType().getName():name;
+	}
+	
 	/**
 	 * @param withDeterminer
 	 *            True if you want the determiner to prefix the name
 	 * @return A string in the format "blue shirt" or "a blue shirt"
 	 */
 	public String getName(boolean withDeterminer) {
-		return (withDeterminer ? (getClothingType().isPlural() ? getClothingType().getDeterminer() + " " : (Util.isVowel(getColour().getName().charAt(0)) ? "an " : "a ")) : "") + getColour().getName() + " " + name;
+		return (withDeterminer ? (getClothingType().isPlural() ? getClothingType().getDeterminer() + " " : (Util.isVowel(getColour().getName().charAt(0)) ? "an " : "a ")) : "") + getColour().getName() + " " + getName();
 	}
 	
 	public String getName(boolean withDeterminer, boolean withRarityColour) {
@@ -540,8 +565,8 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 						: "")
 					+ getColour().getName()
 					+ (withRarityColour
-							? (" <span style='color: " + Colour.RARITY_UNKNOWN.toWebHexString() + ";'>" + name + "</span>")
-							: " "+name);
+							? (" <span style='color: " + Colour.RARITY_UNKNOWN.toWebHexString() + ";'>" + getName() + "</span>")
+							: " "+getName());
 		} else {
 			return (withDeterminer
 					? (getClothingType().isPlural()
@@ -550,8 +575,8 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 					: "")
 					+ getColour().getName()
 					+ (withRarityColour
-							? (" <span style='color: " + this.getRarity().getColour().toWebHexString() + ";'>" + name + "</span>")
-							: " "+name);
+							? (" <span style='color: " + this.getRarity().getColour().toWebHexString() + ";'>" + getName() + "</span>")
+							: " "+getName());
 		}
 	}
 
@@ -564,15 +589,15 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 	public String getDisplayName(boolean withRarityColour) {
 		if(!this.getName().equalsIgnoreCase(this.getClothingType().getName())) { // If this item has a custom name, just display that:
 			return (withRarityColour
-					? (" <span style='color: " + (!this.isEnchantmentKnown()?Colour.RARITY_UNKNOWN:this.getRarity().getColour()).toWebHexString() + ";'>" + name + "</span>")
-					: name);
+					? (" <span style='color: " + (!this.isEnchantmentKnown()?Colour.RARITY_UNKNOWN:this.getRarity().getColour()).toWebHexString() + ";'>" + getName() + "</span>")
+					: getName());
 		}
 		
 		return Util.capitaliseSentence(getColour().getName()) + " "
 				+ (!this.getPattern().equalsIgnoreCase("none")?Pattern.getPattern(this.getPattern()).getNiceName():"")
 				+ (withRarityColour
-					? (" <span style='color: " + (!this.isEnchantmentKnown()?Colour.RARITY_UNKNOWN:this.getRarity().getColour()).toWebHexString() + ";'>" + name + "</span>")
-					: name)
+					? (" <span style='color: " + (!this.isEnchantmentKnown()?Colour.RARITY_UNKNOWN:this.getRarity().getColour()).toWebHexString() + ";'>" + getName() + "</span>")
+					: getName())
 				+(!this.getEffects().isEmpty() && this.isEnchantmentKnown() && this.getRarity()!=Rarity.LEGENDARY && this.getRarity()!=Rarity.EPIC
 						? " "+getEnchantmentPostfix(withRarityColour, "b")
 						: "");
@@ -580,11 +605,11 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 
 	@Override
 	public String getSVGString() {
-		return getClothingType().getSVGImage(colourShade, secondaryColour, tertiaryColour, pattern);
+		return getClothingType().getSVGImage(colourShade, secondaryColour, tertiaryColour, pattern, patternColour, patternSecondaryColour, patternTertiaryColour);
 	}
 	
 	public String getSVGEquippedString(GameCharacter character) {
-		return getClothingType().getSVGEquippedImage(character, colourShade, secondaryColour, tertiaryColour, pattern);
+		return getClothingType().getSVGEquippedImage(character, colourShade, secondaryColour, tertiaryColour, pattern, patternColour, patternSecondaryColour, patternTertiaryColour);
 	}
 
 	/**

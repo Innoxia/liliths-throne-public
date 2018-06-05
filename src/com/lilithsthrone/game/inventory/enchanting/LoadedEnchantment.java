@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.inventory.enchanting;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.game.character.markings.AbstractTattooType;
@@ -83,10 +84,18 @@ public class LoadedEnchantment {
 			}
 			
 		} else if(clothingType!=null) {
+			List<AbstractClothing> clothingList = new ArrayList<>();
 			for(AbstractClothing c :  Main.game.getPlayer().getAllClothingInInventory()) {
-				if(c.getClothingType().equals(clothingType) && c.getEffects().isEmpty()) {
-					return c;
+				if(c.getClothingType().equals(clothingType) && c.isEnchantmentKnown()) {
+					if(c.getEffects().isEmpty()) {
+						return c;
+					} else {
+						clothingList.add(c);
+					}
 				}
+			}
+			if(!clothingList.isEmpty()) {
+				return clothingList.get(0);
 			}
 			
 		} else if(weaponType!=null) {

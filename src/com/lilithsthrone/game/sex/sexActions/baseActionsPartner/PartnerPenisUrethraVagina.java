@@ -612,7 +612,7 @@ public class PartnerPenisUrethraVagina {
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Forcefully grinding yourself against [npc.name], you guide [npc.her] [npc.cock+] up to your outer labia,"
 									+ " letting out [pc.a_moan+] before roughly slamming your [pc.hips] forwards and forcing [npc.herHim] to penetrate your [pc.vaginaUrethra+].",
-							"Lining your [pc.vaginaUrethra+] up to [npc.name]'s [npc.cock+], you violently slam your [pc.hips] forwards, letting out [pc.a_moan+] as you roughly start fucking yourself on [npc.her] [npc.cock+]."));
+							"Lining your [pc.vaginaUrethra+] up to [npc.name]'s [npc.cock+], you violently slam your [pc.hips] into [npc.her] groin, letting out [pc.a_moan+] as you roughly start fucking yourself on [npc.her] [npc.cock+]."));
 					break;
 				case SUB_EAGER:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(

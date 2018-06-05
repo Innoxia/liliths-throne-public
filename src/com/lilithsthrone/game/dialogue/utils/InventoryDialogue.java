@@ -39,6 +39,7 @@ import com.lilithsthrone.rendering.Pattern;
 import com.lilithsthrone.rendering.RenderingEngine;
 import com.lilithsthrone.utils.ClothingZLayerComparator;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.ColourListPresets;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
@@ -5412,12 +5413,18 @@ public class InventoryDialogue {
 	public static Colour dyePreviewSecondary;
 	public static Colour dyePreviewTertiary;
 	public static String dyePreviewPattern;
+	public static Colour dyePreviewPatternPrimary;
+	public static Colour dyePreviewPatternSecondary;
+	public static Colour dyePreviewPatternTertiary;
 	
 	private static void resetClothingDyeColours() {
 		dyePreviewPrimary = clothing.getColour();
 		dyePreviewSecondary = clothing.getSecondaryColour();
 		dyePreviewTertiary = clothing.getTertiaryColour();
 		dyePreviewPattern = clothing.getPattern();
+		dyePreviewPatternPrimary = clothing.getPatternColour();
+		dyePreviewPatternSecondary = clothing.getPatternSecondaryColour();
+		dyePreviewPatternTertiary = clothing.getPatternTertiaryColour();
 	}
 
 	private static void resetWeaponDyeColours() {
@@ -5442,12 +5449,12 @@ public class InventoryDialogue {
 				+ "<div class='container-full-width'>"
 					+ "<div class='inventoryImage'>"
 						+ "<div class='inventoryImage-content'>"
-							+ clothing.getClothingType().getSVGImage(dyePreviewPrimary, dyePreviewSecondary, dyePreviewTertiary, dyePreviewPattern)
+							+ clothing.getClothingType().getSVGImage(dyePreviewPrimary, dyePreviewSecondary, dyePreviewTertiary, dyePreviewPattern, dyePreviewPatternPrimary, dyePreviewPatternSecondary, dyePreviewPatternTertiary)
 						+ "</div>"
 					+ "</div>"
 					+ "<h3 style='text-align:center;'><b>Dye & Preview</b></h3>"
-					+ "<div class='container-quarter-width'>"
-					+ "Primary:</br>");
+					+ "<div class='container-quarter-width' style='width:calc(75% - 16px);'>"
+					+ "Primary Colour:</br>");
 
 		for (Colour c : clothing.getClothingType().getAllAvailablePrimaryColours()) {
 			inventorySB.append("<div class='normal-button"+(dyePreviewPrimary==c?" selected":"")+"' id='PRIMARY_" + (clothing.getClothingType().hashCode() + "_" + c.toString()) + "'"
@@ -5459,8 +5466,8 @@ public class InventoryDialogue {
 		inventorySB.append("</div>");
 		
 		if(!clothing.getClothingType().getAllAvailableSecondaryColours().isEmpty()) {
-			inventorySB.append("<div class='container-quarter-width'>"
-					+ "Secondary:</br>");
+			inventorySB.append("<div class='container-quarter-width' style='width:calc(75% - 16px);'>"
+					+ "Secondary Colour:</br>");
 			for (Colour c : clothing.getClothingType().getAllAvailableSecondaryColours()) {
 				inventorySB.append("<div class='normal-button"+(dyePreviewSecondary==c?" selected":"")+"' id='SECONDARY_" + (clothing.getClothingType().hashCode() + "_" + c.toString()) + "'"
 									+ " style='width:auto; margin-right:4px;"+(dyePreviewSecondary==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
@@ -5471,8 +5478,8 @@ public class InventoryDialogue {
 		}
 
 		if(!clothing.getClothingType().getAllAvailableTertiaryColours().isEmpty()) {
-			inventorySB.append("<div class='container-quarter-width'>"
-					+ "Tertiary:</br>");
+			inventorySB.append("<div class='container-quarter-width' style='width:calc(75% - 16px);'>"
+					+ "Tertiary Colour:</br>");
 			for (Colour c : clothing.getClothingType().getAllAvailableTertiaryColours()) {
 				inventorySB.append("<div class='normal-button"+(dyePreviewTertiary==c?" selected":"")+"' id='TERTIARY_" + (clothing.getClothingType().hashCode() + "_" + c.toString()) + "'"
 									+ " style='width:auto; margin-right:4px;"+(dyePreviewTertiary==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
@@ -5482,8 +5489,7 @@ public class InventoryDialogue {
 			inventorySB.append("</div>");
 		}
 		
-		if(clothing.getClothingType().isPatternAvailable())
-		{
+		if(clothing.getClothingType().isPatternAvailable()){
 			inventorySB.append(
 					"</br>"
 					+ "<div class='container-full-width'>"
@@ -5503,6 +5509,44 @@ public class InventoryDialogue {
 				}
 			}
 			inventorySB.append("</div>");
+
+			
+			if(Pattern.getPattern(dyePreviewPattern)!=null && Pattern.getPattern(dyePreviewPattern).isPrimaryRecolourAvailable()) {
+				inventorySB.append("<div class='container-full-width'>"
+						+ "Pattern Primary Colour:</br>");
+				for (Colour c : ColourListPresets.ALL.getPresetColourList()) {
+					inventorySB.append("<div class='normal-button"+(dyePreviewPatternPrimary==c?" selected":"")+"' id='PATTERN_PRIMARY_" + (clothing.getClothingType().hashCode() + "_" + c.toString()) + "'"
+										+ " style='width:auto; margin-right:4px;"+(dyePreviewPatternPrimary==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
+							+ "<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";'></div>"
+						+ "</div>");
+				}
+				inventorySB.append("</div>");
+			}
+			
+			if(Pattern.getPattern(dyePreviewPattern)!=null && Pattern.getPattern(dyePreviewPattern).isSecondaryRecolourAvailable()) {
+				inventorySB.append("<div class='container-full-width'>"
+						+ "Pattern Secondary Colour:</br>");
+				for (Colour c : ColourListPresets.ALL.getPresetColourList()) {
+					inventorySB.append("<div class='normal-button"+(dyePreviewPatternSecondary==c?" selected":"")+"' id='PATTERN_SECONDARY_" + (clothing.getClothingType().hashCode() + "_" + c.toString()) + "'"
+										+ " style='width:auto; margin-right:4px;"+(dyePreviewPatternSecondary==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
+							+ "<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";'></div>"
+						+ "</div>");
+				}
+				inventorySB.append("</div>");
+			}
+			
+			if(Pattern.getPattern(dyePreviewPattern)!=null && Pattern.getPattern(dyePreviewPattern).isTertiaryRecolourAvailable()) {
+				inventorySB.append("<div class='container-full-width'>"
+						+ "Pattern Tertiary Colour:</br>");
+				for (Colour c : ColourListPresets.ALL.getPresetColourList()) {
+					inventorySB.append("<div class='normal-button"+(dyePreviewPatternTertiary==c?" selected":"")+"' id='PATTERN_TERTIARY_" + (clothing.getClothingType().hashCode() + "_" + c.toString()) + "'"
+										+ " style='width:auto; margin-right:4px;"+(dyePreviewPatternTertiary==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
+							+ "<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";'></div>"
+						+ "</div>");
+				}
+				inventorySB.append("</div>");
+			}
+			
 		}
 		inventorySB.append("</div>");
 		
@@ -5871,13 +5915,13 @@ public class InventoryDialogue {
 						 
 						if(owner!=null) {
 							owner.removeWeapon(weapon);
-							weapon.setColour(dyePreviewPrimary);
+							weapon.setPrimaryColour(dyePreviewPrimary);
 							weapon.setSecondaryColour(dyePreviewSecondary);
 							owner.addWeapon(weapon, false);
 
 						} else {
 							Main.game.getPlayerCell().getInventory().removeWeapon(weapon);
-							weapon.setColour(dyePreviewPrimary);
+							weapon.setPrimaryColour(dyePreviewPrimary);
 							weapon.setSecondaryColour(dyePreviewSecondary);
 							Main.game.getPlayerCell().getInventory().addWeapon(weapon);
 						}
@@ -5945,7 +5989,7 @@ public class InventoryDialogue {
 										+ "</p>");
 						}
 						
-						weapon.setColour(dyePreviewPrimary);
+						weapon.setPrimaryColour(dyePreviewPrimary);
 						weapon.setSecondaryColour(dyePreviewSecondary);
 					}
 				};

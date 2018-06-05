@@ -40,13 +40,17 @@
 		Fixed missing explore button for the 'canal end' tiles. (Pimvgd)
 		Deduplicated colourReplacement in AbstractItemType. (Pimvgd)
 		Added set bonuses for sun and snowflake jewellery. (rfpnj)
+		Fixed several issues with incorrect cum, girlcum, and milk types being returned. (Pimvgd)
 	
 	Other:
+		Added ability to recolour clothing patterns.
 		Changed boxers and crotchless briefs to be pulled down instead of shifted aside.
 		Added tongue length to clothing TF options. Added puffy, ribbing, muscled, and tentacled modifiers to clothing's anus, nipple, face, penis, and vagina TFs.
 		Slightly improved snowflake nose stud icon.
 		Synchronised slow clothing TF effects, so that they all fire on the hour. (I did this to fix the issue of having your game interrupted every time you move if you had a lot of TF clothing effects all firing at different times.)
 		Added 'periwinkle' as a clothing and body part colour.
+		Using the save/load menu to load enchantments onto clothing now identifies already-enchanted clothing as being suitable (so long as the enchantment is known), while prioritising non-enchanted clothing.
+		Slightly modified clothing's cow pattern.
 	
 	Bugs:
 		Fixed male kimono exposing anus when untied.
@@ -57,6 +61,15 @@
 		You can now set your base fetish desire to any value, but if you have the fetish, it's still always counted as 'love'. The pink outline on fetish desires correctly reflects this change.
 		Fixed not being able to select items from the right-hand UI element 'Items Present' while the inventory was already open.
 		Fixed character creation's virginity losses incorrectly referencing 'girlfriend', when it should have been 'boyfriend'.
+		Deleting saved enchantments now correctly removes them from the list.
+		Typo fixes.
+		Fixed some inventory stacking errors related to clothing names and patterns.
+		Fixed issue where if an NPC had a piece of patterned clothing, all their clothing would have that pattern name.
+		Fixed weapons' primary colour not being able to be dyed.
+		Fixed weapon colours not persisting between saves.
+	
+	
+	
 	
 	
 	

@@ -119,6 +119,8 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements Seriali
 		CharacterUtils.addAttribute(doc, element, "id", this.getWeaponType().getId());
 		CharacterUtils.addAttribute(doc, element, "damageType", this.getDamageType().toString());
 		CharacterUtils.addAttribute(doc, element, "coreEnchantment", (this.getCoreEnchantment()==null?"null":this.getCoreEnchantment().toString()));
+		CharacterUtils.addAttribute(doc, element, "colourPrimary", this.getPrimaryColour().toString());
+		CharacterUtils.addAttribute(doc, element, "colourSecondary", this.getSecondaryColour().toString());
 		
 		Element attributeElement = doc.createElement("attributeModifiers");
 		element.appendChild(attributeElement);
@@ -149,6 +151,13 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements Seriali
 				weapon.coreEnchantment = Attribute.valueOf(parentElement.getAttribute("coreEnchantment"));
 			} catch(Exception ex) {
 			}
+		}
+		
+		// Try to load colour:
+		try {
+			weapon.setPrimaryColour(Colour.valueOf(parentElement.getAttribute("colourPrimary")));
+			weapon.setSecondaryColour(Colour.valueOf(parentElement.getAttribute("colourSecondary")));
+		} catch(Exception ex) {
 		}
 		
 		weapon.setAttributeModifiers(new HashMap<Attribute, Integer>());
