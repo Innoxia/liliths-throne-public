@@ -3,7 +3,7 @@
 
 	<htmlContent tag="ATTACK_INTRO"><![CDATA[
 	<p>
-		As you travel down the gloomy, twisting tunnels of Submission, the sounds of dripping water and slowly-creaking pipes echo off the stone walls to either side of you.
+		As you travel down the gloomy, twisting tunnels of Submission, the sounds of dripping water and slowly creaking pipes echo off the stone walls to either side of you.
 		 Due to this continuous background noise, the quiet splashing of a slime's footsteps as [npc.she] sneaks up on you are all but completely concealed.
 		 It isn't until the slime is within ten metres that you suddenly become aware of [npc.herHis] presence, and you quickly spin around to find yourself looking at [npc.a_fullRace(true)]!
 	</p>
@@ -39,7 +39,7 @@
 	
 	<htmlContent tag="TRANSFORMER_PLAYER_SLIME_SLIME_NO_SEX"><![CDATA[
 	<p>
-		[npc.speech(Well, you stay safe out there.)]
+		[npc.speech(Well, you stay safe out there,)]
 		 [npc.Name] says, before turning to leave.
 		 [npc.speech(I've gotta find more people to turn into slimes. The Queen said we're supposed to do at least five a day, and I'm only on three so far!)]
 	</p>
@@ -60,7 +60,7 @@
 	</p>
 	<p>
 		[pc.speech(What kind of Queen is ordering people to be transformed into slimes?)]
-		 You ask, stepping back and preparing yourself for a fight.
+		 you ask, stepping back and preparing yourself for a fight.
 	</p>
 	<p>
 		[npc.speech(Well, duh! The Slime Queen of course! Perhaps once I've turned you into a new subject of hers, you'll get to meet her some day!)]
@@ -68,7 +68,7 @@
 	</p>
 	<p>
 		[pc.speech(So she's the one behind all these slime transformations?)]
-		 You ask, remembering what Claire told you about the increase in slime transformations, and about the one-thousand flame reward for any information about it. 
+		 you ask, remembering what Claire told you about the increase in slime transformations, and about the one-thousand flame reward for any information about it. 
 	</p>
 	<p>
 		[npc.speech(Well, that's pretty obvious, isn't it? But if you think I'm going to tell you any more about her, then you're as stupid as you look!)]
@@ -106,7 +106,7 @@
 	</p>
 	<p>
 		[pc.speech(What do you want?)]
-		 You ask in a stern tone, instinctively crouching down a little as you prepare to defend yourself.
+		 you ask in a stern tone, instinctively crouching down a little as you prepare to defend yourself.
 	</p>
 	<p>
 		[npc.speech(Your money, duh. Have you never been mugged before? Now hand it over. There's no need for this to turn ugly.)]
@@ -121,7 +121,7 @@
 		 [pc.speech(I'm not interested. I need to get going now, goodbye.)]
 	</p>
 	<p>
-		[npc.speech(Well, whatever.)]
+		[npc.speech(Well, whatever,)]
 		 [npc.Name] says, before turning and making [npc.her] exit. Having dealt with [npc.name], you similarly turn around and continue on your way.
 	</p>
 	]]>
@@ -315,7 +315,7 @@
 	
 	<htmlContent tag="TRANSFORMED"><![CDATA[
 	<p>
-		[pc.speech(Ok, I'll become a slime...)] You say, eyeing the canister of pink liquid in [npc.name]'s hand.
+		[pc.speech(Ok, I'll become a slime...)] you say, eyeing the canister of pink liquid in [npc.name]'s hand.
 	</p>
 	<p>
 		Grinning, [npc.name] steps forwards, before reaching out to grab your [pc.arm]. Sliding up against you, [npc.she] brings [npc.her] face to within inches of yours, and sneers,
@@ -448,7 +448,7 @@
 	</p>
 	<p>
 		[pc.speech(Sure...)]
-		 You pant, trying to recover enough energy to stand without assistance.
+		 you pant, trying to recover enough energy to stand without assistance.
 	</p>
 	]]>
 	</htmlContent>

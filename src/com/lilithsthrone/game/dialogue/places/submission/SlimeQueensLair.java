@@ -227,7 +227,7 @@ public class SlimeQueensLair {
 							"Fight your way past these slimes!",
 							Util.newArrayListOfValues(Main.game.getSlimeGuardFire(), Main.game.getSlimeGuardIce()),
 							Util.newHashMapOfValues(
-									new Value<>(Main.game.getPlayer(), "[pc.speech(If it's a fight you want, it's a fight you're going to get!)] You cry out, ready to fight the slime siblings."),
+									new Value<>(Main.game.getPlayer(), "[pc.speech(If it's a fight you want, it's a fight you're going to get!)] you cry out, ready to fight the slime siblings."),
 									new Value<>(Main.game.getSlimeGuardFire(), "[slimeFire.speech(Sis' and I are gonna have so much fun with you!)] [slimeFire.name] sneers, gripping his fire-enchanted sword in one hand."),
 									new Value<>(Main.game.getSlimeGuardIce(), "[slimeIce.speech(You'll be sorry!)] [slimeIce.name] calls out, stepping up beside her brother as she prepares to fight."))){
 						@Override
@@ -635,7 +635,7 @@ public class SlimeQueensLair {
 							Util.newArrayListOfValues(Main.game.getSlimeRoyalGuard()),
 							Util.newHashMapOfValues(
 									new Value<>(Main.game.getPlayer(), "[pc.speech(Fine, I'll spar with you,)] you say, readying yourself for a fight, [pc.speech(but remember what you said about your body being mine when you lose!)]"),
-									new Value<>(Main.game.getSlimeRoyalGuard(), "[slimeRoyalGuard.speech(Hah!)] [slimeRoyalGuard.name] booms, [slimeRoyalGuard.speech(I'm looking forwards to claiming my prize!)]")));
+									new Value<>(Main.game.getSlimeRoyalGuard(), "[slimeRoyalGuard.speech(Hah!)] [slimeRoyalGuard.name] booms. [slimeRoyalGuard.speech(I'm looking forwards to claiming my prize!)]")));
 				} else {
 					return null;
 				}
@@ -646,8 +646,8 @@ public class SlimeQueensLair {
 							"Defend yourself against [slimeRoyalGuard.name].",
 							Util.newArrayListOfValues(Main.game.getSlimeRoyalGuard()),
 							Util.newHashMapOfValues(
-									new Value<>(Main.game.getPlayer(), "[pc.speech(I've fought and defeated mightier foes than you!)] You cry out, readying yourself for a fight."),
-									new Value<>(Main.game.getSlimeRoyalGuard(), "[slimeRoyalGuard.speech(No-one is mightier than I!)] [slimeRoyalGuard.name] bellows in response, [slimeRoyalGuard.speech(Prepare to be defeated!)]")));
+									new Value<>(Main.game.getPlayer(), "[pc.speech(I've fought and defeated mightier foes than you!)] you cry out, readying yourself for a fight."),
+									new Value<>(Main.game.getSlimeRoyalGuard(), "[slimeRoyalGuard.speech(No-one is mightier than I!)] [slimeRoyalGuard.name] bellows in response. [slimeRoyalGuard.speech(Prepare to be defeated!)]")));
 					
 				} else if(index==2) {
 					if(Main.game.getSlimeRoyalGuard().getFoughtPlayerCount()>0) {
@@ -708,7 +708,7 @@ public class SlimeQueensLair {
 						"Defend yourself against [slimeRoyalGuard.name].",
 						Util.newArrayListOfValues(Main.game.getSlimeRoyalGuard()),
 						Util.newHashMapOfValues(
-								new Value<>(Main.game.getPlayer(), "[pc.speech(Very well, I'll fight you.)] You say, stepping back and preparing for combat."),
+								new Value<>(Main.game.getPlayer(), "[pc.speech(Very well, I'll fight you,)] you say, stepping back and preparing for combat."),
 								new Value<>(Main.game.getSlimeRoyalGuard(), "[slimeRoyalGuard.speech(Excellent! Now, defend yourself!)] [slimeRoyalGuard.name] booms, before moving forwards to attack.")));
 				
 			} else if(index==2) {
@@ -763,7 +763,7 @@ public class SlimeQueensLair {
 						"Now that you've worn [slimeRoyalGuard.name] out, [slimeRoyalGuard.he] should be easier to beat!",
 						Util.newArrayListOfValues(Main.game.getSlimeRoyalGuard()),
 						Util.newHashMapOfValues(
-								new Value<>(Main.game.getPlayer(), "[pc.speech(Sure, I'll take you on.)] you reply, reading yourself for a fight."),
+								new Value<>(Main.game.getPlayer(), "[pc.speech(Sure, I'll take you on,)] you reply, reading yourself for a fight."),
 								new Value<>(Main.game.getSlimeRoyalGuard(), "[slimeRoyalGuard.speech(Prepare... Prepare to... defend yourself!)] [slimeRoyalGuard.name] pants, struggling to catch his breath.")));
 				
 			} else if(index==2) {

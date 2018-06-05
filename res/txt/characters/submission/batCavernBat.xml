@@ -134,7 +134,7 @@
 		[npc.Name] collapses to the floor, letting out a defeated sigh as [npc.she] gazes up at you. Looking down at the vanquished [npc.race] before you, you see that [npc.she]'s got a desperate look of regret in [npc.her] eyes. Making pitiful little whining noises, [npc.she] tries to shuffle away from you, clearly worried about what your intentions might be.
 	</p>
 	<p>
-		[npc.speech(J-Just take my money and leave me alone!)], [npc.she] pleads, throwing some flames at your feet.
+		[npc.speech(J-Just take my money and leave me alone!)] [npc.she] pleads, throwing some flames at your feet.
 	</p>
 	<p>
 		You wonder if you should do as [npc.she] says, and leave [npc.herHim] alone. Then again, you <i>could</i> take advantage of [npc.her] weakened, vulnerable body...

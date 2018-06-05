@@ -184,7 +184,7 @@ public class TunnelAttackDialogue {
 							+ " [npc.She] reaches down to [npc.her] crotch and starts stroking [npc.herself], making pitiful little whining noises as [npc.she] squirms on the floor."
 						+ "</p>"
 						+ "<p>"
-							+ "[npc.speech(Aaah! What are you waiting for?! Come fuck me!)], [npc.she] pleads, biting [npc.her] [npc.lip] as [npc.she] continues touching [npc.herself]."
+							+ "[npc.speech(Aaah! What are you waiting for?! Come fuck me!)] [npc.she] pleads, biting [npc.her] [npc.lip] as [npc.she] continues touching [npc.herself]."
 						+ "</p>"
 						+ "<p>"
 							+ "You wonder if you should indulge [npc.her] request."
@@ -200,7 +200,7 @@ public class TunnelAttackDialogue {
 							+ " Making pitiful little whining noises, [npc.she] tries to shuffle away from you, clearly worried about what your intentions are."
 						+ "</p>"
 						+ "<p>"
-							+ "[npc.speech(J-Just take my money and leave me alone!)], [npc.she] pleads, throwing [npc.her] "+(Main.game.getActiveNPC().isFeminine()?"purse":"wallet")+" at your feet."
+							+ "[npc.speech(J-Just take my money and leave me alone!)] [npc.she] pleads, throwing [npc.her] "+(Main.game.getActiveNPC().isFeminine()?"purse":"wallet")+" at your feet."
 						+ "</p>"
 						+ "<p>"
 							+ "You wonder if you should do as [npc.she] says, and leave [npc.herHim] alone."
@@ -451,7 +451,7 @@ public class TunnelAttackDialogue {
 							+ "<p>"
 								+ "[npc.speech(You're my perfect little "
 											+Main.game.getActiveNPC().getPreferredBodyDescription("b")
-											+ " now! Don't forget bitch, <i>I'm</i> the one in charge!)] [npc.she] growls, before pulling you into a forceful kiss."
+											+ " now! Don't forget, bitch, <i>I'm</i> the one in charge!)] [npc.she] growls, before pulling you into a forceful kiss."
 							+ "</p>");
 					
 				} else {
@@ -469,7 +469,7 @@ public class TunnelAttackDialogue {
 							+ "</p>"
 							+ "<p>"
 								+ "[npc.She] pulls out the little stopper from the top of the bottle, and as you open your mouth to protest, [npc.she] suddenly shoves the neck past your [pc.lips+]."
-								+ " As the sickly-sweet fluid pours out into your mouth, you let out a muffled whine; the only act of resistance that you're able to summon in your current state."
+								+ " As the sickly sweet fluid pours out into your mouth, you let out a muffled whine; the only act of resistance that you're able to summon in your current state."
 							+ "</p>"
 							+ "<p>"
 								+ "[npc.speech(Come on! Swallow it all down already!)] [npc.she] growls, throwing the now-empty vessel to one side as [npc.she] tries to force you to swallow the strange fluid..."
@@ -954,7 +954,7 @@ public class TunnelAttackDialogue {
 					"<p>"
 						+ "As [npc.name] steps back and sorts [npc.her] clothes out, you sink to the floor, totally worn out from [npc.her] dominant treatment of you."
 						+ " [npc.She] looks down at you, and you glance up to see a very satisfied smile cross [npc.her] face."
-						+ " [npc.She] leans down and pats you on the head,"
+						+ " [npc.She] leans down and pats you on the head."
 						+ " [npc.speech(We should do this again some time!)]"
 					+ "</p>"
 					+ "<p>"
