@@ -35,6 +35,10 @@ public enum ClothingSet {
 
 	JOLNIR("J&oacute;lnir", StatusEffect.SET_JOLNIR, 3, null, null),
 
+	SUN("Sun", StatusEffect.SET_SUN, 3, null, null),
+	
+	SNOWFLAKE("Snowflake", StatusEffect.SET_SNOWFLAKE, 3, null, null),
+	
 	RAINBOW("Rainbow", StatusEffect.SET_RAINBOW, 2, null, null);
 
 	private String name;
