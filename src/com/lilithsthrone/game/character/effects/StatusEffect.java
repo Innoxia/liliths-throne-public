@@ -5961,6 +5961,70 @@ public enum StatusEffect {
 		}
 	},
 	
+	SET_SNOWFLAKE(
+			70,
+			"Snowflake",
+			"set_snowflake",
+			Colour.BASE_BLUE_LIGHT,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 5f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, 10f)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target!=null) {
+				if(target.isPlayer()) {
+					return "By donning snowflake jewels, you're confident that no ice will harm you!";
+					
+				} else {
+					return UtilText.parse(target, "By wearing snowflake jewels, [npc.name] is well-protected against any ice attacks.");
+					
+				}
+			} else {
+				return "";
+			}
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return ClothingSet.SNOWFLAKE.isCharacterWearingCompleteSet(target);
+		}
+	},
+		
+	SET_SUN(
+			70,
+			"Sun",
+			"set_sun",
+			Colour.BASE_ORANGE,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 5f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, 10f)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target!=null) {
+				if(target.isPlayer()) {
+					return "By donning jewels that sparkle like the sun, you're confident that no fire will harm you!";
+					
+				} else {
+					return UtilText.parse(target, "By wearing the sun, [npc.name] is well-protected against any fire attacks.");
+					
+				}
+			} else {
+				return "";
+			}
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return ClothingSet.SUN.isCharacterWearingCompleteSet(target);
+		}
+	},
+	
 	SET_GEISHA(
 			70,
 			"Geisha",
