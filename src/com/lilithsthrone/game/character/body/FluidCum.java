@@ -10,7 +10,6 @@ import org.w3c.dom.Element;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
-import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
 import com.lilithsthrone.game.character.body.types.FluidType;
 import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
 import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
@@ -170,8 +169,8 @@ public class FluidCum implements BodyPartInterface, Serializable, XMLSaving {
 		return type;
 	}
 
-	public void setType(BodyPartTypeInterface type) {
-		this.type = (FluidType) type;
+	public void setType(FluidType type) {
+		this.type = type;
 	}
 
 	public FluidFlavour getFlavour() {
