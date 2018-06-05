@@ -473,6 +473,244 @@ public class ClothingType {
 		}
 	};
 
+	public static AbstractClothingType PIERCING_NAVEL_BALL = new AbstractClothingType(400,
+			"a",
+			false,
+			"navel barbell",
+			"navel barbells",
+			"A bar with a large ball on one end. It's designed to fit into a navel piercing.",
+			0,
+			null,
+			InventorySlot.PIERCING_STOMACH,
+			Rarity.COMMON,
+			null,
+			"piercing_navel_ball",
+			null,
+			Util.newArrayListOfValues(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null)),
+			null,
+			ColourListPresets.ALL_METAL.getPresetColourList(),
+			null,
+			null,
+			null,
+			null,
+			null, 
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_KATE)){
+		
+
+		@Override
+		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You slide the navel barbell into place.",
+					"You slide [npc.name]'s new navel barbell into place.",
+					null,
+					"[npc.Name] slides [npc.her] navel barbell into place.",
+					"[npc.Name] slides your new navel barbell into place.",
+					null, null, null);
+		}
+
+		@Override
+		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You slide the navel barbell out.",
+					"You slide [npc.name]'s navel barbell out.",
+					null,
+					"[npc.Name] slides [npc.her] navel barbell out.",
+					"[npc.Name] slides your navel barbell out.",
+					null, null, null);
+		}
+	};
+
+	public static AbstractClothingType PIERCING_NAVEL_HEART = new AbstractClothingType(400,
+			"a",
+			false,
+			"navel heart jewelry",
+			"navel heart jewelry",
+			"A bar with a heart embedded on one end. It's designed to fit into a navel piercing.",
+			0,
+			Femininity.FEMININE,
+			InventorySlot.PIERCING_STOMACH,
+			Rarity.COMMON,
+			ClothingSet.HEARTS,
+			"piercing_navel_heart",
+			null,
+			Util.newArrayListOfValues(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null)),
+			null,
+			ColourListPresets.ALL_METAL.getPresetColourList(),
+			null,
+			null,
+			null,
+			null,
+			null, 
+			Util.newArrayListOfValues(
+					ItemTag.SOLD_BY_KATE)){
+		
+
+		@Override
+		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You slide the navel jewel into place.",
+					"You slide [npc.name]'s new navel jewel into place.",
+					null,
+					"[npc.Name] slides [npc.her] navel jewel into place.",
+					"[npc.Name] slides your new navel jewel into place.",
+					null, null, null);
+		}
+
+		@Override
+		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You slide the navel jewel out.",
+					"You slide [npc.name]'s navel jewel out.",
+					null,
+					"[npc.Name] slides [npc.her] navel jewel out.",
+					"[npc.Name] slides your navel jewel out.",
+					null, null, null);
+		}
+	};
+
+	public static AbstractClothingType PIERCING_NAVEL_SNOWFLAKE = new AbstractClothingType(400,
+			"a",
+			false,
+			"navel snowflake jewelry",
+			"navel snowflake jewelry",
+			"A bar with a snowflake embedded on one end. It's designed to fit into a navel piercing.",
+			0,
+			Femininity.FEMININE,
+			InventorySlot.PIERCING_STOMACH,
+			Rarity.COMMON,
+			ClothingSet.SNOWFLAKE,
+			"piercing_navel_snowflake",
+			null,
+			Util.newArrayListOfValues(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null)),
+			null,
+			ColourListPresets.JUST_SILVER.getPresetColourList(),
+			ColourListPresets.ALL_METAL.getPresetColourList(),
+			null,
+			null,
+			null,
+			null, 
+			Util.newArrayListOfValues(
+					ItemTag.REINDEER_GIFT,
+					ItemTag.SOLD_BY_NYAN)){
+		
+
+		@Override
+		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You slide the navel jewel into place.",
+					"You slide [npc.name]'s new navel jewel into place.",
+					null,
+					"[npc.Name] slides [npc.her] navel jewel into place.",
+					"[npc.Name] slides your new navel jewel into place.",
+					null, null, null);
+		}
+
+		@Override
+		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You slide the navel jewel out.",
+					"You slide [npc.name]'s navel jewel out.",
+					null,
+					"[npc.Name] slides [npc.her] navel jewel out.",
+					"[npc.Name] slides your navel jewel out.",
+					null, null, null);
+		}
+	};
+
+	public static AbstractClothingType PIERCING_NAVEL_SUN = new AbstractClothingType(400,
+			"a",
+			false,
+			"navel sun jewelry",
+			"navel sun jewelry",
+			"A bar with a sun embedded on one end. It's designed to fit into a navel piercing.",
+			0,
+			Femininity.FEMININE,
+			InventorySlot.PIERCING_STOMACH,
+			Rarity.COMMON,
+			ClothingSet.SUN,
+			"piercing_navel_sun",
+			null,
+			Util.newArrayListOfValues(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null)),
+			null,
+			ColourListPresets.JUST_COPPER.getPresetColourList(),
+			ColourListPresets.ALL_METAL.getPresetColourList(),
+			ColourListPresets.JUST_ORANGE.getPresetColourList(),
+			ColourListPresets.ALL.getPresetColourList(),
+			null,
+			null, 
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_KATE)){
+		
+
+		@Override
+		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You slide the navel jewel into place.",
+					"You slide [npc.name]'s new navel jewel into place.",
+					null,
+					"[npc.Name] slides [npc.her] navel jewel into place.",
+					"[npc.Name] slides your new navel jewel into place.",
+					null, null, null);
+		}
+
+		@Override
+		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You slide the navel jewel out.",
+					"You slide [npc.name]'s navel jewel out.",
+					null,
+					"[npc.Name] slides [npc.her] navel jewel out.",
+					"[npc.Name] slides your navel jewel out.",
+					null, null, null);
+		}
+	};
+	
+	public static AbstractClothingType PIERCING_NAVEL_SKULL = new AbstractClothingType(400,
+			"a",
+			false,
+			"navel skull jewelry",
+			"navel skull jewelry",
+			"A bar with a skull embedded on one end. It's designed to fit into a navel piercing.",
+			0,
+			null,
+			InventorySlot.PIERCING_STOMACH,
+			Rarity.COMMON,
+			ClothingSet.SKULL,
+			"piercing_navel_skull",
+			null,
+			Util.newArrayListOfValues(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null)),
+			null,
+			ColourListPresets.ALL_METAL.getPresetColourList(),
+			null,
+			null,
+			null,
+			null,
+			null, 
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_KATE)){
+		
+
+		@Override
+		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You slide the navel jewel into place.",
+					"You slide [npc.name]'s new navel jewel into place.",
+					null,
+					"[npc.Name] slides [npc.her] navel jewel into place.",
+					"[npc.Name] slides your new navel jewel into place.",
+					null, null, null);
+		}
+
+		@Override
+		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You slide the navel jewel out.",
+					"You slide [npc.name]'s navel jewel out.",
+					null,
+					"[npc.Name] slides [npc.her] navel jewel out.",
+					"[npc.Name] slides your navel jewel out.",
+					null, null, null);
+		}
+	};
+	
 	public static AbstractClothingType PIERCING_NIPPLE_BARS = new AbstractClothingType(100,
 			"a pair of",
 			true,
@@ -1234,7 +1472,7 @@ public class ClothingType {
 			Femininity.FEMININE,
 			InventorySlot.NECK,
 			Rarity.COMMON,
-			null,
+			ClothingSet.HEARTS,
 			"neck_heartNecklace",
 			null,
 			Util.newArrayListOfValues(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null)),
@@ -11437,7 +11675,247 @@ public class ClothingType {
 		}
 	};
 	
-	// Sun set:
+	// Skull set:
+	
+		public static AbstractClothingType NECK_SKULL_NECKLACE = new AbstractClothingType(250,
+				"a",
+				false,
+				"skull necklace",
+				"skull necklaces",
+				"A necklace with a little skull pendant.",
+				0,
+				null,
+				InventorySlot.NECK,
+				Rarity.COMMON,
+				ClothingSet.SKULL,
+				"neck_skull_necklace",
+				null,
+				Util.newArrayListOfValues(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null)),
+				null,
+				ColourListPresets.ALL_METAL.getPresetColourList(),
+				null,
+				null,
+				null,
+				null,
+				null, 
+				Util.newArrayListOfValues(
+						ItemTag.SOLD_BY_NYAN)){
+			
+
+			@Override
+			public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+				return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+						"You put on the necklace, clipping the chain together at the back of your neck.",
+						"fasten the necklace around [npc.name]'s neck.",
+						"You hold [npc.name]'s head still as you fasten the necklace around [npc.her] neck.",
+						"[npc.Name] puts a necklace around [npc.her] neck, before reaching around to fasten the clip at the back.",
+						"[npc.Name] clips a necklace around your neck.",
+						"[npc.Name] holds your head still and fastens a necklace around your neck.", null, null);
+			}
+
+			@Override
+			public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+				return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+						"You unclip your necklace and take it off.",
+						"You unclip [npc.name]'s necklace and take it off.",
+						"You grab [npc.name]'s necklace and yank it from [npc.her] neck.",
+						"[npc.Name] unclips [npc.her] necklace and takes it off.",
+						"[npc.Name] unclips your necklace and removes it.",
+						"[npc.Name] grabs your necklace and yanks it from your neck.", null, null);
+			}
+		};
+		
+		public static AbstractClothingType PIERCING_EAR_SKULL = new AbstractClothingType(150,
+				"a pair of",
+				true,
+				"skull earring",
+				"skull earrings",
+				"A pair of skull earrings.",
+				0,
+				null,
+				InventorySlot.PIERCING_EAR,
+				Rarity.COMMON,
+				ClothingSet.SKULL,
+				"piercing_ear_skull",
+				null,
+				Util.newArrayListOfValues(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null)),
+				null,
+				ColourListPresets.ALL_METAL.getPresetColourList(),
+				null,
+				null,
+				null,
+				null,
+				null,
+				Util.newArrayListOfValues(
+						ItemTag.SOLD_BY_KATE)){
+
+			@Override
+			public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+				return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+						"You clip the earrings into place.",
+						"You clip [npc.name]'s new earrings into place.",
+						null,
+						"[npc.Name] clips [npc.her] earrings into place.",
+						"[npc.Name] clips your new earrings into place.",
+						null, null, null);
+			}
+
+			@Override
+			public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+				return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+						"You unclip your earrings.",
+						"You unclip [npc.name]'s earrings.",
+						null,
+						"[npc.Name] unclips [npc.her] earrings.",
+						"[npc.Name] unclips your earrings.",
+						null, null, null);
+			}
+		};
+		
+		public static AbstractClothingType PIERCING_NOSE_SKULL_STUD = new AbstractClothingType(50,
+				"a",
+				false,
+				"skull nose stud",
+				"skull nose studs",
+				"A nose stud in the shape of a skull.",
+				0,
+				null,
+				InventorySlot.PIERCING_NOSE,
+				Rarity.COMMON,
+				ClothingSet.SKULL,
+				"piercing_nose_skull",
+				null,
+				Util.newArrayListOfValues(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null)),
+				null,
+				ColourListPresets.ALL_METAL.getPresetColourList(),
+				null,
+				null,
+				null,
+				null,
+				null,
+				Util.newArrayListOfValues(
+						ItemTag.SOLD_BY_KATE)){
+
+			@Override
+			public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+				return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+						"You slide the nose stud into place.",
+						"You slide [npc.name]'s new nose stud into place.",
+						null,
+						"[npc.Name] slides [npc.her] nose stud into place.",
+						"[npc.Name] slides your new nose stud into place.",
+						null, null, null);
+			}
+
+			@Override
+			public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+				return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+						"You slide the nose stud out.",
+						"You slide [npc.name]'s nose stud out.",
+						null,
+						"[npc.Name] slides [npc.her] nose stud out.",
+						"[npc.Name] slides your nose stud out.",
+						null, null, null);
+			}
+		};
+		
+		// heart set
+		
+		public static AbstractClothingType PIERCING_EAR_HEART = new AbstractClothingType(150,
+				"a pair of",
+				true,
+				"heart earring",
+				"heart earrings",
+				"A pair of heart earrings.",
+				0,
+				null,
+				InventorySlot.PIERCING_EAR,
+				Rarity.COMMON,
+				ClothingSet.HEARTS,
+				"piercing_ear_heart",
+				null,
+				Util.newArrayListOfValues(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null)),
+				null,
+				ColourListPresets.ALL_METAL.getPresetColourList(),
+				null,
+				null,
+				null,
+				null,
+				null,
+				Util.newArrayListOfValues(
+						ItemTag.SOLD_BY_KATE)){
+
+			@Override
+			public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+				return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+						"You clip the earrings into place.",
+						"You clip [npc.name]'s new earrings into place.",
+						null,
+						"[npc.Name] clips [npc.her] earrings into place.",
+						"[npc.Name] clips your new earrings into place.",
+						null, null, null);
+			}
+
+			@Override
+			public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+				return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+						"You unclip your earrings.",
+						"You unclip [npc.name]'s earrings.",
+						null,
+						"[npc.Name] unclips [npc.her] earrings.",
+						"[npc.Name] unclips your earrings.",
+						null, null, null);
+			}
+		};
+		
+		public static AbstractClothingType PIERCING_NOSE_HEART_STUD = new AbstractClothingType(50,
+				"a",
+				false,
+				"heart nose stud",
+				"heart nose studs",
+				"A nose stud in the shape of a heart.",
+				0,
+				null,
+				InventorySlot.PIERCING_NOSE,
+				Rarity.COMMON,
+				ClothingSet.HEARTS,
+				"piercing_nose_heart",
+				null,
+				Util.newArrayListOfValues(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null)),
+				null,
+				ColourListPresets.ALL_METAL.getPresetColourList(),
+				null,
+				null,
+				null,
+				null,
+				null,
+				Util.newArrayListOfValues(
+						ItemTag.SOLD_BY_KATE)){
+
+			@Override
+			public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+				return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+						"You slide the nose stud into place.",
+						"You slide [npc.name]'s new nose stud into place.",
+						null,
+						"[npc.Name] slides [npc.her] nose stud into place.",
+						"[npc.Name] slides your new nose stud into place.",
+						null, null, null);
+			}
+
+			@Override
+			public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+				return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+						"You slide the nose stud out.",
+						"You slide [npc.name]'s nose stud out.",
+						null,
+						"[npc.Name] slides [npc.her] nose stud out.",
+						"[npc.Name] slides your nose stud out.",
+						null, null, null);
+			}
+		};
+		
+		// Sun set:
 	
 	public static AbstractClothingType NECK_SUN_NECKLACE = new AbstractClothingType(250,
 			"a",

@@ -33,8 +33,12 @@ public enum ClothingSet {
 	
 	RONIN("Ronin", StatusEffect.SET_RONIN, 3, null, null),
 
+	HEARTS("Romantic", StatusEffect.SET_HEARTS, 3, null, null),
+	
 	JOLNIR("J&oacute;lnir", StatusEffect.SET_JOLNIR, 3, null, null),
 
+	SKULL("Gothic", StatusEffect.SET_SKULL, 3, null, null),
+	
 	SUN("Solar Power", StatusEffect.SET_SUN, 3, null, null),
 	
 	SNOWFLAKE("Blizzard", StatusEffect.SET_SNOWFLAKE, 3, null, null),

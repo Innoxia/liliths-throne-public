@@ -5961,6 +5961,38 @@ public enum StatusEffect {
 		}
 	},
 	
+	SET_SKULL(
+			70,
+			"Gothic",
+			"set_skull",
+			Colour.BASE_WHITE,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 5f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_ELEMENTAL_EARTH, 10f)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target!=null) {
+				if(target.isPlayer()) {
+					return "By donning skull jewels, you're confident that no earth-based attacks will harm you!";
+					
+				} else {
+					return UtilText.parse(target, "By wearing skull jewels, [npc.name] is well-protected against any earth-based attacks.");
+					
+				}
+			} else {
+				return "";
+			}
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return ClothingSet.SKULL.isCharacterWearingCompleteSet(target);
+		}
+	},
+		
 	SET_SNOWFLAKE(
 			70,
 			"Snowflake",
@@ -6089,6 +6121,38 @@ public enum StatusEffect {
 		}
 	},
 	
+	SET_HEARTS(
+			70,
+			"Romantic",
+			"set_hearts",
+			Colour.BASE_PINK,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 5f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 10f)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target!=null) {
+				if(target.isPlayer()) {
+					return "By donning hearts, you're confident that you can withstand dirty thoughts";
+					
+				} else {
+					return UtilText.parse(target, "By wearing hearts, [npc.name] is well-protected against any dirty thoughts.");
+					
+				}
+			} else {
+				return "";
+			}
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return ClothingSet.HEARTS.isCharacterWearingCompleteSet(target);
+		}
+	},
+		
 	SET_JOLNIR(
 			70,
 			"J&oacute;lnir",
