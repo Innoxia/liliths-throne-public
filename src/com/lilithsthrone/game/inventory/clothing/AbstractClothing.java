@@ -389,6 +389,18 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 		return patternTertiaryColour;
 	}
 
+	public void setPatternColour(Colour patternColour) {
+		this.patternColour = patternColour;
+	}
+
+	public void setPatternSecondaryColour(Colour patternSecondaryColour) {
+		this.patternSecondaryColour = patternSecondaryColour;
+	}
+
+	public void setPatternTertiaryColour(Colour patternTertiaryColour) {
+		this.patternTertiaryColour = patternTertiaryColour;
+	}
+
 	/**
 	 * @return the name of a css class to use as a displayed rarity in inventory screens
 	 */

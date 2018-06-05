@@ -5684,6 +5684,9 @@ public class InventoryDialogue {
 							clothing.setSecondaryColour(dyePreviewSecondary);
 							clothing.setTertiaryColour(dyePreviewTertiary);
 							clothing.setPattern(dyePreviewPattern);
+							clothing.setPatternColour(dyePreviewPatternPrimary);
+							clothing.setPatternSecondaryColour(dyePreviewPatternSecondary);
+							clothing.setPatternTertiaryColour(dyePreviewPatternTertiary);
 							owner.addClothing(clothing, false);
 
 						} else {
@@ -5692,6 +5695,9 @@ public class InventoryDialogue {
 							clothing.setSecondaryColour(dyePreviewSecondary);
 							clothing.setTertiaryColour(dyePreviewTertiary);
 							clothing.setPattern(dyePreviewPattern);
+							clothing.setPatternColour(dyePreviewPatternPrimary);
+							clothing.setPatternSecondaryColour(dyePreviewPatternSecondary);
+							clothing.setPatternTertiaryColour(dyePreviewPatternTertiary);
 							Main.game.getPlayerCell().getInventory().addClothing(clothing);
 						}
 					}
@@ -5762,6 +5768,9 @@ public class InventoryDialogue {
 						clothing.setSecondaryColour(dyePreviewSecondary);
 						clothing.setTertiaryColour(dyePreviewTertiary);
 						clothing.setPattern(dyePreviewPattern);
+						clothing.setPatternColour(dyePreviewPatternPrimary);
+						clothing.setPatternSecondaryColour(dyePreviewPatternSecondary);
+						clothing.setPatternTertiaryColour(dyePreviewPatternTertiary);
 					}
 				};
 
@@ -5806,6 +5815,9 @@ public class InventoryDialogue {
 						clothing.setSecondaryColour(dyePreviewSecondary);
 						clothing.setTertiaryColour(dyePreviewTertiary);
 						clothing.setPattern(dyePreviewPattern);
+						clothing.setPatternColour(dyePreviewPatternPrimary);
+						clothing.setPatternSecondaryColour(dyePreviewPatternSecondary);
+						clothing.setPatternTertiaryColour(dyePreviewPatternTertiary);
 						Main.game.getPlayerCell().getInventory().addClothing(clothing);
 					}
 				};
@@ -5849,6 +5861,9 @@ public class InventoryDialogue {
 						clothing.setSecondaryColour(dyePreviewSecondary);
 						clothing.setTertiaryColour(dyePreviewTertiary);
 						clothing.setPattern(dyePreviewPattern);
+						clothing.setPatternColour(dyePreviewPatternPrimary);
+						clothing.setPatternSecondaryColour(dyePreviewPatternSecondary);
+						clothing.setPatternTertiaryColour(dyePreviewPatternTertiary);
 					}
 				};
 
