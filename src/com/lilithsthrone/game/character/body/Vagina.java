@@ -263,6 +263,7 @@ public class Vagina implements BodyPartInterface, Serializable {
 			this.type = VaginaType.HUMAN;
 			
 			if(type==VaginaType.HUMAN) {
+				this.girlcum.setType(type.getFluidType());
 				return UtilText.transformationContentSB.toString()
 						+ "<p>"
 							+owner.postTransformationCalculation()
@@ -285,7 +286,7 @@ public class Vagina implements BodyPartInterface, Serializable {
 		}
 		
 		this.type = type;
-		
+		this.girlcum.setType(type.getFluidType());
 		switch (type) {
 			case NONE:
 				if(owner.isPlayer()) {
