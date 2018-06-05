@@ -6,7 +6,7 @@
 		In your peripheral vision, you suddenly see a glowing [npc.skinColour] light starting to draw near. Turning towards it, you ready yourself for a fight, and within just a moment, the familiar figure of [npc.name] draws to a halt before you.
 	</p>
 	<p>
-		[npc.speech(Ooh! It's you again!)] [npc.she] giggles, clearly high on mushrooms again, [npc.speech(Look! You went and got me all pregnant!)]
+		[npc.speech(Ooh! It's you again!)] [npc.she] giggles, clearly high on mushrooms again. [npc.speech(Look! You went and got me all pregnant!)]
 	</p>
 	<p>
 		You look down at [npc.her] swollen belly, but before you can make a comment, [npc.she] continues, [npc.speech(So, I'm gonna need some cash from you, ok? I'm no going to take no for an answer.)]
@@ -22,7 +22,7 @@
 		In your peripheral vision, you suddenly see a glowing [npc.skinColour] light starting to draw near. Turning towards it, you ready yourself for a fight, and within just a moment, the familiar figure of [npc.name] draws to a halt before you.
 	</p>
 	<p>
-		[npc.speech(Ooh! It's you again!)] [npc.she] giggles, clearly high on mushrooms again, [npc.speech(Look! I'm still pregnant with our kids!)]
+		[npc.speech(Ooh! It's you again!)] [npc.she] giggles, clearly high on mushrooms again. [npc.speech(Look! I'm still pregnant with our kids!)]
 	</p>
 	<p>
 		You look down at [npc.her] swollen belly, but before you can make a comment, [npc.she] continues, [npc.speech(So, I'm gonna need some cash from you, ok? I'm no going to take no for an answer.)]
@@ -38,7 +38,7 @@
 		In your peripheral vision, you suddenly see a glowing [npc.skinColour] light starting to draw near. Turning towards it, you ready yourself for a fight, and within just a moment, the familiar figure of [npc.name] draws to a halt before you.
 	</p>
 	<p>
-		[npc.speech(Ooh! It's you again!)] [npc.she] giggles, clearly high on mushrooms again, [npc.speech(I'm gonna need some cash from you, ok? I spent all my flames on buying some 'shrooms from my friend, and now I need more for... umm... more 'shrooms!)]
+		[npc.speech(Ooh! It's you again!)] [npc.she] giggles, clearly high on mushrooms again. [npc.speech(I'm gonna need some cash from you, ok? I spent all my flames on buying some 'shrooms from my friend, and now I need more for... umm... more 'shrooms!)]
 	</p>
 	<p>
 		You can tell that [npc.name] is willing to fight, and you only have a moment in which to decide what to do...
@@ -51,7 +51,7 @@
 		In your peripheral vision, you suddenly see a glowing [npc.skinColour] light starting to draw near. Turning towards it, you ready yourself for a fight, and within just a moment, [npc.a_fullRace(true)] draws to a halt before you.
 	</p>
 	<p>
-		[npc.speech(Ooh! A poor innocent traveller wandering through my magical realm!)] [npc.she] giggles, clearly high on mushrooms, [npc.speech(I'm gonna need some cash from you, ok? I spent all my flames on buying some 'shrooms from my friend, and now I need more for... umm... more 'shrooms!)]
+		[npc.speech(Ooh! A poor innocent traveller wandering through my magical realm!)] [npc.she] giggles, clearly high on mushrooms. [npc.speech(I'm gonna need some cash from you, ok? I spent all my flames on buying some 'shrooms from my friend, and now I need more for... umm... more 'shrooms!)]
 	</p>
 	<p>
 		You can tell that [npc.name] is willing to fight, and you only have a moment in which to decide what to do...
@@ -144,7 +144,7 @@
 		[npc.Name] collapses to the floor, letting out a defeated sigh as [npc.she] gazes up at you. Looking down at the vanquished [npc.race] before you, you see that [npc.she]'s got a desperate look of regret in [npc.her] eyes. Making pitiful little whining noises, [npc.she] tries to shuffle away from you, clearly worried about what your intentions might be.
 	</p>
 	<p>
-		[npc.speech(J-Just take my money and leave me alone!)], [npc.she] pleads, throwing some flames at your feet.
+		[npc.speech(J-Just take my money and leave me alone!)] [npc.she] pleads, throwing some flames at your feet.
 	</p>
 	<p>
 		You wonder if you should do as [npc.she] says, and leave [npc.herHim] alone. Then again, you <i>could</i> take advantage of [npc.her] weakened, vulnerable body...

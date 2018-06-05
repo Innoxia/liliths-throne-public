@@ -29,10 +29,10 @@
 	<htmlContent tag="CLAIRE_INFO_SUBMISSION_SOCIETY"><![CDATA[
 	<p>
 		Wanting to know a little more about this underground world, you approach the short cat-girl messenger and call out a greeting,
-		 [pc.speech(Hi Claire!)]
+		 [pc.speech(Hi, Claire!)]
 	</p>
 	<p>
-		[claire.speech(Oh, hello again [pc.name]!)]
+		[claire.speech(Oh, hello again, [pc.name]!)]
 		 Claire cheerfully calls out.
 		 [claire.speech(What can I do for you this time?)]
 	</p>
@@ -45,7 +45,7 @@
 		 [claire.speech(You know, not many people really ask about that sort of thing, but I so happen to be an expert on Submission history and customs!)]
 	</p>
 	<p>
-		You can't help but smile as the small cat-girl proudly pushes her huge breasts out and places her hands on her absurdly-wide hips.
+		You can't help but smile as the small cat-girl proudly pushes her huge breasts out and places her hands on her absurdly wide hips.
 		 Looking straight into your eyes, she continues,
 		 [claire.speech(There are five main types of residents down here; rat-morphs, alligator-morphs, slimes, imps, and bat-morphs. That's not to say those are the only races down here, however. You can find all the same races as you would up in Dominion, but it's those five who make up the vast majority of the population.)]
 		 Claire wags her finger at you as she moves on.
@@ -58,20 +58,20 @@
 	</p>
 	<p>
 		[pc.speech(And the bat-morphs?)]
-		 You ask.
+		 you ask.
 	</p>
 	<p>
-		[claire.speech(Ah, yes, it's very rare for us to have to deal with any bat-morphs, as almost all of them stay down in the Bat Caverns. Thanks to their echolocation, they're not bothered by the dark, and have tunnelled out roosts up in the high ceilings of the caves down there.)]
+		[claire.speech(Ah, yes, it's very rare for us to have to deal with any bat-morphs, as almost all of them stay down in the Bat Caverns. Thanks to their echolocation, they're not bothered by the dark, and have tunnelled out roosts up in the high ceilings of the caves down there,)]
 		 Claire replies, proudly smiling as she reels off all of this information.
 		 [claire.speech(About half of Submission's slime population lives down there as well. Apparently, they love the taste of the bioluminescent plants that thrive in some areas, and a lot of slimes have eaten so much that their bodies have ended up glowing as well!)]
 	</p>
 	<p>
-		[pc.speech(I see. Thanks for all the information, Claire.)]
-		 You say, smiling at the short-statured cat-girl.
+		[pc.speech(I see. Thanks for all the information, Claire,)]
+		 you say, smiling at the short-statured cat-girl.
 	</p>
 	<p>
 		[claire.speech(You're welcome! Let me know if there's anything else, ok?)]
-		 She replies, before hurrying off to continue with her work.
+		 she replies, before hurrying off to continue with her work.
 	</p>
 	]]>
 	</htmlContent>
@@ -79,7 +79,7 @@
 	<htmlContent tag="CLAIRE_INFO_LYSSIETH"><![CDATA[
 	<p>
 		As you start to walk over towards the small cat-girl messenger, she sees you approaching and puts her paperwork to one side.
-		 [claire.speech(Hello [pc.name]! Is there something I can do for you?)]
+		 [claire.speech(Hello, [pc.name]! Is there something I can do for you?)]
 	</p>
 	<p>
 		[pc.speech(I just wanted to ask you what you know about Lyssieth,)]
@@ -115,23 +115,23 @@
 	<htmlContent tag="CLAIRE_INFO_TELEPORTATION"><![CDATA[
 	<p>
 		You walk up behind the small, busty cat-girl and call out,
-		 [pc.speech(Hi Claire!)]
+		 [pc.speech(Hi, Claire!)]
 	</p>
 	<p>
 		The diminutive messenger spins around, causing her huge breasts to swing from side-to-side.
 		 As she sees that it's you, she happily replies,
-		 [claire.speech(Hello [pc.name]! Can I help you?)]
+		 [claire.speech(Hello, [pc.name]! Can I help you?)]
 	</p>
 	<p>
 		[pc.speech(I was wondering if you could tell me any more about your 'level three clearance'. You said that it allows you to teleport? I've never seen anything like that up in Dominion.)]
 	</p>
 	<p>
-		Claire grins in delight as you mention the thing that she's most proud of, and immediately thrusts her disproportionately-large breasts out towards you in order to show off the bright gold badge that's pinned to her chest.
+		Claire grins in delight as you mention the thing that she's most proud of, and immediately thrusts her disproportionately large breasts out towards you in order to show off the bright gold badge that's pinned to her chest.
 		 [claire.speech(That's right! I'm allowed to use our teleportation stations to travel between the Enforcer Posts in order to quickly deliver messages! Usually, only high-ranking or demonic enforcers are given a clearance level of three or higher, you know?)]
 	</p>
 	<p>
-		[pc.speech(That's pretty impressive. You must have worked hard for that.)]
-		 You reply, hoping to encourage the little cat-girl to reveal some more information about teleportation.
+		[pc.speech(That's pretty impressive. You must have worked hard for that,)]
+		 you reply, hoping to encourage the little cat-girl to reveal some more information about teleportation.
 	</p>
 	<p>
 		[claire.speech(That I did! I worked super hard to become the very best messenger in Submission, and it finally all paid off! You know, these teleportation stations aren't really supposed to be public knowledge, but I can't expect people to believe that I'm running from Post to Post, now, can I?)]
@@ -154,7 +154,7 @@
 	</p>
 	<p>
 		Claire immediately spins around, and, upon seeing that it's you, she grins and places her hands on her huge hips.
-		 [claire.speech(Hi [pc.name]! What can I do for you?)]
+		 [claire.speech(Hi, [pc.name]! What can I do for you?)]
 	</p>
 	<p>
 		[pc.speech(Well, I've got some information on the slimes that are transforming people out in Submission's tunnels.)]
@@ -174,7 +174,7 @@
 	</p>
 	<p>
 		[pc.speech(Perhaps she isn't in the tunnels?)]
-		 You offer.
+		 you offer.
 	</p>
 	<p>
 		[claire.speech(Well, that's no good for us then.)]
@@ -183,7 +183,7 @@
 	</p>
 	<p>
 		[pc.speech(So you want me to go down there and find evidence of the Slime Queen?)]
-		 You ask, guessing where this conversation is headed.
+		 you ask, guessing where this conversation is headed.
 	</p>
 	<p>
 		[claire.speech(W-What? No! It's far too dangerous!)] Claire quickly replies, flustered by your response. [claire.speech(There are bat-morphs which can swoop down on you at any moment, aggressive slimes who'd just love to attack you, and the whole place is completely pitch-black! Well, there are patches of bioluminescent fungi, but it's still really dark and scary down there!)]
@@ -195,7 +195,7 @@
 		[claire.speech(W-Well, yes. I don't like to tell anyone, as I don't want to encourage people to seek out danger, but we do have a twenty-thousand flame reward for anyone who's able to put an end to this slime transformation problem.)] Claire says, wringing her hands with worry. [claire.speech(So if you're able to find and convince this Queen to stop, you'll have earned that reward. But please don't go looking for danger down there! I need to get back on with work now, but promise me you'll be careful before I go!)]
 	</p>
 	<p>
-		[pc.speech(Don't worry so much.)] You reply. [pc.speech(I'm always careful.)]
+		[pc.speech(Don't worry so much,)] you reply. [pc.speech(I'm always careful.)]
 	</p>
 	<p>
 		With a sigh of relief, Claire turns and rushes off to fetch your one-thousand flame reward, and, after returning to hand it over to you, she returns to her work. You wonder if it'd be worth risking a visit to the Bat Caverns. After all, if you were able to find and subdue this 'Slime Queen', you'd earn twenty-thousand flames...
@@ -205,31 +205,31 @@
 	
 	<htmlContent tag="CLAIRE_INFO_SLIME_QUEEN_REPORT_BACK"><![CDATA[
 	<p>
-		Wanting to report on your success with dealing with the Slime Queen, you walk up to where Claire is working and call out to her, [pc.speech(Hi Claire!)]
+		Wanting to report on your success with dealing with the Slime Queen, you walk up to where Claire is working and call out to her, [pc.speech(Hi, Claire!)]
 	</p>
 	<p>
-		The little cat-girl spins around, looking confused at first, but then grinning as she catches sight of you. Placing her paperwork to one side, she places her hands on her huge hips and greets you, [claire.speech(Hi [pc.name]! You've been staying safe, right?)]
+		The little cat-girl spins around, looking confused at first, but then grinning as she catches sight of you. Placing her paperwork to one side, she places her hands on her huge hips and greets you, [claire.speech(Hi, [pc.name]! You've been staying safe, right?)]
 	</p>
 	<p>
-		[pc.speech(Well, sort of.)] you reply, [pc.speech(I did kind of go down into the Bat Caverns and find the Slime Queen though...)]
+		[pc.speech(Well, sort of,)] you reply. [pc.speech(I did kind of go down into the Bat Caverns and find the Slime Queen though...)]
 	</p>
 	<p>
 		[claire.speech(Y-You what?!)] Claire shouts, puffing up her chest and wagging a finger at you. [claire.speech(I told you that was too dangerous!)]
 	</p>
 	<p>
-		[pc.speech(Well, dangerous or not, I did as you asked.)] you reply, holding up the Slime Queen's crown for Claire to see. [pc.speech(I put an end to her plans of transforming everyone in Submission to slimes, and I brought her crown back as proof.)]
+		[pc.speech(Well, dangerous or not, I did as you asked,)] you reply, holding up the Slime Queen's crown for Claire to see. [pc.speech(I put an end to her plans of transforming everyone in Submission to slimes, and I brought her crown back as proof.)]
 	</p>
 	<p>
 		[claire.speech(Really? She actually existed? And you managed to stop her?)] Claire asks, returning her hands to her hips once more. [claire.speech(That's amazing... Where did you find her?)]
 	</p>
 	<p>
-		[pc.speech(She's living in a tower, built on an island in the middle of an underground lake.)] you reply. [pc.speech(She said that she doesn't have any way to contact the people who claim to be her subjects, so she can't ask them to stop. She did, however, promise to stop producing those transformative 'Biojuice Canisters'.)]
+		[pc.speech(She's living in a tower, built on an island in the middle of an underground lake,)] you reply. [pc.speech(She said that she doesn't have any way to contact the people who claim to be her subjects, so she can't ask them to stop. She did, however, promise to stop producing those transformative 'Biojuice Canisters'.)]
 	</p>
 	<p>
-		[claire.speech(You've been such a huge help.)] Claire sighs, [claire.speech(With the sheer number of new cases of forced slime transformations, we were close to breaking point. You've no idea how much this is going to help us out. Let me get that reward I promised!)]
+		[claire.speech(You've been such a huge help.)] Claire sighs. [claire.speech(With the sheer number of new cases of forced slime transformations, we were close to breaking point. You've no idea how much this is going to help us out. Let me get that reward I promised!)]
 	</p>
 	<p>
-		You watch as Claire hurries off into one of the back rooms, and, just a moment later, returns with a bag of coins in her hand. [claire.speech(Here you are!)] she squeaks, [claire.speech(Thank you so much, [pc.name]!)]
+		You watch as Claire hurries off into one of the back rooms, and, just a moment later, returns with a bag of coins in her hand. [claire.speech(Here you are!)] she squeaks. [claire.speech(Thank you so much, [pc.name]!)]
 	</p>
 	<p>
 		[pc.speech(You're welcome.)] you reply, smiling at the little cat-girl.
@@ -242,34 +242,34 @@
 	
 	<htmlContent tag="CLAIRE_INFO_SLIME_QUEEN_REPORT_BACK_LIE"><![CDATA[
 	<p>
-		Wanting to make your fictitious report that the Slime Queen has been dealt with, you walk up to where Claire is working and call out to her, [pc.speech(Hi Claire!)]
+		Wanting to make your fictitious report that the Slime Queen has been dealt with, you walk up to where Claire is working and call out to her, [pc.speech(Hi, Claire!)]
 	</p>
 	<p>
 		The little cat-girl spins around, looking confused at first, but then grinning as she catches sight of you. Placing her paperwork to one side, she places her hands on her huge hips and greets you, [claire.speech(Hi [pc.name]! You've been staying safe, right?)]
 	</p>
 	<p>
-		[pc.speech(Well, sort of.)] you reply, [pc.speech(I did kind of go down into the Bat Caverns and find the Slime Queen though...)]
+		[pc.speech(Well, sort of,)] you reply, [pc.speech(I did kind of go down into the Bat Caverns and find the Slime Queen though...)]
 	</p>
 	<p>
 		[claire.speech(Y-You what?!)] Claire shouts, puffing up her chest and wagging a finger at you. [claire.speech(I told you that was too dangerous!)]
 	</p>
 	<p>
-		[pc.speech(Well, dangerous or not, I did as you asked.)] you reply, holding up the Slime Queen's crown for Claire to see. [pc.speech(I put an end to her plans of transforming everyone in Submission to slimes, and I brought her crown back as proof.)]
+		[pc.speech(Well, dangerous or not, I did as you asked,)] you reply, holding up the Slime Queen's crown for Claire to see. [pc.speech(I put an end to her plans of transforming everyone in Submission to slimes, and I brought her crown back as proof.)]
 	</p>
 	<p>
 		[claire.speech(Really? She actually existed? And you managed to stop her?)] Claire asks, returning her hands to her hips once more. [claire.speech(That's amazing... Where did you find her?)]
 	</p>
 	<p>
-		[pc.speech(She was hiding in one of those bioluminescent mushroom caverns.)] you lie, not wanting the enforcers to find Catherine. [pc.speech(She said that she doesn't have any way to contact the people who claim to be her subjects, so she can't ask them to stop. She did, however, promise to stop producing those transformative 'Biojuice Canisters'.)]
+		[pc.speech(She was hiding in one of those bioluminescent mushroom caverns,)] you lie, not wanting the enforcers to find Catherine. [pc.speech(She said that she doesn't have any way to contact the people who claim to be her subjects, so she can't ask them to stop. She did, however, promise to stop producing those transformative 'Biojuice Canisters'.)]
 	</p>
 	<p>
-		[claire.speech(You've been such a huge help.)] Claire sighs, [claire.speech(With the sheer number of new cases of forced slime transformations, we were close to breaking point. You've no idea how much this is going to help us out. Let me get that reward I promised!)]
+		[claire.speech(You've been such a huge help.)] Claire sighs. [claire.speech(With the sheer number of new cases of forced slime transformations, we were close to breaking point. You've no idea how much this is going to help us out. Let me get that reward I promised!)]
 	</p>
 	<p>
-		You watch as Claire hurries off into one of the back rooms, and, just a moment later, returns with a bag of coins in her hand. [claire.speech(Here you are!)] she squeaks, [claire.speech(Thank you so much, [pc.name]!)]
+		You watch as Claire hurries off into one of the back rooms, and, just a moment later, returns with a bag of coins in her hand. [claire.speech(Here you are!)] she squeaks. [claire.speech(Thank you so much, [pc.name]!)]
 	</p>
 	<p>
-		[pc.speech(You're welcome.)] you reply, smiling at the little cat-girl.
+		[pc.speech(You're welcome,)] you reply, smiling at the little cat-girl.
 	</p>
 	<p>
 		[claire.speech(Well, back to work for me! Stay out of trouble!)] Claire happily says, before turning around and getting back to her paperwork. You step away from the busy cat-girl, wondering what to do next...
@@ -450,7 +450,7 @@
 	</p>
 	<p>
 		[pc.speech(Well, I was hoping to speak with Lyssieth. She does live here, right?)]
-		 You ask.
+		 you ask.
 	</p>
 	<p>
 		[genericFemale.speech(Her Highness isn't receiving visitors at the moment. You'd better turn around and leave. Now.)]
