@@ -2628,8 +2628,12 @@ public class PhoneDialogue {
 	}
 	
 	private static String getFetishDesireEntry(Fetish fetish, FetishDesire desire) {
-		return "<div class='square-button"+(desire!=FetishDesire.FOUR_LOVE && Main.game.getPlayer().hasFetish(fetish)?" disabled":"")+"' id='"+fetish+"_"+desire+"'"
-					+ " style='"+(Main.game.getPlayer().getBaseFetishDesire(fetish)==desire?"border:2px solid "+Colour.FETISH.getShades()[1]+";":"")+"width:10%; margin:0 5%; float:left;'>"
+		boolean disabled = desire!=FetishDesire.FOUR_LOVE && Main.game.getPlayer().hasFetish(fetish);
+		
+		return "<div class='square-button"+(disabled?" disabled":"")+"' id='"+fetish+"_"+desire+"'"
+					+ " style='"+(Main.game.getPlayer().getBaseFetishDesire(fetish)==desire
+								?"border:2px solid "+Colour.FETISH.getShades()[1]+";"
+								:"")+"width:10%; margin:0 5%; float:left; cursor:pointer;'>"
 				+ "<div class='square-button-content'>"+(Main.game.getPlayer().getFetishDesire(fetish)==desire?desire.getSVGImage():desire.getSVGImageDesaturated())+"</div>"
 				+ (Main.game.getPlayer().hasFetish(fetish) && Main.game.getPlayer().getFetishDesire(fetish)!=desire
 					?"<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.8; border-radius:5px;'></div>"

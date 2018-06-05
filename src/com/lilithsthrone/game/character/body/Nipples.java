@@ -244,9 +244,12 @@ public class Nipples implements BodyPartInterface, Serializable {
 				break;
 		}
 		
+		// Parse TF before changing nipple type:
+		transformation = UtilText.parse(owner, transformation);
+		
 		this.nippleShape = nippleShape;
 		
-		return UtilText.parse(owner, transformation);
+		return transformation;
 	}
 	
 	public AreolaeShape getAreolaeShape() {

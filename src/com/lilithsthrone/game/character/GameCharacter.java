@@ -236,7 +236,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 
 	private int experience, perkPoints;
 
-	private List<Artwork> artworkList;
+	protected List<Artwork> artworkList;
 	private int artworkIndex = -1;
 	
 	
@@ -2237,7 +2237,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 	
 	public int getArtworkIndex() {
-		if(artworkIndex >= artworkList.size() || artworkIndex < 0) {
+		if(artworkIndex >= getArtworkList().size() || artworkIndex < 0) {
 			artworkIndex = 0;
 		}
 		return artworkIndex;
@@ -3998,11 +3998,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 	
 	public boolean setFetishDesire(Fetish fetish, FetishDesire desire) {
-		if(this.hasFetish(fetish) && desire != FetishDesire.FOUR_LOVE) {
-			fetishDesireMap.put(fetish, FetishDesire.FOUR_LOVE);
-			return false;
-		}
-		if(getBaseFetishDesire(fetish)==desire) {
+		if(fetishDesireMap.get(fetish)==desire) {
 			return false;
 		}
 		
@@ -4012,9 +4008,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 	
 	public FetishDesire getBaseFetishDesire(Fetish fetish) {
-		if(hasFetish(fetish)) {
-			return FetishDesire.FOUR_LOVE;
-		}
+		
 		if(!fetishDesireMap.containsKey(fetish)) {
 			return FetishDesire.TWO_NEUTRAL;
 		}
@@ -4022,6 +4016,10 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 	
 	public FetishDesire getFetishDesire(Fetish fetish) {
+		if(hasFetish(fetish)) {
+			return FetishDesire.FOUR_LOVE;
+		}
+		
 		FetishDesire baseDesire = getBaseFetishDesire(fetish);
 		
 		if(!hasFetish(fetish) && clothingFetishDesireModifiersMap.containsKey(fetish)) {

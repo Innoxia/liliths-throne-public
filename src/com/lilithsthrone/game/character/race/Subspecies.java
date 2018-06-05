@@ -41,13 +41,7 @@ public enum Subspecies {
 			Colour.RACE_HUMAN,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"A typical human.",
-			Util.newArrayListOfValues(WorldType.DOMINION)) {
-		@Override
-		public void applySpeciesChanges(Body body) {
-			// TODO Auto-generated method stub
-
-		}
-	},
+			Util.newArrayListOfValues(WorldType.DOMINION)),
 
 	// ANGEL:
 	ANGEL("statusEffects/raceAngel",
@@ -61,13 +55,7 @@ public enum Subspecies {
 			Colour.RACE_ANGEL,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"A typical angel.",
-			Util.newArrayListOfValues()) { //TODO remove later on
-		@Override
-		public void applySpeciesChanges(Body body) {
-			// TODO Auto-generated method stub
-			
-		}
-	},
+			Util.newArrayListOfValues()),
 
 	// DEMON:
 	DEMON("statusEffects/raceDemon",
@@ -105,11 +93,7 @@ public enum Subspecies {
 			return "imp";
 		}
 		
-		@Override
-		public void applySpeciesChanges(Body body) {
-			// TODO Auto-generated method stub
-			
-		}
+
 	},
 	
 	IMP("statusEffects/raceImp",
@@ -124,10 +108,6 @@ public enum Subspecies {
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"A typical imp.",
 			Util.newArrayListOfValues(WorldType.SUBMISSION)) {
-		@Override
-		public void applySpeciesChanges(Body body) {
-			// TODO Auto-generated method stub
-		}
 		@Override
 		public boolean isShortStature() {
 			return true;
@@ -160,9 +140,6 @@ public enum Subspecies {
 		}
 	},
 	
-	//LILIN(Race.LILIN.getName(), Race.DEMON, RacialBody.LILIN, SubspeciesPreference.ONE_MINIMAL,
-	//		"A typical "+Race.LILIN.getName()),
-
 	// BOVINES:
 	COW_MORPH("statusEffects/raceCowMorph",
 			"cow-morph",
@@ -175,15 +152,7 @@ public enum Subspecies {
 			Colour.RACE_COW_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"A typical bipedal cow-morph.",
-			Util.newArrayListOfValues(WorldType.DOMINION)) {
-		@Override
-		public void applySpeciesChanges(Body body) {
-			// TODO Auto-generated method stub
-			
-		}
-	},
-	//MINOTAUR(Race.MINOTAUR.getName(), Race.COW_MORPH, RacialBody.MINOTAUR, SubspeciesPreference.TWO_LOW,
-	//		"An aggressive male-only variety of "+Race.COW_MORPH.getName()),
+			Util.newArrayListOfValues(WorldType.DOMINION)),
 	
 	// CANINES:
 	DOG_MORPH("statusEffects/raceDogMorph",
@@ -314,13 +283,7 @@ public enum Subspecies {
 			Colour.RACE_CAT_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"A typical bipedal cat-morph.",
-			Util.newArrayListOfValues(WorldType.DOMINION)) {
-		@Override
-		public void applySpeciesChanges(Body body) {
-			// TODO Auto-generated method stub
-			
-		}
-	},
+			Util.newArrayListOfValues(WorldType.DOMINION)),
 
 	// EQUINES:
 	HORSE_MORPH("statusEffects/raceHorseMorph",
@@ -334,13 +297,7 @@ public enum Subspecies {
 			Colour.RACE_HORSE_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"A typical bipedal horse-morph.",
-			Util.newArrayListOfValues(WorldType.DOMINION)) {
-		@Override
-		public void applySpeciesChanges(Body body) {
-			// TODO Auto-generated method stub
-			
-		}
-	},
+			Util.newArrayListOfValues(WorldType.DOMINION)),
 
 	REINDEER_MORPH("statusEffects/raceReindeerMorph",
 			"reindeer-morph",
@@ -353,13 +310,7 @@ public enum Subspecies {
 			Colour.RACE_REINDEER_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"A typical bipedal reindeer-morph.",
-			Util.newArrayListOfValues(WorldType.DOMINION)) {
-		@Override
-		public void applySpeciesChanges(Body body) {
-			// TODO Auto-generated method stub
-			
-		}
-	},
+			Util.newArrayListOfValues(WorldType.DOMINION)),
 	
 	//CENTAUR(Race.CENTAUR.getName(), Race.HORSE_MORPH, RacialBody.CENTAUR, SubspeciesPreference.TWO_LOW,
 	//		"A "+Race.HORSE_MORPH.getName()+" with a bestial lower body that walks on four legs"),
@@ -376,13 +327,7 @@ public enum Subspecies {
 			Colour.RACE_ALLIGATOR_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"A typical bipedal alligator-morph.",
-			Util.newArrayListOfValues(WorldType.SUBMISSION)) {
-		@Override
-		public void applySpeciesChanges(Body body) {
-			// TODO Auto-generated method stub
-			
-		}
-	},
+			Util.newArrayListOfValues(WorldType.SUBMISSION)),
 	//LIZARD_MORPH(Race.LIZARD_MORPH.getName(), Race.LIZARD_MORPH, RacialBody.LIZARD_MORPH, SubspeciesPreference.FIVE_ABUNDANT,
 	//		"A typical bipedal "+Race.LIZARD_MORPH.getName()),
 	//LAMIA(Race.LAMIA.getName(), Race.LIZARD_MORPH, RacialBody.LAMIA, SubspeciesPreference.TWO_LOW,
@@ -454,7 +399,6 @@ public enum Subspecies {
 					WorldType.BAT_CAVERNS)) {
 		@Override
 		public void applySpeciesChanges(Body body) {
-//			body = CharacterUtils.generateBody(body.getGender(), Subspecies.ANGEL, RaceStage.PARTIAL);
 			body.setBodyMaterial(BodyMaterial.SLIME);
 		}
 	},
@@ -474,7 +418,6 @@ public enum Subspecies {
 					WorldType.BAT_CAVERNS)) {
 		@Override
 		public void applySpeciesChanges(Body body) {
-//			body = CharacterUtils.generateBody(body.getGender(), Subspecies.DEMON, RaceStage.PARTIAL);
 			body.setBodyMaterial(BodyMaterial.SLIME);
 		}
 	},
@@ -494,7 +437,6 @@ public enum Subspecies {
 					WorldType.BAT_CAVERNS)) {
 		@Override
 		public void applySpeciesChanges(Body body) {
-//			body = CharacterUtils.generateBody(body.getGender(), Subspecies.IMP, RaceStage.PARTIAL);
 			body.setBodyMaterial(BodyMaterial.SLIME);
 		}
 		@Override
@@ -518,7 +460,6 @@ public enum Subspecies {
 					WorldType.BAT_CAVERNS)) {
 		@Override
 		public void applySpeciesChanges(Body body) {
-//			body = CharacterUtils.generateBody(body.getGender(), Subspecies.COW_MORPH, RaceStage.PARTIAL);
 			body.setBodyMaterial(BodyMaterial.SLIME);
 		}
 	},
@@ -538,7 +479,6 @@ public enum Subspecies {
 					WorldType.BAT_CAVERNS)) {
 		@Override
 		public void applySpeciesChanges(Body body) {
-//			body = CharacterUtils.generateBody(body.getGender(), Subspecies.DOG_MORPH, RaceStage.PARTIAL);
 			body.setBodyMaterial(BodyMaterial.SLIME);
 		}
 	},
@@ -558,7 +498,6 @@ public enum Subspecies {
 					WorldType.BAT_CAVERNS)) {
 		@Override
 		public void applySpeciesChanges(Body body) {
-//			body = CharacterUtils.generateBody(body.getGender(), Subspecies.DOG_MORPH, RaceStage.PARTIAL);
 			body.setBodyMaterial(BodyMaterial.SLIME);
 		}
 	},
@@ -578,7 +517,6 @@ public enum Subspecies {
 					WorldType.BAT_CAVERNS)) {
 		@Override
 		public void applySpeciesChanges(Body body) {
-//			body = CharacterUtils.generateBody(body.getGender(), Subspecies.DOG_MORPH, RaceStage.PARTIAL);
 			body.setBodyMaterial(BodyMaterial.SLIME);
 		}
 	},
@@ -598,7 +536,6 @@ public enum Subspecies {
 					WorldType.BAT_CAVERNS)) {
 		@Override
 		public void applySpeciesChanges(Body body) {
-//			body = CharacterUtils.generateBody(body.getGender(), Subspecies.WOLF_MORPH, RaceStage.PARTIAL);
 			body.setBodyMaterial(BodyMaterial.SLIME);
 		}
 	},
@@ -618,7 +555,6 @@ public enum Subspecies {
 					WorldType.BAT_CAVERNS)) {
 		@Override
 		public void applySpeciesChanges(Body body) {
-//			body = CharacterUtils.generateBody(body.getGender(), Subspecies.CAT_MORPH, RaceStage.PARTIAL);
 			body.setBodyMaterial(BodyMaterial.SLIME);
 		}
 	},
@@ -638,7 +574,6 @@ public enum Subspecies {
 					WorldType.BAT_CAVERNS)) {
 		@Override
 		public void applySpeciesChanges(Body body) {
-//			body = CharacterUtils.generateBody(body.getGender(), Subspecies.HORSE_MORPH, RaceStage.PARTIAL);
 			body.setBodyMaterial(BodyMaterial.SLIME);
 		}
 	},
@@ -658,7 +593,6 @@ public enum Subspecies {
 					WorldType.BAT_CAVERNS)) {
 		@Override
 		public void applySpeciesChanges(Body body) {
-//			body = CharacterUtils.generateBody(body.getGender(), Subspecies.REINDEER_MORPH, RaceStage.PARTIAL);
 			body.setBodyMaterial(BodyMaterial.SLIME);
 		}
 	},
@@ -678,7 +612,6 @@ public enum Subspecies {
 					WorldType.BAT_CAVERNS)) {
 		@Override
 		public void applySpeciesChanges(Body body) {
-//			body = CharacterUtils.generateBody(body.getGender(), Subspecies.ALLIGATOR_MORPH, RaceStage.PARTIAL);
 			body.setBodyMaterial(BodyMaterial.SLIME);
 		}
 	},
@@ -698,7 +631,6 @@ public enum Subspecies {
 					WorldType.BAT_CAVERNS)) {
 		@Override
 		public void applySpeciesChanges(Body body) {
-//			body = CharacterUtils.generateBody(body.getGender(), Subspecies.SQUIRREL_MORPH, RaceStage.PARTIAL);
 			body.setBodyMaterial(BodyMaterial.SLIME);
 		}
 	},
@@ -718,7 +650,6 @@ public enum Subspecies {
 					WorldType.BAT_CAVERNS)) {
 		@Override
 		public void applySpeciesChanges(Body body) {
-//			body = CharacterUtils.generateBody(body.getGender(), Subspecies.RAT_MORPH, RaceStage.PARTIAL);
 			body.setBodyMaterial(BodyMaterial.SLIME);
 		}
 	},
@@ -738,7 +669,6 @@ public enum Subspecies {
 					WorldType.BAT_CAVERNS)) {
 		@Override
 		public void applySpeciesChanges(Body body) {
-//			body = CharacterUtils.generateBody(body.getGender(), Subspecies.RAT_MORPH, RaceStage.PARTIAL);
 			body.setBodyMaterial(BodyMaterial.SLIME);
 		}
 	},
@@ -758,7 +688,6 @@ public enum Subspecies {
 					WorldType.BAT_CAVERNS)) {
 		@Override
 		public void applySpeciesChanges(Body body) {
-//			body = CharacterUtils.generateBody(body.getGender(), Subspecies.RAT_MORPH, RaceStage.PARTIAL);
 			body.setBodyMaterial(BodyMaterial.SLIME);
 		}
 	},
@@ -778,7 +707,6 @@ public enum Subspecies {
 					WorldType.BAT_CAVERNS)) {
 		@Override
 		public void applySpeciesChanges(Body body) {
-//			body = CharacterUtils.generateBody(body.getGender(), Subspecies.HARPY, RaceStage.LESSER);
 			body.setBodyMaterial(BodyMaterial.SLIME);
 		}
 	},
@@ -798,7 +726,6 @@ public enum Subspecies {
 					WorldType.BAT_CAVERNS)) {
 		@Override
 		public void applySpeciesChanges(Body body) {
-//			body = CharacterUtils.generateBody(body.getGender(), Subspecies.HARPY, RaceStage.LESSER);
 			body.setBodyMaterial(BodyMaterial.SLIME);
 		}
 	},
@@ -831,13 +758,7 @@ public enum Subspecies {
 			Colour.RACE_SQUIRREL_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"A typical bipedal squirrel-morph.",
-			Util.newArrayListOfValues(WorldType.DOMINION)) {
-		@Override
-		public void applySpeciesChanges(Body body) {
-			// TODO Auto-generated method stub
-			
-		}
-	},
+			Util.newArrayListOfValues(WorldType.DOMINION)),
 	
 	//MOUSE_MORPH(Race.MOUSE_MORPH.getName(), Race.MOUSE_MORPH, RacialBody.MOUSE_MORPH, SubspeciesPreference.FIVE_ABUNDANT,
 	//		"A typical bipedal "+Race.MOUSE_MORPH.getName()),
@@ -853,12 +774,7 @@ public enum Subspecies {
 			Colour.RACE_RAT_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"A typical bipedal rat-morph.",
-			Util.newArrayListOfValues(WorldType.SUBMISSION)) {
-		@Override
-		public void applySpeciesChanges(Body body) {
-			// TODO Auto-generated method stub
-		}
-	},
+			Util.newArrayListOfValues(WorldType.SUBMISSION)),
 
 	RABBIT_MORPH("statusEffects/raceRabbitMorph",
 			"rabbit-morph",
@@ -871,11 +787,7 @@ public enum Subspecies {
 			Colour.RACE_RABBIT_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"A typical bipedal rabbit-morph.",
-			Util.newArrayListOfValues(WorldType.DOMINION)) { //TODO
-		@Override
-		public void applySpeciesChanges(Body body) {
-		}
-	},
+			Util.newArrayListOfValues(WorldType.DOMINION)), //TODO move to fields
 
 	RABBIT_MORPH_LOP("statusEffects/raceRabbitLopMorph",
 			"lop-rabbit-morph",
@@ -888,7 +800,7 @@ public enum Subspecies {
 			Colour.RACE_RABBIT_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"A bipedal rabbit-morph, with floppy ears instead of the usual upright ones.",
-			Util.newArrayListOfValues(WorldType.DOMINION)) { //TODO
+			Util.newArrayListOfValues(WorldType.DOMINION)) {  //TODO move to fields
 		@Override
 		public void applySpeciesChanges(Body body) {
 			if(body.getEar().getType()==EarType.RABBIT_MORPH) {
@@ -910,12 +822,7 @@ public enum Subspecies {
 			"A typical bipedal bat-morph.",
 			Util.newArrayListOfValues(
 					WorldType.SUBMISSION,
-					WorldType.BAT_CAVERNS)) {
-		@Override
-		public void applySpeciesChanges(Body body) {
-			// TODO Auto-generated method stub
-		}
-	},
+					WorldType.BAT_CAVERNS)),
 	
 	// AVIAN:
 	HARPY("statusEffects/raceHarpy",
@@ -929,13 +836,7 @@ public enum Subspecies {
 			Colour.RACE_HARPY,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"A typical harpy.",
-			Util.newArrayListOfValues(WorldType.HARPY_NEST)) {
-		@Override
-		public void applySpeciesChanges(Body body) {
-			// TODO Auto-generated method stub
-			
-		}
-	},
+			Util.newArrayListOfValues(WorldType.HARPY_NEST)),
 	
 	HARPY_RAVEN("statusEffects/raceHarpy",
 			"raven-harpy",
@@ -1154,7 +1055,15 @@ public enum Subspecies {
 		}
 	}
 
-	public abstract void applySpeciesChanges(Body body);
+	public void applySpeciesChanges(Body body) {	
+	}
+
+	/**
+	 * Changes that should be applied to any offspring of this species.
+	 */
+	public void applyOffspringSpeciesChanges(Body body) {
+		applySpeciesChanges(body);
+	}
 
 	public static Subspecies getMainSubspeciesOfRace(Race race) {
 		switch(race) {

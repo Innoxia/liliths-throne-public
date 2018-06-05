@@ -51,6 +51,7 @@ import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
 import com.lilithsthrone.game.character.body.valueEnums.PenisModifier;
 import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
+import com.lilithsthrone.game.character.body.valueEnums.TongueLength;
 import com.lilithsthrone.game.character.body.valueEnums.TongueModifier;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.race.Race;
@@ -139,7 +140,11 @@ public abstract class AbstractItemEffectType {
 						TFModifier.TF_MOD_CAPACITY,
 						TFModifier.TF_MOD_ELASTICITY,
 						TFModifier.TF_MOD_PLASTICITY,
-						TFModifier.TF_MOD_WETNESS
+						TFModifier.TF_MOD_WETNESS,
+						TFModifier.TF_MOD_ORIFICE_PUFFY,
+						TFModifier.TF_MOD_ORIFICE_RIBBED,
+						TFModifier.TF_MOD_ORIFICE_MUSCLED,
+						TFModifier.TF_MOD_ORIFICE_TENTACLED
 						);
 			case TF_BREASTS:
 				return Util.newArrayListOfValues(
@@ -149,7 +154,11 @@ public abstract class AbstractItemEffectType {
 						TFModifier.TF_MOD_CAPACITY,
 						TFModifier.TF_MOD_ELASTICITY,
 						TFModifier.TF_MOD_PLASTICITY,
-						TFModifier.TF_MOD_WETNESS
+						TFModifier.TF_MOD_WETNESS,
+						TFModifier.TF_MOD_ORIFICE_PUFFY,
+						TFModifier.TF_MOD_ORIFICE_RIBBED,
+						TFModifier.TF_MOD_ORIFICE_MUSCLED,
+						TFModifier.TF_MOD_ORIFICE_TENTACLED
 						);
 			case TF_CORE:
 				return Util.newArrayListOfValues(
@@ -160,30 +169,55 @@ public abstract class AbstractItemEffectType {
 						);
 			case TF_FACE:
 				return Util.newArrayListOfValues(
-						TFModifier.TF_MOD_SIZE//lip size
+						TFModifier.TF_MOD_SIZE,
+						TFModifier.TF_MOD_ORIFICE_PUFFY,
+						TFModifier.TF_MOD_ORIFICE_RIBBED,
+						TFModifier.TF_MOD_ORIFICE_MUSCLED,
+						TFModifier.TF_MOD_ORIFICE_TENTACLED
 						);
 			case TF_HAIR:
 				return Util.newArrayListOfValues(
 						TFModifier.TF_MOD_SIZE// hair length
 						);
 			case TF_PENIS:
-				return Util.newArrayListOfValues(
-						TFModifier.TF_MOD_SIZE,// size
-						TFModifier.TF_MOD_SIZE_SECONDARY,// testicle size
+				List<TFModifier> penisMods = Util.newArrayListOfValues(
+						TFModifier.TF_MOD_SIZE,
+						TFModifier.TF_MOD_SIZE_SECONDARY,
 						TFModifier.TF_MOD_CAPACITY,
 						TFModifier.TF_MOD_ELASTICITY,
 						TFModifier.TF_MOD_PLASTICITY,
 						TFModifier.TF_MOD_WETNESS
 						);
+
+				if(Main.getProperties().hasValue(PropertyValue.urethralContent)) {
+					penisMods.add(TFModifier.TF_MOD_ORIFICE_PUFFY);
+					penisMods.add(TFModifier.TF_MOD_ORIFICE_RIBBED);
+					penisMods.add(TFModifier.TF_MOD_ORIFICE_MUSCLED);
+					penisMods.add(TFModifier.TF_MOD_ORIFICE_TENTACLED);
+				}
+				return penisMods;
+				
 			case TF_VAGINA:
-				return Util.newArrayListOfValues(
+				List<TFModifier> mods = Util.newArrayListOfValues(
 						TFModifier.TF_MOD_SIZE,// clit size
 						TFModifier.TF_MOD_SIZE_SECONDARY,// labia size
 						TFModifier.TF_MOD_CAPACITY,
 						TFModifier.TF_MOD_ELASTICITY,
 						TFModifier.TF_MOD_PLASTICITY,
-						TFModifier.TF_MOD_WETNESS
+						TFModifier.TF_MOD_WETNESS,
+						TFModifier.TF_MOD_ORIFICE_PUFFY,
+						TFModifier.TF_MOD_ORIFICE_RIBBED,
+						TFModifier.TF_MOD_ORIFICE_MUSCLED,
+						TFModifier.TF_MOD_ORIFICE_TENTACLED
 						);
+
+				if(Main.getProperties().hasValue(PropertyValue.urethralContent)) {
+					mods.add(TFModifier.TF_MOD_ORIFICE_PUFFY_2);
+					mods.add(TFModifier.TF_MOD_ORIFICE_RIBBED_2);
+					mods.add(TFModifier.TF_MOD_ORIFICE_MUSCLED_2);
+					mods.add(TFModifier.TF_MOD_ORIFICE_TENTACLED_2);
+				}
+				return mods;
 			default:
 				break;
 		}
@@ -205,6 +239,11 @@ public abstract class AbstractItemEffectType {
 					return Wetness.SEVEN_DROOLING.getValue();
 				}
 				break;
+			case TF_MOD_ORIFICE_PUFFY:
+			case TF_MOD_ORIFICE_RIBBED:
+			case TF_MOD_ORIFICE_MUSCLED:
+			case TF_MOD_ORIFICE_TENTACLED:
+				return 0;
 			default:
 				break;
 		}
@@ -336,6 +375,18 @@ public abstract class AbstractItemEffectType {
 					case TF_MOD_SIZE_SECONDARY:
 						descriptions.add(getClothingTFChangeDescriptionEntry(potency, "hip size", HipSize.getHipSizeFromInt(limit).getDescriptor()));
 						break;
+					case TF_MOD_ORIFICE_PUFFY:
+						descriptions.add(getClothingOrificeTFChangeDescriptionEntry(potency, "anus puffy", "anal puffyness"));
+						break;
+					case TF_MOD_ORIFICE_RIBBED:
+						descriptions.add(getClothingOrificeTFChangeDescriptionEntry(potency, "anus ribbed",  "anal ribbing"));
+						break;
+					case TF_MOD_ORIFICE_MUSCLED:
+						descriptions.add(getClothingOrificeTFChangeDescriptionEntry(potency, "anus muscled", "extra anal muscles"));
+						break;
+					case TF_MOD_ORIFICE_TENTACLED:
+						descriptions.add(getClothingOrificeTFChangeDescriptionEntry(potency, "anus tentacled", "anal tentacles"));
+						break;
 					default:
 						break;
 				}
@@ -353,6 +404,18 @@ public abstract class AbstractItemEffectType {
 						break;
 					case TF_MOD_WETNESS:
 						descriptions.add(getClothingTFChangeDescriptionEntry(potency, "lactation", limit+"ml"));
+						break;
+					case TF_MOD_ORIFICE_PUFFY:
+						descriptions.add(getClothingOrificeTFChangeDescriptionEntry(potency, "nipples puffy", "nipple puffyness"));
+						break;
+					case TF_MOD_ORIFICE_RIBBED:
+						descriptions.add(getClothingOrificeTFChangeDescriptionEntry(potency, "nipples internally ribbed",  "nipple ribbing"));
+						break;
+					case TF_MOD_ORIFICE_MUSCLED:
+						descriptions.add(getClothingOrificeTFChangeDescriptionEntry(potency, "nipples internally muscled", "internal nipple muscles"));
+						break;
+					case TF_MOD_ORIFICE_TENTACLED:
+						descriptions.add(getClothingOrificeTFChangeDescriptionEntry(potency, "nipples internally tentacled", "nipple tentacles"));
 						break;
 					default:
 						break;
@@ -381,6 +444,21 @@ public abstract class AbstractItemEffectType {
 					case TF_MOD_SIZE:
 						descriptions.add(getClothingTFChangeDescriptionEntry(potency, "lip size", LipSize.getLipSizeFromInt(limit).getName()));
 						break;
+					case TF_MOD_SIZE_SECONDARY:
+						descriptions.add(getClothingTFChangeDescriptionEntry(potency, "tongue length", TongueLength.getTongueLengthFromInt(limit).getDescriptor()));
+						break;
+					case TF_MOD_ORIFICE_PUFFY:
+						descriptions.add(getClothingOrificeTFChangeDescriptionEntry(potency, "lips puffy", "puffy lips"));
+						break;
+					case TF_MOD_ORIFICE_RIBBED:
+						descriptions.add(getClothingOrificeTFChangeDescriptionEntry(potency, "throat internally ribbed",  "throat ribbing"));
+						break;
+					case TF_MOD_ORIFICE_MUSCLED:
+						descriptions.add(getClothingOrificeTFChangeDescriptionEntry(potency, "throat internally muscled", "extra throat muscles"));
+						break;
+					case TF_MOD_ORIFICE_TENTACLED:
+						descriptions.add(getClothingOrificeTFChangeDescriptionEntry(potency, "throat internally tentacled", "throat tentacles"));
+						break;
 					default:
 						break;
 				}
@@ -405,6 +483,18 @@ public abstract class AbstractItemEffectType {
 					case TF_MOD_WETNESS:
 						descriptions.add(getClothingTFChangeDescriptionEntry(potency, "cum production", limit+"ml"));
 						break;
+					case TF_MOD_ORIFICE_PUFFY:
+						descriptions.add(getClothingOrificeTFChangeDescriptionEntry(potency, "urethra puffy", "puffy urethra"));
+						break;
+					case TF_MOD_ORIFICE_RIBBED:
+						descriptions.add(getClothingOrificeTFChangeDescriptionEntry(potency, "urethra internally ribbed",  "urethral ribbing"));
+						break;
+					case TF_MOD_ORIFICE_MUSCLED:
+						descriptions.add(getClothingOrificeTFChangeDescriptionEntry(potency, "urethra internally muscled", "urethral muscles"));
+						break;
+					case TF_MOD_ORIFICE_TENTACLED:
+						descriptions.add(getClothingOrificeTFChangeDescriptionEntry(potency, "urethra internally tentacled", "urethral tentacles"));
+						break;
 					default:
 						break;
 				}
@@ -417,6 +507,30 @@ public abstract class AbstractItemEffectType {
 					case TF_MOD_SIZE_SECONDARY:
 						descriptions.add(getClothingTFChangeDescriptionEntry(potency, "labia size", LabiaSize.getLabiaSizeFromInt(limit).getName()));
 						break;
+					case TF_MOD_ORIFICE_PUFFY:
+						descriptions.add(getClothingOrificeTFChangeDescriptionEntry(potency, "vagina puffy", "puffy vagina"));
+						break;
+					case TF_MOD_ORIFICE_RIBBED:
+						descriptions.add(getClothingOrificeTFChangeDescriptionEntry(potency, "vagina internally ribbed",  "vaginal ribbing"));
+						break;
+					case TF_MOD_ORIFICE_MUSCLED:
+						descriptions.add(getClothingOrificeTFChangeDescriptionEntry(potency, "vagina internally muscled", "extra vaginal muscles"));
+						break;
+					case TF_MOD_ORIFICE_TENTACLED:
+						descriptions.add(getClothingOrificeTFChangeDescriptionEntry(potency, "vagina internally tentacled", "vaginal tentacles"));
+						break;
+					case TF_MOD_ORIFICE_PUFFY_2:
+						descriptions.add(getClothingOrificeTFChangeDescriptionEntry(potency, "urethra puffy", "puffy urethra"));
+						break;
+					case TF_MOD_ORIFICE_RIBBED_2:
+						descriptions.add(getClothingOrificeTFChangeDescriptionEntry(potency, "urethra internally ribbed",  "urethral ribbing"));
+						break;
+					case TF_MOD_ORIFICE_MUSCLED_2:
+						descriptions.add(getClothingOrificeTFChangeDescriptionEntry(potency, "urethra internally muscled", "urethral muscles"));
+						break;
+					case TF_MOD_ORIFICE_TENTACLED_2:
+						descriptions.add(getClothingOrificeTFChangeDescriptionEntry(potency, "urethra internally tentacled", "urethral tentacles"));
+						break;
 					default:
 						break;
 				}
@@ -426,6 +540,24 @@ public abstract class AbstractItemEffectType {
 		}
 		
 		return descriptions;
+	}
+	
+	private static String getClothingOrificeTFChangeDescriptionEntry(TFPotency potency, String changeAdd, String changeRemove) {
+		switch(potency) {
+			case MINOR_BOOST:
+				return ("In a week, makes "+changeAdd+".");
+			case BOOST:
+				return ("In a day, makes "+changeAdd+".");
+			case MAJOR_BOOST:
+				return ("In an hour, makes "+changeAdd+".");
+			case MINOR_DRAIN:
+				return ("In a week, removes "+changeRemove+".");
+			case DRAIN:
+				return ("In a day, removes "+changeRemove+".");
+			case MAJOR_DRAIN:
+				return ("In an hour, removes "+changeRemove+".");
+		}
+		return "";
 	}
 	
 	private static String getClothingTFChangeDescriptionEntry(TFPotency potency, String subject, String limit) {
@@ -553,6 +685,50 @@ public abstract class AbstractItemEffectType {
 								sb.append(target.setAssWetness(limit));
 							}
 							break;
+						case TF_MOD_ORIFICE_PUFFY:
+							if(potency == TFPotency.MINOR_BOOST || potency == TFPotency.BOOST || potency == TFPotency.MAJOR_BOOST) {
+								if(!target.hasAssOrificeModifier(OrificeModifier.PUFFY)) {
+									sb.append(target.addAssOrificeModifier(OrificeModifier.PUFFY));
+								}
+							} else {
+								if(target.hasAssOrificeModifier(OrificeModifier.PUFFY)) {
+									sb.append(target.removeAssOrificeModifier(OrificeModifier.PUFFY));
+								}
+							}
+							break;
+						case TF_MOD_ORIFICE_RIBBED:
+							if(potency == TFPotency.MINOR_BOOST || potency == TFPotency.BOOST || potency == TFPotency.MAJOR_BOOST) {
+								if(!target.hasAssOrificeModifier(OrificeModifier.RIBBED)) {
+									sb.append(target.addAssOrificeModifier(OrificeModifier.RIBBED));
+								}
+							} else {
+								if(target.hasAssOrificeModifier(OrificeModifier.RIBBED)) {
+									sb.append(target.removeAssOrificeModifier(OrificeModifier.RIBBED));
+								}
+							}
+							break;
+						case TF_MOD_ORIFICE_MUSCLED:
+							if(potency == TFPotency.MINOR_BOOST || potency == TFPotency.BOOST || potency == TFPotency.MAJOR_BOOST) {
+								if(!target.hasAssOrificeModifier(OrificeModifier.MUSCLE_CONTROL)) {
+									sb.append(target.addAssOrificeModifier(OrificeModifier.MUSCLE_CONTROL));
+								}
+							} else {
+								if(target.hasAssOrificeModifier(OrificeModifier.MUSCLE_CONTROL)) {
+									sb.append(target.removeAssOrificeModifier(OrificeModifier.MUSCLE_CONTROL));
+								}
+							}
+							break;
+						case TF_MOD_ORIFICE_TENTACLED:
+							if(potency == TFPotency.MINOR_BOOST || potency == TFPotency.BOOST || potency == TFPotency.MAJOR_BOOST) {
+								if(!target.hasAssOrificeModifier(OrificeModifier.TENTACLED)) {
+									sb.append(target.addAssOrificeModifier(OrificeModifier.TENTACLED));
+								}
+							} else {
+								if(target.hasAssOrificeModifier(OrificeModifier.TENTACLED)) {
+									sb.append(target.removeAssOrificeModifier(OrificeModifier.TENTACLED));
+								}
+							}
+							break;
 						default:
 							break;
 					}
@@ -608,6 +784,50 @@ public abstract class AbstractItemEffectType {
 								sb.append(target.setBreastMilkStorage(limit));
 							}
 							break;
+						case TF_MOD_ORIFICE_PUFFY:
+							if(potency == TFPotency.MINOR_BOOST || potency == TFPotency.BOOST || potency == TFPotency.MAJOR_BOOST) {
+								if(!target.hasNippleOrificeModifier(OrificeModifier.PUFFY)) {
+									sb.append(target.addNippleOrificeModifier(OrificeModifier.PUFFY));
+								}
+							} else {
+								if(target.hasNippleOrificeModifier(OrificeModifier.PUFFY)) {
+									sb.append(target.removeNippleOrificeModifier(OrificeModifier.PUFFY));
+								}
+							}
+							break;
+						case TF_MOD_ORIFICE_RIBBED:
+							if(potency == TFPotency.MINOR_BOOST || potency == TFPotency.BOOST || potency == TFPotency.MAJOR_BOOST) {
+								if(!target.hasNippleOrificeModifier(OrificeModifier.RIBBED)) {
+									sb.append(target.addNippleOrificeModifier(OrificeModifier.RIBBED));
+								}
+							} else {
+								if(target.hasNippleOrificeModifier(OrificeModifier.RIBBED)) {
+									sb.append(target.removeNippleOrificeModifier(OrificeModifier.RIBBED));
+								}
+							}
+							break;
+						case TF_MOD_ORIFICE_MUSCLED:
+							if(potency == TFPotency.MINOR_BOOST || potency == TFPotency.BOOST || potency == TFPotency.MAJOR_BOOST) {
+								if(!target.hasNippleOrificeModifier(OrificeModifier.MUSCLE_CONTROL)) {
+									sb.append(target.addNippleOrificeModifier(OrificeModifier.MUSCLE_CONTROL));
+								}
+							} else {
+								if(target.hasNippleOrificeModifier(OrificeModifier.MUSCLE_CONTROL)) {
+									sb.append(target.removeNippleOrificeModifier(OrificeModifier.MUSCLE_CONTROL));
+								}
+							}
+							break;
+						case TF_MOD_ORIFICE_TENTACLED:
+							if(potency == TFPotency.MINOR_BOOST || potency == TFPotency.BOOST || potency == TFPotency.MAJOR_BOOST) {
+								if(!target.hasNippleOrificeModifier(OrificeModifier.TENTACLED)) {
+									sb.append(target.addNippleOrificeModifier(OrificeModifier.TENTACLED));
+								}
+							} else {
+								if(target.hasNippleOrificeModifier(OrificeModifier.TENTACLED)) {
+									sb.append(target.removeNippleOrificeModifier(OrificeModifier.TENTACLED));
+								}
+							}
+							break;
 						default:
 							break;
 					}
@@ -653,6 +873,57 @@ public abstract class AbstractItemEffectType {
 								sb.append(target.incrementLipSize(lipSizeIncrement));
 							} else if(isSetToLimit(lipSizeIncrement, target.getLipSizeValue(), limit)) {
 								sb.append(target.setLipSize(limit));
+							}
+							break;
+						case TF_MOD_SIZE_SECONDARY:
+							if(isWithinLimits(lipSizeIncrement, target.getTongueLengthValue(), limit)) {
+								sb.append(target.incrementTongueLength(lipSizeIncrement));
+							} else if(isSetToLimit(lipSizeIncrement, target.getTongueLengthValue(), limit)) {
+								sb.append(target.setTongueLength(limit));
+							}
+							break;
+						case TF_MOD_ORIFICE_PUFFY:
+							if(potency == TFPotency.MINOR_BOOST || potency == TFPotency.BOOST || potency == TFPotency.MAJOR_BOOST) {
+								if(!target.hasFaceOrificeModifier(OrificeModifier.PUFFY)) {
+									sb.append(target.addFaceOrificeModifier(OrificeModifier.PUFFY));
+								}
+							} else {
+								if(target.hasFaceOrificeModifier(OrificeModifier.PUFFY)) {
+									sb.append(target.removeFaceOrificeModifier(OrificeModifier.PUFFY));
+								}
+							}
+							break;
+						case TF_MOD_ORIFICE_RIBBED:
+							if(potency == TFPotency.MINOR_BOOST || potency == TFPotency.BOOST || potency == TFPotency.MAJOR_BOOST) {
+								if(!target.hasFaceOrificeModifier(OrificeModifier.RIBBED)) {
+									sb.append(target.addFaceOrificeModifier(OrificeModifier.RIBBED));
+								}
+							} else {
+								if(target.hasFaceOrificeModifier(OrificeModifier.RIBBED)) {
+									sb.append(target.removeFaceOrificeModifier(OrificeModifier.RIBBED));
+								}
+							}
+							break;
+						case TF_MOD_ORIFICE_MUSCLED:
+							if(potency == TFPotency.MINOR_BOOST || potency == TFPotency.BOOST || potency == TFPotency.MAJOR_BOOST) {
+								if(!target.hasFaceOrificeModifier(OrificeModifier.MUSCLE_CONTROL)) {
+									sb.append(target.addFaceOrificeModifier(OrificeModifier.MUSCLE_CONTROL));
+								}
+							} else {
+								if(target.hasFaceOrificeModifier(OrificeModifier.MUSCLE_CONTROL)) {
+									sb.append(target.removeFaceOrificeModifier(OrificeModifier.MUSCLE_CONTROL));
+								}
+							}
+							break;
+						case TF_MOD_ORIFICE_TENTACLED:
+							if(potency == TFPotency.MINOR_BOOST || potency == TFPotency.BOOST || potency == TFPotency.MAJOR_BOOST) {
+								if(!target.hasFaceOrificeModifier(OrificeModifier.TENTACLED)) {
+									sb.append(target.addFaceOrificeModifier(OrificeModifier.TENTACLED));
+								}
+							} else {
+								if(target.hasFaceOrificeModifier(OrificeModifier.TENTACLED)) {
+									sb.append(target.removeFaceOrificeModifier(OrificeModifier.TENTACLED));
+								}
 							}
 							break;
 						default:
@@ -716,6 +987,50 @@ public abstract class AbstractItemEffectType {
 								sb.append(target.setCumProduction(limit));
 							}
 							break;
+						case TF_MOD_ORIFICE_PUFFY:
+							if(potency == TFPotency.MINOR_BOOST || potency == TFPotency.BOOST || potency == TFPotency.MAJOR_BOOST) {
+								if(!target.hasUrethraOrificeModifier(OrificeModifier.PUFFY)) {
+									sb.append(target.addUrethraOrificeModifier(OrificeModifier.PUFFY));
+								}
+							} else {
+								if(target.hasUrethraOrificeModifier(OrificeModifier.PUFFY)) {
+									sb.append(target.removeUrethraOrificeModifier(OrificeModifier.PUFFY));
+								}
+							}
+							break;
+						case TF_MOD_ORIFICE_RIBBED:
+							if(potency == TFPotency.MINOR_BOOST || potency == TFPotency.BOOST || potency == TFPotency.MAJOR_BOOST) {
+								if(!target.hasUrethraOrificeModifier(OrificeModifier.RIBBED)) {
+									sb.append(target.addUrethraOrificeModifier(OrificeModifier.RIBBED));
+								}
+							} else {
+								if(target.hasUrethraOrificeModifier(OrificeModifier.RIBBED)) {
+									sb.append(target.removeUrethraOrificeModifier(OrificeModifier.RIBBED));
+								}
+							}
+							break;
+						case TF_MOD_ORIFICE_MUSCLED:
+							if(potency == TFPotency.MINOR_BOOST || potency == TFPotency.BOOST || potency == TFPotency.MAJOR_BOOST) {
+								if(!target.hasUrethraOrificeModifier(OrificeModifier.MUSCLE_CONTROL)) {
+									sb.append(target.addUrethraOrificeModifier(OrificeModifier.MUSCLE_CONTROL));
+								}
+							} else {
+								if(target.hasUrethraOrificeModifier(OrificeModifier.MUSCLE_CONTROL)) {
+									sb.append(target.removeUrethraOrificeModifier(OrificeModifier.MUSCLE_CONTROL));
+								}
+							}
+							break;
+						case TF_MOD_ORIFICE_TENTACLED:
+							if(potency == TFPotency.MINOR_BOOST || potency == TFPotency.BOOST || potency == TFPotency.MAJOR_BOOST) {
+								if(!target.hasUrethraOrificeModifier(OrificeModifier.TENTACLED)) {
+									sb.append(target.addUrethraOrificeModifier(OrificeModifier.TENTACLED));
+								}
+							} else {
+								if(target.hasUrethraOrificeModifier(OrificeModifier.TENTACLED)) {
+									sb.append(target.removeUrethraOrificeModifier(OrificeModifier.TENTACLED));
+								}
+							}
+							break;
 						default:
 							break;
 					}
@@ -762,6 +1077,94 @@ public abstract class AbstractItemEffectType {
 								sb.append(target.incrementVaginaWetness(wetnessIncrement));
 							} else if(isSetToLimit(wetnessIncrement, target.getVaginaWetness().getValue(), limit)) {
 								sb.append(target.setVaginaWetness(limit));
+							}
+							break;
+						case TF_MOD_ORIFICE_PUFFY:
+							if(potency == TFPotency.MINOR_BOOST || potency == TFPotency.BOOST || potency == TFPotency.MAJOR_BOOST) {
+								if(!target.hasVaginaOrificeModifier(OrificeModifier.PUFFY)) {
+									sb.append(target.addVaginaOrificeModifier(OrificeModifier.PUFFY));
+								}
+							} else {
+								if(target.hasVaginaOrificeModifier(OrificeModifier.PUFFY)) {
+									sb.append(target.removeVaginaOrificeModifier(OrificeModifier.PUFFY));
+								}
+							}
+							break;
+						case TF_MOD_ORIFICE_RIBBED:
+							if(potency == TFPotency.MINOR_BOOST || potency == TFPotency.BOOST || potency == TFPotency.MAJOR_BOOST) {
+								if(!target.hasVaginaOrificeModifier(OrificeModifier.RIBBED)) {
+									sb.append(target.addVaginaOrificeModifier(OrificeModifier.RIBBED));
+								}
+							} else {
+								if(target.hasVaginaOrificeModifier(OrificeModifier.RIBBED)) {
+									sb.append(target.removeVaginaOrificeModifier(OrificeModifier.RIBBED));
+								}
+							}
+							break;
+						case TF_MOD_ORIFICE_MUSCLED:
+							if(potency == TFPotency.MINOR_BOOST || potency == TFPotency.BOOST || potency == TFPotency.MAJOR_BOOST) {
+								if(!target.hasVaginaOrificeModifier(OrificeModifier.MUSCLE_CONTROL)) {
+									sb.append(target.addVaginaOrificeModifier(OrificeModifier.MUSCLE_CONTROL));
+								}
+							} else {
+								if(target.hasVaginaOrificeModifier(OrificeModifier.MUSCLE_CONTROL)) {
+									sb.append(target.removeVaginaOrificeModifier(OrificeModifier.MUSCLE_CONTROL));
+								}
+							}
+							break;
+						case TF_MOD_ORIFICE_TENTACLED:
+							if(potency == TFPotency.MINOR_BOOST || potency == TFPotency.BOOST || potency == TFPotency.MAJOR_BOOST) {
+								if(!target.hasVaginaOrificeModifier(OrificeModifier.TENTACLED)) {
+									sb.append(target.addVaginaOrificeModifier(OrificeModifier.TENTACLED));
+								}
+							} else {
+								if(target.hasVaginaOrificeModifier(OrificeModifier.TENTACLED)) {
+									sb.append(target.removeVaginaOrificeModifier(OrificeModifier.TENTACLED));
+								}
+							}
+							break;
+						case TF_MOD_ORIFICE_PUFFY_2:
+							if(potency == TFPotency.MINOR_BOOST || potency == TFPotency.BOOST || potency == TFPotency.MAJOR_BOOST) {
+								if(!target.hasVaginaUrethraOrificeModifier(OrificeModifier.PUFFY)) {
+									sb.append(target.addVaginaUrethraOrificeModifier(OrificeModifier.PUFFY));
+								}
+							} else {
+								if(target.hasVaginaUrethraOrificeModifier(OrificeModifier.PUFFY)) {
+									sb.append(target.removeVaginaUrethraOrificeModifier(OrificeModifier.PUFFY));
+								}
+							}
+							break;
+						case TF_MOD_ORIFICE_RIBBED_2:
+							if(potency == TFPotency.MINOR_BOOST || potency == TFPotency.BOOST || potency == TFPotency.MAJOR_BOOST) {
+								if(!target.hasVaginaUrethraOrificeModifier(OrificeModifier.RIBBED)) {
+									sb.append(target.addVaginaUrethraOrificeModifier(OrificeModifier.RIBBED));
+								}
+							} else {
+								if(target.hasVaginaUrethraOrificeModifier(OrificeModifier.RIBBED)) {
+									sb.append(target.removeVaginaUrethraOrificeModifier(OrificeModifier.RIBBED));
+								}
+							}
+							break;
+						case TF_MOD_ORIFICE_MUSCLED_2:
+							if(potency == TFPotency.MINOR_BOOST || potency == TFPotency.BOOST || potency == TFPotency.MAJOR_BOOST) {
+								if(!target.hasVaginaUrethraOrificeModifier(OrificeModifier.MUSCLE_CONTROL)) {
+									sb.append(target.addVaginaUrethraOrificeModifier(OrificeModifier.MUSCLE_CONTROL));
+								}
+							} else {
+								if(target.hasVaginaUrethraOrificeModifier(OrificeModifier.MUSCLE_CONTROL)) {
+									sb.append(target.removeVaginaUrethraOrificeModifier(OrificeModifier.MUSCLE_CONTROL));
+								}
+							}
+							break;
+						case TF_MOD_ORIFICE_TENTACLED_2:
+							if(potency == TFPotency.MINOR_BOOST || potency == TFPotency.BOOST || potency == TFPotency.MAJOR_BOOST) {
+								if(!target.hasVaginaUrethraOrificeModifier(OrificeModifier.TENTACLED)) {
+									sb.append(target.addVaginaUrethraOrificeModifier(OrificeModifier.TENTACLED));
+								}
+							} else {
+								if(target.hasVaginaUrethraOrificeModifier(OrificeModifier.TENTACLED)) {
+									sb.append(target.removeVaginaUrethraOrificeModifier(OrificeModifier.TENTACLED));
+								}
 							}
 							break;
 						default:

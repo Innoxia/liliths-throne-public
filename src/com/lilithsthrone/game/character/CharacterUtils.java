@@ -785,6 +785,8 @@ public class CharacterUtils {
 			}
 		}
 		
+		raceTakesAfter.applySpeciesChanges(body);
+		
 		return body;
 	}
 	

@@ -7167,7 +7167,7 @@ public class ClothingType {
 							Util.newArrayListOfValues(
 									InventorySlot.PENIS,
 									InventorySlot.PIERCING_PENIS)),
-					new BlockedParts(DisplacementType.SHIFTS_ASIDE,
+					new BlockedParts(DisplacementType.PULLS_DOWN,
 							Util.newArrayListOfValues(ClothingAccess.GROIN),
 							Util.newArrayListOfValues(
 									CoverableArea.ANUS,
@@ -7484,7 +7484,7 @@ public class ClothingType {
 									ClothingAccess.GROIN),
 							null, null, null),
 					new BlockedParts(
-							DisplacementType.SHIFTS_ASIDE,
+							DisplacementType.PULLS_DOWN,
 							Util.newArrayListOfValues(ClothingAccess.GROIN),
 							Util.newArrayListOfValues(CoverableArea.ANUS),
 							null,
@@ -10916,7 +10916,6 @@ public class ClothingType {
 							DisplacementType.UNTIE,
 							null,
 							Util.newArrayListOfValues(
-									CoverableArea.ANUS,
 									CoverableArea.PENIS,
 									CoverableArea.VAGINA,
 									CoverableArea.BREASTS,
