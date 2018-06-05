@@ -12,7 +12,7 @@
 	- There are well over a hundred bug reports that have stacked up. I really need to get this under control before it become unmanageable.
 	
 	
-	Secondary focus:</b> <b>Sex content improvements</b>
+	Sex content improvements
 	- Add modding framework for sex actions.
 	- Update Lilaya's and Kate's chair sex scenes.
 	- Add support for NPC-on-NPC actions (all sex action descriptions currently assume one partner is the player).
@@ -44,6 +44,9 @@
 	Other:
 		Changed boxers and crotchless briefs to be pulled down instead of shifted aside.
 		Added tongue length to clothing TF options. Added puffy, ribbing, muscled, and tentacled modifiers to clothing's anus, nipple, face, penis, and vagina TFs.
+		Slightly improved snowflake nose stud icon.
+		Synchronised slow clothing TF effects, so that they all fire on the hour. (I did this to fix the issue of having your game interrupted every time you move if you had a lot of TF clothing effects all firing at different times.)
+		Added 'periwinkle' as a clothing and body part colour.
 	
 	Bugs:
 		Fixed male kimono exposing anus when untied.
@@ -52,22 +55,18 @@
 		Fixed issue with fetish desires resetting when saving/loading while wearing clothing that grants a fetish.
 		Fixed bug where offspring of special subspecies wouldn't be of that subspecies. (i.e. Dobermann offspring would be regular dog-morphs.)
 		You can now set your base fetish desire to any value, but if you have the fetish, it's still always counted as 'love'. The pink outline on fetish desires correctly reflects this change.
+		Fixed not being able to select items from the right-hand UI element 'Items Present' while the inventory was already open.
+		Fixed character creation's virginity losses incorrectly referencing 'girlfriend', when it should have been 'boyfriend'.
 	
 	
 	
 	
-	It would be nice if removing an item reset its count down to the next tick though.
-	It would make synchronizing the ticks of multiple worn items a lot easier.
-	Cause a problem I've noticed is that if you wear too many hourly tick items made at different times then the lack of synchronization with the tick updates leads to a lot of messages the interrupt the flow of Gameplay.
-	
-	My first thought was that it could be something like one step or 10% of the final goal's size, whichever is larger.  The % could also be scaled based on how strong of an effect it is.  Minor enchantments jump by 5%, then 10%, and 15%.
-	The reason I brought it up was because I made an item that did a joint body part and associated fluid enchantment (dick size + cum production or breast size + lactation production) and noticed that the body part size reached the max almost immediately, while almost no progress had been made on the fluid.  Then I compared that to heights as well.
+	My first thought was that it could be something like one step or 10% of the final goal's size, whichever is larger.
+	  The % could also be scaled based on how strong of an effect it is.  Minor enchantments jump by 5%, then 10%, and 15%.
+	The reason I brought it up was because I made an item that did a joint body part and associated fluid enchantment (dick size + cum production or breast size + lactation production)
+			 and noticed that the body part size reached the max almost immediately, while almost no progress had been made on the fluid.  Then I compared that to heights as well.
 	Hmm, it's probably better for it to be less than 5%, since it would always take 20 ticks or less to fully transform something.
 	 Mind you, most of the transformations are finished long before 20 ticks, except for those fluid and height based ones.
-	
-	
-	
-	periwinkle
 	
 	Add attackers wanting multiple orgasms
 	

@@ -25,7 +25,7 @@ public enum ClothingSet {
 	
 	MILK_MAID("Milk Maid", StatusEffect.SET_MILK_MAID, 2, null, null),
 
-	BDSM("Bound in Bondage", StatusEffect.SET_BDSM, 4, null, null),
+	BDSM("Locked in Bondage", StatusEffect.SET_BDSM, 4, null, null),
 	
 	CATTLE("Cattle", StatusEffect.SET_CATTLE, 3, null, null),
 	

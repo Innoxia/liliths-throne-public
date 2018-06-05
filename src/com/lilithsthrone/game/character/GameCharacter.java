@@ -4547,6 +4547,10 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		return virginityLossMap.get(sexType);
 	}
 	
+	public Map<SexType, String> getVirginityLossMap() {
+		return virginityLossMap;
+	}
+	
 	// ****************** Sex & Dirty talk: ***************************
 	
 	public String getCondomEquipEffects(GameCharacter equipper, GameCharacter target, boolean rough) {
