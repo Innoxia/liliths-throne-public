@@ -407,6 +407,8 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("IreCobra", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("Garkylal", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("Suvarestin", "", 0, 0, 1, 0));
+
+		credits.add(new CreditsSlot("xerton", "", 0, 0, 1, 0));
 		
 		
 		credits.add(new CreditsSlot("Adhana Konker", "", 0, 0, 3, 0));

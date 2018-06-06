@@ -110,7 +110,7 @@ public class Util {
 	
 	public static String colourReplacementPattern(String gradientReplacementID, Colour colour, Colour colourSecondary, Colour colourTertiary, String inputString) {
 		String s = inputString;
-		
+
 		for (int i = 0; i <= 14; i++) {
 			s = s.replaceAll("linearGradient" + i, gradientReplacementID + colour.toString() + (colourSecondary!=null?colourSecondary.toString():"") + (colourTertiary!=null?colourTertiary.toString():"") + "linearGradient" + i);
 			s = s.replaceAll("innoGrad" + i, gradientReplacementID + colour.toString() + (colourSecondary!=null?colourSecondary.toString():"") + (colourTertiary!=null?colourTertiary.toString():"") + "innoGrad" + i);
@@ -139,7 +139,7 @@ public class Util {
 			s = s.replaceAll("#d3bc5f", colourTertiary.getShades()[3]);
 			s = s.replaceAll("#c8ab37", colourTertiary.getShades()[4]);
 		}
-		
+
 		return s;
 	}
 	

@@ -113,6 +113,7 @@ import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.responses.ResponseTrade;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.CharactersPresentDialogue;
+import com.lilithsthrone.game.dialogue.utils.InventoryDialogue;
 import com.lilithsthrone.game.dialogue.utils.MiscDialogue;
 import com.lilithsthrone.game.dialogue.utils.PhoneDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -1564,7 +1565,7 @@ public class Game implements Serializable, XMLSaving {
 											+ (content != null
 													? "<div "+(Main.getProperties().hasValue(PropertyValue.fadeInText)?"id='text-content'":"")
 															+" style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;"
-																+ (currentDialogueNode.getDialogueNodeType()==DialogueNodeType.INVENTORY?" overflow-y:scroll; overflow-x:hidden;":"")+"'>"
+																+ (requiresYScroll(node)?" overflow-y:scroll; overflow-x:hidden;":"")+"'>"
 															+ pastDialogueSB.toString()
 														+ "</div>"
 													: "")
@@ -1592,7 +1593,7 @@ public class Game implements Serializable, XMLSaving {
 										+ (content != null
 												? "<div "+(Main.getProperties().hasValue(PropertyValue.fadeInText)?"id='text-content'":"")
 														+" style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;"
-															+ (currentDialogueNode.getDialogueNodeType()==DialogueNodeType.INVENTORY?" overflow-y:scroll; overflow-x:hidden;":"")+ "'>"
+															+ (requiresYScroll(node)?" overflow-y:scroll; overflow-x:hidden;":"")+ "'>"
 														+ pastDialogueSB.toString()
 													+ "</div>"
 												: "")
@@ -1737,7 +1738,7 @@ public class Game implements Serializable, XMLSaving {
 								+ (content != null
 									? "<div "+(Main.getProperties().hasValue(PropertyValue.fadeInText)?"id='text-content'":"")
 											+" style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;"
-												+ (currentDialogueNode.getDialogueNodeType()==DialogueNodeType.INVENTORY?" overflow-y:scroll; overflow-x:hidden;":"")+ "'>"
+												+ (requiresYScroll(node)?" overflow-y:scroll; overflow-x:hidden;":"")+ "'>"
 									+ pastDialogueSB.toString() + "</div>" : "")
 	//									+ textStartStringBuilder.toString() + pastDialogueSB.toString() + textEndStringBuilder.toString() + "</div>" : "")
 //							+ "</div>"
@@ -1767,7 +1768,7 @@ public class Game implements Serializable, XMLSaving {
 									+ (content != null
 										? "<div "+(Main.getProperties().hasValue(PropertyValue.fadeInText)?"id='text-content'":"")
 												+" style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;"
-													+ (currentDialogueNode.getDialogueNodeType()==DialogueNodeType.INVENTORY?" overflow-y:scroll; overflow-x:hidden;":"")+ "'>"
+													+ (requiresYScroll(node)?" overflow-y:scroll; overflow-x:hidden;":"")+ "'>"
 												+ pastDialogueSB.toString()
 											+ "</div>"
 										: "")
@@ -1803,6 +1804,16 @@ public class Game implements Serializable, XMLSaving {
 			
 	}
 	
+	private boolean requiresYScroll(DialogueNodeOld node) {
+		return currentDialogueNode.getDialogueNodeType()==DialogueNodeType.INVENTORY
+				&& (!node.equals(InventoryDialogue.DYE_CLOTHING)
+						&& !node.equals(InventoryDialogue.DYE_CLOTHING_CHARACTER_CREATION)
+						&& !node.equals(InventoryDialogue.DYE_EQUIPPED_CLOTHING)
+						&& !node.equals(InventoryDialogue.DYE_EQUIPPED_CLOTHING_CHARACTER_CREATION)
+						&& !node.equals(InventoryDialogue.DYE_EQUIPPED_WEAPON)
+						&& !node.equals(InventoryDialogue.DYE_WEAPON));
+	}
+	
 	private static boolean isContentScroll(DialogueNodeOld node) {
 		return (node.getDialogueNodeType()!=DialogueNodeType.CHARACTERS_PRESENT
 				&& !node.equals(PhoneDialogue.CHARACTER_APPEARANCE)
@@ -1812,7 +1823,13 @@ public class Game implements Serializable, XMLSaving {
 				|| node.equals(BodyChanging.BODY_CHANGING_CORE)
 				|| node.equals(BodyChanging.BODY_CHANGING_FACE)
 				|| node.equals(BodyChanging.BODY_CHANGING_PENIS)
-				|| node.equals(BodyChanging.BODY_CHANGING_VAGINA);
+				|| node.equals(BodyChanging.BODY_CHANGING_VAGINA)
+				|| node.equals(InventoryDialogue.DYE_CLOTHING)
+				|| node.equals(InventoryDialogue.DYE_CLOTHING_CHARACTER_CREATION)
+				|| node.equals(InventoryDialogue.DYE_EQUIPPED_CLOTHING)
+				|| node.equals(InventoryDialogue.DYE_EQUIPPED_CLOTHING_CHARACTER_CREATION)
+				|| node.equals(InventoryDialogue.DYE_EQUIPPED_WEAPON)
+				|| node.equals(InventoryDialogue.DYE_WEAPON);
 	}
 	
 	private String getTitleDiv(String title) {
@@ -2065,7 +2082,7 @@ public class Game implements Serializable, XMLSaving {
 						+ (currentDialogueNode.getContent() != null
 								? "<div id='text-content'"
 									+ " style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;"
-										+ (currentDialogueNode.getDialogueNodeType()==DialogueNodeType.INVENTORY?" overflow-y:scroll; overflow-x:hidden;":"")+ "'>"
+										+ (requiresYScroll(currentDialogueNode)?" overflow-y:scroll; overflow-x:hidden;":"")+ "'>"
 									+ textStartStringBuilder.toString() + pastDialogueSB.toString() + textEndStringBuilder.toString() + "</div>"
 								: "")
 					+ "</div>"

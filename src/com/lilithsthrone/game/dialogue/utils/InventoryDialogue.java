@@ -5445,7 +5445,9 @@ public class InventoryDialogue {
 						+ "Select the desired colours from the coloured buttons below, and after using the preview to see how the new clothing will look, press the 'Dye' option at the bottom of the screen to apply your changes."
 					+ "</p>"
 				+ "</div>"
+					
 				+ "</br>"
+				
 				+ "<div class='container-full-width'>"
 					+ "<div class='inventoryImage'>"
 						+ "<div class='inventoryImage-content'>"

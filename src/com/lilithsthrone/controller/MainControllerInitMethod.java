@@ -3765,40 +3765,39 @@ public class MainControllerInitMethod {
 							MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
 						}*/
 					}
-					if(Pattern.getPattern(InventoryDialogue.dyePreviewPattern)!=null && Pattern.getPattern(InventoryDialogue.dyePreviewPattern).isPrimaryRecolourAvailable()) {
-						for (Colour c : ColourListPresets.ALL.getPresetColourList()) {
-							id = "PATTERN_PRIMARY_"+clothing.hashCode() + "_" + c.toString();
-							if ((EventTarget) MainController.document.getElementById(id) != null) {
-								((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-									InventoryDialogue.dyePreviewPatternPrimary = c;
-									Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-								}, false);
-							}
+				}
+				if(Pattern.getPattern(InventoryDialogue.dyePreviewPattern)!=null && Pattern.getPattern(InventoryDialogue.dyePreviewPattern).isPrimaryRecolourAvailable()) {
+					for (Colour c : ColourListPresets.ALL.getPresetColourList()) {
+						id = "PATTERN_PRIMARY_"+clothing.hashCode() + "_" + c.toString();
+						if ((EventTarget) MainController.document.getElementById(id) != null) {
+							((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+								InventoryDialogue.dyePreviewPatternPrimary = c;
+								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+							}, false);
 						}
 					}
-					if(Pattern.getPattern(InventoryDialogue.dyePreviewPattern)!=null && Pattern.getPattern(InventoryDialogue.dyePreviewPattern).isSecondaryRecolourAvailable()) {
-						for (Colour c : ColourListPresets.ALL.getPresetColourList()) {
-							id = "PATTERN_SECONDARY_"+clothing.hashCode() + "_" + c.toString();
-							if ((EventTarget) MainController.document.getElementById(id) != null) {
-								((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-									InventoryDialogue.dyePreviewPatternSecondary = c;
-									Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-								}, false);
-							}
+				}
+				if(Pattern.getPattern(InventoryDialogue.dyePreviewPattern)!=null && Pattern.getPattern(InventoryDialogue.dyePreviewPattern).isSecondaryRecolourAvailable()) {
+					for (Colour c : ColourListPresets.ALL.getPresetColourList()) {
+						id = "PATTERN_SECONDARY_"+clothing.hashCode() + "_" + c.toString();
+						if ((EventTarget) MainController.document.getElementById(id) != null) {
+							((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+								InventoryDialogue.dyePreviewPatternSecondary = c;
+								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+							}, false);
 						}
 					}
-					if(Pattern.getPattern(InventoryDialogue.dyePreviewPattern)!=null && Pattern.getPattern(InventoryDialogue.dyePreviewPattern).isTertiaryRecolourAvailable()) {
-						for (Colour c : ColourListPresets.ALL.getPresetColourList()) {
-							id = "PATTERN_TERTIARY_"+clothing.hashCode() + "_" + c.toString();
-							if ((EventTarget) MainController.document.getElementById(id) != null) {
-								((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-									InventoryDialogue.dyePreviewPatternTertiary = c;
-									Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-								}, false);
-							}
+				}
+				if(Pattern.getPattern(InventoryDialogue.dyePreviewPattern)!=null && Pattern.getPattern(InventoryDialogue.dyePreviewPattern).isTertiaryRecolourAvailable()) {
+					for (Colour c : ColourListPresets.ALL.getPresetColourList()) {
+						id = "PATTERN_TERTIARY_"+clothing.hashCode() + "_" + c.toString();
+						if ((EventTarget) MainController.document.getElementById(id) != null) {
+							((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+								InventoryDialogue.dyePreviewPatternTertiary = c;
+								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+							}, false);
 						}
 					}
-					
 				}
 			}
 			
