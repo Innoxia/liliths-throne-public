@@ -368,24 +368,51 @@
 	
 	<htmlContent tag="PREGNANCY_ROULETTE_MALE_STALLS"><![CDATA[
 	<p>
-		Behind a small privacy screen, there are several wooden breeding stalls. A stylised blue silhouette of a horse-boy sporting a massive erection is painted on to the front of each of these screens, letting you know that this area is for male breeders.
+		Set into the far left corner of the Gambling Den's main atrium, there's a wide, open archway, which leads into a small room. The interior of this room is concealed from public view by means of a dark blue canvas privacy screen, which bears a stylised black silhouette of a horse-boy sporting a massive erection. Beneath this icon, you read the words 'Pregnancy Roulette: Male breeder room'.
+	</p>
+	<p>
+		Seeing as there's nobody around to stop you, you decide to step into the room and take a closer look at what lies beyond. Moving forwards, you peek around the side of the canvas screen, and find yourself looking upon a small, wooden-floored room. The only furnishings in this area are a couple of basic wooden tables and benches, which have been pushed up against the left and right-hand walls. Set into the far side of the room, you see a solitary door, and a few metres to the left of that, there's a curious round opening.
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="PREGNANCY_ROULETTE_FUTA_STALLS"><![CDATA[
 	<p>
-		Behind a small privacy screen, there are several wooden breeding stalls. A stylised pink silhouette of a horse-girl sporting a massive erection is painted on to the front of each of these screens, letting you know that this area is for futa breeders.
+		Set into the far right corner of the Gambling Den's main atrium, there's a wide, open archway, which leads into a small room. The interior of this room is concealed from public view by means of a dark pink canvas privacy screen, which bears a stylised white silhouette of a horse-girl futa sporting a massive erection. Beneath this icon, you read the words 'Pregnancy Roulette: Futa breeder room'.
+	</p>
+	<p>
+		Seeing as there's nobody around to stop you, you decide to step into the room and take a closer look at what lies beyond. Moving forwards, you peek around the side of the canvas screen, and find yourself looking upon a small, wooden-floored room. The only furnishings in this area are a couple of elegant wooden tables and padded sofas, which have been pushed up against the left and right-hand walls. Set into the far side of the room, you see a solitary door, and a few metres to the left of that, there's a curious round opening.
 	</p>
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="PREGNANCY_ROULETTE"><![CDATA[
+	<htmlContent tag="PREGNANCY_ROULETTE_STALLS_NO_KNOWLEDGE"><![CDATA[
 	<p>
-		At the far end of the atrium, a long wooden counter has been build into the wall. As you approach, you see a brown-haired horse girl standing behind it, who catches your eye and beckons you over to her. Deciding to do as she's suggesting, you walk over to the counter.
+		Stepping into the room to take a closer look, you see that this opening in the wall has been padded on all sides, and, looking through it, you see a leather bench positioned right on the other side. You realise that this must be where the target of 'pregnancy roulette' lies, with her rear half exposed to the room, ready to be fucked by the male breeders.
 	</p>
 	<p>
-		[epona.speech(Heya!)] the horse-girl calls out, [epona.speech(You're a new face! You interested in pregnancy at all? Y'know, getting knocked up, knocking other sluts up, all that good stuff.)]
+		With the room currently deserted, there's not much to do in here, so you turn around and decide to go elsewhere...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="PREGNANCY_ROULETTE_STALLS_KNOWLEDGE"><![CDATA[
+	<p>
+		You immediately recognise the padded opening, and as you take a look at it, you see the familiar leather bench positioned right on the other side. Remembering the last time you participated in 'pregnancy roulette' you know that the 'mother' lies on that bench, with her rear half exposed to the room in order to be bred.
+	</p>
+	<p>
+		With the room currently deserted, there's not much to do in here, so you turn around and decide to go elsewhere...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<htmlContent tag="PREGNANCY_ROULETTE"><![CDATA[
+	<p>
+		At the far end of the atrium, a long wooden counter has been set into the wall. A sign hanging above this opening reads 'Epona's Pregnancy Roulette', and, standing behind the desk, you see a brown-haired horse girl, who you assume to be Epona. As you approach, this horse-girl catches your eye, and, beckoning you over, she calls out, [epona.speech(Hey there! You got a moment?)]
+	</p>
+	<p>
+		Deciding to see what it is this she wants, you walk up to the counter, and as you come to a halt before it, the horse-girl beams at you in delight. [epona.speech(I haven't seen you around here before! You interested in pregnancy at all? Y'know, getting knocked up, knocking some fertile sluts up, all that good stuff?)]
 	</p>
 	<p>
 		[pc.speech(Maybe. What's this about?)] you ask.
@@ -402,6 +429,9 @@
 	<p>
 		[pc.speech(Will do. Thanks Epona.)] you reply, wondering what to do next...
 	</p>
+	
+	stamps
+	
 	]]>
 	</htmlContent>
 	

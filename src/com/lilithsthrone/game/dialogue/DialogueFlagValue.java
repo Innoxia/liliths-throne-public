@@ -146,6 +146,8 @@ public enum DialogueFlagValue {
 	// Gambling Den:
 	axelToldAboutVengar,
 	roxyAddicted,
+	playedPregnancyRouletteAsMother,
+	playedPregnancyRouletteAsBreeder,
 	
 	;
 }

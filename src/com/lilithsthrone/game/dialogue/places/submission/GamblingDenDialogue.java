@@ -685,7 +685,17 @@ public class GamblingDenDialogue {
 		
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/gamblingDen", "PREGNANCY_ROULETTE_MALE_STALLS");
+			UtilText.nodeContentSB.setLength(0);
+			
+			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/gamblingDen", "PREGNANCY_ROULETTE_MALE_STALLS"));
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.playedPregnancyRouletteAsBreeder)
+					|| Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.playedPregnancyRouletteAsMother)) {
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/gamblingDen", "PREGNANCY_ROULETTE_STALLS_KNOWLEDGE"));
+			} else {
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/gamblingDen", "PREGNANCY_ROULETTE_STALLS_NO_KNOWLEDGE"));
+			}
+			
+			return UtilText.nodeContentSB.toString();
 		}
 
 		@Override
@@ -699,7 +709,17 @@ public class GamblingDenDialogue {
 		
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/gamblingDen", "PREGNANCY_ROULETTE_FUTA_STALLS");
+			UtilText.nodeContentSB.setLength(0);
+			
+			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/gamblingDen", "PREGNANCY_ROULETTE_FUTA_STALLS"));
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.playedPregnancyRouletteAsBreeder)
+					|| Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.playedPregnancyRouletteAsMother)) {
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/gamblingDen", "PREGNANCY_ROULETTE_STALLS_KNOWLEDGE"));
+			} else {
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/gamblingDen", "PREGNANCY_ROULETTE_STALLS_NO_KNOWLEDGE"));
+			}
+			
+			return UtilText.nodeContentSB.toString();
 		}
 
 		@Override
@@ -731,7 +751,7 @@ public class GamblingDenDialogue {
 	
 	public static final DialogueNodeOld PREGNANCY_ROULETTE = new DialogueNodeOld("Pregnancy Roulette Counter", "", false) {
 		private static final long serialVersionUID = 1L;
-
+		
 		@Override
 		public boolean isTravelDisabled() {
 			return !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.eponaIntroduced);

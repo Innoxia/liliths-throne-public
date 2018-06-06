@@ -41,6 +41,9 @@
 		Deduplicated colourReplacement in AbstractItemType. (Pimvgd)
 		Added set bonuses for sun and snowflake jewellery. (rfpnj)
 		Fixed several issues with incorrect cum, girlcum, and milk types being returned. (Pimvgd)
+		Added some parser commands that will simplify creating dialogue, by handling second & third person pronouns and verbs in single parser commands. (TadUnlikely)
+		Improved handling of key codes by converting a long switch statement to a map. (pinnae)
+		Added a spiked collar clothing item using the modding system. (Irbynx)
 	
 	Other:
 		Added ability to recolour clothing patterns.
@@ -74,6 +77,8 @@
 	
 	
 	
+	
+	
 	My first thought was that it could be something like one step or 10% of the final goal's size, whichever is larger.
 	  The % could also be scaled based on how strong of an effect it is.  Minor enchantments jump by 5%, then 10%, and 15%.
 	The reason I brought it up was because I made an item that did a joint body part and associated fluid enchantment (dick size + cum production or breast size + lactation production)
@@ -89,13 +94,7 @@
 	if you enslave a incubus/succubus they become virgins. It's happened to me twice now
 		both cases were of incubus's that I changed into succubus's
 	
-	patreon replies & poll
-	
-	when a themed clothes are generated on a random encounter, all pieces of clothing become that theme, even when they cannot (for example, I have rainbow silver ring which is same as normal silver ring)
-	
 	Fix inventory slot layout
-	
-	if you start a new game and head to the gambling hall without ever saving or loading your game then all of the new text and dialogue doesn't load at all, and the new options for Preg Roulette and Roxie don't work. Saving outside and then loading fixes this
 	
 	Not sure what's causing it, but I'm getting a bug where my slaves are listed as pregnant by the tracker, but don't gain the pregnancy buff/debuff,
 		 and are permanently stuck as "ready to give birth", they're even getting milk, but are in no way in game or description, pregnant.

@@ -65,7 +65,7 @@ public class Epona extends NPC {
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
 		
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.6.1")) {
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.6.5")) {
 			this.setBody(Gender.F_P_V_B_FUTANARI, RacialBody.HORSE_MORPH, RaceStage.GREATER);
 			initEpona();
 		}
@@ -119,7 +119,7 @@ public class Epona extends NPC {
 		
 		this.setVaginaVirgin(false);
 		
-		this.setHeight(192);
+		this.setHeight(180);
 		
 		this.setPiercedEar(true);
 		
