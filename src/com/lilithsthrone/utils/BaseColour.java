@@ -4,7 +4,7 @@ import javafx.scene.paint.Color;
 
 /**
  * @since 0.1.69
- * @version 0.1.95
+ * @version 0.2.6
  * @author Innoxia
  */
 public enum BaseColour {
@@ -50,6 +50,7 @@ public enum BaseColour {
 	
 	AQUA(Util.newColour(0x61FFFF), Util.newColour(0x009999)), // Ne, Kazuma...
 	TEAL(Util.newColour(0x6CBCB1), Util.newColour(0x439389)),
+	PERIWINKLE(Util.newColour(0xCCCCFF), Util.newColour(0xCCCCFF)),
 	BLUE_LIGHT(Util.newColour(0x99EBFF), Util.newColour(0x00A7D1)),
 	BLUE(Util.newColour(0x05CDFF), Util.newColour(0x00627A)),
 	BLUE_DARK(Util.newColour(0x0090BF), Util.newColour(0x002E43)),

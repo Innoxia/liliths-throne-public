@@ -43,6 +43,68 @@ public class Util {
 
 	private static StringBuilder utilitiesStringBuilder = new StringBuilder();
 
+	private static Map<KeyCode, String> KEY_NAMES = new LinkedHashMap<KeyCode, String>() {{
+		put(KeyCode.ADD, "+");
+		put(KeyCode.ALT, "Alt");
+		put(KeyCode.AMPERSAND, "&");
+		put(KeyCode.ASTERISK, "*");
+		put(KeyCode.BACK_QUOTE, "\"");
+		put(KeyCode.BACK_SLASH, "\\");
+		put(KeyCode.BACK_SPACE, "Back space");
+		put(KeyCode.BRACELEFT, "{");
+		put(KeyCode.BRACERIGHT, "}");
+		put(KeyCode.CAPS, "Caps");
+		put(KeyCode.CLOSE_BRACKET, "]");
+		put(KeyCode.COLON, ":");
+		put(KeyCode.COMMA, ",");
+		put(KeyCode.CONTROL, "Ctrl");
+		put(KeyCode.DELETE, "Delete");
+		put(KeyCode.DIVIDE, "/");
+		put(KeyCode.DOLLAR, "$");
+		put(KeyCode.DOWN, "Down");
+		put(KeyCode.END, "End");
+		put(KeyCode.ENTER, "Enter");
+		put(KeyCode.EQUALS, "=");
+		put(KeyCode.ESCAPE, "Esc");
+		put(KeyCode.EURO_SIGN, "&euro"); // €
+		put(KeyCode.EXCLAMATION_MARK, "!");
+		put(KeyCode.GREATER, ">");
+		put(KeyCode.KP_DOWN, "Down");
+		put(KeyCode.KP_LEFT, "Left");
+		put(KeyCode.KP_RIGHT, "Right");
+		put(KeyCode.KP_UP, "Up");
+		put(KeyCode.LEFT, "Left");
+		put(KeyCode.LEFT_PARENTHESIS, "(");
+		put(KeyCode.LESS, "<");
+		put(KeyCode.MINUS, "-");
+		put(KeyCode.NUMPAD0, "0");
+		put(KeyCode.NUMPAD1, "1");
+		put(KeyCode.NUMPAD2, "2");
+		put(KeyCode.NUMPAD3, "3");
+		put(KeyCode.NUMPAD4, "4");
+		put(KeyCode.NUMPAD5, "5");
+		put(KeyCode.NUMPAD6, "6");
+		put(KeyCode.NUMPAD7, "7");
+		put(KeyCode.NUMPAD8, "9");
+		put(KeyCode.NUMPAD9, "9");
+		put(KeyCode.OPEN_BRACKET, "[");
+		put(KeyCode.PAGE_DOWN, "Pg Dn");
+		put(KeyCode.PAGE_UP, "Pg Up");
+		put(KeyCode.PERIOD, ".");
+		put(KeyCode.PLUS, "+");
+		put(KeyCode.POUND, "&pound"); // £
+		put(KeyCode.POWER, "^");
+		put(KeyCode.QUOTE, "\"");
+		put(KeyCode.RIGHT, "Right");
+		put(KeyCode.RIGHT_PARENTHESIS, ")");
+		put(KeyCode.SEMICOLON, ";");
+		put(KeyCode.SHIFT, "Sft");
+		put(KeyCode.SLASH, "/");
+		put(KeyCode.SPACE, "Space");
+		put(KeyCode.SUBTRACT, "-");
+		put(KeyCode.TAB, "Tab");
+	}};
+
 	// What madness is this
 	public static String inputStreamToString(InputStream is) {
 		if (is == null)
@@ -105,6 +167,41 @@ public class Util {
 			s = s.replaceAll("#fff6d5", colourTertiary.getShades()[4]);
 		}
 		
+		return s;
+	}
+	
+	public static String colourReplacementPattern(String gradientReplacementID, Colour colour, Colour colourSecondary, Colour colourTertiary, String inputString) {
+		String s = inputString;
+
+		for (int i = 0; i <= 14; i++) {
+			s = s.replaceAll("linearGradient" + i, gradientReplacementID + colour.toString() + (colourSecondary!=null?colourSecondary.toString():"") + (colourTertiary!=null?colourTertiary.toString():"") + "linearGradient" + i);
+			s = s.replaceAll("innoGrad" + i, gradientReplacementID + colour.toString() + (colourSecondary!=null?colourSecondary.toString():"") + (colourTertiary!=null?colourTertiary.toString():"") + "innoGrad" + i);
+		}
+		
+		if(colour!=null) {
+			s = s.replaceAll("#f4d7d7", colour.getShades()[0]);
+			s = s.replaceAll("#e9afaf", colour.getShades()[1]);
+			s = s.replaceAll("#de8787", colour.getShades()[2]);
+			s = s.replaceAll("#d35f5f", colour.getShades()[3]);
+			s = s.replaceAll("#c83737", colour.getShades()[4]);
+		}
+		
+		if(colourSecondary!=null) {
+			s = s.replaceAll("#f4e3d7", colourSecondary.getShades()[0]);
+			s = s.replaceAll("#e9c6af", colourSecondary.getShades()[1]);
+			s = s.replaceAll("#deaa87", colourSecondary.getShades()[2]);
+			s = s.replaceAll("#d38d5f", colourSecondary.getShades()[3]);
+			s = s.replaceAll("#c87137", colourSecondary.getShades()[4]);
+		}
+		
+		if(colourTertiary!=null) {
+			s = s.replaceAll("#f4eed7", colourTertiary.getShades()[0]);
+			s = s.replaceAll("#e9ddaf", colourTertiary.getShades()[1]);
+			s = s.replaceAll("#decd87", colourTertiary.getShades()[2]);
+			s = s.replaceAll("#d3bc5f", colourTertiary.getShades()[3]);
+			s = s.replaceAll("#c8ab37", colourTertiary.getShades()[4]);
+		}
+
 		return s;
 	}
 	
@@ -400,132 +497,8 @@ public class Util {
 	}
 	
 	public static String getKeyCodeCharacter(KeyCode code) {
-		switch(code) {
-			case ADD:
-				return "+";
-			case ALT:
-				return "Alt";
-			case AMPERSAND:
-				return "&";
-			case ASTERISK:
-				return "*";
-			case BACK_QUOTE:
-				return "\"";
-			case BACK_SLASH:
-				return "\\";
-			case BACK_SPACE:
-				return "Back space";
-			case BRACELEFT:
-				return "{";
-			case BRACERIGHT:
-				return "}";
-			case CAPS:
-				return "Caps";
-			case CLOSE_BRACKET:
-				return "]";
-			case COLON:
-				return ":";
-			case COMMA:
-				return ",";
-			case CONTROL:
-				return "Ctrl";
-			case DELETE:
-				return "Delete";
-			case DIVIDE:
-				return "/";
-			case DOLLAR:
-				return "$";
-			case DOWN:
-				return "Down";
-			case END:
-				return "End";
-			case ENTER:
-				return "Enter";
-			case EQUALS:
-				return "=";
-			case ESCAPE:
-				return "Esc";
-			case EURO_SIGN:
-				return "&euro;"; // €
-			case EXCLAMATION_MARK:
-				return "!";
-			case GREATER:
-				return ">";
-			case KP_DOWN:
-				return "Down";
-			case KP_LEFT:
-				return "Left";
-			case KP_RIGHT:
-				return "Right";
-			case KP_UP:
-				return "Up";
-			case LEFT:
-				return "Left";
-			case LEFT_PARENTHESIS:
-				return "(";
-			case LESS:
-				return "<";
-			case MINUS:
-				return "-";
-			case NUMPAD0:
-				return "0";
-			case NUMPAD1:
-				return "1";
-			case NUMPAD2:
-				return "2";
-			case NUMPAD3:
-				return "3";
-			case NUMPAD4:
-				return "4";
-			case NUMPAD5:
-				return "5";
-			case NUMPAD6:
-				return "6";
-			case NUMPAD7:
-				return "7";
-			case NUMPAD8:
-				return "9";
-			case NUMPAD9:
-				return "9";
-			case OPEN_BRACKET:
-				return "[";
-			case PAGE_DOWN:
-				return "Pg Dn";
-			case PAGE_UP:
-				return "Pg Up";
-			case PERIOD:
-				return ".";
-			case PLUS:
-				return "+";
-			case POUND:
-				return "&pound;"; // £
-			case POWER:
-				return "^";
-			case QUOTE:
-				return "\"";
-			case RIGHT:
-				return "Right";
-			case RIGHT_PARENTHESIS:
-				return ")";
-			case SEMICOLON:
-				return ";";
-			case SHIFT:
-				return "Sft";
-			case SLASH:
-				return "/";
-			case SPACE:
-				return "Space";
-			case SUBTRACT:
-				return "-";
-			case TAB:
-				return "Tab";
-			case UNDERSCORE:
-				return "_";
-			case UP:
-				return "Up";
-			default:
-				return code.getName();
-		}
+		String name = KEY_NAMES.get(code);
+		return name != null? name : code.getName();
 	}
 
 	public static int conversionCentimetresToInches(int cm) {

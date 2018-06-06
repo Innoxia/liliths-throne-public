@@ -123,6 +123,7 @@ public enum ColourListPresets {
 			Colour.CLOTHING_PURPLE,
 			Colour.CLOTHING_PURPLE_DARK,
 			Colour.CLOTHING_PURPLE_LIGHT,
+			Colour.CLOTHING_PERIWINKLE,
 			Colour.CLOTHING_PINK,
 			Colour.CLOTHING_PINK_LIGHT)),
 	
@@ -158,6 +159,7 @@ public enum ColourListPresets {
 			Colour.CLOTHING_PURPLE,
 			Colour.CLOTHING_PURPLE_DARK,
 			Colour.CLOTHING_PURPLE_LIGHT,
+			Colour.CLOTHING_PERIWINKLE,
 			Colour.CLOTHING_PINK,
 			Colour.CLOTHING_PINK_LIGHT)),
 	
@@ -185,6 +187,7 @@ public enum ColourListPresets {
 			Colour.CLOTHING_PURPLE,
 			Colour.CLOTHING_PURPLE_DARK,
 			Colour.CLOTHING_PURPLE_LIGHT,
+			Colour.CLOTHING_PERIWINKLE,
 			Colour.CLOTHING_PINK,
 			Colour.CLOTHING_PINK_LIGHT)),
 	
@@ -212,6 +215,7 @@ public enum ColourListPresets {
 			Colour.CLOTHING_PURPLE,
 			Colour.CLOTHING_PURPLE_DARK,
 			Colour.CLOTHING_PURPLE_LIGHT,
+			Colour.CLOTHING_PERIWINKLE,
 			Colour.CLOTHING_PINK,
 			Colour.CLOTHING_PINK_LIGHT,
 			Colour.CLOTHING_STEEL,

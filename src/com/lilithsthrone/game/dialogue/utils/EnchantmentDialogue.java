@@ -579,7 +579,7 @@ public class EnchantmentDialogue {
 		}
 	}
 
-	private static void initSaveLoadMenu() {
+	public static void initSaveLoadMenu() {
 		loadedEnchantmentsMap = new HashMap<>();
 		
 		for(File f : getSavedEnchants()) {

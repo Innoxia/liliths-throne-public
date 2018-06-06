@@ -6,8 +6,10 @@ import java.util.List;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.XMLSaving;
 
 /**
@@ -116,7 +118,12 @@ public class ItemEffect implements Serializable, XMLSaving {
 				Integer.valueOf(parentElement.getAttribute("limit")));
 		
 		try {
-			ie.getTimer().setTimePassed(Integer.valueOf(parentElement.getAttribute("timer")));
+			if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.6.5")) {
+				int timer = Integer.valueOf(parentElement.getAttribute("timer"))/60;
+				ie.getTimer().setTimePassed((timer*60) + (int)(Main.game.getMinutesPassed()%60));
+			} else {
+				ie.getTimer().setTimePassed(Integer.valueOf(parentElement.getAttribute("timer")));
+			}
 		} catch(Exception ex) {	
 		}
 		

@@ -9,7 +9,7 @@ import javafx.scene.paint.Color;
 
 /**
  * @since 0.1.0
- * @version 0.2.3
+ * @version 0.2.6
  * @author Innoxia
  */
 public enum Colour {
@@ -54,6 +54,7 @@ public enum Colour {
 	
 	BASE_AQUA(BaseColour.AQUA, "aqua", Util.newArrayListOfValues("aqua")),
 	BASE_TEAL(BaseColour.TEAL, "teal", Util.newArrayListOfValues("teal")),
+	BASE_PERIWINKLE(BaseColour.PERIWINKLE, "periwinkle", Util.newArrayListOfValues("periwinkle")),
 	BASE_BLUE_LIGHT(BaseColour.BLUE_LIGHT, "light blue", Util.newArrayListOfValues("lightBlue")),
 	BASE_BLUE(BaseColour.BLUE, "blue", Util.newArrayListOfValues("blue")),
 	BASE_BLUE_STEEL(BaseColour.BLUE_STEEL, "steely blue", Util.newArrayListOfValues("steelyBlue")),
@@ -331,6 +332,7 @@ public enum Colour {
 	CLOTHING_PURPLE_DARK(Util.newColour(0x674A95), Util.newColour(0x674A95), "dark purple"),
 	CLOTHING_PURPLE(Util.newColour(0xA382D3), Util.newColour(0xA382D3), "purple"),
 	CLOTHING_PURPLE_LIGHT(Util.newColour(0xC58ED7), Util.newColour(0xC58ED7), "violet"),
+	CLOTHING_PERIWINKLE(BaseColour.PERIWINKLE, "periwinkle"),
 	CLOTHING_PINK_LIGHT(Util.newColour(0xF4B3F4), Util.newColour(0xF4B3F4), "light pink"),
 	CLOTHING_PINK(Util.newColour(0xD75086), Util.newColour(0xD75086), "pink"),
 	
@@ -370,6 +372,7 @@ public enum Colour {
 	SKIN_BLUE_LIGHT(BaseColour.BLUE_LIGHT, "light blue"),
 	SKIN_BLUE(BaseColour.BLUE, "blue"),
 	SKIN_BLUE_DARK(BaseColour.BLUE_DARK, "dark blue"),
+	SKIN_PERIWINKLE(BaseColour.PERIWINKLE, "periwinkle"),
 	SKIN_LILAC(BaseColour.LILAC, "lilac"),
 	SKIN_PURPLE(BaseColour.PURPLE, "purple"),
 	SKIN_PURPLE_DARK(BaseColour.PURPLE_DARK, "dark purple"),
@@ -394,6 +397,7 @@ public enum Colour {
 	SLIME_BLUE_LIGHT(BaseColour.BLUE_LIGHT, "translucent light blue"),
 	SLIME_BLUE(BaseColour.BLUE, "translucent blue"),
 	SLIME_BLUE_DARK(BaseColour.BLUE_DARK, "translucent dark blue"),
+	SLIME_PERIWINKLE(BaseColour.PERIWINKLE, "translucent periwinkle"),
 	SLIME_LILAC(BaseColour.LILAC, "translucent lilac"),
 	SLIME_PURPLE(BaseColour.PURPLE, "translucent purple"),
 	SLIME_PURPLE_DARK(BaseColour.PURPLE_DARK, "translucent dark purple"),
@@ -420,6 +424,7 @@ public enum Colour {
 	FEATHERS_BLUE_LIGHT(BaseColour.BLUE_LIGHT, "light blue"),
 	FEATHERS_BLUE(BaseColour.BLUE, "blue"),
 	FEATHERS_BLUE_DARK(BaseColour.BLUE_DARK, "dark blue"),
+	FEATHERS_PERIWINKLE(BaseColour.PERIWINKLE, "periwinkle"),
 	FEATHERS_LILAC(BaseColour.LILAC, "lilac"),
 	FEATHERS_PURPLE(BaseColour.PURPLE, "purple"),
 	FEATHERS_PURPLE_DARK(BaseColour.PURPLE_DARK, "dark purple"),
@@ -489,6 +494,7 @@ public enum Colour {
 	COVERING_BLUE_LIGHT(BaseColour.BLUE_LIGHT, "light blue"),
 	COVERING_BLUE(BaseColour.BLUE, "blue"),
 	COVERING_BLUE_DARK(BaseColour.BLUE_DARK, "dark blue"),
+	COVERING_PERIWINKLE(BaseColour.PERIWINKLE, "periwinkle"),
 	COVERING_PURPLE(BaseColour.PURPLE, "purple"),
 	COVERING_PURPLE_DARK(BaseColour.PURPLE_DARK, "dark purple"),
 	COVERING_PINK(BaseColour.PINK_LIGHT, "light pink"),
@@ -510,6 +516,7 @@ public enum Colour {
 	EYE_GREEN(BaseColour.GREEN, "green"),
 	EYE_GREY(BaseColour.GREY, "grey"),
 
+	EYE_PERIWINKLE(BaseColour.PERIWINKLE, "periwinkle"),
 	EYE_LILAC(BaseColour.LILAC, "lilac"),
 	EYE_PURPLE(BaseColour.PURPLE, "purple"),
 	EYE_VIOLET(BaseColour.VIOLET, "violet"),
@@ -566,6 +573,7 @@ public enum Colour {
 			Colour.SKIN_BLUE_LIGHT,
 			Colour.SKIN_BLUE,
 			Colour.SKIN_BLUE_DARK,
+			Colour.SKIN_PERIWINKLE,
 			Colour.SKIN_LILAC,
 			Colour.SKIN_PURPLE,
 			Colour.SKIN_PURPLE_DARK,
@@ -594,6 +602,7 @@ public enum Colour {
 			Colour.SKIN_BLUE_LIGHT,
 			Colour.SKIN_BLUE,
 			Colour.SKIN_BLUE_DARK,
+			Colour.SKIN_PERIWINKLE,
 			Colour.SKIN_LILAC,
 			Colour.SKIN_PURPLE,
 			Colour.SKIN_PURPLE_DARK,
@@ -618,6 +627,7 @@ public enum Colour {
 			Colour.SLIME_BLUE_LIGHT,
 			Colour.SLIME_BLUE,
 			Colour.SLIME_BLUE_DARK,
+			Colour.SLIME_PERIWINKLE,
 			Colour.SLIME_LILAC,
 			Colour.SLIME_PURPLE,
 			Colour.SLIME_PURPLE_DARK,
@@ -645,6 +655,7 @@ public enum Colour {
 			Colour.FEATHERS_BLUE_LIGHT,
 			Colour.FEATHERS_BLUE,
 			Colour.FEATHERS_BLUE_DARK,
+			Colour.FEATHERS_PERIWINKLE,
 			Colour.FEATHERS_LILAC,
 			Colour.FEATHERS_PURPLE,
 			Colour.FEATHERS_PURPLE_DARK,
@@ -672,6 +683,7 @@ public enum Colour {
 			Colour.COVERING_GREEN_DARK,
 			Colour.COVERING_PINK,
 			Colour.COVERING_PINK_DARK,
+			Colour.COVERING_PERIWINKLE,
 			Colour.COVERING_PURPLE,
 			Colour.COVERING_PURPLE_DARK,
 			Colour.COVERING_RED,
@@ -695,6 +707,7 @@ public enum Colour {
 			Colour.COVERING_GREEN_DARK,
 			Colour.COVERING_PINK,
 			Colour.COVERING_PINK_DARK,
+			Colour.COVERING_PERIWINKLE,
 			Colour.COVERING_PURPLE,
 			Colour.COVERING_PURPLE_DARK,
 			Colour.COVERING_RED,
@@ -763,6 +776,7 @@ public enum Colour {
 			Colour.COVERING_GREEN_DARK,
 			Colour.COVERING_PINK,
 			Colour.COVERING_PINK_DARK,
+			Colour.COVERING_PERIWINKLE,
 			Colour.COVERING_PURPLE,
 			Colour.COVERING_PURPLE_DARK,
 			Colour.COVERING_ORANGE,
@@ -790,6 +804,7 @@ public enum Colour {
 			Colour.EYE_ORANGE,
 			Colour.EYE_PINK,
 			Colour.EYE_VIOLET,
+			Colour.EYE_PERIWINKLE,
 			Colour.EYE_LILAC,
 			Colour.EYE_PURPLE,
 			Colour.EYE_BLACK);
@@ -808,6 +823,7 @@ public enum Colour {
 			Colour.EYE_YELLOW,
 			Colour.EYE_PINK,
 			Colour.EYE_VIOLET,
+			Colour.EYE_PERIWINKLE,
 			Colour.EYE_LILAC,
 			Colour.EYE_PURPLE,
 			Colour.EYE_BLACK);
@@ -858,6 +874,7 @@ public enum Colour {
 			Colour.EYE_AMBER,
 			Colour.EYE_PINK,
 			Colour.EYE_VIOLET,
+			Colour.EYE_PERIWINKLE,
 			Colour.EYE_LILAC,
 			Colour.EYE_PURPLE);
 	
@@ -880,6 +897,7 @@ public enum Colour {
 			Colour.EYE_AMBER,
 			Colour.EYE_PINK,
 			Colour.EYE_VIOLET,
+			Colour.EYE_PERIWINKLE,
 			Colour.EYE_LILAC,
 			Colour.EYE_PURPLE);
 	

@@ -155,6 +155,7 @@ import com.lilithsthrone.rendering.Artwork;
 import com.lilithsthrone.rendering.Pattern;
 import com.lilithsthrone.rendering.RenderingEngine;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.ColourListPresets;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.WorldType;
@@ -3765,6 +3766,39 @@ public class MainControllerInitMethod {
 						}*/
 					}
 				}
+				if(Pattern.getPattern(InventoryDialogue.dyePreviewPattern)!=null && Pattern.getPattern(InventoryDialogue.dyePreviewPattern).isPrimaryRecolourAvailable()) {
+					for (Colour c : ColourListPresets.ALL.getPresetColourList()) {
+						id = "PATTERN_PRIMARY_"+clothing.hashCode() + "_" + c.toString();
+						if ((EventTarget) MainController.document.getElementById(id) != null) {
+							((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+								InventoryDialogue.dyePreviewPatternPrimary = c;
+								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+							}, false);
+						}
+					}
+				}
+				if(Pattern.getPattern(InventoryDialogue.dyePreviewPattern)!=null && Pattern.getPattern(InventoryDialogue.dyePreviewPattern).isSecondaryRecolourAvailable()) {
+					for (Colour c : ColourListPresets.ALL.getPresetColourList()) {
+						id = "PATTERN_SECONDARY_"+clothing.hashCode() + "_" + c.toString();
+						if ((EventTarget) MainController.document.getElementById(id) != null) {
+							((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+								InventoryDialogue.dyePreviewPatternSecondary = c;
+								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+							}, false);
+						}
+					}
+				}
+				if(Pattern.getPattern(InventoryDialogue.dyePreviewPattern)!=null && Pattern.getPattern(InventoryDialogue.dyePreviewPattern).isTertiaryRecolourAvailable()) {
+					for (Colour c : ColourListPresets.ALL.getPresetColourList()) {
+						id = "PATTERN_TERTIARY_"+clothing.hashCode() + "_" + c.toString();
+						if ((EventTarget) MainController.document.getElementById(id) != null) {
+							((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+								InventoryDialogue.dyePreviewPatternTertiary = c;
+								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+							}, false);
+						}
+					}
+				}
 			}
 			
 			if(Main.game.getCurrentDialogueNode()==InventoryDialogue.DYE_WEAPON
@@ -5108,13 +5142,14 @@ public class MainControllerInitMethod {
 						if(!Main.getProperties().hasValue(PropertyValue.overwriteWarning) || EnchantmentDialogue.deleteConfirmationName.equals(f.getName())) {
 							EnchantmentDialogue.deleteConfirmationName = "";
 							EnchantmentDialogue.deleteEnchant(fileIdentifier);
-							Main.game.setContent(new Response("Save/Load", "Open the save/load game window.", EnchantmentDialogue.ENCHANTMENT_SAVE_LOAD));
+							EnchantmentDialogue.initSaveLoadMenu();
+							Main.game.setContent(new Response("Save/Load", ".", EnchantmentDialogue.ENCHANTMENT_SAVE_LOAD));
 							
 						} else {
 							EnchantmentDialogue.overwriteConfirmationName = "";
 							EnchantmentDialogue.loadConfirmationName = "";
 							EnchantmentDialogue.deleteConfirmationName = f.getName();
-							Main.game.setContent(new Response("Save/Load", "Open the save/load game window.", EnchantmentDialogue.ENCHANTMENT_SAVE_LOAD));
+							Main.game.setContent(new Response("Save/Load", ".", EnchantmentDialogue.ENCHANTMENT_SAVE_LOAD));
 						}
 						
 					}, false);

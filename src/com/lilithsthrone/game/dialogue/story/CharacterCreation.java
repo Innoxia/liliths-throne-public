@@ -1484,7 +1484,16 @@ public class CharacterCreation {
 				if(Main.game.getPlayer().getHistory().getAssociatedPerk()==null) {
 					return new Response("Continue", "You need to select a job before continuing!", null);
 				} else {
-					return new Response("Continue", femalePrologueNPC()?"Tell [prologueFemale.name] what it is you do for a living.":"Tell [prologueMale.name] what it is you do for a living.", CHOOSE_SEX_EXPERIENCE);
+					return new Response("Continue", femalePrologueNPC()?"Tell [prologueFemale.name] what it is you do for a living.":"Tell [prologueMale.name] what it is you do for a living.", CHOOSE_SEX_EXPERIENCE) {
+						@Override
+						public void effects() {
+							Main.game.getPlayer().getVirginityLossMap().replaceAll((k, v) ->
+								(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.GYNEPHILIC
+									|| (Main.game.getPlayer().getSexualOrientation()==SexualOrientation.AMBIPHILIC && !Main.game.getPlayer().isFeminine()))
+									?"your girlfriend"
+									:"your boyfriend");
+						}
+					};
 				}
 				
 			} else {

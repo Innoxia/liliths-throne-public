@@ -8,51 +8,94 @@
 	
 	Goals:
 	
-	- Add in a mod template for items, clothing, weapons, and sex actions.
+	Bugs and Pull requests
+	- There are well over a hundred bug reports that have stacked up. I really need to get this under control before it become unmanageable.
 	
-	- Adding in the next stage of the main quest (earning an audience with Lyssieth).
 	
-	- Fix bugs and sort out github issues and PRs.
+	Sex content improvements
+	- Add modding framework for sex actions.
+	- Update Lilaya's and Kate's chair sex scenes.
+	- Add support for NPC-on-NPC actions (all sex action descriptions currently assume one partner is the player).
+	- Add support for random attackers having sex with your companions upon combat loss (requires NPC-on-NPC support first).
 	
-	- Start adding in Nightlife stuff
+	Submission content
+	- Finishing Pregnancy Roulette content.
+	- Add an Imp gang attack.
+	- Unique text for Submission mugger encounters.
+	- Adding in repeatable mini-quests for the Imp fortresses.
 	
-	- Finish guide for user submitted content
+	Nightlife
+	- Add at least one club to start with.
+	- Add club's internal map.
+	- Add randomly-generated NPC interactions in the club.
 
 	
 	Patch notes:
 	
 	
 	Contributors:
-		Fixed DominionSuccubusAttacker-slaves throwing nullpointers for TF items. (Pimvgd)
-		Typo and parsing fixes. (Pimvgd)
-		Fixed intToString method causing crashes/bugs. (Pimvgd)
-		Fixed some characters being able to get pregnant even although that's not supposed to happen, such as Alexandria in the intro. (Pimvgd)
-		Fixed encyclopedia weapon colours not displaying properly. (Pimvgd)
-		Fixed cause of the mysterious -5 to lust resist on new player characters. (Pimvgd)
-		Fixed slavery upkeep persisting across new games. (Pimvgd)
-		Fixed slime queen quest completion 'report back' dialogue displaying the wrong report back text. (Pimvgd)
-		Fixed cause of a crash with bimbo characters' dirty talk. (Master of Puppets)
-		Fixed offspring renaming with enter key hardlocking game. (Pimvgd)
-		Enabled female beards when the option for female beards is turned on. (Pimvgd)
-		Fix tattoo enchantments not applying their effects. (Pimvgd)
-		Fixed milk regeneration enchantments always applying a huge boost/drain, instead of a more reasonably scaled one. (Delvigore)
-		Added Util method to make selecting random items from lists easier. (Master of Puppets)
-		Improved boxer and briefs displacement methods. (Master of Puppets)
+		Fixed a NullPointerException when entering the gambling den in new game. (Pimvgd)
+		Fixed addiction timer displays showing things like '21:60' instead of '22:00'. (Pimvgd)
+		Punctuation Fixes for Slime Queen Quest. (WoefulWombat)
+		Fixed missing explore button for the 'canal end' tiles. (Pimvgd)
+		Deduplicated colourReplacement in AbstractItemType. (Pimvgd)
+		Added set bonuses for sun and snowflake jewellery. (rfpnj)
+		Fixed several issues with incorrect cum, girlcum, and milk types being returned. (Pimvgd)
 	
 	Other:
-		Slightly tweaked slot machine odds.
+		Added ability to recolour clothing patterns.
+		Changed boxers and crotchless briefs to be pulled down instead of shifted aside.
+		Added tongue length to clothing TF options. Added puffy, ribbing, muscled, and tentacled modifiers to clothing's anus, nipple, face, penis, and vagina TFs.
+		Slightly improved snowflake nose stud icon.
+		Synchronised slow clothing TF effects, so that they all fire on the hour. (I did this to fix the issue of having your game interrupted every time you move if you had a lot of TF clothing effects all firing at different times.)
+		Added 'periwinkle' as a clothing and body part colour.
+		Using the save/load menu to load enchantments onto clothing now identifies already-enchanted clothing as being suitable (so long as the enchantment is known), while prioritising non-enchanted clothing.
+		Slightly modified clothing's cow pattern.
 	
-	Bugs:	
-		Fixed bug where NPCs would all end sex immediately when orgasming with a creampie.
-		Fixed tattoo writing being saved with a huge amount of trailing whitespace.
-		Fixed issue with slave imports importing companions.
-		Fixed angels being described as part of the group watching public sex.
-		Fixed bug with Blaze and Crystal, where if you returned after beating them then leaving, the dialogue would incorrectly return the 'friendly' scene.
-		
+	Bugs:
+		Fixed male kimono exposing anus when untied.
+		Starting a new game with an imported character that was exported with companions or a summoned elemental should now work correctly.
+		Fixed Lilaya's artwork not being able to be cycled through.
+		Fixed issue with fetish desires resetting when saving/loading while wearing clothing that grants a fetish.
+		Fixed bug where offspring of special subspecies wouldn't be of that subspecies. (i.e. Dobermann offspring would be regular dog-morphs.)
+		You can now set your base fetish desire to any value, but if you have the fetish, it's still always counted as 'love'. The pink outline on fetish desires correctly reflects this change.
+		Fixed not being able to select items from the right-hand UI element 'Items Present' while the inventory was already open.
+		Fixed character creation's virginity losses incorrectly referencing 'girlfriend', when it should have been 'boyfriend'.
+		Deleting saved enchantments now correctly removes them from the list.
+		Typo fixes.
+		Fixed some inventory stacking errors related to clothing names and patterns.
+		Fixed issue where if an NPC had a piece of patterned clothing, all their clothing would have that pattern name.
+		Fixed weapons' primary colour not being able to be dyed.
+		Fixed weapon colours not persisting between saves.
 	
 	
 	
 	
+	
+	
+	
+	My first thought was that it could be something like one step or 10% of the final goal's size, whichever is larger.
+	  The % could also be scaled based on how strong of an effect it is.  Minor enchantments jump by 5%, then 10%, and 15%.
+	The reason I brought it up was because I made an item that did a joint body part and associated fluid enchantment (dick size + cum production or breast size + lactation production)
+			 and noticed that the body part size reached the max almost immediately, while almost no progress had been made on the fluid.  Then I compared that to heights as well.
+	Hmm, it's probably better for it to be less than 5%, since it would always take 20 ticks or less to fully transform something.
+	 Mind you, most of the transformations are finished long before 20 ticks, except for those fluid and height based ones.
+	
+	Add attackers wanting multiple orgasms
+	
+	I will definitely be adding more interactions for Roxy. I definitely want to add a variation of her encounter for if you cure yourself, and she will be playing a part in Axel's quest when I add that. (Which will reveal why Axel tolerates her treating her customers so poorly.) ^^
+		I'll also add some unique actions for her in her sex scene, where she humiliates you in front of a customer, shouts angrily at a customer, or taunts you while sitting on your face
+	
+	if you enslave a incubus/succubus they become virgins. It's happened to me twice now
+		both cases were of incubus's that I changed into succubus's
+	
+	patreon replies & poll
+	
+	when a themed clothes are generated on a random encounter, all pieces of clothing become that theme, even when they cannot (for example, I have rainbow silver ring which is same as normal silver ring)
+	
+	Fix inventory slot layout
+	
+	if you start a new game and head to the gambling hall without ever saving or loading your game then all of the new text and dialogue doesn't load at all, and the new options for Preg Roulette and Roxie don't work. Saving outside and then loading fixes this
 	
 	Not sure what's causing it, but I'm getting a bug where my slaves are listed as pregnant by the tracker, but don't gain the pregnancy buff/debuff,
 		 and are permanently stuck as "ready to give birth", they're even getting milk, but are in no way in game or description, pregnant.
@@ -162,12 +205,6 @@
 	when a slave summons a Elemental and battle it stuck with you and you can't have enemies spawn because of the Elemental
 	
 	Also making an elemental spawn on another elemental you've spawned earlier will break the tile you're on
-	
-	It would be nice if removing an item reset its count down to the next tick though. It would make synchronizing the ticks of multiple worn items a lot easier. Cause a problem I've noticed is that if you wear too many hourly tick items made at different times then the lack of synchronization with the tick updates leads to a lot of messages the interrupt the flow of Gameplay.(edited)
-	My first thought was that it could be something like one step or 10% of the final goal's size, whichever is larger.  The % could also be scaled based on how strong of an effect it is.  Minor enchantments jump by 5%, then 10%, and 15%.
-	The reason I brought it up was because I made an item that did a joint body part and associated fluid enchantment (dick size + cum production or breast size + lactation production) and noticed that the body part size reached the max almost immediately, while almost no progress had been made on the fluid.  Then I compared that to heights as well.
-	Hmm, it's probably better for it to be less than 5%, since it would always take 20 ticks or less to fully transform something.
-	 Mind you, most of the transformations are finished long before 20 ticks, except for those fluid and height based ones.
 	
 	Add [game.random(one, two, three, four)]
 	

@@ -785,6 +785,8 @@ public class CharacterUtils {
 			}
 		}
 		
+		raceTakesAfter.applySpeciesChanges(body);
+		
 		return body;
 	}
 	
@@ -1365,12 +1367,6 @@ public class CharacterUtils {
 		Colour primaryColour = ColourListPresets.ALL.getPresetColourList().get(Util.random.nextInt(ColourListPresets.ALL.getPresetColourList().size())),
 				secondaryColour = ColourListPresets.ALL.getPresetColourList().get(Util.random.nextInt(ColourListPresets.ALL.getPresetColourList().size())),
 				lingerieColour = ColourListPresets.LINGERIE.getPresetColourList().get(Util.random.nextInt(ColourListPresets.LINGERIE.getPresetColourList().size()));
-
-		String clothingPattern = "none";
-		if(Math.random() >= 0.8f) {
-		    List<Pattern> possiblePatterns = new ArrayList<>(Pattern.getAllPatterns().values());
-		    clothingPattern = possiblePatterns.get(Util.random.nextInt(possiblePatterns.size())).getName();
-		}
 		
 		List<InventorySlot> inventorySlotsInPriorityOrder = new ArrayList<>();
 		inventorySlotsInPriorityOrder.add(InventorySlot.TORSO_UNDER); // Torso needs to be randomly decided first, to give girls a chance to wear a dress.
@@ -1416,8 +1412,9 @@ public class CharacterUtils {
 														?ct.getAvailablePrimaryColours().contains(primaryColour)?primaryColour:ct.getAvailablePrimaryColours().get(Util.random.nextInt(ct.getAvailablePrimaryColours().size()))
 														:ct.getAvailablePrimaryColours().contains(secondaryColour)?secondaryColour:ct.getAvailablePrimaryColours().get(Util.random.nextInt(ct.getAvailablePrimaryColours().size())))),
 										false);
-								clothingToAdd.setPattern(clothingPattern);
-								
+								if(ct.isPatternAvailable() && Math.random() >= 0.8f) {
+									clothingToAdd.setPattern(Util.randomItemFrom(new ArrayList<>(Pattern.getAllPatterns().values())).getName());
+								}
 								character.equipClothingFromNowhere(clothingToAdd, true, character);
 							}
 						}
@@ -1458,7 +1455,9 @@ public class CharacterUtils {
 																?ct.getAvailablePrimaryColours().contains(primaryColour)?primaryColour:ct.getAvailablePrimaryColours().get(Util.random.nextInt(ct.getAvailablePrimaryColours().size()))
 																:ct.getAvailablePrimaryColours().contains(secondaryColour)?secondaryColour:ct.getAvailablePrimaryColours().get(Util.random.nextInt(ct.getAvailablePrimaryColours().size())))),
 										false);
-								clothingToAdd.setPattern(clothingPattern);
+								if(ct.isPatternAvailable() && Math.random() >= 0.8f) {
+									clothingToAdd.setPattern(Util.randomItemFrom(new ArrayList<>(Pattern.getAllPatterns().values())).getName());
+								}
 								
 								character.equipClothingFromNowhere(clothingToAdd, true, character);
 							}

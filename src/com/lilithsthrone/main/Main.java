@@ -67,7 +67,7 @@ public class Main extends Application {
 	public static final String VERSION_NUMBER = "0.2.6.2",
 			VERSION_DESCRIPTION = "Alpha";
 	
-	private final static boolean DEBUG = false;
+	private final static boolean DEBUG = true;
 
 	public static final Image WINDOW_IMAGE = new Image("/com/lilithsthrone/res/images/windowIcon32.png");
 
@@ -406,6 +406,9 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("Neximus", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("IreCobra", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("Garkylal", "", 0, 0, 1, 0));
+		credits.add(new CreditsSlot("Suvarestin", "", 0, 0, 1, 0));
+
+		credits.add(new CreditsSlot("xerton", "", 0, 0, 1, 0));
 		
 		
 		credits.add(new CreditsSlot("Adhana Konker", "", 0, 0, 3, 0));
@@ -921,7 +924,7 @@ public class Main extends Application {
 		if (file != null) {
 			try {
 				Main.game.setPlayer(CharacterUtils.startLoadingCharacterFromXML());
-				Main.game.setPlayer(CharacterUtils.loadCharacterFromXML(file, Main.game.getPlayer(), CharacterImportSetting.NO_PREGNANCY));
+				Main.game.setPlayer(CharacterUtils.loadCharacterFromXML(file, Main.game.getPlayer(), CharacterImportSetting.NO_PREGNANCY, CharacterImportSetting.NO_COMPANIONS, CharacterImportSetting.NO_ELEMENTAL));
 				
 				Main.game.getPlayer().getSlavesOwned().clear();
 				Main.game.getPlayer().endPregnancy(false);
