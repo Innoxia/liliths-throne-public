@@ -425,7 +425,11 @@ public class DebugDialogue {
 				for(AbstractWeaponType weaponType : weaponsTotal) {
 					if(weaponType.getSlot()==activeSlot) {
 						inventorySB.append("<div class='inventory-item-slot unequipped "+ weaponType.getRarity().getName() + "'>"
-												+ "<div class='inventory-icon-content'>"+weaponType.getSVGStringMap().get(weaponType.getAvailableDamageTypes().get(0))+"</div>"
+												+ "<div class='inventory-icon-content'>"+weaponType.getSVGImage(
+														weaponType.getAvailableDamageTypes().get(0),
+														weaponType.getAvailablePrimaryColours().isEmpty()?null:weaponType.getAvailablePrimaryColours().get(0),
+														weaponType.getAvailableSecondaryColours().isEmpty()?null:weaponType.getAvailableSecondaryColours().get(0))
+												+"</div>"
 												+ "<div class='overlay' id='" + weaponType.getId() + "_SPAWN'></div>"
 											+ "</div>");
 						count++;
@@ -440,7 +444,8 @@ public class DebugDialogue {
 													+clothingType.getSVGImage(
 														clothingType.getAllAvailablePrimaryColours().get(0),
 														clothingType.getAvailableSecondaryColours().isEmpty()?null:clothingType.getAvailableSecondaryColours().get(0),
-														clothingType.getAvailableTertiaryColours().isEmpty()?null:clothingType.getAvailableTertiaryColours().get(0))
+														clothingType.getAvailableTertiaryColours().isEmpty()?null:clothingType.getAvailableTertiaryColours().get(0),
+														null)
 												+"</div>"
 												+ "<div class='overlay' id='" + clothingType.getId() + "_SPAWN'></div>"
 											+ "</div>");

@@ -5,8 +5,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
+import com.lilithsthrone.game.character.fetishes.Fetish;
+import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.DominionAlleywayAttacker;
 import com.lilithsthrone.game.character.npc.dominion.DominionSuccubusAttacker;
 import com.lilithsthrone.game.character.race.Race;
@@ -108,6 +111,33 @@ public interface SexManagerInterface {
 			
 		} else {
 			return partnersSatisfied && Sex.getNumberOfOrgasms(Main.game.getPlayer())>=1;
+		}
+	}
+	
+	public default void initStartingLustAndArousal(GameCharacter character) {
+		character.setLust(50);
+		character.setArousal(0);
+		if(Sex.isDom(character)) {
+			if(character.hasFetish(Fetish.FETISH_DOMINANT)) {
+				character.setLust(85);
+				character.setArousal(10);
+			} else if(character.hasFetish(Fetish.FETISH_SUBMISSIVE)) {
+				character.setLust(10);
+			}
+		} else {
+			if(character.hasFetish(Fetish.FETISH_SUBMISSIVE)) {
+				character.setLust(85);
+				character.setArousal(10);
+			}
+		}
+		
+		
+		if(Main.getProperties().hasValue(PropertyValue.nonConContent)) {
+			if(!character.isPlayer()) {
+				if(!((NPC) character).isAttractedTo(Main.game.getPlayer())) {
+					character.setLust(0);
+				}
+			}
 		}
 	}
 	

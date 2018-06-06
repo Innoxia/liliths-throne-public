@@ -229,11 +229,6 @@ public class Cultist extends NPC {
 	// Combat:
 	
 	@Override
-	public String getCombatDescription() {
-		return "[npc.Name] is furious that you're refusing to accept [npc.her] 'gift', and is now willing to fight you in order to force it upon you!";
-	}
-	
-	@Override
 	public Attack attackType() {
 		if (Math.random() < 0.3f && this.getManaPercentage() > 0.4f
 				&& (!Main.game.getPlayer().getStatusEffects().contains(StatusEffect.WITCH_SEAL) || !this.getStatusEffects().contains(StatusEffect.WITCH_CHARM))) {

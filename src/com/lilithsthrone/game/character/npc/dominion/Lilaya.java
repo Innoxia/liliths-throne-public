@@ -340,6 +340,7 @@ public class Lilaya extends NPC {
 							if(Main.game.getLilaya().hasStatusEffect(StatusEffect.CREAMPIE_VAGINA) && !Main.game.getLilaya().isVisiblyPregnant()) {
 								Main.game.getDialogueFlags().values.add(DialogueFlagValue.waitingOnLilayaPregnancyResults);
 							}
+							Main.game.getLilaya().washAllOrifices();
 							Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, false);
 						}
 					};
@@ -349,6 +350,7 @@ public class Lilaya extends NPC {
 						@Override
 						public void effects() {
 							Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, false);
+							Main.game.getLilaya().washAllOrifices();
 						}
 					};
 				}
@@ -425,6 +427,7 @@ public class Lilaya extends NPC {
 							if(Main.game.getLilaya().hasStatusEffect(StatusEffect.CREAMPIE_VAGINA) && !Main.game.getLilaya().isVisiblyPregnant()) {
 								Main.game.getDialogueFlags().values.add(DialogueFlagValue.waitingOnLilayaPregnancyResults);
 							}
+							Main.game.getLilaya().washAllOrifices();
 						}
 					};
 					
@@ -433,6 +436,7 @@ public class Lilaya extends NPC {
 						@Override
 						public void effects() {
 							Main.game.getPlayer().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_PLAYER, true);
+							Main.game.getLilaya().washAllOrifices();
 						}
 					};
 				}

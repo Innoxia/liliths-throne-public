@@ -140,10 +140,6 @@ public class SupplierLeader extends NPC {
 	}
 
 	// Combat:
-	@Override
-	public String getCombatDescription() { //TODO
-		return ".";
-	}
 
 	@Override
 	public Response endCombat(boolean applyEffects, boolean victory) {
@@ -151,7 +147,7 @@ public class SupplierLeader extends NPC {
 			return new Response("", "", SupplierDepot.SUPPLIER_DEPOT_OFFICE_COMBAT_PLAYER_VICTORY) {
 				@Override
 				public void effects() {
-					if(Main.game.getPlayer().isQuestProgressLessThan(QuestLine.SIDE_NYAN_HELP, Quest.SIDE_NYAN_STOCK_ISSUES_SUPPLIERS_BEATEN)) {
+					if(Main.game.getPlayer().isQuestProgressLessThan(QuestLine.RELATIONSHIP_NYAN_HELP, Quest.RELATIONSHIP_NYAN_STOCK_ISSUES_SUPPLIERS_BEATEN)) {
 						SupplierDepot.applySuppliersBeatenEffects();
 					}
 				}

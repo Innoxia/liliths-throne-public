@@ -1,5 +1,8 @@
 package com.lilithsthrone.game.character.body.types;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.race.Race;
@@ -113,5 +116,15 @@ public enum HornType implements BodyPartTypeInterface {
 	@Override
 	public Race getRace() {
 		return race;
+	}
+	
+	public static List<HornType> getHornTypesSuitableForTransformation(List<HornType> options) {
+		if (!options.contains(HornType.NONE)) {
+			return options;
+		}
+		
+		List<HornType> duplicatedOptions = new ArrayList<>(options);
+		duplicatedOptions.remove(HornType.NONE);
+		return duplicatedOptions;
 	}
 }

@@ -3,6 +3,7 @@ package com.lilithsthrone.game.sex;
 import java.util.AbstractMap.SimpleEntry;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -52,7 +53,6 @@ import com.lilithsthrone.game.sex.sexActions.SexActionUtility;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.BaseColour;
 import com.lilithsthrone.utils.Colour;
-import com.lilithsthrone.utils.SizedStack;
 import com.lilithsthrone.utils.Util;
 
 /**
@@ -138,7 +138,7 @@ public enum Sex {
 	private static AbstractClothing clothingBeingRemoved;
 	private static StringBuilder sexSB = new StringBuilder();
 	private static List<SexActionInterface> availableSexActionsPlayer, miscActionsPlayer, selfActionsPlayer, sexActionsPlayer, positionActionsPlayer;
-	private static SizedStack<SexActionInterface> repeatActionsPlayer;
+	private static List<SexActionInterface> repeatActionsPlayer;
 	private static List<SexActionInterface> availableSexActionsPartner;
 	
 	private static Map<GameCharacter, SexPace> forceSexPaceMap;
@@ -255,7 +255,7 @@ public enum Sex {
 		selfActionsPlayer = new ArrayList<>();
 		sexActionsPlayer = new ArrayList<>();
 		positionActionsPlayer = new ArrayList<>();
-		repeatActionsPlayer = new SizedStack<>(15);
+		repeatActionsPlayer = new LinkedList<>();
 		availableSexActionsPartner = new ArrayList<>();
 
 		// Populate exposed areas:
@@ -295,33 +295,17 @@ public enum Sex {
 			}
 			
 			// Default starting lust and arousal:
-			character.setLust(50);
-			character.setArousal(0);
-			if(Sex.isDom(character)) {
-				if(character.hasFetish(Fetish.FETISH_DOMINANT)) {
-					character.setLust(85);
-					character.setArousal(10);
-				} else if(character.hasFetish(Fetish.FETISH_SUBMISSIVE)) {
-					character.setLust(10);
-				}
-			} else {
-				if(character.hasFetish(Fetish.FETISH_SUBMISSIVE)) {
-					character.setLust(85);
-					character.setArousal(10);
-				}
-			}
-			
-			
-			if(Main.getProperties().hasValue(PropertyValue.nonConContent)) {
-				if(!character.isPlayer()) {
-					if(!((NPC) character).isAttractedTo(Main.game.getPlayer())) {
-						character.setLust(0);
-					}
-				}
-			}
+			Sex.getSexManager().initStartingLustAndArousal(character);
 			
 			if(character.isPlayer()) {
 				forceSexPaceMap.put(character, Sex.isDom(character)?SexPace.DOM_NORMAL:SexPace.SUB_NORMAL);
+			} else {
+				if(Sex.isDom(character) && ((NPC)character).getSexPaceDomPreference()!=null) {
+					forceSexPaceMap.put(character, ((NPC)character).getSexPaceDomPreference());
+				}
+				if(!Sex.isDom(character) && ((NPC)character).getSexPaceSubPreference(Sex.getTargetedPartner(character))!=null) {
+					forceSexPaceMap.put(character, ((NPC)character).getSexPaceSubPreference(Sex.getTargetedPartner(character)));
+				}
 			}
 			
 			if(sexManager.getStartingSexPaceModifier(character)!=null) {
@@ -1164,21 +1148,21 @@ public enum Sex {
 					}
 					
 				} else if(responseTab==4) {
-					if(index>=15) {
-						if(index < repeatActionsPlayer.size()) {
-							return repeatActionsPlayer.get(index).toResponse();
-						}
-					} else {
-						if(index <= repeatActionsPlayer.size()) {
-							if(index==0) {
-								if(repeatActionsPlayer.size()>=15) {
-									return repeatActionsPlayer.get(14).toResponse();
-								} else {
-									return null;
-								}
+					List<SexActionInterface> availableRepeatActionsPlayer = new LinkedList<>();
+					availableRepeatActionsPlayer.addAll(repeatActionsPlayer);
+					availableRepeatActionsPlayer.removeIf(sa-> !sa.isAddedToAvailableSexActions());
+					availableRepeatActionsPlayer.removeIf(sa-> !sa.isBaseRequirementsMet());
+					availableRepeatActionsPlayer.removeIf(sa-> !sa.toResponse().isAvailable());
+					Collections.reverse(availableRepeatActionsPlayer);
+					if(index <= availableRepeatActionsPlayer.size()) {
+						if(index==0) {
+							if(availableRepeatActionsPlayer.size()>=15) {
+								return availableRepeatActionsPlayer.get(14).toResponse();
 							} else {
-								return repeatActionsPlayer.get(index-1).toResponse();
+								return null;
 							}
+						} else {
+							return availableRepeatActionsPlayer.get(index-1).toResponse();
 						}
 					}
 					
@@ -1322,15 +1306,13 @@ public enum Sex {
 		}
 
 		lastUsedPlayerAction = sexActionPlayer;
-		if(!repeatActionsPlayer.contains(sexActionPlayer)
-				&& sexActionPlayer.getActionType()!=SexActionType.PLAYER_PREPARE_PARTNER_ORGASM
+		if(sexActionPlayer.getActionType()!=SexActionType.PLAYER_PREPARE_PARTNER_ORGASM
 				&& sexActionPlayer.getActionType()!=SexActionType.PLAYER_ORGASM
 				&& sexActionPlayer.getActionType()!=SexActionType.PLAYER_ORGASM_NO_AROUSAL_RESET) {
+			repeatActionsPlayer.remove(sexActionPlayer);
 			repeatActionsPlayer.add(sexActionPlayer);
 		}
 		
-		repeatActionsPlayer.removeIf(sa-> !sa.isAddedToAvailableSexActions());
-		repeatActionsPlayer.removeIf(sa-> !sa.isBaseRequirementsMet());
 		repeatActionsPlayer.remove(SexActionUtility.CLOTHING_DYE);
 		repeatActionsPlayer.remove(SexActionUtility.CLOTHING_REMOVAL);
 		repeatActionsPlayer.remove(SexActionUtility.PLAYER_USE_ITEM);
@@ -1626,9 +1608,11 @@ public enum Sex {
 						boolean dislikedAction = false;
 						if(sexAction.getFetishes(activePartner)!=null) {
 							for(Fetish f : sexAction.getFetishes(activePartner)) {
-								if(activePartner.getFetishDesire(f)==FetishDesire.ONE_DISLIKE || activePartner.getFetishDesire(f)==FetishDesire.ZERO_HATE) {
-									dislikedAction = true;
-									break;
+								if(f!=Fetish.FETISH_NON_CON_SUB) {
+									if(activePartner.getFetishDesire(f)==FetishDesire.ONE_DISLIKE || activePartner.getFetishDesire(f)==FetishDesire.ZERO_HATE) {
+										dislikedAction = true;
+										break;
+									}
 								}
 							}
 						}
@@ -2444,6 +2428,7 @@ public enum Sex {
 		
 		if (penetrationType == PenetrationType.PENIS) {
 			if(characterPenetrating.isPenisVirgin()
+					&& characterPenetrating.hasPenisIgnoreDildo()
 					&& orifice.isTakesPenisVirginity()) {
 				penileVirginityLoss = characterPenetrating.getVirginityLossPenetrationDescription(characterPenetrating, PenetrationType.PENIS, characterPenetrated, orifice);
 				if(characterPenetrated.hasFetish(Fetish.FETISH_DEFLOWERING)) {
@@ -2456,7 +2441,27 @@ public enum Sex {
 			
 		}
 		
-		if (orifice == OrificeType.ANUS) {
+		if (orifice == OrificeType.ASS) {
+			if (initialPenetrations.get(characterPenetrated).contains(OrificeType.ASS)) {
+				sexSB.append(formatInitialPenetration(characterPenetrating.getPenetrationDescription(true, characterPenetrating, penetrationType, characterPenetrated, orifice)));
+				
+				initialPenetrations.get(characterPenetrated).remove(OrificeType.ASS);
+				
+			} else {
+				sexSB.append(formatPenetration(characterPenetrating.getPenetrationDescription(false, characterPenetrating, penetrationType, characterPenetrated, orifice)));
+			}
+				
+		} else if (orifice == OrificeType.BREAST) {
+			if (initialPenetrations.get(characterPenetrated).contains(OrificeType.BREAST)) {
+				sexSB.append(formatInitialPenetration(characterPenetrating.getPenetrationDescription(true, characterPenetrating, penetrationType, characterPenetrated, orifice)));
+				
+				initialPenetrations.get(characterPenetrated).remove(OrificeType.BREAST);
+				
+			} else {
+				sexSB.append(formatPenetration(characterPenetrating.getPenetrationDescription(false, characterPenetrating, penetrationType, characterPenetrated, orifice)));
+			}
+				
+		} else if (orifice == OrificeType.ANUS) {
 			if (initialPenetrations.get(characterPenetrated).contains(OrificeType.ANUS)) {
 				sexSB.append(formatInitialPenetration(characterPenetrating.getPenetrationDescription(true, characterPenetrating, penetrationType, characterPenetrated, orifice)));
 				
@@ -2476,7 +2481,7 @@ public enum Sex {
 				sexSB.append(formatPenetration(characterPenetrating.getPenetrationDescription(false, characterPenetrating, penetrationType, characterPenetrated, orifice)));
 			}
 				
-		}  else if (orifice == OrificeType.VAGINA) {
+		} else if (orifice == OrificeType.VAGINA) {
 			if (initialPenetrations.get(characterPenetrated).contains(OrificeType.VAGINA)) {
 				sexSB.append(formatInitialPenetration(characterPenetrating.getPenetrationDescription(true, characterPenetrating, penetrationType, characterPenetrated, orifice)));
 				
@@ -3524,7 +3529,7 @@ public enum Sex {
 		return positionActionsPlayer;
 	}
 
-	public static SizedStack<SexActionInterface> getRepeatActionsPlayer() {
+	public static List<SexActionInterface> getRepeatActionsPlayer() {
 		return repeatActionsPlayer;
 	}
 

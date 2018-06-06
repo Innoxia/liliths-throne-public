@@ -50,7 +50,7 @@ import javafx.scene.control.ButtonType;
 
 /**
  * @since 0.1.0
- * @version 0.2.5
+ * @version 0.2.6
  * @author Innoxia
  */
 public class Main extends Application {
@@ -64,7 +64,7 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
 
-	public static final String VERSION_NUMBER = "0.2.5.1",
+	public static final String VERSION_NUMBER = "0.2.6.2",
 			VERSION_DESCRIPTION = "Alpha";
 	
 	private final static boolean DEBUG = false;
@@ -84,16 +84,7 @@ public class Main extends Application {
 		+ "</p>"
 			
 		+ "<p>"
-			+ "For this version, I've made some improvements to slavery (mostly milking room enhancements), added a way to save and load enchantments (build upon a PR from Master of Puppets), and added a small amount of in-game Submission content."
-			+ " I've got a lot more Submission content done behind-the-scenes (mainly a large side quest involving slimes and the slime TF item), but I didn't manage to get it finished for this release."
-		+ "</p>"
-			
-		+ "<p>"
-			+ "I'm going to just focus on Submission content over the next three days, and should have it ready for 0.2.5.5. Then I'll move on to Nightlife content, so it will all be ready and in the game for 0.2.6."
-		+ "</p>"
-			
-		+ "<p>"
-			+ "Please be aware that the github/Patreon update (0.2.5.5) <b>might</b> be out one day later than usual, on Thursday 17th (going into the early hours of Friday 18th). I'll make a blog post if this turns out to be the case."
+			+ "Here's the updated version of 0.2.6, which includes bug fixes from both patch 0.2.6.1, and 0.2.6.2. The next full, public release will be on the night of Wednesday, 13th June. :3"
 		+ "</p>"
 			
 		+ "<p>"
@@ -104,187 +95,209 @@ public class Main extends Application {
 		+ "</br>"
 
 		+ "<list>"
-			+ "<h6>v0.2.4.5</h6>"
-			+"<li>Engine:</li>"
-			+"<ul>Optimised save files. In the ones I tested, file size was reduced by over 50%, and load times saw a similar decrease.</ul>"
-			+"<ul>Added support for masturbation sex scenes.</ul>"
-
+			+ "<h6>v0.2.5.5</h6>"
 			+"<li>Gameplay:</li>"
-			+"<ul>Added: Panty masturbation scene in Lilaya's room, with a couple of follow-on sex scenes.</ul>"
+			+"<ul>Added new quest 'Slime Queen'. You should automatically pick this up from Claire when you enter Submission (she will repeat her initial dialogue if you've already seen it).</ul>"
+			+"<ul>Added unique slime attack descriptions for Submission's tunnels, along with transformation behaviour of wanting to TF you into a slime.</ul>"
+			+"<ul>(Not yet finished!) Added the map 'Slime Queen's tower' as part of the new quest, with 4 new NPCs in there.</ul>"
 
-			+"<li>Balancing:</li>"
-			+"<ul>You now need at least three spells in a spell school to unlock the related special ability.</ul>"
-			+"<ul>Spell books are now consumed on use, and added to Lilaya's library. (This was to prevent buying a spell book, learning the spell, and then selling it, making it significantly cheaper than intended to buy & learn all spells.)</ul>"
-			+"<ul>Made default bottled arcane essence slightly cheaper than the racially enchanted ones.</ul>"
+			+"<li>Balance:</li>"
+			+"<ul>Changed slime's status effect from -100 physical damage to -100 unarmed damage.</ul>"
+
+			+"<li>Artwork:</li>"
+			+"<ul>Added Jam's artwork of Claire.</ul>"
+
+			+"<li>Weapons:</li>"
+			+"<ul>Added support for dying weapon colours.</ul>"
+			+"<ul>Added: Zweihander (Main weapon slot).</ul>"
+			+"<ul>Added: Knightly Sword (Main weapon slot).</ul>"
+			+"<ul>Added: Buckler (Offhand weapon slot).</ul>"
 
 			+"<li>Clothing:</li>"
-			+"<ul>Added: Strap-on, and support in the engine for correctly treating a strap-on as an artificial penis during sex. (BDSM set, no femininity requirements, penis slot.)</ul>"
-			+"<ul>Added: Toeless striped stockings. (Feminine, calves slot.)</ul>"
-			+"<ul>Added: Tube top. (Feminine, chest slot.)</ul>"
-			+"<ul>Added more tags for clothing, including ones for plug support. Added plug modifier to nipple tape crosses (prevents cum from leaking out).</ul>"
-			+"<ul>Added fertility and virility to available clothing attribute enchantments.</ul>"
+			+"<ul>Added secondary colour to navel barbell (for the gem).</ul>"
+			+"<ul>Added snowflake jewelry to Nyan's shop.</ul>"
+			+"<ul>Added: Sun necklace (no femininity requirements, neck slot).</ul>"
+			+"<ul>Added: Sun earrings (no femininity requirements, ear piercing slot).</ul>"
+			+"<ul>Added: Sun nose stud (no femininity requirements, nose piercing slot).</ul>"
 
-			+"<li>Contributors:</li>"
-			+"<ul>Fixed typos in air elemental upgrades. (rfpnj)</ul>"
-			
 			+"<li>Other:</li>"
-			+"<ul>Added '+10 spell points' to debug menu.</ul>"
-			+"<ul>Improved some of the demon/slime transformation menu options. Added options for internal testicles, horn size, tongue length, wing size, and horn colour.</ul>"
-			+"<ul>Added more options for horn pattern and colour.</ul>"
-			+"<ul>Improved item, weapon, and clothing pages in the encyclopedia, and added preview images for items.</ul>"
-			+"<ul>You can now re-read race books, but you only receive the damage/resistance boost the first time. This should now allow new characters to gain these bonuses, even if races have been unlocked by a different playthrough.</ul>"
-			+"<ul>The 'vacuum' spell can no longer strip a person's piercings.</ul>"
-			+"<ul>NPCs will only re-dress themselves once a day.</ul>"
-			+"<ul>Vicky will now buy spell books and scrolls.</ul>"
-			+"<ul>Tidied up Lilaya's lab dialogue flow a little.</ul>"
-			+"<ul>Added a chance to overhear Rose saying some things to Lilaya when you enter the lab.</ul>"
-			+"<ul>Added indication in slavery overview for approximate hourly income of milking jobs.</ul>"
+			+"<ul>The losing party's elementals are now dispelled at the end of combat.</ul>"
+			+"<ul>Slightly changed biojuice canister icon, lowered its value, and removed it from random Submission drops.</ul>"
 
 			+"<li>Bugs:</li>"
-			+"<ul>Fixed annoying bug where when inspecting NPCs, it would show a different, incorrect NPC's name/inventory on the right of the screen. (This should definitely be completely fixed this time. x_x)</ul>"
-			+"<ul>Fixed Arcane elemental spell cost being extremely low.</ul>"
-			+"<ul>Fixed dresses and kimonos that were parts of sets still blocking the leg slot.</ul>"
-			+"<ul>Fixed the broken encyclopedia item view.</ul>"
-			+"<ul>Throat wetness should now correctly save/load.</ul>"
-			+"<ul>Typos, parsing, and incorrect clothing displacement fixes.</ul>"
-			+"<ul>Fixed slime sclera and pupil recolouring not working.</ul>"
-			+"<ul>Resetting spell schools now refunds the correct amount of upgrade points.</ul>"
-			+"<ul>Fixed arcane storm timer (from Arcane spell school's unique ability) not working correctly.</ul>"
-			+"<ul>Fixed Water spell school's unique ability (liquid TFs are free) not working correctly.</ul>"
-			+"<ul>Being defeated in combat while your allies are still fighting will now correctly only give you the option to watch.</ul>"
-			+"<ul>Fixed bug where there would sometimes be gaps in actions during sex.</ul>"
-			+"<ul>Fixed some incorrect skin colouring on Rose.</ul>"
-			+"<ul>Improved NPC removal method, which should help to reduce save file size and save/load times. This will be further improved for 0.2.5.</ul>"
-			+"<ul>(Hopefully) fixed a cause of the bug where the game would stop being able to save.</ul>"
+			+"<ul>Fixed bug in clothing displacement detection method, which could sometimes cause the game to lock up when wearing sealed clothing.</ul>"
+			+"<ul>Fixed chaos feathers only being available in the poison damage type.</ul>"
+			+"<ul>Enchanting clothing will no longer reset item tags (which was causing the bug of nipple tape crosses losing their plugging effect).</ul>"
+			+"<ul>Fixed obsolete reference to a dress in succubus attacker dialogue.</ul>"
+			+"<ul>Fixed slime colours resetting every time the game was loaded.</ul>"
 		+ "</list>"
 
 		+ "</br>"
 
 		+ "<list>"
-			+ "<h6>v0.2.4.5</h6>"
-			+ "<li>Gameplay:</li>"
-			+ "<ul>Filled in more of the placeholder text in Submission.</ul>"
-			+ "<ul>Added more content for Submission Enforcer Post, including a new Enforcer NPC, 'Claire'. When entering a Submission Enforcer Post for the first time, Claire's dialogue will trigger. (There will be a quest related to this added for the next release.)</ul>"
-			
-			+ "<li>Slavery:</li>"
-			+ "<ul>'Dairy Cow' job now correctly supports 8 slaves per milking room.</ul>"
-			+ "<ul>Made some minor improvements to slavery UI.</ul>"
-			+ "<ul>Milking room now milks a slave of their milk, cum, and girlcum at the same time.</ul>"
-			+ "<ul>Added options to enable/disable milk, cum, and girlcum milking.</ul>"
-			+ "<ul>Moved pregnancy job settings (Promiscuity pills, no pills, or Vixen's Virility pills) from the 'Stocks' and 'Prostitute' jobs, and moved them into a standard permission.</ul>"
-			+ "<ul>Added options in milking room to set automatic selling, as well as options to drink or sell any stored fluids.</ul>"
-			+ "<ul>Balanced fluid values.</ul>"
-			+ "<ul>Added three new upgrades to the milking room.</ul>"
-			+ "<ul>Added self-milking options to milking rooms.</ul>"
-			
-			+ "<li>Enchanting:</li>"
-			+ "<ul>You can now set a custom name for any potions or clothing that you create.</ul>"
-			+ "<ul><b>Added:</b> Saving and loading of enchantment effects. (Built upon framework created by Master of Puppets.)</ul>"
-			
-			+ "<li>Contributors:</li>"
-			+ "<ul>Added testing for Nnxx's character 'Lumi' in the debug menu. Once she's finished, she will be added a random encounter in Dominion's alleys, but for now, she's only accessible through the debug menu.</ul>"
-			+ "<ul>Fixed typos in Telepathic Communication description. (Mach565)</ul>"
-			+ "<ul>Companion's damage scaling (on higher difficulty settings) is now treated the same as the player's. (Darkon47)</ul>"
-			+ "<ul>Added rings for masculine characters in character creation. (rfpnj)</ul>"
-			+ "<ul>Huge amount of punctuation fixes. (WoefulWombat)</ul>"
-			+ "<ul>Even more punctuation fixes. (WoefulWombat)</ul>"
-			+ "<ul>Added framework for saving and loading enchantment effects. (Master of Puppets)</ul>"
-			+ "<ul>Fixed bug with intoxication percentages not displaying correctly. (Pimvgd)</ul>"
-			+ "<ul>Fixed prologue typo. (Mach565)</ul>"
-			+ "<ul>Fixed cause of strange characters being displayed in some svgs. (Pimvgd)</ul>"
-			+ "<ul>Fixed bug where impregnation chance was using the wrong partner's fertility stat. (Itpatch)</ul>"
-			
-			+ "<li>Other:</li>"
-			+ "<ul>Ankle spreader bar now blocks escape in combat (if you are unable to fly).</ul>"
-			+ "<ul>Wrist restraints now block flight from arm-wings (such as harpy or bat wings).</ul>"
-			+ "<ul>NPCs now gain or lose affection towards you after sex, depending on if they were in the resisting pace or not.</ul>"
-			+ "<ul>Slimes can no longer fly.</ul>"
-			
-			+ "<li>Bugs:</li>"
-			+ "<ul>Fixed bug where NPCs would have a random colour for their lips/nipples/anus. This resets NPC colours for those parts only if they're not your slave, so your slave's colours won't be reset by this.</ul>"
-			+ "<ul>Typo and parsing fixes.</ul>"
-			+ "<ul>Fixed issue with parsing some characters in text fields.</ul>"
-			+ "<ul>Fixed spell page showing special ability was unlocked, even when it wasn't.</ul>"
-			+ "<ul>Fixed bug where some icons would show random letters on some systems.</ul>"
-			+ "<ul>Fixed (yet another) cause of slavery stats getting stuck on the right-hand section of the screen.</ul>"
-			+ "<ul>Fixed broken colours in rainbow set status effect icon.</ul>"
-			+ "<ul>Fixed bug where fetish screen would sometimes become unresponsive.</ul>"
-			+ "<ul>NPCs should no longer spawn in with fetish or transforming fetishes if you have them set to 0% in your content options.</ul>"
-			+ "<ul>Fixed milking room upgrade being blocked when you had companions in your party.</ul>"
-			+ "<ul>Fixed slave multiple-partner sex breaking if you had companions in your party.</ul>"
-			+ "<ul>Fixed bug where slaves could start spitroast even if they weren't attracted to you.</ul>"
-			+ "<ul>Crotchless chaps no longer conceal the anus slot.</ul>"
-			+ "<ul>Fixed yet more bugs related to slavery targets being broken between scenes.</ul>"
-			+ "<ul>Fixed 'Dairy Cow' slave job having some settings from prostitute.</ul>"
-			+ "<ul>Fixed bug where fluids would sometimes load in their modifiers twice (potentially causing issues with removal of fluid modifiers).</ul>"
-			+ "<ul>Fixed slimes being able to TF penis type to 'artificial'.</ul>"
-		+ "</list>"
-
-		+ "</br>"
-
-		+ "<list>"
-			+ "<h6>v0.2.5.1</h6>"
+			+ "<h6>v0.2.5.8</h6>"
 			+"<li>Gameplay:</li>"
-			+"<ul>Added a small encounter for Mother's Day on Dominion's boulevard tiles. There's a 10% chance for it to fire, and it requires the game's date to be the second week of May. (I thought that the second Sunday of May was too narrow a time period.)</ul>"
-			
-			+"<li>Contributors:</li>"
-			+"<ul>Fixed body-part modifiers being incorrectly loaded in from old save files. (Pimvgd)</ul>"
-			+"<ul>Increased parser performance. (Pimvgd) Innoxia's note: This massively increased rendering performance in all screens for me (most notably in the inventory screen).</ul>"
-			+"<ul>Refactored code to remove unnecessary ListValue objects. (Pimvgd)</ul>"
-			+"<ul>Fixed penis size alteration buttons incorrectly showing 'cm' when disabled. (Pimvgd)</ul>"
-			+"<ul>Added hasWeaponEquipped method to handle possible future issues with enchanting weapons. (Pimvgd)</ul>"
-			+"<ul>Fixed softlock caused by opening options menu during examining alexandria in intro. (Pimvgd)</ul>"
-			
-			+"<li>UI:</li>"
-			+"<ul>Improved inventory UI to stop that annoying stuttering/resizing caused by the scrollbar appearing and disappearing.</ul>"
+			+"<ul>Finished Slime Queen's quest, adding the upper floor of the tower.</ul>"
+			+"<ul>Added harpy offspring encounters in the Harpy Nests.</ul>"
+			+"<ul>Temporarily re-enabled angel offspring in Dominion (for those of you who have set yourself to be angels through the debug menu).</ul>"
+			+"<ul>Added item 'Glowing Mushrooms', found randomly in the bat Caverns as well as being dropped by slimes down there.</ul>"
+			+"<ul>Filled in last placeholders in Bat Cavern descriptions.</ul>"
+			+"<ul>Added unique encounter/attack descriptions for slimes and bats in the bat caverns.</ul>"
 			
 			+"<li>Other:</li>"
-			+"<ul>All 'Submit' actions in the game are no longer completely locked out by not having the Submissive fetish, and instead have an associated corruption bypass cost.</ul>"
-			+"<ul>Having a special flavour for milk, cum, or girlcum now increases its value.</ul>"
-			+"<ul>Vicky now stocks 12 TF potions every day, instead of 6.</ul>"
-			+"<ul>Slightly improved item ordering in inventory.</ul>"
-			+"<ul>Added secondary colour to 'sport shorts', for the string tie. Replaced Lumi's shorts with sport shorts.</ul>"
-			+"<ul>NPCs can now dress themselves once per hour instead of once per day.</ul>"
-			+"<ul>Most demons and imps should now spawn in having already lost their penile virginity.</ul>"
-			+"<ul>Added 'deflowering' fetish experience gain from taking virginities.</ul>"
-			+"<ul>Added description of the rooms in Angel's Kiss having small bathrooms.</ul>"
-			+"<ul>You can now drink fluids in the milking room if the total quantity is less than 100ml.</ul>"
-			+"<ul>Enchanting effects are no longer cleared if there's another item of the same type in your inventory. (So if you want to craft lots of potions, you can now keep on clicking 'Craft', without needing to reload the effects every time.)</ul>"
+			+"<ul>Added variation in the slime guards' dialogue for if you have the related content setting turned off.</ul>"
+			+"<ul>Added ongoing penetration descriptions for hotdogging and paizuri, and added icon for hotdogging status effect.</ul>"
+			+"<ul>Increased value of girlcum, and slightly decreased extra modifiers' impact on cum value.</ul>"
+			+"<ul>Reduced biojuice canister value from 5000 to 2500.</ul>"
+			+"<ul>You can now enchant biojuice canisters to make a potion that returns body material to normal.</ul>"
 			
 			+"<li>Bugs:</li>"
-			+"<ul>Fixed several body covering colours not being saved or loaded correctly. (Some body colours might be reset as part of this fix, but they should now correctly save from now on.)</ul>"
-			+"<ul>Fixed cause of a game import error (related to SlaveryUtil).</ul>"
-			+"<ul>Fixed cause of possible game crash when clicking on weapons in inventory.</ul>"
-			+"<ul>Fixed bug where milking room was milking cum instead of girlcum.</ul>"
-			+"<ul>Milk regeneration enchantments are now correctly affected by the Water School perk (i.e. it's free).</ul>"
-			+"<ul>Fixed a malfunction in the milking machines, where, even if they were powerful enough to do it, they wouldn't extract any stored milk from a slave's breasts past their milk regeneration rate. (e.g. If a slave had 500ml of milk in their breasts, and they regenerated 100ml an hour, and the machine was capable of milking 250ml an hour, the machine would only be milking 100ml an hour, instead of 250/250/200/100/etc.)</ul>"
-			+"<ul>Fixed Vicky's potions having strange names.</ul>"
-			+"<ul>Fixed Vicky's inventory resetting every time you loaded the game.</ul>"
-			+"<ul>Fixed attackers in arcane storms using prostitute dialogue.</ul>"
-			+"<ul>Fixed TF menu penis size showing 'cm' instead of 'inches'.</ul>"
-			+"<ul>Pressing enter in the enchanting screen's rename box will no longer make the screen go blank.</ul>"
-			+"<ul>Fixed another(!!!!!) cause of the NPC-stuck-on-screen bug.</ul>"
-			+"<ul>Fixed companions being treated as librarians when entering Lilaya's library.</ul>"
-			+"<ul>Fixed custom names for clothing not persisting between saves.</ul>"
-			+"<ul>Fixed elusive bug where slave rooms would sometimes randomly reset their upgrades.</ul>"
-			+"<ul>Fixed debug menu being available in the prologue (as it would end up breaking everything if used).</ul>"
+			+"<ul>Fixed bug where when entering Submission, you would sometimes travel down to an incorrect tile location.</ul>"
+			+"<ul>Fixed being forced to have sex with the slime guards after beating them in combat.</ul>"
+			+"<ul>Fixed some typos and parsing errors in 0.2.5.5's content.</ul>"
+			+"<ul>Removed biojuice canisters from bat cavern drops.</ul>"
 			+"<ul>Typo fixes.</ul>"
-			+"<ul>Fixed bug where equipped condoms couldn't be clicked on.</ul>"
-			+"<ul>Spell actions should no longer be duplicated in combat. (Caused by unlocking a spell and also having a weapon that grants that spell.)</ul>"
-			+"<ul>Fixed bug where a random NPC's inventory would be shown on the bottom-right during masturbation scenes. (I think this was also causing a bug where masturbation scenes could break and show no actions.)</ul>"
-			+"<ul>Fixed Pix losing affection towards you at the end of her sex scene.</ul>"
-			+"<ul>Fixed enchantment save/load confirmations not working properly.</ul>"
-			+"<ul>Fixed bug where characters without genitalia would get stuck in Lilaya's panty masturbation scene at 100 lust.</ul>"
-			+"<ul>Fixed horn TF options appearing twice in the transformation options for slimes.</ul>"
-			+"<ul>Fixed offhand attacks applying the damage type of your main weapon.</ul>"
-			+"<ul>Fixed bug where only one of a slaves' milk/cum/girlcum would be milked.</ul>"
-			+"<ul>Fixed sex AI bug where NPCs with oral fetishes would stop/start oral actions.</ul>"
-			+"<ul>Fixed modded clothing colours not being able to use custom colour lists.</ul>"
-			+"<ul>Fixed bugs in Arthur's and Amber's descriptions.</ul>"
-			+"<ul>Fluids will no longer show in the milking room if there's 0ml of them.</ul>"
-			+"<ul>Fixed bug where the 'pet' in Amber's walkies fucking scene would sometimes generate with fetishes that would cause the scene to never progress.</ul>"
-			+"<ul>Fixed bug where characters couldn't be imported as slaves if they had been exported with companions in their party.</ul>"
-			+"<ul>Fixed bug where trying to delete an exported character with confirmations on would send you to the save/load screen.</ul>"
+			+"<ul>Fixed Blaze and Crystal's earrings being unequipped when loading a save.</ul>"
+			+"<ul>Fixed Blaze and Crystal's repeat encounter acting like they'd never seen you before.</ul>"
+			+"<ul>Fixed bug where switching target in combat would not show the correct target's inventory.</ul>"
+			+"<ul>Fixed human damage/resistance stats being shown twice in phone's stats menu.</ul>"
+			+"<ul>Fixed NPCs spawning in with multiple books in their inventory.</ul>"
+			+"<ul>Fixed bug where you'd gain knowledge of some characters' breasts/genitals on game load. (This was affecting Candi, Claire, and probably many others.)</ul>"
+			+"<ul>Fixed jewellery not being unequipped when removing piercings.</ul>"
+			+"<ul>Characters will no longer lose penile virginity from using strapons.</ul>"
+			+"<ul>Penis transformations will no longer be applied to equipped strap-on.</ul>"
+			+"<ul>Fixed rendering bugs in stats page.</ul>"
+			+"<ul>Fixed bug where spreader bar being equipped under trousers would result in the spreader bar blocking trouser removal, and also being concealed, making both items of clothing impossible to remove.</ul>"
+		+ "</list>"
+
+		+ "</br>"
+
+		+ "<list>"
+			+ "<h6>v0.2.6</h6>"
+			+"<li>Gameplay:</li>"
+			+"<ul>Added 'generic' encounter variations for bat and slime attackers in the Bat Caverns (for if you've transformed them).</ul>"
+			+"<ul><b>Added:</b> Support for tattoos, with ability to have them enchanted just like clothing. Kate can now give/enchant/remove both your and your slaves' tattoos.</ul>"
+			+"<ul>Added modding support for tattoos. (Works in the same way as clothing mods.)</ul>"
+			+"<ul>Added scar support. (I'll add a way to add/remove scars for the next version.)</ul>"
+			+"<ul><b>Added:</b> Basics of the gambling den (will be finished in 0.2.6.1). It has a small internal map, three unique NPCs, a dice poker game, a shop, and 'pregnancy roulette'.</ul>"
+			
+			+"<li>Clothing:</li>"
+			+"<ul>Added secondary dye colour to aviators.</ul>"
+			+"<ul>Added: Eye patch (no femininity requirements, eye slot).</ul>"
+			+"<ul>Added: Jockstrap (masculine, groin slot).</ul>"
+			
+			+"<li>Contributors:</li>"
+			+"<ul>Changed Lumi's 'Take Advantage' scene to actually be a sex scene (only available if noncon is on). (Nnxx)</ul>"
+			+"<ul>Fixed inserted bimbo/sex/muffled/drunk words breaking capitalisation. (pinnae)</ul>"
+			+"<ul>Changed 'Romance' quests to 'Relationship' quests, and reassigned Nyan's side quest as a relationship quest. (rfpnj)</ul>"
+			+"<ul>Improved action ordering and availability in sex's 'Repeat Actions' tab. (Master of Puppets)</ul>"
+			+"<ul>Added some new skin colours. (rfpnj)</ul>"
+			+"<ul>Fixed several issues with coding style. (Pimvgd)</ul>"
+			+"<ul>Converted UtilText.parse from recursive to iterative. This increases performance by a small amount, and reduces memory usage by a large amount. (Pimvgd)</ul>"
+			+"<ul>Deduplicated book itemtypes. (Pimvgd)</ul>"
+			+"<ul>Punctuation fixes in Rental Mommy encounter. (WoefulWombat)</ul>"
+			+"<ul>Punctuation fixes in panty masturbation scenes. (WoefulWombat)</ul>"
+			+"<ul>Changed Fruit Bat Squash to restore aura, not energy, to fit in with the other arcane-related consumables. (rfpnj)</ul>"
+			+"<ul>Fixed HornType.NONE showing up as an option for enchanting. Horn removal can be done by selecting the remove option. (Pimvgd)</ul>"
+			+"<ul>Fixed 'No cock' and 'Vagina' actions in succubus encounter not doing anything. (Master of Puppets)</ul>"
+			+"<ul>Fixed incorrect pronoun parsing in bat encounter. (Mach565)</ul>"
+			+"<ul>Fixed incorrect Slime Queen quest completion descriptions. (rfpnj)</ul>"
+			+"<ul>Fixed typo in Brax's scene. (Pimvgd)</ul>"
+			+"<ul>Fixed inconsistent starting positions in Brax's sex scenes. (rfpnj)</ul>"
+			+"<ul>Fixed FemininityRestriction not being set properly for clothing loaded as mod. (Pimvgd)</ul>"
+			+"<ul>Added mod folder to gitignore. (Pimvgd)</ul>"
+			+"<ul>Fixed instance of weapon comparator contract violation when checking weapon type. (Pimvgd)</ul>"
+			+"<ul>Added a new colour preset, 'ALL_WITH_METALS'. (rfpnj)</ul>"
+			+"<ul>Fixed several causes of slow load times, which, as an example, reduced a huge save file's load time from 40+ seconds down to 5. (Pimvgd)</ul>"
+			
+			+"<li>Other:</li>"
+			+"<ul>Added 'wing' slot as an inventory & tattoo slot.</ul>"
+			+"<ul>Reorganised inventory slots in the UI, so that 'optional' ones are at the bottom (tail, wings, horns, penis, and vagina).</ul>"
+			+"<ul>Elementals can no longer summon elementals.</ul>"
+			+"<ul>Elementals are now unable to drink potions.</ul>"
+			+"<ul>Companions' elementals now show up in the character panel.</ul>"
+			+"<ul>Companion icons now show up on the map.</ul>"
+			+"<ul>Added 'Dispell elemental' action in your companions' 'Manage' tab, so you can get them to remove their elementals after a fight.</ul>"
+			+"<ul>Added a few tattoos to Kate.</ul>"
+			
+			+"<li>Bugs:</li>"
+			+"<ul>Fixed Claire repeating the first 'report back' dialogue after dealing with the slime queen.</ul>"
+			+"<ul>Typo fixes.</ul>"
+			+"<ul>Fixed harpy offspring not spawning in after the nests have been pacified.</ul>"
+			+"<ul>Added 'offer body' dialogue to slime and bat attacker scenes.</ul>"
+			+"<ul>Helping the Slime Queen now correctly increases slime spawn rates in Submission.</ul>"
+			+"<ul>Fixed Maximilian spawning in as a virgin.</ul>"
+			+"<ul>Fixed Slime Queen regenerating her crown after she's given it to you.</ul>"
+			+"<ul>Fixed slime transformation scenes saying 'Nothing happens...'.</ul>"
+			+"<ul>Fixed Maximilian's post-sparring scenes.</ul>"
+			+"<ul>Fixed bug where harpies, imps, and slimes would have their spawn rate set to 0% if you ever selected 'disable all' in the furry preferences screen.</ul>"
+			+"<ul>Fixed horizontal scrollbar appearing when inspecting watches.</ul>"
+			+"<ul>Fixed bug in combat where companions summoning elementals would throw an error.</ul>"
+			+"<ul>Fixed bug where if a companion summoned an elemental, that elemental would block encounters.</ul>"
+			+"<ul>Fixed clothing mod bug, where user-defined colours wouldn't work correctly.</ul>"
+		+ "</list>"
+
+		+ "</br>"
+
+		+ "<list>"
+			+ "<h6>v0.2.6.1</h6>"
+			+"<li>Gameplay:</li>"
+			+"<ul>Finished all descriptions in Gambling Den.</ul>"
+			+"<ul>Added slot machines to the Gambling Den.</ul>"
+			+"<ul>Added Roxy's content.</ul>"
+			+"<ul>Added item 'Arcane Pregnancy Tester', which reveals if a person is pregnant, along with some information about the litter. (Sold by Ralph and Roxy, and found in Dominion alleyways and Submission tunnels.)</ul>"
+			+"<ul>Added mechanics for pregnancy roulette. It should all be fully functional, but the descriptions are still placeholders, as I ran out of time. I'll have them fully finished for the next release.</ul>"
+			
+			+"<li>Contributors:</li>"
+			+"<ul><b>Added:</b> Clothing patterns. Several pieces of clothing now have support for the patterns; Camo, Cow-patterned, Tiger-striped (horizontal), Tiger-striped (vertical), Leopard-printed, and rainbow. (Irbynx)</ul>"
+			+"<ul>Fixed typo in colours. (rfpnj)</ul>"
+			+"<ul>Fixed orgasm descriptions mentioning player's name. (Pimvgd)</ul>"
+			+"<ul>Fixed cause of saves in slaver alley stocks cell breaking. (Master of Puppets)</ul>"
+			
+			+"<li>Other:</li>"
+			+"<ul>AI will now always reroll the dice poker hand 'runt'.</ul>"
+			+"<ul>Lumi now uses the resist pace in her sex scene.</ul>"
+			
+			+"<li>Bugs:</li>"
+			+"<ul>Fixed dice poker sex scene using the wrong NPC, or failing to start entirely.</ul>"
+			+"<ul>Fixed feminine furry preference changes influencing masculine furry preferences.</ul>"
+			+"<ul>Fixed Kate not charging you for enchanting tattoos.</ul>"
+			+"<ul>Fixed bug where when giving slaves tattoos, the counter output example showed your stat rather than the slave's stat.</ul>"
+			+"<ul>Fixed background error in some sex actions that would cause the action to appear not to have worked.</ul>"
+			+"<ul>Fixed cause of Slime Queen's dialogue bugging out and not being able to be selected.</ul>"
+			+"<ul>Fixed bug where NPCs would not choose any sex action if they disliked/hated noncon and it was a noncon scene.</ul>"
+		+ "</list>"
+
+		+ "</br>"
+
+		+ "<list>"
+			+ "<h6>v0.2.6.2</h6>"
+			+"<li>Contributors:</li>"
+			+"<ul>Fixed DominionSuccubusAttacker-slaves throwing nullpointers for TF items. (Pimvgd)</ul>"
+			+"<ul>Typo and parsing fixes. (Pimvgd)</ul>"
+			+"<ul>Fixed intToString method causing crashes/bugs. (Pimvgd)</ul>"
+			+"<ul>Fixed some characters being able to get pregnant even although that's not supposed to happen, such as Alexandria in the intro. (Pimvgd)</ul>"
+			+"<ul>Fixed encyclopedia weapon colours not displaying properly. (Pimvgd)</ul>"
+			+"<ul>Fixed cause of the mysterious -5 to lust resist on new player characters. (Pimvgd)</ul>"
+			+"<ul>Fixed slavery upkeep persisting across new games. (Pimvgd)</ul>"
+			+"<ul>Fixed slime queen quest completion 'report back' dialogue displaying the wrong report back text. (Pimvgd)</ul>"
+			+"<ul>Fixed cause of a crash with bimbo characters' dirty talk. (Master of Puppets)</ul>"
+			+"<ul>Fixed offspring renaming with enter key hardlocking game. (Pimvgd)</ul>"
+			+"<ul>Enabled female beards when the option for female beards is turned on. (Pimvgd)</ul>"
+			+"<ul>Fix tattoo enchantments not applying their effects. (Pimvgd)</ul>"
+			+"<ul>Fixed milk regeneration enchantments always applying a huge boost/drain, instead of a more reasonably scaled one. (Delvigore)</ul>"
+			+"<ul>Added Util method to make selecting random items from lists easier. (Master of Puppets)</ul>"
+			+"<ul>Improved boxer and briefs displacement methods. (Master of Puppets)</ul>"
+			
+			+"<li>Other:</li>"
+			+"<ul>Slightly tweaked slot machine odds.</ul>"
+			
+			+"<li>Bugs:</li>"
+			+"<ul>Fixed bug where NPCs would all end sex immediately when orgasming with a creampie.</ul>"
+			+"<ul>Fixed tattoo writing being saved with a huge amount of trailing whitespace.</ul>"
+			+"<ul>Fixed issue with slave imports importing companions.</ul>"
+			+"<ul>Fixed angels being described as part of the group watching public sex.</ul>"
+			+"<ul>Fixed bug with Blaze and Crystal, where if you returned after beating them then leaving, the dialogue would incorrectly return the 'friendly' scene.</ul>"
 		+ "</list>"
 		;
 	
@@ -354,6 +367,7 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("Deimios", "", 0, 0, 3, 1));
 		credits.add(new CreditsSlot("Nnxx", "", 0, 1, 3, 1));
 		credits.add(new CreditsSlot("Eushully", "", 0, 0, 0, 4));
+		credits.add(new CreditsSlot("cinless", "", 0, 0, 0, 4));
 		
 		credits.add(new CreditsSlot("KazukiNero", "", 0, 0, 3, 0));
 		credits.add(new CreditsSlot("Archan9el S117", "", 0, 0, 0, 3));
@@ -384,10 +398,14 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("Freekingamer", "", 0, 0, 0, 1));
 		credits.add(new CreditsSlot("Strigon888", "", 0, 0, 0, 1));
 		credits.add(new CreditsSlot("sebasjac", "", 0, 0, 0, 1));
+		credits.add(new CreditsSlot("Starchiller", "", 0, 0, 0, 1));
+		credits.add(new CreditsSlot("Kitsune Lyn", "", 0, 0, 0, 1));
 		credits.add(new CreditsSlot("Daniel D Magnan", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("shrikes", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("Chattyneko", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("Neximus", "", 0, 0, 1, 0));
+		credits.add(new CreditsSlot("IreCobra", "", 0, 0, 1, 0));
+		credits.add(new CreditsSlot("Garkylal", "", 0, 0, 1, 0));
 		
 		
 		credits.add(new CreditsSlot("Adhana Konker", "", 0, 0, 3, 0));

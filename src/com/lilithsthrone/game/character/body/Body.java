@@ -79,7 +79,7 @@ import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.0
- * @version 0.2.5
+ * @version 0.2.6
  * @author Innoxia
  */
 public class Body implements Serializable, XMLSaving {
@@ -6387,10 +6387,6 @@ public class Body implements Serializable, XMLSaving {
 			return false;
 		}
 		return (wing.getType().allowsFlight() && wing.getSize().isSizeAllowsFlight());
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
 	}
 
 }

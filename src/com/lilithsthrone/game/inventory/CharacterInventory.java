@@ -207,16 +207,14 @@ public class CharacterInventory implements Serializable, XMLSaving {
 		for(int i=0; i<itemsInInventory.getElementsByTagName("item").getLength(); i++){
 			Element e = ((Element)itemsInInventory.getElementsByTagName("item").item(i));
 			
-			for(int itemCount = 0 ; itemCount < Integer.valueOf(e.getAttribute("count")); itemCount++) {
-				if(e.getAttribute("id").equals(ItemType.itemToIdMap.get(ItemType.CONDOM_USED))) {
-					inventory.addItem(AbstractFilledCondom.loadFromXML(e, doc));
-					
-				} else if(e.getAttribute("id").equals(ItemType.itemToIdMap.get(ItemType.MOO_MILKER_FULL))) {
-					inventory.addItem(AbstractFilledBreastPump.loadFromXML(e, doc));
-					
-				} else {
-					inventory.addItem(AbstractItem.loadFromXML(e, doc));
-				}
+			if(e.getAttribute("id").equals(ItemType.itemToIdMap.get(ItemType.CONDOM_USED))) {
+				inventory.addItem(AbstractFilledCondom.loadFromXML(e, doc), Integer.valueOf(e.getAttribute("count")));
+				
+			} else if(e.getAttribute("id").equals(ItemType.itemToIdMap.get(ItemType.MOO_MILKER_FULL))) {
+				inventory.addItem(AbstractFilledBreastPump.loadFromXML(e, doc), Integer.valueOf(e.getAttribute("count")));
+				
+			} else {
+				inventory.addItem(AbstractItem.loadFromXML(e, doc), Integer.valueOf(e.getAttribute("count")));
 			}
 		}
 		
@@ -391,18 +389,28 @@ public class CharacterInventory implements Serializable, XMLSaving {
 	 * Add an item to this inventory.
 	 * @return true if added, false if inventory was full.
 	 */
-	public boolean addItem(AbstractItem item) {
+	public boolean addItem(AbstractItem item, int count) {
 		if(item==null) {
 			return false;
 		}
 		
 		if (canAddItem(item)) {
-			itemsInInventory.add(item);
+			for(int i=0; i<count ; i++) {
+				itemsInInventory.add(item);
+			}
 			recalculateMapOfDuplicateItems();
 			return true;
 		}
 		
 		return false;
+	}
+	
+	/**
+	 * Add an item to this inventory.
+	 * @return true if added, false if inventory was full.
+	 */
+	public boolean addItem(AbstractItem item) {
+		return addItem(item, 1);
 	}
 	
 	public boolean canAddItem(AbstractItem item) {
@@ -674,6 +682,12 @@ public class CharacterInventory implements Serializable, XMLSaving {
 			for(BlockedParts bp : c.getClothingType().getBlockedPartsList()) {
 				if(!c.getDisplacedList().contains(bp.displacementType)) {
 					itemConcealed.addAll(bp.concealedSlots);
+					for(InventorySlot invSlot : bp.concealedSlots) {
+						if(this.getClothingInSlot(invSlot)!=null && this.getClothingInSlot(invSlot).getItemTags().contains(ItemTag.REVEALS_CONCEALABLE_SLOT)) {
+							itemRevealed.add(invSlot);
+						}
+					}
+					
 				} else {
 					itemRevealed.addAll(bp.concealedSlots);
 				}
@@ -1390,7 +1404,11 @@ public class CharacterInventory implements Serializable, XMLSaving {
 							for (BlockedParts bpEquipped : equippedClothing.getClothingType().getBlockedPartsList()) {
 								for (ClothingAccess caBlocked : bpEquipped.clothingAccessBlocked) {
 
-									if (bp.clothingAccessRequired.contains(caBlocked) && !equippedClothing.getDisplacedList().contains(bpEquipped.displacementType) && !isDisplacementAvailableFromElsewhere(equippedClothing, caBlocked)) {
+									if (bp.clothingAccessRequired.contains(caBlocked)
+											&& (automaticClothingManagement
+													?isAbleToBeDisplaced(equippedClothing, bpEquipped.displacementType, false, true, characterClothingOwner, characterRemovingClothing, false)
+													:!equippedClothing.getDisplacedList().contains(bpEquipped.displacementType))
+											&& !isDisplacementAvailableFromElsewhere(equippedClothing, caBlocked)) {
 										
 										if (bpEquipped.displacementType != DisplacementType.REMOVE_OR_EQUIP && !clothingToRemove.containsKey(equippedClothing)) { // Can be displaced:
 											if (!equippedClothing.getDisplacedList().contains(bpEquipped.displacementType)){ // Not already displaced:
@@ -1598,35 +1616,35 @@ public class CharacterInventory implements Serializable, XMLSaving {
 		// For every piece of equipped clothing, if it's blocking the coverable area, see if it can be displaced or removed.
 		// If it can't, continue searching to see if another displacement type has revealed that area.
 		// If it hasn't, return false.
-		
-		for (AbstractClothing clothing : clothingCurrentlyEquipped) {
-			for (BlockedParts bp : clothing.getClothingType().getBlockedPartsList()) {
-				if (bp.blockedBodyParts.contains(area)) {// If this clothing is blocking the area you are trying to access:
-					if (!clothing.getDisplacedList().contains(bp.displacementType)) { // If the clothing  hasn't been displaced:
-						if (byRemovingClothing) {
-							if (bp.displacementType == DisplacementType.REMOVE_OR_EQUIP) {
-								if (!isAbleToUnequip(clothing, false, byRemovingClothing, null, null)) {// If the clothing can't be removed from this area:
-									if(!isCoverableAreaExposedFromElsewhere(clothing, area)) {
-										return false;
-									}
-								}
-							} else {
-								if (!isAbleToBeDisplaced(clothing, bp.displacementType, false, byRemovingClothing, null, null)) {// If the clothing can't be displaced from this area:
-									if(!isCoverableAreaExposedFromElsewhere(clothing, area)) {
-										return false;
-									}
-								}
-							}
-						} else {
-							if(!isCoverableAreaExposedFromElsewhere(clothing, area)) {
-								return false;
-							}
-						}
-					}
-				}
-			}
-		}
-		return true;
+		return getClothingBlockingCoverableAreaAccess(area, byRemovingClothing)==null;
+//		for (AbstractClothing clothing : clothingCurrentlyEquipped) {
+//			for (BlockedParts bp : clothing.getClothingType().getBlockedPartsList()) {
+//				if (bp.blockedBodyParts.contains(area)) {// If this clothing is blocking the area you are trying to access:
+//					if (!clothing.getDisplacedList().contains(bp.displacementType)) { // If the clothing  hasn't been displaced:
+//						if (byRemovingClothing) {
+//							if (bp.displacementType == DisplacementType.REMOVE_OR_EQUIP) {
+//								if (!isAbleToUnequip(clothing, false, byRemovingClothing, null, null)) {// If the clothing can't be removed from this area:
+//									if(!isCoverableAreaExposedFromElsewhere(clothing, area)) {
+//										return false;
+//									}
+//								}
+//							} else {
+//								if (!isAbleToBeDisplaced(clothing, bp.displacementType, false, byRemovingClothing, null, null)) {// If the clothing can't be displaced from this area:
+//									if(!isCoverableAreaExposedFromElsewhere(clothing, area)) {
+//										return false;
+//									}
+//								}
+//							}
+//						} else {
+//							if(!isCoverableAreaExposedFromElsewhere(clothing, area)) {
+//								return false;
+//							}
+//						}
+//					}
+//				}
+//			}
+//		}
+//		return true;
 	}
 	
 	/**
@@ -1638,9 +1656,9 @@ public class CharacterInventory implements Serializable, XMLSaving {
 	public AbstractClothing getClothingBlockingCoverableAreaAccess(CoverableArea area, boolean byRemovingClothing) {
 		// For every piece of equipped clothing, if it's blocking the coverable area, see if it can be displaced or removed.
 		// If it can't, continue searching to see if another displacement type has revealed that area.
-		// If it hasn't, return false.
 		
-		for (AbstractClothing clothing : clothingCurrentlyEquipped) {
+		List<AbstractClothing> blockingClothingList = new ArrayList<>();
+ 		for (AbstractClothing clothing : clothingCurrentlyEquipped) {
 			for (BlockedParts bp : clothing.getClothingType().getBlockedPartsList()) {
 				if (bp.blockedBodyParts.contains(area)) {// If this clothing is blocking the area you are trying to access:
 					if (!clothing.getDisplacedList().contains(bp.displacementType)) { // If the clothing  hasn't been displaced:
@@ -1648,25 +1666,36 @@ public class CharacterInventory implements Serializable, XMLSaving {
 							if (bp.displacementType == DisplacementType.REMOVE_OR_EQUIP) {
 								if (!isAbleToUnequip(clothing, false, byRemovingClothing, null, null)) {// If the clothing can't be removed from this area:
 									if(!isCoverableAreaExposedFromElsewhere(clothing, area)) {
-										return clothing;
+										blockingClothingList.add(clothing);
+										continue;
 									}
 								}
 							} else {
 								if (!isAbleToBeDisplaced(clothing, bp.displacementType, false, byRemovingClothing, null, null)) {// If the clothing can't be displaced from this area:
 									if(!isCoverableAreaExposedFromElsewhere(clothing, area)) {
-										return clothing;
+										blockingClothingList.add(clothing);
+										continue;
 									}
 								}
 							}
 						} else {
 							if(!isCoverableAreaExposedFromElsewhere(clothing, area)) {
-								return clothing;
+								blockingClothingList.add(clothing);
+								continue;
 							}
 						}
 					}
 				}
 			}
 		}
+ 		if(!blockingClothingList.isEmpty()) {
+	 		for(AbstractClothing c : blockingClothingList) {
+	 			if(c.isSealed()) {
+	 				return c;
+	 			}
+	 		}
+	 		return blockingClothingList.get(0);
+ 		}
 		return null;
 	}
 	
@@ -1682,50 +1711,36 @@ public class CharacterInventory implements Serializable, XMLSaving {
 	}
 
 	
-	public SimpleEntry<AbstractClothing, DisplacementType> getNextClothingToRemoveForCoverableAreaAccess(CoverableArea coverableArea) { //TODO
-
-		AbstractClothing clothingToRemove = null;
-		DisplacementType displacement = null;
+	public SimpleEntry<AbstractClothing, DisplacementType> getNextClothingToRemoveForCoverableAreaAccess(CoverableArea coverableArea) { 
 		List<AbstractClothing> zLayerSortedList = new ArrayList<>(clothingCurrentlyEquipped);
 		zLayerSortedList.sort(new ClothingZLayerComparator().reversed());
 
-		outerloop: for (AbstractClothing clothing : zLayerSortedList) {
+		for (AbstractClothing clothing : zLayerSortedList) {
 			for (BlockedParts bp : clothing.getClothingType().getBlockedPartsList())
-				if (bp.blockedBodyParts.contains(coverableArea) && !clothing.getDisplacedList().contains(bp.displacementType)) {
-					if(!isCoverableAreaExposedFromElsewhere(clothing, coverableArea)) {
-						// this clothing is blocking the part we want access to, so make that our starting point:
-						clothingToRemove = clothing;
-						displacement = bp.displacementType;
-						break outerloop;
-					}
+				if (bp.blockedBodyParts.contains(coverableArea) 
+						&& !clothing.getDisplacedList().contains(bp.displacementType)
+						&& !isCoverableAreaExposedFromElsewhere(clothing, coverableArea)) {
+					// this clothing is blocking the part we want access to, so make that our starting point:
+					return findNextClothingDisplacement(coverableArea, clothing, bp.displacementType, zLayerSortedList);
 				}
 		}
+		//System.err.print("There is no clothing covering this part!");
+		return null;
+	}
 
-		if (clothingToRemove == null) {
-//			System.err.print("There is no clothing covering this part!");
-			return null;
-		}
-		
-		boolean finished = false;
-		
-		while (!finished) {
-			finished = true;
-			outerloop2: 
-			for (BlockedParts bp : clothingToRemove.getClothingType().getBlockedPartsList()) {
-				if (bp.displacementType == displacement) {
-					for (ClothingAccess ca : bp.clothingAccessRequired) {
-						for (AbstractClothing clothing : zLayerSortedList) {
-							if (clothing != clothingToRemove) {
-								for (BlockedParts bpIterated : clothing.getClothingType().getBlockedPartsList()) {
-									if (bpIterated.clothingAccessBlocked.contains(ca) && !clothing.getDisplacedList().contains(bpIterated.displacementType)) {
-										if(!isCoverableAreaExposedFromElsewhere(clothing, coverableArea)) {
-											// this clothing is blocking the clothing we wanted to displace, so now we re-start by wanting to displace this new clothing:
-											clothingToRemove = clothing;
-											displacement = bpIterated.displacementType;
-											finished = false;
-											break outerloop2;
-										}
-									}
+	private SimpleEntry<AbstractClothing, DisplacementType> findNextClothingDisplacement(CoverableArea coverableArea, AbstractClothing clothingToRemove, 
+			DisplacementType displacement, List<AbstractClothing> zLayerSortedList) {
+		for (BlockedParts bp : clothingToRemove.getClothingType().getBlockedPartsList()) {
+			if (bp.displacementType == displacement) {
+				for (ClothingAccess ca : bp.clothingAccessRequired) {
+					for (AbstractClothing clothing : zLayerSortedList) {
+						if (clothing != clothingToRemove) {
+							for (BlockedParts bpIterated : clothing.getClothingType().getBlockedPartsList()) {
+								if (bpIterated.clothingAccessBlocked.contains(ca) 
+										&& !clothing.getDisplacedList().contains(bpIterated.displacementType)
+										&& !isCoverableAreaExposedFromElsewhere(clothing, coverableArea)) {
+									// this clothing is blocking the clothing we wanted to displace, so now we re-start by wanting to displace this new clothing:
+									return findNextClothingDisplacement(coverableArea, clothing, bpIterated.displacementType, zLayerSortedList);
 								}
 							}
 						}
@@ -1733,8 +1748,7 @@ public class CharacterInventory implements Serializable, XMLSaving {
 				}
 			}
 		}
-		
-		return new SimpleEntry<AbstractClothing, DisplacementType>(clothingToRemove, displacement);
+		return new SimpleEntry<>(clothingToRemove, displacement);
 	}
 
 	public boolean isCoverableAreaExposed(CoverableArea area) {
@@ -1780,9 +1794,7 @@ public class CharacterInventory implements Serializable, XMLSaving {
 				if (bp.blockedBodyParts.contains(area) && !clothing.getDisplacedList().contains(bp.displacementType)) {
 					if(!isCoverableAreaExposedFromElsewhere(clothing, area)) {
 						// Replace if ZLayer is lower than previous found clothing:
-						if (c == null)
-							c = clothing;
-						else if (clothing.getClothingType().getzLayer() < c.getClothingType().getzLayer())
+						if (c == null || clothing.getClothingType().getzLayer() < c.getClothingType().getzLayer())
 							c = clothing;
 					}
 				}
@@ -1807,9 +1819,7 @@ public class CharacterInventory implements Serializable, XMLSaving {
 				if (bp.blockedBodyParts.contains(area) && !clothing.getDisplacedList().contains(bp.displacementType)) {
 					if(!isCoverableAreaExposedFromElsewhere(clothing, area)) {
 						// Replace if ZLayer is higher than previous found clothing:
-						if (c == null)
-							c = clothing;
-						else if (clothing.getClothingType().getzLayer() > c.getClothingType().getzLayer())
+						if (c == null || clothing.getClothingType().getzLayer() > c.getClothingType().getzLayer())
 							c = clothing;
 					}
 				}

@@ -457,6 +457,6 @@ public class FluidGirlCum implements BodyPartInterface, Serializable, XMLSaving 
 	}
 
 	public float getValuePerMl() {
-		return 1f + this.getFluidModifiers().size()*1f + (this.getFlavour()!=FluidFlavour.GIRL_CUM?0.5f:0);
+		return 4f + this.getFluidModifiers().size()*1f + (this.getFlavour()!=FluidFlavour.GIRL_CUM?1f:0);
 	}
 }

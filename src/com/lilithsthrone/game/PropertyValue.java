@@ -2,7 +2,7 @@ package com.lilithsthrone.game;
 
 /**
  * @since 0.2.2
- * @version 0.2.2
+ * @version 0.2.6
  * @author Innoxia
  */
 public enum PropertyValue {
@@ -14,6 +14,7 @@ public enum PropertyValue {
 	fadeInText(false),
 	calendarDisplay(true),
 	twentyFourHourTime(true),
+	tattooRemovalConfirmations(true),
 	
 	furryTailPenetrationContent(false),
 	nonConContent(false),

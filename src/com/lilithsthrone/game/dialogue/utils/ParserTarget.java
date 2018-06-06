@@ -540,6 +540,83 @@ public enum ParserTarget {
 			return Main.game.getClaire();
 		}
 	},
+	
+	SLIME_QUEEN(Util.newArrayListOfValues("slimeQueen"), "") {
+		public String getDescription() {
+			return Main.game.getSlimeQueen().getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter(String tag) {
+			return Main.game.getSlimeQueen();
+		}
+	},
+	
+	SLIME_GUARD_ICE(Util.newArrayListOfValues("slimeGuardIce", "slimeIce"), "") {
+		public String getDescription() {
+			return Main.game.getSlimeGuardIce().getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter(String tag) {
+			return Main.game.getSlimeGuardIce();
+		}
+	},
+	
+	SLIME_GUARD_FIRE(Util.newArrayListOfValues("slimeGuardFire", "slimeFire"), "") {
+		public String getDescription() {
+			return Main.game.getSlimeGuardFire().getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter(String tag) {
+			return Main.game.getSlimeGuardFire();
+		}
+	},
+	
+	SLIME_ROYAL_GUARD(Util.newArrayListOfValues("slimeRoyalGuard", "royalGuardSlime"), "") {
+		public String getDescription() {
+			return Main.game.getSlimeRoyalGuard().getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter(String tag) {
+			return Main.game.getSlimeRoyalGuard();
+		}
+	},
+	
+	ROXY(Util.newArrayListOfValues("roxy"), "") {
+		public String getDescription() {
+			return Main.game.getRoxy().getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter(String tag) {
+			return Main.game.getRoxy();
+		}
+	},
+	
+	AXEL(Util.newArrayListOfValues("axel"), "") {
+		public String getDescription() {
+			return Main.game.getAxel().getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter(String tag) {
+			return Main.game.getAxel();
+		}
+	},
+	
+	EPONA(Util.newArrayListOfValues("epona"), "") {
+		public String getDescription() {
+			return Main.game.getEpona().getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter(String tag) {
+			return Main.game.getEpona();
+		}
+	},
 	;
 	
 	

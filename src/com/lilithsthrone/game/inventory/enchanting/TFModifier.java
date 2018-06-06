@@ -228,6 +228,13 @@ public enum TFModifier {
 	
 	
 	// Racial parts:
+
+	TF_MATERIAL_FLESH("flesh",
+			"Turns a person's body material to flesh.",
+			"flesh",
+			"modifier_circle_tf_material_flesh",
+			Colour.BASE_CRIMSON,
+			Rarity.LEGENDARY),
 	
 	TF_ANTENNA("antennae",
 			"Applies a transformative effect to your antennae.",
@@ -1041,6 +1048,8 @@ public enum TFModifier {
 	private static List<TFModifier> clothingPrimaryList = new ArrayList<>();
 	private static List<TFModifier> clothingAttributeList = new ArrayList<>();
 	
+	private static List<TFModifier> tattooPrimaryList = new ArrayList<>();
+	
 	static {
 
 		TFModStrengthList.add(NONE);
@@ -1153,7 +1162,6 @@ public enum TFModifier {
 		clothingPrimaryList.add(TF_PENIS);
 		clothingPrimaryList.add(TF_VAGINA);
 		
-
 		clothingAttributeList.add(TFModifier.FERTILITY);
 		clothingAttributeList.add(TFModifier.VIRILITY);
 		clothingAttributeList.add(TFModifier.RESISTANCE_FIRE);
@@ -1173,6 +1181,18 @@ public enum TFModifier {
 		clothingAttributeList.add(TFModifier.SPELL_COST_MODIFIER);
 		clothingAttributeList.add(TFModifier.CRITICAL_CHANCE);
 		clothingAttributeList.add(TFModifier.CRITICAL_DAMAGE);
+		
+
+		tattooPrimaryList.add(TFModifier.CLOTHING_ATTRIBUTE);
+		tattooPrimaryList.add(TFModifier.TF_MOD_FETISH_BODY_PART);
+		tattooPrimaryList.add(TFModifier.TF_MOD_FETISH_BEHAVIOUR);
+		tattooPrimaryList.add(TF_FACE);
+		tattooPrimaryList.add(TF_CORE);
+		tattooPrimaryList.add(TF_HAIR);
+		tattooPrimaryList.add(TF_ASS);
+		tattooPrimaryList.add(TF_BREASTS);
+		tattooPrimaryList.add(TF_PENIS);
+		tattooPrimaryList.add(TF_VAGINA);
 	}
 	
 	
@@ -1361,5 +1381,9 @@ public enum TFModifier {
 
 	public static List<TFModifier> getClothingPrimaryList() {
 		return clothingPrimaryList;
+	}
+
+	public static List<TFModifier> getTattooPrimaryList() {
+		return tattooPrimaryList;
 	}
 }

@@ -48,10 +48,14 @@ import com.lilithsthrone.game.dialogue.places.dominion.zaranixHome.ZaranixHomeFi
 import com.lilithsthrone.game.dialogue.places.dominion.zaranixHome.ZaranixHomeGroundFloor;
 import com.lilithsthrone.game.dialogue.places.dominion.zaranixHome.ZaranixHomeGroundFloorRepeat;
 import com.lilithsthrone.game.dialogue.places.submission.BatCaverns;
+import com.lilithsthrone.game.dialogue.places.submission.GamblingDenDialogue;
+import com.lilithsthrone.game.dialogue.places.submission.SlimeQueensLair;
 import com.lilithsthrone.game.dialogue.places.submission.SubmissionGenericPlaces;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
+import com.lilithsthrone.game.inventory.item.AbstractItemType;
+import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.BaseColour;
 import com.lilithsthrone.utils.Bearing;
@@ -879,7 +883,7 @@ public enum PlaceType {
 	SHOPPING_ARCADE_SUPPLIER_DEPOT("Supplier Depot", "dominion/shoppingArcade/supplierDepot", BaseColour.CRIMSON, Colour.MAP_BACKGROUND, SupplierDepot.EXTERIOR, null, false, true, true, "in the supplier depot") {
 		@Override
 		public BaseColour getColour() {
-			if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_NYAN_HELP)) {
+			if(Main.game.getPlayer().isQuestCompleted(QuestLine.RELATIONSHIP_NYAN_HELP)) {
 				return BaseColour.GREEN;
 			} else {
 				return BaseColour.CRIMSON;
@@ -887,7 +891,7 @@ public enum PlaceType {
 		}
 		@Override
 		public String getSVGString(Set<PlaceUpgrade> upgrades) {
-			if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_NYAN_HELP)) {
+			if(Main.game.getPlayer().isQuestCompleted(QuestLine.RELATIONSHIP_NYAN_HELP)) {
 				return PlaceType.getSVGOverride("dominion/shoppingArcade/supplierDepot", Colour.BASE_GREEN);
 			} else {
 				return SVGString;
@@ -908,11 +912,11 @@ public enum PlaceType {
 	SUPPLIER_DEPOT_ENTRANCE("Reception Area", "dominion/shoppingArcade/exit", BaseColour.GREY, Colour.MAP_BACKGROUND, SupplierDepot.SUPPLIER_DEPOT_RECEPTION, null, false, true, false, "in the supplier depot") {
 		@Override
 		public boolean isPopulated() {
-			return Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_NYAN_HELP);
+			return Main.game.getPlayer().isQuestCompleted(QuestLine.RELATIONSHIP_NYAN_HELP);
 		}
 		@Override
 		public String getSVGString(Set<PlaceUpgrade> upgrades) {
-			if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_NYAN_HELP)) {
+			if(Main.game.getPlayer().isQuestCompleted(QuestLine.RELATIONSHIP_NYAN_HELP)) {
 				return PlaceType.getSVGOverride("dominion/shoppingArcade/exit", Colour.BASE_GREEN);
 			} else {
 				return SVGString;
@@ -925,7 +929,7 @@ public enum PlaceType {
 	SUPPLIER_DEPOT_OFFICE("Office", "dominion/shoppingArcade/supplierOffice", BaseColour.CRIMSON, Colour.MAP_BACKGROUND, SupplierDepot.SUPPLIER_DEPOT_OFFICE, null, true, true, false, "in the supplier depot") {
 		@Override
 		public boolean isDangerous() {
-			return !Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_NYAN_HELP);
+			return !Main.game.getPlayer().isQuestCompleted(QuestLine.RELATIONSHIP_NYAN_HELP);
 		}
 		@Override
 		public DialogueNodeOld getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
@@ -1039,7 +1043,69 @@ public enum PlaceType {
 	BAT_CAVERN_RIVER("Underground River", "submission/batCaverns/cavernRiver", BaseColour.BLUE, Colour.MAP_BACKGROUND, BatCaverns.RIVER, Encounter.BAT_CAVERN, true, true, true, "in the Bat Caverns"),
 	BAT_CAVERN_RIVER_CROSSING("Mushroom Bridge", "submission/batCaverns/cavernBridge", BaseColour.TEAL, Colour.MAP_BACKGROUND, BatCaverns.RIVER_BRIDGE, Encounter.BAT_CAVERN, true, true, true, "in the Bat Caverns"),
 	BAT_CAVERN_RIVER_END("Underground River End", "submission/batCaverns/cavernRiverEnd", BaseColour.BLUE_DARK, Colour.MAP_BACKGROUND, BatCaverns.RIVER_END, Encounter.BAT_CAVERN, true, true, true, "in the Bat Caverns"),
-	BAT_CAVERN_SLIME_QUEEN_LAIR("Slime Lake", "submission/batCaverns/cavernLake", BaseColour.PINK_LIGHT, Colour.MAP_BACKGROUND, BatCaverns.SLIME_LAKE, Encounter.BAT_CAVERN, true, true, true, "beside Slime Lake");
+	BAT_CAVERN_SLIME_QUEEN_LAIR("Slime Lake", "submission/batCaverns/cavernLake", BaseColour.PINK_LIGHT, Colour.MAP_BACKGROUND, BatCaverns.SLIME_LAKE, Encounter.BAT_CAVERN, true, true, true, "beside Slime Lake"),
+	
+
+	SLIME_QUEENS_LAIR_CORRIDOR("Corridor", null, null, Colour.MAP_BACKGROUND, SlimeQueensLair.CORRIDOR, null, false, true, true, "in the Slime Queen's tower"),
+	SLIME_QUEENS_LAIR_ENTRANCE("Entrance Hall", "submission/slimeQueensLair/entranceHall", BaseColour.RED, Colour.MAP_BACKGROUND, SlimeQueensLair.ENTRANCE, null, false, true, true, "in the Slime Queen's tower"),
+	SLIME_QUEENS_LAIR_STAIRS_UP("Spiral Staircase", "submission/slimeQueensLair/staircase", BaseColour.GREEN, Colour.MAP_BACKGROUND, SlimeQueensLair.STAIRCASE_UP, null, false, true, true, "in the Slime Queen's tower"),
+	SLIME_QUEENS_LAIR_STAIRS_DOWN("Spiral Staircase", "submission/slimeQueensLair/staircase", BaseColour.RED, Colour.MAP_BACKGROUND, SlimeQueensLair.STAIRCASE_DOWN, null, false, true, true, "in the Slime Queen's tower"),
+	SLIME_QUEENS_LAIR_ROOM("Bedroom", "submission/slimeQueensLair/room", BaseColour.BLUE_LIGHT, Colour.MAP_BACKGROUND, SlimeQueensLair.ROOM, null, false, true, true, "in the Slime Queen's tower"),
+	SLIME_QUEENS_LAIR_STORAGE_VATS("Distillery", "submission/slimeQueensLair/storageVats", BaseColour.ORANGE, Colour.MAP_BACKGROUND, SlimeQueensLair.STORAGE_VATS, null, false, true, false, "in the Slime Queen's tower") {
+		@Override
+		public void applyInventoryInit(CharacterInventory inventory) {
+			for(int i=0; i<15; i++) {
+				inventory.addItem(AbstractItemType.generateItem(ItemType.SEX_INGREDIENT_SLIME_QUENCHER));
+			}
+			for(int i=0; i<5; i++) {
+				inventory.addItem(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_SLIME));
+			}
+		}
+	},
+	SLIME_QUEENS_LAIR_ENTRANCE_GUARDS("Guard Post", "submission/slimeQueensLair/guards", BaseColour.RED, Colour.MAP_BACKGROUND, SlimeQueensLair.GUARD_POST, null, true, true, true, "in the Slime Queen's tower"),
+	SLIME_QUEENS_LAIR_ROYAL_GUARD("Royal Guard Post", "submission/slimeQueensLair/royalGuards", BaseColour.PURPLE, Colour.MAP_BACKGROUND, SlimeQueensLair.ROYAL_GUARD_POST, null, true, true, true, "in the Slime Queen's tower"),
+	SLIME_QUEENS_LAIR_SLIME_QUEEN("Bed Chamber", "submission/slimeQueensLair/bedChamber", BaseColour.PINK, Colour.MAP_BACKGROUND, SlimeQueensLair.BED_CHAMBER, null, false, true, true, "in the Slime Queen's tower"),
+	
+	
+	// Gambling Den:
+	
+	GAMBLING_DEN_CORRIDOR("Gambling Den", null, BaseColour.BLACK, Colour.MAP_BACKGROUND, GamblingDenDialogue.CORRIDOR, null, false, true, true, "in the Gambling Den") {
+		@Override
+		public List<Subspecies> getSpeciesPopulatingArea() {
+			return Subspecies.getWorldSpecies().get(WorldType.SUBMISSION);
+		}
+	},
+
+	GAMBLING_DEN_ENTRANCE("Entrance", "submission/gamblingDen/entrance", BaseColour.GREEN, Colour.MAP_BACKGROUND, GamblingDenDialogue.ENTRANCE, null, false, true, true, "in the Gambling Den") {
+		@Override
+		public List<Subspecies> getSpeciesPopulatingArea() {
+			return Subspecies.getWorldSpecies().get(WorldType.SUBMISSION);
+		}
+	},
+	
+	GAMBLING_DEN_TRADER("Trader", "submission/gamblingDen/trader", BaseColour.TEAL, Colour.MAP_BACKGROUND, GamblingDenDialogue.TRADER, null, false, true, true, "in the Gambling Den"),
+	GAMBLING_DEN_GAMBLING("Dice Poker Tables", "submission/gamblingDen/gambling", BaseColour.GOLD, Colour.MAP_BACKGROUND, GamblingDenDialogue.GAMBLING, null, false, true, true, "in the Gambling Den") {
+		@Override
+		public List<Subspecies> getSpeciesPopulatingArea() {
+			return Subspecies.getWorldSpecies().get(WorldType.SUBMISSION);
+		}
+	},
+	GAMBLING_DEN_PREGNANCY_ROULETTE("Pregnancy Roulette", "submission/gamblingDen/referee", BaseColour.ROSE, Colour.MAP_BACKGROUND, GamblingDenDialogue.PREGNANCY_ROULETTE, null, false, true, true, "in the Gambling Den"),
+	GAMBLING_DEN_PREGNANCY("Breeding Stalls", "submission/gamblingDen/normalPregnancy", BaseColour.PINK_LIGHT, Colour.MAP_BACKGROUND, GamblingDenDialogue.PREGNANCY_ROULETTE_MALE_STALLS, null, false, true, true, "in the Gambling Den") {
+		@Override
+		public List<Subspecies> getSpeciesPopulatingArea() {
+			return Subspecies.getWorldSpecies().get(WorldType.SUBMISSION);
+		}
+	},
+	GAMBLING_DEN_FUTA_PREGNANCY("Futa Breeding Stalls", "submission/gamblingDen/futaPregnancy", BaseColour.PINK, Colour.MAP_BACKGROUND, GamblingDenDialogue.PREGNANCY_ROULETTE_FUTA_STALLS, null, false, true, true, "in the Gambling Den") {
+		@Override
+		public List<Subspecies> getSpeciesPopulatingArea() {
+			return Subspecies.getWorldSpecies().get(WorldType.SUBMISSION);
+		}
+	},
+	
+	
+	;
 
 	
 	private String name;

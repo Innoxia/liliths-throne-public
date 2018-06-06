@@ -377,7 +377,7 @@ public enum SlaveJob {
 		if(character.getOwner().hasTrait(Perk.JOB_OFFICE_WORKER, true)) {
 			return (int) (1.25f * value);
 		} else if((character.getOwner().hasTrait(Perk.JOB_MAID, true) || character.getOwner().hasTrait(Perk.JOB_BUTLER, true)) && this==SlaveJob.CLEANING) {
-			return (int) (2 * value);
+			return 2 * value;
 		}
 		
 		return value;
@@ -406,7 +406,7 @@ public enum SlaveJob {
 		if(character.getOwner().hasTrait(Perk.JOB_OFFICE_WORKER, true)) {
 			return (int) (1.25f * value);
 		} else if((character.getOwner().hasTrait(Perk.JOB_MAID, true) || character.getOwner().hasTrait(Perk.JOB_BUTLER, true)) && this==SlaveJob.CLEANING) {
-			return (int) (2 * value);
+			return 2 * value;
 		}
 		
 		return value;

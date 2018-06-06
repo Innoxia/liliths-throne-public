@@ -113,6 +113,8 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.fetishes.FetishLevel;
 import com.lilithsthrone.game.character.gender.Gender;
+import com.lilithsthrone.game.character.markings.Scar;
+import com.lilithsthrone.game.character.markings.Tattoo;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.Alexa;
 import com.lilithsthrone.game.character.npc.dominion.Cultist;
@@ -137,6 +139,7 @@ import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.PersonalityWeight;
 import com.lilithsthrone.game.character.persona.Relationship;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
+import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
@@ -251,6 +254,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	
 	// Inventory:
 	protected CharacterInventory inventory;
+	
+	private Map<InventorySlot, Scar> scars;
+	private Map<InventorySlot, Tattoo> tattoos;
 
 	
 	// Attributes, perks & status effects:
@@ -371,8 +377,6 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		this.setLocation(Main.game.getWorlds().get(worldLocation).getCell(startingPlace).getLocation());
 		homeLocation = location;
 		
-		history = History.UNEMPLOYED;
-		
 		// Set up personality:
 		personality = new HashMap<>();
 		for(Entry<PersonalityTrait, PersonalityWeight> entry : startingRace.getPersonality().entrySet()) {
@@ -432,6 +436,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		} else {
 			this.inventory = inventory;
 		}
+		
+		scars = new HashMap<>();
+		tattoos = new HashMap<>();
 		
 		attributes = new EnumMap<>(Attribute.class);
 		bonusAttributes = new EnumMap<>(Attribute.class);
@@ -496,6 +503,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			attributes.put(a, (float) a.getBaseValue());
 			bonusAttributes.put(a, 0f);
 		}
+		
+		setHistory(History.UNEMPLOYED);
 		// Set starting attributes based on the character's race
 		for (Attribute a : startingRace.getAttributeModifiers().keySet()) {
 			attributes.put(a, startingRace.getAttributeModifiers().get(a).getMinimum() + startingRace.getAttributeModifiers().get(a).getRandomVariance());
@@ -629,6 +638,30 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		this.inventory.saveAsXML(properties, doc);
 		
 		
+
+		// ************** Markings **************//
+		
+		Element scarsElement = doc.createElement("scars");
+		properties.appendChild(scarsElement);
+		for(Entry<InventorySlot, Scar> scar : this.scars.entrySet()) {
+			Element element = doc.createElement("scarEntry");
+			scarsElement.appendChild(element);
+
+			CharacterUtils.addAttribute(doc, element, "slot", scar.getKey().toString());
+			scar.getValue().saveAsXML(element, doc);
+		}
+		
+		Element tattooElement = doc.createElement("tattoos");
+		properties.appendChild(tattooElement);
+		for(Entry<InventorySlot, Tattoo> tattoo : this.tattoos.entrySet()) {
+			Element element = doc.createElement("tattooEntry");
+			tattooElement.appendChild(element);
+
+			CharacterUtils.addAttribute(doc, element, "slot", tattoo.getKey().toString());
+			tattoo.getValue().saveAsXML(element, doc);
+		}
+		
+		//TODO tattoos
 		
 		// ************** Attributes **************//
 		
@@ -1006,7 +1039,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	public static void loadGameCharacterVariablesFromXML(GameCharacter character, StringBuilder log, Element parentElement, Document doc, CharacterImportSetting... settings) {
 
 		boolean noPregnancy = Arrays.asList(settings).contains(CharacterImportSetting.NO_PREGNANCY);
-		
+		boolean noCompanions = Arrays.asList(settings).contains(CharacterImportSetting.NO_COMPANIONS);
+		boolean noElemental = Arrays.asList(settings).contains(CharacterImportSetting.NO_ELEMENTAL);
 		
 		// ************** Core information **************//
 		
@@ -1078,7 +1112,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				CharacterUtils.appendToImportLog(log, "</br>History import failed. Set history to: "+character.getHistory());
 			}
 		}
-		if(element.getElementsByTagName("elemental").getLength()!=0) {
+		if(!noElemental && element.getElementsByTagName("elemental").getLength()!=0) {
 			character.setElementalID(((Element)element.getElementsByTagName("elemental").item(0)).getAttribute("value"));
 		}
 		
@@ -1176,7 +1210,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		if(knowsElement!=null) {
 			for(int i=0; i<knowsElement.getElementsByTagName("area").getLength(); i++){
 				Element e = ((Element)knowsElement.getElementsByTagName("area").item(i));
-
+				
 				try {
 					character.getPlayerKnowsAreas().add(CoverableArea.valueOf(e.getAttribute("type")));
 					CharacterUtils.appendToImportLog(log, "</br>Added knows area: "+CoverableArea.valueOf(e.getAttribute("type")).getName());
@@ -1360,6 +1394,31 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			CharacterCreation.getDressed(character, false);
 		}
 		
+
+		
+		// ************** Markings **************//
+		
+		nodes = parentElement.getElementsByTagName("scars");
+		Element scarsContainerElement = (Element) nodes.item(0);
+		if(scarsContainerElement!=null) {
+			for(int i=0; i<scarsContainerElement.getElementsByTagName("scarEntry").getLength(); i++){
+				Element e = ((Element)scarsContainerElement.getElementsByTagName("scarEntry").item(i));
+				
+				character.setScar(InventorySlot.valueOf(e.getAttribute("slot")), Scar.loadFromXML((Element) e.getElementsByTagName("scar").item(0), doc));
+			}
+		}
+		
+		nodes = parentElement.getElementsByTagName("tattoos");
+		Element tattoosContainerElement = (Element) nodes.item(0);
+		if(tattoosContainerElement!=null) {
+			for(int i=0; i<tattoosContainerElement.getElementsByTagName("tattooEntry").getLength(); i++){
+				Element e = ((Element)tattoosContainerElement.getElementsByTagName("tattooEntry").item(i));
+				
+				character.addTattoo(InventorySlot.valueOf(e.getAttribute("slot")), Tattoo.loadFromXML((Element) e.getElementsByTagName("tattoo").item(0), doc));
+			}
+		}
+		
+		//TODO
 		
 		
 		// ************** Attributes **************//
@@ -1698,24 +1757,26 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		
 		// ************** Companions **************//
 		
-		nodes = parentElement.getElementsByTagName("companions");
-		Element companionsElement = (Element) nodes.item(0);
-		if(companionsElement!=null) {
-			
-			for(int i=0; i<((Element) companionsElement.getElementsByTagName("companionsFollowing").item(0)).getElementsByTagName("companion").getLength(); i++){
-				Element e = ((Element)companionsElement.getElementsByTagName("companion").item(i));
+		if(!noCompanions) {
+			nodes = parentElement.getElementsByTagName("companions");
+			Element companionsElement = (Element) nodes.item(0);
+			if(companionsElement!=null) {
 				
-				if(!e.getAttribute("id").equals("NOT_SET")) {
-					character.getCompanionsId().add(e.getAttribute("id"));
-					CharacterUtils.appendToImportLog(log, "</br>Added companion: "+e.getAttribute("id"));
+				for(int i=0; i<((Element) companionsElement.getElementsByTagName("companionsFollowing").item(0)).getElementsByTagName("companion").getLength(); i++){
+					Element e = ((Element)companionsElement.getElementsByTagName("companion").item(i));
+					
+					if(!e.getAttribute("id").equals("NOT_SET")) {
+						character.getCompanionsId().add(e.getAttribute("id"));
+						CharacterUtils.appendToImportLog(log, "</br>Added companion: "+e.getAttribute("id"));
+					}
 				}
+				
+				character.setPartyLeader(((Element)companionsElement.getElementsByTagName("partyLeader").item(0)).getAttribute("value"));
+				CharacterUtils.appendToImportLog(log, "</br>Set party leader: "+((Element)companionsElement.getElementsByTagName("partyLeader").item(0)).getAttribute("value"));
+				
+				character.setMaxCompanions(Integer.valueOf(((Element)companionsElement.getElementsByTagName("maxCompanions").item(0)).getAttribute("value")));
+				CharacterUtils.appendToImportLog(log, "</br>Set max companions: "+String.valueOf(character.getMaxCompanions()));
 			}
-			
-			character.setPartyLeader(((Element)companionsElement.getElementsByTagName("partyLeader").item(0)).getAttribute("value"));
-			CharacterUtils.appendToImportLog(log, "</br>Set party leader: "+((Element)companionsElement.getElementsByTagName("partyLeader").item(0)).getAttribute("value"));
-			
-			character.setMaxCompanions(Integer.valueOf(((Element)companionsElement.getElementsByTagName("maxCompanions").item(0)).getAttribute("value")));
-			CharacterUtils.appendToImportLog(log, "</br>Set max companions: "+String.valueOf(character.getMaxCompanions()));
 		}
 		
 		
@@ -2321,6 +2382,121 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 
 		postTransformationCalculation();
 	}
+	
+	/**
+	 * Sets this character's body based on the preferences stored in the properties.xml file.
+	 * @param gender
+	 * @param subspeciesMap
+	 */
+	public void setBodyFromSubspeciesPreference(Gender gender, Map<Subspecies, Integer> subspeciesMap) {
+		double humanChance = 0;
+		
+		if(Main.getProperties().humanEncountersLevel==1) {
+			humanChance = 0.05f;
+			
+		} else if(Main.getProperties().humanEncountersLevel==2) {
+			humanChance = 0.25f;
+			
+		} else if(Main.getProperties().humanEncountersLevel==3) {
+			humanChance = 0.5f;
+			
+		} else if(Main.getProperties().humanEncountersLevel==4) {
+			humanChance = 0.75f;
+		}
+		
+		if(gender.isFeminine()) {
+			for(Entry<Subspecies, FurryPreference> entry : Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().entrySet()) {
+				if(entry.getValue() == FurryPreference.HUMAN) {
+					subspeciesMap.remove(entry.getKey());
+				}
+			}
+		} else {
+			for(Entry<Subspecies, FurryPreference> entry : Main.getProperties().getSubspeciesMasculineFurryPreferencesMap().entrySet()) {
+				if(entry.getValue() == FurryPreference.HUMAN) {
+					subspeciesMap.remove(entry.getKey());
+				}
+			}
+		}
+		
+		int total = 0;
+		for(Integer i : subspeciesMap.values()) {
+			total += i;
+		}
+		
+		if(subspeciesMap.isEmpty() || total==0 || Math.random()<humanChance) {
+			setBody(gender, RacialBody.HUMAN, RaceStage.HUMAN);
+			
+		} else {
+			Subspecies species = Util.getRandomObjectFromWeightedMap(subspeciesMap);
+			
+			if(gender.isFeminine()) {
+				switch(Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(species)) {
+					case HUMAN:
+						setBody(gender, RacialBody.HUMAN, RaceStage.HUMAN);
+						break;
+					case MINIMUM:
+						setBodyFromPreferences(1, gender, species);
+						break;
+					case REDUCED:
+						setBodyFromPreferences(2, gender, species);
+						break;
+					case NORMAL:
+						setBodyFromPreferences(3, gender, species);
+						break;
+					case MAXIMUM:
+						setBody(gender, species, RaceStage.GREATER);
+						break;
+				}
+			} else {
+				switch(Main.getProperties().getSubspeciesMasculineFurryPreferencesMap().get(species)) {
+					case HUMAN:
+						setBody(gender, RacialBody.HUMAN, RaceStage.HUMAN);
+						break;
+					case MINIMUM:
+						setBodyFromPreferences(1, gender, species);
+						break;
+					case REDUCED:
+						setBodyFromPreferences(2, gender, species);
+						break;
+					case NORMAL:
+						setBodyFromPreferences(3, gender, species);
+						break;
+					case MAXIMUM:
+						setBody(gender, species, RaceStage.GREATER);
+						break;
+				}
+			}
+		}
+	}
+	
+	protected void addToSubspeciesMap(int weight, Gender gender, Subspecies subspecies, Map<Subspecies, Integer> map) {
+		if(gender.isFeminine()) {
+			if(Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(subspecies)!=FurryPreference.HUMAN
+					&& Main.getProperties().getSubspeciesFemininePreferencesMap().get(subspecies).getValue()>0) {
+				map.put(subspecies, weight*Main.getProperties().getSubspeciesFemininePreferencesMap().get(subspecies).getValue());
+			}
+		} else {
+			if(Main.getProperties().getSubspeciesMasculineFurryPreferencesMap().get(subspecies)!=FurryPreference.HUMAN
+					&& Main.getProperties().getSubspeciesMasculinePreferencesMap().get(subspecies).getValue()>0) {
+				map.put(subspecies, weight*Main.getProperties().getSubspeciesMasculinePreferencesMap().get(subspecies).getValue());
+			}
+		}
+	}
+	
+	protected void setBodyFromPreferences(int i, Gender gender, Subspecies species) {
+		int choice = Util.random.nextInt(i)+1;
+		RaceStage raceStage = RaceStage.PARTIAL;
+		
+		if (choice == 1) {
+			raceStage = RaceStage.PARTIAL;
+		} else if (choice == 2) {
+			raceStage = RaceStage.LESSER;
+		} else {
+			raceStage = RaceStage.GREATER;
+		}
+		
+		setBody(gender, species, raceStage);
+	}
 
 	public Gender getGenderIdentity() {
 		return genderIdentity;
@@ -2332,7 +2508,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 
 	public String getName() {
 		if(this.isSlave()) {
-			if(this.getOwner().isPlayer()) {
+			if(this.getOwner() != null && this.getOwner().isPlayer()) {
 				playerKnowsName = true;
 			}
 		}
@@ -2403,7 +2579,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 
 	public String getDescription() {
-		return description;
+		return UtilText.parse(this, description);
 	}
 
 	public void setDescription(String description) {
@@ -2419,12 +2595,15 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	 */
 	public void setHistory(History history) {
 		// Revert attributes from old History:
-		if(this.history.getAssociatedPerk()!=null && this.isPlayer()) {
-			for (Attribute att : this.history.getAssociatedPerk().getAttributeModifiers().keySet()) {
-				incrementBonusAttribute(att, -this.history.getAssociatedPerk().getAttributeModifiers().get(att));
+		if (this.history != null) {
+			if(this.history.getAssociatedPerk()!=null && this.isPlayer()) {
+				for (Attribute att : this.history.getAssociatedPerk().getAttributeModifiers().keySet()) {
+					incrementBonusAttribute(att, -this.history.getAssociatedPerk().getAttributeModifiers().get(att));
+				}
 			}
+			this.history.revertExtraEffects(this);
 		}
-		this.history.revertExtraEffects(this);
+		
 
 		// Implement attributes from new History:
 		if(history.getAssociatedPerk()!=null && this.isPlayer()) {
@@ -2459,6 +2638,35 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		this.sexualOrientation = sexualOrientation;
 	}
 
+	public boolean isAttractedTo(GameCharacter character) {
+		if(hasStatusEffect(StatusEffect.WEATHER_STORM_VULNERABLE)) { // If they're vulnerable to arcane storms, they will always be eager during a storm:
+			return true;
+		}
+		
+		if((getSexualOrientation()==SexualOrientation.ANDROPHILIC && character.isFeminine())
+				|| (getSexualOrientation()==SexualOrientation.GYNEPHILIC && !character.isFeminine())
+				) {
+			return false;
+		}
+		
+		if(this.isRelatedTo(character)) {
+			if (!hasFetish(Fetish.FETISH_INCEST)) {
+				return false;
+			}
+		}
+		
+		return true;
+	}
+	
+	public boolean isAttractedTo(Gender gender) {
+		if((getSexualOrientation()==SexualOrientation.ANDROPHILIC && gender.isFeminine())
+				|| (getSexualOrientation()==SexualOrientation.GYNEPHILIC && !gender.isFeminine())
+				) {
+			return false;
+		}
+		
+		return true;
+	}
 	
 	// Obedience:
 	
@@ -2940,6 +3148,10 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		return (Elemental) Main.game.getNPCById(elementalID);
 	}
 	
+	public boolean isElementalSummoned() {
+		return this.getCompanions().contains(this.getElemental());
+	}
+	
 	/**
 	 * Adds a companion character, if possible. Removes character from a previous party.</br>
 	 * Should be preceded by a canHaveMoreCompanions() check.
@@ -2947,7 +3159,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	 * @return
 	 */
 	public boolean addCompanion(GameCharacter character) {
-		if(!character.isPlayer() && getPartyLeader() == null) {
+		if(!character.isPlayer() && (getPartyLeader() == null || character instanceof Elemental)) {
 			if(character.getPartyLeader() != null) {
 				character.getPartyLeader().removeCompanion(character);
 			}
@@ -2965,6 +3177,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	 */
 	public void removeCompanion(GameCharacter character) {
 		if(this.companions != null) {
+			if(character.isElementalSummoned()) {
+				character.removeCompanion(character.getElemental());
+			}
 			character.setPartyLeader("");
 			this.companions.remove(character.getId());
 		}
@@ -3141,6 +3356,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				}
 				break;
 			case SUPPLIER_DEN:
+			case SLIME_QUEENS_LAIR_GROUND_FLOOR:
+			case SLIME_QUEENS_LAIR_FIRST_FLOOR:
+			case GAMBLING_DEN:
 				return "This isn't a suitable place to be having sex with [npc.name]!";
 			case ZARANIX_HOUSE_FIRST_FLOOR:
 			case ZARANIX_HOUSE_GROUND_FLOOR:
@@ -3257,10 +3475,11 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		}
 		
 		if(this.isPlayer()) {
-			return "You gained <b style='color:" + Colour.GENERIC_EXPERIENCE.toWebHexString() + ";'>" + xpIncrement + " xp</b>!";
-			
+			return "<div class='container-full-width' style='text-align:center;'>You [style.colourGood(gained)] <b style='color:" + Colour.GENERIC_EXPERIENCE.toWebHexString() + ";'>" + xpIncrement + " xp</b>!</div>";
+
 		} else {
-			return (UtilText.parse(this, "[npc.Name] gained <b style='color:" + Colour.GENERIC_EXPERIENCE.toWebHexString() + ";'>" + xpIncrement + " xp</b>!"));
+			return "<div class='container-full-width' style='text-align:center;'>"+UtilText.parse(this, "[npc.Name]")
+				+" [style.colourGood(gained)] <b style='color:" + Colour.GENERIC_EXPERIENCE.toWebHexString() + ";'>" + xpIncrement + " xp</b>!</div>";
 		}
 	}
 
@@ -3890,6 +4109,21 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			}
 		}
 		
+		// Tattoo effects:
+		for(Tattoo tattoo : tattoos.values()) {
+			for(ItemEffect ie : tattoo.getEffects()) {
+				if(this.isPlayer()) {
+					String tattooEffectDescription = ie.applyEffect(this, this, turnTime);
+					if(!tattooEffectDescription.isEmpty()) {
+						statusEffectDescriptions.putIfAbsent(StatusEffect.CLOTHING_EFFECT, "");
+						statusEffectDescriptions.put(StatusEffect.CLOTHING_EFFECT, statusEffectDescriptions.get(StatusEffect.CLOTHING_EFFECT) + tattooEffectDescription);
+					}
+				} else {
+					ie.applyEffect(this, this, turnTime);
+				}
+			}
+		}
+		
 		updateAttributeListeners();
 	}
 	
@@ -4289,6 +4523,21 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	public int getCumCount(SexType sexType) {
 		cumCountMap.putIfAbsent(sexType, 0);
 		return cumCountMap.get(sexType);
+	}
+	public int getTotalCumCount(boolean includeGiven, boolean includeTaken) {
+		int total = 0;
+		for(Entry<SexType, Integer> count : cumCountMap.entrySet()) {
+			if(count.getKey().getAsParticipant().isUsingSelfPenetrationType()) {
+				if(includeGiven) {
+					total+=count.getValue();
+				}
+			} else {
+				if(includeTaken) {
+					total+=count.getValue();
+				}
+			}
+		}
+		return total;
 	}
 
 	// Virginity:
@@ -7800,50 +8049,71 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				break;
 		}
 		
+		String penetrationDescription = UtilText.returnStringAtRandom(
+				"in and out of",
+				"deep into");
+		
+		switch(orifice) {
+			case ASS:
+			case BREAST:
+			case THIGHS:
+				penetrationDescription = UtilText.returnStringAtRandom(
+						"between",
+						"in and out of");
+				break;
+			case ANUS:
+			case MOUTH:
+			case NIPPLE:
+			case URETHRA_PENIS:
+			case URETHRA_VAGINA:
+			case VAGINA:
+				break;
+		}
+		
 		// PC penetrating NPC:
 		if(characterPenetrating.isPlayer() && !characterPenetrated.isPlayer()) {
 			return UtilText.parse(characterPenetrating, characterPenetrated,
 					UtilText.returnStringAtRandom(
-					penetratedPrefix+" as you "+penetratingQualifier+" "+penetratingAction+" your "+penetratorName+" in and out of [npc2.her] "+orificeName+".",
-					penetratedPrefix+" as you "+penetratingQualifier+" "+penetratingAction+" your "+penetratorName+" deep into [npc2.her] "+orificeName+".",
-					"You "+penetratingQualifier+" "+penetratingAction+" your "+penetratorName+" deep into [npc2.name]'s "+orificeName+", "+penetratedPostfix+".",
-					"You "+penetratingQualifier+" "+penetratingAction+" your "+penetratorName+" in and out of [npc2.name]'s "+orificeName+", "+penetratedPostfix+"."));
+					penetratedPrefix+" as you "+penetratingQualifier+" "+penetratingAction+" your "+penetratorName+" "+penetrationDescription+" [npc2.her] "+orificeName+".",
+					penetratedPrefix+" as you "+penetratingQualifier+" "+penetratingAction+" your "+penetratorName+" "+penetrationDescription+" [npc2.her] "+orificeName+".",
+					"You "+penetratingQualifier+" "+penetratingAction+" your "+penetratorName+" "+penetrationDescription+" [npc2.name]'s "+orificeName+", "+penetratedPostfix+".",
+					"You "+penetratingQualifier+" "+penetratingAction+" your "+penetratorName+" "+penetrationDescription+" [npc2.name]'s "+orificeName+", "+penetratedPostfix+"."));
 			
 		// NPC penetrating PC:
 		} else if(!characterPenetrating.isPlayer() && characterPenetrated.isPlayer()) {
 			return UtilText.parse(characterPenetrating, characterPenetrated,
 					UtilText.returnStringAtRandom(
-					penetratingPrefix+" as [npc.she] "+penetratingQualifier+" "+penetratingAction+" [npc.her] "+penetratorName+" in and out of your "+orificeName+".",
-					penetratingPrefix+" as [npc.she] "+penetratingQualifier+" "+penetratingAction+" [npc.her] "+penetratorName+" deep into your "+orificeName+".",
-					"[npc.Name] "+penetratingQualifier+" "+penetratingAction+" [npc.her] "+penetratorName+" deep into your "+orificeName+", "+penetratedPostfix+".",
-					"[npc.Name] "+penetratingQualifier+" "+penetratingAction+" [npc.her] "+penetratorName+" in and out of your "+orificeName+", "+penetratedPostfix+"."));
+					penetratingPrefix+" as [npc.she] "+penetratingQualifier+" "+penetratingAction+" [npc.her] "+penetratorName+" "+penetrationDescription+" your "+orificeName+".",
+					penetratingPrefix+" as [npc.she] "+penetratingQualifier+" "+penetratingAction+" [npc.her] "+penetratorName+" "+penetrationDescription+" your "+orificeName+".",
+					"[npc.Name] "+penetratingQualifier+" "+penetratingAction+" [npc.her] "+penetratorName+" "+penetrationDescription+" your "+orificeName+", "+penetratedPostfix+".",
+					"[npc.Name] "+penetratingQualifier+" "+penetratingAction+" [npc.her] "+penetratorName+" "+penetrationDescription+" your "+orificeName+", "+penetratedPostfix+"."));
 			
 		// NPC penetrating other NPC:
 		} else if(!characterPenetrating.isPlayer() && !characterPenetrated.isPlayer() && !characterPenetrating.equals(characterPenetrated)) {
 			return UtilText.parse(characterPenetrating, characterPenetrated,
 					UtilText.returnStringAtRandom(
-					penetratingPrefix+" as [npc.she] "+penetratingQualifier+" "+penetratingAction+" [npc.her] "+penetratorName+" in and out of [npc2.name]'s "+orificeName+".",
-					penetratingPrefix+" as [npc.she] "+penetratingQualifier+" "+penetratingAction+" [npc.her] "+penetratorName+" deep into [npc2.name]'s "+orificeName+".",
-					"[npc.Name]"+penetratingQualifier+" "+penetratingAction+" [npc.her] "+penetratorName+" deep into [npc2.name]'s "+orificeName+", "+penetratedPostfix+".",
-					"[npc.Name]"+penetratingQualifier+" "+penetratingAction+" [npc.her] "+penetratorName+" in and out of [npc2.name]'s "+orificeName+", "+penetratedPostfix+"."));
+					penetratingPrefix+" as [npc.she] "+penetratingQualifier+" "+penetratingAction+" [npc.her] "+penetratorName+" "+penetrationDescription+" [npc2.name]'s "+orificeName+".",
+					penetratingPrefix+" as [npc.she] "+penetratingQualifier+" "+penetratingAction+" [npc.her] "+penetratorName+" "+penetrationDescription+" [npc2.name]'s "+orificeName+".",
+					"[npc.Name]"+penetratingQualifier+" "+penetratingAction+" [npc.her] "+penetratorName+" "+penetrationDescription+" [npc2.name]'s "+orificeName+", "+penetratedPostfix+".",
+					"[npc.Name]"+penetratingQualifier+" "+penetratingAction+" [npc.her] "+penetratorName+" "+penetrationDescription+" [npc2.name]'s "+orificeName+", "+penetratedPostfix+"."));
 			
 		// PC self-penetrating:
 		} else if(characterPenetrating.isPlayer() && characterPenetrating.equals(characterPenetrated)) {
 			return UtilText.parse(characterPenetrating, characterPenetrated,
 					UtilText.returnStringAtRandom(
-					penetratedPrefix+" as you "+penetratingQualifier+" "+penetratingAction+" your "+penetratorName+" in and out of your "+orificeName+".",
-					penetratedPrefix+" as you "+penetratingQualifier+" "+penetratingAction+" your "+penetratorName+" deep into your "+orificeName+".",
-					"You "+penetratingQualifier+" "+penetratingAction+" your "+penetratorName+" deep into your "+orificeName+", "+penetratedPostfix+".",
-					"You "+penetratingQualifier+" "+penetratingAction+" your "+penetratorName+" in and out of your "+orificeName+", "+penetratedPostfix+"."));
+					penetratedPrefix+" as you "+penetratingQualifier+" "+penetratingAction+" your "+penetratorName+" "+penetrationDescription+" your "+orificeName+".",
+					penetratedPrefix+" as you "+penetratingQualifier+" "+penetratingAction+" your "+penetratorName+" "+penetrationDescription+" your "+orificeName+".",
+					"You "+penetratingQualifier+" "+penetratingAction+" your "+penetratorName+" "+penetrationDescription+" your "+orificeName+", "+penetratedPostfix+".",
+					"You "+penetratingQualifier+" "+penetratingAction+" your "+penetratorName+" "+penetrationDescription+" your "+orificeName+", "+penetratedPostfix+"."));
 			
 		// NPC self-penetrating:
 		} else {
 			return UtilText.parse(characterPenetrating, characterPenetrated,
 					UtilText.returnStringAtRandom(
-					penetratedPrefix+" as [npc.she] "+penetratingQualifier+" "+penetratingAction+" [npc.her] "+penetratorName+" in and out of [npc.her] "+orificeName+".",
-					penetratedPrefix+" as [npc.she] "+penetratingQualifier+" "+penetratingAction+" [npc.her] "+penetratorName+" deep into [npc.her] "+orificeName+".",
-					"[npc.Name] "+penetratingQualifier+" "+penetratingAction+" [npc.her] "+penetratorName+" deep into [npc.her] "+orificeName+", "+penetratedPostfix+".",
-					"[npc.Name] "+penetratingQualifier+" "+penetratingAction+" [npc.her] "+penetratorName+" in and out of [npc.her] "+orificeName+", "+penetratedPostfix+"."));
+					penetratedPrefix+" as [npc.she] "+penetratingQualifier+" "+penetratingAction+" [npc.her] "+penetratorName+" "+penetrationDescription+" [npc.her] "+orificeName+".",
+					penetratedPrefix+" as [npc.she] "+penetratingQualifier+" "+penetratingAction+" [npc.her] "+penetratorName+" "+penetrationDescription+" [npc.her] "+orificeName+".",
+					"[npc.Name] "+penetratingQualifier+" "+penetratingAction+" [npc.her] "+penetratorName+" "+penetrationDescription+" [npc.her] "+orificeName+", "+penetratedPostfix+".",
+					"[npc.Name] "+penetratingQualifier+" "+penetratingAction+" [npc.her] "+penetratorName+" "+penetrationDescription+" [npc.her] "+orificeName+", "+penetratedPostfix+"."));
 		}
 		
 	}
@@ -7908,18 +8178,52 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			}
 		}
 		
+		String penetrationAdjective = "into";
+		
+		switch(orifice) {
+			case ASS:
+			case BREAST:
+			case THIGHS:
+				penetrationAdjective = "between";
+				break;
+			case ANUS:
+			case MOUTH:
+			case NIPPLE:
+			case URETHRA_PENIS:
+			case URETHRA_VAGINA:
+			case VAGINA:
+				break;
+		}
+		
 		if(characterPenetrating.isPlayer()) {
 			return "You let out [pc.a_moan+] as you"+penetrationAdverb+penetrationVerb+" your "
-					+penetrationType.getName(characterPenetrating)+" into "+(characterPenetrated.isPlayer()?"your ":"[npc.name]'s ")+orifice.getName(characterPenetrated)+".";
+					+penetrationType.getName(characterPenetrating)+" "+penetrationAdjective+" "+(characterPenetrated.isPlayer()?"your ":"[npc.name]'s ")+orifice.getName(characterPenetrated)+".";
 		} else {
 			return "[npc.Name] lets out [npc.a_moan+] as [npc.she]"+penetrationAdverb+penetrationVerb+" [npc.her] "
-					+penetrationType.getName(characterPenetrating)+" into "+(characterPenetrated.isPlayer()?"your ":"[npc.her] ")+orifice.getName(characterPenetrated)+".";
+					+penetrationType.getName(characterPenetrating)+" "+penetrationAdjective+" "+(characterPenetrated.isPlayer()?"your ":"[npc.her] ")+orifice.getName(characterPenetrated)+".";
 		}
 	}
 	
 	public String getPenetrationDescription(boolean initialPenetration, GameCharacter characterPenetrating, PenetrationType penetrationType, GameCharacter characterPenetrated, OrificeType orifice) {
 		List<String> initialDescriptions = new ArrayList<>();
-		if(orifice == OrificeType.ANUS) {
+		
+		if(orifice == OrificeType.ASS) {
+
+			if(initialPenetration) {
+				return getGenericInitialPenetration(characterPenetrating, penetrationType, characterPenetrated, orifice);
+			}
+			
+			return generateGenericPenetrationDescription(characterPenetrating, penetrationType, characterPenetrated, orifice);
+			
+		} else if(orifice == OrificeType.BREAST) {
+
+			if(initialPenetration) {
+				return getGenericInitialPenetration(characterPenetrating, penetrationType, characterPenetrated, orifice);
+			}
+			
+			return generateGenericPenetrationDescription(characterPenetrating, penetrationType, characterPenetrated, orifice);
+			
+		} else if(orifice == OrificeType.ANUS) {
 			if(characterPenetrated.isPlayer()) {
 				if(initialPenetration) {
 					switch(penetrationType) {
@@ -8296,6 +8600,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				return generateGenericPenetrationDescription(characterPenetrating, penetrationType, characterPenetrated, orifice);
 				
 			}
+			
 		} else if(orifice == OrificeType.THIGHS) {
 
 			if(initialPenetration) {
@@ -9791,6 +10096,10 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			pregnancyChance /= 2;
 		}
 		
+		if (!isAbleToBeImpregnated()) {
+			pregnancyChance = 0;
+		}
+		
 		if(pregnancyChance>1) {
 			pregnancyChance=1;
 		}
@@ -10120,7 +10429,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 	
 	public void setLocation(WorldType worldType, PlaceType placeType, boolean setAsHomeLocation) {
-		setLocation(worldType, Main.game.getWorlds().get(worldType).getCell(placeType).getLocation(), setAsHomeLocation);
+		setLocation(worldType, Main.game.getWorlds().get(worldType).getClosestCell(this.getLocation(), placeType).getLocation(), setAsHomeLocation);
 	}
 	
 	/**
@@ -10285,8 +10594,24 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		inventory.setMoney(money);
 	}
 	
-	public void incrementMoney(int money) {
+	public String incrementMoney(int money) {
+		int moneyLoss = Math.min(-money, this.getMoney());
+		
 		inventory.incrementMoney(money);
+		
+		if(this.isPlayer()) {
+			if(money>0) {
+				return "<div class='container-full-width' style='text-align:center;'>You [style.colourGood(gained)] " + UtilText.formatAsMoney(money) + "!</div>";
+			} else {
+				return "<div class='container-full-width' style='text-align:center;'>You [style.colourBad(lost)] " + UtilText.formatAsMoney(moneyLoss) + "!</div>";
+			}
+		} else {
+			if(money>0) {
+				return "<div class='container-full-width' style='text-align:center;'>"+UtilText.parse(this, "[npc.Name]")+" [style.colourGood(gained)] " + UtilText.formatAsMoney(money) + "!</div>";
+			} else {
+				return "<div class='container-full-width' style='text-align:center;'>"+UtilText.parse(this, "[npc.Name]")+" [style.colourBad(lost)] " + UtilText.formatAsMoney(moneyLoss) + "!</div>";
+			}
+		}
 	}
 	
 	// Essences:
@@ -11018,7 +11343,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			
 			updateInventoryListeners();
 			
-			if(!this.isPlayer()) {
+			if(!this.isPlayer() && Main.game.getCharactersPresent().contains(this)) {
 				for(CoverableArea ca : CoverableArea.values()) {
 					if(this.isCoverableAreaExposed(ca) && ca!=CoverableArea.MOUTH) {
 						this.getPlayerKnowsAreas().add(ca);
@@ -11097,8 +11422,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			}
 			
 			updateInventoryListeners();
-			
-			if(!this.isPlayer()) {
+
+			if(!this.isPlayer() && (Main.game.getCharactersPresent().contains(this) || (this.isSlave() && this.getOwner().isPlayer()))) {
 				for(CoverableArea ca : CoverableArea.values()) {
 					if(this.isCoverableAreaExposed(ca) && ca!=CoverableArea.MOUTH) {
 						this.getPlayerKnowsAreas().add(ca);
@@ -11180,10 +11505,12 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 					+"</p>"
 					+ droppedItemText(clothing);
 		}
-		
-		for(CoverableArea ca : CoverableArea.values()) {
-			if(this.isCoverableAreaExposed(ca) && ca!=CoverableArea.MOUTH) {
-				this.getPlayerKnowsAreas().add(ca);
+
+		if(!this.isPlayer() && (Main.game.getCharactersPresent().contains(this) || (this.isSlave() && this.getOwner().isPlayer()))) {
+			for(CoverableArea ca : CoverableArea.values()) {
+				if(this.isCoverableAreaExposed(ca) && ca!=CoverableArea.MOUTH) {
+					this.getPlayerKnowsAreas().add(ca);
+				}
 			}
 		}
 		
@@ -11226,6 +11553,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 	
 	public void forceUnequipClothingIntoVoid(GameCharacter characterRemovingClothing, AbstractClothing clothing) {
+		applyUnequipClothingEffects(clothing);
 		inventory.forceUnequipClothingIntoVoid(this, characterRemovingClothing, clothing);
 	}
 	
@@ -11250,10 +11578,12 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 					+ inventory.getEquipDescription()
 				+"</p>";
 		}
-		
-		for(CoverableArea ca : CoverableArea.values()) {
-			if(this.isCoverableAreaExposed(ca) && ca!=CoverableArea.MOUTH) {
-				this.getPlayerKnowsAreas().add(ca);
+
+		if(!this.isPlayer() && (Main.game.getCharactersPresent().contains(this) || (this.isSlave() && this.getOwner().isPlayer()))) {
+			for(CoverableArea ca : CoverableArea.values()) {
+				if(this.isCoverableAreaExposed(ca) && ca!=CoverableArea.MOUTH) {
+					this.getPlayerKnowsAreas().add(ca);
+				}
 			}
 		}
 		
@@ -11329,7 +11659,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			updateInventoryListeners();
 		}
 		
-		if(!this.isPlayer()) {
+		if(!this.isPlayer() && (Main.game.getCharactersPresent().contains(this) || (this.isSlave() && this.getOwner().isPlayer()))) {
 			for(CoverableArea ca : CoverableArea.values()) {
 				if(this.isCoverableAreaExposed(ca) && ca!=CoverableArea.MOUTH) {
 					this.getPlayerKnowsAreas().add(ca);
@@ -11475,19 +11805,14 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 
 	public boolean isOrificePlugged(OrificeType ot) {
-		for(AbstractClothing clothing : this.getClothingCurrentlyEquipped()) {
-			if(ot==OrificeType.ANUS && clothing.getItemTags().contains(ItemTag.PLUGS_ANUS)) {
-				return true;
-				
-			} else if(ot==OrificeType.VAGINA && clothing.getItemTags().contains(ItemTag.PLUGS_VAGINA)) {
-				return true;
-				
-			} else if(ot==OrificeType.NIPPLE && clothing.getItemTags().contains(ItemTag.PLUGS_NIPPLES)) {
-				return true;
-			}
-		}
+		HashMap<OrificeType, ItemTag> plugMap = new HashMap<>();
+		plugMap.put(OrificeType.ANUS, ItemTag.PLUGS_ANUS);
+		plugMap.put(OrificeType.VAGINA, ItemTag.PLUGS_VAGINA);
+		plugMap.put(OrificeType.NIPPLE, ItemTag.PLUGS_NIPPLES);
+		ItemTag lookingFor = plugMap.get(ot);
 		
-		return false;
+		return lookingFor != null 
+				&& getClothingCurrentlyEquipped().stream().anyMatch(c -> c.getItemTags().contains(lookingFor));
 	}
 	
 	public int getClothingAverageFemininity() {
@@ -12402,6 +12727,112 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		return body.getRaceStage();
 	}
 
+	// Tattoos and markings:
+	
+	public void setScar(InventorySlot invSlot, Scar scar) {
+		scars.put(invSlot, scar);
+	}
+	
+	public Scar getScarInSlot(InventorySlot invSlot) {
+		if(scars.containsKey(invSlot)) {
+			return scars.get(invSlot);
+		}
+		return null;
+	}
+	
+	public void addTattoo(InventorySlot invSlot, Tattoo tattoo) {
+		removeTattoo(invSlot);
+		tattoos.put(invSlot, tattoo);
+		applyEquipTattooEffects(tattoo);
+	}
+	
+	public void removeTattoo(InventorySlot invSlot) {
+		Tattoo tattoo = tattoos.get(invSlot);
+		if(tattoo!=null) {
+			applyUnequipTattooEffects(tattoo);
+			tattoos.remove(invSlot);
+		}
+	}
+	
+	public Tattoo getTattooInSlot(InventorySlot invSlot) {
+		if(tattoos.containsKey(invSlot)) {
+			return tattoos.get(invSlot);
+		}
+		return null;
+	}
+	
+	private void applyEquipTattooEffects(Tattoo tattoo) {
+		for (Entry<Attribute, Integer> e : tattoo.getAttributeModifiers().entrySet()) {
+			incrementBonusAttribute(e.getKey(), e.getValue());
+		}
+		
+		for(ItemEffect ie : tattoo.getEffects()) {
+			if(ie.getSecondaryModifier()!=null && ie.getSecondaryModifier().getFetish()!=null) {
+				Fetish associatedFetish = ie.getSecondaryModifier().getFetish();
+				switch(ie.getPotency()) {
+					case MINOR_BOOST:
+						clothingFetishDesireModifiersMap.putIfAbsent(ie.getSecondaryModifier().getFetish(), 0);
+						clothingFetishDesireModifiersMap.put(associatedFetish, clothingFetishDesireModifiersMap.get(associatedFetish) + 1);
+						break;
+					case BOOST:
+						clothingFetishDesireModifiersMap.putIfAbsent(associatedFetish, 0);
+						clothingFetishDesireModifiersMap.put(associatedFetish, clothingFetishDesireModifiersMap.get(associatedFetish) + 2);
+						break;
+					case MAJOR_BOOST:
+						fetishesFromClothing.add(associatedFetish);
+						applyFetishGainEffects(associatedFetish);
+						break;
+					case MINOR_DRAIN:
+						clothingFetishDesireModifiersMap.putIfAbsent(associatedFetish, 0);
+						clothingFetishDesireModifiersMap.put(associatedFetish, clothingFetishDesireModifiersMap.get(associatedFetish) - 1);
+						break;
+					case DRAIN:
+						clothingFetishDesireModifiersMap.putIfAbsent(associatedFetish, 0);
+						clothingFetishDesireModifiersMap.put(associatedFetish, clothingFetishDesireModifiersMap.get(associatedFetish) - 2);
+						break;
+					case MAJOR_DRAIN:
+						clothingFetishDesireModifiersMap.putIfAbsent(associatedFetish, 0);
+						clothingFetishDesireModifiersMap.put(associatedFetish, clothingFetishDesireModifiersMap.get(associatedFetish) - 999);
+						break;
+				}
+			}
+		}
+	}
+	
+	private void applyUnequipTattooEffects(Tattoo tattoo) {
+		for (Entry<Attribute, Integer> e : tattoo.getAttributeModifiers().entrySet()) {
+			incrementBonusAttribute(e.getKey(), -e.getValue());
+		}
+		
+		for(ItemEffect ie : tattoo.getEffects()) {
+			if(ie.getSecondaryModifier()!=null && ie.getSecondaryModifier().getFetish()!=null) {
+				Fetish associatedFetish = ie.getSecondaryModifier().getFetish();
+				switch(ie.getPotency()) {
+					case MINOR_BOOST:
+						clothingFetishDesireModifiersMap.put(associatedFetish, clothingFetishDesireModifiersMap.get(associatedFetish) - 1);
+						break;
+					case BOOST:
+						clothingFetishDesireModifiersMap.put(associatedFetish, clothingFetishDesireModifiersMap.get(associatedFetish) - 2);
+						break;
+					case MAJOR_BOOST:
+						fetishesFromClothing.remove(associatedFetish);
+						applyFetishLossEffects(associatedFetish);
+						break;
+					case MINOR_DRAIN:
+						clothingFetishDesireModifiersMap.put(associatedFetish, clothingFetishDesireModifiersMap.get(associatedFetish) + 1);
+						break;
+					case DRAIN:
+						clothingFetishDesireModifiersMap.put(associatedFetish, clothingFetishDesireModifiersMap.get(associatedFetish) + 2);
+						break;
+					case MAJOR_DRAIN:
+						clothingFetishDesireModifiersMap.putIfAbsent(associatedFetish, 0);
+						clothingFetishDesireModifiersMap.put(associatedFetish, clothingFetishDesireModifiersMap.get(associatedFetish) + 999);
+						break;
+				}
+			}
+		}
+	}
+
 	// Femininity:
 
 	public Femininity getFemininity() {
@@ -12830,16 +13261,27 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			
 		} else if (isPiercedNavel() && !pierced) {
 			body.setPiercedStomach(false);
+			
+			AbstractClothing c = this.getClothingInSlot(InventorySlot.PIERCING_STOMACH);
+			String piercingUnequip = "";
+			if(c!=null) {
+				this.forceUnequipClothingIntoVoid(this, c);
+				piercingUnequip = this.addClothing(c, false);
+			}
+			
 			if(isPlayer()) {
 				return "<p>"
 							+ "Your navel is <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>no longer pierced</b>."
-						+ "</p>";
+						+ "</p>"
+						+piercingUnequip;
 			}else {
 				return UtilText.parse(this,
 						"<p>"
 							+ "[npc.Her] navel is <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>no longer pierced</b>."
-						+ "</p>");
+						+ "</p>"
+						+piercingUnequip);
 			}
+			
 		} else {
 			return "<p>"
 						+ "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>Nothing seems to happen.</span>"
@@ -13177,10 +13619,16 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		
 		String tfDescription = "";
 		
+		if(this.getBodyMaterial()==type) {
+			return "<p>"
+						+ "[style.colourDisabled(Nothing happens...)]"
+					+ "</p>";
+		}
+		
 		//TODO other material types
 		
 		if(type == BodyMaterial.SLIME) {
-			for(BodyCoveringType bct : BodyCoveringType.values()) { // Slimes can't wear makeup:
+			for(BodyCoveringType bct : BodyCoveringType.values()) {
 				switch(bct) {
 					case MAKEUP_BLUSHER:
 					case MAKEUP_EYE_LINER:
@@ -13188,7 +13636,19 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 					case MAKEUP_LIPSTICK:
 					case MAKEUP_NAIL_POLISH_FEET:
 					case MAKEUP_NAIL_POLISH_HANDS:
+						 // Slimes can't wear makeup:
 						body.getCoverings().put(bct, new Covering(bct, CoveringPattern.NONE, CoveringModifier.SMOOTH, Colour.COVERING_NONE, false, Colour.COVERING_NONE, false));
+						break;
+					case SLIME:
+					case SLIME_EYE:
+					case SLIME_PUPILS:
+					case SLIME_SCLERA:
+					case SLIME_ANUS:
+					case SLIME_HAIR:
+					case SLIME_MOUTH:
+					case SLIME_NIPPLES:
+					case SLIME_VAGINA:
+						this.getBodyCoveringTypesDiscovered().add(bct);
 						break;
 					default:
 						break;
@@ -13204,7 +13664,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			} catch(Exception ex) {
 			}
 			
-			if(this.isPlayer()) {//TODO
+			if(this.isPlayer()) {
 				tfDescription = "<p>"
 							+ "Despite the fact that there's no sudden change in the weather, you feel as though the air around you is rapidly getting warmer and warmer,"
 								+ " and within the space of just a few seconds, it's as though you're standing in the middle of a sauna."
@@ -13290,6 +13750,34 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 							+ "- The wetness of [npc.her] pussy and asshole can never be anything less than "+Wetness.SEVEN_DROOLING.getDescriptor()+"!</br>"
 							+ "- [npc.She] is unable to apply any makeup to [npc.her] slimy body!</br>"
 							+ "- [npc.She] can now be impregnated through any orifice, even if [npc.she] lacks a vagina!</i>"
+						+ "</p>");
+			}
+		}
+		
+		if(type==BodyMaterial.FLESH) {
+			if(this.isPlayer()) {
+				tfDescription = "<p>"
+									+ "Your slimy body starts to tingle all over, and as you look down at your [pc.arms], you see the slime that they're made up of starting to get more and more opaque."
+									+ " As your slime starts to solidify, you feel the little glowing core in the centre of your body start to break up and disperse throughout your torso."
+								+ "</p>"
+								+ "<p>"
+									+ "With a sharp gasp, you feel the transformation speed up, and within just a few moments, your entire body has reverted to being made out of flesh and blood."
+								+ "</p>"
+								+ "<p>"
+									+ "Your body is now made out of [style.boldTfGeneric(flesh)]!"
+								+ "</p>";
+				
+			} else {
+				tfDescription = UtilText.parse(this,
+						"<p>"
+							+ "[npc.Name]'s slimy body starts to tingle all over, and as [npc.she] looks down at [npc.her] [npc.arms], [npc.she] sees the slime that they're made up of starting to get more and more opaque."
+							+ " As her slime starts to solidify, the little glowing core in the place where [npc.her] heart should be starts to break up and disperse throughout [npc.her] torso."
+						+ "</p>"
+						+ "<p>"
+							+ "With a sharp gasp, [npc.she] feels the transformation speed up, and within just a few moments, [npc.her] entire body has reverted to being made out of flesh and blood."
+						+ "</p>"
+						+ "<p>"
+							+ "[npc.Name]'s body is now made out of [style.boldTfGeneric(flesh)]!"
 						+ "</p>");
 			}
 		}
@@ -14301,7 +14789,24 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		return getCurrentPenis().getType();
 	}
 	public String setPenisType(PenisType type) {
-		return getCurrentPenis().setType(this, type);
+		String s = body.getPenis().setType(this, type);
+		
+		StringBuilder clothingRemovalSB = new StringBuilder();
+		List<AbstractClothing> clothingToRemove = new ArrayList<>();
+		
+		for(AbstractClothing c : this.getClothingCurrentlyEquipped()) {
+			if((c.getItemTags().contains(ItemTag.REQUIRES_PENIS) && type==PenisType.NONE)
+					|| (c.getItemTags().contains(ItemTag.REQUIRES_NO_PENIS) && type!=PenisType.NONE)) {
+				clothingToRemove.add(c);
+			}
+		}
+		
+		for(AbstractClothing c : clothingToRemove) {
+			this.forceUnequipClothingIntoVoid(this, c);
+			clothingRemovalSB.append(this.addClothing(c, false));
+		}
+		
+		return s + clothingRemovalSB.toString();
 	}
 	// Misc.:
 	public boolean hasPenisIgnoreDildo() {
@@ -15202,5 +15707,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	public String getWingPronoun() {
 		return body.getWing().getType().getPronoun();
 	}
+	
+	public abstract boolean isAbleToBeImpregnated();
 
 }

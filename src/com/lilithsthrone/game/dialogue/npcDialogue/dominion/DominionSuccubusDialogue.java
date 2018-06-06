@@ -347,7 +347,7 @@ public class DominionSuccubusDialogue {
 						+ "</p>"
 						+ "<p>"
 							+ "Before you really know what's going on, [npc.she]'s pulled you up to your feet, and as [npc.her] body presses up tightly against yours, you feel a strange bulge digging into your leg."
-							+ " Breaking off the kiss for a moment, you look down, and your eyes go wide as you see the distinctive shape of a massive erection forming beneath the fabric of [npc.her] dress."
+							+ " Breaking off the kiss for a moment, you look down, and your eyes go wide as you see the distinctive shape of a massive erection between [npc.name]'s legs."
 							+ " You gulp as you remember what [npc.she] said just moments ago, and you realise that [npc.she]'s growing [npc.herself] a cock to fuck you with."
 						+ "</p>"
 						+ "<p>"
@@ -427,6 +427,7 @@ public class DominionSuccubusDialogue {
 					@Override
 					public void effects() {
 						Main.game.getActiveNPC().getPlayerKnowsAreas().add(CoverableArea.PENIS);
+						Main.game.getActiveNPC().setPenisType(PenisType.NONE);
 						Main.game.getTextStartStringBuilder().append(
 								"<p>"
 								+ "Not really liking the idea of [npc.name] having a cock, you tell [npc.herHim] as much, "
@@ -590,6 +591,7 @@ public class DominionSuccubusDialogue {
 					@Override
 					public void effects() {
 						Main.game.getActiveNPC().getPlayerKnowsAreas().add(CoverableArea.VAGINA);
+						Main.game.getActiveNPC().setVaginaType(VaginaType.DEMON_COMMON);
 						Main.game.getTextStartStringBuilder().append(
 								"<p>"
 								+ "Wanting to make sure that [npc.she]'s got a nice demonic pussy, you order [npc.herHim], "

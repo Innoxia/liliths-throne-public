@@ -11,7 +11,6 @@ import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.responses.ResponseTrade;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.inventory.clothing.DisplacementType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.dominion.SexManagerRalphDiscount;
 import com.lilithsthrone.main.Main;
@@ -272,10 +271,7 @@ public class RalphsSnacks {
 					@Override
 					public void effects() {
 						Main.game.getRalph().getPlayerKnowsAreas().add(CoverableArea.PENIS);
-						if(Main.game.getRalph().getHighestZLayerCoverableArea(CoverableArea.PENIS)!=null) {
-							Main.game.getRalph().isAbleToBeDisplaced(Main.game.getRalph().getHighestZLayerCoverableArea(CoverableArea.PENIS), DisplacementType.PULLS_DOWN, true, true, Main.game.getRalph());
-							Main.game.getRalph().isAbleToBeDisplaced(Main.game.getRalph().getHighestZLayerCoverableArea(CoverableArea.PENIS), DisplacementType.SHIFTS_ASIDE, true, true, Main.game.getRalph());
-						}
+						Main.game.getRalph().displaceClothingForAccess(CoverableArea.PENIS);
 					}
 				};
 				

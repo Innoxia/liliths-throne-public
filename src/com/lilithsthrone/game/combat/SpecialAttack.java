@@ -1578,14 +1578,10 @@ public enum SpecialAttack {
 				attackText = UtilText.parse(target,
 						(UtilText.returnStringAtRandom(
 						"You tilt your head down in a sign of submission, before looking up with big, innocent eyes, "
-								+ (target.getAppearsAsGender().isFeminine()
-									?"[pc.speech(I'll be a good [pc.girl]! I promise!)]"
-									:"[pc.speech(I'll be a good [pc.girl]! I promise!)]"),
+								+ "[pc.speech(I'll be a good [pc.girl]! I promise!)]",
 
 						"You bite your lip and shuffle your feet as you do your best to look as weak as possible, "
-								+ (target.getAppearsAsGender().isFeminine()
-									?"[pc.speech(I'll do anything you want!)]"
-									:"[pc.speech(I'll do anything you want!)]"),
+								+ "[pc.speech(I'll do anything you want!)]",
 
 						"You shuffle your feet and make yourself as small as possible, before lustfully gazing up at [npc.name], "
 								+ (target.getAppearsAsGender().isFeminine()
@@ -1601,14 +1597,10 @@ public enum SpecialAttack {
 				attackText = UtilText.parse(caster,
 						(UtilText.returnStringAtRandom(
 						"[npc.Name] tilts [npc.her] head down in a sign of submission, before looking up with big, innocent eyes, "
-								+ (target.getAppearsAsGender().isFeminine()
-									?"[npc.speech(I'll be a good [npc.girl]! I promise!)]"
-									:"[npc.speech(I'll be a good [npc.girl]! I promise!)]"),
+								+ "[npc.speech(I'll be a good [npc.girl]! I promise!)]",
 
 						"[npc.Name] bites [npc.her] [npc.lip] and shuffles [npc.her] [npc.feet] as [npc.she] does [npc.her] best to look as weak as possible, "
-								+ (target.getAppearsAsGender().isFeminine()
-									?"[npc.speech(I'll do anything you want!)]"
-									:"[npc.speech(I'll do anything you want!)]"),
+								+ "[npc.speech(I'll do anything you want!)]",
 
 						"[npc.Name] shuffles [npc.her] [npc.feet] and makes [npc.herself] as small as possible, before lustfully gazing up at you, "
 								+ (target.getAppearsAsGender().isFeminine()
@@ -1625,14 +1617,10 @@ public enum SpecialAttack {
 				attackText = UtilText.parse(caster, target,
 						(UtilText.returnStringAtRandom(
 						"[npc.Name] tilts [npc.her] head down in a sign of submission, before looking up with big, innocent eyes, "
-								+ (target.getAppearsAsGender().isFeminine()
-									?"[npc.speech(I'll be a good [npc.girl]! I promise!)]"
-									:"[npc.speech(I'll be a good [npc.girl]! I promise!)]"),
+								+ "[npc.speech(I'll be a good [npc.girl]! I promise!)]",
 
 						"[npc.Name] bites [npc.her] [npc.lip] and shuffles [npc.her] [npc.feet] as [npc.she] does [npc.her] best to look as weak as possible, "
-								+ (target.getAppearsAsGender().isFeminine()
-									?"[npc.speech(I'll do anything you want!)]"
-									:"[npc.speech(I'll do anything you want!)]"),
+								+ "[npc.speech(I'll do anything you want!)]",
 
 						"[npc.Name] shuffles [npc.her] [npc.feet] and makes [npc.herself] as small as possible, before lustfully gazing up at [npc2.name], "
 								+ (target.getAppearsAsGender().isFeminine()

@@ -38,9 +38,13 @@ public class RentalMommyDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Hire "+UtilText.formatAsMoney(50, "span"), "", MOMMYS_EXTRAS) {
+				if(Main.game.getPlayer().getMoney()<50) {
+					return new Response("Hire "+UtilText.formatAsMoneyUncoloured(50, "span"), "You don't have enough money for this!", null);
+				}
+				return new Response("Hire "+UtilText.formatAsMoney(50, "span"), "Hire the rental Mommy.", MOMMYS_EXTRAS) {
 					@Override
 					public void effects() {
+						Main.game.getPlayer().incrementMoney(-50);
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.mommyFound, true);
 					}
 				};
@@ -54,6 +58,7 @@ public class RentalMommyDialogue {
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("characters/dominion/rentalMommy", "DECLINE"));
+						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.mommyFound, true);
 					}
 				};
 			}
@@ -92,7 +97,12 @@ public class RentalMommyDialogue {
 						AFTER_SEX_MOMMY_AS_DOM,
 						UtilText.parseFromXMLFile("characters/dominion/rentalMommy", "MOMMY_HOUSE_ENTRY_SEX_SUB")
 							+ UtilText.parseFromXMLFile("characters/dominion/rentalMommy", "MOMMY_HOUSE_ENTRY")
-							+ UtilText.parseFromXMLFile("characters/dominion/rentalMommy", "MOMMY_SEX_SUB"));
+							+ UtilText.parseFromXMLFile("characters/dominion/rentalMommy", "MOMMY_SEX_SUB")) {
+					@Override
+					public void effects() {
+						Main.game.getPlayer().incrementMoney(-1000);
+					}
+				};
 				
 			} else if(index==2) {
 				if(Main.game.getPlayer().getMoney()<2000) {
@@ -106,7 +116,12 @@ public class RentalMommyDialogue {
 						AFTER_SEX_MOMMY_AS_SUB,
 						UtilText.parseFromXMLFile("characters/dominion/rentalMommy", "MOMMY_HOUSE_ENTRY_SEX_DOM")
 							+ UtilText.parseFromXMLFile("characters/dominion/rentalMommy", "MOMMY_HOUSE_ENTRY")
-							+ UtilText.parseFromXMLFile("characters/dominion/rentalMommy", "MOMMY_SEX_DOM"));
+							+ UtilText.parseFromXMLFile("characters/dominion/rentalMommy", "MOMMY_SEX_DOM")) {
+					@Override
+					public void effects() {
+						Main.game.getPlayer().incrementMoney(-2000);
+					}
+				};
 				
 			} else if(index==3) {
 				if(Main.game.getPlayer().getMoney()<500) {
@@ -118,6 +133,7 @@ public class RentalMommyDialogue {
 				return new Response("Breastfeeding "+UtilText.formatAsMoney(500, "span"), "Follow Mommy into her house and be breastfed by her.", MOMMYS_EXTRAS_BREASTFEEDING) {
 					@Override
 					public void effects() {
+						Main.game.getPlayer().incrementMoney(-500);
 						Main.game.getActiveNPC().getPlayerKnowsAreas().add(CoverableArea.BREASTS);
 						Main.game.getActiveNPC().getPlayerKnowsAreas().add(CoverableArea.NIPPLES);
 						Main.game.getPlayer().ingestFluid(Main.game.getActiveNPC(), Main.game.getActiveNPC().getMilkType(), OrificeType.MOUTH, 500, Main.game.getActiveNPC().getMilk().getFluidModifiers());
@@ -134,6 +150,7 @@ public class RentalMommyDialogue {
 				return new Response("Public Breastfeeding "+UtilText.formatAsMoney(1000, "span"), "Remain out here on the bench, and, in full sight of the public, be breastfed by Mommy.", MOMMYS_EXTRAS_BREASTFEEDING_PUBLIC) {
 					@Override
 					public void effects() {
+						Main.game.getPlayer().incrementMoney(-1000);
 						Main.game.getActiveNPC().getPlayerKnowsAreas().add(CoverableArea.BREASTS);
 						Main.game.getActiveNPC().getPlayerKnowsAreas().add(CoverableArea.NIPPLES);
 						Main.game.getPlayer().incrementFetishExperience(Fetish.FETISH_LACTATION_OTHERS, 25);

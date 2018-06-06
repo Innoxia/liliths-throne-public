@@ -29,7 +29,7 @@ import com.lilithsthrone.world.places.PlaceType;
 public class SupplierDepot {
 	
 	public static void applySuppliersBeatenEffects() {
-		Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_NYAN_HELP, Quest.SIDE_NYAN_STOCK_ISSUES_SUPPLIERS_BEATEN));
+		Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.RELATIONSHIP_NYAN_HELP, Quest.RELATIONSHIP_NYAN_STOCK_ISSUES_SUPPLIERS_BEATEN));
 		Main.game.getDialogueFlags().setFlag(DialogueFlagValue.supplierDepotDoorUnlocked, false);
 	}
 	
@@ -38,13 +38,13 @@ public class SupplierDepot {
 
 		@Override
 		public String getContent() {
-			if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_NYAN_HELP)) {
+			if(Main.game.getPlayer().isQuestCompleted(QuestLine.RELATIONSHIP_NYAN_HELP)) {
 				return UtilText.parseFromXMLFile("places/dominion/shoppingArcade/suppliersDepot", "EXTERIOR_OPEN");
 				
-			} else if(Main.game.getPlayer().getQuest(QuestLine.SIDE_NYAN_HELP) == Quest.SIDE_NYAN_STOCK_ISSUES_SUPPLIERS_BEATEN) {
+			} else if(Main.game.getPlayer().getQuest(QuestLine.RELATIONSHIP_NYAN_HELP) == Quest.RELATIONSHIP_NYAN_STOCK_ISSUES_SUPPLIERS_BEATEN) {
 				return UtilText.parseFromXMLFile("places/dominion/shoppingArcade/suppliersDepot", "EXTERIOR_REFURBISHING");
 				
-			} else if(Main.game.getPlayer().getQuest(QuestLine.SIDE_NYAN_HELP) == Quest.SIDE_NYAN_STOCK_ISSUES_AGREED_TO_HELP) {
+			} else if(Main.game.getPlayer().getQuest(QuestLine.RELATIONSHIP_NYAN_HELP) == Quest.RELATIONSHIP_NYAN_STOCK_ISSUES_AGREED_TO_HELP) {
 				return UtilText.parseFromXMLFile("places/dominion/shoppingArcade/suppliersDepot", "EXTERIOR_CLOSED_NYAN_INFO");
 				
 			} else {
@@ -54,8 +54,8 @@ public class SupplierDepot {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if (index == 1 && Main.game.getPlayer().hasQuest(QuestLine.SIDE_NYAN_HELP)) {
-				if(Main.game.getPlayer().getQuest(QuestLine.SIDE_NYAN_HELP) == Quest.SIDE_NYAN_STOCK_ISSUES_SUPPLIERS_BEATEN) {
+			if (index == 1 && Main.game.getPlayer().hasQuest(QuestLine.RELATIONSHIP_NYAN_HELP)) {
+				if(Main.game.getPlayer().getQuest(QuestLine.RELATIONSHIP_NYAN_HELP) == Quest.RELATIONSHIP_NYAN_STOCK_ISSUES_SUPPLIERS_BEATEN) {
 					return new Response("Enter", "The door is firmly locked while the suppliers are moving back in.", null);
 					
 				} else {
@@ -85,7 +85,7 @@ public class SupplierDepot {
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_NYAN_HELP)) {
+			if(Main.game.getPlayer().isQuestCompleted(QuestLine.RELATIONSHIP_NYAN_HELP)) {
 				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/shoppingArcade/suppliersDepot", "RECEPTION_POPULATED"));
 				if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.supplierDepotDoorUnlocked)) {
 					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/shoppingArcade/suppliersDepot", "RECEPTION_POPULATED_STAFF_DOOR"));
@@ -103,7 +103,7 @@ public class SupplierDepot {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_NYAN_HELP)) {
+			if(Main.game.getPlayer().isQuestCompleted(QuestLine.RELATIONSHIP_NYAN_HELP)) {
 				if (index == 1) {
 					return new ResponseEffectsOnly("Exit", "Decide to leave the Depot for now. You can always come back at another time.") {
 						@Override
@@ -340,7 +340,7 @@ public class SupplierDepot {
 
 		@Override
 		public String getContent() {
-			if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_NYAN_HELP)) {
+			if(Main.game.getPlayer().isQuestCompleted(QuestLine.RELATIONSHIP_NYAN_HELP)) {
 				return UtilText.parseFromXMLFile("places/dominion/shoppingArcade/suppliersDepot", "OFFICE_PACIFIED");
 			}
 			
@@ -353,7 +353,7 @@ public class SupplierDepot {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_NYAN_HELP)) {
+			if(Main.game.getPlayer().isQuestCompleted(QuestLine.RELATIONSHIP_NYAN_HELP)) {
 				if (index == 1) {
 					return new ResponseSex("Fuck Them",
 							UtilText.parse(Main.game.getSupplierLeader(), Main.game.getSupplierPartner(), "Push Wolfgang and Karl down side-by-side in the doggy-style position, ready to have some fun with them..."),
@@ -647,7 +647,7 @@ public class SupplierDepot {
 
 		@Override
 		public String getContent() {
-			if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_NYAN_HELP)) {
+			if(Main.game.getPlayer().isQuestCompleted(QuestLine.RELATIONSHIP_NYAN_HELP)) {
 				return UtilText.parseFromXMLFile("places/dominion/shoppingArcade/suppliersDepot", "AFTER_SEX_WILLING_DOMMED_THEM_PACIFIED");
 			}
 
@@ -675,7 +675,7 @@ public class SupplierDepot {
 
 		@Override
 		public String getContent() {
-			if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_NYAN_HELP)) {
+			if(Main.game.getPlayer().isQuestCompleted(QuestLine.RELATIONSHIP_NYAN_HELP)) {
 				return UtilText.parseFromXMLFile("places/dominion/shoppingArcade/suppliersDepot", "AFTER_SEX_WILLING_PACIFIED");
 			}
 			

@@ -24,7 +24,6 @@ import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestBimbo;
 import com.lilithsthrone.game.dialogue.responses.Response;
-import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
@@ -137,12 +136,6 @@ public class HarpyBimboCompanion extends NPC {
 	
 	public int getEscapeChance() {
 		return 0;
-	}
-	
-	@Override
-	public String getCombatDescription() {
-		return UtilText.parse(this,
-				"[npc.Name] is eager to do [bimboHarpy.name]'s bidding, and under the watchful eyes of the rest of the flock, she moves forwards to attack you.");
 	}
 	
 	@Override
