@@ -147,6 +147,10 @@ public class FluidGirlCum implements FluidInterface, Serializable, XMLSaving {
 	}
 
 	public String setFlavour(GameCharacter owner, FluidFlavour flavour) {
+		if (owner == null) {
+			this.flavour = flavour;
+			return "";
+		}
 		if(this.flavour == flavour || !owner.hasVagina()) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 		}
@@ -172,6 +176,10 @@ public class FluidGirlCum implements FluidInterface, Serializable, XMLSaving {
 	}
 	
 	public String addFluidModifier(GameCharacter owner, FluidModifier fluidModifier) {
+		if(owner==null && !fluidModifiers.contains(fluidModifier)) {
+			fluidModifiers.add(fluidModifier);
+			return "";
+		}
 		if(fluidModifiers.contains(fluidModifier) || !owner.hasVagina()) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 		}
