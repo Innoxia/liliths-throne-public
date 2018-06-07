@@ -475,15 +475,6 @@ public enum Sex {
 			}
 		}
 		
-		// This is to keep the applied creampies post-sex:
-		for(GameCharacter participant : Sex.getAllParticipants()) {
-			for(OrificeType ot : OrificeType.values()) {
-				if(participant.getCummedInAreaMap().get(ot)>0) {
-					participant.incrementCummedInArea(ot, postSexDialogue.getMinutesPassed() * ot.getCumLossPerMinute());
-				}
-			}
-		}
-		
 		if(SexFlags.playerGrewDemonicCock) {
 			Main.game.getPlayer().setPenisType(PenisType.NONE);
 		}
@@ -1764,16 +1755,6 @@ public enum Sex {
 									cumProvidor.incrementCumCount(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, ot));
 									sexSB.append(cumTarget.ingestFluid(cumProvidor, cumProvidor.getCum().getType(), ot, cumProvidor.getPenisRawCumProductionValue(), cumProvidor.getCum().getFluidModifiers()));
 									
-									cumTarget.incrementCummedInArea(ot, cumProvidor.getPenisRawCumProductionValue());
-									
-									if(cumTarget.getBodyMaterial()==BodyMaterial.SLIME) {
-										sexSB.append(cumTarget.rollForPregnancy(cumProvidor));
-										
-									} else {
-										if(ot == OrificeType.VAGINA) {
-											sexSB.append(cumTarget.rollForPregnancy(cumProvidor));
-										}
-									}
 								}
 							}
 						}

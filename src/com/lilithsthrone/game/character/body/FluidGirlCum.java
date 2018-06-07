@@ -20,10 +20,10 @@ import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.83
- * @version 0.2.5
+ * @version 0.2.7
  * @author Innoxia
  */
-public class FluidGirlCum implements BodyPartInterface, Serializable, XMLSaving {
+public class FluidGirlCum implements FluidInterface, Serializable, XMLSaving {
 	private static final long serialVersionUID = 1L;
 	
 	protected FluidType type;
@@ -73,14 +73,6 @@ public class FluidGirlCum implements BodyPartInterface, Serializable, XMLSaving 
 		Element girlcumModifiersElement = (Element)girlcum.getElementsByTagName("girlcumModifiers").item(0);
 		Collection<FluidModifier> girlcumFluidModifiers = fluidGirlcum.fluidModifiers;
 		Body.handleLoadingOfModifiers(FluidModifier.values(), null, girlcumModifiersElement, girlcumFluidModifiers);
-		
-//		Element cumModifiers = (Element)cum.getElementsByTagName("girlcumModifiers").item(0);
-//		fluidGirlcum.fluidModifiers.clear();
-//		for(FluidModifier fm : FluidModifier.values()) {
-//			if(Boolean.valueOf(cumModifiers.getAttribute(fm.toString()))) {
-//				fluidGirlcum.fluidModifiers.add(fm);
-//			}
-//		}
 		
 		return fluidGirlcum;
 	}
@@ -413,39 +405,12 @@ public class FluidGirlCum implements BodyPartInterface, Serializable, XMLSaving 
 		return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 	}
 	
-	
-	/*
-	 * case TRANSFORMATIVE:
-				if(owner.isPlayer()) {
-					return "<p>"
-								+ "You feel a powerful pulse of arcane energy shoot up into your [pc.pussy], causing you to let out [pc.a_moan+].</br>"
-								+ "Your [pc.girlcum] is now [style.boldGrow(transformative)]!"
-							+ "</p>";
-				} else {
-					return UtilText.parse(owner,
-							"<p>"
-								+ "A powerful pulse of arcane energy shoots up into [npc.name]'s [npc.pussy], causing [npc.herHim] to let out [npc.a_moan+].</br>"
-								+ "[npc.Name]'s [npc.girlcum] is now [style.boldGrow(transformative)]!"
-							+ "</p>");
-				}
-				
-			case TRANSFORMATIVE:
-				if(owner.isPlayer()) {
-					return "<p>"
-								+ "You feel a soothing wave of arcane energy disperse from your [pc.pussy], causing you to let out a gentle sigh.</br>"
-								+ "Your [pc.girlcum] is [style.boldShrink(no longer transformative)]!"
-							+ "</p>";
-				} else {
-					return UtilText.parse(owner,
-							"<p>"
-								+ "A soothing wave of arcane energy disperses from [npc.name]'s [npc.pussy], causing [npc.herHim] to let out a gentle sigh.</br>"
-								+ "[npc.Name]'s [npc.girlcum] is [style.boldShrink(no longer transformative)]!"
-							+ "</p>");
-				}
-	 */
-	
 	public List<ItemEffect> getTransformativeEffects() {
 		return transformativeEffects;
+	}
+	
+	public void addTransformativeEffect(ItemEffect ie) {
+		transformativeEffects.add(ie);
 	}
 
 	/**

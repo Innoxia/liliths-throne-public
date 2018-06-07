@@ -204,9 +204,19 @@ public class GenericOrgasms {
 			case SITTING_ON_FACE_ROXY:
 				orgasmText = "[npc.Name] grinds [npc.her] [npc.pussy+] down against your face, letting out [npc.a_moan+] as [npc.she] prepares to reach [npc.her] climax.";
 				break;
+			case BREEDING_STALL_BACK:
+				orgasmText = "[npc1.Name] [npc1.verb(spread)] [npc1.her] [npc1.legs] and [npc1.verb(let)] out [npc1.a_moan+] as [npc1.she] [npc1.verb(prepare)] to reach [npc1.her] climax.";
+				break;
+			case BREEDING_STALL_FRONT:
+				orgasmText = "[npc1.Name] [npc1.verb(spread)] [npc1.her] [npc1.legs] and [npc1.verb(let)] out [npc1.a_moan+] as [npc1.she] [npc1.verb(prepare)] to reach [npc1.her] climax.";
+				break;
+			case BREEDING_STALL_FUCKING:
+				orgasmText = "[npc1.Name] [npc1.verb(reach)] down and [npc1.verb(grab)] [npc2.namePos] waist, before stepping forwards and driving [npc1.her] [npc1.cock] deep into [npc2.name]'s [npc2.pussy+]."
+						+ " Letting out [npc1.a_moan+], [npc1.she] [npc1.verb(prepare)] to reach [npc1.her] climax, and pump [npc2.name]'s womb full of [npc1.cum+].";
+				break;
 		}
 		
-		return UtilText.parse(characterOrgasming.isPlayer()?Sex.getTargetedPartner(characterOrgasming):characterOrgasming, orgasmText);
+		return UtilText.parse(characterOrgasming, Sex.getTargetedPartner(characterOrgasming), orgasmText);
 	}
 	
 	private static StringBuilder genericOrgasmSB = new StringBuilder();
@@ -1173,7 +1183,7 @@ public class GenericOrgasms {
 							break;
 					}
 					if(Main.getProperties().hasValue(PropertyValue.inflationContent) && !target.isVisiblyPregnant()) {
-						int cumAmount = target.getCummedInAreaMap().get(OrificeType.ANUS) + characterOrgasming.getPenisRawCumProductionValue();
+						int cumAmount = target.getTotalFluidInArea(OrificeType.ANUS) + characterOrgasming.getPenisRawCumProductionValue();
 						cumTargetSB.append(getInflationText(characterOrgasming, target, cumAmount));
 					}
 					break;
@@ -1279,7 +1289,7 @@ public class GenericOrgasms {
 							break;
 					}
 					if(Main.getProperties().hasValue(PropertyValue.inflationContent) && !target.isVisiblyPregnant()) {
-						int cumAmount = target.getCummedInAreaMap().get(OrificeType.MOUTH) + characterOrgasming.getPenisRawCumProductionValue();
+						int cumAmount = target.getTotalFluidInArea(OrificeType.MOUTH) + characterOrgasming.getPenisRawCumProductionValue();
 						cumTargetSB.append(getInflationText(characterOrgasming, target, cumAmount));
 					}
 					break;
@@ -1290,7 +1300,7 @@ public class GenericOrgasms {
 						cumTargetSB.append(" deep into [npc2.name]'s [npc2.breasts+].");
 					}
 					if(Main.getProperties().hasValue(PropertyValue.inflationContent)) {
-						int cumAmount = target.getCummedInAreaMap().get(OrificeType.NIPPLE) + characterOrgasming.getPenisRawCumProductionValue();
+						int cumAmount = target.getTotalFluidInArea(OrificeType.NIPPLE) + characterOrgasming.getPenisRawCumProductionValue();
 						cumTargetSB.append(getBreastInflationText(characterOrgasming, target, cumAmount));
 					}
 					break;
@@ -1318,7 +1328,7 @@ public class GenericOrgasms {
 							break;
 					}
 					if(Main.getProperties().hasValue(PropertyValue.inflationContent) && !target.isVisiblyPregnant()) {
-						int cumAmount = target.getCummedInAreaMap().get(orificePenetrated) + characterOrgasming.getPenisRawCumProductionValue();
+						int cumAmount = target.getTotalFluidInArea(orificePenetrated) + characterOrgasming.getPenisRawCumProductionValue();
 						cumTargetSB.append(getInflationText(characterOrgasming, target, cumAmount));
 					}
 					break;
@@ -1352,7 +1362,7 @@ public class GenericOrgasms {
 							break;
 					}
 					if(Main.getProperties().hasValue(PropertyValue.inflationContent) && !target.isVisiblyPregnant()) {
-						int cumAmount = target.getCummedInAreaMap().get(OrificeType.VAGINA) + characterOrgasming.getPenisRawCumProductionValue();
+						int cumAmount = target.getTotalFluidInArea(OrificeType.VAGINA) + characterOrgasming.getPenisRawCumProductionValue();
 						cumTargetSB.append(getInflationText(characterOrgasming, target, cumAmount));
 					}
 					break;
@@ -2041,9 +2051,9 @@ public class GenericOrgasms {
 		@Override
 		public String getActionTitle() {
 			if(!Sex.getCharactersBeingPenetratedBy(Main.game.getPlayer(), PenetrationType.PENIS).isEmpty()) {
-				return "Pull out (own [pc.breasts])";
+				return "Pull out (own breasts)";
 			}
-			return "Cum on your [pc.breasts]";
+			return "Cum on your breasts";
 		}
 
 		@Override

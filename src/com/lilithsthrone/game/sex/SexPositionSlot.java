@@ -375,7 +375,28 @@ public enum SexPositionSlot {
 			Util.newArrayListOfValues(
 					OrgasmCumTarget.SELF_GROIN,
 					OrgasmCumTarget.SELF_BREASTS,
-					OrgasmCumTarget.SELF_LEGS));
+					OrgasmCumTarget.SELF_LEGS)),
+	
+	/* Breeding stalls */
+	
+	BREEDING_STALL_FRONT("Lying on stomach",
+			Util.newArrayListOfValues(
+					OrgasmCumTarget.FLOOR)),
+
+	BREEDING_STALL_BACK("Lying on back",
+			Util.newArrayListOfValues(
+					OrgasmCumTarget.SELF_STOMACH,
+					OrgasmCumTarget.GROIN,
+					OrgasmCumTarget.STOMACH,
+					OrgasmCumTarget.FLOOR)),
+	
+	BREEDING_STALL_FUCKING("Standing",
+			Util.newArrayListOfValues(
+					OrgasmCumTarget.ASS,
+					OrgasmCumTarget.GROIN,
+					OrgasmCumTarget.LEGS,
+					OrgasmCumTarget.FLOOR)),
+	;
 	
 	
 	private String name;

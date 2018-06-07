@@ -21,10 +21,10 @@ import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.83
- * @version 0.2.5
+ * @version 0.2.7
  * @author Innoxia
  */
-public class FluidCum implements BodyPartInterface, Serializable, XMLSaving {
+public class FluidCum implements FluidInterface, Serializable, XMLSaving {
 	private static final long serialVersionUID = 1L;
 	
 	protected FluidType type;
@@ -451,39 +451,12 @@ public class FluidCum implements BodyPartInterface, Serializable, XMLSaving {
 		return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 	}
 	
-	
-	/*
-	 * case TRANSFORMATIVE:
-				if(owner.isPlayer()) {
-					return "<p>"
-								+ "You feel a powerful pulse of arcane energy shoot up into your [pc.balls], causing you to let out [pc.a_moan+].</br>"
-								+ "Your [pc.cum] is now [style.boldGrow(transformative)]!"
-							+ "</p>";
-				} else {
-					return UtilText.parse(owner,
-							"<p>"
-								+ "A powerful pulse of arcane energy shoots up into [npc.name]'s [npc.balls], causing [npc.herHim] to let out [npc.a_moan+].</br>"
-								+ "[npc.Name]'s [npc.cum] is now [style.boldGrow(transformative)]!"
-							+ "</p>");
-				}
-				
-			case TRANSFORMATIVE:
-				if(owner.isPlayer()) {
-					return "<p>"
-								+ "You feel a soothing wave of arcane energy disperse from your [pc.balls], causing you to let out a gentle sigh.</br>"
-								+ "Your [pc.cum] is [style.boldShrink(no longer transformative)]!"
-							+ "</p>";
-				} else {
-					return UtilText.parse(owner,
-							"<p>"
-								+ "A soothing wave of arcane energy disperses from [npc.name]'s [npc.balls], causing [npc.herHim] to let out a gentle sigh.</br>"
-								+ "[npc.Name]'s [npc.cum] is [style.boldShrink(no longer transformative)]!"
-							+ "</p>");
-				}
-	 */
-	
 	public List<ItemEffect> getTransformativeEffects() {
 		return transformativeEffects;
+	}
+	
+	public void addTransformativeEffect(ItemEffect ie) {
+		transformativeEffects.add(ie);
 	}
 
 	/**

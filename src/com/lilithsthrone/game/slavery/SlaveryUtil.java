@@ -567,8 +567,7 @@ public class SlaveryUtil implements XMLSaving {
 	
 								effects.add("<span style='color:"+Colour.CUM.toWebHexString()+";'>Anal Creampie:</span> "+effectDescriptions.toString());
 								effectDescriptions.setLength(0);
-								slave.calculateGenericSexEffects(false, stocksPartner, new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.ANUS),
-										!slave.getSlavePermissionSettings().get(SlavePermission.PREGNANCY).contains(SlavePermissionSetting.PREGNANCY_PROMISCUITY_PILLS));
+								slave.calculateGenericSexEffects(false, stocksPartner, new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.ANUS));
 								
 								break;
 								
@@ -582,8 +581,7 @@ public class SlaveryUtil implements XMLSaving {
 								effects.add("<span style='color:"+Colour.CUM.toWebHexString()+";'>Swallowed Cum:</span> "+effectDescriptions.toString());
 								effectDescriptions.setLength(0);
 
-								slave.calculateGenericSexEffects(false, stocksPartner, new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.MOUTH),
-										!slave.getSlavePermissionSettings().get(SlavePermission.PREGNANCY).contains(SlavePermissionSetting.PREGNANCY_PROMISCUITY_PILLS));
+								slave.calculateGenericSexEffects(false, stocksPartner, new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.MOUTH));
 								break;
 								
 							case SEX_NIPPLES:
@@ -596,8 +594,7 @@ public class SlaveryUtil implements XMLSaving {
 								effects.add("<span style='color:"+Colour.CUM.toWebHexString()+";'>Nipple Creampie:</span> "+effectDescriptions.toString());
 								effectDescriptions.setLength(0);
 
-								slave.calculateGenericSexEffects(false, stocksPartner, new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.NIPPLE),
-										!slave.getSlavePermissionSettings().get(SlavePermission.PREGNANCY).contains(SlavePermissionSetting.PREGNANCY_PROMISCUITY_PILLS));
+								slave.calculateGenericSexEffects(false, stocksPartner, new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.NIPPLE));
 								break;
 								
 							case SEX_VAGINAL:
@@ -607,8 +604,7 @@ public class SlaveryUtil implements XMLSaving {
 												"[npc.A_race] roughly fucked "+UtilText.parse(slave, "[npc.name]'s [npc.pussy+], "),
 												"[npc.A_race] filled "+UtilText.parse(slave, "[npc.name]'s [npc.pussy+]")+UtilText.parse(Main.game.getGenericFemaleNPC()," with [npc.her] [npc.cum+], "))));
 
-								slave.calculateGenericSexEffects(false, stocksPartner, new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.VAGINA),
-										!slave.getSlavePermissionSettings().get(SlavePermission.PREGNANCY).contains(SlavePermissionSetting.PREGNANCY_PROMISCUITY_PILLS));
+								slave.calculateGenericSexEffects(false, stocksPartner, new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.VAGINA));
 	
 								if(slave.isVisiblyPregnant()) {
 									effectDescriptions.append(UtilText.parse(slave, "but as [npc.she]'s already pregnant, the only result is a fresh creampie..."));
@@ -690,8 +686,7 @@ public class SlaveryUtil implements XMLSaving {
 								effects.add("<span style='color:"+Colour.CUM.toWebHexString()+";'>Anal Creampie:</span> "+effectDescriptions.toString());
 								effectDescriptions.setLength(0);
 
-								slave.calculateGenericSexEffects(false, partner, new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.ANUS),
-										!slave.getSlavePermissionSettings().get(SlavePermission.PREGNANCY).contains(SlavePermissionSetting.PREGNANCY_PROMISCUITY_PILLS));
+								slave.calculateGenericSexEffects(false, partner, new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.ANUS));
 								break;
 								
 							case SEX_ORAL:
@@ -704,8 +699,7 @@ public class SlaveryUtil implements XMLSaving {
 								effects.add("<span style='color:"+Colour.CUM.toWebHexString()+";'>Swallowed Cum:</span> "+effectDescriptions.toString());
 								effectDescriptions.setLength(0);
 
-								slave.calculateGenericSexEffects(false, partner, new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.MOUTH),
-										!slave.getSlavePermissionSettings().get(SlavePermission.PREGNANCY).contains(SlavePermissionSetting.PREGNANCY_PROMISCUITY_PILLS));
+								slave.calculateGenericSexEffects(false, partner, new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.MOUTH));
 								break;
 								
 							case SEX_NIPPLES:
@@ -718,8 +712,7 @@ public class SlaveryUtil implements XMLSaving {
 	
 								effects.add("<span style='color:"+Colour.CUM.toWebHexString()+";'>Nipple Creampie:</span> "+effectDescriptions.toString());
 								effectDescriptions.setLength(0);
-								slave.calculateGenericSexEffects(false, partner, new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.NIPPLE),
-										!slave.getSlavePermissionSettings().get(SlavePermission.PREGNANCY).contains(SlavePermissionSetting.PREGNANCY_PROMISCUITY_PILLS));
+								slave.calculateGenericSexEffects(false, partner, new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.NIPPLE));
 								break;
 								
 							case SEX_VAGINAL:
@@ -729,8 +722,7 @@ public class SlaveryUtil implements XMLSaving {
 												"[npc.A_race] roughly fucked "+UtilText.parse(slave, "[npc.name]'s [npc.pussy+], "),
 												"[npc.A_race] filled "+UtilText.parse(slave, "[npc.name]'s [npc.pussy+]")+UtilText.parse(partner," with [npc.her] [npc.cum+], "))));
 
-								slave.calculateGenericSexEffects(false, partner, new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.VAGINA),
-										!slave.getSlavePermissionSettings().get(SlavePermission.PREGNANCY).contains(SlavePermissionSetting.PREGNANCY_PROMISCUITY_PILLS));
+								slave.calculateGenericSexEffects(false, partner, new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.VAGINA));
 								
 								if(slave.isVisiblyPregnant()) {
 									effectDescriptions.append(UtilText.parse(slave, "but as [npc.she]'s already pregnant, the only result is a fresh creampie..."));
@@ -919,18 +911,12 @@ public class SlaveryUtil implements XMLSaving {
 						
 						// Apply sex effects:
 						if(canImpregnate) {
-							npc.rollForPregnancy(slave);
-							if(slave.getPenisRawCumProductionValue()>0) {
-								npc.addStatusEffect(StatusEffect.CREAMPIE_VAGINA, 240);
-							}
+							npc.ingestFluid(slave, slave.getCumType(), OrificeType.VAGINA, slave.getPenisRawCumProductionValue(), slave.getCum().getFluidModifiers());
 							npc.setVaginaVirgin(false);
 							impregnationAttempt = true;
 						}
 						if(canBeImpregnated) {
-							slave.rollForPregnancy(npc);
-							if(npc.getPenisRawCumProductionValue()>0) {
-								slave.addStatusEffect(StatusEffect.CREAMPIE_VAGINA, 240);
-							}
+							slave.ingestFluid(npc, npc.getCumType(), OrificeType.VAGINA, npc.getPenisRawCumProductionValue(), npc.getCum().getFluidModifiers());
 							slave.setVaginaVirgin(false);
 							gettingPregnantAttempt = true;
 						}

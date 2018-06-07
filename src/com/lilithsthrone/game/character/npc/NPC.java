@@ -22,7 +22,6 @@ import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.valueEnums.AssSize;
-import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
@@ -2229,7 +2228,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	// Sex:
 	
 	
-	public void calculateGenericSexEffects(boolean isDom, NPC partner, SexType sexType, boolean allowPregnancy) {
+	public void calculateGenericSexEffects(boolean isDom, NPC partner, SexType sexType) {
 		this.setLastTimeHadSex(Main.game.getMinutesPassed(), true);
 		partner.setLastTimeHadSex(Main.game.getMinutesPassed(), true);
 		
@@ -2295,12 +2294,6 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					partner.setPenisVirgin(false);
 					if(partner.getPenisRawCumProductionValue()>0) {
 						this.ingestFluid(partner, partner.getCumType(), orifice, partner.getPenisRawCumProductionValue(), partner.getCumModifiers());
-						this.incrementCummedInArea(orifice, partner.getPenisRawCumProductionValue());
-						if(allowPregnancy) {
-							if(this.getBodyMaterial()==BodyMaterial.SLIME || orifice == OrificeType.VAGINA) {
-								this.rollForPregnancy(partner);
-							}
-						}
 					}
 					break;
 				case TAIL:
@@ -2813,7 +2806,6 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					return "<p>"
 								+ UtilText.parse(this, "You try to give [npc.name] the "+item.getName()+", but [npc.she] refuses to take it. You put the "+item.getName()+" back in your inventory.")
 							+ "</p>";
-					
 				}
 			}
 			
@@ -2835,38 +2827,43 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				if(item.getItemType().equals(ItemType.PROMISCUITY_PILL)) {
 					Main.game.getPlayer().useItem(item, target, false);
 					if(!Main.game.isInSex() || Sex.isDom(Main.game.getPlayer())) {
-						return "<p>"
-								+ "Holding out a 'Promiscuity pill' to [npc.name], you tell [npc.her] to swallow it so that you don't have to worry about any unexpected pregnancies."
-								+ " Letting out a reluctant sigh, [npc.she] nevertheless takes the pill out of your hand, and, popping it out of its wrapping, [npc.she] whines at you,"
-								+ " [npc.speech(Fine! I kinda like the taste of these things anyway...)]"
-								+ "</p>";
+						return UtilText.parse(target,
+								"<p>"
+									+ "Holding out a 'Promiscuity pill' to [npc.name], you tell [npc.her] to swallow it so that you don't have to worry about any unexpected pregnancies."
+									+ " Letting out a reluctant sigh, [npc.she] nevertheless takes the pill out of your hand, and, popping it out of its wrapping, [npc.she] whines at you,"
+									+ " [npc.speech(Fine! I kinda like the taste of these things anyway...)]"
+								+ "</p>");
 					} else {
-						return "<p>"
-								+ "Holding out a 'Promiscuity pill' to [npc.name], you ask [npc.her] to swallow it so that you don't have to worry about any unexpected pregnancies."
-								+ " Letting out an annoyed sigh, [npc.she] nevertheless takes the pill out of your hand, and, popping it out of its wrapping, [npc.she] growls at you,"
-								+ " [npc.speech(Fine! I don't care either way, but I kinda like the taste of these things...)]"
-								+ "</p>";
+						return UtilText.parse(target,
+								"<p>"
+									+ "Holding out a 'Promiscuity pill' to [npc.name], you ask [npc.her] to swallow it so that you don't have to worry about any unexpected pregnancies."
+									+ " Letting out an annoyed sigh, [npc.she] nevertheless takes the pill out of your hand, and, popping it out of its wrapping, [npc.she] growls at you,"
+									+ " [npc.speech(Fine! I don't care either way, but I kinda like the taste of these things...)]"
+								+ "</p>");
 					}
 	
 				} else if(item.getItemType().equals(ItemType.VIXENS_VIRILITY)) {
 					Main.game.getPlayer().useItem(item, target, false);
 					if(!Main.game.isInSex() || Sex.isDom(Main.game.getPlayer())) {
-						return "<p>"
-								+ "Holding out a 'Vixen's Virility' pill to [npc.name], you tell [npc.her] to swallow it."
-								+ " Letting out a reluctant sigh, [npc.she] nevertheless takes the pill out of your hand, and, popping it out of its wrapping, [npc.she] whines at you,"
-								+ " [npc.speech(Fine! I kinda like the taste of these things anyway...)]"
-								+ "</p>";
+						return UtilText.parse(target,
+								"<p>"
+									+ "Holding out a 'Vixen's Virility' pill to [npc.name], you tell [npc.her] to swallow it."
+									+ " Letting out a reluctant sigh, [npc.she] nevertheless takes the pill out of your hand, and, popping it out of its wrapping, [npc.she] whines at you,"
+									+ " [npc.speech(Fine! I kinda like the taste of these things anyway...)]"
+								+ "</p>");
 					} else {
-						return "<p>"
-								+ "Holding out a 'Vixen's Virility' pill to [npc.name], you ask [npc.her] to swallow it."
-								+ " Letting out an annoyed sigh, [npc.she] nevertheless takes the pill out of your hand, and, popping it out of its wrapping, [npc.she] growls at you,"
-								+ " [npc.speech(Fine! I don't care either way, but I kinda like the taste of these things...)]"
-								+ "</p>";
+						return UtilText.parse(target,
+								"<p>"
+									+ "Holding out a 'Vixen's Virility' pill to [npc.name], you ask [npc.her] to swallow it."
+									+ " Letting out an annoyed sigh, [npc.she] nevertheless takes the pill out of your hand, and, popping it out of its wrapping, [npc.she] growls at you,"
+									+ " [npc.speech(Fine! I don't care either way, but I kinda like the taste of these things...)]"
+								+ "</p>");
 					}
 						
 				} else if(item.getItemType().equals(ItemType.POTION) || item.getItemType().equals(ItemType.ELIXIR) || item.getItemType().equals(ItemType.FETISH_UNREFINED) || item.getItemType().equals(ItemType.FETISH_REFINED)) {
 					if(!Main.game.isInSex() || Sex.isDom(Main.game.getPlayer())) {
-						return "<p>"
+						return UtilText.parse(target,
+								"<p>"
 									+ "Taking your "+item.getName()+" out from your inventory, you hold it out to [npc.name]."
 									+ " Seeing what you're offering [npc.herHim], [npc.she] shifts about uncomfortably, "
 									+ " [npc.speech(Do you really expect me to drink some rando- ~Mrph!~)]"
@@ -2875,19 +2872,21 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 									+ "Not liking the start of [npc.her] response, you quickly remove the bottle's stopper, and, rather unceremoniously, shove the neck down [npc.her] throat."
 									+ " You pinch [npc.her] nose and hold [npc.herHim] still, forcing [npc.herHim] to down all of the liquid before finally letting [npc.herHim] go."
 									+ " [npc.She] coughs and splutters for a moment, before letting out a surprised cry as [npc.she] starts to feel the liquid's effects taking root deep in [npc.her] body..."
-								+ "</p>"
+								+ "</p>")
 								+Main.game.getPlayer().useItem(item, target, false, true);
 					} else {
-						return "<p>"
+						return UtilText.parse(target,
+								"<p>"
 									+ "You try to give [npc.name] your "+item.getName()+", but [npc.she] takes one look at it and laughs,"
 									+ " [npc.speech(Hah! Nice try, but do you really expect me to drink some random potion?!)]</br>"
 									+ "You reluctantly put the "+item.getName()+" back in your inventory, disappointed that [npc.she]'s not interested."
-								+ "</p>";
+								+ "</p>");
 					}
 						
 				} else if(item.getItemType().equals(ItemType.MOTHERS_MILK)) {
 					if(!Main.game.isInSex() || Sex.isDom(Main.game.getPlayer())) {
-						return "<p>"
+						return UtilText.parse(target,
+								"<p>"
 									+ "Taking the bottle of "+item.getName()+" out from your inventory, you hold it out to [npc.name]."
 									+ " Seeing what you're offering [npc.herHim], [npc.she] shifts about uncomfortably, "
 									+ " [npc.speech(Do you really expect me to drink tha- ~Mrph!~)]"
@@ -2896,34 +2895,37 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 									+ "Not liking the start of [npc.her] response, you unceremoniously shove the bottle's teat into [npc.her] mouth."
 									+ " You pinch [npc.her] nose and hold [npc.herHim] still, forcing [npc.herHim] to down all of the liquid before finally letting [npc.herHim] go."
 									+ " [npc.She] coughs and splutters for a moment, before letting out a surprised cry as [npc.she] starts to feel the liquid's effects taking root deep in [npc.her] body..."
-								+ "</p>"
+								+ "</p>")
 								+Main.game.getPlayer().useItem(item, target, false, true);
 					} else {
-						return "<p>"
+						return UtilText.parse(target,
+								"<p>"
 									+ "You try to give [npc.name] your "+item.getName()+", but [npc.she] takes one look at it and laughs,"
 									+ " [npc.speech(Hah! Nice try, but do you really expect me to drink some random potion?!)]</br>"
 									+ "You reluctantly put the "+item.getName()+" back in your inventory, disappointed that [npc.she]'s not interested."
-								+ "</p>";
+								+ "</p>");
 					}
 						
 				} else if(item.getItemType().equals(ItemType.EGGPLANT)) {
 					
 					if(!Main.game.isInSex() || Sex.isDom(Main.game.getPlayer())) {
-						return "<p>"
+						return UtilText.parse(target,
+								"<p>"
 									+ "Taking the eggplant from your inventory, you hold it out to [npc.name]."
 									+ " Seeing what you're offering [npc.herHim], [npc.she] shifts about uncomfortably, "
 									+ " [npc.speech(W-What are you going to do with th- -~Mrph!~)]"
 								+ "</p>"
 								+ "<p>"
 									+ "Not liking the start of [npc.her] response, you quickly shove the eggplant into [npc.her] mouth, grinning as you force [npc.herHim] to eat the purple fruit..."
-								+ "</p>"
+								+ "</p>")
 								+Main.game.getPlayer().useItem(item, target, false, true);
 					} else {
-						return "<p>"
+						return UtilText.parse(target,
+								"<p>"
 									+ "You try to give [npc.name] your "+item.getName()+", but [npc.she] takes one look at it and laughs,"
 									+ " [npc.speech(Hah! Did you really think I was going to eat that?!)]</br>"
 									+ "You reluctantly put the "+item.getName()+" back in your inventory, disappointed that [npc.she]'s not interested."
-								+ "</p>";
+								+ "</p>");
 					}
 					
 				} else {

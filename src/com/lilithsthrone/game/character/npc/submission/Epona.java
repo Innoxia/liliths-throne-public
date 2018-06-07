@@ -29,6 +29,8 @@ import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
+import com.lilithsthrone.game.inventory.item.AbstractItemType;
+import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -141,6 +143,16 @@ public class Epona extends NPC {
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_SLEEVELESS_TURTLENECK, Colour.CLOTHING_GREY, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_PANTIES, Colour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_SKIRT, Colour.CLOTHING_BLACK, false), true, this);
+	}
+	
+	@Override
+	public void hourlyUpdate() {
+		this.useItem(AbstractItemType.generateItem(ItemType.VIXENS_VIRILITY), this, false);
+	}
+
+	@Override
+	public boolean isAbleToBeImpregnated() {
+		return true;
 	}
 	
 	@Override

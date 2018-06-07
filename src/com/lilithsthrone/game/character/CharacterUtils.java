@@ -1061,9 +1061,21 @@ public class CharacterUtils {
 				character.setPenisSize(PenisSize.ONE_TINY.getMinimumValue() + Util.random.nextInt(character.getPenisSize().getMaximumValue() - character.getPenisSize().getMinimumValue()) +1);
 				character.setTesticleSize(TesticleSize.ONE_TINY.getValue());
 				character.setCumProduction(CumProduction.ONE_TRICKLE.getMedianValue());
+				
 			} else {
 				character.setPenisSize(character.getPenisSize().getMinimumValue() + Util.random.nextInt(character.getPenisSize().getMaximumValue() - character.getPenisSize().getMinimumValue()) +1);
+				
+				int testicleSize = character.getTesticleSize().getValue();
+				testicleSize += Util.random.nextInt(3) - 1;
+				character.setTesticleSize(testicleSize);
+				
+				int cumProduction = character.getPenisRawCumProductionValue();
+				if(cumProduction>0) {
+					cumProduction += Util.random.nextInt(cumProduction) - (cumProduction/2);
+					character.setCumProduction(cumProduction);
+				}
 			}
+			
 			if(Math.random()<=0.02f) {
 				character.addCumModifier(FluidModifier.ADDICTIVE);
 			}

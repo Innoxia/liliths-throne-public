@@ -988,6 +988,15 @@ public enum RenderingEngine {
 		return Colour.BACKGROUND.toWebHexString();
 	}
 
+	public boolean isRenderingCharactersRightPanel() {
+		return Main.game.isInSex() || Main.game.isInCombat()
+				|| (getCharacterToRender()!=null
+				&& (Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.CHARACTERS_PRESENT
+					|| Main.game.getCurrentDialogueNode() == PhoneDialogue.CONTACTS_CHARACTER
+					|| Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected()!=null
+					|| (Main.game.getCurrentDialogueNode().getDialogueNodeType()==DialogueNodeType.INVENTORY && InventoryDialogue.getInventoryNPC()!=null)));
+	}
+	
 	public void renderAttributesPanelRight() {
 		uiAttributeSB.setLength(0);
 		
@@ -997,22 +1006,8 @@ public enum RenderingEngine {
 							+"function scrollEventLogToBottom() {document.getElementById('event-log-inner-id').scrollTop = document.getElementById('event-log-inner-id').scrollHeight;}"
 						+ "</script>");
 			
-			boolean renderNPC = false;
+			if(isRenderingCharactersRightPanel()) {
 			
-			if(Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.CHARACTERS_PRESENT || Main.game.getCurrentDialogueNode() == PhoneDialogue.CONTACTS_CHARACTER) {
-				renderNPC = true;
-			}
-			
-			if(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected()!=null) {
-				renderNPC = true;
-			}
-			
-			if(Main.game.isInSex()
-				|| Main.game.isInCombat()
-				|| (getCharacterToRender()!=null
-					&& (renderNPC || (Main.game.getCurrentDialogueNode().getDialogueNodeType()==DialogueNodeType.INVENTORY && InventoryDialogue.getInventoryNPC()!=null)))) {
-			
-				
 			if(Main.game.isInSex()) {
 				// Name box:
 				uiAttributeSB.append(
@@ -1131,14 +1126,16 @@ public enum RenderingEngine {
 				for(NPC character : charactersPresent) {
 					uiAttributeSB.append(
 							"<div class='event-log-entry' style='background:"+getEntryBackgroundColour(count%2==0)+";'>"
-								+" <span style='color:"+character.getFemininity().getColour().toWebHexString()+";'>"+(!character.getArtworkList().isEmpty() && Main.getProperties().hasValue(PropertyValue.artwork)?"&#128247; ":"")+character.getName("A")+"</span>"
-								+ " - "
-									+ (character.isRaceConcealed()
-											?"<span style='color:"+Colour.RACE_UNKNOWN.toWebHexString()+";'>Unknown"
-											:"<span style='color:"+character.getRace().getColour().toWebHexString()+";'>"
-												+Util.capitaliseSentence((character.isFeminine()?character.getSubspecies().getSingularFemaleName():character.getSubspecies().getSingularMaleName())))
-									+"</span>"
-								+ "<div class='overlay-inventory' id='CHARACTERS_PRESENT_"+character.getId()+"'></div>"
+								+ "<div class='icon' style='width:11%; left:0; top:0; margin:0 8px 0 0; padding:0;'>"
+									+ "<div class='icon-content'>"
+										+ (character.isRaceConcealed()?SVGImages.SVG_IMAGE_PROVIDER.getRaceUnknown():character.getMapIcon())
+									+ "</div>"
+								+ "</div>"
+								+" <div style='color:"+character.getFemininity().getColour().toWebHexString()+";'>"
+									+(!character.getArtworkList().isEmpty() && Main.getProperties().hasValue(PropertyValue.artwork)?"&#128247; ":"")+character.getName("A")
+									+ "<div class='overlay-inventory' id='NPC_" + character.getId() + "_" + Attribute.EXPERIENCE.getName() + "' style='width:calc(11% + 8px);'></div>"
+									+ "<div class='overlay-inventory' id='NPC_"+character.getId()+"_ATTRIBUTES' style='width:calc(89% - 8px); left:calc(11% + 8px);'></div>"
+								+"</div>"
 							+ "</div>");
 					count++;
 				}

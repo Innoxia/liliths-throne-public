@@ -185,6 +185,7 @@ public enum InventorySlot {
 		
 		clothingSlots.add(HORNS);
 		clothingSlots.add(TAIL);
+		clothingSlots.add(WINGS);
 		clothingSlots.add(PENIS);
 		clothingSlots.add(VAGINA);
 		

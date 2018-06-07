@@ -881,6 +881,62 @@ public enum SexPositionType {
 		}
 	},
 	
+	BREEDING_STALL_FRONT("Breeding Stall",
+			Util.newHashMapOfValues(
+					new Value<>(
+							SexPositionSlot.BREEDING_STALL_FRONT,
+							Util.newHashMapOfValues(
+							new Value<>(
+									SexPositionSlot.BREEDING_STALL_FUCKING,
+									new SexActionPresetPair(
+											SexActionPresets.playerBreedingStockBeingFucked,
+											SexActionPresets.partnerBreedingStockBeingFucked)))),
+					new Value<>(
+							SexPositionSlot.BREEDING_STALL_FUCKING,
+							Util.newHashMapOfValues(
+							new Value<>(
+									SexPositionSlot.BREEDING_STALL_FRONT,
+									new SexActionPresetPair(
+											SexActionPresets.playerBreedingStockFucking,
+											SexActionPresets.partnerBreedingStockFucking)))))) {
+		@Override
+		public String getDescription() {
+			if(Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.BREEDING_STALL_FRONT) {
+				return "You're lying on your front on the padded bench, with your legs and lower abdomen projecting out of the hole in the wall, exposing your pussy to the breeders beyond.";
+			} else {
+				return "[npc.Name] is lying on [npc.her] front on the padded bench, with [npc.her] legs and lower abdomen projecting out of the hole in the wall. [npc.Her] pussy is completely exposed to you, ready for breeding.";
+			}
+		}
+	},
+	
+	BREEDING_STALL_BACK("Breeding Stall",
+			Util.newHashMapOfValues(
+					new Value<>(
+							SexPositionSlot.BREEDING_STALL_BACK,
+							Util.newHashMapOfValues(
+							new Value<>(
+									SexPositionSlot.BREEDING_STALL_FUCKING,
+									new SexActionPresetPair(
+											SexActionPresets.playerBreedingStockBeingFucked,
+											SexActionPresets.partnerBreedingStockBeingFucked)))),
+					new Value<>(
+							SexPositionSlot.BREEDING_STALL_FUCKING,
+							Util.newHashMapOfValues(
+							new Value<>(
+									SexPositionSlot.BREEDING_STALL_BACK,
+									new SexActionPresetPair(
+											SexActionPresets.playerBreedingStockFucking,
+											SexActionPresets.partnerBreedingStockFucking)))))) {
+		@Override
+		public String getDescription() {
+			if(Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.BREEDING_STALL_BACK) {
+				return "You're lying on your back on the padded bench, with your legs and lower abdomen projecting out of the hole in the wall, exposing your pussy to the breeders beyond.";
+			} else {
+				return "[npc.Name] is lying on [npc.her] back on the padded bench, with [npc.her] legs and lower abdomen projecting out of the hole in the wall. [npc.Her] pussy is completely exposed to you, ready for breeding.";
+			}
+		}
+	},
+	
 	;
 	
 	private String name;

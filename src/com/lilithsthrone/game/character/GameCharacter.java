@@ -325,7 +325,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	private int daysOrgasmCount;
 	private int daysOrgasmCountRecord;
 	protected Set<CoverableArea> playerKnowsAreas;
-	protected Map<OrificeType, Integer> cummedInAreaMap;
+	protected Map<OrificeType, List<FluidStored>> fluidsStoredMap;
 	
 	
 	// Stats:
@@ -466,10 +466,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		// Player knowledge:
 		playerKnowsAreas = new HashSet<>();
 		
-		cummedInAreaMap = new HashMap<>();
-		for(OrificeType ot : OrificeType.values()) {
-			cummedInAreaMap.put(ot, 0);
-		}
+		fluidsStoredMap = new HashMap<>();
 		
 		timeProgressedToFinalPregnancyStage = 1;
 		pregnantLitter = null;
@@ -660,8 +657,6 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			CharacterUtils.addAttribute(doc, element, "slot", tattoo.getKey().toString());
 			tattoo.getValue().saveAsXML(element, doc);
 		}
-		
-		//TODO tattoos
 		
 		// ************** Attributes **************//
 		
@@ -918,14 +913,16 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		Element characterSexStats = doc.createElement("sexStats");
 		properties.appendChild(characterSexStats);
 		
-		Element characterCummedInAreas = doc.createElement("cummedInAreas");
-		characterSexStats.appendChild(characterCummedInAreas);
-		for(OrificeType orifice : OrificeType.values()) {
+		Element fluidsStoredMapElement = doc.createElement("fluidsStoredMap");
+		characterSexStats.appendChild(fluidsStoredMapElement);
+		for(Entry<OrificeType, List<FluidStored>> entry : fluidsStoredMap.entrySet()) {
 			Element element = doc.createElement("entry");
-			characterCummedInAreas.appendChild(element);
+			fluidsStoredMapElement.appendChild(element);
 
-			CharacterUtils.addAttribute(doc, element, "orifice", orifice.toString());
-			CharacterUtils.addAttribute(doc, element, "cumQuantity", String.valueOf(this.getCummedInAreaMap().get(orifice)));
+			CharacterUtils.addAttribute(doc, element, "orifice", entry.getKey().toString());
+			for(FluidStored f : entry.getValue()) {
+				f.saveAsXML(element, doc);
+			}
 		}
 
 		
@@ -1418,8 +1415,6 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			}
 		}
 		
-		//TODO
-		
 		
 		// ************** Attributes **************//
 		
@@ -1819,19 +1814,20 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		}
 		
 		
-		// Cummed in areas:
-		element = (Element) ((Element) nodes.item(0)).getElementsByTagName("cummedInAreas").item(0);
+		// Fluids stored:
+		element = (Element) ((Element) nodes.item(0)).getElementsByTagName("fluidsStoredMap").item(0);
 		if(element!=null) {
 			for(int i=0; i<element.getElementsByTagName("entry").getLength(); i++){
 				Element e = ((Element)element.getElementsByTagName("entry").item(i));
+				OrificeType ot = OrificeType.valueOf(e.getAttribute("orifice"));
 				
-				try {
-					character.setCummedInArea(OrificeType.valueOf(e.getAttribute("orifice")), Integer.valueOf(e.getAttribute("cumQuantity")));
-					CharacterUtils.appendToImportLog(log, "</br>Added cummed in area: "+e.getAttribute("orifice")+", "+Integer.valueOf(e.getAttribute("cumQuantity"))+"ml");
-				}catch(Exception ex){
+				for(int j=0; j<e.getElementsByTagName("fluidStored").getLength(); j++) {
+					Element fluidStored = ((Element)e.getElementsByTagName("fluidStored").item(j));
+					character.addFluidStored(ot, FluidStored.loadFromXML(log, fluidStored, doc));
 				}
 			}
 		}
+		
 		
 		// Cum counts:
 		element = (Element) ((Element) nodes.item(0)).getElementsByTagName("cumCounts").item(0);
@@ -1941,7 +1937,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				}
 			}
 			
-			// Old addiction support: //TODO test
+			// Old addiction support:
 			element = (Element) addictionsElement.getElementsByTagName("addictionSatisfiedMap").item(0);
 			if(element!=null) {
 				for(int i=0; i<element.getElementsByTagName("addiction").getLength(); i++){
@@ -9410,8 +9406,53 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	 */
 	public String ingestFluid(GameCharacter charactersFluid, FluidType fluid, OrificeType orificeIngestedThrough, int millilitres, List<FluidModifier> modifiers) {
 		StringBuilder fluidIngestionSB = new StringBuilder();
+		
+		//TODO convert all instances of this method to just (GameCharacter charactersFluid, BodyPartInterface fluid, int millilitres)
+		boolean found = false;
+	
+		if(fluid.getBaseType()==FluidTypeBase.CUM) {
+			for(FluidStored fluidStored : fluidsStoredMap.get(orificeIngestedThrough)) {
+				if(fluidStored.getFluid().equals(charactersFluid.getCum())) {
+					fluidStored.incrementMillilitres(millilitres);
+					found = true;
+					break;
+				}
+			}
+			if(!found) {
+				this.addFluidStored(orificeIngestedThrough, new FluidStored(charactersFluid.getId(), charactersFluid.getCum(), millilitres));
+			}
+			
+		} else if(fluid.getBaseType()==FluidTypeBase.MILK) {
+			for(FluidStored fluidStored : fluidsStoredMap.get(orificeIngestedThrough)) {
+				if(fluidStored.getFluid().equals(charactersFluid.getMilk())) {
+					fluidStored.incrementMillilitres(millilitres);
+					found = true;
+					break;
+				}
+			}
+			if(!found) {
+				this.addFluidStored(orificeIngestedThrough, new FluidStored(charactersFluid.getId(), charactersFluid.getMilk(), millilitres));
+			}
+			
+		} else if(fluid.getBaseType()==FluidTypeBase.GIRLCUM) {
+			for(FluidStored fluidStored : fluidsStoredMap.get(orificeIngestedThrough)) {
+				if(fluidStored.getFluid().equals(charactersFluid.getGirlcum())) {
+					fluidStored.incrementMillilitres(millilitres);
+					found = true;
+					break;
+				}
+			}
+			if(!found) {
+				this.addFluidStored(orificeIngestedThrough, new FluidStored(charactersFluid.getId(), charactersFluid.getGirlcum(), millilitres));
+			}
+		}
+		
+		if(this.getBodyMaterial()==BodyMaterial.SLIME || orificeIngestedThrough == OrificeType.VAGINA) {
+			fluidIngestionSB.append(rollForPregnancy(charactersFluid));
+		}
+		
 		if(modifiers.contains(FluidModifier.ALCOHOLIC)) { //TODO factor in body size:
-			this.incrementAlcoholLevel(millilitres * 0.001f);
+			fluidIngestionSB.append(this.incrementAlcoholLevel(millilitres * 0.001f));
 		}
 		
 		if(modifiers.contains(FluidModifier.HALLUCINOGENIC)) {
@@ -9483,13 +9524,16 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				}
 			}
 		}
+		
 		return fluidIngestionSB.toString();
 	}
 	
+	//TODO remove:
+	@Deprecated
 	public String ingestFluid(FluidType fluid, OrificeType orificeIngestedThrough, int millilitres, List<FluidModifier> modifiers) {
 		StringBuilder fluidIngestionSB = new StringBuilder();
 		if(modifiers.contains(FluidModifier.ALCOHOLIC)) { //TODO factor in body size:
-			this.incrementAlcoholLevel(millilitres * 0.001f);
+			fluidIngestionSB.append(this.incrementAlcoholLevel(millilitres * 0.001f));
 		}
 		
 		if(modifiers.contains(FluidModifier.HALLUCINOGENIC)) {
@@ -10077,10 +10121,45 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	
 	// Pregnancy:
 
-	public static final String PREGNANCY_CALCULATION = "((Virility% * Cum Production Modifier) + Fertility%) / 2";
+	public static final String PREGNANCY_CALCULATION = "((Virility% * Cum Production Modifier) + Fertility%) / 4";
+
+	public void performHourlyFluidsCheck() {
+		for(OrificeType ot : OrificeType.values()) {
+			if(this.fluidsStoredMap.get(ot)!=null) {
+				for(FluidStored fs : this.fluidsStoredMap.get(ot)) {
+					if(fs.getFluid().getFluidModifiers().contains(FluidModifier.ADDICTIVE)) {
+						addAddiction(new Addiction(fs.getFluid().getType(), Main.game.getMinutesPassed(), fs.getCharactersFluidID()));
+					}
+					if(fs.getFluid().getFluidModifiers().contains(FluidModifier.HALLUCINOGENIC)) {
+						this.addStatusEffect(StatusEffect.PSYCHOACTIVE, 6*60);
+					}
+				}
+			}
+		}
+			
+		// Impregnation:
+		performImpregnationCheck();
+	}
 	
-	public String rollForPregnancy(GameCharacter partner) {
-		
+	public void performImpregnationCheck() {
+		if(this.fluidsStoredMap.get(OrificeType.VAGINA)!=null && !this.fluidsStoredMap.get(OrificeType.VAGINA).isEmpty()) {
+			List<FluidStored> fluids = new ArrayList<>(this.fluidsStoredMap.get(OrificeType.VAGINA));
+			Collections.shuffle(fluids);
+			for(FluidStored fs : fluids) {
+				if(fs.isCum()) {
+					GameCharacter partner = null;
+					if(fs.getCharactersFluidID().equals(Main.game.getPlayer().getId())) {
+						partner = Main.game.getPlayer();
+					} else {
+						partner = Main.game.getNPCById(fs.getCharactersFluidID());
+					}
+					rollForPregnancy(partner);
+				}
+			}
+		}
+	}
+	
+	protected String rollForPregnancy(GameCharacter partner) {
 		if(partner instanceof Elemental) {
 			return PregnancyDescriptor.NO_CHANCE.getDescriptor(this, partner)
 					+"<p style='text-align:center;'>[style.italicsMinorBad(Elementals cannot impregnate anyone!)]</br>[style.italicsDisabled(I will add support for impregnating/being impregnated by elementals soon!)]</p>";
@@ -10088,18 +10167,23 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		
 		float pregnancyChance = 0;
 		
-		if(partner.getAttributeValue(Attribute.VIRILITY)<=0 || getAttributeValue(Attribute.FERTILITY)<=0) {
+		if((partner.hasPerkAnywhereInTree(Perk.FIRING_BLANKS) && partner.getAttributeValue(Attribute.VIRILITY)<=0)
+				|| (this.hasPerkAnywhereInTree(Perk.BARREN) && this.getAttributeValue(Attribute.FERTILITY)<=0)) {
 			pregnancyChance = 0;
 			
 		} else {
 			pregnancyChance = 0;
 			pregnancyChance += (Util.getModifiedDropoffValue(partner.getAttributeValue(Attribute.VIRILITY), Attribute.VIRILITY.getUpperLimit())/100f) * partner.getPenisCumProduction().getPregnancyModifier();
 			pregnancyChance += (Util.getModifiedDropoffValue(getAttributeValue(Attribute.FERTILITY), Attribute.FERTILITY.getUpperLimit())/100f);
-			pregnancyChance /= 2;
+			pregnancyChance /= 4;
 		}
 		
 		if (!isAbleToBeImpregnated()) {
 			pregnancyChance = 0;
+		}
+		
+		if(pregnancyChance<0) {
+			pregnancyChance=0;
 		}
 		
 		if(pregnancyChance>1) {
@@ -10328,26 +10412,52 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 	
 	// Cummed in areas:
-
-	public Map<OrificeType, Integer> getCummedInAreaMap() {
-		return cummedInAreaMap;
-	}
 	
-	public void incrementCummedInArea(OrificeType area, int cumQuantityIncrement) {
-		setCummedInArea(area, cummedInAreaMap.get(area)+cumQuantityIncrement);
-	}
-	
-	public void setCummedInArea(OrificeType area, int cumQuantity) {
-		if((this.isVisiblyPregnant() && cumQuantity >= CumProduction.SEVEN_MONSTROUS.getMinimumValue())) {
-			cummedInAreaMap.put(area, CumProduction.SEVEN_MONSTROUS.getMinimumValue()-1);
-		} else {
-			cummedInAreaMap.put(area, Math.max(0, cumQuantity));
+	public int getTotalFluidInArea(OrificeType area) {
+		int total = 0;
+		fluidsStoredMap.putIfAbsent(area, new ArrayList<>());
+		for(FluidStored f : fluidsStoredMap.get(area)) {
+			total+=f.getMillilitres();
 		}
+		return total;
 	}
 	
-	public void resetCummedInAreaMap() {
-		for(OrificeType orifice : OrificeType.values()) {
-			setCummedInArea(orifice, 0);
+	public void drainTotalFluidsStored(OrificeType area, int drain) {
+		fluidsStoredMap.putIfAbsent(area, new ArrayList<>());
+		int drained = 0;
+		for(FluidStored f : fluidsStoredMap.get(area)) {
+			if(drained>=Math.abs(drain)) {
+				break;
+			}
+			
+			int drainAmount = Math.min(Math.abs(drain), f.getMillilitres());
+			f.incrementMillilitres(-drainAmount);
+			drained+=drainAmount;
+		}
+		fluidsStoredMap.get(area).removeIf((fs) -> fs.getMillilitres()<=0);
+	}
+	
+	public void incrementAllFluidsStored(OrificeType area, int increment) {
+		fluidsStoredMap.putIfAbsent(area, new ArrayList<>());
+		for(FluidStored f : fluidsStoredMap.get(area)) {
+			f.incrementMillilitres(increment);
+		}
+		fluidsStoredMap.get(area).removeIf((fs) -> fs.getMillilitres()<=0);
+	}
+	
+	public void addFluidStored(OrificeType area, FluidStored fluid) {
+		fluidsStoredMap.putIfAbsent(area, new ArrayList<>());
+		fluidsStoredMap.get(area).add(fluid);
+	}
+	
+	public void clearFluidsStored(OrificeType area) {
+		fluidsStoredMap.putIfAbsent(area, new ArrayList<>());
+		fluidsStoredMap.get(area).clear();
+	}
+	
+	public void resetFluidsStored() {
+		for(List<FluidStored> f : fluidsStoredMap.values()) {
+			f.clear();
 		}
 	}
 	
@@ -10357,10 +10467,10 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				case MOUTH:
 					break;
 				case ASS: case BREAST: case THIGHS:
-					setCummedInArea(orifice, 0);
+					clearFluidsStored(orifice);
 					break;
 				case ANUS: case NIPPLE: case URETHRA_PENIS: case URETHRA_VAGINA: case VAGINA:
-					incrementCummedInArea(orifice, -500);
+					drainTotalFluidsStored(orifice, 500);
 					break;
 			}
 		}

@@ -311,6 +311,15 @@ public class SexActionPresets {
 	public static List<Class<?>> playerFaceSittingRoxy = new ArrayList<>();
 	public static List<Class<?>> partnerFaceSittingRoxy = new ArrayList<>();
 	
+
+	/* Breeding stocks */
+
+	public static List<Class<?>> playerBreedingStockBeingFucked = new ArrayList<>();
+	public static List<Class<?>> partnerBreedingStockBeingFucked = new ArrayList<>();
+
+	public static List<Class<?>> playerBreedingStockFucking = new ArrayList<>();
+	public static List<Class<?>> partnerBreedingStockFucking = new ArrayList<>();
+	
 	
 	
 	static {
@@ -1546,6 +1555,46 @@ public class SexActionPresets {
 		partnerFaceSittingRoxy.add(PlayerTongueVagina.class);
 		
 		partnerSixtyNineOnTop.addAll(partnerGenerics);
+		
+		// Breeding:
+	
+		playerBreedingStockBeingFucked.add(GenericOrgasms.class);
+		playerBreedingStockBeingFucked.add(PlayerTalk.class);
+			
+		partnerBreedingStockBeingFucked.add(GenericOrgasms.class);
+		partnerBreedingStockBeingFucked.add(PartnerTalk.class);
+			
+		playerBreedingStockFucking.addAll(playerDefaultSelf);
+		playerBreedingStockFucking.add(PartnerSelfTailAnus.class);
+		playerBreedingStockFucking.add(PlayerFingerUrethra.class);
+		playerBreedingStockFucking.add(PlayerFingerVagina.class);
+		playerBreedingStockFucking.add(PlayerFingerAnus.class);
+		playerBreedingStockFucking.add(PlayerPenisVagina.class);
+		playerBreedingStockFucking.add(PlayerPenisUrethraVagina.class);
+		playerBreedingStockFucking.add(PlayerPenisUrethraPenis.class);
+		playerBreedingStockFucking.add(PlayerPenisThighs.class);
+		playerBreedingStockFucking.add(PlayerPenisAnus.class);
+		playerBreedingStockFucking.add(PlayerPenisAss.class);
+		playerBreedingStockFucking.add(PlayerTailVagina.class);
+		playerBreedingStockFucking.add(PlayerTailAnus.class);
+		playerBreedingStockFucking.add(PartnerTailVagina.class);
+		playerBreedingStockFucking.add(PartnerTailAnus.class);
+//		playerBreedingStockFucking.add(SADomStocksBehind.class);
+		playerBreedingStockFucking.add(PlayerTalk.class);
+		playerBreedingStockFucking.add(GenericActions.class);
+		playerBreedingStockFucking.add(GenericOrgasms.class);
+			
+		partnerBreedingStockFucking.addAll(partnerDefaultSelf);
+		partnerBreedingStockFucking.add(PlayerSelfTailAnus.class);
+		partnerBreedingStockFucking.add(PartnerFingerAnus.class);
+		partnerBreedingStockFucking.add(PartnerPenisVagina.class);
+		partnerBreedingStockFucking.add(PartnerTailAnus.class);
+		partnerBreedingStockFucking.add(PlayerTailVagina.class);
+		partnerBreedingStockFucking.add(PlayerTailAnus.class);
+//		partnerBreedingStockFucking.add(SASubStocksBehind.class); TODO
+		partnerBreedingStockFucking.add(PartnerTalk.class);
+		partnerBreedingStockFucking.add(GenericActions.class);
+		partnerBreedingStockFucking.add(GenericOrgasms.class);
 		
 	}
 }

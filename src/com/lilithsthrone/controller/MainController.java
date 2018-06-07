@@ -1630,58 +1630,69 @@ public class MainController implements Initializable {
 			}
 		}
 		
-		if(RenderingEngine.getCharacterToRender()!=null) {
-			Attribute[] attributes = {
-					Attribute.HEALTH_MAXIMUM,
-					Attribute.MANA_MAXIMUM,
-					Attribute.EXPERIENCE,
-					Attribute.MAJOR_PHYSIQUE,
-					Attribute.MAJOR_ARCANE,
-					Attribute.MAJOR_CORRUPTION,
-					Attribute.AROUSAL,
-					Attribute.LUST };
-			
-			List<GameCharacter> charactersBeingRendered = new ArrayList<>();
-			if(Main.game.isInSex()) {
-				charactersBeingRendered.addAll(Sex.getDominantParticipants().keySet());
-				charactersBeingRendered.addAll(Sex.getSubmissiveParticipants().keySet());
-			} else if(Main.game.isInCombat()) {
-				charactersBeingRendered.addAll(Combat.getEnemies());
-			} else {
-				charactersBeingRendered.add(RenderingEngine.getCharacterToRender());
-			}
-			charactersBeingRendered.remove(Main.game.getPlayer());
-			
-			for(GameCharacter character : charactersBeingRendered) {
-				String idModifier = character.getId()+"_";
-				
-				for (Attribute a : attributes) {
-					if (((EventTarget) documentRight.getElementById("NPC_"+idModifier+a.getName())) != null) {
-						if(a == Attribute.EXPERIENCE) {
-							((EventTarget) documentRight.getElementById("NPC_"+idModifier+a.getName())).addEventListener("click", e -> {
-								openCharactersPresent(character);
-							}, false);
-						}
-						addEventListener(documentRight, "NPC_"+idModifier+a.getName(), "mousemove", moveTooltipListener, false);
-						addEventListener(documentRight, "NPC_"+idModifier+a.getName(), "mouseleave", hideTooltipListener, false);
-						
-						TooltipInformationEventListener el = new TooltipInformationEventListener().setAttribute(a, character);
-						addEventListener(documentRight, "NPC_"+idModifier+a.getName(), "mouseenter", el, false);
-					}
-				}
-				
-				// Extra attribute info:
-				if(((EventTarget) documentRight.getElementById("NPC_"+idModifier+"ATTRIBUTES"))!=null){
-	//				((EventTarget) documentRight.getElementById("NPC_"+idModifier+"ATTRIBUTES")).addEventListener("click", e -> {
-	//					openCharactersPresent(Main.game.getNPCById(Main.game.getActiveNPC().getId()));
-	//				}, false);
-					addEventListener(documentRight, "NPC_"+idModifier+"ATTRIBUTES", "mousemove", moveTooltipListener, false);
-					addEventListener(documentRight, "NPC_"+idModifier+"ATTRIBUTES", "mouseleave", hideTooltipListener, false);
+		Attribute[] attributes = {
+				Attribute.HEALTH_MAXIMUM,
+				Attribute.MANA_MAXIMUM,
+				Attribute.EXPERIENCE,
+				Attribute.MAJOR_PHYSIQUE,
+				Attribute.MAJOR_ARCANE,
+				Attribute.MAJOR_CORRUPTION,
+				Attribute.AROUSAL,
+				Attribute.LUST };
+		if(!RenderingEngine.ENGINE.isRenderingCharactersRightPanel()) {
+			attributes = new Attribute[] {Attribute.EXPERIENCE};
+		}
 		
-					TooltipInformationEventListener el = new TooltipInformationEventListener().setExtraAttributes(character);
-					addEventListener(documentRight, "NPC_"+idModifier+"ATTRIBUTES", "mouseenter", el, false);
+		List<GameCharacter> charactersBeingRendered = new ArrayList<>();
+		if(Main.game.isInSex()) {
+			charactersBeingRendered.addAll(Sex.getDominantParticipants().keySet());
+			charactersBeingRendered.addAll(Sex.getSubmissiveParticipants().keySet());
+			
+		} else if(Main.game.isInCombat()) {
+			charactersBeingRendered.addAll(Combat.getEnemies());
+			
+		} else if(RenderingEngine.ENGINE.isRenderingCharactersRightPanel()) {
+			charactersBeingRendered.add(RenderingEngine.getCharacterToRender());
+			
+		} else {
+			charactersBeingRendered.addAll(Main.game.getCharactersPresent());
+		}
+		
+		charactersBeingRendered.remove(Main.game.getPlayer());
+		
+		for(GameCharacter character : charactersBeingRendered) {
+			String idModifier = character.getId()+"_";
+			
+			for (Attribute a : attributes) {
+				if (((EventTarget) documentRight.getElementById("NPC_"+idModifier+a.getName())) != null) {
+					if(a == Attribute.EXPERIENCE) {
+						((EventTarget) documentRight.getElementById("NPC_"+idModifier+a.getName())).addEventListener("click", e -> {
+							openCharactersPresent(character);
+						}, false);
+					}
+					addEventListener(documentRight, "NPC_"+idModifier+a.getName(), "mousemove", moveTooltipListener, false);
+					addEventListener(documentRight, "NPC_"+idModifier+a.getName(), "mouseleave", hideTooltipListener, false);
+					
+					TooltipInformationEventListener el = new TooltipInformationEventListener().setAttribute(a, character);
+					addEventListener(documentRight, "NPC_"+idModifier+a.getName(), "mouseenter", el, false);
 				}
-				
+			}
+			
+			// Extra attribute info:
+			if(((EventTarget) documentRight.getElementById("NPC_"+idModifier+"ATTRIBUTES"))!=null){
+				if(!RenderingEngine.ENGINE.isRenderingCharactersRightPanel()) {
+					((EventTarget) documentRight.getElementById("NPC_"+idModifier+"ATTRIBUTES")).addEventListener("click", e -> {
+						openCharactersPresent(character);
+					}, false);
+				}
+				addEventListener(documentRight, "NPC_"+idModifier+"ATTRIBUTES", "mousemove", moveTooltipListener, false);
+				addEventListener(documentRight, "NPC_"+idModifier+"ATTRIBUTES", "mouseleave", hideTooltipListener, false);
+	
+				TooltipInformationEventListener el = new TooltipInformationEventListener().setExtraAttributes(character);
+				addEventListener(documentRight, "NPC_"+idModifier+"ATTRIBUTES", "mouseenter", el, false);
+			}
+			
+			if(RenderingEngine.ENGINE.isRenderingCharactersRightPanel()) {
 				// For status effect slots:
 				for (StatusEffect se : character.getStatusEffects()) {
 					if (((EventTarget) documentRight.getElementById("SE_NPC_"+idModifier + se)) != null) {
@@ -1725,7 +1736,7 @@ public class MainController implements Initializable {
 					if (((EventTarget) documentAttributes.getElementById("SPELL_"+idModifier + s)) != null) {
 						addEventListener(documentAttributes, "SPELL_"+idModifier + s, "mousemove", moveTooltipListener, false);
 						addEventListener(documentAttributes, "SPELL_"+idModifier + s, "mouseleave", hideTooltipListener, false);
-
+	
 						TooltipInformationEventListener el = new TooltipInformationEventListener().setSpell(s, character);
 						addEventListener(documentAttributes, "SPELL_"+idModifier + s, "mouseenter", el, false);
 					}

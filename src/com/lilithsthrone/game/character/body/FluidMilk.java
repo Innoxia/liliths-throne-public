@@ -20,10 +20,10 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.83
- * @version 0.2.5
+ * @version 0.2.7
  * @author Innoxia
  */
-public class FluidMilk implements BodyPartInterface, Serializable {
+public class FluidMilk implements FluidInterface, Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	protected FluidType type;
@@ -72,14 +72,6 @@ public class FluidMilk implements BodyPartInterface, Serializable {
 		Element milkModifiersElement = (Element)milk.getElementsByTagName("milkModifiers").item(0);
 		Collection<FluidModifier> milkFluidModifiers = fluidMilk.fluidModifiers;
 		Body.handleLoadingOfModifiers(FluidModifier.values(), null, milkModifiersElement, milkFluidModifiers);
-		
-//		Element milkModifiers = (Element)milk.getElementsByTagName("milkModifiers").item(0);
-//		fluidMilk.fluidModifiers.clear();
-//		for(FluidModifier fm : FluidModifier.values()) {
-//			if(Boolean.valueOf(milkModifiers.getAttribute(fm.toString()))) {
-//				fluidMilk.fluidModifiers.add(fm);
-//			}
-//		}
 		
 		return fluidMilk;
 	}
@@ -424,39 +416,12 @@ public class FluidMilk implements BodyPartInterface, Serializable {
 		return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 	}
 	
-	
-	/*
-	 * case TRANSFORMATIVE:
-				if(owner.isPlayer()) {
-					return "<p>"
-								+ "You feel a powerful pulse of arcane energy shoot up into your [pc.breasts], causing you to let out [pc.a_moan+].</br>"
-								+ "Your [pc.milk] is now [style.boldGrow(transformative)]!"
-							+ "</p>";
-				} else {
-					return UtilText.parse(owner,
-							"<p>"
-								+ "A powerful pulse of arcane energy shoots up into [npc.name]'s [npc.breasts], causing [npc.herHim] to let out [npc.a_moan+].</br>"
-								+ "[npc.Name]'s [npc.milk] is now [style.boldGrow(transformative)]!"
-							+ "</p>");
-				}
-				
-			case TRANSFORMATIVE:
-				if(owner.isPlayer()) {
-					return "<p>"
-								+ "You feel a soothing wave of arcane energy disperse from your [pc.breasts], causing you to let out a gentle sigh.</br>"
-								+ "Your [pc.milk] is [style.boldShrink(no longer transformative)]!"
-							+ "</p>";
-				} else {
-					return UtilText.parse(owner,
-							"<p>"
-								+ "A soothing wave of arcane energy disperses from [npc.name]'s [npc.breasts], causing [npc.herHim] to let out a gentle sigh.</br>"
-								+ "[npc.Name]'s [npc.milk] is [style.boldShrink(no longer transformative)]!"
-							+ "</p>");
-				}
-	 */
-	
 	public List<ItemEffect> getTransformativeEffects() {
 		return transformativeEffects;
+	}
+	
+	public void addTransformativeEffect(ItemEffect ie) {
+		transformativeEffects.add(ie);
 	}
 
 	/**

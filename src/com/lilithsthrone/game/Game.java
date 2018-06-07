@@ -1225,6 +1225,9 @@ public class Game implements Serializable, XMLSaving {
 			
 			for(int i=1; i <= hoursPassed; i++) {
 				npc.hourlyUpdate();
+				if(npc.getLocationPlace().getPlaceType()!=PlaceType.GENERIC_EMPTY_TILE) { // Don't bother with banished NPCs:
+					npc.performHourlyFluidsCheck();
+				}
 			}
 			
 			if(newDay) {
@@ -1275,6 +1278,9 @@ public class Game implements Serializable, XMLSaving {
 			Main.game.getPlayer().calculateStatusEffects(turnTime);
 		}
 		
+		for(int i=1; i <= hoursPassed; i++) {
+			Main.game.getPlayer().performHourlyFluidsCheck();
+		}
 		
 		RenderingEngine.ENGINE.renderButtons();
 		MainController.updateUI();
@@ -2933,6 +2939,7 @@ public class Game implements Serializable, XMLSaving {
 				|| npc.getLastLitterBirthed()!=null
 				|| npc.getMother()!=null
 				|| npc.getFather()!=null) {
+			npc.deleteAllEquippedClothing(); // To cut down on save size.
 			npc.setLocation(WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
 			return false;
 		} else {
@@ -2948,6 +2955,7 @@ public class Game implements Serializable, XMLSaving {
 				|| npc.getLastLitterBirthed()!=null 
 				|| npc.getMother()!=null
 				|| npc.getFather()!=null) {
+			npc.deleteAllEquippedClothing(); // To cut down on save size.
 			npc.setLocation(WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
 		} else {
 			removeNPC(npc);

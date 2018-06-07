@@ -889,19 +889,44 @@ public class UtilText {
 			@Override
 			public boolean process(String command, String arguments, String target) {
 				if(arguments == null || arguments.isEmpty()) {
-					System.err.println("No arguments passed for HairLength in the conditional statement 'hairLengthMinimum'!");
+					System.err.println("No arguments passed for HairLength in the conditional statement 'hairLengthMaximum'!");
 					return false;
 				} else {
 					try {
 						return character.getHairRawLengthValue()<=HairLength.valueOf(arguments).getMinimumValue();
 					} catch(Exception ex) {
-						System.err.println("Could not parse HairLength in the conditional statement 'hairLengthMinimum'!");
+						System.err.println("Could not parse HairLength in the conditional statement 'hairLengthMaximum'!");
 						return false;
 					}
 				}
 			}
 		});
 		
+		conditionalCommandsList.add(new ParserConditionalCommand(
+				Util.newArrayListOfValues(
+						"hasFetish",
+						"fetishOwned"),
+				"(Fetish Enum)",
+				"Returns true if the character has this fetish."){
+			@Override
+			public boolean process(String command, String arguments, String target) {
+				if(arguments == null || arguments.isEmpty()) {
+					System.err.println("No arguments passed for Fetish in the conditional statement 'hasFetish'!");
+					return false;
+				} else {
+					try {
+						return character.hasFetish(Fetish.valueOf(arguments));
+					} catch(Exception ex) {
+						System.err.println("Could not parse Fetish in the conditional statement 'hasFetish'!");
+						return false;
+					}
+				}
+			}
+		});
+		
+		
+		
+		// Parsing:
 		
 		
 		commandsList.add(new ParserCommand(
@@ -941,7 +966,7 @@ public class UtilText {
 				+ " If a prefix is provided, the prefix will be appended (with an automatic addition of a space) to non-capitalised names."){
 			@Override
 			public String parse(String command, String arguments, String target) {
-				if(character.isPlayer()) {
+				if(target.startsWith("npc") && character.isPlayer()) {
 					if(command.startsWith("N")) {
 						return "You";
 					} else {

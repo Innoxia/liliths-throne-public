@@ -128,6 +128,11 @@ public class HarpyNympho extends NPC {
 			return "#F967E3";
 		}
 	}
+
+	@Override
+	public void hourlyUpdate() {
+		this.useItem(AbstractItemType.generateItem(ItemType.PROMISCUITY_PILL), this, false);
+	}
 	
 	@Override
 	public boolean isAbleToBeImpregnated() {

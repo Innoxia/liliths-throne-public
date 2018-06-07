@@ -35,7 +35,7 @@ import javafx.scene.paint.Color;
  * This is just a big mess of utility classes that I wanted to throw somewhere.
  * 
  * @since 0.1.0
- * @version 0.1.96
+ * @version 0.2.6
  * @author Innoxia
  */
 public class Util {
@@ -43,7 +43,9 @@ public class Util {
 
 	private static StringBuilder utilitiesStringBuilder = new StringBuilder();
 
-	private static Map<KeyCode, String> KEY_NAMES = new LinkedHashMap<KeyCode, String>() {{
+	private static Map<KeyCode, String> KEY_NAMES = new LinkedHashMap<KeyCode, String>() {
+		private static final long serialVersionUID = 1L;
+	{
 		put(KeyCode.ADD, "+");
 		put(KeyCode.ALT, "Alt");
 		put(KeyCode.AMPERSAND, "&");
@@ -384,6 +386,28 @@ public class Util {
 			"eighteen",
 			"nineteen"
 	};
+	private static String[] positionsLessThanTwenty = {
+			"zero",
+			"first",
+			"second",
+			"third",
+			"fourth",
+			"fifth",
+			"sixth",
+			"seventh",
+			"eighth",
+			"ninth",
+			"tenth",
+			"eleventh",
+			"twelfth",
+			"thirteenth",
+			"fourteenth",
+			"fifteenth",
+			"sixteenth",
+			"seventeenth",
+			"eighteenth",
+			"nineteenth"
+	};
 	private static String[] tensGreaterThanNineteen = {
 			"",
 			"",
@@ -403,7 +427,6 @@ public class Util {
 	 * @return
 	 */
 	public static String intToString(int integer) {
-//		if(integer>=0 && integer<1000){
 		String intToString = "";
 		
 		if(integer<0) {
@@ -450,10 +473,55 @@ public class Util {
 		}
 		
 		return intToString;
-			
-//		}
+	}
+	
+	public static String intToPosition(int integer) {
+		String intToString = "";
 		
-//		return String.valueOf(integer);
+		if(integer<0) {
+			intToString = "minus ";
+		}
+		integer = Math.abs(integer);
+		if (integer >= 100_000) {
+			return intToString + " a lot";
+		}
+		
+		
+		if(integer>=1000) {
+			if((integer/1000)<20) {
+				intToString+=numbersLessThanTwenty[(integer/1000)]+" thousand";
+			} else {
+				intToString+=tensGreaterThanNineteen[integer/10000] + (((integer/1000)%10!=0)?"-"+numbersLessThanTwenty[(integer/1000)%10]:"")+" thousand";
+			}
+		}
+		
+		if(integer>=100) {
+			if(integer>=1000 && integer%1000 != 0) {
+				intToString+=", ";
+			}
+			integer = integer % 1000;
+			if (intToString.isEmpty() || integer>=100) {
+				intToString += numbersLessThanTwenty[integer/100]+" hundred";
+			}
+			if(integer%100!=0) {
+				intToString+=" and ";
+				integer = integer % 100;
+			}
+		}
+		
+		if(integer%100<20) {
+			if (integer%100 == 0) {
+				if (intToString.isEmpty()) {
+					return "zero";
+				}
+			} else {
+				intToString+=positionsLessThanTwenty[integer%100];
+			}
+		} else {
+			intToString+=tensGreaterThanNineteen[(integer%100)/10] + ((integer%10!=0)?"-"+positionsLessThanTwenty[integer%10]:"");
+		}
+		
+		return intToString;
 	}
 	
 	private final static TreeMap<Integer, String> numeralMap = new TreeMap<Integer, String>();

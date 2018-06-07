@@ -40,6 +40,7 @@ import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
+import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.BaseColour;
 import com.lilithsthrone.utils.Colour;
@@ -150,15 +151,10 @@ public class DebugDialogue {
 				return new Response("Spawn Menu", "View the clothing, weapon, and item spawn menu.", SPAWN_MENU);
 				
 			} else if (index == 8) {
-				return new Response("Brax's revenge", "Brax gets you pregnant! (If you have 0 fertility, this will probably crash the game!)", DEBUG_MENU){
+				return new Response("Brax's revenge", "Brax cums in your vagina!", DEBUG_MENU){
 					@Override
 					public void effects() {
-						int i=0;
-						while (!Main.game.getPlayer().isPregnant() && i<100) {
-							Main.game.getPlayer().rollForPregnancy(Main.game.getBrax());
-							i++;
-						}
-						
+						Main.game.getPlayer().ingestFluid(Main.game.getBrax(), Main.game.getBrax().getCumType(), OrificeType.VAGINA, 1000, Main.game.getBrax().getCumModifiers());
 					}
 				};
 				

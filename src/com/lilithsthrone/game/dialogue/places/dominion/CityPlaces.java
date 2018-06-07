@@ -535,7 +535,7 @@ public class CityPlaces {
 						+ " Large residential and commercial buildings flank the plaza on each of its four sides; their white marble facades decorated with countless dark-purple flags bearing the black pentagram of Lilith."
 					+ "</p>"
 					+ "<p>"
-						+ "Numerous grandiose statues and extravagantly-detailed water fountains, all carved from polished while marble, reside within this large area."
+						+ "Numerous grandiose statues and extravagantly-detailed water fountains, all carved from polished white marble, reside within this large area."
 						+ " Each one of these sculptures appears to represent a demon or Lilin, and although they're each a marvellous work of art, the one in the very middle of the square is quite simply breathtaking."
 						+ " On top of a plinth of at least thirty metres in height, stands a gigantic marble statue of Lilith herself;"
 							+ " with wings fully unfurled, and with her hands resting on her wide hips, she smirks down with a visage of manic delight at the crowds below."

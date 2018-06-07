@@ -11,7 +11,6 @@
 	Bugs and Pull requests
 	- There are well over a hundred bug reports that have stacked up. I really need to get this under control before it become unmanageable.
 	
-	
 	Sex content improvements
 	- Add modding framework for sex actions.
 	- Update Lilaya's and Kate's chair sex scenes.
@@ -19,9 +18,7 @@
 	- Add support for random attackers having sex with your companions upon combat loss (requires NPC-on-NPC support first).
 	
 	Submission content
-	- Finishing Pregnancy Roulette content.
 	- Add an Imp gang attack.
-	- Unique text for Submission mugger encounters.
 	- Adding in repeatable mini-quests for the Imp fortresses.
 	
 	Nightlife
@@ -30,8 +27,16 @@
 	- Add randomly-generated NPC interactions in the club.
 
 	
+	
 	Patch notes:
 	
+	Gameplay:
+		Finished pregnancy roulette dialogue, and added a way to have sex with Epona.
+		Slightly changed pregnancy roulette mechanics. Instead of being fixed, the order in which the breeders use the volunteer is random. Correctly guessing who will get you pregnant as the volunteer now pays out 50,000 flames.
+		Slightly improved impregnation calculations. Now, instead of impregnation only being calculated once on the moment of orgasm, the game calculates impregnation every hour while a vagina has cum in it.
+		Impregnation chance has been halved (to try and balance the fact that impregnation is checked every hour now).
+		The 'Psychoactive Trip' and 'Addictions' status effects will now refresh every hour while psychoactive or addictive fluid is in one of your orifices.
+		It is now possible to impregnate/be impregnated even if virility or fertility are less than 0, provided the other partner's opposite attribute is high enough. (Having the 'firing blanks' or 'barren' parks overrides this behaviour, and removes the chance of pregnancy if virility or fertility are less than 0, respectively.)
 	
 	Contributors:
 		Fixed a NullPointerException when entering the gambling den in new game. (Pimvgd)
@@ -44,9 +49,11 @@
 		Added some parser commands that will simplify creating dialogue, by handling second & third person pronouns and verbs in single parser commands. (TadUnlikely)
 		Improved handling of key codes by converting a long switch statement to a map. (pinnae)
 		Added a spiked collar clothing item using the modding system. (Irbynx)
+		Removed glow buttons for skin colours in character creation. (Master of Puppets)
 	
 	Other:
-		Added ability to recolour clothing patterns.
+		<b>Added:</b> ability to recolour clothing patterns.
+		Improved right UI panel's 'characters present' section. Hovering over the names/icons in that section now shows appropriate tooltips.
 		Changed boxers and crotchless briefs to be pulled down instead of shifted aside.
 		Added tongue length to clothing TF options. Added puffy, ribbing, muscled, and tentacled modifiers to clothing's anus, nipple, face, penis, and vagina TFs.
 		Slightly improved snowflake nose stud icon.
@@ -70,13 +77,26 @@
 		Fixed issue where if an NPC had a piece of patterned clothing, all their clothing would have that pattern name.
 		Fixed weapons' primary colour not being able to be dyed.
 		Fixed weapon colours not persisting between saves.
+		Fixed incorrect names being returned when getting an NPC to use an item.
+		Fixed bug where wing slots were unable to get tattooed.
+		Fixed NPCs in the pregnancy roulette game putting their tails into your vagina... (And then afterwards claiming 'There's no way you won't get pregnant from this!')
+		
+		
 	
 	
+	[ ] Scars and tattoos to character creation
 	
+	[ ] Add bat racial effect descriptions - chatty. Add echolocation special attack (boost crits)
 	
+	[ ] Submission Rat-morphs & Alligator-morphs - Just want to mug you
 	
+	[ ] Bugs
 	
+	[ ] Sex action orifice-on-orifice and start modding framework
 	
+	Improve contacts UI
+	
+	Changing virility of partner affects cum already in vagina...
 	
 	
 	My first thought was that it could be something like one step or 10% of the final goal's size, whichever is larger.
@@ -94,6 +114,8 @@
 	if you enslave a incubus/succubus they become virgins. It's happened to me twice now
 		both cases were of incubus's that I changed into succubus's
 	
+	When you import a character who's wearing jinxed clothing, the quest for unjinxing/enchanting is unavailable. The quest itself shows up on a page before you have the option to skip the prologue or not, and wearing another piece of jinxed clothing doesn't retrigger the quest
+	
 	Fix inventory slot layout
 	
 	Not sure what's causing it, but I'm getting a bug where my slaves are listed as pregnant by the tracker, but don't gain the pregnancy buff/debuff,
@@ -102,12 +124,6 @@
 	Edit: Slaves CAN give birth, but the tracker still thinks they're heavily pregnant, even after birth
 	
 		
-	[ ] Get all descriptions finished
-	
-	[ ] Roxy content done
-	
-	[ ] Pregnancy roulette done
-	
 	[ ] Axel/Vengar quest done
 		Talk to Roxy
 		Talk to Axel about Roxy
@@ -123,39 +139,18 @@
 						Say you're a prostitute
 						Smash down door
 					
-	
-	[ ] Can earn money by:
-		Warm up pregnancy roulette participants
-		Clean up pregnancy roulette stalls
-	
 	[ ] Imp fortresses
-	
-	
-	
-	[ ] TF menu for slimes in queen quest
 	
 	[ ] Imp Offspring
 	[ ] Tunnel Offspring
 	[ ] Bat Offspring
 	[ ] Slime offspring
 	
-	Special encounters for:
-		
-		[X] Finish bat caverns (finding items)
-		[X] Glowing slimes
-		[X] Slime encounters
-		[X] Add bat encounter
-		[X] Add generic encounter (for if TF'd)
-		[ ] Add bat racial effect descriptions - chatty
-		
-		Rat-morphs & Alligator-morphs
-			[ ] Just want to mug you
-			
-		Imps
-			[ ] Imp gang encounter (1-3 imps)
-				[ ] Mugging
-				[ ] TF
-			[ ] Alpha Imp gang encounter (Alpha + 2-4 imps, for 5 max)
+	Imps
+		[ ] Imp gang encounter (1-3 imps)
+			[ ] Mugging
+			[ ] TF
+		[ ] Alpha Imp gang encounter (Alpha + 2-4 imps, for 5 max)
 			
 		
 	Imp fortresses
