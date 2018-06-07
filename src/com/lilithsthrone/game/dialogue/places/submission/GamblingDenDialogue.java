@@ -1216,7 +1216,7 @@ public class GamblingDenDialogue {
 		
 		@Override
 		public String getContent() {
-			return UtilText.parse(selectedBreeder, UtilText.parseFromXMLFile("places/submission/gamblingDen", "PREGNANCY_ROULETTE_MOTHER_START"));
+			return UtilText.parseFromXMLFile("places/submission/gamblingDen", "PREGNANCY_ROULETTE_MOTHER_START", Util.newArrayListOfValues(selectedBreeder));
 		}
 
 		@Override
@@ -1510,9 +1510,9 @@ public class GamblingDenDialogue {
 			UtilText.nodeContentSB.setLength(0);
 			
 			if(Main.game.getPlayer().isFeminine()) {
-				UtilText.nodeContentSB.append(UtilText.parse(mother, UtilText.parseFromXMLFile("places/submission/gamblingDen", "PREGNANCY_ROULETTE_BREEDER_FUTA")));
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/gamblingDen", "PREGNANCY_ROULETTE_BREEDER_FUTA", Util.newArrayListOfValues(mother)));
 			} else {
-				UtilText.nodeContentSB.append(UtilText.parse(mother, UtilText.parseFromXMLFile("places/submission/gamblingDen", "PREGNANCY_ROULETTE_BREEDER")));
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/gamblingDen", "PREGNANCY_ROULETTE_BREEDER", Util.newArrayListOfValues(mother)));
 			}
 			
 			UtilText.nodeContentSB.append(
@@ -1556,10 +1556,10 @@ public class GamblingDenDialogue {
 								character.setLust(80);
 							}
 						},
-						PREGNANCY_ROULETTE_BREEDER_FINISHED,
+						PREGNANCY_ROULETTE_BREEDER_POST_SEX,
 						roll==1
-							?UtilText.parse(mother, UtilText.parseFromXMLFile("places/submission/gamblingDen", "PREGNANCY_ROULETTE_BREEDER_FIRST"))
-							:UtilText.parse(mother, UtilText.parseFromXMLFile("places/submission/gamblingDen", "PREGNANCY_ROULETTE_BREEDER_MIDDLE"))){
+							?UtilText.parseFromXMLFile("places/submission/gamblingDen", "PREGNANCY_ROULETTE_BREEDER_FIRST", Util.newArrayListOfValues(mother))
+							:UtilText.parseFromXMLFile("places/submission/gamblingDen", "PREGNANCY_ROULETTE_BREEDER_MIDDLE", Util.newArrayListOfValues(mother))){
 					@Override
 					public void effects() {
 						for(int i=0; i<roll-1; i++) {
@@ -1574,8 +1574,33 @@ public class GamblingDenDialogue {
 		}
 	};
 	
+	public static final DialogueNodeOld PREGNANCY_ROULETTE_BREEDER_POST_SEX = new DialogueNodeOld("Finished", "", true) {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/submission/gamblingDen", "PREGNANCY_ROULETTE_BREEDER_POST_SEX");
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("Wait", "Wait for Epona to return.", PREGNANCY_ROULETTE_BREEDER_FINISHED) {
+					@Override
+					public void effects() {
+						for(int i=roll-1; i<breeders.size(); i++) {
+							mother.setVaginaVirgin(false);
+							mother.ingestFluid(breeders.get(i), breeders.get(i).getCumType(), OrificeType.VAGINA, breeders.get(i).getPenisRawCumProductionValue(), breeders.get(i).getCum().getFluidModifiers());
+						}
+					}
+				};
+			} else {
+				return null;
+			}
+		}
+	};
 	
-	public static final DialogueNodeOld PREGNANCY_ROULETTE_BREEDER_FINISHED = new DialogueNodeOld("Breeding Stalls", "", true) {
+	public static final DialogueNodeOld PREGNANCY_ROULETTE_BREEDER_FINISHED = new DialogueNodeOld("Breeding Stalls", "", true, true) {
 		private static final long serialVersionUID = 1L;
 
 		@Override

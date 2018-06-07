@@ -171,6 +171,7 @@ import com.lilithsthrone.world.places.PlaceUpgrade;
  */
 public class MainControllerInitMethod {
 
+	@SuppressWarnings("deprecation")
 	public static void initMainControllerListeners() {
 		MainController.document = (Document) MainController.webEngine.executeScript("document");
 		MainController.EventListenerDataMap.put(MainController.document, new ArrayList<>());

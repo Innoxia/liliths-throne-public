@@ -211,17 +211,6 @@ public enum Sex {
 		
 		sexStarted = false;
 
-		if(activePartner!=null) {
-			if(isConsensual()) {
-				activePartner.setSexConsensualCount(activePartner.getSexConsensualCount()+1);
-			}
-			if(isDom(Main.game.getPlayer())) {
-				activePartner.setSexAsSubCount(activePartner.getSexAsSubCount()+1);
-			} else {
-				activePartner.setSexAsDomCount(activePartner.getSexAsDomCount()+1);
-			}
-		}
-		
 		ongoingPenetrationMap = new HashMap<>();
 		for(GameCharacter characterPenetrating : Sex.getAllParticipants()) {
 			ongoingPenetrationMap.put(characterPenetrating, new HashMap<>());
@@ -241,12 +230,22 @@ public enum Sex {
 		charactersAbleToRemoveSelfClothing = new HashSet<>();
 		charactersAbleToRemoveOthersClothing = new HashSet<>();
 		for(GameCharacter character : Sex.getAllParticipants()) {
-			
 			if(sexManager.isAbleToRemoveSelfClothing(character)) {
 				charactersAbleToRemoveSelfClothing.add(character);
 			}
 			if(sexManager.isAbleToRemoveOthersClothing(character)) {
 				charactersAbleToRemoveOthersClothing.add(character);
+			}
+		}
+		
+		for(GameCharacter character : Sex.getAllParticipants()) {
+			if(isConsensual()) {
+				character.setSexConsensualCount(character.getSexConsensualCount()+1);
+			}
+			if(isDom(character)) {
+				character.setSexAsDomCount(character.getSexAsDomCount()+1);
+			} else {
+				character.setSexAsSubCount(character.getSexAsSubCount()+1);
 			}
 		}
 

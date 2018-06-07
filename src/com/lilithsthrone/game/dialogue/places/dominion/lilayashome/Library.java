@@ -134,8 +134,10 @@ public class Library {
 					+ "Walking down one of the aisles, you see a great deal of organisation has gone into the design of the room, and upon closer inspection, you see that the shelves are immaculately clean;"
 						+ " evidence that a lot of care goes into its maintenance."
 					+ " As you walk, you scan the titles printed onto the spines of the books, but there's not really much that catches your eye."
-					+ " On the back wall at the end of the shelves is a massive map of the local area, you wonder if you should snap picture of it with your camara."
-					+ " Only a few shelves really look to be of any interest, and you wonder if you should take some time to do a spot of reading..."
+					+ " Only a few shelves really look to be of any interest, and you wonder if you should take some time to do a spot of reading."
+				+ "</p>"
+				+ "<p>"
+					+ "On the back wall at the end of the shelves is a huge map of the city of Dominion. You wonder if you should take a picture of it with your phone's camera."
 				+ "</p>";
 							
 		}

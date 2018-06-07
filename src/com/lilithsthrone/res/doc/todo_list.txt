@@ -50,6 +50,7 @@
 		Improved handling of key codes by converting a long switch statement to a map. (pinnae)
 		Added a spiked collar clothing item using the modding system. (Irbynx)
 		Removed glow buttons for skin colours in character creation. (Master of Puppets)
+		Improved Library button placement. (rfpnj)
 	
 	Other:
 		<b>Added:</b> ability to recolour clothing patterns.
@@ -80,8 +81,10 @@
 		Fixed incorrect names being returned when getting an NPC to use an item.
 		Fixed bug where wing slots were unable to get tattooed.
 		Fixed NPCs in the pregnancy roulette game putting their tails into your vagina... (And then afterwards claiming 'There's no way you won't get pregnant from this!')
+		Fixed game not keeping count of the times the player has had dominant or submissive sex.
 		
-		
+	
+	
 	
 	
 	[ ] Scars and tattoos to character creation
@@ -93,6 +96,8 @@
 	[ ] Bugs
 	
 	[ ] Sex action orifice-on-orifice and start modding framework
+	
+	@SuppressWarnings("deprecation")
 	
 	Improve contacts UI
 	
