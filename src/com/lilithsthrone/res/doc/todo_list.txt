@@ -30,58 +30,59 @@
 	
 	Patch notes:
 	
-	Gameplay:
-		Finished pregnancy roulette dialogue, and added a way to have sex with Epona.
-		Slightly changed pregnancy roulette mechanics. Instead of being fixed, the order in which the breeders use the volunteer is random. Correctly guessing who will get you pregnant as the volunteer now pays out 50,000 flames.
-		Slightly improved impregnation calculations. Now, instead of impregnation only being calculated once on the moment of orgasm, the game calculates impregnation every hour while a vagina has cum in it.
-		Impregnation chance has been halved (to try and balance the fact that impregnation is checked every hour now).
-		The 'Psychoactive Trip' and 'Addictions' status effects will now refresh every hour while psychoactive or addictive fluid is in one of your orifices.
-		It is now possible to impregnate/be impregnated even if virility or fertility are less than 0, provided the other partner's opposite attribute is high enough. (Having the 'firing blanks' or 'barren' parks overrides this behaviour, and removes the chance of pregnancy if virility or fertility are less than 0, respectively.)
-	
-	Contributors:
-		Fixed a NullPointerException when entering the gambling den in new game. (Pimvgd)
-		Fixed addiction timer displays showing things like '21:60' instead of '22:00'. (Pimvgd)
-		Punctuation Fixes for Slime Queen Quest. (WoefulWombat)
-		Fixed missing explore button for the 'canal end' tiles. (Pimvgd)
-		Deduplicated colourReplacement in AbstractItemType. (Pimvgd)
-		Added set bonuses for sun and snowflake jewellery. (rfpnj)
-		Fixed several issues with incorrect cum, girlcum, and milk types being returned. (Pimvgd)
-		Added some parser commands that will simplify creating dialogue, by handling second & third person pronouns and verbs in single parser commands. (TadUnlikely)
-		Improved handling of key codes by converting a long switch statement to a map. (pinnae)
-		Added a spiked collar clothing item using the modding system. (Irbynx)
-		Removed glow buttons for skin colours in character creation. (Master of Puppets)
-		Improved Library button placement. (rfpnj)
-	
-	Other:
-		<b>Added:</b> ability to recolour clothing patterns.
-		Improved right UI panel's 'characters present' section. Hovering over the names/icons in that section now shows appropriate tooltips.
-		Changed boxers and crotchless briefs to be pulled down instead of shifted aside.
-		Added tongue length to clothing TF options. Added puffy, ribbing, muscled, and tentacled modifiers to clothing's anus, nipple, face, penis, and vagina TFs.
-		Slightly improved snowflake nose stud icon.
-		Synchronised slow clothing TF effects, so that they all fire on the hour. (I did this to fix the issue of having your game interrupted every time you move if you had a lot of TF clothing effects all firing at different times.)
-		Added 'periwinkle' as a clothing and body part colour.
-		Using the save/load menu to load enchantments onto clothing now identifies already-enchanted clothing as being suitable (so long as the enchantment is known), while prioritising non-enchanted clothing.
-		Slightly modified clothing's cow pattern.
-	
-	Bugs:
-		Fixed male kimono exposing anus when untied.
-		Starting a new game with an imported character that was exported with companions or a summoned elemental should now work correctly.
-		Fixed Lilaya's artwork not being able to be cycled through.
-		Fixed issue with fetish desires resetting when saving/loading while wearing clothing that grants a fetish.
-		Fixed bug where offspring of special subspecies wouldn't be of that subspecies. (i.e. Dobermann offspring would be regular dog-morphs.)
-		You can now set your base fetish desire to any value, but if you have the fetish, it's still always counted as 'love'. The pink outline on fetish desires correctly reflects this change.
-		Fixed not being able to select items from the right-hand UI element 'Items Present' while the inventory was already open.
-		Fixed character creation's virginity losses incorrectly referencing 'girlfriend', when it should have been 'boyfriend'.
-		Deleting saved enchantments now correctly removes them from the list.
-		Typo fixes.
-		Fixed some inventory stacking errors related to clothing names and patterns.
-		Fixed issue where if an NPC had a piece of patterned clothing, all their clothing would have that pattern name.
-		Fixed weapons' primary colour not being able to be dyed.
-		Fixed weapon colours not persisting between saves.
-		Fixed incorrect names being returned when getting an NPC to use an item.
-		Fixed bug where wing slots were unable to get tattooed.
-		Fixed NPCs in the pregnancy roulette game putting their tails into your vagina... (And then afterwards claiming 'There's no way you won't get pregnant from this!')
-		Fixed game not keeping count of the times the player has had dominant or submissive sex.
+Gameplay:
+	Finished pregnancy roulette dialogue, and added a way to have sex with Epona.
+	Slightly changed pregnancy roulette mechanics. Instead of being fixed, the order in which the breeders use the volunteer is random. Correctly guessing who will get you pregnant as the volunteer now pays out 50,000 flames.
+	Slightly improved impregnation calculations. Now, instead of impregnation only being calculated once on the moment of orgasm, the game calculates impregnation every hour while a vagina has cum in it.
+	Impregnation chance has been halved (to try and balance the fact that impregnation is checked every hour now).
+	The 'Psychoactive Trip' and 'Addictions' status effects will now refresh every hour while psychoactive or addictive fluid is in one of your orifices.
+	It is now possible to impregnate/be impregnated even if virility or fertility are less than 0, provided the other partner's opposite attribute is high enough. (Having the 'firing blanks' or 'barren' parks overrides this behaviour, and removes the chance of pregnancy if virility or fertility are less than 0, respectively.)
+	Added Jam's artwork of Candi.
+
+Contributors:
+	Fixed a NullPointerException when entering the gambling den in new game. (Pimvgd)
+	Fixed addiction timer displays showing things like '21:60' instead of '22:00'. (Pimvgd)
+	Punctuation Fixes for Slime Queen Quest. (WoefulWombat)
+	Fixed missing explore button for the 'canal end' tiles. (Pimvgd)
+	Deduplicated colourReplacement in AbstractItemType. (Pimvgd)
+	Added set bonuses for sun and snowflake jewellery. (rfpnj)
+	Fixed several issues with incorrect cum, girlcum, and milk types being returned. (Pimvgd)
+	Added some parser commands that will simplify creating dialogue, by handling second & third person pronouns and verbs in single parser commands. (TadUnlikely)
+	Improved handling of key codes by converting a long switch statement to a map. (pinnae)
+	Added a spiked collar clothing item using the modding system. (Irbynx)
+	Removed glow buttons for skin colours in character creation. (Master of Puppets)
+	Improved Library button placement. (rfpnj)
+
+Other:
+	<b>Added:</b> ability to recolour clothing patterns.
+	Improved right UI panel's 'characters present' section. Hovering over the names/icons in that section now shows appropriate tooltips.
+	Changed boxers and crotchless briefs to be pulled down instead of shifted aside.
+	Added tongue length to clothing TF options. Added puffy, ribbing, muscled, and tentacled modifiers to clothing's anus, nipple, face, penis, and vagina TFs.
+	Slightly improved snowflake nose stud icon.
+	Synchronised slow clothing TF effects, so that they all fire on the hour. (I did this to fix the issue of having your game interrupted every time you move if you had a lot of TF clothing effects all firing at different times.)
+	Added 'periwinkle' as a clothing and body part colour.
+	Using the save/load menu to load enchantments onto clothing now identifies already-enchanted clothing as being suitable (so long as the enchantment is known), while prioritising non-enchanted clothing.
+	Slightly modified clothing's cow pattern.
+
+Bugs:
+	Fixed male kimono exposing anus when untied.
+	Starting a new game with an imported character that was exported with companions or a summoned elemental should now work correctly.
+	Fixed Lilaya's artwork not being able to be cycled through.
+	Fixed issue with fetish desires resetting when saving/loading while wearing clothing that grants a fetish.
+	Fixed bug where offspring of special subspecies wouldn't be of that subspecies. (i.e. Dobermann offspring would be regular dog-morphs.)
+	You can now set your base fetish desire to any value, but if you have the fetish, it's still always counted as 'love'. The pink outline on fetish desires correctly reflects this change.
+	Fixed not being able to select items from the right-hand UI element 'Items Present' while the inventory was already open.
+	Fixed character creation's virginity losses incorrectly referencing 'girlfriend', when it should have been 'boyfriend'.
+	Deleting saved enchantments now correctly removes them from the list.
+	Typo fixes.
+	Fixed some inventory stacking errors related to clothing names and patterns.
+	Fixed issue where if an NPC had a piece of patterned clothing, all their clothing would have that pattern name.
+	Fixed weapons' primary colour not being able to be dyed.
+	Fixed weapon colours not persisting between saves.
+	Fixed incorrect names being returned when getting an NPC to use an item.
+	Fixed bug where wing slots were unable to get tattooed.
+	Fixed NPCs in the pregnancy roulette game putting their tails into your vagina... (And then afterwards claiming 'There's no way you won't get pregnant from this!')
+	Fixed game not keeping count of the times the player has had dominant or submissive sex.
 		
 	
 	

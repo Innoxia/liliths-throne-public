@@ -108,7 +108,8 @@ public class Main extends Application {
 			+"<ul>Impregnation chance has been halved (to try and balance the fact that impregnation is checked every hour now).</ul>"
 			+"<ul>The 'Psychoactive Trip' and 'Addictions' status effects will now refresh every hour while psychoactive or addictive fluid is in one of your orifices.</ul>"
 			+"<ul>It is now possible to impregnate/be impregnated even if virility or fertility are less than 0, provided the other partner's opposite attribute is high enough. (Having the 'firing blanks' or 'barren' parks overrides this behaviour, and removes the chance of pregnancy if virility or fertility are less than 0, respectively.)</ul>"
-
+			+"<ul>Added Jam's artwork of Candi.</ul>"
+			
 			+"<li>Contributors:</li>"
 			+"<ul>Fixed a NullPointerException when entering the gambling den in new game. (Pimvgd)</ul>"
 			+"<ul>Fixed addiction timer displays showing things like '21:60' instead of '22:00'. (Pimvgd)</ul>"
