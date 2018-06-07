@@ -172,6 +172,10 @@ public class FluidGirlCum implements FluidInterface, Serializable, XMLSaving {
 	}
 	
 	public String addFluidModifier(GameCharacter owner, FluidModifier fluidModifier) {
+		if(owner==null && !fluidModifiers.contains(fluidModifier)) {
+			fluidModifiers.add(fluidModifier);
+			return "";
+		}
 		if(fluidModifiers.contains(fluidModifier) || !owner.hasVagina()) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 		}

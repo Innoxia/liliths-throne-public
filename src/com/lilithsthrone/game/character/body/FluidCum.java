@@ -208,7 +208,7 @@ public class FluidCum implements FluidInterface, Serializable, XMLSaving {
 	}
 	
 	public String addFluidModifier(GameCharacter owner, FluidModifier fluidModifier) {
-		if(owner==null) {
+		if(owner==null && !fluidModifiers.contains(fluidModifier)) {
 			fluidModifiers.add(fluidModifier);
 			return "";
 		}
