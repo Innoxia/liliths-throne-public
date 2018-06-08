@@ -287,7 +287,7 @@ public class GenericOrgasms {
 				if(characterOrgasming.isPlayer()) {
 					genericOrgasmSB.append(" Your [npc1.cock+] twitches, and you feel your [npc1.balls+] tightening as you start to cum.");
 				} else {
-					genericOrgasmSB.append(" [npc.namePos] [npc1.cock+] twitches, and [npc.she] feels [npc.her] [npc.balls+] tightening as [npc.she] starts to cum.");
+					genericOrgasmSB.append(" [npc.NamePos] [npc1.cock+] twitches, and [npc.she] feels [npc.her] [npc.balls+] tightening as [npc.she] starts to cum.");
 				}
 			}
 
@@ -1454,15 +1454,15 @@ public class GenericOrgasms {
 				}
 			} else {
 				if(cumAmount >= CumProduction.SEVEN_MONSTROUS.getMaximumValue()) {
-					return ("<br/>[npc2.namePos] stomach swells out to a massive, over-inflated size as it distends from the sheer amount of cum that [npc1.namePos] pumped inside of [npc2.herHim]."
+					return ("<br/>[npc2.NamePos] stomach swells out to a massive, over-inflated size as it distends from the sheer amount of cum that [npc1.namePos] pumped inside of [npc2.herHim]."
 							+ " Placing a [npc1.hand] on [npc2.her] belly, the [npc1.race] grins as [npc1.she] remarks on the fact that [npc2.name] now looks as though [npc2.she]'s heavily pregnant.");
 					
 				} else if(cumAmount >= CumProduction.SEVEN_MONSTROUS.getMedianValue()) {
-					return ("<br/>[npc2.namePos] stomach swells out as it distends from the huge amount of cum that [npc1.namePos] pumped inside of [npc2.herHim]."
+					return ("<br/>[npc2.NamePos] stomach swells out as it distends from the huge amount of cum that [npc1.namePos] pumped inside of [npc2.herHim]."
 							+ " Placing a [npc1.hand] on [npc2.her] belly, the [npc1.race] grins as [npc1.she] remarks on the fact that [npc2.name] now looks as though [npc2.she]'s pregnant.");
 					
 				} else if(cumAmount >= CumProduction.SEVEN_MONSTROUS.getMinimumValue()) {
-					return ("<br/>[npc2.namePos] stomach swells out a little as it distends from the sheer amount of cum that [npc1.namePos] pumped inside of [npc2.herHim]."
+					return ("<br/>[npc2.NamePos] stomach swells out a little as it distends from the sheer amount of cum that [npc1.namePos] pumped inside of [npc2.herHim]."
 							+ " Placing a [npc1.hand] on [npc2.her] belly, the [npc1.race] grins as [npc1.she] remarks on the fact that [npc2.name] now looks as though [npc2.she]'s in the early stages of pregnancy.");
 				}
 			}
@@ -1494,13 +1494,13 @@ public class GenericOrgasms {
 				}
 			} else {
 				if(cumAmount >= CumProduction.SEVEN_MONSTROUS.getMaximumValue()) {
-					return ("<br/>[npc2.namePos] [npc2.breasts] swell out to a massive, over-inflated size as they distend from the sheer amount of cum that [npc1.namePos] pumped inside of them.");
+					return ("<br/>[npc2.NamePos] [npc2.breasts] swell out to a massive, over-inflated size as they distend from the sheer amount of cum that [npc1.namePos] pumped inside of them.");
 					
 				} else if(cumAmount >= CumProduction.SEVEN_MONSTROUS.getMedianValue()) {
-					return ("<br/>[npc2.namePos] [npc2.breasts] swell out as they distend from the huge amount of cum that [npc1.namePos] pumped inside of them.");
+					return ("<br/>[npc2.NamePos] [npc2.breasts] swell out as they distend from the huge amount of cum that [npc1.namePos] pumped inside of them.");
 					
 				} else if(cumAmount >= CumProduction.SEVEN_MONSTROUS.getMinimumValue()) {
-					return ("<br/>[npc2.namePos] [npc2.breasts] swell out a little as they distend from the sheer amount of cum that [npc1.namePos] pumped inside of them.");
+					return ("<br/>[npc2.NamePos] [npc2.breasts] swell out a little as they distend from the sheer amount of cum that [npc1.namePos] pumped inside of them.");
 				}
 			}
 		}
@@ -1598,7 +1598,7 @@ public class GenericOrgasms {
 			if(characterOrgasming.isPlayer()) {
 				genericOrgasmSB.append(" Your [npc1.pussy+] clenches down hard, and the wave of disappointment upon finding itself empty almost overwhelms the pleasure that radiates up through your groin.");
 			} else {
-				genericOrgasmSB.append(" [npc1.namePos] [npc1.pussy+] clenches down hard, and the wave of disappointment upon finding itself empty almost overwhelms the pleasure that radiates up through [npc.her] groin.");
+				genericOrgasmSB.append(" [npc1.NamePos] [npc1.pussy+] clenches down hard, and the wave of disappointment upon finding itself empty almost overwhelms the pleasure that radiates up through [npc.her] groin.");
 			}
 		}
 		
