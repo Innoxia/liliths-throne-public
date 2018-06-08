@@ -10303,7 +10303,7 @@ public enum StatusEffect {
 						if(target.isPlayer()) {
 							descriptionSB.append(penetrator.isPlayer()
 									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>sucking</b> your own [pc.cock]!"
-									:"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>sucking</b> your [pc.cock]!");
+									:"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>sucking</b> [npc.name]'s [npc.cock]!");
 						} else {
 							descriptionSB.append(penetrator.isPlayer()
 									?"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>sucking</b> your [pc.cock]!"
@@ -10318,7 +10318,7 @@ public enum StatusEffect {
 						if(target.isPlayer()) {
 							descriptionSB.append(penetrator.isPlayer()
 									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>sucking</b> your own [pc.tail]!"
-									:"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>sucking</b> your [pc.tail]!");
+									:"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>sucking</b> [npc.name]'s [npc.tail]!");
 						} else {
 							descriptionSB.append(penetrator.isPlayer()
 									?"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>sucking</b> your [pc.tail]!"
