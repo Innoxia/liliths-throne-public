@@ -69,23 +69,23 @@ public class GenericOrgasms {
 		switch(Sex.getSexPositionSlot(characterOrgasming)) {
 			case MISSIONARY_KNEELING_BETWEEN_LEGS:
 				if(characterOrgasming.isPlayer()) {
-					orgasmText = "Feeling yourself reaching your climax, you let out [pc.a_moan+] as you lean down on top of [npc.name].";
+					orgasmText = "Feeling yourself reaching your climax, you let out [pc.a_moan+] as you lean down on top of [npc2.name].";
 				} else {
-					orgasmText = "[npc.Name] lets out out [npc.a_moan+] as [npc.she] reaches [npc.her] climax, and, leaning down on top of you, [npc.she] gazes down onto your face with lust in [npc.her] [npc.eyes].";
+					orgasmText = "[npc.Name] lets out [npc.a_moan+] as [npc.she] reaches [npc.her] climax, and, leaning down on top of you, [npc.she] gazes down onto your face with lust in [npc.her] [npc.eyes].";
 				}
 				break;
 			case MISSIONARY_ON_BACK:
 				if(characterOrgasming.isPlayer()) {
-					orgasmText = "Feeling yourself reaching your climax, you let out [pc.a_moan+] as you spread your [pc.legs] for [npc.name] and gaze up into [npc.her] [npc.eyes+].";
+					orgasmText = "Feeling yourself reaching your climax, you let out [pc.a_moan+] as you spread your [pc.legs] for [npc2.name] and gaze up into [npc2.her] [npc2.eyes+].";
 				} else {
-					orgasmText = "[npc.Name] lets out out [npc.a_moan+] as [npc.she] reaches [npc.her] climax, and, gazing up at your face with lust in [npc.her] [npc.eyes], [npc.she] spreads [npc.her] [npc.legs] even wider for you.";
+					orgasmText = "[npc1.Name] lets out [npc1.a_moan+] as [npc1.she] reaches [npc1.her] climax, and, gazing up at your face with lust in [npc1.her] [npc1.eyes], [npc1.she] spreads [npc1.her] [npc1.legs] even wider for you.";
 				}
 				break;
 			case BACK_TO_WALL_AGAINST_WALL:
 				if(characterOrgasming.isPlayer()) {
 					orgasmText = "Feeling yourself reaching your climax, you let out [pc.a_moan+] as you lean back and brace yourself against the wall.";
 				} else {
-					orgasmText = "Leaning back, [npc.name] braces [npc.herself] against the wall as [npc.she] feels [npc.herself] reaching [npc.her] climax.";
+					orgasmText = "Leaning back, [npc1.name] braces [npc1.herself] against the wall as [npc1.she] feels [npc1.herself] reaching [npc1.her] climax.";
 				}
 				break;
 			case BACK_TO_WALL_FACING_TARGET:
@@ -99,7 +99,7 @@ public class GenericOrgasms {
 				orgasmText = "With [npc1.a_moan+], [npc1.name] [npc1.verb(sink)] down into [npc2.namePos] lap.";
 				break;
 			case COWGIRL_ON_BACK:
-				orgasmText = "[npc1.Name] [npc1.verb(reach)] up and [npc1.verb(take)] hold of [npc2.name] waist, letting out [npc1.a_moan+] as [npc1.she] [npc1.verb(prepare)] to reach [npc1.her] climax.";
+				orgasmText = "[npc1.Name] [npc1.verb(reach)] up and [npc1.verb(take)] hold of [npc2.namePos] waist, letting out [npc1.a_moan+] as [npc1.she] [npc1.verb(prepare)] to reach [npc1.her] climax.";
 				break;
 			case COWGIRL_RIDING:
 				orgasmText = "[npc1.Name] [npc1.verb(look)] down at [npc2.name] and [npc1.verb(let)] out [npc1.a_moan+] as [npc1.she] [npc1.verb(prepare)] to climax.";
@@ -168,11 +168,7 @@ public class GenericOrgasms {
 				orgasmText = "[npc1.Name] [npc1.verb(reach)] up and [npc1.verb(grab)] [npc2.namePos] shoulders, leaning into [npc2.herHim] and letting out [npc1.a_moan+] as [npc1.she] [npc1.verb(prepare)] to reach [npc1.her] climax.";
 				break;
 			case MASTURBATING_KNEELING:
-				if(characterOrgasming.isPlayer()) {
-					orgasmText = "You bite your lip and let out [pc.a_moan+] as you prepare to reach your climax.";
-				} else {
-					orgasmText = "[npc.Name] bites [npc.her] lip and lets out out [npc.a_moan+] as [npc.she] prepares to reach [npc.her] climax.";
-				}
+				orgasmText = "[npc1.Name] [npc1.verb(bite)] [npc1.her] lip and [npc1.verb(let)] out [npc1.a_moan+] as [npc1.she] [npc1.verb(prepare)] to reach [npc1.her] climax.";
 				break;
 			case STOCKS_FUCKING:
 				orgasmText = "[npc1.Name] [npc1.verb(reach)] down and [npc1.verb(grab)] [npc2.namePos] waist, pulling [npc2.herHim] back into [npc1.herHim] and letting out [npc1.a_moan+] as [npc1.she] [npc1.verb(prepare)] to reach [npc1.her] climax.";
