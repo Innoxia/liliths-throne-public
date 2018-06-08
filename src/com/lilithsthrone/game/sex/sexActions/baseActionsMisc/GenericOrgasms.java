@@ -1392,21 +1392,9 @@ public class GenericOrgasms {
 	}
 	
 	private static String getClothingCummedOnText(GameCharacter characterOrgasming, GameCharacter target, CoverableArea area) {
-		if(!target.isPlayer()) {
-			if(characterOrgasming.isPlayer()) {
-				return UtilText.parse(target,
-						" all over [npc.namePos] "+target.getHighestZLayerCoverableArea(area).getName()+"."
-								+ " You grin as your [pc.cum+] splatters onto [npc.her] clothing, making a mess of [npc.her] outfit.");
-			} else {
 				return UtilText.parse(characterOrgasming, target,
 						" all over [npc2.namePos] "+target.getHighestZLayerCoverableArea(area).getName()+"."
-								+ " [npc1.Name] grins as [npc1.her] [npc1.cum+] splatters onto [npc2.namePos] clothing, making a mess of [npc2.her] outfit.");
-			}
-		} else {
-			return UtilText.parse(characterOrgasming,
-					" all over your "+target.getHighestZLayerCoverableArea(area).getName()+"."
-					+ " [npc1.Name] grins as [npc1.her] [npc1.cum+] splatters onto your clothing, making a mess of your outfit.");
-		}
+								+ " [npc1.Name] [npc1.verb(grin)] as [npc1.her] [npc1.cum+] splatters onto [npc2.namePos] clothing, making a mess of [npc2.her] outfit.");
 	}
 
 	private static String getClothingCummedOnText(GameCharacter characterOrgasming, CoverableArea area) {
