@@ -71,7 +71,7 @@ public class GenericOrgasms {
 				if(characterOrgasming.isPlayer()) {
 					orgasmText = "Feeling yourself reaching your climax, you let out [pc.a_moan+] as you lean down on top of [npc2.name].";
 				} else {
-					orgasmText = "[npc.Name] lets out [npc.a_moan+] as [npc.she] reaches [npc.her] climax, and, leaning down on top of you, [npc.she] gazes down onto your face with lust in [npc.her] [npc.eyes].";
+					orgasmText = "[npc1.Name] lets out [npc1.a_moan+] as [npc1.she] reaches [npc1.her] climax, and, leaning down on top of you, [npc1.she] gazes down onto your face with lust in [npc1.her] [npc1.eyes].";
 				}
 				break;
 			case MISSIONARY_ON_BACK:
@@ -793,11 +793,7 @@ public class GenericOrgasms {
 	private static String getCumQuantityDescription(GameCharacter characterOrgasming) {
 		
 //		String targetName = "#IFnpc1.isPlayer#THENyour#ELSE[npc1.namePos]#ENDIF";
-		String targetName = "your";
-		if(!characterOrgasming.isPlayer()) {
-			targetName = "[npc1.namePos]";
-		}
-		String cumQuantityDescription = targetName+" [npc1.cum+] squirts";
+		String cumQuantityDescription = "[npc1.namePos] [npc1.cum+] squirts";
 		
 		switch (characterOrgasming.getPenisCumProduction()) {
 			case ZERO_NONE:
@@ -810,19 +806,19 @@ public class GenericOrgasms {
 				cumQuantityDescription = "a small amount of [npc1.cum+] squirts";
 				break;
 			case THREE_AVERAGE:
-				cumQuantityDescription = targetName+" [npc1.cum+] squirts out";
+				cumQuantityDescription = "[npc1.namePos] [npc1.cum+] squirts out";
 				break;
 			case FOUR_LARGE:
-				cumQuantityDescription = targetName+" [npc1.cum+] shoots out";
+				cumQuantityDescription = "[npc1.namePos] [npc1.cum+] shoots out";
 				break;
 			case FIVE_HUGE:
-				cumQuantityDescription = targetName+" [npc1.cum+] shoots out";
+				cumQuantityDescription = "[npc1.namePos] [npc1.cum+] shoots out";
 				break;
 			case SIX_EXTREME:
-				cumQuantityDescription = targetName+" [npc1.cum+] spurts out";
+				cumQuantityDescription = "[npc1.namePos] [npc1.cum+] spurts out";
 				break;
 			case SEVEN_MONSTROUS:
-				cumQuantityDescription = targetName+" [npc1.cum+] spurts out";
+				cumQuantityDescription = "[npc1.namePos] [npc1.cum+] spurts out";
 				break;
 		}
 		return UtilText.parse(characterOrgasming, cumQuantityDescription);
