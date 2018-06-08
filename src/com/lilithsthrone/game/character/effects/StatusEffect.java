@@ -6136,7 +6136,7 @@ public enum StatusEffect {
 		public String getDescription(GameCharacter target) {
 			if(target!=null) {
 				if(target.isPlayer()) {
-					return "By donning hearts, you're confident that you can withstand dirty thoughts";
+					return "By donning hearts, you're confident that you can withstand dirty thoughts.";
 					
 				} else {
 					return UtilText.parse(target, "By wearing hearts, [npc.name] is well-protected against any dirty thoughts.");
