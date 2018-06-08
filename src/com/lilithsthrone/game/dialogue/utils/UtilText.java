@@ -577,7 +577,7 @@ public class UtilText {
 				char c = input.charAt(i);
 				
 				if (currentParseMode != ParseMode.REGULAR) {
-					if (substringMatchesInReverseAtIndex(input, "#IF", i)) {
+					if (c == 'F' && substringMatchesInReverseAtIndex(input, "#IF", i)) {
 						if (openBrackets == 0) {
 							currentParseMode = ParseMode.CONDITIONAL;
 							startIndex = i-2;
@@ -605,7 +605,7 @@ public class UtilText {
 								arguments = sb.toString().substring(1);
 							}
 							
-						} else if(substringMatchesInReverseAtIndex(input, "#THEN", i)) {
+						} else if(c == 'N' && substringMatchesInReverseAtIndex(input, "#THEN", i)) {
 							conditionalThens++;
 							
 							if (conditionalThens == 1){
@@ -617,12 +617,12 @@ public class UtilText {
 								sb.setLength(0);
 							}
 							
-						} else if(substringMatchesInReverseAtIndex(input, "#ELSE", i) && openBrackets-1==closeBrackets) {
+						} else if(c == 'E' && substringMatchesInReverseAtIndex(input, "#ELSE", i) && openBrackets-1==closeBrackets) {
 							conditionalElseFound = true;
 							conditionalTrue = sb.toString().substring(1, sb.length()-4); // Cut off the '#ELSE' at the start.
 							sb.setLength(0);
 							
-						} else if(substringMatchesInReverseAtIndex(input, "#ENDIF", i)) {
+						} else if(c == 'F' && substringMatchesInReverseAtIndex(input, "#ENDIF", i)) {
 							closeBrackets++;
 							
 							if (openBrackets == closeBrackets) {
@@ -685,7 +685,7 @@ public class UtilText {
 					}
 				}
 				
-				if(openBrackets>0 && ((target!=null && command!=null) || String.valueOf(c).matches(".") || c!=' ')) {
+				if (openBrackets>0 && ((target!=null && command!=null) || String.valueOf(c).matches(".") || c!=' ')) {
 					sb.append(c);
 				}
 				
