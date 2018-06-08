@@ -996,7 +996,7 @@ public class UtilText {
 				if(arguments!=null) {
 					return character.getName() + "'s";
 				} else {
-					if(character.isPlayer()) {
+					if(target.startsWith("npc") && character.isPlayer()) {
 						if(command.startsWith("N")) {
 							return "Your";
 						} else {						 
@@ -1023,7 +1023,7 @@ public class UtilText {
 				if(arguments!=null) {
 					return character.getName() + "'s";
 				} else {
-					if(character.isPlayer()) {
+					if(target.startsWith("npc") && character.isPlayer()) {
 						return "you're";
 					}
 					if(character.isPlayerKnowsName()) {
@@ -1046,7 +1046,7 @@ public class UtilText {
 				if(arguments!=null) {
 					return character.getName() + "'s";
 				} else {
-					if(character.isPlayer()) {
+					if(target.startsWith("npc") && character.isPlayer()) {
 						return "you've";
 					}
 					if(character.isPlayerKnowsName()) {
@@ -1426,8 +1426,8 @@ public class UtilText {
 						"femininityRace"),
 				true,
 				true,
-				"(coloured)",//TODO
-				"Returns a full description of this characters race (including femininity)."){
+				"(coloured)",
+				"Returns a full description of this characters race (including femininity). Pass in 'true' to colour the text."){
 			@Override
 			public String parse(String command, String arguments, String target) {
 				boolean pronoun = parseAddPronoun;
@@ -1455,10 +1455,20 @@ public class UtilText {
 						"race"),
 				true,
 				true,
-				"",//TODO
-				"Description of method"){//TODO
+				"(coloured)",
+				"Returns the name of this characters race. Pass in 'true' to colour the text."){
 			@Override
 			public String parse(String command, String arguments, String target) {
+				if(arguments!=null && Boolean.valueOf(arguments)) {
+					boolean pronoun = parseAddPronoun;
+					parseAddPronoun = false;
+					String name = character.isRaceConcealed()?"unknown race":getSubspeciesName(character.getSubspecies());
+					return "<span style='color:"+(character.isRaceConcealed()?Colour.TEXT_GREY:character.getSubspecies().getColour()).toWebHexString()+";'>"
+							+ (parseCapitalise
+									?Util.capitaliseSentence((pronoun?UtilText.generateSingularDeterminer(name)+" ":"")+name)
+									:(pronoun?UtilText.generateSingularDeterminer(name)+" ":"")+name)
+							+"</span>";
+				}
 				return getSubspeciesName(character.getSubspecies());
 			}
 		});
@@ -1481,10 +1491,20 @@ public class UtilText {
 						"raceStage"),
 				true,
 				true,
-				"",//TODO
-				"Description of method"){//TODO
+				"(coloured)",
+				"Returns the name of the 'stage' of characters race (partial, lesser, greater). Pass in 'true' to colour the text."){
 			@Override
 			public String parse(String command, String arguments, String target) {
+				if(arguments!=null && Boolean.valueOf(arguments)) {
+					boolean pronoun = parseAddPronoun;
+					parseAddPronoun = false;
+					String name = character.getRaceStage().getName();
+					return "<span style='color:"+character.getRaceStage().getColour().toWebHexString()+";'>"
+							+ (parseCapitalise
+									?Util.capitaliseSentence((pronoun?UtilText.generateSingularDeterminer(name)+" ":"")+name)
+									:(pronoun?UtilText.generateSingularDeterminer(name)+" ":"")+name)
+							+"</span>";
+				}
 				return character.getRaceStage().getName();
 			}
 		});

@@ -12,10 +12,10 @@
 	- There are well over a hundred bug reports that have stacked up. I really need to get this under control before it become unmanageable.
 	
 	Sex content improvements
-	- Add modding framework for sex actions.
-	- Update Lilaya's and Kate's chair sex scenes.
 	- Add support for NPC-on-NPC actions (all sex action descriptions currently assume one partner is the player).
 	- Add support for random attackers having sex with your companions upon combat loss (requires NPC-on-NPC support first).
+	- Add modding framework for sex actions.
+	- Update Lilaya's and Kate's chair sex scenes.
 	
 	Submission content
 	- Add an Imp gang attack.
@@ -30,63 +30,102 @@
 	
 	Patch notes:
 	
-Gameplay:
-	Finished pregnancy roulette dialogue, and added a way to have sex with Epona.
-	Slightly changed pregnancy roulette mechanics. Instead of being fixed, the order in which the breeders use the volunteer is random. Correctly guessing who will get you pregnant as the volunteer now pays out 50,000 flames.
-	Slightly improved impregnation calculations. Now, instead of impregnation only being calculated once on the moment of orgasm, the game calculates impregnation every hour while a vagina has cum in it.
-	Impregnation chance has been halved (to try and balance the fact that impregnation is checked every hour now).
-	The 'Psychoactive Trip' and 'Addictions' status effects will now refresh every hour while psychoactive or addictive fluid is in one of your orifices.
-	It is now possible to impregnate/be impregnated even if virility or fertility are less than 0, provided the other partner's opposite attribute is high enough. (Having the 'firing blanks' or 'barren' parks overrides this behaviour, and removes the chance of pregnancy if virility or fertility are less than 0, respectively.)
-	Added Jam's artwork of Candi.
-
-Contributors:
-	Fixed a NullPointerException when entering the gambling den in new game. (Pimvgd)
-	Fixed addiction timer displays showing things like '21:60' instead of '22:00'. (Pimvgd)
-	Punctuation Fixes for Slime Queen Quest. (WoefulWombat)
-	Fixed missing explore button for the 'canal end' tiles. (Pimvgd)
-	Deduplicated colourReplacement in AbstractItemType. (Pimvgd)
-	Added set bonuses for sun and snowflake jewellery. (rfpnj)
-	Fixed several issues with incorrect cum, girlcum, and milk types being returned. (Pimvgd)
-	Added some parser commands that will simplify creating dialogue, by handling second & third person pronouns and verbs in single parser commands. (TadUnlikely)
-	Improved handling of key codes by converting a long switch statement to a map. (pinnae)
-	Added a spiked collar clothing item using the modding system. (Irbynx)
-	Removed glow buttons for skin colours in character creation. (Master of Puppets)
-	Improved Library button placement. (rfpnj)
-
-Other:
-	<b>Added:</b> ability to recolour clothing patterns.
-	Improved right UI panel's 'characters present' section. Hovering over the names/icons in that section now shows appropriate tooltips.
-	Changed boxers and crotchless briefs to be pulled down instead of shifted aside.
-	Added tongue length to clothing TF options. Added puffy, ribbing, muscled, and tentacled modifiers to clothing's anus, nipple, face, penis, and vagina TFs.
-	Slightly improved snowflake nose stud icon.
-	Synchronised slow clothing TF effects, so that they all fire on the hour. (I did this to fix the issue of having your game interrupted every time you move if you had a lot of TF clothing effects all firing at different times.)
-	Added 'periwinkle' as a clothing and body part colour.
-	Using the save/load menu to load enchantments onto clothing now identifies already-enchanted clothing as being suitable (so long as the enchantment is known), while prioritising non-enchanted clothing.
-	Slightly modified clothing's cow pattern.
-
-Bugs:
-	Fixed male kimono exposing anus when untied.
-	Starting a new game with an imported character that was exported with companions or a summoned elemental should now work correctly.
-	Fixed Lilaya's artwork not being able to be cycled through.
-	Fixed issue with fetish desires resetting when saving/loading while wearing clothing that grants a fetish.
-	Fixed bug where offspring of special subspecies wouldn't be of that subspecies. (i.e. Dobermann offspring would be regular dog-morphs.)
-	You can now set your base fetish desire to any value, but if you have the fetish, it's still always counted as 'love'. The pink outline on fetish desires correctly reflects this change.
-	Fixed not being able to select items from the right-hand UI element 'Items Present' while the inventory was already open.
-	Fixed character creation's virginity losses incorrectly referencing 'girlfriend', when it should have been 'boyfriend'.
-	Deleting saved enchantments now correctly removes them from the list.
-	Typo fixes.
-	Fixed some inventory stacking errors related to clothing names and patterns.
-	Fixed issue where if an NPC had a piece of patterned clothing, all their clothing would have that pattern name.
-	Fixed weapons' primary colour not being able to be dyed.
-	Fixed weapon colours not persisting between saves.
-	Fixed incorrect names being returned when getting an NPC to use an item.
-	Fixed bug where wing slots were unable to get tattooed.
-	Fixed NPCs in the pregnancy roulette game putting their tails into your vagina... (And then afterwards claiming 'There's no way you won't get pregnant from this!')
-	Fixed game not keeping count of the times the player has had dominant or submissive sex.
-		
+	
+	
+	Artwork:
+		Added ChattyNeko's Kate drawing.
+	
+	Contributors:
+		Fixed self breast milking always emptying breasts. (Pimvgd)
+		Fixed bug in FluidStored constructor that was causing issues with Roxy. (Pimvgd)
+		Fixed incorrect descriptions in mouth orifice status tooltip. (Pimvgd)
+	
+	Clothing:
+		<b>Added:</b> Butler set. (With boosted butler set effects if you chose the 'bulter' job at the start of the game.)
+		Added: Butler's Jacket. (Over-torso slot, masculine, butler set.)
+		Added: Butler's Waistcoat. (Under-torso slot, masculine, butler set.)
+		Added: Butler's Trousers. (Leg slot, masculine, butler set.)
+		Added: Butler's Gloves. (Hand slot, masculine, butler set.)
+		Added: Butler's Shoes. (Feet slot, masculine, butler set.)
+	
+	Other:
+		Slightly improved map rendering when zoomed out.
+		Allowed side panels to expand their width when the game window is enlarged.
+		Added 'current litter size', and 'cum in pussy/ass' taken & received counters for tattoos.
+		Slightly improved clothing mod documentation (in rental_mommy.svg), and added functionality to use preset lists for concealed slots.
+		Improved the NPC stats panel (the information beneath their appearance description).
+		Improved the contacts page in your phone.
+	
+	Bugs:
+		Typo and parsing fixes.
+		Fixed some inconsistencies in Epona's pregnancy roulette scenes.
 	
 	
 	
+	[possible build error]
+	In 0.2.6.2 it is fine and working. In 0.2.6.5, you press "Grow Cock" once you don't even get the dialog for it, but you shift Liliya's cloths and she has a 1 inch cock.
+		java.lang.NoSuchMethodError: com.lilithsthrone.game.character.body.FluidCum.setType(Lcom/lilithsthrone/game/character/body/types/BodyPartTypeInterface;)
+	
+	
+	[fixed?]
+	I don't know if it's been reported already or not, but I've found a bug with the "Lick Roxy's Pussy" scene in the Submission Gambling Den.
+	 Poor Roxy keeps finding herself stuck on the cusp of her orgasm. That is to say, it gets to the "Prepare" prompt, but clicking on it does nothing. I'm using Java 10.0.1, no mods or anything.
+	
+	java.lang.NullPointerException
+	at com.lilithsthrone.game.character.body.FluidGirlCum.addFluidModifier(FluidGirlCum.java:175)
+	at com.lilithsthrone.game.character.FluidStored.<init>(FluidStored.java:63)
+	at com.lilithsthrone.game.character.GameCharacter.ingestFluid(GameCharacter.java:9446)
+	at com.lilithsthrone.game.sex.Sex.applyGenericDescriptionsAndEffects(Sex.java:1901)
+	at com.lilithsthrone.game.sex.Sex.endSexTurn(Sex.java:1264)
+	at com.lilithsthrone.game.sex.sexActions.SexActionInterface$1.effects(SexActionInterface.java:546)
+	at com.lilithsthrone.game.dialogue.responses.Response.applyEffects(Response.java:174)
+	
+	
+	
+	NPC reacts to themselves wearing a dildo as though you're wearing one
+	
+	 after you are bred through Pregnancy Rolette your clothes aren't put back
+	
+	if you have the vagina-plug mod, when it gets taken out for Pregnancy Rolette it get's deleted
+	
+	Some breeders are using promiscuity pills
+	
+	foot fetish
+	Tailjobs
+	
+	Epona forgetting player and repeating intro dialogue
+	
+	let the dominant partner choose where the sub cums
+	
+	Isn't it kind of silly for a horse-girl to have a "powerful" body shape and then a couple lines further describe her limbs as "slender"?
+	
+	make fluids it drain at least a little, even if it's plugged
+	
+	transformed alleyway demons get slime transformation menu fixed yet?
+	
+	self cum on tits using player name isntead of you
+	
+	: It would seem that those who turn themselves into slimes cannot change their hair type. IE: I cannot switch my hair from rabbit type to feathered. You end up needing to use a potion
+	
+	epona says that she gives whoever's getting bred vixen's virility, yet the effect's not there as far as i can see
+	
+	Fix pregnancy SE from teh new system
+	
+	sexual orientation SE says aura damage
+	
+	1. I can't disable anal. Anal is a major turn-off for me, and NPCs can spawn with anal fetishes... which leads me to...
+
+	2. I can't get rid of certain fetishes. There's the ability to enchant an item to make the wearer HATE a certain fetish, but I've encountered characters who love a particular fetish and I can't make them hate it, not even by stacking the enchantment.
+	
+	3.As far as I can tell, there's no option to have two other characters have sex (like making one slave have sex with another slave), or even a proper threesome option. There's two options that involve two slaves and your character, but there are limitations caused by the NPCs only having interactions with your character.
+	
+	 
+	
+	I've probably got a fair few minor complaints, but one off the top of my head is the inability to expand a single-slave room into a double-slave room. If you want to do it, you have to unassign slaves from it (particularly annoying if it's your first room), set it to empty and then assign it as a double. This wastes a lot of money.
+	
+	[ ] Change PenetrationType and OrificeType to SexArea
+	
+	[ ] Clothing for different slots (for plugs & ribbons)
 	
 	[ ] Scars and tattoos to character creation
 	
@@ -100,7 +139,7 @@ Bugs:
 	
 	@SuppressWarnings("deprecation")
 	
-	Improve contacts UI
+	Piercing are sitting in a slimes inventory, without me ever encountering this slime before, I think this is a bug
 	
 	Changing virility of partner affects cum already in vagina...
 	
@@ -406,7 +445,6 @@ Bugs:
 	
 	
 	Sailor uniform
-	Butler set
 	
 	 the bug where when you look at a new npc often you see the info and inventory of the one you looked at most recently instead
 	 could have just fought someone in the alley, but when I go and talk to one of my slaves it treats them like they're that person in the alley. I just want to be clear this isn't so much the character thing with their bodily description, but the one with their combat stats

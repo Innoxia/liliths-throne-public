@@ -836,11 +836,7 @@ public class GenericOrgasms {
 		StringBuilder cumTargetSB = new StringBuilder();
 		
 		if(characterOrgasming.isWearingCondom()) {
-			if(characterOrgasming.isPlayer()) {
-				return " into the condom that you're wearing.";
-			} else {
-				return UtilText.parse(characterOrgasming, " into the condom that [npc1.she]'s wearing.");
-			}
+			return UtilText.parse(characterOrgasming, " into the condom that [npc1.sheIs] wearing.");
 			
 		} else if (!characterOrgasming.isCoverableAreaExposed(CoverableArea.PENIS)) {
 			if(characterOrgasming.isPlayer()) {
@@ -861,8 +857,8 @@ public class GenericOrgasms {
 								" all over [npc2.namePos] [npc2.ass+]."
 								+ " [npc1.Name] [npc1.verb(grin)] as [npc1.her] [npc1.cum+] splatters onto [npc2.namePos] naked backside, and"
 								+ (!characterOrgasming.isPlayer() && !target.isPlayer()
-								?" the [npc2.race]"
-								:" [npc2.she]")
+									?" the [npc2.race]"
+									:" [npc2.she]")
 								+" can't help but let out [npc2.a_moan] as [npc2.she] [npc2.verb(feel)] it running down over [npc2.her] [npc2.asshole+].");
 					}
 				case BACK:

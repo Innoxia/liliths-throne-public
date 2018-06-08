@@ -4,6 +4,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.CharacterImportSetting;
+import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.Covering;
@@ -75,13 +76,16 @@ public class Amber extends NPC {
 		super(new NameTriplet("Amber"),
 				"The highest-ranking of Zaranix's maids, Amber is clearly outraged by the fact that you're wandering around her master's house unsupervised.",
 				12, Gender.F_P_V_B_FUTANARI, RacialBody.DEMON, RaceStage.GREATER, new CharacterInventory(10), WorldType.ZARANIX_HOUSE_GROUND_FLOOR, PlaceType.ZARANIX_GF_LOUNGE, true);
-
+		
 		this.setPersonality(Util.newHashMapOfValues(
 				new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.LOW),
 				new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.AVERAGE),
 				new Value<>(PersonalityTrait.EXTROVERSION, PersonalityWeight.AVERAGE),
 				new Value<>(PersonalityTrait.NEUROTICISM, PersonalityWeight.AVERAGE),
 				new Value<>(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.HIGH)));
+
+		this.setAttribute(Attribute.MAJOR_PHYSIQUE, 55);
+		this.setAttribute(Attribute.MAJOR_ARCANE, 30);
 		
 		if(!isImported) {
 			this.setPlayerKnowsName(false);

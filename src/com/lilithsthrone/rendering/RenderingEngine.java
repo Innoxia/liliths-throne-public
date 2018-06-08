@@ -1382,7 +1382,9 @@ public enum RenderingEngine {
 		}
 
 		int mapSize = zoomedIn ? 2 : 3;
-		float unit = zoomedIn ? 4.5f : 3f, borderSizeReduction = 2.5f;
+		float unit = zoomedIn ? 18f : 12f;
+		
+		String tileWidthStyle = "width:" + unit + "%; border-width:1%; margin:"+(zoomedIn?1:0.5)+"%;";
 
 		Vector2i playerPosition = Main.game.getPlayer().getLocation();
 
@@ -1396,16 +1398,16 @@ public enum RenderingEngine {
 					if (Main.game.getActiveWorld().getCell(x, y).isDiscovered() || Main.game.isDebugMode()) { // If the tile is discovered:
 
 						if (placeType == PlaceType.GENERIC_IMPASSABLE) {
-							mapSB.append("<div class='map-tile blank' style='width:" + (4 * unit) + "%;'></div>");
+							mapSB.append("<div class='map-tile blank' style='"+tileWidthStyle+"'></div>");
 						} else {
 
 							// This is the "move North" tile:
 							if (y == playerPosition.getY() + 1 && x == playerPosition.getX() && placeType != PlaceType.GENERIC_IMPASSABLE) {
 								if(Main.game.getActiveWorld().getCell(x, y).getPlace().isDangerous()) {
-									mapSB.append("<div class='map-tile movement dangerous' id='upButton' style='width:" + (4 * unit - borderSizeReduction) + "%; border-width:1%;'>");
+									mapSB.append("<div class='map-tile movement dangerous' id='upButton' style='"+tileWidthStyle+"'>");
 									
 								} else {
-									mapSB.append("<div class='map-tile movement' id='upButton' style='width:" + (4 * unit - borderSizeReduction) + "%; border-width:1%; background:"+placeType.getBackgroundColour().toWebHexString()+"; border-color:"+
+									mapSB.append("<div class='map-tile movement' id='upButton' style='"+tileWidthStyle+" background:"+placeType.getBackgroundColour().toWebHexString()+"; border-color:"+
 												(Main.game.getPlayer().getFemininityValue()<=Femininity.MASCULINE.getMaximumFemininity()
 														?Colour.MASCULINE_PLUS
 														:(Main.game.getPlayer().getFemininityValue()<=Femininity.ANDROGYNOUS.getMaximumFemininity()
@@ -1430,10 +1432,10 @@ public enum RenderingEngine {
 								// This is the "move South" tile:
 							} else if (y == playerPosition.getY() - 1 && x == playerPosition.getX() && placeType != PlaceType.GENERIC_IMPASSABLE) {
 								if(Main.game.getActiveWorld().getCell(x, y).getPlace().isDangerous()) {
-									mapSB.append("<div class='map-tile movement dangerous' id='downButton' style='width:" + (4 * unit - borderSizeReduction) + "%; border-width:1%;'>");
+									mapSB.append("<div class='map-tile movement dangerous' id='downButton' style='"+tileWidthStyle+"'>");
 									
 								} else {
-									mapSB.append("<div class='map-tile movement' id='downButton' style='width:" + (4 * unit - borderSizeReduction) + "%; border-width:1%; background:"+placeType.getBackgroundColour().toWebHexString()+"; border-color:"+
+									mapSB.append("<div class='map-tile movement' id='downButton' style='"+tileWidthStyle+" background:"+placeType.getBackgroundColour().toWebHexString()+"; border-color:"+
 												(Main.game.getPlayer().getFemininityValue()<=Femininity.MASCULINE.getMaximumFemininity()
 														?Colour.MASCULINE_PLUS
 														:(Main.game.getPlayer().getFemininityValue()<=Femininity.ANDROGYNOUS.getMaximumFemininity()
@@ -1458,10 +1460,10 @@ public enum RenderingEngine {
 								// This is the "move West" tile:
 							} else if (y == playerPosition.getY() && x == playerPosition.getX() - 1 && placeType != PlaceType.GENERIC_IMPASSABLE) {
 								if(Main.game.getActiveWorld().getCell(x, y).getPlace().isDangerous()) {
-									mapSB.append("<div class='map-tile movement dangerous' id='leftButton' style='width:" + (4 * unit - borderSizeReduction) + "%; border-width:1%;'>");
+									mapSB.append("<div class='map-tile movement dangerous' id='leftButton' style='"+tileWidthStyle+"'>");
 									
 								} else {
-									mapSB.append("<div class='map-tile movement' id='leftButton' style='width:" + (4 * unit - borderSizeReduction) + "%; border-width:1%; background:"+placeType.getBackgroundColour().toWebHexString()+"; border-color:"+
+									mapSB.append("<div class='map-tile movement' id='leftButton' style='"+tileWidthStyle+" background:"+placeType.getBackgroundColour().toWebHexString()+"; border-color:"+
 												(Main.game.getPlayer().getFemininityValue()<=Femininity.MASCULINE.getMaximumFemininity()
 														?Colour.MASCULINE_PLUS
 														:(Main.game.getPlayer().getFemininityValue()<=Femininity.ANDROGYNOUS.getMaximumFemininity()
@@ -1486,10 +1488,10 @@ public enum RenderingEngine {
 								// This is the "move East" tile:
 							} else if (y == playerPosition.getY() && x == playerPosition.getX() + 1 && placeType != PlaceType.GENERIC_IMPASSABLE) {
 								if(Main.game.getActiveWorld().getCell(x, y).getPlace().isDangerous()) {
-									mapSB.append("<div class='map-tile movement dangerous' id='rightButton' style='width:" + (4 * unit - borderSizeReduction) + "%; border-width:1%;'>");
+									mapSB.append("<div class='map-tile movement dangerous' id='rightButton' style='"+tileWidthStyle+"'>");
 									
 								} else {
-									mapSB.append("<div class='map-tile movement' id='rightButton' style='width:" + (4 * unit - borderSizeReduction) + "%; border-width:1%; background:"+placeType.getBackgroundColour().toWebHexString()+"; border-color:"+
+									mapSB.append("<div class='map-tile movement' id='rightButton' style='"+tileWidthStyle+" background:"+placeType.getBackgroundColour().toWebHexString()+"; border-color:"+
 												(Main.game.getPlayer().getFemininityValue()<=Femininity.MASCULINE.getMaximumFemininity()
 														?Colour.MASCULINE_PLUS
 														:(Main.game.getPlayer().getFemininityValue()<=Femininity.ANDROGYNOUS.getMaximumFemininity()
@@ -1513,10 +1515,10 @@ public enum RenderingEngine {
 
 							} else {
 								if(Main.game.getActiveWorld().getCell(x, y).getPlace().isDangerous()) {
-									mapSB.append("<div class='map-tile" + (y == playerPosition.getY() && x == playerPosition.getX() ? " player dangerous" : " dangerous") + "' style='width:" + (4 * unit) + "%;'>");
+									mapSB.append("<div class='map-tile" + (y == playerPosition.getY() && x == playerPosition.getX() ? " player dangerous" : " dangerous") + "' style='"+tileWidthStyle+"'>");
 									
 								} else {
-									mapSB.append("<div class='map-tile" + (y == playerPosition.getY() && x == playerPosition.getX() ? " player" : "") + "' style='width:" + (4 * unit) + "%; background:"+placeType.getBackgroundColour().toWebHexString()+";'>");
+									mapSB.append("<div class='map-tile" + (y == playerPosition.getY() && x == playerPosition.getX() ? " player" : "") + "' style='"+tileWidthStyle+" background:"+placeType.getBackgroundColour().toWebHexString()+";'>");
 									
 								}
 
@@ -1558,11 +1560,11 @@ public enum RenderingEngine {
 						}
 						
 					} else {
-						mapSB.append("<div class='map-tile blank' style='width:" + (4 * unit) + "%;'></div>");
+						mapSB.append("<div class='map-tile blank' style='"+tileWidthStyle+"'></div>");
 					}
 					
 				} else {
-					mapSB.append("<div class='map-tile blank' style='width:" + (4 * unit) + "%;'></div>");
+					mapSB.append("<div class='map-tile blank' style='"+tileWidthStyle+"'></div>");
 				}
 			}
 

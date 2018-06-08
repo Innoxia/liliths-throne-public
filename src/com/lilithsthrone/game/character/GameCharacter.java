@@ -156,6 +156,7 @@ import com.lilithsthrone.game.dialogue.eventLog.EventLogEntry;
 import com.lilithsthrone.game.dialogue.eventLog.EventLogEntryAttributeChange;
 import com.lilithsthrone.game.dialogue.eventLog.EventLogEntryEncyclopediaUnlock;
 import com.lilithsthrone.game.dialogue.story.CharacterCreation;
+import com.lilithsthrone.game.dialogue.utils.PhoneDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.CharacterInventory;
@@ -2157,76 +2158,76 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				+ "<p>"
 					+ this.getBodyDescription()
 				+ "</p>"
-				+ getStats(this));
+				+ PhoneDialogue.getBodyStatsPanel(this));
 		
 		return infoScreenSB.toString();
 	}
 	
-	public static String getStats(GameCharacter character) {
-		return "<h4 style='text-align:center;'>Stats</h4>"
-				+"<table align='center'>"
-
-				+ "<tr style='height:8px; color:"+character.getGender().getColour().toWebHexString()+";'><th>Core</th></tr>"
-				+ statRow("Femininity", String.valueOf(character.getFemininityValue()))
-				+ statRow("Height (cm)", String.valueOf(character.getHeightValue()))
-				+ statRow("Hair length (inches)", String.valueOf(Util.conversionInchesToCentimetres(character.getHairRawLengthValue())))
-				+ "<tr style='height:8px;'></tr>"
-
-				+ "<tr style='height:8px; color:"+Colour.TRANSFORMATION_SEXUAL.toWebHexString()+";'><th>Breasts</th></tr>"
-				+ statRow("Cup size", character.getBreastRawSizeValue() == 0 ? "N/A" : Util.capitaliseSentence(character.getBreastSize().getCupSizeName()))
-				+ (character.getPlayerKnowsAreas().contains(CoverableArea.NIPPLES)
-					?statRow("Milk Storage (mL)", String.valueOf(character.getBreastRawMilkStorageValue()))
-						+statRow("Milk regeneration (%/minute)", String.valueOf((Math.round(character.getBreastLactationRegeneration().getPercentageRegen()*100)*100)/100f))
-						+ statRow("Capacity (inches)", String.valueOf(character.getNippleRawCapacityValue()))
-						+ statRow("Elasticity", String.valueOf(character.getNippleElasticity().getValue()) + " ("+Util.capitaliseSentence(character.getNippleElasticity().getDescriptor())+")")
-					:statRow("Milk Storage (mL)", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>")
-						+ statRow("Capacity (inches)","<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>")
-						+ statRow("Elasticity", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>"))
-				+ "<tr style='height:8px;'></tr>"
-
-				+ "<tr style='height:8px; color:"+Colour.TRANSFORMATION_SEXUAL.toWebHexString()+";'><th>Penis</th></tr>"
-				+ (character.getPlayerKnowsAreas().contains(CoverableArea.PENIS)
-					?statRow("Length (inches)", character.getPenisType() == PenisType.NONE ? "N/A" : String.valueOf(character.getPenisRawSizeValue()))
-						+ statRow("Ball size", character.getPenisType() == PenisType.NONE ? "N/A" : Util.capitaliseSentence(character.getTesticleSize().getDescriptor()))
-						+ statRow("Cum production (mL)", character.getPenisType() == PenisType.NONE ? "N/A" : String.valueOf(character.getPenisRawCumProductionValue()))
-					:statRow("Length (inches)", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>")
-						+ statRow("Ball size", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>")
-						+ statRow("Cum production (mL)", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>"))
-				+ "<tr style='height:8px;'></tr>"
-
-				+ "<tr style='height:8px; color:"+Colour.TRANSFORMATION_SEXUAL.toWebHexString()+";'><th>Vagina</th></tr>"
-				+ (character.getPlayerKnowsAreas().contains(CoverableArea.VAGINA)
-					?statRow("Capacity (inches)", character.getVaginaType() == VaginaType.NONE ? "N/A" : String.valueOf(character.getVaginaRawCapacityValue()))
-						+ statRow("Elasticity", String.valueOf(character.getVaginaElasticity().getValue()) + " ("+Util.capitaliseSentence(character.getVaginaElasticity().getDescriptor())+")")
-						+ statRow("Wetness", character.getVaginaType() == VaginaType.NONE ? "N/A" : String.valueOf(character.getVaginaWetness().getValue()) +" ("+Util.capitaliseSentence(character.getVaginaWetness().getDescriptor())+")")
-						+ statRow("Clit size (inches)", character.getVaginaType() == VaginaType.NONE ? "N/A" : String.valueOf(character.getVaginaRawClitorisSizeValue()))
-					:statRow("Capacity (inches)", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>")
-						+ statRow("Elasticity", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>")
-						+ statRow("Wetness", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>")
-						+ statRow("Clit size (inches)", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>"))
-				+ "<tr style='height:8px;'></tr>"
-
-				+ "<tr style='height:8px; color:"+Colour.TRANSFORMATION_SEXUAL.toWebHexString()+";'><th>Anus</th></tr>"
-				+ (character.getPlayerKnowsAreas().contains(CoverableArea.ANUS)
-					?statRow("Capacity (inches)", String.valueOf(character.getAssRawCapacityValue()))
-						+ statRow("Elasticity", String.valueOf(character.getAssElasticity().getValue()) + " ("+Util.capitaliseSentence(character.getAssElasticity().getDescriptor())+")")
-						+ statRow("Wetness", String.valueOf(character.getAssWetness().getValue()) +" ("+Util.capitaliseSentence(character.getAssWetness().getDescriptor())+")")
-					:statRow("Capacity (inches)", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>")
-						+ statRow("Elasticity", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>")
-						+ statRow("Wetness", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>"))
-				+ "</table>";
-	}
-	
-	private static String statRow(String title, String value) {
-		return "<tr>"
-					+ "<td style='min-width:100px;'>"
-						+ "<b>"+title+"</b>"
-					+ "</td>"
-					+ "<td style='min-width:100px;'>"
-						+ "<b>"+value+"</b>"
-					+ "</td>"
-				+ "</tr>";
-	}
+//	public static String getStats(GameCharacter character) {
+//		return "<h4 style='text-align:center;'>Stats</h4>"
+//				+"<table align='center'>"
+//
+//				+ "<tr style='height:8px; color:"+character.getGender().getColour().toWebHexString()+";'><th>Core</th></tr>"
+//				+ statRow("Femininity", String.valueOf(character.getFemininityValue()))
+//				+ statRow("Height (cm)", String.valueOf(character.getHeightValue()))
+//				+ statRow("Hair length (inches)", String.valueOf(Util.conversionInchesToCentimetres(character.getHairRawLengthValue())))
+//				+ "<tr style='height:8px;'></tr>"
+//
+//				+ "<tr style='height:8px; color:"+Colour.TRANSFORMATION_SEXUAL.toWebHexString()+";'><th>Breasts</th></tr>"
+//				+ statRow("Cup size", character.getBreastRawSizeValue() == 0 ? "N/A" : Util.capitaliseSentence(character.getBreastSize().getCupSizeName()))
+//				+ (character.getPlayerKnowsAreas().contains(CoverableArea.NIPPLES)
+//					?statRow("Milk Storage (mL)", String.valueOf(character.getBreastRawMilkStorageValue()))
+//						+statRow("Milk regeneration (%/minute)", String.valueOf((Math.round(character.getBreastLactationRegeneration().getPercentageRegen()*100)*100)/100f))
+//						+ statRow("Capacity (inches)", String.valueOf(character.getNippleRawCapacityValue()))
+//						+ statRow("Elasticity", String.valueOf(character.getNippleElasticity().getValue()) + " ("+Util.capitaliseSentence(character.getNippleElasticity().getDescriptor())+")")
+//					:statRow("Milk Storage (mL)", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>")
+//						+ statRow("Capacity (inches)","<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>")
+//						+ statRow("Elasticity", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>"))
+//				+ "<tr style='height:8px;'></tr>"
+//
+//				+ "<tr style='height:8px; color:"+Colour.TRANSFORMATION_SEXUAL.toWebHexString()+";'><th>Penis</th></tr>"
+//				+ (character.getPlayerKnowsAreas().contains(CoverableArea.PENIS)
+//					?statRow("Length (inches)", character.getPenisType() == PenisType.NONE ? "N/A" : String.valueOf(character.getPenisRawSizeValue()))
+//						+ statRow("Ball size", character.getPenisType() == PenisType.NONE ? "N/A" : Util.capitaliseSentence(character.getTesticleSize().getDescriptor()))
+//						+ statRow("Cum production (mL)", character.getPenisType() == PenisType.NONE ? "N/A" : String.valueOf(character.getPenisRawCumProductionValue()))
+//					:statRow("Length (inches)", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>")
+//						+ statRow("Ball size", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>")
+//						+ statRow("Cum production (mL)", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>"))
+//				+ "<tr style='height:8px;'></tr>"
+//
+//				+ "<tr style='height:8px; color:"+Colour.TRANSFORMATION_SEXUAL.toWebHexString()+";'><th>Vagina</th></tr>"
+//				+ (character.getPlayerKnowsAreas().contains(CoverableArea.VAGINA)
+//					?statRow("Capacity (inches)", character.getVaginaType() == VaginaType.NONE ? "N/A" : String.valueOf(character.getVaginaRawCapacityValue()))
+//						+ statRow("Elasticity", String.valueOf(character.getVaginaElasticity().getValue()) + " ("+Util.capitaliseSentence(character.getVaginaElasticity().getDescriptor())+")")
+//						+ statRow("Wetness", character.getVaginaType() == VaginaType.NONE ? "N/A" : String.valueOf(character.getVaginaWetness().getValue()) +" ("+Util.capitaliseSentence(character.getVaginaWetness().getDescriptor())+")")
+//						+ statRow("Clit size (inches)", character.getVaginaType() == VaginaType.NONE ? "N/A" : String.valueOf(character.getVaginaRawClitorisSizeValue()))
+//					:statRow("Capacity (inches)", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>")
+//						+ statRow("Elasticity", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>")
+//						+ statRow("Wetness", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>")
+//						+ statRow("Clit size (inches)", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>"))
+//				+ "<tr style='height:8px;'></tr>"
+//
+//				+ "<tr style='height:8px; color:"+Colour.TRANSFORMATION_SEXUAL.toWebHexString()+";'><th>Anus</th></tr>"
+//				+ (character.getPlayerKnowsAreas().contains(CoverableArea.ANUS)
+//					?statRow("Capacity (inches)", String.valueOf(character.getAssRawCapacityValue()))
+//						+ statRow("Elasticity", String.valueOf(character.getAssElasticity().getValue()) + " ("+Util.capitaliseSentence(character.getAssElasticity().getDescriptor())+")")
+//						+ statRow("Wetness", String.valueOf(character.getAssWetness().getValue()) +" ("+Util.capitaliseSentence(character.getAssWetness().getDescriptor())+")")
+//					:statRow("Capacity (inches)", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>")
+//						+ statRow("Elasticity", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>")
+//						+ statRow("Wetness", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>"))
+//				+ "</table>";
+//	}
+//	
+//	private static String statRow(String title, String value) {
+//		return "<tr>"
+//					+ "<td style='min-width:100px;'>"
+//						+ "<b>"+title+"</b>"
+//					+ "</td>"
+//					+ "<td style='min-width:100px;'>"
+//						+ "<b>"+value+"</b>"
+//					+ "</td>"
+//				+ "</tr>";
+//	}
 
 	public List<Artwork> getArtworkList() {
 		return artworkList;
@@ -4511,13 +4512,34 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	public void incrementCumCount(SexType sexType) {
 		cumCountMap.merge(sexType, 1, (a, b) -> a + b);
 	}
+	
 	public void setCumCount(SexType sexType, int integer) {
 		cumCountMap.put(sexType, integer);
 	}
+	
 	public int getCumCount(SexType sexType) {
 		cumCountMap.putIfAbsent(sexType, 0);
 		return cumCountMap.get(sexType);
 	}
+	
+	public int getTotalCumCountInOrifice(OrificeType ot, boolean includeGiven, boolean includeTaken) {
+		int total = 0;
+		for(Entry<SexType, Integer> count : cumCountMap.entrySet()) {
+			if(count.getKey().getOrificeType()==ot) {
+				if(count.getKey().getAsParticipant().isUsingSelfPenetrationType()) {
+					if(includeGiven) {
+						total+=count.getValue();
+					}
+				} else {
+					if(includeTaken) {
+						total+=count.getValue();
+					}
+				}
+			}
+		}
+		return total;
+	}
+	
 	public int getTotalCumCount(boolean includeGiven, boolean includeTaken) {
 		int total = 0;
 		for(Entry<SexType, Integer> count : cumCountMap.entrySet()) {

@@ -1122,13 +1122,8 @@ public class GamblingDenDialogue {
 		return UtilText.parse(breeder, sb.toString());
 	}
 	
-	public static final DialogueNodeOld PREGNANCY_ROULETTE_MOTHER_PRE_SELECTION = new DialogueNodeOld("Breeding Stalls", "", true) {
+	public static final DialogueNodeOld PREGNANCY_ROULETTE_MOTHER_PRE_SELECTION = new DialogueNodeOld("", "", true) {
 		private static final long serialVersionUID = 1L;
-
-		@Override
-		public String getLabel() {
-			return Main.game.getPlayerCell().getPlace().getName();
-		}
 		
 		@Override
 		public String getContent() {
@@ -1156,13 +1151,8 @@ public class GamblingDenDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld PREGNANCY_ROULETTE_MOTHER_SELECTION = new DialogueNodeOld("Breeding Stalls", "", true, true) {
+	public static final DialogueNodeOld PREGNANCY_ROULETTE_MOTHER_SELECTION = new DialogueNodeOld("", "", true, true) {
 		private static final long serialVersionUID = 1L;
-
-		@Override
-		public String getLabel() {
-			return Main.game.getPlayerCell().getPlace().getName();
-		}
 		
 		@Override
 		public String getContent() {
@@ -1206,13 +1196,8 @@ public class GamblingDenDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld PREGNANCY_ROULETTE_MOTHER_START = new DialogueNodeOld("Breeding Stalls", "", true, true) {
+	public static final DialogueNodeOld PREGNANCY_ROULETTE_MOTHER_START = new DialogueNodeOld("", "", true, true) {
 		private static final long serialVersionUID = 1L;
-		
-		@Override
-		public String getLabel() {
-			return Main.game.getPlayerCell().getPlace().getName();
-		}
 		
 		@Override
 		public String getContent() {
@@ -1395,17 +1380,12 @@ public class GamblingDenDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld PREGNANCY_ROULETTE_MOTHER_FINISHED = new DialogueNodeOld("Breeding Stalls", "", true) {
+	public static final DialogueNodeOld PREGNANCY_ROULETTE_MOTHER_FINISHED = new DialogueNodeOld("", "", true) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
 		public int getMinutesPassed() {
 			return 30;
-		}
-		
-		@Override
-		public String getLabel() {
-			return Main.game.getPlayerCell().getPlace().getName();
 		}
 		
 		@Override
@@ -1460,7 +1440,7 @@ public class GamblingDenDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld PREGNANCY_ROULETTE_MOTHER_WINNER = new DialogueNodeOld("Male Breeding Stalls", "", false, true) {
+	public static final DialogueNodeOld PREGNANCY_ROULETTE_MOTHER_WINNER = new DialogueNodeOld("", "", false, true) {
 		private static final long serialVersionUID = 1L;
 		
 		@Override
@@ -1474,7 +1454,7 @@ public class GamblingDenDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld PREGNANCY_ROULETTE_MOTHER_LOSER = new DialogueNodeOld("Male Breeding Stalls", "", false, true) {
+	public static final DialogueNodeOld PREGNANCY_ROULETTE_MOTHER_LOSER = new DialogueNodeOld("", "", false, true) {
 		private static final long serialVersionUID = 1L;
 		
 		@Override
@@ -1488,7 +1468,7 @@ public class GamblingDenDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld PREGNANCY_ROULETTE_MOTHER_LOSER_NO_PREGNANCY = new DialogueNodeOld("Male Breeding Stalls", "", false, true) {
+	public static final DialogueNodeOld PREGNANCY_ROULETTE_MOTHER_LOSER_NO_PREGNANCY = new DialogueNodeOld("", "", false, true) {
 		private static final long serialVersionUID = 1L;
 		
 		@Override
@@ -1502,7 +1482,7 @@ public class GamblingDenDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld PREGNANCY_ROULETTE_BREEDER = new DialogueNodeOld("Futa Breeding Stalls", "", true) {
+	public static final DialogueNodeOld PREGNANCY_ROULETTE_BREEDER = new DialogueNodeOld("", "", true) {
 		private static final long serialVersionUID = 1L;
 		
 		@Override
@@ -1600,17 +1580,12 @@ public class GamblingDenDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld PREGNANCY_ROULETTE_BREEDER_FINISHED = new DialogueNodeOld("Breeding Stalls", "", true, true) {
+	public static final DialogueNodeOld PREGNANCY_ROULETTE_BREEDER_FINISHED = new DialogueNodeOld("", "", true, true) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
 		public int getMinutesPassed() {
 			return 30;
-		}
-		
-		@Override
-		public String getLabel() {
-			return Main.game.getPlayerCell().getPlace().getName();
 		}
 		
 		@Override
@@ -1670,7 +1645,7 @@ public class GamblingDenDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld PREGNANCY_ROULETTE_BREEDER_WINNER = new DialogueNodeOld("Male Breeding Stalls", "", false, true) {
+	public static final DialogueNodeOld PREGNANCY_ROULETTE_BREEDER_WINNER = new DialogueNodeOld("", "", false, true) {
 		private static final long serialVersionUID = 1L;
 		
 		@Override
@@ -1684,7 +1659,7 @@ public class GamblingDenDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld PREGNANCY_ROULETTE_BREEDER_LOSER = new DialogueNodeOld("Male Breeding Stalls", "", false, true) {
+	public static final DialogueNodeOld PREGNANCY_ROULETTE_BREEDER_LOSER = new DialogueNodeOld("", "", false, true) {
 		private static final long serialVersionUID = 1L;
 		
 		@Override
@@ -1698,7 +1673,7 @@ public class GamblingDenDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld PREGNANCY_ROULETTE_BREEDER_LOSER_NO_PREGNANCY = new DialogueNodeOld("Male Breeding Stalls", "", false, true) {
+	public static final DialogueNodeOld PREGNANCY_ROULETTE_BREEDER_LOSER_NO_PREGNANCY = new DialogueNodeOld("", "", false, true) {
 		private static final long serialVersionUID = 1L;
 		
 		@Override

@@ -17,6 +17,7 @@ import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.gender.Gender;
+import com.lilithsthrone.game.character.npc.misc.NPCOffspring;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.PersonalityWeight;
@@ -42,7 +43,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.2.4
+ * @version 0.2.7
  * @author Innoxia
  */
 public class PlayerCharacter extends GameCharacter implements XMLSaving {
@@ -529,12 +530,51 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		if (!charactersEncountered.contains(character)) {
 			charactersEncountered.add(character);
 		}
+		if(Main.game.isStarted()) {
+			sortCharactersEncountered();
+		}
 	}
 	
 	public void addCharacterEncountered(GameCharacter character) {
 		if (!charactersEncountered.contains(character.getId())) {
 			charactersEncountered.add(character.getId());
 		}
+		if(Main.game.isStarted()) {
+			sortCharactersEncountered();
+		}
+	}
+	
+	public List<GameCharacter> getCharactersEncounteredAsGameCharacters() {
+		List<GameCharacter> npcsEncountered = new ArrayList<>();
+		for(String s : charactersEncountered) {
+			GameCharacter npc = Main.game.getNPCById(s);
+			if(npc!=null) {
+				npcsEncountered.add(npc);
+			}
+		}
+		return npcsEncountered;
+	}
+	
+	public void sortCharactersEncountered() {
+		List<GameCharacter> npcsEncountered = new ArrayList<>();
+		for(String s : charactersEncountered) {
+			GameCharacter npc = Main.game.getNPCById(s);
+			if(npc!=null) {
+				npcsEncountered.add(npc);
+			}
+		}
+		npcsEncountered.sort((npc1, npc2) -> npc1 instanceof NPCOffspring
+				?(npc2 instanceof NPCOffspring
+					?npc1.getName().compareTo(npc2.getName())
+					:1)
+				:(npc2 instanceof NPCOffspring
+						?-1
+						:npc1.getName().compareTo(npc2.getName())));
+		List<String> sortedIDs = new ArrayList<>();
+		for(GameCharacter character : npcsEncountered) {
+			sortedIDs.add(character.getId());
+		}
+		charactersEncountered = sortedIDs;
 	}
 	
 	public SizedStack<ShopTransaction> getBuybackStack() {
