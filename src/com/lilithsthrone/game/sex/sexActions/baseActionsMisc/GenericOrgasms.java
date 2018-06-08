@@ -1418,17 +1418,10 @@ public class GenericOrgasms {
 	}
 
 	private static String getClothingCummedOnText(GameCharacter characterOrgasming, CoverableArea area) {
-			if(characterOrgasming.isPlayer()) {
-				return UtilText.parse(characterOrgasming,
-						" all over your "+characterOrgasming.getHighestZLayerCoverableArea(area).getName()+"."
-								+ " You let out [pc.a_moan+] as your [pc.cum+] splatters onto your clothing,"
-								+ " making a mess of your outfit.");
-			} else {
-				return UtilText.parse(characterOrgasming,
-						" all over [npc.her] "+characterOrgasming.getHighestZLayerCoverableArea(area).getName()+"."
-								+ " [npc.She] lets out [npc.a_moan+] as [npc.her] [npc.cum+] splatters onto"
-								+ " [npc.her] clothing, making a mess of [npc.her] outfit.");
-			}
+			return UtilText.parse(characterOrgasming,
+					" all over [npc1.her] "+characterOrgasming.getHighestZLayerCoverableArea(area).getName()+"."
+							+ " [npc1.She] [npc1.verb(let)] out [npc1.a_moan+] as [npc1.her] [npc1.cum+] splatters onto"
+							+ " [npc1.her] clothing, making a mess of [npc1.her] outfit.");
 	}
 	
 	private static String getInflationText(GameCharacter characterOrgasming, GameCharacter target, int cumAmount) {
