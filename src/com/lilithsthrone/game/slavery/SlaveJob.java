@@ -364,7 +364,7 @@ public enum SlaveJob {
 				int milked = MilkingRoom.getActualMilkPerHour(character);
 				value += (milked * character.getMilk().getValuePerMl());
 			}
-			if(character.hasPenis() && character.getPenisRawCumProductionValue()>0  && !character.getSlaveJobSettings().contains(SlaveJobSetting.MILKING_CUM_DISABLE)) {
+			if(character.hasPenis() && character.getPenisRawStoredCumValue()>0  && !character.getSlaveJobSettings().contains(SlaveJobSetting.MILKING_CUM_DISABLE)) {
 				int milked = MilkingRoom.getActualCumPerHour(character);
 				value += (milked * character.getCum().getValuePerMl());
 			}
@@ -392,8 +392,8 @@ public enum SlaveJob {
 				int milked = (int) Math.max(1, (character.getBreastLactationRegeneration().getPercentageRegen()*60));
 				value += (milked * character.getMilk().getValuePerMl());
 			} 
-			if(character.hasPenis() && character.getPenisRawCumProductionValue()>0 && !character.getSlaveJobSettings().contains(SlaveJobSetting.MILKING_CUM_DISABLE)) {
-				int milked = character.getPenisRawCumProductionValue();
+			if(character.hasPenis() && character.getPenisRawStoredCumValue()>0 && !character.getSlaveJobSettings().contains(SlaveJobSetting.MILKING_CUM_DISABLE)) {
+				int milked = (int) Math.max(1, (character.getPenisCumProductionRegeneration().getPercentageRegen()*60));
 				value += (milked * character.getCum().getValuePerMl());
 			}
 			if(character.hasVagina() && !character.getSlaveJobSettings().contains(SlaveJobSetting.MILKING_GIRLCUM_DISABLE)) {

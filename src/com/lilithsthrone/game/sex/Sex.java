@@ -1745,20 +1745,20 @@ public enum Sex {
 		}
 		
 		// Cummed in areas:
-
+		
 		// Add any areas that have been cummed in:
 		// TODO Take into account condom being used on other penetrationTypes
 		for(GameCharacter cumProvidor : Sex.getAllParticipants()) {
 			for(GameCharacter cumTarget :Sex.getAllParticipants()) {
 				if(cumProvidor.equals(activeCharacter) || cumTarget.equals(activeCharacter)) {
-					if(cumProvidor.getPenisCumProduction() != CumProduction.ZERO_NONE) {
+					if(cumProvidor.getPenisOrgasmCumQuantity() != CumProduction.ZERO_NONE) {
 						if (sexAction.getAreasCummedIn(cumProvidor, cumTarget) != null) {
 							if(!cumProvidor.isWearingCondom() || sexAction.ignoreCondom(cumProvidor)){
 								for(OrificeType ot : sexAction.getAreasCummedIn(cumProvidor, cumTarget)) {
 									
 									cumTarget.incrementCumCount(new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, ot));
 									cumProvidor.incrementCumCount(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, ot));
-									sexSB.append(cumTarget.ingestFluid(cumProvidor, cumProvidor.getCum().getType(), ot, cumProvidor.getPenisRawCumProductionValue(), cumProvidor.getCum().getFluidModifiers()));
+									sexSB.append(cumTarget.ingestFluid(cumProvidor, cumProvidor.getCum().getType(), ot, cumProvidor.getPenisRawOrgasmCumQuantity(), cumProvidor.getCum().getFluidModifiers()));
 									
 								}
 							}
@@ -1856,8 +1856,11 @@ public enum Sex {
 			// Condom removal:
 			if(Main.game.getPlayer().isWearingCondom()){
 				Main.game.getPlayer().getClothingInSlot(ClothingType.PENIS_CONDOM.getSlot()).setSealed(false);
-				if(Main.game.getPlayer().getPenisRawCumProductionValue()>0) {
-					sexSB.append(Main.game.getPlayer().addItem(AbstractItemType.generateFilledCondom(Main.game.getPlayer().getClothingInSlot(ClothingType.PENIS_CONDOM.getSlot()).getColour(), Main.game.getPlayer(), Main.game.getPlayer().getCum()), false, true));
+				if(Main.game.getPlayer().getPenisRawOrgasmCumQuantity()>0) {
+					sexSB.append(Main.game.getPlayer().addItem(
+							AbstractItemType.generateFilledCondom(
+									Main.game.getPlayer().getClothingInSlot(ClothingType.PENIS_CONDOM.getSlot()).getColour(), Main.game.getPlayer(), Main.game.getPlayer().getCum(), Main.game.getPlayer().getPenisRawOrgasmCumQuantity()),
+							false, true));
 				}
 				Main.game.getPlayer().unequipClothingIntoVoid(Main.game.getPlayer().getClothingInSlot(ClothingType.PENIS_CONDOM.getSlot()), true, Main.game.getPlayer());
 				
@@ -1881,6 +1884,7 @@ public enum Sex {
 			// Apply orgasm arousal resets:
 			incrementNumberOfOrgasms(Main.game.getPlayer(), 1);
 			player().setArousal(0);
+			Main.game.getPlayer().applyOrgasmCumEffect();
 			
 			// Reset appropriate flags:
 			SexFlags.partnerRequestedCreampie = false;
@@ -1892,8 +1896,11 @@ public enum Sex {
 			// Condom removal:
 			if(activePartner.isWearingCondom()){
 				activePartner.getClothingInSlot(ClothingType.PENIS_CONDOM.getSlot()).setSealed(false);
-				if(activePartner.getPenisRawCumProductionValue()>0) {
-					sexSB.append(Main.game.getPlayer().addItem(AbstractItemType.generateFilledCondom(activePartner.getClothingInSlot(ClothingType.PENIS_CONDOM.getSlot()).getColour(), activePartner, activePartner.getCum()), false, true));
+				if(activePartner.getPenisRawOrgasmCumQuantity()>0) {
+					sexSB.append(Main.game.getPlayer().addItem(
+							AbstractItemType.generateFilledCondom(
+									activePartner.getClothingInSlot(ClothingType.PENIS_CONDOM.getSlot()).getColour(), activePartner, activePartner.getCum(), activePartner.getPenisRawOrgasmCumQuantity()),
+							false, true));
 				}
 				activePartner.unequipClothingIntoVoid(activePartner.getClothingInSlot(ClothingType.PENIS_CONDOM.getSlot()), true, activePartner);
 				
@@ -1917,6 +1924,7 @@ public enum Sex {
 			// Apply orgasm arousal resets:
 			incrementNumberOfOrgasms(activePartner, 1);
 			activePartner.setArousal(0);
+			activePartner.applyOrgasmCumEffect();
 
 			// Reset appropriate flags:
 			SexFlags.playerRequestedCreampie = false;
@@ -2149,7 +2157,7 @@ public enum Sex {
 			addOrificeLubrication(Main.game.getPlayer(), OrificeType.ANUS, LubricationType.PLAYER_ANAL_LUBE, !onSexInit);
 		}
 		if(Main.game.getPlayer().hasPenisIgnoreDildo()) {
-			if(Main.game.getPlayer().getArousal() >= Main.game.getPlayer().getPenisCumProduction().getArousalNeededToStartPreCumming()) {
+			if(Main.game.getPlayer().getArousal() >= Main.game.getPlayer().getPenisCumStorage().getArousalNeededToStartPreCumming()) {
 				addPenetrationTypeLubrication(Main.game.getPlayer(), PenetrationType.PENIS, LubricationType.PLAYER_PRECUM, !onSexInit);
 				addOrificeLubrication(Main.game.getPlayer(), OrificeType.URETHRA_PENIS, LubricationType.PLAYER_PRECUM, !onSexInit);
 			}
@@ -2191,7 +2199,7 @@ public enum Sex {
 					addOrificeLubrication(character, OrificeType.ANUS, LubricationType.PARTNER_ANAL_LUBE, !onSexInit);
 				}
 				if(character.hasPenisIgnoreDildo()) {
-					if(character.getArousal() >= character.getPenisCumProduction().getArousalNeededToStartPreCumming()) {
+					if(character.getArousal() >= character.getPenisCumStorage().getArousalNeededToStartPreCumming()) {
 						addPenetrationTypeLubrication(character, PenetrationType.PENIS, LubricationType.PARTNER_PRECUM);
 						addOrificeLubrication(character, OrificeType.URETHRA_PENIS, LubricationType.PARTNER_PRECUM, !onSexInit);
 					}

@@ -548,7 +548,9 @@ public class Body implements Serializable, XMLSaving {
 		Element bodyTesticle = doc.createElement("testicles");
 		parentElement.appendChild(bodyTesticle);
 			CharacterUtils.addAttribute(doc, bodyTesticle, "testicleSize", String.valueOf(this.penis.testicle.testicleSize));
-			CharacterUtils.addAttribute(doc, bodyTesticle, "cumProduction", String.valueOf(this.penis.testicle.cumStorage));
+			CharacterUtils.addAttribute(doc, bodyBreast, "cumStorage", String.valueOf(this.penis.testicle.cumStorage));
+			CharacterUtils.addAttribute(doc, bodyBreast, "storedCum", String.valueOf(this.penis.testicle.cumStored));
+			CharacterUtils.addAttribute(doc, bodyBreast, "cumRegeneration", String.valueOf(this.penis.testicle.cumRegeneration));
 			CharacterUtils.addAttribute(doc, bodyTesticle, "numberOfTesticles", String.valueOf(this.penis.testicle.testicleCount));
 			CharacterUtils.addAttribute(doc, bodyTesticle, "internal", String.valueOf(this.penis.testicle.internal));
 		
@@ -1012,11 +1014,21 @@ public class Body implements Serializable, XMLSaving {
 			girth = Integer.valueOf(penis.getAttribute("girth"));
 		}
 		
+		int cumStorage = 0;
+		try {
+			if(testicles.hasAttribute("cumProduction")) {
+				cumStorage = Integer.valueOf(testicles.getAttribute("cumProduction"));
+			} else {
+				cumStorage = Integer.valueOf(testicles.getAttribute("cumStorage"));
+			}
+		} catch(Exception ex) {
+		}
+		
 		Penis importedPenis = new Penis(PenisType.valueOf(penis.getAttribute("type")),
 				Integer.valueOf(penis.getAttribute("size")),
 				girth,
 				Integer.valueOf(testicles.getAttribute("testicleSize")),
-				Integer.valueOf(testicles.getAttribute("cumProduction")),
+				cumStorage,
 				Integer.valueOf(testicles.getAttribute("numberOfTesticles")));
 		
 		importedPenis.pierced = (Boolean.valueOf(penis.getAttribute("pierced")));
@@ -1068,8 +1080,14 @@ public class Body implements Serializable, XMLSaving {
 		
 		importedPenis.testicle.internal = (Boolean.valueOf(testicles.getAttribute("internal")));
 		
+		try {
+			importedPenis.testicle.cumStored = (Integer.valueOf(testicles.getAttribute("storedCum")));
+			importedPenis.testicle.cumRegeneration = (Integer.valueOf(testicles.getAttribute("cumRegeneration")));
+		} catch(Exception ex) {
+		}
+		
 		CharacterUtils.appendToImportLog(log, "</br></br>Testicles: "
-				+ "</br>cumProduction: "+importedPenis.testicle.getRawCumProductionValue()
+				+ "</br>cumProduction: "+importedPenis.testicle.getCumStorage()
 				+ "</br>numberOfTesticles: "+importedPenis.testicle.getTesticleCount()
 				+ "</br>testicleSize: "+importedPenis.testicle.getTesticleSize()
 				+ "</br>internal: "+importedPenis.testicle.isInternal());
@@ -4412,7 +4430,7 @@ public class Body implements Serializable, XMLSaving {
 					(int) (penis.getRawSizeValue() * 2.25f),
 					PenisGirth.FOUR_FAT.getValue(),
 					penis.getTesticle().getTesticleSize().getValue()*2,
-					(int) ((penis.getTesticle().getRawCumProductionValue()+100) * 3.25f),
+					(int) ((penis.getTesticle().getRawCumStorageValue()+100) * 3.25f),
 					penis.getTesticle().getTesticleCount());
 			descriptionSB.append("<i style='color:"+Colour.PSYCHOACTIVE.toWebHexString()+";'>The psychoactive cum you recently ingested is causing your view of "+(owner.isPlayer()?"your":"[npc.name]'s")+" cock to be distorted!</i> ");
 		}
@@ -4883,7 +4901,7 @@ public class Body implements Serializable, XMLSaving {
 			if(owner.isPlayer()) {
 				cumName = "[pc.cum+]";
 			}
-			switch (viewedPenis.getTesticle().getCumProduction()) {
+			switch (viewedPenis.getTesticle().getCumStorage()) {
 				case ZERO_NONE:
 					if (viewedPenis.getTesticle().getTesticleSize().getValue() > TesticleSize.TWO_AVERAGE.getValue()) {
 						descriptionSB.append(" Despite their large size, they");
@@ -4898,7 +4916,7 @@ public class Body implements Serializable, XMLSaving {
 					} else {
 						descriptionSB.append(" They");
 					}
-					descriptionSB.append(" only produce a tiny trickle of "+cumName+" at each orgasm.");
+					descriptionSB.append(" only produce a tiny trickle of "+cumName+".");
 					break;
 				case TWO_SMALL_AMOUNT:
 					if (viewedPenis.getTesticle().getTesticleSize().getValue() > TesticleSize.THREE_LARGE.getValue()) {
@@ -4906,7 +4924,7 @@ public class Body implements Serializable, XMLSaving {
 					} else {
 						descriptionSB.append(" They");
 					}
-					descriptionSB.append(" only produce a small amount of "+cumName+" at each orgasm.");
+					descriptionSB.append(" only produce a small amount of "+cumName+".");
 					break;
 				case THREE_AVERAGE:
 					if (viewedPenis.getTesticle().getTesticleSize().getValue() > TesticleSize.FOUR_HUGE.getValue()) {
@@ -4914,7 +4932,7 @@ public class Body implements Serializable, XMLSaving {
 					} else {
 						descriptionSB.append(" They");
 					}
-					descriptionSB.append(" produce an average amount of "+cumName+" at each orgasm.");
+					descriptionSB.append(" produce an average amount of "+cumName+".");
 					break;
 				case FOUR_LARGE:
 					if (viewedPenis.getTesticle().getTesticleSize().getValue() < TesticleSize.TWO_AVERAGE.getValue()) {
@@ -4922,7 +4940,7 @@ public class Body implements Serializable, XMLSaving {
 					} else {
 						descriptionSB.append(" They");
 					}
-					descriptionSB.append(" produce a large amount of "+cumName+" at each orgasm.");
+					descriptionSB.append(" produce a large amount of "+cumName+".");
 					break;
 				case FIVE_HUGE:
 					if (viewedPenis.getTesticle().getTesticleSize().getValue() < TesticleSize.TWO_AVERAGE.getValue()) {
@@ -4930,7 +4948,7 @@ public class Body implements Serializable, XMLSaving {
 					} else {
 						descriptionSB.append(" They");
 					}
-					descriptionSB.append(" produce a huge amount of "+cumName+" at each orgasm.");
+					descriptionSB.append(" produce a huge amount of "+cumName+".");
 					break;
 				case SIX_EXTREME:
 					if (viewedPenis.getTesticle().getTesticleSize().getValue() < TesticleSize.TWO_AVERAGE.getValue()) {
@@ -4938,7 +4956,7 @@ public class Body implements Serializable, XMLSaving {
 					} else {
 						descriptionSB.append(" They");
 					}
-					descriptionSB.append(" produce an extreme amount of "+cumName+" at each orgasm.");
+					descriptionSB.append(" produce an extreme amount of "+cumName+".");
 					break;
 				case SEVEN_MONSTROUS:
 					if (viewedPenis.getTesticle().getTesticleSize().getValue() < TesticleSize.TWO_AVERAGE.getValue()) {
@@ -4946,7 +4964,7 @@ public class Body implements Serializable, XMLSaving {
 					} else {
 						descriptionSB.append(" They");
 					}
-					descriptionSB.append(" produce a monstrous amount of "+cumName+" at each orgasm.");
+					descriptionSB.append(" produce a monstrous amount of "+cumName+".");
 					break;
 			}
 			

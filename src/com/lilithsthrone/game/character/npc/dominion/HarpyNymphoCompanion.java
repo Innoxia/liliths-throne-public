@@ -78,7 +78,8 @@ public class HarpyNymphoCompanion extends NPC {
 			this.setBreastSize(CupSize.AA.getMeasurement());
 			
 			this.setPenisSize(PenisSize.THREE_LARGE.getMedianValue());
-			this.setCumProduction(CumProduction.THREE_AVERAGE.getMedianValue());
+			this.setPenisCumStorage(CumProduction.THREE_AVERAGE.getMedianValue());
+			this.fillCumToMaxStorage();
 			
 			this.setHeight(167);
 	

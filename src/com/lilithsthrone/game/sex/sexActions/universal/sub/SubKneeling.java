@@ -151,7 +151,7 @@ public class SubKneeling {
 				// Describe cum amount:
 				UtilText.nodeContentSB.append(" and as [npc.her] [npc.balls+] tense up");
 				
-				switch (Main.game.getPlayer().getPenisCumProduction()) {
+				switch (Main.game.getPlayer().getPenisStoredCum()) {
 					case ZERO_NONE:
 						UtilText.nodeContentSB.append(", you see that [npc.she]'s not able to produce even one drop of cum.");
 						break;
@@ -238,7 +238,7 @@ public class SubKneeling {
 			if(Sex.getActivePartner().isWearingCondom()) {
 				UtilText.nodeContentSB.append(", [npc.her] [npc.cum+] pours out into the condom that [npc.she]'s wearing.");
 			} else {
-				switch (Sex.getActivePartner().getPenisCumProduction()) {
+				switch (Sex.getActivePartner().getPenisStoredCum()) {
 					case ZERO_NONE:
 						UtilText.nodeContentSB.append(", you realise that [npc.she]'s not able to produce even one drop of cum.");
 						break;
@@ -335,7 +335,7 @@ public class SubKneeling {
 			}
 
 			UtilText.nodeContentSB.append(" [npc.Her] [npc.balls+] tense up, and as [npc.she] lets out [npc.a_moan+]");
-			switch (Sex.getActivePartner().getPenisCumProduction()) {
+			switch (Sex.getActivePartner().getPenisStoredCum()) {
 				case ZERO_NONE:
 					UtilText.nodeContentSB.append(", you see that [npc.she]'s not able to produce even one drop of cum.");
 					break;
@@ -364,7 +364,7 @@ public class SubKneeling {
 					break;
 			}
 			
-			if(Sex.getActivePartner().getPenisCumProduction()!=CumProduction.ZERO_NONE) {
+			if(Sex.getActivePartner().getPenisStoredCum()!=CumProduction.ZERO_NONE) {
 				UtilText.nodeContentSB.append("  You flinch as you receive your facial, noticing that quite a few strands of [npc.cum] fall down to land on your "
 						+(Main.game.getPlayer().getHighestZLayerCoverableArea(CoverableArea.NIPPLES) != null ? Main.game.getPlayer().getHighestZLayerCoverableArea(CoverableArea.NIPPLES).getName() : "exposed [pc.breasts]")+".");
 			}
@@ -383,7 +383,7 @@ public class SubKneeling {
 
 		@Override
 		public void applyEffects() {
-			if(Sex.getActivePartner().getPenisCumProduction()!=CumProduction.ZERO_NONE) {
+			if(Sex.getActivePartner().getPenisStoredCum()!=CumProduction.ZERO_NONE) {
 				if (Main.game.getPlayer().getHighestZLayerCoverableArea(CoverableArea.NIPPLES) != null) {
 					Main.game.getPlayer().getHighestZLayerCoverableArea(CoverableArea.NIPPLES).setDirty(true);
 				}

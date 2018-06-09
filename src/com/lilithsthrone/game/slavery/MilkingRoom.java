@@ -214,7 +214,7 @@ public class MilkingRoom implements XMLSaving {
 		if(!character.hasPenisIgnoreDildo()) {
 			return 0;
 		}
-		return Math.min(getMaximumCumPerHour(character), character.getPenisRawCumProductionValue());
+		return (int) Math.min(getMaximumCumPerHour(character), (character.getPenisCumProductionRegeneration().getPercentageRegen()*character.getPenisRawCumStorageValue()*60));
 	}
 	
 	public static int getMaximumGirlcumPerHour(GameCharacter character) {

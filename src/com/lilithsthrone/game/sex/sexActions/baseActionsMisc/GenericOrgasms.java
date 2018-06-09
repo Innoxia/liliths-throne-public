@@ -765,7 +765,7 @@ public class GenericOrgasms {
 			genericOrgasmSB.append(" As [npc1.her] [npc1.balls+] tense up, ");
 		}
 		genericOrgasmSB.append(getCumQuantityDescription(characterOrgasming));
-		if(characterOrgasming.getPenisRawCumProductionValue()>0) {
+		if(characterOrgasming.getPenisRawOrgasmCumQuantity()>0) {
 			genericOrgasmSB.append(cumTargetDescription(characterOrgasming, characterPenetrated, cumTarget));
 		}
 		
@@ -802,7 +802,7 @@ public class GenericOrgasms {
 		}
 		String cumQuantityDescription = targetName+" [npc1.cum+] squirts";
 		
-		switch (characterOrgasming.getPenisCumProduction()) {
+		switch (characterOrgasming.getPenisOrgasmCumQuantity()) {
 			case ZERO_NONE:
 				cumQuantityDescription = "not even a single drop of [npc1.cum] is produced...";
 				break;
@@ -1162,7 +1162,7 @@ public class GenericOrgasms {
 					} else {
 						cumTargetSB.append(" deep into [npc2.name]'s [npc2.asshole+].");
 					}
-					switch (characterOrgasming.getPenisCumProduction()) {
+					switch (characterOrgasming.getPenisOrgasmCumQuantity()) {
 						case SIX_EXTREME: case SEVEN_MONSTROUS:
 							if(characterOrgasming.isPlayer()) {
 								cumTargetSB.append(" After a few seconds, [npc2.name] realises that you're not even close to stopping, and as your "
@@ -1178,7 +1178,7 @@ public class GenericOrgasms {
 							break;
 					}
 					if(Main.getProperties().hasValue(PropertyValue.inflationContent) && !target.isVisiblyPregnant()) {
-						int cumAmount = target.getTotalFluidInArea(OrificeType.ANUS) + characterOrgasming.getPenisRawCumProductionValue();
+						int cumAmount = target.getTotalFluidInArea(OrificeType.ANUS) + characterOrgasming.getPenisRawOrgasmCumQuantity();
 						cumTargetSB.append(getInflationText(characterOrgasming, target, cumAmount));
 					}
 					break;
@@ -1268,7 +1268,7 @@ public class GenericOrgasms {
 					} else {
 						cumTargetSB.append(" deep down [npc2.name]'s throat.");
 					}
-					switch (characterOrgasming.getPenisCumProduction()) {
+					switch (characterOrgasming.getPenisOrgasmCumQuantity()) {
 						case SIX_EXTREME: case SEVEN_MONSTROUS:
 							if(characterOrgasming.isPlayer()) {
 								cumTargetSB.append(" After a few seconds, [npc2.name] realises that you're not even close to stopping, and as your "
@@ -1284,7 +1284,7 @@ public class GenericOrgasms {
 							break;
 					}
 					if(Main.getProperties().hasValue(PropertyValue.inflationContent) && !target.isVisiblyPregnant()) {
-						int cumAmount = target.getTotalFluidInArea(OrificeType.MOUTH) + characterOrgasming.getPenisRawCumProductionValue();
+						int cumAmount = target.getTotalFluidInArea(OrificeType.MOUTH) + characterOrgasming.getPenisRawOrgasmCumQuantity();
 						cumTargetSB.append(getInflationText(characterOrgasming, target, cumAmount));
 					}
 					break;
@@ -1295,7 +1295,7 @@ public class GenericOrgasms {
 						cumTargetSB.append(" deep into [npc2.name]'s [npc2.breasts+].");
 					}
 					if(Main.getProperties().hasValue(PropertyValue.inflationContent)) {
-						int cumAmount = target.getTotalFluidInArea(OrificeType.NIPPLE) + characterOrgasming.getPenisRawCumProductionValue();
+						int cumAmount = target.getTotalFluidInArea(OrificeType.NIPPLE) + characterOrgasming.getPenisRawOrgasmCumQuantity();
 						cumTargetSB.append(getBreastInflationText(characterOrgasming, target, cumAmount));
 					}
 					break;
@@ -1307,7 +1307,7 @@ public class GenericOrgasms {
 					} else {
 						cumTargetSB.append(" deep into [npc2.name]'s urethra.");
 					}
-					switch (characterOrgasming.getPenisCumProduction()) {
+					switch (characterOrgasming.getPenisOrgasmCumQuantity()) {
 						case SIX_EXTREME: case SEVEN_MONSTROUS:
 							if(characterOrgasming.isPlayer()) {
 								cumTargetSB.append(" After a few seconds, [npc2.name] realises that you're not even close to stopping, and as your "
@@ -1323,7 +1323,7 @@ public class GenericOrgasms {
 							break;
 					}
 					if(Main.getProperties().hasValue(PropertyValue.inflationContent) && !target.isVisiblyPregnant()) {
-						int cumAmount = target.getTotalFluidInArea(orificePenetrated) + characterOrgasming.getPenisRawCumProductionValue();
+						int cumAmount = target.getTotalFluidInArea(orificePenetrated) + characterOrgasming.getPenisRawOrgasmCumQuantity();
 						cumTargetSB.append(getInflationText(characterOrgasming, target, cumAmount));
 					}
 					break;
@@ -1341,7 +1341,7 @@ public class GenericOrgasms {
 							cumTargetSB.append(" deep into [npc2.name]'s [npc2.pussy+].");
 						}
 					}
-					switch (characterOrgasming.getPenisCumProduction()) {
+					switch (characterOrgasming.getPenisOrgasmCumQuantity()) {
 						case SIX_EXTREME: case SEVEN_MONSTROUS:
 							if(characterOrgasming.isPlayer()) {
 								cumTargetSB.append(" After a few seconds, [npc2.name] realises that you're not even close to stopping, and as your [pc.cum+] backs up and starts drooling out of [npc2.her] [npc2.pussy],"
@@ -1357,7 +1357,7 @@ public class GenericOrgasms {
 							break;
 					}
 					if(Main.getProperties().hasValue(PropertyValue.inflationContent) && !target.isVisiblyPregnant()) {
-						int cumAmount = target.getTotalFluidInArea(OrificeType.VAGINA) + characterOrgasming.getPenisRawCumProductionValue();
+						int cumAmount = target.getTotalFluidInArea(OrificeType.VAGINA) + characterOrgasming.getPenisRawOrgasmCumQuantity();
 						cumTargetSB.append(getInflationText(characterOrgasming, target, cumAmount));
 					}
 					break;

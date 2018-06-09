@@ -88,6 +88,7 @@ import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.InventorySlot;
+import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.BlockedParts;
@@ -720,10 +721,10 @@ public class CharacterUtils {
 				}
 			}
 			// Cum Production:
-			body.getPenis().getTesticle().setCumProduction(blankNPC, getSizeFromGenetics(
-					body.getPenis().getTesticle().getRawCumProductionValue(),
-					inheritsFromMotherPenis, mother.getPenisRawCumProductionValue(),
-					inheritsFromFatherPenis, father.getPenisRawCumProductionValue()));
+			body.getPenis().getTesticle().setCumStorage(blankNPC, getSizeFromGenetics(
+					body.getPenis().getTesticle().getRawCumStorageValue(),
+					inheritsFromMotherPenis, mother.getPenisRawCumStorageValue(),
+					inheritsFromFatherPenis, father.getPenisRawCumStorageValue()));
 		}
 		
 		// Tail:
@@ -1066,7 +1067,7 @@ public class CharacterUtils {
 			if((character.getGender()==Gender.F_P_TRAP || character.getGender()==Gender.N_P_TRAP) && Math.random()>=0.1f) { // Most traps have a small cock:
 				character.setPenisSize(PenisSize.ONE_TINY.getMinimumValue() + Util.random.nextInt(character.getPenisSize().getMaximumValue() - character.getPenisSize().getMinimumValue()) +1);
 				character.setTesticleSize(TesticleSize.ONE_TINY.getValue());
-				character.setCumProduction(CumProduction.ONE_TRICKLE.getMedianValue());
+				character.setPenisCumStorage(CumProduction.ONE_TRICKLE.getMedianValue());
 				
 			} else {
 				character.setPenisSize(character.getPenisSize().getMinimumValue() + Util.random.nextInt(character.getPenisSize().getMaximumValue() - character.getPenisSize().getMinimumValue()) +1);
@@ -1075,11 +1076,12 @@ public class CharacterUtils {
 				testicleSize += Util.random.nextInt(3) - 1;
 				character.setTesticleSize(testicleSize);
 				
-				int cumProduction = character.getPenisRawCumProductionValue();
+				int cumProduction = character.getPenisRawCumStorageValue();
 				if(cumProduction>0) {
 					cumProduction += Util.random.nextInt(cumProduction) - (cumProduction/2);
-					character.setCumProduction(cumProduction);
+					character.setPenisCumStorage(cumProduction);
 				}
+				character.fillCumToMaxStorage();
 			}
 			
 			if(Math.random()<=0.02f) {
@@ -1420,7 +1422,7 @@ public class CharacterUtils {
 				if((!slot.isCoreClothing() && onlyAddCoreClothing)
 						|| (slot==InventorySlot.LEG
 							&& character.getClothingInSlot(InventorySlot.TORSO_UNDER)!=null
-							&& character.getClothingInSlot(InventorySlot.TORSO_UNDER).getClothingType().toString().contains("DRESS"))) {//TODO please don't do this
+							&& character.getClothingInSlot(InventorySlot.TORSO_UNDER).getItemTags().contains(ItemTag.DRESS))) {
 					// Don't add clothing if not core
 				} else {
 					if((slot.isCoreClothing() || Math.random()>0.75f || slot.isJewellery()) && !character.isSlotIncompatible(slot) && character.getClothingInSlot(slot)==null) {

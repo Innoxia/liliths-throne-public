@@ -526,7 +526,7 @@ public class Breast implements BodyPartInterface, Serializable {
 		String sizeDescriptor = getSize().getDescriptor();
 		if (sizeChange > 0) {
 			if (owner.isPlayer()) {
-				return "</p>"
+				return "<p>"
 							+ "You feel a tingling heat quickly spreading throughout your torso, and you can't help but let out [pc.a_moan+] as your "
 							+ (hadBreasts
 									? "[pc.breasts] swell up and [style.boldGrow(grow larger)].</br>"
@@ -535,7 +535,7 @@ public class Breast implements BodyPartInterface, Serializable {
 						+ "</p>";
 			} else {
 				return UtilText.parse(owner,
-						"</p>"
+						"<p>"
 							+ "[npc.Name] feels a tingling heat quickly spreading throughout [npc.her] torso, and [npc.she] can't help but let out [npc.a_moan+] as [npc.her] "
 							+ (hadBreasts
 									? "[npc.breasts] swell up and [style.boldGrow(grow larger)].</br>"
@@ -545,7 +545,7 @@ public class Breast implements BodyPartInterface, Serializable {
 			}
 		} else {
 			if (owner.isPlayer()) {
-				return "</p>"
+				return "<p>"
 						+ "You feel a tingling heat quickly spreading throughout your torso, and you can't help but let out a frustrated [pc.moan] as your [pc.breasts] shrink down and [style.boldShrink(get smaller)].</br>"
 						+ (this.size==0
 							? "You now have [style.boldSex(a completely flat chest)]!"
@@ -553,7 +553,7 @@ public class Breast implements BodyPartInterface, Serializable {
 					+ "</p>";
 			} else {
 				return UtilText.parse(owner,
-						"</p>"
+						"<p>"
 							+ "[npc.Name] feels a tingling heat quickly spreading throughout [npc.her] torso, and [npc.she] can't help but let out a frustrated [npc.moan] as [npc.her] [npc.breasts] shrink down and [style.boldShrink(get smaller)].</br>"
 							+ (this.size==0
 								? "[npc.Name] now has [style.boldSex(a completely flat chest)]!"
@@ -592,14 +592,14 @@ public class Breast implements BodyPartInterface, Serializable {
 		String lactationDescriptor = getMilkStorage().getDescriptor();
 		if (lactationChange > 0) {
 			if (owner.isPlayer()) {
-				return "</p>"
+				return "<p>"
 							+ "You feel a strange bubbling and churning taking place deep within your [pc.breasts], and you can't help but let out [pc.a_moan+] as a few drops of [pc.milk] suddenly leak from your [pc.nipples];"
 								+ " clear evidence that that your [pc.milk] production has [style.boldGrow(increased)].</br>"
 							+ "You are now able to produce [style.boldSex(" + lactationDescriptor + " [pc.milk])]!"
 						+ "</p>";
 			} else {
 				return UtilText.parse(owner,
-						"</p>"
+						"<p>"
 							+ "[npc.Name] feels a strange bubbling and churning taking place deep within [npc.her] [npc.breasts], and [npc.a_moan+] drifts out from between [npc.her] [npc.lips] as a few drops of [npc.milk] suddenly leak"
 								+ " from [npc.her] [npc.nipples]; clear evidence that that [npc.her] [npc.milk] production has [style.boldGrow(increased)].</br>"
 							+ "[npc.Name] is now able to produce [style.boldSex(" + lactationDescriptor + " [npc.milk])]!"
@@ -607,13 +607,13 @@ public class Breast implements BodyPartInterface, Serializable {
 			}
 		} else {
 			if (owner.isPlayer()) {
-				return "</p>"
+				return "<p>"
 							+ "You feel a strange sucking sensation deep within your [pc.breasts], and you can't help but let out a shocked gasp as you realise that you're feeling your [pc.milk] production [style.boldShrink(drying up)].</br>"
 							+ "You are now able to produce [style.boldSex(" + lactationDescriptor + " [pc.milk])]."
 						+ "</p>";
 			} else {
 				return UtilText.parse(owner,
-						"</p>"
+						"<p>"
 							+ "[npc.Name] feels a strange sucking sensation deep within [npc.her] [npc.breasts],"
 								+ " and a frustrated sigh drifts out from between [npc.her] [npc.lips] as [npc.she] realises that [npc.she]'s feeling [npc.her] [npc.milk] production [style.boldShrink(drying up)].</br>"
 							+ "[npc.Name] is now able to produce [style.boldSex(" + lactationDescriptor + " [npc.milk])]."
@@ -699,14 +699,14 @@ public class Breast implements BodyPartInterface, Serializable {
 		String regenerationDescriptor = getLactationRegeneration().getName();
 		if (regenerationChange > 0) {
 			if (owner.isPlayer()) {
-				return "</p>"
+				return "<p>"
 							+ "You feel an alarming bubbling and churning taking place deep within your [pc.breasts], and you can't help but let out [pc.a_moan+] as a few drops of [pc.milk] suddenly leak from your [pc.nipples];"
 								+ " clear evidence that that your [pc.milk] regeneration has [style.boldGrow(increased)].</br>"
 							+ "Your rate of [pc.milk] regeneration is now [style.boldSex(" + regenerationDescriptor + ")]!"
 						+ "</p>";
 			} else {
 				return UtilText.parse(owner,
-						"</p>"
+						"<p>"
 							+ "[npc.Name] feels an alarming bubbling and churning taking place deep within [npc.her] [npc.breasts], and [npc.a_moan+] drifts out from between [npc.her] [npc.lips] as a few drops of [npc.milk] suddenly leak"
 								+ " from [npc.her] [npc.nipples]; clear evidence that that [npc.her] [npc.milk] regeneration has [style.boldGrow(increased)].</br>"
 							+ "[npc.Name]'s rate of [npc.milk] regeneration is now [style.boldSex(" + regenerationDescriptor + ")]!"
@@ -714,13 +714,13 @@ public class Breast implements BodyPartInterface, Serializable {
 			}
 		} else {
 			if (owner.isPlayer()) {
-				return "</p>"
+				return "<p>"
 							+ "You feel a strange sucking sensation deep within your [pc.breasts], and you can't help but let out a shocked gasp as you realise that you're feeling your [pc.milk] regeneration [style.boldShrink(decreasing)].</br>"
 							+ "Your rate of [pc.milk] regeneration is now [style.boldSex(" + regenerationDescriptor + ")]!"
 						+ "</p>";
 			} else {
 				return UtilText.parse(owner,
-						"</p>"
+						"<p>"
 							+ "[npc.Name] feels a strange sucking sensation deep within [npc.her] [npc.breasts],"
 								+ " and a frustrated sigh drifts out from between [npc.her] [npc.lips] as [npc.she] realises that [npc.she]'s feeling [npc.her] [npc.milk] regeneration [style.boldShrink(decreasing)].</br>"
 							+ "[npc.Name]'s rate of [npc.milk] regeneration is now [style.boldSex(" + regenerationDescriptor + ")]!"

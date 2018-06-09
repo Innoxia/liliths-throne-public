@@ -753,7 +753,7 @@ public class GamblingDenDialogue {
 		partner.setPenisVirgin(false);
 		partner.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 		partner.removeStatusEffect(StatusEffect.PROMISCUITY_PILL);
-		partner.setAttribute(Attribute.VIRILITY, (partner.getPenisRawSizeValue()*2)+(partner.getTesticleSize().getValue() * 5)+partner.getPenisRawCumProductionValue());
+		partner.setAttribute(Attribute.VIRILITY, (partner.getPenisRawSizeValue()*2)+(partner.getTesticleSize().getValue() * 5)+partner.getPenisRawCumStorageValue());
 		
 		try {
 			Main.game.addNPC(partner, false);
@@ -1571,7 +1571,7 @@ public class GamblingDenDialogue {
 					public void effects() {
 						for(int i=0; i<roll-1; i++) {
 							mother.setVaginaVirgin(false);
-							mother.ingestFluid(breeders.get(i), breeders.get(i).getCumType(), OrificeType.VAGINA, breeders.get(i).getPenisRawCumProductionValue(), breeders.get(i).getCum().getFluidModifiers());
+							mother.ingestFluid(breeders.get(i), breeders.get(i).getCumType(), OrificeType.VAGINA, breeders.get(i).getPenisRawOrgasmCumQuantity(), breeders.get(i).getCum().getFluidModifiers());
 						}
 					}
 				};
@@ -1597,7 +1597,7 @@ public class GamblingDenDialogue {
 					public void effects() {
 						for(int i=roll-1; i<breeders.size(); i++) {
 							mother.setVaginaVirgin(false);
-							mother.ingestFluid(breeders.get(i), breeders.get(i).getCumType(), OrificeType.VAGINA, breeders.get(i).getPenisRawCumProductionValue(), breeders.get(i).getCum().getFluidModifiers());
+							mother.ingestFluid(breeders.get(i), breeders.get(i).getCumType(), OrificeType.VAGINA, breeders.get(i).getPenisRawOrgasmCumQuantity(), breeders.get(i).getCum().getFluidModifiers());
 						}
 					}
 				};

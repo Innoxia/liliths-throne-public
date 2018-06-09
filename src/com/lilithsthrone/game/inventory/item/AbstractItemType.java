@@ -155,8 +155,8 @@ public abstract class AbstractItemType extends AbstractCoreType implements Seria
 		};
 	}
 	
-	public static AbstractItem generateFilledCondom(Colour colour, GameCharacter character, FluidCum cum) {
-		return new AbstractFilledCondom(ItemType.CONDOM_USED, colour, character, cum, character.getPenisRawCumProductionValue()) {
+	public static AbstractItem generateFilledCondom(Colour colour, GameCharacter character, FluidCum cum, int millilitres) {
+		return new AbstractFilledCondom(ItemType.CONDOM_USED, colour, character, cum, millilitres) {
 			private static final long serialVersionUID = 1L;
 		};
 	}

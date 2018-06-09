@@ -78,6 +78,7 @@ import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.EyeShape;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
+import com.lilithsthrone.game.character.body.valueEnums.FluidExpulsion;
 import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
 import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.character.body.valueEnums.FluidRegeneration;
@@ -9479,7 +9480,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		}
 		
 		if(this.getBodyMaterial()==BodyMaterial.SLIME || orificeIngestedThrough == OrificeType.VAGINA) {
-			fluidIngestionSB.append(rollForPregnancy(charactersFluid));
+			fluidIngestionSB.append(rollForPregnancy(charactersFluid, millilitres));
 		}
 		
 		if(modifiers.contains(FluidModifier.ALCOHOLIC)) { //TODO factor in body size:
@@ -10184,13 +10185,13 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 					} else {
 						partner = Main.game.getNPCById(fs.getCharactersFluidID());
 					}
-					rollForPregnancy(partner);
+					rollForPregnancy(partner, fs.getMillilitres());
 				}
 			}
 		}
 	}
 	
-	protected String rollForPregnancy(GameCharacter partner) {
+	protected String rollForPregnancy(GameCharacter partner, int cumQuantity) {
 		if(partner instanceof Elemental) {
 			return PregnancyDescriptor.NO_CHANCE.getDescriptor(this, partner)
 					+"<p style='text-align:center;'>[style.italicsMinorBad(Elementals cannot impregnate anyone!)]</br>[style.italicsDisabled(I will add support for impregnating/being impregnated by elementals soon!)]</p>";
@@ -10204,7 +10205,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			
 		} else {
 			pregnancyChance = 0;
-			pregnancyChance += (Util.getModifiedDropoffValue(partner.getAttributeValue(Attribute.VIRILITY), Attribute.VIRILITY.getUpperLimit())/100f) * partner.getPenisCumProduction().getPregnancyModifier();
+			pregnancyChance += (Util.getModifiedDropoffValue(partner.getAttributeValue(Attribute.VIRILITY), Attribute.VIRILITY.getUpperLimit())/100f) * CumProduction.getCumProductionFromInt(cumQuantity).getPregnancyModifier();
 			pregnancyChance += (Util.getModifiedDropoffValue(getAttributeValue(Attribute.FERTILITY), Attribute.FERTILITY.getUpperLimit())/100f);
 			pregnancyChance /= 4;
 		}
@@ -15033,6 +15034,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		return getCurrentPenis().removePenisModifier(this, modifier);
 	}
 	
+	
 	// Urethra:
 
 	public String getPenisUrethraDescriptor() {
@@ -15230,18 +15232,73 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	public String setPenisNumberOfTesticles(int testicleCount) {
 		return getCurrentPenis().getTesticle().setTesticleCount(this, testicleCount);
 	}
-	// Cum Production:
-	public CumProduction getPenisCumProduction() {
-		return getCurrentPenis().getTesticle().getCumProduction();
+	// Cum Storage:
+	public CumProduction getPenisCumStorage() {
+		return body.getPenis().getTesticle().getCumStorage();
 	}
-	public int getPenisRawCumProductionValue() {
-		return getCurrentPenis().getTesticle().getRawCumProductionValue();
+	public int getPenisRawCumStorageValue() {
+		return body.getPenis().getTesticle().getRawCumStorageValue();
 	}
-	public String setCumProduction(int cumProduction) {
-		return getCurrentPenis().getTesticle().setCumProduction(this, cumProduction);
+	public String setPenisCumStorage(int cumProduction) {
+		return body.getPenis().getTesticle().setCumStorage(this, cumProduction);
 	}
-	public String incrementPenisCumProduction(int increment) {
-		return setCumProduction(getPenisRawCumProductionValue() + increment);
+	public String incrementPenisCumStorage(int increment) {
+		return setPenisCumStorage(getPenisRawCumStorageValue() + increment);
+	}
+	// Current cum:
+	public void fillCumToMaxStorage() {
+		setPenisStoredCum(getPenisRawCumStorageValue());
+	}
+	public CumProduction getPenisStoredCum() {
+		return body.getPenis().getTesticle().getStoredCum();
+	}
+	public int getPenisRawStoredCumValue() {
+		return body.getPenis().getTesticle().getRawStoredCumValue();
+	}
+	public String setPenisStoredCum(int cum) {
+		return body.getPenis().getTesticle().setStoredCum(this, cum);
+	}
+	public String incrementPenisStoredCum(int increment) {
+		return setPenisStoredCum(getPenisRawStoredCumValue() + increment);
+	}
+	// Orgasm cum amount:
+	public FluidExpulsion getPenisCumExpulsion() {
+		return body.getPenis().getTesticle().getCumExpulsion();
+	}
+	/** As a percentage from 0 -> 1. */
+	public float getPenisRawCumExpulsionValue() {
+		return body.getPenis().getTesticle().getRawCumExpulsionValue();
+	}
+	public String setPenisCumExpulsion(float percentage) {
+		return body.getPenis().getTesticle().setCumExpulsion(this, percentage);
+	}
+	public String incrementPenisCumExpulsion(int increment) {
+		return setPenisCumExpulsion(getPenisRawCumExpulsionValue() + increment);
+	}
+	public CumProduction getPenisOrgasmCumQuantity() {
+		return CumProduction.getCumProductionFromInt((int) (body.getPenis().getTesticle().getRawStoredCumValue() * getPenisRawCumExpulsionValue()));
+	}
+	public int getPenisRawOrgasmCumQuantity() {
+		if(body.getPenis().getTesticle().getRawStoredCumValue() < 5) {
+			return body.getPenis().getTesticle().getRawStoredCumValue();
+		}
+		return (int) (body.getPenis().getTesticle().getRawStoredCumValue() * getPenisRawCumExpulsionValue());
+	}
+	public void applyOrgasmCumEffect() {
+		this.incrementPenisStoredCum(-getPenisRawOrgasmCumQuantity());
+	}
+	// Regen:
+	public FluidRegeneration getPenisCumProductionRegeneration() {
+		return body.getPenis().getTesticle().getCumProductionRegeneration();
+	}
+	public int getPenisRawCumProductionRegenerationValue() {
+		return body.getPenis().getTesticle().getRawCumProductionRegenerationValue();
+	}
+	public String setPenisCumProductionRegeneration(int regenerationValue) {
+		return body.getPenis().getTesticle().setCumProductionRegeneration(this, regenerationValue);
+	}
+	public String incrementPenisCumProductionRegeneration(int increment) {
+		return setPenisCumProductionRegeneration(getPenisRawCumProductionRegenerationValue() + increment);
 	}
 	// Testicle size:
 	public TesticleSize getTesticleSize() {

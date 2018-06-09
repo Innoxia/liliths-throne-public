@@ -31,7 +31,10 @@
 	Patch notes:
 	
 	Engine:
-		Added javascript support for parsing conditional statements.
+		Improved scripting support for parsing conditional statements.
+	
+	Gameplay:
+		Added the same fluid storage/regeneration values as milk has to cum. Added an 'expulsion' value to testicles (with associated TF modifier for potions), which determines how much of your stored cum is expelled upon orgasm.
 	
 	Artwork:
 		Added ChattyNeko's Kate drawing.
@@ -80,7 +83,7 @@
 		Fixed bug with the 'risk of pregnancy' status effect not re-applying instantly if you weren't pregnant but still had cum in your vagina.
 		Time now passes while in the Gambling Den (1 minute per tile).
 		Fixed bug where the map in the library would sometimes not open.
-	
+		Fixed issue where NPCs would sometimes spawn wearing a dress + skirt.
 	
 	
 	
@@ -90,8 +93,20 @@
 	Tailjobs
 	Paizuri deepthroat while fucking a dickgirl's pussy in missionary
 	let the dominant partner choose where the sub cums
-	cum like milk
 	
+	so im a slime person (as you can see). the transform menu says my eyes are blue, but the mouse over menu thing says they are green
+	
+	silver, gold, bronze, rose gold, plat) for hair colour
+	
+	Label unobtainable spells
+	
+	Set your elemental's fetishes (make them the counterparts of yours)
+	
+	[X] cum like milk
+	
+	[X] add cum on orgasm percentage
+	
+	[ ] Fix tags
 	
 	[ ] Change PenetrationType and OrificeType to SexArea
 	

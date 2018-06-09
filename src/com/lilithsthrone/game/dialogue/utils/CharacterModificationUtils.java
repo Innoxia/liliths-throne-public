@@ -2306,14 +2306,14 @@ public class CharacterModificationUtils {
 	}
 	
 	public static String getSelfTransformCumProductionDiv() {
-		return applyFullVariableWrapperFluids("Cum Production",
+		return applyFullVariableWrapperFluids("Cum Storage",
 				(BodyChanging.getTarget().isPlayer()
-			?"Change your cum production."
-			:UtilText.parse(BodyChanging.getTarget(), "Change [npc.name]'s cum production.")),
+			?"Change your maximum cum storage."
+			:UtilText.parse(BodyChanging.getTarget(), "Change [npc.name]'s maximum cum storage.")),
 			"CUM_PRODUCTION",
-			BodyChanging.getTarget().getPenisRawCumProductionValue()+"ml",
-			BodyChanging.getTarget().getPenisRawCumProductionValue()<=0,
-			BodyChanging.getTarget().getPenisRawCumProductionValue()>=CumProduction.SEVEN_MONSTROUS.getMaximumValue());
+			BodyChanging.getTarget().getPenisRawCumStorageValue()+"ml",
+			BodyChanging.getTarget().getPenisRawCumStorageValue()<=0,
+			BodyChanging.getTarget().getPenisRawCumStorageValue()>=CumProduction.SEVEN_MONSTROUS.getMaximumValue());
 	}
 	
 	public static String getSelfTransformUrethraElasticityDiv() {
@@ -3024,10 +3024,10 @@ public class CharacterModificationUtils {
 				"<div class='container-full-width'>"
 					+"<div class='cosmetics-inner-container left'>"
 						+ "<h5 style='text-align:center;'>"
-							+"Cum Production"
+							+"Cum Storage"
 						+"</h5>"
 						+ "<p style='text-align:center;'>"
-							+ "Choose how much cum you produce at each orgasm."
+							+ "Choose how much cum your balls are able to hold."
 						+ "</p>"
 						+ "</div>"
 						+ "<div class='cosmetics-inner-container right'>");
@@ -3035,7 +3035,7 @@ public class CharacterModificationUtils {
 		CumProduction[] sizesAvailable = new CumProduction[] {CumProduction.ZERO_NONE, CumProduction.ONE_TRICKLE, CumProduction.TWO_SMALL_AMOUNT, CumProduction.THREE_AVERAGE, CumProduction.FOUR_LARGE};
 		
 		for(CumProduction value : sizesAvailable) {
-			if(BodyChanging.getTarget().getPenisCumProduction() == value) {
+			if(BodyChanging.getTarget().getPenisCumStorage() == value) {
 				contentSB.append(
 						"<div class='cosmetics-button active'>"
 							+ "<b style='color:"+value.getColour().toWebHexString()+";'>"+value.getMedianValue()+"mL</b>"

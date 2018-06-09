@@ -92,7 +92,8 @@ public class Axel extends NPC {
 			
 			this.setPenisGirth(PenisGirth.FOUR_FAT.getValue());
 			this.setPenisSize(PenisSize.FOUR_HUGE.getMedianValue());
-			this.setCumProduction(CumProduction.FOUR_LARGE.getMedianValue());
+			this.setPenisCumStorage(CumProduction.FOUR_LARGE.getMedianValue());
+			this.fillCumToMaxStorage();
 			
 			// INVENTORY:
 			

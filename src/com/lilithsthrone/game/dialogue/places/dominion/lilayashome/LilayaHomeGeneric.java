@@ -324,8 +324,8 @@ public class LilayaHomeGeneric {
 				if(!Main.game.getPlayer().hasPenisIgnoreDildo()) {
 					return new Response("Milk Self Cum", "You don't have a penis, so you can't produce any cum...",  null);
 					
-				} else if(Main.game.getPlayer().getPenisRawCumProductionValue()==0) {
-					return new Response("Milk Self Cum", "You aren't producing any cum, so you can't milk your cock...",  null);
+				} else if(Main.game.getPlayer().getPenisRawStoredCumValue()==0) {
+					return new Response("Milk Self Cum", "The isn't any cum stored in your balls, so you can't milk your cock...",  null);
 					
 				} else if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.PENIS, true)) {
 					return new Response("Milk Self Cum", "You are unable to get access to your cock, so you can't milk yourself at the moment!",  null);

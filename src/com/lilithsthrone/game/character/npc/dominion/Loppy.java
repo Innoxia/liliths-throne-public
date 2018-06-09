@@ -98,7 +98,8 @@ public class Loppy extends NPC {
 			
 			this.setPenisSize(PenisSize.THREE_LARGE.getMaximumValue());
 			this.setTesticleSize(TesticleSize.THREE_LARGE.getValue());
-			this.setCumProduction(CumProduction.FOUR_LARGE.getMaximumValue());
+			this.setPenisCumStorage(CumProduction.FOUR_LARGE.getMaximumValue());
+			this.fillCumToMaxStorage();
 			
 			this.setHeight(178);
 			

@@ -4065,6 +4065,75 @@ public enum StatusEffect {
 			return true;
 		}
 	},
+	
+	CUM_PRODUCTION(
+			80,
+			"Cum Production",
+			"cumProduction",
+			Colour.GENERIC_SEX,
+			true,
+			null,
+			null) {
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			target.incrementPenisStoredCum((int) Math.ceil(minutesPassed * target.getPenisCumProductionRegeneration().getPercentageRegen() * target.getPenisRawCumStorageValue()));
+			return "";
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			int cumRegenRate = (int) Math.ceil(target.getPenisCumProductionRegeneration().getPercentageRegen() * target.getPenisRawCumStorageValue());
+			
+			return UtilText.parse(target, "[npc.NamePos] balls are currently producing more [npc.cum], at a rate of "+cumRegenRate+"ml/minute."
+					+ " They have stored "+target.getPenisRawStoredCumValue()+"ml, out of a maximum of "+target.getPenisRawCumStorageValue()+"ml.");
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getPenisRawCumStorageValue()>0 && target.getPenisRawStoredCumValue()!=target.getPenisRawCumStorageValue();
+		}
+		
+		@Override
+		public boolean isSexEffect() {
+			return true;
+		}
+	},
+
+	CUM_FULL(
+			80,
+			"Full Balls",
+			"cumFull",
+			Colour.GENERIC_SEX,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -1f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -5f)),
+			null) {
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			int milkRegenRate = (int) Math.ceil(target.getPenisCumProductionRegeneration().getPercentageRegen() * target.getPenisRawCumStorageValue());
+			
+			return UtilText.parse(target, "[npc.NamePos] balls are completely filled with [npc.cum] ("+target.getPenisRawStoredCumValue()+"ml), and [npc.she] can't wait until the next time [npc.sheIs] able to empty them."
+					+ " [npc.She] will ejaculate "+target.getPenisRawOrgasmCumQuantity()+"ml upon orgasm, and will then regenerate [npc.cum] at a rate of "+milkRegenRate+"ml/minute.");
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getPenisRawCumStorageValue()>0 && target.getPenisRawStoredCumValue()==target.getPenisRawCumStorageValue();
+		}
+		
+		@Override
+		public boolean isSexEffect() {
+			return true;
+		}
+	},
 
 	MILK_PRODUCTION(
 			80,
@@ -4114,7 +4183,7 @@ public enum StatusEffect {
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -1f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -10f)),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -5f)),
 			null) {
 
 		@Override

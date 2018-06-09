@@ -829,6 +829,14 @@ public enum TFModifier {
 			"modifier_circle_penis_prehensile",
 			Colour.BASE_TEAL,
 			Rarity.COMMON),
+
+	
+	TF_MOD_CUM_EXPULSION("cum expulsion",
+			"Applies an effect related to modifying the amount of cum expelled at each orgasm.",
+			"cumming",
+			"modifier_circle_squirter",
+			Colour.BASE_AQUA,
+			Rarity.COMMON),
 	
 	// vagina:
 	

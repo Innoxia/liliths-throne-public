@@ -1916,8 +1916,10 @@ public class ItemEffectType {
 			if(target.hasPenisIgnoreDildo()) {
 				sb.append("</br>" + target.setPenisType(PenisType.AVIAN));
 
-				if(target.getPenisRawCumProductionValue()<CumProduction.TWO_SMALL_AMOUNT.getMedianValue())
-					sb.append("</br>" + target.setCumProduction(CumProduction.TWO_SMALL_AMOUNT.getMedianValue()));
+				if(target.getPenisRawCumStorageValue()<CumProduction.TWO_SMALL_AMOUNT.getMedianValue()) {
+					sb.append("</br>" + target.setPenisCumStorage(CumProduction.TWO_SMALL_AMOUNT.getMedianValue()));
+					target.fillCumToMaxStorage();
+				}
 			}
 			if(target.hasVagina()) {
 				sb.append("</br>" + target.setVaginaType(VaginaType.HARPY));
@@ -2011,8 +2013,10 @@ public class ItemEffectType {
 			if(target.hasPenisIgnoreDildo()) {
 				sb.append("</br>" + target.setPenisType(PenisType.AVIAN));
 
-				if(target.getPenisRawCumProductionValue()<CumProduction.THREE_AVERAGE.getMedianValue())
-					sb.append("</br>" + target.setCumProduction(CumProduction.THREE_AVERAGE.getMedianValue()));
+				if(target.getPenisRawCumStorageValue()<CumProduction.THREE_AVERAGE.getMedianValue()) {
+					sb.append("</br>" + target.setPenisCumStorage(CumProduction.THREE_AVERAGE.getMedianValue()));
+					target.fillCumToMaxStorage();
+				}
 			}
 			if(target.hasVagina()) {
 				sb.append("</br>" + target.setVaginaType(VaginaType.HARPY));
@@ -2105,8 +2109,10 @@ public class ItemEffectType {
 			if(target.hasPenisIgnoreDildo()) {
 				sb.append("</br>" + target.setPenisType(PenisType.AVIAN));
 
-				if(target.getPenisRawCumProductionValue()<CumProduction.TWO_SMALL_AMOUNT.getMedianValue())
-					sb.append("</br>" + target.setCumProduction(CumProduction.TWO_SMALL_AMOUNT.getMedianValue()));
+				if(target.getPenisRawCumStorageValue()<CumProduction.TWO_SMALL_AMOUNT.getMedianValue()) {
+					sb.append("</br>" + target.setPenisCumStorage(CumProduction.TWO_SMALL_AMOUNT.getMedianValue()));
+					target.fillCumToMaxStorage();
+				}
 			}
 			if(target.hasVagina()) {
 				sb.append("</br>" + target.setVaginaType(VaginaType.HARPY));

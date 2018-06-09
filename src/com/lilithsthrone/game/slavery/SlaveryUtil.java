@@ -373,7 +373,7 @@ public class SlaveryUtil implements XMLSaving {
 							}
 						}
 					}
-					if(slave.hasPenisIgnoreDildo() && slave.getPenisRawCumProductionValue()>0 && !slave.getSlaveJobSettings().contains(SlaveJobSetting.MILKING_CUM_DISABLE)) {
+					if(slave.hasPenisIgnoreDildo() && slave.getPenisRawStoredCumValue()>0 && !slave.getSlaveJobSettings().contains(SlaveJobSetting.MILKING_CUM_DISABLE)) {
 						int milked = MilkingRoom.getActualCumPerHour(slave);
 
 						if(milked>0) {
@@ -911,12 +911,14 @@ public class SlaveryUtil implements XMLSaving {
 						
 						// Apply sex effects:
 						if(canImpregnate) {
-							npc.ingestFluid(slave, slave.getCumType(), OrificeType.VAGINA, slave.getPenisRawCumProductionValue(), slave.getCum().getFluidModifiers());
+							npc.ingestFluid(slave, slave.getCumType(), OrificeType.VAGINA, slave.getPenisRawOrgasmCumQuantity(), slave.getCum().getFluidModifiers());
+							slave.applyOrgasmCumEffect();
 							npc.setVaginaVirgin(false);
 							impregnationAttempt = true;
 						}
 						if(canBeImpregnated) {
-							slave.ingestFluid(npc, npc.getCumType(), OrificeType.VAGINA, npc.getPenisRawCumProductionValue(), npc.getCum().getFluidModifiers());
+							slave.ingestFluid(npc, npc.getCumType(), OrificeType.VAGINA, npc.getPenisRawOrgasmCumQuantity(), npc.getCum().getFluidModifiers());
+							npc.applyOrgasmCumEffect();
 							slave.setVaginaVirgin(false);
 							gettingPregnantAttempt = true;
 						}

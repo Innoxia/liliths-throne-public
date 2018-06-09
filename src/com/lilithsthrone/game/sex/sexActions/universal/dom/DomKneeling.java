@@ -152,7 +152,7 @@ public class DomKneeling {
 				// Describe cum amount:
 				UtilText.nodeContentSB.append(" and as your [pc.balls+] tense up");
 				
-				switch (Main.game.getPlayer().getPenisCumProduction()) {
+				switch (Main.game.getPlayer().getPenisStoredCum()) {
 					case ZERO_NONE:
 						UtilText.nodeContentSB.append(", you realise that you're not able to produce even one drop of cum.");
 						break;
@@ -235,7 +235,7 @@ public class DomKneeling {
 			}
 
 			UtilText.nodeContentSB.append(" Your [pc.balls+] tense up, and as you let out [pc.a_moan+]");
-			switch (Main.game.getPlayer().getPenisCumProduction()) {
+			switch (Main.game.getPlayer().getPenisStoredCum()) {
 				case ZERO_NONE:
 					UtilText.nodeContentSB.append(", you realise that you're not able to produce even one drop of cum.");
 					break;
@@ -327,7 +327,7 @@ public class DomKneeling {
 			}
 
 			UtilText.nodeContentSB.append(" You feel your [pc.balls+] tense up, and as you let out [pc.a_moan+]");
-			switch (Main.game.getPlayer().getPenisCumProduction()) {
+			switch (Main.game.getPlayer().getPenisStoredCum()) {
 				case ZERO_NONE:
 					UtilText.nodeContentSB.append(", you realise that you're not able to produce even one drop of cum.");
 					break;

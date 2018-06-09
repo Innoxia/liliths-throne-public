@@ -1539,7 +1539,7 @@ public class SABraxSubCowgirl {
 							+ " Letting out a desperate groan, you feel your cock twitching as your orgasm washes over you");
 				}
 
-				switch (Main.game.getPlayer().getPenisCumProduction()) {
+				switch (Main.game.getPlayer().getPenisStoredCum()) {
 					case ZERO_NONE:
 						UtilText.nodeContentSB.append(", but you aren't able to produce even one drop of cum, somewhat diminishing the pleasure of your climax.");
 						break;
@@ -1661,7 +1661,7 @@ public class SABraxSubCowgirl {
 							+ " Letting out a desperate groan, you feel your "+Main.game.getPlayer().getPenisName(true)+" twitching as your orgasm washes over you");
 				}
 
-				switch (Main.game.getPlayer().getPenisCumProduction()) {
+				switch (Main.game.getPlayer().getPenisStoredCum()) {
 					case ZERO_NONE:
 						UtilText.nodeContentSB.append(", but you aren't able to produce even one drop of cum, somewhat diminishing the pleasure of your climax.");
 						break;
@@ -1790,7 +1790,7 @@ public class SABraxSubCowgirl {
 
 				UtilText.nodeContentSB.append(" Letting out a desperate groan, you feel your cock twitching as your orgasm washes over you. ");
 
-				switch (Main.game.getPlayer().getPenisCumProduction()) {
+				switch (Main.game.getPlayer().getPenisStoredCum()) {
 				case ZERO_NONE:
 					UtilText.nodeContentSB.append("Unfortunately, you aren't able to produce even one drop of cum, somewhat diminishing the pleasure of your climax.");
 					break;

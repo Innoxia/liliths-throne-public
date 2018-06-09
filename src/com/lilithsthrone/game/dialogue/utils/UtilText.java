@@ -2477,6 +2477,24 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
+						"have",
+						"has"),
+				true,
+				true,
+				"",
+				"Returns the correct version of 'has' for this character (has or have)."){
+			@Override
+			public String parse(String command, String arguments, String target) {
+				if(target.startsWith("npc") && arguments==null && character.isPlayer()) {
+					return "have";
+				} else {
+					return "has";
+				}
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
 						"her",
 						"his",
 						"herPos",
@@ -2636,6 +2654,38 @@ public class UtilText {
 			}
 		});
 		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"sheIsFull",
+						"sheHeIsFull",
+						"heIsFull",
+						"heSheIsFull"),
+				true,
+				true,
+				"(real pronoun)",
+				"Returns the correct gender-specific pronoun contraction for this character (you are, she is, he is). By default, returns 'you are' for player character."
+				+ " If you need the regular third-person player character pronoun contraction, pass a space as an argument."){
+			@Override
+			public String parse(String command, String arguments, String target) {
+				if(target.startsWith("npc") && arguments==null && character.isPlayer()) {
+					return "you are";
+				} else {
+					if(character.isFeminine()) {
+						if(character.isPlayer()) {
+							return Gender.F_V_B_FEMALE.getSecondPerson() + " is";
+						} else {
+							return GenderPronoun.SECOND_PERSON.getFeminine() + " is";
+						}
+					} else {
+						if(character.isPlayer()) {
+							return Gender.M_P_MALE.getSecondPerson() + " is";
+						} else {
+							return GenderPronoun.SECOND_PERSON.getMasculine() + " is";
+						}
+					}
+				}
+			}
+		});
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
@@ -3855,7 +3905,8 @@ public class UtilText {
 						"cumAmount",
 						"cumProduction",
 						"jizzAmount",
-						"jizzProduction"),
+						"jizzProduction",
+						"cumStorage"),
 				true,
 				true,
 				"",
@@ -3863,7 +3914,7 @@ public class UtilText {
 				BodyPartType.TESTICLES){//TODO
 			@Override
 			public String parse(String command, String arguments, String target) {
-				return character.getPenisCumProduction().getDescriptor();
+				return character.getPenisCumStorage().getDescriptor();
 			}
 		});
 		
@@ -3878,7 +3929,7 @@ public class UtilText {
 				BodyPartType.TESTICLES){//TODO
 			@Override
 			public String parse(String command, String arguments, String target) {
-				return String.valueOf(character.getPenisRawCumProductionValue());
+				return String.valueOf(character.getPenisRawCumStorageValue());
 			}
 		});
 		

@@ -71,8 +71,9 @@ public class GenericActions {
 			
 			StringBuilder sb = new StringBuilder();
 			sb.append(Main.game.getPlayer().setPenisType(PenisType.DEMON_COMMON));
-			if(Main.game.getPlayer().getPenisRawCumProductionValue() < CumProduction.FIVE_HUGE.getMedianValue()) {
-				sb.append(Main.game.getPlayer().setCumProduction(CumProduction.FIVE_HUGE.getMedianValue()));
+			if(Main.game.getPlayer().getPenisRawCumStorageValue() < CumProduction.FIVE_HUGE.getMedianValue()) {
+				sb.append(Main.game.getPlayer().setPenisCumStorage(CumProduction.FIVE_HUGE.getMedianValue()));
+				Main.game.getPlayer().fillCumToMaxStorage();
 			}
 			if(Main.game.getPlayer().getPenisRawSizeValue() < PenisSize.FIVE_ENORMOUS.getMedianValue()) {
 				sb.append(Main.game.getPlayer().setPenisSize(PenisSize.FIVE_ENORMOUS.getMedianValue()));
@@ -122,7 +123,8 @@ public class GenericActions {
 		@Override
 		public void applyEffects() {
 			Sex.getActivePartner().setPenisType(PenisType.DEMON_COMMON);
-			Sex.getActivePartner().setCumProduction(CumProduction.FIVE_HUGE.getMedianValue());
+			Sex.getActivePartner().setPenisCumStorage(CumProduction.FIVE_HUGE.getMedianValue());
+			Sex.getActivePartner().fillCumToMaxStorage();
 			Sex.getActivePartner().setTesticleSize(0);
 			Sex.getActivePartner().setPenisSize(PenisSize.FIVE_ENORMOUS.getMedianValue());
 		}
