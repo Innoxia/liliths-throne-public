@@ -1573,11 +1573,15 @@ public class GenericOrgasms {
 	}
 	
 	private static String getGenericMoundOrgasm(GameCharacter characterOrgasming) {
-		return "With an ear-splitting scream and trembling legs, a crashing wave of pure ecstasy suddenly washes through [npc.name]."
-		+ " The muscles within [npc.her] genderless mound start to spasm and contract, and [npc.sheIs] soon left as a panting, moaning wreck as"
-		+ (characterOrgasming.isPlayer() ? " an" : " [npc.her]")
-		+ " intense pseudo-orgasm crashes over [npc.her].";
-		
+		if(characterOrgasming.isPlayer()) {
+			return "With an ear-splitting scream and trembling legs, a crashing wave of pure ecstasy suddenly washes through you."
+					+ " The muscles within your genderless mound start to spasm and contract, and you're soon left as a panting, moaning wreck as an intense pseudo-orgasm crashes over you.";
+			
+		} else {
+			return UtilText.parse(characterOrgasming,
+					"With an ear-splitting scream and trembling legs, a crashing wave of pure ecstasy suddenly washes through [npc1.name]."
+							+ " The muscles within [npc1.her] genderless mound start to spasm and contract, and [npc1.sheIs] soon left as a panting, moaning wreck as [npc1.her] intense pseudo-orgasm crashes over [npc1.herHim].");
+		}
 	}
 
 	public static String getGenericOrgasmDescription(GameCharacter characterOrgasming, OrgasmCumTarget target) {
