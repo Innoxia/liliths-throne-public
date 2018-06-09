@@ -1490,11 +1490,7 @@ public class GenericOrgasms {
 	private static String getGenericVaginaOrgasmDescription(GameCharacter characterOrgasming, OrgasmCumTarget targetArea) {
 		genericOrgasmSB.setLength(0);
 		
-		if(characterOrgasming.isPlayer()) {
-			genericOrgasmSB.append("A desperate, shuddering heat suddenly crashes up from your [npc1.pussy+], and you let out a manic squeal as a blinding wave of pure ecstasy washes over you.");
-		} else {
-			genericOrgasmSB.append("A desperate, shuddering heat suddenly crashes up from [npc1.namePos] [npc1.pussy+], and [npc1.she] lets out a manic squeal as a blinding wave of pure ecstasy washes over [npc1.herHim].");
-		}
+		genericOrgasmSB.append("A desperate, shuddering heat suddenly crashes up from [npc1.namePos] [npc1.pussy+], and [npc1.she] [npc1.verb(let)] out a manic squeal as a blinding wave of pure ecstasy washes over [npc1.herHim].");
 		
 		GameCharacter characterPenetrating = Sex.getPenetratingCharacterUsingOrifice(characterOrgasming, OrificeType.VAGINA);
 		PenetrationType penetration = Sex.getPenetrationTypeInOrifice(characterOrgasming, OrificeType.VAGINA);
@@ -1510,76 +1506,46 @@ public class GenericOrgasms {
 							genericOrgasmSB.append(" [npc2.namePos] fingers carry on pumping away at your [npc1.pussy+], and you let out a series of high-pitched moans as your vaginal muscles grip and squeeze around the intruding digits.");
 						}
 					} else {
-						if(characterPenetrating.isPlayer()) {
-							genericOrgasmSB.append(" [npc1.namePos] vaginal muscles grip and squeeze around your intruding digits,"
-									+ " and you continue to stroke and tease [npc1.her] clit, drawing out a series of [npc1.moans+] from between [npc1.her] [npc1.lips+].");
-						} else {
-							genericOrgasmSB.append(" [npc1.namePos] vaginal muscles grip and squeeze around [npc2.namePos] intruding digits,"
-									+ " and [npc2.she] continues to stroke and tease [npc1.her] clit, drawing out a series of [npc1.moans+] from between [npc1.her] [npc1.lips+].");
-						}
+						genericOrgasmSB.append(" [npc1.namePos] vaginal muscles grip and squeeze around [npc2.namePos] intruding digits,"
+								+ " and [npc2.she] [npc2.verb(continue)] to stroke and tease [npc1.her] clit, drawing out a series of [npc1.moans+] from between [npc1.her] [npc1.lips+].");
 					}
 					break;
 				case PENIS:
-					if(characterOrgasming.isPlayer()) {
-						if(characterPenetrating.isPlayer()) {
-							genericOrgasmSB.append(" You carry on fucking yourself through your orgasm, letting out a series of high-pitched moans as your vaginal muscles grip and squeeze around your [npc1.cock+].");
-						} else {
-							genericOrgasmSB.append(" [npc2.Name] carries on fucking your [npc1.pussy+] through your orgasm, and you let out a series of high-pitched moans as your vaginal muscles grip and squeeze around [npc2.her] [npc2.penis+].");
-						}
-					} else {
-						if(characterPenetrating.isPlayer()) {
-							genericOrgasmSB.append(" You carry on fucking [npc1.name] through [npc1.her] orgasm, causing [npc1.herHim] to let out a series of high-pitched moans as [npc1.her] vaginal muscles grip and squeeze around your [npc2.cock+].");
-						} else {
-							genericOrgasmSB.append(" [npc2.Name] carries on fucking [npc1.namePos] [npc1.pussy+] through [npc1.her] orgasm,"
-											+ " causing [npc1.herHim] to let out a series of high-pitched moans as [npc1.her] vaginal muscles grip and squeeze around [npc2.her] [npc2.penis+].");
-						}
-					}
+					genericOrgasmSB.append(" [npc2.Name] [npc2.verb(carry)] on fucking"
+							+ (characterPenetrating.isPlayer() ? " [npc1.name]" : " [npc1.namePos] [npc1.pussy+]")
+							+ " through [npc1.her] orgasm,"
+							+ (!characterOrgasming.isPlayer() ? " causing [npc1.herHim] to let" : (
+									characterPenetrating.isPlayer() ? " letting" : " and you let"))	
+							+ " out a series of high-pitched moans as [npc1.her] vaginal muscles grip and squeeze"
+							+ " around [npc2.her] [npc2.penis+].");
 					break;
 				case TAIL:
-					if(characterOrgasming.isPlayer()) {
-						if(characterPenetrating.isPlayer()) {
-							genericOrgasmSB.append(" You carry on tail-fucking yourself through your orgasm, letting out a series of high-pitched moans as your vaginal muscles grip and squeeze around the intruding object.");
-						} else {
-							genericOrgasmSB.append(" [npc2.Name] carries on tail-fucking your [npc1.pussy+] through your orgasm, and you let out a series of high-pitched moans as your vaginal muscles grip and squeeze around the intruding object.");
-						}
-					} else {
-						if(characterPenetrating.isPlayer()) {
-							genericOrgasmSB.append(" You carry on tail-fucking [npc1.name] through [npc1.her] orgasm,"
-											+ " causing [npc1.herHim] to let out a series of high-pitched moans as [npc1.her] vaginal muscles grip and squeeze around the intruding object.");
-						} else {
-							genericOrgasmSB.append(" [npc2.Name] carries on tail-fucking [npc1.namePos] [npc1.pussy+] through [npc1.her] orgasm,"
-											+ " causing [npc1.herHim] to let out a series of high-pitched moans as [npc1.her] vaginal muscles grip and squeeze around the intruding object.");
-						}
-					}
+					genericOrgasmSB.append("TEST [npc2.Name] [npc2.verb(carry)] on tail-fucking"
+							+ (!characterPenetrating.isPlayer() ? " [npc1.namePos] [npc1.pussy+]" : (
+									characterOrgasming.isPlayer() ? " yourself" : " [npc1.name]"))
+							+ " through [npc1.her] orgasm,"
+							+ (!characterOrgasming.isPlayer() ? " causing [npc1.herHim] to let" : (
+									characterPenetrating.isPlayer() ? " letting" : " and you let"))							
+							+ " out a series of high-pitched moans as [npc1.her]"
+							+ " vaginal muscles grip and squeeze around the intruding object.");
 					break;
 				case TONGUE:
-					if(characterOrgasming.isPlayer()) {
-						if(characterPenetrating.isPlayer()) {
-							genericOrgasmSB.append(" You carry on licking and kissing your clit as you orgasm, letting out a series of high-pitched moans as you feel your vaginal muscles quiver and contract at the overwhelming sensation.");
-						} else {
-							genericOrgasmSB.append(" [npc2.Name] carries on licking and kissing at your clit while you orgasm,"
-										+ " causing you to let out a series of high-pitched moans as you feel your vaginal muscles quiver and contract at the overwhelming sensation.");
-						}
-					} else {
-						if(characterPenetrating.isPlayer()) {
-							genericOrgasmSB.append(" You carry on licking and kissing [npc1.namePos] clit as [npc1.she] orgasms,"
-										+ " causing [npc1.herHim] to let out a series of high-pitched moans as [npc1.her] vaginal muscles quiver and contract at the overwhelming sensation.");
-						} else {
-							genericOrgasmSB.append(" [npc2.Name] carries on licking and kissing at [npc1.namePos] clit while [npc1.she] orgasms,"
-										+ " causing [npc1.herHim] to let out a series of high-pitched moans as [npc1.her] vaginal muscles quiver and contract at the overwhelming sensation.");
-						}
-					}
+					genericOrgasmSB.append( "TEST [npc2.Name] [npc2.verb(carry)] on licking and kissing"
+							+ (characterPenetrating.isPlayer() ? "" : " at")
+							+ " [npc1.namePos] clit as [npc1.she] [npc1.verb(orgasm)],"
+							+ (characterPenetrating.isPlayer() && characterOrgasming.isPlayer() ?
+									" letting" : " causing [npc1.herHim] to let")
+							+ " out a series of high-pitched moans as"
+							+ (characterOrgasming.isPlayer() ? " you feel your" : " [npc1.her]")
+							+ " vaginal muscles quiver and contract at the overwhelming sensation.");
 					break;
 				case TENTACLE:
 					break;
 			}
 			
 		} else { // No penetration:
-			if(characterOrgasming.isPlayer()) {
-				genericOrgasmSB.append(" Your [npc1.pussy+] clenches down hard, and the wave of disappointment upon finding itself empty almost overwhelms the pleasure that radiates up through your groin.");
-			} else {
-				genericOrgasmSB.append(" [npc1.NamePos] [npc1.pussy+] clenches down hard, and the wave of disappointment upon finding itself empty almost overwhelms the pleasure that radiates up through [npc.her] groin.");
-			}
+			genericOrgasmSB.append(" [npc1.NamePos] [npc1.pussy+] clenches down hard, and the wave of disappointment upon find itself empty"
+					+ " almost overwhelms the pleasure that radiates up through [npc1.her] groin.");
 		}
 		
 		if(targetArea == OrgasmCumTarget.LILAYA_PANTIES && !Main.game.getPlayer().hasPenisIgnoreDildo()) {
@@ -1587,22 +1553,17 @@ public class GenericOrgasms {
 		}
 		
 		if(characterOrgasming.isVaginaSquirter()) {
-			if(characterOrgasming.isPlayer()) {
-				genericOrgasmSB.append(" As your inner muscles spasm and quiver with delight, a huge spurt of female ejaculate squirts out from your [npc1.pussy+].");
-				if(targetArea == OrgasmCumTarget.LILAYA_PANTIES) {
-					genericOrgasmSB.append(" You quickly drop Lilaya's panties down between your legs, squirting directly into her underwear as you let out [pc.a_moan+].");
-					LilayasRoom.lilayasPanties.setDirty(true);
-				}
-			} else {
-				genericOrgasmSB.append(" As [npc1.namePos] inner muscles spasm and quiver with delight, a huge spurt of female ejaculate squirts out from [npc1.her] [npc1.pussy+].");
+			genericOrgasmSB.append(" As [npc1.namePos] inner muscles spasm and quiver with delgiht, a huge spurt of"
+					+ " female ejaculate squirts out from [npc1.her] [npc1.pussy+].");	
+			if(targetArea == OrgasmCumTarget.LILAYA_PANTIES) {
+				genericOrgasmSB.append(" You quickly drop Lilaya's panties down between your legs, squirting directly into her underwear as you let out [pc.a_moan+].");	
+				LilayasRoom.lilayasPanties.setDirty(true);
 			}
 		}
 		
-		if(characterOrgasming.isPlayer()) {	
-			genericOrgasmSB.append(" With a deeply-satisfied sigh, your feminine climax starts to fade, and you take a few deep gasps of air as you seek to catch your breath.");
-		} else {
-			genericOrgasmSB.append(" With a deeply-satisfied sigh, [npc1.namePos] feminine climax starts to fade, and [npc1.she] takes a few deep gasps of air as [npc1.she] seeks to catch [npc1.her] breath.");
-		}
+		genericOrgasmSB.append(" With a deeply-satisfied sigh, [npc1.namePos] feminine climax starts to fade,"
+				+ " and [npc1.she] [npc1.verb(take)] a few deep gasps of air as [npc1.she] [npc1.verb(seek)]"
+				+ " to catch [npc1.her] breath.");
 		
 		if(characterPenetrating!=null) {
 			return UtilText.parse(characterOrgasming, characterPenetrating, genericOrgasmSB.toString());
