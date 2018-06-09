@@ -53,7 +53,7 @@ public abstract class DialogueNodeOld implements Serializable {
 	}
 
 	public String getLabel() {
-		if(Main.game.isStarted() && (label.isEmpty() || label==null)) {
+		if(Main.game.isStarted() && (label==null || label.isEmpty())) {
 			return Main.game.getPlayerCell().getPlace().getName();
 		}
 		return label;

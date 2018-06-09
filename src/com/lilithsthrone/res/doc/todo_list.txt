@@ -101,9 +101,13 @@
 	
 	[ ] Add bat racial effect descriptions - chatty. Add echolocation special attack (boost crits)
 	
+	[ ] Pictures, descriptions, and disclaimer
+	
 	[ ] Submission Rat-morphs & Alligator-morphs - Just want to mug you
 	
 	[ ] Sex action orifice-on-orifice and start modding framework
+	
+	
 	
 	
 	
