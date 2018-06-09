@@ -548,9 +548,9 @@ public class Body implements Serializable, XMLSaving {
 		Element bodyTesticle = doc.createElement("testicles");
 		parentElement.appendChild(bodyTesticle);
 			CharacterUtils.addAttribute(doc, bodyTesticle, "testicleSize", String.valueOf(this.penis.testicle.testicleSize));
-			CharacterUtils.addAttribute(doc, bodyBreast, "cumStorage", String.valueOf(this.penis.testicle.cumStorage));
-			CharacterUtils.addAttribute(doc, bodyBreast, "storedCum", String.valueOf(this.penis.testicle.cumStored));
-			CharacterUtils.addAttribute(doc, bodyBreast, "cumRegeneration", String.valueOf(this.penis.testicle.cumRegeneration));
+			CharacterUtils.addAttribute(doc, bodyTesticle, "cumStorage", String.valueOf(this.penis.testicle.cumStorage));
+			CharacterUtils.addAttribute(doc, bodyTesticle, "storedCum", String.valueOf(this.penis.testicle.cumStored));
+			CharacterUtils.addAttribute(doc, bodyTesticle, "cumRegeneration", String.valueOf(this.penis.testicle.cumRegeneration));
 			CharacterUtils.addAttribute(doc, bodyTesticle, "numberOfTesticles", String.valueOf(this.penis.testicle.testicleCount));
 			CharacterUtils.addAttribute(doc, bodyTesticle, "internal", String.valueOf(this.penis.testicle.internal));
 		
