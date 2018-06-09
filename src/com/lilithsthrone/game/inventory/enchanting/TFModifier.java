@@ -413,6 +413,13 @@ public enum TFModifier {
 			"modifier_circle_femininity",
 			Colour.ANDROGYNOUS,
 			Rarity.COMMON),
+
+	TF_MOD_GENES_RATE("offspring's resemblance",
+			"Applies an effect to change the user's offspring's resemblance.",
+			"familial",
+			"modifier_circle_genesRate",
+			Colour.TRANSFORMATION_SEXUAL,
+			Rarity.COMMON),
 	
 	TF_MOD_COUNT("count",
 			"Applies an effect related to adding or removing extra body parts.",

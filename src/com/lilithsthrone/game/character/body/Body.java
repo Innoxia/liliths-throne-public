@@ -113,7 +113,7 @@ public class Body implements Serializable, XMLSaving {
 	private Subspecies subspecies;
 	private RaceStage raceStage;
 	private boolean piercedStomach = false;
-	private int height, femininity, bodySize, muscle;
+	private int height, femininity, bodySize, muscle, genesRate;
 	private BodyHair pubicHair;
 	
 	private Map<BodyCoveringType, Covering> coverings;
@@ -136,7 +136,7 @@ public class Body implements Serializable, XMLSaving {
 		private final BodyMaterial bodyMaterial;
 		private GenitalArrangement genitalArrangement;
 		private final int height;
-		private final int femininity, bodySize, muscle;
+		private final int femininity, bodySize, muscle, genesRate;
 		
 		// Optional parameters - initialised to null values:
 		private Antenna antenna = new Antenna(AntennaType.NONE);
@@ -147,7 +147,7 @@ public class Body implements Serializable, XMLSaving {
 		private Vagina vagina = new Vagina(VaginaType.NONE, 0, 0, 0, 0, 3, 3, true);
 		private Wing wing = new Wing(WingType.NONE, 0);
 
-		public BodyBuilder(Arm arm, Ass ass, Breast breast, Face face, Eye eye, Ear ear, Hair hair, Leg leg, Skin skin, BodyMaterial bodyMaterial, GenitalArrangement genitalArrangement, int height, int femininity, int bodySize, int muscle) {
+		public BodyBuilder(Arm arm, Ass ass, Breast breast, Face face, Eye eye, Ear ear, Hair hair, Leg leg, Skin skin, BodyMaterial bodyMaterial, GenitalArrangement genitalArrangement, int height, int femininity, int bodySize, int muscle, int genesRate) {
 			this.arm = arm;
 			this.ass = ass;
 			this.breast = breast;
@@ -163,6 +163,7 @@ public class Body implements Serializable, XMLSaving {
 			this.femininity = femininity;
 			this.bodySize = bodySize;
 			this.muscle = muscle;
+			this.genesRate = genesRate;
 		}
 		
 		public BodyBuilder antenna(Antenna antenna) {
@@ -231,6 +232,7 @@ public class Body implements Serializable, XMLSaving {
 		femininity = builder.femininity;
 		bodySize =builder. bodySize;
 		muscle= builder.muscle;
+		genesRate = builder.genesRate;
 		
 		this.pubicHair = BodyHair.ZERO_NONE;
 
@@ -358,6 +360,7 @@ public class Body implements Serializable, XMLSaving {
 		CharacterUtils.addAttribute(doc, bodyCore, "femininity", String.valueOf(this.getFemininity()));
 		CharacterUtils.addAttribute(doc, bodyCore, "bodySize", String.valueOf(this.getBodySize()));
 		CharacterUtils.addAttribute(doc, bodyCore, "muscle", String.valueOf(this.getMuscle()));
+		CharacterUtils.addAttribute(doc, bodyCore, "genesRate", String.valueOf(this.getGenesRate()));
 		CharacterUtils.addAttribute(doc, bodyCore, "pubicHair", String.valueOf(this.getPubicHair()));
 		CharacterUtils.addAttribute(doc, bodyCore, "bodyMaterial", String.valueOf(this.getBodyMaterial()));
 		CharacterUtils.addAttribute(doc, bodyCore, "genitalArrangement", String.valueOf(this.getGenitalArrangement()));
@@ -636,6 +639,9 @@ public class Body implements Serializable, XMLSaving {
 	
 		int importedMuscle = (Integer.valueOf(element.getAttribute("muscle")));
 		CharacterUtils.appendToImportLog(log, "</br>Body: Set muscle: "+Integer.valueOf(element.getAttribute("muscle")));
+		
+		int importedGenesRate = (Integer.valueOf(element.getAttribute("genesRate")));
+		CharacterUtils.appendToImportLog(log, "</br>Body: Set genetic dominance: "+Integer.valueOf(element.getAttribute("genesRate")));
 		
 		GenitalArrangement importedGenitalArrangement = GenitalArrangement.NORMAL;
 		if(element.getAttribute("genitalArrangement") != null && !element.getAttribute("genitalArrangement").isEmpty()) {
@@ -1216,7 +1222,8 @@ public class Body implements Serializable, XMLSaving {
 				importedHeight,
 				importedFemininity,
 				importedBodySize,
-				importedMuscle)
+				importedMuscle,
+				importedGenesRate)
 						.vagina(importedVagina)
 						.penis(importedPenis)
 						.horn(importedHorn)
@@ -5996,6 +6003,37 @@ public class Body implements Serializable, XMLSaving {
 		}
 		
 		this.muscle = muscle;
+		return true;
+	}
+	
+	public int getGenesRate() {
+		return genesRate;
+	}
+	
+	/**
+	 * @param genesRate
+	 *            Value to set genesRate to.
+	 * @return True if genesRate was changed.
+	 */
+	public boolean setGenesRate(int genesRate) {
+		if (this.genesRate == genesRate) {
+			return false;
+		}
+		
+		if (genesRate <= -500) {
+			if (this.genesRate == -500)
+				return false;
+			this.genesRate = -500;
+			return true;
+		}
+		if (genesRate >= 500) {
+			if (this.genesRate == 500)
+				return false;
+			this.genesRate = 500;
+			return true;
+		}
+		
+		this.genesRate = genesRate;
 		return true;
 	}
 	

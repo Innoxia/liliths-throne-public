@@ -665,7 +665,7 @@ public enum RacialBody {
 			noBreastSize, breastSize, maleLactationRate, femaleLactationRate, femaleBreastCapacity, maleBreastCapacity,
 			femaleBreastElasticity, maleBreastElasticity, femaleBreastPlasticity, maleBreastPlasticity, maleNippleCountPerBreast, femaleNippleCountPerBreast, maleAreolaeSize, femaleAreolaeSize, maleNippleSize, femaleNippleSize,
 			clitSize,
-			maleHeight, femaleHeight, maleFemininity, femaleFemininity, maleBodySize, femaleBodySize, maleMuscle, femaleMuscle,
+			maleHeight, femaleHeight, maleFemininity, femaleFemininity, maleBodySize, femaleBodySize, maleMuscle, femaleMuscle, maleGenesRate, femaleGenesRate,
 			maleLipSize, femaleLipSize,
 			penisSize, penisSecondSize,
 			penisGirth, penisSecondGirth,
@@ -673,6 +673,129 @@ public enum RacialBody {
 			breastCountFemale, testicleQuantity,
 			maleWingSize, femaleWingSize;
 
+	private RacialBody(HashMap<Attribute, AttributeRange> attributeModifiers,
+			AntennaType antennaType,
+			ArmType armType, int armRows,
+			AssType assType, AssSize maleAssSize, AssSize femaleAssSize, Wetness anusWetness, Capacity anusCapacity, OrificeElasticity anusElasticity, OrificePlasticity anusPlasticity,
+			BreastType breastType,
+			CupSize maleBreastSize, int breastCountMale, Lactation maleLactationRate, Capacity maleBreastCapacity, OrificeElasticity maleBreastElasticity, OrificePlasticity maleBreastPlasticity,
+				NippleSize maleNippleSize, NippleShape maleNippleShape, AreolaeSize maleAreolaeSize, int maleNippleCountPerBreast,
+			CupSize femaleBreastSize, int breastCountFemale, Lactation femaleLactationRate, Capacity femaleBreastCapacity, OrificeElasticity femaleBreastElasticity, OrificePlasticity femaleBreastPlasticity,
+				NippleSize femaleNippleSize, NippleShape femaleNippleShape, AreolaeSize femaleAreolaeSize, int femaleNippleCountPerBreast,
+			int maleHeight, int maleFemininity, int maleBodySize, int maleMuscle, int maleGenesRate,
+			int femaleHeight, int femaleFemininity, int femaleBodySize, int femaleMuscle, int femaleGenesRate,
+			EarType earType,
+			EyeType eyeType,
+			FaceType faceType, LipSize maleLipSize, LipSize femaleLipSize,
+			HairType hairType, HairLength maleHairLength, HairLength femaleHairLength,
+			LegType legType,
+			SkinType skinType, BodyMaterial bodyMaterial,
+			HornLength maleHornLength, HornLength femaleHornLength, List<HornType> hornTypes,
+			PenisType penisType, PenisSize penisSize, PenisGirth penisGirth,
+			PenisType penisSecondType, PenisSize penisSecondSize, PenisGirth penisSecondGirth,
+			TesticleSize testicleSize, int testicleQuantity, CumProduction cumProduction,
+			TailType tailType,
+			VaginaType vaginaType, Wetness vaginaWetness, Capacity vaginaCapacity, ClitorisSize clitSize, OrificeElasticity vaginaElasticity, OrificePlasticity vaginaPlasticity,
+			WingType wingType, WingSize maleWingSize, WingSize femaleWingSize,
+			GenitalArrangement genitalArrangement) {
+		
+		this.attributeModifiers = attributeModifiers;
+		
+		this.antennaType = antennaType;
+		this.armType = armType;
+		this.armRows = armRows;
+		
+		this.assType = assType;
+		this.breastType = breastType;
+		this.faceType = faceType;
+		this.eyeType = eyeType;
+		this.earType = earType;
+		this.hairType = hairType;
+		this.legType = legType;
+		this.skinType = skinType;
+		this.bodyMaterial = bodyMaterial;
+		this.hornTypes = hornTypes;
+		
+		this.penisType = penisType;
+		this.penisSecondType = penisSecondType;
+		this.tailType = tailType;
+		this.vaginaType = vaginaType;
+		this.wingType = wingType;
+
+		this.anusCapacity = anusCapacity.getMedianValue();
+		this.anusWetness = anusWetness.getValue();
+		this.maleAssSize = maleAssSize.getValue();
+		this.femaleAssSize = femaleAssSize.getValue();
+		this.anusElasticity = anusElasticity.getValue();
+		this.anusPlasticity = anusPlasticity.getValue();
+		
+		this.maleHairLength = maleHairLength.getMedianValue();
+		this.femaleHairLength = femaleHairLength.getMedianValue();
+
+		this.maleHornLength = maleHornLength.getMedianValue();
+		this.femaleHornLength = femaleHornLength.getMedianValue();
+		
+		this.noBreastSize = maleBreastSize.getMeasurement();
+		this.breastCountMale = breastCountMale;
+		this.maleLactationRate = maleLactationRate.getMedianValue();
+		this.maleBreastCapacity = maleBreastCapacity.getMedianValue();
+		this.maleBreastElasticity = maleBreastElasticity.getValue();
+		this.maleBreastPlasticity = maleBreastPlasticity.getValue();
+		this.maleNippleSize = maleNippleSize.getValue();
+		this.maleNippleShape = maleNippleShape;
+		this.maleAreolaeSize = maleAreolaeSize.getValue();
+		this.maleNippleCountPerBreast = maleNippleCountPerBreast;
+		
+		this.breastSize = femaleBreastSize.getMeasurement();
+		this.breastCountFemale = breastCountFemale;
+		this.femaleLactationRate = femaleLactationRate.getMedianValue();
+		this.femaleBreastCapacity = femaleBreastCapacity.getMedianValue();
+		this.femaleBreastElasticity = femaleBreastElasticity.getValue();
+		this.femaleBreastPlasticity = femaleBreastPlasticity.getValue();
+		this.femaleNippleSize = femaleNippleSize.getValue();
+		this.femaleNippleShape = femaleNippleShape;
+		this.femaleAreolaeSize = femaleAreolaeSize.getValue();
+		this.femaleNippleCountPerBreast = femaleNippleCountPerBreast;
+		
+		this.clitSize = clitSize.getMedianValue();
+		
+		this.maleHeight = maleHeight;
+		this.maleFemininity = maleFemininity;
+		this.maleBodySize = maleBodySize;
+		this.maleMuscle = maleMuscle;
+		this.maleGenesRate = maleGenesRate;
+		
+		this.femaleHeight = femaleHeight;
+		this.femaleFemininity = femaleFemininity;
+		this.femaleBodySize = femaleBodySize;
+		this.femaleMuscle = femaleMuscle;
+		this.femaleGenesRate = femaleGenesRate;
+		
+		this.maleLipSize = maleLipSize.getValue();
+		this.femaleLipSize = femaleLipSize.getValue();
+		
+		this.penisSize = penisSize.getMedianValue();
+		this.penisSecondSize = penisSecondSize.getMedianValue();
+
+		this.penisGirth = penisGirth.getValue();
+		this.penisSecondGirth = penisSecondGirth.getValue();
+		
+		this.testicleSize = testicleSize.getValue();
+		this.cumProduction = cumProduction.getMedianValue();
+		this.vaginaCapacity = vaginaCapacity.getMedianValue();
+		this.vaginaWetness = vaginaWetness.getValue();
+		this.vaginaElasticity = vaginaElasticity.getValue();
+		this.vaginaPlasticity = vaginaPlasticity.getValue();
+		this.testicleQuantity = testicleQuantity;
+		
+		this.maleWingSize = maleWingSize.getValue();
+		this.femaleWingSize = femaleWingSize.getValue();
+		
+		this.genitalArrangement = genitalArrangement;
+
+	}
+	
+	// This constructor omits genesRate values, defaulting to 0.	
 	private RacialBody(HashMap<Attribute, AttributeRange> attributeModifiers,
 			AntennaType antennaType,
 			ArmType armType, int armRows,
@@ -763,11 +886,13 @@ public enum RacialBody {
 		this.maleFemininity = maleFemininity;
 		this.maleBodySize = maleBodySize;
 		this.maleMuscle = maleMuscle;
+		this.maleGenesRate = 0;
 		
 		this.femaleHeight = femaleHeight;
 		this.femaleFemininity = femaleFemininity;
 		this.femaleBodySize = femaleBodySize;
 		this.femaleMuscle = femaleMuscle;
+		this.femaleGenesRate = 0;
 		
 		this.maleLipSize = maleLipSize.getValue();
 		this.femaleLipSize = femaleLipSize.getValue();
@@ -1039,6 +1164,10 @@ public enum RacialBody {
 		return maleMuscle;
 	}
 	
+	public int getMaleGenesRate() {
+		return maleGenesRate;
+	}
+	
 	public int getMaleBodySize() {
 		return maleBodySize;
 	}
@@ -1057,6 +1186,10 @@ public enum RacialBody {
 
 	public int getFemaleMuscle() {
 		return femaleMuscle;
+	}
+	
+	public int getFemaleGenesRate() {
+		return femaleGenesRate;
 	}
 
 	public int getMaleAssSize() {

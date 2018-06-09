@@ -713,24 +713,28 @@ public class PhoneDialogue {
 							Colour.TEXT, String.valueOf(Main.game.getPlayer().getFemininityValue()),
 							Main.game.getPlayer().getFemininity().getColour(), Util.capitaliseSentence(Main.game.getPlayer().getFemininity().getName(false)),
 							true)
+					+ statRow(Colour.GENERIC_SEX, "Offspring resemblance",
+							Colour.TEXT, String.valueOf(Main.game.getPlayer().getGenesRateValue()),
+							Colour.GENERIC_SEX, Util.capitaliseSentence(Main.game.getPlayer().getGenesRate().getName()),
+							false)
 					+ statRow(Colour.TRANSFORMATION_GENERIC, "Height (cm)",
 							Colour.TEXT, String.valueOf(Main.game.getPlayer().getHeightValue()),
 							Main.game.getPlayer().getHeight().getColour(), Util.capitaliseSentence(Main.game.getPlayer().getHeight().getDescriptor()),
-							false)
+							true)
 					+ statRow(Colour.MUSCLE_THREE, "Muscle Definition",
 							Colour.TEXT, String.valueOf(Main.game.getPlayer().getMuscleValue()),
 							Main.game.getPlayer().getMuscle().getColour(), Util.capitaliseSentence(Main.game.getPlayer().getMuscle().getName(false)),
-							true)
+							false)
 					+ statRow(Colour.BODY_SIZE_THREE, "Body Size",
 							Colour.TEXT, String.valueOf(Main.game.getPlayer().getBodySizeValue()),
 							Main.game.getPlayer().getBodySize().getColour(), Util.capitaliseSentence(Main.game.getPlayer().getBodySize().getName(false)),
-							false)
+							true)
 					+ statRow(Main.game.getPlayer().getBodyShape().toWebHexStringColour(), "Body Shape",
 							Colour.TEXT,
 							"<b style='color:"+Main.game.getPlayer().getMuscle().getColour().toWebHexString()+";'>"+Main.game.getPlayer().getMuscleValue()+"</b>"
 									+ " <b>|</b> <b style='color:"+Main.game.getPlayer().getBodySize().getColour().toWebHexString()+";'>"+Main.game.getPlayer().getBodySizeValue()+"</b>",
 							Main.game.getPlayer().getBodyShape().toWebHexStringColour(), Util.capitaliseSentence(Main.game.getPlayer().getBodyShape().getName(false)),
-							true)
+						false)
 
 					+ "<span style='height:16px;width:100%;float:left;'></span>"
 					+ "<h6 style='color:"+Colour.TRANSFORMATION_GREATER.toWebHexString()+"; text-align:center;'>Head & Throat Attributes</h6>"
