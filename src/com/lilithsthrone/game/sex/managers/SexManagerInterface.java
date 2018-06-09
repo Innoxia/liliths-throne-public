@@ -2,6 +2,7 @@ package com.lilithsthrone.game.sex.managers;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -162,6 +163,10 @@ public interface SexManagerInterface {
 
 	public default boolean isPartnerStartNaked() {
 		return false;
+	}
+	
+	public default Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
+		return new HashMap<>();
 	}
 	
 	public default boolean isPartnerUsingForeplayActions() {

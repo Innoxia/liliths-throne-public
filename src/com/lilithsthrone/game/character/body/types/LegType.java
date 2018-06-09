@@ -81,15 +81,15 @@ public enum LegType implements BodyPartTypeInterface {
 	public String getDescriptor(GameCharacter gc) {
 		switch(this){
 			case ANGEL:
-				return UtilText.returnStringAtRandom("slender", "delicate", "radiant");
+				return UtilText.returnStringAtRandom("delicate", "radiant");
 			case CAT_MORPH:
 				return UtilText.returnStringAtRandom("furry", "fur-coated", "anthropomorphic cat-like");
 			case COW_MORPH:
 				return UtilText.returnStringAtRandom("furry", "fur-coated", "anthropomorphic cow-like");
 			case DEMON_COMMON:
-				return UtilText.returnStringAtRandom("slender", "flawless");
+				return UtilText.returnStringAtRandom("flawless");
 			case IMP:
-				return UtilText.returnStringAtRandom("slender");
+				return UtilText.returnStringAtRandom("");
 			case DOG_MORPH:
 				return UtilText.returnStringAtRandom("furry", "fur-coated", "anthropomorphic dog-like");
 			case ALLIGATOR_MORPH:
@@ -186,15 +186,15 @@ public enum LegType implements BodyPartTypeInterface {
 		if (gc.isFeminine()) {
 			switch(this){
 				case ANGEL:
-					return UtilText.returnStringAtRandom("slender", "delicate", "soft", "feminine");
+					return UtilText.returnStringAtRandom("delicate", "soft", "feminine");
 				case CAT_MORPH:
 					return UtilText.returnStringAtRandom("soft", "feminine", "cat-like", "paw-like", "furry", "feline");
 				case COW_MORPH:
 					return UtilText.returnStringAtRandom("feminine", "cow-like", "bovine");
 				case DEMON_COMMON:
-					return UtilText.returnStringAtRandom("slender", "delicate", "soft", "feminine");
+					return UtilText.returnStringAtRandom("delicate", "soft", "feminine");
 				case IMP:
-					return UtilText.returnStringAtRandom("slender", "delicate", "soft", "feminine");
+					return UtilText.returnStringAtRandom("delicate", "soft", "feminine");
 				case DOG_MORPH:
 					return UtilText.returnStringAtRandom("soft", "feminine", "dog-like", "paw-like", "furry", "canine");
 				case ALLIGATOR_MORPH:
@@ -227,9 +227,9 @@ public enum LegType implements BodyPartTypeInterface {
 				case COW_MORPH:
 					return UtilText.returnStringAtRandom("cow-like", "bovine");
 				case DEMON_COMMON:
-					return UtilText.returnStringAtRandom("slender");
+					return UtilText.returnStringAtRandom("");
 				case IMP:
-					return UtilText.returnStringAtRandom("slender");
+					return UtilText.returnStringAtRandom("");
 				case DOG_MORPH:
 					return UtilText.returnStringAtRandom("dog-like", "paw-like", "furry", "canine");
 				case ALLIGATOR_MORPH:

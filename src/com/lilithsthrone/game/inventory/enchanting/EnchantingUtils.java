@@ -33,14 +33,13 @@ public class EnchantingUtils {
 	public static final int FLAME_COST_MODIFER = 500;
 	
 	public static AbstractItem craftItem(AbstractCoreItem ingredient, List<ItemEffect> effects) {
-
 		AbstractItem craftedItem = null;
 		
 		craftedItem = AbstractItemType.generateItem((AbstractItemType) ingredient.getEnchantmentItemType(effects));
 		
 		List<ItemEffect> effectsToBeAdded = new ArrayList<>();
 		effectsToBeAdded.addAll(effects);
-
+		
 		craftedItem.setItemEffects(effectsToBeAdded);
 		
 		craftedItem.setName(EnchantmentDialogue.getOutputName());
@@ -51,7 +50,6 @@ public class EnchantingUtils {
 	}
 	
 	public static AbstractClothing craftClothing(AbstractCoreItem ingredient, List<ItemEffect> effects) {
-
 		AbstractClothing craftedClothing = null;
 
 		List<ItemEffect> effectsToBeAdded = new ArrayList<>();
@@ -63,6 +61,11 @@ public class EnchantingUtils {
 				((AbstractClothing)ingredient).getSecondaryColour(),
 				((AbstractClothing)ingredient).getTertiaryColour(),
 				effectsToBeAdded);
+		
+		craftedClothing.setPattern(((AbstractClothing)ingredient).getPattern());
+		craftedClothing.setPatternColour(((AbstractClothing)ingredient).getPatternColour());
+		craftedClothing.setPatternSecondaryColour(((AbstractClothing)ingredient).getPatternSecondaryColour());
+		craftedClothing.setPatternTertiaryColour(((AbstractClothing)ingredient).getPatternTertiaryColour());
 		
 		craftedClothing.setName(EnchantmentDialogue.getOutputName());
 		

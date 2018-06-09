@@ -221,7 +221,8 @@ public class Game implements Serializable, XMLSaving {
 		currentWeather = Weather.CLOUD;
 		weatherTimeRemaining = 300;
 		nextStormTime = minutesPassed + (60*48) + (60*Util.random.nextInt(24)); // Next storm in 2-3 days
-
+		
+		UtilText.resetParsingEngine();
 	}
 	
 	private static boolean timeLog = false;
@@ -1417,7 +1418,7 @@ public class Game implements Serializable, XMLSaving {
 	public Weather getCurrentWeather() {
 		return currentWeather;
 	}
-
+	
 	/**
 	 * Sets the content of the main WebView based on the response of the current Dialogue Node's index.
 	 * 
@@ -1613,7 +1614,7 @@ public class Game implements Serializable, XMLSaving {
 				}
 
 //				Main.mainController.unbindListeners();
-				Main.mainController.setMainContent(currentDialogue);
+				setMainContentRegex(currentDialogue);
 				
 				textEndStringBuilder.setLength(0);
 				textStartStringBuilder.setLength(0);
@@ -1792,7 +1793,7 @@ public class Game implements Serializable, XMLSaving {
 		Main.mainController.setFlashMessageText(flashMessageText);
 
 		//-------------------- MEMORY LEAK PROBLEM
-		Main.mainController.setMainContent(currentDialogue);
+		setMainContentRegex(currentDialogue);
 		//--------------------
 		
 		textEndStringBuilder.setLength(0);
@@ -1873,7 +1874,7 @@ public class Game implements Serializable, XMLSaving {
 		Main.mainController.setFlashMessageText(messageString);
 
 		//-------------------- MEMORY LEAK PROBLEM
-		Main.mainController.setMainContent(currentDialogue);
+		setMainContentRegex(currentDialogue);
 //		setResponses(currentDialogueNode, false);
 
 		if(started) {
@@ -2381,8 +2382,8 @@ public class Game implements Serializable, XMLSaving {
 			currentDialogue = currentDialogue.replaceFirst("<div class='div-center' style='font-size:" + FONT_SIZE_LARGE + "px; line-height:" + (FONT_SIZE_LARGE + 6) + "px;'>",
 					"<div class='div-center' style='font-size:" + FONT_SIZE_HUGE + "px; line-height:" + (FONT_SIZE_HUGE + 6) + "px;'>");
 		}
-
-		Main.mainController.setMainContent(currentDialogue);
+		
+		setMainContentRegex(currentDialogue);
 
 		textEndStringBuilder.setLength(0);
 		textStartStringBuilder.setLength(0);
@@ -2390,6 +2391,11 @@ public class Game implements Serializable, XMLSaving {
 		Main.game.endTurn(0);
 		//Main.mainController.processNewDialogue();
 
+	}
+	
+	private static void setMainContentRegex(String currentDialogue) {
+		// <script>document.body.innerHTML = 'BANANA';</script>
+		Main.mainController.setMainContent(currentDialogue.replaceAll("([\\D])\\.([\\D])", "$1\u200b.\u200b$2").replaceAll("\\[", "\u200b[\u200b"));
 	}
 	
 	private List<NPC> charactersPresent = new ArrayList<>();

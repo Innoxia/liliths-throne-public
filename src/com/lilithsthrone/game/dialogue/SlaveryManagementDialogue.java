@@ -163,7 +163,7 @@ public class SlaveryManagementDialogue {
 				};
 			}
 			
-		}  else if (index == 0) {
+		} else if (index == 0) {
 			return new Response("Back", "Exit the room upgrades screen.", SLAVERY_OVERVIEW) {
 				@Override
 				public DialogueNodeOld getNextDialogue() {
@@ -675,7 +675,43 @@ public class SlaveryManagementDialogue {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(index==0) {
+			if (index == 5) {
+				if(Main.game.getSlaveryUtil().getGeneratedBalance()==0) {
+					return new Response("Collect: "+UtilText.formatAsMoneyUncoloured(Main.game.getSlaveryUtil().getGeneratedBalance(), "span"), "Your current balance is 0...",  null);
+					
+				} else if(Main.game.getSlaveryUtil().getGeneratedBalance()>0) {
+					return new Response("Collect: "+UtilText.formatAsMoney(Main.game.getSlaveryUtil().getGeneratedBalance(), "span"),
+							"Collect the money that you've earned through your slaves' activities.",  ROOM_UPGRADES) {
+						@Override
+						public DialogueNodeOld getNextDialogue() {
+							return Main.game.getCurrentDialogueNode();
+						}
+						@Override
+						public void effects() {
+							Main.game.getSlaveryUtil().payOutBalance();
+						}
+					};
+					
+				} else {
+					if(Main.game.getPlayer().getMoney()<Math.abs(Main.game.getSlaveryUtil().getGeneratedBalance())) {
+						return new Response("Pay: "+UtilText.formatAsMoneyUncoloured(Math.abs(Main.game.getSlaveryUtil().getGeneratedBalance()), "span"),
+								"You don't have enough money to pay off the accumulated debt from the upkeep of your slaves and rooms.",  null);
+					}
+					
+					return new Response("Pay: "+UtilText.formatAsMoney(Math.abs(Main.game.getSlaveryUtil().getGeneratedBalance()), "span", Colour.GENERIC_BAD),
+							"Pay off the accumulated debt from the upkeep of your slaves and rooms.",  ROOM_UPGRADES) {
+						@Override
+						public DialogueNodeOld getNextDialogue() {
+							return Main.game.getCurrentDialogueNode();
+						}
+						@Override
+						public void effects() {
+							Main.game.getSlaveryUtil().payOutBalance();
+						}
+					};
+				}
+				
+			} else if(index==0) {
 				return new Response("Back", "Return to the previous screen.", ROOM_UPGRADES) {
 					@Override
 					public DialogueNodeOld getNextDialogue() {
@@ -715,7 +751,43 @@ public class SlaveryManagementDialogue {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(index==0) {
+			if (index == 5) {
+				if(Main.game.getSlaveryUtil().getGeneratedBalance()==0) {
+					return new Response("Collect: "+UtilText.formatAsMoneyUncoloured(Main.game.getSlaveryUtil().getGeneratedBalance(), "span"), "Your current balance is 0...",  null);
+					
+				} else if(Main.game.getSlaveryUtil().getGeneratedBalance()>0) {
+					return new Response("Collect: "+UtilText.formatAsMoney(Main.game.getSlaveryUtil().getGeneratedBalance(), "span"),
+							"Collect the money that you've earned through your slaves' activities.",  ROOM_UPGRADES_MANAGEMENT) {
+						@Override
+						public DialogueNodeOld getNextDialogue() {
+							return Main.game.getCurrentDialogueNode();
+						}
+						@Override
+						public void effects() {
+							Main.game.getSlaveryUtil().payOutBalance();
+						}
+					};
+					
+				} else {
+					if(Main.game.getPlayer().getMoney()<Math.abs(Main.game.getSlaveryUtil().getGeneratedBalance())) {
+						return new Response("Pay: "+UtilText.formatAsMoneyUncoloured(Math.abs(Main.game.getSlaveryUtil().getGeneratedBalance()), "span"),
+								"You don't have enough money to pay off the accumulated debt from the upkeep of your slaves and rooms.",  null);
+					}
+					
+					return new Response("Pay: "+UtilText.formatAsMoney(Math.abs(Main.game.getSlaveryUtil().getGeneratedBalance()), "span", Colour.GENERIC_BAD),
+							"Pay off the accumulated debt from the upkeep of your slaves and rooms.",  ROOM_UPGRADES_MANAGEMENT) {
+						@Override
+						public DialogueNodeOld getNextDialogue() {
+							return Main.game.getCurrentDialogueNode();
+						}
+						@Override
+						public void effects() {
+							Main.game.getSlaveryUtil().payOutBalance();
+						}
+					};
+				}
+				
+			} else if(index==0) {
 				return new Response("Back", "Return to the previous screen.", ROOM_MANAGEMENT);
 			} else {
 				return null;

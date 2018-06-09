@@ -1,6 +1,8 @@
 package com.lilithsthrone.game.sex;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
+import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.78
@@ -12,7 +14,7 @@ public enum OrificeType {
 	MOUTH(2,
 			-0.5f, -0.5f, -1f,
 			0.5f, -0.5f ,-1f,
-			2,
+			2, 15,
 			true) {
 		@Override
 		public String getName(GameCharacter owner) {
@@ -27,7 +29,7 @@ public enum OrificeType {
 	NIPPLE(2,
 			-0.5f, -0.5f, -1f,
 			0.5f, -0.5f ,-1f,
-			5,
+			4, 2,
 			true) {
 		@Override
 		public String getName(GameCharacter owner) {
@@ -46,7 +48,7 @@ public enum OrificeType {
 	BREAST(1,
 			-0.5f, -0.5f, -1f,
 			0.5f, -0.5f ,-1f,
-			5,
+			25, 0,
 			false) {
 		@Override
 		public String getName(GameCharacter owner) {
@@ -65,7 +67,7 @@ public enum OrificeType {
 	ASS(1,
 			-0.5f, -0.5f, -1f,
 			0.5f, -0.5f ,-1f,
-			5,
+			25, 0,
 			false) {
 		@Override
 		public String getName(GameCharacter owner) {
@@ -81,7 +83,7 @@ public enum OrificeType {
 	ANUS(2,
 			-0.5f, -0.5f, -1f,
 			0.5f, -0.5f ,-1f,
-			5,
+			4, 4,
 			true) {
 		@Override
 		public String getName(GameCharacter owner) {
@@ -96,7 +98,7 @@ public enum OrificeType {
 	VAGINA(4,
 			-0.5f, -0.5f, -1f,
 			0.5f, -0.5f ,-1f,
-			5,
+			4, 2,
 			true) {
 		@Override
 		public String getName(GameCharacter owner) {
@@ -111,7 +113,7 @@ public enum OrificeType {
 	THIGHS(1,
 			-0.5f, -0.5f, -1f,
 			0.5f, -0.5f ,-1f,
-			5,
+			25, 0,
 			false) {
 		@Override
 		public String getName(GameCharacter owner) {
@@ -130,7 +132,7 @@ public enum OrificeType {
 	URETHRA_VAGINA(1,
 			-0.5f, -0.5f, -1f,
 			0.5f, -0.5f ,-1f,
-			5,
+			4, 2,
 			true) {
 		@Override
 		public String getName(GameCharacter owner) {
@@ -145,7 +147,7 @@ public enum OrificeType {
 	URETHRA_PENIS(1,
 			-0.5f, -0.5f, -1f,
 			0.5f, -0.5f ,-1f,
-			5,
+			4, 2,
 			true) {
 		@Override
 		public String getName(GameCharacter owner) {
@@ -165,8 +167,21 @@ public enum OrificeType {
 	private float arousalChangePenetratingTooLoose;
 	private float arousalChangePenetratingDry;
 	private int cumLossPerMinute;
+	private int cumAbsorptionPerMinute;
 	private boolean takesPenisVirginity;
 
+	/**
+	 * @param baseArousalWhenPenetrated
+	 * @param arousalChangePenetratedStretching
+	 * @param arousalChangePenetratedTooLoose
+	 * @param arousalChangePenetratedDry
+	 * @param arousalChangePenetratingStretching
+	 * @param arousalChangePenetratingTooLoose
+	 * @param arousalChangePenetratingDry
+	 * @param cumLossPerMinute The amount of cum or other fluids that leak out of this orifice every minute.
+	 * @param cumAbsorptionPerMinute The amount of cum or other fluids that are absorbed into the character's body through this orifice every minute.
+	 * @param takesPenisVirginity
+	 */
 	private OrificeType(float baseArousalWhenPenetrated,
 			float arousalChangePenetratedStretching,
 			float arousalChangePenetratedTooLoose,
@@ -175,6 +190,7 @@ public enum OrificeType {
 			float arousalChangePenetratingTooLoose,
 			float arousalChangePenetratingDry,
 			int cumLossPerMinute,
+			int cumAbsorptionPerMinute,
 			boolean takesPenisVirginity) {
 		this.baseArousalWhenPenetrated = baseArousalWhenPenetrated;
 		this.arousalChangePenetratedStretching = arousalChangePenetratedStretching;
@@ -184,6 +200,7 @@ public enum OrificeType {
 		this.arousalChangePenetratingTooLoose = arousalChangePenetratingTooLoose;
 		this.arousalChangePenetratingDry = arousalChangePenetratingDry;
 		this.cumLossPerMinute = cumLossPerMinute;
+		this.cumAbsorptionPerMinute = cumAbsorptionPerMinute;
 		this.takesPenisVirginity = takesPenisVirginity;
 	}
 
@@ -226,9 +243,24 @@ public enum OrificeType {
 	public int getCumLossPerMinute() {
 		return cumLossPerMinute;
 	}
+	
+	public int getCumAbsorptionPerMinute() {
+		return cumAbsorptionPerMinute;
+	}
 
 	public boolean isTakesPenisVirginity() {
 		return takesPenisVirginity;
+	}
+	
+	public int getCharactersCumLossPerMinute(GameCharacter target) {
+		int cumLost = this.getCumAbsorptionPerMinute();
+		
+		if(!target.isOrificePlugged(this)) {
+			cumLost += (int) (this.getCumLossPerMinute()
+					* (1 + 5*Util.getModifiedDropoffValue(target.getTotalFluidInArea(this), CumProduction.SEVEN_MONSTROUS.getMaximumValue())/CumProduction.SEVEN_MONSTROUS.getMaximumValue()));
+		}
+		
+		return cumLost;
 	}
 	
 }

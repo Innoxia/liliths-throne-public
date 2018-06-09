@@ -217,6 +217,11 @@ public class GamblingDenDialogue {
 		private static final long serialVersionUID = 1L;
 		
 		@Override
+		public int getMinutesPassed() {
+			return 1;
+		}
+		
+		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/submission/gamblingDen", "CORRIDOR");
 		}
@@ -747,7 +752,7 @@ public class GamblingDenDialogue {
 		partner.setPlayerKnowsName(true);
 		partner.setPenisVirgin(false);
 		partner.setSexualOrientation(SexualOrientation.AMBIPHILIC);
-		
+		partner.removeStatusEffect(StatusEffect.PROMISCUITY_PILL);
 		partner.setAttribute(Attribute.VIRILITY, (partner.getPenisRawSizeValue()*2)+(partner.getTesticleSize().getValue() * 5)+partner.getPenisRawCumProductionValue());
 		
 		try {
@@ -767,7 +772,7 @@ public class GamblingDenDialogue {
 		mother.deleteAllEquippedClothing();
 		mother.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 		mother.setPlayerKnowsName(true);
-		
+		mother.useItem(AbstractItemType.generateItem(ItemType.VIXENS_VIRILITY), mother, false);
 		try {
 			Main.game.addNPC(mother, false);
 		} catch (Exception e) {
@@ -845,6 +850,7 @@ public class GamblingDenDialogue {
 						@Override
 						public void effects() {
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.eponaIntroduced, true);
+							Main.game.getTextStartStringBuilder().append(UtilText.nodeContentSB.toString());
 						}
 					};
 				} else {
@@ -857,6 +863,7 @@ public class GamblingDenDialogue {
 						@Override
 						public void effects() {
 							Main.game.getEpona().setReactedToPregnancy(true);
+							Main.game.getTextStartStringBuilder().append(UtilText.nodeContentSB.toString());
 						}
 					};
 				} else {
@@ -1087,7 +1094,7 @@ public class GamblingDenDialogue {
 		
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/gamblingDen", "PREGNANCY_ROULETTE");
+			return "";
 		}
 
 		@Override
@@ -1143,7 +1150,12 @@ public class GamblingDenDialogue {
 				return null;
 				
 			} else if(index==1) {
-				return new Response("Wait", "Wait for Epona to lead the breeders into the room.", PREGNANCY_ROULETTE_MOTHER_SELECTION);
+				return new Response("Wait", "Wait for Epona to lead the breeders into the room.", PREGNANCY_ROULETTE_MOTHER_SELECTION) {
+					@Override
+					public void effects() {
+						Main.game.getEpona().useItem(AbstractItemType.generateItem(ItemType.VIXENS_VIRILITY), Main.game.getPlayer(), false);
+					}
+				};
 				
 			} else {
 				return null;
@@ -1186,7 +1198,6 @@ public class GamblingDenDialogue {
 					public void effects() {
 						selectedBreeder=breeder;
 						Collections.shuffle(breeders);
-						Main.game.getPlayer().displaceClothingForAccess(CoverableArea.VAGINA);
 					}
 				};
 				
@@ -1230,6 +1241,10 @@ public class GamblingDenDialogue {
 									character.setLust(80);
 								}
 							}
+							@Override
+							public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
+								return Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.VAGINA)));
+							}
 						},
 						AFTER_ROULETTE_SEX,
 						UtilText.parseFromXMLFile("places/submission/gamblingDen", "ROULETTE_STARTING", Util.newArrayListOfValues(breeder))){
@@ -1262,6 +1277,10 @@ public class GamblingDenDialogue {
 									character.setArousal(75);
 									character.setLust(80);
 								}
+							}
+							@Override
+							public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
+								return Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.VAGINA)));
 							}
 						},
 						AFTER_ROULETTE_SEX,
@@ -1319,6 +1338,10 @@ public class GamblingDenDialogue {
 										character.setLust(80);
 									}
 								}
+								@Override
+								public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
+									return Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.VAGINA)));
+								}
 							},
 							AFTER_ROULETTE_SEX,
 							UtilText.parseFromXMLFile("places/submission/gamblingDen", "ROULETTE_STARTING", Util.newArrayListOfValues(breeder))){
@@ -1351,6 +1374,10 @@ public class GamblingDenDialogue {
 										character.setArousal(75);
 										character.setLust(80);
 									}
+								}
+								@Override
+								public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
+									return Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.VAGINA)));
 								}
 							},
 							AFTER_ROULETTE_SEX,

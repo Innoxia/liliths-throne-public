@@ -931,6 +931,12 @@ public class CharacterUtils {
 						.wing(new Wing((stage.isWingFurry()?startingBodyType.getWingType():WingType.NONE), (startingGender.isFeminine() ? startingBodyType.getFemaleWingSize() : startingBodyType.getMaleWingSize())))
 						.build();
 		
+		if(body.getPenis().getType()!=PenisType.NONE
+				&& body.getVagina().getType()!=VaginaType.NONE
+				&& !Main.getProperties().hasValue(PropertyValue.futanariTesticles)) {
+			body.getPenis().getTesticle().setInternal(null, true);
+		}
+		
 		// Pubic hair:
 		BodyHair hair = BodyHair.getRandomBodyHair();
 		body.setPubicHair(hair);
@@ -1287,6 +1293,11 @@ public class CharacterUtils {
 			availableFetishes.add(Fetish.FETISH_BREASTS_SELF);
 		}
 		
+		if(!Main.getProperties().hasValue(PropertyValue.analContent)) {
+			availableFetishes.remove(Fetish.FETISH_ANAL_GIVING);
+			availableFetishes.remove(Fetish.FETISH_ANAL_RECEIVING);
+		}
+		
 		while(fetishesAssigned < numberOfFetishes && !availableFetishes.isEmpty()) {
 			Fetish f = Util.randomItemFrom(availableFetishes);
 			character.addFetish(f);
@@ -1320,6 +1331,14 @@ public class CharacterUtils {
 					availableFetishes.remove(Fetish.FETISH_IMPREGNATION);
 					break;
 			}
+		}
+
+		if(!Main.getProperties().hasValue(PropertyValue.analContent)) {
+			availableFetishes.remove(Fetish.FETISH_ANAL_GIVING);
+			availableFetishes.remove(Fetish.FETISH_ANAL_RECEIVING);
+			
+			character.setFetishDesire(Fetish.FETISH_ANAL_GIVING, FetishDesire.ZERO_HATE);
+			character.setFetishDesire(Fetish.FETISH_ANAL_RECEIVING, FetishDesire.ZERO_HATE);
 		}
 		
 		// Desires:

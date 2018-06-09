@@ -805,9 +805,15 @@ public enum SexPositionType {
 		@Override
 		public String getDescription() {//TODO
 			if(Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.MISSIONARY_ALTAR_LYING_ON_ALTAR) {
-				return "You're lying back on top of the chapel's altar, and [npc.name]'s standing between your [pc.legs], ready to have some fun with you in the missionary position.";
+				if(Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.MISSIONARY_ALTAR_STANDING_BETWEEN_LEGS) {
+					return "You're lying back on top of the chapel's altar, and [npc.name]'s standing between your [pc.legs], ready to have some fun with you in the missionary position.";
+				} else {
+					return "You're lying back on top of the chapel's altar, and [npc.name]'s kneeling down between your [pc.legs], ready to have some oral fun with you in the missionary position.";
+				}
+				
 			} else if(Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.MISSIONARY_ALTAR_STANDING_BETWEEN_LEGS) {
 				return "[npc.Name] is lying back on top of the chapel's altar, and you're standing between [npc.her] [npc.legs], ready to have some fun in the missionary position.";
+				
 			} else {
 				return "[npc.Name] is lying back on top of the chapel's altar, and you're kneeling down between [npc.her] [npc.legs], ready to have some oral fun in the missionary position.";
 			}

@@ -30,7 +30,8 @@
 	
 	Patch notes:
 	
-	
+	Engine:
+		Added javascript support for parsing conditional statements.
 	
 	Artwork:
 		Added ChattyNeko's Kate drawing.
@@ -39,6 +40,8 @@
 		Fixed self breast milking always emptying breasts. (Pimvgd)
 		Fixed bug in FluidStored constructor that was causing issues with Roxy. (Pimvgd)
 		Fixed incorrect descriptions in mouth orifice status tooltip. (Pimvgd)
+		Reduced UtilText.parse parsing time by two-thirds for large inputs. (Pimvgd)
+		Fixed major issue with parsing. (Pimvgd)
 	
 	Clothing:
 		<b>Added:</b> Butler set. (With boosted butler set effects if you chose the 'bulter' job at the start of the game.)
@@ -55,73 +58,40 @@
 		Slightly improved clothing mod documentation (in rental_mommy.svg), and added functionality to use preset lists for concealed slots.
 		Improved the NPC stats panel (the information beneath their appearance description).
 		Improved the contacts page in your phone.
+		Fixed legs and arms always being described as 'slender'. The description is now drawn from your BodyShape (which is based on muscle and body size).
+		Cum and other fluids are now absorbed into the body through orifices, so even if it's plugged, the amount of fluid inside someone's orifice will gradually diminish over time.
+		Added 'hair type' to the slime TF menu.
+		The mother in pregnancy roulette now corectly takes a vixen's virility just before the game. (Epona gets you to take one too.)
+		You can now collect income/pay debt from slavery in the room management screen.
+		You can now upgrade a single slave room to a double without having to move the occupant and remove all upgrades first.
+		Sexual orientation -50% lust damage now affects both damage dealt and received.
+		Added two content options, 'Anal', and 'Futanari Testicles'. Both are enabled by default. Disabling anal will make all non-unique NPCs spawn in hating anal, while disabling futanari testicles will make all futas spawn in with internal balls.
 	
 	Bugs:
-		Typo and parsing fixes.
+		Typo and parsing fixes, including instances of your name being incorrectly parsed as 'you'.
 		Fixed some inconsistencies in Epona's pregnancy roulette scenes.
+		Fixed bug where enchanting an item of clothing would remove its pattern.
+		Fixed clothing with negative effects not having a rarity of 'jinxed'.
+		Fixed npc dildo reveal returning incorrect description.
+		Dildos no longer generate precum.
+		Fixed issue where clothing could accidentally get deleted when starting sex scenes with Zaranix and in Gambling Den's pregnancy roulette.
+		Fixed breeders in pregnancy roulette sometimes starting the game under the effects of promiscuity pills.
+		Fixed issue where Epona would seemingly forget who you are.
+		Fixed bug with the 'risk of pregnancy' status effect not re-applying instantly if you weren't pregnant but still had cum in your vagina.
+		Time now passes while in the Gambling Den (1 minute per tile).
+		Fixed bug where the map in the library would sometimes not open.
 	
 	
 	
-	[possible build error]
-	In 0.2.6.2 it is fine and working. In 0.2.6.5, you press "Grow Cock" once you don't even get the dialog for it, but you shift Liliya's cloths and she has a 1 inch cock.
-		java.lang.NoSuchMethodError: com.lilithsthrone.game.character.body.FluidCum.setType(Lcom/lilithsthrone/game/character/body/types/BodyPartTypeInterface;)
 	
 	
-	[fixed?]
-	I don't know if it's been reported already or not, but I've found a bug with the "Lick Roxy's Pussy" scene in the Submission Gambling Den.
-	 Poor Roxy keeps finding herself stuck on the cusp of her orgasm. That is to say, it gets to the "Prepare" prompt, but clicking on it does nothing. I'm using Java 10.0.1, no mods or anything.
-	
-	java.lang.NullPointerException
-	at com.lilithsthrone.game.character.body.FluidGirlCum.addFluidModifier(FluidGirlCum.java:175)
-	at com.lilithsthrone.game.character.FluidStored.<init>(FluidStored.java:63)
-	at com.lilithsthrone.game.character.GameCharacter.ingestFluid(GameCharacter.java:9446)
-	at com.lilithsthrone.game.sex.Sex.applyGenericDescriptionsAndEffects(Sex.java:1901)
-	at com.lilithsthrone.game.sex.Sex.endSexTurn(Sex.java:1264)
-	at com.lilithsthrone.game.sex.sexActions.SexActionInterface$1.effects(SexActionInterface.java:546)
-	at com.lilithsthrone.game.dialogue.responses.Response.applyEffects(Response.java:174)
-	
-	
-	
-	NPC reacts to themselves wearing a dildo as though you're wearing one
-	
-	 after you are bred through Pregnancy Rolette your clothes aren't put back
-	
-	if you have the vagina-plug mod, when it gets taken out for Pregnancy Rolette it get's deleted
-	
-	Some breeders are using promiscuity pills
 	
 	foot fetish
 	Tailjobs
-	
-	Epona forgetting player and repeating intro dialogue
-	
+	Paizuri deepthroat while fucking a dickgirl's pussy in missionary
 	let the dominant partner choose where the sub cums
+	cum like milk
 	
-	Isn't it kind of silly for a horse-girl to have a "powerful" body shape and then a couple lines further describe her limbs as "slender"?
-	
-	make fluids it drain at least a little, even if it's plugged
-	
-	transformed alleyway demons get slime transformation menu fixed yet?
-	
-	self cum on tits using player name isntead of you
-	
-	: It would seem that those who turn themselves into slimes cannot change their hair type. IE: I cannot switch my hair from rabbit type to feathered. You end up needing to use a potion
-	
-	epona says that she gives whoever's getting bred vixen's virility, yet the effect's not there as far as i can see
-	
-	Fix pregnancy SE from teh new system
-	
-	sexual orientation SE says aura damage
-	
-	1. I can't disable anal. Anal is a major turn-off for me, and NPCs can spawn with anal fetishes... which leads me to...
-
-	2. I can't get rid of certain fetishes. There's the ability to enchant an item to make the wearer HATE a certain fetish, but I've encountered characters who love a particular fetish and I can't make them hate it, not even by stacking the enchantment.
-	
-	3.As far as I can tell, there's no option to have two other characters have sex (like making one slave have sex with another slave), or even a proper threesome option. There's two options that involve two slaves and your character, but there are limitations caused by the NPCs only having interactions with your character.
-	
-	 
-	
-	I've probably got a fair few minor complaints, but one off the top of my head is the inability to expand a single-slave room into a double-slave room. If you want to do it, you have to unassign slaves from it (particularly annoying if it's your first room), set it to empty and then assign it as a double. This wastes a lot of money.
 	
 	[ ] Change PenetrationType and OrificeType to SexArea
 	
@@ -133,9 +103,9 @@
 	
 	[ ] Submission Rat-morphs & Alligator-morphs - Just want to mug you
 	
-	[ ] Bugs
-	
 	[ ] Sex action orifice-on-orifice and start modding framework
+	
+	
 	
 	@SuppressWarnings("deprecation")
 	

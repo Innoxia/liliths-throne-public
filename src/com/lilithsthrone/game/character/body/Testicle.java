@@ -246,12 +246,15 @@ public class Testicle implements BodyPartInterface, Serializable {
 	}
 
 	public String setInternal(GameCharacter owner, boolean internal) {
+		if(owner==null) {
+			this.internal = internal;
+			return "";
+		}
 		
 		if(owner.isInternalTesticles() == internal || !owner.hasPenis()) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 		}
 		
-		this.internal = internal;
 		
 		if(internal) {
 			if(owner.isPlayer()) {

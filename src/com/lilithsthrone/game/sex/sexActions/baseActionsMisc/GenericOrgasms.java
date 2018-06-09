@@ -135,10 +135,10 @@ public class GenericOrgasms {
 				orgasmText = "[npc1.Name] [npc1.verb(reach)] down and [npc1.verb(place)] a [npc1.hand] on [npc2.namePos] head, before letting out [npc1.a_moan+] as [npc1.she] [npc1.verb(reach)] [npc1.her] climax.";
 				break;
 			case MISSIONARY_ALTAR_KNEELING_BETWEEN_LEGS:
-				orgasmText = "[npc1.Name] [npc1.verb(reach)] up and [npc1.verb(place)] a [npc1.hand] on one of [npc2.namePos] [npc2.legs]], before letting out [npc1.a_moan+] as [npc1.she] [npc1.verb(prepare)] to reach [npc1.her] climax.";
+				orgasmText = "[npc1.Name] [npc1.verb(reach)] up and [npc1.verb(place)] a [npc1.hand] on one of [npc2.namePos] [npc2.legs], before letting out [npc1.a_moan+] as [npc1.she] [npc1.verb(prepare)] to reach [npc1.her] climax.";
 				break;
 			case MISSIONARY_ALTAR_LYING_ON_ALTAR:
-				orgasmText = "[npc1.Name] [npc1.verb(look)] up into [npc2.namePos] [npc2.eyes] and [npc1.verb(let)] out [npc1.[a_moan+] as [npc1.she] [npc1.verb(prepare)] to reach [npc1.her] climax.";
+				orgasmText = "[npc1.Name] [npc1.verb(look)] up into [npc2.namePos] [npc2.eyes] and [npc1.verb(let)] out [npc1.a_moan+] as [npc1.she] [npc1.verb(prepare)] to reach [npc1.her] climax.";
 				break;
 			case MISSIONARY_ALTAR_SEALED_KNEELING_BETWEEN_LEGS:
 				orgasmText = "[npc1.Name] [npc1.verb(reach)] up and [npc1.verb(place)] a [npc1.hand] on one of [npc2.namePos] [npc2.legs], before letting out [npc1.a_moan+] as [npc1.she] [npc1.verb(prepare)] to reach [npc.her] climax.";
@@ -796,7 +796,6 @@ public class GenericOrgasms {
 	
 	private static String getCumQuantityDescription(GameCharacter characterOrgasming) {
 		
-//		String targetName = "#IFnpc1.isPlayer#THENyour#ELSE[npc1.name]'s#ENDIF";
 		String targetName = "your";
 		if(!characterOrgasming.isPlayer()) {
 			targetName = "[npc1.name]'s";

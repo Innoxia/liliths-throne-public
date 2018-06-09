@@ -215,7 +215,7 @@
 	
 	<htmlContent tag="ATTACK_REPEAT"><![CDATA[
 	<p>
-		#IF npc.isVisiblyPregnant
+		#IF npc.isVisiblyPregnant()
 		#THEN
 			[npc.speech(Haha! It's you again! Look, I'm still carrying our kids around!)]
 		#ELSE

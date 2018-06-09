@@ -4175,7 +4175,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		String s = se.applyRemoveStatusEffect(this);
 		
 		statusEffects.remove(se);
-
+		
+		s+=se.applyPostRemovalStatusEffect(this);
+		
 		updateAttributeListeners();
 		
 		return s;
@@ -4195,6 +4197,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		
 		statusEffects.remove(se);
 
+		s+=se.applyPostRemovalStatusEffect(this);
+		
 		updateAttributeListeners();
 
 		return true;
@@ -6961,7 +6965,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 							} else {
 								return "<p>"
 										+ "[npc.Name]'s jaw drops as your [pc.breastSize] breasts are revealed, "
-										+ "[npc.speech(How did you your tits to be that huge?!)]"
+										+ "[npc.speech(How did you manage to get your tits to be that huge?!)]"
 										+ "</p>";
 							}
 							
@@ -6992,7 +6996,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 							} else {
 								return "<p>"
 										+ "[npc.Name]'s jaw drops as your [pc.breastSize] breasts are revealed, "
-										+ "[npc.speech(How did you your tits to be that huge?!)]"
+										+ "[npc.speech(How did you manage to get your tits to be that huge?!)]"
 										+ "</p>";
 							}
 							
@@ -7022,7 +7026,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 							} else {
 								return UtilText.parse(this,
 											"[npc.Name]'s jaw drops as your [pc.breastSize] breasts are revealed, "
-											+ "[npc.speech(How did you your tits to be that huge?!)]")
+											+ "[npc.speech(How did you manage to get your tits to be that huge?!)]")
 										+ "</p>";
 							}
 							
@@ -7051,7 +7055,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 							} else {
 								return "<p>"
 											+ "[npc.Name]'s jaw drops as your [pc.breastSize] breasts are revealed, "
-											+ "[npc.speech(How did you your tits to be that huge?!)]"
+											+ "[npc.speech(How did you manage to get your tits to be that huge?!)]"
 										+ "</p>";
 							}
 							
@@ -7085,7 +7089,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 							} else {
 								return "<p>"
 										+ "[npc.Name]'s jaw drops as your [pc.breastSize] breasts are revealed, "
-										+ "[npc.speech(How did you your tits to be that huge?!)]"
+										+ "[npc.speech(How did you manage to get your tits to be that huge?!)]"
 										+ "</p>";
 							}
 			
@@ -7116,7 +7120,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 							} else {
 								return "<p>"
 										+ "[npc.Name]'s jaw drops as your [pc.breastSize] breasts are revealed, "
-										+ "[npc.speech(How did you your tits to be that huge?!)]"
+										+ "[npc.speech(How did you manage to get your tits to be that huge?!)]"
 										+ "</p>";
 							}
 							
@@ -7152,7 +7156,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 							} else {
 								return "<p>"
 											+ "[npc.Name]'s jaw drops as your [pc.breastSize] breasts are revealed, "
-											+ "[npc.speech(How did you your tits to be that huge?! What a fucking tit-cow!)]"
+											+ "[npc.speech(How did you manage to get your tits to be that huge?! What a fucking tit-cow!)]"
 										+ "</p>";
 							}
 							
@@ -7181,7 +7185,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 							} else {
 								return "<p>"
 											+ "[npc.Name]'s jaw drops as your [pc.breastSize] breasts are revealed, "
-											+ "[npc.speech(How did you your tits to be that huge?!)]"
+											+ "[npc.speech(How did you manage to get your tits to be that huge?!)]"
 										+ "</p>";
 							}
 						}
@@ -7228,13 +7232,6 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 
 	public String getPenisRevealDescription(GameCharacter characterBeingRevealed) {
 		
-		if(characterBeingRevealed.getPenisType()==PenisType.DILDO) {
-			return "<p>"+
-					"[npc.Name] grins as [npc.she] sees that you're wearing a strap-on. "
-					+ "[npc.speech(Looking to have a little extra fun, huh?)]"
-				+ "</p>";
-		}
-		
 		SexPace pace = SexPace.DOM_NORMAL;
 		if(Main.game.isInSex()) {
 			pace = Sex.getSexPace(this);
@@ -7242,6 +7239,12 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		
 		if(characterBeingRevealed.isPlayer()) {
 			if(pace!=SexPace.SUB_RESISTING) {
+				if(characterBeingRevealed.getPenisType()==PenisType.DILDO) {
+					return "<p>"+
+							"[npc.Name] grins as [npc.she] sees that you're wearing a strap-on. "
+							+ "[npc.speech(Looking to have a little extra fun, huh?)]"
+						+ "</p>";
+				}
 				// Feminine NPC:
 				if(this.isFeminine()) {
 					if(!Sex.isDom(this)) {
@@ -7535,6 +7538,12 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			}
 			
 		} else {
+			if(characterBeingRevealed.getPenisType()==PenisType.DILDO) {
+				return "<p>"+
+						"[npc.Name] grins as [npc.she] reveals the fact that [npc.she]'s wearing a strap-on. "
+						+ "[npc.speech(Time for a little extra fun!)]"
+					+ "</p>";
+			}
 			if(this.getPlayerKnowsAreas().contains(CoverableArea.PENIS) || !isFeminine()) {
 				switch(pace) {
 					case DOM_GENTLE:

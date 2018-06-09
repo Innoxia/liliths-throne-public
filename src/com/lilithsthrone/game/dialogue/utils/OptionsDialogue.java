@@ -1497,6 +1497,22 @@ public class OptionsDialogue {
 							"Nipple Penetrations",
 							"This enables nipple-penetration transformations and sex actions.",
 							Main.getProperties().hasValue(PropertyValue.nipplePenContent)));
+			
+
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+							"ANAL",
+							Colour.BASE_ORANGE,
+							"Anal content",
+							"When disabled, all non-unique NPCs will spawn in hating anal (which will make them never use anal actions in sex).",
+							Main.getProperties().hasValue(PropertyValue.analContent)));
+			
+
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+							"FUTA_BALLS",
+							Colour.BASE_PINK,
+							"Futanari Testicles",
+							"When enabled, futanari NPCs will spawn with external testicles. When disabled, they will always be internal.",
+							Main.getProperties().hasValue(PropertyValue.futanariTesticles)));
 				
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(
 							"HAIR_FACIAL",

@@ -459,9 +459,11 @@ public enum PlaceType {
 		}
 		@Override
 		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades(Set<PlaceUpgrade> upgrades) {
-			if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM)
-					|| upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_DOUBLE)) {
-				return PlaceUpgrade.getSlaveQuartersUpgrades();
+			if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM)) {
+				return PlaceUpgrade.getSlaveQuartersUpgradesSingle();
+				
+			} else if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_DOUBLE)) {
+				return PlaceUpgrade.getSlaveQuartersUpgradesDouble();
 				
 			} else if(upgrades.contains(PlaceUpgrade.LILAYA_MILKING_ROOM)) {
 				return PlaceUpgrade.getMilkingUpgrades();
@@ -501,9 +503,11 @@ public enum PlaceType {
 		}
 		@Override
 		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades(Set<PlaceUpgrade> upgrades) {
-			if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM)
-					|| upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_DOUBLE)) {
-				return PlaceUpgrade.getSlaveQuartersUpgrades();
+			if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM)) {
+				return PlaceUpgrade.getSlaveQuartersUpgradesSingle();
+				
+			} else if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_DOUBLE)) {
+				return PlaceUpgrade.getSlaveQuartersUpgradesDouble();
 				
 			} else if(upgrades.contains(PlaceUpgrade.LILAYA_MILKING_ROOM)) {
 				return PlaceUpgrade.getMilkingUpgrades();
@@ -543,9 +547,11 @@ public enum PlaceType {
 		}
 		@Override
 		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades(Set<PlaceUpgrade> upgrades) {
-			if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM)
-					|| upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_DOUBLE)) {
-				return PlaceUpgrade.getSlaveQuartersUpgrades();
+			if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM)) {
+				return PlaceUpgrade.getSlaveQuartersUpgradesSingle();
+				
+			} else if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_DOUBLE)) {
+				return PlaceUpgrade.getSlaveQuartersUpgradesDouble();
 				
 			} else if(upgrades.contains(PlaceUpgrade.LILAYA_MILKING_ROOM)) {
 				return PlaceUpgrade.getMilkingUpgrades();
@@ -585,9 +591,11 @@ public enum PlaceType {
 		}
 		@Override
 		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades(Set<PlaceUpgrade> upgrades) {
-			if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM)
-					|| upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_DOUBLE)) {
-				return PlaceUpgrade.getSlaveQuartersUpgrades();
+			if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM)) {
+				return PlaceUpgrade.getSlaveQuartersUpgradesSingle();
+				
+			} else if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_DOUBLE)) {
+				return PlaceUpgrade.getSlaveQuartersUpgradesDouble();
 				
 			} else if(upgrades.contains(PlaceUpgrade.LILAYA_MILKING_ROOM)) {
 				return PlaceUpgrade.getMilkingUpgrades();

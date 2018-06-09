@@ -1,14 +1,17 @@
 package com.lilithsthrone.game.character.body;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.types.LegType;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.2.2
+ * @version 0.2.7
  * @author Innoxia
  */
 public class Leg implements BodyPartInterface, Serializable {
@@ -47,7 +50,13 @@ public class Leg implements BodyPartInterface, Serializable {
 	
 	@Override
 	public String getDescriptor(GameCharacter gc) {
-		return type.getDescriptor(gc);
+		List<String> descriptorList = new ArrayList<>();
+		
+		descriptorList.add(type.getDescriptor(gc));
+		descriptorList.add(type.getDescriptor(gc));
+		descriptorList.add(Util.randomItemFrom(gc.getBodyShape().getLimbDescriptors()));
+		
+		return UtilText.returnStringAtRandom(descriptorList.toArray(new String[]{}));
 	}
 
 	public String setType(GameCharacter owner, LegType type) {

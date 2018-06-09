@@ -443,6 +443,12 @@ public enum Sex {
 				}
 			}
 		}
+		
+		for(Entry<GameCharacter, List<CoverableArea>> entry : sexManager.exposeAtStartOfSexMap().entrySet()) {
+			for(CoverableArea ca : entry.getValue()) {
+				entry.getKey().displaceClothingForAccess(ca);
+			}
+		}
 
 		// Populate available SexAction list:
 		populatePlayerSexLists();
@@ -2142,7 +2148,7 @@ public enum Sex {
 		if(Main.game.getPlayer().getArousal() >= Main.game.getPlayer().getAssWetness().getArousalNeededToGetVaginaWet()) {
 			addOrificeLubrication(Main.game.getPlayer(), OrificeType.ANUS, LubricationType.PLAYER_ANAL_LUBE, !onSexInit);
 		}
-		if(Main.game.getPlayer().hasPenis()) {
+		if(Main.game.getPlayer().hasPenisIgnoreDildo()) {
 			if(Main.game.getPlayer().getArousal() >= Main.game.getPlayer().getPenisCumProduction().getArousalNeededToStartPreCumming()) {
 				addPenetrationTypeLubrication(Main.game.getPlayer(), PenetrationType.PENIS, LubricationType.PLAYER_PRECUM, !onSexInit);
 				addOrificeLubrication(Main.game.getPlayer(), OrificeType.URETHRA_PENIS, LubricationType.PLAYER_PRECUM, !onSexInit);
@@ -2184,7 +2190,7 @@ public enum Sex {
 				if(character.getArousal() >= character.getAssWetness().getArousalNeededToGetVaginaWet()) {
 					addOrificeLubrication(character, OrificeType.ANUS, LubricationType.PARTNER_ANAL_LUBE, !onSexInit);
 				}
-				if(character.hasPenis()) {
+				if(character.hasPenisIgnoreDildo()) {
 					if(character.getArousal() >= character.getPenisCumProduction().getArousalNeededToStartPreCumming()) {
 						addPenetrationTypeLubrication(character, PenetrationType.PENIS, LubricationType.PARTNER_PRECUM);
 						addOrificeLubrication(character, OrificeType.URETHRA_PENIS, LubricationType.PARTNER_PRECUM, !onSexInit);

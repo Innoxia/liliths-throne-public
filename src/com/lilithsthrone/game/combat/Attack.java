@@ -479,10 +479,12 @@ public enum Attack {
 				// Defender modifiers:
 				damage *= 1 - Util.getModifiedDropoffValue(defender.getAttributeValue(Attribute.RESISTANCE_LUST), 100)/100f;
 				
-				if(defender.getSexualOrientation()==SexualOrientation.ANDROPHILIC && attacker.isFeminine()) {
+				if((defender.getSexualOrientation()==SexualOrientation.ANDROPHILIC && attacker.isFeminine())
+						|| attacker.getSexualOrientation()==SexualOrientation.ANDROPHILIC && defender.isFeminine()) {
 					damage*=0.5f;
 				}
-				if(defender.getSexualOrientation()==SexualOrientation.GYNEPHILIC && !attacker.isFeminine()) {
+				if((defender.getSexualOrientation()==SexualOrientation.GYNEPHILIC && !attacker.isFeminine())
+						|| attacker.getSexualOrientation()==SexualOrientation.GYNEPHILIC && !defender.isFeminine()) {
 					damage*=0.5f;
 				}
 				

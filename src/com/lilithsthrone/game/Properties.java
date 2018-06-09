@@ -480,11 +480,14 @@ public class Properties implements Serializable {
 					lastQuickSaveName = ((Element)element.getElementsByTagName("lastQuickSaveName").item(0)).getAttribute("value");
 				}
 				
-
 				nodes = doc.getElementsByTagName("propertyValues");
 				element = (Element) nodes.item(0);
 				if(element!=null) {
 					values.clear();
+					if(Main.isVersionOlderThan(versionNumber, "0.2.7")) {
+						values.add(PropertyValue.analContent);
+						values.add(PropertyValue.futanariTesticles);
+					}
 					for(int i=0; i < element.getElementsByTagName("propertyValue").getLength(); i++){
 						Element e = (Element) element.getElementsByTagName("propertyValue").item(i);
 						

@@ -2,7 +2,7 @@ package com.lilithsthrone.game;
 
 /**
  * @since 0.2.2
- * @version 0.2.6
+ * @version 0.2.7
  * @author Innoxia
  */
 public enum PropertyValue {
@@ -29,6 +29,8 @@ public enum PropertyValue {
 	lactationContent(true),
 	urethralContent(false),
 	nipplePenContent(true),
+	analContent(true),
+	futanariTesticles(true),
 
 	levelUpHightlight(false),
 	newWeaponDiscovered(false),

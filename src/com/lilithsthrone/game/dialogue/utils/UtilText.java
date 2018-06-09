@@ -9,14 +9,14 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-
+import javax.script.ScriptEngine;
+import javax.script.ScriptException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
@@ -28,7 +28,6 @@ import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
-import com.lilithsthrone.game.character.body.valueEnums.HairLength;
 import com.lilithsthrone.game.character.body.valueEnums.HornLength;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.effects.Perk;
@@ -45,9 +44,11 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 
+import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
+
 /**
  * @since 0.1.0
- * @version 0.2.6
+ * @version 0.2.7
  * @author Innoxia, Pimvgd
  */
 public class UtilText {
@@ -56,6 +57,8 @@ public class UtilText {
 	public static StringBuilder transformationContentSB = new StringBuilder(4096);
 	public static StringBuilder nodeContentSB = new StringBuilder(4096);
 	private static StringBuilder descriptionSB = new StringBuilder();
+	
+	private static ScriptEngine engine;
 
 	/**
 	 * Converts the input into a format suitable for html display. i.e. converts things like '<' to "&lt;".
@@ -565,8 +568,10 @@ public class UtilText {
 			String target = null;
 			String command = null;
 			String arguments = null;
+			String conditionalStatement = null;
 			String conditionalTrue = null;
 			String conditionalFalse = null;
+			
 			
 			boolean conditionalElseFound = false;
 			ParseMode currentParseMode = ParseMode.UNKNOWN;
@@ -586,33 +591,14 @@ public class UtilText {
 						openBrackets++;
 						
 					} else if (currentParseMode == ParseMode.CONDITIONAL) {
-						if(c=='.' && target==null) {
-							target = sb.toString().substring(1).trim(); // Cut off the '#IF' at the start.
-							sb.setLength(0);
-						
-						} else if(c=='(') {
-							if(command==null) {
-								command = sb.toString().substring(1).trim(); // Cut off the '.' at the start.
-								sb.setLength(0);
-							}
-							
-							openArg++;
-							
-						} else if(c==')') {
-							closeArg++;
-							
-							if (openArg == closeArg){
-								arguments = sb.toString().substring(1);
-							}
-							
-						} else if(substringMatchesInReverseAtIndex(input, "#THEN", i)) {
+						if(substringMatchesInReverseAtIndex(input, "#THEN", i)) {
 							conditionalThens++;
 							
 							if (conditionalThens == 1){
-								if (command == null) {
-									command = sb.toString().substring(1, sb.length()-4); // Cut off the '#THEN' at the start.
-									command = command.replaceAll("\n", "").replaceAll("\t", "");
-									command = command.trim();
+								if (conditionalStatement == null) {
+									conditionalStatement = sb.toString().substring(1, sb.length()-4); // Cut off the '#THEN' at the start.
+									conditionalStatement = conditionalStatement.replaceAll("\n", "").replaceAll("\t", "");
+									conditionalStatement = conditionalStatement.trim();
 								}
 								sb.setLength(0);
 							}
@@ -693,7 +679,7 @@ public class UtilText {
 					resultBuilder.append(input.substring(startedParsingSegmentAt, startIndex));
 					UtilText.specialNPCList = specialNPC;
 					String subResult = (currentParseMode == ParseMode.CONDITIONAL
-							? parseConditionalSyntaxNew(target, command, arguments, conditionalTrue, conditionalFalse)
+							? parseConditionalSyntaxNew(specialNPC, conditionalStatement, conditionalTrue, conditionalFalse)
 							: parseSyntaxNew(target, command, arguments, specialNPC)
 						);
 					if (openBrackets > 1) {
@@ -751,180 +737,12 @@ public class UtilText {
 	}
 	
 
-	public static List<ParserConditionalCommand> conditionalCommandsList = new ArrayList<>();
 	
 	public static List<ParserCommand> commandsList = new ArrayList<>();
 	public static Map<BodyPartType, List<ParserCommand>> commandsMap = new EnumMap<>(BodyPartType.class);
 	
 	static{
-		
 
-		conditionalCommandsList.add(new ParserConditionalCommand(
-				Util.newArrayListOfValues(
-						"isIncestOn",
-						"isIncestEnabled",
-						"incestOn",
-						"incestEnabled"),
-				"",
-				"Returns true if the player has the incest content toggle on."){
-			@Override
-			public boolean process(String command, String arguments, String target) {
-				return Main.getProperties().hasValue(PropertyValue.incestContent);
-			}
-		});
-		
-		conditionalCommandsList.add(new ParserConditionalCommand(
-				Util.newArrayListOfValues(
-						"isPlayer",
-						"player"),
-				"",
-				"Returns true if the character is the player."){
-			@Override
-			public boolean process(String command, String arguments, String target) {
-				return character.isPlayer();
-			}
-		});
-		
-		conditionalCommandsList.add(new ParserConditionalCommand(
-				Util.newArrayListOfValues(
-						"isVaginaExposed",
-						"isPussyExposed",
-						"isExposedVagina",
-						"isExposedPussy"),
-				"",
-				"Returns true if the character's vagina is exposed."){
-			@Override
-			public boolean process(String command, String arguments, String target) {
-				return character.isCoverableAreaExposed(CoverableArea.VAGINA);
-			}
-		});
-
-		conditionalCommandsList.add(new ParserConditionalCommand(
-				Util.newArrayListOfValues(
-						"isAbleToFly",
-						"canFly"),
-				"",
-				"Returns true if the character can fly."){
-			@Override
-			public boolean process(String command, String arguments, String target) {
-				return character.isAbleToFly();
-			}
-		});
-		
-		conditionalCommandsList.add(new ParserConditionalCommand(
-				Util.newArrayListOfValues(
-						"isVisiblyPregnant"),
-				"",
-				"Returns true if the character is visibly pregnant."){
-			@Override
-			public boolean process(String command, String arguments, String target) {
-				return character.isVisiblyPregnant();
-			}
-		});
-		
-		conditionalCommandsList.add(new ParserConditionalCommand(
-				Util.newArrayListOfValues(
-						"isMotheredChildren",
-						"hasMotheredChildren"),
-				"",
-				"Returns true if the character has given birth before."){
-			@Override
-			public boolean process(String command, String arguments, String target) {
-				return !character.getLittersBirthed().isEmpty();
-			}
-		});
-		
-		conditionalCommandsList.add(new ParserConditionalCommand(
-				Util.newArrayListOfValues(
-						"isDayTime",
-						"isDay"),
-				"",
-				"Returns true if it's currently day time (between 7am and 9pm)."){
-			@Override
-			public boolean process(String command, String arguments, String target) {
-				return Main.game.isDayTime();
-			}
-		});
-		
-		conditionalCommandsList.add(new ParserConditionalCommand(
-				Util.newArrayListOfValues(
-						"isArcaneStorm",
-						"isStorm"),
-				"",
-				"Returns true if the weather is currently an arcane storm."){
-			@Override
-			public boolean process(String command, String arguments, String target) {
-				return Main.game.getCurrentWeather()==Weather.MAGIC_STORM;
-			}
-		});
-		
-		conditionalCommandsList.add(new ParserConditionalCommand(
-				Util.newArrayListOfValues(
-						"hairLengthMinimum",
-						"minimumHairLength"),
-				"(HairLength Enum)",
-				"Returns true if the character's hair is at least as long as the supplied hair length's minimum value."){
-			@Override
-			public boolean process(String command, String arguments, String target) {
-				if(arguments == null || arguments.isEmpty()) {
-					System.err.println("No arguments passed for HairLength in the conditional statement 'hairLengthMinimum'!");
-					return false;
-				} else {
-					try {
-						return character.getHairRawLengthValue()>HairLength.valueOf(arguments).getMinimumValue();
-					} catch(Exception ex) {
-						System.err.println("Could not parse HairLength in the conditional statement 'hairLengthMinimum'!");
-						return false;
-					}
-				}
-			}
-		});
-		
-		conditionalCommandsList.add(new ParserConditionalCommand(
-				Util.newArrayListOfValues(
-						"hairLengthMaximum",
-						"maximumHairLength"),
-				"(HairLength Enum)",
-				"Returns true if the character's hair is no longer than the supplied hair length's maximum value."){
-			@Override
-			public boolean process(String command, String arguments, String target) {
-				if(arguments == null || arguments.isEmpty()) {
-					System.err.println("No arguments passed for HairLength in the conditional statement 'hairLengthMaximum'!");
-					return false;
-				} else {
-					try {
-						return character.getHairRawLengthValue()<=HairLength.valueOf(arguments).getMinimumValue();
-					} catch(Exception ex) {
-						System.err.println("Could not parse HairLength in the conditional statement 'hairLengthMaximum'!");
-						return false;
-					}
-				}
-			}
-		});
-		
-		conditionalCommandsList.add(new ParserConditionalCommand(
-				Util.newArrayListOfValues(
-						"hasFetish",
-						"fetishOwned"),
-				"(Fetish Enum)",
-				"Returns true if the character has this fetish."){
-			@Override
-			public boolean process(String command, String arguments, String target) {
-				if(arguments == null || arguments.isEmpty()) {
-					System.err.println("No arguments passed for Fetish in the conditional statement 'hasFetish'!");
-					return false;
-				} else {
-					try {
-						return character.hasFetish(Fetish.valueOf(arguments));
-					} catch(Exception ex) {
-						System.err.println("Could not parse Fetish in the conditional statement 'hasFetish'!");
-						return false;
-					}
-				}
-			}
-		});
-		
-		
 		
 		// Parsing:
 		
@@ -2671,7 +2489,7 @@ public class UtilText {
 				+ " If you need the actual third-person player character pronoun, pass a space as an argument."){
 			@Override
 			public String parse(String command, String arguments, String target) {
-				if(arguments==null && character.isPlayer()) {
+				if(target.startsWith("npc") && arguments==null && character.isPlayer()) {
 					return "your";
 				} else {
 					if(character.isFeminine()) {
@@ -2731,7 +2549,7 @@ public class UtilText {
 				+ " If you need the regular third-person player character pronoun, pass a space as an argument."){
 			@Override
 			public String parse(String command, String arguments, String target) {
-				if(arguments==null && character.isPlayer()) {
+				if(target.startsWith("npc") && arguments==null && character.isPlayer()) {
 					return "you";
 				} else {
 					if(character.isFeminine()) {
@@ -2764,7 +2582,7 @@ public class UtilText {
 				+ " If you need the regular third-person player character pronoun, pass a space as an argument."){
 			@Override
 			public String parse(String command, String arguments, String target) {
-				if(arguments==null && character.isPlayer()) {
+				if(target.startsWith("npc") && arguments==null && character.isPlayer()) {
 					return "you";
 				} else {
 					if(character.isFeminine()) {
@@ -2797,7 +2615,7 @@ public class UtilText {
 				+ " If you need the regular third-person player character pronoun contraction, pass a space as an argument."){
 			@Override
 			public String parse(String command, String arguments, String target) {
-				if(arguments==null && character.isPlayer()) {
+				if(target.startsWith("npc") && arguments==null && character.isPlayer()) {
 					return "you're";
 				} else {
 					if(character.isFeminine()) {
@@ -2831,7 +2649,7 @@ public class UtilText {
 				+ " If you need the regular third-person player character pronoun contraction, pass a space as an argument."){
 			@Override
 			public String parse(String command, String arguments, String target) {
-				if(arguments==null && character.isPlayer()) {
+				if(target.startsWith("npc") && arguments==null && character.isPlayer()) {
 					return "you've";
 				} else {
 					if(character.isFeminine()) {
@@ -2862,7 +2680,7 @@ public class UtilText {
 						+ " If you need the regular reflexive player character pronoun, pass a space as an argument."){
 					@Override
 					public String parse(String command, String arguments, String target) {
-						if(arguments==null && character.isPlayer()) {
+						if(target.startsWith("npc") && arguments==null && character.isPlayer()) {
 							return "yourself";
 						} else {
 							if(character.isFeminine()) {
@@ -4920,33 +4738,63 @@ public class UtilText {
 		return null;
 	}
 	
-	private static String parseConditionalSyntaxNew(String target, String command, String arguments, String conditionalTrue, String conditionalFalse) {
-		if(target==null || target.isEmpty()) {
-			target = "npc";
-		}
+	public static void resetParsingEngine() {
+		engine = null;
+	}
+	
+	private static void initScriptEngine() {
 		
-		ParserTarget parserTarget = findParserTargetWithTag(target);
-		if (parserTarget == null) {
-			return "INVALID_TARGET_NAME";
-		}
-		character = parserTarget.getCharacter(target.toLowerCase());
+		NashornScriptEngineFactory factory = new NashornScriptEngineFactory();
+		// http://hg.openjdk.java.net/jdk8/jdk8/nashorn/rev/eb7b8340ce3a
+		engine = factory.getScriptEngine("-strict", "--no-java", "--no-syntax-extensions", "-scripting");
 		
-		// Commands with arguments:
-		
-		for(ParserConditionalCommand cmd : conditionalCommandsList) {
-			for(String s : cmd.getTags()) {
-				if(command.equalsIgnoreCase(s)) {
-					if (cmd.process(command, arguments, target)) {
-						return conditionalTrue;
-					} else {
-						return conditionalFalse;
-					}
+//		engine = new ScriptEngineManager().getEngineByName("nashorn");
+		for(ParserTarget target : ParserTarget.values()) {
+			if(target!=ParserTarget.STYLE && target!=ParserTarget.NPC) {
+				for(String tag : target.getTags()) {
+					engine.put(tag, target.getCharacter(tag));
 				}
 			}
 		}
+		engine.put("game", Main.game);
+		for(Fetish f : Fetish.values()) {
+			engine.put(f.toString(), f);
+		}
+		for(CoverableArea ca : CoverableArea.values()) {
+			engine.put("CA_"+ca.toString(), ca);
+		}
+		for(Weather w : Weather.values()) {
+			engine.put("WEATHER_"+w.toString(), w);
+		}
+		// #IFpc​​​.​​​isPlayer()#THEN:3#ELSE:(#ENDIF
+//		StringBuilder sb = new StringBuilder();
+//		for(Entry<String, Object> entry : engine.getBindings(ScriptContext.ENGINE_SCOPE).entrySet()) {
+//			sb.append(entry.getKey()+", "+entry.getValue().toString()+"\n");
+//		}
+//		System.out.println(sb.toString());
+	}
+	
+	private static String parseConditionalSyntaxNew(List<GameCharacter> specialNPC, String conditionalStatement, String conditionalTrue, String conditionalFalse) {
+		if(engine==null) {
+			initScriptEngine();
+		}
 		
-		return "<i style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>command_unknown</i>";
+		for(int i = 1; i<=specialNPC.size(); i++) {
+			if(i==1) {
+				engine.put("npc", specialNPC.get(i));
+			}
+			engine.put("npc"+i, specialNPC.get(i));
+		}
 		
+		try {
+			if((boolean) engine.eval(conditionalStatement.replaceAll("\u200b", ""))) {
+				return conditionalTrue;
+			}
+			return conditionalFalse;
+			
+		} catch (ScriptException e) {
+			return "<i style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>(Error in conditional parsing!)</i>";
+		}
 	}
 	
 	

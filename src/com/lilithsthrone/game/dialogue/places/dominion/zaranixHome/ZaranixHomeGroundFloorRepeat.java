@@ -1,7 +1,11 @@
 package com.lilithsthrone.game.dialogue.places.dominion.zaranixHome;
 
+import java.util.List;
+import java.util.Map;
+
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.Weather;
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.fetishes.Fetish;
@@ -39,7 +43,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.2.2
- * @version 0.2.3
+ * @version 0.2.7
  * @author Innoxia
  */
 public class ZaranixHomeGroundFloorRepeat {
@@ -1923,7 +1927,12 @@ public class ZaranixHomeGroundFloorRepeat {
 								true, false,
 								new SMPetMounting(
 										Util.newHashMapOfValues(new Value<>(pet, SexPositionSlot.PET_MOUNTING_HUMPING)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.PET_MOUNTING_ON_ALL_FOURS))),
+										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.PET_MOUNTING_ON_ALL_FOURS))) {
+									@Override
+									public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
+										return Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.ANUS, CoverableArea.VAGINA)));
+									}
+								},
 								WALKIES_PET_FUCKS_POST_SEX,
 								UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloorRepeat", "WALKIES_PET_FUCKS_START", Util.newArrayListOfValues(owner, pet))
 								+ (Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.ANUS) || (Main.game.getPlayer().hasVagina() && Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.VAGINA))
@@ -1933,11 +1942,6 @@ public class ZaranixHomeGroundFloorRepeat {
 							@Override
 							public void effects() {
 								Main.game.getTextEndStringBuilder().append(Main.game.getAmber().incrementAffection(Main.game.getPlayer(), 10f));
-								
-								Main.game.getPlayer().displaceClothingForAccess(CoverableArea.ANUS);
-								if((Main.game.getPlayer().hasVagina() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true))) {
-									Main.game.getPlayer().displaceClothingForAccess(CoverableArea.VAGINA);
-								}
 							}
 						};
 					

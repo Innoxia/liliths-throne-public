@@ -72,7 +72,7 @@ public class PhoneDialogue {
 
 		@Override
 		public String getContent() {
-			return RenderingEngine.ENGINE.getFullMap(Main.game.getPlayer().getWorldLocation())
+			return RenderingEngine.ENGINE.getFullMap(Main.game.getPlayer().getWorldLocation(), true)
 					+"<p>You pull out your phone and tap in the unlock code.</p>"
 					+ (Main.game.isInNewWorld()
 							?"<p>"

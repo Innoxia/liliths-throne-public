@@ -188,7 +188,7 @@
 	</p>
 	<p>
 		With that, Amber steps back and slams the door in your face, leaving you down on all fours outside Zaranix's home.
-		#IF game.isArcaneStorm
+		#IF game.getCurrentWeather()==WEATHER_MAGIC_STORM
 		#THEN
 			 Despite the ongoing arcane-storm, it appears as though your display has attracted the attention of a group of passing succubi, and as you find yourself shut out on the doorstep, a cacophony of giggles and mocking comments bursts out behind you.
 			 Looking to the floor as you do your best to ignore their words, you remind yourself that you're doing all of this in order to finally get hold of Arthur.
@@ -258,7 +258,7 @@
 	<htmlContent tag="KNOCK_ON_DOOR_ASK_FOR_ARTHUR_BEG_WAITING"><![CDATA[
 	<p>
 		You remain still as Amber steps back and slams the door in your face, leaving you down on all fours outside Zaranix's home.
-		#IF game.isArcaneStorm
+		#IF game.getCurrentWeather()==WEATHER_MAGIC_STORM
 		#THEN
 			 Despite the ongoing arcane-storm, it appears as though your display has attracted the attention of a group of passing succubi, and as you find yourself shut out on the doorstep, a cacophony of giggles and mocking comments bursts out behind you.
 		#ELSE
@@ -310,7 +310,7 @@
 	</p>
 	<p>
 		With that, she steps back and slams the door in your face, leaving you down on all fours outside Zaranix's home.
-		#IF game.isArcaneStorm
+		#IF game.getCurrentWeather()==WEATHER_MAGIC_STORM
 		#THEN
 			 Despite the ongoing arcane-storm, it appears as though your display has attracted the attention of a group of passing succubi, and as you find yourself shut out on the doorstep, a cacophony of giggles and mocking comments bursts out behind you.
 		#ELSE

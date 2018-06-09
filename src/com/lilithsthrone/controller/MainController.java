@@ -1019,6 +1019,7 @@ public class MainController implements Initializable {
 		// Tooltip WebView:
 		webviewTooltip.setContextMenuEnabled(false);
 		webEngineTooltip = webviewTooltip.getEngine();
+		webEngineTooltip.setJavaScriptEnabled(false);
 		webEngineTooltip.getHistory().setMaxSize(0);
 		
 		if (Main.getProperties().hasValue(PropertyValue.lightTheme)) {
@@ -1030,6 +1031,7 @@ public class MainController implements Initializable {
 		// Main WebView:
 		webViewMain.setContextMenuEnabled(false);
 		webEngine = webViewMain.getEngine();
+//		webEngine.setJavaScriptEnabled(false);
 		webEngine.getHistory().setMaxSize(0);
 		
 		if (Main.getProperties().hasValue(PropertyValue.lightTheme)) {
@@ -1051,6 +1053,7 @@ public class MainController implements Initializable {
 
 		webViewButtons.setContextMenuEnabled(false);
 		webEngineButtons = webViewButtons.getEngine();
+		webEngineButtons.setJavaScriptEnabled(false);
 		webEngineButtons.getHistory().setMaxSize(0);
 		
 		if (Main.getProperties().hasValue(PropertyValue.lightTheme)) {
@@ -1071,6 +1074,7 @@ public class MainController implements Initializable {
 		// Attributes WebView:
 		webViewAttributes.setContextMenuEnabled(false);
 		webEngineAttributes = webViewAttributes.getEngine();
+		webEngineAttributes.setJavaScriptEnabled(false);
 		webEngineAttributes.getHistory().setMaxSize(0);
 		
 		if (Main.getProperties().hasValue(PropertyValue.lightTheme)) {
@@ -1091,6 +1095,7 @@ public class MainController implements Initializable {
 		// Attributes WebView:
 		webViewRight.setContextMenuEnabled(false);
 		webEngineRight = webViewRight.getEngine();
+		webEngineRight.setJavaScriptEnabled(false);
 		webEngineRight.getHistory().setMaxSize(0);
 		
 		if (Main.getProperties().hasValue(PropertyValue.lightTheme)) {

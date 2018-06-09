@@ -4,6 +4,7 @@ import java.io.File;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import org.w3c.dom.Document;
@@ -157,6 +158,7 @@ import com.lilithsthrone.rendering.RenderingEngine;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.ColourListPresets;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
@@ -4498,21 +4500,28 @@ public class MainControllerInitMethod {
 				}, false);
 			}
 			
-			id = "HAIR_FACIAL_ON";
-			if (((EventTarget) MainController.document.getElementById(id)) != null) {
-				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-					Main.getProperties().setValue(PropertyValue.facialHairContent, true);
-					Main.saveProperties();
-					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-				}, false);
-			}
-			id = "HAIR_FACIAL_OFF";
-			if (((EventTarget) MainController.document.getElementById(id)) != null) {
-				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-					Main.getProperties().setValue(PropertyValue.facialHairContent, false);
-					Main.saveProperties();
-					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-				}, false);
+			Map<String, PropertyValue> settingsMap = Util.newHashMapOfValues(
+					new Value<>("HAIR_FACIAL", PropertyValue.facialHairContent),
+					new Value<>("ANAL", PropertyValue.analContent),
+					new Value<>("FUTA_BALLS", PropertyValue.futanariTesticles));
+			
+			for(Entry<String, PropertyValue> entry : settingsMap.entrySet()) {
+				id = entry.getKey()+"_ON";
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+						Main.getProperties().setValue(entry.getValue(), true);
+						Main.saveProperties();
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+					}, false);
+				}
+				id = entry.getKey()+"_OFF";
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+						Main.getProperties().setValue(entry.getValue(), false);
+						Main.saveProperties();
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+					}, false);
+				}
 			}
 			
 			id = "HAIR_PUBIC_ON";

@@ -443,7 +443,7 @@ public class Library {
 					+ "<p style='text-align:center;'>"
 						+ "[style.italicsExcellent(Dominion Map fully revealed!)]"
 					+ "</p>"
-					+ RenderingEngine.ENGINE.getFullMap(WorldType.DOMINION));
+					+ RenderingEngine.ENGINE.getFullMap(WorldType.DOMINION, false));
 			
 			return UtilText.nodeContentSB.toString();
 		}

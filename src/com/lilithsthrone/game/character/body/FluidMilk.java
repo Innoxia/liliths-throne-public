@@ -146,15 +146,16 @@ public class FluidMilk implements FluidInterface, Serializable {
 	}
 
 	public String setFlavour(GameCharacter owner, FluidFlavour flavour) {
+		if(owner==null) {
+			this.flavour = flavour;
+			return "";
+		}
+		
 		if(this.flavour == flavour) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 		}
 
 		this.flavour = flavour;
-
-		if(owner == null) {
-			return "";
-		}
 		
 		if(owner.isPlayer()) {
 			return "<p>"

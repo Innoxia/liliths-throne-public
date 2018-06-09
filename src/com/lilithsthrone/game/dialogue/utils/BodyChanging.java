@@ -118,7 +118,8 @@ public class BodyChanging {
 	}
 	
 	private static boolean isDemonTFMenu() {
-		return BodyChanging.getTarget().getRace()==Race.DEMON || BodyChanging.getTarget() instanceof Elemental;
+		return BodyChanging.getTarget().getRace()==Race.DEMON
+				|| BodyChanging.getTarget() instanceof Elemental;
 	}
 	
 	public static final DialogueNodeOld BODY_CHANGING_CORE = new DialogueNodeOld("Core", "", true) {
@@ -363,6 +364,7 @@ public class BodyChanging {
 						+"</div>"
 						
 						+"<div style='clear:left;'>"
+							+ CharacterModificationUtils.getSelfTransformHairChoiceDiv(slimeRaces)
 							+ CharacterModificationUtils.getSelfTransformAntennaChoiceDiv(slimeRaces)
 						+"</div>"
 						

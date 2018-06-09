@@ -486,7 +486,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 			return Rarity.EPIC;
 		}
 		
-		if(this.isSealed()) {
+		if(this.isSealed() || this.isBadEnchantment()) {
 			return Rarity.JINXED;
 		}
 		if(this.getEffects().size()>1) {
