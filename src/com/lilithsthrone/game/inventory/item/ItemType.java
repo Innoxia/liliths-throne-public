@@ -4026,7 +4026,7 @@ public class ItemType {
 			false,
 			"Peach",
 			"Peaches",
-			"A delicate fruit often cultivated in temperate climates. Also it kind of looks like an booty if you squint.",
+			"A delicate fruit often cultivated in temperate climates. Also it kind of looks like a booty if you squint.",
 			"peach",
 			Colour.GENERIC_ARCANE,
 			null,
@@ -4052,8 +4052,8 @@ public class ItemType {
 			return getGenericUseDescription(user, target,
 					"You eat the peach. The sweet taste of rapture overwhelmes you.",
 					"You force [npc.name] to eat the peach. The sweet taste of rapture overwhelmes them.",
-					"[npc.Name] produces an peach, and then proceeds to eat it. The sweet taste of rapture overwhelmes you both.",
-					"[npc.Name] produces an peach, and then proceeds to force you to eat it. The sweet taste of rapture overwhelmes you both.");
+					"[npc.Name] produces a peach, and then proceeds to eat it. The sweet taste of rapture overwhelmes you both.",
+					"[npc.Name] produces a peach, and then proceeds to force you to eat it. The sweet taste of rapture overwhelmes you both.");
 		}
 	};
 	
