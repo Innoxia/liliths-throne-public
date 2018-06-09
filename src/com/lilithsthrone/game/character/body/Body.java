@@ -551,6 +551,7 @@ public class Body implements Serializable, XMLSaving {
 			CharacterUtils.addAttribute(doc, bodyTesticle, "cumStorage", String.valueOf(this.penis.testicle.cumStorage));
 			CharacterUtils.addAttribute(doc, bodyTesticle, "storedCum", String.valueOf(this.penis.testicle.cumStored));
 			CharacterUtils.addAttribute(doc, bodyTesticle, "cumRegeneration", String.valueOf(this.penis.testicle.cumRegeneration));
+			CharacterUtils.addAttribute(doc, bodyTesticle, "cumExpulsion", String.valueOf(this.penis.testicle.cumExpulsion));
 			CharacterUtils.addAttribute(doc, bodyTesticle, "numberOfTesticles", String.valueOf(this.penis.testicle.testicleCount));
 			CharacterUtils.addAttribute(doc, bodyTesticle, "internal", String.valueOf(this.penis.testicle.internal));
 		
@@ -1083,6 +1084,7 @@ public class Body implements Serializable, XMLSaving {
 		try {
 			importedPenis.testicle.cumStored = (Integer.valueOf(testicles.getAttribute("storedCum")));
 			importedPenis.testicle.cumRegeneration = (Integer.valueOf(testicles.getAttribute("cumRegeneration")));
+			importedPenis.testicle.cumExpulsion = (Float.valueOf(testicles.getAttribute("cumExpulsion")));
 		} catch(Exception ex) {
 		}
 		
