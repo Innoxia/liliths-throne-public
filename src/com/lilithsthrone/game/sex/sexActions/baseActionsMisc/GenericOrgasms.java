@@ -1520,7 +1520,7 @@ public class GenericOrgasms {
 							+ " around [npc2.her] [npc2.penis+].");
 					break;
 				case TAIL:
-					genericOrgasmSB.append("TEST [npc2.Name] [npc2.verb(carry)] on tail-fucking"
+					genericOrgasmSB.append(" [npc2.Name] [npc2.verb(carry)] on tail-fucking"
 							+ (!characterPenetrating.isPlayer() ? " [npc1.namePos] [npc1.pussy+]" : (
 									characterOrgasming.isPlayer() ? " yourself" : " [npc1.name]"))
 							+ " through [npc1.her] orgasm,"
@@ -1530,7 +1530,7 @@ public class GenericOrgasms {
 							+ " vaginal muscles grip and squeeze around the intruding object.");
 					break;
 				case TONGUE:
-					genericOrgasmSB.append( "TEST [npc2.Name] [npc2.verb(carry)] on licking and kissing"
+					genericOrgasmSB.append( " [npc2.Name] [npc2.verb(carry)] on licking and kissing"
 							+ (characterPenetrating.isPlayer() ? "" : " at")
 							+ " [npc1.namePos] clit as [npc1.she] [npc1.verb(orgasm)],"
 							+ (characterPenetrating.isPlayer() && characterOrgasming.isPlayer() ?
