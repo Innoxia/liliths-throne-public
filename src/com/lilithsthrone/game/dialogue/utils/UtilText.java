@@ -35,6 +35,7 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.gender.GenderPronoun;
 import com.lilithsthrone.game.character.race.Subspecies;
+import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.sex.OrificeType;
@@ -4787,7 +4788,9 @@ public class UtilText {
 		}
 		
 		try {
-			if((boolean) engine.eval(conditionalStatement.replaceAll("\u200b", ""))) {
+			if(Main.game.getCurrentDialogueNode()==DebugDialogue.PARSER && (boolean) engine.eval(conditionalStatement.replaceAll("\u200b", ""))) {
+				return conditionalTrue;
+			} else if((boolean) engine.eval(conditionalStatement)){
 				return conditionalTrue;
 			}
 			return conditionalFalse;
