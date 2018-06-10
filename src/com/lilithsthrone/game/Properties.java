@@ -487,6 +487,7 @@ public class Properties implements Serializable {
 					if(Main.isVersionOlderThan(versionNumber, "0.2.7")) {
 						values.add(PropertyValue.analContent);
 						values.add(PropertyValue.futanariTesticles);
+						values.add(PropertyValue.cumRegenerationContent);
 					}
 					for(int i=0; i < element.getElementsByTagName("propertyValue").getLength(); i++){
 						Element e = (Element) element.getElementsByTagName("propertyValue").item(i);
@@ -517,6 +518,9 @@ public class Properties implements Serializable {
 					}
 					if(element.getElementsByTagName("lactationContent").item(0)!=null) {
 						this.setValue(PropertyValue.lactationContent, Boolean.valueOf((((Element)element.getElementsByTagName("lactationContent").item(0)).getAttribute("value"))));
+					}
+					if(element.getElementsByTagName("cumRegenerationContent").item(0)!=null) {
+						this.setValue(PropertyValue.cumRegenerationContent, Boolean.valueOf((((Element)element.getElementsByTagName("cumRegenerationContent").item(0)).getAttribute("value"))));
 					}
 					if(element.getElementsByTagName("urethralContent").item(0)!=null) {
 						this.setValue(PropertyValue.urethralContent, Boolean.valueOf((((Element)element.getElementsByTagName("urethralContent").item(0)).getAttribute("value"))));

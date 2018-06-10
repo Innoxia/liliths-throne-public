@@ -4466,6 +4466,23 @@ public class MainControllerInitMethod {
 				}, false);
 			}
 			
+			id = "CUM_REGENERATION_ON";
+			if (((EventTarget) MainController.document.getElementById(id)) != null) {
+				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+					Main.getProperties().setValue(PropertyValue.cumRegenerationContent, true);
+					Main.saveProperties();
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+			}
+			id = "CUM_REGENERATION_OFF";
+			if (((EventTarget) MainController.document.getElementById(id)) != null) {
+				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+					Main.getProperties().setValue(PropertyValue.cumRegenerationContent, false);
+					Main.saveProperties();
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+			}
+			
 			id = "URETHRAL_ON";
 			if (((EventTarget) MainController.document.getElementById(id)) != null) {
 				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
