@@ -334,8 +334,8 @@ public enum Colour {
 	CLOTHING_COPPER(Util.newColour(0xD46F2B), Util.newColour(0xD46F2B), "copper", Util.newArrayListOfValues("copper")),
 	CLOTHING_SILVER(Util.newColour(0xC4C4C4), Util.newColour(0xC4C4C4), "silver", Util.newArrayListOfValues("silver")),
 	CLOTHING_GOLD(Util.newColour(0xEBC633), Util.newColour(0xEBC633), "gold"),
-	CLOTHING_ROSE_GOLD(Util.newColour(0xE7C1BB), Util.newColour(0xE7C1BB), "rose gold"),
-	CLOTHING_PLATINUM(Util.newColour(0xE4E5E2), Util.newColour(0xE4E5E2), "platinum"),
+	CLOTHING_ROSE_GOLD(BaseColour.ROSE_GOLD, "rose gold"),
+	CLOTHING_PLATINUM(BaseColour.PLATINUM, "platinum"),
 	
 	// For special use with rainbow clothing:
 	CLOTHING_MULTICOLOURED(Util.newColour(0xff3030), Util.newColour(0xccffff), "multicoloured"),
@@ -468,6 +468,11 @@ public enum Colour {
 	TONGUE(BaseColour.ROSE, "pink"),
 
 	// Generic colours:
+	COVERING_SILVER(BaseColour.GREY, "silver"),
+	COVERING_GOLD(BaseColour.GOLD, "gold"),
+	COVERING_PLATINUM(BaseColour.PLATINUM, "platinum"),
+	COVERING_ROSE_GOLD(BaseColour.ROSE_GOLD, "rose gold"),
+	COVERING_COPPER(BaseColour.COPPER, "copper"),
 	COVERING_TAN(BaseColour.TAN, "tan"),
 	COVERING_BROWN(BaseColour.BROWN, "brown"),
 	COVERING_BROWN_DARK(BaseColour.BROWN_DARK, "dark brown"),
@@ -483,7 +488,6 @@ public enum Colour {
 	COVERING_RED_DARK(BaseColour.RED_DARK, "dark red"),
 	COVERING_AUBURN(BaseColour.AUBURN, "auburn"),
 	COVERING_WHITE(BaseColour.WHITE, "white"),
-	COVERING_SILVER(BaseColour.GREY, "silver"),
 	COVERING_BLUE_LIGHT(BaseColour.BLUE_LIGHT, "light blue"),
 	COVERING_BLUE(BaseColour.BLUE, "blue"),
 	COVERING_BLUE_DARK(BaseColour.BLUE_DARK, "dark blue"),
@@ -668,7 +672,10 @@ public enum Colour {
 			Colour.COVERING_BLACK);
 
 	public static List<Colour> dyeFurColours = Util.newArrayListOfValues(
+			Colour.COVERING_PLATINUM,
+			Colour.COVERING_GOLD,
 			Colour.COVERING_BLEACH_BLONDE,
+			Colour.COVERING_COPPER,
 			Colour.COVERING_BLUE_LIGHT,
 			Colour.COVERING_BLUE,
 			Colour.COVERING_BLUE_DARK,
@@ -679,6 +686,7 @@ public enum Colour {
 			Colour.COVERING_PERIWINKLE,
 			Colour.COVERING_PURPLE,
 			Colour.COVERING_PURPLE_DARK,
+			Colour.COVERING_ROSE_GOLD,
 			Colour.COVERING_RED,
 			Colour.COVERING_RED_DARK);
 
@@ -690,6 +698,11 @@ public enum Colour {
 			Colour.COVERING_BLACK);
 
 	public static List<Colour> dyeScaleColours = Util.newArrayListOfValues(
+			Colour.COVERING_SILVER,
+			Colour.COVERING_PLATINUM,
+			Colour.COVERING_ROSE_GOLD,
+			Colour.COVERING_COPPER,
+			Colour.COVERING_GOLD,
 			Colour.COVERING_BLEACH_BLONDE,
 			Colour.COVERING_BLONDE,
 			Colour.COVERING_BLUE_LIGHT,
@@ -750,7 +763,6 @@ public enum Colour {
 	
 	public static List<Colour> naturalHairColours = Util.newArrayListOfValues(
 			Colour.COVERING_WHITE,
-			Colour.COVERING_SILVER,
 			Colour.COVERING_BLONDE,
 			Colour.COVERING_DIRTY_BLONDE,
 			Colour.COVERING_GINGER,
@@ -761,6 +773,11 @@ public enum Colour {
 			Colour.COVERING_BLACK);
 	
 	public static List<Colour> dyeHairColours = Util.newArrayListOfValues(
+			Colour.COVERING_SILVER,
+			Colour.COVERING_PLATINUM,
+			Colour.COVERING_ROSE_GOLD,
+			Colour.COVERING_COPPER,
+			Colour.COVERING_GOLD,
 			Colour.COVERING_BLEACH_BLONDE,
 			Colour.COVERING_BLUE_LIGHT,
 			Colour.COVERING_BLUE,

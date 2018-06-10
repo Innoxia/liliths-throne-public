@@ -42,7 +42,7 @@ public enum FluidExpulsion {
 		return minimumValue + ((maximumValue - minimumValue) / 2);
 	}
 
-	public static FluidExpulsion getFluidExpulsionFromFloat(int value) {
+	public static FluidExpulsion getFluidExpulsionFromInt(int value) {
 		for(FluidExpulsion expulsion : FluidExpulsion.values()) {
 			if(value>=expulsion.getMinimumValue() && value<expulsion.getMaximumValue()) {
 				return expulsion;

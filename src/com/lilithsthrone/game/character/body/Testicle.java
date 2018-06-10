@@ -371,7 +371,7 @@ public class Testicle implements BodyPartInterface, Serializable {
 	// Expulsion:
 
 	public FluidExpulsion getCumExpulsion() {
-		return FluidExpulsion.getFluidExpulsionFromFloat(cumExpulsion);
+		return FluidExpulsion.getFluidExpulsionFromInt(cumExpulsion);
 	}
 
 	public int getRawCumExpulsionValue() {

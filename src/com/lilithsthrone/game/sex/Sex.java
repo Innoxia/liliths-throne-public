@@ -1882,16 +1882,16 @@ public enum Sex {
 			}
 			
 			// Apply orgasm arousal resets:
-			if((Main.game.getPlayer().hasPenis() && Main.game.getPlayer().getPenisRawOrgasmCumQuantity()>0)
-					|| !Main.game.getPlayer().hasPenis()) {
+			if(!Main.game.getPlayer().hasPenis() || Main.game.getPlayer().getPenisRawOrgasmCumQuantity()>0 || Main.game.getPlayer().hasVagina() || Sex.getNumberOfOrgasms(Main.game.getPlayer())>0) {
 				incrementNumberOfOrgasms(Main.game.getPlayer(), 1);
 				player().setArousal(0);
 				Main.game.getPlayer().applyOrgasmCumEffect();
 				
 			} else {
+				incrementNumberOfOrgasms(Main.game.getPlayer(), 1);
 				Main.game.getPlayer().setArousal(20);
 				Main.game.getPlayer().addStatusEffect(StatusEffect.FRUSTRATED_NO_ORGASM, 240+postSexDialogue.getMinutesPassed());
-				sexSB.append("<p style='text-align:center'>Not producing any cum upon reaching your climax can't be counted as a real orgasm, and makes you feel [style.boldBad(frustrated and horny)]!</p>");
+				sexSB.append("<p style='text-align:center'>Without producing any cum, your climax can't be counted as a real orgasm, and makes you feel [style.boldBad(frustrated and horny)]!</p>");
 			}
 			
 			// Reset appropriate flags:
@@ -1930,17 +1930,17 @@ public enum Sex {
 			}
 			
 			// Apply orgasm arousal resets:
-			if((activePartner.hasPenis() && activePartner.getPenisRawOrgasmCumQuantity()>0)
-					|| !activePartner.hasPenis()) {
+			if(!activePartner.hasPenis() || activePartner.getPenisRawOrgasmCumQuantity()>0 || activePartner.hasVagina() || Sex.getNumberOfOrgasms(activePartner)>0) {
 				incrementNumberOfOrgasms(activePartner, 1);
 				activePartner.setArousal(0);
 				activePartner.applyOrgasmCumEffect();
 				
 			} else {
+				incrementNumberOfOrgasms(activePartner, 1);
 				activePartner.setArousal(20);
 				activePartner.addStatusEffect(StatusEffect.FRUSTRATED_NO_ORGASM, 240+postSexDialogue.getMinutesPassed());
 				sexSB.append(UtilText.parse(activePartner,
-						"<p style='text-align:center'>Not producing any cum upon reaching [npc.her] climax can't be counted as a real orgasm, and makes [npc.name] feel [style.boldBad(frustrated and horny)]!</p>"));
+						"<p style='text-align:center'>Without producing any cum, [npc.name]'s climax can't be counted as a real orgasm, and makes [npc.name] feel [style.boldBad(frustrated and horny)]!</p>"));
 			}
 
 			// Reset appropriate flags:

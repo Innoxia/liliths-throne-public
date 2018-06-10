@@ -4,13 +4,14 @@ import javafx.scene.paint.Color;
 
 /**
  * @since 0.1.69
- * @version 0.2.6
+ * @version 0.2.7
  * @author Innoxia
  */
 public enum BaseColour {
 
 	WHITE(Util.newColour(0xFFFFFF), Util.newColour(0x636363)),
 	SILVER(Util.newColour(0xF3F3F3), Util.newColour(0x636363)),
+	PLATINUM(Util.newColour(0xE4E5E2), Util.newColour(0xE4E5E2)),
 	
 	ROSE(Util.newColour(0xEBC2FF), Util.newColour(0xB800E6)),
 	LILAC(Util.newColour(0x978AFF), Util.newColour(0x8170FF)),
@@ -29,6 +30,7 @@ public enum BaseColour {
 	RED(Util.newColour(0xEA5D76), Util.newColour(0xDD1D40)),
 	RED_DARK(Util.newColour(0xA61641), Util.newColour(0x960012)),
 	RED_LIGHT(Util.newColour(0xEE95A6), Util.newColour(0xE9536F)),
+	ROSE_GOLD(Util.newColour(0xE7C1BB), Util.newColour(0xE7C1BB)),
 	
 	TAN(Util.newColour(0xEDC491), Util.newColour(0xDC8D2E)),
 	BROWN(Util.newColour(0xD0A38B), Util.newColour(0xB5714A)),

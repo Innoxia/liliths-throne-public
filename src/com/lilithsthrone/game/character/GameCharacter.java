@@ -15479,6 +15479,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				case EYE_RAT:
 				case EYE_REINDEER_MORPH:
 				case EYE_SQUIRREL:
+				case SLIME_EYE:
 					return body.getCoverings().get(BodyCoveringType.SLIME_EYE);
 					
 				case HAIR_ANGEL:

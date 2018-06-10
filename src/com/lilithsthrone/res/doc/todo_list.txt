@@ -8,9 +8,6 @@
 	
 	Goals:
 	
-	Bugs and Pull requests
-	- There are well over a hundred bug reports that have stacked up. I really need to get this under control before it become unmanageable.
-	
 	Sex content improvements
 	- Add support for NPC-on-NPC actions (all sex action descriptions currently assume one partner is the player).
 	- Add support for random attackers having sex with your companions upon combat loss (requires NPC-on-NPC support first).
@@ -70,6 +67,8 @@
 		You can now upgrade a single slave room to a double without having to move the occupant and remove all upgrades first.
 		Sexual orientation -50% lust damage now affects both damage dealt and received.
 		Added two content options, 'Anal', and 'Futanari Testicles'. Both are enabled by default. Disabling anal will make all non-unique NPCs spawn in hating anal, while disabling futanari testicles will make all futas spawn in with internal balls.
+		Added sclera recolouring to the slime TF menu.
+		Added metallic colours for hair and fur dye.
 	
 	Bugs:
 		Typo and parsing fixes, including instances of your name being incorrectly parsed as 'you'.
@@ -87,27 +86,38 @@
 		Fixed issue where NPCs would sometimes spawn wearing a dress + skirt.
 		Fixed issue with modded clothing being tagged to be found in alleyways not actually being found in alleyways.
 		Fixed issue with modded clothing marked for sale by Kate and Nyan not actually appearing in their inventories.
-	
+		Fixed slime eye recolouring applying to your entire body.
+		
 	
 	
 	foot fetish
 	Tailjobs
 	Paizuri deepthroat while fucking a dickgirl's pussy in missionary
 	let the dominant partner choose where the sub cums
-	
-	so im a slime person (as you can see). the transform menu says my eyes are blue, but the mouse over menu thing says they are green
-	
-	silver, gold, bronze, rose gold, plat) for hair colour
+	checks for all orifice TFs
 	
 	Label unobtainable spells
 	
 	Set your elemental's fetishes (make them the counterparts of yours)
+	
+	being bred in the pregnancy roulette consumes a pregnancy tester from your inventory if you have any.
+	
+	if you are one of the breeders, and Epona deems you not the father, if you look at your pregnancy stats, the pregnancy is still listed
+	
+	get crotchless briefs changed to pull down
+	
+	when I'm accessing an enemy's inventory, and taking an item, say, "Mystery Kink": if I hover my mouse over the "Take (All)" option, it displays the following message, "Take five of the man's Mystery Kinks", even when said enemy has only one. To simplify, if I'm taking an item, even when there's only one, the "Take All" option will state "five" in place of "all".
+Basically, just an error in the coding, probably, that switches the five option for all if five stacked items aren't present? Or perhaps just a wording issue. Just wanted to bring that up. Sorry if I'm repeating an issue already found.
+	
+	[ ] Patreon thank you and credits!
 	
 	[X] cum like milk
 	
 	[X] add cum on orgasm percentage
 	
 	[X] Fix tags
+	
+	[ ] Sort Colour lists
 	
 	[ ] Change PenetrationType and OrificeType to SexArea
 	

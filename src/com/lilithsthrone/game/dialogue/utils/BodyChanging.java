@@ -413,6 +413,12 @@ public class BodyChanging {
 										?"The colour and pattern of your pupils."
 										:UtilText.parse(BodyChanging.getTarget(), "The colour and pattern of [npc.name]'s pupils.")),
 								true, true)
+
+						+ CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyCoveringType.SLIME_SCLERA, "Sclerae colour",
+								(BodyChanging.getTarget().isPlayer()
+										?"The colour and pattern of your sclerae."
+										:UtilText.parse(BodyChanging.getTarget(), "The colour and pattern of [npc.name]'s sclerae.")),
+								true, true)
 						
 	//					+ CharacterModificationUtils.getSelfTransformTongueLengthChoiceDiv() TODO
 	//					+ CharacterModificationUtils.getSelfTransformTongueModifiersChoiceDiv()
