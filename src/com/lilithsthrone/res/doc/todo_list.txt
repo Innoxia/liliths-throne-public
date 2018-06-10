@@ -32,7 +32,7 @@
 	
 	Gameplay:
 		Added the same fluid storage/regeneration values as milk has to cum. Added an 'expulsion' value to testicles (with associated TF modifier for potions), which determines how much of your stored cum is expelled upon orgasm.
-		Not producing any cum upon orgasm (by having your balls completely drained, or by having a Cum expulsion value of 0) will now apply the frustrated effect.
+		Not producing any cum upon orgasm (or by having a cum expulsion value of 0) will now apply the frustrated effect.
 	
 	Artwork:
 		Added ChattyNeko's Kate drawing.
@@ -108,6 +108,10 @@
 	
 	when I'm accessing an enemy's inventory, and taking an item, say, "Mystery Kink": if I hover my mouse over the "Take (All)" option, it displays the following message, "Take five of the man's Mystery Kinks", even when said enemy has only one. To simplify, if I'm taking an item, even when there's only one, the "Take All" option will state "five" in place of "all".
 Basically, just an error in the coding, probably, that switches the five option for all if five stacked items aren't present? Or perhaps just a wording issue. Just wanted to bring that up. Sorry if I'm repeating an issue already found.
+	
+	a slider for npc's spawning with cosmetics such as piercings, scars, and tattoos would be nice
+	
+	Add dirty clothing check for no cum
 	
 	[ ] Patreon thank you and credits!
 	
