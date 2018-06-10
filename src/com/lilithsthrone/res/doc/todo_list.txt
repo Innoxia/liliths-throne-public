@@ -35,6 +35,7 @@
 	
 	Gameplay:
 		Added the same fluid storage/regeneration values as milk has to cum. Added an 'expulsion' value to testicles (with associated TF modifier for potions), which determines how much of your stored cum is expelled upon orgasm.
+		Not producing any cum upon orgasm (by having your balls completely drained, or by having a Cum expulsion value of 0) will now apply the frustrated effect.
 	
 	Artwork:
 		Added ChattyNeko's Kate drawing.
@@ -84,8 +85,8 @@
 		Time now passes while in the Gambling Den (1 minute per tile).
 		Fixed bug where the map in the library would sometimes not open.
 		Fixed issue where NPCs would sometimes spawn wearing a dress + skirt.
-	
-	
+		Fixed issue with modded clothing being tagged to be found in alleyways not actually being found in alleyways.
+		Fixed issue with modded clothing marked for sale by Kate and Nyan not actually appearing in their inventories.
 	
 	
 	
@@ -106,7 +107,7 @@
 	
 	[X] add cum on orgasm percentage
 	
-	[ ] Fix tags
+	[X] Fix tags
 	
 	[ ] Change PenetrationType and OrificeType to SexArea
 	

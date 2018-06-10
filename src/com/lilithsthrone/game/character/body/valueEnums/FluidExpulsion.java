@@ -9,40 +9,40 @@ import com.lilithsthrone.utils.Colour;
  */
 public enum FluidExpulsion {
 	
-	ZERO_NONE("tiny", 0, 0.2f, Colour.GENERIC_SIZE_ONE),
+	ZERO_NONE("tiny", 0, 20, Colour.GENERIC_SIZE_ONE),
 
-	ONE_SMALL("small", 0.2f, 0.4f, Colour.GENERIC_SIZE_TWO),
+	ONE_SMALL("small", 20, 40, Colour.GENERIC_SIZE_TWO),
 
-	TWO_MODERATE("moderate", 0.4f, 0.6f, Colour.GENERIC_SIZE_THREE),
+	TWO_MODERATE("moderate", 40, 60, Colour.GENERIC_SIZE_THREE),
 
-	THREE_LARGE("large", 0.6f, 0.8f, Colour.GENERIC_SIZE_FOUR),
+	THREE_LARGE("large", 60, 80, Colour.GENERIC_SIZE_FOUR),
 
-	FOUR_HUGE("huge", 0.8f, 1f, Colour.GENERIC_SIZE_FIVE);
+	FOUR_HUGE("huge", 80, 100, Colour.GENERIC_SIZE_FIVE);
 
-	private float minimumValue, maximumValue;
+	private int minimumValue, maximumValue;
 	private String descriptor;
 	private Colour colour;
 
-	private FluidExpulsion(String descriptor, float minimumValue, float maximumValue, Colour colour) {
+	private FluidExpulsion(String descriptor, int minimumValue, int maximumValue, Colour colour) {
 		this.descriptor = descriptor;
 		this.minimumValue = minimumValue;
 		this.maximumValue = maximumValue;
 		this.colour=colour;
 	}
 
-	public float getMinimumValue() {
+	public int getMinimumValue() {
 		return minimumValue;
 	}
 
-	public float getMaximumValue() {
+	public int getMaximumValue() {
 		return maximumValue;
 	}
 
-	public float getMedianValue() {
+	public int getMedianValue() {
 		return minimumValue + ((maximumValue - minimumValue) / 2);
 	}
 
-	public static FluidExpulsion getFluidExpulsionFromFloat(float value) {
+	public static FluidExpulsion getFluidExpulsionFromFloat(int value) {
 		for(FluidExpulsion expulsion : FluidExpulsion.values()) {
 			if(value>=expulsion.getMinimumValue() && value<expulsion.getMaximumValue()) {
 				return expulsion;

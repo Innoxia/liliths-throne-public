@@ -43,6 +43,7 @@ import com.lilithsthrone.game.character.body.FluidCum;
 import com.lilithsthrone.game.character.body.FluidGirlCum;
 import com.lilithsthrone.game.character.body.FluidMilk;
 import com.lilithsthrone.game.character.body.Penis;
+import com.lilithsthrone.game.character.body.Testicle;
 import com.lilithsthrone.game.character.body.types.AntennaType;
 import com.lilithsthrone.game.character.body.types.ArmType;
 import com.lilithsthrone.game.character.body.types.AssType;
@@ -15265,24 +15266,24 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	public FluidExpulsion getPenisCumExpulsion() {
 		return body.getPenis().getTesticle().getCumExpulsion();
 	}
-	/** As a percentage from 0 -> 1. */
-	public float getPenisRawCumExpulsionValue() {
+	/** As a percentage from 0 -> 100. */
+	public int getPenisRawCumExpulsionValue() {
 		return body.getPenis().getTesticle().getRawCumExpulsionValue();
 	}
-	public String setPenisCumExpulsion(float percentage) {
+	public String setPenisCumExpulsion(int percentage) {
 		return body.getPenis().getTesticle().setCumExpulsion(this, percentage);
 	}
-	public String incrementPenisCumExpulsion(int increment) {
-		return setPenisCumExpulsion(getPenisRawCumExpulsionValue() + increment);
+	public String incrementPenisCumExpulsion(int percentage) {
+		return setPenisCumExpulsion(getPenisRawCumExpulsionValue() + percentage);
 	}
 	public CumProduction getPenisOrgasmCumQuantity() {
-		return CumProduction.getCumProductionFromInt((int) (body.getPenis().getTesticle().getRawStoredCumValue() * getPenisRawCumExpulsionValue()));
+		return CumProduction.getCumProductionFromInt(getPenisRawOrgasmCumQuantity());
 	}
 	public int getPenisRawOrgasmCumQuantity() {
-		if(body.getPenis().getTesticle().getRawStoredCumValue() < 5) {
+		if(body.getPenis().getTesticle().getRawStoredCumValue() <= Testicle.MINIMUM_VALUE_FOR_ALL_CUM_TO_BE_EXPELLED) {
 			return body.getPenis().getTesticle().getRawStoredCumValue();
 		}
-		return (int) (body.getPenis().getTesticle().getRawStoredCumValue() * getPenisRawCumExpulsionValue());
+		return (int) (body.getPenis().getTesticle().getRawStoredCumValue() * (getPenisRawCumExpulsionValue()/100f));
 	}
 	public void applyOrgasmCumEffect() {
 		this.incrementPenisStoredCum(-getPenisRawOrgasmCumQuantity());

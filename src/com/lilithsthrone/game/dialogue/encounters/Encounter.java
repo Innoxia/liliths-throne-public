@@ -27,6 +27,7 @@ import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.npcDialogue.SlaveDialogue;
+import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
@@ -236,7 +237,12 @@ public enum Encounter {
 					Main.game.getPlayerCell().getInventory().addClothing(randomClothing);
 					
 				} else {
-					randomClothing = AbstractClothingType.generateClothing(ClothingType.getCommonClothing().get(Util.random.nextInt(ClothingType.getCommonClothing().size())));
+					List<AbstractClothingType> randomClothingList = ClothingType.getAllClothing();
+					randomClothingList.removeIf((clothing) ->
+							!clothing.getItemTags().contains(ItemTag.SOLD_BY_KATE)
+							&& !clothing.getItemTags().contains(ItemTag.SOLD_BY_NYAN)
+							&& !clothing.getItemTags().contains(ItemTag.DOMINION_ALLEYWAY_SPAWN));
+					randomClothing = AbstractClothingType.generateClothing(randomClothingList.get(Util.random.nextInt(randomClothingList.size())));
 					Main.game.getPlayerCell().getInventory().addClothing(randomClothing);
 				}
 				return DominionEncounterDialogue.ALLEY_FIND_CLOTHING;

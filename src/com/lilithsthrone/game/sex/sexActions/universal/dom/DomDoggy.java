@@ -254,7 +254,7 @@ public class DomDoggy {
 			
 			if(Main.game.getPlayer().isWearingCondom()) {
 				UtilText.nodeContentSB.append(" As your [pc.balls+] tense up");
-				switch (Main.game.getPlayer().getPenisStoredCum()) {
+				switch (Main.game.getPlayer().getPenisOrgasmCumQuantity()) {
 					case ZERO_NONE:
 						UtilText.nodeContentSB.append(", you realise that you're not able to produce even one drop of cum.");
 						break;
@@ -286,7 +286,7 @@ public class DomDoggy {
 				
 			} else {
 				UtilText.nodeContentSB.append(" You feel your [pc.balls+] tense up as your orgasm washes over you.");
-				switch (Main.game.getPlayer().getPenisStoredCum()) {
+				switch (Main.game.getPlayer().getPenisOrgasmCumQuantity()) {
 					case ZERO_NONE:
 						UtilText.nodeContentSB.append(" Unfortunately, you aren't able to produce even one drop of cum, somewhat diminishing the pleasure of your climax.");
 						break;
@@ -388,7 +388,7 @@ public class DomDoggy {
 					+ "[npc.Name] lets out another [npc.moan], which is enough to send you over the edge."
 					+ " As you grind [npc.her] [npc.face+] into the floor, you reach your climax, and as your [pc.balls+] tense up");
 
-			switch (Main.game.getPlayer().getPenisStoredCum()) {
+			switch (Main.game.getPlayer().getPenisOrgasmCumQuantity()) {
 				case ZERO_NONE:
 					UtilText.nodeContentSB.append(", you realise that you aren't able to produce even one drop of cum, somewhat lessening the impact of your dominant display.");
 					break;
@@ -498,7 +498,7 @@ public class DomDoggy {
 					+ "[npc.Name] lets out another [npc.moan], which is enough to send you over the edge."
 					+ " As you grind [npc.her] [npc.face+] into the floor, you reach your climax, and as your [pc.balls+] tense up");
 
-			switch (Main.game.getPlayer().getPenisStoredCum()) {
+			switch (Main.game.getPlayer().getPenisOrgasmCumQuantity()) {
 				case ZERO_NONE:
 					UtilText.nodeContentSB.append(", you realise that you aren't able to produce even one drop of cum, somewhat lessening the impact of your dominant display.");
 					break;

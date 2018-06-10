@@ -223,7 +223,6 @@ public class ClothingType {
 	};
 
 	public static AbstractClothingType PIERCING_NOSE_BASIC_RING = new AbstractClothingType(50,
-
 			"a",
 			false,
 			"nose ring",
@@ -11649,11 +11648,7 @@ public class ClothingType {
 	};
 	
 	
-	private static List<AbstractClothingType> allClothing, moddedClothingList,
-										commonClothing, commonFemaleClothing, commonMaleClothing, commonAndrogynousClothing,
-										commonFemaleLingerie, commonMaleLingerie, commonAndrogynousLingerie,
-										commonFemaleAccessories, commonMaleAccessories, commonAndrogynousAccessories,
-										commonJewellery, commonFemaleJewellery, commonMaleJewellery, commonAndrogynousJewellery;
+	private static List<AbstractClothingType> allClothing, moddedClothingList;
 	
 	private static List<InventorySlot> coreClothingSlots, lingerieSlots;
 	
@@ -11702,24 +11697,6 @@ public class ClothingType {
 		lingerieSlots = Util.newArrayListOfValues(InventorySlot.CHEST, InventorySlot.GROIN, InventorySlot.STOMACH, InventorySlot.SOCK);
 
 		allClothing = new ArrayList<>();
-		commonClothing = new ArrayList<>();
-		
-		commonFemaleClothing = new ArrayList<>();
-		commonFemaleLingerie = new ArrayList<>();
-		commonFemaleAccessories = new ArrayList<>();
-		
-		commonMaleClothing = new ArrayList<>();
-		commonMaleLingerie = new ArrayList<>();
-		commonMaleAccessories = new ArrayList<>();
-		
-		commonAndrogynousClothing = new ArrayList<>();
-		commonAndrogynousLingerie = new ArrayList<>();
-		commonAndrogynousAccessories = new ArrayList<>();
-		
-		commonJewellery = new ArrayList<>();
-		commonFemaleJewellery = new ArrayList<>();
-		commonMaleJewellery = new ArrayList<>();
-		commonAndrogynousJewellery = new ArrayList<>();
 		
 		// Load in modded clothing:
 		moddedClothingList = new ArrayList<>();
@@ -11798,49 +11775,6 @@ public class ClothingType {
 						}
 					}
 					
-					if(!ct.getSlot().isJewellery()){
-						if (ct.getRarity() == Rarity.COMMON) {
-							commonClothing.add(ct);
-							if (ct.getFemininityRestriction() == null) {
-								if(coreClothingSlots.contains(ct.getSlot())) {
-									commonAndrogynousClothing.add(ct);
-								} else if(lingerieSlots.contains(ct.getSlot())) {
-									commonAndrogynousLingerie.add(ct);
-								} else {
-									commonAndrogynousAccessories.add(ct);
-								}
-								
-							} else if (ct.getFemininityRestriction() == Femininity.FEMININE) {
-								if(coreClothingSlots.contains(ct.getSlot())) {
-									commonFemaleClothing.add(ct);
-								} else if(lingerieSlots.contains(ct.getSlot())) {
-									commonFemaleLingerie.add(ct);
-								} else {
-									commonFemaleAccessories.add(ct);
-								}
-								
-							} else if (ct.getFemininityRestriction() == Femininity.MASCULINE) {
-								if(coreClothingSlots.contains(ct.getSlot())) {
-									commonMaleClothing.add(ct);
-								} else if(lingerieSlots.contains(ct.getSlot())) {
-									commonMaleLingerie.add(ct);
-								} else {
-									commonMaleAccessories.add(ct);
-								}
-							}
-						}
-					}else{
-						if (ct.getRarity() == Rarity.COMMON) {
-							commonJewellery.add(ct);
-							if (ct.getFemininityRestriction() == null)
-								commonAndrogynousJewellery.add(ct);
-							else if (ct.getFemininityRestriction() == Femininity.FEMININE)
-								commonFemaleJewellery.add(ct);
-							else if (ct.getFemininityRestriction() == Femininity.MASCULINE)
-								commonMaleJewellery.add(ct);
-						}
-					}
-					
 				} catch (IllegalArgumentException | IllegalAccessException e) {
 					e.printStackTrace();
 				}
@@ -11858,38 +11792,6 @@ public class ClothingType {
 		return moddedClothingList;
 	}
 
-	public static List<AbstractClothingType> getCommonClothing() {
-		return commonClothing;
-	}
-
-	public static List<AbstractClothingType> getCommonFemaleClothing() {
-		return commonFemaleClothing;
-	}
-
-	public static List<AbstractClothingType> getCommonMaleClothing() {
-		return commonMaleClothing;
-	}
-
-	public static List<AbstractClothingType> getCommonAndrogynousClothing() {
-		return commonAndrogynousClothing;
-	}
-	
-	public static List<AbstractClothingType> getCommonJewellery() {
-		return commonJewellery;
-	}
-
-	public static List<AbstractClothingType> getCommonFemaleJewellery() {
-		return commonFemaleJewellery;
-	}
-
-	public static List<AbstractClothingType> getCommonMaleJewellery() {
-		return commonMaleJewellery;
-	}
-
-	public static List<AbstractClothingType> getCommonAndrogynousJewellery() {
-		return commonAndrogynousJewellery;
-	}
-
 	public static List<InventorySlot> getCoreClothingSlots() {
 		return coreClothingSlots;
 	}
@@ -11897,31 +11799,7 @@ public class ClothingType {
 	public static List<InventorySlot> getLingerieSlots() {
 		return lingerieSlots;
 	}
-
-	public static List<AbstractClothingType> getCommonFemaleLingerie() {
-		return commonFemaleLingerie;
-	}
-
-	public static List<AbstractClothingType> getCommonMaleLingerie() {
-		return commonMaleLingerie;
-	}
-
-	public static List<AbstractClothingType> getCommonAndrogynousLingerie() {
-		return commonAndrogynousLingerie;
-	}
-
-	public static List<AbstractClothingType> getCommonFemaleAccessories() {
-		return commonFemaleAccessories;
-	}
-
-	public static List<AbstractClothingType> getCommonMaleAccessories() {
-		return commonMaleAccessories;
-	}
-
-	public static List<AbstractClothingType> getCommonAndrogynousAccessories() {
-		return commonAndrogynousAccessories;
-	}
-
+	
 	public static Map<InventorySlot, List<AbstractClothingType>> getCommonClothingMap() {
 		return commonClothingMap;
 	}

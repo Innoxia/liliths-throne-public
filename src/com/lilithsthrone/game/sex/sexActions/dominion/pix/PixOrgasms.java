@@ -91,7 +91,7 @@ public class PixOrgasms {
 				
 				// Describe cum amount:
 				UtilText.nodeContentSB.append(" You don't last more than a few seconds under her expert touch, and as you feel your [pc.balls+] tense up");
-				switch (Main.game.getPlayer().getPenisStoredCum()) {
+				switch (Main.game.getPlayer().getPenisOrgasmCumQuantity()) {
 					case ZERO_NONE:
 						UtilText.nodeContentSB.append(", you let out [pc.a_moan+] as you realise that you're not able to produce even one drop of cum.");
 						break;
@@ -121,7 +121,7 @@ public class PixOrgasms {
 				}
 				
 				// Describe where cum is going:
-				if(Main.game.getPlayer().getPenisStoredCum()!=CumProduction.ZERO_NONE){
+				if(Main.game.getPlayer().getPenisOrgasmCumQuantity()!=CumProduction.ZERO_NONE){
 					UtilText.nodeContentSB.append(" out all over the wall in front of you. ");
 				}
 				

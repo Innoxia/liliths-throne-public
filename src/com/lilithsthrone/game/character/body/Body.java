@@ -1084,7 +1084,7 @@ public class Body implements Serializable, XMLSaving {
 		try {
 			importedPenis.testicle.cumStored = (Integer.valueOf(testicles.getAttribute("storedCum")));
 			importedPenis.testicle.cumRegeneration = (Integer.valueOf(testicles.getAttribute("cumRegeneration")));
-			importedPenis.testicle.cumExpulsion = (Float.valueOf(testicles.getAttribute("cumExpulsion")));
+			importedPenis.testicle.cumExpulsion = (Integer.valueOf(testicles.getAttribute("cumExpulsion")));
 		} catch(Exception ex) {
 		}
 		

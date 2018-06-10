@@ -133,7 +133,7 @@ public class SARalphOrgasms {
 				
 				// Describe cum amount:
 				UtilText.nodeContentSB.append(" As your "+Main.game.getPlayer().getTesticleSize().getDescriptor()+" balls tense up");
-				switch (Main.game.getPlayer().getPenisStoredCum()) {
+				switch (Main.game.getPlayer().getPenisOrgasmCumQuantity()) {
 					case ZERO_NONE:
 						UtilText.nodeContentSB.append(", you realise that you're not able to produce even one drop of cum.");
 						break;
@@ -163,7 +163,7 @@ public class SARalphOrgasms {
 				}
 				
 				// Describe where cum is going:
-				if(Main.game.getPlayer().getPenisStoredCum()!=CumProduction.ZERO_NONE){
+				if(Main.game.getPlayer().getPenisOrgasmCumQuantity()!=CumProduction.ZERO_NONE){
 					if(Main.game.getPlayer().isWearingCondom()) {
 						UtilText.nodeContentSB.append("out into the condom that you're wearing.");
 						

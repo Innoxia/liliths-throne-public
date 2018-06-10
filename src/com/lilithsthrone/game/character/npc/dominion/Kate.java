@@ -39,6 +39,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.InventorySlot;
+import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
@@ -58,7 +59,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.66
- * @version 0.1.89
+ * @version 0.2.7
  * @author Innoxia
  */
 public class Kate extends NPC {
@@ -255,22 +256,41 @@ public class Kate extends NPC {
 	public void dailyReset() {
 		clearNonEquippedInventory();
 		
-		int iterations = 3 + Util.random.nextInt(3);
-		for (int i = 0; i < iterations; i++) {
-			this.addClothing(AbstractClothingType.generateClothingWithEnchantment(ClothingType.getCommonJewellery().get(Util.random.nextInt(ClothingType.getCommonJewellery().size()))), false);
-		}
+		List<AbstractClothing> clothingToSell = new ArrayList<>();
 		
-		for(int i=0; i<getClothingCount(); i++) {
-			getClothing(i).setEnchantmentKnown(true);
-		}
-		
-		for (AbstractClothingType ct : ClothingType.getCommonJewellery()) {
-			iterations = 1 + Util.random.nextInt(2);
-			for(int i=0; i<iterations; i++) {
-				this.addClothing(AbstractClothingType.generateClothing(ct, false), false);
+		for(AbstractClothingType clothing : ClothingType.getAllClothing()) {
+			if(clothing.getItemTags().contains(ItemTag.SOLD_BY_KATE)) {
+				clothingToSell.add(AbstractClothingType.generateClothing(clothing, false));
 			}
 		}
 		
+		addEnchantedClothing(clothingToSell);
+		
+		for(AbstractClothing c : clothingToSell) {
+			this.addClothing(c, false);
+		}
+	}
+	
+	/**
+	 * Adds four uncommon clothing items to the list, and two rare items.
+	 */
+	private static void addEnchantedClothing(List<AbstractClothing> clothingList) {
+		List<AbstractClothingType> typesToAdd = new ArrayList<>();
+		for(int i=0;i<6;i++) {
+			typesToAdd.add(Util.randomItemFrom(clothingList).getClothingType());
+		}
+		
+		for(int i=0; i<typesToAdd.size(); i++) {
+			if(i>=typesToAdd.size()-2) {
+				clothingList.add(AbstractClothingType.generateRareClothing(typesToAdd.get(i)));
+			} else {
+				clothingList.add(AbstractClothingType.generateClothingWithEnchantment(typesToAdd.get(i)));
+			}
+		}
+
+		for(AbstractClothing c : clothingList) {
+			c.setEnchantmentKnown(true);
+		}
 	}
 	
 	@Override

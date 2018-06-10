@@ -23,6 +23,9 @@ public class Testicle implements BodyPartInterface, Serializable {
 	
 	public static final int MIN_TESTICLE_COUNT = 2;
 	public static final int MAX_TESTICLE_COUNT = 8;
+
+	public static final int MINIMUM_VALUE_FOR_ALL_CUM_TO_BE_EXPELLED = 5; //ml
+	
 	
 	protected TesticleType type;
 	protected int testicleSize;
@@ -30,7 +33,7 @@ public class Testicle implements BodyPartInterface, Serializable {
 	protected int cumStored;
 	protected int cumRegeneration;
 	protected int testicleCount;
-	protected float cumExpulsion;
+	protected int cumExpulsion;
 	protected boolean internal;
 	
 	protected FluidCum cum;
@@ -371,14 +374,14 @@ public class Testicle implements BodyPartInterface, Serializable {
 		return FluidExpulsion.getFluidExpulsionFromFloat(cumExpulsion);
 	}
 
-	public float getRawCumExpulsionValue() {
+	public int getRawCumExpulsionValue() {
 		return cumExpulsion;
 	}
 
-	public String setCumExpulsion(GameCharacter owner, float cumExpulsion) {
-		float oldExpulsion = this.cumExpulsion;
+	public String setCumExpulsion(GameCharacter owner, int cumExpulsion) {
+		int oldExpulsion = this.cumExpulsion;
 		this.cumExpulsion = Math.max(0, Math.min(cumExpulsion, FluidExpulsion.FOUR_HUGE.getMaximumValue()));
-		float expulsionChange = this.cumExpulsion - oldExpulsion;
+		int expulsionChange = this.cumExpulsion - oldExpulsion;
 
 		if(owner==null) {
 			return "";

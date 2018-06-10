@@ -5344,10 +5344,10 @@ public enum StatusEffect {
 		@Override
 		public String getDescription(GameCharacter target) {
 			if(target.isPlayer()) {
-				return "You've recently had a sexual encounter in which you didn't manage to orgasm."
+				return "You've recently had a sexual encounter in which you didn't manage to cum."
 						+ " As a result, you're feeling extremely horny and frustrated...";
 			} else {
-				return UtilText.parse(target, "[npc.Name] recently had a sexual encounter in which [npc.she] didn't manage to orgasm."
+				return UtilText.parse(target, "[npc.Name] recently had a sexual encounter in which [npc.she] didn't manage to cum."
 						+ " As a result, [npc.she]'s feeling extremely horny and frustrated...");
 			}
 		}

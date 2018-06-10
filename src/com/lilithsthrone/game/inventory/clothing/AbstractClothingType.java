@@ -836,6 +836,24 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		return AbstractClothingType.generateClothingWithEnchantment(clothingType, clothingType.getAvailablePrimaryColours().get(Util.random.nextInt(clothingType.getAvailablePrimaryColours().size())));
 	}
 	
+	public static AbstractClothing generateRareClothing(AbstractClothingType type) {
+		List<ItemEffect> effects = new ArrayList<>();
+		
+		List<TFModifier> attributeMods = new ArrayList<>(TFModifier.getClothingAttributeList());
+		
+		TFModifier rndMod = attributeMods.get(Util.random.nextInt(attributeMods.size()));
+		attributeMods.remove(rndMod);
+		TFModifier rndMod2 = attributeMods.get(Util.random.nextInt(attributeMods.size()));
+		
+		effects.add(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, rndMod, TFPotency.MAJOR_BOOST, 0));
+		effects.add(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, rndMod2, TFPotency.MAJOR_BOOST, 0));
+		
+		return AbstractClothingType.generateClothing(
+				type,
+				type.getAvailablePrimaryColours().get(Util.random.nextInt(type.getAvailablePrimaryColours().size())),
+				effects);
+	}
+	
 	public String getId() {
 		return ClothingType.getIdFromClothingType(this);
 	}

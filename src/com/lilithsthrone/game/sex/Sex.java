@@ -636,7 +636,7 @@ public enum Sex {
 								+ " cock, you are now experienced enough to comfortably suck " + PenisSize.getPenisSizeFromInt((int)participant.getFaceRawCapacityValue()).getDescriptor() + " cocks!</b></p>");
 				}
 
-				if(participant.getArousal() > ArousalLevel.THREE_HEATED.getMaximumValue()) {
+				if(participant.getArousal() > ArousalLevel.THREE_HEATED.getMaximumValue() && getNumberOfOrgasms(participant) == 0) {
 					participant.addStatusEffect(StatusEffect.FRUSTRATED_NO_ORGASM, 240+postSexDialogue.getMinutesPassed());
 					sexSB.append("<p style='text-align:center'>[style.boldArcane(After stopping so close to the edge, you're left feeling frustrated and horny!)]</p>");
 				}
@@ -876,7 +876,7 @@ public enum Sex {
 				
 				
 				// Extra effects:
-				if(participant.getArousal() > ArousalLevel.THREE_HEATED.getMaximumValue()) {
+				if(participant.getArousal() > ArousalLevel.THREE_HEATED.getMaximumValue() && getNumberOfOrgasms(participant) == 0) {
 					participant.addStatusEffect(StatusEffect.FRUSTRATED_NO_ORGASM, 240+postSexDialogue.getMinutesPassed());
 					sexSB.append("<p style='text-align:center'>[style.boldArcane(After stopping so close to the edge, [npc.name] is left feeling frustrated and horny!)]</p>");
 				}
@@ -1882,9 +1882,17 @@ public enum Sex {
 			}
 			
 			// Apply orgasm arousal resets:
-			incrementNumberOfOrgasms(Main.game.getPlayer(), 1);
-			player().setArousal(0);
-			Main.game.getPlayer().applyOrgasmCumEffect();
+			if((Main.game.getPlayer().hasPenis() && Main.game.getPlayer().getPenisRawOrgasmCumQuantity()>0)
+					|| !Main.game.getPlayer().hasPenis()) {
+				incrementNumberOfOrgasms(Main.game.getPlayer(), 1);
+				player().setArousal(0);
+				Main.game.getPlayer().applyOrgasmCumEffect();
+				
+			} else {
+				Main.game.getPlayer().setArousal(20);
+				Main.game.getPlayer().addStatusEffect(StatusEffect.FRUSTRATED_NO_ORGASM, 240+postSexDialogue.getMinutesPassed());
+				sexSB.append("<p style='text-align:center'>Not producing any cum upon reaching your climax can't be counted as a real orgasm, and makes you feel [style.boldBad(frustrated and horny)]!</p>");
+			}
 			
 			// Reset appropriate flags:
 			SexFlags.partnerRequestedCreampie = false;
@@ -1922,9 +1930,18 @@ public enum Sex {
 			}
 			
 			// Apply orgasm arousal resets:
-			incrementNumberOfOrgasms(activePartner, 1);
-			activePartner.setArousal(0);
-			activePartner.applyOrgasmCumEffect();
+			if((activePartner.hasPenis() && activePartner.getPenisRawOrgasmCumQuantity()>0)
+					|| !activePartner.hasPenis()) {
+				incrementNumberOfOrgasms(activePartner, 1);
+				activePartner.setArousal(0);
+				activePartner.applyOrgasmCumEffect();
+				
+			} else {
+				activePartner.setArousal(20);
+				activePartner.addStatusEffect(StatusEffect.FRUSTRATED_NO_ORGASM, 240+postSexDialogue.getMinutesPassed());
+				sexSB.append(UtilText.parse(activePartner,
+						"<p style='text-align:center'>Not producing any cum upon reaching [npc.her] climax can't be counted as a real orgasm, and makes [npc.name] feel [style.boldBad(frustrated and horny)]!</p>"));
+			}
 
 			// Reset appropriate flags:
 			SexFlags.playerRequestedCreampie = false;
