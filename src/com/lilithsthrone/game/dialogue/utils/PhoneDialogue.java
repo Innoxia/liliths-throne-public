@@ -775,14 +775,14 @@ public class PhoneDialogue {
 						Colour.TEXT, !knowsPenis?"Unknown":(character.getPenisType() == PenisType.NONE ? "N/A" : String.valueOf(character.getPenisCumStorage().getPregnancyModifier())),
 						Colour.GENERIC_SEX, !knowsPenis?"Unknown":"N/A",
 						true)
-				+ statRow(Colour.TRANSFORMATION_GENERIC, "Cum Regeneration (%/minute)",
+				+ (Main.getProperties().hasValue(PropertyValue.cumRegenerationContent) ? statRow(Colour.TRANSFORMATION_GENERIC, "Cum Regeneration (%/minute)",
 						Colour.TEXT, !knowsPenis?"Unknown":String.valueOf(Math.round((character.getPenisCumProductionRegeneration().getPercentageRegen()*100)*100)/100f),
 						Colour.GENERIC_SEX, !knowsPenis?"Unknown":Util.capitaliseSentence(character.getPenisCumProductionRegeneration().getName()),
 						false)
 				+ statRow(Colour.TRANSFORMATION_GENERIC, "Cum Expulsion (% of stored cum)",
 						Colour.TEXT, !knowsPenis?"Unknown":String.valueOf(Math.round((character.getPenisRawCumExpulsionValue()*100)*100)/100f),
 						Colour.GENERIC_SEX, !knowsPenis?"Unknown":Util.capitaliseSentence(character.getPenisCumExpulsion().getDescriptor()),
-						false)
+						false) : "")
 				
 				+ "<span style='height:16px;width:100%;float:left;'></span>"
 				+ "<h6 style='color:"+Colour.TRANSFORMATION_SEXUAL.toWebHexString()+"; text-align:center;'>Vagina Attributes</h6>"
