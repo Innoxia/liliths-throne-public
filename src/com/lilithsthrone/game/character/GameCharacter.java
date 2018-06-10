@@ -1909,13 +1909,13 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		element = (Element) ((Element) nodes.item(0)).getElementsByTagName("sexPartnerMap").item(0);
 		if(element!=null) {
 			NodeList sexPartnerIds = element.getElementsByTagName("id");
-			for(int i=0; i<sexPartnerIds.getLength(); i++){
+			for(int i = 0; i < sexPartnerIds.getLength(); i++){
 				Element e = ((Element)sexPartnerIds.item(i));
 				
 				if(!e.getAttribute("value").equals("NOT_SET")) { // Don't load in stats from unknown NPCs
 					character.sexPartnerMap.put(e.getAttribute("value"), new HashMap<>());
-					NodeList sexPartnerEntries = element.getElementsByTagName("entry");
-					for(int j=0; j<sexPartnerEntries.getLength(); j++){
+					NodeList sexPartnerEntries = e.getElementsByTagName("entry");
+					for(int j = 0; j < sexPartnerEntries.getLength(); j++){
 						Element e2 = ((Element)sexPartnerEntries.item(j));
 	
 						try {
