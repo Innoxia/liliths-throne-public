@@ -658,9 +658,9 @@ public class Game implements Serializable, XMLSaving {
 				Map<String, Class<? extends NPC>> npcClasses = new HashMap<>();
 				Map<Class<? extends NPC>, Method> loadFromXMLMethods = new HashMap<>();
 				Map<Class<? extends NPC>, Constructor<? extends NPC>> constructors = new HashMap<>();
-                int totalNpcCount = npcs.getLength();
+				int totalNpcCount = npcs.getLength();
 				for(int i=0; i < totalNpcCount; i++) {
-                    Element e = (Element) npcs.item(i);
+					Element e = (Element) npcs.item(i);
 					
 					if(!addedIds.contains(((Element)e.getElementsByTagName("id").item(0)).getAttribute("value"))) {
 						String className = ((Element)e.getElementsByTagName("pathName").item(0)).getAttribute("value");

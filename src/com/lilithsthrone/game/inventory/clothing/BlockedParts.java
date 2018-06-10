@@ -150,10 +150,8 @@ public class BlockedParts implements Serializable, XMLSaving {
 		
 		List<InventorySlot> loadedConcealedSlots = new ArrayList<>();
 		Element concealedSlotsElement = (Element)parentElement.getElementsByTagName("concealedSlots").item(0);
-
 		if(!concealedSlotsElement.getAttribute("values").isEmpty()) {
 			loadedConcealedSlots = PresetConcealmentLists.valueOf(concealedSlotsElement.getAttribute("values")).getPresetInventorySlotList();
-
 		} else {
 			try {
 				for(int i=0; i<concealedSlotsElement.getElementsByTagName("slot").getLength(); i++){
