@@ -7,6 +7,7 @@ import java.util.Map.Entry;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.body.Covering;
@@ -188,8 +189,9 @@ public class Nyan extends NPC {
 			if(npcSpecificElement!=null) {
 				entry.getValue().clear();
 				
-				for(int i=0; i<npcSpecificElement.getElementsByTagName("clothing").getLength(); i++){
-					Element e = (Element) npcSpecificElement.getElementsByTagName("clothing").item(i);
+				NodeList nodeList = npcSpecificElement.getElementsByTagName("clothing");
+				for(int i=0; i < nodeList.getLength(); i++){
+					Element e = (Element) nodeList.item(i);
 					entry.getValue().add(AbstractClothing.loadFromXML(e, doc));
 				}
 				

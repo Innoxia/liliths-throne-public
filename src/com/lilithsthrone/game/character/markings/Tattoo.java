@@ -10,6 +10,7 @@ import java.util.Map.Entry;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
@@ -177,8 +178,9 @@ public class Tattoo extends AbstractCoreItem implements XMLSaving {
 			
 			Element element = (Element)parentElement.getElementsByTagName("effects").item(0);
 			if(element!=null) {
-				for(int i=0; i<element.getElementsByTagName("effect").getLength(); i++){
-					Element e = ((Element)element.getElementsByTagName("effect").item(i));
+				NodeList nodeList = element.getElementsByTagName("effect");
+				for(int i = 0; i < nodeList.getLength(); i++){
+					Element e = ((Element)nodeList.item(i));
 					tat.addEffect(ItemEffect.loadFromXML(e, doc));
 				}
 			}

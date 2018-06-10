@@ -1036,6 +1036,15 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		return properties;
 	}
 	
+	public static String getValueFromElementWithTagName(Element parentElement, String tagName) {
+		return getValueFromElementWithTagName(parentElement, tagName, null);
+	}
+	
+	public static String getValueFromElementWithTagName(Element parentElement, String tagName, String defaultValue) {
+		Element x = (Element) parentElement.getElementsByTagName(tagName).item(0);
+		return x != null ? x.getAttribute("value") : defaultValue;
+	}
+	
 	public static void loadGameCharacterVariablesFromXML(GameCharacter character, StringBuilder log, Element parentElement, Document doc, CharacterImportSetting... settings) {
 
 		boolean noPregnancy = Arrays.asList(settings).contains(CharacterImportSetting.NO_PREGNANCY);
@@ -1047,22 +1056,20 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		NodeList nodes = parentElement.getElementsByTagName("core");
 		Element element = (Element) nodes.item(0);
 
-		String version = "";
-		if(element.getElementsByTagName("version").item(0)!=null) {
-			version = ((Element) element.getElementsByTagName("version").item(0)).getAttribute("value");
-		}
-		
-		if(((Element)element.getElementsByTagName("id").item(0))!=null) {
-			character.setId(((Element)element.getElementsByTagName("id").item(0)).getAttribute("value"));
+		String version = getValueFromElementWithTagName(element, "version", "");
+		String loadedCharacterId = getValueFromElementWithTagName(element, "id");
+		if (loadedCharacterId != null) {
+			character.setId(loadedCharacterId);
 			CharacterUtils.appendToImportLog(log, "</br>Set id: " + character.getId());
 		}
 		
 		// Name:
-		if(!((Element)element.getElementsByTagName("name").item(0)).getAttribute("value").isEmpty()) {
-			character.setName(new NameTriplet(((Element)element.getElementsByTagName("name").item(0)).getAttribute("value")));
-			CharacterUtils.appendToImportLog(log, "</br>Set name: " + ((Element)element.getElementsByTagName("name").item(0)).getAttribute("value"));
+		Element nameElement = (Element) element.getElementsByTagName("name").item(0);
+		String nameElementValue = nameElement.getAttribute("value");
+		if (!nameElementValue.isEmpty()) {
+			character.setName(new NameTriplet(nameElementValue));
+			CharacterUtils.appendToImportLog(log, "</br>Set name: " + nameElementValue);
 		} else {
-			Element nameElement = ((Element)element.getElementsByTagName("name").item(0));
 			character.setName(new NameTriplet(
 					nameElement.getAttribute("nameMasculine"),
 					nameElement.getAttribute("nameAndrogynous"),
@@ -1120,8 +1127,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			nodes = parentElement.getElementsByTagName("personality");
 			Element personalityElement = (Element) nodes.item(0);
 			if(personalityElement!=null) {
-				for(int i=0; i<personalityElement.getElementsByTagName("personalityEntry").getLength(); i++){
-					Element e = ((Element)personalityElement.getElementsByTagName("personalityEntry").item(i));
+				NodeList personalityEntries = personalityElement.getElementsByTagName("personalityEntry");
+				for(int i=0; i<personalityEntries.getLength(); i++){
+					Element e = ((Element)personalityEntries.item(i));
 					try {
 						character.setPersonalityTrait(PersonalityTrait.valueOf(e.getAttribute("trait")), PersonalityWeight.valueOf(e.getAttribute("weight")));
 						CharacterUtils.appendToImportLog(log, "</br>Added personality: "+e.getAttribute("trait")+" "+e.getAttribute("weight"));
@@ -1133,7 +1141,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		}
 		
 		if(element.getElementsByTagName("obedience").getLength()!=0) {
-			character.setObedience(Float.valueOf(((Element)element.getElementsByTagName("obedience").item(0)).getAttribute("value")));
+			character.setObedienceSilentlyFromSavefile(Float.valueOf(((Element)element.getElementsByTagName("obedience").item(0)).getAttribute("value")));
 			CharacterUtils.appendToImportLog(log, "</br>Set obedience: "+character.getObedience());
 		}
 		
@@ -1156,13 +1164,14 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		
 		
 		
-		int extraLevelUpPoints=0;
+		int extraLevelUpPoints = 0;
 		// If there is a version number, attributes should be working correctly:
 		if(element.getElementsByTagName("version").item(0)!=null) {
 			nodes = parentElement.getElementsByTagName("attributes");
 			Element attElement = (Element) nodes.item(0);
-			for(int i=0; i<attElement.getElementsByTagName("attribute").getLength(); i++){
-				Element e = ((Element)attElement.getElementsByTagName("attribute").item(i));
+			NodeList attributeList = attElement.getElementsByTagName("attribute");
+			for(int i=0; i<attributeList.getLength(); i++){
+				Element e = ((Element)attributeList.item(i));
 				
 				try {
 					if(e.getAttribute("type").equals("CORRUPTION")) {
@@ -1208,8 +1217,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		nodes = parentElement.getElementsByTagName("playerKnowsAreas");
 		Element knowsElement = (Element) nodes.item(0);
 		if(knowsElement!=null) {
-			for(int i=0; i<knowsElement.getElementsByTagName("area").getLength(); i++){
-				Element e = ((Element)knowsElement.getElementsByTagName("area").item(i));
+			NodeList knownAreas = knowsElement.getElementsByTagName("area");
+			for(int i=0; i<knownAreas.getLength(); i++){
+				Element e = ((Element)knownAreas.item(i));
 				
 				try {
 					character.getPlayerKnowsAreas().add(CoverableArea.valueOf(e.getAttribute("type")));
@@ -1401,8 +1411,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		nodes = parentElement.getElementsByTagName("scars");
 		Element scarsContainerElement = (Element) nodes.item(0);
 		if(scarsContainerElement!=null) {
-			for(int i=0; i<scarsContainerElement.getElementsByTagName("scarEntry").getLength(); i++){
-				Element e = ((Element)scarsContainerElement.getElementsByTagName("scarEntry").item(i));
+			NodeList scarEntries = scarsContainerElement.getElementsByTagName("scarEntry");
+			for(int i=0; i<scarEntries.getLength(); i++){
+				Element e = ((Element)scarEntries.item(i));
 				
 				character.setScar(InventorySlot.valueOf(e.getAttribute("slot")), Scar.loadFromXML((Element) e.getElementsByTagName("scar").item(0), doc));
 			}
@@ -1411,8 +1422,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		nodes = parentElement.getElementsByTagName("tattoos");
 		Element tattoosContainerElement = (Element) nodes.item(0);
 		if(tattoosContainerElement!=null) {
-			for(int i=0; i<tattoosContainerElement.getElementsByTagName("tattooEntry").getLength(); i++){
-				Element e = ((Element)tattoosContainerElement.getElementsByTagName("tattooEntry").item(i));
+			NodeList tattooEntries = tattoosContainerElement.getElementsByTagName("tattooEntry");
+			for(int i=0; i<tattooEntries.getLength(); i++){
+				Element e = ((Element)tattooEntries.item(i));
 				
 				character.addTattoo(InventorySlot.valueOf(e.getAttribute("slot")), Tattoo.loadFromXML((Element) e.getElementsByTagName("tattoo").item(0), doc));
 			}
@@ -1427,8 +1439,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		nodes = parentElement.getElementsByTagName("potionAttributes");
 		Element attElement = (Element) nodes.item(0);
 		if(attElement!=null) {
-			for(int i=0; i<attElement.getElementsByTagName("attribute").getLength(); i++){
-				Element e = ((Element)attElement.getElementsByTagName("attribute").item(i));
+			NodeList potionAttributesList = attElement.getElementsByTagName("attribute");
+			for(int i=0; i<potionAttributesList.getLength(); i++){
+				Element e = ((Element)potionAttributesList.item(i));
 
 				try {
 					character.addPotionEffect(Attribute.valueOf(e.getAttribute("type")), Float.valueOf(e.getAttribute("value")));
@@ -1442,8 +1455,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		nodes = parentElement.getElementsByTagName("traits");
 		element = (Element) nodes.item(0);
 		if(element!=null) {
-			for(int i=0; i<element.getElementsByTagName("perk").getLength(); i++){
-				Element e = ((Element)element.getElementsByTagName("perk").item(i));
+			NodeList perkElements = element.getElementsByTagName("perk");
+			for(int i=0; i<perkElements.getLength(); i++){
+				Element e = ((Element)perkElements.item(i));
 				Perk p = Perk.valueOf(e.getAttribute("type"));
 				if(p.isEquippableTrait()) {
 					character.addTrait(p);
@@ -1461,8 +1475,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				character.clearTraits();
 				CharacterUtils.appendToImportLog(log, "</br>Added Perk Points: "+points);
 			} else {
-				for(int i=0; i<element.getElementsByTagName("perk").getLength(); i++){
-					Element e = ((Element)element.getElementsByTagName("perk").item(i));
+				NodeList perkElements = element.getElementsByTagName("perk");
+				for(int i=0; i<perkElements.getLength(); i++){
+					Element e = ((Element)perkElements.item(i));
 					
 					String type = e.getAttribute("type");
 					type = type.replaceAll("STRENGTH_", "PHYSIQUE_");
@@ -1479,8 +1494,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		nodes = parentElement.getElementsByTagName("knownSpells");
 		element = (Element) nodes.item(0);
 		try {
-			for(int i=0; i<element.getElementsByTagName("spell").getLength(); i++){
-				Element e = ((Element)element.getElementsByTagName("spell").item(i));
+			NodeList spellElements = element.getElementsByTagName("spell");
+			for(int i=0; i<spellElements.getLength(); i++){
+				Element e = ((Element)spellElements.item(i));
 				character.addSpell(Spell.valueOf(e.getAttribute("type")));
 			}
 		} catch(Exception ex) {
@@ -1489,8 +1505,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		nodes = parentElement.getElementsByTagName("spellUpgrades");
 		element = (Element) nodes.item(0);
 		try {
-			for(int i=0; i<element.getElementsByTagName("upgrade").getLength(); i++){
-				Element e = ((Element)element.getElementsByTagName("upgrade").item(i));
+			NodeList upgradeElements = element.getElementsByTagName("upgrade");
+			for(int i=0; i<upgradeElements.getLength(); i++){
+				Element e = ((Element)upgradeElements.item(i));
 				character.addSpellUpgrade(SpellUpgrade.valueOf(e.getAttribute("type")));
 			}
 		} catch(Exception ex) {
@@ -1499,8 +1516,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		nodes = parentElement.getElementsByTagName("spellUpgradePoints");
 		element = (Element) nodes.item(0);
 		try {
-			for(int i=0; i<element.getElementsByTagName("upgradeEntry").getLength(); i++){
-				Element e = ((Element)element.getElementsByTagName("upgradeEntry").item(i));
+			NodeList upgradeEntryElements = element.getElementsByTagName("upgradeEntry");
+			for(int i=0; i<upgradeEntryElements.getLength(); i++){
+				Element e = ((Element)upgradeEntryElements.item(i));
 				character.setSpellUpgradePoints(SpellSchool.valueOf(e.getAttribute("school")), Integer.valueOf(e.getAttribute("points")));
 			}
 		} catch(Exception ex) {
@@ -1510,9 +1528,10 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		nodes = parentElement.getElementsByTagName("fetishes");
 		element = (Element) nodes.item(0);
 		if(element!=null) {
-			if(element.getElementsByTagName("fetish").item(0)!=null && !((Element)element.getElementsByTagName("fetish").item(0)).getAttribute("value").isEmpty()) {
-				for(int i=0; i<element.getElementsByTagName("fetish").getLength(); i++){
-					Element e = ((Element)element.getElementsByTagName("fetish").item(i));
+			NodeList fetishElements = element.getElementsByTagName("fetish");
+			if(fetishElements.item(0)!=null && !((Element)fetishElements.item(0)).getAttribute("value").isEmpty()) {
+				for(int i=0; i<fetishElements.getLength(); i++){
+					Element e = ((Element)fetishElements.item(i));
 					
 					try {
 						if(e.getAttribute("type").equals("FETISH_NON_CON")) { // Support for old non-con fetish:
@@ -1520,7 +1539,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 							CharacterUtils.appendToImportLog(log, "</br>Added refund for old non-con fetish. (+5 arcane essences)");
 							
 						} else if(Fetish.valueOf(e.getAttribute("type")) != null) {
-							if(Boolean.valueOf(((Element)element.getElementsByTagName("fetish").item(0)).getAttribute("value"))) {
+							if(Boolean.valueOf(e.getAttribute("value"))) {
 								character.addFetish(Fetish.valueOf(e.getAttribute("type")));
 								CharacterUtils.appendToImportLog(log, "</br>Added Fetish: "+Fetish.valueOf(e.getAttribute("type")).getName(character));
 							}
@@ -1530,8 +1549,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				}
 				
 			} else {
-				for(int i=0; i<element.getElementsByTagName("fetish").getLength(); i++){
-					Element e = ((Element)element.getElementsByTagName("fetish").item(i));
+				for(int i=0; i<fetishElements.getLength(); i++){
+					Element e = ((Element)fetishElements.item(i));
 					
 					try {
 						if(e.getAttribute("type").equals("FETISH_NON_CON")) { // Support for old non-con fetish:
@@ -1551,8 +1570,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		nodes = parentElement.getElementsByTagName("fetishDesire");
 		element = (Element) nodes.item(0);
 		if(element!=null) {
-			for(int i=0; i<element.getElementsByTagName("entry").getLength(); i++){
-				Element e = ((Element)element.getElementsByTagName("entry").item(i));
+			NodeList fetishDesireEntries = element.getElementsByTagName("entry");
+			for(int i=0; i<fetishDesireEntries.getLength(); i++){
+				Element e = ((Element)fetishDesireEntries.item(i));
 
 				try {
 					character.setFetishDesire(Fetish.valueOf(e.getAttribute("fetish")), FetishDesire.valueOf(e.getAttribute("desire")));
@@ -1565,8 +1585,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		nodes = parentElement.getElementsByTagName("fetishExperience");
 		element = (Element) nodes.item(0);
 		if(element!=null) {
-			for(int i=0; i<element.getElementsByTagName("entry").getLength(); i++){
-				Element e = ((Element)element.getElementsByTagName("entry").item(i));
+			NodeList fetishExperienceEntries = element.getElementsByTagName("entry");
+			for(int i=0; i<fetishExperienceEntries.getLength(); i++){
+				Element e = ((Element)fetishExperienceEntries.item(i));
 
 				try {
 					character.setFetishExperience(Fetish.valueOf(e.getAttribute("fetish")), Integer.valueOf(e.getAttribute("experience")));
@@ -1580,8 +1601,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		// Status Effects:
 		nodes = parentElement.getElementsByTagName("statusEffects");
 		element = (Element) nodes.item(0);
-		for(int i=0; i<element.getElementsByTagName("statusEffect").getLength(); i++){
-			Element e = ((Element)element.getElementsByTagName("statusEffect").item(i));
+		NodeList statusEffectElements = element.getElementsByTagName("statusEffect");
+		for(int i=0; i<statusEffectElements.getLength(); i++){
+			Element e = ((Element)statusEffectElements.item(i));
 			
 			try {
 				if(Integer.valueOf(e.getAttribute("value")) != -1) {
@@ -1602,8 +1624,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		nodes = parentElement.getElementsByTagName("characterRelationships");
 		element = (Element) nodes.item(0);
 		if(element!=null) {
-			for(int i=0; i<element.getElementsByTagName("relationship").getLength(); i++){
-				Element e = ((Element)element.getElementsByTagName("relationship").item(i));
+			NodeList relationshipElements = element.getElementsByTagName("relationship");
+			for(int i=0; i<relationshipElements.getLength(); i++){
+				Element e = ((Element)relationshipElements.item(i));
 				
 				if(!e.getAttribute("character").equals("NOT_SET")) {
 					character.setAffection(e.getAttribute("character"), Float.valueOf(e.getAttribute("value")));
@@ -1627,8 +1650,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				nodes = pregnancyElement.getElementsByTagName("potentialPartnersAsMother");
 				element = (Element) nodes.item(0);
 				if(element!=null) {
-					for(int i=0; i<element.getElementsByTagName("pregnancyPossibility").getLength(); i++){
-						Element e = ((Element)element.getElementsByTagName("pregnancyPossibility").item(i));
+					NodeList motherPregPossibilities = element.getElementsByTagName("pregnancyPossibility");
+					for(int i=0; i<motherPregPossibilities.getLength(); i++){
+						Element e = ((Element)motherPregPossibilities.item(i));
 						
 						character.getPotentialPartnersAsMother().add(PregnancyPossibility.loadFromXML(e, doc));
 						CharacterUtils.appendToImportLog(log, "</br>Added Pregnancy Possibility as mother.");
@@ -1638,8 +1662,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				nodes = pregnancyElement.getElementsByTagName("potentialPartnersAsFather");
 				element = (Element) nodes.item(0);
 				if(element!=null) {
-					for(int i=0; i<element.getElementsByTagName("pregnancyPossibility").getLength(); i++){
-						Element e = ((Element)element.getElementsByTagName("pregnancyPossibility").item(i));
+					NodeList fatherPregPossibilities = element.getElementsByTagName("pregnancyPossibility");
+					for(int i=0; i<fatherPregPossibilities.getLength(); i++){
+						Element e = ((Element)fatherPregPossibilities.item(i));
 						
 						character.getPotentialPartnersAsFather().add(PregnancyPossibility.loadFromXML(e, doc));
 						CharacterUtils.appendToImportLog(log, "</br>Added Pregnancy Possibility as father.");
@@ -1656,8 +1681,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				nodes = pregnancyElement.getElementsByTagName("birthedLitters");
 				element = (Element) nodes.item(0);
 				if(element!=null) {
-					for(int i=0; i<element.getElementsByTagName("litter").getLength(); i++){
-						Element e = ((Element)element.getElementsByTagName("litter").item(i));
+					NodeList litterElements = element.getElementsByTagName("litter");
+					for(int i=0; i<litterElements.getLength(); i++){
+						Element e = ((Element)litterElements.item(i));
 						
 						character.getLittersBirthed().add(Litter.loadFromXML(e, doc));
 						CharacterUtils.appendToImportLog(log, "</br>Added litter birthed.");
@@ -1667,8 +1693,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				nodes = pregnancyElement.getElementsByTagName("littersFathered");
 				element = (Element) nodes.item(0);
 				if(element!=null) {
-					for(int i=0; i<element.getElementsByTagName("litter").getLength(); i++){
-						Element e = ((Element)element.getElementsByTagName("litter").item(i));
+					NodeList litterElements = element.getElementsByTagName("litter");
+					for(int i=0; i<litterElements.getLength(); i++){
+						Element e = ((Element)litterElements.item(i));
 						
 						character.getLittersFathered().add(Litter.loadFromXML(e, doc));
 						CharacterUtils.appendToImportLog(log, "</br>Added litter fathered.");
@@ -1713,7 +1740,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			character.setSlaveJob(SlaveJob.valueOf(((Element)slaveryElement.getElementsByTagName("slaveJob").item(0)).getAttribute("value")));
 			CharacterUtils.appendToImportLog(log, "</br>Set slave job: "+character.getSlaveJob());
 			
-			for(int i=0; i<((Element) slaveryElement.getElementsByTagName("slaveJobSettings").item(0)).getElementsByTagName("setting").getLength(); i++){
+			NodeList slaveJobSettingElements = ((Element) slaveryElement.getElementsByTagName("slaveJobSettings").item(0)).getElementsByTagName("setting");
+			for(int i=0; i<slaveJobSettingElements.getLength(); i++){
 				Element e = ((Element)slaveryElement.getElementsByTagName("setting").item(i));
 				
 				try {
@@ -1735,8 +1763,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				Element e = ((Element)slaveryElement.getElementsByTagName("permission").item(i));
 				SlavePermission slavePermission =  SlavePermission.valueOf(e.getAttribute("type"));
 				
-				for(int j=0; j<e.getElementsByTagName("setting").getLength(); j++){
-					Element e2 = ((Element)e.getElementsByTagName("setting").item(j));
+				NodeList settingElements = e.getElementsByTagName("setting");
+				for(int j=0; j<settingElements.getLength(); j++){
+					Element e2 = ((Element)settingElements.item(j));
 					
 					SlavePermissionSetting setting = SlavePermissionSetting.valueOf(e2.getAttribute("value"));
 					character.addSlavePermissionSetting(slavePermission, setting);
@@ -1820,12 +1849,13 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		// Fluids stored:
 		element = (Element) ((Element) nodes.item(0)).getElementsByTagName("fluidsStoredMap").item(0);
 		if(element!=null) {
-			for(int i=0; i<element.getElementsByTagName("entry").getLength(); i++){
-				Element e = ((Element)element.getElementsByTagName("entry").item(i));
+			NodeList fluidStoredMapEntries = element.getElementsByTagName("entry");
+			for(int i = 0; i < fluidStoredMapEntries.getLength(); i++){
+				Element e = (Element) fluidStoredMapEntries.item(i);
 				OrificeType ot = OrificeType.valueOf(e.getAttribute("orifice"));
-				
-				for(int j=0; j<e.getElementsByTagName("fluidStored").getLength(); j++) {
-					Element fluidStored = ((Element)e.getElementsByTagName("fluidStored").item(j));
+				NodeList fluidStoredEntries = e.getElementsByTagName("fluidStored"); 
+				for (int j = 0; j < fluidStoredEntries.getLength(); j++) {
+					Element fluidStored = (Element) fluidStoredEntries.item(j);
 					character.addFluidStored(ot, FluidStored.loadFromXML(log, fluidStored, doc));
 				}
 			}
@@ -1834,13 +1864,14 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		
 		// Cum counts:
 		element = (Element) ((Element) nodes.item(0)).getElementsByTagName("cumCounts").item(0);
-		for(int i=0; i<element.getElementsByTagName("cumCount").getLength(); i++){
-			Element e = ((Element)element.getElementsByTagName("cumCount").item(i));
+		NodeList cumCountElements = element.getElementsByTagName("cumCount");
+		for(int i = 0; i < cumCountElements.getLength(); i++){
+			Element e = (Element) cumCountElements.item(i);
 			
 			try {
-				for(int it =0 ; it<Integer.valueOf(e.getAttribute("count")) ; it++) {
-					character.incrementCumCount(new SexType(SexParticipantType.valueOf(e.getAttribute("participantType")), PenetrationType.valueOf(e.getAttribute("penetrationType")), OrificeType.valueOf(e.getAttribute("orificeType"))));
-				}
+				SexType sexType = new SexType(SexParticipantType.valueOf(e.getAttribute("participantType")), PenetrationType.valueOf(e.getAttribute("penetrationType")), OrificeType.valueOf(e.getAttribute("orificeType")));
+				int count = Integer.parseInt(e.getAttribute("count"));
+				character.setCumCount(sexType, character.getCumCount(sexType) + count);
 				CharacterUtils.appendToImportLog(log, "</br>Added cum count:"+e.getAttribute("penetrationType")+" "+e.getAttribute("orificeType")+" x "+Integer.valueOf(e.getAttribute("count")));
 			}catch(Exception ex){
 			}
@@ -1848,13 +1879,14 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		
 		// Sex counts:
 		element = (Element) ((Element) nodes.item(0)).getElementsByTagName("sexCounts").item(0);
-		for(int i=0; i<element.getElementsByTagName("sexCount").getLength(); i++){
-			Element e = ((Element)element.getElementsByTagName("sexCount").item(i));
+		NodeList sexCountElements = element.getElementsByTagName("sexCount");
+		for(int i = 0; i < sexCountElements.getLength(); i++){
+			Element e = (Element) sexCountElements.item(i);
 			
 			try {
-				for(int it =0 ; it<Integer.valueOf(e.getAttribute("count")) ; it++) {
-					character.incrementSexCount(new SexType(SexParticipantType.valueOf(e.getAttribute("participantType")), PenetrationType.valueOf(e.getAttribute("penetrationType")), OrificeType.valueOf(e.getAttribute("orificeType"))));
-				}
+				SexType sexType = new SexType(SexParticipantType.valueOf(e.getAttribute("participantType")), PenetrationType.valueOf(e.getAttribute("penetrationType")), OrificeType.valueOf(e.getAttribute("orificeType")));
+				int count = Integer.parseInt(e.getAttribute("count"));
+				character.setSexCount(sexType, character.getSexCount(sexType) + count);
 				CharacterUtils.appendToImportLog(log, "</br>Added sex count:"+e.getAttribute("penetrationType")+" "+e.getAttribute("orificeType")+" x "+Integer.valueOf(e.getAttribute("count")));
 			}catch(Exception ex){
 			}
@@ -1862,8 +1894,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		
 		// Virginity losses:
 		element = (Element) ((Element) nodes.item(0)).getElementsByTagName("virginityTakenBy").item(0);
-		for(int i=0; i<element.getElementsByTagName("virginity").getLength(); i++){
-			Element e = ((Element)element.getElementsByTagName("virginity").item(i));
+		NodeList virginityElements = element.getElementsByTagName("virginity");
+		for(int i=0; i<virginityElements.getLength(); i++){
+			Element e = ((Element)virginityElements.item(i));
 
 			try {
 				character.setVirginityLoss(new SexType(SexParticipantType.valueOf(e.getAttribute("participantType")), PenetrationType.valueOf(e.getAttribute("penetrationType")), OrificeType.valueOf(e.getAttribute("orificeType"))), e.getAttribute("takenBy"));
@@ -1875,14 +1908,15 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		
 		element = (Element) ((Element) nodes.item(0)).getElementsByTagName("sexPartnerMap").item(0);
 		if(element!=null) {
-			for(int i=0; i<element.getElementsByTagName("id").getLength(); i++){
-				Element e = ((Element)element.getElementsByTagName("id").item(i));
+			NodeList sexPartnerIds = element.getElementsByTagName("id");
+			for(int i = 0; i < sexPartnerIds.getLength(); i++){
+				Element e = ((Element)sexPartnerIds.item(i));
 				
 				if(!e.getAttribute("value").equals("NOT_SET")) { // Don't load in stats from unknown NPCs
 					character.sexPartnerMap.put(e.getAttribute("value"), new HashMap<>());
-					
-					for(int j=0; j<element.getElementsByTagName("entry").getLength(); j++){
-						Element e2 = ((Element)element.getElementsByTagName("entry").item(j));
+					NodeList sexPartnerEntries = e.getElementsByTagName("entry");
+					for(int j = 0; j < sexPartnerEntries.getLength(); j++){
+						Element e2 = ((Element)sexPartnerEntries.item(j));
 	
 						try {
 							character.sexPartnerMap.get(e.getAttribute("value")).put(
@@ -1932,8 +1966,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			
 			element = (Element) addictionsElement.getElementsByTagName("psychoactiveFluids").item(0);
 			if(element!=null) {
-				for(int i=0; i<element.getElementsByTagName("fluid").getLength(); i++){
-					Element e = ((Element)element.getElementsByTagName("fluid").item(i));
+				NodeList fluidElements = element.getElementsByTagName("fluid");
+				for(int i=0; i<fluidElements.getLength(); i++){
+					Element e = ((Element)fluidElements.item(i));
 					
 					character.addPsychoactiveFluidIngested(FluidType.valueOf(e.getAttribute("value")));
 					CharacterUtils.appendToImportLog(log, "</br>Added psychoactive fluid:"+e.getAttribute("value"));
@@ -1943,8 +1978,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			// Old addiction support:
 			element = (Element) addictionsElement.getElementsByTagName("addictionSatisfiedMap").item(0);
 			if(element!=null) {
-				for(int i=0; i<element.getElementsByTagName("addiction").getLength(); i++){
-					Element e = ((Element)element.getElementsByTagName("addiction").item(i));
+				NodeList addictionElements = element.getElementsByTagName("addiction");
+				for(int i=0; i<addictionElements.getLength(); i++){
+					Element e = ((Element)addictionElements.item(i));
 					
 					character.setLastTimeSatisfiedAddiction(FluidType.valueOf(e.getAttribute("type")), Long.valueOf(e.getAttribute("value")));
 					CharacterUtils.appendToImportLog(log, "</br>Set satisfied time:"+e.getAttribute("type")+" "+e.getAttribute("value"));
@@ -1954,9 +1990,10 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			// New addiction:
 			element = (Element) addictionsElement.getElementsByTagName("addictions").item(0);
 			if(element!=null) {
-				for(int i=0; i<element.getElementsByTagName("addiction").getLength(); i++){
+				NodeList addictionElements = element.getElementsByTagName("addiction");
+				for(int i=0; i<addictionElements.getLength(); i++){
 					try {
-						character.addAddiction(Addiction.loadFromXML(log, ((Element)element.getElementsByTagName("addiction").item(i)), doc));
+						character.addAddiction(Addiction.loadFromXML(log, ((Element)addictionElements.item(i)), doc));
 					} catch(Exception ex) {	
 					}
 				}
@@ -2675,6 +2712,10 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	
 	public float getObedienceValue() {
 		return Math.round(obedience*100)/100f;
+	}
+	
+	public void setObedienceSilentlyFromSavefile(float obedience) {
+		this.obedience = Math.max(-100, Math.min(100, obedience));
 	}
 
 	public String setObedience(float obedience) {
@@ -4094,14 +4135,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		// Clothing effects:
 		for(AbstractClothing c : this.getClothingCurrentlyEquipped()) {
 			for(ItemEffect ie : c.getEffects()) {
-				if(this.isPlayer()) {
-					String clothingEffectDescription = ie.applyEffect(this, this, turnTime);
-					if(!clothingEffectDescription.isEmpty()) {
-						statusEffectDescriptions.putIfAbsent(StatusEffect.CLOTHING_EFFECT, "");
-						statusEffectDescriptions.put(StatusEffect.CLOTHING_EFFECT, statusEffectDescriptions.get(StatusEffect.CLOTHING_EFFECT) + clothingEffectDescription);
-					}
-				} else {
-					ie.applyEffect(this, this, turnTime);
+				String clothingEffectDescription = ie.applyEffect(this, this, turnTime);
+				if (this.isPlayer() && !clothingEffectDescription.isEmpty()) {
+					statusEffectDescriptions.put(StatusEffect.CLOTHING_EFFECT, statusEffectDescriptions.computeIfAbsent(StatusEffect.CLOTHING_EFFECT, x -> "") + clothingEffectDescription);
 				}
 			}
 		}
@@ -4109,14 +4145,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		// Tattoo effects:
 		for(Tattoo tattoo : tattoos.values()) {
 			for(ItemEffect ie : tattoo.getEffects()) {
-				if(this.isPlayer()) {
-					String tattooEffectDescription = ie.applyEffect(this, this, turnTime);
-					if(!tattooEffectDescription.isEmpty()) {
-						statusEffectDescriptions.putIfAbsent(StatusEffect.CLOTHING_EFFECT, "");
-						statusEffectDescriptions.put(StatusEffect.CLOTHING_EFFECT, statusEffectDescriptions.get(StatusEffect.CLOTHING_EFFECT) + tattooEffectDescription);
-					}
-				} else {
-					ie.applyEffect(this, this, turnTime);
+				String tattooEffectDescription = ie.applyEffect(this, this, turnTime);
+				if (this.isPlayer() && !tattooEffectDescription.isEmpty()) {
+					statusEffectDescriptions.put(StatusEffect.CLOTHING_EFFECT, statusEffectDescriptions.computeIfAbsent(StatusEffect.CLOTHING_EFFECT, x -> "") + tattooEffectDescription);
 				}
 			}
 		}
@@ -4461,7 +4492,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 	
 	public void incrementSexCount(SexType sexType) {
-		sexCountMap.merge(sexType, 1, (a, b) -> a + b);
+		sexCountMap.merge(sexType, 1, Integer::sum);
 	}
 	public void setSexCount(SexType sexType, int integer) {
 		sexCountMap.put(sexType, integer);
@@ -4516,7 +4547,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 
 	// Cum:
 	public void incrementCumCount(SexType sexType) {
-		cumCountMap.merge(sexType, 1, (a, b) -> a + b);
+		cumCountMap.merge(sexType, 1, Integer::sum);
 	}
 	
 	public void setCumCount(SexType sexType, int integer) {

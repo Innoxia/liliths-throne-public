@@ -10,6 +10,7 @@ import java.util.Set;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
@@ -187,8 +188,9 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			npc.addedToContacts = (Boolean.valueOf(((Element)npcSpecificElement.getElementsByTagName("addedToContacts").item(0)).getAttribute("value")));
 		
 	
-			for(int i=0; i<((Element) npcSpecificElement.getElementsByTagName("NPCValues").item(0)).getElementsByTagName("NPCValue").getLength(); i++){
-				Element e = (Element) ((Element) npcSpecificElement.getElementsByTagName("NPCValues").item(0)).getElementsByTagName("NPCValue").item(i);
+			NodeList npcValues = ((Element) npcSpecificElement.getElementsByTagName("NPCValues").item(0)).getElementsByTagName("NPCValue");
+			for(int i = 0; i < npcValues.getLength(); i++){
+				Element e = (Element) npcValues.item(i);
 				npc.NPCFlagValues.add(NPCFlagValue.valueOf(e.getAttribute("value")));
 			}
 			

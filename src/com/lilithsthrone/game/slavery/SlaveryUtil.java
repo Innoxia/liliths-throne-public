@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.body.CoverableArea;
@@ -90,8 +91,9 @@ public class SlaveryUtil implements XMLSaving {
 			slaveryUtil.setGeneratedIncome(Integer.valueOf(parentElement.getAttribute("generatedIncome")));
 			slaveryUtil.setGeneratedUpkeep(Integer.valueOf(parentElement.getAttribute("generatedUpkeep")));
 			
-			for(int i=0; i<parentElement.getElementsByTagName("milkingRoom").getLength(); i++){
-				Element e = ((Element)parentElement.getElementsByTagName("milkingRoom").item(i));
+			NodeList milkingRoomElements = parentElement.getElementsByTagName("milkingRoom");
+			for(int i=0; i<milkingRoomElements.getLength(); i++){
+				Element e = ((Element)milkingRoomElements.item(i));
 				
 				MilkingRoom room = MilkingRoom.loadFromXML(e, doc);
 				
