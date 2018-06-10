@@ -110,8 +110,9 @@ public class SlaveryEventLogEntry implements Serializable, XMLSaving {
 		Element tagNode = (Element) nodes.item(0);
 		if(tagNode != null) {
 			loadedTags = new ArrayList<>();
-			for(int i=0; i<tagNode.getElementsByTagName("tag").getLength(); i++){
-				Element e = ((Element)tagNode.getElementsByTagName("tag").item(i));
+			NodeList tagElements = tagNode.getElementsByTagName("tag");
+			for(int i=0; i<tagElements.getLength(); i++){
+				Element e = ((Element)tagElements.item(i));
 
 				try {
 					String value = e.getAttribute("value");
@@ -131,9 +132,11 @@ public class SlaveryEventLogEntry implements Serializable, XMLSaving {
 		nodes = parentElement.getElementsByTagName("extraEffects");
 		Element extraEffectNode = (Element) nodes.item(0);
 		if(extraEffectNode != null) {
-			loadedExtraEffects = new ArrayList<>();
-			for(int i=0; i<extraEffectNode.getElementsByTagName("entry").getLength(); i++){
-				Element e = ((Element)extraEffectNode.getElementsByTagName("entry").item(i));
+			NodeList extraEffectElements = extraEffectNode.getElementsByTagName("entry");
+			loadedExtraEffects = new ArrayList<>(extraEffectElements.getLength());
+			
+			for(int i=0; i<extraEffectElements.getLength(); i++){
+				Element e = ((Element)extraEffectElements.item(i));
 				
 				try {
 					loadedExtraEffects.add(e.getAttribute("value"));

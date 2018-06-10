@@ -9,6 +9,7 @@ import java.util.Map.Entry;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
@@ -272,8 +273,9 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 				clothing.getEffects().clear();
 				
 				Element element = (Element)parentElement.getElementsByTagName("attributeModifiers").item(0);
-				for(int i=0; i<element.getElementsByTagName("modifier").getLength(); i++){
-					Element e = ((Element)element.getElementsByTagName("modifier").item(i));
+				NodeList modifierElements = element.getElementsByTagName("modifier");
+				for(int i = 0; i < modifierElements.getLength(); i++){
+					Element e = ((Element)modifierElements.item(i));
 					try {
 						Attribute att = Attribute.valueOf(e.getAttribute("attribute"));
 						int value = Integer.valueOf(e.getAttribute("value"));
@@ -310,8 +312,9 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 				clothing.getEffects().clear();
 				
 				Element element = (Element)parentElement.getElementsByTagName("effects").item(0);
-				for(int i=0; i<element.getElementsByTagName("effect").getLength(); i++){
-					Element e = ((Element)element.getElementsByTagName("effect").item(i));
+				NodeList effectElements = element.getElementsByTagName("effect");
+				for(int i=0; i<effectElements.getLength(); i++){
+					Element e = ((Element)effectElements.item(i));
 					clothing.addEffect(ItemEffect.loadFromXML(e, doc));
 				}
 			} catch(Exception ex) {
@@ -322,8 +325,9 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 		try {
 			clothing.displacedList = new ArrayList<>();
 			Element displacementElement = (Element)parentElement.getElementsByTagName("displacedList").item(0);
-			for(int i=0; i<displacementElement.getElementsByTagName("displacementType").getLength(); i++){
-				Element e = ((Element)displacementElement.getElementsByTagName("displacementType").item(i));
+			NodeList displacementTypeElements = displacementElement.getElementsByTagName("displacementType");
+			for(int i = 0; i < displacementTypeElements.getLength(); i++){
+				Element e = ((Element)displacementTypeElements.item(i));
 				
 				DisplacementType dt = DisplacementType.valueOf(e.getAttribute("value"));
 				boolean displacementTypeFound = false;

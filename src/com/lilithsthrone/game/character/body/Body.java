@@ -13,6 +13,8 @@ import java.util.Map.Entry;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.Litter;
@@ -34,6 +36,7 @@ import com.lilithsthrone.game.character.body.types.TailType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.types.WingType;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeShape;
+import com.lilithsthrone.game.character.body.valueEnums.BodyCoveringSkinToneColorHelper;
 import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.BodyShape;
@@ -289,10 +292,6 @@ public class Body implements Serializable, XMLSaving {
 		// Everything is based on human skin value:
 		StartingSkinTone tone = StartingSkinTone.values()[Util.random.nextInt(StartingSkinTone.values().length)];
 		
-		List<Colour> suitableColours = tone.getAssociatedColours();
-		
-		List<Colour> colourApplicationList = new ArrayList<>();
-
 		for (BodyCoveringType s : BodyCoveringType.values()) {
 			
 			// Specials:
@@ -310,24 +309,13 @@ public class Body implements Serializable, XMLSaving {
 						Colour.COVERING_NONE, false));
 				continue;
 			}
-			
-			colourApplicationList.clear();
-			colourApplicationList.addAll(s.getNaturalColoursPrimary());
-			colourApplicationList.retainAll(suitableColours);
-			if(colourApplicationList.isEmpty()) {
-				colourApplicationList.addAll(s.getNaturalColoursPrimary());
-			}
+			List<Colour> colourApplicationList = BodyCoveringSkinToneColorHelper.getAcceptableColoursForPrimary(tone, s);
 			Colour primary = colourApplicationList.get(Util.random.nextInt(colourApplicationList.size()));
 			
 			Colour secondary = primary;
 			
 			if(!s.getNaturalColoursSecondary().isEmpty()) {
-				colourApplicationList.clear();
-				colourApplicationList.addAll(s.getNaturalColoursSecondary());
-				colourApplicationList.retainAll(suitableColours);
-				if(colourApplicationList.isEmpty()) {
-					colourApplicationList.addAll(s.getNaturalColoursSecondary());
-				}
+				colourApplicationList = BodyCoveringSkinToneColorHelper.getAcceptableColoursForSecondary(tone, s);
 				secondary = colourApplicationList.get(Util.random.nextInt(colourApplicationList.size()));
 			}
 			
@@ -1259,8 +1247,9 @@ public class Body implements Serializable, XMLSaving {
 		}
 		
 		
-		for(int i=0; i<element.getElementsByTagName("bodyCovering").getLength(); i++){
-			Element e = ((Element)element.getElementsByTagName("bodyCovering").item(i));
+		NodeList bodyCoverings = element.getElementsByTagName("bodyCovering");
+		for(int i = 0; i < bodyCoverings.getLength(); i++){
+			Element e = ((Element)bodyCoverings.item(i));
 
 			String type = e.getAttribute("type");
 			if(type.equals("HORN_COW") || type.equals("HORN_DEMON")) {
