@@ -15251,9 +15251,17 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		setPenisStoredCum(getPenisRawCumStorageValue());
 	}
 	public CumProduction getPenisStoredCum() {
+		if(!Main.getProperties().hasValue(PropertyValue.cumRegenerationContent)) {
+			return getPenisCumStorage();
+		}
+		
 		return body.getPenis().getTesticle().getStoredCum();
 	}
 	public int getPenisRawStoredCumValue() {
+		if(!Main.getProperties().hasValue(PropertyValue.cumRegenerationContent)) {
+			return getPenisRawCumStorageValue();
+		}
+		
 		return body.getPenis().getTesticle().getRawStoredCumValue();
 	}
 	public String setPenisStoredCum(int cum) {
@@ -15264,6 +15272,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 	// Orgasm cum amount:
 	public FluidExpulsion getPenisCumExpulsion() {
+		if (!Main.getProperties().hasValue(PropertyValue.cumRegenerationContent)) {
+			return FluidExpulsion.FOUR_HUGE;
+		}
 		return body.getPenis().getTesticle().getCumExpulsion();
 	}
 	/** As a percentage from 0 -> 100. */
@@ -15280,13 +15291,18 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		return CumProduction.getCumProductionFromInt(getPenisRawOrgasmCumQuantity());
 	}
 	public int getPenisRawOrgasmCumQuantity() {
+		if (!Main.getProperties().hasValue(PropertyValue.cumRegenerationContent)) {
+			return body.getPenis().getTesticle().getRawCumStorageValue();
+		}
 		if(body.getPenis().getTesticle().getRawStoredCumValue() <= Testicle.MINIMUM_VALUE_FOR_ALL_CUM_TO_BE_EXPELLED) {
 			return body.getPenis().getTesticle().getRawStoredCumValue();
 		}
 		return (int) (body.getPenis().getTesticle().getRawStoredCumValue() * (getPenisRawCumExpulsionValue()/100f));
 	}
 	public void applyOrgasmCumEffect() {
-		this.incrementPenisStoredCum(-getPenisRawOrgasmCumQuantity());
+		if(Main.getProperties().hasValue(PropertyValue.cumRegenerationContent)) {
+			this.incrementPenisStoredCum(-getPenisRawOrgasmCumQuantity());
+		}
 	}
 	// Regen:
 	public FluidRegeneration getPenisCumProductionRegeneration() {

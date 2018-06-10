@@ -4091,7 +4091,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return target.getPenisRawCumStorageValue()>0 && target.getPenisRawStoredCumValue()!=target.getPenisRawCumStorageValue();
+			return Main.getProperties().hasValue(PropertyValue.cumRegenerationContent) && target.getPenisRawCumStorageValue()>0 && target.getPenisRawStoredCumValue()!=target.getPenisRawCumStorageValue();
 		}
 		
 		@Override
@@ -4126,7 +4126,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return target.getPenisRawCumStorageValue()>0 && target.getPenisRawStoredCumValue()==target.getPenisRawCumStorageValue();
+			return Main.getProperties().hasValue(PropertyValue.cumRegenerationContent) && target.getPenisRawCumStorageValue()>0 && target.getPenisRawStoredCumValue()==target.getPenisRawCumStorageValue();
 		}
 		
 		@Override
