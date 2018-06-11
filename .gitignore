@@ -8,3 +8,4 @@ target/
 *.class
 *.log
 res/mods/
+*.iml
