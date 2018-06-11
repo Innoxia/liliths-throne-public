@@ -112,7 +112,7 @@ public class DicePoker {
 			}
 			Hand playerHand = Hand.getHand(playerDice);
 			UtilText.nodeContentSB.append("<div class='container-full-width' style='text-align:center;'>"
-					+ "<b>"+playerHand.getRanking()+". "+playerHand.getName()+"</b> | [style.colourDisabled(Value: "+Hand.getValue(playerDice)+")]</br>"
+					+ "<b>"+playerHand.getRanking()+". "+playerHand.getName()+"</b> | [style.colourDisabled(Value: "+Hand.getValue(playerDice)+")]<br/>"
 					+(comparingHands==0
 						?"[style.colourDisabled(You "+(progress==3?"have drawn":"are drawing")+"...)]"
 						:(comparingHands<0
@@ -134,7 +134,7 @@ public class DicePoker {
 			}
 			Hand gamblerHand = Hand.getHand(gamblerDice);
 			UtilText.nodeContentSB.append("<div class='container-full-width' style='text-align:center;'>"
-					+ "<b>"+gamblerHand.getRanking()+". "+gamblerHand.getName()+"</b> | [style.colourDisabled(Value: "+Hand.getValue(gamblerDice)+")]</br>"
+					+ "<b>"+gamblerHand.getRanking()+". "+gamblerHand.getName()+"</b> | [style.colourDisabled(Value: "+Hand.getValue(gamblerDice)+")]<br/>"
 					+UtilText.parse(gambler,(comparingHands==0
 						?"[style.colourDisabled([npc.Name] "+(progress==3?"has drawn":"is drawing")+"...)]"
 						:(comparingHands>0
@@ -308,7 +308,7 @@ public class DicePoker {
 									+ "[npc.speech(Yeah, I'm feeling the same,)] [npc.name] sighs, [npc.speech(I call too. Now let's finish this.)]"
 								+ "</p>"
 								+ "<p style='text-align:center;'>"
-									+ "<i>[npc.Name] <b>called</b> as well!</br>"
+									+ "<i>[npc.Name] <b>called</b> as well!<br/>"
 									+ "Click the dice you want to reroll, then press 'Roll'.</i>"
 								+ "</p>";
 							calculateGamblerRerolls();
@@ -353,7 +353,7 @@ public class DicePoker {
 										+ "[npc.Name] places "+UtilText.formatAsMoney(raise, "span")+" on the table, before grinning at you. [npc.speech(Now, let's finish this!)]"
 									+ "</p>"
 									+ "<p style='text-align:center;'>"
-										+ "<i>[npc.Name] <b>called</b> your raise!</br>"
+										+ "<i>[npc.Name] <b>called</b> your raise!<br/>"
 										+ "Click the dice you want to reroll, then press 'Roll'.</i>"
 									+ "</p>";
 							calculateGamblerRerolls();
@@ -392,7 +392,7 @@ public class DicePoker {
 								+ "[npc.speech(Fine,)] [npc.name] huffs, [npc.speech(that's only going to be more money for me! Now, let's finish this!)]"
 							+ "</p>"
 							+ "<p style='text-align:center;'>"
-								+ "<i>You <b>called</b> [npc.name]'s raise!</br>"
+								+ "<i>You <b>called</b> [npc.name]'s raise!<br/>"
 								+ "Click the dice you want to reroll, then press 'Roll'.</i>"
 							+ "</p>";
 						calculateGamblerRerolls();

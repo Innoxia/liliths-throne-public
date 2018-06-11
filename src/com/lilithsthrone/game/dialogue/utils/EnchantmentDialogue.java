@@ -207,7 +207,7 @@ public class EnchantmentDialogue {
 				int i=0;
 				if(effect.getEffectsDescription(Main.game.getPlayer(), Main.game.getPlayer())!=null) {
 					if(i>0) {
-						inventorySB.append("</br>");
+						inventorySB.append("<br/>");
 					}
 					for(String s : effect.getEffectsDescription(Main.game.getPlayer(), Main.game.getPlayer())) {
 						inventorySB.append("<b>"+Util.capitaliseSentence(s)+"</b>");
@@ -277,12 +277,12 @@ public class EnchantmentDialogue {
 												+ (ingredient instanceof Tattoo
 														?UtilText.formatAsMoney(EnchantingUtils.getCost(ingredient, effects)*EnchantingUtils.FLAME_COST_MODIFER, "b")
 														:UtilText.formatAsEssences(EnchantingUtils.getCost(ingredient, effects), "b", false))
-												+"</br>"
+												+"<br/>"
 											+"<form style='padding:0; margin:0 0 4px 0; text-align:center;'><input type='text' id='output_name' value='" +UtilText.parseForHTMLDisplay(outputName)+"' style='padding:0;margin:0;width:80%;'></form>"
 								);
 			
 				if(effects.isEmpty()) {
-					inventorySB.append("</br><span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No effects added</span>");
+					inventorySB.append("<br/><span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No effects added</span>");
 				} else {
 					i=0;
 					for(ItemEffect ie : effects) {

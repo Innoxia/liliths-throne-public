@@ -5446,7 +5446,7 @@ public class InventoryDialogue {
 					+ "</p>"
 				+ "</div>"
 					
-				+ "</br>"
+				+ "<br/>"
 				
 				+ "<div class='container-full-width'>"
 					+ "<div class='inventoryImage'>"
@@ -5456,7 +5456,7 @@ public class InventoryDialogue {
 					+ "</div>"
 					+ "<h3 style='text-align:center;'><b>Dye & Preview</b></h3>"
 					+ "<div class='container-quarter-width' style='width:calc(75% - 16px);'>"
-					+ "Primary Colour:</br>");
+					+ "Primary Colour:<br/>");
 
 		for (Colour c : clothing.getClothingType().getAllAvailablePrimaryColours()) {
 			inventorySB.append("<div class='normal-button"+(dyePreviewPrimary==c?" selected":"")+"' id='PRIMARY_" + (clothing.getClothingType().hashCode() + "_" + c.toString()) + "'"
@@ -5469,7 +5469,7 @@ public class InventoryDialogue {
 		
 		if(!clothing.getClothingType().getAllAvailableSecondaryColours().isEmpty()) {
 			inventorySB.append("<div class='container-quarter-width' style='width:calc(75% - 16px);'>"
-					+ "Secondary Colour:</br>");
+					+ "Secondary Colour:<br/>");
 			for (Colour c : clothing.getClothingType().getAllAvailableSecondaryColours()) {
 				inventorySB.append("<div class='normal-button"+(dyePreviewSecondary==c?" selected":"")+"' id='SECONDARY_" + (clothing.getClothingType().hashCode() + "_" + c.toString()) + "'"
 									+ " style='width:auto; margin-right:4px;"+(dyePreviewSecondary==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
@@ -5481,7 +5481,7 @@ public class InventoryDialogue {
 
 		if(!clothing.getClothingType().getAllAvailableTertiaryColours().isEmpty()) {
 			inventorySB.append("<div class='container-quarter-width' style='width:calc(75% - 16px);'>"
-					+ "Tertiary Colour:</br>");
+					+ "Tertiary Colour:<br/>");
 			for (Colour c : clothing.getClothingType().getAllAvailableTertiaryColours()) {
 				inventorySB.append("<div class='normal-button"+(dyePreviewTertiary==c?" selected":"")+"' id='TERTIARY_" + (clothing.getClothingType().hashCode() + "_" + c.toString()) + "'"
 									+ " style='width:auto; margin-right:4px;"+(dyePreviewTertiary==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
@@ -5493,9 +5493,9 @@ public class InventoryDialogue {
 		
 		if(clothing.getClothingType().isPatternAvailable()){
 			inventorySB.append(
-					"</br>"
+					"<br/>"
 					+ "<div class='container-full-width'>"
-					+ "Pattern:</br>");
+					+ "Pattern:<br/>");
 	 
 			for (Pattern pattern : Pattern.getAllPatterns().values()) {
 				if (dyePreviewPattern.equals(pattern.getName())) {
@@ -5515,7 +5515,7 @@ public class InventoryDialogue {
 			
 			if(Pattern.getPattern(dyePreviewPattern)!=null && Pattern.getPattern(dyePreviewPattern).isPrimaryRecolourAvailable()) {
 				inventorySB.append("<div class='container-full-width'>"
-						+ "Pattern Primary Colour:</br>");
+						+ "Pattern Primary Colour:<br/>");
 				for (Colour c : ColourListPresets.ALL.getPresetColourList()) {
 					inventorySB.append("<div class='normal-button"+(dyePreviewPatternPrimary==c?" selected":"")+"' id='PATTERN_PRIMARY_" + (clothing.getClothingType().hashCode() + "_" + c.toString()) + "'"
 										+ " style='width:auto; margin-right:4px;"+(dyePreviewPatternPrimary==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
@@ -5527,7 +5527,7 @@ public class InventoryDialogue {
 			
 			if(Pattern.getPattern(dyePreviewPattern)!=null && Pattern.getPattern(dyePreviewPattern).isSecondaryRecolourAvailable()) {
 				inventorySB.append("<div class='container-full-width'>"
-						+ "Pattern Secondary Colour:</br>");
+						+ "Pattern Secondary Colour:<br/>");
 				for (Colour c : ColourListPresets.ALL.getPresetColourList()) {
 					inventorySB.append("<div class='normal-button"+(dyePreviewPatternSecondary==c?" selected":"")+"' id='PATTERN_SECONDARY_" + (clothing.getClothingType().hashCode() + "_" + c.toString()) + "'"
 										+ " style='width:auto; margin-right:4px;"+(dyePreviewPatternSecondary==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
@@ -5539,7 +5539,7 @@ public class InventoryDialogue {
 			
 			if(Pattern.getPattern(dyePreviewPattern)!=null && Pattern.getPattern(dyePreviewPattern).isTertiaryRecolourAvailable()) {
 				inventorySB.append("<div class='container-full-width'>"
-						+ "Pattern Tertiary Colour:</br>");
+						+ "Pattern Tertiary Colour:<br/>");
 				for (Colour c : ColourListPresets.ALL.getPresetColourList()) {
 					inventorySB.append("<div class='normal-button"+(dyePreviewPatternTertiary==c?" selected":"")+"' id='PATTERN_TERTIARY_" + (clothing.getClothingType().hashCode() + "_" + c.toString()) + "'"
 										+ " style='width:auto; margin-right:4px;"+(dyePreviewPatternTertiary==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
@@ -5568,7 +5568,7 @@ public class InventoryDialogue {
 						+ "Select the desired colours from the coloured buttons below, and after using the preview to see how the new weapon will look, press the 'Dye' option at the bottom of the screen to apply your changes."
 					+ "</p>"
 				+ "</div>"
-				+ "</br>"
+				+ "<br/>"
 				+ "<div class='container-full-width'>"
 					+ "<div class='inventoryImage'>"
 						+ "<div class='inventoryImage-content'>"
@@ -5582,9 +5582,9 @@ public class InventoryDialogue {
 				+ "<b>Damage type:</b>");
 		for(DamageType dt : weapon.getWeaponType().getAvailableDamageTypes()) {
 			if(weapon.getDamageType()==dt) {
-				inventorySB.append("</br><b style='color:"+weapon.getDamageType().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(weapon.getDamageType().getName())+"</b>");
+				inventorySB.append("<br/><b style='color:"+weapon.getDamageType().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(weapon.getDamageType().getName())+"</b>");
 			} else {
-				inventorySB.append("</br>[style.colourDisabled("+Util.capitaliseSentence(dt.getName())+")]");
+				inventorySB.append("<br/>[style.colourDisabled("+Util.capitaliseSentence(dt.getName())+")]");
 			}
 		}
 		inventorySB.append("</div>");
@@ -5593,7 +5593,7 @@ public class InventoryDialogue {
 		if(!weapon.getWeaponType().getAllAvailablePrimaryColours().isEmpty()) {
 			colourOptions = true;
 			inventorySB.append("<div class='container-quarter-width'>"
-					+ "Primary:</br>");
+					+ "Primary:<br/>");
 			
 			for (Colour c : weapon.getWeaponType().getAllAvailablePrimaryColours()) {
 				inventorySB.append("<div class='normal-button"+(dyePreviewPrimary==c?" selected":"")+"' id='PRIMARY_" + (weapon.getWeaponType().hashCode() + "_" + c.toString()) + "'"
@@ -5608,7 +5608,7 @@ public class InventoryDialogue {
 		if(!weapon.getWeaponType().getAllAvailableSecondaryColours().isEmpty()) {
 			colourOptions = true;
 			inventorySB.append("<div class='container-quarter-width'>"
-					+ "Secondary:</br>");
+					+ "Secondary:<br/>");
 			for (Colour c : weapon.getWeaponType().getAllAvailableSecondaryColours()) {
 				inventorySB.append("<div class='normal-button"+(dyePreviewSecondary==c?" selected":"")+"' id='SECONDARY_" + (weapon.getWeaponType().hashCode() + "_" + c.toString()) + "'"
 									+ " style='width:auto; margin-right:4px;"+(dyePreviewSecondary==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
@@ -6095,7 +6095,7 @@ public class InventoryDialogue {
 		
 //		if (Main.game.getDialogueFlags().quickTrade) {
 //			return new Response("Quick-Manage: <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>",
-//					"Quick-Manage is turned <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>!</br>"
+//					"Quick-Manage is turned <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>!<br/>"
 //							+ "That means you can buy and sell items with a single click when trading, and pick-up and drop items with a single click when in normal inventory mode.", INVENTORY_MENU){
 //				
 //				@Override
@@ -6111,7 +6111,7 @@ public class InventoryDialogue {
 //			
 //		} else {
 //			return new Response("Quick-Manage: <b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>OFF</b>",
-//					"Quick-Manage is turned <b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>OFF</b>.</br>"
+//					"Quick-Manage is turned <b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>OFF</b>.<br/>"
 //							+ "That means when you click on an item, you get a detailed view of the item before deciding whether to buy/sell or pick-up/drop it.", INVENTORY_MENU){
 //
 //				@Override

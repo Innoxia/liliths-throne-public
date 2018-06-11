@@ -446,7 +446,7 @@ public class RoomPlayer {
 			UtilText.nodeContentSB.append(
 					"<h4 style='text-align:center;'>"
 							+ "<span style='color:"+Colour.BASE_ORANGE.toWebHexString()+";'>October</span>"
-							+ "</br>"
+							+ "<br/>"
 							+ "<span style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Lilith's Month</span>"
 					+ "</h4>"
 					+ "<p><i>"
@@ -506,7 +506,7 @@ public class RoomPlayer {
 			UtilText.nodeContentSB.append(
 					"<h4 style='text-align:center;'>"
 							+ "<span style='color:"+Colour.BASE_RED.toWebHexString()+";'>December</span>"
-							+ "</br>"
+							+ "<br/>"
 							+ "<span style='color:"+Colour.BASE_GOLD.toWebHexString()+";'>Yuletide</span>"
 					+ "</h4>"
 					+ "<i>"

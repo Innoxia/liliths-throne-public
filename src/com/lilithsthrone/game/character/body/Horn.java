@@ -107,13 +107,13 @@ public class Horn implements BodyPartInterface, Serializable {
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
 							" Hard nubs push out from the sides of your head, and you gasp as you feel them quickly grow out into "+getDeterminer(owner)+" circular-curling horns."
-							+ "</br>"
+							+ "<br/>"
 							+ "You now have "+getDeterminer(owner)+" [style.boldTfGeneric(curled horns)]."
 							+ "</p>");
 				} else {
 					UtilText.transformationContentSB.append(
 								" Hard nubs push out from the sides of [npc.her] head, and [npc.she] gasps as they quickly grow out into "+getDeterminer(owner)+" circular-curling horns."
-								+ "</br>"
+								+ "<br/>"
 								+ "[npc.Name] now has "+getDeterminer(owner)+" [style.boldTfGeneric(curled horns)]."
 								+ "</p>");
 				}
@@ -122,13 +122,13 @@ public class Horn implements BodyPartInterface, Serializable {
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
 							" Hard nubs push out from the sides of your head, and you gasp as you feel them quickly grow out into "+getDeterminer(owner)+" slightly-curved horns."
-							+ "</br>"
+							+ "<br/>"
 							+ "You now have "+getDeterminer(owner)+" [style.boldTfGeneric(curved horns)]."
 							+ "</p>");
 				} else {
 					UtilText.transformationContentSB.append(
 								" Hard nubs push out from the sides of [npc.her] head, and [npc.she] gasps as they quickly grow out into "+getDeterminer(owner)+" slightly-curved horns."
-								+ "</br>"
+								+ "<br/>"
 								+ "[npc.Name] now has "+getDeterminer(owner)+" [style.boldTfGeneric(curved horns)]."
 								+ "</p>");
 				}
@@ -137,13 +137,13 @@ public class Horn implements BodyPartInterface, Serializable {
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
 							" Hard nubs push out from the sides of your head, and you gasp as you feel them quickly grow out into "+getDeterminer(owner)+" twisted, spiralling horns."
-							+ "</br>"
+							+ "<br/>"
 							+ "You now have "+getDeterminer(owner)+" [style.boldTfGeneric(spiral horns)]."
 							+ "</p>");
 				} else {
 					UtilText.transformationContentSB.append(
 								" Hard nubs push out from the sides of [npc.her] head, and [npc.she] gasps as they quickly grow out into "+getDeterminer(owner)+" twisted, spiralling horns."
-								+ "</br>"
+								+ "<br/>"
 								+ "[npc.Name] now has "+getDeterminer(owner)+" [style.boldTfGeneric(spiral horns)]."
 								+ "</p>");
 				}
@@ -152,13 +152,13 @@ public class Horn implements BodyPartInterface, Serializable {
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
 							" Hard nubs push out from the sides of your head, and you gasp as you feel them quickly grow out into "+getDeterminer(owner)+" branching, multi-pronged antlers."
-							+ "</br>"
+							+ "<br/>"
 							+ "You now have "+getDeterminer(owner)+" [style.boldTfGeneric(reindeer-like antlers)]."
 							+ "</p>");
 				} else {
 					UtilText.transformationContentSB.append(
 								" Hard nubs push out from the sides of [npc.her] head, and [npc.she] gasps as they quickly grow out into "+getDeterminer(owner)+" branching, multi-pronged antlers."
-								+ "</br>"
+								+ "<br/>"
 								+ "[npc.Name] now has "+getDeterminer(owner)+" [style.boldTfGeneric(reindeer-like antlers)]."
 								+ "</p>");
 				}
@@ -167,13 +167,13 @@ public class Horn implements BodyPartInterface, Serializable {
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
 							" Hard nubs push out from the sides of your head, and you gasp as you feel them quickly grow out into "+getDeterminer(owner)+" sleek, straight horns."
-							+ "</br>"
+							+ "<br/>"
 							+ "You now have "+getDeterminer(owner)+" [style.boldTfGeneric(straight horns)]."
 							+ "</p>");
 				} else {
 					UtilText.transformationContentSB.append(
 								" Hard nubs push out from the sides of [npc.her] head, and [npc.she] gasps as they quickly grow out into "+getDeterminer(owner)+" sleek, straight horns."
-								+ "</br>"
+								+ "<br/>"
 								+ "[npc.Name] now has "+getDeterminer(owner)+" [style.boldTfGeneric(straight horns)]."
 								+ "</p>");
 				}
@@ -182,13 +182,13 @@ public class Horn implements BodyPartInterface, Serializable {
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
 							" Hard nubs push out from the sides of your head, and you gasp as you feel them quickly grow out and curve back over your head into "+getDeterminer(owner)+" swept-back horns."
-							+ "</br>"
+							+ "<br/>"
 							+ "You now have "+getDeterminer(owner)+" [style.boldTfGeneric(swept-back horns)]."
 							+ "</p>");
 				} else {
 					UtilText.transformationContentSB.append(
 								" Hard nubs push out from the sides of [npc.her] head, and [npc.she] gasps as they quickly grow out and curve back over [npc.her] head into "+getDeterminer(owner)+" swept-back horns."
-								+ "</br>"
+								+ "<br/>"
 								+ "[npc.Name] now has "+getDeterminer(owner)+" [style.boldTfGeneric(swept-back horns)]."
 								+ "</p>");
 				}
@@ -197,13 +197,13 @@ public class Horn implements BodyPartInterface, Serializable {
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
 							" Chunks of your [pc.horns] fall to the floor as they start to crumble away, and within moments they've completely disappeared."
-							+ "</br>"
+							+ "<br/>"
 							+ "You now have [style.boldTfGeneric(no horns)]."
 							+ "</p>");
 				} else {
 					UtilText.transformationContentSB.append(
 								" Chunks of [npc.her] [npc.horns] fall to the floor as they start to crumble away, and within moments they've completely disappeared."
-								+ "</br>"
+								+ "<br/>"
 								+ "[npc.Name] now has [style.boldTfGeneric(no horns)]."
 								+ "</p>");
 				}
@@ -244,14 +244,14 @@ public class Horn implements BodyPartInterface, Serializable {
 				return
 						"<p>"
 							+ "A tingling feeling spreads over your [pc.horns], before moving down and concentrating into your forehead."
-							+ " You can't help but let out a little cry as you feel some of them [style.boldShrink(crumbling away)] and disappearing back down into your [pc.faceSkin].</br>"
+							+ " You can't help but let out a little cry as you feel some of them [style.boldShrink(crumbling away)] and disappearing back down into your [pc.faceSkin].<br/>"
 							+ "After a few moments, you're left with [style.boldTfGeneric("+getDeterminer(owner)+" [pc.horns])]."
 						+ "</p>";
 			} else {
 				return UtilText.parse(owner,
 						"<p>"
 							+ "A tingling feeling spreads over [npc.name]'s [npc.horns], before moving down and concentrating into [npc.her] forehead."
-							+ " [npc.She] can't help but let out a little cry as [npc.she] feels some of them [style.boldShrink(crumbling away)] and disappearing back down into [npc.her] [npc.faceSkin].</br>"
+							+ " [npc.She] can't help but let out a little cry as [npc.she] feels some of them [style.boldShrink(crumbling away)] and disappearing back down into [npc.her] [npc.faceSkin].<br/>"
 							+ "After a few moments, [npc.she]'s left with [style.boldTfGeneric("+getDeterminer(owner)+" [npc.horns])]."
 						+ "</p>");
 			}
@@ -261,14 +261,14 @@ public class Horn implements BodyPartInterface, Serializable {
 				return
 						"<p>"
 							+ "A tingling feeling spreads over your [pc.horns], before moving down and concentrating into your forehead."
-							+ " You can't help but let out a little cry as you feel new [pc.horns] [style.boldGrow(pushing up)] and growing out of your [pc.faceSkin].</br>"
+							+ " You can't help but let out a little cry as you feel new [pc.horns] [style.boldGrow(pushing up)] and growing out of your [pc.faceSkin].<br/>"
 							+ "After a few moments, you're left with [style.boldTfGeneric("+getDeterminer(owner)+" [pc.horns])]."
 						+ "</p>";
 			} else {
 				return UtilText.parse(owner,
 						"<p>"
 							+ "A tingling feeling spreads over [npc.name]'s [npc.horns], before moving down and concentrating into [npc.her] forehead."
-							+ " [npc.She] can't help but let out a little cry as [npc.she] feels new [npc.horns] [style.boldGrow(pushing up)] and growing out of [npc.her] [npc.faceSkin].</br>"
+							+ " [npc.She] can't help but let out a little cry as [npc.she] feels new [npc.horns] [style.boldGrow(pushing up)] and growing out of [npc.her] [npc.faceSkin].<br/>"
 							+ "After a few moments, [npc.she]'s left with [style.boldTfGeneric("+getDeterminer(owner)+" [npc.horns])]."
 						+ "</p>");
 			}
@@ -306,21 +306,21 @@ public class Horn implements BodyPartInterface, Serializable {
 		
 		if(sizeChange < 0) {
 			if(owner.isPlayer()) {
-				return "<p>A strange tingling sensation runs up through your [pc.face] and into your [pc.horns], causing you to let out a surprised gasp as you feel them [style.boldShrink(getting shorter)].</br>"
+				return "<p>A strange tingling sensation runs up through your [pc.face] and into your [pc.horns], causing you to let out a surprised gasp as you feel them [style.boldShrink(getting shorter)].<br/>"
 						+ "You now have [style.boldTfGeneric([pc.hornSize] [pc.horns])]!</p>";
 			} else {
 				return UtilText.parse(owner, "<p>[npc.Name] lets out a little cry as [npc.she] feels a strange tingling sensation running up through [npc.her] [npc.face] and into [npc.her] [npc.horns],"
-							+ " before they suddenly shrink down and [style.boldShrink(get noticeably shorter)].</br>"
+							+ " before they suddenly shrink down and [style.boldShrink(get noticeably shorter)].<br/>"
 						+ "[npc.Name] now has [style.boldTfGeneric([npc.hornSize] [npc.horns])]!</p>");
 			}
 			
 		} else {
 			if(owner.isPlayer()) {
-				return "<p>A warm pulsating sensation runs up through your [pc.face] and into your [pc.horns], causing you to let out a surprised gasp as you feel them [style.boldGrow(growing larger)].</br>"
+				return "<p>A warm pulsating sensation runs up through your [pc.face] and into your [pc.horns], causing you to let out a surprised gasp as you feel them [style.boldGrow(growing larger)].<br/>"
 						+ "You now have [style.boldTfGeneric([pc.hornSize] [pc.horns])]!</p>";
 			} else {
 				return UtilText.parse(owner, "<p>[npc.Name] lets out a little cry as [npc.she] feels a warm pulsating sensation running up through [npc.her] [npc.face] and into [npc.her] [npc.horns],"
-						+ " before they suddenly grow out and [style.boldGrow(get noticeably longer)].</br>"
+						+ " before they suddenly grow out and [style.boldGrow(get noticeably longer)].<br/>"
 						+ "[npc.Name] now has [style.boldTfGeneric([npc.hornSize] [npc.horns])]!</p>");
 			}
 		}

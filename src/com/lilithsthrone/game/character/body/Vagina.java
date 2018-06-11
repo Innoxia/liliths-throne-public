@@ -164,7 +164,7 @@ public class Vagina implements BodyPartInterface, Serializable {
 							+ (owner.hasStatusEffect(StatusEffect.PREGNANT_0)
 									?"<b>the possibility of being pregnant has prevented your vagina from transforming</b>!"
 									:"<b>your ongoing pregnancy has prevented your vagina from transforming</b>!")
-							+ "</br>"
+							+ "<br/>"
 							+ "Your pussy remains [style.boldTfSex(unchanged)]."
 						+ "</p>");
 			} else {
@@ -176,7 +176,7 @@ public class Vagina implements BodyPartInterface, Serializable {
 							+ (owner.hasStatusEffect(StatusEffect.PREGNANT_0)
 									?"<b>the possibility of being pregnant has prevented [npc.her] vagina from transforming</b>!"
 									:"<b>[npc.her] ongoing pregnancy has prevented [npc.her] vagina from transforming</b>!")
-							+ "</br>"
+							+ "<br/>"
 							+ "[npc.Name]'s pussy remains [style.boldTfSex(unchanged)]."
 						+ "</p>"));
 			}
@@ -204,7 +204,7 @@ public class Vagina implements BodyPartInterface, Serializable {
 							+ "Just as you start thinking that the transformation is over, a warm, tingling feeling shoots up into your lower abdomen,"
 								+ " and you can't help but let out a desperate squeal as you feel a full female reproductive system rapidly growing inside of you."
 							+ " As your transformation finally comes to an end, you're left panting and covered in sweat, and you feel that your new cunt is already soaking wet from arousal."
-							+ "</br>"
+							+ "<br/>"
 							+ "You now have a [style.boldTfSex(vagina)]!"
 						+ "</p>");
 				
@@ -220,7 +220,7 @@ public class Vagina implements BodyPartInterface, Serializable {
 							+ "</p>"
 							+ "<p style='text-align:center;'>"
 								+ "[pc.thought(I-I'm a virgin?!"
-								+ "</br>"
+								+ "<br/>"
 								+ "Yes! I'm a virgin!)]"
 							+ "</p>"
 							+ "<p>"
@@ -255,7 +255,7 @@ public class Vagina implements BodyPartInterface, Serializable {
 							+ "Just as [npc.she] starts to think that the transformation is over, a warm, tingling feeling shoots up into [npc.her] lower abdomen,"
 								+ " and [npc.she] can't help but let out a desperate squeal as [npc.she] feels a full female reproductive system rapidly growing inside of [npc.herHim]."
 							+ " As [npc.her] transformation finally comes to an end, [npc.she]'s left panting and covered in sweat, and [npc.she] lets out a lewd moan as [npc.she] feels that [npc.her] new cunt is already soaking wet from arousal."
-							+ "</br>"
+							+ "<br/>"
 							+ "[npc.Name] now has a [style.boldTfSex(vagina)]!"
 						+ "</p>"));
 			}
@@ -293,7 +293,7 @@ public class Vagina implements BodyPartInterface, Serializable {
 					UtilText.transformationContentSB.append(
 								" You feel your pussy suddenly tighten and squeeze shut, and you let out a cry as a strange pressure fills your lower abdomen."
 								+ " Thankfully, it doesn't last long, and when the discomfort subsides, you gasp as you suddenly realise that your cunt has vanished, along with all of your female reproductive organs."
-								+ "</br>"
+								+ "<br/>"
 								+ "You have [style.boldSex(lost your vagina)]."
 							+ "</p>");
 				} else {
@@ -301,7 +301,7 @@ public class Vagina implements BodyPartInterface, Serializable {
 							" [npc.She] moans and squirms about as [npc.she] feels [npc.her] pussy suddenly tighten and squeeze shut, and with a desperate cry, a strange pressure washes through [npc.her] lower abdomen."
 							+ " Thankfully for [npc.herHim], the feeling fades almost as quickly as it came, and when the discomfort subsides, [npc.she] gasps as [npc.she] suddenly realises that [npc.her] cunt has vanished,"
 								+ " along with all of [npc.her] female reproductive organs."
-							+ "</br>"
+							+ "<br/>"
 							+ "[npc.Name] has [style.boldSex(lost [npc.her] vagina)]."
 						+ "</p>"));
 				}
@@ -318,7 +318,7 @@ public class Vagina implements BodyPartInterface, Serializable {
 								+ "</p>"
 								+ "<p style='text-align:center;'>"
 										+"[pc.thought(I-I'm no longer just a worthless fuck-toy..."
-										+ "</br>"
+										+ "<br/>"
 										+ "It's not possible for me to have lost my virginity if I don't have a vagina!)]"
 								+ "</p>"
 								+ "<p>"
@@ -327,7 +327,7 @@ public class Vagina implements BodyPartInterface, Serializable {
 								+ "</p>"
 								+ "<p style='text-align:center;'>"
 									+"[pc.thought(I need to find a way to get a new pussy!"
-										+ "</br>"
+										+ "<br/>"
 										+ "Then I'll be a pure virgin again!)]"
 								+ "</p>"
 								+ "<p style='text-align:center;'>"
@@ -363,7 +363,7 @@ public class Vagina implements BodyPartInterface, Serializable {
 							" You let out a squeal of excitement as a wave of pleasure runs up from your groin, and you feel your slit shifting and contracting with a mind of its own."
 							+ " Within moments, the feeling fades away, and you discover that your pussy has shaped itself into a regular human vagina."
 							+ " As you let out a little sigh, a warm, tingling feeling spreads up through your lower abdomen, and you realise that your internal reproductive organs have also transformed into those of a human."
-							+ "</br>"
+							+ "<br/>"
 							+ "You now have a [style.boldHuman(human vagina)], with [pc.pussyColourPrimary(true)] labia and [pc.pussyColourSecondary(true)] internal walls."
 						+ "</p>");
 				} else {
@@ -372,7 +372,7 @@ public class Vagina implements BodyPartInterface, Serializable {
 									+ " [npc.she] desperately clamps [npc.her] [npc.legs] shut."
 							+ " Within moments, the feeling starts to fade away, and with a little cry of surprise, [npc.she] discovers that [npc.her] pussy has shaped itself into a regular human vagina."
 							+ " A warm, tingling feeling spreads up through [npc.her] lower abdomen, and as the transformation comes to an end, [npc.she] realises that [npc.her] internal reproductive organs have also transformed into those of a human."
-							+ "</br>"
+							+ "<br/>"
 							+ "[npc.Name] now has a [style.boldHuman(human vagina)], with [npc.pussyColourPrimary(true)] labia and [npc.pussyColourSecondary(true)] internal walls."
 						+ "</p>"));
 				}
@@ -390,7 +390,7 @@ public class Vagina implements BodyPartInterface, Serializable {
 									+ " and a desperate squeal escapes from between your [pc.lips+] as a warm, tingling feeling spreads up through your lower abdomen."
 								+ " Images of fat demonic cocks slamming deep into your new pussy flash before your eyes, and your squeal turns into a satisfied moan as you imagine them pumping their tainted seed deep into your demonic womb."
 								+ " Just as quickly as they came, the images fade from your mind, and as one last wave of tingling pleasure washes through your body, you feel your female reproductive organs finishing their transformation."
-								+ "</br>"
+								+ "<br/>"
 								+ "You now have a [style.boldDemon(demonic vagina)], with [pc.pussyColourPrimary(true)] labia and [pc.pussyColourSecondary(true)] internal walls."
 							+ "</p>");
 				} else {
@@ -409,7 +409,7 @@ public class Vagina implements BodyPartInterface, Serializable {
 									+ " and [npc.her] squeal turns into a satisfied moan as [npc.she] imagines them pumping their tainted seed deep into [npc.her] demonic womb."
 								+ " Just as quickly as they came, the images fade from [npc.her] mind, and as one last wave of tingling pleasure washes through [npc.her] body,"
 									+ " [npc.she] feels [npc.her] female reproductive organs finishing their transformation."
-								+ "</br>"
+								+ "<br/>"
 								+ "[npc.Name] now has a [style.boldDemon(demonic vagina)], with [npc.pussyColourPrimary(true)] labia and [npc.pussyColourSecondary(true)] internal walls."
 							+ "</p>"));
 				}
@@ -427,7 +427,7 @@ public class Vagina implements BodyPartInterface, Serializable {
 									+ " and a desperate squeal escapes from between your [pc.lips+] as a warm, tingling feeling spreads up through your lower abdomen."
 								+ " Images of fat impish cocks slamming deep into your new pussy flash before your eyes, and your squeal turns into a satisfied moan as you imagine them pumping their tainted seed deep into your impish womb."
 								+ " Just as quickly as they came, the images fade from your mind, and as one last wave of tingling pleasure washes through your body, you feel your female reproductive organs finishing their transformation."
-								+ "</br>"
+								+ "<br/>"
 								+ "You now have an [style.boldImp(impish vagina)], with [pc.pussyColourPrimary(true)] labia and [pc.pussyColourSecondary(true)] internal walls."
 							+ "</p>");
 				} else {
@@ -446,7 +446,7 @@ public class Vagina implements BodyPartInterface, Serializable {
 									+ " and [npc.her] squeal turns into a satisfied moan as [npc.she] imagines them pumping their tainted seed deep into [npc.her] impish womb."
 								+ " Just as quickly as they came, the images fade from [npc.her] mind, and as one last wave of tingling pleasure washes through [npc.her] body,"
 									+ " [npc.she] feels [npc.her] female reproductive organs finishing their transformation."
-								+ "</br>"
+								+ "<br/>"
 								+ "[npc.Name] now has an [style.boldImp(impish vagina)], with [npc.pussyColourPrimary(true)] labia and [npc.pussyColourSecondary(true)] internal walls."
 							+ "</p>"));
 				}
@@ -464,7 +464,7 @@ public class Vagina implements BodyPartInterface, Serializable {
 								+ " and a desperate squeal escapes from between your [pc.lips+] as a warm, tingling feeling spreads up through your lower abdomen."
 							+ " Images of knotted dog-like cocks slamming deep into your new pussy flash before your eyes, and your squeal turns into a satisfied moan as you imagine them pumping their potent seed deep into your canine womb."
 							+ " Just as quickly as they came, the images fade from your mind, and as one last wave of tingling pleasure washes through your body, you feel your female reproductive organs finishing their transformation."
-							+ "</br>"
+							+ "<br/>"
 							+ "You now have a [style.boldDogMorph(canine vagina)], with [pc.pussyColourPrimary(true)] labia and [pc.pussyColourSecondary(true)] internal walls."
 						+ "</p>");
 				} else {
@@ -482,7 +482,7 @@ public class Vagina implements BodyPartInterface, Serializable {
 								+ " and [npc.her] squeal turns into a satisfied moan as [npc.she] imagines them pumping their potent seed deep into [npc.her] canine womb."
 							+ " Just as quickly as they came, the images fade from [npc.her] mind, and as one last wave of tingling pleasure washes through [npc.her] body,"
 								+ " [npc.she] feels [npc.her] female reproductive organs finishing their transformation."
-							+ "</br>"
+							+ "<br/>"
 							+ "[npc.Name] now has a [style.boldDogMorph(canine vagina)], with [npc.pussyColourPrimary(true)] labia and [npc.pussyColourSecondary(true)] internal walls."
 						+ "</p>"));
 				}
@@ -500,7 +500,7 @@ public class Vagina implements BodyPartInterface, Serializable {
 								+ " and a desperate squeal escapes from between your [pc.lips+] as a warm, tingling feeling spreads up through your lower abdomen."
 							+ " Images of knotted wolf-like cocks slamming deep into your new pussy flash before your eyes, and your squeal turns into a satisfied moan as you imagine them pumping their potent seed deep into your lupine womb."
 							+ " Just as quickly as they came, the images fade from your mind, and as one last wave of tingling pleasure washes through your body, you feel your female reproductive organs finishing their transformation."
-							+ "</br>"
+							+ "<br/>"
 							+ "You now have a [style.boldWolfMorph(lupine vagina)], with [pc.pussyColourPrimary(true)] labia and [pc.pussyColourSecondary(true)] internal walls."
 						+ "</p>");
 				} else {
@@ -518,7 +518,7 @@ public class Vagina implements BodyPartInterface, Serializable {
 								+ " and [npc.her] squeal turns into a satisfied moan as [npc.she] imagines them pumping their potent seed deep into [npc.her] lupine womb."
 							+ " Just as quickly as they came, the images fade from [npc.her] mind, and as one last wave of tingling pleasure washes through [npc.her] body,"
 								+ " [npc.she] feels [npc.her] female reproductive organs finishing their transformation."
-							+ "</br>"
+							+ "<br/>"
 							+ "[npc.Name] now has a [style.boldWolfMorph(lupine vagina)], with [npc.pussyColourPrimary(true)] labia and [npc.pussyColourSecondary(true)] internal walls."
 						+ "</p>"));
 				}
@@ -536,7 +536,7 @@ public class Vagina implements BodyPartInterface, Serializable {
 								+ " and a desperate squeal escapes from between your [pc.lips+] as a warm, tingling feeling spreads up through your lower abdomen."
 							+ " Images of barbed cat-like cocks slamming deep into your new pussy flash before your eyes, and your squeal turns into a satisfied moan as you imagine them pumping their potent seed deep into your feline womb."
 							+ " Just as quickly as they came, the images fade from your mind, and as one last wave of tingling pleasure washes through your body, you feel your female reproductive organs finishing their transformation."
-							+ "</br>"
+							+ "<br/>"
 							+ "You now have a [style.boldCatMorph(feline vagina)], with [pc.pussyColourPrimary(true)] labia and [pc.pussyColourSecondary(true)] internal walls."
 						+ "</p>");
 				} else {
@@ -554,7 +554,7 @@ public class Vagina implements BodyPartInterface, Serializable {
 								+ " and [npc.her] squeal turns into a satisfied moan as [npc.she] imagines them pumping their potent seed deep into [npc.her] feline womb."
 							+ " Just as quickly as they came, the images fade from [npc.her] mind, and as one last wave of tingling pleasure washes through [npc.her] body,"
 								+ " [npc.she] feels [npc.her] female reproductive organs finishing their transformation."
-							+ "</br>"
+							+ "<br/>"
 							+ "[npc.Name] now has a [style.boldCatMorph(feline vagina)], with [npc.pussyColourPrimary(true)] labia and [npc.pussyColourSecondary(true)] internal walls."
 						+ "</p>"));
 				}
@@ -572,7 +572,7 @@ public class Vagina implements BodyPartInterface, Serializable {
 								+ " and a desperate squeal escapes from between your [pc.lips+] as a warm, tingling feeling spreads up through your lower abdomen."
 							+ " Images of squirrel-like cocks slamming deep into your new pussy flash before your eyes, and your squeal turns into a satisfied moan as you imagine them pumping their potent seed deep into your rodent womb."
 							+ " Just as quickly as they came, the images fade from your mind, and as one last wave of tingling pleasure washes through your body, you feel your female reproductive organs finishing their transformation."
-							+ "</br>"
+							+ "<br/>"
 							+ "You now have a [style.boldSquirrelMorph(squirrel-morph's vagina)], with [pc.pussyColourPrimary(true)] labia and [pc.pussyColourSecondary(true)] internal walls."
 						+ "</p>");
 				} else {
@@ -590,7 +590,7 @@ public class Vagina implements BodyPartInterface, Serializable {
 								+ " and [npc.her] squeal turns into a satisfied moan as [npc.she] imagines them pumping their potent seed deep into [npc.her] rodent womb."
 							+ " Just as quickly as they came, the images fade from [npc.her] mind, and as one last wave of tingling pleasure washes through [npc.her] body,"
 								+ " [npc.she] feels [npc.her] female reproductive organs finishing their transformation."
-							+ "</br>"
+							+ "<br/>"
 							+ "[npc.Name] now has a [style.boldSquirrelMorph(squirrel-morph's vagina)], with [npc.pussyColourPrimary(true)] labia and [npc.pussyColourSecondary(true)] internal walls."
 						+ "</p>"));
 				}
@@ -608,7 +608,7 @@ public class Vagina implements BodyPartInterface, Serializable {
 								+ " and a desperate squeal escapes from between your [pc.lips+] as a warm, tingling feeling spreads up through your lower abdomen."
 							+ " Images of rat-like cocks slamming deep into your new pussy flash before your eyes, and your squeal turns into a satisfied moan as you imagine them pumping their potent seed deep into your rodent womb."
 							+ " Just as quickly as they came, the images fade from your mind, and as one last wave of tingling pleasure washes through your body, you feel your female reproductive organs finishing their transformation."
-							+ "</br>"
+							+ "<br/>"
 							+ "You now have a [style.boldRatMorph(rat-morph's vagina)], with [pc.pussyColourPrimary(true)] labia and [pc.pussyColourSecondary(true)] internal walls."
 						+ "</p>");
 				} else {
@@ -626,7 +626,7 @@ public class Vagina implements BodyPartInterface, Serializable {
 								+ " and [npc.her] squeal turns into a satisfied moan as [npc.she] imagines them pumping their potent seed deep into [npc.her] rodent womb."
 							+ " Just as quickly as they came, the images fade from [npc.her] mind, and as one last wave of tingling pleasure washes through [npc.her] body,"
 								+ " [npc.she] feels [npc.her] female reproductive organs finishing their transformation."
-							+ "</br>"
+							+ "<br/>"
 							+ "[npc.Name] now has a [style.boldRatMorph(rat-morph's vagina)], with [npc.pussyColourPrimary(true)] labia and [npc.pussyColourSecondary(true)] internal walls."
 						+ "</p>"));
 				}
@@ -644,7 +644,7 @@ public class Vagina implements BodyPartInterface, Serializable {
 								+ " and a desperate squeal escapes from between your [pc.lips+] as a warm, tingling feeling spreads up through your lower abdomen."
 							+ " Images of rabbit-like cocks slamming deep into your new pussy flash before your eyes, and your squeal turns into a satisfied moan as you imagine them pumping their potent seed deep into your fertile womb."
 							+ " Just as quickly as they came, the images fade from your mind, and as one last wave of tingling pleasure washes through your body, you feel your female reproductive organs finishing their transformation."
-							+ "</br>"
+							+ "<br/>"
 							+ "You now have a [style.boldRabbitMorph(rabbit-morph's vagina)], with [pc.pussyColourPrimary(true)] labia and [pc.pussyColourSecondary(true)] internal walls."
 						+ "</p>");
 				} else {
@@ -662,7 +662,7 @@ public class Vagina implements BodyPartInterface, Serializable {
 								+ " and [npc.her] squeal turns into a satisfied moan as [npc.she] imagines them pumping their potent seed deep into [npc.her] fertile womb."
 							+ " Just as quickly as they came, the images fade from [npc.her] mind, and as one last wave of tingling pleasure washes through [npc.her] body,"
 								+ " [npc.she] feels [npc.her] female reproductive organs finishing their transformation."
-							+ "</br>"
+							+ "<br/>"
 							+ "[npc.Name] now has a [style.boldRabbitMorph(rabbit-morph's vagina)], with [npc.pussyColourPrimary(true)] labia and [npc.pussyColourSecondary(true)] internal walls."
 						+ "</p>"));
 				}
@@ -680,7 +680,7 @@ public class Vagina implements BodyPartInterface, Serializable {
 								+ " and a desperate squeal escapes from between your [pc.lips+] as a warm, tingling feeling spreads up through your lower abdomen."
 							+ " Images of bat-like cocks slamming deep into your new pussy flash before your eyes, and your squeal turns into a satisfied moan as you imagine them pumping their potent seed deep into your womb."
 							+ " Just as quickly as they came, the images fade from your mind, and as one last wave of tingling pleasure washes through your body, you feel your female reproductive organs finishing their transformation."
-							+ "</br>"
+							+ "<br/>"
 							+ "You now have a [style.boldBatMorph(bat-morph's vagina)], with [pc.pussyColourPrimary(true)] labia and [pc.pussyColourSecondary(true)] internal walls."
 						+ "</p>");
 				} else {
@@ -698,7 +698,7 @@ public class Vagina implements BodyPartInterface, Serializable {
 								+ " and [npc.her] squeal turns into a satisfied moan as [npc.she] imagines them pumping their potent seed deep into [npc.her] womb."
 							+ " Just as quickly as they came, the images fade from [npc.her] mind, and as one last wave of tingling pleasure washes through [npc.her] body,"
 								+ " [npc.she] feels [npc.her] female reproductive organs finishing their transformation."
-							+ "</br>"
+							+ "<br/>"
 							+ "[npc.Name] now has a [style.boldBatMorph(bat-morph's vagina)], with [npc.pussyColourPrimary(true)] labia and [npc.pussyColourSecondary(true)] internal walls."
 						+ "</p>"));
 				}
@@ -714,7 +714,7 @@ public class Vagina implements BodyPartInterface, Serializable {
 								+ " and a desperate squeal escapes from between your [pc.lips+] as a warm, tingling feeling spreads up through your lower abdomen."
 							+ " Images of huge, flared horse-cocks slamming deep into your new pussy flash before your eyes, and your squeal turns into a satisfied moan as you imagine them pumping their hot seed deep into your equine womb."
 							+ " Just as quickly as they came, the images fade from your mind, and as one last wave of tingling pleasure washes through your body, you feel your female reproductive organs finishing their transformation."
-							+ "</br>"
+							+ "<br/>"
 							+ "You now have an [style.boldHorseMorph(equine vagina)], with [pc.pussyColourPrimary(true)] labia and [pc.pussyColourSecondary(true)] internal walls."
 						+ "</p>");
 				} else {
@@ -730,7 +730,7 @@ public class Vagina implements BodyPartInterface, Serializable {
 								+ " and [npc.her] squeal turns into a satisfied moan as [npc.she] imagines them pumping their potent seed deep into [npc.her] equine womb."
 							+ " Just as quickly as they came, the images fade from [npc.her] mind, and as one last wave of tingling pleasure washes through [npc.her] body,"
 								+ " [npc.she] feels [npc.her] female reproductive organs finishing their transformation."
-							+ "</br>"
+							+ "<br/>"
 							+ "[npc.Name] now has an [style.boldHorseMorph(equine vagina)], with [npc.pussyColourPrimary(true)] labia and [npc.pussyColourSecondary(true)] internal walls."
 						+ "</p>"));
 				}
@@ -746,7 +746,7 @@ public class Vagina implements BodyPartInterface, Serializable {
 								+ " and a desperate squeal escapes from between your [pc.lips+] as a warm, tingling feeling spreads up through your lower abdomen."
 							+ " Images of huge, flared reindeer-cocks slamming deep into your new pussy flash before your eyes, and your squeal turns into a satisfied moan as you imagine them pumping their hot seed deep into your rangiferine womb."
 							+ " Just as quickly as they came, the images fade from your mind, and as one last wave of tingling pleasure washes through your body, you feel your female reproductive organs finishing their transformation."
-							+ "</br>"
+							+ "<br/>"
 							+ "You now have a [style.boldReindeerMorph(rangiferine vagina)], with [pc.pussyColourPrimary(true)] labia and [pc.pussyColourSecondary(true)] internal walls."
 						+ "</p>");
 				} else {
@@ -762,7 +762,7 @@ public class Vagina implements BodyPartInterface, Serializable {
 								+ " and [npc.her] squeal turns into a satisfied moan as [npc.she] imagines them pumping their potent seed deep into [npc.her] rangiferine womb."
 							+ " Just as quickly as they came, the images fade from [npc.her] mind, and as one last wave of tingling pleasure washes through [npc.her] body,"
 								+ " [npc.she] feels [npc.her] female reproductive organs finishing their transformation."
-							+ "</br>"
+							+ "<br/>"
 							+ "[npc.Name] now has a [style.boldReindeerMorph(rangiferine vagina)], with [npc.pussyColourPrimary(true)] labia and [npc.pussyColourSecondary(true)] internal walls."
 						+ "</p>"));
 				}
@@ -778,7 +778,7 @@ public class Vagina implements BodyPartInterface, Serializable {
 								+ " and a desperate squeal escapes from between your [pc.lips+] as a warm, tingling feeling spreads up through your lower abdomen."
 							+ " Images of huge, flared bull-cocks slamming deep into your new pussy flash before your eyes, and your squeal turns into a satisfied moan as you imagine them pumping their hot seed deep into your bovine womb."
 							+ " Just as quickly as they came, the images fade from your mind, and as one last wave of tingling pleasure washes through your body, you feel your female reproductive organs finishing their transformation."
-							+ "</br>"
+							+ "<br/>"
 							+ "You now have an [style.boldCowMorph(bovine vagina)], with [pc.pussyColourPrimary(true)] labia and [pc.pussyColourSecondary(true)] internal walls."
 						+ "</p>");
 				} else {
@@ -794,7 +794,7 @@ public class Vagina implements BodyPartInterface, Serializable {
 								+ " and [npc.her] squeal turns into a satisfied moan as [npc.she] imagines them pumping their potent seed deep into [npc.her] bovine womb."
 							+ " Just as quickly as they came, the images fade from [npc.her] mind, and as one last wave of tingling pleasure washes through [npc.her] body,"
 								+ " [npc.she] feels [npc.her] female reproductive organs finishing their transformation."
-							+ "</br>"
+							+ "<br/>"
 							+ "[npc.Name] now has an [style.boldCowMorph(bovine vagina)], with [npc.pussyColourPrimary(true)] labia and [npc.pussyColourSecondary(true)] internal walls."
 						+ "</p>"));
 				}
@@ -813,7 +813,7 @@ public class Vagina implements BodyPartInterface, Serializable {
 							+ " Images of spreading your legs before huge, throbbing alligator cocks flash before your eyes,"
 								+ " and your squeal turns into a satisfied moan as you imagine them thrusting deep inside of you before squirting their hot seed deep into your hungry reptilian cunt."
 							+ " Just as quickly as they came, the images fade from your mind, and as one last wave of tingling pleasure washes through your body, you feel your female reproductive organs finishing their transformation."
-							+ "</br>"
+							+ "<br/>"
 							+ "You now have an [style.boldGatorMorph(alligator-morph's vagina)], with [pc.pussyColourPrimary(true)] labia and [pc.pussyColourSecondary(true)] internal walls."
 						+ "</p>");
 				} else {
@@ -831,7 +831,7 @@ public class Vagina implements BodyPartInterface, Serializable {
 								+ " and [npc.her] squeal turns into a satisfied moan as [npc.she] imagines them thrusting deep inside of [npc.herHim] before squirting their hot seed deep into [npc.her] hungry reptilian cunt."
 							+ " Just as quickly as they came, the images fade from [npc.her] mind, and as one last wave of tingling pleasure washes through [npc.her] body,"
 								+ " [npc.she] feels [npc.her] female reproductive organs finishing their transformation."
-							+ "</br>"
+							+ "<br/>"
 							+ "[npc.Name] now has an [style.boldGatorMorph(alligator-morph's vagina)], with [npc.pussyColourPrimary(true)] labia and [npc.pussyColourSecondary(true)] internal walls."
 						+ "</p>"));
 				}
@@ -849,7 +849,7 @@ public class Vagina implements BodyPartInterface, Serializable {
 								+ " and a desperate squeal escapes from between your [pc.lips+] as a warm, tingling feeling spreads up through your lower abdomen."
 							+ " Images of slamming your pussy down on cute little harpy cocks flash before your eyes, and your squeal turns into a satisfied moan as you imagine them squirting their hot seed deep into your hungry avian cunt."
 							+ " Just as quickly as they came, the images fade from your mind, and as one last wave of tingling pleasure washes through your body, you feel your female reproductive organs finishing their transformation."
-							+ "</br>"
+							+ "<br/>"
 							+ "You now have an [style.boldHarpy(avian vagina)], with [pc.pussyColourPrimary(true)] labia and [pc.pussyColourSecondary(true)] internal walls."
 						+ "</p>");
 				} else {
@@ -867,7 +867,7 @@ public class Vagina implements BodyPartInterface, Serializable {
 								+ " and [npc.her] squeal turns into a satisfied moan as [npc.she] imagines them squirting their hot seed deep into [npc.her] hungry avian cunt."
 							+ " Just as quickly as they came, the images fade from [npc.her] mind, and as one last wave of tingling pleasure washes through [npc.her] body,"
 								+ " [npc.she] feels [npc.her] female reproductive organs finishing their transformation."
-							+ "</br>"
+							+ "<br/>"
 							+ "[npc.Name] now has an [style.boldHarpy(avian vagina)], with [npc.pussyColourPrimary(true)] labia and [npc.pussyColourSecondary(true)] internal walls."
 						+ "</p>"));
 				}
@@ -896,16 +896,16 @@ public class Vagina implements BodyPartInterface, Serializable {
 		} else {
 			if (owner.isPlayer()) {
 				UtilText.transformationContentSB.append(
-						"</br>"
+						"<br/>"
 						+ "Instead, your new pussy is:");
 			} else {
 				UtilText.transformationContentSB.append(
-						"</br>"
+						"<br/>"
 						+ "Instead, [npc.her] new pussy is:");
 			}
 			
 			for(OrificeModifier om : orificeVagina.getOrificeModifiers()) {
-				UtilText.transformationContentSB.append("</br>[style.boldGrow("+Util.capitaliseSentence(om.getName())+")]");
+				UtilText.transformationContentSB.append("<br/>[style.boldGrow("+Util.capitaliseSentence(om.getName())+")]");
 			}
 			UtilText.transformationContentSB.append("</p>");
 		}
@@ -944,14 +944,14 @@ public class Vagina implements BodyPartInterface, Serializable {
 			if (owner.isPlayer()) {
 				return "</p>"
 							+ "[pc.A_moan+] bursts out from between your [pc.lips+] as you feel a warm tingling sensation run up into your [pc.pussy]."
-							+ " Squirming about on the spot, your exclamation turns into a surprised gasp as you feel your labia swell up and [style.boldGrow(grow larger)].</br>"
+							+ " Squirming about on the spot, your exclamation turns into a surprised gasp as you feel your labia swell up and [style.boldGrow(grow larger)].<br/>"
 							+ "You now have [style.boldSex([pc.labiaSize] labia)]!"
 						+ "</p>";
 			} else {
 				return UtilText.parse(owner,
 						"</p>"
 							+ "[npc.A_moan+] bursts out from between [npc.name] [pc.lips+] as [npc.she] feels a warm tingling sensation run up into [npc.her] [npc.pussy]."
-							+ " Squirming about on the spot, [npc.her] exclamation turns into a surprised gasp as [npc.she] feels [npc.her] labia swell up and [style.boldGrow(grow larger)].</br>"
+							+ " Squirming about on the spot, [npc.her] exclamation turns into a surprised gasp as [npc.she] feels [npc.her] labia swell up and [style.boldGrow(grow larger)].<br/>"
 							+ "[npc.Name] now has [style.boldSex([npc.labiaSize] labia)]!"
 						+ "</p>");
 			}
@@ -959,14 +959,14 @@ public class Vagina implements BodyPartInterface, Serializable {
 			if (owner.isPlayer()) {
 				return "</p>"
 						+ "[pc.A_moan+] bursts out from between your [pc.lips+] as you feel a cool tingling sensation spread up into your [pc.pussy]."
-						+ " Squirming about on the spot, your exclamation turns into a surprised gasp as you feel your labia shrink down and [style.boldShrink(get smaller)].</br>"
+						+ " Squirming about on the spot, your exclamation turns into a surprised gasp as you feel your labia shrink down and [style.boldShrink(get smaller)].<br/>"
 						+ "You now have [style.boldSex([pc.labiaSize] labia)]!"
 					+ "</p>";
 			} else {
 				return UtilText.parse(owner,
 						"</p>"
 							+ "[npc.A_moan+] bursts out from between [npc.name] [pc.lips+] as [npc.she] feels a cool tingling sensation spread up into [npc.her] [npc.pussy]."
-							+ " Squirming about on the spot, [npc.her] exclamation turns into a surprised gasp as [npc.she] feels [npc.her] labia shrink down and [style.boldShrink(get smaller)].</br>"
+							+ " Squirming about on the spot, [npc.her] exclamation turns into a surprised gasp as [npc.she] feels [npc.her] labia shrink down and [style.boldShrink(get smaller)].<br/>"
 							+ "[npc.Name] now has [style.boldSex([npc.labiaSize] labia)]!"
 						+ "</p>");
 			}
@@ -1000,14 +1000,14 @@ public class Vagina implements BodyPartInterface, Serializable {
 			if (owner.isPlayer()) {
 				return "</p>"
 							+ "You let out [pc.a_moan] as you feel a deep throbbing sensation building up within your [pc.pussy]."
-							+ " Your cheeks flush red as the feeling works its way up into your clit, and with a little gasp, you feel it [style.boldGrow(grow larger)].</br>"
+							+ " Your cheeks flush red as the feeling works its way up into your clit, and with a little gasp, you feel it [style.boldGrow(grow larger)].<br/>"
 							+ "You now have [style.boldSex([pc.a_clitSize] [pc.clit])]!"
 						+ "</p>";
 			} else {
 				return UtilText.parse(owner,
 						"</p>"
 							+ "[npc.Name] lets out [npc.a_moan] as [npc.she] feels a deep throbbing sensation building up within [npc.her] [npc.pussy]."
-							+ " [npc.Her] cheeks flush red as the feeling works its way up [npc.her] clit, and with a little gasp, [npc.she] feels it [style.boldGrow(grow larger)].</br>"
+							+ " [npc.Her] cheeks flush red as the feeling works its way up [npc.her] clit, and with a little gasp, [npc.she] feels it [style.boldGrow(grow larger)].<br/>"
 							+ "[npc.She] now has [style.boldSex([npc.a_clitSize] [npc.clit])]!"
 						+ "</p>");
 			}
@@ -1015,14 +1015,14 @@ public class Vagina implements BodyPartInterface, Serializable {
 			if (owner.isPlayer()) {
 				return "</p>"
 							+ "You let out [pc.a_moan] as you feel a deep throbbing sensation building up within your [pc.pussy]."
-							+ " Your cheeks flush red as the feeling works its way up into your clit, and with a little gasp, you feel it [style.boldShrink(shrink)].</br>"
+							+ " Your cheeks flush red as the feeling works its way up into your clit, and with a little gasp, you feel it [style.boldShrink(shrink)].<br/>"
 							+ "You now have [style.boldSex([pc.a_clitSize] [pc.clit])]!"
 						+ "</p>";
 			} else {
 				return UtilText.parse(owner,
 						"</p>"
 								+ "[npc.Name] lets out [npc.a_moan] as [npc.she] feels a deep throbbing sensation building up at the base of [npc.her] cock."
-								+ " [npc.Her] cheeks flush red as the feeling works its way up [npc.her] clit, and with a little gasp, [npc.she] feels it [style.boldShrink(shrink)].</br>"
+								+ " [npc.Her] cheeks flush red as the feeling works its way up [npc.her] clit, and with a little gasp, [npc.she] feels it [style.boldShrink(shrink)].<br/>"
 								+ "[npc.She] now has [style.boldSex([npc.a_clitSize] [npc.clit])]!"
 						+ "</p>");
 			}

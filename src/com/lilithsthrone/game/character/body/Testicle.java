@@ -113,26 +113,26 @@ public class Testicle implements BodyPartInterface, Serializable {
 		} else if (sizeChange > 0) {
 			if (owner.isPlayer()) {
 				return "</p>"
-							+ "You let out a lewd moan as you feel your [pc.balls] suddenly swell and [style.boldGrow(grow larger)].</br>"
+							+ "You let out a lewd moan as you feel your [pc.balls] suddenly swell and [style.boldGrow(grow larger)].<br/>"
 							+ "You now have [style.boldSex(" +owner.getTesticleSize().getDescriptor()+ " [pc.balls])]!"
 						+ "</p>";
 			} else {
 				return UtilText.parse(owner,
 						"</p>"
-							+ "[npc.Name] lets out a lewd moan as [npc.she] feels [npc.her] [npc.balls] suddenly swell and [style.boldGrow(grow larger)].</br>"
+							+ "[npc.Name] lets out a lewd moan as [npc.she] feels [npc.her] [npc.balls] suddenly swell and [style.boldGrow(grow larger)].<br/>"
 							+ "[npc.She] now has [style.boldSex(" +owner.getTesticleSize().getDescriptor()+ " [npc.balls])]!"
 						+ "</p>");
 			}
 		} else {
 			if (owner.isPlayer()) {
 				return "</p>"
-							+ "You let out a surprised gasp as you feel your [pc.balls] suddenly [style.boldShrink(shrink)].</br>"
+							+ "You let out a surprised gasp as you feel your [pc.balls] suddenly [style.boldShrink(shrink)].<br/>"
 							+ "You now have [style.boldSex(" +owner.getTesticleSize().getDescriptor()+ " [pc.balls])]!"
 						+ "</p>";
 			} else {
 				return UtilText.parse(owner,
 						"</p>"
-							+ "[npc.Name] lets out a surprised gasp as [npc.she] feels [npc.her] [npc.balls] suddenly [style.boldShrink(shrink)].</br>"
+							+ "[npc.Name] lets out a surprised gasp as [npc.she] feels [npc.her] [npc.balls] suddenly [style.boldShrink(shrink)].<br/>"
 							+ "[npc.She] now has [style.boldSex(" +owner.getTesticleSize().getDescriptor()+ " [npc.balls])]!"
 						+ "</p>");
 			}
@@ -171,26 +171,26 @@ public class Testicle implements BodyPartInterface, Serializable {
 		if (cumProductionChange > 0) {
 			if (owner.isPlayer()) {
 				return "</p>"
-							+ "You feel your [pc.balls] grow heavier and fill up as your cum production [style.boldGrow(increases)].</br>"
+							+ "You feel your [pc.balls] grow heavier and fill up as your cum production [style.boldGrow(increases)].<br/>"
 							+ "You are now producing [style.boldSex(" + cumProductionDescriptor + " [pc.cum])]!"
 						+ "</p>";
 			} else {
 				return UtilText.parse(owner,
 						"</p>"
-							+ "[npc.Name] feels [npc.her] [npc.balls] grow heavier and fill up as [npc.her] cum production [style.boldGrow(increases)].</br>"
+							+ "[npc.Name] feels [npc.her] [npc.balls] grow heavier and fill up as [npc.her] cum production [style.boldGrow(increases)].<br/>"
 							+ "[npc.Name] is now producing [style.boldSex(" + cumProductionDescriptor + " [npc.cum])]!"
 						+ "</p>");
 			}
 		} else {
 			if (owner.isPlayer()) {
 				return "</p>"
-							+ "You feel your [pc.balls] get lighter as your cum production [style.boldShrink(decreases)].</br>"
+							+ "You feel your [pc.balls] get lighter as your cum production [style.boldShrink(decreases)].<br/>"
 							+ "You are now producing [style.boldSex(" + cumProductionDescriptor + " [pc.cum])]!"
 						+ "</p>";
 			} else {
 				return UtilText.parse(owner,
 						"</p>"
-							+ "[npc.Name] feels [npc.her] [npc.balls] get lighter as [npc.her] cum production [style.boldShrink(decreases)].</br>"
+							+ "[npc.Name] feels [npc.her] [npc.balls] get lighter as [npc.her] cum production [style.boldShrink(decreases)].<br/>"
 							+ "[npc.Name] is now producing [style.boldSex(" + cumProductionDescriptor + " [npc.cum])]!"
 						+ "</p>");
 			}
@@ -214,13 +214,13 @@ public class Testicle implements BodyPartInterface, Serializable {
 		if(removingTesticles) {
 			if(owner.isPlayer()) {
 				return UtilText.parse(owner, "<p>"
-							+ "A tingling feeling spreads down into your [pc.balls], and you let out a little cry as you feel some of them shrinking away and [style.boldShrink(disappearing)].</br>"
+							+ "A tingling feeling spreads down into your [pc.balls], and you let out a little cry as you feel some of them shrinking away and [style.boldShrink(disappearing)].<br/>"
 							+ "After a few moments, you're left with [style.boldTfGeneric([pc.a_balls])]."
 						+ "</p>");
 			} else {
 				return UtilText.parse(owner,
 						"<p>"
-							+ "A tingling feeling spreads down into [npc.name]'s [npc.balls], and [npc.she] lets out a little cry as [npc.she] feels some of them shrinking away and [style.boldShrink(disappearing)].</br>"
+							+ "A tingling feeling spreads down into [npc.name]'s [npc.balls], and [npc.she] lets out a little cry as [npc.she] feels some of them shrinking away and [style.boldShrink(disappearing)].<br/>"
 							+ "After a few moments, [npc.she]'s left with [style.boldTfGeneric([npc.a_balls])]."
 						+ "</p>");
 			}
@@ -228,13 +228,13 @@ public class Testicle implements BodyPartInterface, Serializable {
 		} else {
 			if(owner.isPlayer()) {
 				return UtilText.parse(owner, "<p>"
-							+ "A tingling feeling spreads down into your [pc.balls], and you let out a little cry as you feel them [style.boldGrow(multiplying)].</br>"
+							+ "A tingling feeling spreads down into your [pc.balls], and you let out a little cry as you feel them [style.boldGrow(multiplying)].<br/>"
 							+ "After a few moments, you're left with [style.boldTfGeneric([pc.a_balls])]."
 						+ "</p>");
 			} else {
 				return UtilText.parse(owner,
 						"<p>"
-							+ "A tingling feeling spreads down into [npc.name]'s [npc.balls], and [npc.she] lets out a little cry as [npc.she] feels them [style.boldGrow(multiplying)].</br>"
+							+ "A tingling feeling spreads down into [npc.name]'s [npc.balls], and [npc.she] lets out a little cry as [npc.she] feels them [style.boldGrow(multiplying)].<br/>"
 							+ "After a few moments, [npc.she]'s left with [style.boldTfGeneric([npc.a_balls])]."
 						+ "</p>");
 			}
@@ -256,13 +256,13 @@ public class Testicle implements BodyPartInterface, Serializable {
 		if(internal) {
 			if(owner.isPlayer()) {
 				return "<p>"
-							+ "You feel your [pc.balls] tightening and [style.boldShrink(withdrawing)] up into your groin, and you let out a little cry as you feel them shift up inside your body.</br>"
+							+ "You feel your [pc.balls] tightening and [style.boldShrink(withdrawing)] up into your groin, and you let out a little cry as you feel them shift up inside your body.<br/>"
 							+ "Your [pc.balls+] [style.boldTfGeneric(are now internal)]."
 						+ "</p>";
 			} else {
 				return UtilText.parse(owner,
 						"<p>"
-							+ "[npc.Name] feels [npc.her] [npc.balls] tightening and [style.boldShrink(withdrawing)] up into [npc.her] groin, and [npc.she] lets out a little cry as [npc.she] feels them shift up inside [npc.her] body.</br>"
+							+ "[npc.Name] feels [npc.her] [npc.balls] tightening and [style.boldShrink(withdrawing)] up into [npc.her] groin, and [npc.she] lets out a little cry as [npc.she] feels them shift up inside [npc.her] body.<br/>"
 							+ "[npc.Her] [npc.balls+] [style.boldTfGeneric(are now internal)]."
 						+ "</p>");
 			}
@@ -270,13 +270,13 @@ public class Testicle implements BodyPartInterface, Serializable {
 		} else {
 			if(owner.isPlayer()) {
 				return "<p>"
-							+ "You feel your internal [pc.balls] slackening and [style.boldGrow(dropping down)], and you let out a little cry as they settle down into an external sack.</br>"
+							+ "You feel your internal [pc.balls] slackening and [style.boldGrow(dropping down)], and you let out a little cry as they settle down into an external sack.<br/>"
 							+ "Your [pc.balls+] [style.boldTfGeneric(are now external)]."
 						+ "</p>";
 			} else {
 				return UtilText.parse(owner,
 						"<p>"
-							+ "[npc.Name] feels [npc.her] internal [npc.balls] slackening and [style.boldGrow(dropping down)], and [npc.she] lets out a little cry as they settle down into an external sack.</br>"
+							+ "[npc.Name] feels [npc.her] internal [npc.balls] slackening and [style.boldGrow(dropping down)], and [npc.she] lets out a little cry as they settle down into an external sack.<br/>"
 							+ "[npc.Her] [npc.balls+] [style.boldTfGeneric(are now external)]."
 						+ "</p>");
 			}

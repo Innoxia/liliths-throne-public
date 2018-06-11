@@ -135,7 +135,7 @@ public class SubKneeling {
 					+ " screaming in ecstasy as [npc.her] [npc.pussy+] spasms and clenches down around your [pc.tongue+].");
 			
 			if(Sex.getActivePartner().hasPenis()) {
-				UtilText.nodeContentSB.append("</br></br>"
+				UtilText.nodeContentSB.append("<br/><br/>"
 						+ "As [npc.she] grinds [npc.her] [npc.pussy+] down against your [pc.lips], [npc.her] other sexual organ starts to react to [npc.her] climax.");
 				
 				if(Sex.getActivePartner().hasPenisModifier(PenisModifier.KNOTTED)) {
@@ -181,7 +181,7 @@ public class SubKneeling {
 				}
 			}
 			
-			UtilText.nodeContentSB.append("</br></br>"
+			UtilText.nodeContentSB.append("<br/><br/>"
 					+ "After a few moments of grinding down on your face, [npc.her] overwhelming orgasm starts to fade, and [npc.name] stands up on shaky [npc.legs],"
 							+ " grinning down at you as a slick stream of saliva and [npc.girlCum] drools down from [npc.her] [npc.pussy+].");
 			
@@ -269,12 +269,12 @@ public class SubKneeling {
 			}
 			
 			if(Sex.getActivePartner().hasVagina()) {
-				UtilText.nodeContentSB.append("</br></br>"
+				UtilText.nodeContentSB.append("<br/><br/>"
 						+ "Letting out a desperate moan, [npc.name]'s climax drops down into [npc.her] [npc.pussy+],"
 							+ " and [npc.she] roughly grinds the base of [npc.her] [npc.cock+] down against your lips as [npc.she] shudders and moans in pleasure.");
 			}
 			
-			UtilText.nodeContentSB.append("</br></br>"
+			UtilText.nodeContentSB.append("<br/><br/>"
 						+ "After a few moments, [npc.her] balls have completely emptied themselves, and [npc.she] takes a moment to catch [npc.her] breath, grinning down at you as [npc.she] keeps [npc.her] [npc.cock+] hilted down your throat.");
 			
 			return UtilText.parse(Sex.getActivePartner(), UtilText.nodeContentSB.toString());
@@ -370,12 +370,12 @@ public class SubKneeling {
 			}
 			
 			if(Sex.getActivePartner().getVaginaType()!=VaginaType.NONE) {
-				UtilText.nodeContentSB.append("</br></br>"
+				UtilText.nodeContentSB.append("<br/><br/>"
 						+ "Letting out [npc.a_moan+], [npc.name]'s climax drops down into [npc.her] [npc.pussy+], and [npc.she] roughly grinds [npc.her] feminine sex down against your forehead,"
 							+ " shuddering and moaning in pleasure as [npc.her] [npc.cock+] flops down on the top of your head.");
 			}
 			
-			UtilText.nodeContentSB.append("</br></br>"
+			UtilText.nodeContentSB.append("<br/><br/>"
 						+ " After a few moments, [npc.she] comes down from [npc.her] climax and takes hold of your head, smirking down at you as [npc.she] slides [npc.her] [npc.cock+] back into your mouth.");
 			
 			return UtilText.nodeContentSB.toString();

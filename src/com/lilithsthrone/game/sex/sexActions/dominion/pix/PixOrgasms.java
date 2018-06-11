@@ -78,11 +78,11 @@ public class PixOrgasms {
 			
 			UtilText.nodeContentSB.append("You can't take any more of Pix's teasing, and as a desperate heat starts to build in your groin, you let out [pc.a_moan+] and do as she asks, "
 										+ "[pc.speech(Ok! I promise to come back and train again! Please, just let me get off!)]."
-										+ "</br></br>"
+										+ "<br/><br/>"
 										+ "Pix lets out a delighted cry in response, and before you know what's happening, she's darting both of her hands down between your legs and softly growling into your ear, "
 										+ "[pix.speech(Good [pc.girl]! Y'know, I think you deserve a little reward for being such a good little thing!)]");
 			
-			UtilText.nodeContentSB.append("</br></br>");
+			UtilText.nodeContentSB.append("<br/><br/>");
 			// PENIS ORGASM:
 			
 			if(Main.game.getPlayer().hasPenisIgnoreDildo()){
@@ -125,7 +125,7 @@ public class PixOrgasms {
 					UtilText.nodeContentSB.append(" out all over the wall in front of you. ");
 				}
 				
-				UtilText.nodeContentSB.append("</br></br>");
+				UtilText.nodeContentSB.append("<br/><br/>");
 			}
 			
 			// VAGINA ORGASM:
@@ -179,10 +179,10 @@ public class PixOrgasms {
 		public String getDescription() {
 			return "You feel a desperate heat rising in your groin, but, not wanting to promise Pix that you'll come back and see her again, you decide to keep quiet and orgasm without her help."
 					+ " As your climax builds and builds, you suddenly find yourself letting out a little [pc.moan]."
-					+ "</br></br>"
+					+ "<br/><br/>"
 					+ "Betrayed by your inability to keep quiet, Pix realises what's going on, and with an angry growl, she grabs your [pc.arms], pinning them behind your back as she slams you into the wall, "
 					+ "[pix.speech(What did I say?! You're <i>not</i> orgasming until you promise to come back! Y'know, I can do this all day!)]"
-					+ "</br></br>"
+					+ "<br/><br/>"
 					+"She holds you there, pinned up against the wall, for several minutes, and try as you might, you're completely unable to break free."
 					+ " You even try desperately rubbing your crotch up against the wall of the shower, but it's no use, and you feel your climax slowly ebbing away, leaving you incredibly frustrated and horny."
 					+ " Only once it's clear that you've calmed down, does Pix finally release you, and, sliding her hands down over your body, she prepares to bring you to the edge once more...";
@@ -254,7 +254,7 @@ public class PixOrgasms {
 			return "You hear Pix letting out desperate little whines, and you realise that she's getting off on preventing you from orgasming."
 					+ " Sensing your chance to break free, you try pushing her off of you, but that only seems to increase the intensity of her moans,"
 					+ " and with an ear-splitting scream, she slams you forwards against the wall, grinding her naked [pix.pussy] up against your [pc.ass] as her orgasm washes over her."
-					+ "</br></br>"
+					+ "<br/><br/>"
 					+ "After a few moments, she finally recovers, and, straightening up, she happily sighs into your ear, "
 					+ "[pix.speech(Fuck... That was good!)]";
 		}

@@ -49,7 +49,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Inventory for a Character. Tracks weapons equipped, clothes worn & inventory space.</br>
+ * Inventory for a Character. Tracks weapons equipped, clothes worn & inventory space.<br/>
  * Only the very bravest dare venture past line 717.
  * 
  * @since 0.1.0
@@ -782,14 +782,14 @@ public class CharacterInventory implements Serializable, XMLSaving {
 	}
 	private void transformationIncompatible(GameCharacter character, AbstractClothing c, List<AbstractClothing> clothingRemovalList, String description){
 		if (tempSB.length() != 0)
-			tempSB.append("</br></br>");
-		tempSB.append("</br><span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>"+description+"</span>");
+			tempSB.append("<br/><br/>");
+		tempSB.append("<br/><span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>"+description+"</span>");
 		if (isInventoryFull() && !hasClothing(c)) {
 			Main.game.getActiveWorld().getCell(character.getLocation()).getInventory().addClothing(c);
-			tempSB.append("</br>" + character.droppedItemText(c));
+			tempSB.append("<br/>" + character.droppedItemText(c));
 		} else {
 			character.addClothing(c, false);
-			tempSB.append("</br>" + character.addedItemToInventoryText(c));
+			tempSB.append("<br/>" + character.addedItemToInventoryText(c));
 		}
 		clothingRemovalList.add(c);	
 	}
@@ -1084,7 +1084,7 @@ public class CharacterInventory implements Serializable, XMLSaving {
 						clothingToBeReplaced.add(c);
 					}
 
-					equipTextSB.append((equipTextSB.length() == 0 ? "" : "</br>")
+					equipTextSB.append((equipTextSB.length() == 0 ? "" : "<br/>")
 								+ (clothingToRemove.get(c) == DisplacementType.REMOVE_OR_EQUIP
 									? c.onUnequipText(characterClothingOwner, characterClothingEquipper, false)// (Main.game.isInSex()?Sex.isSubResisting():false))
 									: (characterClothingOwner.isPlayer()
@@ -1095,9 +1095,9 @@ public class CharacterInventory implements Serializable, XMLSaving {
 				// Remove all clothing that is incompatible with newClothing using the owner's accessor method.
 				for (AbstractClothing c : incompatibleRemovableClothing) {
 					if (!characterClothingOwner.isInventoryFull() || characterClothingOwner.hasClothing(c)) {
-						equipTextSB.append("</br>" + characterClothingOwner.addedItemToInventoryText(c));
+						equipTextSB.append("<br/>" + characterClothingOwner.addedItemToInventoryText(c));
 					} else {
-						equipTextSB.append("</br>" + characterClothingOwner.droppedItemText(c));
+						equipTextSB.append("<br/>" + characterClothingOwner.droppedItemText(c));
 					}
 					String oldEquipText = equipTextSB.toString();// this is a hack to fix the string builder being overwritten
 					
@@ -1123,9 +1123,9 @@ public class CharacterInventory implements Serializable, XMLSaving {
 						
 					} else {
 						if ((!characterClothingOwner.isInventoryFull() || characterClothingOwner.hasClothing(getClothingInSlot(newClothing.getClothingType().getSlot()))) && Main.game.isInNewWorld()) {
-							equipTextSB.append("</br>" + characterClothingOwner.addedItemToInventoryText(getClothingInSlot(newClothing.getClothingType().getSlot())));
+							equipTextSB.append("<br/>" + characterClothingOwner.addedItemToInventoryText(getClothingInSlot(newClothing.getClothingType().getSlot())));
 						} else {
-							equipTextSB.append("</br>" + characterClothingOwner.droppedItemText(getClothingInSlot(newClothing.getClothingType().getSlot())));
+							equipTextSB.append("<br/>" + characterClothingOwner.droppedItemText(getClothingInSlot(newClothing.getClothingType().getSlot())));
 						}
 						String oldEquipText = equipTextSB.toString();// this is a hack to fix the string builder being overwritten
 						if(Main.game.isInNewWorld()) {
@@ -1142,14 +1142,14 @@ public class CharacterInventory implements Serializable, XMLSaving {
 				clothingCurrentlyEquipped.add(newClothing);
 				// newClothing.getClothingType().setColourShade(newClothing.getColourShade());
 				
-				equipTextSB.append((equipTextSB.length() == 0 ? "" : "</br>") + newClothing.onEquipApplyEffects(characterClothingOwner, characterClothingEquipper, false));// (Main.game.isInSex()?Sex.isSubResisting():false)));
+				equipTextSB.append((equipTextSB.length() == 0 ? "" : "<br/>") + newClothing.onEquipApplyEffects(characterClothingOwner, characterClothingEquipper, false));// (Main.game.isInSex()?Sex.isSubResisting():false)));
 
 				clothingToBeReplaced.sort(new ReverseClothingZLayerComparator());
 				if (!clothingToBeReplaced.isEmpty()) {// clothingCountToBeReplaced-incompatibleUnequippableClothing.size()>0)
 					equipTextSB.append(characterClothingOwner.isPlayer()
-							?"</br>You replace your " + Util.clothesToStringList(clothingToBeReplaced, false) + "."
+							?"<br/>You replace your " + Util.clothesToStringList(clothingToBeReplaced, false) + "."
 							:UtilText.parse(characterClothingOwner,
-									"</br>[npc.Name] replaces [npc.her] " + Util.clothesToStringList(clothingToBeReplaced, false) + "."));
+									"<br/>[npc.Name] replaces [npc.her] " + Util.clothesToStringList(clothingToBeReplaced, false) + "."));
 				}
 				
 				// Check for clothing sets:
@@ -1256,10 +1256,10 @@ public class CharacterInventory implements Serializable, XMLSaving {
 												
 											} else {
 												equipTextSB.append(characterClothingOwner.isPlayer()
-														?"</br>Your " + clothing.getName() + " can't be unequipped because your " + equippedClothing.getName() + " "
+														?"<br/>Your " + clothing.getName() + " can't be unequipped because your " + equippedClothing.getName() + " "
 														+ (equippedClothing.getClothingType().isPlural() ? "are" : "is") + " in the way."
 														:UtilText.parse(characterClothingOwner,
-																"</br>[npc.Name]'s " + clothing.getName() + " can't be unequipped because [npc.her] " + equippedClothing.getName() + " "
+																"<br/>[npc.Name]'s " + clothing.getName() + " can't be unequipped because [npc.her] " + equippedClothing.getName() + " "
 														+ (equippedClothing.getClothingType().isPlural() ? "are" : "is") + " in the way."));
 												
 												blockingClothing = equippedClothing;
@@ -1310,12 +1310,12 @@ public class CharacterInventory implements Serializable, XMLSaving {
 
 			// Description of each clothing item that is removed/displaced:
 			for (AbstractClothing c : tempClothingList) {
-				equipTextSB.append((equipTextSB.length() == 0 ? "" : "</br>") + (clothingToRemove.get(c) == DisplacementType.REMOVE_OR_EQUIP
+				equipTextSB.append((equipTextSB.length() == 0 ? "" : "<br/>") + (clothingToRemove.get(c) == DisplacementType.REMOVE_OR_EQUIP
 						? (c == clothing ? c.onUnequipApplyEffects(characterClothingOwner, characterRemovingClothing, false)// (Main.game.isInSex()?Sex.isSubResisting():false))
 								: c.onUnequipText(characterClothingOwner, characterRemovingClothing, false))// (Main.game.isInSex()?Sex.isSubResisting():false)))
 						: c.getClothingType().displaceText(characterClothingOwner, characterRemovingClothing, clothingToRemove.get(c), false)));// (Main.game.isInSex()?Sex.isSubResisting():false))));
 				// if(c==clothing)
-				// unequipTextSB.append("</br>"+(isInventoryFull()?characterClothingOwner.droppedItemText(clothing):characterClothingOwner.addedItemToInventoryText(clothing)));
+				// unequipTextSB.append("<br/>"+(isInventoryFull()?characterClothingOwner.droppedItemText(clothing):characterClothingOwner.addedItemToInventoryText(clothing)));
 			}
 
 			// Actually unequip the clothing:
@@ -1331,9 +1331,9 @@ public class CharacterInventory implements Serializable, XMLSaving {
 
 			if (!clothingToBeReplaced.isEmpty() && !continuingIsAbleToEquip) {
 				equipTextSB.append(characterClothingOwner.isPlayer()
-						?"</br>You replace your " + Util.clothesToStringList(clothingToBeReplaced, false) + "."
+						?"<br/>You replace your " + Util.clothesToStringList(clothingToBeReplaced, false) + "."
 						:UtilText.parse(characterClothingOwner,
-								"</br>You replace [npc.name]'s " + Util.clothesToStringList(clothingToBeReplaced, false) + "."));
+								"<br/>You replace [npc.name]'s " + Util.clothesToStringList(clothingToBeReplaced, false) + "."));
 			}
 			
 			// Check for clothing sets:
@@ -1464,12 +1464,12 @@ public class CharacterInventory implements Serializable, XMLSaving {
 
 			// Description of each clothing item that is removed/displaced:
 			for (AbstractClothing c : tempClothingList) {
-				unableToDisplaceText.append((unableToDisplaceText.length() == 0 ? "" : "</br>") + (clothingToRemove.get(c) == DisplacementType.REMOVE_OR_EQUIP ? c.onUnequipText(characterClothingOwner, characterRemovingClothing, false)// (Main.game.isInSex()?Sex.isSubResisting():false))
+				unableToDisplaceText.append((unableToDisplaceText.length() == 0 ? "" : "<br/>") + (clothingToRemove.get(c) == DisplacementType.REMOVE_OR_EQUIP ? c.onUnequipText(characterClothingOwner, characterRemovingClothing, false)// (Main.game.isInSex()?Sex.isSubResisting():false))
 						: c.getClothingType().displaceText(characterClothingOwner, characterRemovingClothing, clothingToRemove.get(c), false)));// (Main.game.isInSex()?Sex.isSubResisting():false))));
 			}
 
 			unableToDisplaceText.append(
-					(unableToDisplaceText.length() == 0 ? "" : "</br><span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>") + clothing.getClothingType().displaceText(characterClothingOwner, characterRemovingClothing, dt, false)// (Main.game.isInSex()?Sex.isSubResisting():false))
+					(unableToDisplaceText.length() == 0 ? "" : "<br/><span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>") + clothing.getClothingType().displaceText(characterClothingOwner, characterRemovingClothing, dt, false)// (Main.game.isInSex()?Sex.isSubResisting():false))
 							+ "</span>");
 
 			List<AbstractClothing> replaceClothingList = new ArrayList<>();
@@ -1477,7 +1477,7 @@ public class CharacterInventory implements Serializable, XMLSaving {
 			replaceClothingList.remove(clothing);
 			replaceClothingList.sort(new ReverseClothingZLayerComparator());
 			if (!replaceClothingList.isEmpty()) {
-				unableToDisplaceText.append("</br>You replace "+(characterClothingOwner.isPlayer()?"your":characterClothingOwner.getName()+"'s")+" " + Util.clothesToStringList(replaceClothingList, false) + ".");
+				unableToDisplaceText.append("<br/>You replace "+(characterClothingOwner.isPlayer()?"your":characterClothingOwner.getName()+"'s")+" " + Util.clothesToStringList(replaceClothingList, false) + ".");
 			}
 			
 			return true;
@@ -1573,20 +1573,20 @@ public class CharacterInventory implements Serializable, XMLSaving {
 
 			// Description of each clothing item that is removed/displaced:
 			for (AbstractClothing c : tempClothingList)
-				unableToReplaceText.append((unableToReplaceText.length() == 0 ? "" : "</br>") + (clothingToRemove.get(c) == DisplacementType.REMOVE_OR_EQUIP
+				unableToReplaceText.append((unableToReplaceText.length() == 0 ? "" : "<br/>") + (clothingToRemove.get(c) == DisplacementType.REMOVE_OR_EQUIP
 						? (c == clothing ? c.onUnequipApplyEffects(characterClothingOwner, characterRemovingClothing, false)// (Main.game.isInSex()?Sex.isSubResisting():false))
 								: c.onUnequipText(characterClothingOwner, characterRemovingClothing, false))// (Main.game.isInSex()?Sex.isSubResisting():false)))
 						: c.getClothingType().displaceText(characterClothingOwner, characterRemovingClothing, clothingToRemove.get(c), false)));// (Main.game.isInSex()?Sex.isSubResisting():false))));
 
 			unableToReplaceText
-					.append((unableToReplaceText.length() == 0 ? "" : "</br><span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>") + clothing.getClothingType().replaceText(characterClothingOwner, characterRemovingClothing, dt, false)// (Main.game.isInSex()?Sex.isSubResisting():false))
+					.append((unableToReplaceText.length() == 0 ? "" : "<br/><span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>") + clothing.getClothingType().replaceText(characterClothingOwner, characterRemovingClothing, dt, false)// (Main.game.isInSex()?Sex.isSubResisting():false))
 							+ "</span>");
 
 			List<AbstractClothing> replaceClothingList = new ArrayList<>();
 			replaceClothingList.addAll(clothingToRemove.keySet());
 			replaceClothingList.sort(new ReverseClothingZLayerComparator());
 			if (!replaceClothingList.isEmpty()) {
-				unableToReplaceText.append("</br>You replace "+(characterClothingOwner.isPlayer()?"your":characterClothingOwner.getName()+"'s")+" " + Util.clothesToStringList(replaceClothingList, false) + ".");
+				unableToReplaceText.append("<br/>You replace "+(characterClothingOwner.isPlayer()?"your":characterClothingOwner.getName()+"'s")+" " + Util.clothesToStringList(replaceClothingList, false) + ".");
 			}
 			
 			return true;
@@ -1780,7 +1780,7 @@ public class CharacterInventory implements Serializable, XMLSaving {
 	}
 
 	/**
-	 * The lowest piece of clothing that is blocking this slot.</br>
+	 * The lowest piece of clothing that is blocking this slot.<br/>
 	 * <b>Note:</b> This takes into account displacement, so, for example, if your panties are displaced, and are the only piece of clothing otherwise blocking your vagina,
 	 *  this method will return null for getLowestZLayerCoverableArea(CoverableArea.VAGINA)!
 	 */
@@ -1805,7 +1805,7 @@ public class CharacterInventory implements Serializable, XMLSaving {
 	}
 	
 	/**
-	 * The highest piece of clothing that is blocking this slot.</br>
+	 * The highest piece of clothing that is blocking this slot.<br/>
 	 * <b>Note:</b> This takes into account displacement, so, for example, if your yoga pants are displaced, and are revealing your panties,
 	 *  this method will return panties for getHighestZLayerCoverableArea(CoverableArea.VAGINA)!
 	 */

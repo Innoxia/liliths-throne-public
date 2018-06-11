@@ -66,7 +66,7 @@ public class SlaveDialogue {
 							+ " <b>[npc.she]'s teleported to the 'Slave Administration' building in Slaver Alley, where [npc.she]'ll be waiting for you to pick them up</b>."
 					+ "</p>"
 					+ "<p>"
-						+ "Just before they disappear, glowing purple lettering is projected into the air, which reads:</br>"
+						+ "Just before they disappear, glowing purple lettering is projected into the air, which reads:<br/>"
 						+ "<i>Slave identification: [style.boldArcane("+Main.game.getActiveNPC().getNameIgnoresPlayerKnowledge()+")]</i>"
 					+ "</p>");
 		}

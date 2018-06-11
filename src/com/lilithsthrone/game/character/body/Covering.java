@@ -23,7 +23,7 @@ public class Covering  {
 	protected boolean primaryGlowing, secondaryGlowing;
 
 	/**
-	 * Constructor.</br>
+	 * Constructor.<br/>
 	 * Initialises CoveringPattern pattern to a random value, and boolean glowing to false.
 	 * @param type The BodyCoveringType to set this skin to.
 	 */
@@ -36,7 +36,7 @@ public class Covering  {
 	}
 	
 	/**
-	 * Constructor.</br>
+	 * Constructor.<br/>
 	 * Initialises CoveringPattern pattern to the first value, boolean glowing to false, and secondaryColour to same as primaryColour (where available).
 	 * @param type
 	 * @param primaryColour
