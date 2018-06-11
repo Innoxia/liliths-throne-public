@@ -105,7 +105,7 @@ public class Wing implements BodyPartInterface, Serializable {
 								+ (getSize().isSizeAllowsFlight()
 										?" You give them an experimental flap, and, much to your delight, you discover that they're powerful enough to enable you to fly."
 										:" You give them an experimental flap, and although they aren't quite big enough just yet, you think that if you were to increase their size, they'd enable you to fly.")
-								+ "</br>"
+								+ "<br/>"
 								+ "You now have [style.boldAngel(angelic, feathered wings)]."
 							+ "</p>");
 				} else {
@@ -114,7 +114,7 @@ public class Wing implements BodyPartInterface, Serializable {
 								+ (getSize().isSizeAllowsFlight()
 										?" [npc.She] gives them an experimental flap, and, much to [npc.her] delight, [npc.she] discovers that they're powerful enough to enable [npc.herHim] to fly."
 										:" [npc.She] gives them an experimental flap, and although they aren't quite big enough just yet, it looks as though if they were to be a little bigger, they'd enable [npc.herHim] to fly.")
-								+ "</br>"
+								+ "<br/>"
 								+ "[npc.Name] now has [style.boldAngel(angelic, feathered wings)]."
 							+ "</p>");
 				}
@@ -126,7 +126,7 @@ public class Wing implements BodyPartInterface, Serializable {
 								+ (getSize().isSizeAllowsFlight()
 										?" You give them an experimental flutter, and, much to your delight, you discover that they're powerful enough to enable you to fly."
 										:" You give them an experimental flutter, and although they aren't quite big enough just yet, you think that if you were to increase their size, they'd enable you to fly.")
-								+ "</br>"
+								+ "<br/>"
 								+ "You now have [style.boldDemon(demonic bat-like wings)]."
 							+ "</p>");
 				} else {
@@ -135,7 +135,7 @@ public class Wing implements BodyPartInterface, Serializable {
 								+ (getSize().isSizeAllowsFlight()
 										?" [npc.She] gives them an experimental flutter, and, much to [npc.her] delight, [npc.she] discovers that they're powerful enough to enable [npc.herHim] to fly."
 										:" [npc.She] gives them an experimental flutter, and although they aren't quite big enough just yet, it looks as though if they were to be a little bigger, they'd enable [npc.herHim] to fly.")
-								+ "</br>"
+								+ "<br/>"
 								+ "[npc.Name] now has [style.boldDemon(demonic bat-like wings)]."
 							+ "</p>");
 				}
@@ -147,7 +147,7 @@ public class Wing implements BodyPartInterface, Serializable {
 								+ (getSize().isSizeAllowsFlight()
 										?" You give them an experimental flutter, and, much to your delight, you discover that they're powerful enough to enable you to fly."
 										:" You give them an experimental flutter, and although they aren't quite big enough just yet, you think that if you were to increase their size, they'd enable you to fly.")
-								+ "</br>"
+								+ "<br/>"
 								+ "You now have [style.boldImp(impish bat-like wings)]."
 							+ "</p>");
 				} else {
@@ -156,7 +156,7 @@ public class Wing implements BodyPartInterface, Serializable {
 								+ (getSize().isSizeAllowsFlight()
 										?" [npc.She] gives them an experimental flutter, and, much to [npc.her] delight, [npc.she] discovers that they're powerful enough to enable [npc.herHim] to fly."
 										:" [npc.She] gives them an experimental flutter, and although they aren't quite big enough just yet, it looks as though if they were to be a little bigger, they'd enable [npc.herHim] to fly.")
-								+ "</br>"
+								+ "<br/>"
 								+ "[npc.Name] now has [style.boldImp(impish bat-like wings)]."
 							+ "</p>");
 				}
@@ -165,13 +165,13 @@ public class Wing implements BodyPartInterface, Serializable {
 				if(owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
 								" With a strong tugging sensation, your [pc.wings] shrink away into the flesh of your back."
-								+ "</br>"
+								+ "<br/>"
 								+ "You now have [style.boldTfGeneric(no wings)]."
 							+ "</p>");
 				} else {
 					UtilText.transformationContentSB.append(
 								" With a strong tugging sensation, [npc.her] [npc.wings] shrink away into the flesh of [npc.her] back."
-								+ "</br>"
+								+ "<br/>"
 								+ "[npc.Name] now has [style.boldTfGeneric(no wings)]."
 							+ "</p>");
 				}
@@ -216,16 +216,16 @@ public class Wing implements BodyPartInterface, Serializable {
 		
 		if(this.size > effectiveSize) {
 			if(owner.isPlayer()) {
-				transformation = "<p>A soothing coolness rises up into your [pc.wings+], causing you to let out a surprised gasp as you feel them [style.boldShrink(shrinking)].</br>";
+				transformation = "<p>A soothing coolness rises up into your [pc.wings+], causing you to let out a surprised gasp as you feel them [style.boldShrink(shrinking)].<br/>";
 			} else {
-				transformation = UtilText.parse(owner, "<p>[npc.Name] lets out a little cry as [npc.she] feels a soothing coolness rise up into [npc.her] [npc.wings+], before they suddenly [style.boldShrink(shrink)].</br>");
+				transformation = UtilText.parse(owner, "<p>[npc.Name] lets out a little cry as [npc.she] feels a soothing coolness rise up into [npc.her] [npc.wings+], before they suddenly [style.boldShrink(shrink)].<br/>");
 			}
 			
 		} else {
 			if(owner.isPlayer()) {
-				transformation = "<p>A pulsating warmth rises up into your [pc.wings+], causing you to let out a surprised gasp as you feel them [style.boldGrow(growing larger)].</br>";
+				transformation = "<p>A pulsating warmth rises up into your [pc.wings+], causing you to let out a surprised gasp as you feel them [style.boldGrow(growing larger)].<br/>";
 			} else {
-				transformation = UtilText.parse(owner, "<p>[npc.Name] lets out a little cry as [npc.she] feels a pulsating warmth rise up into [npc.her] [npc.wings+], before they suddenly [style.boldGrow(grow larger)].</br>");
+				transformation = UtilText.parse(owner, "<p>[npc.Name] lets out a little cry as [npc.she] feels a pulsating warmth rise up into [npc.her] [npc.wings+], before they suddenly [style.boldGrow(grow larger)].<br/>");
 			}
 		}
 		

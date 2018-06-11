@@ -541,7 +541,7 @@ public class AlleywayProstituteDialogue {
 				
 			} else if (index == 5) {
 				return new ResponseSex("Submit",
-						"You're not really sure what to do now...</br>"
+						"You're not really sure what to do now...<br/>"
 							+ "Perhaps it would be best to let [npc.name] choose what to do next?",
 						Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, CorruptionLevel.THREE_DIRTY, null, null, null,
 						true, true,

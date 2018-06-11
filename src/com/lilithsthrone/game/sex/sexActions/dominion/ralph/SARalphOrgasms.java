@@ -114,7 +114,7 @@ public class SARalphOrgasms {
 			
 			if(Main.game.getPlayer().hasPenisIgnoreDildo()){
 
-				UtilText.nodeContentSB.append("</br></br>");
+				UtilText.nodeContentSB.append("<br/><br/>");
 				
 				switch(Main.game.getPlayer().getPenisType()){
 					case CANINE:
@@ -180,7 +180,7 @@ public class SARalphOrgasms {
 			
 			if (Main.game.getPlayer().getVaginaType()!=VaginaType.NONE) {
 				
-				UtilText.nodeContentSB.append("</br></br>"
+				UtilText.nodeContentSB.append("<br/><br/>"
 						+ "A desperate, shuddering heat suddenly crashes up from your [pc.pussy+], and you let out a manic squeal as a blinding wave of pure ecstasy washes over you.");
 				
 				if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA) != null) {
@@ -234,7 +234,7 @@ public class SARalphOrgasms {
 			
 			// MOUND ORGASM:
 			if (Main.game.getPlayer().getPenisType()==PenisType.NONE && Main.game.getPlayer().getVaginaType()==VaginaType.NONE) {
-				UtilText.nodeContentSB.append("</br></br>"
+				UtilText.nodeContentSB.append("<br/><br/>"
 									+ "Despite your lack of sexual organs, you feel a desperate warmth spreading quickly through your lower abdomen, and before you know what's happening,"
 									+ " the feeling has concentrated itself in your groin, and you're suddenly hit by a blinding orgasm."
 									+ " Your legs clench together and you let out a desperate cry as the climax deep within your horny doll-like mound takes you by surprise."
@@ -242,7 +242,7 @@ public class SARalphOrgasms {
 			}
 			
 			if(SexFlags.customerAtCounter) {
-				UtilText.nodeContentSB.append("</br></br>"
+				UtilText.nodeContentSB.append("<br/><br/>"
 						+ "As you start to come down from your climax, you hear Ralph offering a part of your discount to the customer who just overheard your not-so-quiet orgasm"
 						+ ", and you let out a defeated sigh as you realise that you forgot they were there.");
 			}
@@ -339,13 +339,13 @@ public class SARalphOrgasms {
 			if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA)!=null){
 				UtilText.nodeContentSB.append("Ralph starts letting out a series of low, heavy grunts, and you gasp as you feel his member start to twitch inside of you."
 						+ " With a roar, he slams his massive horse-cock deep into your cunt, and you let out a squeal as you feel his powerful shaft ride up inside of you as it prepares for its master's orgasm."
-						+ "</br>"
+						+ "<br/>"
 						+ " Grinding the base of his cock against your outer folds, his massive balls tense up as Ralph starts to cum.");
 				
 				if(Sex.getActivePartner().isWearingCondom()) {
 					UtilText.nodeContentSB.append(" With a powerful rocking motion, his gigantic dick spurts out its potent load directly into the condom, and as you feel the hot seed ballooning out the rubber inside of you, you let out a satisfied sigh."
 							+ " His cock continues to pump a few more times, the huge, black equine shaft quickly depositing its seed harmlessly into the protection you've provided."
-							+ "</br></br>"
+							+ "<br/><br/>"
 							+ "As Ralph's balls finish emptying themselves, he steps back, sliding his rapidly-softening member from your well-used pussy."
 							+ " You let out a little sigh as you're suddenly left feeling extremely empty, and you roll over onto your back and playfully wrap your legs around Ralph,"
 							+ " pulling him forwards and rubbing your pussy against his now-flaccid equine cock as he finishes tying up the used condom."
@@ -360,7 +360,7 @@ public class SARalphOrgasms {
 							+ (Main.game.getPlayer().isVisiblyPregnant()
 								?" Once your pussy is completely saturated with sticky white horse-jizz, you feel Ralph's strong grip on your hips start to relax as he finishes his orgasm."
 								:" Once your womb is completely saturated with sticky white horse-jizz, you feel Ralph's strong grip on your hips start to relax as he finishes his orgasm.")
-							+ "</br></br>"
+							+ "<br/><br/>"
 							+ "As Ralph's balls finish emptying themselves, he steps back, and with a wet sucking sound, slips his rapidly-softening member out of your well-used slit."
 							+ " You let out a little sigh as you're suddenly left feeling extremely empty, and you feel a little trickle of his warm, wet seed escaping from your entrance."
 							+ " Rolling over onto your back, you playfully wrap your legs around Ralph, pulling him forwards and rubbing your cum-filled pussy against his now-flaccid equine cock."
@@ -371,13 +371,13 @@ public class SARalphOrgasms {
 			}else if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.ANUS)!=null){
 				UtilText.nodeContentSB.append("Ralph starts letting out a series of low, heavy grunts, and you gasp as you feel his member start to twitch inside of you."
 						+ " With a roar, he slams his massive horse-cock deep into your ass, and you let out a cry as you feel his powerful shaft ride up inside of you as it prepares for its master's orgasm."
-						+ "</br>"
+						+ "<br/>"
 						+ " Grinding the base of his cock against your asshole, his massive balls tense up as Ralph starts to cum.");
 				 
 				if(Sex.getActivePartner().isWearingCondom()) {
 					UtilText.nodeContentSB.append(" With a powerful rocking motion, his gigantic dick spurts out its potent load directly into the condom, and as you feel the hot seed ballooning out the rubber inside of you, you let out a satisfied sigh."
 							+ " His cock continues to pump a few more times, the huge, black equine shaft quickly depositing its seed harmlessly into the protection you've provided."
-							+ "</br></br>"
+							+ "<br/><br/>"
 							+ "As Ralph's balls finish emptying themselves, he steps back, sliding his rapidly-softening member from your well-used back door."
 							+ " You let out a little sigh as you're suddenly left feeling extremely empty, and you roll over onto your back and playfully wrap your legs around Ralph,"
 							+ " pulling him forwards and rubbing your groin against his now-flaccid equine cock as he finishes tying up the used condom."
@@ -387,7 +387,7 @@ public class SARalphOrgasms {
 					UtilText.nodeContentSB.append(" With a powerful rocking motion, his gigantic dick spurts out its potent load directly into your ass, and as you feel the hot seed filling you up, you let out a satisfied groan."
 							+ " His cock continues to pump a few more times, the huge, black equine shaft making sure to deposit its seed deep into your hungry back door."
 							+ " Once your rear entrance is completely saturated with sticky white horse-jizz, you feel Ralph's strong grip on your hips start to relax as he finishes his orgasm."
-							+ "</br></br>"
+							+ "<br/><br/>"
 							+ "As Ralph's balls finish emptying themselves, he steps back, and with a wet sucking sound, slips his rapidly-softening member out of your well-used fuck hole."
 							+ " You let out a little sigh as you're suddenly left feeling extremely empty, and you feel a little trickle of his warm, wet seed escaping from your rear entrance."
 							+ " Rolling over onto your back, you playfully wrap your legs around Ralph, pulling him forwards and rubbing your cum-filled asshole against his now-flaccid equine cock."
@@ -401,26 +401,26 @@ public class SARalphOrgasms {
 						UtilText.nodeContentSB.append("Ralph quickly finishes up with the customer, who's still chuckling at the knowledge of what's going on under the counter."
 								+ " Ralph just seems to want to get rid of them as soon as possible, and forgets to knock off the portion of your discount he just gave away!"
 								+ " The reason for his oversight is soon made clear..."
-								+ "</br></br>"
+								+ "<br/><br/>"
 								+ "<b>There are now</b> <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>no customers</b> <b>near the counter.</b>"
-										+ "</br></br>");
+										+ "<br/><br/>");
 					else
 						UtilText.nodeContentSB.append("Ralph quickly finishes up with the customer, and as you hear them start to walk away, you realise that by staying quiet, they didn't find out that you were here!"
-								+ "</br></br>"
+								+ "<br/><br/>"
 								+ "<b>There are now</b> <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>no customers</b> <b>near the counter.</b>"
-										+ "</br></br>");
+										+ "<br/><br/>");
 				}
 				
 				UtilText.nodeContentSB.append("Ralph starts letting out a series of low, heavy grunts, and you gasp as you feel his member start to twitch in your mouth."
 						+ " With a suppressed groan, he slams his massive horse-cock deep down your throat, and, squirming about under the counter, you feel his powerful shaft trying to ride up as it prepares for its master's orgasm."
-						+ "</br></br>"
+						+ "<br/><br/>"
 						+ "Grinding the base of his cock against your lips, his massive balls tense up as Ralph starts to cum.");
 				
 				if(Sex.getActivePartner().isWearingCondom()) {
 					UtilText.nodeContentSB.append(" With a powerful rocking motion, his gigantic dick spurts out its potent load directly into the condom, and as you feel the hot seed ballooning out the tip of the protection you've provided,"
 								+ " you let out a very muffled moan."
 							+ " The huge, black equine shaft continues to pump and twitch a few more times as it deposits its seed harmlessly into the protection you've provided."
-							+ "</br></br>"
+							+ "<br/><br/>"
 							+ "As Ralph's balls finish emptying themselves, he steps back, sliding his rapidly-softening member from your well-used throat."
 							+ " You let out a little sigh as you're suddenly left feeling extremely empty, and you shuffle forwards and playfully bite your lip at Ralph, watching as he finishes tying up the used condom."
 							+ " He places the little seed-filled package down next to you, and, after making sure that nobody's watching, he takes hold of one of your [pc.arms+] and pulls you to your feet,"
@@ -430,7 +430,7 @@ public class SARalphOrgasms {
 					UtilText.nodeContentSB.append(" With a powerful rocking motion, his gigantic dick spurts out its potent load directly into your stomach, and as you feel the hot seed filling you up, you let out a very muffled moan."
 							+ " The huge, black equine shaft continues to pump and twitch a few more times as it deposits its seed deep down your facial fuck hole."
 							+ " Only once your stomach is completely filled with sticky white horse-jizz, does Ralph finally come to the end of his orgasm."
-							+ "</br></br>"
+							+ "<br/><br/>"
 							+ "As his balls finish emptying themselves, he steps back, sliding his rapidly-softening member from your well-used throat."
 							+ " A thick, slimy strand of cummy saliva drools down to form a little stream beneath your mouth, and you shuffle forwards, wiping yourself clean as you playfully smile up at Ralph."
 							+ " After making sure that nobody's watching, he takes hold of one of your [pc.arms+] and pulls you up, motioning for you to continue shopping as he fulfils his end of the bargain, "
@@ -442,14 +442,14 @@ public class SARalphOrgasms {
 			
 			if(((Ralph)Main.game.getRalph()).isDiscountActive() && (SexFlags.ralphDiscount<Main.game.getDialogueFlags().ralphDiscount)){
 				UtilText.nodeContentSB.append(
-						"</br></br>"
+						"<br/><br/>"
 						+ "<b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>You have earned a "+SexFlags.ralphDiscount+"% discount for the next three days!</b>"
-						+ "</br></br>"
+						+ "<br/><br/>"
 						+ "<b>Because Ralph was already giving you the bigger discount of </b> <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>"
 							+Main.game.getDialogueFlags().ralphDiscount+"%</b><b>, he instead agrees to refresh that for the next three days!</b>");
 				
 			} else {
-				UtilText.nodeContentSB.append("</br></br><b>You have earned a</b> <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>"+SexFlags.ralphDiscount+"%</b> <b>discount for the next three days!</b>");
+				UtilText.nodeContentSB.append("<br/><br/><b>You have earned a</b> <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>"+SexFlags.ralphDiscount+"%</b> <b>discount for the next three days!</b>");
 			}
 			
 			return UtilText.nodeContentSB.toString();

@@ -659,7 +659,7 @@ public class Util {
 	}
 
 	/**
-	 * Inserts words randomly into a sentence.</br>
+	 * Inserts words randomly into a sentence.
 	 *
 	 * @param sentence
 	 *            sentence to insert words into
@@ -720,11 +720,11 @@ public class Util {
 	/**
 	 * Turns a normal sentence into the kind of thing a Bimbo would come out with.
 	 * Can be safely used in conjunction with addStutter.
-	 * If using addStutter after using addBimbo, bimbo words can also become stuttered.</br>
-	 * Example: "How far is it to the town hall?"</br>
-	 * "How, like, far is it to the town, uh, hall and stuff?"</br>
-	 * "How far is, like, it to the, um, town hall and stuff?"</br>
-	 * "Like, How far is it to the, like, town hall?"</br>
+	 * If using addStutter after using addBimbo, bimbo words can also become stuttered.<br/>
+	 * Example: "How far is it to the town hall?"<br/>
+	 * "How, like, far is it to the town, uh, hall and stuff?"<br/>
+	 * "How far is, like, it to the, um, town hall and stuff?"<br/>
+	 * "Like, How far is it to the, like, town hall?"<br/>
 	 * Used in conjunction with addStutter(): "L-Like, How far is it t-to the, like, town hall?"
 	 *
 	 * @param sentence
@@ -763,10 +763,10 @@ public class Util {
 
 	private static String[] muffledSounds = new String[] { " ~Mrph~", " ~Mmm~", " ~Mrmm~" };
 	/**
-	 * Turns a normal sentence into a muffled sentence.</br>
-	 * Example:</br>
-	 * "How far is it to the town hall?"</br>
-	 * "How ~Mrph~ far is it ~Mmm~ to the town ~Mrph~ hall?"</br>
+	 * Turns a normal sentence into a muffled sentence.<br/>
+	 * Example:<br/>
+	 * "How far is it to the town hall?"<br/>
+	 * "How ~Mrph~ far is it ~Mmm~ to the town ~Mrph~ hall?"<br/>
 	 *
 	 * @param sentence
 	 *            sentence to apply muffles
@@ -781,10 +781,10 @@ public class Util {
 
 	private static String[] sexSounds = new String[] { " ~Aah!~", " ~Mmm!~" };
 	/**
-	 * Turns a normal sentence into a sexy sentence.</br>
-	 * Example:</br>
-	 * "How far is it to the town hall?"</br>
-	 * "How ~Aah!~ far is it ~Mmm!~ to the town ~Aah!~ hall?"</br>
+	 * Turns a normal sentence into a sexy sentence.<br/>
+	 * Example:<br/>
+	 * "How far is it to the town hall?"<br/>
+	 * "How ~Aah!~ far is it ~Mmm!~ to the town ~Aah!~ hall?"<br/>
 	 *
 	 * @param sentence
 	 *            sentence to apply sexy modifications
@@ -799,10 +799,10 @@ public class Util {
 
 	private static String[] drunkSounds = new String[] { " ~Hic!~" };
 	/**
-	 * Turns a normal sentence into a drunk one.</br>
-	 * Example:</br>
-	 * "How far is it to the town hall?"</br>
-	 * "How ~Hic!~ far is it ~Hic!~ to the town ~Hic!~ hall?"</br>
+	 * Turns a normal sentence into a drunk one.<br/>
+	 * Example:<br/>
+	 * "How far is it to the town hall?"<br/>
+	 * "How ~Hic!~ far is it ~Hic!~ to the town ~Hic!~ hall?"<br/>
 	 *
 	 * @param sentence
 	 *            sentence to apply sexy modifications

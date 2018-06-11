@@ -2406,7 +2406,7 @@ public class DominionOffspringDialogue {
 			} else if (index == 5) {
 				if(offspring().isAttractedTo(Main.game.getPlayer()) || !Main.game.isNonConEnabled()) {
 					return new ResponseSex("Submit",
-							"You're not really sure what to do now...</br>"
+							"You're not really sure what to do now...<br/>"
 								+ "Perhaps it would be best to let [npc.name] choose what to do next?",
 							Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, null, null, null, null,
 							true, true,
@@ -3042,7 +3042,7 @@ public class DominionOffspringDialogue {
 							+ " Encouraged by this, you decide to finish what you started, and quickly force [npc.name] to wear the enslaving clothing."
 						+ "</p>"
 						+ "<p>"
-							+ "As the arcane enchantment recognises its new wearer as being a criminal, ominous purple lettering is projected into the air, reading;</br>"
+							+ "As the arcane enchantment recognises its new wearer as being a criminal, ominous purple lettering is projected into the air, reading;<br/>"
 							+ "<i>Slave identification: [style.boldArcane("+Main.game.getActiveNPC().getNameIgnoresPlayerKnowledge()+")]</i>"
 						+ "</p>"
 						+ "<p>"

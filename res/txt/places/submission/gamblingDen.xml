@@ -334,30 +334,30 @@
 		Deciding to read the rules of dice poker before starting a game, you walk up to the nearest informative sign, and briefly scan over it...
 	</p>
 	<p style='text-align:center;'>
-		<b>Axel's Rules For Dice Poker</b></br>
-		1. Both players place the buy-in amount to start a game. This is [style.money(500, span)] for [style.colourCopper(copper)] tables, [style.money(2500, span)] for [style.colourSilver(silver)], and [style.money(10000, span)] for [style.colourGold(gold)].</br>
-		2. Both players roll five dice each.</br>
-		3. Players can choose to increase the bet (referred to as a 'raise'), or leave the bet at the buy-in amount (referred to as a 'call').</br>
-		4. After betting is done, each player selects as many of their dice as they want to re-roll.</br>
-		5. The players re-roll their chosen dice.</br>
+		<b>Axel's Rules For Dice Poker</b><br/>
+		1. Both players place the buy-in amount to start a game. This is [style.money(500, span)] for [style.colourCopper(copper)] tables, [style.money(2500, span)] for [style.colourSilver(silver)], and [style.money(10000, span)] for [style.colourGold(gold)].<br/>
+		2. Both players roll five dice each.<br/>
+		3. Players can choose to increase the bet (referred to as a 'raise'), or leave the bet at the buy-in amount (referred to as a 'call').<br/>
+		4. After betting is done, each player selects as many of their dice as they want to re-roll.<br/>
+		5. The players re-roll their chosen dice.<br/>
 		6. The ranking of each player's dice is compared to find the winner, who then takes all of the money in the pot.
 	</p>
 	<p style='text-align:center;'>
-		<b>Results ranking (from winning to losing)</b></br>
-		1. Five of a kind: Five dice of the same value. (e.g. 33333)</br>
-		2. Four of a kind: Four dice of the same value. (e.g. 55551)</br>
-		3. High straight: Consecutive numbers starting at two. (e.g. 23456)</br>
-		4. Full house: Two dice of the same value, plus three dice of a different, same value. (e.g. 22666)</br>
-		5. Three of a kind: Three dice of the same value. (e.g. 44415)</br>
-		6. Low straight: Consecutive numbers starting at one. (e.g. 12345)</br>
-		7. Two pair: Two dice of the same value, plus two dice of a different, same value. (e.g. 55331)</br>
-		8. Pair: Two dice of the same value. (e.g. 22415)</br>
-		9. Runt: All dice of different values. (e.g. 13456)</br></br>
+		<b>Results ranking (from winning to losing)</b><br/>
+		1. Five of a kind: Five dice of the same value. (e.g. 33333)<br/>
+		2. Four of a kind: Four dice of the same value. (e.g. 55551)<br/>
+		3. High straight: Consecutive numbers starting at two. (e.g. 23456)<br/>
+		4. Full house: Two dice of the same value, plus three dice of a different, same value. (e.g. 22666)<br/>
+		5. Three of a kind: Three dice of the same value. (e.g. 44415)<br/>
+		6. Low straight: Consecutive numbers starting at one. (e.g. 12345)<br/>
+		7. Two pair: Two dice of the same value, plus two dice of a different, same value. (e.g. 55331)<br/>
+		8. Pair: Two dice of the same value. (e.g. 22415)<br/>
+		9. Runt: All dice of different values. (e.g. 13456)<br/><br/>
 		
-		If both players have the same ranking, the total value of the dice that make up their rank are compared. For example:</br>
-		Player A: 33661</br>
-		Player B: 22115</br>
-		Although both players have 'Two pair', player A wins, as the total of their ranking dice is 20 (3+3+6+6), compared to player B's 6 (2+2+1+1).</br></br>
+		If both players have the same ranking, the total value of the dice that make up their rank are compared. For example:<br/>
+		Player A: 33661<br/>
+		Player B: 22115<br/>
+		Although both players have 'Two pair', player A wins, as the total of their ranking dice is 20 (3+3+6+6), compared to player B's 6 (2+2+1+1).<br/><br/>
 		
 		If both players have the same ranking, and the same value, the game is a draw, and the money in the pot is returned to each player's hand.
 	</p>

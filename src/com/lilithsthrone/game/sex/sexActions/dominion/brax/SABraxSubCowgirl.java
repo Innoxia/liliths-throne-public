@@ -990,16 +990,16 @@ public class SABraxSubCowgirl {
 		public String getDescription() {
 			return "Seeing Brax's cum splattered all over his furry stomach and chest, you get the sudden urge to give him a taste of himself."
 					+ " Leaning down, you start licking up all the sticky seed, breathing in the wolf-boy's powerful masculine musk as you take your time making sure not to miss a single drop."
-					+ "</br></br>"
+					+ "<br/><br/>"
 					+ "Once your mouth is full of delicious, salty cream, you slide your way up Brax's chest until you're gazing down into his rather worried-looking eyes."
 					+ " Pressing your lips against his, he tries to jerk his head away, but, not taking no for an answer, you reach up and grab his wolf-like muzzle, squeezing his cheeks until you force his mouth open a little."
-					+ "</br></br>"
+					+ "<br/><br/>"
 					+ "Seeing your chance, you thrust your tongue past his lips, and start using the opening through which to transfer your mouthful of yummy cream."
 					+ " Brax starts squirming about beneath you, but his unwillingness to share your love of cum only strengthens your resolve, and before long, you've succeeded in pushing a significant amount of his own seed into his mouth."
-					+ "</br></br>"
+					+ "<br/><br/>"
 					+ "Making sure to save a little for yourself, you break off the kiss, rapidly closing your hand around Brax's muzzle to prevent him from wasting his precious jizz."
 					+ " Not being able to resist any longer, you make a show of swallowing the small amount of delicious cum that you kept in your mouth, before telling Brax to do the same."
-					+ "</br></br>"
+					+ "<br/><br/>"
 					+ "You hold Brax's muzzle closed until you see him reluctantly mimicking your behaviour, and, as you let go, he obediently opens his mouth to show you that he's swallowed it all."
 					+ " Delighted with the wolf-boy's performance, you lean down and share a passionate, cummy kiss with him.";
 		}
@@ -1047,17 +1047,17 @@ public class SABraxSubCowgirl {
 		public String getDescription() {
 			return "Seeing Brax's cum splattered all over his furry stomach and chest, you get the sudden urge to give him a taste of himself."
 					+ " Leaning down, you start scooping up all the sticky seed in your fingers, breathing in the wolf-boy's powerful masculine musk as you take your time making sure not to miss a single drop."
-					+ "</br></br>"
+					+ "<br/><br/>"
 					+ "Once your hand is full of delicious, salty cream, you lean down over Brax's chest to gaze down into his rather worried-looking eyes."
 					+ " Bringing your cum-covered digits up to his mouth, Brax tries to jerk his head away, but, not taking no for an answer, you reach up and grab his wolf-like muzzle with your free hand,"
 					+ " squeezing his cheeks until you force his mouth open a little."
-					+ "</br></br>"
+					+ "<br/><br/>"
 					+ "Seeing your chance, you thrust your cummy fingers past his lips, and start using the opening through which to pour your handful of yummy cream."
 					+ " Brax starts squirming about beneath you, but his unwillingness to share your love of cum only strengthens your resolve, and before long, you've succeeded in pushing a significant amount of his own seed into his mouth."
-					+ "</br></br>"
+					+ "<br/><br/>"
 					+ "Happy now that his mouth is full, you draw your fingers back, rapidly closing your other hand around Brax's muzzle to prevent him from wasting his precious jizz."
 					+ " Giggling down at the distressed-looking wolf-boy, you tell him to swallow it all down."
-					+ "</br></br>"
+					+ "<br/><br/>"
 					+ "You hold Brax's muzzle closed until you see him reluctantly obeying your command, and, as you let go, he obediently opens his mouth to show you that he's swallowed it all."
 					+ " Delighted with the wolf-boy's performance, you hold out your cummy hand, and, resigned to the fact that he doesn't have much choice in the matter, proceeds to lick your hand clean.";
 
@@ -1591,7 +1591,7 @@ public class SABraxSubCowgirl {
 				
 				// Vagina:
 				if(Main.game.getPlayer().getVaginaType()!=VaginaType.NONE)
-					UtilText.nodeContentSB.append("</br></br>"
+					UtilText.nodeContentSB.append("<br/><br/>"
 							+ "As your balls finish emptying themselves on Brax's stomach, you feel a second wave of intense heat building in your groin."
 							+ " Grabbing Brax's chest to brace yourself, you go weak at the knees and clench your thighs together as your hot slit shudders and quivers."
 							+ " Another mind-splitting orgasm washes through you, and you moan and squeal in delight as your feminine sex provides you with a wave of intense pleasure.");
@@ -1713,7 +1713,7 @@ public class SABraxSubCowgirl {
 				
 				// Vagina:
 				if(Main.game.getPlayer().getVaginaType()!=VaginaType.NONE)
-					UtilText.nodeContentSB.append("</br></br>"
+					UtilText.nodeContentSB.append("<br/><br/>"
 							+ "As your balls finish emptying themselves, you feel a second wave of intense heat building in your groin."
 							+ " You go weak at the knees, and, collapsing down completely on Brax's face, you clench your thighs together as your hot slit shudders and quivers."
 							+ " Another mind-splitting orgasm washes through you, and you moan and squeal in delight as your feminine sex provides you with a wave of intense pleasure.");
@@ -1823,7 +1823,7 @@ public class SABraxSubCowgirl {
 					break;
 				}
 
-				UtilText.nodeContentSB.append("</br></br>");
+				UtilText.nodeContentSB.append("<br/><br/>");
 			}
 
 			// Vagina:
@@ -1899,7 +1899,7 @@ public class SABraxSubCowgirl {
 						+ " Feeling the fat cock in your ass throbbing wildly, you're suddenly overcome by the desperate need to have your ass filled with his sticky seed."
 						+ " Lifting yourself up one last time, you slam yourself down on his swollen member, driving the fat knot at the base of his cock into your asshole."
 						+ " You let out a startled cry as you feel the knot immediately swell up, locking Brax's twitching dog-cock deep in your ass."
-						+ "</br>"
+						+ "<br/>"
 						+ "Brax lets out a wild groan, and you squirm in delight as you feel his cock spurting it's potent load into your slutty backdoor."
 						+ " After a few moments, you feel the knot deflating, and with a wet pop, it slips out, freeing you up again.";
 				
@@ -1908,7 +1908,7 @@ public class SABraxSubCowgirl {
 						+ " Feeling the fat cock in your pussy throbbing wildly, you're suddenly overcome by the desperate need to "+(Main.game.getPlayer().isVisiblyPregnant()?"be":"have your womb")+" filled with his sticky seed."
 						+ " Lifting yourself up one last time, you slam yourself down on his swollen member, driving the fat knot at the base of his cock into your greedy cunt."
 						+ " You let out a startled cry as you feel the knot immediately swell up, locking Brax's twitching dog-cock deep in your wet slit."
-						+ "</br>"
+						+ "<br/>"
 						+ "Brax lets out a wild groan, and you squirm in delight as you feel his cock spurting it's potent load straight into your "+(Main.game.getPlayer().isVisiblyPregnant()?"waiting pussy":"waiting womb")+"."
 						+ " After a few moments, you feel the knot deflating, and with a wet pop, it slips out, freeing you up again.";
 				
@@ -1918,7 +1918,7 @@ public class SABraxSubCowgirl {
 						+ " Shuffling back, so that you're sitting on his thighs, you reach down and grab his massive shaft in both hands."
 						+ " Sliding your grip up and down the entire length, you press down on the fat knot at the base before lifting up to rub the tapered tip."
 						+ " You let out a little cry as you feel the knot swelling up, and point the cock up to Brax's face as you feel it starting to twitch."
-						+ "</br>"
+						+ "<br/>"
 						+ "Brax lets out a wild groan, and you squirm in delight as you see his cock spurting its potent load all over Brax's chest."
 						+ " After a few moments, Brax's orgasm ends, and as the knot deflates, he lets out a satisfied groan.";
 			}

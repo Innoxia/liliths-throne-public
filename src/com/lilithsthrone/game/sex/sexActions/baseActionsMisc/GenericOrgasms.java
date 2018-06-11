@@ -292,7 +292,7 @@ public class GenericOrgasms {
 			}
 
 			if(characterPenetrated!=null) {
-				genericOrgasmSB.append("</br>");
+				genericOrgasmSB.append("<br/>");
 				
 				switch(orificePenetrated) {
 					case ANUS:
@@ -771,16 +771,16 @@ public class GenericOrgasms {
 		
 		if(characterOrgasming.hasPenisModifier(PenisModifier.KNOTTED) && cumTarget==OrgasmCumTarget.INSIDE) {
 			if(characterOrgasming.isPlayer()) {
-				genericOrgasmSB.append("</br>"
+				genericOrgasmSB.append("<br/>"
 						+ "Even after your [npc1.balls+] have pumped their entire load into [npc2.name], your knot remains swollen, locking you and your partner together."
 						+ " It takes a few minutes for it to start to deflate, and with a wet pop, you're finally able to pull your [npc1.cock+] free.");
 			} else {
 				if(characterPenetrated.isPlayer()) {
-					genericOrgasmSB.append("</br>"
+					genericOrgasmSB.append("<br/>"
 							+ "Even after [npc1.name]'s [npc1.balls+] have pumped their entire load into you, [npc1.her] knot remains swollen, locking you and your partner together."
 							+ " It takes a few minutes for it to start to deflate, and with a wet pop, [npc1.she]'s finally able to pull [npc1.her] [npc1.cock+] free.");
 				} else {
-					genericOrgasmSB.append("</br>"
+					genericOrgasmSB.append("<br/>"
 							+ "Even after [npc1.name]'s [npc1.balls+] have pumped their entire load into [ncp2.name], [npc1.her] knot remains swollen, locking [npc1.herHim] and [npc1.her] partner together."
 							+ " It takes a few minutes for it to start to deflate, and with a wet pop, [npc1.she]'s finally able to pull [npc1.her] [npc1.cock+] free.");
 				}
@@ -1378,10 +1378,10 @@ public class GenericOrgasms {
 				case WATER:
 				case SLIME:
 					if(characterOrgasming.isPlayer()) {
-						cumTargetSB.append("</br>"
+						cumTargetSB.append("<br/>"
 								+ "As [npc2.name]'s body is made completely out of translucent "+target.getBodyMaterial().getName()+", you're able to see the cloud of your [npc1.cum+] shooting up and dispersing inside of [npc2.herHim].");
 					} else {
-						cumTargetSB.append("</br>"
+						cumTargetSB.append("<br/>"
 								+ "As your body is made completely out of translucent "+target.getBodyMaterial().getName()+", you're able to see the cloud of [npc1.name]'s [npc1.cum+] shooting up and dispersing inside of you.");
 					}
 					break;

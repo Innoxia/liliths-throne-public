@@ -61,7 +61,7 @@ public class OptionsDialogue {
 		public String getContent(){
 			return "<h1 class='special-text' style='font-size:48px; line-height:52px; text-align:center;'>Lilith's Throne</h1>"
 					+ "<h5 class='special-text' style='text-align:center;'>Created by Innoxia</h5>"
-					+ "</br>"
+					+ "<br/>"
 					+ "<p>"
 						+ "This game is a text-based erotic RPG, and contains a lot of graphic sexual content. You must agree to the game's disclaimer before playing this game!"
 					+ "</p>"
@@ -77,7 +77,7 @@ public class OptionsDialogue {
 								+ "If the game's resolution isn't fitting to your screen, press the keys: 'Windows' + 'Up Arrow' to maximise!"
 							+ "</p>"
 							:"")
-					+ "</br>"
+					+ "<br/>"
 					+ (Main.game.isStarted() || Main.getProperties().name.isEmpty()
 							?""
 							:"<h4 style='text-align:center;'>Last save:</h4>"
@@ -95,7 +95,7 @@ public class OptionsDialogue {
 				 if(confirmNewGame || !Main.game.isStarted()) {
 					 
 					return new ResponseEffectsOnly(
-							(!Main.game.isStarted()?"New Game":"<b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Confirm</b>"), "Start a new game.</br></br><b>Remember to save your game first!</b>"){
+							(!Main.game.isStarted()?"New Game":"<b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Confirm</b>"), "Start a new game.<br/><br/><b>Remember to save your game first!</b>"){
 						@Override
 						public void effects() {
 							//Fixes a bug where inventory would stay on screen
@@ -114,7 +114,7 @@ public class OptionsDialogue {
 						}
 					};
 				 } else {
-					 return new Response("New Game", "Start a new game.</br></br><b>Remember to save your game first!</b>", MENU){
+					 return new Response("New Game", "Start a new game.<br/><br/><b>Remember to save your game first!</b>", MENU){
 							@Override
 							public void effects() {
 								confirmNewGame = true;
@@ -149,7 +149,7 @@ public class OptionsDialogue {
 				};
 				
 			} else if (index == 5) {
-				return new ResponseEffectsOnly("Quit", "Quits your current game and closes the program.</br></br><b>Remember to save your game first!</b>"){
+				return new ResponseEffectsOnly("Quit", "Quits your current game and closes the program.<br/><br/><b>Remember to save your game first!</b>"){
 					@Override
 					public void effects() {
 						Main.primaryStage.close();
@@ -183,7 +183,7 @@ public class OptionsDialogue {
 				return new Response("Credits", "View the game's credits screen.", CREDITS);
 				
 			} else if (index == 10) {
-				return new ResponseEffectsOnly("Blog", "Opens the page:</br></br><i>https://lilithsthrone.blogspot.co.uk/</i></br></br><b>Externally in your default browser.</b>"){
+				return new ResponseEffectsOnly("Blog", "Opens the page:<br/><br/><i>https://lilithsthrone.blogspot.co.uk/</i><br/><br/><b>Externally in your default browser.</b>"){
 					@Override
 					public void effects() {
 						Util.openLinkInDefaultBrowser("https://lilithsthrone.blogspot.co.uk/");
@@ -192,7 +192,7 @@ public class OptionsDialogue {
 				};
 			
 			} else if (index == 11) {
-				return new ResponseEffectsOnly("Github", "Opens the page:</br></br><i>https://github.com/Innoxia/liliths-throne-public</i></br></br><b>Externally in your default browser.</b>"){
+				return new ResponseEffectsOnly("Github", "Opens the page:<br/><br/><i>https://github.com/Innoxia/liliths-throne-public</i><br/><br/><b>Externally in your default browser.</b>"){
 					@Override
 					public void effects() {
 						Util.openLinkInDefaultBrowser("https://github.com/Innoxia/liliths-throne-public");
@@ -291,10 +291,10 @@ public class OptionsDialogue {
 			StringBuilder saveLoadSB = new StringBuilder();
 
 			saveLoadSB.append("<p>"
-					+ "<b>Please Note:</b></br>"
-					+ "1. Only standard characters (letters and numbers) will work for save file names.</br>"
-					+ "2. The 'AutoSave' file is automatically overwritten every time you move between maps.</br>"
-					+ "3. The 'QuickSave' file is automatically overwritten every time you quick save (default keybind is F5).</br>"
+					+ "<b>Please Note:</b><br/>"
+					+ "1. Only standard characters (letters and numbers) will work for save file names.<br/>"
+					+ "2. The 'AutoSave' file is automatically overwritten every time you move between maps.<br/>"
+					+ "3. The 'QuickSave' file is automatically overwritten every time you quick save (default keybind is F5).<br/>"
 					+ "<b>You cannot save during combat or sex due to some bugs that I need to fix!</b>"
 					+ "</p>"
 					+ "<div class='container-full-width' style='padding:0; margin:0;'>"
@@ -545,19 +545,19 @@ public class OptionsDialogue {
 			UtilText.nodeContentSB.append(
 					"<p>"
 					+ "<b>Light/Dark theme:</b>"
-					+ "</br>This switches the main display between a light and dark theme. (Work in progress!)"
+					+ "<br/>This switches the main display between a light and dark theme. (Work in progress!)"
 					+ "</p>"
 					
 					+"<p>"
-					+ "<b>Font-size:</b></br>"
-					+ "This cycles the game's base font size. This currently only affects the size of the text in the main dialogue, but in the future I'll expand it to include every display element.</br>"
-					+ "Minimum font size is "+Game.FONT_SIZE_MINIMUM+". Default font size is "+Game.FONT_SIZE_NORMAL+". Maximum font size is "+Game.FONT_SIZE_HUGE+".</br>"
+					+ "<b>Font-size:</b><br/>"
+					+ "This cycles the game's base font size. This currently only affects the size of the text in the main dialogue, but in the future I'll expand it to include every display element.<br/>"
+					+ "Minimum font size is "+Game.FONT_SIZE_MINIMUM+". Default font size is "+Game.FONT_SIZE_NORMAL+". Maximum font size is "+Game.FONT_SIZE_HUGE+".<br/>"
 					+ "Current font size: "+Main.getProperties().fontSize+"."
 					+ "</p>"
 
 					+"<p>"
 					+ "<b>Fade-in:</b>"
-					+ "</br>This option is responsible for fading in the main part of the text each time a new scene is displayed."
+					+ "<br/>This option is responsible for fading in the main part of the text each time a new scene is displayed."
 					+ " Although it makes scene transitions a little prettier, it is off by default, as it can cause some annoying lag in inventory screens."
 					+ "</p>"
 					
@@ -565,7 +565,7 @@ public class OptionsDialogue {
 					+ "<b>Difficulty (Currently set to "+Main.getProperties().difficultyLevel.getName()+"):</b>");
 			
 			for(DifficultyLevel dl : DifficultyLevel.values()) {
-				UtilText.nodeContentSB.append("</br>"+(
+				UtilText.nodeContentSB.append("<br/>"+(
 						Main.getProperties().difficultyLevel==dl
 							?"<b style='color:"+dl.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(dl.getName())+"</b> "+dl.getDescription()
 							:"<span style='color:"+dl.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(dl.getName())+"</span> [style.colourDisabled("+dl.getDescription()+")]")
@@ -593,7 +593,7 @@ public class OptionsDialogue {
 						}
 						};
 				} else {
-					return new Response("Light theme (WIP)", "Switch the theme to the light variant.</br></br><b>This is still a work in progress...</b>.", OPTIONS){
+					return new Response("Light theme (WIP)", "Switch the theme to the light variant.<br/><br/><b>This is still a work in progress...</b>.", OPTIONS){
 						@Override
 						public void effects() {
 							Main.mainController.switchTheme();
@@ -866,12 +866,12 @@ public class OptionsDialogue {
 					+ "</p>"
 					+ "<h5 style='text-align:center;'><span style='color:"+Colour.ANDROGYNOUS.toWebHexString()+";'>Androgynous bodies</span> (option 3)</h5>"
 					+ "<p>"
-					+ "<b style='color:"+Colour.FEMININE.toWebHexString()+";'>Feminine:</b> Treated as <b style='color:"+Colour.FEMININE.toWebHexString()+";'>feminine</b>.</br>"
+					+ "<b style='color:"+Colour.FEMININE.toWebHexString()+";'>Feminine:</b> Treated as <b style='color:"+Colour.FEMININE.toWebHexString()+";'>feminine</b>.<br/>"
 					+ "<b style='color:"+Colour.ANDROGYNOUS.toWebHexString()+";'>Clothing feminine:</b> Treated according to clothing femininity."
-							+ " If clothing is neutral, treated as <b style='color:"+Colour.FEMININE.toWebHexString()+";'>feminine</b>.</br>"
+							+ " If clothing is neutral, treated as <b style='color:"+Colour.FEMININE.toWebHexString()+";'>feminine</b>.<br/>"
 					+ "<b style='color:"+Colour.ANDROGYNOUS.toWebHexString()+";'>Clothing masculine:</b> Treated according to clothing femininity."
-							+ " If clothing is neutral, treated as <b style='color:"+Colour.MASCULINE.toWebHexString()+";'>masculine</b>.</br>"
-					+ "<b style='color:"+Colour.MASCULINE.toWebHexString()+";'>Masculine:</b> Treated as <b style='color:"+Colour.MASCULINE.toWebHexString()+";'>masculine</b>.</br>"
+							+ " If clothing is neutral, treated as <b style='color:"+Colour.MASCULINE.toWebHexString()+";'>masculine</b>.<br/>"
+					+ "<b style='color:"+Colour.MASCULINE.toWebHexString()+";'>Masculine:</b> Treated as <b style='color:"+Colour.MASCULINE.toWebHexString()+";'>masculine</b>.<br/>"
 					+ "</p>");
 							
 			return UtilText.nodeContentSB.toString();	
@@ -1105,10 +1105,10 @@ public class OptionsDialogue {
 			UtilText.nodeContentSB.append(
 					"<div class='container-full-width'>"
 					+ "These options will determine the gender encounter rates of random NPCs."
-					+ " Some NPCs, such as random succubi attackers, have restrictions on their gender, but your preferences will be taken into account wherever possible.</br>"
+					+ " Some NPCs, such as random succubi attackers, have restrictions on their gender, but your preferences will be taken into account wherever possible.<br/>"
 					+ "<b>A visual representation of the encounter chances can be seen in the bars at the bottom of each section.</b>"
 					+ " (The different shades of each gender are solely for recognition in the bars, and don't mean anything other than that.)"
-					+ "</br>"
+					+ "<br/>"
 					+ "A character is considered to have breasts if they are at least an AA-cup."
 					+ "</div>");
 			
@@ -1172,7 +1172,7 @@ public class OptionsDialogue {
 					sb.append("<div id='"+preference+"_"+g+"' class='preference-button"+(Main.getProperties().genderPreferencesMap.get(g)==preference.getValue()?" selected":"")+"'>"+Util.capitaliseSentence(preference.getName())+"</div>");
 				}
 								
-				sb.append("<p></br>"
+				sb.append("<p><br/>"
 								+ "<span style='color:"+colour.getShades(8)[count]+";'>" +Util.capitaliseSentence(g.getName())+"s</span> have "
 										+(g.getGenderName().isHasVagina()?"a [style.colourGood(vagina)]":"no [style.colourBad(vagina)]")+", "
 										+(g.getGenderName().isHasPenis()?"a [style.colourGood(penis)]":"no [style.colourBad(penis)]")+", and "
@@ -1180,7 +1180,7 @@ public class OptionsDialogue {
 								+ "</p>"
 							+ "</div>"
 						+ "</div>"
-						+ "<hr></hr>");
+						+ "<hr/>");
 				count++;
 			}
 		}
@@ -1205,9 +1205,9 @@ public class OptionsDialogue {
 						+ " The 'Human encounters' option determines what the chance is for random NPCs to be fully human."
 						+ " <b>These options only affect random NPCs at the moment, but I'll do my best to add reduced-furry versions of each major NPC as well!</b>"
 						
-						+ "</br></br>[style.boldGood(Hover over the buttons to see what each option means!)]"
+						+ "<br/><br/>[style.boldGood(Hover over the buttons to see what each option means!)]"
 						
-						+ "</br></br>Please note that mythological and demonic races, such as harpies and demons, are not affected by furry preferences."
+						+ "<br/><br/>Please note that mythological and demonic races, such as harpies and demons, are not affected by furry preferences."
 					+ "</div>"
 							
 					+ "<span style='height:16px;width:800px;float:left;'></span>"
@@ -1224,7 +1224,7 @@ public class OptionsDialogue {
 //					+ "<div id='furry_preference_human_encounter_two' class='preference-button"+(Main.getProperties().humanEncountersLevel==2?" selected":"")+"'>10%</div>"
 //					+ "<div id='furry_preference_human_encounter_three' class='preference-button"+(Main.getProperties().humanEncountersLevel==3?" selected":"")+"'>20%</div>"
 //					+ "<div id='furry_preference_human_encounter_four' class='preference-button"+(Main.getProperties().humanEncountersLevel==4?" selected":"")+"'>50%</div>"
-//					+ "</br></br>"
+//					+ "<br/><br/>"
 						
 					"<div style='width:160px; float:left;'>"
 						+ "<b>Multi-breasts:</b> "
@@ -1406,7 +1406,7 @@ public class OptionsDialogue {
 		
 		sb.append("<div class='container-full-width' style='text-align:center; width:calc(40% - 16px);background:transparent;'>"
 					+"<b style='color:"+s.getColour().toWebHexString()+"; float:left; width:100%; text-align:center;'>" +Util.capitaliseSentence(s.getName())+"</b>"
-					+"</br>"
+					+"<br/>"
 					+ s.getDescription()
 				+"</div>"
 				// Feminine:
@@ -1724,7 +1724,7 @@ public class OptionsDialogue {
 		contentSB.append(
 				"<div class='container-full-width' style='padding:0;'>"
 					+ "<div class='container-half-width' style='width:calc(40% - 16px);'>"
-						+ "<b style='text-align:center; color:"+colour.toWebHexString()+";'>"+ title+"</b><b>:</b></br>"
+						+ "<b style='text-align:center; color:"+colour.toWebHexString()+";'>"+ title+"</b><b>:</b><br/>"
 						+ description
 					+ "</div>"
 					+ "<div class='container-half-width' style='width:calc(60% - 16px);'>");
@@ -1738,7 +1738,7 @@ public class OptionsDialogue {
 		contentSB.append(
 				"<div class='container-full-width' style='padding:0;'>"
 					+ "<div class='container-half-width' style='width:calc(45% - 16px);'>"
-						+ "<b style='text-align:center; color:"+(enabled?colour.toWebHexString():Colour.TEXT_GREY.toWebHexString())+";'>"+ title+"</b><b>:</b></br>"
+						+ "<b style='text-align:center; color:"+(enabled?colour.toWebHexString():Colour.TEXT_GREY.toWebHexString())+";'>"+ title+"</b><b>:</b><br/>"
 						+ description
 					+ "</div>"
 					+ "<div class='container-half-width' style='width:calc(55% - 16px);'>");
@@ -1773,7 +1773,7 @@ public class OptionsDialogue {
 		contentSB.append(
 				"<div class='container-full-width' style='padding:0;'>"
 					+ "<div class='container-half-width' style='width:calc(45% - 16px);'>"
-						+ "<b style='text-align:center; color:"+colour.toWebHexString()+";'>"+ title+"</b><b>:</b></br>"
+						+ "<b style='text-align:center; color:"+colour.toWebHexString()+";'>"+ title+"</b><b>:</b><br/>"
 						+ description
 					+ "</div>"
 					+ "<div class='container-half-width' style='width:calc(55% - 16px);'>");
@@ -1809,32 +1809,32 @@ public class OptionsDialogue {
 						+ " Thank you so much to all of the supporters on Patreon! Thanks to you, I'm able to spend more time working on Lilith's Throne, and I promise that I'll make this game the very best that I can!"
 					+ "</p>"
 					+"<p style='text-align:center;'>"
-						+ "Lilith's Throne has been created by:</br>"
+						+ "Lilith's Throne has been created by:<br/>"
 						+ "<b style='color:#9b78fa;'>Innoxia</b>"
-						+ "</br></br>"
-						+ "Artists whose character art can be found in the game:</br>");
+						+ "<br/><br/>"
+						+ "Artists whose character art can be found in the game:<br/>");
 			
 			for(Artist artist : Artwork.allArtists) {
-				UtilText.nodeContentSB.append("<b style='color:"+artist.getColour().toWebHexString()+";'>"+artist.getName()+"</b></br>");
+				UtilText.nodeContentSB.append("<b style='color:"+artist.getColour().toWebHexString()+";'>"+artist.getName()+"</b><br/>");
 			}	
 			
-			UtilText.nodeContentSB.append("</br>"
-						+ "Special thanks to:</br>"
-						+ "<b>Sensei</b>,</br>"
-						+ "<b style='color:#fa0063;'>loveless</b>, <b style='color:#c790b2;'>Blue999</b>, and <b style='color:#ec9538;'>DesuDemona</b></br>"
-						+ "<b style='color:#21bec4;'>Github & wiki contributors</b></br>"
-						+ "<b style='color:#e06e5f;'>Everyone who's supported me on Patreon</b>,</br>"
-						+ "<b>Bug reporters</b>,</br>"
-						+ "and</br>"
+			UtilText.nodeContentSB.append("<br/>"
+						+ "Special thanks to:<br/>"
+						+ "<b>Sensei</b>,<br/>"
+						+ "<b style='color:#fa0063;'>loveless</b>, <b style='color:#c790b2;'>Blue999</b>, and <b style='color:#ec9538;'>DesuDemona</b><br/>"
+						+ "<b style='color:#21bec4;'>Github & wiki contributors</b><br/>"
+						+ "<b style='color:#e06e5f;'>Everyone who's supported me on Patreon</b>,<br/>"
+						+ "<b>Bug reporters</b>,<br/>"
+						+ "and<br/>"
 						+ "<b>Everyone for playing Lilith's Throne!</b>"
 					+ "</p>"
-					+ "</br>"
+					+ "<br/>"
 					+ "<h5 style='text-align:center; color:"+Colour.RARITY_LEGENDARY.toWebHexString()+";'>Legendary Patrons</h5>"
 					+ "<p style='text-align:center;'>");
 			
 			for(CreditsSlot cs : Main.credits) {
 				if(cs.getLegendaryCount()>0) {
-					UtilText.nodeContentSB.append("</br>");
+					UtilText.nodeContentSB.append("<br/>");
 					UtilText.nodeContentSB.append("<div style='width:50%; display:inline-block; text-align:right;'>");
 					if(cs.getName().equals("Anonymous")) {
 						UtilText.nodeContentSB.append("<b style='color:"+Colour.RARITY_UNCOMMON.toWebHexString()+";'>?</b> ");
@@ -1873,13 +1873,13 @@ public class OptionsDialogue {
 			
 			UtilText.nodeContentSB.append(
 					"</p>"
-					+ "</br>"
+					+ "<br/>"
 					+ "<h5 style='text-align:center; color:"+Colour.RARITY_EPIC.toWebHexString()+";'>Epic Patrons</h5>"
 					+ "<p style='text-align:center;'>");
 			
 			for(CreditsSlot cs : Main.credits) {
 				if(cs.getLegendaryCount()==0 && cs.getEpicCount()>0) {
-					UtilText.nodeContentSB.append("</br>");
+					UtilText.nodeContentSB.append("<br/>");
 					UtilText.nodeContentSB.append("<div style='width:50%; display:inline-block; text-align:right;'>");
 					for(int i=0; i<cs.getUncommonCount()%5; i++) {
 						UtilText.nodeContentSB.append("<b style='color:"+Colour.RARITY_UNCOMMON.toWebHexString()+";'>&#9679</b> ");
@@ -1917,7 +1917,7 @@ public class OptionsDialogue {
 				for(Artist artist : Artwork.allArtists) {
 					for(ArtistWebsite website : artist.getWebsites()) {
 						if(index==i) {
-							return new ResponseEffectsOnly(website.getName(), "Opens the page:</br></br><i>"+website.getURL()+"</i></br></br><b>Externally in your default browser.</b>"){
+							return new ResponseEffectsOnly(website.getName(), "Opens the page:<br/><br/><i>"+website.getURL()+"</i><br/><br/><b>Externally in your default browser.</b>"){
 								@Override
 								public void effects() {
 									Util.openLinkInDefaultBrowser(website.getURL());

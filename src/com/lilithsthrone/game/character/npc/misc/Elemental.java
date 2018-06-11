@@ -126,7 +126,7 @@ public class Elemental extends NPC {
 	@Override
 	protected String rollForPregnancy(GameCharacter partner) {
 		return PregnancyDescriptor.NO_CHANCE.getDescriptor(this, partner)
-				+"<p style='text-align:center;'>[style.italicsMinorBad(Elementals cannot get pregnant!)]</br>[style.italicsDisabled(I will add support for impregnating/being impregnated by elementals soon!)]</p>";
+				+"<p style='text-align:center;'>[style.italicsMinorBad(Elementals cannot get pregnant!)]<br/>[style.italicsDisabled(I will add support for impregnating/being impregnated by elementals soon!)]</p>";
 	}
 
 	public SpellSchool getCurrentSchool() {

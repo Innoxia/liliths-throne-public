@@ -296,7 +296,7 @@ public class GamblingDenDialogue {
 								if(winner) {
 									Main.game.getTextEndStringBuilder().append(
 											"<p style='text-align:center;'>"
-													+ "[style.colourExcellent(You won!)]</br>Three "+results.get(0).getNamePlural()+" pay out "+UtilText.formatAsMoney(slotMachineValues.get(results.get(0)), "span")+"!"
+													+ "[style.colourExcellent(You won!)]<br/>Three "+results.get(0).getNamePlural()+" pay out "+UtilText.formatAsMoney(slotMachineValues.get(results.get(0)), "span")+"!"
 											+ "</p>");
 								} else {
 									Main.game.getTextEndStringBuilder().append(
@@ -311,7 +311,7 @@ public class GamblingDenDialogue {
 							
 									for(Entry<Subspecies, Integer> entry : slotMachineValues.entrySet()) {
 										Main.game.getTextEndStringBuilder().append("<span style='color:"+entry.getKey().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(entry.getKey().getNamePlural())+"</span>: "
-												+UtilText.formatAsMoney(entry.getValue(), "span")+"</br>");
+												+UtilText.formatAsMoney(entry.getValue(), "span")+"<br/>");
 									}
 												
 									Main.game.getTextEndStringBuilder().append("</p>");
@@ -1115,7 +1115,7 @@ public class GamblingDenDialogue {
 		StringBuilder sb = new StringBuilder();
 		
 		sb.append("<div class='container-half-width'>"
-				+ "[npc.Name] - [npc.FullRace(true)]</br>"
+				+ "[npc.Name] - [npc.FullRace(true)]<br/>"
 				+ "[npc.CockGirth], [npc.penisInches]-inch, [npc.cockColour(true)] [npc.cockRace] [npc.cock], with [npc.ballSize] balls."
 				+ "</div>");
 		

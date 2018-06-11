@@ -269,7 +269,7 @@ public class CharacterModificationUtils {
 			contentSB.append("<div class='container-full-width' style='"+(i==4?"width:50%; margin:0 25%;":"width:calc(50% - 16px);")+" text-align:center; padding:0;'>"
 					+ "<div class='title-button no-select' id='PERSONALITY_INFO_"+trait+"' style='position:absolute; left:auto; right:5%; top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getInformationIcon()+"</div>"
 					+ "<p style='text-align:center; margin-bottom:0; padding-bottom:0;'>"
-						+ "<b style='color:"+trait.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(trait.getName())+"</b></br>"
+						+ "<b style='color:"+trait.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(trait.getName())+"</b><br/>"
 						+ "<i>"+trait.getNameFromWeight(BodyChanging.getTarget(), BodyChanging.getTarget().getPersonality().get(trait))+"</i>"
 					+ "</p>");
 
@@ -530,7 +530,7 @@ public class CharacterModificationUtils {
 			"HEIGHT",
 			"cm",
 			"cm",
-			BodyChanging.getTarget().getHeightValue()+"cm</br>("+Util.inchesToFeetAndInches(Util.conversionCentimetresToInches(BodyChanging.getTarget().getHeightValue()))+")",
+			BodyChanging.getTarget().getHeightValue()+"cm<br/>("+Util.inchesToFeetAndInches(Util.conversionCentimetresToInches(BodyChanging.getTarget().getHeightValue()))+")",
 			BodyChanging.getTarget().getHeightValue()<=BodyChanging.getTarget().getMinimumHeight(),
 			BodyChanging.getTarget().getHeightValue()>=BodyChanging.getTarget().getMaximumHeight());
 	}
@@ -2170,7 +2170,7 @@ public class CharacterModificationUtils {
 			"PENIS_SIZE",
 			" inch",
 			" inches",
-			Util.inchesToFeetAndInches(BodyChanging.getTarget().getPenisRawSizeValue())+"</br>("+Util.conversionInchesToCentimetres(BodyChanging.getTarget().getPenisRawSizeValue())+"cm)",
+			Util.inchesToFeetAndInches(BodyChanging.getTarget().getPenisRawSizeValue())+"<br/>("+Util.conversionInchesToCentimetres(BodyChanging.getTarget().getPenisRawSizeValue())+"cm)",
 			BodyChanging.getTarget().getPenisRawSizeValue()<=0,
 			BodyChanging.getTarget().getPenisRawSizeValue()>=PenisSize.SEVEN_STALLION.getMaximumValue());
 	}
@@ -3424,21 +3424,21 @@ public class CharacterModificationUtils {
 							+ "</b>"
 						+ "</p>"
 						+ "<p>"
-							+ "Currently:</br><i>"+BodyChanging.getTarget().getCovering(coveringType).getFullDescription(BodyChanging.getTarget(), true)+"</i>"
+							+ "Currently:<br/><i>"+BodyChanging.getTarget().getCovering(coveringType).getFullDescription(BodyChanging.getTarget(), true)+"</i>"
 						+ "</p>"
 						
 							+ (disabledButton
 									?"<div class='normal-button disabled' style='width:90%; margin:2% auto; padding:0; text-align:center; bottom:0;'>"
 										+"<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Apply Changes"
 											+ (withCost
-												?"</br>("+UtilText.formatAsMoneyUncoloured(SuccubisSecrets.getBodyCoveringTypeCost(coveringType), "b")+")"
+												?"<br/>("+UtilText.formatAsMoneyUncoloured(SuccubisSecrets.getBodyCoveringTypeCost(coveringType), "b")+")"
 												:"")
 										+"</span>"
 									+ "</div>"
 									:"<div class='normal-button' style='width:90%; margin:2% auto; padding:0; text-align:center; bottom:0;' id='APPLY_COVERING_"+coveringType+"'>"
 										+ "Apply Changes"
 										+ (withCost
-											?"</br>("
+											?"<br/>("
 												+(Main.game.getPlayer().getMoney()>=SuccubisSecrets.getBodyCoveringTypeCost(coveringType)
 													? UtilText.formatAsMoney(SuccubisSecrets.getBodyCoveringTypeCost(coveringType), "b")
 													: UtilText.formatAsMoney(SuccubisSecrets.getBodyCoveringTypeCost(coveringType), "b", Colour.GENERIC_BAD))+")"
@@ -3448,7 +3448,7 @@ public class CharacterModificationUtils {
 						
 					+ "</div>"
 					+ "<div class='container-quarter-width'>"
-					+ "Pattern:</br>");
+					+ "Pattern:<br/>");
 
 		Covering activeCovering = !coveringsToBeApplied.containsKey(coveringType)
 										?BodyChanging.getTarget().getCovering(coveringType)
@@ -3475,7 +3475,7 @@ public class CharacterModificationUtils {
 		contentSB.append("</div>");
 		contentSB.append("<div class='container-half-width''>");
 		contentSB.append( "<div class='container-half-width'>"
-					+ "Primary Colour:</br>");
+					+ "Primary Colour:<br/>");
 	
 	
 			List<Colour> availablePrimaryColours = withDyeAndExtraPatterns
@@ -3487,7 +3487,7 @@ public class CharacterModificationUtils {
 									+ "<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";"+(c==Colour.COVERING_NONE?" color:"+Colour.BASE_RED.toWebHexString()+";'>X":"'>")+"</div>"
 								+ "</div>");
 			}
-			contentSB.append("</br>");
+			contentSB.append("<br/>");
 			if(activeCovering.getPrimaryColour() == Colour.COVERING_NONE || !withGlow) { // Disable glow:
 				
 			} else {
@@ -3514,7 +3514,7 @@ public class CharacterModificationUtils {
 			
 			contentSB.append("</div>"
 					+ "<div class='container-half-width'>"
-					+ "Secondary Colour:</br>");
+					+ "Secondary Colour:<br/>");
 	
 			List<Colour> availableSecondaryColours = withDyeAndExtraPatterns
 														?coveringType.getAllSecondaryColours()
@@ -3536,7 +3536,7 @@ public class CharacterModificationUtils {
 									+ "</div>");
 				}
 			}
-			contentSB.append("</br>");
+			contentSB.append("<br/>");
 			if(activeCovering.getSecondaryColour() == Colour.COVERING_NONE || !withGlow || activeCovering.getPattern()==CoveringPattern.NONE || !withSecondary) { // Disable glow:
 				
 			} else {
@@ -3972,7 +3972,7 @@ public class CharacterModificationUtils {
 										+ "<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";"+(c==Colour.COVERING_NONE?" color:"+Colour.BASE_RED.toWebHexString()+";'>X":"'>")+"</div>"
 									+ "</div>");
 				}
-				contentSB.append("</br>");
+				contentSB.append("<br/>");
 				if(tattoo.getWriting().isGlow()) {
 					contentSB.append(
 							"<div class='normal-button selected' id='TATTOO_WRITING_GLOW' style='width:50%; margin:2% 25%; padding:0; text-align:center;'>"
@@ -4022,7 +4022,7 @@ public class CharacterModificationUtils {
 										+ "<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";"+(c==Colour.COVERING_NONE?" color:"+Colour.BASE_RED.toWebHexString()+";'>X":"'>")+"</div>"
 									+ "</div>");
 				}
-				contentSB.append("</br>");
+				contentSB.append("<br/>");
 				if(tattoo.getCounter().isGlow()) {
 					contentSB.append(
 							"<div class='normal-button selected' id='TATTOO_COUNTER_GLOW' style='width:50%; margin:2% 25%; padding:0; text-align:center;'>"

@@ -1288,13 +1288,13 @@ public enum RenderingEngine {
 							?"[style.boldArcane(Teleport:)] You are currently able to teleport! This will cost <b>"+Spell.TELEPORT.getModifiedCost(Main.game.getPlayer())+"</b> "+Attribute.MANA_MAXIMUM.getColouredName("b")+"."
 							:"[style.boldBad(Teleport:)] Teleport is unavailable! You need to:"
 								+(!Main.game.getPlayer().getCompanions().isEmpty() && !Main.game.getPlayer().hasSpellUpgrade(SpellUpgrade.TELEPORT_2)
-									?"</br><b>-</b> Either learn the upgrade '"+SpellUpgrade.TELEPORT_2.getName()+"', or dismiss your party members."
+									?"<br/><b>-</b> Either learn the upgrade '"+SpellUpgrade.TELEPORT_2.getName()+"', or dismiss your party members."
 									:"")
 								+(!Main.game.getSavedDialogueNode().equals(Main.game.getPlayer().getLocationPlace().getDialogue(false))
-									?"</br><b>-</b> Not be in the middle of a special scene."
+									?"<br/><b>-</b> Not be in the middle of a special scene."
 									:"")
 								+(Main.game.getPlayer().getMana()<Spell.TELEPORT.getModifiedCost(Main.game.getPlayer())
-										?"</br><b>-</b> Have at least <b>"+Spell.TELEPORT.getModifiedCost(Main.game.getPlayer())+"</b> "+Attribute.MANA_MAXIMUM.getColouredName("b")+"."
+										?"<br/><b>-</b> Have at least <b>"+Spell.TELEPORT.getModifiedCost(Main.game.getPlayer())+"</b> "+Attribute.MANA_MAXIMUM.getColouredName("b")+"."
 										:""))
 					
 					+ "</div>");
@@ -1773,7 +1773,7 @@ public enum RenderingEngine {
 								:"")
 					+"</div>");
 		
-		panelSB.append("<hr style='border:1px solid "+Colour.TEXT_GREY_DARK.toWebHexString()+"; margin: 2px 0;'></hr>");
+		panelSB.append("<hr style='border:1px solid "+Colour.TEXT_GREY_DARK.toWebHexString()+"; margin: 2px 0;'/>");
 		
 
 		panelSB.append(
@@ -1796,7 +1796,7 @@ public enum RenderingEngine {
 						idPrefix + Attribute.MAJOR_CORRUPTION.getName())
 				);
 		
-		panelSB.append("<hr style='border:1px solid "+Colour.TEXT_GREY_DARK.toWebHexString()+"; margin: 2px 0;'></hr>");
+		panelSB.append("<hr style='border:1px solid "+Colour.TEXT_GREY_DARK.toWebHexString()+"; margin: 2px 0;'/>");
 		
 		if(compact) {
 			panelSB.append(
@@ -1841,7 +1841,7 @@ public enum RenderingEngine {
 		
 		
 		// Status effects:
-		panelSB.append("<hr style='border:1px solid "+Colour.TEXT_GREY_DARK.toWebHexString()+"; margin: 2px 0;'></hr>"
+		panelSB.append("<hr style='border:1px solid "+Colour.TEXT_GREY_DARK.toWebHexString()+"; margin: 2px 0;'/>"
 				+"<div class='attribute-container' style='padding:0; overflow-y: auto;'>");
 		
 //		// Traits:
@@ -2017,7 +2017,7 @@ public enum RenderingEngine {
 						+ "</div>"
 					+"</div>");
 		
-		panelSB.append("<hr style='border:1px solid "+Colour.TEXT_GREY_DARK.toWebHexString()+"; margin: 2px 0;'></hr>");
+		panelSB.append("<hr style='border:1px solid "+Colour.TEXT_GREY_DARK.toWebHexString()+"; margin: 2px 0;'/>");
 		
 		panelSB.append(
 				getAttributeBarHalf(CorruptionLevel.getCorruptionLevelFromValue(character.getAttributeValue(Attribute.MAJOR_CORRUPTION)).getRelatedStatusEffect().getSVGString(character),
@@ -2040,7 +2040,7 @@ public enum RenderingEngine {
 
 		
 		// Status effects:
-		panelSB.append("<hr style='border:1px solid "+Colour.TEXT_GREY_DARK.toWebHexString()+"; margin: 2px 0;'></hr>"
+		panelSB.append("<hr style='border:1px solid "+Colour.TEXT_GREY_DARK.toWebHexString()+"; margin: 2px 0;'/>"
 				+"<div class='attribute-container' style='padding:0; overflow-y: auto;'>");
 
 //		// Traits:

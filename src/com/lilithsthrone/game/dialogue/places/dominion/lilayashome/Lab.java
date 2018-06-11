@@ -57,7 +57,7 @@ public class Lab {
 						+ "</p>"
 						+"<p style='text-align:center;'>"
 							+ "<i>"
-								+ "Hey [pc.name], I thought you could do with taking some time to think about what 'pull out next time you fucking asshole' could possibly mean.</br></br>"
+								+ "Hey [pc.name], I thought you could do with taking some time to think about what 'pull out next time you fucking asshole' could possibly mean.<br/><br/>"
 								+ "I'm keeping this door locked until I know if I'm pregnant or not. You'd better hope I'm not."
 							+ "</i>"
 						+ "</p>"
@@ -1394,7 +1394,7 @@ public class Lab {
 									+ " I plan on making the elements collectible items, as well as providing the functionality to enchant clothing!</i>" //TODO
 								+ "</p>"
 								+ "<div class='container-full-width' style='text-align:center;'>"
-									+ "<i>You can now enchant items by selecting them in your inventory, and then pressing the 'Enchant' button.</i></br></br>"
+									+ "<i>You can now enchant items by selecting them in your inventory, and then pressing the 'Enchant' button.</i><br/><br/>"
 									+ "<i>In the same way, you're now able to remove jinxes from clothing. Simply select the clothing in your inventory, then press the 'Remove jinx' button.</i>"
 								+ "</div>"
 								+ Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_ENCHANTMENT_DISCOVERY, Quest.SIDE_UTIL_COMPLETE));
@@ -2766,7 +2766,7 @@ public class Lab {
 			UtilText.nodeContentSB.append("<p>"
 					+ "<i>"
 					+ "You hear Lilaya speaking from somewhere beneath you, but you can't make out what she's saying..."
-					+ "</br></br>");
+					+ "<br/><br/>");
 			
 			if(Main.game.getPlayer().getBreastRawMilkStorageValue() > 0) {
 				UtilText.nodeContentSB.append("You feel a desperate suckling at your nipples, and you're vaguely aware of something greedily drinking down mouthfuls of your [pc.milk]...");
@@ -2776,22 +2776,22 @@ public class Lab {
 			
 			
 			if(Main.game.getPlayer().getLastLitterBirthed().getSonsFromFather() > 0) {
-				UtilText.nodeContentSB.append("</br></br>Some time later, you imagine seeing a strangely familiar "
+				UtilText.nodeContentSB.append("<br/><br/>Some time later, you imagine seeing a strangely familiar "
 							+Main.game.getPlayer().getLastLitterBirthed().getFatherRace().getOffspringMaleNameSingular()+" bending down over you, who plants a kiss on your cheek and mutters something in your ear before walking out the door...");
 				
 			} else {
 				if(Main.game.getPlayer().getLastLitterBirthed().getSonsFromMother() > 0) {
-				UtilText.nodeContentSB.append("</br></br>Some time later, you imagine seeing a strangely familiar "
+				UtilText.nodeContentSB.append("<br/><br/>Some time later, you imagine seeing a strangely familiar "
 							+Main.game.getPlayer().getLastLitterBirthed().getMotherRace().getOffspringMaleNameSingular()+" bending down over you, who plants a kiss on your cheek and mutters something in your ear before walking out the door...");
 				}
 			}
 			if(Main.game.getPlayer().getLastLitterBirthed().getDaughtersFromFather() > 0) {
-				UtilText.nodeContentSB.append("</br></br>Some time later, you imagine seeing a strangely familiar "
+				UtilText.nodeContentSB.append("<br/><br/>Some time later, you imagine seeing a strangely familiar "
 						+Main.game.getPlayer().getLastLitterBirthed().getFatherRace().getOffspringMaleNameSingular()+" bending down over you, who gives you a loving hug and a stroke of your head before departing...");
 				
 			} else {
 				if(Main.game.getPlayer().getLastLitterBirthed().getDaughtersFromMother() > 0) {
-					UtilText.nodeContentSB.append("</br></br>Some time later, you imagine seeing a strangely familiar "
+					UtilText.nodeContentSB.append("<br/><br/>Some time later, you imagine seeing a strangely familiar "
 							+Main.game.getPlayer().getLastLitterBirthed().getMotherRace().getOffspringMaleNameSingular()+" bending down over you, who gives you a loving hug and a stroke of your head before departing...");
 				}
 			}
@@ -3162,12 +3162,12 @@ public class Lab {
 
 					+ "<p style='text-align:center;'>"
 						+ "<i>"
-						+ "Hey [pc.name], congratulations! Everything went perfectly!</br>"
+						+ "Hey [pc.name], congratulations! Everything went perfectly!<br/>"
 						+ "I hope you don't mind, but I collected a lot of data about your aura while we were doing this!"
 						+ " I had to start analysing it straight away, and you were fast asleep anyway, so I hope you don't mind me leaving you there to rest."
-						+ "</br></br>"
+						+ "<br/><br/>"
 						+ "If you need anything, or perhaps if you'd like some more \"tests\", then you know where to find me!"
-						+ "</br></br>"
+						+ "<br/><br/>"
 						+ (Main.game.getPlayer().getLastLitterBirthed().getTotalLitterCount() > 1
 								?"P.S. I managed to get your kids together for a picture before they left, it's under this note!"
 								:"P.S. I got a picture of your kid before they left, it's under this note!")
@@ -3182,7 +3182,7 @@ public class Lab {
 					+ "In the picture you see:");
 
 			if (Main.game.getPlayer().getLastLitterBirthed().getSonsFromFather() > 0) {
-				litterSB.append("</br><b>"
+				litterSB.append("<br/><b>"
 						+ Util.capitaliseSentence(Util.intToString(Main.game.getPlayer().getLastLitterBirthed().getSonsFromFather()))
 						+ "</b>");
 
@@ -3268,7 +3268,7 @@ public class Lab {
 			}
 			
 			if (Main.game.getPlayer().getLastLitterBirthed().getSonsFromMother() > 0) {
-				litterSB.append("</br><b>"
+				litterSB.append("<br/><b>"
 						+ Util.capitaliseSentence(Util.intToString(Main.game.getPlayer().getLastLitterBirthed().getSonsFromMother()))
 						+ "</b>");
 
@@ -3354,7 +3354,7 @@ public class Lab {
 			}
 			
 			if (Main.game.getPlayer().getLastLitterBirthed().getDaughtersFromFather() > 0) {
-				litterSB.append("</br><b>"
+				litterSB.append("<br/><b>"
 						+ Util.capitaliseSentence(Util.intToString(Main.game.getPlayer().getLastLitterBirthed().getDaughtersFromFather()))
 						+ "</b>");
 
@@ -3440,7 +3440,7 @@ public class Lab {
 			}
 			
 			if (Main.game.getPlayer().getLastLitterBirthed().getDaughtersFromMother() > 0) {
-				litterSB.append("</br><b>"
+				litterSB.append("<br/><b>"
 						+ Util.capitaliseSentence(Util.intToString(Main.game.getPlayer().getLastLitterBirthed().getDaughtersFromMother()))
 						+ "</b>");
 

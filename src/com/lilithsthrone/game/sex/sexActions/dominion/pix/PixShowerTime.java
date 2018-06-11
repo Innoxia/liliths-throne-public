@@ -20,9 +20,9 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 
 /**
- * Main positions:</br>
- * Pix reach around.</br>
- * Pix denying everything the player attempts to do.</br>
+ * Main positions:<br/>
+ * Pix reach around.<br/>
+ * Pix denying everything the player attempts to do.<br/>
  * Pix denies orgasm until the player promises to come back and train again.
  * 
  * @since 0.1.69.9
@@ -679,12 +679,12 @@ public class PixShowerTime {
 						+"[npc.speech(Y'know, I've got a little deal for you, so hear me out, ok?"
 						+ " So, like, what's going to happen here, is that when you feel close to getting off, you're gonna promise me that you're gonna come back and do more training in the future, ok?"
 						+ " And I mean a <i>real</i> promise!)]"
-					+ "</br></br>"
+					+ "<br/><br/>"
 					+ "You aren't really in any position to interrupt, so as Pix continues to press you up against the wall, you listen to her as she offers you her 'deal', "
 					+"[npc.speech(Y'know, I can keep doing this all day, so when you're ready to cum for me, you're gonna promise that you're gonna come back to train, ok?!"
 					+ " And if you don't promise, I'm not gonna let you get off!"
 					+ " I sure hope you're listening, 'cause I'm like, totally serious here!)]"
-					+ "</br></br>"
+					+ "<br/><br/>"
 					+ "You try to respond, but Pix quickly slams one of her [pix.hands+] over your mouth, reminding you that you're only allowed to speak when you're about to orgasm.";
 		}
 

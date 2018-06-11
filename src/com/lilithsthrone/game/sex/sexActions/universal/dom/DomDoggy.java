@@ -325,13 +325,13 @@ public class DomDoggy {
 			}
 
 			if (Main.game.getPlayer().getVaginaType() != VaginaType.NONE) {
-				UtilText.nodeContentSB.append("</br>"
+				UtilText.nodeContentSB.append("<br/>"
 						+ "As you grasp your softening member in your [pc.hand], you feel a second orgasm building deep in your groin."
 						+ " Grabbing [npc.name]'s [npc.hips] to brace yourself, you go weak at the knees and clench your thighs together as your [pc.pussy+] shudders and quivers."
 						+ " A mind-splitting orgasm washes through you, and you moan and squeal in delight as your feminine sex joins in on the fun."
 						+ " Panting heavily, you soon come down from your second climax and start to recover.");
 			} else {
-				UtilText.nodeContentSB.append("</br>"
+				UtilText.nodeContentSB.append("<br/>"
 						+ "You pant heavily as you pull your softening member out of [npc.name]'s used hole, before giving [npc.her] [npc.ass] a slap.");
 			}
 			
@@ -380,11 +380,11 @@ public class DomDoggy {
 
 			UtilText.nodeContentSB.append("As you feel [npc.name]'s [npc.asshole+] squeezing down around your [pc.cock+], you decide that you're going to show [npc.herHim] how an alpha treats their submissive little beta."
 					+ " Letting out [pc.a_moan+], you slam your [pc.cock] deep into [npc.her] ass, grinning devilishly as [npc.she] lets out [npc.a_moan+]."
-					+ "</br></br>"
+					+ "<br/><br/>"
 					+ "Reaching down, you grab the [npc.race]'s shoulders, pushing your weight down onto [npc.her] back as you roughly mount [npc.herHim], which causes [npc.her] torso to collapse down to the floor."
 					+ " Bending down, with your [pc.cock] still hilted in [npc.her] [npc.asshole], you growl menacingly in [npc.her] [npc.ear], "
 							+ "[pc.speech(You little bitch! All you're good for is taking my load!)]"
-					+"</br></br>"
+					+"<br/><br/>"
 					+ "[npc.Name] lets out another [npc.moan], which is enough to send you over the edge."
 					+ " As you grind [npc.her] [npc.face+] into the floor, you reach your climax, and as your [pc.balls+] tense up");
 
@@ -418,22 +418,22 @@ public class DomDoggy {
 			}
 
 			if (Main.game.getPlayer().getVaginaType() != VaginaType.NONE) {
-				UtilText.nodeContentSB.append("</br></br>"
+				UtilText.nodeContentSB.append("<br/><br/>"
 						+ "As you slide your softening member out from [npc.name]'s well-used ass, you feel a second orgasm building deep in your groin."
 						+ " Grabbing [npc.her] hips to brace yourself, you go weak at the knees and clench your thighs together as your [pc.pussy+] shudders and quivers."
 						+ " A mind-splitting orgasm washes through you, and you [pc.moanVerb] in delight as your feminine sex joins in on the fun."
 						+ " Panting heavily, you suddenly remember what you had planned, and shuffle around to where [npc.name]'s face is still collapsed down against the floor.");
 				
 			} else {
-				UtilText.nodeContentSB.append("</br></br>"
+				UtilText.nodeContentSB.append("<br/><br/>"
 						+ "As you slide your softening member out from [npc.name]'s well-used ass, you look down, grinning, at the mess you've made of [npc.herHim]."
 						+ " Panting heavily, you suddenly remember what you had planned, and shuffle around to where [npc.name]'s face is still collapsed down against the floor.");
 			}
 			
-			UtilText.nodeContentSB.append("</br></br>"
+			UtilText.nodeContentSB.append("<br/><br/>"
 					+ "Reaching down, you grab a fistful of [npc.name]'s [npc.hair+], and before [npc.she] has a chance to react, you shove [npc.her] [npc.face+] down onto your [pc.cock+]."
 					+ " [npc.She] [npc.moansVerb] and squirms as you give [npc.herHim] a taste of [npc.her] ass, but you hold [npc.herHim] tightly in position, [pc.moaning] softly as [npc.her] frantic [npc.tongue] cleans you off."
-					+ "</br>"
+					+ "<br/>"
 					+ "After a minute of using the unfortunate [npc.race] in this manner, you finally release [npc.herHim], and, with a deep gasp, [npc.she] collapses to the floor, completely exhausted from your dominant treatment.");
 
 			return UtilText.nodeContentSB.toString();
@@ -490,11 +490,11 @@ public class DomDoggy {
 
 			UtilText.nodeContentSB.append("As you feel [npc.name]'s [npc.pussy+] squeezing down around your [pc.cock+], you decide that you're going to show [npc.herHim] how an alpha treats their submissive little beta."
 					+ " Letting out [pc.a_moan+], you slam your [pc.cock] deep into [npc.her] [npc.pussy], grinning devilishly as [npc.she] lets out [npc.a_moan+]."
-					+ "</br></br>"
+					+ "<br/><br/>"
 					+ "Reaching down, you grab the [npc.race]'s shoulders, pushing your weight down onto [npc.her] back as you roughly mount [npc.herHim], which causes [npc.her] torso to collapse down to the floor."
 					+ " Bending down, with your [pc.cock] still hilted in [npc.her] [npc.pussy+], you growl menacingly in [npc.her] [npc.ear], "
 							+ "[pc.speech(You little bitch! All you're good for is taking my load!)]"
-					+"</br></br>"
+					+"<br/><br/>"
 					+ "[npc.Name] lets out another [npc.moan], which is enough to send you over the edge."
 					+ " As you grind [npc.her] [npc.face+] into the floor, you reach your climax, and as your [pc.balls+] tense up");
 
@@ -528,22 +528,22 @@ public class DomDoggy {
 			}
 
 			if (Main.game.getPlayer().getVaginaType() != VaginaType.NONE) {
-				UtilText.nodeContentSB.append("</br></br>"
+				UtilText.nodeContentSB.append("<br/><br/>"
 						+ "As you slide your softening member out from [npc.name]'s well-used [npc.pussy], you feel a second orgasm building deep in your groin."
 						+ " Grabbing [npc.her] hips to brace yourself, you go weak at the knees and clench your thighs together as your [pc.pussy+] shudders and quivers."
 						+ " A mind-splitting orgasm washes through you, and you [pc.moanVerb] in delight as your feminine sex joins in on the fun."
 						+ " Panting heavily, you suddenly remember what you had planned, and shuffle around to where [npc.name]'s face is still collapsed down against the floor.");
 				
 			} else {
-				UtilText.nodeContentSB.append("</br></br>"
+				UtilText.nodeContentSB.append("<br/><br/>"
 						+ "As you slide your softening member out from [npc.name]'s well-used [npc.pussy], you look down, grinning, at the mess you've made of [npc.herHim]."
 						+ " Panting heavily, you suddenly remember what you had planned, and shuffle around to where [npc.name]'s face is still collapsed down against the floor.");
 			}
 			
-			UtilText.nodeContentSB.append("</br></br>"
+			UtilText.nodeContentSB.append("<br/><br/>"
 					+ "Reaching down, you grab a fistful of [npc.name]'s [npc.hair+], and before [npc.she] has a chance to react, you shove [npc.her] [npc.face+] down onto your [pc.cock+]."
 					+ " [npc.She] [npc.moansVerb] and squirms as you give [npc.herHim] a taste of [npc.her] [npc.pussy], but you hold [npc.herHim] tightly in position, [pc.moaning] softly as [npc.her] frantic [npc.tongue] cleans you off."
-					+ "</br>"
+					+ "<br/>"
 					+ "After a minute of using the unfortunate [npc.race] in this manner, you finally release [npc.herHim], and, with a deep gasp, [npc.she] collapses to the floor, completely exhausted from your dominant treatment.");
 
 			return UtilText.nodeContentSB.toString();

@@ -577,7 +577,7 @@ public class CharacterCreation {
 						+ " It only takes a moment before you're standing at the museum's front doors, where, much to your dismay, you see that a small queue has formed."
 						+ " Having no choice but to step in line and wait your turn, you briefly glance over at the large glass windows of the building's modern facade to see your blurry reflection in the glass..."
 					+ "</p>"
-					+ "</br>"
+					+ "<br/>"
 					
 					+ CharacterModificationUtils.getStartDateDiv()
 					
@@ -589,7 +589,7 @@ public class CharacterCreation {
 						
 						+ "<div class='container-full-width' style='text-align:center;'>"
 							+ "You will be referred to as <span style='color:"+Main.game.getPlayer().getGender().getColour().toWebHexString()+";'>"
-								+UtilText.generateSingularDeterminer(Main.game.getPlayer().getGender().getName())+ " " + Main.game.getPlayer().getGender().getName()+"</span>.</br>"
+								+UtilText.generateSingularDeterminer(Main.game.getPlayer().getGender().getName())+ " " + Main.game.getPlayer().getGender().getName()+"</span>.<br/>"
 							+ "<i>You can change all gender names in the options menu.</i>"
 						+ "</div>"
 						
@@ -648,16 +648,16 @@ public class CharacterCreation {
 					+ "<p>"
 						+ "Breathing a sigh of relief, you tell the man your name..."
 					+ "</p>"
-					+"</br>"
+					+"<br/>"
 					+ "<div class='container-full-width' style='text-align:center;'>"
 						+ "<div style='position:relative; display:inline-block; padding-bottom:0; margin 0 auto; vertical-align:middle; width:100%; text-align:center;'>"
 							+ "<p style='display:inline-block; padding:0; margin:0; height:32px; line-height:32px; width:100px;'>First name: </p>"
 							+ "<form style='display:inline-block; padding:0; margin:0; text-align:center;'><input type='text' id='nameInput' value='"+ UtilText.parseForHTMLDisplay(Main.game.getPlayer().getName())+ "'></form>"
-							+ "</br>"
+							+ "<br/>"
 							+ "<p style='display:inline-block; padding:0; margin:0; height:32px; line-height:32px; width:100px;'>Surname: </p>"
 							+ "<form style='display:inline-block; padding:0; margin:0; text-align:center;'><input type='text' id='surnameInput' value='"+ UtilText.parseForHTMLDisplay(Main.game.getPlayer().getSurname())+ "'></form>"
 						+ "</div>"
-						+ "</br>"
+						+ "<br/>"
 						+ "<i>Your name must be between 2 and 16 characters long. You cannot use the square bracket characters or full stops. (Surname may be left blank.)</i>"
 						+ (unsuitableName ? "<p style='text-align:center;padding-top:0;'><b style=' color:"+ Colour.GENERIC_BAD.toWebHexString()+ ";'>Invalid name.</b></p>" : "")
 						+ (unsuitableSurname ? "<p style='text-align:center;padding-top:0;'><b style=' color:"+ Colour.GENERIC_BAD.toWebHexString()+ ";'>Invalid Surname.</b></p>" : "")
@@ -792,12 +792,12 @@ public class CharacterCreation {
 					+ "<p>"
 						+ "As Lily's opening speech seems to be running just as late as you are, you decide to step over to a nearby mirror to make sure that you're looking presentable..."
 					+ "</p>"
-					+ "</br>"
+					+ "<br/>"
 					+ "<div class='container-full-width'>"
 						+ "<h5 style='text-align:center;'>Appearance</h5>"
 						+ Main.game.getPlayer().getBodyDescription()
 					+ "</div>"
-					+ "</br>"
+					+ "<br/>"
 					+ "<div class='container-full-width' style='text-align:center;'>"
 						+ "<i>You can modify your appearance by entering each of the sub-menus below.</i>"
 					+ "</div>";
@@ -877,7 +877,7 @@ public class CharacterCreation {
 						+ CharacterModificationUtils.getMuscleChoiceDiv()
 						
 						+ "<div class='container-full-width' style='text-align:center;'>"
-							+ "Your muscle and body size values result in your appearance being:</br>"
+							+ "Your muscle and body size values result in your appearance being:<br/>"
 							+ "<b style='color:"+Main.game.getPlayer().getBodyShape().toWebHexStringColour()+";'>"+Util.capitaliseSentence(Main.game.getPlayer().getBodyShape().getName(false))+"</b>"
 						+ "</div>"
 					
@@ -1264,7 +1264,7 @@ public class CharacterCreation {
 						+ "[pc.thought(Why am I feeling so horny all of a sudden?)]"
 					+ "</p>"
 					+ "<div class='container-full-width' style='text-align:center;'>"
-						+ "<i>Choose what you decided to wear to the museum.</i></br>"
+						+ "<i>Choose what you decided to wear to the museum.</i><br/>"
 						+ "<i>You'll need to be wearing some kind of footwear, as well as clothing that conceals your genitals and chest, before being able to proceed.</i>"
 					+ "</div>"
 				+ "</div>";
@@ -1697,10 +1697,10 @@ public class CharacterCreation {
 			UtilText.nodeContentSB.setLength(0);
 			UtilText.nodeContentSB.append(
 				"<div class='container-full-width' style='text-align:center;'>"
-					+ "<i>Once you're happy with your appearance, press the 'Start Game' button to begin!</br>"
+					+ "<i>Once you're happy with your appearance, press the 'Start Game' button to begin!<br/>"
 					+ "[style.colourGood(This is the end of character creation, so only proceed once you're happy with your choices!)]</i>"
 				+ "</div>"
-				+ "</br>"
+				+ "<br/>"
 				+ "<div class='container-full-width'>"
 					+ "<h5 style='text-align:center;'>Final Appearance</h5>"
 					+ Main.game.getPlayer().getBodyDescription()
@@ -1722,7 +1722,7 @@ public class CharacterCreation {
 				};
 				
 			} else if (index == 2) {
-				return new ResponseEffectsOnly("Skip prologue", "Start the game and skip the prologue.</br></br><i style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Not recommended for first time playing!</i>"){
+				return new ResponseEffectsOnly("Skip prologue", "Start the game and skip the prologue.<br/><br/><i style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Not recommended for first time playing!</i>"){
 					@Override
 					public void effects() {
 						
@@ -1770,11 +1770,11 @@ public class CharacterCreation {
 
 			importSB.append("<p style='text-align:center;'>"
 					+ "These characters are being read from the 'data/characters' folder."
-					+ " If you want to import a character from a previous version, follow these steps:</br></br>"
-					+ "<b>1.</b> Open up the old game version, and export your old character (menu -> options -> export).</br>"
-					+ "<b>2.</b> Copy the exported .xml file (in the old version's <i>data/characters</i> folder).</br>"
-					+ "<b>3.</b> Paste it into this version's <i>data/characters</i> folder.</br>"
-					+ "<b>4.</b> Press 'Refresh', and your old character file should show up in the list below!</br></br>"
+					+ " If you want to import a character from a previous version, follow these steps:<br/><br/>"
+					+ "<b>1.</b> Open up the old game version, and export your old character (menu -> options -> export).<br/>"
+					+ "<b>2.</b> Copy the exported .xml file (in the old version's <i>data/characters</i> folder).<br/>"
+					+ "<b>3.</b> Paste it into this version's <i>data/characters</i> folder.<br/>"
+					+ "<b>4.</b> Press 'Refresh', and your old character file should show up in the list below!<br/><br/>"
 					+ "(If it doesn't work, please let me know as a comment on my blog, and I'll get it fixed ASAP!)"
 					+ "</p>"
 					+ "<p>"
@@ -1848,7 +1848,7 @@ public class CharacterCreation {
 			return "<p>"
 						+ "<b>TODO:</b> I will enable the ability to go through the full character creation with imported characters soon! :3"
 					+ "</p>"
-					+ "</br>"
+					+ "<br/>"
 					+"<details>"
 						+ "<summary class='quest-title' style='color:" + QuestType.MAIN.getColour().toWebHexString() + ";'>Import Log</summary>"
 						+ CharacterUtils.getCharacterImportLog()
@@ -1873,7 +1873,7 @@ public class CharacterCreation {
 				};
 				
 			} else if (index == 2) {
-				return new ResponseEffectsOnly("Skip prologue", "Start the game and skip the prologue.</br></br><i style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Not recommended for first time playing!</i>"){
+				return new ResponseEffectsOnly("Skip prologue", "Start the game and skip the prologue.<br/><br/><i style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Not recommended for first time playing!</i>"){
 					@Override
 					public void effects() {
 						Main.game.setRenderMap(true);

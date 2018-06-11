@@ -201,7 +201,7 @@ public enum Quest {
 
 		@Override
 		public String getDescription() {
-			return "Lilaya really doesn't want Arthur in her lab, and has tasked you to help Rose find a suitable room for him to stay in.</br>"
+			return "Lilaya really doesn't want Arthur in her lab, and has tasked you to help Rose find a suitable room for him to stay in.<br/>"
 					+ "<i>Go into one of the empty rooms in Lilaya's House, and through the room management window, upgrade it to 'Arthur's Room'.</i>";
 		}
 
@@ -222,7 +222,7 @@ public enum Quest {
 		public String getDescription() {
 			return "Arthur was able to explain the mechanism by which you were transported into this new world, but he seemed to hold back on some of the details."
 					+ " He said that he'd explain everything fully once he knew for certain what was going on, but in order for that to happen, he'll need to talk to one of the seven elder Lilin."
-					+ " After much arguing, Lilaya agreed to convince her mother to help, but you'll have to be the one to deliver the message.</br>"
+					+ " After much arguing, Lilaya agreed to convince her mother to help, but you'll have to be the one to deliver the message.<br/>"
 					+ "<i>Travel down into the undercity of Submission and seek an audience with Lilaya's mother, Lyssieth.</i>";
 		}
 
@@ -425,7 +425,7 @@ public enum Quest {
 		@Override
 		public String getDescription() {
 			return "Nyan explained that she's unable to sell any enchanted clothing due to the fact that her suppliers don't offer any."
-					+ " Apparently, these suppliers have used force to drive all of their rivals out of the area, so she has no alternative but to use them...</br>"
+					+ " Apparently, these suppliers have used force to drive all of their rivals out of the area, so she has no alternative but to use them...<br/>"
 					+ "Perhaps you could offer to convince these new suppliers to let the old ones back?";
 		}
 

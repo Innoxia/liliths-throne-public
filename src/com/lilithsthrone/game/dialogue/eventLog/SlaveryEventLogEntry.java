@@ -170,7 +170,7 @@ public class SlaveryEventLogEntry implements Serializable, XMLSaving {
 		if(tags!=null) {
 			for(SlaveEventTag tag : tags) {
 				if(descriptionSB.length()>0) {
-					descriptionSB.append("</br>");
+					descriptionSB.append("<br/>");
 				}
 				descriptionSB.append(tag.getDescription());
 			}
@@ -179,7 +179,7 @@ public class SlaveryEventLogEntry implements Serializable, XMLSaving {
 		if(extraEffects!=null) {
 			for(String s : extraEffects) {
 				if(descriptionSB.length()>0) {
-					descriptionSB.append("</br>");
+					descriptionSB.append("<br/>");
 				}
 				descriptionSB.append(s);
 			}

@@ -69,7 +69,7 @@ public class SexActionRalphDiscount {
 						+ " You let out a little moan as you anticipate sucking his delicious cock");
 			
 			if(SexFlags.customerAtCounter)
-				UtilText.nodeContentSB.append(", only too late remembering that there's a customer on the other side of the counter!</br>"
+				UtilText.nodeContentSB.append(", only too late remembering that there's a customer on the other side of the counter!<br/>"
 						+ "Eager to make up for your mistake, you quickly rock forwards, stretching your jaw open wide as you take the hot, throbbing cock into your mouth."
 						+ " In your haste, you end up making even more noise, and you hear Ralph hurriedly offering the customer a portion of your discount to keep this a secret.");
 			else
@@ -224,7 +224,7 @@ public class SexActionRalphDiscount {
 					+ " You gently rub and squeeze his huge, cum-filled testicles, and you find yourself letting out an involuntary muffled moan as you imagine them emptying themselves down your throat.");
 			
 			if(SexFlags.customerAtCounter)
-				UtilText.nodeContentSB.append("</br>"
+				UtilText.nodeContentSB.append("<br/>"
 						+ "The combination of your cramped, shuffling movements, and the not-so-quiet moan you just let out, is enough to alert the customer standing on just the other side of the counter."
 						+ " You feel a bit deflated as you hear Ralph giving away a portion of your discount to keep them quiet.");
 			else
@@ -271,7 +271,7 @@ public class SexActionRalphDiscount {
 					+ " keeping it there for as long as possible before you start to run out of breath and are forced to back up, recovering for only a moment before quickly returning to sucking it at a normal pace.");
 			
 			if(SexFlags.customerAtCounter)
-				UtilText.nodeContentSB.append("</br>"
+				UtilText.nodeContentSB.append("<br/>"
 						+ "The loud squelching sounds, combined with the creaking of floorboards as you rocked back and forth deep-throating the huge horse-cock, ended up making quite a bit of noise."
 						+ " You hear Ralph offering a part of your discount to the customer who just overheard your zealous display, and you let out a muffled sigh as you realise that you forgot they were there.");
 			
@@ -318,11 +318,11 @@ public class SexActionRalphDiscount {
 			UtilText.nodeContentSB.append("As you've been sucking Ralph's cock, you've started to feel a desperate craving deep in your loins."
 					+ " You want to feel him inside of you. His fat, animalistic cock pumping away at your pussy, before filling you with his potent seed..."
 					+ " You can't hold back any longer, and, sliding his cock fully out of your mouth, you shuffle forwards to look up at him with big, innocent eyes."
-					+ "</br>"
+					+ "<br/>"
 					+ UtilText.parseSpeechNoEffects("Perhaps there's a way I could earn even more of a discount?", Main.game.getPlayer())+" you ask in your most convincingly seductive tone.");
 			
 			if(SexFlags.customerAtCounter)
-				UtilText.nodeContentSB.append("</br>"
+				UtilText.nodeContentSB.append("<br/>"
 						+ "You hear the customer on the other side of the counter let out an amused cry of surprise, and Ralph quickly offers him some of your discount to stay quiet.");
 			
 			return UtilText.nodeContentSB.toString();
@@ -380,11 +380,11 @@ public class SexActionRalphDiscount {
 			UtilText.nodeContentSB.append("As you've been sucking Ralph's cock, you've started to feel a desperate craving deep in your loins."
 					+ " You want to feel him inside of you. His fat, animalistic cock pumping away at your ass, before filling you with his potent seed..."
 					+ " You can't hold back any longer, and, sliding his cock fully out of your mouth, you shuffle forwards to look up at him with big, innocent eyes."
-					+ "</br>"
+					+ "<br/>"
 					+ UtilText.parseSpeechNoEffects("Perhaps there's a way I could earn even more of a discount?", Main.game.getPlayer())+" you ask in your most convincingly seductive tone.");
 			
 			if(SexFlags.customerAtCounter)
-				UtilText.nodeContentSB.append("</br>"
+				UtilText.nodeContentSB.append("<br/>"
 						+ "You hear the customer on the other side of the counter let out an amused cry of surprise, and Ralph quickly offers him some of your discount to stay quiet.");
 			
 			return UtilText.nodeContentSB.toString();
@@ -577,7 +577,7 @@ public class SexActionRalphDiscount {
 		public String getDescription() {
 			return "Ralph suddenly stops the gentle bucking of his hips, and before you have time to wonder what's wrong, you hear him greeting a customer."
 					+ " You hear the customer's heavy steps as they move up to just the other side of the counter, and you realise that if you don't stay quiet, they're going to find out that you're under here!"
-					+ "</br></br>"
+					+ "<br/><br/>"
 					+ "<b>There is</b> <b style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>a customer</b> <b>on the other side of the counter!</b>";
 		}
 
@@ -616,9 +616,9 @@ public class SexActionRalphDiscount {
 			
 			if(SexFlags.customerAtCounter)
 				UtilText.nodeContentSB.append("Ralph quickly finishes up with the customer, and as you hear them start to walk away, you realise that by staying quiet, they didn't find out that you were here!"
-						+ "</br></br>"
+						+ "<br/><br/>"
 						+ "<b>There are now</b> <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>no customers</b> <b>near the counter.</b>"
-								+ "</br></br>");
+								+ "<br/><br/>");
 			
 			UtilText.nodeContentSB.append("You feel Ralph's cock slide back a little as he bends down towards you, ");
 			switch(Util.random.nextInt(4)){
@@ -669,9 +669,9 @@ public class SexActionRalphDiscount {
 			
 			if(SexFlags.customerAtCounter)
 				UtilText.nodeContentSB.append("Ralph quickly finishes up with the customer, and as you hear them start to walk away, you realise that by staying quiet, they didn't find out that you were here!"
-						+ "</br></br>"
+						+ "<br/><br/>"
 						+ "<b>There are now</b> <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>no customers</b> <b>near the counter.</b>"
-								+ "</br></br>");
+								+ "<br/><br/>");
 			
 			UtilText.nodeContentSB.append("You feel Ralph's grip move down to grope and squeeze your "+Main.game.getPlayer().getAssSize().getDescriptor()+" ass as he groans down to you, ");
 				switch(Util.random.nextInt(4)){
@@ -727,9 +727,9 @@ public class SexActionRalphDiscount {
 			
 			if(SexFlags.customerAtCounter)
 				UtilText.nodeContentSB.append("Ralph quickly finishes up with the customer, and as you hear them start to walk away, you realise that by staying quiet, they didn't find out that you were here!"
-						+ "</br></br>"
+						+ "<br/><br/>"
 						+ "<b>There are now</b> <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>no customers</b> <b>near the counter.</b>"
-								+ "</br></br>");
+								+ "<br/><br/>");
 			
 			UtilText.nodeContentSB.append("You feel Ralph's grip move down to grope and squeeze your "+Main.game.getPlayer().getAssSize().getDescriptor()+" ass as he groans down to you, ");
 			switch(Util.random.nextInt(4)){
@@ -793,9 +793,9 @@ public class SexActionRalphDiscount {
 			
 			if(SexFlags.customerAtCounter)
 				UtilText.nodeContentSB.append("Ralph quickly finishes up with the customer, and as you hear them start to walk away, you realise that by staying quiet, they didn't find out that you were here!"
-						+ "</br></br>"
+						+ "<br/><br/>"
 						+ "<b>There are now</b> <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>no customers</b> <b>near the counter.</b>"
-								+ "</br></br>");
+								+ "<br/><br/>");
 			
 			UtilText.nodeContentSB.append("You hear Ralph let out an impatient grunt as he bends down towards you, "
 					+ UtilText.parseSpeech("What are you doing? You agreed to do this, so don't keep me waiting!", Main.game.getRalph()));
@@ -843,13 +843,13 @@ public class SexActionRalphDiscount {
 			
 			if(SexFlags.customerAtCounter)
 				UtilText.nodeContentSB.append("Ralph quickly finishes up with the customer, and as you hear them start to walk away, you realise that by staying quiet, they didn't find out that you were here!"
-						+ "</br></br>"
+						+ "<br/><br/>"
 						+ "<b>There are now</b> <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>no customers</b> <b>near the counter.</b>"
-								+ "</br></br>");
+								+ "<br/><br/>");
 			
 			UtilText.nodeContentSB.append("You hear Ralph let out a very annoyed grunt as he bends down towards you, "
 					+ UtilText.parseSpeech("I'll show you how to get started!", Main.game.getRalph())
-					+"</br>"
+					+"<br/>"
 					+ "Before you have any time to respond, he suddenly pushes his hips forwards."
 					+ " His hard shaft quickly pushes your head back against the counter behind you, and before you know what's happening, the flared head of his equine member is rubbing forcefully over your face."
 					+ " With a quick reposition and another determined thrust, you feel your lips parting as Ralph rams his eager horse-cock past your lips and into your mouth."
@@ -889,9 +889,9 @@ public class SexActionRalphDiscount {
 			
 			if(SexFlags.customerAtCounter)
 				UtilText.nodeContentSB.append("Ralph quickly finishes up with the customer, and as you hear them start to walk away, you realise that by staying quiet, they didn't find out that you were here!"
-						+ "</br></br>"
+						+ "<br/><br/>"
 						+ "<b>There are now</b> <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>no customers</b> <b>near the counter.</b>"
-								+ "</br></br>");
+								+ "<br/><br/>");
 			
 			UtilText.nodeContentSB.append("Ralph remains all but motionless, watching over the shop as you diligently continue sucking his cock."
 						+ " Now and then, he gently pushes his hips forwards, helping you to take his massive shaft down your throat, but other than that, you're left with little assistance as you work on pleasing his cock.");
@@ -932,7 +932,7 @@ public class SexActionRalphDiscount {
 					+ " As Ralph smiles back at you, you notice that his chest is heaving, and you realise that he's simply slowed down for a moment to catch his breath."
 					+ " Sinking his cock fully into your greedy little cunt, he squeezes and gropes your "+Main.game.getPlayer().getAssSize().getDescriptor()+" ass, and you rest your head back in your arms,"
 							+ " moaning and sighing as you both take a moment to recover."
-					+ "</br></br>"
+					+ "<br/><br/>"
 					+ "After less than a minute, you feel the wide, flared head of his horse-cock sliding back out of your pussy, and as you let out a pathetic little whine at the feeling of emptiness,"
 					+ " Ralph tightens his grip on your hips before thrusting forwards, turning your whine into a high-pitched squeal of pleasure as he starts fucking you at full pace once more.");
 			
@@ -972,7 +972,7 @@ public class SexActionRalphDiscount {
 					+ " As Ralph smiles back at you, you notice that his chest is heaving, and you realise that he's simply slowed down for a moment to catch his breath."
 					+ " Sinking his cock fully into your greedy asshole, he squeezes and gropes your "+Main.game.getPlayer().getAssSize().getDescriptor()+" ass, and you rest your head back in your arms,"
 							+ " groaning and sighing as you both take a moment to recover."
-					+ "</br></br>"
+					+ "<br/><br/>"
 					+ "After less than a minute, you feel the wide, flared head of his horse-cock sliding out of your back door, and as you let out a pathetic little whine at the feeling of emptiness,"
 					+ " Ralph tightens his grip on your hips before thrusting forwards, turning your whine into a desperate cry of pleasure as he starts fucking you at full pace once more.");
 
@@ -1010,9 +1010,9 @@ public class SexActionRalphDiscount {
 			
 			if(SexFlags.customerAtCounter)
 				UtilText.nodeContentSB.append("Ralph quickly finishes up with the customer, and as you hear them start to walk away, you realise that by staying quiet, they didn't find out that you were here!"
-						+ "</br></br>"
+						+ "<br/><br/>"
 						+ "<b>There are now</b> <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>no customers</b> <b>near the counter.</b>"
-								+ "</br></br>");
+								+ "<br/><br/>");
 			
 			UtilText.nodeContentSB.append("A little ringing noise echoes in your ears, signalling that the only customer in the shop has just left, leaving you alone with Ralph for the moment."
 					+ " The consequences of this are immediately made clear as you suddenly feel a strong pressure on each side of your head."
@@ -1060,10 +1060,10 @@ public class SexActionRalphDiscount {
 			return "You feel Ralph's cock slide back a little as he bends down towards you, "
 					+ UtilText.parseSpeech("What did I tell you about this being a respectable establishment?! I made it quite clear what would happen if you made too much noise!"
 							+ " I'm knocking five percent off our deal, no complaints!", Main.game.getRalph())
-					+"</br>"
+					+"<br/>"
 					+ "Despite his usual polite and friendly temperament, he sounds quite angry as he scolds you, and you feel a little bad for putting the reputation of his shop on the line."
 					+ " Then again, he was the one to suggest this, so it's not as though you're entirely the one at fault here..."
-					+ "</br></br>"
+					+ "<br/><br/>"
 					+ "<b>You will now earn a</b> <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>"+(SexFlags.ralphDiscount>0?SexFlags.ralphDiscount-5:0)+"%</b> <b>discount.</b>";
 		}
 
@@ -1112,18 +1112,18 @@ public class SexActionRalphDiscount {
 				UtilText.nodeContentSB.append("Ralph bends down towards you, "
 						+ UtilText.parseSpeech("What did I tell you about this being a respectable establishment?! I made it quite clear what would happen if you made too much noise!"
 								+ " I'm knocking five percent off our deal, no complaints!", Main.game.getRalph())
-						+"</br>"
+						+"<br/>"
 						+ "Despite his usual polite and friendly temperament, he sounds quite angry as he scolds you, and you feel a little bad for putting the reputation of his shop on the line."
 						+ " Then again, he was the one to suggest this, so it's not as though you're entirely the one at fault here..."
-						+ "</br></br>"
+						+ "<br/><br/>"
 						+ "<b>You will now earn a</b> <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>"+(SexFlags.ralphDiscount>0?SexFlags.ralphDiscount-5:0)+"%</b> <b>discount.</b>"
-						+ "</br></br>");
+						+ "<br/><br/>");
 			}
 				
 			UtilText.nodeContentSB.append("Ralph steps back, and, not even bothering to pull his trousers up, walks off to the front of the shop."
 					+ " As you hear him locking the front door and pulling down the shop's blinds, you realise that the last customer must have left some time ago."
 					+ " Wanting to see what's going on, you shuffle your way out from beneath the counter and try to stand up."
-					+ "</br></br>"
+					+ "<br/><br/>"
 					+ "Almost instantly, a huge jolt of cramp shoots up through your legs, and you let out a little cry as you bend over and grab the edge of the counter."
 					+ " Suddenly, you feel a strong pair of hands grab your hips, and before you can react, Ralph pushes you down, face first, onto the counter-top."
 					+ " You let out a little moan at his dominant treatment of you, and as he roughly gropes and squeezes your "+Main.game.getPlayer().getAssSize().getDescriptor()+" ass, he leans down and growls in your ear, "
@@ -1134,18 +1134,18 @@ public class SexActionRalphDiscount {
 									?"So you want a bigger discount, huh?! You know, it's a shame you're already pregnant, but I'll still give you another twenty percent if you let me fuck you."
 									:"So you want a bigger discount, huh?! Well, you let me put a few little foals in this belly of yours, and I'll give you another twenty five percent!")
 						), Main.game.getRalph())
-					+"</br></br>"
+					+"<br/><br/>"
 					+ "By now, you don't really care about the discount, all you want is to feel that delicious cock sliding in between your legs."
 					+ " Even before Ralph's finished giving you his offer, you're moaning in agreement, and he lets out a little laugh as he reaches down to grope your "
 					+ (Main.game.getPlayer().getVaginaType()==VaginaType.HORSE_MORPH?"needy horse-pussy.":"hot little pussy.")
-					+"</br></br>"
+					+"<br/><br/>"
 					+(Main.game.getPlayer().isVisiblyPregnant()
 						?"Being very careful not to bump your pregnant belly against the counter, Ralph pushes your upper-torso down onto the counter top."
 							+ " Grabbing your hips, he wastes no time in lining his massive cock up to your waiting cunt, and as he starts to push forwards, you let out a desperate squeal."
 						:"Pushing your top-half down onto the counter top, Ralph wastes no time in lining his massive cock up to your waiting cunt, and as he starts to push forwards, you let out a desperate squeal.")
 					+ " His wide, flared head slowly pushes its way into you, and you pant and squirm as your folds lewdly spread around his animalistic horse-cock."
 					+ " With a quick step forwards, Ralph suddenly rams his impatient member deep into your hungry snatch, and you gasp and moan as he starts fucking you on the shop's counter-top."
-					+ "</br></br>"
+					+ "<br/><br/>"
 					+ "<b>You will now earn a</b> <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>"
 							+(SexFlags.ralphDiscount+(Sex.getActivePartner().isWearingCondom()||Main.game.getPlayer().isVisiblyPregnant()?20:25)-(SexFlags.alertedCustomer?5:0))
 					+"%</b> <b>discount.</b>");
@@ -1206,35 +1206,35 @@ public class SexActionRalphDiscount {
 				UtilText.nodeContentSB.append("Ralph bends down towards you, "
 						+ UtilText.parseSpeech("What did I tell you about this being a respectable establishment?! I made it quite clear what would happen if you made too much noise!"
 								+ " I'm knocking five percent off our deal, no complaints!", Main.game.getRalph())
-						+"</br>"
+						+"<br/>"
 						+ "Despite his usual polite and friendly temperament, he sounds quite angry as he scolds you, and you feel a little bad for putting the reputation of his shop on the line."
 						+ " Then again, he was the one to suggest this, so it's not as though you're entirely the one at fault here..."
-						+ "</br></br>"
+						+ "<br/><br/>"
 						+ "<b>You will now earn a</b> <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>"+(SexFlags.ralphDiscount>0?SexFlags.ralphDiscount-5:0)+"%</b> <b>discount.</b>"
-						+ "</br></br>");
+						+ "<br/><br/>");
 			}
 			
 			UtilText.nodeContentSB.append("Ralph steps back, and, not even bothering to pull his trousers up, walks off to the front of the shop."
 					+ " As you hear him locking the front door and pulling down the shop's blinds, you realise that the last customer must have left some time ago."
 					+ " Before you have time to get out from under the counter, however, the imposing figure of Ralph moves back into view, blocking your way."
-					+ "</br></br>"
+					+ "<br/><br/>"
 					+ UtilText.parseSpeech("So you want a bigger discount, huh?! And how exactly do you intend to earn it?", Main.game.getRalph())
 					+" He asks, crossing his arms and frowning down at you."
-					+ "</br></br>"
+					+ "<br/><br/>"
 					+ "You realise that although he was perfectly happy with having you suck his cock, he's going to need some convincing if you're to get him to use your other hole."
 					+ " Shifting aside your clothing, you awkwardly shuffle around on the spot, bending over to present your "+Main.game.getPlayer().getAssCapacity().getDescriptor()+" asshole."
 					+ " You hear Ralph struggling to suppress an eager groan, and as you shake your "+Main.game.getPlayer().getHipSize().getDescriptor()+" hips from side to side, he breaks his composure."
-					+ "</br></br>"
+					+ "<br/><br/>"
 					+ "Suddenly, you feel a strong pair of hands grab your hips, and before you can react, Ralph pulls you back out from under the counter, and in one swift movement, pushes you down, face first, onto the counter-top."
 					+ " You let out a happy little cry at his dominant treatment of you, and as he roughly gropes and squeezes your "+Main.game.getPlayer().getAssSize().getDescriptor()+" ass, he leans down and growls in your ear, "
 					+ UtilText.parseSpeech(
 							"You know, I don't usually do this sort of thing... But damn, you've got a nice-looking ass! I'll give you another twenty percent if you let me take it for a spin.", Main.game.getRalph())
-					+"</br></br>"
+					+"<br/><br/>"
 					+ "By now, you don't really care about the discount, all you want is to feel that delicious cock ramming its way into your rear entrance."
 					+ " Even before Ralph's finished giving you his offer, you're crying out in agreement, and he wastes no time in lining his massive cock up to your waiting asshole."
 					+ " You feel the wide, flared head rubbing all over your slutty hole, and as he starts to slowly push his animalistic horse-cock into you, you begin to squirm and squeal."
 					+ " With a quick step forwards, Ralph suddenly rams his impatient member deep into your hungry back door, and you let out an ear-splitting cry as he starts fucking you on the shop's counter-top."
-					+ "</br></br>"
+					+ "<br/><br/>"
 					+ "<b>You will now earn a</b> <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>"
 						+(SexFlags.ralphDiscount+20-(SexFlags.alertedCustomer?5:0))
 						+"%</b> <b>discount.</b>");

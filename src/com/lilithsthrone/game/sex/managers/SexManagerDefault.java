@@ -89,16 +89,16 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 	private static List<SexActionInterface> possibleActions = new ArrayList<>(), bannedActions = new ArrayList<>();
 	
 	/**
-	 * New:</br>
-	 * - Get accessible areas</br>
-	 * - Choose foreplay & main sex</br>
-	 * - Choose positions for each</br>
-	 * - Clothing for foreplay</br>
-	 * - position</br>
-	 * - foreplay (self-actions take minimum priority)</br>
-	 * - clothing for main</br>
-	 * - position</br>
-	 * - main (self-actions take minimum priority)</br>
+	 * New:<br/>
+	 * - Get accessible areas<br/>
+	 * - Choose foreplay & main sex<br/>
+	 * - Choose positions for each<br/>
+	 * - Clothing for foreplay<br/>
+	 * - position<br/>
+	 * - foreplay (self-actions take minimum priority)<br/>
+	 * - clothing for main<br/>
+	 * - position<br/>
+	 * - main (self-actions take minimum priority)<br/>
 	 * - orgasm
 	 */
 	@Override
