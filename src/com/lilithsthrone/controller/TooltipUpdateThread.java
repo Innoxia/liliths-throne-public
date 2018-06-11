@@ -23,7 +23,7 @@ public class TooltipUpdateThread {
 		// }
 
 		// While this probably isn't needed, since we run the game on the JavaFX thread most of the time
-		// I'm keeping it in just in case since JavaFX isn't threadsafe.
+		// I'm keeping it in just in case since JavaFX isn't threadsafe. - Alaco
 		Platform.runLater(new Runnable() {
 			@Override
 			public void run() {
