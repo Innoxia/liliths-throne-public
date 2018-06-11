@@ -1277,7 +1277,7 @@ public class DebugDialogue {
 							+ "<i style='color:"+Colour.CLOTHING_YELLOW.toWebHexString()+";'>(arguments)</i>]</p>");
 			
 			for(ParserTarget character : ParserTarget.values()) {
-				UtilText.nodeContentSB.append("<hr></hr>"
+				UtilText.nodeContentSB.append("<hr/>"
 						+"<p>");
 				
 				boolean first=true;
@@ -1347,7 +1347,7 @@ public class DebugDialogue {
 			
 			int count=1;
 			for(ParserCommand command : UtilText.commandsList) {
-				UtilText.nodeContentSB.append("<hr></hr>"
+				UtilText.nodeContentSB.append("<hr/>"
 						+ "<p>"
 						+ "<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>"+String.format("%03d.", count)+"</b> <i style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>"+command.getTags().get(0)+"</i>");
 				
@@ -1421,7 +1421,7 @@ public class DebugDialogue {
 							+String.format("%03d", count)+" - "+String.format("%03d", count+UtilText.commandsMap.get(bpt).size()-1)+")</b> "+Util.capitaliseSentence(bpt.getName())+"</summary>");
 				for(ParserCommand command : UtilText.commandsMap.get(bpt)) {
 					UtilText.nodeContentSB.append("<p>"
-							+ "<hr></hr>"
+							+ "<hr/>"
 							+ "<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>"+String.format("%03d.", count)+"</b> <i style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>"+command.getTags().get(0)+"</i>");
 					
 					if(command.getTags().size()>1) {

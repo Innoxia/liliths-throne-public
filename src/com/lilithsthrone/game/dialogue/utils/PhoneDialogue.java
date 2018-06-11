@@ -1411,7 +1411,7 @@ public class PhoneDialogue {
 					+ "</div>"
 					+ (effect.length()>0
 							?"<div class='container-full-width' style='margin:0;background:"+Colour.BACKGROUND_ALT.toWebHexString()+"; padding:0; text-align:center;'>"
-								+"<hr></hr>"
+								+"<hr/>"
 								+ "<i>"+effect+"</i>"
 							+ "</div>"
 							:"")

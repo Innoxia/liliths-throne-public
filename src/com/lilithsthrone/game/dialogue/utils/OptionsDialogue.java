@@ -1180,7 +1180,7 @@ public class OptionsDialogue {
 								+ "</p>"
 							+ "</div>"
 						+ "</div>"
-						+ "<hr></hr>");
+						+ "<hr/>");
 				count++;
 			}
 		}
