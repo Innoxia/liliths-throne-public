@@ -3,8 +3,8 @@ package com.lilithsthrone.game.sex.sexActions.baseActionsSelfPlayer;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.LubricationType;
-import com.lilithsthrone.game.sex.OrificeType;
-import com.lilithsthrone.game.sex.PenetrationType;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
@@ -23,13 +23,13 @@ public class PlayerSelfFingerMouth {
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ZERO_NONE,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.FINGER,
-			OrificeType.MOUTH,
+			SexAreaPenetration.FINGER,
+			SexAreaOrifice.MOUTH,
 			SexParticipantType.SELF) {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.getWetPenetrationTypes(Main.game.getPlayer()).get(PenetrationType.FINGER).contains(LubricationType.PLAYER_SALIVA);
+			return !Sex.getWetPenetrationTypes(Main.game.getPlayer()).get(SexAreaPenetration.FINGER).contains(LubricationType.PLAYER_SALIVA);
 		}
 		
 		@Override
@@ -49,7 +49,7 @@ public class PlayerSelfFingerMouth {
 		
 		@Override
 		public void applyEffects() {
-			Sex.transferLubrication(Main.game.getPlayer(), Main.game.getPlayer(), PenetrationType.FINGER, OrificeType.MOUTH);
+			Sex.transferLubrication(Main.game.getPlayer(), Main.game.getPlayer(), SexAreaPenetration.FINGER, SexAreaOrifice.MOUTH);
 		}
 	};
 	
@@ -58,8 +58,8 @@ public class PlayerSelfFingerMouth {
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ZERO_NONE,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.FINGER,
-			OrificeType.MOUTH,
+			SexAreaPenetration.FINGER,
+			SexAreaOrifice.MOUTH,
 			SexParticipantType.SELF) {
 		
 		@Override
@@ -83,8 +83,8 @@ public class PlayerSelfFingerMouth {
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.FINGER,
-			OrificeType.MOUTH,
+			SexAreaPenetration.FINGER,
+			SexAreaOrifice.MOUTH,
 			SexParticipantType.SELF) {
 		
 		@Override

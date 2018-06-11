@@ -3,8 +3,8 @@ package com.lilithsthrone.game.sex.sexActions.baseActionsSelfPlayer;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
-import com.lilithsthrone.game.sex.OrificeType;
-import com.lilithsthrone.game.sex.PenetrationType;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
@@ -26,8 +26,8 @@ public class PlayerSelfFingerVagina {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.FINGER,
-			OrificeType.VAGINA,
+			SexAreaPenetration.FINGER,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.SELF) {
 		
 		@Override
@@ -65,7 +65,7 @@ public class PlayerSelfFingerVagina {
 		
 		@Override
 		public void applyEffects() {
-			Sex.transferLubrication(Main.game.getPlayer(), Main.game.getPlayer(), PenetrationType.FINGER, OrificeType.VAGINA);
+			Sex.transferLubrication(Main.game.getPlayer(), Main.game.getPlayer(), SexAreaPenetration.FINGER, SexAreaOrifice.VAGINA);
 		}
 		
 	};
@@ -75,8 +75,8 @@ public class PlayerSelfFingerVagina {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.FINGER,
-			OrificeType.VAGINA,
+			SexAreaPenetration.FINGER,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.SELF) {
 		
 		@Override
@@ -108,8 +108,8 @@ public class PlayerSelfFingerVagina {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.FINGER,
-			OrificeType.VAGINA,
+			SexAreaPenetration.FINGER,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.SELF,
 			SexPace.DOM_GENTLE,
 			null) {
@@ -148,8 +148,8 @@ public class PlayerSelfFingerVagina {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.FINGER,
-			OrificeType.VAGINA,
+			SexAreaPenetration.FINGER,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.SELF,
 			SexPace.DOM_NORMAL,
 			null) {
@@ -188,8 +188,8 @@ public class PlayerSelfFingerVagina {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.FINGER,
-			OrificeType.VAGINA,
+			SexAreaPenetration.FINGER,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.SELF,
 			SexPace.DOM_ROUGH,
 			null) {
@@ -228,8 +228,8 @@ public class PlayerSelfFingerVagina {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.FINGER,
-			OrificeType.VAGINA,
+			SexAreaPenetration.FINGER,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.SELF,
 			SexPace.SUB_NORMAL,
 			null) {
@@ -268,8 +268,8 @@ public class PlayerSelfFingerVagina {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.FINGER,
-			OrificeType.VAGINA,
+			SexAreaPenetration.FINGER,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.SELF,
 			SexPace.SUB_EAGER,
 			null) {
@@ -308,8 +308,8 @@ public class PlayerSelfFingerVagina {
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.FINGER,
-			OrificeType.VAGINA,
+			SexAreaPenetration.FINGER,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.SELF) {
 		
 		@Override

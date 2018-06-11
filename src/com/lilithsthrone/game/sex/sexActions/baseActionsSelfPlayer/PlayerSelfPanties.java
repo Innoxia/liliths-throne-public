@@ -10,8 +10,8 @@ import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.LilayasRoom;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.OrgasmCumTarget;
-import com.lilithsthrone.game.sex.OrificeType;
-import com.lilithsthrone.game.sex.PenetrationType;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
@@ -32,8 +32,8 @@ public class PlayerSelfPanties {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.FINGER,
-			OrificeType.VAGINA,
+			SexAreaPenetration.FINGER,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.SELF) {
 		
 		@Override
@@ -57,7 +57,7 @@ public class PlayerSelfPanties {
 		
 		@Override
 		public String applyEffectsString() {
-			if(!LilayasRoom.lilayasPanties.isDirty() && Sex.getWetOrificeTypes(Main.game.getPlayer()).containsKey(OrificeType.VAGINA)) {
+			if(!LilayasRoom.lilayasPanties.isDirty() && Sex.getWetOrificeTypes(Main.game.getPlayer()).containsKey(SexAreaOrifice.VAGINA)) {
 				LilayasRoom.lilayasPanties.setDirty(true);
 				return "<p style='text-align:center'>"
 							+ "[style.italicsDirty(Lilaya's panties are quickly dirtied as you rub them against your wet pussy.)]"
@@ -84,8 +84,8 @@ public class PlayerSelfPanties {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.FINGER,
-			OrificeType.URETHRA_PENIS,
+			SexAreaPenetration.FINGER,
+			SexAreaOrifice.URETHRA_PENIS,
 			SexParticipantType.SELF) {
 		
 		@Override
@@ -109,7 +109,7 @@ public class PlayerSelfPanties {
 
 		@Override
 		public String applyEffectsString() {
-			if(!LilayasRoom.lilayasPanties.isDirty() && Sex.getWetPenetrationTypes(Main.game.getPlayer()).containsKey(PenetrationType.PENIS)) {
+			if(!LilayasRoom.lilayasPanties.isDirty() && Sex.getWetPenetrationTypes(Main.game.getPlayer()).containsKey(SexAreaPenetration.PENIS)) {
 				LilayasRoom.lilayasPanties.setDirty(true);
 				return "<p style='text-align:center'>"
 							+ "[style.italicsDirty(Lilaya's panties are quickly dirtied as you rub them over your cock.)]"
@@ -135,7 +135,7 @@ public class PlayerSelfPanties {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.FINGER,
+			SexAreaPenetration.FINGER,
 			null,
 			SexParticipantType.SELF) {
 
@@ -179,7 +179,7 @@ public class PlayerSelfPanties {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.FINGER,
+			SexAreaPenetration.FINGER,
 			null,
 			SexParticipantType.SELF) {
 

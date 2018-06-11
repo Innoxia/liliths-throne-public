@@ -14,7 +14,7 @@ import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
-import com.lilithsthrone.game.sex.OrificeType;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.universal.SMStanding;
@@ -123,14 +123,14 @@ public class HarpyNestNympho {
 						return new Response("Approach [harpyNympho.name]", "Walk to the centre of the nest and talk to [harpyNympho.name].", HARPY_NEST_NYMPHO_APPROACH) {
 							@Override
 							public void effects() {
-								Main.game.getHarpyNympho().ingestFluid(Main.game.getHarpyNymphoCompanion(), Main.game.getHarpyNymphoCompanion().getCumType(), OrificeType.VAGINA, 250, Main.game.getHarpyNymphoCompanion().getCumModifiers());
+								Main.game.getHarpyNympho().ingestFluid(Main.game.getHarpyNymphoCompanion(), Main.game.getHarpyNymphoCompanion().getCumType(), SexAreaOrifice.VAGINA, 250, Main.game.getHarpyNymphoCompanion().getCumModifiers());
 							}
 						};
 					} else {
 						return new Response("Approach matriarch", "Walk to the centre of the nest and talk to the matriarch.", HARPY_NEST_NYMPHO_APPROACH) {
 							@Override
 							public void effects() {
-								Main.game.getHarpyNympho().ingestFluid(Main.game.getHarpyNymphoCompanion(), Main.game.getHarpyNymphoCompanion().getCumType(), OrificeType.VAGINA, 250, Main.game.getHarpyNymphoCompanion().getCumModifiers());
+								Main.game.getHarpyNympho().ingestFluid(Main.game.getHarpyNymphoCompanion(), Main.game.getHarpyNymphoCompanion().getCumType(), SexAreaOrifice.VAGINA, 250, Main.game.getHarpyNymphoCompanion().getCumModifiers());
 							}
 						};
 					}

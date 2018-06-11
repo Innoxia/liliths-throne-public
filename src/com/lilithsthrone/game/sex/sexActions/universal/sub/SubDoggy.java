@@ -3,8 +3,8 @@ package com.lilithsthrone.game.sex.sexActions.universal.sub;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
-import com.lilithsthrone.game.sex.OrificeType;
-import com.lilithsthrone.game.sex.PenetrationType;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
@@ -92,7 +92,7 @@ public class SubDoggy {
 		public String getDescription() {
 			String tailSpecial1 = "", tailSpecial2 = "";
 			
-			if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA)==PenetrationType.PENIS) {
+			if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), SexAreaOrifice.VAGINA)==SexAreaPenetration.PENIS) {
 				switch(Main.game.getPlayer().getTailType()) {
 					case NONE:
 						tailSpecial1 = "Hilting [npc.her] [npc.cock+] deep inside your [pc.pussy+], [npc.name] reaches down and roughly gropes your [pc.ass+], before starting to deliver a series of stinging slaps to your exposed cheeks.";
@@ -119,7 +119,7 @@ public class SubDoggy {
 							"Hilting [npc.her] [npc.cock+] deep inside your [pc.pussy+], [npc.name] uses one [npc.hand] to hold you still, while the other starts to deliver a series of stinging slaps to your [pc.ass+].",
 							"While [npc.name] continues to fuck your [pc.pussy+], [npc.she] starts to roughly slap your [pc.ass+], growling in glee as you squirm and squeal under [npc.her] stinging blows."));
 				
-			} else if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.ANUS)==PenetrationType.PENIS) {
+			} else if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), SexAreaOrifice.ANUS)==SexAreaPenetration.PENIS) {
 				switch(Main.game.getPlayer().getTailType()) {
 					case NONE:
 						tailSpecial1 = "Hilting [npc.her] [npc.cock+] deep inside your [pc.asshole+], [npc.name] reaches down and roughly gropes your [pc.ass+], before starting to deliver a series of stinging slaps to your exposed cheeks.";

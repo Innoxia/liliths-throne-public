@@ -3,8 +3,8 @@ package com.lilithsthrone.game.sex.sexActions.dominion;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
-import com.lilithsthrone.game.sex.OrificeType;
-import com.lilithsthrone.game.sex.PenetrationType;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
@@ -185,7 +185,7 @@ public class SARoseHands {
 		}
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isOrificeFree(Main.game.getPlayer(), OrificeType.MOUTH);
+			return Sex.isOrificeFree(Main.game.getPlayer(), SexAreaOrifice.MOUTH);
 		}
 		@Override
 		public String getDescription() {
@@ -205,8 +205,8 @@ public class SARoseHands {
 			ArousalIncrease.FIVE_EXTREME,
 			ArousalIncrease.FIVE_EXTREME,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.FINGER,
-			OrificeType.MOUTH,
+			SexAreaPenetration.FINGER,
+			SexAreaOrifice.MOUTH,
 			SexParticipantType.CATCHER) {
 		@Override
 		public String getActionTitle() {
@@ -234,8 +234,8 @@ public class SARoseHands {
 			ArousalIncrease.FIVE_EXTREME,
 			ArousalIncrease.FIVE_EXTREME,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.FINGER,
-			OrificeType.MOUTH,
+			SexAreaPenetration.FINGER,
+			SexAreaOrifice.MOUTH,
 			SexParticipantType.CATCHER) {
 		@Override
 		public String getActionTitle() {
@@ -260,8 +260,8 @@ public class SARoseHands {
 			ArousalIncrease.FIVE_EXTREME,
 			ArousalIncrease.FIVE_EXTREME,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.FINGER,
-			OrificeType.MOUTH,
+			SexAreaPenetration.FINGER,
+			SexAreaOrifice.MOUTH,
 			SexParticipantType.CATCHER) {
 		@Override
 		public String getActionTitle() {
@@ -286,8 +286,8 @@ public class SARoseHands {
 			ArousalIncrease.FIVE_EXTREME,
 			ArousalIncrease.FIVE_EXTREME,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.FINGER,
-			OrificeType.MOUTH,
+			SexAreaPenetration.FINGER,
+			SexAreaOrifice.MOUTH,
 			SexParticipantType.CATCHER) {
 		@Override
 		public String getActionTitle() {
@@ -402,8 +402,8 @@ public class SARoseHands {
 			ArousalIncrease.FIVE_EXTREME,
 			ArousalIncrease.FIVE_EXTREME,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.FINGER,
-			OrificeType.MOUTH,
+			SexAreaPenetration.FINGER,
+			SexAreaOrifice.MOUTH,
 			SexParticipantType.PITCHER) {
 		@Override
 		public String getActionTitle() {

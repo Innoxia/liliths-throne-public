@@ -43,8 +43,8 @@ import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
-import com.lilithsthrone.game.sex.OrificeType;
-import com.lilithsthrone.game.sex.PenetrationType;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.main.Main;
@@ -1635,20 +1635,20 @@ public class CharacterCreation {
 					@Override
 					public void effects() {
 						if(!Main.game.getPlayer().hasPenis()) {
-							for(OrificeType ot : OrificeType.values()) {
-								SexType st = new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, ot);
+							for(SexAreaOrifice ot : SexAreaOrifice.values()) {
+								SexType st = new SexType(SexParticipantType.PITCHER, SexAreaPenetration.PENIS, ot);
 								Main.game.getPlayer().setVirginityLoss(st, "");
-								st = new SexType(SexParticipantType.SELF, PenetrationType.PENIS, ot);
+								st = new SexType(SexParticipantType.SELF, SexAreaPenetration.PENIS, ot);
 								Main.game.getPlayer().setVirginityLoss(st, "");
 							}
 							Main.game.getPlayer().setPenisVirgin(true);
 							
 						}
 						if(!Main.game.getPlayer().hasVagina()) {
-							for(PenetrationType pt : PenetrationType.values()) {
-								SexType st = new SexType(SexParticipantType.PITCHER, pt, OrificeType.VAGINA);
+							for(SexAreaPenetration pt : SexAreaPenetration.values()) {
+								SexType st = new SexType(SexParticipantType.PITCHER, pt, SexAreaOrifice.VAGINA);
 								Main.game.getPlayer().setVirginityLoss(st, "");
-								st = new SexType(SexParticipantType.SELF, pt, OrificeType.VAGINA);
+								st = new SexType(SexParticipantType.SELF, pt, SexAreaOrifice.VAGINA);
 								Main.game.getPlayer().setVirginityLoss(st, "");
 							}
 							Main.game.getPlayer().setVaginaVirgin(true);

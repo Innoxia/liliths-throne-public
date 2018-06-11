@@ -178,8 +178,8 @@ import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.settings.DifficultyLevel;
 import com.lilithsthrone.game.sex.LubricationType;
-import com.lilithsthrone.game.sex.OrificeType;
-import com.lilithsthrone.game.sex.PenetrationType;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.PregnancyDescriptor;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
@@ -328,7 +328,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	private int daysOrgasmCount;
 	private int daysOrgasmCountRecord;
 	protected Set<CoverableArea> playerKnowsAreas;
-	protected Map<OrificeType, List<FluidStored>> fluidsStoredMap;
+	protected Map<SexAreaOrifice, List<FluidStored>> fluidsStoredMap;
 	
 	
 	// Stats:
@@ -918,7 +918,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		
 		Element fluidsStoredMapElement = doc.createElement("fluidsStoredMap");
 		characterSexStats.appendChild(fluidsStoredMapElement);
-		for(Entry<OrificeType, List<FluidStored>> entry : fluidsStoredMap.entrySet()) {
+		for(Entry<SexAreaOrifice, List<FluidStored>> entry : fluidsStoredMap.entrySet()) {
 			Element element = doc.createElement("entry");
 			fluidsStoredMapElement.appendChild(element);
 
@@ -939,8 +939,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		Element characterCumCount = doc.createElement("cumCounts");
 		characterSexStats.appendChild(characterCumCount);
 		for(SexParticipantType participant : SexParticipantType.values()) {
-			for(PenetrationType pt : PenetrationType.values()) {
-				for(OrificeType ot : OrificeType.values()) {
+			for(SexAreaPenetration pt : SexAreaPenetration.values()) {
+				for(SexAreaOrifice ot : SexAreaOrifice.values()) {
 					if(this.getCumCount(new SexType(participant, pt, ot)) > 0) {
 						Element element = doc.createElement("cumCount");
 						characterCumCount.appendChild(element);
@@ -957,8 +957,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		Element characterSexCount = doc.createElement("sexCounts");
 		characterSexStats.appendChild(characterSexCount);
 		for(SexParticipantType participant : SexParticipantType.values()) {
-			for(PenetrationType pt : PenetrationType.values()) {
-				for(OrificeType ot : OrificeType.values()) {
+			for(SexAreaPenetration pt : SexAreaPenetration.values()) {
+				for(SexAreaOrifice ot : SexAreaOrifice.values()) {
 					if(this.getSexCount(new SexType(participant, pt, ot)) > 0) {
 						Element element = doc.createElement("sexCount");
 						characterSexCount.appendChild(element);
@@ -975,8 +975,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		Element characterVirginityTakenBy = doc.createElement("virginityTakenBy");
 		characterSexStats.appendChild(characterVirginityTakenBy);
 		for(SexParticipantType participant : SexParticipantType.values()) {
-			for(PenetrationType pt : PenetrationType.values()) {
-				for(OrificeType ot : OrificeType.values()) {
+			for(SexAreaPenetration pt : SexAreaPenetration.values()) {
+				for(SexAreaOrifice ot : SexAreaOrifice.values()) {
 					if(this.getVirginityLoss(new SexType(participant, pt, ot))!=null && !this.getVirginityLoss(new SexType(participant, pt, ot)).isEmpty()) {
 						Element element = doc.createElement("virginity");
 						characterVirginityTakenBy.appendChild(element);
@@ -1852,7 +1852,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			NodeList fluidStoredMapEntries = element.getElementsByTagName("entry");
 			for(int i = 0; i < fluidStoredMapEntries.getLength(); i++){
 				Element e = (Element) fluidStoredMapEntries.item(i);
-				OrificeType ot = OrificeType.valueOf(e.getAttribute("orifice"));
+				SexAreaOrifice ot = SexAreaOrifice.valueOf(e.getAttribute("orifice"));
 				NodeList fluidStoredEntries = e.getElementsByTagName("fluidStored"); 
 				for (int j = 0; j < fluidStoredEntries.getLength(); j++) {
 					Element fluidStored = (Element) fluidStoredEntries.item(j);
@@ -1869,7 +1869,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			Element e = (Element) cumCountElements.item(i);
 			
 			try {
-				SexType sexType = new SexType(SexParticipantType.valueOf(e.getAttribute("participantType")), PenetrationType.valueOf(e.getAttribute("penetrationType")), OrificeType.valueOf(e.getAttribute("orificeType")));
+				SexType sexType = new SexType(SexParticipantType.valueOf(e.getAttribute("participantType")), SexAreaPenetration.valueOf(e.getAttribute("penetrationType")), SexAreaOrifice.valueOf(e.getAttribute("orificeType")));
 				int count = Integer.parseInt(e.getAttribute("count"));
 				character.setCumCount(sexType, character.getCumCount(sexType) + count);
 				CharacterUtils.appendToImportLog(log, "</br>Added cum count:"+e.getAttribute("penetrationType")+" "+e.getAttribute("orificeType")+" x "+Integer.valueOf(e.getAttribute("count")));
@@ -1884,7 +1884,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			Element e = (Element) sexCountElements.item(i);
 			
 			try {
-				SexType sexType = new SexType(SexParticipantType.valueOf(e.getAttribute("participantType")), PenetrationType.valueOf(e.getAttribute("penetrationType")), OrificeType.valueOf(e.getAttribute("orificeType")));
+				SexType sexType = new SexType(SexParticipantType.valueOf(e.getAttribute("participantType")), SexAreaPenetration.valueOf(e.getAttribute("penetrationType")), SexAreaOrifice.valueOf(e.getAttribute("orificeType")));
 				int count = Integer.parseInt(e.getAttribute("count"));
 				character.setSexCount(sexType, character.getSexCount(sexType) + count);
 				CharacterUtils.appendToImportLog(log, "</br>Added sex count:"+e.getAttribute("penetrationType")+" "+e.getAttribute("orificeType")+" x "+Integer.valueOf(e.getAttribute("count")));
@@ -1899,7 +1899,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			Element e = ((Element)virginityElements.item(i));
 
 			try {
-				character.setVirginityLoss(new SexType(SexParticipantType.valueOf(e.getAttribute("participantType")), PenetrationType.valueOf(e.getAttribute("penetrationType")), OrificeType.valueOf(e.getAttribute("orificeType"))), e.getAttribute("takenBy"));
+				character.setVirginityLoss(new SexType(SexParticipantType.valueOf(e.getAttribute("participantType")), SexAreaPenetration.valueOf(e.getAttribute("penetrationType")), SexAreaOrifice.valueOf(e.getAttribute("orificeType"))), e.getAttribute("takenBy"));
 				CharacterUtils.appendToImportLog(log, "</br>Added virginity loss:"+e.getAttribute("penetrationType")+" "+e.getAttribute("orificeType")+" (taken by:"+e.getAttribute("takenBy")+")");
 			}catch(Exception ex){
 			}
@@ -1922,8 +1922,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 							character.sexPartnerMap.get(e.getAttribute("value")).put(
 									new SexType(
 											SexParticipantType.valueOf(e.getAttribute("participantType")),
-											PenetrationType.valueOf(e2.getAttribute("penetrationType")),
-											OrificeType.valueOf(e2.getAttribute("orificeType"))),
+											SexAreaPenetration.valueOf(e2.getAttribute("penetrationType")),
+											SexAreaOrifice.valueOf(e2.getAttribute("orificeType"))),
 											Integer.valueOf(e2.getAttribute("count")));
 							
 							CharacterUtils.appendToImportLog(log, "</br>Added sex tracking: "+e.getAttribute("value")+" "+e2.getAttribute("penetrationType")+"/"+e2.getAttribute("orificeType")+" "+Integer.valueOf(e2.getAttribute("count")));
@@ -4559,7 +4559,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		return cumCountMap.get(sexType);
 	}
 	
-	public int getTotalCumCountInOrifice(OrificeType ot, boolean includeGiven, boolean includeTaken) {
+	public int getTotalCumCountInOrifice(SexAreaOrifice ot, boolean includeGiven, boolean includeTaken) {
 		int total = 0;
 		for(Entry<SexType, Integer> count : cumCountMap.entrySet()) {
 			if(count.getKey().getOrificeType()==ot) {
@@ -4645,7 +4645,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			List<String> speech = new ArrayList<>();
 			String s = "";
 			
-			for(OrificeType orifice : OrificeType.values()) {
+			for(SexAreaOrifice orifice : SexAreaOrifice.values()) {
 				switch(orifice) {
 					case ANUS:
 						s = getDirtyTalkAssPenetrated(Sex.getTargetedPartner(this), isPlayerDom);
@@ -4682,7 +4682,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				}
 			}
 		
-			for(PenetrationType penetration : PenetrationType.values()) {
+			for(SexAreaPenetration penetration : SexAreaPenetration.values()) {
 				switch(penetration) {
 					case FINGER:
 						s = getDirtyTalkFingerPenetrating(Sex.getTargetedPartner(this), isPlayerDom);
@@ -4818,8 +4818,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		String returnedLine = "";
 		
 		if(getVaginaType()!=VaginaType.NONE) {
-			if(Sex.getPenetrationTypeInOrifice(this, OrificeType.VAGINA) != null) {
-				switch(Sex.getPenetrationTypeInOrifice(this, OrificeType.VAGINA)) {
+			if(Sex.getPenetrationTypeInOrifice(this, SexAreaOrifice.VAGINA) != null) {
+				switch(Sex.getPenetrationTypeInOrifice(this, SexAreaOrifice.VAGINA)) {
 					case FINGER:
 						switch(Sex.getSexPace(this)) {
 							case DOM_GENTLE:
@@ -5034,8 +5034,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	public String getDirtyTalkAssPenetrated(GameCharacter target,  boolean isPlayerDom){
 		String returnedLine = "";
 		
-		if(Sex.getPenetrationTypeInOrifice(this, OrificeType.ANUS) != null) {
-			switch(Sex.getPenetrationTypeInOrifice(this, OrificeType.ANUS)) {
+		if(Sex.getPenetrationTypeInOrifice(this, SexAreaOrifice.ANUS) != null) {
+			switch(Sex.getPenetrationTypeInOrifice(this, SexAreaOrifice.ANUS)) {
 				case FINGER:
 					switch(Sex.getSexPace(this)) {
 						case DOM_GENTLE:
@@ -5250,8 +5250,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	public String getDirtyTalkMouthPenetrated(GameCharacter target, boolean isPlayerDom){
 		String returnedLine = "";
 
-		if(Sex.getPenetrationTypeInOrifice(this, OrificeType.MOUTH) != null) {
-			switch(Sex.getPenetrationTypeInOrifice(this, OrificeType.MOUTH)) {
+		if(Sex.getPenetrationTypeInOrifice(this, SexAreaOrifice.MOUTH) != null) {
+			switch(Sex.getPenetrationTypeInOrifice(this, SexAreaOrifice.MOUTH)) {
 				case FINGER:
 					switch(Sex.getSexPace(this)) {
 						case DOM_GENTLE:
@@ -5460,8 +5460,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	public String getDirtyTalkNipplePenetrated(GameCharacter target, boolean isPlayerDom){
 		String returnedLine = "";
 		
-		if(Sex.getPenetrationTypeInOrifice(this, OrificeType.NIPPLE) != null) {
-			switch(Sex.getPenetrationTypeInOrifice(this, OrificeType.NIPPLE)) {
+		if(Sex.getPenetrationTypeInOrifice(this, SexAreaOrifice.NIPPLE) != null) {
+			switch(Sex.getPenetrationTypeInOrifice(this, SexAreaOrifice.NIPPLE)) {
 				case FINGER:
 					switch(Sex.getSexPace(this)) {
 						case DOM_GENTLE:
@@ -5676,8 +5676,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	public String getDirtyTalkBreastsPenetrated(GameCharacter target, boolean isPlayerDom){
 		String returnedLine = "";
 		
-		if(Sex.getPenetrationTypeInOrifice(this, OrificeType.BREAST) != null) {
-			switch(Sex.getPenetrationTypeInOrifice(this, OrificeType.BREAST)) {
+		if(Sex.getPenetrationTypeInOrifice(this, SexAreaOrifice.BREAST) != null) {
+			switch(Sex.getPenetrationTypeInOrifice(this, SexAreaOrifice.BREAST)) {
 				case FINGER:
 					switch(Sex.getSexPace(this)) {
 						case DOM_GENTLE:
@@ -5895,8 +5895,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	public String getDirtyTalkFingerPenetrating(GameCharacter target, boolean isPlayerDom){
 		List<String> availableLines = new ArrayList<>();
 		
-		if(!Sex.getOrificesBeingPenetratedBy(this, PenetrationType.FINGER, target).isEmpty()) {
-			for(OrificeType orifice : Sex.getOrificesBeingPenetratedBy(this, PenetrationType.FINGER, target)) {
+		if(!Sex.getOrificesBeingPenetratedBy(this, SexAreaPenetration.FINGER, target).isEmpty()) {
+			for(SexAreaOrifice orifice : Sex.getOrificesBeingPenetratedBy(this, SexAreaPenetration.FINGER, target)) {
 				switch(orifice) {
 					case ANUS:
 						switch(Sex.getSexPace(this)) {
@@ -6151,8 +6151,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	public String getDirtyTalkPenisPenetrating(GameCharacter target, boolean isPlayerDom){
 		List<String> availableLines = new ArrayList<>();
 		
-		if(!Sex.getOrificesBeingPenetratedBy(this, PenetrationType.PENIS, target).isEmpty()) {
-			for(OrificeType orifice : Sex.getOrificesBeingPenetratedBy(this, PenetrationType.PENIS, target)) {
+		if(!Sex.getOrificesBeingPenetratedBy(this, SexAreaPenetration.PENIS, target).isEmpty()) {
+			for(SexAreaOrifice orifice : Sex.getOrificesBeingPenetratedBy(this, SexAreaPenetration.PENIS, target)) {
 				switch(orifice) {
 					case ANUS:
 						switch(Sex.getSexPace(this)) {
@@ -6408,8 +6408,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	public String getDirtyTalkTailPenetrating(GameCharacter target, boolean isPlayerDom){
 		List<String> availableLines = new ArrayList<>();
 		
-		if(!Sex.getOrificesBeingPenetratedBy(this, PenetrationType.TAIL, target).isEmpty()) {
-			for(OrificeType orifice : Sex.getOrificesBeingPenetratedBy(this, PenetrationType.TAIL, target)) {
+		if(!Sex.getOrificesBeingPenetratedBy(this, SexAreaPenetration.TAIL, target).isEmpty()) {
+			for(SexAreaOrifice orifice : Sex.getOrificesBeingPenetratedBy(this, SexAreaPenetration.TAIL, target)) {
 				switch(orifice) {
 					case ANUS:
 						switch(Sex.getSexPace(this)) {
@@ -6665,8 +6665,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	public String getDirtyTalkTonguePenetrating(GameCharacter target, boolean isPlayerDom){
 		List<String> availableLines = new ArrayList<>();
 		
-		if(!Sex.getOrificesBeingPenetratedBy(this, PenetrationType.TONGUE, target).isEmpty()) {
-			for(OrificeType orifice : Sex.getOrificesBeingPenetratedBy(this, PenetrationType.TONGUE, target)) {
+		if(!Sex.getOrificesBeingPenetratedBy(this, SexAreaPenetration.TONGUE, target).isEmpty()) {
+			for(SexAreaOrifice orifice : Sex.getOrificesBeingPenetratedBy(this, SexAreaPenetration.TONGUE, target)) {
 				switch(orifice) {
 					case ANUS:
 						switch(Sex.getSexPace(this)) {
@@ -7663,7 +7663,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				case DOM_GENTLE:
 					return "<p>"
 							+ "[npc.Name] lets out a soft [npc.moan] as [npc.she] sees "
-									+ (Sex.getWetOrificeTypes(characterBeingRevealed).get(OrificeType.VAGINA).contains(LubricationType.PLAYER_GIRLCUM)
+									+ (Sex.getWetOrificeTypes(characterBeingRevealed).get(SexAreaOrifice.VAGINA).contains(LubricationType.PLAYER_GIRLCUM)
 											? "your wet [pc.pussy] betraying your arousal, "
 											: "your [pc.pussy+], ")
 									+ (this.hasPenis()
@@ -7673,7 +7673,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				case DOM_NORMAL:
 					return "<p>"
 							+ "[npc.Name] lets out a soft [npc.moan] as [npc.she] sees "
-									+ (Sex.getWetOrificeTypes(characterBeingRevealed).get(OrificeType.VAGINA).contains(LubricationType.PLAYER_GIRLCUM)
+									+ (Sex.getWetOrificeTypes(characterBeingRevealed).get(SexAreaOrifice.VAGINA).contains(LubricationType.PLAYER_GIRLCUM)
 											? "your wet [pc.pussy] betraying your arousal, "
 											: "your [pc.pussy+], ")
 									+ (this.hasPenis()
@@ -7683,7 +7683,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				case DOM_ROUGH:
 					return "<p>"
 							+ "[npc.Name] smirks when [npc.she] sees "
-									+ (Sex.getWetOrificeTypes(characterBeingRevealed).get(OrificeType.VAGINA).contains(LubricationType.PLAYER_GIRLCUM)
+									+ (Sex.getWetOrificeTypes(characterBeingRevealed).get(SexAreaOrifice.VAGINA).contains(LubricationType.PLAYER_GIRLCUM)
 											? "your wet [pc.pussy] betraying your arousal, "
 											: "your [pc.pussy+], ")
 									+ (this.hasPenis()
@@ -7693,7 +7693,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				case SUB_EAGER:
 					return "<p>"
 							+ "[npc.Name]'s eyes light up when [npc.she] sees "
-							+ (Sex.getWetOrificeTypes(characterBeingRevealed).get(OrificeType.VAGINA).contains(LubricationType.PLAYER_GIRLCUM)
+							+ (Sex.getWetOrificeTypes(characterBeingRevealed).get(SexAreaOrifice.VAGINA).contains(LubricationType.PLAYER_GIRLCUM)
 									? "your wet [pc.pussy] betraying your arousal."
 									: "your [pc.pussy].")
 							+ "</p>";
@@ -7704,7 +7704,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				case SUB_RESISTING:
 					return "<p>"
 							+ "[npc.Name] tries to pull away from you as "
-							+ (Sex.getWetOrificeTypes(characterBeingRevealed).get(OrificeType.VAGINA).contains(LubricationType.PLAYER_GIRLCUM)
+							+ (Sex.getWetOrificeTypes(characterBeingRevealed).get(SexAreaOrifice.VAGINA).contains(LubricationType.PLAYER_GIRLCUM)
 									? "your wet [pc.pussy] is revealed."
 									: "your [pc.pussy+] is revealed.")
 							+ "</p>";
@@ -7840,10 +7840,10 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 
 	// Penetrations:
 	
-	private static String generateGenericPenetrationDescription(GameCharacter characterPenetrating, PenetrationType penetrationType, GameCharacter characterPenetrated, OrificeType orifice) {
+	private static String generateGenericPenetrationDescription(GameCharacter characterPenetrating, SexAreaPenetration penetrationType, GameCharacter characterPenetrated, SexAreaOrifice orifice) {
 		
 		// Kissing:
-		if(penetrationType == PenetrationType.TONGUE && orifice == OrificeType.MOUTH) {
+		if(penetrationType == SexAreaPenetration.TONGUE && orifice == SexAreaOrifice.MOUTH) {
 			if(characterPenetrating.isPlayer()) {
 				switch(Sex.getSexPace(characterPenetrating)) {
 					case DOM_GENTLE:
@@ -8180,7 +8180,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		
 	}
 	
-	private String getGenericInitialPenetration(GameCharacter characterPenetrating, PenetrationType penetrationType, GameCharacter characterPenetrated, OrificeType orifice) {
+	private String getGenericInitialPenetration(GameCharacter characterPenetrating, SexAreaPenetration penetrationType, GameCharacter characterPenetrated, SexAreaOrifice orifice) {
 		String penetrationVerb=" slides", penetrationAdverb="";
 		
 		if(characterPenetrating.isPlayer()) {
@@ -8266,10 +8266,10 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		}
 	}
 	
-	public String getPenetrationDescription(boolean initialPenetration, GameCharacter characterPenetrating, PenetrationType penetrationType, GameCharacter characterPenetrated, OrificeType orifice) {
+	public String getPenetrationDescription(boolean initialPenetration, GameCharacter characterPenetrating, SexAreaPenetration penetrationType, GameCharacter characterPenetrated, SexAreaOrifice orifice) {
 		List<String> initialDescriptions = new ArrayList<>();
 		
-		if(orifice == OrificeType.ASS) {
+		if(orifice == SexAreaOrifice.ASS) {
 
 			if(initialPenetration) {
 				return getGenericInitialPenetration(characterPenetrating, penetrationType, characterPenetrated, orifice);
@@ -8277,7 +8277,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			
 			return generateGenericPenetrationDescription(characterPenetrating, penetrationType, characterPenetrated, orifice);
 			
-		} else if(orifice == OrificeType.BREAST) {
+		} else if(orifice == SexAreaOrifice.BREAST) {
 
 			if(initialPenetration) {
 				return getGenericInitialPenetration(characterPenetrating, penetrationType, characterPenetrated, orifice);
@@ -8285,7 +8285,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			
 			return generateGenericPenetrationDescription(characterPenetrating, penetrationType, characterPenetrated, orifice);
 			
-		} else if(orifice == OrificeType.ANUS) {
+		} else if(orifice == SexAreaOrifice.ANUS) {
 			if(characterPenetrated.isPlayer()) {
 				if(initialPenetration) {
 					switch(penetrationType) {
@@ -8376,7 +8376,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				
 			}
 			
-		} else if(orifice == OrificeType.VAGINA) {
+		} else if(orifice == SexAreaOrifice.VAGINA) {
 
 			if(characterPenetrated.isPlayer()) {
 				if(initialPenetration) {
@@ -8471,7 +8471,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				
 			}
 			
-		} else if(orifice == OrificeType.NIPPLE) {
+		} else if(orifice == SexAreaOrifice.NIPPLE) {
 
 			if(characterPenetrated.isPlayer()) {
 				if(initialPenetration) {
@@ -8565,7 +8565,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				return generateGenericPenetrationDescription(characterPenetrating, penetrationType, characterPenetrated, orifice);
 				
 			}
-		} else if(orifice == OrificeType.MOUTH) {
+		} else if(orifice == SexAreaOrifice.MOUTH) {
 
 			if(characterPenetrated.isPlayer()) {
 				if(initialPenetration) {
@@ -8620,7 +8620,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				return generateGenericPenetrationDescription(characterPenetrating, penetrationType, characterPenetrated, orifice);
 				
 			} else {
-				if(penetrationType!=PenetrationType.TONGUE && !characterPenetrated.isPlayer()) {
+				if(penetrationType!=SexAreaPenetration.TONGUE && !characterPenetrated.isPlayer()) {
 					characterPenetrated.getPlayerKnowsAreas().add(CoverableArea.MOUTH);
 				}
 				
@@ -8663,7 +8663,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				
 			}
 			
-		} else if(orifice == OrificeType.THIGHS) {
+		} else if(orifice == SexAreaOrifice.THIGHS) {
 
 			if(initialPenetration) {
 				return getGenericInitialPenetration(characterPenetrating, penetrationType, characterPenetrated, orifice);
@@ -8676,7 +8676,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		return "";
 	}
 	
-	public String getStopPenetrationDescription(GameCharacter characterPenetrating, PenetrationType penetrationType, GameCharacter characterPenetrated, OrificeType orifice) {
+	public String getStopPenetrationDescription(GameCharacter characterPenetrating, SexAreaPenetration penetrationType, GameCharacter characterPenetrated, SexAreaOrifice orifice) {
 		String orificeName = "", penetrationName = "";
 
 		switch(penetrationType) {
@@ -8752,7 +8752,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	
 	private static StringBuilder StringBuilderSB = new StringBuilder();
 	
-	public String getVirginityLossOrificeDescription(GameCharacter characterPenetrating, PenetrationType penetrationType, GameCharacter characterPenetrated, OrificeType orifice) {
+	public String getVirginityLossOrificeDescription(GameCharacter characterPenetrating, SexAreaPenetration penetrationType, GameCharacter characterPenetrated, SexAreaOrifice orifice) {
 		StringBuilderSB.setLength(0);
 		
 		switch(orifice) {
@@ -8798,7 +8798,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		return StringBuilderSB.toString();
 	}
 	
-	public String getVirginityLossPenetrationDescription(GameCharacter characterPenetrating, PenetrationType penetrationType, GameCharacter characterPenetrated, OrificeType orifice) {
+	public String getVirginityLossPenetrationDescription(GameCharacter characterPenetrating, SexAreaPenetration penetrationType, GameCharacter characterPenetrated, SexAreaOrifice orifice) {
 		StringBuilderSB.setLength(0);
 		
 		switch(penetrationType) {
@@ -8825,7 +8825,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		return UtilText.formatVirginityLoss(rawInput);
 	}
 	
-	protected String losingPureVirginity(GameCharacter characterPenetrating, PenetrationType penetrationType){
+	protected String losingPureVirginity(GameCharacter characterPenetrating, SexAreaPenetration penetrationType){
 		if(characterPenetrating.isPlayer()) {
 			return UtilText.parse(this,
 					"<p style='text-align:center;'>"
@@ -8833,7 +8833,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 					+ "</p>"
 					+ "<p>"
 						+ "You can't quite believe what you're doing to yourself."
-						+ " As your "+(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA).getName(characterPenetrating))+" takes your own virginity in a single thrust, you find yourself letting out a desperate gasp."
+						+ " As your "+(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), SexAreaOrifice.VAGINA).getName(characterPenetrating))+" takes your own virginity in a single thrust, you find yourself letting out a desperate gasp."
 					+ "</p>"
 					+ "<p style='text-align:center;'>"
 						+ "[pc.thought(W-What am I doing?!</br>"
@@ -8865,7 +8865,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 					+ "</p>"
 					+ "<p>"
 						+ "You can't believe what's happening."
-						+ " As [npc.name]'s "+(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA).getName(characterPenetrating))
+						+ " As [npc.name]'s "+(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), SexAreaOrifice.VAGINA).getName(characterPenetrating))
 						+" takes your virginity in a single thrust, you find yourself letting out a desperate gasp."
 					+ "</p>"
 					+ "<p style='text-align:center;'>"
@@ -8896,15 +8896,15 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	
 	// Virginity loss:
 	
-	private String getPlayerAnalVirginityLossDescription(GameCharacter characterPenetrating, PenetrationType penetration){
+	private String getPlayerAnalVirginityLossDescription(GameCharacter characterPenetrating, SexAreaPenetration penetration){
 		StringBuilderSB = new StringBuilder();
 		
-		boolean isPenis = penetration == PenetrationType.PENIS;
-		boolean isTail = penetration == PenetrationType.TAIL;
+		boolean isPenis = penetration == SexAreaPenetration.PENIS;
+		boolean isTail = penetration == SexAreaPenetration.TAIL;
 		
 		if(characterPenetrating.isPlayer()) { // SELF-PENETRATION
 			// Initial penetration:
-			if(Sex.getWetOrificeTypes(Main.game.getPlayer()).get(OrificeType.ANUS).isEmpty()) {
+			if(Sex.getWetOrificeTypes(Main.game.getPlayer()).get(SexAreaOrifice.ANUS).isEmpty()) {
 				// Dry:
 				StringBuilderSB.append(
 						"<p>"
@@ -8946,7 +8946,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			
 		} else { // PARTNER PENETRATION
 			// Initial penetration:
-			if(Sex.getWetOrificeTypes(Main.game.getPlayer()).get(OrificeType.ANUS).isEmpty()) {
+			if(Sex.getWetOrificeTypes(Main.game.getPlayer()).get(SexAreaOrifice.ANUS).isEmpty()) {
 				// Dry:
 				StringBuilderSB.append(
 						"<p>"
@@ -9013,15 +9013,15 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	
 	
 	
-	protected String getPlayerVaginaVirginityLossDescription(GameCharacter characterPenetrating, PenetrationType penetration){
+	protected String getPlayerVaginaVirginityLossDescription(GameCharacter characterPenetrating, SexAreaPenetration penetration){
 		StringBuilderSB = new StringBuilder();
 		
-		boolean isPenis = penetration == PenetrationType.PENIS;
-		boolean isTail = penetration == PenetrationType.TAIL;
+		boolean isPenis = penetration == SexAreaPenetration.PENIS;
+		boolean isTail = penetration == SexAreaPenetration.TAIL;
 		
 		if(characterPenetrating.isPlayer()) { // SELF-PENETRATION
 			// Initial penetration:
-			if(Sex.getWetOrificeTypes(Main.game.getPlayer()).get(OrificeType.VAGINA).isEmpty()) {
+			if(Sex.getWetOrificeTypes(Main.game.getPlayer()).get(SexAreaOrifice.VAGINA).isEmpty()) {
 				// Dry:
 				StringBuilderSB.append(
 						"<p>"
@@ -9073,7 +9073,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			
 		} else { // PARTNER PENETRATION
 			// Initial penetration:
-			if(Sex.getWetOrificeTypes(Main.game.getPlayer()).get(OrificeType.VAGINA).isEmpty()) {
+			if(Sex.getWetOrificeTypes(Main.game.getPlayer()).get(SexAreaOrifice.VAGINA).isEmpty()) {
 				// Dry:
 				StringBuilderSB.append(
 						"<p>"
@@ -9164,27 +9164,27 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 //	        return UtilText.parse("/res/txt/dialogue/sex/Generic/PlayerVaginaVirginityLossDescription.txt", context);
 //		}
 	
-	private String getPlayerPenileVirginityLossDescription(GameCharacter characterPenetrated, OrificeType orifice){
+	private String getPlayerPenileVirginityLossDescription(GameCharacter characterPenetrated, SexAreaOrifice orifice){
 		return formatVirginityLoss("You'll always remember this moment as the time that you lost your penile virginity!");
 	}
 	
-	private String getPlayerNippleVirginityLossDescription(GameCharacter characterPenetrating, PenetrationType penetration){
+	private String getPlayerNippleVirginityLossDescription(GameCharacter characterPenetrating, SexAreaPenetration penetration){
 		return formatVirginityLoss("You'll always remember this moment as the time that you lost your nipple virginity!");
 	}
 	
-	private String getPlayerUrethraVirginityLossDescription(GameCharacter characterPenetrating, PenetrationType penetration){
+	private String getPlayerUrethraVirginityLossDescription(GameCharacter characterPenetrating, SexAreaPenetration penetration){
 		return formatVirginityLoss("You have lost your urethral virginity!");
 	}
 	
-	private String getPlayerMouthVirginityLossDescription(GameCharacter characterPenetrating, PenetrationType penetration){
-		if(penetration == PenetrationType.PENIS) {
+	private String getPlayerMouthVirginityLossDescription(GameCharacter characterPenetrating, SexAreaPenetration penetration){
+		if(penetration == SexAreaPenetration.PENIS) {
 			if(characterPenetrating.isPlayer()) {
 				return formatVirginityLoss("You'll always remember this moment as the first time that you sucked your own cock!");
 			} else {
 				return formatVirginityLoss("You'll always remember this moment as the first time that you sucked a cock!");
 			}
 			
-		} else if(penetration == PenetrationType.TAIL) {
+		} else if(penetration == SexAreaPenetration.TAIL) {
 			if(characterPenetrating.isPlayer()) {
 				return formatVirginityLoss("You'll always remember this moment as the first time that you sucked your tail!");
 			} else {
@@ -9196,7 +9196,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		}
 	}
 	//TODO all these
-	private String getPartnerPenileVirginityLossDescription(GameCharacter characterPenetrated, OrificeType orifice){
+	private String getPartnerPenileVirginityLossDescription(GameCharacter characterPenetrated, SexAreaOrifice orifice){
 		return formatVirginityLoss("You have taken [npc.name]'s penile virginity!")
 				+(Main.game.getPlayer().hasFetish(Fetish.FETISH_DEFLOWERING)
 						?"<p style='text-align:center;><i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Due to your deflowering fetish, you gain</i>"
@@ -9205,8 +9205,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						:"");
 	}
 	
-	private String getPartnerAnalVirginityLossDescription(GameCharacter characterPenetrating, PenetrationType penetration){
-		if(Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.ANUS).isPlayer()) {
+	private String getPartnerAnalVirginityLossDescription(GameCharacter characterPenetrating, SexAreaPenetration penetration){
+		if(Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), SexAreaOrifice.ANUS).isPlayer()) {
 			return formatVirginityLoss("You have taken [npc.name]'s anal virginity!")
 					+(Main.game.getPlayer().hasFetish(Fetish.FETISH_DEFLOWERING)
 							?"<p style='text-align:center;><i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Due to your deflowering fetish, you gain</i>"
@@ -9219,8 +9219,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		}
 	}
 	
-	private String getPartnerVaginaVirginityLossDescription(GameCharacter characterPenetrating, PenetrationType penetration){
-		if(Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.VAGINA).isPlayer()) {
+	private String getPartnerVaginaVirginityLossDescription(GameCharacter characterPenetrating, SexAreaPenetration penetration){
+		if(Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), SexAreaOrifice.VAGINA).isPlayer()) {
 			return formatVirginityLoss("[npc.Name]'s hymen has been torn; you have taken [npc.her] virginity!")
 					+(Main.game.getPlayer().hasFetish(Fetish.FETISH_DEFLOWERING)
 							?"<p style='text-align:center;><i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Due to your deflowering fetish, you gain</i>"
@@ -9233,8 +9233,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		}
 	}
 	
-	private String getPartnerNippleVirginityLossDescription(GameCharacter characterPenetrating, PenetrationType penetration){
-		if(Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.NIPPLE).isPlayer()) {
+	private String getPartnerNippleVirginityLossDescription(GameCharacter characterPenetrating, SexAreaPenetration penetration){
+		if(Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), SexAreaOrifice.NIPPLE).isPlayer()) {
 			return formatVirginityLoss("You have taken [npc.name]'s nipple virginity!")
 					+(Main.game.getPlayer().hasFetish(Fetish.FETISH_DEFLOWERING)
 							?"<p style='text-align:center;><i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Due to your deflowering fetish, you gain</i>"
@@ -9247,9 +9247,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		}
 	}
 	
-	private String getPartnerUrethraVirginityLossDescription(GameCharacter characterPenetrating, PenetrationType penetration){
-		if((Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.URETHRA_PENIS) != null && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.URETHRA_PENIS).isPlayer())
-				|| (Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.URETHRA_VAGINA) != null && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.URETHRA_VAGINA).isPlayer())) {
+	private String getPartnerUrethraVirginityLossDescription(GameCharacter characterPenetrating, SexAreaPenetration penetration){
+		if((Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), SexAreaOrifice.URETHRA_PENIS) != null && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), SexAreaOrifice.URETHRA_PENIS).isPlayer())
+				|| (Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), SexAreaOrifice.URETHRA_VAGINA) != null && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), SexAreaOrifice.URETHRA_VAGINA).isPlayer())) {
 			return formatVirginityLoss("You have taken [npc.name]'s urethral virginity!")
 					+(Main.game.getPlayer().hasFetish(Fetish.FETISH_DEFLOWERING)
 							?"<p style='text-align:center;><i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Due to your deflowering fetish, you gain</i>"
@@ -9261,8 +9261,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		}
 	}
 	
-	private String getPartnerMouthVirginityLossDescription(GameCharacter characterPenetrating, PenetrationType penetration){
-		if(Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.MOUTH).isPlayer()) {
+	private String getPartnerMouthVirginityLossDescription(GameCharacter characterPenetrating, SexAreaPenetration penetration){
+		if(Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), SexAreaOrifice.MOUTH).isPlayer()) {
 			return formatVirginityLoss("You have given [npc.name] [npc.her] first oral experience!")
 					+(Main.game.getPlayer().hasFetish(Fetish.FETISH_DEFLOWERING)
 							?"<p style='text-align:center;><i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Due to your deflowering fetish, you gain</i>"
@@ -9282,7 +9282,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		return UtilText.formatStretching(rawInput);
 	}
 
-	public String getStretchingDescription(GameCharacter partner, PenetrationType penetrationType, OrificeType orifice) {
+	public String getStretchingDescription(GameCharacter partner, SexAreaPenetration penetrationType, SexAreaOrifice orifice) {
 		switch(orifice) {
 			case ANUS:
 				switch(penetrationType) {
@@ -9363,7 +9363,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		return "";
 	}
 
-	public String getStretchingFinishedDescription(OrificeType orifice) {
+	public String getStretchingFinishedDescription(SexAreaOrifice orifice) {
 		if(this.isPlayer()) {
 			switch(orifice) {
 				case ANUS:
@@ -9415,7 +9415,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 	
 	
-	public String getTooLooseDescription(OrificeType orifice) {
+	public String getTooLooseDescription(SexAreaOrifice orifice) {
 		if(this.isPlayer()) {
 			switch(orifice) {
 				case ANUS:
@@ -9468,7 +9468,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	 * @param addictive Is this fluid addictive or not.
 	 * @return A <b>formatted paragraph</b> description of addiction increasing/satisfied, or an empty String if no addictive effects occur.
 	 */
-	public String ingestFluid(GameCharacter charactersFluid, FluidType fluid, OrificeType orificeIngestedThrough, int millilitres, List<FluidModifier> modifiers) {
+	public String ingestFluid(GameCharacter charactersFluid, FluidType fluid, SexAreaOrifice orificeIngestedThrough, int millilitres, List<FluidModifier> modifiers) {
 		StringBuilder fluidIngestionSB = new StringBuilder();
 		
 		//TODO convert all instances of this method to just (GameCharacter charactersFluid, BodyPartInterface fluid, int millilitres)
@@ -9511,7 +9511,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			}
 		}
 		
-		if(this.getBodyMaterial()==BodyMaterial.SLIME || orificeIngestedThrough == OrificeType.VAGINA) {
+		if(this.getBodyMaterial()==BodyMaterial.SLIME || orificeIngestedThrough == SexAreaOrifice.VAGINA) {
 			fluidIngestionSB.append(rollForPregnancy(charactersFluid, millilitres));
 		}
 		
@@ -9594,7 +9594,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	
 	//TODO remove:
 	@Deprecated
-	public String ingestFluid(FluidType fluid, OrificeType orificeIngestedThrough, int millilitres, List<FluidModifier> modifiers) {
+	public String ingestFluid(FluidType fluid, SexAreaOrifice orificeIngestedThrough, int millilitres, List<FluidModifier> modifiers) {
 		StringBuilder fluidIngestionSB = new StringBuilder();
 		if(modifiers.contains(FluidModifier.ALCOHOLIC)) { //TODO factor in body size:
 			fluidIngestionSB.append(this.incrementAlcoholLevel(millilitres * 0.001f));
@@ -10188,7 +10188,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	public static final String PREGNANCY_CALCULATION = "((Virility% * Cum Production Modifier) + Fertility%) / 4";
 
 	public void performHourlyFluidsCheck() {
-		for(OrificeType ot : OrificeType.values()) {
+		for(SexAreaOrifice ot : SexAreaOrifice.values()) {
 			if(this.fluidsStoredMap.get(ot)!=null) {
 				for(FluidStored fs : this.fluidsStoredMap.get(ot)) {
 					if(fs.getFluid().getFluidModifiers().contains(FluidModifier.ADDICTIVE)) {
@@ -10206,8 +10206,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 	
 	public void performImpregnationCheck() {
-		if(this.fluidsStoredMap.get(OrificeType.VAGINA)!=null && !this.fluidsStoredMap.get(OrificeType.VAGINA).isEmpty()) {
-			List<FluidStored> fluids = new ArrayList<>(this.fluidsStoredMap.get(OrificeType.VAGINA));
+		if(this.fluidsStoredMap.get(SexAreaOrifice.VAGINA)!=null && !this.fluidsStoredMap.get(SexAreaOrifice.VAGINA).isEmpty()) {
+			List<FluidStored> fluids = new ArrayList<>(this.fluidsStoredMap.get(SexAreaOrifice.VAGINA));
 			Collections.shuffle(fluids);
 			for(FluidStored fs : fluids) {
 				if(fs.isCum()) {
@@ -10477,7 +10477,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	
 	// Cummed in areas:
 	
-	public int getTotalFluidInArea(OrificeType area) {
+	public int getTotalFluidInArea(SexAreaOrifice area) {
 		int total = 0;
 		fluidsStoredMap.putIfAbsent(area, new ArrayList<>());
 		for(FluidStored f : fluidsStoredMap.get(area)) {
@@ -10486,7 +10486,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		return total;
 	}
 	
-	public void drainTotalFluidsStored(OrificeType area, int drain) {
+	public void drainTotalFluidsStored(SexAreaOrifice area, int drain) {
 		fluidsStoredMap.putIfAbsent(area, new ArrayList<>());
 		int drained = 0;
 		for(FluidStored f : fluidsStoredMap.get(area)) {
@@ -10501,7 +10501,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		fluidsStoredMap.get(area).removeIf((fs) -> fs.getMillilitres()<=0);
 	}
 	
-	public void incrementAllFluidsStored(OrificeType area, int increment) {
+	public void incrementAllFluidsStored(SexAreaOrifice area, int increment) {
 		fluidsStoredMap.putIfAbsent(area, new ArrayList<>());
 		for(FluidStored f : fluidsStoredMap.get(area)) {
 			f.incrementMillilitres(increment);
@@ -10509,12 +10509,12 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		fluidsStoredMap.get(area).removeIf((fs) -> fs.getMillilitres()<=0);
 	}
 	
-	public void addFluidStored(OrificeType area, FluidStored fluid) {
+	public void addFluidStored(SexAreaOrifice area, FluidStored fluid) {
 		fluidsStoredMap.putIfAbsent(area, new ArrayList<>());
 		fluidsStoredMap.get(area).add(fluid);
 	}
 	
-	public void clearFluidsStored(OrificeType area) {
+	public void clearFluidsStored(SexAreaOrifice area) {
 		fluidsStoredMap.putIfAbsent(area, new ArrayList<>());
 		fluidsStoredMap.get(area).clear();
 	}
@@ -10526,7 +10526,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 	
 	public void washAllOrifices() {
-		for(OrificeType orifice : OrificeType.values()) {
+		for(SexAreaOrifice orifice : SexAreaOrifice.values()) {
 			switch(orifice) {
 				case MOUTH:
 					break;
@@ -11939,7 +11939,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		return inventory.isCoverableAreaExposed(area);
 	}
 	
-	public boolean isPenetrationTypeExposed(PenetrationType pt) {
+	public boolean isPenetrationTypeExposed(SexAreaPenetration pt) {
 		switch(pt) {
 			case FINGER:
 				return true;
@@ -11956,7 +11956,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		}
 	}
 	
-	public boolean isOrificeTypeExposed(OrificeType ot) {
+	public boolean isOrificeTypeExposed(SexAreaOrifice ot) {
 		switch(ot) {
 			case ANUS:
 				return isCoverableAreaExposed(CoverableArea.ANUS);
@@ -11980,11 +11980,11 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		return false;
 	}
 
-	public boolean isOrificePlugged(OrificeType ot) {
-		HashMap<OrificeType, ItemTag> plugMap = new HashMap<>();
-		plugMap.put(OrificeType.ANUS, ItemTag.PLUGS_ANUS);
-		plugMap.put(OrificeType.VAGINA, ItemTag.PLUGS_VAGINA);
-		plugMap.put(OrificeType.NIPPLE, ItemTag.PLUGS_NIPPLES);
+	public boolean isOrificePlugged(SexAreaOrifice ot) {
+		HashMap<SexAreaOrifice, ItemTag> plugMap = new HashMap<>();
+		plugMap.put(SexAreaOrifice.ANUS, ItemTag.PLUGS_ANUS);
+		plugMap.put(SexAreaOrifice.VAGINA, ItemTag.PLUGS_VAGINA);
+		plugMap.put(SexAreaOrifice.NIPPLE, ItemTag.PLUGS_NIPPLES);
 		ItemTag lookingFor = plugMap.get(ot);
 		
 		return lookingFor != null 

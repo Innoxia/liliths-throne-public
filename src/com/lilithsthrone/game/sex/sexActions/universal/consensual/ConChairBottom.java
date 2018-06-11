@@ -11,8 +11,8 @@ import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.LubricationType;
-import com.lilithsthrone.game.sex.OrificeType;
-import com.lilithsthrone.game.sex.PenetrationType;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
@@ -49,7 +49,7 @@ public class ConChairBottom {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isOrificeFree(Sex.getActivePartner(), OrificeType.MOUTH) && Sex.isOrificeFree(Main.game.getPlayer(), OrificeType.MOUTH);
+			return Sex.isOrificeFree(Sex.getActivePartner(), SexAreaOrifice.MOUTH) && Sex.isOrificeFree(Main.game.getPlayer(), SexAreaOrifice.MOUTH);
 		}
 
 		@Override
@@ -109,7 +109,7 @@ public class ConChairBottom {
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			OrificeType.NIPPLE,
+			SexAreaOrifice.NIPPLE,
 			SexParticipantType.PITCHER) {
 		@Override
 		public String getActionTitle() {
@@ -163,7 +163,7 @@ public class ConChairBottom {
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
 			null,
-			OrificeType.NIPPLE,
+			SexAreaOrifice.NIPPLE,
 			SexParticipantType.PITCHER) {
 		@Override
 		public String getActionTitle() {
@@ -236,8 +236,8 @@ public class ConChairBottom {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.TWO_HORNY,
-			PenetrationType.FINGER,
-			OrificeType.NIPPLE,
+			SexAreaPenetration.FINGER,
+			SexAreaOrifice.NIPPLE,
 			SexParticipantType.PITCHER) {
 		@Override
 		public String getActionTitle() {
@@ -308,8 +308,8 @@ public class ConChairBottom {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TONGUE,
-			OrificeType.NIPPLE,
+			SexAreaPenetration.TONGUE,
+			SexAreaOrifice.NIPPLE,
 			SexParticipantType.PITCHER) {
 		@Override
 		public String getActionTitle() {
@@ -373,7 +373,7 @@ public class ConChairBottom {
 
 		@Override
 		public void applyEffects() {
-			Sex.addOrificeLubrication(Main.game.getPlayer(), OrificeType.NIPPLE, LubricationType.PARTNER_SALIVA);
+			Sex.addOrificeLubrication(Main.game.getPlayer(), SexAreaOrifice.NIPPLE, LubricationType.PARTNER_SALIVA);
 		}
 		
 		@Override
@@ -388,8 +388,8 @@ public class ConChairBottom {
 			ArousalIncrease.ZERO_NONE,
 			ArousalIncrease.ZERO_NONE,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.FINGER,
-			OrificeType.NIPPLE,
+			SexAreaPenetration.FINGER,
+			SexAreaOrifice.NIPPLE,
 			SexParticipantType.PITCHER) {
 		@Override
 		public String getActionTitle() {
@@ -500,8 +500,8 @@ public class ConChairBottom {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.VAGINA,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.PITCHER) {
 		@Override
 		public String getActionTitle() {
@@ -515,8 +515,8 @@ public class ConChairBottom {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.VAGINA)!=PenetrationType.PENIS
-					&& Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.ANUS)!=PenetrationType.PENIS;
+			return Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), SexAreaOrifice.VAGINA)!=SexAreaPenetration.PENIS
+					&& Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), SexAreaOrifice.ANUS)!=SexAreaPenetration.PENIS;
 		}
 
 		@Override
@@ -551,8 +551,8 @@ public class ConChairBottom {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.VAGINA,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.PITCHER) {
 		@Override
 		public String getActionTitle() {
@@ -573,7 +573,7 @@ public class ConChairBottom {
 							
 					"As [npc.name] fills your [pc.pussy+] with [npc.her] [npc.cock+], you struggle to do anything other than look up at [npc.herHim] and let out a long, satisfied [pc.moan].",
 							
-					(Sex.isPenetrationTypeFree(Sex.getActivePartner(), PenetrationType.FINGER)
+					(Sex.isPenetrationTypeFree(Sex.getActivePartner(), SexAreaPenetration.FINGER)
 							?"[npc.Name] slides [npc.a_hand+] under your thigh, running down to grip you behind the knee before lifting your [pc.leg] up slightly as [npc.she] plunges [npc.her] [npc.cock+] in and out of your [pc.pussy+]."
 							:"[npc.Name] grins down at you as [npc.she] steadily pumps [npc.her] [npc.cock+] in and out of your [pc.pussy+]."));
 		}
@@ -584,8 +584,8 @@ public class ConChairBottom {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.THREE_DIRTY,
-			PenetrationType.PENIS,
-			OrificeType.VAGINA,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.PITCHER) {
 		@Override
 		public String getActionTitle() {
@@ -615,7 +615,7 @@ public class ConChairBottom {
 					"[npc.Name] roughly grabs your [pc.hips+], causing you to let out a startled cry as [npc.she] forcefully pulls you into [npc.her] crotch."
 								+ " You drop your [pc.hands] down for support as [npc.she] manhandles you forwards and back, repeatedly spearing your [pc.pussy+] on [npc.her] [npc.cock+].",
 							
-					(Sex.isPenetrationTypeFree(Sex.getActivePartner(), PenetrationType.FINGER)
+					(Sex.isPenetrationTypeFree(Sex.getActivePartner(), SexAreaPenetration.FINGER)
 							?"Reaching down, [npc.name] grabs your chin, pushing [npc.her] thumb into your mouth as [npc.she] roughly slams [npc.her] [npc.cock+] in and out of your [pc.pussy+]."
 							:"[npc.Name] grins down at you as [npc.she] starts roughly slamming [npc.her] [npc.cock+] in and out of your [pc.pussy+]."));
 		}
@@ -627,8 +627,8 @@ public class ConChairBottom {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.ANUS,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.ANUS,
 			SexParticipantType.PITCHER) {
 		@Override
 		public String getActionTitle() {
@@ -642,8 +642,8 @@ public class ConChairBottom {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.VAGINA)!=PenetrationType.PENIS
-					&& Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.ANUS)!=PenetrationType.PENIS
+			return Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), SexAreaOrifice.VAGINA)!=SexAreaPenetration.PENIS
+					&& Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), SexAreaOrifice.ANUS)!=SexAreaPenetration.PENIS
 					&& (Sex.getActivePartner().hasFetish(Fetish.FETISH_ANAL_GIVING) || !Main.game.getPlayer().hasVagina());
 		}
 
@@ -680,8 +680,8 @@ public class ConChairBottom {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.ANUS,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.ANUS,
 			SexParticipantType.PITCHER) {
 		@Override
 		public String getActionTitle() {
@@ -702,7 +702,7 @@ public class ConChairBottom {
 							
 					"As [npc.name] fills your [pc.asshole+] with [npc.her] [npc.cock+], you struggle to do anything other than look up at [npc.herHim] and let out a long, satisfied [pc.moan].",
 							
-					(Sex.isPenetrationTypeFree(Sex.getActivePartner(), PenetrationType.FINGER) 
+					(Sex.isPenetrationTypeFree(Sex.getActivePartner(), SexAreaPenetration.FINGER) 
 							?"[npc.Name] slides [npc.a_hand+] under your thigh, running down to grip you behind the knee before lifting your [pc.leg] up slightly as [npc.she] plunges [npc.her] [npc.cock+] in and out of your [pc.asshole+]."
 							:"[npc.Name] grins down at you as [npc.she] steadily pumps [npc.her] [npc.cock+] in and out of your [pc.asshole+]."));
 		}
@@ -714,8 +714,8 @@ public class ConChairBottom {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.THREE_DIRTY,
-			PenetrationType.PENIS,
-			OrificeType.ANUS,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.ANUS,
 			SexParticipantType.PITCHER) {
 		@Override
 		public String getActionTitle() {
@@ -740,7 +740,7 @@ public class ConChairBottom {
 					"[npc.Name] roughly grabs your [pc.hips+], causing you to let out a startled cry as [npc.she] forcefully pulls your [pc.ass] into [npc.her] crotch."
 								+ " You drop your [pc.hands] down for support as [npc.she] manhandles you forwards and back, repeatedly spearing your [pc.asshole+] on [npc.her] [npc.cock+].",
 							
-					(Sex.isPenetrationTypeFree(Sex.getActivePartner(), PenetrationType.FINGER)
+					(Sex.isPenetrationTypeFree(Sex.getActivePartner(), SexAreaPenetration.FINGER)
 							?"Reaching down, [npc.name] grabs your chin, pushing [npc.her] thumb into your mouth as [npc.she] roughly slams [npc.her] [npc.cock+] in and out of your [pc.asshole+]."
 							:"[npc.Name] grins down at you as [npc.she] starts roughly slamming [npc.her] [npc.cock+] in and out of your [pc.asshole+]."));
 		}
@@ -752,8 +752,8 @@ public class ConChairBottom {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.THREE_DIRTY,
-			PenetrationType.PENIS,
-			OrificeType.NIPPLE,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.NIPPLE,
 			SexParticipantType.PITCHER) {
 		@Override
 		public String getActionTitle() {
@@ -767,8 +767,8 @@ public class ConChairBottom {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.VAGINA)!=PenetrationType.PENIS
-					&& Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.ANUS)!=PenetrationType.PENIS
+			return Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), SexAreaOrifice.VAGINA)!=SexAreaPenetration.PENIS
+					&& Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), SexAreaOrifice.ANUS)!=SexAreaPenetration.PENIS
 					&& (Sex.getActivePartner().hasFetish(Fetish.FETISH_BREASTS_OTHERS) || !Main.game.getPlayer().hasVagina());
 		}
 
@@ -786,8 +786,8 @@ public class ConChairBottom {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.NIPPLE,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.NIPPLE,
 			SexParticipantType.PITCHER) {
 		@Override
 		public String getActionTitle() {
@@ -808,7 +808,7 @@ public class ConChairBottom {
 							
 					"As [npc.she] fills your [pc.nipple+] with [npc.her] [npc.cock+], [npc.name] looks down at you and lets out a gleeful [npc.moan].",
 							
-					(Sex.isPenetrationTypeFree(Sex.getActivePartner(), PenetrationType.FINGER)
+					(Sex.isPenetrationTypeFree(Sex.getActivePartner(), SexAreaPenetration.FINGER)
 							?"[npc.Name] slides [npc.a_hand+] down to your [pc.breast], lifting it up slightly as [npc.she] plunges [npc.her] [npc.cock+] in and out of your [pc.nipple+]."
 							:"[npc.Name] grins down at you as [npc.she] steadily pumps [npc.her] [npc.cock+] in and out of your [pc.nipple+]."));
 		}
@@ -820,8 +820,8 @@ public class ConChairBottom {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.THREE_DIRTY,
-			PenetrationType.PENIS,
-			OrificeType.NIPPLE,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.NIPPLE,
 			SexParticipantType.PITCHER) {
 		@Override
 		public String getActionTitle() {
@@ -857,8 +857,8 @@ public class ConChairBottom {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.VAGINA,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.CATCHER) {
 		@Override
 		public String getActionTitle() {
@@ -872,8 +872,8 @@ public class ConChairBottom {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA)!=PenetrationType.PENIS
-					&& Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.ANUS)!=PenetrationType.PENIS;
+			return Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), SexAreaOrifice.VAGINA)!=SexAreaPenetration.PENIS
+					&& Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), SexAreaOrifice.ANUS)!=SexAreaPenetration.PENIS;
 		}
 
 		@Override
@@ -889,8 +889,8 @@ public class ConChairBottom {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.VAGINA,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.CATCHER) {
 		@Override
 		public String getActionTitle() {
@@ -920,8 +920,8 @@ public class ConChairBottom {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.TWO_HORNY,
-			PenetrationType.PENIS,
-			OrificeType.VAGINA,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.CATCHER) {
 		@Override
 		public String getActionTitle() {
@@ -950,7 +950,7 @@ public class ConChairBottom {
 					"Roughly grabbing your shoulders, [npc.name] lets out [npc.a_moan+] as [npc.she] starts frantically bouncing up and down in your lap,"
 							+ " repeatedly spearing [npc.her] [npc.pussy+] on your [pc.cock+] as you join your [pc.moans] with [npc.hers].",
 							
-					(Sex.isPenetrationTypeFree(Sex.getActivePartner(), PenetrationType.FINGER)
+					(Sex.isPenetrationTypeFree(Sex.getActivePartner(), SexAreaPenetration.FINGER)
 							?"Reaching down, [npc.name] grabs your chin, pushing [npc.her] thumb into your mouth as [npc.she] roughly bounces up and down on your [pc.cock+]."
 							:"[npc.Name] grins down at you as [npc.she] starts roughly bouncing up and down on your [pc.cock+]."));
 		}
@@ -963,8 +963,8 @@ public class ConChairBottom {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.TWO_HORNY,
-			PenetrationType.PENIS,
-			OrificeType.ANUS,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.ANUS,
 			SexParticipantType.CATCHER) {
 		@Override
 		public String getActionTitle() {
@@ -978,8 +978,8 @@ public class ConChairBottom {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA)!=PenetrationType.PENIS
-					&& Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.ANUS)!=PenetrationType.PENIS
+			return Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), SexAreaOrifice.VAGINA)!=SexAreaPenetration.PENIS
+					&& Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), SexAreaOrifice.ANUS)!=SexAreaPenetration.PENIS
 					&& (Sex.getActivePartner().hasFetish(Fetish.FETISH_ANAL_RECEIVING) || !Sex.getActivePartner().hasVagina());
 		}
 
@@ -997,8 +997,8 @@ public class ConChairBottom {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.ANUS,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.ANUS,
 			SexParticipantType.CATCHER) {
 		@Override
 		public String getActionTitle() {
@@ -1029,8 +1029,8 @@ public class ConChairBottom {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.TWO_HORNY,
-			PenetrationType.PENIS,
-			OrificeType.ANUS,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.ANUS,
 			SexParticipantType.CATCHER) {
 		@Override
 		public String getActionTitle() {
@@ -1059,7 +1059,7 @@ public class ConChairBottom {
 					"Roughly grabbing your shoulders, [npc.name] lets out [npc.a_moan+] as [npc.she] starts frantically bouncing up and down in your lap,"
 							+ " repeatedly spearing [npc.her] [npc.asshole+] on your [pc.cock+] as you join your [pc.moans] with [npc.hers].",
 							
-					(Sex.isPenetrationTypeFree(Sex.getActivePartner(), PenetrationType.FINGER)
+					(Sex.isPenetrationTypeFree(Sex.getActivePartner(), SexAreaPenetration.FINGER)
 							?"Reaching down, [npc.name] grabs your chin, pushing [npc.her] thumb into your mouth as [npc.she] roughly bounces up and down on your [pc.cock+]."
 							:"[npc.Name] grins down at you as [npc.she] starts roughly bouncing up and down on your [pc.cock+]."));
 		}
@@ -1072,8 +1072,8 @@ public class ConChairBottom {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.THREE_DIRTY,
-			PenetrationType.TAIL,
-			OrificeType.ANUS,
+			SexAreaPenetration.TAIL,
+			SexAreaOrifice.ANUS,
 			SexParticipantType.CATCHER) {
 		@Override
 		public String getActionTitle() {
@@ -1107,8 +1107,8 @@ public class ConChairBottom {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TAIL,
-			OrificeType.VAGINA,
+			SexAreaPenetration.TAIL,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.CATCHER) {
 		@Override
 		public String getActionTitle() {
@@ -1249,7 +1249,7 @@ public class ConChairBottom {
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			OrificeType.NIPPLE,
+			SexAreaOrifice.NIPPLE,
 			SexParticipantType.PITCHER) {
 		@Override
 		public String getActionTitle() {
@@ -1302,8 +1302,8 @@ public class ConChairBottom {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.FINGER,
-			OrificeType.NIPPLE,
+			SexAreaPenetration.FINGER,
+			SexAreaOrifice.NIPPLE,
 			SexParticipantType.PITCHER) {
 		@Override
 		public String getActionTitle() {
@@ -1378,8 +1378,8 @@ public class ConChairBottom {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TONGUE,
-			OrificeType.NIPPLE,
+			SexAreaPenetration.TONGUE,
+			SexAreaOrifice.NIPPLE,
 			SexParticipantType.PITCHER) {
 		@Override
 		public String getActionTitle() {
@@ -1443,7 +1443,7 @@ public class ConChairBottom {
 
 		@Override
 		public void applyEffects() {
-			Sex.addOrificeLubrication(Sex.getActivePartner(), OrificeType.NIPPLE, LubricationType.PLAYER_SALIVA);
+			Sex.addOrificeLubrication(Sex.getActivePartner(), SexAreaOrifice.NIPPLE, LubricationType.PLAYER_SALIVA);
 		}
 		
 		@Override
@@ -1474,7 +1474,7 @@ public class ConChairBottom {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return Main.game.getPlayer().isTailPrehensile()
-					&& Sex.isPenetrationTypeFree(Main.game.getPlayer(), PenetrationType.TAIL);
+					&& Sex.isPenetrationTypeFree(Main.game.getPlayer(), SexAreaPenetration.TAIL);
 		}
 
 		@Override
@@ -1495,8 +1495,8 @@ public class ConChairBottom {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.TAIL,
-			OrificeType.ANUS,
+			SexAreaPenetration.TAIL,
+			SexAreaOrifice.ANUS,
 			SexParticipantType.PITCHER) {
 		@Override
 		public String getActionTitle() {
@@ -1528,8 +1528,8 @@ public class ConChairBottom {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.TAIL,
-			OrificeType.VAGINA,
+			SexAreaPenetration.TAIL,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.PITCHER) {
 		@Override
 		public String getActionTitle() {
@@ -1601,8 +1601,8 @@ public class ConChairBottom {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS,
-			OrificeType.VAGINA,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.CATCHER) {
 		@Override
 		public String getActionTitle() {
@@ -1616,8 +1616,8 @@ public class ConChairBottom {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.VAGINA)!=PenetrationType.PENIS
-					&& Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.ANUS)!=PenetrationType.PENIS;
+			return Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), SexAreaOrifice.VAGINA)!=SexAreaPenetration.PENIS
+					&& Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), SexAreaOrifice.ANUS)!=SexAreaPenetration.PENIS;
 		}
 
 		@Override
@@ -1658,8 +1658,8 @@ public class ConChairBottom {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.TWO_HORNY,
-			PenetrationType.PENIS,
-			OrificeType.ANUS,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.ANUS,
 			SexParticipantType.CATCHER) {
 		@Override
 		public String getActionTitle() {
@@ -1673,8 +1673,8 @@ public class ConChairBottom {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.VAGINA)!=PenetrationType.PENIS
-					&& Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.ANUS)!=PenetrationType.PENIS;
+			return Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), SexAreaOrifice.VAGINA)!=SexAreaPenetration.PENIS
+					&& Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), SexAreaOrifice.ANUS)!=SexAreaPenetration.PENIS;
 		}
 
 		@Override
@@ -1717,8 +1717,8 @@ public class ConChairBottom {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS,
-			OrificeType.VAGINA,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.PITCHER) {
 		@Override
 		public String getActionTitle() {
@@ -1732,8 +1732,8 @@ public class ConChairBottom {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA)!=PenetrationType.PENIS
-					&& Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.ANUS)!=PenetrationType.PENIS;
+			return Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), SexAreaOrifice.VAGINA)!=SexAreaPenetration.PENIS
+					&& Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), SexAreaOrifice.ANUS)!=SexAreaPenetration.PENIS;
 		}
 
 		@Override
@@ -1774,8 +1774,8 @@ public class ConChairBottom {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS,
-			OrificeType.VAGINA,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.CATCHER) {
 		@Override
 		public String getActionTitle() {
@@ -1807,7 +1807,7 @@ public class ConChairBottom {
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			OrificeType.VAGINA,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.SELF) {
 		@Override
 		public String getActionTitle() {
@@ -1837,8 +1837,8 @@ public class ConChairBottom {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS,
-			OrificeType.VAGINA,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.PITCHER) {
 		@Override
 		public String getActionTitle() {
@@ -1868,8 +1868,8 @@ public class ConChairBottom {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.TWO_HORNY,
-			PenetrationType.PENIS,
-			OrificeType.VAGINA,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.PITCHER) {
 		@Override
 		public String getActionTitle() {
@@ -1900,8 +1900,8 @@ public class ConChairBottom {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS,
-			OrificeType.ANUS,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.ANUS,
 			SexParticipantType.PITCHER) {
 		@Override
 		public String getActionTitle() {
@@ -1932,8 +1932,8 @@ public class ConChairBottom {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.TWO_HORNY,
-			PenetrationType.PENIS,
-			OrificeType.ANUS,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.ANUS,
 			SexParticipantType.PITCHER) {
 		@Override
 		public String getActionTitle() {
@@ -1964,8 +1964,8 @@ public class ConChairBottom {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS,
-			OrificeType.VAGINA,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.CATCHER) {
 		@Override
 		public String getActionTitle() {
@@ -1995,8 +1995,8 @@ public class ConChairBottom {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS,
-			OrificeType.ANUS,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.ANUS,
 			SexParticipantType.CATCHER) {
 		@Override
 		public String getActionTitle() {
@@ -2030,8 +2030,8 @@ public class ConChairBottom {
 			ArousalIncrease.ZERO_NONE,
 			ArousalIncrease.ZERO_NONE,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS,
-			OrificeType.VAGINA,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.CATCHER) {
 		@Override
 		public String getActionTitle() {
@@ -2054,8 +2054,8 @@ public class ConChairBottom {
 			ArousalIncrease.ZERO_NONE,
 			ArousalIncrease.ZERO_NONE,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS,
-			OrificeType.ANUS,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.ANUS,
 			SexParticipantType.CATCHER) {
 		@Override
 		public String getActionTitle() {
@@ -2078,8 +2078,8 @@ public class ConChairBottom {
 			ArousalIncrease.ZERO_NONE,
 			ArousalIncrease.ZERO_NONE,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS,
-			OrificeType.NIPPLE,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.NIPPLE,
 			SexParticipantType.CATCHER) {
 		@Override
 		public String getActionTitle() {
@@ -2102,8 +2102,8 @@ public class ConChairBottom {
 			ArousalIncrease.ZERO_NONE,
 			ArousalIncrease.ZERO_NONE,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS,
-			OrificeType.VAGINA,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.PITCHER) {
 		@Override
 		public String getActionTitle() {
@@ -2126,8 +2126,8 @@ public class ConChairBottom {
 			ArousalIncrease.ZERO_NONE,
 			ArousalIncrease.ZERO_NONE,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS,
-			OrificeType.ANUS,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.ANUS,
 			SexParticipantType.PITCHER) {
 		@Override
 		public String getActionTitle() {

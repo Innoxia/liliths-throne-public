@@ -72,6 +72,8 @@
 		Added two content options, 'Anal', and 'Futanari Testicles'. Both are enabled by default. Disabling anal will make all non-unique NPCs spawn in hating anal, while disabling futanari testicles will make all futas spawn in with internal balls.
 		Added sclera recolouring to the slime TF menu.
 		Added metallic colours for hair and fur dye.
+		Improved the spell UI to give an indication as to which spells are 'forbidden'.
+		Using a pregnancy tester now correctly reveals the father in the pregnancy stats page.
 	
 	Bugs:
 		Typo and parsing fixes, including instances of your name being incorrectly parsed as 'you'.
@@ -90,8 +92,10 @@
 		Fixed issue with modded clothing being tagged to be found in alleyways not actually being found in alleyways.
 		Fixed issue with modded clothing marked for sale by Kate and Nyan not actually appearing in their inventories.
 		Fixed slime eye recolouring applying to your entire body.
-	
-	
+		Being bred in the pregnancy roulette will no longer consume a pregnancy tester from your inventory.
+		Fixed Zaranix regaining his penile virginity after sex.
+		Demon alleyway attackers will no longer have their virginities reset after sex.
+		Fixed bug where slimes would always spawn in with a load of jewellery in their inventory.
 	
 	
 	foot fetish
@@ -99,27 +103,19 @@
 	Paizuri deepthroat while fucking a dickgirl's pussy in missionary
 	let the dominant partner choose where the sub cums
 	checks for all orifice TFs
+	React to tease needs dom version
+	Stop spreading ass/pussy
+	ongoing handjobs
+	denial
 	
-	Label unobtainable spells
 	
 	Set your elemental's fetishes (make them the counterparts of yours)
 	
-	being bred in the pregnancy roulette consumes a pregnancy tester from your inventory if you have any.
-	
-	if you are one of the breeders, and Epona deems you not the father, if you look at your pregnancy stats, the pregnancy is still listed
-	
-	zaranix is virgin
-	
-	I had a demon that had lost all their virginities, until I enslaved them, when they became as virgin as fresh snow
-	
-	get crotchless briefs changed to pull down
-	
-	when I'm accessing an enemy's inventory, and taking an item, say, "Mystery Kink": if I hover my mouse over the "Take (All)" option, it displays the following message, "Take five of the man's Mystery Kinks", even when said enemy has only one. To simplify, if I'm taking an item, even when there's only one, the "Take All" option will state "five" in place of "all".
-Basically, just an error in the coding, probably, that switches the five option for all if five stacked items aren't present? Or perhaps just a wording issue. Just wanted to bring that up. Sorry if I'm repeating an issue already found.
+	when I'm accessing an enemy's inventory, and taking an item, say, "Mystery Kink": if I hover my mouse over the "Take (All)" option, it displays the following message, "Take five of the man's Mystery Kinks", even when said enemy has only one.
+	To simplify, if I'm taking an item, even when there's only one, the "Take All" option will state "five" in place of "all".
+	Basically, just an error in the coding, probably, that switches the five option for all if five stacked items aren't present? Or perhaps just a wording issue. Just wanted to bring that up. Sorry if I'm repeating an issue already found.
 	
 	a slider for npc's spawning with cosmetics such as piercings, scars, and tattoos would be nice
-	
-	Piercing are sitting in a slimes inventory, without me ever encountering this slime before, I think this is a bug
 	
 	Add dirty clothing check for no cum
 	
@@ -133,7 +129,7 @@ Basically, just an error in the coding, probably, that switches the five option 
 	
 	[ ] Change PenetrationType and OrificeType to SexArea
 	
-	[ ] Clothing for different slots (for plugs & ribbons)
+	[ ] Clothing for different slots (add plugs & ribbons)
 	
 	[ ] Scars and tattoos to character creation
 	

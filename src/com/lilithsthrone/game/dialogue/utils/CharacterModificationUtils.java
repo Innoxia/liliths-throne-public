@@ -75,8 +75,8 @@ import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.SuccubisSecrets;
 import com.lilithsthrone.game.inventory.InventorySlot;
-import com.lilithsthrone.game.sex.OrificeType;
-import com.lilithsthrone.game.sex.PenetrationType;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.main.Main;
@@ -353,27 +353,27 @@ public class CharacterModificationUtils {
 		
 			contentSB.append(
 							getSexExperienceEntry("HANDJOBS_GIVEN", "Handjobs Given",
-									new SexType(SexParticipantType.PITCHER, PenetrationType.FINGER, OrificeType.URETHRA_PENIS),
+									new SexType(SexParticipantType.PITCHER, SexAreaPenetration.FINGER, SexAreaOrifice.URETHRA_PENIS),
 									normalSexExperienceValues, Main.game.getPlayer().isFeminine()?feminineNames:masculineNames)
 							
 							+ getSexExperienceEntry("FINGERINGS_GIVEN", "Fingerings Performed",
-									new SexType(SexParticipantType.PITCHER, PenetrationType.FINGER, OrificeType.VAGINA),
+									new SexType(SexParticipantType.PITCHER, SexAreaPenetration.FINGER, SexAreaOrifice.VAGINA),
 									normalSexExperienceValues, Main.game.getPlayer().isFeminine()?feminineNames:masculineNames)
 							
 							+ getSexExperienceEntry("BLOWJOBS_GIVEN", "Blowjobs Given",
-									new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.MOUTH),
+									new SexType(SexParticipantType.CATCHER, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH),
 									normalSexExperienceValues, Main.game.getPlayer().isFeminine()?feminineNames:masculineNames)
 							
 							+ getSexExperienceEntry("CUNNILINGUS_GIVEN", "Cunnilingus Performed",
-									new SexType(SexParticipantType.PITCHER, PenetrationType.TONGUE, OrificeType.VAGINA),
+									new SexType(SexParticipantType.PITCHER, SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA),
 									normalSexExperienceValues, Main.game.getPlayer().isFeminine()?feminineNames:masculineNames)
 							
 							+ getSexExperienceEntry("VAGINAL_GIVEN", "Vaginal Sex Performed",
-									new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.VAGINA),
+									new SexType(SexParticipantType.PITCHER, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA),
 									normalSexExperienceValues, Main.game.getPlayer().isFeminine()?feminineNames:masculineNames)
 							
 							+ getSexExperienceEntry("ANAL_GIVEN", "Anal Sex Performed",
-									new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.ANUS),
+									new SexType(SexParticipantType.PITCHER, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS),
 									normalSexExperienceValues, Main.game.getPlayer().isFeminine()?feminineNames:masculineNames));
 		contentSB.append("</div>");
 
@@ -383,35 +383,35 @@ public class CharacterModificationUtils {
 							(Main.game.getPlayer().hasVagina()
 									?""
 									:getSexExperienceEntry("HANDJOBS_TAKEN", "Handjobs Received",
-										new SexType(SexParticipantType.CATCHER, PenetrationType.FINGER, OrificeType.URETHRA_PENIS),
+										new SexType(SexParticipantType.CATCHER, SexAreaPenetration.FINGER, SexAreaOrifice.URETHRA_PENIS),
 										normalSexExperienceValues, Main.game.getPlayer().isFeminine()?feminineNames:masculineNames))
 							
 							+ (Main.game.getPlayer().hasVagina()
 									?getSexExperienceEntry("FINGERINGS_TAKEN", "Fingerings Received",
-										new SexType(SexParticipantType.CATCHER, PenetrationType.FINGER, OrificeType.VAGINA),
+										new SexType(SexParticipantType.CATCHER, SexAreaPenetration.FINGER, SexAreaOrifice.VAGINA),
 										normalSexExperienceValues, Main.game.getPlayer().isFeminine()?feminineNames:masculineNames)
 									:"")
 							
 							+ (Main.game.getPlayer().hasVagina()
 									?""
 									:getSexExperienceEntry("BLOWJOBS_TAKEN", "Blowjobs Received",
-										new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.MOUTH),
+										new SexType(SexParticipantType.PITCHER, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH),
 										normalSexExperienceValues, Main.game.getPlayer().isFeminine()?feminineNames:masculineNames))
 							
 							+ (Main.game.getPlayer().hasVagina()
 									?getSexExperienceEntry("CUNNILINGUS_TAKEN", "Cunnilingus Received",
-										new SexType(SexParticipantType.CATCHER, PenetrationType.TONGUE, OrificeType.VAGINA),
+										new SexType(SexParticipantType.CATCHER, SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA),
 										normalSexExperienceValues, Main.game.getPlayer().isFeminine()?feminineNames:masculineNames)
 									:"")
 							
 							+ (Main.game.getPlayer().hasVagina()
 									?getSexExperienceEntry("VAGINAL_TAKEN", "Vaginal Sex Received",
-										new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.VAGINA),
+										new SexType(SexParticipantType.CATCHER, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA),
 										normalSexExperienceValues, Main.game.getPlayer().isFeminine()?feminineNames:masculineNames)
 									:"")
 							
 							+ getSexExperienceEntry("ANAL_TAKEN", "Anal Sex Received",
-									new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.ANUS),
+									new SexType(SexParticipantType.CATCHER, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS),
 									normalSexExperienceValues, Main.game.getPlayer().isFeminine()?feminineNames:masculineNames));
 		contentSB.append("</div>");
 		
@@ -443,7 +443,7 @@ public class CharacterModificationUtils {
 			Main.game.getPlayer().setVirginityLoss(type, null);
 		}
 		
-		if(type.getPenetrationType()==PenetrationType.PENIS && type.getAsParticipant().isUsingSelfPenetrationType()) {
+		if(type.getPenetrationType()==SexAreaPenetration.PENIS && type.getAsParticipant().isUsingSelfPenetrationType()) {
 			if(index==0) {
 				Main.game.getPlayer().setPenisVirgin(true);
 			} else {
@@ -451,7 +451,7 @@ public class CharacterModificationUtils {
 			}
 		}
 		
-		if(type.getPenetrationType()==PenetrationType.PENIS && type.getAsParticipant().isUsingSelfOrificeType()) {
+		if(type.getPenetrationType()==SexAreaPenetration.PENIS && type.getAsParticipant().isUsingSelfOrificeType()) {
 			switch(type.getOrificeType()) {
 				case ANUS:
 					if(index==0) {

@@ -12,8 +12,8 @@ import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.sex.ArousalIncrease;
-import com.lilithsthrone.game.sex.OrificeType;
-import com.lilithsthrone.game.sex.PenetrationType;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
@@ -32,8 +32,8 @@ public abstract class SexAction implements SexActionInterface {
 	private ArousalIncrease targetArousalGain;
 	
 	private CorruptionLevel minimumCorruptionNeeded;
-	private PenetrationType penetrationTypeAccessRequired;
-	private OrificeType orificeTypeAccessRequired;
+	private SexAreaPenetration penetrationTypeAccessRequired;
+	private SexAreaOrifice orificeTypeAccessRequired;
 
 	private SexParticipantType participantType;
 	private SexPace sexPacePlayer, sexPacePartner;
@@ -45,8 +45,8 @@ public abstract class SexAction implements SexActionInterface {
 			ArousalIncrease selfArousalGain,
 			ArousalIncrease targetArousalGain,
 			CorruptionLevel minimumCorruptionNeeded,
-			PenetrationType penetrationTypeAccessRequired,
-			OrificeType orificeTypeAccessRequired,
+			SexAreaPenetration penetrationTypeAccessRequired,
+			SexAreaOrifice orificeTypeAccessRequired,
 			SexParticipantType participantType) {
 		
 		this(sexActionType,
@@ -65,8 +65,8 @@ public abstract class SexAction implements SexActionInterface {
 			ArousalIncrease selfArousalGain,
 			ArousalIncrease targetArousalGain,
 			CorruptionLevel minimumCorruptionNeeded,
-			PenetrationType penetrationTypeAccessRequired,
-			OrificeType orificeTypeAccessRequired,
+			SexAreaPenetration penetrationTypeAccessRequired,
+			SexAreaOrifice orificeTypeAccessRequired,
 			SexParticipantType participantType,
 			SexPace sexPacePlayer,
 			SexPace sexPacePartner) {
@@ -105,12 +105,12 @@ public abstract class SexAction implements SexActionInterface {
 	}
 	
 	@Override
-	public PenetrationType getAssociatedPenetrationType() {
+	public SexAreaPenetration getAssociatedPenetrationType() {
 		return penetrationTypeAccessRequired;
 	}
 
 	@Override
-	public OrificeType getAssociatedOrificeType() {
+	public SexAreaOrifice getAssociatedOrificeType() {
 		return orificeTypeAccessRequired;
 	}
 
@@ -367,12 +367,12 @@ public abstract class SexAction implements SexActionInterface {
 			
 			
 			
-			List<OrificeType> cummedInList = this.getAreasCummedIn(characterPerformingAction, characterTarget);
+			List<SexAreaOrifice> cummedInList = this.getAreasCummedIn(characterPerformingAction, characterTarget);
 			if(cummedInList != null) {
 				characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_CUM_STUD);
 				characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_CUM_ADDICT);
 				
-				for(OrificeType orifice : cummedInList) {
+				for(SexAreaOrifice orifice : cummedInList) {
 					switch(orifice) {
 						case ANUS: case ASS:
 							characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_ANAL_GIVING);
@@ -418,7 +418,7 @@ public abstract class SexAction implements SexActionInterface {
 				characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_CUM_ADDICT);
 				characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_CUM_STUD);
 				
-				for(OrificeType orifice : cummedInList) {
+				for(SexAreaOrifice orifice : cummedInList) {
 					switch(orifice) {
 						case ANUS: case ASS:
 							characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_ANAL_RECEIVING);
@@ -483,7 +483,7 @@ public abstract class SexAction implements SexActionInterface {
 		}
 	}
 	
-	protected List<Fetish> getFetishesFromPenetrationAndOrificeTypes(GameCharacter characterPerformingAction, PenetrationType penetrationBeingUsed, OrificeType orificeBeingUsed, boolean characterPerformingActionFetishes) {
+	protected List<Fetish> getFetishesFromPenetrationAndOrificeTypes(GameCharacter characterPerformingAction, SexAreaPenetration penetrationBeingUsed, SexAreaOrifice orificeBeingUsed, boolean characterPerformingActionFetishes) {
 		GameCharacter characterTarget = Sex.getTargetedPartner(characterPerformingAction);
 		
 		List<Fetish> associatedFetishes = new ArrayList<>();

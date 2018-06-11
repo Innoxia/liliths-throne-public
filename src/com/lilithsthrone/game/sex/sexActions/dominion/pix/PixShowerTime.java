@@ -8,8 +8,8 @@ import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
-import com.lilithsthrone.game.sex.OrificeType;
-import com.lilithsthrone.game.sex.PenetrationType;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexFlags;
 import com.lilithsthrone.game.sex.SexParticipantType;
@@ -53,7 +53,7 @@ public class PixShowerTime {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isOrificeFree(Sex.getActivePartner(), OrificeType.MOUTH) && Sex.isOrificeFree(Main.game.getPlayer(), OrificeType.MOUTH);
+			return Sex.isOrificeFree(Sex.getActivePartner(), SexAreaOrifice.MOUTH) && Sex.isOrificeFree(Main.game.getPlayer(), SexAreaOrifice.MOUTH);
 		}
 
 		@Override
@@ -277,8 +277,8 @@ public class PixShowerTime {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.FINGER,
-			OrificeType.VAGINA,
+			SexAreaPenetration.FINGER,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.CATCHER) {
 		@Override
 		public String getActionTitle() {
@@ -311,8 +311,8 @@ public class PixShowerTime {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.TONGUE,
-			OrificeType.MOUTH,
+			SexAreaPenetration.TONGUE,
+			SexAreaOrifice.MOUTH,
 			SexParticipantType.PITCHER) {
 		@Override
 		public String getActionTitle() {
@@ -378,8 +378,8 @@ public class PixShowerTime {
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.FINGER,
-			OrificeType.NIPPLE,
+			SexAreaPenetration.FINGER,
+			SexAreaOrifice.NIPPLE,
 			SexParticipantType.PITCHER) {
 		@Override
 		public String getActionTitle() {
@@ -461,7 +461,7 @@ public class PixShowerTime {
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
+			SexAreaPenetration.PENIS,
 			null,
 			SexParticipantType.CATCHER) {
 		
@@ -477,7 +477,7 @@ public class PixShowerTime {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isPenetrationTypeFree(Sex.getActivePartner(), PenetrationType.FINGER);
+			return Sex.isPenetrationTypeFree(Sex.getActivePartner(), SexAreaPenetration.FINGER);
 		}
 
 		@Override
@@ -500,8 +500,8 @@ public class PixShowerTime {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.FINGER,
-			OrificeType.VAGINA,
+			SexAreaPenetration.FINGER,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.PITCHER) {
 		@Override
 		public String getActionTitle() {
@@ -531,8 +531,8 @@ public class PixShowerTime {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.FINGER,
-			OrificeType.VAGINA,
+			SexAreaPenetration.FINGER,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.PITCHER) {
 		@Override
 		public String getActionTitle() {
@@ -568,8 +568,8 @@ public class PixShowerTime {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.FINGER,
-			OrificeType.VAGINA,
+			SexAreaPenetration.FINGER,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.PITCHER) {
 		@Override
 		public String getActionTitle() {
@@ -610,8 +610,8 @@ public class PixShowerTime {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.FINGER,
-			OrificeType.VAGINA,
+			SexAreaPenetration.FINGER,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.PITCHER) {
 		@Override
 		public String getActionTitle() {

@@ -4,8 +4,8 @@ import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
-import com.lilithsthrone.game.sex.OrificeType;
-import com.lilithsthrone.game.sex.PenetrationType;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
@@ -29,8 +29,8 @@ public class PlayerFingerUrethra {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.FINGER,
-			OrificeType.URETHRA_PENIS,
+			SexAreaPenetration.FINGER,
+			SexAreaOrifice.URETHRA_PENIS,
 			SexParticipantType.PITCHER) {
 
 		@Override
@@ -134,7 +134,7 @@ public class PlayerFingerUrethra {
 		@Override
 		public void applyEffects() {
 			if(Sex.getActivePartner().isCoverableAreaExposed(CoverableArea.PENIS)) {
-				Sex.transferLubrication(Main.game.getPlayer(), PenetrationType.FINGER, Sex.getActivePartner(), PenetrationType.PENIS);
+				Sex.transferLubrication(Main.game.getPlayer(), SexAreaPenetration.FINGER, Sex.getActivePartner(), SexAreaPenetration.PENIS);
 			}
 		}
 	};
@@ -144,8 +144,8 @@ public class PlayerFingerUrethra {
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.FINGER,
-			OrificeType.URETHRA_PENIS,
+			SexAreaPenetration.FINGER,
+			SexAreaOrifice.URETHRA_PENIS,
 			SexParticipantType.PITCHER) {
 
 		@Override

@@ -1,7 +1,7 @@
 package com.lilithsthrone.game.character.markings;
 
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.sex.OrificeType;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
 
 /**
  * @since 0.2.6
@@ -41,14 +41,14 @@ public enum TattooCounterType {
 	CUM_GIVEN_PUSSY("pussy creampies given", "Keeps a count of how many times the bearer has cummed into someone's pussy.") {
 		@Override
 		public int getCount(GameCharacter bearer) {
-			return bearer.getTotalCumCountInOrifice(OrificeType.VAGINA, true, false);
+			return bearer.getTotalCumCountInOrifice(SexAreaOrifice.VAGINA, true, false);
 		}
 	},
 
 	CUM_GIVEN_ANUS("anal creampies given", "Keeps a count of how many times the bearer has cummed into someone's ass.") {
 		@Override
 		public int getCount(GameCharacter bearer) {
-			return bearer.getTotalCumCountInOrifice(OrificeType.ANUS, true, false);
+			return bearer.getTotalCumCountInOrifice(SexAreaOrifice.ANUS, true, false);
 		}
 	},
 	
@@ -62,14 +62,14 @@ public enum TattooCounterType {
 	CUM_TAKEN_PUSSY("pussy creampies received", "Keeps a count of how many times the bearer has taken a load of cum in their pussy.") {
 		@Override
 		public int getCount(GameCharacter bearer) {
-			return bearer.getTotalCumCountInOrifice(OrificeType.VAGINA, false, true);
+			return bearer.getTotalCumCountInOrifice(SexAreaOrifice.VAGINA, false, true);
 		}
 	},
 
 	CUM_TAKEN_ANUS("anal creampies received", "Keeps a count of how many times the bearer has taken a load of cum in their ass.") {
 		@Override
 		public int getCount(GameCharacter bearer) {
-			return bearer.getTotalCumCountInOrifice(OrificeType.ANUS, false, true);
+			return bearer.getTotalCumCountInOrifice(SexAreaOrifice.ANUS, false, true);
 		}
 	},
 

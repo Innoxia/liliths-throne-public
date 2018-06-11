@@ -4,8 +4,8 @@ import com.lilithsthrone.game.character.attributes.ArousalLevel;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.sex.ArousalIncrease;
-import com.lilithsthrone.game.sex.OrificeType;
-import com.lilithsthrone.game.sex.PenetrationType;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexFlags;
 import com.lilithsthrone.game.sex.SexParticipantType;
@@ -27,8 +27,8 @@ public class SALilayaSpecials {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS,
-			OrificeType.VAGINA,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.CATCHER) {
 		@Override
 		public String getActionTitle() {
@@ -77,7 +77,7 @@ public class SALilayaSpecials {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.VAGINA) != PenetrationType.PENIS;
+			return Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), SexAreaOrifice.VAGINA) != SexAreaPenetration.PENIS;
 		}
 
 		@Override
@@ -136,7 +136,7 @@ public class SALilayaSpecials {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.VAGINA) == PenetrationType.PENIS;
+			return Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), SexAreaOrifice.VAGINA) == SexAreaPenetration.PENIS;
 		}
 
 		@Override

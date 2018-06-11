@@ -40,7 +40,7 @@ import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
-import com.lilithsthrone.game.sex.OrificeType;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.BaseColour;
 import com.lilithsthrone.utils.Colour;
@@ -154,7 +154,7 @@ public class DebugDialogue {
 				return new Response("Brax's revenge", "Brax cums in your vagina!", DEBUG_MENU){
 					@Override
 					public void effects() {
-						Main.game.getPlayer().ingestFluid(Main.game.getBrax(), Main.game.getBrax().getCumType(), OrificeType.VAGINA, 1000, Main.game.getBrax().getCumModifiers());
+						Main.game.getPlayer().ingestFluid(Main.game.getBrax(), Main.game.getBrax().getCumType(), SexAreaOrifice.VAGINA, 1000, Main.game.getBrax().getCumModifiers());
 					}
 				};
 				

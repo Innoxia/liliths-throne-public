@@ -16,7 +16,7 @@ import com.lilithsthrone.game.character.npc.dominion.DominionSuccubusAttacker;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.sex.OrificeType;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexPositionType;
@@ -225,7 +225,7 @@ public interface SexManagerInterface {
 				+"</p>";
 	}
 	
-	public Map<GameCharacter, List<OrificeType>> getOrificesBannedMap();
+	public Map<GameCharacter, List<SexAreaOrifice>> getOrificesBannedMap();
 	
 	// Revealing CoverableAreas:
 

@@ -34,8 +34,8 @@ import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
-import com.lilithsthrone.game.sex.OrificeType;
-import com.lilithsthrone.game.sex.PenetrationType;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
@@ -420,24 +420,24 @@ public class Cultist extends NPC {
 	public SexType getForeplayPreference() {
 		if(Sex.getSexPositionSlot(this)==SexPositionSlot.MISSIONARY_ALTAR_KNEELING_BETWEEN_LEGS || Sex.getSexPositionSlot(this)==SexPositionSlot.MISSIONARY_ALTAR_SEALED_KNEELING_BETWEEN_LEGS) {
 			if(requestedAnal) {
-				return new SexType(SexParticipantType.PITCHER, PenetrationType.TONGUE, OrificeType.ANUS);
+				return new SexType(SexParticipantType.PITCHER, SexAreaPenetration.TONGUE, SexAreaOrifice.ANUS);
 			} else {
-				return new SexType(SexParticipantType.PITCHER, PenetrationType.TONGUE, OrificeType.VAGINA);
+				return new SexType(SexParticipantType.PITCHER, SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA);
 			}
 		} else {
-			return new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.MOUTH);
+			return new SexType(SexParticipantType.PITCHER, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH);
 		}
 	}
 	
 	public SexType getMainSexPreference() {
 		if(Sex.getSexPositionSlot(this)==SexPositionSlot.MISSIONARY_ALTAR_STANDING_BETWEEN_LEGS || Sex.getSexPositionSlot(this)==SexPositionSlot.MISSIONARY_ALTAR_SEALED_STANDING_BETWEEN_LEGS) {
 			if(requestedAnal) {
-				return new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.ANUS);
+				return new SexType(SexParticipantType.PITCHER, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS);
 			} else {
-				return new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.VAGINA);
+				return new SexType(SexParticipantType.PITCHER, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA);
 			}
 		} else {
-			return new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.MOUTH);
+			return new SexType(SexParticipantType.PITCHER, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH);
 		}
 	}
 	

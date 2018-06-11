@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.PregnancyPossibility;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.ArmType;
@@ -524,6 +525,18 @@ public class ItemEffectType {
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			target.performImpregnationCheck();
 			if(target.isPregnant()) {
+				List <GameCharacter> fathers = new ArrayList<>();
+				for(PregnancyPossibility pp : target.getPotentialPartnersAsMother()) {
+					if(pp.getFather()!=null) {
+						fathers.add(pp.getFather());
+					}
+				}
+				for(GameCharacter father : fathers) {
+					target.getPotentialPartnersAsFather().removeIf((pp) -> pp.getMotherId().equals(target.getId()) && target.getPregnantLitter().getFather() != (father));
+				}
+				
+				target.getPotentialPartnersAsMother().removeIf((pp) -> !pp.getFatherId().equals(target.getPregnantLitter().getFatherId()));
+				
 				return "<p>"
 						+ "The digital readout lights up with two parallel red lines, with flashing pink text next to that displaying: '[style.italicsArcane(Pregnant!)]'"
 					+ "</p>"

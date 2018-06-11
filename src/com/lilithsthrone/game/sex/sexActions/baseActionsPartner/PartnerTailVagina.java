@@ -8,8 +8,8 @@ import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
-import com.lilithsthrone.game.sex.OrificeType;
-import com.lilithsthrone.game.sex.PenetrationType;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
@@ -30,8 +30,8 @@ public class PartnerTailVagina {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TAIL,
-			OrificeType.VAGINA,
+			SexAreaPenetration.TAIL,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.PITCHER) {
 		@Override
 		public String getActionTitle() {
@@ -113,7 +113,7 @@ public class PartnerTailVagina {
 		
 		@Override
 		public void applyEffects() {
-			Sex.transferLubrication(Sex.getActivePartner(), Main.game.getPlayer(), PenetrationType.TAIL, OrificeType.VAGINA);
+			Sex.transferLubrication(Sex.getActivePartner(), Main.game.getPlayer(), SexAreaPenetration.TAIL, SexAreaOrifice.VAGINA);
 		}
 		
 		@Override
@@ -127,8 +127,8 @@ public class PartnerTailVagina {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TAIL,
-			OrificeType.VAGINA,
+			SexAreaPenetration.TAIL,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.CATCHER) {
 		@Override
 		public String getActionTitle() {
@@ -204,7 +204,7 @@ public class PartnerTailVagina {
 		
 		@Override
 		public void applyEffects() {
-			Sex.transferLubrication(Sex.getActivePartner(), Main.game.getPlayer(), PenetrationType.TAIL, OrificeType.VAGINA);
+			Sex.transferLubrication(Sex.getActivePartner(), Main.game.getPlayer(), SexAreaPenetration.TAIL, SexAreaOrifice.VAGINA);
 		}
 		
 		@Override
@@ -219,8 +219,8 @@ public class PartnerTailVagina {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TAIL,
-			OrificeType.VAGINA,
+			SexAreaPenetration.TAIL,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.PITCHER) {
 		
 		@Override
@@ -313,8 +313,8 @@ public class PartnerTailVagina {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TAIL,
-			OrificeType.VAGINA,
+			SexAreaPenetration.TAIL,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.PITCHER,
 			null,
 			SexPace.DOM_GENTLE) {
@@ -374,8 +374,8 @@ public class PartnerTailVagina {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TAIL,
-			OrificeType.VAGINA,
+			SexAreaPenetration.TAIL,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.PITCHER,
 			null,
 			SexPace.DOM_NORMAL) {
@@ -436,8 +436,8 @@ public class PartnerTailVagina {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.TWO_HORNY,
-			PenetrationType.TAIL,
-			OrificeType.VAGINA,
+			SexAreaPenetration.TAIL,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.PITCHER,
 			null,
 			SexPace.DOM_ROUGH) {
@@ -498,8 +498,8 @@ public class PartnerTailVagina {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TAIL,
-			OrificeType.VAGINA,
+			SexAreaPenetration.TAIL,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.PITCHER,
 			null,
 			SexPace.SUB_NORMAL) {
@@ -559,8 +559,8 @@ public class PartnerTailVagina {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TAIL,
-			OrificeType.VAGINA,
+			SexAreaPenetration.TAIL,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.PITCHER,
 			null,
 			SexPace.SUB_EAGER) {
@@ -620,8 +620,8 @@ public class PartnerTailVagina {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.TAIL,
-			OrificeType.VAGINA,
+			SexAreaPenetration.TAIL,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.PITCHER,
 			null,
 			SexPace.SUB_RESISTING) {
@@ -681,8 +681,8 @@ public class PartnerTailVagina {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.TAIL,
-			OrificeType.VAGINA,
+			SexAreaPenetration.TAIL,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.PITCHER) {
 
 		@Override
@@ -743,8 +743,8 @@ public class PartnerTailVagina {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TAIL,
-			OrificeType.VAGINA,
+			SexAreaPenetration.TAIL,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.CATCHER) {
 
 		@Override
@@ -842,8 +842,8 @@ public class PartnerTailVagina {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TAIL,
-			OrificeType.VAGINA,
+			SexAreaPenetration.TAIL,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.CATCHER,
 			SexPace.DOM_GENTLE,
 			null) {
@@ -881,8 +881,8 @@ public class PartnerTailVagina {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TAIL,
-			OrificeType.VAGINA,
+			SexAreaPenetration.TAIL,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.CATCHER,
 			SexPace.DOM_NORMAL,
 			null) {
@@ -920,8 +920,8 @@ public class PartnerTailVagina {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.TWO_HORNY,
-			PenetrationType.TAIL,
-			OrificeType.VAGINA,
+			SexAreaPenetration.TAIL,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.CATCHER,
 			SexPace.DOM_ROUGH,
 			null) {
@@ -960,8 +960,8 @@ public class PartnerTailVagina {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TAIL,
-			OrificeType.VAGINA,
+			SexAreaPenetration.TAIL,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.CATCHER,
 			SexPace.SUB_NORMAL,
 			null) {
@@ -999,8 +999,8 @@ public class PartnerTailVagina {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TAIL,
-			OrificeType.VAGINA,
+			SexAreaPenetration.TAIL,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.CATCHER,
 			SexPace.SUB_EAGER,
 			null) {
@@ -1038,8 +1038,8 @@ public class PartnerTailVagina {
 			ArousalIncrease.ZERO_NONE,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.TAIL,
-			OrificeType.VAGINA,
+			SexAreaPenetration.TAIL,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.CATCHER,
 			SexPace.SUB_RESISTING,
 			null) {
@@ -1102,8 +1102,8 @@ public class PartnerTailVagina {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.TAIL,
-			OrificeType.VAGINA,
+			SexAreaPenetration.TAIL,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.CATCHER) {
 
 		@Override
@@ -1161,8 +1161,8 @@ public class PartnerTailVagina {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FIVE_EXTREME,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.TAIL,
-			OrificeType.VAGINA,
+			SexAreaPenetration.TAIL,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.CATCHER) {
 		@Override
 		public String getActionTitle() {

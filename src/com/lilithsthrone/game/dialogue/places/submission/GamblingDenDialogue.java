@@ -34,7 +34,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
-import com.lilithsthrone.game.sex.OrificeType;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.submission.SMBreedingStallBack;
@@ -878,7 +878,7 @@ public class GamblingDenDialogue {
 					if(Main.game.getPlayer().isPregnant()) {
 						return new Response("Male Bred ("+UtilText.formatAsMoneyUncoloured(10000, "span")+")", "You are already pregnant, so you can't sign up to be the mother!", null);
 						
-					} else if(Main.game.getPlayer().getTotalFluidInArea(OrificeType.VAGINA)>0) {
+					} else if(Main.game.getPlayer().getTotalFluidInArea(SexAreaOrifice.VAGINA)>0) {
 						return new Response("Male Bred ("+UtilText.formatAsMoneyUncoloured(10000, "span")+")", "You can't sign up for pregnancy roulette if your pussy already is filled with cum!", null);
 						
 					} else if(!Main.game.getPlayer().hasVagina()) {
@@ -921,7 +921,7 @@ public class GamblingDenDialogue {
 					if(Main.game.getPlayer().isPregnant()) {
 						return new Response("Futa Bred ("+UtilText.formatAsMoneyUncoloured(10000, "span")+")", "You are already pregnant, so you can't sign up to be the mother!", null);
 						
-					} else if(Main.game.getPlayer().getTotalFluidInArea(OrificeType.VAGINA)>0) {
+					} else if(Main.game.getPlayer().getTotalFluidInArea(SexAreaOrifice.VAGINA)>0) {
 						return new Response("Futa Bred ("+UtilText.formatAsMoneyUncoloured(10000, "span")+")", "You can't sign up for pregnancy roulette if your pussy already is filled with cum!", null);
 						
 					} else if(!Main.game.getPlayer().hasVagina()) {
@@ -1397,7 +1397,7 @@ public class GamblingDenDialogue {
 					return new Response("Finished", "All six of the breeders have deposited their cum in your [pc.pussy+].", PREGNANCY_ROULETTE_MOTHER_FINISHED) {
 						@Override
 						public void effects() {
-							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().useItem(AbstractItemType.generateItem(ItemType.PREGNANCY_TEST), Main.game.getPlayer(), false));
+							Main.game.getTextEndStringBuilder().append(Main.game.getEpona().useItem(AbstractItemType.generateItem(ItemType.PREGNANCY_TEST), Main.game.getPlayer(), false));
 						}
 					};
 				} else {
@@ -1571,7 +1571,7 @@ public class GamblingDenDialogue {
 					public void effects() {
 						for(int i=0; i<roll-1; i++) {
 							mother.setVaginaVirgin(false);
-							mother.ingestFluid(breeders.get(i), breeders.get(i).getCumType(), OrificeType.VAGINA, breeders.get(i).getPenisRawOrgasmCumQuantity(), breeders.get(i).getCum().getFluidModifiers());
+							mother.ingestFluid(breeders.get(i), breeders.get(i).getCumType(), SexAreaOrifice.VAGINA, breeders.get(i).getPenisRawOrgasmCumQuantity(), breeders.get(i).getCum().getFluidModifiers());
 						}
 					}
 				};
@@ -1597,7 +1597,7 @@ public class GamblingDenDialogue {
 					public void effects() {
 						for(int i=roll-1; i<breeders.size(); i++) {
 							mother.setVaginaVirgin(false);
-							mother.ingestFluid(breeders.get(i), breeders.get(i).getCumType(), OrificeType.VAGINA, breeders.get(i).getPenisRawOrgasmCumQuantity(), breeders.get(i).getCum().getFluidModifiers());
+							mother.ingestFluid(breeders.get(i), breeders.get(i).getCumType(), SexAreaOrifice.VAGINA, breeders.get(i).getPenisRawOrgasmCumQuantity(), breeders.get(i).getCum().getFluidModifiers());
 						}
 					}
 				};

@@ -3,8 +3,8 @@ package com.lilithsthrone.game.sex.sexActions.baseActionsPartner;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
-import com.lilithsthrone.game.sex.OrificeType;
-import com.lilithsthrone.game.sex.PenetrationType;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
@@ -24,8 +24,8 @@ public class PartnerTongueNipple {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TONGUE,
-			OrificeType.NIPPLE,
+			SexAreaPenetration.TONGUE,
+			SexAreaOrifice.NIPPLE,
 			SexParticipantType.PITCHER) {
 		
 		@Override
@@ -125,7 +125,7 @@ public class PartnerTongueNipple {
 		
 		@Override
 		public String applyEffectsString() {
-			return Sex.getActivePartner().ingestFluid(Main.game.getPlayer(), Main.game.getPlayer().getMilkType(), OrificeType.MOUTH, Main.game.getPlayer().getBreastRawMilkStorageValue()/5, Main.game.getPlayer().getMilk().getFluidModifiers())
+			return Sex.getActivePartner().ingestFluid(Main.game.getPlayer(), Main.game.getPlayer().getMilkType(), SexAreaOrifice.MOUTH, Main.game.getPlayer().getBreastRawMilkStorageValue()/5, Main.game.getPlayer().getMilk().getFluidModifiers())
 					+ Main.game.getPlayer().incrementBreastStoredMilk(-Main.game.getPlayer().getBreastRawMilkStorageValue()/5);
 		}
 	};
@@ -135,8 +135,8 @@ public class PartnerTongueNipple {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TONGUE,
-			OrificeType.NIPPLE,
+			SexAreaPenetration.TONGUE,
+			SexAreaOrifice.NIPPLE,
 			SexParticipantType.CATCHER) {
 		
 		@Override
@@ -236,7 +236,7 @@ public class PartnerTongueNipple {
 		
 		@Override
 		public String applyEffectsString() {
-			return Sex.getActivePartner().ingestFluid(Main.game.getPlayer(), Main.game.getPlayer().getMilkType(), OrificeType.MOUTH, Main.game.getPlayer().getBreastRawMilkStorageValue()/5, Main.game.getPlayer().getMilk().getFluidModifiers())
+			return Sex.getActivePartner().ingestFluid(Main.game.getPlayer(), Main.game.getPlayer().getMilkType(), SexAreaOrifice.MOUTH, Main.game.getPlayer().getBreastRawMilkStorageValue()/5, Main.game.getPlayer().getMilk().getFluidModifiers())
 					+ Main.game.getPlayer().incrementBreastStoredMilk(-Main.game.getPlayer().getBreastRawMilkStorageValue()/5);
 		}
 		

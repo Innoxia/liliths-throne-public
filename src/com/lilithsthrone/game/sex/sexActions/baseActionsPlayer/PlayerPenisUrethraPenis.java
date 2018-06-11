@@ -3,8 +3,8 @@ package com.lilithsthrone.game.sex.sexActions.baseActionsPlayer;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
-import com.lilithsthrone.game.sex.OrificeType;
-import com.lilithsthrone.game.sex.PenetrationType;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
@@ -24,8 +24,8 @@ public class PlayerPenisUrethraPenis {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.URETHRA_PENIS,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.URETHRA_PENIS,
 			SexParticipantType.PITCHER) {
 		
 		@Override
@@ -118,8 +118,8 @@ public class PlayerPenisUrethraPenis {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.URETHRA_PENIS,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.URETHRA_PENIS,
 			SexParticipantType.PITCHER,
 			SexPace.DOM_GENTLE,
 			null) {
@@ -179,8 +179,8 @@ public class PlayerPenisUrethraPenis {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.URETHRA_PENIS,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.URETHRA_PENIS,
 			SexParticipantType.PITCHER,
 			SexPace.DOM_NORMAL,
 			null) {
@@ -240,8 +240,8 @@ public class PlayerPenisUrethraPenis {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.TWO_HORNY,
-			PenetrationType.PENIS,
-			OrificeType.URETHRA_PENIS,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.URETHRA_PENIS,
 			SexParticipantType.PITCHER,
 			SexPace.DOM_ROUGH,
 			null) {
@@ -303,8 +303,8 @@ public class PlayerPenisUrethraPenis {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.URETHRA_PENIS,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.URETHRA_PENIS,
 			SexParticipantType.PITCHER,
 			SexPace.SUB_NORMAL,
 			null) {
@@ -363,8 +363,8 @@ public class PlayerPenisUrethraPenis {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.URETHRA_PENIS,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.URETHRA_PENIS,
 			SexParticipantType.PITCHER,
 			SexPace.SUB_EAGER,
 			null) {
@@ -424,8 +424,8 @@ public class PlayerPenisUrethraPenis {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS,
-			OrificeType.URETHRA_PENIS,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.URETHRA_PENIS,
 			SexParticipantType.PITCHER,
 			SexPace.SUB_RESISTING,
 			null) {
@@ -489,8 +489,8 @@ public class PlayerPenisUrethraPenis {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS,
-			OrificeType.URETHRA_PENIS,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.URETHRA_PENIS,
 			SexParticipantType.PITCHER) {
 
 		@Override
@@ -551,8 +551,8 @@ public class PlayerPenisUrethraPenis {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.URETHRA_PENIS,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.URETHRA_PENIS,
 			SexParticipantType.CATCHER) {
 
 		@Override
@@ -560,7 +560,7 @@ public class PlayerPenisUrethraPenis {
 			// Partner can only start fucking themselves on the player's cock in consensual sex or if they're the dom.
 			// You can't penetrate if your partner is already fucking you, due to physical limitations. (I mean, if you're facing opposite ways and lying on top of each other, it might be possible, but that position will be special.)
 			
-			if(Sex.isPenetrationTypeFree(Sex.getActivePartner(), PenetrationType.PENIS)) {
+			if(Sex.isPenetrationTypeFree(Sex.getActivePartner(), SexAreaPenetration.PENIS)) {
 				return (Sex.isConsensual() || !Sex.isDom(Main.game.getPlayer()));
 			} else {
 				return false; //(Sex.isConsensual() || !Sex.isDom(Main.game.getPlayer())) && !Sex.getOngoingPenetrationMap().get(PenetrationType.PENIS).contains(OrificeType.URETHRA_PENIS);
@@ -657,8 +657,8 @@ public class PlayerPenisUrethraPenis {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.URETHRA_PENIS,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.URETHRA_PENIS,
 			SexParticipantType.CATCHER,
 			null,
 			SexPace.DOM_GENTLE) {
@@ -694,8 +694,8 @@ public class PlayerPenisUrethraPenis {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.URETHRA_PENIS,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.URETHRA_PENIS,
 			SexParticipantType.CATCHER,
 			null,
 			SexPace.DOM_NORMAL) {
@@ -729,8 +729,8 @@ public class PlayerPenisUrethraPenis {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.TWO_HORNY,
-			PenetrationType.PENIS,
-			OrificeType.URETHRA_PENIS,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.URETHRA_PENIS,
 			SexParticipantType.CATCHER,
 			null,
 			SexPace.DOM_ROUGH) {
@@ -765,8 +765,8 @@ public class PlayerPenisUrethraPenis {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.URETHRA_PENIS,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.URETHRA_PENIS,
 			SexParticipantType.CATCHER,
 			null,
 			SexPace.SUB_NORMAL) {
@@ -804,8 +804,8 @@ public class PlayerPenisUrethraPenis {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.URETHRA_PENIS,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.URETHRA_PENIS,
 			SexParticipantType.CATCHER,
 			null,
 			SexPace.SUB_EAGER) {
@@ -844,8 +844,8 @@ public class PlayerPenisUrethraPenis {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS,
-			OrificeType.URETHRA_PENIS,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.URETHRA_PENIS,
 			SexParticipantType.CATCHER,
 			null,
 			SexPace.SUB_RESISTING) {
@@ -906,8 +906,8 @@ public class PlayerPenisUrethraPenis {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS,
-			OrificeType.URETHRA_PENIS,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.URETHRA_PENIS,
 			SexParticipantType.CATCHER) {
 
 		@Override

@@ -4,8 +4,8 @@ import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
-import com.lilithsthrone.game.sex.OrificeType;
-import com.lilithsthrone.game.sex.PenetrationType;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
@@ -25,8 +25,8 @@ public class PartnerFingerVagina {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.FINGER,
-			OrificeType.VAGINA,
+			SexAreaPenetration.FINGER,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.PITCHER) {
 		@Override
 		public String getActionTitle() {
@@ -218,7 +218,7 @@ public class PartnerFingerVagina {
 		@Override
 		public void applyEffects() {
 			if(Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.VAGINA)) {
-				Sex.transferLubrication(Sex.getActivePartner(), Main.game.getPlayer(), PenetrationType.FINGER, OrificeType.VAGINA);
+				Sex.transferLubrication(Sex.getActivePartner(), Main.game.getPlayer(), SexAreaPenetration.FINGER, SexAreaOrifice.VAGINA);
 			}
 		}
 	};
@@ -228,8 +228,8 @@ public class PartnerFingerVagina {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.FINGER,
-			OrificeType.VAGINA,
+			SexAreaPenetration.FINGER,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.PITCHER) {
 		@Override
 		public String getActionTitle() {
@@ -335,8 +335,8 @@ public class PartnerFingerVagina {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.FINGER,
-			OrificeType.VAGINA,
+			SexAreaPenetration.FINGER,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.PITCHER) {
 		@Override
 		public String getActionTitle() {
@@ -451,8 +451,8 @@ public class PartnerFingerVagina {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.FINGER,
-			OrificeType.VAGINA,
+			SexAreaPenetration.FINGER,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.PITCHER) {
 		@Override
 		public String getActionTitle() {
@@ -545,8 +545,8 @@ public class PartnerFingerVagina {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.TWO_HORNY,
-			PenetrationType.FINGER,
-			OrificeType.VAGINA,
+			SexAreaPenetration.FINGER,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.PITCHER,
 			null,
 			SexPace.DOM_GENTLE) {
@@ -606,8 +606,8 @@ public class PartnerFingerVagina {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.FINGER,
-			OrificeType.VAGINA,
+			SexAreaPenetration.FINGER,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.PITCHER,
 			null,
 			SexPace.DOM_NORMAL) {
@@ -667,8 +667,8 @@ public class PartnerFingerVagina {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.THREE_DIRTY,
-			PenetrationType.FINGER,
-			OrificeType.VAGINA,
+			SexAreaPenetration.FINGER,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.PITCHER,
 			null,
 			SexPace.DOM_ROUGH) {
@@ -729,8 +729,8 @@ public class PartnerFingerVagina {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.FINGER,
-			OrificeType.VAGINA,
+			SexAreaPenetration.FINGER,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.PITCHER,
 			null,
 			SexPace.SUB_NORMAL) {
@@ -791,8 +791,8 @@ public class PartnerFingerVagina {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.FINGER,
-			OrificeType.VAGINA,
+			SexAreaPenetration.FINGER,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.PITCHER,
 			null,
 			SexPace.SUB_EAGER) {
@@ -853,8 +853,8 @@ public class PartnerFingerVagina {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.FINGER,
-			OrificeType.VAGINA,
+			SexAreaPenetration.FINGER,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.PITCHER) {
 		@Override
 		public String getActionTitle() {
@@ -909,8 +909,8 @@ public class PartnerFingerVagina {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.FINGER,
-			OrificeType.VAGINA,
+			SexAreaPenetration.FINGER,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.CATCHER) {
 
 		@Override
@@ -1008,8 +1008,8 @@ public class PartnerFingerVagina {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.FINGER,
-			OrificeType.VAGINA,
+			SexAreaPenetration.FINGER,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.CATCHER,
 			SexPace.DOM_GENTLE,
 			null) {
@@ -1048,8 +1048,8 @@ public class PartnerFingerVagina {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.FINGER,
-			OrificeType.VAGINA,
+			SexAreaPenetration.FINGER,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.CATCHER,
 			SexPace.DOM_NORMAL,
 			null) {
@@ -1088,8 +1088,8 @@ public class PartnerFingerVagina {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.FINGER,
-			OrificeType.VAGINA,
+			SexAreaPenetration.FINGER,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.CATCHER,
 			SexPace.DOM_ROUGH,
 			null) {
@@ -1128,8 +1128,8 @@ public class PartnerFingerVagina {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.FINGER,
-			OrificeType.VAGINA,
+			SexAreaPenetration.FINGER,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.CATCHER,
 			SexPace.SUB_NORMAL,
 			null) {
@@ -1168,8 +1168,8 @@ public class PartnerFingerVagina {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.FINGER,
-			OrificeType.VAGINA,
+			SexAreaPenetration.FINGER,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.CATCHER,
 			SexPace.SUB_EAGER,
 			null) {
@@ -1208,8 +1208,8 @@ public class PartnerFingerVagina {
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.FINGER,
-			OrificeType.VAGINA,
+			SexAreaPenetration.FINGER,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.CATCHER,
 			SexPace.SUB_RESISTING,
 			null) {
@@ -1269,8 +1269,8 @@ public class PartnerFingerVagina {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.FINGER,
-			OrificeType.VAGINA,
+			SexAreaPenetration.FINGER,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.CATCHER) {
 
 		@Override

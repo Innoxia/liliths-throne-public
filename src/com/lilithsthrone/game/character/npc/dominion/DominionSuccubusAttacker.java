@@ -31,8 +31,8 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.ItemType;
-import com.lilithsthrone.game.sex.OrificeType;
-import com.lilithsthrone.game.sex.PenetrationType;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.main.Main;
@@ -411,8 +411,8 @@ public class DominionSuccubusAttacker extends NPC {
 	// Losing virginity:
 	private static StringBuilder StringBuilderSB;
 	@Override
-	public String getVirginityLossOrificeDescription(GameCharacter characterPenetrating, PenetrationType penetrationType, GameCharacter characterPenetrated, OrificeType orifice){
-		if(!characterPenetrated.isPlayer() || penetrationType!=PenetrationType.PENIS || orifice!=OrificeType.VAGINA || !characterPenetrating.equals(this)) {
+	public String getVirginityLossOrificeDescription(GameCharacter characterPenetrating, SexAreaPenetration penetrationType, GameCharacter characterPenetrated, SexAreaOrifice orifice){
+		if(!characterPenetrated.isPlayer() || penetrationType!=SexAreaPenetration.PENIS || orifice!=SexAreaOrifice.VAGINA || !characterPenetrating.equals(this)) {
 			return super.getVirginityLossOrificeDescription(characterPenetrating, penetrationType, characterPenetrated, orifice);
 		}
 		

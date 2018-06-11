@@ -3,8 +3,8 @@ package com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
-import com.lilithsthrone.game.sex.OrificeType;
-import com.lilithsthrone.game.sex.PenetrationType;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
@@ -24,8 +24,8 @@ public class PartnerSelfTailAnus {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.THREE_DIRTY,
-			PenetrationType.TAIL,
-			OrificeType.ANUS,
+			SexAreaPenetration.TAIL,
+			SexAreaOrifice.ANUS,
 			SexParticipantType.SELF) {
 		@Override
 		public String getActionTitle() {
@@ -57,8 +57,8 @@ public class PartnerSelfTailAnus {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.TWO_HORNY,
-			PenetrationType.TAIL,
-			OrificeType.ANUS,
+			SexAreaPenetration.TAIL,
+			SexAreaOrifice.ANUS,
 			SexParticipantType.SELF,
 			null,
 			SexPace.DOM_GENTLE) {
@@ -98,8 +98,8 @@ public class PartnerSelfTailAnus {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.TWO_HORNY,
-			PenetrationType.TAIL,
-			OrificeType.ANUS,
+			SexAreaPenetration.TAIL,
+			SexAreaOrifice.ANUS,
 			SexParticipantType.SELF,
 			null,
 			SexPace.DOM_NORMAL) {
@@ -139,8 +139,8 @@ public class PartnerSelfTailAnus {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.THREE_DIRTY,
-			PenetrationType.TAIL,
-			OrificeType.ANUS,
+			SexAreaPenetration.TAIL,
+			SexAreaOrifice.ANUS,
 			SexParticipantType.SELF,
 			null,
 			SexPace.DOM_ROUGH) {
@@ -180,8 +180,8 @@ public class PartnerSelfTailAnus {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.TWO_HORNY,
-			PenetrationType.TAIL,
-			OrificeType.ANUS,
+			SexAreaPenetration.TAIL,
+			SexAreaOrifice.ANUS,
 			SexParticipantType.SELF,
 			null,
 			SexPace.SUB_NORMAL) {
@@ -221,8 +221,8 @@ public class PartnerSelfTailAnus {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.THREE_DIRTY,
-			PenetrationType.TAIL,
-			OrificeType.ANUS,
+			SexAreaPenetration.TAIL,
+			SexAreaOrifice.ANUS,
 			SexParticipantType.SELF,
 			null,
 			SexPace.SUB_EAGER) {
@@ -262,8 +262,8 @@ public class PartnerSelfTailAnus {
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.TAIL,
-			OrificeType.ANUS,
+			SexAreaPenetration.TAIL,
+			SexAreaOrifice.ANUS,
 			SexParticipantType.SELF) {
 		@Override
 		public String getActionTitle() {

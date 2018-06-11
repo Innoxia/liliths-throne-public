@@ -45,7 +45,7 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.ClothingSet;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.LubricationType;
-import com.lilithsthrone.game.sex.OrificeType;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.slavery.SlaveJob;
 import com.lilithsthrone.main.Main;
@@ -4541,7 +4541,7 @@ public enum StatusEffect {
 		
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
-			int cumLost = OrificeType.VAGINA.getCharactersCumLossPerMinute(target)*minutesPassed;
+			int cumLost = SexAreaOrifice.VAGINA.getCharactersCumLossPerMinute(target)*minutesPassed;
 			
 			StringBuilder sb = new StringBuilder();
 			
@@ -4558,36 +4558,36 @@ public enum StatusEffect {
 				target.addDirtySlot(InventorySlot.VAGINA);
 			}
 			
-			target.drainTotalFluidsStored(OrificeType.VAGINA, cumLost);
+			target.drainTotalFluidsStored(SexAreaOrifice.VAGINA, cumLost);
 			
 			return sb.toString();
 		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			int cumLost = OrificeType.VAGINA.getCharactersCumLossPerMinute(target);
+			int cumLost = SexAreaOrifice.VAGINA.getCharactersCumLossPerMinute(target);
 			
-			if(target.isOrificePlugged(OrificeType.VAGINA)) {
+			if(target.isOrificePlugged(SexAreaOrifice.VAGINA)) {
 				if(target.isPlayer()) {
 					return "As you walk, you can feel the cum trapped within your recently-used pussy.</br>"
-							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(OrificeType.VAGINA)+"ml)]</br>"
+							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.VAGINA)+"ml)]</br>"
 							+ "[style.boldTerrible(Plugged Vagina:)] No cum is leaking out (although some is still being absorbed)!";
 				} else {
 					return UtilText.parse(target, 
 							"[npc.Name]'s [npc.asshole] has recently been filled with cum, before being plugged.</br>"
-							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(OrificeType.VAGINA)+"ml)]</br>"
+							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.VAGINA)+"ml)]</br>"
 							+ "[style.boldTerrible(Plugged Vagina:)] No cum is leaking out (although some is still being absorbed)!");
 				}
 				
 			} else {
 				if(target.isPlayer()) {
 					return "As you walk, you can feel slimy cum drooling out of your recently-used pussy.</br>"
-							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(OrificeType.VAGINA)+"ml)]</br>"
+							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.VAGINA)+"ml)]</br>"
 							+ "(-"+cumLost+"ml/minute)";
 				} else {
 					return UtilText.parse(target, 
 							"[npc.Name]'s [npc.pussy] has recently been filled with cum.</br>"
-							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(OrificeType.VAGINA)+"ml)]</br>"
+							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.VAGINA)+"ml)]</br>"
 							+ "(-"+cumLost+"ml/minute)");
 				}
 			}
@@ -4600,7 +4600,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return target.getTotalFluidInArea(OrificeType.VAGINA)>0;
+			return target.getTotalFluidInArea(SexAreaOrifice.VAGINA)>0;
 		}
 		
 		@Override
@@ -4610,7 +4610,7 @@ public enum StatusEffect {
 		
 		@Override
 		public String getSVGString(GameCharacter owner) {
-			return getCreampieSVGString(owner, OrificeType.VAGINA);
+			return getCreampieSVGString(owner, SexAreaOrifice.VAGINA);
 		}
 	},
 	
@@ -4648,7 +4648,7 @@ public enum StatusEffect {
 		
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
-			int cumLost = OrificeType.URETHRA_VAGINA.getCharactersCumLossPerMinute(target) * minutesPassed;
+			int cumLost = SexAreaOrifice.URETHRA_VAGINA.getCharactersCumLossPerMinute(target) * minutesPassed;
 			
 			StringBuilder sb = new StringBuilder();
 			
@@ -4665,23 +4665,23 @@ public enum StatusEffect {
 				target.addDirtySlot(InventorySlot.VAGINA);
 			}
 			
-			target.drainTotalFluidsStored(OrificeType.URETHRA_VAGINA, cumLost);
+			target.drainTotalFluidsStored(SexAreaOrifice.URETHRA_VAGINA, cumLost);
 			
 			return sb.toString();
 		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			int cumLost = OrificeType.URETHRA_VAGINA.getCharactersCumLossPerMinute(target);
+			int cumLost = SexAreaOrifice.URETHRA_VAGINA.getCharactersCumLossPerMinute(target);
 			
 			if(target.isPlayer()) {
 				return "As you walk, you can feel slimy cum drooling out of your pussy's recently-used urethra.</br>"
-						+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(OrificeType.URETHRA_VAGINA)+"ml)]</br>"
+						+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.URETHRA_VAGINA)+"ml)]</br>"
 						+ "(-"+cumLost+"ml/minute)";
 			} else {
 				return UtilText.parse(target, 
 						"[npc.Name]'s pussy's urethra has recently been filled with cum.</br>"
-						+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(OrificeType.URETHRA_VAGINA)+"ml)]</br>"
+						+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.URETHRA_VAGINA)+"ml)]</br>"
 						+ "(-"+cumLost+"ml/minute)");
 			}
 		}
@@ -4693,7 +4693,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return target.getTotalFluidInArea(OrificeType.URETHRA_VAGINA)>0;
+			return target.getTotalFluidInArea(SexAreaOrifice.URETHRA_VAGINA)>0;
 		}
 		
 		@Override
@@ -4703,7 +4703,7 @@ public enum StatusEffect {
 		
 		@Override
 		public String getSVGString(GameCharacter owner) {
-			return getCreampieSVGString(owner, OrificeType.URETHRA_VAGINA);
+			return getCreampieSVGString(owner, SexAreaOrifice.URETHRA_VAGINA);
 		}
 	},
 	
@@ -4741,7 +4741,7 @@ public enum StatusEffect {
 		
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
-			int cumLost = OrificeType.URETHRA_PENIS.getCharactersCumLossPerMinute(target) * minutesPassed;
+			int cumLost = SexAreaOrifice.URETHRA_PENIS.getCharactersCumLossPerMinute(target) * minutesPassed;
 			
 			StringBuilder sb = new StringBuilder();
 			
@@ -4758,23 +4758,23 @@ public enum StatusEffect {
 				target.addDirtySlot(InventorySlot.PENIS);
 			}
 			
-			target.drainTotalFluidsStored(OrificeType.URETHRA_PENIS, cumLost);
+			target.drainTotalFluidsStored(SexAreaOrifice.URETHRA_PENIS, cumLost);
 			
 			return sb.toString();
 		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			int cumLost = OrificeType.URETHRA_PENIS.getCharactersCumLossPerMinute(target);
+			int cumLost = SexAreaOrifice.URETHRA_PENIS.getCharactersCumLossPerMinute(target);
 			
 			if(target.isPlayer()) {
 				return "As you walk, you can feel slimy cum drooling out of your cock's recently-used urethra.</br>"
-						+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(OrificeType.URETHRA_PENIS)+"ml)]</br>"
+						+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.URETHRA_PENIS)+"ml)]</br>"
 						+ "(-"+cumLost+"ml/minute)";
 			} else {
 				return UtilText.parse(target, 
 						"[npc.Name]'s cock's urethra has recently been filled with cum.</br>"
-						+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(OrificeType.URETHRA_PENIS)+"ml)]</br>"
+						+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.URETHRA_PENIS)+"ml)]</br>"
 						+ "(-"+cumLost+"ml/minute)");
 			}
 		}
@@ -4786,7 +4786,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return target.getTotalFluidInArea(OrificeType.URETHRA_PENIS)>0;
+			return target.getTotalFluidInArea(SexAreaOrifice.URETHRA_PENIS)>0;
 		}
 		
 		@Override
@@ -4796,7 +4796,7 @@ public enum StatusEffect {
 		
 		@Override
 		public String getSVGString(GameCharacter owner) {
-			return getCreampieSVGString(owner, OrificeType.URETHRA_PENIS);
+			return getCreampieSVGString(owner, SexAreaOrifice.URETHRA_PENIS);
 		}
 	},
 	
@@ -4834,7 +4834,7 @@ public enum StatusEffect {
 		
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
-			int cumLost = OrificeType.ANUS.getCharactersCumLossPerMinute(target) * minutesPassed;
+			int cumLost = SexAreaOrifice.ANUS.getCharactersCumLossPerMinute(target) * minutesPassed;
 			
 			StringBuilder sb = new StringBuilder();
 			
@@ -4851,36 +4851,36 @@ public enum StatusEffect {
 				target.addDirtySlot(InventorySlot.ANUS);
 			}
 			
-			target.drainTotalFluidsStored(OrificeType.ANUS, cumLost);
+			target.drainTotalFluidsStored(SexAreaOrifice.ANUS, cumLost);
 			
 			return sb.toString();
 		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			int cumLost = OrificeType.ANUS.getCharactersCumLossPerMinute(target);
+			int cumLost = SexAreaOrifice.ANUS.getCharactersCumLossPerMinute(target);
 
-			if(target.isOrificePlugged(OrificeType.ANUS)) {
+			if(target.isOrificePlugged(SexAreaOrifice.ANUS)) {
 				if(target.isPlayer()) {
 					return "As you walk, you can feel the cum trapped within your recently-used asshole.</br>"
-							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(OrificeType.ANUS)+"ml)]</br>"
+							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.ANUS)+"ml)]</br>"
 							+ "[style.boldTerrible(Plugged Anus:)] No cum is leaking out (although some is still being absorbed)!";
 				} else {
 					return UtilText.parse(target, 
 							"[npc.Name]'s [npc.asshole] has recently been filled with cum, before being plugged.</br>"
-							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(OrificeType.ANUS)+"ml)]</br>"
+							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.ANUS)+"ml)]</br>"
 							+ "[style.boldTerrible(Plugged Anus:)] No cum is leaking out (although some is still being absorbed)!");
 				}
 				
 			} else {
 				if(target.isPlayer()) {
 					return "As you walk, you can feel cum drooling out of your recently-used asshole.</br>"
-							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(OrificeType.ANUS)+"ml)]</br>"
+							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.ANUS)+"ml)]</br>"
 							+ "(-"+cumLost+"ml/minute)";
 				} else {
 					return UtilText.parse(target, 
 							"[npc.Name]'s [npc.asshole] has recently been filled with cum.</br>"
-							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(OrificeType.ANUS)+"ml)]</br>"
+							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.ANUS)+"ml)]</br>"
 							+ "(-"+cumLost+"ml/minute)");
 				}
 			}
@@ -4893,7 +4893,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return target.getTotalFluidInArea(OrificeType.ANUS)>0;
+			return target.getTotalFluidInArea(SexAreaOrifice.ANUS)>0;
 		}
 		
 		@Override
@@ -4903,7 +4903,7 @@ public enum StatusEffect {
 		
 		@Override
 		public String getSVGString(GameCharacter owner) {
-			return getCreampieSVGString(owner, OrificeType.ANUS);
+			return getCreampieSVGString(owner, SexAreaOrifice.ANUS);
 		}
 	},
 	
@@ -4941,7 +4941,7 @@ public enum StatusEffect {
 		
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
-			int cumLost = OrificeType.NIPPLE.getCharactersCumLossPerMinute(target) * minutesPassed;
+			int cumLost = SexAreaOrifice.NIPPLE.getCharactersCumLossPerMinute(target) * minutesPassed;
 			
 			StringBuilder sb = new StringBuilder();
 			
@@ -4958,36 +4958,36 @@ public enum StatusEffect {
 				target.addDirtySlot(InventorySlot.NIPPLE);
 			}
 			
-			target.drainTotalFluidsStored(OrificeType.NIPPLE, cumLost);
+			target.drainTotalFluidsStored(SexAreaOrifice.NIPPLE, cumLost);
 			
 			return sb.toString();
 		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			int cumLost = OrificeType.NIPPLE.getCharactersCumLossPerMinute(target);
+			int cumLost = SexAreaOrifice.NIPPLE.getCharactersCumLossPerMinute(target);
 			
-			if(target.isOrificePlugged(OrificeType.NIPPLE)) {
+			if(target.isOrificePlugged(SexAreaOrifice.NIPPLE)) {
 				if(target.isPlayer()) {
 					return "As you walk, you can feel the cum trapped within your recently-used nipples.</br>"
-							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(OrificeType.NIPPLE)+"ml)]</br>"
+							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.NIPPLE)+"ml)]</br>"
 							+ "[style.boldTerrible(Plugged Nipples:)] No cum is leaking out (although some is still being absorbed)!";
 				} else {
 					return UtilText.parse(target, 
 							"[npc.Name]'s [npc.nipples] have recently been filled with cum, before being plugged.</br>"
-							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(OrificeType.NIPPLE)+"ml)]</br>"
+							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.NIPPLE)+"ml)]</br>"
 							+ "[style.boldTerrible(Plugged Nipples:)] No cum is leaking out (although some is still being absorbed)!");
 				}
 				
 			} else {
 				if(target.isPlayer()) {
 					return "As you walk, you can feel cum drooling out of your recently-used nipples.</br>"
-							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(OrificeType.NIPPLE)+"ml)]</br>"
+							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.NIPPLE)+"ml)]</br>"
 							+ "(-"+cumLost+"ml/minute)";
 				} else {
 					return UtilText.parse(target, 
 							"[npc.Name]'s [npc.nipples] have recently been filled with cum.</br>"
-							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(OrificeType.NIPPLE)+"ml)]</br>"
+							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.NIPPLE)+"ml)]</br>"
 							+ "(-"+cumLost+"ml/minute)");
 				}
 			}
@@ -5000,7 +5000,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return target.getTotalFluidInArea(OrificeType.NIPPLE)>0;
+			return target.getTotalFluidInArea(SexAreaOrifice.NIPPLE)>0;
 		}
 		
 		@Override
@@ -5010,7 +5010,7 @@ public enum StatusEffect {
 		
 		@Override
 		public String getSVGString(GameCharacter owner) {
-			return getCreampieSVGString(owner, OrificeType.NIPPLE);
+			return getCreampieSVGString(owner, SexAreaOrifice.NIPPLE);
 		}
 	},
 	
@@ -5049,9 +5049,9 @@ public enum StatusEffect {
 		
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
-			int cumLost = OrificeType.MOUTH.getCharactersCumLossPerMinute(target) * minutesPassed;
+			int cumLost = SexAreaOrifice.MOUTH.getCharactersCumLossPerMinute(target) * minutesPassed;
 			
-			target.drainTotalFluidsStored(OrificeType.MOUTH, cumLost);
+			target.drainTotalFluidsStored(SexAreaOrifice.MOUTH, cumLost);
 			
 			return "";
 		}
@@ -5060,12 +5060,12 @@ public enum StatusEffect {
 		public String getDescription(GameCharacter target) {
 			if(target.isPlayer()) {
 				return "You've recently swallowed a load of cum.</br>"
-						+ "Current cum in stomach: [style.colourSex("+target.getTotalFluidInArea(OrificeType.MOUTH)+"ml)]</br>"
+						+ "Current cum in stomach: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.MOUTH)+"ml)]</br>"
 						+ "(-2ml/minute)";
 			} else {
 				return UtilText.parse(target, 
 						"[npc.Name]'s recently swallowed a load of cum.</br>"
-						+ "Current cum in stomach: [style.colourSex("+target.getTotalFluidInArea(OrificeType.MOUTH)+"ml)]</br>"
+						+ "Current cum in stomach: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.MOUTH)+"ml)]</br>"
 						+ "(-2ml/minute)");
 			}
 		}
@@ -5077,7 +5077,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return target.getTotalFluidInArea(OrificeType.MOUTH)>0;
+			return target.getTotalFluidInArea(SexAreaOrifice.MOUTH)>0;
 		}
 		
 		@Override
@@ -5087,7 +5087,7 @@ public enum StatusEffect {
 		
 		@Override
 		public String getSVGString(GameCharacter owner) {
-			return getCreampieSVGString(owner, OrificeType.MOUTH);
+			return getCreampieSVGString(owner, SexAreaOrifice.MOUTH);
 		}
 	},
 	
@@ -5119,7 +5119,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			int cumAmount = target.getTotalFluidInArea(OrificeType.ANUS) + target.getTotalFluidInArea(OrificeType.MOUTH) + target.getTotalFluidInArea(OrificeType.VAGINA);
+			int cumAmount = target.getTotalFluidInArea(SexAreaOrifice.ANUS) + target.getTotalFluidInArea(SexAreaOrifice.MOUTH) + target.getTotalFluidInArea(SexAreaOrifice.VAGINA);
 			return cumAmount >= CumProduction.SEVEN_MONSTROUS.getMinimumValue()
 					&& cumAmount < CumProduction.SEVEN_MONSTROUS.getMedianValue()
 					&& Main.getProperties().hasValue(PropertyValue.inflationContent);
@@ -5159,7 +5159,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			int cumAmount = target.getTotalFluidInArea(OrificeType.ANUS) + target.getTotalFluidInArea(OrificeType.MOUTH) + target.getTotalFluidInArea(OrificeType.VAGINA);
+			int cumAmount = target.getTotalFluidInArea(SexAreaOrifice.ANUS) + target.getTotalFluidInArea(SexAreaOrifice.MOUTH) + target.getTotalFluidInArea(SexAreaOrifice.VAGINA);
 			return cumAmount >= CumProduction.SEVEN_MONSTROUS.getMedianValue()
 					&& cumAmount < CumProduction.SEVEN_MONSTROUS.getMaximumValue()
 					&& Main.getProperties().hasValue(PropertyValue.inflationContent);
@@ -5199,7 +5199,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			int cumAmount = target.getTotalFluidInArea(OrificeType.ANUS) + target.getTotalFluidInArea(OrificeType.MOUTH) + target.getTotalFluidInArea(OrificeType.VAGINA);
+			int cumAmount = target.getTotalFluidInArea(SexAreaOrifice.ANUS) + target.getTotalFluidInArea(SexAreaOrifice.MOUTH) + target.getTotalFluidInArea(SexAreaOrifice.VAGINA);
 			return cumAmount >= CumProduction.SEVEN_MONSTROUS.getMaximumValue()
 					&& Main.getProperties().hasValue(PropertyValue.inflationContent);
 		}
@@ -5238,7 +5238,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			int cumAmount = target.getTotalFluidInArea(OrificeType.NIPPLE);
+			int cumAmount = target.getTotalFluidInArea(SexAreaOrifice.NIPPLE);
 			return cumAmount >= CumProduction.SEVEN_MONSTROUS.getMinimumValue()
 					&& cumAmount < CumProduction.SEVEN_MONSTROUS.getMedianValue()
 					&& Main.getProperties().hasValue(PropertyValue.inflationContent);
@@ -5278,7 +5278,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			int cumAmount = target.getTotalFluidInArea(OrificeType.NIPPLE);
+			int cumAmount = target.getTotalFluidInArea(SexAreaOrifice.NIPPLE);
 			return cumAmount >= CumProduction.SEVEN_MONSTROUS.getMedianValue()
 					&& cumAmount < CumProduction.SEVEN_MONSTROUS.getMaximumValue()
 					&& Main.getProperties().hasValue(PropertyValue.inflationContent);
@@ -5318,7 +5318,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			int cumAmount = target.getTotalFluidInArea(OrificeType.NIPPLE);
+			int cumAmount = target.getTotalFluidInArea(SexAreaOrifice.NIPPLE);
 			return cumAmount >= CumProduction.SEVEN_MONSTROUS.getMaximumValue()
 					&& Main.getProperties().hasValue(PropertyValue.inflationContent);
 		}
@@ -10107,23 +10107,23 @@ public enum StatusEffect {
 		
 		@Override
 		public float getArousalPerTurnSelf(GameCharacter target) {
-			return getOrificeArousalPerTurnSelf(target, OrificeType.ANUS);
+			return getOrificeArousalPerTurnSelf(target, SexAreaOrifice.ANUS);
 		}
 
 		@Override
 		public float getArousalPerTurnPartner(GameCharacter self, GameCharacter target) {
-			return getOrificeArousalPerTurnPartner(self, target, OrificeType.ANUS);
+			return getOrificeArousalPerTurnPartner(self, target, SexAreaOrifice.ANUS);
 		}
 				
 		@Override
 		public List<String> getModifiersAsStringList(GameCharacter target) {
-			return getOrificeModifiersAsStringList(target, OrificeType.ANUS);
+			return getOrificeModifiersAsStringList(target, SexAreaOrifice.ANUS);
 		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
 			descriptionSB = new StringBuilder();
-			OrificeType type = OrificeType.ANUS;
+			SexAreaOrifice type = SexAreaOrifice.ANUS;
 			
 			descriptionSB.append("<p style='text-align:center;margin-top:0;'>");
 
@@ -10198,7 +10198,7 @@ public enum StatusEffect {
 				descriptionSB.append("<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
 			}
 			
-			appendOrificeAdditionGenericDescriptions(target, OrificeType.ANUS, target.isPlayer()?"Your [pc.asshole]":UtilText.parse(target, "[npc.Name]'s [npc.asshole]"), descriptionSB);
+			appendOrificeAdditionGenericDescriptions(target, SexAreaOrifice.ANUS, target.isPlayer()?"Your [pc.asshole]":UtilText.parse(target, "[npc.Name]'s [npc.asshole]"), descriptionSB);
 			
 			if(target.isPlayer()) {
 				if(penetrator!=null && !penetrator.isPlayer()) {
@@ -10223,7 +10223,7 @@ public enum StatusEffect {
 		
 		@Override
 		public String getSVGString(GameCharacter owner) {
-			return getOrificeSVGString(owner, OrificeType.ANUS, SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaAnus());
+			return getOrificeSVGString(owner, SexAreaOrifice.ANUS, SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaAnus());
 		}
 	},
 
@@ -10238,23 +10238,23 @@ public enum StatusEffect {
 		
 		@Override
 		public float getArousalPerTurnSelf(GameCharacter target) {
-			return getOrificeArousalPerTurnSelf(target, OrificeType.ASS);
+			return getOrificeArousalPerTurnSelf(target, SexAreaOrifice.ASS);
 		}
 
 		@Override
 		public float getArousalPerTurnPartner(GameCharacter self, GameCharacter target) {
-			return getOrificeArousalPerTurnPartner(self, target, OrificeType.ASS);
+			return getOrificeArousalPerTurnPartner(self, target, SexAreaOrifice.ASS);
 		}
 				
 		@Override
 		public List<String> getModifiersAsStringList(GameCharacter target) {
-			return getOrificeModifiersAsStringList(target, OrificeType.ASS);
+			return getOrificeModifiersAsStringList(target, SexAreaOrifice.ASS);
 		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
 			descriptionSB = new StringBuilder();
-			OrificeType type = OrificeType.ASS;
+			SexAreaOrifice type = SexAreaOrifice.ASS;
 			
 			descriptionSB.append("<p style='text-align:center;margin-top:0;'>");
 
@@ -10329,7 +10329,7 @@ public enum StatusEffect {
 				descriptionSB.append("<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
 			}
 			
-			appendOrificeAdditionGenericDescriptions(target, OrificeType.ASS, target.isPlayer()?"Your [pc.ass]":UtilText.parse(target, "[npc.Name]'s [npc.ass]"), descriptionSB);
+			appendOrificeAdditionGenericDescriptions(target, SexAreaOrifice.ASS, target.isPlayer()?"Your [pc.ass]":UtilText.parse(target, "[npc.Name]'s [npc.ass]"), descriptionSB);
 			
 			if(target.isPlayer()) {
 				if(penetrator!=null && !penetrator.isPlayer()) {
@@ -10354,7 +10354,7 @@ public enum StatusEffect {
 		
 		@Override
 		public String getSVGString(GameCharacter owner) {
-			return getOrificeSVGString(owner, OrificeType.ASS, SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaAss());
+			return getOrificeSVGString(owner, SexAreaOrifice.ASS, SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaAss());
 		}
 	},
 	
@@ -10369,23 +10369,23 @@ public enum StatusEffect {
 
 		@Override
 		public float getArousalPerTurnSelf(GameCharacter target) {
-			return getOrificeArousalPerTurnSelf(target, OrificeType.MOUTH);
+			return getOrificeArousalPerTurnSelf(target, SexAreaOrifice.MOUTH);
 		}
 
 		@Override
 		public float getArousalPerTurnPartner(GameCharacter self, GameCharacter target) {
-			return getOrificeArousalPerTurnPartner(self, target, OrificeType.MOUTH);
+			return getOrificeArousalPerTurnPartner(self, target, SexAreaOrifice.MOUTH);
 		}
 				
 		@Override
 		public List<String> getModifiersAsStringList(GameCharacter target) {
-			return getOrificeModifiersAsStringList(target, OrificeType.MOUTH);
+			return getOrificeModifiersAsStringList(target, SexAreaOrifice.MOUTH);
 		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
 			descriptionSB = new StringBuilder();
-			OrificeType type = OrificeType.MOUTH;
+			SexAreaOrifice type = SexAreaOrifice.MOUTH;
 			
 			descriptionSB.append("<p style='text-align:center;margin-top:0;'>");
 
@@ -10459,7 +10459,7 @@ public enum StatusEffect {
 				descriptionSB.append("<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
 			}
 			
-			appendOrificeAdditionGenericDescriptions(target, OrificeType.MOUTH, target.isPlayer()?"Your mouth":UtilText.parse(target, "[npc.Name]'s mouth"), descriptionSB);
+			appendOrificeAdditionGenericDescriptions(target, SexAreaOrifice.MOUTH, target.isPlayer()?"Your mouth":UtilText.parse(target, "[npc.Name]'s mouth"), descriptionSB);
 			
 			if(target.isPlayer()) {
 				if(penetrator!=null && !penetrator.isPlayer()) {
@@ -10484,7 +10484,7 @@ public enum StatusEffect {
 		
 		@Override
 		public String getSVGString(GameCharacter owner) {
-			return getOrificeSVGString(owner, OrificeType.MOUTH, SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaMouth());
+			return getOrificeSVGString(owner, SexAreaOrifice.MOUTH, SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaMouth());
 		}
 	},
 	
@@ -10508,23 +10508,23 @@ public enum StatusEffect {
 
 		@Override
 		public float getArousalPerTurnSelf(GameCharacter target) {
-			return getOrificeArousalPerTurnSelf(target, OrificeType.BREAST);
+			return getOrificeArousalPerTurnSelf(target, SexAreaOrifice.BREAST);
 		}
 
 		@Override
 		public float getArousalPerTurnPartner(GameCharacter self, GameCharacter target) {
-			return getOrificeArousalPerTurnPartner(self, target, OrificeType.BREAST);
+			return getOrificeArousalPerTurnPartner(self, target, SexAreaOrifice.BREAST);
 		}
 				
 		@Override
 		public List<String> getModifiersAsStringList(GameCharacter target) {
-			return getOrificeModifiersAsStringList(target, OrificeType.BREAST);
+			return getOrificeModifiersAsStringList(target, SexAreaOrifice.BREAST);
 		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
 			descriptionSB = new StringBuilder();
-			OrificeType type = OrificeType.BREAST;
+			SexAreaOrifice type = SexAreaOrifice.BREAST;
 			
 			descriptionSB.append("<p style='text-align:center;margin-top:0;'>");
 
@@ -10598,7 +10598,7 @@ public enum StatusEffect {
 				descriptionSB.append("<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
 			}
 			
-			appendOrificeAdditionGenericDescriptions(target, OrificeType.BREAST, target.isPlayer()?"Your [pc.breasts]":UtilText.parse(target, "[npc.Name]'s [npc.breasts]"), descriptionSB);
+			appendOrificeAdditionGenericDescriptions(target, SexAreaOrifice.BREAST, target.isPlayer()?"Your [pc.breasts]":UtilText.parse(target, "[npc.Name]'s [npc.breasts]"), descriptionSB);
 			
 			if(target.isPlayer()) {
 				if(penetrator!=null && !penetrator.isPlayer()) {
@@ -10623,7 +10623,7 @@ public enum StatusEffect {
 		
 		@Override
 		public String getSVGString(GameCharacter owner) {
-			return getOrificeSVGString(owner, OrificeType.BREAST, owner.hasBreasts()?SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaBreasts():SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaBreastsFlat());
+			return getOrificeSVGString(owner, SexAreaOrifice.BREAST, owner.hasBreasts()?SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaBreasts():SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaBreastsFlat());
 		}
 	},
 	
@@ -10638,23 +10638,23 @@ public enum StatusEffect {
 
 		@Override
 		public float getArousalPerTurnSelf(GameCharacter target) {
-			return getOrificeArousalPerTurnSelf(target, OrificeType.NIPPLE);
+			return getOrificeArousalPerTurnSelf(target, SexAreaOrifice.NIPPLE);
 		}
 
 		@Override
 		public float getArousalPerTurnPartner(GameCharacter self, GameCharacter target) {
-			return getOrificeArousalPerTurnPartner(self, target, OrificeType.NIPPLE);
+			return getOrificeArousalPerTurnPartner(self, target, SexAreaOrifice.NIPPLE);
 		}
 				
 		@Override
 		public List<String> getModifiersAsStringList(GameCharacter target) {
-			return getOrificeModifiersAsStringList(target, OrificeType.NIPPLE);
+			return getOrificeModifiersAsStringList(target, SexAreaOrifice.NIPPLE);
 		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
 			descriptionSB = new StringBuilder();
-			OrificeType type = OrificeType.NIPPLE;
+			SexAreaOrifice type = SexAreaOrifice.NIPPLE;
 			
 			descriptionSB.append("<p style='text-align:center;margin-top:0;'>");
 
@@ -10728,7 +10728,7 @@ public enum StatusEffect {
 				descriptionSB.append("<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
 			}
 			
-			appendOrificeAdditionGenericDescriptions(target, OrificeType.NIPPLE, target.isPlayer()?"Your [pc.nipples]":UtilText.parse(target, "[npc.Name]'s [npc.nipples]"), descriptionSB);
+			appendOrificeAdditionGenericDescriptions(target, SexAreaOrifice.NIPPLE, target.isPlayer()?"Your [pc.nipples]":UtilText.parse(target, "[npc.Name]'s [npc.nipples]"), descriptionSB);
 			
 			if(target.isPlayer()) {
 				if(penetrator!=null && !penetrator.isPlayer()) {
@@ -10753,7 +10753,7 @@ public enum StatusEffect {
 		
 		@Override
 		public String getSVGString(GameCharacter owner) {
-			return getOrificeSVGString(owner, OrificeType.NIPPLE, SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaNipple());
+			return getOrificeSVGString(owner, SexAreaOrifice.NIPPLE, SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaNipple());
 		}
 	},
 	
@@ -10768,23 +10768,23 @@ public enum StatusEffect {
 
 		@Override
 		public float getArousalPerTurnSelf(GameCharacter target) {
-			return getOrificeArousalPerTurnSelf(target, OrificeType.URETHRA_PENIS);
+			return getOrificeArousalPerTurnSelf(target, SexAreaOrifice.URETHRA_PENIS);
 		}
 
 		@Override
 		public float getArousalPerTurnPartner(GameCharacter self, GameCharacter target) {
-			return getOrificeArousalPerTurnPartner(self, target, OrificeType.URETHRA_PENIS);
+			return getOrificeArousalPerTurnPartner(self, target, SexAreaOrifice.URETHRA_PENIS);
 		}
 				
 		@Override
 		public List<String> getModifiersAsStringList(GameCharacter target) {
-			return getOrificeModifiersAsStringList(target, OrificeType.URETHRA_PENIS);
+			return getOrificeModifiersAsStringList(target, SexAreaOrifice.URETHRA_PENIS);
 		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
 			descriptionSB = new StringBuilder();
-			OrificeType type = OrificeType.URETHRA_PENIS;
+			SexAreaOrifice type = SexAreaOrifice.URETHRA_PENIS;
 			
 			descriptionSB.append("<p style='text-align:center;margin-top:0;'>");
 
@@ -10858,7 +10858,7 @@ public enum StatusEffect {
 				descriptionSB.append("<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
 			}
 			
-			appendOrificeAdditionGenericDescriptions(target, OrificeType.URETHRA_PENIS, target.isPlayer()?"Your urethra":UtilText.parse(target, "[npc.Name]'s urethra"), descriptionSB);
+			appendOrificeAdditionGenericDescriptions(target, SexAreaOrifice.URETHRA_PENIS, target.isPlayer()?"Your urethra":UtilText.parse(target, "[npc.Name]'s urethra"), descriptionSB);
 			
 			if(target.isPlayer()) {
 				if(penetrator!=null && !penetrator.isPlayer()) {
@@ -10883,7 +10883,7 @@ public enum StatusEffect {
 		
 		@Override
 		public String getSVGString(GameCharacter owner) {
-			return getOrificeSVGString(owner, OrificeType.URETHRA_PENIS, SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaUrethraPenis());
+			return getOrificeSVGString(owner, SexAreaOrifice.URETHRA_PENIS, SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaUrethraPenis());
 		}
 	},
 	
@@ -10898,23 +10898,23 @@ public enum StatusEffect {
 
 		@Override
 		public float getArousalPerTurnSelf(GameCharacter target) {
-			return getOrificeArousalPerTurnSelf(target, OrificeType.URETHRA_VAGINA);
+			return getOrificeArousalPerTurnSelf(target, SexAreaOrifice.URETHRA_VAGINA);
 		}
 
 		@Override
 		public float getArousalPerTurnPartner(GameCharacter self, GameCharacter target) {
-			return getOrificeArousalPerTurnPartner(self, target, OrificeType.URETHRA_VAGINA);
+			return getOrificeArousalPerTurnPartner(self, target, SexAreaOrifice.URETHRA_VAGINA);
 		}
 				
 		@Override
 		public List<String> getModifiersAsStringList(GameCharacter target) {
-			return getOrificeModifiersAsStringList(target, OrificeType.URETHRA_VAGINA);
+			return getOrificeModifiersAsStringList(target, SexAreaOrifice.URETHRA_VAGINA);
 		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
 			descriptionSB = new StringBuilder();
-			OrificeType type = OrificeType.URETHRA_VAGINA;
+			SexAreaOrifice type = SexAreaOrifice.URETHRA_VAGINA;
 			
 			descriptionSB.append("<p style='text-align:center;margin-top:0;'>");
 
@@ -10988,7 +10988,7 @@ public enum StatusEffect {
 				descriptionSB.append("<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
 			}
 			
-			appendOrificeAdditionGenericDescriptions(target, OrificeType.URETHRA_VAGINA, target.isPlayer()?"Your urethra":UtilText.parse(target, "[npc.Name]'s urethra"), descriptionSB);
+			appendOrificeAdditionGenericDescriptions(target, SexAreaOrifice.URETHRA_VAGINA, target.isPlayer()?"Your urethra":UtilText.parse(target, "[npc.Name]'s urethra"), descriptionSB);
 			
 			if(target.isPlayer()) {
 				if(penetrator!=null && !penetrator.isPlayer()) {
@@ -11013,7 +11013,7 @@ public enum StatusEffect {
 		
 		@Override
 		public String getSVGString(GameCharacter owner) {
-			return getOrificeSVGString(owner, OrificeType.URETHRA_VAGINA, SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaUrethraVagina());
+			return getOrificeSVGString(owner, SexAreaOrifice.URETHRA_VAGINA, SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaUrethraVagina());
 		}
 	},
 	
@@ -11028,23 +11028,23 @@ public enum StatusEffect {
 
 		@Override
 		public float getArousalPerTurnSelf(GameCharacter target) {
-			return getOrificeArousalPerTurnSelf(target, OrificeType.VAGINA);
+			return getOrificeArousalPerTurnSelf(target, SexAreaOrifice.VAGINA);
 		}
 
 		@Override
 		public float getArousalPerTurnPartner(GameCharacter self, GameCharacter target) {
-			return getOrificeArousalPerTurnPartner(self, target, OrificeType.VAGINA);
+			return getOrificeArousalPerTurnPartner(self, target, SexAreaOrifice.VAGINA);
 		}
 				
 		@Override
 		public List<String> getModifiersAsStringList(GameCharacter target) {
-			return getOrificeModifiersAsStringList(target, OrificeType.VAGINA);
+			return getOrificeModifiersAsStringList(target, SexAreaOrifice.VAGINA);
 		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
 			descriptionSB = new StringBuilder();
-			OrificeType type = OrificeType.VAGINA;
+			SexAreaOrifice type = SexAreaOrifice.VAGINA;
 			
 			descriptionSB.append("<p style='text-align:center;margin-top:0;'>");
 
@@ -11118,7 +11118,7 @@ public enum StatusEffect {
 				descriptionSB.append("<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
 			}
 			
-			appendOrificeAdditionGenericDescriptions(target, OrificeType.VAGINA, target.isPlayer()?"Your [pc.pussy]":UtilText.parse(target, "[npc.Name]'s [npc.pussy]"), descriptionSB);
+			appendOrificeAdditionGenericDescriptions(target, SexAreaOrifice.VAGINA, target.isPlayer()?"Your [pc.pussy]":UtilText.parse(target, "[npc.Name]'s [npc.pussy]"), descriptionSB);
 			
 			if(target.isPlayer()) {
 				if(penetrator!=null && !penetrator.isPlayer()) {
@@ -11148,7 +11148,7 @@ public enum StatusEffect {
 		
 		@Override
 		public String getSVGString(GameCharacter owner) {
-			return getOrificeSVGString(owner, OrificeType.VAGINA, SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaVagina());
+			return getOrificeSVGString(owner, SexAreaOrifice.VAGINA, SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaVagina());
 		}
 	},
 	
@@ -11163,23 +11163,23 @@ public enum StatusEffect {
 
 		@Override
 		public float getArousalPerTurnSelf(GameCharacter target) {
-			return getOrificeArousalPerTurnSelf(target, OrificeType.THIGHS);
+			return getOrificeArousalPerTurnSelf(target, SexAreaOrifice.THIGHS);
 		}
 
 		@Override
 		public float getArousalPerTurnPartner(GameCharacter self, GameCharacter target) {
-			return getOrificeArousalPerTurnPartner(self, target, OrificeType.THIGHS);
+			return getOrificeArousalPerTurnPartner(self, target, SexAreaOrifice.THIGHS);
 		}
 				
 		@Override
 		public List<String> getModifiersAsStringList(GameCharacter target) {
-			return getOrificeModifiersAsStringList(target, OrificeType.THIGHS);
+			return getOrificeModifiersAsStringList(target, SexAreaOrifice.THIGHS);
 		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
 			descriptionSB = new StringBuilder();
-			OrificeType type = OrificeType.THIGHS;
+			SexAreaOrifice type = SexAreaOrifice.THIGHS;
 			
 			descriptionSB.append("<p style='text-align:center;margin-top:0;'>");
 
@@ -11253,7 +11253,7 @@ public enum StatusEffect {
 				descriptionSB.append("<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
 			}
 			
-			appendOrificeAdditionGenericDescriptions(target, OrificeType.THIGHS, target.isPlayer()?"Your [pc.thighs]":UtilText.parse(target, "[npc.Name]'s [npc.thighs]"), descriptionSB);
+			appendOrificeAdditionGenericDescriptions(target, SexAreaOrifice.THIGHS, target.isPlayer()?"Your [pc.thighs]":UtilText.parse(target, "[npc.Name]'s [npc.thighs]"), descriptionSB);
 			
 			if(target.isPlayer()) {
 				if(penetrator!=null && !penetrator.isPlayer()) {
@@ -11278,7 +11278,7 @@ public enum StatusEffect {
 		
 		@Override
 		public String getSVGString(GameCharacter owner) {
-			return getOrificeSVGString(owner, OrificeType.THIGHS, SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaThighs());
+			return getOrificeSVGString(owner, SexAreaOrifice.THIGHS, SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaThighs());
 		}
 	};
 
@@ -11464,7 +11464,7 @@ public enum StatusEffect {
 	
 	// Helper methods for sex effects:
 	
-	public static float getOrificeArousalPerTurnSelf(GameCharacter target, OrificeType orifice) {
+	public static float getOrificeArousalPerTurnSelf(GameCharacter target, SexAreaOrifice orifice) {
 		float arousal = 0;
 		
 		if(Sex.getPenetrationTypeInOrifice(target, orifice) != null) {
@@ -11484,7 +11484,7 @@ public enum StatusEffect {
 		return arousal;
 	}
 	
-	public float getOrificeArousalPerTurnPartner(GameCharacter self, GameCharacter target, OrificeType orifice) {
+	public float getOrificeArousalPerTurnPartner(GameCharacter self, GameCharacter target, SexAreaOrifice orifice) {
 		float arousal = 0;
 		
 		if(Sex.getPenetrationTypeInOrifice(self, orifice)!=null && Sex.getPenetratingCharacterUsingOrifice(self, orifice).equals(target)) {
@@ -11504,7 +11504,7 @@ public enum StatusEffect {
 		return arousal;
 	}
 	
-	public List<String> getOrificeModifiersAsStringList(GameCharacter target, OrificeType orifice) {
+	public List<String> getOrificeModifiersAsStringList(GameCharacter target, SexAreaOrifice orifice) {
 		modifiersList.clear();
 		
 		String targetName = target.isPlayer()?"your":UtilText.parse(target, "[npc.name]'s");
@@ -11543,7 +11543,7 @@ public enum StatusEffect {
 		return modifiersList;
 	}
 	
-	public void appendOrificeAdditionGenericDescriptions(GameCharacter owner, OrificeType orificeType, String orificeName, StringBuilder stringBuilderToAppendTo) {
+	public void appendOrificeAdditionGenericDescriptions(GameCharacter owner, SexAreaOrifice orificeType, String orificeName, StringBuilder stringBuilderToAppendTo) {
 		
 		if(Sex.getAreasCurrentlyStretching(owner).contains(orificeType)) {
 			stringBuilderToAppendTo.append("</br>"+orificeName+" "+(orificeType.isPlural()?"are":"is")+" being <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>stretched</b>!");
@@ -11586,7 +11586,7 @@ public enum StatusEffect {
 		stringBuilderToAppendTo.append("</p>");
 	}
 	
-	public String getOrificeSVGString(GameCharacter owner, OrificeType orifice, String baseSVG) {
+	public String getOrificeSVGString(GameCharacter owner, SexAreaOrifice orifice, String baseSVG) {
 		SVGImageSB = new StringBuilder();
 		
 		SVGImageSB.append(baseSVG);
@@ -11627,7 +11627,7 @@ public enum StatusEffect {
 		return SVGImageSB.toString();
 	}
 	
-	public String getCreampieSVGString(GameCharacter owner, OrificeType orifice) {
+	public String getCreampieSVGString(GameCharacter owner, SexAreaOrifice orifice) {
 		SVGImageSB = new StringBuilder();
 		
 		if(isCumEffectPositive(owner)) {

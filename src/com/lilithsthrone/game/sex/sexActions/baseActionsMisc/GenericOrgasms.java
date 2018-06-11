@@ -16,8 +16,8 @@ import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.LilayasRoom;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.OrgasmCumTarget;
-import com.lilithsthrone.game.sex.OrificeType;
-import com.lilithsthrone.game.sex.PenetrationType;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexFlags;
 import com.lilithsthrone.game.sex.SexPace;
@@ -38,10 +38,10 @@ public class GenericOrgasms {
 	
 	
 	private static boolean isTakingCock(GameCharacter character) {
-		return ((Sex.getPenetrationTypeInOrifice(character, OrificeType.VAGINA) == PenetrationType.PENIS && !Sex.getPenetratingCharacterUsingOrifice(character, OrificeType.VAGINA).equals(character))
-				|| (Sex.getPenetrationTypeInOrifice(character, OrificeType.ANUS) == PenetrationType.PENIS && !Sex.getPenetratingCharacterUsingOrifice(character, OrificeType.ANUS).equals(character))
-				|| (Sex.getPenetrationTypeInOrifice(character, OrificeType.NIPPLE) == PenetrationType.PENIS && !Sex.getPenetratingCharacterUsingOrifice(character, OrificeType.NIPPLE).equals(character))
-				|| (Sex.getPenetrationTypeInOrifice(character, OrificeType.MOUTH) == PenetrationType.PENIS && !Sex.getPenetratingCharacterUsingOrifice(character, OrificeType.MOUTH).equals(character)));
+		return ((Sex.getPenetrationTypeInOrifice(character, SexAreaOrifice.VAGINA) == SexAreaPenetration.PENIS && !Sex.getPenetratingCharacterUsingOrifice(character, SexAreaOrifice.VAGINA).equals(character))
+				|| (Sex.getPenetrationTypeInOrifice(character, SexAreaOrifice.ANUS) == SexAreaPenetration.PENIS && !Sex.getPenetratingCharacterUsingOrifice(character, SexAreaOrifice.ANUS).equals(character))
+				|| (Sex.getPenetrationTypeInOrifice(character, SexAreaOrifice.NIPPLE) == SexAreaPenetration.PENIS && !Sex.getPenetratingCharacterUsingOrifice(character, SexAreaOrifice.NIPPLE).equals(character))
+				|| (Sex.getPenetrationTypeInOrifice(character, SexAreaOrifice.MOUTH) == SexAreaPenetration.PENIS && !Sex.getPenetratingCharacterUsingOrifice(character, SexAreaOrifice.MOUTH).equals(character)));
 		
 	}
 	
@@ -226,10 +226,10 @@ public class GenericOrgasms {
 		genericOrgasmSB.append(getPositionPreparation(characterOrgasming));
 		
 		GameCharacter characterPenetrated = null;
-		OrificeType orificePenetrated = null;
-		if(!Sex.getCharactersBeingPenetratedBy(characterOrgasming, PenetrationType.PENIS).isEmpty()) {
-			characterPenetrated = Sex.getCharactersBeingPenetratedBy(characterOrgasming, PenetrationType.PENIS).get(0);
-			orificePenetrated = Sex.getOrificesBeingPenetratedBy(characterOrgasming, PenetrationType.PENIS, characterPenetrated).get(0);
+		SexAreaOrifice orificePenetrated = null;
+		if(!Sex.getCharactersBeingPenetratedBy(characterOrgasming, SexAreaPenetration.PENIS).isEmpty()) {
+			characterPenetrated = Sex.getCharactersBeingPenetratedBy(characterOrgasming, SexAreaPenetration.PENIS).get(0);
+			orificePenetrated = Sex.getOrificesBeingPenetratedBy(characterOrgasming, SexAreaPenetration.PENIS, characterPenetrated).get(0);
 		}
 		
 		if(characterPenetrated==null || cumTarget!=OrgasmCumTarget.INSIDE) {
@@ -491,18 +491,18 @@ public class GenericOrgasms {
 			
 			switch(orificePenetrated) {
 				case ANUS: case NIPPLE: case VAGINA: case URETHRA_PENIS: case URETHRA_VAGINA:
-					String orificeName = (orificePenetrated == OrificeType.VAGINA
+					String orificeName = (orificePenetrated == SexAreaOrifice.VAGINA
 							?"[npc2.pussy]"
-							:(orificePenetrated == OrificeType.ANUS
+							:(orificePenetrated == SexAreaOrifice.ANUS
 								?"[npc2.asshole]"
-								:(orificePenetrated == OrificeType.NIPPLE
+								:(orificePenetrated == SexAreaOrifice.NIPPLE
 										?"[npc2.nipple]"
 										:"urethra")));
-					String orificeNamePlusDescriptor = (orificePenetrated == OrificeType.VAGINA
+					String orificeNamePlusDescriptor = (orificePenetrated == SexAreaOrifice.VAGINA
 							?"[npc2.pussy+]"
-							:(orificePenetrated == OrificeType.ANUS
+							:(orificePenetrated == SexAreaOrifice.ANUS
 								?"[npc2.asshole+]"
-								:(orificePenetrated == OrificeType.NIPPLE
+								:(orificePenetrated == SexAreaOrifice.NIPPLE
 										?"[npc2.nipple+]"
 										:"urethra")));
 					
@@ -1153,7 +1153,7 @@ public class GenericOrgasms {
 			
 			// Continued description for cumming inside:
 			
-			OrificeType orificePenetrated = Sex.getOrificesBeingPenetratedBy(characterOrgasming, PenetrationType.PENIS, target).get(0);
+			SexAreaOrifice orificePenetrated = Sex.getOrificesBeingPenetratedBy(characterOrgasming, SexAreaPenetration.PENIS, target).get(0);
 
 			switch(orificePenetrated) {
 				case ANUS:
@@ -1178,7 +1178,7 @@ public class GenericOrgasms {
 							break;
 					}
 					if(Main.getProperties().hasValue(PropertyValue.inflationContent) && !target.isVisiblyPregnant()) {
-						int cumAmount = target.getTotalFluidInArea(OrificeType.ANUS) + characterOrgasming.getPenisRawOrgasmCumQuantity();
+						int cumAmount = target.getTotalFluidInArea(SexAreaOrifice.ANUS) + characterOrgasming.getPenisRawOrgasmCumQuantity();
 						cumTargetSB.append(getInflationText(characterOrgasming, target, cumAmount));
 					}
 					break;
@@ -1284,7 +1284,7 @@ public class GenericOrgasms {
 							break;
 					}
 					if(Main.getProperties().hasValue(PropertyValue.inflationContent) && !target.isVisiblyPregnant()) {
-						int cumAmount = target.getTotalFluidInArea(OrificeType.MOUTH) + characterOrgasming.getPenisRawOrgasmCumQuantity();
+						int cumAmount = target.getTotalFluidInArea(SexAreaOrifice.MOUTH) + characterOrgasming.getPenisRawOrgasmCumQuantity();
 						cumTargetSB.append(getInflationText(characterOrgasming, target, cumAmount));
 					}
 					break;
@@ -1295,7 +1295,7 @@ public class GenericOrgasms {
 						cumTargetSB.append(" deep into [npc2.name]'s [npc2.breasts+].");
 					}
 					if(Main.getProperties().hasValue(PropertyValue.inflationContent)) {
-						int cumAmount = target.getTotalFluidInArea(OrificeType.NIPPLE) + characterOrgasming.getPenisRawOrgasmCumQuantity();
+						int cumAmount = target.getTotalFluidInArea(SexAreaOrifice.NIPPLE) + characterOrgasming.getPenisRawOrgasmCumQuantity();
 						cumTargetSB.append(getBreastInflationText(characterOrgasming, target, cumAmount));
 					}
 					break;
@@ -1357,7 +1357,7 @@ public class GenericOrgasms {
 							break;
 					}
 					if(Main.getProperties().hasValue(PropertyValue.inflationContent) && !target.isVisiblyPregnant()) {
-						int cumAmount = target.getTotalFluidInArea(OrificeType.VAGINA) + characterOrgasming.getPenisRawOrgasmCumQuantity();
+						int cumAmount = target.getTotalFluidInArea(SexAreaOrifice.VAGINA) + characterOrgasming.getPenisRawOrgasmCumQuantity();
 						cumTargetSB.append(getInflationText(characterOrgasming, target, cumAmount));
 					}
 					break;
@@ -1518,8 +1518,8 @@ public class GenericOrgasms {
 			genericOrgasmSB.append("A desperate, shuddering heat suddenly crashes up from [npc1.name]'s [npc1.pussy+], and [npc1.she] lets out a manic squeal as a blinding wave of pure ecstasy washes over [npc1.herHim].");
 		}
 		
-		GameCharacter characterPenetrating = Sex.getPenetratingCharacterUsingOrifice(characterOrgasming, OrificeType.VAGINA);
-		PenetrationType penetration = Sex.getPenetrationTypeInOrifice(characterOrgasming, OrificeType.VAGINA);
+		GameCharacter characterPenetrating = Sex.getPenetratingCharacterUsingOrifice(characterOrgasming, SexAreaOrifice.VAGINA);
+		SexAreaPenetration penetration = Sex.getPenetrationTypeInOrifice(characterOrgasming, SexAreaOrifice.VAGINA);
 		
 		if(characterPenetrating!=null) {
 			switch(penetration) {
@@ -1717,8 +1717,8 @@ public class GenericOrgasms {
 			SexParticipantType.MISC) {
 		@Override
 		public String getActionTitle() {
-			GameCharacter characterPenetrated = Sex.getCharactersBeingPenetratedBy(Main.game.getPlayer(), PenetrationType.PENIS).get(0);
-			OrificeType orificePenetrated = Sex.getOrificesBeingPenetratedBy(Main.game.getPlayer(), PenetrationType.PENIS, characterPenetrated).get(0);
+			GameCharacter characterPenetrated = Sex.getCharactersBeingPenetratedBy(Main.game.getPlayer(), SexAreaPenetration.PENIS).get(0);
+			SexAreaOrifice orificePenetrated = Sex.getOrificesBeingPenetratedBy(Main.game.getPlayer(), SexAreaPenetration.PENIS, characterPenetrated).get(0);
 			
 			switch(orificePenetrated) {
 				case ANUS:
@@ -1760,12 +1760,12 @@ public class GenericOrgasms {
 				return false;
 			}
 			
-			if(Sex.getCharactersBeingPenetratedBy(Main.game.getPlayer(), PenetrationType.PENIS).isEmpty()) {
+			if(Sex.getCharactersBeingPenetratedBy(Main.game.getPlayer(), SexAreaPenetration.PENIS).isEmpty()) {
 				return false;
 			}
 			
-			GameCharacter characterPenetrated = Sex.getCharactersBeingPenetratedBy(Main.game.getPlayer(), PenetrationType.PENIS).get(0);
-			OrificeType orificePenetrated = Sex.getOrificesBeingPenetratedBy(Main.game.getPlayer(), PenetrationType.PENIS, characterPenetrated).get(0);
+			GameCharacter characterPenetrated = Sex.getCharactersBeingPenetratedBy(Main.game.getPlayer(), SexAreaPenetration.PENIS).get(0);
+			SexAreaOrifice orificePenetrated = Sex.getOrificesBeingPenetratedBy(Main.game.getPlayer(), SexAreaPenetration.PENIS, characterPenetrated).get(0);
 			
 			switch(orificePenetrated) {
 				case ANUS:
@@ -1796,9 +1796,9 @@ public class GenericOrgasms {
 		}
 		
 		@Override
-		public List<OrificeType> getAreasCummedIn(GameCharacter cumProvider, GameCharacter cumTarget) {
-			GameCharacter characterPenetrated = Sex.getCharactersBeingPenetratedBy(Main.game.getPlayer(), PenetrationType.PENIS).get(0);
-			OrificeType orificePenetrated = Sex.getOrificesBeingPenetratedBy(Main.game.getPlayer(), PenetrationType.PENIS, characterPenetrated).get(0);
+		public List<SexAreaOrifice> getAreasCummedIn(GameCharacter cumProvider, GameCharacter cumTarget) {
+			GameCharacter characterPenetrated = Sex.getCharactersBeingPenetratedBy(Main.game.getPlayer(), SexAreaPenetration.PENIS).get(0);
+			SexAreaOrifice orificePenetrated = Sex.getOrificesBeingPenetratedBy(Main.game.getPlayer(), SexAreaPenetration.PENIS, characterPenetrated).get(0);
 			
 			if(cumProvider.isPlayer() && cumTarget.equals(characterPenetrated)) {
 				return Util.newArrayListOfValues(orificePenetrated);
@@ -1836,7 +1836,7 @@ public class GenericOrgasms {
 		
 		@Override
 		public String getActionTitle() {
-			if(!Sex.getCharactersBeingPenetratedBy(Main.game.getPlayer(), PenetrationType.PENIS).isEmpty()) {
+			if(!Sex.getCharactersBeingPenetratedBy(Main.game.getPlayer(), SexAreaPenetration.PENIS).isEmpty()) {
 				return "Pull out (floor)";
 			}
 			return "Cum on floor";
@@ -1855,11 +1855,11 @@ public class GenericOrgasms {
 		@Override
 		public void applyEffects() {
 			GameCharacter characterPenetrated = null;
-			OrificeType orificePenetrated = null;
-			if(!Sex.getCharactersBeingPenetratedBy(Main.game.getPlayer(), PenetrationType.PENIS).isEmpty()) {
-				characterPenetrated = Sex.getCharactersBeingPenetratedBy(Main.game.getPlayer(), PenetrationType.PENIS).get(0);
-				orificePenetrated = Sex.getOrificesBeingPenetratedBy(Main.game.getPlayer(), PenetrationType.PENIS, characterPenetrated).get(0);
-				Sex.removePenetration(Main.game.getPlayer(), characterPenetrated, PenetrationType.PENIS, orificePenetrated);
+			SexAreaOrifice orificePenetrated = null;
+			if(!Sex.getCharactersBeingPenetratedBy(Main.game.getPlayer(), SexAreaPenetration.PENIS).isEmpty()) {
+				characterPenetrated = Sex.getCharactersBeingPenetratedBy(Main.game.getPlayer(), SexAreaPenetration.PENIS).get(0);
+				orificePenetrated = Sex.getOrificesBeingPenetratedBy(Main.game.getPlayer(), SexAreaPenetration.PENIS, characterPenetrated).get(0);
+				Sex.removePenetration(Main.game.getPlayer(), characterPenetrated, SexAreaPenetration.PENIS, orificePenetrated);
 			}
 		}
 	};
@@ -1877,7 +1877,7 @@ public class GenericOrgasms {
 		
 		@Override
 		public String getActionTitle() {
-			if(!Sex.getCharactersBeingPenetratedBy(Main.game.getPlayer(), PenetrationType.PENIS).isEmpty()) {
+			if(!Sex.getCharactersBeingPenetratedBy(Main.game.getPlayer(), SexAreaPenetration.PENIS).isEmpty()) {
 				return "Pull out (wall)";
 			}
 			return "Cum on wall";
@@ -1911,7 +1911,7 @@ public class GenericOrgasms {
 		
 		@Override
 		public String getActionTitle() {
-			if(!Sex.getCharactersBeingPenetratedBy(Main.game.getPlayer(), PenetrationType.PENIS).isEmpty()) {
+			if(!Sex.getCharactersBeingPenetratedBy(Main.game.getPlayer(), SexAreaPenetration.PENIS).isEmpty()) {
 				return "Pull out (ass)";
 			}
 			return "Cum on ass";
@@ -1956,7 +1956,7 @@ public class GenericOrgasms {
 		
 		@Override
 		public String getActionTitle() {
-			if(!Sex.getCharactersBeingPenetratedBy(Main.game.getPlayer(), PenetrationType.PENIS).isEmpty()) {
+			if(!Sex.getCharactersBeingPenetratedBy(Main.game.getPlayer(), SexAreaPenetration.PENIS).isEmpty()) {
 				return "Pull out (groin)";
 			}
 			return "Cum on groin";
@@ -2001,7 +2001,7 @@ public class GenericOrgasms {
 		
 		@Override
 		public String getActionTitle() {
-			if(!Sex.getCharactersBeingPenetratedBy(Main.game.getPlayer(), PenetrationType.PENIS).isEmpty()) {
+			if(!Sex.getCharactersBeingPenetratedBy(Main.game.getPlayer(), SexAreaPenetration.PENIS).isEmpty()) {
 				return "Pull out (chest)";
 			}
 			return "Cum on chest";
@@ -2045,7 +2045,7 @@ public class GenericOrgasms {
 		
 		@Override
 		public String getActionTitle() {
-			if(!Sex.getCharactersBeingPenetratedBy(Main.game.getPlayer(), PenetrationType.PENIS).isEmpty()) {
+			if(!Sex.getCharactersBeingPenetratedBy(Main.game.getPlayer(), SexAreaPenetration.PENIS).isEmpty()) {
 				return "Pull out (own breasts)";
 			}
 			return "Cum on your breasts";
@@ -2089,7 +2089,7 @@ public class GenericOrgasms {
 		
 		@Override
 		public String getActionTitle() {
-			if(!Sex.getCharactersBeingPenetratedBy(Main.game.getPlayer(), PenetrationType.PENIS).isEmpty()) {
+			if(!Sex.getCharactersBeingPenetratedBy(Main.game.getPlayer(), SexAreaPenetration.PENIS).isEmpty()) {
 				return "Pull out (facial)";
 			}
 			return "Facial";
@@ -2133,7 +2133,7 @@ public class GenericOrgasms {
 		
 		@Override
 		public String getActionTitle() {
-			if(!Sex.getCharactersBeingPenetratedBy(Main.game.getPlayer(), PenetrationType.PENIS).isEmpty()) {
+			if(!Sex.getCharactersBeingPenetratedBy(Main.game.getPlayer(), SexAreaPenetration.PENIS).isEmpty()) {
 				return "Pull out (own [pc.face])";
 			}
 			return "Cum on your [pc.face]";
@@ -2177,7 +2177,7 @@ public class GenericOrgasms {
 		
 		@Override
 		public String getActionTitle() {
-			if(!Sex.getCharactersBeingPenetratedBy(Main.game.getPlayer(), PenetrationType.PENIS).isEmpty()) {
+			if(!Sex.getCharactersBeingPenetratedBy(Main.game.getPlayer(), SexAreaPenetration.PENIS).isEmpty()) {
 				return "Pull out (hair)";
 			}
 			return "Cum in [npc.hair]";
@@ -2221,7 +2221,7 @@ public class GenericOrgasms {
 		
 		@Override
 		public String getActionTitle() {
-			if(!Sex.getCharactersBeingPenetratedBy(Main.game.getPlayer(), PenetrationType.PENIS).isEmpty()) {
+			if(!Sex.getCharactersBeingPenetratedBy(Main.game.getPlayer(), SexAreaPenetration.PENIS).isEmpty()) {
 				return "Pull out (stomach)";
 			}
 			return "Cum on stomach";
@@ -2265,7 +2265,7 @@ public class GenericOrgasms {
 		
 		@Override
 		public String getActionTitle() {
-			if(!Sex.getCharactersBeingPenetratedBy(Main.game.getPlayer(), PenetrationType.PENIS).isEmpty()) {
+			if(!Sex.getCharactersBeingPenetratedBy(Main.game.getPlayer(), SexAreaPenetration.PENIS).isEmpty()) {
 				return "Pull out (own stomach)";
 			}
 			return "Cum on your stomach";
@@ -2309,7 +2309,7 @@ public class GenericOrgasms {
 		
 		@Override
 		public String getActionTitle() {
-			if(!Sex.getCharactersBeingPenetratedBy(Main.game.getPlayer(), PenetrationType.PENIS).isEmpty()) {
+			if(!Sex.getCharactersBeingPenetratedBy(Main.game.getPlayer(), SexAreaPenetration.PENIS).isEmpty()) {
 				return "Pull out (legs)";
 			}
 			return "Cum on [npc.legs]";
@@ -2353,7 +2353,7 @@ public class GenericOrgasms {
 		
 		@Override
 		public String getActionTitle() {
-			if(!Sex.getCharactersBeingPenetratedBy(Main.game.getPlayer(), PenetrationType.PENIS).isEmpty()) {
+			if(!Sex.getCharactersBeingPenetratedBy(Main.game.getPlayer(), SexAreaPenetration.PENIS).isEmpty()) {
 				return "Pull out (back)";
 			}
 			return "Cum on back";
@@ -2444,8 +2444,8 @@ public class GenericOrgasms {
 			SexParticipantType.MISC) {
 		@Override
 		public String getActionTitle() {
-			if((Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.MOUTH) == PenetrationType.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), OrificeType.MOUTH).isPlayer())
-					|| (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.BREAST) == PenetrationType.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), OrificeType.BREAST).isPlayer())) {
+			if((Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), SexAreaOrifice.MOUTH) == SexAreaPenetration.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), SexAreaOrifice.MOUTH).isPlayer())
+					|| (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), SexAreaOrifice.BREAST) == SexAreaPenetration.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), SexAreaOrifice.BREAST).isPlayer())) {
 				return "Request cum";
 			} else {
 				return "Request creampie";
@@ -2464,21 +2464,21 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA) == PenetrationType.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), OrificeType.VAGINA).isPlayer()) {
+			if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), SexAreaOrifice.VAGINA) == SexAreaPenetration.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), SexAreaOrifice.VAGINA).isPlayer()) {
 				return "Through your desperate moans and lewd cries, you somehow manage to formulate a sentence as you cry out for [npc.name]'s cum, "
 						+(Main.game.getPlayer().isVisiblyPregnant()
 								?"[pc.speech(Fuck! Cum in me! I need your cum!)]"
 								:"[pc.speech(Breed me! Cum in me! I need your cum!)]");
 				
-			} else if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.ANUS) == PenetrationType.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), OrificeType.ANUS).isPlayer()) {
+			} else if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), SexAreaOrifice.ANUS) == SexAreaPenetration.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), SexAreaOrifice.ANUS).isPlayer()) {
 				return "Through your desperate moans and lewd cries, you somehow manage to formulate a sentence as you cry out for [npc.name]'s cum,"
 						+ " [pc.speech(Fuck! Cum in me! I need your cum!)]";
 				
-			} else if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.NIPPLE) == PenetrationType.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), OrificeType.NIPPLE).isPlayer()) {
+			} else if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), SexAreaOrifice.NIPPLE) == SexAreaPenetration.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), SexAreaOrifice.NIPPLE).isPlayer()) {
 				return "Through your desperate moans and lewd cries, you somehow manage to formulate a sentence as you cry out for [npc.name]'s cum, "
 						+ " [pc.speech(Fuck! Cum in me! I need your cum!)]";
 				
-			} else if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.BREAST) == PenetrationType.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), OrificeType.BREAST).isPlayer()) {
+			} else if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), SexAreaOrifice.BREAST) == SexAreaPenetration.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), SexAreaOrifice.BREAST).isPlayer()) {
 				return "Through your desperate moans and lewd cries, you somehow manage to formulate a sentence as you cry out for [npc.name]'s cum, "
 						+ " [pc.speech(Yes! Cum for me! Cover my tits with your cum!)]";
 				
@@ -2497,13 +2497,13 @@ public class GenericOrgasms {
 		@Override
 		public List<Fetish> getFetishes(GameCharacter character) {
 			if(character.isPlayer()) {
-				if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA) == PenetrationType.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), OrificeType.VAGINA).isPlayer()) {
+				if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), SexAreaOrifice.VAGINA) == SexAreaPenetration.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), SexAreaOrifice.VAGINA).isPlayer()) {
 					return Util.newArrayListOfValues(Fetish.FETISH_CUM_ADDICT, Fetish.FETISH_PREGNANCY);
 					
-				} else if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.ANUS) == PenetrationType.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), OrificeType.ANUS).isPlayer()) {
+				} else if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), SexAreaOrifice.ANUS) == SexAreaPenetration.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), SexAreaOrifice.ANUS).isPlayer()) {
 					return Util.newArrayListOfValues(Fetish.FETISH_CUM_ADDICT, Fetish.FETISH_ANAL_RECEIVING);
 					
-				} else if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.NIPPLE) == PenetrationType.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), OrificeType.NIPPLE).isPlayer()) {
+				} else if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), SexAreaOrifice.NIPPLE) == SexAreaPenetration.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), SexAreaOrifice.NIPPLE).isPlayer()) {
 					return Util.newArrayListOfValues(Fetish.FETISH_CUM_ADDICT, Fetish.FETISH_BREASTS_SELF);
 					
 				} else {
@@ -2511,13 +2511,13 @@ public class GenericOrgasms {
 				}
 				
 			} else {
-				if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA) == PenetrationType.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), OrificeType.VAGINA).isPlayer()) {
+				if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), SexAreaOrifice.VAGINA) == SexAreaPenetration.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), SexAreaOrifice.VAGINA).isPlayer()) {
 					return Util.newArrayListOfValues(Fetish.FETISH_CUM_STUD, Fetish.FETISH_IMPREGNATION);
 					
-				} else if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.ANUS) == PenetrationType.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), OrificeType.ANUS).isPlayer()) {
+				} else if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), SexAreaOrifice.ANUS) == SexAreaPenetration.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), SexAreaOrifice.ANUS).isPlayer()) {
 					return Util.newArrayListOfValues(Fetish.FETISH_CUM_STUD, Fetish.FETISH_ANAL_GIVING);
 					
-				} else if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.NIPPLE) == PenetrationType.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), OrificeType.NIPPLE).isPlayer()) {
+				} else if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), SexAreaOrifice.NIPPLE) == SexAreaPenetration.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), SexAreaOrifice.NIPPLE).isPlayer()) {
 					return Util.newArrayListOfValues(Fetish.FETISH_CUM_STUD, Fetish.FETISH_BREASTS_OTHERS);
 					
 				} else {
@@ -2555,17 +2555,17 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA) == PenetrationType.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), OrificeType.VAGINA).isPlayer()) {
+			if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), SexAreaOrifice.VAGINA) == SexAreaPenetration.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), SexAreaOrifice.VAGINA).isPlayer()) {
 				return "Through your desperate moans and lewd cries, you somehow manage to formulate a sentence as you cry out to [npc.name], "
 						+(Main.game.getPlayer().isVisiblyPregnant()
 								?"[pc.speech(Pull out! I don't want you to cum in me!)]"
 								:"[pc.speech(Pull out! I don't want to get pregnant!)]");
 				
-			} else if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.ANUS) == PenetrationType.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), OrificeType.ANUS).isPlayer()) {
+			} else if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), SexAreaOrifice.ANUS) == SexAreaPenetration.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), SexAreaOrifice.ANUS).isPlayer()) {
 				return "Through your desperate moans and lewd cries, you somehow manage to formulate a sentence as you cry out to [npc.name], "
 						+ "[pc.speech(Pull out! I don't want you to cum in me!)]";
 				
-			} else if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.NIPPLE) == PenetrationType.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), OrificeType.NIPPLE).isPlayer()) {
+			} else if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), SexAreaOrifice.NIPPLE) == SexAreaPenetration.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), SexAreaOrifice.NIPPLE).isPlayer()) {
 				return "Through your desperate moans and lewd cries, you somehow manage to formulate a sentence as you cry out to [npc.name], "
 						+ "[pc.speech(Pull out! I don't want you to cum in me!)]";
 				
@@ -2608,16 +2608,16 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA) == PenetrationType.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), OrificeType.VAGINA).isPlayer()) {
+			if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), SexAreaOrifice.VAGINA) == SexAreaPenetration.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), SexAreaOrifice.VAGINA).isPlayer()) {
 				return "You continue [pc.moaning+] as you feel [npc.name]'s [npc.cock+] start to twitch inside your [pc.pussy+], and you wonder if [npc.she]'s going to pull out or"
 						+(Main.game.getPlayer().isVisiblyPregnant()
 								?" give you a fresh creampie..."
 								:" fill your womb with [npc.her] [npc.cum+]...");
 				
-			} else if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.ANUS) == PenetrationType.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), OrificeType.ANUS).isPlayer()) {
+			} else if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), SexAreaOrifice.ANUS) == SexAreaPenetration.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), SexAreaOrifice.ANUS).isPlayer()) {
 				return "You continue [pc.moaning+] as you feel [npc.name]'s [npc.cock+] start to twitch inside your [pc.asshole+], and you wonder if [npc.she]'s going to pull out or give you a fresh anal creampie...";
 				
-			} else if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.NIPPLE) == PenetrationType.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), OrificeType.NIPPLE).isPlayer()) {
+			} else if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), SexAreaOrifice.NIPPLE) == SexAreaPenetration.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), SexAreaOrifice.NIPPLE).isPlayer()) {
 				return "You continue [pc.moaning+] as you feel [npc.name]'s [npc.cock+] start to twitch inside your [pc.nipple+], and you wonder if [npc.she]'s going to pull out or give you a fresh nipple creampie...";
 				
 			} else {
@@ -2709,8 +2709,8 @@ public class GenericOrgasms {
 
 		@Override
 		public SexActionPriority getPriority() {
-			if(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.VAGINA)==PenetrationType.PENIS
-					&& Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.VAGINA).isPlayer()
+			if(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), SexAreaOrifice.VAGINA)==SexAreaPenetration.PENIS
+					&& Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), SexAreaOrifice.VAGINA).isPlayer()
 					&& Sex.getActivePartner().hasFetish(Fetish.FETISH_PREGNANCY)) {
 				return SexActionPriority.NORMAL;
 			} else {
@@ -2720,17 +2720,17 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.VAGINA) == PenetrationType.PENIS && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.VAGINA).isPlayer()) {
+			if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), SexAreaOrifice.VAGINA) == SexAreaPenetration.PENIS && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), SexAreaOrifice.VAGINA).isPlayer()) {
 				return "Through [npc.her] desperate moans and lewd cries, [npc.name] somehow manages to formulate a sentence as [npc.she] cries out for your cum, "
 						+(Sex.getActivePartner().isVisiblyPregnant()
 								?"[npc.speech(Fuck! Cum in me! I need your cum!)]"
 								:"[npc.speech(Breed me! Cum in me! I need your cum!)]");
 				
-			} else if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.ANUS) == PenetrationType.PENIS && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.ANUS).isPlayer()) {
+			} else if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), SexAreaOrifice.ANUS) == SexAreaPenetration.PENIS && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), SexAreaOrifice.ANUS).isPlayer()) {
 				return "Through [npc.her] desperate moans and lewd cries, [npc.name] somehow manages to formulate a sentence as [npc.she] cries out for your cum,"
 						+ " [npc.speech(Fuck! Cum in me! I need your cum!)]";
 				
-			} else if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.NIPPLE) == PenetrationType.PENIS && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.NIPPLE).isPlayer()) {
+			} else if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), SexAreaOrifice.NIPPLE) == SexAreaPenetration.PENIS && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), SexAreaOrifice.NIPPLE).isPlayer()) {
 				return "Through [npc.her] desperate moans and lewd cries, [npc.name] somehow manages to formulate a sentence as [npc.she] cries out for your cum, "
 						+ " [npc.speech(Fuck! Cum in me! I need your cum!)]";
 				
@@ -2749,13 +2749,13 @@ public class GenericOrgasms {
 		@Override
 		public List<Fetish> getFetishes(GameCharacter character) {
 			if(character.isPlayer()) {
-				if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.VAGINA) == PenetrationType.PENIS && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.VAGINA).isPlayer()) {
+				if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), SexAreaOrifice.VAGINA) == SexAreaPenetration.PENIS && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), SexAreaOrifice.VAGINA).isPlayer()) {
 					return Util.newArrayListOfValues(Fetish.FETISH_CUM_STUD, Fetish.FETISH_IMPREGNATION);
 					
-				} else if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.ANUS) == PenetrationType.PENIS && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.ANUS).isPlayer()) {
+				} else if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), SexAreaOrifice.ANUS) == SexAreaPenetration.PENIS && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), SexAreaOrifice.ANUS).isPlayer()) {
 					return Util.newArrayListOfValues(Fetish.FETISH_CUM_STUD, Fetish.FETISH_ANAL_GIVING);
 					
-				} else if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.NIPPLE) == PenetrationType.PENIS && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.NIPPLE).isPlayer()) {
+				} else if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), SexAreaOrifice.NIPPLE) == SexAreaPenetration.PENIS && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), SexAreaOrifice.NIPPLE).isPlayer()) {
 					return Util.newArrayListOfValues(Fetish.FETISH_CUM_STUD, Fetish.FETISH_BREASTS_OTHERS);
 					
 				} else {
@@ -2763,13 +2763,13 @@ public class GenericOrgasms {
 				}
 				
 			} else {
-				if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.VAGINA) == PenetrationType.PENIS && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.VAGINA).isPlayer()) {
+				if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), SexAreaOrifice.VAGINA) == SexAreaPenetration.PENIS && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), SexAreaOrifice.VAGINA).isPlayer()) {
 					return Util.newArrayListOfValues(Fetish.FETISH_CUM_ADDICT, Fetish.FETISH_PREGNANCY);
 					
-				} else if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.ANUS) == PenetrationType.PENIS && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.ANUS).isPlayer()) {
+				} else if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), SexAreaOrifice.ANUS) == SexAreaPenetration.PENIS && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), SexAreaOrifice.ANUS).isPlayer()) {
 					return Util.newArrayListOfValues(Fetish.FETISH_CUM_ADDICT, Fetish.FETISH_ANAL_RECEIVING);
 					
-				} else if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.NIPPLE) == PenetrationType.PENIS && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.NIPPLE).isPlayer()) {
+				} else if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), SexAreaOrifice.NIPPLE) == SexAreaPenetration.PENIS && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), SexAreaOrifice.NIPPLE).isPlayer()) {
 					return Util.newArrayListOfValues(Fetish.FETISH_CUM_ADDICT, Fetish.FETISH_BREASTS_SELF);
 					
 				} else {
@@ -2801,10 +2801,10 @@ public class GenericOrgasms {
 		public boolean isBaseRequirementsMet() {
 			return isTakingCock(Sex.getActivePartner())
 					&& (Sex.getSexPace(Sex.getActivePartner())==SexPace.SUB_RESISTING
-						|| ((Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.MOUTH)==PenetrationType.PENIS
+						|| ((Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), SexAreaOrifice.MOUTH)==SexAreaPenetration.PENIS
 							?!Sex.getActivePartner().hasFetish(Fetish.FETISH_CUM_ADDICT)
 							:true)
-						&& (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.VAGINA)==PenetrationType.PENIS
+						&& (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), SexAreaOrifice.VAGINA)==SexAreaPenetration.PENIS
 							?(!Sex.getActivePartner().hasFetish(Fetish.FETISH_PREGNANCY) && !Sex.getActivePartner().hasFetish(Fetish.FETISH_BROODMOTHER))
 							:true)));
 		}
@@ -2816,17 +2816,17 @@ public class GenericOrgasms {
 		
 		@Override
 		public String getDescription() {
-			if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.VAGINA) == PenetrationType.PENIS && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.VAGINA).isPlayer()) {
+			if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), SexAreaOrifice.VAGINA) == SexAreaPenetration.PENIS && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), SexAreaOrifice.VAGINA).isPlayer()) {
 				return "Through [npc.her] desperate moans and lewd cries, [npc.name] somehow manages to formulate a sentence as [npc.she] cries out to you, "
 						+(Sex.getActivePartner().isVisiblyPregnant()
 								?"[npc.speech(Pull out! I don't want you to cum in me!)]"
 								:"[npc.speech(Pull out! I don't want to get pregnant!)]");
 				
-			} else if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.ANUS) == PenetrationType.PENIS && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.ANUS).isPlayer()) {
+			} else if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), SexAreaOrifice.ANUS) == SexAreaPenetration.PENIS && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), SexAreaOrifice.ANUS).isPlayer()) {
 				return "Through [npc.her] desperate moans and lewd cries, [npc.name] somehow manages to formulate a sentence as [npc.she] cries out to you, "
 						+ "[npc.speech(Pull out! I don't want you to cum in me!)]";
 				
-			} else if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.NIPPLE) == PenetrationType.PENIS && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.NIPPLE).isPlayer()) {
+			} else if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), SexAreaOrifice.NIPPLE) == SexAreaPenetration.PENIS && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), SexAreaOrifice.NIPPLE).isPlayer()) {
 				return "Through [npc.her] desperate moans and lewd cries, [npc.name] somehow manages to formulate a sentence as [npc.she] cries out to you, "
 						+ "[npc.speech(Pull out! I don't want you to cum in me!)]";
 				
@@ -2911,8 +2911,8 @@ public class GenericOrgasms {
 		
 		@Override
 		public String getActionTitle() {
-			GameCharacter characterPenetrated = Sex.getCharactersBeingPenetratedBy(Sex.getActivePartner(), PenetrationType.PENIS).get(0);
-			OrificeType orificePenetrated = Sex.getOrificesBeingPenetratedBy(Sex.getActivePartner(), PenetrationType.PENIS, characterPenetrated).get(0);
+			GameCharacter characterPenetrated = Sex.getCharactersBeingPenetratedBy(Sex.getActivePartner(), SexAreaPenetration.PENIS).get(0);
+			SexAreaOrifice orificePenetrated = Sex.getOrificesBeingPenetratedBy(Sex.getActivePartner(), SexAreaPenetration.PENIS, characterPenetrated).get(0);
 			
 			switch(orificePenetrated) {
 				case ANUS:
@@ -2954,13 +2954,13 @@ public class GenericOrgasms {
 				return false;
 			}
 			
-			if(Sex.getCharactersBeingPenetratedBy(Sex.getActivePartner(), PenetrationType.PENIS).isEmpty()) {
+			if(Sex.getCharactersBeingPenetratedBy(Sex.getActivePartner(), SexAreaPenetration.PENIS).isEmpty()) {
 				return false;
 			}
 			
 			boolean isPenetratingSuitableOrifice = false;
-			GameCharacter characterPenetrated = Sex.getCharactersBeingPenetratedBy(Sex.getActivePartner(), PenetrationType.PENIS).get(0);
-			OrificeType orificePenetrated = Sex.getOrificesBeingPenetratedBy(Sex.getActivePartner(), PenetrationType.PENIS, characterPenetrated).get(0);
+			GameCharacter characterPenetrated = Sex.getCharactersBeingPenetratedBy(Sex.getActivePartner(), SexAreaPenetration.PENIS).get(0);
+			SexAreaOrifice orificePenetrated = Sex.getOrificesBeingPenetratedBy(Sex.getActivePartner(), SexAreaPenetration.PENIS, characterPenetrated).get(0);
 			
 			switch(orificePenetrated) {
 				case ANUS:
@@ -2995,9 +2995,9 @@ public class GenericOrgasms {
 		}
 		
 		@Override
-		public List<OrificeType> getAreasCummedIn(GameCharacter cumProvider, GameCharacter cumTarget) {
-			GameCharacter characterPenetrated = Sex.getCharactersBeingPenetratedBy(Sex.getActivePartner(), PenetrationType.PENIS).get(0);
-			OrificeType orificePenetrated = Sex.getOrificesBeingPenetratedBy(Sex.getActivePartner(), PenetrationType.PENIS, characterPenetrated).get(0);
+		public List<SexAreaOrifice> getAreasCummedIn(GameCharacter cumProvider, GameCharacter cumTarget) {
+			GameCharacter characterPenetrated = Sex.getCharactersBeingPenetratedBy(Sex.getActivePartner(), SexAreaPenetration.PENIS).get(0);
+			SexAreaOrifice orificePenetrated = Sex.getOrificesBeingPenetratedBy(Sex.getActivePartner(), SexAreaPenetration.PENIS, characterPenetrated).get(0);
 			
 			if(!cumProvider.isPlayer() && cumTarget.equals(characterPenetrated)) {
 				return Util.newArrayListOfValues(orificePenetrated);
@@ -3032,7 +3032,7 @@ public class GenericOrgasms {
 		
 		@Override
 		public String getActionTitle() {
-			if(!Sex.getCharactersBeingPenetratedBy(Sex.getActivePartner(), PenetrationType.PENIS).isEmpty()) {
+			if(!Sex.getCharactersBeingPenetratedBy(Sex.getActivePartner(), SexAreaPenetration.PENIS).isEmpty()) {
 				return "Pull out (floor)";
 			}
 			return "Cum on floor";
@@ -3051,11 +3051,11 @@ public class GenericOrgasms {
 		@Override
 		public void applyEffects() {
 			GameCharacter characterPenetrated = null;
-			OrificeType orificePenetrated = null;
-			if(!Sex.getCharactersBeingPenetratedBy(Sex.getActivePartner(), PenetrationType.PENIS).isEmpty()) {
-				characterPenetrated = Sex.getCharactersBeingPenetratedBy(Sex.getActivePartner(), PenetrationType.PENIS).get(0);
-				orificePenetrated = Sex.getOrificesBeingPenetratedBy(Sex.getActivePartner(), PenetrationType.PENIS, characterPenetrated).get(0);
-				Sex.removePenetration(Sex.getActivePartner(), characterPenetrated, PenetrationType.PENIS, orificePenetrated);
+			SexAreaOrifice orificePenetrated = null;
+			if(!Sex.getCharactersBeingPenetratedBy(Sex.getActivePartner(), SexAreaPenetration.PENIS).isEmpty()) {
+				characterPenetrated = Sex.getCharactersBeingPenetratedBy(Sex.getActivePartner(), SexAreaPenetration.PENIS).get(0);
+				orificePenetrated = Sex.getOrificesBeingPenetratedBy(Sex.getActivePartner(), SexAreaPenetration.PENIS, characterPenetrated).get(0);
+				Sex.removePenetration(Sex.getActivePartner(), characterPenetrated, SexAreaPenetration.PENIS, orificePenetrated);
 			}
 		}
 	};
@@ -3070,7 +3070,7 @@ public class GenericOrgasms {
 		
 		@Override
 		public String getActionTitle() {
-			if(!Sex.getCharactersBeingPenetratedBy(Sex.getActivePartner(), PenetrationType.PENIS).isEmpty()) {
+			if(!Sex.getCharactersBeingPenetratedBy(Sex.getActivePartner(), SexAreaPenetration.PENIS).isEmpty()) {
 				return "Pull out (wall)";
 			}
 			return "Cum on wall";
@@ -3101,7 +3101,7 @@ public class GenericOrgasms {
 		
 		@Override
 		public String getActionTitle() {
-			if(!Sex.getCharactersBeingPenetratedBy(Sex.getActivePartner(), PenetrationType.PENIS).isEmpty()) {
+			if(!Sex.getCharactersBeingPenetratedBy(Sex.getActivePartner(), SexAreaPenetration.PENIS).isEmpty()) {
 				return "Pull out (ass)";
 			}
 			return "Cum on ass";
@@ -3143,7 +3143,7 @@ public class GenericOrgasms {
 		
 		@Override
 		public String getActionTitle() {
-			if(!Sex.getCharactersBeingPenetratedBy(Sex.getActivePartner(), PenetrationType.PENIS).isEmpty()) {
+			if(!Sex.getCharactersBeingPenetratedBy(Sex.getActivePartner(), SexAreaPenetration.PENIS).isEmpty()) {
 				return "Pull out (groin)";
 			}
 			return "Cum on groin";
@@ -3185,7 +3185,7 @@ public class GenericOrgasms {
 		
 		@Override
 		public String getActionTitle() {
-			if(!Sex.getCharactersBeingPenetratedBy(Sex.getActivePartner(), PenetrationType.PENIS).isEmpty()) {
+			if(!Sex.getCharactersBeingPenetratedBy(Sex.getActivePartner(), SexAreaPenetration.PENIS).isEmpty()) {
 				return "Pull out (chest)";
 			}
 			return "Cum on chest";
@@ -3226,7 +3226,7 @@ public class GenericOrgasms {
 		
 		@Override
 		public String getActionTitle() {
-			if(!Sex.getCharactersBeingPenetratedBy(Sex.getActivePartner(), PenetrationType.PENIS).isEmpty()) {
+			if(!Sex.getCharactersBeingPenetratedBy(Sex.getActivePartner(), SexAreaPenetration.PENIS).isEmpty()) {
 				return "Pull out (own [npc.breasts])";
 			}
 			return "Cum on your [npc.breasts]";
@@ -3268,7 +3268,7 @@ public class GenericOrgasms {
 		
 		@Override
 		public String getActionTitle() {
-			if(!Sex.getCharactersBeingPenetratedBy(Sex.getActivePartner(), PenetrationType.PENIS).isEmpty()) {
+			if(!Sex.getCharactersBeingPenetratedBy(Sex.getActivePartner(), SexAreaPenetration.PENIS).isEmpty()) {
 				return "Pull out (facial)";
 			}
 			return "Facial";
@@ -3309,7 +3309,7 @@ public class GenericOrgasms {
 		
 		@Override
 		public String getActionTitle() {
-			if(!Sex.getCharactersBeingPenetratedBy(Sex.getActivePartner(), PenetrationType.PENIS).isEmpty()) {
+			if(!Sex.getCharactersBeingPenetratedBy(Sex.getActivePartner(), SexAreaPenetration.PENIS).isEmpty()) {
 				return "Pull out (own [npc.face])";
 			}
 			return "Cum on your [npc.face]";
@@ -3351,7 +3351,7 @@ public class GenericOrgasms {
 		
 		@Override
 		public String getActionTitle() {
-			if(!Sex.getCharactersBeingPenetratedBy(Sex.getActivePartner(), PenetrationType.PENIS).isEmpty()) {
+			if(!Sex.getCharactersBeingPenetratedBy(Sex.getActivePartner(), SexAreaPenetration.PENIS).isEmpty()) {
 				return "Pull out (hair)";
 			}
 			return "Cum in [npc.hair]";
@@ -3392,7 +3392,7 @@ public class GenericOrgasms {
 		
 		@Override
 		public String getActionTitle() {
-			if(!Sex.getCharactersBeingPenetratedBy(Sex.getActivePartner(), PenetrationType.PENIS).isEmpty()) {
+			if(!Sex.getCharactersBeingPenetratedBy(Sex.getActivePartner(), SexAreaPenetration.PENIS).isEmpty()) {
 				return "Pull out (stomach)";
 			}
 			return "Cum on stomach";
@@ -3433,7 +3433,7 @@ public class GenericOrgasms {
 		
 		@Override
 		public String getActionTitle() {
-			if(!Sex.getCharactersBeingPenetratedBy(Sex.getActivePartner(), PenetrationType.PENIS).isEmpty()) {
+			if(!Sex.getCharactersBeingPenetratedBy(Sex.getActivePartner(), SexAreaPenetration.PENIS).isEmpty()) {
 				return "Pull out (own stomach)";
 			}
 			return "Cum on your stomach";
@@ -3475,7 +3475,7 @@ public class GenericOrgasms {
 		
 		@Override
 		public String getActionTitle() {
-			if(!Sex.getCharactersBeingPenetratedBy(Sex.getActivePartner(), PenetrationType.PENIS).isEmpty()) {
+			if(!Sex.getCharactersBeingPenetratedBy(Sex.getActivePartner(), SexAreaPenetration.PENIS).isEmpty()) {
 				return "Pull out (legs)";
 			}
 			return "Cum on [npc.legs]";
@@ -3516,7 +3516,7 @@ public class GenericOrgasms {
 		
 		@Override
 		public String getActionTitle() {
-			if(!Sex.getCharactersBeingPenetratedBy(Sex.getActivePartner(), PenetrationType.PENIS).isEmpty()) {
+			if(!Sex.getCharactersBeingPenetratedBy(Sex.getActivePartner(), SexAreaPenetration.PENIS).isEmpty()) {
 				return "Pull out (back)";
 			}
 			return "Cum on back";

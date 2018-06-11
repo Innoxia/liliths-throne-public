@@ -46,8 +46,8 @@ import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
-import com.lilithsthrone.game.sex.OrificeType;
-import com.lilithsthrone.game.sex.PenetrationType;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
@@ -330,26 +330,26 @@ public class Vicky extends NPC {
 	}
 	
 	public SexType getForeplayPreference() {
-		if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true) && Sex.getPlayerPenetrationRequests().contains(OrificeType.ANUS)) {
-			return new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.ANUS);
+		if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true) && Sex.getPlayerPenetrationRequests().contains(SexAreaOrifice.ANUS)) {
+			return new SexType(SexParticipantType.PITCHER, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS);
 			
 		} else if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true) && Main.game.getPlayer().hasVagina()) {
-			return new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.VAGINA);
+			return new SexType(SexParticipantType.PITCHER, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA);
 			
 		} else {
-			return new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.ANUS);
+			return new SexType(SexParticipantType.PITCHER, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS);
 		}
 	}
 	
 	public SexType getMainSexPreference() {
-		if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true) && Sex.getPlayerPenetrationRequests().contains(OrificeType.ANUS)) {
-			return new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.ANUS);
+		if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true) && Sex.getPlayerPenetrationRequests().contains(SexAreaOrifice.ANUS)) {
+			return new SexType(SexParticipantType.PITCHER, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS);
 			
 		} else if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true) && Main.game.getPlayer().hasVagina()) {
-			return new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.VAGINA);
+			return new SexType(SexParticipantType.PITCHER, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA);
 			
 		} else {
-			return new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.ANUS);
+			return new SexType(SexParticipantType.PITCHER, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS);
 		}
 	}
 

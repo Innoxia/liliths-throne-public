@@ -1,8 +1,8 @@
 package com.lilithsthrone.game.sex.sexActions.universal.dom;
 
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.sex.OrificeType;
-import com.lilithsthrone.game.sex.PenetrationType;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.main.Main;
 
@@ -17,7 +17,7 @@ public class DomCowgirl {
 		
 		UtilText.nodeContentSB.setLength(0);
 		
-		if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.ANUS) == PenetrationType.PENIS) {
+		if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), SexAreaOrifice.ANUS) == SexAreaPenetration.PENIS) {
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"You sink down onto [npc.name]'s [npc.penis+], letting out a happy squeal as you feel [npc.herHim] sink deep inside your [pc.asshole+]."
 								+ " Bottoming out on [npc.her] [npc.cock], you lean down and grab [npc.her] head in both hands, before pulling [npc.herHim] up into a passionate kiss.",
@@ -25,7 +25,7 @@ public class DomCowgirl {
 					"You let [npc.name]'s [npc.penis+] slide even deeper into your [pc.asshole+] as you lean down and pull [npc.herHim] into a desperate kiss.",
 					"Leaning down, you let out [pc.a_moan+] as you bury yourself on [npc.name]'s [npc.penis+], before leaning forwards and pressing your [pc.lips+] against [npc.hers]."));
 			
-		} else if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA) == PenetrationType.PENIS) {
+		} else if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), SexAreaOrifice.VAGINA) == SexAreaPenetration.PENIS) {
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"You sink down onto [npc.name]'s [npc.penis+], letting out a happy squeal as you feel [npc.herHim] sink deep inside your [pc.pussy+]."
 								+ " Bottoming out on [npc.her] [npc.cock], you lean down and grab [npc.her] head in both hands, before pulling [npc.herHim] up into a passionate kiss.",

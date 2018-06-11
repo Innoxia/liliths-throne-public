@@ -9,7 +9,7 @@ import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.sex.OrificeType;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -201,7 +201,7 @@ public enum VaginaType implements BodyPartTypeInterface {
 				return "";
 			case 1:
 				if(Main.game.isInSex()) {
-					if(!Sex.getWetOrificeTypes(gc).get(OrificeType.VAGINA).isEmpty()) {
+					if(!Sex.getWetOrificeTypes(gc).get(SexAreaOrifice.VAGINA).isEmpty()) {
 						return "wet";
 					} else {
 						return gc.getVaginaWetness().getDescriptor();

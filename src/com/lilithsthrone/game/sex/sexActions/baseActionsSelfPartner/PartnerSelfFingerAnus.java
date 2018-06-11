@@ -3,8 +3,8 @@ package com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
-import com.lilithsthrone.game.sex.OrificeType;
-import com.lilithsthrone.game.sex.PenetrationType;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
@@ -26,8 +26,8 @@ public class PartnerSelfFingerAnus {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.FINGER,
-			OrificeType.ANUS,
+			SexAreaPenetration.FINGER,
+			SexAreaOrifice.ANUS,
 			SexParticipantType.SELF) {
 		
 		@Override
@@ -71,8 +71,8 @@ public class PartnerSelfFingerAnus {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.TWO_HORNY,
-			PenetrationType.FINGER,
-			OrificeType.ANUS,
+			SexAreaPenetration.FINGER,
+			SexAreaOrifice.ANUS,
 			SexParticipantType.SELF) {
 		
 		@Override
@@ -104,8 +104,8 @@ public class PartnerSelfFingerAnus {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.TWO_HORNY,
-			PenetrationType.FINGER,
-			OrificeType.ANUS,
+			SexAreaPenetration.FINGER,
+			SexAreaOrifice.ANUS,
 			SexParticipantType.SELF,
 			null,
 			SexPace.DOM_GENTLE) {
@@ -145,8 +145,8 @@ public class PartnerSelfFingerAnus {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.TWO_HORNY,
-			PenetrationType.FINGER,
-			OrificeType.ANUS,
+			SexAreaPenetration.FINGER,
+			SexAreaOrifice.ANUS,
 			SexParticipantType.SELF,
 			null,
 			SexPace.DOM_NORMAL) {
@@ -186,8 +186,8 @@ public class PartnerSelfFingerAnus {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.THREE_DIRTY,
-			PenetrationType.FINGER,
-			OrificeType.ANUS,
+			SexAreaPenetration.FINGER,
+			SexAreaOrifice.ANUS,
 			SexParticipantType.SELF,
 			null,
 			SexPace.DOM_ROUGH) {
@@ -229,8 +229,8 @@ public class PartnerSelfFingerAnus {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.TWO_HORNY,
-			PenetrationType.FINGER,
-			OrificeType.ANUS,
+			SexAreaPenetration.FINGER,
+			SexAreaOrifice.ANUS,
 			SexParticipantType.SELF,
 			null,
 			SexPace.SUB_NORMAL) {
@@ -270,8 +270,8 @@ public class PartnerSelfFingerAnus {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.THREE_DIRTY,
-			PenetrationType.FINGER,
-			OrificeType.ANUS,
+			SexAreaPenetration.FINGER,
+			SexAreaOrifice.ANUS,
 			SexParticipantType.SELF,
 			null,
 			SexPace.SUB_EAGER) {
@@ -313,8 +313,8 @@ public class PartnerSelfFingerAnus {
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.FINGER,
-			OrificeType.ANUS,
+			SexAreaPenetration.FINGER,
+			SexAreaOrifice.ANUS,
 			SexParticipantType.SELF) {
 		
 		@Override

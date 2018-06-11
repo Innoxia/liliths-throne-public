@@ -24,8 +24,8 @@ import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.dialogue.SlaveryManagementDialogue;
 import com.lilithsthrone.game.dialogue.eventLog.SlaveryEventLogEntry;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.sex.OrificeType;
-import com.lilithsthrone.game.sex.PenetrationType;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.main.Main;
@@ -569,7 +569,7 @@ public class SlaveryUtil implements XMLSaving {
 	
 								effects.add("<span style='color:"+Colour.CUM.toWebHexString()+";'>Anal Creampie:</span> "+effectDescriptions.toString());
 								effectDescriptions.setLength(0);
-								slave.calculateGenericSexEffects(false, stocksPartner, new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.ANUS));
+								slave.calculateGenericSexEffects(false, stocksPartner, new SexType(SexParticipantType.CATCHER, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS));
 								
 								break;
 								
@@ -583,7 +583,7 @@ public class SlaveryUtil implements XMLSaving {
 								effects.add("<span style='color:"+Colour.CUM.toWebHexString()+";'>Swallowed Cum:</span> "+effectDescriptions.toString());
 								effectDescriptions.setLength(0);
 
-								slave.calculateGenericSexEffects(false, stocksPartner, new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.MOUTH));
+								slave.calculateGenericSexEffects(false, stocksPartner, new SexType(SexParticipantType.CATCHER, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH));
 								break;
 								
 							case SEX_NIPPLES:
@@ -596,7 +596,7 @@ public class SlaveryUtil implements XMLSaving {
 								effects.add("<span style='color:"+Colour.CUM.toWebHexString()+";'>Nipple Creampie:</span> "+effectDescriptions.toString());
 								effectDescriptions.setLength(0);
 
-								slave.calculateGenericSexEffects(false, stocksPartner, new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.NIPPLE));
+								slave.calculateGenericSexEffects(false, stocksPartner, new SexType(SexParticipantType.CATCHER, SexAreaPenetration.PENIS, SexAreaOrifice.NIPPLE));
 								break;
 								
 							case SEX_VAGINAL:
@@ -606,7 +606,7 @@ public class SlaveryUtil implements XMLSaving {
 												"[npc.A_race] roughly fucked "+UtilText.parse(slave, "[npc.name]'s [npc.pussy+], "),
 												"[npc.A_race] filled "+UtilText.parse(slave, "[npc.name]'s [npc.pussy+]")+UtilText.parse(Main.game.getGenericFemaleNPC()," with [npc.her] [npc.cum+], "))));
 
-								slave.calculateGenericSexEffects(false, stocksPartner, new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.VAGINA));
+								slave.calculateGenericSexEffects(false, stocksPartner, new SexType(SexParticipantType.CATCHER, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA));
 	
 								if(slave.isVisiblyPregnant()) {
 									effectDescriptions.append(UtilText.parse(slave, "but as [npc.she]'s already pregnant, the only result is a fresh creampie..."));
@@ -688,7 +688,7 @@ public class SlaveryUtil implements XMLSaving {
 								effects.add("<span style='color:"+Colour.CUM.toWebHexString()+";'>Anal Creampie:</span> "+effectDescriptions.toString());
 								effectDescriptions.setLength(0);
 
-								slave.calculateGenericSexEffects(false, partner, new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.ANUS));
+								slave.calculateGenericSexEffects(false, partner, new SexType(SexParticipantType.CATCHER, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS));
 								break;
 								
 							case SEX_ORAL:
@@ -701,7 +701,7 @@ public class SlaveryUtil implements XMLSaving {
 								effects.add("<span style='color:"+Colour.CUM.toWebHexString()+";'>Swallowed Cum:</span> "+effectDescriptions.toString());
 								effectDescriptions.setLength(0);
 
-								slave.calculateGenericSexEffects(false, partner, new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.MOUTH));
+								slave.calculateGenericSexEffects(false, partner, new SexType(SexParticipantType.CATCHER, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH));
 								break;
 								
 							case SEX_NIPPLES:
@@ -714,7 +714,7 @@ public class SlaveryUtil implements XMLSaving {
 	
 								effects.add("<span style='color:"+Colour.CUM.toWebHexString()+";'>Nipple Creampie:</span> "+effectDescriptions.toString());
 								effectDescriptions.setLength(0);
-								slave.calculateGenericSexEffects(false, partner, new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.NIPPLE));
+								slave.calculateGenericSexEffects(false, partner, new SexType(SexParticipantType.CATCHER, SexAreaPenetration.PENIS, SexAreaOrifice.NIPPLE));
 								break;
 								
 							case SEX_VAGINAL:
@@ -724,7 +724,7 @@ public class SlaveryUtil implements XMLSaving {
 												"[npc.A_race] roughly fucked "+UtilText.parse(slave, "[npc.name]'s [npc.pussy+], "),
 												"[npc.A_race] filled "+UtilText.parse(slave, "[npc.name]'s [npc.pussy+]")+UtilText.parse(partner," with [npc.her] [npc.cum+], "))));
 
-								slave.calculateGenericSexEffects(false, partner, new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.VAGINA));
+								slave.calculateGenericSexEffects(false, partner, new SexType(SexParticipantType.CATCHER, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA));
 								
 								if(slave.isVisiblyPregnant()) {
 									effectDescriptions.append(UtilText.parse(slave, "but as [npc.she]'s already pregnant, the only result is a fresh creampie..."));
@@ -913,13 +913,13 @@ public class SlaveryUtil implements XMLSaving {
 						
 						// Apply sex effects:
 						if(canImpregnate) {
-							npc.ingestFluid(slave, slave.getCumType(), OrificeType.VAGINA, slave.getPenisRawOrgasmCumQuantity(), slave.getCum().getFluidModifiers());
+							npc.ingestFluid(slave, slave.getCumType(), SexAreaOrifice.VAGINA, slave.getPenisRawOrgasmCumQuantity(), slave.getCum().getFluidModifiers());
 							slave.applyOrgasmCumEffect();
 							npc.setVaginaVirgin(false);
 							impregnationAttempt = true;
 						}
 						if(canBeImpregnated) {
-							slave.ingestFluid(npc, npc.getCumType(), OrificeType.VAGINA, npc.getPenisRawOrgasmCumQuantity(), npc.getCum().getFluidModifiers());
+							slave.ingestFluid(npc, npc.getCumType(), SexAreaOrifice.VAGINA, npc.getPenisRawOrgasmCumQuantity(), npc.getCum().getFluidModifiers());
 							npc.applyOrgasmCumEffect();
 							slave.setVaginaVirgin(false);
 							gettingPregnantAttempt = true;

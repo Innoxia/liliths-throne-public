@@ -3,8 +3,8 @@ package com.lilithsthrone.game.sex.sexActions.dominion.stocks;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
-import com.lilithsthrone.game.sex.OrificeType;
-import com.lilithsthrone.game.sex.PenetrationType;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexFlags;
 import com.lilithsthrone.game.sex.SexPace;
@@ -150,7 +150,7 @@ public class SADomStocksBehind {
 			public String getDescription() {
 				String tailSpecial1 = "", tailSpecial2 = "";
 				
-				if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.VAGINA)==PenetrationType.PENIS) {
+				if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), SexAreaOrifice.VAGINA)==SexAreaPenetration.PENIS) {
 					switch(Sex.getActivePartner().getTailType()) {
 						case NONE:
 							tailSpecial1 = "Hilting your [pc.cock+] deep inside [npc.name]'s [npc.pussy+], you reach down and roughly grope [npc.her] [npc.ass+], before starting to deliver a series of stinging slaps to [npc.her] exposed cheeks.";
@@ -178,7 +178,7 @@ public class SADomStocksBehind {
 								"Hilting your [pc.cock+] deep inside [npc.name]'s [npc.pussy], you use one [pc.hand] to hold [npc.herHim] still, while using your other to deliver a series of stinging slaps to [npc.her] exposed ass cheeks.",
 								"While you continue pounding away at [npc.name]'s [npc.pussy+], you reach down and start to roughly slap [npc.her] [npc.ass+], growling in glee as [npc.she] squirms and squeals under your stinging blows."));
 					
-				} else if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.ANUS)==PenetrationType.PENIS) {
+				} else if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), SexAreaOrifice.ANUS)==SexAreaPenetration.PENIS) {
 					switch(Sex.getActivePartner().getTailType()) {
 						case NONE:
 							tailSpecial1 = "Hilting your [pc.cock+] deep inside [npc.name]'s [npc.asshole+], you reach down and roughly grope [npc.her] [npc.ass+], before starting to deliver a series of stinging slaps to [npc.her] exposed cheeks.";

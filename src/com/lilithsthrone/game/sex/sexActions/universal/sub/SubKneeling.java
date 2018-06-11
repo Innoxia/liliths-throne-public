@@ -11,8 +11,8 @@ import com.lilithsthrone.game.character.body.valueEnums.PenisModifier;
 import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
-import com.lilithsthrone.game.sex.OrificeType;
-import com.lilithsthrone.game.sex.PenetrationType;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
@@ -33,8 +33,8 @@ public class SubKneeling {
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TONGUE,
-			OrificeType.VAGINA,
+			SexAreaPenetration.TONGUE,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.PITCHER,
 			null,
 			SexPace.SUB_EAGER) {
@@ -71,8 +71,8 @@ public class SubKneeling {
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TONGUE,
-			OrificeType.VAGINA,
+			SexAreaPenetration.TONGUE,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.PITCHER,
 			null,
 			SexPace.SUB_NORMAL) {
@@ -111,8 +111,8 @@ public class SubKneeling {
 			ArousalIncrease.FIVE_EXTREME,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.TONGUE,
-			OrificeType.VAGINA,
+			SexAreaPenetration.TONGUE,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.CATCHER) {
 		@Override
 		public String getActionTitle() {
@@ -194,8 +194,8 @@ public class SubKneeling {
 			ArousalIncrease.FIVE_EXTREME,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS,
-			OrificeType.MOUTH,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.MOUTH,
 			SexParticipantType.PITCHER) {
 
 		@Override
@@ -281,9 +281,9 @@ public class SubKneeling {
 		}
 
 		@Override
-		public List<OrificeType> getAreasCummedIn(GameCharacter cumProvider, GameCharacter cumTarget) {
+		public List<SexAreaOrifice> getAreasCummedIn(GameCharacter cumProvider, GameCharacter cumTarget) {
 			if(cumProvider.equals(Sex.getActivePartner()) && cumTarget.equals(Sex.getTargetedPartner(Sex.getActivePartner()))) {
-				return Util.newArrayListOfValues(OrificeType.MOUTH);
+				return Util.newArrayListOfValues(SexAreaOrifice.MOUTH);
 			} else {
 				return null;
 			}
@@ -295,8 +295,8 @@ public class SubKneeling {
 			ArousalIncrease.FIVE_EXTREME,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS,
-			OrificeType.MOUTH,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.MOUTH,
 			SexParticipantType.PITCHER) {
 		@Override
 		public String getActionTitle() {
@@ -388,7 +388,7 @@ public class SubKneeling {
 					Main.game.getPlayer().getHighestZLayerCoverableArea(CoverableArea.NIPPLES).setDirty(true);
 				}
 			}
-			Sex.removePenetration(Sex.getActivePartner(), Main.game.getPlayer(), PenetrationType.PENIS, OrificeType.MOUTH);
+			Sex.removePenetration(Sex.getActivePartner(), Main.game.getPlayer(), SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH);
 		}
 		
 		@Override

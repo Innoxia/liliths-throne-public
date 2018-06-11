@@ -3,8 +3,8 @@ package com.lilithsthrone.game.sex.sexActions.baseActionsPartner;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
-import com.lilithsthrone.game.sex.OrificeType;
-import com.lilithsthrone.game.sex.PenetrationType;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
@@ -24,14 +24,14 @@ public class PartnerPenisThighs {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.THIGHS,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.THIGHS,
 			SexParticipantType.PITCHER) {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
 			// NPC can't penetrate if PC is already fucking them, due to physical limitations.
-			return Sex.isPenetrationTypeFree(Main.game.getPlayer(), PenetrationType.PENIS);
+			return Sex.isPenetrationTypeFree(Main.game.getPlayer(), SexAreaPenetration.PENIS);
 		}
 		
 		@Override
@@ -125,8 +125,8 @@ public class PartnerPenisThighs {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.THIGHS,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.THIGHS,
 			SexParticipantType.PITCHER,
 			null,
 			SexPace.DOM_GENTLE) {
@@ -186,8 +186,8 @@ public class PartnerPenisThighs {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.THIGHS,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.THIGHS,
 			SexParticipantType.PITCHER,
 			null,
 			SexPace.DOM_NORMAL) {
@@ -248,8 +248,8 @@ public class PartnerPenisThighs {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.TWO_HORNY,
-			PenetrationType.PENIS,
-			OrificeType.THIGHS,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.THIGHS,
 			SexParticipantType.PITCHER,
 			null,
 			SexPace.DOM_ROUGH) {
@@ -312,8 +312,8 @@ public class PartnerPenisThighs {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.THIGHS,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.THIGHS,
 			SexParticipantType.PITCHER,
 			null,
 			SexPace.SUB_NORMAL) {
@@ -372,8 +372,8 @@ public class PartnerPenisThighs {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.THIGHS,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.THIGHS,
 			SexParticipantType.PITCHER,
 			null,
 			SexPace.SUB_EAGER) {
@@ -433,8 +433,8 @@ public class PartnerPenisThighs {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS,
-			OrificeType.THIGHS,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.THIGHS,
 			SexParticipantType.PITCHER,
 			null,
 			SexPace.SUB_RESISTING) {
@@ -498,8 +498,8 @@ public class PartnerPenisThighs {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS,
-			OrificeType.THIGHS,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.THIGHS,
 			SexParticipantType.PITCHER) {
 
 		@Override
@@ -560,13 +560,13 @@ public class PartnerPenisThighs {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.THIGHS,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.THIGHS,
 			SexParticipantType.CATCHER) {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			if(Sex.isPenetrationTypeFree(Main.game.getPlayer(), PenetrationType.PENIS)) {
+			if(Sex.isPenetrationTypeFree(Main.game.getPlayer(), SexAreaPenetration.PENIS)) {
 				return (Sex.isSubHasEqualControl() || Sex.isDom(Main.game.getPlayer()));
 			} else {
 				return false;
@@ -673,8 +673,8 @@ public class PartnerPenisThighs {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.THIGHS,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.THIGHS,
 			SexParticipantType.CATCHER,
 			SexPace.DOM_GENTLE,
 			null) {
@@ -710,8 +710,8 @@ public class PartnerPenisThighs {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.THIGHS,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.THIGHS,
 			SexParticipantType.CATCHER,
 			SexPace.DOM_NORMAL,
 			null) {
@@ -747,8 +747,8 @@ public class PartnerPenisThighs {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.TWO_HORNY,
-			PenetrationType.PENIS,
-			OrificeType.THIGHS,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.THIGHS,
 			SexParticipantType.CATCHER,
 			SexPace.DOM_ROUGH,
 			null) {
@@ -785,8 +785,8 @@ public class PartnerPenisThighs {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.THIGHS,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.THIGHS,
 			SexParticipantType.CATCHER,
 			SexPace.SUB_NORMAL,
 			null) {
@@ -822,8 +822,8 @@ public class PartnerPenisThighs {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.THIGHS,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.THIGHS,
 			SexParticipantType.CATCHER,
 			SexPace.SUB_EAGER,
 			null) {
@@ -859,8 +859,8 @@ public class PartnerPenisThighs {
 			ArousalIncrease.ZERO_NONE,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS,
-			OrificeType.THIGHS,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.THIGHS,
 			SexParticipantType.CATCHER,
 			SexPace.SUB_RESISTING,
 			null) {
@@ -921,8 +921,8 @@ public class PartnerPenisThighs {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS,
-			OrificeType.THIGHS,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.THIGHS,
 			SexParticipantType.CATCHER) {
 
 		@Override

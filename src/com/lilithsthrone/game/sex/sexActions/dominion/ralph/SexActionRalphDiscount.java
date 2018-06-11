@@ -10,8 +10,8 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.LubricationType;
-import com.lilithsthrone.game.sex.OrificeType;
-import com.lilithsthrone.game.sex.PenetrationType;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexFlags;
 import com.lilithsthrone.game.sex.SexParticipantType;
@@ -36,8 +36,8 @@ public class SexActionRalphDiscount {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.MOUTH,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.MOUTH,
 			SexParticipantType.CATCHER) {
 		@Override
 		public String getActionTitle() {
@@ -61,7 +61,7 @@ public class SexActionRalphDiscount {
 			UtilText.nodeContentSB.append("With Ralph's cock being as large as it is, you don't even need to lean forwards in order to start earning your discount."
 					+ " Opening your mouth, you simply move your lips down to kiss the flared head of his horse-like shaft.");
 			
-			if(Sex.getWetPenetrationTypes(Sex.getActivePartner()).get(PenetrationType.PENIS).contains(LubricationType.PARTNER_PRECUM))
+			if(Sex.getWetPenetrationTypes(Sex.getActivePartner()).get(SexAreaPenetration.PENIS).contains(LubricationType.PARTNER_PRECUM))
 				UtilText.nodeContentSB.append(" As the tip of your tongue slides over his bumpy equine urethra, a dollop of salty pre-cum leaks into your mouth."
 						+ " You let out a surprised moan as the salty liquid drips past your lips");
 			else
@@ -92,8 +92,8 @@ public class SexActionRalphDiscount {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS,
-			OrificeType.MOUTH,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.MOUTH,
 			SexParticipantType.CATCHER) {
 		@Override
 		public String getActionTitle() {
@@ -122,8 +122,8 @@ public class SexActionRalphDiscount {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.THREE_DIRTY,
-			PenetrationType.PENIS,
-			OrificeType.MOUTH,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.MOUTH,
 			SexParticipantType.CATCHER) {
 		@Override
 		public String getActionTitle() {
@@ -156,8 +156,8 @@ public class SexActionRalphDiscount {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.FIVE_EXTREME,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.MOUTH,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.MOUTH,
 			SexParticipantType.CATCHER) {
 		@Override
 		public String getActionTitle() {
@@ -202,8 +202,8 @@ public class SexActionRalphDiscount {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.MOUTH,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.MOUTH,
 			SexParticipantType.CATCHER) {
 		@Override
 		public String getActionTitle() {
@@ -246,8 +246,8 @@ public class SexActionRalphDiscount {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.TWO_HORNY,
-			PenetrationType.PENIS,
-			OrificeType.MOUTH,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.MOUTH,
 			SexParticipantType.CATCHER) {
 		@Override
 		public String getActionTitle() {
@@ -291,8 +291,8 @@ public class SexActionRalphDiscount {
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.THREE_DIRTY,
-			PenetrationType.PENIS,
-			OrificeType.MOUTH,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.MOUTH,
 			SexParticipantType.CATCHER) {
 		@Override
 		public String getActionTitle() {
@@ -353,8 +353,8 @@ public class SexActionRalphDiscount {
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.THREE_DIRTY,
-			PenetrationType.PENIS,
-			OrificeType.MOUTH,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.MOUTH,
 			SexParticipantType.CATCHER) {
 		@Override
 		public String getActionTitle() {
@@ -415,8 +415,8 @@ public class SexActionRalphDiscount {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.VAGINA,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.CATCHER) {
 		@Override
 		public String getActionTitle() {
@@ -441,8 +441,8 @@ public class SexActionRalphDiscount {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.ANUS,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.ANUS,
 			SexParticipantType.CATCHER) {
 		@Override
 		public String getActionTitle() {
@@ -467,8 +467,8 @@ public class SexActionRalphDiscount {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.VAGINA,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.CATCHER) {
 		@Override
 		public String getActionTitle() {
@@ -512,8 +512,8 @@ public class SexActionRalphDiscount {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.ANUS,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.ANUS,
 			SexParticipantType.CATCHER) {
 		@Override
 		public String getActionTitle() {
@@ -560,8 +560,8 @@ public class SexActionRalphDiscount {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS,
-			OrificeType.MOUTH,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.MOUTH,
 			SexParticipantType.PITCHER) {
 		@Override
 		public String getActionTitle() {
@@ -592,8 +592,8 @@ public class SexActionRalphDiscount {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS,
-			OrificeType.MOUTH,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.MOUTH,
 			SexParticipantType.PITCHER) {
 		@Override
 		public String getActionTitle() {
@@ -650,8 +650,8 @@ public class SexActionRalphDiscount {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS,
-			OrificeType.VAGINA,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.PITCHER) {
 		@Override
 		public String getActionTitle() {
@@ -703,8 +703,8 @@ public class SexActionRalphDiscount {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS,
-			OrificeType.ANUS,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.ANUS,
 			SexParticipantType.PITCHER) {
 		@Override
 		public String getActionTitle() {
@@ -816,8 +816,8 @@ public class SexActionRalphDiscount {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS,
-			OrificeType.MOUTH,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.MOUTH,
 			SexParticipantType.PITCHER) {
 		@Override
 		public String getActionTitle() {
@@ -870,8 +870,8 @@ public class SexActionRalphDiscount {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.MOUTH,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.MOUTH,
 			SexParticipantType.PITCHER) {
 		@Override
 		public String getActionTitle() {
@@ -911,8 +911,8 @@ public class SexActionRalphDiscount {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.VAGINA,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.PITCHER) {
 		@Override
 		public String getActionTitle() {
@@ -951,8 +951,8 @@ public class SexActionRalphDiscount {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.ANUS,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.ANUS,
 			SexParticipantType.PITCHER) {
 		@Override
 		public String getActionTitle() {
@@ -991,8 +991,8 @@ public class SexActionRalphDiscount {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS,
-			OrificeType.MOUTH,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.MOUTH,
 			SexParticipantType.PITCHER) {
 		@Override
 		public String getActionTitle() {
@@ -1037,8 +1037,8 @@ public class SexActionRalphDiscount {
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS,
-			OrificeType.MOUTH,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.MOUTH,
 			SexParticipantType.PITCHER) {
 		@Override
 		public String getActionTitle() {
@@ -1081,8 +1081,8 @@ public class SexActionRalphDiscount {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS,
-			OrificeType.VAGINA,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.PITCHER) {
 		@Override
 		public String getActionTitle() {
@@ -1175,8 +1175,8 @@ public class SexActionRalphDiscount {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS,
-			OrificeType.ANUS,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.ANUS,
 			SexParticipantType.PITCHER) {
 		@Override
 		public String getActionTitle() {
@@ -1264,8 +1264,8 @@ public class SexActionRalphDiscount {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.VAGINA,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.PITCHER) {
 		@Override
 		public String getActionTitle() {
@@ -1298,8 +1298,8 @@ public class SexActionRalphDiscount {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.ANUS,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.ANUS,
 			SexParticipantType.PITCHER) {
 		@Override
 		public String getActionTitle() {
@@ -1327,8 +1327,8 @@ public class SexActionRalphDiscount {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.VAGINA,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.PITCHER) {
 		@Override
 		public String getActionTitle() {
@@ -1358,8 +1358,8 @@ public class SexActionRalphDiscount {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.ANUS,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.ANUS,
 			SexParticipantType.PITCHER) {
 		@Override
 		public String getActionTitle() {

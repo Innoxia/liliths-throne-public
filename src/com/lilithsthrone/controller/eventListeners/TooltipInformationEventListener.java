@@ -446,6 +446,7 @@ public class TooltipInformationEventListener implements EventListener {
 			// Description & turns remaining:
 			tooltipSB.append(
 					"<div class='description'>"
+							+ (spell.isForbiddenSpell() && !owner.hasSpell(spell)?"[style.italicsArcane(This is a forbidden spell, and can only be discovered through a special quest!)]</br>":"")
 							+ spell.getDescription()
 					+ "</div>"
 					+ "<div class='subTitle'>"

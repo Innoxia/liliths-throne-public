@@ -18,10 +18,10 @@ public class SexType implements Serializable, XMLSaving {
 	private static final long serialVersionUID = 1L;
 	
 	private SexParticipantType asParticipant;
-	private PenetrationType penetrationType;
-	private OrificeType orificeType;
+	private SexAreaPenetration penetrationType;
+	private SexAreaOrifice orificeType;
 
-	public SexType(SexParticipantType asParticipant, PenetrationType penetrationType, OrificeType orificeType) {
+	public SexType(SexParticipantType asParticipant, SexAreaPenetration penetrationType, SexAreaOrifice orificeType) {
 		this.asParticipant = asParticipant;
 		this.penetrationType=penetrationType;
 		this.orificeType = orificeType;
@@ -61,8 +61,8 @@ public class SexType implements Serializable, XMLSaving {
 	public static SexType loadFromXML(Element parentElement, Document doc) {
 		return new SexType(
 				SexParticipantType.valueOf(parentElement.getAttribute("SexParticipantType")),
-				PenetrationType.valueOf(parentElement.getAttribute("penetrationType")),
-				OrificeType.valueOf(parentElement.getAttribute("orificeType")));
+				SexAreaPenetration.valueOf(parentElement.getAttribute("penetrationType")),
+				SexAreaOrifice.valueOf(parentElement.getAttribute("orificeType")));
 	}
 	
 	public String getName() {
@@ -73,11 +73,11 @@ public class SexType implements Serializable, XMLSaving {
 		return asParticipant;
 	}
 
-	public PenetrationType getPenetrationType() {
+	public SexAreaPenetration getPenetrationType() {
 		return penetrationType;
 	}
 
-	public OrificeType getOrificeType() {
+	public SexAreaOrifice getOrificeType() {
 		return orificeType;
 	}
 }

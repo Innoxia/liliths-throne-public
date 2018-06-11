@@ -14,7 +14,7 @@ import com.lilithsthrone.game.character.body.types.FluidType;
 import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
-import com.lilithsthrone.game.sex.OrificeType;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -148,12 +148,12 @@ public class AbstractFilledCondom extends AbstractItem implements Serializable, 
 							+ "You can't help but let out a delighted [pc.moan] as you greedily gulp down the slimy fluid."
 							+ " Darting your [pc.tongue] out, you desperately lick up every last drop of cum; only discarding the condom once you're sure that's it's completely empty."
 						+ "</p>"
-						+ target.ingestFluid(getCumProvidor(), cum.getType(), OrificeType.MOUTH, millilitresStored, cum.getFluidModifiers());
+						+ target.ingestFluid(getCumProvidor(), cum.getType(), SexAreaOrifice.MOUTH, millilitresStored, cum.getFluidModifiers());
 			} else {
 				return "<p>"
 							+ "You scrunch your [pc.eyes] shut as you gulp down the slimy fluid, trying your best not to think about what you've just done as you throw the now-empty condom to the floor..."
 						+ "</p>"
-						+ target.ingestFluid(getCumProvidor(), cum.getType(), OrificeType.MOUTH, millilitresStored, cum.getFluidModifiers());
+						+ target.ingestFluid(getCumProvidor(), cum.getType(), SexAreaOrifice.MOUTH, millilitresStored, cum.getFluidModifiers());
 			}
 			
 		} else {
@@ -162,12 +162,12 @@ public class AbstractFilledCondom extends AbstractItem implements Serializable, 
 							+ "[npc.Name] can't help but let out a delighted [npc.moan] as [npc.she] greedily gulps down the slimy fluid."
 							+ " Darting [npc.her] [npc.tongue] out, [npc.she] desperately licks up every last drop of cum; only discarding the condom once [npc.she]'s sure that's it's completely empty."
 						+ "</p>"
-						+ target.ingestFluid(getCumProvidor(), cum.getType(), OrificeType.MOUTH, millilitresStored, cum.getFluidModifiers());
+						+ target.ingestFluid(getCumProvidor(), cum.getType(), SexAreaOrifice.MOUTH, millilitresStored, cum.getFluidModifiers());
 			} else {
 				return "<p>"
 							+ "[npc.Name] scrunches [npc.her] [npc.eyes] shut as [npc.she] gulps down the slimy fluid, trying [npc.her] best not to think about what [npc.she]'s just done as [npc.she] throws the now-empty condom to the floor..."
 						+ "</p>"
-						+ target.ingestFluid(getCumProvidor(), cum.getType(), OrificeType.MOUTH, millilitresStored, cum.getFluidModifiers());
+						+ target.ingestFluid(getCumProvidor(), cum.getType(), SexAreaOrifice.MOUTH, millilitresStored, cum.getFluidModifiers());
 			}
 		}
 	}

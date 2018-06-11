@@ -17,7 +17,7 @@ import com.lilithsthrone.game.dialogue.SlaveryManagementDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.sex.OrificeType;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -81,8 +81,8 @@ public class RoomPlayer {
 					Main.game.getPlayer().setHealth(Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM));
 					Main.game.getPlayer().setMana(Main.game.getPlayer().getAttributeValue(Attribute.MANA_MAXIMUM));
 					
-					Set<OrificeType> dirtyOrifices = new HashSet<>();
-					for(OrificeType ot: OrificeType.values()) {
+					Set<SexAreaOrifice> dirtyOrifices = new HashSet<>();
+					for(SexAreaOrifice ot: SexAreaOrifice.values()) {
 						if(Main.game.getPlayer().getTotalFluidInArea(ot)>0) {
 							dirtyOrifices.add(ot);
 						}
@@ -93,7 +93,7 @@ public class RoomPlayer {
 					Main.game.getPlayer().cleanAllDirtySlots();
 					Main.game.getPlayer().cleanAllClothing();
 					
-					for(OrificeType orifice : OrificeType.values()) {
+					for(SexAreaOrifice orifice : SexAreaOrifice.values()) {
 						if(dirtyOrifices.contains(orifice)) {
 							switch(orifice) {
 								case ANUS:

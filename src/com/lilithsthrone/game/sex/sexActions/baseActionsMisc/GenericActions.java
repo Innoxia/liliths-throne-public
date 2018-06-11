@@ -13,8 +13,8 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
-import com.lilithsthrone.game.sex.OrificeType;
-import com.lilithsthrone.game.sex.PenetrationType;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexFlags;
 import com.lilithsthrone.game.sex.SexPace;
@@ -345,7 +345,7 @@ public class GenericActions {
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			for(OrificeType ot : OrificeType.values()) {
+			for(SexAreaOrifice ot : SexAreaOrifice.values()) {
 				switch(ot) {
 					case ANUS:
 						if (Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), ot)!=null && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), ot).isPlayer()) {
@@ -430,9 +430,9 @@ public class GenericActions {
 		@Override
 		public void applyEffects() {
 			for(GameCharacter penetrated : Sex.getAllParticipants()) {
-				for(PenetrationType pt : PenetrationType.values()) {
+				for(SexAreaPenetration pt : SexAreaPenetration.values()) {
 					if(Sex.getOngoingPenetrationMap(Main.game.getPlayer()).get(penetrated).containsKey(pt)) {
-						for(OrificeType ot : OrificeType.values()) {
+						for(SexAreaOrifice ot : SexAreaOrifice.values()) {
 							Sex.removePenetration(Main.game.getPlayer(), penetrated, pt, ot);
 						}
 					}
@@ -469,30 +469,30 @@ public class GenericActions {
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			if (Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.VAGINA)!=null) {
-				if(!Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.VAGINA).equals(Sex.getActivePartner())) {
+			if (Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), SexAreaOrifice.VAGINA)!=null) {
+				if(!Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), SexAreaOrifice.VAGINA).equals(Sex.getActivePartner())) {
 					UtilText.nodeContentSB.append("[npc.Name] lets out a disappointed [pc.moan] as you force [npc.herHim] to stop stimulating [npc.her] [npc.pussy+].");
 				}
 			}
 			
-			if (Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.ANUS)!=null) {
-				if(!Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.ANUS).equals(Sex.getActivePartner())) {
+			if (Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), SexAreaOrifice.ANUS)!=null) {
+				if(!Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), SexAreaOrifice.ANUS).equals(Sex.getActivePartner())) {
 					if(UtilText.nodeContentSB.length()!=0)
 						UtilText.nodeContentSB.append("</br>");
 					UtilText.nodeContentSB.append("As you put an end to [npc.name]'s self-stimulation of [npc.her] [npc.asshole], [npc.she] lets out a pathetic whine.");
 				}
 			}
 			
-			if (Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.NIPPLE)!=null) {
-				if(!Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.NIPPLE).equals(Sex.getActivePartner())) {
+			if (Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), SexAreaOrifice.NIPPLE)!=null) {
+				if(!Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), SexAreaOrifice.NIPPLE).equals(Sex.getActivePartner())) {
 					if(UtilText.nodeContentSB.length()!=0)
 						UtilText.nodeContentSB.append("</br>");
 					UtilText.nodeContentSB.append("[npc.Name] pouts at you as you force [npc.herHim] to stop stimulating [npc.her] [npc.nipples+].");
 				}
 			}
 			
-			if (Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.MOUTH)!=null) {
-				if(!Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.MOUTH).equals(Sex.getActivePartner())) {
+			if (Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), SexAreaOrifice.MOUTH)!=null) {
+				if(!Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), SexAreaOrifice.MOUTH).equals(Sex.getActivePartner())) {
 					if(UtilText.nodeContentSB.length()!=0)
 						UtilText.nodeContentSB.append("</br>");
 					UtilText.nodeContentSB.append("[npc.Name] lets out a disappointed [pc.moan] as you force [npc.herHim] to stop using [npc.her] mouth.");
@@ -509,9 +509,9 @@ public class GenericActions {
 
 		@Override
 		public void applyEffects() {
-			for(PenetrationType pt : PenetrationType.values()) {
+			for(SexAreaPenetration pt : SexAreaPenetration.values()) {
 				if(Sex.getOngoingPenetrationMap(Sex.getActivePartner()).get(Sex.getActivePartner()).containsKey(pt)) {
-					for(OrificeType ot : OrificeType.values()) {
+					for(SexAreaOrifice ot : SexAreaOrifice.values()) {
 						Sex.removePenetration(Sex.getActivePartner(), Sex.getActivePartner(), pt, ot);
 					}
 				}
@@ -726,30 +726,30 @@ public class GenericActions {
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			if (Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.VAGINA)!=null) {
-				if(!Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.VAGINA).equals(Sex.getActivePartner())) {
+			if (Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), SexAreaOrifice.VAGINA)!=null) {
+				if(!Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), SexAreaOrifice.VAGINA).equals(Sex.getActivePartner())) {
 					UtilText.nodeContentSB.append("[npc.Name] lets out a disappointed [pc.moan] as you force [npc.herHim] to stop stimulating [npc.her] [npc.pussy+].");
 				}
 			}
 			
-			if (Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.ANUS)!=null) {
-				if(!Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.ANUS).equals(Sex.getActivePartner())) {
+			if (Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), SexAreaOrifice.ANUS)!=null) {
+				if(!Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), SexAreaOrifice.ANUS).equals(Sex.getActivePartner())) {
 					if(UtilText.nodeContentSB.length()!=0)
 						UtilText.nodeContentSB.append("</br>");
 					UtilText.nodeContentSB.append("As you put an end to [npc.name]'s self-stimulation of [npc.her] [npc.asshole], [npc.she] lets out a pathetic whine.");
 				}
 			}
 			
-			if (Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.NIPPLE)!=null) {
-				if(!Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.NIPPLE).equals(Sex.getActivePartner())) {
+			if (Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), SexAreaOrifice.NIPPLE)!=null) {
+				if(!Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), SexAreaOrifice.NIPPLE).equals(Sex.getActivePartner())) {
 					if(UtilText.nodeContentSB.length()!=0)
 						UtilText.nodeContentSB.append("</br>");
 					UtilText.nodeContentSB.append("[npc.Name] pouts at you as you force [npc.herHim] to stop stimulating [npc.her] [npc.nipples+].");
 				}
 			}
 			
-			if (Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.MOUTH)!=null) {
-				if(!Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.MOUTH).equals(Sex.getActivePartner())) {
+			if (Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), SexAreaOrifice.MOUTH)!=null) {
+				if(!Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), SexAreaOrifice.MOUTH).equals(Sex.getActivePartner())) {
 					if(UtilText.nodeContentSB.length()!=0)
 						UtilText.nodeContentSB.append("</br>");
 					UtilText.nodeContentSB.append("[npc.Name] lets out a disappointed [pc.moan] as you force [npc.herHim] to stop using [npc.her] mouth.");
@@ -761,9 +761,9 @@ public class GenericActions {
 
 		@Override
 		public void applyEffects() {
-			for(PenetrationType pt : PenetrationType.values()) {
+			for(SexAreaPenetration pt : SexAreaPenetration.values()) {
 				if(Sex.getOngoingPenetrationMap(Sex.getActivePartner()).get(Sex.getActivePartner()).containsKey(pt)) {
-					for(OrificeType ot : OrificeType.values()) {
+					for(SexAreaOrifice ot : SexAreaOrifice.values()) {
 						Sex.removePenetration(Sex.getActivePartner(), Sex.getActivePartner(), pt, ot);
 					}
 				}
@@ -992,30 +992,30 @@ public class GenericActions {
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			if (Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), OrificeType.VAGINA)!=null) {
-				if(Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), OrificeType.VAGINA).isPlayer()) {
+			if (Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), SexAreaOrifice.VAGINA)!=null) {
+				if(Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), SexAreaOrifice.VAGINA).isPlayer()) {
 					UtilText.nodeContentSB.append("[npc.Name] lets out an angry growl as [npc.she] forces you to stop stimulating your [pc.pussy+].");
 				}
 			}
 			
-			if (Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), OrificeType.ANUS)!=null) {
-				if(Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), OrificeType.ANUS).isPlayer()) {
+			if (Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), SexAreaOrifice.ANUS)!=null) {
+				if(Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), SexAreaOrifice.ANUS).isPlayer()) {
 					if(UtilText.nodeContentSB.length()!=0)
 						UtilText.nodeContentSB.append("</br>");
 					UtilText.nodeContentSB.append("As [npc.name] puts an end to your self-stimulation of your [pc.asshole], [npc.she] growls menacingly at you.");
 				}
 			}
 			
-			if (Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), OrificeType.NIPPLE)!=null) {
-				if(Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), OrificeType.NIPPLE).isPlayer()) {
+			if (Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), SexAreaOrifice.NIPPLE)!=null) {
+				if(Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), SexAreaOrifice.NIPPLE).isPlayer()) {
 					if(UtilText.nodeContentSB.length()!=0)
 						UtilText.nodeContentSB.append("</br>");
 					UtilText.nodeContentSB.append("[npc.Name] frowns at you as [npc.she] forces you to stop stimulating your [pc.nipples+].");
 				}
 			}
 			
-			if (Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), OrificeType.MOUTH)!=null) {
-				if(Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), OrificeType.MOUTH).isPlayer()) {
+			if (Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), SexAreaOrifice.MOUTH)!=null) {
+				if(Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), SexAreaOrifice.MOUTH).isPlayer()) {
 					if(UtilText.nodeContentSB.length()!=0)
 						UtilText.nodeContentSB.append("</br>");
 					UtilText.nodeContentSB.append("[npc.Name] makes a disapproving clicking noise with [npc.her] [npc.tongue] as [npc.she] forces you to stop using your mouth.");
@@ -1027,9 +1027,9 @@ public class GenericActions {
 
 		@Override
 		public void applyEffects() {
-			for(PenetrationType pt : PenetrationType.values()) {
+			for(SexAreaPenetration pt : SexAreaPenetration.values()) {
 				if(Sex.getOngoingPenetrationMap(Main.game.getPlayer()).get(Main.game.getPlayer()).containsKey(pt)) {
-					for(OrificeType ot : OrificeType.values()) {
+					for(SexAreaOrifice ot : SexAreaOrifice.values()) {
 						Sex.removePenetration(Main.game.getPlayer(), Main.game.getPlayer(), pt, ot);
 					}
 				}

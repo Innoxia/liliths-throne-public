@@ -19,7 +19,7 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.sex.OrificeType;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -102,7 +102,7 @@ public class Vagina implements BodyPartInterface, Serializable {
 		
 		String wetnessDescriptor = orificeVagina.getWetness(owner).getDescriptor();
 		if(Main.game.isInSex()) {
-			if(!Sex.getWetOrificeTypes(owner).get(OrificeType.VAGINA).isEmpty()) {
+			if(!Sex.getWetOrificeTypes(owner).get(SexAreaOrifice.VAGINA).isEmpty()) {
 				wetnessDescriptor = "wet";
 			}
 		}

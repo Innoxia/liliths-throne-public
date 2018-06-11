@@ -34,8 +34,8 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
-import com.lilithsthrone.game.sex.OrificeType;
-import com.lilithsthrone.game.sex.PenetrationType;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
@@ -51,7 +51,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.?
- * @version 0.2.4
+ * @version 0.2.7
  * @author Innoxia
  */
 public class Zaranix extends NPC {
@@ -78,18 +78,7 @@ public class Zaranix extends NPC {
 		if(!isImported) {
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 			
-			this.setEyeCovering(new Covering(BodyCoveringType.EYE_DEMON_COMMON, Colour.EYE_ORANGE));
-			this.setHairCovering(new Covering(BodyCoveringType.HAIR_DEMON, Colour.COVERING_BLACK), true);
-			this.setSkinCovering(new Covering(BodyCoveringType.DEMON_COMMON, Colour.SKIN_PURPLE), true);
-			
-			this.setHeight(Height.THREE_TALL.getMedianValue());
-			
-			this.setHornType(HornType.STRAIGHT);
-			
-			this.setMuscle(Muscle.FOUR_RIPPED.getMedianValue());
-			this.setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
-
-			this.setWingSize(WingSize.THREE_LARGE.getValue());
+			this.resetBody();
 			
 			this.addFetish(Fetish.FETISH_ORAL_RECEIVING);
 			
@@ -136,6 +125,11 @@ public class Zaranix extends NPC {
 		this.setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
 
 		this.setWingSize(WingSize.THREE_LARGE.getValue());
+
+		this.setAssVirgin(true);
+		this.setFaceVirgin(true);
+		this.setNippleVirgin(true);
+		this.setPenisVirgin(false);
 	}
 	
 	@Override
@@ -578,7 +572,7 @@ public class Zaranix extends NPC {
 
 	public SexType getForeplayPreference() {
 		if(Sex.getSexPositionSlot(Main.game.getZaranix())==SexPositionSlot.KNEELING_RECEIVING_ORAL_ZARANIX && this.hasPenis()) {
-			return new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.MOUTH);
+			return new SexType(SexParticipantType.PITCHER, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH);
 		}
 		
 		return super.getForeplayPreference();
@@ -586,7 +580,7 @@ public class Zaranix extends NPC {
 	
 	public SexType getMainSexPreference() {
 		if(Sex.getSexPositionSlot(Main.game.getZaranix())==SexPositionSlot.KNEELING_RECEIVING_ORAL_ZARANIX && this.hasPenis()) {
-			return new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.MOUTH);
+			return new SexType(SexParticipantType.PITCHER, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH);
 		}
 
 		return super.getMainSexPreference();

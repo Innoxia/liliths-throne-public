@@ -3,8 +3,8 @@ package com.lilithsthrone.game.sex.sexActions.baseActionsPlayer;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
-import com.lilithsthrone.game.sex.OrificeType;
-import com.lilithsthrone.game.sex.PenetrationType;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
@@ -24,8 +24,8 @@ public class PlayerPenisNipple {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.NIPPLE,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.NIPPLE,
 			SexParticipantType.PITCHER) {
 		@Override
 		public String getActionTitle() {
@@ -102,7 +102,7 @@ public class PlayerPenisNipple {
 		
 		@Override
 		public void applyEffects() {
-			Sex.transferLubrication(Main.game.getPlayer(), Sex.getActivePartner(), PenetrationType.PENIS, OrificeType.NIPPLE);
+			Sex.transferLubrication(Main.game.getPlayer(), Sex.getActivePartner(), SexAreaPenetration.PENIS, SexAreaOrifice.NIPPLE);
 		}
 		
 	};
@@ -112,8 +112,8 @@ public class PlayerPenisNipple {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.NIPPLE,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.NIPPLE,
 			SexParticipantType.CATCHER) {
 		@Override
 		public String getActionTitle() {
@@ -188,7 +188,7 @@ public class PlayerPenisNipple {
 		
 		@Override
 		public void applyEffects() {
-			Sex.transferLubrication(Main.game.getPlayer(), Sex.getActivePartner(), PenetrationType.PENIS, OrificeType.NIPPLE);
+			Sex.transferLubrication(Main.game.getPlayer(), Sex.getActivePartner(), SexAreaPenetration.PENIS, SexAreaOrifice.NIPPLE);
 		}
 		
 	};
@@ -199,8 +199,8 @@ public class PlayerPenisNipple {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.NIPPLE,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.NIPPLE,
 			SexParticipantType.PITCHER) {
 		
 		@Override
@@ -294,8 +294,8 @@ public class PlayerPenisNipple {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.NIPPLE,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.NIPPLE,
 			SexParticipantType.PITCHER,
 			SexPace.DOM_GENTLE,
 			null) {
@@ -356,8 +356,8 @@ public class PlayerPenisNipple {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.NIPPLE,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.NIPPLE,
 			SexParticipantType.PITCHER,
 			SexPace.DOM_NORMAL,
 			null) {
@@ -418,8 +418,8 @@ public class PlayerPenisNipple {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.TWO_HORNY,
-			PenetrationType.PENIS,
-			OrificeType.NIPPLE,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.NIPPLE,
 			SexParticipantType.PITCHER,
 			SexPace.DOM_ROUGH,
 			null) {
@@ -482,8 +482,8 @@ public class PlayerPenisNipple {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.NIPPLE,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.NIPPLE,
 			SexParticipantType.PITCHER,
 			SexPace.SUB_NORMAL,
 			null) {
@@ -543,8 +543,8 @@ public class PlayerPenisNipple {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.NIPPLE,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.NIPPLE,
 			SexParticipantType.PITCHER,
 			SexPace.SUB_EAGER,
 			null) {
@@ -604,8 +604,8 @@ public class PlayerPenisNipple {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS,
-			OrificeType.NIPPLE,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.NIPPLE,
 			SexParticipantType.PITCHER,
 			SexPace.SUB_RESISTING,
 			null) {
@@ -669,8 +669,8 @@ public class PlayerPenisNipple {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS,
-			OrificeType.NIPPLE,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.NIPPLE,
 			SexParticipantType.PITCHER) {
 
 		@Override
@@ -731,8 +731,8 @@ public class PlayerPenisNipple {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.NIPPLE,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.NIPPLE,
 			SexParticipantType.CATCHER) {
 
 		@Override
@@ -835,8 +835,8 @@ public class PlayerPenisNipple {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.NIPPLE,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.NIPPLE,
 			SexParticipantType.CATCHER,
 			null,
 			SexPace.DOM_GENTLE) {
@@ -875,8 +875,8 @@ public class PlayerPenisNipple {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.NIPPLE,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.NIPPLE,
 			SexParticipantType.CATCHER,
 			null,
 			SexPace.DOM_NORMAL) {
@@ -916,8 +916,8 @@ public class PlayerPenisNipple {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.TWO_HORNY,
-			PenetrationType.PENIS,
-			OrificeType.NIPPLE,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.NIPPLE,
 			SexParticipantType.CATCHER,
 			null,
 			SexPace.DOM_ROUGH) {
@@ -956,8 +956,8 @@ public class PlayerPenisNipple {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.NIPPLE,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.NIPPLE,
 			SexParticipantType.CATCHER,
 			null,
 			SexPace.SUB_NORMAL) {
@@ -996,8 +996,8 @@ public class PlayerPenisNipple {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.NIPPLE,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.NIPPLE,
 			SexParticipantType.CATCHER,
 			null,
 			SexPace.SUB_EAGER) {
@@ -1037,8 +1037,8 @@ public class PlayerPenisNipple {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS,
-			OrificeType.NIPPLE,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.NIPPLE,
 			SexParticipantType.CATCHER,
 			null,
 			SexPace.SUB_RESISTING) {
@@ -1099,8 +1099,8 @@ public class PlayerPenisNipple {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS,
-			OrificeType.NIPPLE,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.NIPPLE,
 			SexParticipantType.CATCHER) {
 
 		@Override

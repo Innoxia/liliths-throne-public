@@ -9,8 +9,8 @@ import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.valueEnums.PenisModifier;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
-import com.lilithsthrone.game.sex.OrificeType;
-import com.lilithsthrone.game.sex.PenetrationType;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
@@ -100,7 +100,7 @@ public class DomDoggy {
 		public String getDescription() {
 			String tailSpecial1 = "", tailSpecial2 = "";
 			
-			if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.VAGINA)==PenetrationType.PENIS) {
+			if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), SexAreaOrifice.VAGINA)==SexAreaPenetration.PENIS) {
 				switch(Sex.getActivePartner().getTailType()) {
 					case NONE:
 						tailSpecial1 = "Hilting your [pc.cock+] deep inside [npc.name]'s [npc.pussy+], you reach down and roughly grope [npc.her] [npc.ass+], before starting to deliver a series of stinging slaps to [npc.her] exposed cheeks.";
@@ -128,7 +128,7 @@ public class DomDoggy {
 							"Hilting your [pc.cock+] deep inside [npc.name]'s [npc.pussy], you use one [pc.hand] to hold [npc.herHim] still, while using your other to deliver a series of stinging slaps to [npc.her] exposed ass cheeks.",
 							"While you continue pounding away at [npc.name]'s [npc.pussy+], you reach down and start to roughly slap [npc.her] [npc.ass+], growling in glee as [npc.she] squirms and squeals under your stinging blows."));
 				
-			} else if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.ANUS)==PenetrationType.PENIS) {
+			} else if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), SexAreaOrifice.ANUS)==SexAreaPenetration.PENIS) {
 				switch(Sex.getActivePartner().getTailType()) {
 					case NONE:
 						tailSpecial1 = "Hilting your [pc.cock+] deep inside [npc.name]'s [npc.asshole+], you reach down and roughly grope [npc.her] [npc.ass+], before starting to deliver a series of stinging slaps to [npc.her] exposed cheeks.";
@@ -198,7 +198,7 @@ public class DomDoggy {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS,
+			SexAreaPenetration.PENIS,
 			null,
 			SexParticipantType.PITCHER) {
 		
@@ -221,7 +221,7 @@ public class DomDoggy {
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(!Sex.isPenetrationTypeFree(Main.game.getPlayer(), PenetrationType.PENIS)) {
+			if(!Sex.isPenetrationTypeFree(Main.game.getPlayer(), SexAreaPenetration.PENIS)) {
 				UtilText.nodeContentSB.append("As you feel yourself reaching your climax, you decide that you're going to shoot your sticky seed all over [npc.name]'s ass."
 						+ " Grabbing [npc.her] hips, you slide backwards, slipping your cock free from [npc.her] well-used hole, and brace for your orgasm. ");
 				
@@ -340,8 +340,8 @@ public class DomDoggy {
 
 		@Override
 		public void applyEffects() {
-			Sex.removePenetration(Main.game.getPlayer(), Sex.getActivePartner(), PenetrationType.PENIS, OrificeType.ANUS);
-			Sex.removePenetration(Main.game.getPlayer(), Sex.getActivePartner(), PenetrationType.PENIS, OrificeType.VAGINA);
+			Sex.removePenetration(Main.game.getPlayer(), Sex.getActivePartner(), SexAreaPenetration.PENIS, SexAreaOrifice.ANUS);
+			Sex.removePenetration(Main.game.getPlayer(), Sex.getActivePartner(), SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA);
 		}
 		
 	};
@@ -351,8 +351,8 @@ public class DomDoggy {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.THREE_DIRTY,
-			PenetrationType.PENIS,
-			OrificeType.ANUS,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.ANUS,
 			SexParticipantType.PITCHER,
 			SexPace.DOM_ROUGH,
 			null) {
@@ -441,9 +441,9 @@ public class DomDoggy {
 		
 
 		@Override
-		public List<OrificeType> getAreasCummedIn(GameCharacter cumProvider, GameCharacter cumTarget) {
+		public List<SexAreaOrifice> getAreasCummedIn(GameCharacter cumProvider, GameCharacter cumTarget) {
 			if(cumProvider.equals(Main.game.getPlayer()) && cumTarget.equals(Sex.getTargetedPartner(Main.game.getPlayer()))) {
-				return Util.newArrayListOfValues(OrificeType.ANUS);
+				return Util.newArrayListOfValues(SexAreaOrifice.ANUS);
 			} else {
 				return null;
 			}
@@ -451,7 +451,7 @@ public class DomDoggy {
 
 		@Override
 		public void applyEffects() {
-			Sex.removePenetration(Main.game.getPlayer(), Sex.getActivePartner(), PenetrationType.PENIS, OrificeType.ANUS);
+			Sex.removePenetration(Main.game.getPlayer(), Sex.getActivePartner(), SexAreaPenetration.PENIS, SexAreaOrifice.ANUS);
 		}
 		
 	};
@@ -461,8 +461,8 @@ public class DomDoggy {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.THREE_DIRTY,
-			PenetrationType.PENIS,
-			OrificeType.VAGINA,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.PITCHER,
 			SexPace.DOM_ROUGH,
 			null) {
@@ -550,9 +550,9 @@ public class DomDoggy {
 		}
 
 		@Override
-		public List<OrificeType> getAreasCummedIn(GameCharacter cumProvider, GameCharacter cumTarget) {
+		public List<SexAreaOrifice> getAreasCummedIn(GameCharacter cumProvider, GameCharacter cumTarget) {
 			if(cumProvider.equals(Main.game.getPlayer()) && cumTarget.equals(Sex.getTargetedPartner(Main.game.getPlayer()))) {
-				return Util.newArrayListOfValues(OrificeType.VAGINA);
+				return Util.newArrayListOfValues(SexAreaOrifice.VAGINA);
 			} else {
 				return null;
 			}
@@ -560,7 +560,7 @@ public class DomDoggy {
 
 		@Override
 		public void applyEffects() {
-			Sex.removePenetration(Main.game.getPlayer(), Sex.getActivePartner(), PenetrationType.PENIS, OrificeType.VAGINA);
+			Sex.removePenetration(Main.game.getPlayer(), Sex.getActivePartner(), SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA);
 		}
 		
 	};

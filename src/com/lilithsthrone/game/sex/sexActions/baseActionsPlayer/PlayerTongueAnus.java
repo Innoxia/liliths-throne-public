@@ -3,8 +3,8 @@ package com.lilithsthrone.game.sex.sexActions.baseActionsPlayer;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
-import com.lilithsthrone.game.sex.OrificeType;
-import com.lilithsthrone.game.sex.PenetrationType;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
@@ -24,8 +24,8 @@ public class PlayerTongueAnus {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.THREE_DIRTY,
-			PenetrationType.TONGUE,
-			OrificeType.ANUS,
+			SexAreaPenetration.TONGUE,
+			SexAreaOrifice.ANUS,
 			SexParticipantType.PITCHER) {
 		
 		@Override
@@ -126,8 +126,8 @@ public class PlayerTongueAnus {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.THREE_DIRTY,
-			PenetrationType.TONGUE,
-			OrificeType.ANUS,
+			SexAreaPenetration.TONGUE,
+			SexAreaOrifice.ANUS,
 			SexParticipantType.PITCHER,
 			SexPace.DOM_GENTLE,
 			null) {
@@ -189,8 +189,8 @@ public class PlayerTongueAnus {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.THREE_DIRTY,
-			PenetrationType.TONGUE,
-			OrificeType.ANUS,
+			SexAreaPenetration.TONGUE,
+			SexAreaOrifice.ANUS,
 			SexParticipantType.PITCHER,
 			SexPace.DOM_NORMAL,
 			null) {
@@ -251,8 +251,8 @@ public class PlayerTongueAnus {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.FOUR_LUSTFUL,
-			PenetrationType.TONGUE,
-			OrificeType.ANUS,
+			SexAreaPenetration.TONGUE,
+			SexAreaOrifice.ANUS,
 			SexParticipantType.PITCHER,
 			SexPace.DOM_ROUGH,
 			null) {
@@ -315,8 +315,8 @@ public class PlayerTongueAnus {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.TONGUE,
-			OrificeType.ANUS,
+			SexAreaPenetration.TONGUE,
+			SexAreaOrifice.ANUS,
 			SexParticipantType.PITCHER,
 			SexPace.SUB_RESISTING,
 			null) {
@@ -375,8 +375,8 @@ public class PlayerTongueAnus {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.THREE_DIRTY,
-			PenetrationType.TONGUE,
-			OrificeType.ANUS,
+			SexAreaPenetration.TONGUE,
+			SexAreaOrifice.ANUS,
 			SexParticipantType.PITCHER,
 			SexPace.SUB_NORMAL,
 			null) {
@@ -435,8 +435,8 @@ public class PlayerTongueAnus {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.THREE_DIRTY,
-			PenetrationType.TONGUE,
-			OrificeType.ANUS,
+			SexAreaPenetration.TONGUE,
+			SexAreaOrifice.ANUS,
 			SexParticipantType.PITCHER,
 			SexPace.SUB_EAGER,
 			null) {
@@ -499,8 +499,8 @@ public class PlayerTongueAnus {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.TONGUE,
-			OrificeType.ANUS,
+			SexAreaPenetration.TONGUE,
+			SexAreaOrifice.ANUS,
 			SexParticipantType.PITCHER) {
 		
 		@Override
@@ -562,8 +562,8 @@ public class PlayerTongueAnus {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.THREE_DIRTY,
-			PenetrationType.TONGUE,
-			OrificeType.ANUS,
+			SexAreaPenetration.TONGUE,
+			SexAreaOrifice.ANUS,
 			SexParticipantType.CATCHER) {
 		
 		@Override
@@ -660,8 +660,8 @@ public class PlayerTongueAnus {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.THREE_DIRTY,
-			PenetrationType.TONGUE,
-			OrificeType.ANUS,
+			SexAreaPenetration.TONGUE,
+			SexAreaOrifice.ANUS,
 			SexParticipantType.CATCHER,
 			null,
 			SexPace.DOM_GENTLE) {
@@ -719,8 +719,8 @@ public class PlayerTongueAnus {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.THREE_DIRTY,
-			PenetrationType.TONGUE,
-			OrificeType.ANUS,
+			SexAreaPenetration.TONGUE,
+			SexAreaOrifice.ANUS,
 			SexParticipantType.CATCHER,
 			null,
 			SexPace.DOM_NORMAL) {
@@ -778,8 +778,8 @@ public class PlayerTongueAnus {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.FOUR_LUSTFUL,
-			PenetrationType.TONGUE,
-			OrificeType.ANUS,
+			SexAreaPenetration.TONGUE,
+			SexAreaOrifice.ANUS,
 			SexParticipantType.CATCHER,
 			null,
 			SexPace.DOM_ROUGH) {
@@ -837,8 +837,8 @@ public class PlayerTongueAnus {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.THREE_DIRTY,
-			PenetrationType.TONGUE,
-			OrificeType.ANUS,
+			SexAreaPenetration.TONGUE,
+			SexAreaOrifice.ANUS,
 			SexParticipantType.CATCHER,
 			null,
 			SexPace.SUB_NORMAL) {
@@ -896,8 +896,8 @@ public class PlayerTongueAnus {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.THREE_DIRTY,
-			PenetrationType.TONGUE,
-			OrificeType.ANUS,
+			SexAreaPenetration.TONGUE,
+			SexAreaOrifice.ANUS,
 			SexParticipantType.CATCHER,
 			null,
 			SexPace.SUB_EAGER) {
@@ -955,8 +955,8 @@ public class PlayerTongueAnus {
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.TONGUE,
-			OrificeType.ANUS,
+			SexAreaPenetration.TONGUE,
+			SexAreaOrifice.ANUS,
 			SexParticipantType.CATCHER,
 			null,
 			SexPace.SUB_RESISTING) {
@@ -1017,8 +1017,8 @@ public class PlayerTongueAnus {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.TONGUE,
-			OrificeType.ANUS,
+			SexAreaPenetration.TONGUE,
+			SexAreaOrifice.ANUS,
 			SexParticipantType.CATCHER) {
 
 		@Override

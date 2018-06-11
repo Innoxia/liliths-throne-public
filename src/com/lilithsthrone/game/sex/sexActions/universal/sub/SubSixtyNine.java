@@ -3,8 +3,8 @@ package com.lilithsthrone.game.sex.sexActions.universal.sub;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
-import com.lilithsthrone.game.sex.OrificeType;
-import com.lilithsthrone.game.sex.PenetrationType;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
@@ -26,8 +26,8 @@ public class SubSixtyNine {
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TONGUE,
-			OrificeType.VAGINA,
+			SexAreaPenetration.TONGUE,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.PITCHER,
 			null,
 			SexPace.DOM_ROUGH) {
@@ -61,8 +61,8 @@ public class SubSixtyNine {
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TONGUE,
-			OrificeType.VAGINA,
+			SexAreaPenetration.TONGUE,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.PITCHER,
 			null,
 			SexPace.DOM_NORMAL) {
@@ -96,8 +96,8 @@ public class SubSixtyNine {
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TONGUE,
-			OrificeType.VAGINA,
+			SexAreaPenetration.TONGUE,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.PITCHER,
 			null,
 			SexPace.DOM_GENTLE) {
@@ -133,8 +133,8 @@ public class SubSixtyNine {
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TONGUE,
-			OrificeType.VAGINA,
+			SexAreaPenetration.TONGUE,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.PITCHER,
 			SexPace.SUB_EAGER,
 			null) {
@@ -169,8 +169,8 @@ public class SubSixtyNine {
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TONGUE,
-			OrificeType.VAGINA,
+			SexAreaPenetration.TONGUE,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.PITCHER,
 			SexPace.SUB_NORMAL,
 			null) {

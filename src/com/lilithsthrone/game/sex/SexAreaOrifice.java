@@ -6,10 +6,10 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.78
- * @version 0.1.98
+ * @version 0.2.7
  * @author Innoxia
  */
-public enum OrificeType {
+public enum SexAreaOrifice implements SexAreaInterface {
 	
 	MOUTH(2,
 			-0.5f, -0.5f, -1f,
@@ -22,7 +22,7 @@ public enum OrificeType {
 		}
 		@Override
 		public boolean isFree(GameCharacter owner) {
-			return Sex.isOrificeFree(owner, this) && Sex.isPenetrationTypeFree(owner, PenetrationType.TONGUE);
+			return Sex.isOrificeFree(owner, this) && Sex.isPenetrationTypeFree(owner, SexAreaPenetration.TONGUE);
 		}
 	},
 	
@@ -155,7 +155,7 @@ public enum OrificeType {
 		}
 		@Override
 		public boolean isFree(GameCharacter owner) {
-			return Sex.isOrificeFree(owner, this) && Sex.isPenetrationTypeFree(owner, PenetrationType.PENIS);
+			return Sex.isOrificeFree(owner, this) && Sex.isPenetrationTypeFree(owner, SexAreaPenetration.PENIS);
 		}
 	};
 
@@ -182,7 +182,7 @@ public enum OrificeType {
 	 * @param cumAbsorptionPerMinute The amount of cum or other fluids that are absorbed into the character's body through this orifice every minute.
 	 * @param takesPenisVirginity
 	 */
-	private OrificeType(float baseArousalWhenPenetrated,
+	private SexAreaOrifice(float baseArousalWhenPenetrated,
 			float arousalChangePenetratedStretching,
 			float arousalChangePenetratedTooLoose,
 			float arousalChangePenetratedDry,

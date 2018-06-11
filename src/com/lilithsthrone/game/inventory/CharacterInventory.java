@@ -11,8 +11,6 @@ import org.w3c.dom.NodeList;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
-import com.lilithsthrone.game.character.body.types.PenisType;
-import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
@@ -54,7 +52,7 @@ import java.util.Set;
  * Only the very bravest dare venture past line 717.
  * 
  * @since 0.1.0
- * @version 0.2.4
+ * @version 0.2.7
  * @author Innoxia
  */
 public class CharacterInventory implements Serializable, XMLSaving {
@@ -770,35 +768,39 @@ public class CharacterInventory implements Serializable, XMLSaving {
 				transformationIncompatible(character, c, clothingToRemove, c.getCannotBeEquippedText(character));
 				
 			// Piercings:
-			} else if(c.getClothingType().getSlot()==InventorySlot.PIERCING_EAR && !character.isPiercedEar()){
+			}
+
+			if(character.getBody().getBodyMaterial().isRequiresPiercing()) {
+				if(c.getClothingType().getSlot()==InventorySlot.PIERCING_EAR && !character.isPiercedEar()){
 				transformationIncompatible(character, c, clothingToRemove, "Your ears are no longer pierced, so you can't wear the "+c.getName()+"!");
 			
-			} else if(c.getClothingType().getSlot()==InventorySlot.PIERCING_LIP && !character.isPiercedLip()){
-				transformationIncompatible(character, c, clothingToRemove, "Your lips are no longer pierced, so you can't wear the "+c.getName()+"!");
-				
-			} else if(c.getClothingType().getSlot()==InventorySlot.PIERCING_NIPPLE && !character.isPiercedNipple()){
-				transformationIncompatible(character, c, clothingToRemove, "Your nipples are no longer pierced, so you can't wear the "+c.getName()+"!");
-				
-			} else if(c.getClothingType().getSlot()==InventorySlot.PIERCING_NOSE && !character.isPiercedNose()){
-				transformationIncompatible(character, c, clothingToRemove, "Your nose is no longer pierced, so you can't wear the "+c.getName()+"!");
-				
-			} else if(c.getClothingType().getSlot()==InventorySlot.PIERCING_PENIS && !character.isPiercedPenis()){
-				if(character.getPenisType()==PenisType.NONE)
-					transformationIncompatible(character, c, clothingToRemove, "You no longer have a penis, so you can't wear the "+c.getName()+"!");
-				else
+				} else if(c.getClothingType().getSlot()==InventorySlot.PIERCING_LIP && !character.isPiercedLip()){
+					transformationIncompatible(character, c, clothingToRemove, "Your lips are no longer pierced, so you can't wear the "+c.getName()+"!");
+					
+				} else if(c.getClothingType().getSlot()==InventorySlot.PIERCING_NIPPLE && !character.isPiercedNipple()){
+					transformationIncompatible(character, c, clothingToRemove, "Your nipples are no longer pierced, so you can't wear the "+c.getName()+"!");
+					
+				} else if(c.getClothingType().getSlot()==InventorySlot.PIERCING_NOSE && !character.isPiercedNose()){
+					transformationIncompatible(character, c, clothingToRemove, "Your nose is no longer pierced, so you can't wear the "+c.getName()+"!");
+					
+				} else if(c.getClothingType().getSlot()==InventorySlot.PIERCING_PENIS && !character.isPiercedPenis()){
 					transformationIncompatible(character, c, clothingToRemove, "Your penis is no longer pierced, so you can't wear the "+c.getName()+"!");
-				
-			} else if(c.getClothingType().getSlot()==InventorySlot.PIERCING_STOMACH && !character.isPiercedNavel()){
-				transformationIncompatible(character, c, clothingToRemove, "Your navel is no longer pierced, so you can't wear the "+c.getName()+"!");
-				
-			} else if(c.getClothingType().getSlot()==InventorySlot.PIERCING_TONGUE && !character.isPiercedTongue()){
-				transformationIncompatible(character, c, clothingToRemove, "Your tongue is no longer pierced, so you can't wear the "+c.getName()+"!");
-				
-			} else if(c.getClothingType().getSlot()==InventorySlot.PIERCING_VAGINA && !character.isPiercedVagina()){
-				if(character.getVaginaType()==VaginaType.NONE)
-					transformationIncompatible(character, c, clothingToRemove, "You no longer have a vagina, so you can't wear the "+c.getName()+"!");
-				else
+					
+				} else if(c.getClothingType().getSlot()==InventorySlot.PIERCING_STOMACH && !character.isPiercedNavel()){
+					transformationIncompatible(character, c, clothingToRemove, "Your navel is no longer pierced, so you can't wear the "+c.getName()+"!");
+					
+				} else if(c.getClothingType().getSlot()==InventorySlot.PIERCING_TONGUE && !character.isPiercedTongue()){
+					transformationIncompatible(character, c, clothingToRemove, "Your tongue is no longer pierced, so you can't wear the "+c.getName()+"!");
+					
+				} else if(c.getClothingType().getSlot()==InventorySlot.PIERCING_VAGINA && !character.isPiercedVagina()){
 					transformationIncompatible(character, c, clothingToRemove, "Your vagina is no longer pierced, so you can't wear the "+c.getName()+"!");
+				}
+			}
+			if(c.getClothingType().getSlot()==InventorySlot.PIERCING_PENIS && !character.hasPenisIgnoreDildo()){
+				transformationIncompatible(character, c, clothingToRemove, "You no longer have a penis, so you can't wear the "+c.getName()+"!");
+				
+			} else if(c.getClothingType().getSlot()==InventorySlot.PIERCING_VAGINA && !character.hasVagina()){
+				transformationIncompatible(character, c, clothingToRemove, "You no longer have a vagina, so you can't wear the "+c.getName()+"!");
 			}
 			
 		}

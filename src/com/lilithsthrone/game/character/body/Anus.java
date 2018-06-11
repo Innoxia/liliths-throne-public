@@ -9,7 +9,7 @@ import com.lilithsthrone.game.character.body.types.AnusType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.sex.OrificeType;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.main.Main;
 
@@ -67,7 +67,7 @@ public class Anus implements BodyPartInterface, Serializable {
 		
 		String wetnessDescriptor = orificeAnus.getWetness(owner).getDescriptor();
 		if(Main.game.isInSex()) {
-			if(!Sex.getWetOrificeTypes(owner).get(OrificeType.ANUS).isEmpty()) {
+			if(!Sex.getWetOrificeTypes(owner).get(SexAreaOrifice.ANUS).isEmpty()) {
 				wetnessDescriptor = "wet";
 			}
 		}

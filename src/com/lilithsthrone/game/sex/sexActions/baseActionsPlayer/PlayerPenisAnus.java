@@ -9,8 +9,8 @@ import com.lilithsthrone.game.character.body.valueEnums.HairLength;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
-import com.lilithsthrone.game.sex.OrificeType;
-import com.lilithsthrone.game.sex.PenetrationType;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
@@ -34,8 +34,8 @@ public class PlayerPenisAnus {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.TWO_HORNY,
-			PenetrationType.PENIS,
-			OrificeType.ANUS,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.ANUS,
 			SexParticipantType.PITCHER) {
 		@Override
 		public String getActionTitle() {
@@ -117,7 +117,7 @@ public class PlayerPenisAnus {
 		
 		@Override
 		public void applyEffects() {
-			Sex.transferLubrication(Main.game.getPlayer(), Sex.getActivePartner(), PenetrationType.PENIS, OrificeType.ANUS);
+			Sex.transferLubrication(Main.game.getPlayer(), Sex.getActivePartner(), SexAreaPenetration.PENIS, SexAreaOrifice.ANUS);
 		}
 		
 		@Override
@@ -135,8 +135,8 @@ public class PlayerPenisAnus {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.TWO_HORNY,
-			PenetrationType.PENIS,
-			OrificeType.ANUS,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.ANUS,
 			SexParticipantType.CATCHER) {
 		@Override
 		public String getActionTitle() {
@@ -231,7 +231,7 @@ public class PlayerPenisAnus {
 		
 		@Override
 		public void applyEffects() {
-			Sex.transferLubrication(Main.game.getPlayer(), Sex.getActivePartner(), PenetrationType.PENIS, OrificeType.ANUS);
+			Sex.transferLubrication(Main.game.getPlayer(), Sex.getActivePartner(), SexAreaPenetration.PENIS, SexAreaOrifice.ANUS);
 		}
 		
 		@Override
@@ -250,14 +250,14 @@ public class PlayerPenisAnus {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.TWO_HORNY,
-			PenetrationType.PENIS,
-			OrificeType.ANUS,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.ANUS,
 			SexParticipantType.PITCHER) {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
 			// You can't penetrate if your partner is already fucking you, due to physical limitations. (I mean, if you're facing opposite ways and lying on top of each other, it might be possible, but that position will be special.)
-			return Sex.isPenetrationTypeFree(Sex.getActivePartner(), PenetrationType.PENIS);
+			return Sex.isPenetrationTypeFree(Sex.getActivePartner(), SexAreaPenetration.PENIS);
 		}
 		
 		@Override
@@ -401,8 +401,8 @@ public class PlayerPenisAnus {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.TWO_HORNY,
-			PenetrationType.PENIS,
-			OrificeType.ANUS,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.ANUS,
 			SexParticipantType.PITCHER,
 			SexPace.DOM_GENTLE,
 			null) {
@@ -461,8 +461,8 @@ public class PlayerPenisAnus {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.TWO_HORNY,
-			PenetrationType.PENIS,
-			OrificeType.ANUS,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.ANUS,
 			SexParticipantType.PITCHER,
 			SexPace.DOM_NORMAL,
 			null) {
@@ -522,8 +522,8 @@ public class PlayerPenisAnus {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.THREE_DIRTY,
-			PenetrationType.PENIS,
-			OrificeType.ANUS,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.ANUS,
 			SexParticipantType.PITCHER,
 			SexPace.DOM_ROUGH,
 			null) {
@@ -641,8 +641,8 @@ public class PlayerPenisAnus {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.TWO_HORNY,
-			PenetrationType.PENIS,
-			OrificeType.ANUS,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.ANUS,
 			SexParticipantType.PITCHER,
 			SexPace.SUB_NORMAL,
 			null) {
@@ -703,8 +703,8 @@ public class PlayerPenisAnus {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.TWO_HORNY,
-			PenetrationType.PENIS,
-			OrificeType.ANUS,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.ANUS,
 			SexParticipantType.PITCHER,
 			SexPace.SUB_EAGER,
 			null) {
@@ -765,8 +765,8 @@ public class PlayerPenisAnus {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS,
-			OrificeType.ANUS,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.ANUS,
 			SexParticipantType.PITCHER,
 			SexPace.SUB_RESISTING,
 			null) {
@@ -830,8 +830,8 @@ public class PlayerPenisAnus {
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS,
-			OrificeType.ANUS,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.ANUS,
 			SexParticipantType.PITCHER) {
 
 		@Override
@@ -892,15 +892,15 @@ public class PlayerPenisAnus {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.TWO_HORNY,
-			PenetrationType.PENIS,
-			OrificeType.ANUS,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.ANUS,
 			SexParticipantType.CATCHER) {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
 			// Partner can only start fucking themselves on the player's cock in consensual sex or if they're the dom.
 			// You can't penetrate if your partner is already fucking you, due to physical limitations. (I mean, if you're facing opposite ways and lying on top of each other, it might be possible, but that position will be special.)
-			if(Sex.isPenetrationTypeFree(Sex.getActivePartner(), PenetrationType.PENIS)) {
+			if(Sex.isPenetrationTypeFree(Sex.getActivePartner(), SexAreaPenetration.PENIS)) {
 				return (Sex.isConsensual() || !Sex.isDom(Main.game.getPlayer()));
 			} else {
 				return false; //(Sex.isConsensual() || !Sex.isDom(Main.game.getPlayer())) && !Sex.getOngoingPenetrationMap().get(PenetrationType.PENIS).contains(OrificeType.VAGINA);
@@ -1015,8 +1015,8 @@ public class PlayerPenisAnus {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.TWO_HORNY,
-			PenetrationType.PENIS,
-			OrificeType.ANUS,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.ANUS,
 			SexParticipantType.CATCHER,
 			null,
 			SexPace.DOM_GENTLE) {
@@ -1058,8 +1058,8 @@ public class PlayerPenisAnus {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.TWO_HORNY,
-			PenetrationType.PENIS,
-			OrificeType.ANUS,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.ANUS,
 			SexParticipantType.CATCHER,
 			null,
 			SexPace.DOM_NORMAL) {
@@ -1101,8 +1101,8 @@ public class PlayerPenisAnus {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.THREE_DIRTY,
-			PenetrationType.PENIS,
-			OrificeType.ANUS,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.ANUS,
 			SexParticipantType.CATCHER,
 			null,
 			SexPace.DOM_ROUGH) {
@@ -1144,8 +1144,8 @@ public class PlayerPenisAnus {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.TWO_HORNY,
-			PenetrationType.PENIS,
-			OrificeType.ANUS,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.ANUS,
 			SexParticipantType.CATCHER,
 			null,
 			SexPace.SUB_NORMAL) {
@@ -1197,8 +1197,8 @@ public class PlayerPenisAnus {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.TWO_HORNY,
-			PenetrationType.PENIS,
-			OrificeType.ANUS,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.ANUS,
 			SexParticipantType.CATCHER,
 			null,
 			SexPace.SUB_EAGER) {
@@ -1237,8 +1237,8 @@ public class PlayerPenisAnus {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS,
-			OrificeType.ANUS,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.ANUS,
 			SexParticipantType.CATCHER,
 			null,
 			SexPace.SUB_RESISTING) {
@@ -1299,8 +1299,8 @@ public class PlayerPenisAnus {
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS,
-			OrificeType.ANUS,
+			SexAreaPenetration.PENIS,
+			SexAreaOrifice.ANUS,
 			SexParticipantType.CATCHER) {
 
 		@Override

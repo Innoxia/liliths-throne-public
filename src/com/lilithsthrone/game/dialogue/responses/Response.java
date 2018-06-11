@@ -12,8 +12,8 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.sex.OrificeType;
-import com.lilithsthrone.game.sex.PenetrationType;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
@@ -36,8 +36,8 @@ public class Response {
 	private Femininity femininityRequired;
 	private Race raceRequired;
 
-	private PenetrationType penetrationTypeAccessRequired;
-	private OrificeType orificeTypeAccessRequired;
+	private SexAreaPenetration penetrationTypeAccessRequired;
+	private SexAreaOrifice orificeTypeAccessRequired;
 
 	private GameCharacter characterPenetrating;
 	private GameCharacter characterPenetrated;
@@ -74,8 +74,8 @@ public class Response {
 			List<Perk> perksRequired,
 			Femininity femininityRequired,
 			Race raceRequired,
-			GameCharacter characterPenetrating, PenetrationType penetrationTypeAccessRequired,
-			GameCharacter characterPenetrated, OrificeType orificeTypeAccessRequired) {
+			GameCharacter characterPenetrating, SexAreaPenetration penetrationTypeAccessRequired,
+			GameCharacter characterPenetrated, SexAreaOrifice orificeTypeAccessRequired) {
 		
 		this.title = UtilText.parse(title);
 		this.tooltipText = UtilText.parse(tooltipText);

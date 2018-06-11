@@ -38,7 +38,7 @@ import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
-import com.lilithsthrone.game.sex.OrificeType;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.main.Main;
@@ -131,7 +131,7 @@ public class UtilText {
 				modifiedSentence = Util.addSexSounds(modifiedSentence, 6);
 			}
 			
-			if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.MOUTH)!=null) {
+			if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), SexAreaOrifice.MOUTH)!=null) {
 				modifiedSentence = Util.addMuffle(modifiedSentence, 6);
 			} else {
 				if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, false)) {
@@ -182,7 +182,7 @@ public class UtilText {
 				if(Sex.isCharacterPenetrated(Main.game.getPlayer())) {
 					modifiedSentence = Util.addSexSounds(modifiedSentence, 6);
 				}
-				if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.MOUTH)!=null) {
+				if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), SexAreaOrifice.MOUTH)!=null) {
 					modifiedSentence = Util.addMuffle(modifiedSentence, 6);
 				} else {
 					if(!target.isAbleToAccessCoverableArea(CoverableArea.MOUTH, false)) {
@@ -200,7 +200,7 @@ public class UtilText {
 					modifiedSentence = Util.addSexSounds(modifiedSentence, 6);
 				}
 				
-				if(Sex.getPenetrationTypeInOrifice(character, OrificeType.MOUTH)!=null) {
+				if(Sex.getPenetrationTypeInOrifice(character, SexAreaOrifice.MOUTH)!=null) {
 					modifiedSentence = Util.addMuffle(modifiedSentence, 6);
 				} else {
 					if(!target.isAbleToAccessCoverableArea(CoverableArea.MOUTH, false)) {

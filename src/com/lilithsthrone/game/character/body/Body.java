@@ -70,8 +70,8 @@ import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.sex.OrificeType;
-import com.lilithsthrone.game.sex.PenetrationType;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.main.Main;
@@ -2327,11 +2327,11 @@ public class Body implements Serializable, XMLSaving {
 						break;
 				}
 				
-				for(PenetrationType pt : PenetrationType.values()) {
-					if(Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.CATCHER, pt, OrificeType.MOUTH))!=null
-							&& !Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.CATCHER, pt, OrificeType.MOUTH)).isEmpty()) {
+				for(SexAreaPenetration pt : SexAreaPenetration.values()) {
+					if(Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.CATCHER, pt, SexAreaOrifice.MOUTH))!=null
+							&& !Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.CATCHER, pt, SexAreaOrifice.MOUTH)).isEmpty()) {
 						sb.append(" <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>The first time you performed oral sex was to "
-							+ Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.CATCHER, pt, OrificeType.MOUTH)) + ".</span>");
+							+ Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.CATCHER, pt, SexAreaOrifice.MOUTH)) + ".</span>");
 						break;
 					}
 				}
@@ -3773,12 +3773,12 @@ public class Body implements Serializable, XMLSaving {
 				descriptionSB.append(" <span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>You have retained your anal virginity.</span>");
 			}else{
 				boolean virginityLossFound = false;
-				for(PenetrationType pt : PenetrationType.values()) {
+				for(SexAreaPenetration pt : SexAreaPenetration.values()) {
 					if(pt.isTakesVirginity()) {
-						if(Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.CATCHER, pt, OrificeType.ANUS))!=null
-								&& !Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.CATCHER,pt, OrificeType.ANUS)).isEmpty()) {
+						if(Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.CATCHER, pt, SexAreaOrifice.ANUS))!=null
+								&& !Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.CATCHER,pt, SexAreaOrifice.ANUS)).isEmpty()) {
 							descriptionSB.append(" <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>You lost your anal virginity to "
-								+ Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.CATCHER,pt, OrificeType.ANUS)) + ".</span>");
+								+ Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.CATCHER,pt, SexAreaOrifice.ANUS)) + ".</span>");
 							virginityLossFound = true;
 							break;
 						}
@@ -4107,9 +4107,9 @@ public class Body implements Serializable, XMLSaving {
 				}
 				
 				if (!viewedBreast.getNipples().getOrificeNipples().isVirgin()) {
-					for(PenetrationType pt : PenetrationType.values()) {
-						if(owner.getVirginityLoss(new SexType(SexParticipantType.CATCHER,pt, OrificeType.NIPPLE))!=null && !owner.getVirginityLoss(new SexType(SexParticipantType.CATCHER,pt, OrificeType.NIPPLE)).isEmpty()) {
-							descriptionSB.append(" [style.colourArcane(You lost your nipple virginity to "+ owner.getVirginityLoss(new SexType(SexParticipantType.CATCHER,pt, OrificeType.NIPPLE)) + ".)]");
+					for(SexAreaPenetration pt : SexAreaPenetration.values()) {
+						if(owner.getVirginityLoss(new SexType(SexParticipantType.CATCHER,pt, SexAreaOrifice.NIPPLE))!=null && !owner.getVirginityLoss(new SexType(SexParticipantType.CATCHER,pt, SexAreaOrifice.NIPPLE)).isEmpty()) {
+							descriptionSB.append(" [style.colourArcane(You lost your nipple virginity to "+ owner.getVirginityLoss(new SexType(SexParticipantType.CATCHER,pt, SexAreaOrifice.NIPPLE)) + ".)]");
 							break;
 						}
 					}
@@ -4316,9 +4316,9 @@ public class Body implements Serializable, XMLSaving {
 				}
 				
 				if (!viewedBreast.getNipples().getOrificeNipples().isVirgin()) {
-					for(PenetrationType pt : PenetrationType.values()) {
-						if(owner.getVirginityLoss(new SexType(SexParticipantType.CATCHER,pt, OrificeType.NIPPLE))!=null && !owner.getVirginityLoss(new SexType(SexParticipantType.CATCHER,pt, OrificeType.NIPPLE)).isEmpty()) {
-							descriptionSB.append(" [style.colourArcane([npc.Name] lost [npc.her] nipple virginity to "+ owner.getVirginityLoss(new SexType(SexParticipantType.CATCHER,pt, OrificeType.NIPPLE)) + ".)]");
+					for(SexAreaPenetration pt : SexAreaPenetration.values()) {
+						if(owner.getVirginityLoss(new SexType(SexParticipantType.CATCHER,pt, SexAreaOrifice.NIPPLE))!=null && !owner.getVirginityLoss(new SexType(SexParticipantType.CATCHER,pt, SexAreaOrifice.NIPPLE)).isEmpty()) {
+							descriptionSB.append(" [style.colourArcane([npc.Name] lost [npc.her] nipple virginity to "+ owner.getVirginityLoss(new SexType(SexParticipantType.CATCHER,pt, SexAreaOrifice.NIPPLE)) + ".)]");
 							break;
 						}
 					}
@@ -4554,10 +4554,10 @@ public class Body implements Serializable, XMLSaving {
 		if(viewedPenis.getType()!=PenisType.DILDO) {
 			if(owner.isPlayer()) {
 				if (!viewedPenis.isVirgin()) {
-						for(OrificeType ot : OrificeType.values()) {
+						for(SexAreaOrifice ot : SexAreaOrifice.values()) {
 							if(ot.isTakesPenisVirginity()) {
-								if(owner.getVirginityLoss(new SexType(SexParticipantType.PITCHER,PenetrationType.PENIS, ot)) != null && !owner.getVirginityLoss(new SexType(SexParticipantType.PITCHER,PenetrationType.PENIS, ot)).isEmpty()) {
-									descriptionSB.append(" [style.colourArcane(You lost your penile virginity to "+ owner.getVirginityLoss(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, ot)) + ".)]");
+								if(owner.getVirginityLoss(new SexType(SexParticipantType.PITCHER,SexAreaPenetration.PENIS, ot)) != null && !owner.getVirginityLoss(new SexType(SexParticipantType.PITCHER,SexAreaPenetration.PENIS, ot)).isEmpty()) {
+									descriptionSB.append(" [style.colourArcane(You lost your penile virginity to "+ owner.getVirginityLoss(new SexType(SexParticipantType.PITCHER, SexAreaPenetration.PENIS, ot)) + ".)]");
 									break;
 								}
 							}
@@ -4568,9 +4568,9 @@ public class Body implements Serializable, XMLSaving {
 				
 			} else {
 				if (!viewedPenis.isVirgin()) {
-					for(OrificeType ot : OrificeType.values()) {
+					for(SexAreaOrifice ot : SexAreaOrifice.values()) {
 						if(ot.isTakesPenisVirginity()) {
-							if(owner.getVirginityLoss(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, ot))!=null && !owner.getVirginityLoss(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, ot)).isEmpty()) {
+							if(owner.getVirginityLoss(new SexType(SexParticipantType.PITCHER, SexAreaPenetration.PENIS, ot))!=null && !owner.getVirginityLoss(new SexType(SexParticipantType.PITCHER, SexAreaPenetration.PENIS, ot)).isEmpty()) {
 								descriptionSB.append(" [style.colourArcane([npc.Name] has lost [npc.her] penile virginity.)]");
 								break;
 							}
@@ -4684,11 +4684,11 @@ public class Body implements Serializable, XMLSaving {
 
 		if(viewedPenis.getType()!=PenisType.DILDO) {
 			if (isPlayer && !owner.isUrethraVirgin()) {
-				for(PenetrationType pt : PenetrationType.values()) {
-					if(Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.CATCHER, pt, OrificeType.URETHRA_PENIS))!=null
-							&& !Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.CATCHER, pt, OrificeType.URETHRA_PENIS)).isEmpty()) {
+				for(SexAreaPenetration pt : SexAreaPenetration.values()) {
+					if(Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.CATCHER, pt, SexAreaOrifice.URETHRA_PENIS))!=null
+							&& !Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.CATCHER, pt, SexAreaOrifice.URETHRA_PENIS)).isEmpty()) {
 						descriptionSB.append(" <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>You lost your urethral virginity to "
-							+ Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.CATCHER, pt, OrificeType.URETHRA_PENIS)) + ".</span>");
+							+ Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.CATCHER, pt, SexAreaOrifice.URETHRA_PENIS)) + ".</span>");
 						break;
 					}
 				}
@@ -5277,12 +5277,12 @@ public class Body implements Serializable, XMLSaving {
 						+ Capacity.getCapacityFromValue(viewedVagina.getOrificeVagina().getStretchedCapacity()).getMaximumSizeComfortableWithLube().getDescriptor() + " cocks with sufficient lubrication.)]");
 				
 				boolean virginityLossFound = false;
-				for(PenetrationType pt : PenetrationType.values()) {
+				for(SexAreaPenetration pt : SexAreaPenetration.values()) {
 					if(pt.isTakesVirginity()) {
-						if(Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.CATCHER, pt, OrificeType.VAGINA))!=null
-								&& !Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.CATCHER, pt, OrificeType.VAGINA)).isEmpty()) {
+						if(Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.CATCHER, pt, SexAreaOrifice.VAGINA))!=null
+								&& !Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.CATCHER, pt, SexAreaOrifice.VAGINA)).isEmpty()) {
 							descriptionSB.append(" <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>You lost your virginity to "
-								+ Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.CATCHER, pt, OrificeType.VAGINA)) + ".</span>");
+								+ Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.CATCHER, pt, SexAreaOrifice.VAGINA)) + ".</span>");
 							virginityLossFound = true;
 							break;
 						}
@@ -5561,11 +5561,11 @@ public class Body implements Serializable, XMLSaving {
 		}
 		
 		if (isPlayer && !owner.isUrethraVirgin()) {
-			for(PenetrationType pt : PenetrationType.values()) {
-				if(Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.CATCHER, pt, OrificeType.URETHRA_VAGINA))!=null
-						&& !Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.CATCHER, pt, OrificeType.URETHRA_VAGINA)).isEmpty()) {
+			for(SexAreaPenetration pt : SexAreaPenetration.values()) {
+				if(Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.CATCHER, pt, SexAreaOrifice.URETHRA_VAGINA))!=null
+						&& !Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.CATCHER, pt, SexAreaOrifice.URETHRA_VAGINA)).isEmpty()) {
 					descriptionSB.append(" <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>You lost your urethral virginity to "
-						+ Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.CATCHER, pt, OrificeType.URETHRA_VAGINA)) + ".</span>");
+						+ Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.CATCHER, pt, SexAreaOrifice.URETHRA_VAGINA)) + ".</span>");
 					break;
 				}
 			}

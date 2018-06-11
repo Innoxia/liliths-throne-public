@@ -140,8 +140,8 @@ import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.game.settings.ForcedFetishTendency;
 import com.lilithsthrone.game.settings.ForcedTFTendency;
 import com.lilithsthrone.game.settings.KeyboardAction;
-import com.lilithsthrone.game.sex.OrificeType;
-import com.lilithsthrone.game.sex.PenetrationType;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.game.slavery.MilkingRoom;
@@ -1130,7 +1130,7 @@ public class MainControllerInitMethod {
 						int milkAmount = (int) (Math.min(room.getMilkStorage().get(entry.getKey()), 100));
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 							if(milkAmount>0) {
-								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().ingestFluid(entry.getKey().getType(), OrificeType.MOUTH, milkAmount, entry.getKey().getFluidModifiers()));
+								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().ingestFluid(entry.getKey().getType(), SexAreaOrifice.MOUTH, milkAmount, entry.getKey().getFluidModifiers()));
 								room.incrementMilkStorage(entry.getKey(), -milkAmount);
 								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 							}
@@ -1151,7 +1151,7 @@ public class MainControllerInitMethod {
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 							if(room.getMilkStorage().get(entry.getKey())>=500) {
-								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().ingestFluid(entry.getKey().getType(), OrificeType.MOUTH, 500, entry.getKey().getFluidModifiers()));
+								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().ingestFluid(entry.getKey().getType(), SexAreaOrifice.MOUTH, 500, entry.getKey().getFluidModifiers()));
 								room.incrementMilkStorage(entry.getKey(), -500);
 								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 							}
@@ -1192,7 +1192,7 @@ public class MainControllerInitMethod {
 						int cumAmount = (int) (Math.min(room.getCumStorage().get(entry.getKey()), 100));
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 							if(room.getCumStorage().get(entry.getKey())>0) {
-								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().ingestFluid(entry.getKey().getType(), OrificeType.MOUTH, cumAmount, entry.getKey().getFluidModifiers()));
+								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().ingestFluid(entry.getKey().getType(), SexAreaOrifice.MOUTH, cumAmount, entry.getKey().getFluidModifiers()));
 								room.incrementCumStorage(entry.getKey(), -cumAmount);
 								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 							}
@@ -1213,7 +1213,7 @@ public class MainControllerInitMethod {
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 							if(room.getCumStorage().get(entry.getKey())>=500) {
-								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().ingestFluid(entry.getKey().getType(), OrificeType.MOUTH, 500, entry.getKey().getFluidModifiers()));
+								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().ingestFluid(entry.getKey().getType(), SexAreaOrifice.MOUTH, 500, entry.getKey().getFluidModifiers()));
 								room.incrementCumStorage(entry.getKey(), -500);
 								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 							}
@@ -1254,7 +1254,7 @@ public class MainControllerInitMethod {
 						int girlcumAmount = (int) (Math.min(room.getGirlcumStorage().get(entry.getKey()), 100));
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 							if(room.getGirlcumStorage().get(entry.getKey())>0) {
-								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().ingestFluid(entry.getKey().getType(), OrificeType.MOUTH, girlcumAmount, entry.getKey().getFluidModifiers()));
+								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().ingestFluid(entry.getKey().getType(), SexAreaOrifice.MOUTH, girlcumAmount, entry.getKey().getFluidModifiers()));
 								room.incrementGirlcumStorage(entry.getKey(), -girlcumAmount);
 								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 							}
@@ -1275,7 +1275,7 @@ public class MainControllerInitMethod {
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 							if(room.getGirlcumStorage().get(entry.getKey())>=500) {
-								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().ingestFluid(entry.getKey().getType(), OrificeType.MOUTH, 500, entry.getKey().getFluidModifiers()));
+								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().ingestFluid(entry.getKey().getType(), SexAreaOrifice.MOUTH, 500, entry.getKey().getFluidModifiers()));
 								room.incrementGirlcumStorage(entry.getKey(), -500);
 								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 							}
@@ -1909,7 +1909,7 @@ public class MainControllerInitMethod {
 					id = "HANDJOBS_GIVEN_"+i;
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-							CharacterModificationUtils.setSexExperience(new SexType(SexParticipantType.PITCHER, PenetrationType.FINGER, OrificeType.URETHRA_PENIS), i);
+							CharacterModificationUtils.setSexExperience(new SexType(SexParticipantType.PITCHER, SexAreaPenetration.FINGER, SexAreaOrifice.URETHRA_PENIS), i);
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 						}, false);
 					}
@@ -1917,7 +1917,7 @@ public class MainControllerInitMethod {
 					id = "FINGERINGS_GIVEN_"+i;
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-							CharacterModificationUtils.setSexExperience(new SexType(SexParticipantType.PITCHER, PenetrationType.FINGER, OrificeType.VAGINA), i);
+							CharacterModificationUtils.setSexExperience(new SexType(SexParticipantType.PITCHER, SexAreaPenetration.FINGER, SexAreaOrifice.VAGINA), i);
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 						}, false);
 					}
@@ -1925,7 +1925,7 @@ public class MainControllerInitMethod {
 					id = "BLOWJOBS_GIVEN_"+i;
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-							CharacterModificationUtils.setSexExperience(new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.MOUTH), i);
+							CharacterModificationUtils.setSexExperience(new SexType(SexParticipantType.CATCHER, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH), i);
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 						}, false);
 					}
@@ -1933,7 +1933,7 @@ public class MainControllerInitMethod {
 					id = "CUNNILINGUS_GIVEN_"+i;
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-							CharacterModificationUtils.setSexExperience(new SexType(SexParticipantType.PITCHER, PenetrationType.TONGUE, OrificeType.VAGINA), i);
+							CharacterModificationUtils.setSexExperience(new SexType(SexParticipantType.PITCHER, SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA), i);
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 						}, false);
 					}
@@ -1941,7 +1941,7 @@ public class MainControllerInitMethod {
 					id = "VAGINAL_GIVEN_"+i;
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-							CharacterModificationUtils.setSexExperience(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.VAGINA), i);
+							CharacterModificationUtils.setSexExperience(new SexType(SexParticipantType.PITCHER, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA), i);
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 						}, false);
 					}
@@ -1949,7 +1949,7 @@ public class MainControllerInitMethod {
 					id = "ANAL_GIVEN_"+i;
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-							CharacterModificationUtils.setSexExperience(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.ANUS), i);
+							CharacterModificationUtils.setSexExperience(new SexType(SexParticipantType.PITCHER, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS), i);
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 						}, false);
 					}
@@ -1959,7 +1959,7 @@ public class MainControllerInitMethod {
 					id = "HANDJOBS_TAKEN_"+i;
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-							CharacterModificationUtils.setSexExperience(new SexType(SexParticipantType.CATCHER, PenetrationType.FINGER, OrificeType.URETHRA_PENIS), i);
+							CharacterModificationUtils.setSexExperience(new SexType(SexParticipantType.CATCHER, SexAreaPenetration.FINGER, SexAreaOrifice.URETHRA_PENIS), i);
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 						}, false);
 					}
@@ -1967,7 +1967,7 @@ public class MainControllerInitMethod {
 					id = "FINGERINGS_TAKEN_"+i;
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-							CharacterModificationUtils.setSexExperience(new SexType(SexParticipantType.CATCHER, PenetrationType.FINGER, OrificeType.VAGINA), i);
+							CharacterModificationUtils.setSexExperience(new SexType(SexParticipantType.CATCHER, SexAreaPenetration.FINGER, SexAreaOrifice.VAGINA), i);
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 						}, false);
 					}
@@ -1975,7 +1975,7 @@ public class MainControllerInitMethod {
 					id = "BLOWJOBS_TAKEN_"+i;
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-							CharacterModificationUtils.setSexExperience(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.MOUTH), i);
+							CharacterModificationUtils.setSexExperience(new SexType(SexParticipantType.PITCHER, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH), i);
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 						}, false);
 					}
@@ -1983,7 +1983,7 @@ public class MainControllerInitMethod {
 					id = "CUNNILINGUS_TAKEN_"+i;
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-							CharacterModificationUtils.setSexExperience(new SexType(SexParticipantType.CATCHER, PenetrationType.TONGUE, OrificeType.VAGINA), i);
+							CharacterModificationUtils.setSexExperience(new SexType(SexParticipantType.CATCHER, SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA), i);
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 						}, false);
 					}
@@ -1991,7 +1991,7 @@ public class MainControllerInitMethod {
 					id = "VAGINAL_TAKEN_"+i;
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-							CharacterModificationUtils.setSexExperience(new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.VAGINA), i);
+							CharacterModificationUtils.setSexExperience(new SexType(SexParticipantType.CATCHER, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA), i);
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 						}, false);
 					}
@@ -1999,7 +1999,7 @@ public class MainControllerInitMethod {
 					id = "ANAL_TAKEN_"+i;
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-							CharacterModificationUtils.setSexExperience(new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.ANUS), i);
+							CharacterModificationUtils.setSexExperience(new SexType(SexParticipantType.CATCHER, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS), i);
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 						}, false);
 					}

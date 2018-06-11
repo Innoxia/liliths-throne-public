@@ -1210,9 +1210,25 @@ public class Game implements Serializable, XMLSaving {
 			}
 			
 			if(npc.isPendingTransformationToGenderIdentity()) {
+				boolean assVirgin = npc.isAssVirgin();
+				boolean faceVirgin = npc.isFaceVirgin();
+				boolean nippleVirgin = npc.isNippleVirgin();
+				boolean penisVirgin = npc.isPenisVirgin();
+				boolean ureathreVirgin = npc.isUrethraVirgin();
+				boolean vaginaVirgin = npc.isVaginaVirgin();
+				boolean vaginaUrethraVirgin = npc.isVaginaUrethraVirgin();
+				
 				npc.setBody(npc.getGenderIdentity(), RacialBody.valueOfRace(npc.getRace()), npc.getRaceStage());
 				CharacterUtils.randomiseBody(npc);
 				npc.setPendingTransformationToGenderIdentity(false);
+				
+				npc.setAssVirgin(assVirgin);
+				npc.setFaceVirgin(faceVirgin);
+				npc.setNippleVirgin(nippleVirgin);
+				npc.setPenisVirgin(penisVirgin);
+				npc.setUrethraVirgin(ureathreVirgin);
+				npc.setVaginaVirgin(vaginaVirgin);
+				npc.setVaginaUrethraVirgin(vaginaUrethraVirgin);
 			}
 			
 			// Prostitutes stay on promiscuity pills to avoid pregnancies, and, if the NPC is male, to avoid knocking up their clients

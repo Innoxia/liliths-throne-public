@@ -8,8 +8,8 @@ import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
-import com.lilithsthrone.game.sex.OrificeType;
-import com.lilithsthrone.game.sex.PenetrationType;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
@@ -29,8 +29,8 @@ public class PlayerSelfNoPen {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.FINGER,
-			OrificeType.VAGINA,
+			SexAreaPenetration.FINGER,
+			SexAreaOrifice.VAGINA,
 			SexParticipantType.SELF) {
 		
 		@Override
@@ -65,7 +65,7 @@ public class PlayerSelfNoPen {
 		@Override
 		public void applyEffects() {
 			if(Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.VAGINA)) {
-				Sex.transferLubrication(Main.game.getPlayer(), Main.game.getPlayer(), PenetrationType.FINGER, OrificeType.VAGINA);
+				Sex.transferLubrication(Main.game.getPlayer(), Main.game.getPlayer(), SexAreaPenetration.FINGER, SexAreaOrifice.VAGINA);
 			}
 		}
 		
@@ -77,8 +77,8 @@ public class PlayerSelfNoPen {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.FINGER,
-			OrificeType.URETHRA_PENIS,
+			SexAreaPenetration.FINGER,
+			SexAreaOrifice.URETHRA_PENIS,
 			SexParticipantType.SELF) {
 		
 		@Override
@@ -114,7 +114,7 @@ public class PlayerSelfNoPen {
 		@Override
 		public void applyEffects() {
 			if(Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.PENIS)) {
-				Sex.transferLubrication(Main.game.getPlayer(), PenetrationType.FINGER, Main.game.getPlayer(), PenetrationType.PENIS);
+				Sex.transferLubrication(Main.game.getPlayer(), SexAreaPenetration.FINGER, Main.game.getPlayer(), SexAreaPenetration.PENIS);
 			}
 		}
 		
@@ -127,7 +127,7 @@ public class PlayerSelfNoPen {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.FINGER,
+			SexAreaPenetration.FINGER,
 			null,
 			SexParticipantType.SELF) {
 
