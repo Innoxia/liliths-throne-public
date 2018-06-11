@@ -1485,6 +1485,14 @@ public class OptionsDialogue {
 							Main.getProperties().hasValue(PropertyValue.lactationContent)));
 			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+							"CUM_REGENERATION",
+							Colour.CUM,
+							"Cum Regeneration",
+							"This enables cum regeneration related content, such as decreasing quantity for multiple orgasms in one session and the full balls status effect."
+							+ "<br>When disabled, balls will always be treated as full, but without any negative effects.",
+							Main.getProperties().hasValue(PropertyValue.cumRegenerationContent)));
+			
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(
 							"URETHRAL",
 							Colour.BASE_PINK_DEEP,
 							"Urethral",
