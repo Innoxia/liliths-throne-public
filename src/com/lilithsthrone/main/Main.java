@@ -327,6 +327,7 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("Kernog", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("Knight-Lord Xander", "", 0, 0, 0, 11));
 		credits.add(new CreditsSlot("Chris Turpin", "", 0, 0, 9, 0));
+		credits.add(new CreditsSlot("Leob", "", 0, 0, 10, 1));
 		credits.add(new CreditsSlot("Pallid", "", 0, 0, 0, 5));
 		credits.add(new CreditsSlot("Mr L", "", 0, 0, 4, 1));
 		credits.add(new CreditsSlot("loveless", "", 0, 0, 0, 11));

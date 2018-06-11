@@ -31,7 +31,7 @@
 		Improved scripting support for parsing conditional statements.
 	
 	Gameplay:
-		Added the same fluid storage/regeneration values as milk has to cum. Added an 'expulsion' value to testicles (with associated TF modifier for potions), which determines how much of your stored cum is expelled upon orgasm.
+		Added cum storage/regeneration values (the same mechanics as milk). Added an 'expulsion' value to testicles (with associated TF modifier for potions), which determines how much of your stored cum is expelled upon orgasm. (This new mechanic can be toggled off in the content settings.)
 		Not producing any cum upon orgasm (or by having a cum expulsion value of 0) will now apply the frustrated effect.
 	
 	Artwork:
@@ -43,6 +43,9 @@
 		Fixed incorrect descriptions in mouth orifice status tooltip. (Pimvgd)
 		Reduced UtilText.parse parsing time by two-thirds for large inputs. (Pimvgd)
 		Fixed major issue with parsing. (Pimvgd)
+		Optimised loading. As an example, this cut down the loading time of a large save file by 60%. (Pimvgd)
+		Fixed bug in FluidRegeneration value. (Pimvgd)
+		Added cum regeneration mechanics toggle. (Pimvgd)
 	
 	Clothing:
 		<b>Added:</b> Butler set. (With boosted butler set effects if you chose the 'bulter' job at the start of the game.)
@@ -87,7 +90,8 @@
 		Fixed issue with modded clothing being tagged to be found in alleyways not actually being found in alleyways.
 		Fixed issue with modded clothing marked for sale by Kate and Nyan not actually appearing in their inventories.
 		Fixed slime eye recolouring applying to your entire body.
-		
+	
+	
 	
 	
 	foot fetish
@@ -104,6 +108,10 @@
 	
 	if you are one of the breeders, and Epona deems you not the father, if you look at your pregnancy stats, the pregnancy is still listed
 	
+	zaranix is virgin
+	
+	I had a demon that had lost all their virginities, until I enslaved them, when they became as virgin as fresh snow
+	
 	get crotchless briefs changed to pull down
 	
 	when I'm accessing an enemy's inventory, and taking an item, say, "Mystery Kink": if I hover my mouse over the "Take (All)" option, it displays the following message, "Take five of the man's Mystery Kinks", even when said enemy has only one. To simplify, if I'm taking an item, even when there's only one, the "Take All" option will state "five" in place of "all".
@@ -111,9 +119,9 @@ Basically, just an error in the coding, probably, that switches the five option 
 	
 	a slider for npc's spawning with cosmetics such as piercings, scars, and tattoos would be nice
 	
-	Add dirty clothing check for no cum
+	Piercing are sitting in a slimes inventory, without me ever encountering this slime before, I think this is a bug
 	
-	[ ] Patreon thank you and credits!
+	Add dirty clothing check for no cum
 	
 	[X] cum like milk
 	
@@ -141,12 +149,10 @@ Basically, just an error in the coding, probably, that switches the five option 
 	
 	
 	
+	
 	@SuppressWarnings("deprecation")
 	
-	Piercing are sitting in a slimes inventory, without me ever encountering this slime before, I think this is a bug
-	
 	Changing virility of partner affects cum already in vagina...
-	
 	
 	My first thought was that it could be something like one step or 10% of the final goal's size, whichever is larger.
 	  The % could also be scaled based on how strong of an effect it is.  Minor enchantments jump by 5%, then 10%, and 15%.
