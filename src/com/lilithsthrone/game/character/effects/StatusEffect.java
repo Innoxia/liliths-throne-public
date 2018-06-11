@@ -4091,7 +4091,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return target.getPenisRawCumStorageValue()>0 && target.getPenisRawStoredCumValue()!=target.getPenisRawCumStorageValue();
+			return Main.getProperties().hasValue(PropertyValue.cumRegenerationContent) && target.getPenisRawCumStorageValue()>0 && target.getPenisRawStoredCumValue()!=target.getPenisRawCumStorageValue();
 		}
 		
 		@Override
@@ -4118,15 +4118,15 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			int milkRegenRate = (int) Math.ceil(target.getPenisCumProductionRegeneration().getPercentageRegen() * target.getPenisRawCumStorageValue());
+			int cumRegenRate = (int) Math.ceil(target.getPenisCumProductionRegeneration().getPercentageRegen() * target.getPenisRawCumStorageValue());
 			
 			return UtilText.parse(target, "[npc.NamePos] balls are completely filled with [npc.cum] ("+target.getPenisRawStoredCumValue()+"ml), and [npc.she] can't wait until the next time [npc.sheIs] able to empty them."
-					+ " [npc.She] will ejaculate "+target.getPenisRawOrgasmCumQuantity()+"ml upon orgasm, and will then regenerate [npc.cum] at a rate of "+milkRegenRate+"ml/minute.");
+					+ " [npc.She] will ejaculate "+target.getPenisRawOrgasmCumQuantity()+"ml upon orgasm, and will then regenerate [npc.cum] at a rate of "+cumRegenRate+"ml/minute.");
 		}
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return target.getPenisRawCumStorageValue()>0 && target.getPenisRawStoredCumValue()==target.getPenisRawCumStorageValue();
+			return Main.getProperties().hasValue(PropertyValue.cumRegenerationContent) && target.getPenisRawCumStorageValue()>0 && target.getPenisRawStoredCumValue()==target.getPenisRawCumStorageValue();
 		}
 		
 		@Override

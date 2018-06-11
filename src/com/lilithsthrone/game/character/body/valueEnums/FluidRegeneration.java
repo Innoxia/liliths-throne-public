@@ -12,7 +12,7 @@ public enum FluidRegeneration {
 	// I named these wrong...
 	ZERO_MINIMUM(0, 0.0005f, "slow", "slowly", Colour.GENERIC_SIZE_ONE),
 	ONE_AVERAGE(1, 0.0025f, "average", "", Colour.GENERIC_SIZE_TWO),
-	TWO_FULL(2, 0.075f, "fast", "quickly", Colour.GENERIC_SIZE_THREE),
+	TWO_FULL(2, 0.0075f, "fast", "quickly", Colour.GENERIC_SIZE_THREE),
 	THREE_PLUMP(3, 0.015f, "rapid", "rapidly", Colour.GENERIC_SIZE_FOUR),
 	FOUR_MAXIMUM(4, 0.05f, "very rapid", "very rapidly", Colour.GENERIC_SIZE_FIVE);
 	
