@@ -871,8 +871,8 @@ public class TooltipInformationEventListener implements EventListener {
 						+ "<div class='description'>" + description + "</div>"));
 			}
 		}
-
-		(new Thread(new TooltipUpdateThread())).start();
+		
+		TooltipUpdateThread.updateToolTip(-1,-1);
 	}
 	
 	private String getBodyPartDiv(String name, Race race, BodyCoveringType covering) {

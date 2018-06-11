@@ -50,7 +50,8 @@ public class TooltipResponseDescriptionEventListener implements EventListener {
 				Main.mainController.getTooltip().setAnchorX(xPosition);
 				Main.mainController.getTooltip().setAnchorY(yPosition);
 				
-				(new Thread(new TooltipUpdateThread(xPosition, yPosition))).start();
+				TooltipUpdateThread.updateToolTip(xPosition,yPosition);
+
 			}
 		} else if (previousPage) {
 			if (Main.game.getResponsePage() != 0) {
@@ -71,7 +72,8 @@ public class TooltipResponseDescriptionEventListener implements EventListener {
 				Main.mainController.getTooltip().setAnchorX(xPosition);
 				Main.mainController.getTooltip().setAnchorY(yPosition);
 				
-				(new Thread(new TooltipUpdateThread(xPosition, yPosition))).start();
+				TooltipUpdateThread.updateToolTip(xPosition,yPosition);
+
 			}
 			
 		} else {
@@ -187,7 +189,7 @@ public class TooltipResponseDescriptionEventListener implements EventListener {
 				Main.mainController.getTooltip().setAnchorX(xPosition);
 				Main.mainController.getTooltip().setAnchorY(yPosition);
 				
-				(new Thread(new TooltipUpdateThread(xPosition, yPosition))).start();
+				TooltipUpdateThread.updateToolTip(xPosition,yPosition);
 				Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
 			}
 			
