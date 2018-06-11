@@ -549,8 +549,9 @@ public class InventoryTooltipEventListener implements EventListener {
 		}  else {
 			return;
 		}
+		
+		TooltipUpdateThread.updateToolTip(-1,-1);
 
-		(new Thread(new TooltipUpdateThread())).start();
 		// Main.mainController.getTooltip().show(Main.primaryStage);
 	}
 

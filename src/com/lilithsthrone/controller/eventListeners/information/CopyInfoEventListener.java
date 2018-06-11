@@ -28,6 +28,6 @@ public class CopyInfoEventListener implements EventListener {
 				+ Main.game.getCurrentDialogueNode().getAuthor()
 				+ "</b></div>");
 		
-		(new Thread(new TooltipUpdateThread())).start();
+		TooltipUpdateThread.updateToolTip(-1,-1);
 	}
 }
