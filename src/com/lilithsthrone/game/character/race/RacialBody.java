@@ -51,6 +51,7 @@ import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.PersonalityWeight;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
+import com.lilithsthrone.game.character.persona.SexualOrientationPreference;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
@@ -130,7 +131,7 @@ public enum RacialBody {
 		
 		@Override
 		public SexualOrientation getSexualOrientation(Gender gender) {
-			return SexualOrientation.AMBIPHILIC;
+			return SexualOrientationPreference.getSexualOrientationFromUserPreferences(0, 1, 0);
 		}
 	},
 
@@ -175,7 +176,7 @@ public enum RacialBody {
 		
 		@Override
 		public SexualOrientation getSexualOrientation(Gender gender) {
-			return SexualOrientation.AMBIPHILIC;
+			return SexualOrientationPreference.getSexualOrientationFromUserPreferences(0, 1, 0);
 		}
 	},
 	
@@ -219,7 +220,7 @@ public enum RacialBody {
 		
 		@Override
 		public SexualOrientation getSexualOrientation(Gender gender) {
-			return SexualOrientation.AMBIPHILIC;
+			return SexualOrientationPreference.getSexualOrientationFromUserPreferences(0, 1, 0);
 		}
 	},
 
@@ -623,13 +624,7 @@ public enum RacialBody {
 		
 		@Override
 		public SexualOrientation getSexualOrientation(Gender gender) {
-			double chance = Math.random();
-			
-			if(chance<0.95f) {
-				return SexualOrientation.GYNEPHILIC;
-			} else {
-				return SexualOrientation.AMBIPHILIC;
-			}
+			return SexualOrientationPreference.getSexualOrientationFromUserPreferences(95, 5, 0);
 		}
 	};
 
@@ -890,25 +885,10 @@ public enum RacialBody {
 	}
 	
 	public SexualOrientation getSexualOrientation(Gender gender) {
-		double chance = Math.random();
-		
 		if(gender.isFeminine()) {
-			if(chance<0.15f) {
-				return SexualOrientation.GYNEPHILIC;
-			} else if (chance<0.5f) {
-				return SexualOrientation.ANDROPHILIC;
-			} else {
-				return SexualOrientation.AMBIPHILIC;
-			}
-			
+			return SexualOrientationPreference.getSexualOrientationFromUserPreferences(15, 50, 35);
 		} else {
-			if(chance<0.10f) {
-				return SexualOrientation.ANDROPHILIC;
-			} else if (chance<0.5f) {
-				return SexualOrientation.GYNEPHILIC;
-			} else {
-				return SexualOrientation.AMBIPHILIC;
-			}
+			return SexualOrientationPreference.getSexualOrientationFromUserPreferences(40, 50, 10);
 		}
 	}
 	

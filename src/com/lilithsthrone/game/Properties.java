@@ -28,6 +28,7 @@ import com.lilithsthrone.game.character.gender.AndrogynousIdentification;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.gender.GenderNames;
 import com.lilithsthrone.game.character.gender.GenderPronoun;
+import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -91,6 +92,7 @@ public class Properties implements Serializable {
 	public Map<GenderPronoun, String> genderPronounFemale, genderPronounMale;
 	
 	public Map<Gender, Integer> genderPreferencesMap;
+	public Map<SexualOrientation, Integer> orientationPreferencesMap;
 	private Map<Subspecies, FurryPreference> subspeciesFeminineFurryPreferencesMap, subspeciesMasculineFurryPreferencesMap;
 	private Map<Subspecies, SubspeciesPreference> subspeciesFemininePreferencesMap, subspeciesMasculinePreferencesMap;
 	
@@ -135,6 +137,11 @@ public class Properties implements Serializable {
 		genderPreferencesMap = new EnumMap<>(Gender.class);
 		for(Gender g : Gender.values()) {
 			genderPreferencesMap.put(g, g.getGenderPreferenceDefault().getValue());
+		}
+
+		orientationPreferencesMap = new EnumMap<>(SexualOrientation.class);
+		for(SexualOrientation o : SexualOrientation.values()) {
+			orientationPreferencesMap.put(o, o.getOrientationPreferenceDefault().getValue());
 		}
 		
 		forcedTFPreference = FurryPreference.NORMAL;
@@ -329,6 +336,22 @@ public class Properties implements Serializable {
 				
 				Attr value = doc.createAttribute("value");
 				value.setValue(String.valueOf(genderPreferencesMap.get(g).intValue()));
+				element.setAttributeNode(value);
+			}
+
+			// Sexual orientation preferences:
+			Element orientationPreferences = doc.createElement("orientationPreferences");
+			properties.appendChild(orientationPreferences);
+			for (SexualOrientation o : SexualOrientation.values()) {
+				Element element = doc.createElement("preference");
+				orientationPreferences.appendChild(element);
+				
+				Attr orientation = doc.createAttribute("orientation");
+				orientation.setValue(o.toString());
+				element.setAttributeNode(orientation);
+				
+				Attr value = doc.createAttribute("value");
+				value.setValue(String.valueOf(orientationPreferencesMap.get(o).intValue()));
 				element.setAttributeNode(value);
 			}
 			
@@ -685,6 +708,21 @@ public class Properties implements Serializable {
 					}
 				}
 				
+				// Sexual orientation preferences:
+				nodes = doc.getElementsByTagName("orientationPreferences");
+				element = (Element) nodes.item(0);
+				if(element!=null && element.getElementsByTagName("preference")!=null) {
+					for(int i=0; i<element.getElementsByTagName("preference").getLength(); i++){
+						Element e = ((Element)element.getElementsByTagName("preference").item(i));
+						
+						try {
+							if(!e.getAttribute("orientation").isEmpty()) {
+								orientationPreferencesMap.put(SexualOrientation.valueOf(e.getAttribute("orientation")), Integer.valueOf(e.getAttribute("value")));
+							}
+						} catch(IllegalArgumentException ex){
+						}
+					}
+				}
 				
 				// Race preferences:
 				nodes = doc.getElementsByTagName("subspeciesPreferences");

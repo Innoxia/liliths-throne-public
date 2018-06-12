@@ -94,6 +94,7 @@ import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.PersonalityWeight;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
+import com.lilithsthrone.game.character.persona.SexualOrientationPreference;
 import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.DamageType;
@@ -4065,6 +4066,21 @@ public class MainControllerInitMethod {
 					if (((EventTarget) MainController.document.getElementById(preference+"_"+g)) != null) {
 						((EventTarget) MainController.document.getElementById(preference+"_"+g)).addEventListener("click", e -> {
 							Main.getProperties().genderPreferencesMap.put(g, preference.getValue());
+							Main.saveProperties();
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+				}
+			}
+		}
+
+		// Sexual orientation preferences:
+		if (Main.game.getCurrentDialogueNode() == OptionsDialogue.ORIENTATION_PREFERENCE) {
+			for (SexualOrientation o : SexualOrientation.values()) {
+				for(SexualOrientationPreference preference : SexualOrientationPreference.values()) {
+					if (((EventTarget) MainController.document.getElementById(preference+"_"+o)) != null) {
+						((EventTarget) MainController.document.getElementById(preference+"_"+o)).addEventListener("click", e -> {
+							Main.getProperties().orientationPreferencesMap.put(o, preference.getValue());
 							Main.saveProperties();
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 						}, false);
