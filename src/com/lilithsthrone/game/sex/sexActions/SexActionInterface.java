@@ -732,9 +732,9 @@ public interface SexActionInterface {
 				getCorruptionNeeded(),
 				null, null, null,
 				Sex.getCharacterPerformingAction(),
-				this.getSexAreaInteractions().keySet(),
+				this.getParticipantType().isUsingSelfPenetrationType()?this.getSexAreaInteractions().keySet():this.getSexAreaInteractions().values(),
 				Sex.getCharacterTargetedForSexAction(this),
-				this.getSexAreaInteractions().values()){
+				this.getParticipantType().isUsingSelfPenetrationType()?this.getSexAreaInteractions().values():this.getSexAreaInteractions().keySet()){
 			
 			@Override
 			public boolean isSexPenetrationHighlight() {
