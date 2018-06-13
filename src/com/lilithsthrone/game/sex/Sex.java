@@ -2847,7 +2847,10 @@ public enum Sex {
 		Sex.characterPerformingAction = characterPerformingAction;
 	}
 	
-	public static GameCharacter getCharacterTargetedForSexAction() {
+	public static GameCharacter getCharacterTargetedForSexAction(SexActionInterface action) {
+		if(action.getParticipantType()==SexParticipantType.SELF) {
+			return getCharacterPerformingAction();
+		}
 		return Sex.getTargetedPartner(Sex.getCharacterPerformingAction());
 	}
 

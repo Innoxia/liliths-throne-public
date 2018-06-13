@@ -206,8 +206,8 @@ public abstract class SexAction implements SexActionInterface {
 	@Override
 	public ArousalIncrease getArousalGainTarget() {
 		if(!Sex.isMasturbation()) {
-			if(Sex.getSexPace(Sex.getCharacterTargetedForSexAction())==SexPace.SUB_RESISTING) {
-				if(Sex.getCharacterTargetedForSexAction().hasFetish(Fetish.FETISH_NON_CON_SUB)) {
+			if(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))==SexPace.SUB_RESISTING) {
+				if(Sex.getCharacterTargetedForSexAction(this).hasFetish(Fetish.FETISH_NON_CON_SUB)) {
 					return ArousalIncrease.FOUR_HIGH;
 					
 				} else {

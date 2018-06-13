@@ -104,7 +104,7 @@ public interface SexActionInterface {
 				}
 			}
 			
-		} else if(character.equals(Sex.getCharacterTargetedForSexAction())) {
+		} else if(character.equals(Sex.getCharacterTargetedForSexAction(this))) {
 			for(SexAreaPenetration sArea : this.getTargetedCharacterPenetrations()) {
 				if(sArea.isTakesVirginity()) {
 					return true;
@@ -137,9 +137,9 @@ public interface SexActionInterface {
 		if(getActionType()==SexActionType.START_ONGOING) {
 			for(Entry<SexAreaInterface, SexAreaInterface> entry : getSexAreaInteractions().entrySet()) {
 				Sex.applyOngoingAction(
-						this.getParticipantType().isUsingSelfPenetrationType()?Sex.getCharacterPerformingAction():Sex.getCharacterTargetedForSexAction(),
+						this.getParticipantType().isUsingSelfPenetrationType()?Sex.getCharacterPerformingAction():Sex.getCharacterTargetedForSexAction(this),
 						entry.getKey(),
-						this.getParticipantType().isUsingSelfOrificeType()?Sex.getCharacterPerformingAction():Sex.getCharacterTargetedForSexAction(),
+						this.getParticipantType().isUsingSelfOrificeType()?Sex.getCharacterPerformingAction():Sex.getCharacterTargetedForSexAction(this),
 						entry.getValue());
 			}
 		}
@@ -153,28 +153,28 @@ public interface SexActionInterface {
 				if(entry.getKey()!=null) {
 					if(entry.getValue()!=null) {
 						Sex.stopOngoingAction(
-								this.getParticipantType().isUsingSelfPenetrationType()?Sex.getCharacterPerformingAction():Sex.getCharacterTargetedForSexAction(),
+								this.getParticipantType().isUsingSelfPenetrationType()?Sex.getCharacterPerformingAction():Sex.getCharacterTargetedForSexAction(this),
 								entry.getKey(),
-								this.getParticipantType().isUsingSelfOrificeType()?Sex.getCharacterPerformingAction():Sex.getCharacterTargetedForSexAction(),
+								this.getParticipantType().isUsingSelfOrificeType()?Sex.getCharacterPerformingAction():Sex.getCharacterTargetedForSexAction(this),
 								entry.getValue());
 						
 					} else {
-						for(SexAreaInterface sArea : Sex.getContactingSexAreas(Sex.getCharacterPerformingAction(), entry.getKey(), Sex.getCharacterTargetedForSexAction())) {
+						for(SexAreaInterface sArea : Sex.getContactingSexAreas(Sex.getCharacterPerformingAction(), entry.getKey(), Sex.getCharacterTargetedForSexAction(this))) {
 							Sex.stopOngoingAction(
-									this.getParticipantType().isUsingSelfPenetrationType()?Sex.getCharacterPerformingAction():Sex.getCharacterTargetedForSexAction(),
+									this.getParticipantType().isUsingSelfPenetrationType()?Sex.getCharacterPerformingAction():Sex.getCharacterTargetedForSexAction(this),
 									entry.getKey(),
-									this.getParticipantType().isUsingSelfOrificeType()?Sex.getCharacterPerformingAction():Sex.getCharacterTargetedForSexAction(),
+									this.getParticipantType().isUsingSelfOrificeType()?Sex.getCharacterPerformingAction():Sex.getCharacterTargetedForSexAction(this),
 									sArea);
 						}
 					}
 					
 				} else {
 					if(entry.getValue()!=null) {
-						for(SexAreaInterface sArea : Sex.getContactingSexAreas(Sex.getCharacterTargetedForSexAction(), entry.getValue(), Sex.getCharacterPerformingAction())) {
+						for(SexAreaInterface sArea : Sex.getContactingSexAreas(Sex.getCharacterTargetedForSexAction(this), entry.getValue(), Sex.getCharacterPerformingAction())) {
 								Sex.stopOngoingAction(
-										this.getParticipantType().isUsingSelfPenetrationType()?Sex.getCharacterPerformingAction():Sex.getCharacterTargetedForSexAction(),
+										this.getParticipantType().isUsingSelfPenetrationType()?Sex.getCharacterPerformingAction():Sex.getCharacterTargetedForSexAction(this),
 												entry.getKey(),
-												this.getParticipantType().isUsingSelfOrificeType()?Sex.getCharacterPerformingAction():Sex.getCharacterTargetedForSexAction(),
+												this.getParticipantType().isUsingSelfOrificeType()?Sex.getCharacterPerformingAction():Sex.getCharacterTargetedForSexAction(this),
 										sArea);
 						}
 					}
@@ -234,7 +234,7 @@ public interface SexActionInterface {
 			if(Sex.getCharacterPerformingAction().isPlayer()) {
 				if(this.getParticipantType()==SexParticipantType.CATCHER
 						&& this.getTargetedCharacterPenetrations().contains(SexAreaPenetration.PENIS)
-						&& !Sex.getCharacterTargetedForSexAction().getPlayerKnowsAreas().contains(CoverableArea.PENIS)) {
+						&& !Sex.getCharacterTargetedForSexAction(this).getPlayerKnowsAreas().contains(CoverableArea.PENIS)) {
 					return null;
 				}
 				for(SexAreaOrifice sArea : this.getTargetedCharacterOrifices()) {
@@ -305,7 +305,7 @@ public interface SexActionInterface {
 						outerloop:
 						for(SexAreaInterface sArea : this.getSexAreaInteractions().keySet()) {
 							for(SexAreaInterface sAreaTarget : this.getSexAreaInteractions().values()) {
-								if(Sex.getContactingSexAreas(Sex.getCharacterPerformingAction(), sArea, Sex.getCharacterTargetedForSexAction()).contains(sAreaTarget)) {
+								if(Sex.getContactingSexAreas(Sex.getCharacterPerformingAction(), sArea, Sex.getCharacterTargetedForSexAction(this)).contains(sAreaTarget)) {
 									ongoingFound = true;
 									break outerloop;
 								}
@@ -315,7 +315,7 @@ public interface SexActionInterface {
 						outerloop:
 						for(SexAreaInterface sArea : this.getSexAreaInteractions().keySet()) {
 							for(SexAreaInterface sAreaTarget : this.getSexAreaInteractions().values()) {
-								if(Sex.getContactingSexAreas(Sex.getCharacterTargetedForSexAction(), sArea, Sex.getCharacterPerformingAction()).contains(sAreaTarget)) {
+								if(Sex.getContactingSexAreas(Sex.getCharacterTargetedForSexAction(this), sArea, Sex.getCharacterPerformingAction()).contains(sAreaTarget)) {
 									ongoingFound = true;
 									break outerloop;
 								}
@@ -376,7 +376,7 @@ public interface SexActionInterface {
 				for(SexAreaOrifice sArea : this.getTargetedCharacterOrifices()) {
 					switch(sArea){
 						case NIPPLE:
-							if(!Sex.getCharacterTargetedForSexAction().isBreastFuckableNipplePenetration()) {
+							if(!Sex.getCharacterTargetedForSexAction(this).isBreastFuckableNipplePenetration()) {
 								return null;
 							}
 							break;
@@ -385,12 +385,12 @@ public interface SexActionInterface {
 					}
 					
 					// Check for access:
-					if(!Sex.getCharacterTargetedForSexAction().isOrificeTypeExposed(sArea)) {
+					if(!Sex.getCharacterTargetedForSexAction(this).isOrificeTypeExposed(sArea)) {
 						return convertToNullResponse();
 					}
 					
 					// Check to see if it's already in use:
-					if(!sArea.isFree(Sex.getCharacterTargetedForSexAction())) {
+					if(!sArea.isFree(Sex.getCharacterTargetedForSexAction(this))) {
 						return convertToNullResponse();
 					}
 				}
@@ -409,12 +409,12 @@ public interface SexActionInterface {
 				}
 				for(SexAreaPenetration sArea : this.getTargetedCharacterPenetrations()) {
 					// Check for access:
-					if(!Sex.getCharacterTargetedForSexAction().isPenetrationTypeExposed(sArea)) {
+					if(!Sex.getCharacterTargetedForSexAction(this).isPenetrationTypeExposed(sArea)) {
 						return convertToNullResponse();
 					}
 					
 					// Check to see if it's already in use:
-					if(!sArea.isFree(Sex.getCharacterTargetedForSexAction())) {
+					if(!sArea.isFree(Sex.getCharacterTargetedForSexAction(this))) {
 						return convertToNullResponse();
 					}
 				}
@@ -434,10 +434,10 @@ public interface SexActionInterface {
 					}
 				}
 				for(SexAreaPenetration sArea : this.getTargetedCharacterPenetrations()) {
-					if(!Sex.getCharacterTargetedForSexAction().isPenetrationTypeExposed(sArea)) {
+					if(!Sex.getCharacterTargetedForSexAction(this).isPenetrationTypeExposed(sArea)) {
 						return convertToNullResponse();
 					}
-					if(!sArea.isFree(Sex.getCharacterTargetedForSexAction())) {
+					if(!sArea.isFree(Sex.getCharacterTargetedForSexAction(this))) {
 						return convertToNullResponse();
 					}
 				}
@@ -452,10 +452,10 @@ public interface SexActionInterface {
 					}
 				}
 				for(SexAreaOrifice sArea : this.getTargetedCharacterOrifices()) {
-					if(!Sex.getCharacterTargetedForSexAction().isOrificeTypeExposed(sArea)) {
+					if(!Sex.getCharacterTargetedForSexAction(this).isOrificeTypeExposed(sArea)) {
 						return convertToNullResponse();
 					}
-					if(!sArea.isFree(Sex.getCharacterTargetedForSexAction())) {
+					if(!sArea.isFree(Sex.getCharacterTargetedForSexAction(this))) {
 						return convertToNullResponse();
 					}
 				}
@@ -472,7 +472,7 @@ public interface SexActionInterface {
 					}
 				}
 				for(SexAreaPenetration sArea : this.getTargetedCharacterPenetrations()) {
-					if(!sArea.isFree(Sex.getCharacterTargetedForSexAction())) {
+					if(!sArea.isFree(Sex.getCharacterTargetedForSexAction(this))) {
 						return convertToNullResponse();
 					}
 				}
@@ -484,7 +484,7 @@ public interface SexActionInterface {
 					}
 				}
 				for(SexAreaOrifice sArea : this.getTargetedCharacterOrifices()) {
-					if(!sArea.isFree(Sex.getCharacterTargetedForSexAction())) {
+					if(!sArea.isFree(Sex.getCharacterTargetedForSexAction(this))) {
 						return convertToNullResponse();
 					}
 				}
@@ -499,7 +499,7 @@ public interface SexActionInterface {
 					if(this.getParticipantType().isUsingSelfPenetrationType()) {
 						for(SexAreaInterface sArea : this.getSexAreaInteractions().keySet()) {
 							for(SexAreaInterface sAreaTarget : this.getSexAreaInteractions().values()) {
-								if(Sex.getContactingSexAreas(Sex.getCharacterPerformingAction(), sArea, Sex.getCharacterTargetedForSexAction()).contains(sAreaTarget)) {
+								if(Sex.getContactingSexAreas(Sex.getCharacterPerformingAction(), sArea, Sex.getCharacterTargetedForSexAction(this)).contains(sAreaTarget)) {
 									ongoingFound = true;
 									return convertToResponse();
 								}
@@ -508,7 +508,7 @@ public interface SexActionInterface {
 					} else {
 						for(SexAreaInterface sArea : this.getSexAreaInteractions().keySet()) {
 							for(SexAreaInterface sAreaTarget : this.getSexAreaInteractions().values()) {
-								if(Sex.getContactingSexAreas(Sex.getCharacterTargetedForSexAction(), sArea, Sex.getCharacterPerformingAction()).contains(sAreaTarget)) {
+								if(Sex.getContactingSexAreas(Sex.getCharacterTargetedForSexAction(this), sArea, Sex.getCharacterPerformingAction()).contains(sAreaTarget)) {
 									ongoingFound = true;
 									return convertToResponse();
 								}
@@ -579,7 +579,7 @@ public interface SexActionInterface {
 					null, null, null,
 					Sex.getCharacterPerformingAction(),
 					this.getSexAreaInteractions().keySet(),
-					Sex.getCharacterTargetedForSexAction(),
+					Sex.getCharacterTargetedForSexAction(this),
 					this.getSexAreaInteractions().values()){
 				
 				@Override
@@ -648,7 +648,7 @@ public interface SexActionInterface {
 					null, null, null,
 					Sex.getCharacterPerformingAction(),
 					this.getSexAreaInteractions().keySet(),
-					Sex.getCharacterTargetedForSexAction(),
+					Sex.getCharacterTargetedForSexAction(this),
 					this.getSexAreaInteractions().values()){
 				
 				@Override
@@ -733,7 +733,7 @@ public interface SexActionInterface {
 				null, null, null,
 				Sex.getCharacterPerformingAction(),
 				this.getSexAreaInteractions().keySet(),
-				Sex.getCharacterTargetedForSexAction(),
+				Sex.getCharacterTargetedForSexAction(this),
 				this.getSexAreaInteractions().values()){
 			
 			@Override
@@ -763,8 +763,8 @@ public interface SexActionInterface {
 			}
 		}
 		for(SexAreaInterface sArea : this.getTargetedCharacterOrifices()) {
-			if (Sex.getSexManager().getOrificesBannedMap().get(Sex.getCharacterTargetedForSexAction()) != null
-					&& Sex.getSexManager().getOrificesBannedMap().get(Sex.getCharacterTargetedForSexAction()).contains(sArea)) {
+			if (Sex.getSexManager().getOrificesBannedMap().get(Sex.getCharacterTargetedForSexAction(this)) != null
+					&& Sex.getSexManager().getOrificesBannedMap().get(Sex.getCharacterTargetedForSexAction(this)).contains(sArea)) {
 				return true;
 			}
 		}
@@ -780,7 +780,7 @@ public interface SexActionInterface {
 		}
 		
 		for(SexAreaInterface sArea : this.getSexAreaInteractions().values()) {
-			if(!performPhysicallyBlockedCheck(sArea, Sex.getCharacterTargetedForSexAction())) {
+			if(!performPhysicallyBlockedCheck(sArea, Sex.getCharacterTargetedForSexAction(this))) {
 				return false;
 			}
 		}

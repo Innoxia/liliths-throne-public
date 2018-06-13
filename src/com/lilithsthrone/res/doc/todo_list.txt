@@ -115,6 +115,7 @@
 	denial
 	
 	
+	StatusEffect.getDescription can reuse type variable for appendOrificeAdditionGenericDescriptions(target, SexAreaOrifice.ASS,
 	
 	Add Lumi art
 	

@@ -374,7 +374,7 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 		
 		// Ban all penetrations if the partner is a virgin in the associated orifice:
 		for(SexActionInterface action : availableActions) {
-			if(action.getActionType()==SexActionType.START_ONGOING && action.isTakesVirginity(Sex.getCharacterTargetedForSexAction())) {
+			if(action.getActionType()==SexActionType.START_ONGOING && action.isTakesVirginity(Sex.getCharacterTargetedForSexAction(action))) {
 				for(SexAreaOrifice sArea : action.getPerformingCharacterOrifices()) {
 					switch(sArea) {
 						case ANUS:

@@ -524,7 +524,7 @@ public class GenericActions {
 
 		@Override
 		public void applyEffects() {
-			Sex.stopAllOngoingActions(Sex.getCharacterTargetedForSexAction(), Sex.getCharacterTargetedForSexAction());
+			Sex.stopAllOngoingActions(Sex.getCharacterTargetedForSexAction(this), Sex.getCharacterTargetedForSexAction(this));
 			
 			Sex.setPartnerAllowedToUseSelfActions(false);
 		}
@@ -788,7 +788,7 @@ public class GenericActions {
 
 		@Override
 		public void applyEffects() {
-			Sex.stopAllOngoingActions(Sex.getCharacterTargetedForSexAction(), Sex.getCharacterTargetedForSexAction());
+			Sex.stopAllOngoingActions(Sex.getCharacterTargetedForSexAction(this), Sex.getCharacterTargetedForSexAction(this));
 		}
 	};
 	
