@@ -2404,10 +2404,12 @@ public enum Sex {
 				}
 			}
 			
-			if(ongoingActionsMap.get(characterPerformingAction).get(performerArea).get(characterTargeted).isEmpty()) {
+			if(ongoingActionsMap.get(characterPerformingAction).get(performerArea).containsKey(characterTargeted)
+					&& ongoingActionsMap.get(characterPerformingAction).get(performerArea).get(characterTargeted).isEmpty()) {
 				ongoingActionsMap.get(characterPerformingAction).get(performerArea).remove(characterTargeted);
 			}
-			if(ongoingActionsMap.get(characterTargeted).get(targetedArea).get(characterPerformingAction).isEmpty()) {
+			if(ongoingActionsMap.get(characterTargeted).get(targetedArea).containsKey(characterPerformingAction)
+					&& ongoingActionsMap.get(characterTargeted).get(targetedArea).get(characterPerformingAction).isEmpty()) {
 				ongoingActionsMap.get(characterTargeted).get(targetedArea).remove(characterPerformingAction);
 			}
 		}

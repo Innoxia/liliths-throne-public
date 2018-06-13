@@ -578,9 +578,9 @@ public interface SexActionInterface {
 					getCorruptionNeeded(),
 					null, null, null,
 					Sex.getCharacterPerformingAction(),
-					this.getSexAreaInteractions().keySet(),
+					this.getParticipantType().isUsingSelfPenetrationType()?this.getSexAreaInteractions().keySet():this.getSexAreaInteractions().values(),
 					Sex.getCharacterTargetedForSexAction(this),
-					this.getSexAreaInteractions().values()){
+					this.getParticipantType().isUsingSelfPenetrationType()?this.getSexAreaInteractions().values():this.getSexAreaInteractions().keySet()){
 				
 				@Override
 				public void effects() {
@@ -647,9 +647,9 @@ public interface SexActionInterface {
 					getCorruptionNeeded(),
 					null, null, null,
 					Sex.getCharacterPerformingAction(),
-					this.getSexAreaInteractions().keySet(),
+					this.getParticipantType().isUsingSelfPenetrationType()?this.getSexAreaInteractions().keySet():this.getSexAreaInteractions().values(),
 					Sex.getCharacterTargetedForSexAction(this),
-					this.getSexAreaInteractions().values()){
+					this.getParticipantType().isUsingSelfPenetrationType()?this.getSexAreaInteractions().values():this.getSexAreaInteractions().keySet()){
 				
 				@Override
 				public boolean isSexPenetrationHighlight() {
@@ -773,15 +773,28 @@ public interface SexActionInterface {
 	}
 	
 	public default boolean isPhysicallyPossible() {
-		for(SexAreaInterface sArea : this.getSexAreaInteractions().keySet()) {
-			if(!performPhysicallyBlockedCheck(sArea, Sex.getCharacterPerformingAction())) {
-				return false;
+		if(this.getParticipantType().isUsingSelfPenetrationType()) {
+			for(SexAreaInterface sArea : this.getSexAreaInteractions().keySet()) {
+				if(!performPhysicallyBlockedCheck(sArea, Sex.getCharacterPerformingAction())) {
+					return false;
+				}
 			}
-		}
-		
-		for(SexAreaInterface sArea : this.getSexAreaInteractions().values()) {
-			if(!performPhysicallyBlockedCheck(sArea, Sex.getCharacterTargetedForSexAction(this))) {
-				return false;
+			for(SexAreaInterface sArea : this.getSexAreaInteractions().values()) {
+				if(!performPhysicallyBlockedCheck(sArea, Sex.getCharacterTargetedForSexAction(this))) {
+					return false;
+				}
+			}
+			
+		} else {
+			for(SexAreaInterface sArea : this.getSexAreaInteractions().values()) {
+				if(!performPhysicallyBlockedCheck(sArea, Sex.getCharacterPerformingAction())) {
+					return false;
+				}
+			}
+			for(SexAreaInterface sArea : this.getSexAreaInteractions().keySet()) {
+				if(!performPhysicallyBlockedCheck(sArea, Sex.getCharacterTargetedForSexAction(this))) {
+					return false;
+				}
 			}
 		}
 		
