@@ -259,7 +259,10 @@ public class SARalphOrgasms {
 
 		@Override
 		public void applyEffects() {
-			if (!Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.PENIS) && Main.game.getPlayer().getPenisType()!=PenisType.NONE && !Main.game.getPlayer().isWearingCondom())
+			if (!Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.PENIS)
+					&& Main.game.getPlayer().getPenisType()!=PenisType.NONE
+					&& !Main.game.getPlayer().isWearingCondom()
+					&& Main.game.getPlayer().getPenisOrgasmCumQuantity() != CumProduction.ZERO_NONE)
 				Main.game.getPlayer().getLowestZLayerCoverableArea(CoverableArea.PENIS).setDirty(true);
 			
 			if(SexFlags.customerAtCounter) {

@@ -1708,7 +1708,9 @@ public class GenericOrgasms {
 		
 		@Override
 		public void applyEffects() {
-			if (!Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.PENIS) && !Main.game.getPlayer().isWearingCondom()) {
+			if (!Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.PENIS)
+					&& !Main.game.getPlayer().isWearingCondom()
+					&& Main.game.getPlayer().getPenisOrgasmCumQuantity() != CumProduction.ZERO_NONE) {
 				Main.game.getPlayer().getLowestZLayerCoverableArea(CoverableArea.PENIS).setDirty(true);
 			}
 		}
@@ -2972,7 +2974,9 @@ public class GenericOrgasms {
 		
 		@Override
 		public void applyEffects() {
-			if (!Sex.getActivePartner().isCoverableAreaExposed(CoverableArea.PENIS) && !Sex.getActivePartner().isWearingCondom()) {
+			if (!Sex.getActivePartner().isCoverableAreaExposed(CoverableArea.PENIS)
+					&& !Sex.getActivePartner().isWearingCondom()
+					&& Sex.getActivePartner().getPenisOrgasmCumQuantity() != CumProduction.ZERO_NONE) {
 				Sex.getActivePartner().getLowestZLayerCoverableArea(CoverableArea.PENIS).setDirty(true);
 			}
 		}

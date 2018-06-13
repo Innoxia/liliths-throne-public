@@ -1599,11 +1599,7 @@ public class Game implements Serializable, XMLSaving {
 				
 				if (node.isContinuesDialogue()) {
 					currentDialogue = 
-								(isContentScroll(node)
-									?"<body onLoad='scrollToElement()'>"
-										+ "<script>function scrollToElement() {document.getElementById('content-block').scrollTop = document.getElementById('position" + (positionAnchor) + "').offsetTop -64;}</script>"
-									:"<body>")
-								+ "<div id='main-content'>"
+								"<div id='main-content'>"
 									+ getTitleDiv(dialogueTitle)
 									+ "<div class='div-center' id='content-block'>"
 //										+ "<div class='inner-text-content'>"
@@ -1629,8 +1625,7 @@ public class Game implements Serializable, XMLSaving {
 							+ "</body>";
 
 				} else {
-					currentDialogue = "<body>"
-							+ "<div id='main-content'>"
+					currentDialogue = "<div id='main-content'>"
 								+ getTitleDiv(dialogueTitle)
 								+ "<span id='position" + positionAnchor + "'></span>"
 								+ "<div class='div-center' id='content-block'>"
@@ -1658,7 +1653,12 @@ public class Game implements Serializable, XMLSaving {
 				}
 
 //				Main.mainController.unbindListeners();
-				setMainContentRegex(currentDialogue);
+				setMainContentRegex(
+						(node.isContinuesDialogue() && isContentScroll(node)
+							?"<body onLoad='scrollToElement()'>"
+							+ "<script>function scrollToElement() {document.getElementById('content-block').scrollTop = document.getElementById('position" + (positionAnchor) + "').offsetTop -64;}</script>"
+						:"<body>"),
+						currentDialogue);
 				
 				textEndStringBuilder.setLength(0);
 				textStartStringBuilder.setLength(0);
@@ -1771,12 +1771,7 @@ public class Game implements Serializable, XMLSaving {
 
 
 		if (node.isContinuesDialogue()) {
-			currentDialogue =
-					(isContentScroll(node)
-							?"<body onLoad='scrollToElement()'>"
-								+ "<script>function scrollToElement() {document.getElementById('content-block').scrollTop = document.getElementById('position" + (positionAnchor) + "').offsetTop -64;}</script>"
-							:"<body>")
-					+ "<div id='main-content'>"
+			currentDialogue = "<div id='main-content'>"
 						+ getTitleDiv(dialogueTitle)
 						+ "<div class='div-center' id='content-block'>"
 //							+ "<div class='inner-text-content'>"
@@ -1800,12 +1795,7 @@ public class Game implements Serializable, XMLSaving {
 				+ "</body>";
 
 		} else {
-			currentDialogue =
-					(isContentScroll(node)
-						?"<body onLoad='scrollBack()'>"
-								+ "<script>function scrollBack() {document.getElementById('content-block').scrollTop = "+currentPosition+";}</script>"
-						:"<body>")
-					+ "<div id='main-content'>"
+			currentDialogue = "<div id='main-content'>"
 						+ getTitleDiv(dialogueTitle)
 						+ "<span id='position" + positionAnchor + "'></span>"
 							+ "<div class='div-center' id='content-block'>"
@@ -1837,7 +1827,16 @@ public class Game implements Serializable, XMLSaving {
 		Main.mainController.setFlashMessageText(flashMessageText);
 
 		//-------------------- MEMORY LEAK PROBLEM
-		setMainContentRegex(currentDialogue);
+		setMainContentRegex(node.isContinuesDialogue()
+				?(isContentScroll(node)
+						?"<body onLoad='scrollToElement()'>"
+						+ "<script>function scrollToElement() {document.getElementById('content-block').scrollTop = document.getElementById('position" + (positionAnchor) + "').offsetTop -64;}</script>"
+					:"<body>")
+				:(isContentScroll(node)
+						?"<body onLoad='scrollBack()'>"
+						+ "<script>function scrollBack() {document.getElementById('content-block').scrollTop = "+currentPosition+";}</script>"
+				:"<body>"),
+				currentDialogue);
 		//--------------------
 		
 		textEndStringBuilder.setLength(0);
@@ -1918,7 +1917,7 @@ public class Game implements Serializable, XMLSaving {
 		Main.mainController.setFlashMessageText(messageString);
 
 		//-------------------- MEMORY LEAK PROBLEM
-		setMainContentRegex(currentDialogue);
+		setMainContentRegex("", currentDialogue);
 //		setResponses(currentDialogueNode, false);
 
 		if(started) {
@@ -2427,7 +2426,7 @@ public class Game implements Serializable, XMLSaving {
 					"<div class='div-center' style='font-size:" + FONT_SIZE_HUGE + "px; line-height:" + (FONT_SIZE_HUGE + 6) + "px;'>");
 		}
 		
-		setMainContentRegex(currentDialogue);
+		setMainContentRegex("", currentDialogue);
 
 		textEndStringBuilder.setLength(0);
 		textStartStringBuilder.setLength(0);
@@ -2437,9 +2436,10 @@ public class Game implements Serializable, XMLSaving {
 
 	}
 	
-	private static void setMainContentRegex(String currentDialogue) {
+	private static void setMainContentRegex(String prefix, String currentDialogue) {
 		// <script>document.body.innerHTML = 'BANANA';</script>
-		Main.mainController.setMainContent(currentDialogue.replaceAll("([\\D])\\.([\\D])", "$1\ufeff.\ufeff$2").replaceAll("\\[", "\ufeff[\ufeff"));
+//		Main.mainController.setMainContent(currentDialogue.replaceAll("([\\D])\\.([\\D])", "$1\ufeff.\ufeff$2").replaceAll("\\[", "\ufeff[\ufeff"));
+		Main.mainController.setMainContent(prefix + currentDialogue.replaceAll("\\.([\\D])", ".\u200b$1").replaceAll("\\[", "\u200b[\u200b"));
 	}
 	
 	private List<NPC> charactersPresent = new ArrayList<>();

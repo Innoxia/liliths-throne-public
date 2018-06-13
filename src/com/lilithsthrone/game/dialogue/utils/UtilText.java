@@ -4861,7 +4861,7 @@ public class UtilText {
 		}
 		
 		try {
-			if(Main.game.getCurrentDialogueNode()==DebugDialogue.PARSER && (boolean) engine.eval(conditionalStatement.replaceAll("\ufeff", ""))) {
+			if(Main.game.getCurrentDialogueNode()==DebugDialogue.PARSER && (boolean) engine.eval(conditionalStatement.replaceAll("\u200b", ""))) {
 				return conditionalTrue;
 			} else if((boolean) engine.eval(conditionalStatement)){
 				return conditionalTrue;

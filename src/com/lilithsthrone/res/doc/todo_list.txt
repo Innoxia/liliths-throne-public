@@ -105,7 +105,7 @@
 		Fixed issue where Nyan's clothing might sometimes not load correctly.
 		Fixed drinking milk giving the 'Cummy Meal' status effect.
 		Fixed slimes drinking milk causing impregnation check to trigger.
-	
+		Fixed bug where even if your cum production was 0, you'd still sometimes dirty your underwear when orgasming.
 	
 	
 	

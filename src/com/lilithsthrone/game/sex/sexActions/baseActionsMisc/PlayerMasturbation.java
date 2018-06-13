@@ -2,6 +2,7 @@ package com.lilithsthrone.game.sex.sexActions.baseActionsMisc;
 
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
+import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexParticipantType;
@@ -50,7 +51,9 @@ public class PlayerMasturbation {
 		
 		@Override
 		public void applyEffects() {
-			if (!Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.PENIS) && !Main.game.getPlayer().isWearingCondom()) {
+			if (!Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.PENIS)
+					&& !Main.game.getPlayer().isWearingCondom()
+					&& Main.game.getPlayer().getPenisOrgasmCumQuantity() != CumProduction.ZERO_NONE) {
 				Main.game.getPlayer().getLowestZLayerCoverableArea(CoverableArea.PENIS).setDirty(true);
 			}
 		}
