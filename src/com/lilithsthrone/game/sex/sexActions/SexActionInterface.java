@@ -300,10 +300,26 @@ public interface SexActionInterface {
 				if(!this.getSexAreaInteractions().isEmpty()) {
 					// If there is no ongoing action involving the targeted character, return null:
 					boolean ongoingFound = false;
-					for(SexAreaInterface sArea : this.getSexAreaInteractions().keySet()) {
-						if(Sex.getCharacterContactingSexArea(Sex.getCharacterPerformingAction(), sArea).contains(Sex.getCharacterTargetedForSexAction())) {
-							ongoingFound = true;
-							break;
+					// TODO this system is assuming all keys are penetrations
+					if(this.getParticipantType().isUsingSelfPenetrationType()) {
+						outerloop:
+						for(SexAreaInterface sArea : this.getSexAreaInteractions().keySet()) {
+							for(SexAreaInterface sAreaTarget : this.getSexAreaInteractions().values()) {
+								if(Sex.getContactingSexAreas(Sex.getCharacterPerformingAction(), sArea, Sex.getCharacterTargetedForSexAction()).contains(sAreaTarget)) {
+									ongoingFound = true;
+									break outerloop;
+								}
+							}
+						}
+					} else {
+						outerloop:
+						for(SexAreaInterface sArea : this.getSexAreaInteractions().keySet()) {
+							for(SexAreaInterface sAreaTarget : this.getSexAreaInteractions().values()) {
+								if(Sex.getContactingSexAreas(Sex.getCharacterTargetedForSexAction(), sArea, Sex.getCharacterPerformingAction()).contains(sAreaTarget)) {
+									ongoingFound = true;
+									break outerloop;
+								}
+							}
 						}
 					}
 					if(!ongoingFound) {
@@ -479,11 +495,23 @@ public interface SexActionInterface {
 			} else {
 				if(!this.getSexAreaInteractions().isEmpty()) {
 					boolean ongoingFound = false;
-					for(SexAreaInterface sArea : this.getSexAreaInteractions().keySet()) {
-						for(SexAreaInterface sAreaTarget : this.getSexAreaInteractions().values()) {
-							if(Sex.getContactingSexAreas(Sex.getCharacterPerformingAction(), sArea, Sex.getCharacterTargetedForSexAction()).contains(sAreaTarget)) {
-								ongoingFound = true;
-								return convertToResponse();
+					// TODO this system is assuming all keys are penetrations
+					if(this.getParticipantType().isUsingSelfPenetrationType()) {
+						for(SexAreaInterface sArea : this.getSexAreaInteractions().keySet()) {
+							for(SexAreaInterface sAreaTarget : this.getSexAreaInteractions().values()) {
+								if(Sex.getContactingSexAreas(Sex.getCharacterPerformingAction(), sArea, Sex.getCharacterTargetedForSexAction()).contains(sAreaTarget)) {
+									ongoingFound = true;
+									return convertToResponse();
+								}
+							}
+						}
+					} else {
+						for(SexAreaInterface sArea : this.getSexAreaInteractions().keySet()) {
+							for(SexAreaInterface sAreaTarget : this.getSexAreaInteractions().values()) {
+								if(Sex.getContactingSexAreas(Sex.getCharacterTargetedForSexAction(), sArea, Sex.getCharacterPerformingAction()).contains(sAreaTarget)) {
+									ongoingFound = true;
+									return convertToResponse();
+								}
 							}
 						}
 					}
