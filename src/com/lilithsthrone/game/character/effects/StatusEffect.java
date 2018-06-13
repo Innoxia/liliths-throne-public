@@ -10127,26 +10127,26 @@ public enum StatusEffect {
 		public String getDescription(GameCharacter target) {
 			descriptionSB = new StringBuilder();
 			SexAreaOrifice type = SexAreaOrifice.ANUS;
-//			descriptionSB.append("<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>"); TODO
-			
+
+			descriptionSB.append("<p style='text-align:center; padding:0;margin:0;'>");
 			for(Entry<GameCharacter, Set<SexAreaInterface>> entry : Sex.getContactingSexAreas(target, type).entrySet()) {
 				for(SexAreaInterface sArea : entry.getValue()) {
 					if(sArea.isPenetration()) {
 						switch((SexAreaPenetration)sArea) {
 							case FINGER:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fingering</b> [npc2.namePos] [npc2.asshole]!</br>"));
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fingering</b> [npc2.namePos] [npc2.asshole]!"));
 								break;
 							case PENIS:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc2.namePos] [npc2.asshole]!</br>"));
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc2.namePos] [npc2.asshole]!"));
 								break;
 							case TAIL:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> [npc2.namePos] [npc2.asshole]!</br>"));
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> [npc2.namePos] [npc2.asshole]!"));
 								break;
 							case TENTACLE:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tentacle-fucking</b> [npc2.namePos] [npc2.asshole]!</br>"));
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tentacle-fucking</b> [npc2.namePos] [npc2.asshole]!"));
 								break;
 							case TONGUE:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] performing <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>anilingus</b> on [npc2.name]!</br>"));
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] performing <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>anilingus</b> on [npc2.name]!"));
 								break;
 						}
 						
@@ -10159,14 +10159,14 @@ public enum StatusEffect {
 							case BREAST:
 								break;
 							case MOUTH:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] performing <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>anilingus</b> on [npc2.name]!</br>"));
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] performing <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>anilingus</b> on [npc2.name]!"));
 								break;
 							case NIPPLE:
 								break;
 							case THIGHS:
 								break;
 							case URETHRA_PENIS:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc2.namePos] [npc2.asshole]!</br>"));
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc2.namePos] [npc2.asshole]!"));
 								break;
 							case URETHRA_VAGINA:
 								break;
@@ -10176,8 +10176,13 @@ public enum StatusEffect {
 					}
 				}
 			}
+			if(Sex.getContactingSexAreas(target, type).isEmpty()) {
+				descriptionSB.append("<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
+			}
 
 			appendOrificeAdditionGenericDescriptions(target, SexAreaOrifice.ANUS, UtilText.parse(target, "[npc.NamePos] [npc.asshole]"), descriptionSB);
+			
+			descriptionSB.append("</p>");
 			
 			return descriptionSB.toString();
 		}
@@ -10226,25 +10231,26 @@ public enum StatusEffect {
 		public String getDescription(GameCharacter target) {
 			descriptionSB = new StringBuilder();
 			SexAreaOrifice type = SexAreaOrifice.ASS;
-			
+
+			descriptionSB.append("<p style='text-align:center; padding:0;margin:0;'>");
 			for(Entry<GameCharacter, Set<SexAreaInterface>> entry : Sex.getContactingSexAreas(target, type).entrySet()) {
 				for(SexAreaInterface sArea : entry.getValue()) {
 					if(sArea.isPenetration()) {
 						switch((SexAreaPenetration)sArea) {
 							case FINGER:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>groping</b> [npc2.namePos] [npc2.ass]!</br>"));
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>groping</b> [npc2.namePos] [npc2.ass]!"));
 								break;
 							case PENIS:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>hotdogging</b> [npc2.name]!</br>"));
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>hotdogging</b> [npc2.name]!"));
 								break;
 							case TAIL:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-hotdogging</b> [npc2.name]!</br>"));
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-hotdogging</b> [npc2.name]!"));
 								break;
 							case TENTACLE:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tentacle-hotdogging</b> [npc2.name]!</br>"));
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tentacle-hotdogging</b> [npc2.name]!"));
 								break;
 							case TONGUE:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>licking</b> [npc2.namePos] [npc2.ass]!</br>"));
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>licking</b> [npc2.namePos] [npc2.ass]!"));
 								break;
 						}
 						
@@ -10257,14 +10263,14 @@ public enum StatusEffect {
 							case BREAST:
 								break;
 							case MOUTH:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>licking</b> [npc2.namePos] [npc2.ass]!</br>"));
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>licking</b> [npc2.namePos] [npc2.ass]!"));
 								break;
 							case NIPPLE:
 								break;
 							case THIGHS:
 								break;
 							case URETHRA_PENIS:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>hotdogging</b> [npc2.name]!</br>"));
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>hotdogging</b> [npc2.name]!"));
 								break;
 							case URETHRA_VAGINA:
 								break;
@@ -10274,8 +10280,14 @@ public enum StatusEffect {
 					}
 				}
 			}
+			if(Sex.getContactingSexAreas(target, type).isEmpty()) {
+				descriptionSB.append("<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
+			}
 
 			appendOrificeAdditionGenericDescriptions(target, SexAreaOrifice.ASS, UtilText.parse(target, "[npc.NamePos] [npc.ass]"), descriptionSB);
+			
+			descriptionSB.append("</p>");
+
 			
 			return descriptionSB.toString();
 		}
@@ -10324,63 +10336,69 @@ public enum StatusEffect {
 		public String getDescription(GameCharacter target) {
 			descriptionSB = new StringBuilder();
 			SexAreaOrifice type = SexAreaOrifice.MOUTH;
-			
+
+			descriptionSB.append("<p style='text-align:center; padding:0;margin:0;'>");
 			for(Entry<GameCharacter, Set<SexAreaInterface>> entry : Sex.getContactingSexAreas(target, type).entrySet()) {
 				for(SexAreaInterface sArea : entry.getValue()) {
 					if(sArea.isPenetration()) {
 						switch((SexAreaPenetration)sArea) {
 							case FINGER:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc2.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>sucking</b> [npc.namePos] [npc.fingers]!</br>"));
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc2.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>sucking</b> [npc.namePos] [npc.fingers]!"));
 								break;
 							case PENIS:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc2.NameIsFull] giving [npc.name] a <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>blowjob</b>!</br>"));
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc2.NameIsFull] giving [npc.name] a <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>blowjob</b>!"));
 								break;
 							case TAIL:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc2.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>sucking</b> [npc.namePos] [npc.tail]!</br>"));
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc2.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>sucking</b> [npc.namePos] [npc.tail]!"));
 								break;
 							case TENTACLE:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc2.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>sucking</b> [npc.namePos] tentacle!</br>"));
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc2.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>sucking</b> [npc.namePos] tentacle!"));
 								break;
 							case TONGUE:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc2.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc.name]!</br>"));
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc2.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc.name]!"));
 								break;
 						}
 						
 					} else if(sArea.isOrifice()) {
 						switch((SexAreaOrifice)sArea) {
 							case ANUS:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc2.NameIsFull] performing <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>anilingus</b> on [npc.name]!</br>"));
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc2.NameIsFull] performing <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>anilingus</b> on [npc.name]!"));
 								break;
 							case ASS:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc2.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>licking</b> [npc.namePos] [npc.ass]!</br>"));
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc2.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>licking</b> [npc.namePos] [npc.ass]!"));
 								break;
 							case BREAST:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc2.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc.namePos] [npc.breasts]!</br>"));
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc2.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc.namePos] [npc.breasts]!"));
 								break;
 							case MOUTH:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc2.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc.name]!</br>"));
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc2.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc.name]!"));
 								break;
 							case NIPPLE:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc2.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>sucking</b> [npc.namePos] [npc.nipples]!</br>"));
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc2.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>sucking</b> [npc.namePos] [npc.nipples]!"));
 								break;
 							case THIGHS:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc2.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc.namePos] [npc.legs]!</br>"));
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc2.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc.namePos] [npc.legs]!"));
 								break;
 							case URETHRA_PENIS:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc2.NameIsFull] giving [npc.name] a <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>blowjob</b>!</br>"));
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc2.NameIsFull] giving [npc.name] a <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>blowjob</b>!"));
 								break;
 							case URETHRA_VAGINA:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc2.NameIsFull] performing <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>cunnilingus</b> on [npc.name]!</br>"));
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc2.NameIsFull] performing <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>cunnilingus</b> on [npc.name]!"));
 								break;
 							case VAGINA:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc2.NameIsFull] performing <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>cunnilingus</b> on [npc.name]!</br>"));
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc2.NameIsFull] performing <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>cunnilingus</b> on [npc.name]!"));
 								break;
 						}
 					}
 				}
 			}
+			if(Sex.getContactingSexAreas(target, type).isEmpty()) {
+				descriptionSB.append("<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
+			}
 
 			appendOrificeAdditionGenericDescriptions(target, SexAreaOrifice.MOUTH, UtilText.parse(target, "[npc.NamePos] mouth"), descriptionSB);
+			
+			descriptionSB.append("</p>");
 			
 			return descriptionSB.toString();
 		}
@@ -10438,28 +10456,29 @@ public enum StatusEffect {
 		public String getDescription(GameCharacter target) {
 			descriptionSB = new StringBuilder();
 			SexAreaOrifice type = SexAreaOrifice.BREAST;
-			
+
+			descriptionSB.append("<p style='text-align:center; padding:0;margin:0;'>");
 			for(Entry<GameCharacter, Set<SexAreaInterface>> entry : Sex.getContactingSexAreas(target, type).entrySet()) {
 				for(SexAreaInterface sArea : entry.getValue()) {
 					if(sArea.isPenetration()) {
 						switch((SexAreaPenetration)sArea) {
 							case FINGER:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>groping</b> [npc2.namePos] [npc2.breasts]!</br>"));
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>groping</b> [npc2.namePos] [npc2.breasts]!"));
 								break;
 							case PENIS:
 								descriptionSB.append(UtilText.parse(entry.getKey(), target,
-										"[npc2.NameIsFull] performing <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>"+(entry.getKey().hasBreasts()?"paizuri":"naizuri")+"</b> on [npc.name]!</br>"));
+										"[npc2.NameIsFull] performing <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>"+(entry.getKey().hasBreasts()?"paizuri":"naizuri")+"</b> on [npc.name]!"));
 								break;
 							case TAIL:
 								descriptionSB.append(UtilText.parse(entry.getKey(), target,
-										"[npc2.NameIsFull] performing <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-"+(entry.getKey().hasBreasts()?"paizuri":"naizuri")+"</b> on [npc.name]!</br>"));
+										"[npc2.NameIsFull] performing <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-"+(entry.getKey().hasBreasts()?"paizuri":"naizuri")+"</b> on [npc.name]!"));
 								break;
 							case TENTACLE:
 								descriptionSB.append(UtilText.parse(entry.getKey(), target,
-										"[npc2.NameIsFull] performing <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tentacle-"+(entry.getKey().hasBreasts()?"paizuri":"naizuri")+"</b> on [npc.name]!</br>"));
+										"[npc2.NameIsFull] performing <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tentacle-"+(entry.getKey().hasBreasts()?"paizuri":"naizuri")+"</b> on [npc.name]!"));
 								break;
 							case TONGUE:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc2.namePos] [npc2.breasts]!</br>"));
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc2.namePos] [npc2.breasts]!"));
 								break;
 						}
 						
@@ -10472,7 +10491,7 @@ public enum StatusEffect {
 							case BREAST:
 								break;
 							case MOUTH:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc2.namePos] [npc2.breasts]!</br>"));
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc2.namePos] [npc2.breasts]!"));
 								break;
 							case NIPPLE:
 								break;
@@ -10480,7 +10499,7 @@ public enum StatusEffect {
 								break;
 							case URETHRA_PENIS:
 								descriptionSB.append(UtilText.parse(entry.getKey(), target,
-										"[npc2.NameIsFull] performing <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>"+(entry.getKey().hasBreasts()?"paizuri":"naizuri")+"</b> on [npc.name]!</br>"));
+										"[npc2.NameIsFull] performing <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>"+(entry.getKey().hasBreasts()?"paizuri":"naizuri")+"</b> on [npc.name]!"));
 								break;
 							case URETHRA_VAGINA:
 								break;
@@ -10490,8 +10509,13 @@ public enum StatusEffect {
 					}
 				}
 			}
+			if(Sex.getContactingSexAreas(target, type).isEmpty()) {
+				descriptionSB.append("<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
+			}
 			
 			appendOrificeAdditionGenericDescriptions(target, SexAreaOrifice.BREAST, UtilText.parse(target, "[npc.NamePos] [npc.breasts]"), descriptionSB);
+			
+			descriptionSB.append("</p>");
 			
 			return descriptionSB.toString();
 		}
@@ -10540,25 +10564,26 @@ public enum StatusEffect {
 		public String getDescription(GameCharacter target) {
 			descriptionSB = new StringBuilder();
 			SexAreaOrifice type = SexAreaOrifice.NIPPLE;
-			
+
+			descriptionSB.append("<p style='text-align:center; padding:0;margin:0;'>");
 			for(Entry<GameCharacter, Set<SexAreaInterface>> entry : Sex.getContactingSexAreas(target, type).entrySet()) {
 				for(SexAreaInterface sArea : entry.getValue()) {
 					if(sArea.isPenetration()) {
 						switch((SexAreaPenetration)sArea) {
 							case FINGER:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fingering</b> [npc2.namePos] [npc2.nipples]!</br>"));
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fingering</b> [npc2.namePos] [npc2.nipples]!"));
 								break;
 							case PENIS:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc2.namePos] [npc2.nipples]!</br>"));
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc2.namePos] [npc2.nipples]!"));
 								break;
 							case TAIL:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> [npc2.namePos] [npc2.nipples]!</br>"));
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> [npc2.namePos] [npc2.nipples]!"));
 								break;
 							case TENTACLE:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tentacle-fucking</b> [npc2.namePos] [npc2.nipples]!</br>"));
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tentacle-fucking</b> [npc2.namePos] [npc2.nipples]!"));
 								break;
 							case TONGUE:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc2.namePos] [npc2.nipples]!</br>"));
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc2.namePos] [npc2.nipples]!"));
 								break;
 						}
 						
@@ -10571,14 +10596,14 @@ public enum StatusEffect {
 							case BREAST:
 								break;
 							case MOUTH:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc2.namePos] [npc2.nipples]!</br>"));
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc2.namePos] [npc2.nipples]!"));
 								break;
 							case NIPPLE:
 								break;
 							case THIGHS:
 								break;
 							case URETHRA_PENIS:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc2.namePos] [npc2.nipples]!</br>"));
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc2.namePos] [npc2.nipples]!"));
 								break;
 							case URETHRA_VAGINA:
 								break;
@@ -10588,8 +10613,14 @@ public enum StatusEffect {
 					}
 				}
 			}
-			
+			if(Sex.getContactingSexAreas(target, type).isEmpty()) {
+				descriptionSB.append("<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
+			}
+
 			appendOrificeAdditionGenericDescriptions(target, SexAreaOrifice.NIPPLE, UtilText.parse(target, "[npc.NamePos] [npc.nipples]"), descriptionSB);
+			
+			descriptionSB.append("</p>");
+			
 			
 			return descriptionSB.toString();
 		}
@@ -10638,25 +10669,26 @@ public enum StatusEffect {
 		public String getDescription(GameCharacter target) {
 			descriptionSB = new StringBuilder();
 			SexAreaOrifice type = SexAreaOrifice.URETHRA_PENIS;
-			
+
+			descriptionSB.append("<p style='text-align:center; padding:0;margin:0;'>");
 			for(Entry<GameCharacter, Set<SexAreaInterface>> entry : Sex.getContactingSexAreas(target, type).entrySet()) {
 				for(SexAreaInterface sArea : entry.getValue()) {
 					if(sArea.isPenetration()) {
 						switch((SexAreaPenetration)sArea) {
 							case FINGER:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fingering</b> [npc2.namePos] [npc2.urethraPenis]!</br>"));
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fingering</b> [npc2.namePos] [npc2.urethraPenis]!"));
 								break;
 							case PENIS:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc2.namePos] [npc2.urethraPenis]!</br>"));
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc2.namePos] [npc2.urethraPenis]!"));
 								break;
 							case TAIL:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> [npc2.namePos] [npc2.urethraPenis]!</br>"));
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> [npc2.namePos] [npc2.urethraPenis]!"));
 								break;
 							case TENTACLE:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tentacle-fucking</b> [npc2.namePos] [npc2.urethraPenis]!</br>"));
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tentacle-fucking</b> [npc2.namePos] [npc2.urethraPenis]!"));
 								break;
 							case TONGUE:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc2.namePos] [npc2.urethraPenis]!</br>"));
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc2.namePos] [npc2.urethraPenis]!"));
 								break;
 						}
 						
@@ -10669,14 +10701,14 @@ public enum StatusEffect {
 							case BREAST:
 								break;
 							case MOUTH:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc2.namePos] [npc2.urethraPenis]!</br>"));
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc2.namePos] [npc2.urethraPenis]!"));
 								break;
 							case NIPPLE:
 								break;
 							case THIGHS:
 								break;
 							case URETHRA_PENIS:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc2.namePos] [npc2.urethraPenis]!</br>"));
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc2.namePos] [npc2.urethraPenis]!"));
 								break;
 							case URETHRA_VAGINA:
 								break;
@@ -10686,8 +10718,13 @@ public enum StatusEffect {
 					}
 				}
 			}
+			if(Sex.getContactingSexAreas(target, type).isEmpty()) {
+				descriptionSB.append("<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
+			}
 			
 			appendOrificeAdditionGenericDescriptions(target, SexAreaOrifice.URETHRA_PENIS, UtilText.parse(target, "[npc.NamePos] [npc.urethraPenis]"), descriptionSB);
+			
+			descriptionSB.append("</p>");
 			
 			return descriptionSB.toString();
 		}
@@ -10736,25 +10773,26 @@ public enum StatusEffect {
 		public String getDescription(GameCharacter target) {
 			descriptionSB = new StringBuilder();
 			SexAreaOrifice type = SexAreaOrifice.URETHRA_VAGINA;
-			
+
+			descriptionSB.append("<p style='text-align:center; padding:0;margin:0;'>");
 			for(Entry<GameCharacter, Set<SexAreaInterface>> entry : Sex.getContactingSexAreas(target, type).entrySet()) {
 				for(SexAreaInterface sArea : entry.getValue()) {
 					if(sArea.isPenetration()) {
 						switch((SexAreaPenetration)sArea) {
 							case FINGER:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fingering</b> [npc2.namePos] [npc2.urethraVagina]!</br>"));
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fingering</b> [npc2.namePos] [npc2.urethraVagina]!"));
 								break;
 							case PENIS:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc2.namePos] [npc2.urethraVagina]!</br>"));
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc2.namePos] [npc2.urethraVagina]!"));
 								break;
 							case TAIL:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> [npc2.namePos] [npc2.urethraVagina]!</br>"));
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> [npc2.namePos] [npc2.urethraVagina]!"));
 								break;
 							case TENTACLE:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tentacle-fucking</b> [npc2.namePos] [npc2.urethraVagina]!</br>"));
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tentacle-fucking</b> [npc2.namePos] [npc2.urethraVagina]!"));
 								break;
 							case TONGUE:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc2.namePos] [npc2.urethraVagina]!</br>"));
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc2.namePos] [npc2.urethraVagina]!"));
 								break;
 						}
 						
@@ -10767,14 +10805,14 @@ public enum StatusEffect {
 							case BREAST:
 								break;
 							case MOUTH:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc2.namePos] [npc2.urethraVagina]!</br>"));
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc2.namePos] [npc2.urethraVagina]!"));
 								break;
 							case NIPPLE:
 								break;
 							case THIGHS:
 								break;
 							case URETHRA_PENIS:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc2.namePos] [npc2.urethraVagina]!</br>"));
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc2.namePos] [npc2.urethraVagina]!"));
 								break;
 							case URETHRA_VAGINA:
 								break;
@@ -10784,8 +10822,13 @@ public enum StatusEffect {
 					}
 				}
 			}
+			if(Sex.getContactingSexAreas(target, type).isEmpty()) {
+				descriptionSB.append("<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
+			}
 			
 			appendOrificeAdditionGenericDescriptions(target, SexAreaOrifice.URETHRA_VAGINA, UtilText.parse(target, "[npc.NamePos] [npc.urethraVagina]"), descriptionSB);
+			
+			descriptionSB.append("</p>");
 			
 			return descriptionSB.toString();
 		}
@@ -10834,25 +10877,26 @@ public enum StatusEffect {
 		public String getDescription(GameCharacter target) {
 			descriptionSB = new StringBuilder();
 			SexAreaOrifice type = SexAreaOrifice.VAGINA;
-			
+
+			descriptionSB.append("<p style='text-align:center; padding:0;margin:0;'>");
 			for(Entry<GameCharacter, Set<SexAreaInterface>> entry : Sex.getContactingSexAreas(target, type).entrySet()) {
 				for(SexAreaInterface sArea : entry.getValue()) {
 					if(sArea.isPenetration()) {
 						switch((SexAreaPenetration)sArea) {
 							case FINGER:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fingering</b> [npc2.namePos] [npc2.pussy]!</br>"));
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fingering</b> [npc2.namePos] [npc2.pussy]!"));
 								break;
 							case PENIS:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc2.namePos] [npc2.pussy]!</br>"));
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc2.namePos] [npc2.pussy]!"));
 								break;
 							case TAIL:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> [npc2.namePos] [npc2.pussy]!</br>"));
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> [npc2.namePos] [npc2.pussy]!"));
 								break;
 							case TENTACLE:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tentacle-fucking</b> [npc2.namePos] [npc2.pussy]!</br>"));
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tentacle-fucking</b> [npc2.namePos] [npc2.pussy]!"));
 								break;
 							case TONGUE:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] performing <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>cunnilingus</b> on [npc2.name]!</br>"));
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] performing <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>cunnilingus</b> on [npc2.name]!"));
 								break;
 						}
 						
@@ -10865,14 +10909,14 @@ public enum StatusEffect {
 							case BREAST:
 								break;
 							case MOUTH:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] performing <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>cunnilingus</b> on [npc2.name]!</br>"));
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] performing <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>cunnilingus</b> on [npc2.name]!"));
 								break;
 							case NIPPLE:
 								break;
 							case THIGHS:
 								break;
 							case URETHRA_PENIS:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc2.namePos] [npc2.pussy]!</br>"));
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc2.namePos] [npc2.pussy]!"));
 								break;
 							case URETHRA_VAGINA:
 								break;
@@ -10882,8 +10926,13 @@ public enum StatusEffect {
 					}
 				}
 			}
+			if(Sex.getContactingSexAreas(target, type).isEmpty()) {
+				descriptionSB.append("<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
+			}
 			
 			appendOrificeAdditionGenericDescriptions(target, SexAreaOrifice.VAGINA, UtilText.parse(target, "[npc.NamePos] [npc.pussy]"), descriptionSB);
+			
+			descriptionSB.append("</p>");
 			
 			return descriptionSB.toString();
 		}
@@ -10937,25 +10986,26 @@ public enum StatusEffect {
 		public String getDescription(GameCharacter target) {
 			descriptionSB = new StringBuilder();
 			SexAreaOrifice type = SexAreaOrifice.THIGHS;
-			
+
+			descriptionSB.append("<p style='text-align:center; padding:0;margin:0;'>");
 			for(Entry<GameCharacter, Set<SexAreaInterface>> entry : Sex.getContactingSexAreas(target, type).entrySet()) {
 				for(SexAreaInterface sArea : entry.getValue()) {
 					if(sArea.isPenetration()) {
 						switch((SexAreaPenetration)sArea) {
 							case FINGER:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>groping</b> [npc2.namePos] [npc2.legs]!</br>"));
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>groping</b> [npc2.namePos] [npc2.legs]!"));
 								break;
 							case PENIS:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc2.namePos] thighs!</br>"));
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc2.namePos] thighs!"));
 								break;
 							case TAIL:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> [npc2.namePos] thighs!</br>"));
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> [npc2.namePos] thighs!"));
 								break;
 							case TENTACLE:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tentacle-fucking</b> [npc2.namePos] thighs!</br>"));
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tentacle-fucking</b> [npc2.namePos] thighs!"));
 								break;
 							case TONGUE:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc2.namePos] [npc2.legs]!</br>"));
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc2.namePos] [npc2.legs]!"));
 								break;
 						}
 						
@@ -10968,14 +11018,14 @@ public enum StatusEffect {
 							case BREAST:
 								break;
 							case MOUTH:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc2.namePos] [npc2.legs]!</br>"));
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc2.namePos] [npc2.legs]!"));
 								break;
 							case NIPPLE:
 								break;
 							case THIGHS:
 								break;
 							case URETHRA_PENIS:
-								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc2.namePos] thighs!</br>"));
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc2.namePos] thighs!"));
 								break;
 							case URETHRA_VAGINA:
 								break;
@@ -10985,8 +11035,13 @@ public enum StatusEffect {
 					}
 				}
 			}
+			if(Sex.getContactingSexAreas(target, type).isEmpty()) {
+				descriptionSB.append("<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
+			}
 
 			appendOrificeAdditionGenericDescriptions(target, SexAreaOrifice.THIGHS, UtilText.parse(target, "[npc.NamePos] [npc.ass]"), descriptionSB);
+			
+			descriptionSB.append("</p>");
 			
 			return descriptionSB.toString();
 		}

@@ -832,7 +832,7 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues("nameIs"),
-				false,
+				true,
 				false,
 				"(real name)",
 				"Returns a contractive version of the name of the target, <b>automatically appending</b> 'the' to names that don't start with a capital letter."
@@ -855,7 +855,7 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues("nameIsFull"),
-				false,
+				true,
 				false,
 				"(real name)",
 				"Returns a contractive version of the name of the target, <b>automatically appending</b> 'the' to names that don't start with a capital letter.") {
@@ -877,7 +877,7 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues("nameHas"),
-				false,
+				true,
 				false,
 				"(real name)",
 				"Returns a contractive version of the name of the target, <b>automatically appending</b> 'the' to names that don't start with a capital letter."
@@ -902,7 +902,7 @@ public class UtilText {
 				Util.newArrayListOfValues(
 						"verb",
 						"verbPerson"),
-				false,
+				true,
 				false,
 				"(verb)",
 				"Returns a verb in the (probably) correct person for this character. A player might get 'wiggle' where an NPC would get 'wiggles'.") {

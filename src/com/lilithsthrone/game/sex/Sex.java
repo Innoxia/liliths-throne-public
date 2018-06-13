@@ -3308,7 +3308,7 @@ public enum Sex {
 									orgasmActionsAvailable.get(target).get(character).add(action);
 								}
 							} else {
-								if(action.getLimitation()!=SexActionLimitation.PLAYER_ONLY) {
+								if(action.getLimitation()==SexActionLimitation.NPC_ONLY) {
 									orgasmActionsAvailable.get(character).get(target).add(action);
 								} else {
 									orgasmActionsAvailable.get(Main.game.getPlayer()).get(character).add(action);
@@ -3322,7 +3322,7 @@ public enum Sex {
 									actionsAvailable.get(target).get(character).add(action);
 								}
 							} else {
-								if(action.getLimitation()!=SexActionLimitation.PLAYER_ONLY) {
+								if(action.getLimitation()==SexActionLimitation.NPC_ONLY) {
 									actionsAvailable.get(character).get(target).add(action);
 								} else {
 									actionsAvailable.get(Main.game.getPlayer()).get(character).add(action);

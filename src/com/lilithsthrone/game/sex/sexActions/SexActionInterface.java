@@ -50,9 +50,11 @@ public interface SexActionInterface {
 	
 	public default List<SexAreaOrifice> getPerformingCharacterOrifices() {
 		List<SexAreaOrifice> list = new ArrayList<>();
-		for(SexAreaInterface sArea : getSexAreaInteractions().keySet()) {
-			if(sArea.isOrifice()) {
-				list.add((SexAreaOrifice)sArea);
+		if(this.getParticipantType().isUsingSelfOrificeType()) {
+			for(SexAreaInterface sArea : getSexAreaInteractions().values()) {
+				if(sArea.isOrifice()) {
+					list.add((SexAreaOrifice)sArea);
+				}
 			}
 		}
 		return list;
@@ -60,9 +62,11 @@ public interface SexActionInterface {
 	
 	public default List<SexAreaPenetration> getPerformingCharacterPenetrations() {
 		List<SexAreaPenetration> list = new ArrayList<>();
-		for(SexAreaInterface sArea : getSexAreaInteractions().keySet()) {
-			if(sArea.isPenetration()) {
-				list.add((SexAreaPenetration)sArea);
+		if(this.getParticipantType().isUsingSelfPenetrationType()) {
+			for(SexAreaInterface sArea : getSexAreaInteractions().keySet()) {
+				if(sArea.isPenetration()) {
+					list.add((SexAreaPenetration)sArea);
+				}
 			}
 		}
 		return list;
@@ -70,9 +74,11 @@ public interface SexActionInterface {
 	
 	public default List<SexAreaOrifice> getTargetedCharacterOrifices() {
 		List<SexAreaOrifice> list = new ArrayList<>();
-		for(SexAreaInterface sArea : getSexAreaInteractions().values()) {
-			if(sArea.isOrifice()) {
-				list.add((SexAreaOrifice)sArea);
+		if(!this.getParticipantType().isUsingSelfOrificeType()) {
+			for(SexAreaInterface sArea : getSexAreaInteractions().values()) {
+				if(sArea.isOrifice()) {
+					list.add((SexAreaOrifice)sArea);
+				}
 			}
 		}
 		return list;
@@ -80,9 +86,11 @@ public interface SexActionInterface {
 	
 	public default List<SexAreaPenetration> getTargetedCharacterPenetrations() {
 		List<SexAreaPenetration> list = new ArrayList<>();
-		for(SexAreaInterface sArea : getSexAreaInteractions().values()) {
-			if(sArea.isPenetration()) {
-				list.add((SexAreaPenetration)sArea);
+		if(!this.getParticipantType().isUsingSelfPenetrationType()) {
+			for(SexAreaInterface sArea : getSexAreaInteractions().keySet()) {
+				if(sArea.isPenetration()) {
+					list.add((SexAreaPenetration)sArea);
+				}
 			}
 		}
 		return list;
@@ -129,9 +137,9 @@ public interface SexActionInterface {
 		if(getActionType()==SexActionType.START_ONGOING) {
 			for(Entry<SexAreaInterface, SexAreaInterface> entry : getSexAreaInteractions().entrySet()) {
 				Sex.applyOngoingAction(
-						this.getParticipantType()!=SexParticipantType.CATCHER?Sex.getCharacterPerformingAction():Sex.getCharacterTargetedForSexAction(),
+						this.getParticipantType().isUsingSelfPenetrationType()?Sex.getCharacterPerformingAction():Sex.getCharacterTargetedForSexAction(),
 						entry.getKey(),
-						this.getParticipantType()!=SexParticipantType.PITCHER?Sex.getCharacterTargetedForSexAction():Sex.getCharacterPerformingAction(),
+						this.getParticipantType().isUsingSelfOrificeType()?Sex.getCharacterPerformingAction():Sex.getCharacterTargetedForSexAction(),
 						entry.getValue());
 			}
 		}
@@ -145,17 +153,17 @@ public interface SexActionInterface {
 				if(entry.getKey()!=null) {
 					if(entry.getValue()!=null) {
 						Sex.stopOngoingAction(
-								this.getParticipantType()!=SexParticipantType.CATCHER?Sex.getCharacterTargetedForSexAction():Sex.getCharacterPerformingAction(),
+								this.getParticipantType().isUsingSelfPenetrationType()?Sex.getCharacterPerformingAction():Sex.getCharacterTargetedForSexAction(),
 								entry.getKey(),
-								this.getParticipantType()!=SexParticipantType.PITCHER?Sex.getCharacterPerformingAction():Sex.getCharacterTargetedForSexAction(),
+								this.getParticipantType().isUsingSelfOrificeType()?Sex.getCharacterPerformingAction():Sex.getCharacterTargetedForSexAction(),
 								entry.getValue());
 						
 					} else {
 						for(SexAreaInterface sArea : Sex.getContactingSexAreas(Sex.getCharacterPerformingAction(), entry.getKey(), Sex.getCharacterTargetedForSexAction())) {
 							Sex.stopOngoingAction(
-									Sex.getCharacterPerformingAction(),
+									this.getParticipantType().isUsingSelfPenetrationType()?Sex.getCharacterPerformingAction():Sex.getCharacterTargetedForSexAction(),
 									entry.getKey(),
-									Sex.getCharacterTargetedForSexAction(),
+									this.getParticipantType().isUsingSelfOrificeType()?Sex.getCharacterPerformingAction():Sex.getCharacterTargetedForSexAction(),
 									sArea);
 						}
 					}
@@ -164,9 +172,9 @@ public interface SexActionInterface {
 					if(entry.getValue()!=null) {
 						for(SexAreaInterface sArea : Sex.getContactingSexAreas(Sex.getCharacterTargetedForSexAction(), entry.getValue(), Sex.getCharacterPerformingAction())) {
 								Sex.stopOngoingAction(
-										this.getParticipantType()!=SexParticipantType.CATCHER?Sex.getCharacterTargetedForSexAction():Sex.getCharacterPerformingAction(),
-										entry.getValue(),
-										this.getParticipantType()!=SexParticipantType.PITCHER?Sex.getCharacterPerformingAction():Sex.getCharacterTargetedForSexAction(),
+										this.getParticipantType().isUsingSelfPenetrationType()?Sex.getCharacterPerformingAction():Sex.getCharacterTargetedForSexAction(),
+												entry.getKey(),
+												this.getParticipantType().isUsingSelfOrificeType()?Sex.getCharacterPerformingAction():Sex.getCharacterTargetedForSexAction(),
 										sArea);
 						}
 					}
