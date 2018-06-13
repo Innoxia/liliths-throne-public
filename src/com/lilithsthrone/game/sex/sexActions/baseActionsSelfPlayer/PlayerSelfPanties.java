@@ -10,15 +10,17 @@ import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.LilayasRoom;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.OrgasmCumTarget;
+import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
+import com.lilithsthrone.game.sex.sexActions.SexActionLimitation;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericOrgasms;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.2.5
@@ -28,13 +30,16 @@ import com.lilithsthrone.utils.Util;
 public class PlayerSelfPanties {
 	
 	public static final SexAction PLAYER_STROKE_VAGINA_PANTIES = new SexAction(
-			SexActionType.PLAYER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
+			SexActionType.REQUIRES_NO_PENETRATION_AND_EXPOSED,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ZERO_PURE,
-			SexAreaPenetration.FINGER,
-			SexAreaOrifice.VAGINA,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaOrifice.VAGINA)),
 			SexParticipantType.SELF) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		
 		@Override
 		public String getActionTitle() {
@@ -57,7 +62,7 @@ public class PlayerSelfPanties {
 		
 		@Override
 		public String applyEffectsString() {
-			if(!LilayasRoom.lilayasPanties.isDirty() && Sex.getWetOrificeTypes(Main.game.getPlayer()).containsKey(SexAreaOrifice.VAGINA)) {
+			if(!LilayasRoom.lilayasPanties.isDirty() && Sex.getWetAreas(Main.game.getPlayer()).containsKey(SexAreaOrifice.VAGINA)) {
 				LilayasRoom.lilayasPanties.setDirty(true);
 				return "<p style='text-align:center'>"
 							+ "[style.italicsDirty(Lilaya's panties are quickly dirtied as you rub them against your wet pussy.)]"
@@ -80,13 +85,16 @@ public class PlayerSelfPanties {
 	};
 	
 	public static final SexAction PLAYER_STROKE_PENIS = new SexAction(
-			SexActionType.PLAYER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
+			SexActionType.REQUIRES_NO_PENETRATION_AND_EXPOSED,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ZERO_PURE,
-			SexAreaPenetration.FINGER,
-			SexAreaOrifice.URETHRA_PENIS,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaOrifice.URETHRA_PENIS)),
 			SexParticipantType.SELF) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		
 		@Override
 		public String getActionTitle() {
@@ -109,7 +117,7 @@ public class PlayerSelfPanties {
 
 		@Override
 		public String applyEffectsString() {
-			if(!LilayasRoom.lilayasPanties.isDirty() && Sex.getWetPenetrationTypes(Main.game.getPlayer()).containsKey(SexAreaPenetration.PENIS)) {
+			if(!LilayasRoom.lilayasPanties.isDirty() && Sex.getWetAreas(Main.game.getPlayer()).containsKey(SexAreaPenetration.PENIS)) {
 				LilayasRoom.lilayasPanties.setDirty(true);
 				return "<p style='text-align:center'>"
 							+ "[style.italicsDirty(Lilaya's panties are quickly dirtied as you rub them over your cock.)]"
@@ -131,13 +139,16 @@ public class PlayerSelfPanties {
 	};
 	
 	public static final SexAction PLAYER_STROKE_MOUND = new SexAction(
-			SexActionType.PLAYER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
+			SexActionType.REQUIRES_NO_PENETRATION_AND_EXPOSED,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ZERO_PURE,
-			SexAreaPenetration.FINGER,
-			null,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, null)),
 			SexParticipantType.SELF) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -175,13 +186,16 @@ public class PlayerSelfPanties {
 	};
 	
 	public static final SexAction PLAYER_SNIFF_PANTIES = new SexAction(
-			SexActionType.PLAYER_REQUIRES_NO_PENETRATION,
+			SexActionType.REQUIRES_NO_PENETRATION,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ZERO_PURE,
-			SexAreaPenetration.FINGER,
-			null,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, null)),
 			SexParticipantType.SELF) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 
 		@Override
 		public String getActionTitle() {
@@ -215,13 +229,16 @@ public class PlayerSelfPanties {
 	};
 	
 	public static final SexAction PLAYER_MASTURBATION_ORGASM_IN_PANTIES = new SexAction(
-			SexActionType.PLAYER_ORGASM,
+			SexActionType.ORGASM,
 			ArousalIncrease.FIVE_EXTREME,
 			ArousalIncrease.FIVE_EXTREME,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
 			SexParticipantType.MISC) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Cum in panties";
@@ -255,13 +272,16 @@ public class PlayerSelfPanties {
 	};
 	
 	public static final SexAction PLAYER_GENERIC_ORGASM = new SexAction(
-			SexActionType.PLAYER_ORGASM,
+			SexActionType.ORGASM,
 			ArousalIncrease.FIVE_EXTREME,
 			ArousalIncrease.FIVE_EXTREME,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
 			SexParticipantType.MISC) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Orgasm";
@@ -291,13 +311,16 @@ public class PlayerSelfPanties {
 	};
 
 	public static final SexAction PLAYER_STOP_SEX = new SexAction(
-			SexActionType.PLAYER_SPECIAL,
+			SexActionType.SPECIAL,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
 			SexParticipantType.MISC) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Stop masturbating";

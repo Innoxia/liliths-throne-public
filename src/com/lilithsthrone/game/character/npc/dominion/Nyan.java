@@ -192,7 +192,10 @@ public class Nyan extends NPC {
 				NodeList nodeList = npcSpecificElement.getElementsByTagName("clothing");
 				for(int i=0; i < nodeList.getLength(); i++){
 					Element e = (Element) nodeList.item(i);
-					entry.getValue().add(AbstractClothing.loadFromXML(e, doc));
+					try {
+						entry.getValue().add(AbstractClothing.loadFromXML(e, doc));
+					} catch(Exception ex) {
+					}
 				}
 				
 			}

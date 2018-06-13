@@ -3,16 +3,17 @@ package com.lilithsthrone.game.sex.sexActions.dominion.milkingStall;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
+import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexFlags;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
-import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
+import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.managers.dominion.SMMilkingStall;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
+import com.lilithsthrone.game.sex.sexActions.SexActionLimitation;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -26,13 +27,16 @@ import com.lilithsthrone.utils.Util.Value;
 public class SADomMilkingStallBehind {
 	
 	public static final SexAction PLAYER_SWITCH_TO_ORAL = new SexAction(
-			SexActionType.PLAYER_POSITIONING,
+			SexActionType.POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
 			SexParticipantType.MISC) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -69,13 +73,16 @@ public class SADomMilkingStallBehind {
 	};
 	
 	public static final SexAction PLAYER_SWITCH_TO_GIVING_ORAL = new SexAction(
-			SexActionType.PLAYER_POSITIONING,
+			SexActionType.POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
 			SexParticipantType.MISC) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -114,15 +121,18 @@ public class SADomMilkingStallBehind {
 	// Player's methods:
 	
 		public static final SexAction PLAYER_SLAP_ASS = new SexAction(
-				SexActionType.PLAYER,
+				SexActionType.ONGOING,
 				ArousalIncrease.TWO_LOW,
 				ArousalIncrease.THREE_NORMAL,
 				CorruptionLevel.TWO_HORNY,
 				null,
-				null,
 				SexParticipantType.PITCHER,
 				SexPace.DOM_ROUGH,
 				null) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 			
 			@Override
 			public boolean isBaseRequirementsMet() {
@@ -143,7 +153,7 @@ public class SADomMilkingStallBehind {
 			public String getDescription() {
 				String tailSpecial1 = "", tailSpecial2 = "";
 				
-				if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), SexAreaOrifice.VAGINA)==SexAreaPenetration.PENIS) {
+				if (Sex.getAllContactingSexAreas(Sex.getActivePartner(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS)) {
 					switch(Sex.getActivePartner().getTailType()) {
 						case NONE:
 							tailSpecial1 = "Hilting your [pc.cock+] deep inside [npc.name]'s [npc.pussy+], you reach down and roughly grope [npc.her] [npc.ass+], before starting to deliver a series of stinging slaps to [npc.her] exposed cheeks.";
@@ -171,7 +181,7 @@ public class SADomMilkingStallBehind {
 								"Hilting your [pc.cock+] deep inside [npc.name]'s [npc.pussy], you use one [pc.hand] to hold [npc.herHim] still, while using your other to deliver a series of stinging slaps to [npc.her] exposed ass cheeks.",
 								"While you continue pounding away at [npc.name]'s [npc.pussy+], you reach down and start to roughly slap [npc.her] [npc.ass+], growling in glee as [npc.she] squirms and squeals under your stinging blows."));
 					
-				} else if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), SexAreaOrifice.ANUS)==SexAreaPenetration.PENIS) {
+				} else if (Sex.getAllContactingSexAreas(Sex.getActivePartner(), SexAreaOrifice.ANUS).contains(SexAreaPenetration.PENIS)) {
 					switch(Sex.getActivePartner().getTailType()) {
 						case NONE:
 							tailSpecial1 = "Hilting your [pc.cock+] deep inside [npc.name]'s [npc.asshole+], you reach down and roughly grope [npc.her] [npc.ass+], before starting to deliver a series of stinging slaps to [npc.her] exposed cheeks.";

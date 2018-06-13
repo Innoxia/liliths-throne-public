@@ -13,15 +13,15 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
-import com.lilithsthrone.game.sex.SexAreaOrifice;
-import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexFlags;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
-import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
+import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
+import com.lilithsthrone.game.sex.sexActions.SexActionLimitation;
 import com.lilithsthrone.game.sex.sexActions.SexActionPriority;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
@@ -30,19 +30,22 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.79
- * @version 0.2.0
+ * @version 0.2.7
  * @author Innoxia
  */
 public class GenericActions {
 	
 	public static final SexAction PLAYER_SELF_GROW_PENIS = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ONE_VANILLA,
 			null,
-			null,
 			SexParticipantType.MISC) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Grow cock (self)";
@@ -83,13 +86,16 @@ public class GenericActions {
 	};
 	
 	public static final SexAction PLAYER_GET_PARTNER_TO_GROW_PENIS = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ONE_VANILLA,
 			null,
-			null,
 			SexParticipantType.MISC) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Grow cock";
@@ -132,13 +138,16 @@ public class GenericActions {
 
 	
 	public static final SexAction PLAYER_HYPNOTIC_SUGGESTION_LUST_DECREASE = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.THREE_DIRTY,
 			null,
-			null,
 			SexParticipantType.MISC) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "[style.colourPsychoactive(Calming Suggestion)]";
@@ -183,13 +192,16 @@ public class GenericActions {
 	};
 	
 	public static final SexAction PLAYER_HYPNOTIC_SUGGESTION_LUST_INCREASE = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.THREE_DIRTY,
 			null,
-			null,
 			SexParticipantType.MISC) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "[style.colourPsychoactive(Lustful Suggestion)]";
@@ -233,15 +245,18 @@ public class GenericActions {
 	
 	
 	public static final SexAction PLAYER_RESIST = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.ZERO_NONE,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
 			SexParticipantType.MISC,
 			SexPace.SUB_RESISTING,
 			null) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		
 		@Override
 		public ArousalIncrease getArousalGainSelf() {
@@ -318,13 +333,16 @@ public class GenericActions {
 	};
 	
 	public static final SexAction PLAYER_STOP_ALL_PENETRATIONS = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
 			SexParticipantType.MISC) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Stop penetrations";
@@ -337,7 +355,7 @@ public class GenericActions {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isAnyPenetrationHappening()
+			return Sex.isAnyOngoingActionHappening()
 					&& (Sex.isDom(Main.game.getPlayer())?true:Sex.isSubHasEqualControl());
 		}
 
@@ -348,74 +366,74 @@ public class GenericActions {
 			for(SexAreaOrifice ot : SexAreaOrifice.values()) {
 				switch(ot) {
 					case ANUS:
-						if (Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), ot)!=null && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), ot).isPlayer()) {
+						if (Sex.getCharacterContactingSexArea(Sex.getActivePartner(), ot).contains(Main.game.getPlayer())) {
 							UtilText.nodeContentSB.append("</br>[npc.Name] lets out [npc.a_moan+] as you pull out of [npc.her] [npc.asshole+].");
 						}
-						if (Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(),  ot)!=null && Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(),  ot).isPlayer()) {
+						if (Sex.getCharacterContactingSexArea(Main.game.getPlayer(), ot).contains(Main.game.getPlayer())) {
 							UtilText.nodeContentSB.append("</br>[pc.A_moan+] drifts out from between your [pc.lips+] as you stop stimulating your [pc.asshole+].");
 						}
 						break;
 					case ASS:
-						if (Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(),  ot)!=null && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(),  ot).isPlayer()) {
+						if (Sex.getCharacterContactingSexArea(Sex.getActivePartner(), ot).contains(Main.game.getPlayer())) {
 							UtilText.nodeContentSB.append("</br>[npc.Name] lets out [npc.a_moan+] as you stop using [npc.her] [npc.ass+].");
 						}
-						if (Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(),  ot)!=null && Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(),  ot).isPlayer()) {
+						if (Sex.getCharacterContactingSexArea(Main.game.getPlayer(), ot).contains(Main.game.getPlayer())) {
 							UtilText.nodeContentSB.append("</br>[pc.A_moan+] drifts out from between your [pc.lips+] as you stop stimulating your [pc.ass+].");
 						}
 						break;
 					case BREAST:
-						if (Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(),  ot)!=null && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(),  ot).isPlayer()) {
+						if (Sex.getCharacterContactingSexArea(Sex.getActivePartner(), ot).contains(Main.game.getPlayer())) {
 							UtilText.nodeContentSB.append("</br>[npc.Name] lets out [npc.a_moan+] as you stop playing with [npc.her] [npc.breasts+].");
 						}
-						if (Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(),  ot)!=null && Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(),  ot).isPlayer()) {
+						if (Sex.getCharacterContactingSexArea(Main.game.getPlayer(), ot).contains(Main.game.getPlayer())) {
 							UtilText.nodeContentSB.append("</br>[pc.A_moan+] drifts out from between your [pc.lips+] as you stop stimulating your [pc.breasts+].");
 						}
 						break;
 					case MOUTH:
-						if (Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(),  ot)!=null && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(),  ot).isPlayer()) {
+						if (Sex.getCharacterContactingSexArea(Sex.getActivePartner(), ot).contains(Main.game.getPlayer())) {
 							UtilText.nodeContentSB.append("</br>[npc.Name] lets out [npc.a_moan+] as you pull out of [npc.her] mouth.");
 						}
-						if (Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(),  ot)!=null && Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(),  ot).isPlayer()) {
+						if (Sex.getCharacterContactingSexArea(Main.game.getPlayer(), ot).contains(Main.game.getPlayer())) {
 							UtilText.nodeContentSB.append("</br>[pc.A_moan+] drifts out from between your [pc.lips+] as you pull out of your mouth.");
 						}
 						break;
 					case NIPPLE:
-						if (Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(),  ot)!=null && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(),  ot).isPlayer()) {
+						if (Sex.getCharacterContactingSexArea(Sex.getActivePartner(), ot).contains(Main.game.getPlayer())) {
 							UtilText.nodeContentSB.append("</br>[npc.Name] lets out [npc.a_moan+] as you pull out of [npc.her] [npc.nipple+].");
 						}
-						if (Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(),  ot)!=null && Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(),  ot).isPlayer()) {
+						if (Sex.getCharacterContactingSexArea(Main.game.getPlayer(), ot).contains(Main.game.getPlayer())) {
 							UtilText.nodeContentSB.append("</br>[pc.A_moan+] drifts out from between your [pc.lips+] as you stop stimulating your [pc.nipple+].");
 						}
 						break;
 					case URETHRA_PENIS:
-						if (Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(),  ot)!=null && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(),  ot).isPlayer()) {
+						if (Sex.getCharacterContactingSexArea(Sex.getActivePartner(), ot).contains(Main.game.getPlayer())) {
 							UtilText.nodeContentSB.append("</br>[npc.Name] lets out [npc.a_moan+] as you pull out of [npc.her] [npc.penisUrethra+].");
 						}
-						if (Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(),  ot)!=null && Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(),  ot).isPlayer()) {
+						if (Sex.getCharacterContactingSexArea(Main.game.getPlayer(), ot).contains(Main.game.getPlayer())) {
 							UtilText.nodeContentSB.append("</br>[pc.A_moan+] drifts out from between your [pc.lips+] as you stop stimulating your [pc.penisUrethra+].");
 						}
 						break;
 					case URETHRA_VAGINA:
-						if (Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(),  ot)!=null && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(),  ot).isPlayer()) {
+						if (Sex.getCharacterContactingSexArea(Sex.getActivePartner(), ot).contains(Main.game.getPlayer())) {
 							UtilText.nodeContentSB.append("</br>[npc.Name] lets out [npc.a_moan+] as you pull out of [npc.her] [npc.vaginaUrethra+].");
 						}
-						if (Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(),  ot)!=null && Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(),  ot).isPlayer()) {
+						if (Sex.getCharacterContactingSexArea(Main.game.getPlayer(), ot).contains(Main.game.getPlayer())) {
 							UtilText.nodeContentSB.append("</br>[pc.A_moan+] drifts out from between your [pc.lips+] as you stop stimulating your [pc.vaginaUrethra+].");
 						}
 						break;
 					case VAGINA:
-						if (Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(),  ot)!=null && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(),  ot).isPlayer()) {
+						if (Sex.getCharacterContactingSexArea(Sex.getActivePartner(), ot).contains(Main.game.getPlayer())) {
 							UtilText.nodeContentSB.append("</br>[npc.Name] lets out [npc.a_moan+] as you pull out of [npc.her] [npc.pussy+].");
 						}
-						if (Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(),  ot)!=null && Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(),  ot).isPlayer()) {
+						if (Sex.getCharacterContactingSexArea(Main.game.getPlayer(), ot).contains(Main.game.getPlayer())) {
 							UtilText.nodeContentSB.append("</br>[pc.A_moan+] drifts out from between your [pc.lips+] as you stop stimulating your [pc.pussy+].");
 						}
 						break;
 					case THIGHS:
-						if (Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(),  ot)!=null && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(),  ot).isPlayer()) {
+						if (Sex.getCharacterContactingSexArea(Sex.getActivePartner(), ot).contains(Main.game.getPlayer())) {
 							UtilText.nodeContentSB.append("</br>[npc.Name] lets out [npc.a_moan+] as you pull out from between [npc.her] thighs.");
 						}
-						if (Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(),  ot)!=null && Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(),  ot).isPlayer()) {
+						if (Sex.getCharacterContactingSexArea(Main.game.getPlayer(), ot).contains(Main.game.getPlayer())) {
 							UtilText.nodeContentSB.append("</br>[pc.A_moan+] drifts out from between your [pc.lips+] as you stop playing with your thighs.");
 						}
 						break;
@@ -429,26 +447,23 @@ public class GenericActions {
 
 		@Override
 		public void applyEffects() {
-			for(GameCharacter penetrated : Sex.getAllParticipants()) {
-				for(SexAreaPenetration pt : SexAreaPenetration.values()) {
-					if(Sex.getOngoingPenetrationMap(Main.game.getPlayer()).get(penetrated).containsKey(pt)) {
-						for(SexAreaOrifice ot : SexAreaOrifice.values()) {
-							Sex.removePenetration(Main.game.getPlayer(), penetrated, pt, ot);
-						}
-					}
-				}
+			for(GameCharacter character : Sex.getAllParticipants()) {
+				Sex.stopAllOngoingActions(Main.game.getPlayer(), character);
 			}
 		}
 	};
 	
 	public static final SexAction PLAYER_FORBID_PARTNER_SELF = new SexAction(
-			SexActionType.PLAYER_SPECIAL,
+			SexActionType.SPECIAL,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
 			SexParticipantType.MISC) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Forbid self actions";
@@ -469,30 +484,30 @@ public class GenericActions {
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			if (Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), SexAreaOrifice.VAGINA)!=null) {
-				if(!Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), SexAreaOrifice.VAGINA).equals(Sex.getActivePartner())) {
+			if (Sex.getCharacterContactingSexArea(Sex.getActivePartner(), SexAreaOrifice.VAGINA)!=null) {
+				if(Sex.getCharacterContactingSexArea(Sex.getActivePartner(), SexAreaOrifice.VAGINA).contains(Sex.getActivePartner())) {
 					UtilText.nodeContentSB.append("[npc.Name] lets out a disappointed [pc.moan] as you force [npc.herHim] to stop stimulating [npc.her] [npc.pussy+].");
 				}
 			}
 			
-			if (Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), SexAreaOrifice.ANUS)!=null) {
-				if(!Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), SexAreaOrifice.ANUS).equals(Sex.getActivePartner())) {
+			if (Sex.getCharacterContactingSexArea(Sex.getActivePartner(), SexAreaOrifice.ANUS)!=null) {
+				if(Sex.getCharacterContactingSexArea(Sex.getActivePartner(), SexAreaOrifice.ANUS).contains(Sex.getActivePartner())) {
 					if(UtilText.nodeContentSB.length()!=0)
 						UtilText.nodeContentSB.append("</br>");
 					UtilText.nodeContentSB.append("As you put an end to [npc.name]'s self-stimulation of [npc.her] [npc.asshole], [npc.she] lets out a pathetic whine.");
 				}
 			}
 			
-			if (Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), SexAreaOrifice.NIPPLE)!=null) {
-				if(!Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), SexAreaOrifice.NIPPLE).equals(Sex.getActivePartner())) {
+			if (Sex.getCharacterContactingSexArea(Sex.getActivePartner(), SexAreaOrifice.NIPPLE)!=null) {
+				if(Sex.getCharacterContactingSexArea(Sex.getActivePartner(), SexAreaOrifice.NIPPLE).contains(Sex.getActivePartner())) {
 					if(UtilText.nodeContentSB.length()!=0)
 						UtilText.nodeContentSB.append("</br>");
 					UtilText.nodeContentSB.append("[npc.Name] pouts at you as you force [npc.herHim] to stop stimulating [npc.her] [npc.nipples+].");
 				}
 			}
 			
-			if (Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), SexAreaOrifice.MOUTH)!=null) {
-				if(!Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), SexAreaOrifice.MOUTH).equals(Sex.getActivePartner())) {
+			if (Sex.getCharacterContactingSexArea(Sex.getActivePartner(), SexAreaOrifice.MOUTH)!=null) {
+				if(Sex.getCharacterContactingSexArea(Sex.getActivePartner(), SexAreaOrifice.MOUTH).contains(Sex.getActivePartner())) {
 					if(UtilText.nodeContentSB.length()!=0)
 						UtilText.nodeContentSB.append("</br>");
 					UtilText.nodeContentSB.append("[npc.Name] lets out a disappointed [pc.moan] as you force [npc.herHim] to stop using [npc.her] mouth.");
@@ -509,26 +524,23 @@ public class GenericActions {
 
 		@Override
 		public void applyEffects() {
-			for(SexAreaPenetration pt : SexAreaPenetration.values()) {
-				if(Sex.getOngoingPenetrationMap(Sex.getActivePartner()).get(Sex.getActivePartner()).containsKey(pt)) {
-					for(SexAreaOrifice ot : SexAreaOrifice.values()) {
-						Sex.removePenetration(Sex.getActivePartner(), Sex.getActivePartner(), pt, ot);
-					}
-				}
-			}
+			Sex.stopAllOngoingActions(Sex.getCharacterTargetedForSexAction(), Sex.getCharacterTargetedForSexAction());
 			
 			Sex.setPartnerAllowedToUseSelfActions(false);
 		}
 	};
 	
 	public static final SexAction PLAYER_PERMIT_PARTNER_SELF = new SexAction(
-			SexActionType.PLAYER_SPECIAL,
+			SexActionType.SPECIAL,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
 			SexParticipantType.MISC) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Permit self actions";
@@ -558,13 +570,16 @@ public class GenericActions {
 	};
 	
 	public static final SexAction PLAYER_FORBID_PARTNER_CLOTHING = new SexAction(
-			SexActionType.PLAYER_SPECIAL,
+			SexActionType.SPECIAL,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
 			SexParticipantType.MISC) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Forbid clothing";
@@ -593,13 +608,16 @@ public class GenericActions {
 	};
 	
 	public static final SexAction PLAYER_PERMIT_PARTNER_CLOTHING_REMOVAL = new SexAction(
-			SexActionType.PLAYER_SPECIAL,
+			SexActionType.SPECIAL,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
 			SexParticipantType.MISC) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Permit clothing";
@@ -628,13 +646,16 @@ public class GenericActions {
 	};
 	
 	public static final SexAction PLAYER_FORBID_PARTNER_SELF_CLOTHING = new SexAction(
-			SexActionType.PLAYER_SPECIAL,
+			SexActionType.SPECIAL,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
 			SexParticipantType.MISC) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Forbid self clothing";
@@ -663,13 +684,16 @@ public class GenericActions {
 	};
 	
 	public static final SexAction PLAYER_PERMIT_PARTNER_CLOTHING_SELF_REMOVAL = new SexAction(
-			SexActionType.PLAYER_SPECIAL,
+			SexActionType.SPECIAL,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
 			SexParticipantType.MISC) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Permit self clothing";
@@ -699,13 +723,16 @@ public class GenericActions {
 	
 	
 	public static final SexAction PLAYER_STOP_PARTNER_SELF = new SexAction(
-			SexActionType.PLAYER_SPECIAL,
+			SexActionType.SPECIAL,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
 			SexParticipantType.MISC) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Stop partner";
@@ -718,7 +745,7 @@ public class GenericActions {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isCharacterSelfPenetrationHappening(Sex.getActivePartner())
+			return Sex.isCharacterSelfOngoingActionHappening(Sex.getActivePartner())
 					&& (Sex.isDom(Main.game.getPlayer())?true:Sex.isSubHasEqualControl());
 		}
 
@@ -726,30 +753,30 @@ public class GenericActions {
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			if (Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), SexAreaOrifice.VAGINA)!=null) {
-				if(!Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), SexAreaOrifice.VAGINA).equals(Sex.getActivePartner())) {
+			if (Sex.getCharacterContactingSexArea(Sex.getActivePartner(), SexAreaOrifice.VAGINA)!=null) {
+				if(Sex.getCharacterContactingSexArea(Sex.getActivePartner(), SexAreaOrifice.VAGINA).contains(Sex.getActivePartner())) {
 					UtilText.nodeContentSB.append("[npc.Name] lets out a disappointed [pc.moan] as you force [npc.herHim] to stop stimulating [npc.her] [npc.pussy+].");
 				}
 			}
 			
-			if (Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), SexAreaOrifice.ANUS)!=null) {
-				if(!Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), SexAreaOrifice.ANUS).equals(Sex.getActivePartner())) {
+			if (Sex.getCharacterContactingSexArea(Sex.getActivePartner(), SexAreaOrifice.ANUS)!=null) {
+				if(Sex.getCharacterContactingSexArea(Sex.getActivePartner(), SexAreaOrifice.ANUS).contains(Sex.getActivePartner())) {
 					if(UtilText.nodeContentSB.length()!=0)
 						UtilText.nodeContentSB.append("</br>");
 					UtilText.nodeContentSB.append("As you put an end to [npc.name]'s self-stimulation of [npc.her] [npc.asshole], [npc.she] lets out a pathetic whine.");
 				}
 			}
 			
-			if (Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), SexAreaOrifice.NIPPLE)!=null) {
-				if(!Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), SexAreaOrifice.NIPPLE).equals(Sex.getActivePartner())) {
+			if (Sex.getCharacterContactingSexArea(Sex.getActivePartner(), SexAreaOrifice.NIPPLE)!=null) {
+				if(Sex.getCharacterContactingSexArea(Sex.getActivePartner(), SexAreaOrifice.NIPPLE).contains(Sex.getActivePartner())) {
 					if(UtilText.nodeContentSB.length()!=0)
 						UtilText.nodeContentSB.append("</br>");
 					UtilText.nodeContentSB.append("[npc.Name] pouts at you as you force [npc.herHim] to stop stimulating [npc.her] [npc.nipples+].");
 				}
 			}
 			
-			if (Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), SexAreaOrifice.MOUTH)!=null) {
-				if(!Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), SexAreaOrifice.MOUTH).equals(Sex.getActivePartner())) {
+			if (Sex.getCharacterContactingSexArea(Sex.getActivePartner(), SexAreaOrifice.MOUTH)!=null) {
+				if(Sex.getCharacterContactingSexArea(Sex.getActivePartner(), SexAreaOrifice.MOUTH).contains(Sex.getActivePartner())) {
 					if(UtilText.nodeContentSB.length()!=0)
 						UtilText.nodeContentSB.append("</br>");
 					UtilText.nodeContentSB.append("[npc.Name] lets out a disappointed [pc.moan] as you force [npc.herHim] to stop using [npc.her] mouth.");
@@ -761,26 +788,23 @@ public class GenericActions {
 
 		@Override
 		public void applyEffects() {
-			for(SexAreaPenetration pt : SexAreaPenetration.values()) {
-				if(Sex.getOngoingPenetrationMap(Sex.getActivePartner()).get(Sex.getActivePartner()).containsKey(pt)) {
-					for(SexAreaOrifice ot : SexAreaOrifice.values()) {
-						Sex.removePenetration(Sex.getActivePartner(), Sex.getActivePartner(), pt, ot);
-					}
-				}
-			}
+			Sex.stopAllOngoingActions(Sex.getCharacterTargetedForSexAction(), Sex.getCharacterTargetedForSexAction());
 		}
 	};
 	
 	// Partner:
 	
 	public static final SexAction PARTNER_HYPNOTIC_SUGGESTION_LUST_DECREASE = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.THREE_DIRTY,
 			null,
-			null,
 			SexParticipantType.MISC) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "[style.colourPsychoactive(Calming Suggestion)]";
@@ -825,13 +849,16 @@ public class GenericActions {
 	};
 	
 	public static final SexAction PARTNER_HYPNOTIC_SUGGESTION_LUST_INCREASE = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.THREE_DIRTY,
 			null,
-			null,
 			SexParticipantType.MISC) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "[style.colourPsychoactive(Lustful Suggestion)]";
@@ -877,15 +904,18 @@ public class GenericActions {
 	
 	
 	public static final SexAction PARTNER_RESIST = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.ZERO_NONE,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
 			SexParticipantType.MISC,
 			null,
 			SexPace.SUB_RESISTING) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		
 		@Override
 		public ArousalIncrease getArousalGainSelf() {
@@ -963,13 +993,16 @@ public class GenericActions {
 	};
 	
 	public static final SexAction PARTNER_STOP_PLAYER_SELF = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
 			SexParticipantType.MISC) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		
 		@Override
 		public String getActionTitle() {
@@ -983,8 +1016,8 @@ public class GenericActions {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isCharacterSelfPenetrationHappening(Main.game.getPlayer())
-					&& !Sex.isAnyNonSelfPenetrationHappening()
+			return Sex.isCharacterSelfOngoingActionHappening(Main.game.getPlayer())
+					&& !Sex.isAnyNonSelfOngoingActionHappening()
 					&& (Sex.isDom(Main.game.getPlayer())?Sex.isSubHasEqualControl():true);
 		}
 
@@ -992,30 +1025,30 @@ public class GenericActions {
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			if (Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), SexAreaOrifice.VAGINA)!=null) {
-				if(Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), SexAreaOrifice.VAGINA).isPlayer()) {
+			if (Sex.getCharacterContactingSexArea(Main.game.getPlayer(), SexAreaOrifice.VAGINA)!=null) {
+				if(Sex.getCharacterContactingSexArea(Main.game.getPlayer(), SexAreaOrifice.VAGINA).contains(Main.game.getPlayer())) {
 					UtilText.nodeContentSB.append("[npc.Name] lets out an angry growl as [npc.she] forces you to stop stimulating your [pc.pussy+].");
 				}
 			}
 			
-			if (Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), SexAreaOrifice.ANUS)!=null) {
-				if(Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), SexAreaOrifice.ANUS).isPlayer()) {
+			if (Sex.getCharacterContactingSexArea(Main.game.getPlayer(), SexAreaOrifice.ANUS)!=null) {
+				if(Sex.getCharacterContactingSexArea(Main.game.getPlayer(), SexAreaOrifice.ANUS).contains(Main.game.getPlayer())) {
 					if(UtilText.nodeContentSB.length()!=0)
 						UtilText.nodeContentSB.append("</br>");
 					UtilText.nodeContentSB.append("As [npc.name] puts an end to your self-stimulation of your [pc.asshole], [npc.she] growls menacingly at you.");
 				}
 			}
 			
-			if (Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), SexAreaOrifice.NIPPLE)!=null) {
-				if(Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), SexAreaOrifice.NIPPLE).isPlayer()) {
+			if (Sex.getCharacterContactingSexArea(Main.game.getPlayer(), SexAreaOrifice.NIPPLE)!=null) {
+				if(Sex.getCharacterContactingSexArea(Main.game.getPlayer(), SexAreaOrifice.NIPPLE).contains(Main.game.getPlayer())) {
 					if(UtilText.nodeContentSB.length()!=0)
 						UtilText.nodeContentSB.append("</br>");
 					UtilText.nodeContentSB.append("[npc.Name] frowns at you as [npc.she] forces you to stop stimulating your [pc.nipples+].");
 				}
 			}
 			
-			if (Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), SexAreaOrifice.MOUTH)!=null) {
-				if(Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), SexAreaOrifice.MOUTH).isPlayer()) {
+			if (Sex.getCharacterContactingSexArea(Main.game.getPlayer(), SexAreaOrifice.MOUTH)!=null) {
+				if(Sex.getCharacterContactingSexArea(Main.game.getPlayer(), SexAreaOrifice.MOUTH).contains(Main.game.getPlayer())) {
 					if(UtilText.nodeContentSB.length()!=0)
 						UtilText.nodeContentSB.append("</br>");
 					UtilText.nodeContentSB.append("[npc.Name] makes a disapproving clicking noise with [npc.her] [npc.tongue] as [npc.she] forces you to stop using your mouth.");
@@ -1027,24 +1060,21 @@ public class GenericActions {
 
 		@Override
 		public void applyEffects() {
-			for(SexAreaPenetration pt : SexAreaPenetration.values()) {
-				if(Sex.getOngoingPenetrationMap(Main.game.getPlayer()).get(Main.game.getPlayer()).containsKey(pt)) {
-					for(SexAreaOrifice ot : SexAreaOrifice.values()) {
-						Sex.removePenetration(Main.game.getPlayer(), Main.game.getPlayer(), pt, ot);
-					}
-				}
-			}
+			Sex.stopAllOngoingActions(Main.game.getPlayer(), Main.game.getPlayer());
 		}
 	};
 	
 	public static final SexAction PARTNER_BLOCKS_REQUESTS = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ONE_VANILLA,
 			null,
-			null,
 			SexParticipantType.MISC) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Respond";
@@ -1092,13 +1122,16 @@ public class GenericActions {
 	};
 	
 	public static final SexAction PARTNER_STOP_SEX_NOT_HAVING_FUN = new SexAction(
-			SexActionType.PARTNER_SPECIAL,
+			SexActionType.SPECIAL,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
 			SexParticipantType.MISC) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "";
@@ -1136,13 +1169,16 @@ public class GenericActions {
 	};
 	
 	public static final SexAction PARTNER_STOP_SEX = new SexAction(
-			SexActionType.PARTNER_SPECIAL,
+			SexActionType.SPECIAL,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
 			SexParticipantType.MISC) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "";
@@ -1175,13 +1211,16 @@ public class GenericActions {
 	};
 	
 	public static final SexAction PLAYER_STOP_SEX = new SexAction(
-			SexActionType.PLAYER_SPECIAL,
+			SexActionType.SPECIAL,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
 			SexParticipantType.MISC) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Stop sex";

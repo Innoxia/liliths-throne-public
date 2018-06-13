@@ -29,7 +29,7 @@
 	
 	Engine:
 		Improved scripting support for parsing conditional statements.
-	
+		
 	Gameplay:
 		Added cum storage/regeneration values (the same mechanics as milk). Added an 'expulsion' value to testicles (with associated TF modifier for potions), which determines how much of your stored cum is expelled upon orgasm. (This new mechanic can be toggled off in the content settings.)
 		Not producing any cum upon orgasm (or by having a cum expulsion value of 0) will now apply the frustrated effect.
@@ -96,8 +96,14 @@
 		Fixed Zaranix regaining his penile virginity after sex.
 		Demon alleyway attackers will no longer have their virginities reset after sex.
 		Fixed bug where slimes would always spawn in with a load of jewellery in their inventory.
+		Fixed issue where Nyan's clothing might sometimes not load correctly.
 	
 	
+	
+	
+	
+	
+	Fix stroke cock being related to urethra
 	foot fetish
 	Tailjobs
 	Paizuri deepthroat while fucking a dickgirl's pussy in missionary
@@ -108,6 +114,9 @@
 	ongoing handjobs
 	denial
 	
+	
+	
+	Add Lumi art
 	
 	Set your elemental's fetishes (make them the counterparts of yours)
 	

@@ -11,6 +11,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
+import com.lilithsthrone.game.sex.sexActions.SexActionLimitation;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -25,13 +26,16 @@ public class PixOrgasms {
 	// Player:
 	
 	public static final SexAction PLAYER_PREPARE = new SexAction(
-			SexActionType.PLAYER_PREPARE_PARTNER_ORGASM,
+			SexActionType.PREPARE_FOR_PARTNER_ORGASM,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
 			SexParticipantType.MISC) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		
 		@Override
 		public String getActionTitle() {
@@ -50,13 +54,16 @@ public class PixOrgasms {
 	};
 	
 	public static final SexAction PLAYER_ORGASM_PROMISE = new SexAction(
-			SexActionType.PLAYER_ORGASM,
+			SexActionType.ORGASM,
 			ArousalIncrease.ZERO_NONE,
 			ArousalIncrease.ZERO_NONE,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
 			SexParticipantType.MISC) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Promise";
@@ -153,13 +160,16 @@ public class PixOrgasms {
 	};
 	
 	public static final SexAction PLAYER_ORGASM_REFUSE = new SexAction(
-			SexActionType.PLAYER_ORGASM_NO_AROUSAL_RESET,
+			SexActionType.ORGASM_NO_AROUSAL_RESET,
 			ArousalIncrease.NEGATIVE_MAJOR,
 			ArousalIncrease.ZERO_NONE,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
 			SexParticipantType.MISC) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Refuse";
@@ -201,13 +211,16 @@ public class PixOrgasms {
 	// Pix orgasm:
 	
 	public static final SexAction PARTNER_PREPARE = new SexAction(
-			SexActionType.PARTNER_PREPARE_PLAYER_ORGASM,
+			SexActionType.PREPARE_FOR_PARTNER_ORGASM,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
 			SexParticipantType.MISC) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		
 		@Override
 		public String getActionTitle() {
@@ -227,13 +240,16 @@ public class PixOrgasms {
 	};
 	
 	public static final SexAction PARTNER_ORGASM_PIX_REWARD = new SexAction(
-			SexActionType.PARTNER_ORGASM,
+			SexActionType.ORGASM,
 			ArousalIncrease.ZERO_NONE,
 			ArousalIncrease.ZERO_NONE,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
 			SexParticipantType.MISC) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Orgasm";

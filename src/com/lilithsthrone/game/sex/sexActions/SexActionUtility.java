@@ -18,13 +18,16 @@ public class SexActionUtility {
 	// GENERIC:
 	
 	public static final SexAction PLAYER_NONE = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.ZERO_NONE,
 			ArousalIncrease.ZERO_NONE,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
 			SexParticipantType.MISC) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		
 		@Override
 		public String getActionTitle() {
@@ -80,13 +83,16 @@ public class SexActionUtility {
 	};
 	
 	public static final SexAction PLAYER_CALM_DOWN = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.NEGATIVE,
 			ArousalIncrease.ZERO_NONE,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
 			SexParticipantType.MISC) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Calm down";
@@ -142,13 +148,16 @@ public class SexActionUtility {
 	};
 	
 	public static final SexAction PARTNER_NONE = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
 			SexParticipantType.MISC) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "";
@@ -166,13 +175,17 @@ public class SexActionUtility {
 	};
 	
 //	public static final SexAction PARTNER_ORGASM_MUTUAL_WAIT = new SexAction(
-//			SexActionType.PARTNER,
+//			SexActionType.ONGOING,
 //			ArousalIncrease.ONE_MINIMUM,
 //			ArousalIncrease.ONE_MINIMUM,
 //			CorruptionLevel.ZERO_PURE,
 //			null,
 //			null,
 //			SexParticipantType.MISC) {
+//		@Override
+//		public boolean isOnlyForNPC() {
+//			return true;
+//		}
 //		@Override
 //		public String getActionTitle() {
 //			return "";
@@ -191,13 +204,16 @@ public class SexActionUtility {
 //	};
 	
 	public static final SexAction PARTNER_ORGASM_SKIP = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
 			SexParticipantType.MISC) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "";
@@ -215,13 +231,16 @@ public class SexActionUtility {
 	};
 
 	public static final SexAction PLAYER_USE_ITEM = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
 			SexParticipantType.MISC) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Use item";
@@ -240,13 +259,16 @@ public class SexActionUtility {
 	};
 
 	public static final SexAction CLOTHING_REMOVAL = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.ZERO_NONE,
 			ArousalIncrease.ZERO_NONE,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
 			SexParticipantType.MISC) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Manage clothing";
@@ -264,13 +286,16 @@ public class SexActionUtility {
 	};
 	
 	public static final SexAction CLOTHING_DYE = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.ZERO_NONE,
 			ArousalIncrease.ZERO_NONE,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
 			SexParticipantType.MISC) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Manage clothing";
@@ -288,13 +313,16 @@ public class SexActionUtility {
 	};
 	
 	public static final SexAction DENIAL_FETISH_DENY = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.NEGATIVE,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
 			SexParticipantType.MISC) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Deny";

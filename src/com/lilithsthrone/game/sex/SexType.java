@@ -10,7 +10,7 @@ import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.53
- * @version 0.2.5
+ * @version 0.2.7
  * @author Innoxia
  */
 public class SexType implements Serializable, XMLSaving {
@@ -18,10 +18,10 @@ public class SexType implements Serializable, XMLSaving {
 	private static final long serialVersionUID = 1L;
 	
 	private SexParticipantType asParticipant;
-	private SexAreaPenetration penetrationType;
-	private SexAreaOrifice orificeType;
+	private SexAreaInterface penetrationType;
+	private SexAreaInterface orificeType;
 
-	public SexType(SexParticipantType asParticipant, SexAreaPenetration penetrationType, SexAreaOrifice orificeType) {
+	public SexType(SexParticipantType asParticipant, SexAreaInterface penetrationType, SexAreaInterface orificeType) {
 		this.asParticipant = asParticipant;
 		this.penetrationType=penetrationType;
 		this.orificeType = orificeType;
@@ -50,7 +50,7 @@ public class SexType implements Serializable, XMLSaving {
 	public Element saveAsXML(Element parentElement, Document doc) {
 		Element effect = doc.createElement("sexType");
 		parentElement.appendChild(effect);
-
+		
 		CharacterUtils.addAttribute(doc, effect, "SexParticipantType", asParticipant.toString());
 		CharacterUtils.addAttribute(doc, effect, "penetrationType", penetrationType.toString());
 		CharacterUtils.addAttribute(doc, effect, "orificeType", orificeType.toString());
@@ -73,11 +73,11 @@ public class SexType implements Serializable, XMLSaving {
 		return asParticipant;
 	}
 
-	public SexAreaPenetration getPenetrationType() {
+	public SexAreaInterface getPenetrationType() {
 		return penetrationType;
 	}
 
-	public SexAreaOrifice getOrificeType() {
+	public SexAreaInterface getOrificeType() {
 		return orificeType;
 	}
 }

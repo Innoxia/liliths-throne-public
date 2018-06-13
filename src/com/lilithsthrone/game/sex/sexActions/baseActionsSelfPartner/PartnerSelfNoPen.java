@@ -8,13 +8,15 @@ import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
+import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
+import com.lilithsthrone.game.sex.sexActions.SexActionLimitation;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.79
@@ -24,13 +26,16 @@ import com.lilithsthrone.utils.Util;
 public class PartnerSelfNoPen {
 	
 	public static final SexAction PARTNER_STROKE_VAGINA = new SexAction(
-			SexActionType.PARTNER_REQUIRES_NO_PENETRATION,
+			SexActionType.REQUIRES_NO_PENETRATION,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
-			SexAreaPenetration.FINGER,
-			SexAreaOrifice.VAGINA,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaOrifice.VAGINA)),
 			SexParticipantType.SELF) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		
 		@Override
 		public String getActionTitle() {
@@ -67,7 +72,7 @@ public class PartnerSelfNoPen {
 		@Override
 		public void applyEffects() {
 			if(Sex.getActivePartner().isCoverableAreaExposed(CoverableArea.VAGINA)) {
-				Sex.transferLubrication(Sex.getActivePartner(), Sex.getActivePartner(), SexAreaPenetration.FINGER, SexAreaOrifice.VAGINA);
+				Sex.transferLubrication(Sex.getActivePartner(), SexAreaPenetration.FINGER, Sex.getActivePartner(), SexAreaOrifice.VAGINA);
 			}
 		}
 		
@@ -76,13 +81,16 @@ public class PartnerSelfNoPen {
 	
 	
 	public static final SexAction PARTNER_STROKE_PENIS = new SexAction(
-			SexActionType.PARTNER_REQUIRES_NO_PENETRATION,
+			SexActionType.REQUIRES_NO_PENETRATION,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
-			SexAreaPenetration.FINGER,
-			SexAreaOrifice.URETHRA_PENIS,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaOrifice.URETHRA_PENIS)),
 			SexParticipantType.SELF) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		
 		@Override
 		public String getActionTitle() {
@@ -128,13 +136,16 @@ public class PartnerSelfNoPen {
 	
 	
 	public static final SexAction PARTNER_STROKE_MOUND = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
-			SexAreaPenetration.FINGER,
-			null,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, null)),
 			SexParticipantType.SELF) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {

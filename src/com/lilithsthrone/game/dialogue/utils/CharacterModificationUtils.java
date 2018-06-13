@@ -452,40 +452,42 @@ public class CharacterModificationUtils {
 		}
 		
 		if(type.getPenetrationType()==SexAreaPenetration.PENIS && type.getAsParticipant().isUsingSelfOrificeType()) {
-			switch(type.getOrificeType()) {
-				case ANUS:
-					if(index==0) {
-						Main.game.getPlayer().setAssVirgin(true);
-					} else {
-						Main.game.getPlayer().setAssVirgin(false);
-					}
-					break;
-				case ASS:
-					break;
-				case BREAST:
-					break;
-				case MOUTH:
-					if(index==0) {
-						Main.game.getPlayer().setFaceVirgin(true);
-					} else {
-						Main.game.getPlayer().setFaceVirgin(false);
-					}
-					break;
-				case NIPPLE:
-					break;
-				case THIGHS:
-					break;
-				case URETHRA_PENIS:
-					break;
-				case URETHRA_VAGINA:
-					break;
-				case VAGINA:
-					if(index==0) {
-						Main.game.getPlayer().setVaginaVirgin(true);
-					} else {
-						Main.game.getPlayer().setVaginaVirgin(false);
-					}
-					break;
+			if(type.getOrificeType().isOrifice()) {
+				switch((SexAreaOrifice)type.getOrificeType()) {
+					case ANUS:
+						if(index==0) {
+							Main.game.getPlayer().setAssVirgin(true);
+						} else {
+							Main.game.getPlayer().setAssVirgin(false);
+						}
+						break;
+					case ASS:
+						break;
+					case BREAST:
+						break;
+					case MOUTH:
+						if(index==0) {
+							Main.game.getPlayer().setFaceVirgin(true);
+						} else {
+							Main.game.getPlayer().setFaceVirgin(false);
+						}
+						break;
+					case NIPPLE:
+						break;
+					case THIGHS:
+						break;
+					case URETHRA_PENIS:
+						break;
+					case URETHRA_VAGINA:
+						break;
+					case VAGINA:
+						if(index==0) {
+							Main.game.getPlayer().setVaginaVirgin(true);
+						} else {
+							Main.game.getPlayer().setVaginaVirgin(false);
+						}
+						break;
+				}
 			}
 		}
 	}
