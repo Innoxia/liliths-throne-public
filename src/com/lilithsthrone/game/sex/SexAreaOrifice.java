@@ -204,12 +204,9 @@ public enum SexAreaOrifice implements SexAreaInterface {
 		this.takesPenisVirginity = takesPenisVirginity;
 	}
 
-	public abstract String getName(GameCharacter owner);
-	
-	public abstract boolean isFree(GameCharacter owner);
-
-	public boolean isPlural() {
-		return false;
+	@Override
+	public boolean isOrifice() {
+		return true;
 	}
 	
 	public float getBaseArousalWhenPenetrated() {

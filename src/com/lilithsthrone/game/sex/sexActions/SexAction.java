@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import com.lilithsthrone.game.character.GameCharacter;
@@ -12,16 +13,17 @@ import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.sex.ArousalIncrease;
+import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.0
- * @version 0.1.98
+ * @version 0.2.7
  * @author Innoxia
  */
 public abstract class SexAction implements SexActionInterface {
@@ -32,14 +34,17 @@ public abstract class SexAction implements SexActionInterface {
 	private ArousalIncrease targetArousalGain;
 	
 	private CorruptionLevel minimumCorruptionNeeded;
-	private SexAreaPenetration penetrationTypeAccessRequired;
-	private SexAreaOrifice orificeTypeAccessRequired;
+	
+	/**A map of all the SexAreaInterfaces that are interacting with one another in this SexAction.
+	 *  The keys are representing ownership of the character who performs the action, while the values are owned by the character upon which this is being performed.*/
+	private Map<SexAreaInterface, SexAreaInterface> sexAreaInteractions;
 
 	private SexParticipantType participantType;
 	private SexPace sexPacePlayer, sexPacePartner;
 	private Map<GameCharacter, Set<Fetish>> characterFetishes;
 	private Map<GameCharacter, Set<Fetish>> characterFetishesForPartner;
-	
+
+	@Deprecated
 	public SexAction(
 			SexActionType sexActionType,
 			ArousalIncrease selfArousalGain,
@@ -60,6 +65,7 @@ public abstract class SexAction implements SexActionInterface {
 				null);
 	}
 	
+	@Deprecated
 	public SexAction(
 			SexActionType sexActionType,
 			ArousalIncrease selfArousalGain,
@@ -75,8 +81,16 @@ public abstract class SexAction implements SexActionInterface {
 		this.selfArousalGain = selfArousalGain;
 		this.targetArousalGain = targetArousalGain;
 		this.minimumCorruptionNeeded = minimumCorruptionNeeded;
-		this.penetrationTypeAccessRequired = penetrationTypeAccessRequired;
-		this.orificeTypeAccessRequired = orificeTypeAccessRequired;
+
+		sexAreaInteractions = new HashMap<>();
+		if(orificeTypeAccessRequired!=null && penetrationTypeAccessRequired!=null) {
+			if(participantType.isUsingSelfPenetrationType()) {
+				sexAreaInteractions.put(penetrationTypeAccessRequired, orificeTypeAccessRequired);
+			} else {
+				sexAreaInteractions.put(orificeTypeAccessRequired, penetrationTypeAccessRequired);
+			}
+		}
+		
 		this.participantType = participantType;
 		this.sexPacePlayer = sexPacePlayer;
 		this.sexPacePartner = sexPacePartner;
@@ -87,14 +101,56 @@ public abstract class SexAction implements SexActionInterface {
 		this.selfArousalGain = sexActionToCopy.getArousalGainSelf();
 		this.targetArousalGain = sexActionToCopy.getArousalGainTarget();
 		this.minimumCorruptionNeeded = sexActionToCopy.getCorruptionNeeded();
-		this.penetrationTypeAccessRequired = sexActionToCopy.getAssociatedPenetrationType();
-		this.orificeTypeAccessRequired = sexActionToCopy.getAssociatedOrificeType();
+		this.sexAreaInteractions = sexActionToCopy.getSexAreaInteractions();
 		this.participantType = sexActionToCopy.getParticipantType();
 		this.sexPacePlayer = sexActionToCopy.getSexPace(Main.game.getPlayer());
 		this.sexPacePartner = sexActionToCopy.getSexPace(Sex.getActivePartner());
 	}
 	
+	public SexAction(
+			SexActionType sexActionType,
+			ArousalIncrease selfArousalGain,
+			ArousalIncrease targetArousalGain,
+			CorruptionLevel minimumCorruptionNeeded,
+			Map<SexAreaInterface, SexAreaInterface> sexAreaInteractions,
+			SexParticipantType participantType) {
+		
+		this(sexActionType,
+				selfArousalGain,
+				targetArousalGain,
+				minimumCorruptionNeeded,
+				sexAreaInteractions,
+				participantType,
+				null,
+				null);
+	}
 	
+	public SexAction(
+			SexActionType sexActionType,
+			ArousalIncrease selfArousalGain,
+			ArousalIncrease targetArousalGain,
+			CorruptionLevel minimumCorruptionNeeded,
+			Map<SexAreaInterface, SexAreaInterface> sexAreaInteractions,
+			SexParticipantType participantType,
+			SexPace sexPacePlayer,
+			SexPace sexPacePartner) {
+		
+		this.sexActionType = sexActionType;
+		this.selfArousalGain = selfArousalGain;
+		this.targetArousalGain = targetArousalGain;
+		this.minimumCorruptionNeeded = minimumCorruptionNeeded;
+		
+		if(sexAreaInteractions==null) {
+			this.sexAreaInteractions = new HashMap<>();
+		} else {
+			this.sexAreaInteractions = sexAreaInteractions;
+		}
+		
+		this.participantType = participantType;
+		this.sexPacePlayer = sexPacePlayer;
+		this.sexPacePartner = sexPacePartner;
+	}
+
 	@Override
 	public SexPace getSexPace(GameCharacter character){
 		if(character!=null && character.isPlayer()) {
@@ -104,14 +160,16 @@ public abstract class SexAction implements SexActionInterface {
 		}
 	}
 	
-	@Override
-	public SexAreaPenetration getAssociatedPenetrationType() {
-		return penetrationTypeAccessRequired;
+	/**
+	 * This is a method to support old sex actions. Do not set the return value of this to anything other than null.
+	 * @return
+	 */
+	public SexActionLimitation getLimitation() {
+		return null;
 	}
-
-	@Override
-	public SexAreaOrifice getAssociatedOrificeType() {
-		return orificeTypeAccessRequired;
+	
+	public Map<SexAreaInterface, SexAreaInterface> getSexAreaInteractions() {
+		return sexAreaInteractions;
 	}
 
 	@Override
@@ -126,27 +184,17 @@ public abstract class SexAction implements SexActionInterface {
 
 	@Override
 	public ArousalIncrease getArousalGainSelf() {
-		if(!this.getActionType().isPlayerAction() && Sex.getSexPace(Sex.getActivePartner())==SexPace.SUB_RESISTING) {
-			if(Sex.getActivePartner().hasFetish(Fetish.FETISH_NON_CON_SUB)) {
+		if(Sex.getSexPace(Sex.getCharacterPerformingAction())==SexPace.SUB_RESISTING) {
+			if(Sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_NON_CON_SUB)) {
 				return ArousalIncrease.FOUR_HIGH;
+				
 			} else {
 				// If it's an erogenous zone, they gain arousal. If not, arousal gain is 0.
-				if((this.getParticipantType().isUsingSelfOrificeType() && this.getAssociatedOrificeType()!=null && this.getAssociatedOrificeType().getBaseArousalWhenPenetrated()>1)
-						|| (this.getParticipantType().isUsingSelfPenetrationType() && this.getAssociatedPenetrationType() != null && this.getAssociatedPenetrationType().getBaseArousalWhenPenetrating()>1)) {
-					return ArousalIncrease.TWO_LOW;
-				}
-				return ArousalIncrease.ZERO_NONE;
-			}
-		}
-		
-		if(this.getActionType().isPlayerAction() && Sex.getSexPace(Main.game.getPlayer())==SexPace.SUB_RESISTING) {
-			if(Main.game.getPlayer().hasFetish(Fetish.FETISH_NON_CON_SUB)) {
-				return ArousalIncrease.FOUR_HIGH;
-			} else {
-				// If it's an erogenous zone, they gain arousal. If not, arousal gain is 0.
-				if((this.getParticipantType().isUsingSelfOrificeType() && this.getAssociatedOrificeType()!=null && this.getAssociatedOrificeType().getBaseArousalWhenPenetrated()>1)
-						|| (this.getParticipantType().isUsingSelfPenetrationType() && this.getAssociatedPenetrationType() != null && this.getAssociatedPenetrationType().getBaseArousalWhenPenetrating()>1)) {
-					return ArousalIncrease.TWO_LOW;
+				for(SexAreaInterface sArea : this.getSexAreaInteractions().keySet()) {
+					if((sArea.isOrifice() && ((SexAreaOrifice)sArea).getBaseArousalWhenPenetrated()>1)
+							|| (sArea.isPenetration() && ((SexAreaPenetration)sArea).getBaseArousalWhenPenetrating()>1)) {
+						return ArousalIncrease.TWO_LOW;
+					}
 				}
 				return ArousalIncrease.ZERO_NONE;
 			}
@@ -158,27 +206,17 @@ public abstract class SexAction implements SexActionInterface {
 	@Override
 	public ArousalIncrease getArousalGainTarget() {
 		if(!Sex.isMasturbation()) {
-			if(!this.getActionType().isPlayerAction() && Sex.getSexPace(Sex.getTargetedPartner(Sex.getActivePartner()))==SexPace.SUB_RESISTING) {
-				if(Sex.getTargetedPartner(Sex.getActivePartner()).hasFetish(Fetish.FETISH_NON_CON_SUB)) {
+			if(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))==SexPace.SUB_RESISTING) {
+				if(Sex.getCharacterTargetedForSexAction(this).hasFetish(Fetish.FETISH_NON_CON_SUB)) {
 					return ArousalIncrease.FOUR_HIGH;
+					
 				} else {
 					// If it's an erogenous zone, they gain arousal. If not, arousal gain is 0.
-					if((!this.getParticipantType().isUsingSelfOrificeType() && this.getAssociatedOrificeType()!=null && this.getAssociatedOrificeType().getBaseArousalWhenPenetrated()>1)
-							|| (!this.getParticipantType().isUsingSelfPenetrationType() && this.getAssociatedPenetrationType() != null && this.getAssociatedPenetrationType().getBaseArousalWhenPenetrating()>1)) {
-						return ArousalIncrease.TWO_LOW;
-					}
-					return ArousalIncrease.ZERO_NONE;
-				}
-			}
-			
-			if(this.getActionType().isPlayerAction() && Sex.getSexPace(Sex.getActivePartner())==SexPace.SUB_RESISTING) {
-				if(Sex.getActivePartner().hasFetish(Fetish.FETISH_NON_CON_SUB)) {
-					return ArousalIncrease.FOUR_HIGH;
-				} else {
-					// If it's an erogenous zone, they gain arousal. If not, arousal gain is 0.
-					if((!this.getParticipantType().isUsingSelfOrificeType() && this.getAssociatedOrificeType()!=null && this.getAssociatedOrificeType().getBaseArousalWhenPenetrated()>1)
-							|| (!this.getParticipantType().isUsingSelfPenetrationType() && this.getAssociatedPenetrationType() != null && this.getAssociatedPenetrationType().getBaseArousalWhenPenetrating()>1)) {
-						return ArousalIncrease.TWO_LOW;
+					for(SexAreaInterface sArea : this.getSexAreaInteractions().values()) {
+						if((sArea.isOrifice() && ((SexAreaOrifice)sArea).getBaseArousalWhenPenetrated()>1)
+								|| (sArea.isPenetration() && ((SexAreaPenetration)sArea).getBaseArousalWhenPenetrating()>1)) {
+							return ArousalIncrease.TWO_LOW;
+						}
 					}
 					return ArousalIncrease.ZERO_NONE;
 				}
@@ -459,16 +497,31 @@ public abstract class SexAction implements SexActionInterface {
 				}
 			}
 			
-			if(this.getAssociatedPenetrationType()!=null && this.getAssociatedOrificeType()!=null
-					&& this.getActionType()!=SexActionType.PLAYER_STOP_PENETRATION
-					&& this.getActionType()!=SexActionType.PARTNER_STOP_PENETRATION
-					&& this.getParticipantType()!=SexParticipantType.MISC) {
-				if(characterPerformingActionFetishes) {
-					characterFetishes.get(characterPerformingAction).addAll(getFetishesFromPenetrationAndOrificeTypes(characterPerformingAction, this.getAssociatedPenetrationType(), this.getAssociatedOrificeType(), characterPerformingActionFetishes));
-				} else {
-					characterFetishesForPartner.get(characterPerformingAction).addAll(getFetishesFromPenetrationAndOrificeTypes(characterPerformingAction, this.getAssociatedPenetrationType(), this.getAssociatedOrificeType(), characterPerformingActionFetishes));
+			for(Entry<SexAreaInterface, SexAreaInterface> entry : this.getSexAreaInteractions().entrySet()) {
+				if(this.getActionType()!=SexActionType.STOP_ONGOING
+						&& this.getParticipantType()!=SexParticipantType.MISC) {
+					if(characterPerformingActionFetishes) {
+						characterFetishes.get(characterPerformingAction).addAll(
+								getFetishesFromPenetrationAndOrificeTypes(characterPerformingAction, entry.getKey(), entry.getValue(), characterPerformingActionFetishes));
+					} else {
+						characterFetishesForPartner.get(characterPerformingAction).addAll(
+								getFetishesFromPenetrationAndOrificeTypes(characterPerformingAction, entry.getKey(), entry.getValue(), characterPerformingActionFetishes));
+					}
 				}
 			}
+			
+//			if(this.getAssociatedPenetrationType()!=null && this.getAssociatedOrificeType()!=null
+//					&& this.getActionType()!=SexActionType.PLAYER_STOP_PENETRATION
+//					&& this.getActionType()!=SexActionType.PARTNER_STOP_PENETRATION
+//					&& this.getParticipantType()!=SexParticipantType.MISC) {
+//				if(characterPerformingActionFetishes) {
+//					characterFetishes.get(characterPerformingAction).addAll(
+//							getFetishesFromPenetrationAndOrificeTypes(characterPerformingAction, this.getAssociatedPenetrationType(), this.getAssociatedOrificeType(), characterPerformingActionFetishes));
+//				} else {
+//					characterFetishesForPartner.get(characterPerformingAction).addAll(
+//							getFetishesFromPenetrationAndOrificeTypes(characterPerformingAction, this.getAssociatedPenetrationType(), this.getAssociatedOrificeType(), characterPerformingActionFetishes));
+//				}
+//			}
 			
 			characterFetishes.get(characterPerformingAction).removeIf(f -> !characterTarget.hasVagina() && (f==Fetish.FETISH_VAGINAL_GIVING || f==Fetish.FETISH_IMPREGNATION || f==Fetish.FETISH_SEEDER));
 			characterFetishesForPartner.get(characterPerformingAction).removeIf(f -> !characterTarget.hasVagina() && (f==Fetish.FETISH_VAGINAL_GIVING || f==Fetish.FETISH_IMPREGNATION || f==Fetish.FETISH_SEEDER));
@@ -481,6 +534,20 @@ public abstract class SexAction implements SexActionInterface {
 		} else {
 			return new ArrayList<>(characterFetishesForPartner.get(characterPerformingAction));
 		}
+	}
+	
+
+	protected List<Fetish> getFetishesFromPenetrationAndOrificeTypes(GameCharacter characterPerformingAction, SexAreaInterface characterPerformingActionArea, SexAreaInterface characterTargetedArea, boolean characterPerformingActionFetishes) {
+		if(characterPerformingActionArea.isPenetration() && characterTargetedArea.isOrifice()) {
+			return getFetishesFromPenetrationAndOrificeTypes(characterPerformingAction, (SexAreaPenetration)characterPerformingActionArea, (SexAreaOrifice)characterTargetedArea, characterPerformingActionFetishes);
+			
+		} else if(characterPerformingActionArea.isOrifice() && characterTargetedArea.isPenetration()) {
+			return getFetishesFromPenetrationAndOrificeTypes(characterPerformingAction, (SexAreaPenetration)characterTargetedArea,(SexAreaOrifice) characterPerformingActionArea, characterPerformingActionFetishes);
+		}
+		
+		//TODO add support for pen/pen and orifice/orifice actions
+		
+		return new ArrayList<>();
 	}
 	
 	protected List<Fetish> getFetishesFromPenetrationAndOrificeTypes(GameCharacter characterPerformingAction, SexAreaPenetration penetrationBeingUsed, SexAreaOrifice orificeBeingUsed, boolean characterPerformingActionFetishes) {

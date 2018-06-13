@@ -5,6 +5,7 @@ import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
+import com.lilithsthrone.game.sex.sexActions.SexActionLimitation;
 import com.lilithsthrone.game.sex.sexActions.SexActionPriority;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 
@@ -15,13 +16,16 @@ import com.lilithsthrone.game.sex.sexActions.SexActionType;
  */
 public class SAZaranixCockSucking {
 	public static final SexAction PARTNER_STOP_SEX = new SexAction(
-			SexActionType.PARTNER_SPECIAL,
+			SexActionType.SPECIAL,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
 			SexParticipantType.MISC) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "";

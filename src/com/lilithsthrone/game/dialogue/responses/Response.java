@@ -1,5 +1,7 @@
 package com.lilithsthrone.game.dialogue.responses;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
@@ -12,8 +14,7 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.sex.SexAreaOrifice;
-import com.lilithsthrone.game.sex.SexAreaPenetration;
+import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
@@ -22,7 +23,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.69
- * @version 0.1.99
+ * @version 0.2.7
  * @author Innoxia
  */
 public class Response {
@@ -36,11 +37,11 @@ public class Response {
 	private Femininity femininityRequired;
 	private Race raceRequired;
 
-	private SexAreaPenetration penetrationTypeAccessRequired;
-	private SexAreaOrifice orificeTypeAccessRequired;
+	private GameCharacter characterPerformingSexAction;
+	private List<SexAreaInterface> sexAreaAccessRequiredForPerformer;
 
-	private GameCharacter characterPenetrating;
-	private GameCharacter characterPenetrated;
+	private GameCharacter characterTargetedForSexAction;
+	private List<SexAreaInterface> sexAreaAccessRequiredForTargeted;
 	
 	public Response(String title,
 			String tooltipText,
@@ -74,8 +75,10 @@ public class Response {
 			List<Perk> perksRequired,
 			Femininity femininityRequired,
 			Race raceRequired,
-			GameCharacter characterPenetrating, SexAreaPenetration penetrationTypeAccessRequired,
-			GameCharacter characterPenetrated, SexAreaOrifice orificeTypeAccessRequired) {
+			GameCharacter characterPenetrating,
+			Collection<SexAreaInterface> sexAreaAccessRequiredForPerformer,
+			GameCharacter characterPenetrated,
+			Collection<SexAreaInterface> sexAreaAccessRequiredForTargeted) {
 		
 		this.title = UtilText.parse(title);
 		this.tooltipText = UtilText.parse(tooltipText);
@@ -87,11 +90,18 @@ public class Response {
 		this.femininityRequired = femininityRequired;
 		this.raceRequired = raceRequired;
 		
-		this.penetrationTypeAccessRequired = penetrationTypeAccessRequired;
-		this.orificeTypeAccessRequired = orificeTypeAccessRequired;
+		this.sexAreaAccessRequiredForPerformer = new ArrayList<>();
+		if(sexAreaAccessRequiredForPerformer!=null) {
+			this.sexAreaAccessRequiredForPerformer.addAll(sexAreaAccessRequiredForPerformer);
+		}
 
-		this.characterPenetrating=characterPenetrating;
-		this.characterPenetrated=characterPenetrated;
+		this.sexAreaAccessRequiredForTargeted = new ArrayList<>();
+		if(sexAreaAccessRequiredForTargeted!=null) {
+			this.sexAreaAccessRequiredForTargeted.addAll(sexAreaAccessRequiredForTargeted);
+		}
+
+		this.characterPerformingSexAction=characterPenetrating;
+		this.characterTargetedForSexAction=characterPenetrated;
 	}
 
 	public String getTitle() {
@@ -183,8 +193,8 @@ public class Response {
 				|| perksRequired != null
 				|| femininityRequired != null
 				|| raceRequired != null
-				|| penetrationTypeAccessRequired != null
-				|| orificeTypeAccessRequired != null;
+				|| !sexAreaAccessRequiredForPerformer.isEmpty()
+				|| !sexAreaAccessRequiredForTargeted.isEmpty();
 	}
 	
 	public boolean isAvailable(){
@@ -288,68 +298,92 @@ public class Response {
 			}
 		}
 		
-		if(penetrationTypeAccessRequired!=null && characterPenetrating!=null) {
-			boolean penetrationAccess = characterPenetrating.isPenetrationTypeExposed(penetrationTypeAccessRequired);
-			boolean penetrationFree = penetrationTypeAccessRequired.isFree(characterPenetrating);
-			
-			String penetrationName = Util.capitaliseSentence(penetrationTypeAccessRequired.getName(characterPenetrating));
-			String accessText = (penetrationAccess?"access":"<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>access</span>");
-			String freeText = (penetrationFree?"free":"<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>free</span>");
-			String targetName = (characterPenetrating.isPlayer()?"Your":UtilText.parse(characterPenetrating, "[npc.Name]'s"));
-			
-			if(getSexActionType()==SexActionType.PLAYER_REQUIRES_NO_PENETRATION_AND_EXPOSED || getSexActionType()==SexActionType.PARTNER_REQUIRES_NO_PENETRATION_AND_EXPOSED
-					|| getSexActionType()==SexActionType.PLAYER_PENETRATION || getSexActionType()==SexActionType.PARTNER_PENETRATION) {
-				if(penetrationAccess && penetrationFree) {
-					SB.append("</br><b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Requirement</b> ("+accessText+" & "+freeText+"): "+targetName+" "+ penetrationName);
-				} else {
-					SB.append("</br><b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Requirement</b> ("+accessText+" & "+freeText+"): "+targetName+" "+ penetrationName);
+		if(sexAreaAccessRequiredForPerformer!=null && characterPerformingSexAction!=null) {
+			boolean penetrationAccess = true;
+			for(SexAreaInterface sArea : this.sexAreaAccessRequiredForPerformer) {
+				if(!characterPerformingSexAction.isSexAreaExposed(sArea)) {
+					penetrationAccess = false;
 				}
-				
-			} else if(getSexActionType()==SexActionType.PLAYER_REQUIRES_NO_PENETRATION || getSexActionType()==SexActionType.PARTNER_REQUIRES_NO_PENETRATION) {
-				if(penetrationFree) {
-					SB.append("</br><b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Requirement</b> ("+freeText+"): "+targetName+" "+ penetrationName);
-				} else {
-					SB.append("</br><b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Requirement</b> ("+freeText+"): "+targetName+" "+ penetrationName);
+			}
+			boolean penetrationFree = true;
+			for(SexAreaInterface sArea : this.sexAreaAccessRequiredForPerformer) {
+				if(!sArea.isFree(characterPerformingSexAction)) {
+					penetrationFree = false;
 				}
+			}
+			
+			for(SexAreaInterface sArea : sexAreaAccessRequiredForPerformer) {
+				String penetrationName = Util.capitaliseSentence(sArea.getName(characterPerformingSexAction));
+				String accessText = (penetrationAccess?"access":"<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>access</span>");
+				String freeText = (penetrationFree?"free":"<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>free</span>");
+				String targetName = (characterPerformingSexAction.isPlayer()?"Your":UtilText.parse(characterPerformingSexAction, "[npc.Name]'s"));
 				
-			} else {
-				if(penetrationAccess) {
-					SB.append("</br><b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Requirement</b> ("+accessText+"): "+targetName+" "+ penetrationName);
+				if(getSexActionType()==SexActionType.REQUIRES_NO_PENETRATION_AND_EXPOSED
+						|| getSexActionType()==SexActionType.START_ONGOING) {
+					if(penetrationAccess && penetrationFree) {
+						SB.append("</br><b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Requirement</b> ("+accessText+" & "+freeText+"): "+targetName+" "+ penetrationName);
+					} else {
+						SB.append("</br><b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Requirement</b> ("+accessText+" & "+freeText+"): "+targetName+" "+ penetrationName);
+					}
+					
+				} else if(getSexActionType()==SexActionType.REQUIRES_NO_PENETRATION) {
+					if(penetrationFree) {
+						SB.append("</br><b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Requirement</b> ("+freeText+"): "+targetName+" "+ penetrationName);
+					} else {
+						SB.append("</br><b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Requirement</b> ("+freeText+"): "+targetName+" "+ penetrationName);
+					}
+					
 				} else {
-					SB.append("</br><b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Requirement</b> ("+accessText+"): "+targetName+" "+ penetrationName);
+					if(penetrationAccess) {
+						SB.append("</br><b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Requirement</b> ("+accessText+"): "+targetName+" "+ penetrationName);
+					} else {
+						SB.append("</br><b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Requirement</b> ("+accessText+"): "+targetName+" "+ penetrationName);
+					}
 				}
 			}
 		}
 		
-		if(orificeTypeAccessRequired!=null && characterPenetrated!=null) {
-			boolean orificeAccess = characterPenetrated.isOrificeTypeExposed(orificeTypeAccessRequired);
-			boolean orificeFree = orificeTypeAccessRequired.isFree(characterPenetrated);
-			
-			String orificeName = Util.capitaliseSentence(orificeTypeAccessRequired.getName(characterPenetrated));
-			String accessText = (orificeAccess?"access":"<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>access</span>");
-			String freeText = (orificeFree?"free":"<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>free</span>");
-			String targetName = (characterPenetrated.isPlayer()?"Your":UtilText.parse(characterPenetrated, "[npc.Name]'s"));
-			
-			if(getSexActionType()==SexActionType.PLAYER_REQUIRES_NO_PENETRATION_AND_EXPOSED || getSexActionType()==SexActionType.PARTNER_REQUIRES_NO_PENETRATION_AND_EXPOSED
-					|| getSexActionType()==SexActionType.PLAYER_PENETRATION || getSexActionType()==SexActionType.PARTNER_PENETRATION) {
-				if(orificeAccess && orificeFree) {
-					SB.append("</br><b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Requirement</b> ("+accessText+" & "+freeText+"): "+targetName+" "+ orificeName);
-				} else {
-					SB.append("</br><b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Requirement</b> ("+accessText+" & "+freeText+"): "+targetName+" "+ orificeName);
+		if(sexAreaAccessRequiredForTargeted!=null && characterTargetedForSexAction!=null) {
+			boolean orificeAccess = true;
+			for(SexAreaInterface sArea : this.sexAreaAccessRequiredForTargeted) {
+				if(!characterTargetedForSexAction.isSexAreaExposed(sArea)) {
+					orificeAccess = false;
 				}
-				
-			} else if(getSexActionType()==SexActionType.PLAYER_REQUIRES_NO_PENETRATION || getSexActionType()==SexActionType.PARTNER_REQUIRES_NO_PENETRATION) {
-				if(orificeFree) {
-					SB.append("</br><b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Requirement</b> ("+freeText+"): "+targetName+" "+ orificeName);
-				} else {
-					SB.append("</br><b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Requirement</b> ("+freeText+"): "+targetName+" "+ orificeName);
+			}
+			boolean orificeFree = true;
+			for(SexAreaInterface sArea : this.sexAreaAccessRequiredForTargeted) {
+				if(!sArea.isFree(characterTargetedForSexAction)) {
+					orificeFree = false;
 				}
+			}
+
+			for(SexAreaInterface sArea : sexAreaAccessRequiredForTargeted) {
+				String orificeName = Util.capitaliseSentence(sArea.getName(characterTargetedForSexAction));
+				String accessText = (orificeAccess?"access":"<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>access</span>");
+				String freeText = (orificeFree?"free":"<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>free</span>");
+				String targetName = (characterTargetedForSexAction.isPlayer()?"Your":UtilText.parse(characterTargetedForSexAction, "[npc.Name]'s"));
 				
-			} else {
-				if(orificeAccess) {
-					SB.append("</br><b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Requirement</b> ("+accessText+"): "+targetName+" "+ orificeName);
+				if(getSexActionType()==SexActionType.REQUIRES_NO_PENETRATION_AND_EXPOSED
+						|| getSexActionType()==SexActionType.START_ONGOING) {
+					if(orificeAccess && orificeFree) {
+						SB.append("</br><b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Requirement</b> ("+accessText+" & "+freeText+"): "+targetName+" "+ orificeName);
+					} else {
+						SB.append("</br><b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Requirement</b> ("+accessText+" & "+freeText+"): "+targetName+" "+ orificeName);
+					}
+					
+				} else if(getSexActionType()==SexActionType.REQUIRES_NO_PENETRATION) {
+					if(orificeFree) {
+						SB.append("</br><b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Requirement</b> ("+freeText+"): "+targetName+" "+ orificeName);
+					} else {
+						SB.append("</br><b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Requirement</b> ("+freeText+"): "+targetName+" "+ orificeName);
+					}
+					
 				} else {
-					SB.append("</br><b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Requirement</b> ("+accessText+"): "+targetName+" "+ orificeName);
+					if(orificeAccess) {
+						SB.append("</br><b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Requirement</b> ("+accessText+"): "+targetName+" "+ orificeName);
+					} else {
+						SB.append("</br><b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Requirement</b> ("+accessText+"): "+targetName+" "+ orificeName);
+					}
 				}
 			}
 		}
@@ -403,9 +437,9 @@ public class Response {
 			heightLeft++;
 		if(raceRequired!=null)
 			heightLeft++;
-		if(penetrationTypeAccessRequired!=null)
+		if(sexAreaAccessRequiredForPerformer!=null)
 			heightLeft ++;
-		if(orificeTypeAccessRequired!=null)
+		if(sexAreaAccessRequiredForTargeted!=null)
 			heightLeft ++;
 		
 		if(fetishesRequired!=null)
@@ -473,19 +507,26 @@ public class Response {
 	}
 	
 	public boolean isPenetrationTypeAvailable() {
-		if(penetrationTypeAccessRequired==null)
+		if(sexAreaAccessRequiredForPerformer==null || sexAreaAccessRequiredForPerformer.isEmpty()) {
 			return true;
+		}
 		
 		// Don't care if exposed or not:
 		if(getSexActionType()!=null) {
 			switch(getSexActionType()){
-				case PARTNER_REQUIRES_NO_PENETRATION: case PLAYER_REQUIRES_NO_PENETRATION:
-					if(penetrationTypeAccessRequired.isFree(characterPenetrating))
-						return true;
-					break;
-				case PARTNER_PENETRATION: case PLAYER_PENETRATION:
-					if(!penetrationTypeAccessRequired.isFree(characterPenetrating))
-						return false;
+				case REQUIRES_NO_PENETRATION:
+					for(SexAreaInterface sArea : sexAreaAccessRequiredForPerformer) {
+						if(!sArea.isFree(characterPerformingSexAction)) {
+							return false;
+						}
+					}
+					return true;
+				case START_ONGOING:
+					for(SexAreaInterface sArea : sexAreaAccessRequiredForPerformer) {
+						if(!sArea.isFree(characterPerformingSexAction)) {
+							return false;
+						}
+					}
 					break;
 				default:
 					break;
@@ -493,15 +534,20 @@ public class Response {
 		}
 		
 		// Check to make sure penetrationType is exposed:
-		if(!characterPenetrating.isPenetrationTypeExposed(penetrationTypeAccessRequired)) {
-			return false;
+		for(SexAreaInterface sArea : sexAreaAccessRequiredForPerformer) {
+			if(!characterPerformingSexAction.isSexAreaExposed(sArea)) {
+				return false;
+			}
 		}
 		
 		if(getSexActionType()!=null) {
 			switch(getSexActionType()){
-				case PARTNER_REQUIRES_NO_PENETRATION_AND_EXPOSED: case PLAYER_REQUIRES_NO_PENETRATION_AND_EXPOSED:
-					if(!penetrationTypeAccessRequired.isFree(characterPenetrating))
-						return false;
+				case REQUIRES_NO_PENETRATION_AND_EXPOSED:
+					for(SexAreaInterface sArea : sexAreaAccessRequiredForPerformer) {
+						if(!sArea.isFree(characterPerformingSexAction)) {
+							return false;
+						}
+					}
 					break;
 				default:
 					break;
@@ -512,35 +558,47 @@ public class Response {
 	}
 	
 	public boolean isOrificeTypeAvailable() {
-		if(orificeTypeAccessRequired==null)
+		if(sexAreaAccessRequiredForTargeted==null || sexAreaAccessRequiredForTargeted.isEmpty()) {
 			return true;
+		}
 		
 		// Don't care if exposed or not:
 		if(getSexActionType()!=null) {
 			switch(getSexActionType()){
-				case PARTNER_REQUIRES_NO_PENETRATION: case PLAYER_REQUIRES_NO_PENETRATION:
-					if(orificeTypeAccessRequired.isFree(characterPenetrated))
-						return true;
-					break;
-				case PARTNER_PENETRATION: case PLAYER_PENETRATION:
-					if(!orificeTypeAccessRequired.isFree(characterPenetrated))
-						return false;
+				case REQUIRES_NO_PENETRATION:
+					for(SexAreaInterface sArea : sexAreaAccessRequiredForTargeted) {
+						if(!sArea.isFree(characterTargetedForSexAction)) {
+							return false;
+						}
+					}
+					return true;
+				case START_ONGOING:
+					for(SexAreaInterface sArea : sexAreaAccessRequiredForTargeted) {
+						if(!sArea.isFree(characterTargetedForSexAction)) {
+							return false;
+						}
+					}
 					break;
 				default:
 					break;
 			}
 		}
-
-		// Check to make sure orifice is exposed:
-		if(!characterPenetrated.isOrificeTypeExposed(orificeTypeAccessRequired)) {
-			return false;
+		
+		// Check to make sure penetrationType is exposed:
+		for(SexAreaInterface sArea : sexAreaAccessRequiredForTargeted) {
+			if(!characterTargetedForSexAction.isSexAreaExposed(sArea)) {
+				return false;
+			}
 		}
 		
 		if(getSexActionType()!=null) {
 			switch(getSexActionType()){
-				case PARTNER_REQUIRES_NO_PENETRATION_AND_EXPOSED: case PLAYER_REQUIRES_NO_PENETRATION_AND_EXPOSED:
-					if(!orificeTypeAccessRequired.isFree(characterPenetrated))
-						return false;
+				case REQUIRES_NO_PENETRATION_AND_EXPOSED:
+					for(SexAreaInterface sArea : sexAreaAccessRequiredForTargeted) {
+						if(!sArea.isFree(characterTargetedForSexAction)) {
+							return false;
+						}
+					}
 					break;
 				default:
 					break;

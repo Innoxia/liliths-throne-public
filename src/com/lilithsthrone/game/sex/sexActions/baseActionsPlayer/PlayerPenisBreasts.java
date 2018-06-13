@@ -3,15 +3,18 @@ package com.lilithsthrone.game.sex.sexActions.baseActionsPlayer;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
+import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
+import com.lilithsthrone.game.sex.sexActions.SexActionLimitation;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.84
@@ -21,13 +24,16 @@ import com.lilithsthrone.main.Main;
 public class PlayerPenisBreasts {
 	
 	public static final SexAction PLAYER_FORCE_COCK_INTO_MOUTH = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			SexAreaPenetration.PENIS,
-			SexAreaOrifice.BREAST,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.BREAST)),
 			SexParticipantType.PITCHER) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Thrust into mouth";
@@ -120,19 +126,22 @@ public class PlayerPenisBreasts {
 		
 		@Override
 		public void applyEffects() {
-			Sex.transferLubrication(Main.game.getPlayer(), Sex.getActivePartner(), SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH);
+			Sex.transferLubrication(Main.game.getPlayer(), SexAreaPenetration.PENIS, Sex.getActivePartner(), SexAreaOrifice.MOUTH);
 		}
 		
 	};
 	
 	public static final SexAction PARTNER_TAKE_COCK_INTO_MOUTH = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			SexAreaPenetration.PENIS,
-			SexAreaOrifice.BREAST,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.BREAST)),
 			SexParticipantType.CATCHER) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			if(Sex.getActivePartner().isBreastFuckablePaizuri()) {
@@ -234,25 +243,28 @@ public class PlayerPenisBreasts {
 		
 		@Override
 		public void applyEffects() {
-			Sex.transferLubrication(Main.game.getPlayer(), Sex.getActivePartner(), SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH);
+			Sex.transferLubrication(Main.game.getPlayer(), SexAreaPenetration.PENIS, Sex.getActivePartner(), SexAreaOrifice.MOUTH);
 		}
 		
 	};
 	
 	
 	public static final SexAction PLAYER_FUCKING_START = new SexAction(
-			SexActionType.PLAYER_PENETRATION,
+			SexActionType.START_ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			SexAreaPenetration.PENIS,
-			SexAreaOrifice.BREAST,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.BREAST)),
 			SexParticipantType.PITCHER) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), SexAreaOrifice.ANUS) != SexAreaPenetration.PENIS
-					&& Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), SexAreaOrifice.VAGINA) != SexAreaPenetration.PENIS;
+			return !Sex.getAllContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.ANUS).contains(SexAreaPenetration.PENIS)
+					&& !Sex.getAllContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS);
 		}
 		
 		@Override
@@ -462,15 +474,18 @@ public class PlayerPenisBreasts {
 	};
 	
 	public static final SexAction PLAYER_FUCKING_DOM_GENTLE = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			SexAreaPenetration.PENIS,
-			SexAreaOrifice.BREAST,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.BREAST)),
 			SexParticipantType.PITCHER,
 			SexPace.DOM_GENTLE,
 			null) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			if(Sex.getActivePartner().isBreastFuckablePaizuri()) {
@@ -575,15 +590,18 @@ public class PlayerPenisBreasts {
 	};
 	
 	public static final SexAction PLAYER_FUCKING_DOM_NORMAL = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			SexAreaPenetration.PENIS,
-			SexAreaOrifice.BREAST,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.BREAST)),
 			SexParticipantType.PITCHER,
 			SexPace.DOM_NORMAL,
 			null) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			if(Sex.getActivePartner().isBreastFuckablePaizuri()) {
@@ -689,15 +707,18 @@ public class PlayerPenisBreasts {
 	};
 	
 	public static final SexAction PLAYER_FUCKING_DOM_ROUGH = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.TWO_HORNY,
-			SexAreaPenetration.PENIS,
-			SexAreaOrifice.BREAST,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.BREAST)),
 			SexParticipantType.PITCHER,
 			SexPace.DOM_ROUGH,
 			null) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			if(Sex.getActivePartner().isBreastFuckablePaizuri()) {
@@ -803,15 +824,18 @@ public class PlayerPenisBreasts {
 	};
 	
 	public static final SexAction PLAYER_FUCKING_SUB_NORMAL = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			SexAreaPenetration.PENIS,
-			SexAreaOrifice.BREAST,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.BREAST)),
 			SexParticipantType.PITCHER,
 			SexPace.SUB_NORMAL,
 			null) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			if(Sex.getActivePartner().isBreastFuckablePaizuri()) {
@@ -921,15 +945,18 @@ public class PlayerPenisBreasts {
 	};
 	
 	public static final SexAction PLAYER_FUCKING_SUB_EAGER = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			SexAreaPenetration.PENIS,
-			SexAreaOrifice.BREAST,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.BREAST)),
 			SexParticipantType.PITCHER,
 			SexPace.SUB_EAGER,
 			null) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			if(Sex.getActivePartner().isBreastFuckablePaizuri()) {
@@ -1039,15 +1066,18 @@ public class PlayerPenisBreasts {
 	};
 	
 	public static final SexAction PLAYER_FUCKING_SUB_RESIST = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ZERO_PURE,
-			SexAreaPenetration.PENIS,
-			SexAreaOrifice.BREAST,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.BREAST)),
 			SexParticipantType.PITCHER,
 			SexPace.SUB_RESISTING,
 			null) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			if(Sex.getActivePartner().isBreastFuckablePaizuri()) {
@@ -1165,13 +1195,16 @@ public class PlayerPenisBreasts {
 	};
 	
 	public static final SexAction PLAYER_FUCKING_STOP = new SexAction(
-			SexActionType.PLAYER_STOP_PENETRATION,
+			SexActionType.STOP_ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			SexAreaPenetration.PENIS,
-			SexAreaOrifice.BREAST,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.BREAST)),
 			SexParticipantType.PITCHER) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -1265,18 +1298,21 @@ public class PlayerPenisBreasts {
 	// Partner actions:
 	
 	public static final SexAction PARTNER_USING_COCK_START = new SexAction(
-			SexActionType.PARTNER_PENETRATION,
+			SexActionType.START_ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			SexAreaPenetration.PENIS,
-			SexAreaOrifice.BREAST,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.BREAST)),
 			SexParticipantType.CATCHER) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), SexAreaOrifice.ANUS) != SexAreaPenetration.PENIS
-					&& Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), SexAreaOrifice.VAGINA) != SexAreaPenetration.PENIS;
+			return !Sex.getAllContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.ANUS).contains(SexAreaPenetration.PENIS)
+					&& !Sex.getAllContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS);
 		}
 
 		@Override
@@ -1478,15 +1514,18 @@ public class PlayerPenisBreasts {
 	};
 	
 	public static final SexAction PARTNER_PERFORMING_COCK_DOM_GENTLE = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			SexAreaPenetration.PENIS,
-			SexAreaOrifice.BREAST,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.BREAST)),
 			SexParticipantType.CATCHER,
 			null,
 			SexPace.DOM_GENTLE) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -1544,15 +1583,18 @@ public class PlayerPenisBreasts {
 	};
 	
 	public static final SexAction PARTNER_PERFORMING_COCK_DOM_NORMAL = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			SexAreaPenetration.PENIS,
-			SexAreaOrifice.BREAST,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.BREAST)),
 			SexParticipantType.CATCHER,
 			null,
 			SexPace.DOM_NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -1611,15 +1653,18 @@ public class PlayerPenisBreasts {
 	};
 	
 	public static final SexAction PARTNER_PERFORMING_COCK_DOM_ROUGH = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.TWO_HORNY,
-			SexAreaPenetration.PENIS,
-			SexAreaOrifice.BREAST,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.BREAST)),
 			SexParticipantType.CATCHER,
 			null,
 			SexPace.DOM_ROUGH) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -1679,15 +1724,18 @@ public class PlayerPenisBreasts {
 	};
 	
 	public static final SexAction PARTNER_PERFORMING_COCK_SUB_NORMAL = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			SexAreaPenetration.PENIS,
-			SexAreaOrifice.BREAST,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.BREAST)),
 			SexParticipantType.CATCHER,
 			null,
 			SexPace.SUB_NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -1745,15 +1793,18 @@ public class PlayerPenisBreasts {
 	};
 	
 	public static final SexAction PARTNER_PERFORMING_COCK_SUB_EAGER = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			SexAreaPenetration.PENIS,
-			SexAreaOrifice.BREAST,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.BREAST)),
 			SexParticipantType.CATCHER,
 			null,
 			SexPace.SUB_EAGER) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -1812,15 +1863,18 @@ public class PlayerPenisBreasts {
 	};
 	
 	public static final SexAction PARTNER_FUCKED_SUB_RESIST = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ZERO_PURE,
-			SexAreaPenetration.PENIS,
-			SexAreaOrifice.BREAST,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.BREAST)),
 			SexParticipantType.CATCHER,
 			null,
 			SexPace.SUB_RESISTING) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -1877,13 +1931,16 @@ public class PlayerPenisBreasts {
 	};
 	
 	public static final SexAction PARTNER_FUCKED_STOP = new SexAction(
-			SexActionType.PARTNER_STOP_PENETRATION,
+			SexActionType.STOP_ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			SexAreaPenetration.PENIS,
-			SexAreaOrifice.BREAST,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.BREAST)),
 			SexParticipantType.CATCHER) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {

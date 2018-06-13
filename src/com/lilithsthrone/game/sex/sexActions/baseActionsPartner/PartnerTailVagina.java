@@ -8,15 +8,17 @@ import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
+import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
+import com.lilithsthrone.game.sex.sexActions.SexActionLimitation;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.82
@@ -26,13 +28,16 @@ import com.lilithsthrone.utils.Util;
 public class PartnerTailVagina {
 	
 	public static final SexAction PARTNER_TEASE_TAIL_OVER_PUSSY = new SexAction(
-			SexActionType.PARTNER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
+			SexActionType.REQUIRES_NO_PENETRATION_AND_EXPOSED,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			SexAreaPenetration.TAIL,
-			SexAreaOrifice.VAGINA,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TAIL, SexAreaOrifice.VAGINA)),
 			SexParticipantType.PITCHER) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Tail tease";
@@ -113,7 +118,7 @@ public class PartnerTailVagina {
 		
 		@Override
 		public void applyEffects() {
-			Sex.transferLubrication(Sex.getActivePartner(), Main.game.getPlayer(), SexAreaPenetration.TAIL, SexAreaOrifice.VAGINA);
+			Sex.transferLubrication(Sex.getActivePartner(), SexAreaPenetration.TAIL, Main.game.getPlayer(), SexAreaOrifice.VAGINA);
 		}
 		
 		@Override
@@ -123,13 +128,16 @@ public class PartnerTailVagina {
 	};
 	
 	public static final SexAction PLAYER_FORCE_TAIL_OVER_PUSSY = new SexAction(
-			SexActionType.PLAYER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
+			SexActionType.REQUIRES_NO_PENETRATION_AND_EXPOSED,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			SexAreaPenetration.TAIL,
-			SexAreaOrifice.VAGINA,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TAIL, SexAreaOrifice.VAGINA)),
 			SexParticipantType.CATCHER) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Tease [npc.her] tail";
@@ -204,7 +212,7 @@ public class PartnerTailVagina {
 		
 		@Override
 		public void applyEffects() {
-			Sex.transferLubrication(Sex.getActivePartner(), Main.game.getPlayer(), SexAreaPenetration.TAIL, SexAreaOrifice.VAGINA);
+			Sex.transferLubrication(Sex.getActivePartner(), SexAreaPenetration.TAIL, Main.game.getPlayer(), SexAreaOrifice.VAGINA);
 		}
 		
 		@Override
@@ -215,13 +223,16 @@ public class PartnerTailVagina {
 	
 	
 	public static final SexAction PARTNER_FUCKING_START = new SexAction(
-			SexActionType.PARTNER_PENETRATION,
+			SexActionType.START_ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			SexAreaPenetration.TAIL,
-			SexAreaOrifice.VAGINA,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TAIL, SexAreaOrifice.VAGINA)),
 			SexParticipantType.PITCHER) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		
 		@Override
 		public String getActionTitle() {
@@ -309,15 +320,18 @@ public class PartnerTailVagina {
 	};
 	
 	public static final SexAction PARTNER_FUCKING_DOM_GENTLE = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			SexAreaPenetration.TAIL,
-			SexAreaOrifice.VAGINA,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TAIL, SexAreaOrifice.VAGINA)),
 			SexParticipantType.PITCHER,
 			null,
 			SexPace.DOM_GENTLE) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		
 		@Override
 		public String getActionTitle() {
@@ -370,15 +384,18 @@ public class PartnerTailVagina {
 	};
 	
 	public static final SexAction PARTNER_FUCKING_DOM_NORMAL = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			SexAreaPenetration.TAIL,
-			SexAreaOrifice.VAGINA,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TAIL, SexAreaOrifice.VAGINA)),
 			SexParticipantType.PITCHER,
 			null,
 			SexPace.DOM_NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		
 		@Override
 		public String getActionTitle() {
@@ -432,15 +449,18 @@ public class PartnerTailVagina {
 	};
 	
 	public static final SexAction PARTNER_FUCKING_DOM_ROUGH = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.TWO_HORNY,
-			SexAreaPenetration.TAIL,
-			SexAreaOrifice.VAGINA,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TAIL, SexAreaOrifice.VAGINA)),
 			SexParticipantType.PITCHER,
 			null,
 			SexPace.DOM_ROUGH) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Rough tail-fuck";
@@ -494,15 +514,18 @@ public class PartnerTailVagina {
 	};
 	
 	public static final SexAction PARTNER_FUCKING_SUB_NORMAL = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			SexAreaPenetration.TAIL,
-			SexAreaOrifice.VAGINA,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TAIL, SexAreaOrifice.VAGINA)),
 			SexParticipantType.PITCHER,
 			null,
 			SexPace.SUB_NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		
 		@Override
 		public String getActionTitle() {
@@ -555,15 +578,18 @@ public class PartnerTailVagina {
 	};
 	
 	public static final SexAction PARTNER_FUCKING_SUB_EAGER = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			SexAreaPenetration.TAIL,
-			SexAreaOrifice.VAGINA,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TAIL, SexAreaOrifice.VAGINA)),
 			SexParticipantType.PITCHER,
 			null,
 			SexPace.SUB_EAGER) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Eager tail-fuck";
@@ -616,15 +642,18 @@ public class PartnerTailVagina {
 	};
 	
 	public static final SexAction PARTNER_FUCKING_SUB_RESIST = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ZERO_PURE,
-			SexAreaPenetration.TAIL,
-			SexAreaOrifice.VAGINA,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TAIL, SexAreaOrifice.VAGINA)),
 			SexParticipantType.PITCHER,
 			null,
 			SexPace.SUB_RESISTING) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Resist tail-sex";
@@ -677,13 +706,16 @@ public class PartnerTailVagina {
 	};
 	
 	public static final SexAction PARTNER_FUCKING_STOP = new SexAction(
-			SexActionType.PARTNER_STOP_PENETRATION,
+			SexActionType.STOP_ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			SexAreaPenetration.TAIL,
-			SexAreaOrifice.VAGINA,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TAIL, SexAreaOrifice.VAGINA)),
 			SexParticipantType.PITCHER) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -739,13 +771,16 @@ public class PartnerTailVagina {
 	// Player actions:
 	
 	public static final SexAction PLAYER_USING_TAIL_START = new SexAction(
-			SexActionType.PLAYER_PENETRATION,
+			SexActionType.START_ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			SexAreaPenetration.TAIL,
-			SexAreaOrifice.VAGINA,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TAIL, SexAreaOrifice.VAGINA)),
 			SexParticipantType.CATCHER) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -838,15 +873,18 @@ public class PartnerTailVagina {
 	};
 	
 	public static final SexAction PLAYER_RIDING_TAIL_DOM_GENTLE = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			SexAreaPenetration.TAIL,
-			SexAreaOrifice.VAGINA,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TAIL, SexAreaOrifice.VAGINA)),
 			SexParticipantType.CATCHER,
 			SexPace.DOM_GENTLE,
 			null) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -877,15 +915,18 @@ public class PartnerTailVagina {
 	};
 	
 	public static final SexAction PLAYER_RIDING_TAIL_DOM_NORMAL = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			SexAreaPenetration.TAIL,
-			SexAreaOrifice.VAGINA,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TAIL, SexAreaOrifice.VAGINA)),
 			SexParticipantType.CATCHER,
 			SexPace.DOM_NORMAL,
 			null) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -916,15 +957,18 @@ public class PartnerTailVagina {
 	};
 	
 	public static final SexAction PLAYER_RIDING_TAIL_DOM_ROUGH = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.TWO_HORNY,
-			SexAreaPenetration.TAIL,
-			SexAreaOrifice.VAGINA,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TAIL, SexAreaOrifice.VAGINA)),
 			SexParticipantType.CATCHER,
 			SexPace.DOM_ROUGH,
 			null) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -956,15 +1000,18 @@ public class PartnerTailVagina {
 	};
 	
 	public static final SexAction PLAYER_RIDING_TAIL_SUB_NORMAL = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			SexAreaPenetration.TAIL,
-			SexAreaOrifice.VAGINA,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TAIL, SexAreaOrifice.VAGINA)),
 			SexParticipantType.CATCHER,
 			SexPace.SUB_NORMAL,
 			null) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -995,15 +1042,18 @@ public class PartnerTailVagina {
 	};
 	
 	public static final SexAction PLAYER_RIDING_TAIL_SUB_EAGER = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			SexAreaPenetration.TAIL,
-			SexAreaOrifice.VAGINA,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TAIL, SexAreaOrifice.VAGINA)),
 			SexParticipantType.CATCHER,
 			SexPace.SUB_EAGER,
 			null) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -1034,15 +1084,18 @@ public class PartnerTailVagina {
 	};
 	
 	public static final SexAction PLAYER_FUCKED_SUB_RESIST = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.ZERO_NONE,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ZERO_PURE,
-			SexAreaPenetration.TAIL,
-			SexAreaOrifice.VAGINA,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TAIL, SexAreaOrifice.VAGINA)),
 			SexParticipantType.CATCHER,
 			SexPace.SUB_RESISTING,
 			null) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Resist tail-fucking";
@@ -1098,13 +1151,16 @@ public class PartnerTailVagina {
 	};
 	
 	public static final SexAction PLAYER_FUCKED_STOP = new SexAction(
-			SexActionType.PLAYER_STOP_PENETRATION,
+			SexActionType.STOP_ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			SexAreaPenetration.TAIL,
-			SexAreaOrifice.VAGINA,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TAIL, SexAreaOrifice.VAGINA)),
 			SexParticipantType.CATCHER) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -1157,13 +1213,16 @@ public class PartnerTailVagina {
 	};
 	
 	public static final SexAction PLAYER_PUSSY_CONTROL = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FIVE_EXTREME,
 			CorruptionLevel.ZERO_PURE,
-			SexAreaPenetration.TAIL,
-			SexAreaOrifice.VAGINA,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TAIL, SexAreaOrifice.VAGINA)),
 			SexParticipantType.CATCHER) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Pussy control";

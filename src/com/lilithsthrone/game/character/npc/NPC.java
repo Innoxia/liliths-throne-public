@@ -69,6 +69,7 @@ import com.lilithsthrone.game.settings.ForcedTFTendency;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
@@ -2245,8 +2246,8 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		
 		SexParticipantType type = sexType.getAsParticipant();
 		SexType partnerSexType = sexType;
-		SexAreaPenetration penetration = sexType.getPenetrationType();
-		SexAreaOrifice orifice = sexType.getOrificeType();
+		SexAreaInterface penetration = sexType.getPenetrationType();
+		SexAreaInterface orifice = sexType.getOrificeType();
 		
 		this.addSexPartner(partner, sexType);
 		if(type == SexParticipantType.PITCHER) {
@@ -2259,51 +2260,55 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		} 
 		
 		if(type.isUsingSelfOrificeType()) {
-			if(penetration.isTakesVirginity()) {
+			if(penetration.isPenetration() && ((SexAreaPenetration)penetration).isTakesVirginity()) {
 				this.setVirginityLoss(sexType, partner.getName("a") + " " + partner.getLostVirginityDescriptor());
-				switch(orifice) {
-					case ANUS:
-						this.setAssVirgin(false);
-						break;
-					case ASS:
-						break;
-					case BREAST:
-						break;
-					case MOUTH:
-						this.setFaceVirgin(false);
-						break;
-					case NIPPLE:
-						this.setNippleVirgin(false);
-						break;
-					case THIGHS:
-						break;
-					case URETHRA_PENIS:
-						this.setUrethraVirgin(false);
-						break;
-					case URETHRA_VAGINA:
-						this.setVaginaUrethraVirgin(false);
-						break;
-					case VAGINA:
-						this.setVaginaVirgin(false);
-						break;
+				if(orifice.isOrifice()) {
+					switch(((SexAreaOrifice)orifice)) {
+						case ANUS:
+							this.setAssVirgin(false);
+							break;
+						case ASS:
+							break;
+						case BREAST:
+							break;
+						case MOUTH:
+							this.setFaceVirgin(false);
+							break;
+						case NIPPLE:
+							this.setNippleVirgin(false);
+							break;
+						case THIGHS:
+							break;
+						case URETHRA_PENIS:
+							this.setUrethraVirgin(false);
+							break;
+						case URETHRA_VAGINA:
+							this.setVaginaUrethraVirgin(false);
+							break;
+						case VAGINA:
+							this.setVaginaVirgin(false);
+							break;
+					}
 				}
 			}
-			switch(sexType.getPenetrationType()) {
-				case FINGER:
-					break;
-				case PENIS:
-					this.setVirginityLoss(partnerSexType, this.getName("a") + " " + this.getLostVirginityDescriptor());
-					partner.setPenisVirgin(false);
-					if(partner.getPenisRawCumStorageValue()>0) {
-						this.ingestFluid(partner, partner.getCumType(), orifice, partner.getPenisRawCumStorageValue(), partner.getCumModifiers());
-					}
-					break;
-				case TAIL:
-					break;
-				case TENTACLE:
-					break;
-				case TONGUE:
-					break;
+			if(penetration.isPenetration()) {
+				switch(((SexAreaPenetration)penetration)) {
+					case FINGER:
+						break;
+					case PENIS:
+						this.setVirginityLoss(partnerSexType, this.getName("a") + " " + this.getLostVirginityDescriptor());
+						partner.setPenisVirgin(false);
+						if(partner.getPenisRawCumStorageValue()>0 && orifice.isOrifice()) {
+							this.ingestFluid(partner, partner.getCumType(), (SexAreaOrifice)orifice, partner.getPenisRawCumStorageValue(), partner.getCumModifiers());
+						}
+						break;
+					case TAIL:
+						break;
+					case TENTACLE:
+						break;
+					case TONGUE:
+						break;
+				}
 			}
 		}
 		

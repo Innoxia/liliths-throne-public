@@ -11,15 +11,17 @@ import com.lilithsthrone.game.character.body.valueEnums.PenisModifier;
 import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
+import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
+import com.lilithsthrone.game.sex.sexActions.SexActionLimitation;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.69
@@ -29,15 +31,18 @@ import com.lilithsthrone.utils.Util;
 public class SubKneeling {
 	
 	public static final SexAction PLAYER_MOUND_SNOG = new SexAction(
-			SexActionType.PLAYER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
+			SexActionType.REQUIRES_NO_PENETRATION_AND_EXPOSED,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			SexAreaPenetration.TONGUE,
-			SexAreaOrifice.VAGINA,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA)),
 			SexParticipantType.PITCHER,
 			null,
 			SexPace.SUB_EAGER) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Snog mound";
@@ -67,15 +72,18 @@ public class SubKneeling {
 	};
 	
 	public static final SexAction PLAYER_MOUND_KISSING = new SexAction(
-			SexActionType.PLAYER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
+			SexActionType.REQUIRES_NO_PENETRATION_AND_EXPOSED,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			SexAreaPenetration.TONGUE,
-			SexAreaOrifice.VAGINA,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA)),
 			SexParticipantType.PITCHER,
 			null,
 			SexPace.SUB_NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Kiss mound";
@@ -107,13 +115,16 @@ public class SubKneeling {
 	// Special orgasms for this scene:
 	
 	public static final SexAction PARTNER_ORGASM_THIGH_SQUEEZE = new SexAction(
-			SexActionType.PARTNER_ORGASM,
+			SexActionType.ORGASM,
 			ArousalIncrease.FIVE_EXTREME,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			SexAreaPenetration.TONGUE,
-			SexAreaOrifice.VAGINA,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA)),
 			SexParticipantType.CATCHER) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Thigh squeeze";
@@ -190,13 +201,16 @@ public class SubKneeling {
 	};
 	
 	public static final SexAction PARTNER_ORGASM_CUM_DOWN_THROAT = new SexAction(
-			SexActionType.PARTNER_ORGASM,
+			SexActionType.ORGASM,
 			ArousalIncrease.FIVE_EXTREME,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			SexAreaPenetration.PENIS,
-			SexAreaOrifice.MOUTH,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH)),
 			SexParticipantType.PITCHER) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -291,13 +305,16 @@ public class SubKneeling {
 	};
 	
 	public static final SexAction PARTNER_ORGASM_FACIAL = new SexAction(
-			SexActionType.PARTNER_ORGASM,
+			SexActionType.ORGASM,
 			ArousalIncrease.FIVE_EXTREME,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			SexAreaPenetration.PENIS,
-			SexAreaOrifice.MOUTH,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH)),
 			SexParticipantType.PITCHER) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "";
@@ -388,7 +405,7 @@ public class SubKneeling {
 					Main.game.getPlayer().getHighestZLayerCoverableArea(CoverableArea.NIPPLES).setDirty(true);
 				}
 			}
-			Sex.removePenetration(Sex.getActivePartner(), Main.game.getPlayer(), SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH);
+			Sex.stopOngoingAction(Sex.getActivePartner(), SexAreaPenetration.PENIS, Main.game.getPlayer(), SexAreaOrifice.MOUTH);
 		}
 		
 		@Override

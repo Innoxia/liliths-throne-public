@@ -3,17 +3,20 @@ package com.lilithsthrone.game.sex.sexActions.baseActionsPartner;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
+import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
-import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
+import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
+import com.lilithsthrone.game.sex.sexActions.SexActionLimitation;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.game.sex.sexActions.universal.sub.SubCowgirl;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
 
 /**
  * Designed for kissing when the player is sub.
@@ -25,13 +28,16 @@ import com.lilithsthrone.main.Main;
 public class PartnerTongueMouth {
 	
 	public static final SexAction PARTNER_KISS_START = new SexAction(
-			SexActionType.PARTNER_PENETRATION,
+			SexActionType.START_ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			SexAreaPenetration.TONGUE,
-			SexAreaOrifice.MOUTH,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TONGUE, SexAreaOrifice.MOUTH)),
 			SexParticipantType.PITCHER) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Start kissing";
@@ -184,15 +190,18 @@ public class PartnerTongueMouth {
 	};
 	
 	public static final SexAction PARTNER_KISS_DOM_GENTLE = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			SexAreaPenetration.TONGUE,
-			SexAreaOrifice.MOUTH,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TONGUE, SexAreaOrifice.MOUTH)),
 			SexParticipantType.PITCHER,
 			null,
 			SexPace.DOM_GENTLE) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		
 		@Override
 		public String getActionTitle() {
@@ -256,15 +265,18 @@ public class PartnerTongueMouth {
 	};
 	
 	public static final SexAction PARTNER_KISS_DOM_NORMAL = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			SexAreaPenetration.TONGUE,
-			SexAreaOrifice.MOUTH,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TONGUE, SexAreaOrifice.MOUTH)),
 			SexParticipantType.PITCHER,
 			null,
 			SexPace.DOM_NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Kiss [pc.herHim]";
@@ -328,15 +340,18 @@ public class PartnerTongueMouth {
 	};
 	
 	public static final SexAction PARTNER_KISS_DOM_ROUGH = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.TWO_HORNY,
-			SexAreaPenetration.TONGUE,
-			SexAreaOrifice.MOUTH,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TONGUE, SexAreaOrifice.MOUTH)),
 			SexParticipantType.PITCHER,
 			null,
 			SexPace.DOM_ROUGH) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Rough snog";
@@ -402,15 +417,18 @@ public class PartnerTongueMouth {
 	};
 	
 	public static final SexAction PARTNER_KISS_SUB_NORMAL = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			SexAreaPenetration.TONGUE,
-			SexAreaOrifice.MOUTH,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TONGUE, SexAreaOrifice.MOUTH)),
 			SexParticipantType.PITCHER,
 			null,
 			SexPace.SUB_NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Kiss [pc.herHim]";
@@ -464,15 +482,18 @@ public class PartnerTongueMouth {
 	};
 	
 	public static final SexAction PARTNER_KISS_SUB_EAGER = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			SexAreaPenetration.TONGUE,
-			SexAreaOrifice.MOUTH,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TONGUE, SexAreaOrifice.MOUTH)),
 			SexParticipantType.PITCHER,
 			null,
 			SexPace.SUB_EAGER) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Eager kiss";
@@ -527,13 +548,16 @@ public class PartnerTongueMouth {
 	
 	
 	public static final SexAction PARTNER_KISS_STOP = new SexAction(
-			SexActionType.PARTNER_STOP_PENETRATION,
+			SexActionType.STOP_ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			SexAreaPenetration.TONGUE,
-			SexAreaOrifice.MOUTH,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TONGUE, SexAreaOrifice.MOUTH)),
 			SexParticipantType.PITCHER) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Stop kissing";
@@ -585,15 +609,18 @@ public class PartnerTongueMouth {
 	// Player reactions:
 	
 	public static final SexAction PLAYER_KISS_DOM_GENTLE = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			SexAreaPenetration.TONGUE,
-			SexAreaOrifice.MOUTH,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TONGUE, SexAreaOrifice.MOUTH)),
 			SexParticipantType.CATCHER,
 			SexPace.DOM_GENTLE,
 			null) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Gentle kiss";
@@ -645,15 +672,18 @@ public class PartnerTongueMouth {
 	};
 	
 	public static final SexAction PLAYER_KISS_DOM_NORMAL = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			SexAreaPenetration.TONGUE,
-			SexAreaOrifice.MOUTH,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TONGUE, SexAreaOrifice.MOUTH)),
 			SexParticipantType.CATCHER,
 			SexPace.DOM_NORMAL,
 			null) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Kiss [npc.herHim]";
@@ -705,15 +735,18 @@ public class PartnerTongueMouth {
 	};
 	
 	public static final SexAction PLAYER_KISS_DOM_ROUGH = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.TWO_HORNY,
-			SexAreaPenetration.TONGUE,
-			SexAreaOrifice.MOUTH,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TONGUE, SexAreaOrifice.MOUTH)),
 			SexParticipantType.CATCHER,
 			SexPace.DOM_ROUGH,
 			null) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Rough snog";
@@ -767,15 +800,18 @@ public class PartnerTongueMouth {
 	};
 	
 	public static final SexAction PLAYER_KISS_SUB_RESIST = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			SexAreaPenetration.TONGUE,
-			SexAreaOrifice.MOUTH,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TONGUE, SexAreaOrifice.MOUTH)),
 			SexParticipantType.CATCHER,
 			SexPace.SUB_RESISTING,
 			null) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Resist kiss";
@@ -828,15 +864,18 @@ public class PartnerTongueMouth {
 	};
 	
 	public static final SexAction PLAYER_KISS_SUB_NORMAL = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			SexAreaPenetration.TONGUE,
-			SexAreaOrifice.MOUTH,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TONGUE, SexAreaOrifice.MOUTH)),
 			SexParticipantType.CATCHER,
 			SexPace.SUB_NORMAL,
 			null) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Kiss [npc.herHim]";
@@ -901,15 +940,18 @@ public class PartnerTongueMouth {
 	};
 	
 	public static final SexAction PLAYER_KISS_SUB_EAGER = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			SexAreaPenetration.TONGUE,
-			SexAreaOrifice.MOUTH,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TONGUE, SexAreaOrifice.MOUTH)),
 			SexParticipantType.CATCHER,
 			SexPace.SUB_EAGER,
 			null) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Eager kiss";
@@ -974,13 +1016,16 @@ public class PartnerTongueMouth {
 	};
 	
 	public static final SexAction PLAYER_KISS_STOP = new SexAction(
-			SexActionType.PLAYER_STOP_PENETRATION,
+			SexActionType.STOP_ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			SexAreaPenetration.TONGUE,
-			SexAreaOrifice.MOUTH,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TONGUE, SexAreaOrifice.MOUTH)),
 			SexParticipantType.CATCHER) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {

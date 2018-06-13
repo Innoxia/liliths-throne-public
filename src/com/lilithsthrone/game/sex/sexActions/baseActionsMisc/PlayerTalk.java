@@ -9,14 +9,15 @@ import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
-import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexFlags;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
-import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
+import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
+import com.lilithsthrone.game.sex.sexActions.SexActionLimitation;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -29,13 +30,16 @@ import com.lilithsthrone.utils.Util;
 public class PlayerTalk {
 	
 	public static final SexAction PLAYER_DIRTY_TALK = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ONE_VANILLA,
 			null,
-			null,
 			SexParticipantType.MISC) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		
 		@Override
 		public CorruptionLevel getCorruptionNeeded(){
@@ -211,13 +215,16 @@ public class PlayerTalk {
 	};
 	
 	public static final SexAction PLAYER_REQUEST_VAGINAL = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ONE_VANILLA,
 			null,
-			null,
 			SexParticipantType.MISC) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Request vaginal";
@@ -252,13 +259,16 @@ public class PlayerTalk {
 	};
 	
 	public static final SexAction PLAYER_REQUEST_ANAL = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ONE_VANILLA,
 			null,
-			null,
 			SexParticipantType.MISC) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		
 		@Override
 		public String getActionTitle() {
@@ -308,13 +318,16 @@ public class PlayerTalk {
 	};
 	
 	public static final SexAction PLAYER_REQUEST_ORAL = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ONE_VANILLA,
 			null,
-			null,
 			SexParticipantType.MISC) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Request oral";
@@ -358,13 +371,16 @@ public class PlayerTalk {
 	};
 	
 	public static final SexAction PLAYER_REQUEST_NIPPLE = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ONE_VANILLA,
 			null,
-			null,
 			SexParticipantType.MISC) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Request nipple-sex";
@@ -409,13 +425,16 @@ public class PlayerTalk {
 	};
 	
 	public static final SexAction PLAYER_REQUEST_PAIZURI = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ONE_VANILLA,
 			null,
-			null,
 			SexParticipantType.MISC) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Request paizuri";
@@ -462,13 +481,16 @@ public class PlayerTalk {
 	};
 	
 	public static final SexAction PLAYER_REQUEST_NAIZURI = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ONE_VANILLA,
 			null,
-			null,
 			SexParticipantType.MISC) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Request naizuri";

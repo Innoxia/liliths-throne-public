@@ -182,6 +182,7 @@ import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.PregnancyDescriptor;
 import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexType;
@@ -4676,7 +4677,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						break;
 				}
 				if(s!=null) {
-					if(!Sex.getPenetratingCharacterUsingOrifice(this, orifice).equals(this)) {
+					if(!Sex.getCharacterContactingSexArea(this, orifice).contains(this)) {
 						speech.add(s);
 					}
 				}
@@ -4712,7 +4713,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			if(!speech.isEmpty()){
 				s = speech.get(Util.random.nextInt(speech.size())); // Prefer non-self penetrative speech.
 				
-			} else if(Sex.isCharacterPenetrated(this)) {
+			} else if(Sex.isCharacterEngagedInOngoingAction(this)) {
 				s = UtilText.returnStringAtRandom(
 						"Fuck!",
 						"Yeah!",
@@ -4818,8 +4819,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		String returnedLine = "";
 		
 		if(getVaginaType()!=VaginaType.NONE) {
-			if(Sex.getPenetrationTypeInOrifice(this, SexAreaOrifice.VAGINA) != null) {
-				switch(Sex.getPenetrationTypeInOrifice(this, SexAreaOrifice.VAGINA)) {
+			if(Sex.getFirstContactingSexAreaPenetration(this, SexAreaOrifice.VAGINA) != null) {
+				switch(Sex.getFirstContactingSexAreaPenetration(this, SexAreaOrifice.VAGINA)) {
 					case FINGER:
 						switch(Sex.getSexPace(this)) {
 							case DOM_GENTLE:
@@ -5034,8 +5035,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	public String getDirtyTalkAssPenetrated(GameCharacter target,  boolean isPlayerDom){
 		String returnedLine = "";
 		
-		if(Sex.getPenetrationTypeInOrifice(this, SexAreaOrifice.ANUS) != null) {
-			switch(Sex.getPenetrationTypeInOrifice(this, SexAreaOrifice.ANUS)) {
+		if(Sex.getFirstContactingSexAreaPenetration(this, SexAreaOrifice.ANUS) != null) {
+			switch(Sex.getFirstContactingSexAreaPenetration(this, SexAreaOrifice.ANUS)) {
 				case FINGER:
 					switch(Sex.getSexPace(this)) {
 						case DOM_GENTLE:
@@ -5250,8 +5251,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	public String getDirtyTalkMouthPenetrated(GameCharacter target, boolean isPlayerDom){
 		String returnedLine = "";
 
-		if(Sex.getPenetrationTypeInOrifice(this, SexAreaOrifice.MOUTH) != null) {
-			switch(Sex.getPenetrationTypeInOrifice(this, SexAreaOrifice.MOUTH)) {
+		if(Sex.getFirstContactingSexAreaPenetration(this, SexAreaOrifice.MOUTH) != null) {
+			switch(Sex.getFirstContactingSexAreaPenetration(this, SexAreaOrifice.MOUTH)) {
 				case FINGER:
 					switch(Sex.getSexPace(this)) {
 						case DOM_GENTLE:
@@ -5460,8 +5461,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	public String getDirtyTalkNipplePenetrated(GameCharacter target, boolean isPlayerDom){
 		String returnedLine = "";
 		
-		if(Sex.getPenetrationTypeInOrifice(this, SexAreaOrifice.NIPPLE) != null) {
-			switch(Sex.getPenetrationTypeInOrifice(this, SexAreaOrifice.NIPPLE)) {
+		if(Sex.getFirstContactingSexAreaPenetration(this, SexAreaOrifice.NIPPLE) != null) {
+			switch(Sex.getFirstContactingSexAreaPenetration(this, SexAreaOrifice.NIPPLE)) {
 				case FINGER:
 					switch(Sex.getSexPace(this)) {
 						case DOM_GENTLE:
@@ -5676,8 +5677,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	public String getDirtyTalkBreastsPenetrated(GameCharacter target, boolean isPlayerDom){
 		String returnedLine = "";
 		
-		if(Sex.getPenetrationTypeInOrifice(this, SexAreaOrifice.BREAST) != null) {
-			switch(Sex.getPenetrationTypeInOrifice(this, SexAreaOrifice.BREAST)) {
+		if(Sex.getFirstContactingSexAreaPenetration(this, SexAreaOrifice.BREAST) != null) {
+			switch(Sex.getFirstContactingSexAreaPenetration(this, SexAreaOrifice.BREAST)) {
 				case FINGER:
 					switch(Sex.getSexPace(this)) {
 						case DOM_GENTLE:
@@ -7663,7 +7664,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				case DOM_GENTLE:
 					return "<p>"
 							+ "[npc.Name] lets out a soft [npc.moan] as [npc.she] sees "
-									+ (Sex.getWetOrificeTypes(characterBeingRevealed).get(SexAreaOrifice.VAGINA).contains(LubricationType.PLAYER_GIRLCUM)
+									+ (Sex.getWetAreas(characterBeingRevealed).get(SexAreaOrifice.VAGINA).contains(LubricationType.PLAYER_GIRLCUM)
 											? "your wet [pc.pussy] betraying your arousal, "
 											: "your [pc.pussy+], ")
 									+ (this.hasPenis()
@@ -7673,7 +7674,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				case DOM_NORMAL:
 					return "<p>"
 							+ "[npc.Name] lets out a soft [npc.moan] as [npc.she] sees "
-									+ (Sex.getWetOrificeTypes(characterBeingRevealed).get(SexAreaOrifice.VAGINA).contains(LubricationType.PLAYER_GIRLCUM)
+									+ (Sex.getWetAreas(characterBeingRevealed).get(SexAreaOrifice.VAGINA).contains(LubricationType.PLAYER_GIRLCUM)
 											? "your wet [pc.pussy] betraying your arousal, "
 											: "your [pc.pussy+], ")
 									+ (this.hasPenis()
@@ -7683,7 +7684,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				case DOM_ROUGH:
 					return "<p>"
 							+ "[npc.Name] smirks when [npc.she] sees "
-									+ (Sex.getWetOrificeTypes(characterBeingRevealed).get(SexAreaOrifice.VAGINA).contains(LubricationType.PLAYER_GIRLCUM)
+									+ (Sex.getWetAreas(characterBeingRevealed).get(SexAreaOrifice.VAGINA).contains(LubricationType.PLAYER_GIRLCUM)
 											? "your wet [pc.pussy] betraying your arousal, "
 											: "your [pc.pussy+], ")
 									+ (this.hasPenis()
@@ -7693,7 +7694,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				case SUB_EAGER:
 					return "<p>"
 							+ "[npc.Name]'s eyes light up when [npc.she] sees "
-							+ (Sex.getWetOrificeTypes(characterBeingRevealed).get(SexAreaOrifice.VAGINA).contains(LubricationType.PLAYER_GIRLCUM)
+							+ (Sex.getWetAreas(characterBeingRevealed).get(SexAreaOrifice.VAGINA).contains(LubricationType.PLAYER_GIRLCUM)
 									? "your wet [pc.pussy] betraying your arousal."
 									: "your [pc.pussy].")
 							+ "</p>";
@@ -7704,7 +7705,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				case SUB_RESISTING:
 					return "<p>"
 							+ "[npc.Name] tries to pull away from you as "
-							+ (Sex.getWetOrificeTypes(characterBeingRevealed).get(SexAreaOrifice.VAGINA).contains(LubricationType.PLAYER_GIRLCUM)
+							+ (Sex.getWetAreas(characterBeingRevealed).get(SexAreaOrifice.VAGINA).contains(LubricationType.PLAYER_GIRLCUM)
 									? "your wet [pc.pussy] is revealed."
 									: "your [pc.pussy+] is revealed.")
 							+ "</p>";
@@ -8833,7 +8834,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 					+ "</p>"
 					+ "<p>"
 						+ "You can't quite believe what you're doing to yourself."
-						+ " As your "+(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), SexAreaOrifice.VAGINA).getName(characterPenetrating))+" takes your own virginity in a single thrust, you find yourself letting out a desperate gasp."
+						+ " As your "+(Sex.getFirstContactingSexAreaPenetration(Main.game.getPlayer(), SexAreaOrifice.VAGINA).getName(characterPenetrating))+" takes your own virginity in a single thrust, you find yourself letting out a desperate gasp."
 					+ "</p>"
 					+ "<p style='text-align:center;'>"
 						+ "[pc.thought(W-What am I doing?!</br>"
@@ -8865,7 +8866,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 					+ "</p>"
 					+ "<p>"
 						+ "You can't believe what's happening."
-						+ " As [npc.name]'s "+(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), SexAreaOrifice.VAGINA).getName(characterPenetrating))
+						+ " As [npc.name]'s "+(Sex.getFirstContactingSexArea(Main.game.getPlayer(), SexAreaOrifice.VAGINA).getName(characterPenetrating))
 						+" takes your virginity in a single thrust, you find yourself letting out a desperate gasp."
 					+ "</p>"
 					+ "<p style='text-align:center;'>"
@@ -8904,7 +8905,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		
 		if(characterPenetrating.isPlayer()) { // SELF-PENETRATION
 			// Initial penetration:
-			if(Sex.getWetOrificeTypes(Main.game.getPlayer()).get(SexAreaOrifice.ANUS).isEmpty()) {
+			if(Sex.getWetAreas(Main.game.getPlayer()).get(SexAreaOrifice.ANUS).isEmpty()) {
 				// Dry:
 				StringBuilderSB.append(
 						"<p>"
@@ -8946,7 +8947,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			
 		} else { // PARTNER PENETRATION
 			// Initial penetration:
-			if(Sex.getWetOrificeTypes(Main.game.getPlayer()).get(SexAreaOrifice.ANUS).isEmpty()) {
+			if(Sex.getWetAreas(Main.game.getPlayer()).get(SexAreaOrifice.ANUS).isEmpty()) {
 				// Dry:
 				StringBuilderSB.append(
 						"<p>"
@@ -9021,7 +9022,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		
 		if(characterPenetrating.isPlayer()) { // SELF-PENETRATION
 			// Initial penetration:
-			if(Sex.getWetOrificeTypes(Main.game.getPlayer()).get(SexAreaOrifice.VAGINA).isEmpty()) {
+			if(Sex.getWetAreas(Main.game.getPlayer()).get(SexAreaOrifice.VAGINA).isEmpty()) {
 				// Dry:
 				StringBuilderSB.append(
 						"<p>"
@@ -9073,7 +9074,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			
 		} else { // PARTNER PENETRATION
 			// Initial penetration:
-			if(Sex.getWetOrificeTypes(Main.game.getPlayer()).get(SexAreaOrifice.VAGINA).isEmpty()) {
+			if(Sex.getWetAreas(Main.game.getPlayer()).get(SexAreaOrifice.VAGINA).isEmpty()) {
 				// Dry:
 				StringBuilderSB.append(
 						"<p>"
@@ -9195,84 +9196,71 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			return formatVirginityLoss("You'll always remember this moment as the first time that you took something down your throat!");
 		}
 	}
-	//TODO all these
+	
 	private String getPartnerPenileVirginityLossDescription(GameCharacter characterPenetrated, SexAreaOrifice orifice){
-		return formatVirginityLoss("You have taken [npc.name]'s penile virginity!")
-				+(Main.game.getPlayer().hasFetish(Fetish.FETISH_DEFLOWERING)
-						?"<p style='text-align:center;><i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Due to your deflowering fetish, you gain</i>"
-						+ " <i style='color:"+Colour.GENERIC_EXPERIENCE.toWebHexString()+";'>"+Fetish.getExperienceGainFromTakingOtherVirginity(Main.game.getPlayer())+"</i>"
-						+ " <i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>experience!</i></p>"
-						:"");
+		return UtilText.parse(this, characterPenetrated,
+				formatVirginityLoss("[npc2.Name] [npc2.has] taken [npc.namePos] penile virginity!")
+				+(characterPenetrated.hasFetish(Fetish.FETISH_DEFLOWERING)
+						?"<p style='text-align:center;>"
+							+ "[style.italicsArcane(Due to [npc2.namePos] deflowering fetish, [npc2.she] [np2.verb(gain)])]"
+								+ " [style.italicsExperience("+Fetish.getExperienceGainFromTakingOtherVirginity(characterPenetrated)+")] [style.italicsArcane(experience!)]"
+						+ "</p>"
+						:""));
 	}
 	
 	private String getPartnerAnalVirginityLossDescription(GameCharacter characterPenetrating, SexAreaPenetration penetration){
-		if(Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), SexAreaOrifice.ANUS).isPlayer()) {
-			return formatVirginityLoss("You have taken [npc.name]'s anal virginity!")
-					+(Main.game.getPlayer().hasFetish(Fetish.FETISH_DEFLOWERING)
-							?"<p style='text-align:center;><i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Due to your deflowering fetish, you gain</i>"
-							+ " <i style='color:"+Colour.GENERIC_EXPERIENCE.toWebHexString()+";'>"+Fetish.getExperienceGainFromTakingOtherVirginity(Main.game.getPlayer())+"</i>"
-							+ " <i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>experience!</i></p>"
-							:"");
-			
-		} else {
-			return formatVirginityLoss("[npc.Name] has taken [npc.her] own anal virginity!");
-		}
+		return UtilText.parse(this, characterPenetrating,
+				formatVirginityLoss("[npc2.Name] [npc2.has] taken [npc.namePos] anal virginity!")
+				+(characterPenetrating.hasFetish(Fetish.FETISH_DEFLOWERING)
+						?"<p style='text-align:center;>"
+							+ "[style.italicsArcane(Due to [npc2.namePos] deflowering fetish, [npc2.she] [np2.verb(gain)])]"
+								+ " [style.italicsExperience("+Fetish.getExperienceGainFromTakingOtherVirginity(characterPenetrating)+")] [style.italicsArcane(experience!)]"
+						+ "</p>"
+						:""));
 	}
 	
 	private String getPartnerVaginaVirginityLossDescription(GameCharacter characterPenetrating, SexAreaPenetration penetration){
-		if(Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), SexAreaOrifice.VAGINA).isPlayer()) {
-			return formatVirginityLoss("[npc.Name]'s hymen has been torn; you have taken [npc.her] virginity!")
-					+(Main.game.getPlayer().hasFetish(Fetish.FETISH_DEFLOWERING)
-							?"<p style='text-align:center;><i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Due to your deflowering fetish, you gain</i>"
-							+ " <i style='color:"+Colour.GENERIC_EXPERIENCE.toWebHexString()+";'>"+Fetish.getExperienceGainFromTakingVaginalVirginity(Main.game.getPlayer())+"</i>"
-							+ " <i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>experience from taking [npc.name]'s virginity!</i></p>"
-							:"");
-			
-		} else {
-			return formatVirginityLoss("[npc.Name] has taken [npc.her] own virginity!");
-		}
+		return UtilText.parse(this, characterPenetrating,
+				formatVirginityLoss("[npc.NamePos] hymen has been torn; [npc2.namePos] [npc2.has] taken [npc.her] virginity!")
+				+(characterPenetrating.hasFetish(Fetish.FETISH_DEFLOWERING)
+						?"<p style='text-align:center;>"
+							+ "[style.italicsArcane(Due to [npc2.namePos] deflowering fetish, [npc2.she] [np2.verb(gain)])]"
+								+ " [style.italicsExperience("+Fetish.getExperienceGainFromTakingOtherVirginity(characterPenetrating)+")] [style.italicsArcane(experience!)]"
+						+ "</p>"
+						:""));
 	}
 	
 	private String getPartnerNippleVirginityLossDescription(GameCharacter characterPenetrating, SexAreaPenetration penetration){
-		if(Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), SexAreaOrifice.NIPPLE).isPlayer()) {
-			return formatVirginityLoss("You have taken [npc.name]'s nipple virginity!")
-					+(Main.game.getPlayer().hasFetish(Fetish.FETISH_DEFLOWERING)
-							?"<p style='text-align:center;><i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Due to your deflowering fetish, you gain</i>"
-							+ " <i style='color:"+Colour.GENERIC_EXPERIENCE.toWebHexString()+";'>"+Fetish.getExperienceGainFromTakingOtherVirginity(Main.game.getPlayer())+"</i>"
-							+ " <i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>experience!</i></p>"
-							:"");
-			
-		} else {
-			return formatVirginityLoss("[npc.Name] has taken [npc.her] own nipple virginity!");
-		}
+		return UtilText.parse(this, characterPenetrating,
+				formatVirginityLoss("[npc2.Name] [npc2.has] taken [npc.namePos] nipple virginity!")
+				+(characterPenetrating.hasFetish(Fetish.FETISH_DEFLOWERING)
+						?"<p style='text-align:center;>"
+							+ "[style.italicsArcane(Due to [npc2.namePos] deflowering fetish, [npc2.she] [np2.verb(gain)])]"
+								+ " [style.italicsExperience("+Fetish.getExperienceGainFromTakingOtherVirginity(characterPenetrating)+")] [style.italicsArcane(experience!)]"
+						+ "</p>"
+						:""));
 	}
 	
 	private String getPartnerUrethraVirginityLossDescription(GameCharacter characterPenetrating, SexAreaPenetration penetration){
-		if((Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), SexAreaOrifice.URETHRA_PENIS) != null && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), SexAreaOrifice.URETHRA_PENIS).isPlayer())
-				|| (Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), SexAreaOrifice.URETHRA_VAGINA) != null && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), SexAreaOrifice.URETHRA_VAGINA).isPlayer())) {
-			return formatVirginityLoss("You have taken [npc.name]'s urethral virginity!")
-					+(Main.game.getPlayer().hasFetish(Fetish.FETISH_DEFLOWERING)
-							?"<p style='text-align:center;><i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Due to your deflowering fetish, you gain</i>"
-							+ " <i style='color:"+Colour.GENERIC_EXPERIENCE.toWebHexString()+";'>"+Fetish.getExperienceGainFromTakingOtherVirginity(Main.game.getPlayer())+"</i>"
-							+ " <i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>experience!</i></p>"
-							:"");
-		} else {
-			return formatVirginityLoss("[npc.Name] has taken [npc.her] own urethral virginity!");
-		}
+		return UtilText.parse(this, characterPenetrating,
+				formatVirginityLoss("[npc2.Name] [npc2.has] taken [npc.namePos] urethral virginity!")
+				+(characterPenetrating.hasFetish(Fetish.FETISH_DEFLOWERING)
+						?"<p style='text-align:center;>"
+							+ "[style.italicsArcane(Due to [npc2.namePos] deflowering fetish, [npc2.she] [np2.verb(gain)])]"
+								+ " [style.italicsExperience("+Fetish.getExperienceGainFromTakingOtherVirginity(characterPenetrating)+")] [style.italicsArcane(experience!)]"
+						+ "</p>"
+						:""));
 	}
 	
 	private String getPartnerMouthVirginityLossDescription(GameCharacter characterPenetrating, SexAreaPenetration penetration){
-		if(Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), SexAreaOrifice.MOUTH).isPlayer()) {
-			return formatVirginityLoss("You have given [npc.name] [npc.her] first oral experience!")
-					+(Main.game.getPlayer().hasFetish(Fetish.FETISH_DEFLOWERING)
-							?"<p style='text-align:center;><i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Due to your deflowering fetish, you gain</i>"
-							+ " <i style='color:"+Colour.GENERIC_EXPERIENCE.toWebHexString()+";'>"+Fetish.getExperienceGainFromTakingOtherVirginity(Main.game.getPlayer())+"</i>"
-							+ " <i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>experience!</i></p>"
-							:"");
-			
-		} else {
-			return formatVirginityLoss("[npc.Name] has given [npc.herself] [npc.her] first oral experience!");
-		}
+		return UtilText.parse(this, characterPenetrating,
+				formatVirginityLoss("[npc2.Name] [npc2.has] given [npc.name] [npc.her] first oral experience!")
+				+(characterPenetrating.hasFetish(Fetish.FETISH_DEFLOWERING)
+						?"<p style='text-align:center;>"
+							+ "[style.italicsArcane(Due to [npc2.namePos] deflowering fetish, [npc2.she] [np2.verb(gain)])]"
+								+ " [style.italicsExperience("+Fetish.getExperienceGainFromTakingOtherVirginity(characterPenetrating)+")] [style.italicsArcane(experience!)]"
+						+ "</p>"
+						:""));
 	}
 	
 	
@@ -11937,6 +11925,16 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	
 	public boolean isCoverableAreaExposed(CoverableArea area) {
 		return inventory.isCoverableAreaExposed(area);
+	}
+	
+	public boolean isSexAreaExposed(SexAreaInterface sArea) {
+		if(sArea.isPenetration()) {
+			return isPenetrationTypeExposed((SexAreaPenetration) sArea);
+		}
+		if(sArea.isOrifice()) {
+			return isOrificeTypeExposed((SexAreaOrifice) sArea);
+		}
+		return false;
 	}
 	
 	public boolean isPenetrationTypeExposed(SexAreaPenetration pt) {

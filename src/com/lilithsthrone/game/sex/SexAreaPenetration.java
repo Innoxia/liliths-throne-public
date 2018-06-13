@@ -82,17 +82,14 @@ public enum SexAreaPenetration implements SexAreaInterface {
 		this.takesVirginity = takesVirginity;
 	}
 
-	public float getBaseArousalWhenPenetrating() {
-		return baseArousalWhenPenetrating;
-	}
-	
-	public boolean isPlural() {
+	@Override
+	public boolean isOrifice() {
 		return false;
 	}
 	
-	public abstract String getName(GameCharacter owner);
-	
-	public abstract boolean isFree(GameCharacter owner);
+	public float getBaseArousalWhenPenetrating() {
+		return baseArousalWhenPenetrating;
+	}
 	
 	public boolean isTakesVirginity() {
 		return takesVirginity;

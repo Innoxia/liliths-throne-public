@@ -7,11 +7,12 @@ import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
+import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
+import com.lilithsthrone.game.sex.sexActions.SexActionLimitation;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -26,13 +27,16 @@ public class SABraxSubStart {
 	// Player's actions:
 
 	public static final SexAction PLAYER_DIRTY_TALK = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
 			null,
-			null,
 			SexParticipantType.MISC) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Dirty talk";
@@ -47,7 +51,7 @@ public class SABraxSubStart {
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), SexAreaOrifice.MOUTH)==(SexAreaPenetration.PENIS)) {
+			if (Sex.getAllContactingSexAreas(Sex.getActivePartner(), SexAreaOrifice.MOUTH).contains(SexAreaPenetration.PENIS)) {
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						"Looking down at [brax.name] as [brax.he] sucks your [pc.cock], you speak down to [brax.him], ",
 						"With a grin, you speak down to the [brax.race] between your legs, "));
@@ -60,7 +64,7 @@ public class SABraxSubStart {
 							"Aww, come on [brax.name]! Little betas like you should love sucking their alpha's cock!",
 							"Come on [brax.name]! This is what being a little beta is all about!")));
 				
-			} else if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), SexAreaOrifice.VAGINA)==(SexAreaPenetration.TONGUE)) {
+			} else if(Sex.getAllContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.TONGUE)) {
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						"Looking down at [brax.name]'s submissive form between your legs, you speak down to [brax.him], ",
 						"With a grin, you speak down to [brax.name], "));
@@ -105,13 +109,16 @@ public class SABraxSubStart {
 	// Partner's actions:
 
 	public static final SexAction PARTNER_TALK_DIRTY = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
 			SexParticipantType.MISC) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "";
@@ -124,7 +131,7 @@ public class SABraxSubStart {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isAnyPenetrationHappening();
+			return !Sex.isAnyOngoingActionHappening();
 		}
 
 		@Override

@@ -127,11 +127,11 @@ public class UtilText {
 		
 		// Apply speech effects:
 		if(Main.game.isInSex()) {
-			if(Sex.isCharacterPenetrated(Main.game.getPlayer())) {
+			if(Sex.isCharacterEngagedInOngoingAction(Main.game.getPlayer())) {
 				modifiedSentence = Util.addSexSounds(modifiedSentence, 6);
 			}
 			
-			if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), SexAreaOrifice.MOUTH)!=null) {
+			if(!Sex.getContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.MOUTH).isEmpty()) {
 				modifiedSentence = Util.addMuffle(modifiedSentence, 6);
 			} else {
 				if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, false)) {
@@ -179,10 +179,10 @@ public class UtilText {
 		// Apply speech effects:
 		if(Main.game.isInSex()) {
 			if(target.isPlayer()) {
-				if(Sex.isCharacterPenetrated(Main.game.getPlayer())) {
+				if(Sex.isCharacterEngagedInOngoingAction(Main.game.getPlayer())) {
 					modifiedSentence = Util.addSexSounds(modifiedSentence, 6);
 				}
-				if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), SexAreaOrifice.MOUTH)!=null) {
+				if(!Sex.getContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.MOUTH).isEmpty()) {
 					modifiedSentence = Util.addMuffle(modifiedSentence, 6);
 				} else {
 					if(!target.isAbleToAccessCoverableArea(CoverableArea.MOUTH, false)) {
@@ -196,11 +196,11 @@ public class UtilText {
 				}
 				
 			} else {
-				if(Sex.isCharacterPenetrated(character)) {
+				if(Sex.isCharacterEngagedInOngoingAction(character)) {
 					modifiedSentence = Util.addSexSounds(modifiedSentence, 6);
 				}
 				
-				if(Sex.getPenetrationTypeInOrifice(character, SexAreaOrifice.MOUTH)!=null) {
+				if(!Sex.getContactingSexAreas(character, SexAreaOrifice.MOUTH).isEmpty()) {
 					modifiedSentence = Util.addMuffle(modifiedSentence, 6);
 				} else {
 					if(!target.isAbleToAccessCoverableArea(CoverableArea.MOUTH, false)) {
@@ -262,7 +262,7 @@ public class UtilText {
 
 		// Apply speech effects:
 		if(Main.game.isInSex()) {
-			if(Sex.isCharacterPenetrated(target))
+			if(Sex.isCharacterEngagedInOngoingAction(target))
 				modifiedSentence = Util.addSexSounds(modifiedSentence, 5);
 		}
 
@@ -832,7 +832,7 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues("nameIs"),
-				false,
+				true,
 				false,
 				"(real name)",
 				"Returns a contractive version of the name of the target, <b>automatically appending</b> 'the' to names that don't start with a capital letter."
@@ -854,8 +854,30 @@ public class UtilText {
 		});
 		
 		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues("nameHas"),
+				Util.newArrayListOfValues("nameIsFull"),
+				true,
 				false,
+				"(real name)",
+				"Returns a contractive version of the name of the target, <b>automatically appending</b> 'the' to names that don't start with a capital letter.") {
+			@Override
+			public String parse(String command, String arguments, String target) {
+				if(arguments!=null) {
+					return character.getName() + " is";
+				} else {
+					if(target.startsWith("npc") && character.isPlayer()) {
+						return "you are";
+					}
+					if(character.isPlayerKnowsName()) {
+						return character.getName() + " is";
+					}
+					return character.getName("the") + " is";
+				}
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues("nameHas"),
+				true,
 				false,
 				"(real name)",
 				"Returns a contractive version of the name of the target, <b>automatically appending</b> 'the' to names that don't start with a capital letter."
@@ -880,7 +902,7 @@ public class UtilText {
 				Util.newArrayListOfValues(
 						"verb",
 						"verbPerson"),
-				false,
+				true,
 				false,
 				"(verb)",
 				"Returns a verb in the (probably) correct person for this character. A player might get 'wiggle' where an NPC would get 'wiggles'.") {

@@ -5,10 +5,11 @@ import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexFlags;
 import com.lilithsthrone.game.sex.SexParticipantType;
-import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
+import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.managers.dominion.SMMilkingStall;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
+import com.lilithsthrone.game.sex.sexActions.SexActionLimitation;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -22,13 +23,16 @@ import com.lilithsthrone.utils.Util.Value;
 public class SADomMilkingStallOral {
 
 	public static final SexAction PLAYER_SWITCH_TO_BEHIND = new SexAction(
-			SexActionType.PLAYER_POSITIONING,
+			SexActionType.POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
 			SexParticipantType.MISC) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -65,13 +69,16 @@ public class SADomMilkingStallOral {
 	};
 	
 	public static final SexAction PLAYER_SWITCH_TO_GIVING_ORAL = new SexAction(
-			SexActionType.PLAYER_POSITIONING,
+			SexActionType.POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
 			SexParticipantType.MISC) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {

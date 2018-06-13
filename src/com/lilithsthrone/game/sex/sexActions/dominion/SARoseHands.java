@@ -3,14 +3,17 @@ package com.lilithsthrone.game.sex.sexActions.dominion;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
+import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
+import com.lilithsthrone.game.sex.sexActions.SexActionLimitation;
 import com.lilithsthrone.game.sex.sexActions.SexActionPriority;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.69.9
@@ -36,13 +39,16 @@ public class SARoseHands {
 	 */
 	
 	public static final SexAction PLAYER_HAND_MASSAGE = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.FIVE_EXTREME,
 			ArousalIncrease.FIVE_EXTREME,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
 			SexParticipantType.MISC) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Hand massage";
@@ -69,13 +75,16 @@ public class SARoseHands {
 	};
 	
 	public static final SexAction PLAYER_INTERLOCKING_FINGERS = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.FIVE_EXTREME,
 			ArousalIncrease.FIVE_EXTREME,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
 			SexParticipantType.MISC) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Interlock fingers";
@@ -102,13 +111,16 @@ public class SARoseHands {
 	};
 	
 	public static final SexAction PLAYER_NAIL_FOCUS = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.FIVE_EXTREME,
 			ArousalIncrease.FIVE_EXTREME,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
 			SexParticipantType.MISC) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Nail rub";
@@ -135,13 +147,16 @@ public class SARoseHands {
 	};
 	
 	public static final SexAction FINGER_STROKING = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.FIVE_EXTREME,
 			ArousalIncrease.FIVE_EXTREME,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
 			SexParticipantType.MISC) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Stroke fingers";
@@ -168,13 +183,16 @@ public class SARoseHands {
 	};
 	
 	public static final SexAction PLAYER_LICK_PALM = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.FIVE_EXTREME,
 			ArousalIncrease.FIVE_EXTREME,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
 			SexParticipantType.MISC) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Lick palms";
@@ -201,13 +219,16 @@ public class SARoseHands {
 	};
 	
 	public static final SexAction PLAYER_START_SUCKING = new SexAction(
-			SexActionType.PLAYER_PENETRATION,
+			SexActionType.START_ONGOING,
 			ArousalIncrease.FIVE_EXTREME,
 			ArousalIncrease.FIVE_EXTREME,
 			CorruptionLevel.ZERO_PURE,
-			SexAreaPenetration.FINGER,
-			SexAreaOrifice.MOUTH,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaOrifice.MOUTH)),
 			SexParticipantType.CATCHER) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Suck fingers";
@@ -230,13 +251,16 @@ public class SARoseHands {
 	};
 	
 	public static final SexAction PLAYER_GENTLE_SUCK = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.FIVE_EXTREME,
 			ArousalIncrease.FIVE_EXTREME,
 			CorruptionLevel.ZERO_PURE,
-			SexAreaPenetration.FINGER,
-			SexAreaOrifice.MOUTH,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaOrifice.MOUTH)),
 			SexParticipantType.CATCHER) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Gentle suck";
@@ -256,13 +280,16 @@ public class SARoseHands {
 	};
 	
 	public static final SexAction PLAYER_INTENSE_SUCK = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.FIVE_EXTREME,
 			ArousalIncrease.FIVE_EXTREME,
 			CorruptionLevel.ZERO_PURE,
-			SexAreaPenetration.FINGER,
-			SexAreaOrifice.MOUTH,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaOrifice.MOUTH)),
 			SexParticipantType.CATCHER) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Intense suck";
@@ -282,13 +309,16 @@ public class SARoseHands {
 	};
 	
 	public static final SexAction PLAYER_STOP_SUCKING = new SexAction(
-			SexActionType.PLAYER_STOP_PENETRATION,
+			SexActionType.STOP_ONGOING,
 			ArousalIncrease.FIVE_EXTREME,
 			ArousalIncrease.FIVE_EXTREME,
 			CorruptionLevel.ZERO_PURE,
-			SexAreaPenetration.FINGER,
-			SexAreaOrifice.MOUTH,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaOrifice.MOUTH)),
 			SexParticipantType.CATCHER) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Stop sucking";
@@ -308,13 +338,16 @@ public class SARoseHands {
 	// Rose:
 	
 	public static final SexAction PARTNER_MOAN = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.FIVE_EXTREME,
 			ArousalIncrease.FIVE_EXTREME,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
 			SexParticipantType.MISC) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Moans";
@@ -346,13 +379,16 @@ public class SARoseHands {
 	};
 	
 	public static final SexAction PARTNER_PANTING = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.FIVE_EXTREME,
 			ArousalIncrease.FIVE_EXTREME,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
 			SexParticipantType.MISC) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Panting";
@@ -372,13 +408,16 @@ public class SARoseHands {
 	};
 	
 	public static final SexAction PARTNER_TABLE_BRACE = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.FIVE_EXTREME,
 			ArousalIncrease.FIVE_EXTREME,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
 			SexParticipantType.MISC) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Brace";
@@ -398,13 +437,16 @@ public class SARoseHands {
 	};
 	
 	public static final SexAction PARTNER_SLIDE_FINGERS = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.FIVE_EXTREME,
 			ArousalIncrease.FIVE_EXTREME,
 			CorruptionLevel.ZERO_PURE,
-			SexAreaPenetration.FINGER,
-			SexAreaOrifice.MOUTH,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaOrifice.MOUTH)),
 			SexParticipantType.PITCHER) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Slide fingers";
@@ -424,13 +466,16 @@ public class SARoseHands {
 	};
 	
 	public static final SexAction PARTNER_STOP_SEX = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
 			SexParticipantType.MISC) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "";

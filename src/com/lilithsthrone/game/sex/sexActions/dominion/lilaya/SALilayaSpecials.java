@@ -4,15 +4,18 @@ import com.lilithsthrone.game.character.attributes.ArousalLevel;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.sex.ArousalIncrease;
+import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexFlags;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
+import com.lilithsthrone.game.sex.sexActions.SexActionLimitation;
 import com.lilithsthrone.game.sex.sexActions.SexActionPriority;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.7
@@ -23,13 +26,16 @@ public class SALilayaSpecials {
 	
 	// Demand pull out
 	public static final SexAction PARTNER_DEMAND_PULL_OUT = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			SexAreaPenetration.PENIS,
-			SexAreaOrifice.VAGINA,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA)),
 			SexParticipantType.CATCHER) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "";
@@ -67,17 +73,20 @@ public class SALilayaSpecials {
 	};
 	
 	public static final SexAction PARTNER_PREPARE = new SexAction(
-			SexActionType.PARTNER_PREPARE_PLAYER_ORGASM,
+			SexActionType.PREPARE_FOR_PARTNER_ORGASM,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
 			SexParticipantType.MISC) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), SexAreaOrifice.VAGINA) != SexAreaPenetration.PENIS;
+			return !Sex.getAllContactingSexAreas(Sex.getActivePartner(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS);
 		}
 
 		@Override
@@ -117,13 +126,16 @@ public class SALilayaSpecials {
 	};
 	
 	public static final SexAction PARTNER_ASK_FOR_PULL_OUT = new SexAction(
-			SexActionType.PARTNER_PREPARE_PLAYER_ORGASM,
+			SexActionType.PREPARE_FOR_PARTNER_ORGASM,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
 			SexParticipantType.MISC) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "";
@@ -136,7 +148,7 @@ public class SALilayaSpecials {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), SexAreaOrifice.VAGINA) == SexAreaPenetration.PENIS;
+			return Sex.getAllContactingSexAreas(Sex.getActivePartner(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS);
 		}
 
 		@Override
@@ -158,13 +170,16 @@ public class SALilayaSpecials {
 	
 	// Furious stop sex
 	public static final SexAction PARTNER_FURIOUS_STOP_SEX = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
 			SexParticipantType.MISC) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "";

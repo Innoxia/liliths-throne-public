@@ -172,7 +172,7 @@ public class TooltipResponseDescriptionEventListener implements EventListener {
 							+"</div>");
 					boxHeight+=54;
 					
-					boxHeight+= 24 + ((response.lineHeight()+1)*18);
+					boxHeight+= 28 + ((response.lineHeight()+1)*18);
 				}
 				
 				Main.mainController.setTooltipSize(360, boxHeight);

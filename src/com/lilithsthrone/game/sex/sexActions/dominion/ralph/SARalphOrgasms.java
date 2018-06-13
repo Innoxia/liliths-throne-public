@@ -11,12 +11,13 @@ import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
 import com.lilithsthrone.game.character.npc.dominion.Ralph;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
+import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexFlags;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
+import com.lilithsthrone.game.sex.sexActions.SexActionLimitation;
 import com.lilithsthrone.game.sex.sexActions.SexActionPriority;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
@@ -31,13 +32,16 @@ import com.lilithsthrone.utils.Util;
 public class SARalphOrgasms {
 
 	public static final SexAction PLAYER_PREPARE = new SexAction(
-			SexActionType.PLAYER_PREPARE_PARTNER_ORGASM,
+			SexActionType.PREPARE_FOR_PARTNER_ORGASM,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
 			SexParticipantType.MISC) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		
 		@Override
 		public String getActionTitle() {
@@ -71,13 +75,16 @@ public class SARalphOrgasms {
 	};
 	
 	public static final SexAction PLAYER_ORGASM = new SexAction(
-			SexActionType.PLAYER_ORGASM,
+			SexActionType.ORGASM,
 			ArousalIncrease.FIVE_EXTREME,
 			ArousalIncrease.FIVE_EXTREME,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
 			SexParticipantType.MISC) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Orgasm";
@@ -97,13 +104,13 @@ public class SARalphOrgasms {
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), SexAreaOrifice.MOUTH) == SexAreaPenetration.PENIS) {
+			if(Sex.getAllContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.MOUTH).contains(SexAreaPenetration.PENIS)) {
 				UtilText.nodeContentSB.append("As Ralph's huge black cock thrusts deep down your throat, you feel yourself reaching your climax, and before you know what's happening, you're letting out a desperate, muffled [pc.moan].");
 				
-			} else if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), SexAreaOrifice.VAGINA) == SexAreaPenetration.PENIS) {
+			} else if(Sex.getAllContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS)) {
 				UtilText.nodeContentSB.append("As Ralph's huge black cock thrusts deep into your [pc.pussy+], you feel yourself reaching your climax, and before you know what's happening, you're letting out [pc.a_moan+].");
 				
-			} else if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), SexAreaOrifice.ANUS) == SexAreaPenetration.PENIS) {
+			} else if(Sex.getAllContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.ANUS).contains(SexAreaPenetration.PENIS)) {
 				UtilText.nodeContentSB.append("As Ralph's huge black cock thrusts deep into your [pc.asshole+], you feel yourself reaching your climax, and before you know what's happening, you're letting out [pc.a_moan+].");
 				
 			} else {
@@ -183,9 +190,9 @@ public class SARalphOrgasms {
 				UtilText.nodeContentSB.append("</br></br>"
 						+ "A desperate, shuddering heat suddenly crashes up from your [pc.pussy+], and you let out a manic squeal as a blinding wave of pure ecstasy washes over you.");
 				
-				if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), SexAreaOrifice.VAGINA) != null) {
-					GameCharacter characterPenetrating = Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), SexAreaOrifice.VAGINA);
-					switch(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), SexAreaOrifice.VAGINA)) {
+				if (!Sex.getCharacterContactingSexArea(Main.game.getPlayer(), SexAreaOrifice.VAGINA).isEmpty()) {
+					GameCharacter characterPenetrating = Sex.getCharacterContactingSexArea(Main.game.getPlayer(), SexAreaOrifice.VAGINA).get(0);
+					switch(Sex.getFirstContactingSexAreaPenetration(Main.game.getPlayer(), SexAreaOrifice.VAGINA)) {
 						case FINGER:
 							if(characterPenetrating.isPlayer()) {
 								UtilText.nodeContentSB.append(" You curl your fingers up deep inside your [pc.pussy+]"
@@ -265,13 +272,16 @@ public class SARalphOrgasms {
 	};
 	
 	public static final SexAction PARTNER_PREPARE = new SexAction(
-			SexActionType.PARTNER_PREPARE_PLAYER_ORGASM,
+			SexActionType.PREPARE_FOR_PARTNER_ORGASM,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
 			SexParticipantType.MISC) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		
 		@Override
 		public String getActionTitle() {
@@ -305,13 +315,16 @@ public class SARalphOrgasms {
 	};
 	
 	public static final SexAction PARTNER_ORGASM = new SexAction(
-			SexActionType.PARTNER_ORGASM,
+			SexActionType.ORGASM,
 			ArousalIncrease.FIVE_EXTREME,
 			ArousalIncrease.FIVE_EXTREME,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
 			SexParticipantType.MISC) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Stay in position";
@@ -336,7 +349,7 @@ public class SARalphOrgasms {
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), SexAreaOrifice.VAGINA)!=null){
+			if(!Sex.getAllContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.VAGINA).isEmpty()){
 				UtilText.nodeContentSB.append("Ralph starts letting out a series of low, heavy grunts, and you gasp as you feel his member start to twitch inside of you."
 						+ " With a roar, he slams his massive horse-cock deep into your cunt, and you let out a squeal as you feel his powerful shaft ride up inside of you as it prepares for its master's orgasm."
 						+ "</br>"
@@ -368,7 +381,7 @@ public class SARalphOrgasms {
 							+ UtilText.parseSpeech("Hey! I've got a shop to run here, remember? Anyway, I think you've more than earned that discount...", Main.game.getRalph()));
 				}
 				
-			}else if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), SexAreaOrifice.ANUS)!=null){
+			}else if(!Sex.getAllContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.ANUS).isEmpty()){
 				UtilText.nodeContentSB.append("Ralph starts letting out a series of low, heavy grunts, and you gasp as you feel his member start to twitch inside of you."
 						+ " With a roar, he slams his massive horse-cock deep into your ass, and you let out a cry as you feel his powerful shaft ride up inside of you as it prepares for its master's orgasm."
 						+ "</br>"
@@ -474,16 +487,16 @@ public class SARalphOrgasms {
 		@Override
 		public List<SexAreaOrifice> getAreasCummedIn(GameCharacter cumProvider, GameCharacter cumTarget) {
 			if(!cumProvider.isPlayer() && cumTarget.equals(Sex.getTargetedPartner(cumProvider))) {
-				if (Sex.getPenetrationTypeInOrifice(cumTarget, SexAreaOrifice.VAGINA) == SexAreaPenetration.PENIS && Sex.getPenetratingCharacterUsingOrifice(cumTarget, SexAreaOrifice.VAGINA).equals(cumProvider)) {
+				if (Sex.getAllContactingSexAreas(cumTarget, SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS) && Sex.getCharacterContactingSexArea(cumTarget, SexAreaOrifice.VAGINA).contains(cumProvider)) {
 					return Util.newArrayListOfValues(SexAreaOrifice.VAGINA);
 					
-				} else if (Sex.getPenetrationTypeInOrifice(cumTarget, SexAreaOrifice.ANUS) == SexAreaPenetration.PENIS && Sex.getPenetratingCharacterUsingOrifice(cumTarget, SexAreaOrifice.ANUS).equals(cumProvider)) {
+				} else if (Sex.getAllContactingSexAreas(cumTarget, SexAreaOrifice.ANUS).contains(SexAreaPenetration.PENIS) && Sex.getCharacterContactingSexArea(cumTarget, SexAreaOrifice.ANUS).contains(cumProvider)) {
 					return Util.newArrayListOfValues(SexAreaOrifice.ANUS);
 					
-				} else if (Sex.getPenetrationTypeInOrifice(cumTarget, SexAreaOrifice.MOUTH) == SexAreaPenetration.PENIS && Sex.getPenetratingCharacterUsingOrifice(cumTarget, SexAreaOrifice.MOUTH).equals(cumProvider)) {
+				} else if (Sex.getAllContactingSexAreas(cumTarget, SexAreaOrifice.MOUTH).contains(SexAreaPenetration.PENIS) && Sex.getCharacterContactingSexArea(cumTarget, SexAreaOrifice.MOUTH).contains(cumProvider)) {
 					return Util.newArrayListOfValues(SexAreaOrifice.MOUTH);
 					
-				} else if (Sex.getPenetrationTypeInOrifice(cumTarget, SexAreaOrifice.NIPPLE) == SexAreaPenetration.PENIS && Sex.getPenetratingCharacterUsingOrifice(cumTarget, SexAreaOrifice.NIPPLE).equals(cumProvider)) {
+				} else if (Sex.getAllContactingSexAreas(cumTarget, SexAreaOrifice.NIPPLE).contains(SexAreaPenetration.PENIS) && Sex.getCharacterContactingSexArea(cumTarget, SexAreaOrifice.NIPPLE).contains(cumProvider)) {
 					return Util.newArrayListOfValues(SexAreaOrifice.NIPPLE);
 					
 				} else {

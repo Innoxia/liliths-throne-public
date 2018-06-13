@@ -84,7 +84,7 @@ public enum Colour {
 	GENERIC_GOOD(BaseColour.GREEN, "green", Util.newArrayListOfValues("good")),
 	GENERIC_EXCELLENT(BaseColour.GOLD, "gold", Util.newArrayListOfValues("excellent")),
 	GENERIC_ATTRIBUTE(BaseColour.MAGENTA, "magenta"),
-	GENERIC_EXPERIENCE(BaseColour.BLUE_LIGHT, "light blue"),
+	GENERIC_EXPERIENCE(BaseColour.BLUE_LIGHT, "light blue", Util.newArrayListOfValues("experience", "xp")),
 	COOLDOWN(BaseColour.CRIMSON, "crimson", Util.newArrayListOfValues("cooldown")),
 
 	SCAR(BaseColour.TAN, "tan"),

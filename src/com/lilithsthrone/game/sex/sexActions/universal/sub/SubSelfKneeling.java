@@ -8,8 +8,11 @@ import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
+import com.lilithsthrone.game.sex.sexActions.SexActionLimitation;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.82
@@ -19,15 +22,18 @@ import com.lilithsthrone.main.Main;
 public class SubSelfKneeling {
 
 	public static final SexAction PARTNER_MOUND_SNOG = new SexAction(
-			SexActionType.PARTNER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
+			SexActionType.REQUIRES_NO_PENETRATION_AND_EXPOSED,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			SexAreaPenetration.TONGUE,
-			SexAreaOrifice.VAGINA,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA)),
 			SexParticipantType.PITCHER,
 			null,
 			SexPace.SUB_EAGER) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Mound snog";
@@ -57,15 +63,18 @@ public class SubSelfKneeling {
 	};
 	
 	public static final SexAction PARTNER_MOUND_KISSING = new SexAction(
-			SexActionType.PARTNER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
+			SexActionType.REQUIRES_NO_PENETRATION_AND_EXPOSED,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			SexAreaPenetration.TONGUE,
-			SexAreaOrifice.VAGINA,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA)),
 			SexParticipantType.PITCHER,
 			null,
 			SexPace.SUB_NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Kiss mound";

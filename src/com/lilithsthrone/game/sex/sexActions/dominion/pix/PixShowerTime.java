@@ -8,16 +8,18 @@ import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
+import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexFlags;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
+import com.lilithsthrone.game.sex.sexActions.SexActionLimitation;
 import com.lilithsthrone.game.sex.sexActions.SexActionPriority;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
 
 /**
  * Main positions:</br>
@@ -34,13 +36,16 @@ public class PixShowerTime {
 	// Player:
 
 	public static final SexAction PLAYER_KISS = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.ZERO_NONE,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
 			SexParticipantType.MISC) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Kiss";
@@ -72,13 +77,16 @@ public class PixShowerTime {
 	};
 	
 	public static final SexAction PLAYER_TRY_TO_FEEL_BREASTS = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.ZERO_NONE,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
 			SexParticipantType.MISC) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Pinch nipples";
@@ -114,13 +122,16 @@ public class PixShowerTime {
 	};
 	
 	public static final SexAction PLAYER_TRY_TO_MASTURBATE = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.ZERO_NONE,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
 			SexParticipantType.MISC) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Masturbate";
@@ -152,13 +163,16 @@ public class PixShowerTime {
 	};
 	
 	public static final SexAction PLAYER_DIRTY_TALK = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.ZERO_NONE,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
 			SexParticipantType.MISC) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Dirty talk";
@@ -188,13 +202,16 @@ public class PixShowerTime {
 	};
 	
 	public static final SexAction PLAYER_BREAK_FREE = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.ZERO_NONE,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
 			SexParticipantType.MISC) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Struggle";
@@ -233,13 +250,16 @@ public class PixShowerTime {
 	};
 	
 	public static final SexAction PLAYER_SUBMIT = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.ZERO_NONE,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
 			SexParticipantType.MISC) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Submit";
@@ -273,13 +293,16 @@ public class PixShowerTime {
 	};
 	
 	public static final SexAction FINGERED_GRIND_DOWN = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ONE_VANILLA,
-			SexAreaPenetration.FINGER,
-			SexAreaOrifice.VAGINA,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaOrifice.VAGINA)),
 			SexParticipantType.CATCHER) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Grind down";
@@ -307,13 +330,16 @@ public class PixShowerTime {
 	// Partner on player:
 	
 	public static final SexAction PARTNER_KISS = new SexAction(
-			SexActionType.PARTNER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
+			SexActionType.REQUIRES_NO_PENETRATION_AND_EXPOSED,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ZERO_PURE,
-			SexAreaPenetration.TONGUE,
-			SexAreaOrifice.MOUTH,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TONGUE, SexAreaOrifice.MOUTH)),
 			SexParticipantType.PITCHER) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Kiss";
@@ -338,13 +364,16 @@ public class PixShowerTime {
 	};
 	
 	public static final SexAction PARTNER_DIRTY_TALK = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
 			SexParticipantType.MISC) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Dirty talk";
@@ -374,13 +403,16 @@ public class PixShowerTime {
 	};
 	
 	public static final SexAction PARTNER_GROPE_BREASTS = new SexAction(
-			SexActionType.PARTNER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
+			SexActionType.REQUIRES_NO_PENETRATION_AND_EXPOSED,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			SexAreaPenetration.FINGER,
-			SexAreaOrifice.NIPPLE,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaOrifice.NIPPLE)),
 			SexParticipantType.PITCHER) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Grope breasts";
@@ -457,13 +489,16 @@ public class PixShowerTime {
 	};
 	
 	public static final SexAction PARTNER_MASTURBATE_PLAYER_COCK = new SexAction(
-			SexActionType.PARTNER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
+			SexActionType.REQUIRES_NO_PENETRATION_AND_EXPOSED,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			SexAreaPenetration.PENIS,
-			null,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, null)),
 			SexParticipantType.CATCHER) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		
 		@Override
 		public String getActionTitle() {
@@ -496,13 +531,16 @@ public class PixShowerTime {
 	};
 	
 	public static final SexAction FINGERING_PLAYER_START = new SexAction(
-			SexActionType.PARTNER_PENETRATION,
+			SexActionType.START_ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			SexAreaPenetration.FINGER,
-			SexAreaOrifice.VAGINA,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaOrifice.VAGINA)),
 			SexParticipantType.PITCHER) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Start fingering the player";
@@ -527,13 +565,16 @@ public class PixShowerTime {
 	};
 	
 	public static final SexAction FINGERING_PLAYER_GENTLE = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			SexAreaPenetration.FINGER,
-			SexAreaOrifice.VAGINA,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaOrifice.VAGINA)),
 			SexParticipantType.PITCHER) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Gentle fingering";
@@ -564,13 +605,16 @@ public class PixShowerTime {
 	};
 	
 	public static final SexAction FINGERING_PLAYER_ROUGH = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			SexAreaPenetration.FINGER,
-			SexAreaOrifice.VAGINA,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaOrifice.VAGINA)),
 			SexParticipantType.PITCHER) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Rough fingering";
@@ -606,13 +650,16 @@ public class PixShowerTime {
 	};
 	
 	public static final SexAction FINGERING_PLAYER_CLIT_PLAY = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			SexAreaPenetration.FINGER,
-			SexAreaOrifice.VAGINA,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaOrifice.VAGINA)),
 			SexParticipantType.PITCHER) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Clit play";
@@ -645,13 +692,16 @@ public class PixShowerTime {
 	};
 	
 	public static final SexAction PARTNER_ASK_FOR_PROMISE = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
 			SexParticipantType.MISC) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Demand promise";
@@ -695,13 +745,16 @@ public class PixShowerTime {
 	};
 	
 	public static final SexAction PARTNER_STOP_SEX = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
 			SexParticipantType.MISC) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "";
