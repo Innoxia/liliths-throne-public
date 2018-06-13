@@ -3302,29 +3302,29 @@ public enum Sex {
 						SexAction action = ((SexAction) f.get(null));
 						if (action.getActionType().isOrgasmOption()) {
 							if(character.isPlayer()) {
-								if(action.getLimitation()==SexActionLimitation.PLAYER_ONLY) {
+								if(action.getLimitation()==SexActionLimitation.PLAYER_ONLY || action.getLimitation()==null) {
 									orgasmActionsAvailable.get(character).get(target).add(action);
-								} else {
+								} else if(action.getLimitation()==SexActionLimitation.NPC_ONLY || action.getLimitation()==null) {
 									orgasmActionsAvailable.get(target).get(character).add(action);
 								}
 							} else {
-								if(action.getLimitation()==SexActionLimitation.NPC_ONLY) {
+								if(action.getLimitation()==SexActionLimitation.NPC_ONLY || action.getLimitation()==null) {
 									orgasmActionsAvailable.get(character).get(target).add(action);
-								} else {
+								} else if(action.getLimitation()==SexActionLimitation.PLAYER_ONLY || action.getLimitation()==null) {
 									orgasmActionsAvailable.get(Main.game.getPlayer()).get(character).add(action);
 								}
 							}
 						} else {
 							if(character.isPlayer()) {
-								if(action.getLimitation()==SexActionLimitation.PLAYER_ONLY) {
+								if(action.getLimitation()==SexActionLimitation.PLAYER_ONLY || action.getLimitation()==null) {
 									actionsAvailable.get(character).get(target).add(action);
-								} else {
+								} else if(action.getLimitation()==SexActionLimitation.NPC_ONLY || action.getLimitation()==null) {
 									actionsAvailable.get(target).get(character).add(action);
 								}
 							} else {
-								if(action.getLimitation()==SexActionLimitation.NPC_ONLY) {
+								if(action.getLimitation()==SexActionLimitation.NPC_ONLY || action.getLimitation()==null) {
 									actionsAvailable.get(character).get(target).add(action);
-								} else {
+								} else if(action.getLimitation()==SexActionLimitation.PLAYER_ONLY || action.getLimitation()==null) {
 									actionsAvailable.get(Main.game.getPlayer()).get(character).add(action);
 								}
 							}
