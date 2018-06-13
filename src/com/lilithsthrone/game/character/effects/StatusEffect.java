@@ -10183,7 +10183,7 @@ public enum StatusEffect {
 				descriptionSB.append("<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
 			}
 
-			appendOrificeAdditionGenericDescriptions(target, SexAreaOrifice.ANUS, UtilText.parse(target, "[npc.NamePos] [npc.asshole]"), descriptionSB);
+			appendOrificeAdditionGenericDescriptions(target, type, UtilText.parse(target, "[npc.NamePos] [npc.asshole]"), descriptionSB);
 			
 			descriptionSB.append("</p>");
 			
@@ -10287,7 +10287,7 @@ public enum StatusEffect {
 				descriptionSB.append("<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
 			}
 
-			appendOrificeAdditionGenericDescriptions(target, SexAreaOrifice.ASS, UtilText.parse(target, "[npc.NamePos] [npc.ass]"), descriptionSB);
+			appendOrificeAdditionGenericDescriptions(target, type, UtilText.parse(target, "[npc.NamePos] [npc.ass]"), descriptionSB);
 			
 			descriptionSB.append("</p>");
 
@@ -10399,7 +10399,7 @@ public enum StatusEffect {
 				descriptionSB.append("<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
 			}
 
-			appendOrificeAdditionGenericDescriptions(target, SexAreaOrifice.MOUTH, UtilText.parse(target, "[npc.NamePos] mouth"), descriptionSB);
+			appendOrificeAdditionGenericDescriptions(target, type, UtilText.parse(target, "[npc.NamePos] mouth"), descriptionSB);
 			
 			descriptionSB.append("</p>");
 			
@@ -10516,7 +10516,7 @@ public enum StatusEffect {
 				descriptionSB.append("<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
 			}
 			
-			appendOrificeAdditionGenericDescriptions(target, SexAreaOrifice.BREAST, UtilText.parse(target, "[npc.NamePos] [npc.breasts]"), descriptionSB);
+			appendOrificeAdditionGenericDescriptions(target, type, UtilText.parse(target, "[npc.NamePos] [npc.breasts]"), descriptionSB);
 			
 			descriptionSB.append("</p>");
 			
@@ -10620,7 +10620,7 @@ public enum StatusEffect {
 				descriptionSB.append("<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
 			}
 
-			appendOrificeAdditionGenericDescriptions(target, SexAreaOrifice.NIPPLE, UtilText.parse(target, "[npc.NamePos] [npc.nipples]"), descriptionSB);
+			appendOrificeAdditionGenericDescriptions(target, type, UtilText.parse(target, "[npc.NamePos] [npc.nipples]"), descriptionSB);
 			
 			descriptionSB.append("</p>");
 			
@@ -10725,7 +10725,7 @@ public enum StatusEffect {
 				descriptionSB.append("<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
 			}
 			
-			appendOrificeAdditionGenericDescriptions(target, SexAreaOrifice.URETHRA_PENIS, UtilText.parse(target, "[npc.NamePos] [npc.urethraPenis]"), descriptionSB);
+			appendOrificeAdditionGenericDescriptions(target, type, UtilText.parse(target, "[npc.NamePos] [npc.urethraPenis]"), descriptionSB);
 			
 			descriptionSB.append("</p>");
 			
@@ -10829,7 +10829,7 @@ public enum StatusEffect {
 				descriptionSB.append("<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
 			}
 			
-			appendOrificeAdditionGenericDescriptions(target, SexAreaOrifice.URETHRA_VAGINA, UtilText.parse(target, "[npc.NamePos] [npc.urethraVagina]"), descriptionSB);
+			appendOrificeAdditionGenericDescriptions(target, type, UtilText.parse(target, "[npc.NamePos] [npc.urethraVagina]"), descriptionSB);
 			
 			descriptionSB.append("</p>");
 			
@@ -10933,7 +10933,7 @@ public enum StatusEffect {
 				descriptionSB.append("<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
 			}
 			
-			appendOrificeAdditionGenericDescriptions(target, SexAreaOrifice.VAGINA, UtilText.parse(target, "[npc.NamePos] [npc.pussy]"), descriptionSB);
+			appendOrificeAdditionGenericDescriptions(target, type, UtilText.parse(target, "[npc.NamePos] [npc.pussy]"), descriptionSB);
 			
 			descriptionSB.append("</p>");
 			
@@ -11042,7 +11042,7 @@ public enum StatusEffect {
 				descriptionSB.append("<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
 			}
 
-			appendOrificeAdditionGenericDescriptions(target, SexAreaOrifice.THIGHS, UtilText.parse(target, "[npc.NamePos] [npc.ass]"), descriptionSB);
+			appendOrificeAdditionGenericDescriptions(target, type, UtilText.parse(target, "[npc.NamePos] [npc.ass]"), descriptionSB);
 			
 			descriptionSB.append("</p>");
 			
