@@ -29,6 +29,9 @@
 	
 	Engine:
 		Improved scripting support for parsing conditional statements.
+		Added support for multiple penetrations in a single orifice.
+		Added support for penetration + penetration or orifice + orifice sex actions. (It was limited to penetration + orifice before.)
+		Added support for NPC-on-NPC sex actions. (I have a thousand actions to convert to this new format, which will be done over the course of the next few versions.)
 		
 	Gameplay:
 		Added cum storage/regeneration values (the same mechanics as milk). Added an 'expulsion' value to testicles (with associated TF modifier for potions), which determines how much of your stored cum is expelled upon orgasm. (This new mechanic can be toggled off in the content settings.)

@@ -193,8 +193,8 @@ public class Response {
 				|| perksRequired != null
 				|| femininityRequired != null
 				|| raceRequired != null
-				|| sexAreaAccessRequiredForPerformer != null
-				|| sexAreaAccessRequiredForTargeted != null;
+				|| !sexAreaAccessRequiredForPerformer.isEmpty()
+				|| !sexAreaAccessRequiredForTargeted.isEmpty();
 	}
 	
 	public boolean isAvailable(){
