@@ -39,6 +39,7 @@
 	
 	Artwork:
 		Added ChattyNeko's Kate drawing.
+		Added ChattyNeko's Lumi drawing.
 	
 	Contributors:
 		Fixed self breast milking always emptying breasts. (Pimvgd)
@@ -78,6 +79,7 @@
 		Added metallic colours for hair and fur dye.
 		Improved the spell UI to give an indication as to which spells are 'forbidden'.
 		Using a pregnancy tester now correctly reveals the father in the pregnancy stats page.
+		Removed negative physique effects from having full breasts.
 	
 	Bugs:
 		Typo and parsing fixes, including instances of your name being incorrectly parsed as 'you'.
@@ -101,10 +103,13 @@
 		Demon alleyway attackers will no longer have their virginities reset after sex.
 		Fixed bug where slimes would always spawn in with a load of jewellery in their inventory.
 		Fixed issue where Nyan's clothing might sometimes not load correctly.
+		Fixed drinking milk giving the 'Cummy Meal' status effect.
+		Fixed slimes drinking milk causing impregnation check to trigger.
 	
 	
 	
 	
+	Add dirty clothing check for no cum
 	
 	
 	Fix stroke cock being related to urethra
@@ -121,8 +126,6 @@
 	
 	StatusEffect.getDescription can reuse type variable for appendOrificeAdditionGenericDescriptions(target, SexAreaOrifice.ASS,
 	
-	Add Lumi art
-	
 	Set your elemental's fetishes (make them the counterparts of yours)
 	
 	when I'm accessing an enemy's inventory, and taking an item, say, "Mystery Kink": if I hover my mouse over the "Take (All)" option, it displays the following message, "Take five of the man's Mystery Kinks", even when said enemy has only one.
@@ -131,17 +134,8 @@
 	
 	a slider for npc's spawning with cosmetics such as piercings, scars, and tattoos would be nice
 	
-	Add dirty clothing check for no cum
-	
-	[X] cum like milk
-	
-	[X] add cum on orgasm percentage
-	
-	[X] Fix tags
 	
 	[ ] Sort Colour lists
-	
-	[ ] Change PenetrationType and OrificeType to SexArea
 	
 	[ ] Clothing for different slots (add plugs & ribbons)
 	

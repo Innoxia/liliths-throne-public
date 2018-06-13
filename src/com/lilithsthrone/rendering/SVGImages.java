@@ -70,6 +70,7 @@ public enum SVGImages {
 			
 			// Effects:
 			creampie, creampieMasochist,
+			fluidIngested, fluidIngestedMasochist,
 			
 			// Items:
 			
@@ -530,9 +531,14 @@ public enum SVGImages {
 
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/creampie.svg");
 			creampie = Util.inputStreamToString(is);
-
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/creampieMasochist.svg");
 			creampieMasochist = Util.inputStreamToString(is);
+
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/fluidIngested.svg");
+			fluidIngested = Util.inputStreamToString(is);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/fluidIngestedMasochist.svg");
+			fluidIngestedMasochist = Util.inputStreamToString(is);
+			
 			
 			// Items:
 			
@@ -1270,6 +1276,14 @@ public enum SVGImages {
 
 	public String getDiceGlow() {
 		return diceGlow;
+	}
+
+	public String getFluidIngested() {
+		return fluidIngested;
+	}
+
+	public String getFluidIngestedMasochist() {
+		return fluidIngestedMasochist;
 	}
 	
 }

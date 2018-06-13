@@ -4110,7 +4110,6 @@ public enum StatusEffect {
 			Colour.GENERIC_SEX,
 			true,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -1f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -5f)),
 			null) {
 
@@ -4185,7 +4184,6 @@ public enum StatusEffect {
 			Colour.GENERIC_SEX,
 			true,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -1f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -5f)),
 			null) {
 
@@ -5028,6 +5026,13 @@ public enum StatusEffect {
 			null) {
 		
 		@Override
+		public String getName(GameCharacter target) {
+			return target.isOnlyCumInArea(SexAreaOrifice.MOUTH)
+					?"Cummy Meal"
+					:"Yummy Meal";
+		}
+		
+		@Override
 		public Map<Attribute, Float> getAttributeModifiers(GameCharacter target) {
 			if(isCumEffectPositive(target)) {
 				return Util.newHashMapOfValues(
@@ -5061,16 +5066,14 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			if(target.isPlayer()) {
-				return "You've recently swallowed a load of cum.</br>"
+			return UtilText.parse(target, 
+					target.isOnlyCumInArea(SexAreaOrifice.MOUTH)
+					?"[npc.NamePos] recently swallowed a load of cum.</br>"
 						+ "Current cum in stomach: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.MOUTH)+"ml)]</br>"
-						+ "(-2ml/minute)";
-			} else {
-				return UtilText.parse(target, 
-						"[npc.Name]'s recently swallowed a load of cum.</br>"
-						+ "Current cum in stomach: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.MOUTH)+"ml)]</br>"
+						+ "(-2ml/minute)"
+					:"[npc.NamePos] recently swallowed some sexual fluids.</br>"
+						+ "Current fluids in stomach: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.MOUTH)+"ml)]</br>"
 						+ "(-2ml/minute)");
-			}
 		}
 		
 		@Override
@@ -11437,10 +11440,18 @@ public enum StatusEffect {
 	public String getCreampieSVGString(GameCharacter owner, SexAreaOrifice orifice) {
 		SVGImageSB = new StringBuilder();
 		
+		boolean justCum = owner.isOnlyCumInArea(orifice);
+		
 		if(isCumEffectPositive(owner)) {
-			SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCreampieMasochist()+"</div>");
+			SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"
+									+ (justCum
+											?SVGImages.SVG_IMAGE_PROVIDER.getCreampieMasochist()
+											:SVGImages.SVG_IMAGE_PROVIDER.getFluidIngestedMasochist())
+								+"</div>");
 		} else {
-			SVGImageSB.append(SVGImages.SVG_IMAGE_PROVIDER.getCreampie());
+			SVGImageSB.append((justCum
+					?SVGImages.SVG_IMAGE_PROVIDER.getCreampie()
+					:SVGImages.SVG_IMAGE_PROVIDER.getFluidIngested()));
 		}
 		
 		switch(orifice) {

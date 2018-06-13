@@ -9499,7 +9499,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			}
 		}
 		
-		if(this.getBodyMaterial()==BodyMaterial.SLIME || orificeIngestedThrough == SexAreaOrifice.VAGINA) {
+		if((this.getBodyMaterial()==BodyMaterial.SLIME
+				|| orificeIngestedThrough == SexAreaOrifice.VAGINA)
+				&& fluid.getBaseType()==FluidTypeBase.CUM) {
 			fluidIngestionSB.append(rollForPregnancy(charactersFluid, millilitres));
 		}
 		
@@ -10464,6 +10466,26 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 	
 	// Cummed in areas:
+	
+	public List<FluidStored> getAllFluidsStored() {
+		List<FluidStored> list = new ArrayList<>();
+		for(List<FluidStored> stored : fluidsStoredMap.values()) {
+			list.addAll(stored);
+		}
+		return list;
+	}
+	
+	/**
+	 * @return false If the area is not storing any fluids, or if the stored fluids are not only cum.
+	 */
+	public boolean isOnlyCumInArea(SexAreaOrifice area) {
+		for(FluidStored f : fluidsStoredMap.get(area)) {
+			if(!f.isCum()) {
+				return false;
+			}
+		}
+		return !fluidsStoredMap.get(area).isEmpty();
+	}
 	
 	public int getTotalFluidInArea(SexAreaOrifice area) {
 		int total = 0;
