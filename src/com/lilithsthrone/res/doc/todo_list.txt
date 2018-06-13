@@ -39,7 +39,7 @@
 	
 	Contributors:
 		Fixed self breast milking always emptying breasts. (Pimvgd)
-		Fixed bug in FluidStored constructor that was causing issues with Roxy. (Pimvgd)
+		Fixed bug in FluidStored constructor that was causing issues with addictive fluids. (Pimvgd)
 		Fixed incorrect descriptions in mouth orifice status tooltip. (Pimvgd)
 		Reduced UtilText.parse parsing time by two-thirds for large inputs. (Pimvgd)
 		Fixed major issue with parsing. (Pimvgd)

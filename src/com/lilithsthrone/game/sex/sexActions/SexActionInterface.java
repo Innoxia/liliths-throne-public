@@ -52,7 +52,7 @@ public interface SexActionInterface {
 		List<SexAreaOrifice> list = new ArrayList<>();
 		if(this.getParticipantType().isUsingSelfOrificeType()) {
 			for(SexAreaInterface sArea : getSexAreaInteractions().values()) {
-				if(sArea.isOrifice()) {
+				if(sArea!=null && sArea.isOrifice()) {
 					list.add((SexAreaOrifice)sArea);
 				}
 			}
@@ -64,7 +64,7 @@ public interface SexActionInterface {
 		List<SexAreaPenetration> list = new ArrayList<>();
 		if(this.getParticipantType().isUsingSelfPenetrationType()) {
 			for(SexAreaInterface sArea : getSexAreaInteractions().keySet()) {
-				if(sArea.isPenetration()) {
+				if(sArea!=null && sArea.isPenetration()) {
 					list.add((SexAreaPenetration)sArea);
 				}
 			}
@@ -76,7 +76,7 @@ public interface SexActionInterface {
 		List<SexAreaOrifice> list = new ArrayList<>();
 		if(!this.getParticipantType().isUsingSelfOrificeType()) {
 			for(SexAreaInterface sArea : getSexAreaInteractions().values()) {
-				if(sArea.isOrifice()) {
+				if(sArea!=null && sArea.isOrifice()) {
 					list.add((SexAreaOrifice)sArea);
 				}
 			}
@@ -88,7 +88,7 @@ public interface SexActionInterface {
 		List<SexAreaPenetration> list = new ArrayList<>();
 		if(!this.getParticipantType().isUsingSelfPenetrationType()) {
 			for(SexAreaInterface sArea : getSexAreaInteractions().keySet()) {
-				if(sArea.isPenetration()) {
+				if(sArea!=null && sArea.isPenetration()) {
 					list.add((SexAreaPenetration)sArea);
 				}
 			}
@@ -480,10 +480,11 @@ public interface SexActionInterface {
 				if(!this.getSexAreaInteractions().isEmpty()) {
 					boolean ongoingFound = false;
 					for(SexAreaInterface sArea : this.getSexAreaInteractions().keySet()) {
-						if(Sex.getCharacterContactingSexArea(Sex.getCharacterPerformingAction(), sArea).contains(Sex.getCharacterTargetedForSexAction())
-								|| Sex.getCharacterContactingSexArea(Sex.getCharacterPerformingAction(), sArea).contains(Sex.getCharacterPerformingAction())) {
-							ongoingFound = true;
-							break;
+						for(SexAreaInterface sAreaTarget : this.getSexAreaInteractions().values()) {
+							if(Sex.getContactingSexAreas(Sex.getCharacterPerformingAction(), sArea, Sex.getCharacterTargetedForSexAction()).contains(sAreaTarget)) {
+								ongoingFound = true;
+								return convertToResponse();
+							}
 						}
 					}
 					if(!ongoingFound) {

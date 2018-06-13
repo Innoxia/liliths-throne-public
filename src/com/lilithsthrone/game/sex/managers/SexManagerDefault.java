@@ -539,10 +539,12 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 			for(GameCharacter penetrated : Sex.getAllParticipants()) {
 				if((penetrator.equals(Sex.getActivePartner()) || penetrated.equals(Sex.getActivePartner())) && !penetrator.equals(penetrated)) {
 					for(Map<GameCharacter, Set<SexAreaInterface>> e : Sex.getOngoingActionsMap(penetrator).values()) {
-						for(SexAreaInterface sArea : e.get(penetrated)) {
-							if(sArea.isPenetration() && ((SexAreaPenetration)sArea).isTakesVirginity()) {
-								isSexPenetration = true;
-								break outerloop;
+						if(e.containsKey(penetrated)) {
+							for(SexAreaInterface sArea : e.get(penetrated)) {
+								if(sArea.isPenetration() && ((SexAreaPenetration)sArea).isTakesVirginity()) {
+									isSexPenetration = true;
+									break outerloop;
+								}
 							}
 						}
 					}
