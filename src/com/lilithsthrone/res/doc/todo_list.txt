@@ -51,6 +51,7 @@
 		Fixed bug in FluidRegeneration value. (Pimvgd)
 		Added cum regeneration mechanics toggle. (Pimvgd)
 		Cleaned BodyCoveringType via BodyCoveringTemplateFactory. (Pimvgd)
+		Made more parsing performance improvements. (Pimvgd)
 	
 	Clothing:
 		<b>Added:</b> Butler set. (With boosted butler set effects if you chose the 'bulter' job at the start of the game.)
