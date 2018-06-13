@@ -49,6 +49,7 @@
 		Optimised loading. As an example, this cut down the loading time of a large save file by 60%. (Pimvgd)
 		Fixed bug in FluidRegeneration value. (Pimvgd)
 		Added cum regeneration mechanics toggle. (Pimvgd)
+		Cleaned BodyCoveringType via BodyCoveringTemplateFactory. (Pimvgd)
 	
 	Clothing:
 		<b>Added:</b> Butler set. (With boosted butler set effects if you chose the 'bulter' job at the start of the game.)
