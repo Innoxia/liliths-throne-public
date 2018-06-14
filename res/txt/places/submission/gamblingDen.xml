@@ -21,7 +21,7 @@
 		[pc.speech(Thanks,)] you say, [pc.speech(I'll go and check it all out.)]
 	</p>
 	<p>
-		[axel.speech(Oh, and, erm, we've also got a shop,)] Axel says, the friendly tone of his voice shifting into one of discomfort, [axel.speech(Roxy's the one that runs it. Just be careful around her, ok?)]
+		[axel.speech(Oh, and, erm, we've also got a shop,)] Axel says, the friendly tone of his voice shifting into one of discomfort. [axel.speech(Roxy's the one that runs it. Just be careful around her, ok?)]
 	</p>
 	<p>
 		[pc.speech(Ok, I'll see you around,)] you say, letting Axel hurry off to one side of the hall before moving off to explore the building.
@@ -41,10 +41,10 @@
 	
 	<htmlContent tag="AXEL"><![CDATA[
 	<p>
-		Deciding that you'd like to talk to Axel, you approach the albino alligator-boy and call out to him, [pc.speech(Hi Axel!)]
+		Deciding that you'd like to talk to Axel, you approach the albino alligator-boy and call out to him, [pc.speech(Hi, Axel!)]
 	</p>
 	<p>
-		[axel.speech(Ah, hello [pc.name]!)] he responds, turning to face you. [axel.speech(What can I do for you?)]
+		[axel.speech(Ah, hello, [pc.name]!)] he responds, turning to face you. [axel.speech(What can I do for you?)]
 	</p>
 	]]>
 	</htmlContent>
@@ -54,7 +54,7 @@
 		[pc.speech(How are you? Is business going well?)] you ask.
 	</p>
 	<p>
-		[axel.speech(I'm doing well, thank you.)] Axel responds, before letting out a sigh as he continues, [axel.speech(But business could be going better...)]
+		[axel.speech(I'm doing well, thank you,)] Axel responds, before letting out a sigh as he continues, [axel.speech(But business could be going better...)]
 	</p>
 	<p>
 		Before you can respond to this, the alligator-boy shakes his head and smiles at you. [axel.speech(Sorry, I don't mean to be pessimistic, and I don't want to offload my worries onto you. Everything's fine with me, thanks for asking.)] 
@@ -67,7 +67,7 @@
 		[pc.speech(How are you? Is business going well?)] you ask.
 	</p>
 	<p>
-		[axel.speech(I'm doing well, thank you.)] Axel responds, before letting out a sigh as he continues, [axel.speech(But I don't know how much longer I can keep this place open. Business is going extremely well, but Vengar's demanding more and more protection money. I've already told him that he's going to run this place into the ground, but he just doesn't care.)]
+		[axel.speech(I'm doing well, thank you,)] Axel responds, before letting out a sigh as he continues, [axel.speech(But I don't know how much longer I can keep this place open. Business is going extremely well, but Vengar's demanding more and more protection money. I've already told him that he's going to run this place into the ground, but he just doesn't care.)]
 	</p>
 	<p>
 		Before you can respond to this, the alligator-boy shakes his head and smiles at you. [axel.speech(Sorry, I don't mean to be pessimistic, and I don't want to offload my worries onto you. Is there anything else I can help you with?)] 
@@ -77,10 +77,10 @@
 	
 	<htmlContent tag="AXEL_ROXY"><![CDATA[
 	<p>
-		[pc.speech(So what's the story with Roxy?)] you ask, [pc.speech(She seems to be a little rough with her customers.)]
+		[pc.speech(So what's the story with Roxy?)] you ask. [pc.speech(She seems to be a little rough with her customers.)]
 	</p>
 	<p>
-		[axel.speech(Yeah, she's nothing but trouble.)] Axel sighs, [axel.speech(If it were up to me, I'd have thrown her out a long time ago. Seeing as she's Vengar's sister, I've got no choice but to leave her alo-)]
+		[axel.speech(Yeah, she's nothing but trouble.)] Axel sighs. [axel.speech(If it were up to me, I'd have thrown her out a long time ago. Seeing as she's Vengar's sister, I've got no choice but to leave her alo-)]
 	</p>
 	<p>
 		Axel suddenly stops talking mid-sentence, and, realising that he's said more than he meant to, starts to panic. [axel.speech(I-I mean, s-she's no trouble at all, ok? I never really meant to say that I want to throw her out! I was just joking, you understand?)]
@@ -92,7 +92,7 @@
 		Axel glances around nervously, before lowering his voice and leaning in towards you. [axel.speech(Y-You mean you're not working for him?)]
 	</p>
 	<p>
-		[pc.speech(I don't even know who he is.)] you reply.
+		[pc.speech(I don't even know who he is,)] you reply.
 	</p>
 	<p>
 		Axel lets out a big sigh of relief, [axel.speech(Thank goodness. I've been getting careless recently. I really shouldn't have mentioned Vengar.)]
@@ -102,10 +102,10 @@
 	
 	<htmlContent tag="AXEL_ROXY_VENGAR"><![CDATA[
 	<p>
-		[pc.speech(So what's the story with Roxy?)] you ask, [pc.speech(You said you'd have thrown her out if it was up to you.)]
+		[pc.speech(So what's the story with Roxy?)] you ask. [pc.speech(You said you'd have thrown her out if it was up to you.)]
 	</p>
 	<p>
-		[axel.speech(Yeah, I shouldn't have let that slip...)] Axel sighs, [axel.speech(But seeing as I did, I guess I should tell you the whole story.)]
+		[axel.speech(Yeah, I shouldn't have let that slip...)] Axel sighs. [axel.speech(But seeing as I did, I guess I should tell you the whole story.)]
 	</p>
 	]]>
 	</htmlContent>
@@ -152,7 +152,7 @@
 		[roxy.speech(Ay! Don't fuckin' interrupt!)] she berates you, before once again bursting out in her abrasive laughter. Before you can react to her rude reply, she continues, [roxy.speech(Anyways, now that I've got my own shop and shit, I was thinkin' I'd do the same as that fuckin' horse-boy, but make it even better! Instead of just givin' yer some kinda shitty discount, if yer wanna come lick my cunt for an hour or so, I'll give yer a fuckin' free item from my shop!)]
 	</p>
 	<p>
-		[pc.speech(What kind of free item?)] you ask, immediately regretting asking your question, as it causes Roxy to let out yet another of her infuriatingly-annoying laughs.
+		[pc.speech(What kind of free item?)] you ask, immediately regretting asking your question, as it causes Roxy to let out yet another of her infuriatingly annoying laughs.
 	</p>
 	<p>
 		[roxy.speech(I got a couple o' dice here. Yer come down here and let me plant my fuckin' sweet cunt on yer face, and I'll roll these to decide on a random fuckin' item from my shop. Whattya say?)]
@@ -171,14 +171,14 @@
 		[roxy.speech(Alright, alright, no need to be such a fuckin' cunt about it,)] Roxy huffs, lowering her skirt and leaning down on the counter once more. [roxy.speech(Yer still ain't as bad as most o' the stupid twats that wander in 'ere, so if yer ever change yer mind, just let me know, ok? Remember, yer get a free fuckin' item outta it!)]
 	</p>
 	<p>
-		[pc.speech(Ok, I'll keep that in mind.)] you say, before moving off to look around the store.
+		[pc.speech(Ok, I'll keep that in mind,)] you say, before moving off to look around the store.
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="TRADER_REPLY_YES"><![CDATA[
 	<p>
-		[pc.speech(Ok, I'll accept your deal.)] you say.
+		[pc.speech(Ok, I'll accept your deal,)] you say.
 	</p>
 	<p>
 		[roxy.speech(Heh! I fuckin' knew yer would!)] Roxy exclaims, letting out another of her abrasive laughs as she steps to one side and lifts up the hinged part of the counter. [roxy.speech(Come on then! Get back here and fuckin' lie down already!)]
@@ -197,7 +197,7 @@
 		As you step foot inside Roxy's store once again, you see the rat-girl leaning on the counter over on the far side of the room. She sees you enter her shop, and calls out, [roxy.speech(Hey [pc.name]! Yer back to buy some of this shit I got on offer?)]
 	</p>
 	<p>
-		[pc.speech(Hi Roxy.)] you reply. [pc.speech(I just wanted to see what you've got in stock.)]
+		[pc.speech(Hi, Roxy,)] you reply. [pc.speech(I just wanted to see what you've got in stock.)]
 	</p>
 	<p>
 		[roxy.speech(Well, seein' as it's you, I don't mind yer takin' a look around fer a bit. Oh, and remember, if yer want a free item, my special offer's still on!)] Roxy says, before bursting out in her abrasive laughter. [roxy.speech(All yer gotta do is come lie behind my counter fer an hour, so I can plant my sweet fuckin' cunt on yer face!)]
@@ -207,10 +207,10 @@
 	
 	<htmlContent tag="TRADER_REPEAT_ADDICT"><![CDATA[
 	<p>
-		As you step foot inside Roxy's store once again, you see the rat-girl leaning on the counter over on the far side of the room. She sees you enter her shop, and calls out, [roxy.speech(Hey [pc.name]! Yer got a craving fer my fuckin' cunt, haven't yer?)]
+		As you step foot inside Roxy's store once again, you see the rat-girl leaning on the counter over on the far side of the room. She sees you enter her shop, and calls out, [roxy.speech(Hey, [pc.name]! Yer got a craving fer my fuckin' cunt, haven't yer?)]
 	</p>
 	<p>
-		[pc.speech(Hi Roxy.)] you reply, trying not to reveal the fact that you're desperate for another taste of her pussy.
+		[pc.speech(Hi, Roxy,)] you reply, trying not to reveal the fact that you're desperate for another taste of her pussy.
 	</p>
 	<p>
 		[roxy.speech(Heh! Don't try to hide it!)] Roxy exclaims, before bursting out in her abrasive laughter. [roxy.speech(I can tell yer want nothin' more than for me to plant my sweet fuckin' cunt on yer face! Yer just desperate fer another taste o' my wet twat, ain't yer?)]
@@ -229,10 +229,10 @@
 	
 	<htmlContent tag="TRADER_REPEAT_BEATEN_ADDICTION"><![CDATA[
 	<p>
-		As you step foot inside Roxy's store once again, you see the rat-girl leaning on the counter over on the far side of the room. She sees you enter her shop, and calls out, [roxy.speech(Hey [pc.name]! Yer got a craving fer gettin' addicted to my fuckin' cunt again, eh?)]
+		As you step foot inside Roxy's store once again, you see the rat-girl leaning on the counter over on the far side of the room. She sees you enter her shop, and calls out, [roxy.speech(Hey, [pc.name]! Yer got a craving fer gettin' addicted to my fuckin' cunt again, eh?)]
 	</p>
 	<p>
-		[pc.speech(Hi Roxy.)] you reply, ignoring her question.
+		[pc.speech(Hi, Roxy,)] you reply, ignoring her question.
 	</p>
 	<p>
 		[roxy.speech(Heh! Don't try to hide it!)] Roxy exclaims, before bursting out in her abrasive laughter. [roxy.speech(I can tell yer want nothin' more than for me to plant my sweet fuckin' cunt on yer face! Yer just desperate fer another taste o' my wet twat, ain't yer?)]
@@ -251,7 +251,7 @@
 	
 	<htmlContent tag="ROXY_SEX_START"><![CDATA[
 	<p>
-		[pc.speech(I'd like to accept your your deal to get a free item.)] you say.
+		[pc.speech(I'd like to accept your your deal to get a free item,)] you say.
 	</p>
 	<p>
 		[roxy.speech(Heh! I fuckin' knew yer wouldn't be able to resist my cunt!)] Roxy exclaims, letting out another of her abrasive laughs as she steps to one side and lifts up the hinged part of the counter. [roxy.speech(Come on then! Get back here and fuckin' lie down already!)]
@@ -286,13 +286,13 @@
 		As Roxy starts to stand up, you desperately sit up to try and get one last lick of her pussy. Looking down to see you doing this, the rat-girl lets out another of her annoying laughs, before stepping to one side and denying you a final taste of her juices. [roxy.speech(Come on now! That's fuckin' enough! Get back to the other side o' the counter!)]
 	</p>
 	<p>
-		You reluctantly do as Roxy says, and, lifting up the counter top, you step back around to the other side. Ashamed at having been tricked into getting addicted to Roxy's girlcum, you start to take your leave, but the rat-girl calls out to stop you. [roxy.speech(Ay! Not so fuckin' fast! Yer want yer free item, don't ya?)]
+		You reluctantly do as Roxy says, and, lifting up the counter top, you step back around to the other side. Ashamed at having been tricked into getting addicted to Roxy's girlcum, you start to take your leave, but the rat-girl calls out to stop you, [roxy.speech(Ay! Not so fuckin' fast! Yer want yer free item, don't ya?)]
 	</p>
 	<p>
 		[pc.speech(Oh, yeah...)] you reply, turning back and stepping towards the counter.
 	</p>
 	<p>
-		[roxy.speech(Don't yer worry! I'll be gettin' the value of this back soon enough!)] Roxy laughs, [roxy.speech(Yer gonna come crawlin' back fer another taste o' my cunt before long, and it's gonna cost yer next time!)]
+		[roxy.speech(Don't yer worry! I'll be gettin' the value of this back soon enough!)] Roxy laughs. [roxy.speech(Yer gonna come crawlin' back fer another taste o' my cunt before long, and it's gonna cost yer next time!)]
 	</p>
 	<p>
 		With that, Roxy leans down to fetch a couple of dice from beneath the counter, before grinning at you. [roxy.speech(Right. I'm gonna roll these, and the item yer gonna get is based on the total value, yer get me? Two or three, yer get a vanilla water, then four or five, it's one o' those fruit boxes the bat-morphs fuckin' love. Then, if yer lucky enough to get over that, it's a mother's milk for six an' seven, a bottle o' rum for eight or nine, a fuckin' burger for ten or eleven, and, if yer really, <i>really</i> fuckin' lucky, yer get a bottle o' angel's tears for a twelve.)]
@@ -422,7 +422,7 @@
 		[pc.speech(Maybe. What's this about?)] you ask.
 	</p>
 	<p>
-		[epona.speech(Well, to keep it brief, the name's Epona, and I'm the one in charge of our special game, 'Pregnancy Roulette'!)] Epona happily explains, [epona.speech(Basically, if you pay the buy-in of ten thousand flames, you can join five other breeders in trying to knock a volunteer up, or, if you'd rather be the one to get preggers, you can put in the same buy-in and guess which of the six studs is gonna be the father of your kids!)]
+		[epona.speech(Well, to keep it brief, the name's Epona, and I'm the one in charge of our special game, 'Pregnancy Roulette'!)] Epona happily explains. [epona.speech(Basically, if you pay the buy-in of ten thousand flames, you can join five other breeders in trying to knock a volunteer up, or, if you'd rather be the one to get preggers, you can put in the same buy-in and guess which of the six studs is gonna be the father of your kids!)]
 	</p>
 	]]>
 	</htmlContent>
@@ -432,7 +432,7 @@
 		You feel your heart start to race at the mention of getting bred, and, unable to contain your enthusiasm, you blurt out, [pc.speech(Yes! You mean this is a game about getting knocked up?! Can I have a go?)]
 	</p>
 	<p>
-		[epona.speech(Haha! You got a thing for being a Mommy, huh? Well, to keep it brief, the name's Epona, and I'm the one in charge of our special game, 'Pregnancy Roulette'!)] Epona happily explains, [epona.speech(Basically, if you pay the buy-in of ten thousand flames, you can join five other breeders in trying to knock a volunteer up, or, if you'd rather be the one to get preggers, you can put in the same buy-in and guess which of the six studs is gonna be the father of your kids! I'm guessing you're going to be more interested in that second option.)]
+		[epona.speech(Haha! You got a thing for being a Mommy, huh? Well, to keep it brief, the name's Epona, and I'm the one in charge of our special game, 'Pregnancy Roulette'!)] Epona happily explains. [epona.speech(Basically, if you pay the buy-in of ten thousand flames, you can join five other breeders in trying to knock a volunteer up, or, if you'd rather be the one to get preggers, you can put in the same buy-in and guess which of the six studs is gonna be the father of your kids! I'm guessing you're going to be more interested in that second option.)]
 	</p>
 	]]>
 	</htmlContent>
@@ -452,7 +452,7 @@
 		You feel your heart start to race at the mention of breeding, and, unable to contain your enthusiasm, you blurt out, [pc.speech(Yes! You mean this is a game all about breeding?! Can I have a go?)]
 	</p>
 	<p>
-		[epona.speech(Haha! You got a thing for pregnancies, huh? Well, to keep it brief, the name's Epona, and I'm the one in charge of our special game, 'Pregnancy Roulette'!)] Epona happily explains, [epona.speech(Basically, if you pay the buy-in of ten thousand flames, you can join five other breeders in trying to knock a volunteer up, or, if you'd rather be the one to get preggers, you can put in the same buy-in and guess which of the six studs is gonna be the father of your kids!)]
+		[epona.speech(Haha! You got a thing for pregnancies, huh? Well, to keep it brief, the name's Epona, and I'm the one in charge of our special game, 'Pregnancy Roulette'!)] Epona happily explains. [epona.speech(Basically, if you pay the buy-in of ten thousand flames, you can join five other breeders in trying to knock a volunteer up, or, if you'd rather be the one to get preggers, you can put in the same buy-in and guess which of the six studs is gonna be the father of your kids!)]
 	</p>
 	]]>
 	</htmlContent>
@@ -465,7 +465,7 @@
 		[epona.speech(Yeah, well, this is kind of the premium game here in the Gambling Den. But with a big buy-in comes the chance of a big reward! If you get a girl pregnant, you win double your money back! Oh, and if you're the one getting knocked up, and you guess the father correctly, you win fifty thousand flames! Just let me know if you're interested, or want me to go over the rules with you.)]
 	</p>
 	<p>
-		[pc.speech(Ok, thanks Epona,)] you reply.
+		[pc.speech(Ok, thanks, Epona,)] you reply.
 	</p>
 	<p>
 		[epona.speech(Oh, and I almost forgot!)] Epona exclaims. [epona.speech(I've got a little customer loyalty thing going. Basically, each time you have a go at my game, I'll give you a stamp. Collect six stamps, and you can take me for a ride!)]
@@ -484,7 +484,7 @@
 	
 	<htmlContent tag="PREGNANCY_ROULETTE_REPEAT"><![CDATA[
 	<p>
-		At the far end of the atrium, a long wooden counter has been set into the wall. A sign hanging above this opening reads 'Epona's Pregnancy Roulette', and, standing behind the desk, you see the sign's namesake waiting for another game to start. As you walk towards the counter, Epona notices you and calls out, [epona.speech(Heya [pc.name]!)]
+		At the far end of the atrium, a long wooden counter has been set into the wall. A sign hanging above this opening reads 'Epona's Pregnancy Roulette', and, standing behind the desk, you see the sign's namesake waiting for another game to start. As you walk towards the counter, Epona notices you and calls out, [epona.speech(Heya, [pc.name]!)]
 	</p>
 	]]>
 	</htmlContent>
@@ -577,16 +577,16 @@
 		Wanting some clarification on how pregnancy roulette works, you ask, [pc.speech(What are the rules for this game of yours?)]
 	</p>
 	<p>
-		[epona.speech(Well, it's pretty simple, really!)] Epona happily responds, [epona.speech(If you're looking to be one of the breeders, you first need to place a buy-in of ten thousand flames. After that, you join five others in trying to knock a volunteer up. I roll a dice to see in what order the breeders go, and then once you've all pumped the lucky girl full of cum, I run a pregnancy tester over her belly, and whoever's the father wins twenty thousand flames!)]
+		[epona.speech(Well, it's pretty simple, really!)] Epona happily responds. [epona.speech(If you're looking to be one of the breeders, you first need to place a buy-in of ten thousand flames. After that, you join five others in trying to knock a volunteer up. I roll a dice to see in what order the breeders go, and then once you've all pumped the lucky girl full of cum, I run a pregnancy tester over her belly, and whoever's the father wins twenty thousand flames!)]
 	</p>
 	<p>
-		[pc.speech(I see.)] you reply.
+		[pc.speech(I see,)] you reply.
 	</p>
 	<p>
 		[epona.speech(If, however, you're looking to be the one being bred, then, just like the breeders, you first need to give me ten thousand flames. After that, you have to guess which of the six studs is going to knock you up! Once they've all pumped your pussy full of cum, I use a pregnancy tester to see who's the father of your kids, and if you correctly guessed who it'd be, you win fifty thousand flames!)]
 	</p>
 	<p>
-		[pc.speech(Ok, that seems simple enough.)] you say. [pc.speech(What if the volunteer doesn't get pregnant?)]
+		[pc.speech(Ok, that seems simple enough,)] you say. [pc.speech(What if the volunteer doesn't get pregnant?)]
 	</p>
 	<p>
 		[epona.speech(Well, in that case, everyone loses their bets,)] Epona replies. [epona.speech(I give the volunteer a vixen's virility before we start though, so that shouldn't happen!)]
@@ -623,7 +623,7 @@
 		Epona leads you over to this door, and upon opening it, ushers you inside. Within the small corridor beyond, you discover that the mirror you just passed is one-way, allowing you to look back out into the main room. Up ahead, placed in front of the round opening that links this area to the futa breeding room, is a long, padded bench. It's quite obvious that you're going to be expected to lie on this, allowing your bottom half to be exposed to the breeding room.
 	</p>
 	<p>
-		[epona.speech(Right! So, you just wait here, and I'll go fetch the futas. We like to keep the breeders separated from the volunteer, you see, as we've had issues in the past where the breeders would get a little over-excited and try to force the volunteer to pick them as their guess.)] Epona explains. [epona.speech(I'll be right back!)]
+		[epona.speech(Right! So, you just wait here, and I'll go fetch the futas. We like to keep the breeders separated from the volunteer, you see, as we've had issues in the past where the breeders would get a little over-excited and try to force the volunteer to pick them as their guess,)] Epona explains. [epona.speech(I'll be right back!)]
 	</p>
 	<p>
 		Epona quickly rushes off, leaving you to wait in the partitioned corridor...
@@ -667,7 +667,7 @@
 		Epona leads you over to this door, and upon opening it, ushers you inside. Within the small corridor beyond, you discover that the mirror you just passed is one-way, allowing you to look back out into the main room. Up ahead, placed in front of the round opening that links this area to the male breeding room, is a long, padded bench. It's quite obvious that you're going to be expected to lie on this, allowing your bottom half to be exposed to the breeding room.
 	</p>
 	<p>
-		[epona.speech(Right! So, you just wait here, and I'll go fetch the guys. We like to keep the breeders separated from the volunteer, you see, as we've had issues in the past where the breeders would get a little over-excited and try to force the volunteer to pick them as their guess.)] Epona explains. [epona.speech(I'll be right back!)]
+		[epona.speech(Right! So, you just wait here, and I'll go fetch the guys. We like to keep the breeders separated from the volunteer, you see, as we've had issues in the past where the breeders would get a little over-excited and try to force the volunteer to pick them as their guess,)] Epona explains. [epona.speech(I'll be right back!)]
 	</p>
 	<p>
 		Epona quickly rushes off, leaving you to wait in the partitioned corridor...
@@ -860,7 +860,7 @@
 		Following the excited horse-girl around the side of the canvas screen, you find yourself stepping into a small, wooden-floored room. The only furnishings in this area are a couple of basic wooden tables and benches, which have been pushed up against the left and right-hand walls. Set into the far side of the room, you see a large mirror and solitary door, and a few metres to the left of those, at about waist-height, there's a round opening in the wall.
 	</p>
 	<p>
-		The other five breeders are already present, and beside each of them, a horse-girl is down on her knees, stroking and licking her partner's cock in order to keep them hard and ready to penetrate the volunteer at a moment's notice. As you step into the room, an idling horse-girl walks up beside you, before dropping to her knees and quickly taking hold of your cock. As she leans in to give it a slow, wet lick, Epona happily turns around to address the room. [epona.speech(Right! I'll go and ask the volunteer who she thinks will be getting her pregnant. You all stay here for a moment.)]
+		The other five breeders are already present, and beside each of them, a horse-girl is down on her knees, stroking and licking her partner's cock in order to keep them hard and ready to penetrate the volunteer at a moment's notice. As you step into the room, an idling horse-girl walks up beside you, before dropping to her knees and quickly taking hold of your cock. As she leans in to give it a slow, wet lick, Epona happily turns around to address the room, [epona.speech(Right! I'll go and ask the volunteer who she thinks will be getting her pregnant. You all stay here for a moment.)]
 	</p>
 	<p>
 		You do as Epona says, and wait patiently with the other breeders as the horse-girl opens the solitary door and steps through into the room beyond. After just a moment, you see movement through the round opening in the wall, before suddenly a pair of legs and the lower abdomen of [npc.a_fullRace(true)] slide out into the room. The other breeders start to grow restless as they gaze upon the volunteer's [npc.pussy+], but before any of them can do anything to ruin the game, Epona steps back into the room.
@@ -891,7 +891,7 @@
 		Following the excited horse-girl around the side of the canvas screen, you find yourself stepping into a small, wooden-floored room. The only furnishings in this area are a couple of elegant wooden tables and padded sofas, which have been pushed up against the left and right-hand walls. Set into the far side of the room, you see a large mirror and solitary door, and a few metres to the left of those, at about waist-height, there's a round opening in the wall.
 	</p>
 	<p>
-		The other five breeders are already present, and beside each of them, a horse-girl is down on her knees, stroking and licking her partner's cock in order to keep them hard and ready to penetrate the volunteer at a moment's notice. As you step into the room, an idling horse-girl walks up beside you, before dropping to her knees and quickly taking hold of your cock. As she leans in to give it a slow, wet lick, Epona happily turns around to address the room. [epona.speech(Right! I'll go and ask the volunteer who she thinks will be getting her pregnant. You all stay here for a moment.)]
+		The other five breeders are already present, and beside each of them, a horse-girl is down on her knees, stroking and licking her partner's cock in order to keep them hard and ready to penetrate the volunteer at a moment's notice. As you step into the room, an idling horse-girl walks up beside you, before dropping to her knees and quickly taking hold of your cock. As she leans in to give it a slow, wet lick, Epona happily turns around to address the room, [epona.speech(Right! I'll go and ask the volunteer who she thinks will be getting her pregnant. You all stay here for a moment.)]
 	</p>
 	<p>
 		You do as Epona says, and wait patiently with the other breeders as the horse-girl opens the solitary door and steps through into the room beyond. After just a moment, you see movement through the round opening in the wall, before suddenly a pair of legs and the lower abdomen of [npc.a_fullRace(true)] slide out into the room. The other breeders start to grow restless as they gaze upon the volunteer's [npc.pussy+], but before any of them can do anything to ruin the game, Epona steps back into the room.
@@ -919,7 +919,7 @@
 	
 	<htmlContent tag="PREGNANCY_ROULETTE_BREEDER_POST_SEX"><![CDATA[
 	<p>
-		As all of you breeders have now finished, Epona steps forwards turns to address the room. [epona.speech(Great job everyone! Now I'll go and find out which of you is the father to this slut's kids! Please be patient, I'll be back in a moment.)]
+		As all of you breeders have now finished, Epona steps forwards turns to address the room, [epona.speech(Great job everyone! Now I'll go and find out which of you is the father to this slut's kids! Please be patient, I'll be back in a moment.)]
 	</p>
 	]]>
 	</htmlContent>
@@ -939,7 +939,7 @@
 		[pc.speech(Thanks, Epona,)] you reply, smiling happily to yourself as you realise that you've just won a lot of money.
 	</p>
 	<p>
-		After a moment, the horse-girl releases you and steps back, before addressing the room. [epona.speech(Right, sorry everyone else. Better luck next time! Now, [pc.name], follow me to the counter so I can give you your winnings.)]
+		After a moment, the horse-girl releases you and steps back, before addressing the room, [epona.speech(Right, sorry everyone else. Better luck next time! Now, [pc.name], follow me to the counter so I can give you your winnings.)]
 	</p>
 	<p>
 		You do as Epona asks, and the two of you head back over to the main counter. Unlocking a safe, Epona retrieves twenty thousand flames, before handing them over to you with a big grin on her face. [epona.speech(Congratulations again, [pc.name]!)] 
@@ -958,7 +958,7 @@
 		You, along with all the other breeders, let out a defeated sigh as you realise that you've lost your ten thousand flame bet.
 	</p>
 	<p>
-		After a moment, the horse-girl releases the winner and steps back, before addressing the room. [epona.speech(Right, sorry everyone else. Better luck next time!)]
+		After a moment, the horse-girl releases the winner and steps back, before addressing the room, [epona.speech(Right, sorry everyone else. Better luck next time!)]
 	</p>
 	<p>
 		Having lost your bet, you find yourself wandering out into the gambling hall proper. You soon find yourself drifting back towards the pregnancy roulette counter, and, turning around to look back down the length of the gambling hall's atrium, you wonder where to go next...
@@ -974,7 +974,7 @@
 		You, along with all the other breeders, let out a defeated sigh as you realise that you've lost your ten thousand flame bet.
 	</p>
 	<p>
-		After a moment, the horse-girl addresses the room. [epona.speech(Right, sorry everyone. Better luck next time!)]
+		After a moment, the horse-girl addresses the room, [epona.speech(Right, sorry everyone. Better luck next time!)]
 	</p>
 	<p>
 		Having lost your bet, you find yourself wandering out into the gambling hall proper. You soon find yourself drifting back towards the pregnancy roulette counter, and, turning around to look back down the length of the gambling hall's atrium, you wonder where to go next...
