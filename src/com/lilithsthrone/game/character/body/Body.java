@@ -849,7 +849,7 @@ public class Body implements Serializable, XMLSaving {
 		
 		CharacterUtils.appendToImportLog(log, "<br/><br/>Milk:");
 		
-		importedBreast.milk = FluidMilk.loadFromXML(parentElement, doc);
+		importedBreast.milk = FluidMilk.loadFromXML(parentElement, doc, importedBreast.getType().getFluidType());
 		if(Main.isVersionOlderThan(Main.VERSION_NUMBER, "0.2.5.1")) {
 			importedBreast.milk.type = importedBreast.getType().getFluidType();
 		}
@@ -1155,7 +1155,7 @@ public class Body implements Serializable, XMLSaving {
 		
 		CharacterUtils.appendToImportLog(log, "<br/><br/>Cum:");
 		
-		importedPenis.testicle.cum = FluidCum.loadFromXML(parentElement, doc);
+		importedPenis.testicle.cum = FluidCum.loadFromXML(parentElement, doc, importedPenis.getType().getTesticleType().getFluidType());
 		if(Main.isVersionOlderThan(Main.VERSION_NUMBER, "0.2.5.1")) {
 			importedPenis.testicle.cum.type = importedPenis.getType().getTesticleType().getFluidType();
 		}
@@ -1261,7 +1261,7 @@ public class Body implements Serializable, XMLSaving {
 		
 		CharacterUtils.appendToImportLog(log, "<br/><br/>Girlcum:");
 		
-		importedVagina.girlcum = FluidGirlCum.loadFromXML(parentElement, doc);
+		importedVagina.girlcum = FluidGirlCum.loadFromXML(parentElement, doc, importedVagina.getType().getFluidType());
 		if(Main.isVersionOlderThan(Main.VERSION_NUMBER, "0.2.5.1")) {
 			importedVagina.girlcum.type = importedVagina.getType().getFluidType();
 		}

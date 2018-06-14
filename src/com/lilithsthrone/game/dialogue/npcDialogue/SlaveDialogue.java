@@ -1131,7 +1131,7 @@ public class SlaveDialogue {
 						case OBEDIENT:
 							UtilText.nodeContentSB.append(
 									" Trying to control the excitement in [npc.her] voice, [npc.name] enthusiastically responds to each of your questions,"
-											+ " although [npc.she]'s careful to remain [npc.her] composure, doing [npc.her] very best to act like an obedient slave."
+											+ " although [npc.she]'s careful to retain [npc.her] composure, doing [npc.her] very best to act like an obedient slave."
 									+ " [npc.She] can't manage to totally suppress [npc.her] smile and the way [npc.she] looks longingly up into your [pc.eyes], however,"
 										+ " letting you know that [npc.she] really appreciates the fact that you're taking some time to talk with [npc.herHim]."
 								+ "</p>"

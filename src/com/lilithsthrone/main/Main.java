@@ -64,10 +64,10 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
 
-	public static final String VERSION_NUMBER = "0.2.7",
+	public static final String VERSION_NUMBER = "0.2.7.1",
 			VERSION_DESCRIPTION = "Alpha";
 	
-	private final static boolean DEBUG = true;
+	private final static boolean DEBUG = false;
 
 	public static final Image WINDOW_IMAGE = new Image("/com/lilithsthrone/res/images/windowIcon32.png");
 

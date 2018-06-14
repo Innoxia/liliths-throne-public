@@ -29,7 +29,9 @@
 	
 	Contributors:
 		Fixed invalid HTML. (Itpatch)
-		Greatly reduce the processing time for picking up/dropping a large number of items as well as the 'extract arcane' option from Lilaya. (Nnxx)
+	
+	Other:
+		Added TF for 'horns per row', allowing you to have from one to four horns per row.
 	
 	Bugs:
 		Fixed bug where accessing inventory during sex, then pressing back, would lock up the game.
@@ -44,6 +46,9 @@
 		Fixed karada blocking bras, which was causing any worn karada plus bra to be blocking one another.
 		Fixed AI bug (that was affecting Roxy) where the NPC would continuously start and stop oral actions.
 		You can now dye an item of clothing's pattern colour without having to change the main colour.
+		Fixed demon hair-tipped tail randomising hair colour on each load.
+		Fixed bug where older characters/saves would always load in with human milk/cum/girlcum.
+		Fixed bug where testicles could not be set to internal.
 	
 	
 	
@@ -78,6 +83,9 @@
 	[ ] Sex action modding
 	
 	
+	
+	
+	Add cum stuff to TF menu
 	
 	When you import a character who's wearing jinxed clothing, the quest for unjinxing/enchanting is unavailable.
 	 The quest itself shows up on a page before you have the option to skip the prologue or not, and wearing another piece of jinxed clothing doesn't retrigger the quest

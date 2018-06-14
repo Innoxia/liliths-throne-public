@@ -55,11 +55,11 @@ public class FluidGirlCum implements FluidInterface, Serializable, XMLSaving {
 		return element;
 	}
 	
-	public static FluidGirlCum loadFromXML(Element parentElement, Document doc) {
+	public static FluidGirlCum loadFromXML(Element parentElement, Document doc, FluidType baseType) {
 		
 		Element girlcum = (Element)parentElement.getElementsByTagName("girlcum").item(0);
 
-		FluidType fluidType = FluidType.GIRL_CUM_HUMAN;
+		FluidType fluidType = baseType;
 		try {
 			fluidType = FluidType.valueOf(girlcum.getAttribute("type"));
 		} catch(Exception ex) {

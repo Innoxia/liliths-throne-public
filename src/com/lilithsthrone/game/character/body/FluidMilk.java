@@ -55,11 +55,11 @@ public class FluidMilk implements FluidInterface, Serializable {
 		return element;
 	}
 	
-	public static FluidMilk loadFromXML(Element parentElement, Document doc) {
+	public static FluidMilk loadFromXML(Element parentElement, Document doc, FluidType baseType) {
 		
 		Element milk = (Element)parentElement.getElementsByTagName("milk").item(0);
 		
-		FluidType fluidType = FluidType.MILK_HUMAN;
+		FluidType fluidType = baseType;
 		try {
 			fluidType = FluidType.valueOf(milk.getAttribute("type"));
 		} catch(Exception ex) {

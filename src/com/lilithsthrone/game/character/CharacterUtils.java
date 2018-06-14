@@ -699,7 +699,11 @@ public class CharacterUtils {
 				}
 			}
 			// Internal testicles:
-			if(Math.random()>=0.75) {
+			if(body.getVagina().getType()!=VaginaType.NONE
+					&& !Main.getProperties().hasValue(PropertyValue.futanariTesticles)) {
+				body.getPenis().getTesticle().setInternal(blankNPC, true);
+				
+			} else if(Math.random()>=0.75) {
 				if(inheritsFromMotherPenis && inheritsFromFatherPenis) {
 					if(Math.random()>=takesAfterMotherChance) {
 						if(mother.isInternalTesticles()) {
@@ -933,6 +937,7 @@ public class CharacterUtils {
 						.build();
 		
 		if(body.getPenis().getType()!=PenisType.NONE
+				&& body.getPenis().getType()!=PenisType.DILDO
 				&& body.getVagina().getType()!=VaginaType.NONE
 				&& !Main.getProperties().hasValue(PropertyValue.futanariTesticles)) {
 			body.getPenis().getTesticle().setInternal(null, true);

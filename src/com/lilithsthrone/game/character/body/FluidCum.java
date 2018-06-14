@@ -58,11 +58,11 @@ public class FluidCum implements FluidInterface, Serializable, XMLSaving {
 		return element;
 	}
 	
-	public static FluidCum loadFromXML(Element parentElement, Document doc) {
+	public static FluidCum loadFromXML(Element parentElement, Document doc, FluidType baseType) {
 		
 		Element cum = (Element)parentElement.getElementsByTagName("cum").item(0);
 
-		FluidType fluidType = FluidType.CUM_HUMAN;
+		FluidType fluidType = baseType;
 		try {
 			fluidType = FluidType.valueOf(cum.getAttribute("type"));
 		} catch(Exception ex) {

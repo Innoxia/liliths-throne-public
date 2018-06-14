@@ -179,6 +179,7 @@ public class Tail implements BodyPartInterface, Serializable {
 				}
 				break;
 			case DEMON_HAIR_TIP:
+				owner.getBodyCoveringTypesDiscovered().add(BodyCoveringType.HAIR_DEMON);
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
 							(owner.getTailCount()==1
