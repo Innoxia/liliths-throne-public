@@ -6180,8 +6180,8 @@ public class InventoryDialogue {
 					} else {
 						to.addItem(items.get(i), false);
 					}
-					from.incrementMoney(itemPrice*count);
-					to.incrementMoney(-itemPrice*count);
+					from.incrementMoney(itemPrice);
+					to.incrementMoney(-itemPrice);
 					from.removeItem(items.get(i));
 				}
 			}
