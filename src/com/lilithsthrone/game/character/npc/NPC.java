@@ -367,7 +367,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	}
 
 	public float getSellModifier() {
-		return Math.max(1.0f, (sellModifier * (Main.game.getPlayer().hasTrait(Perk.JOB_STUDENT, true)?0.75f:1)));
+		return Math.max(getBuyModifier(), (sellModifier * (Main.game.getPlayer().hasTrait(Perk.JOB_STUDENT, true)?0.75f:1)));
 	}
 
 	public void setSellModifier(float sellModifier) {

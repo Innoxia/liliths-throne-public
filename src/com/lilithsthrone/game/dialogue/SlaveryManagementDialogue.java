@@ -1247,10 +1247,10 @@ public class SlaveryManagementDialogue {
 				miscDialogueSB.append("<div id='"+slave.getId()+"_SELL' class='square-button big'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getTransactionSell()+"</div></div>");
 			}
 			
-			if(Main.game.getKate().getLastTimeEncountered()!=NPC.DEFAULT_TIME_START_VALUE) {
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.kateIntroduced)) {
 				miscDialogueSB.append("<div id='"+slave.getId()+"_COSMETICS' class='square-button big'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveCosmetics()+"</div></div>");
 			} else {
-				miscDialogueSB.append("<div id='"+slave.getId()+"_COSMETICS_DISBALED' class='square-button big disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveCosmeticsDisabled()+"</div></div>");
+				miscDialogueSB.append("<div id='"+slave.getId()+"_COSMETICS_DISABLED' class='square-button big disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveCosmeticsDisabled()+"</div></div>");
 			}
 			
 		} else { // Slave trader's slave:

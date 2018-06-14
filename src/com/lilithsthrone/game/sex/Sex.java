@@ -201,6 +201,15 @@ public enum Sex {
 
 		actionsAvailable = new HashMap<>();
 		orgasmActionsAvailable = new HashMap<>();
+
+
+		availableSexActionsPlayer = new ArrayList<>();
+		miscActionsPlayer = new ArrayList<>();
+		selfActionsPlayer = new ArrayList<>();
+		sexActionsPlayer = new ArrayList<>();
+		positionActionsPlayer = new ArrayList<>();
+		repeatActionsPlayer = new LinkedList<>();
+		availableSexActionsPartner = new ArrayList<>();
 		
 		forceSexPaceMap = new HashMap<>();
 		
@@ -249,14 +258,6 @@ public enum Sex {
 				character.setSexAsSubCount(character.getSexAsSubCount()+1);
 			}
 		}
-
-		availableSexActionsPlayer = new ArrayList<>();
-		miscActionsPlayer = new ArrayList<>();
-		selfActionsPlayer = new ArrayList<>();
-		sexActionsPlayer = new ArrayList<>();
-		positionActionsPlayer = new ArrayList<>();
-		repeatActionsPlayer = new LinkedList<>();
-		availableSexActionsPartner = new ArrayList<>();
 
 		// Populate exposed areas:
 		areasExposed = new HashMap<>();
@@ -3232,6 +3233,12 @@ public enum Sex {
 		Sex.sexManager = sexManager;
 		
 		updateAvailableActions();
+		
+		for(GameCharacter character : Sex.getAllParticipants()) {
+			if(actionsAvailable.get(Main.game.getPlayer()).containsKey(character)) {
+				repeatActionsPlayer.removeIf((action) -> !actionsAvailable.get(Main.game.getPlayer()).get(character).contains(action));
+			}
+		}
 		
 		sexSB.append(
 				"<p style='text-align:center;'><b>New position:</b> <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>"+Sex.sexManager.getPosition().getName()+"</b></br>"

@@ -12868,51 +12868,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 	
 	public BodyCoveringType getBodyHairCoveringType(Race race) {
-		switch(race) {
-			case NONE:
-				break;
-			case ANGEL:
-				return BodyCoveringType.BODY_HAIR_ANGEL;
-			case CAT_MORPH:
-				return BodyCoveringType.BODY_HAIR_FELINE_FUR;
-			case COW_MORPH:
-				return BodyCoveringType.BODY_HAIR_BOVINE_FUR;
-			case DEMON:
-				return BodyCoveringType.BODY_HAIR_DEMON;
-			case IMP:
-				return BodyCoveringType.BODY_HAIR_IMP;
-			case DOG_MORPH:
-				return BodyCoveringType.BODY_HAIR_CANINE_FUR;
-			case ALLIGATOR_MORPH:
-				return BodyCoveringType.BODY_HAIR_SCALES_ALLIGATOR;
-			case HARPY:
-				return BodyCoveringType.BODY_HAIR_HARPY;
-			case HORSE_MORPH:
-				return BodyCoveringType.BODY_HAIR_HORSE_HAIR;
-			case REINDEER_MORPH:
-				return BodyCoveringType.BODY_HAIR_REINDEER_HAIR;
-			case HUMAN:
-				return BodyCoveringType.BODY_HAIR_HUMAN;
-			case SQUIRREL_MORPH:
-				return BodyCoveringType.BODY_HAIR_SQUIRREL_FUR;
-			case WOLF_MORPH:
-				return BodyCoveringType.BODY_HAIR_LYCAN_FUR;
-			case SLIME:
-				return BodyCoveringType.SLIME;
-			case BAT_MORPH:
-				return BodyCoveringType.BODY_HAIR_BAT_FUR;
-			case RAT_MORPH:
-				return BodyCoveringType.BODY_HAIR_RAT_FUR;
-			case RABBIT_MORPH:
-				return BodyCoveringType.BODY_HAIR_RABBIT_FUR;
-			case ELEMENTAL_AIR:
-			case ELEMENTAL_ARCANE:
-			case ELEMENTAL_EARTH:
-			case ELEMENTAL_FIRE:
-			case ELEMENTAL_WATER:
-				return this.getCovering(BodyCoveringType.AIR).getType(); // Doesn't matter what is passed in here, as getCovering will catch whatever BodyCoveringType the body is made up of.
-		}
-		return BodyCoveringType.BODY_HAIR_HUMAN;
+		return Body.getBodyHairCoveringType(race);
 	}
 	
 	public BodyCoveringType getBodyHairCoveringType() {
@@ -13844,6 +13800,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 					case SLIME_MOUTH:
 					case SLIME_NIPPLES:
 					case SLIME_VAGINA:
+					case SLIME_PENIS:
 						this.getBodyCoveringTypesDiscovered().add(bct);
 						break;
 					default:
@@ -15576,6 +15533,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				case VAGINA:
 				case SLIME_VAGINA:
 					return body.getCoverings().get(BodyCoveringType.SLIME_VAGINA);
+				case PENIS:
+				case SLIME_PENIS:
+					return body.getCoverings().get(BodyCoveringType.SLIME_PENIS);
 				default:
 					return body.getCoverings().get(BodyCoveringType.SLIME);
 			}

@@ -81,16 +81,25 @@ public enum RenderingEngine {
 	public static Colour[] orgasmColours = new Colour[]{Colour.AROUSAL_STAGE_ZERO, Colour.AROUSAL_STAGE_ONE, Colour.AROUSAL_STAGE_TWO, Colour.AROUSAL_STAGE_THREE, Colour.AROUSAL_STAGE_FOUR, Colour.AROUSAL_STAGE_FIVE, Colour.GENERIC_ARCANE};
 	
 	public static InventorySlot[] mainInventorySlots = {
-			InventorySlot.EYES,			InventorySlot.HEAD,			InventorySlot.HAIR,		InventorySlot.MOUTH,
-			InventorySlot.NECK,			InventorySlot.TORSO_OVER,	InventorySlot.CHEST,	InventorySlot.NIPPLE,
-			InventorySlot.STOMACH,		InventorySlot.TORSO_UNDER,	InventorySlot.WRIST,	InventorySlot.HAND,
-			InventorySlot.HIPS,			InventorySlot.LEG,			InventorySlot.GROIN,	InventorySlot.FINGER,
-			InventorySlot.SOCK,			InventorySlot.FOOT,			InventorySlot.ANKLE,	InventorySlot.ANUS};
+			InventorySlot.EYES,			InventorySlot.HEAD,			InventorySlot.HAIR,		InventorySlot.HORNS,
+			InventorySlot.NECK,			InventorySlot.TORSO_OVER,	InventorySlot.MOUTH,	InventorySlot.WINGS,
+			InventorySlot.STOMACH,		InventorySlot.TORSO_UNDER,	InventorySlot.CHEST,	InventorySlot.NIPPLE,
+			InventorySlot.WRIST,		InventorySlot.HIPS,			InventorySlot.HAND,		InventorySlot.FINGER,
+			InventorySlot.ANKLE,		InventorySlot.LEG,			InventorySlot.GROIN,	InventorySlot.TAIL};
 
-	public static InventorySlot[] secondaryInventorySlots = {InventorySlot.HORNS,InventorySlot.TAIL, InventorySlot.WINGS, InventorySlot.PENIS, InventorySlot.VAGINA};
+	public static InventorySlot[] secondaryInventorySlots = {InventorySlot.SOCK, InventorySlot.FOOT, InventorySlot.ANUS, InventorySlot.PENIS, InventorySlot.VAGINA};
+	
+//	public static InventorySlot[] mainInventorySlots = {
+//			InventorySlot.EYES,			InventorySlot.HEAD,			InventorySlot.HAIR,		InventorySlot.MOUTH,
+//			InventorySlot.NECK,			InventorySlot.TORSO_OVER,	InventorySlot.CHEST,	InventorySlot.NIPPLE,
+//			InventorySlot.STOMACH,		InventorySlot.TORSO_UNDER,	InventorySlot.WRIST,	InventorySlot.HAND,
+//			InventorySlot.HIPS,			InventorySlot.LEG,			InventorySlot.GROIN,	InventorySlot.FINGER,
+//			InventorySlot.SOCK,			InventorySlot.FOOT,			InventorySlot.ANKLE,	InventorySlot.ANUS};
+//
+//	public static InventorySlot[] secondaryInventorySlots = {InventorySlot.HORNS, InventorySlot.TAIL, InventorySlot.WINGS, InventorySlot.PENIS, InventorySlot.VAGINA};
 	
 	private static InventorySlot[] piercingSlots = {
-			InventorySlot.PIERCING_EAR,		InventorySlot.PIERCING_NOSE,	
+			InventorySlot.PIERCING_EAR,		InventorySlot.PIERCING_NOSE,
 			InventorySlot.PIERCING_LIP,		InventorySlot.PIERCING_TONGUE,
 			InventorySlot.PIERCING_NIPPLE,	InventorySlot.PIERCING_STOMACH,
 			InventorySlot.PIERCING_PENIS,	InventorySlot.PIERCING_VAGINA };

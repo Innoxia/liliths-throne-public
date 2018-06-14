@@ -1126,6 +1126,9 @@ public class ItemEffectType {
 
 					target.getCovering(BodyCoveringType.SLIME_VAGINA).setPrimaryGlowing(true);
 					target.getCovering(BodyCoveringType.SLIME_VAGINA).setSecondaryGlowing(true);
+
+					target.getCovering(BodyCoveringType.SLIME_PENIS).setPrimaryGlowing(true);
+					target.getCovering(BodyCoveringType.SLIME_PENIS).setSecondaryGlowing(true);
 					
 				} else {
 					if(target.isPlayer()) {

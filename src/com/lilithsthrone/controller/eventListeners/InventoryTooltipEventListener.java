@@ -79,6 +79,7 @@ public class InventoryTooltipEventListener implements EventListener {
 
 	private static final int LINE_HEIGHT = 16;
 	private static final int LINE_HEIGHT_TITULAR = 18;
+	private static final int TOOLTIP_WIDTH = 400;
 	
 	@Override
 	public void handleEvent(Event event) {
@@ -100,7 +101,7 @@ public class InventoryTooltipEventListener implements EventListener {
 				}
 			}
 			
-			Main.mainController.setTooltipSize(360, 256 + (LINE_HEIGHT * yIncrease));
+			Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 256 + (LINE_HEIGHT * yIncrease));
 
 			tooltipSB.setLength(0);
 			tooltipSB.append("<div class='title'>" + Util.capitaliseSentence(item.getDisplayName(true)) + "</div>");
@@ -174,7 +175,7 @@ public class InventoryTooltipEventListener implements EventListener {
 			
 		} else if (dyeClothing != null) {
 
-			Main.mainController.setTooltipSize(360, 446);
+			Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 446);
 
 			tooltipSB.setLength(0);
 			if(colour!=null) {
@@ -223,7 +224,7 @@ public class InventoryTooltipEventListener implements EventListener {
 			Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
 
 		} else if (dyeWeapon != null) {
-			Main.mainController.setTooltipSize(360, 446);
+			Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 446);
 
 			tooltipSB.setLength(0);
 			
@@ -242,7 +243,7 @@ public class InventoryTooltipEventListener implements EventListener {
 			Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
 
 		} else if (genericItem != null) {
-			Main.mainController.setTooltipSize(360, 416);
+			Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 416);
 
 			tooltipSB.setLength(0);
 			tooltipSB.append("<div class='title'>" + Util.capitaliseSentence(genericItem.getName(true)) + "</div>"
@@ -253,7 +254,7 @@ public class InventoryTooltipEventListener implements EventListener {
 			
 		} else if (genericClothing != null) {
 
-			Main.mainController.setTooltipSize(360, 446);
+			Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 446);
 
 			tooltipSB.setLength(0);
 			tooltipSB.append("<div class='title' style='color:" + genericClothing.getRarity().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(genericClothing.getName()) + "</div>"
@@ -269,7 +270,7 @@ public class InventoryTooltipEventListener implements EventListener {
 
 		} else if (genericWeapon != null) {
 
-			Main.mainController.setTooltipSize(360, 446);
+			Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 446);
 
 			tooltipSB.setLength(0);
 			tooltipSB.append("<div class='title' style='color:" + genericWeapon.getRarity().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(genericWeapon.getName()) + "</div>"
@@ -285,14 +286,14 @@ public class InventoryTooltipEventListener implements EventListener {
 
 				if (equippedToCharacter != null) {
 					if (equippedToCharacter.getMainWeapon() == null) {
-						Main.mainController.setTooltipSize(360, 60);
+						Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 60);
 						Main.mainController.setTooltipContent("<div class='title'>Primary Weapon</div>");
 
 					} else {
 						weaponTooltip(equippedToCharacter.getMainWeapon());
 					}
 				} else {
-					Main.mainController.setTooltipSize(360, 60);
+					Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 60);
 					Main.mainController.setTooltipContent("<div class='title'>Primary Weapon</div>");
 				}
 
@@ -300,14 +301,14 @@ public class InventoryTooltipEventListener implements EventListener {
 
 				if (equippedToCharacter != null) {
 					if (equippedToCharacter.getOffhandWeapon() == null) {
-						Main.mainController.setTooltipSize(360, 60);
+						Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 60);
 						Main.mainController.setTooltipContent("<div class='title'>Secondary Weapon</div>");
 
 					} else {
 						weaponTooltip(equippedToCharacter.getOffhandWeapon());
 					}
 				} else {
-					Main.mainController.setTooltipSize(360, 60);
+					Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 60);
 					Main.mainController.setTooltipContent("<div class='title'>Secondary Weapon</div>");
 				}
 
@@ -503,7 +504,7 @@ public class InventoryTooltipEventListener implements EventListener {
 									scarTooltip(equippedToCharacter.getScarInSlot(invSlot));
 									
 								} else {
-									Main.mainController.setTooltipSize(360, 60);
+									Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 60);
 									Main.mainController.setTooltipContent(UtilText.parse("<div class='title'>" + Util.capitaliseSentence(invSlot.getName()) + "</div>"));
 								}
 							}
@@ -518,13 +519,13 @@ public class InventoryTooltipEventListener implements EventListener {
 					}
 					
 				} else {
-					Main.mainController.setTooltipSize(360, 60);
+					Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 60);
 					Main.mainController.setTooltipContent(UtilText.parse("<div class='title'>" + Util.capitaliseSentence(invSlot.getName()) + "</div>"));
 				}
 			}
 			
 		} else if (enchantmentModifier != null) {
-			Main.mainController.setTooltipSize(360, 152);
+			Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 152);
 			Main.mainController.setTooltipContent(UtilText.parse(
 					"<div class='title' style='color:"+enchantmentModifier.getRarity().getColour().toWebHexString()+";'>"
 							+ Util.capitaliseSentence(enchantmentModifier.getName())
@@ -539,11 +540,11 @@ public class InventoryTooltipEventListener implements EventListener {
 					+ "</div>"));
 		
 		} else if(potency!=null) {
-			Main.mainController.setTooltipSize(360, 60);
+			Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 60);
 			Main.mainController.setTooltipContent(UtilText.parse("<div class='title'>Set potency to <b style='color:"+potency.getColour().toWebHexString()+";'>" + Util.capitaliseSentence(potency.getName()) + "</b></div>"));
 			
 		} else if (essence != null) {
-			Main.mainController.setTooltipSize(360, 60);
+			Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 60);
 			Main.mainController.setTooltipContent(UtilText.parse("<div class='title'><b style='color:"+essence.getColour().toWebHexString()+";'>" + Util.capitaliseSentence(essence.getName()) + "</b> essence</div>"));
 		
 		}  else {
@@ -555,7 +556,7 @@ public class InventoryTooltipEventListener implements EventListener {
 	}
 
 	private void setBlockedTooltipContent(String description){
-		Main.mainController.setTooltipSize(360, 164);
+		Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 164);
 		Main.mainController.setTooltipContent(UtilText.parse(
 				"<div class='title'>" + Util.capitaliseSentence(invSlot.getName()) + ": <span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Blocked!</span></div>"
 				+ "<div class='description'>" + UtilText.parse(description) + "</div>"));
@@ -828,7 +829,7 @@ public class InventoryTooltipEventListener implements EventListener {
 		
 		tooltipSB.append("</body>");
 
-		Main.mainController.setTooltipSize(360, 356 + (yIncrease * LINE_HEIGHT_TITULAR));
+		Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 364 + (yIncrease * LINE_HEIGHT_TITULAR));
 		Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
 		
 	}
@@ -963,7 +964,7 @@ public class InventoryTooltipEventListener implements EventListener {
 		if(absClothing.getDisplayName(false).length()>40) {
 			specialIncrease = 26;
 		}
-		Main.mainController.setTooltipSize(360, 392 + (yIncrease * LINE_HEIGHT_TITULAR) + specialIncrease);
+		Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 400 + (yIncrease * LINE_HEIGHT_TITULAR) + specialIncrease);
 		Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
 
 	}
@@ -983,7 +984,7 @@ public class InventoryTooltipEventListener implements EventListener {
 									: "<span style='color:" + Colour.SCAR.toWebHexString() + ";'>"+Util.capitaliseSentence(owner.getScarInSlot(invSlot).getName())+"</span>")
 						+ "</div>");
 		
-		Main.mainController.setTooltipSize(360, 88);
+		Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 88);
 		Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
 	}
 	
@@ -1017,7 +1018,7 @@ public class InventoryTooltipEventListener implements EventListener {
 			+ "<div class='container-full-width center'><h5>" + Util.capitaliseSentence(tattoo.getDisplayName(true)) + "</h5></div>");
 
 		// Core info:
-		tooltipSB.append("<div class='container-half-width titular'>" + Util.capitaliseSentence(invSlot.getTattooSlotName()) + "</div>");
+		tooltipSB.append("<div class='container-half-width titular'>" + (invSlot.getTattooSlotName()==null?"[style.colourDisabled(Cannot be tattooed)]":Util.capitaliseSentence(invSlot.getTattooSlotName())) + "</div>");
 		tooltipSB.append("<div class='container-half-width titular'>"
 							+ (owner.getScarInSlot(invSlot)==null
 									? "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>No scars</span>"
@@ -1105,7 +1106,7 @@ public class InventoryTooltipEventListener implements EventListener {
 		if(tattoo.getDisplayName(false).length()>40) {
 			specialIncrease = 26;
 		}
-		Main.mainController.setTooltipSize(360, 388 + ((lSize+yIncrease) * LINE_HEIGHT_TITULAR) + yIncrease*8 + specialIncrease);
+		Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 388 + ((lSize+yIncrease) * LINE_HEIGHT_TITULAR) + yIncrease*8 + specialIncrease);
 		Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
 	}
 	

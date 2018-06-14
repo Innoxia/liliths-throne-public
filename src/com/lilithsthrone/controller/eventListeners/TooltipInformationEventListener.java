@@ -713,7 +713,13 @@ public class TooltipInformationEventListener implements EventListener {
 
 			tooltipSB.setLength(0);
 			tooltipSB.append(UtilText.parse(owner,
-					"<div class='title' style='color:" + Femininity.valueOf(owner.getFemininityValue()).getColour().toWebHexString() + ";'>"+ (owner.getName().length() == 0 ? "[npc.Race]" : "[npc.Name]") + "</div>"
+					"<div class='title' style='color:" + Femininity.valueOf(owner.getFemininityValue()).getColour().toWebHexString() + ";'>"
+							+ (owner.getName().length() == 0
+								? "[npc.Race]"
+								: (owner.isPlayer()
+										?"[pc.Name]"
+										:"[npc.Name]"))
+						+ "</div>"
 					
 					+"<div class='subTitle' style='margin-bottom:4px;'>Level " + owner.getLevel() + " <span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>|</span> " + owner.getExperience() + " / "
 							+ (10 * owner.getLevel()) + " xp</div>"

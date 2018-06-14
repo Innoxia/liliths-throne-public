@@ -269,6 +269,8 @@ public class Body implements Serializable, XMLSaving {
 		addDiscoveredBodyCoveringsFromMaterial(bodyMaterial);
 		
 		calculateRace();
+		
+		coveringsDiscovered.add(getBodyHairCoveringType(this.getRace()));
 	}
 	
 	public void addDiscoveredBodyCoveringsFromMaterial(BodyMaterial bodyMaterial) {
@@ -277,6 +279,8 @@ public class Body implements Serializable, XMLSaving {
 			coveringsDiscovered.add(BodyCoveringType.SLIME_NIPPLES);
 			coveringsDiscovered.add(BodyCoveringType.SLIME_MOUTH);
 			coveringsDiscovered.add(BodyCoveringType.SLIME_ANUS);
+			coveringsDiscovered.add(BodyCoveringType.SLIME_VAGINA);
+			coveringsDiscovered.add(BodyCoveringType.SLIME_PENIS);
 		} else {
 			coveringsDiscovered.add(BodyCoveringType.EYE_SCLERA);
 			coveringsDiscovered.add(BodyCoveringType.NIPPLES);
@@ -286,6 +290,53 @@ public class Body implements Serializable, XMLSaving {
 		}
 	}
 	
+	public static BodyCoveringType getBodyHairCoveringType(Race race) {
+		switch(race) {
+			case NONE:
+				break;
+			case ANGEL:
+				return BodyCoveringType.BODY_HAIR_ANGEL;
+			case CAT_MORPH:
+				return BodyCoveringType.BODY_HAIR_FELINE_FUR;
+			case COW_MORPH:
+				return BodyCoveringType.BODY_HAIR_BOVINE_FUR;
+			case DEMON:
+				return BodyCoveringType.BODY_HAIR_DEMON;
+			case IMP:
+				return BodyCoveringType.BODY_HAIR_IMP;
+			case DOG_MORPH:
+				return BodyCoveringType.BODY_HAIR_CANINE_FUR;
+			case ALLIGATOR_MORPH:
+				return BodyCoveringType.BODY_HAIR_SCALES_ALLIGATOR;
+			case HARPY:
+				return BodyCoveringType.BODY_HAIR_HARPY;
+			case HORSE_MORPH:
+				return BodyCoveringType.BODY_HAIR_HORSE_HAIR;
+			case REINDEER_MORPH:
+				return BodyCoveringType.BODY_HAIR_REINDEER_HAIR;
+			case HUMAN:
+				return BodyCoveringType.BODY_HAIR_HUMAN;
+			case SQUIRREL_MORPH:
+				return BodyCoveringType.BODY_HAIR_SQUIRREL_FUR;
+			case WOLF_MORPH:
+				return BodyCoveringType.BODY_HAIR_LYCAN_FUR;
+			case SLIME:
+				return BodyCoveringType.SLIME;
+			case BAT_MORPH:
+				return BodyCoveringType.BODY_HAIR_BAT_FUR;
+			case RAT_MORPH:
+				return BodyCoveringType.BODY_HAIR_RAT_FUR;
+			case RABBIT_MORPH:
+				return BodyCoveringType.BODY_HAIR_RABBIT_FUR;
+			case ELEMENTAL_AIR:
+			case ELEMENTAL_ARCANE:
+			case ELEMENTAL_EARTH:
+			case ELEMENTAL_FIRE:
+			case ELEMENTAL_WATER:
+				break; // Doesn't matter what is passed in here, as getCovering will catch whatever BodyCoveringType the body is made up of.
+		}
+		return BodyCoveringType.BODY_HAIR_HUMAN;
+	}
 	
 	private void applyStartingCoveringValues() {
 		
@@ -352,7 +403,16 @@ public class Body implements Serializable, XMLSaving {
 		
 		
 		for(BodyCoveringType bct : BodyCoveringType.values()) {
-			if(this.getBodyCoveringTypesDiscovered().contains(bct)) { //TODO
+			if(this.getBodyCoveringTypesDiscovered().contains(bct)
+					|| ((bct == BodyCoveringType.MAKEUP_BLUSHER
+							|| bct == BodyCoveringType.MAKEUP_EYE_LINER
+							|| bct == BodyCoveringType.MAKEUP_EYE_SHADOW
+							|| bct == BodyCoveringType.MAKEUP_LIPSTICK
+							|| bct == BodyCoveringType.MAKEUP_NAIL_POLISH_FEET
+							|| bct == BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS)
+							&& this.coverings.get(bct).getPrimaryColour()!=Colour.COVERING_NONE)
+					|| bct == BodyCoveringType.EYE_PUPILS
+					|| bct == getBodyHairCoveringType(this.getRace())) {
 				Element element = doc.createElement("bodyCovering");
 				bodyCore.appendChild(element);
 				
@@ -6235,7 +6295,9 @@ public class Body implements Serializable, XMLSaving {
 				
 				coverings.put(BodyCoveringType.SLIME_VAGINA, new Covering(BodyCoveringType.SLIME_VAGINA, CoveringPattern.ORIFICE_VAGINA,
 						coverings.get(BodyCoveringType.SLIME).getPrimaryColour(), false, coverings.get(BodyCoveringType.SLIME).getPrimaryColour(), false));
-				
+
+				coverings.put(BodyCoveringType.SLIME_PENIS, new Covering(BodyCoveringType.SLIME_PENIS, CoveringPattern.NONE,
+						coverings.get(BodyCoveringType.SLIME).getPrimaryColour(), false, coverings.get(BodyCoveringType.SLIME).getPrimaryColour(), false));
 				
 			} else {
 				switch(ass.getType().getRace()) {
