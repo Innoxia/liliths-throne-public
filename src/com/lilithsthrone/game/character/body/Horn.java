@@ -10,7 +10,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.1.89
+ * @version 0.2.7
  * @author Innoxia
  */
 public class Horn implements BodyPartInterface, Serializable {
@@ -18,12 +18,14 @@ public class Horn implements BodyPartInterface, Serializable {
 	
 	protected HornType type;
 	protected int rows;
+	protected int hornsPerRow;
 	protected int length;
 	
 	public Horn(HornType type, int length) {
 		this.type = type;
 		this.length = length;
 		rows = 1;
+		hornsPerRow = 2;
 	}
 
 	@Override
@@ -255,6 +257,51 @@ public class Horn implements BodyPartInterface, Serializable {
 							+ "After a few moments, [npc.she]'s left with [style.boldTfGeneric("+getDeterminer(owner)+" [npc.horns])]."
 						+ "</p>");
 			}
+			
+		} else {
+			if(owner.isPlayer()) {
+				return
+						"<p>"
+							+ "A tingling feeling spreads over your [pc.horns], before moving down and concentrating into your forehead."
+							+ " You can't help but let out a little cry as you feel new [pc.horns] [style.boldGrow(pushing up)] and growing out of your [pc.faceSkin].<br/>"
+							+ "After a few moments, you're left with [style.boldTfGeneric("+getDeterminer(owner)+" [pc.horns])]."
+						+ "</p>";
+			} else {
+				return UtilText.parse(owner,
+						"<p>"
+							+ "A tingling feeling spreads over [npc.name]'s [npc.horns], before moving down and concentrating into [npc.her] forehead."
+							+ " [npc.She] can't help but let out a little cry as [npc.she] feels new [npc.horns] [style.boldGrow(pushing up)] and growing out of [npc.her] [npc.faceSkin].<br/>"
+							+ "After a few moments, [npc.she]'s left with [style.boldTfGeneric("+getDeterminer(owner)+" [npc.horns])]."
+						+ "</p>");
+			}
+		}
+	}
+	
+	public int getHornsPerRow() {
+		return hornsPerRow;
+	}
+
+	public String setHornsPerRow(GameCharacter owner, int hornsPerRow) {
+		hornsPerRow = Math.max(1, Math.min(hornsPerRow, 4));
+		
+		if(owner.getHornsPerRow() == hornsPerRow) {
+			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
+		}
+		
+		boolean removingHorns = owner.getHornsPerRow() > hornsPerRow;
+		this.hornsPerRow = hornsPerRow;
+		
+		if (owner.getHornType() == HornType.NONE) {
+			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
+		}
+		
+		if(removingHorns) {
+			return UtilText.parse(owner,
+					"<p>"
+						+ "A strange bubbling sensation starts to take root at the base of [npc.namePos] [npc.horns]."
+						+ " Before [npc.she] can react, some of them suddenly [style.boldShrink(crumble away)] and disappear back down into [npc.her] [npc.faceSkin].<br/>"
+						+ "After a few moments, [npc.sheIs] left with [style.boldTfGeneric("+Util.intToString(hornsPerRow)+" "+(hornsPerRow==1?"[npc.horn]":"[npc.horns]")+" in each row)]!"
+					+ "</p>");
 			
 		} else {
 			if(owner.isPlayer()) {

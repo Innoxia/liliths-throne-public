@@ -29,6 +29,7 @@
 	
 	Contributors:
 		Fixed invalid HTML. (Itpatch)
+		Greatly reduce the processing time for picking up/dropping a large number of items as well as the 'extract arcane' option from Lilaya. (Nnxx)
 	
 	Bugs:
 		Fixed bug where accessing inventory during sex, then pressing back, would lock up the game.

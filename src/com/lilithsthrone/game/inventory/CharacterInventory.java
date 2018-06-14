@@ -428,31 +428,6 @@ public class CharacterInventory implements Serializable, XMLSaving {
 		
 		return false;
 	}
-
-    /**
-     * Add one or multiple items to this inventory without the loop.
-     * @return true if added, false if inventory was full.
-     */
-	public boolean bulkAddItem(AbstractItem item, int count) {
-		if(item==null) {
-			return false;
-		}
-
-		if (canAddItem(item)) {
-
-			itemsInInventory.add(item);
-            if (!itemDuplicates.containsKey(item)){
-                itemDuplicates.put(item, count);
-            }
-            else {
-                itemDuplicates.put(item, itemDuplicates.get(item) + count);
-            }
-
-			return true;
-		}
-
-		return false;
-	}
 	
 	/**
 	 * Add an item to this inventory.
@@ -474,22 +449,6 @@ public class CharacterInventory implements Serializable, XMLSaving {
 			return false;
 		}
 	}
-
-	public boolean bulkRemoveItem(AbstractItem item, int count){
-        if(itemsInInventory.remove(item)){
-            if(itemDuplicates.containsKey(item)){
-                int NbrOfItems = itemDuplicates.get(item);
-                if((NbrOfItems - count) <= 0){
-                    itemDuplicates.remove(item);
-                }
-                else {
-                    itemDuplicates.put(item, NbrOfItems - count);
-                }
-            }
-            return true;
-        }
-        return false;
-    }
 	
 	public boolean hasItem(AbstractItem item) {
 		return itemsInInventory.contains(item);
