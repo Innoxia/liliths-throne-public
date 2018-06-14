@@ -10965,6 +10965,33 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			}
 		}
 	}
+
+	public String bulkAddItem(AbstractItem item, int count, boolean removingFromFloor, boolean appendTextToEventLog) {
+		if (removingFromFloor) {
+			if (inventory.addItem(item)) {
+				updateInventoryListeners();
+				Main.game.getWorlds().get(getWorldLocation()).getCell(location).getInventory().removeItem(item);
+				if(appendTextToEventLog) {
+					Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Item Added", item.getName()), false);
+				}
+				return "<p style='text-align:center;'>"+ addedItemToInventoryText(item)+"</p>";
+			} else {
+				return inventoryFullText() + droppedItemText(item);
+			}
+
+		} else {
+			if (inventory.bulkAddItem(item, count)) {
+				updateInventoryListeners();
+				if(appendTextToEventLog) {
+					Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Item Added", item.getName()), false);
+				}
+				return "<p style='text-align:center;'>"+ addedItemToInventoryText(item)+"</p>";
+			} else {
+				Main.game.getWorlds().get(getWorldLocation()).getCell(location).getInventory().addItem(item);
+				return inventoryFullText() + droppedItemText(item);
+			}
+		}
+	}
 	
 	public void removeItem(AbstractItem item) {
 		inventory.removeItem(item);

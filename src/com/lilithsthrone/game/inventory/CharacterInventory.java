@@ -428,6 +428,25 @@ public class CharacterInventory implements Serializable, XMLSaving {
 		
 		return false;
 	}
+
+	public boolean bulkAddItem(AbstractItem item, int count) {
+		if(item==null) {
+			return false;
+		}
+
+		if (canAddItem(item)) {
+
+			itemsInInventory.add(item);
+            if (!itemDuplicates.containsKey(item))
+                itemDuplicates.put(item, count);
+            else
+                itemDuplicates.put(item, itemDuplicates.get(item)+count);
+
+			return true;
+		}
+
+		return false;
+	}
 	
 	/**
 	 * Add an item to this inventory.

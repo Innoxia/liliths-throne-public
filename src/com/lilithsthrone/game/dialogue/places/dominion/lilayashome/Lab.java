@@ -1563,10 +1563,10 @@ public class Lab {
 						return new Response("Extract (all)", "Extract all of your "+TFEssence.ARCANE.getName()+" essences.", ESSENCE_EXTRACTION_BOTTLED) {
 							@Override
 							public void effects() {
-								for(int i =0; i<Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE); i++) {
-									Main.game.getPlayer().addItem(AbstractItemType.generateItem(TFEssence.essenceToItem(TFEssence.ARCANE)), false, false);
-								}
-								int count = Main.game.getPlayer().getItemCount(AbstractItemType.generateItem(TFEssence.essenceToItem(TFEssence.ARCANE)));
+								int count = Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE);
+
+								Main.game.getPlayer().bulkAddItem(AbstractItemType.generateItem(TFEssence.essenceToItem(TFEssence.ARCANE)), count, false, false);
+
 								Main.game.getTextEndStringBuilder().append(
 										"<p>"
 											+ "Grabbing another vial, you set about repeating the process several times..."
