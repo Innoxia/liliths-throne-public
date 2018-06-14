@@ -427,6 +427,10 @@ public class FluidGirlCum implements FluidInterface, Serializable, XMLSaving {
 	public List<FluidModifier> getFluidModifiers() {
 		return fluidModifiers;
 	}
+	
+	public void clearFluidModifiers() {
+		fluidModifiers.clear();
+	}
 
 	public float getValuePerMl() {
 		return 4f + this.getFluidModifiers().size()*1f + (this.getFlavour()!=FluidFlavour.GIRL_CUM?1f:0);

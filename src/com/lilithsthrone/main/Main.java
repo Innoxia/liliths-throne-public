@@ -269,6 +269,7 @@ public class Main extends Application {
 			
 			+"<li>Other:</li>"
 			+"<ul>Added TF for 'horns per row', allowing you to have from one to four horns per row.</ul>"
+			+"<ul>Added fluid flavour to milking room display.</ul>"
 			
 			+"<li>Bugs:</li>"
 			+"<ul>Fixed bug where accessing inventory during sex, then pressing back, would lock up the game.</ul>"

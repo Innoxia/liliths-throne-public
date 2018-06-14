@@ -27,28 +27,29 @@
 	
 	Patch notes:
 	
-	Contributors:
-		Fixed invalid HTML. (Itpatch)
-	
-	Other:
-		Added TF for 'horns per row', allowing you to have from one to four horns per row.
-	
-	Bugs:
-		Fixed bug where accessing inventory during sex, then pressing back, would lock up the game.
-		Fixed bug where sometimes the game's text wouldn't be parsed. (Which was causing some sex scenes and other places to crash.)
-		Fixed conditional parsing bug, which was causing some scenes to display 'Error in conditional parsing'.
-		Fixed cum-related status effects being shown even if the character lacks a penis, or if you didn't know if they had a penis.
-		Fixed bug that was causing Finch to sometimes not stock items.
-		Fixed epic and legendary clothing spawning in alleyways.
-		Fixed duplicates appearing in covering recolouring.
-		Fixed elementals and other companions acting like slaves in Lilaya's library.
-		Fixed incorrect virginity loss descriptions.
-		Fixed karada blocking bras, which was causing any worn karada plus bra to be blocking one another.
-		Fixed AI bug (that was affecting Roxy) where the NPC would continuously start and stop oral actions.
-		You can now dye an item of clothing's pattern colour without having to change the main colour.
-		Fixed demon hair-tipped tail randomising hair colour on each load.
-		Fixed bug where older characters/saves would always load in with human milk/cum/girlcum.
-		Fixed bug where testicles could not be set to internal.
+Contributors:
+	Fixed invalid HTML. (Itpatch)
+
+Other:
+	Added TF for 'horns per row', allowing you to have from one to four horns per row.
+	Added fluid flavour to milking room display.
+
+Bugs:
+	Fixed bug where accessing inventory during sex, then pressing back, would lock up the game.
+	Fixed bug where sometimes the game's text wouldn't be parsed. (Which was causing some sex scenes and other places to crash.)
+	Fixed conditional parsing bug, which was causing some scenes to display 'Error in conditional parsing'.
+	Fixed cum-related status effects being shown even if the character lacks a penis, or if you didn't know if they had a penis.
+	Fixed bug that was causing Finch to sometimes not stock items.
+	Fixed epic and legendary clothing spawning in alleyways.
+	Fixed duplicates appearing in covering recolouring.
+	Fixed elementals and other companions acting like slaves in Lilaya's library.
+	Fixed incorrect virginity loss descriptions.
+	Fixed karada blocking bras, which was causing any worn karada plus bra to be blocking one another.
+	Fixed AI bug (that was affecting Roxy) where the NPC would continuously start and stop oral actions.
+	You can now dye an item of clothing's pattern colour without having to change the main colour.
+	Fixed demon hair-tipped tail randomising hair colour on each load.
+	Fixed bug where older characters/saves would always load in with human milk/cum/girlcum.
+	Fixed bug where testicles could not be set to internal.
 	
 	
 	

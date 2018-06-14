@@ -432,6 +432,10 @@ public class FluidMilk implements FluidInterface, Serializable {
 		return fluidModifiers;
 	}
 	
+	public void clearFluidModifiers() {
+		fluidModifiers.clear();
+	}
+	
 	public float getValuePerMl() {
 		return 0.1f + this.getFluidModifiers().size()*0.4f + (this.getFlavour()!=FluidFlavour.MILK?0.5f:0);
 	}

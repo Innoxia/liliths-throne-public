@@ -466,6 +466,10 @@ public class FluidCum implements FluidInterface, Serializable, XMLSaving {
 		return fluidModifiers;
 	}
 
+	public void clearFluidModifiers() {
+		fluidModifiers.clear();
+	}
+
 	public float getValuePerMl() {
 		return 0.1f + this.getFluidModifiers().size()*0.1f + (this.getFlavour()!=FluidFlavour.CUM?0.5f:0);
 	}

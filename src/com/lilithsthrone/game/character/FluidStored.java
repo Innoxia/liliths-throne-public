@@ -29,6 +29,8 @@ public class FluidStored implements XMLSaving {
 		this.charactersFluidID = charactersFluidID;
 
 		this.cum = new FluidCum(cum.getType());
+		this.cum.clearFluidModifiers();
+		
 		this.cum.setFlavour(null, cum.getFlavour());
 		for(FluidModifier fm : cum.getFluidModifiers()) {
 			this.cum.addFluidModifier(null, fm);
@@ -44,6 +46,8 @@ public class FluidStored implements XMLSaving {
 		this.charactersFluidID = charactersFluidID;
 		
 		this.milk = new FluidMilk(milk.getType());
+		this.milk.clearFluidModifiers();
+		
 		this.milk.setFlavour(null, milk.getFlavour());
 		for(FluidModifier fm : milk.getFluidModifiers()) {
 			this.milk.addFluidModifier(null, fm);
@@ -59,6 +63,8 @@ public class FluidStored implements XMLSaving {
 		this.charactersFluidID = charactersFluidID;
 		
 		this.girlCum = new FluidGirlCum(girlCum.getType());
+		this.girlCum.clearFluidModifiers();
+		
 		this.girlCum.setFlavour(null, girlCum.getFlavour());
 		for(FluidModifier fm : girlCum.getFluidModifiers()) {
 			this.girlCum.addFluidModifier(null, fm);
