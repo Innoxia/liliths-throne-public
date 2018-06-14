@@ -2781,10 +2781,10 @@ public class UtilText {
 				true,
 				true,
 				"(bodyPart)",
-				"Returns the name of the highest piece of clothing that's blocking the area passed in as an argument. Possible arguments:</br>"
-				+ "vagina | pussy | cunt</br>"
-				+ "penis | cock | dick</br>"
-				+ "nipples | nipple</br>"
+				"Returns the name of the highest piece of clothing that's blocking the area passed in as an argument. Possible arguments:<br/>"
+				+ "vagina | pussy | cunt<br/>"
+				+ "penis | cock | dick<br/>"
+				+ "nipples | nipple<br/>"
 				+ "ass | asshole"){
 			@Override
 			public String parse(String command, String arguments, String target) {
@@ -2836,10 +2836,10 @@ public class UtilText {
 				true,
 				true,
 				"(bodyPart)",
-				"Returns the name of the lowest piece of clothing that's blocking the area passed in as an argument. Possible arguments:</br>"
-				+ "vagina | pussy | cunt</br>"
-				+ "penis | cock | dick</br>"
-				+ "nipples | nipple</br>"
+				"Returns the name of the lowest piece of clothing that's blocking the area passed in as an argument. Possible arguments:<br/>"
+				+ "vagina | pussy | cunt<br/>"
+				+ "penis | cock | dick<br/>"
+				+ "nipples | nipple<br/>"
 				+ "ass | asshole"){
 			@Override
 			public String parse(String command, String arguments, String target) {
@@ -4881,16 +4881,16 @@ public class UtilText {
 	}
 	
 	/**
-	 * Adds standard commands related to the baseCommand.</br>
-	 * Commands include:</br>
-	 * Race</br>
-	 * Skin</br>
-	 * Skin+</br>
-	 * Colour</br>
-	 * name</br>
-	 * name+</br>
-	 * names</br>
-	 * names+</br>
+	 * Adds standard commands related to the baseCommand.<br/>
+	 * Commands include:<br/>
+	 * Race<br/>
+	 * Skin<br/>
+	 * Skin+<br/>
+	 * Colour<br/>
+	 * name<br/>
+	 * name+<br/>
+	 * names<br/>
+	 * names+<br/>
 	 */
 	private static void addStandardParsingCommands(List<String> tags, List<String> tagsPlural, BodyPartType bodyPart) {
 		

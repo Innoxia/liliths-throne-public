@@ -289,7 +289,7 @@ public class SlaveryManagementDialogue {
 					
 					UtilText.nodeContentSB.append(
 								"<div style='width:10%; float:left; margin:0; padding:0;'>"
-									+ String.format("%02d", entry.getTime()) + ":00</br>"
+									+ String.format("%02d", entry.getTime()) + ":00<br/>"
 								+ "</div>"
 								+ "<div style='width:15%; float:left; margin:0; padding:0;'>"
 									 + entry.getSlaveName()
@@ -307,7 +307,7 @@ public class SlaveryManagementDialogue {
 //					if(entry.getEffects()!=null) {
 //						for(String s : entry.getEffects()) {
 //							if(!s.isEmpty()) {
-//								UtilText.nodeContentSB.append(s+"</br>");
+//								UtilText.nodeContentSB.append(s+"<br/>");
 //								effectsAdded = true;
 //							}
 //						}
@@ -427,14 +427,14 @@ public class SlaveryManagementDialogue {
 		miscDialogueSB.append(
 				"<div class='container-full-width inner' style='margin-bottom:4px; margin-top:4px; "+(!occupants.isEmpty()?"background:"+Colour.BACKGROUND_ALT.toWebHexString()+";'":"'")+"'>"
 						+ "<div style='width:15%; float:left; margin:0; padding:0;'>"
-							+ "<span style='color:"+place.getColour().toWebHexString()+";'>"+place.getName()+"</span></br>"
+							+ "<span style='color:"+place.getColour().toWebHexString()+";'>"+place.getName()+"</span><br/>"
 						+ "</div>"
 						+ "<div style='width:20%; float:left; margin:0; padding:0;'>");
 		
 		int i=0;
 		for(NPC occupant : occupants) {
 			if(occupant.isSlave()) {
-				miscDialogueSB.append("<b style='color:"+occupant.getFemininity().getColour().toWebHexString()+";'>"+occupant.getName()+"</b>"+(i+1==occupants.size()?"":"</br>"));
+				miscDialogueSB.append("<b style='color:"+occupant.getFemininity().getColour().toWebHexString()+";'>"+occupant.getName()+"</b>"+(i+1==occupants.size()?"":"<br/>"));
 				i++;
 			}
 		}
@@ -594,7 +594,7 @@ public class SlaveryManagementDialogue {
 			List<NPC> occupants = Main.game.getCharactersTreatingCellAsHome(cellToInspect);
 			for(NPC occupant : occupants) {
 				if(occupant.isSlave()) {
-					UtilText.nodeContentSB.append("<b style='color:"+occupant.getFemininity().getColour().toWebHexString()+";'>"+occupant.getName()+"</b>"+(i+1==occupants.size()?"":"</br>"));
+					UtilText.nodeContentSB.append("<b style='color:"+occupant.getFemininity().getColour().toWebHexString()+";'>"+occupant.getName()+"</b>"+(i+1==occupants.size()?"":"<br/>"));
 					i++;
 				}
 			}
@@ -972,9 +972,9 @@ public class SlaveryManagementDialogue {
 				purchaseAvailability.append("You need to purchase the following first:");
 				for(PlaceUpgrade prereq : upgrade.getPrerequisites()) {
 					if(place.getPlaceUpgrades().contains(prereq)) {
-						purchaseAvailability.append("</br><span style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>"+prereq.getName()+"</span>");
+						purchaseAvailability.append("<br/><span style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>"+prereq.getName()+"</span>");
 					} else {
-						purchaseAvailability.append("</br><span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>"+prereq.getName()+"</span>");
+						purchaseAvailability.append("<br/><span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>"+prereq.getName()+"</span>");
 					}
 				}
 			}
@@ -982,7 +982,7 @@ public class SlaveryManagementDialogue {
 		
 		String availabilityDescription = upgrade.getAvailabilityDescription(SlaveryManagementDialogue.cellToInspect);
 		if(availabilityDescription!=null && availabilityDescription.length()>0) {
-			purchaseAvailability.append("</br><span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>"+availabilityDescription+"</span>");
+			purchaseAvailability.append("<br/><span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>"+availabilityDescription+"</span>");
 		}
 		
 		return purchaseAvailability.toString();
@@ -1193,27 +1193,27 @@ public class SlaveryManagementDialogue {
 		miscDialogueSB.append(
 				"<div class='container-full-width inner' style='margin-bottom:0;"+(alternateBackground?"background:"+Colour.BACKGROUND_ALT.toWebHexString()+";'":"'")+"'>"
 						+ "<div style='width:20%; float:left; margin:0; padding:0;'>"
-							+ "<b style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>"+slave.getName()+"</b></br>"
-							+ "<span style='color:"+slave.getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence((slave.isFeminine()?slave.getSubspecies().getSingularFemaleName():slave.getSubspecies().getSingularMaleName()))+"</span></br>"
+							+ "<b style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>"+slave.getName()+"</b><br/>"
+							+ "<span style='color:"+slave.getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence((slave.isFeminine()?slave.getSubspecies().getSingularFemaleName():slave.getSubspecies().getSingularMaleName()))+"</span><br/>"
 							+ "<span style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(slave.getGender().getName())+"</span>"
 						+ "</div>"
 						+ "<div style='width:20%; float:left; margin:0; padding:0;'>"
 							+ "<b style='color:"+slave.getLocationPlace().getColour().toWebHexString()+";'>"+slave.getLocationPlace().getName()+"</b>"
-							+",</br>"
+							+",<br/>"
 							+ "<span style='color:"+slave.getWorldLocation().getColour().toWebHexString()+";'>"+slave.getWorldLocation().getName()+"</span>"
 						+ "</div>"
 						+ "<div style='float:left; width:15%; margin:0; padding:0;'>"
 							+ "<b style='color:"+affection.getColour().toWebHexString()+";'>"+slave.getAffection(Main.game.getPlayer())+ "</b>"
-							+ "</br><span style='color:"+(affectionChange==0?Colour.BASE_GREY:(affectionChange>0?Colour.GENERIC_GOOD:Colour.GENERIC_BAD)).toWebHexString()+";'>"+(affectionChange>0?"+":"")
+							+ "<br/><span style='color:"+(affectionChange==0?Colour.BASE_GREY:(affectionChange>0?Colour.GENERIC_GOOD:Colour.GENERIC_BAD)).toWebHexString()+";'>"+(affectionChange>0?"+":"")
 								+decimalFormat.format(affectionChange)+"</span>/day"
-							+ "</br>"
+							+ "<br/>"
 							+ "<span style='color:"+affection.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(affection.getName())+"</span>"
 						+"</div>"
 						+ "<div style='float:left; width:15%; margin:0; padding:0;'>"
 							+ "<b style='color:"+obedience.getColour().toWebHexString()+";'>"+slave.getObedienceValue()+ "</b>"
-							+ "</br><span style='color:"+(obedienceChange==0?Colour.BASE_GREY:(obedienceChange>0?Colour.GENERIC_GOOD:Colour.GENERIC_BAD)).toWebHexString()+";'>"+(obedienceChange>0?"+":"")
+							+ "<br/><span style='color:"+(obedienceChange==0?Colour.BASE_GREY:(obedienceChange>0?Colour.GENERIC_GOOD:Colour.GENERIC_BAD)).toWebHexString()+";'>"+(obedienceChange>0?"+":"")
 								+decimalFormat.format(obedienceChange)+"</span>/day"
-							+ "</br>"
+							+ "<br/>"
 							+ "<span style='color:"+obedience.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(obedience.getName())+"</span>"
 						+"</div>"
 						+ "<div style='float:left; width:15%; margin:0; padding:0;'>"
@@ -1221,8 +1221,8 @@ public class SlaveryManagementDialogue {
 								?(slaveOwned
 										?UtilText.formatAsMoney((int) (slave.getValueAsSlave()*Main.game.getDialogueFlags().getSlaveTrader().getBuyModifier()), "b", Colour.GENERIC_ARCANE)
 										:UtilText.formatAsMoney((int) (slave.getValueAsSlave()*Main.game.getDialogueFlags().getSlaveTrader().getSellModifier()), "b", Colour.GENERIC_ARCANE))
-								:UtilText.formatAsMoney(slave.getValueAsSlave()))+"</br>"
-							+ "<b>"+Util.capitaliseSentence(slave.getSlaveJob().getName(slave))+"</b></br>"
+								:UtilText.formatAsMoney(slave.getValueAsSlave()))+"<br/>"
+							+ "<b>"+Util.capitaliseSentence(slave.getSlaveJob().getName(slave))+"</b><br/>"
 							+ UtilText.formatAsMoney(slave.getSlaveJob().getFinalDailyIncomeAfterModifiers(slave))+"/day"
 						+"</div>");
 		
@@ -1337,21 +1337,21 @@ public class SlaveryManagementDialogue {
 					+"<div class='container-full-width'>"
 						+"<div style='width:30%; float:left; margin:0; padding:0;'>"
 							+ "<b style='color:"+character.getLocationPlace().getColour().toWebHexString()+";'>"+character.getLocationPlace().getName()+"</b>"
-							+",</br>"
+							+",<br/>"
 							+ "<span style='color:"+character.getWorldLocation().getColour().toWebHexString()+";'>"+character.getWorldLocation().getName()+"</span>"
 						+ "</div>"
 						+ "<div style='float:left; width:20%; margin:0; padding:0;'>"
 							+ "<b style='color:"+affection.getColour().toWebHexString()+";'>"+character.getAffection(Main.game.getPlayer())+ "</b>" //TODO
-							+ "</br><span style='color:"+(affectionChange==0?Colour.BASE_GREY:(affectionChange>0?Colour.GENERIC_GOOD:Colour.GENERIC_BAD)).toWebHexString()+";'>"+(affectionChange>0?"+":"")
+							+ "<br/><span style='color:"+(affectionChange==0?Colour.BASE_GREY:(affectionChange>0?Colour.GENERIC_GOOD:Colour.GENERIC_BAD)).toWebHexString()+";'>"+(affectionChange>0?"+":"")
 								+decimalFormat.format(affectionChange)+"</span>/day"
-							+ "</br>"
+							+ "<br/>"
 							+ "<span style='color:"+affection.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(affection.getName())+"</span>"
 						+"</div>"
 						+ "<div style='float:left; width:20%; margin:0; padding:0;'>"
 							+ "<b style='color:"+obedience.getColour().toWebHexString()+";'>"+character.getObedienceValue()+ "</b>"
-							+ "</br><span style='color:"+(obedienceChange==0?Colour.BASE_GREY:(obedienceChange>0?Colour.GENERIC_GOOD:Colour.GENERIC_BAD)).toWebHexString()+";'>"+(obedienceChange>0?"+":"")
+							+ "<br/><span style='color:"+(obedienceChange==0?Colour.BASE_GREY:(obedienceChange>0?Colour.GENERIC_GOOD:Colour.GENERIC_BAD)).toWebHexString()+";'>"+(obedienceChange>0?"+":"")
 								+decimalFormat.format(obedienceChange)+"</span>/day"
-							+ "</br>"
+							+ "<br/>"
 							+ "<span style='color:"+obedience.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(obedience.getName())+"</span>"
 						+"</div>"
 						+ "<div style='float:left; width:15%; margin:0; padding:0;'>"
@@ -1365,7 +1365,7 @@ public class SlaveryManagementDialogue {
 		
 		// Job:
 		headerSB.append("<div class='container-half-width inner' style='width:50%; margin:0;'>"
-				+ "<b>Job:</b> <b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>"+Util.capitaliseSentence(character.getSlaveJob().getName(character))+"</b></br>");
+				+ "<b>Job:</b> <b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>"+Util.capitaliseSentence(character.getSlaveJob().getName(character))+"</b><br/>");
 		int count=0;
 		for(SlaveJobSetting setting : character.getSlaveJobSettings()) {
 			headerSB.append((count==0?"":", ")+"<span style='color:"+setting.getColour().toWebHexString()+";'>"+setting.getName()+"</span>");
@@ -1379,7 +1379,7 @@ public class SlaveryManagementDialogue {
 		
 		// Permissions:
 		headerSB.append("<div class='container-half-width inner' style='width:50%; margin:0;'>"
-				+ "<b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Permissions:</b></br>");
+				+ "<b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Permissions:</b><br/>");
 		int permissionCount=0;
 		for(SlavePermission permission : SlavePermission.values()) {
 			for(SlavePermissionSetting setting : permission.getSettings()) {

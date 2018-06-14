@@ -1381,7 +1381,7 @@ public abstract class AbstractItemEffectType {
 						} else {
 							if(primaryModifier.getAssociatedAttribute()!=null) {
 								return "A sickly wave of arcane energy washes over you..."
-										+ "</br>"
+										+ "<br/>"
 										+ target.addPotionEffect(primaryModifier.getAssociatedAttribute(), -5);
 							}
 						}
@@ -1392,7 +1392,7 @@ public abstract class AbstractItemEffectType {
 						} else {
 							if(primaryModifier.getAssociatedAttribute()!=null) {
 								return "A soothing wave of arcane energy washes over you..."
-										+ "</br>"
+										+ "<br/>"
 										+ target.addPotionEffect(primaryModifier.getAssociatedAttribute(), 5);
 							}
 						}
@@ -1429,7 +1429,7 @@ public abstract class AbstractItemEffectType {
 				} else {
 					if(primaryModifier.getAssociatedAttribute()!=null) {
 						return "A warm wave of arcane energy washes over you..."
-								+ "</br>"
+								+ "<br/>"
 								+ target.addPotionEffect(primaryModifier.getAssociatedAttribute(), 1);
 					}
 				}

@@ -876,8 +876,8 @@ public enum RacialBody {
 	}
 	
 	/**
-	 * @return A map of personality traits and their normal associated values for this race.</br>
-	 *  When generating an individual's personality, there is a 25% chance of the weight of each of these traits being moved up or down by 1 (e.g. from AVERAGE to HIGH), and a 5% chance of them being moved up or down 2 (e.g. from LOW to HIGH).</br>
+	 * @return A map of personality traits and their normal associated values for this race.<br/>
+	 *  When generating an individual's personality, there is a 25% chance of the weight of each of these traits being moved up or down by 1 (e.g. from AVERAGE to HIGH), and a 5% chance of them being moved up or down 2 (e.g. from LOW to HIGH).<br/>
 	 *  As a result, a race with all weights set to AVERAGE should end up with a mostly-balanced personality, with one or two traits being skewed up or down.
 	 */
 	public Map<PersonalityTrait, PersonalityWeight> getPersonality() {

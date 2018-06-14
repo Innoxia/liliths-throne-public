@@ -184,11 +184,11 @@ public abstract class AbstractItem extends AbstractCoreItem implements Serializa
 		StringBuilder sb = new StringBuilder();
 		
 		sb.append("<p>"
-					+ "<b>Effects:</b></br>");
+					+ "<b>Effects:</b><br/>");
 		
 		for(ItemEffect ie : getEffects()) {
 			for(String s : ie.getEffectsDescription(user, target)) {
-				sb.append(s+"</br>");
+				sb.append(s+"<br/>");
 			}
 		}
 

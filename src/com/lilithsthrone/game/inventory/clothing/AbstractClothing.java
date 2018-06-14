@@ -441,12 +441,12 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 				for (ItemEffect e : this.getEffects()) {
 					if(e.getPrimaryModifier()!=TFModifier.CLOTHING_ATTRIBUTE) {
 						for(String s : e.getEffectsDescription(Main.game.getPlayer(), Main.game.getPlayer())) {
-							descriptionSB.append("</br>"+ s);
+							descriptionSB.append("<br/>"+ s);
 						}
 					}
 				}
 				for(Entry<Attribute, Integer> entry : this.getAttributeModifiers().entrySet()) {
-					descriptionSB.append("</br>"+ 
+					descriptionSB.append("<br/>"+ 
 							(entry.getValue()<0
 									?"[style.boldBad("+entry.getValue()+")] "
 									:"[style.boldGood(+"+entry.getValue()+")] ")
@@ -457,7 +457,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 					
 			descriptionSB.append("<p>" + (getClothingType().isPlural() ? "They have" : "It has") + " a value of " + UtilText.formatAsMoney(getValue()) + ".");
 		} else {
-			descriptionSB.append("</br>" + (getClothingType().isPlural() ? "They have" : "It has") + " an <b>unknown value</b>!");
+			descriptionSB.append("<br/>" + (getClothingType().isPlural() ? "They have" : "It has") + " an <b>unknown value</b>!");
 		}
 		
 		descriptionSB.append("</p>");
@@ -646,10 +646,10 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 									+ "<b style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Jinx revealed:</b> "+getDisplayName(true));
 					
 					for(Entry<Attribute, Integer> att : attributeModifiers.entrySet()) {
-						pointlessSB.append("</br><b>(" + att.getValue()+"</b> <b style='color:"+att.getKey().getColour().toWebHexString()+";'>"+ Util.capitaliseSentence(att.getKey().getName()) + "</b><b>)</b>");
+						pointlessSB.append("<br/><b>(" + att.getValue()+"</b> <b style='color:"+att.getKey().getColour().toWebHexString()+";'>"+ Util.capitaliseSentence(att.getKey().getName()) + "</b><b>)</b>");
 					}
 					
-					pointlessSB.append("</br>"
+					pointlessSB.append("<br/>"
 							+ "<b>"+(clothingOwner.isPlayer()?"You gain":UtilText.parse(clothingOwner, "[npc.Name] gains"))
 									+" +1</b> <b style='color:" + Colour.GENERIC_TERRIBLE.toWebHexString()+ ";'>core</b> <b style='color:" + Colour.ATTRIBUTE_CORRUPTION.toWebHexString() + ";'>corruption</b> <b>from discovering their jinx...</b>"
 							+ "</p>");
@@ -661,7 +661,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 									+ "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Enchantment revealed:</b> "+getDisplayName(true));
 					
 					for(Entry<Attribute, Integer> att : attributeModifiers.entrySet()) {
-						pointlessSB.append("</br><b>(+" + att.getValue()+"</b> <b style='color:"+att.getKey().getColour().toWebHexString()+";'>"+ Util.capitaliseSentence(att.getKey().getName()) + "</b><b>)</b>");
+						pointlessSB.append("<br/><b>(+" + att.getValue()+"</b> <b style='color:"+att.getKey().getColour().toWebHexString()+";'>"+ Util.capitaliseSentence(att.getKey().getName()) + "</b><b>)</b>");
 					}
 					
 					pointlessSB.append("</p>");
@@ -719,49 +719,49 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 						incompatibleClothing.add(c.getClothingType().getName());
 			
 			if(!getClothingType().getIncompatibleSlots().isEmpty()) {
-				extraInformationSB.append("Equipping "+(getClothingType().isPlural()?"them":"it")+" will [style.boldBad(block)] your "+ Util.inventorySlotsToStringList(getClothingType().getIncompatibleSlots())+".</br>");
+				extraInformationSB.append("Equipping "+(getClothingType().isPlural()?"them":"it")+" will [style.boldBad(block)] your "+ Util.inventorySlotsToStringList(getClothingType().getIncompatibleSlots())+".<br/>");
 			}
 			
 			if(Main.game.getPlayer().getClothingInSlot(this.getClothingType().getSlot())!=null && Main.game.getPlayer().getClothingInSlot(this.getClothingType().getSlot()).getClothingType().isDiscardedOnUnequip()) {
-				extraInformationSB.append("[style.boldBad(Equipping this will cause the "+Main.game.getPlayer().getClothingInSlot(this.getClothingType().getSlot()).getName()+" you're already wearing to be discarded!)]</br>");
+				extraInformationSB.append("[style.boldBad(Equipping this will cause the "+Main.game.getPlayer().getClothingInSlot(this.getClothingType().getSlot()).getName()+" you're already wearing to be discarded!)]<br/>");
 			}
 			
 			if(this.isSealed() && enchantmentKnown) {
-				extraInformationSB.append((getClothingType().isPlural() ? "They" : "It") + " will [style.boldJinx(jinx)] " + (getClothingType().isPlural() ? "themselves" : "itself") + " onto you!</br>");
+				extraInformationSB.append((getClothingType().isPlural() ? "They" : "It") + " will [style.boldJinx(jinx)] " + (getClothingType().isPlural() ? "themselves" : "itself") + " onto you!<br/>");
 			}
 			
 			if(!enchantmentKnown) {
 				extraInformationSB.append("You can either take " + (getClothingType().isPlural() ? "them" : "it") + " to a suitable vendor, or equip " + (getClothingType().isPlural() ? "them" : "it") + " now to identify the"
-						+ " <b style='color: "+ Colour.RARITY_UNKNOWN.toWebHexString() + ";'>unknown enchantment</b>!</br>");
+						+ " <b style='color: "+ Colour.RARITY_UNKNOWN.toWebHexString() + ";'>unknown enchantment</b>!<br/>");
 			}
 			
 			if(cummedIn) {
-				extraInformationSB.append((getClothingType().isPlural() ? "They have" : "It has") + " been <b style='color: " + Colour.CUM.toWebHexString() + ";'>covered in sexual fluids</b>!</br>");
+				extraInformationSB.append((getClothingType().isPlural() ? "They have" : "It has") + " been <b style='color: " + Colour.CUM.toWebHexString() + ";'>covered in sexual fluids</b>!<br/>");
 			}
 			
 			if(this.getClothingType().isMufflesSpeech()) {
-				extraInformationSB.append((getClothingType().isPlural() ? "They [style.boldBad(muffle" : "It [style.boldBad(muffles") + " the wearer's speech)].</br>");
+				extraInformationSB.append((getClothingType().isPlural() ? "They [style.boldBad(muffle" : "It [style.boldBad(muffles") + " the wearer's speech)].<br/>");
 			}
 
 			if(this.getClothingType().isHindersLegMovement()) {
-				extraInformationSB.append((getClothingType().isPlural() ? "They [style.boldTerrible(block" : "It [style.boldTerrible(blocks") + " the wearer's escape in combat)] (if they are unable to fly).</br>");
+				extraInformationSB.append((getClothingType().isPlural() ? "They [style.boldTerrible(block" : "It [style.boldTerrible(blocks") + " the wearer's escape in combat)] (if they are unable to fly).<br/>");
 			}
 			
 			if(this.getClothingType().isHindersArmMovement()) {
-				extraInformationSB.append((getClothingType().isPlural() ? "They [style.boldTerrible(block" : "It [style.boldTerrible(blocks") + " flight from arm-wings)].</br>");
+				extraInformationSB.append((getClothingType().isPlural() ? "They [style.boldTerrible(block" : "It [style.boldTerrible(blocks") + " flight from arm-wings)].<br/>");
 			}
 			
 			if(getClothingType().getFemininityMaximum() < Main.game.getPlayer().getFemininityValue()) {
-				extraInformationSB.append((getClothingType().isPlural() ? "They are" : "It is") + " <b style='color: " + Colour.MASCULINE.toWebHexString() + ";'>too masculine</b> for you.</br>");
+				extraInformationSB.append((getClothingType().isPlural() ? "They are" : "It is") + " <b style='color: " + Colour.MASCULINE.toWebHexString() + ";'>too masculine</b> for you.<br/>");
 			}
 
 			if(getClothingType().getFemininityMinimum() > Main.game.getPlayer().getFemininityValue()) {
-				extraInformationSB.append((getClothingType().isPlural() ? "They are" : "It is") + " <b style='color: " + Colour.FEMININE.toWebHexString() + ";'>too feminine</b> for you.</br>");
+				extraInformationSB.append((getClothingType().isPlural() ? "They are" : "It is") + " <b style='color: " + Colour.FEMININE.toWebHexString() + ";'>too feminine</b> for you.<br/>");
 			}
 			
 			if(!incompatibleClothing.isEmpty()) {
 				extraInformationSB.append((getClothingType().isPlural() ? "They are" : "It is") + " <b style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>incompatible</b> with your "
-						+ Util.stringsToStringList(incompatibleClothing, false) + ".</br>");
+						+ Util.stringsToStringList(incompatibleClothing, false) + ".<br/>");
 			}
 			
 			if(extraInformationSB.length()==0) {
@@ -773,43 +773,43 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 			
 			if(!getClothingType().getIncompatibleSlots().isEmpty()) {
 				extraInformationSB.append((getClothingType().isPlural() ? "They are" : "It is") + " <b style='color: " + Colour.GENERIC_BAD.toWebHexString()
-					+ ";'>blocking</b> your " + Util.inventorySlotsToStringList(getClothingType().getIncompatibleSlots()) + "!</br>");
+					+ ";'>blocking</b> your " + Util.inventorySlotsToStringList(getClothingType().getIncompatibleSlots()) + "!<br/>");
 			}
 			
 			if(this.isSealed()) {
-				extraInformationSB.append((getClothingType().isPlural() ? "They are" : "It is") + " <b style='color: " + Colour.ATTRIBUTE_CORRUPTION.toWebHexString() + ";'>jinxed</b> and can't be removed!</br>");
+				extraInformationSB.append((getClothingType().isPlural() ? "They are" : "It is") + " <b style='color: " + Colour.ATTRIBUTE_CORRUPTION.toWebHexString() + ";'>jinxed</b> and can't be removed!<br/>");
 			
 			} else if(this.getClothingType().isDiscardedOnUnequip()) {
-				extraInformationSB.append("[style.boldBad(Removing your "+this.getName()+" will cause "+(getClothingType().isPlural() ? "them" : "it")+" to be discarded!)]</br>");
+				extraInformationSB.append("[style.boldBad(Removing your "+this.getName()+" will cause "+(getClothingType().isPlural() ? "them" : "it")+" to be discarded!)]<br/>");
 			}
 			
 			if(cummedIn) {
-				extraInformationSB.append((getClothingType().isPlural() ? "They have" : "It has") + " been <b style='color: " + Colour.CUM.toWebHexString() + ";'>covered in sexual fluids</b>!</br>");
+				extraInformationSB.append((getClothingType().isPlural() ? "They have" : "It has") + " been <b style='color: " + Colour.CUM.toWebHexString() + ";'>covered in sexual fluids</b>!<br/>");
 			}
 			
 			if(this.getClothingType().isMufflesSpeech()) {
-				extraInformationSB.append((getClothingType().isPlural() ? "They are" : "It is") + " [style.boldBad(muffling your speech)].</br>");
+				extraInformationSB.append((getClothingType().isPlural() ? "They are" : "It is") + " [style.boldBad(muffling your speech)].<br/>");
 			}
 
 			if(this.getClothingType().isHindersLegMovement() && !equippedToCharacter.isAbleToFly()) {
-				extraInformationSB.append((getClothingType().isPlural() ? "They are" : "It is") + " [style.boldTerrible(blocking your escape in combat)].</br>");
+				extraInformationSB.append((getClothingType().isPlural() ? "They are" : "It is") + " [style.boldTerrible(blocking your escape in combat)].<br/>");
 			}
 
 			if(this.getClothingType().isHindersArmMovement() && equippedToCharacter.isAbleToFlyFromArms()) {
-				extraInformationSB.append((getClothingType().isPlural() ? "They are " : "It is") + " [style.boldTerrible(blocking flight from your arm-wings)].</br>");
+				extraInformationSB.append((getClothingType().isPlural() ? "They are " : "It is") + " [style.boldTerrible(blocking flight from your arm-wings)].<br/>");
 			}
 			
 			if(getClothingType().getFemininityMaximum() < equippedToCharacter.getFemininityValue()) {
-				extraInformationSB.append((getClothingType().isPlural() ? "They are" : "It is") + " <b style='color: " + Colour.MASCULINE.toWebHexString() + ";'>too masculine</b> for you.</br>");
+				extraInformationSB.append((getClothingType().isPlural() ? "They are" : "It is") + " <b style='color: " + Colour.MASCULINE.toWebHexString() + ";'>too masculine</b> for you.<br/>");
 			}
 
 			if(getClothingType().getFemininityMinimum() > equippedToCharacter.getFemininityValue()) {
-				extraInformationSB.append((getClothingType().isPlural() ? "They are" : "It is") + " <b style='color: " + Colour.FEMININE.toWebHexString() + ";'>too feminine</b> for you.</br>");
+				extraInformationSB.append((getClothingType().isPlural() ? "They are" : "It is") + " <b style='color: " + Colour.FEMININE.toWebHexString() + ";'>too feminine</b> for you.<br/>");
 			}
 			
 			if(!displacedList.isEmpty()) {
 				extraInformationSB.append((getClothingType().isPlural() ? "They have" : "It has") + " been <b style='color: " + Colour.FEMININE.toWebHexString() + ";'>"
-						+ Util.displacementTypesToStringList(displacedList) + "</b>!</br>");
+						+ Util.displacementTypesToStringList(displacedList) + "</b>!<br/>");
 			}
 
 			if(extraInformationSB.length()==0) {
@@ -822,43 +822,43 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 
 			if(!getClothingType().getIncompatibleSlots().isEmpty()) {
 				extraInformationSB.append((getClothingType().isPlural() ? "They are" : "It is") + " [style.boldBad(blocking)] [npc.her] "
-						+ Util.inventorySlotsToStringList(getClothingType().getIncompatibleSlots()) + "!</br>");
+						+ Util.inventorySlotsToStringList(getClothingType().getIncompatibleSlots()) + "!<br/>");
 			}
 			
 			if(this.isSealed()) {
-				extraInformationSB.append((getClothingType().isPlural() ? "They are" : "It is") + " [style.boldCorruption(jinxed)] and can't be removed!</br>");
+				extraInformationSB.append((getClothingType().isPlural() ? "They are" : "It is") + " [style.boldCorruption(jinxed)] and can't be removed!<br/>");
 				
 			} else if(this.getClothingType().isDiscardedOnUnequip()) {
-				extraInformationSB.append("[style.boldBad(Removing [npc.name]'s "+this.getName()+" will cause "+(getClothingType().isPlural() ? "them" : "it")+" to be discarded!)]</br>");
+				extraInformationSB.append("[style.boldBad(Removing [npc.name]'s "+this.getName()+" will cause "+(getClothingType().isPlural() ? "them" : "it")+" to be discarded!)]<br/>");
 			}
 
 			if(cummedIn) {
-				extraInformationSB.append((getClothingType().isPlural() ? "They have" : "It has") + " been <b style='color: " + Colour.CUM.toWebHexString() + ";'>covered in sexual fluids</b>!</br>");
+				extraInformationSB.append((getClothingType().isPlural() ? "They have" : "It has") + " been <b style='color: " + Colour.CUM.toWebHexString() + ";'>covered in sexual fluids</b>!<br/>");
 			}
 
 			if(this.getClothingType().isMufflesSpeech()) {
-				extraInformationSB.append((getClothingType().isPlural() ? "They are" : "It is") + " [style.boldBad(muffling [npc.her] speech)].</br>");
+				extraInformationSB.append((getClothingType().isPlural() ? "They are" : "It is") + " [style.boldBad(muffling [npc.her] speech)].<br/>");
 			}
 
 			if(this.getClothingType().isHindersLegMovement() && !equippedToCharacter.isAbleToFly()) {
-				extraInformationSB.append((getClothingType().isPlural() ? "They are" : "It is") + " [style.boldTerrible(blocking [npc.her] escape in combat)].</br>");
+				extraInformationSB.append((getClothingType().isPlural() ? "They are" : "It is") + " [style.boldTerrible(blocking [npc.her] escape in combat)].<br/>");
 			}
 
 			if(this.getClothingType().isHindersArmMovement() && equippedToCharacter.isAbleToFlyFromArms()) {
-				extraInformationSB.append((getClothingType().isPlural() ? "They are " : "It is") + " [style.boldTerrible(blocking flight from [npc.her] arm-wings)].</br>");
+				extraInformationSB.append((getClothingType().isPlural() ? "They are " : "It is") + " [style.boldTerrible(blocking flight from [npc.her] arm-wings)].<br/>");
 			}
 			
 			if(getClothingType().getFemininityMaximum() < equippedToCharacter.getFemininityValue()) {
-				extraInformationSB.append((getClothingType().isPlural() ? "They are" : "It is") + " <b style='color: " + Colour.MASCULINE.toWebHexString() + ";'>too masculine</b> for [npc.herHim].</br>");
+				extraInformationSB.append((getClothingType().isPlural() ? "They are" : "It is") + " <b style='color: " + Colour.MASCULINE.toWebHexString() + ";'>too masculine</b> for [npc.herHim].<br/>");
 			}
 
 			if(getClothingType().getFemininityMinimum() > equippedToCharacter.getFemininityValue()) {
-				extraInformationSB.append((getClothingType().isPlural() ? "They are" : "It is") + " <b style='color: " + Colour.FEMININE.toWebHexString() + ";'>too feminine</b> for [npc.herHim].</br>");
+				extraInformationSB.append((getClothingType().isPlural() ? "They are" : "It is") + " <b style='color: " + Colour.FEMININE.toWebHexString() + ";'>too feminine</b> for [npc.herHim].<br/>");
 			}
 			
 			if(!displacedList.isEmpty()) {
 				extraInformationSB.append((getClothingType().isPlural() ? "They have been" : "It has been") 
-						+ " <b style='color: " + Colour.GENERIC_BAD.toWebHexString() + ";'>"+ Util.displacementTypesToStringList(displacedList) + "</b>!</br>");
+						+ " <b style='color: " + Colour.GENERIC_BAD.toWebHexString() + ";'>"+ Util.displacementTypesToStringList(displacedList) + "</b>!<br/>");
 			}
 
 			if(extraInformationSB.length()==0) {
@@ -872,7 +872,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 	public String getDisplacementBlockingDescriptions(GameCharacter equippedToCharacter){
 		descriptionSB = new StringBuilder("<p><b>Displacement types:</b>");
 		for(BlockedParts bp : getClothingType().getBlockedPartsList()){
-			descriptionSB.append("</br><b>"+Util.capitaliseSentence(bp.displacementType.getDescription())+":</b> ");
+			descriptionSB.append("<br/><b>"+Util.capitaliseSentence(bp.displacementType.getDescription())+":</b> ");
 			if(equippedToCharacter.isAbleToBeDisplaced(this, bp.displacementType, false, false, equippedToCharacter))
 				descriptionSB.append("<b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Available</b>");
 			else
@@ -1077,7 +1077,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 								+ "<b style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Jinx revealed:</b> "+getDisplayName(true));
 				
 				for(Entry<Attribute, Integer> att : attributeModifiers.entrySet()) {
-					pointlessSB.append("</br><b>(" + att.getValue()+"</b> <b style='color:"+att.getKey().getColour().toWebHexString()+";'>"+ Util.capitaliseSentence(att.getKey().getName()) + "</b><b>)</b>");
+					pointlessSB.append("<br/><b>(" + att.getValue()+"</b> <b style='color:"+att.getKey().getColour().toWebHexString()+";'>"+ Util.capitaliseSentence(att.getKey().getName()) + "</b><b>)</b>");
 				}
 				
 				pointlessSB.append("</p>");
@@ -1088,7 +1088,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 								+ "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Enchantment revealed:</b> "+getDisplayName(true));
 				
 				for(Entry<Attribute, Integer> att : attributeModifiers.entrySet()) {
-					pointlessSB.append("</br><b>(+" + att.getValue()+"</b> <b style='color:"+att.getKey().getColour().toWebHexString()+";'>"+ Util.capitaliseSentence(att.getKey().getName()) + "</b><b>)</b>");
+					pointlessSB.append("<br/><b>(+" + att.getValue()+"</b> <b style='color:"+att.getKey().getColour().toWebHexString()+";'>"+ Util.capitaliseSentence(att.getKey().getName()) + "</b><b>)</b>");
 				}
 				
 				pointlessSB.append("</p>");

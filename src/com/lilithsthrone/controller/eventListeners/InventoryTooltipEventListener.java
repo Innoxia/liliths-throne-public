@@ -111,11 +111,11 @@ public class InventoryTooltipEventListener implements EventListener {
 				int ieCount=0;
 				for(ItemEffect ie : item.getEffects()) {
 					if(ieCount>0)
-						tooltipSB.append("</br>");
+						tooltipSB.append("<br/>");
 					ieCount++;
 					for(int i=0; i<ie.getEffectsDescription(Main.game.getPlayer(), Main.game.getPlayer()).size(); i++) {
 						if(i!=0)
-							tooltipSB.append("</br>");
+							tooltipSB.append("<br/>");
 						tooltipSB.append(ie.getEffectsDescription(Main.game.getPlayer(), Main.game.getPlayer()).get(i));
 					}
 				}
@@ -759,22 +759,22 @@ public class InventoryTooltipEventListener implements EventListener {
 //		if (absWep.getEffects().size() != 0) { TODO enchanting effects
 //			for (ItemEffect e : absWep.getEffects()) {
 //				for(String s : e.getEffectsDescription(owner, owner)) {
-//					tooltipSB.append("</br>"+ s);
+//					tooltipSB.append("<br/>"+ s);
 //				}
 //			}
 			for(Entry<Attribute, Integer> entry : absWep.getAttributeModifiers().entrySet()) {
-				tooltipSB.append("</br>"+ 
+				tooltipSB.append("<br/>"+ 
 						(entry.getValue()<0
 								?"[style.boldBad("+entry.getValue()+")] "
 								:"[style.boldGood(+"+entry.getValue()+")] ")
 						+ "<b style='color:"+entry.getKey().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(entry.getKey().getName())+"</b>");
 			}
 //		} else {
-//			tooltipSB.append("</br>[style.colourDisabled(No bonuses)]");
+//			tooltipSB.append("<br/>[style.colourDisabled(No bonuses)]");
 //		}
 		
 			for(Spell s : absWep.getSpells()) {
-				tooltipSB.append("</br><b style='color:"+Colour.DAMAGE_TYPE_SPELL.toWebHexString()+";'>Grants Spell</b><b>:</b> <b style='color:"+s.getSpellSchool().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(s.getName())+"</b>");
+				tooltipSB.append("<br/><b style='color:"+Colour.DAMAGE_TYPE_SPELL.toWebHexString()+";'>Grants Spell</b><b>:</b> <b style='color:"+s.getSpellSchool().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(s.getName())+"</b>");
 			}
 			
 		tooltipSB.append("</div>");
@@ -875,17 +875,17 @@ public class InventoryTooltipEventListener implements EventListener {
 		
 		if (!absClothing.getEffects().isEmpty()) {
 			if (!absClothing.isEnchantmentKnown()) {
-				tooltipSB.append("</br>[style.colourDisabled(Unidentified effects!)]");
+				tooltipSB.append("<br/>[style.colourDisabled(Unidentified effects!)]");
 			} else {
 				for (ItemEffect e : absClothing.getEffects()) {
 					if(e.getPrimaryModifier()!=TFModifier.CLOTHING_ATTRIBUTE) {
 						for(String s : e.getEffectsDescription(owner, owner)) {
-							tooltipSB.append("</br>"+ s);
+							tooltipSB.append("<br/>"+ s);
 						}
 					}
 				}
 				for(Entry<Attribute, Integer> entry : absClothing.getAttributeModifiers().entrySet()) {
-					tooltipSB.append("</br>"+ 
+					tooltipSB.append("<br/>"+ 
 							(entry.getValue()<0
 									?"[style.boldBad("+entry.getValue()+")] "
 									:"[style.boldGood(+"+entry.getValue()+")] ")
@@ -894,7 +894,7 @@ public class InventoryTooltipEventListener implements EventListener {
 			}
 			
 		} else {
-			tooltipSB.append("</br>[style.colourDisabled(No bonuses)]");
+			tooltipSB.append("<br/>[style.colourDisabled(No bonuses)]");
 		}
 		
 		tooltipSB.append("</div>");
@@ -916,7 +916,7 @@ public class InventoryTooltipEventListener implements EventListener {
 		} else {
 			tooltipSB.append("<b>Status</b>");
 			for (String s : absClothing.getExtraDescriptions(equippedToCharacter)) {
-				tooltipSB.append("</br>" + s);
+				tooltipSB.append("<br/>" + s);
 			}
 		}
 		tooltipSB.append("</div>");
@@ -1034,13 +1034,13 @@ public class InventoryTooltipEventListener implements EventListener {
 			for (ItemEffect e : tattoo.getEffects()) {
 				if(e.getPrimaryModifier()!=TFModifier.CLOTHING_ATTRIBUTE) {
 					for(String s : e.getEffectsDescription(owner, owner)) {
-						tooltipSB.append((i>0?"</br>"+s:s));
+						tooltipSB.append((i>0?"<br/>"+s:s));
 					}
 					i++;
 				}
 			}
 			for(Entry<Attribute, Integer> entry : tattoo.getAttributeModifiers().entrySet()) {
-				tooltipSB.append((i>0?"</br>":"")
+				tooltipSB.append((i>0?"<br/>":"")
 						+ (entry.getValue()<0
 								?"[style.boldBad("+entry.getValue()+")] "
 								:"[style.boldGood(+"+entry.getValue()+")] ")
@@ -1076,7 +1076,7 @@ public class InventoryTooltipEventListener implements EventListener {
 							i++;
 						}
 					}
-					tooltipSB.append(tattoo.getWriting().getColour().getName()+" text reads:</br>");
+					tooltipSB.append(tattoo.getWriting().getColour().getName()+" text reads:<br/>");
 					tooltipSB.append("'"+tattoo.getFormattedWritingOutput()+"'"
 							+ "</div>");
 			} else {
@@ -1088,7 +1088,7 @@ public class InventoryTooltipEventListener implements EventListener {
 			
 			if (tattoo.getCounter()!=null && tattoo.getCounter().getType()!=TattooCounterType.NONE) {
 				tooltipSB.append("<div class='container-full-width' style='padding:8px; height:54px; text-align:center;'>"
-									+ "An enchanted, "+tattoo.getCounter().getColour().getName()+" "+tattoo.getCounter().getType().getName()+" counter reads:</br>'<span style='color:"+tattoo.getCounter().getColour().toWebHexString()+";'>"
+									+ "An enchanted, "+tattoo.getCounter().getColour().getName()+" "+tattoo.getCounter().getType().getName()+" counter reads:<br/>'<span style='color:"+tattoo.getCounter().getColour().toWebHexString()+";'>"
 										+tattoo.getFormattedCounterOutput(equippedToCharacter)
 								+"</span>'</div>");
 			} else {

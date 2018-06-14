@@ -147,7 +147,7 @@ public class DomKneeling {
 					+ " screaming in ecstasy as your [pc.pussy+] spasms and clenches down around the [npc.tongue+] that's being forced deep into your soft folds.");
 			
 			if(Main.game.getPlayer().hasPenis()) {
-				UtilText.nodeContentSB.append("</br></br>"
+				UtilText.nodeContentSB.append("<br/><br/>"
 						+ "As you grind your [pc.pussy+] down against [npc.her] [npc.lips], you feel your other sexual organ start to react to your climax.");
 				
 				if(Main.game.getPlayer().hasPenisModifier(PenisModifier.KNOTTED)) {
@@ -193,7 +193,7 @@ public class DomKneeling {
 				}
 			}
 			
-			UtilText.nodeContentSB.append("</br></br>"
+			UtilText.nodeContentSB.append("<br/><br/>"
 					+ "After a few moments of grinding down on [npc.name]'s face, your overwhelming orgasm starts to fade, and you stand up on shaky [pc.legs],"
 							+ " grinning down at your partner as you feel a slick stream of saliva and [pc.girlCum] drooling down from your [pc.pussy+].");
 			
@@ -279,11 +279,11 @@ public class DomKneeling {
 			}
 			
 			if(Main.game.getPlayer().hasVagina()){
-				UtilText.nodeContentSB.append("</br></br>"
+				UtilText.nodeContentSB.append("<br/><br/>"
 						+ "A desperate, shuddering heat suddenly crashes up from your neglected feminine sex, and you let out a manic scream as a blinding wave of pure ecstasy washes over you.");
 			}
 			
-			UtilText.nodeContentSB.append("</br></br>"
+			UtilText.nodeContentSB.append("<br/><br/>"
 					+ "After a few moments, your balls have completely emptied themselves, and you take a moment to catch your breath, grinning down at [npc.name] as you keep your [pc.cock+] hilted down [npc.her] throat.");
 			
 			return UtilText.nodeContentSB.toString();
@@ -374,11 +374,11 @@ public class DomKneeling {
 			}
 			
 			if(Main.game.getPlayer().hasVagina()){
-				UtilText.nodeContentSB.append("</br></br>"
+				UtilText.nodeContentSB.append("<br/><br/>"
 						+ "A desperate, shuddering heat suddenly crashes up from your neglected feminine sex, and you let out a manic scream as a blinding wave of pure ecstasy washes over you.");
 			}
 			
-			UtilText.nodeContentSB.append("</br></br>"
+			UtilText.nodeContentSB.append("<br/><br/>"
 					+ "After a moment, you start to come down from your climax, and push your [pc.cock+] past [npc.name]'s [npc.lips+] as you force [npc.herHim] to lick the [pc.cockHead] of your [pc.cock] clean.");
 			
 			return UtilText.nodeContentSB.toString();

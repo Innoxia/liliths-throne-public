@@ -1360,7 +1360,7 @@ public enum Race {
 	 * +
 	 * " Once they have found and seduced a suitable mate, they will present themselves to be fucked, using demonic magic to force their partner to repeatedly orgasm."
 	 * +
-	 * " After milking their victim of cum, they will move on to their next conquest.</br>"
+	 * " After milking their victim of cum, they will move on to their next conquest.<br/>"
 	 * +
 	 * "The cum that they gather is transformed within their bodies into their own highly corruptive and addictive seed."
 	 * +
@@ -1368,7 +1368,7 @@ public enum Race {
 	 * +
 	 * " Having located a suitable victim, the Lilin will fuck them, filling them with their corruptive spooge."
 	 * +
-	 * " Such a union will more often than not result in the female birthing a litter of imps a few days later.</br>"
+	 * " Such a union will more often than not result in the female birthing a litter of imps a few days later.<br/>"
 	 * +
 	 * "Lilin are also able to create new demons by force-feeding them their corruptive cum over the course of a few days."
 	 * ,

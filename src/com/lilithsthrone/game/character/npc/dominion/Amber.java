@@ -178,7 +178,7 @@ public class Amber extends NPC {
 		} else {
 			return "The highest-ranking of Zaranix's maids, Amber is one of the most striking succubi you've ever seen."
 					+ " Her amber hair and eyes, from which she gets her name, glow with a brilliant luminosity, providing a stark contrast to her jet-black ebony skin."
-					+ "</br>"
+					+ "<br/>"
 					+ "Amber is ruthlessly sadistic, and delights in imposing her dominance over her subordinates.";
 		}
 	}

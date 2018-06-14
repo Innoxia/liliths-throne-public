@@ -1044,7 +1044,7 @@ public class MainControllerInitMethod {
 						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
 
 						TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Purchase Modification",
-								"This will cost: "+UtilText.formatAsMoney(placeUpgrade.getInstallCost())+"</br>"+SlaveryManagementDialogue.getPurchaseAvailabilityTooltipText(SlaveryManagementDialogue.cellToInspect, placeUpgrade));
+								"This will cost: "+UtilText.formatAsMoney(placeUpgrade.getInstallCost())+"<br/>"+SlaveryManagementDialogue.getPurchaseAvailabilityTooltipText(SlaveryManagementDialogue.cellToInspect, placeUpgrade));
 						MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 					}
 					id = placeUpgrade+"_BUY_DISABLED";
@@ -1053,7 +1053,7 @@ public class MainControllerInitMethod {
 						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
 
 						TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Purchase Modification",
-								"This will cost: "+UtilText.formatAsMoney(placeUpgrade.getInstallCost())+"</br>"+SlaveryManagementDialogue.getPurchaseAvailabilityTooltipText(SlaveryManagementDialogue.cellToInspect, placeUpgrade));
+								"This will cost: "+UtilText.formatAsMoney(placeUpgrade.getInstallCost())+"<br/>"+SlaveryManagementDialogue.getPurchaseAvailabilityTooltipText(SlaveryManagementDialogue.cellToInspect, placeUpgrade));
 						MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 					}
 					
@@ -1072,7 +1072,7 @@ public class MainControllerInitMethod {
 						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
 
 						TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Remove Modification",
-								"This will cost: "+UtilText.formatAsMoney(placeUpgrade.getRemovalCost())+"</br>"+SlaveryManagementDialogue.getPurchaseAvailabilityTooltipText(SlaveryManagementDialogue.cellToInspect, placeUpgrade));
+								"This will cost: "+UtilText.formatAsMoney(placeUpgrade.getRemovalCost())+"<br/>"+SlaveryManagementDialogue.getPurchaseAvailabilityTooltipText(SlaveryManagementDialogue.cellToInspect, placeUpgrade));
 						MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 					}
 					id = placeUpgrade+"_SELL_DISABLED";
@@ -1083,7 +1083,7 @@ public class MainControllerInitMethod {
 						TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Remove Modification",
 								(placeUpgrade.isCoreRoomUpgrade()
 										?"You cannot directly remove core upgrades. Instead, you'll have to purchase a different core modification in order to remove the current one."
-										:"This will cost: "+UtilText.formatAsMoney(placeUpgrade.getRemovalCost())+"</br>"+SlaveryManagementDialogue.getPurchaseAvailabilityTooltipText(SlaveryManagementDialogue.cellToInspect, placeUpgrade)));
+										:"This will cost: "+UtilText.formatAsMoney(placeUpgrade.getRemovalCost())+"<br/>"+SlaveryManagementDialogue.getPurchaseAvailabilityTooltipText(SlaveryManagementDialogue.cellToInspect, placeUpgrade)));
 						MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 					}
 				}
@@ -1699,7 +1699,7 @@ public class MainControllerInitMethod {
 						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
 	
 						TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Sell Slave",
-								UtilText.parse(slave, "[npc.Name] has a value of "+UtilText.formatAsMoney(slave.getValueAsSlave(), "b", Colour.GENERIC_GOOD)+"</br>"
+								UtilText.parse(slave, "[npc.Name] has a value of "+UtilText.formatAsMoney(slave.getValueAsSlave(), "b", Colour.GENERIC_GOOD)+"<br/>"
 										+ "However, "+Main.game.getDialogueFlags().getSlaveTrader().getName()+" will buy [npc.herHim] for "
 											+UtilText.formatAsMoney((int)(slave.getValueAsSlave()*Main.game.getDialogueFlags().getSlaveTrader().getBuyModifier()), "b", Colour.GENERIC_ARCANE)+"."));
 						MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
@@ -1822,7 +1822,7 @@ public class MainControllerInitMethod {
 						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
 	
 						TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Buy Slave",
-								UtilText.parse(slave, "[npc.Name] has a value of "+UtilText.formatAsMoney(slave.getValueAsSlave(), "b", Colour.GENERIC_GOOD)+"</br>"
+								UtilText.parse(slave, "[npc.Name] has a value of "+UtilText.formatAsMoney(slave.getValueAsSlave(), "b", Colour.GENERIC_GOOD)+"<br/>"
 										+ "However, "+Main.game.getDialogueFlags().getSlaveTrader().getName()+" will sell [npc.herHim] for "
 											+UtilText.formatAsMoney((int)(slave.getValueAsSlave()*Main.game.getDialogueFlags().getSlaveTrader().getSellModifier()), "b", Colour.GENERIC_ARCANE)+"."));
 						MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
@@ -3499,7 +3499,7 @@ public class MainControllerInitMethod {
 						TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation(Util.capitaliseSentence(type.getName()), type.getDescription()
 								+(type.getSlotAvailability().contains(CharacterModificationUtils.tattooInventorySlot)
 										?""
-										:"</br>[style.italicsBad(This tattoo type can't be applied to '"+CharacterModificationUtils.tattooInventorySlot.getTattooSlotName()+"'!)]</br>"
+										:"<br/>[style.italicsBad(This tattoo type can't be applied to '"+CharacterModificationUtils.tattooInventorySlot.getTattooSlotName()+"'!)]<br/>"
 												+ "Available slots: "+Util.tattooInventorySlotsToStringList(type.getSlotAvailability())));
 						MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 					}

@@ -472,7 +472,7 @@ public class Kate extends NPC {
 				return "<p>"
 							+ "As you pull out a condom, a worried frown flashes across Kate's face, "
 							+ UtilText.parseSpeech("Oh! Erm, let me put that on for you!", Main.game.getKate())
-							+"</br>"
+							+"<br/>"
 							+ "Before you can react, Kate snatches the condom out of your hands, and with a devious smile, uses her sharp little canines to bite a big hole straight through the centre."
 							+ " She laughs at your shocked reaction, "
 							+ UtilText.parseSpeech("It's no fun if I don't get any cum!", Main.game.getKate())

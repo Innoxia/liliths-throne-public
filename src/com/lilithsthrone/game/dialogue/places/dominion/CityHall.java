@@ -114,16 +114,16 @@ public class CityHall {
 					+ " she drones, not bothering to look up from the papers in front of her."
 					+ "</p>"
 					
-					+"</br>"
+					+"<br/>"
 					+ "<div class='container-full-width' style='text-align:center;'>"
 						+ "<div style='position:relative; display:inline-block; padding-bottom:0; margin 0 auto; vertical-align:middle; width:100%; text-align:center;'>"
 							+ "<p style='display:inline-block; padding:0; margin:0; height:32px; line-height:32px; width:100px;'>First name: </p>"
 							+ "<form style='display:inline-block; padding:0; margin:0; text-align:center;'><input type='text' id='nameInput' value='"+ UtilText.parseForHTMLDisplay(Main.game.getPlayer().getName())+ "'></form>"
-							+ "</br>"
+							+ "<br/>"
 							+ "<p style='display:inline-block; padding:0; margin:0; height:32px; line-height:32px; width:100px;'>Surname: </p>"
 							+ "<form style='display:inline-block; padding:0; margin:0; text-align:center;'><input type='text' id='surnameInput' value='"+ UtilText.parseForHTMLDisplay(Main.game.getPlayer().getSurname())+ "'></form>"
 						+ "</div>"
-						+ "</br>"
+						+ "<br/>"
 						+ "<i>Your name must be between 2 and 16 characters long. You cannot use the square bracket characters or full stops. (Surname may be left blank.)</i>"
 						+ (unsuitableName ? "<p style='text-align:center;padding-top:0;'><b style=' color:"+ Colour.GENERIC_BAD.toWebHexString()+ ";'>Invalid name.</b></p>" : "")
 						+ (unsuitableSurname ? "<p style='text-align:center;padding-top:0;'><b style=' color:"+ Colour.GENERIC_BAD.toWebHexString()+ ";'>Invalid Surname.</b></p>" : "")
@@ -174,7 +174,7 @@ public class CityHall {
 								Main.game.getPlayer().incrementMoney(-100);
 								Main.game.getTextEndStringBuilder().append(
 										"<p style='text-align:center;'>"
-											+ "You fill out the forms and pay the [style.boldBad(100 flame fee)], officially changing your name to:</br>"
+											+ "You fill out the forms and pay the [style.boldBad(100 flame fee)], officially changing your name to:<br/>"
 											+ "<b>[pc.Name]"+(!Main.game.getPlayer().getSurname().isEmpty()?" [pc.Surname]":"")+"</b>"
 										+ "</p>");
 								Main.game.setContent(new Response("" ,"", CITY_HALL_NAME_CHANGE_FORM));

@@ -3163,7 +3163,7 @@ public class ItemType {
 
 		@Override
 		public String getUnableToBeUsedDescription(GameCharacter target) {
-			return "You can't think of a use for this. Maybe it's best to throw it away...</br>"
+			return "You can't think of a use for this. Maybe it's best to throw it away...<br/>"
 					+ "(You need have at least a <b style='color:"+CorruptionLevel.THREE_DIRTY.getColour().toWebHexString()+";'>"+CorruptionLevel.THREE_DIRTY.getName()+"</b> level of corruption to know how to use this!)";
 		}
 
@@ -4444,17 +4444,17 @@ public class ItemType {
 	public static List<AbstractItemType> allItems = new ArrayList<>();
 	
 	/**
-	 * If you're looking for spell books, their id is:</br>
-	 * SPELL_BOOK_"+spell.toString()</br>
-	 * If you're looking for spell scrolls, their id is:</br>
+	 * If you're looking for spell books, their id is:<br/>
+	 * SPELL_BOOK_"+spell.toString()<br/>
+	 * If you're looking for spell scrolls, their id is:<br/>
 	 * "SPELL_SCROLL_"+spellSchool.toString()
 	 */
 	public static Map<AbstractItemType, String> itemToIdMap = new HashMap<>();
 
 	/**
-	 * If you're looking for spell books, their id is:</br>
-	 * SPELL_BOOK_"+spell.toString()</br>
-	 * If you're looking for spell scrolls, their id is:</br>
+	 * If you're looking for spell books, their id is:<br/>
+	 * SPELL_BOOK_"+spell.toString()<br/>
+	 * If you're looking for spell scrolls, their id is:<br/>
 	 * "SPELL_SCROLL_"+spellSchool.toString()
 	 */
 	public static Map<String, AbstractItemType> idToItemMap = new HashMap<>();
@@ -4606,8 +4606,8 @@ public class ItemType {
 									+ "</p>"
 									+ "<p style='text-align:center;'>"
 										+ "You learn the spell <b style='color:"+s.getSpellSchool().getColour().toWebHexString()+";'>"+s.getName()+"</b>!"
-										+ "</br><i>Having served its purpose, the spell book disappears in a flash of purple light!</i>"
-										+ "</br>[style.italicsExcellent(Spell book added to Lilaya's library!)]"
+										+ "<br/><i>Having served its purpose, the spell book disappears in a flash of purple light!</i>"
+										+ "<br/>[style.italicsExcellent(Spell book added to Lilaya's library!)]"
 									+ "</p>"
 									+raceKnowledgeGained;
 							
@@ -4625,7 +4625,7 @@ public class ItemType {
 								+ "</p>"
 								+ "<p style='text-align:center;'>"
 									+ UtilText.parse(target, "[npc.Name] learns the spell <b style='color:"+s.getSpellSchool().getColour().toWebHexString()+";'>"+s.getName()+"</b>!")
-									+ "</br><i>Having served its purpose, the spell book disappears in a flash of purple light!</i>"
+									+ "<br/><i>Having served its purpose, the spell book disappears in a flash of purple light!</i>"
 								+ "</p>";
 						}
 					}
@@ -4770,7 +4770,7 @@ public class ItemType {
 						public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 							target.incrementSpellUpgradePoints(school, 1);
 							return "<p style='text-align:center;'>"
-										+ (target.isPlayer()?"You gain":UtilText.parse(target, "[npc.Name] gains"))+" an upgrade point for the spell school <b style='color:"+school.getColour().toWebHexString()+";'>"+school.getName()+"</b>!</br>"
+										+ (target.isPlayer()?"You gain":UtilText.parse(target, "[npc.Name] gains"))+" an upgrade point for the spell school <b style='color:"+school.getColour().toWebHexString()+";'>"+school.getName()+"</b>!<br/>"
 										+ "<i>Having served its purpose, the scroll disappears in a flash of purple light!</i>"
 									+ "</p>";
 						}

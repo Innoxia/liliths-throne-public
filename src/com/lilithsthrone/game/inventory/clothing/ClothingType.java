@@ -8854,14 +8854,14 @@ public class ClothingType {
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You open your mouth wide and slide in the ball gag, before reaching back and fastening the buckles to keep it in place.</br>"
+					"You open your mouth wide and slide in the ball gag, before reaching back and fastening the buckles to keep it in place.<br/>"
 							+ "[style.colourArcane(The ball gag glows with arcane energy as it reveals its jinx!)]",
-					"You push the ball gag into [npc.name]'s mouth, before reaching back and fastening the buckles to keep it in place.</br>"
+					"You push the ball gag into [npc.name]'s mouth, before reaching back and fastening the buckles to keep it in place.<br/>"
 							+ "[style.colourArcane(The ball gag glows with arcane energy as it reveals its jinx!)]",
 					null,
-					"[npc.Name] opens [npc.her] mouth wide and slides in the ball gag, before reaching back and fastening the buckles to keep it in place.</br>"
+					"[npc.Name] opens [npc.her] mouth wide and slides in the ball gag, before reaching back and fastening the buckles to keep it in place.<br/>"
 							+ "[style.colourArcane(The ball gag glows with arcane energy as it reveals its jinx!)]",
-					"[npc.Name] pushes the ball gag into your mouth, before reaching back and fastening the buckles to keep it in place.</br>"
+					"[npc.Name] pushes the ball gag into your mouth, before reaching back and fastening the buckles to keep it in place.<br/>"
 							+ "[style.colourArcane(The ball gag glows with arcane energy as it reveals its jinx!)]",
 					null, null, null);
 		}

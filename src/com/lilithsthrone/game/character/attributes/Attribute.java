@@ -28,7 +28,7 @@ public enum Attribute {
 				@Override
 				public String getDescription(GameCharacter owner) {
 					if(owner.isPlayer())
-						return "How much physical energy you have. You will be defeated in combat if this reaches 0.</br></br>"
+						return "How much physical energy you have. You will be defeated in combat if this reaches 0.<br/><br/>"
 								+ "<b>Stamina = " + GameCharacter.HEALTH_CALCULATION + "</b>";
 					else
 						return UtilText.parse(owner,
@@ -47,7 +47,7 @@ public enum Attribute {
 				@Override
 				public String getDescription(GameCharacter owner) {
 					if(owner.isPlayer())
-						return "A measure of the amount of arcane energy in your aura.</br></br>"
+						return "A measure of the amount of arcane energy in your aura.<br/><br/>"
 								+ "<b>Aura = " + GameCharacter.MANA_CALCULATION + "</b>";
 					else
 						return UtilText.parse(owner,
@@ -102,7 +102,7 @@ public enum Attribute {
 				@Override
 				public String getDescription(GameCharacter owner) {
 					if(owner.isPlayer()) {
-						return "How desperate for sexual contact you are. Your lust will move towards your resting lust value over time.</br>"
+						return "How desperate for sexual contact you are. Your lust will move towards your resting lust value over time.<br/>"
 								+ "<b>Resting Lust = " + GameCharacter.RESTING_LUST_CALCULATION + "</b>";
 					} else {
 						return UtilText.parse(owner,
@@ -752,7 +752,7 @@ public enum Attribute {
 
 		if (extraEffects != null)
 			for (String s : extraEffects)
-				descriptionSB.append("</br>" + s);
+				descriptionSB.append("<br/>" + s);
 
 		return descriptionSB.toString();
 	}

@@ -160,9 +160,9 @@ public class BodyChanging {
 							
 							+ "<div class='container-full-width' style='text-align:center;'>"
 							+ (BodyChanging.getTarget().isPlayer()
-									?"Your muscle and body size values result in your appearance being:</br>"
+									?"Your muscle and body size values result in your appearance being:<br/>"
 										+ "<b style='color:"+Main.game.getPlayer().getBodyShape().toWebHexStringColour()+";'>"+Util.capitaliseSentence(Main.game.getPlayer().getBodyShape().getName(false))+"</b>"
-									:UtilText.parse(BodyChanging.getTarget(), "[npc.Name]'s muscle and body size values result in [npc.her] appearance being:</br>"
+									:UtilText.parse(BodyChanging.getTarget(), "[npc.Name]'s muscle and body size values result in [npc.her] appearance being:<br/>"
 											+ "<b style='color:"+getTarget().getBodyShape().toWebHexStringColour()+";'>"+Util.capitaliseSentence(getTarget().getBodyShape().getName(false))+"</b>"))
 							+ "</div>"
 						
@@ -221,9 +221,9 @@ public class BodyChanging {
 						
 						+ "<div class='container-full-width' style='text-align:center;'>"
 						+ (BodyChanging.getTarget().isPlayer()
-								?"Your muscle and body size values result in your appearance being:</br>"
+								?"Your muscle and body size values result in your appearance being:<br/>"
 									+ "<b style='color:"+Main.game.getPlayer().getBodyShape().toWebHexStringColour()+";'>"+Util.capitaliseSentence(Main.game.getPlayer().getBodyShape().getName(false))+"</b>"
-								:UtilText.parse(BodyChanging.getTarget(), "[npc.Name]'s muscle and body size values result in [npc.her] appearance being:</br>"
+								:UtilText.parse(BodyChanging.getTarget(), "[npc.Name]'s muscle and body size values result in [npc.her] appearance being:<br/>"
 										+ "<b style='color:"+getTarget().getBodyShape().toWebHexStringColour()+";'>"+Util.capitaliseSentence(getTarget().getBodyShape().getName(false))+"</b>"))
 						+ "</div>"
 					

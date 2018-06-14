@@ -419,13 +419,13 @@ public class Zaranix extends NPC {
 						Main.game.getTextEndStringBuilder().append(
 								"<p>"
 									+ "A desperate, overwhelming need to have Zaranix's huge demonic cock thrusting deep down your throat causes you to let out an incredibly lewd moan."
-									+ "</br><b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>You have gained the "+Fetish.FETISH_ORAL_GIVING.getName(Main.game.getPlayer())+" fetish!</b>"
+									+ "<br/><b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>You have gained the "+Fetish.FETISH_ORAL_GIVING.getName(Main.game.getPlayer())+" fetish!</b>"
 								+ "</p>");
 						Main.game.getPlayer().addFetish(Fetish.FETISH_CUM_ADDICT);
 						Main.game.getTextEndStringBuilder().append(
 								"<p>"
 									+ "You can't help but lick your huge new cock-sucking lips as you imagine the incubus giving you your delicious reward; a huge load of salty, demonic cum...."
-									+ "</br><b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>You have gained the "+Fetish.FETISH_CUM_ADDICT.getName(Main.game.getPlayer())+" fetish!</b>"
+									+ "<br/><b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>You have gained the "+Fetish.FETISH_CUM_ADDICT.getName(Main.game.getPlayer())+" fetish!</b>"
 								+ "</p>");
 					}
 				};

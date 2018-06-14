@@ -27,6 +27,9 @@
 	
 	Patch notes:
 	
+	Contributors:
+		Fixed invalid HTML. (Itpatch)
+	
 	Bugs:
 		Fixed bug where accessing inventory during sex, then pressing back, would lock up the game.
 		Fixed bug where sometimes the game's text wouldn't be parsed. (Which was causing some sex scenes and other places to crash.)

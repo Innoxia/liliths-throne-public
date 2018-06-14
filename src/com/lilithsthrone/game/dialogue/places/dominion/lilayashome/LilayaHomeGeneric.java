@@ -602,7 +602,7 @@ public class LilayaHomeGeneric {
 
 	private static String formatRoomUpgrade(PlaceUpgrade upgrade) {
 		return "<p>"
-				+ "<b style='color:"+upgrade.getColour().toWebHexString()+";'>"+upgrade.getName()+"</b></br>"
+				+ "<b style='color:"+upgrade.getColour().toWebHexString()+";'>"+upgrade.getName()+"</b><br/>"
 				+ upgrade.getRoomDescription(Main.game.getPlayerCell())
 			+ "</p>";
 	}

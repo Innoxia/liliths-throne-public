@@ -677,16 +677,16 @@ public class Body implements Serializable, XMLSaving {
 		
 		Element element = (Element) parentElement.getElementsByTagName("bodyCore").item(0);
 		int importedFemininity = (Integer.valueOf(element.getAttribute("femininity")));
-		CharacterUtils.appendToImportLog(log, "</br>Body: Set femininity: "+Integer.valueOf(element.getAttribute("femininity")));
+		CharacterUtils.appendToImportLog(log, "<br/>Body: Set femininity: "+Integer.valueOf(element.getAttribute("femininity")));
 		
 		int importedHeight =(Integer.valueOf(element.getAttribute("height")));
-		CharacterUtils.appendToImportLog(log, "</br>Body: Set height: "+Integer.valueOf(element.getAttribute("height")));
+		CharacterUtils.appendToImportLog(log, "<br/>Body: Set height: "+Integer.valueOf(element.getAttribute("height")));
 		
 		int importedBodySize = (Integer.valueOf(element.getAttribute("bodySize")));
-		CharacterUtils.appendToImportLog(log, "</br>Body: Set body size: "+Integer.valueOf(element.getAttribute("bodySize")));
+		CharacterUtils.appendToImportLog(log, "<br/>Body: Set body size: "+Integer.valueOf(element.getAttribute("bodySize")));
 	
 		int importedMuscle = (Integer.valueOf(element.getAttribute("muscle")));
-		CharacterUtils.appendToImportLog(log, "</br>Body: Set muscle: "+Integer.valueOf(element.getAttribute("muscle")));
+		CharacterUtils.appendToImportLog(log, "<br/>Body: Set muscle: "+Integer.valueOf(element.getAttribute("muscle")));
 		
 		GenitalArrangement importedGenitalArrangement = GenitalArrangement.NORMAL;
 		if(element.getAttribute("genitalArrangement") != null && !element.getAttribute("genitalArrangement").isEmpty()) {
@@ -704,10 +704,10 @@ public class Body implements Serializable, XMLSaving {
 		Element antennae = (Element)parentElement.getElementsByTagName("antennae").item(0);
 		
 		Antenna importedAntenna = new Antenna(AntennaType.valueOf(antennae.getAttribute("type")));
-		CharacterUtils.appendToImportLog(log, "</br></br>Body: Antennae:"+ "</br>type: "+importedAntenna.getType());
+		CharacterUtils.appendToImportLog(log, "<br/><br/>Body: Antennae:"+ "<br/>type: "+importedAntenna.getType());
 
 		importedAntenna.rows = Integer.valueOf(antennae.getAttribute("rows"));
-		CharacterUtils.appendToImportLog(log, "</br>rows: "+importedAntenna.getAntennaRows());
+		CharacterUtils.appendToImportLog(log, "<br/>rows: "+importedAntenna.getAntennaRows());
 		
 		
 		// **************** Arm **************** //
@@ -716,16 +716,16 @@ public class Body implements Serializable, XMLSaving {
 		
 		Arm importedArm = new Arm(ArmType.valueOf(arm.getAttribute("type")), Integer.valueOf(arm.getAttribute("rows")));
 		
-		CharacterUtils.appendToImportLog(log, "</br></br>Body: Arm:"+ "</br>type: "+importedArm.getType());
+		CharacterUtils.appendToImportLog(log, "<br/><br/>Body: Arm:"+ "<br/>type: "+importedArm.getType());
 
-		CharacterUtils.appendToImportLog(log, "</br>rows: "+importedArm.getArmRows());
+		CharacterUtils.appendToImportLog(log, "<br/>rows: "+importedArm.getArmRows());
 
 		try {
 			importedArm.underarmHair = BodyHair.valueOf(arm.getAttribute("underarmHair"));
-			CharacterUtils.appendToImportLog(log, "</br>underarm hair: "+importedArm.getUnderarmHair());
+			CharacterUtils.appendToImportLog(log, "<br/>underarm hair: "+importedArm.getUnderarmHair());
 		} catch(IllegalArgumentException e) {
 			importedArm.underarmHair = BodyHair.ZERO_NONE;
-			CharacterUtils.appendToImportLog(log, "</br>underarm hair: OLD_VALUE - Set to NONE");
+			CharacterUtils.appendToImportLog(log, "<br/>underarm hair: OLD_VALUE - Set to NONE");
 		}
 		
 		// **************** Ass **************** //
@@ -749,25 +749,25 @@ public class Body implements Serializable, XMLSaving {
 			importedAss.anus.assHair = (BodyHair.valueOf(anus.getAttribute("assHair")));
 		} catch(IllegalArgumentException e) {
 			importedAss.anus.assHair = BodyHair.ZERO_NONE;
-			CharacterUtils.appendToImportLog(log, "</br>ass hair: OLD_VALUE - Set to NONE");
+			CharacterUtils.appendToImportLog(log, "<br/>ass hair: OLD_VALUE - Set to NONE");
 		}
 		
-		CharacterUtils.appendToImportLog(log, "</br></br>Body: Ass:"
-				+ "</br>type: "+importedAss.getType()
-				+ "</br>assSize: "+importedAss.getAssSize()
-				+ "</br>hipSize: "+importedAss.getHipSize());
+		CharacterUtils.appendToImportLog(log, "<br/><br/>Body: Ass:"
+				+ "<br/>type: "+importedAss.getType()
+				+ "<br/>assSize: "+importedAss.getAssSize()
+				+ "<br/>hipSize: "+importedAss.getHipSize());
 		
 		if (anus != null) {
-			CharacterUtils.appendToImportLog(log, "</br></br>Anus:"
-					+ "</br>wetness: "+importedAss.anus.orificeAnus.wetness
-					+ "</br>elasticity: "+importedAss.anus.orificeAnus.elasticity
-					+ "</br>elasticity: "+importedAss.anus.orificeAnus.plasticity
-					+ "</br>capacity: "+importedAss.anus.orificeAnus.capacity
-					+ "</br>stretchedCapacity: "+importedAss.anus.orificeAnus.stretchedCapacity
-					+ "</br>virgin: "+importedAss.anus.orificeAnus.virgin
-					+ "</br>bleached: "+importedAss.anus.bleached
-					+ "</br>assHair: "+importedAss.anus.assHair
-					+"</br>Modifiers:");
+			CharacterUtils.appendToImportLog(log, "<br/><br/>Anus:"
+					+ "<br/>wetness: "+importedAss.anus.orificeAnus.wetness
+					+ "<br/>elasticity: "+importedAss.anus.orificeAnus.elasticity
+					+ "<br/>elasticity: "+importedAss.anus.orificeAnus.plasticity
+					+ "<br/>capacity: "+importedAss.anus.orificeAnus.capacity
+					+ "<br/>stretchedCapacity: "+importedAss.anus.orificeAnus.stretchedCapacity
+					+ "<br/>virgin: "+importedAss.anus.orificeAnus.virgin
+					+ "<br/>bleached: "+importedAss.anus.bleached
+					+ "<br/>assHair: "+importedAss.anus.assHair
+					+"<br/>Modifiers:");
 			Element anusModifiersElement = (Element)anus.getElementsByTagName("anusModifiers").item(0);
 			Collection<OrificeModifier> anusModifiers = importedAss.anus.orificeAnus.orificeModifiers;
 			anusModifiers.clear();
@@ -820,25 +820,25 @@ public class Body implements Serializable, XMLSaving {
 		importedBreast.nipples.pierced = (Boolean.valueOf(nipples.getAttribute("pierced")));
 		importedBreast.nipples.areolaeShape = (AreolaeShape.valueOf(nipples.getAttribute("areolaeShape")));
 		
-		CharacterUtils.appendToImportLog(log, "</br></br>Body: Breasts:"
-				+ "</br>type: "+importedBreast.getType()
-				+ "</br>size: "+importedBreast.getSize()
-				+ "</br>rows: "+importedBreast.getRows()
-				+ "</br>lactation: "+importedBreast.getRawMilkStorageValue()
-				+ "</br>nippleCountPer: "+importedBreast.getNippleCountPerBreast()
+		CharacterUtils.appendToImportLog(log, "<br/><br/>Body: Breasts:"
+				+ "<br/>type: "+importedBreast.getType()
+				+ "<br/>size: "+importedBreast.getSize()
+				+ "<br/>rows: "+importedBreast.getRows()
+				+ "<br/>lactation: "+importedBreast.getRawMilkStorageValue()
+				+ "<br/>nippleCountPer: "+importedBreast.getNippleCountPerBreast()
 				
-				+ "</br></br>Nipples:"
-				+ "</br>elasticity: "+importedBreast.nipples.orificeNipples.getElasticity()
-				+ "</br>plasticity: "+importedBreast.nipples.orificeNipples.getPlasticity()
-				+ "</br>capacity: "+importedBreast.nipples.orificeNipples.getRawCapacityValue()
-				+ "</br>stretchedCapacity: "+importedBreast.nipples.orificeNipples.getStretchedCapacity()
-				+ "</br>virgin: "+importedBreast.nipples.orificeNipples.isVirgin()
-				+ "</br>pierced: "+importedBreast.nipples.isPierced()
-				+ "</br>nippleSize: "+importedBreast.nipples.getNippleSize()
-				+ "</br>nippleShape: "+importedBreast.nipples.getNippleShape()
-				+ "</br>areolaeSize: "+importedBreast.nipples.getAreolaeSize()
-				+ "</br>areolaeShape: "+importedBreast.nipples.getAreolaeShape()
-				+"</br>Modifiers:");
+				+ "<br/><br/>Nipples:"
+				+ "<br/>elasticity: "+importedBreast.nipples.orificeNipples.getElasticity()
+				+ "<br/>plasticity: "+importedBreast.nipples.orificeNipples.getPlasticity()
+				+ "<br/>capacity: "+importedBreast.nipples.orificeNipples.getRawCapacityValue()
+				+ "<br/>stretchedCapacity: "+importedBreast.nipples.orificeNipples.getStretchedCapacity()
+				+ "<br/>virgin: "+importedBreast.nipples.orificeNipples.isVirgin()
+				+ "<br/>pierced: "+importedBreast.nipples.isPierced()
+				+ "<br/>nippleSize: "+importedBreast.nipples.getNippleSize()
+				+ "<br/>nippleShape: "+importedBreast.nipples.getNippleShape()
+				+ "<br/>areolaeSize: "+importedBreast.nipples.getAreolaeSize()
+				+ "<br/>areolaeShape: "+importedBreast.nipples.getAreolaeShape()
+				+"<br/>Modifiers:");
 		
 		Element nippleModifiersElement = (Element)nipples.getElementsByTagName("nippleModifiers").item(0);
 		
@@ -846,7 +846,7 @@ public class Body implements Serializable, XMLSaving {
 		nippleOrificeModifiers.clear();
 		handleLoadingOfModifiers(OrificeModifier.values(), log, nippleModifiersElement, nippleOrificeModifiers);
 		
-		CharacterUtils.appendToImportLog(log, "</br></br>Milk:");
+		CharacterUtils.appendToImportLog(log, "<br/><br/>Milk:");
 		
 		importedBreast.milk = FluidMilk.loadFromXML(parentElement, doc);
 		if(Main.isVersionOlderThan(Main.VERSION_NUMBER, "0.2.5.1")) {
@@ -861,9 +861,9 @@ public class Body implements Serializable, XMLSaving {
 		Ear importedEar = new Ear(EarType.valueOf(ear.getAttribute("type")));
 		
 		importedEar.pierced = (Boolean.valueOf(ear.getAttribute("pierced")));
-		CharacterUtils.appendToImportLog(log, "</br></br>Body: Ear:"
-				+ "</br>type: "+importedEar.getType()
-				+ "</br>pierced: "+importedEar.isPierced());
+		CharacterUtils.appendToImportLog(log, "<br/><br/>Body: Ear:"
+				+ "<br/>type: "+importedEar.getType()
+				+ "<br/>pierced: "+importedEar.isPierced());
 
 		
 		
@@ -894,11 +894,11 @@ public class Body implements Serializable, XMLSaving {
 		importedEye.irisShape = (EyeShape.valueOf(eye.getAttribute("irisShape")));
 		importedEye.pupilShape = (EyeShape.valueOf(eye.getAttribute("pupilShape")));
 		
-		CharacterUtils.appendToImportLog(log, "</br></br>Body: Eye:"
-				+ "</br>type: "+importedEye.getType()
-				+ "</br>pairs: "+importedEye.getEyePairs()
-				+ "</br>iris shape: "+importedEye.getIrisShape()
-				+ "</br>pupil shape: "+importedEye.getPupilShape());
+		CharacterUtils.appendToImportLog(log, "<br/><br/>Body: Eye:"
+				+ "<br/>type: "+importedEye.getType()
+				+ "<br/>pairs: "+importedEye.getEyePairs()
+				+ "<br/>iris shape: "+importedEye.getIrisShape()
+				+ "<br/>pupil shape: "+importedEye.getPupilShape());
 		
 		
 		// **************** Face **************** //
@@ -913,15 +913,15 @@ public class Body implements Serializable, XMLSaving {
 			importedFace.facialHair = (BodyHair.valueOf(face.getAttribute("facialHair")));
 		} catch(IllegalArgumentException e) {
 			importedFace.facialHair = BodyHair.ZERO_NONE;
-			CharacterUtils.appendToImportLog(log, "</br>facial hair: OLD_VALUE - Set to NONE");
+			CharacterUtils.appendToImportLog(log, "<br/>facial hair: OLD_VALUE - Set to NONE");
 		}
 		
-		CharacterUtils.appendToImportLog(log, "</br></br>Body: Face: "
-				+ "</br>type: "+importedFace.getType()
-				+ "</br>piercedNose: "+importedFace.isPiercedNose()
-				+ "</br>facial hair: "+importedFace.getFacialHair()
+		CharacterUtils.appendToImportLog(log, "<br/><br/>Body: Face: "
+				+ "<br/>type: "+importedFace.getType()
+				+ "<br/>piercedNose: "+importedFace.isPiercedNose()
+				+ "<br/>facial hair: "+importedFace.getFacialHair()
 				
-				+ "</br></br>Mouth: ");
+				+ "<br/><br/>Mouth: ");
 		
 		importedFace.mouth.orificeMouth.elasticity = (Integer.valueOf(mouth.getAttribute("elasticity")));
 		importedFace.mouth.orificeMouth.plasticity = (Integer.valueOf(mouth.getAttribute("plasticity")));
@@ -935,14 +935,14 @@ public class Body implements Serializable, XMLSaving {
 		importedFace.mouth.piercedLip = (Boolean.valueOf(mouth.getAttribute("piercedLip")));
 		
 		CharacterUtils.appendToImportLog(log, 
-				"</br>elasticity: "+importedFace.mouth.orificeMouth.getElasticity()
-				+ "</br>plasticity: "+importedFace.mouth.orificeMouth.getPlasticity()
-				+ "</br>capacity: "+importedFace.mouth.orificeMouth.getCapacity()
-				+ "</br>stretchedCapacity: "+importedFace.mouth.orificeMouth.getStretchedCapacity()
-				+ "</br>virgin: "+importedFace.mouth.orificeMouth.isVirgin()
-				+ "</br>piercedLip: "+importedFace.mouth.isPiercedLip()
-				+ "</br>lipSize: "+importedFace.mouth.getLipSize()
-				+ "</br>Modifiers: ");
+				"<br/>elasticity: "+importedFace.mouth.orificeMouth.getElasticity()
+				+ "<br/>plasticity: "+importedFace.mouth.orificeMouth.getPlasticity()
+				+ "<br/>capacity: "+importedFace.mouth.orificeMouth.getCapacity()
+				+ "<br/>stretchedCapacity: "+importedFace.mouth.orificeMouth.getStretchedCapacity()
+				+ "<br/>virgin: "+importedFace.mouth.orificeMouth.isVirgin()
+				+ "<br/>piercedLip: "+importedFace.mouth.isPiercedLip()
+				+ "<br/>lipSize: "+importedFace.mouth.getLipSize()
+				+ "<br/>Modifiers: ");
 			
 		Element mouthModifiersElement = (Element)mouth.getElementsByTagName("mouthModifiers").item(0);
 		
@@ -955,10 +955,10 @@ public class Body implements Serializable, XMLSaving {
 			importedFace.tongue.tongueLength = (Integer.valueOf(tongue.getAttribute("tongueLength")));
 			
 			CharacterUtils.appendToImportLog(log, 
-					"</br></br>Tongue: "
-					+ "</br>piercedTongue: "+importedFace.tongue.isPierced()
-					+ "</br>tongueLength: "+importedFace.tongue.getTongueLength()
-					+ "</br>Modifiers: ");
+					"<br/><br/>Tongue: "
+					+ "<br/>piercedTongue: "+importedFace.tongue.isPierced()
+					+ "<br/>tongueLength: "+importedFace.tongue.getTongueLength()
+					+ "<br/>Modifiers: ");
 			
 			Element tongueModifiersElement = (Element)tongue.getElementsByTagName("tongueModifiers").item(0);
 			
@@ -989,10 +989,10 @@ public class Body implements Serializable, XMLSaving {
 		
 		Hair importedHair = new Hair(HairType.valueOf(hairTypeFromSave), Integer.valueOf(hair.getAttribute("length")), HairStyle.valueOf(hair.getAttribute("hairStyle")));
 		
-		CharacterUtils.appendToImportLog(log, "</br></br>Body: Hair: "
-				+ "</br>type: "+importedHair.getType()
-				+ "</br>length: "+importedHair.getLength()
-				+ "</br>hairStyle: "+importedHair.getStyle());
+		CharacterUtils.appendToImportLog(log, "<br/><br/>Body: Hair: "
+				+ "<br/>type: "+importedHair.getType()
+				+ "<br/>length: "+importedHair.getLength()
+				+ "<br/>hairStyle: "+importedHair.getStyle());
 
 		
 		// **************** Horn **************** //
@@ -1021,10 +1021,10 @@ public class Body implements Serializable, XMLSaving {
 		try {
 			importedHorn = new Horn(HornType.valueOf(hornType), length);
 			importedHorn.rows = rows;
-			CharacterUtils.appendToImportLog(log, "</br></br>Body: Horn: "
-					+ "</br>type: "+importedHorn.getType()
-					+ "</br>length: "+length
-					+ "</br>rows: "+importedHorn.getHornRows());
+			CharacterUtils.appendToImportLog(log, "<br/><br/>Body: Horn: "
+					+ "<br/>type: "+importedHorn.getType()
+					+ "<br/>length: "+length
+					+ "<br/>rows: "+importedHorn.getHornRows());
 			
 		} catch(IllegalArgumentException e) {
 			if(horn.getAttribute("type").startsWith("DEMON")) {
@@ -1036,9 +1036,9 @@ public class Body implements Serializable, XMLSaving {
 				importedHorn.rows = rows;
 			}
 			
-			CharacterUtils.appendToImportLog(log, "</br></br>Body: Horn: "
-					+ "</br>type NOT FOUND, defaulted to: "+importedHorn.getType()
-					+ "</br>rows: "+importedHorn.getHornRows());
+			CharacterUtils.appendToImportLog(log, "<br/><br/>Body: Horn: "
+					+ "<br/>type NOT FOUND, defaulted to: "+importedHorn.getType()
+					+ "<br/>rows: "+importedHorn.getHornRows());
 		}
 		
 		
@@ -1049,8 +1049,8 @@ public class Body implements Serializable, XMLSaving {
 		
 		Leg importedLeg = new Leg(LegType.valueOf(leg.getAttribute("type")));
 		
-		CharacterUtils.appendToImportLog(log, "</br></br>Body: Leg: "
-				+ "</br>type: "+importedLeg.getType());
+		CharacterUtils.appendToImportLog(log, "<br/><br/>Body: Leg: "
+				+ "<br/>type: "+importedLeg.getType());
 		
 		
 		// **************** Penis **************** //
@@ -1086,18 +1086,18 @@ public class Body implements Serializable, XMLSaving {
 			importedPenis.virgin = (Boolean.valueOf(penis.getAttribute("virgin")));
 		}
 		
-		CharacterUtils.appendToImportLog(log, "</br></br>Body: Penis: "
-				+ "</br>type: "+importedPenis.getType()
-				+ "</br>size: "+importedPenis.getRawSizeValue()
-				+ "</br>pierced: "+importedPenis.isPierced()
-				+ "</br>Penis Modifiers: ");
+		CharacterUtils.appendToImportLog(log, "<br/><br/>Body: Penis: "
+				+ "<br/>type: "+importedPenis.getType()
+				+ "<br/>size: "+importedPenis.getRawSizeValue()
+				+ "<br/>pierced: "+importedPenis.isPierced()
+				+ "<br/>Penis Modifiers: ");
 		
 		Collection<PenisModifier> penisModifiers = importedPenis.penisModifiers;
 		penisModifiers.clear();
 		Element penisModifiersElement = (Element)penis.getElementsByTagName("penisModifiers").item(0);
 		if (penisModifiersElement == null) {
 			for (PenisModifier pm : PenisModifier.values()) {
-				CharacterUtils.appendToImportLog(log, "</br>"+pm.toString()+":false");
+				CharacterUtils.appendToImportLog(log, "<br/>"+pm.toString()+":false");
 			}
 		} else {
 			handleLoadingOfModifiers(PenisModifier.values(), log, penisModifiersElement, penisModifiers);
@@ -1114,12 +1114,12 @@ public class Body implements Serializable, XMLSaving {
 		}
 		
 		CharacterUtils.appendToImportLog(log, 
-				"</br>elasticity: "+importedPenis.orificeUrethra.getElasticity()
-				+ "</br>plasticity: "+importedPenis.orificeUrethra.getPlasticity()
-				+ "</br>capacity: "+importedPenis.orificeUrethra.getCapacity()
-				+ "</br>stretchedCapacity: "+importedPenis.orificeUrethra.getStretchedCapacity()
-				+ "</br>virgin: "+importedPenis.orificeUrethra.isVirgin()
-				+ "</br>Urethra Modifiers:");
+				"<br/>elasticity: "+importedPenis.orificeUrethra.getElasticity()
+				+ "<br/>plasticity: "+importedPenis.orificeUrethra.getPlasticity()
+				+ "<br/>capacity: "+importedPenis.orificeUrethra.getCapacity()
+				+ "<br/>stretchedCapacity: "+importedPenis.orificeUrethra.getStretchedCapacity()
+				+ "<br/>virgin: "+importedPenis.orificeUrethra.isVirgin()
+				+ "<br/>Urethra Modifiers:");
 		
 		Element urethraModifiersElement = (Element)penis.getElementsByTagName("urethraModifiers").item(0);
 		
@@ -1136,14 +1136,14 @@ public class Body implements Serializable, XMLSaving {
 		} catch(Exception ex) {
 		}
 		
-		CharacterUtils.appendToImportLog(log, "</br></br>Testicles: "
-				+ "</br>cumProduction: "+importedPenis.testicle.getCumStorage()
-				+ "</br>numberOfTesticles: "+importedPenis.testicle.getTesticleCount()
-				+ "</br>testicleSize: "+importedPenis.testicle.getTesticleSize()
-				+ "</br>internal: "+importedPenis.testicle.isInternal());
+		CharacterUtils.appendToImportLog(log, "<br/><br/>Testicles: "
+				+ "<br/>cumProduction: "+importedPenis.testicle.getCumStorage()
+				+ "<br/>numberOfTesticles: "+importedPenis.testicle.getTesticleCount()
+				+ "<br/>testicleSize: "+importedPenis.testicle.getTesticleSize()
+				+ "<br/>internal: "+importedPenis.testicle.isInternal());
 		
 		
-		CharacterUtils.appendToImportLog(log, "</br></br>Cum:");
+		CharacterUtils.appendToImportLog(log, "<br/><br/>Cum:");
 		
 		importedPenis.testicle.cum = FluidCum.loadFromXML(parentElement, doc);
 		if(Main.isVersionOlderThan(Main.VERSION_NUMBER, "0.2.5.1")) {
@@ -1173,8 +1173,8 @@ public class Body implements Serializable, XMLSaving {
 		
 		Skin importedSkin = new Skin(SkinType.valueOf(skinTypeFromSave));
 		
-		CharacterUtils.appendToImportLog(log, "</br></br>Body: Skin: "
-				+ "</br>type: "+importedSkin.getType());
+		CharacterUtils.appendToImportLog(log, "<br/><br/>Body: Skin: "
+				+ "<br/>type: "+importedSkin.getType());
 
 		
 		// **************** Tail **************** //
@@ -1185,9 +1185,9 @@ public class Body implements Serializable, XMLSaving {
 		
 		importedTail.tailCount = (Integer.valueOf(tail.getAttribute("count")));
 		
-		CharacterUtils.appendToImportLog(log, "</br></br>Body: Tail: "
-				+ "</br>type: "+importedTail.getType()
-				+ "</br>count: "+importedTail.getTailCount());
+		CharacterUtils.appendToImportLog(log, "<br/><br/>Body: Tail: "
+				+ "<br/>type: "+importedTail.getType()
+				+ "<br/>count: "+importedTail.getTailCount());
 		
 		
 		// **************** Vagina **************** //
@@ -1210,17 +1210,17 @@ public class Body implements Serializable, XMLSaving {
 		} catch(Exception ex) {
 		}
 		
-		CharacterUtils.appendToImportLog(log, "</br></br>Body: Vagina: "
-				+ "</br>type: "+importedVagina.getType()
-				+ "</br>clitSize: "+importedVagina.getClitorisSize()
-				+ "</br>pierced: "+importedVagina.isPierced()
+		CharacterUtils.appendToImportLog(log, "<br/><br/>Body: Vagina: "
+				+ "<br/>type: "+importedVagina.getType()
+				+ "<br/>clitSize: "+importedVagina.getClitorisSize()
+				+ "<br/>pierced: "+importedVagina.isPierced()
 
-				+ "</br>wetness: "+importedVagina.orificeVagina.wetness
-				+ "</br>elasticity: "+importedVagina.orificeVagina.getElasticity()
-				+ "</br>plasticity: "+importedVagina.orificeVagina.getPlasticity()
-				+ "</br>capacity: "+importedVagina.orificeVagina.getCapacity()
-				+ "</br>stretchedCapacity: "+importedVagina.orificeVagina.getStretchedCapacity()
-				+ "</br>virgin: "+importedVagina.orificeVagina.isVirgin());
+				+ "<br/>wetness: "+importedVagina.orificeVagina.wetness
+				+ "<br/>elasticity: "+importedVagina.orificeVagina.getElasticity()
+				+ "<br/>plasticity: "+importedVagina.orificeVagina.getPlasticity()
+				+ "<br/>capacity: "+importedVagina.orificeVagina.getCapacity()
+				+ "<br/>stretchedCapacity: "+importedVagina.orificeVagina.getStretchedCapacity()
+				+ "<br/>virgin: "+importedVagina.orificeVagina.isVirgin());
 		
 		Element vaginaModifiers = (Element)vagina.getElementsByTagName("vaginaModifiers").item(0);
 		
@@ -1249,7 +1249,7 @@ public class Body implements Serializable, XMLSaving {
 		} catch(Exception ex) {
 		}
 		
-		CharacterUtils.appendToImportLog(log, "</br></br>Girlcum:");
+		CharacterUtils.appendToImportLog(log, "<br/><br/>Girlcum:");
 		
 		importedVagina.girlcum = FluidGirlCum.loadFromXML(parentElement, doc);
 		if(Main.isVersionOlderThan(Main.VERSION_NUMBER, "0.2.5.1")) {
@@ -1264,9 +1264,9 @@ public class Body implements Serializable, XMLSaving {
 			wingSize = Integer.valueOf(wing.getAttribute("size"));
 		}
 		Wing importedWing = new Wing(WingType.valueOf(wing.getAttribute("type")), wingSize);
-		CharacterUtils.appendToImportLog(log, "</br></br>Body: Wing: "
-				+ "</br>type: "+importedWing.getType()+"</br>"
-				+ "</br>size: "+importedWing.getSizeValue()+"</br>");
+		CharacterUtils.appendToImportLog(log, "<br/><br/>Body: Wing: "
+				+ "<br/>type: "+importedWing.getType()+"<br/>"
+				+ "<br/>size: "+importedWing.getSizeValue()+"<br/>");
 		
 		
 		Body body = new Body.BodyBuilder(
@@ -1294,15 +1294,15 @@ public class Body implements Serializable, XMLSaving {
 						.build();
 		
 		body.setPiercedStomach(Boolean.valueOf(element.getAttribute("piercedStomach")));
-		CharacterUtils.appendToImportLog(log, "</br>Body: Set piercedStomach: "+Boolean.valueOf(element.getAttribute("piercedStomach")));
+		CharacterUtils.appendToImportLog(log, "<br/>Body: Set piercedStomach: "+Boolean.valueOf(element.getAttribute("piercedStomach")));
 		
 		if(element.getAttribute("pubicHair")!=null && !element.getAttribute("pubicHair").isEmpty()) {
 			try {
 				body.setPubicHair(BodyHair.valueOf(element.getAttribute("pubicHair")));
-				CharacterUtils.appendToImportLog(log, "</br>Body: Set pubicHair: "+body.getPubicHair());
+				CharacterUtils.appendToImportLog(log, "<br/>Body: Set pubicHair: "+body.getPubicHair());
 			} catch(IllegalArgumentException e) {
 				body.pubicHair = BodyHair.ZERO_NONE;
-				CharacterUtils.appendToImportLog(log, "</br>pubic hair: OLD_VALUE - Set to NONE");
+				CharacterUtils.appendToImportLog(log, "<br/>pubic hair: OLD_VALUE - Set to NONE");
 			}
 		}
 		
@@ -1353,7 +1353,7 @@ public class Body implements Serializable, XMLSaving {
 					body.getBodyCoveringTypesDiscovered().add(BodyCoveringType.valueOf(type));
 				}
 				
-				CharacterUtils.appendToImportLog(log, "</br>Body: Set bodyCovering: "+e.getAttribute("type") +" pattern:"+CoveringPattern.valueOf(e.getAttribute("pattern"))
+				CharacterUtils.appendToImportLog(log, "<br/>Body: Set bodyCovering: "+e.getAttribute("type") +" pattern:"+CoveringPattern.valueOf(e.getAttribute("pattern"))
 					+" "+Colour.valueOf(e.getAttribute("colourPrimary")) +" glow:"+Boolean.valueOf(e.getAttribute("glowPrimary"))
 					+" | "+Colour.valueOf(e.getAttribute("colourSecondary")) +" glow:"+Boolean.valueOf(e.getAttribute("glowSecondary"))
 					+" (discovered: "+e.getAttribute("discovered")+")");
@@ -1374,16 +1374,16 @@ public class Body implements Serializable, XMLSaving {
 					modifiers.add(enumValue);
 				}
 				if(log!=null) {
-					CharacterUtils.appendToImportLog(log, "</br>"+enumValue.toString()+":true");
+					CharacterUtils.appendToImportLog(log, "<br/>"+enumValue.toString()+":true");
 				}
 			} else if (!attributeValue.isEmpty()) {
 				modifiers.remove(enumValue);
 				if(log!=null) {
-					CharacterUtils.appendToImportLog(log, "</br>"+enumValue.toString()+":false");
+					CharacterUtils.appendToImportLog(log, "<br/>"+enumValue.toString()+":false");
 				}
 			} else {
 				if(log!=null) {
-					CharacterUtils.appendToImportLog(log, "</br>"+enumValue.toString()+":not present, defaulted to "+modifiers.contains(enumValue));
+					CharacterUtils.appendToImportLog(log, "<br/>"+enumValue.toString()+":not present, defaulted to "+modifiers.contains(enumValue));
 				}
 			}
 		}
@@ -2968,7 +2968,7 @@ public class Body implements Serializable, XMLSaving {
 			}
 		}
 
-		sb.append("</br>");
+		sb.append("<br/>");
 		
 		// Legs:
 		switch (leg.getType()) {
@@ -3120,7 +3120,7 @@ public class Body implements Serializable, XMLSaving {
 			}
 		}
 
-		sb.append("</br>");
+		sb.append("<br/>");
 		
 		if (owner.isPlayer()) {
 			sb.append(" All of your limbs ");
@@ -4086,11 +4086,11 @@ public class Body implements Serializable, XMLSaving {
 			
 			if(owner.getNippleCapacity() != Capacity.ZERO_IMPENETRABLE) {
 				if (viewedBreast.isFuckable()) {
-					descriptionSB.append("</br>Your [pc.breasts] have internal, [pc.nippleSecondaryColour(true)] channels, allowing your [pc.breastCapacity] [pc.nipples] to be comfortably penetrated by "
+					descriptionSB.append("<br/>Your [pc.breasts] have internal, [pc.nippleSecondaryColour(true)] channels, allowing your [pc.breastCapacity] [pc.nipples] to be comfortably penetrated by "
 							+ Capacity.getCapacityFromValue(viewedBreast.getNipples().getOrificeNipples().getStretchedCapacity()).getMaximumSizeComfortableWithLube().getDescriptor() + " objects with sufficient lubrication.");
 					
 				} else {
-					descriptionSB.append("</br>Your [pc.breasts] have internal, [pc.nippleSecondaryColour(true)] channels, but you'd need at least D-cups before your [pc.breastCapacity] [pc.nipples] could be penetrated.");
+					descriptionSB.append("<br/>Your [pc.breasts] have internal, [pc.nippleSecondaryColour(true)] channels, but you'd need at least D-cups before your [pc.breastCapacity] [pc.nipples] could be penetrated.");
 				}
 				
 				// Nipple elasticity & plasticity:
@@ -4184,7 +4184,7 @@ public class Body implements Serializable, XMLSaving {
 			}
 
 			if (viewedBreast.getRawMilkStorageValue() > 0) {
-				descriptionSB.append("</br>You are currently producing "+ viewedBreast.getRawMilkStorageValue() + "ml of [pc.milkPrimaryColour(true)] [pc.milk] ("+ viewedBreast.getRawStoredMilkValue() + "ml currently stored) at [pc.a_milkRegen] rate.");
+				descriptionSB.append("<br/>You are currently producing "+ viewedBreast.getRawMilkStorageValue() + "ml of [pc.milkPrimaryColour(true)] [pc.milk] ("+ viewedBreast.getRawStoredMilkValue() + "ml currently stored) at [pc.a_milkRegen] rate.");
 				
 				switch(viewedBreast.getMilk().getFlavour()) {
 					case CHOCOLATE:
@@ -4254,7 +4254,7 @@ public class Body implements Serializable, XMLSaving {
 				}
 				
 			} else {
-				descriptionSB.append("</br>You are not producing any milk.");
+				descriptionSB.append("<br/>You are not producing any milk.");
 			}
 			
 		} else {
@@ -4295,11 +4295,11 @@ public class Body implements Serializable, XMLSaving {
 			
 			if(owner.getNippleCapacity() != Capacity.ZERO_IMPENETRABLE) {
 				if (viewedBreast.isFuckable()) {
-					descriptionSB.append("</br>[npc.Her] [npc.breasts] have internal, [npc.nippleSecondaryColour(true)] channels, allowing [npc.her] [npc.breastCapacity] [npc.nipples] to be comfortably penetrated by "
+					descriptionSB.append("<br/>[npc.Her] [npc.breasts] have internal, [npc.nippleSecondaryColour(true)] channels, allowing [npc.her] [npc.breastCapacity] [npc.nipples] to be comfortably penetrated by "
 							+ Capacity.getCapacityFromValue(viewedBreast.getNipples().getOrificeNipples().getStretchedCapacity()).getMaximumSizeComfortableWithLube().getDescriptor() + " objects with sufficient lubrication.");
 					
 				} else {
-					descriptionSB.append("</br>[npc.Her] [npc.breasts] have internal, [npc.nippleSecondaryColour(true)] channels, but [npc.she]'s need at least D-cups before [npc.her] [npc.breastCapacity] [npc.nipples] could be penetrated.");
+					descriptionSB.append("<br/>[npc.Her] [npc.breasts] have internal, [npc.nippleSecondaryColour(true)] channels, but [npc.she]'s need at least D-cups before [npc.her] [npc.breastCapacity] [npc.nipples] could be penetrated.");
 				}
 
 				// Nipple elasticity & plasticity:
@@ -4387,7 +4387,7 @@ public class Body implements Serializable, XMLSaving {
 				}
 				
 				if (viewedBreast.getRawMilkStorageValue() > 0) {
-					descriptionSB.append("</br>[npc.She] is currently producing "+ viewedBreast.getRawMilkStorageValue() + "ml of [npc.milkPrimaryColour(true)] [npc.milk] ("+ viewedBreast.getRawStoredMilkValue() + "ml currently stored) at [npc.a_milkRegen] rate.");
+					descriptionSB.append("<br/>[npc.She] is currently producing "+ viewedBreast.getRawMilkStorageValue() + "ml of [npc.milkPrimaryColour(true)] [npc.milk] ("+ viewedBreast.getRawStoredMilkValue() + "ml currently stored) at [npc.a_milkRegen] rate.");
 					
 					switch(viewedBreast.getMilk().getFlavour()) {
 						case CHOCOLATE:
@@ -4457,7 +4457,7 @@ public class Body implements Serializable, XMLSaving {
 					}
 					
 				} else {
-					descriptionSB.append("</br>[npc.She] is not producing any milk.");
+					descriptionSB.append("<br/>[npc.She] is not producing any milk.");
 				}
 			} else {
 				if(owner.hasNippleOrificeModifier(OrificeModifier.PUFFY)) {
@@ -4645,10 +4645,10 @@ public class Body implements Serializable, XMLSaving {
 		// Capacity:
 		if (Capacity.getCapacityFromValue(viewedPenis.getOrificeUrethra().getStretchedCapacity()) != Capacity.ZERO_IMPENETRABLE) {
 			if (isPlayer) {
-				descriptionSB.append("</br>Your cock's urethra has been loosened enough that it presents a ready orifice for penetration,"
+				descriptionSB.append("<br/>Your cock's urethra has been loosened enough that it presents a ready orifice for penetration,"
 						+ " [style.colourSex(and can be comfortably penetrated by "+ Capacity.getCapacityFromValue(viewedPenis.getOrificeUrethra().getStretchedCapacity()).getMaximumSizeComfortableWithLube().getDescriptor() + " cocks with sufficient lubrication.)]");
 			} else {
-				descriptionSB.append("</br>[npc.Her] cock's urethra has been loosened enough that it presents a ready orifice for penetration,"
+				descriptionSB.append("<br/>[npc.Her] cock's urethra has been loosened enough that it presents a ready orifice for penetration,"
 						+ " [style.colourSex(and can be comfortably penetrated by "+ Capacity.getCapacityFromValue(viewedPenis.getOrificeUrethra().getStretchedCapacity()).getMaximumSizeComfortableWithLube().getDescriptor() + " cocks with sufficient lubrication.)]");
 			}
 
@@ -4753,7 +4753,7 @@ public class Body implements Serializable, XMLSaving {
 					}
 				}
 			}
-			descriptionSB.append("</br>");
+			descriptionSB.append("<br/>");
 		}
 		
 
@@ -4881,7 +4881,7 @@ public class Body implements Serializable, XMLSaving {
 				}
 			}
 	
-			descriptionSB.append("</br>");
+			descriptionSB.append("<br/>");
 		}
 		
 		// Testicle size and cum production:
@@ -5517,7 +5517,7 @@ public class Body implements Serializable, XMLSaving {
 			}
 		}
 		
-		descriptionSB.append("</br>");
+		descriptionSB.append("<br/>");
 		
 		// Urethra:
 		if (Capacity.getCapacityFromValue(viewedVagina.getOrificeUrethra().getStretchedCapacity()) != Capacity.ZERO_IMPENETRABLE) {
@@ -5750,11 +5750,11 @@ public class Body implements Serializable, XMLSaving {
 			for(Litter litter : owner.getLittersBirthed()) {
 				int daysSpentPregnant = litter.getDayOfBirth()-litter.getDayOfConception();
 				if(litter.getFather() == null) {
-					descriptionSB.append("</br>On day "+litter.getDayOfConception()+", [npc.she] was impregnated, and "+Util.intToString(daysSpentPregnant)+" day"+(daysSpentPregnant!=1?"s":"")+" later, [npc.she] gave birth to ");
+					descriptionSB.append("<br/>On day "+litter.getDayOfConception()+", [npc.she] was impregnated, and "+Util.intToString(daysSpentPregnant)+" day"+(daysSpentPregnant!=1?"s":"")+" later, [npc.she] gave birth to ");
 				} else if(litter.getFather().isPlayer()) {
-					descriptionSB.append("</br>On day "+litter.getDayOfConception()+", you impregnated [npc.herHim], and "+Util.intToString(daysSpentPregnant)+" day"+(daysSpentPregnant!=1?"s":"")+" later, [npc.she] gave birth to ");
+					descriptionSB.append("<br/>On day "+litter.getDayOfConception()+", you impregnated [npc.herHim], and "+Util.intToString(daysSpentPregnant)+" day"+(daysSpentPregnant!=1?"s":"")+" later, [npc.she] gave birth to ");
 				} else {
-					descriptionSB.append("</br>On day "+litter.getDayOfConception()
+					descriptionSB.append("<br/>On day "+litter.getDayOfConception()
 						+", "+litter.getFather().getName()+" impregnated [npc.her], and "+Util.intToString(daysSpentPregnant)+" day"+(daysSpentPregnant!=1?"s":"")+" later, [npc.she] gave birth to ");
 				}
 				
@@ -5797,7 +5797,7 @@ public class Body implements Serializable, XMLSaving {
 					int daysSpentPregnant = litter.getDayOfBirth()-litter.getDayOfConception();
 					
 					if(litter.getFather()!=null && litter.getFather().equals(owner)){
-						descriptionSB.append("</br>On day "+litter.getDayOfConception()+", [npc.she] impregnated you, and "+Util.intToString(daysSpentPregnant)+" day"+(daysSpentPregnant>1?"s":"")
+						descriptionSB.append("<br/>On day "+litter.getDayOfConception()+", [npc.she] impregnated you, and "+Util.intToString(daysSpentPregnant)+" day"+(daysSpentPregnant>1?"s":"")
 									+" later, you gave birth to "+litter.getBirthedDescriptionList()+".");
 					}
 				}

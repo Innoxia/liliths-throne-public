@@ -495,14 +495,14 @@ public class PhoneDialogue {
 				"<details>"
 				+ "<summary>[style.boldExcellent(Stats Mechanics)]</summary>"
 					+ "<p style='text-align:center;padding:margin:0;'>"
-						+ "All derived stats start to have diminishing returns past the half-way point!</br>"
-						+ "<b>For example:</b></br>"
-						+ "<b>25</b> <b style='color:"+Colour.DAMAGE_TYPE_PHYSICAL.toWebHexString()+";'>Physical Damage</b> = <i>+"+Util.getModifiedDropoffValue(25, 100)+"% damage</i></br>"
-						+ "<b>50</b> <b style='color:"+Colour.DAMAGE_TYPE_PHYSICAL.toWebHexString()+";'>Physical Damage</b> = <i>+"+Util.getModifiedDropoffValue(50, 100)+"% damage</i></br>"
-						+ "<i>Past this point, there are diminishing returns.</i></br>"
-						+ "<b>60</b> <b style='color:"+Colour.DAMAGE_TYPE_PHYSICAL.toWebHexString()+";'>Physical Damage</b> = <i>+"+Util.getModifiedDropoffValue(60, 100)+"% damage</i></br>"
-						+ "<b>80</b> <b style='color:"+Colour.DAMAGE_TYPE_PHYSICAL.toWebHexString()+";'>Physical Damage</b> = <i>+"+Util.getModifiedDropoffValue(80, 100)+"% damage</i></br>"
-						+ "<b>100</b> <b style='color:"+Colour.DAMAGE_TYPE_PHYSICAL.toWebHexString()+";'>Physical Damage</b> = <i>+"+Util.getModifiedDropoffValue(100, 100)+"% damage</i></br>"
+						+ "All derived stats start to have diminishing returns past the half-way point!<br/>"
+						+ "<b>For example:</b><br/>"
+						+ "<b>25</b> <b style='color:"+Colour.DAMAGE_TYPE_PHYSICAL.toWebHexString()+";'>Physical Damage</b> = <i>+"+Util.getModifiedDropoffValue(25, 100)+"% damage</i><br/>"
+						+ "<b>50</b> <b style='color:"+Colour.DAMAGE_TYPE_PHYSICAL.toWebHexString()+";'>Physical Damage</b> = <i>+"+Util.getModifiedDropoffValue(50, 100)+"% damage</i><br/>"
+						+ "<i>Past this point, there are diminishing returns.</i><br/>"
+						+ "<b>60</b> <b style='color:"+Colour.DAMAGE_TYPE_PHYSICAL.toWebHexString()+";'>Physical Damage</b> = <i>+"+Util.getModifiedDropoffValue(60, 100)+"% damage</i><br/>"
+						+ "<b>80</b> <b style='color:"+Colour.DAMAGE_TYPE_PHYSICAL.toWebHexString()+";'>Physical Damage</b> = <i>+"+Util.getModifiedDropoffValue(80, 100)+"% damage</i><br/>"
+						+ "<b>100</b> <b style='color:"+Colour.DAMAGE_TYPE_PHYSICAL.toWebHexString()+";'>Physical Damage</b> = <i>+"+Util.getModifiedDropoffValue(100, 100)+"% damage</i><br/>"
 					+ "</p>"
 				+ "</details>"
 					
@@ -517,13 +517,13 @@ public class PhoneDialogue {
 
 					+ "<h4 style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+"; text-align:center;'>Misc. Attributes</h4>"
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.FERTILITY,
-							"Pregnancy Chance:</br>"
+							"Pregnancy Chance:<br/>"
 							+ "<b>"+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.FERTILITY), Attribute.FERTILITY.getUpperLimit())+"%</b>")
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.VIRILITY,
-							"Impregnation Chance:</br>"
+							"Impregnation Chance:<br/>"
 							+ "<b>"+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.VIRILITY), Attribute.VIRILITY.getUpperLimit())+"%</b>")
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.SPELL_COST_MODIFIER,
-							"Spell Cost:</br>"
+							"Spell Cost:<br/>"
 							+ "<b>-"+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.SPELL_COST_MODIFIER), Attribute.SPELL_COST_MODIFIER.getUpperLimit())+"%</b>")
 
 					+ "<div class='container-full-width' style='text-align:center; background:"+Colour.BACKGROUND_ALT.toWebHexString()+";'>"
@@ -535,85 +535,85 @@ public class PhoneDialogue {
 				
 					+ "<h4 style='color:"+Colour.GENERIC_COMBAT.toWebHexString()+"; text-align:center;'>Combat Attributes</h4>"
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.CRITICAL_CHANCE,
-							"Critical Hit Chance:</br>"
+							"Critical Hit Chance:<br/>"
 							+ "<b>"+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.CRITICAL_CHANCE), Attribute.CRITICAL_CHANCE.getUpperLimit())+"%</b>",
 							true)
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.CRITICAL_DAMAGE,
-							"Critical Hit Damage:</br>"
+							"Critical Hit Damage:<br/>"
 							+ "<b>"+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.CRITICAL_DAMAGE), Attribute.CRITICAL_DAMAGE.getUpperLimit())+"%</b>",
 							true)
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.DODGE_CHANCE,
-							"Dodge Chance:</br>"
+							"Dodge Chance:<br/>"
 							+ "<b>"+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DODGE_CHANCE), Attribute.DODGE_CHANCE.getUpperLimit())+"%</b>",
 							true)
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.MISS_CHANCE,
-							"Miss Chance:</br>"
+							"Miss Chance:<br/>"
 							+ "<b>"+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.MISS_CHANCE), Attribute.MISS_CHANCE.getUpperLimit())+"%</b>",
 							true)
 					
 
 
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.DAMAGE_UNARMED,
-							"Unarmed Damage:</br>"
+							"Unarmed Damage:<br/>"
 							+ "<b>"+(100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_UNARMED), Attribute.DAMAGE_UNARMED.getUpperLimit()))+"%</b>",
 							true)
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.DAMAGE_SPELLS,
-							"Spell Damage:</br>"
+							"Spell Damage:<br/>"
 							+ "<b>"+(100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_SPELLS), Attribute.DAMAGE_SPELLS.getUpperLimit()))+"%</b>",
 							true)
 
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.DAMAGE_MELEE_WEAPON,
-							"Melee Weapon Damage:</br>"
+							"Melee Weapon Damage:<br/>"
 							+ "<b>"+(100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_MELEE_WEAPON), Attribute.DAMAGE_MELEE_WEAPON.getUpperLimit()))+"%</b>",
 							true)
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.DAMAGE_RANGED_WEAPON,
-							"Ranged Weapon Damage:</br>"
+							"Ranged Weapon Damage:<br/>"
 							+ "<b>"+(100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_RANGED_WEAPON), Attribute.DAMAGE_RANGED_WEAPON.getUpperLimit()))+"%</b>",
 							true)
 					
 					
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.DAMAGE_PHYSICAL,
-							"Physical Damage:</br>"
+							"Physical Damage:<br/>"
 							+ "<b>"+(100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_PHYSICAL), Attribute.DAMAGE_PHYSICAL.getUpperLimit()))+"%</b>",
 							true)
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.RESISTANCE_PHYSICAL,
-							"Physical Resistance:</br>"
+							"Physical Resistance:<br/>"
 							+ "<b>"+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.RESISTANCE_PHYSICAL), Attribute.RESISTANCE_PHYSICAL.getUpperLimit())+"%</b>",
 							true)
 					
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.DAMAGE_FIRE,
-							"Fire Damage:</br>"
+							"Fire Damage:<br/>"
 							+ "<b>"+(100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_FIRE), Attribute.DAMAGE_FIRE.getUpperLimit()))+"%</b>",
 							true)
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.RESISTANCE_FIRE,
-							"Fire Resistance:</br>"
+							"Fire Resistance:<br/>"
 							+ "<b>"+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.RESISTANCE_FIRE), Attribute.RESISTANCE_FIRE.getUpperLimit())+"%</b>",
 							true)
 					
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.DAMAGE_ICE,
-							"Ice Damage:</br>"
+							"Ice Damage:<br/>"
 							+ "<b>"+(100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_ICE), Attribute.DAMAGE_ICE.getUpperLimit()))+"%</b>",
 							true)
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.RESISTANCE_ICE,
-							"Ice Resistance:</br>"
+							"Ice Resistance:<br/>"
 							+ "<b>"+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.RESISTANCE_ICE), Attribute.RESISTANCE_ICE.getUpperLimit())+"%</b>",
 							true)
 
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.DAMAGE_POISON,
-							"Poison Damage:</br>"
+							"Poison Damage:<br/>"
 							+ "<b>"+(100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_POISON), Attribute.DAMAGE_POISON.getUpperLimit()))+"%</b>",
 							true)
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.RESISTANCE_POISON,
-							"Poison Resistance:</br>"
+							"Poison Resistance:<br/>"
 							+ "<b>"+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.RESISTANCE_POISON), Attribute.RESISTANCE_POISON.getUpperLimit())+"%</b>",
 							true)
 
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.DAMAGE_LUST,
-							"Lust Damage:</br>"
+							"Lust Damage:<br/>"
 							+ "<b>"+(100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_LUST), Attribute.DAMAGE_LUST.getUpperLimit()))+"%</b>",
 							true)
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.RESISTANCE_LUST,
-							"Lust Resistance:</br>"
+							"Lust Resistance:<br/>"
 							+ "<b>"+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.RESISTANCE_LUST), Attribute.RESISTANCE_LUST.getUpperLimit())+"%</b>",
 							true)
 
@@ -625,11 +625,11 @@ public class PhoneDialogue {
 				if(race!=Race.NONE) {
 					UtilText.nodeContentSB.append(
 							getAttributeBox(Main.game.getPlayer(), race.getDamageMultiplier(),
-									Util.capitaliseSentence(race.getName())+" Damage:</br>"
+									Util.capitaliseSentence(race.getName())+" Damage:<br/>"
 									+ "<b>"+(100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(race.getDamageMultiplier()), race.getDamageMultiplier().getUpperLimit()))+"%</b>",
 									true)
 							+ getAttributeBox(Main.game.getPlayer(), race.getResistanceMultiplier(),
-									Util.capitaliseSentence(race.getName())+" Resistance:</br>"
+									Util.capitaliseSentence(race.getName())+" Resistance:<br/>"
 									+ "<b>"+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(race.getResistanceMultiplier()), race.getResistanceMultiplier().getUpperLimit())+"%</b>",
 									true));
 				}
@@ -845,19 +845,19 @@ public class PhoneDialogue {
 						
 						+ "[style.boldSex(Capacity:)] An orifice's capacity determines the size of objects that can be comfortably inserted."
 							+ " <b>Higher capacity values mean that the orifice can take larger insertions without stretching</b>."
-							+ "</br>Capacity values range from 0 (extremely tight) to 40 (gaping wide)."
+							+ "<br/>Capacity values range from 0 (extremely tight) to 40 (gaping wide)."
 						
-						+ "</br></br>"
+						+ "<br/><br/>"
 						
 						+ "[style.boldSex(Elasticity:)] An orifice's elasticity determines how quickly it stretches out."
 							+ " If a partner's penis is too large for your orifice's capacity value, then your orifice will stretch out each turn during sex, with <b>higher elasticity values meaning that it stretches out quicker</b>."
-							+ "</br>Elasticity values range from 0 (extremely resistant to being stretched out) to 7 (instantly stretching out)."
+							+ "<br/>Elasticity values range from 0 (extremely resistant to being stretched out) to 7 (instantly stretching out)."
 							
-							+ "</br></br>"
+							+ "<br/><br/>"
 							
 						+ "[style.boldSex(Plasticity:)] An orifice's plasticity determines how quickly it recovers after being stretched out."
 							+ " If your orifice has been stretched out during sex, <b>higher plasticity values mean that it will recover slower, with very high values meaning that it will never recover all of its original tightness</b>."
-							+ "</br>Plasticity values range from 0 (instantly returns to starting size after sex) to 7 (recovers none of its original size after sex)."
+							+ "<br/>Plasticity values range from 0 (instantly returns to starting size after sex) to 7 (recovers none of its original size after sex)."
 				+ "</details>"
 						
 				+ getBodyStatsPanel(Main.game.getPlayer()));
@@ -900,7 +900,7 @@ public class PhoneDialogue {
 		public String getContent() {
 			return "<div class='container-full-width' style='text-align:center;'>"
 						+ "You have orgasmed [style.boldSex("+Main.game.getPlayer().getDaysOrgasmCount()+")] time"+(Main.game.getPlayer().getDaysOrgasmCount()==1?"":"s")
-							+" today, bringing your total orgasm count to [style.boldSex("+Main.game.getPlayer().getTotalOrgasmCount()+")].</br>"
+							+" today, bringing your total orgasm count to [style.boldSex("+Main.game.getPlayer().getTotalOrgasmCount()+")].<br/>"
 						+ "Your record for most orgasms in one day is currently [style.boldArcane("+Main.game.getPlayer().getDaysOrgasmCountRecord()+")]."
 					+ "</div>"
 					
@@ -1015,17 +1015,17 @@ public class PhoneDialogue {
 			UtilText.nodeContentSB.setLength(0);
 			
 			UtilText.nodeContentSB.append("<div class='extraAttribute-quarter'>"
-						+ "Mothered</br><b style='color:"+Colour.MASCULINE.toWebHexString()+";'>Sons</b></br>" + sonsBirthed
+						+ "Mothered<br/><b style='color:"+Colour.MASCULINE.toWebHexString()+";'>Sons</b><br/>" + sonsBirthed
 					+ "</div>"
 					+ "<div class='extraAttribute-quarter'>"
-						+ "Mothered</br><b style='color:"+Colour.FEMININE.toWebHexString()+";'>Daughters</b></br>" + daughtersBirthed
+						+ "Mothered<br/><b style='color:"+Colour.FEMININE.toWebHexString()+";'>Daughters</b><br/>" + daughtersBirthed
 					+ "</div>"
 					
 					+ "<div class='extraAttribute-quarter'>"
-						+ "Fathered</br><b style='color:"+Colour.MASCULINE.toWebHexString()+";'>Sons</b></br>" + sonsFathered
+						+ "Fathered<br/><b style='color:"+Colour.MASCULINE.toWebHexString()+";'>Sons</b><br/>" + sonsFathered
 					+ "</div>"
 					+ "<div class='extraAttribute-quarter'>"
-						+ "Fathered</br><b style='color:"+Colour.FEMININE.toWebHexString()+";'>Daughters</b></br>" + daughtersFathered
+						+ "Fathered<br/><b style='color:"+Colour.FEMININE.toWebHexString()+";'>Daughters</b><br/>" + daughtersFathered
 					+ "</div>"
 					+"<div class='subTitle'>Total offspring: "+(sonsBirthed+daughtersBirthed+sonsFathered+daughtersFathered)+"</div>"
 					
@@ -1166,13 +1166,13 @@ public class PhoneDialogue {
 			
 			contentSB.append("<div class='container-full-width' style='text-align:center;'>"
 					+ "[style.boldBad(Ongoing pregnancy)]"
-					+ "</br>"
+					+ "<br/>"
 					+ "[style.bold(Possible partners:)]");
 			
 			for(PregnancyPossibility pp : Main.game.getPlayer().getPotentialPartnersAsMother()){
 				if(pp.getFather()!=null) {
 					contentSB.append(UtilText.parse(pp.getFather(),
-							"</br><b>[npc.Name(A)] (</b>"
+							"<br/><b>[npc.Name(A)] (</b>"
 								+ (!pp.getFather().getRaceStage().getName().isEmpty()
 										?"<b style='color:"+pp.getFather().getRaceStage().getColour().toWebHexString()+";'>" + Util.capitaliseSentence(pp.getFather().getRaceStage().getName())+"</b> "
 										:"")
@@ -1208,18 +1208,18 @@ public class PhoneDialogue {
 					contentSB.append(UtilText.parse(litter.getFather(),
 							"<div class='container-full-width' style='text-align:center;'>"
 								+ "[style.boldGood(Resolved Pregnancy)]"
-								+ "</br>"
+								+ "<br/>"
 								+ "Conceived with [npc.name(a)] on day " + litter.getDayOfConception() + ", delivered on day " + litter.getDayOfBirth() + "."
-								+ "</br>"
+								+ "<br/>"
 								+ "You gave birth to "+ litter.getBirthedDescriptionList()+ "."
 							+ "</div>"));
 				} else {
 					contentSB.append(
 							"<div class='container-full-width' style='text-align:center;'>"
 								+ "[style.boldGood(Resolved Pregnancy)]"
-								+ "</br>"
+								+ "<br/>"
 								+ "Conceived with someone you can't remember on day " + litter.getDayOfConception() + ", delivered on day " + litter.getDayOfBirth() + "."
-								+ "</br>"
+								+ "<br/>"
 								+ "You gave birth to "+ litter.getBirthedDescriptionList()+ "."
 							+ "</div>");
 				}
@@ -1245,7 +1245,7 @@ public class PhoneDialogue {
 				contentSB.append(UtilText.parse(pp.getMother(),
 						"<div class='container-full-width' style='text-align:center;'>"
 						+ "[style.boldBad(Ongoing pregnancy)]"
-						+ "</br>"
+						+ "<br/>"
 						+"<b>[npc.Name(A)] (</b>"
 							+ (!pp.getMother().getRaceStage().getName().isEmpty()
 									?"<b style='color:"+pp.getMother().getRaceStage().getColour().toWebHexString()+";'>" + Util.capitaliseSentence(pp.getMother().getRaceStage().getName())+"</b> "
@@ -1255,7 +1255,7 @@ public class PhoneDialogue {
 							+ "</b><b>)</b>"));
 				
 				if(pp.getMother().hasStatusEffect(StatusEffect.PREGNANT_0)) {
-					contentSB.append("</br>Probability of impregnation: ");
+					contentSB.append("<br/>Probability of impregnation: ");
 					if (pp.getProbability() <= 0) {
 						contentSB.append("None");
 					} else if(pp.getProbability()<=0.15f) {
@@ -1269,18 +1269,18 @@ public class PhoneDialogue {
 					}
 				} else {
 					if(pp.getMother().hasStatusEffect(StatusEffect.PREGNANT_1)) {
-						contentSB.append("</br>Pregnancy stage: [style.boldSex("+Util.capitaliseSentence(StatusEffect.PREGNANT_1.getName(pp.getMother()))+")]");
+						contentSB.append("<br/>Pregnancy stage: [style.boldSex("+Util.capitaliseSentence(StatusEffect.PREGNANT_1.getName(pp.getMother()))+")]");
 						
 					} else if(pp.getMother().hasStatusEffect(StatusEffect.PREGNANT_2)) {
-						contentSB.append("</br>Pregnancy stage: [style.boldSex("+Util.capitaliseSentence(StatusEffect.PREGNANT_2.getName(pp.getMother()))+")]");
+						contentSB.append("<br/>Pregnancy stage: [style.boldSex("+Util.capitaliseSentence(StatusEffect.PREGNANT_2.getName(pp.getMother()))+")]");
 						
 					} else {
-						contentSB.append("</br>Pregnancy stage: [style.boldSex("+Util.capitaliseSentence(StatusEffect.PREGNANT_3.getName(pp.getMother()))+")]");
+						contentSB.append("<br/>Pregnancy stage: [style.boldSex("+Util.capitaliseSentence(StatusEffect.PREGNANT_3.getName(pp.getMother()))+")]");
 						
 					}
 				}
 				
-				contentSB.append("</b></br>");
+				contentSB.append("</b><br/>");
 				contentSB.append("</div>");
 			}
 			noPregnancies=false;
@@ -1292,9 +1292,9 @@ public class PhoneDialogue {
 					contentSB.append(UtilText.parse(litter.getMother(),
 							"<div class='container-full-width' style='text-align:center;'>"
 								+ "[style.boldGood(Resolved Pregnancy)]"
-								+ "</br>"
+								+ "<br/>"
 								+ "Conceived with [npc.name(a)] on day " + litter.getDayOfConception() + ", delivered on day " + litter.getDayOfBirth() + "."
-								+ "</br>"
+								+ "<br/>"
 								+ "[npc.She] gave birth to "+ litter.getBirthedDescriptionList()+ "."
 							+ "</div>"));
 					
@@ -1302,9 +1302,9 @@ public class PhoneDialogue {
 					contentSB.append(
 							"<div class='container-full-width' style='text-align:center;'>"
 								+ "[style.boldGood(Resolved Pregnancy)]"
-								+ "</br>"
+								+ "<br/>"
 								+ "Conceived with someone you can't remember on day " + litter.getDayOfConception() + ", delivered on day " + litter.getDayOfBirth() + "."
-								+ "</br>"
+								+ "<br/>"
 								+ "[npc.She] gave birth to "+ litter.getBirthedDescriptionList()+ "."
 							+ "</div>");
 				}
@@ -1418,7 +1418,7 @@ public class PhoneDialogue {
 					+ "</div>"
 					+ (effect.length()>0
 							?"<div class='container-full-width' style='margin:0;background:"+Colour.BACKGROUND_ALT.toWebHexString()+"; padding:0; text-align:center;'>"
-								+"<hr></hr>"
+								+"<hr/>"
 								+ "<i>"+effect+"</i>"
 							+ "</div>"
 							:"")
@@ -1464,11 +1464,11 @@ public class PhoneDialogue {
 //															?(npc.isFeminine()
 //																	?", your [style.colourFeminine(daughter)]."
 //																	:", your [style.colourMasculine(son)].")
-//															:"")+"</br>"
+//															:"")+"<br/>"
 //															+ (npc.getRaceStage()==RaceStage.HUMAN || npc.isRaceConcealed()
-//																?"[npc.A_Race(true)]</br>"
-//																:"[npc.A_RaceStage(true)]</br>[npc.Race(true)]")
-//															+"</br>"
+//																?"[npc.A_Race(true)]<br/>"
+//																:"[npc.A_RaceStage(true)]<br/>[npc.Race(true)]")
+//															+"<br/>"
 //															)
 //												+ "</div>");
 //				if(i == charactersEncountered.size()-1 && i%4!=0) {
@@ -1768,7 +1768,7 @@ public class PhoneDialogue {
 							for(String s : ie.getEffectsDescription(Main.game.getPlayer(), Main.game.getPlayer())) {
 								journalSB.append(s);
 								if(i != ie.getEffectsDescription(Main.game.getPlayer(), Main.game.getPlayer()).size())
-									journalSB.append("</br>");
+									journalSB.append("<br/>");
 								i++;
 							}
 						}
@@ -1856,7 +1856,7 @@ public class PhoneDialogue {
 						title = Util.capitaliseSentence(race.getName());
 						raceSB.setLength(0);
 						raceSB.append("<div class='container-full-width' style='width:calc(40% - 16px); float:right;'>"
-								+ "<p style='width:100%; text-align:center;'><b style='color:"+race.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(race.getName())+"</b></br>"
+								+ "<p style='width:100%; text-align:center;'><b style='color:"+race.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(race.getName())+"</b><br/>"
 										+ "Average stats</p>"
 								+ "<table align='center'>"
 									+ "<tr>"
@@ -1900,10 +1900,10 @@ public class PhoneDialogue {
 								raceSB.append(
 										"<p>"
 											+ "<b>Subspecies:</b> <b style='color:"+sub.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(sub.getName())+"</b>"
-											+ "</br>"
+											+ "<br/>"
 											+ "(<span style='color:"+Femininity.valueOf(racialBody.getMaleFemininity()).getColour().toWebHexString()+";'>"+Util.capitaliseSentence(sub.getSingularMaleName())+"</span>"
 											+ "/<span style='color:"+Femininity.valueOf(racialBody.getFemaleFemininity()).getColour().toWebHexString()+";'>"+Util.capitaliseSentence(sub.getSingularFemaleName())+"</span>)"
-											+ "</br>"
+											+ "<br/>"
 											+ sub.getDescription()
 										+ "</p>");
 							}
@@ -1944,9 +1944,9 @@ public class PhoneDialogue {
 			
 			UtilText.nodeContentSB.append(
 					"<div class='container-full-width' style='padding:8px;'>"
-						+ "<span style='color:"+Colour.PERK.toWebHexString()+";'>Perks</span> (circular icons) apply permanent boosts to your attributes.</br>"
+						+ "<span style='color:"+Colour.PERK.toWebHexString()+";'>Perks</span> (circular icons) apply permanent boosts to your attributes.<br/>"
 						+ "<span style='color:"+Colour.TRAIT.toWebHexString()+";'>Traits</span> (square icons) provide unique effects for your character."
-							+ " Unlike perks, <b>traits will have no effect on your character until they're slotted into your 'Active Traits' bar</b>.</br>"
+							+ " Unlike perks, <b>traits will have no effect on your character until they're slotted into your 'Active Traits' bar</b>.<br/>"
 						+ "Perks require perk points to unlock. You earn one perk point each time you level up, and earn an extra two perk points every five levels."
 					+ "</div>"
 					+ "<div class='container-full-width' style='padding:8px; text-align:center;'>"
@@ -2037,7 +2037,7 @@ public class PhoneDialogue {
 						+ "<div class='container-full-width inner' style='text-align:center;'>"
 							+ "[style.boldArcane(School of Arcane ability:)] "
 								+(!Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.ARCANE)
-									?"[style.colourDisabled("+SpellSchool.ARCANE.getPassiveBuff()+")]</br>(Requires knowing at least <b>three</b> Arcane school spells to unlock.)"
+									?"[style.colourDisabled("+SpellSchool.ARCANE.getPassiveBuff()+")]<br/>(Requires knowing at least <b>three</b> Arcane school spells to unlock.)"
 									:"[style.colourGood("+SpellSchool.ARCANE.getPassiveBuff()+")]")
 						+ "</div>"
 					+"</div>");
@@ -2135,7 +2135,7 @@ public class PhoneDialogue {
 						+ "<div class='container-full-width inner' style='text-align:center;'>"
 							+ "[style.boldEarth(School of Earth ability:)] "
 								+(!Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)
-									?"[style.colourDisabled("+SpellSchool.EARTH.getPassiveBuff()+")]</br>(Requires knowing at least <b>three</b> Earth school spells to unlock.)"
+									?"[style.colourDisabled("+SpellSchool.EARTH.getPassiveBuff()+")]<br/>(Requires knowing at least <b>three</b> Earth school spells to unlock.)"
 									:"[style.colourGood("+SpellSchool.EARTH.getPassiveBuff()+")]")
 						+ "</div>"
 					+"</div>");
@@ -2237,7 +2237,7 @@ public class PhoneDialogue {
 						+ "<div class='container-full-width inner' style='text-align:center;'>"
 							+ "[style.boldWater(School of Water ability:)] "
 								+(!Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.WATER)
-									?"[style.colourDisabled("+SpellSchool.WATER.getPassiveBuff()+")]</br>(Requires knowing at least <b>three</b> Water school spells to unlock.)"
+									?"[style.colourDisabled("+SpellSchool.WATER.getPassiveBuff()+")]<br/>(Requires knowing at least <b>three</b> Water school spells to unlock.)"
 									:"[style.colourGood("+SpellSchool.WATER.getPassiveBuff()+")]")
 						+ "</div>"
 					+"</div>");
@@ -2339,7 +2339,7 @@ public class PhoneDialogue {
 						+ "<div class='container-full-width inner' style='text-align:center;'>"
 							+ "[style.boldAir(School of Air ability:)] "
 								+(!Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.AIR)
-									?"[style.colourDisabled("+SpellSchool.AIR.getPassiveBuff()+")]</br>(Requires knowing at least <b>three</b> Air school spells to unlock.)"
+									?"[style.colourDisabled("+SpellSchool.AIR.getPassiveBuff()+")]<br/>(Requires knowing at least <b>three</b> Air school spells to unlock.)"
 									:"[style.colourGood("+SpellSchool.AIR.getPassiveBuff()+")]")
 						+ "</div>"
 					+"</div>");
@@ -2441,7 +2441,7 @@ public class PhoneDialogue {
 						+ "<div class='container-full-width inner' style='text-align:center;'>"
 							+ "[style.boldFire(School of Fire ability:)] "
 								+(!Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.FIRE)
-									?"[style.colourDisabled("+SpellSchool.FIRE.getPassiveBuff()+")]</br>(Requires knowing at least <b>three</b> Fire school spells to unlock.)"
+									?"[style.colourDisabled("+SpellSchool.FIRE.getPassiveBuff()+")]<br/>(Requires knowing at least <b>three</b> Fire school spells to unlock.)"
 									:"[style.colourGood("+SpellSchool.FIRE.getPassiveBuff()+")]")
 						+ "</div>"
 					+"</div>");
@@ -2534,13 +2534,13 @@ public class PhoneDialogue {
 					"<details>"
 						+ "<summary>[style.boldFetish(Fetish Information)]</summary>"
 							+ "You can select your [style.colourLust(desire)] for each fetish [style.colourArcane(for free)],"
-							+ " or choose to take the associated [style.colourFetish(fetish)] for [style.colourArcane("+Fetish.FETISH_ANAL_GIVING.getCost()+" Arcane Essences)].</br></br>"
+							+ " or choose to take the associated [style.colourFetish(fetish)] for [style.colourArcane("+Fetish.FETISH_ANAL_GIVING.getCost()+" Arcane Essences)].<br/><br/>"
 							+ "Choosing a desire will affect bonus lust gains in sex, while taking a fetish will permanently lock your desire to 'love', and also give you special bonuses."
-							+ " Fetishes can only be removed through enchanted potions.</br></br>"
-							+ "Your currently selected desire has a "+Colour.FETISH.getName()+" border, but your true desire (indicated by the coloured desire icon) may be modified by enchanted clothes or other items.</br></br>"
+							+ " Fetishes can only be removed through enchanted potions.<br/><br/>"
+							+ "Your currently selected desire has a "+Colour.FETISH.getName()+" border, but your true desire (indicated by the coloured desire icon) may be modified by enchanted clothes or other items.<br/><br/>"
 							+ "You earn experience for each fetish through performing related actions in sex."
 							+ " Experience is earned regardless of whether or not you have the associated fetish."
-							+ " Higher level fetishes will cause both you and your partner to gain more arousal from related sex actions, as well as increase the fetish's bonuses.</br></br>"
+							+ " Higher level fetishes will cause both you and your partner to gain more arousal from related sex actions, as well as increase the fetish's bonuses.<br/><br/>"
 							+ "Finally, derived fetishes cannot be directly unlocked, but are instead automatically applied when you meet their requirements."
 					+ "</details>");
 			

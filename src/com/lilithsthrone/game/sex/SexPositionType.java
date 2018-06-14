@@ -7,13 +7,13 @@ import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 
 /**
- * Enum values that determine what actions are available for each slot.</br></br>
+ * Enum values that determine what actions are available for each slot.<br/><br/>
  * 
  * Each value holds a map, <i>slotTargets</i>, which maps SexPositionSlots to a map of SexPositionSlots, which in turn maps to positions available.
- *  By providing a character's position in sex, along with the position of the partner they're targeting, this map is used to fetch available actions.</br></br>
+ *  By providing a character's position in sex, along with the position of the partner they're targeting, this map is used to fetch available actions.<br/><br/>
  *  
- *  <b>Example:</b></br>
- *  <i>getSlotTargets().get(character1SexPositionSlot).get(character2SexPositionSlot)</i></br>returns the <i>SexActionPresetPair</i> which holds all available actions.</br></br>
+ *  <b>Example:</b><br/>
+ *  <i>getSlotTargets().get(character1SexPositionSlot).get(character2SexPositionSlot)</i><br/>returns the <i>SexActionPresetPair</i> which holds all available actions.<br/><br/>
  *  
  *  If character1SexPositionSlot is SexPositionSlot.DOGGY_ON_ALL_FOURS, and character2SexPositionSlot is SexPositionSlot.DOGGY_BEHIND, then the returned actions would be those that
  *   are available for the character on all fours, in relation to a character kneeling behind them.

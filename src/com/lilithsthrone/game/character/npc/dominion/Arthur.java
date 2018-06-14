@@ -44,7 +44,7 @@ public class Arthur extends NPC {
 		super(new NameTriplet("Arthur"),
 				"With messy brown hair, pale skin, and a thin frame, the Arthur of this world looks exactly the same as the one you've always known."
 						+ " Just as he was in your world, this Arthur used to be a colleague of Lilaya's, before Lilaya kicked him out."
-						+ "</br>"
+						+ "<br/>"
 						+ "Arthur is recognised as one of, if not the best arcane researcher in all of Dominion."
 						+ " Despite this, however, he's unable to harness the arcane himself.",
 				10,
@@ -96,7 +96,7 @@ public class Arthur extends NPC {
 	public String getDescription() {
 		return "With messy brown hair, pale skin, and a thin frame, the Arthur of this world looks exactly the same as the one you've always known."
 				+ " Just as he was in your world, this Arthur used to be a colleague of Lilaya's, before Lilaya kicked him out."
-				+ "</br>"
+				+ "<br/>"
 				+ "Arthur is recognised as one of, if not the best arcane researcher in all of Dominion."
 				+ " Despite this, however, he's unable to harness the arcane himself.";
 	}

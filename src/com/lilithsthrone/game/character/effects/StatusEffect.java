@@ -2591,7 +2591,7 @@ public enum StatusEffect {
 					if(!clothing.isDirty()) {
 						clothing.setDirty(true);
 						if(sb.length()>0) {
-							sb.append("</br>");
+							sb.append("<br/>");
 						}
 						sb.append("You use your <b>"+clothing.getDisplayName(true)+"</b> to clean your "+clothing.getClothingType().getSlot().getName()
 								+", <b style='color:"+Colour.CUM.toWebHexString()+";'>dirtying "+(clothing.getClothingType().isPlural()?"them":"it")+" in the process</b>.");
@@ -2604,7 +2604,7 @@ public enum StatusEffect {
 							if(!clothing.isDirty()) {
 								clothing.setDirty(true);
 								if(sb.length()>0) {
-									sb.append("</br>");
+									sb.append("<br/>");
 								}
 								sb.append("You use your <b>"+clothing.getDisplayName(true)+"</b> to clean your "+clothing.getClothingType().getSlot().getName()
 										+", <b style='color:"+Colour.CUM.toWebHexString()+";'>dirtying "+(clothing.getClothingType().isPlural()?"them":"it")+" in the process</b>.");
@@ -3009,10 +3009,10 @@ public enum StatusEffect {
 		@Override
 		public String getDescription(GameCharacter target) {
 			if(target.isPlayer()) {
-				return ("After recently drinking an alcoholic liquid, you're feeling a little tipsy...</br>"
+				return ("After recently drinking an alcoholic liquid, you're feeling a little tipsy...<br/>"
 						+ "Intoxication: "+target.getIntoxicationPercentage()+"%");
 			} else {
-				return (UtilText.parse(target, "After recently drinking an alcoholic liquid, [npc.name] is feeling a little tipsy...</br>"
+				return (UtilText.parse(target, "After recently drinking an alcoholic liquid, [npc.name] is feeling a little tipsy...<br/>"
 						+ "Intoxication: "+target.getIntoxicationPercentage()+"%"));
 			}
 		}
@@ -3050,10 +3050,10 @@ public enum StatusEffect {
 		@Override
 		public String getDescription(GameCharacter target) {
 			if(target.isPlayer()) {
-				return ("After recently drinking an alcoholic liquid, you're feeling quite merry...</br>"
+				return ("After recently drinking an alcoholic liquid, you're feeling quite merry...<br/>"
 						+ "Intoxication: "+target.getIntoxicationPercentage()+"%");
 			} else {
-				return (UtilText.parse(target, "After recently drinking an alcoholic liquid, [npc.name] is feeling quite merry...</br>"
+				return (UtilText.parse(target, "After recently drinking an alcoholic liquid, [npc.name] is feeling quite merry...<br/>"
 						+ "Intoxication: "+target.getIntoxicationPercentage()+"%"));
 			}
 		}
@@ -3090,10 +3090,10 @@ public enum StatusEffect {
 		@Override
 		public String getDescription(GameCharacter target) {
 			if(target.isPlayer()) {
-				return ("After recently drinking an alcoholic liquid, you're feeling quite drunk...</br>"
+				return ("After recently drinking an alcoholic liquid, you're feeling quite drunk...<br/>"
 						+ "Intoxication: "+target.getIntoxicationPercentage()+"%");
 			} else {
-				return (UtilText.parse(target, "After recently drinking an alcoholic liquid, [npc.name] is feeling quite drunk...</br>"
+				return (UtilText.parse(target, "After recently drinking an alcoholic liquid, [npc.name] is feeling quite drunk...<br/>"
 						+ "Intoxication: "+target.getIntoxicationPercentage()+"%"));
 			}
 		}
@@ -3131,10 +3131,10 @@ public enum StatusEffect {
 		@Override
 		public String getDescription(GameCharacter target) {
 			if(target.isPlayer()) {
-				return ("After recently drinking an alcoholic liquid, you're feeling pretty hammered...</br>"
+				return ("After recently drinking an alcoholic liquid, you're feeling pretty hammered...<br/>"
 						+ "Intoxication: "+target.getIntoxicationPercentage()+"%");
 			} else {
-				return (UtilText.parse(target, "After recently drinking an alcoholic liquid, [npc.name] is feeling pretty hammered...</br>"
+				return (UtilText.parse(target, "After recently drinking an alcoholic liquid, [npc.name] is feeling pretty hammered...<br/>"
 						+ "Intoxication: "+target.getIntoxicationPercentage()+"%"));
 			}
 		}
@@ -3172,10 +3172,10 @@ public enum StatusEffect {
 		@Override
 		public String getDescription(GameCharacter target) {
 			if(target.isPlayer()) {
-				return ("After recently drinking an alcoholic liquid, you're feeling completely wasted...</br>"
+				return ("After recently drinking an alcoholic liquid, you're feeling completely wasted...<br/>"
 						+ "Intoxication: "+target.getIntoxicationPercentage()+"%");
 			} else {
-				return (UtilText.parse(target, "After recently drinking an alcoholic liquid, [npc.name] is feeling completely wasted...</br>"
+				return (UtilText.parse(target, "After recently drinking an alcoholic liquid, [npc.name] is feeling completely wasted...<br/>"
 						+ "Intoxication: "+target.getIntoxicationPercentage()+"%"));
 			}
 		}
@@ -3280,7 +3280,7 @@ public enum StatusEffect {
 						long timeLeft = twoDaysLater - now;
 						long hoursLeft = timeLeft / 60;
 						long minutesLeft = timeLeft % 60;
-						sb.append("</br>"
+						sb.append("<br/>"
 								+ "<b style='color:"+addiction.getFluid().getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(addiction.getFluid().getDescriptor(target))+" "+addiction.getFluid().getName(target)+"</b>: "
 								+ " [style.boldArcane(worsens in)] "+hoursLeft+":"+String.format("%02d", minutesLeft));
 					}
@@ -3345,7 +3345,7 @@ public enum StatusEffect {
 						long timeLeft = threeDaysLater - now;
 						long hoursLeft = timeLeft / 60;
 						long minutesLeft = timeLeft % 60;
-						sb.append("</br>"
+						sb.append("<br/>"
 								+ "<b style='color:"+addiction.getFluid().getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(addiction.getFluid().getDescriptor(target))+" "+addiction.getFluid().getName(target)+"</b>: "
 								+ " [style.boldArcane(worsens in)] "+hoursLeft+":"+String.format("%02d", minutesLeft));
 					}
@@ -3410,7 +3410,7 @@ public enum StatusEffect {
 						long timeLeft = fourDaysLater - now;
 						long hoursLeft = timeLeft / 60;
 						long minutesLeft = timeLeft % 60;
-						sb.append("</br>"
+						sb.append("<br/>"
 								+ "<b style='color:"+addiction.getFluid().getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(addiction.getFluid().getDescriptor(target))+" "+addiction.getFluid().getName(target)+"</b>: "
 								+ " [style.boldArcane(worsens in)] "+hoursLeft+":"+String.format("%02d", minutesLeft));
 					}
@@ -3475,7 +3475,7 @@ public enum StatusEffect {
 						long timeLeft = fiveDaysLater - now;
 						long hoursLeft = timeLeft / 60;
 						long minutesLeft = timeLeft % 60;
-						sb.append("</br>"
+						sb.append("<br/>"
 								+ "<b style='color:"+addiction.getFluid().getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(addiction.getFluid().getDescriptor(target))+" "+addiction.getFluid().getName(target)+"</b>: "
 								+ " [style.boldArcane(worsens in)] "+hoursLeft+":"+String.format("%02d", minutesLeft));
 					}
@@ -3536,7 +3536,7 @@ public enum StatusEffect {
 					long now = Main.game.getMinutesPassed();
 					
 					if (fiveDaysLater <= now) {
-						sb.append("</br>"
+						sb.append("<br/>"
 								+ "<b style='color:"+addiction.getFluid().getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(addiction.getFluid().getDescriptor(target))+" "+addiction.getFluid().getName(target)+"</b>.");
 					}
 				}
@@ -3624,9 +3624,9 @@ public enum StatusEffect {
 							+ "</p>"
 							+ "<p>"
 								+ "[pc.thought(I-I'm pregnant?"
-									+ "</br>"
+									+ "<br/>"
 									+ "..."
-									+ "</br>"
+									+ "<br/>"
 									+ "Oh my God! Yes! <b>I'm pregnant!</b>)]"
 							+ "</p>"
 							+ "<p>"
@@ -3635,9 +3635,9 @@ public enum StatusEffect {
 							+ "</p>"
 							+ "<p>"
 								+ "[pc.thought(This is the best feeling ever!"
-										+ "</br>"
+										+ "<br/>"
 										+ "If only aunt Lily were here, I bet she'd be so proud!"
-										+ "</br>"
+										+ "<br/>"
 										+ "Wait! Of course! <b>Lilaya!</b> She'll want to see this too!)]"
 							+ "</p>"
 							+ "<p>"
@@ -3663,9 +3663,9 @@ public enum StatusEffect {
 								+ "</p>"
 								+ "<p>"
 									+ "[pc.thought(I-I'm pregnant?"
-										+ "</br>"
+										+ "<br/>"
 										+ "..."
-										+ "</br>"
+										+ "<br/>"
 										+ "Oh my God! <b>I'm pregnant!</b>)]"
 								+ "</p>"
 								+ "<p>"
@@ -3674,9 +3674,9 @@ public enum StatusEffect {
 								+ "</p>"
 								+ "<p>"
 									+ "[pc.thought(What do I do? What do I do? What do I do?"
-											+ "</br>"
+											+ "<br/>"
 											+ "If only aunt Lily were here!"
-											+ "</br>"
+											+ "<br/>"
 											+ "Wait! Of course! <b>Lilaya!</b> She'll know what to do!)]"
 								+ "</p>"
 								+ "<p>"
@@ -4483,22 +4483,22 @@ public enum StatusEffect {
 			
 			// Vagina:
 			if (target.getVaginaRawCapacityValue()!=target.getVaginaStretchedCapacity()){
-				descriptionSB.append("</br><b>Vagina:</b> From "+Capacity.getCapacityFromValue(target.getVaginaStretchedCapacity()).getDescriptor()+" to "+target.getVaginaCapacity().getDescriptor()+".");
+				descriptionSB.append("<br/><b>Vagina:</b> From "+Capacity.getCapacityFromValue(target.getVaginaStretchedCapacity()).getDescriptor()+" to "+target.getVaginaCapacity().getDescriptor()+".");
 				
 			// Ass:
 			}
 			if (target.getAssRawCapacityValue()!=target.getAssStretchedCapacity()){
-				descriptionSB.append("</br><b>Anus:</b> From "+Capacity.getCapacityFromValue(target.getAssStretchedCapacity()).getDescriptor()+" to "+target.getAssCapacity().getDescriptor()+".");
+				descriptionSB.append("<br/><b>Anus:</b> From "+Capacity.getCapacityFromValue(target.getAssStretchedCapacity()).getDescriptor()+" to "+target.getAssCapacity().getDescriptor()+".");
 				
 			// Nipples:
 			}
 			if (target.getNippleRawCapacityValue()!=target.getNippleStretchedCapacity()){
-				descriptionSB.append("</br><b>Nipples:</b> From "+Capacity.getCapacityFromValue(target.getNippleStretchedCapacity()).getDescriptor()+" to "+target.getNippleCapacity().getDescriptor()+".");
+				descriptionSB.append("<br/><b>Nipples:</b> From "+Capacity.getCapacityFromValue(target.getNippleStretchedCapacity()).getDescriptor()+" to "+target.getNippleCapacity().getDescriptor()+".");
 				
 			// Urethra:
 			}
 			if (target.getPenisRawCapacityValue()!=target.getPenisStretchedCapacity()){
-				descriptionSB.append("</br><b>Urethra:</b> From "+Capacity.getCapacityFromValue(target.getPenisStretchedCapacity()).getDescriptor()+" to "+target.getPenisCapacity().getDescriptor()+".");
+				descriptionSB.append("<br/><b>Urethra:</b> From "+Capacity.getCapacityFromValue(target.getPenisStretchedCapacity()).getDescriptor()+" to "+target.getPenisCapacity().getDescriptor()+".");
 			}
 			
 			return descriptionSB.toString();
@@ -4578,25 +4578,25 @@ public enum StatusEffect {
 			
 			if(target.isOrificePlugged(SexAreaOrifice.VAGINA)) {
 				if(target.isPlayer()) {
-					return "As you walk, you can feel the cum trapped within your recently-used pussy.</br>"
-							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.VAGINA)+"ml)]</br>"
+					return "As you walk, you can feel the cum trapped within your recently-used pussy.<br/>"
+							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.VAGINA)+"ml)]<br/>"
 							+ "[style.boldTerrible(Plugged Vagina:)] No cum is leaking out (although some is still being absorbed)!";
 				} else {
 					return UtilText.parse(target, 
-							"[npc.Name]'s [npc.asshole] has recently been filled with cum, before being plugged.</br>"
-							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.VAGINA)+"ml)]</br>"
+							"[npc.Name]'s [npc.asshole] has recently been filled with cum, before being plugged.<br/>"
+							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.VAGINA)+"ml)]<br/>"
 							+ "[style.boldTerrible(Plugged Vagina:)] No cum is leaking out (although some is still being absorbed)!");
 				}
 				
 			} else {
 				if(target.isPlayer()) {
-					return "As you walk, you can feel slimy cum drooling out of your recently-used pussy.</br>"
-							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.VAGINA)+"ml)]</br>"
+					return "As you walk, you can feel slimy cum drooling out of your recently-used pussy.<br/>"
+							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.VAGINA)+"ml)]<br/>"
 							+ "(-"+cumLost+"ml/minute)";
 				} else {
 					return UtilText.parse(target, 
-							"[npc.Name]'s [npc.pussy] has recently been filled with cum.</br>"
-							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.VAGINA)+"ml)]</br>"
+							"[npc.Name]'s [npc.pussy] has recently been filled with cum.<br/>"
+							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.VAGINA)+"ml)]<br/>"
 							+ "(-"+cumLost+"ml/minute)");
 				}
 			}
@@ -4684,13 +4684,13 @@ public enum StatusEffect {
 			int cumLost = SexAreaOrifice.URETHRA_VAGINA.getCharactersCumLossPerMinute(target);
 			
 			if(target.isPlayer()) {
-				return "As you walk, you can feel slimy cum drooling out of your pussy's recently-used urethra.</br>"
-						+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.URETHRA_VAGINA)+"ml)]</br>"
+				return "As you walk, you can feel slimy cum drooling out of your pussy's recently-used urethra.<br/>"
+						+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.URETHRA_VAGINA)+"ml)]<br/>"
 						+ "(-"+cumLost+"ml/minute)";
 			} else {
 				return UtilText.parse(target, 
-						"[npc.Name]'s pussy's urethra has recently been filled with cum.</br>"
-						+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.URETHRA_VAGINA)+"ml)]</br>"
+						"[npc.Name]'s pussy's urethra has recently been filled with cum.<br/>"
+						+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.URETHRA_VAGINA)+"ml)]<br/>"
 						+ "(-"+cumLost+"ml/minute)");
 			}
 		}
@@ -4777,13 +4777,13 @@ public enum StatusEffect {
 			int cumLost = SexAreaOrifice.URETHRA_PENIS.getCharactersCumLossPerMinute(target);
 			
 			if(target.isPlayer()) {
-				return "As you walk, you can feel slimy cum drooling out of your cock's recently-used urethra.</br>"
-						+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.URETHRA_PENIS)+"ml)]</br>"
+				return "As you walk, you can feel slimy cum drooling out of your cock's recently-used urethra.<br/>"
+						+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.URETHRA_PENIS)+"ml)]<br/>"
 						+ "(-"+cumLost+"ml/minute)";
 			} else {
 				return UtilText.parse(target, 
-						"[npc.Name]'s cock's urethra has recently been filled with cum.</br>"
-						+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.URETHRA_PENIS)+"ml)]</br>"
+						"[npc.Name]'s cock's urethra has recently been filled with cum.<br/>"
+						+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.URETHRA_PENIS)+"ml)]<br/>"
 						+ "(-"+cumLost+"ml/minute)");
 			}
 		}
@@ -4871,25 +4871,25 @@ public enum StatusEffect {
 
 			if(target.isOrificePlugged(SexAreaOrifice.ANUS)) {
 				if(target.isPlayer()) {
-					return "As you walk, you can feel the cum trapped within your recently-used asshole.</br>"
-							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.ANUS)+"ml)]</br>"
+					return "As you walk, you can feel the cum trapped within your recently-used asshole.<br/>"
+							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.ANUS)+"ml)]<br/>"
 							+ "[style.boldTerrible(Plugged Anus:)] No cum is leaking out (although some is still being absorbed)!";
 				} else {
 					return UtilText.parse(target, 
-							"[npc.Name]'s [npc.asshole] has recently been filled with cum, before being plugged.</br>"
-							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.ANUS)+"ml)]</br>"
+							"[npc.Name]'s [npc.asshole] has recently been filled with cum, before being plugged.<br/>"
+							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.ANUS)+"ml)]<br/>"
 							+ "[style.boldTerrible(Plugged Anus:)] No cum is leaking out (although some is still being absorbed)!");
 				}
 				
 			} else {
 				if(target.isPlayer()) {
-					return "As you walk, you can feel cum drooling out of your recently-used asshole.</br>"
-							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.ANUS)+"ml)]</br>"
+					return "As you walk, you can feel cum drooling out of your recently-used asshole.<br/>"
+							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.ANUS)+"ml)]<br/>"
 							+ "(-"+cumLost+"ml/minute)";
 				} else {
 					return UtilText.parse(target, 
-							"[npc.Name]'s [npc.asshole] has recently been filled with cum.</br>"
-							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.ANUS)+"ml)]</br>"
+							"[npc.Name]'s [npc.asshole] has recently been filled with cum.<br/>"
+							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.ANUS)+"ml)]<br/>"
 							+ "(-"+cumLost+"ml/minute)");
 				}
 			}
@@ -4978,25 +4978,25 @@ public enum StatusEffect {
 			
 			if(target.isOrificePlugged(SexAreaOrifice.NIPPLE)) {
 				if(target.isPlayer()) {
-					return "As you walk, you can feel the cum trapped within your recently-used nipples.</br>"
-							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.NIPPLE)+"ml)]</br>"
+					return "As you walk, you can feel the cum trapped within your recently-used nipples.<br/>"
+							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.NIPPLE)+"ml)]<br/>"
 							+ "[style.boldTerrible(Plugged Nipples:)] No cum is leaking out (although some is still being absorbed)!";
 				} else {
 					return UtilText.parse(target, 
-							"[npc.Name]'s [npc.nipples] have recently been filled with cum, before being plugged.</br>"
-							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.NIPPLE)+"ml)]</br>"
+							"[npc.Name]'s [npc.nipples] have recently been filled with cum, before being plugged.<br/>"
+							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.NIPPLE)+"ml)]<br/>"
 							+ "[style.boldTerrible(Plugged Nipples:)] No cum is leaking out (although some is still being absorbed)!");
 				}
 				
 			} else {
 				if(target.isPlayer()) {
-					return "As you walk, you can feel cum drooling out of your recently-used nipples.</br>"
-							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.NIPPLE)+"ml)]</br>"
+					return "As you walk, you can feel cum drooling out of your recently-used nipples.<br/>"
+							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.NIPPLE)+"ml)]<br/>"
 							+ "(-"+cumLost+"ml/minute)";
 				} else {
 					return UtilText.parse(target, 
-							"[npc.Name]'s [npc.nipples] have recently been filled with cum.</br>"
-							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.NIPPLE)+"ml)]</br>"
+							"[npc.Name]'s [npc.nipples] have recently been filled with cum.<br/>"
+							+ "Current creampie: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.NIPPLE)+"ml)]<br/>"
 							+ "(-"+cumLost+"ml/minute)");
 				}
 			}
@@ -5076,11 +5076,11 @@ public enum StatusEffect {
 		public String getDescription(GameCharacter target) {
 			return UtilText.parse(target, 
 					target.isOnlyCumInArea(SexAreaOrifice.MOUTH)
-					?"[npc.NamePos] recently swallowed a load of cum.</br>"
-						+ "Current cum in stomach: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.MOUTH)+"ml)]</br>"
+					?"[npc.NamePos] recently swallowed a load of cum.<br/>"
+						+ "Current cum in stomach: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.MOUTH)+"ml)]<br/>"
 						+ "(-2ml/minute)"
-					:"[npc.NamePos] recently swallowed some sexual fluids.</br>"
-						+ "Current fluids in stomach: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.MOUTH)+"ml)]</br>"
+					:"[npc.NamePos] recently swallowed some sexual fluids.<br/>"
+						+ "Current fluids in stomach: [style.colourSex("+target.getTotalFluidInArea(SexAreaOrifice.MOUTH)+"ml)]<br/>"
 						+ "(-2ml/minute)");
 		}
 		
@@ -8947,7 +8947,7 @@ public enum StatusEffect {
 						damage = 1;
 					}
 					combatant.incrementHealth(-damage);
-					sb.append(UtilText.parse(combatant, "</br>[npc.Name] takes <b>" + damage + "</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+" as the Stone Shell explodes!"));
+					sb.append(UtilText.parse(combatant, "<br/>[npc.Name] takes <b>" + damage + "</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+" as the Stone Shell explodes!"));
 				}
 			} else {
 				boolean first=true;
@@ -8957,7 +8957,7 @@ public enum StatusEffect {
 						damage = 1;
 					}
 					combatant.incrementHealth(-damage);
-					sb.append(UtilText.parse(combatant, (first?"":"</br>")+"[npc.Name] takes <b>" + damage + "</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+" as the Stone Shell explodes!"));
+					sb.append(UtilText.parse(combatant, (first?"":"<br/>")+"[npc.Name] takes <b>" + damage + "</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+" as the Stone Shell explodes!"));
 					first=false;
 				}
 			}
@@ -9525,7 +9525,7 @@ public enum StatusEffect {
 						damage = 1;
 					}
 					combatant.incrementLust(damage);
-					sb.append(UtilText.parse(combatant, (Combat.getEnemies().size()>1?"</br>":"")+"[npc.Name] takes <b>" + damage + "</b> "+Attribute.DAMAGE_LUST.getColouredName("b")+"!"));
+					sb.append(UtilText.parse(combatant, (Combat.getEnemies().size()>1?"<br/>":"")+"[npc.Name] takes <b>" + damage + "</b> "+Attribute.DAMAGE_LUST.getColouredName("b")+"!"));
 				}
 				
 			} else {
@@ -9534,7 +9534,7 @@ public enum StatusEffect {
 					damage = 1;
 				}
 				Main.game.getPlayer().incrementLust(damage);
-				sb.append((Combat.getAllies().size()>=1?"</br>":"")+"You take <b>" + damage + "</b> "+Attribute.DAMAGE_LUST.getColouredName("b")+"!");
+				sb.append((Combat.getAllies().size()>=1?"<br/>":"")+"You take <b>" + damage + "</b> "+Attribute.DAMAGE_LUST.getColouredName("b")+"!");
 				
 				for(NPC combatant : Combat.getAllies()) {
 					damage = (int) Math.round(15 * (1-(Util.getModifiedDropoffValue(combatant.getAttributeValue(Attribute.RESISTANCE_LUST), 100)/100f)));
@@ -9542,7 +9542,7 @@ public enum StatusEffect {
 						damage = 1;
 					}
 					combatant.incrementLust(damage);
-					sb.append(UtilText.parse(combatant, "</br>[npc.Name] takes <b>" + damage + "</b> "+Attribute.DAMAGE_LUST.getColouredName("b")+"!"));
+					sb.append(UtilText.parse(combatant, "<br/>[npc.Name] takes <b>" + damage + "</b> "+Attribute.DAMAGE_LUST.getColouredName("b")+"!"));
 				}
 			}
 			
@@ -11355,24 +11355,24 @@ public enum StatusEffect {
 		
 		if(Sex.getAreasCurrentlyStretching(owner).contains(orificeType)) {
 			if(Sex.getFirstContactingSexAreaPenetration(owner, orificeType)==null) {
-				stringBuilderToAppendTo.append("</br>"+orificeName+" has been <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>stretched</b>!");
+				stringBuilderToAppendTo.append("<br/>"+orificeName+" has been <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>stretched</b>!");
 			} else {
-				stringBuilderToAppendTo.append("</br>"+orificeName+" "+(orificeType.isPlural()?"are":"is")+" being <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>stretched</b>!");
+				stringBuilderToAppendTo.append("<br/>"+orificeName+" "+(orificeType.isPlural()?"are":"is")+" being <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>stretched</b>!");
 			}
 			
 		} else if(Sex.getAreasTooLoose(owner).contains(orificeType)) {
-			stringBuilderToAppendTo.append("</br>"+orificeName+" "+(orificeType.isPlural()?"are":"is")+" <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>too loose</b>!");
+			stringBuilderToAppendTo.append("<br/>"+orificeName+" "+(orificeType.isPlural()?"are":"is")+" <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>too loose</b>!");
 			
 		} else {
-			stringBuilderToAppendTo.append("</br><b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No stretch effect.</b>");
+			stringBuilderToAppendTo.append("<br/><b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No stretch effect.</b>");
 		}
 		
 		
 		if(Sex.getWetAreas(owner).get(orificeType).isEmpty()) {
-			stringBuilderToAppendTo.append("</br>"+orificeName+" "+(orificeType.isPlural()?"are":"is")+" <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>dry</b>!");
+			stringBuilderToAppendTo.append("<br/>"+orificeName+" "+(orificeType.isPlural()?"are":"is")+" <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>dry</b>!");
 			
 		} else {
-			stringBuilderToAppendTo.append("</br>"+orificeName+" "+(orificeType.isPlural()?"have":"has")+" been <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>lubricated</b> by:</br>");
+			stringBuilderToAppendTo.append("<br/>"+orificeName+" "+(orificeType.isPlural()?"have":"has")+" been <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>lubricated</b> by:<br/>");
 			int i=0;
 			for(LubricationType lt : Sex.getWetAreas(owner).get(orificeType)) {
 				if(i!=0) {

@@ -104,7 +104,7 @@ public class Main extends Application {
 			+ " If you wanted to ask me any specific questions about the game, you can either find me on my blog, or on the Lilith's Throne Discord. You can find a link to the discord on my blog. ^^"
 		+ "</p>"
 			
-		+ "</br>"
+		+ "<br/>"
 
 		+ "<list>"
 			+ "<h6>v0.2.6.5</h6>"
@@ -163,7 +163,7 @@ public class Main extends Application {
 			+"<ul>Fixed game not keeping count of the times the player has had dominant or submissive sex.</ul>"
 		+ "</list>"
 
-		+ "</br>"
+		+ "<br/>"
 
 		+ "<list>"
 			+ "<h6>v0.2.7</h6>"
@@ -263,20 +263,20 @@ public class Main extends Application {
 	
 	public static String disclaimer = "<h6 style='text-align: center; color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>You must read and agree to the following in order to play this game!</h6>"
 
-			+ "<p>This game is a <b>fictional</b> text-based erotic RPG." + " All content contained within this game forms part of a fictional universe that is not related to real-life places, people or events.</br></br>"
+			+ "<p>This game is a <b>fictional</b> text-based erotic RPG." + " All content contained within this game forms part of a fictional universe that is not related to real-life places, people or events.<br/><br/>"
 
 			+ " All of the characters that appear in this story are fictional entities who have given their consent to appear and act in this story."
 			+ " If you find yourself concerned for the characters in the story then please be reassured that they are all consenting adults who are speaking lines from a script."
 			+ " None of the characters portrayed within this game were or are being harmed in any way during the construction or execution of this game."
-			+ " Every character in the game is at least 18 years of age (or is magically the legal age needed to appear in erotic literature in whatever country you are playing this).</br></br>"
+			+ " Every character in the game is at least 18 years of age (or is magically the legal age needed to appear in erotic literature in whatever country you are playing this).<br/><br/>"
 
 			+ "By agreeing to this disclaimer and playing this game you agree to be exposed to graphic sexual and adult content that is presented as part of the game's fictional universe."
 			+ " Such content consists of, but is not limited to; graphic depictions of sex, inter-species sex (with fantasy creatures), sexual transformation,"
-			+ " rape fantasy/implied lack of consent, mild physical violence, sexual violence, and drug use.</br>"
-			+ "Extreme fetish content such as gore/extreme violence, scat, and under/questionable age, is <i>not</i> a part of this game.</br></br>"
+			+ " rape fantasy/implied lack of consent, mild physical violence, sexual violence, and drug use.<br/>"
+			+ "Extreme fetish content such as gore/extreme violence, scat, and under/questionable age, is <i>not</i> a part of this game.<br/><br/>"
 
 			+ "By agreeing to this disclaimer and playing this game you also agree that you are <b>at least 18 years of age</b>,"
-			+ " or at least the legal age for you to purchase and view pornographic material in your country if that age is over 18.</br></br>"
+			+ " or at least the legal age for you to purchase and view pornographic material in your country if that age is over 18.<br/><br/>"
 
 			+ "As a final note, the creators of this game wish to stress that the content presented within is entirely fictional and does not reflect any of their personal views or opinions."
 			+ " This game has been made in the spirit of creating a piece of artistic interactive literature, and it is imperative that you maintain a clear distinction between reality and the fictional events depicted in this game.</p>";

@@ -59,7 +59,7 @@ public class EventLogEntry implements Serializable, XMLSaving {
 	public String getMainDialogueDescription() {
 		return "<p style='text-align:center;'>"
 					+ "<b>"+name+"</b>"
-					+ "</br>"
+					+ "<br/>"
 					+ description
 				+ "</p>";
 	}

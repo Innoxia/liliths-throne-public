@@ -119,19 +119,19 @@ public class Testicle implements BodyPartInterface, Serializable {
 			}
 			
 		} else if (sizeChange > 0) {
-			return UtilText.parse(owner, "[npc.Name] [npc.verb(let)] out a lewd moan as [npc.she] [npc.verb(feel)] [npc.her] [npc.balls] suddenly swell and [style.boldGrow(grow larger)].</br>"
+			return UtilText.parse(owner, "[npc.Name] [npc.verb(let)] out a lewd moan as [npc.she] [npc.verb(feel)] [npc.her] [npc.balls] suddenly swell and [style.boldGrow(grow larger)].<br/>"
 					+ "[npc.She] now [npc.has] [style.boldSex(" + owner.getTesticleSize().getDescriptor() + " [pc.balls])]!");
 			
 		} else {
 			if (owner.isPlayer()) {
 				return "</p>"
-							+ "You let out a surprised gasp as you feel your [pc.balls] suddenly [style.boldShrink(shrink)].</br>"
+							+ "You let out a surprised gasp as you feel your [pc.balls] suddenly [style.boldShrink(shrink)].<br/>"
 							+ "You now have [style.boldSex(" +owner.getTesticleSize().getDescriptor()+ " [pc.balls])]!"
 						+ "</p>";
 			} else {
 				return UtilText.parse(owner,
 						"</p>"
-							+ "[npc.Name] lets out a surprised gasp as [npc.she] feels [npc.her] [npc.balls] suddenly [style.boldShrink(shrink)].</br>"
+							+ "[npc.Name] lets out a surprised gasp as [npc.she] feels [npc.her] [npc.balls] suddenly [style.boldShrink(shrink)].<br/>"
 							+ "[npc.She] now has [style.boldSex(" +owner.getTesticleSize().getDescriptor()+ " [npc.balls])]!"
 						+ "</p>");
 			}
@@ -155,13 +155,13 @@ public class Testicle implements BodyPartInterface, Serializable {
 		if(removingTesticles) {
 			if(owner.isPlayer()) {
 				return UtilText.parse(owner, "<p>"
-							+ "A tingling feeling spreads down into your [pc.balls], and you let out a little cry as you feel some of them shrinking away and [style.boldShrink(disappearing)].</br>"
+							+ "A tingling feeling spreads down into your [pc.balls], and you let out a little cry as you feel some of them shrinking away and [style.boldShrink(disappearing)].<br/>"
 							+ "After a few moments, you're left with [style.boldTfGeneric([pc.a_balls])]."
 						+ "</p>");
 			} else {
 				return UtilText.parse(owner,
 						"<p>"
-							+ "A tingling feeling spreads down into [npc.name]'s [npc.balls], and [npc.she] lets out a little cry as [npc.she] feels some of them shrinking away and [style.boldShrink(disappearing)].</br>"
+							+ "A tingling feeling spreads down into [npc.name]'s [npc.balls], and [npc.she] lets out a little cry as [npc.she] feels some of them shrinking away and [style.boldShrink(disappearing)].<br/>"
 							+ "After a few moments, [npc.she]'s left with [style.boldTfGeneric([npc.a_balls])]."
 						+ "</p>");
 			}
@@ -169,13 +169,13 @@ public class Testicle implements BodyPartInterface, Serializable {
 		} else {
 			if(owner.isPlayer()) {
 				return UtilText.parse(owner, "<p>"
-							+ "A tingling feeling spreads down into your [pc.balls], and you let out a little cry as you feel them [style.boldGrow(multiplying)].</br>"
+							+ "A tingling feeling spreads down into your [pc.balls], and you let out a little cry as you feel them [style.boldGrow(multiplying)].<br/>"
 							+ "After a few moments, you're left with [style.boldTfGeneric([pc.a_balls])]."
 						+ "</p>");
 			} else {
 				return UtilText.parse(owner,
 						"<p>"
-							+ "A tingling feeling spreads down into [npc.name]'s [npc.balls], and [npc.she] lets out a little cry as [npc.she] feels them [style.boldGrow(multiplying)].</br>"
+							+ "A tingling feeling spreads down into [npc.name]'s [npc.balls], and [npc.she] lets out a little cry as [npc.she] feels them [style.boldGrow(multiplying)].<br/>"
 							+ "After a few moments, [npc.she]'s left with [style.boldTfGeneric([npc.a_balls])]."
 						+ "</p>");
 			}
@@ -200,13 +200,13 @@ public class Testicle implements BodyPartInterface, Serializable {
 		if(internal) {
 			if(owner.isPlayer()) {
 				return "<p>"
-							+ "You feel your [pc.balls] tightening and [style.boldShrink(withdrawing)] up into your groin, and you let out a little cry as you feel them shift up inside your body.</br>"
+							+ "You feel your [pc.balls] tightening and [style.boldShrink(withdrawing)] up into your groin, and you let out a little cry as you feel them shift up inside your body.<br/>"
 							+ "Your [pc.balls+] [style.boldTfGeneric(are now internal)]."
 						+ "</p>";
 			} else {
 				return UtilText.parse(owner,
 						"<p>"
-							+ "[npc.Name] feels [npc.her] [npc.balls] tightening and [style.boldShrink(withdrawing)] up into [npc.her] groin, and [npc.she] lets out a little cry as [npc.she] feels them shift up inside [npc.her] body.</br>"
+							+ "[npc.Name] feels [npc.her] [npc.balls] tightening and [style.boldShrink(withdrawing)] up into [npc.her] groin, and [npc.she] lets out a little cry as [npc.she] feels them shift up inside [npc.her] body.<br/>"
 							+ "[npc.Her] [npc.balls+] [style.boldTfGeneric(are now internal)]."
 						+ "</p>");
 			}
@@ -214,13 +214,13 @@ public class Testicle implements BodyPartInterface, Serializable {
 		} else {
 			if(owner.isPlayer()) {
 				return "<p>"
-							+ "You feel your internal [pc.balls] slackening and [style.boldGrow(dropping down)], and you let out a little cry as they settle down into an external sack.</br>"
+							+ "You feel your internal [pc.balls] slackening and [style.boldGrow(dropping down)], and you let out a little cry as they settle down into an external sack.<br/>"
 							+ "Your [pc.balls+] [style.boldTfGeneric(are now external)]."
 						+ "</p>";
 			} else {
 				return UtilText.parse(owner,
 						"<p>"
-							+ "[npc.Name] feels [npc.her] internal [npc.balls] slackening and [style.boldGrow(dropping down)], and [npc.she] lets out a little cry as they settle down into an external sack.</br>"
+							+ "[npc.Name] feels [npc.her] internal [npc.balls] slackening and [style.boldGrow(dropping down)], and [npc.she] lets out a little cry as they settle down into an external sack.<br/>"
 							+ "[npc.Her] [npc.balls+] [style.boldTfGeneric(are now external)]."
 						+ "</p>");
 			}
@@ -266,7 +266,7 @@ public class Testicle implements BodyPartInterface, Serializable {
 					"<p>"
 						+ "[npc.Name] [npc.verb(feel)] a strange bubbling and churning taking place deep within [npc.her] [npc.balls],"
 							+ " and [npc.she] can't help but let out [npc.a_moan+] as a small squirt of precum suddenly drools out from [npc.her] [npc.cock];"
-								+ " clear evidence that that [npc.her] [npc.cum] production has [style.boldGrow(increased)].</br>"
+								+ " clear evidence that that [npc.her] [npc.cum] production has [style.boldGrow(increased)].<br/>"
 						+ "[npc.SheIsFull] now able to produce [style.boldSex(" + cumDescriptor + " [npc.cum])]!"
 					+ "</p>");
 			
@@ -274,7 +274,7 @@ public class Testicle implements BodyPartInterface, Serializable {
 			return UtilText.parse(owner,
 					"<p>"
 						+ "[npc.Name] [npc.verb(feel)] a strange sucking sensation taking place deep within [npc.her] [npc.balls],"
-							+ " and [npc.she] can't help but let out a shocked gasp as [npc.she] [npc.verb(realise)] that [npc.sheIs] feeling [npc.her] [npc.cum] production [style.boldShrink(drying up)].</br>"
+							+ " and [npc.she] can't help but let out a shocked gasp as [npc.she] [npc.verb(realise)] that [npc.sheIs] feeling [npc.her] [npc.cum] production [style.boldShrink(drying up)].<br/>"
 						+ "[npc.SheIsFull] now able to produce [style.boldSex(" + cumDescriptor + " [npc.cum])]!"
 					+ "</p>");
 		}
@@ -312,7 +312,7 @@ public class Testicle implements BodyPartInterface, Serializable {
 							cumChange+"ml of [npc.cum+] spurts out of [npc.her] [npc.cock+].")
 				+ "</i>"
 				+ (this.cumStored==0
-					?"</br><i>[npc.Name] now [npc.has] no more [npc.cum] stored in [npc.her] [npc.balls]!</i>"
+					?"<br/><i>[npc.Name] now [npc.has] no more [npc.cum] stored in [npc.her] [npc.balls]!</i>"
 					:"")
 				+ "</p>");
 		}
@@ -354,7 +354,7 @@ public class Testicle implements BodyPartInterface, Serializable {
 					"<p>"
 						+ "[npc.Name] [npc.verb(feel)] an alarming bubbling and churning taking place deep within [npc.her] [npc.balls],"
 							+ " and [npc.she] can't help but let out [npc.a_moan+] as a small squirt of precum suddenly drools out from [npc.her] [npc.cock];"
-								+ " clear evidence that that [npc.her] [npc.cum] regeneration has [style.boldGrow(increased)].</br>"
+								+ " clear evidence that that [npc.her] [npc.cum] regeneration has [style.boldGrow(increased)].<br/>"
 						+ "[npc.Her] rate of [npc.cum] regeneration is now [style.boldSex(" + regenerationDescriptor + ")]!"
 					+ "</p>");
 			
@@ -362,7 +362,7 @@ public class Testicle implements BodyPartInterface, Serializable {
 			return UtilText.parse(owner,
 					"<p>"
 						+ "[npc.Name] [npc.verb(feel)] strange sucking sensation taking place deep within [npc.her] [npc.balls],"
-							+ " and [npc.she] can't help but let out a shocked gasp as [npc.she] [npc.verb(realise)] that [npc.sheIs] feeling [npc.her] [npc.cum] regeneration [style.boldShrink(decreasing)].</br>"
+							+ " and [npc.she] can't help but let out a shocked gasp as [npc.she] [npc.verb(realise)] that [npc.sheIs] feeling [npc.her] [npc.cum] regeneration [style.boldShrink(decreasing)].<br/>"
 						+ "[npc.Her] rate of [npc.cum] regeneration is now [style.boldSex(" + regenerationDescriptor + ")]!"
 					+ "</p>");
 		}
@@ -401,7 +401,7 @@ public class Testicle implements BodyPartInterface, Serializable {
 					"<p>"
 						+ "[npc.Name] suddenly [npc.verb(feel)] a strange tightening and building up of pressure deep within [npc.her] [npc.balls],"
 								+ " and [npc.she] can't help but let out [npc.a_moan+] as a small amount of precum powerfully squirts out from [npc.her] [npc.cock];"
-									+ " clear evidence that that [npc.her] [npc.cum] expulsion has [style.boldGrow(increased)].</br>"
+									+ " clear evidence that that [npc.her] [npc.cum] expulsion has [style.boldGrow(increased)].<br/>"
 						+ "[npc.She] will now expel [style.boldSex(" + UtilText.generateSingularDeterminer(expulsionDescriptor) + " "+expulsionDescriptor+")] amount of stored cum at each orgasm!"
 					+ "</p>");
 			
@@ -410,7 +410,7 @@ public class Testicle implements BodyPartInterface, Serializable {
 					"<p>"
 						+ "[npc.Name] suddenly [npc.verb(feel)] a strange loosening and reduction of pressure deep within [npc.her] [npc.balls],"
 							+ " and [npc.she] can't help but let out [npc.a_moan+] as a small amount of precum weakly dribbles out from [npc.her] [npc.cock];"
-								+ " clear evidence that that [npc.her] [npc.cum] expulsion has [style.boldShrink(decreased)].</br>"
+								+ " clear evidence that that [npc.her] [npc.cum] expulsion has [style.boldShrink(decreased)].<br/>"
 						+ "[npc.She] will now expel [style.boldSex(" + UtilText.generateSingularDeterminer(expulsionDescriptor) + " "+expulsionDescriptor+")] amount of stored cum at each orgasm!"
 					+ "</p>");
 		}

@@ -306,7 +306,7 @@ public class Cultist extends NPC {
 					} else {
 						return "<p>"
 									+ "You try to give [npc.name] your "+item.getName()+", but [npc.she] takes one look at it and laughs,"
-									+ " [npc.speech(Hah! Nice try, but do you really expect me to drink some random potion?!)]</br>"
+									+ " [npc.speech(Hah! Nice try, but do you really expect me to drink some random potion?!)]<br/>"
 									+ "You reluctantly put the "+item.getName()+" back in your inventory, disappointed that [npc.she]'s not interested."
 								+ "</p>";
 					}
@@ -329,7 +329,7 @@ public class Cultist extends NPC {
 					} else {
 						return "<p>"
 									+ "You try to give [npc.name] your "+item.getName()+", but [npc.she] takes one look at it and laughs,"
-									+ " [npc.speech(Hah! Nice try, but do you really expect me to drink some random potion?!)]</br>"
+									+ " [npc.speech(Hah! Nice try, but do you really expect me to drink some random potion?!)]<br/>"
 									+ "You reluctantly put the "+item.getName()+" back in your inventory, disappointed that [npc.she]'s not interested."
 								+ "</p>";
 					}
@@ -348,7 +348,7 @@ public class Cultist extends NPC {
 					} else {
 						return "<p>"
 									+ "You try to give [npc.name] your "+item.getName()+", but [npc.she] takes one look at it and laughs,"
-									+ " [npc.speech(Hah! Did you really think I was going to eat that?!)]</br>"
+									+ " [npc.speech(Hah! Did you really think I was going to eat that?!)]<br/>"
 									+ "You reluctantly put the "+item.getName()+" back in your inventory, disappointed that [npc.she]'s not interested."
 								+ "</p>";
 					}
@@ -588,7 +588,7 @@ public class Cultist extends NPC {
 //					+ "As the succubus carries on pounding away between your legs, the sudden realisation of what's just happened hits you like a sledgehammer."
 //				+ "</p>"
 //				+ "<p style='text-align:center;'>"
-//					+ UtilText.parsePlayerThought("I-I've lost my virginity?!</br>"
+//					+ UtilText.parsePlayerThought("I-I've lost my virginity?!<br/>"
 //							+ "To... <b>her</b>?!")
 //				+ "</p>"
 //				+ "<p>"
@@ -596,8 +596,8 @@ public class Cultist extends NPC {
 //					+ " As your labia spread lewdly around the hot, thick demon-dick, you find yourself starting to agree with what the succubus is telling you."
 //				+ "</p>"
 //				+ "<p style='text-align:center;'>"
-//				+ UtilText.parsePlayerThought("If I'm not a virgin, that makes me a slut...</br>"
-//						+ "Just a slut for demon cock...</br>"
+//				+ UtilText.parsePlayerThought("If I'm not a virgin, that makes me a slut...<br/>"
+//						+ "Just a slut for demon cock...<br/>"
 //						+ "She's right, I'm just another easy fuck for someone like her...")
 //				+ "</p>"
 //				+ "<p>"

@@ -302,7 +302,7 @@ public class GenericSexualPartner extends NPC {
 					+ "As the [npc.race] carries on pounding away at your pussy, the sudden realisation of what's just happened hits you like a sledgehammer."
 				+ "</p>"
 				+ "<p style='text-align:center;'>"
-					+ UtilText.parsePlayerThought("I-I've lost my virginity?!</br>"
+					+ UtilText.parsePlayerThought("I-I've lost my virginity?!<br/>"
 							+ "Like... Like <b>this</b>?!")
 				+ "</p>"
 				+ "<p>"
@@ -310,8 +310,8 @@ public class GenericSexualPartner extends NPC {
 					+ " As your [pc.labia+] spread lewdly around the hot, thick [npc.cock] pumping in and out of you, you start convincing yourself that this is all you're good for."
 				+ "</p>"
 				+ "<p style='text-align:center;'>"
-				+ UtilText.parsePlayerThought("If I'm not a virgin, that makes me a slut...</br>"
-						+ "Just a slut to be fucked and pumped full of cum...</br>"
+				+ UtilText.parsePlayerThought("If I'm not a virgin, that makes me a slut...<br/>"
+						+ "Just a slut to be fucked and pumped full of cum...<br/>"
 						+ "If this [npc.race] doesn't knock me up, I hope one of the other breeders makes me a Mommy...")
 				+ "</p>"
 				+ "<p>"

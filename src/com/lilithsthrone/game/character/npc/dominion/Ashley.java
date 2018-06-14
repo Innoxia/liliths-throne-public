@@ -113,29 +113,29 @@ public class Ashley extends NPC {
 				+ "<p>"
 					+ this.getDescription()
 				+ "</p>"
-				+ "</br>"
+				+ "<br/>"
 				+ "<h4>Relationships</h4>"
 				+ "<p>"
-					+ "[style.boldAffection(Affection:)]</br>"
+					+ "[style.boldAffection(Affection:)]<br/>"
 					+ AffectionLevel.getDescription(this, Main.game.getPlayer(),
 							AffectionLevel.getAffectionLevelFromValue(this.getAffection(Main.game.getPlayer())), true));
 		
 		for(Entry<String, Float> entry : this.getAffectionMap().entrySet()) {
 			GameCharacter target = Main.game.getNPCById(entry.getKey());
 			if(!target.isPlayer()) {
-				infoScreenSB.append("</br>" + AffectionLevel.getDescription(this, target, AffectionLevel.getAffectionLevelFromValue(this.getAffection(target)), true));
+				infoScreenSB.append("<br/>" + AffectionLevel.getDescription(this, target, AffectionLevel.getAffectionLevelFromValue(this.getAffection(target)), true));
 			}
 		}
 		
-		infoScreenSB.append("</br></br>"
-					+ "[style.boldObedience(Obedience:)]</br>"
+		infoScreenSB.append("<br/><br/>"
+					+ "[style.boldObedience(Obedience:)]<br/>"
 					+ UtilText.parse(this,
 							(this.isSlave()
 								?"[npc.Name] [style.boldArcane(is a slave)], owned by "+(this.getOwner().isPlayer()?"you!":this.getOwner().getName("a")+".")
 								:"[npc.Name] [style.boldGood(is not a slave)]."))
-					+ "</br>"+ObedienceLevel.getDescription(this, ObedienceLevel.getObedienceLevelFromValue(this.getObedienceValue()), true, true)
+					+ "<br/>"+ObedienceLevel.getDescription(this, ObedienceLevel.getObedienceLevelFromValue(this.getObedienceValue()), true, true)
 				+"</p>"
-				+ "</br>"
+				+ "<br/>"
 					+ "<h4>Appearance</h4>"
 				+ "<p>"
 					+ (Main.game.getPlayer().hasTraitActivated(Perk.OBSERVANT)

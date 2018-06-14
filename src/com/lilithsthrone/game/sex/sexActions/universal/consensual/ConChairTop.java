@@ -1950,7 +1950,7 @@ public class ConChairTop {
 
 			descriptionSB.append("[npc.Name] lets out an impatient cry, and without any further warning, [npc.she] suddenly wraps [npc.her] [npc.legs+] around your lower back."
 					+ " Letting out [npc.a_moan+], [npc.she] looks up into your [pc.eyes], [npc.speech(Come on, fuck me!)]"
-					+ "</br></br>"
+					+ "<br/><br/>"
 					+ "Before you can react, [npc.she] uses [npc.her] [npc.legs] to pull you forwards, letting out a delighted [npc.moan] as the [pc.cockHead+] of your [pc.cock+] slips inside [npc.her] [npc.pussy+].");
 			
 
@@ -2014,7 +2014,7 @@ public class ConChairTop {
 
 			descriptionSB.append("[npc.Name] lets out an impatient cry, and without any further warning, [npc.she] suddenly wraps [npc.her] [npc.legs+] around your lower back."
 					+ " Letting out [npc.a_moan+], [npc.she] looks up into your [pc.eyes], [npc.speech(Come on, fuck my cute little ass!)]"
-					+ "</br></br>"
+					+ "<br/><br/>"
 					+ "Before you can react, [npc.she] uses [npc.her] [npc.legs] to pull you forwards, letting out a delighted [npc.moan] as [npc.she] forces the [pc.cockHead+] of your [pc.cock+] into [npc.her] [npc.asshole+].");
 			
 
@@ -2077,7 +2077,7 @@ public class ConChairTop {
 			
 			descriptionSB.append("[npc.Name] lets out an impatient cry, and without any further warning, [npc.she] suddenly leans forwards and grabs your [pc.arms]."
 					+ " With a forceful yank forwards, [npc.she] pulls you into [npc.her] lap, and as [npc.her] grip shifts to take hold of your [pc.hips], [npc.she] cries out, [npc.speech(I'll show you how to get started!)]"
-					+ "</br></br>"
+					+ "<br/><br/>"
 					+ "Before you can react, [npc.she] roughly pulls you down, letting out a delighted [npc.moan] as the [npc.cockHead+] of [npc.her] [npc.cock+] slips inside your [pc.pussy+].");
 			
 

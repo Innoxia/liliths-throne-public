@@ -116,7 +116,7 @@ public class GenericActions {
 		public String getDescription() {
 			return "You decide that you'd like [npc.name] to use [npc.her] transformative powers to grow a nice thick demonic cock for you."
 					+ " Grinning down at [npc.herHim], you tell [npc.herHim] as much, [pc.speech(Why don't you grow a nice big cock, so we can have even more fun!)]"
-					+ "</br></br>"
+					+ "<br/><br/>"
 					+(Sex.getActivePartner().isCoverableAreaExposed(CoverableArea.PENIS)
 						?"[npc.Name] lets out a little giggle, and as you look down at [npc.her] naked groin, you see a large bump start to form beneath [npc.her] [npc.skin]."
 								+ " Before you have any time to change your mind, it quickly grows out into a fat demonic cock, and as you stare down at the little wriggling bumps that press out all along its shaft,"
@@ -367,74 +367,74 @@ public class GenericActions {
 				switch(ot) {
 					case ANUS:
 						if (Sex.getCharacterContactingSexArea(Sex.getActivePartner(), ot).contains(Main.game.getPlayer())) {
-							UtilText.nodeContentSB.append("</br>[npc.Name] lets out [npc.a_moan+] as you pull out of [npc.her] [npc.asshole+].");
+							UtilText.nodeContentSB.append("<br/>[npc.Name] lets out [npc.a_moan+] as you pull out of [npc.her] [npc.asshole+].");
 						}
 						if (Sex.getCharacterContactingSexArea(Main.game.getPlayer(), ot).contains(Main.game.getPlayer())) {
-							UtilText.nodeContentSB.append("</br>[pc.A_moan+] drifts out from between your [pc.lips+] as you stop stimulating your [pc.asshole+].");
+							UtilText.nodeContentSB.append("<br/>[pc.A_moan+] drifts out from between your [pc.lips+] as you stop stimulating your [pc.asshole+].");
 						}
 						break;
 					case ASS:
 						if (Sex.getCharacterContactingSexArea(Sex.getActivePartner(), ot).contains(Main.game.getPlayer())) {
-							UtilText.nodeContentSB.append("</br>[npc.Name] lets out [npc.a_moan+] as you stop using [npc.her] [npc.ass+].");
+							UtilText.nodeContentSB.append("<br/>[npc.Name] lets out [npc.a_moan+] as you stop using [npc.her] [npc.ass+].");
 						}
 						if (Sex.getCharacterContactingSexArea(Main.game.getPlayer(), ot).contains(Main.game.getPlayer())) {
-							UtilText.nodeContentSB.append("</br>[pc.A_moan+] drifts out from between your [pc.lips+] as you stop stimulating your [pc.ass+].");
+							UtilText.nodeContentSB.append("<br/>[pc.A_moan+] drifts out from between your [pc.lips+] as you stop stimulating your [pc.ass+].");
 						}
 						break;
 					case BREAST:
 						if (Sex.getCharacterContactingSexArea(Sex.getActivePartner(), ot).contains(Main.game.getPlayer())) {
-							UtilText.nodeContentSB.append("</br>[npc.Name] lets out [npc.a_moan+] as you stop playing with [npc.her] [npc.breasts+].");
+							UtilText.nodeContentSB.append("<br/>[npc.Name] lets out [npc.a_moan+] as you stop playing with [npc.her] [npc.breasts+].");
 						}
 						if (Sex.getCharacterContactingSexArea(Main.game.getPlayer(), ot).contains(Main.game.getPlayer())) {
-							UtilText.nodeContentSB.append("</br>[pc.A_moan+] drifts out from between your [pc.lips+] as you stop stimulating your [pc.breasts+].");
+							UtilText.nodeContentSB.append("<br/>[pc.A_moan+] drifts out from between your [pc.lips+] as you stop stimulating your [pc.breasts+].");
 						}
 						break;
 					case MOUTH:
 						if (Sex.getCharacterContactingSexArea(Sex.getActivePartner(), ot).contains(Main.game.getPlayer())) {
-							UtilText.nodeContentSB.append("</br>[npc.Name] lets out [npc.a_moan+] as you pull out of [npc.her] mouth.");
+							UtilText.nodeContentSB.append("<br/>[npc.Name] lets out [npc.a_moan+] as you pull out of [npc.her] mouth.");
 						}
 						if (Sex.getCharacterContactingSexArea(Main.game.getPlayer(), ot).contains(Main.game.getPlayer())) {
-							UtilText.nodeContentSB.append("</br>[pc.A_moan+] drifts out from between your [pc.lips+] as you pull out of your mouth.");
+							UtilText.nodeContentSB.append("<br/>[pc.A_moan+] drifts out from between your [pc.lips+] as you pull out of your mouth.");
 						}
 						break;
 					case NIPPLE:
 						if (Sex.getCharacterContactingSexArea(Sex.getActivePartner(), ot).contains(Main.game.getPlayer())) {
-							UtilText.nodeContentSB.append("</br>[npc.Name] lets out [npc.a_moan+] as you pull out of [npc.her] [npc.nipple+].");
+							UtilText.nodeContentSB.append("<br/>[npc.Name] lets out [npc.a_moan+] as you pull out of [npc.her] [npc.nipple+].");
 						}
 						if (Sex.getCharacterContactingSexArea(Main.game.getPlayer(), ot).contains(Main.game.getPlayer())) {
-							UtilText.nodeContentSB.append("</br>[pc.A_moan+] drifts out from between your [pc.lips+] as you stop stimulating your [pc.nipple+].");
+							UtilText.nodeContentSB.append("<br/>[pc.A_moan+] drifts out from between your [pc.lips+] as you stop stimulating your [pc.nipple+].");
 						}
 						break;
 					case URETHRA_PENIS:
 						if (Sex.getCharacterContactingSexArea(Sex.getActivePartner(), ot).contains(Main.game.getPlayer())) {
-							UtilText.nodeContentSB.append("</br>[npc.Name] lets out [npc.a_moan+] as you pull out of [npc.her] [npc.penisUrethra+].");
+							UtilText.nodeContentSB.append("<br/>[npc.Name] lets out [npc.a_moan+] as you pull out of [npc.her] [npc.penisUrethra+].");
 						}
 						if (Sex.getCharacterContactingSexArea(Main.game.getPlayer(), ot).contains(Main.game.getPlayer())) {
-							UtilText.nodeContentSB.append("</br>[pc.A_moan+] drifts out from between your [pc.lips+] as you stop stimulating your [pc.penisUrethra+].");
+							UtilText.nodeContentSB.append("<br/>[pc.A_moan+] drifts out from between your [pc.lips+] as you stop stimulating your [pc.penisUrethra+].");
 						}
 						break;
 					case URETHRA_VAGINA:
 						if (Sex.getCharacterContactingSexArea(Sex.getActivePartner(), ot).contains(Main.game.getPlayer())) {
-							UtilText.nodeContentSB.append("</br>[npc.Name] lets out [npc.a_moan+] as you pull out of [npc.her] [npc.vaginaUrethra+].");
+							UtilText.nodeContentSB.append("<br/>[npc.Name] lets out [npc.a_moan+] as you pull out of [npc.her] [npc.vaginaUrethra+].");
 						}
 						if (Sex.getCharacterContactingSexArea(Main.game.getPlayer(), ot).contains(Main.game.getPlayer())) {
-							UtilText.nodeContentSB.append("</br>[pc.A_moan+] drifts out from between your [pc.lips+] as you stop stimulating your [pc.vaginaUrethra+].");
+							UtilText.nodeContentSB.append("<br/>[pc.A_moan+] drifts out from between your [pc.lips+] as you stop stimulating your [pc.vaginaUrethra+].");
 						}
 						break;
 					case VAGINA:
 						if (Sex.getCharacterContactingSexArea(Sex.getActivePartner(), ot).contains(Main.game.getPlayer())) {
-							UtilText.nodeContentSB.append("</br>[npc.Name] lets out [npc.a_moan+] as you pull out of [npc.her] [npc.pussy+].");
+							UtilText.nodeContentSB.append("<br/>[npc.Name] lets out [npc.a_moan+] as you pull out of [npc.her] [npc.pussy+].");
 						}
 						if (Sex.getCharacterContactingSexArea(Main.game.getPlayer(), ot).contains(Main.game.getPlayer())) {
-							UtilText.nodeContentSB.append("</br>[pc.A_moan+] drifts out from between your [pc.lips+] as you stop stimulating your [pc.pussy+].");
+							UtilText.nodeContentSB.append("<br/>[pc.A_moan+] drifts out from between your [pc.lips+] as you stop stimulating your [pc.pussy+].");
 						}
 						break;
 					case THIGHS:
 						if (Sex.getCharacterContactingSexArea(Sex.getActivePartner(), ot).contains(Main.game.getPlayer())) {
-							UtilText.nodeContentSB.append("</br>[npc.Name] lets out [npc.a_moan+] as you pull out from between [npc.her] thighs.");
+							UtilText.nodeContentSB.append("<br/>[npc.Name] lets out [npc.a_moan+] as you pull out from between [npc.her] thighs.");
 						}
 						if (Sex.getCharacterContactingSexArea(Main.game.getPlayer(), ot).contains(Main.game.getPlayer())) {
-							UtilText.nodeContentSB.append("</br>[pc.A_moan+] drifts out from between your [pc.lips+] as you stop playing with your thighs.");
+							UtilText.nodeContentSB.append("<br/>[pc.A_moan+] drifts out from between your [pc.lips+] as you stop playing with your thighs.");
 						}
 						break;
 				}
@@ -493,7 +493,7 @@ public class GenericActions {
 			if (Sex.getCharacterContactingSexArea(Sex.getActivePartner(), SexAreaOrifice.ANUS)!=null) {
 				if(Sex.getCharacterContactingSexArea(Sex.getActivePartner(), SexAreaOrifice.ANUS).contains(Sex.getActivePartner())) {
 					if(UtilText.nodeContentSB.length()!=0)
-						UtilText.nodeContentSB.append("</br>");
+						UtilText.nodeContentSB.append("<br/>");
 					UtilText.nodeContentSB.append("As you put an end to [npc.name]'s self-stimulation of [npc.her] [npc.asshole], [npc.she] lets out a pathetic whine.");
 				}
 			}
@@ -501,7 +501,7 @@ public class GenericActions {
 			if (Sex.getCharacterContactingSexArea(Sex.getActivePartner(), SexAreaOrifice.NIPPLE)!=null) {
 				if(Sex.getCharacterContactingSexArea(Sex.getActivePartner(), SexAreaOrifice.NIPPLE).contains(Sex.getActivePartner())) {
 					if(UtilText.nodeContentSB.length()!=0)
-						UtilText.nodeContentSB.append("</br>");
+						UtilText.nodeContentSB.append("<br/>");
 					UtilText.nodeContentSB.append("[npc.Name] pouts at you as you force [npc.herHim] to stop stimulating [npc.her] [npc.nipples+].");
 				}
 			}
@@ -509,14 +509,14 @@ public class GenericActions {
 			if (Sex.getCharacterContactingSexArea(Sex.getActivePartner(), SexAreaOrifice.MOUTH)!=null) {
 				if(Sex.getCharacterContactingSexArea(Sex.getActivePartner(), SexAreaOrifice.MOUTH).contains(Sex.getActivePartner())) {
 					if(UtilText.nodeContentSB.length()!=0)
-						UtilText.nodeContentSB.append("</br>");
+						UtilText.nodeContentSB.append("<br/>");
 					UtilText.nodeContentSB.append("[npc.Name] lets out a disappointed [pc.moan] as you force [npc.herHim] to stop using [npc.her] mouth.");
 				}
 			}
 			
 			if(UtilText.nodeContentSB.length()!=0)
-				UtilText.nodeContentSB.append("</br></br>");
-			UtilText.nodeContentSB.append("[pc.speech(I don't want to see you trying to get yourself off, understood?)] you growl at [npc.name].</br></br>"
+				UtilText.nodeContentSB.append("<br/><br/>");
+			UtilText.nodeContentSB.append("[pc.speech(I don't want to see you trying to get yourself off, understood?)] you growl at [npc.name].<br/><br/>"
 					+ "<i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>[npc.Name] will no longer use any self-penetrative actions.</i>");
 			
 			return UtilText.nodeContentSB.toString();
@@ -559,7 +559,7 @@ public class GenericActions {
 
 		@Override
 		public String getDescription() {
-			return "[pc.speech(I want to see you trying to get yourself off!)] you growl at [npc.name].</br></br>"
+			return "[pc.speech(I want to see you trying to get yourself off!)] you growl at [npc.name].<br/><br/>"
 					+ "<i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>[npc.Name] is now able to use any self-penetrative actions.</i>";
 		}
 
@@ -597,7 +597,7 @@ public class GenericActions {
 
 		@Override
 		public String getDescription() {
-			return "[pc.speech(Don't you <i>dare</i> try and touch any of my clothes!)] you growl at [npc.name].</br></br>"
+			return "[pc.speech(Don't you <i>dare</i> try and touch any of my clothes!)] you growl at [npc.name].<br/><br/>"
 					+ "<i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>[npc.Name] will not attempt to remove or displace any of your clothes.</i>";
 		}
 
@@ -635,7 +635,7 @@ public class GenericActions {
 
 		@Override
 		public String getDescription() {
-			return "[pc.speech(How about you help me take off some of these clothes?)] you [pc.moan].</br></br>"
+			return "[pc.speech(How about you help me take off some of these clothes?)] you [pc.moan].<br/><br/>"
 					+ "<i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>[npc.Name] is now able to manage your clothing.</i>";
 		}
 
@@ -673,7 +673,7 @@ public class GenericActions {
 
 		@Override
 		public String getDescription() {
-			return "[pc.speech(Don't you <i>dare</i> try and touch your clothes!)] you growl at [npc.name].</br></br>"
+			return "[pc.speech(Don't you <i>dare</i> try and touch your clothes!)] you growl at [npc.name].<br/><br/>"
 					+ "<i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>[npc.Name] will not attempt to remove or displace any of [npc.her] clothes.</i>";
 		}
 
@@ -711,7 +711,7 @@ public class GenericActions {
 
 		@Override
 		public String getDescription() {
-			return "[pc.speech(How about you start taking off some of your clothes?)] you [pc.moan].</br></br>"
+			return "[pc.speech(How about you start taking off some of your clothes?)] you [pc.moan].<br/><br/>"
 					+ "<i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>[npc.Name] is now able to manage [npc.her] clothing.</i>";
 		}
 
@@ -762,7 +762,7 @@ public class GenericActions {
 			if (Sex.getCharacterContactingSexArea(Sex.getActivePartner(), SexAreaOrifice.ANUS)!=null) {
 				if(Sex.getCharacterContactingSexArea(Sex.getActivePartner(), SexAreaOrifice.ANUS).contains(Sex.getActivePartner())) {
 					if(UtilText.nodeContentSB.length()!=0)
-						UtilText.nodeContentSB.append("</br>");
+						UtilText.nodeContentSB.append("<br/>");
 					UtilText.nodeContentSB.append("As you put an end to [npc.name]'s self-stimulation of [npc.her] [npc.asshole], [npc.she] lets out a pathetic whine.");
 				}
 			}
@@ -770,7 +770,7 @@ public class GenericActions {
 			if (Sex.getCharacterContactingSexArea(Sex.getActivePartner(), SexAreaOrifice.NIPPLE)!=null) {
 				if(Sex.getCharacterContactingSexArea(Sex.getActivePartner(), SexAreaOrifice.NIPPLE).contains(Sex.getActivePartner())) {
 					if(UtilText.nodeContentSB.length()!=0)
-						UtilText.nodeContentSB.append("</br>");
+						UtilText.nodeContentSB.append("<br/>");
 					UtilText.nodeContentSB.append("[npc.Name] pouts at you as you force [npc.herHim] to stop stimulating [npc.her] [npc.nipples+].");
 				}
 			}
@@ -778,7 +778,7 @@ public class GenericActions {
 			if (Sex.getCharacterContactingSexArea(Sex.getActivePartner(), SexAreaOrifice.MOUTH)!=null) {
 				if(Sex.getCharacterContactingSexArea(Sex.getActivePartner(), SexAreaOrifice.MOUTH).contains(Sex.getActivePartner())) {
 					if(UtilText.nodeContentSB.length()!=0)
-						UtilText.nodeContentSB.append("</br>");
+						UtilText.nodeContentSB.append("<br/>");
 					UtilText.nodeContentSB.append("[npc.Name] lets out a disappointed [pc.moan] as you force [npc.herHim] to stop using [npc.her] mouth.");
 				}
 			}
@@ -1034,7 +1034,7 @@ public class GenericActions {
 			if (Sex.getCharacterContactingSexArea(Main.game.getPlayer(), SexAreaOrifice.ANUS)!=null) {
 				if(Sex.getCharacterContactingSexArea(Main.game.getPlayer(), SexAreaOrifice.ANUS).contains(Main.game.getPlayer())) {
 					if(UtilText.nodeContentSB.length()!=0)
-						UtilText.nodeContentSB.append("</br>");
+						UtilText.nodeContentSB.append("<br/>");
 					UtilText.nodeContentSB.append("As [npc.name] puts an end to your self-stimulation of your [pc.asshole], [npc.she] growls menacingly at you.");
 				}
 			}
@@ -1042,7 +1042,7 @@ public class GenericActions {
 			if (Sex.getCharacterContactingSexArea(Main.game.getPlayer(), SexAreaOrifice.NIPPLE)!=null) {
 				if(Sex.getCharacterContactingSexArea(Main.game.getPlayer(), SexAreaOrifice.NIPPLE).contains(Main.game.getPlayer())) {
 					if(UtilText.nodeContentSB.length()!=0)
-						UtilText.nodeContentSB.append("</br>");
+						UtilText.nodeContentSB.append("<br/>");
 					UtilText.nodeContentSB.append("[npc.Name] frowns at you as [npc.she] forces you to stop stimulating your [pc.nipples+].");
 				}
 			}
@@ -1050,7 +1050,7 @@ public class GenericActions {
 			if (Sex.getCharacterContactingSexArea(Main.game.getPlayer(), SexAreaOrifice.MOUTH)!=null) {
 				if(Sex.getCharacterContactingSexArea(Main.game.getPlayer(), SexAreaOrifice.MOUTH).contains(Main.game.getPlayer())) {
 					if(UtilText.nodeContentSB.length()!=0)
-						UtilText.nodeContentSB.append("</br>");
+						UtilText.nodeContentSB.append("<br/>");
 					UtilText.nodeContentSB.append("[npc.Name] makes a disapproving clicking noise with [npc.her] [npc.tongue] as [npc.she] forces you to stop using your mouth.");
 				}
 			}

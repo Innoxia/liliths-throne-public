@@ -384,7 +384,7 @@ public enum Sex {
 			sexSB.append(Sex.getSexManager().getPublicSexStartingDescription());
 		}
 
-		sexSB.append("<p style='text-align:center;'><b>Starting Position:</b> <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>"+sexManager.getPosition().getName()+"</b></br>"
+		sexSB.append("<p style='text-align:center;'><b>Starting Position:</b> <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>"+sexManager.getPosition().getName()+"</b><br/>"
 				+"<i><b>"+sexManager.getPosition().getDescription()+"</b></i></p>");
 		
 		// Starting exposed:
@@ -1258,7 +1258,7 @@ public enum Sex {
 				
 							SexActionInterface sexActionPartner = sexManager.getPartnerSexAction(sexActionPlayer);
 							
-							sexSB.append("</br><p>" + sexActionPartner.getDescription() + "</p>");
+							sexSB.append("<br/><p>" + sexActionPartner.getDescription() + "</p>");
 				
 							endString = sexActionPartner.baseEffects();
 							lastUsedPartnerAction = sexActionPartner;
@@ -2007,7 +2007,7 @@ public enum Sex {
 			SexPace finalPace = Sex.getSexPace(entry.getKey());
 			if(entry.getValue() != finalPace && !entry.getKey().isPlayer()) {
 				sexSB.append("<p style='text-align:center;'>"
-						+ "<b style='color:"+finalPace.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(finalPace.getName())+" Pace</b></br>");
+						+ "<b style='color:"+finalPace.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(finalPace.getName())+" Pace</b><br/>");
 				switch(finalPace) {
 					case DOM_GENTLE:
 						sexSB.append("[npc.Name] lets out a soft sigh as [npc.she] calms down a little...");
@@ -3241,7 +3241,7 @@ public enum Sex {
 		}
 		
 		sexSB.append(
-				"<p style='text-align:center;'><b>New position:</b> <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>"+Sex.sexManager.getPosition().getName()+"</b></br>"
+				"<p style='text-align:center;'><b>New position:</b> <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>"+Sex.sexManager.getPosition().getName()+"</b><br/>"
 				+"<i><b>"+Sex.sexManager.getPosition().getDescription()+"</b></i></p>");
 	}
 	
