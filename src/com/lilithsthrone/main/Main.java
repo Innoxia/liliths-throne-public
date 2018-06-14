@@ -259,6 +259,34 @@ public class Main extends Application {
 			+"<ul>Fixed Ralph's discount never being higher than 33%, even if the game was saying it was higher.</ul>"
 			+"<ul>Sending a slave to Kate is now disabled if you've never actually met Kate.</ul>"
 		+ "</list>"
+
+		+ "<br/>"
+
+		+ "<list>"
+			+ "<h6>v0.2.7.1</h6>"
+			+"<li>Contributors:</li>"
+			+"<ul>Fixed invalid HTML. (Itpatch)</ul>"
+			
+			+"<li>Other:</li>"
+			+"<ul>Added TF for 'horns per row', allowing you to have from one to four horns per row.</ul>"
+			
+			+"<li>Bugs:</li>"
+			+"<ul>Fixed bug where accessing inventory during sex, then pressing back, would lock up the game.</ul>"
+			+"<ul>Fixed bug where sometimes the game's text wouldn't be parsed. (Which was causing some sex scenes and other places to crash.)</ul>"
+			+"<ul>Fixed conditional parsing bug, which was causing some scenes to display 'Error in conditional parsing'.</ul>"
+			+"<ul>Fixed cum-related status effects being shown even if the character lacks a penis, or if you didn't know if they had a penis.</ul>"
+			+"<ul>Fixed bug that was causing Finch to sometimes not stock items.</ul>"
+			+"<ul>Fixed epic and legendary clothing spawning in alleyways.</ul>"
+			+"<ul>Fixed duplicates appearing in covering recolouring.</ul>"
+			+"<ul>Fixed elementals and other companions acting like slaves in Lilaya's library.</ul>"
+			+"<ul>Fixed incorrect virginity loss descriptions.</ul>"
+			+"<ul>Fixed karada blocking bras, which was causing any worn karada plus bra to be blocking one another.</ul>"
+			+"<ul>Fixed AI bug (that was affecting Roxy) where the NPC would continuously start and stop oral actions.</ul>"
+			+"<ul>You can now dye an item of clothing's pattern colour without having to change the main colour.</ul>"
+			+"<ul>Fixed demon hair-tipped tail randomising hair colour on each load.</ul>"
+			+"<ul>Fixed bug where older characters/saves would always load in with human milk/cum/girlcum.</ul>"
+			+"<ul>Fixed bug where testicles could not be set to internal.</ul>"
+		+ "</list>"
 		;
 	
 	public static String disclaimer = "<h6 style='text-align: center; color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>You must read and agree to the following in order to play this game!</h6>"
