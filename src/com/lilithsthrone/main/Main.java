@@ -64,7 +64,7 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
 
-	public static final String VERSION_NUMBER = "0.2.6.5",
+	public static final String VERSION_NUMBER = "0.2.7",
 			VERSION_DESCRIPTION = "Alpha";
 	
 	private final static boolean DEBUG = true;
@@ -80,16 +80,23 @@ public class Main extends Application {
 //		+ "<h6 style='text-align:center;'><b style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Early Alpha!</b></h6>"
 		
 		"<p>"
-			+ "Hello again everyone! :3"
+			+ "Hello again! :3"
 		+ "</p>"
 			
 		+ "<p>"
-			+ "Here's the progress update for 0.2.6.5. I've got the pregnancy roulette content finished, as well as getting bugs and pull requests sorted out."
-			+ " I'm now going to spend the rest of the time up to the full release of 0.2.7 working on the sex action content. ^^"
+			+ "For this version, I've got a lot of bugs and github pull requests sorted out, as well as adding in some other minor things here and there."
+			+ " I've also done a refactor of the game's sex action code, which will now enable me to write in the NPC-on-NPC actions."
+			+ " There are a lot of sex actions in the game's code that need to be updated to this new format, so while I'm working on updating those over the next few versions, I'll also add in checks for the things I mentioned in 0.2.7's goals"
+			+ " (such as size difference, orifice/penetration modifiers, horns, wings, etc.)."
 		+ "</p>"
 			
 		+ "<p>"
-			+ "The full, public release of 0.2.7 will be out on the night of Wednesday, June 13th. ^^"
+			+ "The next version (0.2.7.5 preview) should be out on Wednesday, June 20th, with the full, public release of 0.2.8 being out the following Wednesday, 27th."
+			+ " It will be focusing on adding Nightlife content, along with updating the sex actions."
+		+ "</p>"
+			
+		+ "<p>"
+			+ "(The Imp fortresses and imp gang attacks in Submission haven't been forgotten, but I wanted to have some large gangbang scenes with the imps, which requires the NPC-on-NPC actions to be finished first. ^^)"
 		+ "</p>"
 			
 		+ "<p>"
@@ -154,6 +161,103 @@ public class Main extends Application {
 			+"<ul>Fixed bug where wing slots were unable to get tattooed.</ul>"
 			+"<ul>Fixed NPCs in the pregnancy roulette game putting their tails into your vagina... (And then afterwards claiming 'There's no way you won't get pregnant from this!')</ul>"
 			+"<ul>Fixed game not keeping count of the times the player has had dominant or submissive sex.</ul>"
+		+ "</list>"
+
+		+ "</br>"
+
+		+ "<list>"
+			+ "<h6>v0.2.7</h6>"
+			+"<li>Engine:</li>"
+			+"<ul>Improved scripting support for parsing conditional statements.</ul>"
+			+"<ul>Added support for multiple penetrations in a single orifice.</ul>"
+			+"<ul>Added support for penetration + penetration or orifice + orifice sex actions. (It was limited to penetration + orifice before.)</ul>"
+			+"<ul>Added support for NPC-on-NPC sex actions. (I have a thousand actions to convert to this new format, which will be done over the course of the next few versions.)</ul>"
+			
+			+"<li>Gameplay:</li>"
+			+"<ul>Added cum storage/regeneration values (the same mechanics as milk). Added an 'expulsion' value to testicles (with associated TF modifier for potions), which determines how much of your stored cum is expelled upon orgasm. (This new mechanic can be toggled off in the content settings.)</ul>"
+			+"<ul>Not producing any cum upon orgasm (or by having a cum expulsion value of 0) will now apply the frustrated effect.</ul>"
+			
+			+"<li>Artwork:</li>"
+			+"<ul>Added ChattyNeko's Kate drawing.</ul>"
+			+"<ul>Added ChattyNeko's Lumi drawing.</ul>"
+			
+			+"<li>Contributors:</li>"
+			+"<ul>Fixed self breast milking always emptying breasts. (Pimvgd)</ul>"
+			+"<ul>Fixed bug in FluidStored constructor that was causing issues with addictive fluids. (Pimvgd)</ul>"
+			+"<ul>Fixed incorrect descriptions in mouth orifice status tooltip. (Pimvgd)</ul>"
+			+"<ul>Reduced UtilText.parse parsing time by two-thirds for large inputs. (Pimvgd)</ul>"
+			+"<ul>Fixed major issue with parsing. (Pimvgd)</ul>"
+			+"<ul>Optimised loading. As an example, this cut down the loading time of a large save file by 60%. (Pimvgd)</ul>"
+			+"<ul>Fixed bug in FluidRegeneration value. (Pimvgd)</ul>"
+			+"<ul>Added cum regeneration mechanics toggle. (Pimvgd)</ul>"
+			+"<ul>Cleaned BodyCoveringType via BodyCoveringTemplateFactory. (Pimvgd)</ul>"
+			+"<ul>Made more parsing performance improvements. (Pimvgd)</ul>"
+			+"<ul>Added 'hair type' to the slime TF menu. (HarelMym)</ul>"
+			+"<ul>Fixed ToolTipThread to not create a new thread with every display. (AlacoGit)</ul>"
+			+"<ul>Punctuation Fixes for the Gambling Den and fixed a parsing error. (WoefulWombat)</ul>"
+			+"<ul>Rearranged inventory slot layout (edited a little bit by Innoxia). (rfpnj)</ul>"
+			+"<ul>Added generic orgasm denial actions. (Master of Puppets)</ul>"
+			
+			+"<li>Clothing:</li>"
+			+"<ul><b>Added:</b> Butler set. (With boosted butler set effects if you chose the 'bulter' job at the start of the game.)</ul>"
+			+"<ul>Added: Butler's Jacket. (Over-torso slot, masculine, butler set.)</ul>"
+			+"<ul>Added: Butler's Waistcoat. (Under-torso slot, masculine, butler set.)</ul>"
+			+"<ul>Added: Butler's Trousers. (Leg slot, masculine, butler set.)</ul>"
+			+"<ul>Added: Butler's Gloves. (Hand slot, masculine, butler set.)</ul>"
+			+"<ul>Added: Butler's Shoes. (Feet slot, masculine, butler set.)</ul>"
+			
+			+"<li>Other:</li>"
+			+"<ul>Slightly improved map rendering when zoomed out.</ul>"
+			+"<ul>Allowed side panels to expand their width when the game window is enlarged.</ul>"
+			+"<ul>Added 'current litter size', and 'cum in pussy/ass' taken & received counters for tattoos.</ul>"
+			+"<ul>Slightly improved clothing mod documentation (in rental_mommy.svg), and added functionality to use preset lists for concealed slots.</ul>"
+			+"<ul>Improved the NPC stats panel (the information beneath their appearance description).</ul>"
+			+"<ul>Improved the contacts page in your phone.</ul>"
+			+"<ul>Fixed legs and arms always being described as 'slender'. The description is now drawn from your BodyShape (which is based on muscle and body size).</ul>"
+			+"<ul>Cum and other fluids are now absorbed into the body through orifices, so even if it's plugged, the amount of fluid inside someone's orifice will gradually diminish over time.</ul>"
+			+"<ul>The mother in pregnancy roulette now corectly takes a vixen's virility just before the game. (Epona gets you to take one too.)</ul>"
+			+"<ul>You can now collect income/pay debt from slavery in the room management screen.</ul>"
+			+"<ul>You can now upgrade a single slave room to a double without having to move the occupant and remove all upgrades first.</ul>"
+			+"<ul>Sexual orientation -50% lust damage now affects both damage dealt and received.</ul>"
+			+"<ul>Added two content options, 'Anal', and 'Futanari Testicles'. Both are enabled by default. Disabling anal will make all non-unique NPCs spawn in hating anal, while disabling futanari testicles will make all futas spawn in with internal balls.</ul>"
+			+"<ul>Added sclera recolouring to the slime TF menu.</ul>"
+			+"<ul>Added metallic colours for hair and fur dye.</ul>"
+			+"<ul>Improved the spell UI to give an indication as to which spells are 'forbidden'.</ul>"
+			+"<ul>Using a pregnancy tester now correctly reveals the father in the pregnancy stats page.</ul>"
+			+"<ul>Removed negative physique effects from having full breasts.</ul>"
+			+"<ul>Slightly increased size of inventory tooltips.</ul>"
+			+"<ul>Added penis colour for slimes.</ul>"
+			
+			+"<li>Bugs:</li>"
+			+"<ul>Typo and parsing fixes, including instances of your name being incorrectly parsed as 'you'.</ul>"
+			+"<ul>Fixed some inconsistencies in Epona's pregnancy roulette scenes.</ul>"
+			+"<ul>Fixed bug where enchanting an item of clothing would remove its pattern.</ul>"
+			+"<ul>Fixed clothing with negative effects not having a rarity of 'jinxed'.</ul>"
+			+"<ul>Fixed npc dildo reveal returning incorrect description.</ul>"
+			+"<ul>Dildos no longer generate precum.</ul>"
+			+"<ul>Fixed issue where clothing could accidentally get deleted when starting sex scenes with Zaranix and in Gambling Den's pregnancy roulette.</ul>"
+			+"<ul>Fixed breeders in pregnancy roulette sometimes starting the game under the effects of promiscuity pills.</ul>"
+			+"<ul>Fixed issue where Epona would seemingly forget who you are.</ul>"
+			+"<ul>Fixed bug with the 'risk of pregnancy' status effect not re-applying instantly if you weren't pregnant but still had cum in your vagina.</ul>"
+			+"<ul>Time now passes while in the Gambling Den (1 minute per tile).</ul>"
+			+"<ul>Fixed bug where the map in the library would sometimes not open.</ul>"
+			+"<ul>Fixed issue where NPCs would sometimes spawn wearing a dress + skirt.</ul>"
+			+"<ul>Fixed issue with modded clothing being tagged to be found in alleyways not actually being found in alleyways.</ul>"
+			+"<ul>Fixed issue with modded clothing marked for sale by Kate and Nyan not actually appearing in their inventories.</ul>"
+			+"<ul>Fixed slime eye recolouring applying to your entire body.</ul>"
+			+"<ul>Being bred in the pregnancy roulette will no longer consume a pregnancy tester from your inventory.</ul>"
+			+"<ul>Fixed Zaranix regaining his penile virginity after sex.</ul>"
+			+"<ul>Demon alleyway attackers will no longer have their virginities reset after sex.</ul>"
+			+"<ul>Fixed bug where slimes would always spawn in with a load of jewellery in their inventory.</ul>"
+			+"<ul>Fixed issue where Nyan's clothing might sometimes not load correctly.</ul>"
+			+"<ul>Fixed drinking milk giving the 'Cummy Meal' status effect.</ul>"
+			+"<ul>Fixed slimes drinking milk causing impregnation check to trigger.</ul>"
+			+"<ul>Fixed bug where even if your cum production was 0, you'd still sometimes dirty your underwear when orgasming.</ul>"
+			+"<ul>Fixed minor typo in inventory's 'Take (All)' tooltip.</ul>"
+			+"<ul>Fixed bug where the repeat action tab in sex could be used to perform actions that weren't meant to be available in the current position.</ul>"
+			+"<ul>Makeup, body hair, and pupil colour should now all save correctly.</ul>"
+			+"<ul>Fixed Ralph's discount never being higher than 33%, even if the game was saying it was higher.</ul>"
+			+"<ul>Sending a slave to Kate is now disabled if you've never actually met Kate.</ul>"
 		+ "</list>"
 		;
 	
@@ -244,6 +348,7 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("Jatch", "", 0, 0, 3, 0));
 		credits.add(new CreditsSlot("FossorTumulus", "", 0, 0, 3, 0));
 		credits.add(new CreditsSlot("DeadEyesSee", "", 0, 0, 3, 0));
+		credits.add(new CreditsSlot("Mora", "", 0, 0, 3, 0));
 		credits.add(new CreditsSlot("R.W", "", 0, 3, 3, 0));
 
 		credits.add(new CreditsSlot("Venomy", "", 0, 0, 0, 2));
@@ -264,9 +369,13 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("Suvarestin", "", 0, 0, 2, 0));
 		credits.add(new CreditsSlot("IreCobra", "", 0, 0, 2, 0));
 		credits.add(new CreditsSlot("Garkylal", "", 0, 0, 2, 0));
+		credits.add(new CreditsSlot("Apthydragon", "", 0, 0, 2, 0));
+		
 		
 		
 		credits.add(new CreditsSlot("xerton", "", 0, 0, 1, 0));
+		credits.add(new CreditsSlot("BlakLite", "", 0, 0, 1, 0));
+		
 		
 		
 		credits.add(new CreditsSlot("Adhana Konker", "", 0, 0, 3, 0));

@@ -56,6 +56,7 @@
 		Fixed ToolTipThread to not create a new thread with every display. (AlacoGit)
 		Punctuation Fixes for the Gambling Den and fixed a parsing error. (WoefulWombat)
 		Rearranged inventory slot layout (edited a little bit by Innoxia). (rfpnj)
+		Added generic orgasm denial actions. (Master of Puppets)
 	
 	Clothing:
 		<b>Added:</b> Butler set. (With boosted butler set effects if you chose the 'bulter' job at the start of the game.)
@@ -134,8 +135,6 @@
 	
 	
 	
-	
-	
 	[ ] Sort Colour lists
 	
 	[ ] Clothing for different slots (add plugs & ribbons)
@@ -148,11 +147,7 @@
 	
 	[ ] Submission Rat-morphs & Alligator-morphs - Just want to mug you
 	
-	[ ] Sex action orifice-on-orifice and start modding framework
-	
-	
-	
-	
+	[ ] Sex action modding
 	
 	
 	

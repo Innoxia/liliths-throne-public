@@ -2715,14 +2715,17 @@ public class GenericOrgasms {
 		}
 	};
 	
-	public static final SexAction PLAYER_PREPARE_DENY = new SexAction(
-			SexActionType.PLAYER_PREPARE_PARTNER_ORGASM,
+	public static final SexAction PLAYER_PREPARE_DENY = new SexAction( //TODO
+			SexActionType.PREPARE_FOR_PARTNER_ORGASM,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
 			SexParticipantType.MISC) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -2741,9 +2744,17 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			return UtilText.parse(Sex.getActivePartner(),
-					"Taking control of the situation, you hold [npc.name] quite still, only releasing [npc.herHim] once"
-							+ " [npc.she]'s lost a good portion of [npc.her] arousal.");
+			switch(Sex.getSexPace(Sex.getActivePartner())) {
+				case SUB_RESISTING:
+					return UtilText.returnStringAtRandom("[npc.Name] starts desperately whining and panting, before blurting out, [npc.speech(N-No! Y-You're going to make me cum!)]</br>"
+							+ "Upon hearing this, you quickly grab hold of [npc.her] [npc.arms], and, keeping [npc.herHim] held in place, prevent [npc.herHim] from stimulating [npc.herself]."
+							+ " [npc.Name] seems a little relieved that you're not going to force [npc.herHim] to orgasm, and,"
+								+ " ignoring [npc.her] continued pleas for you to leave [npc.herHim] alone, you wait until [npc.she]'s calmed down before finally loosening your grip.");
+				default:
+					return UtilText.returnStringAtRandom("[npc.Name] starts desperately panting and [npc.moaning], before blurting out, [npc.speech(Yes! I'm going to cum!)]</br>"
+							+ "Upon hearing this, you quickly grab hold of [npc.her] [npc.arms], and, keeping [npc.herHim] held in place, prevent [npc.herHim] from stimulating [npc.herself]."
+							+ " Ignoring [npc.her] protests and cries for you to let [npc.herHim] orgasm, you continue holding [npc.her] quite still, only loosening your grip once [npc.she]'s calmed down.");
+			}
 		}
 		
 		@Override
@@ -3736,14 +3747,17 @@ public class GenericOrgasms {
 		}
 	};
 	
-	public static final SexAction PARTNER_GENERIC_ORGASM_DENIED = new SexAction(
-			SexActionType.PARTNER_ORGASM_NO_AROUSAL_RESET,
+	public static final SexAction PARTNER_GENERIC_ORGASM_DENIED = new SexAction( //TODO
+			SexActionType.ORGASM_NO_AROUSAL_RESET,
 			ArousalIncrease.NEGATIVE_MAJOR,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
 			SexParticipantType.MISC) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -3767,8 +3781,12 @@ public class GenericOrgasms {
 		
 		@Override
 		public String getDescription() {
-			return UtilText.parse(Sex.getActivePartner(),
-					"[npc.speech(Noooo! I was so close!)] [npc.name] wails in dismay.");
+			switch(Sex.getSexPace(Sex.getActivePartner())) {
+				case SUB_RESISTING:
+					return UtilText.returnStringAtRandom("[npc.speech(You've had your fun! Now leave me alone!)] [npc.name] screams as you release [npc.herHim]. [npc.speech(D-Don't make me go through that again!)]");
+				default:
+					return UtilText.returnStringAtRandom("[npc.speech(No! I was so close!)] [npc.name] wails in dismay as you release [npc.herHim]. [npc.speech(Let me cum next time!)]");
+			}
 		}
 		
 		@Override
