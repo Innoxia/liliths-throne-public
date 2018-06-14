@@ -2715,6 +2715,43 @@ public class GenericOrgasms {
 		}
 	};
 	
+	public static final SexAction PLAYER_PREPARE_DENY = new SexAction(
+			SexActionType.PLAYER_PREPARE_PARTNER_ORGASM,
+			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.TWO_LOW,
+			CorruptionLevel.ZERO_PURE,
+			null,
+			null,
+			SexParticipantType.MISC) {
+		
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return Sex.isDom(Main.game.getPlayer());
+		}
+		
+		@Override
+		public String getActionTitle() {
+			return "Deny";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "You can feel that [npc.name] is fast approaching [npc.her] orgasm. Don't let [npc.herHim] have it.";
+		}
+
+		@Override
+		public String getDescription() {
+			return UtilText.parse(Sex.getActivePartner(),
+					"Taking control of the situation, you hold [npc.name] quite still, only releasing [npc.herHim] once"
+							+ " [npc.she]'s lost a good portion of [npc.her] arousal.");
+		}
+		
+		@Override
+		public void applyEffects() {
+			SexFlags.playerDeniedPartner = true;
+		}
+	};
+	
 	// PARTNER
 	
 	public static final SexAction PARTNER_PREPARE = new SexAction(
@@ -3696,6 +3733,48 @@ public class GenericOrgasms {
 						CoverableArea.BACK);
 			}
 			return null; 
+		}
+	};
+	
+	public static final SexAction PARTNER_GENERIC_ORGASM_DENIED = new SexAction(
+			SexActionType.PARTNER_ORGASM_NO_AROUSAL_RESET,
+			ArousalIncrease.NEGATIVE_MAJOR,
+			ArousalIncrease.TWO_LOW,
+			CorruptionLevel.ZERO_PURE,
+			null,
+			null,
+			SexParticipantType.MISC) {
+		
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return SexFlags.playerDeniedPartner;
+		}
+		
+		@Override
+		public SexActionPriority getPriority() {
+			return SexActionPriority.UNIQUE_MAX;
+		}
+		
+		@Override
+		public String getActionTitle() {
+			return "Denied!";
+		}
+		
+		@Override
+		public String getActionDescription() {
+			return "You were denied at the last moment!";
+		}
+		
+		@Override
+		public String getDescription() {
+			return UtilText.parse(Sex.getActivePartner(),
+					"[npc.speech(Noooo! I was so close!)] [npc.name] wails in dismay.");
+		}
+		
+		@Override
+		public void applyEffects() {
+			SexFlags.playerDeniedPartner = false;
+			SexFlags.playerPreparedForOrgasm = false;
 		}
 	};
 

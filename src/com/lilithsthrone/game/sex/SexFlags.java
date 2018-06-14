@@ -22,6 +22,7 @@ public class SexFlags implements Serializable {
 	mutualOrgasmsAllowed,
 	playerPreparedForOrgasm,
 	playerGrewDemonicCock,
+	playerDeniedPartner,
 	
 	// Position requests:
 	requestedCowgirl,
@@ -72,6 +73,7 @@ public class SexFlags implements Serializable {
 		playerPreparedForOrgasm = false;
 		
 		playerGrewDemonicCock = false;
+		playerDeniedPartner = false;
 		
 		resetRequests();
 		
