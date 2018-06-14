@@ -6149,44 +6149,25 @@ public class InventoryDialogue {
 	
 	private static void transferItems(GameCharacter from, GameCharacter to, AbstractItem item, int count) {
 		if (!to.isInventoryFull() || to.hasItem(item)) {
-			
-			List<AbstractItem> items = from.getAllItemsInInventory().stream()
-				.filter(item::equals)
-				.collect(Collectors.toList());
-			
-			for(int i = 0 ; i<count; i++) {
-				to.addItem(items.get(i), false, to.isPlayer());
-				from.removeItem(items.get(i));
-			}
+
+			to.bulkAddItem(item, count, false, to.isPlayer());
+			from.bulkRemoveItem(item, count);
 		}
 		resetPostAction();
 	}
 	
 	private static void dropItems(GameCharacter from, AbstractItem item, int count) {
 		if (!Main.game.getPlayerCell().getInventory().isInventoryFull() || Main.game.getPlayerCell().getInventory().hasItem(item)) {
-			
-			List<AbstractItem> items = from.getAllItemsInInventory().stream()
-				.filter(item::equals)
-				.collect(Collectors.toList());
-			
-			for(int i = 0 ; i<count; i++) {
-				Main.game.getPlayerCell().getInventory().addItem(items.get(i));
-				from.removeItem(items.get(i));
-			}
+
+			Main.game.getPlayerCell().getInventory().bulkAddItem(item, count);
+			from.bulkRemoveItem(item, count);
 		}
 		resetPostAction();
 	}
 	
 	private static void pickUpItems(GameCharacter to, AbstractItem item, int count) {
 		if (!Main.game.getPlayerCell().getInventory().isInventoryFull() || Main.game.getPlayerCell().getInventory().hasItem(item)) {
-			
-			List<AbstractItem> items = Main.game.getPlayerCell().getInventory().getAllItemsInInventory().stream()
-				.filter(item::equals)
-				.collect(Collectors.toList());
-			
-			for(int i = 0 ; i<count; i++) {
-				to.addItem(items.get(i), true, to.isPlayer());
-			}
+			to.bulkAddItem(item, count, true, to.isPlayer());
 		}
 		resetPostAction();
 	}
@@ -6204,7 +6185,7 @@ public class InventoryDialogue {
 				List<AbstractItem> items = from.getAllItemsInInventory().stream()
 					.filter(item::equals)
 					.collect(Collectors.toList());
-				
+
 				for(int i = 0 ; i<count; i++) {
 					if(from.isPlayer()) {
 						Main.game.getPlayer().getBuybackStack().push(new ShopTransaction(item, itemPrice));
@@ -6216,7 +6197,7 @@ public class InventoryDialogue {
 					from.removeItem(items.get(i));
 				}
 			}
-			
+
 			if(to.isPlayer()) {
 				((NPC) from).handleSellingEffects(item, count, itemPrice);
 			}
