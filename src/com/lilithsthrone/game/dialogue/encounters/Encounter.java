@@ -28,6 +28,7 @@ import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.npcDialogue.SlaveDialogue;
 import com.lilithsthrone.game.inventory.ItemTag;
+import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
@@ -239,9 +240,11 @@ public enum Encounter {
 				} else {
 					List<AbstractClothingType> randomClothingList = ClothingType.getAllClothing();
 					randomClothingList.removeIf((clothing) ->
-							!clothing.getItemTags().contains(ItemTag.SOLD_BY_KATE)
+							(!clothing.getItemTags().contains(ItemTag.SOLD_BY_KATE)
 							&& !clothing.getItemTags().contains(ItemTag.SOLD_BY_NYAN)
-							&& !clothing.getItemTags().contains(ItemTag.DOMINION_ALLEYWAY_SPAWN));
+							&& !clothing.getItemTags().contains(ItemTag.DOMINION_ALLEYWAY_SPAWN))
+							|| clothing.getRarity()==Rarity.EPIC
+							|| clothing.getRarity()==Rarity.LEGENDARY);
 					randomClothing = AbstractClothingType.generateClothing(randomClothingList.get(Util.random.nextInt(randomClothingList.size())));
 					Main.game.getPlayerCell().getInventory().addClothing(randomClothing);
 				}

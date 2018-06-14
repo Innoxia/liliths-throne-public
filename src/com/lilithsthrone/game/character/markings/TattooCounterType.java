@@ -5,7 +5,7 @@ import com.lilithsthrone.game.sex.SexAreaOrifice;
 
 /**
  * @since 0.2.6
- * @version 0.2.6
+ * @version 0.2.7
  * @author Innoxia
  */
 public enum TattooCounterType {
@@ -51,6 +51,13 @@ public enum TattooCounterType {
 			return bearer.getTotalCumCountInOrifice(SexAreaOrifice.ANUS, true, false);
 		}
 	},
+
+	CUM_GIVEN_ORAL("oral loads given", "Keeps a count of how many times the bearer has cummed down someone's throat.") {
+		@Override
+		public int getCount(GameCharacter bearer) {
+			return bearer.getTotalCumCountInOrifice(SexAreaOrifice.MOUTH, true, false);
+		}
+	},
 	
 	CUM_TAKEN("total creampies received", "Keeps a count of how many times the bearer has taken a load of cum in their orifices.") {
 		@Override
@@ -70,6 +77,13 @@ public enum TattooCounterType {
 		@Override
 		public int getCount(GameCharacter bearer) {
 			return bearer.getTotalCumCountInOrifice(SexAreaOrifice.ANUS, false, true);
+		}
+	},
+
+	CUM_TAKEN_ORAL("loads swallowed", "Keeps a count of how many times the bearer has swallowed a load of cum.") {
+		@Override
+		public int getCount(GameCharacter bearer) {
+			return bearer.getTotalCumCountInOrifice(SexAreaOrifice.MOUTH, false, true);
 		}
 	},
 

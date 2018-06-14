@@ -99,17 +99,19 @@ public class Library {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
+			List<NPC> charactersPresent = Main.game.getNonCompanionCharactersPresent();
+			
 			if (index==0) {
 				return null;
 			 
 			} else if (index == 1) {
 				return new Response("Browse the Shelves", "Read one of the many books available in the library.", BROWSE_BOOKS);
 
-			} else if(index-2<Main.game.getCharactersPresent().size()) {
-				return new Response(UtilText.parse(Main.game.getCharactersPresent().get(index-2), "[npc.Name]"), UtilText.parse(Main.game.getCharactersPresent().get(index-2), "Interact with [npc.name]."), SlaveDialogue.SLAVE_START) {
+			} else if(index-2<charactersPresent.size()) {
+				return new Response(UtilText.parse(charactersPresent.get(index-2), "[npc.Name]"), UtilText.parse(charactersPresent.get(index-2), "Interact with [npc.name]."), SlaveDialogue.SLAVE_START) {
 					@Override
 					public void effects() {
-						Main.game.setActiveNPC(Main.game.getCharactersPresent().get(index-2));
+						Main.game.setActiveNPC(charactersPresent.get(index-2));
 					}
 				};
 					

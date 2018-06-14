@@ -3998,7 +3998,7 @@ public class CharacterModificationUtils {
 				contentSB.append("<div class='container-full-width' style='position:relative; text-align:center;'>");
 					contentSB.append("<p style='width:100%; text-align:center;'>Counter Type</p>");
 					for(TattooCounterType counterType : TattooCounterType.values()) {
-						contentSB.append("<div style='width:23%; margin:1%; padding:0; display:inline-block;'>"
+						contentSB.append("<div style='width:31%; margin:1%; padding:0; display:inline-block;'>"
 											+ "<div class='normal-button"+(tattoo.getCounter().getType()==counterType?" selected":"")+"' id='TATTOO_COUNTER_TYPE_"+counterType.toString()+"'"
 													+ " style='width:100%; margin:0; color:"+(tattoo.getCounter().getType()==counterType?Colour.GENERIC_GOOD:Colour.TEXT_HALF_GREY).toWebHexString()+";'>"
 												+Util.capitaliseSentence(counterType.getName())+"</div>"
@@ -4008,7 +4008,7 @@ public class CharacterModificationUtils {
 				contentSB.append("<div class='container-full-width' style='position:relative; text-align:center;'>");
 					contentSB.append("<p style='width:100%; text-align:center;'>Counter Style</p>");
 					for(TattooCountType countType : TattooCountType.values()) {
-						contentSB.append("<div style='width:23%; margin:1%; padding:0; display:inline-block;'>"
+						contentSB.append("<div style='width:31%; margin:1%; padding:0; display:inline-block;'>"
 											+ "<div class='normal-button"+(tattoo.getCounter().getCountType()==countType?" selected":"")+"' id='TATTOO_COUNT_TYPE_"+countType.toString()+"'"
 													+ " style='width:100%; margin:0; color:"+(tattoo.getCounter().getCountType()==countType?Colour.GENERIC_GOOD:Colour.TEXT_HALF_GREY).toWebHexString()+";'>"
 												+Util.capitaliseSentence(countType.getName())+"</div>"

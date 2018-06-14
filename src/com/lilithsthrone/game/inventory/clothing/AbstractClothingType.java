@@ -243,6 +243,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	}
 	
 	public AbstractClothingType(File clothingXMLFile) {
+		this.itemTags = new ArrayList<>();
 
 		if (clothingXMLFile.exists()) {
 			try {

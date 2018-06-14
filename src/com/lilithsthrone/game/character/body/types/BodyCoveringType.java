@@ -884,8 +884,12 @@ public enum BodyCoveringType {
 //			this.dyeColoursPrimary.remove(c);
 		}
 		for(Colour c : this.dyeColoursPrimary) {
-			allColours.add(c);
-			allPrimaryColours.add(c);
+			if(!allColours.contains(c)) {
+				allColours.add(c);
+			}
+			if(!allPrimaryColours.contains(c)) {
+				allPrimaryColours.add(c);
+			}
 		}
 		for(Colour c : this.naturalColoursSecondary) {
 			allColours.add(c);
@@ -893,8 +897,12 @@ public enum BodyCoveringType {
 //			this.dyeColoursSecondary.remove(c);
 		}
 		for(Colour c : this.dyeColoursSecondary) {
-			allColours.add(c);
-			allSecondaryColours.add(c);
+			if(!allColours.contains(c)) {
+				allColours.add(c);
+			}
+			if(!allSecondaryColours.contains(c)) {
+				allSecondaryColours.add(c);
+			}
 		}
 	}
 

@@ -4094,7 +4094,11 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return Main.getProperties().hasValue(PropertyValue.cumRegenerationContent) && target.getPenisRawCumStorageValue()>0 && target.getPenisRawStoredCumValue()!=target.getPenisRawCumStorageValue();
+			return Main.getProperties().hasValue(PropertyValue.cumRegenerationContent)
+					&& target.getPenisRawCumStorageValue()>0
+					&& target.getPenisRawStoredCumValue()!=target.getPenisRawCumStorageValue()
+					&& target.hasPenisIgnoreDildo()
+					&& (target.isPlayer() || target.getPlayerKnowsAreas().contains(CoverableArea.PENIS));
 		}
 		
 		@Override
@@ -4128,7 +4132,11 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return Main.getProperties().hasValue(PropertyValue.cumRegenerationContent) && target.getPenisRawCumStorageValue()>0 && target.getPenisRawStoredCumValue()==target.getPenisRawCumStorageValue();
+			return Main.getProperties().hasValue(PropertyValue.cumRegenerationContent)
+					&& target.getPenisRawCumStorageValue()>0
+					&& target.getPenisRawStoredCumValue()==target.getPenisRawCumStorageValue()
+					&& target.hasPenisIgnoreDildo()
+					&& (target.isPlayer() || target.getPlayerKnowsAreas().contains(CoverableArea.PENIS));
 		}
 		
 		@Override

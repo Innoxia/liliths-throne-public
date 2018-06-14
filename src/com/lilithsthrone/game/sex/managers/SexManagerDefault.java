@@ -560,11 +560,9 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 					// Don't stop kissing or fetishised oral actions:
 					if(!(action.getPerformingCharacterPenetrations().contains(SexAreaPenetration.TONGUE) && action.getPerformingCharacterOrifices().contains(SexAreaOrifice.MOUTH))
 							&& !(Sex.getActivePartner().hasFetish(Fetish.FETISH_ORAL_RECEIVING)
-									&& ((!action.getParticipantType().isUsingSelfOrificeType() && action.getPerformingCharacterOrifices().contains(SexAreaOrifice.MOUTH)
-											|| (!action.getParticipantType().isUsingSelfPenetrationType() && action.getPerformingCharacterPenetrations().contains(SexAreaPenetration.TONGUE)))))
+									&& (action.getTargetedCharacterOrifices().contains(SexAreaOrifice.MOUTH) || action.getTargetedCharacterPenetrations().contains(SexAreaPenetration.TONGUE)))
 							&& !(Sex.getActivePartner().hasFetish(Fetish.FETISH_ORAL_GIVING)
-									&& ((action.getParticipantType().isUsingSelfOrificeType() && action.getPerformingCharacterOrifices().contains(SexAreaOrifice.MOUTH)
-											|| (action.getParticipantType().isUsingSelfPenetrationType() && action.getPerformingCharacterPenetrations().contains(SexAreaPenetration.TONGUE)))))) {
+									&& (action.getPerformingCharacterOrifices().contains(SexAreaOrifice.MOUTH) || action.getPerformingCharacterPenetrations().contains(SexAreaPenetration.TONGUE)))) {
 						returnableActions.add(action);
 					}
 				}

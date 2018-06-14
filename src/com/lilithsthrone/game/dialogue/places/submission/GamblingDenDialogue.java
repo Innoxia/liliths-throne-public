@@ -443,7 +443,7 @@ public class GamblingDenDialogue {
 							return new Response("Get fix ("+UtilText.formatAsMoneyUncoloured(1000, "span")+")", "You don't have the one thousand flames that Roxy is asking for!", null);
 							
 						} else {
-							return new ResponseSex("Get fix ("+UtilText.formatAsMoney(1000, "span")+")", "Desperate to get another fix of her addictive girl cum, you agree to let Roxy sit on your face for an hour.",
+							return new ResponseSex("Get fix ("+UtilText.formatAsMoney(1000, "span")+")", "Desperate to get another fix of her addictive girl cum, you agree to <b>pay Roxy 1000 flames</b> to get her to sit on your face for an hour.",
 									Util.newArrayListOfValues(Fetish.FETISH_ORAL_GIVING), null, CorruptionLevel.TWO_HORNY, null, null, null,
 									true, false,
 									new SMRoxyPussyLicker(

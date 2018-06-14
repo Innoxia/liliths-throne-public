@@ -110,7 +110,7 @@ public class Finch extends NPC {
 		}
 		
 		for(AbstractClothingType clothing : ClothingType.getAllClothing()) {
-			if(clothing.getItemTags().contains(ItemTag.SOLD_BY_FINCH)) {
+			if(clothing!=null && clothing.getItemTags().contains(ItemTag.SOLD_BY_FINCH)) {
 				for(int i = 0; i<Util.random.nextInt(3)+1; i++) {
 					this.addClothing(AbstractClothingType.generateClothing(clothing), false);
 				}

@@ -744,9 +744,7 @@ public class UtilText {
 	
 	static{
 
-		
 		// Parsing:
-		
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues("money"),
@@ -4765,14 +4763,14 @@ public class UtilText {
 			parseCapitalise = true;
 		}
 		
-		ParserTarget parserTarget = findParserTargetWithTag(target);
+		ParserTarget parserTarget = findParserTargetWithTag(target.replaceAll("\u200b", ""));
 		if (parserTarget == null) {
-			return "INVALID_TARGET_NAME";
+			return "INVALID_TARGET_NAME("+target+")";
 		}
 		character = parserTarget.getCharacter(target.toLowerCase());
 		
 		// Commands with arguments:
-		ParserCommand cmd = findCommandWithTag(command);
+		ParserCommand cmd = findCommandWithTag(command.replaceAll("\u200b", ""));
 		if (cmd == null) {
 			return "<i style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>command_unknown</i>";
 		}
@@ -4853,11 +4851,15 @@ public class UtilText {
 			initScriptEngine();
 		}
 		
-		for(int i = 1; i<=specialNPC.size(); i++) {
-			if(i==1) {
-				engine.put("npc", specialNPC.get(i));
+		if(!specialNPC.isEmpty()) {
+			for(int i = 1; i<=specialNPC.size(); i++) {
+				if(i==1) {
+					engine.put("npc", specialNPC.get(i));
+				}
+				engine.put("npc"+i, specialNPC.get(i));
 			}
-			engine.put("npc"+i, specialNPC.get(i));
+		} else {
+			engine.put("npc", ParserTarget.NPC.getCharacter("npc"));
 		}
 		
 		try {

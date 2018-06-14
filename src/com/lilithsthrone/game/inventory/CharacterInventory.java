@@ -49,7 +49,7 @@ import java.util.Set;
 
 /**
  * Inventory for a Character. Tracks weapons equipped, clothes worn & inventory space.</br>
- * Only the very bravest dare venture past line 717.
+ * Only the very bravest dare venture past line 695.
  * 
  * @since 0.1.0
  * @version 0.2.7
