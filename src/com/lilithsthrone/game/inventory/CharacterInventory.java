@@ -441,10 +441,12 @@ public class CharacterInventory implements Serializable, XMLSaving {
 		if (canAddItem(item)) {
 
 			itemsInInventory.add(item);
-            if (!itemDuplicates.containsKey(item))
+            if (!itemDuplicates.containsKey(item)){
                 itemDuplicates.put(item, count);
-            else
-                itemDuplicates.put(item, itemDuplicates.get(item)+count);
+            }
+            else {
+                itemDuplicates.put(item, itemDuplicates.get(item) + count);
+            }
 
 			return true;
 		}
