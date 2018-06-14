@@ -36,9 +36,32 @@ public class Horn implements BodyPartInterface, Serializable {
 	@Override
 	public String getDeterminer(GameCharacter gc) {
 		if(gc.getHornRows()==1) {
-			return "a pair of";
+			if(hornsPerRow==1) {
+				return "a solitary";
+				
+			} else if(hornsPerRow==2) {
+				return "a pair of";
+				
+			} else if(hornsPerRow==2) {
+				return "a trio of";
+				
+			} else {
+				return "a quartet of";
+			}
+			
 		} else {
-			return Util.intToString(gc.getHornRows())+" pairs of";
+			if(hornsPerRow==1) {
+				return Util.intToString(gc.getHornRows())+" centrally-positioned";
+				
+			} else if(hornsPerRow==2) {
+				return Util.intToString(gc.getHornRows())+" pairs of";
+				
+			} else if(hornsPerRow==2) {
+				return Util.intToString(gc.getHornRows())+" trios of";
+				
+			} else {
+				return Util.intToString(gc.getHornRows())+" quartets of";
+			}
 		}
 	}
 
@@ -299,26 +322,17 @@ public class Horn implements BodyPartInterface, Serializable {
 			return UtilText.parse(owner,
 					"<p>"
 						+ "A strange bubbling sensation starts to take root at the base of [npc.namePos] [npc.horns]."
-						+ " Before [npc.she] can react, some of them suddenly [style.boldShrink(crumble away)] and disappear back down into [npc.her] [npc.faceSkin].<br/>"
-						+ "After a few moments, [npc.sheIs] left with [style.boldTfGeneric("+Util.intToString(hornsPerRow)+" "+(hornsPerRow==1?"[npc.horn]":"[npc.horns]")+" in each row)]!"
+						+ " Before [npc.she] can react, they start to [style.boldShrink(crumble away and reshape)] themselves.<br/>"
+						+ "After a few moments, [npc.sheIs] left with [style.boldTfGeneric("+Util.intToString(hornsPerRow)+" "+(hornsPerRow==1?"[npc.horn]":"[npc.horns]")+(rows==1?"":" in each row")+")]!"
 					+ "</p>");
 			
 		} else {
-			if(owner.isPlayer()) {
-				return
-						"<p>"
-							+ "A tingling feeling spreads over your [pc.horns], before moving down and concentrating into your forehead."
-							+ " You can't help but let out a little cry as you feel new [pc.horns] [style.boldGrow(pushing up)] and growing out of your [pc.faceSkin].<br/>"
-							+ "After a few moments, you're left with [style.boldTfGeneric("+getDeterminer(owner)+" [pc.horns])]."
-						+ "</p>";
-			} else {
-				return UtilText.parse(owner,
-						"<p>"
-							+ "A tingling feeling spreads over [npc.name]'s [npc.horns], before moving down and concentrating into [npc.her] forehead."
-							+ " [npc.She] can't help but let out a little cry as [npc.she] feels new [npc.horns] [style.boldGrow(pushing up)] and growing out of [npc.her] [npc.faceSkin].<br/>"
-							+ "After a few moments, [npc.she]'s left with [style.boldTfGeneric("+getDeterminer(owner)+" [npc.horns])]."
-						+ "</p>");
-			}
+			return UtilText.parse(owner,
+					"<p>"
+						+ "A strange bubbling sensation starts to rise up in [npc.namePos] forehead."
+						+ " Before [npc.she] can react, new [npc.horns] suddenly [style.boldGrow(push up)] and grow out of [npc.her] [npc.faceSkin].<br/>"
+						+ "After a few moments, [npc.sheIs] left with [style.boldTfGeneric("+Util.intToString(hornsPerRow)+" "+(hornsPerRow==1?"[npc.horn]":"[npc.horns]")+(rows==1?"":" in each row")+")]!"
+					+ "</p>");
 		}
 	}
 	

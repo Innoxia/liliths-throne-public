@@ -1619,6 +1619,7 @@ public abstract class AbstractItemEffectType {
 				}
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_SIZE, TFPotency.getAllPotencies());
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_COUNT, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
+				secondaryModPotencyMap.put(TFModifier.TF_MOD_COUNT_SECONDARY, TFPotency.getAllPotencies());
 				break;
 				
 			case TF_LEGS:
@@ -2695,6 +2696,22 @@ public abstract class AbstractItemEffectType {
 									} else {
 										return target.incrementHornRows(singleBoost);
 									} } };
+						}
+						
+					case TF_MOD_COUNT_SECONDARY:
+						switch(potency) {
+							case MAJOR_DRAIN:
+								return new RacialEffectUtil("Huge decrease in horns per row.", smallChangeMajorDrain, " horns per row") { @Override public String applyEffect() { return target.incrementHornsPerRow(smallChangeMajorDrain); } };
+							case DRAIN:
+								return new RacialEffectUtil("Decrease in horns per row.", smallChangeDrain, " horns per row") { @Override public String applyEffect() { return target.incrementHornsPerRow(smallChangeDrain); } };
+							case MINOR_DRAIN:
+								return new RacialEffectUtil("Small decrease in horns per row.", smallChangeMinorDrain, " horns per row") { @Override public String applyEffect() { return target.incrementHornsPerRow(smallChangeMinorDrain); } };
+							case MINOR_BOOST: default:
+								return new RacialEffectUtil("Small increase in horns per row.", smallChangeMinorBoost, " horns per row") { @Override public String applyEffect() { return target.incrementHornsPerRow(smallChangeMinorBoost); } };
+							case BOOST:
+								return new RacialEffectUtil("Increase in horns per row.", smallChangeBoost, " horns per row") { @Override public String applyEffect() { return target.incrementHornsPerRow(smallChangeBoost); } };
+							case MAJOR_BOOST:
+								return new RacialEffectUtil("Huge increase in horns per row.", smallChangeMajorBoost, " horns per row") { @Override public String applyEffect() { return target.incrementHornsPerRow(smallChangeMajorBoost); } };
 						}
 						
 					case REMOVAL:

@@ -563,6 +563,7 @@ public class Body implements Serializable, XMLSaving {
 			CharacterUtils.addAttribute(doc, bodyHorn, "type", this.horn.type.toString());
 			CharacterUtils.addAttribute(doc, bodyHorn, "length", String.valueOf(this.horn.length));
 			CharacterUtils.addAttribute(doc, bodyHorn, "rows", String.valueOf(this.horn.rows));
+			CharacterUtils.addAttribute(doc, bodyHorn, "hornsPerRow", String.valueOf(this.horn.hornsPerRow));
 		
 		// Leg:
 		Element bodyLeg = doc.createElement("leg");
@@ -1018,13 +1019,22 @@ public class Body implements Serializable, XMLSaving {
 			} catch(IllegalArgumentException e) {
 			}
 		}
+		int hornsPerRow = 2;
+		if(!horn.getAttribute("hornsPerRow").isEmpty()) {
+			try {
+				hornsPerRow = Integer.valueOf(horn.getAttribute("hornsPerRow"));
+			} catch(IllegalArgumentException e) {
+			}
+		}
 		try {
 			importedHorn = new Horn(HornType.valueOf(hornType), length);
 			importedHorn.rows = rows;
+			importedHorn.hornsPerRow = hornsPerRow;
 			CharacterUtils.appendToImportLog(log, "<br/><br/>Body: Horn: "
 					+ "<br/>type: "+importedHorn.getType()
 					+ "<br/>length: "+length
-					+ "<br/>rows: "+importedHorn.getHornRows());
+					+ "<br/>rows: "+importedHorn.getHornRows()
+					+ "<br/>horns per row: "+importedHorn.getHornsPerRow());
 			
 		} catch(IllegalArgumentException e) {
 			if(horn.getAttribute("type").startsWith("DEMON")) {
@@ -1736,6 +1746,12 @@ public class Body implements Serializable, XMLSaving {
 		}
 		
 		// Horns:
+		String hornDescription = "horns protrude from the upper sides";
+		String antlerDescription = "multi-branched antlers protrude from the upper sides";
+		if(owner.getHornRows()==1 && owner.getHornsPerRow()==1) {
+			hornDescription = "horn protrudes from the middle";
+			antlerDescription = "multi-branched antler protrudes from the middle";
+		}
 		
 		switch (horn.getType()) {
 			case NONE:
@@ -1743,44 +1759,44 @@ public class Body implements Serializable, XMLSaving {
 				break;
 			case CURLED:
 				if (owner.isPlayer()) {
-					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" "+horn.getHornLength().getDescriptor()+", [pc.hornColour(true)], circular-curling horns protrude from the upper sides of your forehead.");
+					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" "+horn.getHornLength().getDescriptor()+", [pc.hornColour(true)], circular-curling "+hornDescription+" of your forehead.");
 				} else {
-					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" "+horn.getHornLength().getDescriptor()+", [npc.hornColour(true)], circular-curling horns protrude from the upper sides of [npc.her] forehead.");
+					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" "+horn.getHornLength().getDescriptor()+", [npc.hornColour(true)], circular-curling "+hornDescription+" of [npc.her] forehead.");
 				}
 				break;
 			case CURVED: case BOVINE_CURVED:
 				if (owner.isPlayer()) {
-					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" "+horn.getHornLength().getDescriptor()+", [pc.hornColour(true)], curved horns protrude from the upper sides of your forehead.");
+					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" "+horn.getHornLength().getDescriptor()+", [pc.hornColour(true)], curved "+hornDescription+" of your forehead.");
 				} else {
-					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" "+horn.getHornLength().getDescriptor()+", [npc.hornColour(true)], curved horns protrude from the upper sides of [npc.her] forehead.");
+					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" "+horn.getHornLength().getDescriptor()+", [npc.hornColour(true)], curved "+hornDescription+" of [npc.her] forehead.");
 				}
 				break;
 			case REINDEER_RACK:
 				if (owner.isPlayer()) {
-					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" "+horn.getHornLength().getDescriptor()+", [pc.hornColour(true)], multi-branched antlers protrude from the upper sides of your forehead.");
+					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" "+horn.getHornLength().getDescriptor()+", [pc.hornColour(true)], "+antlerDescription+" of your forehead.");
 				} else {
-					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" "+horn.getHornLength().getDescriptor()+", [npc.hornColour(true)], multi-branched antlers protrude from the upper sides of [npc.her] forehead.");
+					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" "+horn.getHornLength().getDescriptor()+", [npc.hornColour(true)], "+antlerDescription+" of [npc.her] forehead.");
 				}
 				break;
 			case SPIRAL:
 				if (owner.isPlayer()) {
-					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" "+horn.getHornLength().getDescriptor()+", [pc.hornColour(true)], spiralling horns protrude from the upper sides of your forehead.");
+					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" "+horn.getHornLength().getDescriptor()+", [pc.hornColour(true)], spiralling "+hornDescription+" of your forehead.");
 				} else {
-					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" "+horn.getHornLength().getDescriptor()+", [npc.hornColour(true)], spiralling horns protrude from the upper sides of [npc.her] forehead.");
+					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" "+horn.getHornLength().getDescriptor()+", [npc.hornColour(true)], spiralling "+hornDescription+" of [npc.her] forehead.");
 				}
 				break;
 			case STRAIGHT: case BOVINE_STRAIGHT:
 				if (owner.isPlayer()) {
-					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" "+horn.getHornLength().getDescriptor()+", [pc.hornColour(true)], straight horns protrude from the upper sides of your forehead.");
+					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" "+horn.getHornLength().getDescriptor()+", [pc.hornColour(true)], straight "+hornDescription+" of your forehead.");
 				} else {
-					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" "+horn.getHornLength().getDescriptor()+", [npc.hornColour(true)], straight horns protrude from the upper sides of [npc.her] forehead.");
+					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" "+horn.getHornLength().getDescriptor()+", [npc.hornColour(true)], straight "+hornDescription+" of [npc.her] forehead.");
 				}
 				break;
 			case SWEPT_BACK:
 				if (owner.isPlayer()) {
-					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" "+horn.getHornLength().getDescriptor()+", [pc.hornColour(true)], swept-back horns protrude from the upper sides of your forehead.");
+					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" "+horn.getHornLength().getDescriptor()+", [pc.hornColour(true)], swept-back "+hornDescription+" of your forehead.");
 				} else {
-					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" "+horn.getHornLength().getDescriptor()+", [npc.hornColour(true)], swept-back horns protrude from the upper sides of [npc.her] forehead.");
+					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" "+horn.getHornLength().getDescriptor()+", [npc.hornColour(true)], swept-back "+hornDescription+" of [npc.her] forehead.");
 				}
 				break;
 		}
