@@ -1473,9 +1473,8 @@ public class Lab {
 						return new Response("Extract (1)", "Extract one of your "+TFEssence.ARCANE.getName()+" essences.", ESSENCE_EXTRACTION_BOTTLED) {
 							@Override
 							public void effects() {
-								Main.game.getPlayer().addItem(AbstractItemType.generateItem(TFEssence.essenceToItem(TFEssence.ARCANE)), false, false);
+								Main.game.getPlayer().bulkAddItem(AbstractItemType.generateItem(TFEssence.essenceToItem(TFEssence.ARCANE)),1, false, false);
 								int count = Main.game.getPlayer().getItemCount(AbstractItemType.generateItem(TFEssence.essenceToItem(TFEssence.ARCANE)));
-								
 								Main.game.getTextEndStringBuilder().append(
 										"<p style='text-align:center;'>"
 											+ "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Item added to inventory:</b> <b>" + (TFEssence.essenceToItem(TFEssence.ARCANE)).getDisplayName(true) + "</b>"
@@ -1501,9 +1500,7 @@ public class Lab {
 						return new Response("Extract (5)", "Extract five of your "+TFEssence.ARCANE.getName()+" essences.", ESSENCE_EXTRACTION_BOTTLED) {
 							@Override
 							public void effects() {
-								for(int i =0; i<5; i++) {
-									Main.game.getPlayer().addItem(AbstractItemType.generateItem(TFEssence.essenceToItem(TFEssence.ARCANE)), false, false);
-								}
+								Main.game.getPlayer().bulkAddItem(AbstractItemType.generateItem(TFEssence.essenceToItem(TFEssence.ARCANE)), 5,false, false);
 								int count = Main.game.getPlayer().getItemCount(AbstractItemType.generateItem(TFEssence.essenceToItem(TFEssence.ARCANE)));
 								Main.game.getTextEndStringBuilder().append(
 										"<p>"
@@ -1532,9 +1529,9 @@ public class Lab {
 						return new Response("Extract (25)", "Extract twenty-five of your "+TFEssence.ARCANE.getName()+" essences.", ESSENCE_EXTRACTION_BOTTLED) {
 							@Override
 							public void effects() {
-								for(int i =0; i<25; i++) {
-									Main.game.getPlayer().addItem(AbstractItemType.generateItem(TFEssence.essenceToItem(TFEssence.ARCANE)), false, false);
-								}
+
+								Main.game.getPlayer().bulkAddItem(AbstractItemType.generateItem(TFEssence.essenceToItem(TFEssence.ARCANE)), 25,false, false);
+
 								int count = Main.game.getPlayer().getItemCount(AbstractItemType.generateItem(TFEssence.essenceToItem(TFEssence.ARCANE)));
 								Main.game.getTextEndStringBuilder().append(
 										"<p>"

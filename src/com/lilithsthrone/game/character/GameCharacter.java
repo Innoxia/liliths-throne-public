@@ -10930,8 +10930,12 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		return inventory.getItem(index);
 	}
 
-	public String addItem(AbstractItem item, boolean removingFromFloor) {
+	public String addItem(AbstractItem item, boolean removingFromFloor){
 		return addItem(item, removingFromFloor, false);
+	}
+
+	public String bulkAddItem(AbstractItem item, int count, boolean removingFromFloor) {
+		return bulkAddItem(item, count, removingFromFloor, false);
 	}
 	/**
 	 * Add an item to this character's inventory. If the inventory is full, the item is dropped in the character's current location.
@@ -10966,11 +10970,17 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		}
 	}
 
+	/**
+	 * Add an item to this character's inventory. If the inventory is full, the item is dropped in the character's current location.
+	 *
+	 * @param removingFromFloor true if this item should be removed from the floor of the area the character is currently in on a successful pick up.
+	 * @return Description of what happened.
+	 */
 	public String bulkAddItem(AbstractItem item, int count, boolean removingFromFloor, boolean appendTextToEventLog) {
 		if (removingFromFloor) {
-			if (inventory.addItem(item)) {
+			if (inventory.bulkAddItem(item, count)) {
 				updateInventoryListeners();
-				Main.game.getWorlds().get(getWorldLocation()).getCell(location).getInventory().removeItem(item);
+				Main.game.getWorlds().get(getWorldLocation()).getCell(location).getInventory().bulkRemoveItem(item, count);
 				if(appendTextToEventLog) {
 					Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Item Added", item.getName()), false);
 				}
@@ -10996,6 +11006,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	public void removeItem(AbstractItem item) {
 		inventory.removeItem(item);
 	}
+
+	public void bulkRemoveItem(AbstractItem item, int count){ inventory.bulkRemoveItem(item, count); }
 	
 	public boolean hasItem(AbstractItem item) {
 		return inventory.hasItem(item);
@@ -11053,11 +11065,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		} else {
 			return item.getUseDescription(this, target) + item.applyEffect(this, target);
 		}
-		
 	}
 
-	
-	// -------------------- Weapons -------------------- //
+// -------------------- Weapons -------------------- //
 	
 	/**
 	 * <b>DO NOT MODIFY!</b>
