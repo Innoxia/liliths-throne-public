@@ -404,8 +404,8 @@ public class GamblingDenDialogue {
 								Util.newArrayListOfValues(Fetish.FETISH_ORAL_GIVING), null, CorruptionLevel.TWO_HORNY, null, null, null,
 								true, false,
 								new SMRoxyPussyLicker(
-										Util.newHashMapOfValues(new Value<>(Main.game.getRoxy(), SexPositionSlot.SITTING_ON_FACE_ROXY)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.LICKING_PUSSY_ROXY))),
+										Util.newHashMapOfValues(new Value<>(Main.game.getRoxy(), SexPositionSlot.FACE_SITTING_ON_FACE)),
+										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.FACE_SITTING_ON_BACK))),
 								AFTER_ROXY_SEX,
 								UtilText.parseFromXMLFile("places/submission/gamblingDen", "TRADER_REPLY_YES")){
 							@Override
@@ -447,8 +447,8 @@ public class GamblingDenDialogue {
 									Util.newArrayListOfValues(Fetish.FETISH_ORAL_GIVING), null, CorruptionLevel.TWO_HORNY, null, null, null,
 									true, false,
 									new SMRoxyPussyLicker(
-											Util.newHashMapOfValues(new Value<>(Main.game.getRoxy(), SexPositionSlot.SITTING_ON_FACE_ROXY)),
-											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.LICKING_PUSSY_ROXY))),
+											Util.newHashMapOfValues(new Value<>(Main.game.getRoxy(), SexPositionSlot.FACE_SITTING_ON_FACE)),
+											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.FACE_SITTING_ON_BACK))),
 									AFTER_ROXY_SEX_ADDICT,
 									UtilText.parseFromXMLFile("places/submission/gamblingDen", "ROXY_SEX_START_ADDICT")){
 								@Override
@@ -465,8 +465,8 @@ public class GamblingDenDialogue {
 									Util.newArrayListOfValues(Fetish.FETISH_ORAL_GIVING), null, CorruptionLevel.TWO_HORNY, null, null, null,
 									true, false,
 									new SMRoxyPussyLicker(
-											Util.newHashMapOfValues(new Value<>(Main.game.getRoxy(), SexPositionSlot.SITTING_ON_FACE_ROXY)),
-											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.LICKING_PUSSY_ROXY))),
+											Util.newHashMapOfValues(new Value<>(Main.game.getRoxy(), SexPositionSlot.FACE_SITTING_ON_FACE)),
+											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.FACE_SITTING_ON_BACK))),
 									AFTER_ROXY_SEX,
 									UtilText.parseFromXMLFile("places/submission/gamblingDen", "ROXY_SEX_START")){
 								@Override

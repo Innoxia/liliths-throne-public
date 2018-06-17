@@ -10,13 +10,13 @@ import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 
 /**
  * @since 0.1.95
- * @version 0.1.97
+ * @version 0.2.8
  * @author Innoxia
  */
 public class SMZaranixCockSucking extends SexManagerDefault {
 
 	public SMZaranixCockSucking(Map<GameCharacter, SexPositionSlot> dominants, Map<GameCharacter, SexPositionSlot> submissives) {
-		super(SexPositionType.KNEELING_ORAL_ZARANIX,
+		super(SexPositionType.CHAIR_SEX_ORAL,
 				dominants,
 				submissives);
 	}

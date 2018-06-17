@@ -457,8 +457,8 @@ public class Zaranix extends NPC {
 				return new ResponseSex("Used", "Zaranix forces you to orally service him.",
 						false, false,
 						new SMZaranixCockSucking(
-								Util.newHashMapOfValues(new Value<>(Main.game.getZaranix(), SexPositionSlot.KNEELING_RECEIVING_ORAL_ZARANIX)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.KNEELING_PERFORMING_ORAL_ZARANIX))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getZaranix(), SexPositionSlot.KNEELING_RECEIVING_ORAL)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.KNEELING_PERFORMING_ORAL))),
 						AFTER_SEX_DEFEAT,
 						"<p>"
 							+ "Grabbing you by the [pc.arm], Zaranix roughly drags you across the lab."
@@ -509,8 +509,8 @@ public class Zaranix extends NPC {
 				return new ResponseSex("Need... Cock...", "Zaranix's potion has had quite a strong effect... You really need to suck his cock, then maybe you'll be able to think clearly again?",
 						true, false,
 						new SMZaranixCockSucking(
-								Util.newHashMapOfValues(new Value<>(Main.game.getZaranix(), SexPositionSlot.KNEELING_RECEIVING_ORAL_ZARANIX)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.KNEELING_PERFORMING_ORAL_ZARANIX))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getZaranix(), SexPositionSlot.KNEELING_RECEIVING_ORAL)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.KNEELING_PERFORMING_ORAL))),
 						AFTER_SEX_DEFEAT,
 						"<p>"
 							+ "Zaranix steps back and sits down in one of the lab's many chairs."
@@ -571,7 +571,7 @@ public class Zaranix extends NPC {
 	// Sex:
 
 	public SexType getForeplayPreference() {
-		if(Sex.getSexPositionSlot(Main.game.getZaranix())==SexPositionSlot.KNEELING_RECEIVING_ORAL_ZARANIX && this.hasPenis()) {
+		if(Sex.getSexPositionSlot(Main.game.getZaranix())==SexPositionSlot.KNEELING_RECEIVING_ORAL && this.hasPenis()) {
 			return new SexType(SexParticipantType.PITCHER, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH);
 		}
 		
@@ -579,7 +579,7 @@ public class Zaranix extends NPC {
 	}
 	
 	public SexType getMainSexPreference() {
-		if(Sex.getSexPositionSlot(Main.game.getZaranix())==SexPositionSlot.KNEELING_RECEIVING_ORAL_ZARANIX && this.hasPenis()) {
+		if(Sex.getSexPositionSlot(Main.game.getZaranix())==SexPositionSlot.KNEELING_RECEIVING_ORAL && this.hasPenis()) {
 			return new SexType(SexParticipantType.PITCHER, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH);
 		}
 

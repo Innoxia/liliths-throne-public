@@ -93,10 +93,10 @@ public class GenericOrgasms {
 				orgasmText = "Realising that [npc1.sheIs] about to reach [npc1.her] climax, [npc1.name] [npc1.verb(step)] forwards, letting out [npc1.a_moan+] as [npc1.she] "
 				+ "[npc1.verb(press)] [npc2.name] back against the wall.";
 				break;
-			case CHAIR_BOTTOM: case CHAIR_BOTTOM_LILAYA:
+			case CHAIR_BOTTOM:
 				orgasmText = "Wrapping [npc1.her] [npc1.arms+] around [npc2.name], [npc1.name] [npc1.verb(let)] out [npc1.a_moan+] as [npc1.she] [npc1.verb(pull)] [npc2.herHim] down into [npc.her] lap.";
 				break;
-			case CHAIR_TOP: case CHAIR_TOP_LILAYA:
+			case CHAIR_TOP:
 				orgasmText = "With [npc1.a_moan+], [npc1.name] [npc1.verb(sink)] down into [npc2.namePos] lap.";
 				break;
 			case COWGIRL_ON_BACK:
@@ -105,7 +105,7 @@ public class GenericOrgasms {
 			case COWGIRL_RIDING:
 				orgasmText = "[npc1.Name] [npc1.verb(look)] down at [npc2.name] and [npc1.verb(let)] out [npc1.a_moan+] as [npc1.she] [npc1.verb(prepare)] to climax.";
 				break;
-			case DOGGY_BEHIND: case DOGGY_BEHIND_AMBER: case PET_MOUNTING_HUMPING:
+			case DOGGY_BEHIND: case PET_MOUNTING_HUMPING:
 				orgasmText = "[npc1.Name] [npc1.verb(take)] hold of [npc2.namePos] waist, pulling [npc2.herHim] back into [npc1.her] groin and letting out [npc1.a_moan+].";
 				break;
 			case DOGGY_BEHIND_ORAL:
@@ -117,7 +117,7 @@ public class GenericOrgasms {
 			case DOGGY_INFRONT_ANAL:
 				orgasmText = "[npc1.Name] [npc1.verb(shuffle)] backwards, pressing [npc1.her] [npc1.ass+] up against [npc2.namePos] [npc2.face+] and letting out [npc1.a_moan+] as [npc1.she] [npc1.verb(prepare)] to reach [npc1.her] climax.";
 				break;
-			case DOGGY_ON_ALL_FOURS: case DOGGY_ON_ALL_FOURS_SECOND: case DOGGY_ON_ALL_FOURS_AMBER: case PET_MOUNTING_ON_ALL_FOURS: case PET_ORAL_ON_ALL_FOURS:
+			case DOGGY_ON_ALL_FOURS: case DOGGY_ON_ALL_FOURS_SECOND: case PET_MOUNTING_ON_ALL_FOURS: case PET_ORAL_ON_ALL_FOURS:
 				orgasmText = "[npc1.Name] [npc1.verb(brace)] [npc1.herself] on all fours, letting out [npc1.a_moan+] as [npc1.she] [npc1.verb(prepare)] to reach [npc1.her] climax.";
 				break;
 			case FACE_TO_WALL_AGAINST_WALL: case FACE_TO_WALL_AGAINST_WALL_SHOWER_PIX:
@@ -129,10 +129,10 @@ public class GenericOrgasms {
 			case HAND_SEX_DOM_ROSE: case HAND_SEX_SUB_ROSE:
 				orgasmText = "[npc1.Name] [npc1.verb(look)] into [npc2.namePos] [npc2.eyes+] and [npc1.verb(let)] out [npc1.a_moan+] as [npc1.she] [npc1.verb(reach)] [npc1.her] climax.";
 				break;
-			case KNEELING_PERFORMING_ORAL: case KNEELING_PERFORMING_ORAL_CULTIST: case KNEELING_PERFORMING_ORAL_RALPH: case KNEELING_PERFORMING_ORAL_ZARANIX:
+			case KNEELING_PERFORMING_ORAL: case KNEELING_PERFORMING_ORAL_CULTIST: case KNEELING_PERFORMING_ORAL_RALPH: case CHAIR_KNEELING:
 				orgasmText = "[npc1.Name] [npc1.verb(reach)] up and [npc1.verb(place)] a [npc1.hand] on one of [npc2.namePos] [npc2.legs], before letting out [npc1.a_moan+] as [npc1.she] [npc1.verb(prepare)] to reach [npc1.her] climax.";
 				break;
-			case KNEELING_RECEIVING_ORAL: case KNEELING_RECEIVING_ORAL_CULTIST: case KNEELING_RECEIVING_ORAL_RALPH: case KNEELING_RECEIVING_ORAL_ZARANIX:
+			case KNEELING_RECEIVING_ORAL: case KNEELING_RECEIVING_ORAL_CULTIST: case KNEELING_RECEIVING_ORAL_RALPH: case CHAIR_ORAL_SITTING:
 				orgasmText = "[npc1.Name] [npc1.verb(reach)] down and [npc1.verb(place)] a [npc1.hand] on [npc2.namePos] head, before letting out [npc1.a_moan+] as [npc1.she] [npc1.verb(reach)] [npc1.her] climax.";
 				break;
 			case MISSIONARY_ALTAR_KNEELING_BETWEEN_LEGS:
@@ -199,10 +199,10 @@ public class GenericOrgasms {
 			case MILKING_STALL_RECEIVING_ORAL:
 				orgasmText = "[npc1.Name] [npc1.verb(reach)] down and [npc1.verb(place)] a [npc1.hand] on [npc2.namePos] head, letting out [npc1.a_moan+] as [npc1.she] [npc1.verb(prepare)] to reach [npc1.her] climax.";
 				break;
-			case LICKING_PUSSY_ROXY:
-				orgasmText = "You let out a muffled [pc.moan] into Roxy's [roxy.pussy+] as you prepare to reach your climax.";
+			case FACE_SITTING_ON_BACK:
+				orgasmText = "[npc1.Name] [npc1.verb(let)] out a muffled [npc.moan] into [npc2.namePos] [npc2.pussy+] as [npc1.she] [npc1.verb(prepare)] to reach [npc1.her] climax.";
 				break;
-			case SITTING_ON_FACE_ROXY:
+			case FACE_SITTING_ON_FACE:
 				orgasmText = "[npc.Name] grinds [npc.her] [npc.pussy+] down against your face, letting out [npc.a_moan+] as [npc.she] prepares to reach [npc.her] climax.";
 				break;
 			case BREEDING_STALL_BACK:
@@ -1596,7 +1596,26 @@ public class GenericOrgasms {
 						}
 					}
 					break;
-				case TENTACLE:
+				case TENTACLE: //TODO
+					break;
+				case CLIT:
+					if(characterOrgasming.isPlayer()) {
+						if(characterPenetrating.isPlayer()) {
+							genericOrgasmSB.append(" You carry on clit-fucking yourself through your orgasm, letting out a series of high-pitched moans as your vaginal muscles grip and squeeze around your [npc1.clit+].");
+						} else {
+							genericOrgasmSB.append(" [npc2.Name] carries on clit-fucking your [npc1.pussy+] through your orgasm, and you let out a series of high-pitched moans as your vaginal muscles grip and squeeze around [npc2.her] [npc2.clit+].");
+						}
+					} else {
+						if(characterPenetrating.isPlayer()) {
+							genericOrgasmSB.append(" You carry on clit-fucking [npc1.name] through [npc1.her] orgasm,"
+									+ " causing [npc1.herHim] to let out a series of high-pitched moans as [npc1.her] vaginal muscles grip and squeeze around your [npc2.clit+].");
+						} else {
+							genericOrgasmSB.append(" [npc2.Name] carries on clit-fucking [npc1.name]'s [npc1.pussy+] through [npc1.her] orgasm,"
+											+ " causing [npc1.herHim] to let out a series of high-pitched moans as [npc1.her] vaginal muscles grip and squeeze around [npc2.her] [npc2.clit+].");
+						}
+					}
+					break;
+				case TOES: //TODO
 					break;
 			}
 			

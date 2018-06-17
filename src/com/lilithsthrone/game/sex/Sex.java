@@ -49,6 +49,7 @@ import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionCategory;
 import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
 import com.lilithsthrone.game.sex.sexActions.SexActionLimitation;
+import com.lilithsthrone.game.sex.sexActions.SexActionPresets;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.game.sex.sexActions.SexActionUtility;
 import com.lilithsthrone.main.Main;
@@ -3272,30 +3273,43 @@ public enum Sex {
 		for(GameCharacter character : Sex.allParticipants) {
 			for(GameCharacter target : Sex.allParticipants) {
 				if(!character.equals(target) || Sex.isMasturbation()) {
-					SexActionPresetPair pair = Sex.sexManager.getPosition().getSlotTargets().get(Sex.getSexPositionSlot(character)).get(Sex.getSexPositionSlot(target));
-					if(character.isPlayer()) {
-						addActionsFromContainingClasses(character, target, pair.getPlayerSexActionContainingClasses());
-					} else {
-						addActionsFromContainingClasses(character, target, pair.getPartnerSexActionContainingClasses());
+					SexActionInteractions interactions = Sex.sexManager.getPosition().getSlotTargets().get(Sex.getSexPositionSlot(character)).get(Sex.getSexPositionSlot(target));
+					
+					if(Sex.sexManager.getPosition().isAddStandardActions()) {
+						addActionsFromContainingClasses(character, target, interactions, SexActionPresets.allCommonActions);
+						
 					}
+					addActionsFromContainingClasses(character, target, interactions, Sex.sexManager.getPosition().getSpecialClasses());
+					
+					if(character instanceof NPC) {
+						for(Class<?> sexClass : ((NPC)character).getUniqueSexClasses()) {
+							Sex.addSexActionClass(character, target, interactions, sexClass);
+						}
+					}
+					
+//					if(character.isPlayer()) {
+//						addActionsFromContainingClasses(character, target, pair.getPlayerSexActionContainingClasses());
+//					} else {
+//						addActionsFromContainingClasses(character, target, pair.getPartnerSexActionContainingClasses());
+//					}
 				}
 			}
 		}
 
-		for(GameCharacter character : Sex.allParticipants) {
-			if(character instanceof NPC) {
-				for(Class<?> sexClass : ((NPC)character).getUniqueSexClasses()) {
-					Sex.addSexActionClass(character, Sex.getTargetedPartner(character), sexClass);
-				}
-			}
-		}
+//		for(GameCharacter character : Sex.allParticipants) {
+//			if(character instanceof NPC) {
+//				for(Class<?> sexClass : ((NPC)character).getUniqueSexClasses()) {
+//					Sex.addSexActionClass(character, Sex.getTargetedPartner(character), sexClass);
+//				}
+//			}
+//		}
 	}
 	
-	private static void addActionsFromContainingClasses(GameCharacter character, GameCharacter target, List<Class<?>> sexActionContainingClasses) {
+	private static void addActionsFromContainingClasses(GameCharacter character, GameCharacter target, SexActionInteractions interactions, List<Class<?>> sexActionContainingClasses) {
 		try {
 			if (!sexActionContainingClasses.isEmpty()) {
 				for(Class<?> container : sexActionContainingClasses) {
-					addSexActionClass(character, target, container);
+					addSexActionClass(character, target, interactions, container);
 				}
 			}
 			
@@ -3304,7 +3318,7 @@ public enum Sex {
 		}
 	}
 	
-	private static void addSexActionClass(GameCharacter character, GameCharacter target, Class<?> classToAddSexActionsFrom) {
+	private static void addSexActionClass(GameCharacter character, GameCharacter target, SexActionInteractions interactions, Class<?> classToAddSexActionsFrom) {
 		try {
 			if(classToAddSexActionsFrom!=null) {
 				Field[] fields = classToAddSexActionsFrom.getFields();
@@ -3312,32 +3326,81 @@ public enum Sex {
 				for(Field f : fields){
 					if (SexAction.class.isAssignableFrom(f.getType())) {
 						SexAction action = ((SexAction) f.get(null));
-						if (action.getActionType().isOrgasmOption()) {
-							if(character.isPlayer()) {
-								if(action.getLimitation()==SexActionLimitation.PLAYER_ONLY || action.getLimitation()==null) {
-									orgasmActionsAvailable.get(character).get(target).add(action);
-								} else if(action.getLimitation()==SexActionLimitation.NPC_ONLY || action.getLimitation()==null) {
-									orgasmActionsAvailable.get(target).get(character).add(action);
-								}
-							} else {
-								if(action.getLimitation()==SexActionLimitation.NPC_ONLY || action.getLimitation()==null) {
-									orgasmActionsAvailable.get(character).get(target).add(action);
-								} else if(action.getLimitation()==SexActionLimitation.PLAYER_ONLY || action.getLimitation()==null) {
-									orgasmActionsAvailable.get(Main.game.getPlayer()).get(character).add(action);
+						
+						if((action.getLimitation()==SexActionLimitation.PLAYER_ONLY && character.isPlayer())
+								|| (action.getLimitation()==SexActionLimitation.NPC_ONLY && !character.isPlayer())
+								|| action.getLimitation()==null) {
+						
+							boolean addedForCharacter = SexActionPresets.miscActions.contains(classToAddSexActionsFrom)
+									|| SexActionPresets.selfActions.contains(classToAddSexActionsFrom)
+									|| action.getParticipantType()==SexParticipantType.SELF;
+							boolean addedForTarget = SexActionPresets.miscActions.contains(classToAddSexActionsFrom)
+									|| SexActionPresets.selfActions.contains(classToAddSexActionsFrom)
+									|| action.getParticipantType()==SexParticipantType.SELF;
+							
+							if(!addedForCharacter) {
+								outer:
+								for(SexAreaInterface area : action.getSexAreaInteractions().keySet()) {
+									for(SexAreaInterface area2 : interactions.getInteractions().keySet()) {
+										if(area == area2) {
+											for(SexAreaInterface areaInner : action.getSexAreaInteractions().values()) {
+												for(SexAreaInterface areaInner2 : interactions.getInteractions().get(area2)) {
+													if(areaInner == areaInner2) {
+														addedForCharacter = true;
+														break outer;
+													}
+												}
+											}
+										}
+									}
 								}
 							}
-						} else {
-							if(character.isPlayer()) {
-								if(action.getLimitation()==SexActionLimitation.PLAYER_ONLY || action.getLimitation()==null) {
-									actionsAvailable.get(character).get(target).add(action);
-								} else if(action.getLimitation()==SexActionLimitation.NPC_ONLY || action.getLimitation()==null) {
-									actionsAvailable.get(target).get(character).add(action);
+	
+							if(!addedForTarget) { //TODO
+								outer:
+								for(SexAreaInterface area : action.getSexAreaInteractions().keySet()) {
+									for(Entry<SexAreaInterface, List<SexAreaInterface>> entry : interactions.getInteractions().entrySet()) {
+										for(SexAreaInterface areaInner2 : entry.getValue()) {
+											if(area == areaInner2) {
+												if(action.getSexAreaInteractions().get(area) == entry.getKey()) {
+													addedForTarget = true;
+													break outer;
+												}
+											}
+										}
+									}
 								}
-							} else {
-								if(action.getLimitation()==SexActionLimitation.NPC_ONLY || action.getLimitation()==null) {
-									actionsAvailable.get(character).get(target).add(action);
-								} else if(action.getLimitation()==SexActionLimitation.PLAYER_ONLY || action.getLimitation()==null) {
-									actionsAvailable.get(Main.game.getPlayer()).get(character).add(action);
+							}
+							
+							if(addedForCharacter || addedForTarget) {
+								if (action.getActionType().isOrgasmOption()) {
+									if(character.isPlayer()) {
+										if(addedForCharacter) {
+											orgasmActionsAvailable.get(character).get(target).add(action);
+										} else if(addedForTarget) {
+											orgasmActionsAvailable.get(target).get(character).add(action);
+										}
+									} else {
+										if(addedForCharacter) {
+											orgasmActionsAvailable.get(character).get(target).add(action);
+										} else if(addedForTarget) {
+											orgasmActionsAvailable.get(target).get(character).add(action);
+										}
+									}
+								} else {
+									if(character.isPlayer()) {
+										if(addedForCharacter) {
+											actionsAvailable.get(character).get(target).add(action);
+										} else if(addedForTarget) {
+											actionsAvailable.get(target).get(character).add(action);
+										}
+									} else {
+										if(addedForCharacter) {
+											actionsAvailable.get(character).get(target).add(action);
+										} else if(addedForTarget) {
+											actionsAvailable.get(target).get(character).add(action);
+										}
+									}
 								}
 							}
 						}
@@ -3351,6 +3414,7 @@ public enum Sex {
 			e.printStackTrace();
 		}
 	}
+	
 	
 	public static Set<SexActionInterface> getActionsAvailablePlayer() {
 		return actionsAvailable.get(Main.game.getPlayer()).get(Sex.getTargetedPartner(Main.game.getPlayer()));
@@ -3398,6 +3462,20 @@ public enum Sex {
 		}
 		
 		return LustLevel.getLustLevelFromValue(character.getLust()).getSexPace(Sex.isConsensual(), character);
+	}
+	
+	public static GameCharacter getCharacterInPosition(SexPositionSlot position) {
+		for(Entry<GameCharacter, SexPositionSlot> entry : Sex.dominants.entrySet()) {
+			if(entry.getValue()==position) {
+				return entry.getKey();
+			}
+		}
+		for(Entry<GameCharacter, SexPositionSlot> entry : Sex.submissives.entrySet()) {
+			if(entry.getValue()==position) {
+				return entry.getKey();
+			}
+		}
+		return null;
 	}
 	
 	public static SexPositionSlot getSexPositionSlot(GameCharacter character) {

@@ -257,6 +257,24 @@ public enum LegType implements BodyPartTypeInterface {
 		return "";
 	}
 	
+	public String getToesNameSingular(GameCharacter gc) {
+		switch(this){
+			case HARPY:
+				return UtilText.returnStringAtRandom("claw");
+			default:
+				return UtilText.returnStringAtRandom("toe");
+		}
+	}
+	
+	public String getToesNamePlural(GameCharacter gc) {
+		switch(this){
+			case HARPY:
+				return UtilText.returnStringAtRandom("claws");
+			default:
+				return UtilText.returnStringAtRandom("toes");
+		}
+	}
+	
 	private static Map<Race, List<LegType>> typesMap = new HashMap<>();
 	public static List<LegType> getLegTypes(Race r) {
 		if(typesMap.containsKey(r)) {

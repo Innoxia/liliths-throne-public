@@ -2308,6 +2308,10 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 						break;
 					case TONGUE:
 						break;
+					case CLIT:
+						break;
+					case TOES:
+						break;
 				}
 			}
 		}

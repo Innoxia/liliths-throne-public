@@ -845,8 +845,8 @@ public class ZaranixHomeGroundFloorRepeat {
 								Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE, Fetish.FETISH_MASOCHIST), null, CorruptionLevel.THREE_DIRTY, null, null, null,
 								true, false,
 								new SMAmberDoggyFucked(
-										Util.newHashMapOfValues(new Value<>(Main.game.getAmber(), SexPositionSlot.DOGGY_BEHIND_AMBER)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS_AMBER))),
+										Util.newHashMapOfValues(new Value<>(Main.game.getAmber(), SexPositionSlot.DOGGY_BEHIND)),
+										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
 								AMBER_LOUNGE_POST_CONSENSUAL_SEX,
 								UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloorRepeat", "LOUNGE_AMBER_BEG_FOR_SEX"));
 					}
@@ -909,8 +909,8 @@ public class ZaranixHomeGroundFloorRepeat {
 								Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE, Fetish.FETISH_MASOCHIST), null, CorruptionLevel.THREE_DIRTY, null, null, null,
 								true, false,
 								new SMAmberDoggyFucked(
-										Util.newHashMapOfValues(new Value<>(Main.game.getAmber(), SexPositionSlot.DOGGY_BEHIND_AMBER)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS_AMBER))),
+										Util.newHashMapOfValues(new Value<>(Main.game.getAmber(), SexPositionSlot.DOGGY_BEHIND)),
+										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
 								AMBER_LOUNGE_POST_CONSENSUAL_SEX,
 								UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloorRepeat", "LOUNGE_AMBER_BEG_FOR_SEX"));
 					}
@@ -1178,8 +1178,8 @@ public class ZaranixHomeGroundFloorRepeat {
 						Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, CorruptionLevel.THREE_DIRTY, null, null, null,
 						!Main.getProperties().hasValue(PropertyValue.nonConContent), false,
 						new SMAmberDoggyFucked(
-								Util.newHashMapOfValues(new Value<>(Main.game.getAmber(), SexPositionSlot.DOGGY_BEHIND_AMBER)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS_AMBER))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getAmber(), SexPositionSlot.DOGGY_BEHIND)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
 						AMBER_LOUNGE_POST_SEX,
 						UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloorRepeat", "LOUNGE_AMBER_FURIOUS_APOLOGY")) {
 					@Override
@@ -1288,8 +1288,8 @@ public class ZaranixHomeGroundFloorRepeat {
 				return new ResponseSex("Used", "Amber starts fucking you.",
 						false, false,
 						new SMAmberDoggyFucked(
-								Util.newHashMapOfValues(new Value<>(Main.game.getAmber(), SexPositionSlot.DOGGY_BEHIND_AMBER)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS_AMBER))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getAmber(), SexPositionSlot.DOGGY_BEHIND)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
 						AFTER_AMBER_SEX_LOSS,
 						UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloorRepeat", "COMBAT_LOSS_SEX"));
 			} else {
@@ -1355,8 +1355,8 @@ public class ZaranixHomeGroundFloorRepeat {
 						Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, CorruptionLevel.THREE_DIRTY, null, null, null,
 						true, true,
 						new SMAmberDoggyFucked(
-								Util.newHashMapOfValues(new Value<>(Main.game.getAmber(), SexPositionSlot.DOGGY_BEHIND_AMBER)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS_AMBER))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getAmber(), SexPositionSlot.DOGGY_BEHIND)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
 						AFTER_AMBER_SEX_SUB_VICTORY,
 						UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloorRepeat", "COMBAT_VICTORY_SEX_SEB"));
 				
@@ -1702,8 +1702,8 @@ public class ZaranixHomeGroundFloorRepeat {
 						null, null, null, null, null, null,
 						true, false,
 						new SMAmberDoggyFucked(
-								Util.newHashMapOfValues(new Value<>(Main.game.getAmber(), SexPositionSlot.DOGGY_BEHIND_AMBER)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS_AMBER))) {
+								Util.newHashMapOfValues(new Value<>(Main.game.getAmber(), SexPositionSlot.DOGGY_BEHIND)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))) {
 							@Override
 							public boolean isPublicSex() {
 								return true;

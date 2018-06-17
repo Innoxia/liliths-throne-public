@@ -643,8 +643,8 @@ public class ZaranixHomeGroundFloor {
 				return new ResponseSex("Suck cock", "Show Zaranix how good you are at sucking cock.",
 						true, true,
 						new SMZaranixCockSucking(
-								Util.newHashMapOfValues(new Value<>(Main.game.getZaranix(), SexPositionSlot.KNEELING_RECEIVING_ORAL_ZARANIX)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.KNEELING_PERFORMING_ORAL_ZARANIX))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getZaranix(), SexPositionSlot.CHAIR_ORAL_SITTING)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_KNEELING))),
 						AFTER_SEX_THANKING_ZARANIX,
 						"<p>"
 						+ "</p>");
@@ -673,8 +673,8 @@ public class ZaranixHomeGroundFloor {
 				return new ResponseSex("Lift ass", "Do as Amber commands and lift your ass towards her.",
 						true, true,
 						new SMAmberDoggyFucked(
-								Util.newHashMapOfValues(new Value<>(Main.game.getAmber(), SexPositionSlot.DOGGY_BEHIND_AMBER)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS_AMBER))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getAmber(), SexPositionSlot.DOGGY_BEHIND)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
 						AFTER_SEX_THANKING_AMBER,
 						"<p>"
 							+ "You obediently lift your ass towards Amber, letting out a little cry as you suddenly feel the sharp slap of her hand across your right cheek, before she growls out,"

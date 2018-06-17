@@ -10159,6 +10159,12 @@ public enum StatusEffect {
 							case TONGUE:
 								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] performing <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>anilingus</b> on [npc2.name]!"));
 								break;
+							case CLIT:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>clit-fucking</b> [npc2.namePos] [npc2.asshole]!"));
+								break;
+							case TOES:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>foot-fucking</b> [npc2.namePos] [npc2.asshole]!"));
+								break;
 						}
 						
 					} else if(sArea.isOrifice()) {
@@ -10262,6 +10268,12 @@ public enum StatusEffect {
 								break;
 							case TONGUE:
 								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>licking</b> [npc2.namePos] [npc2.ass]!"));
+								break;
+							case CLIT:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>clit-hotdogging</b> [npc2.name]!"));
+								break;
+							case TOES:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>groping</b> [npc2.namePos] [npc2.ass] with [npc.her] [npc.feet]!"));
 								break;
 						}
 						
@@ -10367,6 +10379,12 @@ public enum StatusEffect {
 								break;
 							case TONGUE:
 								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc2.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc.name]!"));
+								break;
+							case CLIT:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc2.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>sucking</b> [npc.namePos] [npc.clit]!"));
+								break;
+							case TOES:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc2.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>licking</b> [npc.namePos] [npc.feet]!"));
 								break;
 						}
 						
@@ -10491,6 +10509,13 @@ public enum StatusEffect {
 							case TONGUE:
 								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc2.namePos] [npc2.breasts]!"));
 								break;
+							case CLIT:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target,
+										"[npc2.NameIsFull] performing <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>"+(entry.getKey().hasBreasts()?"paizuri":"naizuri")+"</b> on [npc.namePos] [npc.clit]!"));
+								break;
+							case TOES:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>groping</b> [npc2.namePos] [npc2.breasts] with [npc.her] [npc.feet]!"));
+								break;
 						}
 						
 					} else if(sArea.isOrifice()) {
@@ -10595,6 +10620,12 @@ public enum StatusEffect {
 								break;
 							case TONGUE:
 								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc2.namePos] [npc2.nipples]!"));
+								break;
+							case CLIT:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>clit-fucking</b> [npc2.namePos] [npc2.nipples]!"));
+								break;
+							case TOES:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>pushing [npc.her] [npc.toes]</b> into [npc2.namePos] [npc2.nipples]!"));
 								break;
 						}
 						
@@ -10701,6 +10732,12 @@ public enum StatusEffect {
 							case TONGUE:
 								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc2.namePos] [npc2.urethraPenis]!"));
 								break;
+							case CLIT:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>clit-fucking</b> [npc2.namePos] [npc2.urethraPenis]!"));
+								break;
+							case TOES:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>pushing [npc.her] [npc.toes]</b> into [npc2.namePos] [npc2.urethraPenis]!"));
+								break;
 						}
 						
 					} else if(sArea.isOrifice()) {
@@ -10805,6 +10842,12 @@ public enum StatusEffect {
 							case TONGUE:
 								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc2.namePos] [npc2.urethraVagina]!"));
 								break;
+							case CLIT:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>clit-fucking</b> [npc2.namePos] [npc2.urethraVagina]!"));
+								break;
+							case TOES:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>pushing [npc.her] [npc.toes]</b> into [npc2.namePos] [npc2.urethraVagina]!"));
+								break;
 						}
 						
 					} else if(sArea.isOrifice()) {
@@ -10908,6 +10951,12 @@ public enum StatusEffect {
 								break;
 							case TONGUE:
 								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] performing <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>cunnilingus</b> on [npc2.name]!"));
+								break;
+							case CLIT:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>clit-fucking</b> [npc2.namePos] [npc2.pussy]!"));
+								break;
+							case TOES:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>pushing [npc.her] [npc.toes]</b> into [npc2.namePos] [npc2.pussy]!"));
 								break;
 						}
 						
@@ -11017,6 +11066,12 @@ public enum StatusEffect {
 								break;
 							case TONGUE:
 								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc2.namePos] [npc2.legs]!"));
+								break;
+							case CLIT:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>clit-fucking</b> [npc2.namePos] thighs!"));
+								break;
+							case TOES:
+								descriptionSB.append(UtilText.parse(entry.getKey(), target, "[npc.NameIsFull] <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>pushing [npc.her] [npc.feet]</b> between [npc2.namePos] thighs!"));
 								break;
 						}
 						

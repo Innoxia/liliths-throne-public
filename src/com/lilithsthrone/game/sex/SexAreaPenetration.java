@@ -21,6 +21,18 @@ public enum SexAreaPenetration implements SexAreaInterface {
 		}
 	},
 	
+	CLIT(4, true) {
+		@Override
+		public String getName(GameCharacter owner) {
+			return "clit";
+		}
+
+		@Override
+		public boolean isFree(GameCharacter owner) {
+			return Sex.isPenetrationTypeFree(owner, this);
+		}
+	},
+	
 	TONGUE(2, false) {
 		@Override
 		public String getName(GameCharacter owner) {
@@ -37,6 +49,21 @@ public enum SexAreaPenetration implements SexAreaInterface {
 		@Override
 		public String getName(GameCharacter owner) {
 			return owner.getArmType().getFingersNamePlural(owner);
+		}
+		@Override
+		public boolean isPlural() {
+			return true;
+		}
+		@Override
+		public boolean isFree(GameCharacter owner) {
+			return Sex.isPenetrationTypeFree(owner, this);
+		}
+	},
+	
+	TOES(1, false) {
+		@Override
+		public String getName(GameCharacter owner) {
+			return owner.getLegType().getToesNamePlural(owner);
 		}
 		@Override
 		public boolean isPlural() {

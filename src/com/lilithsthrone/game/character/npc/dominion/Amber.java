@@ -427,8 +427,8 @@ public class Amber extends NPC {
 				return new ResponseSex("Used", "Amber starts fucking you.",
 						false, false,
 						new SMAmberDoggyFucked(
-								Util.newHashMapOfValues(new Value<>(Main.game.getAmber(), SexPositionSlot.DOGGY_BEHIND_AMBER)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS_AMBER))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getAmber(), SexPositionSlot.DOGGY_BEHIND)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
 						AFTER_SEX_DEFEAT,
 						"<p>"
 							+ "Amber takes a firm grasp of your hips, before roughly lifting your ass a little higher."
@@ -485,7 +485,7 @@ public class Amber extends NPC {
 	// Sex:
 	
 	public SexType getForeplayPreference() {
-		if(Sex.getSexManager().getPosition() == SexPositionType.DOGGY_AMBER) {
+		if(Sex.getSexManager().getPosition() == SexPositionType.DOGGY_STYLE) {
 			if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
 				return new SexType(SexParticipantType.PITCHER, SexAreaPenetration.FINGER, SexAreaOrifice.VAGINA);
 			} else {
@@ -497,7 +497,7 @@ public class Amber extends NPC {
 	}
 	
 	public SexType getMainSexPreference() {
-		if(Sex.getSexManager().getPosition() == SexPositionType.DOGGY_AMBER) {
+		if(Sex.getSexManager().getPosition() == SexPositionType.DOGGY_STYLE) {
 			if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
 				return new SexType(SexParticipantType.PITCHER, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA);
 			} else {

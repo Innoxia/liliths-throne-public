@@ -35,7 +35,7 @@ public class ConChairPositions {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isAnyNonSelfOngoingActionHappening() && (Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.CHAIR_BOTTOM || Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.CHAIR_BOTTOM_LILAYA);
+			return !Sex.isAnyNonSelfOngoingActionHappening() && (Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.CHAIR_BOTTOM);
 		}
 		
 		@Override
@@ -86,7 +86,7 @@ public class ConChairPositions {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isAnyNonSelfOngoingActionHappening() && (Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.CHAIR_TOP || Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.CHAIR_TOP_LILAYA);
+			return !Sex.isAnyNonSelfOngoingActionHappening() && (Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.CHAIR_TOP);
 		}
 		
 		@Override

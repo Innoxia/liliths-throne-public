@@ -452,8 +452,8 @@ public class ZaranixHomeFirstFloorRepeat {
 				return new ResponseSex("Offer blowjob", "Ask Zaranix if he'd like a blowjob as way of thanks for letting you have Arthur.",
 						true, true,
 						new SMZaranixCockSucking(
-								Util.newHashMapOfValues(new Value<>(Main.game.getZaranix(), SexPositionSlot.KNEELING_RECEIVING_ORAL_ZARANIX)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.KNEELING_PERFORMING_ORAL_ZARANIX))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getZaranix(), SexPositionSlot.CHAIR_ORAL_SITTING)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_KNEELING))),
 						AFTER_SEX_ZARANIX_BLOWJOB,
 						UtilText.parseFromXMLFile("places/dominion/zaranixHome/firstFloorRepeat", "ZARANIX_ROOM_BLOWJOB"));
 				

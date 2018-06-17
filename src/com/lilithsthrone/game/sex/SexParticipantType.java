@@ -2,7 +2,7 @@ package com.lilithsthrone.game.sex;
 
 /**
  * @since 0.1.98
- * @version 0.1.98
+ * @version 0.2.8
  * @author Innoxia
  */
 public enum SexParticipantType {
@@ -32,6 +32,18 @@ public enum SexParticipantType {
 	},
 	
 	CATCHER {
+		@Override
+		public boolean isUsingSelfPenetrationType() {
+			return false;
+		}
+
+		@Override
+		public boolean isUsingSelfOrificeType() {
+			return true;
+		}
+	},
+	
+	NORMAL {
 		@Override
 		public boolean isUsingSelfPenetrationType() {
 			return false;

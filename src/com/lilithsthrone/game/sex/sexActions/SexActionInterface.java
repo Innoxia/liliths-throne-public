@@ -43,7 +43,7 @@ public interface SexActionInterface {
 	public CorruptionLevel getCorruptionNeeded();
 	
 	/**
-	 * The keys are areas that belong to the performing character. The values are areas taht belong to teh targeted character.
+	 * The keys are areas that belong to the performing character. The values are areas that belong to the targeted character.
 	 * @return
 	 */
 	public Map<SexAreaInterface, SexAreaInterface> getSexAreaInteractions();

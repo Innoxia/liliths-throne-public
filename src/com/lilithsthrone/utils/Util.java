@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -310,8 +311,35 @@ public class Util {
 	}
 	
 	@SafeVarargs
+	public static <U> ArrayList<U> mergeLists(List<U>... lists) {
+		ArrayList<U> mergedList = new ArrayList<>();
+		
+		for(List<U> list : lists) {
+			for(U value : list) {
+				mergedList.add(value);
+			}
+		}
+		
+		return mergedList;
+	}
+	
+	@SafeVarargs
 	public static <U> HashSet<U> newHashSetOfValues(U... values) {
 		return new HashSet<>(Arrays.asList(values));
+	}
+	
+	@SafeVarargs
+	public static <U, T> Map<U, List<T>> mergeMaps(Map<U, List<T>>... maps) {
+		Map<U, List<T>> mergedMap = new HashMap<>();
+		
+		for(Map<U, List<T>> map : maps) {
+			for(Entry<U, List<T>> entry : map.entrySet()) {
+				mergedMap.putIfAbsent(entry.getKey(), new ArrayList<>());
+				mergedMap.get(entry.getKey()).addAll(entry.getValue());
+			}
+		}
+		
+		return mergedMap;
 	}
 	
 	public static <T> T getRandomObjectFromWeightedMap(Map<T, Integer> map) {

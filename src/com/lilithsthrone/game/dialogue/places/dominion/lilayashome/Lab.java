@@ -402,8 +402,8 @@ public class Lab {
 								Util.newArrayListOfValues(Fetish.FETISH_INCEST), null, CorruptionLevel.FOUR_LUSTFUL, null, null, null,
 								true, true,
 								new SMChairLilaya(
-										Util.newHashMapOfValues(new Value<>(Main.game.getLilaya(), SexPositionSlot.CHAIR_TOP_LILAYA)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM_LILAYA))),
+										Util.newHashMapOfValues(new Value<>(Main.game.getLilaya(), SexPositionSlot.CHAIR_TOP)),
+										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM))),
 								Lilaya.AUNT_END_SEX,
 								"<p>"
 									+ "Stepping forwards, you reach up and take Lilaya's head in your hands, eagerly pressing your lips against hers as you give her a clear response to her question."
@@ -430,8 +430,8 @@ public class Lab {
 								CorruptionLevel.FOUR_LUSTFUL, null, null, null,
 								true, true,
 								new SMChairLilaya(
-										Util.newHashMapOfValues(new Value<>(Main.game.getLilaya(), SexPositionSlot.CHAIR_TOP_LILAYA)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM_LILAYA))),
+										Util.newHashMapOfValues(new Value<>(Main.game.getLilaya(), SexPositionSlot.CHAIR_TOP)),
+										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM))),
 								Lilaya.AUNT_END_SEX,
 								"<p>"
 									+ "Stepping forwards, you reach up and take Lilaya's head in your hands, eagerly pressing your lips against hers as you give her a clear response to her question."
@@ -1850,8 +1850,8 @@ public class Lab {
 						CorruptionLevel.FOUR_LUSTFUL, null, null, null,
 						true, true,
 						new SMChairLilaya(
-								Util.newHashMapOfValues(new Value<>(Main.game.getLilaya(), SexPositionSlot.CHAIR_TOP_LILAYA)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM_LILAYA))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getLilaya(), SexPositionSlot.CHAIR_TOP)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM))),
 						Lilaya.AUNT_END_SEX,
 						"<p>"
 							+ "You briefly wonder if it's your aura that's making Lilaya so horny, but whatever it is, you're feeling the same effects."
@@ -2095,8 +2095,8 @@ public class Lab {
 						null, CorruptionLevel.FOUR_LUSTFUL, null, null, null,
 						true, true,
 						new SMChairLilaya(
-								Util.newHashMapOfValues(new Value<>(Main.game.getLilaya(), SexPositionSlot.CHAIR_TOP_LILAYA)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM_LILAYA))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getLilaya(), SexPositionSlot.CHAIR_TOP)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM))),
 						Lilaya.AUNT_END_SEX,
 						"<p>"
 							+ "You briefly wonder if it's your aura that's making Lilaya so horny, but whatever it is, you're feeling the same effects."

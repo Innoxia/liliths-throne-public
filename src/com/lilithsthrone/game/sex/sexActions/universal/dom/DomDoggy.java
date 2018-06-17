@@ -48,7 +48,6 @@ public class DomDoggy {
 			SexPositionSlot targetedSlot = Sex.getSexPositionSlot(Sex.getTargetedPartner(Sex.getActivePartner()));
 			return Sex.isDom(Main.game.getPlayer())
 					&& (targetedSlot==SexPositionSlot.DOGGY_BEHIND
-					|| targetedSlot==SexPositionSlot.DOGGY_BEHIND_AMBER
 					|| targetedSlot==SexPositionSlot.DOGGY_BEHIND_ORAL);
 		}
 		
@@ -90,8 +89,7 @@ public class DomDoggy {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return Sex.isDom(Main.game.getPlayer())
-					&& (Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.DOGGY_BEHIND
-					|| Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.DOGGY_BEHIND_AMBER);
+					&& (Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.DOGGY_BEHIND);
 		}
 		
 		@Override

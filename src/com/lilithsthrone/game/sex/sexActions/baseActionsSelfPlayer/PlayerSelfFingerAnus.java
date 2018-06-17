@@ -53,8 +53,7 @@ public class PlayerSelfFingerAnus {
 
 		@Override
 		public String getDescription() {
-			if((Sex.getPosition()==SexPositionType.DOGGY_STYLE && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.DOGGY_ON_ALL_FOURS)
-					|| (Sex.getPosition()==SexPositionType.DOGGY_AMBER && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.DOGGY_ON_ALL_FOURS_AMBER)) {
+			if((Sex.getPosition()==SexPositionType.DOGGY_STYLE && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.DOGGY_ON_ALL_FOURS)) {
 				return (UtilText.returnStringAtRandom(
 						"Reaching back with one [pc.hand], you grab your [pc.ass+] and pull to one side, letting out [pc.a_moan+] as you present your [pc.asshole+] to [npc.name].",
 						"You reach back with one [pc.hand], moaning softly as you take hold of your [pc.ass+], before invitingly pulling to one side and presenting your [pc.asshole+] to [npc.name].",

@@ -9,13 +9,13 @@ import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 
 /**
  * @since 0.1.7
- * @version 0.1.97
+ * @version 0.2.8
  * @author Innoxia
  */
 public class SMChairLilaya extends SexManagerDefault {
 
 	public SMChairLilaya(Map<GameCharacter, SexPositionSlot> dominants, Map<GameCharacter, SexPositionSlot> submissives) {
-		super(SexPositionType.CHAIR_SEX_LILAYA,
+		super(SexPositionType.CHAIR_SEX,
 				dominants,
 				submissives);
 	}
