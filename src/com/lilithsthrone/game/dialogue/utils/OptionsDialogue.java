@@ -1446,8 +1446,14 @@ public class OptionsDialogue {
 								"ARTWORK",
 								Colour.BASE_BLUE_LIGHT,
 								"Artwork",
-								"Enables artwork to be displayed in unique characters' information screens.",
+								"Enables artwork to be displayed in characters' information screens.",
 								Main.getProperties().hasValue(PropertyValue.artwork)));
+
+			UtilText.nodeContentSB.append(getContentPreferenceDiv("THUMBNAIL",
+								Colour.BASE_BLUE_STEEL,
+								"Thumbnails",
+								"Enables tooltips containing thumbnail images of the character.",
+								Main.getProperties().hasValue(PropertyValue.thumbnail)));
 			
 			UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart("ARTIST_", Colour.BASE_AQUA, "Preferred Artist", "Which artist's work is used by default."));
 			for(Artist artist : Artwork.allArtists) {

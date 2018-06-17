@@ -4051,6 +4051,23 @@ public class MainControllerInitMethod {
 				}, false);
 			}
 
+			id = "THUMBNAIL_ON";
+			if (((EventTarget) MainController.document.getElementById(id)) != null) {
+				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+					Main.getProperties().setValue(PropertyValue.thumbnail, true);
+					Main.saveProperties();
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+			}
+			id = "THUMBNAIL_OFF";
+			if (((EventTarget) MainController.document.getElementById(id)) != null) {
+				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+					Main.getProperties().setValue(PropertyValue.thumbnail, false);
+					Main.saveProperties();
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+			}
+
 			for(Artist artist : Artwork.allArtists) {
 				id = "ARTIST_"+artist.getFolderName();
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
