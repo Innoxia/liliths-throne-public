@@ -14,7 +14,7 @@ import java.util.Base64;
  */
 public class CachedImage {
 	protected String imageString = "";
-	protected int width = 200, percentageWidth = 35;
+	protected int width = 200, height = 200, percentageWidth = 35;
 
 	/**
 	 * Load an image from the given file path into a reusable string.
@@ -25,9 +25,10 @@ public class CachedImage {
 		// Load the image
 		BufferedImage image = ImageIO.read(f);
 		width = image.getWidth();
-		if(image.getHeight() == width) {
+		height = image.getHeight();
+		if(height == width) {
 			percentageWidth = 45;
-		} else if(image.getHeight() < width) {
+		} else if(height < width) {
 			percentageWidth = 65;
 		}
 
@@ -37,6 +38,10 @@ public class CachedImage {
 		imageString = "data:image/png;base64," + Base64.getEncoder().encodeToString(byteStream.toByteArray());
 	}
 
+	/**
+	 * Retrieve the image in base 64 encoded string format. The string must start with 'data:image/png;base64'.
+	 * @return The image as base64 string
+	 */
 	public String getImageString() {
 		return imageString;
 	}
@@ -45,7 +50,29 @@ public class CachedImage {
 		return width;
 	}
 
+	public int getHeight() { return height; }
+
+	/**
+	 * Retrieve the width percentage that the image is supposed to take on the character information page. The value is
+	 * calculated using the width to height ratio.
+	 * @return 35 if the image is vertical, 45 if it's squared and 65 if it's horizontal.
+	 */
 	public int getPercentageWidth() {
 		return percentageWidth;
+	}
+
+	/**
+	 * Calculate and retrieve the size of the image after fitting it inside a box with the given dimensions.
+	 * @param maxWidth Width of the box to fit the image into
+	 * @param maxHeight Height of the box to fit the image into
+	 * @return An integer array with the format [width, height] containing the fitted dimensions.
+	 */
+	public int[] getAdjustedSize(int maxWidth, int maxHeight) {
+		// Calculate ratio between desired and original dimensions
+		float widthRatio = (float) maxWidth / (float) width;
+		float heightRatio = (float) maxHeight / (float) height;
+		// Use the one that produces the smaller image as scaling factor
+		float scale = Math.min(widthRatio, heightRatio);
+		return new int[]{(int)(width * scale), (int)(height * scale)};
 	}
 }

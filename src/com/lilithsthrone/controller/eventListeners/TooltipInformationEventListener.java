@@ -1,10 +1,14 @@
 package com.lilithsthrone.controller.eventListeners;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
+import com.lilithsthrone.game.PropertyValue;
+import com.lilithsthrone.utils.CachedImage;
+import com.lilithsthrone.utils.ImageCache;
 import org.w3c.dom.events.Event;
 import org.w3c.dom.events.EventListener;
 
@@ -599,7 +603,25 @@ public class TooltipInformationEventListener implements EventListener {
 							+ "</div>");
 					
 				} else {
-					Main.mainController.setTooltipSize(420, 508);
+					CachedImage image = null;
+					if (!owner.getArtworkList().isEmpty()) {
+						image = ImageCache.INSTANCE.requestImage(new File(owner.getCurrentArtwork().getCurrentImage()));
+					}
+					boolean displayImage = image != null
+							&& Main.getProperties().hasValue(PropertyValue.thumbnail)
+							&& Main.getProperties().hasValue(PropertyValue.artwork);
+
+					int[] dimensions = new int[]{419, 508};
+					int imagePadding = 0;
+					if (displayImage) {
+						// Add the scaled width to the tooltip dimensions
+						int[] scaledSize = image.getAdjustedSize(300, 465);
+						dimensions[0] += scaledSize[0];
+						// ... and place it in the bottom right corner of the tooltip
+						imagePadding = Math.max(0, 465 - scaledSize[1]);
+					}
+
+					Main.mainController.setTooltipSize(dimensions[0], dimensions[1]);
 					
 					tooltipSB.setLength(0);
 					tooltipSB.append("<div class='title' style='color:" + owner.getRace().getColour().toWebHexString() + ";'>"
@@ -608,7 +630,11 @@ public class TooltipInformationEventListener implements EventListener {
 							+ (owner.isFeminine()?Util.capitaliseSentence(owner.getSubspecies().getSingularFemaleName()):Util.capitaliseSentence(owner.getSubspecies().getSingularMaleName()))
 							+ "</b>"
 							+ "</div>");
-	
+
+					if (displayImage) {
+						tooltipSB.append("<div style='width: 410px; float: left'>");
+					}
+
 					// GREATER:
 					tooltipSB.append(getBodyPartDiv("Face", owner.getFaceRace(), owner.getFaceType().getBodyCoveringType(owner)));
 					tooltipSB.append(getBodyPartDiv("Body", owner.getSkinRace(), owner.getSkinType().getBodyCoveringType(owner)));
@@ -666,6 +692,12 @@ public class TooltipInformationEventListener implements EventListener {
 					}
 					tooltipSB.append(getBodyPartDiv("Ass", owner.getAssRace(), owner.getAssType().getBodyCoveringType(owner)));
 					tooltipSB.append(getBodyPartDiv(owner.hasBreasts()?"Breasts":"Chest", owner.getBreastRace(), owner.getBreastType().getBodyCoveringType(owner)));
+
+					if (displayImage) {
+						tooltipSB.append("</div><div style='float: left;'>"
+								+ "<img id='CHARACTER_IMAGE' style='width: auto; height: auto; max-width: 300; max-height: 465; padding-top: " + imagePadding + "px;' src='" + image.getImageString()
+								+ "'/></div>");
+					}
 				}
 				
 				Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
