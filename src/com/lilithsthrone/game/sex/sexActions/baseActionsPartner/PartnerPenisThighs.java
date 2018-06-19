@@ -28,7 +28,7 @@ public class PartnerPenisThighs {
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ONE_VANILLA,
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.THIGHS)),
-			SexParticipantType.PITCHER) {
+			SexParticipantType.NORMAL) {
 		@Override
 		public SexActionLimitation getLimitation() {
 			return SexActionLimitation.NPC_ONLY;
@@ -132,7 +132,7 @@ public class PartnerPenisThighs {
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ONE_VANILLA,
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.THIGHS)),
-			SexParticipantType.PITCHER,
+			SexParticipantType.NORMAL,
 			null,
 			SexPace.DOM_GENTLE) {
 		@Override
@@ -196,7 +196,7 @@ public class PartnerPenisThighs {
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ONE_VANILLA,
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.THIGHS)),
-			SexParticipantType.PITCHER,
+			SexParticipantType.NORMAL,
 			null,
 			SexPace.DOM_NORMAL) {
 		@Override
@@ -261,7 +261,7 @@ public class PartnerPenisThighs {
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.TWO_HORNY,
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.THIGHS)),
-			SexParticipantType.PITCHER,
+			SexParticipantType.NORMAL,
 			null,
 			SexPace.DOM_ROUGH) {
 		@Override
@@ -328,7 +328,7 @@ public class PartnerPenisThighs {
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ONE_VANILLA,
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.THIGHS)),
-			SexParticipantType.PITCHER,
+			SexParticipantType.NORMAL,
 			null,
 			SexPace.SUB_NORMAL) {
 		@Override
@@ -391,7 +391,7 @@ public class PartnerPenisThighs {
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ONE_VANILLA,
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.THIGHS)),
-			SexParticipantType.PITCHER,
+			SexParticipantType.NORMAL,
 			null,
 			SexPace.SUB_EAGER) {
 		@Override
@@ -455,7 +455,7 @@ public class PartnerPenisThighs {
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.THIGHS)),
-			SexParticipantType.PITCHER,
+			SexParticipantType.NORMAL,
 			null,
 			SexPace.SUB_RESISTING) {
 		@Override
@@ -523,7 +523,7 @@ public class PartnerPenisThighs {
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.THIGHS)),
-			SexParticipantType.PITCHER) {
+			SexParticipantType.NORMAL) {
 		@Override
 		public SexActionLimitation getLimitation() {
 			return SexActionLimitation.NPC_ONLY;
@@ -587,8 +587,8 @@ public class PartnerPenisThighs {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.THIGHS)),
-			SexParticipantType.CATCHER) {
+			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.THIGHS, SexAreaPenetration.PENIS)),
+			SexParticipantType.NORMAL) {
 		@Override
 		public SexActionLimitation getLimitation() {
 			return SexActionLimitation.PLAYER_ONLY;
@@ -703,8 +703,8 @@ public class PartnerPenisThighs {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.THIGHS)),
-			SexParticipantType.CATCHER,
+			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.THIGHS, SexAreaPenetration.PENIS)),
+			SexParticipantType.NORMAL,
 			SexPace.DOM_GENTLE,
 			null) {
 		@Override
@@ -743,8 +743,8 @@ public class PartnerPenisThighs {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.THIGHS)),
-			SexParticipantType.CATCHER,
+			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.THIGHS, SexAreaPenetration.PENIS)),
+			SexParticipantType.NORMAL,
 			SexPace.DOM_NORMAL,
 			null) {
 		@Override
@@ -783,8 +783,8 @@ public class PartnerPenisThighs {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.TWO_HORNY,
-			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.THIGHS)),
-			SexParticipantType.CATCHER,
+			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.THIGHS, SexAreaPenetration.PENIS)),
+			SexParticipantType.NORMAL,
 			SexPace.DOM_ROUGH,
 			null) {
 		@Override
@@ -824,8 +824,8 @@ public class PartnerPenisThighs {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.THIGHS)),
-			SexParticipantType.CATCHER,
+			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.THIGHS, SexAreaPenetration.PENIS)),
+			SexParticipantType.NORMAL,
 			SexPace.SUB_NORMAL,
 			null) {
 		@Override
@@ -864,8 +864,8 @@ public class PartnerPenisThighs {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.THIGHS)),
-			SexParticipantType.CATCHER,
+			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.THIGHS, SexAreaPenetration.PENIS)),
+			SexParticipantType.NORMAL,
 			SexPace.SUB_EAGER,
 			null) {
 		@Override
@@ -904,8 +904,8 @@ public class PartnerPenisThighs {
 			ArousalIncrease.ZERO_NONE,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ZERO_PURE,
-			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.THIGHS)),
-			SexParticipantType.CATCHER,
+			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.THIGHS, SexAreaPenetration.PENIS)),
+			SexParticipantType.NORMAL,
 			SexPace.SUB_RESISTING,
 			null) {
 		@Override
@@ -969,8 +969,8 @@ public class PartnerPenisThighs {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.THIGHS)),
-			SexParticipantType.CATCHER) {
+			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.THIGHS, SexAreaPenetration.PENIS)),
+			SexParticipantType.NORMAL) {
 		@Override
 		public SexActionLimitation getLimitation() {
 			return SexActionLimitation.PLAYER_ONLY;

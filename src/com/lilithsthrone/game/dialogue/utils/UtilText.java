@@ -911,7 +911,8 @@ public class UtilText {
 				} else if (arguments.endsWith("s")
 						||arguments.endsWith("x")
 						||arguments.endsWith("sh")
-						||arguments.endsWith("ch")){
+						||arguments.endsWith("ch")
+						||arguments.endsWith("o")){
 					return arguments + "es";
 				} else if (arguments.endsWith("y")
 						&&!arguments.endsWith("ay")
@@ -2142,7 +2143,11 @@ public class UtilText {
 						"moanVerb",
 						"groanVerb",
 						"sobVerb",
-						"cryVerb"),
+						"cryVerb",
+						"moansVerb",
+						"groansVerb",
+						"sobsVerb",
+						"criesVerb"),
 				true,
 				true,
 				"",
@@ -2150,20 +2155,38 @@ public class UtilText {
 				+ " This method takes into account if the target is resisting, and if they are, the returned noise will be something like 'sob' or 'cry'."){
 			@Override
 			public String parse(String command, String arguments, String target) {
-				if(Main.game.isInSex()) {
-					if((character.isPlayer() && Sex.getSexPace(Main.game.getPlayer())==SexPace.SUB_RESISTING) || (!character.isPlayer() && Sex.getSexPace(Sex.getActivePartner())==SexPace.SUB_RESISTING)) {
-						if(character.isFeminine()) {
-							return returnStringAtRandom("sob", "scream", "cry");
-						} else {
-							return returnStringAtRandom("shout", "cry");
+				if(character.isPlayer()) {
+					if(Main.game.isInSex()) {
+						if(Sex.getSexPace(character)==SexPace.SUB_RESISTING) {
+							if(character.isFeminine()) {
+								return returnStringAtRandom("sob", "scream", "cry");
+							} else {
+								return returnStringAtRandom("shout", "cry");
+							}
 						}
 					}
-				}
-				
-				if(character.isFeminine()) {
-					return returnStringAtRandom("moan", "squeal", "gasp");
+					
+					if(character.isFeminine()) {
+						return returnStringAtRandom("moan", "squeal", "gasp");
+					} else {
+						return returnStringAtRandom("groan", "grunt");
+					}
 				} else {
-					return returnStringAtRandom("groan", "grunt");
+					if(Main.game.isInSex()) {
+						if(Sex.getSexPace(character)==SexPace.SUB_RESISTING) {
+							if(character.isFeminine()) {
+								return returnStringAtRandom("sobs", "screams", "cries");
+							} else {
+								return returnStringAtRandom("shouts", "cries");
+							}
+						}
+					}
+					
+					if(character.isFeminine()) {
+						return returnStringAtRandom("moans", "squeals", "gasps");
+					} else {
+						return returnStringAtRandom("groans", "grunts");
+					}
 				}
 			}
 		});
@@ -2177,7 +2200,15 @@ public class UtilText {
 						"sobVerb+",
 						"sobVerbD",
 						"cryVerb+",
-						"cryVerbD"),
+						"cryVerbD",
+						"moansVerb+",
+						"moansVerbD",
+						"groansVerb+",
+						"groansVerbD",
+						"sobsVerb+",
+						"sobsVerbD",
+						"criesVerb+",
+						"criesVerbD"),
 				true,
 				true,
 				"",
@@ -2186,20 +2217,38 @@ public class UtilText {
 				+ " <b>Expansion of 'moan' command:</b> This command will append a suitable descriptor before the 'moan' noise. e.g. 'lewd squeal', or 'eager grunt'."){
 			@Override
 			public String parse(String command, String arguments, String target) {
-				if(Main.game.isInSex()) {
-					if((character.isPlayer() && Sex.getSexPace(Main.game.getPlayer())==SexPace.SUB_RESISTING) || (!character.isPlayer() && Sex.getSexPace(Sex.getActivePartner())==SexPace.SUB_RESISTING)) {
-						if(character.isFeminine()) {
-							return returnStringAtRandom("miserably", "pathetically") + " " + returnStringAtRandom("sob", "scream", "cry");
-						} else {
-							return returnStringAtRandom("miserably", "pathetically") + " " + returnStringAtRandom("shout", "cry");
+				if(character.isPlayer()) {
+					if(Main.game.isInSex()) {
+						if(Sex.getSexPace(character)==SexPace.SUB_RESISTING) {
+							if(character.isFeminine()) {
+								return returnStringAtRandom("miserably", "pathetically") + " " + returnStringAtRandom("sob", "scream", "cry");
+							} else {
+								return returnStringAtRandom("miserably", "pathetically") + " " + returnStringAtRandom("shout", "cry");
+							}
 						}
 					}
-				}
-				
-				if(character.isFeminine()) {
-					return returnStringAtRandom("lewdly", "desperately") + " " + returnStringAtRandom("moan", "squeal", "cry", "gasp");
+					
+					if(character.isFeminine()) {
+						return returnStringAtRandom("lewdly", "desperately") + " " + returnStringAtRandom("moan", "squeal", "cry", "gasp");
+					} else {
+						return returnStringAtRandom("lewdly", "desperately") + " " + returnStringAtRandom("groan", "grunt");
+					}
 				} else {
-					return returnStringAtRandom("lewdly", "desperately") + " " + returnStringAtRandom("groan", "grunt");
+					if(Main.game.isInSex()) {
+						if(Sex.getSexPace(character)==SexPace.SUB_RESISTING) {
+							if(character.isFeminine()) {
+								return returnStringAtRandom("miserably", "pathetically", "desperately") + " " + returnStringAtRandom("sobs", "cries");
+							} else {
+								return returnStringAtRandom("miserably", "pathetically", "desperately") + " " + returnStringAtRandom("shouts", "cries");
+							}
+						}
+					}
+					
+					if(character.isFeminine()) {
+						return returnStringAtRandom("lewdly", "desperately") + " " + returnStringAtRandom("moans", "squeals", "cries");
+					} else {
+						return returnStringAtRandom("eagerly", "desperately") + " " + returnStringAtRandom("groans", "grunts", "cries");
+					}
 				}
 			}
 		});
@@ -2269,75 +2318,6 @@ public class UtilText {
 					return returnStringAtRandom("lewd", "high-pitched", "desperate") + " " + returnStringAtRandom("moans", "squeals", "gasps");
 				} else {
 					return returnStringAtRandom("deep", "eager", "desperate") + " " + returnStringAtRandom("groans", "grunts");
-				}
-			}
-		});
-		
-		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"moansVerb",
-						"groansVerb",
-						"sobsVerb",
-						"criesVerb"),
-				true,
-				false,
-				"",
-				"Returns a suitable variant of a 'sexual noise' that the target might make. For example, if they're feminine, they will make moans, while if they are masculine, they will make groans."
-				+ " This method takes into account if the target is resisting, and if they are, the returned noise will be something like 'sobs' or 'cries'."
-				+" <b>Provides an appropriate <i>verb</i> version of 'moans'.</b> (Use 'moans' for the noun version.)"){
-			@Override
-			public String parse(String command, String arguments, String target) {
-				if(Main.game.isInSex()) {
-					if((character.isPlayer() && Sex.getSexPace(Main.game.getPlayer())==SexPace.SUB_RESISTING) || (!character.isPlayer() && Sex.getSexPace(Sex.getActivePartner())==SexPace.SUB_RESISTING)) {
-						if(character.isFeminine()) {
-							return returnStringAtRandom("sobs", "cries");
-						} else {
-							return returnStringAtRandom("shouts", "cries");
-						}
-					}
-				}
-				
-				if(character.isFeminine()) {
-					return returnStringAtRandom("moans", "squeals");
-				} else {
-					return returnStringAtRandom("groans", "grunts");
-				}
-			}
-		});
-		
-		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"moansVerb+",
-						"moansVerbD",
-						"groansVerb+",
-						"groansVerbD",
-						"sobsVerb+",
-						"sobsVerbD",
-						"criesVerb+",
-						"criesVerbD"),
-				true,
-				false,
-				"",
-				"Returns a suitable variant of a 'sexual noise' that the target might make. For example, if they're feminine, they will make moans, while if they are masculine, they will make groans."
-				+ " This method takes into account if the target is resisting, and if they are, the returned noise will be something like 'sobs' or 'cries'."
-				+ " <b>Expansion of 'moansVerb' command:</b> This command will append a suitable descriptor before the 'moans' noise. e.g. 'lewdly squeals', or 'eagerly grunts'."
-				+ " <b>Provides an appropriate <i>verb</i> version of 'moans'.</b> (Use 'moans+' for the noun version.)"){
-			@Override
-			public String parse(String command, String arguments, String target) {
-				if(Main.game.isInSex()) {
-					if((character.isPlayer() && Sex.getSexPace(Main.game.getPlayer())==SexPace.SUB_RESISTING) || (!character.isPlayer() && Sex.getSexPace(Sex.getActivePartner())==SexPace.SUB_RESISTING)) {
-						if(character.isFeminine()) {
-							return returnStringAtRandom("miserably", "pathetically", "desperately") + " " + returnStringAtRandom("sobs", "cries");
-						} else {
-							return returnStringAtRandom("miserably", "pathetically", "desperately") + " " + returnStringAtRandom("shouts", "cries");
-						}
-					}
-				}
-				
-				if(character.isFeminine()) {
-					return returnStringAtRandom("lewdly", "desperately") + " " + returnStringAtRandom("moans", "squeals", "cries");
-				} else {
-					return returnStringAtRandom("eagerly", "desperately") + " " + returnStringAtRandom("groans", "grunts", "cries");
 				}
 			}
 		});
@@ -3127,9 +3107,19 @@ public class UtilText {
 				BodyPartType.TAIL);
 		
 		addStandardParsingCommands(
+				Util.newArrayListOfValues("tentacle"),
+				Util.newArrayListOfValues("tentacles"),
+				BodyPartType.TENTACLE);
+		
+		addStandardParsingCommands(
 				Util.newArrayListOfValues("tongue"),
 				Util.newArrayListOfValues("tongues"),
 				BodyPartType.TONGUE);
+
+		addStandardParsingCommands(
+				Util.newArrayListOfValues("clit", "clitoris"),
+				Util.newArrayListOfValues("clits", "clitorises"),
+				BodyPartType.CLIT);
 		
 		addStandardParsingCommands(
 				Util.newArrayListOfValues("vagina", "pussy", "cunt"),
@@ -3880,6 +3870,35 @@ public class UtilText {
 			}
 		});
 		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"toes"),
+				true,
+				true,
+				"",
+				"Description of method",
+				BodyPartType.LEG){//TODO
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return character.getLegType().getToesNamePlural(character);
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"toes+",
+						"toesD"),
+				true,
+				false,
+				"",
+				"Description of method",
+				BodyPartType.LEG){//TODO
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return applyDescriptor(character.getLegType().getToesDescriptor(character), character.getLegType().getToesNamePlural(character));
+			}
+		});
+		
 		// Penis:
 		
 		commandsList.add(new ParserCommand(
@@ -4356,38 +4375,6 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
-						"clit",
-						"clitoris"),
-				true,
-				true,
-				"",
-				"Description of method",
-				BodyPartType.VAGINA){//TODO
-			@Override
-			public String parse(String command, String arguments, String target) {
-				return returnStringAtRandom("clit", "button", "nub");
-			}
-		});
-		
-		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"clit+",
-						"clitD",
-						"clitoris+",
-						"clitorisD"),
-				true,
-				true,
-				"",
-				"Description of method",
-				BodyPartType.VAGINA){//TODO
-			@Override
-			public String parse(String command, String arguments, String target) {
-				return returnStringAtRandom(character.getVaginaClitorisSize().getDescriptor(), "feminine", "delicate", "sensitive") + returnStringAtRandom(" clit", " button", " nub");
-			}
-		});
-		
-		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
 						"clitSize",
 						"clitorisSize"),
 				true,
@@ -4413,6 +4400,21 @@ public class UtilText {
 			@Override
 			public String parse(String command, String arguments, String target) {
 				return String.valueOf(character.getVaginaRawClitorisSizeValue());
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"clitGirth",
+						"clitorisGirth"),
+				true,
+				true,
+				"",
+				"Description of method",
+				BodyPartType.VAGINA){//TODO
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return character.getClitorisGirth().getName();
 			}
 		});
 		
@@ -5195,8 +5197,12 @@ public class UtilText {
 				return character.getBody().getSkin();
 			case TAIL:
 				return character.getBody().getTail();
+			case TENTACLE:
+				return character.getBody().getTentacle();
 			case TONGUE:
 				return character.getBody().getFace().getTongue();
+			case CLIT:
+				return character.getBody().getVagina().getClitoris();
 			case VAGINA:
 				return character.getBody().getVagina();
 			case GIRL_CUM:

@@ -10,7 +10,7 @@ import com.lilithsthrone.game.character.attributes.ObedienceLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
-import com.lilithsthrone.game.character.body.valueEnums.PenisModifier;
+import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.LilayasRoom;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -236,7 +236,7 @@ public class GenericOrgasms {
 		if(characterPenetrated==null || cumTarget!=OrgasmCumTarget.INSIDE) {
 			
 			List<String> modifiers = new ArrayList<>();
-			for(PenisModifier mod : PenisModifier.values()) {
+			for(PenetrationModifier mod : PenetrationModifier.values()) {
 				switch(mod) {
 					case BARBED:
 						break;
@@ -507,7 +507,7 @@ public class GenericOrgasms {
 										?"[npc2.nipple+]"
 										:"urethra")));
 					
-					if(characterOrgasming.hasPenisModifier(PenisModifier.KNOTTED)) {
+					if(characterOrgasming.hasPenisModifier(PenetrationModifier.KNOTTED)) {
 						if(characterOrgasming.isPlayer()) {
 							genericOrgasmSB.append(" Pushing forwards, you ram the knot at the base of your [npc1.cock+] against [npc2.name]'s "+orificeNamePlusDescriptor+"."
 									+ " It's already started to swell up so much that you don't manage to get it inside on the first thrust,"
@@ -535,7 +535,7 @@ public class GenericOrgasms {
 					}
 					
 					modifiers.clear();
-					for(PenisModifier mod : PenisModifier.values()) {
+					for(PenetrationModifier mod : PenetrationModifier.values()) {
 						switch(mod) {
 							case BARBED:
 								if(characterOrgasming.hasPenisModifier(mod)) {
@@ -608,7 +608,7 @@ public class GenericOrgasms {
 						genericOrgasmSB.append(modifiers.get(Util.random.nextInt(modifiers.size())));
 					}
 					
-					if(characterOrgasming.hasPenisModifier(PenisModifier.KNOTTED)) {
+					if(characterOrgasming.hasPenisModifier(PenetrationModifier.KNOTTED)) {
 						if(characterOrgasming.isPlayer()) {
 							genericOrgasmSB.append(" Keeping your [npc1.hips] pushed tightly against [npc2.name]'s "+orificeName+", you let out [npc1.a_moan+] as you feel your knot swell up to its full size."
 									+ " Bucking back a little, you grin as you feel [npc2.name] pulled along with you; evidence that your [npc1.cock] is now firmly locked inside [npc2.her] "+orificeNamePlusDescriptor+".");
@@ -629,7 +629,7 @@ public class GenericOrgasms {
 					break;
 					
 				case MOUTH:
-					if(characterOrgasming.hasPenisModifier(PenisModifier.KNOTTED)) {
+					if(characterOrgasming.hasPenisModifier(PenetrationModifier.KNOTTED)) {
 						if(characterOrgasming.isPlayer()) {
 							genericOrgasmSB.append(" Pushing forwards, you ram the knot at the base of your [npc1.cock+] against [npc2.name]'s [npc2.face+]."
 									+ " It's already started to swell up so much that you don't manage to get it past [npc2.her] [npc2.lips+] on the first thrust,"
@@ -667,7 +667,7 @@ public class GenericOrgasms {
 					}
 					
 					modifiers.clear();
-					for(PenisModifier mod : PenisModifier.values()) {
+					for(PenetrationModifier mod : PenetrationModifier.values()) {
 						switch(mod) {
 							case BARBED:
 								if(characterOrgasming.hasPenisModifier(mod)) {
@@ -740,7 +740,7 @@ public class GenericOrgasms {
 						genericOrgasmSB.append(modifiers.get(Util.random.nextInt(modifiers.size())));
 					}
 					
-					if(characterOrgasming.hasPenisModifier(PenisModifier.KNOTTED)) {
+					if(characterOrgasming.hasPenisModifier(PenetrationModifier.KNOTTED)) {
 						if(characterOrgasming.isPlayer()) {
 							genericOrgasmSB.append(" Keeping your [npc1.hips] pushed tightly against [npc2.name]'s [npc2.face], you let out [npc1.a_moan+] as you feel your knot swell up to its full size."
 									+ " Bucking back a little, you grin as [npc2.name]'s pulled along with you; evidence that your [npc1.cock] is now firmly locked inside [npc2.her] [npc2.mouth].");
@@ -770,7 +770,7 @@ public class GenericOrgasms {
 			genericOrgasmSB.append(cumTargetDescription(characterOrgasming, characterPenetrated, cumTarget));
 		}
 		
-		if(characterOrgasming.hasPenisModifier(PenisModifier.KNOTTED) && cumTarget==OrgasmCumTarget.INSIDE) {
+		if(characterOrgasming.hasPenisModifier(PenetrationModifier.KNOTTED) && cumTarget==OrgasmCumTarget.INSIDE) {
 			if(characterOrgasming.isPlayer()) {
 				genericOrgasmSB.append("<br/>"
 						+ "Even after your [npc1.balls+] have pumped their entire load into [npc2.name], your knot remains swollen, locking you and your partner together."
@@ -1753,7 +1753,7 @@ public class GenericOrgasms {
 			
 			switch(orificePenetrated) {
 				case ANUS:
-					if(Main.game.getPlayer().hasPenisModifier(PenisModifier.KNOTTED)) {
+					if(Main.game.getPlayer().hasPenisModifier(PenetrationModifier.KNOTTED)) {
 						return UtilText.parse(characterPenetrated, "Knot [npc.herHim]");
 					} else {
 						return "Anal Creampie";
@@ -1771,7 +1771,7 @@ public class GenericOrgasms {
 				case URETHRA_PENIS: case URETHRA_VAGINA:
 					return "Urethra Creampie";
 				case VAGINA:
-					if(Main.game.getPlayer().hasPenisModifier(PenisModifier.KNOTTED)) {
+					if(Main.game.getPlayer().hasPenisModifier(PenetrationModifier.KNOTTED)) {
 						return UtilText.parse(characterPenetrated, "Knot [npc.herHim]");
 					} else {
 						return "Creampie";
@@ -1838,14 +1838,6 @@ public class GenericOrgasms {
 				return null;
 			}
 		}
-		
-//		@Override
-//		public List<Fetish> getFetishes(GameCharacter character) {
-//			GameCharacter characterPenetrated = Sex.getCharactersBeingPenetratedBy(Main.game.getPlayer(), PenetrationType.PENIS).get(0);
-//			OrificeType orificePenetrated = Sex.getOrificesBeingPenetratedBy(Main.game.getPlayer(), PenetrationType.PENIS, characterPenetrated).get(0);
-//			
-//			return this.getFetishesFromPenetrationAndOrificeTypes(character, PenetrationType.PENIS, orificePenetrated);
-//		}
 	};
 	
 	public static final SexAction PLAYER_GENERIC_ORGASM_FLOOR = new SexAction(
@@ -3083,7 +3075,7 @@ public class GenericOrgasms {
 			
 			switch(orificePenetrated) {
 				case ANUS:
-					if(Sex.getActivePartner().hasPenisModifier(PenisModifier.KNOTTED)) {
+					if(Sex.getActivePartner().hasPenisModifier(PenetrationModifier.KNOTTED)) {
 						return UtilText.parse(characterPenetrated, "Knot [npc.herHim]");
 					} else {
 						return "Anal Creampie";
@@ -3101,7 +3093,7 @@ public class GenericOrgasms {
 				case URETHRA_PENIS: case URETHRA_VAGINA:
 					return "Urethra Creampie";
 				case VAGINA:
-					if(Sex.getActivePartner().hasPenisModifier(PenisModifier.KNOTTED)) {
+					if(Sex.getActivePartner().hasPenisModifier(PenetrationModifier.KNOTTED)) {
 						return UtilText.parse(characterPenetrated, "Knot [npc.herHim]");
 					} else {
 						return "Creampie";
@@ -3173,14 +3165,6 @@ public class GenericOrgasms {
 				return null;
 			}
 		}
-		
-//		@Override
-//		public List<Fetish> getFetishes(GameCharacter character) {
-//			GameCharacter characterPenetrated = Sex.getCharactersBeingPenetratedBy(Sex.getActivePartner(), PenetrationType.PENIS).get(0);
-//			OrificeType orificePenetrated = Sex.getOrificesBeingPenetratedBy(Sex.getActivePartner(), PenetrationType.PENIS, characterPenetrated).get(0);
-//			
-//			return this.getFetishesFromPenetrationAndOrificeTypes(character, PenetrationType.PENIS, orificePenetrated);
-//		}
 	};
 	
 	public static final SexAction PARTNER_GENERIC_ORGASM_FLOOR = new SexAction(

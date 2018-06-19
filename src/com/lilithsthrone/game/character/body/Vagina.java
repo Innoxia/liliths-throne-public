@@ -8,11 +8,11 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
-import com.lilithsthrone.game.character.body.valueEnums.ClitorisSize;
 import com.lilithsthrone.game.character.body.valueEnums.LabiaSize;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
+import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
@@ -26,7 +26,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.2.2
+ * @version 0.2.8
  * @author Innoxia
  */
 public class Vagina implements BodyPartInterface, Serializable {
@@ -34,8 +34,8 @@ public class Vagina implements BodyPartInterface, Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	protected VaginaType type;
+	protected Clitoris clitoris;
 	protected int labiaSize;
-	protected int clitSize;
 	protected boolean pierced;
 	
 	protected OrificeVagina orificeVagina;
@@ -45,7 +45,7 @@ public class Vagina implements BodyPartInterface, Serializable {
 	public Vagina(VaginaType type, int labiaSize, int clitSize, int wetness, float capacity, int elasticity, int plasticity, boolean virgin) {
 		this.type = type;
 		this.labiaSize = labiaSize;
-		this.clitSize = clitSize;
+		this.clitoris = new Clitoris(clitSize, PenisGirth.TWO_AVERAGE.getValue());
 		pierced = false;
 		
 		orificeVagina = new OrificeVagina(wetness, capacity, elasticity, plasticity, virgin, type.getDefaultRacialOrificeModifiers());
@@ -973,62 +973,6 @@ public class Vagina implements BodyPartInterface, Serializable {
 		}
 	}
 
-	public ClitorisSize getClitorisSize() {
-		return ClitorisSize.getClitorisSizeFromInt(clitSize);
-	}
-
-	public int getRawClitorisSizeValue() {
-		return clitSize;
-	}
-	
-	public String setClitorisSize(GameCharacter owner, int clitSize) {
-		if(!owner.hasVagina()) {
-			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
-		}
-		
-		int oldSize = this.clitSize;
-		this.clitSize = Math.max(0, Math.min(clitSize, ClitorisSize.SEVEN_STALLION.getMaximumValue()));
-		int sizeChange = this.clitSize - oldSize;
-		
-		if (sizeChange == 0) {
-			if(owner.isPlayer()) {
-				return "<p style='text-align:center;'>[style.colourDisabled(The size of your clit doesn't change...)]</p>";
-			} else {
-				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The size of [npc.name]'s clit doesn't change...)]</p>");
-			}
-		} else if (sizeChange > 0) {
-			if (owner.isPlayer()) {
-				return "</p>"
-							+ "You let out [pc.a_moan] as you feel a deep throbbing sensation building up within your [pc.pussy]."
-							+ " Your cheeks flush red as the feeling works its way up into your clit, and with a little gasp, you feel it [style.boldGrow(grow larger)].<br/>"
-							+ "You now have [style.boldSex([pc.a_clitSize] [pc.clit])]!"
-						+ "</p>";
-			} else {
-				return UtilText.parse(owner,
-						"</p>"
-							+ "[npc.Name] lets out [npc.a_moan] as [npc.she] feels a deep throbbing sensation building up within [npc.her] [npc.pussy]."
-							+ " [npc.Her] cheeks flush red as the feeling works its way up [npc.her] clit, and with a little gasp, [npc.she] feels it [style.boldGrow(grow larger)].<br/>"
-							+ "[npc.She] now has [style.boldSex([npc.a_clitSize] [npc.clit])]!"
-						+ "</p>");
-			}
-		} else {
-			if (owner.isPlayer()) {
-				return "</p>"
-							+ "You let out [pc.a_moan] as you feel a deep throbbing sensation building up within your [pc.pussy]."
-							+ " Your cheeks flush red as the feeling works its way up into your clit, and with a little gasp, you feel it [style.boldShrink(shrink)].<br/>"
-							+ "You now have [style.boldSex([pc.a_clitSize] [pc.clit])]!"
-						+ "</p>";
-			} else {
-				return UtilText.parse(owner,
-						"</p>"
-								+ "[npc.Name] lets out [npc.a_moan] as [npc.she] feels a deep throbbing sensation building up at the base of [npc.her] cock."
-								+ " [npc.Her] cheeks flush red as the feeling works its way up [npc.her] clit, and with a little gasp, [npc.she] feels it [style.boldShrink(shrink)].<br/>"
-								+ "[npc.She] now has [style.boldSex([npc.a_clitSize] [npc.clit])]!"
-						+ "</p>");
-			}
-		}
-	}
-	
 	public boolean isPierced() {
 		return pierced;
 	}
@@ -1068,5 +1012,9 @@ public class Vagina implements BodyPartInterface, Serializable {
 						+piercingUnequip);
 			}
 		}
+	}
+
+	public Clitoris getClitoris() {
+		return clitoris;
 	}
 }

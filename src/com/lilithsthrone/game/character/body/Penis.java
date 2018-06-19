@@ -13,7 +13,7 @@ import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
 import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
-import com.lilithsthrone.game.character.body.valueEnums.PenisModifier;
+import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
 import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
@@ -37,7 +37,7 @@ public class Penis implements BodyPartInterface, Serializable {
 	protected int girth;
 	protected boolean pierced;
 	protected boolean virgin;
-	protected Set<PenisModifier> penisModifiers;
+	protected Set<PenetrationModifier> penisModifiers;
 	
 	protected Testicle testicle;
 	protected OrificePenisUrethra orificeUrethra;
@@ -94,8 +94,8 @@ public class Penis implements BodyPartInterface, Serializable {
 	public String getDescriptor(GameCharacter owner) {
 		List<String> list = new ArrayList<>();
         
-		for(PenisModifier pm : penisModifiers) {
-			if(!(Main.game.isInSex() && pm == PenisModifier.SHEATHED)) {
+		for(PenetrationModifier pm : penisModifiers) {
+			if(!(Main.game.isInSex() && pm == PenetrationModifier.SHEATHED)) {
 				list.add(pm.getName());
 			}
 		}
@@ -128,7 +128,7 @@ public class Penis implements BodyPartInterface, Serializable {
 		List<String> list = new ArrayList<>();
 		list.add("head");
         
-		if(penisModifiers.contains(PenisModifier.TAPERED)) {
+		if(penisModifiers.contains(PenetrationModifier.TAPERED)) {
 			list.add("tip");
 		}
 		
@@ -138,11 +138,11 @@ public class Penis implements BodyPartInterface, Serializable {
 	public String getPenisHeadDescriptor(GameCharacter gc) {
 		List<String> list = new ArrayList<>();
         
-		if(penisModifiers.contains(PenisModifier.TAPERED)) {
+		if(penisModifiers.contains(PenetrationModifier.TAPERED)) {
 			list.add("tapered");
 			list.add("pointed");
 		}
-		if(penisModifiers.contains(PenisModifier.FLARED)) {
+		if(penisModifiers.contains(PenetrationModifier.FLARED)) {
 			list.add("wide");
 			list.add("flared");
 			list.add("flat");
@@ -509,7 +509,7 @@ public class Penis implements BodyPartInterface, Serializable {
 						+ "Instead, [npc.her] new cock is:");
 			}
 			
-			for(PenisModifier pm : penisModifiers) {
+			for(PenetrationModifier pm : penisModifiers) {
 				UtilText.transformationContentSB.append("<br/>[style.boldGrow("+Util.capitaliseSentence(pm.getName())+")]");
 			}
 			UtilText.transformationContentSB.append("</p>");
@@ -731,15 +731,15 @@ public class Penis implements BodyPartInterface, Serializable {
 		this.virgin = virgin;
 	}
 	
-	public Set<PenisModifier> getPenisModifiers() {
+	public Set<PenetrationModifier> getPenisModifiers() {
 		return penisModifiers;
 	}
 	
-	public boolean hasPenisModifier(PenisModifier modifier) {
+	public boolean hasPenisModifier(PenetrationModifier modifier) {
 		return penisModifiers.contains(modifier);
 	}
 
-	public String addPenisModifier(GameCharacter owner, PenisModifier modifier) {
+	public String addPenisModifier(GameCharacter owner, PenetrationModifier modifier) {
 		if(hasPenisModifier(modifier)) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 		}
@@ -883,7 +883,7 @@ public class Penis implements BodyPartInterface, Serializable {
 		return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 	}
 
-	public String removePenisModifier(GameCharacter owner, PenisModifier modifier) {
+	public String removePenisModifier(GameCharacter owner, PenetrationModifier modifier) {
 		if(!hasPenisModifier(modifier)) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 		}

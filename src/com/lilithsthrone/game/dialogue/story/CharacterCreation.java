@@ -1636,7 +1636,7 @@ public class CharacterCreation {
 					public void effects() {
 						if(!Main.game.getPlayer().hasPenis()) {
 							for(SexAreaOrifice ot : SexAreaOrifice.values()) {
-								SexType st = new SexType(SexParticipantType.PITCHER, SexAreaPenetration.PENIS, ot);
+								SexType st = new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, ot);
 								Main.game.getPlayer().setVirginityLoss(st, "");
 								st = new SexType(SexParticipantType.SELF, SexAreaPenetration.PENIS, ot);
 								Main.game.getPlayer().setVirginityLoss(st, "");
@@ -1646,7 +1646,7 @@ public class CharacterCreation {
 						}
 						if(!Main.game.getPlayer().hasVagina()) {
 							for(SexAreaPenetration pt : SexAreaPenetration.values()) {
-								SexType st = new SexType(SexParticipantType.PITCHER, pt, SexAreaOrifice.VAGINA);
+								SexType st = new SexType(SexParticipantType.NORMAL, pt, SexAreaOrifice.VAGINA);
 								Main.game.getPlayer().setVirginityLoss(st, "");
 								st = new SexType(SexParticipantType.SELF, pt, SexAreaOrifice.VAGINA);
 								Main.game.getPlayer().setVirginityLoss(st, "");

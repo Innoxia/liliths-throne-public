@@ -1221,14 +1221,15 @@ public class GenericActions {
 		public SexActionLimitation getLimitation() {
 			return SexActionLimitation.PLAYER_ONLY;
 		}
+
 		@Override
 		public String getActionTitle() {
-			return "Stop sex";
+			return Sex.isMasturbation()?"Stop masturbating":"Stop sex";
 		}
 
 		@Override
 		public String getActionDescription() {
-			return "Stop having sex with [npc.name].";
+			return Sex.isMasturbation()?"Put an end to your masturbation session.":"Stop having sex with [npc.name].";
 		}
 
 		@Override
@@ -1238,7 +1239,7 @@ public class GenericActions {
 
 		@Override
 		public String getDescription() {
-			return "Deciding that you've had enough, you step back from [npc.name].";
+			return Sex.isMasturbation()?"Deciding that you've had enough, you put an end to your masturbation session.":"Deciding that you've had enough, you step back from [npc.name].";
 		}
 		@Override
 		public boolean endsSex() {

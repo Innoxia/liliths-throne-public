@@ -5,7 +5,7 @@ package com.lilithsthrone.game.character.body.valueEnums;
  * @version 0.1.95
  * @author Innoxia
  */
-public enum PenisModifier {
+public enum PenetrationModifier {
 
 	SHEATHED("sheathed"),
 	RIBBED("ribbed"),
@@ -20,7 +20,7 @@ public enum PenisModifier {
 	
 	private String descriptor;
 
-	private PenisModifier(String descriptor) {
+	private PenetrationModifier(String descriptor) {
 		this.descriptor = descriptor;
 	}
 

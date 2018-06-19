@@ -39,6 +39,7 @@ import com.lilithsthrone.game.character.body.Leg;
 import com.lilithsthrone.game.character.body.Penis;
 import com.lilithsthrone.game.character.body.Skin;
 import com.lilithsthrone.game.character.body.Tail;
+import com.lilithsthrone.game.character.body.Tentacle;
 import com.lilithsthrone.game.character.body.Vagina;
 import com.lilithsthrone.game.character.body.Wing;
 import com.lilithsthrone.game.character.body.types.AntennaType;
@@ -55,6 +56,7 @@ import com.lilithsthrone.game.character.body.types.LegType;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.SkinType;
 import com.lilithsthrone.game.character.body.types.TailType;
+import com.lilithsthrone.game.character.body.types.TentacleType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.types.WingType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
@@ -67,7 +69,7 @@ import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
 import com.lilithsthrone.game.character.body.valueEnums.LabiaSize;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
-import com.lilithsthrone.game.character.body.valueEnums.PenisModifier;
+import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
 import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.body.valueEnums.TongueModifier;
@@ -631,7 +633,7 @@ public class CharacterUtils {
 					inheritsFromMotherPenis, mother.getPenisRawSizeValue(),
 					inheritsFromFatherPenis, father.getPenisRawSizeValue()));
 			// Penis modifiers:
-			for(PenisModifier pm : PenisModifier.values()) {
+			for(PenetrationModifier pm : PenetrationModifier.values()) {
 				if(Math.random()>=0.5) {
 					if(inheritsFromMotherPenis && inheritsFromFatherPenis) {
 						if(Math.random()>=takesAfterMotherChance) {
@@ -745,10 +747,11 @@ public class CharacterUtils {
 		boolean inheritsFromFatherVagina = father.hasVagina();
 		if(body.getVagina().getType()!=VaginaType.NONE) {
 			// Clitoris size:
-			body.getVagina().setClitorisSize(blankNPC, getSizeFromGenetics(
-					body.getVagina().getRawClitorisSizeValue(),
+			body.getVagina().getClitoris().setClitorisSize(blankNPC, getSizeFromGenetics(
+					body.getVagina().getClitoris().getRawClitorisSizeValue(),
 					inheritsFromMotherVagina, mother.getVaginaRawClitorisSizeValue(),
 					inheritsFromFatherVagina, father.getVaginaRawClitorisSizeValue()));
+			//TODO clit girth and clit modifiers
 			// Labia size:
 			body.getVagina().setLabiaSize(blankNPC, getSizeFromGenetics(
 					body.getVagina().getRawLabiaSizeValue(),
@@ -933,6 +936,7 @@ public class CharacterUtils {
 						.horn(new Horn((stage.isHornFurry()?startingBodyType.getRandomHornType(false):HornType.NONE), (startingGender.isFeminine() ? startingBodyType.getFemaleHornLength() : startingBodyType.getMaleHornLength())))
 						.antenna(new Antenna(stage.isAntennaFurry()?startingBodyType.getAntennaType():AntennaType.NONE))
 						.tail(new Tail(stage.isTailFurry()?startingBodyType.getTailType():TailType.NONE))
+						.tentacle(new Tentacle(stage.isTentacleFurry()?startingBodyType.getTentacleType():TentacleType.NONE))
 						.wing(new Wing((stage.isWingFurry()?startingBodyType.getWingType():WingType.NONE), (startingGender.isFeminine() ? startingBodyType.getFemaleWingSize() : startingBodyType.getMaleWingSize())))
 						.build();
 		

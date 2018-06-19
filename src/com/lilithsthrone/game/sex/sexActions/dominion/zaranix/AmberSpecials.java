@@ -14,7 +14,8 @@ import com.lilithsthrone.game.sex.sexActions.SexActionType;
  * @version 0.1.95
  * @author Innoxia
  */
-public class SAZaranixCockSucking {
+public class AmberSpecials {
+	
 	public static final SexAction PARTNER_STOP_SEX = new SexAction(
 			SexActionType.SPECIAL,
 			ArousalIncrease.ONE_MINIMUM,
@@ -48,7 +49,8 @@ public class SAZaranixCockSucking {
 		
 		@Override
 		public String getDescription() {
-			return "With a satisfied sigh, [npc.name] pushes your head back, saying that [npc.she]'s had enough.";
+			return "With a satisfied sigh, [npc.name] pulls back, growling,"
+					+ " [npc.speech(Good bitch! I think you've learned your lesson!)]";
 		}
 		
 		@Override
@@ -56,4 +58,5 @@ public class SAZaranixCockSucking {
 			return true;
 		}
 	};
+	
 }

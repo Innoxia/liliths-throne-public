@@ -325,10 +325,10 @@ public class DominionSuccubusAttacker extends NPC {
 //	@Override
 //	public SexType getForeplayPreference() {
 //		if(Main.game.getPlayer().hasVagina() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
-//			return new SexType(SexParticipantType.PITCHER, PenetrationType.FINGER, OrificeType.VAGINA);
+//			return new SexType(SexParticipantType.NORMAL, PenetrationType.FINGER, OrificeType.VAGINA);
 //			
 //		} else if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true)) {
-//			return new SexType(SexParticipantType.PITCHER, PenetrationType.FINGER, OrificeType.ANUS);
+//			return new SexType(SexParticipantType.NORMAL, PenetrationType.FINGER, OrificeType.ANUS);
 //		}
 //		
 //		return foreplayPreference;
@@ -337,10 +337,10 @@ public class DominionSuccubusAttacker extends NPC {
 //	@Override
 //	public SexType getMainSexPreference() {
 //		if(Main.game.getPlayer().hasVagina() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
-//			return new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.VAGINA);
+//			return new SexType(SexParticipantType.NORMAL, PenetrationType.PENIS, OrificeType.VAGINA);
 //			
 //		} else if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true)) {
-//			return new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.ANUS);
+//			return new SexType(SexParticipantType.NORMAL, PenetrationType.PENIS, OrificeType.ANUS);
 //		}
 //		
 //		return mainSexPreference;

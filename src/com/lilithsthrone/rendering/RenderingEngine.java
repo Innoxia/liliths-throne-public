@@ -1392,7 +1392,7 @@ public enum RenderingEngine {
 		}
 
 		int mapSize = zoomedIn ? 2 : 3;
-		float unit = zoomedIn ? 18f : 12f;
+		float unit = zoomedIn ? 18f : 13.25f;
 		
 		String tileWidthStyle = "width:" + unit + "%; border-width:1%; margin:"+(zoomedIn?1:0.5)+"%;";
 

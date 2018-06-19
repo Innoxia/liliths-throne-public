@@ -1547,7 +1547,6 @@ public class GenericPositioning {
 				
 			}
 			
-//			SexFlags.positioningBlockedPlayer = true;
 			SexFlags.resetRequests();
 		}
 	};
@@ -1600,8 +1599,6 @@ public class GenericPositioning {
 					Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.FACE_TO_WALL_FACING_TARGET)),
 					Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.FACE_TO_WALL_AGAINST_WALL))));
 			
-//			SexFlags.positioningBlockedPartner = true;
-//			SexFlags.positioningBlockedPlayer = true;
 			SexFlags.resetRequests();
 		}
 	};
@@ -1649,9 +1646,7 @@ public class GenericPositioning {
 			Sex.setSexManager(new SMBackToWall(
 					Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.BACK_TO_WALL_FACING_TARGET)),
 					Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.BACK_TO_WALL_AGAINST_WALL))));
-
-//			SexFlags.positioningBlockedPartner = true;
-//			SexFlags.positioningBlockedPlayer = true;
+			
 			SexFlags.resetRequests();
 		}
 	};
@@ -1712,8 +1707,6 @@ public class GenericPositioning {
 					dominants,
 					Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))));
 			
-//			SexFlags.positioningBlockedPartner = true;
-//			SexFlags.positioningBlockedPlayer = true;
 			SexFlags.resetRequests();
 		}
 	};
@@ -1773,8 +1766,6 @@ public class GenericPositioning {
 					dominants,
 					Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))));
 			
-//			SexFlags.positioningBlockedPartner = true;
-//			SexFlags.positioningBlockedPlayer = true;
 			SexFlags.resetRequests();
 		}
 	};
@@ -1834,8 +1825,6 @@ public class GenericPositioning {
 					dominants,
 					Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_BEHIND_ORAL))));
 			
-//			SexFlags.positioningBlockedPartner = true;
-//			SexFlags.positioningBlockedPlayer = true;
 			SexFlags.resetRequests();
 		}
 	};
@@ -1895,8 +1884,6 @@ public class GenericPositioning {
 					dominants,
 					Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_BEHIND))));
 			
-//			SexFlags.positioningBlockedPartner = true;
-//			SexFlags.positioningBlockedPlayer = true;
 			SexFlags.resetRequests();
 		}
 	};
@@ -1945,8 +1932,6 @@ public class GenericPositioning {
 					Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.KNEELING_RECEIVING_ORAL)),
 					Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.KNEELING_PERFORMING_ORAL))));
 			
-//			SexFlags.positioningBlockedPartner = true;
-//			SexFlags.positioningBlockedPlayer = true;
 			SexFlags.resetRequests();
 		}
 	};
@@ -1995,8 +1980,6 @@ public class GenericPositioning {
 					Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.KNEELING_PERFORMING_ORAL)),
 					Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.KNEELING_RECEIVING_ORAL))));
 			
-//			SexFlags.positioningBlockedPartner = true;
-//			SexFlags.positioningBlockedPlayer = true;
 			SexFlags.resetRequests();
 		}
 	};
@@ -2046,9 +2029,7 @@ public class GenericPositioning {
 			Sex.setSexManager(new SMSixtyNine(
 					Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.SIXTY_NINE_TOP)),
 					Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.SIXTY_NINE_BOTTOM))));
-
-//			SexFlags.positioningBlockedPartner = true;
-//			SexFlags.positioningBlockedPlayer = true;
+			
 			SexFlags.resetRequests();
 		}
 	};
@@ -2097,9 +2078,7 @@ public class GenericPositioning {
 			Sex.setSexManager(new SMCowgirl(
 					Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.COWGIRL_RIDING)),
 					Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.COWGIRL_ON_BACK))));
-
-//			SexFlags.positioningBlockedPartner = true;
-//			SexFlags.positioningBlockedPlayer = true;
+			
 			SexFlags.resetRequests();
 		}
 	};

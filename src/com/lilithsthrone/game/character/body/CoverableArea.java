@@ -2,10 +2,12 @@ package com.lilithsthrone.game.character.body;
 
 /**
  * @since 0.1.0
- * @version 0.1.98
+ * @version 0.2.8
  * @author Innoxia
  */
 public enum CoverableArea {
+
+	NONE("none"), // Utility value
 	
 	ASS("ass"),
 	ANUS("asshole"),

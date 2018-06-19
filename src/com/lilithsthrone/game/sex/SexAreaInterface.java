@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.sex;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.body.CoverableArea;
 
 /**
  * @since 0.2.7
@@ -10,6 +11,8 @@ import com.lilithsthrone.game.character.GameCharacter;
 public interface SexAreaInterface {
 	
 	public boolean isOrifice();
+	
+	public CoverableArea getRelatedCoverableArea();
 
 	public String getName(GameCharacter owner);
 	

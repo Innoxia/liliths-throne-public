@@ -9,10 +9,8 @@
 	Goals:
 	
 	Sex content improvements
-	- Add support for NPC-on-NPC actions (all sex action descriptions currently assume one partner is the player).
 	- Add support for random attackers having sex with your companions upon combat loss (requires NPC-on-NPC support first).
 	- Add modding framework for sex actions.
-	- Update Lilaya's and Kate's chair sex scenes.
 	
 	Submission content
 	- Add an Imp gang attack.
@@ -21,38 +19,46 @@
 	Nightlife
 	- Add at least one club to start with.
 	- Add club's internal map.
+	- Add indication in characters present for crowds
 	- Add randomly-generated NPC interactions in the club.
 
 	
 	
 	Patch notes:
 	
-	
-	
-	
-	
-	Amber specials - SAAmberDoggyFucked (just make no positioning in Amber's scene)
-	
-	Zaranix oral the same - SAZaranixCockSucking
-	
-	SexActionRalphDiscount
-	
-	SARoseHands
-	
-	cultist oral remove position swapping
-	
-	check roxy
+	Engine:
+		Finished work on sex action code to fully support NPC-on-NPC actions.
+		Added support for clit-fucking (when a clit is large enough to act as a pseudo-cock) and foot-related sex actions.
+		Added support for tentacles.
+		
+	Gameplay:
+		Added modifiers and girth for clitoris, with associated TFs.
+		
+	Bugs:
+		Fixed issue with map rendering incorrectly when zoomed out.
+		Fixed game sometimes incorrectly scrolling back up to the top of dialogue.
+		Fixed 'Stroke cock' actions not showing up in sex scenes.
+		Fixed some incorrect sex action availability.
 	
 	
 	
 	
 	
-	Stroke cock
-		Works if you make your penis less than 3 inches long, not sure why
+	- Update Lilaya's and Kate's chair sex scenes.
+	
+	AI - need to prioritise actions on partner before self penetrations
+	
+	
+	
+	Blaze lets out a deep groan as he pushes his cock into your back door.​
+		You have taken your penile virginity!
+	
+	exporting your owned npc slave and importing while starting a new game causes you to be a slave
 	
 	when Lilaya is pregnant and asks you to pull out to not get pregnant
 	
-	Male PC with Orgasm Denier fetish, if you 'Deny' a female imp at their orgasm, the game gets stuck in a loop of 'Deny'/'Prepare'. The loop ends if you allow them to orgasm, but otherwise is infinite. (PC keeps gaining arousal and can cum over and over) Tested with other races, seems to only be with imps
+	Male PC with Orgasm Denier fetish, if you 'Deny' a female imp at their orgasm, the game gets stuck in a loop of 'Deny'/'Prepare'.
+	 The loop ends if you allow them to orgasm, but otherwise is infinite. (PC keeps gaining arousal and can cum over and over) Tested with other races, seems to only be with imps
 	
 	Rental daddy
 	

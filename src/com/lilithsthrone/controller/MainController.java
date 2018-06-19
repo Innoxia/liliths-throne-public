@@ -1873,7 +1873,7 @@ public class MainController implements Initializable {
 		if (!Main.game.getCurrentDialogueNode().isTravelDisabled()) {
 			RenderingEngine.setZoomedIn(!RenderingEngine.isZoomedIn());
 			
-			Main.game.reloadContent();
+			Main.mainController.updateUILeftPanel();
 			RenderingEngine.ENGINE.renderButtons();
 		}
 	}

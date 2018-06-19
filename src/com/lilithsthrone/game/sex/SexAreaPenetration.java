@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.sex;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.body.CoverableArea;
 
 /**
  * @since 0.1.0
@@ -19,6 +20,11 @@ public enum SexAreaPenetration implements SexAreaInterface {
 		public boolean isFree(GameCharacter owner) {
 			return Sex.isOrificeFree(owner, SexAreaOrifice.URETHRA_PENIS) && Sex.isPenetrationTypeFree(owner, this);
 		}
+
+		@Override
+		public CoverableArea getRelatedCoverableArea() {
+			return CoverableArea.PENIS;
+		}
 	},
 	
 	CLIT(4, true) {
@@ -31,6 +37,11 @@ public enum SexAreaPenetration implements SexAreaInterface {
 		public boolean isFree(GameCharacter owner) {
 			return Sex.isPenetrationTypeFree(owner, this);
 		}
+
+		@Override
+		public CoverableArea getRelatedCoverableArea() {
+			return CoverableArea.VAGINA;
+		}
 	},
 	
 	TONGUE(2, false) {
@@ -42,6 +53,11 @@ public enum SexAreaPenetration implements SexAreaInterface {
 		@Override
 		public boolean isFree(GameCharacter owner) {
 			return Sex.isOrificeFree(owner, SexAreaOrifice.MOUTH) && Sex.isPenetrationTypeFree(owner, this);
+		}
+
+		@Override
+		public CoverableArea getRelatedCoverableArea() {
+			return CoverableArea.MOUTH;
 		}
 	},
 	
@@ -58,6 +74,10 @@ public enum SexAreaPenetration implements SexAreaInterface {
 		public boolean isFree(GameCharacter owner) {
 			return Sex.isPenetrationTypeFree(owner, this);
 		}
+		@Override
+		public CoverableArea getRelatedCoverableArea() {
+			return CoverableArea.NONE;
+		}
 	},
 	
 	TOES(1, false) {
@@ -73,6 +93,10 @@ public enum SexAreaPenetration implements SexAreaInterface {
 		public boolean isFree(GameCharacter owner) {
 			return Sex.isPenetrationTypeFree(owner, this);
 		}
+		@Override
+		public CoverableArea getRelatedCoverableArea() {
+			return CoverableArea.NONE;
+		}
 	},
 	
 	TAIL(2, true) {
@@ -84,6 +108,11 @@ public enum SexAreaPenetration implements SexAreaInterface {
 		@Override
 		public boolean isFree(GameCharacter owner) {
 			return Sex.isPenetrationTypeFree(owner, this);
+		}
+
+		@Override
+		public CoverableArea getRelatedCoverableArea() {
+			return CoverableArea.NONE;
 		}
 	},
 	
@@ -97,6 +126,11 @@ public enum SexAreaPenetration implements SexAreaInterface {
 		public boolean isFree(GameCharacter owner) {
 			// TODO
 			return false;
+		}
+
+		@Override
+		public CoverableArea getRelatedCoverableArea() {
+			return CoverableArea.NONE;
 		}
 	};
 

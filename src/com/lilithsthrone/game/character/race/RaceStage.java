@@ -4,7 +4,7 @@ import com.lilithsthrone.utils.Colour;
 
 /**
  * @since 0.1.0
- * @version 0.1.66
+ * @version 0.2.8
  * @author Innoxia
  */
 public enum RaceStage {
@@ -69,6 +69,10 @@ public enum RaceStage {
 		}
 		@Override
 		public boolean isWingFurry() {
+			return false;
+		}
+		@Override
+		public boolean isTentacleFurry() {
 			return false;
 		}
 	},
@@ -137,6 +141,10 @@ public enum RaceStage {
 		public boolean isWingFurry() {
 			return true;
 		}
+		@Override
+		public boolean isTentacleFurry() {
+			return false;
+		}
 	},
 
 	/**All minor animal-morph parts (including genitalia).<br/>
@@ -201,6 +209,10 @@ public enum RaceStage {
 		@Override
 		public boolean isWingFurry() {
 			return true;
+		}
+		@Override
+		public boolean isTentacleFurry() {
+			return false;
 		}
 	},
 
@@ -267,6 +279,10 @@ public enum RaceStage {
 		public boolean isWingFurry() {
 			return true;
 		}
+		@Override
+		public boolean isTentacleFurry() {
+			return false;
+		}
 	},
 
 	/**All minor animal-morph parts, animal-morph arms and legs, and animal-morph skin and face.<br/>
@@ -332,6 +348,10 @@ public enum RaceStage {
 		public boolean isWingFurry() {
 			return true;
 		}
+		@Override
+		public boolean isTentacleFurry() {
+			return true;
+		}
 	};
 
 	private String name;
@@ -363,6 +383,7 @@ public enum RaceStage {
 	public abstract boolean isPenisFurry();
 	public abstract boolean isSkinFurry();
 	public abstract boolean isTailFurry();
+	public abstract boolean isTentacleFurry();
 	public abstract boolean isVaginaFurry();
 	public abstract boolean isWingFurry();
 }

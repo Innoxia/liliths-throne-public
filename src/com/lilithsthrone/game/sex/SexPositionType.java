@@ -3,16 +3,16 @@ package com.lilithsthrone.game.sex;
 import java.util.List;
 import java.util.Map;
 
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
 import com.lilithsthrone.game.sex.sexActions.SexActionPresets;
+import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericOrgasms;
 import com.lilithsthrone.game.sex.sexActions.universal.BackToWall;
 import com.lilithsthrone.game.sex.sexActions.universal.BreedingStallBack;
 import com.lilithsthrone.game.sex.sexActions.universal.BreedingStallFront;
 import com.lilithsthrone.game.sex.sexActions.universal.ChairSex;
-import com.lilithsthrone.game.sex.sexActions.universal.ChairSexOral;
 import com.lilithsthrone.game.sex.sexActions.universal.Cowgirl;
-import com.lilithsthrone.game.sex.sexActions.universal.CultistSexActions;
-import com.lilithsthrone.game.sex.sexActions.universal.CultistSexActions;
 import com.lilithsthrone.game.sex.sexActions.universal.CultistSexActions;
 import com.lilithsthrone.game.sex.sexActions.universal.DoggyStyle;
 import com.lilithsthrone.game.sex.sexActions.universal.FaceSitting;
@@ -48,15 +48,15 @@ import com.lilithsthrone.utils.Util.Value;
  *   are available for the character on all fours, in relation to a character kneeling behind them.
  * 
  * @since 0.1.97
- * @version 0.2.7
+ * @version 0.2.8
  * @author Innoxia
  */
 public enum SexPositionType {
 	
 	BACK_TO_WALL("Back-to-wall",
 			true,
-			Util.newArrayListOfValues(BackToWall.class),
-			Util.newHashMapOfValues(
+			true,
+			Util.newArrayListOfValues(BackToWall.class), Util.newHashMapOfValues(
 					new Value<>(
 							SexPositionSlot.BACK_TO_WALL_AGAINST_WALL,
 							Util.newHashMapOfValues(
@@ -86,8 +86,8 @@ public enum SexPositionType {
 	
 	FACING_WALL("Facing wall",
 			true,
-			Util.newArrayListOfValues(FaceToWall.class),
-			Util.newHashMapOfValues(
+			true,
+			Util.newArrayListOfValues(FaceToWall.class), Util.newHashMapOfValues(
 					new Value<>(
 							SexPositionSlot.FACE_TO_WALL_AGAINST_WALL,
 							Util.newHashMapOfValues(
@@ -117,8 +117,8 @@ public enum SexPositionType {
 	
 	COWGIRL("Cowgirl",
 			true,
-			Util.newArrayListOfValues(Cowgirl.class),
-			Util.newHashMapOfValues(
+			true,
+			Util.newArrayListOfValues(Cowgirl.class), Util.newHashMapOfValues(
 					new Value<>(
 							SexPositionSlot.COWGIRL_ON_BACK,
 							Util.newHashMapOfValues(
@@ -149,8 +149,8 @@ public enum SexPositionType {
 	
 	FACE_SITTING("Face-sitting",
 			true,
-			Util.newArrayListOfValues(FaceSitting.class),
-			Util.newHashMapOfValues(
+			true,
+			Util.newArrayListOfValues(FaceSitting.class), Util.newHashMapOfValues(
 					new Value<>(
 							SexPositionSlot.FACE_SITTING_ON_FACE,
 							Util.newHashMapOfValues(
@@ -181,8 +181,8 @@ public enum SexPositionType {
 	
 	DOGGY_STYLE("Doggy-style",
 			true,
-			Util.newArrayListOfValues(DoggyStyle.class),
-			Util.newHashMapOfValues(
+			true,
+			Util.newArrayListOfValues(DoggyStyle.class), Util.newHashMapOfValues(
 					new Value<>(
 							SexPositionSlot.DOGGY_ON_ALL_FOURS,
 							Util.newHashMapOfValues(
@@ -364,8 +364,8 @@ public enum SexPositionType {
 	
 	SIXTY_NINE("Sixty-nine",
 			true,
-			Util.newArrayListOfValues(SixtyNine.class),
-			Util.newHashMapOfValues(
+			true,
+			Util.newArrayListOfValues(SixtyNine.class), Util.newHashMapOfValues(
 					new Value<>(
 							SexPositionSlot.SIXTY_NINE_TOP,
 							Util.newHashMapOfValues(
@@ -400,8 +400,8 @@ public enum SexPositionType {
 	
 	KNEELING_ORAL("Kneeling",
 			true,
-			Util.newArrayListOfValues(KneelingOral.class),
-			Util.newHashMapOfValues(
+			true,
+			Util.newArrayListOfValues(KneelingOral.class), Util.newHashMapOfValues(
 					new Value<>(
 							SexPositionSlot.KNEELING_RECEIVING_ORAL,
 							Util.newHashMapOfValues(
@@ -430,8 +430,8 @@ public enum SexPositionType {
 	
 	MISSIONARY("Missionary",
 			true,
-			Util.newArrayListOfValues(Missionary.class),
-			Util.newHashMapOfValues(
+			true,
+			Util.newArrayListOfValues(Missionary.class), Util.newHashMapOfValues(
 					new Value<>(
 							SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS,
 							Util.newHashMapOfValues(
@@ -440,7 +440,7 @@ public enum SexPositionType {
 									new SexActionInteractions(
 											Util.mergeMaps(
 													SexActionPresets.appendagesToAllAreas,
-													SexActionPresets.groinToGroin,
+													SexActionPresets.groinToVagina,
 													SexActionPresets.groinToAss,
 													SexActionPresets.kissing,
 													SexActionPresets.mouthToBreasts,
@@ -461,8 +461,8 @@ public enum SexPositionType {
 	
 	STANDING("Standing",
 			true,
-			Util.newArrayListOfValues(Standing.class),
-			Util.newHashMapOfValues(
+			true,
+			Util.newArrayListOfValues(Standing.class), Util.newHashMapOfValues(
 					new Value<>(
 							SexPositionSlot.STANDING_DOMINANT,
 							Util.newHashMapOfValues(
@@ -490,8 +490,8 @@ public enum SexPositionType {
 	
 	MASTURBATION("Kneeling",
 			true,
-			Util.newArrayListOfValues(Masturbation.class),
-			Util.newHashMapOfValues(
+			false,
+			Util.newArrayListOfValues(Masturbation.class), Util.newHashMapOfValues(
 					new Value<>(
 							SexPositionSlot.MASTURBATING_KNEELING,
 							Util.newHashMapOfValues(
@@ -508,8 +508,8 @@ public enum SexPositionType {
 	
 	PANTY_MASTURBATION("Kneeling",
 			true,
-			Util.newArrayListOfValues(MasturbationPanties.class),
-			Util.newHashMapOfValues(
+			false,
+			Util.newArrayListOfValues(MasturbationPanties.class), Util.newHashMapOfValues(
 					new Value<>(
 							SexPositionSlot.MASTURBATING_KNEELING,
 							Util.newHashMapOfValues(
@@ -525,9 +525,9 @@ public enum SexPositionType {
 	},
 	
 	CHAIR_SEX("Chair sex",
-			true,
-			Util.newArrayListOfValues(ChairSex.class),
-			Util.newHashMapOfValues(
+			false,
+			false,
+			Util.newArrayListOfValues(ChairSex.class), Util.newHashMapOfValues(
 					new Value<>(
 							SexPositionSlot.CHAIR_TOP,
 							Util.newHashMapOfValues(
@@ -557,8 +557,8 @@ public enum SexPositionType {
 	
 	CHAIR_SEX_ORAL("Chair sex (oral)",
 			true,
-			Util.newArrayListOfValues(ChairSexOral.class),
-			Util.newHashMapOfValues(
+			false,
+			Util.newArrayListOfValues(ChairSex.class), Util.newHashMapOfValues(
 					new Value<>(
 							SexPositionSlot.CHAIR_KNEELING,
 							Util.newHashMapOfValues(
@@ -581,14 +581,14 @@ public enum SexPositionType {
 		@Override
 		public String getDescription() {
 			return UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.CHAIR_KNEELING), Sex.getCharacterInPosition(SexPositionSlot.CHAIR_ORAL_SITTING),
-					"[npc2.NameIs] sitting down on the chair, looking down at [npc.name] as [npc.she] kneels before [npc2.herHim], ready to perform oral.");
+					"[npc2.NameIs] sitting down on the chair, looking down at [npc.name] as [npc.she] [npc.verb(kneel)] before [npc2.herHim], ready to perform oral.");
 		}
 	},
 	
 	STOCKS_SEX("Stocks sex",
 			true,
-			Util.newArrayListOfValues(StocksSex.class),
-			Util.newHashMapOfValues(
+			false,
+			Util.newArrayListOfValues(StocksSex.class), Util.newHashMapOfValues(
 					new Value<>(
 							SexPositionSlot.STOCKS_LOCKED_IN_STOCKS,
 							Util.newHashMapOfValues(
@@ -668,8 +668,8 @@ public enum SexPositionType {
 	
 	MILKING_STALL("Milking Stall",
 			true,
-			Util.newArrayListOfValues(MilkingStall.class),
-			Util.newHashMapOfValues(
+			false,
+			Util.newArrayListOfValues(MilkingStall.class), Util.newHashMapOfValues(
 					new Value<>(
 							SexPositionSlot.MILKING_STALL_LOCKED_IN_MILKING_STALL,
 							Util.newHashMapOfValues(
@@ -751,8 +751,8 @@ public enum SexPositionType {
 	
 	PET_MOUNTING("Mounted",
 			true,
-			Util.newArrayListOfValues(PetMounting.class),
-			Util.newHashMapOfValues(
+			false,
+			Util.newArrayListOfValues(PetMounting.class), Util.newHashMapOfValues(
 					new Value<>(
 							SexPositionSlot.PET_MOUNTING_ON_ALL_FOURS,
 							Util.newHashMapOfValues(
@@ -782,8 +782,8 @@ public enum SexPositionType {
 	
 	PET_ORAL("Pet Oral",
 			true,
-			Util.newArrayListOfValues(PetOral.class),
-			Util.newHashMapOfValues(
+			false,
+			Util.newArrayListOfValues(PetOral.class), Util.newHashMapOfValues(
 					new Value<>(
 							SexPositionSlot.PET_ORAL_ON_ALL_FOURS,
 							Util.newHashMapOfValues(
@@ -811,8 +811,8 @@ public enum SexPositionType {
 	
 	UNDER_DESK_RALPH("Under desk",
 			false,
-			Util.newArrayListOfValues(RalphOral.class),
-			Util.newHashMapOfValues(
+			false,
+			Util.newArrayListOfValues(RalphOral.class), Util.newHashMapOfValues(
 					new Value<>(
 							SexPositionSlot.KNEELING_RECEIVING_ORAL_RALPH,
 							Util.newHashMapOfValues(
@@ -823,7 +823,8 @@ public enum SexPositionType {
 											SexActionPresets.tailToUpperTorso,
 											SexActionPresets.tentacleToUpperTorso,
 											SexActionPresets.vaginaToMouth,
-											SexActionPresets.penisToMouth))))),
+											SexActionPresets.penisToMouth,
+											SexActionPresets.groinToGroin))))),
 					new Value<>(
 							SexPositionSlot.KNEELING_PERFORMING_ORAL_RALPH,
 							Util.newHashMapOfValues(
@@ -839,8 +840,8 @@ public enum SexPositionType {
 	
 	SHOWER_TIME_PIX("Shower sex",
 			false,
-			Util.newArrayListOfValues(PixShower.class),
-			Util.newHashMapOfValues(
+			false,
+			Util.newArrayListOfValues(PixShower.class), Util.newHashMapOfValues(
 					new Value<>(
 							SexPositionSlot.FACE_TO_WALL_FACING_TARGET_SHOWER_PIX,
 							Util.newHashMapOfValues(
@@ -868,15 +869,18 @@ public enum SexPositionType {
 	
 	HANDS_ROSE("Hand-holding",
 			false,
-			Util.newArrayListOfValues(HandHolding.class),
-			Util.newHashMapOfValues(
+			false,
+			Util.newArrayListOfValues(HandHolding.class, GenericOrgasms.class), Util.newHashMapOfValues(
 					new Value<>(
 							SexPositionSlot.HAND_SEX_DOM_ROSE,
 							Util.newHashMapOfValues(
 							new Value<>(
 									SexPositionSlot.HAND_SEX_SUB_ROSE,
 									new SexActionInteractions(
-											Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, Util.newArrayListOfValues(SexAreaPenetration.FINGER))))))),
+											Util.newHashMapOfValues(
+													new Value<>(SexAreaPenetration.FINGER, Util.newArrayListOfValues(SexAreaPenetration.FINGER)),
+													new Value<>(SexAreaPenetration.FINGER, Util.newArrayListOfValues(SexAreaOrifice.MOUTH)),
+													new Value<>(SexAreaOrifice.MOUTH, Util.newArrayListOfValues(SexAreaPenetration.FINGER))))))),
 					new Value<>(
 							SexPositionSlot.HAND_SEX_SUB_ROSE,
 							Util.newHashMapOfValues(
@@ -892,8 +896,8 @@ public enum SexPositionType {
 	
 	MISSIONARY_DESK_VICKY("Missionary on counter",
 			true,
-			Util.newArrayListOfValues(VickyDominating.class),
-			Util.newHashMapOfValues(
+			false,
+			Util.newArrayListOfValues(VickyDominating.class), Util.newHashMapOfValues(
 					new Value<>(
 							SexPositionSlot.MISSIONARY_DESK_DOM_VICKY,
 							Util.newHashMapOfValues(
@@ -923,8 +927,8 @@ public enum SexPositionType {
 	
 	KNEELING_ORAL_CULTIST("Kneeling",
 			true,
-			Util.newArrayListOfValues(CultistSexActions.class),
-			Util.newHashMapOfValues(
+			false,
+			Util.newArrayListOfValues(CultistSexActions.class), Util.newHashMapOfValues(
 					new Value<>(
 							SexPositionSlot.KNEELING_RECEIVING_ORAL_CULTIST,
 							Util.newHashMapOfValues(
@@ -951,8 +955,8 @@ public enum SexPositionType {
 	
 	MISSIONARY_ALTAR_CULTIST("Missionary on altar",
 			true,
-			Util.newArrayListOfValues(CultistSexActions.class),
-			Util.newHashMapOfValues(
+			false,
+			Util.newArrayListOfValues(CultistSexActions.class), Util.newHashMapOfValues(
 					new Value<>(
 							SexPositionSlot.MISSIONARY_ALTAR_LYING_ON_ALTAR,
 							Util.newHashMapOfValues(
@@ -979,7 +983,7 @@ public enum SexPositionType {
 									new SexActionInteractions(
 											Util.mergeMaps(
 													SexActionPresets.appendagesToAllAreas,
-													SexActionPresets.groinToGroin,
+													SexActionPresets.groinToVagina,
 													SexActionPresets.groinToAss,
 													SexActionPresets.kissing,
 													SexActionPresets.mouthToBreasts,
@@ -1011,8 +1015,8 @@ public enum SexPositionType {
 	
 	MISSIONARY_ALTAR_SEALED_CULTIST("Missionary on altar",
 			true,
-			Util.newArrayListOfValues(CultistSexActions.class),
-			Util.newHashMapOfValues(
+			false,
+			Util.newArrayListOfValues(CultistSexActions.class), Util.newHashMapOfValues(
 					new Value<>(
 							SexPositionSlot.MISSIONARY_ALTAR_SEALED_LYING_ON_ALTAR,
 							Util.newHashMapOfValues(
@@ -1039,7 +1043,7 @@ public enum SexPositionType {
 									new SexActionInteractions(
 											Util.mergeMaps(
 													SexActionPresets.appendagesToAllAreas,
-													SexActionPresets.groinToGroin,
+													SexActionPresets.groinToVagina,
 													SexActionPresets.groinToAss,
 													SexActionPresets.kissing,
 													SexActionPresets.mouthToBreasts,
@@ -1065,8 +1069,8 @@ public enum SexPositionType {
 	
 	BREEDING_STALL_FRONT("Breeding Stall",
 			true,
-			Util.newArrayListOfValues(BreedingStallFront.class),
-			Util.newHashMapOfValues(
+			false,
+			Util.newArrayListOfValues(BreedingStallFront.class), Util.newHashMapOfValues(
 					new Value<>(
 							SexPositionSlot.BREEDING_STALL_FRONT,
 							Util.newHashMapOfValues(
@@ -1098,8 +1102,8 @@ public enum SexPositionType {
 	
 	BREEDING_STALL_BACK("Breeding Stall",
 			true,
-			Util.newArrayListOfValues(BreedingStallBack.class),
-			Util.newHashMapOfValues(
+			false,
+			Util.newArrayListOfValues(BreedingStallBack.class), Util.newHashMapOfValues(
 					new Value<>(
 							SexPositionSlot.BREEDING_STALL_BACK,
 							Util.newHashMapOfValues(
@@ -1133,6 +1137,7 @@ public enum SexPositionType {
 	
 	private String name;
 	private boolean addStandardActions;
+	private boolean addStandardPositioning;
 	
 	/**Key is role position. Value is list of all slots that this slot can switch to.*/
 	private Map<SexPositionSlot, Map<SexPositionSlot, SexActionInteractions>> slotTargets;
@@ -1141,10 +1146,12 @@ public enum SexPositionType {
 	
 	private SexPositionType(String name,
 			boolean addStandardActions,
+			boolean addStandardPositioning,
 			List<Class<?>> specialClasses,
 			Map<SexPositionSlot, Map<SexPositionSlot, SexActionInteractions>> slotTargets) {
 		this.name = name;
 		this.addStandardActions = addStandardActions;
+		this.addStandardPositioning = addStandardPositioning;
 		this.specialClasses = specialClasses;
 		this.slotTargets = slotTargets;
 	}
@@ -1157,7 +1164,25 @@ public enum SexPositionType {
 		return addStandardActions;
 	}
 
+	public boolean isAddStandardPositioning() {
+		return addStandardPositioning;
+	}
+
 	public abstract String getDescription();
+	
+	public boolean isActionBlocked(GameCharacter performer, GameCharacter target, SexActionInterface action) {
+		if(action.getSexAreaInteractions().containsKey(SexAreaPenetration.PENIS)
+				&& Sex.getOngoingActionsMap(target).containsKey(SexAreaPenetration.PENIS)
+				&& Sex.getOngoingActionsMap(target).get(SexAreaPenetration.PENIS).containsKey(performer)) {
+			return true;
+		}
+		if(action.getSexAreaInteractions().containsValue(SexAreaPenetration.PENIS)
+				&& Sex.getOngoingActionsMap(performer).containsKey(SexAreaPenetration.PENIS)
+				&& Sex.getOngoingActionsMap(performer).get(SexAreaPenetration.PENIS).containsKey(target)) {
+			return true;
+		}
+		return false;
+	}
 	
 	public int getMaximumSlots() {
 		return slotTargets.size();

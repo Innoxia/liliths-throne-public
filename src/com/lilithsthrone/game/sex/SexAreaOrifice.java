@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.sex;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
 import com.lilithsthrone.utils.Util;
 
@@ -24,6 +25,10 @@ public enum SexAreaOrifice implements SexAreaInterface {
 		public boolean isFree(GameCharacter owner) {
 			return Sex.isOrificeFree(owner, this) && Sex.isPenetrationTypeFree(owner, SexAreaPenetration.TONGUE);
 		}
+		@Override
+		public CoverableArea getRelatedCoverableArea() {
+			return CoverableArea.MOUTH;
+		}
 	},
 	
 	NIPPLE(2,
@@ -42,6 +47,10 @@ public enum SexAreaOrifice implements SexAreaInterface {
 		@Override
 		public boolean isFree(GameCharacter owner) {
 			return Sex.isOrificeFree(owner, this);
+		}
+		@Override
+		public CoverableArea getRelatedCoverableArea() {
+			return CoverableArea.NIPPLES;
 		}
 	},
 	
@@ -62,6 +71,10 @@ public enum SexAreaOrifice implements SexAreaInterface {
 		public boolean isFree(GameCharacter owner) {
 			return Sex.isOrificeFree(owner, this);
 		}
+		@Override
+		public CoverableArea getRelatedCoverableArea() {
+			return CoverableArea.BREASTS;
+		}
 	},
 	
 	ASS(1,
@@ -78,6 +91,10 @@ public enum SexAreaOrifice implements SexAreaInterface {
 		public boolean isFree(GameCharacter owner) {
 			return Sex.isOrificeFree(owner, this);
 		}
+		@Override
+		public CoverableArea getRelatedCoverableArea() {
+			return CoverableArea.ASS;
+		}
 	},
 	
 	ANUS(2,
@@ -93,6 +110,10 @@ public enum SexAreaOrifice implements SexAreaInterface {
 		public boolean isFree(GameCharacter owner) {
 			return Sex.isOrificeFree(owner, this);
 		}
+		@Override
+		public CoverableArea getRelatedCoverableArea() {
+			return CoverableArea.ANUS;
+		}
 	},
 	
 	VAGINA(4,
@@ -107,6 +128,10 @@ public enum SexAreaOrifice implements SexAreaInterface {
 		@Override
 		public boolean isFree(GameCharacter owner) {
 			return Sex.isOrificeFree(owner, this);
+		}
+		@Override
+		public CoverableArea getRelatedCoverableArea() {
+			return CoverableArea.VAGINA;
 		}
 	},
 	
@@ -127,6 +152,10 @@ public enum SexAreaOrifice implements SexAreaInterface {
 		public boolean isPlural() {
 			return true;
 		}
+		@Override
+		public CoverableArea getRelatedCoverableArea() {
+			return CoverableArea.THIGHS;
+		}
 	},
 	
 	URETHRA_VAGINA(1,
@@ -142,6 +171,10 @@ public enum SexAreaOrifice implements SexAreaInterface {
 		public boolean isFree(GameCharacter owner) {
 			return Sex.isOrificeFree(owner, this);
 		}
+		@Override
+		public CoverableArea getRelatedCoverableArea() {
+			return CoverableArea.VAGINA;
+		}
 	},
 	
 	URETHRA_PENIS(1,
@@ -156,6 +189,10 @@ public enum SexAreaOrifice implements SexAreaInterface {
 		@Override
 		public boolean isFree(GameCharacter owner) {
 			return Sex.isOrificeFree(owner, this) && Sex.isPenetrationTypeFree(owner, SexAreaPenetration.PENIS);
+		}
+		@Override
+		public CoverableArea getRelatedCoverableArea() {
+			return CoverableArea.PENIS;
 		}
 	};
 

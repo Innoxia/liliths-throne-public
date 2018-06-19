@@ -33,6 +33,7 @@ import com.lilithsthrone.game.character.body.types.LegType;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.SkinType;
 import com.lilithsthrone.game.character.body.types.TailType;
+import com.lilithsthrone.game.character.body.types.TentacleType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.types.WingType;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeShape;
@@ -57,7 +58,7 @@ import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.body.valueEnums.NippleShape;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
-import com.lilithsthrone.game.character.body.valueEnums.PenisModifier;
+import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
 import com.lilithsthrone.game.character.body.valueEnums.StartingSkinTone;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.body.valueEnums.TongueModifier;
@@ -107,6 +108,7 @@ public class Body implements Serializable, XMLSaving {
 	private Penis penis;
 	private Penis secondPenis;
 	private Tail tail;
+	private Tentacle tentacle;
 	private Vagina vagina;
 	private Wing wing;
 	
@@ -147,6 +149,7 @@ public class Body implements Serializable, XMLSaving {
 		private Penis penis = new Penis(PenisType.NONE, 0, 0, 0, 0, 0);
 		private Penis secondPenis = new Penis(PenisType.NONE, 0, 0, 0, 0, 0);
 		private Tail tail = new Tail(TailType.NONE);
+		private Tentacle tentacle = new Tentacle(TentacleType.NONE);
 		private Vagina vagina = new Vagina(VaginaType.NONE, 0, 0, 0, 0, 3, 3, true);
 		private Wing wing = new Wing(WingType.NONE, 0);
 
@@ -193,6 +196,11 @@ public class Body implements Serializable, XMLSaving {
 			return this;
 		}
 
+		public BodyBuilder tentacle(Tentacle tentacle) {
+			this.tentacle = tentacle;
+			return this;
+		}
+
 		public BodyBuilder vagina(Vagina vagina) {
 			this.vagina = vagina;
 			return this;
@@ -224,6 +232,7 @@ public class Body implements Serializable, XMLSaving {
 		penis = builder.penis;
 		secondPenis = builder.secondPenis;
 		tail = builder.tail;
+		tentacle = builder.tentacle;
 		vagina = builder.vagina;
 		wing = builder.wing;
 		
@@ -252,6 +261,7 @@ public class Body implements Serializable, XMLSaving {
 		allBodyParts.add(penis);
 		allBodyParts.add(secondPenis);
 		allBodyParts.add(tail);
+		allBodyParts.add(tentacle);
 		allBodyParts.add(vagina);
 		allBodyParts.add(wing);
 		
@@ -580,7 +590,7 @@ public class Body implements Serializable, XMLSaving {
 			CharacterUtils.addAttribute(doc, bodyPenis, "virgin", String.valueOf(this.penis.virgin));
 			Element penisModifiers = doc.createElement("penisModifiers");
 			bodyPenis.appendChild(penisModifiers);
-			for(PenisModifier pm : PenisModifier.values()) {
+			for(PenetrationModifier pm : PenetrationModifier.values()) {
 				CharacterUtils.addAttribute(doc, penisModifiers, pm.toString(), String.valueOf(this.penis.hasPenisModifier(pm)));
 			}
 			CharacterUtils.addAttribute(doc, bodyPenis, "elasticity", String.valueOf(this.penis.orificeUrethra.elasticity));
@@ -618,12 +628,24 @@ public class Body implements Serializable, XMLSaving {
 			CharacterUtils.addAttribute(doc, bodyTail, "type", this.tail.type.toString());
 			CharacterUtils.addAttribute(doc, bodyTail, "count", String.valueOf(this.tail.tailCount));
 		
+		// Tail:
+		Element bodyTentacle = doc.createElement("tentacle");
+		parentElement.appendChild(bodyTentacle);
+			CharacterUtils.addAttribute(doc, bodyTentacle, "type", this.tentacle.type.toString());
+			CharacterUtils.addAttribute(doc, bodyTentacle, "count", String.valueOf(this.tentacle.tentacleCount));
+			
 		// Vagina
 		Element bodyVagina = doc.createElement("vagina");
 		parentElement.appendChild(bodyVagina);
 			CharacterUtils.addAttribute(doc, bodyVagina, "type", this.vagina.type.toString());
 			CharacterUtils.addAttribute(doc, bodyVagina, "labiaSize", String.valueOf(this.vagina.labiaSize));
-			CharacterUtils.addAttribute(doc, bodyVagina, "clitSize", String.valueOf(this.vagina.clitSize));
+			CharacterUtils.addAttribute(doc, bodyVagina, "clitSize", String.valueOf(this.vagina.clitoris.clitSize));
+			CharacterUtils.addAttribute(doc, bodyVagina, "clitGirth", String.valueOf(this.vagina.clitoris.girth));
+			Element clitModifiers = doc.createElement("vaginaModifiers");
+			bodyVagina.appendChild(clitModifiers);
+			for(PenetrationModifier pm : PenetrationModifier.values()) {
+				CharacterUtils.addAttribute(doc, clitModifiers, pm.toString(), String.valueOf(this.vagina.clitoris.hasClitorisModifier(pm)));
+			}
 			CharacterUtils.addAttribute(doc, bodyVagina, "pierced", String.valueOf(this.vagina.pierced));
 			
 			CharacterUtils.addAttribute(doc, bodyVagina, "wetness", String.valueOf(this.vagina.orificeVagina.wetness));
@@ -1102,15 +1124,15 @@ public class Body implements Serializable, XMLSaving {
 				+ "<br/>pierced: "+importedPenis.isPierced()
 				+ "<br/>Penis Modifiers: ");
 		
-		Collection<PenisModifier> penisModifiers = importedPenis.penisModifiers;
+		Collection<PenetrationModifier> penisModifiers = importedPenis.penisModifiers;
 		penisModifiers.clear();
 		Element penisModifiersElement = (Element)penis.getElementsByTagName("penisModifiers").item(0);
 		if (penisModifiersElement == null) {
-			for (PenisModifier pm : PenisModifier.values()) {
+			for (PenetrationModifier pm : PenetrationModifier.values()) {
 				CharacterUtils.appendToImportLog(log, "<br/>"+pm.toString()+":false");
 			}
 		} else {
-			handleLoadingOfModifiers(PenisModifier.values(), log, penisModifiersElement, penisModifiers);
+			handleLoadingOfModifiers(PenetrationModifier.values(), log, penisModifiersElement, penisModifiers);
 		}
 		
 		importedPenis.orificeUrethra.elasticity = (Integer.valueOf(penis.getAttribute("elasticity")));
@@ -1198,7 +1220,22 @@ public class Body implements Serializable, XMLSaving {
 		CharacterUtils.appendToImportLog(log, "<br/><br/>Body: Tail: "
 				+ "<br/>type: "+importedTail.getType()
 				+ "<br/>count: "+importedTail.getTailCount());
+
 		
+		// **************** Tentacle **************** //
+		
+		try {
+			Element tentacle = (Element)parentElement.getElementsByTagName("tentacle").item(0);
+			
+			Tentacle importedTentacle = new Tentacle(TentacleType.valueOf(tentacle.getAttribute("type")));
+			
+			importedTentacle.tentacleCount = (Integer.valueOf(tentacle.getAttribute("count")));
+			
+			CharacterUtils.appendToImportLog(log, "<br/><br/>Body: Tentacle: "
+					+ "<br/>type: "+importedTentacle.getType()
+					+ "<br/>count: "+importedTentacle.getTentacleCount());
+		} catch(Exception ex) {
+		}
 		
 		// **************** Vagina **************** //
 		
@@ -1213,6 +1250,23 @@ public class Body implements Serializable, XMLSaving {
 				Integer.valueOf(vagina.getAttribute("plasticity")),
 				Boolean.valueOf(vagina.getAttribute("virgin")));
 		
+		try {
+			importedVagina.clitoris.girth = Integer.valueOf(vagina.getAttribute("clitGirth"));
+			
+			Collection<PenetrationModifier> clitModifiers = importedVagina.clitoris.clitModifiers;
+			clitModifiers.clear();
+			Element clitModifiersElement = (Element)vagina.getElementsByTagName("clitModifiers").item(0);
+			if (clitModifiersElement == null) {
+				for (PenetrationModifier pm : PenetrationModifier.values()) {
+					CharacterUtils.appendToImportLog(log, "<br/>"+pm.toString()+":false");
+				}
+			} else {
+				handleLoadingOfModifiers(PenetrationModifier.values(), log, clitModifiersElement, clitModifiers);
+			}
+			
+		} catch(Exception ex) {
+		}
+		
 		importedVagina.pierced = (Boolean.valueOf(vagina.getAttribute("pierced")));
 		importedVagina.orificeVagina.stretchedCapacity = (Float.valueOf(vagina.getAttribute("stretchedCapacity")));
 		try {
@@ -1222,7 +1276,7 @@ public class Body implements Serializable, XMLSaving {
 		
 		CharacterUtils.appendToImportLog(log, "<br/><br/>Body: Vagina: "
 				+ "<br/>type: "+importedVagina.getType()
-				+ "<br/>clitSize: "+importedVagina.getClitorisSize()
+				+ "<br/>clitSize: "+importedVagina.clitoris.getClitorisSize()
 				+ "<br/>pierced: "+importedVagina.isPierced()
 
 				+ "<br/>wetness: "+importedVagina.orificeVagina.wetness
@@ -2404,10 +2458,10 @@ public class Body implements Serializable, XMLSaving {
 				}
 				
 				for(SexAreaPenetration pt : SexAreaPenetration.values()) {
-					if(Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.CATCHER, pt, SexAreaOrifice.MOUTH))!=null
-							&& !Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.CATCHER, pt, SexAreaOrifice.MOUTH)).isEmpty()) {
+					if(Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, pt))!=null
+							&& !Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, pt)).isEmpty()) {
 						sb.append(" <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>The first time you performed oral sex was to "
-							+ Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.CATCHER, pt, SexAreaOrifice.MOUTH)) + ".</span>");
+							+ Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, pt)) + ".</span>");
 						break;
 					}
 				}
@@ -3679,6 +3733,10 @@ public class Body implements Serializable, XMLSaving {
 		return tail;
 	}
 
+	public Tentacle getTentacle() {
+		return tentacle;
+	}
+
 	public Vagina getVagina() {
 		return vagina;
 	}
@@ -3851,10 +3909,10 @@ public class Body implements Serializable, XMLSaving {
 				boolean virginityLossFound = false;
 				for(SexAreaPenetration pt : SexAreaPenetration.values()) {
 					if(pt.isTakesVirginity()) {
-						if(Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.CATCHER, pt, SexAreaOrifice.ANUS))!=null
-								&& !Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.CATCHER,pt, SexAreaOrifice.ANUS)).isEmpty()) {
+						if(Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, pt))!=null
+								&& !Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, pt)).isEmpty()) {
 							descriptionSB.append(" <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>You lost your anal virginity to "
-								+ Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.CATCHER,pt, SexAreaOrifice.ANUS)) + ".</span>");
+								+ Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, pt)) + ".</span>");
 							virginityLossFound = true;
 							break;
 						}
@@ -4184,8 +4242,8 @@ public class Body implements Serializable, XMLSaving {
 				
 				if (!viewedBreast.getNipples().getOrificeNipples().isVirgin()) {
 					for(SexAreaPenetration pt : SexAreaPenetration.values()) {
-						if(owner.getVirginityLoss(new SexType(SexParticipantType.CATCHER,pt, SexAreaOrifice.NIPPLE))!=null && !owner.getVirginityLoss(new SexType(SexParticipantType.CATCHER,pt, SexAreaOrifice.NIPPLE)).isEmpty()) {
-							descriptionSB.append(" [style.colourArcane(You lost your nipple virginity to "+ owner.getVirginityLoss(new SexType(SexParticipantType.CATCHER,pt, SexAreaOrifice.NIPPLE)) + ".)]");
+						if(owner.getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.NIPPLE, pt))!=null && !owner.getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.NIPPLE, pt)).isEmpty()) {
+							descriptionSB.append(" [style.colourArcane(You lost your nipple virginity to "+ owner.getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.NIPPLE, pt)) + ".)]");
 							break;
 						}
 					}
@@ -4393,8 +4451,8 @@ public class Body implements Serializable, XMLSaving {
 				
 				if (!viewedBreast.getNipples().getOrificeNipples().isVirgin()) {
 					for(SexAreaPenetration pt : SexAreaPenetration.values()) {
-						if(owner.getVirginityLoss(new SexType(SexParticipantType.CATCHER,pt, SexAreaOrifice.NIPPLE))!=null && !owner.getVirginityLoss(new SexType(SexParticipantType.CATCHER,pt, SexAreaOrifice.NIPPLE)).isEmpty()) {
-							descriptionSB.append(" [style.colourArcane([npc.Name] lost [npc.her] nipple virginity to "+ owner.getVirginityLoss(new SexType(SexParticipantType.CATCHER,pt, SexAreaOrifice.NIPPLE)) + ".)]");
+						if(owner.getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.NIPPLE, pt))!=null && !owner.getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.NIPPLE, pt)).isEmpty()) {
+							descriptionSB.append(" [style.colourArcane([npc.Name] lost [npc.her] nipple virginity to "+ owner.getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.NIPPLE, pt)) + ".)]");
 							break;
 						}
 					}
@@ -4590,7 +4648,7 @@ public class Body implements Serializable, XMLSaving {
 			}
 		}
 		
-		for(PenisModifier pm : PenisModifier.values()) {
+		for(PenetrationModifier pm : PenetrationModifier.values()) {
 			if(owner.hasPenisModifier(pm)) {
 				switch(pm) {
 					case RIBBED:
@@ -4632,8 +4690,8 @@ public class Body implements Serializable, XMLSaving {
 				if (!viewedPenis.isVirgin()) {
 						for(SexAreaOrifice ot : SexAreaOrifice.values()) {
 							if(ot.isTakesPenisVirginity()) {
-								if(owner.getVirginityLoss(new SexType(SexParticipantType.PITCHER,SexAreaPenetration.PENIS, ot)) != null && !owner.getVirginityLoss(new SexType(SexParticipantType.PITCHER,SexAreaPenetration.PENIS, ot)).isEmpty()) {
-									descriptionSB.append(" [style.colourArcane(You lost your penile virginity to "+ owner.getVirginityLoss(new SexType(SexParticipantType.PITCHER, SexAreaPenetration.PENIS, ot)) + ".)]");
+								if(owner.getVirginityLoss(new SexType(SexParticipantType.NORMAL,SexAreaPenetration.PENIS, ot)) != null && !owner.getVirginityLoss(new SexType(SexParticipantType.NORMAL,SexAreaPenetration.PENIS, ot)).isEmpty()) {
+									descriptionSB.append(" [style.colourArcane(You lost your penile virginity to "+ owner.getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, ot)) + ".)]");
 									break;
 								}
 							}
@@ -4646,7 +4704,7 @@ public class Body implements Serializable, XMLSaving {
 				if (!viewedPenis.isVirgin()) {
 					for(SexAreaOrifice ot : SexAreaOrifice.values()) {
 						if(ot.isTakesPenisVirginity()) {
-							if(owner.getVirginityLoss(new SexType(SexParticipantType.PITCHER, SexAreaPenetration.PENIS, ot))!=null && !owner.getVirginityLoss(new SexType(SexParticipantType.PITCHER, SexAreaPenetration.PENIS, ot)).isEmpty()) {
+							if(owner.getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, ot))!=null && !owner.getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, ot)).isEmpty()) {
 								descriptionSB.append(" [style.colourArcane([npc.Name] has lost [npc.her] penile virginity.)]");
 								break;
 							}
@@ -4761,10 +4819,10 @@ public class Body implements Serializable, XMLSaving {
 		if(viewedPenis.getType()!=PenisType.DILDO) {
 			if (isPlayer && !owner.isUrethraVirgin()) {
 				for(SexAreaPenetration pt : SexAreaPenetration.values()) {
-					if(Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.CATCHER, pt, SexAreaOrifice.URETHRA_PENIS))!=null
-							&& !Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.CATCHER, pt, SexAreaOrifice.URETHRA_PENIS)).isEmpty()) {
+					if(Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.URETHRA_PENIS, pt))!=null
+							&& !Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.URETHRA_PENIS, pt)).isEmpty()) {
 						descriptionSB.append(" <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>You lost your urethral virginity to "
-							+ Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.CATCHER, pt, SexAreaOrifice.URETHRA_PENIS)) + ".</span>");
+							+ Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.URETHRA_PENIS, pt)) + ".</span>");
 						break;
 					}
 				}
@@ -5121,7 +5179,7 @@ public class Body implements Serializable, XMLSaving {
 		if(Main.game.getPlayer().hasIngestedPsychoactiveFluidType(FluidTypeBase.GIRLCUM)) {
 			viewedVagina = new Vagina(vagina.getType(),
 					vagina.getRawLabiaSizeValue(),
-					vagina.getRawClitorisSizeValue(),
+					vagina.getClitoris().getRawClitorisSizeValue(),
 					Wetness.SEVEN_DROOLING.getValue(),
 					vagina.getOrificeVagina().getRawCapacityValue() *3,
 					vagina.getOrificeVagina().getElasticity().getValue(),
@@ -5326,18 +5384,60 @@ public class Body implements Serializable, XMLSaving {
 		
 		if (isPlayer) {
 			if(owner.getVaginaRawClitorisSizeValue()==0) {
-				descriptionSB.append(" You have [pc.a_clitSize] clit, which measures less than one inch in length.");
+				descriptionSB.append(" You have [pc.a_clitSize]"+(owner.getClitorisGirth()==PenisGirth.TWO_AVERAGE?"":", [pc.clitGirth]")
+						+" clit, which measures less than one inch in length.");
 			} else {
-				descriptionSB.append(" You have [pc.a_clitSize] clit, which measures [pc.clitSizeInches] inch"+(owner.getVaginaRawClitorisSizeValue()==1?"":"es")+" long.");
+				descriptionSB.append(" You have [pc.a_clitSize]"+(owner.getClitorisGirth()==PenisGirth.TWO_AVERAGE?"":", [pc.clitGirth]")
+						+" clit, which measures [pc.clitSizeInches] inch"+(owner.getVaginaRawClitorisSizeValue()==1?"":"es")+" long.");
 			}
 			
 		} else {
 			if(owner.getVaginaRawClitorisSizeValue()==0) {
-				descriptionSB.append(" [npc.She] has [npc.a_clitSize] clit, which measures less than one inch in length.");
+				descriptionSB.append(" [npc.She] has [npc.a_clitSize]"+(owner.getClitorisGirth()==PenisGirth.TWO_AVERAGE?"":", [pc.clitGirth]")
+						+" clit, which measures less than one inch in length.");
 			} else {
-				descriptionSB.append(" [npc.She] has [npc.a_clitSize] clit, which measures [npc.clitSizeInches] inch"+(owner.getVaginaRawClitorisSizeValue()==1?"":"es")+" long.");
+				descriptionSB.append(" [npc.She] has [npc.a_clitSize]"+(owner.getClitorisGirth()==PenisGirth.TWO_AVERAGE?"":", [pc.clitGirth]")
+						+" clit, which measures [npc.clitSizeInches] inch"+(owner.getVaginaRawClitorisSizeValue()==1?"":"es")+" long.");
 			}
 		}
+		
+		for(PenetrationModifier pm : PenetrationModifier.values()) {
+			if(owner.hasClitorisModifier(pm)) {
+				switch(pm) {
+					case RIBBED:
+						descriptionSB.append(" It's lined with hard, fleshy ribs, which are sure to grant extra pleasure to any orifice that they penetrate.");
+						break;
+					case TENTACLED:
+						descriptionSB.append(" A series of little tentacles coat its surface, which wriggle and squirm with a mind of their own.");
+						break;
+					case BARBED:
+						descriptionSB.append(" Fleshy, backwards-facing barbs line its length.");
+						break;
+					case BLUNT:
+						descriptionSB.append(" The tip curves around to a smooth surface.");
+						break;
+					case FLARED:
+						descriptionSB.append(" The tip is wide and flared, like a horse's cock.");
+						break;
+					case KNOTTED:
+						descriptionSB.append(" A fat knot sits at the base.");
+						break;
+					case PREHENSILE:
+						descriptionSB.append(" It is prehensile, and can be manipulated and moved much like a primate's tail.");
+						break;
+					case SHEATHED:
+						descriptionSB.append(" Its clitoral hood has transformed into a large sheath, into which [npc.her] [npc.clit] can retract, no matter how large it grows.");
+						break;
+					case TAPERED:
+						descriptionSB.append(" The shaft is tapered, and gets thinner nearer to the head.");
+						break;
+					case VEINY:
+						descriptionSB.append(" Large veins press out from its surface.");
+						break;
+				}
+			}
+		}
+		
 		// Virgin/capacity:
 		if (viewedVagina.getOrificeVagina().isVirgin()) {
 			if (isPlayer) {
@@ -5355,10 +5455,10 @@ public class Body implements Serializable, XMLSaving {
 				boolean virginityLossFound = false;
 				for(SexAreaPenetration pt : SexAreaPenetration.values()) {
 					if(pt.isTakesVirginity()) {
-						if(Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.CATCHER, pt, SexAreaOrifice.VAGINA))!=null
-								&& !Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.CATCHER, pt, SexAreaOrifice.VAGINA)).isEmpty()) {
+						if(Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, pt))!=null
+								&& !Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, pt)).isEmpty()) {
 							descriptionSB.append(" <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>You lost your virginity to "
-								+ Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.CATCHER, pt, SexAreaOrifice.VAGINA)) + ".</span>");
+								+ Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, pt)) + ".</span>");
 							virginityLossFound = true;
 							break;
 						}
@@ -5638,10 +5738,10 @@ public class Body implements Serializable, XMLSaving {
 		
 		if (isPlayer && !owner.isUrethraVirgin()) {
 			for(SexAreaPenetration pt : SexAreaPenetration.values()) {
-				if(Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.CATCHER, pt, SexAreaOrifice.URETHRA_VAGINA))!=null
-						&& !Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.CATCHER, pt, SexAreaOrifice.URETHRA_VAGINA)).isEmpty()) {
+				if(Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.URETHRA_VAGINA, pt))!=null
+						&& !Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.URETHRA_VAGINA, pt)).isEmpty()) {
 					descriptionSB.append(" <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>You lost your urethral virginity to "
-						+ Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.CATCHER, pt, SexAreaOrifice.URETHRA_VAGINA)) + ".</span>");
+						+ Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.URETHRA_VAGINA, pt)) + ".</span>");
 					break;
 				}
 			}

@@ -7,67 +7,9 @@ package com.lilithsthrone.game.sex;
  */
 public enum SexParticipantType {
 
-	MISC {
-		@Override
-		public boolean isUsingSelfPenetrationType() {
-			return false;
-		}
-
-		@Override
-		public boolean isUsingSelfOrificeType() {
-			return false;
-		}
-	},
+	MISC,
 	
-	PITCHER {
-		@Override
-		public boolean isUsingSelfPenetrationType() {
-			return true;
-		}
-
-		@Override
-		public boolean isUsingSelfOrificeType() {
-			return false;
-		}
-	},
+	NORMAL,
 	
-	CATCHER {
-		@Override
-		public boolean isUsingSelfPenetrationType() {
-			return false;
-		}
-
-		@Override
-		public boolean isUsingSelfOrificeType() {
-			return true;
-		}
-	},
-	
-	NORMAL {
-		@Override
-		public boolean isUsingSelfPenetrationType() {
-			return false;
-		}
-
-		@Override
-		public boolean isUsingSelfOrificeType() {
-			return true;
-		}
-	},
-	
-	SELF {
-		@Override
-		public boolean isUsingSelfPenetrationType() {
-			return true;
-		}
-
-		@Override
-		public boolean isUsingSelfOrificeType() {
-			return true;
-		}
-	};
-	
-
-	public abstract boolean isUsingSelfPenetrationType();
-	public abstract boolean isUsingSelfOrificeType();
+	SELF;
 }

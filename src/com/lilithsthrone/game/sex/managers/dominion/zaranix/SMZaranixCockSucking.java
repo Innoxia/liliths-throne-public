@@ -27,6 +27,11 @@ public class SMZaranixCockSucking extends SexManagerDefault {
 	}
 
 	@Override
+	public boolean isPositionChangingAllowed() {
+		return false;
+	}
+	
+	@Override
 	public boolean isPartnerWantingToStopSex() {
 		return Sex.getNumberOfOrgasms(Sex.getActivePartner())>0;
 	}
