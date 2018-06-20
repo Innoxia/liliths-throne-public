@@ -1068,7 +1068,7 @@ public class InventoryTooltipEventListener implements EventListener {
 			if (tattoo.getWriting()!=null && !tattoo.getWriting().getText().isEmpty()) {
 					tooltipSB.append("<div class='container-full-width' style='padding:8px; height:54px; text-align:center;'>");
 					if(tattoo.getWriting().getStyles().isEmpty()) {
-						tooltipSB.append("Normal, ");
+						tooltipSB.append("Normal,");
 					} else {
 						int i=0;
 						for(TattooWritingStyle style : tattoo.getWriting().getStyles()) {
@@ -1076,8 +1076,8 @@ public class InventoryTooltipEventListener implements EventListener {
 							i++;
 						}
 					}
-					tooltipSB.append(tattoo.getWriting().getColour().getName()+" text reads:<br/>");
-					tooltipSB.append("'"+tattoo.getFormattedWritingOutput()+"'"
+					tooltipSB.append(" "+tattoo.getWriting().getColour().getName()+" text reads:<br/>");
+					tooltipSB.append(tattoo.getFormattedWritingOutput()
 							+ "</div>");
 			} else {
 				tooltipSB.append(
@@ -1088,9 +1088,11 @@ public class InventoryTooltipEventListener implements EventListener {
 			
 			if (tattoo.getCounter()!=null && tattoo.getCounter().getType()!=TattooCounterType.NONE) {
 				tooltipSB.append("<div class='container-full-width' style='padding:8px; height:54px; text-align:center;'>"
-									+ "An enchanted, "+tattoo.getCounter().getColour().getName()+" "+tattoo.getCounter().getType().getName()+" counter reads:<br/>'<span style='color:"+tattoo.getCounter().getColour().toWebHexString()+";'>"
-										+tattoo.getFormattedCounterOutput(equippedToCharacter)
-								+"</span>'</div>");
+									+ "An enchanted, "+tattoo.getCounter().getColour().getName()+" "+tattoo.getCounter().getType().getName()+" counter reads:<br/>"
+										+ "<span style='color:"+tattoo.getCounter().getColour().toWebHexString()+";'>"
+												+tattoo.getFormattedCounterOutput(equippedToCharacter)
+										+"</span>"
+								+ "</div>");
 			} else {
 				tooltipSB.append(
 						"<div class='container-full-width' style='padding:8px; height:28px; text-align:center;'>"

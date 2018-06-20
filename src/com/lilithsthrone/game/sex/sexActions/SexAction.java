@@ -438,9 +438,18 @@ public abstract class SexAction implements SexActionInterface {
 				if(this.getActionType()!=SexActionType.STOP_ONGOING
 						&& this.getParticipantType()!=SexParticipantType.MISC) {
 					if(characterPerformingActionFetishes) {
+						if(this.getParticipantType()==SexParticipantType.SELF) {
+							characterFetishes.get(characterPerformingAction).addAll(
+									getFetishesFromPenetrationAndOrificeTypes(characterPerformingAction, entry.getKey(), Sex.getTargetedPartner(characterPerformingAction), entry.getValue(), !characterPerformingActionFetishes));
+						}
 						characterFetishes.get(characterPerformingAction).addAll(
 								getFetishesFromPenetrationAndOrificeTypes(characterPerformingAction, entry.getKey(), Sex.getTargetedPartner(characterPerformingAction), entry.getValue(), characterPerformingActionFetishes));
+						
 					} else {
+						if(this.getParticipantType()==SexParticipantType.SELF) {
+							characterFetishesForPartner.get(characterPerformingAction).addAll(
+									getFetishesFromPenetrationAndOrificeTypes(characterPerformingAction, entry.getKey(), Sex.getTargetedPartner(characterPerformingAction), entry.getValue(), !characterPerformingActionFetishes));
+						}
 						characterFetishesForPartner.get(characterPerformingAction).addAll(
 								getFetishesFromPenetrationAndOrificeTypes(characterPerformingAction, entry.getKey(), Sex.getTargetedPartner(characterPerformingAction), entry.getValue(), characterPerformingActionFetishes));
 					}

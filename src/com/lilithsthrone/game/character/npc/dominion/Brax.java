@@ -71,8 +71,8 @@ import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexPositionSlot;
+import com.lilithsthrone.game.sex.managers.dominion.SMBraxDoggy;
 import com.lilithsthrone.game.sex.managers.universal.SMCowgirl;
-import com.lilithsthrone.game.sex.managers.universal.SMDoggy;
 import com.lilithsthrone.game.sex.managers.universal.SMKneeling;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.Artist;
@@ -85,7 +85,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.5
- * @version 0.2.4
+ * @version 0.2.8
  * @author Innoxia
  */
 public class Brax extends NPC {
@@ -313,12 +313,7 @@ public class Brax extends NPC {
 			return SexPace.SUB_NORMAL;
 			
 		} else {
-			if(Main.game.isNonConEnabled()) {
-				return SexPace.SUB_RESISTING;
-				
-			} else {
-				return SexPace.SUB_NORMAL;
-			}
+			return SexPace.SUB_NORMAL;
 		}
 	}
 
@@ -626,7 +621,7 @@ public class Brax extends NPC {
 			if (index == 1) {
 				return new ResponseSex("Obey", "Do as Brax says and present yourself for him.",
 						false, true,
-						new SMDoggy(
+						new SMBraxDoggy(
 								Util.newHashMapOfValues(new Value<>(Main.game.getBrax(), SexPositionSlot.DOGGY_BEHIND)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
 						AFTER_SUBMISSIVE_SEX,
@@ -885,7 +880,7 @@ public class Brax extends NPC {
 			if (index == 1) {
 				return new ResponseSex("Dominated", "Brax is far too strong for you to resist...",
 						false, false,
-						new SMDoggy(
+						new SMBraxDoggy(
 								Util.newHashMapOfValues(new Value<>(Main.game.getBrax(), SexPositionSlot.DOGGY_BEHIND)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
 						AFTER_SUBMISSIVE_SEX,
@@ -998,7 +993,7 @@ public class Brax extends NPC {
 			if (index == 1) {
 				return new ResponseSex("Obey", "The arousing liquid you've just been forced to drink is forcing you to obey, and you eagerly fall down on all fours so that Brax can fuck you, doggy-style.",
 						false, false,
-						new SMDoggy(
+						new SMBraxDoggy(
 								Util.newHashMapOfValues(new Value<>(Main.game.getBrax(), SexPositionSlot.DOGGY_BEHIND)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
 						AFTER_SUBMISSIVE_SEX,

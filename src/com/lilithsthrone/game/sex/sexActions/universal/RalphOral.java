@@ -486,7 +486,7 @@ public class RalphOral {
 
 		@Override
 		public String getActionDescription() {
-			return "You're in no position to do anything other than lie there and let Ralph's massive horse-cock pound your pussy.";
+			return "You're in no position to do anything other than lie there and let Ralph's massive horse-cock pound your ass.";
 		}
 
 		@Override

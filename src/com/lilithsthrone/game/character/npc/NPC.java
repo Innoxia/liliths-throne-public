@@ -2548,11 +2548,11 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			mainSexTypes.removeIf(sexType -> sexType.getPerformingSexArea()==SexAreaOrifice.BREAST);
 		}
 		// Tail:
-		if(!target.getTailType().isSuitableForPenetration()) {
+		if(!target.getTailType().isSuitableForPenetration() || (this.hasPenis())) {
 			foreplaySexTypes.removeIf(sexType -> sexType.getTargetedSexArea()==SexAreaPenetration.TAIL);
 			mainSexTypes.removeIf(sexType -> sexType.getTargetedSexArea()==SexAreaPenetration.TAIL);
 		}
-		if(!this.getTailType().isSuitableForPenetration()) {
+		if(!this.getTailType().isSuitableForPenetration() || this.hasPenis()) {
 			foreplaySexTypes.removeIf(sexType -> sexType.getPerformingSexArea()==SexAreaPenetration.TAIL);
 			mainSexTypes.removeIf(sexType -> sexType.getPerformingSexArea()==SexAreaPenetration.TAIL);
 		}

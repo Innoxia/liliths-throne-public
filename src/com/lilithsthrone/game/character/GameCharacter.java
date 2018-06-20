@@ -1052,6 +1052,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		boolean noPregnancy = Arrays.asList(settings).contains(CharacterImportSetting.NO_PREGNANCY);
 		boolean noCompanions = Arrays.asList(settings).contains(CharacterImportSetting.NO_COMPANIONS);
 		boolean noElemental = Arrays.asList(settings).contains(CharacterImportSetting.NO_ELEMENTAL);
+		boolean noSlavery = Arrays.asList(settings).contains(CharacterImportSetting.CLEAR_SLAVERY);
 		
 		// ************** Core information **************//
 		
@@ -1722,63 +1723,65 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		
 		// ************** Slavery **************//
 		
-		nodes = parentElement.getElementsByTagName("slavery");
-		Element slaveryElement = (Element) nodes.item(0);
-		if(slaveryElement!=null) {
-			
-			for(int i=0; i<((Element) slaveryElement.getElementsByTagName("slavesOwned").item(0)).getElementsByTagName("slave").getLength(); i++){
-				Element e = ((Element)slaveryElement.getElementsByTagName("slave").item(i));
+		if(!noSlavery) {
+			nodes = parentElement.getElementsByTagName("slavery");
+			Element slaveryElement = (Element) nodes.item(0);
+			if(slaveryElement!=null) {
 				
-				if(!e.getAttribute("id").equals("NOT_SET")) {
-					character.getSlavesOwned().add(e.getAttribute("id"));
-					CharacterUtils.appendToImportLog(log, "<br/>Added owned slave: "+e.getAttribute("id"));
-				}
-			}
-			
-			
-			character.setOwner(((Element)slaveryElement.getElementsByTagName("owner").item(0)).getAttribute("value"));
-			CharacterUtils.appendToImportLog(log, "<br/>Set owner: "+character.getOwnerId());
-			
-			character.setSlaveJob(SlaveJob.valueOf(((Element)slaveryElement.getElementsByTagName("slaveJob").item(0)).getAttribute("value")));
-			CharacterUtils.appendToImportLog(log, "<br/>Set slave job: "+character.getSlaveJob());
-			
-			NodeList slaveJobSettingElements = ((Element) slaveryElement.getElementsByTagName("slaveJobSettings").item(0)).getElementsByTagName("setting");
-			for(int i=0; i<slaveJobSettingElements.getLength(); i++){
-				Element e = ((Element)slaveryElement.getElementsByTagName("setting").item(i));
-				
-				try {
-					SlaveJobSetting setting = SlaveJobSetting.valueOf(e.getAttribute("value"));
-					character.addSlaveJobSettings(setting);
-					CharacterUtils.appendToImportLog(log, "<br/>Added slave job setting: "+setting);
-				} catch(Exception ex) {
-				}
-			}
-			
-			// Clear settings first:
-			for(SlavePermission key : character.getSlavePermissionSettings().keySet()) {
-				if(!key.isMutuallyExclusiveSettings()) {
-					character.getSlavePermissionSettings().get(key).clear();
-				}
-			}
-			
-			for(int i=0; i<((Element) slaveryElement.getElementsByTagName("slavePermissionSettings").item(0)).getElementsByTagName("permission").getLength(); i++){
-				Element e = ((Element)slaveryElement.getElementsByTagName("permission").item(i));
-				SlavePermission slavePermission =  SlavePermission.valueOf(e.getAttribute("type"));
-				
-				NodeList settingElements = e.getElementsByTagName("setting");
-				for(int j=0; j<settingElements.getLength(); j++){
-					Element e2 = ((Element)settingElements.item(j));
+				for(int i=0; i<((Element) slaveryElement.getElementsByTagName("slavesOwned").item(0)).getElementsByTagName("slave").getLength(); i++){
+					Element e = ((Element)slaveryElement.getElementsByTagName("slave").item(i));
 					
-					SlavePermissionSetting setting = SlavePermissionSetting.valueOf(e2.getAttribute("value"));
-					character.addSlavePermissionSetting(slavePermission, setting);
-					CharacterUtils.appendToImportLog(log, "<br/>Added slave permission setting: "+slavePermission+", "+setting);
+					if(!e.getAttribute("id").equals("NOT_SET")) {
+						character.getSlavesOwned().add(e.getAttribute("id"));
+						CharacterUtils.appendToImportLog(log, "<br/>Added owned slave: "+e.getAttribute("id"));
+					}
 				}
-			}
-
-			Element workHourElement = ((Element)slaveryElement.getElementsByTagName("slaveWorkHours").item(0));
-			for(int i=0; i<character.workHours.length; i++) {
-				character.workHours[i] = Boolean.valueOf(workHourElement.getAttribute("hour"+String.valueOf(i)));
-				CharacterUtils.appendToImportLog(log, "<br/>Set work hour: "+i+", "+character.workHours[i]);
+				
+				
+				character.setOwner(((Element)slaveryElement.getElementsByTagName("owner").item(0)).getAttribute("value"));
+				CharacterUtils.appendToImportLog(log, "<br/>Set owner: "+character.getOwnerId());
+				
+				character.setSlaveJob(SlaveJob.valueOf(((Element)slaveryElement.getElementsByTagName("slaveJob").item(0)).getAttribute("value")));
+				CharacterUtils.appendToImportLog(log, "<br/>Set slave job: "+character.getSlaveJob());
+				
+				NodeList slaveJobSettingElements = ((Element) slaveryElement.getElementsByTagName("slaveJobSettings").item(0)).getElementsByTagName("setting");
+				for(int i=0; i<slaveJobSettingElements.getLength(); i++){
+					Element e = ((Element)slaveryElement.getElementsByTagName("setting").item(i));
+					
+					try {
+						SlaveJobSetting setting = SlaveJobSetting.valueOf(e.getAttribute("value"));
+						character.addSlaveJobSettings(setting);
+						CharacterUtils.appendToImportLog(log, "<br/>Added slave job setting: "+setting);
+					} catch(Exception ex) {
+					}
+				}
+				
+				// Clear settings first:
+				for(SlavePermission key : character.getSlavePermissionSettings().keySet()) {
+					if(!key.isMutuallyExclusiveSettings()) {
+						character.getSlavePermissionSettings().get(key).clear();
+					}
+				}
+				
+				for(int i=0; i<((Element) slaveryElement.getElementsByTagName("slavePermissionSettings").item(0)).getElementsByTagName("permission").getLength(); i++){
+					Element e = ((Element)slaveryElement.getElementsByTagName("permission").item(i));
+					SlavePermission slavePermission =  SlavePermission.valueOf(e.getAttribute("type"));
+					
+					NodeList settingElements = e.getElementsByTagName("setting");
+					for(int j=0; j<settingElements.getLength(); j++){
+						Element e2 = ((Element)settingElements.item(j));
+						
+						SlavePermissionSetting setting = SlavePermissionSetting.valueOf(e2.getAttribute("value"));
+						character.addSlavePermissionSetting(slavePermission, setting);
+						CharacterUtils.appendToImportLog(log, "<br/>Added slave permission setting: "+slavePermission+", "+setting);
+					}
+				}
+	
+				Element workHourElement = ((Element)slaveryElement.getElementsByTagName("slaveWorkHours").item(0));
+				for(int i=0; i<character.workHours.length; i++) {
+					character.workHours[i] = Boolean.valueOf(workHourElement.getAttribute("hour"+String.valueOf(i)));
+					CharacterUtils.appendToImportLog(log, "<br/>Set work hour: "+i+", "+character.workHours[i]);
+				}
 			}
 		}
 		
@@ -9988,7 +9991,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 	
 	private String getPartnerPenileVirginityLossDescription(GameCharacter characterPenetrated, GameCharacter characterPenetrating, SexAreaOrifice orifice){
-		return UtilText.parse(characterPenetrated, characterPenetrated,
+		return UtilText.parse(characterPenetrated, characterPenetrating,
 				formatVirginityLoss("[npc2.Name] [npc2.has] taken [npc.namePos] penile virginity!")
 				+(characterPenetrated.hasFetish(Fetish.FETISH_DEFLOWERING)
 						?"<p style='text-align:center;>"
@@ -11461,8 +11464,11 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 	
 	public int getLevel() {
-		if(this.isPlayer() || !Main.getProperties().difficultyLevel.isNPCLevelScaling()) {
+		if(this.isPlayer()
+				|| !Main.getProperties().difficultyLevel.isNPCLevelScaling()
+				|| (this.getPartyLeader()!=null && this.getPartyLeader().isPlayer())) {
 			return level;
+			
 		} else {
 			if(Main.getProperties().difficultyLevel == DifficultyLevel.HELL) {
 				if(level < Main.game.getPlayer().getLevel() * 2) {

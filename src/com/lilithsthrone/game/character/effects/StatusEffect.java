@@ -48,6 +48,7 @@ import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.LubricationType;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
+import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.game.slavery.SlaveJob;
@@ -62,7 +63,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.2.6
+ * @version 0.2.8
  * @author Innoxia
  */
 public enum StatusEffect {
@@ -9991,8 +9992,24 @@ public enum StatusEffect {
 		public String getDescription(GameCharacter target) {
 			if(target.isPlayer()) {
 				return "";
+				
+			} else if(Main.game.isInSex()) {
+				SexType preference = Sex.isInForeplay()?((NPC)target).getForeplayPreference():((NPC)target).getMainSexPreference();
+				GameCharacter targetedCharacter = Sex.getTargetedPartner(target);
+				return UtilText.parse(target, targetedCharacter, "Due to the underlying power of your arcane aura, you can sense [npc.name]'s non-neutral preferences towards sexual actions."
+						+ "<br/>"
+						+ "<i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>"
+						+ (preference!=null
+								?"[npc.Name] wants to use [npc.her] "+preference.getPerformingSexArea().getName(target)+" and [npc2.namePos] "+preference.getTargetedSexArea().getName(Sex.getTargetedPartner(target))+"."
+								:"")
+						+ "</i>");
+				
 			} else {
-				return UtilText.parse(target, "Due to the underlying power of your arcane aura, you can sense [npc.name]'s non-neutral preferences towards sexual actions.");
+				return UtilText.parse(target, "Due to the underlying power of your arcane aura, you can sense [npc.name]'s non-neutral preferences towards sexual actions."
+						+ "<br/>"
+						+ "<i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>"
+								+ "You can detect what areas [npc.name] wants to use when in sex..."
+						+ "</i>");
 			}
 		}
 		

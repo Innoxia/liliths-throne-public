@@ -1,12 +1,17 @@
 package com.lilithsthrone.game.sex.sexActions;
 
+import java.util.List;
+
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
+import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
@@ -342,6 +347,15 @@ public class SexActionUtility {
 		public String getDescription() {
 			return UtilText.parse(Sex.getActivePartner(),
 					"Taking control of the situation, you hold [npc.name] quite still, only releasing [npc.herHim] once [npc.she]'s lost a good portion of [npc.her] arousal.");
+		}
+		
+		@Override
+		public List<Fetish> getFetishes(GameCharacter character) {
+			if(character.equals(Sex.getCharacterPerformingAction())) {
+				return Util.newArrayListOfValues(Fetish.FETISH_DENIAL);
+			} else {
+				return Util.newArrayListOfValues(Fetish.FETISH_DENIAL_SELF);
+			}
 		}
 	};
 }

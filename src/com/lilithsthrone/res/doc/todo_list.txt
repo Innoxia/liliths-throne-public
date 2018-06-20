@@ -47,23 +47,28 @@
 		Added hoofed legs as a TF option for demons.
 		
 	Contributions:
-		Cleaned enchantingutils getcost. (Pimgd)
+		Cleaned EnchantingUtils getCost method. (Pimgd)
 		
 	Norin's Clothing Contribution:
-		Added: Anal beads (anus slot).
-		Added: Clover clamps (nipple slot, BDSM set).
-		Added: Realistic dildo (vagina slot).
-		Added: Bat-wing barbells (nipple-piercing slot).
-		Added: Heart barbells (nipple-piercing slot).
-		Added: 'Caution-When-Wet' piercing (navel slot).
-		Added: Tail ribbon (tail slot).
+		Added: Anal beads (anus slot, sold by Finch).
+		Added: Clover clamps (nipple slot, BDSM set, sold by Finch).
+		Added: Realistic dildo (vagina slot, sold by Finch).
+		Added: Bat-wing barbells (nipple-piercing slot, sold by Kate).
+		Added: Heart barbells (nipple-piercing slot, sold by Kate).
+		Added: 'Caution-When-Wet' piercing (navel slot, sold by Kate).
+		Added: Tail ribbon (tail slot, sold by Nyan).
 		
 	Clothing:
-		Added: Butt plug (anus slot).
-		Added: Jewelled butt plug (anus slot).
-		Added: Jewelled-heart butt plug (anus slot).
-		Added: Tail butt plug (anal slot).
-		Added: Insertable dildo (vagina slot).
+		Added: Butt plug (anus slot, sold by Finch).
+		Added: Jewelled butt plug (anus slot, sold by Finch).
+		Added: Jewelled-heart butt plug (anus slot, sold by Finch).
+		Added: Tail butt plug (anal slot, sold by Finch).
+		Added: Insertable dildo (vagina slot, sold by Finch).
+		
+	Sex AI:
+		Fixed issue where NPCs would sometimes perform actions that they didn't like.
+		Fixed NPCs never starting oral, even if they wanted to, if they still had their oral virginity.
+		NPCs will now prefer to penetrate using their penis rather than their tail.
 		
 	Other:
 		Updated credits page.
@@ -71,6 +76,8 @@
 		Added freckles as a pattern for demon skin.
 		Added description of wing colour to selfie.
 		The chemise no longer blocks groin areas.
+		Companions and companions' elementals no longer have their level affected by difficulty settings. (Making the higher difficulty levels harder.)
+		You can now see what your partner in sex is wanting (under the 'Desires' status effect description).
 		
 	Bugs:
 		Fixed issue with map rendering incorrectly when zoomed out.
@@ -84,65 +91,43 @@
 		Fixed clothing pattern colours not being saved/loaded.
 		Fixed Lilaya asking you to pull out so as to not get pregnant when she was already pregnant.
 		Fixed limb description in selfie not taking into account body shape.
-		Fixed issue with covering patterns not working (which was causing teh only patterns for hair to be plain or ombre).
+		Fixed issue with covering patterns not working (which was causing the only patterns for hair to be plain or ombre).
+		Cum expulsion enchantment is now correctly free when you have the Water school passive.
+		Fixed incorrect penile virginity loss text.
+		Fixed formatting bug where periods would sometimes incorrectly carry over to the next line.
+		Fixed some instances of 'Submit' not having a corruption bypass.
+		Fixed another issue with companions' elementals not being dismissed properly.
+		Fixed issue of starting a new game as an exported slave identifying you as owning yourself.
+		Fixed deny orgasm action not working correctly, and added the denial fetishes as associated fetishes.
+		Fixed Brax always resisting in submissive sex.
+		Fixed offspring referring to you as their mother when you first greet them, even if you were the father.
 	
 	
 	
 	
-	Cum expulsion enchantment isn't free with the Water passive
-	
-	Blaze lets out a deep groan as he pushes his cock into your back door.​
-		You have taken your penile virginity!
-	"You have taken your penile virginity" when it was her cock in my mouth
-	
-	Italicisedburgundy text reads (tattoo tooltip)
-	
-	
-	If a follower summons a elemental and you defeat Zaranix after you get teleported outside the follower command breaks…as in you can no longer dismiss or interact with your companion anymore.
-	
-	replace all ... with …
-	
-	you can't have Submissive sex with a child of yours after combat with them, no matter how corrupted you are, if you are without the Fetish of Submissive
-	
-	out if you have a cock and no pussy and Ralph fucks your ass the sex action description for "Take it" says "-let Ralph's massive horse-cock pound your pussy
-	
-	aligator milk is not a thing. Just basic human milk
+	AI
+		need to prioritise actions on partner before self penetrations
+			self penetration and finger sucking are taking a very high priority
+			might be a bug, the AI for sex might be wonky again. I have a rat in my house and when she (futa) rapes me, she bends me over, removes my vag plug and then began to stuff her tail in her butt and her mouth
+				 yelling about how good this feels and saying "let me fuck you already!" (or something along those lines) until she gets off.
+		add behaviour for them not listening based on if they have impregnation fetish soon
+		only dirty talk if last action was not dirty talk
+		Penetrating then stop over and over
 	
 	
 	
+	Sort sex actions
+	
+	Dirty talk while performing oral turns to humming/purring
 	
 	- Update Lilaya's and Kate's chair sex scenes.
-	
-	AI - need to prioritise actions on partner before self penetrations
-		self penetration and finger sucking are taking a very high priority
-	add behaviour for them not listening based on if they have impregnation fetish soon
-	using anal self actions even though hates?!
-	might be a bug, the AI for sex might be wonky again. I have a rat in my house and when she (futa) rapes me, she bends me over, removes my vag plug and then began to stuff her tail in her butt and her mouth yelling about how good this feels and saying "let me fuck you already!" (or something along those lines) until she gets off.
 	
 	orgasm screen needs to check for plugs vagina clothing
 	
 	ongoing handjobs
 	
 	
-	
-	exporting your owned npc slave and importing while starting a new game causes you to be a slave
-	
-	Male PC with Orgasm Denier fetish, if you 'Deny' a female imp at their orgasm, the game gets stuck in a loop of 'Deny'/'Prepare'.
-	 The loop ends if you allow them to orgasm, but otherwise is infinite. (PC keeps gaining arousal and can cum over and over) Tested with other races, seems to only be with imps
-	
 	Rental daddy
-	
-	they mention not waiting until I woke up a bug, like the game takes my high femininity and assuming I must be the mother
-	
-	slave's elementals don't seem to be affected by difficulty
-	
-	I noticed it when I took advantage of the "willing" Brax who immediatly went into the resisting pace and stayed there as I (the person he TFed into his ideal image of a wolf girl mind you) sucked his cock
-		Then he lost 50 affection after I ended the scene and I said fuck it and reloaded the save
-		It also wouldnt let me choose where he came so he pulled out and there was no warning
-	
-	
-	
-	
 	
 	
 	

@@ -2396,9 +2396,7 @@ public class Game implements Serializable, XMLSaving {
 	}
 	
 	private static void setMainContentRegex(String prefix, String currentDialogue) {
-		// <script>document.body.innerHTML = 'BANANA';</script>
-//		Main.mainController.setMainContent(currentDialogue.replaceAll("([\\D])\\.([\\D])", "$1\ufeff.\ufeff$2").replaceAll("\\[", "\ufeff[\ufeff"));
-		Main.mainController.setMainContent(prefix + currentDialogue.replaceAll("\\.([\\D])", ".\u200b$1").replaceAll("\\[", "\u200b[\u200b"));
+		Main.mainController.setMainContent(prefix + currentDialogue.replaceAll("\\.\\.\\.", "…").replaceAll("\\.([\\D])", ".\u200b$1").replaceAll("\\[", "\u200b[\u200b"));
 	}
 	
 	private List<NPC> charactersPresent = new ArrayList<>();

@@ -163,7 +163,7 @@ public enum SexPositionType {
 													SexActionPresets.tailToUpperTorso,
 													SexActionPresets.tentacleToUpperTorso,
 													SexActionPresets.vaginaToMouth,
-													SexActionPresets.penisToMouth,
+//													SexActionPresets.penisToMouth,
 													SexActionPresets.assToMouth))))),
 					new Value<>(
 							SexPositionSlot.FACE_SITTING_ON_BACK,

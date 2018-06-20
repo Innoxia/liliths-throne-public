@@ -30,7 +30,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
-import com.lilithsthrone.game.sex.managers.universal.SMDoggy;
+import com.lilithsthrone.game.sex.managers.dominion.SMBraxDoggy;
 import com.lilithsthrone.game.sex.managers.universal.SMKneeling;
 import com.lilithsthrone.game.sex.managers.universal.SMStanding;
 import com.lilithsthrone.main.Main;
@@ -42,7 +42,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.2.1
+ * @version 0.2.8
  * @author Innoxia
  */
 public class EnforcerHQDialogue {
@@ -554,7 +554,7 @@ public class EnforcerHQDialogue {
 						return new ResponseSex("Get punished by [brax.name]", "Get [brax.name] to take out [brax.his] frustration on you.", Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE),
 								null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(), null, null, null,
 								true, false,
-								new SMDoggy(
+								new SMBraxDoggy(
 										Util.newHashMapOfValues(new Value<>(Main.game.getBrax(), SexPositionSlot.DOGGY_BEHIND)),
 										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
 								AFTER_SEX,
@@ -1763,7 +1763,7 @@ public class EnforcerHQDialogue {
 			} else if (index == 2) {
 				return new ResponseSex("Get fucked", "Let [brax.name] take control and fuck you.",
 						true, false, 
-						new SMDoggy(
+						new SMBraxDoggy(
 								Util.newHashMapOfValues(new Value<>(Main.game.getBrax(), SexPositionSlot.DOGGY_BEHIND)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
 						Brax.AFTER_SUBMISSIVE_SEX,

@@ -2729,7 +2729,7 @@ public class GenericOrgasms {
 	public static final SexAction PLAYER_PREPARE_DENY = new SexAction( //TODO
 			SexActionType.PREPARE_FOR_PARTNER_ORGASM,
 			ArousalIncrease.TWO_LOW,
-			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.NEGATIVE_MAJOR,
 			CorruptionLevel.ZERO_PURE,
 			null,
 			SexParticipantType.MISC) {
@@ -2771,6 +2771,15 @@ public class GenericOrgasms {
 		@Override
 		public void applyEffects() {
 			SexFlags.playerDeniedPartner = true;
+		}
+		
+		@Override
+		public List<Fetish> getFetishes(GameCharacter character) {
+			if(character.equals(Sex.getCharacterPerformingAction())) {
+				return Util.newArrayListOfValues(Fetish.FETISH_DENIAL);
+			} else {
+				return Util.newArrayListOfValues(Fetish.FETISH_DENIAL_SELF);
+			}
 		}
 	};
 	
@@ -3750,8 +3759,8 @@ public class GenericOrgasms {
 		}
 	};
 	
-	public static final SexAction PARTNER_GENERIC_ORGASM_DENIED = new SexAction( //TODO
-			SexActionType.ORGASM_NO_AROUSAL_RESET,
+	public static final SexAction PARTNER_GENERIC_ORGASM_DENIED = new SexAction(
+			SexActionType.SPECIAL,
 			ArousalIncrease.NEGATIVE_MAJOR,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
@@ -3796,6 +3805,15 @@ public class GenericOrgasms {
 		public void applyEffects() {
 			SexFlags.playerDeniedPartner = false;
 			SexFlags.playerPreparedForOrgasm = false;
+		}
+		
+		@Override
+		public List<Fetish> getFetishes(GameCharacter character) {
+			if(character.equals(Sex.getCharacterPerformingAction())) {
+				return Util.newArrayListOfValues(Fetish.FETISH_DENIAL_SELF);
+			} else {
+				return Util.newArrayListOfValues(Fetish.FETISH_DENIAL);
+			}
 		}
 	};
 

@@ -922,7 +922,11 @@ public class Main extends Application {
 		if (file != null) {
 			try {
 				Main.game.setPlayer(CharacterUtils.startLoadingCharacterFromXML());
-				Main.game.setPlayer(CharacterUtils.loadCharacterFromXML(file, Main.game.getPlayer(), CharacterImportSetting.NO_PREGNANCY, CharacterImportSetting.NO_COMPANIONS, CharacterImportSetting.NO_ELEMENTAL));
+				Main.game.setPlayer(CharacterUtils.loadCharacterFromXML(file, Main.game.getPlayer(),
+						CharacterImportSetting.NO_PREGNANCY,
+						CharacterImportSetting.NO_COMPANIONS,
+						CharacterImportSetting.NO_ELEMENTAL,
+						CharacterImportSetting.CLEAR_SLAVERY));
 				
 				Main.game.getPlayer().getSlavesOwned().clear();
 				Main.game.getPlayer().endPregnancy(false);
