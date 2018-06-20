@@ -595,6 +595,80 @@ public enum SpecialAttack {
 		}
 	},
 	
+	TEASE_PENIS_RECEIVING(50,
+			"cock addict tease",
+			"fetish_generic",
+			Colour.GENERIC_ARCANE,
+			DamageType.LUST,
+			20,
+			DamageVariance.LOW,
+			5,
+			null) {
+		@Override
+		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
+			
+
+			String attackText = UtilText.parse(caster, target,
+						(UtilText.returnStringAtRandom(
+						"[npc.Name] [npc.verb(stare)] down between [npc2.namePos] [npc2.legs] as [npc.she] [npc.moanVerb], [npc.speech(I'll be getting a taste of your [npc2.cock] soon enough!)]",
+
+						"[npc.Name] hungrily [npc.verb(gaze)] down between [npc2.namePos] [npc2.legs] and [npc.moanVerb], [npc.speech(I want to feel your cock throbbing inside of me!)]",
+
+						"[npc.Name] [npc.verb(grin)] at [npc2.name], licking [npc.her] [npc.lips+] and flicking [npc.her] gaze down to rest on [npc2.namePos] crotch as [npc.she] [npc.moanVerb], [npc.speech(I'll take good care of your cock!)]")));
+			
+			return applySpecialSeduction(caster, target, Fetish.FETISH_PENIS_RECEIVING, attackText);
+
+		}
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			if (owner.isPlayer()) {
+				return "Due to your cock addict fetish, you're able to beg for cock as a way to seduce your opponents.";
+			} else {
+				return UtilText.parse(owner, "[npc.Name] is able to beg for cock in an attempt to seduce you!");
+			}
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter owner) {
+			return owner.hasFetish(Fetish.FETISH_PENIS_RECEIVING);
+		}
+	},
+	
+	TEASE_PENIS_GIVING(50, "cock stud tease", "fetish_generic", Colour.GENERIC_ARCANE,
+			DamageType.LUST, 20, DamageVariance.LOW, 5,
+			null) {
+		@Override
+		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
+			
+			String attackText = UtilText.parse(caster, target,
+						(UtilText.returnStringAtRandom(
+						"[npc.Name] [npc.verb(slide)] [npc.a_hand] down between [npc.her] [npc.legs], before grabbing [npc.her] crotch and [npc.moaning] at [npc2.name], [npc.speech(I can't wait to stuff my cock inside you!)]",
+
+						"[npc.Name] [npc.verb(thrust)] [npc.her] [npc.hips+] forward and [npc.moanVerb] at [npc2.name], [npc.speech(Come get a taste of my [npc.penisSize] cock!)]",
+
+						"[npc.Name] [npc.verb(grin)] at [npc2.name] as [npc.she] [npc.moanVerb], [npc.speech(You're going to love the feeling of my [npc.penisSize] cock!)]")));
+				
+			
+			return applySpecialSeduction(caster, target, Fetish.FETISH_PENIS_GIVING, attackText);
+
+		}
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			if (owner.isPlayer()) {
+				return "Due to your penis fetish, you're able to use a special tease attack!";
+			} else {
+				return UtilText.parse(owner, "[npc.Name] is able to use a special tease attack due to [npc.her] penis fetish!");
+			}
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter owner) {
+			return owner.hasFetish(Fetish.FETISH_PENIS_GIVING) && owner.hasPenis();
+		}
+	},
+	
 	TEASE_ORAL_RECEIVING(50,
 			"oral tease",
 			"fetish_generic",

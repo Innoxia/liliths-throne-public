@@ -850,6 +850,7 @@ public interface SexActionInterface {
 				case FINGER:
 					break;
 				case PENIS:
+					associatedFetishes.add(Fetish.FETISH_PENIS_GIVING);
 					break;
 				case TAIL:
 					break;
@@ -885,6 +886,7 @@ public interface SexActionInterface {
 					associatedFetishes.add(Fetish.FETISH_STRUTTER);
 					break;
 				case URETHRA_PENIS:
+					associatedFetishes.add(Fetish.FETISH_PENIS_GIVING);
 					break;
 				case URETHRA_VAGINA:
 					associatedFetishes.add(Fetish.FETISH_VAGINAL_RECEIVING);
@@ -911,6 +913,7 @@ public interface SexActionInterface {
 				case FINGER:
 					break;
 				case PENIS:
+					associatedFetishes.add(Fetish.FETISH_PENIS_RECEIVING);
 					break;
 				case TAIL:
 					break;
@@ -946,6 +949,7 @@ public interface SexActionInterface {
 					associatedFetishes.add(Fetish.FETISH_LEG_LOVER);
 					break;
 				case URETHRA_PENIS:
+					associatedFetishes.add(Fetish.FETISH_PENIS_RECEIVING);
 					break;
 				case URETHRA_VAGINA:
 					associatedFetishes.add(Fetish.FETISH_VAGINAL_GIVING);
@@ -1077,6 +1081,12 @@ public interface SexActionInterface {
 				case FETISH_KINK_GIVING:
 					break;
 				case FETISH_KINK_RECEIVING:
+					break;
+				case FETISH_PENIS_GIVING:
+					associatedFetishesPartner.add(Fetish.FETISH_PENIS_RECEIVING);
+					break;
+				case FETISH_PENIS_RECEIVING:
+					associatedFetishesPartner.add(Fetish.FETISH_PENIS_GIVING);
 					break;
 			}
 		}
