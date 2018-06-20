@@ -111,7 +111,6 @@ public class TestNPC extends NPC {
 			
 			this.addFetish(Fetish.FETISH_ANAL_RECEIVING);
 			this.addFetish(Fetish.FETISH_BREASTS_SELF);
-			this.addFetish(Fetish.FETISH_BROODMOTHER);
 			this.addFetish(Fetish.FETISH_CUM_ADDICT);
 			this.addFetish(Fetish.FETISH_DOMINANT);
 			this.addFetish(Fetish.FETISH_INCEST);

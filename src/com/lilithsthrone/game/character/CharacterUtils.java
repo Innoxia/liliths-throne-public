@@ -963,6 +963,124 @@ public class CharacterUtils {
 		return body;
 	}
 	
+	public static Body reassignBody(Body body, Gender startingGender, RacialBody startingBodyType, Subspecies species, RaceStage stage) {
+		
+		boolean hasVagina = startingGender.getGenderName().isHasVagina();
+		boolean hasPenis = startingGender.getGenderName().isHasPenis();
+		boolean hasBreasts = startingGender.getGenderName().isHasBreasts();
+		
+		body.setArm(new Arm((stage.isArmFurry()?startingBodyType.getArmType():ArmType.HUMAN), startingBodyType.getArmRows()));
+		
+		body.setAss(new Ass(stage.isAssFurry()?startingBodyType.getAssType():AssType.HUMAN,
+						(startingGender.isFeminine() ? startingBodyType.getFemaleAssSize() : startingBodyType.getMaleAssSize()),
+						startingBodyType.getAnusWetness(),
+						startingBodyType.getAnusCapacity(),
+						startingBodyType.getAnusElasticity(),
+						startingBodyType.getAnusPlasticity(),
+						true));
+		
+		body.setBreast(new Breast(stage.isBreastFurry()?startingBodyType.getBreastType():BreastType.HUMAN,
+				BreastShape.getRandomBreastShape(),
+				(hasBreasts? startingBodyType.getBreastSize() : startingBodyType.getNoBreastSize()),
+				(startingGender.isFeminine() ? startingBodyType.getFemaleLactationRate() : startingBodyType.getMaleLactationRate()),
+				((stage.isSkinFurry() && Main.getProperties().multiBreasts==1) || (stage.isBreastFurry() && Main.getProperties().multiBreasts==2)
+						?(startingGender.isFeminine() ? startingBodyType.getBreastCountFemale() : startingBodyType.getBreastCountMale())
+						:1),
+				(startingGender.isFeminine() ? startingBodyType.getFemaleNippleSize() : startingBodyType.getMaleNippleSize()),
+				(startingGender.isFeminine() ? startingBodyType.getFemaleNippleShape() : startingBodyType.getMaleNippleShape()),
+				(startingGender.isFeminine() ? startingBodyType.getFemaleAreolaeSize() : startingBodyType.getMaleAreolaeSize()),
+				(stage.isBreastFurry() ? (startingGender.isFeminine() ? startingBodyType.getFemaleNippleCountPerBreast() : startingBodyType.getMaleNippleCountPerBreast()) : 1),
+				(startingGender.isFeminine() ? startingBodyType.getFemaleBreastCapacity() : startingBodyType.getMaleBreastCapacity()),
+				(startingGender.isFeminine() ? startingBodyType.getFemaleBreastElasticity() : startingBodyType.getMaleBreastElasticity()),
+				(startingGender.isFeminine() ? startingBodyType.getFemaleBreastPlasticity() : startingBodyType.getMaleBreastPlasticity()), 
+				true));
+		
+		body.setFace(new Face((stage.isFaceFurry()?startingBodyType.getFaceType():FaceType.HUMAN),
+				(startingGender.isFeminine() ? startingBodyType.getFemaleLipSize() : startingBodyType.getMaleLipSize())));
+		
+		body.setEye(new Eye(stage.isEyeFurry()?startingBodyType.getEyeType():EyeType.HUMAN));
+		
+		body.setEar(new Ear(stage.isEarFurry()?startingBodyType.getEarType():EarType.HUMAN));
+		
+		body.setHair(new Hair(stage.isHairFurry()?startingBodyType.getHairType():HairType.HUMAN,
+				(startingBodyType.isHairTypeLinkedToFaceType()
+						?(stage.isFaceFurry()
+								?(startingGender.isFeminine() ? startingBodyType.getFemaleHairLength() : startingBodyType.getMaleHairLength())
+								:(startingGender.isFeminine() ? RacialBody.HUMAN.getFemaleHairLength() : RacialBody.HUMAN.getMaleHairLength()))
+						:(startingGender.isFeminine() ? startingBodyType.getFemaleHairLength() : startingBodyType.getMaleHairLength())),
+					HairStyle.getRandomHairStyle((startingGender.isFeminine() ? startingBodyType.getFemaleHairLength() : startingBodyType.getMaleHairLength()))));
+		
+		body.setLeg(new Leg(stage.isLegFurry()?startingBodyType.getLegType():LegType.HUMAN));
+		
+		body.setSkin(new Skin(stage.isSkinFurry()?startingBodyType.getSkinType():SkinType.HUMAN));
+		
+		body.setBodyMaterial(startingBodyType.getBodyMaterial());
+
+		body.setGenitalArrangement(startingBodyType.getGenitalArrangement());
+		
+		body.setHeight(startingGender.isFeminine()
+				? startingBodyType.getFemaleHeight()
+				: startingBodyType.getMaleHeight());
+		
+		body.setFemininity(startingGender.getType()==PronounType.NEUTRAL?50:(startingGender.isFeminine() ? startingBodyType.getFemaleFemininity() : startingBodyType.getMaleFemininity()));
+		
+		body.setBodySize(startingGender.isFeminine() ? startingBodyType.getFemaleBodySize() : startingBodyType.getMaleBodySize());
+		
+		body.setMuscle(startingGender.isFeminine() ? startingBodyType.getFemaleMuscle() : startingBodyType.getMaleMuscle());
+		
+		body.setVagina(hasVagina
+				? new Vagina(stage.isVaginaFurry()?startingBodyType.getVaginaType():VaginaType.HUMAN,
+						LabiaSize.getRandomLabiaSize().getValue(),
+						startingBodyType.getClitSize(),
+						startingBodyType.getVaginaWetness(),
+						startingBodyType.getVaginaCapacity(),
+						startingBodyType.getVaginaElasticity(),
+						startingBodyType.getVaginaPlasticity(),
+						true)
+				: new Vagina(VaginaType.NONE, 0, 0, 0, 0, 3, 3, true));
+		
+		body.setPenis(hasPenis
+				? new Penis(stage.isPenisFurry()?startingBodyType.getPenisType():PenisType.HUMAN,
+						startingBodyType.getPenisSize(),
+						startingBodyType.getPenisGirth(),
+						startingBodyType.getTesticleSize(),
+						startingBodyType.getCumProduction(),
+						startingBodyType.getTesticleQuantity())
+					: new Penis(PenisType.NONE, 0, 0, 0, 0, 2));
+		
+		body.setHorn(new Horn((stage.isHornFurry()?startingBodyType.getRandomHornType(false):HornType.NONE), (startingGender.isFeminine() ? startingBodyType.getFemaleHornLength() : startingBodyType.getMaleHornLength())));
+		
+		body.setAntenna(new Antenna(stage.isAntennaFurry()?startingBodyType.getAntennaType():AntennaType.NONE));
+		
+		body.setTail(new Tail(stage.isTailFurry()?startingBodyType.getTailType():TailType.NONE));
+		
+		body.setTentacle(new Tentacle(stage.isTentacleFurry()?startingBodyType.getTentacleType():TentacleType.NONE));
+		
+		body.setWing(new Wing((stage.isWingFurry()?startingBodyType.getWingType():WingType.NONE), (startingGender.isFeminine() ? startingBodyType.getFemaleWingSize() : startingBodyType.getMaleWingSize())));
+		
+		if(body.getPenis().getType()!=PenisType.NONE
+				&& body.getPenis().getType()!=PenisType.DILDO
+				&& body.getVagina().getType()!=VaginaType.NONE
+				&& !Main.getProperties().hasValue(PropertyValue.futanariTesticles)) {
+			body.getPenis().getTesticle().setInternal(null, true);
+		}
+		
+		// Pubic hair:
+		BodyHair hair = BodyHair.getRandomBodyHair();
+		body.setPubicHair(hair);
+		body.getFace().setFacialHair(null, hair);
+		body.getArm().setUnderarmHair(null, hair);
+		body.getAss().getAnus().setAssHair(null, hair);
+		
+		if(species!=null) {
+			body.calculateRace();
+			species.applySpeciesChanges(body);
+			body.calculateRace();
+		}
+		
+		return body;
+	}
+	
 	public static void randomiseBody(GameCharacter character) {
 		// Piercings (in order of probability that they'll have them, based on some random website that orders popularity):
 		// All piercings are reliant on having ear piercings first:
@@ -1226,11 +1344,11 @@ public class CharacterUtils {
 				if(character.isFeminine())
 					allowedFetishes.add(f);
 				
-			} else if (f==Fetish.FETISH_PREGNANCY || f==Fetish.FETISH_BROODMOTHER || f==Fetish.FETISH_VAGINAL_RECEIVING) {
+			} else if (f==Fetish.FETISH_PREGNANCY || f==Fetish.FETISH_VAGINAL_RECEIVING) {
 				if(character.hasVagina())
 					allowedFetishes.add(f);
 				
-			} else if (f==Fetish.FETISH_IMPREGNATION || f==Fetish.FETISH_SEEDER) {
+			} else if (f==Fetish.FETISH_IMPREGNATION) {
 				if(character.hasPenis() && character.sexualOrientation!=SexualOrientation.ANDROPHILIC)
 					allowedFetishes.add(f);
 				
@@ -1330,16 +1448,10 @@ public class CharacterUtils {
 					break;
 				// Related fetishes cannot be loved and disliked at the same time:
 				case FETISH_PREGNANCY:
-					availableFetishes.remove(Fetish.FETISH_BROODMOTHER);
-					break;
-				case FETISH_BROODMOTHER:
-					availableFetishes.remove(Fetish.FETISH_PREGNANCY);
+					availableFetishes.remove(Fetish.FETISH_VAGINAL_RECEIVING);
 					break;
 				case FETISH_IMPREGNATION:
-					availableFetishes.remove(Fetish.FETISH_SEEDER);
-					break;
-				case FETISH_SEEDER:
-					availableFetishes.remove(Fetish.FETISH_IMPREGNATION);
+					availableFetishes.remove(Fetish.FETISH_VAGINAL_GIVING);
 					break;
 			}
 		}
@@ -1368,16 +1480,10 @@ public class CharacterUtils {
 					break;
 				// Related fetishes cannot be liked and disliked at the same time:
 				case FETISH_PREGNANCY:
-					availableFetishes.remove(Fetish.FETISH_BROODMOTHER);
-					break;
-				case FETISH_BROODMOTHER:
-					availableFetishes.remove(Fetish.FETISH_PREGNANCY);
+					availableFetishes.remove(Fetish.FETISH_VAGINAL_RECEIVING);
 					break;
 				case FETISH_IMPREGNATION:
-					availableFetishes.remove(Fetish.FETISH_SEEDER);
-					break;
-				case FETISH_SEEDER:
-					availableFetishes.remove(Fetish.FETISH_IMPREGNATION);
+					availableFetishes.remove(Fetish.FETISH_VAGINAL_GIVING);
 					break;
 			}
 			desiresAssigned++;

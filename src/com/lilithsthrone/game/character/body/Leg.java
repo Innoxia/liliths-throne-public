@@ -118,6 +118,15 @@ public class Leg implements BodyPartInterface, Serializable {
 							+ "</p>");
 				}
 				break;
+			case DEMON_HOOFED:
+				UtilText.transformationContentSB.append(
+							" They quickly shift into a pair of smooth, slender legs, and [npc.name] [npc.verb(let)] out a gasp as a layer of flawless, demonic skin rapidly grows to cover them."
+							+ " As [npc.her] new skin spreads down to the ends of [npc.her] toes, they suddenly push together, and [npc.she] [npc.verb(let)] out a cry as a thick, hoof-like nail grows in their place,"
+								+ " quickly transforming to turn [npc.her] feet into hard, demonic hooves."
+							+ " As the transformation ends, [npc.she] [npc.verb(see)] that [npc.her] new skin smoothly transitions into the [npc.skin] covering the rest of [npc.her] body at [npc.her] upper-thigh.<br/>"
+							+ "[npc.NameIsFull] left with [style.boldDemon(demonic legs and hoofed feet)], which are covered in [pc.legFullDescription]."
+						+ "</p>");
+				break;
 			case IMP:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(

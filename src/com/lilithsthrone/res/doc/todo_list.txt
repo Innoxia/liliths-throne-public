@@ -11,6 +11,7 @@
 	Sex content improvements
 	- Add support for random attackers having sex with your companions upon combat loss (requires NPC-on-NPC support first).
 	- Add modding framework for sex actions.
+	- Comparing penis size/girth to orifice capacity, using horns as handles during sex, adding size difference content
 	
 	Submission content
 	- Add an Imp gang attack.
@@ -22,6 +23,13 @@
 	- Add indication in characters present for crowds
 	- Add randomly-generated NPC interactions in the club.
 
+	Clothing todo:
+		Ribbons
+		Horn rings
+		Horn chains
+		Tail rings
+		Wing chains
+		Wing bindings
 	
 	
 	Patch notes:
@@ -33,13 +41,72 @@
 		
 	Gameplay:
 		Added modifiers and girth for clitoris, with associated TFs.
+		Added oral position for chair sex.
+		Changed Broodmother and Seeder fetishes to be perks instead.
+		Added 'Face Sitting' as a generic position in sex scenes.
+		Added hoofed legs as a TF option for demons.
+		
+	Contributions:
+		Cleaned enchantingutils getcost. (Pimgd)
+		
+	Norin's Clothing Contribution:
+		Added: Anal beads (anus slot).
+		Added: Clover clamps (nipple slot, BDSM set).
+		Added: Realistic dildo (vagina slot).
+		Added: Bat-wing barbells (nipple-piercing slot).
+		Added: Heart barbells (nipple-piercing slot).
+		Added: 'Caution-When-Wet' piercing (navel slot).
+		Added: Tail ribbon (tail slot).
+		
+	Clothing:
+		Added: Butt plug (anus slot).
+		Added: Jewelled butt plug (anus slot).
+		Added: Jewelled-heart butt plug (anus slot).
+		Added: Tail butt plug (anal slot).
+		Added: Insertable dildo (vagina slot).
+		
+	Other:
+		Updated credits page.
+		Having a sheathed penis will now always conceal your cock bulge from gender detection.
+		Added freckles as a pattern for demon skin.
+		Added description of wing colour to selfie.
+		The chemise no longer blocks groin areas.
 		
 	Bugs:
 		Fixed issue with map rendering incorrectly when zoomed out.
 		Fixed game sometimes incorrectly scrolling back up to the top of dialogue.
 		Fixed 'Stroke cock' actions not showing up in sex scenes.
 		Fixed some incorrect sex action availability.
+		Typo and parsing fixes.
+		NPCs will no longer spawn wearing leg clothing with dresses.
+		AI in sex will now correctly use actions based on their preferences (this bug was affecting cultists not respecting your 'Offer pussy' or 'Offer ass' choice).
+		Fixed issue where slimes were always spawning in with human-shaped bodies. (They can now spawn as slimes of any morph type.)
+		Fixed clothing pattern colours not being saved/loaded.
+		Fixed Lilaya asking you to pull out so as to not get pregnant when she was already pregnant.
+		Fixed limb description in selfie not taking into account body shape.
+		Fixed issue with covering patterns not working (which was causing teh only patterns for hair to be plain or ombre).
 	
+	
+	
+	
+	Cum expulsion enchantment isn't free with the Water passive
+	
+	Blaze lets out a deep groan as he pushes his cock into your back door.​
+		You have taken your penile virginity!
+	"You have taken your penile virginity" when it was her cock in my mouth
+	
+	Italicisedburgundy text reads (tattoo tooltip)
+	
+	
+	If a follower summons a elemental and you defeat Zaranix after you get teleported outside the follower command breaks…as in you can no longer dismiss or interact with your companion anymore.
+	
+	replace all ... with …
+	
+	you can't have Submissive sex with a child of yours after combat with them, no matter how corrupted you are, if you are without the Fetish of Submissive
+	
+	out if you have a cock and no pussy and Ralph fucks your ass the sex action description for "Take it" says "-let Ralph's massive horse-cock pound your pussy
+	
+	aligator milk is not a thing. Just basic human milk
 	
 	
 	
@@ -47,64 +114,39 @@
 	- Update Lilaya's and Kate's chair sex scenes.
 	
 	AI - need to prioritise actions on partner before self penetrations
+		self penetration and finger sucking are taking a very high priority
+	add behaviour for them not listening based on if they have impregnation fetish soon
+	using anal self actions even though hates?!
+	might be a bug, the AI for sex might be wonky again. I have a rat in my house and when she (futa) rapes me, she bends me over, removes my vag plug and then began to stuff her tail in her butt and her mouth yelling about how good this feels and saying "let me fuck you already!" (or something along those lines) until she gets off.
+	
+	orgasm screen needs to check for plugs vagina clothing
+	
+	ongoing handjobs
 	
 	
-	
-	Blaze lets out a deep groan as he pushes his cock into your back door.​
-		You have taken your penile virginity!
 	
 	exporting your owned npc slave and importing while starting a new game causes you to be a slave
-	
-	when Lilaya is pregnant and asks you to pull out to not get pregnant
 	
 	Male PC with Orgasm Denier fetish, if you 'Deny' a female imp at their orgasm, the game gets stuck in a loop of 'Deny'/'Prepare'.
 	 The loop ends if you allow them to orgasm, but otherwise is infinite. (PC keeps gaining arousal and can cum over and over) Tested with other races, seems to only be with imps
 	
 	Rental daddy
 	
-	it seems like pattern colours are still getting reset to black when save/loading
-	
-	"Fixed legs and arms always being described as 'slender'. The description is now drawn from your BodyShape (which is based on muscle and body size)."
-	but in the game I made a jacked female character and it still says:
-	"All of your limbs are slender and feminine looking."
-	Also, almost all hair modifiers other than Ombre have vanished.
-	
-	angel wing colour doesn't show up in description
-	
-	freckles are also missing from demon skin
-	
-	slimes only seam to spawn as humans and not other races
-	
-	If a follower summons a elemental and you defeat Zaranix after you get teleported outside the follower command breaks…as in you can no longer dismiss or interact with your companion anymore.
-	
 	they mention not waiting until I woke up a bug, like the game takes my high femininity and assuming I must be the mother
 	
-	self penetration and finger sucking are taking a very high priority
-	
-	the chemise seems to be blocking your dick even if you aren't wearing anything else
-	
-	you can't have Submissive sex with a child of yours after combat with them, no matter how corrupted you are, if you are without the Fetish of Submissive
-	
 	slave's elementals don't seem to be affected by difficulty
-	
-	"You have taken your penile virginity" when it was her cock in my mouth
-	
-	Italicisedburgundy text reads (tattoo tooltip)
-	
-	out if you have a cock and no pussy and Ralph fucks your ass the sex action description for "Take it" says "-let Ralph's massive horse-cock pound your pussy
-	
-	aligator milk is not a thing. Just basic human milk
-	
 	
 	I noticed it when I took advantage of the "willing" Brax who immediatly went into the resisting pace and stayed there as I (the person he TFed into his ideal image of a wolf girl mind you) sucked his cock
 		Then he lost 50 affection after I ended the scene and I said fuck it and reloaded the save
 		It also wouldnt let me choose where he came so he pulled out and there was no warning
 	
-	Cum expulsion enchantment isn't free with the Water passive
+	
+	
+	
+	
 	
 	
 	body materials
-	Fix stroke cock (and panties) being related to urethra
 	foot fetish
 	Tailjobs
 	Paizuri deepthroat while fucking a dickgirl's pussy in missionary
@@ -114,7 +156,7 @@
 	Stop spreading ass/pussy
 	ongoing handjobs
 	denial
-	not being able to have oral sex with important npcs that are seated, or the lipples performing exactly the same as any other hole
+	or the lipples performing exactly the same as any other hole
 	
 	
 	[ ] Sort Colour lists

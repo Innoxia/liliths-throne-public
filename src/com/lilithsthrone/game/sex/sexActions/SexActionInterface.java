@@ -895,7 +895,6 @@ public interface SexActionInterface {
 							&& targetedArea==SexAreaPenetration.PENIS
 							&& this.getActionType()==SexActionType.ORGASM) {
 						associatedFetishes.add(Fetish.FETISH_PREGNANCY);
-						associatedFetishes.add(Fetish.FETISH_BROODMOTHER);
 					}
 					associatedFetishes.add(Fetish.FETISH_VAGINAL_RECEIVING);
 					break;
@@ -957,7 +956,6 @@ public interface SexActionInterface {
 							&& performingArea==SexAreaPenetration.PENIS
 							&& this.getActionType()==SexActionType.ORGASM) {
 						associatedFetishes.add(Fetish.FETISH_IMPREGNATION);
-						associatedFetishes.add(Fetish.FETISH_SEEDER);
 					}
 					associatedFetishes.add(Fetish.FETISH_VAGINAL_GIVING);
 					break;
@@ -993,9 +991,6 @@ public interface SexActionInterface {
 					associatedFetishesPartner.add(Fetish.FETISH_LACTATION_OTHERS);
 					break;
 				case FETISH_BREEDER:
-					break;
-				case FETISH_BROODMOTHER:
-					associatedFetishesPartner.add(Fetish.FETISH_SEEDER);
 					break;
 				case FETISH_CROSS_DRESSER:
 					break;
@@ -1056,8 +1051,6 @@ public interface SexActionInterface {
 					associatedFetishesPartner.add(Fetish.FETISH_MASOCHIST);
 					break;
 				case FETISH_SADOMASOCHIST:
-					break;
-				case FETISH_SEEDER:
 					break;
 				case FETISH_STRUTTER:
 					associatedFetishesPartner.add(Fetish.FETISH_LEG_LOVER);

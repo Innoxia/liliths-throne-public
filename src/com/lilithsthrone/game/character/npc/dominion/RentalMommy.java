@@ -20,6 +20,7 @@ import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
 import com.lilithsthrone.game.character.body.valueEnums.HipSize;
 import com.lilithsthrone.game.character.body.valueEnums.NippleSize;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
+import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
@@ -106,7 +107,6 @@ public class RentalMommy extends NPC {
 
 			this.addFetish(Fetish.FETISH_BREASTS_SELF);
 			this.addFetish(Fetish.FETISH_PREGNANCY);
-			this.addFetish(Fetish.FETISH_BROODMOTHER);
 			
 			this.setFetishDesire(Fetish.FETISH_VAGINAL_RECEIVING, FetishDesire.THREE_LIKE);
 			this.setFetishDesire(Fetish.FETISH_DOMINANT, FetishDesire.THREE_LIKE);
@@ -115,6 +115,9 @@ public class RentalMommy extends NPC {
 			this.setFetishDesire(Fetish.FETISH_INCEST, FetishDesire.THREE_LIKE);
 
 			this.setFetishDesire(Fetish.FETISH_PURE_VIRGIN, FetishDesire.ONE_DISLIKE);
+			
+			this.addPerk(Perk.FETISH_BROODMOTHER);
+			this.addTrait(Perk.FETISH_BROODMOTHER);
 			
 			// BODY RANDOMISATION:
 			

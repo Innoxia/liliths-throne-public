@@ -12,7 +12,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.2.4
+ * @version 0.2.8
  * @author Innoxia
  */
 public enum BodyCoveringType {

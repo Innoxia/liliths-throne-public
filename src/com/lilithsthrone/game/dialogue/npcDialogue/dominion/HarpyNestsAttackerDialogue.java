@@ -44,7 +44,7 @@ public class HarpyNestsAttackerDialogue {
 		public String getContent() {
 			if(Main.game.getActiveNPC().isVisiblyPregnant()){
 				if(!Main.game.getActiveNPC().isReactedToPregnancy()) {
-					if(Main.game.getActiveNPC().hasFetish(Fetish.FETISH_PREGNANCY) || Main.game.getActiveNPC().hasFetish(Fetish.FETISH_BROODMOTHER)) {
+					if(Main.game.getActiveNPC().hasFetish(Fetish.FETISH_PREGNANCY)) {
 						return "<p>"
 								+ "As you travel along the narrow walkways, you find yourself passing the nest of that aggressive [npc.race] who attacked you before."
 								+ " As you walk by, [npc.she] suddenly jumps down in front of you, blocking your path."

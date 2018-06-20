@@ -46,10 +46,12 @@ public class BodyCoveringTemplate {
 		
 		this.naturalModifiers = getImmutableListFromNullableList(naturalModifiers);
 		this.extraModifiers = getImmutableListFromNullableList(extraModifiers);
+		
 		this.naturalPatterns = getImmutableListFromNullableList(naturalPatterns, () -> Arrays.asList(CoveringPattern.NONE));
 		List<CoveringPattern> dyePatternsList = getListFromNullableList(dyePatterns);
 		dyePatternsList.removeAll(this.naturalPatterns);
 		this.dyePatterns = Collections.unmodifiableList(dyePatternsList);
+		
 		this.naturalColoursPrimary = getImmutableListFromNullableList(naturalColoursPrimary);
 		this.dyeColoursPrimary = getImmutableListFromNullableList(dyeColoursPrimary);
 		this.naturalColoursSecondary = getImmutableListFromNullableList(naturalColoursSecondary);
@@ -65,6 +67,8 @@ public class BodyCoveringTemplate {
 	}
 	
 	private <T> List<T> getListFromNullableList(List<T> nullableList) {
-		return Optional.ofNullable(nullableList).orElse(new ArrayList<>());
+		// Have to wrap in a new ArrayList, as the nullableList might be one of the preset lists from CoveringPattern (such as CoveringPattern.allHairCoveringPatterns).
+		// If not wrapped in a new ArrayList, the "dyePatternsList.removeAll(this.naturalPatterns);" line removes elements from the underlying list.
+		return new ArrayList<>(Optional.ofNullable(nullableList).orElse(new ArrayList<>()));
 	}
 }

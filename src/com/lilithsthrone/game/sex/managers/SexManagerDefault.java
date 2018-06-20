@@ -118,7 +118,7 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 				for(GameCharacter character : Sex.getAllParticipants()) {
 					if(action.getAreasCummedIn(Sex.getActivePartner(), character) != null) {
 						if((action.getAreasCummedIn(Sex.getActivePartner(), character).contains(SexAreaOrifice.VAGINA)
-								&& (Sex.getActivePartner().hasFetish(Fetish.FETISH_IMPREGNATION) || Sex.getActivePartner().hasFetish(Fetish.FETISH_SEEDER)))
+								&& (Sex.getActivePartner().hasFetish(Fetish.FETISH_IMPREGNATION)))
 							|| SexFlags.playerRequestedCreampie) {
 							priorityOrgasms.add(action);
 							
@@ -128,7 +128,7 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 					}
 					if(action.getAreasCummedIn(character, Sex.getActivePartner()) != null) {
 						if((action.getAreasCummedIn(character, Sex.getActivePartner()).contains(SexAreaOrifice.VAGINA)
-									&& (Sex.getActivePartner().hasFetish(Fetish.FETISH_PREGNANCY) || Sex.getActivePartner().hasFetish(Fetish.FETISH_BROODMOTHER)))) {
+									&& (Sex.getActivePartner().hasFetish(Fetish.FETISH_PREGNANCY)))) {
 							priorityOrgasms.add(action);
 							
 						}
@@ -361,10 +361,10 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 		// If the NPC has a preference, they are more likely to choose actions related to that:
 		if(Sex.getActivePartner().getForeplayPreference()!=null) {
 			for(SexActionInterface action : availableActions) {
-				if((action.getPerformingCharacterOrifices().contains(Sex.getActivePartner().getForeplayPreference().getPerformingSexArea())
-						|| action.getPerformingCharacterOrifices().contains(Sex.getActivePartner().getForeplayPreference().getTargetedSexArea()))
-						&& (action.getPerformingCharacterPenetrations().contains(Sex.getActivePartner().getForeplayPreference().getPerformingSexArea())
-								|| action.getPerformingCharacterPenetrations().contains(Sex.getActivePartner().getForeplayPreference().getTargetedSexArea()))
+				if(((action.getPerformingCharacterPenetrations().contains(Sex.getActivePartner().getForeplayPreference().getPerformingSexArea())
+						&& action.getTargetedCharacterOrifices().contains(Sex.getActivePartner().getForeplayPreference().getTargetedSexArea()))
+						|| (action.getTargetedCharacterPenetrations().contains(Sex.getActivePartner().getForeplayPreference().getTargetedSexArea())
+								|| action.getPerformingCharacterOrifices().contains(Sex.getActivePartner().getForeplayPreference().getPerformingSexArea())))
 						&& action.getActionType() != SexActionType.STOP_ONGOING
 						&& action.getParticipantType()!=SexParticipantType.SELF) {
 					highPriorityList.add(action);
@@ -467,16 +467,15 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 				return (SexAction) returnableActions.get(Util.random.nextInt(returnableActions.size()));
 			}
 			
-			
 			// If the NPC has a preference, they are more likely to choose actions related to that:
 			List<SexActionInterface> penetrativeActionList = new ArrayList<>();
 			if(Sex.getActivePartner().getMainSexPreference()!=null) {
 				List<SexActionInterface> highPriorityList = new ArrayList<>();
 				for(SexActionInterface action : availableActions) {
-					if((action.getPerformingCharacterOrifices().contains(Sex.getActivePartner().getForeplayPreference().getPerformingSexArea())
-							|| action.getPerformingCharacterOrifices().contains(Sex.getActivePartner().getForeplayPreference().getTargetedSexArea()))
-							&& (action.getPerformingCharacterPenetrations().contains(Sex.getActivePartner().getForeplayPreference().getPerformingSexArea())
-									|| action.getPerformingCharacterPenetrations().contains(Sex.getActivePartner().getForeplayPreference().getTargetedSexArea()))
+					if(((action.getPerformingCharacterPenetrations().contains(Sex.getActivePartner().getMainSexPreference().getPerformingSexArea())
+							&& action.getTargetedCharacterOrifices().contains(Sex.getActivePartner().getMainSexPreference().getTargetedSexArea()))
+							|| (action.getTargetedCharacterPenetrations().contains(Sex.getActivePartner().getMainSexPreference().getTargetedSexArea())
+									|| action.getPerformingCharacterOrifices().contains(Sex.getActivePartner().getMainSexPreference().getPerformingSexArea())))
 							&& action.getParticipantType()!=SexParticipantType.SELF
 							&& action.getActionType() != SexActionType.STOP_ONGOING) {
 						highPriorityList.add(action);
@@ -484,7 +483,10 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 							penetrativeActionList.add(action);
 						}
 					}
-					
+				}
+				
+				if(!penetrativeActionList.isEmpty()) {
+					return (SexAction) penetrativeActionList.get(Util.random.nextInt(penetrativeActionList.size()));
 				}
 				
 				if(penetrativeActionList.isEmpty() && !highPriorityList.isEmpty() && Math.random()<0.7f) { // 70% chance, so that there is some chance of using other actions as well:
@@ -523,13 +525,12 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 						}
 						// Pregnancy penetration on player:
 						if((Sex.getActivePartner().hasFetish(Fetish.FETISH_IMPREGNATION)
-								|| Sex.getActivePartner().hasFetish(Fetish.FETISH_SEEDER)
 								|| Sex.getPlayerPenetrationRequests().contains(SexAreaOrifice.VAGINA))
 									&& action.getTargetedCharacterOrifices().contains(SexAreaOrifice.VAGINA) && action.getPerformingCharacterPenetrations().contains(SexAreaPenetration.PENIS)) {
 							penetrativeActionList.add(action);
 						}
 						// Pregnancy penetration for self:
-						if((Sex.getActivePartner().hasFetish(Fetish.FETISH_PREGNANCY) || Sex.getActivePartner().hasFetish(Fetish.FETISH_BROODMOTHER))
+						if((Sex.getActivePartner().hasFetish(Fetish.FETISH_PREGNANCY))
 								&& action.getPerformingCharacterOrifices().contains(SexAreaOrifice.VAGINA) && action.getTargetedCharacterPenetrations().contains(SexAreaPenetration.PENIS)) {
 							penetrativeActionList.add(action);
 						}

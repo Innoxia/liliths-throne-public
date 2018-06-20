@@ -41,6 +41,9 @@ public class SexFlags implements Serializable {
 	public static boolean requestedSelfKneeling;
 	public static boolean requestedMissionary;
 	public static boolean requestedMissionaryOnBack;
+	public static boolean requestedSitOnFace;
+	public static boolean requestedFaceSitting;
+	
 	
 	public static boolean requestedChairBottom;
 	public static boolean requestedChairTop;

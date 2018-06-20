@@ -367,7 +367,7 @@ public class RalphOral {
 		@Override
 		public List<Fetish> getFetishes(GameCharacter character) {
 			if(character.isPlayer()) {
-				return Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE, Fetish.FETISH_PREGNANCY, Fetish.FETISH_BROODMOTHER);
+				return Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE, Fetish.FETISH_PREGNANCY);
 			} else {
 				return Util.newArrayListOfValues(Fetish.FETISH_IMPREGNATION);
 			}

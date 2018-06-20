@@ -17,7 +17,7 @@ import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.0
- * @version 0.2.1
+ * @version 0.2.8
  * @author Innoxia
  */
 public enum Perk {
@@ -1034,7 +1034,69 @@ public enum Perk {
 				return UtilText.parse(owner, "[npc.Name]'s seed is incredibly weak, and [npc.she]'s highly unlikely to ever get anyone pregnant.");
 			}
 		}
-	};
+	},
+	
+
+	
+	FETISH_BROODMOTHER(20,
+			true,
+			"broodmother",
+			PerkCategory.PHYSICAL,
+			"fetishes/fetish_broodmother",
+			Colour.GENERIC_SEX,
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.FERTILITY, 10)),
+			Util.newArrayListOfValues("2x <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>Maximum offspring in mothered litters</span>")) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			if (owner.isPlayer()) {
+				return "Your body is built for one thing; pumping out as many children as possible."
+							+ " Whether due to an effect of your arcane aura, or perhaps just because of your body's natural fertility, you seem to always give birth to huge numbers of children at once.";
+			} else {
+				return UtilText.parse(owner, "[npc.Name]'s body is built for one thing; pumping out as many children as possible."
+						+ " [npc.She] seems to always give birth to huge numbers of children at once.");
+			}
+		}
+
+		@Override
+		public boolean isAlwaysAvailable() {
+			return true;
+		}
+		
+		@Override
+		public CorruptionLevel getAssociatedCorruptionLevel() {
+			return CorruptionLevel.TWO_HORNY;
+		}
+	},
+	
+	FETISH_SEEDER(20,
+			true,
+			"seeder",
+			PerkCategory.PHYSICAL,
+			"fetishes/fetish_seeder",
+			Colour.GENERIC_SEX,
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.VIRILITY, 10)),
+			Util.newArrayListOfValues("2x <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>Maximum offspring in fathered litters</span>")) {
+
+		@Override
+		public boolean isAlwaysAvailable() {
+			return true;
+		}
+		
+		@Override
+		public String getDescription(GameCharacter owner) {
+			if (owner.isPlayer()) {
+				return "Your seed has the potent effect of causing anyone impregnated by it to give birth to huge numbers of children.";
+			} else {
+				return UtilText.parse(owner, "[npc.Name]'s seed has the potent effect of causing anyone impregnated by it to give birth to huge numbers of children.");
+			}
+		}
+
+		@Override
+		public CorruptionLevel getAssociatedCorruptionLevel() {
+			return CorruptionLevel.TWO_HORNY;
+		}
+	},;
 
 	private int renderingPriority;
 	protected String name;

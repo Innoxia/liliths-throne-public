@@ -796,8 +796,8 @@ public class GamblingDenDialogue {
 			if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.eponaIntroduced)) {
 				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/gamblingDen", "PREGNANCY_ROULETTE"));
 				
-				boolean preg = Main.game.getPlayer().hasFetish(Fetish.FETISH_PREGNANCY) || Main.game.getPlayer().hasFetish(Fetish.FETISH_BROODMOTHER);
-				boolean impreg = Main.game.getPlayer().hasFetish(Fetish.FETISH_IMPREGNATION) || Main.game.getPlayer().hasFetish(Fetish.FETISH_SEEDER);
+				boolean preg = Main.game.getPlayer().hasFetish(Fetish.FETISH_PREGNANCY);
+				boolean impreg = Main.game.getPlayer().hasFetish(Fetish.FETISH_IMPREGNATION);
 				if(preg) {
 					if(impreg) {
 						UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/gamblingDen", "PREGNANCY_ROULETTE_BOTH_FETISH"));

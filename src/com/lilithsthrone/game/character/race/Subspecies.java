@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.Covering;
@@ -399,6 +400,7 @@ public enum Subspecies {
 					WorldType.BAT_CAVERNS)) {
 		@Override
 		public void applySpeciesChanges(Body body) {
+			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.ANGEL, Subspecies.ANGEL, RaceStage.GREATER);
 			body.setBodyMaterial(BodyMaterial.SLIME);
 		}
 	},
@@ -418,6 +420,7 @@ public enum Subspecies {
 					WorldType.BAT_CAVERNS)) {
 		@Override
 		public void applySpeciesChanges(Body body) {
+			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.DEMON, Subspecies.DEMON, RaceStage.GREATER);
 			body.setBodyMaterial(BodyMaterial.SLIME);
 		}
 	},
@@ -437,6 +440,7 @@ public enum Subspecies {
 					WorldType.BAT_CAVERNS)) {
 		@Override
 		public void applySpeciesChanges(Body body) {
+			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.IMP, Subspecies.IMP, RaceStage.GREATER);
 			body.setBodyMaterial(BodyMaterial.SLIME);
 		}
 		@Override
@@ -460,6 +464,7 @@ public enum Subspecies {
 					WorldType.BAT_CAVERNS)) {
 		@Override
 		public void applySpeciesChanges(Body body) {
+			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.COW_MORPH, Subspecies.COW_MORPH, RaceStage.GREATER);
 			body.setBodyMaterial(BodyMaterial.SLIME);
 		}
 	},
@@ -479,6 +484,7 @@ public enum Subspecies {
 					WorldType.BAT_CAVERNS)) {
 		@Override
 		public void applySpeciesChanges(Body body) {
+			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.DOG_MORPH, Subspecies.DOG_MORPH, RaceStage.GREATER);
 			body.setBodyMaterial(BodyMaterial.SLIME);
 		}
 	},
@@ -498,6 +504,7 @@ public enum Subspecies {
 					WorldType.BAT_CAVERNS)) {
 		@Override
 		public void applySpeciesChanges(Body body) {
+			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.DOG_MORPH, Subspecies.DOG_MORPH_DOBERMANN, RaceStage.GREATER);
 			body.setBodyMaterial(BodyMaterial.SLIME);
 		}
 	},
@@ -517,6 +524,7 @@ public enum Subspecies {
 					WorldType.BAT_CAVERNS)) {
 		@Override
 		public void applySpeciesChanges(Body body) {
+			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.DOG_MORPH, Subspecies.DOG_MORPH_BORDER_COLLIE, RaceStage.GREATER);
 			body.setBodyMaterial(BodyMaterial.SLIME);
 		}
 	},
@@ -536,6 +544,7 @@ public enum Subspecies {
 					WorldType.BAT_CAVERNS)) {
 		@Override
 		public void applySpeciesChanges(Body body) {
+			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.WOLF_MORPH, Subspecies.WOLF_MORPH, RaceStage.GREATER);
 			body.setBodyMaterial(BodyMaterial.SLIME);
 		}
 	},
@@ -555,6 +564,7 @@ public enum Subspecies {
 					WorldType.BAT_CAVERNS)) {
 		@Override
 		public void applySpeciesChanges(Body body) {
+			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.CAT_MORPH, Subspecies.CAT_MORPH, RaceStage.GREATER);
 			body.setBodyMaterial(BodyMaterial.SLIME);
 		}
 	},
@@ -574,6 +584,7 @@ public enum Subspecies {
 					WorldType.BAT_CAVERNS)) {
 		@Override
 		public void applySpeciesChanges(Body body) {
+			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.HORSE_MORPH, Subspecies.HORSE_MORPH, RaceStage.GREATER);
 			body.setBodyMaterial(BodyMaterial.SLIME);
 		}
 	},
@@ -593,6 +604,7 @@ public enum Subspecies {
 					WorldType.BAT_CAVERNS)) {
 		@Override
 		public void applySpeciesChanges(Body body) {
+			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.REINDEER_MORPH, Subspecies.REINDEER_MORPH, RaceStage.GREATER);
 			body.setBodyMaterial(BodyMaterial.SLIME);
 		}
 	},
@@ -612,6 +624,7 @@ public enum Subspecies {
 					WorldType.BAT_CAVERNS)) {
 		@Override
 		public void applySpeciesChanges(Body body) {
+			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.ALLIGATOR_MORPH, Subspecies.ALLIGATOR_MORPH, RaceStage.GREATER);
 			body.setBodyMaterial(BodyMaterial.SLIME);
 		}
 	},
@@ -631,6 +644,7 @@ public enum Subspecies {
 					WorldType.BAT_CAVERNS)) {
 		@Override
 		public void applySpeciesChanges(Body body) {
+			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.SQUIRREL_MORPH, Subspecies.SQUIRREL_MORPH, RaceStage.GREATER);
 			body.setBodyMaterial(BodyMaterial.SLIME);
 		}
 	},
@@ -650,6 +664,7 @@ public enum Subspecies {
 					WorldType.BAT_CAVERNS)) {
 		@Override
 		public void applySpeciesChanges(Body body) {
+			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.RAT_MORPH, Subspecies.RAT_MORPH, RaceStage.GREATER);
 			body.setBodyMaterial(BodyMaterial.SLIME);
 		}
 	},
@@ -669,6 +684,7 @@ public enum Subspecies {
 					WorldType.BAT_CAVERNS)) {
 		@Override
 		public void applySpeciesChanges(Body body) {
+			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.RABBIT_MORPH, Subspecies.RABBIT_MORPH, RaceStage.GREATER);
 			body.setBodyMaterial(BodyMaterial.SLIME);
 		}
 	},
@@ -688,6 +704,7 @@ public enum Subspecies {
 					WorldType.BAT_CAVERNS)) {
 		@Override
 		public void applySpeciesChanges(Body body) {
+			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.BAT_MORPH, Subspecies.BAT_MORPH, RaceStage.GREATER);
 			body.setBodyMaterial(BodyMaterial.SLIME);
 		}
 	},
@@ -707,6 +724,7 @@ public enum Subspecies {
 					WorldType.BAT_CAVERNS)) {
 		@Override
 		public void applySpeciesChanges(Body body) {
+			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.HARPY, Subspecies.HARPY, RaceStage.GREATER);
 			body.setBodyMaterial(BodyMaterial.SLIME);
 		}
 	},
@@ -726,6 +744,7 @@ public enum Subspecies {
 					WorldType.BAT_CAVERNS)) {
 		@Override
 		public void applySpeciesChanges(Body body) {
+			CharacterUtils.reassignBody(body, body.getGender(), RacialBody.HARPY, Subspecies.HARPY_RAVEN, RaceStage.GREATER);
 			body.setBodyMaterial(BodyMaterial.SLIME);
 		}
 	},

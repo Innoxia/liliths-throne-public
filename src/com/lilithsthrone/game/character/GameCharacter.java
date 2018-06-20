@@ -11094,10 +11094,10 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 					}
 				}
 				
-				if(partner.hasFetish(Fetish.FETISH_SEEDER)) {
+				if(partner.hasTraitActivated(Perk.FETISH_SEEDER)) {
 					maximumNumberOfChildren*=2;
 				}
-				if(hasFetish(Fetish.FETISH_BROODMOTHER)) {
+				if(hasTraitActivated(Perk.FETISH_BROODMOTHER)) {
 					maximumNumberOfChildren*=2;
 				}
 				
@@ -12866,12 +12866,15 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	private GenderAppearance calculateGenderAppearance(boolean colouredGender) {
 		boolean visibleVagina = isCoverableAreaExposed(CoverableArea.VAGINA) && hasVagina();
 		boolean visiblePenis = isCoverableAreaExposed(CoverableArea.PENIS) && hasPenis();
-		boolean bulgeFromCock = hasPenis() && getGenitalArrangement() != GenitalArrangement.CLOACA && (hasPenisModifier(PenetrationModifier.SHEATHED)
-									? getPenisRawSizeValue()>=PenisSize.FOUR_HUGE.getMaximumValue()
-									: getPenisRawSizeValue()>=PenisSize.THREE_LARGE.getMaximumValue());
-		boolean bulgeFromBalls = hasPenis() && getGenitalArrangement() != GenitalArrangement.CLOACA && (isInternalTesticles()
+		boolean bulgeFromCock = hasPenis()
+								&& getGenitalArrangement() != GenitalArrangement.CLOACA
+								&& (hasPenisModifier(PenetrationModifier.SHEATHED)
 									? false
-									: getTesticleSize().getValue()>=TesticleSize.FOUR_HUGE.getValue());
+									: getPenisRawSizeValue()>=PenisSize.THREE_LARGE.getMaximumValue());
+		boolean bulgeFromBalls = hasPenis() && getGenitalArrangement() != GenitalArrangement.CLOACA
+									&& (isInternalTesticles()
+										? false
+										: getTesticleSize().getValue()>=TesticleSize.FOUR_HUGE.getValue());
 		
 		if(this.getFemininityValue()>=Femininity.FEMININE.getMinimumFemininity()) {
 			if(hasBreasts()) {

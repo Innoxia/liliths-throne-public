@@ -136,6 +136,10 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 		this.secondaryColour = secondaryColour;
 		this.tertiaryColour = tertiaryColour;
 		
+		patternColour = Colour.CLOTHING_BLACK;
+		patternSecondaryColour = Colour.CLOTHING_BLACK;
+		patternTertiaryColour = Colour.CLOTHING_BLACK;
+		
 		displacedList = new ArrayList<>();
 
 		this.effects = effects;
@@ -192,6 +196,9 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 		CharacterUtils.addAttribute(doc, element, "colour", this.getColour().toString());
 		CharacterUtils.addAttribute(doc, element, "colourSecondary", this.getSecondaryColour().toString());
 		CharacterUtils.addAttribute(doc, element, "colourTertiary", this.getTertiaryColour().toString());
+		CharacterUtils.addAttribute(doc, element, "patternColour", this.getPatternColour().toString());
+		CharacterUtils.addAttribute(doc, element, "patternColourSecondary", this.getPatternSecondaryColour().toString());
+		CharacterUtils.addAttribute(doc, element, "patternColourTertiary", this.getPatternTertiaryColour().toString());
 		CharacterUtils.addAttribute(doc, element, "pattern", this.getPattern());
 		CharacterUtils.addAttribute(doc, element, "isDirty", String.valueOf(this.isDirty()));
 		CharacterUtils.addAttribute(doc, element, "enchantmentKnown", String.valueOf(this.isEnchantmentKnown()));
@@ -249,9 +256,23 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 					clothing.setTertiaryColour(terColour);
 				}
 			}
+			
 			if(!parentElement.getAttribute("pattern").isEmpty()) {
 				String pat = parentElement.getAttribute("pattern");
 				clothing.setPattern(pat);
+			}
+			
+			if(!parentElement.getAttribute("patternColour").isEmpty()) {
+				Colour colour = Colour.valueOf(parentElement.getAttribute("patternColour"));
+				clothing.setPatternColour(colour);
+			}
+			if(!parentElement.getAttribute("patternColourSecondary").isEmpty()) {
+				Colour secColour = Colour.valueOf(parentElement.getAttribute("patternColourSecondary"));
+				clothing.setPatternSecondaryColour(secColour);
+			}
+			if(!parentElement.getAttribute("patternColourTertiary").isEmpty()) {
+				Colour terColour = Colour.valueOf(parentElement.getAttribute("patternColourTertiary"));
+				clothing.setPatternTertiaryColour(terColour);
 			}
 		} catch(Exception ex) {
 		}

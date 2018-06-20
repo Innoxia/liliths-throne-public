@@ -1990,7 +1990,7 @@ public class SlaveDialogue {
 									+ "</p>"
 									+ "<p>"
 										+ "You continue this for a little while; your slave squirming and squealing in your lap as you rain down blow after blow upon [npc.her] vulnerable backside."
-										+ " Eventually, however, you feel as though [npc.she]'s been taught [npc.her] lesson, and you order [npc.her] to stand up and put [npc.her] clothes on once more."
+										+ " Eventually, however, you feel as though [npc.she]'s been taught [npc.her] lesson, and you order [npc.herHim] to stand up and put [npc.her] clothes on once more."
 									+ "</p>");
 							break;
 						case NEUTRAL:
@@ -2007,7 +2007,7 @@ public class SlaveDialogue {
 								+ "</p>"
 								+ "<p>"
 									+ "You continue this for a little while; your slave squirming and squealing in your lap as you rain down blow after blow upon [npc.her] vulnerable backside."
-									+ " Eventually, however, you feel as though [npc.she]'s been taught [npc.her] lesson, and you order [npc.her] to stand up and put [npc.her] clothes on once more."
+									+ " Eventually, however, you feel as though [npc.she]'s been taught [npc.her] lesson, and you order [npc.herHim] to stand up and put [npc.her] clothes on once more."
 								+ "</p>");
 							break;
 						case OBEDIENT:
@@ -2023,7 +2023,7 @@ public class SlaveDialogue {
 								+ "</p>"
 								+ "<p>"
 									+ "You continue this for a little while; your slave squirming and squealing in your lap as you rain down blow after blow upon [npc.her] vulnerable backside."
-									+ " Eventually, however, you feel as though [npc.she]'s been taught [npc.her] lesson, and you order [npc.her] to stand up and put [npc.her] clothes on once more."
+									+ " Eventually, however, you feel as though [npc.she]'s been taught [npc.her] lesson, and you order [npc.herHim] to stand up and put [npc.her] clothes on once more."
 								+ "</p>");
 							break;
 					}
@@ -2043,7 +2043,7 @@ public class SlaveDialogue {
 								+ "</p>"
 								+ "<p>"
 									+ "You continue this for a little while; your slave squirming and squealing in your lap as you rain down blow after blow upon [npc.her] vulnerable backside."
-									+ " Eventually, however, you feel as though [npc.she]'s been taught [npc.her] lesson, and you order [npc.her] to stand up and put [npc.her] clothes on once more."
+									+ " Eventually, however, you feel as though [npc.she]'s been taught [npc.her] lesson, and you order [npc.herHim] to stand up and put [npc.her] clothes on once more."
 								+ "</p>");
 							break;
 						case NEUTRAL:
@@ -2059,7 +2059,7 @@ public class SlaveDialogue {
 								+ "</p>"
 								+ "<p>"
 									+ "You continue this for a little while; your slave squirming and squealing in your lap as you rain down blow after blow upon [npc.her] vulnerable backside."
-									+ " Eventually, however, you feel as though [npc.she]'s been taught [npc.her] lesson, and you order [npc.her] to stand up and put [npc.her] clothes on once more."
+									+ " Eventually, however, you feel as though [npc.she]'s been taught [npc.her] lesson, and you order [npc.herHim] to stand up and put [npc.her] clothes on once more."
 								+ "</p>");
 							break;
 						case OBEDIENT:
@@ -2075,7 +2075,7 @@ public class SlaveDialogue {
 								+ "</p>"
 								+ "<p>"
 									+ "You continue this for a little while; your slave squirming and squealing in your lap as you rain down blow after blow upon [npc.her] vulnerable backside."
-									+ " Eventually, however, you feel as though [npc.she]'s been taught [npc.her] lesson, and you order [npc.her] to stand up and put [npc.her] clothes on once more."
+									+ " Eventually, however, you feel as though [npc.she]'s been taught [npc.her] lesson, and you order [npc.herHim] to stand up and put [npc.her] clothes on once more."
 								+ "</p>");
 							break;
 					}
@@ -2095,7 +2095,7 @@ public class SlaveDialogue {
 								+ "</p>"
 								+ "<p>"
 									+ "You continue this for a little while; your slave squirming and squealing in your lap as you rain down blow after blow upon [npc.her] vulnerable backside."
-									+ " Eventually, however, you feel as though [npc.she]'s been taught [npc.her] lesson, and you order [npc.her] to stand up and put [npc.her] clothes on once more."
+									+ " Eventually, however, you feel as though [npc.she]'s been taught [npc.her] lesson, and you order [npc.herHim] to stand up and put [npc.her] clothes on once more."
 								+ "</p>");
 							break;
 						case NEUTRAL:
@@ -2111,7 +2111,7 @@ public class SlaveDialogue {
 								+ "</p>"
 								+ "<p>"
 									+ "You continue this for a little while; your slave squirming and squealing in your lap as you rain down blow after blow upon [npc.her] vulnerable backside."
-									+ " Eventually, however, you feel as though [npc.she]'s been taught [npc.her] lesson, and you order [npc.her] to stand up and put [npc.her] clothes on once more."
+									+ " Eventually, however, you feel as though [npc.she]'s been taught [npc.her] lesson, and you order [npc.herHim] to stand up and put [npc.her] clothes on once more."
 								+ "</p>");
 							break;
 						case OBEDIENT:
@@ -2127,7 +2127,7 @@ public class SlaveDialogue {
 								+ "</p>"
 								+ "<p>"
 									+ "You continue this for a little while; your slave squirming and squealing in your lap as you rain down blow after blow upon [npc.her] vulnerable backside."
-									+ " Eventually, however, you feel as though [npc.she]'s been taught [npc.her] lesson, and you order [npc.her] to stand up and put [npc.her] clothes on once more."
+									+ " Eventually, however, you feel as though [npc.she]'s been taught [npc.her] lesson, and you order [npc.herHim] to stand up and put [npc.her] clothes on once more."
 								+ "</p>");
 							break;
 					}

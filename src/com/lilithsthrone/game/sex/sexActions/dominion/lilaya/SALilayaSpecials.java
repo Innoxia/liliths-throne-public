@@ -148,7 +148,8 @@ public class SALilayaSpecials {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getAllContactingSexAreas(Sex.getActivePartner(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS);
+			return Sex.getAllContactingSexAreas(Sex.getActivePartner(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS)
+					&& !Main.game.getLilaya().isVisiblyPregnant();
 		}
 
 		@Override

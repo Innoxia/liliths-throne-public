@@ -378,14 +378,11 @@ public abstract class SexAction implements SexActionInterface {
 						case VAGINA:
 							characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_VAGINAL_GIVING);
 							characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_IMPREGNATION);
-							characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_SEEDER);
 							if(this.getParticipantType()==SexParticipantType.SELF) {
 								characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_PREGNANCY);
-								characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_BROODMOTHER);
 							}
 							characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_VAGINAL_RECEIVING);
 							characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_PREGNANCY);
-							characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_BROODMOTHER);
 							break;
 						case URETHRA_PENIS:
 						case URETHRA_VAGINA:
@@ -424,14 +421,11 @@ public abstract class SexAction implements SexActionInterface {
 						case VAGINA:
 							characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_VAGINAL_RECEIVING);
 							characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_PREGNANCY);
-							characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_BROODMOTHER);
 							if(this.getParticipantType()==SexParticipantType.SELF) {
 								characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_IMPREGNATION);
-								characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_SEEDER);
 							}
 							characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_VAGINAL_GIVING);
 							characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_IMPREGNATION);
-							characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_SEEDER);
 							break;
 						case URETHRA_PENIS:
 						case URETHRA_VAGINA:
@@ -453,8 +447,8 @@ public abstract class SexAction implements SexActionInterface {
 				}
 			}
 			
-			characterFetishes.get(characterPerformingAction).removeIf(f -> !characterTarget.hasVagina() && (f==Fetish.FETISH_VAGINAL_GIVING || f==Fetish.FETISH_IMPREGNATION || f==Fetish.FETISH_SEEDER));
-			characterFetishesForPartner.get(characterPerformingAction).removeIf(f -> !characterTarget.hasVagina() && (f==Fetish.FETISH_VAGINAL_GIVING || f==Fetish.FETISH_IMPREGNATION || f==Fetish.FETISH_SEEDER));
+			characterFetishes.get(characterPerformingAction).removeIf(f -> !characterTarget.hasVagina() && (f==Fetish.FETISH_VAGINAL_GIVING || f==Fetish.FETISH_IMPREGNATION));
+			characterFetishesForPartner.get(characterPerformingAction).removeIf(f -> !characterTarget.hasVagina() && (f==Fetish.FETISH_VAGINAL_GIVING || f==Fetish.FETISH_IMPREGNATION));
 //		}
 		
 		

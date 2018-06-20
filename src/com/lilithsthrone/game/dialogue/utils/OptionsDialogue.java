@@ -1841,6 +1841,14 @@ public class OptionsDialogue {
 			for(Artist artist : Artwork.allArtists) {
 				UtilText.nodeContentSB.append("<b style='color:"+artist.getColour().toWebHexString()+";'>"+artist.getName()+"</b><br/>");
 			}	
+
+			UtilText.nodeContentSB.append("<br/>"
+					+ "Contributors:</br>"
+					+ "<b style='color:#21bfc5;'>Irbynx</b></br>"
+					+ "<b style='color:#21bfc5;'>Nnxx</b></br>"
+					+ "<b style='color:#21bfc5;'>Norin</b></br>"
+					+ "<b style='color:#21bfc5;'>Pimgd</b></br>"
+					+ "<b style='color:#21bfc5;'>Rfpnj</b></br>");
 			
 			UtilText.nodeContentSB.append("<br/>"
 						+ "Special thanks to:<br/>"

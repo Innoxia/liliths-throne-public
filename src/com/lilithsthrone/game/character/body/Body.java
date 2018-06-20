@@ -83,7 +83,7 @@ import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.0
- * @version 0.2.6
+ * @version 0.2.8
  * @author Innoxia
  */
 public class Body implements Serializable, XMLSaving {
@@ -1938,9 +1938,9 @@ public class Body implements Serializable, XMLSaving {
 		
 		if (owner.isPlayer()) {
 			if(owner.getCovering(owner.getEyeType().getBodyCoveringType(owner)).getPattern() == CoveringPattern.EYE_IRISES_HETEROCHROMATIC) {
-				sb.append(", with [pc.irisShape], heterochromatic [pc.irisPrimaryColour(true)]-and-[pc.irisSecondaryColour(true)] irises ");
+				sb.append(", with [pc.irisShape], heterochromatic [pc.irisPrimaryColour(true)]-and-[pc.irisSecondaryColour(true)] irises");
 			} else {
-				sb.append(", with [pc.irisShape], [pc.irisPrimaryColour(true)] irises ");
+				sb.append(", with [pc.irisShape], [pc.irisPrimaryColour(true)] irises");
 			}
 			
 			if(owner.getCovering(BodyCoveringType.EYE_PUPILS).getPattern() == CoveringPattern.EYE_PUPILS_HETEROCHROMATIC) {
@@ -3060,6 +3060,12 @@ public class Body implements Serializable, XMLSaving {
 				else
 					sb.append("[npc.Her] legs and feet are human in shape, but are "+getCoveredInDescriptor(owner)+" [npc.legFullDescription(true)].");
 				break;
+			case DEMON_HOOFED:
+				if (owner.isPlayer())
+					sb.append("Your demonic legs are "+getCoveredInDescriptor(owner)+" [pc.legFullDescription(true)], and your feet are formed into hard hooves.");
+				else
+					sb.append("[npc.Her] demonic legs are "+getCoveredInDescriptor(owner)+" [npc.legFullDescription(true)], and [npc.her] feet are formed into hard hooves.");
+				break;
 			case IMP:
 				if (owner.isPlayer())
 					sb.append("Your legs and feet are human in shape, but are "+getCoveredInDescriptor(owner)+" [pc.legFullDescription(true)].");
@@ -3193,9 +3199,9 @@ public class Body implements Serializable, XMLSaving {
 		sb.append("<br/>");
 		
 		if (owner.isPlayer()) {
-			sb.append(" All of your limbs ");
+			sb.append(" Your limbs are "+(Util.randomItemFrom(owner.getBodyShape().getLimbDescriptors()))+", and ");
 		} else {
-			sb.append(" All of [npc.her] limbs ");
+			sb.append(" [npc.Her] limbs are "+(Util.randomItemFrom(owner.getBodyShape().getLimbDescriptors()))+", and ");
 		}
 		
 		if (femininity <= Femininity.MASCULINE_STRONG.getMaximumFemininity()) {
@@ -3209,12 +3215,12 @@ public class Body implements Serializable, XMLSaving {
 							"<span style='color:" + Colour.MASCULINE.toWebHexString() + ";'>have a masculine shape to them</span>."));
 			
 		} else if (femininity <= Femininity.ANDROGYNOUS.getMaximumFemininity()) {
-			sb.append("<span style='color:" + Colour.ANDROGYNOUS.toWebHexString() + ";'>look quite androgynous, and could easily belong to either a male or female</span>.");
+			sb.append("<span style='color:" + Colour.ANDROGYNOUS.toWebHexString() + ";'>look quite androgynous</span>.");
 			
 		} else if (femininity <= Femininity.FEMININE.getMaximumFemininity()) {
 			sb.append(
 					UtilText.returnStringAtRandom(
-							"<span style='color:" + Colour.FEMININE.toWebHexString() + ";'>are slender and feminine-looking</span>."));
+							"<span style='color:" + Colour.FEMININE.toWebHexString() + ";'>have a feminine shape to them</span>."));
 			
 		} else {
 			sb.append(
@@ -3232,23 +3238,23 @@ public class Body implements Serializable, XMLSaving {
 			switch (wing.getType()) {
 				case DEMON_COMMON:
 					if (owner.isPlayer()) {
-						sb.append("Growing from your shoulder-blades, you have a pair of [pc.wingSize] bat-like wings.");
+						sb.append("Growing from your shoulder-blades, you have a pair of [pc.wingSize] bat-like wings, which are covered in [pc.wingFullDescription(true)].");
 					} else {
-						sb.append("Growing from [npc.her] shoulder-blades, [npc.she] has a pair of [npc.wingSize] bat-like wings.");
+						sb.append("Growing from [npc.her] shoulder-blades, [npc.she] has a pair of [npc.wingSize] bat-like wings, which are covered in [pc.wingFullDescription(true)].");
 					}
 					break;
 				case ANGEL:
 					if (owner.isPlayer()) {
-						sb.append("Growing from your shoulder-blades, you have [pc.a_wingSize] pair of white feathered wings.");
+						sb.append("Growing from your shoulder-blades, you have a pair of [pc.wingSize] angelic wings, which are covered in [pc.wingFullDescription(true)].");
 					} else {
-						sb.append("Growing from [npc.her] shoulder-blades, [npc.she] has [pc.a_wingSize] pair of white feathered wings.");
+						sb.append("Growing from [npc.her] shoulder-blades, [npc.she] has a pair of [npc.wingSize] angelic wings, which are covered in [npc.wingFullDescription(true)].");
 					}
 					break;
 				case IMP:
 					if (owner.isPlayer()) {
-						sb.append("Growing from your shoulder-blades, you have a pair of [pc.wingSize] bat-like wings.");
+						sb.append("Growing from your shoulder-blades, you have a pair of [pc.wingSize] bat-like wings, which are covered in [pc.wingFullDescription(true)].");
 					} else {
-						sb.append("Growing from [npc.her] shoulder-blades, [npc.she] has a pair of [npc.wingSize] bat-like wings.");
+						sb.append("Growing from [npc.her] shoulder-blades, [npc.she] has a pair of [npc.wingSize] bat-like wings, which are covered in [npc.wingFullDescription(true)].");
 					}
 					break;
 				case NONE:
@@ -3743,6 +3749,74 @@ public class Body implements Serializable, XMLSaving {
 
 	public Wing getWing() {
 		return wing;
+	}
+
+	public void setAntenna(Antenna antenna) {
+		this.antenna = antenna;
+	}
+
+	public void setArm(Arm arm) {
+		this.arm = arm;
+	}
+
+	public void setAss(Ass ass) {
+		this.ass = ass;
+	}
+
+	public void setBreast(Breast breast) {
+		this.breast = breast;
+	}
+
+	public void setFace(Face face) {
+		this.face = face;
+	}
+
+	public void setEye(Eye eye) {
+		this.eye = eye;
+	}
+
+	public void setEar(Ear ear) {
+		this.ear = ear;
+	}
+
+	public void setHair(Hair hair) {
+		this.hair = hair;
+	}
+
+	public void setLeg(Leg leg) {
+		this.leg = leg;
+	}
+
+	public void setSkin(Skin skin) {
+		this.skin = skin;
+	}
+	
+	public void setHorn(Horn horn) {
+		this.horn = horn;
+	}
+
+	public void setPenis(Penis penis) {
+		this.penis = penis;
+	}
+
+	public void setSecondPenis(Penis secondPenis) {
+		this.secondPenis = secondPenis;
+	}
+
+	public void setTail(Tail tail) {
+		this.tail = tail;
+	}
+
+	public void setTentacle(Tentacle tentacle) {
+		this.tentacle = tentacle;
+	}
+
+	public void setVagina(Vagina vagina) {
+		this.vagina = vagina;
+	}
+
+	public void setWing(Wing wing) {
+		this.wing = wing;
 	}
 
 	// Descriptions:

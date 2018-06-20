@@ -2956,7 +2956,7 @@ public class GenericOrgasms {
 							?!Sex.getActivePartner().hasFetish(Fetish.FETISH_CUM_ADDICT)
 							:true)
 						&& (Sex.getAllContactingSexAreas(Sex.getActivePartner(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS)
-							?(!Sex.getActivePartner().hasFetish(Fetish.FETISH_PREGNANCY) && !Sex.getActivePartner().hasFetish(Fetish.FETISH_BROODMOTHER))
+							?(!Sex.getActivePartner().hasFetish(Fetish.FETISH_PREGNANCY))
 							:true)));
 		}
 

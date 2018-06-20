@@ -12,7 +12,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 
 /**
  * @since 0.1.0
- * @version 0.2.2
+ * @version 0.2.8
  * @author Innoxia
  */
 public enum LegType implements BodyPartTypeInterface {
@@ -24,6 +24,7 @@ public enum LegType implements BodyPartTypeInterface {
 	COW_MORPH(BodyCoveringType.BOVINE_FUR, Race.COW_MORPH),
 	
 	DEMON_COMMON(BodyCoveringType.DEMON_COMMON, Race.DEMON),
+	DEMON_HOOFED(BodyCoveringType.DEMON_COMMON, Race.DEMON),
 	
 	IMP(BodyCoveringType.IMP, Race.IMP),
 
@@ -88,6 +89,8 @@ public enum LegType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("hoofed", "furry", "fur-coated", "anthropomorphic cow-like");
 			case DEMON_COMMON:
 				return UtilText.returnStringAtRandom("flawless");
+			case DEMON_HOOFED:
+				return UtilText.returnStringAtRandom("hoofed", "flawless");
 			case IMP:
 				return UtilText.returnStringAtRandom("");
 			case DOG_MORPH:
@@ -124,6 +127,8 @@ public enum LegType implements BodyPartTypeInterface {
 				return "feline";
 			case DEMON_COMMON:
 				return "demonic";
+			case DEMON_HOOFED:
+				return "demonic-hoofed";
 			case IMP:
 				return "impish";
 			case DOG_MORPH:
@@ -169,6 +174,7 @@ public enum LegType implements BodyPartTypeInterface {
 			case COW_MORPH:
 			case HORSE_MORPH:
 			case REINDEER_MORPH:
+			case DEMON_HOOFED:
 				return UtilText.returnStringAtRandom("hoof");
 			case HARPY:
 				return UtilText.returnStringAtRandom("foot", "talon");
@@ -182,6 +188,7 @@ public enum LegType implements BodyPartTypeInterface {
 		case COW_MORPH:
 			case HORSE_MORPH:
 			case REINDEER_MORPH:
+			case DEMON_HOOFED:
 				return UtilText.returnStringAtRandom("hoofs");
 			case HARPY:
 				return UtilText.returnStringAtRandom("feet", "talons");
@@ -201,6 +208,8 @@ public enum LegType implements BodyPartTypeInterface {
 					return UtilText.returnStringAtRandom("feminine", "cow-like", "bovine");
 				case DEMON_COMMON:
 					return UtilText.returnStringAtRandom("delicate", "soft", "feminine");
+				case DEMON_HOOFED:
+					return UtilText.returnStringAtRandom("hard", "feminine");
 				case IMP:
 					return UtilText.returnStringAtRandom("delicate", "soft", "feminine");
 				case DOG_MORPH:
@@ -236,6 +245,8 @@ public enum LegType implements BodyPartTypeInterface {
 					return UtilText.returnStringAtRandom("cow-like", "bovine");
 				case DEMON_COMMON:
 					return UtilText.returnStringAtRandom("");
+				case DEMON_HOOFED:
+					return UtilText.returnStringAtRandom("hard");
 				case IMP:
 					return UtilText.returnStringAtRandom("");
 				case DOG_MORPH:
@@ -270,6 +281,7 @@ public enum LegType implements BodyPartTypeInterface {
 			case COW_MORPH:
 			case HORSE_MORPH:
 			case REINDEER_MORPH:
+			case DEMON_HOOFED:
 				return UtilText.returnStringAtRandom("hoof");
 			case HARPY:
 				return UtilText.returnStringAtRandom("claw");
@@ -283,6 +295,7 @@ public enum LegType implements BodyPartTypeInterface {
 			case COW_MORPH:
 			case HORSE_MORPH:
 			case REINDEER_MORPH:
+			case DEMON_HOOFED:
 				return UtilText.returnStringAtRandom("hoof");
 			case HARPY:
 				return UtilText.returnStringAtRandom("claws");
@@ -302,6 +315,8 @@ public enum LegType implements BodyPartTypeInterface {
 					return UtilText.returnStringAtRandom("feminine", "cow-like", "bovine");
 				case DEMON_COMMON:
 					return UtilText.returnStringAtRandom("delicate", "soft", "feminine");
+				case DEMON_HOOFED:
+					return UtilText.returnStringAtRandom("feminine", "hard");
 				case IMP:
 					return UtilText.returnStringAtRandom("delicate", "soft", "feminine");
 				case DOG_MORPH:
@@ -337,6 +352,8 @@ public enum LegType implements BodyPartTypeInterface {
 					return UtilText.returnStringAtRandom("cow-like", "bovine");
 				case DEMON_COMMON:
 					return UtilText.returnStringAtRandom("");
+				case DEMON_HOOFED:
+					return UtilText.returnStringAtRandom("hard");
 				case IMP:
 					return UtilText.returnStringAtRandom("");
 				case DOG_MORPH:

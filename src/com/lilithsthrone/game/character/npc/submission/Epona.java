@@ -15,6 +15,7 @@ import com.lilithsthrone.game.character.body.valueEnums.HairLength;
 import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
 import com.lilithsthrone.game.character.body.valueEnums.HipSize;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
+import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
@@ -93,14 +94,17 @@ public class Epona extends NPC {
 
 		this.addFetish(Fetish.FETISH_IMPREGNATION);
 		this.addFetish(Fetish.FETISH_PREGNANCY);
-		this.addFetish(Fetish.FETISH_BROODMOTHER);
-		this.addFetish(Fetish.FETISH_SEEDER);
 		this.addFetish(Fetish.FETISH_VOYEURIST);
 		
 		this.setFetishDesire(Fetish.FETISH_CUM_ADDICT, FetishDesire.THREE_LIKE);
 		this.setFetishDesire(Fetish.FETISH_CUM_STUD, FetishDesire.THREE_LIKE);
 		this.setFetishDesire(Fetish.FETISH_VAGINAL_RECEIVING, FetishDesire.THREE_LIKE);
 		this.setFetishDesire(Fetish.FETISH_VAGINAL_GIVING, FetishDesire.THREE_LIKE);
+
+		this.addPerk(Perk.FETISH_BROODMOTHER);
+		this.addTrait(Perk.FETISH_BROODMOTHER);
+		this.addPerk(Perk.FETISH_SEEDER);
+		this.addTrait(Perk.FETISH_SEEDER);
 		
 		this.setFemininity(85);
 		

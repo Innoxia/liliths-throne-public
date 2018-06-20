@@ -401,7 +401,8 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("Apthydragon", "", 0, 0, 2, 0));
 		
 		
-		
+
+		credits.add(new CreditsSlot("Blackheart", "", 0, 0, 0, 1));
 		credits.add(new CreditsSlot("xerton", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("BlakLite", "", 0, 0, 1, 0));
 		

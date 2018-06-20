@@ -109,10 +109,8 @@
 		Colour lists to be used can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/utils/ColourListPresets.java -->
 		<primaryColours values="JUST_BLACK"/> 
 		<primaryColoursDye values="ALL"/>
-		<secondaryColours values="ALL_METAL"/>
+		<secondaryColours values="JUST_GOLD"/>
 		<secondaryColoursDye values="ALL_METAL"/>
-		<tertiaryColours values="ALL_METAL"/>
-		<tertiaryColoursDye values="ALL_METAL"/>
 		
 		<!-- These tags determine where in the world your clothing can be found. Possible tags are found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/ItemTag.java -->
 		<itemTags> 

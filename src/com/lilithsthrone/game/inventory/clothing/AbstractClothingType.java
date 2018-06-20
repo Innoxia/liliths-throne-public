@@ -263,7 +263,10 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 					Element effectsElement = (Element)coreAttributes.getElementsByTagName("effects").item(0);
 					for(int i=0; i<effectsElement.getElementsByTagName("effect").getLength(); i++){
 						Element e = ((Element)effectsElement.getElementsByTagName("effect").item(i));
-						defaultEffects.add(ItemEffect.loadFromXML(e, doc));
+						try {
+							defaultEffects.add(ItemEffect.loadFromXML(e, doc));
+						}catch(Exception ex) {
+						}
 					}
 				} catch(Exception ex) {
 					System.err.println("AbstractClothingType loading failed. Cause: 'effects' element unable to be parsed.");

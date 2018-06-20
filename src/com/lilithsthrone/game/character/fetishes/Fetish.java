@@ -673,68 +673,6 @@ public enum Fetish {
 		}
 	},
 	
-	FETISH_BROODMOTHER(60,
-			"broodmother",
-			"mothering offspring",
-			"fetish_broodmother",
-			Fetish.BASE_RARE_EXPERIENCE_GAIN,
-			Colour.GENERIC_ARCANE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.FERTILITY, 10)),
-			Util.newArrayListOfValues("2x <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>Maximum offspring in mothered litters</span>"),
-			null) {
-
-		@Override
-		public String getDescription(GameCharacter owner) {
-			if (owner.isPlayer()) {
-				return "Your body is built for one thing; pumping out as many children as possible."
-							+ " Whether due to an effect of your arcane aura, or perhaps just because of your body's natural fertility, you seem to always give birth to huge numbers of children at once.";
-			} else {
-				return UtilText.parse(owner, "[npc.Name]'s body is built for one thing; pumping out as many children as possible."
-						+ " [npc.She] seems to always give birth to huge numbers of children at once.");
-			}
-		}
-		
-		@Override
-		public String getFetishDesireDescription(GameCharacter target, FetishDesire desire) {
-			return getGenericFetishDesireDescription(target, desire, "birthing as many offspring as possible");
-		}
-		
-		@Override
-		public CorruptionLevel getAssociatedCorruptionLevel() {
-			return CorruptionLevel.TWO_HORNY;
-		}
-	},
-	
-	FETISH_SEEDER(60,
-			"seeder",
-			"fathering offspring",
-			"fetish_seeder",
-			Fetish.BASE_RARE_EXPERIENCE_GAIN,
-			Colour.GENERIC_ARCANE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.VIRILITY, 10)),
-			Util.newArrayListOfValues("2x <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>Maximum offspring in fathered litters</span>"),
-			null) {
-
-		@Override
-		public String getDescription(GameCharacter owner) {
-			if (owner.isPlayer()) {
-				return "Your seed has the potent effect of causing anyone impregnated by it to give birth to huge numbers of children.";
-			} else {
-				return UtilText.parse(owner, "[npc.Name]'s seed has the potent effect of causing anyone impregnated by it to give birth to huge numbers of children.");
-			}
-		}
-
-		@Override
-		public String getFetishDesireDescription(GameCharacter target, FetishDesire desire) {
-			return getGenericFetishDesireDescription(target, desire, "fathering as many offspring as possible");
-		}
-		
-		@Override
-		public CorruptionLevel getAssociatedCorruptionLevel() {
-			return CorruptionLevel.TWO_HORNY;
-		}
-	},
-	
 	FETISH_TRANSFORMATION_GIVING(60,
 			"transformer",
 			"transforming others",
@@ -1311,9 +1249,7 @@ public enum Fetish {
 			null,
 			Util.newArrayListOfValues(
 					Fetish.FETISH_PREGNANCY,
-					Fetish.FETISH_IMPREGNATION,
-					Fetish.FETISH_BROODMOTHER,
-					Fetish.FETISH_SEEDER)) {
+					Fetish.FETISH_IMPREGNATION)) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {

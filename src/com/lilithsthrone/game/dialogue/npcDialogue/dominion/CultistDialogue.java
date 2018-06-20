@@ -191,7 +191,7 @@ public class CultistDialogue {
 				
 			} else if(index == 3) {
 				if(Main.game.getPlayer().hasVagina()) {
-					return new ResponseSex("Offer Pussy", "Offer [npc.name] your pussy instead.", Util.newArrayListOfValues(Fetish.FETISH_PREGNANCY, Fetish.FETISH_BROODMOTHER),
+					return new ResponseSex("Offer Pussy", "Offer [npc.name] your pussy instead.", Util.newArrayListOfValues(Fetish.FETISH_PREGNANCY),
 							null, Fetish.FETISH_PREGNANCY.getAssociatedCorruptionLevel(), null, null, null,
 							true, false,
 							new SMAltarMissionary(

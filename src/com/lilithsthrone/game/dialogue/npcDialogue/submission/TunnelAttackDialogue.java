@@ -44,7 +44,7 @@ public class TunnelAttackDialogue {
 						return "<p>"
 									+ "Assaulted again by the [npc.fullRace(true)]!"
 								+ "</p>"
-								+ (Main.game.getActiveNPC().hasFetish(Fetish.FETISH_PREGNANCY)  || Main.game.getActiveNPC().hasFetish(Fetish.FETISH_BROODMOTHER)
+								+ (Main.game.getActiveNPC().hasFetish(Fetish.FETISH_PREGNANCY)
 										
 										?"<p style='text-align:center;'>" 
 											+ "<b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>You ended up getting [npc.name] pregnant, and, although [npc.she] seems pleased, [npc.she] still wants to fight you!</b>"

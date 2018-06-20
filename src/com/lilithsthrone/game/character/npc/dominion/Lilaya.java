@@ -145,7 +145,6 @@ public class Lilaya extends NPC {
 			
 			this.addFetish(Fetish.FETISH_MASOCHIST);
 			this.setFetishDesire(Fetish.FETISH_PREGNANCY, FetishDesire.ZERO_HATE);
-			this.setFetishDesire(Fetish.FETISH_BROODMOTHER, FetishDesire.ZERO_HATE);
 			
 			this.setEyeCovering(new Covering(BodyCoveringType.EYE_DEMON_COMMON, Colour.EYE_YELLOW));
 			this.setHairCovering(new Covering(BodyCoveringType.HAIR_DEMON, Colour.COVERING_BLACK), true);
@@ -184,7 +183,6 @@ public class Lilaya extends NPC {
 		
 		this.addFetish(Fetish.FETISH_MASOCHIST);
 		this.setFetishDesire(Fetish.FETISH_PREGNANCY, FetishDesire.ZERO_HATE);
-		this.setFetishDesire(Fetish.FETISH_BROODMOTHER, FetishDesire.ZERO_HATE);
 	}
 
 	@Override

@@ -465,6 +465,7 @@ public class Game implements Serializable, XMLSaving {
 				}
 			} catch(Exception ex) {
 				System.err.println("NPC saving failed!");
+				ex.printStackTrace();
 				Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "<style='color:"+Colour.GENERIC_TERRIBLE.toWebHexString()+";'>Partial Save Fail<b>", "NPC failure"), false);
 			}
 			
