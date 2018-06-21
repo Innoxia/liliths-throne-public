@@ -143,7 +143,7 @@ public enum SexPositionType {
 		@Override
 		public String getDescription() {
 			return UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.COWGIRL_ON_BACK), Sex.getCharacterInPosition(SexPositionSlot.COWGIRL_RIDING),
-					"[npc.NameIsFull] lying down on [npc.her] back as [npc2.name] straddles [npc.her] stomach in the cowgirl position.");
+					"[npc.NameIsFull] lying down on [npc.her] back as [npc2.name] [npc2.verb(straddle)] [npc.her] stomach in the cowgirl position.");
 		}
 	},
 	
@@ -175,7 +175,7 @@ public enum SexPositionType {
 		@Override
 		public String getDescription() {
 			return UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.FACE_SITTING_ON_BACK), Sex.getCharacterInPosition(SexPositionSlot.FACE_SITTING_ON_FACE),
-					"[npc.NameIs] lying on [npc.her] back as [npc2.name] sits on [npc.her] [npc.face+].");
+					"[npc.NameIs] lying on [npc.her] back as [npc2.name] [npc2.verb(sit)] on [npc.her] [npc.face+].");
 		}
 	},
 	
@@ -394,7 +394,7 @@ public enum SexPositionType {
 		public String getDescription() {
 			return UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.SIXTY_NINE_TOP), Sex.getCharacterInPosition(SexPositionSlot.SIXTY_NINE_BOTTOM),
 					"[npc.NameIsFull] on all fours over the top of [npc2.name], with [npc.her] crotch being positioned over [npc2.namePos] [npc2.face+]."
-							+ " [npc.Name] is looking down at [npc2.namePos] groin, ready to perform oral even as [npc.she] [npc.verb(receive)] it.");
+							+ " [npc.NameIsFull] looking down at [npc2.namePos] groin, ready to perform oral even as [npc.she] [npc.verb(receive)] it.");
 		}
 	},
 	
@@ -552,7 +552,7 @@ public enum SexPositionType {
 		@Override
 		public String getDescription() {
 			return UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.CHAIR_TOP), Sex.getCharacterInPosition(SexPositionSlot.CHAIR_BOTTOM),
-					"[npc2.NameIs] sitting down on the chair, looking up at [npc.name] as [npc.she] smiles down at [npc2.herHim].");
+					"[npc2.NameIs] sitting down on the chair, looking up at [npc.name] as [npc.she] [npc.verb(smile)] down at [npc2.herHim].");
 		}
 	},
 	
