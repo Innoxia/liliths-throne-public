@@ -2495,6 +2495,24 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
+						"does",
+						"do"),
+				true,
+				true,
+				"",
+				"Returns the correct version of 'does' for this character (do or does)."){
+			@Override
+			public String parse(String command, String arguments, String target) {
+				if(target.startsWith("npc") && arguments==null && character.isPlayer()) {
+					return "do";
+				} else {
+					return "does";
+				}
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
 						"her",
 						"his",
 						"herPos",
@@ -4873,6 +4891,7 @@ public class UtilText {
 			return conditionalFalse;
 			
 		} catch (ScriptException e) {
+			System.err.println("Conditional parsing error: "+conditionalStatement);
 			return "<i style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>(Error in conditional parsing!)</i>";
 		}
 	}

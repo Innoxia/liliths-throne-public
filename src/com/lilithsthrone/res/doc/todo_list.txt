@@ -36,18 +36,23 @@
 	
 	Engine:
 		Finished work on sex action code to fully support NPC-on-NPC actions.
-		Added support for clit-fucking (when a clit is large enough to act as a pseudo-cock) and foot-related sex actions.
-		Added support for tentacles.
+		Added support for clit-fucking (when a clit is large enough to act as a pseudo-cock) and foot-related sex actions. (The actions will be added very soon!)
+		Added support for tentacles. (The actions will be added when tentacle TFs are added, which will be a little later on.)
 		
 	Gameplay:
 		Added modifiers and girth for clitoris, with associated TFs.
 		Added oral position for chair sex.
 		Changed Broodmother and Seeder fetishes to be perks instead.
 		Added 'Face Sitting' as a generic position in sex scenes.
-		Added hoofed legs as a TF option for demons.
+		Added hoofed legs as a TF option for demons, with a 25% chance for demon NPCs to spawn in with hoofs.
+		Added 'zebra' as an equine subspecies, with a 'zebra tail' type.
+		Converted Kate's and Lilaya's very old chair sex scene format. (I will add the old chair-specific descriptions to sex actions as I convert them to NPC-on-NPC format.)
+		Added milk and cum regeneration enchantments for clothing.
+		Added foot fetishes. (Only Amber's scenes have foot-related actions at the moment, but I will be adding foot actions very soon!)
 		
 	Contributions:
 		Cleaned EnchantingUtils getCost method. (Pimgd)
+		Added penis-related fetishes. (Rfpnj)
 		
 	Norin's Clothing Contribution:
 		Added: Anal beads (anus slot, sold by Finch).
@@ -69,15 +74,17 @@
 		Fixed issue where NPCs would sometimes perform actions that they didn't like.
 		Fixed NPCs never starting oral, even if they wanted to, if they still had their oral virginity.
 		NPCs will now prefer to penetrate using their penis rather than their tail.
+		NPCs should now be preferring to penetrate their partner before themselves.
 		
 	Other:
 		Updated credits page.
-		Having a sheathed penis will now always conceal your cock bulge from gender detection.
+		Having a sheathed penis will now conceal your cock bulge from gender detection up to 16 inches. Non-sheathed penis bulge is visible at 8 inches.
 		Added freckles as a pattern for demon skin.
 		Added description of wing colour to selfie.
 		The chemise no longer blocks groin areas.
 		Companions and companions' elementals no longer have their level affected by difficulty settings. (Making the higher difficulty levels harder.)
 		You can now see what your partner in sex is wanting (under the 'Desires' status effect description).
+		Removed tooltips from enchanting 'Limit' and 'Potency' buttons. (They were just repeating the button text and getting in the way.)
 		
 	Bugs:
 		Fixed issue with map rendering incorrectly when zoomed out.
@@ -101,30 +108,27 @@
 		Fixed deny orgasm action not working correctly, and added the denial fetishes as associated fetishes.
 		Fixed Brax always resisting in submissive sex.
 		Fixed offspring referring to you as their mother when you first greet them, even if you were the father.
-	
+		Fixed NPCs reacting as though they knew you had a penis even if you were showing no bulge.
+		Fixed special attack descriptions returning incorrect target text.
+		Improved modded clothing load fail error messages.
+		Fixed nipple and urethra penetration actions not working.
 	
 	
 	
 	AI
-		need to prioritise actions on partner before self penetrations
-			self penetration and finger sucking are taking a very high priority
-			might be a bug, the AI for sex might be wonky again. I have a rat in my house and when she (futa) rapes me, she bends me over, removes my vag plug and then began to stuff her tail in her butt and her mouth
-				 yelling about how good this feels and saying "let me fuck you already!" (or something along those lines) until she gets off.
 		add behaviour for them not listening based on if they have impregnation fetish soon
-		only dirty talk if last action was not dirty talk
 		Penetrating then stop over and over
-	
-	
 	
 	Sort sex actions
 	
 	Dirty talk while performing oral turns to humming/purring
 	
-	- Update Lilaya's and Kate's chair sex scenes.
+	Convert Lilaya's and Kate's old chair sex scenes to NPC-on-NPC.
 	
 	orgasm screen needs to check for plugs vagina clothing
 	
 	ongoing handjobs
+	
 	
 	
 	Rental daddy
@@ -132,7 +136,7 @@
 	
 	
 	body materials
-	foot fetish
+	foot fetish action
 	Tailjobs
 	Paizuri deepthroat while fucking a dickgirl's pussy in missionary
 	let the dominant partner choose where the sub cums
@@ -158,10 +162,6 @@
 	
 	
 	[ ] Add interactions to sex position
-	
-	[ ] Remove reliance on pen/orifice for SAs
-	
-	[ ] Convert SAs
 	
 	[ ] Sex action modding
 	

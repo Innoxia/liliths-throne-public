@@ -857,6 +857,7 @@ public interface SexActionInterface {
 				case TENTACLE:
 					break;
 				case TOES:
+					associatedFetishes.add(Fetish.FETISH_FOOT_GIVING);
 					break;
 				case TONGUE:
 					associatedFetishes.add(Fetish.FETISH_ORAL_GIVING);
@@ -920,6 +921,7 @@ public interface SexActionInterface {
 				case TENTACLE:
 					break;
 				case TOES:
+					associatedFetishes.add(Fetish.FETISH_FOOT_RECEIVING);
 					break;
 				case TONGUE:
 					associatedFetishes.add(Fetish.FETISH_ORAL_RECEIVING);
@@ -1087,6 +1089,12 @@ public interface SexActionInterface {
 					break;
 				case FETISH_PENIS_RECEIVING:
 					associatedFetishesPartner.add(Fetish.FETISH_PENIS_GIVING);
+					break;
+				case FETISH_FOOT_GIVING:
+					associatedFetishesPartner.add(Fetish.FETISH_FOOT_RECEIVING);
+					break;
+				case FETISH_FOOT_RECEIVING:
+					associatedFetishesPartner.add(Fetish.FETISH_FOOT_GIVING);
 					break;
 			}
 		}

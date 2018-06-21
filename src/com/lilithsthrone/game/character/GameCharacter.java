@@ -8070,23 +8070,37 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 											+ "[npc.speech(Aww, that's so cute! I didn't realise you were [pc.a_gender]!)]"
 										+ "</p>";
 					
-							} else if (characterBeingRevealed.getPenisRawSizeValue() <= PenisSize.TWO_AVERAGE.getMaximumValue()) {
-								return "<p>"+
-											"[npc.Name] lets out a surprised gasp as your [pc.cockSize] [pc.cock] is revealed, "
+							} else if (characterBeingRevealed.getPenisRawSizeValue() < PenisSize.TWO_AVERAGE.getMaximumValue()) {
+								return "<p>"
+											+ "[npc.Name] lets out a surprised gasp as your [pc.cockSize] [pc.cock] is revealed, "
 											+ "[npc.speech(Ooh! You're [pc.a_gender]?!)]"
 										+ "</p>";
 					
-							} else if (characterBeingRevealed.getPenisRawSizeValue() <= PenisSize.FOUR_HUGE.getMaximumValue()) {
-								return "<p>"+
-											"[npc.Name] grins as your [pc.cockSize] [pc.cock] is revealed, "
-											+ "[npc.speech(Y'know, what with the bulge and everything, it was pretty obvious you're [pc.a_gender]!)]"
+							} else if (characterBeingRevealed.getPenisRawSizeValue() < PenisSize.FOUR_HUGE.getMaximumValue()) {
+								if(characterBeingRevealed.isPenisBulgeVisible()) {
+									return "<p>"+
+												"[npc.Name] grins as your [pc.cockSize] [pc.cock] is revealed, "
+												+ "[npc.speech(Y'know, what with the bulge and everything, it was pretty obvious you're [pc.a_gender]!)]"
+											+ "</p>";
+								} else {
+									return "<p>"
+											+ "[npc.Name] gasps in surprise as your [pc.cockSize] [pc.cock] is revealed, "
+											+ "[npc.speech(W-Wait, what?! Y-You're [pc.a_gender]?!)]"
 										+ "</p>";
-					
+								}
+								
 							} else if (characterBeingRevealed.getPenisRawSizeValue() <= PenisSize.SIX_GIGANTIC.getMaximumValue()) {
-								return "<p>"+
-											"Her eyes open wide as your [pc.cockSize] [pc.cock] is revealed, "
-											+ "[npc.speech(I mean, I could see it was big from your bulge, but damn! I've never seen [pc.a_gender] with such a huge cock!)]"
+								if(characterBeingRevealed.isPenisBulgeVisible()) {
+									return "<p>"+
+												"Her eyes open wide as your [pc.cockSize] [pc.cock] is revealed, "
+												+ "[npc.speech(I mean, I could see it was big from your bulge, but damn! I've never seen [pc.a_gender] with such a huge cock!)]"
+											+ "</p>";
+								} else {
+									return "<p>"
+											+ "[npc.NamePos] eyes open wide as your [pc.cockSize] [pc.cock] is revealed, "
+											+ "[npc.speech(W-Wait, what?! I've never seen [pc.a_gender] with such a huge cock!)]"
 										+ "</p>";
+								}
 								
 							} else {
 								return "<p>"+
@@ -8108,13 +8122,13 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 											+ "[npc.speech(Look at that cute little thing!)]"
 										+ "</p>";
 					
-							} else if (characterBeingRevealed.getPenisRawSizeValue() <= PenisSize.FOUR_HUGE.getMaximumValue()) {
+							} else if (characterBeingRevealed.getPenisRawSizeValue() < PenisSize.FOUR_HUGE.getMaximumValue()) {
 								return "<p>"+
 											"[npc.She] grins as your [pc.cockSize] [pc.cock] is revealed, "
 												+ "[npc.speech(~Mmm!~ Now that's what I like to see!)]"
 										+ "</p>";
 					
-							} else if (characterBeingRevealed.getPenisRawSizeValue() <= PenisSize.SIX_GIGANTIC.getMaximumValue()) {
+							} else if (characterBeingRevealed.getPenisRawSizeValue() < PenisSize.SIX_GIGANTIC.getMaximumValue()) {
 								return "<p>"+
 											"Her eyes open wide as your [pc.cockSize] [pc.cock] is revealed, "
 											+ "[npc.speech(Oh wow... This is gonna be good!)]"
@@ -8142,17 +8156,31 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 										+ "[npc.speech(Ooh! You're a cute little [pc.gender], aren't you?!)]"
 										+ "</p>";
 			
-							} else if (characterBeingRevealed.getPenisRawSizeValue() <= PenisSize.FOUR_HUGE.getMaximumValue()) {
-								return "<p>"
-										+ "[npc.She] grins as your [pc.cockSize] [pc.cock] is revealed, "
-										+ "[npc.speech(Y'know, what with the bulge and everything, it was pretty obvious you're [pc.a_gender]!)]"
+							} else if (characterBeingRevealed.getPenisRawSizeValue() < PenisSize.FOUR_HUGE.getMaximumValue()) {
+								if(characterBeingRevealed.isPenisBulgeVisible()) {
+									return "<p>"+
+												"[npc.Name] grins as your [pc.cockSize] [pc.cock] is revealed, "
+												+ "[npc.speech(Y'know, what with the bulge and everything, it was pretty obvious you're [pc.a_gender]!)]"
+											+ "</p>";
+								} else {
+									return "<p>"
+											+ "[npc.Name] gasps in surprise as your [pc.cockSize] [pc.cock] is revealed, "
+											+ "[npc.speech(W-Wait, what?! Y-You're [pc.a_gender]?!)]"
 										+ "</p>";
-			
+								}
+								
 							} else if (characterBeingRevealed.getPenisRawSizeValue() <= PenisSize.SIX_GIGANTIC.getMaximumValue()) {
-								return "<p>"
-										+ "[npc.Her] eyes open wide as your [pc.cockSize] [pc.cock] is revealed, "
-										+ "[npc.speech(I mean, I could see it was big from your bulge, but damn! I've never seen [pc.a_gender] with such a huge cock!)]"
+								if(characterBeingRevealed.isPenisBulgeVisible()) {
+									return "<p>"+
+												"Her eyes open wide as your [pc.cockSize] [pc.cock] is revealed, "
+												+ "[npc.speech(I mean, I could see it was big from your bulge, but damn! I've never seen [pc.a_gender] with such a huge cock!)]"
+											+ "</p>";
+								} else {
+									return "<p>"
+											+ "[npc.NamePos] eyes open wide as your [pc.cockSize] [pc.cock] is revealed, "
+											+ "[npc.speech(W-Wait, what?! I've never seen [pc.a_gender] with such a huge cock!)]"
 										+ "</p>";
+								}
 			
 							} else {
 								return "<p>"
@@ -8212,18 +8240,33 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 										+ "</p>";
 					
 							} else if (characterBeingRevealed.getPenisRawSizeValue() <= PenisSize.FOUR_HUGE.getMaximumValue()) {
-								return "<p>"
+								if(characterBeingRevealed.isPenisBulgeVisible()) {
+									return "<p>"
 											+ "[npc.Name] lets out a surprised grunt as your [pc.cockSize] [pc.cock] is revealed, "
 											+ "[npc.speech(I should have guessed from that bulge...)]"
 										+ "</p>";
-					
+								} else {
+									return "<p>"
+											+ "[npc.Name] gasps in surprise as your [pc.cockSize] [pc.cock] is revealed, "
+											+ "[npc.speech(W-Wait, what?! Y-You're [pc.a_gender]?!)]"
+										+ "</p>";
+								}
+								
 							} else if (characterBeingRevealed.getPenisRawSizeValue() <= PenisSize.SIX_GIGANTIC.getMaximumValue()) {
-								return "<p>"
+								if(characterBeingRevealed.isPenisBulgeVisible()) {
+									return "<p>"
 											+ "[npc.Name] lets out a surprised grunt as your [pc.cockSize] [pc.cock] is revealed, "
 											+ (this.hasPenis()&&this.getPenisRawSizeValue()<characterBeingRevealed.getPenisRawSizeValue()
 													?"[npc.speech(I saw you had a bulge, but what the hell?! How does [pc.a_gender] have a bigger cock than <i>me</i>?!)]"
 													:"[npc.speech(I saw you had a bulge, but damn! That's one massive cock !)]")
 										+ "</p>";
+								} else {
+									return "<p>"
+											+ "[npc.NamePos] eyes open wide as your [pc.cockSize] [pc.cock] is revealed, "
+											+ "[npc.speech(W-Wait, what?! I've never seen [pc.a_gender] with such a huge cock!"
+												+(this.hasPenis()&&this.getPenisRawSizeValue()<characterBeingRevealed.getPenisRawSizeValue()?" It's even bigger than mine!":"")+")]"
+										+ "</p>";
+								}
 								
 							} else {
 								return "<p>"
@@ -12869,18 +12912,25 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		return UtilText.parse(this, calculateGenderAppearance(colouredGender).description);
 	}
 	
+	public boolean isPenisBulgeVisible() {
+		return hasPenis()
+				&& getGenitalArrangement() != GenitalArrangement.CLOACA
+				&& (hasPenisModifier(PenetrationModifier.SHEATHED)
+					? getPenisRawSizeValue()>=PenisSize.FOUR_HUGE.getMaximumValue()
+					: getPenisRawSizeValue()>=PenisSize.TWO_AVERAGE.getMaximumValue());
+	}
+	
+	public boolean isTesticleBulgeVisible() {
+		return hasPenis()
+				&& getGenitalArrangement() != GenitalArrangement.CLOACA
+				&& (isInternalTesticles()
+						? false
+						: getTesticleSize().getValue()>=TesticleSize.FOUR_HUGE.getValue());
+	}
+	
 	private GenderAppearance calculateGenderAppearance(boolean colouredGender) {
 		boolean visibleVagina = isCoverableAreaExposed(CoverableArea.VAGINA) && hasVagina();
 		boolean visiblePenis = isCoverableAreaExposed(CoverableArea.PENIS) && hasPenis();
-		boolean bulgeFromCock = hasPenis()
-								&& getGenitalArrangement() != GenitalArrangement.CLOACA
-								&& (hasPenisModifier(PenetrationModifier.SHEATHED)
-									? false
-									: getPenisRawSizeValue()>=PenisSize.THREE_LARGE.getMaximumValue());
-		boolean bulgeFromBalls = hasPenis() && getGenitalArrangement() != GenitalArrangement.CLOACA
-									&& (isInternalTesticles()
-										? false
-										: getTesticleSize().getValue()>=TesticleSize.FOUR_HUGE.getValue());
 		
 		if(this.getFemininityValue()>=Femininity.FEMININE.getMinimumFemininity()) {
 			if(hasBreasts()) {
@@ -12894,14 +12944,14 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						
 				} else if(visibleVagina) {
 					// Exposed vagina and obvious penis bulge:
-					if(bulgeFromCock) {
+					if(isPenisBulgeVisible()) {
 						return new GenderAppearance(
 								isPlayer()
 								?"The [pc.cockSize] bulge between your legs, combined with your exposed [pc.vagina] and [pc.breastSize] breasts, reveals to everyone that you're [pc.a_gender("+colouredGender+")]."
 								:"The [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] exposed [npc.vagina] and [npc.breastSize] breasts, reveals to everyone that [npc.she]'s [npc.a_gender("+colouredGender+")].",
 								Gender.F_P_V_B_FUTANARI);
 						
-					} else if (bulgeFromBalls) {
+					} else if (isTesticleBulgeVisible()) {
 						return new GenderAppearance(
 								isPlayer()
 								?"The [pc.ballSize] bulge of your [pc.balls] between your legs, combined with your exposed [pc.vagina] and [pc.breastSize] breasts, reveals to everyone that you're [pc.a_gender("+colouredGender+")]."
@@ -12936,14 +12986,14 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 					
 				} else {
 					// Obvious bulge:
-					if(bulgeFromCock) {
+					if(isPenisBulgeVisible()) {
 						return new GenderAppearance(
 								isPlayer()
 								?"The [pc.cockSize] bulge between your legs, combined with your feminine appearance and [pc.breastSize] breasts, leads everyone to believe that you're [pc.a_appearsAsGender("+colouredGender+")]."
 								:"The [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] feminine appearance and [npc.breastSize] breasts, leads everyone to believe that [npc.she]'s [npc.a_appearsAsGender("+colouredGender+")].",
 								Gender.F_P_B_SHEMALE);
 						
-					} else if (bulgeFromBalls) {
+					} else if (isTesticleBulgeVisible()) {
 						return new GenderAppearance(
 								isPlayer()
 								?"The [pc.ballSize] bulge of your [pc.balls] between your legs, combined with your feminine appearance and [pc.breastSize] breasts, leads everyone to believe that you're [pc.a_appearsAsGender("+colouredGender+")]."
@@ -12997,14 +13047,14 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						
 				} else if(visibleVagina) {
 					// Exposed vagina and obvious penis bulge:
-					if(bulgeFromCock) {
+					if(isPenisBulgeVisible()) {
 						return new GenderAppearance(
 								isPlayer()
 								?"The [pc.cockSize] bulge between your legs, combined with your exposed [pc.vagina], reveals to everyone that you're [pc.a_gender("+colouredGender+")]."
 								:"The [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] exposed [npc.vagina], reveals to everyone that [npc.she]'s [npc.a_gender("+colouredGender+")].",
 								Gender.F_P_V_FUTANARI);
 						
-					} else if (bulgeFromBalls) {
+					} else if (isTesticleBulgeVisible()) {
 						return new GenderAppearance(
 								isPlayer()
 								?"The [pc.ballSize] bulge of your [pc.balls] between your legs, combined with your exposed [pc.vagina], reveals to everyone that you're [pc.a_gender("+colouredGender+")]."
@@ -13039,14 +13089,14 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 					
 				} else {
 					// Obvious bulge:
-					if(bulgeFromCock) {
+					if(isPenisBulgeVisible()) {
 						return new GenderAppearance(
 								isPlayer()
 								?"The [pc.cockSize] bulge between your legs, combined with your feminine appearance, leads everyone to believe that you're [pc.a_appearsAsGender("+colouredGender+")]."
 								:"The [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] feminine appearance, leads everyone to believe that [npc.she]'s [npc.a_appearsAsGender("+colouredGender+")].",
 								Gender.F_P_TRAP);
 						
-					} else if (bulgeFromBalls) {
+					} else if (isTesticleBulgeVisible()) {
 						return new GenderAppearance(
 								isPlayer()
 								?"The [pc.ballSize] bulge of your [pc.balls] between your legs, combined with your feminine appearance, leads everyone to believe that you're [pc.a_appearsAsGender("+colouredGender+")]."
@@ -13102,14 +13152,14 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						
 				} else if(visibleVagina) {
 					// Exposed vagina and obvious penis bulge:
-					if(bulgeFromCock) {
+					if(isPenisBulgeVisible()) {
 						return new GenderAppearance(
 								isPlayer()
 								?"The [pc.cockSize] bulge between your legs, combined with your exposed [pc.vagina] and [pc.breastSize] breasts, reveals to everyone that you're [pc.a_gender("+colouredGender+")]."
 								:"The [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] exposed [npc.vagina] and [npc.breastSize] breasts, reveals to everyone that [npc.she]'s [npc.a_gender("+colouredGender+")].",
 								Gender.N_P_V_B_HERMAPHRODITE);
 						
-					} else if (bulgeFromBalls) {
+					} else if (isTesticleBulgeVisible()) {
 						return new GenderAppearance(
 								isPlayer()
 								?"The [pc.ballSize] bulge of your [pc.balls] between your legs, combined with your exposed [pc.vagina] and [pc.breastSize] breasts, reveals to everyone that you're [pc.a_gender("+colouredGender+")]."
@@ -13144,14 +13194,14 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 					
 				} else {
 					// Obvious bulge:
-					if(bulgeFromCock) {
+					if(isPenisBulgeVisible()) {
 						return new GenderAppearance(
 								isPlayer()
 								?"The [pc.cockSize] bulge between your legs, combined with your androgynous appearance and [pc.breastSize] breasts, leads everyone to believe that you're [pc.a_appearsAsGender("+colouredGender+")]."
 								:"The [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] androgynous appearance and [npc.breastSize] breasts, leads everyone to believe that [npc.she]'s [npc.a_appearsAsGender("+colouredGender+")].",
 								Gender.N_P_B_SHEMALE);
 						
-					} else if (bulgeFromBalls) {
+					} else if (isTesticleBulgeVisible()) {
 						return new GenderAppearance(
 								isPlayer()
 								?"The [pc.ballSize] bulge of your [pc.balls] between your legs, combined with your androgynous appearance and [pc.breastSize] breasts, leads everyone to believe that you're [pc.a_appearsAsGender("+colouredGender+")]."
@@ -13205,14 +13255,14 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						
 				} else if(visibleVagina) {
 					// Exposed vagina and obvious penis bulge:
-					if(bulgeFromCock) {
+					if(isPenisBulgeVisible()) {
 						return new GenderAppearance(
 								isPlayer()
 								?"The [pc.cockSize] bulge between your legs, combined with your exposed [pc.vagina], reveals to everyone that you're [pc.a_gender("+colouredGender+")]."
 								:"The [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] exposed [npc.vagina], reveals to everyone that [npc.she]'s [npc.a_gender("+colouredGender+")].",
 								Gender.N_P_V_HERMAPHRODITE);
 						
-					} else if (bulgeFromBalls) {
+					} else if (isTesticleBulgeVisible()) {
 						return new GenderAppearance(
 								isPlayer()
 								?"The [pc.ballSize] bulge of your [pc.balls] between your legs, combined with your exposed [pc.vagina], reveals to everyone that you're [pc.a_gender("+colouredGender+")]."
@@ -13247,14 +13297,14 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 					
 				} else {
 					// Obvious bulge:
-					if(bulgeFromCock) {
+					if(isPenisBulgeVisible()) {
 						return new GenderAppearance(
 								isPlayer()
 								?"The [pc.cockSize] bulge between your legs, combined with your androgynous appearance, leads everyone to believe that you're [pc.a_appearsAsGender("+colouredGender+")]."
 								:"The [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] androgynous appearance, leads everyone to believe that [npc.she]'s [npc.a_appearsAsGender("+colouredGender+")].",
 								Gender.N_P_TRAP);
 						
-					} else if (bulgeFromBalls) {
+					} else if (isTesticleBulgeVisible()) {
 						return new GenderAppearance(
 								isPlayer()
 								?"The [pc.ballSize] bulge of your [pc.balls] between your legs, combined with your androgynous appearance, leads everyone to believe that you're [pc.a_appearsAsGender("+colouredGender+")]."
@@ -13310,14 +13360,14 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						
 				} else if(visibleVagina) {
 					// Exposed vagina and obvious penis bulge:
-					if(bulgeFromCock) {
+					if(isPenisBulgeVisible()) {
 						return new GenderAppearance(
 								isPlayer()
 								?"The [pc.cockSize] bulge between your legs, combined with your exposed [pc.vagina] and [pc.breastSize] breasts, reveals to everyone that you're [pc.a_gender("+colouredGender+")]."
 								:"The [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] exposed [npc.vagina] and [npc.breastSize] breasts, reveals to everyone that [npc.she]'s [npc.a_gender("+colouredGender+")].",
 								Gender.M_P_V_B_HERMAPHRODITE);
 						
-					} else if (bulgeFromBalls) {
+					} else if (isTesticleBulgeVisible()) {
 						return new GenderAppearance(
 								isPlayer()
 								?"The [pc.ballSize] bulge of your [pc.balls] between your legs, combined with your exposed [pc.vagina] and [pc.breastSize] breasts, reveals to everyone that you're [pc.a_gender("+colouredGender+")]."
@@ -13352,14 +13402,14 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 					
 				} else {
 					// Obvious bulge:
-					if(bulgeFromCock) {
+					if(isPenisBulgeVisible()) {
 						return new GenderAppearance(
 								isPlayer()
 								?"The [pc.cockSize] bulge between your legs, combined with your masculine appearance and [pc.breastSize] breasts, leads everyone to believe that you're [pc.a_appearsAsGender("+colouredGender+")]."
 								:"The [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] masculine appearance and [npc.breastSize] breasts, leads everyone to believe that [npc.she]'s [npc.a_appearsAsGender("+colouredGender+")].",
 								Gender.M_P_B_BUSTYBOY);
 						
-					} else if (bulgeFromBalls) {
+					} else if (isTesticleBulgeVisible()) {
 						return new GenderAppearance(
 								isPlayer()
 								?"The [pc.ballSize] bulge of your [pc.balls] between your legs, combined with your masculine appearance and [pc.breastSize] breasts, leads everyone to believe that you're [pc.a_appearsAsGender("+colouredGender+")]."
@@ -13413,14 +13463,14 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						
 				} else if(visibleVagina) {
 					// Exposed vagina and obvious penis bulge:
-					if(bulgeFromCock) {
+					if(isPenisBulgeVisible()) {
 						return new GenderAppearance(
 								isPlayer()
 								?"The [pc.cockSize] bulge between your legs, combined with your exposed [pc.vagina], reveals to everyone that you're [pc.a_gender("+colouredGender+")]."
 								:"The [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] exposed [npc.vagina], reveals to everyone that [npc.she]'s [npc.a_gender("+colouredGender+")].",
 								Gender.M_P_V_HERMAPHRODITE);
 						
-					} else if (bulgeFromBalls) {
+					} else if (isTesticleBulgeVisible()) {
 						return new GenderAppearance(
 								isPlayer()
 								?"The [pc.ballSize] bulge of your [pc.balls] between your legs, combined with your exposed [pc.vagina], reveals to everyone that you're [pc.a_gender("+colouredGender+")]."
@@ -13455,14 +13505,14 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 					
 				} else {
 					// Obvious bulge:
-					if(bulgeFromCock) {
+					if(isPenisBulgeVisible()) {
 						return new GenderAppearance(
 								isPlayer()
 								?"The [pc.cockSize] bulge between your legs, combined with your masculine appearance, leads everyone to believe that you're [pc.a_appearsAsGender("+colouredGender+")]."
 								:"The [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] masculine appearance, leads everyone to believe that [npc.she]'s [npc.a_appearsAsGender("+colouredGender+")].",
 								Gender.M_P_MALE);
 						
-					} else if (bulgeFromBalls) {
+					} else if (isTesticleBulgeVisible()) {
 						return new GenderAppearance(
 								isPlayer()
 								?"The [pc.ballSize] bulge of your [pc.balls] between your legs, combined with your masculine appearance, leads everyone to believe that you're [pc.a_appearsAsGender("+colouredGender+")]."

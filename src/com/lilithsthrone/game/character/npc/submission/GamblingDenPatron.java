@@ -92,6 +92,7 @@ public class GamblingDenPatron extends NPC {
 					case HARPY:
 					case HARPY_RAVEN:
 					case HORSE_MORPH:
+					case HORSE_MORPH_ZEBRA:
 					case HUMAN:
 					case REINDEER_MORPH:
 					case SQUIRREL_MORPH:

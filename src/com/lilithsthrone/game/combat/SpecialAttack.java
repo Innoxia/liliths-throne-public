@@ -669,6 +669,83 @@ public enum SpecialAttack {
 		}
 	},
 	
+	TEASE_FOOT_RECEIVING(50,
+			"submissive foot tease",
+			"fetish_generic",
+			Colour.GENERIC_ARCANE,
+			DamageType.LUST,
+			20,
+			DamageVariance.LOW,
+			5,
+			null) {
+		@Override
+		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
+			
+			String attackText = UtilText.parse(caster, target,
+						(UtilText.returnStringAtRandom(
+						"[npc.Name] [npc.verb(gaze)] hungrily down at [npc2.namePos] [npc2.feet] as [npc.she] [npc.moanVerb], [npc.speech(I can't wait to feel your [npc2.feet] all over me!)]",
+
+						"[npc.Name] [npc.verb(bite)] [npc.her] [npc.lip] as [npc.she] [npc.verb(gaze)] down at [npc2.namePos] [npc2.feet]. [npc.speech(Let me worship your [npc2.feet]!)]",
+
+						"[npc.Name] [npc.verb(grin)] at [npc2.name], licking [npc.her] [npc.lips+] and flicking [npc.her] gaze down to rest on [npc2.namePos] [npc2.feet] as [npc.she] [npc.moanVerb],"
+								+ " [npc.speech(I just want to worship your [npc2.feet]!)]")));
+			
+			return applySpecialSeduction(caster, target, Fetish.FETISH_FOOT_RECEIVING, attackText);
+
+		}
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			if (owner.isPlayer()) {
+				return "Due to your submissive foot fetish, you're able to use a special tease as a way to seduce your opponents.";
+			} else {
+				return UtilText.parse(owner, "[npc.Name] is able to use a submissive foot-related tease in an attempt to seduce you!");
+			}
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter owner) {
+			return owner.hasFetish(Fetish.FETISH_FOOT_RECEIVING);
+		}
+	},
+	
+	TEASE_FOOT_GIVING(50,
+			"dominant foot tease",
+			"fetish_generic",
+			Colour.GENERIC_ARCANE,
+			DamageType.LUST, 20, DamageVariance.LOW, 5,
+			null) {
+		@Override
+		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
+			
+			String attackText = UtilText.parse(caster, target,
+						(UtilText.returnStringAtRandom(
+						"[npc.Name] [npc.verb(lift)] one of [npc.her] [npc.legs], before pointing [npc.her] [npc.foot] at [npc2.name]. [npc.speech(Get down on your knees and kiss my [npc.feet]!)]",
+
+						"[npc.Name] [npc.verb(thrust)] one of [npc.her] [npc.feet+] forwards and [npc.moanVerb] at [npc2.name], [npc.speech(You'll be licking my toes soon enough!)]",
+
+						"[npc.Name] [npc.verb(grin)] at [npc2.name] as [npc.she] [npc.moanVerb], [npc.speech(Crawl over here and kiss my feet!)]")));
+				
+			
+			return applySpecialSeduction(caster, target, Fetish.FETISH_FOOT_GIVING, attackText);
+
+		}
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			if (owner.isPlayer()) {
+				return "Due to your dominant foot fetish, you're able to use a special tease as a way to seduce your opponents.";
+			} else {
+				return UtilText.parse(owner, "[npc.Name] is able to use a dominant foot-related tease in an attempt to seduce you!");
+			}
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter owner) {
+			return owner.hasFetish(Fetish.FETISH_FOOT_GIVING) && owner.hasPenis();
+		}
+	},
+	
 	TEASE_ORAL_RECEIVING(50,
 			"oral tease",
 			"fetish_generic",
@@ -1747,24 +1824,16 @@ public enum SpecialAttack {
 			float damage = Attack.calculateSpecialAttackDamage(caster, target, damageType, this.getDamage(), damageVariance, isCritical);
 
 			descriptionSB = new StringBuilder();
-			
-			if (caster == Main.game.getPlayer()) {
-				descriptionSB.append(UtilText.parse(target,
-						"<p>" + "With a burst of energy, you leap forwards, trying to bite at " + target.getName("the") + "."
-								+ (isHit ? " Your dog-like muzzle clamps down on " + target.getName("the") + "'s " + target.getArmNameSingular() + ","
-										+ " and you manage to cause some serious damage with your sharp canines before [npc.she] manages to throw you off of [npc.herHim]."
-										: target.getName("The") + " manages to jump to one side, and there's an audible snap as your teeth clamp down on thin air.")
-								+ "</p>")
-						+ getDamageAndCostDescription(caster, target, this.getCooldown(), damage, isHit, isCritical));
-			} else {
-				descriptionSB.append(UtilText.parse(caster,
-						"<p>" + "With a sudden burst of energy, " + caster.getName("the") + " leaps forwards as [npc.she] tries to bite you."
-								+ (isHit ? " [npc.Her] dog-like muzzle clamps down on your " + target.getArmNameSingular() + ","
-										+ " and [npc.she] shakes [npc.her] head from side-to-side, managing to cause some serious damage with [npc.her] sharp canines before you manage to throw [npc.herHim] off of you."
-										: "You jump to one side as you see the attack coming, and there's an audible snap as [npc.her] teeth thankfully clamp down on nothing but thin air.")
-								+ "</p>")
-						+ getDamageAndCostDescription(caster, target, this.getCooldown(), damage, isHit, isCritical));
-			}
+
+			descriptionSB.append(UtilText.parse(caster, target,
+					"<p>"
+						+ "With a burst of energy, [npc.name] [npc.verb(leap)] forwards, trying to bite [npc2.name]."
+						+ (isHit
+								? " [npc.Her] dog-like muzzle clamps down on [npc2.namePos] [npc2.arm],"
+										+ " and [npc.she] [npc.verb(manage)] to cause some serious damage with [npc.her] sharp canines before [npc2.name] [npc.verb(pull)] free."
+								: " [npc2.Name] [npc2.verb(manage)] to jump to one side, and there's an audible snap as [npc.namePos] teeth clamp down on thin air.")
+					+ "</p>")
+					+ getDamageAndCostDescription(caster, target, this.getCooldown(), damage, isHit, isCritical));
 			
 			// If attack hits, apply damage and effects:
 			if (isHit) {
@@ -1781,7 +1850,7 @@ public enum SpecialAttack {
 			if (owner.isPlayer())
 				return "Your anthropomorphic dog-like muzzle can be used to deliver a powerful bite.";
 			else
-				return UtilText.parse(owner, owner.getName("The") + "'s anthropomorphic dog-like muzzle can be used to deliver a powerful bite.");
+				return UtilText.parse(owner, "[npc.Name]'s anthropomorphic dog-like muzzle can be used to deliver a powerful bite.");
 		}
 
 		@Override
@@ -1806,27 +1875,15 @@ public enum SpecialAttack {
 
 			descriptionSB = new StringBuilder();
 			
-			if (caster == Main.game.getPlayer()) {
-				descriptionSB.append(UtilText.parse(target,
-						"<p>"
-							+ "With a burst of energy, you leap forwards, trying to butt your head into [npc.name]."
-							+ (isHit
-									? " You manage to make contact; ramming your forehead into [npc.her] body and whacking [npc.herHim] with the sides of your horns,"
-											+ " you knock the wind out of [npc.herHim] and cause [npc.herHim] to stagger backwards in a daze."
-									: " [npc.She] manages to jump to one side, and there's an audible whoosh as you thrust your horns through the air.")
-						+ "</p>")
-						+ getDamageAndCostDescription(caster, target, this.getCooldown(), damage, isHit, isCritical));
-			} else {
-				descriptionSB.append(UtilText.parse(caster,
-						"<p>"
-							+ "With a burst of energy, [npc.name] leaps forwards, trying to butt [npc.her] head into you."
-							+ (isHit
-									? " [npc.She] manages to make contact; ramming [npc.her] forehead into your body and whacking you with the sides of [npc.her] horns,"
-											+ " [npc.she] knocks the wind out of you and causes you to stagger backwards in a daze."
-									: " You manage to jump to one side, and there's an audible whoosh as [npc.she] thrusts [npc.her] horns through the air.")
-						+ "</p>")
-						+ getDamageAndCostDescription(caster, target, this.getCooldown(), damage, isHit, isCritical));
-			}
+			descriptionSB.append(UtilText.parse(caster, target,
+					"<p>"
+						+ "With a burst of energy, [npc.name] [npc.verb(leap)] forwards, trying to butt [npc.her] head into [npc2.name]."
+						+ (isHit
+								? " [npc.She] [npc.verb(manage)] to make contact; ramming [npc.her] forehead into [npc2.namePos] body and whacking [npc2.herHim] with the sides of [npc.her] horns."
+											+ " [npc2.Name] [npc.verb(stagger)] back from the impact, having had the wind knocked out of [npc.herHim]."
+								: " [npc2.Name] [npc2.verb(manage)] to jump to one side, and there's an audible whoosh as [npc.namePos] horns swipe through the air.")
+					+ "</p>")
+					+ getDamageAndCostDescription(caster, target, this.getCooldown(), damage, isHit, isCritical));
 			
 			// If attack hits, apply damage and effects:
 			if (isHit) {
@@ -1868,28 +1925,16 @@ public enum SpecialAttack {
 			float damage = Attack.calculateSpecialAttackDamage(caster, target, damageType, this.getDamage(), damageVariance, isCritical);
 
 			descriptionSB = new StringBuilder();
-			
-			if (caster == Main.game.getPlayer()) {
-				descriptionSB.append(UtilText.parse(target,
-						"<p>"
-							+ "With a burst of energy, you leap forwards, trying to butt your head into [npc.name]."
-							+ (isHit
-									? " You manage to make contact; ramming your forehead into [npc.her] body and whacking [npc.herHim] with the sides of your antlers,"
-											+ " you knock the wind out of [npc.herHim] and cause [npc.herHim] to stagger backwards in a daze."
-									: " [npc.She] manages to jump to one side, and there's an audible whoosh as you thrust your antlers through the air.")
-						+ "</p>")
-						+ getDamageAndCostDescription(caster, target, this.getCooldown(), damage, isHit, isCritical));
-			} else {
-				descriptionSB.append(UtilText.parse(caster,
-						"<p>"
-							+ "With a burst of energy, [npc.name] leaps forwards, trying to butt [npc.her] head into you."
-							+ (isHit
-									? " [npc.She] manages to make contact; ramming [npc.her] forehead into your body and whacking you with the sides of [npc.her] antlers,"
-											+ " [npc.she] knocks the wind out of you and causes you to stagger backwards in a daze."
-									: " You manage to jump to one side, and there's an audible whoosh as [npc.she] thrusts [npc.her] antlers through the air.")
-						+ "</p>")
-						+ getDamageAndCostDescription(caster, target, this.getCooldown(), damage, isHit, isCritical));
-			}
+
+			descriptionSB.append(UtilText.parse(caster, target,
+					"<p>"
+						+ "With a burst of energy, [npc.name] [npc.verb(leap)] forwards, trying to butt [npc.her] head into [npc2.name]."
+						+ (isHit
+								? " [npc.She] [npc.verb(manage)] to make contact; ramming [npc.her] forehead into [npc2.namePos] body and whacking [npc2.herHim] with the sides of [npc.her] antlers."
+											+ " [npc2.Name] [npc.verb(stagger)] back from the impact, having had the wind knocked out of [npc.herHim]."
+								: " [npc2.Name] [npc2.verb(manage)] to jump to one side, and there's an audible whoosh as [npc.namePos] antlers swipe through the air.")
+					+ "</p>")
+					+ getDamageAndCostDescription(caster, target, this.getCooldown(), damage, isHit, isCritical));
 			
 			// If attack hits, apply damage and effects:
 			if (isHit) {
@@ -1931,27 +1976,16 @@ public enum SpecialAttack {
 			float damage = Attack.calculateSpecialAttackDamage(caster, target, damageType, this.getDamage(), damageVariance, isCritical);
 			
 			descriptionSB = new StringBuilder();
-			
-			if (caster == Main.game.getPlayer()) {
-				descriptionSB.append(UtilText.parse(target,
-						"<p>"
-							+ "With a savage howl, you launch yourself at [npc.name]."
-								+ (isHit
-										? " Your wolf-like muzzle clamps down on one of [npc.her] [npc.arms], and you rake at [npc.her] body with your sharp claws,"
-												+ " doing a considerable amount of damage before [npc.she] manages to kick you off of [npc.herHim]."
-										: " [npc.She] manages to jump out of the way, and you end up tumbling to the ground as you're caught off-guard by your target's sudden evasive move.")
-							+ "</p>")
-						+ getDamageAndCostDescription(caster, target, this.getCooldown(), damage, isHit, isCritical));
-			} else {
-				descriptionSB.append(UtilText.parse(caster,
-						"<p>" + "With a savage howl, [npc.name] launches [npc.herself] at you."
-								+ (isHit
-										? " [npc.Her] wolf-like muzzle clamps down on one of your [pc.arms], and [npc.she] rakes at your body with [npc.her] sharp claws,"
-												+ " doing a considerable amount of damage before you manage to kick [npc.herHim] off of you."
-										: "You manage to jump out of the way, and [npc.she] ends up tumbling to the ground as [npc.she]'s caught off-guard by your sudden evasive move.")
-								+ "</p>")
-						+ getDamageAndCostDescription(caster, target, this.getCooldown(), damage, isHit, isCritical));
-			}
+
+			descriptionSB.append(UtilText.parse(caster, target,
+					"<p>"
+						+ "With a savage howl, [npc.name] [npc.verb(launch)] [npc.herself] at [npc2.name]."
+						+ (isHit
+								? " [npc.Her] wolf-like muzzle clamps down on one of [npc2.namePos] [npc2.arms], and [npc.she] [npc.verb(rake)] at [npc2.her] body with [npc.her] sharp claws,"
+										+ " doing a considerable amount of damage before [npc2.name] [npc2.verb(manage)] to break free."
+								: " [npc2.She] manages to jump out of the way, and [npc.name] [npc.verb(end)] up tumbling to the ground as [npc.sheIs] caught off-guard by [npc2.namePos] sudden evasive move.")
+					+ "</p>")
+					+ getDamageAndCostDescription(caster, target, this.getCooldown(), damage, isHit, isCritical));
 			
 			// If attack hits, apply damage and effects:
 			if (isHit) {
@@ -1994,22 +2028,15 @@ public enum SpecialAttack {
 			float damage = Attack.calculateSpecialAttackDamage(caster, target, damageType, this.getDamage(), damageVariance, isCritical);
 
 			descriptionSB = new StringBuilder();
-			
-			if (caster == Main.game.getPlayer()) {
-				descriptionSB.append(UtilText.parse(target,
-						"<p>" + "You flex the claws on your anthropomorphic squirrel-like hands, and with a quick dash forwards, you attempt to strike at " + target.getName("the") + "."
-								+ (isHit ? " Your sharp claws rake over " + target.getName("the") + "'s body, and [npc.she] lets out a surprised cry as you jump back."
-										: target.getName("The") + " manages to dodge your attack, and you end up swiping at nothing more than thin air.")
-								+ "</p>")
-						+ getDamageAndCostDescription(caster, target, this.getCooldown(), damage, isHit, isCritical));
-			} else {
-				descriptionSB.append(UtilText.parse(caster,
-						"<p>" + caster.getName("The") + " flexes the claws on [npc.her] anthropomorphic squirrel-like hands, and with a quick dash forwards, attempts to strike at you."
-								+ (isHit ? " [npc.Her] sharp claws rake over your body, and you let out a surprised cry as [npc.she] quickly jumps back, and smirking at you."
-										: " You see [npc.her] attack coming, and you jump out of the way just in time, leaving [npc.herHim] to swipe at nothing more than thin air.")
-								+ "</p>")
-						+ getDamageAndCostDescription(caster, target, this.getCooldown(), damage, isHit, isCritical));
-			}
+
+			descriptionSB.append(UtilText.parse(caster, target,
+					"<p>"
+						+ "Flexing the claws on [npc.her] anthropomorphic squirrel-like hands, [npc.name] quickly [npc.verb(dash)] forwards, attempting to strike at [npc2.name]."
+						+ (isHit
+								? " [npc.Her] sharp claws rake over [npc2.namePos] body, and [npc2.she] [npc2.verb(let)] out a surprised cry as [npc.she] [npc2.verb(jump)] back."
+								: " [npc2.She] manages to dodge the attack, and [npc.name] [npc.verb(end)] up swiping at nothing more than thin air.")
+					+ "</p>")
+					+ getDamageAndCostDescription(caster, target, this.getCooldown(), damage, isHit, isCritical));
 			
 			// If attack hits, apply damage and effects:
 			if (isHit) {
@@ -2052,26 +2079,15 @@ public enum SpecialAttack {
 			float damage = Attack.calculateSpecialAttackDamage(caster, target, damageType, this.getDamage(), damageVariance, isCritical);
 
 			descriptionSB = new StringBuilder();
-			
-			if (caster == Main.game.getPlayer()) {
-				descriptionSB.append(UtilText.parse(target,
-						"<p>"
-							+ "You turn to one side, swinging your huge, alligator-like tail straight at [npc.name]."
-								+ (isHit
-										? " Your appendage connects fully with [npc.her] body, causing considerable damage and dazing [npc.herHim] from the powerful blow!"
-										: " [npc.Name] manages to dodge your attack, and you end up swiping at nothing more than thin air!")
-						+ "</p>")
-						+ getDamageAndCostDescription(caster, target, this.getCooldown(), damage, isHit, isCritical));
-			} else {
-				descriptionSB.append(UtilText.parse(caster,
-						"<p>"
-							+ "[npc.Name] turns to one side, swinging [npc.her] huge, alligator-like tail straight at you."
-								+ (isHit
-										? " [npc.Her] appendage connects fully with your body, causing considerable damage and dazing you from the powerful blow!"
-										: " You manage to dodge [npc.her] attack, and [npc.she] ends up swiping at nothing more than thin air!")
-						+ "</p>")
-						+ getDamageAndCostDescription(caster, target, this.getCooldown(), damage, isHit, isCritical));
-			}
+
+			descriptionSB.append(UtilText.parse(caster, target,
+					"<p>"
+						+ "[npc.Name] [npc.verb(turn)] to one side, swinging [npc.her] huge, alligator-like tail straight at [npc2.name]."
+						+ (isHit
+								? " [npc.Her] appendage connects fully with [npc2.namePos] body, causing considerable damage and dazing [npc2.herHim] from the powerful blow!"
+								: " [npc2.She] manages to dodge the attack, and [npc.name] [npc.verb(end)] up swiping at nothing more than thin air.")
+					+ "</p>")
+					+ getDamageAndCostDescription(caster, target, this.getCooldown(), damage, isHit, isCritical));
 			
 			// If attack hits, apply damage and effects:
 			if (isHit) {
@@ -2114,22 +2130,15 @@ public enum SpecialAttack {
 			float damage = Attack.calculateSpecialAttackDamage(caster, target, damageType, this.getDamage(), damageVariance, isCritical);
 
 			descriptionSB = new StringBuilder();
-			
-			if (caster == Main.game.getPlayer()) {
-				descriptionSB.append(UtilText.parse(target,
-						"<p>" + "You extend the claws on your anthropomorphic cat-like hands, and with a quick dash forwards, you attempt to strike at " + target.getName("the") + "."
-								+ (isHit ? " Your sharp claws rake over " + target.getName("the") + "'s body, and [npc.she] lets out a surprised cry as you jump back, retracting your claws."
-										: target.getName("The") + " manages to dodge your attack, and you end up swiping at nothing more than thin air.")
-								+ "</p>")
-						+ getDamageAndCostDescription(caster, target, this.getCooldown(), damage, isHit, isCritical));
-			} else {
-				descriptionSB.append(UtilText.parse(caster,
-						"<p>" + caster.getName("The") + " extends the claws on [npc.her] anthropomorphic cat-like hands, and with a quick dash forwards, attempts to strike at you."
-								+ (isHit ? " [npc.Her] sharp claws rake over your body, and you let out a surprised cry as [npc.she] quickly jumps back, retracting [npc.her] claws and smirking at you."
-										: " You see [npc.her] attack coming, and you jump out of the way just in time, leaving [npc.herHim] to swipe at nothing more than thin air.")
-								+ "</p>")
-						+ getDamageAndCostDescription(caster, target, this.getCooldown(), damage, isHit, isCritical));
-			}
+
+			descriptionSB.append(UtilText.parse(caster, target,
+					"<p>"
+						+ "Extending the claws on [npc.her] anthropomorphic cat-like hands, [npc.name] quickly [npc.verb(dash)] forwards, attempting to strike at [npc2.name]."
+						+ (isHit
+								? " [npc.Her] sharp claws rake over [npc2.namePos] body, and [npc2.she] [npc2.verb(let)] out a surprised cry as [npc.she] [npc2.verb(jump)] back."
+								: " [npc2.She] manages to dodge the attack, and [npc.name] [npc.verb(end)] up swiping at nothing more than thin air.")
+					+ "</p>")
+					+ getDamageAndCostDescription(caster, target, this.getCooldown(), damage, isHit, isCritical));
 			
 			// If attack hits, apply damage and effects:
 			if (isHit) {
@@ -2172,20 +2181,15 @@ public enum SpecialAttack {
 			float damage = Attack.calculateSpecialAttackDamage(caster, target, damageType, this.getDamage(), damageVariance, isCritical);
 
 			descriptionSB = new StringBuilder();
-			
-			if (caster == Main.game.getPlayer()) {
-				descriptionSB.append(UtilText.parse(target,
-						"<p>" + "You turn to one side and kick out with one of your powerful horse-like legs."
-								+ (isHit ? " Your hooved foot slams into " + target.getName("the") + ", and [npc.she] staggers back in a daze."
-										: target.getName("The") + " sees your attack coming, and [npc.she] manages to dodge to one side at the last second.")
-								+ "</p>")
-						+ getDamageAndCostDescription(caster, target, this.getCooldown(), damage, isHit, isCritical));
-			} else {
-				descriptionSB.append(UtilText.parse(caster,
-						"<p>" + caster.getName("The") + " turns to one side and kicks out with one of [npc.her] powerful horse-like legs."
-								+ (isHit ? " [npc.Her] hooved foot slams into you, causing you to stagger back in a daze." : " You see [npc.her] attack coming, and manage to dodge to one side at the last second.") + "</p>")
-						+ getDamageAndCostDescription(caster, target, this.getCooldown(), damage, isHit, isCritical));
-			}
+
+			descriptionSB.append(UtilText.parse(caster, target,
+					"<p>"
+						+ "[npc.Name] [npc.verb(turn)] to one side, before kicking out with one of [npc.her] powerful horse-like legs."
+						+ (isHit
+								? " [npc.Her] hoofed foot slams into [npc2.namePos] body, causing considerable damage and dazing [npc2.herHim] from the powerful blow!"
+								: " [npc2.She] sees the attack coming, and [npc2.verb(manage)] to dodge to one side at the last second.")
+					+ "</p>")
+					+ getDamageAndCostDescription(caster, target, this.getCooldown(), damage, isHit, isCritical));
 			
 			// If attack hits, apply damage and effects:
 			if (isHit) {

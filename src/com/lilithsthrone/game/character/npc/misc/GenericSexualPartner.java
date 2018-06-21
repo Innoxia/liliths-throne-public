@@ -143,7 +143,10 @@ public class GenericSexualPartner extends NPC {
 						addToSubspeciesMap(5, gender, s, availableRaces);
 						break;
 					case HORSE_MORPH:
-						addToSubspeciesMap(25, gender, s, availableRaces);
+						addToSubspeciesMap(20, gender, s, availableRaces);
+						break;
+					case HORSE_MORPH_ZEBRA:
+						addToSubspeciesMap(5, gender, s, availableRaces);
 						break;
 					case SQUIRREL_MORPH:
 						addToSubspeciesMap(10, gender, s, availableRaces);

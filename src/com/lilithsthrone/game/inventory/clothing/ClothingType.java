@@ -11681,12 +11681,16 @@ public class ClothingType {
 								File[] innerDirectoryListing = clothingDirectory.listFiles((path, filename) -> filename.endsWith(".xml"));
 								if (innerDirectoryListing != null) {
 									for (File innerChild : innerDirectoryListing) {
-										AbstractClothingType ct = new AbstractClothingType(innerChild) {};
-										moddedClothingList.add(ct);
-										String id = modAuthorDirectory.getName()+"_"+innerChild.getParentFile().getName()+"_"+innerChild.getName().split("\\.")[0];
-//										System.out.println(id);
-										clothingToIdMap.put(ct, id);
-										idToClothingMap.put(id, ct);
+										try {
+											AbstractClothingType ct = new AbstractClothingType(innerChild) {};
+											moddedClothingList.add(ct);
+											String id = modAuthorDirectory.getName()+"_"+innerChild.getParentFile().getName()+"_"+innerChild.getName().split("\\.")[0];
+//											System.out.println(id);
+											clothingToIdMap.put(ct, id);
+											idToClothingMap.put(id, ct);
+										} catch(Exception ex) {
+											System.err.println("Loading modded clothing failed at 'ClothingType' Line 11685. File path: "+innerChild.getAbsolutePath());
+										}
 									}
 								}
 							}

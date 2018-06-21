@@ -662,8 +662,8 @@ public class MainControllerInitMethod {
 					MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 					MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
 					
-					InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setTFPotency(potency);
-					MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
+//					InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setTFPotency(potency);
+//					MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
 				}
 			}
 			for(int effectCount=0; effectCount<EnchantmentDialogue.getEffects().size(); effectCount++) {
@@ -691,8 +691,8 @@ public class MainControllerInitMethod {
 				MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 				MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
 				
-				TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation((EnchantmentDialogue.getLimit()==0?"Minimum Limit Reached":"Limit Minimum"), "");
-				MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
+//				TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation((EnchantmentDialogue.getLimit()==0?"Minimum Limit Reached":"Limit Minimum"), "");
+//				MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
 			}
 			
 			id = "LIMIT_DECREASE_LARGE";
@@ -705,8 +705,8 @@ public class MainControllerInitMethod {
 				MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 				MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
 				
-				TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation((EnchantmentDialogue.getLimit()==0?"Minimum Limit Reached":"Large Limit Decrease"), "");
-				MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
+//				TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation((EnchantmentDialogue.getLimit()==0?"Minimum Limit Reached":"Large Limit Decrease"), "");
+//				MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
 			}
 			
 			id = "LIMIT_DECREASE";
@@ -718,8 +718,8 @@ public class MainControllerInitMethod {
 				MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 				MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
 				
-				TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation((EnchantmentDialogue.getLimit()==0?"Minimum Limit Reached":"Limit Decrease"), "");
-				MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
+//				TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation((EnchantmentDialogue.getLimit()==0?"Minimum Limit Reached":"Limit Decrease"), "");
+//				MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
 			}
 			
 			id = "LIMIT_INCREASE";
@@ -731,11 +731,11 @@ public class MainControllerInitMethod {
 				MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 				MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
 				
-				TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation(
-						(EnchantmentDialogue.getLimit() < EnchantmentDialogue.getIngredient().getEnchantmentEffect().getLimits(EnchantmentDialogue.getPrimaryMod(), EnchantmentDialogue.getSecondaryMod())
-								?"Limit Increase"
-								:"Maximum Limit Reached"), "");
-				MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
+//				TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation(
+//						(EnchantmentDialogue.getLimit() < EnchantmentDialogue.getIngredient().getEnchantmentEffect().getLimits(EnchantmentDialogue.getPrimaryMod(), EnchantmentDialogue.getSecondaryMod())
+//								?"Limit Increase"
+//								:"Maximum Limit Reached"), "");
+//				MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
 			}
 			
 			id = "LIMIT_INCREASE_LARGE";
@@ -748,11 +748,11 @@ public class MainControllerInitMethod {
 				MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 				MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
 				
-				TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation(
-						(EnchantmentDialogue.getLimit() < EnchantmentDialogue.getIngredient().getEnchantmentEffect().getLimits(EnchantmentDialogue.getPrimaryMod(), EnchantmentDialogue.getSecondaryMod())
-								?"Large Limit Increase"
-								:"Maximum Limit Reached"), "");
-				MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
+//				TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation(
+//						(EnchantmentDialogue.getLimit() < EnchantmentDialogue.getIngredient().getEnchantmentEffect().getLimits(EnchantmentDialogue.getPrimaryMod(), EnchantmentDialogue.getSecondaryMod())
+//								?"Large Limit Increase"
+//								:"Maximum Limit Reached"), "");
+//				MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
 			}
 
 			id = "LIMIT_MAXIMUM";
@@ -764,11 +764,11 @@ public class MainControllerInitMethod {
 				MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 				MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
 				
-				TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation(
-						(EnchantmentDialogue.getLimit() < EnchantmentDialogue.getIngredient().getEnchantmentEffect().getLimits(EnchantmentDialogue.getPrimaryMod(), EnchantmentDialogue.getSecondaryMod())
-								?"Set Limit To Maximum"
-								:"Maximum Limit Reached"), "");
-				MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
+//				TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation(
+//						(EnchantmentDialogue.getLimit() < EnchantmentDialogue.getIngredient().getEnchantmentEffect().getLimits(EnchantmentDialogue.getPrimaryMod(), EnchantmentDialogue.getSecondaryMod())
+//								?"Set Limit To Maximum"
+//								:"Maximum Limit Reached"), "");
+//				MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
 			}
 			
 			// Ingredient icon:

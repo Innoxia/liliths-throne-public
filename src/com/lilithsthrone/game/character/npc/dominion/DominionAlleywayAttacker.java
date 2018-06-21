@@ -150,7 +150,10 @@ public class DominionAlleywayAttacker extends NPC {
 						addToSubspeciesMap(canalSpecies?1:4, gender, s, availableRaces);
 						break;
 					case HORSE_MORPH:
-						addToSubspeciesMap(canalSpecies?5:20, gender, s, availableRaces);
+						addToSubspeciesMap(canalSpecies?4:16, gender, s, availableRaces);
+						break;
+					case HORSE_MORPH_ZEBRA:
+						addToSubspeciesMap(canalSpecies?1:4, gender, s, availableRaces);
 						break;
 					case SQUIRREL_MORPH:
 						addToSubspeciesMap(canalSpecies?1:10, gender, s, availableRaces);

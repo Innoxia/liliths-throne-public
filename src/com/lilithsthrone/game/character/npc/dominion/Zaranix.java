@@ -8,6 +8,7 @@ import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.HornType;
+import com.lilithsthrone.game.character.body.types.LegType;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.Height;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
@@ -86,6 +87,8 @@ public class Zaranix extends NPC {
 			this.setFaceVirgin(true);
 			this.setNippleVirgin(true);
 			this.setPenisVirgin(false);
+			
+			this.setLegType(LegType.DEMON_COMMON);
 	
 			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_BRIEFS, Colour.CLOTHING_BLACK, false), true, this);
 			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_TROUSERS, Colour.CLOTHING_BLACK, false), true, this);
@@ -106,6 +109,8 @@ public class Zaranix extends NPC {
 		}
 		
 		this.setWingSize(WingSize.THREE_LARGE.getValue());
+		
+		this.setLegType(LegType.DEMON_COMMON);
 		
 		this.addFetish(Fetish.FETISH_ORAL_RECEIVING);
 	}

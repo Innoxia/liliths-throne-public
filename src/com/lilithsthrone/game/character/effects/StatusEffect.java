@@ -511,7 +511,7 @@ public enum StatusEffect {
 			if (owner.isPlayer()) {
 				return "Your ability to harness the arcane is rivalled only by Lilith herself. Casting spells comes as naturally to you as does breathing.";
 			} else {
-				return "Liltih's arcane ability is uniquely powerful, able to !SPOILERS!";
+				return "[npc.Name]'s arcane ability is rivalled only by Lilith herself. Casting spells comes as naturally to [npc.herHim] as does breathing.";
 			}
 		}
 

@@ -141,6 +141,9 @@ public class SlaveInStocks extends NPC {
 					case HORSE_MORPH:
 						addToSubspeciesMap(20, gender, s, availableRaces);
 						break;
+					case HORSE_MORPH_ZEBRA:
+						addToSubspeciesMap(5, gender, s, availableRaces);
+						break;
 					case SQUIRREL_MORPH:
 						addToSubspeciesMap(10, gender, s, availableRaces);
 						break;

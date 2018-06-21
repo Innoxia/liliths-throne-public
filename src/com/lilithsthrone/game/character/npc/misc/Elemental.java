@@ -7,6 +7,7 @@ import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.character.body.types.LegType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
@@ -52,6 +53,8 @@ public class Elemental extends NPC {
 			setLevel(summoner.getLevel());
 			
 			this.setSummoner(summoner);
+			
+			this.setLegType(LegType.DEMON_COMMON);
 			
 			// RACE & NAME:
 			

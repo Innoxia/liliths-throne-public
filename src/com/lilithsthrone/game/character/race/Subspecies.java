@@ -13,6 +13,7 @@ import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.EarType;
+import com.lilithsthrone.game.character.body.types.LegType;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.TailType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
@@ -73,6 +74,15 @@ public enum Subspecies {
 			Util.newArrayListOfValues(WorldType.DOMINION)) {
 		
 		@Override
+		public void applySpeciesChanges(Body body) {
+			if(Math.random()<0.25f) {
+				if(body.getLeg().getType()==LegType.DEMON_COMMON) {
+					body.getLeg().setType(null, LegType.DEMON_HOOFED);
+				}
+			}
+		}
+		
+		@Override
 		public Subspecies getOffspringSubspecies() {
 			return IMP;
 		}
@@ -94,7 +104,6 @@ public enum Subspecies {
 			return "imp";
 		}
 		
-
 	},
 	
 	IMP("statusEffects/raceImp",
@@ -230,7 +239,7 @@ public enum Subspecies {
 				secondaryColour = Colour.COVERING_BROWN_DARK;
 			}
 			body.getCoverings().put(BodyCoveringType.CANINE_FUR, new Covering(BodyCoveringType.CANINE_FUR, CoveringPattern.MARKED, CoveringModifier.SHORT, Colour.COVERING_BLACK, false, secondaryColour, false));
-			body.getCoverings().put(BodyCoveringType.HAIR_CANINE_FUR, new Covering(BodyCoveringType.CANINE_FUR, CoveringPattern.NONE, Colour.COVERING_BLACK, false, secondaryColour, false));
+			body.getCoverings().put(BodyCoveringType.HAIR_CANINE_FUR, new Covering(BodyCoveringType.HAIR_CANINE_FUR, CoveringPattern.NONE, Colour.COVERING_BLACK, false, secondaryColour, false));
 			body.getCoverings().put(BodyCoveringType.HUMAN, new Covering(BodyCoveringType.HUMAN, CoveringPattern.NONE, Colour.SKIN_EBONY, false, Colour.SKIN_EBONY, false));
 			body.updateCoverings(true, true, true, true);
 			if(body.getEar().getType()==EarType.DOG_MORPH) {
@@ -299,6 +308,31 @@ public enum Subspecies {
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"A typical bipedal horse-morph.",
 			Util.newArrayListOfValues(WorldType.DOMINION)),
+
+	HORSE_MORPH_ZEBRA("statusEffects/raceHorseMorphZebra",
+			"zebra-morph",
+			"zebra-morphs",
+			"zebra-boy",
+			"zebra-girl",
+			"zebra-boys",
+			"zebra-girls",
+			Race.HORSE_MORPH,
+			Colour.BASE_BLACK,
+			SubspeciesPreference.ONE_LOW,
+			"A bipedal horse-morph which has black-and-white striped fur. To be identified as a zebra-morph, a character must be a horse-morph that has black-and-white striped hair, with a zebra-morph's tail.",
+			Util.newArrayListOfValues(WorldType.DOMINION)) {
+		@Override
+		public void applySpeciesChanges(Body body) {
+			body.getCoverings().put(BodyCoveringType.HORSE_HAIR, new Covering(BodyCoveringType.HORSE_HAIR, CoveringPattern.STRIPED, CoveringModifier.SHORT, Colour.COVERING_BLACK, false, Colour.COVERING_WHITE, false));
+			body.getCoverings().put(BodyCoveringType.HAIR_HORSE_HAIR, new Covering(BodyCoveringType.HAIR_HORSE_HAIR, CoveringPattern.NONE, Colour.COVERING_BLACK, false, Colour.COVERING_WHITE, false));
+			body.getCoverings().put(BodyCoveringType.HUMAN, new Covering(BodyCoveringType.HUMAN, CoveringPattern.NONE, Colour.SKIN_EBONY, false, Colour.SKIN_EBONY, false));
+			body.updateCoverings(true, true, true, true);
+			
+			if(body.getTail().getType()==TailType.HORSE_MORPH) {
+				body.getTail().setType(null, TailType.HORSE_MORPH_ZEBRA);
+			}
+		}
+	},
 
 	REINDEER_MORPH("statusEffects/raceReindeerMorph",
 			"reindeer-morph",
@@ -1215,6 +1249,14 @@ public enum Subspecies {
 				break;
 			case HORSE_MORPH:
 				subspecies = Subspecies.HORSE_MORPH;
+				
+				if(((body.getCoverings().get(BodyCoveringType.HORSE_HAIR).getPrimaryColour()==Colour.COVERING_BLACK
+						&& body.getCoverings().get(BodyCoveringType.HORSE_HAIR).getSecondaryColour()==Colour.COVERING_WHITE)
+						|| (body.getCoverings().get(BodyCoveringType.HORSE_HAIR).getPrimaryColour()==Colour.COVERING_WHITE
+								&& body.getCoverings().get(BodyCoveringType.HORSE_HAIR).getSecondaryColour()==Colour.COVERING_BLACK))
+						&& body.getTail().getType()==TailType.HORSE_MORPH_ZEBRA) {
+						subspecies = Subspecies.HORSE_MORPH_ZEBRA;
+					}
 				break;
 			case HUMAN:
 				subspecies = Subspecies.HUMAN;

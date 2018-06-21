@@ -12,6 +12,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.HornType;
+import com.lilithsthrone.game.character.body.types.LegType;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
@@ -156,6 +157,8 @@ public class Lilaya extends NPC {
 			
 			this.setHornType(HornType.SWEPT_BACK);
 			
+			this.setLegType(LegType.DEMON_COMMON);
+			
 			this.setMuscle(Muscle.THREE_MUSCULAR.getMedianValue());
 			this.setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
 			
@@ -180,6 +183,8 @@ public class Lilaya extends NPC {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
 		
 		this.setWingSize(WingSize.ZERO_TINY.getValue());
+		
+		this.setLegType(LegType.DEMON_COMMON);
 		
 		this.addFetish(Fetish.FETISH_MASOCHIST);
 		this.setFetishDesire(Fetish.FETISH_PREGNANCY, FetishDesire.ZERO_HATE);

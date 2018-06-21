@@ -3352,8 +3352,11 @@ public class Body implements Serializable, XMLSaving {
 						if (owner.isPlayer()) {
 							sb.append("a long, [pc.tailColour(true)] horse-like tail, which you can swipe from side to side, but other than that, you don't have much control over it.");
 						} else {
-							sb.append("a long, [npc.tailColour(true)] horse-like tail, which [npc.she] can swipe from side to side, but other than that, [npc.she] doesn't have much control over it.");
+							sb.append("a long, [npc.tailColour(true)] horse-like tail, which [npc.she] can swipe from side to side, but other than that, [npc.she] [npc.does]n't have much control over it.");
 						}
+						break;
+					case HORSE_MORPH_ZEBRA:
+						sb.append("a [npc.tailColour(true)] zebra-like tail, which [npc.she] can swipe from side to side, but other than that, [npc.she] [npc.does]n't have much control over it.");
 						break;
 					case REINDEER_MORPH:
 						if (owner.isPlayer()) {
@@ -3467,6 +3470,9 @@ public class Body implements Serializable, XMLSaving {
 						} else {
 							sb.append("long, [npc.tailColour(true)] horse-like tails, which [npc.she] can swipe from side to side, but other than that, [npc.she] doesn't have much control over them.");
 						}
+						break;
+					case HORSE_MORPH_ZEBRA:
+						sb.append("[npc.tailColour(true)] zebra-like tails, which [npc.she] can swipe from side to side, but other than that, [npc.she] [npc.does]n't have much control over them.");
 						break;
 					case REINDEER_MORPH:
 						if (owner.isPlayer()) {

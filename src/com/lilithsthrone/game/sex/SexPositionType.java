@@ -412,7 +412,8 @@ public enum SexPositionType {
 											SexActionPresets.tailToUpperTorso,
 											SexActionPresets.tentacleToUpperTorso,
 											SexActionPresets.vaginaToMouth,
-											SexActionPresets.penisToMouth))))),
+											SexActionPresets.penisToMouth,
+											SexActionPresets.penisToBreasts))))),
 					new Value<>(
 							SexPositionSlot.KNEELING_PERFORMING_ORAL,
 							Util.newHashMapOfValues(
@@ -577,7 +578,8 @@ public enum SexPositionType {
 											SexActionPresets.tailToUpperTorso,
 											SexActionPresets.tentacleToUpperTorso,
 											SexActionPresets.vaginaToMouth,
-											SexActionPresets.penisToMouth))))))) {
+											SexActionPresets.penisToMouth,
+											SexActionPresets.penisToBreasts))))))) {
 		@Override
 		public String getDescription() {
 			return UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.CHAIR_KNEELING), Sex.getCharacterInPosition(SexPositionSlot.CHAIR_ORAL_SITTING),

@@ -3216,6 +3216,7 @@ public class Lab {
 						litterSB.append(" feminine");
 						break;
 					case HORSE_MORPH:
+					case HORSE_MORPH_ZEBRA:
 						litterSB.append(" strong");
 						break;
 					case REINDEER_MORPH:
@@ -3302,6 +3303,7 @@ public class Lab {
 						litterSB.append(" feminine");
 						break;
 					case HORSE_MORPH:
+					case HORSE_MORPH_ZEBRA:
 						litterSB.append(" strong");
 						break;
 					case REINDEER_MORPH:
@@ -3388,6 +3390,7 @@ public class Lab {
 						litterSB.append(" feminine");
 						break;
 					case HORSE_MORPH:
+					case HORSE_MORPH_ZEBRA:
 						litterSB.append(" confident");
 						break;
 					case REINDEER_MORPH:
@@ -3474,6 +3477,7 @@ public class Lab {
 						litterSB.append(" feminine");
 						break;
 					case HORSE_MORPH:
+					case HORSE_MORPH_ZEBRA:
 						litterSB.append(" confident");
 						break;
 					case REINDEER_MORPH:

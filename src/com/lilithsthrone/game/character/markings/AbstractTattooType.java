@@ -172,7 +172,7 @@ public class AbstractTattooType extends AbstractCoreType {
 				SVGStringMap = new HashMap<>();
 
 			} catch(Exception ex) {
-				System.err.println("ClothingType was unable to be loaded from file!");
+				System.err.println("TattooType was unable to be loaded from file!");
 			}
 		}
 	}

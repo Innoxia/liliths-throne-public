@@ -8,6 +8,7 @@ import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.HornType;
+import com.lilithsthrone.game.character.body.types.LegType;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.HairLength;
 import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
@@ -85,6 +86,8 @@ public class ZaranixMaidKatherine extends NPC {
 			
 			this.addFetish(Fetish.FETISH_SUBMISSIVE);
 			this.addFetish(Fetish.FETISH_MASOCHIST);
+			
+			this.setLegType(LegType.DEMON_COMMON);
 
 			this.setVaginaVirgin(false);
 			this.setAssVirgin(false);
@@ -109,6 +112,8 @@ public class ZaranixMaidKatherine extends NPC {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
 
 		this.setPlayerKnowsName(true);
+		
+		this.setLegType(LegType.DEMON_COMMON);
 		
 		if(this.getMainWeapon()==null) {
 			this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MAIN_FEATHER_DUSTER));

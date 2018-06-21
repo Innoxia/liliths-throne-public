@@ -116,6 +116,8 @@ public class SlimeGuardFire extends NPC {
 		this.setSkinCovering(new Covering(BodyCoveringType.SLIME_PUPILS, Colour.SLIME_ORANGE), false);
 		this.clearNonEquippedInventory();
 		equipClothing(true, false);
+		
+//		this.setAlcoholLevel(1);
 	}
 	
 	@Override

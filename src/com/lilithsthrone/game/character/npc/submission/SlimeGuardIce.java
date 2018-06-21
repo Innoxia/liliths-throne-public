@@ -117,6 +117,8 @@ public class SlimeGuardIce extends NPC {
 		this.setSkinCovering(new Covering(BodyCoveringType.SLIME_PUPILS, Colour.SLIME_BLUE), false);
 		this.clearNonEquippedInventory();
 		equipClothing(true, false);
+
+//		this.setAlcoholLevel(1);
 	}
 	
 	@Override

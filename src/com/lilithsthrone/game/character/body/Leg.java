@@ -60,6 +60,11 @@ public class Leg implements BodyPartInterface, Serializable {
 	}
 
 	public String setType(GameCharacter owner, LegType type) {
+		if(owner==null) {
+			this.type = type;
+			return "";
+		}
+		
 		if (type == getType()) {
 			if (owner.isPlayer()) {
 				return "<p style='text-align:center;'>[style.colourDisabled(You already have the [pc.legs] of [pc.a_legRace], so nothing happens...)]</p>";

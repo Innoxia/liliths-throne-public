@@ -11,6 +11,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.HornType;
+import com.lilithsthrone.game.character.body.types.LegType;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
@@ -140,6 +141,8 @@ public class Kate extends NPC {
 			
 			this.setHornType(HornType.CURLED);
 			this.setSkinCovering(new Covering(BodyCoveringType.HORN, Colour.HORN_DARK_GREY), true);
+
+			this.setLegType(LegType.DEMON_COMMON);
 			
 			this.setBreastSize(CupSize.F.getMeasurement());
 			
@@ -183,6 +186,8 @@ public class Kate extends NPC {
 
 		this.setHornType(HornType.CURLED);
 		this.setSkinCovering(new Covering(BodyCoveringType.HORN, Colour.HORN_DARK_GREY), true);
+
+		this.setLegType(LegType.DEMON_COMMON);
 		
 		this.deleteAllEquippedClothing();
 

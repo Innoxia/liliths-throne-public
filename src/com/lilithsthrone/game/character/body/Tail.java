@@ -318,6 +318,19 @@ public class Tail implements BodyPartInterface, Serializable {
 							);
 				}
 				break;
+			case HORSE_MORPH_ZEBRA:
+				UtilText.transformationContentSB.append(
+						(owner.getTailCount()==1
+							?" A zebra-like tail sprouts from just above [npc.her] ass, rapidly growing in length until it hangs to just over half-way down [npc.her] [npc.legs]."
+								+ " [npc.She] quickly [npc.verb(discover)] that [npc.her] control over it is limited to swishing it from side to side."
+								+ "<br/>"
+								+ "[npc.Name] now [npc.has] a [style.boldHorseMorph(zebra-like tail)]"
+							:" [npc.TailCount] horse-like tails sprout from just above [npc.her] ass, rapidly growing in length until they hang to just over half-way down [npc.her] legs."
+								+ " [npc.She] quickly discovers that [npc.her] control over them is limited to swishing them from side to side."
+								+ "<br/>"
+								+ "[npc.Name] now has [npc.tailCount] [style.boldHorseMorph(horse-like tails)]")
+						);
+				break;
 			case REINDEER_MORPH:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(

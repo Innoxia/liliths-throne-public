@@ -37,6 +37,7 @@ import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.body.valueEnums.FluidExpulsion;
 import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
 import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
+import com.lilithsthrone.game.character.body.valueEnums.FluidRegeneration;
 import com.lilithsthrone.game.character.body.valueEnums.HairLength;
 import com.lilithsthrone.game.character.body.valueEnums.Height;
 import com.lilithsthrone.game.character.body.valueEnums.HipSize;
@@ -156,6 +157,7 @@ public abstract class AbstractItemEffectType {
 						TFModifier.TF_MOD_ELASTICITY,
 						TFModifier.TF_MOD_PLASTICITY,
 						TFModifier.TF_MOD_WETNESS,
+						TFModifier.TF_MOD_REGENERATION,
 						TFModifier.TF_MOD_ORIFICE_PUFFY,
 						TFModifier.TF_MOD_ORIFICE_RIBBED,
 						TFModifier.TF_MOD_ORIFICE_MUSCLED,
@@ -188,7 +190,8 @@ public abstract class AbstractItemEffectType {
 						TFModifier.TF_MOD_ELASTICITY,
 						TFModifier.TF_MOD_PLASTICITY,
 						TFModifier.TF_MOD_WETNESS,
-						TFModifier.TF_MOD_CUM_EXPULSION
+						TFModifier.TF_MOD_CUM_EXPULSION,
+						TFModifier.TF_MOD_REGENERATION
 						);
 
 				if(Main.getProperties().hasValue(PropertyValue.urethralContent)) {
@@ -271,6 +274,8 @@ public abstract class AbstractItemEffectType {
 						return  AreolaeSize.FOUR_MASSIVE.getValue();
 					case TF_MOD_WETNESS:
 						return Lactation.SEVEN_MONSTROUS_AMOUNT_POURING.getMaximumValue();
+					case TF_MOD_REGENERATION:
+						return FluidRegeneration.FOUR_MAXIMUM.getValue();
 					default:
 						break;
 				}
@@ -315,6 +320,8 @@ public abstract class AbstractItemEffectType {
 						return CumProduction.SEVEN_MONSTROUS.getMaximumValue();
 					case TF_MOD_CUM_EXPULSION:
 						return FluidExpulsion.FOUR_HUGE.getMaximumValue();
+					case TF_MOD_REGENERATION:
+						return FluidRegeneration.FOUR_MAXIMUM.getValue();
 					default:
 						break;
 				}
@@ -409,6 +416,9 @@ public abstract class AbstractItemEffectType {
 					case TF_MOD_WETNESS:
 						descriptions.add(getClothingTFChangeDescriptionEntry(potency, "lactation", limit+"ml"));
 						break;
+					case TF_MOD_REGENERATION:
+						descriptions.add(getClothingTFChangeDescriptionEntry(potency, "milk regeneration", String.valueOf(limit)));
+						break;
 					case TF_MOD_ORIFICE_PUFFY:
 						descriptions.add(getClothingOrificeTFChangeDescriptionEntry(potency, "nipples puffy", "nipple puffyness"));
 						break;
@@ -485,10 +495,13 @@ public abstract class AbstractItemEffectType {
 						descriptions.add(getClothingTFChangeDescriptionEntry(potency, "testicle size", TesticleSize.getTesticleSizeFromInt(limit).getDescriptor()));
 						break;
 					case TF_MOD_WETNESS:
-						descriptions.add(getClothingTFChangeDescriptionEntry(potency, "cum production", limit+"ml"));
+						descriptions.add(getClothingTFChangeDescriptionEntry(potency, "cum storage", limit+"ml"));
 						break;
 					case TF_MOD_CUM_EXPULSION:
 						descriptions.add(getClothingTFChangeDescriptionEntry(potency, "cum expulsion", limit+"%"));
+						break;
+					case TF_MOD_REGENERATION:
+						descriptions.add(getClothingTFChangeDescriptionEntry(potency, "milk regeneration", String.valueOf(limit)));
 						break;
 					case TF_MOD_ORIFICE_PUFFY:
 						descriptions.add(getClothingOrificeTFChangeDescriptionEntry(potency, "urethra puffy", "puffy urethra"));
@@ -598,6 +611,8 @@ public abstract class AbstractItemEffectType {
 		int areolaeSizeIncrement = (potency.isNegative()?-1:1);
 		int lactationIncrement = (potency.isNegative()?-50:50);
 
+		int fluidRegenerationIncrement = (potency.isNegative()?-1:1);
+		
 		int heightIncrement = (potency.isNegative()?-1:1);
 		int muscleIncrement = (potency.isNegative()?-1:1);
 		int bodySizeIncrement = (potency.isNegative()?-1:1);
@@ -609,7 +624,7 @@ public abstract class AbstractItemEffectType {
 
 		int penisSizeIncrement = (potency.isNegative()?-1:1);
 		int testicleSizeIncrement = (potency.isNegative()?-1:1);
-		int cumProductionIncrement = (potency.isNegative()?-5:5);
+		int cumStorageIncrement = (potency.isNegative()?-5:5);
 		int cumExpulsionIncrement = (potency.isNegative()?-5:5);
 
 		int clitorisSizeIncrement = (potency.isNegative()?-1:1);
@@ -790,6 +805,13 @@ public abstract class AbstractItemEffectType {
 								sb.append(target.incrementBreastMilkStorage(lactationIncrement));
 							} else if(isSetToLimit(lactationIncrement, target.getBreastRawMilkStorageValue(), limit)) {
 								sb.append(target.setBreastMilkStorage(limit));
+							}
+							break;
+						case TF_MOD_REGENERATION:
+							if(isWithinLimits(fluidRegenerationIncrement, target.getBreastRawLactationRegenerationValue(), limit)) {
+								sb.append(target.incrementBreastLactationRegeneration(fluidRegenerationIncrement));
+							} else if(isSetToLimit(fluidRegenerationIncrement, target.getBreastRawLactationRegenerationValue(), limit)) {
+								sb.append(target.setBreastLactationRegeneration(limit));
 							}
 							break;
 						case TF_MOD_ORIFICE_PUFFY:
@@ -989,10 +1011,17 @@ public abstract class AbstractItemEffectType {
 							}
 							break;
 						case TF_MOD_WETNESS:
-							if(isWithinLimits(cumProductionIncrement, target.getPenisRawCumStorageValue(), limit)) {
-								sb.append(target.incrementPenisCumStorage(cumProductionIncrement));
-							} else if(isSetToLimit(cumProductionIncrement, target.getPenisRawCumStorageValue(), limit)) {
+							if(isWithinLimits(cumStorageIncrement, target.getPenisRawCumStorageValue(), limit)) {
+								sb.append(target.incrementPenisCumStorage(cumStorageIncrement));
+							} else if(isSetToLimit(cumStorageIncrement, target.getPenisRawCumStorageValue(), limit)) {
 								sb.append(target.setPenisCumStorage(limit));
+							}
+							break;
+						case TF_MOD_REGENERATION:
+							if(isWithinLimits(fluidRegenerationIncrement, target.getPenisRawCumProductionRegenerationValue(), limit)) {
+								sb.append(target.incrementPenisCumProductionRegeneration(fluidRegenerationIncrement));
+							} else if(isSetToLimit(fluidRegenerationIncrement, target.getPenisRawCumProductionRegenerationValue(), limit)) {
+								sb.append(target.setPenisCumProductionRegeneration(limit));
 							}
 							break;
 						case TF_MOD_CUM_EXPULSION:

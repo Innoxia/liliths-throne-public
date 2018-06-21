@@ -560,7 +560,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 
 			} catch(Exception ex) {
 //				ex.printStackTrace();
-				System.err.println("ClothingType was unable to be loaded from file!");
+				System.err.println("ClothingType was unable to be loaded from file! Exception message: "+ex.getMessage());
 			}
 		}
 	}
