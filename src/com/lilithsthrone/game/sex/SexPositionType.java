@@ -429,7 +429,7 @@ public enum SexPositionType {
 		}
 	},
 	
-	MISSIONARY("Missionary",
+		MISSIONARY("Missionary",
 			true,
 			true,
 			Util.newArrayListOfValues(Missionary.class), Util.newHashMapOfValues(
@@ -456,7 +456,7 @@ public enum SexPositionType {
 		@Override
 		public String getDescription() {
 			return UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS), Sex.getCharacterInPosition(SexPositionSlot.MISSIONARY_ON_BACK),
-					"[npc.NameIsFull] kneeling [npc2.namePos] [npc2.legs], looking down at [npc2.herHim] as [npc.she] [npc.verb(prepare)] to have sex in the missionary position.");
+					"[npc.NameIsFull] kneeling between [npc2.namePos] [npc2.legs], looking down at [npc2.herHim] as [npc.she] [npc.verb(prepare)] to have sex in the missionary position.");
 		}
 	},
 	
