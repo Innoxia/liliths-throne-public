@@ -19,7 +19,7 @@ Another example for adding images to a randomized character:
 2) Create a folder with the name of the NPC. Remember that automatically generated names aren't unique, so you may want to rename the character in the game.
 3) Create a subfolder called "custom".
 4) Put your images inside it and rename them accordingly.
-5) Save and reload to apply the changes.
+5) Save and reload to apply the changes. Alternatively, you can rename a slave to update that character only.
 
 
 EXCEPTIONS:
