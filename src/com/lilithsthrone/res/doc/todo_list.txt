@@ -36,58 +36,17 @@
 	
 	Patch notes:
 	
-	Gameplay:
-		Finch now has a chance to stock (already-identified) enchanted items, and Roxy stocks 10 unidentified pieces of clothing. You will need to wait until they re-stock (at midnight) to see their new items for sale.
-		Added penis and foot fetishes to clothing and mystery kink enchantments.
-		Added 'appears as age' stat to characters, which is displayed in their description, along with age selection in character creation. (If you want to edit the age of your already-existing character, first save the game in this new version, then open the save file and search for/edit the 'yearOfBirth' field. The game converts any ages lower than 18 to 18.)
-		Added content option to disable ages being displayed.
-		Added tattoo selection to character creation.
-		Increased impregnation chance (formula's /4 modifier was reduced to /3).
-	
-	Contributors:
-		Fixed typos in some sex positions. (Nnxx)
-	
-	Other:
-		Moved some modded clothing/tattoo files over into new 'clothing' and 'tattoos' directories, to help distinguish between default LT files and mods that you've downloaded.
-		Slime subspecies (such as slime-cat-morphs, slime-horse-morphs, etc.) now respect your furry settings of the derived race. i.e. If you have horse-morphs disabled, no slime-horse-morphs will spawn.
-		Added description of foot structure to leg types.
-	
-	Sex AI:
-		Fixed NPCs choosing 'Doggystyle (oral)' position when they wanted to have penetrative sex.
-		Fixed some sex actions not having correctly-associated fetishes, which was causing the AI to use actions they disliked/hated.
-		Fixed issue where NPCs would continuously start penetrating then stop over and over.
-	
-	Bugs:
-		Fixed parsing error when viewing NPC with demon wings.
-		Fixed bug where ellipsis wouldn't display correctly.
-		Fixed NullPointerException issue which was sometimes occurring in sex scenes. 
-		Fixed Lilaya and Kate constantly switching positions in sex.
-		Fixed no actions being available in the chair sex scenes.
-		Fixed panty masturbation scene not working.
-		Fixed incorrect arousal gains in masturbation. (They were far too small before.)
-		Fixed error in conditional parser that was causing some sections of text to sometimes not be rendered.
-		Fixed another error in conditional parsing that was causing some dialogue to return 'Error in conditional parsing!'.
-		Fixed pregnancy roulette being broken for 'On back' positions, and for playing as one of the breeders not working.
-		Fixed bug in sex where your partner would use the 'Stop position switch' action every turn.
-		Fixed characters without a penis spawning in with the cock stud fetish.
-		Added paizuri to sixty-nine position.
-		Fixed some sex actions being incorrectly blocked (such as masturbating while giving someone a blowjob).
-		Made 'groin + mouth' actions blocked while there is any ongoing groin + area action (to stop impossible actions like receiving cunnilingus while performing paizuri in non-69 positions).
-		Fixed foot and penis fetish teases working effectively against the wrong fetish type.
-		Slave-on-slave sex events should now fire if the slaves are idle (in the same room, or with 'house freedom' permission set). Slaves will not initiate penetrative sex if their vagina is virginal.
-		Fixed cum regeneration being labelled as 'milk regeneration'.
-		For cowgirl: Added anal actions, fixed paizuri being available for the wrong person, and removed performing thigh sex on the one lying down.
-		Removed giving blowjob from doggy-style oral position.
-		Fixed slaves being able to be sent to Kate even if you hadn't encountered her.
-		Fixed bug where most characters were spawning with their penile virginity. (It's now a 15% chance for them to spawn as penile virgins.)
-		Fixed clothing type encyclopedia unlock events using custom names.
-		Naming enchanted tattoos now works correctly.
-		Fixed chair sex scenes swapping subs and doms
 	
 	
 	
 	
+	Nyan & Finch is only stocking modded clothing in the specials section, i've tried passing 3 days and nothing
 	
+	The off button for age does not work
+	
+	rfpnj jewellery
+	
+	"Your limbs are , and have a..."
 	
 	 I also noticed that Amber is always the dominant partner even though you didn't chose submit and her lines are submissive but she talks like dominant one after the scene is done as well as her ending the scene in the first place after she climaxed one time
 	
