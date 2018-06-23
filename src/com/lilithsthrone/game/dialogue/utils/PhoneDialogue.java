@@ -1305,7 +1305,7 @@ public class PhoneDialogue {
 								+ "<br/>"
 								+ "Conceived with someone you can't remember on day " + litter.getDayOfConception() + ", delivered on day " + litter.getDayOfBirth() + "."
 								+ "<br/>"
-								+ "[npc.She] gave birth to "+ litter.getBirthedDescriptionList()+ "."
+								+ "They gave birth to "+ litter.getBirthedDescriptionList()+ "."
 							+ "</div>");
 				}
 			}
