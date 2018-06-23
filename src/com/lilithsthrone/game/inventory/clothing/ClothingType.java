@@ -11702,6 +11702,44 @@ public class ClothingType {
 		
 		allClothing.addAll(moddedClothingList);
 		
+		
+		// Add in external res clothing:
+		
+		dir = new File("res/clothing");
+		
+		if (dir.exists() && dir.isDirectory()) {
+			File[] authorDirectoriesListing = dir.listFiles();
+			if (authorDirectoriesListing != null) {
+				for (File authorDirectory : authorDirectoriesListing) {
+					if (authorDirectory.isDirectory()){
+						for (File clothingDirectory : authorDirectory.listFiles()) {
+							if (clothingDirectory.isDirectory()){
+								File[] innerDirectoryListing = clothingDirectory.listFiles((path, filename) -> filename.endsWith(".xml"));
+								if (innerDirectoryListing != null) {
+									for (File innerChild : innerDirectoryListing) {
+										try {
+											AbstractClothingType ct = new AbstractClothingType(innerChild) {};
+											allClothing.add(ct);
+											String id = authorDirectory.getName()+"_"+innerChild.getParentFile().getName()+"_"+innerChild.getName().split("\\.")[0];
+		//											System.out.println(id);
+											clothingToIdMap.put(ct, id);
+											idToClothingMap.put(id, ct);
+										} catch(Exception ex) {
+											System.err.println("Loading modded clothing failed at 'ClothingType' Line 11728. File path: "+innerChild.getAbsolutePath());
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		
+		
+		// Add in hard-coded clothing:
+		
 		Field[] fields = ClothingType.class.getFields();
 		
 		for(Field f : fields){

@@ -1,5 +1,7 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
+import java.time.Month;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -47,6 +49,7 @@ public class Arthur extends NPC {
 						+ "<br/>"
 						+ "Arthur is recognised as one of, if not the best arcane researcher in all of Dominion."
 						+ " Despite this, however, he's unable to harness the arcane himself.",
+				41, Month.DECEMBER, 9,
 				10,
 				Gender.M_P_MALE,
 				RacialBody.HUMAN, RaceStage.HUMAN, new CharacterInventory(10),

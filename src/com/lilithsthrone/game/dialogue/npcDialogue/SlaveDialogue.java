@@ -9,6 +9,7 @@ import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.NPCFlagValue;
+import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.SlaveryManagementDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -892,16 +893,20 @@ public class SlaveDialogue {
 									}
 								};
 					case 5:
-						return new Response("Send to Kate",
-								"Send [npc.name] to Kate's beauty salon, 'Succubi's secrets', to get [npc.her] appearance changed.",
-								SlaveryManagementDialogue.SLAVE_MANAGEMENT_COSMETICS_HAIR) {
-									@Override
-									public void effects() {
-										Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(slave());
-										Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(Main.game.getActiveNPC());
-										BodyChanging.setTarget(Main.game.getActiveNPC());
-									}
-								};
+						if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.kateIntroduced)) {
+							return new Response("Send to Kate",
+									"Send [npc.name] to Kate's beauty salon, 'Succubi's secrets', to get [npc.her] appearance changed.",
+									SlaveryManagementDialogue.SLAVE_MANAGEMENT_COSMETICS_HAIR) {
+										@Override
+										public void effects() {
+											Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(slave());
+											Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(Main.game.getActiveNPC());
+											BodyChanging.setTarget(Main.game.getActiveNPC());
+										}
+									};
+						} else {
+							return new Response("Send to Kate", "You haven't met Kate yet!", null);
+						}
 					case 0:
 						return new Response("Leave", "Tell [npc.name] that you'll catch up with [npc.herHim] some other time.", SLAVE_START) {
 							@Override

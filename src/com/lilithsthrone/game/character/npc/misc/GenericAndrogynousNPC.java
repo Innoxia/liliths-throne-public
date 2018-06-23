@@ -1,5 +1,7 @@
 package com.lilithsthrone.game.character.npc.misc;
 
+import java.time.Month;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -29,6 +31,7 @@ public class GenericAndrogynousNPC extends NPC {
 	
 	public GenericAndrogynousNPC(boolean isImported) {
 		super(new NameTriplet("Androgynous"), "Generic androgynous.",
+				25, Month.JUNE, 15,
 				1, Gender.N_P_V_HERMAPHRODITE, RacialBody.HUMAN, RaceStage.HUMAN,
 				new CharacterInventory(0), WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
 		

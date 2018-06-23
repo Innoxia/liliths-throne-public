@@ -165,7 +165,11 @@ public class UtilText {
 
 	public static String parseSpeech(String text, GameCharacter target) {
 		modifiedSentence = text;
-
+		
+		String[] splitOnConditional = modifiedSentence.split("#THEN");
+		
+		modifiedSentence = splitOnConditional[splitOnConditional.length-1];
+		
 		if (target.hasFetish(Fetish.FETISH_BIMBO)) {
 			modifiedSentence = Util.addBimbo(modifiedSentence, 6);
 		}
@@ -223,7 +227,11 @@ public class UtilText {
 				}
 			}
 		}
-
+		
+		if(splitOnConditional.length>1) {
+			modifiedSentence = splitOnConditional[0]+"#THEN"+modifiedSentence;
+		}
+		
 		if (target.getSpeechColour() != null) {
 
 			return "<span class='speech' style='color:" + target.getSpeechColour() + ";'>" + modifiedSentence + "</span>";
@@ -4840,7 +4848,6 @@ public class UtilText {
 		// http://hg.openjdk.java.net/jdk8/jdk8/nashorn/rev/eb7b8340ce3a
 		engine = factory.getScriptEngine("-strict", "--no-java", "--no-syntax-extensions", "-scripting");
 		
-//		engine = new ScriptEngineManager().getEngineByName("nashorn");
 		for(ParserTarget target : ParserTarget.values()) {
 			if(target!=ParserTarget.STYLE && target!=ParserTarget.NPC) {
 				for(String tag : target.getTags()) {
@@ -4858,7 +4865,7 @@ public class UtilText {
 		for(Weather w : Weather.values()) {
 			engine.put("WEATHER_"+w.toString(), w);
 		}
-		// #IFpc​​​.​​​isPlayer()#THEN:3#ELSE:(#ENDIF
+		
 //		StringBuilder sb = new StringBuilder();
 //		for(Entry<String, Object> entry : engine.getBindings(ScriptContext.ENGINE_SCOPE).entrySet()) {
 //			sb.append(entry.getKey()+", "+entry.getValue().toString()+"\n");
@@ -4879,7 +4886,10 @@ public class UtilText {
 				engine.put("npc"+i, specialNPC.get(i));
 			}
 		} else {
-			engine.put("npc", ParserTarget.NPC.getCharacter("npc"));
+			try { // Getting the target NPC can throw a NullPointerException, so if it does (i.e., there's no NPC suitable for parsing), just catch it and carry on.
+				engine.put("npc", ParserTarget.NPC.getCharacter("npc"));
+			} catch(Exception ex) {
+			}
 		}
 		
 		try {

@@ -1403,7 +1403,7 @@ public enum Sex {
 												ArousalIncrease.ZERO_NONE,
 												CorruptionLevel.ZERO_PURE,
 												null,
-												SexParticipantType.MISC) {
+												SexParticipantType.NORMAL) {
 		@Override
 		public SexActionLimitation getLimitation() {
 			return SexActionLimitation.PLAYER_ONLY;
@@ -1444,7 +1444,7 @@ public enum Sex {
 												ArousalIncrease.ZERO_NONE,
 												CorruptionLevel.ZERO_PURE,
 												null,
-												SexParticipantType.MISC) {
+												SexParticipantType.NORMAL) {
 		@Override
 		public SexActionLimitation getLimitation() {
 			return SexActionLimitation.PLAYER_ONLY;
@@ -1692,7 +1692,9 @@ public enum Sex {
 		Map<GameCharacter, Float> lustIncrements = new HashMap<>();
 		
 		arousalIncrements.put(activeCharacter, sexAction.getArousalGainSelf().getArousalIncreaseValue());
-		arousalIncrements.put(targetCharacter, sexAction.getArousalGainTarget().getArousalIncreaseValue());
+		if(!Sex.isMasturbation()) {
+			arousalIncrements.put(targetCharacter, sexAction.getArousalGainTarget().getArousalIncreaseValue());
+		}
 		// Base lust gains are based on arousal gains:
 		if(Sex.getSexPace(activeCharacter)==SexPace.SUB_RESISTING) {
 			lustIncrements.put(activeCharacter, -2.5f);
@@ -1724,7 +1726,9 @@ public enum Sex {
 			for(Fetish f : sexAction.getFetishes(activeCharacter)) {
 				if(activeCharacter.hasFetish(f)) {
 					arousalIncrements.put(activeCharacter, arousalIncrements.get(activeCharacter) + activeCharacter.getFetishLevel(f).getBonusArousalIncrease());
-					arousalIncrements.put(targetCharacter, arousalIncrements.get(targetCharacter) + activeCharacter.getFetishLevel(f).getBonusArousalIncreasePartner());
+					if(!Sex.isMasturbation()) {
+						arousalIncrements.put(targetCharacter, arousalIncrements.get(targetCharacter) + activeCharacter.getFetishLevel(f).getBonusArousalIncreasePartner());
+					}
 					activeCharacter.incrementFetishExperience(f, f.getExperienceGainFromSexAction());
 				}
 				lustIncrements.put(activeCharacter, lustIncrements.get(activeCharacter) + activeCharacter.getFetishDesire(f).getLustIncrement());
@@ -1736,7 +1740,9 @@ public enum Sex {
 			for(Fetish f : sexAction.getFetishesForTargetedPartner(activeCharacter)) {
 				if(targetCharacter.hasFetish(f)) {
 					arousalIncrements.put(targetCharacter, arousalIncrements.get(targetCharacter) + targetCharacter.getFetishLevel(f).getBonusArousalIncrease());
-					arousalIncrements.put(activeCharacter, arousalIncrements.get(activeCharacter) + targetCharacter.getFetishLevel(f).getBonusArousalIncreasePartner());
+					if(!Sex.isMasturbation()) {
+						arousalIncrements.put(activeCharacter, arousalIncrements.get(activeCharacter) + targetCharacter.getFetishLevel(f).getBonusArousalIncreasePartner());
+					}
 					targetCharacter.incrementFetishExperience(f, f.getExperienceGainFromSexAction());
 				}
 				lustIncrements.put(targetCharacter, lustIncrements.get(targetCharacter) + targetCharacter.getFetishDesire(f).getLustIncrement());
@@ -1759,7 +1765,11 @@ public enum Sex {
 		
 		// Modify arousal value based on lust:
 		for(Entry<GameCharacter, Float> entry : arousalIncrements.entrySet()) {
-			entry.getKey().incrementArousal(Math.min(10, entry.getValue() * entry.getKey().getLustLevel().getArousalModifier()));
+			float arousal = entry.getValue();
+			if(Sex.isMasturbation()) {
+				arousal*=2;
+			}
+			entry.getKey().incrementArousal(Math.min(10, arousal * entry.getKey().getLustLevel().getArousalModifier()));
 		}
 		
 		// Cummed in areas:
@@ -3328,27 +3338,26 @@ public enum Sex {
 						
 						boolean addedForCharacter = (SexActionPresets.miscActions.contains(classToAddSexActionsFrom)
 								|| SexActionPresets.selfActions.contains(classToAddSexActionsFrom)
-								|| action.getParticipantType()==SexParticipantType.SELF
-								|| action.getParticipantType()==SexParticipantType.MISC);
+								|| action.getParticipantType()==SexParticipantType.SELF);
 						
 						boolean addedForTarget = (SexActionPresets.miscActions.contains(classToAddSexActionsFrom)
 								|| SexActionPresets.selfActions.contains(classToAddSexActionsFrom)
-								|| action.getParticipantType()==SexParticipantType.SELF
-								|| action.getParticipantType()==SexParticipantType.MISC);
+								|| action.getParticipantType()==SexParticipantType.SELF);
 						
-						if(!addedForCharacter
-							&& ((action.getLimitation()==SexActionLimitation.PLAYER_ONLY && character.isPlayer())
-								|| (action.getLimitation()==SexActionLimitation.NPC_ONLY && !character.isPlayer())
-								|| action.getLimitation()==null)) {
-							outer:
-							for(SexAreaInterface area : action.getSexAreaInteractions().keySet()) {
-								for(SexAreaInterface area2 : interactions.getInteractions().keySet()) {
-									if(area == area2) {
-										for(SexAreaInterface areaInner : action.getSexAreaInteractions().values()) {
-											for(SexAreaInterface areaInner2 : interactions.getInteractions().get(area2)) {
-												if(areaInner == areaInner2) {
-													addedForCharacter = true;
-													break outer;
+						if(!addedForCharacter) {
+							if(action.getSexAreaInteractions().isEmpty()) {
+								addedForCharacter = true;
+							} else {
+								outer:
+								for(SexAreaInterface area : action.getSexAreaInteractions().keySet()) {
+									for(SexAreaInterface area2 : interactions.getInteractions().keySet()) {
+										if(area == area2) {
+											for(SexAreaInterface areaInner : action.getSexAreaInteractions().values()) {
+												for(SexAreaInterface areaInner2 : interactions.getInteractions().get(area2)) {
+													if(areaInner == areaInner2) {
+														addedForCharacter = true;
+														break outer;
+													}
 												}
 											}
 										}
@@ -3357,15 +3366,19 @@ public enum Sex {
 							}
 						}
 
-						if(!addedForTarget) { //TODO
-							outer:
-							for(SexAreaInterface area : action.getSexAreaInteractions().keySet()) {
-								for(Entry<SexAreaInterface, List<SexAreaInterface>> entry : interactions.getInteractions().entrySet()) {
-									for(SexAreaInterface areaInner2 : entry.getValue()) {
-										if(area == areaInner2) {
-											if(action.getSexAreaInteractions().get(area) == entry.getKey()) {
-												addedForTarget = true;
-												break outer;
+						if(!addedForTarget) {
+							if(action.getSexAreaInteractions().isEmpty()) {
+								addedForTarget = true;
+							} else {
+								outer:
+								for(SexAreaInterface area : action.getSexAreaInteractions().keySet()) {
+									for(Entry<SexAreaInterface, List<SexAreaInterface>> entry : interactions.getInteractions().entrySet()) {
+										for(SexAreaInterface areaInner2 : entry.getValue()) {
+											if(area == areaInner2) {
+												if(action.getSexAreaInteractions().get(area) == entry.getKey()) {
+													addedForTarget = true;
+													break outer;
+												}
 											}
 										}
 									}
@@ -3385,17 +3398,19 @@ public enum Sex {
 							addedForTarget = false;
 						}
 						
-						if (action.getActionType().isOrgasmOption()) {
-							if(addedForCharacter) {
-								orgasmActionsAvailable.get(character).get(target).add(action);
-							} else if(addedForTarget) {
-								orgasmActionsAvailable.get(target).get(character).add(action);
-							}
-						} else {
-							if(addedForCharacter) {
-								actionsAvailable.get(character).get(target).add(action);
-							} else if(addedForTarget) {
-								actionsAvailable.get(target).get(character).add(action);
+						if(!Sex.isMasturbation() || action.getParticipantType()==SexParticipantType.SELF) {
+							if (action.getActionType().isOrgasmOption()) {
+								if(addedForCharacter) {
+									orgasmActionsAvailable.get(character).get(target).add(action);
+								} else if(addedForTarget) {
+									orgasmActionsAvailable.get(target).get(character).add(action);
+								}
+							} else {
+								if(addedForCharacter) {
+									actionsAvailable.get(character).get(target).add(action);
+								} else if(addedForTarget) {
+									actionsAvailable.get(target).get(character).add(action);
+								}
 							}
 						}
 					}

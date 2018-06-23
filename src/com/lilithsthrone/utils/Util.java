@@ -448,6 +448,18 @@ public class Util {
 			"eighty",
 			"ninety"
 	};
+
+	public static String intToDate(int integer) {
+		if(integer%10==1 && (integer%100<10 || integer%100>20)) {
+			return integer+"st";
+		} else if(integer%10==2 && (integer%100<10 || integer%100>20)) {
+			return integer+"nd";
+		} else if(integer%10==3 && (integer%100<10 || integer%100>20)) {
+			return integer+"rd";
+		} else {
+			return integer+"th";
+		}
+	}
 	
 	/**
 	 * Only works for values -99,999 to 99,999.
@@ -921,13 +933,15 @@ public class Util {
 		return Util.toStringList(displacedList, DisplacementType::getDescriptionPast, "and");
 	}
 
-	public static <Any> Any randomItemFrom(List<Any> list)
-	{
+	public static <Any> Any randomItemFrom(List<Any> list) {
 		return list.get(Util.random.nextInt(list.size()));
 	}
 
-	public static int randomItemFrom(int[] array)
-	{
+	public static <Any> Any randomItemFrom(Any[] array) {
+		return array[Util.random.nextInt(array.length)];
+	}
+	
+	public static int randomItemFrom(int[] array) {
 		return array[Util.random.nextInt(array.length)];
 	}
 }

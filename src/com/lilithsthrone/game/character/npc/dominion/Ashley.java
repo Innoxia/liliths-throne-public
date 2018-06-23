@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
+import java.time.Month;
 import java.util.Map.Entry;
 
 import org.w3c.dom.Document;
@@ -60,6 +61,7 @@ public class Ashley extends NPC {
 		super(new NameTriplet("Ashley"),
 				"Ashley is the owner of the shop 'Dream Lover', and is seemingly also its only working staff."
 						+ " They are very stand-offish and loathe helping out their customers, to the point where they'd rather stare at the walls instead of offering any help.",
+				200, Month.AUGUST, 14,//TODO
 				10,
 				Gender.N_P_TRAP,
 				RacialBody.ANGEL,
@@ -97,6 +99,11 @@ public class Ashley extends NPC {
 	@Override
 	public boolean isUnique() {
 		return true;
+	}
+	
+	@Override
+	public int getAppearsAsAge() {
+		return 25;
 	}
 	
 	@Override

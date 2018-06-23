@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+
+<clothing>
+  <coreAtributes>
+    <value>150</value>
+    <determiner><![CDATA[a]]></determiner>
+    <name><![CDATA[tail ribbon]]></name>
+    <namePlural pluralByDefault="false"><![CDATA[tail ribbons]]></namePlural>
+    <description><![CDATA[A small, cute cotton ribbon meant to be tied around the tip of a tail.]]></description>
+    
+    <physicalResistance>1</physicalResistance>
+    <femininity>FEMININE</femininity>
+    <slot>TAIL</slot>
+    <rarity>COMMON</rarity>
+    
+    <imageName>tail_ribbon.svg</imageName>
+    
+    <clothingSet/>
+    <imageEquippedName/>
+    <enchantmentLimit/>
+    <effects/>
+
+    <blockedPartsList>
+      <blockedParts>
+        
+        <displacementType>REMOVE_OR_EQUIP</displacementType>
+        
+        <clothingAccessRequired/>
+        <blockedBodyParts/>
+        <clothingAccessBlocked/>
+        <concealedSlots/>
+        
+      </blockedParts>
+    </blockedPartsList>
+    
+    <incompatibleSlots/>
+    
+    <primaryColours values="ALL"/>
+    <primaryColoursDye values="ALL"/>
+    <secondaryColours/>
+    <secondaryColoursDye/>
+    <tertiaryColours/>
+    <tertiaryColoursDye/>
+    
+    <itemTags>
+      <tag>SOLD_BY_NYAN</tag>
+    </itemTags>
+    
+  </coreAtributes>
+
+  <displacementText type="REMOVE_OR_EQUIP">
+    <playerSelf>
+      <![CDATA[You untie the ribbon from your [pc.tail+].]]>
+    </playerSelf>
+    <playerNPC>
+      <![CDATA[You untie the ribbon from [npc.Name]'s [npc.tail+].]]>
+    </playerNPC>
+    <playerNPCRough>
+      <![CDATA[You yank the ribbon off of [npc.Name]'s [npc.tail+].]]>
+    </playerNPCRough>
+    <NPCSelf>
+      <![CDATA[[npc.Name] unties the ribbon from [npc.herHis] [npc.tail+].]]>
+    </NPCSelf>
+    <NPCPlayer>
+      <![CDATA[[npc.Name] unties the ribbon from your [pc.tail+].]]>
+    </NPCPlayer>
+    <NPCPlayerRough>
+      <![CDATA[[npc.Name] yanks the ribbon off of your [pc.tail+].]]>
+    </NPCPlayerRough>
+    <NPCOtherNPC>
+      <![CDATA[[npc1.Name] unties the ribbon around [npc2.name]'s [npc2.tail+].]]>
+    </NPCOtherNPC>
+    <NPCOtherNPCRough>
+      <![CDATA[[npc.Name] yanks the ribbon off [npc2.name]'s [npc2.tail+].]]>
+    </NPCOtherNPCRough>
+  </displacementText>
+
+  <replacementText type="REMOVE_OR_EQUIP">
+    <playerSelf>
+      <![CDATA[You tie the ribbon around the tip of your [pc.tail+].]]>
+    </playerSelf>
+    <playerNPC>
+      <![CDATA[You tie the ribbon around the tip of [npc.Name]'s [npc.tail+].]]>
+    </playerNPC>
+    <playerNPCRough>
+      <![CDATA[You grab [npc.name]'s [npc.tail+] and tie the ribbon tightly around the tip.]]>
+    </playerNPCRough>
+    <NPCSelf>
+      <![CDATA[[npc.Name] ties the ribbon around the tip of [npc.herHis] [npc.tail+].]]>
+    </NPCSelf>
+    <NPCPlayer>
+      <![CDATA[[npc.Name] ties the ribbon around the tip of your [pc.tail+].]]>
+    </NPCPlayer>
+    <NPCPlayerRough>
+      <![CDATA[[npc.Name] grabs your [pc.tail+] and ties the ribbon tightly around the tip.]]>
+    </NPCPlayerRough>
+    <NPCOtherNPC>
+      <![CDATA[[npc1.Name] ties the ribbon around the tip of [npc2.Name]'s [npc2.tail+].]]>
+    </NPCOtherNPC>
+    <NPCOtherNPCRough>
+      <![CDATA[[npc1.Name] grabs [npc2.name]'s [npc2.tail+] and ties the ribbon tightly around the tip.]]>
+    </NPCOtherNPCRough>
+  </replacementText>
+  
+  
+</clothing>

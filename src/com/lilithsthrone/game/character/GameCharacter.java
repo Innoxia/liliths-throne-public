@@ -5,6 +5,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.time.temporal.ChronoUnit;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,6 +30,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.Attribute;
@@ -53,6 +57,7 @@ import com.lilithsthrone.game.character.body.types.EarType;
 import com.lilithsthrone.game.character.body.types.EyeType;
 import com.lilithsthrone.game.character.body.types.FaceType;
 import com.lilithsthrone.game.character.body.types.FluidType;
+import com.lilithsthrone.game.character.body.types.FootStructure;
 import com.lilithsthrone.game.character.body.types.HairType;
 import com.lilithsthrone.game.character.body.types.HornType;
 import com.lilithsthrone.game.character.body.types.LegType;
@@ -233,6 +238,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	protected String playerPetName = "";
 	protected String description;
 	protected int level;
+	protected LocalDateTime birthday;
 	
 	protected History history;
 	protected Map<PersonalityTrait, PersonalityWeight> personality;
@@ -293,7 +299,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	
 	// Family:
 	protected String motherId, fatherId;
-	protected int dayOfConception, dayOfBirth;
+	protected int dayOfConception;
 
 	
 	// Slavery:
@@ -364,7 +370,16 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	protected static List<CharacterChangeEventListener> NPCInventoryChangeEventListeners = new ArrayList<>();
 	protected static List<CharacterChangeEventListener> playerInventoryChangeEventListeners = new ArrayList<>();
 
-	protected GameCharacter(NameTriplet nameTriplet, String description, int level, Gender startingGender, RacialBody startingRace, RaceStage stage, CharacterInventory inventory, WorldType worldLocation, PlaceType startingPlace) {
+	protected GameCharacter(NameTriplet nameTriplet,
+			String description,
+			int level,
+			LocalDateTime birthday,
+			Gender startingGender,
+			RacialBody startingRace,
+			RaceStage stage,
+			CharacterInventory inventory,
+			WorldType worldLocation,
+			PlaceType startingPlace) {
 		
 		id = "NOT_SET"; // id gets set in Game's addNPC method, so it doesn't matter if this is unique or not... Right?
 		
@@ -373,6 +388,16 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		playerKnowsName = true;
 		this.description = description;
 		this.level = level;
+		
+		if(birthday==null) {
+			if(Main.game != null) {
+				this.birthday = Main.game.getDateNow().minusYears(21+(this.isPlayer()?Game.TIME_SKIP_YEARS:0)).minusDays(1);
+			} else {
+				this.birthday = LocalDateTime.of(LocalDateTime.now().getYear(), LocalDateTime.now().getMonth(), LocalDateTime.now().getDayOfMonth(), 00, 00).minusYears(21+(this.isPlayer()?Game.TIME_SKIP_YEARS:0));
+			}
+		} else {
+			this.setBirthday(birthday);
+		}
 		
 		this.worldLocation = worldLocation;
 		this.homeWorldLocation = worldLocation;
@@ -431,7 +456,6 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		motherId = "";
 		fatherId = "";
 		dayOfConception = 0;
-		dayOfBirth = 0;
 		
 		perkPoints = 0;
 		experience = 0;
@@ -568,6 +592,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "playerPetName", playerPetName);
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "playerKnowsName", String.valueOf(this.isPlayerKnowsName()));
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "level", String.valueOf(this.getTrueLevel()));
+		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "yearOfBirth", String.valueOf(this.getBirthday().getYear()));
+		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "monthOfBirth", this.getBirthMonth().toString());
+		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "dayOfBirth", String.valueOf(this.getDayOfBirth()));
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "version", Main.VERSION_NUMBER);
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "history", this.getHistory().toString());
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "elemental", this.getElementalID());
@@ -841,7 +868,6 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		CharacterUtils.createXMLElementWithValue(doc, characterFamily, "motherId", this.getMotherId());
 		CharacterUtils.createXMLElementWithValue(doc, characterFamily, "fatherId", this.getFatherId());
 		CharacterUtils.createXMLElementWithValue(doc, characterFamily, "dayOfConception", String.valueOf(this.getDayOfConception()));
-		CharacterUtils.createXMLElementWithValue(doc, characterFamily, "dayOfBirth", String.valueOf(this.getDayOfBirth()));
 		
 		
 		
@@ -1088,6 +1114,16 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		// Level:
 		character.setLevel(Integer.valueOf(((Element)element.getElementsByTagName("level").item(0)).getAttribute("value")));
 		CharacterUtils.appendToImportLog(log, "<br/>Set level: " + Integer.valueOf(((Element)element.getElementsByTagName("level").item(0)).getAttribute("value")));
+		
+		// Birthday:
+		try {
+			int day = Integer.valueOf(((Element)element.getElementsByTagName("dayOfBirth").item(0)).getAttribute("value"));
+			Month month = Month.valueOf(((Element)element.getElementsByTagName("monthOfBirth").item(0)).getAttribute("value"));
+			int year = Integer.valueOf(((Element)element.getElementsByTagName("yearOfBirth").item(0)).getAttribute("value"));
+			
+			character.setBirthday(LocalDateTime.of(year, month, day, 12, 0));
+		} catch(Exception ex) {
+		}
 		
 		// Sexual Orientation:
 		if(element.getElementsByTagName("sexualOrientation").getLength()!=0) {
@@ -1716,7 +1752,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			character.setMother(((Element)familyElement.getElementsByTagName("motherId").item(0)).getAttribute("value"));
 			character.setFather(((Element)familyElement.getElementsByTagName("fatherId").item(0)).getAttribute("value"));
 			character.setDayOfConception(Integer.valueOf(((Element)familyElement.getElementsByTagName("dayOfConception").item(0)).getAttribute("value")));
-			character.setDayOfBirth(Integer.valueOf(((Element)familyElement.getElementsByTagName("dayOfBirth").item(0)).getAttribute("value")));
+			
 		}
 		
 		
@@ -2448,12 +2484,14 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		if(gender.isFeminine()) {
 			for(Entry<Subspecies, FurryPreference> entry : Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().entrySet()) {
 				if(entry.getValue() == FurryPreference.HUMAN) {
+					removeSlimeSubspecies(entry.getKey(), subspeciesMap);
 					subspeciesMap.remove(entry.getKey());
 				}
 			}
 		} else {
 			for(Entry<Subspecies, FurryPreference> entry : Main.getProperties().getSubspeciesMasculineFurryPreferencesMap().entrySet()) {
 				if(entry.getValue() == FurryPreference.HUMAN) {
+					removeSlimeSubspecies(entry.getKey(), subspeciesMap);
 					subspeciesMap.remove(entry.getKey());
 				}
 			}
@@ -2507,6 +2545,101 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						break;
 				}
 			}
+		}
+	}
+	
+	private static void removeSlimeSubspecies(Subspecies subspecies, Map<Subspecies, Integer> subspeciesMap) {
+		switch(subspecies) {
+			case ALLIGATOR_MORPH:
+				subspeciesMap.remove(Subspecies.SLIME_ALLIGATOR);
+				break;
+			case ANGEL:
+				subspeciesMap.remove(Subspecies.SLIME_ANGEL);
+				break;
+			case BAT_MORPH:
+				subspeciesMap.remove(Subspecies.SLIME_BAT);
+				break;
+			case CAT_MORPH:
+				subspeciesMap.remove(Subspecies.SLIME_CAT);
+				break;
+			case COW_MORPH:
+				subspeciesMap.remove(Subspecies.SLIME_COW);
+				break;
+			case DEMON:
+				subspeciesMap.remove(Subspecies.SLIME_DEMON);
+				break;
+			case DOG_MORPH:
+				subspeciesMap.remove(Subspecies.SLIME_DOG);
+				break;
+			case DOG_MORPH_BORDER_COLLIE:
+				subspeciesMap.remove(Subspecies.SLIME_DOG_BORDER_COLLIE);
+				break;
+			case DOG_MORPH_DOBERMANN:
+				subspeciesMap.remove(Subspecies.SLIME_DOG_DOBERMANN);
+				break;
+			case ELEMENTAL_AIR:
+			case ELEMENTAL_ARCANE:
+			case ELEMENTAL_EARTH:
+			case ELEMENTAL_FIRE:
+			case ELEMENTAL_WATER:
+				break;
+			case HARPY:
+				subspeciesMap.remove(Subspecies.SLIME_HARPY);
+				break;
+			case HARPY_RAVEN:
+				subspeciesMap.remove(Subspecies.SLIME_HARPY_RAVEN);
+				break;
+			case HORSE_MORPH:
+				subspeciesMap.remove(Subspecies.SLIME_HORSE);
+				break;
+			case HORSE_MORPH_ZEBRA:
+				break;
+			case HUMAN:
+				break;
+			case IMP:
+				subspeciesMap.remove(Subspecies.SLIME_IMP);
+				break;
+			case IMP_ALPHA:
+				break;
+			case RABBIT_MORPH:
+				subspeciesMap.remove(Subspecies.SLIME_RABBIT);
+				break;
+			case RABBIT_MORPH_LOP:
+				break;
+			case RAT_MORPH:
+				subspeciesMap.remove(Subspecies.SLIME_RAT);
+				break;
+			case REINDEER_MORPH:
+				subspeciesMap.remove(Subspecies.SLIME_REINDEER);
+				break;
+			case SQUIRREL_MORPH:
+				subspeciesMap.remove(Subspecies.SLIME_SQUIRREL);
+				break;
+			case WOLF_MORPH:
+				subspeciesMap.remove(Subspecies.SLIME_WOLF);
+				break;
+				
+			case SLIME:
+				break;
+			case SLIME_ALLIGATOR:
+			case SLIME_ANGEL:
+			case SLIME_BAT:
+			case SLIME_CAT:
+			case SLIME_COW:
+			case SLIME_DEMON:
+			case SLIME_DOG:
+			case SLIME_DOG_BORDER_COLLIE:
+			case SLIME_DOG_DOBERMANN:
+			case SLIME_HARPY:
+			case SLIME_HARPY_RAVEN:
+			case SLIME_HORSE:
+			case SLIME_IMP:
+			case SLIME_RABBIT:
+			case SLIME_RAT:
+			case SLIME_REINDEER:
+			case SLIME_SQUIRREL:
+			case SLIME_WOLF:
+				break;
 		}
 	}
 	
@@ -2626,6 +2759,40 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+	public LocalDateTime getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(LocalDateTime birthday) {
+		this.birthday = birthday;
+		
+		if(this.isPlayer()) {
+			if(this.getAge()<18) {
+				this.birthday = (this.getBirthday().minusYears(18-this.getAge()));
+				
+			} else if(this.getAge()>50) {
+				this.birthday = (this.getBirthday().plusYears(this.getAge()-50));
+			}
+		}
+	}
+	
+	public int getAppearsAsAge() {
+		return getAge();
+	}
+	
+	public int getAge() {
+		return Math.max(18, (int) ChronoUnit.YEARS.between(birthday, Main.game.getDateNow()));
+	}
+	
+	public Month getBirthMonth() {
+		return birthday.getMonth();
+	}
+	
+	public int getDayOfBirth() {
+		return birthday.getDayOfMonth();
+	}
+	
 
 	public History getHistory() {
 		return history;
@@ -3487,14 +3654,6 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 
 	public void setDayOfConception(int dayOfConception) {
 		this.dayOfConception = dayOfConception;
-	}
-
-	public int getDayOfBirth() {
-		return dayOfBirth;
-	}
-
-	public void setDayOfBirth(int dayOfBirth) {
-		this.dayOfBirth = dayOfBirth;
 	}
 
 	public int getExperience() {
@@ -11011,7 +11170,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	
 	// Pregnancy:
 
-	public static final String PREGNANCY_CALCULATION = "((Virility% * Cum Production Modifier) + Fertility%) / 4";
+	public static final String PREGNANCY_CALCULATION = "((Virility% * Cum Production Modifier) + Fertility%) / 3";
 
 	public void performHourlyFluidsCheck() {
 		for(SexAreaOrifice ot : SexAreaOrifice.values()) {
@@ -11043,7 +11202,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 					} else {
 						partner = Main.game.getNPCById(fs.getCharactersFluidID());
 					}
-					rollForPregnancy(partner, fs.getMillilitres());
+					if(partner!=null) {
+						rollForPregnancy(partner, fs.getMillilitres());
+					}
 				}
 			}
 		}
@@ -11065,7 +11226,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			pregnancyChance = 0;
 			pregnancyChance += (Util.getModifiedDropoffValue(partner.getAttributeValue(Attribute.VIRILITY), Attribute.VIRILITY.getUpperLimit())/100f) * CumProduction.getCumProductionFromInt(cumQuantity).getPregnancyModifier();
 			pregnancyChance += (Util.getModifiedDropoffValue(getAttributeValue(Attribute.FERTILITY), Attribute.FERTILITY.getUpperLimit())/100f);
-			pregnancyChance /= 4;
+			pregnancyChance /= 3;
 		}
 		
 		if (!isAbleToBeImpregnated()) {
@@ -11211,7 +11372,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						NPC npc = (NPC) Main.game.getNPCById(id);
 						birthedLitter.setDayOfBirth(Main.game.getDayNumber());
 						npc.setDayOfConception(birthedLitter.getDayOfConception());
-						npc.setDayOfBirth(Main.game.getDayNumber());
+						npc.setBirthday(LocalDateTime.of(Main.game.getDateNow().getYear(), Main.game.getDateNow().getMonth(), Main.game.getDateNow().getDayOfMonth(), Main.game.getDateNow().getHour(), Main.game.getDateNow().getMinute()));
 					}
 				}
 			}
@@ -12261,7 +12422,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 
 			if (isPlayer() && Main.game.isInNewWorld()) {
 				if (Main.getProperties().addClothingDiscovered(newClothing.getClothingType())) {
-					Main.game.addEvent(new EventLogEntryEncyclopediaUnlock(newClothing.getName(), newClothing.getRarity().getColour()), true);
+					Main.game.addEvent(new EventLogEntryEncyclopediaUnlock(newClothing.getClothingType().getName(), newClothing.getRarity().getColour()), true);
 				}
 			}
 		}
@@ -12297,7 +12458,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 
 			if (isPlayer() && Main.game.isInNewWorld()) {
 				if (Main.getProperties().addClothingDiscovered(newClothing.getClothingType())) {
-					Main.game.addEvent(new EventLogEntryEncyclopediaUnlock(newClothing.getName(), newClothing.getRarity().getColour()), true);
+					Main.game.addEvent(new EventLogEntryEncyclopediaUnlock(newClothing.getClothingType().getName(), newClothing.getRarity().getColour()), true);
 				}
 			}
 		}
@@ -12322,7 +12483,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 
 			if (isPlayer() && Main.game.isInNewWorld()) {
 				if (Main.getProperties().addClothingDiscovered(newClothing.getClothingType())) {
-					Main.game.addEvent(new EventLogEntryEncyclopediaUnlock(newClothing.getName(), newClothing.getRarity().getColour()), true);
+					Main.game.addEvent(new EventLogEntryEncyclopediaUnlock(newClothing.getClothingType().getName(), newClothing.getRarity().getColour()), true);
 				}
 			}
 		}
@@ -15644,6 +15805,10 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 	public String setLegType(LegType type) {
 		return body.getLeg().setType(this, type);
+	}
+	// Foot Structure:
+	public FootStructure getFootStructure() {
+		return body.getLeg().getFootStructure();
 	}
 	// Name:
 	public String getLegName() {

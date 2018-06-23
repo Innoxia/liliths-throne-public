@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.sex;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -7,6 +8,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
 import com.lilithsthrone.game.sex.sexActions.SexActionPresets;
+import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericOrgasms;
 import com.lilithsthrone.game.sex.sexActions.universal.BackToWall;
 import com.lilithsthrone.game.sex.sexActions.universal.BreedingStallBack;
@@ -127,8 +129,10 @@ public enum SexPositionType {
 									new SexActionInteractions(
 											Util.mergeMaps(
 													SexActionPresets.appendagesToAllAreas,
-													SexActionPresets.groinToGroin,
-													SexActionPresets.penisToBreasts,
+													SexActionPresets.penisToVagina,
+													SexActionPresets.penisToPenis,
+													SexActionPresets.penisToAss,
+													SexActionPresets.penisToThighs,
 													SexActionPresets.kissing,
 													SexActionPresets.mouthToBreasts,
 													SexActionPresets.breastsToMouth))))),
@@ -139,7 +143,8 @@ public enum SexPositionType {
 									SexPositionSlot.COWGIRL_ON_BACK,
 									new SexActionInteractions(
 											Util.mergeMaps(
-													SexActionPresets.appendagesToAllAreas))))))) {
+													SexActionPresets.appendagesToAllAreas,
+													SexActionPresets.penisToBreasts))))))) {
 		@Override
 		public String getDescription() {
 			return UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.COWGIRL_ON_BACK), Sex.getCharacterInPosition(SexPositionSlot.COWGIRL_RIDING),
@@ -360,6 +365,18 @@ public enum SexPositionType {
 			
 			return sb.toString();
 		}
+		
+		@Override
+		public boolean isActionBlocked(GameCharacter performer, GameCharacter target, SexActionInterface action) {
+			if(Sex.getSexPositionSlot(performer)==SexPositionSlot.DOGGY_BEHIND_ORAL
+					&& action.getActionType()==SexActionType.START_ONGOING
+					&& action.getSexAreaInteractions().keySet().contains(SexAreaOrifice.MOUTH)
+					&& action.getSexAreaInteractions().values().contains(SexAreaPenetration.PENIS)) {
+				return true;
+			}
+			
+			return super.isActionBlocked(performer, target, action);
+		}
 	},
 	
 	SIXTY_NINE("Sixty-nine",
@@ -377,7 +394,8 @@ public enum SexPositionType {
 												SexActionPresets.tentacleToUpperTorso,
 												SexActionPresets.vaginaToMouth,
 												SexActionPresets.assToMouth,
-												SexActionPresets.penisToMouth))))),
+												SexActionPresets.penisToMouth,
+												SexActionPresets.penisToBreasts))))),
 					new Value<>(
 							SexPositionSlot.SIXTY_NINE_BOTTOM,
 							Util.newHashMapOfValues(
@@ -389,7 +407,8 @@ public enum SexPositionType {
 											SexActionPresets.tentacleToUpperTorso,
 											SexActionPresets.vaginaToMouth,
 											SexActionPresets.assToMouth,
-											SexActionPresets.penisToMouth))))))) {
+											SexActionPresets.penisToMouth,
+											SexActionPresets.penisToBreasts))))))) {
 		@Override
 		public String getDescription() {
 			return UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.SIXTY_NINE_TOP), Sex.getCharacterInPosition(SexPositionSlot.SIXTY_NINE_BOTTOM),
@@ -488,45 +507,9 @@ public enum SexPositionType {
 					"[npc.NameIsFull] standing face-to-face with [npc2.name].");
 		}
 	},
-	
-	MASTURBATION("Kneeling",
-			true,
-			false,
-			Util.newArrayListOfValues(Masturbation.class), Util.newHashMapOfValues(
-					new Value<>(
-							SexPositionSlot.MASTURBATING_KNEELING,
-							Util.newHashMapOfValues(
-							new Value<>(
-									SexPositionSlot.MASTURBATING_KNEELING,
-									new SexActionInteractions(
-											null)))))) {
-		@Override
-		public String getDescription() {
-			return UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.MASTURBATING_KNEELING),
-					"[npc.NameIs] kneeling on the floor, ready to masturbate.");
-		}
-	},
-	
-	PANTY_MASTURBATION("Kneeling",
-			true,
-			false,
-			Util.newArrayListOfValues(MasturbationPanties.class), Util.newHashMapOfValues(
-					new Value<>(
-							SexPositionSlot.MASTURBATING_KNEELING,
-							Util.newHashMapOfValues(
-							new Value<>(
-									SexPositionSlot.MASTURBATING_KNEELING,
-									new SexActionInteractions(
-											null)))))) {
-		@Override
-		public String getDescription() {
-			return UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.MASTURBATING_KNEELING),
-					"[npc.NameIs] kneeling on the floor, ready to masturbate with the panties clenched in [npc.her] [npc.hand].");
-		}
-	},
-	
+
 	CHAIR_SEX("Chair sex",
-			false,
+			true,
 			false,
 			Util.newArrayListOfValues(ChairSex.class), Util.newHashMapOfValues(
 					new Value<>(
@@ -537,8 +520,9 @@ public enum SexPositionType {
 									new SexActionInteractions(
 											Util.mergeMaps(
 													SexActionPresets.appendagesToAllAreas,
-													SexActionPresets.groinToGroin,
-													SexActionPresets.groinToAss,
+													SexActionPresets.vaginaToPenis,
+													SexActionPresets.assToPenis,
+													SexActionPresets.penisToPenis,
 													SexActionPresets.kissing,
 													SexActionPresets.mouthToBreasts,
 													SexActionPresets.breastsToMouth))))),
@@ -579,11 +563,48 @@ public enum SexPositionType {
 											SexActionPresets.tentacleToUpperTorso,
 											SexActionPresets.vaginaToMouth,
 											SexActionPresets.penisToMouth,
-											SexActionPresets.penisToBreasts))))))) {
+											SexActionPresets.penisToBreasts,
+											SexActionPresets.assToMouth))))))) {
 		@Override
 		public String getDescription() {
 			return UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.CHAIR_KNEELING), Sex.getCharacterInPosition(SexPositionSlot.CHAIR_ORAL_SITTING),
 					"[npc2.NameIs] sitting down on the chair, looking down at [npc.name] as [npc.she] [npc.verb(kneel)] before [npc2.herHim], ready to perform oral.");
+		}
+	},
+	
+	MASTURBATION("Kneeling",
+			true,
+			false,
+			Util.newArrayListOfValues(Masturbation.class), Util.newHashMapOfValues(
+					new Value<>(
+							SexPositionSlot.MASTURBATING_KNEELING,
+							Util.newHashMapOfValues(
+							new Value<>(
+									SexPositionSlot.MASTURBATING_KNEELING,
+									new SexActionInteractions(
+											null)))))) {
+		@Override
+		public String getDescription() {
+			return UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.MASTURBATING_KNEELING),
+					"[npc.NameIs] kneeling on the floor, ready to masturbate.");
+		}
+	},
+	
+	PANTY_MASTURBATION("Kneeling",
+			true,
+			false,
+			Util.newArrayListOfValues(MasturbationPanties.class), Util.newHashMapOfValues(
+					new Value<>(
+							SexPositionSlot.MASTURBATING_KNEELING,
+							Util.newHashMapOfValues(
+							new Value<>(
+									SexPositionSlot.MASTURBATING_KNEELING,
+									new SexActionInteractions(
+											null)))))) {
+		@Override
+		public String getDescription() {
+			return UtilText.parse(Sex.getCharacterInPosition(SexPositionSlot.MASTURBATING_KNEELING),
+					"[npc.NameIs] kneeling on the floor, ready to masturbate with the panties clenched in [npc.her] [npc.hand].");
 		}
 	},
 	
@@ -1119,7 +1140,7 @@ public enum SexPositionType {
 							SexPositionSlot.BREEDING_STALL_FUCKING,
 							Util.newHashMapOfValues(
 							new Value<>(
-									SexPositionSlot.BREEDING_STALL_FRONT,
+									SexPositionSlot.BREEDING_STALL_BACK,
 									new SexActionInteractions(
 											Util.mergeMaps(
 													SexActionPresets.appendagesToLowerHalf,
@@ -1173,16 +1194,36 @@ public enum SexPositionType {
 	public abstract String getDescription();
 	
 	public boolean isActionBlocked(GameCharacter performer, GameCharacter target, SexActionInterface action) {
-		if(action.getSexAreaInteractions().containsKey(SexAreaPenetration.PENIS)
-				&& Sex.getOngoingActionsMap(target).containsKey(SexAreaPenetration.PENIS)
-				&& Sex.getOngoingActionsMap(target).get(SexAreaPenetration.PENIS).containsKey(performer)) {
-			return true;
+		if(action.getActionType()==SexActionType.START_ONGOING) {
+			// Block penis+non-appendage actions if target's penis is already in use:
+			if(action.getSexAreaInteractions().containsValue(SexAreaPenetration.PENIS)) {
+				if(Collections.disjoint(action.getSexAreaInteractions().values(), SexActionPresets.appendageAreas)
+						&& Sex.getOngoingActionsMap(target).containsKey(SexAreaPenetration.PENIS)
+						&& Sex.getOngoingActionsMap(target).get(SexAreaPenetration.PENIS).containsKey(performer)) {
+					return true;
+				}
+				if(Collections.disjoint(action.getSexAreaInteractions().keySet(), SexActionPresets.appendageAreas)
+						&& Sex.getOngoingActionsMap(performer).containsKey(SexAreaPenetration.PENIS)
+						&& Sex.getOngoingActionsMap(performer).get(SexAreaPenetration.PENIS).containsKey(target)) {
+					return true;
+				}
+			}
+			
+			// Block oral + groin actions if there is any groin action going on:
+			if(this!=SexPositionType.SIXTY_NINE
+					&& ((!Collections.disjoint(action.getSexAreaInteractions().keySet(), SexActionPresets.groinAreas)
+					&& !Collections.disjoint(action.getSexAreaInteractions().values(), SexActionPresets.mouthAreas))
+					|| (!Collections.disjoint(action.getSexAreaInteractions().values(), SexActionPresets.groinAreas)
+						&& !Collections.disjoint(action.getSexAreaInteractions().keySet(), SexActionPresets.mouthAreas)))) {
+				for(SexAreaInterface sArea : SexActionPresets.groinAreas) {
+					if((Sex.getOngoingActionsMap(target).containsKey(sArea) && Sex.getOngoingActionsMap(target).get(sArea).containsKey(performer))
+							|| Sex.getOngoingActionsMap(performer).containsKey(sArea) && Sex.getOngoingActionsMap(performer).get(sArea).containsKey(target)) {
+						return true;
+					}
+				}
+			}
 		}
-		if(action.getSexAreaInteractions().containsValue(SexAreaPenetration.PENIS)
-				&& Sex.getOngoingActionsMap(performer).containsKey(SexAreaPenetration.PENIS)
-				&& Sex.getOngoingActionsMap(performer).get(SexAreaPenetration.PENIS).containsKey(target)) {
-			return true;
-		}
+		
 		return false;
 	}
 	

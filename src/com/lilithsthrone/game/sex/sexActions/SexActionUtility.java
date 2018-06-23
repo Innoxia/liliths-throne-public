@@ -28,7 +28,7 @@ public class SexActionUtility {
 			ArousalIncrease.ZERO_NONE,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.NORMAL) {
 		@Override
 		public SexActionLimitation getLimitation() {
 			return SexActionLimitation.PLAYER_ONLY;
@@ -93,7 +93,7 @@ public class SexActionUtility {
 			ArousalIncrease.ZERO_NONE,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.NORMAL) {
 		@Override
 		public SexActionLimitation getLimitation() {
 			return SexActionLimitation.PLAYER_ONLY;
@@ -158,7 +158,7 @@ public class SexActionUtility {
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.NORMAL) {
 		@Override
 		public SexActionLimitation getLimitation() {
 			return SexActionLimitation.NPC_ONLY;
@@ -179,42 +179,13 @@ public class SexActionUtility {
 		}
 	};
 	
-//	public static final SexAction PARTNER_ORGASM_MUTUAL_WAIT = new SexAction(
-//			SexActionType.ONGOING,
-//			ArousalIncrease.ONE_MINIMUM,
-//			ArousalIncrease.ONE_MINIMUM,
-//			CorruptionLevel.ZERO_PURE,
-//			null,
-//			null,
-//			SexParticipantType.MISC) {
-//		@Override
-//		public boolean isOnlyForNPC() {
-//			return true;
-//		}
-//		@Override
-//		public String getActionTitle() {
-//			return "";
-//		}
-//
-//		@Override
-//		public String getActionDescription() {
-//			return "";
-//		}
-//
-//		@Override
-//		public String getDescription() {
-//			return "From the [npc.moans+] emanating from [npc.name]'s mouth, it's quite obvious that [npc.she]'s about to reach [npc.her] climax."
-//					+ " As you're also close to reaching your orgasm, you will both climax at the same time!";
-//		}
-//	};
-	
 	public static final SexAction PARTNER_ORGASM_SKIP = new SexAction(
 			SexActionType.ONGOING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.SELF) {
 		@Override
 		public SexActionLimitation getLimitation() {
 			return SexActionLimitation.NPC_ONLY;
@@ -241,7 +212,7 @@ public class SexActionUtility {
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.SELF) {
 		@Override
 		public SexActionLimitation getLimitation() {
 			return SexActionLimitation.PLAYER_ONLY;
@@ -269,7 +240,7 @@ public class SexActionUtility {
 			ArousalIncrease.ZERO_NONE,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.SELF) {
 		@Override
 		public SexActionLimitation getLimitation() {
 			return SexActionLimitation.PLAYER_ONLY;
@@ -296,7 +267,7 @@ public class SexActionUtility {
 			ArousalIncrease.ZERO_NONE,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.SELF) {
 		@Override
 		public SexActionLimitation getLimitation() {
 			return SexActionLimitation.PLAYER_ONLY;
@@ -323,7 +294,7 @@ public class SexActionUtility {
 			ArousalIncrease.NEGATIVE,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.NORMAL) {
 		@Override
 		public SexActionLimitation getLimitation() {
 			return SexActionLimitation.PLAYER_ONLY;

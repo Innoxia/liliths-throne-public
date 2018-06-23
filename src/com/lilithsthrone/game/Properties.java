@@ -489,6 +489,9 @@ public class Properties implements Serializable {
 						values.add(PropertyValue.futanariTesticles);
 						values.add(PropertyValue.cumRegenerationContent);
 					}
+					if(Main.isVersionOlderThan(versionNumber, "0.2.7.6")) {
+						values.add(PropertyValue.ageContent);
+					}
 					for(int i=0; i < element.getElementsByTagName("propertyValue").getLength(); i++){
 						Element e = (Element) element.getElementsByTagName("propertyValue").item(i);
 						

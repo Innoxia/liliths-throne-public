@@ -26,7 +26,7 @@ public class ChairSex {
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.NORMAL) {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -68,7 +68,7 @@ public class ChairSex {
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.NORMAL) {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -110,7 +110,7 @@ public class ChairSex {
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.NORMAL) {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -152,7 +152,7 @@ public class ChairSex {
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.NORMAL) {
 
 		@Override
 		public boolean isBaseRequirementsMet() {

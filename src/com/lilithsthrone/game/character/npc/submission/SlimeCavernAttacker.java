@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.npc.submission;
 
+import java.time.Month;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -58,7 +59,9 @@ public class SlimeCavernAttacker extends NPC {
 	}
 	
 	public SlimeCavernAttacker(Gender gender, boolean isImported) {
-		super(null, "", 3, gender, RacialBody.HUMAN, RaceStage.HUMAN,
+		super(null, "",
+				Util.random.nextInt(9)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
+				3, gender, RacialBody.HUMAN, RaceStage.HUMAN,
 				new CharacterInventory(10), WorldType.BAT_CAVERNS, PlaceType.BAT_CAVERN_DARK, false);
 
 		if(!isImported) {

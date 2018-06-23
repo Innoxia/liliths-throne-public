@@ -32,92 +32,86 @@
 		Wing bindings
 	
 	
+	
+	
 	Patch notes:
 	
-	Engine:
-		Finished work on sex action code to fully support NPC-on-NPC actions.
-		Added support for clit-fucking (when a clit is large enough to act as a pseudo-cock) and foot-related sex actions. (The actions will be added very soon!)
-		Added support for tentacles. (The actions will be added when tentacle TFs are added, which will be a little later on.)
-		
 	Gameplay:
-		Added modifiers and girth for clitoris, with associated TFs.
-		Added oral position for chair sex.
-		Changed Broodmother and Seeder fetishes to be perks instead.
-		Added 'Face Sitting' as a generic position in sex scenes.
-		Added hoofed legs as a TF option for demons, with a 25% chance for demon NPCs to spawn in with hoofs.
-		Added 'zebra' as an equine subspecies, with a 'zebra tail' type.
-		Converted Kate's and Lilaya's very old chair sex scene format. (I will add the old chair-specific descriptions to sex actions as I convert them to NPC-on-NPC format.)
-		Added milk and cum regeneration enchantments for clothing.
-		Added foot fetishes. (Only Amber's scenes have foot-related actions at the moment, but I will be adding foot actions very soon!)
-		
-	Contributions:
-		Cleaned EnchantingUtils getCost method. (Pimgd)
-		Added penis-related fetishes. (Rfpnj)
-		
-	Norin's Clothing Contribution:
-		Added: Anal beads (anus slot, sold by Finch).
-		Added: Clover clamps (nipple slot, BDSM set, sold by Finch).
-		Added: Realistic dildo (vagina slot, sold by Finch).
-		Added: Bat-wing barbells (nipple-piercing slot, sold by Kate).
-		Added: Heart barbells (nipple-piercing slot, sold by Kate).
-		Added: 'Caution-When-Wet' piercing (navel slot, sold by Kate).
-		Added: Tail ribbon (tail slot, sold by Nyan).
-		
-	Clothing:
-		Added: Butt plug (anus slot, sold by Finch).
-		Added: Jewelled butt plug (anus slot, sold by Finch).
-		Added: Jewelled-heart butt plug (anus slot, sold by Finch).
-		Added: Tail butt plug (anal slot, sold by Finch).
-		Added: Insertable dildo (vagina slot, sold by Finch).
-		
-	Sex AI:
-		Fixed issue where NPCs would sometimes perform actions that they didn't like.
-		Fixed NPCs never starting oral, even if they wanted to, if they still had their oral virginity.
-		NPCs will now prefer to penetrate using their penis rather than their tail.
-		NPCs should now be preferring to penetrate their partner before themselves.
-		
+		Finch now has a chance to stock (already-identified) enchanted items, and Roxy stocks 10 unidentified pieces of clothing. You will need to wait until they re-stock (at midnight) to see their new items for sale.
+		Added penis and foot fetishes to clothing and mystery kink enchantments.
+		Added 'appears as age' stat to characters, which is displayed in their description, along with age selection in character creation. (If you want to edit the age of your already-existing character, first save the game in this new version, then open the save file and search for/edit the 'yearOfBirth' field. The game converts any ages lower than 18 to 18.)
+		Added content option to disable ages being displayed.
+		Added tattoo selection to character creation.
+		Increased impregnation chance (formula's /4 modifier was reduced to /3).
+	
+	Contributors:
+		Fixed typos in some sex positions. (Nnxx)
+	
 	Other:
-		Updated credits page.
-		Having a sheathed penis will now conceal your cock bulge from gender detection up to 16 inches. Non-sheathed penis bulge is visible at 8 inches.
-		Added freckles as a pattern for demon skin.
-		Added description of wing colour to selfie.
-		The chemise no longer blocks groin areas.
-		Companions and companions' elementals no longer have their level affected by difficulty settings. (Making the higher difficulty levels harder.)
-		You can now see what your partner in sex is wanting (under the 'Desires' status effect description).
-		Removed tooltips from enchanting 'Limit' and 'Potency' buttons. (They were just repeating the button text and getting in the way.)
-		
+		Moved some modded clothing/tattoo files over into new 'clothing' and 'tattoos' directories, to help distinguish between default LT files and mods that you've downloaded.
+		Slime subspecies (such as slime-cat-morphs, slime-horse-morphs, etc.) now respect your furry settings of the derived race. i.e. If you have horse-morphs disabled, no slime-horse-morphs will spawn.
+		Added description of foot structure to leg types.
+	
+	Sex AI:
+		Fixed NPCs choosing 'Doggystyle (oral)' position when they wanted to have penetrative sex.
+		Fixed some sex actions not having correctly-associated fetishes, which was causing the AI to use actions they disliked/hated.
+		Fixed issue where NPCs would continuously start penetrating then stop over and over.
+	
 	Bugs:
-		Fixed issue with map rendering incorrectly when zoomed out.
-		Fixed game sometimes incorrectly scrolling back up to the top of dialogue.
-		Fixed 'Stroke cock' actions not showing up in sex scenes.
-		Fixed some incorrect sex action availability.
-		Typo and parsing fixes.
-		NPCs will no longer spawn wearing leg clothing with dresses.
-		AI in sex will now correctly use actions based on their preferences (this bug was affecting cultists not respecting your 'Offer pussy' or 'Offer ass' choice).
-		Fixed issue where slimes were always spawning in with human-shaped bodies. (They can now spawn as slimes of any morph type.)
-		Fixed clothing pattern colours not being saved/loaded.
-		Fixed Lilaya asking you to pull out so as to not get pregnant when she was already pregnant.
-		Fixed limb description in selfie not taking into account body shape.
-		Fixed issue with covering patterns not working (which was causing the only patterns for hair to be plain or ombre).
-		Cum expulsion enchantment is now correctly free when you have the Water school passive.
-		Fixed incorrect penile virginity loss text.
-		Fixed formatting bug where periods would sometimes incorrectly carry over to the next line.
-		Fixed some instances of 'Submit' not having a corruption bypass.
-		Fixed another issue with companions' elementals not being dismissed properly.
-		Fixed issue of starting a new game as an exported slave identifying you as owning yourself.
-		Fixed deny orgasm action not working correctly, and added the denial fetishes as associated fetishes.
-		Fixed Brax always resisting in submissive sex.
-		Fixed offspring referring to you as their mother when you first greet them, even if you were the father.
-		Fixed NPCs reacting as though they knew you had a penis even if you were showing no bulge.
-		Fixed special attack descriptions returning incorrect target text.
-		Improved modded clothing load fail error messages.
-		Fixed nipple and urethra penetration actions not working.
+		Fixed parsing error when viewing NPC with demon wings.
+		Fixed bug where ellipsis wouldn't display correctly.
+		Fixed NullPointerException issue which was sometimes occurring in sex scenes. 
+		Fixed Lilaya and Kate constantly switching positions in sex.
+		Fixed no actions being available in the chair sex scenes.
+		Fixed panty masturbation scene not working.
+		Fixed incorrect arousal gains in masturbation. (They were far too small before.)
+		Fixed error in conditional parser that was causing some sections of text to sometimes not be rendered.
+		Fixed another error in conditional parsing that was causing some dialogue to return 'Error in conditional parsing!'.
+		Fixed pregnancy roulette being broken for 'On back' positions, and for playing as one of the breeders not working.
+		Fixed bug in sex where your partner would use the 'Stop position switch' action every turn.
+		Fixed characters without a penis spawning in with the cock stud fetish.
+		Added paizuri to sixty-nine position.
+		Fixed some sex actions being incorrectly blocked (such as masturbating while giving someone a blowjob).
+		Made 'groin + mouth' actions blocked while there is any ongoing groin + area action (to stop impossible actions like receiving cunnilingus while performing paizuri in non-69 positions).
+		Fixed foot and penis fetish teases working effectively against the wrong fetish type.
+		Slave-on-slave sex events should now fire if the slaves are idle (in the same room, or with 'house freedom' permission set). Slaves will not initiate penetrative sex if their vagina is virginal.
+		Fixed cum regeneration being labelled as 'milk regeneration'.
+		For cowgirl: Added anal actions, fixed paizuri being available for the wrong person, and removed performing thigh sex on the one lying down.
+		Removed giving blowjob from doggy-style oral position.
+		Fixed slaves being able to be sent to Kate even if you hadn't encountered her.
+		Fixed bug where most characters were spawning with their penile virginity. (It's now a 15% chance for them to spawn as penile virgins.)
+		Fixed clothing type encyclopedia unlock events using custom names.
+		Naming enchanted tattoos now works correctly.
 	
 	
+	
+	
+	
+	spawning with clothing revealing ass
+	
+	Add to character creation:
+		Scars
+	
+	Exhibitionist slaves lose affection if you ask them to show themselves off for you and are pissy about it
 	
 	AI
 		add behaviour for them not listening based on if they have impregnation fetish soon
-		Penetrating then stop over and over
+		Add orgasm forcing
+	
+	NPCs need to remember areas
+	
+	Need cum to store:
+		children fathered
+		virility
+		body type
+		
+		
+	add in child spawns in the bat caverns 
+		
+	Fix spells not doing damage from max lust
+	
+	Add crowd indication
+	
 	
 	Sort sex actions
 	
@@ -129,10 +123,7 @@
 	
 	ongoing handjobs
 	
-	
-	
 	Rental daddy
-	
 	
 	
 	body materials
@@ -147,21 +138,13 @@
 	denial
 	or the lipples performing exactly the same as any other hole
 	
-	
 	[ ] Sort Colour lists
-	
-	[ ] Clothing for different slots (add plugs & ribbons)
-	
-	[ ] Scars and tattoos to character creation
 	
 	[ ] Add bat racial effect descriptions - chatty. Add echolocation special attack (boost crits)
 	
 	[ ] Pictures, descriptions, and disclaimer
 	
 	[ ] Submission Rat-morphs & Alligator-morphs - Just want to mug you
-	
-	
-	[ ] Add interactions to sex position
 	
 	[ ] Sex action modding
 	

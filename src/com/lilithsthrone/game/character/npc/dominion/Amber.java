@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
+import java.time.Month;
 import java.util.List;
 
 import org.w3c.dom.Document;
@@ -79,6 +80,7 @@ public class Amber extends NPC {
 	public Amber(boolean isImported) {
 		super(new NameTriplet("Amber"),
 				"The highest-ranking of Zaranix's maids, Amber is clearly outraged by the fact that you're wandering around her master's house unsupervised.",
+				39, Month.OCTOBER, 17,
 				12, Gender.F_P_V_B_FUTANARI, RacialBody.DEMON, RaceStage.GREATER, new CharacterInventory(10), WorldType.ZARANIX_HOUSE_GROUND_FLOOR, PlaceType.ZARANIX_GF_LOUNGE, true);
 		
 		this.setPersonality(Util.newHashMapOfValues(
@@ -193,6 +195,11 @@ public class Amber extends NPC {
 	@Override
 	public boolean isUnique() {
 		return true;
+	}
+	
+	@Override
+	public int getAppearsAsAge() {
+		return 28;
 	}
 	
 	@Override

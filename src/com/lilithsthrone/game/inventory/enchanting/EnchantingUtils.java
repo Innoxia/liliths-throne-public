@@ -78,6 +78,7 @@ public class EnchantingUtils {
 	public static void craftTattoo(AbstractCoreItem ingredient, List<ItemEffect> effects) {
 		List<ItemEffect> effectsToBeAdded = new ArrayList<>(effects);
 		((Tattoo)ingredient).setEffects(effectsToBeAdded);
+		((Tattoo)ingredient).setName(EnchantmentDialogue.getOutputName());
 	}
 	
 	public static String getPotionName(AbstractCoreItem ingredient, List<ItemEffect> effects) {

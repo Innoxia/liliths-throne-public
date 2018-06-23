@@ -1401,7 +1401,7 @@ public enum StatusEffect {
 						+ "<p>"
 							+ "Just as it seems as though the entire capital is about to grind to a halt, the faint jingle of bells heralds the arrival of the city's saviours."
 							+ " Travelling a great distance from their frozen tundra homeland, a host of reindeer-morphs descends upon Dominion."
-							+ " Their large, cloven hooves allow them to traverse the snow-bound streets with incredible ease, and they quickly split up into numerous snow-shovelling groups,"
+							+ " Their large, cloven hoofs allow them to traverse the snow-bound streets with incredible ease, and they quickly split up into numerous snow-shovelling groups,"
 								+ " before setting off into different areas of the city."
 							+ " Under the guidance of particularly large, muscular individuals, the reindeer-morphs quickly set about clearing a path through the snow."
 						+ "</p>"
@@ -2485,15 +2485,6 @@ public enum StatusEffect {
 
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
-			// NPCs randomly clean themselves:
-			if(!target.isPlayer() && !target.isSlave()) {
-				if(Math.random()<minutesPassed*0.05f) {
-					for (AbstractClothing c : target.getClothingCurrentlyEquipped()) {
-						c.setDirty(false);
-					}
-				}
-			}
-			
 			return "";
 		}
 
@@ -2503,7 +2494,8 @@ public enum StatusEffect {
 				return "Some of your clothes have been covered in cum, milk or other sexual fluids."
 						+ " You find yourself incredibly embarrassed to be walking around in such filthy clothing.";
 			else
-				return "Some of "+target.getName("the")+"'s clothes have been covered in cum, milk or other sexual fluids.";
+				return "Some of "+target.getName("the")+"'s clothes have been covered in cum, milk or other sexual fluids."
+						+ " [npc.She]'s feeling incredibly embarrassed to be walking around in such filthy clothing.";
 		}
 
 		@Override
@@ -2530,15 +2522,6 @@ public enum StatusEffect {
 
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
-			// NPCs randomly clean themselves:
-			if(!target.isPlayer() && !target.isSlave()) {
-				if(Math.random()<minutesPassed*0.05f) {
-					for (AbstractClothing c : target.getClothingCurrentlyEquipped()) {
-						c.setDirty(false);
-					}
-				}
-			}
-			
 			return "";
 		}
 
@@ -2577,13 +2560,6 @@ public enum StatusEffect {
 
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
-			// NPCs randomly clean themselves:
-			if(!target.isPlayer() && !target.isSlave()) {
-				if(Math.random()<minutesPassed*0.05f) {
-					target.cleanAllDirtySlots();
-				}
-			}
-			
 			List<InventorySlot> slotsToClean = new ArrayList<>();
 			StringBuilder sb = new StringBuilder();
 			for(AbstractClothing clothing : target.getClothingCurrentlyEquipped()) {
@@ -2632,7 +2608,7 @@ public enum StatusEffect {
 						+ " You find yourself incredibly embarrassed to be walking around in such a filthy state.";
 			} else {
 				return UtilText.parse(target, "Some parts of [npc.name]'s body have been covered in cum, milk or other sexual fluids."
-						+ " [npc.She]'s feeling incredibly turned on to be walking around in such a filthy state.");
+						+ " [npc.She]'s feeling incredibly embarrassed to be walking around in such a filthy state.");
 			}
 		}
 

@@ -207,9 +207,9 @@ public abstract class SexAction implements SexActionInterface {
 				}
 			}
 			
-			if(this.getParticipantType()==SexParticipantType.SELF && !characterPerformingActionFetishes) { // If this is a self action, do not apply fetishes to other partner.
-				return new ArrayList<>(characterFetishesForPartner.get(characterPerformingAction));
-			}
+//			if(this.getParticipantType()==SexParticipantType.SELF && !characterPerformingActionFetishes) { // If this is a self action, do not apply fetishes to other partner.
+//				return new ArrayList<>(characterFetishesForPartner.get(characterPerformingAction));
+//			}
 			
 			if(this.getParticipantType()!=SexParticipantType.SELF && characterPerformingAction.isRelatedTo(characterTarget)) {
 				characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_INCEST);
@@ -435,8 +435,7 @@ public abstract class SexAction implements SexActionInterface {
 			}
 			
 			for(Entry<SexAreaInterface, SexAreaInterface> entry : this.getSexAreaInteractions().entrySet()) {
-				if(this.getActionType()!=SexActionType.STOP_ONGOING
-						&& this.getParticipantType()!=SexParticipantType.MISC) {
+				if(this.getActionType()!=SexActionType.STOP_ONGOING) {
 					if(characterPerformingActionFetishes) {
 						if(this.getParticipantType()==SexParticipantType.SELF) {
 							characterFetishes.get(characterPerformingAction).addAll(

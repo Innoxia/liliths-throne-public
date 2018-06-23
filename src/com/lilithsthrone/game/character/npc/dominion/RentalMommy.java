@@ -1,5 +1,7 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
+import java.time.Month;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -60,7 +62,9 @@ public class RentalMommy extends NPC {
 	
 	public RentalMommy(boolean isImported) {
 		super(new NameTriplet("Mommy"),
-				"'Mommy' earns a living by renting herself out to those in need of some motherly love.", 10, Gender.F_V_B_FEMALE, RacialBody.COW_MORPH, RaceStage.PARTIAL,
+				"'Mommy' earns a living by renting herself out to those in need of some motherly love.",
+				45, Month.JULY, 3,
+				10, Gender.F_V_B_FEMALE, RacialBody.COW_MORPH, RaceStage.PARTIAL,
 				new CharacterInventory(10), WorldType.DOMINION, PlaceType.DOMINION_BOULEVARD, false);
 
 		if(!isImported) {

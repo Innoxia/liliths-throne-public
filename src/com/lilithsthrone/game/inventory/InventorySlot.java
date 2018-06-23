@@ -298,26 +298,26 @@ public enum InventorySlot {
 		
 		if (character.getLegType() == LegType.HORSE_MORPH && this == InventorySlot.FOOT) {
 			if(character.isPlayer())
-				return "Your horse-like hooves prevent you from wearing footwear of any kind!";
+				return "Your horse-like hoofs prevent you from wearing footwear of any kind!";
 			else
 				return UtilText.parse(character,
-						"[npc.Name]'s horse-like hooves prevent [npc.herHim] from wearing footwear of any kind!");
+						"[npc.Name]'s horse-like hoofs prevent [npc.herHim] from wearing footwear of any kind!");
 		}
 		
 		if (character.getLegType() == LegType.REINDEER_MORPH && this == InventorySlot.FOOT) {
 			if(character.isPlayer())
-				return "Your reindeer-like hooves prevent you from wearing footwear of any kind!";
+				return "Your reindeer-like hoofs prevent you from wearing footwear of any kind!";
 			else
 				return UtilText.parse(character,
-						"[npc.Name]'s reindeer-like hooves prevent [npc.herHim] from wearing footwear of any kind!");
+						"[npc.Name]'s reindeer-like hoofs prevent [npc.herHim] from wearing footwear of any kind!");
 		}
 		
 		if (character.getLegType() == LegType.COW_MORPH && this == InventorySlot.FOOT) {
 			if(character.isPlayer())
-				return "Your cow-like hooves prevent you from wearing footwear of any kind!";
+				return "Your cow-like hoofs prevent you from wearing footwear of any kind!";
 			else
 				return UtilText.parse(character,
-						"[npc.Name]'s cow-like hooves prevent [npc.herHim] from wearing footwear of any kind!");
+						"[npc.Name]'s cow-like hoofs prevent [npc.herHim] from wearing footwear of any kind!");
 		}
 		
 		if (character.getLegType() == LegType.HARPY && this == InventorySlot.FOOT) {

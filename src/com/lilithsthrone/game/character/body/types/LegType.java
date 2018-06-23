@@ -17,43 +17,46 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
  */
 public enum LegType implements BodyPartTypeInterface {
 
-	HUMAN(BodyCoveringType.HUMAN, Race.HUMAN),
+	HUMAN(FootStructure.PLANTIGRADE, BodyCoveringType.HUMAN, Race.HUMAN),
 
-	ANGEL(BodyCoveringType.ANGEL, Race.ANGEL),
+	ANGEL(FootStructure.PLANTIGRADE, BodyCoveringType.ANGEL, Race.ANGEL),
 
-	COW_MORPH(BodyCoveringType.BOVINE_FUR, Race.COW_MORPH),
+	COW_MORPH(FootStructure.UNGULIGRADE, BodyCoveringType.BOVINE_FUR, Race.COW_MORPH),
 	
-	DEMON_COMMON(BodyCoveringType.DEMON_COMMON, Race.DEMON),
-	DEMON_HOOFED(BodyCoveringType.DEMON_COMMON, Race.DEMON),
+	DEMON_COMMON(FootStructure.PLANTIGRADE, BodyCoveringType.DEMON_COMMON, Race.DEMON),
+	DEMON_HOOFED(FootStructure.UNGULIGRADE, BodyCoveringType.DEMON_COMMON, Race.DEMON),
 	
-	IMP(BodyCoveringType.IMP, Race.IMP),
+	IMP(FootStructure.PLANTIGRADE, BodyCoveringType.IMP, Race.IMP),
 
-	DOG_MORPH(BodyCoveringType.CANINE_FUR, Race.DOG_MORPH),
+	DOG_MORPH(FootStructure.DIGITIGRADE, BodyCoveringType.CANINE_FUR, Race.DOG_MORPH),
 	
-	LYCAN(BodyCoveringType.LYCAN_FUR, Race.WOLF_MORPH),
+	LYCAN(FootStructure.DIGITIGRADE, BodyCoveringType.LYCAN_FUR, Race.WOLF_MORPH),
 
-	SQUIRREL_MORPH(BodyCoveringType.SQUIRREL_FUR, Race.SQUIRREL_MORPH),
+	SQUIRREL_MORPH(FootStructure.DIGITIGRADE, BodyCoveringType.SQUIRREL_FUR, Race.SQUIRREL_MORPH),
 
-	RAT_MORPH(BodyCoveringType.RAT_FUR, Race.RAT_MORPH),
+	RAT_MORPH(FootStructure.DIGITIGRADE, BodyCoveringType.RAT_FUR, Race.RAT_MORPH),
 	
-	RABBIT_MORPH(BodyCoveringType.RABBIT_FUR, Race.RABBIT_MORPH),
+	RABBIT_MORPH(FootStructure.DIGITIGRADE, BodyCoveringType.RABBIT_FUR, Race.RABBIT_MORPH),
 
-	BAT_MORPH(BodyCoveringType.BAT_FUR, Race.BAT_MORPH),
+	BAT_MORPH(FootStructure.DIGITIGRADE, BodyCoveringType.BAT_FUR, Race.BAT_MORPH),
 	
-	CAT_MORPH(BodyCoveringType.FELINE_FUR, Race.CAT_MORPH),
+	CAT_MORPH(FootStructure.DIGITIGRADE, BodyCoveringType.FELINE_FUR, Race.CAT_MORPH),
 
-	ALLIGATOR_MORPH(BodyCoveringType.ALLIGATOR_SCALES, Race.ALLIGATOR_MORPH),
+	ALLIGATOR_MORPH(FootStructure.PLANTIGRADE, BodyCoveringType.ALLIGATOR_SCALES, Race.ALLIGATOR_MORPH),
 	
-	HORSE_MORPH(BodyCoveringType.HORSE_HAIR, Race.HORSE_MORPH),
+	HORSE_MORPH(FootStructure.UNGULIGRADE, BodyCoveringType.HORSE_HAIR, Race.HORSE_MORPH),
 
-	REINDEER_MORPH(BodyCoveringType.REINDEER_FUR, Race.REINDEER_MORPH),
+	REINDEER_MORPH(FootStructure.UNGULIGRADE, BodyCoveringType.REINDEER_FUR, Race.REINDEER_MORPH),
 
-	HARPY( BodyCoveringType.FEATHERS, Race.HARPY);
-
+	HARPY(FootStructure.DIGITIGRADE, BodyCoveringType.FEATHERS, Race.HARPY);
+	
+	
+	private FootStructure defaultFootStructure;
 	private BodyCoveringType skinType;
 	private Race race;
 
-	private LegType(BodyCoveringType skinType, Race race) {
+	private LegType(FootStructure defaultFootStructure, BodyCoveringType skinType, Race race) {
+		this.defaultFootStructure = defaultFootStructure;
 		this.skinType = skinType;
 		this.race = race;
 	}
@@ -76,6 +79,10 @@ public enum LegType implements BodyPartTypeInterface {
 	@Override
 	public String getNamePlural(GameCharacter gc) {
 		return "legs";
+	}
+
+	public FootStructure getDefaultFootStructure() {
+		return defaultFootStructure;
 	}
 
 	@Override

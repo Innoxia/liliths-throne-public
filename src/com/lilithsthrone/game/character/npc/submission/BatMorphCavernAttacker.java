@@ -1,5 +1,7 @@
 package com.lilithsthrone.game.character.npc.submission;
 
+import java.time.Month;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -53,7 +55,9 @@ public class BatMorphCavernAttacker extends NPC {
 	}
 	
 	public BatMorphCavernAttacker(Gender gender, boolean isImported) {
-		super(null, "", 3, gender, RacialBody.BAT_MORPH, RaceStage.LESSER,
+		super(null, "",
+				Util.random.nextInt(9)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
+				3, gender, RacialBody.BAT_MORPH, RaceStage.LESSER,
 				new CharacterInventory(10), WorldType.BAT_CAVERNS, PlaceType.BAT_CAVERN_DARK, false);
 
 		if(!isImported) {

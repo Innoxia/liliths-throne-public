@@ -1,5 +1,7 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
+import java.time.Month;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -48,7 +50,9 @@ public class HarpyNestsAttacker extends NPC {
 	}
 	
 	public HarpyNestsAttacker(Gender gender, boolean isImported) {
-		super(null, "", 4, gender, RacialBody.HARPY, RaceStage.LESSER,
+		super(null, "",
+				Util.random.nextInt(9)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
+				4, gender, RacialBody.HARPY, RaceStage.LESSER,
 				new CharacterInventory(10), WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_WALKWAYS, false);
 
 		if(!isImported) {

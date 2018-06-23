@@ -1890,14 +1890,131 @@ public class MainControllerInitMethod {
 			// -------------------- Character Creation -------------------- //
 			
 			if(!Main.game.isInNewWorld()) {
-				for(Month month : Month.values()) {
-					id = "STARTING_MONTH_"+month;
+				if(Main.game.getCurrentDialogueNode().equals(CharacterCreation.CHOOSE_APPEARANCE)) {
+					for(Month month : Month.values()) {
+						id = "STARTING_MONTH_"+month;
+						if (((EventTarget) MainController.document.getElementById(id)) != null) {
+							((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+								Main.game.setStartingDateMonth(month);
+								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+							}, false);
+						}
+					}
+					
+					// Birth day:
+					id = "BIRTH_DAY_INCREASE";
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-							Main.game.setStartingDateMonth(month);
+							int age = Main.game.getPlayer().getAge();
+							Main.game.getPlayer().setBirthday(Main.game.getPlayer().getBirthday().plusDays(1));
+							CharacterModificationUtils.performPlayerAgeCheck(age);
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 						}, false);
 					}
+					id = "BIRTH_DAY_INCREASE_LARGE";
+					if (((EventTarget) MainController.document.getElementById(id)) != null) {
+						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+							int age = Main.game.getPlayer().getAge();
+							Main.game.getPlayer().setBirthday(Main.game.getPlayer().getBirthday().plusDays(5));
+							CharacterModificationUtils.performPlayerAgeCheck(age);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+					id = "BIRTH_DAY_DECREASE";
+					if (((EventTarget) MainController.document.getElementById(id)) != null) {
+						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+							int age = Main.game.getPlayer().getAge();
+							Main.game.getPlayer().setBirthday(Main.game.getPlayer().getBirthday().minusDays(1));
+							CharacterModificationUtils.performPlayerAgeCheck(age);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+					id = "BIRTH_DAY_DECREASE_LARGE";
+					if (((EventTarget) MainController.document.getElementById(id)) != null) {
+						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+							int age = Main.game.getPlayer().getAge();
+							Main.game.getPlayer().setBirthday(Main.game.getPlayer().getBirthday().minusDays(5));
+							CharacterModificationUtils.performPlayerAgeCheck(age);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+					
+					// Birth month:
+					id = "BIRTH_MONTH_INCREASE";
+					if (((EventTarget) MainController.document.getElementById(id)) != null) {
+						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+							int age = Main.game.getPlayer().getAge();
+							Main.game.getPlayer().setBirthday(Main.game.getPlayer().getBirthday().plusMonths(1));
+							CharacterModificationUtils.performPlayerAgeCheck(age);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+					id = "BIRTH_MONTH_INCREASE_LARGE";
+					if (((EventTarget) MainController.document.getElementById(id)) != null) {
+						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+							int age = Main.game.getPlayer().getAge();
+							Main.game.getPlayer().setBirthday(Main.game.getPlayer().getBirthday().plusMonths(5));
+							CharacterModificationUtils.performPlayerAgeCheck(age);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+					id = "BIRTH_MONTH_DECREASE";
+					if (((EventTarget) MainController.document.getElementById(id)) != null) {
+						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+							int age = Main.game.getPlayer().getAge();
+							Main.game.getPlayer().setBirthday(Main.game.getPlayer().getBirthday().minusMonths(1));
+							CharacterModificationUtils.performPlayerAgeCheck(age);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+					id = "BIRTH_MONTH_DECREASE_LARGE";
+					if (((EventTarget) MainController.document.getElementById(id)) != null) {
+						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+							int age = Main.game.getPlayer().getAge();
+							Main.game.getPlayer().setBirthday(Main.game.getPlayer().getBirthday().minusMonths(5));
+							CharacterModificationUtils.performPlayerAgeCheck(age);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+					
+					// Age:
+					id = "AGE_INCREASE";
+					if (((EventTarget) MainController.document.getElementById(id)) != null) {
+						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+							Main.game.getPlayer().setBirthday(Main.game.getPlayer().getBirthday().minusYears(1));
+							int age = Main.game.getPlayer().getAge();
+							CharacterModificationUtils.performPlayerAgeCheck(age);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+					id = "AGE_INCREASE_LARGE";
+					if (((EventTarget) MainController.document.getElementById(id)) != null) {
+						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+							Main.game.getPlayer().setBirthday(Main.game.getPlayer().getBirthday().minusYears(5));
+							int age = Main.game.getPlayer().getAge();
+							CharacterModificationUtils.performPlayerAgeCheck(age);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+					id = "AGE_DECREASE";
+					if (((EventTarget) MainController.document.getElementById(id)) != null) {
+						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+							Main.game.getPlayer().setBirthday(Main.game.getPlayer().getBirthday().plusYears(1));
+							int age = Main.game.getPlayer().getAge();
+							CharacterModificationUtils.performPlayerAgeCheck(age);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+					id = "AGE_DECREASE_LARGE";
+					if (((EventTarget) MainController.document.getElementById(id)) != null) {
+						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+							Main.game.getPlayer().setBirthday(Main.game.getPlayer().getBirthday().plusYears(5));
+							int age = Main.game.getPlayer().getAge();
+							CharacterModificationUtils.performPlayerAgeCheck(age);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+				
 				}
 				
 				
@@ -3390,7 +3507,8 @@ public class MainControllerInitMethod {
 			}
 			
 			if(Main.game.getCurrentDialogueNode()==SuccubisSecrets.SHOP_BEAUTY_SALON_TATTOOS
-					|| Main.game.getCurrentDialogueNode()==SlaveryManagementDialogue.SLAVE_MANAGEMENT_TATTOOS) {
+					|| Main.game.getCurrentDialogueNode()==SlaveryManagementDialogue.SLAVE_MANAGEMENT_TATTOOS
+					|| Main.game.getCurrentDialogueNode()==CharacterCreation.CHOOSE_ADVANCED_APPEARANCE_TATTOOS) {
 				for(InventorySlot invSlot : InventorySlot.getClothingSlots()) {
 					id = "TATTOO_INFO_"+invSlot.toString();
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
@@ -3411,9 +3529,11 @@ public class MainControllerInitMethod {
 						if(BodyChanging.getTarget().getTattooInSlot(invSlot)==null) {
 							((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 								Main.game.setContent(new Response("", "",
-										Main.game.getCurrentDialogueNode()==SuccubisSecrets.SHOP_BEAUTY_SALON_TATTOOS
-											?SuccubisSecrets.SHOP_BEAUTY_SALON_TATTOOS_ADD
-											:SlaveryManagementDialogue.SLAVE_MANAGEMENT_TATTOOS_ADD){
+										Main.game.isInNewWorld()
+											?(Main.game.getCurrentDialogueNode()==SuccubisSecrets.SHOP_BEAUTY_SALON_TATTOOS
+												?SuccubisSecrets.SHOP_BEAUTY_SALON_TATTOOS_ADD
+												:SlaveryManagementDialogue.SLAVE_MANAGEMENT_TATTOOS_ADD)
+											:CharacterCreation.CHOOSE_ADVANCED_APPEARANCE_TATTOOS_ADD){
 									@Override
 									public void effects() {
 										SuccubisSecrets.invSlotTattooToRemove = null;
@@ -3424,13 +3544,15 @@ public class MainControllerInitMethod {
 						
 						} else {
 							((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-								if(Main.game.getPlayer().getMoney()>=100) {
+								if(Main.game.getPlayer().getMoney()>=100 || !Main.game.isInNewWorld()) {
 									Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
 										@Override
 										public void effects() {
 											if(SuccubisSecrets.invSlotTattooToRemove == invSlot || !Main.getProperties().hasValue(PropertyValue.tattooRemovalConfirmations)) {
 												SuccubisSecrets.invSlotTattooToRemove = null;
-												Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().incrementMoney(-100)); //TODO Kate description
+												if(Main.game.isInNewWorld()) {
+													Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().incrementMoney(-100)); //TODO Kate description
+												}
 												BodyChanging.getTarget().removeTattoo(invSlot);
 											} else {
 												SuccubisSecrets.invSlotTattooToRemove = invSlot;
@@ -3443,10 +3565,12 @@ public class MainControllerInitMethod {
 							MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 							MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
 							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Remove tattoo",
-									Main.game.getPlayer().getMoney()>=100
+									Main.game.isInNewWorld()
+									?(Main.game.getPlayer().getMoney()>=100
 										?"It will cost "+UtilText.formatAsMoney(100, "span")+" to remove this tattoo!"
 												+ (!Main.getProperties().hasValue(PropertyValue.tattooRemovalConfirmations)?" (<i>You will need to click twice to remove it.</i>)":"")
-										:"You don't have the required "+UtilText.formatAsMoney(100, "span")+" to remove this tattoo!");
+										:"You don't have the required "+UtilText.formatAsMoney(100, "span")+" to remove this tattoo!")
+									:"Remove this tattoo. "+(!Main.getProperties().hasValue(PropertyValue.tattooRemovalConfirmations)?" (<i>You will need to click twice to remove it.</i>)":""));
 							MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 						}
 					}
@@ -3466,7 +3590,8 @@ public class MainControllerInitMethod {
 			}
 
 			if(Main.game.getCurrentDialogueNode()==SuccubisSecrets.SHOP_BEAUTY_SALON_TATTOOS_ADD
-					|| Main.game.getCurrentDialogueNode()==SlaveryManagementDialogue.SLAVE_MANAGEMENT_TATTOOS_ADD) {
+					|| Main.game.getCurrentDialogueNode()==SlaveryManagementDialogue.SLAVE_MANAGEMENT_TATTOOS_ADD
+					|| Main.game.getCurrentDialogueNode()==CharacterCreation.CHOOSE_ADVANCED_APPEARANCE_TATTOOS_ADD) {
 				id = "NEW_TATTOO_INFO";
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);

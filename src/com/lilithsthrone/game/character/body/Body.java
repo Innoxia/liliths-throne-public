@@ -15,6 +15,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.Litter;
@@ -1515,6 +1516,38 @@ public class Body implements Serializable, XMLSaving {
 								+ owner.getAppearsAsGenderDescription(true)
 								+ " Standing at full height, [npc.she] measures [npc.heightFeetInches] ([npc.heightCm]cm).");
 				}
+			}
+		}
+		if(Main.getProperties().hasValue(PropertyValue.ageContent)) {
+			if(owner.getAppearsAsAge()<20) {
+				sb.append(" [npc.She] [npc.verb(appear)] to be in [npc.her] <span style='color:"+Colour.AGE_TEENS.toWebHexString()+";'>late teens</span>.");
+				
+			} else if(owner.getAppearsAsAge()<=23) {
+				sb.append(" [npc.She] [npc.verb(appear)] to be in [npc.her] <span style='color:"+Colour.AGE_TWENTIES.toWebHexString()+";'>early twenties</span>.");
+				
+			} else if(owner.getAppearsAsAge()<=27) {
+				sb.append(" [npc.She] [npc.verb(appear)] to be in [npc.her] <span style='color:"+Colour.AGE_TWENTIES.toWebHexString()+";'>mid-twenties</span>.");
+				
+			} else if(owner.getAppearsAsAge()<30) {
+				sb.append(" [npc.She] [npc.verb(appear)] to be in [npc.her] <span style='color:"+Colour.AGE_TWENTIES.toWebHexString()+";'>late twenties</span>.");
+				
+			}  else if(owner.getAppearsAsAge()<=33) {
+				sb.append(" [npc.She] [npc.verb(appear)] to be in [npc.her] <span style='color:"+Colour.AGE_THIRTIES.toWebHexString()+";'>early thirties</span>.");
+				
+			} else if(owner.getAppearsAsAge()<=37) {
+				sb.append(" [npc.She] [npc.verb(appear)] to be in [npc.her] <span style='color:"+Colour.AGE_THIRTIES.toWebHexString()+";'>mid-thirties</span>.");
+				
+			} else if(owner.getAppearsAsAge()<40) {
+				sb.append(" [npc.She] [npc.verb(appear)] to be in [npc.her] <span style='color:"+Colour.AGE_THIRTIES.toWebHexString()+";'>late thirties</span>.");
+				
+			} else if(owner.getAppearsAsAge()<=43) {
+				sb.append(" [npc.She] [npc.verb(appear)] to be in [npc.her] <span style='color:"+Colour.AGE_FORTIES.toWebHexString()+";'>early forties</span>.");
+				
+			} else if(owner.getAppearsAsAge()<=47) {
+				sb.append(" [npc.She] [npc.verb(appear)] to be in [npc.her] <span style='color:"+Colour.AGE_FORTIES.toWebHexString()+";'>mid-forties</span>.");
+				
+			} else {
+				sb.append(" [npc.She] [npc.verb(appear)] to be in [npc.her] <span style='color:"+Colour.AGE_FORTIES.toWebHexString()+";'>late forties</span>.");
 			}
 		}
 		sb.append("</p>");
@@ -3062,9 +3095,9 @@ public class Body implements Serializable, XMLSaving {
 				break;
 			case DEMON_HOOFED:
 				if (owner.isPlayer())
-					sb.append("Your demonic legs are "+getCoveredInDescriptor(owner)+" [pc.legFullDescription(true)], and your feet are formed into hard hooves.");
+					sb.append("Your demonic legs are "+getCoveredInDescriptor(owner)+" [pc.legFullDescription(true)], and your feet are formed into hard hoofs.");
 				else
-					sb.append("[npc.Her] demonic legs are "+getCoveredInDescriptor(owner)+" [npc.legFullDescription(true)], and [npc.her] feet are formed into hard hooves.");
+					sb.append("[npc.Her] demonic legs are "+getCoveredInDescriptor(owner)+" [npc.legFullDescription(true)], and [npc.her] feet are formed into hard hoofs.");
 				break;
 			case IMP:
 				if (owner.isPlayer())
@@ -3115,26 +3148,26 @@ public class Body implements Serializable, XMLSaving {
 			case HORSE_MORPH:
 				if (owner.isPlayer())
 					sb.append("Your legs are "+getCoveredInDescriptor(owner)+" [pc.legFullDescription(true)],"
-							+ " and your feet are formed into anthropomorphic horse-like hooves.");
+							+ " and your feet are formed into anthropomorphic horse-like hoofs.");
 				else
 					sb.append("[npc.Her] legs are "+getCoveredInDescriptor(owner)+" [npc.legFullDescription(true)],"
-							+ " and [npc.her] feet are formed into anthropomorphic horse-like hooves.");
+							+ " and [npc.her] feet are formed into anthropomorphic horse-like hoofs.");
 				break;
 			case REINDEER_MORPH:
 				if (owner.isPlayer())
 					sb.append("Your legs are "+getCoveredInDescriptor(owner)+" <span style='color:[pc.legColourHex];'>[pc.legColour] [pc.legSkin]</span>,"
-							+ " and your feet are formed into anthropomorphic reindeer-like hooves.");
+							+ " and your feet are formed into anthropomorphic reindeer-like hoofs.");
 				else
 					sb.append("[npc.Her] legs are "+getCoveredInDescriptor(owner)+" <span style='color:[npc.legColourHex];'>[npc.legColour] [npc.legSkin]</span>,"
-							+ " and [npc.her] feet are formed into anthropomorphic reindeer-like hooves.");
+							+ " and [npc.her] feet are formed into anthropomorphic reindeer-like hoofs.");
 				break;
 			case COW_MORPH:
 				if (owner.isPlayer())
 					sb.append("Your legs are "+getCoveredInDescriptor(owner)+" [pc.legFullDescription(true)],"
-							+ " and your feet are formed into anthropomorphic cow-like hooves.");
+							+ " and your feet are formed into anthropomorphic cow-like hoofs.");
 				else
 					sb.append("[npc.Her] legs are "+getCoveredInDescriptor(owner)+" [npc.legFullDescription(true)],"
-							+ " and [npc.her] feet are formed into anthropomorphic cow-like hooves.");
+							+ " and [npc.her] feet are formed into anthropomorphic cow-like hoofs.");
 				break;
 			case HARPY:
 				if (owner.isPlayer())
@@ -3164,15 +3197,28 @@ public class Body implements Serializable, XMLSaving {
 				break;
 		}
 		
+		switch(owner.getFootStructure()) {
+			case DIGITIGRADE:
+				sb.append(" [npc.Her] [npc.legs] and [npc.feet] are [style.colourTFGeneric("+owner.getFootStructure().getName()+")], meaning that [npc.she] naturally [npc.verb(walk)] on [npc.her] toes.");
+				break;
+			case PLANTIGRADE:
+				sb.append(" [npc.Her] [npc.legs] and [npc.feet] are [style.colourTFGeneric("+owner.getFootStructure().getName()+")], meaning that [npc.she] naturally [npc.verb(walk)] with [npc.her] feet flat on the ground.");
+				break;
+			case UNGULIGRADE:
+				sb.append(" [npc.Her] [npc.legs] and [npc.feet] are [style.colourTFGeneric("+owner.getFootStructure().getName()+")], meaning that [npc.she] naturally [npc.verb(walk)] on [npc.her] hoofs.");
+				break;
+		}
+		
+		
 		if(owner.isPlayer()) {
 			if(owner.getFootNailPolish().getPrimaryColour() != Colour.COVERING_NONE) {
 				if(owner.getLegType()==LegType.HARPY) {
 					sb.append(" The claws on your talons have been painted in "+owner.getCovering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET).getFullDescription(owner, true)+".");
 				} else if(owner.getLegType()==LegType.HORSE_MORPH) {
-					sb.append(" Your hooves have been painted in "+owner.getCovering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET).getFullDescription(owner, true)+".");
+					sb.append(" Your hoofs have been painted in "+owner.getCovering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET).getFullDescription(owner, true)+".");
 
 				} else if(owner.getLegType()==LegType.COW_MORPH) {
-					sb.append(" Your hooves have been painted in "+owner.getCovering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET).getFullDescription(owner, true)+".");
+					sb.append(" Your hoofs have been painted in "+owner.getCovering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET).getFullDescription(owner, true)+".");
 
 
 				} else {
@@ -3184,10 +3230,10 @@ public class Body implements Serializable, XMLSaving {
 				if(owner.getLegType()==LegType.HARPY) {
 					sb.append(" The claws on [npc.her] talons have been painted in "+owner.getCovering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET).getFullDescription(owner, true)+".");
 				} else if(owner.getLegType()==LegType.HORSE_MORPH) {
-					sb.append(" [npc.Her] hooves have been painted in "+owner.getCovering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET).getFullDescription(owner, true)+".");
+					sb.append(" [npc.Her] hoofs have been painted in "+owner.getCovering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET).getFullDescription(owner, true)+".");
 
 				} else if(owner.getLegType()==LegType.COW_MORPH) {
-					sb.append(" [npc.Her] hooves have been painted in "+owner.getCovering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET).getFullDescription(owner, true)+".");
+					sb.append(" [npc.Her] hoofs have been painted in "+owner.getCovering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET).getFullDescription(owner, true)+".");
 
 
 				} else {
@@ -3240,7 +3286,7 @@ public class Body implements Serializable, XMLSaving {
 					if (owner.isPlayer()) {
 						sb.append("Growing from your shoulder-blades, you have a pair of [pc.wingSize] bat-like wings, which are covered in [pc.wingFullDescription(true)].");
 					} else {
-						sb.append("Growing from [npc.her] shoulder-blades, [npc.she] has a pair of [npc.wingSize] bat-like wings, which are covered in [pc.wingFullDescription(true)].");
+						sb.append("Growing from [npc.her] shoulder-blades, [npc.she] has a pair of [npc.wingSize] bat-like wings, which are covered in [npc.wingFullDescription(true)].");
 					}
 					break;
 				case ANGEL:

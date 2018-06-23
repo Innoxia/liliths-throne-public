@@ -7,7 +7,7 @@ package com.lilithsthrone.game.sex;
  */
 public enum SexParticipantType {
 
-	MISC,
+//	MISC,
 	
 	NORMAL,
 	

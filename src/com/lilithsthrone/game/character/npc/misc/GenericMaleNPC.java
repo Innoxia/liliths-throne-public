@@ -1,5 +1,7 @@
 package com.lilithsthrone.game.character.npc.misc;
 
+import java.time.Month;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -29,6 +31,7 @@ public class GenericMaleNPC extends NPC {
 	
 	public GenericMaleNPC(boolean isImported) {
 		super(new NameTriplet("unknown male"), "Unknown.",
+				25, Month.JUNE, 15,
 				1, Gender.M_P_MALE, RacialBody.HUMAN, RaceStage.HUMAN,
 				new CharacterInventory(0), WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
 	}

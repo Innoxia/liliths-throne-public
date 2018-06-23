@@ -3,7 +3,10 @@ package com.lilithsthrone.game.dialogue.utils;
 import java.awt.Toolkit;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.PropertyValue;
@@ -1451,18 +1454,27 @@ public class OptionsDialogue {
 								Main.getProperties().hasValue(PropertyValue.artwork)));
 			
 			UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart("ARTIST_", Colour.BASE_AQUA, "Preferred Artist", "Which artist's work is used by default."));
-			for(Artist artist : Artwork.allArtists) {
+			List<Artist> artists = new ArrayList<>(Artwork.allArtists);
+			Collections.reverse(artists);// So that they're in alphabetical order
+			for(Artist artist : artists) {
 				UtilText.nodeContentSB.append(
 						(Main.getProperties().preferredArtist.equals(artist.getFolderName())
-								?"<div id='ARTIST_"+artist.getFolderName()+"' class='normal-button selected' style='width:25%; margin-right:4%; text-align:center; float:right;'>"
-									+ "<b style='color:"+artist.getColour().toWebHexString()+";'>"+artist.getName()+"</b>"
+								?"<div id='ARTIST_"+artist.getFolderName()+"' class='normal-button selected' style='width:46%; margin-right:4%; text-align:center; float:right;'>"
+									+ "<span style='color:"+artist.getColour().toWebHexString()+";'>"+artist.getName()+"</span>"
 								+ "</div>"
-								:"<div id='ARTIST_"+artist.getFolderName()+"' class='normal-button' style='width:25%; margin-right:4%; text-align:center; float:right;'>"
-									+ "[style.boldDisabled("+artist.getName()+")]"
+								:"<div id='ARTIST_"+artist.getFolderName()+"' class='normal-button' style='width:46%; margin-right:4%; text-align:center; float:right;'>"
+									+ "[style.colourDisabled("+artist.getName()+")]"
 								+ "</div>"));
 			}
 			UtilText.nodeContentSB.append("</div></div>");
-						
+
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+							"AGE",
+							Colour.AGE_TWENTIES,
+							"Age",
+							"This enables descriptions of the age that characters appear to be.",
+							Main.getProperties().hasValue(PropertyValue.ageContent)));
+			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(
 							"NON_CON",
 							Colour.BASE_CRIMSON,
@@ -1748,11 +1760,11 @@ public class OptionsDialogue {
 
 		contentSB.append(
 				"<div class='container-full-width' style='padding:0;'>"
-					+ "<div class='container-half-width' style='width:calc(40% - 16px);'>"
+					+ "<div class='container-half-width' style='width:calc(55% - 16px);'>"
 						+ "<b style='text-align:center; color:"+colour.toWebHexString()+";'>"+ title+"</b><b>:</b><br/>"
 						+ description
 					+ "</div>"
-					+ "<div class='container-half-width' style='width:calc(60% - 16px);'>");
+					+ "<div class='container-half-width' style='width:calc(45% - 16px);'>");
 		
 		return contentSB.toString();
 	}
@@ -1762,11 +1774,11 @@ public class OptionsDialogue {
 		
 		contentSB.append(
 				"<div class='container-full-width' style='padding:0;'>"
-					+ "<div class='container-half-width' style='width:calc(45% - 16px);'>"
+					+ "<div class='container-half-width' style='width:calc(55% - 16px);'>"
 						+ "<b style='text-align:center; color:"+(enabled?colour.toWebHexString():Colour.TEXT_GREY.toWebHexString())+";'>"+ title+"</b><b>:</b><br/>"
 						+ description
 					+ "</div>"
-					+ "<div class='container-half-width' style='width:calc(55% - 16px);'>");
+					+ "<div class='container-half-width' style='width:calc(45% - 16px);'>");
 		
 		if(enabled) {
 			contentSB.append(
@@ -1797,11 +1809,11 @@ public class OptionsDialogue {
 
 		contentSB.append(
 				"<div class='container-full-width' style='padding:0;'>"
-					+ "<div class='container-half-width' style='width:calc(45% - 16px);'>"
+					+ "<div class='container-half-width' style='width:calc(55% - 16px);'>"
 						+ "<b style='text-align:center; color:"+colour.toWebHexString()+";'>"+ title+"</b><b>:</b><br/>"
 						+ description
 					+ "</div>"
-					+ "<div class='container-half-width' style='width:calc(55% - 16px);'>");
+					+ "<div class='container-half-width' style='width:calc(45% - 16px);'>");
 		
 		contentSB.append(
 				"<div id='"+id+"_ON' class='normal-button"+(value==maximum?" disabled":"")+"' style='width:15%; margin:0 2.5%; text-align:center; float:right;'>"

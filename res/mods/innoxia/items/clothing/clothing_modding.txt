@@ -1,6 +1,0 @@
-***** CLOTHING MODDING *****
-
-If you want to make a custom piece of clothing, make a new folder, using the (hopefully unique) name of your mod.
-Within that folder, place the .xml and .svg files that are needed for each piece of clothing.
-
-Use the attached 'rentalMommy' folder as a guide! :3

@@ -87,7 +87,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.7?
- * @version 0.2.6
+ * @version 0.2.8
  * @author Innoxia
  */
 public class CharacterModificationUtils {
@@ -295,6 +295,73 @@ public class CharacterModificationUtils {
 		contentSB.append("</div>");
 		
 		return contentSB.toString();
+	}
+	
+	public static void performPlayerAgeCheck(int ageTarget) {
+		if(Main.game.getPlayer().getAge()>ageTarget) {
+			Main.game.getPlayer().setBirthday(Main.game.getPlayer().getBirthday().plusYears(1));
+		} else if(Main.game.getPlayer().getAge()<ageTarget) {
+			Main.game.getPlayer().setBirthday(Main.game.getPlayer().getBirthday().minusYears(1));
+		}
+	}
+	
+	public static String getBirthdayChoiceDiv() {
+		contentSB.setLength(0);
+
+		contentSB.append(
+				"<div class='container-full-width'>"
+						+ "<h5 style='text-align:center;'>"
+							+"Birthday"
+						+"</h5>"
+						+ "<p style='text-align:center;'>"
+							+ "You were born on the "
+								+Util.intToDate(Main.game.getPlayer().getBirthday().getDayOfMonth())
+								+" "+Main.game.getPlayer().getBirthday().getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH)
+								+", "+(Main.game.getPlayer().getBirthday().getYear())+", making you "+Util.intToString(Main.game.getPlayer().getAge())+" years old."
+						+ "</p>");
+
+			contentSB.append("<div class='container-full-width' style='margin:0;padding;0;width:100%;'>");
+			
+				contentSB.append(applyDateWrapper("Day", "BIRTH_DAY", "", "", String.valueOf(Main.game.getPlayer().getBirthday().getDayOfMonth()), false, false));
+				
+				contentSB.append(applyDateWrapper("Month", "BIRTH_MONTH", "", "", Main.game.getPlayer().getBirthday().getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH), false, false));
+				
+				contentSB.append(applyDateWrapper("Age", "AGE", "", "",
+						String.valueOf(Main.game.getPlayer().getAge()),
+						Main.game.getPlayer().getAge()<=18,
+						Main.game.getPlayer().getAge()>=50));
+			contentSB.append("</div>");
+		
+		contentSB.append("</div>");
+		
+		return contentSB.toString();
+	}
+	
+	private static String applyDateWrapper(String title, String id, String measurement, String measurementPlural, String value, boolean decreaseDisabled, boolean increaseDisabled) {
+		return "<div class='container-full-width' style='width:calc(33.3% - 16px);'>"
+					+ "<p style='width:100%; text-align:center;'>"
+						+ "<b>"+title+"</b>"
+					+ "</p>"
+					+ "<div class='container-half-width' style='width:30%; margin:0; padding:0; text-align:center;'>"
+						+ "<div id='"+id+"_DECREASE' class='normal-button"+(decreaseDisabled?" disabled":"")+"' style='width:90%;'>"
+							+ (decreaseDisabled?"[style.boldDisabled(-1"+measurement+")]":"[style.boldBadMinor(-1"+measurement+")]")
+						+ "</div>"
+						+ "<div id='"+id+"_DECREASE_LARGE' class='normal-button"+(decreaseDisabled?" disabled":"")+"' style='width:90%;'>"
+							+ (decreaseDisabled?"[style.boldDisabled(-5"+measurementPlural+")]":"[style.boldBad(-5"+measurementPlural+")]")
+						+ "</div>"
+					+ "</div>"
+					+ "<div class='container-half-width' style='width:40%; margin:0; padding:0; text-align:center;'>"
+						+ value
+					+ "</div>"
+					+ "<div class='container-half-width' style='width:30%; margin:0; padding:0; text-align:center;'>"
+						+ "<div id='"+id+"_INCREASE' class='normal-button"+(increaseDisabled?" disabled":"")+"' style='width:90%;'>"
+							+ (increaseDisabled?"[style.boldDisabled(+1"+measurement+")]":"[style.boldGoodMinor(+1"+measurement+")]")
+						+ "</div>"
+						+ "<div id='"+id+"_INCREASE_LARGE' class='normal-button"+(increaseDisabled?" disabled":"")+"' style='width:90%;'>"
+							+ (increaseDisabled?"[style.boldDisabled(+5"+measurementPlural+")]":"[style.boldGood(+5"+measurementPlural+")]")
+						+ "</div>"
+					+ "</div>"
+				+ "</div>";
 	}
 	
 	public static String getOrientationChoiceDiv() {
@@ -3789,9 +3856,11 @@ public class CharacterModificationUtils {
 								:(SuccubisSecrets.invSlotTattooToRemove==invSlot || !Main.getProperties().hasValue(PropertyValue.tattooRemovalConfirmations)?"[style.colourBad(Remove)]":"Remove"))
 						+"</div>"
 					+ "</div>"
-					+ "<div style='float:left; width:98%; margin:0 1%; padding:0;'>"
-						+ "<div class='normal-button"+(disabled || tattooInSlot==null?" disabled":"")+"' "+(!disabled?"id='TATTOO_ENCHANT_"+invSlot.toString()+"'":"")+" style='width:100%;'>Enchant</div>"
-					+ "</div>"
+					+ (Main.game.isInNewWorld()
+						?"<div style='float:left; width:98%; margin:0 1%; padding:0;'>"
+								+ "<div class='normal-button"+(disabled || tattooInSlot==null?" disabled":"")+"' "+(!disabled?"id='TATTOO_ENCHANT_"+invSlot.toString()+"'":"")+" style='width:100%;'>Enchant</div>"
+							+ "</div>"
+						:"")
 				+ "</div>"
 			+ "</div>";
 	}
@@ -3924,25 +3993,27 @@ public class CharacterModificationUtils {
 			}
 			contentSB.append("</div>");
 			
-			contentSB.append("<div class='container-full-width'>");
-				if(tattoo.getType().equals(TattooType.NONE)) {
-					contentSB.append(
-							"<div class='normal-button disabled' style='width:20%; margin:2% 40%; padding:0; text-align:center;'>"
-								+ "Glow"
-							+ "</div>");
-					
-				} else if(tattoo.isGlowing()) {
-					contentSB.append(
-							"<div class='normal-button active' id='TATTOO_GLOW' style='width:20%; margin:2% 40%; padding:0; text-align:center;'>"
-								+ "[style.boldArcane(Glow)]"
-							+ "</div>");
-				} else {
-					contentSB.append(
-							"<div id='TATTOO_GLOW' class='normal-button' style='width:20%; margin:2% 40%; padding:0; text-align:center;'>"
-								+ "<span style='color:"+Colour.GENERIC_ARCANE.getShades()[0]+";'>Glow</span>"
-							+ "</div>");
-				}
-			contentSB.append("</div>");
+			if(Main.game.isInNewWorld()) {
+				contentSB.append("<div class='container-full-width'>");
+					if(tattoo.getType().equals(TattooType.NONE)) {
+						contentSB.append(
+								"<div class='normal-button disabled' style='width:20%; margin:2% 40%; padding:0; text-align:center;'>"
+									+ "Glow"
+								+ "</div>");
+						
+					} else if(tattoo.isGlowing()) {
+						contentSB.append(
+								"<div class='normal-button active' id='TATTOO_GLOW' style='width:20%; margin:2% 40%; padding:0; text-align:center;'>"
+									+ "[style.boldArcane(Glow)]"
+								+ "</div>");
+					} else {
+						contentSB.append(
+								"<div id='TATTOO_GLOW' class='normal-button' style='width:20%; margin:2% 40%; padding:0; text-align:center;'>"
+									+ "<span style='color:"+Colour.GENERIC_ARCANE.getShades()[0]+";'>Glow</span>"
+								+ "</div>");
+					}
+				contentSB.append("</div>");
+			}
 
 		contentSB.append("</div>");
 	
@@ -3974,75 +4045,78 @@ public class CharacterModificationUtils {
 										+ "<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";"+(c==Colour.COVERING_NONE?" color:"+Colour.BASE_RED.toWebHexString()+";'>X":"'>")+"</div>"
 									+ "</div>");
 				}
-				contentSB.append("<br/>");
-				if(tattoo.getWriting().isGlow()) {
-					contentSB.append(
-							"<div class='normal-button selected' id='TATTOO_WRITING_GLOW' style='width:50%; margin:2% 25%; padding:0; text-align:center;'>"
-								+ "[style.boldArcane(Glow)]"
-							+ "</div>");
-				} else {
-					contentSB.append(
-							"<div id='TATTOO_WRITING_GLOW' class='normal-button' style='width:50%; margin:2% 25%; padding:0; text-align:center;'>"
-								+ "<span style='color:"+Colour.GENERIC_ARCANE.getShades()[0]+";'>Glow</span>"
-							+ "</div>");
+				if(Main.game.isInNewWorld()) {
+					contentSB.append("<br/>");
+					if(tattoo.getWriting().isGlow()) {
+						contentSB.append(
+								"<div class='normal-button selected' id='TATTOO_WRITING_GLOW' style='width:50%; margin:2% 25%; padding:0; text-align:center;'>"
+									+ "[style.boldArcane(Glow)]"
+								+ "</div>");
+					} else {
+						contentSB.append(
+								"<div id='TATTOO_WRITING_GLOW' class='normal-button' style='width:50%; margin:2% 25%; padding:0; text-align:center;'>"
+									+ "<span style='color:"+Colour.GENERIC_ARCANE.getShades()[0]+";'>Glow</span>"
+								+ "</div>");
+					}
 				}
 			contentSB.append("</div>");
 		contentSB.append("</div>");
 
 		// Counter:
-
-		contentSB.append("<div class='container-full-width'>"
-				+ "<h5 style='width:100%; text-align:center;'>Select Counter</h5>");
+		if(Main.game.isInNewWorld()) {
+			contentSB.append("<div class='container-full-width'>"
+					+ "<h5 style='width:100%; text-align:center;'>Select Counter</h5>");
+			
+				contentSB.append("<div class='container-full-width' style='width:66.6%; margin:0;'>");
+					contentSB.append("<div class='container-full-width' style='position:relative; text-align:center;'>");
+						contentSB.append("<p style='width:100%; text-align:center;'>Counter Type</p>");
+						for(TattooCounterType counterType : TattooCounterType.values()) {
+							contentSB.append("<div style='width:31%; margin:1%; padding:0; display:inline-block;'>"
+												+ "<div class='normal-button"+(tattoo.getCounter().getType()==counterType?" selected":"")+"' id='TATTOO_COUNTER_TYPE_"+counterType.toString()+"'"
+														+ " style='width:100%; margin:0; color:"+(tattoo.getCounter().getType()==counterType?Colour.GENERIC_GOOD:Colour.TEXT_HALF_GREY).toWebHexString()+";'>"
+													+Util.capitaliseSentence(counterType.getName())+"</div>"
+											+ "</div>");
+						}
+					contentSB.append("</div>");
+					contentSB.append("<div class='container-full-width' style='position:relative; text-align:center;'>");
+						contentSB.append("<p style='width:100%; text-align:center;'>Counter Style</p>");
+						for(TattooCountType countType : TattooCountType.values()) {
+							contentSB.append("<div style='width:31%; margin:1%; padding:0; display:inline-block;'>"
+												+ "<div class='normal-button"+(tattoo.getCounter().getCountType()==countType?" selected":"")+"' id='TATTOO_COUNT_TYPE_"+countType.toString()+"'"
+														+ " style='width:100%; margin:0; color:"+(tattoo.getCounter().getCountType()==countType?Colour.GENERIC_GOOD:Colour.TEXT_HALF_GREY).toWebHexString()+";'>"
+													+Util.capitaliseSentence(countType.getName())+"</div>"
+											+ "</div>");
+						}
+					contentSB.append("</div>");
+				contentSB.append("</div>");
+				
+				contentSB.append("<div class='container-full-width' style='width:33.3%; margin:0;'>");
+					for (Colour c : TattooCounter.getAvailableColours()) {
+						contentSB.append("<div class='normal-button"+(tattoo.getCounter().getColour()==c?" selected":"")+"' id='TATTOO_COUNTER_COLOUR_"+c+"'"
+												+ " style='width:auto; margin-right:4px;"+(tattoo.getCounter().getColour()==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
+											+ "<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";"+(c==Colour.COVERING_NONE?" color:"+Colour.BASE_RED.toWebHexString()+";'>X":"'>")+"</div>"
+										+ "</div>");
+					}
+					contentSB.append("<br/>");
+					if(tattoo.getCounter().isGlow()) {
+						contentSB.append(
+								"<div class='normal-button selected' id='TATTOO_COUNTER_GLOW' style='width:50%; margin:2% 25%; padding:0; text-align:center;'>"
+									+ "[style.boldArcane(Glow)]"
+								+ "</div>");
+					} else {
+						contentSB.append(
+								"<div id='TATTOO_COUNTER_GLOW' class='normal-button' style='width:50%; margin:2% 25%; padding:0; text-align:center;'>"
+									+ "<span style='color:"+Colour.GENERIC_ARCANE.getShades()[0]+";'>Glow</span>"
+								+ "</div>");
+					}
+					contentSB.append("<div class='container-full-width'>"
+							+ "Output: "+tattoo.getFormattedCounterOutput(BodyChanging.getTarget())
+							+ "</div>");
+				contentSB.append("</div>");
+				
+			contentSB.append("</div>");
+		}
 		
-			contentSB.append("<div class='container-full-width' style='width:66.6%; margin:0;'>");
-				contentSB.append("<div class='container-full-width' style='position:relative; text-align:center;'>");
-					contentSB.append("<p style='width:100%; text-align:center;'>Counter Type</p>");
-					for(TattooCounterType counterType : TattooCounterType.values()) {
-						contentSB.append("<div style='width:31%; margin:1%; padding:0; display:inline-block;'>"
-											+ "<div class='normal-button"+(tattoo.getCounter().getType()==counterType?" selected":"")+"' id='TATTOO_COUNTER_TYPE_"+counterType.toString()+"'"
-													+ " style='width:100%; margin:0; color:"+(tattoo.getCounter().getType()==counterType?Colour.GENERIC_GOOD:Colour.TEXT_HALF_GREY).toWebHexString()+";'>"
-												+Util.capitaliseSentence(counterType.getName())+"</div>"
-										+ "</div>");
-					}
-				contentSB.append("</div>");
-				contentSB.append("<div class='container-full-width' style='position:relative; text-align:center;'>");
-					contentSB.append("<p style='width:100%; text-align:center;'>Counter Style</p>");
-					for(TattooCountType countType : TattooCountType.values()) {
-						contentSB.append("<div style='width:31%; margin:1%; padding:0; display:inline-block;'>"
-											+ "<div class='normal-button"+(tattoo.getCounter().getCountType()==countType?" selected":"")+"' id='TATTOO_COUNT_TYPE_"+countType.toString()+"'"
-													+ " style='width:100%; margin:0; color:"+(tattoo.getCounter().getCountType()==countType?Colour.GENERIC_GOOD:Colour.TEXT_HALF_GREY).toWebHexString()+";'>"
-												+Util.capitaliseSentence(countType.getName())+"</div>"
-										+ "</div>");
-					}
-				contentSB.append("</div>");
-			contentSB.append("</div>");
-			
-			contentSB.append("<div class='container-full-width' style='width:33.3%; margin:0;'>");
-				for (Colour c : TattooCounter.getAvailableColours()) {
-					contentSB.append("<div class='normal-button"+(tattoo.getCounter().getColour()==c?" selected":"")+"' id='TATTOO_COUNTER_COLOUR_"+c+"'"
-											+ " style='width:auto; margin-right:4px;"+(tattoo.getCounter().getColour()==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
-										+ "<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";"+(c==Colour.COVERING_NONE?" color:"+Colour.BASE_RED.toWebHexString()+";'>X":"'>")+"</div>"
-									+ "</div>");
-				}
-				contentSB.append("<br/>");
-				if(tattoo.getCounter().isGlow()) {
-					contentSB.append(
-							"<div class='normal-button selected' id='TATTOO_COUNTER_GLOW' style='width:50%; margin:2% 25%; padding:0; text-align:center;'>"
-								+ "[style.boldArcane(Glow)]"
-							+ "</div>");
-				} else {
-					contentSB.append(
-							"<div id='TATTOO_COUNTER_GLOW' class='normal-button' style='width:50%; margin:2% 25%; padding:0; text-align:center;'>"
-								+ "<span style='color:"+Colour.GENERIC_ARCANE.getShades()[0]+";'>Glow</span>"
-							+ "</div>");
-				}
-				contentSB.append("<div class='container-full-width'>"
-						+ "Output: "+tattoo.getFormattedCounterOutput(BodyChanging.getTarget())
-						+ "</div>");
-			contentSB.append("</div>");
-			
-		contentSB.append("</div>");
-
 		contentSB.append("<p id='hiddenPField' style='display:none;'></p>");
 		
 		return contentSB.toString();

@@ -1,5 +1,7 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
+import java.time.Month;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -61,6 +63,7 @@ public class ZaranixMaidKelly extends NPC {
 	public ZaranixMaidKelly(boolean isImported) {
 		super(new NameTriplet("Kelly"),
 				"One of Zaranix's succubi maid twins, Kelly is assigned by her master to keep the first floor clean.",
+				26, Month.SEPTEMBER, 20,
 				10, Gender.F_P_V_B_FUTANARI, RacialBody.DEMON, RaceStage.GREATER, new CharacterInventory(10), WorldType.ZARANIX_HOUSE_FIRST_FLOOR, PlaceType.ZARANIX_FF_MAID, true);
 
 		this.setPersonality(Util.newHashMapOfValues(
@@ -157,6 +160,11 @@ public class ZaranixMaidKelly extends NPC {
 	@Override
 	public boolean isUnique() {
 		return true;
+	}
+	
+	@Override
+	public int getAppearsAsAge() {
+		return 18;
 	}
 	
 	@Override

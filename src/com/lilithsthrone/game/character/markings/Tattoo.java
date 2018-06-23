@@ -126,6 +126,9 @@ public class Tattoo extends AbstractCoreItem implements XMLSaving {
 		parentElement.appendChild(element);
 
 		CharacterUtils.addAttribute(doc, element, "id", TattooType.getIdFromTattooType(getType()));
+
+		CharacterUtils.addAttribute(doc, element, "name", this.getName());
+		
 		CharacterUtils.addAttribute(doc, element, "primaryColour", this.getPrimaryColour().toString());
 
 		if(this.getSecondaryColour()!=null) {
@@ -175,6 +178,11 @@ public class Tattoo extends AbstractCoreItem implements XMLSaving {
 					Boolean.valueOf(parentElement.getAttribute("glowing")),
 					writing,
 					counter);
+			
+			try {
+				tat.setName(parentElement.getAttribute("name"));
+			} catch(Exception ex) {
+			}
 			
 			Element element = (Element)parentElement.getElementsByTagName("effects").item(0);
 			if(element!=null) {
@@ -258,9 +266,9 @@ public class Tattoo extends AbstractCoreItem implements XMLSaving {
 					?" <span style='color: " + this.getRarity().getColour().toWebHexString() + ";'>"
 						+ (this.getType()==TattooType.NONE
 							?"tattoo"
-							:this.getType().getName() + " tattoo")
+							:this.getName() + " tattoo")
 						+ "</span>"
-					: this.getType().getName()+" tattoo")
+					: this.getName()+" tattoo")
 				+(!this.getEffects().isEmpty()
 						? " "+getEnchantmentPostfix(withRarityColour, "b")
 						: "");

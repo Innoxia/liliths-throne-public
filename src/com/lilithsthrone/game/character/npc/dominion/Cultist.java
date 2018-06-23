@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -66,6 +67,7 @@ public class Cultist extends NPC {
 	public Cultist(boolean isImported) {
 		super(null,
 				"",
+				Util.random.nextInt(30)+30, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
 				15,
 				Gender.F_P_V_B_FUTANARI,
 				RacialBody.DEMON,
@@ -185,6 +187,11 @@ public class Cultist extends NPC {
 	@Override
 	public boolean isUnique() {
 		return false;
+	}
+	
+	@Override
+	public int getAppearsAsAge() {
+		return Math.max(18, this.getAge()/2);
 	}
 
 	public boolean isSealedSex() {

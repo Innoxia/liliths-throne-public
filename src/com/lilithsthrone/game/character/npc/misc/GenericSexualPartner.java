@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.npc.misc;
 
+import java.time.Month;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -51,7 +52,9 @@ public class GenericSexualPartner extends NPC {
 	}
 	
 	public GenericSexualPartner(Gender gender, WorldType worldLocation, Vector2i location, boolean isImported) {
-		super(null, "", 3, gender, RacialBody.DOG_MORPH, RaceStage.GREATER,
+		super(null, "",
+				25, Month.JUNE, 15,
+				3, gender, RacialBody.DOG_MORPH, RaceStage.GREATER,
 				new CharacterInventory(10), WorldType.DOMINION, PlaceType.DOMINION_BACK_ALLEYS, false);
 
 		if(!isImported) {

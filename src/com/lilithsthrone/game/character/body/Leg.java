@@ -5,27 +5,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.body.types.FootStructure;
 import com.lilithsthrone.game.character.body.types.LegType;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.2.7
+ * @version 0.2.8
  * @author Innoxia
  */
 public class Leg implements BodyPartInterface, Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	protected LegType type;
+	protected FootStructure footStructure;
 
 	public Leg(LegType type) {
 		this.type = type;
+		this.footStructure = type.getDefaultFootStructure();
 	}
 
 	@Override
 	public LegType getType() {
 		return type;
+	}
+
+	public FootStructure getFootStructure() {
+		return footStructure;
 	}
 
 	@Override
@@ -91,6 +98,7 @@ public class Leg implements BodyPartInterface, Serializable {
 		UtilText.transformationContentSB.setLength(0);
 		UtilText.transformationContentSB.append(s);
 		this.type = type;
+		this.footStructure = type.getDefaultFootStructure();
 		
 		switch (type) {
 			case HUMAN:
@@ -127,7 +135,7 @@ public class Leg implements BodyPartInterface, Serializable {
 				UtilText.transformationContentSB.append(
 							" They quickly shift into a pair of smooth, slender legs, and [npc.name] [npc.verb(let)] out a gasp as a layer of flawless, demonic skin rapidly grows to cover them."
 							+ " As [npc.her] new skin spreads down to the ends of [npc.her] toes, they suddenly push together, and [npc.she] [npc.verb(let)] out a cry as a thick, hoof-like nail grows in their place,"
-								+ " quickly transforming to turn [npc.her] feet into hard, demonic hooves."
+								+ " quickly transforming to turn [npc.her] feet into hard, demonic hoofs."
 							+ " As the transformation ends, [npc.she] [npc.verb(see)] that [npc.her] new skin smoothly transitions into the [npc.skin] covering the rest of [npc.her] body at [npc.her] upper-thigh.<br/>"
 							+ "[npc.NameIsFull] left with [style.boldDemon(demonic legs and hoofed feet)], which are covered in [pc.legFullDescription]."
 						+ "</p>");
@@ -221,7 +229,7 @@ public class Leg implements BodyPartInterface, Serializable {
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
 								" A layer of short, horse-like hair quickly grows over your legs as they shift into a new form."
-								+ " As your new fur spreads down to the ends of your toes, they suddenly push together, and you let out a cry as a thick, hoof-like nail grows in their place, quickly transforming to turn your feet into horse-like hooves."
+								+ " As your new fur spreads down to the ends of your toes, they suddenly push together, and you let out a cry as a thick, hoof-like nail grows in their place, quickly transforming to turn your feet into horse-like hoofs."
 								+ " As the transformation ends, you see that your new fur smoothly transitions into the [pc.skin] covering the rest of your body at your upper-thigh.<br/>"
 								+ "You're left with anthropomorphic, [style.boldHorseMorph(horse-like legs and hoofed feet)], which are covered in [pc.legFullDescription]."
 							+ "</p>");
@@ -229,7 +237,7 @@ public class Leg implements BodyPartInterface, Serializable {
 					UtilText.transformationContentSB.append(
 								" A layer of short, horse-like hair quickly grows over [npc.her] legs as they shift into a new form."
 								+ " As [npc.her] new fur spreads down to the ends of [npc.her] toes, they suddenly push together, and [npc.she] lets out a cry as a thick, hoof-like nail grows in their place,"
-									+ " quickly transforming to turn [npc.her] feet into horse-like hooves."
+									+ " quickly transforming to turn [npc.her] feet into horse-like hoofs."
 								+ " As the transformation ends, [npc.she] sees that [npc.her] new fur smoothly transitions into the [npc.skin] covering the rest of [npc.her] body at [npc.her] upper-thigh.<br/>"
 								+ "[npc.Name] now has anthropomorphic, [style.boldHorseMorph(horse-like legs and hoofed feet)], which are covered in [npc.legFullDescription]."
 							+ "</p>");
@@ -240,7 +248,7 @@ public class Leg implements BodyPartInterface, Serializable {
 					UtilText.transformationContentSB.append(
 								" A layer of short, reindeer-like hair quickly grows over your legs as they shift into a new form."
 								+ " As your new fur spreads down to the ends of your toes, they suddenly push together, and you let out a cry as a crescent-shaped, cloven hoof grows in their place,"
-									+ " quickly transforming your feet into reindeer-like hooves."
+									+ " quickly transforming your feet into reindeer-like hoofs."
 								+ " As the transformation ends, you see that your new fur smoothly transitions into the [pc.skin] covering the rest of your body at your upper-thigh.<br/>"
 								+ "You're left with anthropomorphic, [style.boldReindeerMorph(reindeer-like legs and hoofed feet)], which are covered in [pc.legFullDescription]."
 							+ "</p>");
@@ -248,7 +256,7 @@ public class Leg implements BodyPartInterface, Serializable {
 					UtilText.transformationContentSB.append(
 								" A layer of short, reindeer-like hair quickly grows over [npc.her] legs as they shift into a new form."
 								+ " As [npc.her] new fur spreads down to the ends of [npc.her] toes, they suddenly push together, and [npc.she] lets out a cry as a crescent-shaped, cloven hoof grows in their place,"
-									+ " quickly transforming [npc.her] feet into reindeer-like hooves."
+									+ " quickly transforming [npc.her] feet into reindeer-like hoofs."
 								+ " As the transformation ends, [npc.she] sees that [npc.her] new fur smoothly transitions into the [npc.skin] covering the rest of [npc.her] body at [npc.her] upper-thigh.<br/>"
 								+ "[npc.Name] now has anthropomorphic, [style.boldReindeerMorph(reindeer-like legs and hoofed feet)], which are covered in [npc.legFullDescription]."
 							+ "</p>");
@@ -258,7 +266,7 @@ public class Leg implements BodyPartInterface, Serializable {
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
 								" A layer of short, cow-like hair quickly grows over your legs as they shift into a new form."
-								+ " As your new fur spreads down to the ends of your toes, they suddenly push together, and you let out a cry as a thick, hoof-like nail grows in their place, quickly transforming to turn your feet into cow-like hooves."
+								+ " As your new fur spreads down to the ends of your toes, they suddenly push together, and you let out a cry as a thick, hoof-like nail grows in their place, quickly transforming to turn your feet into cow-like hoofs."
 								+ " As the transformation ends, you see that your new fur smoothly transitions into the [pc.skin] covering the rest of your body at your upper-thigh.<br/>"
 								+ "You're left with anthropomorphic, [style.boldCowMorph(cow-like legs and hoofed feet)], which are covered in [pc.legFullDescription]."
 							+ "</p>");
@@ -266,7 +274,7 @@ public class Leg implements BodyPartInterface, Serializable {
 					UtilText.transformationContentSB.append(
 								" A layer of short, cow-like hair quickly grows over [npc.her] legs as they shift into a new form."
 								+ " As [npc.her] new fur spreads down to the ends of [npc.her] toes, they suddenly push together, and [npc.she] lets out a cry as a thick, hoof-like nail grows in their place,"
-									+ " quickly transforming to turn [npc.her] feet into cow-like hooves."
+									+ " quickly transforming to turn [npc.her] feet into cow-like hoofs."
 								+ " As the transformation ends, [npc.she] sees that [npc.her] new fur smoothly transitions into the [npc.skin] covering the rest of [npc.her] body at [npc.her] upper-thigh.<br/>"
 								+ "[npc.Name] now has anthropomorphic, [style.boldCowMorph(cow-like legs and hoofed feet)], which are covered in [npc.legFullDescription]."
 							+ "</p>");
@@ -362,6 +370,11 @@ public class Leg implements BodyPartInterface, Serializable {
 			case ANGEL: //TODO
 				break;
 		}
+		UtilText.transformationContentSB.append(
+				"<p>"
+					+ "The transformation has left the structure of [npc.her] [npc.feet] as [style.boldTFGeneric("+this.footStructure.getName()+")]! "+this.footStructure.getDescription()
+				+ "</p>");
+		
 		return UtilText.parse(owner, UtilText.transformationContentSB.toString())
 				+ "<p>"
 				+ owner.postTransformationCalculation()

@@ -933,7 +933,7 @@
 	
 	<htmlContent tag="PREGNANCY_ROULETTE_BREEDER_WINNER"><![CDATA[
 	<p>
-		[epona.speech(Congratulations! You guessed correctly!)] Epona happily says to you, before leaning forwards and giving you a big hug.
+		[epona.speech(Congratulations! You got this slut knocked up!)] Epona happily says to you, before leaning forwards and giving you a big hug.
 	</p>
 	<p>
 		[pc.speech(Thanks, Epona,)] you reply, smiling happily to yourself as you realise that you've just won a lot of money.
@@ -952,7 +952,7 @@
 	
 	<htmlContent tag="PREGNANCY_ROULETTE_BREEDER_LOSER"><![CDATA[
 	<p>
-		[epona.speech(Congratulations! You guessed correctly!)] Epona happily says to the winner, before leaning forwards and giving them a big hug.
+		[epona.speech(Congratulations! You got this slut knocked up!)] Epona happily says to the winner, before leaning forwards and giving them a big hug.
 	</p>
 	<p>
 		You, along with all the other breeders, let out a defeated sigh as you realise that you've lost your ten thousand flame bet.

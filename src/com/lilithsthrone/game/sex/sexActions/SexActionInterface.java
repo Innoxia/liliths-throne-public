@@ -240,22 +240,22 @@ public interface SexActionInterface {
 				for(SexAreaOrifice sArea : this.getTargetedCharacterOrifices()) {
 					switch(sArea){
 						case NIPPLE:
-							if(!Sex.getActivePartner().getPlayerKnowsAreas().contains(CoverableArea.NIPPLES)) {
+							if(!Sex.getCharacterTargetedForSexAction(this).getPlayerKnowsAreas().contains(CoverableArea.NIPPLES)) {
 								return null;
 							}
 							break;
 						case URETHRA_PENIS:
-							if(!Sex.getActivePartner().getPlayerKnowsAreas().contains(CoverableArea.PENIS)) {
+							if(!Sex.getCharacterTargetedForSexAction(this).getPlayerKnowsAreas().contains(CoverableArea.PENIS)) {
 								return null;
 							}
 							break;
 						case URETHRA_VAGINA:
-							if(!Sex.getActivePartner().getPlayerKnowsAreas().contains(CoverableArea.VAGINA)) {
+							if(!Sex.getCharacterTargetedForSexAction(this).getPlayerKnowsAreas().contains(CoverableArea.VAGINA)) {
 								return null;
 							}
 							break;
 						case VAGINA:
-							if(!Sex.getActivePartner().getPlayerKnowsAreas().contains(CoverableArea.VAGINA)) {
+							if(!Sex.getCharacterTargetedForSexAction(this).getPlayerKnowsAreas().contains(CoverableArea.VAGINA)) {
 								return null;
 							}
 							break;

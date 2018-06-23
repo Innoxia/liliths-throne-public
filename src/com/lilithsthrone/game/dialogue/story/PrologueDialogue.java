@@ -815,7 +815,7 @@ public class PrologueDialogue {
 
 					+ "<p>"
 						+ "While the men looked to be normal people on first glance, as you take a closer look, you see that something's not quite right."
-						+ " Their arms and legs are covered in a layer of coarse hair, and instead of feet, they each have a pair of horse-like hooves."
+						+ " Their arms and legs are covered in a layer of coarse hair, and instead of feet, they each have a pair of horse-like hoofs."
 						+ " Their ears are also similar to that of a horse's, and sit high up on their heads, and a horse-like tail swishes behind each of them."
 					+ "</p>"
 

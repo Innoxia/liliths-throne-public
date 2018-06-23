@@ -181,7 +181,7 @@ public class SlaveryUtil implements XMLSaving {
 			// Washing body:
 			if(slave.hasSlavePermissionSetting(SlavePermissionSetting.CLEANLINESS_WASH_BODY)
 					&& !slave.getWorkHours()[hour]
-					&& (slave.hasStatusEffect(StatusEffect.CREAMPIE_ANUS) || slave.hasStatusEffect(StatusEffect.CREAMPIE_VAGINA) || slave.hasStatusEffect(StatusEffect.CREAMPIE_NIPPLES))) {
+					&& !slave.getDirtySlots().isEmpty()) {
 				SlaveryEventLogEntry entry = new SlaveryEventLogEntry(hour,
 						slave,
 						SlaveEvent.WASHED_BODY,
@@ -216,7 +216,7 @@ public class SlaveryUtil implements XMLSaving {
 			boolean eventAdded = false;
 			SlaveryEventLogEntry entry = null;
 			// Interaction events:
-			if(slavesAtJob.get(slave.getSlaveJob()).size()>1) {
+			if(slavesAtJob.get(slave.getSlaveJob()).size()>1 || slave.getSlaveJob()==SlaveJob.IDLE) {
 				if(Math.random()<0.25f) {
 					entry = generateNPCInteractionEvent(day, hour, slave, slavesAtJob.get(slave.getSlaveJob()));
 					if(entry!=null) {
@@ -901,13 +901,23 @@ public class SlaveryUtil implements XMLSaving {
 			if(!npc.equals(slave)) {
 				if(slave.getLastTimeHadSex()+24*60<Main.game.getMinutesPassed()) { // They only want sex once a day, to stop the logs from being flooded
 					if(slave.isAttractedTo(npc) && npc.hasSlavePermissionSetting(SlavePermissionSetting.SEX_RECEIVE_SLAVES) && slave.hasSlavePermissionSetting(SlavePermissionSetting.SEX_INITIATE_SLAVES)) {
-//						System.out.println("x");
-						boolean canImpregnate = slave.hasSlavePermissionSetting(SlavePermissionSetting.SEX_IMPREGNATE) && npc.hasSlavePermissionSetting(SlavePermissionSetting.SEX_IMPREGNATED)
-								&& slave.hasPenis() && slave.isAbleToAccessCoverableArea(CoverableArea.PENIS, true)
-								&& npc.hasVagina() && npc.isAbleToAccessCoverableArea(CoverableArea.VAGINA, true);
-						boolean canBeImpregnated = slave.hasSlavePermissionSetting(SlavePermissionSetting.SEX_IMPREGNATED) && npc.hasSlavePermissionSetting(SlavePermissionSetting.SEX_IMPREGNATE)
-								&& npc.hasPenis() && npc.isAbleToAccessCoverableArea(CoverableArea.PENIS, true)
-								&& slave.hasVagina() && slave.isAbleToAccessCoverableArea(CoverableArea.VAGINA, true);
+						
+						boolean canImpregnate =
+								slave.hasSlavePermissionSetting(SlavePermissionSetting.SEX_IMPREGNATE)
+								&& npc.hasSlavePermissionSetting(SlavePermissionSetting.SEX_IMPREGNATED)
+								&& slave.hasPenis()
+								&& slave.isAbleToAccessCoverableArea(CoverableArea.PENIS, true)
+								&& npc.hasVagina()
+								&& npc.isAbleToAccessCoverableArea(CoverableArea.VAGINA, true);
+						
+						boolean canBeImpregnated = 
+								!slave.isVaginaVirgin()
+								&& slave.hasSlavePermissionSetting(SlavePermissionSetting.SEX_IMPREGNATED)
+								&& npc.hasSlavePermissionSetting(SlavePermissionSetting.SEX_IMPREGNATE)
+								&& npc.hasPenis()
+								&& npc.isAbleToAccessCoverableArea(CoverableArea.PENIS, true)
+								&& slave.hasVagina()
+								&& slave.isAbleToAccessCoverableArea(CoverableArea.VAGINA, true);
 						
 						boolean impregnationAttempt = false, gettingPregnantAttempt = false;
 						

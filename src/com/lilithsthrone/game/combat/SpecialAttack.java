@@ -616,7 +616,7 @@ public enum SpecialAttack {
 
 						"[npc.Name] [npc.verb(grin)] at [npc2.name], licking [npc.her] [npc.lips+] and flicking [npc.her] gaze down to rest on [npc2.namePos] crotch as [npc.she] [npc.moanVerb], [npc.speech(I'll take good care of your cock!)]")));
 			
-			return applySpecialSeduction(caster, target, Fetish.FETISH_PENIS_RECEIVING, attackText);
+			return applySpecialSeduction(caster, target, Fetish.FETISH_PENIS_GIVING, attackText);
 
 		}
 
@@ -650,7 +650,7 @@ public enum SpecialAttack {
 						"[npc.Name] [npc.verb(grin)] at [npc2.name] as [npc.she] [npc.moanVerb], [npc.speech(You're going to love the feeling of my [npc.penisSize] cock!)]")));
 				
 			
-			return applySpecialSeduction(caster, target, Fetish.FETISH_PENIS_GIVING, attackText);
+			return applySpecialSeduction(caster, target, Fetish.FETISH_PENIS_RECEIVING, attackText);
 
 		}
 
@@ -690,7 +690,7 @@ public enum SpecialAttack {
 						"[npc.Name] [npc.verb(grin)] at [npc2.name], licking [npc.her] [npc.lips+] and flicking [npc.her] gaze down to rest on [npc2.namePos] [npc2.feet] as [npc.she] [npc.moanVerb],"
 								+ " [npc.speech(I just want to worship your [npc2.feet]!)]")));
 			
-			return applySpecialSeduction(caster, target, Fetish.FETISH_FOOT_RECEIVING, attackText);
+			return applySpecialSeduction(caster, target, Fetish.FETISH_FOOT_GIVING, attackText);
 
 		}
 
@@ -727,7 +727,7 @@ public enum SpecialAttack {
 						"[npc.Name] [npc.verb(grin)] at [npc2.name] as [npc.she] [npc.moanVerb], [npc.speech(Crawl over here and kiss my feet!)]")));
 				
 			
-			return applySpecialSeduction(caster, target, Fetish.FETISH_FOOT_GIVING, attackText);
+			return applySpecialSeduction(caster, target, Fetish.FETISH_FOOT_RECEIVING, attackText);
 
 		}
 

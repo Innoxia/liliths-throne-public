@@ -119,6 +119,8 @@ public class SexFlags implements Serializable {
 		requestedSelfKneeling = false;
 		requestedMissionary = false;
 		requestedMissionaryOnBack = false;
+		requestedSitOnFace = false;
+		requestedFaceSitting = false;
 	}
 
 }

@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.npc.submission;
 
+import java.time.Month;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -59,7 +60,9 @@ public class SlimeGuardIce extends NPC {
 	}
 	
 	public SlimeGuardIce(boolean isImported) {
-		super(new NameTriplet("Crystal"), "[npc.Name] is one of the Slime Queen's guards, tasked to challenge anyone who dares to enter [npc.her] Queen's territory.", 8, Gender.F_V_B_FEMALE, RacialBody.HUMAN, RaceStage.HUMAN,
+		super(new NameTriplet("Crystal"), "[npc.Name] is one of the Slime Queen's guards, tasked to challenge anyone who dares to enter [npc.her] Queen's territory.",
+				19, Month.JANUARY, 29,
+				8, Gender.F_V_B_FEMALE, RacialBody.HUMAN, RaceStage.HUMAN,
 				new CharacterInventory(10), WorldType.SLIME_QUEENS_LAIR_GROUND_FLOOR, PlaceType.SLIME_QUEENS_LAIR_ENTRANCE_GUARDS, true);
 
 		if(!isImported) {
@@ -117,8 +120,6 @@ public class SlimeGuardIce extends NPC {
 		this.setSkinCovering(new Covering(BodyCoveringType.SLIME_PUPILS, Colour.SLIME_BLUE), false);
 		this.clearNonEquippedInventory();
 		equipClothing(true, false);
-
-//		this.setAlcoholLevel(1);
 	}
 	
 	@Override

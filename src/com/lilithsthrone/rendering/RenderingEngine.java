@@ -120,7 +120,7 @@ public enum RenderingEngine {
 		
 		equippedPanelSB.setLength(0);
 		
-		if(charactersInventoryToRender == null) {
+		if(charactersInventoryToRender == null) { //TODO
 			equippedPanelSB.append("<div class='inventory-equipped'>");
 
 			for (InventorySlot invSlot : mainInventorySlots) {
@@ -142,7 +142,7 @@ public enum RenderingEngine {
 			equippedPanelSB.append("<div class='inventory-equipped' style='width:100%;'>");
 			
 			for (InventorySlot invSlot : secondaryInventorySlots) {
-				equippedPanelSB.append("<div class='inventory-item-slot' id='" + invSlot.toString() + "Slot'></div>");
+				equippedPanelSB.append("<div class='inventory-item-slot secondary' id='" + invSlot.toString() + "Slot'></div>");
 			}
 			
 			equippedPanelSB.append("<div class='inventory-item-slot secondary'><div class='inventory-icon-content'>"
@@ -1130,6 +1130,7 @@ public enum RenderingEngine {
 			List <NPC> charactersPresent = Main.game.getCharactersPresent();
 			if(charactersPresent.isEmpty()) {
 				uiAttributeSB.append("<p style='text-align:center;padding:0;margin:0;'><span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>None...</span></p>");
+				
 			} else {
 				int count = 0;
 				for(NPC character : charactersPresent) {
