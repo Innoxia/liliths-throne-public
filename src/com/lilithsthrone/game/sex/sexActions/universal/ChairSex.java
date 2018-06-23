@@ -54,9 +54,15 @@ public class ChairSex {
 
 		@Override
 		public void applyEffects() {
-			Sex.setSexManager(new SMChairOral(
-					Util.newHashMapOfValues(new Value<>(Sex.getCharacterPerformingAction(), SexPositionSlot.CHAIR_KNEELING)),
-					Util.newHashMapOfValues(new Value<>(Sex.getCharacterTargetedForSexAction(this), SexPositionSlot.CHAIR_ORAL_SITTING))));
+			if(Sex.isDom(Sex.getCharacterPerformingAction())) {
+				Sex.setSexManager(new SMChairOral(
+						Util.newHashMapOfValues(new Value<>(Sex.getCharacterPerformingAction(), SexPositionSlot.CHAIR_KNEELING)),
+						Util.newHashMapOfValues(new Value<>(Sex.getCharacterTargetedForSexAction(this), SexPositionSlot.CHAIR_ORAL_SITTING))));
+			} else {
+				Sex.setSexManager(new SMChairOral(
+						Util.newHashMapOfValues(new Value<>(Sex.getCharacterTargetedForSexAction(this), SexPositionSlot.CHAIR_ORAL_SITTING)),
+						Util.newHashMapOfValues(new Value<>(Sex.getCharacterPerformingAction(), SexPositionSlot.CHAIR_KNEELING))));
+			}
 			
 			SexFlags.resetRequests();
 		}
@@ -96,9 +102,16 @@ public class ChairSex {
 
 		@Override
 		public void applyEffects() {
-			Sex.setSexManager(new SMChairOral(
-					Util.newHashMapOfValues(new Value<>(Sex.getCharacterPerformingAction(), SexPositionSlot.CHAIR_ORAL_SITTING)),
-					Util.newHashMapOfValues(new Value<>(Sex.getCharacterTargetedForSexAction(this), SexPositionSlot.CHAIR_KNEELING))));
+			if(Sex.isDom(Sex.getCharacterPerformingAction())) {
+				Sex.setSexManager(new SMChairOral(
+						Util.newHashMapOfValues(new Value<>(Sex.getCharacterPerformingAction(), SexPositionSlot.CHAIR_ORAL_SITTING)),
+						Util.newHashMapOfValues(new Value<>(Sex.getCharacterTargetedForSexAction(this), SexPositionSlot.CHAIR_KNEELING))));
+				
+			} else {
+				Sex.setSexManager(new SMChairOral(
+						Util.newHashMapOfValues(new Value<>(Sex.getCharacterTargetedForSexAction(this), SexPositionSlot.CHAIR_KNEELING)),
+						Util.newHashMapOfValues(new Value<>(Sex.getCharacterPerformingAction(), SexPositionSlot.CHAIR_ORAL_SITTING))));
+			}
 			
 			SexFlags.resetRequests();
 		}
@@ -138,9 +151,16 @@ public class ChairSex {
 
 		@Override
 		public void applyEffects() {
-			Sex.setSexManager(new SMChair(
-					Util.newHashMapOfValues(new Value<>(Sex.getCharacterPerformingAction(), SexPositionSlot.CHAIR_BOTTOM)),
-					Util.newHashMapOfValues(new Value<>(Sex.getCharacterTargetedForSexAction(this), SexPositionSlot.CHAIR_TOP))));
+			if(Sex.isDom(Sex.getCharacterPerformingAction())) {
+				Sex.setSexManager(new SMChair(
+						Util.newHashMapOfValues(new Value<>(Sex.getCharacterPerformingAction(), SexPositionSlot.CHAIR_BOTTOM)),
+						Util.newHashMapOfValues(new Value<>(Sex.getCharacterTargetedForSexAction(this), SexPositionSlot.CHAIR_TOP))));
+				
+			} else {
+				Sex.setSexManager(new SMChair(
+						Util.newHashMapOfValues(new Value<>(Sex.getCharacterTargetedForSexAction(this), SexPositionSlot.CHAIR_TOP)),
+						Util.newHashMapOfValues(new Value<>(Sex.getCharacterPerformingAction(), SexPositionSlot.CHAIR_BOTTOM))));
+			}
 			
 			SexFlags.resetRequests();
 		}
@@ -180,9 +200,17 @@ public class ChairSex {
 
 		@Override
 		public void applyEffects() {
-			Sex.setSexManager(new SMChair(
-					Util.newHashMapOfValues(new Value<>(Sex.getCharacterPerformingAction(), SexPositionSlot.CHAIR_TOP)),
-					Util.newHashMapOfValues(new Value<>(Sex.getCharacterTargetedForSexAction(this), SexPositionSlot.CHAIR_BOTTOM))));
+			if(Sex.isDom(Sex.getCharacterPerformingAction())) {
+				Sex.setSexManager(new SMChair(
+						Util.newHashMapOfValues(new Value<>(Sex.getCharacterPerformingAction(), SexPositionSlot.CHAIR_TOP)),
+						Util.newHashMapOfValues(new Value<>(Sex.getCharacterTargetedForSexAction(this), SexPositionSlot.CHAIR_BOTTOM))));
+				
+			} else {
+				Sex.setSexManager(new SMChair(
+						Util.newHashMapOfValues(new Value<>(Sex.getCharacterTargetedForSexAction(this), SexPositionSlot.CHAIR_BOTTOM)),
+						Util.newHashMapOfValues(new Value<>(Sex.getCharacterPerformingAction(), SexPositionSlot.CHAIR_TOP))));
+			}
+			
 			
 			SexFlags.resetRequests();
 		}

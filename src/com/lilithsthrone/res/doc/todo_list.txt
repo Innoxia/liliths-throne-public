@@ -82,8 +82,19 @@
 		Fixed bug where most characters were spawning with their penile virginity. (It's now a 15% chance for them to spawn as penile virgins.)
 		Fixed clothing type encyclopedia unlock events using custom names.
 		Naming enchanted tattoos now works correctly.
+		Fixed chair sex scenes swapping subs and doms
 	
 	
+	
+	
+	
+	
+	 I also noticed that Amber is always the dominant partner even though you didn't chose submit and her lines are submissive but she talks like dominant one after the scene is done as well as her ending the scene in the first place after she climaxed one time
+	
+	broken condom content
+	
+	Oh, I also noticed that the event log in the lower right hand corner defaults to the top of the list (oldest entry) rather than the bottom (newest entry). I dunno if this is on purpose.
+
 	
 	
 	
@@ -93,9 +104,6 @@
 		Scars
 	
 	Exhibitionist slaves lose affection if you ask them to show themselves off for you and are pissy about it
-	
-	
-	
 	
 	
 	
