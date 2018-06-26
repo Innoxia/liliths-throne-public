@@ -88,7 +88,10 @@ public class Eye implements BodyPartInterface, Serializable {
 		String s = UtilText.parse(owner, UtilText.transformationContentSB.toString());
 		UtilText.transformationContentSB.setLength(0);
 		UtilText.transformationContentSB.append(s);
+		
 		this.type = type;
+		irisShape = type.getIrisShape();
+		pupilShape = type.getPupilShape();
 		
 		switch (type) {
 			case HUMAN:
@@ -290,13 +293,8 @@ public class Eye implements BodyPartInterface, Serializable {
 				break;
 		}
 		
-		if(owner.isPlayer()) {
-			UtilText.transformationContentSB.append(", with [pc.irisFullDescription(true)] and [pc.pupilFullDescription(true)]."
-					+ "</p>");
-		} else {
-			UtilText.transformationContentSB.append(", with [npc.irisFullDescription(true)] and [npc.pupilFullDescription(true)]."
-				+ "</p>");
-		}
+		UtilText.transformationContentSB.append(", with [style.boldGenericTF([npc.irisShape])], [npc.irisFullDescription(true)] and [style.boldGenericTF([npc.pupilShape])], [npc.pupilFullDescription(true)]."
+			+ "</p>");
 		
 		return UtilText.parse(owner, UtilText.transformationContentSB.toString())
 				+ "<p>"

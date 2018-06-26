@@ -390,6 +390,7 @@ public enum SexPositionType {
 									SexPositionSlot.SIXTY_NINE_BOTTOM,
 									new SexActionInteractions(
 										Util.mergeMaps(
+												SexActionPresets.fingerToLowerHalf,
 												SexActionPresets.tailToUpperTorso,
 												SexActionPresets.tentacleToUpperTorso,
 												SexActionPresets.vaginaToMouth,
@@ -403,6 +404,7 @@ public enum SexPositionType {
 									SexPositionSlot.SIXTY_NINE_TOP,
 									new SexActionInteractions(
 										Util.mergeMaps(
+											SexActionPresets.fingerToLowerHalf,
 											SexActionPresets.tailToUpperTorso,
 											SexActionPresets.tentacleToUpperTorso,
 											SexActionPresets.vaginaToMouth,
@@ -652,7 +654,7 @@ public enum SexPositionType {
 								new Value<>(
 										SexPositionSlot.STOCKS_LOCKED_IN_STOCKS,
 										new SexActionInteractions(
-												SexActionPresets.fingerToLowerHalf)))),
+												null)))),
 					new Value<>(
 							SexPositionSlot.STOCKS_FUCKING,
 							Util.newHashMapOfValues(
@@ -662,7 +664,8 @@ public enum SexPositionType {
 												Util.mergeMaps(
 														SexActionPresets.fingerToLowerHalf,
 														SexActionPresets.tailToLowerHalf,
-														SexActionPresets.tentacleToLowerHalf))))))) {
+														SexActionPresets.tentacleToLowerHalf,
+														SexActionPresets.penisToAss))))))) {
 		@Override
 		public String getDescription() {
 			StringBuilder sb = new StringBuilder();
@@ -733,7 +736,7 @@ public enum SexPositionType {
 								new Value<>(
 										SexPositionSlot.MILKING_STALL_LOCKED_IN_MILKING_STALL,
 										new SexActionInteractions(
-												SexActionPresets.fingerToLowerHalf)))),
+												null)))),
 					new Value<>(
 							SexPositionSlot.MILKING_STALL_FUCKING,
 							Util.newHashMapOfValues(
@@ -743,7 +746,8 @@ public enum SexPositionType {
 												Util.mergeMaps(
 														SexActionPresets.fingerToLowerHalf,
 														SexActionPresets.tailToLowerHalf,
-														SexActionPresets.tentacleToLowerHalf))))))) {
+														SexActionPresets.tentacleToLowerHalf,
+														SexActionPresets.penisToAss))))))) {
 		@Override
 		public String getDescription() {
 			StringBuilder sb = new StringBuilder();
@@ -847,7 +851,8 @@ public enum SexPositionType {
 											SexActionPresets.tentacleToUpperTorso,
 											SexActionPresets.vaginaToMouth,
 											SexActionPresets.penisToMouth,
-											SexActionPresets.groinToGroin))))),
+											SexActionPresets.groinToGroin,
+											SexActionPresets.penisToAss))))),
 					new Value<>(
 							SexPositionSlot.KNEELING_PERFORMING_ORAL_RALPH,
 							Util.newHashMapOfValues(

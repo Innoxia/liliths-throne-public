@@ -6,7 +6,7 @@ import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
-import com.lilithsthrone.game.sex.managers.dominion.lilaya.SMChairLilaya;
+import com.lilithsthrone.game.sex.managers.universal.SMChair;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionLimitation;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
@@ -60,11 +60,11 @@ public class ConChairPositionsLilaya {
 		@Override
 		public void applyEffects() {
 			if(Sex.isDom(Main.game.getPlayer())) {
-				Sex.setSexManager(new SMChairLilaya(
+				Sex.setSexManager(new SMChair(
 						Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM)),
 						Util.newHashMapOfValues(new Value<>(Main.game.getLilaya(), SexPositionSlot.CHAIR_TOP))));
 			} else {
-				Sex.setSexManager(new SMChairLilaya(
+				Sex.setSexManager(new SMChair(
 						Util.newHashMapOfValues(new Value<>(Main.game.getLilaya(), SexPositionSlot.CHAIR_TOP)),
 						Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM))));
 			}
@@ -111,11 +111,11 @@ public class ConChairPositionsLilaya {
 		@Override
 		public void applyEffects() {
 			if(Sex.isDom(Main.game.getPlayer())) {
-				Sex.setSexManager(new SMChairLilaya(
+				Sex.setSexManager(new SMChair(
 						Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_TOP)),
 						Util.newHashMapOfValues(new Value<>(Main.game.getLilaya(), SexPositionSlot.CHAIR_BOTTOM))));
 			} else {
-				Sex.setSexManager(new SMChairLilaya(
+				Sex.setSexManager(new SMChair(
 						Util.newHashMapOfValues(new Value<>(Main.game.getLilaya(), SexPositionSlot.CHAIR_BOTTOM)),
 						Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_TOP))));
 			}

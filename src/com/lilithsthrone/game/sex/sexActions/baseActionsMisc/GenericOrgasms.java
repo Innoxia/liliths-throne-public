@@ -2764,7 +2764,7 @@ public class GenericOrgasms {
 				default:
 					return UtilText.returnStringAtRandom("[npc.Name] starts desperately panting and [npc.moaning], before blurting out, [npc.speech(Yes! I'm going to cum!)]<br/>"
 							+ "Upon hearing this, you quickly grab hold of [npc.her] [npc.arms], and, keeping [npc.herHim] held in place, prevent [npc.herHim] from stimulating [npc.herself]."
-							+ " Ignoring [npc.her] protests and cries for you to let [npc.herHim] orgasm, you continue holding [npc.her] quite still, only loosening your grip once [npc.she]'s calmed down.");
+							+ " Ignoring [npc.her] protests and cries for you to let [npc.herHim] orgasm, you continue holding [npc.herHim] quite still, only loosening your grip once [npc.she]'s calmed down.");
 			}
 		}
 		

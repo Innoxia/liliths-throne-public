@@ -4512,23 +4512,7 @@ public class MainControllerInitMethod {
 		// Content preferences:
 
 		if (Main.game.getCurrentDialogueNode() == OptionsDialogue.CONTENT_PREFERENCE || Main.game.getCurrentDialogueNode() == CharacterCreation.CONTENT_PREFERENCES) {
-			id = "ARTWORK_ON";
-			if (((EventTarget) MainController.document.getElementById(id)) != null) {
-				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-					Main.getProperties().setValue(PropertyValue.artwork, true);
-					Main.saveProperties();
-					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-				}, false);
-			}
-			id = "ARTWORK_OFF";
-			if (((EventTarget) MainController.document.getElementById(id)) != null) {
-				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-					Main.getProperties().setValue(PropertyValue.artwork, false);
-					Main.saveProperties();
-					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-				}, false);
-			}
-
+			
 			for(Artist artist : Artwork.allArtists) {
 				id = "ARTIST_"+artist.getFolderName();
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
@@ -4540,112 +4524,24 @@ public class MainControllerInitMethod {
 				}
 			}
 			
-			id = "NON_CON_ON";
-			if (((EventTarget) MainController.document.getElementById(id)) != null) {
-				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-					Main.getProperties().setValue(PropertyValue.nonConContent, true);
-					Main.saveProperties();
-					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-				}, false);
-			}
-			id = "NON_CON_OFF";
-			if (((EventTarget) MainController.document.getElementById(id)) != null) {
-				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-					Main.getProperties().setValue(PropertyValue.nonConContent, false);
-					Main.saveProperties();
-					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-				}, false);
-			}
-			
-			id = "INCEST_ON";
-			if (((EventTarget) MainController.document.getElementById(id)) != null) {
-				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-					Main.getProperties().setValue(PropertyValue.incestContent, true);
-					Main.saveProperties();
-					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-				}, false);
-			}
-			id = "INCEST_OFF";
-			if (((EventTarget) MainController.document.getElementById(id)) != null) {
-				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-					Main.getProperties().setValue(PropertyValue.incestContent, false);
-					Main.saveProperties();
-					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-				}, false);
-			}
-			
-			id = "LACTATION_ON";
-			if (((EventTarget) MainController.document.getElementById(id)) != null) {
-				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-					Main.getProperties().setValue(PropertyValue.lactationContent, true);
-					Main.saveProperties();
-					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-				}, false);
-			}
-			id = "LACTATION_OFF";
-			if (((EventTarget) MainController.document.getElementById(id)) != null) {
-				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-					Main.getProperties().setValue(PropertyValue.lactationContent, false);
-					Main.saveProperties();
-					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-				}, false);
-			}
-			
-			id = "CUM_REGENERATION_ON";
-			if (((EventTarget) MainController.document.getElementById(id)) != null) {
-				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-					Main.getProperties().setValue(PropertyValue.cumRegenerationContent, true);
-					Main.saveProperties();
-					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-				}, false);
-			}
-			id = "CUM_REGENERATION_OFF";
-			if (((EventTarget) MainController.document.getElementById(id)) != null) {
-				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-					Main.getProperties().setValue(PropertyValue.cumRegenerationContent, false);
-					Main.saveProperties();
-					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-				}, false);
-			}
-			
-			id = "URETHRAL_ON";
-			if (((EventTarget) MainController.document.getElementById(id)) != null) {
-				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-					Main.getProperties().setValue(PropertyValue.urethralContent, true);
-					Main.saveProperties();
-					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-				}, false);
-			}
-			id = "URETHRAL_OFF";
-			if (((EventTarget) MainController.document.getElementById(id)) != null) {
-				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-					Main.getProperties().setValue(PropertyValue.urethralContent, false);
-					Main.saveProperties();
-					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-				}, false);
-			}
-			
-			id = "NIPPLE_PEN_ON";
-			if (((EventTarget) MainController.document.getElementById(id)) != null) {
-				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-					Main.getProperties().setValue(PropertyValue.nipplePenContent, true);
-					Main.saveProperties();
-					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-				}, false);
-			}
-			id = "NIPPLE_PEN_OFF";
-			if (((EventTarget) MainController.document.getElementById(id)) != null) {
-				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-					Main.getProperties().setValue(PropertyValue.nipplePenContent, false);
-					Main.saveProperties();
-					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-				}, false);
-			}
-			
 			Map<String, PropertyValue> settingsMap = Util.newHashMapOfValues(
+					new Value<>("ARTWORK", PropertyValue.artwork),
+					new Value<>("NON_CON", PropertyValue.nonConContent),
+					new Value<>("INCEST", PropertyValue.incestContent),
+					new Value<>("LACTATION", PropertyValue.lactationContent),
+					new Value<>("CUM_REGENERATION", PropertyValue.cumRegenerationContent),
+					new Value<>("URETHRAL", PropertyValue.urethralContent),
+					new Value<>("NIPPLE_PEN", PropertyValue.nipplePenContent),
 					new Value<>("HAIR_FACIAL", PropertyValue.facialHairContent),
 					new Value<>("ANAL", PropertyValue.analContent),
-					new Value<>("FUTA_BALLS", PropertyValue.futanariTesticles));
+					new Value<>("FUTA_BALLS", PropertyValue.futanariTesticles),
+					new Value<>("AGE", PropertyValue.ageContent),
+					new Value<>("HAIR_PUBIC", PropertyValue.pubicHairContent),
+					new Value<>("HAIR_BODY", PropertyValue.bodyHairContent),
+					new Value<>("HAIR_ASS", PropertyValue.assHairContent),
+					new Value<>("FEMININE_BEARD", PropertyValue.feminineBeardsContent),
+					new Value<>("FURRY_TAIL_PENETRATION", PropertyValue.furryTailPenetrationContent),
+					new Value<>("INFLATION_CONTENT", PropertyValue.inflationContent));
 			
 			for(Entry<String, PropertyValue> entry : settingsMap.entrySet()) {
 				id = entry.getKey()+"_ON";
@@ -4664,109 +4560,6 @@ public class MainControllerInitMethod {
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
 				}
-			}
-			
-			id = "HAIR_PUBIC_ON";
-			if (((EventTarget) MainController.document.getElementById(id)) != null) {
-				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-					Main.getProperties().setValue(PropertyValue.pubicHairContent, true);
-					Main.saveProperties();
-					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-				}, false);
-			}
-			id = "HAIR_PUBIC_OFF";
-			if (((EventTarget) MainController.document.getElementById(id)) != null) {
-				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-					Main.getProperties().setValue(PropertyValue.pubicHairContent, false);
-					Main.saveProperties();
-					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-				}, false);
-			}
-			
-			id = "HAIR_BODY_ON";
-			if (((EventTarget) MainController.document.getElementById(id)) != null) {
-				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-					Main.getProperties().setValue(PropertyValue.bodyHairContent, true);
-					Main.saveProperties();
-					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-				}, false);
-			}
-			id = "HAIR_BODY_OFF";
-			if (((EventTarget) MainController.document.getElementById(id)) != null) {
-				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-					Main.getProperties().setValue(PropertyValue.bodyHairContent, false);
-					Main.saveProperties();
-					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-				}, false);
-			}
-			
-			id = "HAIR_ASS_ON";
-			if (((EventTarget) MainController.document.getElementById(id)) != null) {
-				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-					Main.getProperties().setValue(PropertyValue.assHairContent, true);
-					Main.saveProperties();
-					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-				}, false);
-			}
-			id = "HAIR_ASS_OFF";
-			if (((EventTarget) MainController.document.getElementById(id)) != null) {
-				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-					Main.getProperties().setValue(PropertyValue.assHairContent, false);
-					Main.saveProperties();
-					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-				}, false);
-			}
-			
-			id = "FEMININE_BEARD_ON";
-			if (((EventTarget) MainController.document.getElementById(id)) != null) {
-				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-					Main.getProperties().setValue(PropertyValue.feminineBeardsContent, true);
-					Main.saveProperties();
-					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-				}, false);
-			}
-			id = "FEMININE_BEARD_OFF";
-			if (((EventTarget) MainController.document.getElementById(id)) != null) {
-				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-					Main.getProperties().setValue(PropertyValue.feminineBeardsContent, false);
-					Main.saveProperties();
-					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-				}, false);
-			}
-			
-			
-			id = "FURRY_TAIL_PENETRATION_ON";
-			if (((EventTarget) MainController.document.getElementById(id)) != null) {
-				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-					Main.getProperties().setValue(PropertyValue.furryTailPenetrationContent, true);
-					Main.saveProperties();
-					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-				}, false);
-			}
-			id = "FURRY_TAIL_PENETRATION_OFF";
-			if (((EventTarget) MainController.document.getElementById(id)) != null) {
-				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-					Main.getProperties().setValue(PropertyValue.furryTailPenetrationContent, false);
-					Main.saveProperties();
-					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-				}, false);
-			}
-			
-			id = "INFLATION_CONTENT_ON";
-			if (((EventTarget) MainController.document.getElementById(id)) != null) {
-				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-					Main.getProperties().setValue(PropertyValue.inflationContent, true);
-					Main.saveProperties();
-					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-				}, false);
-			}
-			id = "INFLATION_CONTENT_OFF";
-			if (((EventTarget) MainController.document.getElementById(id)) != null) {
-				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-					Main.getProperties().setValue(PropertyValue.inflationContent, false);
-					Main.saveProperties();
-					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-				}, false);
 			}
 			
 

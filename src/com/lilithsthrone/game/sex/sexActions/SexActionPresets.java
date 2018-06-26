@@ -7,6 +7,7 @@ import java.util.List;
 import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
+import com.lilithsthrone.game.sex.sexActions.baseActions.TongueMouth;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericActions;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericOrgasms;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericPositioning;
@@ -32,7 +33,6 @@ import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerTailNippl
 import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerTailVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerTongueAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerTongueBreasts;
-import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerTongueMouth;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerTongueNipple;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerTongueVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerFingerAnus;
@@ -55,7 +55,6 @@ import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerTailNipple;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerTailVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerTongueAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerTongueBreasts;
-import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerTongueMouth;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerTongueNipple;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerTongueVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfFingerAnus;
@@ -267,7 +266,6 @@ public class SexActionPresets {
 		sexActions.add(PartnerTailVagina.class);
 		sexActions.add(PartnerTongueAnus.class);
 		sexActions.add(PartnerTongueBreasts.class);
-		sexActions.add(PartnerTongueMouth.class);
 		sexActions.add(PartnerTongueNipple.class);
 		sexActions.add(PartnerTongueVagina.class);
 
@@ -291,9 +289,10 @@ public class SexActionPresets {
 		sexActions.add(PlayerTailVagina.class);
 		sexActions.add(PlayerTongueAnus.class);
 		sexActions.add(PlayerTongueBreasts.class);
-		sexActions.add(PlayerTongueMouth.class);
 		sexActions.add(PlayerTongueNipple.class);
 		sexActions.add(PlayerTongueVagina.class);
+
+		sexActions.add(TongueMouth.class);
 		
 //		selfActions.add(PlayerMasturbation.class);
 //		selfActions.add(PartnerMasturbation.class);

@@ -34,35 +34,88 @@
 	
 	
 	
+	
 	Patch notes:
 	
+	Other:
+		Eye transformations now affect iris and pupil shape.
+		The 'Deny' action in sex is now always available (so long as you're the dom or have equal control as the sub).
+		Event log is now sorted with the most recent events at the top of the list.
+	
+	Bugs:
+		Fixed Ralph not starting anal when you asked for big discount.
+		Fixed not being able to swap or change positions with Lilaya & Kate in their sex scenes.
+		Fixed slaves in the stocks and milking stalls using their hands, and added anal options for the 'standing behind' position.
+		Typo fixes.
+		Fixed 'Deny' sex action not working.
+		Fixed tattoos without any writing loading in as having blank 'normal grey text'.
+		Fixed the 'Age' content toggle not working.
+		
 	
 	
 	
 	
-	Nyan & Finch is only stocking modded clothing in the specials section, i've tried passing 3 days and nothing
+	Bug fixes
 	
-	The off button for age does not work
+	Convert kissing and groping actions so threesome can interact
+	
+	Convert oral actions
+	
+	Lumi
+	
+	Nightlife plan:
+		Club
+		Internal map: Entrance, dancefloor, bar, seating area, toilets
+		Can: Dance, drink/loiter/flirt, use toilet (gloryhole)
+		Flirt
+	
+	
+	
+	
+	Current bug with Sixty-Nine
+When your partner is male or futa, and you're recieving a blowjob, you can't give one back. Instead, there's a greyed out "Get Blowjob"
+Also, the possessive nouns when you climax in 69 position is whack too.
+And yes, I see she's still wearing underwear, I'm just saying that this happens wether or not they are.. 
+Swapping positions during 69  also causes this
+
+Also, a character can hate giving oral, but still your aura says they want to give oral to you.
+
+Tried having submissive sex with a slave who wasn't normally interested in me during an arcane storm. They acted friendly, but refused to take any actions. There seemed to be no method of exiting the encounter so I had to load a previous save
+	
+	aren't plugs supposed to be removed before anything is done to that part? The NPCs seem to be ignoring the plugs in me in sex
+	
+	Lilaya position switching reported
+	
+	Fix spells not doing damage from max lust
+	
+	Add crowd indication (Needed for club definitely)
+	
+	
+	
+	
+	Exhibitionist slaves lose affection if you ask them to show themselves off for you and are pissy about it
+	
+	add in child spawns in the bat caverns 
+		
+	taunts and dirty talk similar to that in pregnancy roulette based on fetishes, for example once the npc switches what they want to fucking your pussy they could say "Im going to take that tight kitty of yours" or "Im going to breed your pussy" if they have a pregnancy fetish. in addition they could have comments on orgasm based on where they cum, if they cum inside you they could say "Going to have my pups for sure" or if they cum on your clothing or body they could taunt at you being covered in their cum
+	
+	wearing the rental t-shirts attracting NPCs in the alleys
+	
+	I haven't written in sex intros for the generic encounters yet - I'll try and get that done soon! ^^
+
+	I think the 'Request X' actions in sex are bugged at the moment, I'll get those fixed asap.
+	
+	Bug 1 - in the character creator when selecting tattoos, if you type in lettering and hit add without doing anything else you lose the last letter typed. When pressing enter, I lose the last letter as well. However if change any of the other options, the full text is kept. Bug 2 - in the tattoo interface still, the hearts type is listed twice, clicking on the second one doesn't do anything, clicking on the first cycles between the two. Each option will apply the hearts tattoo when applied.
 	
 	rfpnj jewellery
 	
-	"Your limbs are , and have a..."
-	
-	 I also noticed that Amber is always the dominant partner even though you didn't chose submit and her lines are submissive but she talks like dominant one after the scene is done as well as her ending the scene in the first place after she climaxed one time
+	I also noticed that Amber is always the dominant partner even though you didn't chose submit and her lines are submissive but she talks like dominant one after the scene is done as well as her ending the scene in the first place after she climaxed one time
 	
 	broken condom content
-	
-	Oh, I also noticed that the event log in the lower right hand corner defaults to the top of the list (oldest entry) rather than the bottom (newest entry). I dunno if this is on purpose.
-
-	
-	
-	
-	spawning with clothing revealing ass
 	
 	Add to character creation:
 		Scars
 	
-	Exhibitionist slaves lose affection if you ask them to show themselves off for you and are pissy about it
 	
 	
 	
@@ -79,13 +132,6 @@
 		children fathered
 		virility
 		body type
-		
-		
-	add in child spawns in the bat caverns 
-		
-	Fix spells not doing damage from max lust
-	
-	Add crowd indication
 	
 	
 	Sort sex actions
@@ -125,6 +171,7 @@
 	
 	
 	
+	NPCs spawning with clothing revealing ass
 	
 	Add cum stuff to TF menu
 	

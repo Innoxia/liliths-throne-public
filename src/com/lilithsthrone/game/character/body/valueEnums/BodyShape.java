@@ -9,7 +9,7 @@ import javafx.scene.paint.Color;
 
 /**
  * @since 0.1.83
- * @version 0.2.7
+ * @version 0.2.8
  * @author Innoxia
  */
 public enum BodyShape {
@@ -36,7 +36,7 @@ public enum BodyShape {
 	
 	// BodySize == TWO_AVERAGE
 	AVERAGE_SOFT("chubby", BodySize.TWO_AVERAGE, Muscle.ZERO_SOFT, Util.newArrayListOfValues("chubby", "soft")),
-	AVERAGE_LIGHTLY_MUSCLED("average", BodySize.TWO_AVERAGE, Muscle.ONE_LIGHTLY_MUSCLED, Util.newArrayListOfValues("")),
+	AVERAGE_LIGHTLY_MUSCLED("average", BodySize.TWO_AVERAGE, Muscle.ONE_LIGHTLY_MUSCLED, Util.newArrayListOfValues("slightly toned")),
 	AVERAGE_TONED("healthy", BodySize.TWO_AVERAGE, Muscle.TWO_TONED, Util.newArrayListOfValues("toned")),
 	AVERAGE_MUSCULAR("fit", BodySize.TWO_AVERAGE, Muscle.THREE_MUSCULAR, Util.newArrayListOfValues("toned", "muscular")),
 	AVERAGE_RIPPED("athletic", BodySize.TWO_AVERAGE, Muscle.FOUR_RIPPED, Util.newArrayListOfValues("toned", "muscular", "strong")),

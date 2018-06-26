@@ -1355,10 +1355,10 @@ public enum Sex {
 			availableSexActionsPlayer.add(SexActionUtility.PLAYER_NONE);
 			availableSexActionsPlayer.add(SexActionUtility.PLAYER_CALM_DOWN);
 
-			if(Main.game.getPlayer().hasFetish(Fetish.FETISH_DENIAL)) {
-				if(isConsensual() || isDom(Main.game.getPlayer()))
-					availableSexActionsPlayer.add(SexActionUtility.DENIAL_FETISH_DENY);
-			}
+//			if(Main.game.getPlayer().hasFetish(Fetish.FETISH_DENIAL)) {
+//				if(isConsensual() || isDom(Main.game.getPlayer()))
+//					availableSexActionsPlayer.add(SexActionUtility.DENIAL_FETISH_DENY);
+//			}
 
 			// Add actions:
 			for (SexActionInterface sexAction : Sex.getActionsAvailablePlayer()) {
@@ -1695,12 +1695,14 @@ public enum Sex {
 		if(!Sex.isMasturbation()) {
 			arousalIncrements.put(targetCharacter, sexAction.getArousalGainTarget().getArousalIncreaseValue());
 		}
+		
 		// Base lust gains are based on arousal gains:
 		if(Sex.getSexPace(activeCharacter)==SexPace.SUB_RESISTING) {
 			lustIncrements.put(activeCharacter, -2.5f);
 		} else {
 			lustIncrements.put(activeCharacter, Math.min(2.5f, Math.max(-2.5f, sexAction.getArousalGainSelf().getArousalIncreaseValue())));
 		}
+		
 		if(Sex.getSexPace(targetCharacter)==SexPace.SUB_RESISTING) {
 			lustIncrements.put(targetCharacter, -2.5f);
 		} else {
@@ -1761,6 +1763,13 @@ public enum Sex {
 			} else {
 				entry.getKey().incrementLust(entry.getValue());
 			}
+		}
+		
+		if(sexAction.getArousalGainSelf().getArousalIncreaseValue()<0) {
+			arousalIncrements.put(activeCharacter, sexAction.getArousalGainSelf().getArousalIncreaseValue());
+		}
+		if(!Sex.isMasturbation() && sexAction.getArousalGainTarget().getArousalIncreaseValue()<0) {
+			arousalIncrements.put(targetCharacter, sexAction.getArousalGainTarget().getArousalIncreaseValue());
 		}
 		
 		// Modify arousal value based on lust:

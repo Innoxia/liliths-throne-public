@@ -1,21 +1,16 @@
 package com.lilithsthrone.game.sex.sexActions;
 
-import java.util.List;
-
-import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
-import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
-import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.1.78
+ * @version 0.2.8
  * @author Innoxia
  */
 public class SexActionUtility {
@@ -285,48 +280,6 @@ public class SexActionUtility {
 		@Override
 		public String getDescription() {
 			return Sex.getDyeClothingText();
-		}
-	};
-	
-	public static final SexAction DENIAL_FETISH_DENY = new SexAction(
-			SexActionType.ONGOING,
-			ArousalIncrease.TWO_LOW,
-			ArousalIncrease.NEGATIVE,
-			CorruptionLevel.ZERO_PURE,
-			null,
-			SexParticipantType.NORMAL) {
-		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.PLAYER_ONLY;
-		}
-		@Override
-		public String getActionTitle() {
-			return "Deny";
-		}
-
-		@Override
-		public String getActionDescription() {
-			return "Force [npc.name] to stay perfectly still, holding them in position until they've lost a good portion of their arousal.";
-		}
-
-		@Override
-		public boolean isBaseRequirementsMet() {
-			return Sex.isDom(Main.game.getPlayer()) && !Sex.isMasturbation();
-		}
-
-		@Override
-		public String getDescription() {
-			return UtilText.parse(Sex.getActivePartner(),
-					"Taking control of the situation, you hold [npc.name] quite still, only releasing [npc.herHim] once [npc.she]'s lost a good portion of [npc.her] arousal.");
-		}
-		
-		@Override
-		public List<Fetish> getFetishes(GameCharacter character) {
-			if(character.equals(Sex.getCharacterPerformingAction())) {
-				return Util.newArrayListOfValues(Fetish.FETISH_DENIAL);
-			} else {
-				return Util.newArrayListOfValues(Fetish.FETISH_DENIAL_SELF);
-			}
 		}
 	};
 }

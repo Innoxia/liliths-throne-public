@@ -2,6 +2,7 @@ package com.lilithsthrone.rendering;
 
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -1225,9 +1226,13 @@ public enum RenderingEngine {
 			if(Main.game.getEventLog().isEmpty()) {
 				uiAttributeSB.append("<p style='text-align:center;padding:0;margin:0;'><span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No events yet...</span></p>");
 			}
+			
 			count = 0;
+			
 			if(Main.game.getEventLog().size()>50) {
-				for(EventLogEntry event : Main.game.getEventLog().subList(Main.game.getEventLog().size()-50, Main.game.getEventLog().size())) {
+				List<EventLogEntry> youveCatToBeKittenMeRightMeow = new ArrayList<>(Main.game.getEventLog().subList(Main.game.getEventLog().size()-50, Main.game.getEventLog().size()));
+				Collections.reverse(youveCatToBeKittenMeRightMeow);
+				for(EventLogEntry event : youveCatToBeKittenMeRightMeow) {
 					if(count%2==0) {
 						uiAttributeSB.append("<div class='event-log-entry' style='background:"+getEntryBackgroundColour(false)+";'>"+UtilText.parse(event.getFormattedEntry())+"</div>");
 					} else {
@@ -1235,8 +1240,11 @@ public enum RenderingEngine {
 					}
 					count++;
 				}
+				
 			} else {
-				for(EventLogEntry event : Main.game.getEventLog()) {
+				List<EventLogEntry> youveCatToBeKittenMeRightMeow = new ArrayList<>(Main.game.getEventLog());
+				Collections.reverse(youveCatToBeKittenMeRightMeow);
+				for(EventLogEntry event : youveCatToBeKittenMeRightMeow) {
 					if(count%2==0) {
 						uiAttributeSB.append("<div class='event-log-entry' style='background:"+getEntryBackgroundColour(false)+";'>"+UtilText.parse(event.getFormattedEntry())+"</div>");
 					} else {

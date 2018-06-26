@@ -28,7 +28,7 @@ import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
-import com.lilithsthrone.game.sex.managers.dominion.lilaya.SMChairLilaya;
+import com.lilithsthrone.game.sex.managers.universal.SMChair;
 import com.lilithsthrone.game.sex.managers.universal.SMStanding;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
@@ -39,7 +39,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.75
- * @version 0.2.5
+ * @version 0.2.8
  * @author Innoxia
  */
 public class Lab {
@@ -401,7 +401,7 @@ public class Lab {
 								"Let Lilaya run her \"tests\" on you.",
 								Util.newArrayListOfValues(Fetish.FETISH_INCEST), null, CorruptionLevel.FOUR_LUSTFUL, null, null, null,
 								true, true,
-								new SMChairLilaya(
+								new SMChair(
 										Util.newHashMapOfValues(new Value<>(Main.game.getLilaya(), SexPositionSlot.CHAIR_TOP)),
 										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM))),
 								Lilaya.AUNT_END_SEX,
@@ -429,7 +429,7 @@ public class Lab {
 								null,
 								CorruptionLevel.FOUR_LUSTFUL, null, null, null,
 								true, true,
-								new SMChairLilaya(
+								new SMChair(
 										Util.newHashMapOfValues(new Value<>(Main.game.getLilaya(), SexPositionSlot.CHAIR_TOP)),
 										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM))),
 								Lilaya.AUNT_END_SEX,
@@ -1849,7 +1849,7 @@ public class Lab {
 						null,
 						CorruptionLevel.FOUR_LUSTFUL, null, null, null,
 						true, true,
-						new SMChairLilaya(
+						new SMChair(
 								Util.newHashMapOfValues(new Value<>(Main.game.getLilaya(), SexPositionSlot.CHAIR_TOP)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM))),
 						Lilaya.AUNT_END_SEX,
@@ -2094,7 +2094,7 @@ public class Lab {
 						"You know that this can only end one way. Although Lilaya reminds you of your aunt Lily, you always did have a crush on her...", Util.newArrayListOfValues(Fetish.FETISH_INCEST),
 						null, CorruptionLevel.FOUR_LUSTFUL, null, null, null,
 						true, true,
-						new SMChairLilaya(
+						new SMChair(
 								Util.newHashMapOfValues(new Value<>(Main.game.getLilaya(), SexPositionSlot.CHAIR_TOP)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM))),
 						Lilaya.AUNT_END_SEX,

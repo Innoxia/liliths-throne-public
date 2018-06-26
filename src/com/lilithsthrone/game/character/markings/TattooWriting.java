@@ -94,7 +94,9 @@ public class TattooWriting implements XMLSaving {
 			} catch(Exception ex) {
 			}
 			
-			TattooWriting tw = new TattooWriting(parentElement.getTextContent(),
+			String text = parentElement.getTextContent();
+			
+			TattooWriting tw = new TattooWriting(text.trim(),
 					Colour.valueOf(parentElement.getAttribute("colour")),
 					Boolean.valueOf(parentElement.getAttribute("glow")));
 			
