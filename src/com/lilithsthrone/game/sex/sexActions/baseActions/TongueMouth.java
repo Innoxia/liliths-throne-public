@@ -309,7 +309,7 @@ public class TongueMouth {
 			
 			}
 			
-			//TODO modifiers
+			//TODO describe tongue modifiers
 			
 			return UtilText.nodeContentSB.toString();
 		}
@@ -369,7 +369,6 @@ public class TongueMouth {
 			CorruptionLevel.ZERO_PURE,
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TONGUE, SexAreaOrifice.MOUTH)),
 			SexParticipantType.NORMAL,
-			null,
 			SexPace.DOM_GENTLE) {
 		
 		@Override
@@ -419,7 +418,6 @@ public class TongueMouth {
 			CorruptionLevel.ZERO_PURE,
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TONGUE, SexAreaOrifice.MOUTH)),
 			SexParticipantType.NORMAL,
-			null,
 			SexPace.DOM_NORMAL) {
 		
 		@Override
@@ -470,7 +468,6 @@ public class TongueMouth {
 			CorruptionLevel.TWO_HORNY,
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TONGUE, SexAreaOrifice.MOUTH)),
 			SexParticipantType.NORMAL,
-			null,
 			SexPace.DOM_ROUGH) {
 		
 		@Override
@@ -523,7 +520,6 @@ public class TongueMouth {
 			CorruptionLevel.ZERO_PURE,
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TONGUE, SexAreaOrifice.MOUTH)),
 			SexParticipantType.NORMAL,
-			null,
 			SexPace.SUB_NORMAL) {
 		
 		@Override
@@ -573,7 +569,6 @@ public class TongueMouth {
 			CorruptionLevel.ZERO_PURE,
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TONGUE, SexAreaOrifice.MOUTH)),
 			SexParticipantType.NORMAL,
-			null,
 			SexPace.SUB_EAGER) {
 		
 		@Override
@@ -623,8 +618,7 @@ public class TongueMouth {
 			CorruptionLevel.ZERO_PURE,
 			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.MOUTH, SexAreaPenetration.TONGUE)),
 			SexParticipantType.NORMAL,
-			SexPace.SUB_RESISTING,
-			null) {
+			SexPace.SUB_RESISTING) {
 		
 		@Override
 		public String getActionTitle() {

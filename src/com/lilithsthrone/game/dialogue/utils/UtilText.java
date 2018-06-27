@@ -2406,6 +2406,27 @@ public class UtilText {
 			@Override
 			public String parse(String command, String arguments, String target) {
 				if(character.isFeminine()) {
+					return returnStringAtRandom("scent", "scent", "perfume");
+				} else {
+					return returnStringAtRandom("musk", "musk", "aroma");
+				}
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"scent+",
+						"scentD",
+						"smell+",
+						"smellD"),
+				true,
+				true,
+				"",
+				"Description of method",
+				BodyPartType.GENERIC){//TODO
+			@Override
+			public String parse(String command, String arguments, String target) {
+				if(character.isFeminine()) {
 					return returnStringAtRandom("feminine scent", "feminine perfume", "delicate scent");
 				} else {
 					return returnStringAtRandom("masculine musk", "masculine aroma");

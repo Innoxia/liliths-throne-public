@@ -100,7 +100,6 @@ public class PartnerSelfTailNipple {
 			CorruptionLevel.ONE_VANILLA,
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TAIL, SexAreaOrifice.NIPPLE)),
 			SexParticipantType.SELF,
-			null,
 			SexPace.DOM_GENTLE) {
 		@Override
 		public SexActionLimitation getLimitation() {
@@ -143,7 +142,6 @@ public class PartnerSelfTailNipple {
 			CorruptionLevel.ONE_VANILLA,
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TAIL, SexAreaOrifice.NIPPLE)),
 			SexParticipantType.SELF,
-			null,
 			SexPace.DOM_NORMAL) {
 		@Override
 		public SexActionLimitation getLimitation() {
@@ -186,7 +184,6 @@ public class PartnerSelfTailNipple {
 			CorruptionLevel.ONE_VANILLA,
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TAIL, SexAreaOrifice.NIPPLE)),
 			SexParticipantType.SELF,
-			null,
 			SexPace.DOM_ROUGH) {
 		@Override
 		public SexActionLimitation getLimitation() {
@@ -229,7 +226,6 @@ public class PartnerSelfTailNipple {
 			CorruptionLevel.ONE_VANILLA,
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TAIL, SexAreaOrifice.NIPPLE)),
 			SexParticipantType.SELF,
-			null,
 			SexPace.SUB_NORMAL) {
 		@Override
 		public SexActionLimitation getLimitation() {
@@ -272,7 +268,6 @@ public class PartnerSelfTailNipple {
 			CorruptionLevel.ONE_VANILLA,
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TAIL, SexAreaOrifice.NIPPLE)),
 			SexParticipantType.SELF,
-			null,
 			SexPace.SUB_EAGER) {
 		@Override
 		public SexActionLimitation getLimitation() {

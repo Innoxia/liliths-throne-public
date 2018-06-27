@@ -1280,7 +1280,7 @@ public enum Sex {
 							if(sexActionPartner.getLimitation()==null
 									&& sexActionPartner!=SexActionUtility.CLOTHING_REMOVAL
 									&& sexActionPartner!=SexActionUtility.CLOTHING_DYE) {
-								s = UtilText.parse(Sex.getCharacterPerformingAction(), Sex.getCharacterTargetedForSexAction(sexActionPlayer), sexSB.toString());
+								s = UtilText.parse(Sex.getCharacterPerformingAction(), Sex.getCharacterTargetedForSexAction(sexActionPartner), sexSB.toString());
 							} else {
 								s = UtilText.parse(character, sexSB.toString());
 							}
@@ -1612,9 +1612,9 @@ public enum Sex {
 					if(// Do not add action if the partner is resisting and this action is SUB_EAGER or SUB_NORMAL or is a self action
 						(Main.game.isNonConEnabled()
 							&& getSexPace(activePartner)==SexPace.SUB_RESISTING
-							&& ((sexAction.getSexPace(Sex.getActivePartner())!=null && sexAction.getSexPace(Sex.getActivePartner())!=SexPace.SUB_RESISTING) || sexAction.getParticipantType()==SexParticipantType.SELF))
+							&& ((sexAction.getSexPace()!=null && sexAction.getSexPace()!=SexPace.SUB_RESISTING) || sexAction.getParticipantType()==SexParticipantType.SELF))
 						// Do not add action if action does not correspond to the partner's preferred action pace
-						|| (sexAction.getSexPace(Sex.getActivePartner())!=null && getSexPace(activePartner)!=sexAction.getSexPace(Sex.getActivePartner()))) {
+						|| (sexAction.getSexPace()!=null && getSexPace(activePartner)!=sexAction.getSexPace())) {
 						
 						
 					} else {
@@ -1724,7 +1724,7 @@ public enum Sex {
 		}
 
 		// Arousal increments for related fetishes:
-		if(sexAction.getFetishes(activeCharacter)!=null && sexAction.getSexPace(activeCharacter)!=SexPace.SUB_RESISTING) {
+		if(sexAction.getFetishes(activeCharacter)!=null && sexAction.getSexPace()!=SexPace.SUB_RESISTING) {
 			for(Fetish f : sexAction.getFetishes(activeCharacter)) {
 				if(activeCharacter.hasFetish(f)) {
 					arousalIncrements.put(activeCharacter, arousalIncrements.get(activeCharacter) + activeCharacter.getFetishLevel(f).getBonusArousalIncrease());
@@ -1738,7 +1738,7 @@ public enum Sex {
 		}
 
 		// Arousal increments for this target's related fetishes:
-		if(sexAction.getFetishesForTargetedPartner(activeCharacter)!=null && sexAction.getSexPace(targetCharacter)!=SexPace.SUB_RESISTING) {
+		if(sexAction.getFetishesForTargetedPartner(activeCharacter)!=null && Sex.getSexPace(targetCharacter)!=SexPace.SUB_RESISTING) {
 			for(Fetish f : sexAction.getFetishesForTargetedPartner(activeCharacter)) {
 				if(targetCharacter.hasFetish(f)) {
 					arousalIncrements.put(targetCharacter, arousalIncrements.get(targetCharacter) + targetCharacter.getFetishLevel(f).getBonusArousalIncrease());

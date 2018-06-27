@@ -195,7 +195,11 @@ public interface SexActionInterface {
 		return "";
 	}
 	
-	public default boolean isBaseRequirementsMet() { return true; }
+	public default boolean isBaseRequirementsMet() {
+		return this.getSexPace()==null
+				|| (this.getSexPace().isDom() && Sex.getSexPace(Sex.getCharacterPerformingAction()).isDom())
+				|| (!this.getSexPace().isDom() && !Sex.getSexPace(Sex.getCharacterPerformingAction()).isDom());
+	}
 	
 	/**
 	 * Used for determining how likely an NPC is to use this action.
@@ -205,10 +209,10 @@ public interface SexActionInterface {
 	}
 	
 	/**
-	 * Defines if this SexAction switches the pace of sex for the character.
+	 * Defines if this SexAction switches the pace of sex for the performing character.
 	 * @return null if no switch.
 	 */
-	public SexPace getSexPace(GameCharacter character);
+	public SexPace getSexPace();
 	
 	public default boolean endsSex() {
 		return false;
@@ -219,7 +223,10 @@ public interface SexActionInterface {
 	}
 	
 	public default Response toResponse() {
-		if(isBaseRequirementsMet() && isPhysicallyPossible() && !isBannedFromSexManager() && !Sex.getPosition().isActionBlocked(Sex.getCharacterPerformingAction(), Sex.getCharacterTargetedForSexAction(this), this)) {
+		if(isBaseRequirementsMet()
+				&& isPhysicallyPossible()
+				&& !isBannedFromSexManager()
+				&& !Sex.getPosition().isActionBlocked(Sex.getCharacterPerformingAction(), Sex.getCharacterTargetedForSexAction(this), this)) {
 
 			if(this.getActionType()==SexActionType.POSITIONING && !Sex.isPositionChangingAllowed(Sex.getCharacterPerformingAction())) {
 				return null;
@@ -285,7 +292,7 @@ public interface SexActionInterface {
 			}
 
 			// You can't resist in scenes that don't allow it or if non-con is disabled:
-			if(getSexPace(Sex.getCharacterPerformingAction())==SexPace.SUB_RESISTING) {
+			if(getSexPace()==SexPace.SUB_RESISTING) {
 				if(Sex.isConsensual() || !Main.game.isNonConEnabled()) {
 					return null;
 				}
@@ -333,7 +340,7 @@ public interface SexActionInterface {
 				// Penetration actions (not including self-penetration actions) are only available in consensual sex or if the penetrator is the dom:
 				if(!this.getSexAreaInteractions().isEmpty()) {
 					if(this.getParticipantType() != SexParticipantType.SELF) { // This is a penetrative action between both partners:
-						if((!Sex.isSubHasEqualControl() && !Sex.isDom(Sex.getCharacterPerformingAction())) || getSexPace(Sex.getCharacterPerformingAction())==SexPace.SUB_RESISTING) {
+						if((!Sex.isSubHasEqualControl() && !Sex.isDom(Sex.getCharacterPerformingAction())) || getSexPace()==SexPace.SUB_RESISTING) {
 							return null;
 						}
 					}
@@ -565,8 +572,8 @@ public interface SexActionInterface {
 						Sex.responseCategory = null;
 					}
 					
-					if(SexActionInterface.this.getSexPace(Main.game.getPlayer())!=null) {
-						Sex.setSexPace(Main.game.getPlayer(), (SexActionInterface.this.getSexPace(Main.game.getPlayer())));
+					if(SexActionInterface.this.getSexPace()!=null) {
+						Sex.setSexPace(Sex.getCharacterPerformingAction(), (SexActionInterface.this.getSexPace()));
 					}
 					
 					Sex.setSexStarted(true);
@@ -582,7 +589,7 @@ public interface SexActionInterface {
 				}
 				@Override
 				public SexPace getSexPace() {
-					return SexActionInterface.this.getSexPace(Main.game.getPlayer());
+					return SexActionInterface.this.getSexPace();
 				}
 				@Override
 				public SexActionType getSexActionType() {
@@ -603,7 +610,7 @@ public interface SexActionInterface {
 				}
 				@Override
 				public SexPace getSexPace() {
-					return SexActionInterface.this.getSexPace(Main.game.getPlayer());
+					return SexActionInterface.this.getSexPace();
 				}
 				@Override
 				public SexActionType getSexActionType() {
@@ -638,7 +645,7 @@ public interface SexActionInterface {
 				}
 				@Override
 				public SexPace getSexPace() {
-					return SexActionInterface.this.getSexPace(Main.game.getPlayer());
+					return SexActionInterface.this.getSexPace();
 				}
 				@Override
 				public SexActionType getSexActionType() {
@@ -723,7 +730,7 @@ public interface SexActionInterface {
 			}
 			@Override
 			public SexPace getSexPace() {
-				return SexActionInterface.this.getSexPace(Main.game.getPlayer());
+				return SexActionInterface.this.getSexPace();
 			}
 			@Override
 			public SexActionType getSexActionType() {

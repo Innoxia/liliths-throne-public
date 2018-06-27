@@ -128,7 +128,6 @@ public class PartnerPenisUrethraPenis {
 			CorruptionLevel.ONE_VANILLA,
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.URETHRA_PENIS)),
 			SexParticipantType.NORMAL,
-			null,
 			SexPace.DOM_GENTLE) {
 		@Override
 		public SexActionLimitation getLimitation() {
@@ -193,7 +192,6 @@ public class PartnerPenisUrethraPenis {
 			CorruptionLevel.ONE_VANILLA,
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.URETHRA_PENIS)),
 			SexParticipantType.NORMAL,
-			null,
 			SexPace.DOM_NORMAL) {
 		@Override
 		public SexActionLimitation getLimitation() {
@@ -259,7 +257,6 @@ public class PartnerPenisUrethraPenis {
 			CorruptionLevel.TWO_HORNY,
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.URETHRA_PENIS)),
 			SexParticipantType.NORMAL,
-			null,
 			SexPace.DOM_ROUGH) {
 		@Override
 		public SexActionLimitation getLimitation() {
@@ -326,7 +323,6 @@ public class PartnerPenisUrethraPenis {
 			CorruptionLevel.ONE_VANILLA,
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.URETHRA_PENIS)),
 			SexParticipantType.NORMAL,
-			null,
 			SexPace.SUB_NORMAL) {
 		@Override
 		public SexActionLimitation getLimitation() {
@@ -390,7 +386,6 @@ public class PartnerPenisUrethraPenis {
 			CorruptionLevel.ONE_VANILLA,
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.URETHRA_PENIS)),
 			SexParticipantType.NORMAL,
-			null,
 			SexPace.SUB_EAGER) {
 		@Override
 		public SexActionLimitation getLimitation() {
@@ -454,7 +449,6 @@ public class PartnerPenisUrethraPenis {
 			CorruptionLevel.ZERO_PURE,
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.URETHRA_PENIS)),
 			SexParticipantType.NORMAL,
-			null,
 			SexPace.SUB_RESISTING) {
 		@Override
 		public SexActionLimitation getLimitation() {
@@ -697,8 +691,7 @@ public class PartnerPenisUrethraPenis {
 			CorruptionLevel.ONE_VANILLA,
 			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.URETHRA_PENIS, SexAreaPenetration.PENIS)),
 			SexParticipantType.NORMAL,
-			SexPace.DOM_GENTLE,
-			null) {
+			SexPace.DOM_GENTLE) {
 		@Override
 		public SexActionLimitation getLimitation() {
 			return SexActionLimitation.PLAYER_ONLY;
@@ -737,8 +730,7 @@ public class PartnerPenisUrethraPenis {
 			CorruptionLevel.ONE_VANILLA,
 			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.URETHRA_PENIS, SexAreaPenetration.PENIS)),
 			SexParticipantType.NORMAL,
-			SexPace.DOM_NORMAL,
-			null) {
+			SexPace.DOM_NORMAL) {
 		@Override
 		public SexActionLimitation getLimitation() {
 			return SexActionLimitation.PLAYER_ONLY;
@@ -777,8 +769,7 @@ public class PartnerPenisUrethraPenis {
 			CorruptionLevel.TWO_HORNY,
 			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.URETHRA_PENIS, SexAreaPenetration.PENIS)),
 			SexParticipantType.NORMAL,
-			SexPace.DOM_ROUGH,
-			null) {
+			SexPace.DOM_ROUGH) {
 		@Override
 		public SexActionLimitation getLimitation() {
 			return SexActionLimitation.PLAYER_ONLY;
@@ -818,8 +809,7 @@ public class PartnerPenisUrethraPenis {
 			CorruptionLevel.ONE_VANILLA,
 			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.URETHRA_PENIS, SexAreaPenetration.PENIS)),
 			SexParticipantType.NORMAL,
-			SexPace.SUB_NORMAL,
-			null) {
+			SexPace.SUB_NORMAL) {
 		@Override
 		public SexActionLimitation getLimitation() {
 			return SexActionLimitation.PLAYER_ONLY;
@@ -860,8 +850,7 @@ public class PartnerPenisUrethraPenis {
 			CorruptionLevel.ONE_VANILLA,
 			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.URETHRA_PENIS, SexAreaPenetration.PENIS)),
 			SexParticipantType.NORMAL,
-			SexPace.SUB_EAGER,
-			null) {
+			SexPace.SUB_EAGER) {
 		@Override
 		public SexActionLimitation getLimitation() {
 			return SexActionLimitation.PLAYER_ONLY;
@@ -902,8 +891,7 @@ public class PartnerPenisUrethraPenis {
 			CorruptionLevel.ZERO_PURE,
 			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.URETHRA_PENIS, SexAreaPenetration.PENIS)),
 			SexParticipantType.NORMAL,
-			SexPace.SUB_RESISTING,
-			null) {
+			SexPace.SUB_RESISTING) {
 		@Override
 		public SexActionLimitation getLimitation() {
 			return SexActionLimitation.PLAYER_ONLY;

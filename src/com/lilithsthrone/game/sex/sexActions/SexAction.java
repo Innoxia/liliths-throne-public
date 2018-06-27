@@ -19,7 +19,6 @@ import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
-import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.0
@@ -40,7 +39,7 @@ public abstract class SexAction implements SexActionInterface {
 	private Map<SexAreaInterface, SexAreaInterface> sexAreaInteractions;
 
 	private SexParticipantType participantType;
-	private SexPace sexPacePlayer, sexPacePartner;
+	private SexPace associatedSexPace;
 	private Map<GameCharacter, Set<Fetish>> characterFetishes;
 	private Map<GameCharacter, Set<Fetish>> characterFetishesForPartner;
 	
@@ -51,8 +50,7 @@ public abstract class SexAction implements SexActionInterface {
 		this.minimumCorruptionNeeded = sexActionToCopy.getCorruptionNeeded();
 		this.sexAreaInteractions = sexActionToCopy.getSexAreaInteractions();
 		this.participantType = sexActionToCopy.getParticipantType();
-		this.sexPacePlayer = sexActionToCopy.getSexPace(Main.game.getPlayer());
-		this.sexPacePartner = sexActionToCopy.getSexPace(Sex.getActivePartner());
+		this.associatedSexPace = sexActionToCopy.getSexPace();
 	}
 	
 	public SexAction(
@@ -69,7 +67,6 @@ public abstract class SexAction implements SexActionInterface {
 				minimumCorruptionNeeded,
 				sexAreaInteractions,
 				participantType,
-				null,
 				null);
 	}
 	
@@ -80,8 +77,7 @@ public abstract class SexAction implements SexActionInterface {
 			CorruptionLevel minimumCorruptionNeeded,
 			Map<SexAreaInterface, SexAreaInterface> sexAreaInteractions,
 			SexParticipantType participantType,
-			SexPace sexPacePlayer,
-			SexPace sexPacePartner) {
+			SexPace associatedSexPace) {
 		
 		this.sexActionType = sexActionType;
 		this.selfArousalGain = selfArousalGain;
@@ -95,17 +91,12 @@ public abstract class SexAction implements SexActionInterface {
 		}
 		
 		this.participantType = participantType;
-		this.sexPacePlayer = sexPacePlayer;
-		this.sexPacePartner = sexPacePartner;
+		this.associatedSexPace = associatedSexPace;
 	}
 
 	@Override
-	public SexPace getSexPace(GameCharacter character){
-		if(character!=null && character.isPlayer()) {
-			return sexPacePlayer;
-		} else {
-			return sexPacePartner;
-		}
+	public SexPace getSexPace(){
+		return associatedSexPace;
 	}
 	
 	public Map<SexAreaInterface, SexAreaInterface> getSexAreaInteractions() {
@@ -221,8 +212,8 @@ public abstract class SexAction implements SexActionInterface {
 				characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_EXHIBITIONIST);
 			}
 			
-			if(this.getSexPace(characterPerformingAction)!=null) {
-				switch(this.getSexPace(characterPerformingAction)) {
+			if(this.getSexPace()!=null) {
+				switch(this.getSexPace()) {
 					case DOM_GENTLE:
 						characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_DOMINANT);
 						characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_SUBMISSIVE);

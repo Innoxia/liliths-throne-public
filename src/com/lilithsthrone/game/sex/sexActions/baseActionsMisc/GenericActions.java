@@ -252,8 +252,7 @@ public class GenericActions {
 			CorruptionLevel.ZERO_PURE,
 			null,
 			SexParticipantType.NORMAL,
-			SexPace.SUB_RESISTING,
-			null) {
+			SexPace.SUB_RESISTING) {
 		@Override
 		public SexActionLimitation getLimitation() {
 			return SexActionLimitation.PLAYER_ONLY;
@@ -953,7 +952,6 @@ public class GenericActions {
 			CorruptionLevel.ZERO_PURE,
 			null,
 			SexParticipantType.NORMAL,
-			null,
 			SexPace.SUB_RESISTING) {
 		@Override
 		public SexActionLimitation getLimitation() {

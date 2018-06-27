@@ -37,6 +37,9 @@
 	
 	Patch notes:
 	
+	Engine:
+		Converted kissing actions to NPC-on-NPC format.
+	
 	Other:
 		Eye transformations now affect iris and pupil shape.
 		The 'Deny' action in sex is now always available (so long as you're the dom or have equal control as the sub).
@@ -46,41 +49,58 @@
 		Fixed Ralph not starting anal when you asked for big discount.
 		Fixed not being able to swap or change positions with Lilaya & Kate in their sex scenes.
 		Fixed slaves in the stocks and milking stalls using their hands, and added anal options for the 'standing behind' position.
-		Typo fixes.
+		Typo and parsing fixes.
 		Fixed 'Deny' sex action not working.
 		Fixed tattoos without any writing loading in as having blank 'normal grey text'.
 		Fixed the 'Age' content toggle not working.
 		
 	
 	
+	Nightlife plan:
+		Open at 8, close at 5
+		Street with clubs and bars - although there are establishments like these all throughout Dominion, this is the place where the best ones are located
+		Both Bar and Club: Do misc. actions until approached/approach, then with that person (or 2 people) until you get rid of them or until sex
+		Club - 
+			Internal map: Entrance, dancefloor, bar, seating area, toilets
+			Can: Dance, drink/loiter/flirt, use toilet (gloryhole)
+			-> Go home with him/her
+				If rough/rapist, they try to sex in alley
+				Else go home and have sex
+			-> Go into toilets (sex)
+		Bar
+			Internal map: Bar area, seating, toilets
+			Can: Drink, talk, flirt
+			-> sit and chat
+			Drink, talk, flirt, footsie
+			-> Go home with him/her (sex)
+				If rough/rapist, they try to sex in alley
+				Else go home and have sex
+			-> Go into toilets (sex)
 	
 	
-	Bug fixes
-	
-	Convert kissing and groping actions so threesome can interact
+	Convert groping actions so threesome can interact
 	
 	Convert oral actions
 	
 	Lumi
 	
-	Nightlife plan:
-		Club
-		Internal map: Entrance, dancefloor, bar, seating area, toilets
-		Can: Dance, drink/loiter/flirt, use toilet (gloryhole)
-		Flirt
 	
 	
 	
+	
+	
+	 I think it's counting the slaves being in the stocks as having sex with me because a lot of my slaves say I've had sex with them over a hundred times, which is definately not true.
+	Also, Vicky's ending sex text (specifically the back away nervously one) mentions the package even though I delivered it weeks ago. This is the first time I've had sex with her
 	
 	Current bug with Sixty-Nine
-When your partner is male or futa, and you're recieving a blowjob, you can't give one back. Instead, there's a greyed out "Get Blowjob"
-Also, the possessive nouns when you climax in 69 position is whack too.
-And yes, I see she's still wearing underwear, I'm just saying that this happens wether or not they are.. 
-Swapping positions during 69  also causes this
-
-Also, a character can hate giving oral, but still your aura says they want to give oral to you.
-
-Tried having submissive sex with a slave who wasn't normally interested in me during an arcane storm. They acted friendly, but refused to take any actions. There seemed to be no method of exiting the encounter so I had to load a previous save
+	When your partner is male or futa, and you're recieving a blowjob, you can't give one back. Instead, there's a greyed out "Get Blowjob"
+	Also, the possessive nouns when you climax in 69 position is whack too.
+	And yes, I see she's still wearing underwear, I'm just saying that this happens wether or not they are.. 
+	Swapping positions during 69  also causes this
+	
+	Also, a character can hate giving oral, but still your aura says they want to give oral to you.
+	
+	Tried having submissive sex with a slave who wasn't normally interested in me during an arcane storm. They acted friendly, but refused to take any actions. There seemed to be no method of exiting the encounter so I had to load a previous save
 	
 	aren't plugs supposed to be removed before anything is done to that part? The NPCs seem to be ignoring the plugs in me in sex
 	

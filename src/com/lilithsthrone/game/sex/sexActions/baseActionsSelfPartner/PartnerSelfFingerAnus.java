@@ -115,7 +115,6 @@ public class PartnerSelfFingerAnus {
 			CorruptionLevel.TWO_HORNY,
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaOrifice.ANUS)),
 			SexParticipantType.SELF,
-			null,
 			SexPace.DOM_GENTLE) {
 		@Override
 		public SexActionLimitation getLimitation() {
@@ -159,7 +158,6 @@ public class PartnerSelfFingerAnus {
 			CorruptionLevel.TWO_HORNY,
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaOrifice.ANUS)),
 			SexParticipantType.SELF,
-			null,
 			SexPace.DOM_NORMAL) {
 		@Override
 		public SexActionLimitation getLimitation() {
@@ -203,7 +201,6 @@ public class PartnerSelfFingerAnus {
 			CorruptionLevel.THREE_DIRTY,
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaOrifice.ANUS)),
 			SexParticipantType.SELF,
-			null,
 			SexPace.DOM_ROUGH) {
 		@Override
 		public SexActionLimitation getLimitation() {
@@ -249,7 +246,6 @@ public class PartnerSelfFingerAnus {
 			CorruptionLevel.TWO_HORNY,
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaOrifice.ANUS)),
 			SexParticipantType.SELF,
-			null,
 			SexPace.SUB_NORMAL) {
 		@Override
 		public SexActionLimitation getLimitation() {
@@ -293,7 +289,6 @@ public class PartnerSelfFingerAnus {
 			CorruptionLevel.THREE_DIRTY,
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaOrifice.ANUS)),
 			SexParticipantType.SELF,
-			null,
 			SexPace.SUB_EAGER) {
 		@Override
 		public SexActionLimitation getLimitation() {

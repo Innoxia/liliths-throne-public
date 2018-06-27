@@ -36,7 +36,6 @@ public class DoggyStyle {
 			CorruptionLevel.ONE_VANILLA,
 			null,
 			SexParticipantType.NORMAL,
-			null,
 			SexPace.SUB_EAGER) {
 		@Override
 		public SexActionLimitation getLimitation() {
@@ -79,8 +78,7 @@ public class DoggyStyle {
 			CorruptionLevel.TWO_HORNY,
 			null,
 			SexParticipantType.NORMAL,
-			SexPace.DOM_ROUGH,
-			null) {
+			SexPace.DOM_ROUGH) {
 		@Override
 		public SexActionLimitation getLimitation() {
 			return SexActionLimitation.PLAYER_ONLY;
@@ -362,8 +360,7 @@ public class DoggyStyle {
 			CorruptionLevel.THREE_DIRTY,
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.ANUS)),
 			SexParticipantType.NORMAL,
-			SexPace.DOM_ROUGH,
-			null) {
+			SexPace.DOM_ROUGH) {
 		@Override
 		public SexActionLimitation getLimitation() {
 			return SexActionLimitation.PLAYER_ONLY;
@@ -475,8 +472,7 @@ public class DoggyStyle {
 			CorruptionLevel.THREE_DIRTY,
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA)),
 			SexParticipantType.NORMAL,
-			SexPace.DOM_ROUGH,
-			null) {
+			SexPace.DOM_ROUGH) {
 		@Override
 		public SexActionLimitation getLimitation() {
 			return SexActionLimitation.PLAYER_ONLY;
@@ -588,8 +584,7 @@ public class DoggyStyle {
 			CorruptionLevel.ONE_VANILLA,
 			null,
 			SexParticipantType.NORMAL,
-			SexPace.SUB_EAGER,
-			null) {
+			SexPace.SUB_EAGER) {
 		@Override
 		public SexActionLimitation getLimitation() {
 			return SexActionLimitation.PLAYER_ONLY;
@@ -630,7 +625,6 @@ public class DoggyStyle {
 			CorruptionLevel.ONE_VANILLA,
 			null,
 			SexParticipantType.NORMAL,
-			null,
 			SexPace.DOM_ROUGH) {
 		@Override
 		public SexActionLimitation getLimitation() {

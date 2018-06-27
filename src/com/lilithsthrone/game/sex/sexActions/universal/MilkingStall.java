@@ -171,8 +171,7 @@ public class MilkingStall {
 			CorruptionLevel.TWO_HORNY,
 			null,
 			SexParticipantType.NORMAL,
-			SexPace.DOM_ROUGH,
-			null) {
+			SexPace.DOM_ROUGH) {
 	@Override
 	public SexActionLimitation getLimitation() {
 		return SexActionLimitation.PLAYER_ONLY;
