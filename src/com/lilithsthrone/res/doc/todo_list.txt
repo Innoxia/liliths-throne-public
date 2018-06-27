@@ -40,6 +40,9 @@
 	Engine:
 		Converted kissing actions to NPC-on-NPC format.
 	
+	Contributors:
+		Added: Fox-morphs (with Fennec, Youko, and Fennec-Youko subspecies). (Tukaima)
+	
 	Other:
 		Eye transformations now affect iris and pupil shape.
 		The 'Deny' action in sex is now always available (so long as you're the dom or have equal control as the sub).
@@ -56,11 +59,13 @@
 		
 	
 	
+	
+	
 	Nightlife plan:
 		Open at 8, close at 5
 		Street with clubs and bars - although there are establishments like these all throughout Dominion, this is the place where the best ones are located
 		Both Bar and Club: Do misc. actions until approached/approach, then with that person (or 2 people) until you get rid of them or until sex
-		Club - 
+		Club - The Watering Hole
 			Internal map: Entrance, dancefloor, bar, seating area, toilets
 			Can: Dance, drink/loiter/flirt, use toilet (gloryhole)
 			-> Go home with him/her
@@ -76,6 +81,7 @@
 				If rough/rapist, they try to sex in alley
 				Else go home and have sex
 			-> Go into toilets (sex)
+	
 	
 	
 	Convert groping actions so threesome can interact

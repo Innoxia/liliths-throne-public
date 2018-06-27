@@ -81,6 +81,8 @@ public class SlaveInStocks extends NPC {
 					case HUMAN:
 					case IMP:
 					case IMP_ALPHA:
+					case FOX_ASCENDANT:
+					case FOX_ASCENDANT_FENNEC:
 					case SLIME:
 					case SLIME_ALLIGATOR:
 					case SLIME_ANGEL:
@@ -90,6 +92,8 @@ public class SlaveInStocks extends NPC {
 					case SLIME_DOG:
 					case SLIME_DOG_DOBERMANN:
 					case SLIME_DOG_BORDER_COLLIE:
+					case SLIME_FOX:
+					case SLIME_FOX_FENNEC:
 					case SLIME_HARPY:
 					case SLIME_HARPY_RAVEN:
 					case SLIME_HORSE:
@@ -139,6 +143,12 @@ public class SlaveInStocks extends NPC {
 						addToSubspeciesMap(5, gender, s, availableRaces);
 						break;
 					case DOG_MORPH_BORDER_COLLIE:
+						addToSubspeciesMap(5, gender, s, availableRaces);
+						break;
+					case FOX_MORPH:
+						addToSubspeciesMap(10, gender, s, availableRaces);
+						break;
+					case FOX_MORPH_FENNEC:
 						addToSubspeciesMap(5, gender, s, availableRaces);
 						break;
 					case HORSE_MORPH:

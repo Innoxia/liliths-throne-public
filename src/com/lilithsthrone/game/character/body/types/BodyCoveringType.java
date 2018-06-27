@@ -23,6 +23,23 @@ public enum BodyCoveringType {
 			Util.newArrayListOfValues(CoveringPattern.NONE, CoveringPattern.FRECKLED),
 			Colour.humanSkinColours)),
 	
+	FOX_FUR("a layer of",
+			false,
+			"fur",
+			"fur",
+			Util.newArrayListOfValues(
+					CoveringModifier.FLUFFY,
+					CoveringModifier.SMOOTH),
+			null,
+			Util.newArrayListOfValues(
+					CoveringPattern.NONE,
+					CoveringPattern.MARKED),
+			CoveringPattern.allHairCoveringPatterns,
+			Colour.naturalFurColours,
+			Colour.dyeFurColours,
+			Colour.naturalFurColours,
+			Colour.dyeFurColours),
+	
 	ANGEL(BodyCoveringTemplateFactory.createTopSkin(
 			Util.newArrayListOfValues(CoveringPattern.NONE),
 			Colour.humanSkinColours)),
@@ -280,6 +297,21 @@ public enum BodyCoveringType {
 	HAIR_HUMAN(BodyCoveringTemplateFactory.createHeadHair(CoveringModifier.SMOOTH)),
 	
 	HAIR_ANGEL(BodyCoveringTemplateFactory.createHeadHair(CoveringModifier.SILKEN)),
+	
+	HAIR_FOX_FUR("a layer of",
+			false,
+			"hair",
+			"hair",
+			Util.newArrayListOfValues(
+					CoveringModifier.FURRY),
+			null,
+			Util.newArrayListOfValues(
+					CoveringPattern.NONE),
+			CoveringPattern.allHairCoveringPatterns,
+			Colour.naturalHairColours,
+			Colour.dyeHairColours,
+			Colour.naturalHairColours,
+			Colour.dyeHairColours),
 
 	HAIR_DEMON(BodyCoveringTemplateFactory.createHeadHair(CoveringModifier.SILKEN)),
 
@@ -334,6 +366,21 @@ public enum BodyCoveringType {
 	BODY_HAIR_CANINE_FUR(BodyCoveringTemplateFactory.createBodyHair(CoveringModifier.FURRY)),
 
 	BODY_HAIR_LYCAN_FUR(BodyCoveringTemplateFactory.createBodyHair(CoveringModifier.FURRY)),
+
+	
+	BODY_HAIR_FOX_FUR("a layer of",
+			false,
+			"hair",
+			"hair",
+			Util.newArrayListOfValues(
+					CoveringModifier.FURRY),
+			null,
+			null,
+			CoveringPattern.allHairCoveringPatterns,
+			Colour.naturalHairColours,
+			Colour.dyeHairColours,
+			Colour.naturalHairColours,
+			Colour.dyeHairColours),
 
 	BODY_HAIR_FELINE_FUR(BodyCoveringTemplateFactory.createBodyHair(CoveringModifier.FURRY)),
 
@@ -395,6 +442,23 @@ public enum BodyCoveringType {
 
 	EYE_LYCAN(BodyCoveringTemplateFactory.createEyeIrisesWithCustomColors(
 			Colour.naturalPredatorIrisColours, Colour.dyePredatorIrisColours)),
+
+	
+	EYE_FOX_MORPH("a pair of",
+			true,
+			"eyes",
+			"eye",
+			Util.newArrayListOfValues(
+					CoveringModifier.EYE),
+			null,
+			Util.newArrayListOfValues(
+					CoveringPattern.EYE_IRISES),
+			Util.newArrayListOfValues(
+					CoveringPattern.EYE_IRISES_HETEROCHROMATIC),
+			Colour.naturalPredatorIrisColours,
+			Colour.dyePredatorIrisColours,
+			Colour.naturalPredatorIrisColours,
+			Colour.dyePredatorIrisColours),
 
 	EYE_FELINE(BodyCoveringTemplateFactory.createEyeIrisesWithCustomColors(
 			Colour.naturalPredatorIrisColours, Colour.dyePredatorIrisColours)),

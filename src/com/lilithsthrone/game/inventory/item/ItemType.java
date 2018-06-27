@@ -591,6 +591,53 @@ public class ItemType {
 		}
 	};
 	
+	public static AbstractItemType INT_INGREDIENT_GRAPE_JUICE = new AbstractItemType(150,
+			"a bottle of",
+			false,
+			"Vineyard Gourmand",
+			"Vineyard Gourmands",
+			"A delicate glass bottle filled with non-alchoholic wine substitute."
+				+ " A bunch of grapes is painted onto the front of the label, and on the bottom of the bottle itself, the image of a snickering fox-morph is burned into the glass.",
+			"attributeFoxMorphDrink",
+			Colour.ATTRIBUTE_ARCANE,
+			null,
+			null,
+			Rarity.UNCOMMON,
+			TFEssence.ARCANE,
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.INT_GRAPE_JUICE)),
+			Util.newArrayListOfValues(
+					ItemTag.DOMINION_ALLEYWAY_SPAWN,
+					ItemTag.ATTRIBUTE_TF_ITEM)) {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public AbstractItemEffectType getEnchantmentEffect() {
+			return ItemEffectType.ATTRIBUTE_ARCANE;
+		}
+
+		@Override
+		public AbstractItemType getEnchantmentItemType(List<ItemEffect> effects) {
+			return POTION;
+		}
+
+		@Override
+		public String getUseName() {
+			return "drink";
+		}
+
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return getGenericUseDescription(user, target,
+					"Opening the bottle of 'Vineyard Gourmand', you eagerly bring it up to your waiting lips."
+						+ " The fragrance of grapes wafts from the neck of the newly opened bottle, soon joined by the sweet taste of grapes, that lingers well after you've had your fill.",
+					"Removing the stopper from the bottle, you bring the bottle of 'Vineyard Gourmand' to [npc.name]'s lips, before tilting [npc.her] head back and forcing [npc.herHim] to quickly gulp down the grape juice liquid.",
+					"[npc.Name] pulls out a bottle of 'Vineyard Gourmand', and, after removing the stopper, [npc.she] promptly downs the entire bottle.",
+					"[npc.Name] pulls out a bottle of 'Vineyard Gourmand', and, after removing the stopper, [npc.she] brings it to your lips before tilting your head back and forcing you to quickly gulp down the contents."
+						+ " The fragrance of grapes wafts from the neck of the newly opened bottle, soon joined by the sweet taste of grapes, that lingers well after you've had your fill.");
+		}
+	};
+	
 	public static AbstractItemType INT_INGREDIENT_VANILLA_WATER = new AbstractItemType(10,
 			"a bottle of",
 			false,
@@ -1746,6 +1793,53 @@ public class ItemType {
 						+ " As you crunch down on the dry biscuit, you find that it's quite bland and salty.");
 		}
 	};
+	
+	public static AbstractItemType RACE_INGREDIENT_FOX_MORPH = new AbstractItemType(250,
+			"a",
+			false,
+			"Chicken Pot Pie",
+			"Chicken Pot Pies",
+			"A tin containing a pie with a mix of vegetables and meat."
+					+ " While plenty of omnivorous races enjoy the taste of these pies, they are a particular favourite of fox-morphs.",
+			"raceFoxMorphPie",
+			Colour.RACE_FOX_MORPH,
+			null,
+			null,
+			Rarity.RARE,
+			TFEssence.ARCANE,
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_FOX_PIE)),
+			Util.newArrayListOfValues(
+					ItemTag.DOMINION_ALLEYWAY_SPAWN,
+					ItemTag.RACIAL_TF_ITEM)) {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public AbstractItemEffectType getEnchantmentEffect() {
+			return ItemEffectType.RACE_FOX_MORPH;
+		}
+
+		@Override
+		public AbstractItemType getEnchantmentItemType(List<ItemEffect> effects) {
+			return ELIXIR;
+		}
+
+		@Override
+		public String getUseName() {
+			return "eat";
+		}
+
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return getGenericUseDescription(user, target,
+					"You bring the chicken pot pie up to your mouth, before taking a bite."
+						+ " You find that the nutritious mix of vegetables and meat is easy to chew through, and you swiftly consume the contents of the small tin.",
+					"You bring the chicken pot pie up to [npc.name]'s mouth, before feeding it to [npc.herHim].",
+					"[npc.Name] pulls out a chicken pot pie, and promptly wolfs it down.",
+					"[npc.Name] brings a chicken pot pie up to your mouth, before starting to feed it to you."
+							+ " You find that the nutritious mix of vegetables and meat is easy to chew through, and you swiftly consume the contents of the small tin.");
+		}
+	};
 
 	public static AbstractItemType RACE_INGREDIENT_HORSE_MORPH = new AbstractItemType(250,
 			"a",
@@ -2785,6 +2879,44 @@ public class ItemType {
 			return "Only people with a demonic-strength aura are able to absorb arcane essences!";
 		}
 	};
+	
+	public static AbstractItemType BOTTLED_ESSENCE_FOX_MORPH = new AbstractItemType(
+			50,
+			null,
+			false,
+			"Bottled Fox-morph Essence",
+			"Bottled Fox-morph Essences",
+			"A small glass bottle, with a little cork stopper wedged firmly in the top."
+					+ " Inside, the swirling "+Colour.RACE_FOX_MORPH.getName()+" glow of an arcane essence, imbued with the energy of a fox-morph, flickers and swirls about in a mesmerising, cyclical pattern.",
+			"bottledEssenceFoxMorph",
+			Colour.RACE_FOX_MORPH,
+			null,
+			null,
+			Rarity.EPIC,
+			null,
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_FOX_MORPH)),
+			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getUseName() {
+			return "absorb";
+		}
+
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return getEssenceAbsorbtionText(Colour.RACE_FOX_MORPH, user, target);
+		}
+		
+		public boolean isAbleToBeUsed(GameCharacter target) {
+			return target.getRace()==Race.DEMON || target.isPlayer();
+		}
+		
+		public String getUnableToBeUsedDescription(GameCharacter target) {
+			return "Only people with a demonic-strength aura are able to absorb arcane essences!";
+		}
+	};
 
 	public static AbstractItemType BOTTLED_ESSENCE_SLIME = new AbstractItemType(
 			50,
@@ -3664,6 +3796,43 @@ public class ItemType {
 			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_ALLIGATOR_MORPH)),
 			Util.newArrayListOfValues(ItemTag.BOOK));
+
+	public static AbstractItemType BOOK_FOX_MORPH = new AbstractItemType(250,
+			null,
+			false,
+			"Skulking Vulpines",
+			"Skulking Vulpines",
+			"A book about fox-morphs and their culture.",
+			"book_race_fox_morph",
+			Colour.RACE_FOX_MORPH,
+			null,
+			null,
+			Rarity.LEGENDARY,
+			null,
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_FOX_MORPH)),
+			Util.newArrayListOfValues(ItemTag.BOOK)) {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public boolean isConsumedOnUse() {
+			return false;
+		}
+		
+		@Override
+		public String getUseName() {
+			return "read";
+		}
+		
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return getGenericUseDescription(user, target,
+					"Opening the book, you read its contents...",
+					"Opening the book, you force [npc.name] to read its contents...",
+					"[npc.Name] produces a book, titled 'Skulking Vulpines', which [npc.she] then starts to read...",
+					"[npc.Name] produces a book, titled 'Skulking Vulpines', which [npc.she] then forces you to read...");
+		}
+	};
 	
 	public static AbstractItemType BOOK_HARPY = createBookItem(250,
 			null,

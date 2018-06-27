@@ -163,6 +163,19 @@ public class Ass implements BodyPartInterface, Serializable {
 							+ "</p>");
 				}
 				break;
+			case FOX_MORPH:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+							"You now have a [style.boldFoxMorph(vulpine ass)], covered in [pc.assFullDescription].</br>"
+							+ "You have also been left with [style.boldFoxMorph(a vulpine)] [pc.assholeFullDescription]."
+							+ "</p>");
+				} else {
+					UtilText.transformationContentSB.append(
+							"[npc.She] now has a [style.boldFoxMorph(vulpine ass)], covered in [npc.assFullDescription].</br>"
+							+ "[npc.She] has also been left with [style.boldFoxMorph(a vulpine)] [npc.assholeFullDescription]."
+							+ "</p>");
+				}
+				break;
 			case WOLF_MORPH:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
