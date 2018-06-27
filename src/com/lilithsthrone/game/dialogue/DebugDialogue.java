@@ -371,6 +371,7 @@ public class DebugDialogue {
 	
 	public static List<AbstractClothingType> clothingTotal = new ArrayList<>();
 	public static InventorySlot activeSlot = null;
+	public static ItemTag itemTag = null;
 	public static int spawnCount = 1;
 	static {
 		clothingTotal.addAll(ClothingType.getAllClothing());
@@ -410,10 +411,19 @@ public class DebugDialogue {
 			inventorySB.append("<div class='inventory-not-equipped'>");
 			if(activeSlot == null) {
 				for(AbstractItemType itemType : itemsTotal) {
-					inventorySB.append("<div class='inventory-item-slot unequipped "+ itemType.getRarity().getName() + "'>"
-											+ "<div class='inventory-icon-content'>"+itemType.getSVGString()+"</div>"
-											+ "<div class='overlay' id='" + itemType.getId() + "_SPAWN'></div>"
-										+ "</div>");
+					if((itemTag==null
+							&& (!itemType.getItemTags().contains(ItemTag.BOOK)
+							&& !itemType.getItemTags().contains(ItemTag.ESSENCE)
+							&& !itemType.getItemTags().contains(ItemTag.SPELL_BOOK)
+							&& !itemType.getItemTags().contains(ItemTag.SPELL_SCROLL)))
+							|| (itemTag!=null
+								&& (itemType.getItemTags().contains(itemTag)
+										|| (itemTag==ItemTag.SPELL_BOOK && itemType.getItemTags().contains(ItemTag.SPELL_SCROLL))))) {
+						inventorySB.append("<div class='inventory-item-slot unequipped "+ itemType.getRarity().getName() + "'>"
+												+ "<div class='inventory-icon-content'>"+itemType.getSVGString()+"</div>"
+												+ "<div class='overlay' id='" + itemType.getId() + "_SPAWN'></div>"
+											+ "</div>");
+					}
 					count++;
 				}
 				
@@ -463,6 +473,9 @@ public class DebugDialogue {
 						+ (slot == InventorySlot.WEAPON_MAIN || slot == InventorySlot.WEAPON_OFFHAND ? Colour.BASE_RED_LIGHT.toWebHexString() : Colour.BASE_YELLOW_LIGHT.toWebHexString())+";'>"+Util.capitaliseSentence(slot.getName())+"</div>");
 			}
 			inventorySB.append("<div class='normal-button' id='ITEM_SPAWN_SELECT' style='width:18%; margin:1%; padding:2px; font-size:0.9em; color:"+Colour.BASE_BLUE_LIGHT.toWebHexString()+";'>Items</div>");
+			inventorySB.append("<div class='normal-button' id='ESSENCE_SPAWN_SELECT' style='width:18%; margin:1%; padding:2px; font-size:0.9em; color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Essences</div>");
+			inventorySB.append("<div class='normal-button' id='BOOK_SPAWN_SELECT' style='width:18%; margin:1%; padding:2px; font-size:0.9em; color:"+Colour.BASE_ORANGE.toWebHexString()+";'>Books</div>");
+			inventorySB.append("<div class='normal-button' id='SPELL_SPAWN_SELECT' style='width:18%; margin:1%; padding:2px; font-size:0.9em; color:"+Colour.DAMAGE_TYPE_SPELL.toWebHexString()+";'>Spells</div>");
 			inventorySB.append("</div>");
 			
 			return inventorySB.toString();

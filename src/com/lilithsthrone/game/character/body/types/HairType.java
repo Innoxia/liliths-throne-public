@@ -27,6 +27,8 @@ public enum HairType implements BodyPartTypeInterface {
 	DOG_MORPH(BodyCoveringType.HAIR_CANINE_FUR, Race.DOG_MORPH),
 
 	LYCAN(BodyCoveringType.HAIR_LYCAN_FUR, Race.WOLF_MORPH),
+	
+	FOX_MORPH(BodyCoveringType.HAIR_FOX_FUR, Race.FOX_MORPH),
 
 	CAT_MORPH(BodyCoveringType.HAIR_FELINE_FUR, Race.CAT_MORPH),
 
@@ -130,6 +132,8 @@ public enum HairType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("");
 			case LYCAN:
 				return UtilText.returnStringAtRandom("wolf-like");
+			case FOX_MORPH:
+				return UtilText.returnStringAtRandom("fox-like");
 			case BAT_MORPH:
 				return UtilText.returnStringAtRandom("bat-like");
 			case RAT_MORPH:
@@ -178,6 +182,8 @@ public enum HairType implements BodyPartTypeInterface {
 				return "human";
 			case LYCAN:
 				return "lupine";
+			case FOX_MORPH:
+				return "vulpine";
 			case BAT_MORPH:
 				return "bat";
 			case RAT_MORPH:

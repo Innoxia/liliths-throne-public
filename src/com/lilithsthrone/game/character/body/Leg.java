@@ -174,6 +174,23 @@ public class Leg implements BodyPartInterface, Serializable {
 							+ "</p>");
 				}
 				break;
+			case FOX_MORPH:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+								" A layer of fox-like fur quickly grows over your legs as they shift into a new form."
+								+ " As your new fur spreads down to the ends of your toes, your toenails thicken into sharp claws, and little pads grow to cover your soles, leaving you with paw-like feet."
+								+ " As the transformation ends, you see that your new fur smoothly transitions into the [pc.skin] covering the rest of your body at your upper-thigh.</br>"
+								+ "You're left with anthropomorphic, [style.boldFoxMorph(fox-like legs and feet)], which are covered in [pc.legFullDescription]."
+							+ "</p>");
+				} else {
+					UtilText.transformationContentSB.append(
+								" A layer of fox-like fur quickly grows over [npc.her] legs as they shift into a new form."
+								+ " As [npc.her] new fur spreads down to the ends of [npc.her] toes, [npc.her] toenails thicken into sharp claws, and little pads grow to cover [npc.her] soles, leaving [npc.herHim] with paw-like feet."
+								+ " As the transformation ends, [npc.she] sees that [npc.her] new fur smoothly transitions into the [npc.skin] covering the rest of [npc.her] body at [npc.her] upper-thigh.</br>"
+								+ "[npc.Name] now has anthropomorphic, [style.boldFoxMorph(fox-like legs and feet)], which are covered in [npc.legFullDescription]."
+							+ "</p>");
+				}
+				break;
 			case LYCAN:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(

@@ -491,6 +491,8 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.STR_INGREDIENT_BUBBLE_MILK));
 				case DOG_MORPH:
 					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.FIT_INGREDIENT_CANINE_CRUSH));
+				case FOX_MORPH:
+					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.INT_INGREDIENT_GRAPE_JUICE));
 				case HORSE_MORPH:
 					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.STR_INGREDIENT_EQUINE_CIDER));
 				case REINDEER_MORPH:
@@ -541,6 +543,8 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.BOOK_COW_MORPH));
 				case DOG_MORPH:
 					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.BOOK_DOG_MORPH));
+				case FOX_MORPH:
+					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.BOOK_FOX_MORPH));
 				case HORSE_MORPH:
 					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.BOOK_HORSE_MORPH));
 				case REINDEER_MORPH:
@@ -591,6 +595,8 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_COW_MORPH));
 				case DOG_MORPH:
 					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_DOG_MORPH));
+				case FOX_MORPH:
+					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_FOX_MORPH));
 				case HORSE_MORPH:
 					return Util.newArrayListOfValues(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_HORSE_MORPH));
 				case REINDEER_MORPH:
@@ -920,6 +926,10 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				case DOG_MORPH:
 					itemType = ItemType.RACE_INGREDIENT_DOG_MORPH;
 					reaction = "Time to turn you into an excitable little "+raceName+"!";
+					break;
+				case FOX_MORPH:
+					itemType = ItemType.RACE_INGREDIENT_FOX_MORPH;
+					reaction = "Time to turn you into a cute little "+raceName+"!";
 					break;
 				case HARPY:
 					itemType = ItemType.RACE_INGREDIENT_HARPY;

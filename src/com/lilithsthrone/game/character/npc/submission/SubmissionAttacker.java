@@ -88,6 +88,10 @@ public class SubmissionAttacker extends NPC {
 					case DOG_MORPH:
 					case DOG_MORPH_DOBERMANN:
 					case DOG_MORPH_BORDER_COLLIE:
+					case FOX_MORPH:
+					case FOX_MORPH_FENNEC:
+					case FOX_ASCENDANT:
+					case FOX_ASCENDANT_FENNEC:
 					case HARPY:
 					case HARPY_RAVEN:
 					case HORSE_MORPH:
@@ -134,6 +138,8 @@ public class SubmissionAttacker extends NPC {
 					case SLIME_DOG:
 					case SLIME_DOG_DOBERMANN:
 					case SLIME_DOG_BORDER_COLLIE:
+					case SLIME_FOX:
+					case SLIME_FOX_FENNEC:
 					case SLIME_HARPY:
 					case SLIME_HARPY_RAVEN:
 					case SLIME_HORSE:

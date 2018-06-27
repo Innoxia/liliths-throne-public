@@ -259,7 +259,7 @@ public enum RacialBody {
 			GenitalArrangement.NORMAL) {
 	},
 	
-	// CANINES:
+	// CANIDS:
 	DOG_MORPH(
 			Util.newHashMapOfValues(
 					new Value<Attribute, AttributeRange>(Attribute.MAJOR_PHYSIQUE, new AttributeRange(20f, 30f)),
@@ -298,6 +298,37 @@ public enum RacialBody {
 					new Value<>(PersonalityTrait.NEUROTICISM, PersonalityWeight.AVERAGE),
 					new Value<>(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.AVERAGE));
 		}
+	},
+	
+	FOX_MORPH(
+			Util.newHashMapOfValues(
+					new Value<Attribute, AttributeRange>(Attribute.MAJOR_PHYSIQUE, new AttributeRange(22f, 28f)),
+					new Value<Attribute, AttributeRange>(Attribute.MAJOR_ARCANE, new AttributeRange(2f, 5f)),
+					new Value<Attribute, AttributeRange>(Attribute.MAJOR_CORRUPTION, new AttributeRange(20f, 30f))),
+			AntennaType.NONE,
+			ArmType.FOX_MORPH, 1,
+			AssType.FOX_MORPH, AssSize.TWO_SMALL, AssSize.THREE_NORMAL, Wetness.ZERO_DRY, Capacity.ONE_EXTREMELY_TIGHT, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT,
+			BreastType.FOX_MORPH,
+			CupSize.FLAT, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.ZERO_TINY, 1,
+			CupSize.C, 3, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.TWO_BIG, 1,
+			170, 15, BodySize.ONE_SLENDER.getMedianValue(), Muscle.ONE_LIGHTLY_MUSCLED.getMedianValue(),
+			160, 75, BodySize.ONE_SLENDER.getMedianValue(), Muscle.ONE_LIGHTLY_MUSCLED.getMinimumValue(),
+			EarType.FOX_MORPH,
+			EyeType.FOX_MORPH,
+			FaceType.FOX_MORPH, LipSize.ONE_AVERAGE, LipSize.TWO_FULL,
+			HairType.FOX_MORPH, HairLength.TWO_SHORT, HairLength.THREE_SHOULDER_LENGTH,
+			LegType.FOX_MORPH,
+			SkinType.FOX_MORPH, BodyMaterial.FLESH,
+			HornLength.ZERO_TINY, HornLength.ZERO_TINY, Util.newArrayListOfValues(HornType.NONE),
+			PenisType.VULPINE, PenisSize.TWO_AVERAGE, PenisGirth.TWO_AVERAGE,
+			PenisType.NONE, PenisSize.TWO_AVERAGE, PenisGirth.TWO_AVERAGE,
+			TesticleSize.TWO_AVERAGE, 2, CumProduction.FOUR_LARGE,
+			TailType.FOX_MORPH,
+			TentacleType.NONE,
+			VaginaType.FOX_MORPH, Wetness.THREE_WET, Capacity.TWO_TIGHT, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FOUR_LIMBER, OrificePlasticity.THREE_RESILIENT,
+			WingType.NONE, WingSize.ZERO_TINY, WingSize.ZERO_TINY,
+			GenitalArrangement.NORMAL) {
+
 	},
 	
 	WOLF_MORPH(
@@ -834,6 +865,8 @@ public enum RacialBody {
 				return RacialBody.IMP;
 			case DOG_MORPH:
 				return RacialBody.DOG_MORPH;
+			case FOX_MORPH:
+				return RacialBody.FOX_MORPH;
 			case ALLIGATOR_MORPH:
 				return RacialBody.ALLIGATOR_MORPH;
 			case HARPY:

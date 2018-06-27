@@ -137,6 +137,19 @@ public class Hair implements BodyPartInterface, Serializable {
 							+ "</p>");
 				}
 				break;
+			case FOX_MORPH:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+								" The feeling goes away almost as quickly as it came, leaving you with fur-like hair.</br>"
+								+ "You now have [pc.hairColour] [style.boldFoxMorph(vulpine hair)]."
+							+ "</p>");
+				} else {
+					UtilText.transformationContentSB.append(
+								" The transformation only lasts a matter of moments, leaving [npc.herHim] with fur-like hair.</br>"
+								+ "[npc.Name] now has [npc.hairColour] [style.boldFoxMorph(vulpine hair)]."
+							+ "</p>");
+				}
+				break;
 			case LYCAN:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(

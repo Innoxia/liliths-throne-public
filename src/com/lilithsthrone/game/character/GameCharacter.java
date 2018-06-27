@@ -2618,6 +2618,16 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			case WOLF_MORPH:
 				subspeciesMap.remove(Subspecies.SLIME_WOLF);
 				break;
+			case FOX_MORPH:
+				subspeciesMap.remove(Subspecies.SLIME_FOX);
+				break;
+			case FOX_MORPH_FENNEC:
+				subspeciesMap.remove(Subspecies.SLIME_FOX_FENNEC);
+				break;
+			case FOX_ASCENDANT:
+				break;
+			case FOX_ASCENDANT_FENNEC:
+				break;
 				
 			case SLIME:
 				break;
@@ -2639,6 +2649,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			case SLIME_REINDEER:
 			case SLIME_SQUIRREL:
 			case SLIME_WOLF:
+			case SLIME_FOX:
+			case SLIME_FOX_FENNEC:
 				break;
 		}
 	}
@@ -3005,7 +3017,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			case ALLIGATOR_MORPH:
 				value = 10000;
 				break;
-			case WOLF_MORPH:
+			case WOLF_MORPH: case FOX_MORPH:
 				value = 10000;
 				break;
 			case SLIME:

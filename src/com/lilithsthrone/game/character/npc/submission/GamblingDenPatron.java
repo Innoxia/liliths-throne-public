@@ -83,6 +83,8 @@ public class GamblingDenPatron extends NPC {
 					case ELEMENTAL_EARTH:
 					case ELEMENTAL_FIRE:
 					case ELEMENTAL_WATER:
+					case FOX_ASCENDANT:
+					case FOX_ASCENDANT_FENNEC:
 						break;
 
 					// Rare spawns:
@@ -102,6 +104,8 @@ public class GamblingDenPatron extends NPC {
 					case WOLF_MORPH:
 					case RABBIT_MORPH:
 					case RABBIT_MORPH_LOP:
+					case FOX_MORPH:
+					case FOX_MORPH_FENNEC:
 						addToSubspeciesMap(5, gender, s, availableRaces);
 						break;
 						
@@ -137,6 +141,8 @@ public class GamblingDenPatron extends NPC {
 					case SLIME_RAT:
 					case SLIME_BAT:
 					case SLIME_RABBIT:
+					case SLIME_FOX:
+					case SLIME_FOX_FENNEC:
 						addToSubspeciesMap(otherSlimeChance, gender, s, availableRaces);
 						break;
 				}
