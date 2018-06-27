@@ -87,6 +87,7 @@ public enum BodyCoveringType {
 	FELINE_FUR(BodyCoveringTemplateFactory.createFurSkinHair(
 			Util.newArrayListOfValues(
 					CoveringModifier.SMOOTH,
+					CoveringModifier.SHORT,
 					CoveringModifier.FLUFFY),
 			Util.newArrayListOfValues(
 					CoveringPattern.NONE,
