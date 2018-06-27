@@ -2628,6 +2628,27 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				break;
 			case FOX_ASCENDANT_FENNEC:
 				break;
+			case CAT_MORPH_CARACAL:
+				subspeciesMap.remove(Subspecies.SLIME_CAT_CARACAL);
+				break;
+			case CAT_MORPH_CHEETAH:
+				subspeciesMap.remove(Subspecies.SLIME_CAT_CHEETAH);
+				break;
+			case CAT_MORPH_LEOPARD:
+				subspeciesMap.remove(Subspecies.SLIME_CAT_LEOPARD);
+				break;
+			case CAT_MORPH_LEOPARD_SNOW:
+				subspeciesMap.remove(Subspecies.SLIME_CAT_LEOPARD_SNOW);
+				break;
+			case CAT_MORPH_LION:
+				subspeciesMap.remove(Subspecies.SLIME_CAT_LION);
+				break;
+			case CAT_MORPH_LYNX:
+				subspeciesMap.remove(Subspecies.SLIME_CAT_LYNX);
+				break;
+			case CAT_MORPH_TIGER:
+				subspeciesMap.remove(Subspecies.SLIME_CAT_TIGER);
+				break;
 				
 			case SLIME:
 				break;
@@ -2651,6 +2672,13 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			case SLIME_WOLF:
 			case SLIME_FOX:
 			case SLIME_FOX_FENNEC:
+			case SLIME_CAT_CARACAL:
+			case SLIME_CAT_CHEETAH:
+			case SLIME_CAT_LEOPARD:
+			case SLIME_CAT_LEOPARD_SNOW:
+			case SLIME_CAT_LION:
+			case SLIME_CAT_LYNX:
+			case SLIME_CAT_TIGER:
 				break;
 		}
 	}

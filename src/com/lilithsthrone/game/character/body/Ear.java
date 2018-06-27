@@ -217,6 +217,23 @@ public class Ear implements BodyPartInterface, Serializable {
 							+ "</p>");
 				}
 				break;
+			case CAT_MORPH_TUFTED:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+								" They quickly grow into small, upright points, and shift to sit higher up on your head than a normal pair of human ears would, topped off with a small patch of sensitive fur."
+								+ " A layer of [pc.earFullDescriptionColour] grows to cover them, and as the transformation finishes, you discover that you can easily twitch your new cat-like ears back and forth."
+								+ "</br>"
+								+ "You now have [style.boldCatMorph(anthropomorphic, cat-like ears with ear tufts)]."
+							+ "</p>");
+				} else {
+					UtilText.transformationContentSB.append(
+								" They quickly grow into small, upright points, and shift to sit higher up on [npc.her] head than a normal pair of human ears would, topped off with a small patch of sensitive fur."
+								+ " A layer of [npc.earFullDescriptionColour] grows to cover them, and as the transformation finishes, [npc.she] experimentally twitches [npc.her] new cat-like ears back and forth."
+								+ "</br>"
+								+ "[npc.Name] now has [style.boldCatMorph(anthropomorphic, cat-like ears with ear tufts)]."
+							+ "</p>");
+				}
+				break;
 			case COW_MORPH:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(

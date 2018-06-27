@@ -1657,6 +1657,9 @@ public class Body implements Serializable, XMLSaving {
 			case CAT_MORPH:
 				sb.append(", anthropomorphic cat-like face, with a cute little feline muzzle.");
 				break;
+			case CAT_MORPH_PANTHER:
+				sb.append(", anthropomorphic cat-like face, with a strong toothy feline muzzle, big nose and a strong jawline.");
+				break;
 			case ALLIGATOR_MORPH:
 				sb.append(", anthropomorphic alligator-like face, with a long flat muzzle.");
 				break;
@@ -1684,6 +1687,16 @@ public class Body implements Serializable, XMLSaving {
 			case HARPY:
 				sb.append(", anthropomorphic bird-like face, complete with beak.");
 				break;
+		}
+		
+		// Lynx side fluff
+		if(hair.getType() == HairType.CAT_MORPH_SIDEFLUFF)
+		{
+			if (owner.isPlayer()) {
+				sb.append(" On the sides of your face you have some soft, fuzzy fur.");
+			} else {
+				sb.append(" On the sides of [npc.her] face [npc.she] has some soft, fuzzy fur.");
+			}
 		}
 
 		if(owner.getBlusher().getPrimaryColour()!=Colour.COVERING_NONE) {
@@ -1733,6 +1746,9 @@ public class Body implements Serializable, XMLSaving {
 					sb.append(", fur-like hair");
 					break;
 				case CAT_MORPH:
+					sb.append(", fur-like hair");
+					break;
+				case CAT_MORPH_SIDEFLUFF:
 					sb.append(", fur-like hair");
 					break;
 				case COW_MORPH:
@@ -2101,6 +2117,12 @@ public class Body implements Serializable, XMLSaving {
 					sb.append(" You have a pair of "+(ear.isPierced() ? "pierced, " : "")+"upright, cat-like ears, which are positioned high up on your head and are are "+getCoveredInDescriptor(owner)+" [pc.earFullDescription(true)].");
 				else
 					sb.append(" [npc.She] has a pair of "+(ear.isPierced() ? "pierced, " : "")+"upright, cat-like ears, which are positioned high up on [npc.her] head and are "+getCoveredInDescriptor(owner)+" [npc.earFullDescription(true)].");
+				break;
+			case CAT_MORPH_TUFTED:
+				if (owner.isPlayer())
+					sb.append(" You have a pair of tufted "+(ear.isPierced() ? "pierced, " : "")+"upright, cat-like ears, which are positioned high up on your head and are are "+getCoveredInDescriptor(owner)+" [pc.earFullDescription(true)].");
+				else
+					sb.append(" [npc.She] has a pair of tufted "+(ear.isPierced() ? "pierced, " : "")+"upright, cat-like ears, which are positioned high up on [npc.her] head and are "+getCoveredInDescriptor(owner)+" [npc.earFullDescription(true)].");
 				break;
 			case COW_MORPH:
 				if (owner.isPlayer())
@@ -3382,6 +3404,20 @@ public class Body implements Serializable, XMLSaving {
 							sb.append("a furry, [npc.tailColour(true)] cat-like tail, which [npc.she] can control well enough to grant [npc.herHim] significantly improved balance.");
 						}
 						break;
+					case CAT_MORPH_SHORT:
+						if (owner.isPlayer()) {
+							sb.append("a furry, short [pc.tailColour(true)] cat-like tail.");
+						} else {
+							sb.append("a furry, short [npc.tailColour(true)] cat-like tail.");
+						}
+						break;
+					case CAT_MORPH_TUFTED:
+						if (owner.isPlayer()) {
+							sb.append("a furry, [pc.tailColour(true)] cat-like tail with a fuzzy tuft, which you can control well enough to grant you significantly improved balance.");
+						} else {
+							sb.append("a furry, [npc.tailColour(true)] cat-like tail with a fuzzy tuft, which [npc.she] can control well enough to grant [npc.herHim] significantly improved balance.");
+						}
+						break;
 					case DEMON_COMMON:
 						if (owner.isPlayer()) {
 							sb.append("a spaded, [pc.tailColour(true)] demonic tail, over which you have complete control, and you can easily use it to grip and hold objects.");
@@ -3510,6 +3546,20 @@ public class Body implements Serializable, XMLSaving {
 							sb.append("furry, [pc.tailColour(true)] cat-like tails, which you can control well enough to grant you significantly improved balance.");
 						} else {
 							sb.append("furry, [npc.tailColour(true)] cat-like tails, which [npc.she] can control well enough to grant [npc.herHim] significantly improved balance.");
+						}
+						break;
+					case CAT_MORPH_SHORT:
+						if (owner.isPlayer()) {
+							sb.append("furry, short [pc.tailColour(true)] cat-like tails.");
+						} else {
+							sb.append("a furry, short [npc.tailColour(true)] cat-like tails.");
+						}
+						break;
+					case CAT_MORPH_TUFTED:
+						if (owner.isPlayer()) {
+							sb.append("furry, [pc.tailColour(true)] cat-like tails with a fuzzy tuft on each, which you can control well enough to grant you significantly improved balance.");
+						} else {
+							sb.append("furry, [npc.tailColour(true)] cat-like tails with a fuzzy tuft on each, which [npc.she] can control well enough to grant [npc.herHim] significantly improved balance.");
 						}
 						break;
 					case DEMON_COMMON:

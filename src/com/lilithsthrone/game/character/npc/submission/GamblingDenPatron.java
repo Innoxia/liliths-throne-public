@@ -108,6 +108,16 @@ public class GamblingDenPatron extends NPC {
 					case FOX_MORPH_FENNEC:
 						addToSubspeciesMap(5, gender, s, availableRaces);
 						break;
+
+					case CAT_MORPH_CARACAL:
+					case CAT_MORPH_CHEETAH:
+					case CAT_MORPH_LEOPARD:
+					case CAT_MORPH_LEOPARD_SNOW:
+					case CAT_MORPH_LION:
+					case CAT_MORPH_LYNX:
+					case CAT_MORPH_TIGER:
+						addToSubspeciesMap(1, gender, s, availableRaces);
+						break;
 						
 					case BAT_MORPH:
 						addToSubspeciesMap(10, gender, s, availableRaces);
@@ -143,6 +153,13 @@ public class GamblingDenPatron extends NPC {
 					case SLIME_RABBIT:
 					case SLIME_FOX:
 					case SLIME_FOX_FENNEC:
+					case SLIME_CAT_CARACAL:
+					case SLIME_CAT_CHEETAH:
+					case SLIME_CAT_LEOPARD:
+					case SLIME_CAT_LEOPARD_SNOW:
+					case SLIME_CAT_LION:
+					case SLIME_CAT_LYNX:
+					case SLIME_CAT_TIGER:
 						addToSubspeciesMap(otherSlimeChance, gender, s, availableRaces);
 						break;
 				}

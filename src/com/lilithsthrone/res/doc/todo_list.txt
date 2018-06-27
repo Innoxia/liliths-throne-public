@@ -42,6 +42,7 @@
 	
 	Contributors:
 		Added: Fox-morphs (with Fennec, Youko, and Fennec-Youko subspecies). (Tukaima)
+		Added: Lynx, leopard, snow leopard, lion, tiger, cheetah, and caracal subspecies for cat-morphs. (Irbynx)
 	
 	Other:
 		Eye transformations now affect iris and pupil shape.
@@ -65,7 +66,7 @@
 		Open at 8, close at 5
 		Street with clubs and bars - although there are establishments like these all throughout Dominion, this is the place where the best ones are located
 		Both Bar and Club: Do misc. actions until approached/approach, then with that person (or 2 people) until you get rid of them or until sex
-		Club - The Watering Hole
+		Club - The Watering Hole (Male lion runs it, with lionesses and zebra-girls/boys as staff)
 			Internal map: Entrance, dancefloor, bar, seating area, toilets
 			Can: Dance, drink/loiter/flirt, use toilet (gloryhole)
 			-> Go home with him/her

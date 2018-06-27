@@ -3191,7 +3191,16 @@ public class Lab {
 						litterSB.append(" radiant");
 						break;
 					case CAT_MORPH:
+					case CAT_MORPH_LYNX:
+					case CAT_MORPH_CARACAL:
+					case CAT_MORPH_CHEETAH:
 						litterSB.append(" good-looking");
+						break;
+					case CAT_MORPH_LEOPARD_SNOW:
+					case CAT_MORPH_LEOPARD:
+					case CAT_MORPH_TIGER:
+					case CAT_MORPH_LION:
+						litterSB.append(" strong");
 						break;
 					case COW_MORPH:
 						litterSB.append(" strong");
@@ -3233,6 +3242,13 @@ public class Lab {
 					case SLIME_ALLIGATOR:
 					case SLIME_ANGEL:
 					case SLIME_CAT:
+					case SLIME_CAT_LYNX:
+					case SLIME_CAT_LEOPARD_SNOW:
+					case SLIME_CAT_LEOPARD:
+					case SLIME_CAT_LION:
+					case SLIME_CAT_TIGER:
+					case SLIME_CAT_CHEETAH:
+					case SLIME_CAT_CARACAL:
 					case SLIME_COW:
 					case SLIME_DEMON:
 					case SLIME_DOG:
@@ -3284,7 +3300,16 @@ public class Lab {
 						litterSB.append(" radiant");
 						break;
 					case CAT_MORPH:
+					case CAT_MORPH_LYNX:
+					case CAT_MORPH_CARACAL:
+					case CAT_MORPH_CHEETAH:
 						litterSB.append(" good-looking");
+						break;
+					case CAT_MORPH_LEOPARD_SNOW:
+					case CAT_MORPH_LEOPARD:
+					case CAT_MORPH_TIGER:
+					case CAT_MORPH_LION:
+						litterSB.append(" strong");
 						break;
 					case COW_MORPH:
 						litterSB.append(" strong");
@@ -3326,6 +3351,13 @@ public class Lab {
 					case SLIME_ALLIGATOR:
 					case SLIME_ANGEL:
 					case SLIME_CAT:
+					case SLIME_CAT_LYNX:
+					case SLIME_CAT_LEOPARD_SNOW:
+					case SLIME_CAT_LEOPARD:
+					case SLIME_CAT_LION:
+					case SLIME_CAT_TIGER:
+					case SLIME_CAT_CHEETAH:
+					case SLIME_CAT_CARACAL:
 					case SLIME_COW:
 					case SLIME_DEMON:
 					case SLIME_DOG:
@@ -3377,7 +3409,16 @@ public class Lab {
 						litterSB.append(" radiant");
 						break;
 					case CAT_MORPH:
+					case CAT_MORPH_LYNX:
+					case CAT_MORPH_CARACAL:
+					case CAT_MORPH_CHEETAH:
 						litterSB.append(" pretty");
+						break;
+					case CAT_MORPH_LEOPARD_SNOW:
+					case CAT_MORPH_LEOPARD:
+					case CAT_MORPH_TIGER:
+					case CAT_MORPH_LION:
+						litterSB.append(" strong");
 						break;
 					case COW_MORPH:
 						litterSB.append(" docile");
@@ -3419,6 +3460,13 @@ public class Lab {
 					case SLIME_ALLIGATOR:
 					case SLIME_ANGEL:
 					case SLIME_CAT:
+					case SLIME_CAT_LYNX:
+					case SLIME_CAT_LEOPARD_SNOW:
+					case SLIME_CAT_LEOPARD:
+					case SLIME_CAT_LION:
+					case SLIME_CAT_TIGER:
+					case SLIME_CAT_CHEETAH:
+					case SLIME_CAT_CARACAL:
 					case SLIME_COW:
 					case SLIME_DEMON:
 					case SLIME_DOG:
@@ -3470,7 +3518,16 @@ public class Lab {
 						litterSB.append(" radiant");
 						break;
 					case CAT_MORPH:
+					case CAT_MORPH_LYNX:
+					case CAT_MORPH_CARACAL:
+					case CAT_MORPH_CHEETAH:
 						litterSB.append(" pretty");
+						break;
+					case CAT_MORPH_LEOPARD_SNOW:
+					case CAT_MORPH_LEOPARD:
+					case CAT_MORPH_TIGER:
+					case CAT_MORPH_LION:
+						litterSB.append(" strong");
 						break;
 					case COW_MORPH:
 						litterSB.append(" docile");
@@ -3512,6 +3569,13 @@ public class Lab {
 					case SLIME_ALLIGATOR:
 					case SLIME_ANGEL:
 					case SLIME_CAT:
+					case SLIME_CAT_LYNX:
+					case SLIME_CAT_LEOPARD_SNOW:
+					case SLIME_CAT_LEOPARD:
+					case SLIME_CAT_LION:
+					case SLIME_CAT_TIGER:
+					case SLIME_CAT_CHEETAH:
+					case SLIME_CAT_CARACAL:
 					case SLIME_COW:
 					case SLIME_DEMON:
 					case SLIME_DOG:

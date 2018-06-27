@@ -110,6 +110,13 @@ public class DominionAlleywayAttacker extends NPC {
 					case SLIME_ALLIGATOR:
 					case SLIME_ANGEL:
 					case SLIME_CAT:
+					case SLIME_CAT_LYNX:
+					case SLIME_CAT_LEOPARD_SNOW:
+					case SLIME_CAT_LEOPARD:
+					case SLIME_CAT_LION:
+					case SLIME_CAT_TIGER:
+					case SLIME_CAT_CHEETAH:
+					case SLIME_CAT_CARACAL:
 					case SLIME_COW:
 					case SLIME_DEMON:
 					case SLIME_DOG:
@@ -143,6 +150,27 @@ public class DominionAlleywayAttacker extends NPC {
 					// Regular spawns:
 					case CAT_MORPH:
 						addToSubspeciesMap(canalSpecies?5:20, gender, s, availableRaces);
+						break;
+					case CAT_MORPH_LYNX:
+						addToSubspeciesMap(canalSpecies?2:5, gender, s, availableRaces);
+						break;
+					case CAT_MORPH_LEOPARD_SNOW:
+						addToSubspeciesMap(canalSpecies?2:5, gender, s, availableRaces);
+						break;
+					case CAT_MORPH_LEOPARD:
+						addToSubspeciesMap(canalSpecies?2:5, gender, s, availableRaces);
+						break;
+					case CAT_MORPH_LION:
+						addToSubspeciesMap(canalSpecies?2:5, gender, s, availableRaces);
+						break;
+					case CAT_MORPH_TIGER:
+						addToSubspeciesMap(canalSpecies?2:5, gender, s, availableRaces);
+						break;
+					case CAT_MORPH_CHEETAH:
+						addToSubspeciesMap(canalSpecies?2:5, gender, s, availableRaces);
+						break;
+					case CAT_MORPH_CARACAL:
+						addToSubspeciesMap(canalSpecies?2:5, gender, s, availableRaces);
 						break;
 					case COW_MORPH:
 						addToSubspeciesMap(canalSpecies?1:10, gender, s, availableRaces);

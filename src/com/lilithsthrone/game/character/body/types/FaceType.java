@@ -32,6 +32,8 @@ public enum FaceType implements BodyPartTypeInterface {
 
 	CAT_MORPH(BodyCoveringType.FELINE_FUR, MouthType.CAT_MORPH, TongueType.CAT_MORPH, Race.CAT_MORPH),
 
+	CAT_MORPH_PANTHER(BodyCoveringType.FELINE_FUR, MouthType.CAT_MORPH, TongueType.CAT_MORPH, Race.CAT_MORPH),
+
 	COW_MORPH(BodyCoveringType.BOVINE_FUR, MouthType.COW_MORPH, TongueType.COW_MORPH, Race.COW_MORPH),
 
 	SQUIRREL_MORPH(BodyCoveringType.SQUIRREL_FUR, MouthType.SQUIRREL_MORPH, TongueType.SQUIRREL_MORPH, Race.SQUIRREL_MORPH),
@@ -90,6 +92,7 @@ public enum FaceType implements BodyPartTypeInterface {
 			case SQUIRREL_MORPH:
 			case BAT_MORPH:
 			case CAT_MORPH:
+			case CAT_MORPH_PANTHER:
 			case COW_MORPH:
 			case DOG_MORPH:
 			case LYCAN:
@@ -118,6 +121,8 @@ public enum FaceType implements BodyPartTypeInterface {
 			case SQUIRREL_MORPH:
 			case BAT_MORPH:
 			case CAT_MORPH:
+			case CAT_MORPH_PANTHER:
+				return UtilText.returnStringAtRandom("muzzles", "faces");
 			case COW_MORPH:
 			case DOG_MORPH:
 			case LYCAN:
@@ -134,6 +139,8 @@ public enum FaceType implements BodyPartTypeInterface {
 			case ANGEL:
 				return UtilText.returnStringAtRandom("perfect", "flawless", "angelic");
 			case CAT_MORPH:
+				return UtilText.returnStringAtRandom("anthropomorphic cat-like", "cat-like", "feline");
+			case CAT_MORPH_PANTHER:
 				return UtilText.returnStringAtRandom("anthropomorphic cat-like", "cat-like", "feline");
 			case COW_MORPH:
 				return UtilText.returnStringAtRandom("anthropomorphic cow-like", "cow-like", "bovine");
@@ -175,6 +182,8 @@ public enum FaceType implements BodyPartTypeInterface {
 				return "angelic";
 			case CAT_MORPH:
 				return "feline";
+			case CAT_MORPH_PANTHER:
+				return "panther";
 			case DEMON_COMMON:
 				return "demonic";
 			case IMP:
@@ -226,6 +235,7 @@ public enum FaceType implements BodyPartTypeInterface {
 	public TongueType getTongueType() {
 		return tongueType;
 	}
+	
 
 	private static Map<Race, List<FaceType>> typesMap = new HashMap<>();
 	public static List<FaceType> getFaceTypes(Race r) {

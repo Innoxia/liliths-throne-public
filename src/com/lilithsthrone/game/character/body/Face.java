@@ -100,6 +100,11 @@ public class Face implements BodyPartInterface, Serializable {
 	}
 	
 	public String setType(GameCharacter owner, FaceType type) {
+		if(owner==null) {
+			this.type = type;
+			return "";
+		}
+		
 		if (type == getType()) {
 			if (owner.isPlayer()) {
 				return "<p style='text-align:center;'>[style.colourDisabled(You already have the [pc.face] of [pc.a_faceRace], so nothing happens...)]</p>";
@@ -230,7 +235,7 @@ public class Face implements BodyPartInterface, Serializable {
 							+ "</p>"));
 				}
 				break;
-			case CAT_MORPH:
+			case CAT_MORPH: case CAT_MORPH_PANTHER:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
 								" You feel your nose and mouth twitching and transforming as they push out into an anthropomorphic feline muzzle, and your tongue flattens and shifts into a little pink cat-like tongue."

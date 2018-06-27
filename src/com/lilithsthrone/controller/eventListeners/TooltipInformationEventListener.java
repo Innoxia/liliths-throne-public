@@ -605,7 +605,7 @@ public class TooltipInformationEventListener implements EventListener {
 					tooltipSB.setLength(0);
 					tooltipSB.append("<div class='title' style='color:" + owner.getRace().getColour().toWebHexString() + ";'>"
 							+(owner.getRaceStage().getName()!=""?"<b style='color:"+owner.getRaceStage().getColour().toWebHexString()+";'>" + Util.capitaliseSentence(owner.getRaceStage().getName())+"</b> ":"")
-							+ "<b style='color:"+owner.getRace().getColour().toWebHexString()+";'>"
+							+ "<b style='color:"+owner.getSubspecies().getColour().toWebHexString()+";'>"
 							+ (owner.isFeminine()?Util.capitaliseSentence(owner.getSubspecies().getSingularFemaleName()):Util.capitaliseSentence(owner.getSubspecies().getSingularMaleName()))
 							+ "</b>"
 							+ "</div>");
