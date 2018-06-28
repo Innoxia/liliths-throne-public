@@ -149,5 +149,12 @@ public enum DialogueFlagValue {
 	playedPregnancyRouletteAsMother,
 	playedPregnancyRouletteAsBreeder,
 	
+	// Nightlife:
+	julesIntroduced,
+	passedJules,
+	kalahariIntroduced,
+	krugerIntroduced,
+	
+	
 	;
 }

@@ -617,6 +617,39 @@ public enum ParserTarget {
 			return Main.game.getEpona();
 		}
 	},
+	
+	JULES(Util.newArrayListOfValues("jules"), "") {
+		public String getDescription() {
+			return Main.game.getJules().getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter(String tag) {
+			return Main.game.getJules();
+		}
+	},
+	
+	KRUGER(Util.newArrayListOfValues("kruger"), "") {
+		public String getDescription() {
+			return Main.game.getKruger().getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter(String tag) {
+			return Main.game.getKruger();
+		}
+	},
+	
+	KALAHARI(Util.newArrayListOfValues("kalahari"), "") {
+		public String getDescription() {
+			return Main.game.getKalahari().getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter(String tag) {
+			return Main.game.getKalahari();
+		}
+	},
 	;
 	
 	

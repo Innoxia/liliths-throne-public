@@ -544,7 +544,7 @@ public enum Subspecies {
 			Util.newArrayListOfValues(WorldType.DOMINION)) {
 		@Override
 		public void applySpeciesChanges(Body body) {
-			Colour primaryColor = Colour.COVERING_ORANGE;
+			Colour primaryColor = Colour.COVERING_TAN;
 			Colour secondaryColor = Colour.COVERING_BLACK;
 			double rand = Math.random();
 			if(rand<0.05f) {

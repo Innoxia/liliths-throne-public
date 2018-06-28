@@ -1500,7 +1500,9 @@ public enum Sex {
 						boolean dislikedAction = false;
 						if(sexAction.getFetishes(activePartner)!=null) {
 							for(Fetish f : sexAction.getFetishes(activePartner)) {
-								if(activePartner.getFetishDesire(f)==FetishDesire.ONE_DISLIKE || activePartner.getFetishDesire(f)==FetishDesire.ZERO_HATE) {
+								if(f!=Fetish.FETISH_EXHIBITIONIST // Do not include exhibitionist, as otherwise NPC will never do anything in public sex.
+										&& (activePartner.getFetishDesire(f)==FetishDesire.ONE_DISLIKE
+											|| activePartner.getFetishDesire(f)==FetishDesire.ZERO_HATE)) {
 									lowPriority.add(sexAction);
 									dislikedAction = true;
 									break;
@@ -1557,7 +1559,9 @@ public enum Sex {
 						boolean dislikedAction = false;
 						if(sexAction.getFetishes(activePartner)!=null) {
 							for(Fetish f : sexAction.getFetishes(activePartner)) {
-								if(activePartner.getFetishDesire(f)==FetishDesire.ONE_DISLIKE || activePartner.getFetishDesire(f)==FetishDesire.ZERO_HATE) {
+								if(f!=Fetish.FETISH_EXHIBITIONIST // Do not include exhibitionist, as otherwise NPC will never do anything in public sex.
+										&& (activePartner.getFetishDesire(f)==FetishDesire.ONE_DISLIKE
+											|| activePartner.getFetishDesire(f)==FetishDesire.ZERO_HATE)) {
 									lowPriority.add(sexAction);
 									dislikedAction = true;
 									break;
@@ -1622,11 +1626,12 @@ public enum Sex {
 						boolean dislikedAction = false;
 						if(sexAction.getFetishes(activePartner)!=null) {
 							for(Fetish f : sexAction.getFetishes(activePartner)) {
-								if(f!=Fetish.FETISH_NON_CON_SUB) {
-									if(activePartner.getFetishDesire(f)==FetishDesire.ONE_DISLIKE || activePartner.getFetishDesire(f)==FetishDesire.ZERO_HATE) {
-										dislikedAction = true;
-										break;
-									}
+								if(f!=Fetish.FETISH_NON_CON_SUB
+										&& f!=Fetish.FETISH_EXHIBITIONIST // Do not include exhibitionist, as otherwise NPC will never do anything in public sex.
+										&& (activePartner.getFetishDesire(f)==FetishDesire.ONE_DISLIKE
+											|| activePartner.getFetishDesire(f)==FetishDesire.ZERO_HATE)) {
+									dislikedAction = true;
+									break;
 								}
 							}
 						}

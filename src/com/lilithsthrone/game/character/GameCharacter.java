@@ -3598,6 +3598,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			case JUNGLE:
 			case LILAYAS_HOUSE_FIRST_FLOOR:
 			case LILAYAS_HOUSE_GROUND_FLOOR:
+			case NIGHTLIFE_CLUB:
 				break;
 				
 			case ENFORCER_HQ:

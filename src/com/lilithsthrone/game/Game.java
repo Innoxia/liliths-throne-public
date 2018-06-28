@@ -61,7 +61,10 @@ import com.lilithsthrone.game.character.npc.dominion.HarpyDominant;
 import com.lilithsthrone.game.character.npc.dominion.HarpyDominantCompanion;
 import com.lilithsthrone.game.character.npc.dominion.HarpyNympho;
 import com.lilithsthrone.game.character.npc.dominion.HarpyNymphoCompanion;
+import com.lilithsthrone.game.character.npc.dominion.Jules;
+import com.lilithsthrone.game.character.npc.dominion.Kalahari;
 import com.lilithsthrone.game.character.npc.dominion.Kate;
+import com.lilithsthrone.game.character.npc.dominion.Kruger;
 import com.lilithsthrone.game.character.npc.dominion.Lilaya;
 import com.lilithsthrone.game.character.npc.dominion.Loppy;
 import com.lilithsthrone.game.character.npc.dominion.Lumi;
@@ -779,6 +782,11 @@ public class Game implements Serializable, XMLSaving {
 					Main.game.addNPC(new Axel(), false);
 					Main.game.addNPC(new Epona(), false);
 				}
+				if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Roxy.class))) { // Add nightclub NPCs:
+					Main.game.addNPC(new Jules(), false);
+					Main.game.addNPC(new Kruger(), false);
+					Main.game.addNPC(new Kalahari(), false);
+				}
 				
 				// To prevent errors from previous versions, reset Zaranix progress if prior to 0.1.95:
 				if(Main.isVersionOlderThan(loadingVersion, "0.1.90.5")) {
@@ -1051,6 +1059,10 @@ public class Game implements Serializable, XMLSaving {
 			addNPC(new Roxy(), false);
 			addNPC(new Axel(), false);
 			addNPC(new Epona(), false);
+
+			addNPC(new Jules(), false);
+			addNPC(new Kruger(), false);
+			addNPC(new Kalahari(), false);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -2814,6 +2826,18 @@ public class Game implements Serializable, XMLSaving {
 
 	public NPC getEpona() {
 		return (NPC) this.getNPCById(getUniqueNPCId(Epona.class));
+	}
+
+	public NPC getJules() {
+		return (NPC) this.getNPCById(getUniqueNPCId(Jules.class));
+	}
+
+	public NPC getKruger() {
+		return (NPC) this.getNPCById(getUniqueNPCId(Kruger.class));
+	}
+
+	public NPC getKalahari() {
+		return (NPC) this.getNPCById(getUniqueNPCId(Kalahari.class));
 	}
 	
 	public NPC getGenericMaleNPC() {

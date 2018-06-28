@@ -594,9 +594,9 @@ public class ItemType {
 	public static AbstractItemType INT_INGREDIENT_GRAPE_JUICE = new AbstractItemType(150,
 			"a bottle of",
 			false,
-			"Vineyard Gourmand",
-			"Vineyard Gourmands",
-			"A delicate glass bottle filled with non-alchoholic wine substitute."
+			"Vulpine's Vineyard",
+			"Vulpine's Vineyards",
+			"A delicate glass bottle filled with red wine."
 				+ " A bunch of grapes is painted onto the front of the label, and on the bottom of the bottle itself, the image of a snickering fox-morph is burned into the glass.",
 			"attributeFoxMorphDrink",
 			Colour.ATTRIBUTE_ARCANE,
@@ -629,12 +629,12 @@ public class ItemType {
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getGenericUseDescription(user, target,
-					"Opening the bottle of 'Vineyard Gourmand', you eagerly bring it up to your waiting lips."
-						+ " The fragrance of grapes wafts from the neck of the newly opened bottle, soon joined by the sweet taste of grapes, that lingers well after you've had your fill.",
-					"Removing the stopper from the bottle, you bring the bottle of 'Vineyard Gourmand' to [npc.name]'s lips, before tilting [npc.her] head back and forcing [npc.herHim] to quickly gulp down the grape juice liquid.",
-					"[npc.Name] pulls out a bottle of 'Vineyard Gourmand', and, after removing the stopper, [npc.she] promptly downs the entire bottle.",
-					"[npc.Name] pulls out a bottle of 'Vineyard Gourmand', and, after removing the stopper, [npc.she] brings it to your lips before tilting your head back and forcing you to quickly gulp down the contents."
-						+ " The fragrance of grapes wafts from the neck of the newly opened bottle, soon joined by the sweet taste of grapes, that lingers well after you've had your fill.");
+					"Opening the bottle of 'Vulpine's Vineyard', you eagerly bring it up to your waiting lips."
+						+ " The heady fragrance of rich red wine wafts from the neck of the newly opened bottle, soon joined by a rich, sweet taste, that lingers on yuor tongue well after you've had your fill.",
+					"Removing the stopper from the bottle, you bring the bottle of 'Vulpine's Vineyard' to [npc.name]'s lips, before tilting [npc.her] head back and forcing [npc.herHim] to quickly gulp down the wine within.",
+					"[npc.Name] pulls out a bottle of 'Vulpine's Vineyard', and, after removing the stopper, [npc.she] promptly downs the entire bottle.",
+					"[npc.Name] pulls out a bottle of 'Vulpine's Vineyard', and, after removing the stopper, [npc.she] brings it to your lips before tilting your head back and forcing you to quickly gulp down the contents."
+						+ " The heady fragrance of rich red wine wafts from the neck of the newly opened bottle, soon joined by a rich, sweet taste, that lingers on yuor tongue well after you've had your fill.");
 		}
 	};
 	

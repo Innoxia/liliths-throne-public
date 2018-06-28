@@ -267,6 +267,30 @@ public enum WorldType {
 					new Value<>(new Color(0xffff00), PlaceType.ANGELS_KISS_BEDROOM_BUNNY),
 					new Value<>(new Color(0xff8000), PlaceType.ANGELS_KISS_BEDROOM_LOPPY))),
 	
+
+	NIGHTLIFE_CLUB("The Watering Hole",
+			Colour.BASE_BLUE,
+			1,
+			"/com/lilithsthrone/res/map/dominion/nightLife/wateringHole.png",
+			Util.newHashMapOfValues(
+					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
+					
+					new Value<>(new Color(0x00ff00), PlaceType.WATERING_HOLE_ENTRANCE),
+					
+					new Value<>(new Color(0x808080), PlaceType.WATERING_HOLE_MAIN_AREA),
+					
+					new Value<>(new Color(0x0080ff), PlaceType.WATERING_HOLE_SEATING_AREA),
+					new Value<>(new Color(0xff00ff), PlaceType.WATERING_HOLE_VIP_AREA),
+					new Value<>(new Color(0xff8000), PlaceType.WATERING_HOLE_BAR),
+					new Value<>(new Color(0xffff00), PlaceType.WATERING_HOLE_DANCE_FLOOR),
+					new Value<>(new Color(0xff0000), PlaceType.WATERING_HOLE_TOILETS)
+					)){
+		@Override
+		public boolean isRevealedOnStart() {
+			return true;
+		}
+	},
+	
 	// Other:
 
 	SUBMISSION("Submission",

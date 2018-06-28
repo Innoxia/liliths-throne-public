@@ -84,8 +84,9 @@ public interface SexManagerInterface {
 	public default boolean isPlayerAbleToStopSex() {
 		return Sex.isDom(Main.game.getPlayer())
 				|| (Sex.isSubHasEqualControl()
-					&& !(Sex.getActivePartner() instanceof DominionAlleywayAttacker) //TODO
-					&& !(Sex.getActivePartner() instanceof DominionSuccubusAttacker));
+					&& (Sex.getActivePartner().isSlave()
+					|| (!(Sex.getActivePartner() instanceof DominionAlleywayAttacker) //TODO
+							&& !(Sex.getActivePartner() instanceof DominionSuccubusAttacker))));
 	}
 	
 	public default boolean isPartnerWantingToStopSex() {

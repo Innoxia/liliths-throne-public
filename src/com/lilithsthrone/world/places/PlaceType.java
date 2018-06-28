@@ -66,7 +66,7 @@ import com.lilithsthrone.world.WorldType;
 
 /**
  * @since 0.1.0
- * @version 0.2.5
+ * @version 0.2.8
  * @author Innoxia
  */
 public enum PlaceType {
@@ -1006,6 +1006,53 @@ public enum PlaceType {
 			return Subspecies.getWorldSpecies().get(WorldType.DOMINION);
 		}
 	},
+	
+	// Nightlife:
+
+	
+	WATERING_HOLE_ENTRANCE("Entrance", "dominion/nightLife/exit", BaseColour.RED, Colour.MAP_BACKGROUND, NightlifeDistrict.WATERING_HOLE_ENTRANCE, null, false, true, true, "in 'The Watering Hole'") {
+		@Override
+		public List<Subspecies> getSpeciesPopulatingArea() {
+			return Subspecies.getWorldSpecies().get(WorldType.DOMINION);
+		}
+	},
+
+	WATERING_HOLE_MAIN_AREA("The Watering Hole", null, BaseColour.BLACK, Colour.MAP_BACKGROUND, NightlifeDistrict.WATERING_HOLE_MAIN, null, false, true, true, "in 'The Watering Hole'") {
+		@Override
+		public List<Subspecies> getSpeciesPopulatingArea() {
+			return Subspecies.getWorldSpecies().get(WorldType.DOMINION);
+		}
+	},
+
+	WATERING_HOLE_SEATING_AREA("Seating Area", "dominion/nightLife/seatingArea", BaseColour.BLUE_LIGHT, Colour.MAP_BACKGROUND, NightlifeDistrict.WATERING_HOLE_SEATING, null, false, true, true, "in 'The Watering Hole'") {
+		@Override
+		public List<Subspecies> getSpeciesPopulatingArea() {
+			return Subspecies.getWorldSpecies().get(WorldType.DOMINION);
+		}
+	},
+
+	WATERING_HOLE_VIP_AREA("VIP Area", "dominion/nightLife/vipArea", BaseColour.PURPLE, Colour.MAP_BACKGROUND, NightlifeDistrict.WATERING_HOLE_VIP, null, false, true, true, "in 'The Watering Hole'") {
+		@Override
+		public List<Subspecies> getSpeciesPopulatingArea() {
+			return Subspecies.getWorldSpecies().get(WorldType.DOMINION);
+		}
+	},
+
+	WATERING_HOLE_BAR("VIP Area", "dominion/nightLife/bar", BaseColour.ORANGE, Colour.MAP_BACKGROUND, NightlifeDistrict.WATERING_HOLE_BAR, null, false, true, true, "in 'The Watering Hole'") {
+		@Override
+		public List<Subspecies> getSpeciesPopulatingArea() {
+			return Subspecies.getWorldSpecies().get(WorldType.DOMINION);
+		}
+	},
+
+	WATERING_HOLE_DANCE_FLOOR("Dance Floor", "dominion/nightLife/danceFloor", BaseColour.PINK_DEEP, Colour.MAP_BACKGROUND, NightlifeDistrict.WATERING_HOLE_DANCE_FLOOR, null, false, true, true, "in 'The Watering Hole'") {
+		@Override
+		public List<Subspecies> getSpeciesPopulatingArea() {
+			return Subspecies.getWorldSpecies().get(WorldType.DOMINION);
+		}
+	},
+
+	WATERING_HOLE_TOILETS("Toilets", "dominion/nightLife/toilets", BaseColour.GREEN_DARK, Colour.MAP_BACKGROUND, NightlifeDistrict.WATERING_HOLE_TOILETS, null, false, true, true, "in the toilets of 'The Watering Hole'"),
 	
 	
 	// Submission:

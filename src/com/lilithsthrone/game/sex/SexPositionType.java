@@ -1201,7 +1201,8 @@ public enum SexPositionType {
 	public boolean isActionBlocked(GameCharacter performer, GameCharacter target, SexActionInterface action) {
 		if(action.getActionType()==SexActionType.START_ONGOING) {
 			// Block penis+non-appendage actions if target's penis is already in use:
-			if(action.getSexAreaInteractions().containsValue(SexAreaPenetration.PENIS)) {
+			if(this!=SexPositionType.SIXTY_NINE
+					&& action.getSexAreaInteractions().containsValue(SexAreaPenetration.PENIS)) {
 				if(Collections.disjoint(action.getSexAreaInteractions().values(), SexActionPresets.appendageAreas)
 						&& Sex.getOngoingActionsMap(target).containsKey(SexAreaPenetration.PENIS)
 						&& Sex.getOngoingActionsMap(target).get(SexAreaPenetration.PENIS).containsKey(performer)) {

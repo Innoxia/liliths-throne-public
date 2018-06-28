@@ -2499,12 +2499,14 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		
 		// Penis:
 		if(!target.hasPenis()
-				|| !target.isAbleToAccessCoverableArea(CoverableArea.PENIS, true)) {
+				|| !target.isAbleToAccessCoverableArea(CoverableArea.PENIS, true)
+				|| isKeenToAvoidFetishAction(target, Fetish.FETISH_PENIS_RECEIVING)) {
 			foreplaySexTypes.removeIf(sexType -> sexType.getTargetedSexArea()==SexAreaPenetration.PENIS);
 			mainSexTypes.removeIf(sexType -> sexType.getTargetedSexArea()==SexAreaPenetration.PENIS);
 		}
 		if(!this.hasPenis()
-				|| !this.isAbleToAccessCoverableArea(CoverableArea.PENIS, true)) {
+				|| !this.isAbleToAccessCoverableArea(CoverableArea.PENIS, true)
+				|| isKeenToAvoidFetishAction(target, Fetish.FETISH_PENIS_GIVING)) {
 			foreplaySexTypes.removeIf(sexType -> sexType.getPerformingSexArea()==SexAreaPenetration.PENIS);
 			mainSexTypes.removeIf(sexType -> sexType.getPerformingSexArea()==SexAreaPenetration.PENIS);
 		}
@@ -2515,7 +2517,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			foreplaySexTypes.removeIf(sexType -> sexType.getTargetedSexArea()==SexAreaOrifice.VAGINA);
 			mainSexTypes.removeIf(sexType -> sexType.getTargetedSexArea()==SexAreaOrifice.VAGINA);
 		}
-		if(isKeenToPerformFetishAction(target, Fetish.FETISH_PURE_VIRGIN)
+		if(isKeenToAvoidFetishAction(target, Fetish.FETISH_PURE_VIRGIN)
 				|| !this.hasVagina()
 				|| !this.isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)
 				|| isKeenToAvoidFetishAction(target, Fetish.FETISH_VAGINAL_RECEIVING)) {
@@ -2533,14 +2535,14 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		}
 		// Oral:
 		if(!target.isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)
-				|| isKeenToAvoidFetishAction(target, Fetish.FETISH_ORAL_GIVING)) {
+				|| isKeenToAvoidFetishAction(target, Fetish.FETISH_ORAL_RECEIVING)) {
 			foreplaySexTypes.removeIf(sexType -> sexType.getTargetedSexArea()==SexAreaOrifice.MOUTH);
 			mainSexTypes.removeIf(sexType -> sexType.getTargetedSexArea()==SexAreaOrifice.MOUTH);
 			foreplaySexTypes.removeIf(sexType -> sexType.getTargetedSexArea()==SexAreaPenetration.TONGUE);
 			mainSexTypes.removeIf(sexType -> sexType.getTargetedSexArea()==SexAreaPenetration.TONGUE);
 		}
 		if(!this.isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)
-				|| isKeenToAvoidFetishAction(target, Fetish.FETISH_ORAL_RECEIVING)) {
+				|| isKeenToAvoidFetishAction(target, Fetish.FETISH_ORAL_GIVING)) {
 			foreplaySexTypes.removeIf(sexType -> sexType.getPerformingSexArea()==SexAreaOrifice.MOUTH);
 			mainSexTypes.removeIf(sexType -> sexType.getPerformingSexArea()==SexAreaOrifice.MOUTH);
 			foreplaySexTypes.removeIf(sexType -> sexType.getPerformingSexArea()==SexAreaPenetration.TONGUE);

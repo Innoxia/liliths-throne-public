@@ -23,7 +23,9 @@
 				<clothingAccessRequired>
 					<clothingAccess>GROIN</clothingAccess>
 				</clothingAccessRequired>
-				<blockedBodyParts/>
+				<blockedBodyParts>
+				  <bodyPart>ANUS</bodyPart>
+				</blockedBodyParts>
 				<clothingAccessBlocked/>
 				<concealedSlots/>
 			</blockedParts>

@@ -37,17 +37,15 @@
 	
 	Patch notes:
 	
-	Engine:
-		Converted kissing actions to NPC-on-NPC format.
-	
 	Contributors:
-		Added: Fox-morphs (with Fennec, Youko, and Fennec-Youko subspecies). (Tukaima)
+		Added: Fox-morphs (with Fennec, Youko, and Fennec-Youko subspecies), along with related essence, book, and TF food and drink. (Tukaima)
 		Added: Lynx, leopard, snow leopard, lion, tiger, cheetah, and caracal subspecies for cat-morphs. (Irbynx)
 	
 	Other:
 		Eye transformations now affect iris and pupil shape.
 		The 'Deny' action in sex is now always available (so long as you're the dom or have equal control as the sub).
 		Event log is now sorted with the most recent events at the top of the list.
+		Converted kissing actions to NPC-on-NPC format.
 	
 	Bugs:
 		Fixed Ralph not starting anal when you asked for big discount.
@@ -57,31 +55,33 @@
 		Fixed 'Deny' sex action not working.
 		Fixed tattoos without any writing loading in as having blank 'normal grey text'.
 		Fixed the 'Age' content toggle not working.
-		
+		Fixed blowjob not being available sometimes in sixty-nine position.
+		Fixed buttplugs not actually blocking anus.
+		Fixed NPCs choosing oral sex actions even if they hated or disliked it.
+		Fixed Lilaya and Kate sometimes continuously switching positions in their sex scenes.
+		Fixed tattoos sometimes being applied with the last letter in their writing being cut off.
+		You can now end sex when starting submissive sex with a companion.
+		Fixed case where dominant NPC would refuse to take any action in sex.
 	
 	
 	
 	
-	Nightlife plan:
-		Open at 8, close at 5
-		Street with clubs and bars - although there are establishments like these all throughout Dominion, this is the place where the best ones are located
-		Both Bar and Club: Do misc. actions until approached/approach, then with that person (or 2 people) until you get rid of them or until sex
-		Club - The Watering Hole (Male lion runs it, with lionesses and zebra-girls/boys as staff)
-			Internal map: Entrance, dancefloor, bar, seating area, toilets
-			Can: Dance, drink/loiter/flirt, use toilet (gloryhole)
-			-> Go home with him/her
-				If rough/rapist, they try to sex in alley
-				Else go home and have sex
-			-> Go into toilets (sex)
-		Bar
-			Internal map: Bar area, seating, toilets
-			Can: Drink, talk, flirt
-			-> sit and chat
-			Drink, talk, flirt, footsie
-			-> Go home with him/her (sex)
-				If rough/rapist, they try to sex in alley
-				Else go home and have sex
-			-> Go into toilets (sex)
+	NullPointer somehow when managing inventory in sex (something related to Game.restoreSavedContent(Game.java:2341))
+		The problem goes away if I remove his clothes through Management: Inventory. Only doing it from clicking him then clicking his inventory directly causes the issue
+	
+	
+	Add place descriptions
+	Add location actions
+	Add pickup mechanics
+	
+	Do misc. actions until approached/approach, then with that person (or 2 people) until you get rid of them or until sex
+	Club - The Watering Hole (Male lion runs it, with lionesses and zebra-girls/boys as staff)
+		Internal map: Entrance, dancefloor, bar, seating area, VIP area, toilets
+		Can: Dance, drink/loiter/flirt, use toilet (gloryhole)
+		-> Go home with him/her
+			If rough/rapist, they try to sex in alley
+			Else go home and have sex
+		-> Go into toilets (sex)
 	
 	
 	
@@ -95,48 +95,30 @@
 	
 	
 	
-	
-	 I think it's counting the slaves being in the stocks as having sex with me because a lot of my slaves say I've had sex with them over a hundred times, which is definately not true.
-	Also, Vicky's ending sex text (specifically the back away nervously one) mentions the package even though I delivered it weeks ago. This is the first time I've had sex with her
-	
-	Current bug with Sixty-Nine
-	When your partner is male or futa, and you're recieving a blowjob, you can't give one back. Instead, there's a greyed out "Get Blowjob"
-	Also, the possessive nouns when you climax in 69 position is whack too.
-	And yes, I see she's still wearing underwear, I'm just saying that this happens wether or not they are.. 
-	Swapping positions during 69  also causes this
-	
-	Also, a character can hate giving oral, but still your aura says they want to give oral to you.
-	
-	Tried having submissive sex with a slave who wasn't normally interested in me during an arcane storm. They acted friendly, but refused to take any actions. There seemed to be no method of exiting the encounter so I had to load a previous save
-	
-	aren't plugs supposed to be removed before anything is done to that part? The NPCs seem to be ignoring the plugs in me in sex
-	
-	Lilaya position switching reported
+	I think it's counting the slaves being in the stocks as having sex with me because a lot of my slaves say I've had sex with them over a hundred times, which is definately not true.
 	
 	Fix spells not doing damage from max lust
 	
-	Add crowd indication (Needed for club definitely)
-	
-	
-	
+	Add crowd indication
 	
 	Exhibitionist slaves lose affection if you ask them to show themselves off for you and are pissy about it
 	
 	add in child spawns in the bat caverns 
 		
-	taunts and dirty talk similar to that in pregnancy roulette based on fetishes, for example once the npc switches what they want to fucking your pussy they could say "Im going to take that tight kitty of yours" or "Im going to breed your pussy" if they have a pregnancy fetish. in addition they could have comments on orgasm based on where they cum, if they cum inside you they could say "Going to have my pups for sure" or if they cum on your clothing or body they could taunt at you being covered in their cum
+	taunts and dirty talk similar to that in pregnancy roulette based on fetishes,
+	 for example once the npc switches what they want to fucking your pussy they could say "Im going to take that tight kitty of yours" or "Im going to breed your pussy" if they have a pregnancy fetish.
+	  in addition they could have comments on orgasm based on where they cum, if they cum inside you they could say "Going to have my pups for sure" or if they cum on your clothing or body they could taunt at you being covered in their cum
 	
 	wearing the rental t-shirts attracting NPCs in the alleys
 	
-	I haven't written in sex intros for the generic encounters yet - I'll try and get that done soon! ^^
+	write in sex intros for the generic encounters
 
-	I think the 'Request X' actions in sex are bugged at the moment, I'll get those fixed asap.
-	
-	Bug 1 - in the character creator when selecting tattoos, if you type in lettering and hit add without doing anything else you lose the last letter typed. When pressing enter, I lose the last letter as well. However if change any of the other options, the full text is kept. Bug 2 - in the tattoo interface still, the hearts type is listed twice, clicking on the second one doesn't do anything, clicking on the first cycles between the two. Each option will apply the hearts tattoo when applied.
+	I think the 'Request X' actions in sex are bugged at the moment
 	
 	rfpnj jewellery
 	
-	I also noticed that Amber is always the dominant partner even though you didn't chose submit and her lines are submissive but she talks like dominant one after the scene is done as well as her ending the scene in the first place after she climaxed one time
+	I also noticed that Amber is always the dominant partner even though you didn't chose submit and her lines are submissive but she talks like dominant one after the scene is done
+	 as well as her ending the scene in the first place after she climaxed one time
 	
 	broken condom content
 	
@@ -272,19 +254,13 @@
 	
 	
 	
-	Need to add way to get scars. Add tattoos and scars to character creation.
+	Need to add way to get scars
 	
 	when in tattoo menu, if you then click "trade with kate", and then go back to tattoos, screen content doesn't parse
-	
-	Lilaya shouldn't scream to pull out when she's pregnant, that doesn't make sense
-	
-	Tattoos don't get renamed when you enchant them
 	
 	make DOMINION_ALLEYWAY_SPAWN, SUBMISSION_TUNNEL_SPAWN work for clothing
 	
 	Conceal tattoo slots
-	
-	Add character creation tattoos and scars
 	
 	Right panel resets when switching tattoos in slave management
 	
@@ -296,8 +272,6 @@
 	
 	We legitimately do need an option to purge non-unique npc's who aren't loaded into the game world from the save file.
 		Besides your kids, a lot of alley attackers stay in even if you give them the boot, stockades slave, brothel customers, and others.
-	
-	So, I think i found a bug. When as a slime and transforming myself the options between "eye color" and "slime color" seem to conflict with each other... For instance, when I go to change my eye color it changes the description of my skin to be "made out of (selected color here) irises!", creepy lol.
 	
 	non-fishnet thigh-high stockings
 	

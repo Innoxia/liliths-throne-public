@@ -2297,7 +2297,9 @@ public class SlaveryManagementDialogue {
 						@Override
 						public void effects() {
 							Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().incrementMoney(-value));
-							
+
+							Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenPField').innerHTML=document.getElementById('tattoo_name').value;");
+							CharacterModificationUtils.tattoo.getWriting().setText(Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent());
 							BodyChanging.getTarget().addTattoo(CharacterModificationUtils.tattooInventorySlot, CharacterModificationUtils.tattoo);
 						}
 					};

@@ -28,8 +28,9 @@
         <clothingAccessRequired>
           <clothingAccess>GROIN</clothingAccess>
         </clothingAccessRequired>
-
-        <blockedBodyParts/>
+		<blockedBodyParts>
+          <bodyPart>VAGINA</bodyPart>
+        </blockedBodyParts>
 		<clothingAccessBlocked/>
         <concealedSlots/>
 

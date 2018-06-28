@@ -798,7 +798,8 @@ public class ItemEffectType {
 	
 	public static AbstractItemEffectType INT_GRAPE_JUICE = new AbstractItemEffectType(Util.newArrayListOfValues(
 			"[style.boldGood(Restores)] 5% [style.boldAura(aura)]",
-			"[style.boldGood(+10)] [style.boldPhysique(critical hit damage)] to 'potion effects'"),
+			"[style.boldGood(+10)] [style.boldPhysique(critical hit damage)] to 'potion effects'",
+			"[style.boldMinorBad(Adds)] 10% to [style.boldAlcohol(intoxication level)]"),
 			Colour.ATTRIBUTE_PHYSIQUE) {
 		
 		@Override
@@ -811,7 +812,8 @@ public class ItemEffectType {
 						:UtilText.parse(target, "[npc.Name]'s senses are heightened..."))
 					+ "</br>"
 					+ target.addPotionEffect(Attribute.CRITICAL_DAMAGE, 10)
-					+"</p>";
+					+"</p>"
+					+ target.incrementAlcoholLevel(0.1f);
 		}
 	};
 	
