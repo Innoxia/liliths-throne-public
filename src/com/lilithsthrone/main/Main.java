@@ -50,7 +50,7 @@ import javafx.scene.control.ButtonType;
 
 /**
  * @since 0.1.0
- * @version 0.2.7
+ * @version 0.2.8
  * @author Innoxia
  */
 public class Main extends Application {
@@ -64,7 +64,7 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
 
-	public static final String VERSION_NUMBER = "0.2.7.6",
+	public static final String VERSION_NUMBER = "0.2.7.8",
 			VERSION_DESCRIPTION = "Alpha";
 	
 	private final static boolean DEBUG = true;
@@ -74,29 +74,16 @@ public class Main extends Application {
 	private static Properties properties;
 	
 	public static String patchNotes =
-			
-//		"<h1 style='text-align:center;'>Version " + Main.VERSION_NUMBER + "</h1>"
-//		+ "<h6 style='text-align:center;'><b style='color:" + Colour.GENERIC_TERRIBLE.toWebHexString() + ";'>Buggy Preview!</b></h6>"
-//		+ "<h6 style='text-align:center;'><b style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Early Alpha!</b></h6>"
 		
 		"<p>"
-			+ "Hello again! :3"
+			+ "Hello again!"
 		+ "</p>"
 			
 		+ "<p>"
-			+ "Here's my current progress towards 0.2.8!"
-			+ " I've managed to get all of the sex code rework completely finished (there was a considerable amount that still needed to be changed, which I only realised on Friday),"
-			+ " as well as getting some bugs and minor things added."
+			+ "Due to some issues I've been having this week, I'm afraid that I haven't managed to get much progress done since last Friday's hotfix."
+			+ " As a result, I'll release this week's version as another 'progress update', and will release the finished version of 0.2.8 (publicly again) next week."
 		+ "</p>"
 			
-		+ "<p>"
-			+ "Now that all of the code work is finished, I'll move on to writing the NPC-on-NPC sex actions and adding Nightlife content for the full release of 0.2.8 next Wednesday! ^^"
-		+ "</p>"
-
-		+ "<p>"
-			+ "<i>Scroll to the bottom to find the hotfix's patch notes!</i>"
-		+ "</p>"	
-		
 		+ "<p>"
 			+ "Thank you all for playing Lilith's Throne! And a very big thank you to all the people supporting me on Patreon!"
 			+ " If you wanted to ask me any specific questions about the game, you can either find me on my blog, or on the Lilith's Throne Discord. You can find a link to the discord on my blog. ^^"
@@ -236,6 +223,37 @@ public class Main extends Application {
 			+"<ul>Fixed bug where most characters were spawning with their penile virginity. (It's now a 15% chance for them to spawn as penile virgins.)</ul>"
 			+"<ul>Fixed clothing type encyclopedia unlock events using custom names.</ul>"
 			+"<ul>Naming enchanted tattoos now works correctly.</ul>"
+		+ "</list>"
+
+		+ "<br/>"
+
+		+ "<list>"
+			+ "<h6>v0.2.7.8</h6>"
+			+"<li>Contributors:</li>"
+			+"<ul>Added: Fox-morphs (with Fennec, Youko, and Fennec-Youko subspecies), along with related essence, book, and TF food and drink. (Tukaima)</ul>"
+			+"<ul>Added: Lynx, leopard, snow leopard, lion, tiger, cheetah, and caracal subspecies for cat-morphs. (Irbynx)</ul>"
+			
+			+"<li>Other:</li>"
+			+"<ul>Eye transformations now affect iris and pupil shape.</ul>"
+			+"<ul>The 'Deny' action in sex is now always available (so long as you're the dom or have equal control as the sub).</ul>"
+			+"<ul>Event log is now sorted with the most recent events at the top of the list.</ul>"
+			+"<ul>Converted kissing actions to NPC-on-NPC format.</ul>"
+			
+			+"<li>Bugs:</li>"
+			+"<ul>Fixed Ralph not starting anal when you asked for big discount.</ul>"
+			+"<ul>Fixed not being able to swap or change positions with Lilaya & Kate in their sex scenes.</ul>"
+			+"<ul>Fixed slaves in the stocks and milking stalls using their hands, and added anal options for the 'standing behind' position.</ul>"
+			+"<ul>Typo and parsing fixes.</ul>"
+			+"<ul>Fixed 'Deny' sex action not working.</ul>"
+			+"<ul>Fixed tattoos without any writing loading in as having blank 'normal grey text'.</ul>"
+			+"<ul>Fixed the 'Age' content toggle not working.</ul>"
+			+"<ul>Fixed blowjob not being available sometimes in sixty-nine position.</ul>"
+			+"<ul>Fixed buttplugs not actually blocking anus.</ul>"
+			+"<ul>Fixed NPCs choosing oral sex actions even if they hated or disliked it.</ul>"
+			+"<ul>Fixed Lilaya and Kate sometimes continuously switching positions in their sex scenes.</ul>"
+			+"<ul>Fixed tattoos sometimes being applied with the last letter in their writing being cut off.</ul>"
+			+"<ul>You can now end sex when starting submissive sex with a companion.</ul>"
+			+"<ul>Fixed case where dominant NPC would refuse to take any action in sex.</ul>"
 		+ "</list>"
 		;
 	

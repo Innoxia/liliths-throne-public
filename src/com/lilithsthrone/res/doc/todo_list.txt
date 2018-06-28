@@ -37,31 +37,31 @@
 	
 	Patch notes:
 	
-	Contributors:
-		Added: Fox-morphs (with Fennec, Youko, and Fennec-Youko subspecies), along with related essence, book, and TF food and drink. (Tukaima)
-		Added: Lynx, leopard, snow leopard, lion, tiger, cheetah, and caracal subspecies for cat-morphs. (Irbynx)
-	
-	Other:
-		Eye transformations now affect iris and pupil shape.
-		The 'Deny' action in sex is now always available (so long as you're the dom or have equal control as the sub).
-		Event log is now sorted with the most recent events at the top of the list.
-		Converted kissing actions to NPC-on-NPC format.
-	
-	Bugs:
-		Fixed Ralph not starting anal when you asked for big discount.
-		Fixed not being able to swap or change positions with Lilaya & Kate in their sex scenes.
-		Fixed slaves in the stocks and milking stalls using their hands, and added anal options for the 'standing behind' position.
-		Typo and parsing fixes.
-		Fixed 'Deny' sex action not working.
-		Fixed tattoos without any writing loading in as having blank 'normal grey text'.
-		Fixed the 'Age' content toggle not working.
-		Fixed blowjob not being available sometimes in sixty-nine position.
-		Fixed buttplugs not actually blocking anus.
-		Fixed NPCs choosing oral sex actions even if they hated or disliked it.
-		Fixed Lilaya and Kate sometimes continuously switching positions in their sex scenes.
-		Fixed tattoos sometimes being applied with the last letter in their writing being cut off.
-		You can now end sex when starting submissive sex with a companion.
-		Fixed case where dominant NPC would refuse to take any action in sex.
+Contributors:
+	Added: Fox-morphs (with Fennec, Youko, and Fennec-Youko subspecies), along with related essence, book, and TF food and drink. (Tukaima)
+	Added: Lynx, leopard, snow leopard, lion, tiger, cheetah, and caracal subspecies for cat-morphs. (Irbynx)
+
+Other:
+	Eye transformations now affect iris and pupil shape.
+	The 'Deny' action in sex is now always available (so long as you're the dom or have equal control as the sub).
+	Event log is now sorted with the most recent events at the top of the list.
+	Converted kissing actions to NPC-on-NPC format.
+
+Bugs:
+	Fixed Ralph not starting anal when you asked for big discount.
+	Fixed not being able to swap or change positions with Lilaya & Kate in their sex scenes.
+	Fixed slaves in the stocks and milking stalls using their hands, and added anal options for the 'standing behind' position.
+	Typo and parsing fixes.
+	Fixed 'Deny' sex action not working.
+	Fixed tattoos without any writing loading in as having blank 'normal grey text'.
+	Fixed the 'Age' content toggle not working.
+	Fixed blowjob not being available sometimes in sixty-nine position.
+	Fixed buttplugs not actually blocking anus.
+	Fixed NPCs choosing oral sex actions even if they hated or disliked it.
+	Fixed Lilaya and Kate sometimes continuously switching positions in their sex scenes.
+	Fixed tattoos sometimes being applied with the last letter in their writing being cut off.
+	You can now end sex when starting submissive sex with a companion.
+	Fixed case where dominant NPC would refuse to take any action in sex.
 	
 	
 	
