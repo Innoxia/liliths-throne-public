@@ -11,10 +11,11 @@ import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.SexPositionType;
-import com.lilithsthrone.game.sex.managers.dominion.SMMilkingStall;
+import com.lilithsthrone.game.sex.managers.dominion.SMStocks;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionLimitation;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
+import com.lilithsthrone.game.slavery.SlaveJobSetting;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
@@ -64,7 +65,10 @@ public class StocksSex {
 
 		@Override
 		public void applyEffects() {
-			Sex.setSexManager(new SMMilkingStall(
+			Sex.setSexManager(new SMStocks(
+					Sex.getActivePartner().getSlaveJobSettings().contains(SlaveJobSetting.SEX_VAGINAL),
+					Sex.getActivePartner().getSlaveJobSettings().contains(SlaveJobSetting.SEX_ANAL),
+					Sex.getActivePartner().getSlaveJobSettings().contains(SlaveJobSetting.SEX_ORAL),
 					Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STOCKS_FUCKING)),
 					Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.STOCKS_LOCKED_IN_STOCKS))));
 			
@@ -110,7 +114,10 @@ public class StocksSex {
 
 		@Override
 		public void applyEffects() {
-			Sex.setSexManager(new SMMilkingStall(
+			Sex.setSexManager(new SMStocks(
+					Sex.getActivePartner().getSlaveJobSettings().contains(SlaveJobSetting.SEX_VAGINAL),
+					Sex.getActivePartner().getSlaveJobSettings().contains(SlaveJobSetting.SEX_ANAL),
+					Sex.getActivePartner().getSlaveJobSettings().contains(SlaveJobSetting.SEX_ORAL),
 					Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STOCKS_PERFORMING_ORAL)),
 					Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.STOCKS_LOCKED_IN_STOCKS))));
 			
@@ -156,7 +163,10 @@ public class StocksSex {
 
 		@Override
 		public void applyEffects() {
-			Sex.setSexManager(new SMMilkingStall(
+			Sex.setSexManager(new SMStocks(
+					Sex.getActivePartner().getSlaveJobSettings().contains(SlaveJobSetting.SEX_VAGINAL),
+					Sex.getActivePartner().getSlaveJobSettings().contains(SlaveJobSetting.SEX_ANAL),
+					Sex.getActivePartner().getSlaveJobSettings().contains(SlaveJobSetting.SEX_ORAL),
 					Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STOCKS_RECEIVING_ORAL)),
 					Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.STOCKS_LOCKED_IN_STOCKS))));
 			
