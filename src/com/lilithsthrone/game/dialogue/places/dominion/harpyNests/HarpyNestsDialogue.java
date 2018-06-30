@@ -497,7 +497,7 @@ public class HarpyNestsDialogue {
 					+ "</p>"
 					+ "<p>"
 						+ "Although these walkways don't lead directly through any nests, you're still able to observe them as you pass."
-						+ " Each nest takes the form of a series of platforms, built on top of, and into, the rooves and upper floors of Dominion's residences."
+						+ " Each nest takes the form of a series of platforms, built on top of, and into, the roofs and upper floors of Dominion's residences."
 						+ " While most are confined to a single building, you see that a few span multiple houses, and have several tiers of platforms built on top of one anther;"
 							+ " evidence that the matriarch of that particular nest is extremely important."
 					+ "</p>");
@@ -623,7 +623,7 @@ public class HarpyNestsDialogue {
 					+ "</p>"
 					+ "<p>"
 						+ "Although these walkways don't lead directly through any nests, you're still able to observe them as you pass."
-						+ " Each nest takes the form of a series of platforms, built on top of, and into, the rooves and upper floors of Dominion's residences."
+						+ " Each nest takes the form of a series of platforms, built on top of, and into, the roofs and upper floors of Dominion's residences."
 						+ " While most are confined to a single building, you see that a few span multiple houses, and have several tiers of platforms built on top of one anther;"
 							+ " evidence that the matriarch of that particular nest is extremely important."
 					+ "</p>");

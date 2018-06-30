@@ -44,7 +44,7 @@ public class HarpyNestsAttackerDialogue {
 		public String getContent() {
 			if(Main.game.getActiveNPC().isVisiblyPregnant()){
 				if(!Main.game.getActiveNPC().isReactedToPregnancy()) {
-					if(Main.game.getActiveNPC().hasFetish(Fetish.FETISH_PREGNANCY) || Main.game.getActiveNPC().hasFetish(Fetish.FETISH_BROODMOTHER)) {
+					if(Main.game.getActiveNPC().hasFetish(Fetish.FETISH_PREGNANCY)) {
 						return "<p>"
 								+ "As you travel along the narrow walkways, you find yourself passing the nest of that aggressive [npc.race] who attacked you before."
 								+ " As you walk by, [npc.she] suddenly jumps down in front of you, blocking your path."
@@ -333,7 +333,7 @@ public class HarpyNestsAttackerDialogue {
 					
 				} else if (index == 5) {
 					return new ResponseSex("Submit",
-							"You're not really sure what to do now...</br>"
+							"You're not really sure what to do now...<br/>"
 								+ "Perhaps it would be best to let [npc.name] choose what to do next?",
 							Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE),
 							null, CorruptionLevel.THREE_DIRTY, null, null, null,

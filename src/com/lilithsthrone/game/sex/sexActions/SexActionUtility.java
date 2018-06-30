@@ -10,7 +10,7 @@ import com.lilithsthrone.utils.Colour;
 
 /**
  * @since 0.1.0
- * @version 0.1.78
+ * @version 0.2.8
  * @author Innoxia
  */
 public class SexActionUtility {
@@ -18,13 +18,16 @@ public class SexActionUtility {
 	// GENERIC:
 	
 	public static final SexAction PLAYER_NONE = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.ZERO_NONE,
 			ArousalIncrease.ZERO_NONE,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		
 		@Override
 		public String getActionTitle() {
@@ -80,13 +83,16 @@ public class SexActionUtility {
 	};
 	
 	public static final SexAction PLAYER_CALM_DOWN = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.NEGATIVE,
 			ArousalIncrease.ZERO_NONE,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Calm down";
@@ -142,13 +148,16 @@ public class SexActionUtility {
 	};
 	
 	public static final SexAction PARTNER_NONE = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "";
@@ -165,39 +174,17 @@ public class SexActionUtility {
 		}
 	};
 	
-//	public static final SexAction PARTNER_ORGASM_MUTUAL_WAIT = new SexAction(
-//			SexActionType.PARTNER,
-//			ArousalIncrease.ONE_MINIMUM,
-//			ArousalIncrease.ONE_MINIMUM,
-//			CorruptionLevel.ZERO_PURE,
-//			null,
-//			null,
-//			SexParticipantType.MISC) {
-//		@Override
-//		public String getActionTitle() {
-//			return "";
-//		}
-//
-//		@Override
-//		public String getActionDescription() {
-//			return "";
-//		}
-//
-//		@Override
-//		public String getDescription() {
-//			return "From the [npc.moans+] emanating from [npc.name]'s mouth, it's quite obvious that [npc.she]'s about to reach [npc.her] climax."
-//					+ " As you're also close to reaching your orgasm, you will both climax at the same time!";
-//		}
-//	};
-	
 	public static final SexAction PARTNER_ORGASM_SKIP = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.SELF) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "";
@@ -215,13 +202,16 @@ public class SexActionUtility {
 	};
 
 	public static final SexAction PLAYER_USE_ITEM = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.SELF) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Use item";
@@ -240,13 +230,16 @@ public class SexActionUtility {
 	};
 
 	public static final SexAction CLOTHING_REMOVAL = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.ZERO_NONE,
 			ArousalIncrease.ZERO_NONE,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.SELF) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Manage clothing";
@@ -264,13 +257,16 @@ public class SexActionUtility {
 	};
 	
 	public static final SexAction CLOTHING_DYE = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.ZERO_NONE,
 			ArousalIncrease.ZERO_NONE,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.SELF) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Manage clothing";
@@ -284,36 +280,6 @@ public class SexActionUtility {
 		@Override
 		public String getDescription() {
 			return Sex.getDyeClothingText();
-		}
-	};
-	
-	public static final SexAction DENIAL_FETISH_DENY = new SexAction(
-			SexActionType.PLAYER,
-			ArousalIncrease.TWO_LOW,
-			ArousalIncrease.NEGATIVE,
-			CorruptionLevel.ZERO_PURE,
-			null,
-			null,
-			SexParticipantType.MISC) {
-		@Override
-		public String getActionTitle() {
-			return "Deny";
-		}
-
-		@Override
-		public String getActionDescription() {
-			return "Force [npc.name] to stay perfectly still, holding them in position until they've lost a good portion of their arousal.";
-		}
-
-		@Override
-		public boolean isBaseRequirementsMet() {
-			return Sex.isDom(Main.game.getPlayer()) && !Sex.isMasturbation();
-		}
-
-		@Override
-		public String getDescription() {
-			return UtilText.parse(Sex.getActivePartner(),
-					"Taking control of the situation, you hold [npc.name] quite still, only releasing [npc.herHim] once [npc.she]'s lost a good portion of [npc.her] arousal.");
 		}
 	};
 }

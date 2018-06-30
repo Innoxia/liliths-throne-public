@@ -13,7 +13,6 @@ import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
-import com.lilithsthrone.game.inventory.clothing.DisplacementType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.game.sex.Sex;
@@ -93,9 +92,7 @@ public class CultistDialogue {
 					@Override
 					public void effects() {
 						// Pull up dress:
-						if(Main.game.getActiveNPC().getClothingInSlot(InventorySlot.TORSO_UNDER)!=null) {
-							Main.game.getActiveNPC().isAbleToBeDisplaced(Main.game.getActiveNPC().getClothingInSlot(InventorySlot.TORSO_UNDER), DisplacementType.PULLS_UP, true, true, Main.game.getActiveNPC());
-						}
+						Main.game.getActiveNPC().displaceClothingForAccess(CoverableArea.PENIS);
 					}
 				};
 				
@@ -156,7 +153,7 @@ public class CultistDialogue {
 				
 			} else if(index==2) {
 				return new ResponseSex("Accept", "Drop to your knees and prepare to service her orally.",
-						true, false,
+						true, true,
 						new SMCultistKneeling(
 								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.KNEELING_RECEIVING_ORAL_CULTIST)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.KNEELING_PERFORMING_ORAL_CULTIST))),
@@ -194,7 +191,7 @@ public class CultistDialogue {
 				
 			} else if(index == 3) {
 				if(Main.game.getPlayer().hasVagina()) {
-					return new ResponseSex("Offer Pussy", "Offer [npc.name] your pussy instead.", Util.newArrayListOfValues(Fetish.FETISH_PREGNANCY, Fetish.FETISH_BROODMOTHER),
+					return new ResponseSex("Offer Pussy", "Offer [npc.name] your pussy instead.", Util.newArrayListOfValues(Fetish.FETISH_PREGNANCY),
 							null, Fetish.FETISH_PREGNANCY.getAssociatedCorruptionLevel(), null, null, null,
 							true, false,
 							new SMAltarMissionary(
@@ -227,7 +224,7 @@ public class CultistDialogue {
 								AbstractClothing clothing = Main.game.getPlayer().getClothingBlockingCoverableAreaAccess(CoverableArea.VAGINA, true);
 								while (clothing != null) {
 									clothing.setSealed(false);
-									
+									System.out.println(clothing.getName());
 									clothing = Main.game.getPlayer().getClothingBlockingCoverableAreaAccess(CoverableArea.VAGINA, true);
 								}
 							}

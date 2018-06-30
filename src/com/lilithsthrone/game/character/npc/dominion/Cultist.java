@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -34,8 +35,8 @@ import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
-import com.lilithsthrone.game.sex.OrificeType;
-import com.lilithsthrone.game.sex.PenetrationType;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
@@ -66,6 +67,7 @@ public class Cultist extends NPC {
 	public Cultist(boolean isImported) {
 		super(null,
 				"",
+				Util.random.nextInt(30)+30, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
 				15,
 				Gender.F_P_V_B_FUTANARI,
 				RacialBody.DEMON,
@@ -186,6 +188,11 @@ public class Cultist extends NPC {
 	public boolean isUnique() {
 		return false;
 	}
+	
+	@Override
+	public int getAppearsAsAge() {
+		return Math.max(18, this.getAge()/2);
+	}
 
 	public boolean isSealedSex() {
 		return sealedSex;
@@ -227,11 +234,6 @@ public class Cultist extends NPC {
 	}
 
 	// Combat:
-	
-	@Override
-	public String getCombatDescription() {
-		return "[npc.Name] is furious that you're refusing to accept [npc.her] 'gift', and is now willing to fight you in order to force it upon you!";
-	}
 	
 	@Override
 	public Attack attackType() {
@@ -311,7 +313,7 @@ public class Cultist extends NPC {
 					} else {
 						return "<p>"
 									+ "You try to give [npc.name] your "+item.getName()+", but [npc.she] takes one look at it and laughs,"
-									+ " [npc.speech(Hah! Nice try, but do you really expect me to drink some random potion?!)]</br>"
+									+ " [npc.speech(Hah! Nice try, but do you really expect me to drink some random potion?!)]<br/>"
 									+ "You reluctantly put the "+item.getName()+" back in your inventory, disappointed that [npc.she]'s not interested."
 								+ "</p>";
 					}
@@ -334,7 +336,7 @@ public class Cultist extends NPC {
 					} else {
 						return "<p>"
 									+ "You try to give [npc.name] your "+item.getName()+", but [npc.she] takes one look at it and laughs,"
-									+ " [npc.speech(Hah! Nice try, but do you really expect me to drink some random potion?!)]</br>"
+									+ " [npc.speech(Hah! Nice try, but do you really expect me to drink some random potion?!)]<br/>"
 									+ "You reluctantly put the "+item.getName()+" back in your inventory, disappointed that [npc.she]'s not interested."
 								+ "</p>";
 					}
@@ -353,7 +355,7 @@ public class Cultist extends NPC {
 					} else {
 						return "<p>"
 									+ "You try to give [npc.name] your "+item.getName()+", but [npc.she] takes one look at it and laughs,"
-									+ " [npc.speech(Hah! Did you really think I was going to eat that?!)]</br>"
+									+ " [npc.speech(Hah! Did you really think I was going to eat that?!)]<br/>"
 									+ "You reluctantly put the "+item.getName()+" back in your inventory, disappointed that [npc.she]'s not interested."
 								+ "</p>";
 					}
@@ -425,24 +427,24 @@ public class Cultist extends NPC {
 	public SexType getForeplayPreference() {
 		if(Sex.getSexPositionSlot(this)==SexPositionSlot.MISSIONARY_ALTAR_KNEELING_BETWEEN_LEGS || Sex.getSexPositionSlot(this)==SexPositionSlot.MISSIONARY_ALTAR_SEALED_KNEELING_BETWEEN_LEGS) {
 			if(requestedAnal) {
-				return new SexType(SexParticipantType.PITCHER, PenetrationType.TONGUE, OrificeType.ANUS);
+				return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.ANUS);
 			} else {
-				return new SexType(SexParticipantType.PITCHER, PenetrationType.TONGUE, OrificeType.VAGINA);
+				return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA);
 			}
 		} else {
-			return new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.MOUTH);
+			return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH);
 		}
 	}
 	
 	public SexType getMainSexPreference() {
 		if(Sex.getSexPositionSlot(this)==SexPositionSlot.MISSIONARY_ALTAR_STANDING_BETWEEN_LEGS || Sex.getSexPositionSlot(this)==SexPositionSlot.MISSIONARY_ALTAR_SEALED_STANDING_BETWEEN_LEGS) {
 			if(requestedAnal) {
-				return new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.ANUS);
+				return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS);
 			} else {
-				return new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.VAGINA);
+				return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA);
 			}
 		} else {
-			return new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.MOUTH);
+			return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH);
 		}
 	}
 	
@@ -593,7 +595,7 @@ public class Cultist extends NPC {
 //					+ "As the succubus carries on pounding away between your legs, the sudden realisation of what's just happened hits you like a sledgehammer."
 //				+ "</p>"
 //				+ "<p style='text-align:center;'>"
-//					+ UtilText.parsePlayerThought("I-I've lost my virginity?!</br>"
+//					+ UtilText.parsePlayerThought("I-I've lost my virginity?!<br/>"
 //							+ "To... <b>her</b>?!")
 //				+ "</p>"
 //				+ "<p>"
@@ -601,8 +603,8 @@ public class Cultist extends NPC {
 //					+ " As your labia spread lewdly around the hot, thick demon-dick, you find yourself starting to agree with what the succubus is telling you."
 //				+ "</p>"
 //				+ "<p style='text-align:center;'>"
-//				+ UtilText.parsePlayerThought("If I'm not a virgin, that makes me a slut...</br>"
-//						+ "Just a slut for demon cock...</br>"
+//				+ UtilText.parsePlayerThought("If I'm not a virgin, that makes me a slut...<br/>"
+//						+ "Just a slut for demon cock...<br/>"
 //						+ "She's right, I'm just another easy fuck for someone like her...")
 //				+ "</p>"
 //				+ "<p>"

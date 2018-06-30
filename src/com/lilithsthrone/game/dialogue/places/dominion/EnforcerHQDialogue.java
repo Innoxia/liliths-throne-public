@@ -30,7 +30,8 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
-import com.lilithsthrone.game.sex.managers.universal.SMDoggy;
+import com.lilithsthrone.game.sex.managers.dominion.SMBraxDoggy;
+import com.lilithsthrone.game.sex.managers.universal.SMKneeling;
 import com.lilithsthrone.game.sex.managers.universal.SMStanding;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
@@ -41,7 +42,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.2.1
+ * @version 0.2.8
  * @author Innoxia
  */
 public class EnforcerHQDialogue {
@@ -448,9 +449,9 @@ public class EnforcerHQDialogue {
 					if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.feminisedBrax)) {
 						return new ResponseSex("Punish [brax.name]", "Have dominant sex with [brax.name].",
 								false, false,
-								new SMStanding(
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getBrax(), SexPositionSlot.STANDING_SUBMISSIVE))),
+								new SMKneeling(
+										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.KNEELING_RECEIVING_ORAL)),
+										Util.newHashMapOfValues(new Value<>(Main.game.getBrax(), SexPositionSlot.KNEELING_PERFORMING_ORAL))),
 								AFTER_SEX,
 								"<p>"
 									+ "[pc.speech(Sure thing, Candi, I can punish [brax.name] for you!)] you respond, stepping around to the other side of the desk."
@@ -483,9 +484,9 @@ public class EnforcerHQDialogue {
 					} else if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.bimbofiedBrax)) {
 						return new ResponseSex("Punish [brax.name]", "Have dominant sex with [brax.name].",
 								false, false,
-								new SMStanding(
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getBrax(), SexPositionSlot.STANDING_SUBMISSIVE))),
+								new SMKneeling(
+										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.KNEELING_RECEIVING_ORAL)),
+										Util.newHashMapOfValues(new Value<>(Main.game.getBrax(), SexPositionSlot.KNEELING_PERFORMING_ORAL))),
 								AFTER_SEX,
 								"<p>"
 									+ "[pc.speech(Sure thing, Candi, I can punish [brax.name] for you!)] you respond, stepping around to the other side of the desk."
@@ -518,9 +519,9 @@ public class EnforcerHQDialogue {
 					} else {
 						return new ResponseSex("Punish [brax.name]", "Have dominant sex with [brax.name].",
 								false, false,
-								new SMStanding(
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getBrax(), SexPositionSlot.STANDING_SUBMISSIVE))),
+								new SMKneeling(
+										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.KNEELING_RECEIVING_ORAL)),
+										Util.newHashMapOfValues(new Value<>(Main.game.getBrax(), SexPositionSlot.KNEELING_PERFORMING_ORAL))),
 								AFTER_SEX,
 								"<p>"
 									+ "[pc.speech(Sure thing, Candi, I can punish [brax.name] for you!)] you respond, stepping around to the other side of the desk."
@@ -553,7 +554,7 @@ public class EnforcerHQDialogue {
 						return new ResponseSex("Get punished by [brax.name]", "Get [brax.name] to take out [brax.his] frustration on you.", Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE),
 								null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(), null, null, null,
 								true, false,
-								new SMDoggy(
+								new SMBraxDoggy(
 										Util.newHashMapOfValues(new Value<>(Main.game.getBrax(), SexPositionSlot.DOGGY_BEHIND)),
 										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
 								AFTER_SEX,
@@ -1013,9 +1014,9 @@ public class EnforcerHQDialogue {
 			if (index == 1) {
 				return new ResponseSex("Sex with [brax.name]", "Have sex with [brax.name].",
 						false, false,
-						new SMStanding(
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getBrax(), SexPositionSlot.STANDING_SUBMISSIVE))),
+						new SMKneeling(
+							Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.KNEELING_RECEIVING_ORAL)),
+							Util.newHashMapOfValues(new Value<>(Main.game.getBrax(), SexPositionSlot.KNEELING_PERFORMING_ORAL))),
 						AFTER_SEX,
 						"<p>"
 							+ "[pc.speech(Good idea, Candi, I can show Bree her true place!)] you say, grinning down at Bree's meek form."
@@ -1203,9 +1204,9 @@ public class EnforcerHQDialogue {
 			if (index == 1) {
 				return new ResponseSex("Sex with Brandi", "Have sex with Brandi.",
 						true, false,
-						new SMStanding(
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getBrax(), SexPositionSlot.STANDING_SUBMISSIVE))),
+						new SMKneeling(
+							Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.KNEELING_RECEIVING_ORAL)),
+							Util.newHashMapOfValues(new Value<>(Main.game.getBrax(), SexPositionSlot.KNEELING_PERFORMING_ORAL))),
 						AFTER_SEX,
 						"<p>"
 							+ "After waiting for five minutes, you follow Candi into her office."
@@ -1595,11 +1596,11 @@ public class EnforcerHQDialogue {
 					+ "<p style='text-align:center;'>"
 						+ "The person of <i>Arthur Fairbanks</i>, having being found guilty of <i>treason</i>, has, according to law, been enslaved."
 						+ " Following standard procedure, the slave's ownership has been transferred from the Dominion Enforcer Department to a registered slave trader, who has been chosen by random lottery."
-						+ "</br></br>"
+						+ "<br/><br/>"
 						+ "Officer in charge of transferring slave ownership: <i>[brax.name]</i>"
-						+ "</br></br>"
+						+ "<br/><br/>"
 						+ "Slave trader taking ownership: <i>Scarlett</i>"
-						+ "</br></br>"
+						+ "<br/><br/>"
 						+ "Contact address: <i>Scarlett's shop, Slaver Alley</i>"
 					+ "</p>"
 					+ "<p>"
@@ -1735,11 +1736,11 @@ public class EnforcerHQDialogue {
 					+ "<h5 style='text-align:center;'>RECORD OF SLAVE TRANSFER</h5>"
 					+ "<p style='text-align:center;'>The person of <i>Arthur Fairbanks</i>, having being found guilty of <i>treason</i>, has, according to law, been enslaved."
 					+ " Following standard procedure, the slave's ownership has been transferred from the Dominion Enforcer Department to a registered slave trader, who has been chosen by random lottery."
-					+ "</br></br>"
+					+ "<br/><br/>"
 					+ "Officer in charge of transferring slave ownership: <i>[brax.name]</i>"
-					+ "</br></br>"
+					+ "<br/><br/>"
 					+ "Slave trader taking ownership: <i>Scarlett</i>"
-					+ "</br></br>"
+					+ "<br/><br/>"
 					+ "Contact address: <i>Scarlett's shop, Slaver Alley</i></p>"
 					+ "</p>"
 					+ "<p>"
@@ -1762,7 +1763,7 @@ public class EnforcerHQDialogue {
 			} else if (index == 2) {
 				return new ResponseSex("Get fucked", "Let [brax.name] take control and fuck you.",
 						true, false, 
-						new SMDoggy(
+						new SMBraxDoggy(
 								Util.newHashMapOfValues(new Value<>(Main.game.getBrax(), SexPositionSlot.DOGGY_BEHIND)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
 						Brax.AFTER_SUBMISSIVE_SEX,
@@ -1781,7 +1782,7 @@ public class EnforcerHQDialogue {
 							+ UtilText.parseSpeech("Good bitch, now get down on all fours and present yourself!", Main.game.getBrax())
 						+ "</p>"
 						+ "<p>"
-							+ "You obediently do as your told, dropping down onto your hands and knees as you present yourself to Brax..."
+							+ "You obediently do as you are told, dropping down onto your hands and knees as you present yourself to Brax..."
 						+ "</p>");
 					
 			} else if (index == 3) {

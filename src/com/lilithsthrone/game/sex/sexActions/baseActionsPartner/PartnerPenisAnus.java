@@ -9,18 +9,20 @@ import com.lilithsthrone.game.character.body.valueEnums.HairLength;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
-import com.lilithsthrone.game.sex.OrificeType;
-import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
-import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
+import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
+import com.lilithsthrone.game.sex.sexActions.SexActionLimitation;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
-import com.lilithsthrone.game.sex.sexActions.universal.dom.DomCowgirl;
+import com.lilithsthrone.game.sex.sexActions.universal.Cowgirl;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.79
@@ -30,13 +32,16 @@ import com.lilithsthrone.utils.Util;
 public class PartnerPenisAnus {
 	
 	public static final SexAction PARTNER_TEASE_COCK_OVER_ASS = new SexAction(
-			SexActionType.PARTNER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
+			SexActionType.REQUIRES_NO_PENETRATION_AND_EXPOSED,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.TWO_HORNY,
-			PenetrationType.PENIS,
-			OrificeType.ANUS,
-			SexParticipantType.PITCHER) {
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.ANUS)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Tease [pc.her] ass";
@@ -117,7 +122,7 @@ public class PartnerPenisAnus {
 		
 		@Override
 		public void applyEffects() {
-			Sex.transferLubrication(Sex.getActivePartner(), Main.game.getPlayer(), PenetrationType.PENIS, OrificeType.ANUS);
+			Sex.transferLubrication(Sex.getActivePartner(), SexAreaPenetration.PENIS, Main.game.getPlayer(), SexAreaOrifice.ANUS);
 		}
 		
 		@Override
@@ -131,13 +136,16 @@ public class PartnerPenisAnus {
 	};
 	
 	public static final SexAction PLAYER_FORCE_COCK_OVER_ASS = new SexAction(
-			SexActionType.PLAYER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
+			SexActionType.REQUIRES_NO_PENETRATION_AND_EXPOSED,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.TWO_HORNY,
-			PenetrationType.PENIS,
-			OrificeType.ANUS,
-			SexParticipantType.CATCHER) {
+			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.ANUS, SexAreaPenetration.PENIS)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Anal tease";
@@ -229,7 +237,7 @@ public class PartnerPenisAnus {
 		
 		@Override
 		public void applyEffects() {
-			Sex.transferLubrication(Sex.getActivePartner(), Main.game.getPlayer(), PenetrationType.PENIS, OrificeType.ANUS);
+			Sex.transferLubrication(Sex.getActivePartner(), SexAreaPenetration.PENIS, Main.game.getPlayer(), SexAreaOrifice.ANUS);
 		}
 		
 		@Override
@@ -244,18 +252,21 @@ public class PartnerPenisAnus {
 	
 	
 	public static final SexAction PARTNER_ANAL_FUCKING_START = new SexAction(
-			SexActionType.PARTNER_PENETRATION,
+			SexActionType.START_ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.TWO_HORNY,
-			PenetrationType.PENIS,
-			OrificeType.ANUS,
-			SexParticipantType.PITCHER) {
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.ANUS)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
 			// Partner can't penetrate if you're already fucking them, due to physical limitations. (I mean, if you're facing opposite ways and lying on top of each other, it might be possible, but that position will be special.)
-			return Sex.isPenetrationTypeFree(Main.game.getPlayer(), PenetrationType.PENIS);
+			return Sex.isPenetrationTypeFree(Main.game.getPlayer(), SexAreaPenetration.PENIS);
 		}
 		
 		@Override
@@ -398,15 +409,17 @@ public class PartnerPenisAnus {
 	};
 	
 	public static final SexAction PARTNER_ANAL_FUCKING_DOM_GENTLE = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.TWO_HORNY,
-			PenetrationType.PENIS,
-			OrificeType.ANUS,
-			SexParticipantType.PITCHER,
-			null,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.ANUS)),
+			SexParticipantType.NORMAL,
 			SexPace.DOM_GENTLE) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		
 		@Override
 		public String getActionTitle() {
@@ -461,15 +474,17 @@ public class PartnerPenisAnus {
 	};
 	
 	public static final SexAction PARTNER_ANAL_FUCKING_DOM_NORMAL = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.TWO_HORNY,
-			PenetrationType.PENIS,
-			OrificeType.ANUS,
-			SexParticipantType.PITCHER,
-			null,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.ANUS)),
+			SexParticipantType.NORMAL,
 			SexPace.DOM_NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		
 		@Override
 		public String getActionTitle() {
@@ -526,15 +541,17 @@ public class PartnerPenisAnus {
 	};
 	
 	public static final SexAction PARTNER_ANAL_FUCKING_DOM_ROUGH = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.THREE_DIRTY,
-			PenetrationType.PENIS,
-			OrificeType.ANUS,
-			SexParticipantType.PITCHER,
-			null,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.ANUS)),
+			SexParticipantType.NORMAL,
 			SexPace.DOM_ROUGH) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Rough anal";
@@ -644,15 +661,17 @@ public class PartnerPenisAnus {
 	};
 	
 	public static final SexAction PARTNER_ANAL_FUCKING_SUB_NORMAL = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.TWO_HORNY,
-			PenetrationType.PENIS,
-			OrificeType.ANUS,
-			SexParticipantType.PITCHER,
-			null,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.ANUS)),
+			SexParticipantType.NORMAL,
 			SexPace.SUB_NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		
 		@Override
 		public String getActionTitle() {
@@ -707,15 +726,17 @@ public class PartnerPenisAnus {
 	};
 	
 	public static final SexAction PARTNER_ANAL_FUCKING_SUB_EAGER = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.TWO_HORNY,
-			PenetrationType.PENIS,
-			OrificeType.ANUS,
-			SexParticipantType.PITCHER,
-			null,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.ANUS)),
+			SexParticipantType.NORMAL,
 			SexPace.SUB_EAGER) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Eager anal";
@@ -769,15 +790,17 @@ public class PartnerPenisAnus {
 	};
 	
 	public static final SexAction PARTNER_ANAL_FUCKING_SUB_RESIST = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS,
-			OrificeType.ANUS,
-			SexParticipantType.PITCHER,
-			null,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.ANUS)),
+			SexParticipantType.NORMAL,
 			SexPace.SUB_RESISTING) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Resist anal";
@@ -834,13 +857,16 @@ public class PartnerPenisAnus {
 	};
 	
 	public static final SexAction PARTNER_ANAL_FUCKING_STOP = new SexAction(
-			SexActionType.PARTNER_STOP_PENETRATION,
+			SexActionType.STOP_ONGOING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS,
-			OrificeType.ANUS,
-			SexParticipantType.PITCHER) {
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.ANUS)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -897,20 +923,23 @@ public class PartnerPenisAnus {
 	// Player actions:
 	
 	public static final SexAction PLAYER_USING_COCK_ANALLY_START = new SexAction(
-			SexActionType.PLAYER_PENETRATION,
+			SexActionType.START_ONGOING,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.TWO_HORNY,
-			PenetrationType.PENIS,
-			OrificeType.ANUS,
-			SexParticipantType.CATCHER) {
+			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.ANUS, SexAreaPenetration.PENIS)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
 			// Player can only start fucking themselves on the partner's cock in consensual sex or if they're the dom.
 			// You can't penetrate if you're already fucking your partner, due to physical limitations. (I mean, if you're facing opposite ways and lying on top of each other, it might be possible, but that position will be special.)
 			
-			if(Sex.isPenetrationTypeFree(Main.game.getPlayer(), PenetrationType.PENIS)) {
+			if(Sex.isPenetrationTypeFree(Main.game.getPlayer(), SexAreaPenetration.PENIS)) {
 				return (Sex.isConsensual() || Sex.isDom(Main.game.getPlayer()));
 			} else {
 				return false;//(Sex.isConsensual() || Sex.isDom(Main.game.getPlayer())) && !Sex.getOngoingPenetrationMap().get(PenetrationType.PENIS).contains(OrificeType.VAGINA);
@@ -934,7 +963,7 @@ public class PartnerPenisAnus {
 			
 			if(Sex.getPosition()==SexPositionType.COWGIRL && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.COWGIRL_RIDING) {
 				
-				return DomCowgirl.getPlayerStartingAnalPenetrationDescription();
+				return Cowgirl.getPlayerStartingAnalPenetrationDescription();
 				
 			} else {
 			
@@ -1017,15 +1046,17 @@ public class PartnerPenisAnus {
 	};
 	
 	public static final SexAction PLAYER_RIDING_COCK_ANALLY_DOM_GENTLE = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.TWO_HORNY,
-			PenetrationType.PENIS,
-			OrificeType.ANUS,
-			SexParticipantType.CATCHER,
-			SexPace.DOM_GENTLE,
-			null) {
+			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.ANUS, SexAreaPenetration.PENIS)),
+			SexParticipantType.NORMAL,
+			SexPace.DOM_GENTLE) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -1046,7 +1077,7 @@ public class PartnerPenisAnus {
 		public String getDescription() {
 			if(Sex.getPosition()==SexPositionType.COWGIRL && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.COWGIRL_RIDING) {
 				
-				return DomCowgirl.getPlayerRidingCockAnallyGentle();
+				return Cowgirl.getPlayerRidingCockAnallyGentle();
 				
 			} else {
 				return UtilText.returnStringAtRandom(
@@ -1059,15 +1090,17 @@ public class PartnerPenisAnus {
 	};
 	
 	public static final SexAction PLAYER_RIDING_COCK_ANALLY_DOM_NORMAL = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.TWO_HORNY,
-			PenetrationType.PENIS,
-			OrificeType.ANUS,
-			SexParticipantType.CATCHER,
-			SexPace.DOM_NORMAL,
-			null) {
+			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.ANUS, SexAreaPenetration.PENIS)),
+			SexParticipantType.NORMAL,
+			SexPace.DOM_NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -1088,7 +1121,7 @@ public class PartnerPenisAnus {
 		public String getDescription() {
 			if(Sex.getPosition()==SexPositionType.COWGIRL && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.COWGIRL_RIDING) {
 				
-				return DomCowgirl.getPlayerRidingCockAnallyNormal();
+				return Cowgirl.getPlayerRidingCockAnallyNormal();
 				
 			} else {
 				return UtilText.returnStringAtRandom(
@@ -1102,15 +1135,17 @@ public class PartnerPenisAnus {
 	};
 	
 	public static final SexAction PLAYER_RIDING_COCK_ANALLY_DOM_ROUGH = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.THREE_DIRTY,
-			PenetrationType.PENIS,
-			OrificeType.ANUS,
-			SexParticipantType.CATCHER,
-			SexPace.DOM_ROUGH,
-			null) {
+			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.ANUS, SexAreaPenetration.PENIS)),
+			SexParticipantType.NORMAL,
+			SexPace.DOM_ROUGH) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -1131,7 +1166,7 @@ public class PartnerPenisAnus {
 		public String getDescription() {
 			if(Sex.getPosition()==SexPositionType.COWGIRL && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.COWGIRL_RIDING) {
 				
-				return DomCowgirl.getPlayerRidingCockAnallyRough();
+				return Cowgirl.getPlayerRidingCockAnallyRough();
 				
 			} else {
 				return UtilText.returnStringAtRandom(
@@ -1144,15 +1179,17 @@ public class PartnerPenisAnus {
 	};
 	
 	public static final SexAction PLAYER_RIDING_COCK_ANALLY_SUB_NORMAL = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.TWO_HORNY,
-			PenetrationType.PENIS,
-			OrificeType.ANUS,
-			SexParticipantType.CATCHER,
-			SexPace.SUB_NORMAL,
-			null) {
+			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.ANUS, SexAreaPenetration.PENIS)),
+			SexParticipantType.NORMAL,
+			SexPace.SUB_NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -1197,15 +1234,17 @@ public class PartnerPenisAnus {
 	};
 	
 	public static final SexAction PLAYER_RIDING_COCK_ANALLY_SUB_EAGER = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.TWO_HORNY,
-			PenetrationType.PENIS,
-			OrificeType.ANUS,
-			SexParticipantType.CATCHER,
-			SexPace.SUB_EAGER,
-			null) {
+			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.ANUS, SexAreaPenetration.PENIS)),
+			SexParticipantType.NORMAL,
+			SexPace.SUB_EAGER) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -1237,15 +1276,17 @@ public class PartnerPenisAnus {
 	};
 	
 	public static final SexAction PLAYER_FUCKED_ANALLY_SUB_RESIST = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.ZERO_NONE,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS,
-			OrificeType.ANUS,
-			SexParticipantType.CATCHER,
-			SexPace.SUB_RESISTING,
-			null) {
+			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.ANUS, SexAreaPenetration.PENIS)),
+			SexParticipantType.NORMAL,
+			SexPace.SUB_RESISTING) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Resist anal";
@@ -1301,13 +1342,16 @@ public class PartnerPenisAnus {
 	};
 	
 	public static final SexAction PLAYER_FUCKED_STOP = new SexAction(
-			SexActionType.PLAYER_STOP_PENETRATION,
+			SexActionType.STOP_ONGOING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS,
-			OrificeType.ANUS,
-			SexParticipantType.CATCHER) {
+			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.ANUS, SexAreaPenetration.PENIS)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -1329,7 +1373,7 @@ public class PartnerPenisAnus {
 			
 			if(Sex.getPosition()==SexPositionType.COWGIRL && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.COWGIRL_RIDING) {
 				
-				return DomCowgirl.getPlayerStoppingAnalPenetrationDescription();
+				return Cowgirl.getPlayerStoppingAnalPenetrationDescription();
 				
 			} else {
 				

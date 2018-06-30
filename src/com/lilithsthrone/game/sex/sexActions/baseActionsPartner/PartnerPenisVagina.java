@@ -7,22 +7,24 @@ import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.types.TailType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.valueEnums.HairLength;
-import com.lilithsthrone.game.character.body.valueEnums.PenisModifier;
+import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
-import com.lilithsthrone.game.sex.OrificeType;
-import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
-import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
+import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
+import com.lilithsthrone.game.sex.sexActions.SexActionLimitation;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
-import com.lilithsthrone.game.sex.sexActions.universal.dom.DomCowgirl;
+import com.lilithsthrone.game.sex.sexActions.universal.Cowgirl;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.79
@@ -32,13 +34,16 @@ import com.lilithsthrone.utils.Util;
 public class PartnerPenisVagina {
 	
 	public static final SexAction PARTNER_TEASE_COCK_OVER_PUSSY = new SexAction(
-			SexActionType.PARTNER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
+			SexActionType.REQUIRES_NO_PENETRATION_AND_EXPOSED,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.VAGINA,
-			SexParticipantType.PITCHER) {
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Tease [pc.her] pussy";
@@ -115,7 +120,7 @@ public class PartnerPenisVagina {
 		
 		@Override
 		public void applyEffects() {
-			Sex.transferLubrication(Sex.getActivePartner(), Main.game.getPlayer(), PenetrationType.PENIS, OrificeType.VAGINA);
+			Sex.transferLubrication(Sex.getActivePartner(), SexAreaPenetration.PENIS, Main.game.getPlayer(), SexAreaOrifice.VAGINA);
 		}
 		
 		@Override
@@ -125,13 +130,16 @@ public class PartnerPenisVagina {
 	};
 	
 	public static final SexAction PLAYER_FORCE_COCK_OVER_PUSSY = new SexAction(
-			SexActionType.PLAYER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
+			SexActionType.REQUIRES_NO_PENETRATION_AND_EXPOSED,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.VAGINA,
-			SexParticipantType.CATCHER) {
+			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Tease [npc.her] cock";
@@ -205,7 +213,7 @@ public class PartnerPenisVagina {
 		
 		@Override
 		public void applyEffects() {
-			Sex.transferLubrication(Sex.getActivePartner(), Main.game.getPlayer(), PenetrationType.PENIS, OrificeType.VAGINA);
+			Sex.transferLubrication(Sex.getActivePartner(), SexAreaPenetration.PENIS, Main.game.getPlayer(), SexAreaOrifice.VAGINA);
 		}
 		
 		@Override
@@ -216,18 +224,21 @@ public class PartnerPenisVagina {
 	
 	
 	public static final SexAction PARTNER_FUCKING_START = new SexAction(
-			SexActionType.PARTNER_PENETRATION,
+			SexActionType.START_ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.VAGINA,
-			SexParticipantType.PITCHER) {
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
 			// Partner can't penetrate if you're already fucking them, due to physical limitations. (I mean, if you're facing opposite ways and lying on top of each other, it might be possible, but that position will be special.)
-			return Sex.isPenetrationTypeFree(Main.game.getPlayer(), PenetrationType.PENIS);
+			return Sex.isPenetrationTypeFree(Main.game.getPlayer(), SexAreaPenetration.PENIS);
 		}
 		
 		@Override
@@ -416,15 +427,17 @@ public class PartnerPenisVagina {
 	};
 	
 	public static final SexAction PARTNER_FUCKING_DOM_GENTLE = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.VAGINA,
-			SexParticipantType.PITCHER,
-			null,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA)),
+			SexParticipantType.NORMAL,
 			SexPace.DOM_GENTLE) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		
 		@Override
 		public String getActionTitle() {
@@ -450,27 +463,27 @@ public class PartnerPenisVagina {
 				
 				String barbedSpecial = "", flaredSpecial = "", knottedSpecial = "", ribbedSpecial = "", tentacledSpecial = "";
 				
-				if(Sex.getActivePartner().hasPenisModifier(PenisModifier.BARBED)) {
+				if(Sex.getActivePartner().hasPenisModifier(PenetrationModifier.BARBED)) {
 					barbedSpecial="With a soft [npc.moan], [npc.name] reaches down and takes hold of your [pc.hips+], before slowly pushing [npc.herself] forwards and sinking [npc.her] [npc.cock+] deep into your [pc.pussy+]."
 										+ " [npc.She] stays in that position for a moment, pressing [npc.herself] up against you, before gently pulling back,"
 										+ " clearly aware that the barbs that line the sides of [npc.her] cock could be painful if [npc.she] pulled out too fast, before starting to steadily fuck you against the wall.";
 				}
-				if(Sex.getActivePartner().hasPenisModifier(PenisModifier.FLARED)) {
+				if(Sex.getActivePartner().hasPenisModifier(PenetrationModifier.FLARED)) {
 					flaredSpecial="With a soft [npc.moan], [npc.name] reaches down and takes hold of your [pc.hips+], before slowly pushing [npc.herself] forwards and sinking [npc.her] [npc.cock+] deep into your [pc.pussy+]."
 										+ " You feel [npc.her] flared head lewdly spreading out your inner walls as [npc.she] carries on gently pressing [npc.herself] against you for a moment,"
 										+ " before pulling back and starting to steadily fuck you against the wall.";
 				}
-				if(Sex.getActivePartner().hasPenisModifier(PenisModifier.KNOTTED)) {
+				if(Sex.getActivePartner().hasPenisModifier(PenetrationModifier.KNOTTED)) {
 					knottedSpecial="With a soft [npc.moan], [npc.name] reaches down and takes hold of your [pc.hips+], before slowly pushing [npc.herself] forwards and sinking [npc.her] [npc.cock+] deep into your [pc.pussy+]."
 										+ " You feel [npc.her] fat knot lewdly pressing against your pussy lips as [npc.she] carries on gently pressing [npc.herself] against you for a moment,"
 										+ " before pulling back and starting to steadily fuck you against the wall.";
 				}
-				if(Sex.getActivePartner().hasPenisModifier(PenisModifier.RIBBED)) {
+				if(Sex.getActivePartner().hasPenisModifier(PenetrationModifier.RIBBED)) {
 					ribbedSpecial="With a soft [npc.moan], [npc.name] reaches down and takes hold of your [pc.hips+], before slowly pushing [npc.herself] forwards and sinking [npc.her] [npc.cock+] deep into your [pc.pussy+]."
 										+ " You feel [npc.her] ribbed shaft bumping up against your [pc.clit] as [npc.she] penetrates you, and, after gently pressing [npc.herself] against you for a moment,"
 										+ " [npc.she] pulls back and starts to steadily fuck you against the wall.";
 				}
-				if(Sex.getActivePartner().hasPenisModifier(PenisModifier.TENTACLED)) {
+				if(Sex.getActivePartner().hasPenisModifier(PenetrationModifier.TENTACLED)) {
 					tentacledSpecial="With a soft [npc.moan], [npc.name] reaches down and takes hold of your [pc.hips+], before slowly pushing [npc.herself] forwards and sinking [npc.her] [npc.cock+] deep into your [pc.pussy+]."
 										+ " You feel the little squirming tentacles lining [npc.her] shaft eagerly massaging the inner walls of your pussy, and, after gently pressing [npc.herself] against you for a moment,"
 										+ " [npc.she] pulls back and start to steadily fuck you against the wall.";
@@ -545,15 +558,17 @@ public class PartnerPenisVagina {
 	};
 	
 	public static final SexAction PARTNER_FUCKING_DOM_NORMAL = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.VAGINA,
-			SexParticipantType.PITCHER,
-			null,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA)),
+			SexParticipantType.NORMAL,
 			SexPace.DOM_NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		
 		@Override
 		public String getActionTitle() {
@@ -608,15 +623,17 @@ public class PartnerPenisVagina {
 	};
 	
 	public static final SexAction PARTNER_FUCKING_DOM_ROUGH = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.TWO_HORNY,
-			PenetrationType.PENIS,
-			OrificeType.VAGINA,
-			SexParticipantType.PITCHER,
-			null,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA)),
+			SexParticipantType.NORMAL,
 			SexPace.DOM_ROUGH) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Rough fuck";
@@ -691,27 +708,27 @@ public class PartnerPenisVagina {
 				
 				String barbedSpecial = "", flaredSpecial = "", knottedSpecial = "", ribbedSpecial = "", tentacledSpecial = "";
 				
-				if(Sex.getActivePartner().hasPenisModifier(PenisModifier.BARBED)) {
+				if(Sex.getActivePartner().hasPenisModifier(PenetrationModifier.BARBED)) {
 					barbedSpecial="With a wolfish grin, [npc.name] reaches down and grabs your [pc.hips+], before slamming forwards and burying [npc.her] [npc.cock+] deep in your [pc.pussy+]."
 										+ " [npc.She] stays in that position for a moment, roughly grinding [npc.herself] up against you, before violently pulling back,"
 										+ " roughly raking the barbs that line the sides of [npc.her] cock against your vaginal walls, before starting to furiously fuck you against the wall.";
 				}
-				if(Sex.getActivePartner().hasPenisModifier(PenisModifier.FLARED)) {
+				if(Sex.getActivePartner().hasPenisModifier(PenetrationModifier.FLARED)) {
 					flaredSpecial="With a wolfish grin, [npc.name] reaches down and grabs your [pc.hips+], before slamming forwards and burying [npc.her] [npc.cock+] deep in your [pc.pussy+]."
 										+ " You feel [npc.her] flared head lewdly spreading out your inner walls as [npc.she] carries on roughly grinding [npc.herself] against you for a moment,"
 										+ " before pulling back and starting to dominantly fuck you against the wall.";
 				}
-				if(Sex.getActivePartner().hasPenisModifier(PenisModifier.KNOTTED)) {
+				if(Sex.getActivePartner().hasPenisModifier(PenetrationModifier.KNOTTED)) {
 					knottedSpecial="With a wolfish grin, [npc.name] reaches down and grabs your [pc.hips+], before slamming forwards and burying [npc.her] [npc.cock+] deep in your [pc.pussy+]."
 										+ " You feel [npc.her] fat knot lewdly pressing against your pussy lips as [npc.she] carries on roughly grinding [npc.herself] against you for a moment,"
 										+ " before pulling back and starting to dominantly fuck you against the wall.";
 				}
-				if(Sex.getActivePartner().hasPenisModifier(PenisModifier.RIBBED)) {
+				if(Sex.getActivePartner().hasPenisModifier(PenetrationModifier.RIBBED)) {
 					ribbedSpecial="With a wolfish grin, [npc.name] reaches down and grabs your [pc.hips+], before slamming forwards and burying [npc.her] [npc.cock+] deep in your [pc.pussy+]."
 										+ " You feel [npc.her] ribbed shaft bumping up against your [pc.clit] as [npc.she] penetrates you, and, after roughly grinding [npc.herself] against you for a moment,"
 										+ " [npc.she] pulls back and starts to dominantly fuck you against the wall.";
 				}
-				if(Sex.getActivePartner().hasPenisModifier(PenisModifier.TENTACLED)) {
+				if(Sex.getActivePartner().hasPenisModifier(PenetrationModifier.TENTACLED)) {
 					tentacledSpecial="With a wolfish grin, [npc.name] reaches down and grabs your [pc.hips+], before slamming forwards and burying [npc.her] [npc.cock+] deep in your [pc.pussy+]."
 							+ " You feel the little squirming tentacles lining [npc.her] shaft eagerly massaging the inner walls of your pussy, and, after roughly grinding [npc.herself] against you for a moment,"
 							+ " [npc.she] pulls back and starts to dominantly fuck you against the wall.";
@@ -791,15 +808,17 @@ public class PartnerPenisVagina {
 	};
 	
 	public static final SexAction PARTNER_FUCKING_SUB_NORMAL = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.VAGINA,
-			SexParticipantType.PITCHER,
-			null,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA)),
+			SexParticipantType.NORMAL,
 			SexPace.SUB_NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		
 		@Override
 		public String getActionTitle() {
@@ -852,15 +871,17 @@ public class PartnerPenisVagina {
 	};
 	
 	public static final SexAction PARTNER_FUCKING_SUB_EAGER = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.VAGINA,
-			SexParticipantType.PITCHER,
-			null,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA)),
+			SexParticipantType.NORMAL,
 			SexPace.SUB_EAGER) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Eager fuck";
@@ -913,15 +934,17 @@ public class PartnerPenisVagina {
 	};
 	
 	public static final SexAction PARTNER_FUCKING_SUB_RESIST = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS,
-			OrificeType.VAGINA,
-			SexParticipantType.PITCHER,
-			null,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA)),
+			SexParticipantType.NORMAL,
 			SexPace.SUB_RESISTING) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Resist sex";
@@ -977,13 +1000,16 @@ public class PartnerPenisVagina {
 	};
 	
 	public static final SexAction PARTNER_FUCKING_STOP = new SexAction(
-			SexActionType.PARTNER_STOP_PENETRATION,
+			SexActionType.STOP_ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS,
-			OrificeType.VAGINA,
-			SexParticipantType.PITCHER) {
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -1040,20 +1066,23 @@ public class PartnerPenisVagina {
 	// Player actions:
 	
 	public static final SexAction PLAYER_USING_COCK_START = new SexAction(
-			SexActionType.PLAYER_PENETRATION,
+			SexActionType.START_ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.VAGINA,
-			SexParticipantType.CATCHER) {
+			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
 			// Player can only start fucking themselves on the partner's cock in consensual sex or if they're the dom.
 			// You can't penetrate if you're already fucking your partner, due to physical limitations. (I mean, if you're facing opposite ways and lying on top of each other, it might be possible, but that position will be special.)
 			
-			if(Sex.isPenetrationTypeFree(Main.game.getPlayer(), PenetrationType.PENIS)) {
+			if(Sex.isPenetrationTypeFree(Main.game.getPlayer(), SexAreaPenetration.PENIS)) {
 				return (Sex.isConsensual() || Sex.isDom(Main.game.getPlayer()));
 			} else {
 				return false; //(Sex.isConsensual() || Sex.isDom(Main.game.getPlayer())) && !Sex.getOngoingPenetrationMap().get(PenetrationType.PENIS).contains(OrificeType.VAGINA);
@@ -1077,7 +1106,7 @@ public class PartnerPenisVagina {
 			
 			if(Sex.getPosition()==SexPositionType.COWGIRL && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.COWGIRL_RIDING) {
 				
-				return DomCowgirl.getPlayerStartingVaginalPenetrationDescription();
+				return Cowgirl.getPlayerStartingVaginalPenetrationDescription();
 				
 			} else {
 			
@@ -1098,7 +1127,7 @@ public class PartnerPenisVagina {
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Forcefully grinding yourself against [npc.name], you guide [npc.her] [npc.cock+] up to your outer labia,"
 										+ " letting out [pc.a_moan+] before roughly slamming your [pc.hips] forwards and forcing [npc.herHim] to penetrate your [pc.pussy+].",
-								"Lining your [pc.pussy+] up to [npc.name]'s [npc.cock+], you violently slam your [pc.hips] forwards, letting out [pc.a_moan+] as you roughly start fucking yourself on [npc.her] [npc.cock+]."));
+								"Lining your [pc.pussy+] up to [npc.name]'s [npc.cock+], you violently slam your [pc.hips] into [npc.her] groin, letting out [pc.a_moan+] as you roughly start fucking yourself on [npc.her] [npc.cock+]."));
 						break;
 					case SUB_EAGER:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -1160,15 +1189,17 @@ public class PartnerPenisVagina {
 	};
 	
 	public static final SexAction PLAYER_RIDING_COCK_DOM_GENTLE = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.VAGINA,
-			SexParticipantType.CATCHER,
-			SexPace.DOM_GENTLE,
-			null) {
+			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS)),
+			SexParticipantType.NORMAL,
+			SexPace.DOM_GENTLE) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -1190,7 +1221,7 @@ public class PartnerPenisVagina {
 			
 			if(Sex.getPosition()==SexPositionType.COWGIRL && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.COWGIRL_RIDING) {
 				
-				return DomCowgirl.getPlayerRidingCockGentle();
+				return Cowgirl.getPlayerRidingCockGentle();
 				
 			} else if(Sex.getPosition()==SexPositionType.BACK_TO_WALL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.BACK_TO_WALL_AGAINST_WALL) {// Back-to-wall descriptions:
 				
@@ -1212,15 +1243,17 @@ public class PartnerPenisVagina {
 	};
 	
 	public static final SexAction PLAYER_RIDING_COCK_DOM_NORMAL = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.VAGINA,
-			SexParticipantType.CATCHER,
-			SexPace.DOM_NORMAL,
-			null) {
+			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS)),
+			SexParticipantType.NORMAL,
+			SexPace.DOM_NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -1242,7 +1275,7 @@ public class PartnerPenisVagina {
 			
 			if(Sex.getPosition()==SexPositionType.COWGIRL && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.COWGIRL_RIDING) {
 				
-				return DomCowgirl.getPlayerRidingCockNormal();
+				return Cowgirl.getPlayerRidingCockNormal();
 				
 			} else {
 				return UtilText.returnStringAtRandom(
@@ -1255,15 +1288,17 @@ public class PartnerPenisVagina {
 	};
 	
 	public static final SexAction PLAYER_RIDING_COCK_DOM_ROUGH = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.TWO_HORNY,
-			PenetrationType.PENIS,
-			OrificeType.VAGINA,
-			SexParticipantType.CATCHER,
-			SexPace.DOM_ROUGH,
-			null) {
+			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS)),
+			SexParticipantType.NORMAL,
+			SexPace.DOM_ROUGH) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -1285,31 +1320,31 @@ public class PartnerPenisVagina {
 			
 			if(Sex.getPosition()==SexPositionType.COWGIRL && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.COWGIRL_RIDING) {
 				
-				return DomCowgirl.getPlayerRidingCockRough();
+				return Cowgirl.getPlayerRidingCockRough();
 				
 			} else if(Sex.getPosition()==SexPositionType.BACK_TO_WALL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.BACK_TO_WALL_AGAINST_WALL) {
 				
 				String barbedSpecial = "", flaredSpecial = "", knottedSpecial = "", ribbedSpecial = "", tentacledSpecial = "";
 				
-				if(Sex.getActivePartner().hasPenisModifier(PenisModifier.BARBED)) {
+				if(Sex.getActivePartner().hasPenisModifier(PenetrationModifier.BARBED)) {
 					barbedSpecial = "With a wolfish grin, you reach up and grab [npc.name]'s shoulders, before slamming your [pc.hips] forwards and impaling your [pc.pussy+] on [npc.her] [npc.cock+]."
 										+ " Forcefully pressing [npc.herHim] up against the wall and breathing hotly down on [npc.her] neck,"
 										+ " you quickly pull back, roughly raking [npc.her] cock's barbs against your inner walls and letting out [pc.a_moan+] as you start to aggressively fuck yourself on [npc.her] [npc.cock].";
 				}
-				if(Sex.getActivePartner().hasPenisModifier(PenisModifier.FLARED)) {
+				if(Sex.getActivePartner().hasPenisModifier(PenetrationModifier.FLARED)) {
 					flaredSpecial = "With a wolfish grin, you reach up and grab [npc.name]'s shoulders, before slamming your [pc.hips] forwards and impaling your [pc.pussy+] on [npc.her] [npc.cock+]."
 										+ " You feel the wide, flared head of [npc.her] cock spreading you out as you press [npc.herHim] up against the wall, before pulling back and starting to roughly fuck yourself on [npc.her] [npc.cock+].";
 				}
-				if(Sex.getActivePartner().hasPenisModifier(PenisModifier.KNOTTED)) {
+				if(Sex.getActivePartner().hasPenisModifier(PenetrationModifier.KNOTTED)) {
 					knottedSpecial = "With a wolfish grin, you reach up and grab [npc.name]'s shoulders, before slamming your [pc.hips] forwards and impaling your [pc.pussy+] on [npc.her] [npc.cock+]."
 										+ " You grind your lips against [npc.her] fat knot, forcefully pressing [npc.herHim] up against the wall and breathing hotly down on [npc.her] neck,"
 										+ " before thrusting back and starting to roughly fuck yourself on [npc.her] [npc.cock].";
 				}
-				if(Sex.getActivePartner().hasPenisModifier(PenisModifier.RIBBED)) {
+				if(Sex.getActivePartner().hasPenisModifier(PenetrationModifier.RIBBED)) {
 					ribbedSpecial = "With a wolfish grin, you reach up and grab [npc.name]'s shoulders, before slamming your [pc.hips] forwards and impaling your [pc.pussy+] on [npc.her] [npc.cock+]."
 										+ " You feel [npc.her] ribbed cock bumping over your [pc.clit+] as you press [npc.herHim] up against the wall, before thrusting back and starting to roughly fuck yourself on [npc.her] [npc.cock+].";
 				}
-				if(Sex.getActivePartner().hasPenisModifier(PenisModifier.TENTACLED)) {
+				if(Sex.getActivePartner().hasPenisModifier(PenetrationModifier.TENTACLED)) {
 					tentacledSpecial = "With a wolfish grin, you reach up and grab [npc.name]'s shoulders, before slamming your [pc.hips] forwards and impaling your [pc.pussy+] on [npc.her] [npc.cock+]."
 										+ " You feel the little tentacle-like nodules lining [npc.her] cock massage and stroke your inner walls as you force [npc.herHim] up against the wall,"
 										+ " before thrusting back and starting to roughly fuck yourself on [npc.her] [npc.cock+].";
@@ -1341,15 +1376,17 @@ public class PartnerPenisVagina {
 	};
 	
 	public static final SexAction PLAYER_RIDING_COCK_SUB_NORMAL = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.VAGINA,
-			SexParticipantType.CATCHER,
-			SexPace.SUB_NORMAL,
-			null) {
+			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS)),
+			SexParticipantType.NORMAL,
+			SexPace.SUB_NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -1393,15 +1430,17 @@ public class PartnerPenisVagina {
 	};
 	
 	public static final SexAction PLAYER_RIDING_COCK_SUB_EAGER = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.VAGINA,
-			SexParticipantType.CATCHER,
-			SexPace.SUB_EAGER,
-			null) {
+			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS)),
+			SexParticipantType.NORMAL,
+			SexPace.SUB_EAGER) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -1432,15 +1471,17 @@ public class PartnerPenisVagina {
 	};
 	
 	public static final SexAction PLAYER_FUCKED_SUB_RESIST = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.ZERO_NONE,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS,
-			OrificeType.VAGINA,
-			SexParticipantType.CATCHER,
-			SexPace.SUB_RESISTING,
-			null) {
+			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS)),
+			SexParticipantType.NORMAL,
+			SexPace.SUB_RESISTING) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Resist fucking";
@@ -1496,13 +1537,16 @@ public class PartnerPenisVagina {
 	};
 	
 	public static final SexAction PLAYER_FUCKED_STOP = new SexAction(
-			SexActionType.PLAYER_STOP_PENETRATION,
+			SexActionType.STOP_ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS,
-			OrificeType.VAGINA,
-			SexParticipantType.CATCHER) {
+			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -1524,7 +1568,7 @@ public class PartnerPenisVagina {
 			
 			if(Sex.getPosition()==SexPositionType.COWGIRL && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.COWGIRL_RIDING) {
 				
-				return DomCowgirl.getPlayerStoppingVaginalPenetrationDescription();
+				return Cowgirl.getPlayerStoppingVaginalPenetrationDescription();
 				
 			} else {
 			
@@ -1563,13 +1607,16 @@ public class PartnerPenisVagina {
 	};
 	
 	public static final SexAction PLAYER_PUSSY_CONTROL = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FIVE_EXTREME,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS,
-			OrificeType.VAGINA,
-			SexParticipantType.CATCHER) {
+			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Pussy control";

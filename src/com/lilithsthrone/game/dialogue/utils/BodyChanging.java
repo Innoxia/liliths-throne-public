@@ -118,7 +118,8 @@ public class BodyChanging {
 	}
 	
 	private static boolean isDemonTFMenu() {
-		return BodyChanging.getTarget().getRace()==Race.DEMON || BodyChanging.getTarget() instanceof Elemental;
+		return BodyChanging.getTarget().getRace()==Race.DEMON
+				|| BodyChanging.getTarget() instanceof Elemental;
 	}
 	
 	public static final DialogueNodeOld BODY_CHANGING_CORE = new DialogueNodeOld("Core", "", true) {
@@ -159,9 +160,9 @@ public class BodyChanging {
 							
 							+ "<div class='container-full-width' style='text-align:center;'>"
 							+ (BodyChanging.getTarget().isPlayer()
-									?"Your muscle and body size values result in your appearance being:</br>"
+									?"Your muscle and body size values result in your appearance being:<br/>"
 										+ "<b style='color:"+Main.game.getPlayer().getBodyShape().toWebHexStringColour()+";'>"+Util.capitaliseSentence(Main.game.getPlayer().getBodyShape().getName(false))+"</b>"
-									:UtilText.parse(BodyChanging.getTarget(), "[npc.Name]'s muscle and body size values result in [npc.her] appearance being:</br>"
+									:UtilText.parse(BodyChanging.getTarget(), "[npc.Name]'s muscle and body size values result in [npc.her] appearance being:<br/>"
 											+ "<b style='color:"+getTarget().getBodyShape().toWebHexStringColour()+";'>"+Util.capitaliseSentence(getTarget().getBodyShape().getName(false))+"</b>"))
 							+ "</div>"
 						
@@ -220,9 +221,9 @@ public class BodyChanging {
 						
 						+ "<div class='container-full-width' style='text-align:center;'>"
 						+ (BodyChanging.getTarget().isPlayer()
-								?"Your muscle and body size values result in your appearance being:</br>"
+								?"Your muscle and body size values result in your appearance being:<br/>"
 									+ "<b style='color:"+Main.game.getPlayer().getBodyShape().toWebHexStringColour()+";'>"+Util.capitaliseSentence(Main.game.getPlayer().getBodyShape().getName(false))+"</b>"
-								:UtilText.parse(BodyChanging.getTarget(), "[npc.Name]'s muscle and body size values result in [npc.her] appearance being:</br>"
+								:UtilText.parse(BodyChanging.getTarget(), "[npc.Name]'s muscle and body size values result in [npc.her] appearance being:<br/>"
 										+ "<b style='color:"+getTarget().getBodyShape().toWebHexStringColour()+";'>"+Util.capitaliseSentence(getTarget().getBodyShape().getName(false))+"</b>"))
 						+ "</div>"
 					
@@ -363,6 +364,7 @@ public class BodyChanging {
 						+"</div>"
 						
 						+"<div style='clear:left;'>"
+							+ CharacterModificationUtils.getSelfTransformHairChoiceDiv(slimeRaces)
 							+ CharacterModificationUtils.getSelfTransformAntennaChoiceDiv(slimeRaces)
 						+"</div>"
 						
@@ -410,6 +412,12 @@ public class BodyChanging {
 								(BodyChanging.getTarget().isPlayer()
 										?"The colour and pattern of your pupils."
 										:UtilText.parse(BodyChanging.getTarget(), "The colour and pattern of [npc.name]'s pupils.")),
+								true, true)
+
+						+ CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyCoveringType.SLIME_SCLERA, "Sclerae colour",
+								(BodyChanging.getTarget().isPlayer()
+										?"The colour and pattern of your sclerae."
+										:UtilText.parse(BodyChanging.getTarget(), "The colour and pattern of [npc.name]'s sclerae.")),
 								true, true)
 						
 	//					+ CharacterModificationUtils.getSelfTransformTongueLengthChoiceDiv() TODO
@@ -832,6 +840,11 @@ public class BodyChanging {
 							+ CharacterModificationUtils.getSelfTransformPenisModifiersDiv()
 							+ CharacterModificationUtils.getSelfTransformUrethraModifiersDiv()
 						+"</div>"
+						
+						+ CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyCoveringType.SLIME_PENIS, "Penis Colour", 
+								(BodyChanging.getTarget().isPlayer()
+										?"You can freely change the colour of your slimy penis."
+										:UtilText.parse(BodyChanging.getTarget(), "[npc.Name] can freely change the colour of [npc.her] slimy penis.")), true, true)
 						;
 			}
 		}

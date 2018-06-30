@@ -43,10 +43,10 @@ public enum ParserTarget {
 			"npc4",
 			"npc5",
 			"npc6"),
-			"The currently 'active' NPC.</br>"
-			+"<b>The tag 'npc' can be extended with a number, starting at 1, to signify which npc in the scene it is referring to!</b> e.g. 'npc1' is the first npc, 'npc2' is the second, etc.</br>"
-			+ "If in <b>combat</b>, it returns your opponent.</br>"
-			+ "If in <b>sex</b>, it returns your partner.</br>"
+			"The currently 'active' NPC.<br/>"
+			+"<b>The tag 'npc' can be extended with a number, starting at 1, to signify which npc in the scene it is referring to!</b> e.g. 'npc1' is the first npc, 'npc2' is the second, etc.<br/>"
+			+ "If in <b>combat</b>, it returns your opponent.<br/>"
+			+ "If in <b>sex</b>, it returns your partner.<br/>"
 			+ "<b>Otherwise</b>, it returns the most important NPC in the scene.") {
 				@Override
 				public GameCharacter getCharacter(String tag) {
@@ -538,6 +538,116 @@ public enum ParserTarget {
 		@Override
 		public GameCharacter getCharacter(String tag) {
 			return Main.game.getClaire();
+		}
+	},
+	
+	SLIME_QUEEN(Util.newArrayListOfValues("slimeQueen"), "") {
+		public String getDescription() {
+			return Main.game.getSlimeQueen().getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter(String tag) {
+			return Main.game.getSlimeQueen();
+		}
+	},
+	
+	SLIME_GUARD_ICE(Util.newArrayListOfValues("slimeGuardIce", "slimeIce"), "") {
+		public String getDescription() {
+			return Main.game.getSlimeGuardIce().getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter(String tag) {
+			return Main.game.getSlimeGuardIce();
+		}
+	},
+	
+	SLIME_GUARD_FIRE(Util.newArrayListOfValues("slimeGuardFire", "slimeFire"), "") {
+		public String getDescription() {
+			return Main.game.getSlimeGuardFire().getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter(String tag) {
+			return Main.game.getSlimeGuardFire();
+		}
+	},
+	
+	SLIME_ROYAL_GUARD(Util.newArrayListOfValues("slimeRoyalGuard", "royalGuardSlime"), "") {
+		public String getDescription() {
+			return Main.game.getSlimeRoyalGuard().getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter(String tag) {
+			return Main.game.getSlimeRoyalGuard();
+		}
+	},
+	
+	ROXY(Util.newArrayListOfValues("roxy"), "") {
+		public String getDescription() {
+			return Main.game.getRoxy().getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter(String tag) {
+			return Main.game.getRoxy();
+		}
+	},
+	
+	AXEL(Util.newArrayListOfValues("axel"), "") {
+		public String getDescription() {
+			return Main.game.getAxel().getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter(String tag) {
+			return Main.game.getAxel();
+		}
+	},
+	
+	EPONA(Util.newArrayListOfValues("epona"), "") {
+		public String getDescription() {
+			return Main.game.getEpona().getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter(String tag) {
+			return Main.game.getEpona();
+		}
+	},
+	
+	JULES(Util.newArrayListOfValues("jules"), "") {
+		public String getDescription() {
+			return Main.game.getJules().getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter(String tag) {
+			return Main.game.getJules();
+		}
+	},
+	
+	KRUGER(Util.newArrayListOfValues("kruger"), "") {
+		public String getDescription() {
+			return Main.game.getKruger().getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter(String tag) {
+			return Main.game.getKruger();
+		}
+	},
+	
+	KALAHARI(Util.newArrayListOfValues("kalahari"), "") {
+		public String getDescription() {
+			return Main.game.getKalahari().getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter(String tag) {
+			return Main.game.getKalahari();
 		}
 	},
 	;

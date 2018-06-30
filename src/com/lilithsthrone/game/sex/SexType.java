@@ -10,7 +10,7 @@ import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.53
- * @version 0.2.5
+ * @version 0.2.8
  * @author Innoxia
  */
 public class SexType implements Serializable, XMLSaving {
@@ -18,21 +18,21 @@ public class SexType implements Serializable, XMLSaving {
 	private static final long serialVersionUID = 1L;
 	
 	private SexParticipantType asParticipant;
-	private PenetrationType penetrationType;
-	private OrificeType orificeType;
+	private SexAreaInterface performingSexArea;
+	private SexAreaInterface targetedSexArea;
 
-	public SexType(SexParticipantType asParticipant, PenetrationType penetrationType, OrificeType orificeType) {
+	public SexType(SexParticipantType asParticipant, SexAreaInterface performingSexArea, SexAreaInterface targetedSexArea) {
 		this.asParticipant = asParticipant;
-		this.penetrationType=penetrationType;
-		this.orificeType = orificeType;
+		this.performingSexArea = performingSexArea;
+		this.targetedSexArea = targetedSexArea;
 	}
 	
 	@Override
 	public boolean equals (Object o) {
 		if(o instanceof SexType){
 			if(((SexType)o).getAsParticipant().equals(getAsParticipant())
-				&& ((SexType)o).getPenetrationType().equals(getPenetrationType())
-				&& ((SexType)o).getOrificeType().equals(getOrificeType())){
+				&& ((SexType)o).getPerformingSexArea().equals(getPerformingSexArea())
+				&& ((SexType)o).getTargetedSexArea().equals(getTargetedSexArea())){
 					return true;
 			}
 		}
@@ -42,18 +42,18 @@ public class SexType implements Serializable, XMLSaving {
 	@Override
 	public int hashCode() {
 		int result = 17;
-		result = 31 * result + getPenetrationType().hashCode();
-		result = 31 * result + getOrificeType().hashCode();
+		result = 31 * result + getPerformingSexArea().hashCode();
+		result = 31 * result + getTargetedSexArea().hashCode();
 		return result;
 	}
 	
 	public Element saveAsXML(Element parentElement, Document doc) {
 		Element effect = doc.createElement("sexType");
 		parentElement.appendChild(effect);
-
+		
 		CharacterUtils.addAttribute(doc, effect, "SexParticipantType", asParticipant.toString());
-		CharacterUtils.addAttribute(doc, effect, "penetrationType", penetrationType.toString());
-		CharacterUtils.addAttribute(doc, effect, "orificeType", orificeType.toString());
+		CharacterUtils.addAttribute(doc, effect, "penetrationType", performingSexArea.toString());
+		CharacterUtils.addAttribute(doc, effect, "orificeType", targetedSexArea.toString());
 		
 		return effect;
 	}
@@ -61,8 +61,8 @@ public class SexType implements Serializable, XMLSaving {
 	public static SexType loadFromXML(Element parentElement, Document doc) {
 		return new SexType(
 				SexParticipantType.valueOf(parentElement.getAttribute("SexParticipantType")),
-				PenetrationType.valueOf(parentElement.getAttribute("penetrationType")),
-				OrificeType.valueOf(parentElement.getAttribute("orificeType")));
+				SexAreaPenetration.valueOf(parentElement.getAttribute("penetrationType")),
+				SexAreaOrifice.valueOf(parentElement.getAttribute("orificeType")));
 	}
 	
 	public String getName() {
@@ -73,11 +73,11 @@ public class SexType implements Serializable, XMLSaving {
 		return asParticipant;
 	}
 
-	public PenetrationType getPenetrationType() {
-		return penetrationType;
+	public SexAreaInterface getPerformingSexArea() {
+		return performingSexArea;
 	}
 
-	public OrificeType getOrificeType() {
-		return orificeType;
+	public SexAreaInterface getTargetedSexArea() {
+		return targetedSexArea;
 	}
 }

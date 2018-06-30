@@ -2,17 +2,21 @@ package com.lilithsthrone.game.sex.managers;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
+import com.lilithsthrone.game.character.fetishes.Fetish;
+import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.DominionAlleywayAttacker;
 import com.lilithsthrone.game.character.npc.dominion.DominionSuccubusAttacker;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.sex.OrificeType;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexPositionType;
@@ -80,8 +84,9 @@ public interface SexManagerInterface {
 	public default boolean isPlayerAbleToStopSex() {
 		return Sex.isDom(Main.game.getPlayer())
 				|| (Sex.isSubHasEqualControl()
-					&& !(Sex.getActivePartner() instanceof DominionAlleywayAttacker) //TODO
-					&& !(Sex.getActivePartner() instanceof DominionSuccubusAttacker));
+					&& (Sex.getActivePartner().isSlave()
+					|| (!(Sex.getActivePartner() instanceof DominionAlleywayAttacker) //TODO
+							&& !(Sex.getActivePartner() instanceof DominionSuccubusAttacker))));
 	}
 	
 	public default boolean isPartnerWantingToStopSex() {
@@ -111,6 +116,33 @@ public interface SexManagerInterface {
 		}
 	}
 	
+	public default void initStartingLustAndArousal(GameCharacter character) {
+		character.setLust(50);
+		character.setArousal(0);
+		if(Sex.isDom(character)) {
+			if(character.hasFetish(Fetish.FETISH_DOMINANT)) {
+				character.setLust(85);
+				character.setArousal(10);
+			} else if(character.hasFetish(Fetish.FETISH_SUBMISSIVE)) {
+				character.setLust(10);
+			}
+		} else {
+			if(character.hasFetish(Fetish.FETISH_SUBMISSIVE)) {
+				character.setLust(85);
+				character.setArousal(10);
+			}
+		}
+		
+		
+		if(Main.getProperties().hasValue(PropertyValue.nonConContent)) {
+			if(!character.isPlayer()) {
+				if(!((NPC) character).isAttractedTo(Main.game.getPlayer())) {
+					character.setLust(0);
+				}
+			}
+		}
+	}
+	
 	public default boolean isAbleToRemoveSelfClothing(GameCharacter character){
 		return true;
 	}
@@ -132,6 +164,10 @@ public interface SexManagerInterface {
 
 	public default boolean isPartnerStartNaked() {
 		return false;
+	}
+	
+	public default Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
+		return new HashMap<>();
 	}
 	
 	public default boolean isPartnerUsingForeplayActions() {
@@ -190,7 +226,7 @@ public interface SexManagerInterface {
 				+"</p>";
 	}
 	
-	public Map<GameCharacter, List<OrificeType>> getOrificesBannedMap();
+	public Map<GameCharacter, List<SexAreaOrifice>> getOrificesBannedMap();
 	
 	// Revealing CoverableAreas:
 

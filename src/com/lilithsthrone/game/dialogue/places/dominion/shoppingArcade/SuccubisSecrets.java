@@ -15,8 +15,11 @@ import com.lilithsthrone.game.character.body.Skin;
 import com.lilithsthrone.game.character.body.Vagina;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.FaceType;
+import com.lilithsthrone.game.character.body.types.TailType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.PiercingType;
+import com.lilithsthrone.game.character.markings.TattooCounterType;
+import com.lilithsthrone.game.character.markings.TattooType;
 import com.lilithsthrone.game.character.npc.dominion.Kate;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
@@ -27,9 +30,11 @@ import com.lilithsthrone.game.dialogue.responses.ResponseTrade;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.CharacterModificationUtils;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.universal.SMChair;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
@@ -37,7 +42,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.66
- * @version 0.1.84
+ * @version 0.2.6
  * @author Innoxia
  */
 public class SuccubisSecrets {
@@ -607,7 +612,10 @@ public class SuccubisSecrets {
 								}
 							}
 						}
-
+						if(Main.game.getPlayer().getTailType()==TailType.DEMON_HAIR_TIP && !CoveringsNamesMap.containsKey(BodyCoveringType.HAIR_DEMON)) {
+							CoveringsNamesMap.put(BodyCoveringType.HAIR_DEMON, Util.newArrayListOfValues(BodyCoveringType.HAIR_DEMON.getName(Main.game.getPlayer())));
+						}
+						
 						if(Main.getProperties().hasValue(PropertyValue.pubicHairContent)) {
 							CoveringsNamesMap.putIfAbsent(Main.game.getPlayer().getPubicHairType().getType(), new ArrayList<>());
 							CoveringsNamesMap.get(Main.game.getPlayer().getPubicHairType().getType()).add("growing around your pubic region");
@@ -642,8 +650,7 @@ public class SuccubisSecrets {
 
 		} else if (index == 8) {
 			return new Response("Tattoos", "Most of the brochure is taken up with drawings and photographs displaying Kate's considerable artistic talents."
-					+ " She's even able to apply arcane-enchanted tattoos, but they look to be very expensive...</br>"
-					+ "<b>Will be done as soon as possible!</b>", null);
+					+ " She's even able to apply arcane-enchanted tattoos, but they look to be very expensive...", SHOP_BEAUTY_SALON_TATTOOS);
 
 		} else if (index == 9) {
 			return new ResponseSex("Sex",
@@ -949,7 +956,8 @@ public class SuccubisSecrets {
 //							:"")
 					
 					+(Main.game.isFacialHairEnabled()
-							?CharacterModificationUtils.getKatesDivFacialHair("Facial hair", "The body hair found on your face. Feminine characters cannot grow facial hair.")
+							? CharacterModificationUtils.getKatesDivFacialHair("Facial hair", "The body hair found on your face." 
+									+ (Main.game.isFemaleFacialHairEnabled() ? "" : " Feminine characters cannot grow facial hair."))
 							:"")
 					
 					+(Main.game.isPubicHairEnabled()
@@ -1058,16 +1066,100 @@ public class SuccubisSecrets {
 			descriptionSB = new StringBuilder();
 			
 			descriptionSB.append("<p>"
-					+ "Standard Tattoos cost 100 each."
-					+ " Arcane tattoos cost 250."
-						+ "</p>");
+							+ "[kate.speech(So, you want a tattoo, huh?)]"
+							+ " Kate grins, exhibiting a rare sign of energy as she quickly sits upright in her chair."
+							+ " [kate.speech(If you're looking for an enchanted one, just know that I've got to do the base tattoo first, then I can use my spells to weave an enchantment into it."
+							+ " Most of my tattoos cost five-hundred flames, and I charge one-hundred flames for all removals."
+							+ " Enchanting tattoos easily runs up into the tens of thousands, due to the very expensive refined essences that it requires. So, what'll it be?)]"
+						+ "</p>"
+						+CharacterModificationUtils.getKatesDivTattoos());
 			
 			return descriptionSB.toString();
 		}
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
+			if (index == 8) {
+				return new Response("Tattoos", "You are already looking at the tattoos available...", null);
+			} else if(index==11) {
+				return new Response("Confirmations: ",
+						"Toggle tattoo removal confirmations."
+							+ " When turned on, it will take two clicks to remove tattoos."
+							+ " When turned off, it will only take one click.",
+							SHOP_BEAUTY_SALON_TATTOOS) {
+					@Override
+					public String getTitle() {
+						return "Confirmations: "+(Main.getProperties().hasValue(PropertyValue.tattooRemovalConfirmations)
+									?"<span style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>ON</span>"
+									:"<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>OFF</span>");
+					}
+					
+					@Override
+					public void effects() {
+						Main.getProperties().setValue(PropertyValue.tattooRemovalConfirmations, !Main.getProperties().hasValue(PropertyValue.tattooRemovalConfirmations));
+						Main.getProperties().savePropertiesAsXML();
+					}
+				};
+			}
+			
 			return getMainResponse(index);
+		}
+
+		@Override
+		public boolean reloadOnRestore() {
+			return true;
+		}
+	};
+	
+	public static InventorySlot invSlotTattooToRemove = null;
+	
+	public static final DialogueNodeOld SHOP_BEAUTY_SALON_TATTOOS_ADD = new DialogueNodeOld("Succubi's Secrets", "-", true) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getLabel() {
+			return "Succubi's Secrets - "+Util.capitaliseSentence(CharacterModificationUtils.tattooInventorySlot.getName()) +" Tattoo";
+		}
+		
+		@Override
+		public String getContent() {
+			descriptionSB = new StringBuilder();
+			
+			descriptionSB.append(CharacterModificationUtils.getKatesDivTattoosAdd());
+			
+			return descriptionSB.toString();
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			int value = CharacterModificationUtils.tattoo.getValue();
+			if (index == 1) {
+				if(Main.game.getPlayer().getMoney()<value) {
+					return new Response("Apply ("+UtilText.formatAsMoneyUncoloured(value, "span")+")", "You don't have enough money to get a tattoo!", null);
+					
+				} else if(CharacterModificationUtils.tattoo.getType().equals(TattooType.NONE)
+						&& CharacterModificationUtils.tattoo.getWriting().getText().isEmpty()
+						&& CharacterModificationUtils.tattoo.getCounter().getType()==TattooCounterType.NONE) {
+					return new Response("Apply ("+UtilText.formatAsMoneyUncoloured(value, "span")+")", "You need to select a tattoo type, add some writing, or add a counter in order to make a tattoo!", null);
+					
+				} else {
+					return new Response("Apply ("+UtilText.formatAsMoney(value, "span")+")", "Tell Kate that you'd like her to give you this tattoo.", SHOP_BEAUTY_SALON_TATTOOS) {
+						@Override
+						public void effects() {
+							Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().incrementMoney(-value)); //TODO Kate description
+
+							Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenPField').innerHTML=document.getElementById('tattoo_name').value;");
+							CharacterModificationUtils.tattoo.getWriting().setText(Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent());
+							Main.game.getPlayer().addTattoo(CharacterModificationUtils.tattooInventorySlot, CharacterModificationUtils.tattoo);
+						}
+					};
+				}
+			
+			} else if(index==0) {
+				return new Response("Back", "Decide not to get this tattoo and return to the main selection screen.", SHOP_BEAUTY_SALON_TATTOOS);
+			}
+			
+			return null;
 		}
 
 		@Override

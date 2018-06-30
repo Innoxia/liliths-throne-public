@@ -1,5 +1,7 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
+import java.io.File;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +13,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.HornType;
+import com.lilithsthrone.game.character.body.types.LegType;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
@@ -65,6 +68,7 @@ public class Lilaya extends NPC {
 				"Along with your twin cousins, your aunt Lily was the only family you'd ever known." + " Although she still exists in this world, she isn't your aunt any more, and in this reality, she's a half-demon called 'Lilaya'."
 						+ " Whereas your old aunt was a researcher at the city museum, Lilaya is a privately-funded researcher of the arcane."
 						+ " Due to her demonic appearance and the fact that she's the daughter of the Lilin Lyssieth, people usually regard Lilaya with a mixture of fear and respect.",
+				48, Month.DECEMBER, 28,
 				10, Gender.F_V_B_FEMALE, RacialBody.DEMON, RaceStage.PARTIAL_FULL, new CharacterInventory(10), WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, true);
 
 		this.setPersonality(Util.newHashMapOfValues(
@@ -73,13 +77,12 @@ public class Lilaya extends NPC {
 				new Value<>(PersonalityTrait.EXTROVERSION, PersonalityWeight.LOW),
 				new Value<>(PersonalityTrait.NEUROTICISM, PersonalityWeight.AVERAGE),
 				new Value<>(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.HIGH)));
-		
+
 		if(!isImported) {
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 			
 			this.addFetish(Fetish.FETISH_MASOCHIST);
 			this.setFetishDesire(Fetish.FETISH_PREGNANCY, FetishDesire.ZERO_HATE);
-			this.setFetishDesire(Fetish.FETISH_BROODMOTHER, FetishDesire.ZERO_HATE);
 			
 			this.setEyeCovering(new Covering(BodyCoveringType.EYE_DEMON_COMMON, Colour.EYE_YELLOW));
 			this.setHairCovering(new Covering(BodyCoveringType.HAIR_DEMON, Colour.COVERING_BLACK), true);
@@ -90,6 +93,8 @@ public class Lilaya extends NPC {
 			this.setWingSize(WingSize.ZERO_TINY.getValue());
 			
 			this.setHornType(HornType.SWEPT_BACK);
+			
+			this.setLegType(LegType.DEMON_COMMON);
 			
 			this.setMuscle(Muscle.THREE_MUSCULAR.getMedianValue());
 			this.setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
@@ -116,14 +121,20 @@ public class Lilaya extends NPC {
 		
 		this.setWingSize(WingSize.ZERO_TINY.getValue());
 		
+		this.setLegType(LegType.DEMON_COMMON);
+		
 		this.addFetish(Fetish.FETISH_MASOCHIST);
 		this.setFetishDesire(Fetish.FETISH_PREGNANCY, FetishDesire.ZERO_HATE);
-		this.setFetishDesire(Fetish.FETISH_BROODMOTHER, FetishDesire.ZERO_HATE);
 	}
 
 	@Override
 	public boolean isUnique() {
 		return true;
+	}
+	
+	@Override
+	public int getAppearsAsAge() {
+		return 24;
 	}
 	
 	// Prevent issues with Geisha Lilaya immediately
@@ -279,6 +290,7 @@ public class Lilaya extends NPC {
 							if(Main.game.getLilaya().hasStatusEffect(StatusEffect.CREAMPIE_VAGINA) && !Main.game.getLilaya().isVisiblyPregnant()) {
 								Main.game.getDialogueFlags().values.add(DialogueFlagValue.waitingOnLilayaPregnancyResults);
 							}
+							Main.game.getLilaya().washAllOrifices();
 							Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, false);
 						}
 					};
@@ -288,6 +300,7 @@ public class Lilaya extends NPC {
 						@Override
 						public void effects() {
 							Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, false);
+							Main.game.getLilaya().washAllOrifices();
 						}
 					};
 				}
@@ -364,6 +377,7 @@ public class Lilaya extends NPC {
 							if(Main.game.getLilaya().hasStatusEffect(StatusEffect.CREAMPIE_VAGINA) && !Main.game.getLilaya().isVisiblyPregnant()) {
 								Main.game.getDialogueFlags().values.add(DialogueFlagValue.waitingOnLilayaPregnancyResults);
 							}
+							Main.game.getLilaya().washAllOrifices();
 						}
 					};
 					
@@ -372,6 +386,7 @@ public class Lilaya extends NPC {
 						@Override
 						public void effects() {
 							Main.game.getPlayer().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_PLAYER, true);
+							Main.game.getLilaya().washAllOrifices();
 						}
 					};
 				}

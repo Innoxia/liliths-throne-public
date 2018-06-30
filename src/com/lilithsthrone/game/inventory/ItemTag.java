@@ -2,7 +2,7 @@ package com.lilithsthrone.game.inventory;
 
 /**
  * @since 0.2.1
- * @version 0.2.4
+ * @version 0.2.6
  * @author Innoxia
  */
 public enum ItemTag {
@@ -15,6 +15,7 @@ public enum ItemTag {
 	SOLD_BY_NYAN,
 	SOLD_BY_KATE,
 	SOLD_BY_FINCH,
+	SOLD_BY_VICKY,
 	
 	DRESS, // For helping to generate clothing in CharacterUtils
 
@@ -27,6 +28,8 @@ public enum ItemTag {
 	REQUIRES_NO_PENIS,
 	REQUIRES_VAGINA,
 	REQUIRES_NO_VAGINA,
+	
+	REVEALS_CONCEALABLE_SLOT, // If a piece of clothing has this tag, it will always be visible, even if another item of clothing is concealing its slot. (Used for spreader bar.)
 	
 	DILDO_TINY, // 3 inches
 	DILDO_AVERAGE, // 6 inches

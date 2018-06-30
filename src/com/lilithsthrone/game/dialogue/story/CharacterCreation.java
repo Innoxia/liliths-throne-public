@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.dialogue.story;
 
 import java.io.File;
+import java.time.LocalDateTime;
 
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.Weather;
@@ -14,6 +15,8 @@ import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.body.valueEnums.LabiaSize;
 import com.lilithsthrone.game.character.body.valueEnums.PiercingType;
 import com.lilithsthrone.game.character.gender.Gender;
+import com.lilithsthrone.game.character.markings.TattooCounterType;
+import com.lilithsthrone.game.character.markings.TattooType;
 import com.lilithsthrone.game.character.persona.History;
 import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.persona.NameTriplet;
@@ -43,8 +46,8 @@ import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
-import com.lilithsthrone.game.sex.OrificeType;
-import com.lilithsthrone.game.sex.PenetrationType;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.main.Main;
@@ -577,7 +580,7 @@ public class CharacterCreation {
 						+ " It only takes a moment before you're standing at the museum's front doors, where, much to your dismay, you see that a small queue has formed."
 						+ " Having no choice but to step in line and wait your turn, you briefly glance over at the large glass windows of the building's modern facade to see your blurry reflection in the glass..."
 					+ "</p>"
-					+ "</br>"
+					+ "<br/>"
 					
 					+ CharacterModificationUtils.getStartDateDiv()
 					
@@ -589,9 +592,11 @@ public class CharacterCreation {
 						
 						+ "<div class='container-full-width' style='text-align:center;'>"
 							+ "You will be referred to as <span style='color:"+Main.game.getPlayer().getGender().getColour().toWebHexString()+";'>"
-								+UtilText.generateSingularDeterminer(Main.game.getPlayer().getGender().getName())+ " " + Main.game.getPlayer().getGender().getName()+"</span>.</br>"
+								+UtilText.generateSingularDeterminer(Main.game.getPlayer().getGender().getName())+ " " + Main.game.getPlayer().getGender().getName()+"</span>.<br/>"
 							+ "<i>You can change all gender names in the options menu.</i>"
 						+ "</div>"
+
+						+ CharacterModificationUtils.getBirthdayChoiceDiv()
 						
 						+ CharacterModificationUtils.getOrientationChoiceDiv()
 						
@@ -648,16 +653,16 @@ public class CharacterCreation {
 					+ "<p>"
 						+ "Breathing a sigh of relief, you tell the man your name..."
 					+ "</p>"
-					+"</br>"
+					+"<br/>"
 					+ "<div class='container-full-width' style='text-align:center;'>"
 						+ "<div style='position:relative; display:inline-block; padding-bottom:0; margin 0 auto; vertical-align:middle; width:100%; text-align:center;'>"
 							+ "<p style='display:inline-block; padding:0; margin:0; height:32px; line-height:32px; width:100px;'>First name: </p>"
 							+ "<form style='display:inline-block; padding:0; margin:0; text-align:center;'><input type='text' id='nameInput' value='"+ UtilText.parseForHTMLDisplay(Main.game.getPlayer().getName())+ "'></form>"
-							+ "</br>"
+							+ "<br/>"
 							+ "<p style='display:inline-block; padding:0; margin:0; height:32px; line-height:32px; width:100px;'>Surname: </p>"
 							+ "<form style='display:inline-block; padding:0; margin:0; text-align:center;'><input type='text' id='surnameInput' value='"+ UtilText.parseForHTMLDisplay(Main.game.getPlayer().getSurname())+ "'></form>"
 						+ "</div>"
-						+ "</br>"
+						+ "<br/>"
 						+ "<i>Your name must be between 2 and 16 characters long. You cannot use the square bracket characters or full stops. (Surname may be left blank.)</i>"
 						+ (unsuitableName ? "<p style='text-align:center;padding-top:0;'><b style=' color:"+ Colour.GENERIC_BAD.toWebHexString()+ ";'>Invalid name.</b></p>" : "")
 						+ (unsuitableSurname ? "<p style='text-align:center;padding-top:0;'><b style=' color:"+ Colour.GENERIC_BAD.toWebHexString()+ ";'>Invalid Surname.</b></p>" : "")
@@ -792,12 +797,12 @@ public class CharacterCreation {
 					+ "<p>"
 						+ "As Lily's opening speech seems to be running just as late as you are, you decide to step over to a nearby mirror to make sure that you're looking presentable..."
 					+ "</p>"
-					+ "</br>"
+					+ "<br/>"
 					+ "<div class='container-full-width'>"
 						+ "<h5 style='text-align:center;'>Appearance</h5>"
 						+ Main.game.getPlayer().getBodyDescription()
 					+ "</div>"
-					+ "</br>"
+					+ "<br/>"
 					+ "<div class='container-full-width' style='text-align:center;'>"
 						+ "<i>You can modify your appearance by entering each of the sub-menus below.</i>"
 					+ "</div>";
@@ -839,13 +844,16 @@ public class CharacterCreation {
 			} else if (index == 7) {
 				return new Response((Main.game.getPlayer().hasPenis()?"Penis":"Vagina"), "Enter the customisation menu for aspects related to your "+(Main.game.getPlayer().hasPenis()?"penis":"vagina")+".", CHOOSE_ADVANCED_APPEARANCE_GENITALS);
 				
-			} else if (index == 8) {
-				return new Response("Piercings", "Enter the customisation menu for body piercings.", CHOOSE_ADVANCED_APPEARANCE_PIERCINGS);
-				
-			} else if (index == 9) {
+			}  else if (index == 8) {
 				return new Response("Makeup", "Enter the customisation menu for makeup.", CHOOSE_ADVANCED_APPEARANCE_COSMETICS);
 				
+			} else if (index == 9) {
+				return new Response("Piercings", "Enter the customisation menu for body piercings.", CHOOSE_ADVANCED_APPEARANCE_PIERCINGS);
+				
 			} else if (index == 10) {
+				return new Response("Tattoos", "Enter the customisation menu for tattoos.", CHOOSE_ADVANCED_APPEARANCE_TATTOOS);
+				
+			} else if (index == 11) {
 				return new Response("Extra hair", "Enter the customisation menu for facial, pubic, and body hair.", CHOOSE_ADVANCED_APPEARANCE_BODY_HAIR);
 				
 			} else if (index == 0) {
@@ -877,7 +885,7 @@ public class CharacterCreation {
 						+ CharacterModificationUtils.getMuscleChoiceDiv()
 						
 						+ "<div class='container-full-width' style='text-align:center;'>"
-							+ "Your muscle and body size values result in your appearance being:</br>"
+							+ "Your muscle and body size values result in your appearance being:<br/>"
 							+ "<b style='color:"+Main.game.getPlayer().getBodyShape().toWebHexStringColour()+";'>"+Util.capitaliseSentence(Main.game.getPlayer().getBodyShape().getName(false))+"</b>"
 						+ "</div>"
 					
@@ -1131,6 +1139,79 @@ public class CharacterCreation {
 		}
 	};
 	
+	public static final DialogueNodeOld CHOOSE_ADVANCED_APPEARANCE_TATTOOS = new DialogueNodeOld("Tattoos", "", true) {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public String getHeaderContent() {
+			return "<div class='container-full-width' style='text-align:center;'>"
+						+ "<i>Later on in the game, you can get enchanted and glowing tattoos. For now, however, your tattoo choices are limited to non-magical options.</i>"
+					+ "</div>"
+					+CharacterModificationUtils.getKatesDivTattoos();
+		}
+		
+		@Override
+		public String getContent() {
+			return "";
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 0) {
+				return new Response("Back", "Confirm your choices and return to the content preferences menu.", CHOOSE_ADVANCED_APPEARANCE);
+				
+			} else {
+				return null;
+			}
+		}
+	};
+	
+	public static final DialogueNodeOld CHOOSE_ADVANCED_APPEARANCE_TATTOOS_ADD = new DialogueNodeOld("Succubi's Secrets", "-", true) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getLabel() {
+			return "Add "+Util.capitaliseSentence(CharacterModificationUtils.tattooInventorySlot.getName()) +" Tattoo";
+		}
+		
+		@Override
+		public String getContent() {
+			return CharacterModificationUtils.getKatesDivTattoosAdd();
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 1) {
+				if(CharacterModificationUtils.tattoo.getType().equals(TattooType.NONE)
+						&& CharacterModificationUtils.tattoo.getWriting().getText().isEmpty()
+						&& CharacterModificationUtils.tattoo.getCounter().getType()==TattooCounterType.NONE) {
+					return new Response("Apply", "You need to select a tattoo type, add some writing, or add a counter in order to make a tattoo!", null);
+					
+				} else {
+					return new Response("Apply", 
+							UtilText.parse(BodyChanging.getTarget(), "Add this tattoo."), CHOOSE_ADVANCED_APPEARANCE_TATTOOS) {
+						@Override
+						public void effects() {
+							Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenPField').innerHTML=document.getElementById('tattoo_name').value;");
+							CharacterModificationUtils.tattoo.getWriting().setText(Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent());
+							BodyChanging.getTarget().addTattoo(CharacterModificationUtils.tattooInventorySlot, CharacterModificationUtils.tattoo);
+						}
+					};
+				}
+			
+			} else if(index==0) {
+				return new Response("Back", "Decide not to get this tattoo and return to the main selection screen.", CHOOSE_ADVANCED_APPEARANCE_TATTOOS);
+			}
+			
+			return null;
+		}
+
+		@Override
+		public boolean reloadOnRestore() {
+			return true;
+		}
+	};
+	
 	public static final DialogueNodeOld CHOOSE_ADVANCED_APPEARANCE_COSMETICS = new DialogueNodeOld("Cosmetics", "", true) {
 		private static final long serialVersionUID = 1L;
 		
@@ -1197,8 +1278,11 @@ public class CharacterCreation {
 			}
 			
 			if(Main.game.isFacialHairEnabled()) {
-				UtilText.nodeContentSB.append(CharacterModificationUtils.getKatesDivFacialHair("Facial hair", "The body hair found on your face. Feminine characters cannot grow facial hair."));
-				
+				if (Main.game.isFemaleFacialHairEnabled()) {
+					UtilText.nodeContentSB.append(CharacterModificationUtils.getKatesDivFacialHair("Facial hair", "The body hair found on your face."));
+				} else {
+					UtilText.nodeContentSB.append(CharacterModificationUtils.getKatesDivFacialHair("Facial hair", "The body hair found on your face. Feminine characters cannot grow facial hair."));
+				}
 			} else {
 				UtilText.nodeContentSB.append(CharacterModificationUtils.getKatesDivGenericBodyHairDisabled(
 						"Facial hair", "The body hair found on your face. Feminine characters cannot grow facial hair.", "Facial hair is currently disabled in the options. You will not see any facial hair content while it is disabled."));
@@ -1261,7 +1345,7 @@ public class CharacterCreation {
 						+ "[pc.thought(Why am I feeling so horny all of a sudden?)]"
 					+ "</p>"
 					+ "<div class='container-full-width' style='text-align:center;'>"
-						+ "<i>Choose what you decided to wear to the museum.</i></br>"
+						+ "<i>Choose what you decided to wear to the museum.</i><br/>"
 						+ "<i>You'll need to be wearing some kind of footwear, as well as clothing that conceals your genitals and chest, before being able to proceed.</i>"
 					+ "</div>"
 				+ "</div>";
@@ -1481,7 +1565,16 @@ public class CharacterCreation {
 				if(Main.game.getPlayer().getHistory().getAssociatedPerk()==null) {
 					return new Response("Continue", "You need to select a job before continuing!", null);
 				} else {
-					return new Response("Continue", femalePrologueNPC()?"Tell [prologueFemale.name] what it is you do for a living.":"Tell [prologueMale.name] what it is you do for a living.", CHOOSE_SEX_EXPERIENCE);
+					return new Response("Continue", femalePrologueNPC()?"Tell [prologueFemale.name] what it is you do for a living.":"Tell [prologueMale.name] what it is you do for a living.", CHOOSE_SEX_EXPERIENCE) {
+						@Override
+						public void effects() {
+							Main.game.getPlayer().getVirginityLossMap().replaceAll((k, v) ->
+								(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.GYNEPHILIC
+									|| (Main.game.getPlayer().getSexualOrientation()==SexualOrientation.AMBIPHILIC && !Main.game.getPlayer().isFeminine()))
+									?"your girlfriend"
+									:"your boyfriend");
+						}
+					};
 				}
 				
 			} else {
@@ -1623,20 +1716,20 @@ public class CharacterCreation {
 					@Override
 					public void effects() {
 						if(!Main.game.getPlayer().hasPenis()) {
-							for(OrificeType ot : OrificeType.values()) {
-								SexType st = new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, ot);
+							for(SexAreaOrifice ot : SexAreaOrifice.values()) {
+								SexType st = new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, ot);
 								Main.game.getPlayer().setVirginityLoss(st, "");
-								st = new SexType(SexParticipantType.SELF, PenetrationType.PENIS, ot);
+								st = new SexType(SexParticipantType.SELF, SexAreaPenetration.PENIS, ot);
 								Main.game.getPlayer().setVirginityLoss(st, "");
 							}
 							Main.game.getPlayer().setPenisVirgin(true);
 							
 						}
 						if(!Main.game.getPlayer().hasVagina()) {
-							for(PenetrationType pt : PenetrationType.values()) {
-								SexType st = new SexType(SexParticipantType.PITCHER, pt, OrificeType.VAGINA);
+							for(SexAreaPenetration pt : SexAreaPenetration.values()) {
+								SexType st = new SexType(SexParticipantType.NORMAL, pt, SexAreaOrifice.VAGINA);
 								Main.game.getPlayer().setVirginityLoss(st, "");
-								st = new SexType(SexParticipantType.SELF, pt, OrificeType.VAGINA);
+								st = new SexType(SexParticipantType.SELF, pt, SexAreaOrifice.VAGINA);
 								Main.game.getPlayer().setVirginityLoss(st, "");
 							}
 							Main.game.getPlayer().setVaginaVirgin(true);
@@ -1658,6 +1751,8 @@ public class CharacterCreation {
 		
 		Main.game.getLilaya().setSkinCovering(new Covering(BodyCoveringType.HUMAN, Main.game.getPlayer().getCovering(BodyCoveringType.HUMAN).getPrimaryColour()), true);
 
+		Main.game.getLilaya().setBirthday(LocalDateTime.of(Main.game.getPlayer().getBirthday().getYear()-22, Main.game.getLilaya().getBirthMonth(), Main.game.getLilaya().getDayOfBirth(), 12, 0));
+		
 		Main.game.clearTextStartStringBuilder();
 		Main.game.clearTextEndStringBuilder();
 
@@ -1685,10 +1780,10 @@ public class CharacterCreation {
 			UtilText.nodeContentSB.setLength(0);
 			UtilText.nodeContentSB.append(
 				"<div class='container-full-width' style='text-align:center;'>"
-					+ "<i>Once you're happy with your appearance, press the 'Start Game' button to begin!</br>"
+					+ "<i>Once you're happy with your appearance, press the 'Start Game' button to begin!<br/>"
 					+ "[style.colourGood(This is the end of character creation, so only proceed once you're happy with your choices!)]</i>"
 				+ "</div>"
-				+ "</br>"
+				+ "<br/>"
 				+ "<div class='container-full-width'>"
 					+ "<h5 style='text-align:center;'>Final Appearance</h5>"
 					+ Main.game.getPlayer().getBodyDescription()
@@ -1710,7 +1805,7 @@ public class CharacterCreation {
 				};
 				
 			} else if (index == 2) {
-				return new ResponseEffectsOnly("Skip prologue", "Start the game and skip the prologue.</br></br><i style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Not recommended for first time playing!</i>"){
+				return new ResponseEffectsOnly("Skip prologue", "Start the game and skip the prologue.<br/><br/><i style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Not recommended for first time playing!</i>"){
 					@Override
 					public void effects() {
 						
@@ -1758,11 +1853,11 @@ public class CharacterCreation {
 
 			importSB.append("<p style='text-align:center;'>"
 					+ "These characters are being read from the 'data/characters' folder."
-					+ " If you want to import a character from a previous version, follow these steps:</br></br>"
-					+ "<b>1.</b> Open up the old game version, and export your old character (menu -> options -> export).</br>"
-					+ "<b>2.</b> Copy the exported .xml file (in the old version's <i>data/characters</i> folder).</br>"
-					+ "<b>3.</b> Paste it into this version's <i>data/characters</i> folder.</br>"
-					+ "<b>4.</b> Press 'Refresh', and your old character file should show up in the list below!</br></br>"
+					+ " If you want to import a character from a previous version, follow these steps:<br/><br/>"
+					+ "<b>1.</b> Open up the old game version, and export your old character (menu -> options -> export).<br/>"
+					+ "<b>2.</b> Copy the exported .xml file (in the old version's <i>data/characters</i> folder).<br/>"
+					+ "<b>3.</b> Paste it into this version's <i>data/characters</i> folder.<br/>"
+					+ "<b>4.</b> Press 'Refresh', and your old character file should show up in the list below!<br/><br/>"
 					+ "(If it doesn't work, please let me know as a comment on my blog, and I'll get it fixed ASAP!)"
 					+ "</p>"
 					+ "<p>"
@@ -1836,7 +1931,7 @@ public class CharacterCreation {
 			return "<p>"
 						+ "<b>TODO:</b> I will enable the ability to go through the full character creation with imported characters soon! :3"
 					+ "</p>"
-					+ "</br>"
+					+ "<br/>"
 					+"<details>"
 						+ "<summary class='quest-title' style='color:" + QuestType.MAIN.getColour().toWebHexString() + ";'>Import Log</summary>"
 						+ CharacterUtils.getCharacterImportLog()
@@ -1861,7 +1956,7 @@ public class CharacterCreation {
 				};
 				
 			} else if (index == 2) {
-				return new ResponseEffectsOnly("Skip prologue", "Start the game and skip the prologue.</br></br><i style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Not recommended for first time playing!</i>"){
+				return new ResponseEffectsOnly("Skip prologue", "Start the game and skip the prologue.<br/><br/><i style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Not recommended for first time playing!</i>"){
 					@Override
 					public void effects() {
 						Main.game.setRenderMap(true);

@@ -3,14 +3,17 @@ package com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
-import com.lilithsthrone.game.sex.OrificeType;
-import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
+import com.lilithsthrone.game.sex.sexActions.SexActionLimitation;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.79
@@ -20,13 +23,16 @@ import com.lilithsthrone.main.Main;
 public class PartnerSelfTailAnus {
 	
 	public static final SexAction PARTNER_SELF_TAIL_ANUS_PENETRATION = new SexAction(
-			SexActionType.PARTNER_PENETRATION,
+			SexActionType.START_ONGOING,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.THREE_DIRTY,
-			PenetrationType.TAIL,
-			OrificeType.ANUS,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TAIL, SexAreaOrifice.ANUS)),
 			SexParticipantType.SELF) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Tail-peg (self)";
@@ -53,15 +59,17 @@ public class PartnerSelfTailAnus {
 	};
 	
 	public static final SexAction DOM_PARTNER_SELF_TAIL_ANUS_GENTLE = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.TWO_HORNY,
-			PenetrationType.TAIL,
-			OrificeType.ANUS,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TAIL, SexAreaOrifice.ANUS)),
 			SexParticipantType.SELF,
-			null,
 			SexPace.DOM_GENTLE) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -94,15 +102,17 @@ public class PartnerSelfTailAnus {
 	};
 	
 	public static final SexAction DOM_PARTNER_SELF_TAIL_ANUS_NORMAL = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.TWO_HORNY,
-			PenetrationType.TAIL,
-			OrificeType.ANUS,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TAIL, SexAreaOrifice.ANUS)),
 			SexParticipantType.SELF,
-			null,
 			SexPace.DOM_NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -135,15 +145,17 @@ public class PartnerSelfTailAnus {
 	};
 	
 	public static final SexAction DOM_PARTNER_SELF_TAIL_ANUS_ROUGH = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.THREE_DIRTY,
-			PenetrationType.TAIL,
-			OrificeType.ANUS,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TAIL, SexAreaOrifice.ANUS)),
 			SexParticipantType.SELF,
-			null,
 			SexPace.DOM_ROUGH) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -176,15 +188,17 @@ public class PartnerSelfTailAnus {
 	};
 	
 	public static final SexAction SUB_PARTNER_SELF_TAIL_ANUS_NORMAL = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.TWO_HORNY,
-			PenetrationType.TAIL,
-			OrificeType.ANUS,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TAIL, SexAreaOrifice.ANUS)),
 			SexParticipantType.SELF,
-			null,
 			SexPace.SUB_NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -217,15 +231,17 @@ public class PartnerSelfTailAnus {
 	};
 	
 	public static final SexAction SUB_PARTNER_SELF_TAIL_ANUS_EAGER = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.THREE_DIRTY,
-			PenetrationType.TAIL,
-			OrificeType.ANUS,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TAIL, SexAreaOrifice.ANUS)),
 			SexParticipantType.SELF,
-			null,
 			SexPace.SUB_EAGER) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -258,13 +274,16 @@ public class PartnerSelfTailAnus {
 	};
 	
 	public static final SexAction PARTNER_SELF_TAIL_ANUS_STOP_PENETRATION = new SexAction(
-			SexActionType.PARTNER_STOP_PENETRATION,
+			SexActionType.STOP_ONGOING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.TAIL,
-			OrificeType.ANUS,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TAIL, SexAreaOrifice.ANUS)),
 			SexParticipantType.SELF) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Stop tail-peg (self)";

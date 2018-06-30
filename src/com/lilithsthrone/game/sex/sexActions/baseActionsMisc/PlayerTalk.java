@@ -9,14 +9,15 @@ import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
-import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexFlags;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
-import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
+import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
+import com.lilithsthrone.game.sex.sexActions.SexActionLimitation;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -29,13 +30,16 @@ import com.lilithsthrone.utils.Util;
 public class PlayerTalk {
 	
 	public static final SexAction PLAYER_DIRTY_TALK = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ONE_VANILLA,
 			null,
-			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		
 		@Override
 		public CorruptionLevel getCorruptionNeeded(){
@@ -211,13 +215,16 @@ public class PlayerTalk {
 	};
 	
 	public static final SexAction PLAYER_REQUEST_VAGINAL = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ONE_VANILLA,
 			null,
-			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Request vaginal";
@@ -231,7 +238,7 @@ public class PlayerTalk {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return Main.game.getPlayer().hasVagina()
-					&& !Sex.getPlayerPenetrationRequests().contains(OrificeType.VAGINA)
+					&& !Sex.getPlayerPenetrationRequests().contains(SexAreaOrifice.VAGINA)
 					&& !SexFlags.requestsBlockedPlayer
 					&& !Sex.isDom(Main.game.getPlayer());
 		}
@@ -247,18 +254,21 @@ public class PlayerTalk {
 		@Override
 		public void applyEffects() {
 			Sex.clearPlayerPenetrationRequests();
-			Sex.addPlayerPenetrationRequest(OrificeType.VAGINA);
+			Sex.addPlayerPenetrationRequest(SexAreaOrifice.VAGINA);
 		}
 	};
 	
 	public static final SexAction PLAYER_REQUEST_ANAL = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ONE_VANILLA,
 			null,
-			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		
 		@Override
 		public String getActionTitle() {
@@ -272,7 +282,7 @@ public class PlayerTalk {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.getPlayerPenetrationRequests().contains(OrificeType.ANUS)
+			return !Sex.getPlayerPenetrationRequests().contains(SexAreaOrifice.ANUS)
 					&& !SexFlags.requestsBlockedPlayer
 					&& !Sex.isDom(Main.game.getPlayer());
 		}
@@ -288,7 +298,7 @@ public class PlayerTalk {
 		@Override
 		public void applyEffects() {
 			Sex.clearPlayerPenetrationRequests();
-			Sex.addPlayerPenetrationRequest(OrificeType.ANUS);
+			Sex.addPlayerPenetrationRequest(SexAreaOrifice.ANUS);
 		}
 		
 		@Override
@@ -308,13 +318,16 @@ public class PlayerTalk {
 	};
 	
 	public static final SexAction PLAYER_REQUEST_ORAL = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ONE_VANILLA,
 			null,
-			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Request oral";
@@ -327,7 +340,7 @@ public class PlayerTalk {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.getPlayerPenetrationRequests().contains(OrificeType.MOUTH)
+			return !Sex.getPlayerPenetrationRequests().contains(SexAreaOrifice.MOUTH)
 					&& !SexFlags.requestsBlockedPlayer
 					&& !Sex.isDom(Main.game.getPlayer());
 		}
@@ -343,7 +356,7 @@ public class PlayerTalk {
 		@Override
 		public void applyEffects() {
 			Sex.clearPlayerPenetrationRequests();
-			Sex.addPlayerPenetrationRequest(OrificeType.MOUTH);
+			Sex.addPlayerPenetrationRequest(SexAreaOrifice.MOUTH);
 		}
 		
 		@Override
@@ -358,13 +371,16 @@ public class PlayerTalk {
 	};
 	
 	public static final SexAction PLAYER_REQUEST_NIPPLE = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ONE_VANILLA,
 			null,
-			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Request nipple-sex";
@@ -377,7 +393,7 @@ public class PlayerTalk {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.getPlayerPenetrationRequests().contains(OrificeType.NIPPLE)
+			return !Sex.getPlayerPenetrationRequests().contains(SexAreaOrifice.NIPPLE)
 					&& Main.game.getPlayer().isBreastFuckableNipplePenetration()
 					&& !SexFlags.requestsBlockedPlayer
 					&& !Sex.isDom(Main.game.getPlayer());
@@ -394,7 +410,7 @@ public class PlayerTalk {
 		@Override
 		public void applyEffects() {
 			Sex.clearPlayerPenetrationRequests();
-			Sex.addPlayerPenetrationRequest(OrificeType.NIPPLE);
+			Sex.addPlayerPenetrationRequest(SexAreaOrifice.NIPPLE);
 		}
 		
 		@Override
@@ -409,13 +425,16 @@ public class PlayerTalk {
 	};
 	
 	public static final SexAction PLAYER_REQUEST_PAIZURI = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ONE_VANILLA,
 			null,
-			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Request paizuri";
@@ -428,7 +447,7 @@ public class PlayerTalk {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.getPlayerPenetrationRequests().contains(OrificeType.BREAST)
+			return !Sex.getPlayerPenetrationRequests().contains(SexAreaOrifice.BREAST)
 					&& Main.game.getPlayer().isBreastFuckablePaizuri()
 					&& !SexFlags.requestsBlockedPlayer
 					&& !Sex.isDom(Main.game.getPlayer())
@@ -447,7 +466,7 @@ public class PlayerTalk {
 		@Override
 		public void applyEffects() {
 			Sex.clearPlayerPenetrationRequests();
-			Sex.addPlayerPenetrationRequest(OrificeType.BREAST);
+			Sex.addPlayerPenetrationRequest(SexAreaOrifice.BREAST);
 		}
 		
 		@Override
@@ -462,13 +481,16 @@ public class PlayerTalk {
 	};
 	
 	public static final SexAction PLAYER_REQUEST_NAIZURI = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ONE_VANILLA,
 			null,
-			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Request naizuri";
@@ -481,7 +503,7 @@ public class PlayerTalk {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.getPlayerPenetrationRequests().contains(OrificeType.BREAST)
+			return !Sex.getPlayerPenetrationRequests().contains(SexAreaOrifice.BREAST)
 					&& !Main.game.getPlayer().isBreastFuckablePaizuri()
 					&& !SexFlags.requestsBlockedPlayer
 					&& !Sex.isDom(Main.game.getPlayer())
@@ -500,7 +522,7 @@ public class PlayerTalk {
 		@Override
 		public void applyEffects() {
 			Sex.clearPlayerPenetrationRequests();
-			Sex.addPlayerPenetrationRequest(OrificeType.BREAST);
+			Sex.addPlayerPenetrationRequest(SexAreaOrifice.BREAST);
 		}
 		
 		@Override

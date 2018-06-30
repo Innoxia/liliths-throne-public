@@ -3,14 +3,17 @@ package com.lilithsthrone.game.sex.sexActions.baseActionsPartner;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
-import com.lilithsthrone.game.sex.OrificeType;
-import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
+import com.lilithsthrone.game.sex.sexActions.SexActionLimitation;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.88
@@ -20,13 +23,16 @@ import com.lilithsthrone.main.Main;
 public class PartnerTongueNipple {
 
 	public static final SexAction PARTNER_SUCKLE = new SexAction(
-			SexActionType.PARTNER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
+			SexActionType.REQUIRES_NO_PENETRATION_AND_EXPOSED,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TONGUE,
-			OrificeType.NIPPLE,
-			SexParticipantType.PITCHER) {
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TONGUE, SexAreaOrifice.NIPPLE)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		
 		@Override
 		public String getActionTitle() {
@@ -125,19 +131,22 @@ public class PartnerTongueNipple {
 		
 		@Override
 		public String applyEffectsString() {
-			return Sex.getActivePartner().ingestFluid(Main.game.getPlayer(), Main.game.getPlayer().getMilkType(), OrificeType.MOUTH, Main.game.getPlayer().getBreastRawMilkStorageValue()/5, Main.game.getPlayer().getMilk().getFluidModifiers())
+			return Sex.getActivePartner().ingestFluid(Main.game.getPlayer(), Main.game.getPlayer().getMilkType(), SexAreaOrifice.MOUTH, Main.game.getPlayer().getBreastRawMilkStorageValue()/5, Main.game.getPlayer().getMilk().getFluidModifiers())
 					+ Main.game.getPlayer().incrementBreastStoredMilk(-Main.game.getPlayer().getBreastRawMilkStorageValue()/5);
 		}
 	};
 	
 	public static final SexAction PLAYER_BREASTFEED = new SexAction(
-			SexActionType.PLAYER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
+			SexActionType.REQUIRES_NO_PENETRATION_AND_EXPOSED,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TONGUE,
-			OrificeType.NIPPLE,
-			SexParticipantType.CATCHER) {
+			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.NIPPLE, SexAreaPenetration.TONGUE)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		
 		@Override
 		public String getActionTitle() {
@@ -236,7 +245,7 @@ public class PartnerTongueNipple {
 		
 		@Override
 		public String applyEffectsString() {
-			return Sex.getActivePartner().ingestFluid(Main.game.getPlayer(), Main.game.getPlayer().getMilkType(), OrificeType.MOUTH, Main.game.getPlayer().getBreastRawMilkStorageValue()/5, Main.game.getPlayer().getMilk().getFluidModifiers())
+			return Sex.getActivePartner().ingestFluid(Main.game.getPlayer(), Main.game.getPlayer().getMilkType(), SexAreaOrifice.MOUTH, Main.game.getPlayer().getBreastRawMilkStorageValue()/5, Main.game.getPlayer().getMilk().getFluidModifiers())
 					+ Main.game.getPlayer().incrementBreastStoredMilk(-Main.game.getPlayer().getBreastRawMilkStorageValue()/5);
 		}
 		

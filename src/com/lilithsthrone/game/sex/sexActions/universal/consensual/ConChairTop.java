@@ -11,15 +11,18 @@ import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.LubricationType;
-import com.lilithsthrone.game.sex.OrificeType;
-import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
+import com.lilithsthrone.game.sex.sexActions.SexActionLimitation;
 import com.lilithsthrone.game.sex.sexActions.SexActionPriority;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.69.9
@@ -31,13 +34,16 @@ public class ConChairTop {
 	private static StringBuilder descriptionSB = new StringBuilder();
 	
 	public static final SexAction PLAYER_KISS = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Kiss";
@@ -50,7 +56,7 @@ public class ConChairTop {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isOrificeFree(Sex.getActivePartner(), OrificeType.MOUTH) && Sex.isOrificeFree(Main.game.getPlayer(), OrificeType.MOUTH);
+			return Sex.isOrificeFree(Sex.getActivePartner(), SexAreaOrifice.MOUTH) && Sex.isOrificeFree(Main.game.getPlayer(), SexAreaOrifice.MOUTH);
 		}
 
 		@Override
@@ -68,13 +74,16 @@ public class ConChairTop {
 	};
 	
 	public static final SexAction PLAYER_GRIND_GROIN = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Grind groin";
@@ -87,7 +96,7 @@ public class ConChairTop {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isAnyNonSelfPenetrationHappening();
+			return !Sex.isAnyNonSelfOngoingActionHappening();
 		}
 
 		@Override
@@ -105,13 +114,16 @@ public class ConChairTop {
 	};
 	
 	public static final SexAction PLAYER_FEEL_BREASTS = new SexAction(
-			SexActionType.PLAYER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
+			SexActionType.REQUIRES_NO_PENETRATION_AND_EXPOSED,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ZERO_PURE,
-			null,
-			OrificeType.NIPPLE,
-			SexParticipantType.PITCHER) {
+			Util.newHashMapOfValues(new Value<>(null, SexAreaOrifice.NIPPLE)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Feel breasts";
@@ -161,13 +173,16 @@ public class ConChairTop {
 	};
 	
 	public static final SexAction PLAYER_PINCH_NIPPLES = new SexAction(
-			SexActionType.PLAYER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
+			SexActionType.REQUIRES_NO_PENETRATION_AND_EXPOSED,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			null,
-			OrificeType.NIPPLE,
-			SexParticipantType.PITCHER) {
+			Util.newHashMapOfValues(new Value<>(null, SexAreaOrifice.NIPPLE)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Pinch nipples";
@@ -242,13 +257,16 @@ public class ConChairTop {
 	};
 	
 	public static final SexAction FINGER_NIPPLES = new SexAction(
-			SexActionType.PLAYER_PENETRATION,
+			SexActionType.START_ONGOING,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.TWO_HORNY,
-			PenetrationType.FINGER,
-			OrificeType.NIPPLE,
-			SexParticipantType.PITCHER) {
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaOrifice.NIPPLE)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Finger nipples";
@@ -314,13 +332,16 @@ public class ConChairTop {
 	};
 	
 	public static final SexAction PLAYER_KISS_NIPPLES = new SexAction(
-			SexActionType.PLAYER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
+			SexActionType.REQUIRES_NO_PENETRATION_AND_EXPOSED,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TONGUE,
-			OrificeType.NIPPLE,
-			SexParticipantType.PITCHER) {
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TONGUE, SexAreaOrifice.NIPPLE)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Kiss nipples";
@@ -378,7 +399,7 @@ public class ConChairTop {
 
 		@Override
 		public void applyEffects() {
-			Sex.addOrificeLubrication(Sex.getActivePartner(), OrificeType.NIPPLE, LubricationType.PLAYER_SALIVA);
+			Sex.addOrificeLubrication(Sex.getActivePartner(), SexAreaOrifice.NIPPLE, LubricationType.PLAYER_SALIVA);
 		}
 		
 		@Override
@@ -389,13 +410,16 @@ public class ConChairTop {
 	};
 	
 	public static final SexAction PLAYER_STOP_FINGER_NIPPLES = new SexAction(
-			SexActionType.PLAYER_STOP_PENETRATION,
+			SexActionType.STOP_ONGOING,
 			ArousalIncrease.ZERO_NONE,
 			ArousalIncrease.ZERO_NONE,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.FINGER,
-			OrificeType.NIPPLE,
-			SexParticipantType.PITCHER) {
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaOrifice.NIPPLE)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Stop nipple fingering";
@@ -413,13 +437,16 @@ public class ConChairTop {
 	};
 	
 	public static final SexAction PLAYER_DIRTY_TALK = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
 			null,
-			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Dirty talk";
@@ -445,13 +472,16 @@ public class ConChairTop {
 	};
 	
 	public static final SexAction PLAYER_ROUGH_TALK = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.THREE_DIRTY,
 			null,
-			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Rough talk";
@@ -466,7 +496,7 @@ public class ConChairTop {
 		public String getDescription() {
 			descriptionSB.setLength(0);
 			
-			if(Sex.isAnyNonSelfPenetrationHappening()){
+			if(Sex.isAnyNonSelfOngoingActionHappening()){
 				
 				descriptionSB.append(UtilText.returnStringAtRandom(
 						"Reaching down to grab [npc.her] chin, you grin down evilly at the [npc.moaning] [npc.race], ",
@@ -496,13 +526,16 @@ public class ConChairTop {
 	};
 	
 	public static final SexAction PLAYER_PENETRATE = new SexAction(
-			SexActionType.PLAYER_PENETRATION,
+			SexActionType.START_ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.VAGINA,
-			SexParticipantType.PITCHER) {
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Fuck [npc.herHim]";
@@ -515,8 +548,8 @@ public class ConChairTop {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA)!=PenetrationType.PENIS
-					&& Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.ANUS)!=PenetrationType.PENIS;
+			return !Sex.getAllContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS)
+					&& !Sex.getAllContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.ANUS).contains(SexAreaPenetration.PENIS);
 		}
 
 		@Override
@@ -548,13 +581,16 @@ public class ConChairTop {
 	};
 	
 	public static final SexAction PLAYER_NORMAL_FUCK = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.VAGINA,
-			SexParticipantType.PITCHER) {
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Normal fuck";
@@ -574,20 +610,23 @@ public class ConChairTop {
 							
 					"As you fill [npc.name]'s [npc.pussy+] with your [pc.cock+], [npc.she] looks up at you and lets out a long, satisfied [npc.moan].",
 							
-					(Sex.isPenetrationTypeFree(Main.game.getPlayer(), PenetrationType.FINGER)
+					(Sex.isPenetrationTypeFree(Main.game.getPlayer(), SexAreaPenetration.FINGER)
 							?"You slide a [pc.hand] under [npc.name]'s thighs, running down to grip [npc.her] behind the knee and lifting [npc.her] [npc.leg] up slightly as you plunge your [pc.cock+] in and out of her [npc.pussy+]."
 							:"You grin down at [npc.name] as you steadily pump your [pc.cock+] in and out of [npc.her] [npc.pussy+]."));
 		}
 	};
 	
 	public static final SexAction PLAYER_ROUGH_FUCK = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.THREE_DIRTY,
-			PenetrationType.PENIS,
-			OrificeType.VAGINA,
-			SexParticipantType.PITCHER) {
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Rough fuck";
@@ -614,7 +653,7 @@ public class ConChairTop {
 					"Roughly grabbing [npc.name]'s [npc.hips+], [npc.she] lets out a startled cry as you forcefully pull [npc.herHim] into your crotch."
 								+ " [npc.Her] [npc.hands] drop down for support as you manhandle [npc.herHim] forwards and back, repeatedly spearing [npc.her] [npc.pussy+] on your [pc.cock+].",
 							
-					(Sex.isPenetrationTypeFree(Main.game.getPlayer(), PenetrationType.FINGER)
+					(Sex.isPenetrationTypeFree(Main.game.getPlayer(), SexAreaPenetration.FINGER)
 							?"Reaching down, you grab [npc.name]'s chin, pushing your thumb into [npc.her] mouth as you roughly slam your [pc.cock+] in and out of [npc.name] [npc.pussy+]."
 							:"You grin down at [npc.name] as you start roughly slamming your [pc.cock+] in and out of [npc.her] [npc.pussy+]."));
 		}
@@ -622,13 +661,16 @@ public class ConChairTop {
 	};
 	
 	public static final SexAction PLAYER_PENETRATE_ANAL = new SexAction(
-			SexActionType.PLAYER_PENETRATION,
+			SexActionType.START_ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.TWO_HORNY,
-			PenetrationType.PENIS,
-			OrificeType.ANUS,
-			SexParticipantType.PITCHER) {
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.ANUS)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Fuck [npc.her] ass";
@@ -641,8 +683,8 @@ public class ConChairTop {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA)!=PenetrationType.PENIS
-					&& Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.ANUS)!=PenetrationType.PENIS;
+			return !Sex.getAllContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS)
+					&& !Sex.getAllContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.ANUS).contains(SexAreaPenetration.PENIS);
 		}
 
 		@Override
@@ -675,13 +717,16 @@ public class ConChairTop {
 	};
 	
 	public static final SexAction PLAYER_NORMAL_ANAL_FUCK = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.ANUS,
-			SexParticipantType.PITCHER) {
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.ANUS)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Normal anal";
@@ -701,7 +746,7 @@ public class ConChairTop {
 							
 					"As you fill [npc.name]'s [npc.asshole+] with your [pc.cock+], [npc.she] looks up at you and lets out a long, satisfied [npc.moan].",
 							
-					(Sex.isPenetrationTypeFree(Main.game.getPlayer(), PenetrationType.FINGER)
+					(Sex.isPenetrationTypeFree(Main.game.getPlayer(), SexAreaPenetration.FINGER)
 							?"You slide a [pc.hand] under [npc.name]'s thighs, running down to grip [npc.her] behind the knee and lifting [npc.her] [npc.leg] up slightly as you plunge your [pc.cock+] in and out of her [npc.asshole+]."
 							:"You grin down at [npc.name] as you steadily pump your [pc.cock+] in and out of [npc.her] [npc.asshole+]."));
 		}
@@ -709,13 +754,16 @@ public class ConChairTop {
 	};
 	
 	public static final SexAction PLAYER_ROUGH_ANAL_FUCK = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.THREE_DIRTY,
-			PenetrationType.PENIS,
-			OrificeType.ANUS,
-			SexParticipantType.PITCHER) {
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.ANUS)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Rough anal";
@@ -742,7 +790,7 @@ public class ConChairTop {
 					"Roughly grabbing [npc.name]'s [npc.hips+], [npc.she] lets out a startled cry as you forcefully pull [npc.herHim] into your crotch."
 								+ " [npc.Her] [npc.hands] drop down for support as you manhandle [npc.herHim] forwards and back, repeatedly spearing [npc.her] [npc.asshole+] on your [pc.cock+].",
 							
-					(Sex.isPenetrationTypeFree(Main.game.getPlayer(), PenetrationType.FINGER)
+					(Sex.isPenetrationTypeFree(Main.game.getPlayer(), SexAreaPenetration.FINGER)
 							?"Reaching down, you grab [npc.name]'s chin, pushing your thumb into [npc.her] mouth as you roughly slam your [pc.cock+] in and out of [npc.name] [npc.asshole+]."
 							:"You grin down at [npc.name] as you start roughly slamming your [pc.cock+] in and out of [npc.her] [npc.asshole+]."));
 		}
@@ -750,13 +798,16 @@ public class ConChairTop {
 	};
 	
 	public static final SexAction PLAYER_PENETRATE_BREASTS = new SexAction(
-			SexActionType.PLAYER_PENETRATION,
+			SexActionType.START_ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.THREE_DIRTY,
-			PenetrationType.PENIS,
-			OrificeType.NIPPLE,
-			SexParticipantType.PITCHER) {
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.NIPPLE)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Fuck nipples";
@@ -769,8 +820,8 @@ public class ConChairTop {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA)!=PenetrationType.PENIS
-					&& Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.ANUS)!=PenetrationType.PENIS;
+			return !Sex.getAllContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS)
+					&& !Sex.getAllContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.ANUS).contains(SexAreaPenetration.PENIS);
 		}
 
 		@Override
@@ -783,13 +834,16 @@ public class ConChairTop {
 	};
 	
 	public static final SexAction PLAYER_NORMAL_NIPPLE_FUCK = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.NIPPLE,
-			SexParticipantType.PITCHER) {
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.NIPPLE)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Normal fuck";
@@ -809,7 +863,7 @@ public class ConChairTop {
 							
 					"As you fill [npc.name]'s [npc.nipple+] with your [pc.cock+], [npc.she] looks up at you and lets out a long, satisfied [npc.moan].",
 							
-					(Sex.isPenetrationTypeFree(Main.game.getPlayer(), PenetrationType.FINGER)
+					(Sex.isPenetrationTypeFree(Main.game.getPlayer(), SexAreaPenetration.FINGER)
 							?"You slide a [pc.hand] down to [npc.name]'s [npc.breast], lifting it up slightly as you plunge your [pc.cock+] in and out of it's [npc.nipple+]."
 							:"You grin down at [npc.name] as you steadily pump your [pc.cock+] in and out of [npc.her] [npc.nipple+]."));
 		}
@@ -817,13 +871,16 @@ public class ConChairTop {
 	};
 	
 	public static final SexAction PLAYER_ROUGH_NIPPLE_FUCK = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.THREE_DIRTY,
-			PenetrationType.PENIS,
-			OrificeType.NIPPLE,
-			SexParticipantType.PITCHER) {
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.NIPPLE)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Rough fuck";
@@ -853,13 +910,16 @@ public class ConChairTop {
 	};
 	
 	public static final SexAction PLAYER_STOP_FUCK = new SexAction(
-			SexActionType.PLAYER_STOP_PENETRATION,
+			SexActionType.STOP_ONGOING,
 			ArousalIncrease.ZERO_NONE,
 			ArousalIncrease.ZERO_NONE,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS,
-			OrificeType.VAGINA,
-			SexParticipantType.PITCHER) {
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Stop penetration";
@@ -877,13 +937,16 @@ public class ConChairTop {
 	};
 	
 	public static final SexAction PLAYER_STOP_ANAL_FUCK = new SexAction(
-			SexActionType.PLAYER_STOP_PENETRATION,
+			SexActionType.STOP_ONGOING,
 			ArousalIncrease.ZERO_NONE,
 			ArousalIncrease.ZERO_NONE,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS,
-			OrificeType.ANUS,
-			SexParticipantType.PITCHER) {
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.ANUS)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Stop penetration";
@@ -901,13 +964,16 @@ public class ConChairTop {
 	};
 	
 	public static final SexAction PLAYER_STOP_NIPPLE_FUCK = new SexAction(
-			SexActionType.PLAYER_STOP_PENETRATION,
+			SexActionType.STOP_ONGOING,
 			ArousalIncrease.ZERO_NONE,
 			ArousalIncrease.ZERO_NONE,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS,
-			OrificeType.NIPPLE,
-			SexParticipantType.PITCHER) {
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.NIPPLE)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Stop penetration";
@@ -926,13 +992,16 @@ public class ConChairTop {
 	
 	
 	public static final SexAction PLAYER_RIDE_PARTNERS_COCK = new SexAction(
-			SexActionType.PLAYER_PENETRATION,
+			SexActionType.START_ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.VAGINA,
-			SexParticipantType.CATCHER) {
+			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Ride [npc.her] cock";
@@ -945,8 +1014,8 @@ public class ConChairTop {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.VAGINA)!=PenetrationType.PENIS
-					&& Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.ANUS)!=PenetrationType.PENIS;
+			return !Sex.getAllContactingSexAreas(Sex.getActivePartner(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS)
+					&& !Sex.getAllContactingSexAreas(Sex.getActivePartner(), SexAreaOrifice.ANUS).contains(SexAreaPenetration.PENIS);
 		}
 
 		@Override
@@ -957,13 +1026,16 @@ public class ConChairTop {
 	};
 	
 	public static final SexAction PLAYER_NORMAL_RIDE = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.VAGINA,
-			SexParticipantType.CATCHER) {
+			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Bounce on cock";
@@ -988,13 +1060,16 @@ public class ConChairTop {
 	};
 	
 	public static final SexAction PLAYER_ROUGH_RIDE = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.TWO_HORNY,
-			PenetrationType.PENIS,
-			OrificeType.VAGINA,
-			SexParticipantType.CATCHER) {
+			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Rough ride";
@@ -1017,7 +1092,7 @@ public class ConChairTop {
 					"Roughly grabbing [npc.name]'s shoulders, you let out [pc.a_moan+] as you start frantically bouncing up and down in [npc.her] lap,"
 							+ " repeatedly spearing your [pc.pussy+] on [npc.her] [npc.cock+] as [npc.she] joins [npc.her] [npc.moans] with yours.",
 							
-					(Sex.isPenetrationTypeFree(Main.game.getPlayer(), PenetrationType.FINGER)
+					(Sex.isPenetrationTypeFree(Main.game.getPlayer(), SexAreaPenetration.FINGER)
 							?"Reaching down, you grab [npc.name]'s chin, pushing your thumb into [npc.her] mouth as you roughly bounce up and down on [npc.her] [npc.cock+]."
 							:"You grin down at [npc.name] as you start roughly bouncing up and down on [npc.her] [npc.cock+]."));
 		}
@@ -1026,13 +1101,16 @@ public class ConChairTop {
 	
 	
 	public static final SexAction PLAYER_RIDE_ANAL_PARTNERS_COCK = new SexAction(
-			SexActionType.PLAYER_PENETRATION,
+			SexActionType.START_ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.TWO_HORNY,
-			PenetrationType.PENIS,
-			OrificeType.ANUS,
-			SexParticipantType.CATCHER) {
+			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.ANUS, SexAreaPenetration.PENIS)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Anal ride";
@@ -1045,8 +1123,8 @@ public class ConChairTop {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.VAGINA)!=PenetrationType.PENIS
-					&& Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.ANUS)!=PenetrationType.PENIS;
+			return !Sex.getAllContactingSexAreas(Sex.getActivePartner(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS)
+					&& !Sex.getAllContactingSexAreas(Sex.getActivePartner(), SexAreaOrifice.ANUS).contains(SexAreaPenetration.PENIS);
 		}
 
 		@Override
@@ -1059,13 +1137,16 @@ public class ConChairTop {
 	};
 	
 	public static final SexAction PLAYER_NORMAL_ANAL_RIDE = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.ANUS,
-			SexParticipantType.CATCHER) {
+			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.ANUS, SexAreaPenetration.PENIS)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Bounce on cock";
@@ -1091,13 +1172,16 @@ public class ConChairTop {
 	};
 	
 	public static final SexAction PLAYER_ROUGH_ANAL_RIDE = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.TWO_HORNY,
-			PenetrationType.PENIS,
-			OrificeType.ANUS,
-			SexParticipantType.CATCHER) {
+			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.ANUS, SexAreaPenetration.PENIS)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Rough ride";
@@ -1120,7 +1204,7 @@ public class ConChairTop {
 					"Roughly grabbing [npc.name]'s shoulders, you let out [pc.a_moan+] as you start frantically bouncing up and down in [npc.her] lap,"
 							+ " repeatedly spearing your [pc.asshole+] on [npc.her] [npc.cock+] as [npc.she] joins [npc.her] [npc.moans] with yours.",
 							
-					(Sex.isPenetrationTypeFree(Main.game.getPlayer(), PenetrationType.FINGER)
+					(Sex.isPenetrationTypeFree(Main.game.getPlayer(), SexAreaPenetration.FINGER)
 							?"Reaching down, you grab [npc.name]'s chin, pushing your thumb into [npc.her] mouth as you roughly bounce up and down on [npc.her] [npc.cock+]."
 							:"You grin down at [npc.name] as you start roughly bouncing up and down on [npc.her] [npc.cock+]."));
 		}
@@ -1128,13 +1212,16 @@ public class ConChairTop {
 	};
 	
 	public static final SexAction PLAYER_STOP_RIDING = new SexAction(
-			SexActionType.PLAYER_STOP_PENETRATION,
+			SexActionType.STOP_ONGOING,
 			ArousalIncrease.ZERO_NONE,
 			ArousalIncrease.ZERO_NONE,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS,
-			OrificeType.VAGINA,
-			SexParticipantType.CATCHER) {
+			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Stop riding";
@@ -1152,13 +1239,16 @@ public class ConChairTop {
 	};
 	
 	public static final SexAction PLAYER_STOP_ANAL_RIDING = new SexAction(
-			SexActionType.PLAYER_STOP_PENETRATION,
+			SexActionType.STOP_ONGOING,
 			ArousalIncrease.ZERO_NONE,
 			ArousalIncrease.ZERO_NONE,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS,
-			OrificeType.ANUS,
-			SexParticipantType.CATCHER) {
+			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.ANUS, SexAreaPenetration.PENIS)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Stop riding";
@@ -1177,13 +1267,16 @@ public class ConChairTop {
 	
 	
 	public static final SexAction PLAYER_GET_PEGGED = new SexAction(
-			SexActionType.PLAYER_PENETRATION,
+			SexActionType.START_ONGOING,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.THREE_DIRTY,
-			PenetrationType.TAIL,
-			OrificeType.ANUS,
-			SexParticipantType.CATCHER) {
+			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.ANUS, SexAreaPenetration.TAIL)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Get tail-pegged";
@@ -1206,13 +1299,16 @@ public class ConChairTop {
 	};
 		
 	public static final SexAction PLAYER_STOP_GETTING_PEGGED = new SexAction(
-		        SexActionType.PLAYER_STOP_PENETRATION,
+		        SexActionType.STOP_ONGOING,
 		        ArousalIncrease.TWO_LOW,
 		        ArousalIncrease.TWO_LOW,
 		        CorruptionLevel.ZERO_PURE,
-		        PenetrationType.TAIL,
-		        OrificeType.ANUS,
-		        SexParticipantType.CATCHER) {
+				Util.newHashMapOfValues(new Value<>(SexAreaOrifice.ANUS, SexAreaPenetration.TAIL)),
+		        SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 	    @Override
 	    public String getActionTitle() {
 		    return "Stop getting tail-pegged";
@@ -1237,13 +1333,16 @@ public class ConChairTop {
 	};
 	
 	public static final SexAction PLAYER_GET_TAIL_FUCKED = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TAIL,
-			OrificeType.VAGINA,
-			SexParticipantType.CATCHER) {
+			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.VAGINA, SexAreaPenetration.TAIL)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Get tail-fucked";
@@ -1267,13 +1366,16 @@ public class ConChairTop {
 	// Partner actions:
 
 	public static final SexAction PARTNER_KISS = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Kiss";
@@ -1286,7 +1388,7 @@ public class ConChairTop {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isOrificeFree(Sex.getActivePartner(), OrificeType.MOUTH) && Sex.isOrificeFree(Main.game.getPlayer(), OrificeType.MOUTH);
+			return Sex.isOrificeFree(Sex.getActivePartner(), SexAreaOrifice.MOUTH) && Sex.isOrificeFree(Main.game.getPlayer(), SexAreaOrifice.MOUTH);
 		}
 
 		@Override
@@ -1304,13 +1406,16 @@ public class ConChairTop {
 	};
 	
 	public static final SexAction PARTNER_TALK_DIRTY = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "";
@@ -1337,13 +1442,16 @@ public class ConChairTop {
 	};
 	
 	public static final SexAction PARTNER_SUBMISSIVE_TALK = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "";
@@ -1388,13 +1496,16 @@ public class ConChairTop {
 	};
 	
 	public static final SexAction PARTNER_ASKS_FOR_ROUGH_SEX = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.TWO_HORNY,
 			null,
-			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "";
@@ -1432,13 +1543,16 @@ public class ConChairTop {
 	};
 	
 	public static final SexAction PARTNER_FEEL_BREASTS = new SexAction(
-			SexActionType.PARTNER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
+			SexActionType.REQUIRES_NO_PENETRATION_AND_EXPOSED,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ZERO_PURE,
-			null,
-			OrificeType.NIPPLE,
-			SexParticipantType.PITCHER) {
+			Util.newHashMapOfValues(new Value<>(null, SexAreaOrifice.NIPPLE)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Feel breasts";
@@ -1487,13 +1601,16 @@ public class ConChairTop {
 	};
 	
 	public static final SexAction PARTNER_PINCH_NIPPLES = new SexAction(
-			SexActionType.PARTNER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
+			SexActionType.REQUIRES_NO_PENETRATION_AND_EXPOSED,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			null,
-			OrificeType.NIPPLE,
-			SexParticipantType.PITCHER) {
+			Util.newHashMapOfValues(new Value<>(null, SexAreaOrifice.NIPPLE)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Pinch nipples";
@@ -1562,13 +1679,16 @@ public class ConChairTop {
 	};
 	
 	public static final SexAction PARTNER_KISS_NIPPLES = new SexAction(
-			SexActionType.PARTNER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
+			SexActionType.REQUIRES_NO_PENETRATION_AND_EXPOSED,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TONGUE,
-			OrificeType.NIPPLE,
-			SexParticipantType.PITCHER) {
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TONGUE, SexAreaOrifice.NIPPLE)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Kiss nipples";
@@ -1631,7 +1751,7 @@ public class ConChairTop {
 
 		@Override
 		public void applyEffects() {
-			Sex.addOrificeLubrication(Main.game.getPlayer(), OrificeType.NIPPLE, LubricationType.PARTNER_SALIVA);
+			Sex.addOrificeLubrication(Main.game.getPlayer(), SexAreaOrifice.NIPPLE, LubricationType.PARTNER_SALIVA);
 		}
 		
 		@Override
@@ -1642,13 +1762,16 @@ public class ConChairTop {
 	};
 	
 	public static final SexAction TAIL_PARTNER_HELPS_PLAYER = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "";
@@ -1661,7 +1784,7 @@ public class ConChairTop {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getActivePartner().isTailPrehensile() && Sex.isPenetrationTypeFree(Sex.getActivePartner(), PenetrationType.TAIL);
+			return Sex.getActivePartner().isTailPrehensile() && Sex.isPenetrationTypeFree(Sex.getActivePartner(), SexAreaPenetration.TAIL);
 		}
 
 		@Override
@@ -1678,13 +1801,16 @@ public class ConChairTop {
 	};
 	
 	public static final SexAction PARTNER_PEGGING_FUN = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.TAIL,
-			OrificeType.ANUS,
-			SexParticipantType.PITCHER) {
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TAIL, SexAreaOrifice.ANUS)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "";
@@ -1711,13 +1837,16 @@ public class ConChairTop {
 	};
 	
 	public static final SexAction TAIL_PARTNERFUCKING_FUN = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.TAIL,
-			OrificeType.VAGINA,
-			SexParticipantType.PITCHER) {
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TAIL, SexAreaOrifice.VAGINA)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "";
@@ -1743,13 +1872,16 @@ public class ConChairTop {
 	};
 	
 	public static final SexAction PARTNER_SMOULDERING_LOOK = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.FIVE_EXTREME,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "";
@@ -1785,13 +1917,16 @@ public class ConChairTop {
 	};
 	
 	public static final SexAction PARTNER_PENETRATES = new SexAction(
-			SexActionType.PARTNER_PENETRATION,
+			SexActionType.START_ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS,
-			OrificeType.VAGINA,
-			SexParticipantType.CATCHER) {
+			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "";
@@ -1804,8 +1939,8 @@ public class ConChairTop {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA)!=PenetrationType.PENIS
-					&& Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.ANUS)!=PenetrationType.PENIS;
+			return !Sex.getAllContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS)
+					&& !Sex.getAllContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.ANUS).contains(SexAreaPenetration.PENIS);
 		}
 
 		@Override
@@ -1815,7 +1950,7 @@ public class ConChairTop {
 
 			descriptionSB.append("[npc.Name] lets out an impatient cry, and without any further warning, [npc.she] suddenly wraps [npc.her] [npc.legs+] around your lower back."
 					+ " Letting out [npc.a_moan+], [npc.she] looks up into your [pc.eyes], [npc.speech(Come on, fuck me!)]"
-					+ "</br></br>"
+					+ "<br/><br/>"
 					+ "Before you can react, [npc.she] uses [npc.her] [npc.legs] to pull you forwards, letting out a delighted [npc.moan] as the [pc.cockHead+] of your [pc.cock+] slips inside [npc.her] [npc.pussy+].");
 			
 
@@ -1845,13 +1980,16 @@ public class ConChairTop {
 	};
 	
 	public static final SexAction PARTNER_PENETRATES_ANAL = new SexAction(
-			SexActionType.PARTNER_PENETRATION,
+			SexActionType.START_ONGOING,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS,
-			OrificeType.ANUS,
-			SexParticipantType.CATCHER) {
+			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.ANUS, SexAreaPenetration.PENIS)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "";
@@ -1864,8 +2002,8 @@ public class ConChairTop {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA)!=PenetrationType.PENIS
-					&& Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.ANUS)!=PenetrationType.PENIS
+			return !Sex.getAllContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS)
+					&& !Sex.getAllContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.ANUS).contains(SexAreaPenetration.PENIS)
 					&& (Sex.getActivePartner().hasFetish(Fetish.FETISH_ANAL_GIVING) || !Sex.getActivePartner().hasVagina());
 		}
 
@@ -1876,7 +2014,7 @@ public class ConChairTop {
 
 			descriptionSB.append("[npc.Name] lets out an impatient cry, and without any further warning, [npc.she] suddenly wraps [npc.her] [npc.legs+] around your lower back."
 					+ " Letting out [npc.a_moan+], [npc.she] looks up into your [pc.eyes], [npc.speech(Come on, fuck my cute little ass!)]"
-					+ "</br></br>"
+					+ "<br/><br/>"
 					+ "Before you can react, [npc.she] uses [npc.her] [npc.legs] to pull you forwards, letting out a delighted [npc.moan] as [npc.she] forces the [pc.cockHead+] of your [pc.cock+] into [npc.her] [npc.asshole+].");
 			
 
@@ -1906,13 +2044,16 @@ public class ConChairTop {
 	};
 	
 	public static final SexAction PARTNER_STARTS_PLAYER_RIDE = new SexAction(
-			SexActionType.PARTNER_PENETRATION,
+			SexActionType.START_ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS,
-			OrificeType.VAGINA,
-			SexParticipantType.PITCHER) {
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "";
@@ -1925,8 +2066,8 @@ public class ConChairTop {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.VAGINA)!=PenetrationType.PENIS
-					&& Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.ANUS)!=PenetrationType.PENIS
+			return !Sex.getAllContactingSexAreas(Sex.getActivePartner(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS)
+					&& !Sex.getAllContactingSexAreas(Sex.getActivePartner(), SexAreaOrifice.ANUS).contains(SexAreaPenetration.PENIS)
 					&& Sex.getActivePartner().hasFetish(Fetish.FETISH_DOMINANT);
 		}
 
@@ -1936,7 +2077,7 @@ public class ConChairTop {
 			
 			descriptionSB.append("[npc.Name] lets out an impatient cry, and without any further warning, [npc.she] suddenly leans forwards and grabs your [pc.arms]."
 					+ " With a forceful yank forwards, [npc.she] pulls you into [npc.her] lap, and as [npc.her] grip shifts to take hold of your [pc.hips], [npc.she] cries out, [npc.speech(I'll show you how to get started!)]"
-					+ "</br></br>"
+					+ "<br/><br/>"
 					+ "Before you can react, [npc.she] roughly pulls you down, letting out a delighted [npc.moan] as the [npc.cockHead+] of [npc.her] [npc.cock+] slips inside your [pc.pussy+].");
 			
 
@@ -1964,13 +2105,16 @@ public class ConChairTop {
 	};
 	
 	public static final SexAction PARTNER_LOCKS_PLAYER = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS,
-			OrificeType.VAGINA,
-			SexParticipantType.CATCHER) {
+			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "";
@@ -1998,13 +2142,16 @@ public class ConChairTop {
 	};
 	
 	public static final SexAction PARTNER_SPREADS_LEGS = new SexAction(
-			SexActionType.PARTNER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
+			SexActionType.REQUIRES_NO_PENETRATION_AND_EXPOSED,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
-			null,
-			OrificeType.VAGINA,
+			Util.newHashMapOfValues(new Value<>(null, SexAreaOrifice.VAGINA)),
 			SexParticipantType.SELF) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "";
@@ -2029,13 +2176,16 @@ public class ConChairTop {
 	};
 	
 	public static final SexAction PARTNER_BOUNCES = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS,
-			OrificeType.VAGINA,
-			SexParticipantType.PITCHER) {
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "";
@@ -2060,13 +2210,16 @@ public class ConChairTop {
 	};
 	
 	public static final SexAction PARTNER_ROUGH_BOUNCES = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS,
-			OrificeType.VAGINA,
-			SexParticipantType.PITCHER) {
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "";
@@ -2097,13 +2250,16 @@ public class ConChairTop {
 	};
 	
 	public static final SexAction PARTNER_ANAL_BOUNCES = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS,
-			OrificeType.ANUS,
-			SexParticipantType.PITCHER) {
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.ANUS)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "";
@@ -2129,13 +2285,16 @@ public class ConChairTop {
 	};
 	
 	public static final SexAction PARTNER_ROUGH_ANAL_BOUNCES = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS,
-			OrificeType.ANUS,
-			SexParticipantType.PITCHER) {
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.ANUS)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "";
@@ -2166,13 +2325,16 @@ public class ConChairTop {
 	};
 	
 	public static final SexAction PARTNER_BUCKS_BACK = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS,
-			OrificeType.VAGINA,
-			SexParticipantType.CATCHER) {
+			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "";
@@ -2201,13 +2363,16 @@ public class ConChairTop {
 	};
 	
 	public static final SexAction PARTNER_BUCKS_BACK_ANAL = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS,
-			OrificeType.ANUS,
-			SexParticipantType.CATCHER) {
+			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.ANUS, SexAreaPenetration.PENIS)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "";

@@ -485,7 +485,7 @@ public class ArcaneArts {
 				+ "</p>"
 				+ "<p>"
 					+ "The wolf-girl strides over to the store's front door, barely giving you a moment to get your things in order before unlocking it and walking back behind her counter."
-					+ " You quickly finish gathering your things, and, taking the package from on top of the counter, you prepare to make your next move."
+					+ " You quickly finish gathering your things, and prepare to make your next move."
 					+ " Vicky leans back against the wall, fixing her gaze onto your face as she waits to see what you'll do next..."
 				+ "</p>";
 		}

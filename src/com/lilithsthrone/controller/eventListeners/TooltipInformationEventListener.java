@@ -100,7 +100,7 @@ public class TooltipInformationEventListener implements EventListener {
 				if (!statusEffect.getModifiersAsStringList(owner).isEmpty()) {
 					int i=0;
 					for (String s : statusEffect.getModifiersAsStringList(owner)) {
-						tooltipSB.append((i!=0?"</br>":"") + s);
+						tooltipSB.append((i!=0?"<br/>":"") + s);
 						i++;
 					}
 					
@@ -167,11 +167,11 @@ public class TooltipInformationEventListener implements EventListener {
 			if (!perk.getModifiersAsStringList().isEmpty()) {
 				int i=0;
 				for (String s : perk.getModifiersAsStringList()) {
-					tooltipSB.append((i!=0?"</br>":"") + s);
+					tooltipSB.append((i!=0?"<br/>":"") + s);
 					i++;
 				}
 			} else
-				tooltipSB.append("<b style='color:" + Colour.PERK.toWebHexString() + ";'>Perk</b>" + "</br><span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>None</span>");
+				tooltipSB.append("<b style='color:" + Colour.PERK.toWebHexString() + ";'>Perk</b>" + "<br/><span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>None</span>");
 			tooltipSB.append("</div>");
 
 			// Picture:
@@ -204,11 +204,11 @@ public class TooltipInformationEventListener implements EventListener {
 			if (!levelUpPerk.getModifiersAsStringList().isEmpty()) {
 				int i=0;
 				for (String s : levelUpPerk.getModifiersAsStringList()) {
-					tooltipSB.append((i!=0?"</br>":"") + s);
+					tooltipSB.append((i!=0?"<br/>":"") + s);
 					i++;
 				}
 			} else {
-				tooltipSB.append("<b style='color:" + Colour.PERK.toWebHexString() + ";'>Perk</b>" + "</br><span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>None</span>");
+				tooltipSB.append("<b style='color:" + Colour.PERK.toWebHexString() + ";'>Perk</b>" + "<br/><span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>None</span>");
 			}
 			tooltipSB.append("</div>");
 
@@ -268,7 +268,7 @@ public class TooltipInformationEventListener implements EventListener {
 			tooltipSB.append("<div class='subTitle-picture'>");
 			int i=0;
 			for (String s : desire.getModifiersAsStringList()) {
-				tooltipSB.append((i!=0?"</br>":"") + s);
+				tooltipSB.append((i!=0?"<br/>":"") + s);
 				i++;
 			}
 			tooltipSB.append("</div>");
@@ -289,7 +289,7 @@ public class TooltipInformationEventListener implements EventListener {
 					tooltipSB.append("<div class='subTitle' style='text-align:center;'>Cost: [style.boldArcane("
 							+ (FetishDesire.getCostToChange()==0
 								?"Free"
-								:""+FetishDesire.getCostToChange()+" Arcane Essence"+(FetishDesire.getCostToChange()>1?"s":""))
+								:Integer.toString(FetishDesire.getCostToChange())+" Arcane Essence"+(FetishDesire.getCostToChange()>1?"s":""))
 							+ ")]</div>");
 				}
 			}
@@ -328,7 +328,7 @@ public class TooltipInformationEventListener implements EventListener {
 				if(!fetish.getFetishesForAutomaticUnlock().isEmpty()) {
 					tooltipSB.append("<div class='subTitle'>Requirements");
 					for (Fetish f : fetish.getFetishesForAutomaticUnlock())
-						tooltipSB.append("</br>[style.boldArcane(" + Util.capitaliseSentence(f.getName(Main.game.getPlayer()))+")]");
+						tooltipSB.append("<br/>[style.boldArcane(" + Util.capitaliseSentence(f.getName(Main.game.getPlayer()))+")]");
 					tooltipSB.append("</div>");
 				}
 				
@@ -337,11 +337,11 @@ public class TooltipInformationEventListener implements EventListener {
 				if (!fetish.getModifiersAsStringList(owner).isEmpty()) {
 					int i=0;
 					for (String s : fetish.getModifiersAsStringList(owner)) {
-						tooltipSB.append((i!=0?"</br>":"") + s);
+						tooltipSB.append((i!=0?"<br/>":"") + s);
 						i++;
 					}
 				} else {
-					tooltipSB.append("<b style='color:" + Colour.FETISH.toWebHexString() + ";'>Fetish</b>" + "</br><span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>None</span>");
+					tooltipSB.append("<b style='color:" + Colour.FETISH.toWebHexString() + ";'>Fetish</b>" + "<br/><span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>None</span>");
 				}
 				tooltipSB.append("</div>");
 	
@@ -374,7 +374,7 @@ public class TooltipInformationEventListener implements EventListener {
 
 			// Attribute modifiers:
 			tooltipSB.append("<div class='subTitle-picture'>"
-					+ "<b style='color:" + Colour.SPECIAL_ATTACK.toWebHexString() + ";'>Special Attack</b></br>"
+					+ "<b style='color:" + Colour.SPECIAL_ATTACK.toWebHexString() + ";'>Special Attack</b><br/>"
 					+ "<b>"
 						+ Attack.getMinimumSpecialAttackDamage(owner, null, specialAttack.getDamageType(), specialAttack.getDamage(), specialAttack.getDamageVariance())
 						+ "-"
@@ -383,12 +383,12 @@ public class TooltipInformationEventListener implements EventListener {
 					+ " <b style='color:" + specialAttack.getDamageType().getMultiplierAttribute().getColour().toWebHexString() + ";'>" + specialAttack.getDamageType().getName()
 					+ "</b> damage");
 
-			tooltipSB.append("</br><b style='color:" + Colour.SPECIAL_ATTACK.toWebHexString() + ";'>Applies</b>");
+			tooltipSB.append("<br/><b style='color:" + Colour.SPECIAL_ATTACK.toWebHexString() + ";'>Applies</b>");
 			if (!specialAttack.getStatusEffects().isEmpty()) {
 				for (Entry<StatusEffect, Integer> e : specialAttack.getStatusEffects().entrySet())
-					tooltipSB.append("</br><b style='color:" + e.getKey().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(e.getKey().getName(owner)) + "</b> for " + e.getValue() + " turn" + (e.getValue() > 1 ? "s" : ""));
+					tooltipSB.append("<br/><b style='color:" + e.getKey().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(e.getKey().getName(owner)) + "</b> for " + e.getValue() + " turn" + (e.getValue() > 1 ? "s" : ""));
 			} else
-				tooltipSB.append("</br><span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>No effects</span>");
+				tooltipSB.append("<br/><span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>No effects</span>");
 			tooltipSB.append("</div>");
 
 			// Picture:
@@ -426,21 +426,21 @@ public class TooltipInformationEventListener implements EventListener {
 
 			if(spell.getDamage(Main.game.getPlayer())>0) {
 				tooltipSB.append(
-						"<b>Base "+spell.getDamage(owner)+"</b> <b style='color:"+ spell.getDamageType().getMultiplierAttribute().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(spell.getDamageType().getName()) + " Damage</b></br>"
+						"<b>Base "+spell.getDamage(owner)+"</b> <b style='color:"+ spell.getDamageType().getMultiplierAttribute().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(spell.getDamageType().getName()) + " Damage</b><br/>"
 						+"<b>"
 							+ Attack.getMinimumSpellDamage(owner, null, spell.getDamageType(), spell.getDamage(owner), spell.getDamageVariance())
 							+ "-"
 							+ Attack.getMaximumSpellDamage(owner, null, spell.getDamageType(), spell.getDamage(owner), spell.getDamageVariance())
 						+ "</b>"
-						+ " <b style='color:"+ spell.getDamageType().getMultiplierAttribute().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(spell.getDamageType().getName()) + " Damage</b></br>");
+						+ " <b style='color:"+ spell.getDamageType().getMultiplierAttribute().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(spell.getDamageType().getName()) + " Damage</b><br/>");
 			}
 			
 			if(!spell.getModifiersAsStringList().isEmpty()) {
 				for(int i=0; i<spell.getModifiersAsStringList().size(); i++) {
-					tooltipSB.append(spell.getModifiersAsStringList().get(i)+(i<spell.getModifiersAsStringList().size()-1?"</br>":""));
+					tooltipSB.append(spell.getModifiersAsStringList().get(i)+(i<spell.getModifiersAsStringList().size()-1?"<br/>":""));
 				}
 			} else {
-				tooltipSB.append("<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>No effects</span></br>");	
+				tooltipSB.append("<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>No effects</span><br/>");	
 			}
 			tooltipSB.append("</div>");
 
@@ -450,6 +450,7 @@ public class TooltipInformationEventListener implements EventListener {
 			// Description & turns remaining:
 			tooltipSB.append(
 					"<div class='description'>"
+							+ (spell.isForbiddenSpell() && !owner.hasSpell(spell)?"[style.italicsArcane(This is a forbidden spell, and can only be discovered through a special quest!)]<br/>":"")
 							+ spell.getDescription()
 					+ "</div>"
 					+ "<div class='subTitle'>"
@@ -473,10 +474,10 @@ public class TooltipInformationEventListener implements EventListener {
 
 			if(!spellUpgrade.getModifiersAsStringList().isEmpty()) {
 				for(int i=0; i<spellUpgrade.getModifiersAsStringList().size(); i++) {
-					tooltipSB.append(spellUpgrade.getModifiersAsStringList().get(i)+(i<spellUpgrade.getModifiersAsStringList().size()-1?"</br>":""));
+					tooltipSB.append(spellUpgrade.getModifiersAsStringList().get(i)+(i<spellUpgrade.getModifiersAsStringList().size()-1?"<br/>":""));
 				}
 			} else {
-				tooltipSB.append("<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>No effects</span></br>");
+				tooltipSB.append("<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>No effects</span><br/>");
 			}
 			
 			tooltipSB.append("</div>");
@@ -544,15 +545,15 @@ public class TooltipInformationEventListener implements EventListener {
 				tooltipSB.setLength(0);
 				tooltipSB.append("<div class='title' style='color:" + attribute.getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(attribute.getName()) + "</div>"
 
-						+ "<div class='subTitle-third'>" + "<b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>Core</b></br>"
+						+ "<div class='subTitle-third'>" + "<b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>Core</b><br/>"
 						+ (owner.getBaseAttributeValue(attribute) > 0 ? "<span style='color: " + Colour.GENERIC_EXCELLENT.getShades()[1] + ";'>" : "<span>") + String.format("%.2f", owner.getBaseAttributeValue(attribute)) + "</span>" + "</div>"
 						
-						+ "<div class='subTitle-third'>" + "<b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>Bonus</b></br>"
+						+ "<div class='subTitle-third'>" + "<b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>Bonus</b><br/>"
 						+ ((owner.getBonusAttributeValue(attribute)) > 0 ? "<span style='color: " + Colour.GENERIC_GOOD.getShades()[1] + ";'>"
 								: ((owner.getBonusAttributeValue(attribute)) == 0 ? "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>" : "<span style='color: " + Colour.GENERIC_BAD.getShades()[1] + ";'>"))
 						+ String.format("%.2f", owner.getBonusAttributeValue(attribute))+ "</span>" + "</div>"
 						
-						+ "<div class='subTitle-third'>" + "<b style='color:" + attribute.getColour().toWebHexString() + ";'>Total</b></br>" + String.format("%.2f", owner.getAttributeValue(attribute))
+						+ "<div class='subTitle-third'>" + "<b style='color:" + attribute.getColour().toWebHexString() + ";'>Total</b><br/>" + String.format("%.2f", owner.getAttributeValue(attribute))
 						+ "</span>" + "</div>");
 				
 				tooltipSB.append("<div class='description-half'>" + attribute.getDescription(owner) + "</div>");
@@ -573,7 +574,7 @@ public class TooltipInformationEventListener implements EventListener {
 					int i=0;
 					for (String s : currentAttributeStatusEffect.getModifiersAsStringList(owner)) {
 						if(i!=0) {
-							tooltipSB.append("</br>");
+							tooltipSB.append("<br/>");
 						}
 						tooltipSB.append(s);
 						i++;
@@ -626,7 +627,7 @@ public class TooltipInformationEventListener implements EventListener {
 					tooltipSB.setLength(0);
 					tooltipSB.append("<div class='title' style='color:" + owner.getRace().getColour().toWebHexString() + ";'>"
 							+(owner.getRaceStage().getName()!=""?"<b style='color:"+owner.getRaceStage().getColour().toWebHexString()+";'>" + Util.capitaliseSentence(owner.getRaceStage().getName())+"</b> ":"")
-							+ "<b style='color:"+owner.getRace().getColour().toWebHexString()+";'>"
+							+ "<b style='color:"+owner.getSubspecies().getColour().toWebHexString()+";'>"
 							+ (owner.isFeminine()?Util.capitaliseSentence(owner.getSubspecies().getSingularFemaleName()):Util.capitaliseSentence(owner.getSubspecies().getSingularMaleName()))
 							+ "</b>"
 							+ "</div>");
@@ -709,14 +710,14 @@ public class TooltipInformationEventListener implements EventListener {
 						"<div class='title' style='color:" + attribute.getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(attribute.getName()) + "</div>"
 
 						+ "<div class='subTitle-third'>"
-						+ "<b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>Core</b></br>"
+						+ "<b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>Core</b><br/>"
 						+ (owner.getBaseAttributeValue(attribute) > 0 ? "<span style='color: " + Colour.GENERIC_EXCELLENT.getShades()[1] + ";'>" : "<span>") + String.format("%.2f", owner.getBaseAttributeValue(attribute))
 						+ "</span>"
 						+ "</div>"
 						+ "<div class='subTitle-third'>"
 						+ "<b style='color:"
 						+ Colour.TEXT_GREY.toWebHexString()
-						+ ";'>Bonus</b></br>"
+						+ ";'>Bonus</b><br/>"
 						+ ((owner.getBonusAttributeValue(attribute)) > 0 ? "<span style='color: "
 								+ Colour.GENERIC_GOOD.getShades()[1]
 								+ ";'>"
@@ -731,7 +732,7 @@ public class TooltipInformationEventListener implements EventListener {
 						+ "</div>"
 						+ "<div class='subTitle-third'>"
 						+ "<b style='color:"
-						+ attribute.getColour().toWebHexString() + ";'>Total</b></br>" + String.format("%.2f", owner.getAttributeValue(attribute)) + "</span>"
+						+ attribute.getColour().toWebHexString() + ";'>Total</b><br/>" + String.format("%.2f", owner.getAttributeValue(attribute)) + "</span>"
 						+ "</div>"
 
 						+ "<div class='description'>" + attribute.getDescription(owner) + "</div>"));
@@ -744,7 +745,13 @@ public class TooltipInformationEventListener implements EventListener {
 
 			tooltipSB.setLength(0);
 			tooltipSB.append(UtilText.parse(owner,
-					"<div class='title' style='color:" + Femininity.valueOf(owner.getFemininityValue()).getColour().toWebHexString() + ";'>"+ (owner.getName().length() == 0 ? "[npc.Race]" : "[npc.Name]") + "</div>"
+					"<div class='title' style='color:" + Femininity.valueOf(owner.getFemininityValue()).getColour().toWebHexString() + ";'>"
+							+ (owner.getName().length() == 0
+								? "[npc.Race]"
+								: (owner.isPlayer()
+										?"[pc.Name]"
+										:"[npc.Name]"))
+						+ "</div>"
 					
 					+"<div class='subTitle' style='margin-bottom:4px;'>Level " + owner.getLevel() + " <span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>|</span> " + owner.getExperience() + " / "
 							+ (10 * owner.getLevel()) + " xp</div>"
@@ -818,7 +825,7 @@ public class TooltipInformationEventListener implements EventListener {
 					+(Main.game.getCurrentDialogueNode().getLabel() == "" || Main.game.getCurrentDialogueNode().getLabel() == null ? "-" : Main.game.getCurrentDialogueNode().getLabel())
 					+ "</div>"
 					+ "<div class='description'>"
-					+ "Click to copy the currently displayed dialogue to your clipboard.</br></br>"
+					+ "Click to copy the currently displayed dialogue to your clipboard.<br/><br/>"
 					+ "This scene was written by <b style='color:"+Colour.ANDROGYNOUS.toWebHexString()+";'>"
 					+ Main.game.getCurrentDialogueNode().getAuthor()
 					+ "</b></div>");
@@ -859,7 +866,7 @@ public class TooltipInformationEventListener implements EventListener {
 			int i=0;
 			for (ItemEffect ie : loadedEnchantment.getEffects()) {
 				for(String s : ie.getEffectsDescription(Main.game.getPlayer(), Main.game.getPlayer())) {
-					tooltipSB.append((i!=0?"</br>":"") + s);
+					tooltipSB.append((i!=0?"<br/>":"") + s);
 					yIncrease++;
 					if(UtilText.parse(s).replaceAll("<.*?>", "").length()>32) { // Yes, this is terrible...
 						yIncrease++;
@@ -904,7 +911,7 @@ public class TooltipInformationEventListener implements EventListener {
 			}
 		}
 
-		(new Thread(new TooltipUpdateThread())).start();
+		TooltipUpdateThread.updateToolTip(-1,-1);
 	}
 	
 	private String getBodyPartDiv(String name, Race race, BodyCoveringType covering) {
@@ -934,7 +941,7 @@ public class TooltipInformationEventListener implements EventListener {
 
 	private String extraAttributeBonus(GameCharacter owner, Attribute bonus) {
 		return "<div class='subTitle-half'>" + "<span style='color:"
-				+ bonus.getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(bonus.getName()) + "</span></br>" + (owner.getAttributeValue(bonus) > bonus.getBaseValue()
+				+ bonus.getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(bonus.getName()) + "</span><br/>" + (owner.getAttributeValue(bonus) > bonus.getBaseValue()
 						? "<span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>" : (owner.getAttributeValue(bonus) < bonus.getBaseValue() ? "<span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>" : ""))
 				+ owner.getAttributeValue(bonus) + "</span>" + "</div>";
 	}

@@ -1,5 +1,7 @@
 package com.lilithsthrone.game.character.npc.submission;
 
+import java.time.Month;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -48,9 +50,10 @@ public class Claire extends NPC {
 				"Claire is the messenger who's responsible for keeping all of Submission's Enforcer posts up-to-date with one another."
 					+ " Thanks to her special 'level three clearance', she's allowed to use the teleportation stations that link all of these posts together."
 					+ " As a result of this, she seems to be in multiple places at once, and whenever you enter one of the enforcer posts, Claire is sure to already be there.",
+				31, Month.DECEMBER, 14,
 				10, Gender.F_V_B_FEMALE, RacialBody.CAT_MORPH, RaceStage.GREATER,
 				new CharacterInventory(30), WorldType.SUBMISSION, PlaceType.SUBMISSION_ENTRANCE, true);
-
+		
 		this.setPersonality(Util.newHashMapOfValues(
 				new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.HIGH),
 				new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.AVERAGE),

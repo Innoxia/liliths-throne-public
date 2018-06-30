@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.PregnancyPossibility;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.ArmType;
@@ -166,6 +167,18 @@ public class ItemEffectType {
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			return getBookEffect(Race.DOG_MORPH, ItemType.BOOK_DOG_MORPH);
+		}
+	};
+	
+	public static AbstractItemEffectType BOOK_READ_FOX_MORPH = new AbstractItemEffectType(Util.newArrayListOfValues(
+			"Adds fox-morph encyclopedia entry.",
+			"[style.boldExcellent(+5)] [style.boldDogMorph("+Attribute.DAMAGE_FOX_MORPH.getName()+")]",
+			"[style.boldExcellent(+5)] [style.boldDogMorph("+Attribute.RESISTANCE_FOX_MORPH.getName()+")]"),
+			Colour.RACE_FOX_MORPH) {
+		
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+			return getBookEffect(Race.FOX_MORPH, ItemType.BOOK_FOX_MORPH);
 		}
 	};
 	
@@ -515,6 +528,51 @@ public class ItemEffectType {
 		}
 	};
 	
+
+	public static AbstractItemEffectType PREGNANCY_TEST = new AbstractItemEffectType(Util.newArrayListOfValues(
+			"Reveals pregnancy info."),
+			Colour.GENERIC_SEX) {
+		
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+			target.performImpregnationCheck();
+			if(target.isPregnant()) {
+				List <GameCharacter> fathers = new ArrayList<>();
+				for(PregnancyPossibility pp : target.getPotentialPartnersAsMother()) {
+					if(pp.getFather()!=null) {
+						fathers.add(pp.getFather());
+					}
+				}
+				for(GameCharacter father : fathers) {
+					target.getPotentialPartnersAsFather().removeIf((pp) -> pp.getMotherId().equals(target.getId()) && target.getPregnantLitter().getFather() != (father));
+				}
+				
+				target.getPotentialPartnersAsMother().removeIf((pp) -> !pp.getFatherId().equals(target.getPregnantLitter().getFatherId()));
+				
+				return "<p>"
+						+ "The digital readout lights up with two parallel red lines, with flashing pink text next to that displaying: '[style.italicsArcane(Pregnant!)]'"
+					+ "</p>"
+					+ "<p>"
+						+ "Underneath the flashing pregnancy confirmation, there's some extra information, which reads:<br/>"
+						+ "<i>"
+						+ "Father: "+(target.getPregnantLitter().getFather()!=null
+										?target.getPregnantLitter().getFather().getNameIgnoresPlayerKnowledge()+" ("+Util.capitaliseSentence(target.getPregnantLitter().getFatherRace().getName())+")"
+										:"Unknown!")+"<br/>"
+						+ "Litter size: " +target.getPregnantLitter().getTotalLitterCount()+"<br/>"
+						+ "[style.colourFeminine(Daughters)]: " +(target.getPregnantLitter().getDaughtersFromFather()+target.getPregnantLitter().getDaughtersFromMother())+"<br/>"
+						+ "[style.colourMasculine(Sons)]: " +(target.getPregnantLitter().getSonsFromFather()+target.getPregnantLitter().getSonsFromMother())+"<br/>"
+						+ "</i>"
+					+ "</p>";
+				
+			} else {
+				return "<p>"
+					+ "The digital readout lights up with a single red line, with solid black text next to that displaying: '<i>Not Pregnant.</i>'"
+				+ "</p>";
+			}
+		}
+	};
+	
+	
 	public static AbstractItemEffectType MOTHERS_MILK = new AbstractItemEffectType(Util.newArrayListOfValues(
 			"Advances pregnancy."),
 			Colour.GENERIC_SEX) {
@@ -620,7 +678,7 @@ public class ItemEffectType {
 						+(target.isPlayer()
 							?"A powerful wave of arcane energy washes over you......"
 							:UtilText.parse(target, "A powerful wave of arcane energy washes over [npc.name]..."))
-						+ "</br>"
+						+ "<br/>"
 						+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 1)
 					+ "</p>"
 					+ target.incrementAlcoholLevel(0.15f);
@@ -650,7 +708,7 @@ public class ItemEffectType {
 						+(target.isPlayer()
 							?"A powerful wave of arcane energy washes over you......"
 							:UtilText.parse(target, "A powerful wave of arcane energy washes over [npc.name]..."))
-						+ "</br>"
+						+ "<br/>"
 						+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 1)
 					+"</p>";
 		}
@@ -670,7 +728,7 @@ public class ItemEffectType {
 					+(target.isPlayer()
 						?"A powerful wave of arcane energy washes over you......"
 						:UtilText.parse(target, "A powerful wave of arcane energy washes over [npc.name]..."))
-					+ "</br>"
+					+ "<br/>"
 					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 1)
 					+"</p>"
 					+ target.incrementAlcoholLevel(0.4f);
@@ -689,7 +747,7 @@ public class ItemEffectType {
 
 			return "<p style='text-align:center;'>"
 					+"A powerful wave of arcane energy washes over you..."
-					+ "</br>"
+					+ "<br/>"
 					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 1)
 					+"</p>"
 					+ target.incrementAlcoholLevel(0.5f);
@@ -708,7 +766,7 @@ public class ItemEffectType {
 
 			return "<p style='text-align:center;'>"
 					+"A powerful wave of arcane energy washes over you..."
-					+ "</br>"
+					+ "<br/>"
 					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 1)
 					+"</p>"
 					+ target.incrementAlcoholLevel(0.5f);
@@ -731,8 +789,29 @@ public class ItemEffectType {
 					+(target.isPlayer()
 						?"A cool wave of arcane energy washes over you......"
 						:UtilText.parse(target, "A cool wave of arcane energy washes over [npc.name]..."))
-					+ "</br>"
+					+ "<br/>"
 					+ target.addPotionEffect(Attribute.MAJOR_ARCANE, 1)
+					+"</p>"
+					+ target.incrementAlcoholLevel(0.1f);
+		}
+	};
+	
+	public static AbstractItemEffectType INT_GRAPE_JUICE = new AbstractItemEffectType(Util.newArrayListOfValues(
+			"[style.boldGood(Restores)] 5% [style.boldAura(aura)]",
+			"[style.boldGood(+10)] [style.boldPhysique(critical hit damage)] to 'potion effects'",
+			"[style.boldMinorBad(Adds)] 10% to [style.boldAlcohol(intoxication level)]"),
+			Colour.ATTRIBUTE_PHYSIQUE) {
+		
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+			target.incrementMana(target.getAttributeValue(Attribute.MANA_MAXIMUM)/20);
+			
+			return "<p style='text-align:center;'>"
+					+(target.isPlayer()
+						?"Your senses are heightened..."
+						:UtilText.parse(target, "[npc.Name]'s senses are heightened..."))
+					+ "</br>"
+					+ target.addPotionEffect(Attribute.CRITICAL_DAMAGE, 10)
 					+"</p>"
 					+ target.incrementAlcoholLevel(0.1f);
 		}
@@ -751,7 +830,7 @@ public class ItemEffectType {
 					+(target.isPlayer()
 							?"A cool wave of arcane energy washes over you......"
 							:UtilText.parse(target, "A cool wave of arcane energy washes over [npc.name]..."))
-					+ "</br>"
+					+ "<br/>"
 					+ target.addPotionEffect(Attribute.MAJOR_ARCANE, 1)
 					+"</p>";
 		}
@@ -773,7 +852,7 @@ public class ItemEffectType {
 					+(target.isPlayer()
 						?"A soothing wave of arcane energy washes over you......"
 						:UtilText.parse(target, "A soothing wave of arcane energy washes over [npc.name]..."))
-					+ "</br>"
+					+ "<br/>"
 					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 1)
 					+"</p>"
 					+ target.incrementAlcoholLevel(0.05f);
@@ -793,26 +872,26 @@ public class ItemEffectType {
 					+(target.isPlayer()
 						?"A soothing wave of arcane energy washes over you......"
 						:UtilText.parse(target, "A soothing wave of arcane energy washes over [npc.name]..."))
-					+ "</br>"
+					+ "<br/>"
 					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 1)
 					+"</p>";
 		}
 	};
 	
 	public static AbstractItemEffectType INT_FRUIT_BAT_SQUASH = new AbstractItemEffectType(Util.newArrayListOfValues(
-			"[style.boldGood(Restores)] 5% [style.boldHealth(energy)]",
+			"[style.boldGood(Restores)] 5% [style.boldAura(aura)]",
 			"[style.boldGood(+1)] [style.boldArcane(arcane)] to 'potion effects'"),
 			Colour.ATTRIBUTE_ARCANE) {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			target.incrementHealth(target.getAttributeValue(Attribute.HEALTH_MAXIMUM)/20);
+			target.incrementMana(target.getAttributeValue(Attribute.MANA_MAXIMUM)/20);
 
 			return "<p style='text-align:center;'>"
 					+(target.isPlayer()
 						?"A soothing wave of arcane energy washes over you......"
 						:UtilText.parse(target, "A soothing wave of arcane energy washes over [npc.name]..."))
-					+ "</br>"
+					+ "<br/>"
 					+ target.addPotionEffect(Attribute.MAJOR_ARCANE, 1)
 					+"</p>";
 		}
@@ -831,7 +910,7 @@ public class ItemEffectType {
 					+(target.isPlayer()
 						?"A soothing wave of arcane energy washes over you......"
 						:UtilText.parse(target, "A soothing wave of arcane energy washes over [npc.name]..."))
-					+ "</br>"
+					+ "<br/>"
 					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 1)
 					+"</p>";
 		}
@@ -848,9 +927,9 @@ public class ItemEffectType {
 					+(target.isPlayer()
 						?"A soothing wave of arcane energy washes over you......"
 						:UtilText.parse(target, "A soothing wave of arcane energy washes over [npc.name]..."))
-					+ "</br>"
+					+ "<br/>"
 					+ target.incrementFemininity(1)
-					+ "</br>"
+					+ "<br/>"
 					+ target.addPotionEffect(Attribute.DAMAGE_LUST, 5)
 					+"</p>";
 		}
@@ -905,9 +984,9 @@ public class ItemEffectType {
 					+(target.isPlayer()
 						?"A warm wave of arcane energy washes over you......"
 						:UtilText.parse(target, "A warm wave of arcane energy washes over [npc.name]..."))
-					+ "</br>"
+					+ "<br/>"
 							+ target.addPotionEffect(Attribute.DAMAGE_LUST, 1)
-					+ "</br>"
+					+ "<br/>"
 					+ target.addPotionEffect(Attribute.DAMAGE_FIRE, 1)
 					+"</p>";
 		}
@@ -930,7 +1009,7 @@ public class ItemEffectType {
 					+(target.isPlayer()
 						?"A sickly wave of corruptive arcane energy washes over you......"
 						:UtilText.parse(target, "A sickly wave of corruptive arcane energy washes over [npc.name]..."))
-					+ "</br>"
+					+ "<br/>"
 					+ target.addPotionEffect(Attribute.MAJOR_CORRUPTION, 1)
 					+"</p>";
 		}
@@ -949,7 +1028,7 @@ public class ItemEffectType {
 					+(target.isPlayer()
 						?"A sickly wave of corruptive arcane energy washes over you......"
 						:UtilText.parse(target, "A sickly wave of corruptive arcane energy washes over [npc.name]..."))
-					+ "</br>"
+					+ "<br/>"
 					+ target.addPotionEffect(Attribute.MAJOR_CORRUPTION, 5)
 					+"</p>";
 		}
@@ -1037,6 +1116,82 @@ public class ItemEffectType {
 		}
 	};
 	
+	public static AbstractItemEffectType MUSHROOMS = new AbstractItemEffectType(Util.newArrayListOfValues(
+			"[style.boldTfGeneric(Makes slime and orifice interiors glow)]",
+			"Causes a [style.boldPsychoactive(psychoactive trip)]"),
+			Colour.ATTRIBUTE_CORRUPTION) {
+		
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+			StringBuilder sb = new StringBuilder();
+
+			sb.append("<p>");
+				if(target.getBodyMaterial()==BodyMaterial.SLIME) {
+					if(target.isPlayer()) {
+						sb.append("Your slimy body starts [style.boldTfGeneric(glowing)]!");
+					} else {
+						sb.append(UtilText.parse(target, "[npc.Name]'s slimy body starts [style.boldTfGeneric(glowing)]!"));
+					}
+					
+					target.getCovering(BodyCoveringType.SLIME).setPrimaryGlowing(true);
+					target.getCovering(BodyCoveringType.SLIME).setSecondaryGlowing(true);
+
+					target.getCovering(BodyCoveringType.SLIME_ANUS).setPrimaryGlowing(true);
+					target.getCovering(BodyCoveringType.SLIME_ANUS).setSecondaryGlowing(true);
+
+					target.getCovering(BodyCoveringType.SLIME_EYE).setPrimaryGlowing(true);
+					target.getCovering(BodyCoveringType.SLIME_EYE).setSecondaryGlowing(true);
+
+					target.getCovering(BodyCoveringType.SLIME_HAIR).setPrimaryGlowing(true);
+					target.getCovering(BodyCoveringType.SLIME_HAIR).setSecondaryGlowing(true);
+
+					target.getCovering(BodyCoveringType.SLIME_MOUTH).setPrimaryGlowing(true);
+					target.getCovering(BodyCoveringType.SLIME_MOUTH).setSecondaryGlowing(true);
+
+					target.getCovering(BodyCoveringType.SLIME_NIPPLES).setPrimaryGlowing(true);
+					target.getCovering(BodyCoveringType.SLIME_NIPPLES).setSecondaryGlowing(true);
+
+					target.getCovering(BodyCoveringType.SLIME_PUPILS).setPrimaryGlowing(true);
+					target.getCovering(BodyCoveringType.SLIME_PUPILS).setSecondaryGlowing(true);
+
+					target.getCovering(BodyCoveringType.SLIME_SCLERA).setPrimaryGlowing(true);
+					target.getCovering(BodyCoveringType.SLIME_SCLERA).setSecondaryGlowing(true);
+
+					target.getCovering(BodyCoveringType.SLIME_VAGINA).setPrimaryGlowing(true);
+					target.getCovering(BodyCoveringType.SLIME_VAGINA).setSecondaryGlowing(true);
+
+					target.getCovering(BodyCoveringType.SLIME_PENIS).setPrimaryGlowing(true);
+					target.getCovering(BodyCoveringType.SLIME_PENIS).setSecondaryGlowing(true);
+					
+				} else {
+					if(target.isPlayer()) {
+						sb.append("The interiors of all of your orifices start to [style.boldTfGeneric(glow)]!");
+					} else {
+						sb.append(UtilText.parse(target, "The interiors of all of [npc.name]'s orifices start to [style.boldTfGeneric(glow)]!"));
+					}
+
+					target.getCovering(BodyCoveringType.MOUTH).setSecondaryGlowing(true);
+					target.getCovering(BodyCoveringType.ANUS).setSecondaryGlowing(true);
+					target.getCovering(BodyCoveringType.VAGINA).setSecondaryGlowing(true);
+					target.getCovering(BodyCoveringType.PENIS).setSecondaryGlowing(true);
+					target.getCovering(BodyCoveringType.NIPPLES).setSecondaryGlowing(true);
+				}
+			sb.append("</p>");
+
+			target.addStatusEffect(StatusEffect.PSYCHOACTIVE, 6*60);
+
+			sb.append("<p>");
+				if(target.isPlayer()) {
+					sb.append("Multi-coloured stars and spots start to fade in and out of your vision, and you feel your head spinning as you start to [style.boldPsychoactive(trip out)]!");
+				} else {
+					sb.append(UtilText.parse(target, "Multi-coloured stars and spots start to fade in and out of [npc.name]'s vision, and [npc.she] feels [npc.her] head spinning as [npc.she] starts to [style.boldPsychoactive(trip out)]!"));
+				}
+			sb.append("</p>");
+			
+			return sb.toString();
+		}
+	};
+	
 	public static AbstractItemEffectType EGGPLANT = new AbstractItemEffectType(Util.newArrayListOfValues(
 			"[style.boldGood(Restores)] 5% [style.boldHealth(energy)]",
 			"[style.boldGood(Restores)] 5% [style.boldAura(aura)]"),
@@ -1085,7 +1240,7 @@ public class ItemEffectType {
 					+(target.isPlayer()
 						?"You smell a lot nicer now..."
 						:UtilText.parse(target, "[npc.Name] smells a lot nicer now..."))
-					+ "</br>"
+					+ "<br/>"
 					+ target.addPotionEffect(Attribute.DAMAGE_LUST, 5)
 					+"</p>";
 		}
@@ -1172,11 +1327,11 @@ public class ItemEffectType {
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			return "You start to feel like this item is just for testing purposes..."
-					+ "</br>"
+					+ "<br/>"
 					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 2)
-					+ "</br>"
+					+ "<br/>"
 					+ target.addPotionEffect(Attribute.MAJOR_ARCANE, 2)
-					+ "</br>"
+					+ "<br/>"
 					+ target.addPotionEffect(Attribute.MAJOR_CORRUPTION, 5);
 		}
 	};
@@ -1196,9 +1351,9 @@ public class ItemEffectType {
 			return (target.isPlayer()
 						?"You start to feel a lot healthier..."
 						:UtilText.parse(target, "[npc.Name] starts to feel a lot healthier..."))
-					+ "</br>"
+					+ "<br/>"
 					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 1)
-					+ "</br>"
+					+ "<br/>"
 					+ target.addPotionEffect(Attribute.MAJOR_ARCANE, 1);
 		}
 	};
@@ -1210,6 +1365,25 @@ public class ItemEffectType {
 		@Override
 		public String getPotionDescriptor() {
 			return "canine";
+		}
+		
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+			return (target.isPlayer()
+						?"You start to feel a lot more energetic..."
+						:UtilText.parse(target, "[npc.Name] starts to feel a lot more energetic..."))
+					+ "<br/>"
+					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 2);
+		}
+	};
+	
+	public static AbstractItemEffectType RACE_FOX_PIE = new AbstractItemEffectType(Util.newArrayListOfValues(
+			"[style.boldGood(+2)] [style.boldPhysique(physique)] to 'potion effects'"),
+			Colour.RACE_FOX_MORPH) {
+
+		@Override
+		public String getPotionDescriptor() {
+			return "vulpine";
 		}
 		
 		@Override
@@ -1236,7 +1410,7 @@ public class ItemEffectType {
 			return (target.isPlayer()
 						?"You start to feel a lot more energetic..."
 						:UtilText.parse(target, "[npc.Name] starts to feel a lot more energetic..."))
-					+ "</br>"
+					+ "<br/>"
 					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 2);
 		}
 	};
@@ -1257,7 +1431,7 @@ public class ItemEffectType {
 			return (target.isPlayer()
 						?"You start to feel like you need to breed..."
 						:UtilText.parse(target, "[npc.Name] starts to feel like [npc.she] needs to breed..."))
-					+ "</br>"
+					+ "<br/>"
 					+ target.addPotionEffect(Attribute.FERTILITY, 15)
 					+ target.addPotionEffect(Attribute.VIRILITY, 15)
 					+ target.addPotionEffect(Attribute.RESISTANCE_LUST, -25);
@@ -1278,7 +1452,7 @@ public class ItemEffectType {
 			return (target.isPlayer()
 							?"You feel your arcane power increasing..."
 							:UtilText.parse(target, "[npc.Name] starts to feel [npc.her] arcane power increasing..."))
-					+ "</br>"
+					+ "<br/>"
 					+ target.addPotionEffect(Attribute.MAJOR_ARCANE, 3);
 		}
 	};
@@ -1297,7 +1471,7 @@ public class ItemEffectType {
 			return (target.isPlayer()
 							?"You feel your arcane power increasing..."
 							:UtilText.parse(target, "[npc.Name] starts to feel [npc.her] arcane power increasing..."))
-					+ "</br>"
+					+ "<br/>"
 					+ target.addPotionEffect(Attribute.MAJOR_ARCANE, 2);
 		}
 	};
@@ -1316,7 +1490,7 @@ public class ItemEffectType {
 			return (target.isPlayer()
 							?"You feel your arcane power increasing..."
 							:UtilText.parse(target, "[npc.Name] starts to feel [npc.her] arcane power increasing..."))
-					+ "</br>"
+					+ "<br/>"
 					+ target.addPotionEffect(Attribute.MAJOR_ARCANE, 2);
 		}
 	};
@@ -1335,7 +1509,7 @@ public class ItemEffectType {
 			return (target.isPlayer()
 						?"You start to feel a lot stronger..."
 						:UtilText.parse(target, "[npc.Name] starts to feel a lot stronger..."))
-					+ "</br>"
+					+ "<br/>"
 					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 3);
 		}
 	};
@@ -1354,7 +1528,7 @@ public class ItemEffectType {
 			return (target.isPlayer()
 						?"You start to feel a lot stronger..."
 						:UtilText.parse(target, "[npc.Name] starts to feel a lot stronger..."))
-					+ "</br>"
+					+ "<br/>"
 					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 3);
 		}
 	};
@@ -1373,7 +1547,7 @@ public class ItemEffectType {
 			return (target.isPlayer()
 						?"You start to feel a lot stronger..."
 						:UtilText.parse(target, "[npc.Name] starts to feel a lot stronger..."))
-					+ "</br>"
+					+ "<br/>"
 					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 3);
 		}
 	};
@@ -1392,7 +1566,7 @@ public class ItemEffectType {
 			return (target.isPlayer()
 						?"You start to feel a lot stronger..."
 						:UtilText.parse(target, "[npc.Name] starts to feel a lot stronger..."))
-					+ "</br>"
+					+ "<br/>"
 					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 3);
 		}
 	};
@@ -1412,9 +1586,9 @@ public class ItemEffectType {
 			return (target.isPlayer()
 						?"You start to feel a lot stronger..."
 						:UtilText.parse(target, "[npc.Name] starts to feel a lot stronger..."))
-					+ "</br>"
+					+ "<br/>"
 					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 5)
-					+ "</br>"
+					+ "<br/>"
 					+ target.addPotionEffect(Attribute.MAJOR_CORRUPTION, 3);
 		}
 	};
@@ -1434,9 +1608,9 @@ public class ItemEffectType {
 			return (target.isPlayer()
 						?"You start to feel more feminine..."
 						:UtilText.parse(target, "[npc.Name] starts to feel more feminine..."))
-					+ "</br>"
+					+ "<br/>"
 					+ target.incrementFemininity(3)
-					+ "</br>"
+					+ "<br/>"
 					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 5);
 		}
 	};
@@ -1462,7 +1636,7 @@ public class ItemEffectType {
 				
 			} else {
 				return target.addPotionEffect(Attribute.MAJOR_CORRUPTION, 50)
-						+ "</br>"
+						+ "<br/>"
 						+ target.setBodyMaterial(BodyMaterial.SLIME);
 			}
 		}
@@ -1712,6 +1886,20 @@ public class ItemEffectType {
 		}
 	};
 	
+	public static AbstractItemEffectType BOTTLED_ESSENCE_FOX_MORPH = new AbstractItemEffectType(Util.newArrayListOfValues(
+			"[style.boldGood(+1)] [style.boldArcane(Arcane)] essence",
+			"[style.boldGood(+25%)] [style.bold(damage vs)] [style.boldFox(fox-morphs)]",
+			"[style.boldGood(+25%)] [style.bold(resistance vs)] [style.boldFox(fox-morphs)]"),
+			Colour.RACE_FOX_MORPH) {
+		
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+			target.incrementEssenceCount(TFEssence.ARCANE, 1, false);
+			target.addStatusEffect(StatusEffect.COMBAT_BONUS_FOX_MORPH, 60*4);
+			return "You have absorbed [style.boldGood(+1)] [style.boldArcane(Arcane)] essence, and are now far more effective at fighting [style.boldFox(fox-morphs)]!";
+		}
+	};
+	
 	public static AbstractItemEffectType BOTTLED_ESSENCE_SLIME = new AbstractItemEffectType(Util.newArrayListOfValues(
 			"[style.boldGood(+1)] [style.boldArcane(Arcane)] essence",
 			"[style.boldGood(+25%)] [style.bold(damage vs)] [style.boldSlime(slimes)]",
@@ -1737,82 +1925,86 @@ public class ItemEffectType {
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			StringBuilder sb = new StringBuilder();
 			
-			sb.append("As the lollipop's transformative effects start to make themselves known, you start to feel very light-headed...");
+			sb.append("<p>"
+						+ "As the lollipop's transformative effects start to make themselves known, you start to feel very light-headed..."
+					+ "</p>");
 			
 			if(!target.hasFetish(Fetish.FETISH_BIMBO)) {
 				target.addFetish(Fetish.FETISH_BIMBO);
 				if(target.isPlayer()) {
-					sb.append("</br>"
+					sb.append("<br/>"
 							+ "<p>"
 								+ "A giggle escapes from between your [pc.lips], and you suddenly find yourself unable to think of anything other than how, like, super awesome bimbos are and stuff!"
-								+ "</br><b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>You have gained the bimbo fetish!</b>"
+								+ "<br/><b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>You have gained the bimbo fetish!</b>"
 							+ "</p>");
 				} else {
-					sb.append(UtilText.parse(target, "</br>"
+					sb.append(UtilText.parse(target, "<br/>"
 							+ "<p>"
 								+ "A giggle escapes from between [npc.name]'s [npc.lips], and [npc.she] suddenly finds [npc.herself] unable to think of anything other than how, like, super awesome bimbos are and stuff!"
-								+ "</br><b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>[npc.Name] has gained the bimbo fetish!</b>"
+								+ "<br/><b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>[npc.Name] has gained the bimbo fetish!</b>"
 							+ "</p>"));
 				}
 			}
 			
 			// Non-racial changes
 			if(target.getFemininityValue()<95) {
-				sb.append("</br>" + target.setFemininity(95));
+				sb.append("<br/>" + target.setFemininity(95));
 			}
 			if(target.getBreastSize().getMeasurement()<CupSize.DD.getMeasurement()) {
-				sb.append("</br>" + target.setBreastSize(CupSize.DD.getMeasurement()));
+				sb.append("<br/>" + target.setBreastSize(CupSize.DD.getMeasurement()));
 			}
 			if(target.getAssSize().getValue()<AssSize.FOUR_LARGE.getValue()) {
-				sb.append("</br>" + target.setAssSize(AssSize.FOUR_LARGE.getValue()));
+				sb.append("<br/>" + target.setAssSize(AssSize.FOUR_LARGE.getValue()));
 			}
 			if(target.getHipSize().getValue()<HipSize.FOUR_WOMANLY.getValue()) {
-				sb.append("</br>" + target.setHipSize(HipSize.FOUR_WOMANLY.getValue()));
+				sb.append("<br/>" + target.setHipSize(HipSize.FOUR_WOMANLY.getValue()));
 			}
 			if(target.getHairType()!=HairType.HARPY) {
-				sb.append("</br>" + target.setHairCovering(new Covering(BodyCoveringType.HAIR_HARPY, CoveringPattern.NONE, Colour.FEATHERS_BLEACH_BLONDE, false, Colour.FEATHERS_BLEACH_BLONDE, false), true));
+				sb.append("<br/>" + target.setHairCovering(new Covering(BodyCoveringType.HAIR_HARPY, CoveringPattern.NONE, Colour.FEATHERS_BLEACH_BLONDE, false, Colour.FEATHERS_BLEACH_BLONDE, false), true));
 			}
 			if(target.getSkinType()!=SkinType.HARPY) {
-				sb.append("</br>" + target.setSkinCovering(new Covering(BodyCoveringType.FEATHERS, CoveringPattern.NONE, Colour.FEATHERS_BLEACH_BLONDE, false, Colour.FEATHERS_BLEACH_BLONDE, false), true));
+				sb.append("<br/>" + target.setSkinCovering(new Covering(BodyCoveringType.FEATHERS, CoveringPattern.NONE, Colour.FEATHERS_BLEACH_BLONDE, false, Colour.FEATHERS_BLEACH_BLONDE, false), true));
 			}
 			
 			// Harpy TFs:
 			if(target.getFaceType()!=FaceType.HUMAN)
-				sb.append("</br>" + target.setFaceType(FaceType.HUMAN));
+				sb.append("<br/>" + target.setFaceType(FaceType.HUMAN));
 			if(target.getEarType()!=EarType.HARPY)
-				sb.append("</br>" + target.setEarType(EarType.HARPY));
+				sb.append("<br/>" + target.setEarType(EarType.HARPY));
 			if(target.getEyeType()!=EyeType.HARPY)
-				sb.append("</br>" + target.setEyeType(EyeType.HARPY));
+				sb.append("<br/>" + target.setEyeType(EyeType.HARPY));
 			if(target.getHairType()!=HairType.HARPY)
-				sb.append("</br>" + target.setHairType(HairType.HARPY));
+				sb.append("<br/>" + target.setHairType(HairType.HARPY));
 			if(target.getSkinType()!=SkinType.HUMAN)
-				sb.append("</br>" + target.setSkinType(SkinType.HUMAN));
+				sb.append("<br/>" + target.setSkinType(SkinType.HUMAN));
 
 			if(target.getWingType()!=WingType.NONE)
-				sb.append("</br>" + target.setWingType(WingType.NONE));
+				sb.append("<br/>" + target.setWingType(WingType.NONE));
 			if(target.getHornType()!=HornType.NONE)
-				sb.append("</br>" + target.setHornType(HornType.NONE));
+				sb.append("<br/>" + target.setHornType(HornType.NONE));
 
 			if(target.getArmType()!=ArmType.HARPY)
-				sb.append("</br>" + target.setArmType(ArmType.HARPY));
+				sb.append("<br/>" + target.setArmType(ArmType.HARPY));
 			if(target.getLegType()!=LegType.HARPY)
-				sb.append("</br>" + target.setLegType(LegType.HARPY));
+				sb.append("<br/>" + target.setLegType(LegType.HARPY));
 			if(target.getTailType()!=TailType.HARPY)
-				sb.append("</br>" + target.setTailType(TailType.HARPY));
+				sb.append("<br/>" + target.setTailType(TailType.HARPY));
 
 			if(target.getBreastType()!=BreastType.HARPY)
-				sb.append("</br>" + target.setBreastType(BreastType.HARPY));
+				sb.append("<br/>" + target.setBreastType(BreastType.HARPY));
 			if(target.getAssType()!=AssType.HARPY)
-				sb.append("</br>" + target.setAssType(AssType.HARPY));
+				sb.append("<br/>" + target.setAssType(AssType.HARPY));
 
 			if(target.hasPenisIgnoreDildo()) {
-				sb.append("</br>" + target.setPenisType(PenisType.AVIAN));
+				sb.append("<br/>" + target.setPenisType(PenisType.AVIAN));
 
-				if(target.getPenisRawCumProductionValue()<CumProduction.TWO_SMALL_AMOUNT.getMedianValue())
-					sb.append("</br>" + target.setCumProduction(CumProduction.TWO_SMALL_AMOUNT.getMedianValue()));
+				if(target.getPenisRawCumStorageValue()<CumProduction.TWO_SMALL_AMOUNT.getMedianValue()) {
+					sb.append("<br/>" + target.setPenisCumStorage(CumProduction.TWO_SMALL_AMOUNT.getMedianValue()));
+					target.fillCumToMaxStorage();
+				}
 			}
 			if(target.hasVagina()) {
-				sb.append("</br>" + target.setVaginaType(VaginaType.HARPY));
+				sb.append("<br/>" + target.setVaginaType(VaginaType.HARPY));
 			}
 			
 			return sb.toString();
@@ -1827,88 +2019,92 @@ public class ItemEffectType {
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			StringBuilder sb = new StringBuilder();
 			
-			sb.append("As the lollipop's transformative effects start to make themselves known, you start to feel very light-headed...");
+			sb.append("<p>"
+						+ "As the lollipop's transformative effects start to make themselves known, you start to feel very light-headed..."
+					+ "</p>");
 			
 			if(!target.hasTrait(Perk.NYMPHOMANIAC, false)) {
 				target.addPerk(Perk.NYMPHOMANIAC);
 				if(target.isPlayer()) {
-					sb.append("</br>"
+					sb.append("<br/>"
 							+ "<p>"
 								+ "A desperate moan escapes from between your [pc.lips], and you suddenly find yourself unable to think of anything other than sex, sex, and more sex!"
-								+ "</br><b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>You have gained the nymphomaniac perk!</b>"
+								+ "<br/><b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>You have gained the nymphomaniac perk!</b>"
 							+ "</p>");
 				} else {
-					sb.append(UtilText.parse(target, "</br>"
+					sb.append(UtilText.parse(target, "<br/>"
 							+ "<p>"
 								+ "A desperate moan escapes from between [npc.name]'s [npc.lips], and [npc.she] suddenly finds [npc.herself] unable to think of anything other than sex, sex, and more sex!"
-								+ "</br><b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>[npc.Name] has gained the nymphomaniac perk!</b>"
+								+ "<br/><b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>[npc.Name] has gained the nymphomaniac perk!</b>"
 							+ "</p>"));
 				}
 			}
 			
 			// Non-racial changes
 			if(target.getFemininityValue()<95) {
-				sb.append("</br>" + target.setFemininity(95));
+				sb.append("<br/>" + target.setFemininity(95));
 			}
 			if(target.getBreastSize().getMeasurement()<CupSize.C.getMeasurement()) {
-				sb.append("</br>" + target.setBreastSize(CupSize.C.getMeasurement()));
+				sb.append("<br/>" + target.setBreastSize(CupSize.C.getMeasurement()));
 			}
 			if(target.getAssSize().getValue()<AssSize.THREE_NORMAL.getValue()) {
-				sb.append("</br>" + target.setAssSize(AssSize.THREE_NORMAL.getValue()));
+				sb.append("<br/>" + target.setAssSize(AssSize.THREE_NORMAL.getValue()));
 			}
 			if(target.getHipSize().getValue()<HipSize.THREE_GIRLY.getValue()) {
-				sb.append("</br>" + target.setHipSize(HipSize.THREE_GIRLY.getValue()));
+				sb.append("<br/>" + target.setHipSize(HipSize.THREE_GIRLY.getValue()));
 			}
 			if(target.getHairType()!=HairType.HARPY) {
-				sb.append("</br>" + target.setHairCovering(new Covering(BodyCoveringType.HAIR_HARPY, CoveringPattern.NONE, Colour.FEATHERS_PINK, false, Colour.FEATHERS_PINK, false), true));
+				sb.append("<br/>" + target.setHairCovering(new Covering(BodyCoveringType.HAIR_HARPY, CoveringPattern.NONE, Colour.FEATHERS_PINK, false, Colour.FEATHERS_PINK, false), true));
 			}
 			if(target.getSkinType()!=SkinType.HARPY) {
-				sb.append("</br>" + target.setHairCovering(new Covering(BodyCoveringType.FEATHERS, CoveringPattern.NONE, Colour.FEATHERS_PINK, false, Colour.FEATHERS_PINK, false), true));
+				sb.append("<br/>" + target.setHairCovering(new Covering(BodyCoveringType.FEATHERS, CoveringPattern.NONE, Colour.FEATHERS_PINK, false, Colour.FEATHERS_PINK, false), true));
 			}
 			
 			// Harpy TFs:
 			if(target.getFaceType()!=FaceType.HUMAN)
-				sb.append("</br>" + target.setFaceType(FaceType.HUMAN));
+				sb.append("<br/>" + target.setFaceType(FaceType.HUMAN));
 			if(target.getEarType()!=EarType.HARPY)
-				sb.append("</br>" + target.setEarType(EarType.HARPY));
+				sb.append("<br/>" + target.setEarType(EarType.HARPY));
 			if(target.getEyeType()!=EyeType.HARPY)
-				sb.append("</br>" + target.setEyeType(EyeType.HARPY));
+				sb.append("<br/>" + target.setEyeType(EyeType.HARPY));
 			if(target.getHairType()!=HairType.HARPY)
-				sb.append("</br>" + target.setHairType(HairType.HARPY));
+				sb.append("<br/>" + target.setHairType(HairType.HARPY));
 			if(target.getSkinType()!=SkinType.HUMAN)
-				sb.append("</br>" + target.setSkinType(SkinType.HUMAN));
+				sb.append("<br/>" + target.setSkinType(SkinType.HUMAN));
 
 			if(target.getWingType()!=WingType.NONE)
-				sb.append("</br>" + target.setWingType(WingType.NONE));
+				sb.append("<br/>" + target.setWingType(WingType.NONE));
 			if(target.getHornType()!=HornType.NONE)
-				sb.append("</br>" + target.setHornType(HornType.NONE));
+				sb.append("<br/>" + target.setHornType(HornType.NONE));
 
 			if(target.getArmType()!=ArmType.HARPY)
-				sb.append("</br>" + target.setArmType(ArmType.HARPY));
+				sb.append("<br/>" + target.setArmType(ArmType.HARPY));
 			if(target.getLegType()!=LegType.HARPY)
-				sb.append("</br>" + target.setLegType(LegType.HARPY));
+				sb.append("<br/>" + target.setLegType(LegType.HARPY));
 			if(target.getTailType()!=TailType.HARPY)
-				sb.append("</br>" + target.setTailType(TailType.HARPY));
+				sb.append("<br/>" + target.setTailType(TailType.HARPY));
 
 			if(target.getBreastType()!=BreastType.HARPY)
-				sb.append("</br>" + target.setBreastType(BreastType.HARPY));
+				sb.append("<br/>" + target.setBreastType(BreastType.HARPY));
 			if(target.getAssType()!=AssType.HARPY)
-				sb.append("</br>" + target.setAssType(AssType.HARPY));
+				sb.append("<br/>" + target.setAssType(AssType.HARPY));
 			if(target.getAssWetness().getValue()<Wetness.TWO_MOIST.getValue())
-				sb.append("</br>" + target.setAssWetness(Wetness.TWO_MOIST.getValue()));
+				sb.append("<br/>" + target.setAssWetness(Wetness.TWO_MOIST.getValue()));
 				
 
 			if(target.hasPenisIgnoreDildo()) {
-				sb.append("</br>" + target.setPenisType(PenisType.AVIAN));
+				sb.append("<br/>" + target.setPenisType(PenisType.AVIAN));
 
-				if(target.getPenisRawCumProductionValue()<CumProduction.THREE_AVERAGE.getMedianValue())
-					sb.append("</br>" + target.setCumProduction(CumProduction.THREE_AVERAGE.getMedianValue()));
+				if(target.getPenisRawCumStorageValue()<CumProduction.THREE_AVERAGE.getMedianValue()) {
+					sb.append("<br/>" + target.setPenisCumStorage(CumProduction.THREE_AVERAGE.getMedianValue()));
+					target.fillCumToMaxStorage();
+				}
 			}
 			if(target.hasVagina()) {
-				sb.append("</br>" + target.setVaginaType(VaginaType.HARPY));
+				sb.append("<br/>" + target.setVaginaType(VaginaType.HARPY));
 
 				if(target.getVaginaWetness().getValue()<Wetness.FOUR_SLIMY.getValue())
-					sb.append("</br>" + target.setVaginaWetness(Wetness.FOUR_SLIMY.getValue()));
+					sb.append("<br/>" + target.setVaginaWetness(Wetness.FOUR_SLIMY.getValue()));
 			}
 			
 			return sb.toString();
@@ -1928,78 +2124,80 @@ public class ItemEffectType {
 			if(!target.hasFetish(Fetish.FETISH_DOMINANT)) {
 				target.addFetish(Fetish.FETISH_DOMINANT);
 				if(target.isPlayer()) {
-					sb.append("</br>"
+					sb.append("<br/>"
 							+ "<p>"
 								+ "A deep groan escapes from between your [pc.lips], and you suddenly find yourself thinking of how much you want to dominate the next person you come across!"
-								+ "</br><b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>You have gained the dominant fetish!</b>"
+								+ "<br/><b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>You have gained the dominant fetish!</b>"
 							+ "</p>");
 				} else {
-					sb.append(UtilText.parse(target, "</br>"
+					sb.append(UtilText.parse(target, "<br/>"
 							+ "<p>"
 								+ "A deep groan escapes from between [npc.name]'s [npc.lips], and [npc.she] suddenly finds [npc.herself] thinking of how much [npc.she] wants to dominate the next person [npc.she] meets!"
-								+ "</br><b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>[npc.Name] has gained the dominant fetish!</b>"
+								+ "<br/><b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>[npc.Name] has gained the dominant fetish!</b>"
 							+ "</p>"));
 				}
 			}
 			
 			// Non-racial changes
 			if(target.getFemininityValue()<95) {
-				sb.append("</br>" + target.setFemininity(95));
+				sb.append("<br/>" + target.setFemininity(95));
 			}
 			if(target.getBreastSize().getMeasurement()<CupSize.C.getMeasurement()) {
-				sb.append("</br>" + target.setBreastSize(CupSize.C.getMeasurement()));
+				sb.append("<br/>" + target.setBreastSize(CupSize.C.getMeasurement()));
 			}
 			if(target.getAssSize().getValue()<AssSize.THREE_NORMAL.getValue()) {
-				sb.append("</br>" + target.setAssSize(AssSize.THREE_NORMAL.getValue()));
+				sb.append("<br/>" + target.setAssSize(AssSize.THREE_NORMAL.getValue()));
 			}
 			if(target.getHipSize().getValue()<HipSize.THREE_GIRLY.getValue()) {
-				sb.append("</br>" + target.setHipSize(HipSize.THREE_GIRLY.getValue()));
+				sb.append("<br/>" + target.setHipSize(HipSize.THREE_GIRLY.getValue()));
 			}
 			if(target.getHairType()!=HairType.HARPY) {
-				sb.append("</br>" + target.setHairCovering(new Covering(BodyCoveringType.HAIR_HARPY, CoveringPattern.NONE, Colour.FEATHERS_BLACK, false, Colour.FEATHERS_BLACK, false), true));
+				sb.append("<br/>" + target.setHairCovering(new Covering(BodyCoveringType.HAIR_HARPY, CoveringPattern.NONE, Colour.FEATHERS_BLACK, false, Colour.FEATHERS_BLACK, false), true));
 			}
 			if(target.getSkinType()!=SkinType.HARPY) {
-				sb.append("</br>" + target.setSkinCovering(new Covering(BodyCoveringType.FEATHERS, CoveringPattern.NONE, Colour.FEATHERS_RED, false, Colour.FEATHERS_RED, false), true));
+				sb.append("<br/>" + target.setSkinCovering(new Covering(BodyCoveringType.FEATHERS, CoveringPattern.NONE, Colour.FEATHERS_RED, false, Colour.FEATHERS_RED, false), true));
 			}
 			
 			// Harpy TFs:
 			if(target.getFaceType()!=FaceType.HUMAN)
-				sb.append("</br>" + target.setFaceType(FaceType.HUMAN));
+				sb.append("<br/>" + target.setFaceType(FaceType.HUMAN));
 			if(target.getEarType()!=EarType.HARPY)
-				sb.append("</br>" + target.setEarType(EarType.HARPY));
+				sb.append("<br/>" + target.setEarType(EarType.HARPY));
 			if(target.getEyeType()!=EyeType.HARPY)
-				sb.append("</br>" + target.setEyeType(EyeType.HARPY));
+				sb.append("<br/>" + target.setEyeType(EyeType.HARPY));
 			if(target.getHairType()!=HairType.HARPY)
-				sb.append("</br>" + target.setHairType(HairType.HARPY));
+				sb.append("<br/>" + target.setHairType(HairType.HARPY));
 			if(target.getSkinType()!=SkinType.HUMAN)
-				sb.append("</br>" + target.setSkinType(SkinType.HUMAN));
+				sb.append("<br/>" + target.setSkinType(SkinType.HUMAN));
 
 			if(target.getWingType()!=WingType.NONE)
-				sb.append("</br>" + target.setWingType(WingType.NONE));
+				sb.append("<br/>" + target.setWingType(WingType.NONE));
 			if(target.getHornType()!=HornType.NONE)
-				sb.append("</br>" + target.setHornType(HornType.NONE));
+				sb.append("<br/>" + target.setHornType(HornType.NONE));
 
 			if(target.getArmType()!=ArmType.HARPY)
-				sb.append("</br>" + target.setArmType(ArmType.HARPY));
+				sb.append("<br/>" + target.setArmType(ArmType.HARPY));
 			if(target.getLegType()!=LegType.HARPY)
-				sb.append("</br>" + target.setLegType(LegType.HARPY));
+				sb.append("<br/>" + target.setLegType(LegType.HARPY));
 			if(target.getTailType()!=TailType.HARPY)
-				sb.append("</br>" + target.setTailType(TailType.HARPY));
+				sb.append("<br/>" + target.setTailType(TailType.HARPY));
 
 			if(target.getBreastType()!=BreastType.HARPY)
-				sb.append("</br>" + target.setBreastType(BreastType.HARPY));
+				sb.append("<br/>" + target.setBreastType(BreastType.HARPY));
 			if(target.getAssType()!=AssType.HARPY)
-				sb.append("</br>" + target.setAssType(AssType.HARPY));
+				sb.append("<br/>" + target.setAssType(AssType.HARPY));
 				
 
 			if(target.hasPenisIgnoreDildo()) {
-				sb.append("</br>" + target.setPenisType(PenisType.AVIAN));
+				sb.append("<br/>" + target.setPenisType(PenisType.AVIAN));
 
-				if(target.getPenisRawCumProductionValue()<CumProduction.TWO_SMALL_AMOUNT.getMedianValue())
-					sb.append("</br>" + target.setCumProduction(CumProduction.TWO_SMALL_AMOUNT.getMedianValue()));
+				if(target.getPenisRawCumStorageValue()<CumProduction.TWO_SMALL_AMOUNT.getMedianValue()) {
+					sb.append("<br/>" + target.setPenisCumStorage(CumProduction.TWO_SMALL_AMOUNT.getMedianValue()));
+					target.fillCumToMaxStorage();
+				}
 			}
 			if(target.hasVagina()) {
-				sb.append("</br>" + target.setVaginaType(VaginaType.HARPY));
+				sb.append("<br/>" + target.setVaginaType(VaginaType.HARPY));
 			}
 			
 			return sb.toString();
@@ -2727,6 +2925,35 @@ public class ItemEffectType {
 		}
 	};
 	
+	public static AbstractItemEffectType RACE_FOX_MORPH = new AbstractItemEffectType(null,
+			Colour.RACE_FOX_MORPH) {
+
+		@Override
+		public List<TFModifier> getPrimaryModifiers() {
+			return TFModifier.getTFRacialBodyPartsList();
+		}
+
+		@Override
+		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
+			return getRacialSecondaryModifiers(Race.FOX_MORPH, primaryModifier);
+		}
+		
+		@Override
+		public List<TFPotency> getPotencyModifiers(TFModifier primaryModifier, TFModifier secondaryModifier) {
+			return getRacialPotencyModifiers(Race.FOX_MORPH, primaryModifier, secondaryModifier);
+		}
+		
+		@Override
+		public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
+			return Util.newArrayListOfValues(getRacialEffect(Race.FOX_MORPH, primaryModifier, secondaryModifier, potency, user, target).getDescriptionPlusChangeDescription());
+		}
+		
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+			return getRacialEffect(Race.FOX_MORPH, primaryModifier, secondaryModifier, potency, user, target).applyEffect();
+		}
+	};
+	
 	public static AbstractItemEffectType RACE_ALLIGATOR_MORPH = new AbstractItemEffectType(null,
 			Colour.RACE_ALLIGATOR_MORPH) {
 
@@ -2871,6 +3098,35 @@ public class ItemEffectType {
 			return getRacialEffect(Race.HARPY, primaryModifier, secondaryModifier, potency, user, target).applyEffect();
 		}
 	};
+
+	public static AbstractItemEffectType RACE_SLIME = new AbstractItemEffectType(null,
+			Colour.RACE_SLIME) {
+
+		@Override
+		public List<TFModifier> getPrimaryModifiers() {
+			return Util.newArrayListOfValues(TFModifier.TF_MATERIAL_FLESH);
+		}
+
+		@Override
+		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
+			return Util.newArrayListOfValues(TFModifier.ARCANE_BOOST);
+		}
+		
+		@Override
+		public List<TFPotency> getPotencyModifiers(TFModifier primaryModifier, TFModifier secondaryModifier) {
+			return Util.newArrayListOfValues(TFPotency.MINOR_BOOST);
+		}
+		
+		@Override
+		public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
+			return Util.newArrayListOfValues("Changes the target's body material to flesh.");
+		}
+		
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+			return target.setBodyMaterial(BodyMaterial.FLESH);
+		}
+	};
 	
 	// CLOTHING:
 	
@@ -2984,6 +3240,97 @@ public class ItemEffectType {
 		}
 	};
 	
+	public static AbstractItemEffectType TATTOO = new AbstractItemEffectType(null,
+			Colour.RARITY_RARE) {
+
+		@Override
+		public List<TFModifier> getPrimaryModifiers() {
+			return TFModifier.getTattooPrimaryList();
+		}
+
+		@Override
+		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
+			if(primaryModifier == TFModifier.CLOTHING_ATTRIBUTE) {
+				return TFModifier.getClothingAttributeList();
+				
+			} else if(primaryModifier == TFModifier.TF_MOD_FETISH_BEHAVIOUR) {
+				return TFModifier.getTFBehaviouralFetishList();
+				
+			} else if(primaryModifier == TFModifier.TF_MOD_FETISH_BODY_PART) {
+				return TFModifier.getTFBodyPartFetishList();
+				
+			} else {
+				return getClothingTFSecondaryModifiers(primaryModifier);
+			}
+		}
+		
+		@Override
+		public List<TFPotency> getPotencyModifiers(TFModifier primaryModifier, TFModifier secondaryModifier) {
+			if(primaryModifier == TFModifier.CLOTHING_ATTRIBUTE
+					|| primaryModifier == TFModifier.TF_MOD_FETISH_BEHAVIOUR
+					|| primaryModifier == TFModifier.TF_MOD_FETISH_BODY_PART
+					|| !getClothingTFSecondaryModifiers(primaryModifier).isEmpty()) {
+				return TFPotency.getAllPotencies();
+				
+			} else {
+				return Util.newArrayListOfValues(TFPotency.MINOR_BOOST);
+			}
+		}
+		
+		@Override
+		public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
+			List<String> effectsList = new ArrayList<>();
+			
+			if(primaryModifier == TFModifier.CLOTHING_ATTRIBUTE) { //This is overriden in a couple of places ,such as in InventoryTooltipEventListener
+				effectsList.add(
+						(potency.getClothingBonusValue()<0
+								?"[style.boldBad("+potency.getClothingBonusValue()+")] "
+								:"[style.boldGood(+"+potency.getClothingBonusValue()+")] ")
+						+ "<b style='color:"+secondaryModifier.getAssociatedAttribute().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(secondaryModifier.getAssociatedAttribute().getName())+"</b>");
+				
+			} else if(primaryModifier == TFModifier.TF_MOD_FETISH_BEHAVIOUR
+					|| primaryModifier == TFModifier.TF_MOD_FETISH_BODY_PART) {
+				if(potency==TFPotency.MAJOR_BOOST) {
+					effectsList.add("[style.boldExcellent(Grants)] [style.boldFetish("+secondaryModifier.getName()+" fetish)] while worn.");
+					
+				} else if(potency==TFPotency.BOOST) {
+					effectsList.add("[style.boldGood(Increases)] [style.boldLust(desire)] for [style.boldFetish("+secondaryModifier.getName()+" fetish)] while worn.");
+					
+				} else if(potency==TFPotency.MINOR_BOOST) {
+					effectsList.add("[style.boldMinorGood(Slightly increases)] [style.boldLust(desire)] for [style.boldFetish("+secondaryModifier.getName()+" fetish)] while worn.");
+					
+				} else if(potency==TFPotency.MAJOR_DRAIN) {
+					effectsList.add("<b style='color:"+FetishDesire.ZERO_HATE.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(FetishDesire.ZERO_HATE.getNameAsVerb())+"</b> [style.boldFetish("+secondaryModifier.getName()+" fetish)] while worn.");
+					
+				} else if(potency==TFPotency.DRAIN) {
+					effectsList.add("[style.boldBad(Decreases)] [style.boldLust(desire)] for [style.boldFetish("+secondaryModifier.getName()+" fetish)] while worn.");
+					
+				} else if(potency==TFPotency.MINOR_DRAIN) {
+					effectsList.add("[style.boldMinorBad(Slightly decreases)] [style.boldLust(desire)] for [style.boldFetish("+secondaryModifier.getName()+" fetish)] while worn.");
+				}
+				
+			} else {
+				return getClothingTFDescriptions(primaryModifier, secondaryModifier, potency, limit, user, target);
+			}
+			
+			return effectsList;
+		}
+		
+		@Override
+		public int getLimits(TFModifier primaryModifier, TFModifier secondaryModifier) {
+			return getClothingTFLimits(primaryModifier, secondaryModifier);
+		}
+		
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+			if(primaryModifier == TFModifier.CLOTHING_ATTRIBUTE
+					|| primaryModifier == TFModifier.TF_MOD_FETISH_BEHAVIOUR
+					|| primaryModifier == TFModifier.TF_MOD_FETISH_BODY_PART) {
+				return "";
+			}
+			return applyClothingTF(primaryModifier, secondaryModifier, potency, limit, user, target, timer);
+		}
+	};
 	
 
 	private static Map<AbstractItemEffectType, String> itemEffectTypeToIdMap = new HashMap<>();

@@ -10,7 +10,6 @@ import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
 import com.lilithsthrone.game.character.body.types.FluidType;
 import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
 import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
@@ -21,10 +20,10 @@ import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.83
- * @version 0.2.5
+ * @version 0.2.7
  * @author Innoxia
  */
-public class FluidGirlCum implements BodyPartInterface, Serializable, XMLSaving {
+public class FluidGirlCum implements FluidInterface, Serializable, XMLSaving {
 	private static final long serialVersionUID = 1L;
 	
 	protected FluidType type;
@@ -56,11 +55,11 @@ public class FluidGirlCum implements BodyPartInterface, Serializable, XMLSaving 
 		return element;
 	}
 	
-	public static FluidGirlCum loadFromXML(Element parentElement, Document doc) {
+	public static FluidGirlCum loadFromXML(Element parentElement, Document doc, FluidType baseType) {
 		
 		Element girlcum = (Element)parentElement.getElementsByTagName("girlcum").item(0);
 
-		FluidType fluidType = FluidType.GIRL_CUM_HUMAN;
+		FluidType fluidType = baseType;
 		try {
 			fluidType = FluidType.valueOf(girlcum.getAttribute("type"));
 		} catch(Exception ex) {
@@ -74,14 +73,6 @@ public class FluidGirlCum implements BodyPartInterface, Serializable, XMLSaving 
 		Element girlcumModifiersElement = (Element)girlcum.getElementsByTagName("girlcumModifiers").item(0);
 		Collection<FluidModifier> girlcumFluidModifiers = fluidGirlcum.fluidModifiers;
 		Body.handleLoadingOfModifiers(FluidModifier.values(), null, girlcumModifiersElement, girlcumFluidModifiers);
-		
-//		Element cumModifiers = (Element)cum.getElementsByTagName("girlcumModifiers").item(0);
-//		fluidGirlcum.fluidModifiers.clear();
-//		for(FluidModifier fm : FluidModifier.values()) {
-//			if(Boolean.valueOf(cumModifiers.getAttribute(fm.toString()))) {
-//				fluidGirlcum.fluidModifiers.add(fm);
-//			}
-//		}
 		
 		return fluidGirlcum;
 	}
@@ -147,8 +138,8 @@ public class FluidGirlCum implements BodyPartInterface, Serializable, XMLSaving 
 		return type;
 	}
 
-	public void setType(BodyPartTypeInterface type) {
-		this.type = (FluidType) type;
+	public void setType(FluidType type) {
+		this.type = type;
 	}
 
 	public FluidFlavour getFlavour() {
@@ -156,6 +147,10 @@ public class FluidGirlCum implements BodyPartInterface, Serializable, XMLSaving 
 	}
 
 	public String setFlavour(GameCharacter owner, FluidFlavour flavour) {
+		if (owner == null) {
+			this.flavour = flavour;
+			return "";
+		}
 		if(this.flavour == flavour || !owner.hasVagina()) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 		}
@@ -164,13 +159,13 @@ public class FluidGirlCum implements BodyPartInterface, Serializable, XMLSaving 
 		
 		if(owner.isPlayer()) {
 			return "<p>"
-						+ "A soothing warmth spreads down into your [pc.pussy], causing you to let out a contented little sigh.</br>"
+						+ "A soothing warmth spreads down into your [pc.pussy], causing you to let out a contented little sigh.<br/>"
 						+ "Your [pc.girlcum] now tastes of <b style='color:"+flavour.getColour().toWebHexString()+";'>"+flavour.getName()+"</b>."
 					+ "</p>";
 		} else {
 			return UtilText.parse(owner,
 					"<p>"
-						+ "A soothing warmth spreads down into [npc.name]'s [npc.pussy], causing [npc.herHim] to let out a contented little sigh.</br>"
+						+ "A soothing warmth spreads down into [npc.name]'s [npc.pussy], causing [npc.herHim] to let out a contented little sigh.<br/>"
 						+ "[npc.Name]'s [pc.girlcum] now tastes of <b style='color:"+flavour.getColour().toWebHexString()+";'>"+flavour.getName()+"</b>."
 					+ "</p>");
 		}
@@ -181,6 +176,10 @@ public class FluidGirlCum implements BodyPartInterface, Serializable, XMLSaving 
 	}
 	
 	public String addFluidModifier(GameCharacter owner, FluidModifier fluidModifier) {
+		if(owner==null && !fluidModifiers.contains(fluidModifier)) {
+			fluidModifiers.add(fluidModifier);
+			return "";
+		}
 		if(fluidModifiers.contains(fluidModifier) || !owner.hasVagina()) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 		}
@@ -191,104 +190,104 @@ public class FluidGirlCum implements BodyPartInterface, Serializable, XMLSaving 
 			case ADDICTIVE:
 				if(owner.isPlayer()) {
 					return "<p>"
-								+ "You feel a strange, pulsating heat deep within your [pc.pussy], causing you to let out [pc.a_moan+].</br>"
+								+ "You feel a strange, pulsating heat deep within your [pc.pussy], causing you to let out [pc.a_moan+].<br/>"
 								+ "Your [pc.girlcum] is now [style.boldGrow(addictive)]!"
 							+ "</p>";
 				} else {
 					return UtilText.parse(owner,
 							"<p>"
-								+ "A strange, pulsating heat takes root deep within [npc.name]'s [npc.pussy], causing [npc.herHim] to let out [npc.a_moan+].</br>"
+								+ "A strange, pulsating heat takes root deep within [npc.name]'s [npc.pussy], causing [npc.herHim] to let out [npc.a_moan+].<br/>"
 								+ "[npc.Name]'s [npc.girlcum] is now [style.boldGrow(addictive)]!"
 							+ "</p>");
 				}
 			case ALCOHOLIC:
 				if(owner.isPlayer()) {
 					return "<p>"
-								+ "You feel a strange, soothing warmth deep within your [pc.pussy], causing you to let out [pc.a_moan+].</br>"
+								+ "You feel a strange, soothing warmth deep within your [pc.pussy], causing you to let out [pc.a_moan+].<br/>"
 								+ "Your [pc.girlcum] is now [style.boldGrow(alcoholic)]!"
 							+ "</p>";
 				} else {
 					return UtilText.parse(owner,
 							"<p>"
-								+ "A strange, soothing warmth takes root deep within [npc.name]'s [npc.pussy], causing [npc.herHim] to let out [npc.a_moan+].</br>"
+								+ "A strange, soothing warmth takes root deep within [npc.name]'s [npc.pussy], causing [npc.herHim] to let out [npc.a_moan+].<br/>"
 								+ "[npc.Name]'s [npc.girlcum] is now [style.boldGrow(alcoholic)]!"
 							+ "</p>");
 				}
 			case BUBBLING:
 				if(owner.isPlayer()) {
 					return "<p>"
-								+ "You feel a light, bubbly feeling rising up into your [pc.pussy], causing you to let out [pc.a_moan+].</br>"
+								+ "You feel a light, bubbly feeling rising up into your [pc.pussy], causing you to let out [pc.a_moan+].<br/>"
 								+ "Your [pc.girlcum] is now [style.boldGrow(bubbly)]!"
 							+ "</p>";
 				} else {
 					return UtilText.parse(owner,
 							"<p>"
-								+ "A light, bubbly feeling rises up into [npc.name]'s [npc.pussy], causing [npc.herHim] to let out [npc.a_moan+].</br>"
+								+ "A light, bubbly feeling rises up into [npc.name]'s [npc.pussy], causing [npc.herHim] to let out [npc.a_moan+].<br/>"
 								+ "[npc.Name]'s [npc.girlcum] is now [style.boldGrow(bubbly)]!"
 							+ "</p>");
 				}
 			case HALLUCINOGENIC:
 				if(owner.isPlayer()) {
 					return "<p>"
-								+ "You feel a series of strange pulses shoot up into your [pc.pussy], causing you to let out [pc.a_moan+].</br>"
+								+ "You feel a series of strange pulses shoot up into your [pc.pussy], causing you to let out [pc.a_moan+].<br/>"
 								+ "Your [pc.girlcum] is now [style.boldGrow(psychoactive)]!"
 							+ "</p>";
 				} else {
 					return UtilText.parse(owner,
 							"<p>"
-								+ "A series of strange pulses shoot up into [npc.name]'s [npc.pussy], causing [npc.herHim] to let out [npc.a_moan+].</br>"
+								+ "A series of strange pulses shoot up into [npc.name]'s [npc.pussy], causing [npc.herHim] to let out [npc.a_moan+].<br/>"
 								+ "[npc.Name]'s [npc.girlcum] is now [style.boldGrow(psychoactive)]!"
 							+ "</p>");
 				}
 			case MUSKY:
 				if(owner.isPlayer()) {
 					return "<p>"
-								+ "You feel a slow, creeping warmth rise up into your [pc.pussy], causing you to let out [pc.a_moan+].</br>"
+								+ "You feel a slow, creeping warmth rise up into your [pc.pussy], causing you to let out [pc.a_moan+].<br/>"
 								+ "Your [pc.girlcum] is now [style.boldGrow(musky)]!"
 							+ "</p>";
 				} else {
 					return UtilText.parse(owner,
 							"<p>"
-								+ "A slow, creeping warmth rises up into [npc.name]'s [npc.pussy], causing [npc.herHim] to let out [npc.a_moan+].</br>"
+								+ "A slow, creeping warmth rises up into [npc.name]'s [npc.pussy], causing [npc.herHim] to let out [npc.a_moan+].<br/>"
 								+ "[npc.Name]'s [npc.girlcum] is now [style.boldGrow(musky)]!"
 							+ "</p>");
 				}
 			case SLIMY:
 				if(owner.isPlayer()) {
 					return "<p>"
-								+ "You feel a strange, soothing warmth flow up into your [pc.pussy], causing you to let out [pc.a_moan+].</br>"
+								+ "You feel a strange, soothing warmth flow up into your [pc.pussy], causing you to let out [pc.a_moan+].<br/>"
 								+ "Your [pc.girlcum] is now [style.boldGrow(slimy)]!"
 							+ "</p>";
 				} else {
 					return UtilText.parse(owner,
 							"<p>"
-								+ "A strange, soothing warmth flows up into [npc.name]'s [npc.pussy], causing [npc.herHim] to let out [npc.a_moan+].</br>"
+								+ "A strange, soothing warmth flows up into [npc.name]'s [npc.pussy], causing [npc.herHim] to let out [npc.a_moan+].<br/>"
 								+ "[npc.Name]'s [npc.girlcum] is now [style.boldGrow(slimy)]!"
 							+ "</p>");
 				}
 			case STICKY:
 				if(owner.isPlayer()) {
 					return "<p>"
-								+ "You feel a thick, sickly warmth flow up into your [pc.pussy], causing you to let out [pc.a_moan+].</br>"
+								+ "You feel a thick, sickly warmth flow up into your [pc.pussy], causing you to let out [pc.a_moan+].<br/>"
 								+ "Your [pc.girlcum] is now [style.boldGrow(sticky)]!"
 							+ "</p>";
 				} else {
 					return UtilText.parse(owner,
 							"<p>"
-								+ "A thick, sickly warmth flows up into [npc.name]'s [npc.pussy], causing [npc.herHim] to let out [npc.a_moan+].</br>"
+								+ "A thick, sickly warmth flows up into [npc.name]'s [npc.pussy], causing [npc.herHim] to let out [npc.a_moan+].<br/>"
 								+ "[npc.Name]'s [npc.girlcum] is now [style.boldGrow(sticky)]!"
 							+ "</p>");
 				}
 			case VISCOUS:
 				if(owner.isPlayer()) {
 					return "<p>"
-								+ "You feel a heavy heat slowly rising up into your [pc.pussy], causing you to let out [pc.a_moan+].</br>"
+								+ "You feel a heavy heat slowly rising up into your [pc.pussy], causing you to let out [pc.a_moan+].<br/>"
 								+ "Your [pc.girlcum] is now [style.boldGrow(viscous)]!"
 							+ "</p>";
 				} else {
 					return UtilText.parse(owner,
 							"<p>"
-								+ "A heavy heat slowly rises up into [npc.name]'s [npc.pussy], causing [npc.herHim] to let out [npc.a_moan+].</br>"
+								+ "A heavy heat slowly rises up into [npc.name]'s [npc.pussy], causing [npc.herHim] to let out [npc.a_moan+].<br/>"
 								+ "[npc.Name]'s [npc.girlcum] is now [style.boldGrow(viscous)]!"
 							+ "</p>");
 				}
@@ -308,104 +307,104 @@ public class FluidGirlCum implements BodyPartInterface, Serializable, XMLSaving 
 			case ADDICTIVE:
 				if(owner.isPlayer()) {
 					return "<p>"
-								+ "You feel a soft coolness spreading up into your [pc.pussy], causing you to let out a gentle sigh.</br>"
+								+ "You feel a soft coolness spreading up into your [pc.pussy], causing you to let out a gentle sigh.<br/>"
 								+ "Your [pc.girlcum] is [style.boldShrink(no longer addictive)]!"
 							+ "</p>";
 				} else {
 					return UtilText.parse(owner,
 							"<p>"
-								+ "A soft coolness spreads up into [npc.name]'s [npc.pussy], causing [npc.herHim] to let out a gentle sigh.</br>"
+								+ "A soft coolness spreads up into [npc.name]'s [npc.pussy], causing [npc.herHim] to let out a gentle sigh.<br/>"
 								+ "[npc.Name]'s [npc.girlcum] is [style.boldShrink(no longer addictive)]!"
 							+ "</p>");
 				}
 			case ALCOHOLIC:
 				if(owner.isPlayer()) {
 					return "<p>"
-								+ "You feel a soft coolness spreading up into your [pc.pussy], causing you to let out a gentle sigh.</br>"
+								+ "You feel a soft coolness spreading up into your [pc.pussy], causing you to let out a gentle sigh.<br/>"
 								+ "Your [pc.girlcum] is [style.boldShrink(no longer alcoholic)]!"
 							+ "</p>";
 				} else {
 					return UtilText.parse(owner,
 							"<p>"
-								+ "A soft coolness spreads up into [npc.name]'s [npc.pussy], causing [npc.herHim] to let out a gentle sigh.</br>"
+								+ "A soft coolness spreads up into [npc.name]'s [npc.pussy], causing [npc.herHim] to let out a gentle sigh.<br/>"
 								+ "[npc.Name]'s [npc.girlcum] is [style.boldShrink(no longer alcoholic)]!"
 							+ "</p>");
 				}
 			case BUBBLING:
 				if(owner.isPlayer()) {
 					return "<p>"
-								+ "You feel a calm, settling feeling rising up into your [pc.pussy], causing you to let out a gentle sigh.</br>"
+								+ "You feel a calm, settling feeling rising up into your [pc.pussy], causing you to let out a gentle sigh.<br/>"
 								+ "Your [pc.girlcum] is [style.boldShrink(no longer bubbly)]!"
 							+ "</p>";
 				} else {
 					return UtilText.parse(owner,
 							"<p>"
-								+ "A calm, settling feeling spreads up into [npc.name]'s [npc.pussy], causing [npc.herHim] to let out a gentle sigh.</br>"
+								+ "A calm, settling feeling spreads up into [npc.name]'s [npc.pussy], causing [npc.herHim] to let out a gentle sigh.<br/>"
 								+ "[npc.Name]'s [npc.girlcum] is [style.boldShrink(no longer bubbly)]!"
 							+ "</p>");
 				}
 			case HALLUCINOGENIC:
 				if(owner.isPlayer()) {
 					return "<p>"
-								+ "You feel a series of soothing waves wash up into your [pc.pussy], causing you to let out a gentle sigh.</br>"
+								+ "You feel a series of soothing waves wash up into your [pc.pussy], causing you to let out a gentle sigh.<br/>"
 								+ "Your [pc.girlcum] is [style.boldShrink(no longer psychoactive)]!"
 							+ "</p>";
 				} else {
 					return UtilText.parse(owner,
 							"<p>"
-								+ "A series of soothing waves wash up into [npc.name]'s [npc.pussy], causing [npc.herHim] to let out a gentle sigh.</br>"
+								+ "A series of soothing waves wash up into [npc.name]'s [npc.pussy], causing [npc.herHim] to let out a gentle sigh.<br/>"
 								+ "[npc.Name]'s [npc.girlcum] is [style.boldShrink(no longer psychoactive)]!"
 							+ "</p>");
 				}
 			case MUSKY:
 				if(owner.isPlayer()) {
 					return "<p>"
-								+ "You feel a gentle coolness rise up into your [pc.pussy], causing you to let out soft sigh.</br>"
+								+ "You feel a gentle coolness rise up into your [pc.pussy], causing you to let out soft sigh.<br/>"
 								+ "Your [pc.girlcum] is [style.boldShrink(no longer musky)]!"
 							+ "</p>";
 				} else {
 					return UtilText.parse(owner,
 							"<p>"
-								+ "A gentle coolness rises up into [npc.name]'s [npc.pussy], causing [npc.herHim] to let out a soft sigh.</br>"
+								+ "A gentle coolness rises up into [npc.name]'s [npc.pussy], causing [npc.herHim] to let out a soft sigh.<br/>"
 								+ "[npc.Name]'s [npc.girlcum] is [style.boldShrink(no longer musky)]!"
 							+ "</p>");
 				}
 			case SLIMY:
 				if(owner.isPlayer()) {
 					return "<p>"
-								+ "You feel a calming coolness flow up into your [pc.pussy], causing you to let out a gentle sigh.</br>"
+								+ "You feel a calming coolness flow up into your [pc.pussy], causing you to let out a gentle sigh.<br/>"
 								+ "Your [pc.girlcum] is [style.boldShrink(no longer slimy)]!"
 							+ "</p>";
 				} else {
 					return UtilText.parse(owner,
 							"<p>"
-								+ "A calming coolness flows up into [npc.name]'s [npc.pussy], causing [npc.herHim] to let out a gentle sigh.</br>"
+								+ "A calming coolness flows up into [npc.name]'s [npc.pussy], causing [npc.herHim] to let out a gentle sigh.<br/>"
 								+ "[npc.Name]'s [npc.girlcum] is [style.boldShrink(no longer slimy)]!"
 							+ "</p>");
 				}
 			case STICKY:
 				if(owner.isPlayer()) {
 					return "<p>"
-								+ "You feel a soft warmth flow up into your [pc.pussy], causing you to let out a gentle sigh.</br>"
+								+ "You feel a soft warmth flow up into your [pc.pussy], causing you to let out a gentle sigh.<br/>"
 								+ "Your [pc.girlcum] is [style.boldShrink(no longer sticky)]!"
 							+ "</p>";
 				} else {
 					return UtilText.parse(owner,
 							"<p>"
-								+ "A soft warmth flows up into [npc.name]'s [npc.pussy], causing [npc.herHim] to let out a gentle sigh.</br>"
+								+ "A soft warmth flows up into [npc.name]'s [npc.pussy], causing [npc.herHim] to let out a gentle sigh.<br/>"
 								+ "[npc.Name]'s [npc.girlcum] is [style.boldShrink(no longer sticky)]!"
 							+ "</p>");
 				}
 			case VISCOUS:
 				if(owner.isPlayer()) {
 					return "<p>"
-								+ "You feel a soft coolness slowly rising up into your [pc.pussy], causing you to let out a gentle sigh.</br>"
+								+ "You feel a soft coolness slowly rising up into your [pc.pussy], causing you to let out a gentle sigh.<br/>"
 								+ "Your [pc.girlcum] is [style.boldShrink(no longer viscous)]!"
 							+ "</p>";
 				} else {
 					return UtilText.parse(owner,
 							"<p>"
-								+ "A soft coolness rises up into [npc.name]'s [npc.pussy], causing [npc.herHim] to let out a gentle sigh.</br>"
+								+ "A soft coolness rises up into [npc.name]'s [npc.pussy], causing [npc.herHim] to let out a gentle sigh.<br/>"
 								+ "[npc.Name]'s [npc.girlcum] is [style.boldShrink(no longer viscous)]!"
 							+ "</p>");
 				}
@@ -414,39 +413,12 @@ public class FluidGirlCum implements BodyPartInterface, Serializable, XMLSaving 
 		return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 	}
 	
-	
-	/*
-	 * case TRANSFORMATIVE:
-				if(owner.isPlayer()) {
-					return "<p>"
-								+ "You feel a powerful pulse of arcane energy shoot up into your [pc.pussy], causing you to let out [pc.a_moan+].</br>"
-								+ "Your [pc.girlcum] is now [style.boldGrow(transformative)]!"
-							+ "</p>";
-				} else {
-					return UtilText.parse(owner,
-							"<p>"
-								+ "A powerful pulse of arcane energy shoots up into [npc.name]'s [npc.pussy], causing [npc.herHim] to let out [npc.a_moan+].</br>"
-								+ "[npc.Name]'s [npc.girlcum] is now [style.boldGrow(transformative)]!"
-							+ "</p>");
-				}
-				
-			case TRANSFORMATIVE:
-				if(owner.isPlayer()) {
-					return "<p>"
-								+ "You feel a soothing wave of arcane energy disperse from your [pc.pussy], causing you to let out a gentle sigh.</br>"
-								+ "Your [pc.girlcum] is [style.boldShrink(no longer transformative)]!"
-							+ "</p>";
-				} else {
-					return UtilText.parse(owner,
-							"<p>"
-								+ "A soothing wave of arcane energy disperses from [npc.name]'s [npc.pussy], causing [npc.herHim] to let out a gentle sigh.</br>"
-								+ "[npc.Name]'s [npc.girlcum] is [style.boldShrink(no longer transformative)]!"
-							+ "</p>");
-				}
-	 */
-	
 	public List<ItemEffect> getTransformativeEffects() {
 		return transformativeEffects;
+	}
+	
+	public void addTransformativeEffect(ItemEffect ie) {
+		transformativeEffects.add(ie);
 	}
 
 	/**
@@ -455,8 +427,12 @@ public class FluidGirlCum implements BodyPartInterface, Serializable, XMLSaving 
 	public List<FluidModifier> getFluidModifiers() {
 		return fluidModifiers;
 	}
+	
+	public void clearFluidModifiers() {
+		fluidModifiers.clear();
+	}
 
 	public float getValuePerMl() {
-		return 1f + this.getFluidModifiers().size()*1f + (this.getFlavour()!=FluidFlavour.GIRL_CUM?0.5f:0);
+		return 4f + this.getFluidModifiers().size()*1f + (this.getFlavour()!=FluidFlavour.GIRL_CUM?1f:0);
 	}
 }

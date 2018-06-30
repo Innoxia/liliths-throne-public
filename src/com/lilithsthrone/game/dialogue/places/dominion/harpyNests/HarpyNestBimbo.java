@@ -59,7 +59,7 @@ public class HarpyNestBimbo {
 				if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.bimboEncountered)) {
 					return "<p>"
 							+ "You find yourself standing on the outskirts of [bimboHarpy.name]'s nest; one of the largest and most populous of all the nests in Dominion."
-							+ " Huge, multi-level platforms extend across the rooves of several buildings, with colourful canvas awnings erected to shield the flock from the elements."
+							+ " Huge, multi-level platforms extend across the roofs of several buildings, with colourful canvas awnings erected to shield the flock from the elements."
 							+ (Main.game.isDayTime()
 									?""
 									:" A series of bright, arcane-powered lights illuminate the entire area, and from what you can see, the harpies here are just as active at night as they are during daylight hours.")
@@ -77,7 +77,7 @@ public class HarpyNestBimbo {
 				} else {
 					return "<p>"
 							+ "You find yourself standing on the outskirts of one of the largest harpy nests in Dominion."
-							+ " Huge, multi-level platforms extend across the rooves of several buildings, with colourful canvas awnings erected to shield the flock from the elements."
+							+ " Huge, multi-level platforms extend across the roofs of several buildings, with colourful canvas awnings erected to shield the flock from the elements."
 							+ (Main.game.isDayTime()
 									?""
 									:" A series of bright, arcane-powered lights illuminate the entire area, and from what you can see, the harpies here are just as active at night as they are during daylight hours.")
@@ -199,9 +199,9 @@ public class HarpyNestBimbo {
 						+ " Just as you saw from the outskirts, most of these harpies have larger-than-average breasts, hips, and asses, but it's the snippets of conversation that you overhear that reveal their true nature."
 					+ "</p>"
 					+ "<p>"
-						+ "[style.speechFeminine(...yeah, and, like, she was soooo not pretty...)]</br>"
-						+ "[style.speechFeminine(...uh-huh, and, like, her feathers were like, totally blech!...)]</br>"
-						+ "[style.speechFeminine(...and he was, like, 'I'll do whatever you say!', and I was like, 'Uhh, duh!'...)]</br>"
+						+ "[style.speechFeminine(...yeah, and, like, she was soooo not pretty...)]<br/>"
+						+ "[style.speechFeminine(...uh-huh, and, like, her feathers were like, totally blech!...)]<br/>"
+						+ "[style.speechFeminine(...and he was, like, 'I'll do whatever you say!', and I was like, 'Uhh, duh!'...)]<br/>"
 					+ "</p>"
 					+ "<p>"
 						+ "Combined with their large assets and choice of feather colour, you're left with no doubt as to what's going on here."

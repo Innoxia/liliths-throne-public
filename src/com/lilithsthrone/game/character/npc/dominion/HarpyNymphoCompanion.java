@@ -1,5 +1,7 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
+import java.time.Month;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -22,7 +24,6 @@ import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestNympho;
 import com.lilithsthrone.game.dialogue.responses.Response;
-import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
@@ -50,6 +51,7 @@ public class HarpyNymphoCompanion extends NPC {
 		super(new NameTriplet("Max"),
 				"Lexi's favourite partner, Max, does everything she can to please her matriarch."
 						+ " Just like most of the harpies in her nest, she does absolutely anything Lexi orders her to do, which usually involves trying to sate her matriarch's never-ending lust.",
+				26, Month.JANUARY, 22,
 				5, Gender.M_P_MALE, RacialBody.HARPY, RaceStage.LESSER,
 				new CharacterInventory(30), WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_HARPY_NEST_PINK, true);
 
@@ -79,7 +81,8 @@ public class HarpyNymphoCompanion extends NPC {
 			this.setBreastSize(CupSize.AA.getMeasurement());
 			
 			this.setPenisSize(PenisSize.THREE_LARGE.getMedianValue());
-			this.setCumProduction(CumProduction.THREE_AVERAGE.getMedianValue());
+			this.setPenisCumStorage(CumProduction.THREE_AVERAGE.getMedianValue());
+			this.fillCumToMaxStorage();
 			
 			this.setHeight(167);
 	
@@ -130,12 +133,6 @@ public class HarpyNymphoCompanion extends NPC {
 		return 0;
 	}
 
-	@Override
-	public String getCombatDescription() {
-		return UtilText.parse(this,
-				"[npc.Name] is eager to do [nymphoHarpy.name]'s bidding, and under the watchful eyes of the rest of the flock, she moves forwards to attack you.");
-	}
-	
 	@Override
 	public Response endCombat(boolean applyEffects, boolean victory) {
 		if (victory) {

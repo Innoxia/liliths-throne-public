@@ -159,7 +159,7 @@
 	<p>
 		Before you can respond, the fiery-haired maid suddenly pushes her leg forwards, and, unable to keep your balance, you find yourself being kicked backwards down the couple of steps that lead up to the front door.
 		 Laughing out loud, Mistress Amber steps forwards, reaching down to grab
-		#IF pc.hairLengthMinimum(THREE_SHOULDER_LENGTH)
+		#IF pc.getHairLength()>6
 		#THEN
 			a fistful of your [pc.hair+]
 		#ELSE

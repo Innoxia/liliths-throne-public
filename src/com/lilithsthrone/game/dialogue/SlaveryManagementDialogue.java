@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.ObedienceLevel;
 import com.lilithsthrone.game.character.body.BodyPartInterface;
@@ -20,6 +21,8 @@ import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.FaceType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.PiercingType;
+import com.lilithsthrone.game.character.markings.TattooCounterType;
+import com.lilithsthrone.game.character.markings.TattooType;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.dialogue.eventLog.SlaveryEventLogEntry;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -46,7 +49,7 @@ import com.lilithsthrone.world.places.PlaceUpgrade;
 
 /**
  * @since 0.1.8?
- * @version 0.2.3
+ * @version 0.2.6
  * @author Innoxia
  */
 public class SlaveryManagementDialogue {
@@ -160,7 +163,7 @@ public class SlaveryManagementDialogue {
 				};
 			}
 			
-		}  else if (index == 0) {
+		} else if (index == 0) {
 			return new Response("Back", "Exit the room upgrades screen.", SLAVERY_OVERVIEW) {
 				@Override
 				public DialogueNodeOld getNextDialogue() {
@@ -286,7 +289,7 @@ public class SlaveryManagementDialogue {
 					
 					UtilText.nodeContentSB.append(
 								"<div style='width:10%; float:left; margin:0; padding:0;'>"
-									+ String.format("%02d", entry.getTime()) + ":00</br>"
+									+ String.format("%02d", entry.getTime()) + ":00<br/>"
 								+ "</div>"
 								+ "<div style='width:15%; float:left; margin:0; padding:0;'>"
 									 + entry.getSlaveName()
@@ -304,7 +307,7 @@ public class SlaveryManagementDialogue {
 //					if(entry.getEffects()!=null) {
 //						for(String s : entry.getEffects()) {
 //							if(!s.isEmpty()) {
-//								UtilText.nodeContentSB.append(s+"</br>");
+//								UtilText.nodeContentSB.append(s+"<br/>");
 //								effectsAdded = true;
 //							}
 //						}
@@ -424,14 +427,14 @@ public class SlaveryManagementDialogue {
 		miscDialogueSB.append(
 				"<div class='container-full-width inner' style='margin-bottom:4px; margin-top:4px; "+(!occupants.isEmpty()?"background:"+Colour.BACKGROUND_ALT.toWebHexString()+";'":"'")+"'>"
 						+ "<div style='width:15%; float:left; margin:0; padding:0;'>"
-							+ "<span style='color:"+place.getColour().toWebHexString()+";'>"+place.getName()+"</span></br>"
+							+ "<span style='color:"+place.getColour().toWebHexString()+";'>"+place.getName()+"</span><br/>"
 						+ "</div>"
 						+ "<div style='width:20%; float:left; margin:0; padding:0;'>");
 		
 		int i=0;
 		for(NPC occupant : occupants) {
 			if(occupant.isSlave()) {
-				miscDialogueSB.append("<b style='color:"+occupant.getFemininity().getColour().toWebHexString()+";'>"+occupant.getName()+"</b>"+(i+1==occupants.size()?"":"</br>"));
+				miscDialogueSB.append("<b style='color:"+occupant.getFemininity().getColour().toWebHexString()+";'>"+occupant.getName()+"</b>"+(i+1==occupants.size()?"":"<br/>"));
 				i++;
 			}
 		}
@@ -471,6 +474,10 @@ public class SlaveryManagementDialogue {
 	}
 	
 	private static List<Cell> importantCells = new ArrayList<>();
+	
+	public static void resetImportantCells() {
+		importantCells = new ArrayList<>();
+	}
 	
 	public static List<Cell> getImportantCells() {
 		if(importantCells.isEmpty()) {
@@ -587,7 +594,7 @@ public class SlaveryManagementDialogue {
 			List<NPC> occupants = Main.game.getCharactersTreatingCellAsHome(cellToInspect);
 			for(NPC occupant : occupants) {
 				if(occupant.isSlave()) {
-					UtilText.nodeContentSB.append("<b style='color:"+occupant.getFemininity().getColour().toWebHexString()+";'>"+occupant.getName()+"</b>"+(i+1==occupants.size()?"":"</br>"));
+					UtilText.nodeContentSB.append("<b style='color:"+occupant.getFemininity().getColour().toWebHexString()+";'>"+occupant.getName()+"</b>"+(i+1==occupants.size()?"":"<br/>"));
 					i++;
 				}
 			}
@@ -668,7 +675,43 @@ public class SlaveryManagementDialogue {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(index==0) {
+			if (index == 5) {
+				if(Main.game.getSlaveryUtil().getGeneratedBalance()==0) {
+					return new Response("Collect: "+UtilText.formatAsMoneyUncoloured(Main.game.getSlaveryUtil().getGeneratedBalance(), "span"), "Your current balance is 0...",  null);
+					
+				} else if(Main.game.getSlaveryUtil().getGeneratedBalance()>0) {
+					return new Response("Collect: "+UtilText.formatAsMoney(Main.game.getSlaveryUtil().getGeneratedBalance(), "span"),
+							"Collect the money that you've earned through your slaves' activities.",  ROOM_UPGRADES) {
+						@Override
+						public DialogueNodeOld getNextDialogue() {
+							return Main.game.getCurrentDialogueNode();
+						}
+						@Override
+						public void effects() {
+							Main.game.getSlaveryUtil().payOutBalance();
+						}
+					};
+					
+				} else {
+					if(Main.game.getPlayer().getMoney()<Math.abs(Main.game.getSlaveryUtil().getGeneratedBalance())) {
+						return new Response("Pay: "+UtilText.formatAsMoneyUncoloured(Math.abs(Main.game.getSlaveryUtil().getGeneratedBalance()), "span"),
+								"You don't have enough money to pay off the accumulated debt from the upkeep of your slaves and rooms.",  null);
+					}
+					
+					return new Response("Pay: "+UtilText.formatAsMoney(Math.abs(Main.game.getSlaveryUtil().getGeneratedBalance()), "span", Colour.GENERIC_BAD),
+							"Pay off the accumulated debt from the upkeep of your slaves and rooms.",  ROOM_UPGRADES) {
+						@Override
+						public DialogueNodeOld getNextDialogue() {
+							return Main.game.getCurrentDialogueNode();
+						}
+						@Override
+						public void effects() {
+							Main.game.getSlaveryUtil().payOutBalance();
+						}
+					};
+				}
+				
+			} else if(index==0) {
 				return new Response("Back", "Return to the previous screen.", ROOM_UPGRADES) {
 					@Override
 					public DialogueNodeOld getNextDialogue() {
@@ -708,7 +751,43 @@ public class SlaveryManagementDialogue {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(index==0) {
+			if (index == 5) {
+				if(Main.game.getSlaveryUtil().getGeneratedBalance()==0) {
+					return new Response("Collect: "+UtilText.formatAsMoneyUncoloured(Main.game.getSlaveryUtil().getGeneratedBalance(), "span"), "Your current balance is 0...",  null);
+					
+				} else if(Main.game.getSlaveryUtil().getGeneratedBalance()>0) {
+					return new Response("Collect: "+UtilText.formatAsMoney(Main.game.getSlaveryUtil().getGeneratedBalance(), "span"),
+							"Collect the money that you've earned through your slaves' activities.",  ROOM_UPGRADES_MANAGEMENT) {
+						@Override
+						public DialogueNodeOld getNextDialogue() {
+							return Main.game.getCurrentDialogueNode();
+						}
+						@Override
+						public void effects() {
+							Main.game.getSlaveryUtil().payOutBalance();
+						}
+					};
+					
+				} else {
+					if(Main.game.getPlayer().getMoney()<Math.abs(Main.game.getSlaveryUtil().getGeneratedBalance())) {
+						return new Response("Pay: "+UtilText.formatAsMoneyUncoloured(Math.abs(Main.game.getSlaveryUtil().getGeneratedBalance()), "span"),
+								"You don't have enough money to pay off the accumulated debt from the upkeep of your slaves and rooms.",  null);
+					}
+					
+					return new Response("Pay: "+UtilText.formatAsMoney(Math.abs(Main.game.getSlaveryUtil().getGeneratedBalance()), "span", Colour.GENERIC_BAD),
+							"Pay off the accumulated debt from the upkeep of your slaves and rooms.",  ROOM_UPGRADES_MANAGEMENT) {
+						@Override
+						public DialogueNodeOld getNextDialogue() {
+							return Main.game.getCurrentDialogueNode();
+						}
+						@Override
+						public void effects() {
+							Main.game.getSlaveryUtil().payOutBalance();
+						}
+					};
+				}
+				
+			} else if(index==0) {
 				return new Response("Back", "Return to the previous screen.", ROOM_MANAGEMENT);
 			} else {
 				return null;
@@ -893,9 +972,9 @@ public class SlaveryManagementDialogue {
 				purchaseAvailability.append("You need to purchase the following first:");
 				for(PlaceUpgrade prereq : upgrade.getPrerequisites()) {
 					if(place.getPlaceUpgrades().contains(prereq)) {
-						purchaseAvailability.append("</br><span style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>"+prereq.getName()+"</span>");
+						purchaseAvailability.append("<br/><span style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>"+prereq.getName()+"</span>");
 					} else {
-						purchaseAvailability.append("</br><span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>"+prereq.getName()+"</span>");
+						purchaseAvailability.append("<br/><span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>"+prereq.getName()+"</span>");
 					}
 				}
 			}
@@ -903,7 +982,7 @@ public class SlaveryManagementDialogue {
 		
 		String availabilityDescription = upgrade.getAvailabilityDescription(SlaveryManagementDialogue.cellToInspect);
 		if(availabilityDescription!=null && availabilityDescription.length()>0) {
-			purchaseAvailability.append("</br><span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>"+availabilityDescription+"</span>");
+			purchaseAvailability.append("<br/><span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>"+availabilityDescription+"</span>");
 		}
 		
 		return purchaseAvailability.toString();
@@ -1114,27 +1193,27 @@ public class SlaveryManagementDialogue {
 		miscDialogueSB.append(
 				"<div class='container-full-width inner' style='margin-bottom:0;"+(alternateBackground?"background:"+Colour.BACKGROUND_ALT.toWebHexString()+";'":"'")+"'>"
 						+ "<div style='width:20%; float:left; margin:0; padding:0;'>"
-							+ "<b style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>"+slave.getName()+"</b></br>"
-							+ "<span style='color:"+slave.getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence((slave.isFeminine()?slave.getSubspecies().getSingularFemaleName():slave.getSubspecies().getSingularMaleName()))+"</span></br>"
+							+ "<b style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>"+slave.getName()+"</b><br/>"
+							+ "<span style='color:"+slave.getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence((slave.isFeminine()?slave.getSubspecies().getSingularFemaleName():slave.getSubspecies().getSingularMaleName()))+"</span><br/>"
 							+ "<span style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(slave.getGender().getName())+"</span>"
 						+ "</div>"
 						+ "<div style='width:20%; float:left; margin:0; padding:0;'>"
 							+ "<b style='color:"+slave.getLocationPlace().getColour().toWebHexString()+";'>"+slave.getLocationPlace().getName()+"</b>"
-							+",</br>"
+							+",<br/>"
 							+ "<span style='color:"+slave.getWorldLocation().getColour().toWebHexString()+";'>"+slave.getWorldLocation().getName()+"</span>"
 						+ "</div>"
 						+ "<div style='float:left; width:15%; margin:0; padding:0;'>"
 							+ "<b style='color:"+affection.getColour().toWebHexString()+";'>"+slave.getAffection(Main.game.getPlayer())+ "</b>"
-							+ "</br><span style='color:"+(affectionChange==0?Colour.BASE_GREY:(affectionChange>0?Colour.GENERIC_GOOD:Colour.GENERIC_BAD)).toWebHexString()+";'>"+(affectionChange>0?"+":"")
+							+ "<br/><span style='color:"+(affectionChange==0?Colour.BASE_GREY:(affectionChange>0?Colour.GENERIC_GOOD:Colour.GENERIC_BAD)).toWebHexString()+";'>"+(affectionChange>0?"+":"")
 								+decimalFormat.format(affectionChange)+"</span>/day"
-							+ "</br>"
+							+ "<br/>"
 							+ "<span style='color:"+affection.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(affection.getName())+"</span>"
 						+"</div>"
 						+ "<div style='float:left; width:15%; margin:0; padding:0;'>"
 							+ "<b style='color:"+obedience.getColour().toWebHexString()+";'>"+slave.getObedienceValue()+ "</b>"
-							+ "</br><span style='color:"+(obedienceChange==0?Colour.BASE_GREY:(obedienceChange>0?Colour.GENERIC_GOOD:Colour.GENERIC_BAD)).toWebHexString()+";'>"+(obedienceChange>0?"+":"")
+							+ "<br/><span style='color:"+(obedienceChange==0?Colour.BASE_GREY:(obedienceChange>0?Colour.GENERIC_GOOD:Colour.GENERIC_BAD)).toWebHexString()+";'>"+(obedienceChange>0?"+":"")
 								+decimalFormat.format(obedienceChange)+"</span>/day"
-							+ "</br>"
+							+ "<br/>"
 							+ "<span style='color:"+obedience.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(obedience.getName())+"</span>"
 						+"</div>"
 						+ "<div style='float:left; width:15%; margin:0; padding:0;'>"
@@ -1142,8 +1221,8 @@ public class SlaveryManagementDialogue {
 								?(slaveOwned
 										?UtilText.formatAsMoney((int) (slave.getValueAsSlave()*Main.game.getDialogueFlags().getSlaveTrader().getBuyModifier()), "b", Colour.GENERIC_ARCANE)
 										:UtilText.formatAsMoney((int) (slave.getValueAsSlave()*Main.game.getDialogueFlags().getSlaveTrader().getSellModifier()), "b", Colour.GENERIC_ARCANE))
-								:UtilText.formatAsMoney(slave.getValueAsSlave()))+"</br>"
-							+ "<b>"+Util.capitaliseSentence(slave.getSlaveJob().getName(slave))+"</b></br>"
+								:UtilText.formatAsMoney(slave.getValueAsSlave()))+"<br/>"
+							+ "<b>"+Util.capitaliseSentence(slave.getSlaveJob().getName(slave))+"</b><br/>"
 							+ UtilText.formatAsMoney(slave.getSlaveJob().getFinalDailyIncomeAfterModifiers(slave))+"/day"
 						+"</div>");
 		
@@ -1168,10 +1247,10 @@ public class SlaveryManagementDialogue {
 				miscDialogueSB.append("<div id='"+slave.getId()+"_SELL' class='square-button big'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getTransactionSell()+"</div></div>");
 			}
 			
-			if(Main.game.getKate().getLastTimeEncountered()!=NPC.DEFAULT_TIME_START_VALUE) {
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.kateIntroduced)) {
 				miscDialogueSB.append("<div id='"+slave.getId()+"_COSMETICS' class='square-button big'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveCosmetics()+"</div></div>");
 			} else {
-				miscDialogueSB.append("<div id='"+slave.getId()+"_COSMETICS_DISBALED' class='square-button big disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveCosmeticsDisabled()+"</div></div>");
+				miscDialogueSB.append("<div id='"+slave.getId()+"_COSMETICS_DISABLED' class='square-button big disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveCosmeticsDisabled()+"</div></div>");
 			}
 			
 		} else { // Slave trader's slave:
@@ -1258,21 +1337,21 @@ public class SlaveryManagementDialogue {
 					+"<div class='container-full-width'>"
 						+"<div style='width:30%; float:left; margin:0; padding:0;'>"
 							+ "<b style='color:"+character.getLocationPlace().getColour().toWebHexString()+";'>"+character.getLocationPlace().getName()+"</b>"
-							+",</br>"
+							+",<br/>"
 							+ "<span style='color:"+character.getWorldLocation().getColour().toWebHexString()+";'>"+character.getWorldLocation().getName()+"</span>"
 						+ "</div>"
 						+ "<div style='float:left; width:20%; margin:0; padding:0;'>"
 							+ "<b style='color:"+affection.getColour().toWebHexString()+";'>"+character.getAffection(Main.game.getPlayer())+ "</b>" //TODO
-							+ "</br><span style='color:"+(affectionChange==0?Colour.BASE_GREY:(affectionChange>0?Colour.GENERIC_GOOD:Colour.GENERIC_BAD)).toWebHexString()+";'>"+(affectionChange>0?"+":"")
+							+ "<br/><span style='color:"+(affectionChange==0?Colour.BASE_GREY:(affectionChange>0?Colour.GENERIC_GOOD:Colour.GENERIC_BAD)).toWebHexString()+";'>"+(affectionChange>0?"+":"")
 								+decimalFormat.format(affectionChange)+"</span>/day"
-							+ "</br>"
+							+ "<br/>"
 							+ "<span style='color:"+affection.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(affection.getName())+"</span>"
 						+"</div>"
 						+ "<div style='float:left; width:20%; margin:0; padding:0;'>"
 							+ "<b style='color:"+obedience.getColour().toWebHexString()+";'>"+character.getObedienceValue()+ "</b>"
-							+ "</br><span style='color:"+(obedienceChange==0?Colour.BASE_GREY:(obedienceChange>0?Colour.GENERIC_GOOD:Colour.GENERIC_BAD)).toWebHexString()+";'>"+(obedienceChange>0?"+":"")
+							+ "<br/><span style='color:"+(obedienceChange==0?Colour.BASE_GREY:(obedienceChange>0?Colour.GENERIC_GOOD:Colour.GENERIC_BAD)).toWebHexString()+";'>"+(obedienceChange>0?"+":"")
 								+decimalFormat.format(obedienceChange)+"</span>/day"
-							+ "</br>"
+							+ "<br/>"
 							+ "<span style='color:"+obedience.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(obedience.getName())+"</span>"
 						+"</div>"
 						+ "<div style='float:left; width:15%; margin:0; padding:0;'>"
@@ -1286,7 +1365,7 @@ public class SlaveryManagementDialogue {
 		
 		// Job:
 		headerSB.append("<div class='container-half-width inner' style='width:50%; margin:0;'>"
-				+ "<b>Job:</b> <b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>"+Util.capitaliseSentence(character.getSlaveJob().getName(character))+"</b></br>");
+				+ "<b>Job:</b> <b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>"+Util.capitaliseSentence(character.getSlaveJob().getName(character))+"</b><br/>");
 		int count=0;
 		for(SlaveJobSetting setting : character.getSlaveJobSettings()) {
 			headerSB.append((count==0?"":", ")+"<span style='color:"+setting.getColour().toWebHexString()+";'>"+setting.getName()+"</span>");
@@ -1300,7 +1379,7 @@ public class SlaveryManagementDialogue {
 		
 		// Permissions:
 		headerSB.append("<div class='container-half-width inner' style='width:50%; margin:0;'>"
-				+ "<b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Permissions:</b></br>");
+				+ "<b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Permissions:</b><br/>");
 		int permissionCount=0;
 		for(SlavePermission permission : SlavePermission.values()) {
 			for(SlavePermissionSetting setting : permission.getSettings()) {
@@ -1744,8 +1823,7 @@ public class SlaveryManagementDialogue {
 
 		} else if (index == 7) {
 			return new Response("Tattoos", "Most of the brochure is taken up with drawings and photographs displaying Kate's considerable artistic talents."
-					+ " She's even able to apply arcane-enchanted tattoos, but they look to be very expensive...</br>"
-					+ "<b>Will be done as soon as possible!</b>", null);
+					+ " She's even able to apply arcane-enchanted tattoos, but they look to be very expensive...", SLAVE_MANAGEMENT_TATTOOS);
 
 		} else if (index == 0) {
 			return new Response("Back", "Return to the slave management screen.",  SLAVE_LIST) {
@@ -2091,7 +2169,8 @@ public class SlaveryManagementDialogue {
 					+CharacterModificationUtils.getKatesDivAnalBleaching("Anal bleaching", "Anal bleaching is the process of lightening the colour of the skin around the anus, to make it more uniform with the surrounding area.")
 
 					+(Main.game.isFacialHairEnabled()
-							?CharacterModificationUtils.getKatesDivFacialHair("Facial hair", "The body hair found on [npc.name]'s face. Feminine characters cannot grow facial hair.")
+							? CharacterModificationUtils.getKatesDivFacialHair("Facial hair", "The body hair found on [npc.name]'s face." 
+									+ (Main.game.isFemaleFacialHairEnabled() ? "" : " Feminine characters cannot grow facial hair."))
 							:"")
 					
 					+(Main.game.isPubicHairEnabled()
@@ -2136,6 +2215,106 @@ public class SlaveryManagementDialogue {
 			} else {
 				return getCosmeticsResponse(responseTab, index);
 			}
+		}
+	};
+	
+	public static final DialogueNodeOld SLAVE_MANAGEMENT_TATTOOS = new DialogueNodeOld("Succubi's Secrets", "-", true) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getContent() {
+			return CharacterModificationUtils.getKatesDivTattoos();
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 7) {
+				return new Response("Tattoos",
+						UtilText.parse(BodyChanging.getTarget(), "You are already managing [npc.name]'s tattoos!"),
+						null);
+				
+			} else if(index==11) {
+				return new Response("Confirmations: ",
+						"Toggle tattoo removal confirmations."
+							+ " When turned on, it will take two clicks to remove tattoos."
+							+ " When turned off, it will only take one click.",
+							SLAVE_MANAGEMENT_TATTOOS) {
+					@Override
+					public String getTitle() {
+						return "Confirmations: "+(Main.getProperties().hasValue(PropertyValue.tattooRemovalConfirmations)
+									?"<span style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>ON</span>"
+									:"<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>OFF</span>");
+					}
+					
+					@Override
+					public void effects() {
+						Main.getProperties().setValue(PropertyValue.tattooRemovalConfirmations, !Main.getProperties().hasValue(PropertyValue.tattooRemovalConfirmations));
+						Main.getProperties().savePropertiesAsXML();
+					}
+				};
+				
+			} else {
+				return getCosmeticsResponse(responseTab, index);
+			}
+		}
+
+		@Override
+		public boolean reloadOnRestore() {
+			return true;
+		}
+	};
+	
+	public static final DialogueNodeOld SLAVE_MANAGEMENT_TATTOOS_ADD = new DialogueNodeOld("Succubi's Secrets", "-", true) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getLabel() {
+			return "Succubi's Secrets - "+Util.capitaliseSentence(CharacterModificationUtils.tattooInventorySlot.getName()) +" Tattoo";
+		}
+		
+		@Override
+		public String getContent() {
+			return CharacterModificationUtils.getKatesDivTattoosAdd();
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			int value = CharacterModificationUtils.tattoo.getValue();
+			
+			if (index == 1) {
+				if(Main.game.getPlayer().getMoney()<value) {
+					return new Response("Apply ("+UtilText.formatAsMoneyUncoloured(value, "span")+")",
+							UtilText.parse(BodyChanging.getTarget(), "You don't have enough money to give [npc.name] a tattoo!"),  null);
+					
+				} else if(CharacterModificationUtils.tattoo.getType().equals(TattooType.NONE)
+						&& CharacterModificationUtils.tattoo.getWriting().getText().isEmpty()
+						&& CharacterModificationUtils.tattoo.getCounter().getType()==TattooCounterType.NONE) {
+					return new Response("Apply ("+UtilText.formatAsMoneyUncoloured(value, "span")+")", "You need to select a tattoo type, add some writing, or add a counter in order to make a tattoo!", null);
+					
+				} else {
+					return new Response("Apply ("+UtilText.formatAsMoney(value, "span")+")", 
+							UtilText.parse(BodyChanging.getTarget(), "Pay Kate to give [npc.name] this tattoo!"), SLAVE_MANAGEMENT_TATTOOS) {
+						@Override
+						public void effects() {
+							Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().incrementMoney(-value));
+
+							Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenPField').innerHTML=document.getElementById('tattoo_name').value;");
+							CharacterModificationUtils.tattoo.getWriting().setText(Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent());
+							BodyChanging.getTarget().addTattoo(CharacterModificationUtils.tattooInventorySlot, CharacterModificationUtils.tattoo);
+						}
+					};
+				}
+			
+			} else if(index==0) {
+				return new Response("Back", "Decide not to get this tattoo and return to the main selection screen.", SLAVE_MANAGEMENT_TATTOOS);
+			}
+			
+			return null;
+		}
+
+		@Override
+		public boolean reloadOnRestore() {
+			return true;
 		}
 	};
 }

@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.body.types.FluidType;
@@ -81,12 +82,10 @@ public class Addiction implements XMLSaving {
 	}
 
 	public static Addiction loadFromXML(StringBuilder log, Element parentElement, Document doc) {
-		
 		List<String> IDs = new ArrayList<>();
-		Element element = (Element)parentElement.getElementsByTagName("providerIDs").item(0);
-		for(int i=0; i<element.getElementsByTagName("id").getLength(); i++){
-			Element e = ((Element)element.getElementsByTagName("id").item(i));
-			IDs.add(e.getAttribute("value"));
+		NodeList idList = ((Element)parentElement.getElementsByTagName("providerIDs").item(0)).getElementsByTagName("id");
+		for(int i = 0; i < idList.getLength(); i++){
+			IDs.add(((Element)idList.item(i)).getAttribute("value"));
 		}
 		
 		return new Addiction(FluidType.valueOf(parentElement.getAttribute("fluid")),

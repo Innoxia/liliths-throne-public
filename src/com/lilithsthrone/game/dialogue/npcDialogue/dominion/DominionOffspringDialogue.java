@@ -495,7 +495,9 @@ public class DominionOffspringDialogue {
 												+(offspring().getMother().isPlayer()?"Lilaya":offspring().getMother().isPlayerKnowsName()?offspring().getMother().getName():"your mother")+" told you, but I'm-)]"
 										+ "</p>"
 										+ "<p>"
-											+ "[npc.speech([pc.Name], yeah, "+(offspring().getMother().isPlayer()?"Lilaya":"mom")+" told me about you. Sorry that I didn't stick around for you to wake up, but, you know how it is...)]"
+											+ (offspring().getMother().isPlayer()
+													?"[npc.speech([pc.Name], yeah, Lilaya told me about you. Sorry that I didn't stick around for you to wake up, but, you know how it is...)]"
+													:"[npc.speech([pc.Name], yeah, mom told me about you. I didn't really hang around to get the full story, though. You know how it is...)]")
 											+ " [npc.name] explains, clearly feeling a little guilty about it."
 											+ " [npc.speech(But anyway! Now that you're here, come with me! I can show you my place!)]"
 										+ "</p>");
@@ -529,7 +531,9 @@ public class DominionOffspringDialogue {
 												+(offspring().getMother().isPlayer()?"Lilaya":offspring().getMother().isPlayerKnowsName()?offspring().getMother().getName():"your mother")+" told you, but I'm-)]"
 										+ "</p>"
 										+ "<p>"
-											+ "[npc.speech([pc.Name], yeah, "+(offspring().getMother().isPlayer()?"Lilaya":"mom")+" told me about you. Sorry that I didn't stick around for you to wake up, but, you know how it is...)]"
+										+ (offspring().getMother().isPlayer()
+												?"[npc.speech([pc.Name], yeah, Lilaya told me about you. Sorry that I didn't stick around for you to wake up, but, you know how it is...)]"
+												:"[npc.speech([pc.Name], yeah, mom told me about you. I didn't really hang around to get the full story, though. You know how it is...)]")
 											+ " [npc.name] explains, clearly feeling a little guilty about it."
 											+ " [npc.speech(But anyway! Now that you're here, come with me! I can show you my place!)]"
 										+ "</p>");
@@ -567,7 +571,9 @@ public class DominionOffspringDialogue {
 												+(offspring().getMother().isPlayer()?"Lilaya":offspring().getMother().isPlayerKnowsName()?offspring().getMother().getName():"your mother")+" told you, but I'm-)]"
 										+ "</p>"
 										+ "<p>"
-											+ "[npc.speech([pc.Name], yeah, "+(offspring().getMother().isPlayer()?"Lilaya":"mom")+" told me about you. Sorry that I didn't stick around for you to wake up, but, you know how it is...)]"
+											+ (offspring().getMother().isPlayer()
+													?"[npc.speech([pc.Name], yeah, Lilaya told me about you. Sorry that I didn't stick around for you to wake up, but, you know how it is...)]"
+													:"[npc.speech([pc.Name], yeah, mom told me about you. I didn't really hang around to get the full story, though. You know how it is...)]")
 											+ " [npc.name] explains, clearly feeling a little guilty about it."
 											+ " [npc.speech(But anyway! Now that you're here, come with me! I can show you my place!)]"
 										+ "</p>");
@@ -2250,7 +2256,7 @@ public class DominionOffspringDialogue {
 				if(offspring().isAttractedTo(Main.game.getPlayer()) || !Main.game.isNonConEnabled()) {
 					return new ResponseSex("Sex",
 							"Well, [npc.she] <i>is</i> asking for it!",
-							null, null, null, null, null, null,
+							Util.newArrayListOfValues(Fetish.FETISH_INCEST), null, Fetish.FETISH_INCEST.getAssociatedCorruptionLevel(), null, null, null,
 							true, false,
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
@@ -2267,8 +2273,8 @@ public class DominionOffspringDialogue {
 					
 				} else {
 					return new ResponseSex(
-							"Rape [npc.herHim]", "[npc.She] needs to be punished for attacking you like that...", Util.newArrayListOfValues(Fetish.FETISH_NON_CON_DOM),
-							null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null, null, null,
+							"Rape [npc.herHim]", "[npc.She] needs to be punished for attacking you like that...",
+							Util.newArrayListOfValues(Fetish.FETISH_NON_CON_DOM, Fetish.FETISH_INCEST), null, CorruptionLevel.FIVE_CORRUPT, null, null, null,
 							false, false,
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
@@ -2292,7 +2298,7 @@ public class DominionOffspringDialogue {
 				if(offspring().isAttractedTo(Main.game.getPlayer()) || !Main.game.isNonConEnabled()) {
 					return new ResponseSex("Gentle sex",
 							"Well, [npc.she] <i>is</i> asking for it! (Start the sex scene in the 'gentle' pace.)",
-							null, null, null, null, null, null,
+							Util.newArrayListOfValues(Fetish.FETISH_INCEST), null, CorruptionLevel.FIVE_CORRUPT, null, null, null,
 							true, false,
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
@@ -2316,8 +2322,8 @@ public class DominionOffspringDialogue {
 					
 				} else {
 					return new ResponseSex("Rape [npc.herHim] (gentle)",
-							"[npc.She] needs to be punished for attacking you like that... (Start the sex scene in the 'gentle' pace.)", Util.newArrayListOfValues(Fetish.FETISH_NON_CON_DOM),
-							null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null, null, null,
+							"[npc.She] needs to be punished for attacking you like that... (Start the sex scene in the 'gentle' pace.)",
+							Util.newArrayListOfValues(Fetish.FETISH_NON_CON_DOM, Fetish.FETISH_INCEST), null, CorruptionLevel.FIVE_CORRUPT, null, null, null,
 							false, false,
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
@@ -2349,7 +2355,7 @@ public class DominionOffspringDialogue {
 				if(offspring().isAttractedTo(Main.game.getPlayer()) || !Main.game.isNonConEnabled()) {
 					return new ResponseSex("Rough sex",
 							"Well, [npc.she] <i>is</i> asking for it! (Start the sex scene in the 'rough' pace.)",
-							null, null, null, null, null, null,
+							Util.newArrayListOfValues(Fetish.FETISH_INCEST), null, CorruptionLevel.FIVE_CORRUPT, null, null, null,
 							true, false,
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
@@ -2374,8 +2380,8 @@ public class DominionOffspringDialogue {
 					
 				} else {
 					return new ResponseSex("Rape [npc.herHim] (rough)",
-							"[npc.She] needs to be punished for attacking you like that... (Start the sex scene in the 'rough' pace.)", Util.newArrayListOfValues(Fetish.FETISH_NON_CON_DOM),
-							null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null, null, null,
+							"[npc.She] needs to be punished for attacking you like that... (Start the sex scene in the 'rough' pace.)",
+							Util.newArrayListOfValues(Fetish.FETISH_NON_CON_DOM, Fetish.FETISH_INCEST), null, CorruptionLevel.FIVE_CORRUPT, null, null, null,
 							false, false,
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
@@ -2406,9 +2412,9 @@ public class DominionOffspringDialogue {
 			} else if (index == 5) {
 				if(offspring().isAttractedTo(Main.game.getPlayer()) || !Main.game.isNonConEnabled()) {
 					return new ResponseSex("Submit",
-							"You're not really sure what to do now...</br>"
+							"You're not really sure what to do now...<br/>"
 								+ "Perhaps it would be best to let [npc.name] choose what to do next?",
-							Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, null, null, null, null,
+							Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE, Fetish.FETISH_INCEST), null, CorruptionLevel.FIVE_CORRUPT, null, null, null,
 							true, true,
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(offspring(), SexPositionSlot.STANDING_DOMINANT)),
@@ -2613,6 +2619,7 @@ public class DominionOffspringDialogue {
 				} else if (index == 2) {
 					return new ResponseSex("Eager Sex",
 							"[npc.Name] forces [npc.herself] on you...",
+							Util.newArrayListOfValues(Fetish.FETISH_INCEST), null, CorruptionLevel.FIVE_CORRUPT, null, null, null,
 							false, false,
 							new SMStanding(
 									Util.newHashMapOfValues(new Value<>(offspring(), SexPositionSlot.STANDING_DOMINANT)),
@@ -3042,7 +3049,7 @@ public class DominionOffspringDialogue {
 							+ " Encouraged by this, you decide to finish what you started, and quickly force [npc.name] to wear the enslaving clothing."
 						+ "</p>"
 						+ "<p>"
-							+ "As the arcane enchantment recognises its new wearer as being a criminal, ominous purple lettering is projected into the air, reading;</br>"
+							+ "As the arcane enchantment recognises its new wearer as being a criminal, ominous purple lettering is projected into the air, reading;<br/>"
 							+ "<i>Slave identification: [style.boldArcane("+Main.game.getActiveNPC().getNameIgnoresPlayerKnowledge()+")]</i>"
 						+ "</p>"
 						+ "<p>"

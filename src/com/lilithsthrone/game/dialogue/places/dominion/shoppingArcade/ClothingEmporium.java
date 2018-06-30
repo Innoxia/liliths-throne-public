@@ -77,10 +77,8 @@ public class ClothingEmporium {
 						Main.game.getDialogueFlags().values.add(DialogueFlagValue.nyanIntroduced);
 					}
 				};
-				
-			} else {
-				return null;
 			}
+			return null;
 		}
 	};
 	
@@ -138,7 +136,7 @@ public class ClothingEmporium {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(responseTab==1) {
-				if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_NYAN_HELP)) {
+				if(Main.game.getPlayer().isQuestCompleted(QuestLine.RELATIONSHIP_NYAN_HELP)) {
 					if(index==1) {
 						if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.nyanTalkedTo)) {
 							return new Response("Small Talk", "You've already had a chat with Nyan today. You can repeat this action tomorrow.", null);
@@ -281,7 +279,7 @@ public class ClothingEmporium {
 						}
 					}
 					
-				} else if(Main.game.getPlayer().getQuest(QuestLine.SIDE_NYAN_HELP) == Quest.SIDE_NYAN_STOCK_ISSUES_SUPPLIERS_BEATEN) {
+				} else if(Main.game.getPlayer().getQuest(QuestLine.RELATIONSHIP_NYAN_HELP) == Quest.RELATIONSHIP_NYAN_STOCK_ISSUES_SUPPLIERS_BEATEN) {
 					if(index==1) {
 						return new Response("Report back", "Tell Nyan that you've dealt with the suppliers.", SHOP_REPORT_BACK) {
 							@Override
@@ -289,33 +287,33 @@ public class ClothingEmporium {
 								Main.game.getPlayer().incrementMoney(5000);
 								Main.game.getNyan().setSellModifier(1.25f);
 								Main.game.getTextEndStringBuilder().append(Main.game.getNyan().incrementAffection(Main.game.getPlayer(), 25));
-								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_NYAN_HELP, Quest.SIDE_UTIL_COMPLETE));
+								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.RELATIONSHIP_NYAN_HELP, Quest.SIDE_UTIL_COMPLETE));
 							}
 						};
 					}
 					
-				} else if(Main.game.getPlayer().getQuest(QuestLine.SIDE_NYAN_HELP) == Quest.SIDE_NYAN_STOCK_ISSUES_AGREED_TO_HELP) {
+				} else if(Main.game.getPlayer().getQuest(QuestLine.RELATIONSHIP_NYAN_HELP) == Quest.RELATIONSHIP_NYAN_STOCK_ISSUES_AGREED_TO_HELP) {
 					if(index==1) {
 						return new Response("Report back", "Report back to Nyan once you've dealt with the suppliers.", null);
 					}
 					
-				} else if(Main.game.getPlayer().getQuest(QuestLine.SIDE_NYAN_HELP) == Quest.SIDE_NYAN_STOCK_ISSUES) {
+				} else if(Main.game.getPlayer().getQuest(QuestLine.RELATIONSHIP_NYAN_HELP) == Quest.RELATIONSHIP_NYAN_STOCK_ISSUES) {
 					if(index==1) {
 						return new Response("Offer help", "Tell Nyan that you'll help her with her supplier problem.", SHOP_OFFER_HELP) {
 							@Override
 							public void effects() {
 								Main.game.getTextEndStringBuilder().append(Main.game.getNyan().incrementAffection(Main.game.getPlayer(), 10));
-								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_NYAN_HELP, Quest.SIDE_NYAN_STOCK_ISSUES_AGREED_TO_HELP));
+								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.RELATIONSHIP_NYAN_HELP, Quest.RELATIONSHIP_NYAN_STOCK_ISSUES_AGREED_TO_HELP));
 							}
 						};
 					}
 					
-				} else if(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_NYAN_HELP)){
+				} else if(!Main.game.getPlayer().hasQuest(QuestLine.RELATIONSHIP_NYAN_HELP)){
 					if(index==1) {
 						return new Response("Enchanted Clothing", "Ask Nyan if she stocks enchanted clothing.", SHOP_ENCHANTED_CLOTHING) {
 							@Override
 							public void effects() {
-								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().startQuest(QuestLine.SIDE_NYAN_HELP));
+								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().startQuest(QuestLine.RELATIONSHIP_NYAN_HELP));
 							}
 						};
 					}
@@ -439,7 +437,7 @@ public class ClothingEmporium {
 					};
 					
 				} else if (index == 5) {
-					if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_NYAN_HELP)) {
+					if(Main.game.getPlayer().isQuestCompleted(QuestLine.RELATIONSHIP_NYAN_HELP)) {
 						return new ResponseTrade("Specials", "Ask Nyan about any special items of clothing she might have in stock.", Main.game.getNyan()){
 							@Override
 							public void effects() {

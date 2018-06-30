@@ -6,18 +6,22 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexFlags;
 import com.lilithsthrone.game.sex.SexParticipantType;
-import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
+import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.managers.universal.SMBackToWall;
 import com.lilithsthrone.game.sex.managers.universal.SMCowgirl;
 import com.lilithsthrone.game.sex.managers.universal.SMDoggy;
+import com.lilithsthrone.game.sex.managers.universal.SMFaceSitting;
 import com.lilithsthrone.game.sex.managers.universal.SMFaceToWall;
 import com.lilithsthrone.game.sex.managers.universal.SMKneeling;
 import com.lilithsthrone.game.sex.managers.universal.SMMissionary;
 import com.lilithsthrone.game.sex.managers.universal.SMSixtyNine;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
+import com.lilithsthrone.game.sex.sexActions.SexActionLimitation;
 import com.lilithsthrone.game.sex.sexActions.SexActionPriority;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
@@ -31,19 +35,22 @@ import com.lilithsthrone.utils.Util.Value;
  * 
  * 
  * @since 0.1.79
- * @version 0.2.2
+ * @version 0.2.8
  * @author Innoxia
  */
 public class GenericPositioning {
 
 	public static final SexAction PLAYER_POSITION_SWAP = new SexAction(
-			SexActionType.PLAYER_POSITIONING,
+			SexActionType.POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -75,13 +82,16 @@ public class GenericPositioning {
 	};
 	
 	public static final SexAction PLAYER_POSITION_MISSIONARY = new SexAction(
-			SexActionType.PLAYER_POSITIONING,
+			SexActionType.POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -121,13 +131,16 @@ public class GenericPositioning {
 	
 	
 	public static final SexAction PLAYER_POSITION_MISSIONARY_REQUEST = new SexAction(
-			SexActionType.PLAYER_POSITIONING,
+			SexActionType.POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ONE_VANILLA,
 			null,
-			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -160,13 +173,16 @@ public class GenericPositioning {
 	};
 	
 	public static final SexAction PLAYER_POSITION_MISSIONARY_ON_BACK = new SexAction(
-			SexActionType.PLAYER_POSITIONING,
+			SexActionType.POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -206,13 +222,16 @@ public class GenericPositioning {
 	
 	
 	public static final SexAction PLAYER_POSITION_MISSIONARY_ON_BACK_REQUEST = new SexAction(
-			SexActionType.PLAYER_POSITIONING,
+			SexActionType.POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ONE_VANILLA,
 			null,
-			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -247,13 +266,16 @@ public class GenericPositioning {
 	
 	
 	public static final SexAction PLAYER_POSITION_FACE_TO_WALL = new SexAction(
-			SexActionType.PLAYER_POSITIONING,
+			SexActionType.POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -293,13 +315,16 @@ public class GenericPositioning {
 	
 	
 	public static final SexAction PLAYER_POSITION_FACE_TO_WALL_REQUEST = new SexAction(
-			SexActionType.PLAYER_POSITIONING,
+			SexActionType.POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ONE_VANILLA,
 			null,
-			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -334,13 +359,16 @@ public class GenericPositioning {
 	
 	
 	public static final SexAction PLAYER_POSITION_BACK_TO_WALL = new SexAction(
-			SexActionType.PLAYER_POSITIONING,
+			SexActionType.POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -379,13 +407,16 @@ public class GenericPositioning {
 	};
 	
 	public static final SexAction PLAYER_POSITION_BACK_TO_WALL_REQUEST = new SexAction(
-			SexActionType.PLAYER_POSITIONING,
+			SexActionType.POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ONE_VANILLA,
 			null,
-			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -419,13 +450,16 @@ public class GenericPositioning {
 	};
 	
 	public static final SexAction PLAYER_POSITION_KNEELING = new SexAction(
-			SexActionType.PLAYER_POSITIONING,
+			SexActionType.POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -464,13 +498,16 @@ public class GenericPositioning {
 	};
 	
 	public static final SexAction PLAYER_POSITION_KNEELING_REQUEST = new SexAction(
-			SexActionType.PLAYER_POSITIONING,
+			SexActionType.POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ONE_VANILLA,
 			null,
-			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -503,13 +540,16 @@ public class GenericPositioning {
 	};
 	
 	public static final SexAction PLAYER_FORCE_POSITION_SELF_KNEELING = new SexAction(
-			SexActionType.PLAYER_POSITIONING,
+			SexActionType.POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -546,13 +586,16 @@ public class GenericPositioning {
 	};
 
 	public static final SexAction PLAYER_POSITION_REQUEST_SELF_KNEELING = new SexAction(
-			SexActionType.PLAYER_POSITIONING,
+			SexActionType.POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ONE_VANILLA,
 			null,
-			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -585,13 +628,16 @@ public class GenericPositioning {
 	};
 	
 	public static final SexAction PLAYER_POSITION_SIXTY_NINE = new SexAction(
-			SexActionType.PLAYER_POSITIONING,
+			SexActionType.POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -631,13 +677,16 @@ public class GenericPositioning {
 	};
 	
 	public static final SexAction PLAYER_POSITION_SIXTY_NINE_REQUEST = new SexAction(
-			SexActionType.PLAYER_POSITIONING,
+			SexActionType.POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ONE_VANILLA,
 			null,
-			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -671,13 +720,16 @@ public class GenericPositioning {
 	};
 	
 	public static final SexAction PLAYER_FORCE_POSITION_COW_GIRL = new SexAction(
-			SexActionType.PLAYER_POSITIONING,
+			SexActionType.POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -717,13 +769,16 @@ public class GenericPositioning {
 	};
 
 	public static final SexAction PLAYER_POSITION_REQUEST_COWGIRL = new SexAction(
-			SexActionType.PLAYER_POSITIONING,
+			SexActionType.POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ONE_VANILLA,
 			null,
-			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -755,15 +810,201 @@ public class GenericPositioning {
 			SexFlags.requestedCowgirl = true;
 		}
 	};
-	
-	public static final SexAction PLAYER_POSITION_DOGGY = new SexAction(
-			SexActionType.PLAYER_POSITIONING,
+
+	public static final SexAction PLAYER_FORCE_POSITION_SITTING_ON_FACE = new SexAction(
+			SexActionType.POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			null,
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return !SexFlags.positioningBlockedPlayer
+					&& !(Sex.getPosition() == SexPositionType.FACE_SITTING && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.FACE_SITTING_ON_FACE)
+					&& SexPositionType.FACE_SITTING.getMaximumSlots()>=Sex.getTotalParticipantCount()
+					&& Sex.isDom(Main.game.getPlayer());
+		}
+		
+		@Override
+		public String getActionTitle() {
+			return "Sit on Face";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "Push [npc.name] down onto [npc.her] back and sit on [npc.her] face.";
+		}
+
+		@Override
+		public String getDescription() {
+			return "Taking hold of [npc.name]'s shoulders, you push [npc.herHim] down onto [npc.her] back."
+					+ " You then lower yourself down on top of [npc.herHim], bringing your crotch down over [npc.her] face."
+					+ " Once you've made yourself comfortable, you allow your legs to give way, firmly planting your groin down against [npc.name]'s mouth.";
+			
+		}
+
+		@Override
+		public void applyEffects() {
+			Sex.setSexManager(new SMFaceSitting(
+					Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.FACE_SITTING_ON_FACE)),
+					Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.FACE_SITTING_ON_BACK))));
+			
+			SexFlags.resetRequests();
+		}
+	};
+
+	public static final SexAction PLAYER_POSITION_REQUEST_SITTING_ON_FACE = new SexAction(
+			SexActionType.POSITIONING,
+			ArousalIncrease.ONE_MINIMUM,
+			ArousalIncrease.ONE_MINIMUM,
+			CorruptionLevel.ONE_VANILLA,
 			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return !SexFlags.positioningBlockedPlayer
+					&& !SexFlags.requestedSitOnFace
+					&& !(Sex.getPosition() == SexPositionType.FACE_SITTING && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.FACE_SITTING_ON_FACE)
+					&& SexPositionType.FACE_SITTING.getMaximumSlots()>=Sex.getTotalParticipantCount()
+					&& !Sex.isDom(Main.game.getPlayer());
+		}
+		
+		@Override
+		public String getActionTitle() {
+			return "Sit on Face";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "Try to push [npc.name] down onto [npc.her] back so that you can sit on [npc.her] face.";
+		}
+
+		@Override
+		public String getDescription() {
+			return "Reaching up to take hold of [npc.name]'s shoulders, you try to push [npc.herHim] down onto [npc.her] back, pleading, "
+					+ "[pc.speech(Please, let me sit on your face!)]";
+		}
+
+		@Override
+		public void applyEffects() {
+			SexFlags.requestedSitOnFace = true;
+		}
+	};
+	
+
+	public static final SexAction PLAYER_FORCE_POSITION_FACESITTING = new SexAction(
+			SexActionType.POSITIONING,
+			ArousalIncrease.ONE_MINIMUM,
+			ArousalIncrease.ONE_MINIMUM,
+			CorruptionLevel.ZERO_PURE,
+			null,
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return !SexFlags.positioningBlockedPlayer
+					&& !(Sex.getPosition() == SexPositionType.FACE_SITTING && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.FACE_SITTING_ON_BACK)
+					&& SexPositionType.FACE_SITTING.getMaximumSlots()>=Sex.getTotalParticipantCount()
+					&& Sex.isDom(Main.game.getPlayer());
+		}
+		
+		@Override
+		public String getActionTitle() {
+			return "Face Sitting";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "Lie down on your back and get [npc.name] to sit on your face.";
+		}
+
+		@Override
+		public String getDescription() {
+			return "Taking hold of [npc.name]'s [npc.arms], you pull [npc.herHim] down with you as you lie down on your back."
+					+ " Reaching around to grab [npc.her] thighs, you pull [npc.herHim] down on top of you, bringing [npc.her] crotch down over your face."
+					+ " [npc.Name]'s [npc.legs] suddenly give way, causing [npc.herHim] to firmly plant [npc.her] groin down against your mouth.";
+			
+		}
+
+		@Override
+		public void applyEffects() {
+			Sex.setSexManager(new SMFaceSitting(
+					Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.FACE_SITTING_ON_BACK)),
+					Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.FACE_SITTING_ON_FACE))));
+			
+			SexFlags.resetRequests();
+		}
+	};
+
+	public static final SexAction PLAYER_POSITION_REQUEST_FACESITTING = new SexAction(
+			SexActionType.POSITIONING,
+			ArousalIncrease.ONE_MINIMUM,
+			ArousalIncrease.ONE_MINIMUM,
+			CorruptionLevel.ONE_VANILLA,
+			null,
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return !SexFlags.positioningBlockedPlayer
+					&& !SexFlags.requestedFaceSitting
+					&& !(Sex.getPosition() == SexPositionType.FACE_SITTING && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.FACE_SITTING_ON_BACK)
+					&& SexPositionType.FACE_SITTING.getMaximumSlots()>=Sex.getTotalParticipantCount()
+					&& !Sex.isDom(Main.game.getPlayer());
+		}
+		
+		@Override
+		public String getActionTitle() {
+			return "Face Sitting";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "Try to lie down on your back so that [npc.name] can sit on your face.";
+		}
+
+		@Override
+		public String getDescription() {
+			return "Taking hold of [npc.name]'s [npc.hands], you move to lie down on your back, pleading, "
+					+ "[pc.speech(Please, sit on my face!)]";
+		}
+
+		@Override
+		public void applyEffects() {
+			SexFlags.requestedFaceSitting = true;
+		}
+	};
+	
+	public static final SexAction PLAYER_POSITION_DOGGY = new SexAction(
+			SexActionType.POSITIONING,
+			ArousalIncrease.ONE_MINIMUM,
+			ArousalIncrease.ONE_MINIMUM,
+			CorruptionLevel.ZERO_PURE,
+			null,
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 
 			@Override
 			public boolean isBaseRequirementsMet() {
@@ -813,13 +1054,16 @@ public class GenericPositioning {
 	};
 
 	public static final SexAction PLAYER_POSITION_REQUEST_DOGGY = new SexAction(
-			SexActionType.PLAYER_POSITIONING,
+			SexActionType.POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ONE_VANILLA,
 			null,
-			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -854,13 +1098,16 @@ public class GenericPositioning {
 	
 	
 	public static final SexAction PLAYER_DOM_POSITION_SELF_DOGGY = new SexAction(
-			SexActionType.PLAYER_POSITIONING,
+			SexActionType.POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -911,13 +1158,16 @@ public class GenericPositioning {
 	
 	
 	public static final SexAction PLAYER_FORCE_POSITION_DOGGY_ORAL = new SexAction(
-			SexActionType.PLAYER_POSITIONING,
+			SexActionType.POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -965,13 +1215,16 @@ public class GenericPositioning {
 	};
 	
 	public static final SexAction PLAYER_FORCE_POSITION_SELF_DOGGY_ORAL = new SexAction(
-			SexActionType.PLAYER_POSITIONING,
+			SexActionType.POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -1060,13 +1313,16 @@ public class GenericPositioning {
 //	};
 	
 	public static final SexAction PLAYER_POSITION_REQUEST_DOGGY_RECEIVE_ORAL = new SexAction(
-			SexActionType.PLAYER_POSITIONING,
+			SexActionType.POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ONE_VANILLA,
 			null,
-			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -1099,13 +1355,16 @@ public class GenericPositioning {
 	};
 	
 	public static final SexAction PLAYER_POSITION_REQUEST_DOM_FUCKED_DOGGY = new SexAction(
-			SexActionType.PLAYER_POSITIONING,
+			SexActionType.POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ONE_VANILLA,
 			null,
-			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -1143,13 +1402,16 @@ public class GenericPositioning {
 	
 	
 	public static final SexAction PARTNER_POSITION_RESPONSE = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -1164,7 +1426,9 @@ public class GenericPositioning {
 					|| SexFlags.requestedKneeling
 					|| SexFlags.requestedSelfKneeling
 					|| SexFlags.requestedMissionary
-					|| SexFlags.requestedMissionaryOnBack)
+					|| SexFlags.requestedMissionaryOnBack
+					|| SexFlags.requestedSitOnFace
+					|| SexFlags.requestedFaceSitting)
 					&& !Sex.isDom(Main.game.getPlayer());
 		}
 		
@@ -1392,6 +1656,46 @@ public class GenericPositioning {
 					return "Reaching down to grab you by the [pc.arm], [npc.name] pulls you back into your old position as [npc.she] angrily scolds you, "
 							+ "[npc.speech(What do you think you're doing?! Don't you <i>dare</i> try that again!)]";
 				}
+				
+			} else if(SexFlags.requestedSitOnFace) {
+				if(Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.FACE_SITTING_ON_BACK) || Sex.getActivePartner().getSexPositionPreferences().isEmpty()) {
+					switch(Sex.getSexPace(Sex.getActivePartner())) {
+						case DOM_ROUGH:
+							return "Slapping your [pc.hands] away from [npc.herHim], [npc.name] grabs you by the wrists and yanks you forwards, growling, "
+									+ "[npc.speech(Don't you <i>dare</i> try to take control here! I'll let you sit on my face, but only because <i>I</i> want it, understood?!)]"
+									+ "<br/>"
+									+ "With that, [npc.she] quickly lies down on [npc.her] back, dragging you down with [npc.herHim]."
+									+ " Despite [npc.namePos] angry words, you've ended up getting exactly what you wanted, and happily plant your groin down on [npc.her] face.";
+						default:
+							return "Smiling at you, [npc.name] responds, "
+									+ "[npc.speech(That's a great idea! Oh, this is gonna be good!)]"
+									+ "<br/>"
+									+ "With that, [npc.she] quickly lies down on [npc.her] back, pulling you down with [npc.herHim]."
+									+ " You let out a happy [pc.moan] as you find yourself getting exactly what you wanted, and eagerly plant your groin down on [npc.her] face.";
+					}
+					
+				} else {
+					return "Slapping your [pc.hands] away from [npc.herHim], [npc.name] pulls you back into your old position as [npc.she] angrily scolds you, "
+							+ "[npc.speech(What do you think you're doing?! Don't you <i>dare</i> try that again!)]";
+				}
+				
+			} else if(SexFlags.requestedFaceSitting) {
+				if(Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.FACE_SITTING_ON_FACE) || Sex.getActivePartner().getSexPositionPreferences().isEmpty()) {
+					switch(Sex.getSexPace(Sex.getActivePartner())) {
+						case DOM_ROUGH:
+							return "Jumping down over the top of you, [npc.name] lowers [npc.herself] down over you, bringing [npc.her] crotch down over your face before planting [npc.her] groin down onto your mouth."
+									+ " Grinding roughly down against your face, [npc.she] growls, "
+									+ "[npc.speech(Good idea slut! Now <i>stay still</i> so I can use you properly!)]";
+						default:
+							return "Jumping down over the top of you, [npc.name] lowers [npc.herself] down over you, bringing [npc.her] crotch down over your face before planting [npc.her] groin down onto your mouth."
+									+ " Grinding down against your face, [npc.she] [npc.moans], "
+									+ "[npc.speech(Good [pc.girl]! This is gonna be fun!)]";
+					}
+					
+				} else {
+					return "Reaching down to grab you by the [pc.arm], [npc.name] pulls you back into your old position as [npc.she] angrily scolds you, "
+							+ "[npc.speech(What do you think you're doing?! Don't you <i>dare</i> try that again!)]";
+				}
 			}
 			
 			return "";
@@ -1413,65 +1717,64 @@ public class GenericPositioning {
 				Sex.setSexManager(new SMFaceToWall(
 						Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.FACE_TO_WALL_FACING_TARGET)),
 						Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.FACE_TO_WALL_AGAINST_WALL))));
-//				SexFlags.positioningBlockedPartner = true;
 				
 			} else if(SexFlags.requestedBackToWall && (Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.BACK_TO_WALL_FACING_TARGET) || Sex.getActivePartner().getSexPositionPreferences().isEmpty())) {
 				Sex.setSexManager(new SMBackToWall(
 						Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.BACK_TO_WALL_FACING_TARGET)),
 						Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.BACK_TO_WALL_AGAINST_WALL))));
-//				SexFlags.positioningBlockedPartner = true;
 				
 			} else if(SexFlags.requestedDoggy && (Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.DOGGY_BEHIND) || Sex.getActivePartner().getSexPositionPreferences().isEmpty())) {
 				Sex.setSexManager(new SMDoggy(
 						Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.DOGGY_BEHIND)),
 						Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))));
-//				SexFlags.positioningBlockedPartner = true;
 				
 			} else if(SexFlags.requestedDoggyOral && (Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.DOGGY_ON_ALL_FOURS) || Sex.getActivePartner().getSexPositionPreferences().isEmpty())) {
 				Sex.setSexManager(new SMDoggy(
 						Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.DOGGY_ON_ALL_FOURS)),
 						Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_BEHIND_ORAL))));
-//				SexFlags.positioningBlockedPartner = true;
 				
 			} else if(SexFlags.requestedDoggyReceiveOral && (Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.DOGGY_BEHIND_ORAL) || Sex.getActivePartner().getSexPositionPreferences().isEmpty())) {
 				Sex.setSexManager(new SMDoggy(
 						Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.DOGGY_BEHIND_ORAL)),
 						Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))));
-//				SexFlags.positioningBlockedPartner = true;
 				
 			} else if(SexFlags.requestedDomFuckedDoggy && (Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.DOGGY_ON_ALL_FOURS) || Sex.getActivePartner().getSexPositionPreferences().isEmpty())) {
 				Sex.setSexManager(new SMDoggy(
 						Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.DOGGY_ON_ALL_FOURS)),
 						Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_BEHIND))));
-//				SexFlags.positioningBlockedPartner = true;
 				
 			} else if(SexFlags.requestedKneeling && (Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.KNEELING_RECEIVING_ORAL) || Sex.getActivePartner().getSexPositionPreferences().isEmpty())) {
 				Sex.setSexManager(new SMKneeling(
 						Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.KNEELING_RECEIVING_ORAL)),
 						Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.KNEELING_PERFORMING_ORAL))));
-//				SexFlags.positioningBlockedPartner = true;
 				
 			} else if(SexFlags.requestedSelfKneeling && (Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.KNEELING_PERFORMING_ORAL) || Sex.getActivePartner().getSexPositionPreferences().isEmpty())) {
 				Sex.setSexManager(new SMKneeling(
 						Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.KNEELING_PERFORMING_ORAL)),
 						Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.KNEELING_RECEIVING_ORAL))));
-//				SexFlags.positioningBlockedPartner = true;
 				
 			} else if(SexFlags.requested69 && (Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.SIXTY_NINE_TOP) || Sex.getActivePartner().getSexPositionPreferences().isEmpty())) {
 				Sex.setSexManager(new SMSixtyNine(
 						Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.SIXTY_NINE_TOP)),
 						Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.SIXTY_NINE_BOTTOM))));
-//				SexFlags.positioningBlockedPartner = true;
 				
 			} else if(SexFlags.requestedCowgirl && (Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.COWGIRL_RIDING) || Sex.getActivePartner().getSexPositionPreferences().isEmpty())) {
 				Sex.setSexManager(new SMCowgirl(
 						Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.COWGIRL_RIDING)),
 						Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.COWGIRL_ON_BACK))));
-//				SexFlags.positioningBlockedPartner = true;
+				
+			} else if(SexFlags.requestedSitOnFace && (Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.FACE_SITTING_ON_BACK) || Sex.getActivePartner().getSexPositionPreferences().isEmpty())) {
+				Sex.setSexManager(new SMFaceSitting(
+						Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.FACE_SITTING_ON_BACK)),
+						Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.FACE_SITTING_ON_FACE))));
+				
+			} else if(SexFlags.requestedFaceSitting && (Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.FACE_SITTING_ON_FACE) || Sex.getActivePartner().getSexPositionPreferences().isEmpty())) {
+				Sex.setSexManager(new SMFaceSitting(
+						Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.FACE_SITTING_ON_FACE)),
+						Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.FACE_SITTING_ON_BACK))));
 				
 			}
 			
-//			SexFlags.positioningBlockedPlayer = true;
 			SexFlags.resetRequests();
 		}
 	};
@@ -1480,13 +1783,16 @@ public class GenericPositioning {
 	
 	
 	public static final SexAction PARTNER_FORCE_POSITION_STANDING_FACE_TO_WALL = new SexAction(
-			SexActionType.PARTNER_POSITIONING,
+			SexActionType.POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -1521,20 +1827,21 @@ public class GenericPositioning {
 					Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.FACE_TO_WALL_FACING_TARGET)),
 					Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.FACE_TO_WALL_AGAINST_WALL))));
 			
-//			SexFlags.positioningBlockedPartner = true;
-//			SexFlags.positioningBlockedPlayer = true;
 			SexFlags.resetRequests();
 		}
 	};
 	
 	public static final SexAction PARTNER_FORCE_POSITION_STANDING_BACK_TO_WALL = new SexAction(
-			SexActionType.PARTNER_POSITIONING,
+			SexActionType.POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -1567,21 +1874,22 @@ public class GenericPositioning {
 			Sex.setSexManager(new SMBackToWall(
 					Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.BACK_TO_WALL_FACING_TARGET)),
 					Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.BACK_TO_WALL_AGAINST_WALL))));
-
-//			SexFlags.positioningBlockedPartner = true;
-//			SexFlags.positioningBlockedPlayer = true;
+			
 			SexFlags.resetRequests();
 		}
 	};
 	
 	public static final SexAction PARTNER_FORCE_POSITION_DOGGY = new SexAction(
-			SexActionType.PARTNER_POSITIONING,
+			SexActionType.POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -1627,20 +1935,21 @@ public class GenericPositioning {
 					dominants,
 					Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))));
 			
-//			SexFlags.positioningBlockedPartner = true;
-//			SexFlags.positioningBlockedPlayer = true;
 			SexFlags.resetRequests();
 		}
 	};
 	
 	public static final SexAction PARTNER_FORCE_POSITION_DOGGY_ORAL = new SexAction(
-			SexActionType.PARTNER_POSITIONING,
+			SexActionType.POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -1685,27 +1994,36 @@ public class GenericPositioning {
 					dominants,
 					Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))));
 			
-//			SexFlags.positioningBlockedPartner = true;
-//			SexFlags.positioningBlockedPlayer = true;
 			SexFlags.resetRequests();
 		}
 	};
 	
 	public static final SexAction PARTNER_FORCE_POSITION_DOGGY_SELF_ORAL = new SexAction(
-			SexActionType.PARTNER_POSITIONING,
+			SexActionType.POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return !SexFlags.positioningBlockedPartner
 					&& !(Sex.getPosition() == SexPositionType.DOGGY_STYLE && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.DOGGY_ON_ALL_FOURS)
 					&& 2>=Sex.getTotalParticipantCount()
-					&& (Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.DOGGY_ON_ALL_FOURS) || Sex.getActivePartner().getSexPositionPreferences().isEmpty())
+					&& (Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.DOGGY_ON_ALL_FOURS)
+							|| Sex.getActivePartner().getSexPositionPreferences().isEmpty())
+					&& (Sex.isInForeplay()
+							?Sex.getActivePartner().getForeplayPreference()==null
+								|| Sex.getActivePartner().getForeplayPreference().getTargetedSexArea()==SexAreaPenetration.TONGUE
+								|| Sex.getActivePartner().getForeplayPreference().getTargetedSexArea()==SexAreaOrifice.MOUTH
+							:Sex.getActivePartner().getMainSexPreference()==null
+								|| Sex.getActivePartner().getMainSexPreference().getTargetedSexArea()==SexAreaPenetration.TONGUE
+								|| Sex.getActivePartner().getMainSexPreference().getTargetedSexArea()==SexAreaOrifice.MOUTH)
 					&& !Sex.isDom(Main.game.getPlayer());
 		}
 		
@@ -1743,20 +2061,21 @@ public class GenericPositioning {
 					dominants,
 					Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_BEHIND_ORAL))));
 			
-//			SexFlags.positioningBlockedPartner = true;
-//			SexFlags.positioningBlockedPlayer = true;
 			SexFlags.resetRequests();
 		}
 	};
 	
 	public static final SexAction PARTNER_FORCE_POSITION_DOM_AS_DOGGY = new SexAction(
-			SexActionType.PARTNER_POSITIONING,
+			SexActionType.POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -1801,20 +2120,21 @@ public class GenericPositioning {
 					dominants,
 					Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_BEHIND))));
 			
-//			SexFlags.positioningBlockedPartner = true;
-//			SexFlags.positioningBlockedPlayer = true;
 			SexFlags.resetRequests();
 		}
 	};
 	
 	public static final SexAction PARTNER_FORCE_POSITION_KNEELING = new SexAction(
-			SexActionType.PARTNER_POSITIONING,
+			SexActionType.POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -1848,20 +2168,21 @@ public class GenericPositioning {
 					Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.KNEELING_RECEIVING_ORAL)),
 					Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.KNEELING_PERFORMING_ORAL))));
 			
-//			SexFlags.positioningBlockedPartner = true;
-//			SexFlags.positioningBlockedPlayer = true;
 			SexFlags.resetRequests();
 		}
 	};
 	
 	public static final SexAction PARTNER_FORCE_POSITION_SELF_KNEELING = new SexAction(
-			SexActionType.PARTNER_POSITIONING,
+			SexActionType.POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -1895,20 +2216,21 @@ public class GenericPositioning {
 					Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.KNEELING_PERFORMING_ORAL)),
 					Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.KNEELING_RECEIVING_ORAL))));
 			
-//			SexFlags.positioningBlockedPartner = true;
-//			SexFlags.positioningBlockedPlayer = true;
 			SexFlags.resetRequests();
 		}
 	};
 	
 	public static final SexAction PARTNER_FORCE_POSITION_SIXTY_NINE = new SexAction(
-			SexActionType.PARTNER_POSITIONING,
+			SexActionType.POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -1943,21 +2265,22 @@ public class GenericPositioning {
 			Sex.setSexManager(new SMSixtyNine(
 					Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.SIXTY_NINE_TOP)),
 					Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.SIXTY_NINE_BOTTOM))));
-
-//			SexFlags.positioningBlockedPartner = true;
-//			SexFlags.positioningBlockedPlayer = true;
+			
 			SexFlags.resetRequests();
 		}
 	};
 	
 	public static final SexAction PARTNER_FORCE_POSITION_COWGIRL = new SexAction(
-			SexActionType.PARTNER_POSITIONING,
+			SexActionType.POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -1991,21 +2314,22 @@ public class GenericPositioning {
 			Sex.setSexManager(new SMCowgirl(
 					Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.COWGIRL_RIDING)),
 					Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.COWGIRL_ON_BACK))));
-
-//			SexFlags.positioningBlockedPartner = true;
-//			SexFlags.positioningBlockedPlayer = true;
+			
 			SexFlags.resetRequests();
 		}
 	};
 	
 	public static final SexAction PARTNER_FORCE_POSITION_MISSIONARY = new SexAction(
-			SexActionType.PARTNER_POSITIONING,
+			SexActionType.POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -2045,13 +2369,16 @@ public class GenericPositioning {
 	};
 	
 	public static final SexAction PARTNER_FORCE_POSITION_MISSIONARY_ON_BACK = new SexAction(
-			SexActionType.PARTNER_POSITIONING,
+			SexActionType.POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null,
-			SexParticipantType.MISC) {
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {

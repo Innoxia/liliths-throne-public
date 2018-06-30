@@ -14,7 +14,7 @@ import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
-import com.lilithsthrone.game.sex.OrificeType;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.universal.SMStanding;
@@ -123,14 +123,14 @@ public class HarpyNestNympho {
 						return new Response("Approach [harpyNympho.name]", "Walk to the centre of the nest and talk to [harpyNympho.name].", HARPY_NEST_NYMPHO_APPROACH) {
 							@Override
 							public void effects() {
-								Main.game.getHarpyNympho().getCummedInAreaMap().put(OrificeType.VAGINA, 75);
+								Main.game.getHarpyNympho().ingestFluid(Main.game.getHarpyNymphoCompanion(), Main.game.getHarpyNymphoCompanion().getCumType(), SexAreaOrifice.VAGINA, 250, Main.game.getHarpyNymphoCompanion().getCumModifiers());
 							}
 						};
 					} else {
 						return new Response("Approach matriarch", "Walk to the centre of the nest and talk to the matriarch.", HARPY_NEST_NYMPHO_APPROACH) {
 							@Override
 							public void effects() {
-								Main.game.getHarpyNympho().getCummedInAreaMap().put(OrificeType.VAGINA, 75);
+								Main.game.getHarpyNympho().ingestFluid(Main.game.getHarpyNymphoCompanion(), Main.game.getHarpyNymphoCompanion().getCumType(), SexAreaOrifice.VAGINA, 250, Main.game.getHarpyNymphoCompanion().getCumModifiers());
 							}
 						};
 					}
@@ -161,9 +161,9 @@ public class HarpyNestNympho {
 						+ "</p>"
 						+ "<p>"
 							+ "As you pass the groups of loitering harpies, you overhear snippets of conversation,"
-							+ "[style.speechFeminine(...she let me unload in her three times last night...)]</br>"
-							+ "[style.speechFeminine(...I love it when she's in the mood to suck cock...)]</br>"
-							+ "[style.speechFeminine(...and then she cleaned me off with her mouth...)]</br>"
+							+ "[style.speechFeminine(...she let me unload in her three times last night...)]<br/>"
+							+ "[style.speechFeminine(...I love it when she's in the mood to suck cock...)]<br/>"
+							+ "[style.speechFeminine(...and then she cleaned me off with her mouth...)]<br/>"
 						+ "</p>"
 						+ "<p>"
 							+ "Smirking as you push through the crowds, you soon find yourself standing before the harpy they're all talking about."
@@ -194,9 +194,9 @@ public class HarpyNestNympho {
 						+ "</p>"
 						+ "<p>"
 							+ "As you pass the groups of loitering harpies, you overhear snippets of conversation,"
-							+ "[style.speechFeminine(...she let me unload in her three times last night...)]</br>"
-							+ "[style.speechFeminine(...I love it when she's in the mood to suck cock...)]</br>"
-							+ "[style.speechFeminine(...and then she cleaned me off with her mouth...)]</br>"
+							+ "[style.speechFeminine(...she let me unload in her three times last night...)]<br/>"
+							+ "[style.speechFeminine(...I love it when she's in the mood to suck cock...)]<br/>"
+							+ "[style.speechFeminine(...and then she cleaned me off with her mouth...)]<br/>"
 						+ "</p>"
 						+ "<p>"
 							+ "Pushing through the crowds, you soon find yourself standing before the harpy they're all talking about."
@@ -229,9 +229,9 @@ public class HarpyNestNympho {
 					+ "</p>"
 					+ "<p>"
 						+ "As you pass the groups of loitering harpies, you overhear snippets of conversation,"
-						+ "[style.speechFeminine(...she let me unload in her three times last night...)]</br>"
-						+ "[style.speechFeminine(...I love it when she's in the mood to suck cock...)]</br>"
-						+ "[style.speechFeminine(...and then she cleaned me off with her mouth...)]</br>"
+						+ "[style.speechFeminine(...she let me unload in her three times last night...)]<br/>"
+						+ "[style.speechFeminine(...I love it when she's in the mood to suck cock...)]<br/>"
+						+ "[style.speechFeminine(...and then she cleaned me off with her mouth...)]<br/>"
 					+ "</p>"
 					+ "<p>"
 						+ "Pushing through the crowds, you soon find yourself standing before the harpy they're all talking about."

@@ -7,6 +7,7 @@ import java.util.Map.Entry;
 import com.lilithsthrone.game.character.body.FluidCum;
 import com.lilithsthrone.game.character.body.FluidGirlCum;
 import com.lilithsthrone.game.character.body.FluidMilk;
+import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
 import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
@@ -214,6 +215,8 @@ public enum PlaceUpgrade {
 									+ "</div>");
 	
 							milkyMilknessSB.append("<div class='container-half-width' style='margin:0; padding:2px; width:35%; background:transparent;'>");
+							FluidFlavour flavour = entry.getKey().getFlavour();
+							milkyMilknessSB.append("<span style='color:"+flavour.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(flavour.getName())+"-flavoured</span>.<br/>");
 								if(!entry.getKey().getFluidModifiers().isEmpty()) {
 									int i=0;
 									for(FluidModifier mod : entry.getKey().getFluidModifiers()) {
@@ -267,6 +270,8 @@ public enum PlaceUpgrade {
 									+ "</div>");
 	
 							milkyMilknessSB.append("<div class='container-half-width' style='margin:0; padding:2px; width:35%; background:transparent;'>");
+							FluidFlavour flavour = entry.getKey().getFlavour();
+							milkyMilknessSB.append("<span style='color:"+flavour.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(flavour.getName())+"-flavoured</span>.<br/>");
 								if(!entry.getKey().getFluidModifiers().isEmpty()) {
 									int i=0;
 									for(FluidModifier mod : entry.getKey().getFluidModifiers()) {
@@ -291,7 +296,7 @@ public enum PlaceUpgrade {
 							milkyMilknessSB.append("<div style='float:left; width:15%; margin:0 auto; padding:0; display:inline-block; text-align:center; background:transparent;'>"
 									+ "<div id='CUM_DRINK_SMALL_"+entry.hashCode()+"' "+(entry.getValue()>0?"class='square-button big'":"class='square-button big disabled'")+">"
 											+ "<div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDrinkSmall()+"</div></div>"
-									+ "<div id='CUM_DRINK"+entry.hashCode()+"' "+(entry.getValue()>=500?"class='square-button big'":"class='square-button big disabled'")+">"
+									+ "<div id='CUM_DRINK_"+entry.hashCode()+"' "+(entry.getValue()>=500?"class='square-button big'":"class='square-button big disabled'")+">"
 											+ "<div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDrink()+"</div></div>"
 									+ "<div id='CUM_SELL_"+entry.hashCode()+"' class='square-button big'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getTransactionSell()+"</div></div>");
 							milkyMilknessSB.append("</div>");
@@ -319,6 +324,8 @@ public enum PlaceUpgrade {
 									+ "</div>");
 	
 							milkyMilknessSB.append("<div class='container-half-width' style='margin:0; padding:2px; width:35%; background:transparent;'>");
+							FluidFlavour flavour = entry.getKey().getFlavour();
+							milkyMilknessSB.append("<span style='color:"+flavour.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(flavour.getName())+"-flavoured</span>.<br/>");
 								if(!entry.getKey().getFluidModifiers().isEmpty()) {
 									int i=0;
 									for(FluidModifier mod : entry.getKey().getFluidModifiers()) {
@@ -430,15 +437,22 @@ public enum PlaceUpgrade {
 		
 		@Override
 		public boolean isAvailable(Cell cell) {
-			return Main.game.getCharactersTreatingCellAsHome(cell).isEmpty() && !cell.getPlace().getPlaceUpgrades().contains(LILAYA_ARTHUR_ROOM);
+			return (Main.game.getCharactersTreatingCellAsHome(cell).isEmpty()
+					&& !cell.getPlace().getPlaceUpgrades().contains(LILAYA_ARTHUR_ROOM))
+					|| cell.getPlace().getPlaceUpgrades().contains(LILAYA_SLAVE_ROOM);
 		}
 		
 		@Override
 		public void applyInstallationEffects(Cell c) {
 			GenericPlace place = c.getPlace();
-			for(PlaceUpgrade upgrade : PlaceUpgrade.values()) {
-				if(upgrade != LILAYA_SLAVE_ROOM_DOUBLE) {
-					place.removePlaceUpgrade(c, upgrade);
+			if(place.getPlaceUpgrades().contains(LILAYA_SLAVE_ROOM)) {
+				place.removePlaceUpgrade(c, LILAYA_SLAVE_ROOM);
+				
+			} else {
+				for(PlaceUpgrade upgrade : PlaceUpgrade.values()) {
+					if(upgrade != LILAYA_SLAVE_ROOM_DOUBLE) {
+						place.removePlaceUpgrade(c, upgrade);
+					}
 				}
 			}
 		}
@@ -678,7 +692,7 @@ public enum PlaceUpgrade {
 	;
 	
 	
-	private static ArrayList<PlaceUpgrade> coreRoomUpgrades, slaveQuartersUpgrades, getMilkingUpgrades;
+	private static ArrayList<PlaceUpgrade> coreRoomUpgrades, slaveQuartersUpgradesSingle, slaveQuartersUpgradesDouble, getMilkingUpgrades;
 	
 	public static ArrayList<PlaceUpgrade> getCoreRoomUpgrades() {
 		if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.arthursRoomInstalled) || Main.game.getPlayer().isQuestProgressLessThan(QuestLine.MAIN, Quest.MAIN_1_J_ARTHURS_ROOM)) {
@@ -689,13 +703,22 @@ public enum PlaceUpgrade {
 		return coreRoomUpgrades;
 	}
 
-	public static ArrayList<PlaceUpgrade> getSlaveQuartersUpgrades() {
+	public static ArrayList<PlaceUpgrade> getSlaveQuartersUpgradesSingle() {
 		if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.arthursRoomInstalled) || Main.game.getPlayer().isQuestProgressLessThan(QuestLine.MAIN, Quest.MAIN_1_J_ARTHURS_ROOM)) {
-			ArrayList<PlaceUpgrade> listArthurRemoved = new ArrayList<>(slaveQuartersUpgrades);
+			ArrayList<PlaceUpgrade> listArthurRemoved = new ArrayList<>(slaveQuartersUpgradesSingle);
 			listArthurRemoved.remove(PlaceUpgrade.LILAYA_ARTHUR_ROOM);
 			return listArthurRemoved;
 		}
-		return slaveQuartersUpgrades;
+		return slaveQuartersUpgradesSingle;
+	}
+	
+	public static ArrayList<PlaceUpgrade> getSlaveQuartersUpgradesDouble() {
+		if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.arthursRoomInstalled) || Main.game.getPlayer().isQuestProgressLessThan(QuestLine.MAIN, Quest.MAIN_1_J_ARTHURS_ROOM)) {
+			ArrayList<PlaceUpgrade> listArthurRemoved = new ArrayList<>(slaveQuartersUpgradesDouble);
+			listArthurRemoved.remove(PlaceUpgrade.LILAYA_ARTHUR_ROOM);
+			return listArthurRemoved;
+		}
+		return slaveQuartersUpgradesDouble;
 	}
 	
 	public static ArrayList<PlaceUpgrade> getMilkingUpgrades() {
@@ -711,7 +734,20 @@ public enum PlaceUpgrade {
 				
 				PlaceUpgrade.LILAYA_ARTHUR_ROOM);
 		
-		slaveQuartersUpgrades = Util.newArrayListOfValues(
+		slaveQuartersUpgradesSingle = Util.newArrayListOfValues(
+				PlaceUpgrade.LILAYA_SLAVE_ROOM_ROOM_SERVICE,
+				
+				PlaceUpgrade.LILAYA_SLAVE_ROOM_UPGRADE_BED,
+				PlaceUpgrade.LILAYA_SLAVE_ROOM_DOWNGRADE_BED,
+				
+				PlaceUpgrade.LILAYA_SLAVE_ROOM_ARCANE_INSTRUMENTS,
+				PlaceUpgrade.LILAYA_SLAVE_ROOM_OBEDIENCE_TRAINER,
+
+				PlaceUpgrade.LILAYA_SLAVE_ROOM_DOUBLE,
+				PlaceUpgrade.LILAYA_EMPTY_ROOM,
+				PlaceUpgrade.LILAYA_ARTHUR_ROOM);
+		
+		slaveQuartersUpgradesDouble = Util.newArrayListOfValues(
 				PlaceUpgrade.LILAYA_SLAVE_ROOM_ROOM_SERVICE,
 				
 				PlaceUpgrade.LILAYA_SLAVE_ROOM_UPGRADE_BED,

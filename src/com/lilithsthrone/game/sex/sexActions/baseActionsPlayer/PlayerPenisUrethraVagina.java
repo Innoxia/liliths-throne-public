@@ -3,14 +3,17 @@ package com.lilithsthrone.game.sex.sexActions.baseActionsPlayer;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
-import com.lilithsthrone.game.sex.OrificeType;
-import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
+import com.lilithsthrone.game.sex.sexActions.SexActionLimitation;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.2.2
@@ -20,23 +23,26 @@ import com.lilithsthrone.main.Main;
 public class PlayerPenisUrethraVagina {
 	
 	public static final SexAction PLAYER_URETHRAL_FUCK_START = new SexAction(
-			SexActionType.PLAYER_PENETRATION,
+			SexActionType.START_ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.URETHRA_VAGINA,
-			SexParticipantType.PITCHER) {
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.URETHRA_VAGINA)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
 			// You can't penetrate if your partner is already fucking you, due to physical limitations. (I mean, if you're facing opposite ways and lying on top of each other, it might be possible, but that position will be special.)
-			return Sex.isPenetrationTypeFree(Sex.getActivePartner(), PenetrationType.PENIS);
+			return Sex.isPenetrationTypeFree(Sex.getActivePartner(), SexAreaPenetration.PENIS);
 		}
 		
 		@Override
 		public String getActionTitle() {
-			return "Fuck pusys's urethra";
+			return "Fuck pussy's urethra";
 		}
 
 		@Override
@@ -120,15 +126,17 @@ public class PlayerPenisUrethraVagina {
 	};
 	
 	public static final SexAction PLAYER_URETHRAL_FUCK_DOM_GENTLE = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.URETHRA_VAGINA,
-			SexParticipantType.PITCHER,
-			SexPace.DOM_GENTLE,
-			null) {
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.URETHRA_VAGINA)),
+			SexParticipantType.NORMAL,
+			SexPace.DOM_GENTLE) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Gentle urethral fuck";
@@ -181,15 +189,17 @@ public class PlayerPenisUrethraVagina {
 	};
 	
 	public static final SexAction PLAYER_URETHRAL_FUCK_DOM_NORMAL = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.URETHRA_VAGINA,
-			SexParticipantType.PITCHER,
-			SexPace.DOM_NORMAL,
-			null) {
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.URETHRA_VAGINA)),
+			SexParticipantType.NORMAL,
+			SexPace.DOM_NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Normal urethral fuck";
@@ -242,15 +252,17 @@ public class PlayerPenisUrethraVagina {
 	};
 	
 	public static final SexAction PLAYER_URETHRAL_FUCK_DOM_ROUGH = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.TWO_HORNY,
-			PenetrationType.PENIS,
-			OrificeType.URETHRA_VAGINA,
-			SexParticipantType.PITCHER,
-			SexPace.DOM_ROUGH,
-			null) {
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.URETHRA_VAGINA)),
+			SexParticipantType.NORMAL,
+			SexPace.DOM_ROUGH) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Rough urethral fuck";
@@ -305,15 +317,17 @@ public class PlayerPenisUrethraVagina {
 	};
 	
 	public static final SexAction PLAYER_URETHRAL_FUCK_SUB_NORMAL = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.URETHRA_VAGINA,
-			SexParticipantType.PITCHER,
-			SexPace.SUB_NORMAL,
-			null) {
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.URETHRA_VAGINA)),
+			SexParticipantType.NORMAL,
+			SexPace.SUB_NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Normal urethral fuck";
@@ -365,15 +379,17 @@ public class PlayerPenisUrethraVagina {
 	};
 	
 	public static final SexAction PLAYER_URETHRAL_FUCK_SUB_EAGER = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.URETHRA_VAGINA,
-			SexParticipantType.PITCHER,
-			SexPace.SUB_EAGER,
-			null) {
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.URETHRA_VAGINA)),
+			SexParticipantType.NORMAL,
+			SexPace.SUB_EAGER) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Eager urethral fuck";
@@ -426,15 +442,17 @@ public class PlayerPenisUrethraVagina {
 	};
 	
 	public static final SexAction PLAYER_URETHRAL_FUCK_SUB_RESIST = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS,
-			OrificeType.URETHRA_VAGINA,
-			SexParticipantType.PITCHER,
-			SexPace.SUB_RESISTING,
-			null) {
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.URETHRA_VAGINA)),
+			SexParticipantType.NORMAL,
+			SexPace.SUB_RESISTING) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Resist urethral fuck";
@@ -491,13 +509,16 @@ public class PlayerPenisUrethraVagina {
 	};
 	
 	public static final SexAction PLAYER_URETHRAL_FUCK_STOP = new SexAction(
-			SexActionType.PLAYER_STOP_PENETRATION,
+			SexActionType.STOP_ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS,
-			OrificeType.URETHRA_VAGINA,
-			SexParticipantType.PITCHER) {
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.URETHRA_VAGINA)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -553,20 +574,23 @@ public class PlayerPenisUrethraVagina {
 	// Partner actions:
 	
 	public static final SexAction PARTNER_RECEIVING_URETHRAL_FUCK_START = new SexAction(
-			SexActionType.PARTNER_PENETRATION,
+			SexActionType.START_ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.URETHRA_VAGINA,
-			SexParticipantType.CATCHER) {
+			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.URETHRA_VAGINA, SexAreaPenetration.PENIS)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
 			// Partner can only start fucking themselves on the player's cock in consensual sex or if they're the dom.
 			// You can't penetrate if your partner is already fucking you, due to physical limitations. (I mean, if you're facing opposite ways and lying on top of each other, it might be possible, but that position will be special.)
 			
-			if(Sex.isPenetrationTypeFree(Sex.getActivePartner(), PenetrationType.PENIS)) {
+			if(Sex.isPenetrationTypeFree(Sex.getActivePartner(), SexAreaPenetration.PENIS)) {
 				return (Sex.isConsensual() || !Sex.isDom(Main.game.getPlayer()));
 			} else {
 				return false; //(Sex.isConsensual() || !Sex.isDom(Main.game.getPlayer())) && !Sex.getOngoingPenetrationMap().get(PenetrationType.PENIS).contains(OrificeType.URETHRA_VAGINA);
@@ -669,15 +693,17 @@ public class PlayerPenisUrethraVagina {
 	};
 	
 	public static final SexAction PARTNER_RECEIVING_URETHRAL_FUCK_DOM_GENTLE = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.URETHRA_VAGINA,
-			SexParticipantType.CATCHER,
-			null,
+			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.URETHRA_VAGINA, SexAreaPenetration.PENIS)),
+			SexParticipantType.NORMAL,
 			SexPace.DOM_GENTLE) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -706,15 +732,17 @@ public class PlayerPenisUrethraVagina {
 	};
 	
 	public static final SexAction PARTNER_RECEIVING_URETHRAL_FUCK_DOM_NORMAL = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.URETHRA_VAGINA,
-			SexParticipantType.CATCHER,
-			null,
+			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.URETHRA_VAGINA, SexAreaPenetration.PENIS)),
+			SexParticipantType.NORMAL,
 			SexPace.DOM_NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -741,15 +769,17 @@ public class PlayerPenisUrethraVagina {
 	};
 	
 	public static final SexAction PARTNER_RECEIVING_URETHRAL_FUCK_DOM_ROUGH = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.TWO_HORNY,
-			PenetrationType.PENIS,
-			OrificeType.URETHRA_VAGINA,
-			SexParticipantType.CATCHER,
-			null,
+			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.URETHRA_VAGINA, SexAreaPenetration.PENIS)),
+			SexParticipantType.NORMAL,
 			SexPace.DOM_ROUGH) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -777,15 +807,17 @@ public class PlayerPenisUrethraVagina {
 	};
 	
 	public static final SexAction PARTNER_RECEIVING_URETHRAL_FUCK_SUB_NORMAL = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.URETHRA_VAGINA,
-			SexParticipantType.CATCHER,
-			null,
+			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.URETHRA_VAGINA, SexAreaPenetration.PENIS)),
+			SexParticipantType.NORMAL,
 			SexPace.SUB_NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -816,15 +848,17 @@ public class PlayerPenisUrethraVagina {
 	};
 	
 	public static final SexAction PARTNER_RECEIVING_URETHRAL_FUCK_SUB_EAGER = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.URETHRA_VAGINA,
-			SexParticipantType.CATCHER,
-			null,
+			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.URETHRA_VAGINA, SexAreaPenetration.PENIS)),
+			SexParticipantType.NORMAL,
 			SexPace.SUB_EAGER) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -856,15 +890,17 @@ public class PlayerPenisUrethraVagina {
 	};
 	
 	public static final SexAction PARTNER_RECEIVING_URETHRAL_FUCK_SUB_RESIST = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS,
-			OrificeType.URETHRA_VAGINA,
-			SexParticipantType.CATCHER,
-			null,
+			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.URETHRA_VAGINA, SexAreaPenetration.PENIS)),
+			SexParticipantType.NORMAL,
 			SexPace.SUB_RESISTING) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -918,13 +954,16 @@ public class PlayerPenisUrethraVagina {
 	};
 	
 	public static final SexAction PARTNER_RECEIVING_URETHRAL_FUCK_STOP = new SexAction(
-			SexActionType.PARTNER_STOP_PENETRATION,
+			SexActionType.STOP_ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS,
-			OrificeType.URETHRA_VAGINA,
-			SexParticipantType.CATCHER) {
+			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.URETHRA_VAGINA, SexAreaPenetration.PENIS)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {

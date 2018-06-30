@@ -2,20 +2,23 @@ package com.lilithsthrone.game.sex.sexActions.baseActionsPartner;
 
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
-import com.lilithsthrone.game.character.body.valueEnums.PenisModifier;
+import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.LubricationType;
-import com.lilithsthrone.game.sex.OrificeType;
-import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
-import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
+import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
+import com.lilithsthrone.game.sex.sexActions.SexActionLimitation;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.79
@@ -39,15 +42,17 @@ public class PartnerPenisMouth {
 	 */
 	
 	public static final SexAction PARTNER_COCK_SLAP = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.THREE_DIRTY,
-			PenetrationType.PENIS,
-			OrificeType.MOUTH,
-			SexParticipantType.PITCHER,
-			null,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH)),
+			SexParticipantType.NORMAL,
 			SexPace.DOM_ROUGH) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -72,7 +77,7 @@ public class PartnerPenisMouth {
 				return UtilText.returnStringAtRandom(
 						"[npc.Name] suddenly pulls back, sliding [npc.her] [npc.cock+] out of your mouth."
 							+ " As you look up at [npc.herHim], [npc.she] slaps [npc.her] hard shaft against your cheek, splattering "
-								+(Sex.getWetOrificeTypes(Main.game.getPlayer()).get(OrificeType.MOUTH).contains(LubricationType.PARTNER_PRECUM)?"cummy ":"")
+								+(Sex.getWetAreas(Main.game.getPlayer()).get(SexAreaOrifice.MOUTH).contains(LubricationType.PARTNER_PRECUM)?"cummy ":"")
 								+"saliva across your face, before thrusting [npc.her] [npc.cock+] back down your throat.",
 								
 						"Stepping back, [npc.name] slides [npc.her] [npc.cock+] free from your mouth, and then proceeds to slap the saliva-coated head against your cheeks."
@@ -80,7 +85,7 @@ public class PartnerPenisMouth {
 						
 						"[npc.Name] suddenly steps back and allows [npc.her] [npc.cock+] to slide out from your mouth."
 							+ " Looking up at [npc.herHim], you're taken by surprise as [npc.she] slaps [npc.her] hard shaft against your face,"
-							+ " leaving a streak of "+(Sex.getWetOrificeTypes(Main.game.getPlayer()).get(OrificeType.MOUTH).contains(LubricationType.PARTNER_PRECUM)?"cummy ":"")
+							+ " leaving a streak of "+(Sex.getWetAreas(Main.game.getPlayer()).get(SexAreaOrifice.MOUTH).contains(LubricationType.PARTNER_PRECUM)?"cummy ":"")
 							+"saliva drooling down your cheek, before forcing [npc.her] [npc.cock+] back down your throat.",
 								
 						"Quickly pulling [npc.her] [npc.cock+] out from your mouth, [npc.name] holds the base in one hand while holding your head still with the other."
@@ -92,12 +97,12 @@ public class PartnerPenisMouth {
 				return UtilText.returnStringAtRandom(
 						"Pulling [npc.her] [npc.hips] back, [npc.name] slides [npc.her] [npc.cock+] out of your mouth."
 							+ " Before you can react, [npc.she] suddenly slaps [npc.her] hard shaft against your cheek, splattering saliva "
-							+(Sex.getWetPenetrationTypes(Sex.getActivePartner()).get(PenetrationType.PENIS).contains(LubricationType.PARTNER_PRECUM)?"and precum ":"")+"across your [pc.face], before thrusting [npc.her] [npc.cock+] back down your throat.",
+							+(Sex.getWetAreas(Sex.getActivePartner()).get(SexAreaPenetration.PENIS).contains(LubricationType.PARTNER_PRECUM)?"and precum ":"")+"across your [pc.face], before thrusting [npc.her] [npc.cock+] back down your throat.",
 								
 						"Pulling back, [npc.name] slides [npc.her] [npc.cock+] free from your mouth, and with [npc.a_moan+], [npc.she] proceeds to slap the saliva-coated [npc.cockHead] against your [pc.face].",
 						
 						"[npc.Name] slides [npc.her] [npc.cock+] out from your mouth, and, grinning to [npc.herself], [npc.she] then slaps [npc.her] hard shaft against your [pc.face],"
-							+ " leaving a streak of "+(Sex.getWetPenetrationTypes(Sex.getActivePartner()).get(PenetrationType.PENIS).contains(LubricationType.PARTNER_PRECUM)?"cummy ":"")
+							+ " leaving a streak of "+(Sex.getWetAreas(Sex.getActivePartner()).get(SexAreaPenetration.PENIS).contains(LubricationType.PARTNER_PRECUM)?"cummy ":"")
 							+"saliva drooling down your cheek, before forcing [npc.her] [npc.cock] back down your throat.",
 								
 						"Quickly pulling [npc.her] [npc.hips+] back, [npc.name] draws [npc.her] [npc.cock+] out from your mouth before starting to slap its slimy length against your cheeks.");
@@ -108,13 +113,16 @@ public class PartnerPenisMouth {
 	};
 	
 	public static final SexAction PARTNER_FORCE_BALLS_FOCUS = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.MOUTH,
-			SexParticipantType.PITCHER) {
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -217,13 +225,16 @@ public class PartnerPenisMouth {
 	};
 	
 	public static final SexAction PLAYER_SUCK_BALLS = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.MOUTH,
-			SexParticipantType.CATCHER) {
+			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -290,13 +301,16 @@ public class PartnerPenisMouth {
 	};
 	
 	public static final SexAction PLAYER_LICK_HEAD = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.MOUTH,
-			SexParticipantType.CATCHER) {
+			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -319,11 +333,11 @@ public class PartnerPenisMouth {
 			
 			String barbedSpecial = "", flaredSpecial = "";
 			
-			if(Sex.getActivePartner().hasPenisModifier(PenisModifier.BARBED)) {
+			if(Sex.getActivePartner().hasPenisModifier(PenetrationModifier.BARBED)) {
 				barbedSpecial = "You slide your head back, letting out a muffled [pc.moan] as you feel the barbs lining [npc.name]'s [npc.cock] rake their way up your throat."
 									+ " Leaving just the [npc.cockHead+] pushed past your [pc.lips+], you then start to passionately kiss and suck the tip of [npc.her] [npc.cock+].";
 			}
-			if(Sex.getActivePartner().hasPenisModifier(PenisModifier.FLARED)) {
+			if(Sex.getActivePartner().hasPenisModifier(PenetrationModifier.FLARED)) {
 				flaredSpecial = "Sliding your head back, you allow [npc.name]'s [npc.cock+] to slip almost completely out of your mouth,"
 									+ " leaving just the wide, flared head pushed past your [pc.lips+], which you start to passionately kiss and lick.";
 			}
@@ -345,18 +359,21 @@ public class PartnerPenisMouth {
 	};
 	
 	public static final SexAction PLAYER_HERM_FUN = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.MOUTH,
-			SexParticipantType.CATCHER) {
+			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return Sex.getSexPace(Main.game.getPlayer())!=SexPace.SUB_RESISTING && Sex.getActivePartner().hasVagina() && Sex.getActivePartner().isCoverableAreaExposed(CoverableArea.VAGINA)
-					&& Sex.isOrificeFree(Sex.getActivePartner(), OrificeType.VAGINA);
+					&& Sex.isOrificeFree(Sex.getActivePartner(), SexAreaOrifice.VAGINA);
 		}
 		
 		@Override
@@ -463,13 +480,16 @@ public class PartnerPenisMouth {
 	};
 	
 	public static final SexAction PARTNER_BLOWJOB_START = new SexAction(
-			SexActionType.PARTNER_PENETRATION,
+			SexActionType.START_ONGOING,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.MOUTH,
-			SexParticipantType.PITCHER) {
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -621,15 +641,17 @@ public class PartnerPenisMouth {
 	};
 	
 	public static final SexAction PARTNER_BLOWJOB_DOM_GENTLE = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.MOUTH,
-			SexParticipantType.PITCHER,
-			null,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH)),
+			SexParticipantType.NORMAL,
 			SexPace.DOM_GENTLE) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -681,15 +703,17 @@ public class PartnerPenisMouth {
 	};
 	
 	public static final SexAction PARTNER_BLOWJOB_DOM_NORMAL = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.MOUTH,
-			SexParticipantType.PITCHER,
-			null,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH)),
+			SexParticipantType.NORMAL,
 			SexPace.DOM_NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -741,15 +765,17 @@ public class PartnerPenisMouth {
 	};
 	
 	public static final SexAction PARTNER_BLOWJOB_DOM_ROUGH = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.THREE_DIRTY,
-			PenetrationType.PENIS,
-			OrificeType.MOUTH,
-			SexParticipantType.PITCHER,
-			null,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH)),
+			SexParticipantType.NORMAL,
 			SexPace.DOM_ROUGH) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -775,17 +801,17 @@ public class PartnerPenisMouth {
 				
 				String knottedSpecial = "", barbedSpecial = "", flaredSpecial = "";
 				
-				if(Sex.getActivePartner().hasPenisModifier(PenisModifier.KNOTTED)) {
+				if(Sex.getActivePartner().hasPenisModifier(PenetrationModifier.KNOTTED)) {
 					knottedSpecial = "With a sudden, violent thrust forwards, [npc.name] buries [npc.her] [npc.cock+] deep down your throat."
 									+ " Holding your head in place with both [npc.hands], [npc.she] then proceeds to start roughly fucking your [pc.face],"
 									+ " and you feel tears streaming from your [pc.eyes] as [npc.she] slams [npc.her] knot repeatedly against your [pc.lips+].";
 				}
-				if(Sex.getActivePartner().hasPenisModifier(PenisModifier.BARBED)) {
+				if(Sex.getActivePartner().hasPenisModifier(PenetrationModifier.BARBED)) {
 					barbedSpecial = "With a sudden, violent thrust forwards, [npc.name] buries [npc.her] [npc.cock+] deep down your throat."
 									+ " Holding your head in place with both [npc.hands], [npc.she] then proceeds to start roughly fucking your [pc.face],"
 									+ " and you feel tears streaming from your [pc.eyes] as you feel the barbs lining [npc.her] shaft repeatedly raking up the sides of your throat.";
 				}
-				if(Sex.getActivePartner().hasPenisModifier(PenisModifier.FLARED)) {
+				if(Sex.getActivePartner().hasPenisModifier(PenetrationModifier.FLARED)) {
 					flaredSpecial = "With a sudden, violent thrust forwards, [npc.name] buries [npc.her] [npc.cock+] deep down your throat."
 									+ " Holding your head in place with both [npc.hands], [npc.she] then proceeds to start roughly fucking your [pc.face],"
 									+ " and you feel tears streaming from your [pc.eyes] as [npc.her] wide, flared head forces its way up and down your throat.";
@@ -803,26 +829,26 @@ public class PartnerPenisMouth {
 								"Grabbing the sides of your head, [npc.name] roughly pulls you into [npc.her] groin, sinking [npc.her] [npc.cock+] deep down your throat before starting to ruthlessly fuck your [pc.face].",
 										
 								"With a forceful thrust, [npc.name] hilts [npc.her] [npc.cock+] deep down your throat."
-									+ " As a slimy stream of saliva "+(Sex.getWetPenetrationTypes(Sex.getActivePartner()).get(PenetrationType.PENIS).contains(LubricationType.PARTNER_PRECUM)?"and precum ":"")
+									+ " As a slimy stream of saliva "+(Sex.getWetAreas(Sex.getActivePartner()).get(SexAreaPenetration.PENIS).contains(LubricationType.PARTNER_PRECUM)?"and precum ":"")
 									+"drools from the corners of your mouth, [npc.she] bucks back, letting you gasp for air for a brief moment before starting to aggressively fuck your [pc.face]."));
 			
 			} else if(Sex.getPosition()==SexPositionType.SIXTY_NINE && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.SIXTY_NINE_BOTTOM) {
 				
 				String knottedSpecial = "", barbedSpecial = "", flaredSpecial = "";
 				
-				if(Sex.getActivePartner().hasPenisModifier(PenisModifier.KNOTTED)) {
+				if(Sex.getActivePartner().hasPenisModifier(PenetrationModifier.KNOTTED)) {
 					knottedSpecial = "Spreading [npc.her] knees out on either side of your head, [npc.name] violently thrusts downwards, burying [npc.her] [npc.cock+] deep down your throat."
 										+ " Grinding [npc.her] fat knot against your [pc.lips+] for moment, [npc.she] then proceeds to start roughly fucking your face,"
 										+ " and you find yourself [pc.moaning] in desperation as you struggle to breathe,"
 										+ " your pitiful cries being accompanied by the wet slapping sounds that [npc.her] fat knot makes at it repeatedly slams against your [pc.lips].";
 				}
-				if(Sex.getActivePartner().hasPenisModifier(PenisModifier.BARBED)) {
+				if(Sex.getActivePartner().hasPenisModifier(PenetrationModifier.BARBED)) {
 					barbedSpecial = "Spreading [npc.her] knees out on either side of your head, [npc.name] violently thrusts downwards, burying [npc.her] [npc.cock+] deep down your throat."
 										+ " Grinding the base against your [pc.lips+] for moment, [npc.she] then proceeds to start roughly fucking your face,"
 										+ " and you find yourself [pc.moaning] in desperation as you struggle to breathe,"
 										+ " squirming about beneath [npc.herHim] as you feel your throat being stretched out by the wide, flared head of [npc.her] [npc.cock+].";
 				}
-				if(Sex.getActivePartner().hasPenisModifier(PenisModifier.FLARED)) {
+				if(Sex.getActivePartner().hasPenisModifier(PenetrationModifier.FLARED)) {
 					flaredSpecial = "Spreading [npc.her] knees out on either side of your head, [npc.name] violently thrusts downwards, burying [npc.her] [npc.cock+] deep down your throat."
 										+ " Grinding the base against your [pc.lips+] for moment, [npc.she] then proceeds to start roughly fucking your face,"
 										+ " and you find yourself [pc.moaning] in desperation as you struggle to breathe,"
@@ -843,7 +869,7 @@ public class PartnerPenisMouth {
 										+ " letting out [npc.a_moan+] before starting to violently thrust [npc.her] [npc.hips] up and down as [npc.she] ruthlessly fucks your face.",
 										
 								"With a forceful thrust, [npc.name] hilts [npc.her] [npc.cock+] deep down your throat."
-									+ " As a slimy stream of "+(Sex.getWetOrificeTypes(Main.game.getPlayer()).get(OrificeType.MOUTH).contains(LubricationType.PARTNER_PRECUM)?"cummy ":"")
+									+ " As a slimy stream of "+(Sex.getWetAreas(Main.game.getPlayer()).get(SexAreaOrifice.MOUTH).contains(LubricationType.PARTNER_PRECUM)?"cummy ":"")
 									+"saliva drools from the corners of your mouth, [npc.she] lifts [npc.herself] up, letting you gasp for air for a brief moment before sinking down once more and starting to aggressively fuck your face."));
 				
 			} else {
@@ -886,15 +912,17 @@ public class PartnerPenisMouth {
 	};
 	
 	public static final SexAction PARTNER_BLOWJOB_SUB_RESISTING = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.ZERO_NONE,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.MOUTH,
-			SexParticipantType.PITCHER,
-			null,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH)),
+			SexParticipantType.NORMAL,
 			SexPace.SUB_RESISTING) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -952,15 +980,17 @@ public class PartnerPenisMouth {
 	};
 	
 	public static final SexAction PARTNER_BLOWJOB_SUB_NORMAL = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.MOUTH,
-			SexParticipantType.PITCHER,
-			null,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH)),
+			SexParticipantType.NORMAL,
 			SexPace.SUB_NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -1013,15 +1043,17 @@ public class PartnerPenisMouth {
 	};
 	
 	public static final SexAction PARTNER_BLOWJOB_SUB_EAGER = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.MOUTH,
-			SexParticipantType.PITCHER,
-			null,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH)),
+			SexParticipantType.NORMAL,
 			SexPace.SUB_EAGER) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -1075,13 +1107,16 @@ public class PartnerPenisMouth {
 	};
 	
 	public static final SexAction PARTNER_BLOWJOB_STOP = new SexAction(
-			SexActionType.PARTNER_STOP_PENETRATION,
+			SexActionType.STOP_ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS,
-			OrificeType.MOUTH,
-			SexParticipantType.PITCHER) {
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -1143,13 +1178,16 @@ public class PartnerPenisMouth {
 	// Player actions:
 	
 	public static final SexAction PLAYER_BLOWJOB_START = new SexAction(
-			SexActionType.PLAYER_PENETRATION,
+			SexActionType.START_ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.MOUTH,
-			SexParticipantType.CATCHER) {
+			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -1270,15 +1308,17 @@ public class PartnerPenisMouth {
 	};
 	
 	public static final SexAction PLAYER_GIVING_BLOWJOB_DOM_GENTLE = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.MOUTH,
-			SexParticipantType.CATCHER,
-			SexPace.DOM_GENTLE,
-			null) {
+			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS)),
+			SexParticipantType.NORMAL,
+			SexPace.DOM_GENTLE) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -1327,15 +1367,17 @@ public class PartnerPenisMouth {
 	};
 	
 	public static final SexAction PLAYER_GIVING_BLOWJOB_DOM_NORMAL = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.MOUTH,
-			SexParticipantType.CATCHER,
-			SexPace.DOM_NORMAL,
-			null) {
+			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS)),
+			SexParticipantType.NORMAL,
+			SexPace.DOM_NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -1385,15 +1427,17 @@ public class PartnerPenisMouth {
 	};
 	
 	public static final SexAction PLAYER_GIVING_BLOWJOB_DOM_ROUGH = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.MOUTH,
-			SexParticipantType.CATCHER,
-			SexPace.DOM_ROUGH,
-			null) {
+			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS)),
+			SexParticipantType.NORMAL,
+			SexPace.DOM_ROUGH) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -1445,15 +1489,17 @@ public class PartnerPenisMouth {
 	};
 	
 	public static final SexAction PLAYER_BLOWJOB_SUB_RESIST = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.ZERO_NONE,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS,
-			OrificeType.MOUTH,
-			SexParticipantType.CATCHER,
-			SexPace.SUB_RESISTING,
-			null) {
+			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS)),
+			SexParticipantType.NORMAL,
+			SexPace.SUB_RESISTING) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -1502,15 +1548,17 @@ public class PartnerPenisMouth {
 	};
 	
 	public static final SexAction PLAYER_GIVING_BLOWJOB_SUB_NORMAL = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.MOUTH,
-			SexParticipantType.CATCHER,
-			SexPace.SUB_NORMAL,
-			null) {
+			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS)),
+			SexParticipantType.NORMAL,
+			SexPace.SUB_NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -1558,15 +1606,17 @@ public class PartnerPenisMouth {
 	};
 	
 	public static final SexAction PLAYER_GIVING_BLOWJOB_SUB_EAGER = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS,
-			OrificeType.MOUTH,
-			SexParticipantType.CATCHER,
-			SexPace.SUB_EAGER,
-			null) {
+			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS)),
+			SexParticipantType.NORMAL,
+			SexPace.SUB_EAGER) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -1614,13 +1664,16 @@ public class PartnerPenisMouth {
 	};
 	
 	public static final SexAction PLAYER_BLOWJOB_STOP = new SexAction(
-			SexActionType.PLAYER_STOP_PENETRATION,
+			SexActionType.STOP_ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS,
-			OrificeType.MOUTH,
-			SexParticipantType.CATCHER) {
+			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {

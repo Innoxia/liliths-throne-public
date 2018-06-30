@@ -8,6 +8,7 @@ package com.lilithsthrone.game.character.body.valueEnums;
  * @author Innoxia
  */
 public enum Lactation {
+	
 	ZERO_NONE("no", 0, 1, Wetness.ZERO_DRY),
 	/** This, and all before, require actual milking to produce milk. */
 	ONE_TRICKLE("a tiny trickle of", 1, 30, Wetness.ONE_SLIGHTLY_MOIST),

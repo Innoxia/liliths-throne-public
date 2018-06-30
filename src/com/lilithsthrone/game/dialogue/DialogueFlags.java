@@ -7,6 +7,7 @@ import java.util.Set;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.npc.NPC;
@@ -16,7 +17,7 @@ import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.0
- * @version 0.1.99
+ * @version 0.2.6
  * @author Innoxia
  */
 public class DialogueFlags implements Serializable, XMLSaving {
@@ -25,10 +26,10 @@ public class DialogueFlags implements Serializable, XMLSaving {
 
 	public Set<DialogueFlagValue> values;
 	
-	// Discounts:
 	public long ralphDiscountStartTime;
 	public int ralphDiscount;
 	public int scarlettPrice;
+	public int eponaStamps;
 	
 	// Amount of dialogue choices you can make before offspring interaction ends:
 	public int offspringDialogueTokens = 2;
@@ -53,6 +54,8 @@ public class DialogueFlags implements Serializable, XMLSaving {
 		ralphDiscountStartTime = -1;
 		ralphDiscount = 0;
 		
+		eponaStamps = 0;
+		
 		scarlettPrice = 15000;
 	}
 	
@@ -63,6 +66,7 @@ public class DialogueFlags implements Serializable, XMLSaving {
 		CharacterUtils.createXMLElementWithValue(doc, element, "ralphDiscountStartTime", String.valueOf(ralphDiscountStartTime));
 		CharacterUtils.createXMLElementWithValue(doc, element, "ralphDiscount", String.valueOf(ralphDiscount));
 		CharacterUtils.createXMLElementWithValue(doc, element, "scarlettPrice", String.valueOf(scarlettPrice));
+		CharacterUtils.createXMLElementWithValue(doc, element, "eponaStamps", String.valueOf(eponaStamps));
 		CharacterUtils.createXMLElementWithValue(doc, element, "offspringDialogueTokens", String.valueOf(offspringDialogueTokens));
 		CharacterUtils.createXMLElementWithValue(doc, element, "slaveTrader", slaveTrader);
 		CharacterUtils.createXMLElementWithValue(doc, element, "slaveryManagerSlaveSelected", slaveryManagerSlaveSelected);
@@ -100,6 +104,11 @@ public class DialogueFlags implements Serializable, XMLSaving {
 		newFlags.slaveTrader = ((Element)parentElement.getElementsByTagName("slaveTrader").item(0)).getAttribute("value");
 		newFlags.slaveryManagerSlaveSelected = ((Element)parentElement.getElementsByTagName("slaveryManagerSlaveSelected").item(0)).getAttribute("value");
 		
+		try {
+			newFlags.eponaStamps = Integer.valueOf(((Element)parentElement.getElementsByTagName("eponaStamps").item(0)).getAttribute("value"));
+		} catch(Exception ex) {
+		}
+		
 		for(int i=0; i<((Element) parentElement.getElementsByTagName("dialogueValues").item(0)).getElementsByTagName("dialogueValue").getLength(); i++){
 			Element e = (Element) ((Element) parentElement.getElementsByTagName("dialogueValues").item(0)).getElementsByTagName("dialogueValue").item(i);
 			
@@ -107,6 +116,12 @@ public class DialogueFlags implements Serializable, XMLSaving {
 				newFlags.values.add(DialogueFlagValue.valueOf(e.getAttribute("value")));
 			} catch(Exception ex) {
 			}
+		}
+		
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.6.1")) {
+			newFlags.values.remove(DialogueFlagValue.axelIntroduced);
+			newFlags.values.remove(DialogueFlagValue.roxyIntroduced);
+			newFlags.values.remove(DialogueFlagValue.eponaIntroduced);
 		}
 
 		loadSet(parentElement, doc, newFlags.reindeerEncounteredIDs, "reindeerEncounteredIDs");
@@ -144,6 +159,7 @@ public class DialogueFlags implements Serializable, XMLSaving {
 				}
 			}
 		} catch(Exception ex) {
+			// What is this...
 			System.err.println("Whoopsie :^)"); // Prints out "Whoopsie :^) to the error output stream."
 		}
 	}

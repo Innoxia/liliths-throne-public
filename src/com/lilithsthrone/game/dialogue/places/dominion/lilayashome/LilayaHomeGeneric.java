@@ -258,7 +258,7 @@ public class LilayaHomeGeneric {
 						public void effects() {
 							int milked = MilkingRoom.getActualMilkPerHour(Main.game.getPlayer());
 							room.incrementMilkStorage(Main.game.getPlayer().getMilk(), milked);
-							Main.game.getPlayer().setBreastStoredMilk(0);
+							Main.game.getPlayer().incrementBreastStoredMilk(-milked);
 							Main.game.getPlayer().incrementHealth(-25);
 							
 							if(Main.game.getPlayerCell().getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM_ARTISAN_MILKERS)) {
@@ -324,8 +324,8 @@ public class LilayaHomeGeneric {
 				if(!Main.game.getPlayer().hasPenisIgnoreDildo()) {
 					return new Response("Milk Self Cum", "You don't have a penis, so you can't produce any cum...",  null);
 					
-				} else if(Main.game.getPlayer().getPenisRawCumProductionValue()==0) {
-					return new Response("Milk Self Cum", "You aren't producing any cum, so you can't milk your cock...",  null);
+				} else if(Main.game.getPlayer().getPenisRawStoredCumValue()==0) {
+					return new Response("Milk Self Cum", "There isn't any cum stored in your balls, so you can't milk your cock...",  null);
 					
 				} else if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.PENIS, true)) {
 					return new Response("Milk Self Cum", "You are unable to get access to your cock, so you can't milk yourself at the moment!",  null);
@@ -422,7 +422,7 @@ public class LilayaHomeGeneric {
 					return new Response("Milk Self Girlcum", "There are no free milking machines for you to use!",  null);
 					
 				} else if(Main.game.getPlayer().getHealth()<=25) {
-					return new Response("Milk Self Cum", "You are too tired to use the milking machine! (You need over 25 energy.)",  null);
+					return new Response("Milk Self Girlcum", "You are too tired to use the milking machine! (You need over 25 energy.)",  null);
 					
 				} else {
 					return new Response("Milk Self Girlcum", "Use this room's spare milking equipment to milk your pussy.", MILKED) {
@@ -602,7 +602,7 @@ public class LilayaHomeGeneric {
 
 	private static String formatRoomUpgrade(PlaceUpgrade upgrade) {
 		return "<p>"
-				+ "<b style='color:"+upgrade.getColour().toWebHexString()+";'>"+upgrade.getName()+"</b></br>"
+				+ "<b style='color:"+upgrade.getColour().toWebHexString()+";'>"+upgrade.getName()+"</b><br/>"
 				+ upgrade.getRoomDescription(Main.game.getPlayerCell())
 			+ "</p>";
 	}

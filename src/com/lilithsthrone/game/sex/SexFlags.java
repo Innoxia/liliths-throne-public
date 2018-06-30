@@ -4,47 +4,63 @@ import java.io.Serializable;
 
 /**
  * @since 0.1.69.1
- * @version 0.2.0
+ * @version 0.2.8
  * @author Innoxia
  */
 public class SexFlags implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	public static boolean
-	requestsBlockedPlayer, requestsBlockedPartner,
-	positioningBlockedPlayer, positioningBlockedPartner,
-	selfActionsBlockedPlayer, selfActionsBlockedPartner,
-	playerRequestedPullOut, playerRequestedCreampie,
-	partnerRequestedPullOut, partnerRequestedCreampie,
+	public static boolean requestsBlockedPlayer;
+	public static boolean requestsBlockedPartner;
+	public static boolean positioningBlockedPlayer;
+	public static boolean positioningBlockedPartner;
+	public static boolean selfActionsBlockedPlayer;
+	public static boolean selfActionsBlockedPartner;
+	public static boolean playerRequestedPullOut;
+	public static boolean playerRequestedCreampie;
+	public static boolean partnerRequestedPullOut;
+	public static boolean partnerRequestedCreampie;
 	
 	// Generic:
-	mutualOrgasmsAllowed,
-	playerPreparedForOrgasm,
-	playerGrewDemonicCock,
+	public static boolean mutualOrgasmsAllowed;
+	public static boolean playerPreparedForOrgasm;
+	public static boolean playerGrewDemonicCock;
+	public static boolean playerDeniedPartner;
 	
 	// Position requests:
-	requestedCowgirl,
-	requested69,
-	requestedDoggy,
-	requestedDoggyOral,
-	requestedDoggyReceiveOral,
-	requestedDomFuckedDoggy,
-	requestedBackToWall,
-	requestedFaceToWall,
-	requestedKneeling,
-	requestedSelfKneeling,
-	requestedMissionary,
-	requestedMissionaryOnBack,
+	public static boolean requestedCowgirl;
+	public static boolean requested69;
+	public static boolean requestedDoggy;
+	public static boolean requestedDoggyOral;
+	public static boolean requestedDoggyReceiveOral;
+	public static boolean requestedDomFuckedDoggy;
+	public static boolean requestedBackToWall;
+	public static boolean requestedFaceToWall;
+	public static boolean requestedKneeling;
+	public static boolean requestedSelfKneeling;
+	public static boolean requestedMissionary;
+	public static boolean requestedMissionaryOnBack;
+	public static boolean requestedSitOnFace;
+	public static boolean requestedFaceSitting;
+	
+	
+	public static boolean requestedChairBottom;
+	public static boolean requestedChairTop;
+	public static boolean requestedChairOralGiving;
+	public static boolean requestedChairOralReceiving;
 	
 	// Brax: TODO Temporary awaiting Brax rewrite
-	braxCumOnChest,
+	public static boolean braxCumOnChest;
 	
 	// Ralph
-	customerAtCounter, alertedCustomer, askedForBigDiscount,
+	public static boolean customerAtCounter;
+	public static boolean alertedCustomer;
+	public static boolean askedForBigDiscount;
 	
 	//Pix
-	pixDemandedPromise, pixPlayerPromised;
+	public static boolean pixDemandedPromise;
+	public static boolean pixPlayerPromised;
 	
 	public static int ralphDiscount;
 
@@ -72,6 +88,7 @@ public class SexFlags implements Serializable {
 		playerPreparedForOrgasm = false;
 		
 		playerGrewDemonicCock = false;
+		playerDeniedPartner = false;
 		
 		resetRequests();
 		
@@ -102,6 +119,8 @@ public class SexFlags implements Serializable {
 		requestedSelfKneeling = false;
 		requestedMissionary = false;
 		requestedMissionaryOnBack = false;
+		requestedSitOnFace = false;
+		requestedFaceSitting = false;
 	}
 
 }

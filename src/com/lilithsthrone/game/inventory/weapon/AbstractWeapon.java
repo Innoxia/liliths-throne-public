@@ -8,6 +8,7 @@ import java.util.Map.Entry;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
@@ -27,7 +28,7 @@ import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.0
- * @version 0.1.87
+ * @version 0.2.6
  * @author Innoxia
  */
 public abstract class AbstractWeapon extends AbstractCoreItem implements Serializable, XMLSaving {
@@ -38,8 +39,10 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements Seriali
 	private DamageType damageType;
 	private Attribute coreEnchantment;
 	private List<Spell> spells;
+	private Colour primaryColour;
+	private Colour secondaryColour;
 
-	public AbstractWeapon(AbstractWeaponType weaponType, DamageType dt) {
+	public AbstractWeapon(AbstractWeaponType weaponType, DamageType dt, Colour primaryColour, Colour secondaryColour) {
 		super(weaponType.getName(), weaponType.getNamePlural(), weaponType.getPathName(), dt.getMultiplierAttribute().getColour(), weaponType.getRarity(), weaponType.getAttributeModifiers());
 		
 		this.weaponType = weaponType;
@@ -69,7 +72,9 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements Seriali
 				highestEnchantment = attributeModifiers.get(a);
 			}
 		}
-		
+
+		this.primaryColour = primaryColour;
+		this.secondaryColour = secondaryColour;
 	}
 	
 	@Override
@@ -77,6 +82,8 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements Seriali
 		if(super.equals(o)){
 			if(o instanceof AbstractWeapon){
 				if(((AbstractWeapon)o).getWeaponType().equals(getWeaponType())
+						&& ((AbstractWeapon)o).getPrimaryColour()==primaryColour
+						&& ((AbstractWeapon)o).getSecondaryColour()==secondaryColour
 						&& ((AbstractWeapon)o).getDamageType()==damageType
 						&& ((AbstractWeapon)o).getCoreEnchantment()==coreEnchantment
 						&& ((AbstractWeapon)o).getSpells().equals(spells)
@@ -93,8 +100,15 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements Seriali
 		int result = super.hashCode();
 		result = 31 * result + getWeaponType().hashCode();
 		result = 31 * result + damageType.hashCode();
-		if(coreEnchantment!=null)
+		if(getPrimaryColour()!=null) {
+			result = 31 * result + getPrimaryColour().hashCode();
+		}
+		if(getSecondaryColour()!=null) {
+			result = 31 * result + getSecondaryColour().hashCode();
+		}
+		if(coreEnchantment!=null) {
 			result = 31 * result + coreEnchantment.hashCode();
+		}
 		result = 31 * result + spells.hashCode();
 		return result;
 	}
@@ -106,6 +120,8 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements Seriali
 		CharacterUtils.addAttribute(doc, element, "id", this.getWeaponType().getId());
 		CharacterUtils.addAttribute(doc, element, "damageType", this.getDamageType().toString());
 		CharacterUtils.addAttribute(doc, element, "coreEnchantment", (this.getCoreEnchantment()==null?"null":this.getCoreEnchantment().toString()));
+		CharacterUtils.addAttribute(doc, element, "colourPrimary", this.getPrimaryColour().toString());
+		CharacterUtils.addAttribute(doc, element, "colourSecondary", this.getSecondaryColour().toString());
 		
 		Element attributeElement = doc.createElement("attributeModifiers");
 		element.appendChild(attributeElement);
@@ -138,10 +154,18 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements Seriali
 			}
 		}
 		
+		// Try to load colour:
+		try {
+			weapon.setPrimaryColour(Colour.valueOf(parentElement.getAttribute("colourPrimary")));
+			weapon.setSecondaryColour(Colour.valueOf(parentElement.getAttribute("colourSecondary")));
+		} catch(Exception ex) {
+		}
+		
 		weapon.setAttributeModifiers(new HashMap<Attribute, Integer>());
 		Element element = (Element)parentElement.getElementsByTagName("attributeModifiers").item(0);
-		for(int i=0; i<element.getElementsByTagName("modifier").getLength(); i++){
-			Element e = ((Element)element.getElementsByTagName("modifier").item(i));
+		NodeList modifierElements = element.getElementsByTagName("modifier");
+		for(int i=0; i<modifierElements.getLength(); i++){
+			Element e = ((Element)modifierElements.item(i));
 			try {
 				weapon.getAttributeModifiers().put(Attribute.valueOf(e.getAttribute("attribute")), Integer.valueOf(e.getAttribute("value")));
 			} catch(Exception ex) {
@@ -150,8 +174,9 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements Seriali
 		
 		weapon.spells = new ArrayList<>();
 		element = (Element)parentElement.getElementsByTagName("spells").item(0);
-		for(int i=0; i<element.getElementsByTagName("spell").getLength(); i++){
-			Element e = ((Element)element.getElementsByTagName("spell").item(i));
+		NodeList spellElements = element.getElementsByTagName("spell");
+		for(int i=0; i<spellElements.getLength(); i++){
+			Element e = ((Element)spellElements.item(i));
 			try {
 				weapon.spells.add(Spell.valueOf(e.getAttribute("value")));
 			} catch(Exception ex) {
@@ -167,6 +192,23 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements Seriali
 
 	private StringBuilder descriptionSB = new StringBuilder("");
 
+
+	public Colour getPrimaryColour() {
+		return primaryColour;
+	}
+
+	public void setPrimaryColour(Colour primaryColour) {
+		this.primaryColour = primaryColour;
+	}
+	
+	public Colour getSecondaryColour() {
+		return secondaryColour;
+	}
+
+	public void setSecondaryColour(Colour secondaryColour) {
+		this.secondaryColour = secondaryColour;
+	}
+	
 	public String getDescription() {
 		descriptionSB = new StringBuilder();
 
@@ -288,7 +330,7 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements Seriali
 
 	@Override
 	public String getSVGString() {
-		return weaponType.getSVGStringMap().get(damageType);
+		return weaponType.getSVGImage(damageType, this.getPrimaryColour(), this.getSecondaryColour());
 	}
 
 	public List<Spell> getSpells() {

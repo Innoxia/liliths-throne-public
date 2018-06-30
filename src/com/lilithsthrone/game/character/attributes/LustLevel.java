@@ -154,9 +154,9 @@ public enum LustLevel {
 		}
 		
 		if(pace==SexPace.DOM_ROUGH
-				&& (!character.hasFetish(Fetish.FETISH_DOMINANT) && !character.hasFetish(Fetish.FETISH_SADIST) && !character.hasFetish(Fetish.FETISH_NON_CON_DOM))
-				|| (character.getFetishDesire(Fetish.FETISH_SADIST) == FetishDesire.ONE_DISLIKE
-					|| character.getFetishDesire(Fetish.FETISH_SADIST) == FetishDesire.ZERO_HATE)) {
+				&& ((!character.hasFetish(Fetish.FETISH_DOMINANT) && !character.hasFetish(Fetish.FETISH_SADIST) && !character.hasFetish(Fetish.FETISH_NON_CON_DOM))
+						|| (character.getFetishDesire(Fetish.FETISH_SADIST) == FetishDesire.ONE_DISLIKE
+							|| character.getFetishDesire(Fetish.FETISH_SADIST) == FetishDesire.ZERO_HATE))) {
 			pace = SexPace.DOM_NORMAL;
 		}
 		

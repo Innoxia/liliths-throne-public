@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -46,8 +47,8 @@ import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
-import com.lilithsthrone.game.sex.OrificeType;
-import com.lilithsthrone.game.sex.PenetrationType;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
@@ -143,7 +144,9 @@ public class Vicky extends NPC {
 	
 	public Vicky(boolean isImported) {
 		super(new NameTriplet("Vicky"),
-				"Vicky is the owner of the shop 'Arcane Arts'. Her manner of staring at anyone who enters her shop is quite unsettling, and you feel as though she's ready to pounce on you at any moment...", 10, Gender.F_P_V_B_FUTANARI,
+				"Vicky is the owner of the shop 'Arcane Arts'. Her manner of staring at anyone who enters her shop is quite unsettling, and you feel as though she's ready to pounce on you at any moment...",
+				37, Month.MAY, 26,
+				10, Gender.F_P_V_B_FUTANARI,
 				RacialBody.WOLF_MORPH, RaceStage.GREATER, new CharacterInventory(10), WorldType.SHOPPING_ARCADE, PlaceType.SHOPPING_ARCADE_VICKYS_SHOP, true);
 
 		this.setPersonality(Util.newHashMapOfValues(
@@ -210,17 +213,23 @@ public class Vicky extends NPC {
 	public boolean isUnique() {
 		return true;
 	}
+	
+	@Override
+	public boolean isAbleToBeImpregnated() {
+		return true;
+	}
 
 	@Override
 	public void dailyReset() {
 		clearNonEquippedInventory();
-
-		for(int i=0;i<2;i++){
-			this.addWeapon(AbstractWeaponType.generateWeapon(WeaponType.OFFHAND_CHAOS_RARE), false);
-			this.addWeapon(AbstractWeaponType.generateWeapon(WeaponType.MELEE_CHAOS_RARE), false);
+		
+		for(AbstractWeaponType wt : WeaponType.allweapons) {
+			if(wt.getItemTags().contains(ItemTag.SOLD_BY_VICKY)) {
+				for(int i=0; i<1+Util.random.nextInt(3); i++){
+					this.addWeapon(AbstractWeaponType.generateWeapon(wt), false);
+				}
+			}
 		}
-		this.addWeapon(AbstractWeaponType.generateWeapon(WeaponType.OFFHAND_CHAOS_EPIC), false);
-		this.addWeapon(AbstractWeaponType.generateWeapon(WeaponType.MELEE_CHAOS_EPIC), false);
 		
 		AbstractItem ingredient = AbstractItemType.generateItem(availableIngredients[Util.random.nextInt(availableIngredients.length)]);
 		TFModifier primaryMod = TFModifier.getTFRacialBodyPartsList().get(Util.random.nextInt(TFModifier.getTFRacialBodyPartsList().size()));
@@ -324,26 +333,26 @@ public class Vicky extends NPC {
 	}
 	
 	public SexType getForeplayPreference() {
-		if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true) && Sex.getPlayerPenetrationRequests().contains(OrificeType.ANUS)) {
-			return new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.ANUS);
+		if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true) && Sex.getPlayerPenetrationRequests().contains(SexAreaOrifice.ANUS)) {
+			return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS);
 			
 		} else if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true) && Main.game.getPlayer().hasVagina()) {
-			return new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.VAGINA);
+			return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA);
 			
 		} else {
-			return new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.ANUS);
+			return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS);
 		}
 	}
 	
 	public SexType getMainSexPreference() {
-		if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true) && Sex.getPlayerPenetrationRequests().contains(OrificeType.ANUS)) {
-			return new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.ANUS);
+		if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true) && Sex.getPlayerPenetrationRequests().contains(SexAreaOrifice.ANUS)) {
+			return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS);
 			
 		} else if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true) && Main.game.getPlayer().hasVagina()) {
-			return new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.VAGINA);
+			return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA);
 			
 		} else {
-			return new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.ANUS);
+			return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS);
 		}
 	}
 

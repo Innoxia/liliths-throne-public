@@ -51,7 +51,7 @@ public class PrologueDialogue {
 //		public String getContent() {
 //			return "<h1 class='specialText'>Lilith's Throne</h1>"
 //					+ "<h5 class='specialText'>An erotic fantasy game by Innoxia</h5>"
-//					+ "</br>"
+//					+ "<br/>"
 //
 //					+ "<p>"
 //					+ "So, it is as you feared. The opening party for the museum's new exhibition is <i>really</i> boring."
@@ -244,7 +244,7 @@ public class PrologueDialogue {
 									+ "You look down to see that you're holding a little square packet - a condom."
 								+ "</p>"
 								+"<div class='container-full-width' style='text-align:center;'>"
-									+ "<i>If you'd like to use the condom, open your inventory (by pressing 'i') and select it from the menu.</br>"
+									+ "<i>If you'd like to use the condom, open your inventory (by pressing 'i') and select it from the menu.<br/>"
 									+ "(Your penis will need to be exposed before it can be used!)</i>"
 								+ "</div>"
 								:"<p>"
@@ -281,7 +281,7 @@ public class PrologueDialogue {
 										:"You look down to see that you're holding a little square packet - a condom.")
 							+ "</p>"
 							+"<div class='container-full-width' style='text-align:center;'>"
-								+ "<i>If you'd like to use the condom, open your inventory (by pressing 'i') and select it from the menu.</br>"
+								+ "<i>If you'd like to use the condom, open your inventory (by pressing 'i') and select it from the menu.<br/>"
 									+ "([prologueMale.name]'s penis will need to be exposed before it can be used!)</i>"
 							+ "</div>"
 							+"<div class='container-full-width' style='text-align:center;'>"
@@ -815,7 +815,7 @@ public class PrologueDialogue {
 
 					+ "<p>"
 						+ "While the men looked to be normal people on first glance, as you take a closer look, you see that something's not quite right."
-						+ " Their arms and legs are covered in a layer of coarse hair, and instead of feet, they each have a pair of horse-like hooves."
+						+ " Their arms and legs are covered in a layer of coarse hair, and instead of feet, they each have a pair of horse-like hoofs."
 						+ " Their ears are also similar to that of a horse's, and sit high up on their heads, and a horse-like tail swishes behind each of them."
 					+ "</p>"
 
@@ -835,15 +835,15 @@ public class PrologueDialogue {
 				
 			} else if (index == 2) {
 				return new Response("Furries?! Yes!",
-						"Furries are real?! You <b>love</b> furries!</br>"
+						"Furries are real?! You <b>love</b> furries!<br/>"
 						+ "<b>This will set all of your starting furry preferences to </b><b style='color:"+ RaceStage.GREATER.getColour().toWebHexString()+ ";'>"+FurryPreference.MAXIMUM.getName()+"</b><b>."
 						+ " This can be changed at any time from the options menu.</b>", 
 						INTRO_NEW_WORLD_1_BY_THE_POWER_OF_LOVING_FURRIES){
 					@Override
 					public void effects(){
 						for(Subspecies r : Subspecies.values()) {
-							Main.getProperties().subspeciesFeminineFurryPreferencesMap.put(r, FurryPreference.MAXIMUM);
-							Main.getProperties().subspeciesMasculineFurryPreferencesMap.put(r, FurryPreference.MAXIMUM);
+							Main.getProperties().setFeminineFurryPreference(r, FurryPreference.MAXIMUM);
+							Main.getProperties().setMasculineFurryPreference(r, FurryPreference.MAXIMUM);
 						}
 						Main.saveProperties();
 					}
@@ -851,15 +851,15 @@ public class PrologueDialogue {
 				
 			} else if (index == 3) {
 				return new Response("Furries?! No!",
-						"Why are furries real?! You <b>hate</b> furries! Channel your rage and try to break free.</br>"
+						"Why are furries real?! You <b>hate</b> furries! Channel your rage and try to break free.<br/>"
 						+ "<b>This will set all of your starting furry preferences to </b><b style='color:"+ RaceStage.HUMAN.getColour().toWebHexString()+ ";'>"+FurryPreference.HUMAN.getName()+"</b><b>."
 						+ " This can be changed at any time from the options menu.</b>", 
 						INTRO_NEW_WORLD_1_BY_THE_POWER_OF_HATING_FURRIES){
 					@Override
 					public void effects(){
 						for(Subspecies r : Subspecies.values()) {
-							Main.getProperties().subspeciesFeminineFurryPreferencesMap.put(r, FurryPreference.HUMAN);
-							Main.getProperties().subspeciesMasculineFurryPreferencesMap.put(r, FurryPreference.HUMAN);
+							Main.getProperties().setFeminineFurryPreference(r, FurryPreference.HUMAN);
+							Main.getProperties().setMasculineFurryPreference(r, FurryPreference.HUMAN);
 						}
 						Main.saveProperties();
 					}

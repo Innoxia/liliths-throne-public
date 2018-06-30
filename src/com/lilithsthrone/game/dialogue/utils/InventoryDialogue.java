@@ -14,6 +14,7 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.combat.Combat;
+import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.combat.SpellSchool;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
@@ -34,9 +35,11 @@ import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.sexActions.SexActionUtility;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.rendering.Pattern;
 import com.lilithsthrone.rendering.RenderingEngine;
 import com.lilithsthrone.utils.ClothingZLayerComparator;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.ColourListPresets;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
@@ -139,7 +142,10 @@ public class InventoryDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int responseTab, int index) { //TODO sex end
+		public Response getResponse(int responseTab, int index) {
+			//TODO sex end
+			// What does that even mean? BlobSweats
+			
 			if (index == 0) {
 				return getCloseInventoryResponse();
 			}
@@ -1009,7 +1015,7 @@ public class InventoryDialogue {
 							
 						} else {
 							return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" all (self)",
-									Util.capitaliseSentence(item.getItemType().getUseName()) + " all of the " + item.getName() + " that are currently in your inventory.", INVENTORY_MENU){
+									Util.capitaliseSentence(item.getItemType().getUseName()) + " all of the " + item.getNamePlural() + " that are currently in your inventory.", INVENTORY_MENU){
 								@Override
 								public void effects(){
 									int itemCount = Main.game.getPlayer().getItemCount(item);
@@ -1239,7 +1245,7 @@ public class InventoryDialogue {
 									
 								} else {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" all (self)",
-											Util.capitaliseSentence(item.getItemType().getUseName()) + " all of the " + item.getName() + " that are currently in your inventory.", INVENTORY_MENU){
+											Util.capitaliseSentence(item.getItemType().getUseName()) + " all of the " + item.getNamePlural() + " that are currently in your inventory.", INVENTORY_MENU){
 										@Override
 										public void effects(){
 											int itemCount = Main.game.getPlayer().getItemCount(item);
@@ -1272,7 +1278,7 @@ public class InventoryDialogue {
 											null){
 										@Override
 										public void effects(){
-											Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + Main.game.getPlayer().useItem(item, inventoryNPC, false) + "</p>");
+											Main.game.getTextEndStringBuilder().append(inventoryNPC.getItemUseEffects(item, Main.game.getPlayer(), inventoryNPC));
 											resetPostAction();
 										}
 									};
@@ -1287,7 +1293,7 @@ public class InventoryDialogue {
 											null){
 										@Override
 										public void effects(){
-											Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + Main.game.getPlayer().useItem(item, inventoryNPC, false) + "</p>");
+											Main.game.getTextEndStringBuilder().append(inventoryNPC.getItemUseEffects(item, Main.game.getPlayer(), inventoryNPC));
 											resetPostAction();
 										}
 									};
@@ -1298,7 +1304,7 @@ public class InventoryDialogue {
 											INVENTORY_MENU){
 										@Override
 										public void effects(){
-											Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + Main.game.getPlayer().useItem(item, inventoryNPC, false) + "</p>");
+											Main.game.getTextEndStringBuilder().append(inventoryNPC.getItemUseEffects(item, Main.game.getPlayer(), inventoryNPC));
 											resetPostAction();
 										}
 									};
@@ -1323,7 +1329,7 @@ public class InventoryDialogue {
 										public void effects(){
 											int itemCount = Main.game.getPlayer().getItemCount(item);
 											for(int i=0;i<itemCount;i++) {
-												Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + Main.game.getPlayer().useItem(item, inventoryNPC, false) + "</p>");
+												Main.game.getTextEndStringBuilder().append(inventoryNPC.getItemUseEffects(item, Main.game.getPlayer(), inventoryNPC));
 											}
 											resetPostAction();
 										}
@@ -1341,7 +1347,7 @@ public class InventoryDialogue {
 										public void effects(){
 											int itemCount = Main.game.getPlayer().getItemCount(item);
 											for(int i=0;i<itemCount;i++) {
-												Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + Main.game.getPlayer().useItem(item, inventoryNPC, false) + "</p>");
+												Main.game.getTextEndStringBuilder().append(inventoryNPC.getItemUseEffects(item, Main.game.getPlayer(), inventoryNPC));
 											}
 											resetPostAction();
 										}
@@ -1355,7 +1361,7 @@ public class InventoryDialogue {
 										public void effects(){
 											int itemCount = Main.game.getPlayer().getItemCount(item);
 											for(int i=0;i<itemCount;i++) {
-												Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + Main.game.getPlayer().useItem(item, inventoryNPC, false) + "</p>");
+												Main.game.getTextEndStringBuilder().append(inventoryNPC.getItemUseEffects(item, Main.game.getPlayer(), inventoryNPC));
 											}
 											resetPostAction();
 										}
@@ -1574,7 +1580,7 @@ public class InventoryDialogue {
 									
 								} else {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" all (self)",
-											Util.capitaliseSentence(item.getItemType().getUseName()) + " all of the " + item.getName() + " that are currently in your inventory.", INVENTORY_MENU){
+											Util.capitaliseSentence(item.getItemType().getUseName()) + " all of the " + item.getNamePlural() + " that are currently in your inventory.", INVENTORY_MENU){
 										@Override
 										public void effects(){
 											int itemCount = Main.game.getPlayer().getItemCount(item);
@@ -1678,7 +1684,7 @@ public class InventoryDialogue {
 							
 						} else {
 							return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" all (self)",
-									Util.capitaliseSentence(item.getItemType().getUseName()) + " all of the " + item.getName() + " that are currently in this area.", INVENTORY_MENU){
+									Util.capitaliseSentence(item.getItemType().getUseName()) + " all of the " + item.getNamePlural() + " that are currently in this area.", INVENTORY_MENU){
 								@Override
 								public void effects(){
 									int itemCount = Main.game.getPlayerCell().getInventory().getItemCount(item);
@@ -1774,7 +1780,7 @@ public class InventoryDialogue {
 								if(inventoryFull) {
 									return new Response("Take (All)", "Your inventory is already full!", null);
 								}
-								return new Response("Take (All)", UtilText.parse(inventoryNPC, "Take five of  [npc.name]'s " + item.getNamePlural() + "."), INVENTORY_MENU){
+								return new Response("Take (All)", UtilText.parse(inventoryNPC, "Take all "+Util.intToString(inventoryNPC.getItemCount(item))+" of  [npc.name]'s " + item.getNamePlural() + "."), INVENTORY_MENU){
 									@Override
 									public void effects(){
 										transferItems(inventoryNPC, Main.game.getPlayer(), item, inventoryNPC.getItemCount(item));
@@ -1811,7 +1817,7 @@ public class InventoryDialogue {
 									
 								} else {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" all (self)",
-											UtilText.parse(inventoryNPC, Util.capitaliseSentence(item.getItemType().getUseName()) + " all of the " + item.getName() + " that are currently in [npc.name]'s inventory."), INVENTORY_MENU){
+											UtilText.parse(inventoryNPC, Util.capitaliseSentence(item.getItemType().getUseName()) + " all of the " + item.getNamePlural() + " that are currently in [npc.name]'s inventory."), INVENTORY_MENU){
 										@Override
 										public void effects(){
 											int itemCount = inventoryNPC.getItemCount(item);
@@ -1884,7 +1890,7 @@ public class InventoryDialogue {
 									
 								} else if(item.getItemType().isFetishGiving()) {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" all (them)",
-											UtilText.parse(inventoryNPC, Util.capitaliseSentence("Get [npc.name] to "+item.getItemType().getUseName()) + " all of the " + item.getName() + " that are currently in [npc.her] inventory."),
+											UtilText.parse(inventoryNPC, Util.capitaliseSentence("Get [npc.name] to "+item.getItemType().getUseName()) + " all of the " + item.getNamePlural() + " that are currently in [npc.her] inventory."),
 											INVENTORY_MENU,
 											Util.newArrayListOfValues(Fetish.FETISH_KINK_GIVING),
 											Fetish.FETISH_KINK_GIVING.getAssociatedCorruptionLevel(),
@@ -1902,7 +1908,7 @@ public class InventoryDialogue {
 									};
 								} else if(item.getItemType().isTransformative()) {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" all (them)",
-											UtilText.parse(inventoryNPC, Util.capitaliseSentence("Get [npc.name] to "+item.getItemType().getUseName()) + " all of the " + item.getName() + " that are currently in [npc.her] inventory."),
+											UtilText.parse(inventoryNPC, Util.capitaliseSentence("Get [npc.name] to "+item.getItemType().getUseName()) + " all of the " + item.getNamePlural() + " that are currently in [npc.her] inventory."),
 											INVENTORY_MENU,
 											Util.newArrayListOfValues(Fetish.FETISH_TRANSFORMATION_GIVING),
 											Fetish.FETISH_TRANSFORMATION_GIVING.getAssociatedCorruptionLevel(),
@@ -1921,7 +1927,7 @@ public class InventoryDialogue {
 									
 								} else {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" all (them)",
-											UtilText.parse(inventoryNPC, Util.capitaliseSentence("Get [npc.name] to "+item.getItemType().getUseName()) + " all of the " + item.getName() + " that are currently in [npc.her] inventory."),
+											UtilText.parse(inventoryNPC, Util.capitaliseSentence("Get [npc.name] to "+item.getItemType().getUseName()) + " all of the " + item.getNamePlural() + " that are currently in [npc.her] inventory."),
 											INVENTORY_MENU){
 										@Override
 										public void effects(){
@@ -2287,6 +2293,29 @@ public class InventoryDialogue {
 							}
 						}
 						
+					} else if (index==4) {
+						if (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH) || Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
+							boolean hasFullInventory = Main.game.getPlayer().isInventoryFull();
+							boolean isDyeingStackItem = Main.game.getPlayer().getMapOfDuplicateWeapons().get(weapon) > 1;
+							boolean canDye = !(isDyeingStackItem && hasFullInventory);
+							if (canDye) {
+								return new Response("Dye",
+										Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)
+											?"Use your proficiency with [style.colourEarth(Earth spells)] to dye this item."
+											:"Use a dye-brush to dye this weapon.",
+										DYE_WEAPON) {
+									@Override
+									public void effects() {
+										resetWeaponDyeColours();
+									}
+								};
+							} else {
+								return new Response("Dye", "Your inventory is full, so you can't dye this weapon.", null);
+							}
+						} else {
+							return new Response("Dye", "You'll need to find a dye-brush if you want to dye your weapons.", null);
+						}
+						
 					} else if(index == 5) {
 						if(weapon.getEnchantmentItemType(null)==null) {
 							return new Response("Enchant", "This weapon cannot be enchanted!", null);
@@ -2350,6 +2379,9 @@ public class InventoryDialogue {
 								
 							} else if(index == 3) {
 								return new Response("Give (All)", "You can't give someone weapons while fighting them!", null);
+								
+							} else if(index == 4) {
+								return new Response("Dye", "You can't dye your weapons while fighting someone!", null);
 								
 							} else if(index == 5) {
 								return new Response("Enchant", "You can't enchant weapons while fighting someone!", null);
@@ -2420,6 +2452,29 @@ public class InventoryDialogue {
 									}
 								};
 								
+							} else if (index==4) {
+								if (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH) || Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
+									boolean hasFullInventory = Main.game.getPlayer().isInventoryFull();
+									boolean isDyeingStackItem = Main.game.getPlayer().getMapOfDuplicateWeapons().get(weapon) > 1;
+									boolean canDye = !(isDyeingStackItem && hasFullInventory);
+									if (canDye) {
+										return new Response("Dye",
+												Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)
+													?"Use your proficiency with [style.colourEarth(Earth spells)] to dye this weapon."
+													:"Use a dye-brush to dye this weapon.",
+												DYE_WEAPON) {
+											@Override
+											public void effects() {
+												resetWeaponDyeColours();
+											}
+										};
+									} else {
+										return new Response("Dye", "Your inventory is full, so you can't dye this weapon.", null);
+									}
+								} else {
+									return new Response("Dye", "You'll need to find a dye-brush if you want to dye your weapons.", null);
+								}
+								
 							} else if(index == 5) {
 								if(weapon.getEnchantmentItemType(null)==null) {
 									return new Response("Enchant", "This weapon cannot be enchanted!", null);
@@ -2488,6 +2543,9 @@ public class InventoryDialogue {
 							} else if(index == 3) {
 								return new Response("Give (All)", "You can't give someone weapons while having sex with them!", null);
 								
+							} else if(index == 4) {
+								return new Response("Dye", "You can't dye your weapons while having sex with someone!", null);
+								
 							} else if(index == 5) {
 								return new Response("Enchant", "You can't enchant weapons while having sex with someone!", null);
 								
@@ -2548,6 +2606,29 @@ public class InventoryDialogue {
 									};
 								} else {
 									return new Response("Sell (All)", inventoryNPC.getName("The") + " doesn't want to buy these.", null);
+								}
+								
+							} else if (index==4) {
+								if (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH) || Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
+									boolean hasFullInventory = Main.game.getPlayer().isInventoryFull();
+									boolean isDyeingStackItem = Main.game.getPlayer().getMapOfDuplicateWeapons().get(weapon) > 1;
+									boolean canDye = !(isDyeingStackItem && hasFullInventory);
+									if (canDye) {
+										return new Response("Dye", 
+												Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)
+													?"Use your proficiency with [style.colourEarth(Earth spells)] to dye this weapon."
+													:"Use a dye-brush to dye this weapon.",
+												DYE_WEAPON) {
+											@Override
+											public void effects() {
+												resetWeaponDyeColours();
+											}
+										};
+									} else {
+										return new Response("Dye", "Your inventory is full, so you can't dye this weapon.", null);
+									}
+								} else {
+									return new Response("Dye", "You'll need to find a dye-brush if you want to dye your weapons.", null);
 								}
 								
 							} else if(index == 5) {
@@ -2647,6 +2728,29 @@ public class InventoryDialogue {
 							}
 						};
 						
+					} else if (index==4) {
+						if (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH) || Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
+							boolean hasFullInventory = Main.game.getPlayerCell().getInventory().isInventoryFull();
+							boolean isDyeingStackItem = Main.game.getPlayerCell().getInventory().getMapOfDuplicateWeapons().get(weapon) > 1;
+							boolean canDye = !(isDyeingStackItem && hasFullInventory);
+							if (canDye) {
+								return new Response("Dye", 
+										Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)
+											?"Use your proficiency with [style.colourEarth(Earth spells)] to dye this weapon."
+											:"Use a dye-brush to dye this weapon.",
+										DYE_WEAPON) {
+									@Override
+									public void effects() {
+										resetWeaponDyeColours();
+									}
+								};
+							} else {
+								return new Response("Dye", "Your inventory is full, so you can't dye this weapon.", null);
+							}
+						} else {
+							return new Response("Dye", "You'll need to find a dye-brush if you want to dye your weapons.", null);
+						}
+						
 					} else if(index == 5) {
 						return new Response("Enchant", "You can't enchant weapons on the ground!", null);
 						
@@ -2688,6 +2792,9 @@ public class InventoryDialogue {
 								
 							} else if(index == 3) {
 								return new Response("Take (All)", "You can't take someone weapons while fighting them!", null);
+								
+							} else if(index == 4) {
+								return new Response("Dye", "You can't dye someone's weapons while fighting them!", null);
 								
 							} else if(index == 5) {
 								return new Response("Enchant", "You can't enchant someone else's weapons, especially not while fighting them!", null);
@@ -2738,12 +2845,35 @@ public class InventoryDialogue {
 								if(inventoryFull) {
 									return new Response("Take (All)", "Your inventory is already full!", null);
 								}
-								return new Response("Take (All)", UtilText.parse(inventoryNPC, "Take five of  [npc.name]'s " + weapon.getNamePlural() + "."), INVENTORY_MENU){
+								return new Response("Take (All)", UtilText.parse(inventoryNPC, "Take all "+Util.intToString(inventoryNPC.getWeaponCount(weapon))+" of  [npc.name]'s " + weapon.getNamePlural() + "."), INVENTORY_MENU){
 									@Override
 									public void effects(){
 										transferWeapons(inventoryNPC, Main.game.getPlayer(), weapon, inventoryNPC.getWeaponCount(weapon));
 									}
 								};
+								
+							} else if (index==4) {
+								if (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH) || Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
+									boolean hasFullInventory = inventoryNPC.isInventoryFull();
+									boolean isDyeingStackItem = inventoryNPC.getMapOfDuplicateWeapons().get(weapon) > 1;
+									boolean canDye = !(isDyeingStackItem && hasFullInventory);
+									if (canDye) {
+										return new Response("Dye", 
+												Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)
+													?"Use your proficiency with [style.colourEarth(Earth spells)] to dye this weapon."
+													:"Use a dye-brush to dye this weapon.",
+												DYE_WEAPON) {
+											@Override
+											public void effects() {
+												resetWeaponDyeColours();
+											}
+										};
+									} else {
+										return new Response("Dye", UtilText.parse(inventoryNPC, "[npc.Name]'s inventory is full, so you can't dye this weapon."), null);
+									}
+								} else {
+									return new Response("Dye", UtilText.parse(inventoryNPC, "You'll need to find another dye-brush if you want to dye [npc.name]'s weapons."), null);
+								}
 								
 							} else if(index == 5) {
 								return new Response("Enchant", "You can't enchant weapons owned by someone else!", null);
@@ -2790,6 +2920,9 @@ public class InventoryDialogue {
 								
 							} else if(index == 3) {
 								return new Response("Take (All)", "You can't take someone's weapons while having sex with them!", null);
+								
+							} else if(index == 4) {
+								return new Response("Dye", "You can't dye someone's weapons while having sex with them!", null);
 								
 							} else if(index == 5) {
 								return new Response("Enchant", "You can't enchant someone else's weapons, especially not while having sex with them!", null);
@@ -2864,6 +2997,9 @@ public class InventoryDialogue {
 										sellWeapons(inventoryNPC, Main.game.getPlayer(), weapon, inventoryNPC.getWeaponCount(weapon), sellPrice);
 									}
 								};
+								
+							} else if(index == 4) {
+								return new Response("Dye", UtilText.parse(inventoryNPC, "[npc.Name] isn't going to let you dye the weapon that [npc.she]'s trying to sell!"), null);
 								
 							} else if(index == 5) {
 								return new Response("Enchant", "You can't enchant someone else's weapon!", null);
@@ -3049,12 +3185,12 @@ public class InventoryDialogue {
 							if (canDye) {
 								return new Response("Dye",
 										Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)
-											?"Use your proficiency with [style.colourEarth(Earth spells)] to dye this item."
+											?"Use your proficiency with [style.colourEarth(Earth spells)] to dye this item of clothing."
 											:"Use a dye-brush to dye this item of clothing.",
 										DYE_CLOTHING) {
 									@Override
 									public void effects() {
-										resetDyeColours();
+										resetClothingDyeColours();
 									}
 								};
 							} else {
@@ -3214,7 +3350,7 @@ public class InventoryDialogue {
 												DYE_CLOTHING) {
 											@Override
 											public void effects() {
-												resetDyeColours();
+												resetClothingDyeColours();
 											}
 										};
 									} else {
@@ -3431,7 +3567,7 @@ public class InventoryDialogue {
 												DYE_CLOTHING) {
 											@Override
 											public void effects() {
-												resetDyeColours();
+												resetClothingDyeColours();
 											}
 										};
 									} else {
@@ -3561,7 +3697,7 @@ public class InventoryDialogue {
 							return new Response("Change Colour", "Change the colour of this item of clothing.", DYE_CLOTHING_CHARACTER_CREATION) {
 								@Override
 								public void effects() {
-									resetDyeColours();
+									resetClothingDyeColours();
 								}
 							};
 						} else {
@@ -3621,7 +3757,7 @@ public class InventoryDialogue {
 										DYE_CLOTHING) {
 									@Override
 									public void effects() {
-										resetDyeColours();
+										resetClothingDyeColours();
 									}
 								};
 							} else {
@@ -3720,7 +3856,7 @@ public class InventoryDialogue {
 								if(inventoryFull) {
 									return new Response("Take (All)", "Your inventory is already full!", null);
 								}
-								return new Response("Take (All)", UtilText.parse(inventoryNPC, "Take five of  [npc.name]'s " + clothing.getNamePlural() + "."), INVENTORY_MENU){
+								return new Response("Take (All)", UtilText.parse(inventoryNPC, "Take all "+Util.intToString(inventoryNPC.getClothingCount(clothing))+" of  [npc.name]'s " + clothing.getNamePlural() + "."), INVENTORY_MENU){
 									@Override
 									public void effects(){
 										transferClothing(inventoryNPC, Main.game.getPlayer(), clothing, inventoryNPC.getClothingCount(clothing));
@@ -3730,7 +3866,7 @@ public class InventoryDialogue {
 							} else if (index==4) {
 								if (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH) || Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
 									boolean hasFullInventory = inventoryNPC.isInventoryFull();
-									boolean isDyeingStackItem = inventoryNPC.getMapOfDuplicateClothing().get(clothing) > 1;
+									boolean isDyeingStackItem = clothing!=null && inventoryNPC.getMapOfDuplicateClothing().get(clothing) > 1;
 									boolean canDye = !(isDyeingStackItem && hasFullInventory);
 									if (canDye) {
 										return new Response("Dye", 
@@ -3740,7 +3876,7 @@ public class InventoryDialogue {
 												DYE_CLOTHING) {
 											@Override
 											public void effects() {
-												resetDyeColours();
+												resetClothingDyeColours();
 											}
 										};
 									} else {
@@ -4002,7 +4138,7 @@ public class InventoryDialogue {
 				return INVENTORY_MENU.getResponse(responseTab, index);
 			}
 			
-			// ****************************** ITEM BELONGS TO THE PLAYER ****************************** TODO
+			// ****************************** ITEM BELONGS TO THE PLAYER ******************************
 			if(owner != null && owner.isPlayer()) {
 				switch(interactionType) {
 					case COMBAT:
@@ -4068,6 +4204,9 @@ public class InventoryDialogue {
 								}
 							}
 							
+						} else if (index==4) {
+							return new Response("Dye", "You can't dye "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" weapons in combat!", null);
+							
 						} else if(index == 5) {
 							return new Response("Enchant", "You can't enchant equipped weapons!", null);
 							
@@ -4130,6 +4269,22 @@ public class InventoryDialogue {
 										}
 									};
 								}
+							}
+							
+						} else if (index==4) {
+							if (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH) || Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
+								return new Response("Dye", 
+										Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)
+											?"Use your proficiency with [style.colourEarth(Earth spells)] to dye this weapon."
+											:"Use a dye-brush to dye this weapon.",
+										DYE_EQUIPPED_WEAPON) {
+									@Override
+									public void effects() {
+										resetWeaponDyeColours();
+									}
+								};
+							} else {
+								return new Response("Dye", "You need a dye-brush in order to dye this weapon.", null);
 							}
 							
 						} else if(index == 5) {
@@ -4202,6 +4357,9 @@ public class InventoryDialogue {
 								}
 							}
 							
+						} else if (index==4) {
+							return new Response("Dye", "You can't dye "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" weapons in sex!", null);
+							
 						} else if(index == 5) {
 							return new Response("Enchant", "You can't enchant equipped weapons!", null);
 							
@@ -4223,6 +4381,9 @@ public class InventoryDialogue {
 							
 						} else if (index == 2) {
 							return new Response("Drop", "You can't make someone drop their weapon while fighting them!", null);
+							
+						} else if (index==4) {
+							return new Response("Dye", "You can't dye someone else's equipped weapons while you're fighting them!", null);
 							
 						} else if(index == 5) {
 							return new Response("Enchant", "You can't enchant someone else's equipped weapon, especially not while fighting them!", null);
@@ -4288,6 +4449,23 @@ public class InventoryDialogue {
 								}
 							}
 							
+						} else if (index==4) {
+							if (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH) || Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
+								return new Response("Dye", 
+										Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)
+											?"Use your proficiency with [style.colourEarth(Earth spells)] to dye this weapon."
+											:"Use a dye-brush to dye this weapon.",
+										DYE_EQUIPPED_WEAPON) {
+									@Override
+									public void effects() {
+										resetWeaponDyeColours();
+									}
+								};
+								
+							} else {
+								return new Response("Dye", UtilText.parse(inventoryNPC, "You'll need to find a dye-brush if you want to dye [npc.name]'s weapons."), null);
+							}
+							
 						} else if(index == 5) {
 							return new Response("Enchant", "You can't enchant equipped weapons!", null);
 							
@@ -4305,6 +4483,9 @@ public class InventoryDialogue {
 						} else if (index == 2) {
 							return new Response("Drop", "You can't unequip someone's weapon while having sex with them!", null);
 							
+						} else if (index==4) {
+							return new Response("Dye", UtilText.parse(inventoryNPC, "You can't dye [npc.name]'s weapons in sex!"), null);
+						
 						} else if(index == 5) {
 							return new Response("Enchant", "You can't enchant equipped weapons!", null);
 							
@@ -4315,22 +4496,25 @@ public class InventoryDialogue {
 							return null;
 						}
 						
-						case TRADING:
-							if(index == 1) {
-								return new Response("Unequip", "You can't unequip someone's weapon!", null);
-								
-							} else if (index == 2) {
-								return new Response("Drop", "You can't make someone drop their weapon!", null);
-								
-							} else if(index == 5) {
-								return new Response("Enchant", "You can't enchant someone else's equipped weapon!", null);
-								
-							} else if (index == 10) {
-								return getQuickTradeResponse();
-								
-							} else {
-								return null;
-							}
+					case TRADING:
+						if(index == 1) {
+							return new Response("Unequip", "You can't unequip someone's weapon!", null);
+							
+						} else if (index == 2) {
+							return new Response("Drop", "You can't make someone drop their weapon!", null);
+							
+						} else if (index==4) {
+							return new Response("Dye", UtilText.parse(inventoryNPC, "You can't dye [npc.name]'s weapons!"), null);
+							
+						} else if(index == 5) {
+							return new Response("Enchant", "You can't enchant someone else's equipped weapon!", null);
+							
+						} else if (index == 10) {
+							return getQuickTradeResponse();
+							
+						} else {
+							return null;
+						}
 					}
 				
 				}
@@ -4572,7 +4756,7 @@ public class InventoryDialogue {
 										DYE_EQUIPPED_CLOTHING) {
 									@Override
 									public void effects() {
-										resetDyeColours();
+										resetClothingDyeColours();
 									}
 								};
 							} else {
@@ -4678,7 +4862,7 @@ public class InventoryDialogue {
 							return new Response("Change Colour", "Change the colour of this item of clothing.", DYE_EQUIPPED_CLOTHING_CHARACTER_CREATION) {
 								@Override
 								public void effects() {
-									resetDyeColours();
+									resetClothingDyeColours();
 								}
 							};
 						} else {
@@ -4948,7 +5132,7 @@ public class InventoryDialogue {
 										DYE_EQUIPPED_CLOTHING) {
 									@Override
 									public void effects() {
-										resetDyeColours();
+										resetClothingDyeColours();
 									}
 								};
 								
@@ -5228,11 +5412,221 @@ public class InventoryDialogue {
 	public static Colour dyePreviewPrimary;
 	public static Colour dyePreviewSecondary;
 	public static Colour dyePreviewTertiary;
+	public static String dyePreviewPattern;
+	public static Colour dyePreviewPatternPrimary;
+	public static Colour dyePreviewPatternSecondary;
+	public static Colour dyePreviewPatternTertiary;
 	
-	private static void resetDyeColours() {
+	private static void resetClothingDyeColours() {
 		dyePreviewPrimary = clothing.getColour();
 		dyePreviewSecondary = clothing.getSecondaryColour();
 		dyePreviewTertiary = clothing.getTertiaryColour();
+		dyePreviewPattern = clothing.getPattern();
+		dyePreviewPatternPrimary = clothing.getPatternColour();
+		dyePreviewPatternSecondary = clothing.getPatternSecondaryColour();
+		dyePreviewPatternTertiary = clothing.getPatternTertiaryColour();
+	}
+
+	private static void resetWeaponDyeColours() {
+		dyePreviewPrimary = weapon.getPrimaryColour();
+		dyePreviewSecondary = weapon.getSecondaryColour();
+	}
+	
+	private static String getClothingDyeUI() {
+		inventorySB = new StringBuilder(
+				"<div class='container-full-width'>"
+					+ "<div class='inventoryImage'>"
+						+ "<div class='inventoryImage-content'>"
+							+ clothing.getSVGString()
+						+ "</div>"
+					+ "</div>"
+					+ "<h3 style='text-align:center;'><b>"+clothing.getDisplayName(true)+"</b></h3>"
+					+ "<p>"
+						+ "Select the desired colours from the coloured buttons below, and after using the preview to see how the new clothing will look, press the 'Dye' option at the bottom of the screen to apply your changes."
+					+ "</p>"
+				+ "</div>"
+					
+				+ "<br/>"
+				
+				+ "<div class='container-full-width'>"
+					+ "<div class='inventoryImage'>"
+						+ "<div class='inventoryImage-content'>"
+							+ clothing.getClothingType().getSVGImage(dyePreviewPrimary, dyePreviewSecondary, dyePreviewTertiary, dyePreviewPattern, dyePreviewPatternPrimary, dyePreviewPatternSecondary, dyePreviewPatternTertiary)
+						+ "</div>"
+					+ "</div>"
+					+ "<h3 style='text-align:center;'><b>Dye & Preview</b></h3>"
+					+ "<div class='container-quarter-width' style='width:calc(75% - 16px);'>"
+					+ "Primary Colour:<br/>");
+
+		for (Colour c : clothing.getClothingType().getAllAvailablePrimaryColours()) {
+			inventorySB.append("<div class='normal-button"+(dyePreviewPrimary==c?" selected":"")+"' id='PRIMARY_" + (clothing.getClothingType().hashCode() + "_" + c.toString()) + "'"
+									+ " style='width:auto; margin-right:4px;"+(dyePreviewPrimary==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
+								+ "<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";'></div>"
+							+ "</div>");
+		}
+		
+		inventorySB.append("</div>");
+		
+		if(!clothing.getClothingType().getAllAvailableSecondaryColours().isEmpty()) {
+			inventorySB.append("<div class='container-quarter-width' style='width:calc(75% - 16px);'>"
+					+ "Secondary Colour:<br/>");
+			for (Colour c : clothing.getClothingType().getAllAvailableSecondaryColours()) {
+				inventorySB.append("<div class='normal-button"+(dyePreviewSecondary==c?" selected":"")+"' id='SECONDARY_" + (clothing.getClothingType().hashCode() + "_" + c.toString()) + "'"
+									+ " style='width:auto; margin-right:4px;"+(dyePreviewSecondary==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
+						+ "<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";'></div>"
+					+ "</div>");
+			}
+			inventorySB.append("</div>");
+		}
+
+		if(!clothing.getClothingType().getAllAvailableTertiaryColours().isEmpty()) {
+			inventorySB.append("<div class='container-quarter-width' style='width:calc(75% - 16px);'>"
+					+ "Tertiary Colour:<br/>");
+			for (Colour c : clothing.getClothingType().getAllAvailableTertiaryColours()) {
+				inventorySB.append("<div class='normal-button"+(dyePreviewTertiary==c?" selected":"")+"' id='TERTIARY_" + (clothing.getClothingType().hashCode() + "_" + c.toString()) + "'"
+									+ " style='width:auto; margin-right:4px;"+(dyePreviewTertiary==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
+						+ "<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";'></div>"
+					+ "</div>");
+			}
+			inventorySB.append("</div>");
+		}
+		
+		if(clothing.getClothingType().isPatternAvailable()){
+			inventorySB.append(
+					"<br/>"
+					+ "<div class='container-full-width'>"
+					+ "Pattern:<br/>");
+	 
+			for (Pattern pattern : Pattern.getAllPatterns().values()) {
+				if (dyePreviewPattern.equals(pattern.getName())) {
+					inventorySB.append(
+							"<div class='cosmetics-button active'>"
+								+ "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>" + Util.capitaliseSentence(pattern.getNiceName()) + "</b>"
+							+ "</div>");
+				} else {
+					inventorySB.append(
+							"<div id='ITEM_PATTERN_"+pattern.getName()+"' class='cosmetics-button'>"
+							+ "<span style='color:"+Colour.TRANSFORMATION_GENERIC.getShades()[0]+";'>" + Util.capitaliseSentence(pattern.getNiceName()) + "</span>"
+							+ "</div>");
+				}
+			}
+			inventorySB.append("</div>");
+
+			
+			if(Pattern.getPattern(dyePreviewPattern)!=null && Pattern.getPattern(dyePreviewPattern).isPrimaryRecolourAvailable()) {
+				inventorySB.append("<div class='container-full-width'>"
+						+ "Pattern Primary Colour:<br/>");
+				for (Colour c : ColourListPresets.ALL.getPresetColourList()) {
+					inventorySB.append("<div class='normal-button"+(dyePreviewPatternPrimary==c?" selected":"")+"' id='PATTERN_PRIMARY_" + (clothing.getClothingType().hashCode() + "_" + c.toString()) + "'"
+										+ " style='width:auto; margin-right:4px;"+(dyePreviewPatternPrimary==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
+							+ "<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";'></div>"
+						+ "</div>");
+				}
+				inventorySB.append("</div>");
+			}
+			
+			if(Pattern.getPattern(dyePreviewPattern)!=null && Pattern.getPattern(dyePreviewPattern).isSecondaryRecolourAvailable()) {
+				inventorySB.append("<div class='container-full-width'>"
+						+ "Pattern Secondary Colour:<br/>");
+				for (Colour c : ColourListPresets.ALL.getPresetColourList()) {
+					inventorySB.append("<div class='normal-button"+(dyePreviewPatternSecondary==c?" selected":"")+"' id='PATTERN_SECONDARY_" + (clothing.getClothingType().hashCode() + "_" + c.toString()) + "'"
+										+ " style='width:auto; margin-right:4px;"+(dyePreviewPatternSecondary==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
+							+ "<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";'></div>"
+						+ "</div>");
+				}
+				inventorySB.append("</div>");
+			}
+			
+			if(Pattern.getPattern(dyePreviewPattern)!=null && Pattern.getPattern(dyePreviewPattern).isTertiaryRecolourAvailable()) {
+				inventorySB.append("<div class='container-full-width'>"
+						+ "Pattern Tertiary Colour:<br/>");
+				for (Colour c : ColourListPresets.ALL.getPresetColourList()) {
+					inventorySB.append("<div class='normal-button"+(dyePreviewPatternTertiary==c?" selected":"")+"' id='PATTERN_TERTIARY_" + (clothing.getClothingType().hashCode() + "_" + c.toString()) + "'"
+										+ " style='width:auto; margin-right:4px;"+(dyePreviewPatternTertiary==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
+							+ "<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";'></div>"
+						+ "</div>");
+				}
+				inventorySB.append("</div>");
+			}
+			
+		}
+		inventorySB.append("</div>");
+		
+		return inventorySB.toString();
+	}
+	
+	private static String getWeaponDyeUI() {
+		inventorySB = new StringBuilder(
+				"<div class='container-full-width'>"
+					+ "<div class='inventoryImage'>"
+						+ "<div class='inventoryImage-content'>"
+							+ weapon.getSVGString()
+						+ "</div>"
+					+ "</div>"
+					+ "<h3 style='text-align:center;'><b>"+weapon.getDisplayName(true)+"</b></h3>"
+					+ "<p>"
+						+ "Select the desired colours from the coloured buttons below, and after using the preview to see how the new weapon will look, press the 'Dye' option at the bottom of the screen to apply your changes."
+					+ "</p>"
+				+ "</div>"
+				+ "<br/>"
+				+ "<div class='container-full-width'>"
+					+ "<div class='inventoryImage'>"
+						+ "<div class='inventoryImage-content'>"
+							+ weapon.getWeaponType().getSVGImage(weapon.getDamageType(), dyePreviewPrimary, dyePreviewSecondary)
+						+ "</div>"
+					+ "</div>"
+					+ "<h3 style='text-align:center;'><b>Dye & Preview</b></h3>");
+		
+		
+		inventorySB.append("<div class='container-quarter-width' style='text-align:center;'>"
+				+ "<b>Damage type:</b>");
+		for(DamageType dt : weapon.getWeaponType().getAvailableDamageTypes()) {
+			if(weapon.getDamageType()==dt) {
+				inventorySB.append("<br/><b style='color:"+weapon.getDamageType().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(weapon.getDamageType().getName())+"</b>");
+			} else {
+				inventorySB.append("<br/>[style.colourDisabled("+Util.capitaliseSentence(dt.getName())+")]");
+			}
+		}
+		inventorySB.append("</div>");
+
+		boolean colourOptions = false;
+		if(!weapon.getWeaponType().getAllAvailablePrimaryColours().isEmpty()) {
+			colourOptions = true;
+			inventorySB.append("<div class='container-quarter-width'>"
+					+ "Primary:<br/>");
+			
+			for (Colour c : weapon.getWeaponType().getAllAvailablePrimaryColours()) {
+				inventorySB.append("<div class='normal-button"+(dyePreviewPrimary==c?" selected":"")+"' id='PRIMARY_" + (weapon.getWeaponType().hashCode() + "_" + c.toString()) + "'"
+										+ " style='width:auto; margin-right:4px;"+(dyePreviewPrimary==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
+									+ "<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";'></div>"
+								+ "</div>");
+			}
+			
+			inventorySB.append("</div>");
+		}
+		
+		if(!weapon.getWeaponType().getAllAvailableSecondaryColours().isEmpty()) {
+			colourOptions = true;
+			inventorySB.append("<div class='container-quarter-width'>"
+					+ "Secondary:<br/>");
+			for (Colour c : weapon.getWeaponType().getAllAvailableSecondaryColours()) {
+				inventorySB.append("<div class='normal-button"+(dyePreviewSecondary==c?" selected":"")+"' id='SECONDARY_" + (weapon.getWeaponType().hashCode() + "_" + c.toString()) + "'"
+									+ " style='width:auto; margin-right:4px;"+(dyePreviewSecondary==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
+						+ "<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";'></div>"
+					+ "</div>");
+			}
+			inventorySB.append("</div>");
+		}
+		
+		if(!colourOptions) {
+			inventorySB.append("<div class='container-half-width' style='text-align:center;'>"
+					+ "[style.colourDisabled(No dye options available...)]"
+					+ "</div>");
+		}
+
+		inventorySB.append("</div>");
+		
+		return inventorySB.toString();
 	}
 	
 	public static final DialogueNodeOld DYE_CLOTHING = new DialogueNodeOld("Dye clothing", "", true) {
@@ -5240,64 +5634,7 @@ public class InventoryDialogue {
 
 		@Override
 		public String getContent() {
-			inventorySB = new StringBuilder(
-					"<div class='container-full-width'>"
-						+ "<div class='inventoryImage'>"
-							+ "<div class='inventoryImage-content'>"
-								+ clothing.getSVGString()
-							+ "</div>"
-						+ "</div>"
-						+ "<h3 style='text-align:center;'><b>"+clothing.getDisplayName(true)+"</b></h3>"
-						+ "<p>"
-							+ "Select the desired colours from the coloured buttons below, and after using the preview to see how the new clothing will look, press the 'Dye' option at the bottom of the screen to apply your changes."
-						+ "</p>"
-					+ "</div>"
-					+ "</br>"
-					+ "<div class='container-full-width'>"
-						+ "<div class='inventoryImage'>"
-							+ "<div class='inventoryImage-content'>"
-								+ clothing.getClothingType().getSVGImage(dyePreviewPrimary, dyePreviewSecondary, dyePreviewTertiary)
-							+ "</div>"
-						+ "</div>"
-						+ "<h3 style='text-align:center;'><b>Dye & Preview</b></h3>"
-						+ "<div class='container-quarter-width'>"
-						+ "Primary:</br>");
-
-			for (Colour c : clothing.getClothingType().getAllAvailablePrimaryColours()) {
-				inventorySB.append("<div class='normal-button"+(dyePreviewPrimary==c?" selected":"")+"' id='PRIMARY_" + (clothing.getClothingType().hashCode() + "_" + c.toString()) + "'"
-										+ " style='width:auto; margin-right:4px;"+(dyePreviewPrimary==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
-									+ "<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";'></div>"
-								+ "</div>");
-			}
-			
-			inventorySB.append("</div>");
-			
-			if(!clothing.getClothingType().getAllAvailableSecondaryColours().isEmpty()) {
-				inventorySB.append("<div class='container-quarter-width'>"
-						+ "Secondary:</br>");
-				for (Colour c : clothing.getClothingType().getAllAvailableSecondaryColours()) {
-					inventorySB.append("<div class='normal-button"+(dyePreviewSecondary==c?" selected":"")+"' id='SECONDARY_" + (clothing.getClothingType().hashCode() + "_" + c.toString()) + "'"
-										+ " style='width:auto; margin-right:4px;"+(dyePreviewSecondary==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
-							+ "<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";'></div>"
-						+ "</div>");
-				}
-				inventorySB.append("</div>");
-			}
-
-			if(!clothing.getClothingType().getAllAvailableTertiaryColours().isEmpty()) {
-				inventorySB.append("<div class='container-quarter-width'>"
-						+ "Tertiary:</br>");
-				for (Colour c : clothing.getClothingType().getAllAvailableTertiaryColours()) {
-					inventorySB.append("<div class='normal-button"+(dyePreviewTertiary==c?" selected":"")+"' id='TERTIARY_" + (clothing.getClothingType().hashCode() + "_" + c.toString()) + "'"
-										+ " style='width:auto; margin-right:4px;"+(dyePreviewTertiary==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
-							+ "<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";'></div>"
-						+ "</div>");
-				}
-				inventorySB.append("</div>");
-			}
-			inventorySB.append("</div>");
-			
-			return inventorySB.toString();
+			return getClothingDyeUI();
 		}
 		
 		@Override
@@ -5306,7 +5643,13 @@ public class InventoryDialogue {
 				return new Response("Back", "Return to the previous menu.", INVENTORY_MENU);
 
 			} else if (index == 1) {
-				if(dyePreviewPrimary == clothing.getColour() && dyePreviewSecondary == clothing.getSecondaryColour() && dyePreviewTertiary == clothing.getTertiaryColour()) {
+				if(dyePreviewPrimary == clothing.getColour()
+						&& dyePreviewSecondary == clothing.getSecondaryColour()
+						&& dyePreviewTertiary == clothing.getTertiaryColour()
+						&& dyePreviewPattern.equals(clothing.getPattern())
+						&& dyePreviewPatternPrimary == clothing.getPatternColour()
+						&& dyePreviewPatternSecondary == clothing.getPatternSecondaryColour()
+						&& dyePreviewPatternTertiary == clothing.getPatternTertiaryColour()) {
 					return new Response("Dye",
 							"You need to choose different colours before being able to dye the " + clothing.getName() + "!",
 							null); 
@@ -5348,6 +5691,10 @@ public class InventoryDialogue {
 							clothing.setColour(dyePreviewPrimary);
 							clothing.setSecondaryColour(dyePreviewSecondary);
 							clothing.setTertiaryColour(dyePreviewTertiary);
+							clothing.setPattern(dyePreviewPattern);
+							clothing.setPatternColour(dyePreviewPatternPrimary);
+							clothing.setPatternSecondaryColour(dyePreviewPatternSecondary);
+							clothing.setPatternTertiaryColour(dyePreviewPatternTertiary);
 							owner.addClothing(clothing, false);
 
 						} else {
@@ -5355,6 +5702,10 @@ public class InventoryDialogue {
 							clothing.setColour(dyePreviewPrimary);
 							clothing.setSecondaryColour(dyePreviewSecondary);
 							clothing.setTertiaryColour(dyePreviewTertiary);
+							clothing.setPattern(dyePreviewPattern);
+							clothing.setPatternColour(dyePreviewPatternPrimary);
+							clothing.setPatternSecondaryColour(dyePreviewPatternSecondary);
+							clothing.setPatternTertiaryColour(dyePreviewPatternTertiary);
 							Main.game.getPlayerCell().getInventory().addClothing(clothing);
 						}
 					}
@@ -5375,64 +5726,7 @@ public class InventoryDialogue {
 
 		@Override
 		public String getContent() {
-			inventorySB = new StringBuilder(
-					"<div class='container-full-width'>"
-						+ "<div class='inventoryImage'>"
-							+ "<div class='inventoryImage-content'>"
-								+ clothing.getSVGString()
-							+ "</div>"
-						+ "</div>"
-						+ "<h3 style='text-align:center;'><b>"+clothing.getDisplayName(true)+"</b></h3>"
-						+ "<p>"
-							+ "Select the desired colours from the coloured buttons below, and after using the preview to see how the new clothing will look, press the 'Dye' option at the bottom of the screen to apply your changes."
-						+ "</p>"
-					+ "</div>"
-					+ "</br>"
-					+ "<div class='container-full-width'>"
-						+ "<div class='inventoryImage'>"
-							+ "<div class='inventoryImage-content'>"
-								+ clothing.getClothingType().getSVGImage(dyePreviewPrimary, dyePreviewSecondary, dyePreviewTertiary)
-							+ "</div>"
-						+ "</div>"
-						+ "<h3 style='text-align:center;'><b>Dye & Preview</b></h3>"
-						+ "<div class='container-quarter-width'>"
-						+ "Primary:</br>");
-
-			for (Colour c : clothing.getClothingType().getAllAvailablePrimaryColours()) {
-				inventorySB.append("<div class='normal-button"+(dyePreviewPrimary==c?" selected":"")+"' id='PRIMARY_" + (clothing.getClothingType().hashCode() + "_" + c.toString()) + "'"
-										+ " style='width:auto; margin-right:4px;"+(dyePreviewPrimary==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
-									+ "<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";'></div>"
-								+ "</div>");
-			}
-			
-			inventorySB.append("</div>");
-			
-			if(!clothing.getClothingType().getAllAvailableSecondaryColours().isEmpty()) {
-				inventorySB.append("<div class='container-quarter-width'>"
-						+ "Secondary:</br>");
-				for (Colour c : clothing.getClothingType().getAllAvailableSecondaryColours()) {
-					inventorySB.append("<div class='normal-button"+(dyePreviewSecondary==c?" selected":"")+"' id='SECONDARY_" + (clothing.getClothingType().hashCode() + "_" + c.toString()) + "'"
-										+ " style='width:auto; margin-right:4px;"+(dyePreviewSecondary==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
-							+ "<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";'></div>"
-						+ "</div>");
-				}
-				inventorySB.append("</div>");
-			}
-
-			if(!clothing.getClothingType().getAllAvailableTertiaryColours().isEmpty()) {
-				inventorySB.append("<div class='container-quarter-width'>"
-						+ "Tertiary:</br>");
-				for (Colour c : clothing.getClothingType().getAllAvailableTertiaryColours()) {
-					inventorySB.append("<div class='normal-button"+(dyePreviewTertiary==c?" selected":"")+"' id='TERTIARY_" + (clothing.getClothingType().hashCode() + "_" + c.toString()) + "'"
-										+ " style='width:auto; margin-right:4px;"+(dyePreviewTertiary==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
-							+ "<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";'></div>"
-						+ "</div>");
-				}
-				inventorySB.append("</div>");
-			}
-			inventorySB.append("</div>");
-			
-			return inventorySB.toString();
+			return getClothingDyeUI();
 		}
 		
 		@Override
@@ -5441,7 +5735,13 @@ public class InventoryDialogue {
 				return new Response("Back", "Return to the previous menu.", INVENTORY_MENU);
 
 			} else if (index == 1) {
-				if(dyePreviewPrimary == clothing.getColour() && dyePreviewSecondary == clothing.getSecondaryColour() && dyePreviewTertiary == clothing.getTertiaryColour()) {
+				if(dyePreviewPrimary == clothing.getColour()
+						&& dyePreviewSecondary == clothing.getSecondaryColour()
+						&& dyePreviewTertiary == clothing.getTertiaryColour()
+						&& dyePreviewPattern.equals(clothing.getPattern())
+						&& dyePreviewPatternPrimary == clothing.getPatternColour()
+						&& dyePreviewPatternSecondary == clothing.getPatternSecondaryColour()
+						&& dyePreviewPatternTertiary == clothing.getPatternTertiaryColour()) {
 					return new Response("Dye",
 							"You need to choose different colours before being able to dye the " + clothing.getName() + "!",
 							null); 
@@ -5481,6 +5781,10 @@ public class InventoryDialogue {
 						clothing.setColour(dyePreviewPrimary);
 						clothing.setSecondaryColour(dyePreviewSecondary);
 						clothing.setTertiaryColour(dyePreviewTertiary);
+						clothing.setPattern(dyePreviewPattern);
+						clothing.setPatternColour(dyePreviewPatternPrimary);
+						clothing.setPatternSecondaryColour(dyePreviewPatternSecondary);
+						clothing.setPatternTertiaryColour(dyePreviewPatternTertiary);
 					}
 				};
 
@@ -5500,64 +5804,7 @@ public class InventoryDialogue {
 
 		@Override
 		public String getContent() {
-			inventorySB = new StringBuilder(
-					"<div class='container-full-width'>"
-						+ "<div class='inventoryImage'>"
-							+ "<div class='inventoryImage-content'>"
-								+ clothing.getSVGString()
-							+ "</div>"
-						+ "</div>"
-						+ "<h3 style='text-align:center;'><b>"+clothing.getDisplayName(true)+"</b></h3>"
-						+ "<p>"
-							+ "Select the desired colours from the coloured buttons below, and after using the preview to see how the new clothing will look, press the 'Dye' option at the bottom of the screen to apply your changes."
-						+ "</p>"
-					+ "</div>"
-					+ "</br>"
-					+ "<div class='container-full-width'>"
-						+ "<div class='inventoryImage'>"
-							+ "<div class='inventoryImage-content'>"
-								+ clothing.getClothingType().getSVGImage(dyePreviewPrimary, dyePreviewSecondary, dyePreviewTertiary)
-							+ "</div>"
-						+ "</div>"
-						+ "<h3 style='text-align:center;'><b>Dye & Preview</b></h3>"
-						+ "<div class='container-quarter-width'>"
-						+ "Primary:</br>");
-
-			for (Colour c : clothing.getClothingType().getAllAvailablePrimaryColours()) {
-				inventorySB.append("<div class='normal-button"+(dyePreviewPrimary==c?" selected":"")+"' id='PRIMARY_" + (clothing.getClothingType().hashCode() + "_" + c.toString()) + "'"
-										+ " style='width:auto; margin-right:4px;"+(dyePreviewPrimary==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
-									+ "<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";'></div>"
-								+ "</div>");
-			}
-			
-			inventorySB.append("</div>");
-			
-			if(!clothing.getClothingType().getAllAvailableSecondaryColours().isEmpty()) {
-				inventorySB.append("<div class='container-quarter-width'>"
-						+ "Secondary:</br>");
-				for (Colour c : clothing.getClothingType().getAllAvailableSecondaryColours()) {
-					inventorySB.append("<div class='normal-button"+(dyePreviewSecondary==c?" selected":"")+"' id='SECONDARY_" + (clothing.getClothingType().hashCode() + "_" + c.toString()) + "'"
-										+ " style='width:auto; margin-right:4px;"+(dyePreviewSecondary==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
-							+ "<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";'></div>"
-						+ "</div>");
-				}
-				inventorySB.append("</div>");
-			}
-
-			if(!clothing.getClothingType().getAllAvailableTertiaryColours().isEmpty()) {
-				inventorySB.append("<div class='container-quarter-width'>"
-						+ "Tertiary:</br>");
-				for (Colour c : clothing.getClothingType().getAllAvailableTertiaryColours()) {
-					inventorySB.append("<div class='normal-button"+(dyePreviewTertiary==c?" selected":"")+"' id='TERTIARY_" + (clothing.getClothingType().hashCode() + "_" + c.toString()) + "'"
-										+ " style='width:auto; margin-right:4px;"+(dyePreviewTertiary==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
-							+ "<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";'></div>"
-						+ "</div>");
-				}
-				inventorySB.append("</div>");
-			}
-			inventorySB.append("</div>");
-			
-			return inventorySB.toString();
+			return getClothingDyeUI();
 		}
 		
 		@Override
@@ -5566,7 +5813,7 @@ public class InventoryDialogue {
 				return new Response("Back", "Return to the previous menu.", CLOTHING_INVENTORY);
 
 			} else if (index == 1) {
-				if(dyePreviewPrimary == clothing.getColour() && dyePreviewSecondary == clothing.getSecondaryColour() && dyePreviewTertiary == clothing.getTertiaryColour()) {
+				if(dyePreviewPrimary == clothing.getColour() && dyePreviewSecondary == clothing.getSecondaryColour() && dyePreviewTertiary == clothing.getTertiaryColour() && dyePreviewPattern.equals(clothing.getPattern())) {
 					return new Response("Dye",
 							"You need to choose different colours before being able to dye the " + clothing.getName() + "!",
 							null); 
@@ -5581,6 +5828,10 @@ public class InventoryDialogue {
 						clothing.setColour(dyePreviewPrimary);
 						clothing.setSecondaryColour(dyePreviewSecondary);
 						clothing.setTertiaryColour(dyePreviewTertiary);
+						clothing.setPattern(dyePreviewPattern);
+						clothing.setPatternColour(dyePreviewPatternPrimary);
+						clothing.setPatternSecondaryColour(dyePreviewPatternSecondary);
+						clothing.setPatternTertiaryColour(dyePreviewPatternTertiary);
 						Main.game.getPlayerCell().getInventory().addClothing(clothing);
 					}
 				};
@@ -5600,64 +5851,7 @@ public class InventoryDialogue {
 
 		@Override
 		public String getContent() {
-			inventorySB = new StringBuilder(
-					"<div class='container-full-width'>"
-						+ "<div class='inventoryImage'>"
-							+ "<div class='inventoryImage-content'>"
-								+ clothing.getSVGString()
-							+ "</div>"
-						+ "</div>"
-						+ "<h3 style='text-align:center;'><b>"+clothing.getDisplayName(true)+"</b></h3>"
-						+ "<p>"
-							+ "Select the desired colours from the coloured buttons below, and after using the preview to see how the new clothing will look, press the 'Dye' option at the bottom of the screen to apply your changes."
-						+ "</p>"
-					+ "</div>"
-					+ "</br>"
-					+ "<div class='container-full-width'>"
-						+ "<div class='inventoryImage'>"
-							+ "<div class='inventoryImage-content'>"
-								+ clothing.getClothingType().getSVGImage(dyePreviewPrimary, dyePreviewSecondary, dyePreviewTertiary)
-							+ "</div>"
-						+ "</div>"
-						+ "<h3 style='text-align:center;'><b>Dye & Preview</b></h3>"
-						+ "<div class='container-quarter-width'>"
-						+ "Primary:</br>");
-
-			for (Colour c : clothing.getClothingType().getAllAvailablePrimaryColours()) {
-				inventorySB.append("<div class='normal-button"+(dyePreviewPrimary==c?" selected":"")+"' id='PRIMARY_" + (clothing.getClothingType().hashCode() + "_" + c.toString()) + "'"
-										+ " style='width:auto; margin-right:4px;"+(dyePreviewPrimary==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
-									+ "<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";'></div>"
-								+ "</div>");
-			}
-			
-			inventorySB.append("</div>");
-			
-			if(!clothing.getClothingType().getAllAvailableSecondaryColours().isEmpty()) {
-				inventorySB.append("<div class='container-quarter-width'>"
-						+ "Secondary:</br>");
-				for (Colour c : clothing.getClothingType().getAllAvailableSecondaryColours()) {
-					inventorySB.append("<div class='normal-button"+(dyePreviewSecondary==c?" selected":"")+"' id='SECONDARY_" + (clothing.getClothingType().hashCode() + "_" + c.toString()) + "'"
-										+ " style='width:auto; margin-right:4px;"+(dyePreviewSecondary==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
-							+ "<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";'></div>"
-						+ "</div>");
-				}
-				inventorySB.append("</div>");
-			}
-
-			if(!clothing.getClothingType().getAllAvailableTertiaryColours().isEmpty()) {
-				inventorySB.append("<div class='container-quarter-width'>"
-						+ "Tertiary:</br>");
-				for (Colour c : clothing.getClothingType().getAllAvailableTertiaryColours()) {
-					inventorySB.append("<div class='normal-button"+(dyePreviewTertiary==c?" selected":"")+"' id='TERTIARY_" + (clothing.getClothingType().hashCode() + "_" + c.toString()) + "'"
-										+ " style='width:auto; margin-right:4px;"+(dyePreviewTertiary==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
-							+ "<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";'></div>"
-						+ "</div>");
-				}
-				inventorySB.append("</div>");
-			}
-			inventorySB.append("</div>");
-			
-			return inventorySB.toString();
+			return getClothingDyeUI();
 		}
 		
 		@Override
@@ -5666,7 +5860,7 @@ public class InventoryDialogue {
 				return new Response("Back", "Return to the previous menu.", CLOTHING_EQUIPPED);
 
 			} else if (index  == 1) {
-				if(dyePreviewPrimary == clothing.getColour() && dyePreviewSecondary == clothing.getSecondaryColour() && dyePreviewTertiary == clothing.getTertiaryColour()) {
+				if(dyePreviewPrimary == clothing.getColour() && dyePreviewSecondary == clothing.getSecondaryColour() && dyePreviewTertiary == clothing.getTertiaryColour() && dyePreviewPattern.equals(clothing.getPattern())) {
 					return new Response("Dye",
 							"You need to choose different colours before being able to dye the " + clothing.getName() + "!",
 							null); 
@@ -5680,6 +5874,10 @@ public class InventoryDialogue {
 						clothing.setColour(dyePreviewPrimary);
 						clothing.setSecondaryColour(dyePreviewSecondary);
 						clothing.setTertiaryColour(dyePreviewTertiary);
+						clothing.setPattern(dyePreviewPattern);
+						clothing.setPatternColour(dyePreviewPatternPrimary);
+						clothing.setPatternSecondaryColour(dyePreviewPatternSecondary);
+						clothing.setPatternTertiaryColour(dyePreviewPatternTertiary);
 					}
 				};
 
@@ -5693,6 +5891,150 @@ public class InventoryDialogue {
 		}
 	};
 
+	public static final DialogueNodeOld DYE_WEAPON = new DialogueNodeOld("Dye Weapon", "", true) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getContent() {
+			return getWeaponDyeUI();
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 0) {
+				return new Response("Back", "Return to the previous menu.", INVENTORY_MENU);
+
+			} else if (index == 1) {
+				if(dyePreviewPrimary == weapon.getPrimaryColour() && dyePreviewSecondary == weapon.getSecondaryColour()) {
+					return new Response("Dye",
+							"You need to choose different colours before being able to dye the " + weapon.getName() + "!",
+							null); 
+				}
+				
+				return new Response("Dye",
+						"Dye the " + weapon.getName() + " in the colours you have chosen."
+								+ (Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)
+										?" This action is permanent, but thanks to your proficiency with [style.boldEarth(Earth spells)], you can dye it a different colour at any time."
+										:" This action is permanent, and you'll need another dye-brush if you want to change its colour again."),
+						INVENTORY_MENU){
+					@Override
+					public void effects(){
+						if(!Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
+							Main.game.getPlayer().useItem(AbstractItemType.generateItem(ItemType.DYE_BRUSH), owner, false);
+							Main.game.getTextEndStringBuilder().append(
+									"<p style='text-align:center;'>"
+										+ ItemType.DYE_BRUSH.getDyeBrushEffects(weapon, dyePreviewPrimary)
+									+ "</p>"
+									+ "<p>"
+										+ "<b>The " + weapon.getName() + " " + (weapon.getWeaponType().isPlural() ? "have been" : "has been") + " dyed</b>!"
+									+ "</p>"
+									+ "<p>"
+										+ (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH) || Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)
+												?"You have <b>" + Main.game.getPlayer().getMapOfDuplicateItems().get(AbstractItemType.generateItem(ItemType.DYE_BRUSH))
+														+ "</b> dye-brush" + (Main.game.getPlayer().getMapOfDuplicateItems().get(AbstractItemType.generateItem(ItemType.DYE_BRUSH)) == 1 ? "" : "es") + " left!"
+												:"You have <b>0</b> dye-brushes left!")
+									+ "</p>");
+							
+						} else {
+							Main.game.getTextEndStringBuilder().append(
+									"<p>"
+											+ "Thanks to your proficiency with [style.boldEarth(Earth spells)], you are able to dye the " + weapon.getName() + " without needing to use a dye-brush!"
+										+ "</p>");
+						}
+						 
+						if(owner!=null) {
+							owner.removeWeapon(weapon);
+							weapon.setPrimaryColour(dyePreviewPrimary);
+							weapon.setSecondaryColour(dyePreviewSecondary);
+							owner.addWeapon(weapon, false);
+
+						} else {
+							Main.game.getPlayerCell().getInventory().removeWeapon(weapon);
+							weapon.setPrimaryColour(dyePreviewPrimary);
+							weapon.setSecondaryColour(dyePreviewSecondary);
+							Main.game.getPlayerCell().getInventory().addWeapon(weapon);
+						}
+					}
+				};
+
+			} else
+				return null;
+		}
+
+		@Override
+		public DialogueNodeType getDialogueNodeType() {
+			return DialogueNodeType.INVENTORY;
+		}
+	};
+
+	public static final DialogueNodeOld DYE_EQUIPPED_WEAPON = new DialogueNodeOld("Dye Weapon", "", true) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getContent() {
+			return getWeaponDyeUI();
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 0) {
+				return new Response("Back", "Return to the previous menu.", INVENTORY_MENU);
+
+			} else if (index == 1) {
+				if(dyePreviewPrimary == weapon.getPrimaryColour() && dyePreviewSecondary == weapon.getSecondaryColour()) {
+					return new Response("Dye",
+							"You need to choose different colours before being able to dye the " + weapon.getName() + "!",
+							null); 
+				}
+				
+				return new Response("Dye",
+								"Dye the " + weapon.getName() + " in the colours you have chosen."
+										+ (Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)
+												?" This action is permanent, but thanks to your proficiency with [style.boldEarth(Earth spells)], you can dye it a different colour at any time."
+												:" This action is permanent, and you'll need another dye-brush if you want to change its colour again."),
+								INVENTORY_MENU){
+					@Override
+					public void effects(){
+						if(!Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)) {
+							Main.game.getPlayer().useItem(AbstractItemType.generateItem(ItemType.DYE_BRUSH), owner, false);
+							Main.game.getTextEndStringBuilder().append(
+									"<p style='text-align:center;'>"
+										+ ItemType.DYE_BRUSH.getDyeBrushEffects(weapon, dyePreviewPrimary)
+									+ "</p>"
+									+ "<p>"
+										+ "<b>The " + weapon.getName() + " " + (weapon.getWeaponType().isPlural() ? "have been" : "has been") + " dyed</b>!"
+									+ "</p>"
+									+ "<p>"
+										+ (Main.game.getPlayer().hasItemType(ItemType.DYE_BRUSH) || Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)
+												?"You have <b>" + Main.game.getPlayer().getMapOfDuplicateItems().get(AbstractItemType.generateItem(ItemType.DYE_BRUSH))
+														+ "</b> dye-brush" + (Main.game.getPlayer().getMapOfDuplicateItems().get(AbstractItemType.generateItem(ItemType.DYE_BRUSH)) == 1 ? "" : "es") + " left!"
+												:"You have <b>0</b> dye-brushes left!")
+									+ "</p>");
+							
+						} else {
+							Main.game.getTextEndStringBuilder().append(
+									"<p>"
+											+ "Thanks to your proficiency with [style.boldEarth(Earth spells)], you are able to dye the " + weapon.getName() + " without needing to use a dye-brush!"
+										+ "</p>");
+						}
+						
+						weapon.setPrimaryColour(dyePreviewPrimary);
+						weapon.setSecondaryColour(dyePreviewSecondary);
+					}
+				};
+
+			} else
+				return null;
+		}
+
+		@Override
+		public DialogueNodeType getDialogueNodeType() {
+			return DialogueNodeType.INVENTORY;
+		}
+	};
+	
+	
+	
 	// Utility methods:
 	
 	private static String getItemDisplayPanel(String SVGString, String title, String description) {
@@ -5765,7 +6107,7 @@ public class InventoryDialogue {
 		
 //		if (Main.game.getDialogueFlags().quickTrade) {
 //			return new Response("Quick-Manage: <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>",
-//					"Quick-Manage is turned <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>!</br>"
+//					"Quick-Manage is turned <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>!<br/>"
 //							+ "That means you can buy and sell items with a single click when trading, and pick-up and drop items with a single click when in normal inventory mode.", INVENTORY_MENU){
 //				
 //				@Override
@@ -5781,7 +6123,7 @@ public class InventoryDialogue {
 //			
 //		} else {
 //			return new Response("Quick-Manage: <b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>OFF</b>",
-//					"Quick-Manage is turned <b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>OFF</b>.</br>"
+//					"Quick-Manage is turned <b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>OFF</b>.<br/>"
 //							+ "That means when you click on an item, you get a detailed view of the item before deciding whether to buy/sell or pick-up/drop it.", INVENTORY_MENU){
 //
 //				@Override

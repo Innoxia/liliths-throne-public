@@ -3,7 +3,6 @@ package com.lilithsthrone.game.dialogue.places.dominion.lilayashome;
 import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Locale;
-import java.util.Map.Entry;
 import java.util.Set;
 
 import com.lilithsthrone.game.character.attributes.Attribute;
@@ -18,7 +17,7 @@ import com.lilithsthrone.game.dialogue.SlaveryManagementDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.sex.OrificeType;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -27,7 +26,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.75
- * @version 0.1.98
+ * @version 0.2.7
  * @author Innoxia
  */
 public class RoomPlayer {
@@ -82,10 +81,10 @@ public class RoomPlayer {
 					Main.game.getPlayer().setHealth(Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM));
 					Main.game.getPlayer().setMana(Main.game.getPlayer().getAttributeValue(Attribute.MANA_MAXIMUM));
 					
-					Set<OrificeType> dirtyOrifices = new HashSet<>();
-					for(Entry<OrificeType, Integer> entry : Main.game.getPlayer().getCummedInAreaMap().entrySet()) {
-						if(entry.getValue()>0) {
-							dirtyOrifices.add(entry.getKey());
+					Set<SexAreaOrifice> dirtyOrifices = new HashSet<>();
+					for(SexAreaOrifice ot: SexAreaOrifice.values()) {
+						if(Main.game.getPlayer().getTotalFluidInArea(ot)>0) {
+							dirtyOrifices.add(ot);
 						}
 					}
 					
@@ -94,65 +93,65 @@ public class RoomPlayer {
 					Main.game.getPlayer().cleanAllDirtySlots();
 					Main.game.getPlayer().cleanAllClothing();
 					
-					for(OrificeType orifice : OrificeType.values()) {
+					for(SexAreaOrifice orifice : SexAreaOrifice.values()) {
 						if(dirtyOrifices.contains(orifice)) {
 							switch(orifice) {
 								case ANUS:
-									if(Main.game.getPlayer().getCummedInAreaMap().get(orifice)>0) {
+									if(Main.game.getPlayer().getTotalFluidInArea(orifice)>0) {
 										Main.game.getTextEndStringBuilder().append(formatWashingArea(false, "You wash as much of the cum out of your [pc.asshole] as you can, but there's so much in there that you're unable to fully clean it all out!"));
 									} else {
 										Main.game.getTextEndStringBuilder().append(formatWashingArea(true, "You wash all of the cum out of your [pc.asshole]."));
 									}
 									break;
 								case ASS:
-									if(Main.game.getPlayer().getCummedInAreaMap().get(orifice)>0) {
+									if(Main.game.getPlayer().getTotalFluidInArea(orifice)>0) {
 										Main.game.getTextEndStringBuilder().append(formatWashingArea(false, "You wash as much of the cum off of your [pc.ass] as you can, but there's so much that's covering it, that you're unable to fully clean yourself!"));
 									} else {
 										Main.game.getTextEndStringBuilder().append(formatWashingArea(true, "You wash all of the cum off of your [pc.ass]."));
 									}
 									break;
 								case BREAST:
-									if(Main.game.getPlayer().getCummedInAreaMap().get(orifice)>0) {
+									if(Main.game.getPlayer().getTotalFluidInArea(orifice)>0) {
 										Main.game.getTextEndStringBuilder().append(formatWashingArea(false, "You wash as much of the cum off of your [pc.breasts] as you can, but there's so much that's covering it, that you're unable to fully clean yourself!"));
 									} else {
 										Main.game.getTextEndStringBuilder().append(formatWashingArea(true, "You wash all of the cum off of your [pc.breasts]."));
 									}
 									break;
 								case MOUTH:
-									if(Main.game.getPlayer().getCummedInAreaMap().get(orifice)>0) {
+									if(Main.game.getPlayer().getTotalFluidInArea(orifice)>0) {
 										Main.game.getTextEndStringBuilder().append(formatWashingArea(false, "The shower does nothing to clean the cum out of your stomach!"));
 									}
 									break;
 								case NIPPLE:
-									if(Main.game.getPlayer().getCummedInAreaMap().get(orifice)>0) {
+									if(Main.game.getPlayer().getTotalFluidInArea(orifice)>0) {
 										Main.game.getTextEndStringBuilder().append(formatWashingArea(false, "You wash as much of the cum out of your [pc.nipples] as you can, but there's so much in there that you're unable to fully clean it all out!"));
 									} else {
 										Main.game.getTextEndStringBuilder().append(formatWashingArea(true, "You wash all of the cum out of your [pc.nipples]."));
 									}
 									break;
 								case THIGHS:
-									if(Main.game.getPlayer().getCummedInAreaMap().get(orifice)>0) {
+									if(Main.game.getPlayer().getTotalFluidInArea(orifice)>0) {
 										Main.game.getTextEndStringBuilder().append(formatWashingArea(false, "You wash as much of the cum off of your [pc.thighs] as you can, but there's so much that's covering it, that you're unable to fully clean yourself!"));
 									} else {
 										Main.game.getTextEndStringBuilder().append(formatWashingArea(true, "You wash all of the cum off of your [pc.thighs]."));
 									}
 									break;
 								case URETHRA_PENIS:
-									if(Main.game.getPlayer().getCummedInAreaMap().get(orifice)>0) {
+									if(Main.game.getPlayer().getTotalFluidInArea(orifice)>0) {
 										Main.game.getTextEndStringBuilder().append(formatWashingArea(false, "You wash as much of the cum out of your cock's urethra as you can, but there's so much in there that you're unable to fully clean it all out!"));
 									} else {
 										Main.game.getTextEndStringBuilder().append(formatWashingArea(true, "You wash all of the cum out of your cock's urethra."));
 									}
 									break;
 								case URETHRA_VAGINA:
-									if(Main.game.getPlayer().getCummedInAreaMap().get(orifice)>0) {
+									if(Main.game.getPlayer().getTotalFluidInArea(orifice)>0) {
 										Main.game.getTextEndStringBuilder().append(formatWashingArea(false, "You wash as much of the cum out of your vagina's urethra as you can, but there's so much in there that you're unable to fully clean it all out!"));
 									} else {
 										Main.game.getTextEndStringBuilder().append(formatWashingArea(true, "You wash all of the cum out of your vagina's urethra."));
 									}
 									break;
 								case VAGINA:
-									if(Main.game.getPlayer().getCummedInAreaMap().get(orifice)>0) {
+									if(Main.game.getPlayer().getTotalFluidInArea(orifice)>0) {
 										Main.game.getTextEndStringBuilder().append(formatWashingArea(false, "You wash as much of the cum out of your [pc.pussy] as you can, but there's so much in there that you're unable to fully clean it all out!"));
 									} else {
 										Main.game.getTextEndStringBuilder().append(formatWashingArea(true, "You wash all of the cum out of your [pc.pussy]."));
@@ -447,7 +446,7 @@ public class RoomPlayer {
 			UtilText.nodeContentSB.append(
 					"<h4 style='text-align:center;'>"
 							+ "<span style='color:"+Colour.BASE_ORANGE.toWebHexString()+";'>October</span>"
-							+ "</br>"
+							+ "<br/>"
 							+ "<span style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Lilith's Month</span>"
 					+ "</h4>"
 					+ "<p><i>"
@@ -507,7 +506,7 @@ public class RoomPlayer {
 			UtilText.nodeContentSB.append(
 					"<h4 style='text-align:center;'>"
 							+ "<span style='color:"+Colour.BASE_RED.toWebHexString()+";'>December</span>"
-							+ "</br>"
+							+ "<br/>"
 							+ "<span style='color:"+Colour.BASE_GOLD.toWebHexString()+";'>Yuletide</span>"
 					+ "</h4>"
 					+ "<i>"

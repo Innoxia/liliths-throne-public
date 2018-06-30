@@ -347,7 +347,7 @@ public class DominionSuccubusDialogue {
 						+ "</p>"
 						+ "<p>"
 							+ "Before you really know what's going on, [npc.she]'s pulled you up to your feet, and as [npc.her] body presses up tightly against yours, you feel a strange bulge digging into your leg."
-							+ " Breaking off the kiss for a moment, you look down, and your eyes go wide as you see the distinctive shape of a massive erection forming beneath the fabric of [npc.her] dress."
+							+ " Breaking off the kiss for a moment, you look down, and your eyes go wide as you see the distinctive shape of a massive erection between [npc.name]'s legs."
 							+ " You gulp as you remember what [npc.she] said just moments ago, and you realise that [npc.she]'s growing [npc.herself] a cock to fuck you with."
 						+ "</p>"
 						+ "<p>"
@@ -364,7 +364,8 @@ public class DominionSuccubusDialogue {
 						Main.game.getActiveNPC().setPenisType(PenisType.DEMON_COMMON);
 						Main.game.getActiveNPC().setPenisSize(PenisSize.FIVE_ENORMOUS.getMaximumValue());
 						Main.game.getActiveNPC().setTesticleSize(TesticleSize.ZERO_VESTIGIAL.getValue());
-						Main.game.getActiveNPC().setCumProduction(CumProduction.FIVE_HUGE.getMaximumValue());
+						Main.game.getActiveNPC().setPenisCumStorage(CumProduction.FIVE_HUGE.getMedianValue());
+						Main.game.getActiveNPC().setPenisStoredCum(CumProduction.FIVE_HUGE.getMedianValue());
 					}
 				};
 				
@@ -427,6 +428,7 @@ public class DominionSuccubusDialogue {
 					@Override
 					public void effects() {
 						Main.game.getActiveNPC().getPlayerKnowsAreas().add(CoverableArea.PENIS);
+						Main.game.getActiveNPC().setPenisType(PenisType.NONE);
 						Main.game.getTextStartStringBuilder().append(
 								"<p>"
 								+ "Not really liking the idea of [npc.name] having a cock, you tell [npc.herHim] as much, "
@@ -453,7 +455,8 @@ public class DominionSuccubusDialogue {
 						Main.game.getActiveNPC().setPenisType(PenisType.DEMON_COMMON);
 						Main.game.getActiveNPC().setPenisSize(1);
 						Main.game.getActiveNPC().setTesticleSize(TesticleSize.ZERO_VESTIGIAL.getValue());
-						Main.game.getActiveNPC().setCumProduction(CumProduction.FIVE_HUGE.getMaximumValue());
+						Main.game.getActiveNPC().setPenisCumStorage(CumProduction.ONE_TRICKLE.getMaximumValue());
+						Main.game.getActiveNPC().setPenisStoredCum(CumProduction.ONE_TRICKLE.getMaximumValue());
 						Main.game.getTextStartStringBuilder().append(
 								"<p>"
 								+ "Deciding that [npc.name] should have a cute little sissy-cock, you order [npc.herHim] to transform, "
@@ -483,7 +486,8 @@ public class DominionSuccubusDialogue {
 						Main.game.getActiveNPC().setPenisType(PenisType.DEMON_COMMON);
 						Main.game.getActiveNPC().setPenisSize(6);
 						Main.game.getActiveNPC().setTesticleSize(TesticleSize.ZERO_VESTIGIAL.getValue());
-						Main.game.getActiveNPC().setCumProduction(CumProduction.FIVE_HUGE.getMaximumValue());
+						Main.game.getActiveNPC().setPenisCumStorage(CumProduction.THREE_AVERAGE.getMaximumValue());
+						Main.game.getActiveNPC().setPenisStoredCum(CumProduction.THREE_AVERAGE.getMaximumValue());
 						Main.game.getTextStartStringBuilder().append(
 								"<p>"
 								+ "Deciding that [npc.she] should have an average-sized cock, you order [npc.name] to grow one, "
@@ -513,7 +517,8 @@ public class DominionSuccubusDialogue {
 						Main.game.getActiveNPC().setPenisType(PenisType.DEMON_COMMON);
 						Main.game.getActiveNPC().setPenisSize(11);
 						Main.game.getActiveNPC().setTesticleSize(TesticleSize.ZERO_VESTIGIAL.getValue());
-						Main.game.getActiveNPC().setCumProduction(CumProduction.FIVE_HUGE.getMaximumValue());
+						Main.game.getActiveNPC().setPenisCumStorage(CumProduction.FIVE_HUGE.getMedianValue());
+						Main.game.getActiveNPC().setPenisStoredCum(CumProduction.FIVE_HUGE.getMedianValue());
 						Main.game.getTextStartStringBuilder().append(
 								"<p>"
 								+ "Deciding that [npc.she] should have a nice, big cock, you order the [npc.race] to transform, "
@@ -543,7 +548,8 @@ public class DominionSuccubusDialogue {
 						Main.game.getActiveNPC().setPenisType(PenisType.DEMON_COMMON);
 						Main.game.getActiveNPC().setPenisSize(PenisSize.FIVE_ENORMOUS.getMaximumValue());
 						Main.game.getActiveNPC().setTesticleSize(TesticleSize.ZERO_VESTIGIAL.getValue());
-						Main.game.getActiveNPC().setCumProduction(CumProduction.FIVE_HUGE.getMaximumValue());
+						Main.game.getActiveNPC().setPenisCumStorage(CumProduction.FIVE_HUGE.getMaximumValue());
+						Main.game.getActiveNPC().setPenisStoredCum(CumProduction.FIVE_HUGE.getMaximumValue());
 						Main.game.getTextStartStringBuilder().append(
 								"<p>"
 								+ "Deciding that [npc.she] should have the biggest cock [npc.she]'s able to grow, you order the [npc.race] to get started, "
@@ -590,6 +596,7 @@ public class DominionSuccubusDialogue {
 					@Override
 					public void effects() {
 						Main.game.getActiveNPC().getPlayerKnowsAreas().add(CoverableArea.VAGINA);
+						Main.game.getActiveNPC().setVaginaType(VaginaType.DEMON_COMMON);
 						Main.game.getTextStartStringBuilder().append(
 								"<p>"
 								+ "Wanting to make sure that [npc.she]'s got a nice demonic pussy, you order [npc.herHim], "
@@ -1016,7 +1023,8 @@ public class DominionSuccubusDialogue {
 						Main.game.getActiveNPC().setPenisType(PenisType.DEMON_COMMON);
 						Main.game.getActiveNPC().setPenisSize(PenisSize.FIVE_ENORMOUS.getMaximumValue());
 						Main.game.getActiveNPC().setTesticleSize(TesticleSize.ZERO_VESTIGIAL.getValue());
-						Main.game.getActiveNPC().setCumProduction(CumProduction.FIVE_HUGE.getMaximumValue());
+						Main.game.getActiveNPC().setPenisCumStorage(CumProduction.FIVE_HUGE.getMedianValue());
+						Main.game.getActiveNPC().setPenisStoredCum(CumProduction.FIVE_HUGE.getMedianValue());
 					}
 				};
 				
@@ -1078,7 +1086,8 @@ public class DominionSuccubusDialogue {
 						Main.game.getActiveNPC().setPenisType(PenisType.DEMON_COMMON);
 						Main.game.getActiveNPC().setPenisSize(PenisSize.FIVE_ENORMOUS.getMaximumValue());
 						Main.game.getActiveNPC().setTesticleSize(TesticleSize.ZERO_VESTIGIAL.getValue());
-						Main.game.getActiveNPC().setCumProduction(CumProduction.FIVE_HUGE.getMaximumValue());
+						Main.game.getActiveNPC().setPenisCumStorage(CumProduction.FIVE_HUGE.getMedianValue());
+						Main.game.getActiveNPC().setPenisStoredCum(CumProduction.FIVE_HUGE.getMedianValue());
 					}
 				};
 				
@@ -1217,12 +1226,12 @@ public class DominionSuccubusDialogue {
 		public String getContent() {//TODO
 			return UtilText.parse(Main.game.getActiveNPC(),
 					"<p>"
-						+ "TODO</br>"
-						+ "You clasp the collar around [npc.name]'s neck.</br>"
+						+ "TODO<br/>"
+						+ "You clasp the collar around [npc.name]'s neck.<br/>"
 						+ "The arcane enchantment recognises [npc.herHim] as being a criminal, and, with a purple flash, <b>they're teleported to the 'Slave Administration' building in Slaver Alley, where they'll be waiting for you to pick them up</b>."
 					+ "</p>"
 					+ "<p>"
-						+ "Just before they disappear, glowing purple lettering appears on the collar's surface, which reads:</br>"
+						+ "Just before they disappear, glowing purple lettering appears on the collar's surface, which reads:<br/>"
 						+ "Slave identification: [style.boldArcane("+Main.game.getActiveNPC().getNameIgnoresPlayerKnowledge()+")]"
 					+ "</p>");
 		}

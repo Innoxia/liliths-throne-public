@@ -1,5 +1,7 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
+import java.time.Month;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -20,6 +22,7 @@ import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
 import com.lilithsthrone.game.character.body.valueEnums.HipSize;
 import com.lilithsthrone.game.character.body.valueEnums.NippleSize;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
+import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
@@ -46,7 +49,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.2.5
- * @version 0.2.5
+ * @version 0.2.6
  * @author Innoxia
  */
 public class RentalMommy extends NPC {
@@ -59,7 +62,9 @@ public class RentalMommy extends NPC {
 	
 	public RentalMommy(boolean isImported) {
 		super(new NameTriplet("Mommy"),
-				"'Mommy' earns a living by renting herself out to those in need of some motherly love.", 10, Gender.F_V_B_FEMALE, RacialBody.COW_MORPH, RaceStage.PARTIAL,
+				"'Mommy' earns a living by renting herself out to those in need of some motherly love.",
+				45, Month.JULY, 3,
+				10, Gender.F_V_B_FEMALE, RacialBody.COW_MORPH, RaceStage.PARTIAL,
 				new CharacterInventory(10), WorldType.DOMINION, PlaceType.DOMINION_BOULEVARD, false);
 
 		if(!isImported) {
@@ -72,7 +77,7 @@ public class RentalMommy extends NPC {
 			
 			Subspecies species = Subspecies.COW_MORPH;
 				
-			switch(Main.getProperties().subspeciesFeminineFurryPreferencesMap.get(species)) {
+			switch(Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(species)) {
 				case HUMAN:
 					setBody(Gender.F_V_B_FEMALE, Subspecies.HUMAN, RaceStage.HUMAN);
 					break;
@@ -106,7 +111,6 @@ public class RentalMommy extends NPC {
 
 			this.addFetish(Fetish.FETISH_BREASTS_SELF);
 			this.addFetish(Fetish.FETISH_PREGNANCY);
-			this.addFetish(Fetish.FETISH_BROODMOTHER);
 			
 			this.setFetishDesire(Fetish.FETISH_VAGINAL_RECEIVING, FetishDesire.THREE_LIKE);
 			this.setFetishDesire(Fetish.FETISH_DOMINANT, FetishDesire.THREE_LIKE);
@@ -115,6 +119,9 @@ public class RentalMommy extends NPC {
 			this.setFetishDesire(Fetish.FETISH_INCEST, FetishDesire.THREE_LIKE);
 
 			this.setFetishDesire(Fetish.FETISH_PURE_VIRGIN, FetishDesire.ONE_DISLIKE);
+			
+			this.addPerk(Perk.FETISH_BROODMOTHER);
+			this.addTrait(Perk.FETISH_BROODMOTHER);
 			
 			// BODY RANDOMISATION:
 			
@@ -179,21 +186,6 @@ public class RentalMommy extends NPC {
 	@Override
 	public boolean isUnique() {
 		return true;
-	}
-	
-	private void setBodyFromPreferences(int i, Gender gender, Subspecies race) {
-		int choice = Util.random.nextInt(i)+1;
-		RaceStage raceStage = RaceStage.PARTIAL;
-		
-		if (choice == 1) {
-			raceStage = RaceStage.PARTIAL;
-		} else if (choice == 2) {
-			raceStage = RaceStage.LESSER;
-		} else {
-			raceStage = RaceStage.GREATER;
-		}
-		
-		setBody(gender, race, raceStage);
 	}
 	
 	// Sex:

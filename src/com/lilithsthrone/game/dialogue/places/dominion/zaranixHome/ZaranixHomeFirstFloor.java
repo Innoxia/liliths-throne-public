@@ -368,8 +368,8 @@ public class ZaranixHomeFirstFloor {
 				return new ResponseSex("Suck cock", "Show Zaranix how good you are at sucking cock.",
 						true, true,
 						new SMZaranixCockSucking(
-								Util.newHashMapOfValues(new Value<>(Main.game.getZaranix(), SexPositionSlot.KNEELING_RECEIVING_ORAL_ZARANIX)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.KNEELING_PERFORMING_ORAL_ZARANIX))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getZaranix(), SexPositionSlot.CHAIR_ORAL_SITTING)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_KNEELING))),
 						AFTER_SEX_THANKING_ZARANIX,
 						"<p>"
 						+ "</p>");

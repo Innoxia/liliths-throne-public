@@ -1,5 +1,7 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
+import java.time.Month;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -29,7 +31,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.95
- * @version 0.1.95
+ * @version 0.2.7
  * @author Innoxia
  */
 public class Arthur extends NPC {
@@ -44,9 +46,10 @@ public class Arthur extends NPC {
 		super(new NameTriplet("Arthur"),
 				"With messy brown hair, pale skin, and a thin frame, the Arthur of this world looks exactly the same as the one you've always known."
 						+ " Just as he was in your world, this Arthur used to be a colleague of Lilaya's, before Lilaya kicked him out."
-						+ "</br>"
+						+ "<br/>"
 						+ "Arthur is recognised as one of, if not the best arcane researcher in all of Dominion."
 						+ " Despite this, however, he's unable to harness the arcane himself.",
+				41, Month.DECEMBER, 9,
 				10,
 				Gender.M_P_MALE,
 				RacialBody.HUMAN, RaceStage.HUMAN, new CharacterInventory(10),
@@ -92,6 +95,15 @@ public class Arthur extends NPC {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
 	}
 
+	@Override
+	public String getDescription() {
+		return "With messy brown hair, pale skin, and a thin frame, the Arthur of this world looks exactly the same as the one you've always known."
+				+ " Just as he was in your world, this Arthur used to be a colleague of Lilaya's, before Lilaya kicked him out."
+				+ "<br/>"
+				+ "Arthur is recognised as one of, if not the best arcane researcher in all of Dominion."
+				+ " Despite this, however, he's unable to harness the arcane himself.";
+	}
+	
 	@Override
 	public boolean isUnique() {
 		return true;

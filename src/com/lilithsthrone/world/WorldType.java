@@ -11,7 +11,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.1.89
+ * @version 0.2.6
  * @author Innoxia
  */
 public enum WorldType {
@@ -267,6 +267,30 @@ public enum WorldType {
 					new Value<>(new Color(0xffff00), PlaceType.ANGELS_KISS_BEDROOM_BUNNY),
 					new Value<>(new Color(0xff8000), PlaceType.ANGELS_KISS_BEDROOM_LOPPY))),
 	
+
+	NIGHTLIFE_CLUB("The Watering Hole",
+			Colour.BASE_BLUE,
+			1,
+			"/com/lilithsthrone/res/map/dominion/nightLife/wateringHole.png",
+			Util.newHashMapOfValues(
+					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
+					
+					new Value<>(new Color(0x00ff00), PlaceType.WATERING_HOLE_ENTRANCE),
+					
+					new Value<>(new Color(0x808080), PlaceType.WATERING_HOLE_MAIN_AREA),
+					
+					new Value<>(new Color(0x0080ff), PlaceType.WATERING_HOLE_SEATING_AREA),
+					new Value<>(new Color(0xff00ff), PlaceType.WATERING_HOLE_VIP_AREA),
+					new Value<>(new Color(0xff8000), PlaceType.WATERING_HOLE_BAR),
+					new Value<>(new Color(0xffff00), PlaceType.WATERING_HOLE_DANCE_FLOOR),
+					new Value<>(new Color(0xff0000), PlaceType.WATERING_HOLE_TOILETS)
+					)){
+		@Override
+		public boolean isRevealedOnStart() {
+			return true;
+		}
+	},
+	
 	// Other:
 
 	SUBMISSION("Submission",
@@ -315,6 +339,67 @@ public enum WorldType {
 					new Value<>(new Color(0x004080), PlaceType.BAT_CAVERN_RIVER_END),
 					
 					new Value<>(new Color(0xff80ff), PlaceType.BAT_CAVERN_SLIME_QUEEN_LAIR))),
+
+	SLIME_QUEENS_LAIR_GROUND_FLOOR("Slime Queen's Tower",
+			Colour.BASE_PINK,
+			1,
+			"/com/lilithsthrone/res/map/submission/slimeQueensLair/slimeQueensLairGroundFloor.png",
+			Util.newHashMapOfValues(
+					
+					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
+
+					new Value<>(new Color(0x808080), PlaceType.SLIME_QUEENS_LAIR_CORRIDOR),
+					
+					new Value<>(new Color(0x00ff00), PlaceType.SLIME_QUEENS_LAIR_ENTRANCE),
+					new Value<>(new Color(0xff0000), PlaceType.SLIME_QUEENS_LAIR_STAIRS_UP),
+					
+					new Value<>(new Color(0xff8000), PlaceType.SLIME_QUEENS_LAIR_STORAGE_VATS),
+					new Value<>(new Color(0x40b4ff), PlaceType.SLIME_QUEENS_LAIR_ROOM),
+					
+					new Value<>(new Color(0xff80ff), PlaceType.SLIME_QUEENS_LAIR_ENTRANCE_GUARDS),
+					
+					new Value<>(new Color(0xffff00), PlaceType.SLIME_QUEENS_LAIR_SLIME_QUEEN))),
+
+	SLIME_QUEENS_LAIR_FIRST_FLOOR("Slime Queen's Tower",
+			Colour.BASE_PINK,
+			1,
+			"/com/lilithsthrone/res/map/submission/slimeQueensLair/slimeQueensLairFirstFloor.png",
+			Util.newHashMapOfValues(
+					
+					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
+
+					new Value<>(new Color(0x808080), PlaceType.SLIME_QUEENS_LAIR_CORRIDOR),
+					
+					new Value<>(new Color(0x00ff00), PlaceType.SLIME_QUEENS_LAIR_STAIRS_DOWN),
+					
+					new Value<>(new Color(0x40b4ff), PlaceType.SLIME_QUEENS_LAIR_ROOM),
+					
+					new Value<>(new Color(0xff00ff), PlaceType.SLIME_QUEENS_LAIR_ROYAL_GUARD),
+					new Value<>(new Color(0xffff00), PlaceType.SLIME_QUEENS_LAIR_SLIME_QUEEN))),
+
+	GAMBLING_DEN("Gambling Den",
+			Colour.BASE_GOLD,
+			1,
+			"/com/lilithsthrone/res/map/submission/gamblingDen/gamblingDen.png",
+			Util.newHashMapOfValues(
+					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
+					new Value<>(new Color(0x808080), PlaceType.GAMBLING_DEN_CORRIDOR),
+					
+					new Value<>(new Color(0x00ff00), PlaceType.GAMBLING_DEN_ENTRANCE),
+					
+					new Value<>(new Color(0xffff00), PlaceType.GAMBLING_DEN_TRADER),
+					
+					new Value<>(new Color(0x0080ff), PlaceType.GAMBLING_DEN_GAMBLING),
+					
+					new Value<>(new Color(0xff80ff), PlaceType.GAMBLING_DEN_PREGNANCY),
+					new Value<>(new Color(0xff00ff), PlaceType.GAMBLING_DEN_FUTA_PREGNANCY),
+					new Value<>(new Color(0xff8000), PlaceType.GAMBLING_DEN_PREGNANCY_ROULETTE)
+					)){
+		@Override
+		public boolean isRevealedOnStart() {
+			return true;
+		}
+	},
 	
 	JUNGLE(6,
 			"jungle",

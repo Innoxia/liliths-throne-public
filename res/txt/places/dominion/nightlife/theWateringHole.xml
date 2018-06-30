@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+	
+	<htmlContent tag="OUTSIDE_NIGHT"><![CDATA[
+	<p>
+		You find yourself walking through the area of Dominion known as 'Nightlife', which is currently fully living up to its name. The bright colours of neon signs join with the soft glow of lampposts to illuminate the street before you, which is packed with crowds of revellers. Many of these people are quite clearly drunk, and noisily shout and make lewd comments at those around them as they stagger between the many clubs and bars that fill this area.
+	</p>
+	<p>
+		Every now and then, you pass couples, and sometimes even groups, who have given in to their alcohol-fuelled lust and are publicly having sex with one another. The enforcers who patrol this area don't seem to care one bit about these lewd displays, and sometimes even to stop to watch the lewd displays in front of them.
+	</p>
+	<p>
+		Looking past these crowds to the establishments which have attracted them, you see all sorts of different bars and clubs open for business. The vast majority of them, however, seem to either be completely full, or to have massive queues trailing out into the streets.
+	</p>
+	<p>
+		Out of all the establishments that you pass, the only one which you'd have any hope of getting into tonight is the nightclub, 'The Watering Hole'. Although it looks to be just as good as any of the other clubs in this area, it's positioned near the far end of the street, which makes it a little less popular with the crowds of casual clubbers.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OUTSIDE_NIGHT_STORM"><![CDATA[
+	<p>
+		You find yourself walking through the area of Dominion known as 'Nightlife', which is currently deserted due to the ongoing arcane storm. The bright colours of neon signs join with the soft glow of lampposts to illuminate the empty street before you.
+	</p>
+	<p>
+		While all the bars and clubs that fill this area are still open for business, the vast majority of them seem to already be completely full. The only place which looks to still have some room left is the nightclub, 'The Watering Hole'.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OUTSIDE_DAY"><![CDATA[
+	<p>
+		You find yourself walking through the area of Dominion known as 'Nightlife', which, due to the fact that it's currently day time, is all but deserted. The clubs and bars that line the streets are all closed, and the only people walking about in this area are those that are on their way to other parts of the city.
+	</p>
+	<p>
+		Reading one of the club's signs as you pass, you see that all of the establishments in this area open at seven in the evening, and close at five the following morning. If you wanted to visit one of the clubs or bars, you'd have to come back at that time.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OUTSIDE_DAY_STORM"><![CDATA[
+	<p>
+		You find yourself walking through the area of Dominion known as 'Nightlife', which, due to the fact that there's an ongoing arcane storm, is completely deserted. The clubs and bars that line the streets are all closed, and there isn't a single non-demon in sight.
+	</p>
+	<p>
+		Reading one of the club's signs as you pass, you see that all of the establishments in this area open at seven in the evening, and close at five the following morning. If you wanted to visit one of the clubs or bars, you'd have to come back at that time.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_ENTRANCE"><![CDATA[
+	<p>
+		Entrance
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_MAIN"><![CDATA[
+	<p>
+		Main club - people
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_SEATING"><![CDATA[
+	<p>
+		Seating area
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_VIP"><![CDATA[
+	<p>
+		VIP area
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_BAR"><![CDATA[
+	<p>
+		bar
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DANCE_FLOOR"><![CDATA[
+	<p>
+		Dance floor
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_TOILETS"><![CDATA[
+	<p>
+		Toilets
+	</p>
+	]]>
+	</htmlContent>
+	
+</dialogue>

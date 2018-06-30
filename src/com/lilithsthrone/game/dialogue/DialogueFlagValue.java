@@ -2,7 +2,7 @@ package com.lilithsthrone.game.dialogue;
 
 /**
  * @since 0.1.89
- * @version 0.2.5
+ * @version 0.2.6
  * @author Innoxia
  */
 public enum DialogueFlagValue {
@@ -40,6 +40,10 @@ public enum DialogueFlagValue {
 	nyanIntroduced,
 	kateIntroduced,
 	vickyIntroduced,
+
+	roxyIntroduced,
+	axelIntroduced,
+	eponaIntroduced,
 	
 	
 	// Red-light district:
@@ -65,7 +69,7 @@ public enum DialogueFlagValue {
 	reactedToKatePregnancy,
 	
 	
-	// Aunt's Home:
+	// Lilaya's Home:
 	knowsDate,
 	lilayaDateTalk,
 	auntHomeJustEntered,
@@ -128,6 +132,29 @@ public enum DialogueFlagValue {
 	lumiMet,
 	lumiDisabled,
 	lumiPromisedDinner,
+	
+	// Slime Queen's Tower:
+	slimeGuardsIntroduced,
+	slimeGuardsBluffed,
+	slimeGuardsDefeated,
+	slimeRoyalGuardIntroduced,
+	slimeRoyalGuardDefeated,
+	slimeQueenHelped,
+	slimeQueenConvinced,
+	slimeQueenForced,
+	
+	// Gambling Den:
+	axelToldAboutVengar,
+	roxyAddicted,
+	playedPregnancyRouletteAsMother,
+	playedPregnancyRouletteAsBreeder,
+	
+	// Nightlife:
+	julesIntroduced,
+	passedJules,
+	kalahariIntroduced,
+	krugerIntroduced,
+	
 	
 	;
 }

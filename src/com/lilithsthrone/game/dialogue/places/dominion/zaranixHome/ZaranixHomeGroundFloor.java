@@ -19,7 +19,6 @@ import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
-import com.lilithsthrone.game.inventory.clothing.DisplacementType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.dominion.zaranix.SMAmberDoggyFucked;
 import com.lilithsthrone.game.sex.managers.dominion.zaranix.SMZaranixCockSucking;
@@ -285,7 +284,7 @@ public class ZaranixHomeGroundFloor {
 			} else if (index == 1) {
 				return new Response("Reluctant lick", "If this is what it's going to take to finally meet Arthur, you suppose that you'll do it, even though you're quite reluctant about the whole thing.",
 						OUTSIDE_KNOCK_ON_DOOR_ASK_FOR_ARTHUR_SUBMISSIVE_RELUCTANT_LICK,
-						Util.newArrayListOfValues(Fetish.FETISH_MASOCHIST), CorruptionLevel.TWO_HORNY, null, null, null) {
+						Util.newArrayListOfValues(Fetish.FETISH_MASOCHIST, Fetish.FETISH_FOOT_RECEIVING), CorruptionLevel.TWO_HORNY, null, null, null) {
 					@Override
 					public void effects() {
 						Main.game.getAmber().setPlayerKnowsName(true);
@@ -295,7 +294,7 @@ public class ZaranixHomeGroundFloor {
 			} else if (index == 2) {
 				return new Response("Eager lick", "Immediately drop down onto all fours and enthusiastically lick the maid's shoes.",
 						OUTSIDE_KNOCK_ON_DOOR_ASK_FOR_ARTHUR_SUBMISSIVE_EAGER_LICK,
-						Util.newArrayListOfValues(Fetish.FETISH_MASOCHIST), CorruptionLevel.FOUR_LUSTFUL, null, null, null) {
+						Util.newArrayListOfValues(Fetish.FETISH_MASOCHIST, Fetish.FETISH_FOOT_RECEIVING), CorruptionLevel.FOUR_LUSTFUL, null, null, null) {
 					@Override
 					public void effects() {
 						Main.game.getAmber().setPlayerKnowsName(true);
@@ -366,7 +365,7 @@ public class ZaranixHomeGroundFloor {
 			} else if (index == 2) {
 				return new Response("Lick soles", "Don't let Amber get away just yet! You still haven't cleaned the soles of her shoes!",
 						OUTSIDE_KNOCK_ON_DOOR_ASK_FOR_ARTHUR_SUBMISSIVE_EAGER_LICK_SOLES,
-						Util.newArrayListOfValues(Fetish.FETISH_MASOCHIST), CorruptionLevel.FIVE_CORRUPT, null, null, null);
+						Util.newArrayListOfValues(Fetish.FETISH_MASOCHIST, Fetish.FETISH_FOOT_RECEIVING), CorruptionLevel.FIVE_CORRUPT, null, null, null);
 
 			} else {
 				return null;
@@ -592,8 +591,7 @@ public class ZaranixHomeGroundFloor {
 						}
 						@Override
 						public void effects() {
-							Main.game.getZaranix().isAbleToBeDisplaced(Main.game.getZaranix().getClothingInSlot(InventorySlot.LEG), DisplacementType.PULLS_DOWN, true, true, Main.game.getAmber());
-							Main.game.getZaranix().isAbleToBeDisplaced(Main.game.getZaranix().getClothingInSlot(InventorySlot.GROIN), DisplacementType.SHIFTS_ASIDE, true, true, Main.game.getAmber());
+							Main.game.getZaranix().displaceClothingForAccess(CoverableArea.PENIS);
 							Main.game.getArthur().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, true);
 						}
 					};
@@ -645,8 +643,8 @@ public class ZaranixHomeGroundFloor {
 				return new ResponseSex("Suck cock", "Show Zaranix how good you are at sucking cock.",
 						true, true,
 						new SMZaranixCockSucking(
-								Util.newHashMapOfValues(new Value<>(Main.game.getZaranix(), SexPositionSlot.KNEELING_RECEIVING_ORAL_ZARANIX)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.KNEELING_PERFORMING_ORAL_ZARANIX))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getZaranix(), SexPositionSlot.CHAIR_ORAL_SITTING)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_KNEELING))),
 						AFTER_SEX_THANKING_ZARANIX,
 						"<p>"
 						+ "</p>");
@@ -675,8 +673,8 @@ public class ZaranixHomeGroundFloor {
 				return new ResponseSex("Lift ass", "Do as Amber commands and lift your ass towards her.",
 						true, true,
 						new SMAmberDoggyFucked(
-								Util.newHashMapOfValues(new Value<>(Main.game.getAmber(), SexPositionSlot.DOGGY_BEHIND_AMBER)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS_AMBER))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getAmber(), SexPositionSlot.DOGGY_BEHIND)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
 						AFTER_SEX_THANKING_AMBER,
 						"<p>"
 							+ "You obediently lift your ass towards Amber, letting out a little cry as you suddenly feel the sharp slap of her hand across your right cheek, before she growls out,"

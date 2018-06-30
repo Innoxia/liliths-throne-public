@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +8,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.CharacterImportSetting;
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
@@ -39,6 +41,9 @@ import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
+import com.lilithsthrone.game.inventory.item.AbstractItemType;
+import com.lilithsthrone.game.inventory.item.ItemType;
+import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -63,6 +68,7 @@ public class Lumi extends NPC {
 		super(new NameTriplet(
 				"Lumi"),
 				"Lumi is a semi-feral wolf-girl, who you first met prowling one of Dominion's alleyways.",
+				19, Month.JULY, 15,
 				5,
 				Gender.F_V_B_FEMALE,
 				RacialBody.HUMAN,
@@ -78,6 +84,8 @@ public class Lumi extends NPC {
 				new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.LOW),
 				new Value<>(PersonalityTrait.EXTROVERSION, PersonalityWeight.LOW),
 				new Value<>(PersonalityTrait.NEUROTICISM, PersonalityWeight.AVERAGE)));
+		
+		this.useItem(AbstractItemType.generateItem(ItemType.PROMISCUITY_PILL), this, false);
 		
 		if(!isImported) {
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
@@ -155,6 +163,11 @@ public class Lumi extends NPC {
 	}
 
 	@Override
+	public void hourlyUpdate() {
+		this.useItem(AbstractItemType.generateItem(ItemType.PROMISCUITY_PILL), this, false);
+	}
+	
+	@Override
 	public boolean isUnique() {
 		return true;
 	}
@@ -170,6 +183,11 @@ public class Lumi extends NPC {
 	
 	@Override
 	public void endSex(boolean applyEffects) {
+	}
+	
+	@Override
+	public SexPace getSexPaceSubPreference(GameCharacter character){
+		return SexPace.SUB_RESISTING;
 	}
 	
 	// Combat:

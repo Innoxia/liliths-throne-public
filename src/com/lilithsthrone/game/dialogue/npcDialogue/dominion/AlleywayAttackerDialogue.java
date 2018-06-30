@@ -76,7 +76,7 @@ public class AlleywayAttackerDialogue {
 									+ " As [npc.she] steps out from the shadows, however, you notice that there's definitely something different about [npc.herHim] this time."
 									+ " The consequence of ejaculating inside of [npc.herHim] is staring you right in the face, and you gulp as you see [npc.herHim] pointing down at her pregnant belly."
 								+ "</p>"
-								+ (Main.game.getActiveNPC().hasFetish(Fetish.FETISH_PREGNANCY)  || Main.game.getActiveNPC().hasFetish(Fetish.FETISH_BROODMOTHER)
+								+ (Main.game.getActiveNPC().hasFetish(Fetish.FETISH_PREGNANCY)
 										
 										?"<p>"
 											+"[npc.speech(That's right, you got me knocked up!)] she shouts, the excitement in [npc.her] voice clearly giving away the fact that [npc.she]'s got a thing for being pregnant."
@@ -172,7 +172,7 @@ public class AlleywayAttackerDialogue {
 				return new ResponseCombat("Fight", "Stand up for yourself and fight [npc.name]!", Main.game.getActiveNPC());
 				
 			} else if (index == 2) {
-				if(Main.game.getPlayer().getMoney()<25) {
+				if(Main.game.getPlayer().getMoney()<250) {
 					return new Response("Offer money ("+UtilText.formatAsMoney(250, "span")+")", "You don't have enough money to offer to pay [npc.name] off. You'll have to either fight [npc.herHim] or offer [npc.herHim] your body!", null);
 				} else {
 					return new Response("Offer money ("+UtilText.formatAsMoney(250, "span")+")", "Offer to pay [npc.name] 250 flames to leave you alone.", Main.game.getDefaultDialogueNoEncounter()) {
@@ -378,7 +378,7 @@ public class AlleywayAttackerDialogue {
 					
 				} else if (index == 5) {
 					return new ResponseSex("Submit",
-							"You're not really sure what to do now...</br>"
+							"You're not really sure what to do now...<br/>"
 								+ "Perhaps it would be best to let [npc.name] choose what to do next?",
 							Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE),
 							null, CorruptionLevel.THREE_DIRTY, null, null, null,

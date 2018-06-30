@@ -591,6 +591,53 @@ public class ItemType {
 		}
 	};
 	
+	public static AbstractItemType INT_INGREDIENT_GRAPE_JUICE = new AbstractItemType(150,
+			"a bottle of",
+			false,
+			"Vulpine's Vineyard",
+			"Vulpine's Vineyards",
+			"A delicate glass bottle filled with red wine."
+				+ " A bunch of grapes is painted onto the front of the label, and on the bottom of the bottle itself, the image of a snickering fox-morph is burned into the glass.",
+			"attributeFoxMorphDrink",
+			Colour.ATTRIBUTE_ARCANE,
+			null,
+			null,
+			Rarity.UNCOMMON,
+			TFEssence.ARCANE,
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.INT_GRAPE_JUICE)),
+			Util.newArrayListOfValues(
+					ItemTag.DOMINION_ALLEYWAY_SPAWN,
+					ItemTag.ATTRIBUTE_TF_ITEM)) {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public AbstractItemEffectType getEnchantmentEffect() {
+			return ItemEffectType.ATTRIBUTE_ARCANE;
+		}
+
+		@Override
+		public AbstractItemType getEnchantmentItemType(List<ItemEffect> effects) {
+			return POTION;
+		}
+
+		@Override
+		public String getUseName() {
+			return "drink";
+		}
+
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return getGenericUseDescription(user, target,
+					"Opening the bottle of 'Vulpine's Vineyard', you eagerly bring it up to your waiting lips."
+						+ " The heady fragrance of rich red wine wafts from the neck of the newly opened bottle, soon joined by a rich, sweet taste, that lingers on yuor tongue well after you've had your fill.",
+					"Removing the stopper from the bottle, you bring the bottle of 'Vulpine's Vineyard' to [npc.name]'s lips, before tilting [npc.her] head back and forcing [npc.herHim] to quickly gulp down the wine within.",
+					"[npc.Name] pulls out a bottle of 'Vulpine's Vineyard', and, after removing the stopper, [npc.she] promptly downs the entire bottle.",
+					"[npc.Name] pulls out a bottle of 'Vulpine's Vineyard', and, after removing the stopper, [npc.she] brings it to your lips before tilting your head back and forcing you to quickly gulp down the contents."
+						+ " The heady fragrance of rich red wine wafts from the neck of the newly opened bottle, soon joined by a rich, sweet taste, that lingers on yuor tongue well after you've had your fill.");
+		}
+	};
+	
 	public static AbstractItemType INT_INGREDIENT_VANILLA_WATER = new AbstractItemType(10,
 			"a bottle of",
 			false,
@@ -608,6 +655,7 @@ public class ItemType {
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
 					ItemTag.SUBMISSION_TUNNEL_SPAWN,
+					ItemTag.BAT_CAVERNS_SPAWN,
 					ItemTag.ATTRIBUTE_TF_ITEM)) {
 
 		private static final long serialVersionUID = 1L;
@@ -1138,6 +1186,7 @@ public class ItemType {
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
 					ItemTag.SUBMISSION_TUNNEL_SPAWN,
+					ItemTag.BAT_CAVERNS_SPAWN,
 					ItemTag.MISC_TF_ITEM)) {
 
 		private static final long serialVersionUID = 1L;
@@ -1233,6 +1282,7 @@ public class ItemType {
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
 					ItemTag.SUBMISSION_TUNNEL_SPAWN,
+					ItemTag.BAT_CAVERNS_SPAWN,
 					ItemTag.MISC_TF_ITEM)) {
 
 		private static final long serialVersionUID = 1L;
@@ -1260,6 +1310,50 @@ public class ItemType {
 					"[npc.Name] pulls out a bottle of 'Angel's Nectar', and, after quickly pulling out the crystal stopper, [npc.she] promptly downs the entire bottle.",
 					"[npc.Name] pulls out a bottle of 'Angel's Nectar', and, after quickly pulling out the crystal stopper,"
 							+ " [npc.she] brings it to your lips before tilting your head back and forcing you to quickly gulp down the tasteless liquid that's contained within.");
+		}
+	};
+	
+	public static AbstractItemType MUSHROOM = new AbstractItemType(500,
+			"a cluster of",
+			true,
+			"Glowing Mushroom",
+			"Glowing Mushrooms",
+			"Bioluminescent mushrooms such as these are commonly found growing in the Bat Caverns."
+					+ " The slimes which call those caverns their home are particularly fond of consuming these mushrooms, which is what causes their bodies to glow.",
+			"mushrooms",
+			Colour.BASE_BLUE_LIGHT,
+			null,
+			null,
+			Rarity.EPIC,
+			null,
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.MUSHROOMS)),
+			Util.newArrayListOfValues(
+					ItemTag.BAT_CAVERNS_SPAWN)) {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public boolean isAbleToBeUsedInSex() {
+			return true;
+		}
+
+		@Override
+		public boolean isAbleToBeUsedInCombat() {
+			return true;
+		}
+
+		@Override
+		public String getUseName() {
+			return "eat";
+		}
+
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return getGenericUseDescription(user, target,
+					"You pop the small cluster of glowing mushrooms into your mouth, and as you chew and swallow them down, you discover that they have a refreshing, minty taste.",
+					"You pop the small cluster of glowing mushrooms into [npc.name]'s mouth, before making sure that [npc.she] chews and swallows them down.",
+					"[npc.Name] pops a small cluster of glowing mushrooms into [npc.her] mouth, before chewing and swallowing them down.",
+					"[npc.Name] pops a small cluster of glowing mushrooms into your mouth, and as [npc.she] makes you chew and swallow them down, you discover that they have a refreshing, minty taste.");
 		}
 	};
 	
@@ -1699,6 +1793,53 @@ public class ItemType {
 						+ " As you crunch down on the dry biscuit, you find that it's quite bland and salty.");
 		}
 	};
+	
+	public static AbstractItemType RACE_INGREDIENT_FOX_MORPH = new AbstractItemType(250,
+			"a",
+			false,
+			"Chicken Pot Pie",
+			"Chicken Pot Pies",
+			"A tin containing a pie with a mix of vegetables and meat."
+					+ " While plenty of omnivorous races enjoy the taste of these pies, they are a particular favourite of fox-morphs.",
+			"raceFoxMorphPie",
+			Colour.RACE_FOX_MORPH,
+			null,
+			null,
+			Rarity.RARE,
+			TFEssence.ARCANE,
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.RACE_FOX_PIE)),
+			Util.newArrayListOfValues(
+					ItemTag.DOMINION_ALLEYWAY_SPAWN,
+					ItemTag.RACIAL_TF_ITEM)) {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public AbstractItemEffectType getEnchantmentEffect() {
+			return ItemEffectType.RACE_FOX_MORPH;
+		}
+
+		@Override
+		public AbstractItemType getEnchantmentItemType(List<ItemEffect> effects) {
+			return ELIXIR;
+		}
+
+		@Override
+		public String getUseName() {
+			return "eat";
+		}
+
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return getGenericUseDescription(user, target,
+					"You bring the chicken pot pie up to your mouth, before taking a bite."
+						+ " You find that the nutritious mix of vegetables and meat is easy to chew through, and you swiftly consume the contents of the small tin.",
+					"You bring the chicken pot pie up to [npc.name]'s mouth, before feeding it to [npc.herHim].",
+					"[npc.Name] pulls out a chicken pot pie, and promptly wolfs it down.",
+					"[npc.Name] brings a chicken pot pie up to your mouth, before starting to feed it to you."
+							+ " You find that the nutritious mix of vegetables and meat is easy to chew through, and you swiftly consume the contents of the small tin.");
+		}
+	};
 
 	public static AbstractItemType RACE_INGREDIENT_HORSE_MORPH = new AbstractItemType(250,
 			"a",
@@ -1940,12 +2081,12 @@ public class ItemType {
 		}
 	};
 	
-	public static AbstractItemType RACE_INGREDIENT_SLIME = new AbstractItemType(50000,
+	public static AbstractItemType RACE_INGREDIENT_SLIME = new AbstractItemType(2500,
 			"a",
 			false,
 			"Biojuice Canister",
-			"Biojuice Canister",
-			"A canister of glowing green liquid."
+			"Biojuice Canisters",
+			"A canister of glowing pink liquid, which has a thick, slimy consistency."
 					+ " The warning sign on the front makes it quite clear that drinking this would be a bad idea...",
 			"raceSlimeBiojuice",
 			Colour.RACE_SLIME,
@@ -1959,6 +2100,16 @@ public class ItemType {
 					ItemTag.NOT_FOR_SALE)) {
 
 		private static final long serialVersionUID = 1L;
+
+		@Override
+		public AbstractItemEffectType getEnchantmentEffect() {
+			return ItemEffectType.RACE_SLIME;
+		}
+
+		@Override
+		public AbstractItemType getEnchantmentItemType(List<ItemEffect> effects) {
+			return ELIXIR;
+		}
 
 		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -1979,12 +2130,12 @@ public class ItemType {
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getGenericUseDescription(user, target,
 					"Ignoring the warning on the front, you unseal one end of the canister and bring it up to your [pc.lips]."
-							+ " The glowing green liquid within gives off a faintly sweet smell, and you tilt your head back and gulp it all down...",
+							+ " The glowing pink liquid within gives off a faintly sweet smell, and you tilt your head back and gulp it all down...",
 					"You unseal one end of the canister and bring it up to [npc.name]'s [npc.lips]."
-							+ " Tilting [npc.her] head back, you force [npc.herHim] to drink down all of the glowing green liquid...",
+							+ " Tilting [npc.her] head back, you force [npc.herHim] to drink down all of the glowing pink liquid...",
 					"[npc.Name] pulls out a canister of Biojuice, and, unsealing one end of the canister, [npc.she] brings it up to [npc.her] [npc.lips] and gulps it all down....",
 					"[npc.Name] pulls out a canister of Biojuice, and, unsealing one end of the canister, [npc.she] brings it up to your [pc.lips]."
-							+ " The glowing green liquid within gives off a faintly sweet smell, and [npc.name] tilts your head back and forces you to gulp it all down....");
+							+ " The glowing pink liquid within gives off a faintly sweet smell, and [npc.name] tilts your head back and forces you to gulp it all down....");
 		}
 	};
 	
@@ -2728,6 +2879,44 @@ public class ItemType {
 			return "Only people with a demonic-strength aura are able to absorb arcane essences!";
 		}
 	};
+	
+	public static AbstractItemType BOTTLED_ESSENCE_FOX_MORPH = new AbstractItemType(
+			50,
+			null,
+			false,
+			"Bottled Fox-morph Essence",
+			"Bottled Fox-morph Essences",
+			"A small glass bottle, with a little cork stopper wedged firmly in the top."
+					+ " Inside, the swirling "+Colour.RACE_FOX_MORPH.getName()+" glow of an arcane essence, imbued with the energy of a fox-morph, flickers and swirls about in a mesmerising, cyclical pattern.",
+			"bottledEssenceFoxMorph",
+			Colour.RACE_FOX_MORPH,
+			null,
+			null,
+			Rarity.EPIC,
+			null,
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_FOX_MORPH)),
+			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getUseName() {
+			return "absorb";
+		}
+
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return getEssenceAbsorbtionText(Colour.RACE_FOX_MORPH, user, target);
+		}
+		
+		public boolean isAbleToBeUsed(GameCharacter target) {
+			return target.getRace()==Race.DEMON || target.isPlayer();
+		}
+		
+		public String getUnableToBeUsedDescription(GameCharacter target) {
+			return "Only people with a demonic-strength aura are able to absorb arcane essences!";
+		}
+	};
 
 	public static AbstractItemType BOTTLED_ESSENCE_SLIME = new AbstractItemType(
 			50,
@@ -3106,7 +3295,7 @@ public class ItemType {
 
 		@Override
 		public String getUnableToBeUsedDescription(GameCharacter target) {
-			return "You can't think of a use for this. Maybe it's best to throw it away...</br>"
+			return "You can't think of a use for this. Maybe it's best to throw it away...<br/>"
 					+ "(You need have at least a <b style='color:"+CorruptionLevel.THREE_DIRTY.getColour().toWebHexString()+";'>"+CorruptionLevel.THREE_DIRTY.getName()+"</b> level of corruption to know how to use this!)";
 		}
 
@@ -3238,6 +3427,7 @@ public class ItemType {
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
 					ItemTag.SUBMISSION_TUNNEL_SPAWN,
+					ItemTag.BAT_CAVERNS_SPAWN,
 					ItemTag.ATTRIBUTE_TF_ITEM)) {
 
 		private static final long serialVersionUID = 1L;
@@ -3276,6 +3466,7 @@ public class ItemType {
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
 					ItemTag.SUBMISSION_TUNNEL_SPAWN,
+					ItemTag.BAT_CAVERNS_SPAWN,
 					ItemTag.ATTRIBUTE_TF_ITEM)) {
 
 		private static final long serialVersionUID = 1L;
@@ -3310,7 +3501,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.MOO_MILKER)),
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
-					ItemTag.SUBMISSION_TUNNEL_SPAWN)) {
+					ItemTag.SUBMISSION_TUNNEL_SPAWN,
+					ItemTag.BAT_CAVERNS_SPAWN)) {
 
 		private static final long serialVersionUID = 1L;
 		
@@ -3390,6 +3582,41 @@ public class ItemType {
 		}
 	};
 	
+	public static AbstractItemType PREGNANCY_TEST = new AbstractItemType(100,
+			"an",
+			false,
+			"Arcane Pregnancy Tester",
+			"Arcane Pregnancy Testers",
+			"A small plastic wand, no longer than 15cm, which has a digital readout embedded in the middle."
+					+ " The small instruction leaflet that came with it says to 'swipe the tester over the target's stomach to find out who the father is!'",
+			"pregnancy_test",
+			Colour.CLOTHING_WHITE,
+			Colour.GENERIC_ARCANE,
+			null,
+			Rarity.COMMON,
+			null,
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.PREGNANCY_TEST)),
+			Util.newArrayListOfValues(
+					ItemTag.DOMINION_ALLEYWAY_SPAWN,
+					ItemTag.SUBMISSION_TUNNEL_SPAWN)) {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getUseName() {
+			return "use";
+		}
+		
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return getGenericUseDescription(user, target,
+					"You swipe the pregnancy tester over your stomach, waiting until you hear it beep before bringing it up to take a look at the readout.",
+					"You swipe the pregnancy tester over [npc.name]'s stomach, waiting until you hear it beep before bringing it up to take a look at the readout.",
+					"[npc.Name] swipes the pregnancy tester over [npc.her] stomach, waiting until [npc.she] hears it beep before bringing it up to take a look at the readout.",
+					"[npc.Name] swipes the pregnancy tester over your stomach, waiting until [npc.she] hears it beep before bringing it up to take a look at the readout.");
+		}
+	};
+	
 	public static AbstractItemType MOTHERS_MILK = new AbstractItemType(100,
 			"a bottle of",
 			false,
@@ -3426,7 +3653,59 @@ public class ItemType {
 		}
 	};
 	
-	public static AbstractItemType BOOK_CAT_MORPH = new AbstractItemType(250,
+	private static AbstractItemType createBookItem(int value,
+			String determiner,
+			boolean plural,
+			String name,
+			String namePlural,
+			String description,
+			String pathName,
+			Colour colourPrimary,
+			Colour colourSecondary,
+			Colour colourTertiary,
+			Rarity rarity,
+			TFEssence relatedEssence,
+			List<ItemEffect> effects,
+			List<ItemTag> itemTags) { 
+		return new AbstractItemType(value,
+				determiner,
+				plural,
+				name,
+				namePlural,
+				description,
+				pathName,
+				colourPrimary,
+				colourSecondary,
+				colourTertiary,
+				rarity,
+				relatedEssence,
+				effects,
+				itemTags) {
+
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public boolean isConsumedOnUse() {
+				return false;
+			}
+			
+			@Override
+			public String getUseName() {
+				return "read";
+			}
+			
+			@Override
+			public String getUseDescription(GameCharacter user, GameCharacter target) {
+				return getGenericUseDescription(user, target,
+						"Opening the book, you read its contents...",
+						"Opening the book, you force [npc.name] to read its contents...",
+						"[npc.Name] produces a book, titled '"+name+"', which [npc.she] then starts to read...",
+						"[npc.Name] produces a book, titled '"+name+"', which [npc.she] then forces you to read...");
+			}
+		};
+	}
+	
+	public static AbstractItemType BOOK_CAT_MORPH = createBookItem(250,
 			null,
 			false,
 			"Curious Kitties",
@@ -3439,32 +3718,10 @@ public class ItemType {
 			Rarity.LEGENDARY,
 			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_CAT_MORPH)),
-			Util.newArrayListOfValues(ItemTag.BOOK)) {
-
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public boolean isConsumedOnUse() {
-			return false;
-		}
-		
-		@Override
-		public String getUseName() {
-			return "read";
-		}
-		
-		@Override
-		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getGenericUseDescription(user, target,
-					"Opening the book, you read its contents...",
-					"Opening the book, you force [npc.name] to read its contents...",
-					"[npc.Name] produces a book, titled 'Curious Kitties', which [npc.she] then starts to read...",
-					"[npc.Name] produces a book, titled 'Curious Kitties', which [npc.she] then forces you to read...");
-		}
-	};
+			Util.newArrayListOfValues(ItemTag.BOOK));
 	
 
-	public static AbstractItemType BOOK_COW_MORPH = new AbstractItemType(250,
+	public static AbstractItemType BOOK_COW_MORPH = createBookItem(250,
 			null,
 			false,
 			"Milking Cows",
@@ -3477,32 +3734,10 @@ public class ItemType {
 			Rarity.LEGENDARY,
 			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_COW_MORPH)),
-			Util.newArrayListOfValues(ItemTag.BOOK)) {
-
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public boolean isConsumedOnUse() {
-			return false;
-		}
-		
-		@Override
-		public String getUseName() {
-			return "read";
-		}
-		
-		@Override
-		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getGenericUseDescription(user, target,
-					"Opening the book, you read its contents...",
-					"Opening the book, you force [npc.name] to read its contents...",
-					"[npc.Name] produces a book, titled 'Milking Cows', which [npc.she] then starts to read...",
-					"[npc.Name] produces a book, titled 'Milking Cows', which [npc.she] then forces you to read...");
-		}
-	};
+			Util.newArrayListOfValues(ItemTag.BOOK));
 	
 
-	public static AbstractItemType BOOK_DEMON = new AbstractItemType(250,
+	public static AbstractItemType BOOK_DEMON = createBookItem(250,
 			null,
 			false,
 			"Demonic Origins",
@@ -3515,31 +3750,9 @@ public class ItemType {
 			Rarity.LEGENDARY,
 			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_DEMON)),
-			Util.newArrayListOfValues(ItemTag.BOOK)) {
-
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public boolean isConsumedOnUse() {
-			return false;
-		}
-		
-		@Override
-		public String getUseName() {
-			return "read";
-		}
-		
-		@Override
-		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getGenericUseDescription(user, target,
-					"Opening the book, you read its contents...",
-					"Opening the book, you force [npc.name] to read its contents...",
-					"[npc.Name] produces a book, titled 'Demonic Origins', which [npc.she] then starts to read...",
-					"[npc.Name] produces a book, titled 'Demonic Origins', which [npc.she] then forces you to read...");
-		}
-	};
+			Util.newArrayListOfValues(ItemTag.BOOK));
 	
-	public static AbstractItemType BOOK_IMP = new AbstractItemType(250,
+	public static AbstractItemType BOOK_IMP = createBookItem(250,
 			null,
 			false,
 			"Impish Fiends",
@@ -3552,31 +3765,9 @@ public class ItemType {
 			Rarity.LEGENDARY,
 			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_IMP)),
-			Util.newArrayListOfValues(ItemTag.BOOK)) {
-
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public boolean isConsumedOnUse() {
-			return false;
-		}
-		
-		@Override
-		public String getUseName() {
-			return "read";
-		}
-		
-		@Override
-		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getGenericUseDescription(user, target,
-					"Opening the book, you read its contents...",
-					"Opening the book, you force [npc.name] to read its contents...",
-					"[npc.Name] produces a book, titled 'Impish Fiends', which [npc.she] then starts to read...",
-					"[npc.Name] produces a book, titled 'Impish Fiends', which [npc.she] then forces you to read...");
-		}
-	};
+			Util.newArrayListOfValues(ItemTag.BOOK));
 	
-	public static AbstractItemType BOOK_DOG_MORPH = new AbstractItemType(250,
+	public static AbstractItemType BOOK_DOG_MORPH = createBookItem(250,
 			null,
 			false,
 			"Canine Culture",
@@ -3589,31 +3780,9 @@ public class ItemType {
 			Rarity.LEGENDARY,
 			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_DOG_MORPH)),
-			Util.newArrayListOfValues(ItemTag.BOOK)) {
-
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public boolean isConsumedOnUse() {
-			return false;
-		}
-		
-		@Override
-		public String getUseName() {
-			return "read";
-		}
-		
-		@Override
-		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getGenericUseDescription(user, target,
-					"Opening the book, you read its contents...",
-					"Opening the book, you force [npc.name] to read its contents...",
-					"[npc.Name] produces a book, titled 'Canine Culture', which [npc.she] then starts to read...",
-					"[npc.Name] produces a book, titled 'Canine Culture', which [npc.she] then forces you to read...");
-		}
-	};
+			Util.newArrayListOfValues(ItemTag.BOOK));
 	
-	public static AbstractItemType BOOK_ALLIGATOR_MORPH = new AbstractItemType(250,
+	public static AbstractItemType BOOK_ALLIGATOR_MORPH = createBookItem(250,
 			null,
 			false,
 			"Rasselin' Gators",
@@ -3626,8 +3795,23 @@ public class ItemType {
 			Rarity.LEGENDARY,
 			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_ALLIGATOR_MORPH)),
+			Util.newArrayListOfValues(ItemTag.BOOK));
+
+	public static AbstractItemType BOOK_FOX_MORPH = new AbstractItemType(250,
+			null,
+			false,
+			"Skulking Vulpines",
+			"Skulking Vulpines",
+			"A book about fox-morphs and their culture.",
+			"book_race_fox_morph",
+			Colour.RACE_FOX_MORPH,
+			null,
+			null,
+			Rarity.LEGENDARY,
+			null,
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_FOX_MORPH)),
 			Util.newArrayListOfValues(ItemTag.BOOK)) {
-		
+
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -3645,12 +3829,12 @@ public class ItemType {
 			return getGenericUseDescription(user, target,
 					"Opening the book, you read its contents...",
 					"Opening the book, you force [npc.name] to read its contents...",
-					"[npc.Name] produces a book, titled 'Rasselin' Gators', which [npc.she] then starts to read...",
-					"[npc.Name] produces a book, titled 'Rasselin' Gators', which [npc.she] then forces you to read...");
+					"[npc.Name] produces a book, titled 'Skulking Vulpines', which [npc.she] then starts to read...",
+					"[npc.Name] produces a book, titled 'Skulking Vulpines', which [npc.she] then forces you to read...");
 		}
 	};
 	
-	public static AbstractItemType BOOK_HARPY = new AbstractItemType(250,
+	public static AbstractItemType BOOK_HARPY = createBookItem(250,
 			null,
 			false,
 			"All About Harpies",
@@ -3663,31 +3847,9 @@ public class ItemType {
 			Rarity.LEGENDARY,
 			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_HARPY)),
-			Util.newArrayListOfValues(ItemTag.BOOK)) {
-		
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public boolean isConsumedOnUse() {
-			return false;
-		}
-		
-		@Override
-		public String getUseName() {
-			return "read";
-		}
-		
-		@Override
-		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getGenericUseDescription(user, target,
-					"Opening the book, you read its contents...",
-					"Opening the book, you force [npc.name] to read its contents...",
-					"[npc.Name] produces a book, titled 'All About Harpies', which [npc.she] then starts to read...",
-					"[npc.Name] produces a book, titled 'All About Harpies', which [npc.she] then forces you to read...");
-		}
-	};
+			Util.newArrayListOfValues(ItemTag.BOOK));
 	
-	public static AbstractItemType BOOK_HORSE_MORPH = new AbstractItemType(250,
+	public static AbstractItemType BOOK_HORSE_MORPH = createBookItem(250,
 			null,
 			false,
 			"Equine Encyclopedia",
@@ -3700,31 +3862,9 @@ public class ItemType {
 			Rarity.LEGENDARY,
 			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_HORSE_MORPH)),
-			Util.newArrayListOfValues(ItemTag.BOOK)) {
-		
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public boolean isConsumedOnUse() {
-			return false;
-		}
-		
-		@Override
-		public String getUseName() {
-			return "read";
-		}
-		
-		@Override
-		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getGenericUseDescription(user, target,
-					"Opening the book, you read its contents...",
-					"Opening the book, you force [npc.name] to read its contents...",
-					"[npc.Name] produces a book, titled 'Equine Encyclopedia', which [npc.she] then starts to read...",
-					"[npc.Name] produces a book, titled 'Equine Encyclopedia', which [npc.she] then forces you to read...");
-		}
-	};
+			Util.newArrayListOfValues(ItemTag.BOOK));
 	
-	public static AbstractItemType BOOK_REINDEER_MORPH = new AbstractItemType(250,
+	public static AbstractItemType BOOK_REINDEER_MORPH = createBookItem(250,
 			null,
 			false,
 			"The Eight",
@@ -3737,31 +3877,9 @@ public class ItemType {
 			Rarity.LEGENDARY,
 			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_REINDEER_MORPH)),
-			Util.newArrayListOfValues(ItemTag.BOOK)) {
-		
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public boolean isConsumedOnUse() {
-			return false;
-		}
-		
-		@Override
-		public String getUseName() {
-			return "read";
-		}
-		
-		@Override
-		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getGenericUseDescription(user, target,
-					"Opening the book, you read its contents...",
-					"Opening the book, you force [npc.name] to read its contents...",
-					"[npc.Name] produces a book, titled 'The Eight', which [npc.she] then starts to read...",
-					"[npc.Name] produces a book, titled 'The Eight', which [npc.she] then forces you to read...");
-		}
-	};
+			Util.newArrayListOfValues(ItemTag.BOOK));
 	
-	public static AbstractItemType BOOK_HUMAN = new AbstractItemType(250,
+	public static AbstractItemType BOOK_HUMAN = createBookItem(250,
 			null,
 			false,
 			"Concerning Humans",
@@ -3774,31 +3892,9 @@ public class ItemType {
 			Rarity.LEGENDARY,
 			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_HUMAN)),
-			Util.newArrayListOfValues(ItemTag.BOOK)) {
-
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public boolean isConsumedOnUse() {
-			return false;
-		}
-		
-		@Override
-		public String getUseName() {
-			return "read";
-		}
-		
-		@Override
-		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getGenericUseDescription(user, target,
-					"Opening the book, you read its contents...",
-					"Opening the book, you force [npc.name] to read its contents...",
-					"[npc.Name] produces a book, titled 'Concerning Humans', which [npc.she] then starts to read...",
-					"[npc.Name] produces a book, titled 'Concerning Humans', which [npc.she] then forces you to read...");
-		}
-	};
+			Util.newArrayListOfValues(ItemTag.BOOK));
 	
-	public static AbstractItemType BOOK_SQUIRREL_MORPH = new AbstractItemType(250,
+	public static AbstractItemType BOOK_SQUIRREL_MORPH = createBookItem(250,
 			null,
 			false,
 			"Chasing Squirrels",
@@ -3811,31 +3907,9 @@ public class ItemType {
 			Rarity.LEGENDARY,
 			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_SQUIRREL_MORPH)),
-			Util.newArrayListOfValues(ItemTag.BOOK)) {
-
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public boolean isConsumedOnUse() {
-			return false;
-		}
-		
-		@Override
-		public String getUseName() {
-			return "read";
-		}
-		
-		@Override
-		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getGenericUseDescription(user, target,
-					"Opening the book, you read its contents...",
-					"Opening the book, you force [npc.name] to read its contents...",
-					"[npc.Name] produces a book, titled 'Chasing Squirrels', which [npc.she] then starts to read...",
-					"[npc.Name] produces a book, titled 'Chasing Squirrels', which [npc.she] then forces you to read...");
-		}
-	};
+			Util.newArrayListOfValues(ItemTag.BOOK));
 	
-	public static AbstractItemType BOOK_RAT_MORPH = new AbstractItemType(250,
+	public static AbstractItemType BOOK_RAT_MORPH = createBookItem(250,
 			null,
 			false,
 			"Causing Mischief",
@@ -3848,31 +3922,9 @@ public class ItemType {
 			Rarity.LEGENDARY,
 			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_RAT_MORPH)),
-			Util.newArrayListOfValues(ItemTag.BOOK)) {
-
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public boolean isConsumedOnUse() {
-			return false;
-		}
-		
-		@Override
-		public String getUseName() {
-			return "read";
-		}
-		
-		@Override
-		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getGenericUseDescription(user, target,
-					"Opening the book, you read its contents...",
-					"Opening the book, you force [npc.name] to read its contents...",
-					"[npc.Name] produces a book, titled 'Causing Mischief', which [npc.she] then starts to read...",
-					"[npc.Name] produces a book, titled 'Causing Mischief', which [npc.she] then forces you to read...");
-		}
-	};
+			Util.newArrayListOfValues(ItemTag.BOOK));
 	
-	public static AbstractItemType BOOK_RABBIT_MORPH = new AbstractItemType(250,
+	public static AbstractItemType BOOK_RABBIT_MORPH = createBookItem(250,
 			null,
 			false,
 			"Bunny Litters",
@@ -3885,31 +3937,9 @@ public class ItemType {
 			Rarity.LEGENDARY,
 			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_RABBIT_MORPH)),
-			Util.newArrayListOfValues(ItemTag.BOOK)) {
-
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public boolean isConsumedOnUse() {
-			return false;
-		}
-		
-		@Override
-		public String getUseName() {
-			return "read";
-		}
-		
-		@Override
-		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getGenericUseDescription(user, target,
-					"Opening the book, you read its contents...",
-					"Opening the book, you force [npc.name] to read its contents...",
-					"[npc.Name] produces a book, titled 'Bunny Litters', which [npc.she] then starts to read...",
-					"[npc.Name] produces a book, titled 'Bunny Litters', which [npc.she] then forces you to read...");
-		}
-	};
+			Util.newArrayListOfValues(ItemTag.BOOK));
 	
-	public static AbstractItemType BOOK_BAT_MORPH = new AbstractItemType(250,
+	public static AbstractItemType BOOK_BAT_MORPH = createBookItem(250,
 			null,
 			false,
 			"Flying Foxes",
@@ -3922,31 +3952,9 @@ public class ItemType {
 			Rarity.LEGENDARY,
 			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_BAT_MORPH)),
-			Util.newArrayListOfValues(ItemTag.BOOK)) {
-
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public boolean isConsumedOnUse() {
-			return false;
-		}
-		
-		@Override
-		public String getUseName() {
-			return "read";
-		}
-		
-		@Override
-		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getGenericUseDescription(user, target,
-					"Opening the book, you read its contents...",
-					"Opening the book, you force [npc.name] to read its contents...",
-					"[npc.Name] produces a book, titled 'Flying Foxes', which [npc.she] then starts to read...",
-					"[npc.Name] produces a book, titled 'Flying Foxes', which [npc.she] then forces you to read...");
-		}
-	};
+			Util.newArrayListOfValues(ItemTag.BOOK));
 	
-	public static AbstractItemType BOOK_WOLF_MORPH = new AbstractItemType(250,
+	public static AbstractItemType BOOK_WOLF_MORPH = createBookItem(250,
 			null,
 			false,
 			"Prowling Lupines",
@@ -3959,31 +3967,9 @@ public class ItemType {
 			Rarity.LEGENDARY,
 			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_WOLF_MORPH)),
-			Util.newArrayListOfValues(ItemTag.BOOK)) {
-
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public boolean isConsumedOnUse() {
-			return false;
-		}
-		
-		@Override
-		public String getUseName() {
-			return "read";
-		}
-		
-		@Override
-		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getGenericUseDescription(user, target,
-					"Opening the book, you read its contents...",
-					"Opening the book, you force [npc.name] to read its contents...",
-					"[npc.Name] produces a book, titled 'Prowling Lupines', which [npc.she] then starts to read...",
-					"[npc.Name] produces a book, titled 'Prowling Lupines', which [npc.she] then forces you to read...");
-		}
-	};
+			Util.newArrayListOfValues(ItemTag.BOOK));
 	
-	public static AbstractItemType BOOK_SLIME = new AbstractItemType(250,
+	public static AbstractItemType BOOK_SLIME = createBookItem(250,
 			null,
 			false,
 			"Slimy Fun",
@@ -3996,29 +3982,7 @@ public class ItemType {
 			Rarity.LEGENDARY,
 			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOOK_READ_SLIME)),
-			Util.newArrayListOfValues(ItemTag.BOOK)) {
-
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public boolean isConsumedOnUse() {
-			return false;
-		}
-		
-		@Override
-		public String getUseName() {
-			return "read";
-		}
-		
-		@Override
-		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getGenericUseDescription(user, target,
-					"Opening the book, you read its contents...",
-					"Opening the book, you force [npc.name] to read its contents...",
-					"[npc.Name] produces a book, titled 'Slimy Fun', which [npc.she] then starts to read...",
-					"[npc.Name] produces a book, titled 'Slimy Fun', which [npc.she] then forces you to read...");
-		}
-	};
+			Util.newArrayListOfValues(ItemTag.BOOK));
 	
 	public static AbstractItemType PRESENT = new AbstractItemType(250,
 			"a",
@@ -4649,17 +4613,17 @@ public class ItemType {
 	public static List<AbstractItemType> allItems = new ArrayList<>();
 	
 	/**
-	 * If you're looking for spell books, their id is:</br>
-	 * SPELL_BOOK_"+spell.toString()</br>
-	 * If you're looking for spell scrolls, their id is:</br>
+	 * If you're looking for spell books, their id is:<br/>
+	 * SPELL_BOOK_"+spell.toString()<br/>
+	 * If you're looking for spell scrolls, their id is:<br/>
 	 * "SPELL_SCROLL_"+spellSchool.toString()
 	 */
 	public static Map<AbstractItemType, String> itemToIdMap = new HashMap<>();
 
 	/**
-	 * If you're looking for spell books, their id is:</br>
-	 * SPELL_BOOK_"+spell.toString()</br>
-	 * If you're looking for spell scrolls, their id is:</br>
+	 * If you're looking for spell books, their id is:<br/>
+	 * SPELL_BOOK_"+spell.toString()<br/>
+	 * If you're looking for spell scrolls, their id is:<br/>
 	 * "SPELL_SCROLL_"+spellSchool.toString()
 	 */
 	public static Map<String, AbstractItemType> idToItemMap = new HashMap<>();
@@ -4811,8 +4775,8 @@ public class ItemType {
 									+ "</p>"
 									+ "<p style='text-align:center;'>"
 										+ "You learn the spell <b style='color:"+s.getSpellSchool().getColour().toWebHexString()+";'>"+s.getName()+"</b>!"
-										+ "</br><i>Having served its purpose, the spell book disappears in a flash of purple light!</i>"
-										+ "</br>[style.italicsExcellent(Spell book added to Lilaya's library!)]"
+										+ "<br/><i>Having served its purpose, the spell book disappears in a flash of purple light!</i>"
+										+ "<br/>[style.italicsExcellent(Spell book added to Lilaya's library!)]"
 									+ "</p>"
 									+raceKnowledgeGained;
 							
@@ -4830,7 +4794,7 @@ public class ItemType {
 								+ "</p>"
 								+ "<p style='text-align:center;'>"
 									+ UtilText.parse(target, "[npc.Name] learns the spell <b style='color:"+s.getSpellSchool().getColour().toWebHexString()+";'>"+s.getName()+"</b>!")
-									+ "</br><i>Having served its purpose, the spell book disappears in a flash of purple light!</i>"
+									+ "<br/><i>Having served its purpose, the spell book disappears in a flash of purple light!</i>"
 								+ "</p>";
 						}
 					}
@@ -4975,7 +4939,7 @@ public class ItemType {
 						public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 							target.incrementSpellUpgradePoints(school, 1);
 							return "<p style='text-align:center;'>"
-										+ (target.isPlayer()?"You gain":UtilText.parse(target, "[npc.Name] gains"))+" an upgrade point for the spell school <b style='color:"+school.getColour().toWebHexString()+";'>"+school.getName()+"</b>!</br>"
+										+ (target.isPlayer()?"You gain":UtilText.parse(target, "[npc.Name] gains"))+" an upgrade point for the spell school <b style='color:"+school.getColour().toWebHexString()+";'>"+school.getName()+"</b>!<br/>"
 										+ "<i>Having served its purpose, the scroll disappears in a flash of purple light!</i>"
 									+ "</p>";
 						}

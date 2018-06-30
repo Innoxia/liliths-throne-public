@@ -4,16 +4,19 @@ import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
-import com.lilithsthrone.game.sex.OrificeType;
-import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
-import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
+import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
+import com.lilithsthrone.game.sex.sexActions.SexActionLimitation;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.79
@@ -23,13 +26,16 @@ import com.lilithsthrone.main.Main;
 public class PlayerTongueVagina {
 	
 	public static final SexAction PARTNER_FORCE_CLIT = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TONGUE,
-			OrificeType.VAGINA,
-			SexParticipantType.CATCHER) {
+			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -95,13 +101,16 @@ public class PlayerTongueVagina {
 	};
 	
 	public static final SexAction PLAYER_SUCK_CLIT = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TONGUE,
-			OrificeType.VAGINA,
-			SexParticipantType.PITCHER) {
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Suck clit";
@@ -207,13 +216,16 @@ public class PlayerTongueVagina {
 	};
 	
 	public static final SexAction PLAYER_HERM_FUN = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TONGUE,
-			OrificeType.VAGINA,
-			SexParticipantType.PITCHER) {
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			if(Sex.getActivePartner().isFeminine()) {
@@ -231,7 +243,7 @@ public class PlayerTongueVagina {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return Sex.getSexPace(Main.game.getPlayer())!=SexPace.SUB_RESISTING && Sex.getActivePartner().hasPenis() && Sex.getActivePartner().isCoverableAreaExposed(CoverableArea.PENIS)
-					&& Sex.isPenetrationTypeFree(Sex.getActivePartner(), PenetrationType.PENIS);
+					&& Sex.isPenetrationTypeFree(Sex.getActivePartner(), SexAreaPenetration.PENIS);
 		}
 
 		@Override
@@ -324,13 +336,16 @@ public class PlayerTongueVagina {
 	};
 	
 	public static final SexAction PLAYER_CUNNILINGUS_START = new SexAction(
-			SexActionType.PLAYER_PENETRATION,
+			SexActionType.START_ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TONGUE,
-			OrificeType.VAGINA,
-			SexParticipantType.PITCHER) {
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Eat [npc.herHim] out";
@@ -445,15 +460,17 @@ public class PlayerTongueVagina {
 	};
 	
 	public static final SexAction PLAYER_CUNNILINGUS_DOM_GENTLE = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TONGUE,
-			OrificeType.VAGINA,
-			SexParticipantType.PITCHER,
-			SexPace.DOM_GENTLE,
-			null) {
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA)),
+			SexParticipantType.NORMAL,
+			SexPace.DOM_GENTLE) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -508,15 +525,17 @@ public class PlayerTongueVagina {
 	};
 	
 	public static final SexAction PLAYER_CUNNILINGUS_DOM_NORMAL = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TONGUE,
-			OrificeType.VAGINA,
-			SexParticipantType.PITCHER,
-			SexPace.DOM_NORMAL,
-			null) {
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA)),
+			SexParticipantType.NORMAL,
+			SexPace.DOM_NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -571,15 +590,17 @@ public class PlayerTongueVagina {
 	};
 	
 	public static final SexAction PLAYER_CUNNILINGUS_DOM_ROUGH = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.THREE_DIRTY,
-			PenetrationType.TONGUE,
-			OrificeType.VAGINA,
-			SexParticipantType.PITCHER,
-			SexPace.DOM_ROUGH,
-			null) {
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA)),
+			SexParticipantType.NORMAL,
+			SexPace.DOM_ROUGH) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -634,15 +655,17 @@ public class PlayerTongueVagina {
 	};
 	
 	public static final SexAction PLAYER_CUNNILINGUS_SUB_RESISTING = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.TONGUE,
-			OrificeType.VAGINA,
-			SexParticipantType.PITCHER,
-			SexPace.SUB_RESISTING,
-			null) {
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA)),
+			SexParticipantType.NORMAL,
+			SexPace.SUB_RESISTING) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -694,15 +717,17 @@ public class PlayerTongueVagina {
 	};
 	
 	public static final SexAction PLAYER_CUNNILINGUS_SUB_NORMAL = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TONGUE,
-			OrificeType.VAGINA,
-			SexParticipantType.PITCHER,
-			SexPace.SUB_NORMAL,
-			null) {
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA)),
+			SexParticipantType.NORMAL,
+			SexPace.SUB_NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -754,15 +779,17 @@ public class PlayerTongueVagina {
 	};
 	
 	public static final SexAction PLAYER_CUNNILINGUS_SUB_EAGER = new SexAction(
-			SexActionType.PLAYER,
+			SexActionType.ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TONGUE,
-			OrificeType.VAGINA,
-			SexParticipantType.PITCHER,
-			SexPace.SUB_EAGER,
-			null) {
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA)),
+			SexParticipantType.NORMAL,
+			SexPace.SUB_EAGER) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -829,13 +856,16 @@ public class PlayerTongueVagina {
 	};
 	
 	public static final SexAction PLAYER_CUNNILINGUS_STOP = new SexAction(
-			SexActionType.PLAYER_STOP_PENETRATION,
+			SexActionType.STOP_ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.TONGUE,
-			OrificeType.VAGINA,
-			SexParticipantType.PITCHER) {
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -892,13 +922,16 @@ public class PlayerTongueVagina {
 	// Partner actions:
 	
 	public static final SexAction PARTNER_CUNNILINGUS_START = new SexAction(
-			SexActionType.PARTNER_PENETRATION,
+			SexActionType.START_ONGOING,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TONGUE,
-			OrificeType.VAGINA,
-			SexParticipantType.CATCHER) {
+			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -1053,15 +1086,17 @@ public class PlayerTongueVagina {
 	};
 	
 	public static final SexAction PARTNER_RECEIVING_CUNNILINGUS_DOM_GENTLE = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TONGUE,
-			OrificeType.VAGINA,
-			SexParticipantType.CATCHER,
-			null,
+			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE)),
+			SexParticipantType.NORMAL,
 			SexPace.DOM_GENTLE) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -1112,15 +1147,17 @@ public class PlayerTongueVagina {
 	};
 	
 	public static final SexAction PARTNER_RECEIVING_CUNNILINGUS_DOM_NORMAL = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TONGUE,
-			OrificeType.VAGINA,
-			SexParticipantType.CATCHER,
-			null,
+			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE)),
+			SexParticipantType.NORMAL,
 			SexPace.DOM_NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -1171,15 +1208,17 @@ public class PlayerTongueVagina {
 	};
 	
 	public static final SexAction PARTNER_RECEIVING_CUNNILINGUS_DOM_ROUGH = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TONGUE,
-			OrificeType.VAGINA,
-			SexParticipantType.CATCHER,
-			null,
+			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE)),
+			SexParticipantType.NORMAL,
 			SexPace.DOM_ROUGH) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -1292,15 +1331,17 @@ public class PlayerTongueVagina {
 	};
 	
 	public static final SexAction PARTNER_RECEIVING_CUNNILINGUS_SUB_NORMAL = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TONGUE,
-			OrificeType.VAGINA,
-			SexParticipantType.CATCHER,
-			null,
+			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE)),
+			SexParticipantType.NORMAL,
 			SexPace.SUB_NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -1352,15 +1393,17 @@ public class PlayerTongueVagina {
 	};
 	
 	public static final SexAction PARTNER_RECEIVING_CUNNILINGUS_SUB_EAGER = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TONGUE,
-			OrificeType.VAGINA,
-			SexParticipantType.CATCHER,
-			null,
+			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE)),
+			SexParticipantType.NORMAL,
 			SexPace.SUB_EAGER) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -1414,15 +1457,17 @@ public class PlayerTongueVagina {
 	};
 	
 	public static final SexAction PARTNER_RECEIVING_CUNNILINGUS_SUB_RESIST = new SexAction(
-			SexActionType.PARTNER,
+			SexActionType.ONGOING,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.TONGUE,
-			OrificeType.VAGINA,
-			SexParticipantType.CATCHER,
-			null,
+			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE)),
+			SexParticipantType.NORMAL,
 			SexPace.SUB_RESISTING) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 		@Override
 		public String getActionTitle() {
 			return "Resist giving cunnilingus";
@@ -1476,13 +1521,16 @@ public class PlayerTongueVagina {
 	};
 	
 	public static final SexAction PARTNER_CUNNILINGUS_STOP = new SexAction(
-			SexActionType.PARTNER_STOP_PENETRATION,
+			SexActionType.STOP_ONGOING,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.TONGUE,
-			OrificeType.VAGINA,
-			SexParticipantType.CATCHER) {
+			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.NPC_ONLY;
+		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -1539,4 +1587,208 @@ public class PlayerTongueVagina {
 			return UtilText.nodeContentSB.toString();
 		}
 	};
+	
+	
+	
+	
+	
+	
+	// Mound:
+	
+	
+	
+	
+	
+	
+
+	public static final SexAction PLAYER_MOUND_SNOG = new SexAction(
+			SexActionType.REQUIRES_NO_PENETRATION_AND_EXPOSED,
+			ArousalIncrease.ONE_MINIMUM,
+			ArousalIncrease.THREE_NORMAL,
+			CorruptionLevel.ONE_VANILLA,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA)),
+			SexParticipantType.NORMAL,
+			SexPace.DOM_ROUGH) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
+		@Override
+		public String getActionTitle() {
+			return "Snog mound";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "Roughly snog [npc.name]'s genderless crotch.";
+		}
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return !Sex.getActivePartner().hasVagina() && !Sex.getActivePartner().hasPenis();
+		}
+
+		@Override
+		public String getDescription() {
+			return UtilText.returnStringAtRandom(
+						"You roughly grind your [pc.lips+] down against [npc.name]'s doll-like mound, forcefully snogging and licking at [npc.her] sensitive crotch as [npc.she] [npc.moansVerb+] beneath you.",
+						"[npc.Name] lets out [npc.a_moan+] as you drop your head between [npc.her] [npc.legs], before starting to roughly snog [npc.her] doll-like mound.",
+						"Dropping your head down into [npc.name]'s crotch, you roughly grind your mouth against [npc.her] genderless crotch, snogging and licking [npc.her] sensitive mound as [npc.she] [npc.moansVerb+] beneath you.",
+						"Pushing your [pc.face] down into [npc.name]'s groin, you start grinding your [pc.lips+] against [npc.her] genderless mound,"
+								+ " roughly snogging and licking [npc.her] sensitive crotch as [npc.she] [npc.moansVerb+] beneath you.");
+		}
+	};
+	
+	public static final SexAction PLAYER_MOUND_KISSING = new SexAction(
+			SexActionType.REQUIRES_NO_PENETRATION_AND_EXPOSED,
+			ArousalIncrease.ONE_MINIMUM,
+			ArousalIncrease.THREE_NORMAL,
+			CorruptionLevel.ONE_VANILLA,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA)),
+			SexParticipantType.NORMAL,
+			SexPace.DOM_NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
+		@Override
+		public String getActionTitle() {
+			return "Kiss mound";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "Passionately kiss and lick [npc.name]'s genderless mound.";
+		}
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return !Sex.getActivePartner().hasVagina() && !Sex.getActivePartner().hasPenis();
+		}
+
+		@Override
+		public String getDescription() {
+			return UtilText.returnStringAtRandom(
+					"You eagerly press your [pc.lips+] down against [npc.name]'s doll-like mound, passionately snogging and licking at [npc.her] sensitive crotch as [npc.she] [npc.moansVerb+] beneath you.",
+					"[npc.Name] lets out [npc.a_moan+] as you drop your head between [npc.her] [npc.legs], before starting to passionately snog [npc.her] doll-like mound.",
+					"Dropping your head down into [npc.name]'s crotch, you passionately press your mouth against [npc.her] genderless crotch, snogging and licking [npc.her] sensitive mound as [npc.she] [npc.moansVerb+] beneath you.",
+					"Pushing your [pc.face] down into [npc.name]'s groin, you start pressing your [pc.lips+] against [npc.her] genderless mound,"
+							+ " eagerly snogging and licking [npc.her] sensitive crotch as [npc.she] [npc.moansVerb+] beneath you.");
+		}
+	};
+	
+	public static final SexAction PLAYER_GENTLE_MOUND_KISSING = new SexAction(
+			SexActionType.REQUIRES_NO_PENETRATION_AND_EXPOSED,
+			ArousalIncrease.ONE_MINIMUM,
+			ArousalIncrease.THREE_NORMAL,
+			CorruptionLevel.ONE_VANILLA,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA)),
+			SexParticipantType.NORMAL,
+			SexPace.DOM_GENTLE) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
+		@Override
+		public String getActionTitle() {
+			return "Kiss mound";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "Gently kiss and lick [npc.name]'s genderless mound.";
+		}
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return !Sex.getActivePartner().hasVagina() && !Sex.getActivePartner().hasPenis();
+		}
+
+		@Override
+		public String getDescription() {
+			return UtilText.returnStringAtRandom(
+					"You gently press your [pc.lips+] down against [npc.name]'s doll-like mound, planting delicate kisses on [npc.her] sensitive crotch as [npc.she] [npc.moansVerb+] beneath you.",
+					"[npc.Name] lets out [npc.a_moan+] as you drop your head between [npc.her] [npc.legs], before starting to gently kiss and lick [npc.her] doll-like mound.",
+					"Dropping your head down into [npc.name]'s crotch, you press your mouth against [npc.her] genderless crotch, planting a series of gentle kisses on [npc.her] sensitive mound as [npc.she] [npc.moansVerb+] beneath you.",
+					"Pushing your [pc.face] down into [npc.name]'s groin, you start pressing your [pc.lips+] against [npc.her] genderless mound,"
+							+ " gently kissing and licking [npc.her] sensitive crotch as [npc.she] [npc.moansVerb+] beneath you.");
+		}
+	};
+	
+
+	public static final SexAction PLAYER_MOUND_SNOG_SUB_EAGER = new SexAction(
+			SexActionType.REQUIRES_NO_PENETRATION_AND_EXPOSED,
+			ArousalIncrease.ONE_MINIMUM,
+			ArousalIncrease.THREE_NORMAL,
+			CorruptionLevel.ONE_VANILLA,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA)),
+			SexParticipantType.NORMAL,
+			SexPace.SUB_EAGER) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
+		@Override
+		public String getActionTitle() {
+			return "Snog mound";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "Passionately snog [npc.name]'s genderless crotch.";
+		}
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return !Sex.getActivePartner().hasVagina() && !Sex.getActivePartner().hasPenis();
+		}
+
+		@Override
+		public String getDescription() {
+			return UtilText.returnStringAtRandom(
+						"You eagerly press your [pc.lips+] up against [npc.name]'s doll-like mound, passionately snogging and licking at [npc.her] sensitive crotch as [npc.she] squeals and moans above you.",
+						"[npc.Name] lets out [npc.a_moan+] as you start passionately snogging [npc.her] doll-like mound.",
+						"Pushing your head up, you eagerly press your mouth against [npc.name]'s genderless crotch, snogging and licking [npc.her] sensitive mound as [npc.she] squeals and cries out in pleasure.",
+						"Reaching around and grabbing [npc.name]'s [npc.ass+], you pull [npc.herHim] down onto your [pc.face+],"
+								+ " grinding your [pc.lips] against [npc.her] genderless mound as you enthusiastically snog and lick at [npc.her] sensitive crotch.");
+		}
+	};
+	
+	public static final SexAction PLAYER_MOUND_KISSING_SUB_NORMAL = new SexAction(
+			SexActionType.REQUIRES_NO_PENETRATION_AND_EXPOSED,
+			ArousalIncrease.ONE_MINIMUM,
+			ArousalIncrease.THREE_NORMAL,
+			CorruptionLevel.ONE_VANILLA,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA)),
+			SexParticipantType.NORMAL,
+			SexPace.SUB_NORMAL) {
+		@Override
+		public SexActionLimitation getLimitation() {
+			return SexActionLimitation.PLAYER_ONLY;
+		}
+		@Override
+		public String getActionTitle() {
+			return "Kiss mound";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "Gently kiss and lick [npc.name]'s doll-like crotch.";
+		}
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return !Sex.getActivePartner().hasVagina() && !Sex.getActivePartner().hasPenis();
+		}
+
+		@Override
+		public String getDescription() {
+			return UtilText.returnStringAtRandom(
+						"You plant a series of delicate kisses on [npc.name]'s doll-like mound, causing [npc.herHim] to let out [npc.a_moan+] and push [npc.her] [npc.hips] down against your [pc.face+].",
+						"[npc.Name] lets out [npc.a_moan+] as you gently kiss and lick [npc.her] doll-like crotch.",
+						"With delicate care, you plant a series of gentle kisses on [npc.name]'s genderless mound, causing [npc.herHim] to let out [npc.a_moan+].",
+						"You gently kiss and lick at [npc.name]'s genderless crotch, causing [npc.herHim] to let out [npc.a_moan+].");
+		}
+	};
+	
 }

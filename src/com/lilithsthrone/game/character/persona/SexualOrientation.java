@@ -1,35 +1,19 @@
 package com.lilithsthrone.game.character.persona;
 
-import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.utils.Colour;
 
 /**
  * @since 0.1.79
- * @version 0.1.79
+ * @version 0.2.7
  * @author Innoxia
  */
 public enum SexualOrientation {
 
-	ANDROPHILIC("androphilic", Colour.MASCULINE) {
-		@Override
-		public StatusEffect getRelatedStatusEffect() {
-			return StatusEffect.AROUSAL_PERK_0;
-		}
-	},
+	ANDROPHILIC("androphilic", Colour.MASCULINE),
 
-	GYNEPHILIC("gynephilic",Colour.FEMININE) {
-		@Override
-		public StatusEffect getRelatedStatusEffect() {
-			return StatusEffect.AROUSAL_PERK_1;
-		}
-	},
+	GYNEPHILIC("gynephilic",Colour.FEMININE),
 
-	AMBIPHILIC("ambiphilic", Colour.ANDROGYNOUS) {
-		@Override
-		public StatusEffect getRelatedStatusEffect() {
-			return StatusEffect.AROUSAL_PERK_2;
-		}
-	};
+	AMBIPHILIC("ambiphilic", Colour.ANDROGYNOUS);
 	
 	private String name;
 	private Colour colour;
@@ -38,8 +22,6 @@ public enum SexualOrientation {
 		this.name = name;
 		this.colour = colour;
 	}
-	
-	public abstract StatusEffect getRelatedStatusEffect();
 
 	public String getName() {
 		return name;

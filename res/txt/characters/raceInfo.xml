@@ -2,7 +2,7 @@
 <dialogue>
 
 	<!-- HUMANS -->
-	
+
 	<htmlContent tag="HUMAN_BASIC"><![CDATA[
 	<p>
 		Humans are the least numerous of all the races.
@@ -26,9 +26,9 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<!-- ANGELS -->
-	
+
 	<htmlContent tag="ANGEL_BASIC"><![CDATA[
 	<p>
 		Angels look pretty much exactly how most people imagine them.
@@ -37,7 +37,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ANGEL_ADVANCED"><![CDATA[
 	<p>
 		Although they fit the stereotypical appearance of an angel, these ones certainly don't act like their traditional counterparts.
@@ -54,7 +54,7 @@
 	</htmlContent>
 
 	<!-- DEMONS -->
-	
+
 	<htmlContent tag="DEMON_BASIC"><![CDATA[
 	<p>
 		Not only are demons real, but they also conform to their stereotypical image.
@@ -63,7 +63,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="DEMON_ADVANCED"><![CDATA[
 	<p>
 		Demons are created in one of two ways.
@@ -80,9 +80,9 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<!-- IMPS -->
-	
+
 	<htmlContent tag="IMP_BASIC"><![CDATA[
 	<p>
 		Other than their diminutive height (with most individuals standing at around three feet tall), an imp's appearance is identical to that of a demon.
@@ -91,7 +91,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="IMP_ADVANCED"><![CDATA[
 	<p>
 		Just like demons, imps are immune to all racial transformations, and, while they're still affected by non-racial transformation potions, they lack the demon's ability to shape-shift their own bodies at will.
@@ -109,9 +109,9 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<!-- COW-MORPHS -->
-	
+
 	<htmlContent tag="COW_MORPH_BASIC"><![CDATA[
 	<p>
 		Although cow-morphs can often be found in Dominion, they're far more common and numerous out in the Foloi Fields, where their primary occupation is working in the many farms that litter the landscape.
@@ -119,7 +119,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="COW_MORPH_ADVANCED"><![CDATA[
 	<p>
 		Cow-girls are well known for having gigantic breasts and heavy lactation, and, due to this, are often the target of unwanted attention.
@@ -135,9 +135,9 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<!-- DOG-MORPHS -->
-	
+
 	<htmlContent tag="DOG_MORPH_BASIC"><![CDATA[
 	<p>
 		Dog-morphs are a very common race.
@@ -145,7 +145,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="DOG_MORPH_ADVANCED"><![CDATA[
 	<p>
 		Dog-morphs are typically highly excitable and incredibly sociable, which often causes them to approach strangers in an attempt to make new friends.
@@ -160,9 +160,9 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<!-- WOLF-MORPHS -->
-	
+
 	<htmlContent tag="WOLF_MORPH_BASIC"><![CDATA[
 	<p>
 		Wolf-morphs are a common anthropomorphic race that can be found almost anywhere.
@@ -170,7 +170,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WOLF_MORPH_ADVANCED"><![CDATA[
 	<p>
 		Unlike dog-morphs, wolf-morphs are extremely unpredictable, and although they sometimes share the same energetic mannerisms as dog-morphs, they often focus their energy on trying to assert their dominance.
@@ -186,9 +186,65 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
+	<!-- FOX-MORPHS -->
+
+	<htmlContent tag="FOX_MORPH_BASIC"><![CDATA[
+	<p>
+		Fox-morphs are a common anthropomorphic race, spread through both Dominion and the forested areas nearby.
+		 Fox-morphs are very cunning and mischievous, and love nothing more than playing practical jokes on others.
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="FOX_MORPH_ADVANCED"><![CDATA[
+	<p>
+		Due to their love for trickery, fox-morphs are believed to be insensitive to the feelings of others, but they see their own behavior as little more than a harmless prank.
+		 Despite this, there's little trust ever placed in the fox-morphs of Dominion.
+		 Often enough, some of them move out of the city, so they can live freely, and there exists some places in the nearby forests which are inhabited almost entirely by fox-morphs and related races.
+	</p>
+	<p>
+		Fox-morphs, like the other common races, get heavily affected by arcane storms.
+		 Their mischief then takes on a noticably more sexual bend, as they then try to have their way with others, sometimes forgoing all pretense of trickery in favor of force.
+	</p>
+	<p>
+		A fox-morph's offspring will be a mixture of fox-morphs and offspring of their partner's race.
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="FOX_ASCENDANT_BASIC"><![CDATA[
+	<p>
+		Youkos are a subspecies of fox-morphs, characterized by their greater command over magic.
+		 Most of the fox-morph's qualities remain within youko, but they revere a patron Lilin as a goddess.
+		 They have a strong mastery of illusion-based magic, which they use to play pranks on others.
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="FOX_ASCENDANT_ADVANCED"><![CDATA[
+	<p>
+		Emboldened by their demonic patron and the power that she affords, aggressive youkos are notably more dangerous than their mundane cousins.
+		 Of the youko individuals who cause mischief, their mischief also takes a more intricate and cruel bend, aided by their enhanced command over illusory arts.
+		 Due to this, there have been many attempts to force youkos out of Dominion, but due to their strong illusion magic, all efforts have so far been in vain.
+	</p>
+	<p>
+		Youkos can naturally acquire extra tails, topping out at a maximum of nine tails.
+		 Their tails are almost always an indication of their ability with illusion magic.
+	</p>
+	<p>
+		The youko race is mainly divided between two philosophies; the worship of their patron Lilin as a benevolent being, or as a trickster goddess.
+		 They know a large amount amount of magic, which is limited to illusion-based spells.
+	</p>
+	<p>
+		Malicious youkos will only rarely seek to breed with other races, instead inflicting orgasm-denial on their defeated foes.
+		 A youko's offspring will be a mixture of youkos and offspring of their partner's race.
+	</p>
+	]]>
+	</htmlContent>
+
 	<!-- CAT-MORPHS -->
-	
+
 	<htmlContent tag="CAT_MORPH_BASIC"><![CDATA[
 	<p>
 		Cat-morphs are one of the more common anthropomorphic races found in this world.
@@ -196,7 +252,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="CAT_MORPH_ADVANCED"><![CDATA[
 	<p>
 		Like all the other common races, a cat-morph's personality can vary wildly from person to person, although they do have some typical characteristics.
@@ -212,9 +268,9 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<!-- HORSE-MORPHS -->
-	
+
 	<htmlContent tag="HORSE_MORPH_BASIC"><![CDATA[
 	<p>
 		Horse-morphs are one of the more common anthropomorphic races found in this world.
@@ -222,7 +278,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="HORSE_MORPH_ADVANCED"><![CDATA[
 	<p>
 		Horse-morphs have the reputation of being all brawn and no brains.
@@ -239,9 +295,9 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<!-- REINDEER-MORPHS -->
-	
+
 	<htmlContent tag="REINDEER_MORPH_BASIC"><![CDATA[
 	<p>
 		Reindeer-morphs are one of the rarer anthropomorphic races found in this world, and are almost exclusively found in the snowy tundra area far from Dominion.
@@ -249,7 +305,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="REINDEER_MORPH_ADVANCED"><![CDATA[
 	<p>
 		Reindeer-morphs are, for most of the year, an extremely rare sight to see outside of their traditional tundra homeland.
@@ -266,9 +322,9 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<!-- SQUIRREL-MORPHS -->
-	
+
 	<htmlContent tag="SQUIRREL_MORPH_BASIC"><![CDATA[
 	<p>
 		Squirrel-morphs are one of the more common anthropomorphic races found in this world.
@@ -277,7 +333,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="SQUIRREL_MORPH_ADVANCED"><![CDATA[
 	<p>
 		Squirrel-morphs have a reputation for their stunning agility.
@@ -294,9 +350,9 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<!-- RAT-MORPHS -->
-	
+
 	<htmlContent tag="RAT_MORPH_BASIC"><![CDATA[
 	<p>
 		In terms of sheer numbers, rat-morphs can be counted as a very common anthropomorphic race.
@@ -305,7 +361,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="RAT_MORPH_ADVANCED"><![CDATA[
 	<p>
 		Rat-morphs have a rather poor reputation, and are often accused of being criminals or troublemakers.
@@ -322,9 +378,9 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<!-- BAT-MORPHS -->
-	
+
 	<htmlContent tag="BAT_MORPH_BASIC"><![CDATA[
 	<p>
 		Bat-morphs are are a rare race, and are only found in significant numbers in the dark caverns that are linked to the undercity of Submission.
@@ -332,7 +388,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="BAT_MORPH_ADVANCED"><![CDATA[
 	<p>
 		Bat-morphs mostly keep to themselves, and, being nocturnal, they sleep in their caverns during the day and only come out at night.
@@ -349,9 +405,9 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<!-- RABBIT-MORPHS -->
-	
+
 	<htmlContent tag="RABBIT_MORPH_BASIC"><![CDATA[
 	<p>
 		Rabbit-morphs are one of the most common races to be found in the Foloi Fields, and are also occasionally to be seen wandering the streets of Dominion.
@@ -359,7 +415,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="RABBIT_MORPH_ADVANCED"><![CDATA[
 	<p>
 		The vast majority of rabbit-morphs are obsessed with breeding and being bred.
@@ -375,9 +431,9 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<!-- ALLIGATOR-MORPHS -->
-	
+
 	<htmlContent tag="ALLIGATOR_MORPH_BASIC"><![CDATA[
 	<p>
 		Alligator-morphs are one of the rarer races of this world.
@@ -386,7 +442,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ALLIGATOR_MORPH_ADVANCED"><![CDATA[
 	<p>
 		Alligator-morphs are usually quite laid-back and easy-going, and prefer to live down in Submission to get away from the busy hustle-and-bustle of Dominion's streets.
@@ -407,9 +463,9 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<!-- SLIMES -->
-	
+
 	<htmlContent tag="SLIME_BASIC"><![CDATA[
 	<p>
 		Slimes are one of the rarer races of this world.
@@ -418,7 +474,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="SLIME_ADVANCED"><![CDATA[
 	<p>
 		Just like most races, the personality of slimes differs greatly from individual to individual, with the vast majority being pleasant, law-abiding citizens.
@@ -441,9 +497,9 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<!-- HARPIES -->
-	
+
 	<htmlContent tag="HARPY_BASIC"><![CDATA[
 	<p>
 		Harpies have human bodies and faces, but in place of arms, they have huge, feathered wings.
@@ -452,7 +508,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="HARPY_ADVANCED"><![CDATA[
 	<p>
 		Although harpies live in Dominion, they're almost never seen walking down at street level.
@@ -492,7 +548,7 @@
 	</htmlContent>
 
 	<!-- ELEMENTALS -->
-	
+
 	<htmlContent tag="ELEMENTAL_FIRE_BASIC"><![CDATA[
 	<p>
 		From summoning forth shards of ice, to lifting objects by means of telekinetic powers, there are many different and varied ways in which the arcane can be harnessed.
@@ -510,12 +566,12 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ELEMENTAL_FIRE_ADVANCED"><![CDATA[
 	<p>
 		Fire elementals, much as their name would suggest, are experts in all matters related to arcane fire.
 		 They typically take the form of a female demon, made entirely of blazing orange or blue flames, save for a little obsidian core where their heart should be.
-		 Although they look hot enough to burn anyone foolish enough to come too close, the arcane flames that make up a Fire elemental's body fluctuate at around fifty-degrees Celsius, allowing them to be touched just like any other elemental.
+		 Although they look hot enough to burn anyone foolish enough to come too close, the arcane flames that make up a Fire elemental's body are no hotter than a normal person's body temperature, allowing them to be touched just like any other elemental.
 	</p>
 	<p>
 		Able to cast a wide range of Fire spells, and using their fiery bodies to launch devastating attacks, an elemental bound to this form seems to enjoy combat more than anything else.
@@ -523,7 +579,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ELEMENTAL_WATER_BASIC"><![CDATA[
 	<p>
 		From summoning forth shards of ice, to lifting objects by means of telekinetic powers, there are many different and varied ways in which the arcane can be harnessed.
@@ -541,19 +597,19 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ELEMENTAL_WATER_ADVANCED"><![CDATA[
 	<p>
 		Water elementals, much as their name would suggest, are experts in all matters related to liquids and arcane ice.
 		 They typically take the form of a female demon, made entirely of either water or ice, save for a little obsidian core where their heart should be.
-		 When in their ice form, a Water elemental's body fluctuates at around minus five-degrees Celsius, while their water form remains at around room-temperature.
+		 When in their ice form, a Water elemental's body fluctuates at around zero degrees Celsius, while their water form remains at around room-temperature.
 	</p>
 	<p>
 		An elemental bound to this form is able to cast a wide range of Water spells, and typically acts in a very calm and docile manner.
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ELEMENTAL_EARTH_BASIC"><![CDATA[
 	<p>
 		From summoning forth shards of ice, to lifting objects by means of telekinetic powers, there are many different and varied ways in which the arcane can be harnessed.
@@ -571,7 +627,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ELEMENTAL_EARTH_ADVANCED"><![CDATA[
 	<p>
 		Earth elementals are experts in all matters related to manipulating solid objects, and are highly capable at harnessing the arcane as a means of generating waves of pure force.
@@ -582,7 +638,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ELEMENTAL_AIR_BASIC"><![CDATA[
 	<p>
 		From summoning forth shards of ice, to lifting objects by means of telekinetic powers, there are many different and varied ways in which the arcane can be harnessed.
@@ -600,7 +656,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ELEMENTAL_AIR_ADVANCED"><![CDATA[
 	<p>
 		Air elementals are experts in all matters related to manipulating gasses, and are highly capable at focusing the arcane's power into creating clouds of poisonous vapours.
@@ -611,7 +667,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ELEMENTAL_ARCANE_BASIC"><![CDATA[
 	<p>
 		From summoning forth shards of ice, to lifting objects by means of telekinetic powers, there are many different and varied ways in which the arcane can be harnessed.
@@ -629,7 +685,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ELEMENTAL_ARCANE_ADVANCED"><![CDATA[
 	<p>
 		Arcane elementals are considered by some to be the most pure form of elemental, being experts at manipulating the very energy that formed them.
@@ -640,5 +696,5 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 </dialogue>

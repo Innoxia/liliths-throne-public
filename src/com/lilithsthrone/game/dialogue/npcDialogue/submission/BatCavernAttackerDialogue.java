@@ -22,77 +22,50 @@ import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.2.4
- * @version 0.2.4
+ * @version 0.2.6
  * @author Innoxia
  */
 public class BatCavernAttackerDialogue {
 	
-	public static final DialogueNodeOld BAT_MORPH_ATTACK = new DialogueNodeOld("Assaulted!", "A bat-morph swoops down from above!", true) {
+	public static final DialogueNodeOld ATTACK = new DialogueNodeOld("Assaulted!", "A denizen of the Bat Caverns attacks you!", true) {
 		private static final long serialVersionUID = 1L;
 		
 		@Override
 		public String getLabel(){
 			return "Assaulted!";
 		}
-		
+
 		@Override
 		public String getContent() {
 			if(Main.game.getActiveNPC().getLastTimeEncountered() != -1) {
 				if(Main.game.getActiveNPC().isVisiblyPregnant()){
 					// Pregnant encounters:
 					if(!Main.game.getActiveNPC().isReactedToPregnancy()) {
-						return "<p>"
-									+ "Assaulted again by the [npc.fullRace(true)]!"
-								+ "</p>"
-								+ (Main.game.getActiveNPC().hasFetish(Fetish.FETISH_PREGNANCY)  || Main.game.getActiveNPC().hasFetish(Fetish.FETISH_BROODMOTHER)
-										
-										?"<p style='text-align:center;'>" 
-											+ "<b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>You ended up getting [npc.name] pregnant, and, although [npc.she] seems pleased, [npc.she] still wants to fight you!</b>"
-										+ "</p>"
-											
-										:"<p style='text-align:center;'>" 
-											+ "<b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>You ended up getting [npc.name] pregnant, and now [npc.she] wants revenge!</b>"
-										+ "</p>");
+						return UtilText.parseFromXMLFile("characters/submission/batCavernDefault", "ATTACK_REPEAT_PREGNANCY_REACT")
+								+ "<p style='text-align:center;'>" 
+									+ "<b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>You ended up getting [npc.name] pregnant!</b>"
+								+ "</p>";
 					
 					} else {
-						return "<p>"
-								+ "Assaulted again by the [npc.fullRace(true)]!"
-								+ " [npc.She]'s still pregnant."
-							+ "</p>"
-							+ "<p>"
-								+ (Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer())
-									?"Your powerful arcane aura is clearly turning [npc.herHim] on, and from [npc.her] hungry gaze that lingers on your body, you're able to get a good idea of what [npc.she] wants to do with you."
-											+ " Knowing that defeat will result in being raped by this horny [npc.race], you ready yourself for a fight."
-									:"Although your powerful arcane aura is turning [npc.herHim] on a little, it doesn't look as though [npc.she]'s really all that interested in your body,"
-											+ " and will most likely only rob you if you were to lose this fight.")
-							+ "</p>";
+						return UtilText.parseFromXMLFile("characters/submission/batCavernDefault", "ATTACK_REPEAT_PREGNANCY")
+									+ (Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer())
+										?UtilText.parseFromXMLFile("characters/submission/batCavernDefault", "ATTRACTED_TO_PLAYER")
+										:UtilText.parseFromXMLFile("characters/submission/batCavernDefault", "NOT_ATTRACTED_TO_PLAYER"));
 					}
 					
 				} else {
 					// Standard repeat encounter:
-					return "<p>"
-								+ "Assaulted again by the [npc.fullRace(true)]!"
-							+ "</p>"
-							+ "<p>"
+					return UtilText.parseFromXMLFile("characters/submission/batCavernDefault", "ATTACK_REPEAT")
 								+ (Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer())
-									?"Your powerful arcane aura is clearly turning [npc.herHim] on, and from [npc.her] hungry gaze that lingers on your body, you're able to get a good idea of what [npc.she] wants to do with you."
-											+ " Knowing that defeat will result in being raped by this horny [npc.race], you ready yourself for a fight."
-									:"Although your powerful arcane aura is turning [npc.herHim] on a little, it doesn't look as though [npc.she]'s really all that interested in your body,"
-											+ " and will most likely only rob you if you were to lose this fight.")
-							+ "</p>";
+										?UtilText.parseFromXMLFile("characters/submission/batCavernDefault", "ATTRACTED_TO_PLAYER")
+										:UtilText.parseFromXMLFile("characters/submission/batCavernDefault", "NOT_ATTRACTED_TO_PLAYER"));
 				}
 				
 			} else {
-				return "<p>"
-						+ "Assaulted by [npc.a_fullRace(true)]!"
-					+ "</p>"
-					+ "<p>"
-					+ (Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer())
-						?"Your powerful arcane aura is clearly turning [npc.herHim] on, and from [npc.her] hungry gaze that lingers on your body, you're able to get a good idea of what [npc.she] wants to do with you."
-								+ " Knowing that defeat will result in being raped by this horny [npc.race], you ready yourself for a fight."
-						:"Although your powerful arcane aura is turning [npc.herHim] on a little, it doesn't look as though [npc.she]'s really all that interested in your body,"
-								+ " and will most likely only rob you if you were to lose this fight.")
-					+ "</p>";
+				return UtilText.parseFromXMLFile("characters/submission/batCavernDefault", "ATTACK")
+						+ (Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer())
+								?UtilText.parseFromXMLFile("characters/submission/batCavernDefault", "ATTRACTED_TO_PLAYER")
+								:UtilText.parseFromXMLFile("characters/submission/batCavernDefault", "NOT_ATTRACTED_TO_PLAYER"));
 			}
 		}
 
@@ -102,29 +75,14 @@ public class BatCavernAttackerDialogue {
 				return new ResponseCombat("Fight", "Stand up for yourself and fight [npc.name]!", Main.game.getActiveNPC());
 				
 			} else if (index == 2) {
-				if(Main.game.getPlayer().getMoney()<25) {
+				if(Main.game.getPlayer().getMoney()<250) {
 					return new Response("Offer money ("+UtilText.formatAsMoney(250, "span")+")", "You don't have enough money to offer to pay [npc.name] off. You'll have to either fight [npc.herHim] or offer [npc.herHim] your body!", null);
 				} else {
 					return new Response("Offer money ("+UtilText.formatAsMoney(250, "span")+")", "Offer to pay [npc.name] 250 flames to leave you alone.", Main.game.getDefaultDialogueNoEncounter()) {
 						@Override
 						public void effects() {
-							Main.game.getPlayer().incrementMoney(-250);
-							Main.game.getTextStartStringBuilder().append(
-									"<p>"
-										+ "Wanting to avoid a fight if at all possible, you take a step backwards, fumbling about to grab a handful of flames to offer to the [npc.race],"
-										+ " [pc.speech(I don't want to fight! Please, just take my money and leave me alone!)]"
-									+ "</p>"
-									+ "<p>"
-										+ "[npc.speech(Sure, just hand it over and we'll both be on our way!)]"
-										+ " [npc.name] replies, [npc.her] desire to rob you of your money obviously the motivating factor behind [npc.her] assault."
-									+ "</p>"
-									+ "<p>"
-										+ "Stepping forwards, [npc.she] snatches the flames out of your [pc.hand], letting out a mocking laugh as [npc.she] commands,"
-										+ " [npc.speech(Hah! Now get out of my sight!)]"
-									+ "</p>"
-									+ "<p>"
-										+ "Reluctant to do anything other than what the [npc.race] suggests, you hurry on your way, thankful that you had enough money to avoid a fight."
-									+ "</p>");
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("characters/submission/batCavernDefault", "ATTACK_PAID_OFF")
+									+ Main.game.getPlayer().incrementMoney(-250));
 						}
 					};
 				}
@@ -139,23 +97,7 @@ public class BatCavernAttackerDialogue {
 									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
 							AFTER_SEX_DEFEAT,
-							"<p>"
-								+ "Wanting to avoid a fight, and unwilling to hand over any of your money, you decide to do the only other thing you can think of, and step forwards smiling seductively at [npc.name], "
-								+ " [pc.speech(There's no need to fight. If you're looking for a bit of fun, all you had to do was ask...)]"
-							+ "</p>"
-							+ "<p>"
-								+ "[npc.speech(Oh really?)]"
-								+ " [npc.name] replies, stepping forwards in an intimidating manner."
-								+ " You remain in place, putting on your most seductive look and trying to make yourself as small as possible as you attempt to entice [npc.name] into using you for some sexual relief."
-							+ "</p>"
-							+ "<p>"
-								+ "Much to your delight, your would-be attacker reaches up and grabs you by the [pc.arms], before pulling you forwards into a tight embrace."
-								+ " Pressing [npc.her] [npc.lips] against yours, [npc.she] thrusts [npc.her] [npc.tongue] into your mouth, aggressively kissing you for a moment before pulling back, growling,"
-								+ " [npc.speech(You're going to be a good [pc.girl] now, aren't you bitch?)]"
-							+ "</p>"
-							+ "<p>"
-								+ "Whimpering in the affirmative, you surrender yourself to [npc.name]'s dominant touch, allowing yourself to be used as payment for trespassing on [npc.her] territory..."
-							+ "</p>");
+							UtilText.parseFromXMLFile("characters/submission/batCavernDefault", "ATTACK_OFFER_BODY"));
 				} else {
 					return new Response("Offer body", "You can tell that [npc.name] isn't at all interested in having sex with you. You'll either have to offer [npc.herHim] some money, or prepare for a fight!", null);
 				}
@@ -184,7 +126,7 @@ public class BatCavernAttackerDialogue {
 							+ " [npc.She] reaches down to [npc.her] crotch and starts stroking [npc.herself], making pitiful little whining noises as [npc.she] squirms on the floor."
 						+ "</p>"
 						+ "<p>"
-							+ "[npc.speech(Aaah! What are you waiting for?! Come fuck me!)], [npc.she] pleads, biting [npc.her] [npc.lip] as [npc.she] continues touching [npc.herself]."
+							+ "[npc.speech(Aaah! What are you waiting for?! Come fuck me!)] [npc.she] pleads, biting [npc.her] [npc.lip] as [npc.she] continues touching [npc.herself]."
 						+ "</p>"
 						+ "<p>"
 							+ "You wonder if you should indulge [npc.her] request."
@@ -200,7 +142,7 @@ public class BatCavernAttackerDialogue {
 							+ " Making pitiful little whining noises, [npc.she] tries to shuffle away from you, clearly worried about what your intentions are."
 						+ "</p>"
 						+ "<p>"
-							+ "[npc.speech(J-Just take my money and leave me alone!)], [npc.she] pleads, throwing [npc.her] "+(Main.game.getActiveNPC().isFeminine()?"purse":"wallet")+" at your feet."
+							+ "[npc.speech(J-Just take my money and leave me alone!)] [npc.she] pleads, throwing [npc.her] "+(Main.game.getActiveNPC().isFeminine()?"purse":"wallet")+" at your feet."
 						+ "</p>"
 						+ "<p>"
 							+ "You wonder if you should do as [npc.she] says, and leave [npc.herHim] alone."
@@ -265,7 +207,7 @@ public class BatCavernAttackerDialogue {
 					
 				} else if (index == 5) {
 					return new ResponseSex("Submit",
-							"You're not really sure what to do now...</br>"
+							"You're not really sure what to do now...<br/>"
 								+ "Perhaps it would be best to let [npc.name] choose what to do next?",
 							Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE),
 							null, CorruptionLevel.THREE_DIRTY, null, null, null,
@@ -451,7 +393,7 @@ public class BatCavernAttackerDialogue {
 							+ "<p>"
 								+ "[npc.speech(You're my perfect little "
 											+Main.game.getActiveNPC().getPreferredBodyDescription("b")
-											+ " now! Don't forget bitch, <i>I'm</i> the one in charge!)] [npc.she] growls, before pulling you into a forceful kiss."
+											+ " now! Don't forget, bitch, <i>I'm</i> the one in charge!)] [npc.she] growls, before pulling you into a forceful kiss."
 							+ "</p>");
 					
 				} else {
@@ -464,12 +406,12 @@ public class BatCavernAttackerDialogue {
 								+ "[npc.speech(Hah! That was too easy!)] [npc.she] says, before leaning down and pushing you to the ground."
 							+ "</p>"
 							+ "<p>"
-								+ "As [npc.she] pins you to the floor, [npc.she] produces a curious little bottle from somewhere out of sight, and shakes it from side to side, grinning,"
+								+ "As [npc.she] pins you to the floor, [npc.she] produces a curious little bottle from somewhere out of sight, and shakes it from side to side, grinning."
 								+ " [npc.speech(I think you could do with some <i>improvements</i>! I'm going to turn you into my perfect "+Main.game.getActiveNPC().getPreferredBodyDescription("b")+"!)]"
 							+ "</p>"
 							+ "<p>"
 								+ "[npc.She] pulls out the little stopper from the top of the bottle, and as you open your mouth to protest, [npc.she] suddenly shoves the neck past your [pc.lips+]."
-								+ " As the sickly-sweet fluid pours out into your mouth, you let out a muffled whine; the only act of resistance that you're able to summon in your current state."
+								+ " As the sickly sweet fluid pours out into your mouth, you let out a muffled whine; the only act of resistance that you're able to summon in your current state."
 							+ "</p>"
 							+ "<p>"
 								+ "[npc.speech(Come on! Swallow it all down already!)] [npc.she] growls, throwing the now-empty vessel to one side as [npc.she] tries to force you to swallow the strange fluid..."
@@ -490,7 +432,7 @@ public class BatCavernAttackerDialogue {
 								+ "Pulling you to your feet, [npc.name] starts grinding [npc.herself] up against you, [npc.moaning] into your [pc.ear] as [npc.she] starts groping your body."
 							+ "</p>"
 							+ "<p>"
-								+ "[npc.speech(Don't try anything bitch! <i>I'm</i> the one in charge here!)] [npc.she] growls, before pulling you into a forceful kiss."
+								+ "[npc.speech(Don't try anything, bitch! <i>I'm</i> the one in charge here!)] [npc.she] growls, before pulling you into a forceful kiss."
 							+ "</p>");
 				
 			} else {
@@ -537,7 +479,7 @@ public class BatCavernAttackerDialogue {
 							Util.Value<String, AbstractItem> potion = Main.game.getActiveNPC().generateTransformativePotion();
 							Main.game.getTextStartStringBuilder().append(
 									"<p>"
-										+ "[npc.Name] steps back, grinning down at you as you obediently swallow the strange liquid,"
+										+ "[npc.Name] steps back, grinning down at you as you obediently swallow the strange liquid."
 										+ " [npc.speech(Good [pc.girl]! "+potion.getKey()+")]"
 									+ "</p>"
 									+ "<p>"
@@ -660,7 +602,7 @@ public class BatCavernAttackerDialogue {
 							+ " Reluctantly, you do as [npc.she] says, and, after giving [npc.herHim] some of your cash, [npc.she] shoves you down to the floor once more."
 						+ "</p>"
 						+ "<p>"
-							+ "[npc.speech(This money of yours is going to pay for your next potion!)] [npc.she] growls down at you, [npc.speech(Come back and pay me another visit, <i>or else</i>! And don't you dare refuse to swallow next time!)]"
+							+ "[npc.speech(This money of yours is going to pay for your next potion!)] [npc.she] growls down at you. [npc.speech(Come back and pay me another visit, <i>or else</i>! And don't you dare refuse to swallow next time!)]"
 						+ "</p>"
 						+ "<p>"
 							+ "With that, [npc.she] turns around and runs off, leaving you to recover from your ordeal and continue on your way..."
@@ -769,7 +711,7 @@ public class BatCavernAttackerDialogue {
 							+ " Reluctantly, you do as [npc.she] says, and, after giving [npc.herHim] some of your cash, [npc.she] roughly pushes you to the floor once more."
 						+ "</p>"
 						+ "<p>"
-							+ "[npc.speech(You're not good enough for me to be interested in you just yet!)] [npc.she] growls down at you, [npc.speech(Come back and pay me another visit, <i>or else</i>! I'm going to turn you into my perfect little "
+							+ "[npc.speech(You're not good enough for me to be interested in you just yet!)] [npc.she] growls down at you. [npc.speech(Come back and pay me another visit, <i>or else</i>! I'm going to turn you into my perfect little "
 								+Main.game.getActiveNPC().getPreferredBodyDescription("b")+"!)]"
 						+ "</p>"
 						+ "<p>"
@@ -954,7 +896,7 @@ public class BatCavernAttackerDialogue {
 					"<p>"
 						+ "As [npc.name] steps back and sorts [npc.her] clothes out, you sink to the floor, totally worn out from [npc.her] dominant treatment of you."
 						+ " [npc.She] looks down at you, and you glance up to see a very satisfied smile cross [npc.her] face."
-						+ " [npc.She] leans down and pats you on the head,"
+						+ " [npc.She] leans down and pats you on the head."
 						+ " [npc.speech(We should do this again some time!)]"
 					+ "</p>"
 					+ "<p>"

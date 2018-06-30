@@ -1,5 +1,7 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
+import java.time.Month;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -28,7 +30,6 @@ import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestBimbo;
 import com.lilithsthrone.game.dialogue.responses.Response;
-import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
@@ -62,6 +63,7 @@ public class HarpyBimbo extends NPC {
 				"One of the more notable harpy matriarchs, Brittany is the leader of a flock of harpies."
 						+ " In order to get into her good graces, most of her flock try to mimic her behaviour and appearance."
 						+ " As a result, Brittany's flock is primarily made up of bleach-blonde bimbos.",
+				24, Month.MARCH, 17,
 				7, Gender.F_V_B_FEMALE, RacialBody.HARPY, RaceStage.LESSER,
 				new CharacterInventory(30), WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_HARPY_NEST_YELLOW, true);
 
@@ -158,12 +160,6 @@ public class HarpyBimbo extends NPC {
 	
 	public int getEscapeChance() {
 		return 0;
-	}
-	
-	@Override
-	public String getCombatDescription() {
-		return UtilText.parse(this,
-				"After watching you defeat [bimboHarpyCompanion.name], [bimboHarpy.name] rushes forwards, determined to teach you a lesson in front of her flock of bimbo harpies.");
 	}
 	
 	@Override

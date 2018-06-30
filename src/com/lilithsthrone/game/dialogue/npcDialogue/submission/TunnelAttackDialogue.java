@@ -44,7 +44,7 @@ public class TunnelAttackDialogue {
 						return "<p>"
 									+ "Assaulted again by the [npc.fullRace(true)]!"
 								+ "</p>"
-								+ (Main.game.getActiveNPC().hasFetish(Fetish.FETISH_PREGNANCY)  || Main.game.getActiveNPC().hasFetish(Fetish.FETISH_BROODMOTHER)
+								+ (Main.game.getActiveNPC().hasFetish(Fetish.FETISH_PREGNANCY)
 										
 										?"<p style='text-align:center;'>" 
 											+ "<b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>You ended up getting [npc.name] pregnant, and, although [npc.she] seems pleased, [npc.she] still wants to fight you!</b>"
@@ -102,7 +102,7 @@ public class TunnelAttackDialogue {
 				return new ResponseCombat("Fight", "Stand up for yourself and fight [npc.name]!", Main.game.getActiveNPC());
 				
 			} else if (index == 2) {
-				if(Main.game.getPlayer().getMoney()<25) {
+				if(Main.game.getPlayer().getMoney()<250) {
 					return new Response("Offer money ("+UtilText.formatAsMoney(250, "span")+")", "You don't have enough money to offer to pay [npc.name] off. You'll have to either fight [npc.herHim] or offer [npc.herHim] your body!", null);
 				} else {
 					return new Response("Offer money ("+UtilText.formatAsMoney(250, "span")+")", "Offer to pay [npc.name] 250 flames to leave you alone.", Main.game.getDefaultDialogueNoEncounter()) {
@@ -184,7 +184,7 @@ public class TunnelAttackDialogue {
 							+ " [npc.She] reaches down to [npc.her] crotch and starts stroking [npc.herself], making pitiful little whining noises as [npc.she] squirms on the floor."
 						+ "</p>"
 						+ "<p>"
-							+ "[npc.speech(Aaah! What are you waiting for?! Come fuck me!)], [npc.she] pleads, biting [npc.her] [npc.lip] as [npc.she] continues touching [npc.herself]."
+							+ "[npc.speech(Aaah! What are you waiting for?! Come fuck me!)] [npc.she] pleads, biting [npc.her] [npc.lip] as [npc.she] continues touching [npc.herself]."
 						+ "</p>"
 						+ "<p>"
 							+ "You wonder if you should indulge [npc.her] request."
@@ -200,7 +200,7 @@ public class TunnelAttackDialogue {
 							+ " Making pitiful little whining noises, [npc.she] tries to shuffle away from you, clearly worried about what your intentions are."
 						+ "</p>"
 						+ "<p>"
-							+ "[npc.speech(J-Just take my money and leave me alone!)], [npc.she] pleads, throwing [npc.her] "+(Main.game.getActiveNPC().isFeminine()?"purse":"wallet")+" at your feet."
+							+ "[npc.speech(J-Just take my money and leave me alone!)] [npc.she] pleads, throwing [npc.her] "+(Main.game.getActiveNPC().isFeminine()?"purse":"wallet")+" at your feet."
 						+ "</p>"
 						+ "<p>"
 							+ "You wonder if you should do as [npc.she] says, and leave [npc.herHim] alone."
@@ -265,7 +265,7 @@ public class TunnelAttackDialogue {
 					
 				} else if (index == 5) {
 					return new ResponseSex("Submit",
-							"You're not really sure what to do now...</br>"
+							"You're not really sure what to do now...<br/>"
 								+ "Perhaps it would be best to let [npc.name] choose what to do next?",
 							Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE),
 							null, CorruptionLevel.THREE_DIRTY, null, null, null,
@@ -451,7 +451,7 @@ public class TunnelAttackDialogue {
 							+ "<p>"
 								+ "[npc.speech(You're my perfect little "
 											+Main.game.getActiveNPC().getPreferredBodyDescription("b")
-											+ " now! Don't forget bitch, <i>I'm</i> the one in charge!)] [npc.she] growls, before pulling you into a forceful kiss."
+											+ " now! Don't forget, bitch, <i>I'm</i> the one in charge!)] [npc.she] growls, before pulling you into a forceful kiss."
 							+ "</p>");
 					
 				} else {
@@ -469,7 +469,7 @@ public class TunnelAttackDialogue {
 							+ "</p>"
 							+ "<p>"
 								+ "[npc.She] pulls out the little stopper from the top of the bottle, and as you open your mouth to protest, [npc.she] suddenly shoves the neck past your [pc.lips+]."
-								+ " As the sickly-sweet fluid pours out into your mouth, you let out a muffled whine; the only act of resistance that you're able to summon in your current state."
+								+ " As the sickly sweet fluid pours out into your mouth, you let out a muffled whine; the only act of resistance that you're able to summon in your current state."
 							+ "</p>"
 							+ "<p>"
 								+ "[npc.speech(Come on! Swallow it all down already!)] [npc.she] growls, throwing the now-empty vessel to one side as [npc.she] tries to force you to swallow the strange fluid..."
@@ -954,7 +954,7 @@ public class TunnelAttackDialogue {
 					"<p>"
 						+ "As [npc.name] steps back and sorts [npc.her] clothes out, you sink to the floor, totally worn out from [npc.her] dominant treatment of you."
 						+ " [npc.She] looks down at you, and you glance up to see a very satisfied smile cross [npc.her] face."
-						+ " [npc.She] leans down and pats you on the head,"
+						+ " [npc.She] leans down and pats you on the head."
 						+ " [npc.speech(We should do this again some time!)]"
 					+ "</p>"
 					+ "<p>"

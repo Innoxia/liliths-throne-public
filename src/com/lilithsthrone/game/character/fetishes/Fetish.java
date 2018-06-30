@@ -412,6 +412,131 @@ public enum Fetish {
 		}
 	},
 	
+
+	FETISH_FOOT_GIVING(60,
+			"dominant foot",
+			"using feet",
+			"fetish_foot_giving",
+			Fetish.BASE_EXPERIENCE_GAIN,
+			Colour.GENERIC_ARCANE,
+			null,
+			Util.newArrayListOfValues(
+					"<span style='color:"+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Unlocks</span> <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>dominant foot tease</span>",
+					"<span style='color:"+ Colour.GENERIC_BAD.toWebHexString()+ ";'>Weak to</span> <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>submissive foot tease</span>"),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			if (owner.isPlayer()) {
+				return "You absolutely love using your feet in sex. Getting your partner to worship and perform sexual acts on your feet and toes turns you on like nothing else.";
+			} else {
+				return UtilText.parse(owner, "[npc.Name] has a fetish for using [npc.her] feet in sex.");
+			}
+		}
+
+		@Override
+		public String getFetishDesireDescription(GameCharacter target, FetishDesire desire) {
+			return getGenericFetishDesireDescription(target, desire, "using your feet in sex");
+		}
+		
+		@Override
+		public CorruptionLevel getAssociatedCorruptionLevel() {
+			return CorruptionLevel.ONE_VANILLA;
+		}
+	},
+	
+	FETISH_FOOT_RECEIVING(60,
+			"submissive foot",
+			"using partner's feet",
+			"fetish_foot_receiving",
+			Fetish.BASE_EXPERIENCE_GAIN,
+			Colour.GENERIC_ARCANE,
+			null,
+			Util.newArrayListOfValues(
+					"<span style='color:"+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Unlocks</span> <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>submissive foot tease</span>",
+					"<span style='color:"+ Colour.GENERIC_BAD.toWebHexString()+ ";'>Weak to</span> <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>dominant foot tease</span>"),
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter owner) {
+			if (owner.isPlayer()) {
+				return "You absolutely love feet. Getting your partner to use their feet and toes in sex is the ultimate turn-on for you.";
+			} else {
+				return UtilText.parse(owner, "[npc.Name] has a fetish for using other people's feet.");
+			}
+		}
+		
+		@Override
+		public String getFetishDesireDescription(GameCharacter target, FetishDesire desire) {
+			return getGenericFetishDesireDescription(target, desire, "others' feet");
+		}
+		
+		@Override
+		public CorruptionLevel getAssociatedCorruptionLevel() {
+			return CorruptionLevel.ONE_VANILLA;
+		}
+	},
+	
+	FETISH_PENIS_RECEIVING(60,
+			"cock addict",
+			"others cocks",
+			"fetish_cock_addict",
+			Fetish.BASE_EXPERIENCE_GAIN,
+			Colour.GENERIC_ARCANE,
+			null,
+			Util.newArrayListOfValues("<span style='color:"+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Unlocks</span> <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>cock addict tease</span>",
+					"<span style='color:"+ Colour.GENERIC_BAD.toWebHexString()+ ";'>Weak to</span> <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>cock stud tease</span>"),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			if (owner.isPlayer())
+				return "You are hopelessly addicted to cock. Large, small, fat, thin, you really don't care about the looks, just so long as it's pumping in and out of one of your holes...";
+			else
+				return UtilText.parse(owner, "[npc.Name] is hopelessly addicted to cock.");
+		}
+
+		@Override
+		public String getFetishDesireDescription(GameCharacter target, FetishDesire desire) {
+			return getGenericFetishDesireDescription(target, desire, "others' cocks");
+		}
+		
+		@Override
+		public CorruptionLevel getAssociatedCorruptionLevel() {
+			return CorruptionLevel.TWO_HORNY;
+		}
+	},
+	
+	FETISH_PENIS_GIVING(60,
+			"cock stud",
+			"using their cock",
+			"fetish_dick_dealer",
+			Fetish.BASE_EXPERIENCE_GAIN,
+			Colour.GENERIC_ARCANE,
+			null,
+			Util.newArrayListOfValues("<span style='color:"+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Unlocks</span> <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>cock stud tease</span> (Requires penis)",
+					"<span style='color:"+ Colour.GENERIC_BAD.toWebHexString()+ ";'>Weak to</span> <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>cock addict tease</span>"),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			if (owner.isPlayer())
+				return "You are obsessed with penetrative sex. Thrusting your cock into any available orifice is all you can think about...";
+			else
+				return UtilText.parse(owner, "[npc.Name] has a fetish for using [npc.her] cock.");
+		}
+
+		@Override
+		public String getFetishDesireDescription(GameCharacter target, FetishDesire desire) {
+			return getGenericFetishDesireDescription(target, desire, "using your cock");
+		}
+		
+		@Override
+		public CorruptionLevel getAssociatedCorruptionLevel() {
+			return CorruptionLevel.TWO_HORNY;
+		}
+	},
+	
 	FETISH_CUM_STUD(60,
 			"cum stud",
 			"cumming",
@@ -665,68 +790,6 @@ public enum Fetish {
 		@Override
 		public String getFetishDesireDescription(GameCharacter target, FetishDesire desire) {
 			return getGenericFetishDesireDescription(target, desire, "impregnating others");
-		}
-		
-		@Override
-		public CorruptionLevel getAssociatedCorruptionLevel() {
-			return CorruptionLevel.TWO_HORNY;
-		}
-	},
-	
-	FETISH_BROODMOTHER(60,
-			"broodmother",
-			"mothering offspring",
-			"fetish_broodmother",
-			Fetish.BASE_RARE_EXPERIENCE_GAIN,
-			Colour.GENERIC_ARCANE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.FERTILITY, 10)),
-			Util.newArrayListOfValues("2x <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>Maximum offspring in mothered litters</span>"),
-			null) {
-
-		@Override
-		public String getDescription(GameCharacter owner) {
-			if (owner.isPlayer()) {
-				return "Your body is built for one thing; pumping out as many children as possible."
-							+ " Whether due to an effect of your arcane aura, or perhaps just because of your body's natural fertility, you seem to always give birth to huge numbers of children at once.";
-			} else {
-				return UtilText.parse(owner, "[npc.Name]'s body is built for one thing; pumping out as many children as possible."
-						+ " [npc.She] seems to always give birth to huge numbers of children at once.");
-			}
-		}
-		
-		@Override
-		public String getFetishDesireDescription(GameCharacter target, FetishDesire desire) {
-			return getGenericFetishDesireDescription(target, desire, "birthing as many offspring as possible");
-		}
-		
-		@Override
-		public CorruptionLevel getAssociatedCorruptionLevel() {
-			return CorruptionLevel.TWO_HORNY;
-		}
-	},
-	
-	FETISH_SEEDER(60,
-			"seeder",
-			"fathering offspring",
-			"fetish_seeder",
-			Fetish.BASE_RARE_EXPERIENCE_GAIN,
-			Colour.GENERIC_ARCANE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.VIRILITY, 10)),
-			Util.newArrayListOfValues("2x <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>Maximum offspring in fathered litters</span>"),
-			null) {
-
-		@Override
-		public String getDescription(GameCharacter owner) {
-			if (owner.isPlayer()) {
-				return "Your seed has the potent effect of causing anyone impregnated by it to give birth to huge numbers of children.";
-			} else {
-				return UtilText.parse(owner, "[npc.Name]'s seed has the potent effect of causing anyone impregnated by it to give birth to huge numbers of children.");
-			}
-		}
-
-		@Override
-		public String getFetishDesireDescription(GameCharacter target, FetishDesire desire) {
-			return getGenericFetishDesireDescription(target, desire, "fathering as many offspring as possible");
 		}
 		
 		@Override
@@ -1311,9 +1374,7 @@ public enum Fetish {
 			null,
 			Util.newArrayListOfValues(
 					Fetish.FETISH_PREGNANCY,
-					Fetish.FETISH_IMPREGNATION,
-					Fetish.FETISH_BROODMOTHER,
-					Fetish.FETISH_SEEDER)) {
+					Fetish.FETISH_IMPREGNATION)) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {

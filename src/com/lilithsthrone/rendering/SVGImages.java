@@ -13,7 +13,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.2.2
+ * @version 0.2.6
  * @author Innoxia
  */
 public enum SVGImages {
@@ -21,7 +21,7 @@ public enum SVGImages {
 
 	private String
 
-	displacedIcon, concealedIcon, cummedInIcon, feminineWarningIcon, masculineWarningIcon, jinxedIcon,
+			displacedIcon, concealedIcon, cummedInIcon, feminineWarningIcon, masculineWarningIcon, jinxedIcon, tattooSwitchTattoo, tattooSwitchClothing, scarIcon,
 
 			menuIcon, inventoryIcon, inventoryIconDisabled, journalIcon, peopleIcon, zoomInIcon, zoomOutIcon, copyIcon, exportIcon, calendarIcon, informationIcon,
 
@@ -30,6 +30,8 @@ public enum SVGImages {
 			itemsOnFloorIcon,
 			
 			drinkSmall, drink,
+			
+			dice1, dice2, dice3, dice4, dice5, dice6, diceGlow,
 			
 			playerMapIconMasculine,
 			playerMapIconAndrogynous,
@@ -68,13 +70,14 @@ public enum SVGImages {
 			
 			// Effects:
 			creampie, creampieMasochist,
+			fluidIngested, fluidIngestedMasochist,
 			
 			// Items:
 			
 			hypnoWatchBase, hypnoWatchGynephilic, hypnoWatchAmbiphilic, hypnoWatchAndrophilic,
 			
 			// Sex:
-			coverableAreaMouth, coverableAreaAnus, coverableAreaBreasts, coverableAreaBreastsFlat, coverableAreaNipple, coverableAreaVagina, coverableAreaThighs, coverableAreaUrethraVagina, coverableAreaUrethraPenis,
+			coverableAreaMouth, coverableAreaAnus, coverableAreaAss, coverableAreaBreasts, coverableAreaBreastsFlat, coverableAreaNipple, coverableAreaVagina, coverableAreaThighs, coverableAreaUrethraVagina, coverableAreaUrethraPenis,
 			penetrationTypeFinger, penetrationTypePenis, penetrationTypeTail, penetrationTypeTongue,
 			combinationStretching, combinationTooLoose, combinationWet, combinationDry,
 			stretching, holeTooBig;
@@ -109,6 +112,15 @@ public enum SVGImages {
 			jinxedIcon = Util.inputStreamToString(is);
 			jinxedIcon = setColour(jinxedIcon, Colour.ATTRIBUTE_CORRUPTION);
 
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/InventoryIcons/tattooSwitchTattoo.svg");
+			tattooSwitchTattoo = Util.inputStreamToString(is);
+
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/InventoryIcons/tattooSwitchClothing.svg");
+			tattooSwitchClothing = Util.inputStreamToString(is);
+
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/InventoryIcons/scar.svg");
+			scarIcon = Util.inputStreamToString(is);
+
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/menu.svg");
 			menuIcon = Util.inputStreamToString(is);
 
@@ -130,6 +142,28 @@ public enum SVGImages {
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/drink.svg");
 			drink = Util.inputStreamToString(is);
 			drink = setColour(drink, Colour.BASE_WHITE);
+
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/dice1.svg");
+			dice1 = Util.inputStreamToString(is);
+			dice1 = setColour(dice1, Colour.BASE_WHITE);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/dice2.svg");
+			dice2 = Util.inputStreamToString(is);
+			dice2 = setColour(dice2, Colour.BASE_WHITE);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/dice3.svg");
+			dice3 = Util.inputStreamToString(is);
+			dice3 = setColour(dice3, Colour.BASE_WHITE);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/dice4.svg");
+			dice4 = Util.inputStreamToString(is);
+			dice4 = setColour(dice4, Colour.BASE_WHITE);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/dice5.svg");
+			dice5 = Util.inputStreamToString(is);
+			dice5 = setColour(dice5, Colour.BASE_WHITE);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/dice6.svg");
+			dice6 = Util.inputStreamToString(is);
+			dice6 = setColour(dice6, Colour.BASE_WHITE);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/glow.svg");
+			diceGlow = Util.inputStreamToString(is);
+			diceGlow = setColour(diceGlow, Colour.BASE_GOLD);
 			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/journal.svg");
 			journalIcon = Util.inputStreamToString(is);
@@ -497,9 +531,14 @@ public enum SVGImages {
 
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/creampie.svg");
 			creampie = Util.inputStreamToString(is);
-
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/creampieMasochist.svg");
 			creampieMasochist = Util.inputStreamToString(is);
+
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/fluidIngested.svg");
+			fluidIngested = Util.inputStreamToString(is);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/fluidIngestedMasochist.svg");
+			fluidIngestedMasochist = Util.inputStreamToString(is);
+			
 			
 			// Items:
 			
@@ -524,6 +563,8 @@ public enum SVGImages {
 			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/coverableAreaAnus.svg");
 			coverableAreaAnus = Util.inputStreamToString(is);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/coverableAreaAss.svg");
+			coverableAreaAss = Util.inputStreamToString(is);
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/coverableAreaMouth.svg");
 			coverableAreaMouth = Util.inputStreamToString(is);
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/coverableAreaBreasts.svg");
@@ -624,6 +665,18 @@ public enum SVGImages {
 
 	public String getJinxedIcon() {
 		return jinxedIcon;
+	}
+
+	public String getTattooSwitchTattoo() {
+		return tattooSwitchTattoo;
+	}
+
+	public String getTattooSwitchClothing() {
+		return tattooSwitchClothing;
+	}
+
+	public String getScarIcon() {
+		return scarIcon;
 	}
 
 	public String getMenuIcon() {
@@ -885,6 +938,10 @@ public enum SVGImages {
 		return coverableAreaAnus;
 	}
 
+	public String getCoverableAreaAss() {
+		return coverableAreaAss;
+	}
+	
 	public String getCoverableAreaNipple() {
 		return coverableAreaNipple;
 	}
@@ -1192,6 +1249,41 @@ public enum SVGImages {
 	public String getDrink() {
 		return drink;
 	}
-	
+
+	public String getDice1() {
+		return dice1;
+	}
+
+	public String getDice2() {
+		return dice2;
+	}
+
+	public String getDice3() {
+		return dice3;
+	}
+
+	public String getDice4() {
+		return dice4;
+	}
+
+	public String getDice5() {
+		return dice5;
+	}
+
+	public String getDice6() {
+		return dice6;
+	}
+
+	public String getDiceGlow() {
+		return diceGlow;
+	}
+
+	public String getFluidIngested() {
+		return fluidIngested;
+	}
+
+	public String getFluidIngestedMasochist() {
+		return fluidIngestedMasochist;
+	}
 	
 }
