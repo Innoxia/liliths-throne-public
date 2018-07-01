@@ -587,8 +587,8 @@ public class UtilText {
 			
 			int startedParsingSegmentAt = 0;
 			
-			for (int i = 0; i < input.length(); i++) {
-				char c = input.charAt(i);
+			for (int i = 0; i < input.length(); i++) {				
+				char c = input.charAt(i);				
 				
 				if (currentParseMode != ParseMode.REGULAR) {
 					if (c == 'F' && substringMatchesInReverseAtIndex(input, "#IF", i)) {
@@ -680,7 +680,7 @@ public class UtilText {
 					}
 				}
 				
-				if (openBrackets>0 && ((target!=null && command!=null) || String.valueOf(c).matches(".") || c!=' ')) {
+				if (openBrackets>0 && ((target!=null && command!=null) || String.valueOf(c).matches(".") || c!=' ' || c!=Character.MIN_VALUE)) {
 					sb.append(c);
 				}
 				
@@ -4825,14 +4825,10 @@ public class UtilText {
 			command = command.split("_")[1];
 			parseAddPronoun = true;
 		} 
-		for(int i=0; i<command.length(); i++){
-			if(Character.isLetter(command.charAt(i))){
-				if(Character.isUpperCase(command.charAt(i))) {
-					parseCapitalise = true;
-				}
-				break;
-			}
-		}
+		
+		if(Character.isUpperCase(command.charAt(0))) {
+			parseCapitalise = true;
+		}		
 		
 		ParserTarget parserTarget = findParserTargetWithTag(target.replaceAll("\u200b", ""));
 		if (parserTarget == null) {
